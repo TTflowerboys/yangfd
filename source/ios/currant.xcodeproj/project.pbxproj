@@ -44,6 +44,11 @@
 		2C0AE11E1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE11B1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m */; };
 		2C0AE11F1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE11B1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m */; };
 		2C0AE1201B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE11B1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m */; };
+		2C0AE1231B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1221B1EF20D00A73BE6 /* CUTERentCityViewController.m */; };
+		2C0AE1241B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1221B1EF20D00A73BE6 /* CUTERentCityViewController.m */; };
+		2C0AE1251B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1221B1EF20D00A73BE6 /* CUTERentCityViewController.m */; };
+		2C0AE1261B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1221B1EF20D00A73BE6 /* CUTERentCityViewController.m */; };
+		2C0AE1271B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1221B1EF20D00A73BE6 /* CUTERentCityViewController.m */; };
 		2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
@@ -624,6 +629,8 @@
 		2C0AE1141B1EC72B00A73BE6 /* CUTETimePeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETimePeriod.m; sourceTree = "<group>"; };
 		2C0AE11A1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormRentPeriodPickerCell.h; sourceTree = "<group>"; };
 		2C0AE11B1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormRentPeriodPickerCell.m; sourceTree = "<group>"; };
+		2C0AE1211B1EF20D00A73BE6 /* CUTERentCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentCityViewController.h; sourceTree = "<group>"; };
+		2C0AE1221B1EF20D00A73BE6 /* CUTERentCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentCityViewController.m; sourceTree = "<group>"; };
 		2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriod.h; sourceTree = "<group>"; };
 		2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriod.m; sourceTree = "<group>"; };
 		2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -1251,6 +1258,8 @@
 				2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m */,
 				2CF8A5AD1AF0B40E0080DF10 /* CUTERentAddressEditViewController.h */,
 				2CF8A5AE1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m */,
+				2C0AE1211B1EF20D00A73BE6 /* CUTERentCityViewController.h */,
+				2C0AE1221B1EF20D00A73BE6 /* CUTERentCityViewController.m */,
 				2CF8A5AF1AF0B40E0080DF10 /* CUTERentAddressMapViewController.h */,
 				2CF8A5B01AF0B40E0080DF10 /* CUTERentAddressMapViewController.m */,
 				2CF8A5B11AF0B40E0080DF10 /* CUTERentAreaViewController.h */,
@@ -1849,6 +1858,7 @@
 				2CA5F7721AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2CF8A6331AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2C3099C61B09D26B004BA7F9 /* CUTERentPasswordViewController.m in Sources */,
+				2C0AE1251B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */,
 				2CF8A5E81AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C2FCDD41AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4E1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
@@ -1965,6 +1975,7 @@
 				2CA5F7731AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2CF8A6341AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2C3099C71B09D26B004BA7F9 /* CUTERentPasswordViewController.m in Sources */,
+				2C0AE1261B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */,
 				2CF8A5E91AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C2FCDD51AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4F1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
@@ -2081,6 +2092,7 @@
 				2CA5F7711AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2CF8A6321AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2C3099C51B09D26B004BA7F9 /* CUTERentPasswordViewController.m in Sources */,
+				2C0AE1241B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */,
 				2CF8A5E71AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C2FCDD31AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4D1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
@@ -2197,6 +2209,7 @@
 				2CA5F7701AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2CF8A6311AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2C3099C41B09D26B004BA7F9 /* CUTERentPasswordViewController.m in Sources */,
+				2C0AE1231B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */,
 				2CF8A5E61AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C2FCDD21AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4C1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
@@ -2362,6 +2375,7 @@
 				2CF8A6351AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2C427EA61AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CC6C1E11AEE255A002758A7 /* NSURL+Assets.m in Sources */,
+				2C0AE1271B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */,
 				2CC3A0871AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2C7520471ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2C427E501AD2414D000378A9 /* CUTEEnumManager.m in Sources */,

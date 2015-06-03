@@ -38,4 +38,15 @@
     }
 }
 
+- (NSString *)localizedTitle {
+    //http://stackoverflow.com/questions/16860108/how-to-determine-if-the-first-character-of-a-nsstring-is-a-letter
+    NSRange first = [self.name rangeOfComposedCharacterSequenceAtIndex:0];
+    NSRange match = [self.name rangeOfCharacterFromSet:[NSCharacterSet letterCharacterSet] options:0 range:first];
+    if (match.location != NSNotFound) {
+        // codeString starts with a letter
+        return [self.name substringWithRange:match];
+    }
+    return nil;
+}
+
 @end
