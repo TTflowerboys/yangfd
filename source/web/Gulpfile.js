@@ -219,11 +219,9 @@ gulp.task('build:html-extend', ['build:less2css'], function () {
         .pipe(preprocess({context: {ENV: argv.env}}))
         .pipe(publicHtmlFilter)
         .pipe(usemin({
-            //TODO: Rev images
-            css: ['concat', rev()],
-            js: [ footer(';;;'), 'concat', uglify({mangle: false}),rev()]
+            css: ['concat'],
+            js: [ footer(';;;'), 'concat', uglify({mangle: false})]
         }))
-        .pipe(revReplace())
         .pipe(publicHtmlFilter.restore())
         .pipe(gulp.dest(myPaths.dist))
 })
