@@ -89,8 +89,8 @@ def rent_ticket_get(rent_ticket_id, user):
 
     publish_time = f_app.util.format_time(rent_ticket.get('time'))
     report = None
-    if rent_ticket["property"].get('region_id'):
-        report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket["property"].get('region_id')))
+    if rent_ticket["property"].get('report_id'):
+        report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket["property"].get('report_id')))
 
     title = rent_ticket.get('title', _('出租房详情'))
     if not isinstance(title, six.string_types):

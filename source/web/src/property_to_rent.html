@@ -344,6 +344,32 @@
             <img src="/static/images/common/ajax-loader.gif" id="mapLoadIndicator" class="mapLoadIndicator" style="display:none;"/>
         </div>
         %end
+
+        %if report:
+        <div id="regionReport" class="regionReport scrollto" >
+            <div class="seperator"></div>
+            <h3 class="propertyDetails_title">{{_('街区报告')}}</h3>
+            <div class="regionReport_inner">
+                %if report.get('image'):
+                <img alt="" src="" style="background:url('{{!fetch_image(report.get('image'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(report.get('image'))}}', sizingMethod='scale');"/>
+                %else:
+                <img alt="" src="" style="background:url('/static/images/background/login-background.jpg') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/images/background/login-background.jpg', sizingMethod='scale');"/>
+                %end
+                <div class="img_shadow"></div>
+                <div class="text_container">
+                    <div class="text">
+                        <h1 class="name">
+                            {{report.get('name')}}
+                        </h1>
+                        <p class="des">{{report.get('description')}}</p>
+                        <a class="ghostButton detail" href="/region-report/{{report.get('id')}}" target="_blank">
+                            {{_('查看详细街区报告')}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        %end
     </div>
 
         <div class="aside">
