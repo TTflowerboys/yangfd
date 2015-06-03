@@ -527,6 +527,20 @@ def property_edit(property_id, user, params):
     if "status" in params:
         assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed", "selling", "hidden", "sold out", "deleted", "restricted"), abort(40000, "Invalid status")
 
+    if "zipcode" in params and "report_id" not in params:
+        report_id = None
+
+        if property_id != "none":
+            property = f_app.property.get(property_id)
+            if "report_id" not in property:
+                report_id = f_app.util.find_region_report(params["zipcode"])
+
+        else:
+            report_id = f_app.util.find_region_report(params["zipcode"])
+
+        if report_id:
+            params["report_id"] = ObjectId(report_id)
+
     if property_id == "none":
         action = lambda params: f_app.property.add(params)
 
