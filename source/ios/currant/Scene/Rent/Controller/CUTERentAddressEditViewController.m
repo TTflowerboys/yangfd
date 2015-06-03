@@ -37,7 +37,7 @@
     [super viewDidLoad];
 
     if (!self.singleUseForReedit) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"下一步") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
     }
 }
 
@@ -90,6 +90,62 @@
 
 - (void)onPostcodeEdit:(id)sender {
     [self updateTicket];
+    [self updateAddress];
+}
+
+- (void)updateAddress {
+
+    NSString *postCodeIndex = [self.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (self.ticket.property.country && !IsNilNullOrEmpty(postCodeIndex)) {
+        [SVProgressHUD showWithStatus:STR(@"搜索中...")];
+        NSString *components = [CUTEGeoManager buildComponentsWithDictionary:@{@"postal_code": postCodeIndex, @"country": self.ticket.property.country.code, @"locality": self.ticket.property.city.name}];
+        [[[CUTEGeoManager sharedInstance] geocodeWithAddress:nil components:components] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                if (task.result) {
+                    CUTEPlacemark *placemark = task.result;
+
+                    [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:placemark.location] continueWithBlock:^id(BFTask *task) {
+                        if (task.error) {
+                            [SVProgressHUD showErrorWithError:task.error];
+                        }
+                        else if (task.exception) {
+                            [SVProgressHUD showErrorWithException:task.exception];
+                        }
+                        else if (task.isCancelled) {
+                            [SVProgressHUD showErrorWithCancellation];
+                        }
+                        else {
+                            if (task.result) {
+                                CUTEPlacemark *detailPlacemark = task.result;
+                                CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+                                form.street = detailPlacemark.street;
+                                [self.tableView reloadData];
+                                [self updateTicket];
+                                [SVProgressHUD dismiss];
+                            }
+                            else {
+                                [SVProgressHUD dismiss];
+                            }
+                        }
+                        return task;
+                    }];
+                }
+                else {
+                    [SVProgressHUD dismiss];
+                }
+            }
+            return task;
+        }];
+    }
 }
 
 - (void)updateTicket {
@@ -196,7 +252,6 @@
                 [self createTicket];
             }
             else {
-
                 [SVProgressHUD show];
                 NSString *postCodeIndex = [self.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
                 NSString *components = [CUTEGeoManager buildComponentsWithDictionary:@{@"postal_code": postCodeIndex, @"country": self.ticket.property.country.code, @"locality": self.ticket.property.city.name}];
@@ -213,8 +268,6 @@
                     else {
                         if (task.result) {
                             CUTEPlacemark *placemark = task.result;
-                            CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)[self.formController form];
-                            form.street = placemark.street;
                             [self.tableView reloadData];
                             self.ticket.property.latitude = placemark.location.coordinate.latitude;
                             self.ticket.property.longitude = placemark.location.coordinate.longitude;
