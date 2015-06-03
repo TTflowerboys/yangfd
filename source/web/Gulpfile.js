@@ -38,6 +38,7 @@ var fingerprint = require('gulp-fingerprint')
 
 var argv = require('yargs').argv
 
+
 var myPaths = {
     src: './src/',
     dist: './dist/',
@@ -207,9 +208,11 @@ gulp.task('build:less2css', ['build:copy-sprite-static'], function (done) {
 
 
 gulp.task('sprite', ['clean', 'build:clean-sprite', 'build:copy-src-to-sprite'], function () {
+    var timestamp = new Date().getTime()
     return gulp.src(myPaths.sprite_html, {base: './sprite/'})
-        .pipe(pageSprite({image_src:'./sprite', image_dist:myPaths.sprite_dist, css_dist:myPaths.sprite_dist}))
-    .pipe(gulp.dest(myPaths.sprite))
+        .pipe(pageSprite({image_src:'./sprite', image_dist:myPaths.sprite_dist, css_dist:myPaths.sprite_dist + timestamp  +'/'}))
+        .pipe(replace(/\/static\/sprite\//g, '/static/sprite/' + timestamp + '/'))
+        .pipe(gulp.dest(myPaths.sprite))
 })
 
 gulp.task('build:html-extend', ['build:less2css'], function () {
