@@ -308,37 +308,57 @@
                         </td>
                         <td class="rent_period">
                             <div>
-                                <!--<select id="rent_period">
-                                    %for index, rent_period in enumerate(rent_period_list):
-                                    %if rent.get('rent_period',{}).get('id','')==rent_period.get('id'):
-                                    <option value="{{rent_period.get('id')}}" selected>{{rent_period.get('value')}}</option>
-                                    %else:
-                                    <option value="{{rent_period.get('id')}}">{{rent_period.get('value')}}</option>
-                                    %end
-                                    %end
-                                </select>-->
-                                <!-- todo 需要等待后端提供租期的week支持-->
-                                <input id="rent_period" type="text" data-name="{{_('租期')}}" data-validator="trim, number, required" value="" />
-                                <span>{{_('周')}}</span>
-                            </div>
-                            <div>
-                                <span>{{_('自')}}</span>
-                            </div>
-                            <div>
                                 <div class="date">
                                     %if 'rent_available_time' in rent:
-                                    <input id="rentPeriodStartDate" type="text" value="{{rent.get('rent_available_time','').strftime("%Y-%m-%d")}}"/><i class="calendarIcon"></i>
+                                    <input id="rentPeriodStartDate" type="text" value="{{rent.get('rent_available_time','').strftime("%Y-%m-%d")}}" placeholder="{{_('起租日期')}}"/><i class="calendarIcon"></i>
                                     %else:
-                                    <input id="rentPeriodStartDate" type="text"/><i class="calendarIcon"></i>
+                                    <input id="rentPeriodStartDate" type="text" placeholder="{{_('起租日期')}}"/><i class="calendarIcon"></i>
                                     %end
                                 </div>
                             </div>
                             <div>
-                                <span>{{_('起')}}</span>
+                                <span>{{_('到')}}</span>
+                            </div>
+                            <div>
+                                <div class="date">
+                                    %if 'rent_available_time' in rent:
+                                    <input id="rentPeriodEndDate" type="text" value="{{rent.get('rent_deadline_time','').strftime("%Y-%m-%d")}}" placeholder="{{_('结束日期')}}"/><i class="calendarIcon"></i>
+                                    %else:
+                                    <input id="rentPeriodEndDate" type="text" placeholder="{{_('结束日期')}}"/><i class="calendarIcon"></i>
+                                    %end
+                                </div>
                             </div>
                             <!--<div id="date_error" class="error">
                                 {{_('请填写租期开始时间')}}
                             </div>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <div class="text">{{_('最短租期')}}</div>
+                        </td>
+                        <td class="minimumRentPeriod">
+                            <select id="minimumRentPeriod">
+                                <option value="day"
+                                    %if rent.get('minimum_rent_period',{}).get('unit','week')=="day":
+                                    selected
+                                    %end
+                                    >{{_('天')}}
+                                </option>
+                                <option value="week"
+                                    %if rent.get('minimum_rent_period',{}).get('unit','week')=="week":
+                                    selected
+                                    %end
+                                    >{{_('周')}}
+                                </option>
+                                <option value="month"
+                                    %if rent.get('minimum_rent_period',{}).get('unit','week')=="month":
+                                    selected
+                                    %end
+                                    >{{_('月')}}
+                                </option>
+
+                            </select>
                         </td>
                     </tr>
                     <tr id="load_more">

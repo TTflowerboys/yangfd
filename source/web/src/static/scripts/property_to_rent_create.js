@@ -604,7 +604,7 @@
             'deposit_type': $('#deposit_type').children('option:selected').val(), //押金方式
             'price': JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'value': $('#price')[0].value }), //出租价格
             'bill_covered': $('#billCovered').is(':checked'), //是否包物业水电费
-            //'rent_period': $('#rent_period').val(), //出租多长时间
+            'minimum_rent_period': JSON.stringify({unit: $('#minimumRentPeriod').val(), value: '1'}),
             'rent_available_time': new Date($('#rentPeriodStartDate').val()).getTime() / 1000, //出租开始时间
             'title': title,
         })
@@ -613,6 +613,9 @@
         }
         if(getSpace() !== false) {
             ticketData.space = getSpace() //面积
+        }
+        if($('#rentPeriodEndDate').val()){
+            ticketData['rent_deadline_time'] = new Date($('#rentPeriodEndDate').val()).getTime() / 1000
         }
         return ticketData
     }
@@ -674,16 +677,17 @@
     if($('#rentPeriodStartDate').val() === ''){
         $('#rentPeriodStartDate').val($.format.date(new Date(), 'yyyy-MM-dd'))
     }
-    $('#rentPeriodStartDate')
-
-        .parent('.date').dateRangePicker({
+    $('.date>input').each(function (index, elem) {
+        $(elem).parent('.date').dateRangePicker({
             autoClose: true,
             singleDate: true,
             showShortcuts: false
         })
         .bind('datepicker-change', function (event, obj) {
-            $(this).find('#rentPeriodStartDate').val($.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
+            $(elem).val($.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
         })
+    })
+
 
     $('#load_more .load_more').click(function () {
         $('#load_more').hide()
