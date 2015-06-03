@@ -220,9 +220,7 @@ gulp.task('build:html-extend', ['build:less2css'], function () {
         .pipe(publicHtmlFilter)
         .pipe(usemin({
             css: [minifyCss(), 'concat'],
-            js: [ footer(';;;'), 'concat', uglify({mangle: false})],
-            inlinejs: [uglify({mangle: false})],
-            inlinecss: [minifyCss(), 'concat']
+            js: [ footer(';;;'), 'concat', uglify({mangle: false})]
         }))
         .pipe(publicHtmlFilter.restore())
         .pipe(gulp.dest(myPaths.dist))
