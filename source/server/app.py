@@ -27,6 +27,7 @@ import libfelix.f_mongo
 import libfelix.f_order
 import libfelix.f_ticket
 import libfelix.f_shop
+import libfelix.f_shop.f_recurring_bm
 import libfelix.f_sms.f_clickatell
 import libfelix.f_sms.f_nexmo
 import libfelix.f_storage
