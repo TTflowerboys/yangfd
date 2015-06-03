@@ -13,6 +13,7 @@
 #import "CUTEFormFixNonBreakingSpaceTextFieldCell.h"
 #import "CUTEFormDefaultCell.h"
 #import "CUTECity.h"
+#import "CUTERentCityViewController.h"
 
 
 @interface CUTERentAddressEditForm () {
@@ -42,11 +43,11 @@
         [array insertObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldAction: @"optionBack", FXFormFieldHeader:STR(@"位置"), FXFormFieldHeader:STR(@"位置")} atIndex:0];
     }
     if (_city) {
-        [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: _allCities, FXFormFieldDefaultValue: _city, FXFormFieldAction: @"optionBack"} atIndex:1];
+        [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: _allCities, FXFormFieldDefaultValue: _city, FXFormFieldAction: @"optionBack", FXFormFieldViewController: [CUTERentCityViewController class]} atIndex:1];
     }
     else {
         if (!IsArrayNilOrEmpty(_allCities)) {
-             [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions:_allCities, FXFormFieldAction: @"optionBack"} atIndex:1];
+             [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions:_allCities, FXFormFieldAction: @"optionBack",  FXFormFieldViewController: [CUTERentCityViewController class]} atIndex:1];
         }
     }
 
