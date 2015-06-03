@@ -148,7 +148,9 @@
 <!--@@close-->
 
 <!--@@block=scripts -->
-
+<!--build:js /static/scripts/news.html.js-->
+<script src="/static/vendors/jweixin-1.0.0.js"></script>
+<!--endbuild-->
 <script>
     (function () {
         var news = JSON.parse($('#newsData').text())
