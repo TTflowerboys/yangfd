@@ -259,7 +259,7 @@
                                     {{rent.get('rent_available_time','').strftime("%Y-%m-%d")}}
                                     % end
                                     % if 'rent_deadline_time' in rent and rent.get('rent_deadline_time',''):
-                                    {{'至 ' + rent.get('rent_deadline_time').strftime("%Y-%m-%d")}},
+                                    {{'至 ' + rent.get('rent_deadline_time').strftime("%Y-%m-%d")}}
                                     % else :
                                     {{_('起')}}
                                     % end
