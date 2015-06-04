@@ -310,7 +310,7 @@
                             <div>
                                 <div class="date">
                                     %if 'rent_available_time' in rent:
-                                    <input id="rentPeriodStartDate" type="text" value="{{rent.get('rent_available_time','').strftime("%Y-%m-%d")}}" placeholder="{{_('起租日期')}}"/><i class="calendarIcon"></i>
+                                    <input id="rentPeriodStartDate" type="text" value="{{rent.get('rent_available_time').strftime("%Y-%m-%d")}}" placeholder="{{_('起租日期')}}"/><i class="calendarIcon"></i>
                                     %else:
                                     <input id="rentPeriodStartDate" type="text" placeholder="{{_('起租日期')}}"/><i class="calendarIcon"></i>
                                     %end
@@ -321,16 +321,13 @@
                             </div>
                             <div>
                                 <div class="date">
-                                    %if 'rent_available_time' in rent:
-                                    <input id="rentPeriodEndDate" type="text" value="{{rent.get('rent_deadline_time','').strftime("%Y-%m-%d")}}" placeholder="{{_('结束日期')}}"/><i class="calendarIcon"></i>
+                                    %if 'rent_deadline_time' in rent:
+                                    <input id="rentPeriodEndDate" type="text" value="{{rent.get('rent_deadline_time').strftime("%Y-%m-%d")}}" placeholder="{{_('结束日期')}}"/><i class="calendarIcon"></i>
                                     %else:
                                     <input id="rentPeriodEndDate" type="text" placeholder="{{_('结束日期')}}"/><i class="calendarIcon"></i>
                                     %end
                                 </div>
                             </div>
-                            <!--<div id="date_error" class="error">
-                                {{_('请填写租期开始时间')}}
-                            </div>-->
                         </td>
                     </tr>
                     <tr>
@@ -346,33 +343,33 @@
                                     >{{_('不限')}}
                                 </option>
                                 <option value="1,day"
-                                    %if rent.get('minimum_rent_period',{}).get('unit','week')=="day" and rent.get('minimum_rent_period',{}).get('value','')=="1":
+                                    %if 'minimum_rent_period' in rent and rent.get('minimum_rent_period',{}).get('unit','week')=="day" and rent.get('minimum_rent_period',{}).get('value','')=="1":
                                     selected
                                     %end
                                     >{{_('1天')}}
                                 </option>
                                 <option value="1,week"
-                                    %if rent.get('minimum_rent_period',{}).get('unit','week')=="week" and rent.get('minimum_rent_period',{}).get('value','')=="1":
+                                    %if 'minimum_rent_period' in rent and rent.get('minimum_rent_period',{}).get('unit','week')=="week" and rent.get('minimum_rent_period',{}).get('value','')=="1":
                                     selected
                                     %end
                                     >{{_('1周')}}
                                 </option>
                                 <option value="1,month"
-                                %if rent.get('minimum_rent_period',{}).get('unit','week')=="month" and rent.get('minimum_rent_period',{}).get('value','')=="1":
-                                selected
-                                %end
+                                    %if 'minimum_rent_period' in rent and rent.get('minimum_rent_period',{}).get('unit','week')=="month" and rent.get('minimum_rent_period',{}).get('value','')=="1":
+                                    selected
+                                    %end
                                 >{{_('1月')}}
                                 </option>
                                 <option value="3,month"
-                                    %if rent.get('minimum_rent_period',{}).get('unit','week')=="month" and rent.get('minimum_rent_period',{}).get('value','')=="3":
-                                selected
-                                %end
+                                    %if 'minimum_rent_period' in rent and rent.get('minimum_rent_period',{}).get('unit','week')=="month" and rent.get('minimum_rent_period',{}).get('value','')=="3":
+                                    selected
+                                    %end
                                 >{{_('3月')}}
                                 </option>
                                 <option value="6,month"
-                                    %if rent.get('minimum_rent_period',{}).get('unit','week')=="month" and rent.get('minimum_rent_period',{}).get('value','')=="6":
-                                selected
-                                %end
+                                    %if 'minimum_rent_period' in rent and rent.get('minimum_rent_period',{}).get('unit','week')=="month" and rent.get('minimum_rent_period',{}).get('value','')=="6":
+                                    selected
+                                    %end
                                 >{{_('6月')}}
                                 </option>
 
