@@ -134,6 +134,8 @@
     return nav;
 }
 
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
@@ -141,7 +143,8 @@
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[userAgentComponents componentsJoinedByString:@"/"], @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
 
-    [CUTEWxManager registerWeixinAPIKey:[CUTEConfiguration weixinAPPId]];
+    [[CUTEWxManager sharedInstance] setUpShareSDK];
+
     [[CUTETracker sharedInstance] setup];
     [ATConnect sharedConnection].apiKey = @"870539ce7c8666f4ba6440cae368b8aea448aa2220dc3af73bc254f0ab2f0a0b";
 
@@ -253,8 +256,14 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    return [[CUTEWxManager sharedInstance] handleOpenURL:url];
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    return [[CUTEWxManager sharedInstance] handleOpenURL:url
+                 sourceApplication:sourceApplication
+                        annotation:annotation];
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {

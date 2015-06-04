@@ -12,13 +12,11 @@
 
 @interface CUTEWxManager : NSObject <WXApiDelegate>
 
-+ (void)registerWeixinAPIKey:(NSString *)weixinAPIKey;
-
 + (instancetype)sharedInstance;
 
-- (BOOL)handleOpenURL:(NSURL *)url;
+- (void)setUpShareSDK;
 
-- (void)sendRequst:(BaseReq *)req onResponse:(void (^)(BaseResp *response))onResponse;
+- (BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 
 - (void)shareToWechatWithTicket:(CUTETicket *)ticket;
 

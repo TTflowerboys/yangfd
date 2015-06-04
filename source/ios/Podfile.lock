@@ -50,7 +50,6 @@ PODS:
   - INTULocationManager (3.0.1)
   - JRSwizzle (1.0)
   - KVOController (1.0.3)
-  - libWeChatSDK (1.5)
   - Mantle (1.5.4):
     - Mantle/extobjc (= 1.5.4)
   - Mantle/extobjc (1.5.4)
@@ -99,7 +98,6 @@ DEPENDENCIES:
   - INTULocationManager (~> 3.0.1)
   - JRSwizzle (~> 1.0)
   - KVOController
-  - libWeChatSDK (from `https://github.com/Fykec/libWeChatSDK.git`)
   - Masonry (~> 0.6.1)
   - MWPhotoBrowser (~> 1.4.1)
   - ngrvalidator (~> 1.0.0)
@@ -120,8 +118,6 @@ EXTERNAL SOURCES:
     :git: git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git
   BBTUtility:
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
-  libWeChatSDK:
-    :git: https://github.com/Fykec/libWeChatSDK.git
 
 CHECKOUT OPTIONS:
   BBTRestClient:
@@ -130,9 +126,6 @@ CHECKOUT OPTIONS:
   BBTUtility:
     :commit: f5f295b562ceb5097e2a224bf4332f39c2e2779f
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
-  libWeChatSDK:
-    :commit: f234cfee41631ea0d799d0ac7d630fbb281d66b5
-    :git: https://github.com/Fykec/libWeChatSDK.git
 
 SPEC CHECKSUMS:
   AFNetworkActivityLogger: 121486778117d53b3ab1c61d264b88081d0c3eee
@@ -149,7 +142,6 @@ SPEC CHECKSUMS:
   INTULocationManager: c27483113e1bbc5952ead6417f9b39824a240ebb
   JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
-  libWeChatSDK: b9f8a37a77512350370a6e360ec18649c3086ba3
   Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad

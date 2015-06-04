@@ -24,7 +24,6 @@ pod 'SVProgressHUD', '~> 1.1.3'
 pod 'UIActionSheet+Blocks', '0.8.1'
 pod 'UIAlertView+Blocks', '0.8.1'
 pod 'MWPhotoBrowser', '~> 1.4.1'
-pod 'libWeChatSDK', :git => "https://github.com/Fykec/libWeChatSDK.git"
 pod 'YTKKeyValueStore'
 pod 'KVOController'
 pod 'TTTAttributedLabel', '~> 1.13.3'

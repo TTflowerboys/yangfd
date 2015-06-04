@@ -18,6 +18,7 @@
 #import "NSURL+Assets.h"
 #import "CUTEAPIManager.h"
 #import "CUTETracker.h"
+#import <ShareSDK/ShareSDK.h>
 
 
 @interface CUTEWxManager () {
@@ -30,12 +31,6 @@
 
 
 @implementation CUTEWxManager
-
-
-+ (void)registerWeixinAPIKey:(NSString *)weixinAPIKey
-{
-    [WXApi registerApp:weixinAPIKey];
-}
 
 + (instancetype)sharedInstance
 {
@@ -51,57 +46,71 @@
 
 #pragma mark - Share Method
 
-- (BaseReq *)makeWechatRequstWithScene:(NSInteger)scene title:(NSString *)title description:(NSString *)description thumbData:(NSData *)imageData url: (NSString *)url {
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title = title;
-    message.description = description;
-    message.thumbData = imageData;
-    WXWebpageObject *ext = [WXWebpageObject object];
-    ext.webpageUrl = url;
-    message.mediaObject = ext;
-    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
-    req.bText = NO;
-    req.message = message;
-    req.scene = scene;
-    return req;
+- (void)setUpShareSDK {
+    [ShareSDK registerApp:@"7e8579931246"];
+    [self initializePlat];
+}
+
+- (void)initializePlat
+{
+    /**
+     连接新浪微博开放平台应用以使用相关功能，此应用需要引用SinaWeiboConnection.framework
+     http://open.weibo.com上注册新浪微博开放平台应用，并将相关信息填写到以下字段
+     **/
+    [ShareSDK connectSinaWeiboWithAppKey:@"568898243"
+                               appSecret:@"38a4f8204cc784f81f9f0daaf31e02e3"
+                             redirectUri:@"http://www.sharesdk.cn"];
+
+    /**
+     连接微信应用以使用相关功能，此应用需要引用WeChatConnection.framework和微信官方SDK
+     http://open.weixin.qq.com上注册应用，并将相关信息填写以下字段
+     **/
+    [ShareSDK connectWeChatWithAppId:@"wxa8e7919a58064daa"
+                           appSecret:@"fbc8a2c56b1bb1f5cbb41c24503cc92b"
+                           wechatCls:[WXApi class]];
+    
 }
 
 - (void)shareToWechatWithTitle:(NSString *)title description:(NSString *)description thumbData:(NSData *)imageData  url:(NSString *)url {
-    [UIAlertView showWithTitle:STR(@"微信分享") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"分享给微信好友"), STR(@"分享到微信朋友圈")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 
-        if([WXApi isWXAppInstalled]){
-            if (buttonIndex != alertView.cancelButtonIndex) {
-                TrackScreen(@"share-to-wechat");
 
-                BaseReq *req = [self makeWechatRequstWithScene:buttonIndex == 1? WXSceneSession: WXSceneTimeline title:title description:description thumbData:imageData url:url];
+    //1、构造分享内容
+    id<ISSContent> publishContent = [ShareSDK content:CONCAT(NilNullToEmpty(title), @" ", NilNullToEmpty(description))
+                                       defaultContent:description
+                                                image:[ShareSDK imageWithData:imageData fileName:nil mimeType:nil]
+                                                title:title
+                                                  url:url
+                                          description:description
+                                            mediaType:SSPublishContentMediaTypeNews];
+    //1+创建弹出菜单容器（iPad必要）
+    id<ISSContainer> container = [ShareSDK container];
+    //    [container setIPadContainerWithView:self.view arrowDirect:UIPopoverArrowDirectionUp];
 
-                [[CUTEWxManager sharedInstance] sendRequst:req onResponse:^(BaseResp *resp) {
-                    if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
-                        SendMessageToWXResp *backResp = (SendMessageToWXResp *)resp;
-                        if (backResp.errCode == WXSuccess) {
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                [SVProgressHUD showSuccessWithStatus:STR(@"分享成功")];
-                            });
+    //2、弹出分享菜单
+    [ShareSDK showShareActionSheet:container
+                         shareList:nil
+                           content:publishContent
+                     statusBarTips:YES
+                       authOptions:nil
+                      shareOptions:nil
+                            result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
 
-                        }
-                        else if (backResp.errCode == WXErrCodeUserCancel) {
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                [SVProgressHUD showErrorWithStatus:STR(@"分享取消")];
-                            });
-                        }
-                        else {
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                [SVProgressHUD showErrorWithStatus:STR(@"分享失败")];
-                            });
-                        }
-                    }
-                }];
-            }
-        }
-        else {
-            [SVProgressHUD showErrorWithStatus:STR(@"请安装微信")];
-        }
-    }];
+                                //可以根据回调提示用户。
+                                if (state == SSResponseStateSuccess)
+                                {
+                                     [SVProgressHUD showSuccessWithStatus:STR(@"分享成功")];
+                                }
+                                else if (state == SSResponseStateFail)
+                                {
+                                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                                    message:[NSString stringWithFormat:@"失败描述：%@",[error errorDescription]]
+                                                                                   delegate:self
+                                                                          cancelButtonTitle:@"OK"
+                                                                          otherButtonTitles:nil, nil];
+                                    [alert show];
+                                }
+                            }];
+
 }
 
 #define THNUMBNAIL_SIZE CGSizeMake(100, 100)
@@ -209,6 +218,10 @@
     return shortString;
 }
 
+- (BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [ShareSDK handleOpenURL:url sourceApplication:sourceApplication annotation:annotation wxDelegate:self];
+}
+
 #pragma mark -Base Methods
 
 - (BOOL)handleOpenURL:(NSURL *)url {
@@ -225,7 +238,9 @@
 }
 
 - (void)onResp:(BaseResp *)resp {
-    self.responseBlock(resp);
+    if (self.responseBlock) {
+        self.responseBlock(resp);
+    }
 }
 
 
