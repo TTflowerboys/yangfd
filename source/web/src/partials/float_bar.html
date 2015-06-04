@@ -25,7 +25,7 @@
                 <img class="weixin" src="/static/images/media/wechat_small.png" alt=""/>
             </div>
         </div>
-        <!-- @if ENV!='production' -->
+        %if user and "beta_renting" in user.get('role',[]):
         <div id="appDownload" class="section">
             <a href="/app-download">
                 <div class="icon">
@@ -37,6 +37,6 @@
                 </div>
             </a>
         </div>
-        <!-- @endif -->
+        %end
     </div>
 </div>

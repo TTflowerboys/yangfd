@@ -75,11 +75,11 @@
                     </div>
 
                     <div class="left">
-                        <!-- @if ENV!='production' -->
+                        %if user and "beta_renting" in user.get('role',[]):
                         <a class="app" href="/app-download" target="_blank">
                             {{_('下载应用')}}
                         </a>
-                        <!-- @endif -->
+                        %end
 
                         <a class="select-country">
                             <img alt="" src="/static/images/common/header/flag-uk.png" />
@@ -98,7 +98,9 @@
                         <!-- @if ENV!='production' -->
                         <li><a href="/crowdfunding-introduce">{{_('海外众筹')}}</a></li>
                         <!-- @endif -->
-                        <li class="rentHeaderItem" style="display: none"><a href="/property-to-rent-list">{{_('海外租房')}}</a></li>
+                        %if user and "beta_renting" in user.get('role',[]):
+                        <li><a href="/property-to-rent-list">{{_('海外租房')}}</a></li>
+                        %end
                         <li><a href="/news-list">{{_('投资资讯')}}</a></li>
                     </ul>
                     <div class="callus">
@@ -130,7 +132,9 @@
                             <!-- @if ENV!='production' -->
                             <li><a href="/crowdfunding-introduce">{{_('海外众筹')}}</a></li>
                             <!-- @endif -->
-                            <li class="rentHeaderItem" style="display: none"><a href="/property-to-rent-list">{{_('海外租房')}}</a></li>
+                            %if user and "beta_renting" in user.get('role',[]):
+                            <li><a href="/property-to-rent-list">{{_('海外租房')}}</a></li>
+                            %end
                             <li><a href="/news-list">{{_('投资资讯')}}</a></li>
                         </ul>
                     </div>
@@ -142,7 +146,7 @@
                 <!-- @@placeholder = main -->
             </main>
 
-            <!-- @if ENV!='production' -->
+            %if user and "beta_renting" in user.get('role',[]):
             <div class="app-floatbar hiddenInClient">
                 <img class="app-floatbar-icon" src="/static/images/icon/app_icon.png"></img>
                 <div class="app-floatbar-content">
@@ -151,7 +155,7 @@
                 <a class='app-floatbar-download button red'>{{_('立即下载')}}</a>
                 <img class="app-floatbar-close" src="/static/images/icon/close_circular.png"></img>
             </div>
-            <!-- @endif -->
+            %end
 
             <div id="footer" class="siteFooter_wrapper hiddenInClient">
                 <footer class="siteFooter">

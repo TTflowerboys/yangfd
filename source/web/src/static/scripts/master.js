@@ -31,20 +31,5 @@ $(function () {
         $('.app-floatbar').hide()
         $.cookie('show-app-floatbar',false)
     })
-
-    //TODO: do this for for production sync
-    var $rentHeaderItem = $('.rentHeaderItem')
-    if(team.isProduction()){
-
-        // Display header buttons and tabs based on whether user have beta_renting role or not
-        if( window.user && window.user.role && _.indexOf(window.user.role,'beta_renting') !== -1){
-            $rentHeaderItem.show()
-        }else{
-            $rentHeaderItem.hide()
-        }
-
-    }else {
-        $rentHeaderItem.show()
-    }
 })
 
