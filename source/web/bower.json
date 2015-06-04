@@ -55,7 +55,8 @@
     "ui-bootstrap-tpls": "angular-bootstrap#0.11.2",
     "underscore": "1.7.0",
     "fancyBox": "fancyapps/fancyBox#2.1.5",
-    "photoswipe": "4.0.7"
+    "photoswipe": "4.0.7",
+    "dropload": "0.3.0"
   },
   "resolutions": {
     "jquery": "2.1.0",

@@ -18,6 +18,85 @@
     window.spaceData = getData('spaceData')
     //used in mobile client
 
+    $('body').dropload({ //下拉刷新
+        domUp : {
+            domClass   : 'dropload-up',
+            domRefresh : '<div class="dropload-refresh">↓ ' + i18n('下拉刷新') + '</div>',
+            domUpdate  : '<div class="dropload-update">↑ ' + i18n('松开刷新') + '</div>',
+            domLoad    : '<div class="dropload-load"><span class="loading"></span>' + i18n('加载中...') + '</div>'
+        },
+
+        loadUpFn : function(me){
+            /*$.ajax({
+                type: 'GET',
+                url: 'json/update.json',
+                dataType: 'json',
+                success: function(data){
+                    var result = '';
+                    for(var i = 0; i < data.lists.length; i++){
+                        result +=   '<a class="item opacity">'
+                        +'<img src="'+data.lists[i].pic+'" alt="">'
+                        +'<h3 href="'+data.lists[i].link+'" >'+data.lists[i].title+'</h3>'
+                        +'<span class="date">'+data.lists[i].date+'</span>'
+                        +'</a>';
+                    }
+                    // 为了测试，延迟1秒加载
+                    setTimeout(function(){
+                        $('.lists').html('');
+                        $('.lists').prepend(result);
+                        me.resetload();
+                    },1000);
+                },
+                error: function(xhr, type){
+                    alert('Ajax error!');
+                    me.resetload();
+                }
+            });*/
+            if(isLoading){
+                return me.resetload();
+            }
+            var params = window.getBaseRequestParams()
+            params.per_page = itemsPerPage
+
+            isLoading = true
+            var totalResultCount = getCurrentTotalCount()
+            $.betterPost('/api/1/rent_ticket/search', params)
+                .done(function (val) {
+                    var array = val
+                    var resultHtml = ''
+                    if (!_.isEmpty(array)) {
+                        lastItemTime = _.last(array).last_modified_time
+                        window.rentList = array
+                        _.each(array, function (rent) {
+                            var houseResult = _.template($('#rentCard_template').html())({rent: rent})
+                            resultHtml += houseResult
+
+                            if (lastItemTime > rent.last_modified_time) {
+                                lastItemTime = rent.last_modified_time
+                            }
+                        })
+                        $('#result_list').html(resultHtml)
+                        totalResultCount = getCurrentTotalCount()
+
+                        isAllItemsLoaded = false
+                    } else {
+                        isAllItemsLoaded = true
+                    }
+                    me.resetload();
+
+                }).fail(function () {
+                    me.resetload();
+                }).always(function () {
+                    updateResultCount(totalResultCount)
+                    isLoading = false
+                    if (!window.team.isCurrantClient()) {
+                        window.updateTabSelectorVisibility(true)
+                    }
+                })
+        },
+
+    });
+
     window.getBaseRequestParams = function () {
         var params = {}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
