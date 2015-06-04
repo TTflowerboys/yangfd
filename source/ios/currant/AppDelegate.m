@@ -215,23 +215,13 @@
 
 
 //#warning DEBUG_CODE
-//#ifdef DEBUG
+#ifdef DEBUG
 
 //    [CrashlyticsKit crash];
 //    [NSClassFromString(@"WebView") performSelector:NSSelectorFromString(@"_enableRemoteInspector")];
 //    [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
 //    [[AFNetworkActivityLogger sharedLogger] startLogging];
-
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        CUTETicket *ticket = [CUTETicket new];
-//        ticket.title = @"";
-//        CUTERentShareViewController *shareController = [CUTERentShareViewController new];
-//        shareController.formController.form = [CUTERentShareForm new];
-//        shareController.ticket = ticket;
-//        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:shareController];
-//        [self.tabBarController presentViewController:nc animated:NO completion:nil];
-//    });
-//#endif
+#endif
 
     //TODO setup use user id in track and crash report
     [Fabric with:@[CrashlyticsKit]];
