@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTEWxManager.h"
+#import "CUTEShareManager.h"
 #import "CUTECommonMacro.h"
 #import <UIAlertView+Blocks.h>
 #import <UIImage+Resize.h>
@@ -21,7 +21,7 @@
 #import <ShareSDK/ShareSDK.h>
 
 
-@interface CUTEWxManager () {
+@interface CUTEShareManager () {
 
 }
 
@@ -30,7 +30,7 @@
 @end
 
 
-@implementation CUTEWxManager
+@implementation CUTEShareManager
 
 + (instancetype)sharedInstance
 {
@@ -199,7 +199,7 @@
     }
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[CUTEWxManager sharedInstance] shareToWechatWithTitle:[self truncateString:ticket.titleForDisplay length:512] description:[self truncateString:!IsNilNullOrEmpty(ticket.ticketDescription)? ticket.ticketDescription: ticket.property.address  length:1024] thumbData:result url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
+        [[CUTEShareManager sharedInstance] shareToWechatWithTitle:[self truncateString:ticket.titleForDisplay length:512] description:[self truncateString:!IsNilNullOrEmpty(ticket.ticketDescription)? ticket.ticketDescription: ticket.property.address  length:1024] thumbData:result url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
     }];
 
     [sequencer run];

@@ -20,7 +20,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTERentShareViewController.h"
 #import "WxApi.h"
-#import "CUTEWxManager.h"
+#import "CUTEShareManager.h"
 #import "CUTEConfiguration.h"
 #import <UIAlertView+Blocks.h>
 #import "CUTENotificationKey.h"

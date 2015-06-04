@@ -13,7 +13,7 @@
 #import "NSURL+CUTE.h"
 #import "CUTEAPIManager.h"
 #import "SVProgressHUD+CUTEAPI.h"
-#import "CUTEWxManager.h"
+#import "CUTEShareManager.h"
 #import <RegExCategories.h>
 #import "CUTETracker.h"
 #import "UIAlertView+Blocks.h"
@@ -95,7 +95,7 @@
                     else {
                         [SVProgressHUD dismiss];
                         CUTETicket *ticket = task.result;
-                        [[CUTEWxManager sharedInstance] shareToWechatWithTicket:ticket];
+                        [[CUTEShareManager sharedInstance] shareToWechatWithTicket:ticket];
                     }
                     return nil;
                 }];
@@ -115,7 +115,7 @@
                     else {
                         [SVProgressHUD dismiss];
                         CUTETicket *ticket = task.result;
-                        [[CUTEWxManager sharedInstance] shareToWechatWithTicket:ticket];
+                        [[CUTEShareManager sharedInstance] shareToWechatWithTicket:ticket];
                     }
                     return nil;
                 }];

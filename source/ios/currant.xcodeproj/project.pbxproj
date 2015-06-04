@@ -282,11 +282,11 @@
 		2C79C2BA1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79C2B71ACA5725000E7F67 /* NSURL+CUTE.m */; };
 		2C79C2BB1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79C2B71ACA5725000E7F67 /* NSURL+CUTE.m */; };
 		2C79C2BC1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79C2B71ACA5725000E7F67 /* NSURL+CUTE.m */; };
-		2C96E2741AE6566300F3590C /* CUTEWxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEWxManager.m */; };
-		2C96E2751AE6566300F3590C /* CUTEWxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEWxManager.m */; };
-		2C96E2761AE6566300F3590C /* CUTEWxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEWxManager.m */; };
-		2C96E2771AE6566300F3590C /* CUTEWxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEWxManager.m */; };
-		2C96E2781AE6566300F3590C /* CUTEWxManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEWxManager.m */; };
+		2C96E2741AE6566300F3590C /* CUTEShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEShareManager.m */; };
+		2C96E2751AE6566300F3590C /* CUTEShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEShareManager.m */; };
+		2C96E2761AE6566300F3590C /* CUTEShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEShareManager.m */; };
+		2C96E2771AE6566300F3590C /* CUTEShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEShareManager.m */; };
+		2C96E2781AE6566300F3590C /* CUTEShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEShareManager.m */; };
 		2C96E2891AE89D7E00F3590C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */; };
 		2C96E28A1AE89D8A00F3590C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */; };
 		2C96E28B1AE89D9300F3590C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */; };
@@ -804,8 +804,8 @@
 		2C7520421ACA775C0008B42A /* CUTEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEViewController.m; sourceTree = "<group>"; };
 		2C79C2B61ACA5725000E7F67 /* NSURL+CUTE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+CUTE.h"; sourceTree = "<group>"; };
 		2C79C2B71ACA5725000E7F67 /* NSURL+CUTE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+CUTE.m"; sourceTree = "<group>"; };
-		2C96E2721AE6566300F3590C /* CUTEWxManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEWxManager.h; sourceTree = "<group>"; };
-		2C96E2731AE6566300F3590C /* CUTEWxManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEWxManager.m; sourceTree = "<group>"; };
+		2C96E2721AE6566300F3590C /* CUTEShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEShareManager.h; sourceTree = "<group>"; };
+		2C96E2731AE6566300F3590C /* CUTEShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEShareManager.m; sourceTree = "<group>"; };
 		2C96E2791AE74CCD00F3590C /* CUTENotificationKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTENotificationKey.h; sourceTree = "<group>"; };
 		2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		2C9AFF6E1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormFixNonBreakingSpaceTextFieldCell.h; sourceTree = "<group>"; };
@@ -1438,8 +1438,8 @@
 				2CC6C1EA1AEE2E59002758A7 /* CUTERentTickePublisher.m */,
 				2CB7490B1ADE4755003BC2A5 /* SVProgressHUD+CUTEAPI.h */,
 				2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */,
-				2C96E2721AE6566300F3590C /* CUTEWxManager.h */,
-				2C96E2731AE6566300F3590C /* CUTEWxManager.m */,
+				2C96E2721AE6566300F3590C /* CUTEShareManager.h */,
+				2C96E2731AE6566300F3590C /* CUTEShareManager.m */,
 				2C3DE2311B035719006FF191 /* CUTETracker.h */,
 				2C3DE2321B035719006FF191 /* CUTETracker.m */,
 				2C3DE2481B05F219006FF191 /* CUTETrackParams.h */,
@@ -2187,7 +2187,7 @@
 				2CF8A63D1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m in Sources */,
 				2CF8A6381AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
 				2CF8A5F21AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
-				2C96E2761AE6566300F3590C /* CUTEWxManager.m in Sources */,
+				2C96E2761AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2CA2E6B31AC5487800053965 /* main.m in Sources */,
 				2CF8A6B01AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A21AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
@@ -2304,7 +2304,7 @@
 				2CF8A63E1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m in Sources */,
 				2CF8A6391AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
 				2CF8A5F31AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
-				2C96E2771AE6566300F3590C /* CUTEWxManager.m in Sources */,
+				2C96E2771AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2CA2E6CC1AC5496700053965 /* main.m in Sources */,
 				2CF8A6B11AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A31AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
@@ -2421,7 +2421,7 @@
 				2CF8A63C1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m in Sources */,
 				2CF8A6371AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
 				2CF8A5F11AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
-				2C96E2751AE6566300F3590C /* CUTEWxManager.m in Sources */,
+				2C96E2751AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2CA94A9D1ACA42CD00DF7497 /* main.m in Sources */,
 				2CF8A6AF1AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A11AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
@@ -2538,7 +2538,7 @@
 				2CF8A63B1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m in Sources */,
 				2CF8A6361AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
 				2CF8A5F01AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
-				2C96E2741AE6566300F3590C /* CUTEWxManager.m in Sources */,
+				2C96E2741AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2CB43DAF1ABC1372004DF663 /* main.m in Sources */,
 				2CF8A6AE1AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A01AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
@@ -2604,7 +2604,7 @@
 				2CB43DCC1ABC1373004DF663 /* currantTests.m in Sources */,
 				2CF8A63A1AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
 				2C9AFF821AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
-				2C96E2781AE6566300F3590C /* CUTEWxManager.m in Sources */,
+				2C96E2781AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2CA81FC11B1425D1006E993C /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2CF8A62B1AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2C5ECC551AD525AC00163E9E /* CUTEAPIManager.m in Sources */,

@@ -21,7 +21,7 @@
 #import "CUTERentTypeListForm.h"
 #import <AFNetworkActivityIndicatorManager.h>
 #import "SVProgressHUD+CUTEAPI.h"
-#import "CUTEWxManager.h"
+#import "CUTEShareManager.h"
 #import "CUTENotificationKey.h"
 #import "CUTETicket.h"
 #import "CUTERentShareViewController.h"
@@ -143,7 +143,7 @@
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[userAgentComponents componentsJoinedByString:@"/"], @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
 
-    [[CUTEWxManager sharedInstance] setUpShareSDK];
+    [[CUTEShareManager sharedInstance] setUpShareSDK];
 
     [[CUTETracker sharedInstance] setup];
     [ATConnect sharedConnection].apiKey = @"870539ce7c8666f4ba6440cae368b8aea448aa2220dc3af73bc254f0ab2f0a0b";
@@ -261,7 +261,7 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-    return [[CUTEWxManager sharedInstance] handleOpenURL:url
+    return [[CUTEShareManager sharedInstance] handleOpenURL:url
                  sourceApplication:sourceApplication
                         annotation:annotation];
 }
@@ -486,7 +486,7 @@
 - (void)onReceiveTicketWechatShare:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
-    [[CUTEWxManager sharedInstance] shareToWechatWithTicket:ticket];
+    [[CUTEShareManager sharedInstance] shareToWechatWithTicket:ticket];
 }
 
 - (void)onReceiveTicketListReload:(NSNotification *)notif {

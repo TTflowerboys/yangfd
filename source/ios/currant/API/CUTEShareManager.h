@@ -10,7 +10,7 @@
 #import "WXApi.h"
 #import "CUTETicket.h"
 
-@interface CUTEWxManager : NSObject <WXApiDelegate>
+@interface CUTEShareManager : NSObject <WXApiDelegate>
 
 + (instancetype)sharedInstance;
 

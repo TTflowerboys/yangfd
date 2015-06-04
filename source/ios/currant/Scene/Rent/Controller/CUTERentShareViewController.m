@@ -8,7 +8,7 @@
 
 #import "CUTERentShareViewController.h"
 #import "CUTECommonMacro.h"
-#import "CUTEWxManager.h"
+#import "CUTEShareManager.h"
 #import "CUTEConfiguration.h"
 #import "MasonryMake.h"
 #import <UIImageView+AFNetworking.h>
@@ -37,7 +37,7 @@
 }
 
 - (void)shareToWechat {
-    [[CUTEWxManager sharedInstance] shareToWechatWithTicket:self.ticket];
+    [[CUTEShareManager sharedInstance] shareToWechatWithTicket:self.ticket];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath  {
