@@ -82,7 +82,7 @@
         }];
     }
     else if ([self isURL:url matchPath:@"\\/property-to-rent\\/[0-9a-fA-F]{24}"]) {
-        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"icon-wechat") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
+        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-share") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
             TrackEvent(@"property-to-rent", kEventActionPress, @"share-to-wechat", nil);
             NSArray *paths = [url.path componentsSeparatedByString:@"/"];
             if (paths.count >= 3) {
@@ -103,7 +103,7 @@
         }];
     }
     else if ([self isURL:url matchPath:@"\\/wechat-poster\\/[0-9a-fA-F]{24}"]) {
-        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"icon-wechat") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
+        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-share") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
             NSArray *paths = [url.path componentsSeparatedByString:@"/"];
             if (paths.count >= 3) {
                 NSString *ticketId = paths[2];
