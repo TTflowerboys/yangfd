@@ -27,31 +27,7 @@
         },
 
         loadUpFn : function(me){
-            /*$.ajax({
-                type: 'GET',
-                url: 'json/update.json',
-                dataType: 'json',
-                success: function(data){
-                    var result = '';
-                    for(var i = 0; i < data.lists.length; i++){
-                        result +=   '<a class="item opacity">'
-                        +'<img src="'+data.lists[i].pic+'" alt="">'
-                        +'<h3 href="'+data.lists[i].link+'" >'+data.lists[i].title+'</h3>'
-                        +'<span class="date">'+data.lists[i].date+'</span>'
-                        +'</a>';
-                    }
-                    // 为了测试，延迟1秒加载
-                    setTimeout(function(){
-                        $('.lists').html('');
-                        $('.lists').prepend(result);
-                        me.resetload();
-                    },1000);
-                },
-                error: function(xhr, type){
-                    alert('Ajax error!');
-                    me.resetload();
-                }
-            });*/
+
             if(isLoading){
                 return me.resetload();
             }
@@ -77,10 +53,6 @@
                         })
                         $('#result_list').html(resultHtml)
                         totalResultCount = getCurrentTotalCount()
-
-                        isAllItemsLoaded = false
-                    } else {
-                        isAllItemsLoaded = true
                     }
                     me.resetload();
 

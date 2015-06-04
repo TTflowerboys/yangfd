@@ -17,6 +17,58 @@
     window.bedroomCountData = getData('bedroomCountData')
     window.buildingAreaData = getData('buildingAreaData')
 
+    $('body').dropload({ //下拉刷新
+        domUp : {
+            domClass   : 'dropload-up',
+            domRefresh : '<div class="dropload-refresh">↓ ' + i18n('下拉刷新') + '</div>',
+            domUpdate  : '<div class="dropload-update">↑ ' + i18n('松开刷新') + '</div>',
+            domLoad    : '<div class="dropload-load"><span class="loading"></span>' + i18n('加载中...') + '</div>'
+        },
+
+        loadUpFn : function(me){
+            if(isLoading){
+                return me.resetload();
+            }
+            var params = window.getBaseRequestParams()
+            params.per_page = 5
+
+            isLoading = true
+            var totalResultCount = getCurrentTotalCount()
+            $.betterPost('/api/1/property/search', params)
+                .done(function (val) {
+                    var array = val.content
+                    totalResultCount = val.count
+                    array = filterPropertyHouseTypes(array, params.budget, params.bedroom_count, params.building_area)
+                    var resultHtml = ''
+                    if (!_.isEmpty(array)) {
+                        lastItemTime = _.last(array).mtime
+                        window.propertyList = array
+                        _.each(array, function (house) {
+                            var houseResult = _.template($('#houseCard_template').html())({house: house})
+                            resultHtml += houseResult
+
+                            if (lastItemTime > house.mtime) {
+                                lastItemTime = house.mtime
+                            }
+                        })
+                        $('#result_list').html(resultHtml)
+                        totalResultCount = getCurrentTotalCount()
+                    }
+                    me.resetload();
+
+                }).fail(function () {
+                    me.resetload();
+                }).always(function () {
+                    updateResultCount(totalResultCount)
+                    isLoading = false
+                    if (!window.team.isCurrantClient()) {
+                        window.updateTabSelectorVisibility(true)
+                    }
+                })
+        },
+
+    });
+
     //used in mobile client
     window.getBaseRequestParams = function () {
         var params = {}
