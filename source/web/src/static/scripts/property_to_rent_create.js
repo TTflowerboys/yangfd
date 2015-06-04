@@ -330,9 +330,9 @@
             $('#country').val(val.country)
             //$('#city-select').html('<option value="' + val.admin1 + '">' + val.admin1_name + '</option>').val(val.admin1).trigger('chosen:updated')
             //$('#city').val(val.admin1)
-            $('#latitude').val(val.loc[1])
-            $('#longitude').val(val.loc[0])
-            geonamesApi.getCityByLocation(val.country, val.loc[1], val.loc[0], function (val) {
+            $('#latitude').val(val.latitude)
+            $('#longitude').val(val.longitude)
+            geonamesApi.getCityByLocation(val.country, val.latitude, val.longitude, function (val) {
                 $.betterPost('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + $('#latitude').val() + ',' + $('#longitude').val() + '&result_type=street_address&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU')
                     .done(function (data) {
                         var streetArr = [],
