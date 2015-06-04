@@ -222,7 +222,7 @@ gulp.task('build:html-extend', ['build:less2css'], function () {
         .pipe(preprocess({context: {ENV: argv.env}}))
         .pipe(publicHtmlFilter)
         .pipe(usemin({
-            css: [minifyCss(), 'concat'],
+            css: ['concat'],
             js: [ footer(';;;'), 'concat', uglify({mangle: false})]
         }))
         .pipe(publicHtmlFilter.restore())
