@@ -54,40 +54,34 @@
 - (void)initializePlat
 {
     /**
-     连接新浪微博开放平台应用以使用相关功能，此应用需要引用SinaWeiboConnection.framework
-     http://open.weibo.com上注册新浪微博开放平台应用，并将相关信息填写到以下字段
-     **/
-    [ShareSDK connectSinaWeiboWithAppKey:@"568898243"
-                               appSecret:@"38a4f8204cc784f81f9f0daaf31e02e3"
-                             redirectUri:@"http://www.sharesdk.cn"];
-
-    /**
      连接微信应用以使用相关功能，此应用需要引用WeChatConnection.framework和微信官方SDK
      http://open.weixin.qq.com上注册应用，并将相关信息填写以下字段
      **/
     [ShareSDK connectWeChatWithAppId:@"wxa8e7919a58064daa"
                            appSecret:@"fbc8a2c56b1bb1f5cbb41c24503cc92b"
                            wechatCls:[WXApi class]];
+
+    /**
+     连接新浪微博开放平台应用以使用相关功能，此应用需要引用SinaWeiboConnection.framework
+     http://open.weibo.com上注册新浪微博开放平台应用，并将相关信息填写到以下字段
+     **/
+    [ShareSDK connectSinaWeiboWithAppKey:@"568898243"
+                               appSecret:@"38a4f8204cc784f81f9f0daaf31e02e3"
+                             redirectUri:@"http://www.sharesdk.cn"];
     
 }
 
 - (void)shareToWechatWithTitle:(NSString *)title description:(NSString *)description thumbData:(NSData *)imageData  url:(NSString *)url {
 
-
-    //1、构造分享内容
-    id<ISSContent> publishContent = [ShareSDK content:CONCAT(NilNullToEmpty(title), @" ", NilNullToEmpty(description))
-                                       defaultContent:description
+    id<ISSContent> publishContent = [ShareSDK content:!IsNilNullOrEmpty(description)? description: title
+                                       defaultContent:nil
                                                 image:[ShareSDK imageWithData:imageData fileName:nil mimeType:nil]
                                                 title:title
                                                   url:url
                                           description:description
                                             mediaType:SSPublishContentMediaTypeNews];
-    //1+创建弹出菜单容器（iPad必要）
-    id<ISSContainer> container = [ShareSDK container];
-    //    [container setIPadContainerWithView:self.view arrowDirect:UIPopoverArrowDirectionUp];
 
-    //2、弹出分享菜单
-    [ShareSDK showShareActionSheet:container
+    [ShareSDK showShareActionSheet:[ShareSDK container]
                          shareList:nil
                            content:publishContent
                      statusBarTips:YES
@@ -95,8 +89,11 @@
                       shareOptions:nil
                             result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
 
-                                //可以根据回调提示用户。
-                                if (state == SSResponseStateSuccess)
+                                if (state == SSResponseStateBegan) {
+                                  
+
+                                }
+                                else if (state == SSResponseStateSuccess)
                                 {
                                      [SVProgressHUD showSuccessWithStatus:STR(@"分享成功")];
                                 }
@@ -199,7 +196,7 @@
     }
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[CUTEShareManager sharedInstance] shareToWechatWithTitle:[self truncateString:ticket.titleForDisplay length:512] description:[self truncateString:!IsNilNullOrEmpty(ticket.ticketDescription)? ticket.ticketDescription: ticket.property.address  length:1024] thumbData:result url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
+        [[CUTEShareManager sharedInstance] shareToWechatWithTitle:[self truncateString:ticket.titleForDisplay length:512] description:[self truncateString:ticket.ticketDescription length:1024] thumbData:result url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
     }];
 
     [sequencer run];

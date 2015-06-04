@@ -8,8 +8,14 @@
 
 #import "CUTEFormShareButtonCell.h"
 #import "CUTECommonMacro.h"
+#import "CUTEUIMacro.h"
 
 @implementation CUTEFormShareButtonCell
+
++ (CGFloat)heightForField:(FXFormField *)field width:(CGFloat)width
+{
+    return CUTE_CELL_DEFAULT_HEIGHT;
+}
 
 - (void)setUp {
     [super setUp];
