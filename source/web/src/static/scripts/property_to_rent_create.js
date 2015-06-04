@@ -345,13 +345,21 @@
                             })
                         }
                         $('#street').val(streetArr.join(','))
+                        $('.buttonLoading').trigger('end')
+                        $btn.prop('disabled', false).text(window.i18n('重新获取'))
                         $('#address').show()
+                    }).fail(function () {
+                        $('.buttonLoading').trigger('end')
+                        $btn.prop('disabled', false).text(window.i18n('重新获取'))
                     })
                 $('#city-select').html(
                     _.reduce(val, function(pre, val, key) {
                         return pre + '<option value="' + val.id + '"' + (key === 0 ? 'selected' : '') + '>' + val.name + (val.country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
                     }, '<option value="">' + i18n('请选择城市') + '</option>')
                 ).trigger('chosen:updated').trigger('change')
+            }, function () {
+                $('.buttonLoading').trigger('end')
+                $btn.prop('disabled', false).text(window.i18n('重新获取'))
             })
 
         }
@@ -431,8 +439,6 @@
                 .fail(function(err) {
                     $errorMsg.text(err).show()
                     $('#address').show()
-                })
-                .always(function() {
                     $btn.prop('disabled', false).text(window.i18n('重新获取'))
                 })
         }
@@ -659,16 +665,19 @@
                         else{
                             hashRoute.locationHashTo('/publish/' + window.ticketId)
                         }
+                        $('.buttonLoading').trigger('end')
                         $btn.prop('disabled', false).text(window.i18n('预览并发布'))
 
                         //
                         ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'first-step', (new Date() - createStartTime)/1000)
                     })
                     .fail(function (ret) {
+                        $('.buttonLoading').trigger('end')
                         $errorMsg.text(window.getErrorMessageFromErrorCode(ret)).show()
                         $btn.prop('disabled', false).text(window.i18n('预览并发布'))
                     })
             }).fail(function (ret) {
+                $('.buttonLoading').trigger('end')
                 $errorMsg.text(window.getErrorMessageFromErrorCode(ret)).show()
                 $btn.prop('disabled', false).text(window.i18n('预览并发布'))
             })

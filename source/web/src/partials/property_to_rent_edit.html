@@ -99,7 +99,7 @@
                         <td>
                             <div class="postcode">
                                 <input id="postcode" type="text" id="postcode" name="postcode" data-validator="required, trim" data-name="postcode" value="{{rent.get('property',{}).get('zipcode','')}}"/>
-                                <button id="findAddress" type="button" class="find_address ajaxButton">
+                                <button id="findAddress" type="button" class="find_address ajaxButton manualTriggerLoadingEnd">
                                     {{_('查找地址')}}
                                 </button>
                                 <button id="inputAddress" type="button" class="customer_input">
@@ -528,9 +528,9 @@
         <div class="errorMsg" style="display: none;"></div>
         <div style="text-align: center">
             %if rent.get('property',{}) and rent.get('property',{}).get('id',''):
-            <button class="submit_button ajaxButton" id="submit" data-propertyid="{{rent.get('property',{}).get('id','')}}">{{_('预览并发布')}}</button>
+            <button class="submit_button ajaxButton manualTriggerLoadingEnd" id="submit" data-propertyid="{{rent.get('property',{}).get('id','')}}">{{_('预览并发布')}}</button>
             %else:
-            <button class="submit_button ajaxButton" id="submit">{{_('预览并发布')}}</button>
+            <button class="submit_button ajaxButton manualTriggerLoadingEnd" id="submit">{{_('预览并发布')}}</button>
             %end
         </div>
     </div>
