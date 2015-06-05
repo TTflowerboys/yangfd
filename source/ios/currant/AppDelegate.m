@@ -49,6 +49,9 @@
 
 
 @interface AppDelegate () <UITabBarControllerDelegate>
+{
+    NSInteger _lastSelectedTabIndex;
+}
 
 @property (nonatomic, strong) UITabBarController *tabBarController;
 
@@ -200,6 +203,7 @@
     [self.window makeKeyAndVisible];
     CUTEWebViewController *firstWebviewController = (CUTEWebViewController *)([(UINavigationController *)[rootViewController.viewControllers firstObject] topViewController]);
     [firstWebviewController loadURL:firstWebviewController.url];
+    _lastSelectedTabIndex = 0;
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
 
@@ -311,6 +315,26 @@
 //        [CrashlyticsKit crash];
         [self updatePublishRentTicketTabWithController:viewController silent:NO];
     }
+    else if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController != nil) {
+        if (_lastSelectedTabIndex == tabBarController.selectedIndex && [viewController.topViewController isKindOfClass:[CUTEUnfinishedRentTicketListViewController class]]) {
+            [SVProgressHUD show];
+            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+                if (task.result) {
+                    CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
+                    [form setRentTypeList:task.result];
+                    CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
+                    controller.formController.form = form;
+                    controller.hidesBottomBarWhenPushed = YES;
+                    [viewController pushViewController:controller animated:YES];
+                    [SVProgressHUD dismiss];
+                }
+                else {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                return nil;
+            }];
+        }
+    }
     else {
         if (viewController.tabBarItem.tag == kRentTicketListTabBarIndex) {
             TrackEvent(@"tab-bar", kEventActionPress, @"open-rent-ticket-list-tab", nil);
@@ -323,6 +347,8 @@
             }
         }
     }
+
+    _lastSelectedTabIndex = tabBarController.selectedIndex;
 }
 
 - (void)updatePublishRentTicketTabWithController:(UINavigationController *)viewController silent:(BOOL)silent {
