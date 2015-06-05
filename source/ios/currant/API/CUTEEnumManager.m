@@ -47,6 +47,7 @@
     return self;
 }
 
+
 - (BFTask *)getEnumsByType:(NSString *)type {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     if ([_enumCache objectForKey:type]) {
@@ -54,9 +55,10 @@
     }
     else {
         [[[CUTEAPIManager sharedInstance] GET:@"/api/1/enum/search" parameters:@{@"type": type} resultClass:[CUTEEnum class]] continueWithSuccessBlock:^id(BFTask *task) {
-            if (task.result && !IsArrayNilOrEmpty(task.result)) {
-                [_enumCache setValue:task.result forKey:type];
-                [tcs setResult:task.result];
+            NSArray *result = task.result;
+            if (result && !IsArrayNilOrEmpty(result)) {
+                [_enumCache setValue:result forKey:type];
+                [tcs setResult:result];
             }
             else {
                 [tcs setError:task.error];
@@ -71,7 +73,6 @@
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     NSArray *rawArray = @[@{@"code": @"GB"},
                           @{@"code": @"CN"},
-//                          @{@"code": @"HK"},
                           @{@"code": @"US"}];
     [tcs setResult:[rawArray map:^id(id object) {
         CUTECountry *country = [CUTECountry modelWithDictionary:object error:nil];
