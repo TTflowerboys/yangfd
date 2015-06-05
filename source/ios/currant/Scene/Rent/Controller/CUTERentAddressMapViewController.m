@@ -51,6 +51,8 @@
 
     BOOL _mapShowCurrentRegion;
 
+    BOOL _isAddressUpdated;
+
 }
 @end
 
@@ -110,6 +112,11 @@
     _textField.text = property.address;
 
     TrackScreen(GetScreenName(self));
+
+    if (_isAddressUpdated) {
+        [self onAddressLocationButtonTapped:nil];
+        _isAddressUpdated = NO;
+    }
 }
 
 
@@ -170,6 +177,9 @@
     if (!_rentAddressEditViewController) {
         CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
         controller.navigationItem.title = STR(@"位置");
+        controller.updateAddressCompletion = ^ {
+            _isAddressUpdated = YES;
+        };
         _rentAddressEditViewController = controller;
     }
 
