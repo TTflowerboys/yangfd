@@ -140,7 +140,7 @@ gulp.task('fingerprint', ['revAll'], function () {
         mode: 'replace'
     };
 
-    return gulp.src([myPaths.dist + '**/*.html', myPaths.dist + 'static/**/*.css', myPaths.dist + 'static/admin/scripts/config/states.js', myPaths.dist + 'static/admin/scripts/directives/**/*', myPaths.dist + 'static/scripts/**/*', myPaths.dist + 'static/styles/**/*'], {base: 'dist'})
+    return gulp.src([myPaths.dist + '*.html',myPaths.dist + 'templates/**/*.html', myPaths.dist + 'static/**/*.css', myPaths.dist + 'static/admin/*.js', myPaths.dist + 'static/scripts/**/*', myPaths.dist + 'static/styles/**/*'], {base: 'dist'})
         .pipe(fingerprint(manifest, options))
         .pipe(gulp.dest(myPaths.dist));
 });
