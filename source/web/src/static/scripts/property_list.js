@@ -17,7 +17,7 @@
     window.bedroomCountData = getData('bedroomCountData')
     window.buildingAreaData = getData('buildingAreaData')
 
-    var myDropLoad = $('body').dropload({ //下拉刷新
+    var currantDropLoad = $('body').dropload({ //下拉刷新
         domUp : {
             domClass   : 'dropload-up',
             domRefresh : '<div class="dropload-refresh">↓ ' + i18n('下拉刷新') + '</div>',
@@ -68,18 +68,18 @@
         },
 
     });
-    window.$myDropLoad = $(myDropLoad)
+    window.$currantDropLoad = $(currantDropLoad)
     function fnTransition(dom,num){
         dom.css({
             '-webkit-transition':'all '+num+'ms',
             'transition':'all '+num+'ms'
         });
     }
-    window.$myDropLoad.on('loading', function () {
+    window.$currantDropLoad.on('loading', function () {
         if(isLoading) {
             return
         }
-        var me = myDropLoad
+        var me = currantDropLoad
         if(!me.insertDOM){
             me.$element.prepend('<div class="'+me.opts.domUp.domClass+'"></div>');
             me.insertDOM = true;
