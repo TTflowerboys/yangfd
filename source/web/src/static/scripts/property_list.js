@@ -17,7 +17,7 @@
     window.bedroomCountData = getData('bedroomCountData')
     window.buildingAreaData = getData('buildingAreaData')
 
-    $('body').dropload({ //下拉刷新
+    var myDropLoad = $('body').dropload({ //下拉刷新
         domUp : {
             domClass   : 'dropload-up',
             domRefresh : '<div class="dropload-refresh">↓ ' + i18n('下拉刷新') + '</div>',
@@ -68,6 +68,33 @@
         },
 
     });
+    window.$myDropLoad = $(myDropLoad)
+    function fnTransition(dom,num){
+        dom.css({
+            '-webkit-transition':'all '+num+'ms',
+            'transition':'all '+num+'ms'
+        });
+    }
+    window.$myDropLoad.on('loading', function () {
+        if(isLoading) {
+            return
+        }
+        var me = myDropLoad
+        if(!me.insertDOM){
+            me.$element.prepend('<div class="'+me.opts.domUp.domClass+'"></div>');
+            me.insertDOM = true;
+        }
+        me._offsetY = 50
+        me.$domResult = me.$domUp = $('.'+me.opts.domUp.domClass);
+
+        me.$domUp.html('').append(me.opts.domUp.domLoad);
+        me.opts.loadUpFn(me)
+
+        fnTransition(me.$domUp,300);
+        $('body,html').animate({scrollTop: 0}, 300, function() {
+            me.$domUp.css({'height': me._offsetY});
+        })
+    })
 
     //used in mobile client
     window.getBaseRequestParams = function () {
