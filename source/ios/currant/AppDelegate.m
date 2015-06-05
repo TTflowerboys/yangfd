@@ -342,8 +342,14 @@
 
         if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
             CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
-            if (!webViewController.webView.request) {// web page not load, so load it
-                [webViewController loadURL:webViewController.url];
+
+            if (_lastSelectedTabIndex == tabBarController.selectedIndex) {
+                [webViewController.webView reload];
+            }
+            else {
+                if (!webViewController.webView.request) {// web page not load, so load it
+                    [webViewController loadURL:webViewController.url];
+                }
             }
         }
     }
