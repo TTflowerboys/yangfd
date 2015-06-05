@@ -23,6 +23,7 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - AMPopTip (0.9.1)
   - apptentive-ios (1.7.3):
     - apptentive-ios/arc-files (= 1.7.3)
   - apptentive-ios/arc-files (1.7.3)
@@ -47,7 +48,8 @@ PODS:
   - GoogleAnalytics-iOS-SDK (3.12):
     - GoogleAnalytics-iOS-SDK/Core (= 3.12)
   - GoogleAnalytics-iOS-SDK/Core (3.12)
-  - INTULocationManager (3.0.1)
+  - INTULocationManager (3.0.3)
+  - JDFTooltips (1.0)
   - JRSwizzle (1.0)
   - KVOController (1.0.3)
   - Mantle (1.5.4):
@@ -88,6 +90,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworkActivityLogger (~> 2.0.4)
+  - AMPopTip (~> 0.9.1)
   - apptentive-ios (~> 1.7.3)
   - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`)
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
@@ -96,6 +99,7 @@ DEPENDENCIES:
   - FXForms (~> 1.2.12)
   - GoogleAnalytics-iOS-SDK (~> 3.11)
   - INTULocationManager (~> 3.0.1)
+  - JDFTooltips
   - JRSwizzle (~> 1.0)
   - KVOController
   - Masonry (~> 0.6.1)
@@ -130,6 +134,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworkActivityLogger: 121486778117d53b3ab1c61d264b88081d0c3eee
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  AMPopTip: 7c63a56230a804ad2c98a6d8b83410815c542eaa
   apptentive-ios: be0b8dbc17b443eb624b3a015017f521b096f003
   BBTRestClient: 25965557c7608407aaaa0b30d1ea07735e971488
   BBTUtility: 034a9709d4b90c986d133a06f0123e4c328f23f2
@@ -139,7 +144,8 @@ SPEC CHECKSUMS:
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   FXForms: b6a78bac9f6b597ce704e34ac7c1ce9ff628b1d5
   GoogleAnalytics-iOS-SDK: 0a3327a993b8ed2b8fe1c6c4a8dcf5b76d2237a8
-  INTULocationManager: c27483113e1bbc5952ead6417f9b39824a240ebb
+  INTULocationManager: e79327803a163f5fec28eb042bb124ed0c6e4876
+  JDFTooltips: 439e3f1010b5e689e8438f66fce8448726e59897
   JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
