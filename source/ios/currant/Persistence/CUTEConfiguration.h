@@ -28,6 +28,8 @@
 
 + (NSString *)weixinAPPId;
 
++ (NSString *)sinaAppKey;
+
 + (NSString *)gaTrackingId;
 
 + (NSString *) appVersion;

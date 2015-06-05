@@ -53,7 +53,9 @@
 #pragma mark - Share Method
 
 - (void)setUpShareSDK {
-    [UMSocialData setAppKey:@"557173da67e58e9316003733"];
+    //TODO update with our Umeng appKey
+//    [UMSocialData setAppKey:@"557173da67e58e9316003733"];
+    [UMSocialData setAppKey:@"507fcab25270157b37000010"];
 //    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://yangfd.com/sina2/callback"];
     [WXApi registerApp:@"wxa8e7919a58064daa"];
 }
@@ -219,8 +221,18 @@
                             sinaImage = [(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE * 3 transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
                         }
 
-                        [[UMSocialControllerService defaultControllerService] setShareText:[self truncateString:CONCAT(NilNullToEmpty(url), @" ", NilNullToEmpty(title), @" ", NilNullToEmpty(description)) length:140] shareImage:sinaImage socialUIDelegate:self];
-                        [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(controller,[UMSocialControllerService defaultControllerService],YES);
+                        [[[CUTEAPIManager sharedInstance] GET:@"http://api.t.sina.com.cn/short_url/shorten.json" parameters:@{@"url_long": url, @"source": [CUTEConfiguration sinaAppKey]} resultClass:nil resultKeyPath:@""] continueWithBlock:^id(BFTask *task) {
+                            NSString *shortUrl = url;
+                            NSArray *urlArray = task.result;
+                            if (!IsArrayNilOrEmpty(urlArray) && urlArray[0] && urlArray[0][@"url_short"]) {
+                                shortUrl = urlArray[0][@"url_short"];
+                            }
+
+                            [[UMSocialControllerService defaultControllerService] setShareText:[self truncateString:CONCAT(NilNullToEmpty(shortUrl), @" ", NilNullToEmpty(title), @" ", NilNullToEmpty(description)) length:140] shareImage:sinaImage socialUIDelegate:self];
+                            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(controller,[UMSocialControllerService defaultControllerService],YES);
+                            return nil;
+                        }];
+
                     }
                 });
             }];

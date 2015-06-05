@@ -51,6 +51,10 @@ static NSString *host = nil;
     return @"wxa8e7919a58064daa";
 }
 
++ (NSString *)sinaAppKey {
+    return @"3185958365";
+}
+
 + (NSString *)gaTrackingId {
     return @"UA-55542465-2";
 }
