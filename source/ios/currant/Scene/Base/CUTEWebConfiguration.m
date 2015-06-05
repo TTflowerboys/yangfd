@@ -71,11 +71,6 @@
             TrackEvent(GetScreenName(url), kEventActionPress, @"call-yangfd", nil);
         }];
     }
-    else if ([self isURL:url matchPath:@"\\/property-list"]) {
-        return [BBTWebBarButtonItem itemWithBarButtonSystemItem:UIBarButtonSystemItemRefresh actionBlock:^(UIWebView *webView) {
-            [webView reload];
-        }];
-    }
     else if ([self isURL:url matchPath:@"\\/property\\/[0-9a-fA-F]{24}"]) {
         return [self getPhoneBarButtonItemWithCompletion:^{
             TrackEvent(GetScreenName(url), kEventActionPress, @"call-yangfd", nil);
@@ -120,11 +115,6 @@
                     return nil;
                 }];
             }
-        }];
-    }
-    else if ([self isURL:url matchPath:@"\\/property-to-rent-list"]) {
-        return [BBTWebBarButtonItem itemWithBarButtonSystemItem:UIBarButtonSystemItemRefresh actionBlock:^(UIWebView *webView) {
-            [webView reload];
         }];
     }
 
