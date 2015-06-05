@@ -20,6 +20,7 @@
 #import "CUTETracker.h"
 #import <UMSocial.h>
 #import <UMSocialWechatHandler.h>
+#import <UMSocialSinaHandler.h>
 #import "AppDelegate.h"
 #import "UIActionSheet+Blocks.h"
 
@@ -194,6 +195,9 @@
             NSString *url = [[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString];
 
             [UIActionSheet showInView:controller.view withTitle:STR(@"分享") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:@[STR(@"微信好友"), STR(@"微信朋友圈"), STR(@"新浪微博")] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+
+                [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
+                
                 if (buttonIndex == 0) {
 
                     UIImage *image = [(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
@@ -215,6 +219,7 @@
                     [[UMSocialControllerService defaultControllerService] setShareText:[self truncateString:CONCAT(NilNullToEmpty(url), @" ", NilNullToEmpty(title), @" ", NilNullToEmpty(description)) length:140] shareImage:sinaImage socialUIDelegate:self];
                     [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(controller,[UMSocialControllerService defaultControllerService],YES);
                 }
+
             }];
         }
         return nil;
