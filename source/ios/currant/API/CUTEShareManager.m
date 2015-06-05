@@ -54,6 +54,7 @@
 
 - (void)setUpShareSDK {
     [UMSocialData setAppKey:@"557173da67e58e9316003733"];
+//    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://yangfd.com/sina2/callback"];
     [WXApi registerApp:@"wxa8e7919a58064daa"];
 }
 
@@ -197,29 +198,31 @@
             [UIActionSheet showInView:controller.view withTitle:STR(@"分享") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:@[STR(@"微信好友"), STR(@"微信朋友圈"), STR(@"新浪微博")] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
 
                 [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
-                
-                if (buttonIndex == 0) {
 
-                    UIImage *image = [(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
-                    BaseReq *req = [self makeWechatRequstWithScene:WXSceneSession title:title description:description thumbData:UIImagePNGRepresentation(image) url:url];
-                    [self shareToWechatWithReq:req];
-                }
 
-                else if (buttonIndex == 1) {
-                    UIImage *image = [(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
-                    BaseReq *req = [self makeWechatRequstWithScene: WXSceneTimeline title:title description:description thumbData:UIImagePNGRepresentation(image) url:url];
-                    [self shareToWechatWithReq:req];
-                }
-                else if (buttonIndex == 2) {
-                    UIImage *sinaImage = nil;
-                    if ([imageData isKindOfClass:[UIImage class]]) {
-                        sinaImage = [(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE * 3 transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    if (buttonIndex == 0) {
+
+                        UIImage *image = [(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
+                        BaseReq *req = [self makeWechatRequstWithScene:WXSceneSession title:title description:description thumbData:UIImagePNGRepresentation(image) url:url];
+                        [self shareToWechatWithReq:req];
                     }
 
-                    [[UMSocialControllerService defaultControllerService] setShareText:[self truncateString:CONCAT(NilNullToEmpty(url), @" ", NilNullToEmpty(title), @" ", NilNullToEmpty(description)) length:140] shareImage:sinaImage socialUIDelegate:self];
-                    [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(controller,[UMSocialControllerService defaultControllerService],YES);
-                }
+                    else if (buttonIndex == 1) {
+                        UIImage *image = [(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
+                        BaseReq *req = [self makeWechatRequstWithScene: WXSceneTimeline title:title description:description thumbData:UIImagePNGRepresentation(image) url:url];
+                        [self shareToWechatWithReq:req];
+                    }
+                    else if (buttonIndex == 2) {
+                        UIImage *sinaImage = nil;
+                        if ([imageData isKindOfClass:[UIImage class]]) {
+                            sinaImage = [(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE * 3 transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
+                        }
 
+                        [[UMSocialControllerService defaultControllerService] setShareText:[self truncateString:CONCAT(NilNullToEmpty(url), @" ", NilNullToEmpty(title), @" ", NilNullToEmpty(description)) length:140] shareImage:sinaImage socialUIDelegate:self];
+                        [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(controller,[UMSocialControllerService defaultControllerService],YES);
+                    }
+                });
             }];
         }
         return nil;
@@ -241,6 +244,12 @@
 
 - (BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [WXApi handleOpenURL:url delegate:self];
+}
+
+#pragma mark - UMSocial Delegate
+
+-(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response {
+
 }
 
 #pragma mark -Base Methods
