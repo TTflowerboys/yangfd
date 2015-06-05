@@ -81,7 +81,8 @@
             spaceBetween: 10,
             centeredSlides: true,
             touchRatio: 0.3,
-            slideToClickedSlide: true,
+            //slideToClickedSlide: true,
+            preventClicksPropagation: true,
             //nested: true,
             //slidesPerGroup: 1,
             //resistanceRatio: 0,
@@ -94,6 +95,10 @@
         $('.photoThumbs').siblings('.arrowButton').on('click', function(){
             var action = $(this).data('action')
             photoThumbsSwiper['slide' + action]()
+        }).end().delegate('.swiper-slide-prev', 'click', function () {
+            photoThumbsSwiper.slidePrev()
+        }).delegate('.swiper-slide-next', 'click', function () {
+            photoThumbsSwiper.slideNext()
         })
         photoSwiper.params.control = photoThumbsSwiper;
         photoThumbsSwiper.params.control = photoSwiper;
