@@ -89,6 +89,7 @@
 }
 
 - (NSDictionary *)toParams {
+    NSMutableArray *unsetFields = [NSMutableArray array];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic addEntriesFromDictionary:@{
                                     @"bill_covered":@(self.billCovered),
@@ -114,11 +115,20 @@
     if (self.rentAvailableTime) {
         [dic setValue:[NSNumber numberWithLong:self.rentAvailableTime] forKey:@"rent_available_time"];
     }
+    else {
+        [unsetFields addObject:@"rent_available_time"];
+    }
     if (self.rentDeadlineTime) {
         [dic setValue:[NSNumber numberWithLong:self.rentDeadlineTime] forKey:@"rent_deadline_time"];
     }
+    else {
+        [unsetFields addObject:@"rent_deadline_time"];
+    }
     if (self.minimumRentPeriod) {
         [dic setValue:[self minimumRentPeriod].toParams forKey:@"minimum_rent_period"];
+    }
+    else {
+        [unsetFields addObject:@"minimum_rent_period"];
     }
 
     NSString *title = self.titleForDisplay;
@@ -128,6 +138,10 @@
 
     if (self.ticketDescription) {
         [dic setValue:self.ticketDescription forKey:@"description"];
+    }
+
+    if (!IsArrayNilOrEmpty(unsetFields)) {
+        [dic setValue:[unsetFields componentsJoinedByString:@","] forKey:@"unset_fields"];
     }
 
     return dic;
