@@ -14,6 +14,11 @@
         <hr>
         <div class="form_row">
             <img src="/static/images/signin/sms.png" alt=""/>
+            <input name="email" placeholder={{_('邮箱')}} data-validator="required, trim email">
+        </div>
+        <hr>
+        <div class="form_row">
+            <img src="/static/images/signin/sms.png" alt=""/>
             <input name="invitation_code" placeholder={{_('邀请码（选填）')}} size=20 data-validator="trim">
         </div>
     </div>

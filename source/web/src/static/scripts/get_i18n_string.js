@@ -6,14 +6,14 @@ window.getErrorMessage = function (domName, validator) {
         'phone_number': i18n('电话格式不正确'),
         'email_required': i18n('邮箱不能为空'),
         'email_email': i18n('邮箱格式不合法'),
-        'code_required': i18n('验证码不能为空'),
+        'solution_required': i18n('验证码不能为空'),
         'password_required': i18n('密码不能为空'),
         'old_phone_required': i18n('原手机号不能为空'),
         'old_phone_number': i18n('原手机号格式不正确'),
         'old_password_required': i18n('当前密码不能为空'),
         'confirm_password_required': i18n('确认密码不能为空'),
         'confirm_password_sameAs': i18n('新密码和确认密码输入不一致'),
-        'terms_check': i18n('注册请先同意会员服务须知')
+        'terms_check': i18n('注册请先同意会员服务须知'),
     }
     return inputMessageDic[domName + '_' + validator] || ''
 }
