@@ -98,7 +98,7 @@ $(function () {
                     if(array && array.length > 0){
                         var realCount = 0
                         _.each(array, function (fav) {
-                            if(fav.property !== null) {
+                            if(fav.ticket !== null) {
                                 var houseResult = _.template($('#fav_rentCard_template').html())({fav: fav})
                                 $list.append(houseResult)
 
