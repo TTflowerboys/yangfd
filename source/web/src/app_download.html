@@ -47,7 +47,14 @@
         <div class="emailWrap clearfix">
             <input name="email" type="email" placeholder="{{_('输入您的邮箱地址')}}"/>
             <button id="submitBtn">参与内测</button>
-            <p class="info" style="display: none;">感谢您的关注，我们将会尽快处理您的申请</p>
+        </div>
+        <div class="info clearfix" style="display: none;">
+            <div class="infoLeft">
+                <h3>{{_('感谢您的订阅！')}}</h3>
+                <p class="hiddenOnMobile">{{_('您也可以扫描右边的二维码获取应用更新')}}</p>
+                <p class="hiddenOnPCWeb">{{_('您也可以扫描下方的二维码获取应用更新')}}</p>
+            </div>
+            <div class="qrcode"></div>
         </div>
     </div>
 

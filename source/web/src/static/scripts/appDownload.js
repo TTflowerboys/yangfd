@@ -20,7 +20,7 @@
         $.betterPost('/api/1/subscription/add', {
             'email': email
         }).done(function (val) {
-            $('.emailWrap').find('input,button').hide().siblings('.info').show()
+            $('.emailWrap').hide().siblings('.info').show()
         }).fail(function (ret) {
             window.alert(window.getErrorMessageFromErrorCode(ret))
         }).always(function () {
