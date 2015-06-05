@@ -18,6 +18,6 @@
 
 - (BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 
-- (void)shareToWechatWithTicket:(CUTETicket *)ticket;
+- (void)shareWithTicket:(CUTETicket *)ticket inController:(UIViewController *)controller;
 
 @end

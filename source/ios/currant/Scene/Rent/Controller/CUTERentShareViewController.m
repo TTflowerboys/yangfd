@@ -37,7 +37,7 @@
 }
 
 - (void)shareToWechat {
-    [[CUTEShareManager sharedInstance] shareToWechatWithTicket:self.ticket];
+    [[CUTEShareManager sharedInstance] shareWithTicket:self.ticket inController:self];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath  {
