@@ -90,7 +90,8 @@
                     else {
                         [SVProgressHUD dismiss];
                         CUTETicket *ticket = task.result;
-                        [[CUTEShareManager sharedInstance] shareToWechatWithTicket:ticket];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_WECHAT_SHARE object:self userInfo:@{@"ticket": ticket}];
+
                     }
                     return nil;
                 }];
@@ -110,7 +111,8 @@
                     else {
                         [SVProgressHUD dismiss];
                         CUTETicket *ticket = task.result;
-                        [[CUTEShareManager sharedInstance] shareToWechatWithTicket:ticket];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_WECHAT_SHARE object:self userInfo:@{@"ticket": ticket}];
+                        
                     }
                     return nil;
                 }];

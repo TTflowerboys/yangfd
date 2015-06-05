@@ -84,6 +84,7 @@ PODS:
   - TTTAttributedLabel (1.13.3)
   - UIActionSheet+Blocks (0.8.1)
   - UIAlertView+Blocks (0.8.1)
+  - UMengSocial (4.2.3)
   - WebViewJavascriptBridge (4.1.4)
   - YTKKeyValueStore (0.1.2):
     - FMDB (~> 2.0)
@@ -114,6 +115,7 @@ DEPENDENCIES:
   - TTTAttributedLabel (~> 1.13.3)
   - UIActionSheet+Blocks (= 0.8.1)
   - UIAlertView+Blocks (= 0.8.1)
+  - UMengSocial (~> 4.2.3)
   - WebViewJavascriptBridge (~> 4.1.4)
   - YTKKeyValueStore
 
@@ -166,6 +168,7 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 6f3174aef8e738f44dff97c2eb7d8184f6ab6277
   UIActionSheet+Blocks: 7fdab45fc8f15ac2dc1cd65af1470746600b5f46
   UIAlertView+Blocks: 45c3d3b7194906702d3e9a14c7ece5581505646d
+  UMengSocial: 85882abe5b20aa38ad558ece71360e16b5d50909
   WebViewJavascriptBridge: f10ac16f2cd3adf2b941bd79477c55a8f6e01044
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
