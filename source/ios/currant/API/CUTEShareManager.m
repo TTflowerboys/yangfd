@@ -21,6 +21,8 @@
 #import <ShareSDK/ShareSDK.h>
 
 
+#define THNUMBNAIL_SIZE 100
+
 @interface CUTEShareManager () {
 
 }
@@ -71,15 +73,30 @@
     
 }
 
-- (void)shareToWechatWithTitle:(NSString *)title description:(NSString *)description thumbData:(NSData *)imageData  url:(NSString *)url {
+- (void)shareToWechatWithTitle:(NSString *)title description:(NSString *)description thumbData:(id)imageData  url:(NSString *)url {
 
-    id<ISSContent> publishContent = [ShareSDK content:!IsNilNullOrEmpty(description)? description: title
+    //        [[CUTEShareManager sharedInstance] shareToWechatWithTitle:[self truncateString:ticket.titleForDisplay length:512] description:[self truncateString:ticket.ticketDescription length:1024] thumbData:result url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
+    id<ISSCAttachment> thumbnail = nil;
+    id<ISSCAttachment> sinaImage = nil;
+    if ([imageData isKindOfClass:[UIImage class]]) {
+        thumbnail = [ShareSDK pngImageWithImage:[(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault]];
+        sinaImage = [ShareSDK pngImageWithImage:[(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE * 3 transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault]];
+    }
+    else if ([imageData isKindOfClass:[NSString class]]) {
+        thumbnail = [ShareSDK imageWithUrl:imageData];
+        sinaImage = thumbnail;
+    }
+
+
+    id<ISSContent> publishContent = [ShareSDK content:[self truncateString:!IsNilNullOrEmpty(description)? description: title length:140]
                                        defaultContent:nil
-                                                image:[ShareSDK imageWithData:imageData fileName:nil mimeType:nil]
-                                                title:title
+                                                image:thumbnail
+                                                title:[self truncateString:title length:30]
                                                   url:url
-                                          description:description
+                                          description:[self truncateString:description length:140]
                                             mediaType:SSPublishContentMediaTypeNews];
+
+    [publishContent addSinaWeiboUnitWithContent:[self truncateString:CONCAT(NilNullToEmpty(url), @" ", NilNullToEmpty(title), @" ", NilNullToEmpty(description)) length:140] image:sinaImage];
 
     [ShareSDK showShareActionSheet:[ShareSDK container]
                          shareList:nil
@@ -110,7 +127,6 @@
 
 }
 
-#define THNUMBNAIL_SIZE CGSizeMake(100, 100)
 
 - (void)shareToWechatWithTicket:(CUTETicket *)ticket {
     Sequencer *sequencer = [Sequencer new];
@@ -135,13 +151,13 @@
                     }
                     else {
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
-                            UIImage *image = [UIImage imageWithCGImage:[task.result thumbnail]];
+                            ALAsset *asset = task.result;
+                            UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage? : asset.thumbnail];
                             if (!image) {
                                 image = [UIImage appIcon];
                             }
-                            image = [image resizedImage:THNUMBNAIL_SIZE interpolationQuality:kCGInterpolationDefault];
                             dispatch_async(dispatch_get_main_queue(), ^(void) {
-                                completion(UIImagePNGRepresentation(image));
+                                completion(image);
                                 [SVProgressHUD dismiss];
                             });
                         });
@@ -154,31 +170,33 @@
     }
     else if (imageURL && ![NSURL URLWithString:imageURL].isAssetURL) {
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [SVProgressHUD showWithStatus:STR(@"获取房产中...")];
+//            [SVProgressHUD showWithStatus:STR(@"获取房产中...")];
+//
+//            [[[CUTEAPIManager sharedInstance] downloadImage:imageURL] continueWithBlock:^id(BFTask *task) {
+//                if (task.error) {
+//                    [SVProgressHUD showErrorWithError:task.error];
+//                }
+//                else if (task.exception) {
+//                    [SVProgressHUD showErrorWithException:task.exception];
+//                }
+//                else if (task.isCancelled) {
+//                    [SVProgressHUD showErrorWithCancellation];
+//                }
+//                else {
+//                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
+//                        UIImage *image = task.result;
+//                        image = [image resizedImage:THNUMBNAIL_SIZE interpolationQuality:kCGInterpolationDefault];
+//                        dispatch_async(dispatch_get_main_queue(), ^(void) {
+//                            completion(UIImagePNGRepresentation(image));
+//                            [SVProgressHUD dismiss];
+//                        });
+//                    });
+//                }
+//
+//                return task;
+//            }];
 
-            [[[CUTEAPIManager sharedInstance] downloadImage:imageURL] continueWithBlock:^id(BFTask *task) {
-                if (task.error) {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-                else if (task.exception) {
-                    [SVProgressHUD showErrorWithException:task.exception];
-                }
-                else if (task.isCancelled) {
-                    [SVProgressHUD showErrorWithCancellation];
-                }
-                else {
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
-                        UIImage *image = task.result;
-                        image = [image resizedImage:THNUMBNAIL_SIZE interpolationQuality:kCGInterpolationDefault];
-                        dispatch_async(dispatch_get_main_queue(), ^(void) {
-                            completion(UIImagePNGRepresentation(image));
-                            [SVProgressHUD dismiss];
-                        });
-                    });
-                }
-
-                return task;
-            }];
+            completion(imageURL);
         }];
     }
     else {
@@ -186,9 +204,8 @@
             [SVProgressHUD show];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
                 UIImage *image = [UIImage appIcon];
-                image = [image resizedImage:THNUMBNAIL_SIZE interpolationQuality:kCGInterpolationDefault];
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    completion(UIImagePNGRepresentation(image));
+                    completion(image);
                     [SVProgressHUD dismiss];
                 });
             });
@@ -196,7 +213,7 @@
     }
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[CUTEShareManager sharedInstance] shareToWechatWithTitle:[self truncateString:ticket.titleForDisplay length:512] description:[self truncateString:ticket.ticketDescription length:1024] thumbData:result url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
+        [[CUTEShareManager sharedInstance] shareToWechatWithTitle:ticket.titleForDisplay description:ticket.ticketDescription thumbData:result url:[[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString]];
     }];
 
     [sequencer run];
