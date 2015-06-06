@@ -35,6 +35,7 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import <ATConnect.h>
+#import <JDFTooltips.h>
 #warning DEBUG_CODE
 #ifdef DEBUG
 #import <AFNetworkActivityLogger.h>
@@ -46,6 +47,7 @@
 #import "Sequencer.h"
 #import "CUTERentContactViewController.h"
 #import "CUTEUserViewController.h"
+#import "CUTETooltipVIew.h"
 
 
 @interface AppDelegate () <UITabBarControllerDelegate>
@@ -220,6 +222,8 @@
         [self checkNeedShowBetaUserRegister];
     }
 
+//    CUTETooltipVIew *toolTips = [[CUTETooltipVIew alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:100];
+//    [toolTips show];
 
 //#warning DEBUG_CODE
 #ifdef DEBUG
