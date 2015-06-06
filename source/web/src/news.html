@@ -205,7 +205,7 @@
                 }
 
                 if (news.summary) {
-                    wechatShareData.desc = news.summary
+                    wechatShareData.desc = news.summary.replace(/(\r\n|\n|\r)/gm,'')
                 }
                 window.wx.onMenuShareTimeline(wechatShareData);
                 window.wx.onMenuShareAppMessage(wechatShareData);

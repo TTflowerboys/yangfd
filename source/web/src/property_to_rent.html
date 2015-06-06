@@ -716,7 +716,7 @@
 
                         var description = null
                         % if rent.get('description'):
-                            wechatShareData.desc = '{{rent.get('description','')}}'
+                            wechatShareData.desc = '{{rent.get('description','').rstrip()}}'
                         %end
 
                         window.wx.onMenuShareTimeline(wechatShareData);
