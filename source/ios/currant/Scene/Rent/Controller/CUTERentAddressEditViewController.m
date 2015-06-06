@@ -129,6 +129,8 @@
                                 CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
                                 form.street = detailPlacemark.street;
                                 [self.tableView reloadData];
+                                self.ticket.property.latitude = detailPlacemark.location.coordinate.latitude;
+                                self.ticket.property.longitude = detailPlacemark.location.coordinate.longitude;
                                 [self updateTicket];
                                 [SVProgressHUD dismiss];
                             }
