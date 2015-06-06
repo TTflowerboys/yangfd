@@ -52,9 +52,9 @@
                 imgUrl:propertyImage,
             }
             window.wx.onMenuShareTimeline(wechatShareData);
-            /*if (property.decription) {
-                wechatShareData.desc = property.description.replace(/(\r\n|\n|\r)/gm,'')
-            }*/
+            if (property.decription) {
+                wechatShareData.desc = property.description.replace(/\n/g,'\\n')
+            }
             window.wx.onMenuShareAppMessage(wechatShareData);
             window.wx.onMenuShareQQ(wechatShareData);
         });

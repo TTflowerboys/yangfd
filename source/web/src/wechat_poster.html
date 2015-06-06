@@ -485,11 +485,6 @@
             {{json_dumps(weixin)}}
         </textarea>
         <!--微信签名 end-->
-        %if rent.get('description') :
-        <textarea id="descriptionData" style="display: none;">
-            {{json_dumps(rent.get('description'))}}
-        </textarea>
-        %end
 
         <!--build:js /static/scripts/wechat_poster.html.js-->
         <script type="text/javascript" src="/static/scripts/track.js"></script>
@@ -550,9 +545,11 @@
                             wechatShareData.imgUrl = '{{rent['property'].get('reality_images')[0]}}'
                         %end
 
-                        if(document.getElementById('descriptionData')) {
-                            wechatShareData.desc = JSON.parse(document.getElementById('descriptionData').firstChild.nodeValue)
-                        }
+
+                        %if rent.get('description'):
+                            wechatShareData.desc = '{{rent.get('description').replace('\n','\\n').replace('\r\n','\\r\\n')}}'
+
+                        %end
 
 
                         window.wx.onMenuShareTimeline(wechatShareData);

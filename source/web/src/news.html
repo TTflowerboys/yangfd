@@ -204,9 +204,9 @@
                     }
                 }
 
-                /*if (news.summary) {
-                    wechatShareData.desc = news.summary.replace(/(\r\n|\n|\r)/gm,'')
-                }*/
+                if (news.summary) {
+                    wechatShareData.desc = news.summary.replace(/\n/g,'\\n')
+                }
                 window.wx.onMenuShareTimeline(wechatShareData);
                 window.wx.onMenuShareAppMessage(wechatShareData);
                 window.wx.onMenuShareQQ(wechatShareData);
