@@ -273,9 +273,9 @@
                             [self.tableView reloadData];
                             self.ticket.property.latitude = placemark.location.coordinate.latitude;
                             self.ticket.property.longitude = placemark.location.coordinate.longitude;
-                            [self updateTicket];
                             self.lastPostcode = self.ticket.property.zipcode;
                             [SVProgressHUD dismiss];
+                            [self createTicket];
                         }
                         else {
                             [SVProgressHUD showErrorWithStatus:STR(@"重新定位失败")];
