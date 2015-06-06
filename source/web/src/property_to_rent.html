@@ -714,7 +714,7 @@
                             wechatShareData.imgUrl = '{{rent['property'].get('reality_images')[0]}}'
                         %end
                         %if rent.get('description'):
-                            wechatShareData.desc = '{{rent.get('description').replace('\n','\\n').replace('\r\n','\\r\\n')}}'
+                            wechatShareData.desc = '{{rent.get('description').replace('\n','\\n').replace('\r\n','\\r\\n')}}'.replace(/\n/g,'\\n')
                         %end
 
 
