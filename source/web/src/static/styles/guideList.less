@@ -1,5 +1,73 @@
 @import "project/_imports";
 
+* {
+    box-sizing: border-box;
+}
+
+body{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.content {
+    overflow:hidden;
+    .contentTitle {
+        margin-top:0;
+        margin-bottom:0;
+        font-size:24px;
+        color:#333;
+        line-height:1;
+        @media @phone {
+            display:none;
+        }
+    }
+
+    .contentList {
+        margin-top:40px;
+        @media @phone {
+            margin-top:0;
+        }
+
+        .newsCard {
+            margin-bottom:60px;
+
+            @media @phone {
+                margin-bottom:10px;
+            }
+        }
+    }
+
+
+    .loadIndicator {
+        margin: 60px auto 20px auto;
+        display: block;
+    }
+
+    .loadMore {
+        margin: 40px auto 100px auto;
+        width: 132px;
+        display:block;
+
+        @media @phone {
+            margin-top:20px;
+            margin-bottom:40px;
+            width:auto;
+        }
+
+    }
+
+}
+
+.siteHeader_wrapper {
+    @media @phone {
+        position:relative;
+    }
+}
+
 .navigatorWrapper{
     border-bottom: 1px solid @border-color;
     padding: 40px;
