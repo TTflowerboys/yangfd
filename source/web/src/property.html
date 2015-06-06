@@ -1412,9 +1412,9 @@
                             ga('send', 'event', 'property_detail', 'share', 'share-to-wechat-cancel')
                         }
                     }
-                    if (property.description) {
+                    /*if (property.description) {
                         wechatShareData.desc = property.description.replace(/(\r\n|\n|\r)/gm,'')
-                    }
+                    }*/
 
                     window.wx.onMenuShareTimeline(wechatShareData);
                     window.wx.onMenuShareAppMessage(wechatShareData);

@@ -714,10 +714,7 @@
                             wechatShareData.imgUrl = '{{rent['property'].get('reality_images')[0]}}'
                         %end
 
-                        var description = null
-                        % if rent.get('description'):
-                            wechatShareData.desc = '{{rent.get('description','').rstrip()}}'
-                        %end
+
 
                         window.wx.onMenuShareTimeline(wechatShareData);
                         window.wx.onMenuShareAppMessage(wechatShareData);
