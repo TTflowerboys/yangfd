@@ -389,7 +389,7 @@
                 % else:
                 <div class="swiper-slide swiper-slide-bg commen hideInWechat" style="">
                     <div class="page pagePhoto">
-                        <p>{{_('暂无图片，上传您的房屋实景图片能增加30%的阅览')}}</p>
+                        <p>{{_('暂无图片，上传您的房屋实景图片能极大增加租客联系您的几率')}}</p>
                     </div>
                     <div class="bottomBox animate">
                         <div class="scrollUp">{{_('继续')}}</div>
@@ -402,17 +402,8 @@
                         <h2 class="animate">{{_('街区报告：')}}<span>{{report.get('name','')}}</span></h2>
                         <p class="description animate">
                             {{report.get('description','')}}
-                            <!--todo-->
-                            <!--伦敦最具潜力区域之一<br>-->
-                            <!--全球一流科技，金融机构环绕<br>-->
-                            <!--富有艺术活力的肖尔迪奇<br>-->
-                            <!--红砖巷和斯皮塔佛德<br>-->
-                            <!--以及包含各样娱乐休闲设施的<br>-->
-                            <!--圣凯瑟琳岛<br>-->
-                            <!--使得阿尔德盖特成为一个<br>-->
-                            <!--独一无二的地区<br>-->
                         </p>
-                        <a class="btn animate viewMoreBtn" src="/region-report/{{report.get('id','')}}">{{_('查看更多')}}</a>
+                        <a class="btn siteLink animate" href="/region-report/{{report.get('id','')}}">{{_('查看更多')}}</a>
                         <!--<p class="tag animate">-->
                             <!-- todo -->
                             <!--华人多, 学生多, 美食, 中国城-->

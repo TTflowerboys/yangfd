@@ -25,6 +25,21 @@
 
     }
 }
+
+.limitedLines(@lines:5; @line-height: 20px;@bg: white) {
+    height: @line-height * @lines; line-height: @line-height;
+    overflow: hidden; position: relative; background: @bg;
+    &:after {
+        content: ''; display: block; position: absolute;
+        width: 30%;
+        height: @line-height;
+        bottom: 0;
+        right: 0;
+        background: @bg;
+        background: linear-gradient(to right, fade(@bg, 0%) 0%, @bg 80%);
+    }
+}
+
 html {
     height: 100%;
 }
@@ -576,6 +591,7 @@ p{
     cursor: pointer;
     font-size:2.6vh;
     color: #fff;
+    text-decoration:none;
 }
 .page a:hover{
     border-color: #aec227;
@@ -718,7 +734,6 @@ p{
         //top: 8.5vh;
         max-width: 90vw;
         //width: 36vh;
-        height: 5.4vh;
         margin: 8vh auto 4vh;
         display: inline-block;
         padding: 0 5vw;
@@ -728,6 +743,7 @@ p{
         line-height: 5.4vh;
         font-weight: lighter;
         overflow: hidden;
+        .limitedLines(2, 5.4vh, #afc327);
         span{
             font-weight: bold;
         }
@@ -742,6 +758,8 @@ p{
         padding: 0 5vw;
         max-height: 56vh;
         overflow: hidden;
+        .limitedLines(10, 1.6em, transparent);
+
         .animation(tada2 0.4s linear 0s 1);
         &.animation{
             .delay(0.2s);
