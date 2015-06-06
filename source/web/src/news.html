@@ -205,7 +205,7 @@
                 }
 
                 if (news.summary) {
-                    wechatShareData.desc = news.summary.replace(/\n/g,'\\n')
+                    wechatShareData.desc = news.summary.replace(/\n/g,' ')
                 }
                 window.wx.onMenuShareTimeline(wechatShareData);
                 window.wx.onMenuShareAppMessage(wechatShareData);

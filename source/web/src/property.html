@@ -1413,7 +1413,7 @@
                         }
                     }
                     if (property.description) {
-                        wechatShareData.desc = property.description.replace(/\n/g,'\\n')
+                        wechatShareData.desc = property.description.replace(/\n/g, ' ')
                     }
 
                     window.wx.onMenuShareTimeline(wechatShareData);

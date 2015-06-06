@@ -53,7 +53,7 @@
             }
             window.wx.onMenuShareTimeline(wechatShareData);
             if (property.decription) {
-                wechatShareData.desc = property.description.replace(/\n/g,'\\n')
+                wechatShareData.desc = property.description.replace(/\n/g,' ')
             }
             window.wx.onMenuShareAppMessage(wechatShareData);
             window.wx.onMenuShareQQ(wechatShareData);
