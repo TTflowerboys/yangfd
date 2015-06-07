@@ -497,15 +497,29 @@
         <!--endbuild-->
 
         <script>
+            if(!window.i18n){
+                window.i18n = function (name) {
+                    var input = document.getElementById('i18n-str-' + name)
+                    if (!input) { return name }
+                    return input.value
+                }
+            }
             function initMapSrc(config){
                 config.height = parseInt(config.width * $(window).height() / $(window).width())
                 var baseSrc = 'http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/{centerPoint}/{zoomLevel}?mapSize={width},{height}&mapLayer=TrafficFlow&format=jpeg&key={key}'
-                for(var k in config){
-                    baseSrc = baseSrc.replace('{' + k + '}', config[k])
+                if(config.centerPoint !== ',') {
+                    for(var k in config) {
+                        baseSrc = baseSrc.replace('{' + k + '}', config[k])
+                    }
+                    $('.mapImage').css({
+                        'background-image': 'url(' + baseSrc + ')'
+                    })
+                } else {
+                    $('.mapImage').css({
+                        'background': 'rgba(255,255,255,0.6)'
+                    }).find('.pushpin').addClass('noLocation').text(window.i18n('该房产暂无定位信息'))
+
                 }
-                $('.mapImage').css({
-                    'background-image': 'url(' + baseSrc + ')'
-                })
             }
             initMapSrc({
                 key: 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43',
