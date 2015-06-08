@@ -40,7 +40,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = STR(@"出租类型");
     if (!self.ticket) {
         CUTETicket *ticket = [CUTETicket new];
         CUTEProperty *property = [CUTEProperty new];
@@ -49,6 +48,10 @@
         ticket.price = [CUTECurrency currencyWithValue:100.0 unit:[CUTECurrency defaultCurrencyUnit]];//default price
         ticket.property = property;
         self.ticket = ticket;
+        self.navigationItem.title = STR(@"出租发布");
+    }
+    else {
+        self.navigationItem.title = STR(@"出租类型");
     }
 }
 

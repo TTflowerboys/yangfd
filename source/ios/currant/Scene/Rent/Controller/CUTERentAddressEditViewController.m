@@ -98,8 +98,8 @@
     NSString *postCodeIndex = [self.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (self.ticket.property.country && !IsNilNullOrEmpty(postCodeIndex)) {
         [SVProgressHUD showWithStatus:STR(@"搜索中...")];
-        NSString *components = [CUTEGeoManager buildComponentsWithDictionary:@{@"postal_code": postCodeIndex, @"country": self.ticket.property.country.code, @"locality": self.ticket.property.city.name}];
-        [[[CUTEGeoManager sharedInstance] geocodeWithAddress:nil components:components] continueWithBlock:^id(BFTask *task) {
+
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/postcode/search" parameters:@{@"postcode_index":postCodeIndex, @"country": self.ticket.property.country.code} resultClass:nil] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
@@ -110,10 +110,16 @@
                 [SVProgressHUD showErrorWithCancellation];
             }
             else {
-                if (task.result) {
-                    CUTEPlacemark *placemark = task.result;
+                NSArray *array = task.result;
+                NSDictionary *resultDic = nil;
+                if (!IsArrayNilOrEmpty(array)) {
+                    resultDic = array[0];
+                }
+                if (resultDic[@"latitude"] && resultDic[@"longitude"]) {
 
-                    [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:placemark.location] continueWithBlock:^id(BFTask *task) {
+                    CLLocation *location = [[CLLocation alloc] initWithLatitude:[resultDic[@"latitude"] doubleValue] longitude:[resultDic[@"longitude"] doubleValue]];
+
+                    [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
                         if (task.error) {
                             [SVProgressHUD showErrorWithError:task.error];
                         }
