@@ -226,8 +226,8 @@
         [self checkNeedShowBetaUserRegister];
     }
 
-//    CUTETooltipVIew *toolTips = [[CUTETooltipVIew alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:100];
-//    [toolTips show];
+    CUTETooltipVIew *toolTips = [[CUTETooltipVIew alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:100];
+    [toolTips show];
 
 //#warning DEBUG_CODE
 #ifdef DEBUG
