@@ -259,16 +259,17 @@
                                         <li class="list-group-item clearfix">
 
                                             <div class="col-sm-6 col-md-5 col-lg-4">
-                                                {%$root.i18n('租期')%}
+                                                {%$root.i18n('最短租期:')%}
                                                 <!-- todo -->
+                                                <span class="input-xlarge uneditable-input" ng-bind="item.minimum_rent_period | timePeriod"></span>
                                             </div>
                                             <div class="col-sm-6 col-md-5 col-lg-4">
                                                 {%$root.i18n('开始时间:')%}
-                                                <span class="input-xlarge uneditable-input" ng-bind="item.rent_available_time * 1000 | date : 'yyyy-MM-dd H:mm'"></span>
+                                                <span class="input-xlarge uneditable-input" ng-if="item.rent_available_time" ng-bind="item.rent_available_time * 1000 | date : 'yyyy-MM-dd H:mm'"></span>
                                             </div>
                                             <div class="col-sm-6 col-md-5 col-lg-4">
                                                 {%$root.i18n('结束时间:')%}
-                                                <!-- todo -->
+                                                <span class="input-xlarge uneditable-input" ng-if="item.rent_deadline_time" ng-bind="item.rent_deadline_time * 1000 | date : 'yyyy-MM-dd H:mm'"></span>
                                             </div>
                                         </li>
                                     </ul>
