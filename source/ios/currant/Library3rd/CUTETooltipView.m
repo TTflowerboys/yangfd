@@ -58,14 +58,14 @@
 
 @end
 
-@interface CUTETooltipVIew ()
+@interface CUTETooltipView ()
 
 @property (nonatomic, retain) UIImageView *closeIcon;
 
 @end
 
 
-@implementation CUTETooltipVIew
+@implementation CUTETooltipView
 
 - (void)commonInit {
     [super commonInit];

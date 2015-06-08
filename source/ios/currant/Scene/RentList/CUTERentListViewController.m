@@ -10,10 +10,27 @@
 #import "CUTECommonMacro.h"
 #import <BBTJSON.h>
 #import "CUTERentMapListViewController.h"
+#import "CUTEUserDefaultKey.h"
+#import "CUTETooltipView.h"
 #import "CUTENotificationKey.h"
 
 
 @implementation CUTERentListViewController
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_FAVORITE_RENT_TICKET_DISPLAYED]) {
+            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetBarButtonItem:self.navigationItem.leftBarButtonItem hostView:self.navigationController.view tooltipText:STR(@"查看收藏的出租房") arrowDirection:JDFTooltipViewArrowDirectionUp width:150];
+            [toolTips show];
+
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_FAVORITE_RENT_TICKET_DISPLAYED];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    });
+
+}
 
 
 - (void)onMapButtonPressed:(id)sender {

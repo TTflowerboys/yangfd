@@ -183,11 +183,11 @@
 		2C5ECC531AD525AC00163E9E /* CUTEAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */; };
 		2C5ECC541AD525AC00163E9E /* CUTEAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */; };
 		2C5ECC551AD525AC00163E9E /* CUTEAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */; };
-		2C63CAD41B230DEE0055687A /* CUTETooltipVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C63CAD31B230DEE0055687A /* CUTETooltipVIew.m */; };
-		2C63CAD51B230DEE0055687A /* CUTETooltipVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C63CAD31B230DEE0055687A /* CUTETooltipVIew.m */; };
-		2C63CAD61B230DEE0055687A /* CUTETooltipVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C63CAD31B230DEE0055687A /* CUTETooltipVIew.m */; };
-		2C63CAD71B230DEE0055687A /* CUTETooltipVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C63CAD31B230DEE0055687A /* CUTETooltipVIew.m */; };
-		2C63CAD81B230DEE0055687A /* CUTETooltipVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C63CAD31B230DEE0055687A /* CUTETooltipVIew.m */; };
+		2C63CAD41B230DEE0055687A /* CUTETooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C63CAD31B230DEE0055687A /* CUTETooltipView.m */; };
+		2C63CAD51B230DEE0055687A /* CUTETooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C63CAD31B230DEE0055687A /* CUTETooltipView.m */; };
+		2C63CAD61B230DEE0055687A /* CUTETooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C63CAD31B230DEE0055687A /* CUTETooltipView.m */; };
+		2C63CAD71B230DEE0055687A /* CUTETooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C63CAD31B230DEE0055687A /* CUTETooltipView.m */; };
+		2C63CAD81B230DEE0055687A /* CUTETooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C63CAD31B230DEE0055687A /* CUTETooltipView.m */; };
 		2C7520431ACA775C0008B42A /* CUTEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7520421ACA775C0008B42A /* CUTEViewController.m */; };
 		2C7520441ACA775C0008B42A /* CUTEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7520421ACA775C0008B42A /* CUTEViewController.m */; };
 		2C7520451ACA775C0008B42A /* CUTEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7520421ACA775C0008B42A /* CUTEViewController.m */; };
@@ -699,8 +699,8 @@
 		2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyListViewController.m; sourceTree = "<group>"; };
 		2C5ECC4F1AD525AC00163E9E /* CUTEAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEAPIManager.h; sourceTree = "<group>"; };
 		2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAPIManager.m; sourceTree = "<group>"; };
-		2C63CAD21B230DEE0055687A /* CUTETooltipVIew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETooltipVIew.h; sourceTree = "<group>"; };
-		2C63CAD31B230DEE0055687A /* CUTETooltipVIew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETooltipVIew.m; sourceTree = "<group>"; };
+		2C63CAD21B230DEE0055687A /* CUTETooltipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETooltipView.h; sourceTree = "<group>"; };
+		2C63CAD31B230DEE0055687A /* CUTETooltipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETooltipView.m; sourceTree = "<group>"; };
 		2C7520411ACA775C0008B42A /* CUTEViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEViewController.h; sourceTree = "<group>"; };
 		2C7520421ACA775C0008B42A /* CUTEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEViewController.m; sourceTree = "<group>"; };
 		2C79C2B61ACA5725000E7F67 /* NSURL+CUTE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+CUTE.h"; sourceTree = "<group>"; };
@@ -981,8 +981,8 @@
 				2C9AFF7D1AF2355500E5F0BC /* BBTWebBarButtonItem.m */,
 				2CA81F751B0C73EB006E993C /* UITabBarController+HideTabBar.h */,
 				2CA81F761B0C73EB006E993C /* UITabBarController+HideTabBar.m */,
-				2C63CAD21B230DEE0055687A /* CUTETooltipVIew.h */,
-				2C63CAD31B230DEE0055687A /* CUTETooltipVIew.m */,
+				2C63CAD21B230DEE0055687A /* CUTETooltipView.h */,
+				2C63CAD31B230DEE0055687A /* CUTETooltipView.m */,
 			);
 			path = Library3rd;
 			sourceTree = "<group>";
@@ -1882,7 +1882,7 @@
 				2C3099C61B09D26B004BA7F9 /* CUTERentPasswordViewController.m in Sources */,
 				2C0AE1251B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */,
 				2CF8A5E81AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
-				2C63CAD61B230DEE0055687A /* CUTETooltipVIew.m in Sources */,
+				2C63CAD61B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD41AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4E1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85221AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
@@ -2000,7 +2000,7 @@
 				2C3099C71B09D26B004BA7F9 /* CUTERentPasswordViewController.m in Sources */,
 				2C0AE1261B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */,
 				2CF8A5E91AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
-				2C63CAD71B230DEE0055687A /* CUTETooltipVIew.m in Sources */,
+				2C63CAD71B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD51AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4F1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85231AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
@@ -2118,7 +2118,7 @@
 				2C3099C51B09D26B004BA7F9 /* CUTERentPasswordViewController.m in Sources */,
 				2C0AE1241B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */,
 				2CF8A5E71AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
-				2C63CAD51B230DEE0055687A /* CUTETooltipVIew.m in Sources */,
+				2C63CAD51B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD31AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4D1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85211AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
@@ -2236,7 +2236,7 @@
 				2C3099C41B09D26B004BA7F9 /* CUTERentPasswordViewController.m in Sources */,
 				2C0AE1231B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */,
 				2CF8A5E61AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
-				2C63CAD41B230DEE0055687A /* CUTETooltipVIew.m in Sources */,
+				2C63CAD41B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD21AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C427E4C1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85201AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
@@ -2408,7 +2408,7 @@
 				2CF8A5EA1AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2CCE67F81B1C0F9F00351DED /* CUTERentListViewController.m in Sources */,
 				2CF8A6B21AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
-				2C63CAD81B230DEE0055687A /* CUTETooltipVIew.m in Sources */,
+				2C63CAD81B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2CF8A6811AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2CF8A5FE1AF0B40E0080DF10 /* CUTERentContactViewController.m in Sources */,
 				2C3DE24F1B074247006FF191 /* CUTESplashViewController.m in Sources */,

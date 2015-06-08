@@ -8,6 +8,6 @@
 
 #import "JDFTooltipView.h"
 
-@interface CUTETooltipVIew : JDFTooltipView
+@interface CUTETooltipView : JDFTooltipView
 
 @end

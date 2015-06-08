@@ -9,8 +9,18 @@
 #ifndef currant_CUTEUserDefaultKey_h
 #define currant_CUTEUserDefaultKey_h
 
-#define CUTE_USER_DEFAULT_SPLASH_DISPLAYED  @"com.bbtechgroup.currant.splash.displayed"
+#define CUTE_USER_DEFAULT_SPLASH_DISPLAYED  @"com.bbtechgroup.currant.displayed.splash"
 
-#define CUTE_USER_DEFAULT_BETA_USER_REGISTERED  @"com.bbtechgroup.currant.beta.user.registered"
+#define CUTE_USER_DEFAULT_BETA_USER_REGISTERED  @"com.bbtechgroup.currant.registered.beta.user"
+
+#define CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED @"com.bbtechgroup.currant.publish.displayed.tip.publish.rent"
+
+#define CUTE_USER_DEFAULT_TIP_MAP_ADDRESS_BUTTON_DISPLAYED @"com.bbtechgroup.currant.publish.displayed.tip.map.address.button"
+
+#define CUTE_USER_DEFAULT_TIP_MAP_DRAG_DISPLAYED @"com.bbtechgroup.currant.publish.displayed.tip.map.drag"
+
+#define CUTE_USER_DEFAULT_TIP_MAP_INPUT_DISPLAYED @"com.bbtechgroup.currant.publish.displayed.tip.map.input"
+
+#define CUTE_USER_DEFAULT_TIP_FAVORITE_RENT_TICKET_DISPLAYED @"com.bbtechgroup.currant.publish.displayed.tip.favorite.rent.ticket"
 
 #endif
