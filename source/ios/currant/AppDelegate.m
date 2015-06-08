@@ -203,9 +203,13 @@
                                                         NSForegroundColorAttributeName : [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1]
                                                         } forState:UIControlStateNormal];
     [self.window makeKeyAndVisible];
-    CUTEWebViewController *firstWebviewController = (CUTEWebViewController *)([(UINavigationController *)[rootViewController.viewControllers firstObject] topViewController]);
-    [firstWebviewController loadURL:firstWebviewController.url];
-    _lastSelectedTabIndex = 0;
+//    CUTEWebViewController *firstWebviewController = (CUTEWebViewController *)([(UINavigationController *)[rootViewController.viewControllers firstObject] topViewController]);
+//    [firstWebviewController loadURL:firstWebviewController.url];
+//    _lastSelectedTabIndex = 0;
+
+    [self.tabBarController setSelectedIndex:kEditTabBarIndex];
+    [self updatePublishRentTicketTabWithController:editViewController silent:NO];
+    _lastSelectedTabIndex = kEditTabBarIndex;
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
 
