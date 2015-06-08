@@ -10,8 +10,12 @@
 #import "CUTECommonMacro.h"
 #import <UILabel+JDFTooltips.h>
 #import <UIView+JDFTooltips.h>
+#import "UIView+Border.h"
 
 #define CLOSE_ICON_WITDH 34
+
+#define CLOSE_ICON_VERTICAL_MARGIN 20
+
 
 @interface JDFTooltipView (Subclass)
 
@@ -54,14 +58,14 @@
 
 @end
 
-@interface CUTETooltipVIew ()
+@interface CUTETooltipView ()
 
 @property (nonatomic, retain) UIImageView *closeIcon;
 
 @end
 
 
-@implementation CUTETooltipVIew
+@implementation CUTETooltipView
 
 - (void)commonInit {
     [super commonInit];
@@ -69,48 +73,36 @@
     closeIcon.contentMode = UIViewContentModeCenter;
     [self addSubview:closeIcon];
     self.closeIcon = closeIcon;
-    self.tooltipBackgroundColour = HEXCOLOR(0x33333, 1.0);
+    self.tooltipBackgroundColour = HEXCOLOR(0x333333, 1.0);
     self.textColour = [UIColor whiteColor];
+    self.shadowEnabled = NO;
 }
 
 
 - (CGFloat)labelPadding {
-    return 40;
+    return 30;
 }
 
 - (CGFloat)horizontalLabelPadding {
     return 20;
 }
 
-- (CGRect)tooltipFrameForArrowPoint:(CGPoint)point width:(CGFloat)width labelFrame:(CGRect)labelFrame arrowDirection:(JDFTooltipViewArrowDirection)arrowDirection hostViewSize:(CGSize)hostViewSize
+- (CGFloat)arrowHeight {
+    return 14;
+}
+
+- (CGFloat)arrowWidth {
+    return 14;
+}
+
+- (void)updateLabelcenterHorizontallyInSuperview:(UILabel *)label
 {
-    CGRect tooltipFrame = CGRectZero;
-    tooltipFrame.origin = point;
-    tooltipFrame.size.width = width + CLOSE_ICON_WITDH;
-    tooltipFrame.origin.x = tooltipFrame.origin.x - [self overflowAdjustmentForFrame:tooltipFrame withHostViewSize:hostViewSize];
-    tooltipFrame.size.height = self.tooltipTextLabel.frame.size.height + [self labelPadding] + [self arrowHeight];
+    CGFloat viewWidth = label.frame.size.width;
+    CGFloat superviewWidth = label.superview.frame.size.width;
 
-    if (arrowDirection == JDFTooltipViewArrowDirectionUp) {
-
-    } else if (arrowDirection == JDFTooltipViewArrowDirectionRight) {
-        tooltipFrame.origin.x = point.x - tooltipFrame.size.width - ([self arrowHeight] * 1.5);
-        tooltipFrame.origin.y = point.y - [self arrowWidth] - [self minimumArrowPadding];
-    } else if (arrowDirection == JDFTooltipViewArrowDirectionDown) {
-        tooltipFrame.origin.y = point.y - tooltipFrame.size.height;
-    } else if (arrowDirection == JDFTooltipViewArrowDirectionLeft) {
-        tooltipFrame.origin.x = point.x;
-        tooltipFrame.origin.y = point.y - [self arrowWidth] - [self minimumArrowPadding];
-    }
-
-    if (arrowDirection == JDFTooltipViewArrowDirectionUp || arrowDirection == JDFTooltipViewArrowDirectionDown) {
-        CGFloat minOffset = [self arrowHeight] + [self minimumArrowPadding];
-        CGFloat offset = point.x - tooltipFrame.origin.x;
-        if (offset < minOffset) {
-            tooltipFrame.origin.x = point.x - minOffset;
-        }
-    }
-
-    return tooltipFrame;
+    CGRect frame = label.frame;
+    frame.origin.x = (superviewWidth - viewWidth - CLOSE_ICON_WITDH) / 2;
+    label.frame = frame;
 }
 
 - (void)showAtPoint:(CGPoint)point inView:(UIView *)view width:(CGFloat)width arrowDirection:(JDFTooltipViewArrowDirection)arrowDirection
@@ -125,16 +117,18 @@
     CGRect labelFrame = self.frame;
     labelFrame.size.width = width - [self arrowHeight] - [self horizontalLabelPadding]; // arrowHeight and labelPadding should be doubled before subtracting?
     labelFrame.origin.y = [self arrowHeight] + [self labelPadding];
+    labelFrame.origin.x = labelFrame.origin.x - CLOSE_ICON_WITDH;
     self.tooltipTextLabel.frame = labelFrame;
     [self.tooltipTextLabel jdftt_resizeHeightToFitTextContents];
 
 
-    CGRect tooltipFrame = [self tooltipFrameForArrowPoint:point width:(self.tooltipTextLabel.frame.size.width + [self arrowHeight] + [self labelPadding]) labelFrame:labelFrame arrowDirection:self.arrowDirection hostViewSize:self.superview.frame.size];
+    CGRect tooltipFrame = [self tooltipFrameForArrowPoint:point width:(self.tooltipTextLabel.frame.size.width + [self arrowHeight] + [self labelPadding] + CLOSE_ICON_WITDH) labelFrame:labelFrame arrowDirection:self.arrowDirection hostViewSize:self.superview.frame.size];
     self.frame = tooltipFrame;
 
-    self.closeIcon.frame = CGRectMake(RectWidthExclude(self.bounds, (CLOSE_ICON_WITDH + 8)), 0, CLOSE_ICON_WITDH, RectHeight(self.bounds));
+    self.closeIcon.frame = CGRectMake(RectWidthExclude(self.bounds, (CLOSE_ICON_WITDH + 14)), CLOSE_ICON_VERTICAL_MARGIN, CLOSE_ICON_WITDH, RectHeight(self.bounds) - CLOSE_ICON_VERTICAL_MARGIN * 2);
+    [self.closeIcon addLeftBorderWithColor:HEXCOLOR(0x4d4d4d, 1) andWidth:1];
 
-    [self.tooltipTextLabel jdftt_centerHorizontallyInSuperview];
+    [self updateLabelcenterHorizontallyInSuperview:self.tooltipTextLabel];
     [self.tooltipTextLabel jdftt_centerVerticallyInSuperview];
 
     [self sanitiseArrowPointWithWidth:width];
@@ -154,6 +148,12 @@
             self.showCompletionBlock();
         }
     }];
+}
+
+- (void)hideAnimated:(BOOL)animated
+{
+    self.closeIcon.hidden = YES;
+    [super hideAnimated:animated];
 }
 
 

@@ -15,6 +15,7 @@
 #import "CUTEEnumManager.h"
 #import "NSArray+ObjectiveSugar.h"
 #import "NSString+Encoding.h"
+#import "CUTETracker.h"
 
 @implementation CUTEGeoManager
 
@@ -47,47 +48,73 @@
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     NSString *geocoderURLString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/geocode/json?latlng=%lf,%lf&key=%@&language=en", location.coordinate.latitude, location.coordinate.longitude, [CUTEConfiguration googleAPIKey]];
 
-    [[[CUTEAPIManager sharedInstance] POST:geocoderURLString parameters:nil resultClass:nil resultKeyPath:@"results"] continueWithBlock:^id(BFTask *task) {
-        if (!IsArrayNilOrEmpty(task.result)) {
-            CUTEPlacemark *placemark = [CUTEPlacemark placeMarkWithGoogleResult:task.result[0]];
+    __block NSInteger retryCount = 3;
+    dispatch_block_t requestBlock = ^ {
+        [[[CUTEAPIManager sharedInstance] POST:geocoderURLString parameters:nil resultClass:nil resultKeyPath:@"results"] continueWithBlock:^id(BFTask *task) {
+            if (!IsArrayNilOrEmpty(task.result)) {
+                CUTEPlacemark *placemark = [CUTEPlacemark placeMarkWithGoogleResult:task.result[0]];
 
-            [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
-                if (!IsArrayNilOrEmpty(task.result)) {
-                    NSArray *coutries = [(NSArray *)task.result select:^BOOL(CUTECountry *object) {
-                        return [[object code] isEqualToString:placemark.country.code];
-                    }];
-                    CUTECountry *country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
-                    [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
-                        NSArray *cities = task.result;
-                        if (!IsArrayNilOrEmpty(cities)) {
-                            CUTECity *city = [cities find:^BOOL(CUTECity *object) {
-                                return [[[placemark city].name lowercaseString] hasPrefix:[[object name] lowercaseString]];
-                            }];
-                            placemark.country = country;
-                            placemark.city = city;
-                            [tcs setResult:placemark];
+                [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
+                    if (!IsArrayNilOrEmpty(task.result)) {
+                        NSArray *coutries = [(NSArray *)task.result select:^BOOL(CUTECountry *object) {
+                            return [[object code] isEqualToString:placemark.country.code];
+                        }];
+                        CUTECountry *country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
+                        [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
+                            NSArray *cities = task.result;
+                            if (!IsArrayNilOrEmpty(cities)) {
+                                CUTECity *city = [cities find:^BOOL(CUTECity *object) {
+                                    return [[[placemark city].name lowercaseString] hasPrefix:[[object name] lowercaseString]];
+                                }];
+                                placemark.country = country;
+                                placemark.city = city;
+                                [tcs setResult:placemark];
+                                retryCount = 0;
+                            }
+                            else {
+                                if (retryCount == 0) {
+                                    [tcs setError:task.error];
+                                }
+                                else {
+                                    retryCount--;
+                                    requestBlock();
+                                }
+                            }
 
-                        }
-                        else {
+                            return task;
+                        }];
+                    }
+                    else {
+                        if (retryCount == 0) {
                             [tcs setError:task.error];
                         }
-
-                        return task;
-                    }];
-                }
-                else {
+                        else {
+                            retryCount--;
+                            requestBlock();
+                        }
+                    }
+                    
+                    return task;
+                }];
+                
+            }
+            else {
+                if (retryCount == 0) {
                     [tcs setError:task.error];
                 }
+                else {
+                    [[CUTETracker sharedInstance] trackError:task.error];
+                    retryCount--;
+                    requestBlock();
+                }
+            }
+            return nil;
+        }];
+    };
 
-                return task;
-            }];
+    retryCount--;
+    requestBlock();
 
-        }
-        else {
-            [tcs setError:task.error];
-        }
-        return nil;
-    }];
     return tcs.task;
 }
 
@@ -98,16 +125,31 @@
         geocoderURLString = CONCAT(geocoderURLString, @"&", @"address=", [address URLEncode]);
     }
 
-    [[[CUTEAPIManager sharedInstance] POST:geocoderURLString parameters:nil resultClass:nil resultKeyPath:@"results"] continueWithBlock:^id(BFTask *task) {
-        if (!IsArrayNilOrEmpty(task.result)) {
-            CUTEPlacemark *placemark = [CUTEPlacemark placeMarkWithGoogleResult:task.result[0]];
-            [tcs setResult:placemark];
-        }
-        else {
-            [tcs setError:task.error];
-        }
-        return nil;
-    }];
+    __block NSInteger retryCount = 3;
+    dispatch_block_t requestBlock = ^ {
+        [[[CUTEAPIManager sharedInstance] POST:geocoderURLString parameters:nil resultClass:nil resultKeyPath:@"results"] continueWithBlock:^id(BFTask *task) {
+            if (!IsArrayNilOrEmpty(task.result)) {
+                CUTEPlacemark *placemark = [CUTEPlacemark placeMarkWithGoogleResult:task.result[0]];
+                [tcs setResult:placemark];
+                retryCount = 0;
+            }
+            else {
+                if (retryCount == 0) {
+                    [tcs setError:task.error];
+                }
+                else {
+                    [[CUTETracker sharedInstance] trackError:task.error];
+                    retryCount--;
+                    requestBlock();
+                }
+            }
+            return nil;
+        }];
+    };
+
+    retryCount--;
+    requestBlock();
+
     return tcs.task;
 }
 

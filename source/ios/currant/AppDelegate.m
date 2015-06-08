@@ -47,7 +47,7 @@
 #import "Sequencer.h"
 #import "CUTERentContactViewController.h"
 #import "CUTEUserViewController.h"
-#import "CUTETooltipVIew.h"
+#import "CUTETooltipView.h"
 
 
 @interface AppDelegate () <UITabBarControllerDelegate>
@@ -225,9 +225,6 @@
     else {
         [self checkNeedShowBetaUserRegister];
     }
-
-//    CUTETooltipVIew *toolTips = [[CUTETooltipVIew alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:100];
-//    [toolTips show];
 
 //#warning DEBUG_CODE
 #ifdef DEBUG
@@ -589,6 +586,14 @@
 
 - (void)onReceiveUserDidLogin:(NSNotification *)notif {
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED]) {
+        CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:90];
+        [toolTips show];
+
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {

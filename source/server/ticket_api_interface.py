@@ -664,8 +664,7 @@ def rent_ticket_contact_info(user, ticket_id):
         abort(40399, logger.warning("specified rent ticket is currently not available", exc_info=False))
 
     f_app.log.add("rent_ticket_view_contact_info", ticket_id=ticket_id)
-    phone = phonenumbers.parse(f_app.user.get(ticket["creator_user_id"])["phone"])
-    return str(phone.national_number)
+    return f_app.user.output([ticket["creator_user_id"]], custom_fields=f_app.common.user_custom_fields)[0]
 
 
 @f_api('/rent_ticket/search', params=dict(

@@ -85,7 +85,7 @@
 
         var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'
         var schoolMapId = 'schoolMapCanvas'
-        var query = reportIdFromURL + ',' +region
+        var query = window.report.zipcode_index + ',' +region
         var searchRequest = 'http://dev.virtualearth.net/REST/v1/Locations/' + query + '?output=json&jsonp=searchServiceCallback&key=' + bingMapKey
         var mapscript = document.createElement('script');
         mapscript.type = 'text/javascript';
@@ -127,19 +127,19 @@
                         })
                         //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
                         window.showMapIndicator()
-                        window.getRegion(reportIdFromURL, function (polygon) {
+                        window.getRegion(window.report.zipcode_index, function (polygon) {
                             window.showTransitMap(location, polygon,  false, null, null, function () {
                                 window.hideMapIndicator()
                             })
                         })
                         window.showMapIndicator()
-                        window.getRegion(reportIdFromURL, function (polygon) {
+                        window.getRegion(window.report.zipcode_index, function (polygon) {
                             window.showSchoolMap(location, polygon, false, null, null, function () {
                                 window.hideMapIndicator()
                             })
                         })
                         window.showMapIndicator()
-                        window.getRegion(reportIdFromURL, function (polygon) {
+                        window.getRegion(window.report.zipcode_index, function (polygon) {
                             window.showFacilityMap(location, polygon, false, null, null, function () {
                                 window.hideMapIndicator()
                             })

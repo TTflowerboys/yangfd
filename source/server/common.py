@@ -109,6 +109,8 @@ class common(f_common):
     nexmo_api_secret = "9c4d83a4"
     nexmo_default_sender = "19786745650"
 
+    user_sms_verification_msg = "%s 为您的洋房东手机验证码，1小时内有效。感谢您注册成为洋房东的会员。"
+
     recaptcha_public_key = "6LdOPfwSAAAAALlc4POi3YiUJmKe_rUw6-xO6NsN"
     recaptcha_private_key = "6LdOPfwSAAAAACd2X9w4fbI8L4afGWXC-gV3QuDr"
 
