@@ -984,7 +984,7 @@
                                     class="flatButton ajaxButton"
                                     style="{{ 'display:none' if not is_favorited else ''}}"
                                     % if is_favorited:
-                                    data-favorite-id="{{property.get('id','')}}"
+                                    data-property-id="{{property.get('id','')}}"
                                     % end
                                     >
                                     <img src="/static/images/property_details/icon-star-active.png" alt=""/>
@@ -1225,7 +1225,7 @@
             data-fn="removeFav"
             style="{{ 'display:none' if not is_favorited else ''}}"
             % if is_favorited:
-            data-favorite-id="{{property.get('id','')}}"
+            data-property-id="{{property.get('id','')}}"
             % end
             ><img src="/static/images/property_details/phone/favorite.png"></img></li>
         <li class="phone"><a href="tel:4000926433" >{{_('拨打400-0926-433')}}</a></li>

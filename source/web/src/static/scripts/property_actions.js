@@ -16,6 +16,7 @@
         })
             .done(function (val) {
                 $button.hide().parent().find('[data-fn=removeFav]').show()
+                $button.hide().parent().find('[data-fn=removeFav]').attr('data-property-id',property_id)
 
                 ga('send', 'event', 'property_detail', 'click', 'add-fav-success')
                 ga('send', 'pageview', '/property/'+ property_id +'/add-fav-success')
@@ -37,7 +38,7 @@
             return
         }
         var $button = $(this)
-        var property_id = $button.attr('data-favorite-id')
+        var property_id = $button.attr('data-property-id')
         $.betterPost('/api/1/user/favorite/remove', {
             property_id: property_id,
             type: 'property'
