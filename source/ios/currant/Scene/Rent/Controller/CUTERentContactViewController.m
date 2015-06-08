@@ -242,7 +242,7 @@
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];
             [[NSUserDefaults standardUserDefaults] synchronize];
             [self dismissViewControllerAnimated:YES completion:^{
-
+                [NotificationCenter postNotificationName:KNOTIF_BETA_USER_DID_REGISTER object:nil];
             }];
         }
         else {
