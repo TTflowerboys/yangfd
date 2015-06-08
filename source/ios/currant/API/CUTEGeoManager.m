@@ -15,6 +15,7 @@
 #import "CUTEEnumManager.h"
 #import "NSArray+ObjectiveSugar.h"
 #import "NSString+Encoding.h"
+#import "CUTETracker.h"
 
 @implementation CUTEGeoManager
 
@@ -102,6 +103,7 @@
                     [tcs setError:task.error];
                 }
                 else {
+                    [[CUTETracker sharedInstance] trackError:task.error];
                     retryCount--;
                     requestBlock();
                 }
@@ -136,6 +138,7 @@
                     [tcs setError:task.error];
                 }
                 else {
+                    [[CUTETracker sharedInstance] trackError:task.error];
                     retryCount--;
                     requestBlock();
                 }
