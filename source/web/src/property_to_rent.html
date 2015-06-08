@@ -428,7 +428,7 @@
                             <span>
                                 {{'至 ' + rent.get('rent_deadline_time').strftime("%Y-%m-%d")}}
                             </span>
-                            % else :
+                            % elif 'rent_available_time' in rent:
                             <span>
                                 {{_('起')}}
                             </span>
