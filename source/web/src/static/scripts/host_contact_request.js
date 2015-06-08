@@ -14,11 +14,11 @@ $(function () {
         if (window.user && rentId) {
             $.betterPost('/api/1/rent_ticket/' + rentId + '/contact_info')
                 .done(function (val) {
-                    var phone = val
-                    $($('.hostPhone span')[1]).text(phone)
-                    $($('.hostPhone a')).attr('href', 'tel:' + $($('.hostPhone span')[0]).text() + phone)
+                    var host = val
+                    $($('.hostPhone span')[1]).text(host.phone)
+                    $($('.hostPhone a')).attr('href', 'tel:+' + host.country_code + host.phone)
 
-                    //$('.hostname').text('href', 'tel:' + $($('.hostPhone span')[0]).text() + phone)
+                    $('.hostName').text(host.nickname)
 
                     $('.contactRequest').hide()
 
