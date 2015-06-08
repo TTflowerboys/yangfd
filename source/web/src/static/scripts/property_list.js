@@ -184,7 +184,9 @@
             }
         })
     }
+    initChosen($('[name=propertyCountry]'))
     initChosen($('[name=propertyCity]'))
+    initChosen($('[name=propertyType]'))
     /*
     * Load Data from server
     * */

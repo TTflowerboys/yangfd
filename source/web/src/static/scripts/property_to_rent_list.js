@@ -208,7 +208,10 @@
             }
         })
     }
+    initChosen($('[name=propertyCountry]'))
     initChosen($('[name=propertyCity]'))
+    initChosen($('[name=propertyType]'))
+    initChosen($('[name=rentType]'))
     // Init top filters value from URL
     var countryFromURL = window.team.getQuery('country', location.href)
     if (countryFromURL) {
