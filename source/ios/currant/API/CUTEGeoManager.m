@@ -16,6 +16,7 @@
 #import "NSArray+ObjectiveSugar.h"
 #import "NSString+Encoding.h"
 #import "CUTETracker.h"
+#import "BBTJSON.h"
 
 @implementation CUTEGeoManager
 
@@ -42,6 +43,30 @@
     return nil;
 }
 
+- (BFTask *)reverseProxyWithLink:(NSString *)link {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:CONCAT(@"/reverse_proxy?link=", [link URLEncode]) relativeToURL:[CUTEConfiguration hostURL]]];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+        NSHTTPURLResponse *response = nil;
+        NSError *error = nil;
+        NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        NSDictionary *dic = [data JSONData];
+
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            if (error) {
+                [tcs setError:error];
+            }
+            else if (dic) {
+                [tcs setResult:dic];
+            }
+            else {
+                [tcs setError:[NSError errorWithDomain:@"Google" code:-1 userInfo:@{NSLocalizedDescriptionKey: @"unknown error"}]];
+            }
+        });
+    });
+    return tcs.task;
+}
+
 
 - (BFTask *)reverseGeocodeLocation:(CLLocation *)location {
 
@@ -49,10 +74,18 @@
     NSString *geocoderURLString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/geocode/json?latlng=%lf,%lf&key=%@&language=en", location.coordinate.latitude, location.coordinate.longitude, [CUTEConfiguration googleAPIKey]];
 
     __block NSInteger retryCount = 3;
-    dispatch_block_t requestBlock = ^ {
-        [[[CUTEAPIManager sharedInstance] POST:geocoderURLString parameters:nil resultClass:nil resultKeyPath:@"results"] continueWithBlock:^id(BFTask *task) {
-            if (!IsArrayNilOrEmpty(task.result)) {
-                CUTEPlacemark *placemark = [CUTEPlacemark placeMarkWithGoogleResult:task.result[0]];
+    __block dispatch_block_t requestBlock;
+
+    requestBlock = ^ {
+
+        [[self reverseProxyWithLink:geocoderURLString] continueWithBlock:^id(BFTask *task) {
+            NSDictionary *dic = task.result;
+            NSDictionary *result = nil;
+            if (dic && dic[@"results"] && !IsArrayNilOrEmpty(dic[@"results"])) {
+                result = dic[@"results"][0];
+            }
+            if (result) {
+                CUTEPlacemark *placemark = [CUTEPlacemark placeMarkWithGoogleResult:result];
 
                 [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
                     if (!IsArrayNilOrEmpty(task.result)) {
@@ -126,10 +159,16 @@
     }
 
     __block NSInteger retryCount = 3;
-    dispatch_block_t requestBlock = ^ {
-        [[[CUTEAPIManager sharedInstance] POST:geocoderURLString parameters:nil resultClass:nil resultKeyPath:@"results"] continueWithBlock:^id(BFTask *task) {
-            if (!IsArrayNilOrEmpty(task.result)) {
-                CUTEPlacemark *placemark = [CUTEPlacemark placeMarkWithGoogleResult:task.result[0]];
+    __block dispatch_block_t requestBlock;
+    requestBlock = ^ {
+        [[self reverseProxyWithLink:geocoderURLString] continueWithBlock:^id(BFTask *task) {
+            NSDictionary *dic = task.result;
+            NSDictionary *result = nil;
+            if (dic && dic[@"results"] && !IsArrayNilOrEmpty(dic[@"results"])) {
+                result = dic[@"results"][0];
+            }
+            if (result) {
+                CUTEPlacemark *placemark = [CUTEPlacemark placeMarkWithGoogleResult:result];
                 [tcs setResult:placemark];
                 retryCount = 0;
             }
