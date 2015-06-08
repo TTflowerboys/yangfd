@@ -23,6 +23,7 @@
 #import <UIAlertView+Blocks.h>
 #import "CUTEGeoManager.h"
 #import "CUTEPlacemark.h"
+#import "CUTERentAddressMapViewController.h"
 
 @interface CUTERentAddressEditViewController () {
     CUTECountry *_lastCountry;
@@ -35,8 +36,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    if (!self.singleUseForReedit) {
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+    if (!form.singleUseForReedit) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
     }
 }
@@ -93,13 +94,14 @@
     [self updateAddress];
 }
 
-- (void)updateAddress {
-
-    NSString *postCodeIndex = [self.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
-    if (self.ticket.property.country && !IsNilNullOrEmpty(postCodeIndex)) {
-        [SVProgressHUD showWithStatus:STR(@"搜索中...")];
-
-        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/postcode/search" parameters:@{@"postcode_index":postCodeIndex, @"country": self.ticket.property.country.code} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+- (void)onLocationEdit:(id)sender {
+    CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
+    mapController.ticket = self.ticket;
+    mapController.hidesBottomBarWhenPushed = YES;
+    mapController.singleUseForReedit = [(CUTERentAddressEditForm *)self.formController.form singleUseForReedit];
+    mapController.updateAddressCompletion = ^ {
+        CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+        [[form updateWithTicket:self.ticket] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
@@ -110,14 +112,41 @@
                 [SVProgressHUD showErrorWithCancellation];
             }
             else {
-                NSArray *array = task.result;
-                NSDictionary *resultDic = nil;
-                if (!IsArrayNilOrEmpty(array)) {
-                    resultDic = array[0];
-                }
-                if (resultDic[@"latitude"] && resultDic[@"longitude"]) {
+                [self.tableView reloadData];
+            }
+            
+            return task;
+        }];
+    };
+    [self.navigationController pushViewController:mapController animated:YES];
+}
 
-                    CLLocation *location = [[CLLocation alloc] initWithLatitude:[resultDic[@"latitude"] doubleValue] longitude:[resultDic[@"longitude"] doubleValue]];
+- (void)updateAddress {
+
+    NSString *postCodeIndex = [self.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (self.ticket.property.country && !IsNilNullOrEmpty(postCodeIndex)) {
+        [SVProgressHUD showWithStatus:STR(@"搜索中...")];
+
+        [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:self.ticket.property.country.code] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                CLLocation *location = task.result;
+                if (location && [location isKindOfClass:[CLLocation class]]) {
+
+                    self.ticket.property.latitude = location.coordinate.latitude;
+                    self.ticket.property.longitude = location.coordinate.longitude;
+                    //check is a draft ticket not a unfinished one
+                    if (!IsNilNullOrEmpty(self.ticket.identifier)) {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+                    }
 
                     [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
                         if (task.error) {
@@ -135,8 +164,6 @@
                                 CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
                                 form.street = detailPlacemark.street;
                                 [self.tableView reloadData];
-                                self.ticket.property.latitude = detailPlacemark.location.coordinate.latitude;
-                                self.ticket.property.longitude = detailPlacemark.location.coordinate.longitude;
                                 [self updateTicket];
                                 [SVProgressHUD dismiss];
                             }
@@ -262,8 +289,8 @@
             else {
                 [SVProgressHUD show];
                 NSString *postCodeIndex = [self.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
-                NSString *components = [CUTEGeoManager buildComponentsWithDictionary:@{@"postal_code": postCodeIndex, @"country": self.ticket.property.country.code, @"locality": self.ticket.property.city.name}];
-                [[[CUTEGeoManager sharedInstance] geocodeWithAddress:nil components:components] continueWithBlock:^id(BFTask *task) {
+
+                [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:self.ticket.property.country.code]continueWithBlock:^id(BFTask *task) {
                     if (task.error) {
                         [SVProgressHUD showErrorWithError:task.error];
                     }
@@ -274,11 +301,11 @@
                         [SVProgressHUD showErrorWithCancellation];
                     }
                     else {
-                        if (task.result) {
-                            CUTEPlacemark *placemark = task.result;
+                        CLLocation *location = task.result;
+                        if (location && [location isKindOfClass:[CLLocation class]]) {
                             [self.tableView reloadData];
-                            self.ticket.property.latitude = placemark.location.coordinate.latitude;
-                            self.ticket.property.longitude = placemark.location.coordinate.longitude;
+                            self.ticket.property.latitude = location.coordinate.latitude;
+                            self.ticket.property.longitude = location.coordinate.longitude;
                             self.lastPostcode = self.ticket.property.zipcode;
                             [SVProgressHUD dismiss];
                             [self createTicket];

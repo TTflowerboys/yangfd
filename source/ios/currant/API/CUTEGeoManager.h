@@ -20,4 +20,6 @@
 
 - (BFTask *)geocodeWithAddress:(NSString *)address components:(NSString *)components;
 
+- (BFTask *)searchPostcodeIndex:(NSString *)postCodeIndex countryCode:(NSString *)countryCode;
+
 @end

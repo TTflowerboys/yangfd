@@ -178,7 +178,7 @@
     return [CONCAT(AddressPart(self.houseName),
                    AddressPart(self.floor),
                    AddressPart(self.community),
-                   AddressPart(self.street),
+                   AddressPart((!IsNilOrNull(self.street) && [self.street isKindOfClass:[NSString class]]? self.street: @"")),
                    AddressPart(self.city.name),
                    AddressPart(self.zipcode),
                    AddressPart(self.country.name),)

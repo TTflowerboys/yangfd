@@ -75,7 +75,7 @@
     self.ticket.rentType = [form rentTypeAtIndex:indexPath.row];
     [tableView reloadData];
 
-    if (self.singleUseForReedit) {
+    if (form.singleUseForReedit) {
         [self.navigationController popViewControllerAnimated:YES];
         [self updateTicket];
     }

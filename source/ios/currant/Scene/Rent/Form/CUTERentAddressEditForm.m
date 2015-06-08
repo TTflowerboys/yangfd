@@ -14,6 +14,9 @@
 #import "CUTEFormDefaultCell.h"
 #import "CUTECity.h"
 #import "CUTERentCityViewController.h"
+#import "CUTEFormTextCell.h"
+#import "CUTEEnumManager.h"
+#import "Sequencer.h"
 
 
 @interface CUTERentAddressEditForm () {
@@ -37,10 +40,10 @@
                                               @{FXFormFieldKey: @"houseName", FXFormFieldTitle: STR(@"房间号（选填）"), FXFormFieldDefaultValue: _houseName? _houseName: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onHouseNameEdit:"},
                                               ]];
     if (_country) {
-        [array insertObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country, FXFormFieldAction: @"optionBack", FXFormFieldHeader:STR(@"位置")} atIndex:0];
+        [array insertObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country, FXFormFieldAction: @"optionBack", FXFormFieldHeader:STR(@"地址")} atIndex:0];
     }
     else {
-        [array insertObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldAction: @"optionBack", FXFormFieldHeader:STR(@"位置"), FXFormFieldHeader:STR(@"位置")} atIndex:0];
+        [array insertObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldAction: @"optionBack", FXFormFieldHeader:STR(@"位置"), FXFormFieldHeader:STR(@"地址")} atIndex:0];
     }
     if (_city) {
         [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: _allCities, FXFormFieldDefaultValue: _city, FXFormFieldAction: @"optionBack", FXFormFieldViewController: [CUTERentCityViewController class]} atIndex:1];
@@ -49,6 +52,10 @@
         if (!IsArrayNilOrEmpty(_allCities)) {
              [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions:_allCities, FXFormFieldAction: @"optionBack",  FXFormFieldViewController: [CUTERentCityViewController class]} atIndex:1];
         }
+    }
+
+    if (self.singleUseForReedit) {
+        [array addObject:@{FXFormFieldKey: @"location", FXFormFieldTitle:STR(@"位置"), FXFormFieldAction: @"onLocationEdit:", FXFormFieldCell: [CUTEFormTextCell class]}];
     }
 
     return array;
@@ -60,6 +67,77 @@
 
 - (void)setAllCities:(NSArray *)allCities {
     _allCities = allCities;
+}
+
+- (BFTask *)updateWithTicket:(CUTETicket *)ticket {
+    CUTERentAddressEditForm *form = self;
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+
+    Sequencer *sequencer = [Sequencer new];
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [tcs setError:task.error];
+            }
+            else if (task.exception) {
+                [tcs setException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [tcs cancel];
+            }
+            else {
+                completion(task.result);
+            }
+            return task;
+        }];
+    }];
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        NSArray *countries = result;
+        [form setAllCountries:countries];
+
+        NSInteger countryIndex = [countries indexOfObject:ticket.property.country];
+        if (countryIndex != NSNotFound) {
+            CUTECountry *country = [countries objectAtIndex:countryIndex];
+            [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
+                NSArray *cities = task.result;
+                if (!IsArrayNilOrEmpty(cities)) {
+                    NSArray *cities = task.result;
+                    if (countryIndex != NSNotFound) {
+                        [form setCountry:[countries objectAtIndex:countryIndex]];
+                    }
+                    [form setAllCities:cities];
+                    NSInteger cityIndex = [cities indexOfObject:ticket.property.city];
+                    if (cityIndex != NSNotFound) {
+                        [form setCity:[cities objectAtIndex:cityIndex]];
+                    }
+                    completion(cities);
+
+                }
+                else {
+                    [tcs setError:task.error];
+                }
+                
+                return task;
+            }];
+        }
+        else {
+            completion(nil);
+        }
+    }];
+
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        form.street = ticket.property.street;
+        form.postcode = ticket.property.zipcode;
+        form.community = ticket.property.community;
+        form.floor = ticket.property.floor;
+        form.houseName = ticket.property.houseName;
+        [tcs setResult:form];
+    }];
+
+    [sequencer run];
+    return tcs.task;
 }
 
 - (NSError *)validateFormWithScenario:(NSString *)scenario {
