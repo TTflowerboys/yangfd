@@ -14,6 +14,8 @@
 
 @property (strong, nonatomic) CUTEEnum *rentType;
 
+@property (nonatomic) BOOL singleUseForReedit;
+
 - (void)setRentTypeList:(NSArray *)rentTypeList;
 
 - (CUTEEnum *)rentTypeAtIndex:(NSInteger)index;

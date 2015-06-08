@@ -12,6 +12,8 @@
 #import "CUTEEnum.h"
 #import "CUTECity.h"
 #import "CUTECountry.h"
+#import "CUTETicket.h"
+#import "BFTask.h"
 
 @interface CUTERentAddressEditForm : CUTEForm
 
@@ -22,11 +24,16 @@
 @property (strong, nonatomic) NSString *community;
 @property (strong, nonatomic) NSString *floor;
 @property (strong, nonatomic) NSString *houseName;
+@property (strong, nonatomic) CLLocation *location;
 
+
+@property (nonatomic) BOOL singleUseForReedit;
 
 - (void)setAllCountries:(NSArray *)allCountries;
 
 - (void)setAllCities:(NSArray *)allCities;
+
+- (BFTask *)updateWithTicket:(CUTETicket *)ticket;
 
 - (NSError *)validateFormWithScenario:(NSString *)scenario;
 

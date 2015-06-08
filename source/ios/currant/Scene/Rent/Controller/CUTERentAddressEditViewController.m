@@ -23,6 +23,7 @@
 #import <UIAlertView+Blocks.h>
 #import "CUTEGeoManager.h"
 #import "CUTEPlacemark.h"
+#import "CUTERentAddressMapViewController.h"
 
 @interface CUTERentAddressEditViewController () {
     CUTECountry *_lastCountry;
@@ -35,8 +36,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    if (!self.singleUseForReedit) {
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+    if (!form.singleUseForReedit) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
     }
 }
@@ -91,6 +92,33 @@
 - (void)onPostcodeEdit:(id)sender {
     [self updateTicket];
     [self updateAddress];
+}
+
+- (void)onLocationEdit:(id)sender {
+    CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
+    mapController.ticket = self.ticket;
+    mapController.hidesBottomBarWhenPushed = YES;
+    mapController.singleUseForReedit = [(CUTERentAddressEditForm *)self.formController.form singleUseForReedit];
+    mapController.updateAddressCompletion = ^ {
+        CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+        [[form updateWithTicket:self.ticket] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                [self.tableView reloadData];
+            }
+            
+            return task;
+        }];
+    };
+    [self.navigationController pushViewController:mapController animated:YES];
 }
 
 - (void)updateAddress {

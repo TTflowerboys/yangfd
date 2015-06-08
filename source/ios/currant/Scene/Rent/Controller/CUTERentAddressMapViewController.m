@@ -33,6 +33,7 @@
 #import "CUTEAPIManager.h"
 #import "CUTEPlacemark.h"
 #import "CUTEGeoManager.h"
+#import "CUTENotificationKey.h"
 
 #define kRegionDistance 800
 
@@ -70,7 +71,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = STR(@"地址");
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
+
+    if (!self.singleUseForReedit) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
+    }
 
     _mapView = [[MKMapView alloc] init];
     _mapView.frame = self.view.bounds;
@@ -155,7 +159,6 @@
                 if ([location distanceFromLocation:centerLocation] > 10) {
                     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
                     [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
-                    _mapShowCurrentRegion = YES;
                 }
 
                 self.ticket.property.latitude = location.coordinate.latitude;
@@ -173,10 +176,14 @@
 }
 
 - (void)onAddressBeginEditing:(id)sender {
+    //cannot edit address by click the field
+    if (self.singleUseForReedit) {
+        return;
+    }
 
     if (!_rentAddressEditViewController) {
         CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
-        controller.navigationItem.title = STR(@"位置");
+        controller.navigationItem.title = STR(@"地址");
         controller.updateAddressCompletion = ^ {
             _isAddressUpdated = YES;
         };
@@ -431,9 +438,19 @@
                 [SVProgressHUD showErrorWithError:task.error];
                 return nil;
             } else {
+                //check is a draft ticket not a unfinished one
+                if (!IsNilNullOrEmpty(self.ticket.identifier)) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+                }
+                if (self.updateAddressCompletion) {
+                    self.updateAddressCompletion();
+                }
                 return nil;
             }
         }];
+    }
+    else {
+        _mapShowCurrentRegion = YES;
     }
 }
 

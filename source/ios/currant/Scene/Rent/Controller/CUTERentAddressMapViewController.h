@@ -16,4 +16,8 @@
 
 @property (strong, nonatomic) CUTETicket *ticket;
 
+@property (nonatomic) BOOL singleUseForReedit;
+
+@property (nonatomic, copy) dispatch_block_t updateAddressCompletion;
+
 @end
