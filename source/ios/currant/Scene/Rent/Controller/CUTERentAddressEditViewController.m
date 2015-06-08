@@ -147,6 +147,13 @@
 
                     CLLocation *location = [[CLLocation alloc] initWithLatitude:[resultDic[@"latitude"] doubleValue] longitude:[resultDic[@"longitude"] doubleValue]];
 
+                    self.ticket.property.latitude = location.coordinate.latitude;
+                    self.ticket.property.longitude = location.coordinate.longitude;
+                    //check is a draft ticket not a unfinished one
+                    if (!IsNilNullOrEmpty(self.ticket.identifier)) {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+                    }
+
                     [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
                         if (task.error) {
                             [SVProgressHUD showErrorWithError:task.error];
@@ -163,8 +170,6 @@
                                 CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
                                 form.street = detailPlacemark.street;
                                 [self.tableView reloadData];
-                                self.ticket.property.latitude = detailPlacemark.location.coordinate.latitude;
-                                self.ticket.property.longitude = detailPlacemark.location.coordinate.longitude;
                                 [self updateTicket];
                                 [SVProgressHUD dismiss];
                             }
