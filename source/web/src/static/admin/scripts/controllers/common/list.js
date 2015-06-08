@@ -34,6 +34,9 @@
             if (lastItem.time) {
                 params.time = lastItem.time
             }
+            if (lastItem.last_modified_time) {
+                params.last_modified_time = lastItem.last_modified_time
+            }
             if (lastItem.register_time) {
                 params.register_time = lastItem.register_time
             }
@@ -62,6 +65,9 @@
                 if (lastItem.time) {
                     params.time = lastItem.time
                 }
+                if (lastItem.last_modified_time) {
+                    params.last_modified_time = lastItem.last_modified_time
+                }
                 if (lastItem.register_time) {
                     params.register_time = lastItem.register_time
                 }
@@ -70,6 +76,7 @@
                 }
             } else {
                 delete params.time
+                delete params.last_modified_time
                 delete params.register_time
                 delete params.insert_time
             }

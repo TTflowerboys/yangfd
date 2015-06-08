@@ -80,6 +80,9 @@
             <li ng-class="{active:$state.includes('dashboard.users.detail.orders')}">
                 <a style="cursor: pointer;" ui-sref=".orders">{%$root.i18n('众筹订单')%}</a>
             </li>
+            <li ng-class="{active:$state.includes('dashboard.users.detail.properties')}">
+                <a style="cursor: pointer;" ui-sref=".properties">{%$root.i18n('发布的房产')%}</a>
+            </li>
         </ul>
 
         <div style="min-height: 600px;" ui-view></div>

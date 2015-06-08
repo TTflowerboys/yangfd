@@ -549,6 +549,16 @@ angular.module('app')
                     }
                 }
             })
+            .state('dashboard.users.detail.properties', {
+                url: '/properties',
+                templateUrl: '/static/admin/templates/dashboard.users.detail.properties.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api:function (userPropertyApi) {
+                        return userPropertyApi
+                    }
+                }
+            })
         /**
          * 系统消息
          * */
