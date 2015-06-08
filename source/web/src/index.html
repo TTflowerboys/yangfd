@@ -13,7 +13,10 @@
             <ul class="rslides" data-init="false">
                 % for ad in homepage_ad_list:
                     <li>
-                        <div class="img" data-style="background:url('<url>') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<url>', sizingMethod='scale');" data-url="{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}">
+                        <div class="img hiddenOnMobile" style="background:url('{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}', sizingMethod='scale');" data-url="{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}">
+                            <div class="img_shadow"></div>
+                        </div>
+                        <div class="img hiddenOnPCWeb" style="background:url('{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}_thumbnail') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}_thumbnail', sizingMethod='scale');" data-url="{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}_thumbnail">
                             <div class="img_shadow"></div>
                         </div>
                         <div class="imageText_table">
@@ -355,24 +358,6 @@
 
 <!--@@block=scripts -->
 <script>
-
- //just load after jquery
- window.initSlidesImages = function ($slides) {
-     if ($slides.attr('data-init') === 'false') {
-         $slides.find('li .img').each(function( index ) {
-             var url = $(this).attr('data-url')
-             if (team.isPhone()) {
-                 url += '_thumbnail'
-             }
-             var r = new RegExp('<url>', 'g');
-             var style = $(this).attr('data-style').replace(r, url)
-             $(this).attr('style', style)
-         });
-         $slides.attr('data-init', 'true')
-     }
- }
-
- window.initSlidesImages($('.gallery .rslides'))
 
  $(function () {
      $(".rslides").responsiveSlides({
