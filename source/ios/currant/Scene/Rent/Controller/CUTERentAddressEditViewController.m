@@ -127,7 +127,7 @@
     if (self.ticket.property.country && !IsNilNullOrEmpty(postCodeIndex)) {
         [SVProgressHUD showWithStatus:STR(@"搜索中...")];
 
-        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/postcode/search" parameters:@{@"postcode_index":postCodeIndex, @"country": self.ticket.property.country.code} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:self.ticket.property.country.code] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
@@ -138,14 +138,8 @@
                 [SVProgressHUD showErrorWithCancellation];
             }
             else {
-                NSArray *array = task.result;
-                NSDictionary *resultDic = nil;
-                if (!IsArrayNilOrEmpty(array)) {
-                    resultDic = array[0];
-                }
-                if (resultDic[@"latitude"] && resultDic[@"longitude"]) {
-
-                    CLLocation *location = [[CLLocation alloc] initWithLatitude:[resultDic[@"latitude"] doubleValue] longitude:[resultDic[@"longitude"] doubleValue]];
+                CLLocation *location = task.result;
+                if (location && [location isKindOfClass:[CLLocation class]]) {
 
                     self.ticket.property.latitude = location.coordinate.latitude;
                     self.ticket.property.longitude = location.coordinate.longitude;
@@ -295,8 +289,8 @@
             else {
                 [SVProgressHUD show];
                 NSString *postCodeIndex = [self.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
-                NSString *components = [CUTEGeoManager buildComponentsWithDictionary:@{@"postal_code": postCodeIndex, @"country": self.ticket.property.country.code, @"locality": self.ticket.property.city.name}];
-                [[[CUTEGeoManager sharedInstance] geocodeWithAddress:nil components:components] continueWithBlock:^id(BFTask *task) {
+
+                [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:self.ticket.property.country.code]continueWithBlock:^id(BFTask *task) {
                     if (task.error) {
                         [SVProgressHUD showErrorWithError:task.error];
                     }
@@ -307,11 +301,11 @@
                         [SVProgressHUD showErrorWithCancellation];
                     }
                     else {
-                        if (task.result) {
-                            CUTEPlacemark *placemark = task.result;
+                        CLLocation *location = task.result;
+                        if (location && [location isKindOfClass:[CLLocation class]]) {
                             [self.tableView reloadData];
-                            self.ticket.property.latitude = placemark.location.coordinate.latitude;
-                            self.ticket.property.longitude = placemark.location.coordinate.longitude;
+                            self.ticket.property.latitude = location.coordinate.latitude;
+                            self.ticket.property.longitude = location.coordinate.longitude;
                             self.lastPostcode = self.ticket.property.zipcode;
                             [SVProgressHUD dismiss];
                             [self createTicket];

@@ -111,4 +111,23 @@
     return tcs.task;
 }
 
+
+- (BFTask *)searchPostcodeIndex:(NSString *)postCodeIndex countryCode:(NSString *)countryCode {
+    return [[[CUTEAPIManager sharedInstance] POST:@"/api/1/postcode/search" parameters:@{@"postcode_index":postCodeIndex, @"country": countryCode} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+        NSArray *array = task.result;
+        NSDictionary *resultDic = nil;
+        if (!IsArrayNilOrEmpty(array)) {
+            resultDic = array[0];
+        }
+        if (resultDic[@"latitude"] && resultDic[@"longitude"]) {
+            CLLocation *location = [[CLLocation alloc] initWithLatitude:[resultDic[@"latitude"] doubleValue] longitude:[resultDic[@"longitude"] doubleValue]];
+            return [BFTask taskWithResult:location];
+        }
+        else {
+            return task;
+        }
+    }];
+}
+
+
 @end
