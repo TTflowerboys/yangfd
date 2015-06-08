@@ -2398,7 +2398,7 @@ class f_landregistry(f_app.module_base):
         }
 
         with f_app.mongo() as m:
-            result = m.landregistry_statistics.aggregate([{"$match": {"_id.zipcode_index": zipcode_index}}, {"$group": {"_id": "$_id.type", "sum_price": {"$sum": "$value.price"}, "sum_count": {"$sum": "$value.count"}}}])['result']
+            result = list(m.landregistry_statistics.aggregate([{"$match": {"_id.zipcode_index": zipcode_index}}, {"$group": {"_id": "$_id.type", "sum_price": {"$sum": "$value.price"}, "sum_count": {"$sum": "$value.count"}}}]))
         merged_result = [i for i in result if i.get("_id")]
 
         ind = np.arange(len(merged_result))
