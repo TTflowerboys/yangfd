@@ -12,4 +12,7 @@
 
 @property (strong, nonatomic) NSString *email;
 
+@property (nonatomic) BOOL singleUse;
+
+
 @end

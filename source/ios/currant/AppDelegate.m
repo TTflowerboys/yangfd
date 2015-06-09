@@ -49,6 +49,8 @@
 #import "CUTERentContactViewController.h"
 #import "CUTEUserViewController.h"
 #import "CUTETooltipView.h"
+#import "CUTEApplyBetaRentingViewController.h"
+#import "CUTEApplyBetaRentingForm.h"
 
 
 @interface AppDelegate () <UITabBarControllerDelegate>
@@ -215,10 +217,21 @@
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
 
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_SPLASH_DISPLAYED]) {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_SPLASH_DISPLAYED])
+    {
         CUTESplashViewController *spalshViewController = [CUTESplashViewController new];
         spalshViewController.completion = ^ {
             [self checkNeedShowBetaUserRegister];
+        };
+        spalshViewController.applyBetaCompletion = ^ {
+            CUTEApplyBetaRentingViewController *controller = [CUTEApplyBetaRentingViewController new];
+            CUTEApplyBetaRentingForm *form = [CUTEApplyBetaRentingForm new];
+            form.singleUse = YES;
+            controller.formController.form = form;
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+            [self.tabBarController presentViewController:nav animated:NO completion:^{
+
+            }];
         };
         [rootViewController presentViewController:spalshViewController animated:NO completion:nil];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_SPLASH_DISPLAYED];
