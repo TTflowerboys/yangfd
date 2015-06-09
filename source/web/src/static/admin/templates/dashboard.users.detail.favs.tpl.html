@@ -11,25 +11,28 @@
         </colgroup>
         <thead>
             <tr>
-                <th>{%$root.i18n('房产名')%}</th>
-                <th>{%$root.i18n('房产类型')%}</th>
-                <th>{%$root.i18n('总价')%}</th>
-                <th></th>
+                <th width="50%">{%$root.i18n('标题')%}</th>
+                <th width="30%">{%$root.i18n('收藏类型')%}</th>
+                <th width="20%">{%$root.i18n('管理')%}</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="item in list">
                 <td>
-                    <div show-i18n="item.property.name"></div>
+                    <div ng-bind="item.property.name || item.item.name || item.ticket.title"></div>
                 </td>
                 <td>
-                    <div show-i18n="item.property.property_type.value"></div>
+                    <div ng-bind="item.type | keyName:favoriteTypes"></div>
                 </td>
+
                 <td>
-                    {%item.property.total_price.unit_symbol+item.property.total_price.value%}
-                </td>
-                <td>
-                    <a class="btn btn-success" href ui-sref="dashboard.property.detail({id:item.property.id})" title="View">
+                    <a ng-if="item.property" class="btn btn-success" href ui-sref="dashboard.property.detail({id:item.property.id})" title="View">
+                        <i class="fa fa-search-plus "></i>
+                    </a>
+                    <a ng-if="item.ticket" class="btn btn-success" href ui-sref="dashboard.rent.detail({id:item.ticket.id})" title="View">
+                        <i class="fa fa-search-plus "></i>
+                    </a>
+                    <a ng-if="item.item" class="btn btn-success" href ui-sref="dashboard.crowdfunding.item.detail({shop_id:item.item.shop_id,id:item.item.id})" title="View">
                         <i class="fa fa-search-plus "></i>
                     </a>
                 </td>
