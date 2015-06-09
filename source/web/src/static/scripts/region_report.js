@@ -6,11 +6,12 @@
 
     window.report = getData('dataReport')
 
-    var descriptionHeight = $('.info .description').height()
-    if (descriptionHeight > 180) {
-        $('.info >img').height($('.info >img').height() + descriptionHeight - 180)
+    function setBannerHeight () {
+        var textHeight = $('.info .text').height()
+        $('.info >img').height(textHeight + 120)
     }
-
+    setBannerHeight()
+    $(window).resize(setBannerHeight)
     $('#priceSlider').responsiveSlides({
         manualControls: '#priceSliderPager',
         auto: false,
