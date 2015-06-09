@@ -466,7 +466,7 @@
                                     class="flatButton ajaxButton"
                                     style="{{ 'display:none' if not is_favorited else ''}}"
                                     % if is_favorited:
-                                        data-favorite-id="{{rent.get('id','')}}"
+                                        data-rent-id="{{rent.get('id','')}}"
                                     % end
                                     >
                                 <img src="/static/images/property_details/icon-star-active.png" alt=""/>
@@ -522,7 +522,7 @@
         data-fn="removeFav"
         style="{{ 'display:none' if not is_favorited else ''}}"
     % if is_favorited:
-    data-favorite-id="{{rent.get('id','')}}"
+    data-rent-id="{{rent.get('id','')}}"
     % end
     ><img src="/static/images/property_details/phone/favorite.png"></img>
     </li>
@@ -663,9 +663,9 @@
                 }
                 %end
 
-                /*
-                 * Weixin share sdk
-                 * */
+            /*
+             * Weixin share sdk
+             * */
                 var weixin = JSON.parse($('#pythonWeixin').text())
 
                 window.openWeChatShare = function (rentId) {

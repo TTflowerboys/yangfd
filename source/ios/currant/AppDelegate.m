@@ -165,7 +165,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowFavoriteRentTicketList:) name:KNOTIF_SHOW_FAVORITE_RENT_TICKET_LIST object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogin:) name:KNOTIF_USER_DID_LOGIN object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogout:) name:KNOTIF_USER_DID_LOGOUT object:nil];
-
+    [NotificationCenter addObserver:self selector:@selector(onReceiveBetaUserDidRegister:) name:KNOTIF_BETA_USER_DID_REGISTER object:nil];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
@@ -586,19 +586,23 @@
 
 - (void)onReceiveUserDidLogin:(NSNotification *)notif {
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
-
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED]) {
-        CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:90];
-        [toolTips show];
-
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
     [[CUTEDataManager sharedInstance] deleteAllUnfinishedRentTickets];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+}
+
+- (void)onReceiveBetaUserDidRegister:(NSNotification *)notif {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED]) {
+        CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:90];
+        [toolTips show];
+
+
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
 }
 
 @end

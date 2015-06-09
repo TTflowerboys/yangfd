@@ -332,9 +332,11 @@
             //$('#city').val(val.admin1)
             $('#latitude').val(val.latitude)
             $('#longitude').val(val.longitude)
+            var geocodeApiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + $('#latitude').val() + ',' + $('#longitude').val() + '&result_type=street_address&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
             geonamesApi.getCityByLocation(val.country, val.latitude, val.longitude, function (val) {
-                $.betterPost('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + $('#latitude').val() + ',' + $('#longitude').val() + '&result_type=street_address&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU')
+                $.betterGet('/reverse_proxy?link=' + encodeURIComponent(geocodeApiUrl))
                     .done(function (data) {
+                        data = JSON.parse(data)
                         var streetArr = [],
                             filter = ['street_number', 'route', 'neighborhood']
                         if(data && data.results && data.results.length > 0 && data.results[0] && data.results[0].address_components) {
