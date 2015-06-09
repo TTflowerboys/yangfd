@@ -17,6 +17,8 @@
 #import "CUTEQrcodeCell.h"
 #import "CUTEWebViewController.h"
 #import "SVProgressHUD+CUTEAPI.h"
+#import "CUTENotificationKey.h"
+#import "CUTEAPIManager.h"
 
 @interface CUTERentShareViewController ()
 
@@ -45,6 +47,9 @@
     if ([field.key isEqualToString:@"view"]) {
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     }
+    else if ([field.key isEqualToString:@"edit"]) {
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+    }
     else if ([field.key isEqualToString:@"qrcode"]) {
         CUTEQrcodeCell *qrcodeCell = (CUTEQrcodeCell *)cell;
         NSURL *originalURL = [NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]];
@@ -62,6 +67,31 @@
         controller.url = [NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]];
         [controller loadURL:controller.url];
         [self.navigationController pushViewController:controller animated:YES];
+    }
+    if ([field.key isEqualToString:@"edit"]) {
+        [SVProgressHUD show];
+        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", self.ticket.identifier) parameters:nil resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                if (task.result) {
+                    [SVProgressHUD dismiss];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_EDIT object:self userInfo:@{@"ticket": task.result}];
+                }
+                else {
+                    [SVProgressHUD showErrorWithStatus:STR(@"获取失败")];
+                }
+            }
+            
+            return task;
+        }];
     }
     else if ([field.key isEqualToString:@"copyLink"]) {
         [UIPasteboard generalPasteboard].string = [[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString];

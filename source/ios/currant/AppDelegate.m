@@ -513,9 +513,9 @@
 - (void)onReceiveTicketEdit:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
-    UIViewController *webController = (UIViewController *)notif.object;
+    UIViewController *viewController = (UIViewController *)notif.object;
 
-    if (ticket && webController && [webController isKindOfClass:[UIViewController class]] && webController.navigationController) {
+    if (ticket && viewController && [viewController isKindOfClass:[UIViewController class]] && viewController.navigationController) {
         [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithBlock:^id(BFTask *task) {
             if (!IsArrayNilOrEmpty(task.result)) {
                 CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
@@ -527,7 +527,7 @@
                 form.bathroomCount = ticket.property.bathroomCount;
                 [form setAllPropertyTypes:task.result];
                 controller.formController.form = form;
-                [webController.navigationController pushViewController:controller animated:YES];
+                [viewController.navigationController pushViewController:controller animated:YES];
             }
             else {
                 [SVProgressHUD showErrorWithError:task.error];

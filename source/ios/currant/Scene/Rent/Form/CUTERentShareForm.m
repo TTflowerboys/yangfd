@@ -17,6 +17,7 @@
 
 - (NSArray *)fields {
     return @[@{FXFormFieldKey: @"view", FXFormFieldTitle: STR(@"查看我的房产"), FXFormFieldCell: [CUTEFormTextCell class]},
+             @{FXFormFieldKey: @"edit", FXFormFieldTitle: STR(@"编辑我的房产"), FXFormFieldCell: [CUTEFormTextCell class]},
              @{FXFormFieldKey: @"copyLink", FXFormFieldTitle: STR(@"复制页面链接"), FXFormFieldHeader: @"", FXFormFieldCell: [CUTEFormCenterTextCell class]},
 //             @{FXFormFieldKey: @"qrcode", FXFormFieldTitle: STR(@"二维码"), FXFormFieldCell: [CUTEQrcodeCell class]},
              @{FXFormFieldKey: @"wechat", FXFormFieldTitle: STR(@"分享到微信"), FXFormFieldCell: [CUTEFormShareButtonCell class],FXFormFieldHeader:@""}];
