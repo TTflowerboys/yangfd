@@ -61,6 +61,12 @@
             [NotificationCenter postNotificationName:KNOTIF_SHOW_FAVORITE_RENT_TICKET_LIST object:nil];
         }];
     }
+    else if ([self isURL:url matchPath:@"\\/property-list"]) {
+        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
+            TrackEvent(@"property-list", kEventActionPress, @"open-fav-list", nil);
+            [NotificationCenter postNotificationName:KNOTIF_SHOW_FAVORITE_PROPERTY_LIST object:nil];
+        }];
+    }
 
     return nil;
 }

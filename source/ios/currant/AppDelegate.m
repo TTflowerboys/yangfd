@@ -164,6 +164,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveHideRootTabBar:) name:KNOTIF_HIDE_ROOT_TAB_BAR object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowRootTabBar:) name:KNOTIF_SHOW_ROOT_TAB_BAR object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowFavoriteRentTicketList:) name:KNOTIF_SHOW_FAVORITE_RENT_TICKET_LIST object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowFavoritePropertyList:) name:KNOTIF_SHOW_FAVORITE_PROPERTY_LIST object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogin:) name:KNOTIF_USER_DID_LOGIN object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogout:) name:KNOTIF_USER_DID_LOGOUT object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveBetaUserDidRegister:) name:KNOTIF_BETA_USER_DID_REGISTER object:nil];
@@ -580,7 +581,17 @@
     UINavigationController *viewController = [[self.tabBarController viewControllers] objectAtIndex:kRentTicketListTabBarIndex];
     if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
         CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
-        [webViewController loadURLInNewController:[NSURL URLWithString:@"/user_favorites?type=rent" relativeToURL:[CUTEConfiguration hostURL]]];
+        [webViewController loadURLInNewController:[NSURL URLWithString:@"/user-favorites#rent" relativeToURL:[CUTEConfiguration hostURL]]];
+    }
+}
+
+- (void)onReceiveShowFavoritePropertyList:(NSNotification *)notif {
+    [self.tabBarController setSelectedIndex:kPropertyListTabBarIndex];
+
+    UINavigationController *viewController = [[self.tabBarController viewControllers] objectAtIndex:kPropertyListTabBarIndex];
+    if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
+        CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
+        [webViewController loadURLInNewController:[NSURL URLWithString:@"/user-favorites#own" relativeToURL:[CUTEConfiguration hostURL]]];
     }
 }
 
