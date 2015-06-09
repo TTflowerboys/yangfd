@@ -79,6 +79,7 @@
                 }
                 else {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [[CUTETracker sharedInstance] trackError:[NSError errorWithDomain:@"Wechat" code:backResp.errCode userInfo:@{NSLocalizedDescriptionKey:backResp.errStr}]];
                         [SVProgressHUD showErrorWithStatus:STR(@"分享失败")];
                     });
                 }
