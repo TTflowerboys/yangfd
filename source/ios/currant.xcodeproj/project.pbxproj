@@ -2517,7 +2517,7 @@
 					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/WeChatSDK",
 				);
 				PRODUCT_NAME = currant;
-				PROVISIONING_PROFILE = "14cffaab-8fdd-4d7d-9e71-6b90c61e4c42";
+				PROVISIONING_PROFILE = "1ff635e2-77dd-4d57-8f1f-d6d252ec8ec6";
 			};
 			name = Release;
 		};
@@ -2642,7 +2642,7 @@
 					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/WeChatSDK",
 				);
 				PRODUCT_NAME = currant;
-				PROVISIONING_PROFILE = "14cffaab-8fdd-4d7d-9e71-6b90c61e4c42";
+				PROVISIONING_PROFILE = "1ff635e2-77dd-4d57-8f1f-d6d252ec8ec6";
 			};
 			name = Release;
 		};
