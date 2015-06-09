@@ -323,6 +323,9 @@
             .fail(function(){
             })
     }
+    function clearCity() {
+        $('select[name=propertyCity]').html('<option value="">' + i18n('任意城市') + '</option>').trigger('chosen:updated')
+    }
 
     function loadRentList(reload) {
 
@@ -425,12 +428,17 @@
      * */
     var $countrySelect = $('select[name=propertyCountry]')
     $countrySelect.change(function () {
+        var countryCode = $('select[name=propertyCountry]').children('option:selected').val()
         if(isLoading){
             return
         }
         ga('send', 'event', 'rent_list', 'change', 'select-country',
             $('select[name=propertyCountry]').children('option:selected').text())
-        updateCityByCountry($('select[name=propertyCountry]').children('option:selected').val())
+        if(countryCode) {
+            updateCityByCountry(countryCode)
+        } else {
+            clearCity()
+        }
         loadRentListByView()
     })
 
