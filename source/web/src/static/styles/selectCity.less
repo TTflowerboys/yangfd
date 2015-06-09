@@ -1,8 +1,14 @@
 @import "project/_imports";
 .selectWrap{
     display:inline-block;
-    width: 200px;
+    min-width: 150px;
     font-size: 14px;
+    &.selectCityWrap{
+        width: 200px;
+        @media @phone{
+            width:33%;
+        }
+    }
     select{
         width: 100% !important;
     }
