@@ -135,11 +135,15 @@ div.content {
         margin: 150px auto 0 auto;
         overflow: hidden;
         @media @phone {
-            margin: 150px auto;
+            margin: 80px auto;
         }
         img {
             display: inline-block;
             vertical-align: top;
+            @media @phone {
+                display: block;
+                margin: 0 auto 20px;
+            }
         }
 
         .holderText {
@@ -147,11 +151,23 @@ div.content {
             vertical-align: top;
             line-height: 52px;
             margin-left: 20px;
-
+            text-align: left;
+            color: #999;
+            @media @phone {
+                display: block;
+                margin-left: 0px;
+                text-align: center;
+            }
             h2 {
                 margin: 0;
                 font-size: 24px;
-                color: #999;
+                @media @phone {
+                    font-size: 21px;
+                }
+            }
+            p{
+                margin: 0;
+                font-size: 14px;
             }
         }
     }
