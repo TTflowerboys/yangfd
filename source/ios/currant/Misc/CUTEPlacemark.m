@@ -9,6 +9,7 @@
 #import "CUTEPlacemark.h"
 #import "CUTECommonMacro.h"
 #import <NSArray+ObjectiveSugar.h>
+#import "CUTEAddressUtil.h"
 
 @interface CUTEPlacemark ()
 
@@ -79,7 +80,7 @@
     placemark.city = city;
     placemark.administrativeArea = [CUTEPlacemark getComponentByType:@"administrative_area_level_1" fromCompnents:components];
     placemark.country = country;
-    placemark.street = CONCAT(AddressPart([CUTEPlacemark getComponentByType:@"street_number" fromCompnents:components]), AddressPart([CUTEPlacemark getComponentByType:@"route" fromCompnents:components]), AddressPart([CUTEPlacemark getComponentByType:@"neighborhood" fromCompnents:components]));
+    placemark.street = [CUTEAddressUtil buildAddress:@[NilNullToEmpty([CUTEPlacemark getComponentByType:@"street_number" fromCompnents:components]), NilNullToEmpty([CUTEPlacemark getComponentByType:@"route" fromCompnents:components]), NilNullToEmpty([CUTEPlacemark getComponentByType:@"neighborhood" fromCompnents:components])]];
     placemark.postalCode = [CUTEPlacemark getComponentByType:@"postal_code" fromCompnents:components];
     if (location) {
         placemark.location = [[CLLocation alloc] initWithLatitude:[location[@"lat"] doubleValue] longitude:[location[@"lng"] doubleValue]];
@@ -89,10 +90,7 @@
 
 
 - (NSString *)address {
-    return CONCAT(AddressPart(self.street),
-                  AddressPart(self.city.name),
-                  AddressPart(self.postalCode),
-                  AddressPart(self.country.name));
+    return [CUTEAddressUtil buildAddress:@[NilNullToEmpty(self.street), NilNullToEmpty(self.city.name), NilNullToEmpty(self.postalCode), NilNullToEmpty(self.country.name)]];
 }
 
 

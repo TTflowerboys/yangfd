@@ -17,6 +17,4 @@
 
 #define DEFAULT_I18N_LOCALE @"zh_Hans_CN"
 
-#define AddressPart(part) IsNilNullOrEmpty(part)? @"": CONCAT(part, @" ")
-
 #endif

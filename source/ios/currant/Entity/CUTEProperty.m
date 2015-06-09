@@ -13,6 +13,7 @@
 #import <MapKit/MapKit.h>
 #import "NSURL+CUTE.h"
 #import "CUTEHouseType.h"
+#import "CUTEAddressUtil.h"
 
 @implementation CUTEProperty
 
@@ -175,15 +176,7 @@
 }
 
 - (NSString *)address {
-    return [CONCAT(AddressPart(self.houseName),
-                   AddressPart(self.floor),
-                   AddressPart(self.community),
-                   AddressPart((!IsNilOrNull(self.street) && [self.street isKindOfClass:[NSString class]]? self.street: @"")),
-                   AddressPart(self.city.name),
-                   AddressPart(self.zipcode),
-                   AddressPart(self.country.name),)
-            stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    //trim remove last whitespace
+    return [CUTEAddressUtil buildAddress:@[NilNullToEmpty(self.houseName), NilNullToEmpty(self.floor), NilNullToEmpty(self.community), NilNullToEmpty(self.street), NilNullToEmpty(self.city.name), NilNullToEmpty(self.zipcode), NilNullToEmpty(self.country.name)]];
 }
 
 @end

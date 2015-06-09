@@ -37,6 +37,7 @@
 #import "CUTETooltipView.h"
 #import "CUTEUserDefaultKey.h"
 #import "JDFTooltipManager.h"
+#import "CUTEAddressUtil.h"
 
 #define kRegionDistance 800
 
@@ -298,8 +299,9 @@
     }
 
     [_textField.indicatorView startAnimating];
-    
-    NSString *street = CONCAT(AddressPart(self.ticket.property.community), AddressPart((!IsNilOrNull(self.ticket.property.street) && [self.ticket.property.street isKindOfClass:[NSString class]]? self.ticket.property.street: @"")));
+
+
+    NSString *street = [CUTEAddressUtil buildAddress:@[NilNullToEmpty(self.ticket.property.community), NilNullToEmpty(self.ticket.property.street)]];
     NSString *components = [CUTEGeoManager buildComponentsWithDictionary:@{@"country": self.ticket.property.country.code, @"locality": self.ticket.property.city.name}];
     [[[CUTEGeoManager sharedInstance] geocodeWithAddress:street components:components] continueWithBlock:^id(BFTask *task) {
         [_textField.indicatorView stopAnimating];

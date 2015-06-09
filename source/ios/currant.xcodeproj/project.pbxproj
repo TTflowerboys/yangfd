@@ -366,6 +366,11 @@
 		2CC3A0981AFA2280008C9AC8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC3A0961AFA2279008C9AC8 /* AVFoundation.framework */; };
 		2CC3A0991AFA2286008C9AC8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC3A0961AFA2279008C9AC8 /* AVFoundation.framework */; };
 		2CC3A09A1AFA228E008C9AC8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CC3A0961AFA2279008C9AC8 /* AVFoundation.framework */; };
+		2CC4525D1B2711770004AE54 /* CUTEAddressUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4525C1B2711770004AE54 /* CUTEAddressUtil.m */; };
+		2CC4525E1B2711770004AE54 /* CUTEAddressUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4525C1B2711770004AE54 /* CUTEAddressUtil.m */; };
+		2CC4525F1B2711770004AE54 /* CUTEAddressUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4525C1B2711770004AE54 /* CUTEAddressUtil.m */; };
+		2CC452601B2711770004AE54 /* CUTEAddressUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4525C1B2711770004AE54 /* CUTEAddressUtil.m */; };
+		2CC452611B2711770004AE54 /* CUTEAddressUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4525C1B2711770004AE54 /* CUTEAddressUtil.m */; };
 		2CC6C1CF1AEE03D7002758A7 /* UIImageView+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */; };
 		2CC6C1D01AEE03D7002758A7 /* UIImageView+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */; };
 		2CC6C1D11AEE03D7002758A7 /* UIImageView+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */; };
@@ -775,6 +780,8 @@
 		2CC3A08F1AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormCenterTextCell.h; sourceTree = "<group>"; };
 		2CC3A0901AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormCenterTextCell.m; sourceTree = "<group>"; };
 		2CC3A0961AFA2279008C9AC8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2CC4525B1B2711770004AE54 /* CUTEAddressUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEAddressUtil.h; sourceTree = "<group>"; };
+		2CC4525C1B2711770004AE54 /* CUTEAddressUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAddressUtil.m; sourceTree = "<group>"; };
 		2CC6C1CD1AEE03D7002758A7 /* UIImageView+Assets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Assets.h"; sourceTree = "<group>"; };
 		2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Assets.m"; sourceTree = "<group>"; };
 		2CC6C1D41AEE2400002758A7 /* AssetsLibraryProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsLibraryProvider.h; sourceTree = "<group>"; };
@@ -1062,6 +1069,8 @@
 				2CA81FB51B1303BC006E993C /* CUTEPlacemark.m */,
 				2CC3A06C1AF87D74008C9AC8 /* CUTENavigationUtil.h */,
 				2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */,
+				2CC4525B1B2711770004AE54 /* CUTEAddressUtil.h */,
+				2CC4525C1B2711770004AE54 /* CUTEAddressUtil.m */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1884,6 +1893,7 @@
 				2CF8A5E81AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C63CAD61B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD41AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
+				2CC4525F1B2711770004AE54 /* CUTEAddressUtil.m in Sources */,
 				2C427E4E1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85221AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F801B0CA543006E993C /* CUTEHouseType.m in Sources */,
@@ -2002,6 +2012,7 @@
 				2CF8A5E91AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C63CAD71B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD51AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
+				2CC452601B2711770004AE54 /* CUTEAddressUtil.m in Sources */,
 				2C427E4F1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85231AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F811B0CA543006E993C /* CUTEHouseType.m in Sources */,
@@ -2120,6 +2131,7 @@
 				2CF8A5E71AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C63CAD51B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD31AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
+				2CC4525E1B2711770004AE54 /* CUTEAddressUtil.m in Sources */,
 				2C427E4D1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85211AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F7F1B0CA543006E993C /* CUTEHouseType.m in Sources */,
@@ -2238,6 +2250,7 @@
 				2CF8A5E61AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C63CAD41B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD21AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
+				2CC4525D1B2711770004AE54 /* CUTEAddressUtil.m in Sources */,
 				2C427E4C1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85201AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F7E1B0CA543006E993C /* CUTEHouseType.m in Sources */,
@@ -2341,6 +2354,7 @@
 				2CA81F731B0B5621006E993C /* MemoryReporter.m in Sources */,
 				2CF8A6771AF0B65C0080DF10 /* CUTEAreaForm.m in Sources */,
 				2C2FCDD61AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
+				2CC452611B2711770004AE54 /* CUTEAddressUtil.m in Sources */,
 				2CF8A6261AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
 				2CA81FC81B144CF6006E993C /* CUTEApplyBetaRentingForm.m in Sources */,
 				2CA81F9E1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
