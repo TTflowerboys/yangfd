@@ -275,45 +275,14 @@
 
 
     $('#findAddress').click(function () {
-        /*function getLocationFromApiData(data, property){
-            var location = ''
-            if(data.results.length > 0){
-                $.each(data.results[0].address_components, function(index, value){
-                    if(value.types.indexOf(property) >= 0){
-                        location = value.long_name
-                    }
-                })
-            }
-            return location
-        }
-        function getGeometryFromApiData(data, property) {
-            var location
-            if(data.results.length > 0 && data.results[0].geometry && data.results[0].geometry.location){
-                location = data.results[0].geometry.location[property]
-            }
-            return location
-        }
         var $btn = $(this)
-        var address = $('#postcode').val()
-        if(address !== ''){
-            $btn.prop('disabled', true).text(window.i18n('获取中...'))
-            $.betterPost('http://maps.googleapis.com/maps/api/geocode/json?address=' + address)
-                .done(function (data) {
-                    $('#country').val(getLocationFromApiData(data, 'country'))
-                    $('#city').val(getLocationFromApiData(data, 'locality'))
-                    $('#latitude').val(getGeometryFromApiData(data, 'lat'))
-                    $('#longitude').val(getGeometryFromApiData(data, 'lng'))
-                    $btn.prop('disabled', false).text(window.i18n('重新获取'))
-                }).fail(function (err) {
-                    $errorMsg.text(err).show()
-                    $btn.prop('disabled', false).text(window.i18n('重新获取'))
-                }).always(function() {
-                    $('#address').show()
-                })
-        }*/
-        //使用新的 /api/1/postcode/search API
-        //var country = 'GB' //todo 暂时将API要传的country字段写死为英国
-        var $btn = $(this)
+        function showPostcodeNoResultMsg () {
+            $btn.siblings('.postcodeNoResultMsg').show()
+        }
+        function hidePostcodeNoResultMsg () {
+            $btn.siblings('.postcodeNoResultMsg').hide()
+        }
+        hidePostcodeNoResultMsg()
         var postcodeIndex = $('#postcode').val().replace(/\s/g, '').toUpperCase()
         function clearLocationData () {
             $('#city-select').find('option').eq(0).attr('selected',true)
@@ -428,6 +397,9 @@
                     switch(val.length) {
                         case 0: //postcode没有搜索到结果则需要用户手动选择国家城市
                             clearLocationData()
+                            showPostcodeNoResultMsg()
+                            $('.buttonLoading').trigger('end')
+                            $btn.prop('disabled', false).text(window.i18n('重新获取'))
                             $('#address').show()
                             break;
                         case 1: //搜索到一条结果则直接填充到对应到字段
