@@ -175,9 +175,9 @@
                   ticket.rentAvailableTime = [[NSDate date] timeIntervalSince1970];
               }
 
-              if (!ticket.rentDeadlineTime) {
-                  ticket.rentDeadlineTime = [[[NSDate dateWithTimeIntervalSince1970:[ticket rentAvailableTime]] dateByAddingDays:1] timeIntervalSince1970];
-              }
+//              if (!ticket.rentDeadlineTime) {
+//                  ticket.rentDeadlineTime = [[[NSDate dateWithTimeIntervalSince1970:[ticket rentAvailableTime]] dateByAddingDays:1] timeIntervalSince1970];
+//              }
               if (!ticket.minimumRentPeriod) {
                   ticket.minimumRentPeriod = [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
               }

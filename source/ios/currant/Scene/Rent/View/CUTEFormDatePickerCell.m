@@ -23,6 +23,9 @@
     [super update];
     self.textLabel.textColor = HEXCOLOR(0x333333, 1.0);
     self.textLabel.font = [UIFont systemFontOfSize:16];
+    if (self.field.value && [self.field.value isKindOfClass:[NSDate class]] && fequalzero([self.field.value timeIntervalSince1970])) {
+        self.detailTextLabel.text = @"";
+    }
 }
 
 - (UIView *)inputAccessoryView {
