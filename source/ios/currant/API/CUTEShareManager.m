@@ -60,7 +60,7 @@
 
 - (void)setUpShareSDK {
 
-    [UMSocialData setAppKey:@"557173da67e58e9316003733"];
+    [UMSocialData setAppKey:[CUTEConfiguration umengAppKey]];
     [WXApi registerApp:[CUTEConfiguration weixinAPPId]];
 #ifdef DEBUG
     [WeiboSDK enableDebugMode:YES];
