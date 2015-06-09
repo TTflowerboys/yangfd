@@ -20,6 +20,7 @@
         var defaultOptions = {
             endTrigger: 'end'
         }
+        this.isRequesting = false
         this.elem = $(elem)
         this.elem.data('buttonLoading', true)
         this.options = $.extend(defaultOptions, opts)
@@ -29,9 +30,11 @@
     $.extend(ButtonLoading.prototype, {
         start: function() {
             this.elem.removeClass('buttonLoadingClicked').addClass('buttonLoading').prop('disabled', true)
+            this.isRequesting = true
         },
         end: function() {
             this.elem.removeClass('buttonLoading').prop('disabled', false)
+            this.isRequesting = false
         },
         bindEvent: function() {
             var _ = this
@@ -41,6 +44,11 @@
             _.elem.bind('click', function() {
                 $('.buttonLoadingClicked').removeClass('buttonLoadingClicked')
                 $(this).addClass('buttonLoadingClicked')
+                setTimeout(function () {
+                    if(!_.isRequesting) {
+                        $('.buttonLoadingClicked').removeClass('buttonLoadingClicked')
+                    }
+                },200)
             })
             _.elem.bind(_.options.endTrigger, function() {
                 _.end()
