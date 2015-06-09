@@ -219,7 +219,7 @@
                                                 <span class="input-xlarge uneditable-input">{%$root.i18n('经度:')%}</span>
                                                 <span class="input-xlarge uneditable-input">{%item.property.longitude%}</span>
                                                 <span class="input-xlarge uneditable-input">
-                                                    <a ng-href="http://bing.com/maps/default.aspx?cp={%item.property.latitude%}~{%item.property.longitude%}&lvl=15&style=r&sp=point.{%item.property.latitude%}_{%item.property.longitude%}_House%20position">{%$root.i18n('[查看Bing地图]')%}</a>
+                                                    <a ng-href="http://dev.virtualearth.net/embeddedMap/v1/ajax/Road?zoomLevel=14&center={%item.property.latitude%}_{%item.property.longitude%}&pushpins={%item.property.latitude%}_{%item.property.longitude%}">{%$root.i18n('[查看Bing地图]')%}</a>
                                                 </span>
 
                                             </div>
