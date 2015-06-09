@@ -11,7 +11,7 @@
 #import "WXApi.h"
 #import "CUTETicket.h"
 
-@interface CUTEShareManager : NSObject <WXApiDelegate>
+@interface CUTEShareManager : NSObject
 
 + (instancetype)sharedInstance;
 

@@ -55,6 +55,10 @@ static NSString *host = nil;
     return @"3185958365";
 }
 
++ (NSString *)umengCallbackURLString {
+    return @"http://sns.whalecloud.com/sina2/callback";
+}
+
 + (NSString *)gaTrackingId {
     return @"UA-55542465-2";
 }

@@ -30,6 +30,8 @@
 
 + (NSString *)sinaAppKey;
 
++ (NSString *)umengCallbackURLString;
+
 + (NSString *)gaTrackingId;
 
 + (NSString *) appVersion;
