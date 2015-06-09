@@ -86,6 +86,7 @@ PODS:
   - UIAlertView+Blocks (0.8.1)
   - UMengSocial (4.2.3)
   - WebViewJavascriptBridge (4.1.4)
+  - WeiboSDK (3.0.1)
   - YTKKeyValueStore (0.1.2):
     - FMDB (~> 2.0)
 
@@ -117,6 +118,7 @@ DEPENDENCIES:
   - UIAlertView+Blocks (= 0.8.1)
   - UMengSocial (~> 4.2.3)
   - WebViewJavascriptBridge (~> 4.1.4)
+  - WeiboSDK (from `https://raw.github.com/sinaweibosdk/weibo_ios_sdk/master/WeiboSDK.podspec`)
   - YTKKeyValueStore
 
 EXTERNAL SOURCES:
@@ -124,6 +126,8 @@ EXTERNAL SOURCES:
     :git: git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git
   BBTUtility:
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
+  WeiboSDK:
+    :podspec: https://raw.github.com/sinaweibosdk/weibo_ios_sdk/master/WeiboSDK.podspec
 
 CHECKOUT OPTIONS:
   BBTRestClient:
@@ -170,6 +174,7 @@ SPEC CHECKSUMS:
   UIAlertView+Blocks: 45c3d3b7194906702d3e9a14c7ece5581505646d
   UMengSocial: 85882abe5b20aa38ad558ece71360e16b5d50909
   WebViewJavascriptBridge: f10ac16f2cd3adf2b941bd79477c55a8f6e01044
+  WeiboSDK: 852b2733a7a39e7e34400f6486e453ca389ce189
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
 COCOAPODS: 0.36.3

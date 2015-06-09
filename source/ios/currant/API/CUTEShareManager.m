@@ -21,17 +21,23 @@
 #import <UMSocial.h>
 #import <UMSocialWechatHandler.h>
 #import <UMSocialSinaHandler.h>
+#import <WeiboSDK.h>
 #import "AppDelegate.h"
 #import "UIActionSheet+Blocks.h"
 
 
+
 #define THNUMBNAIL_SIZE 100
 
-@interface CUTEShareManager () <UMSocialUIDelegate> {
+@interface CUTEShareManager () <UMSocialUIDelegate, WXApiDelegate, WeiboSDKDelegate> {
 
 }
 
 @property(copy) void (^responseBlock)(BaseResp *);
+
+@property (strong, nonatomic) NSString *wbtoken;
+
+@property (strong, nonatomic) NSString *wbCurrentUserID;
 
 @end
 
@@ -53,11 +59,13 @@
 #pragma mark - Share Method
 
 - (void)setUpShareSDK {
-    //TODO update with our Umeng appKey
-//    [UMSocialData setAppKey:@"557173da67e58e9316003733"];
-    [UMSocialData setAppKey:@"507fcab25270157b37000010"];
-//    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://yangfd.com/sina2/callback"];
-    [WXApi registerApp:@"wxa8e7919a58064daa"];
+
+    [UMSocialData setAppKey:[CUTEConfiguration umengAppKey]];
+    [WXApi registerApp:[CUTEConfiguration weixinAPPId]];
+#ifdef DEBUG
+    [WeiboSDK enableDebugMode:YES];
+#endif
+    [WeiboSDK registerApp:[CUTEConfiguration sinaAppKey]];
 }
 
 - (void)shareToWechatWithReq:(BaseReq *)req {
@@ -93,7 +101,7 @@
 
 }
 
-- (BaseReq *)makeWechatRequstWithScene:(NSInteger)scene title:(NSString *)title description:(NSString *)description thumbData:(NSData *)imageData url: (NSString *)url {
+- (BaseReq *)makeWechatRequstWithScene:(int)scene title:(NSString *)title description:(NSString *)description thumbData:(NSData *)imageData url: (NSString *)url {
     WXMediaMessage *message = [WXMediaMessage message];
     message.title = title;
     message.description = description;
@@ -229,8 +237,31 @@
                                 shortUrl = urlArray[0][@"url_short"];
                             }
 
-                            [[UMSocialControllerService defaultControllerService] setShareText:[self truncateString:CONCAT(NilNullToEmpty(shortUrl), @" ", NilNullToEmpty(title), @" ", NilNullToEmpty(description)) length:140] shareImage:sinaImage socialUIDelegate:self];
-                            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(controller,[UMSocialControllerService defaultControllerService],YES);
+                            NSInteger maxContentLength = 140;
+                            NSString *content = [self truncateString:CONCAT(NilNullToEmpty(title), @" ", NilNullToEmpty(description)) length:maxContentLength - shortUrl.length - 1];
+                            content = CONCAT(NilNullToEmpty(content), @" ", NilNullToEmpty(shortUrl));
+
+                            if ([WeiboSDK isCanShareInWeiboAPP]) {
+                                WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
+                                authRequest.redirectURI = [CUTEConfiguration umengCallbackURLString];
+                                authRequest.scope = @"all";
+
+                                WBMessageObject *message = [WBMessageObject new];
+                                message.text = content;
+                                WBImageObject *imageObject = [WBImageObject new];
+                                imageObject.imageData = UIImagePNGRepresentation(sinaImage);
+                                message.imageObject = imageObject;
+
+                                WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message authInfo:authRequest access_token:nil];
+                                //    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
+                                [WeiboSDK sendRequest:request];
+                            }
+                            else {
+
+                                [[UMSocialControllerService defaultControllerService] setShareText:content shareImage:sinaImage socialUIDelegate:self];
+                                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(controller,[UMSocialControllerService defaultControllerService],YES);
+                            }
+
                             return nil;
                         }];
 
@@ -256,7 +287,14 @@
 }
 
 - (BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    return [WXApi handleOpenURL:url delegate:self];
+    if ([url.scheme hasPrefix:@"wx"]) {
+        return [WXApi handleOpenURL:url delegate:self];
+    }
+    else if ([url.scheme hasPrefix:@"wb"]) {
+        return [WeiboSDK handleOpenURL:url delegate:self];
+    }
+
+    return YES;
 }
 
 #pragma mark - UMSocial Delegate
@@ -280,6 +318,27 @@
 - (void)onResp:(BaseResp *)resp {
     if (self.responseBlock) {
         self.responseBlock(resp);
+    }
+}
+
+#pragma mark - WeiboSDKDelegate
+
+- (void)didReceiveWeiboRequest:(WBBaseRequest *)request {
+
+}
+
+- (void)didReceiveWeiboResponse:(WBBaseResponse *)response {
+    if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
+    {
+        if (response.statusCode == WeiboSDKResponseStatusCodeSuccess) {
+            [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
+        }
+        else if (response.statusCode == WeiboSDKResponseStatusCodeUserCancel) {
+            [SVProgressHUD showInfoWithStatus:STR(@"分享取消")];
+        }
+        else {
+            [SVProgressHUD showErrorWithError:[NSError errorWithDomain:STR(@"微博分享") code:response.statusCode userInfo:response.userInfo]];
+        }
     }
 }
 
