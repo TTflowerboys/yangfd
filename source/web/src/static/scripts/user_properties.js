@@ -127,6 +127,7 @@ $(function () {
             loadOwnProperty()
         }
     })
+    $(window).trigger('hashchange')
     /*
      * User interaction on page
      * */
