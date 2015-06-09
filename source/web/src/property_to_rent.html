@@ -153,14 +153,17 @@
                     % end
                 </div>
             </div>
-            % if 'country' in rent['property'] or 'city' in rent['property']:
-            % country = get_country_name_by_code(rent['property'].get('country',{}).get('code'))
-            % city = rent['property'].get('city',{}).get('name')
-            % city_string = ', '.join([x for x in [country,city] if x])
+            % if 'community' in rent['property'] or 'street' in rent['property'] or 'zipcode' in rent['property']:
             <div class="tag row">
                 <img src="/static/images/property_details/location-icon.png" alt=""/>
                 <label>
-                    {{city_string}}
+                    % if rent['property'].get('community',''):
+                    {{rent['property'].get('community','')}},
+                    % end
+                    % if rent['property'].get('street',''):
+                    {{rent['property'].get('street','')}},
+                    % end
+                    {{rent['property'].get('zipcode','')}}
                 </label>
             </div>
             % end
@@ -236,11 +239,12 @@
                 </li>
                 % end
             </ul>
-            % if 'street' in rent['property'] and rent.get('property',{}).get('street','') and 'community' in rent['property'] and rent.get('property',{}).get('community','') and 'floor' in rent['property'] and rent.get('property',{}).get('floor','') and 'house_name' in rent['property'] and rent.get('property',{}).get('house_name',''):
+            % if ('street' in rent['property'] and rent.get('property',{}).get('street','')) or ('community' in rent['property'] and rent.get('property',{}).get('community','')) or ('floor' in rent['property'] and rent.get('property',{}).get('floor','')) or ('house_name' in rent['property'] and rent.get('property',{}).get('house_name','')):
+            % count = sum([bool(x in rent['property'] and rent["property"][x]) for x in ["street", "community", "floor", "house_name"]])
             <div class="seperator"></div>
             <ul class="numbersWithoutSeperator">
                 % if 'street' in rent['property'] and rent.get('property',{}).get('street',''):
-                <li>
+                <li style="width: {{100/count}}%">
                     {{_('街道')}}
                     <strong>
                         {{rent['property'].get('street','')}}
@@ -249,21 +253,21 @@
                 </li>
                 % end
                 % if 'community' in rent['property'] and rent.get('property',{}).get('community',''):
-                <li>
+                <li style="width: {{100/count}}%">
                     {{_('小区')}}
                     <strong>{{ rent['property'].get('community','') }}</strong>
                 </li>
                 % end
 
                 % if 'floor' in rent['property'] and rent.get('property',{}).get('floor',''):
-                <li>
+                <li style="width: {{100/count}}%">
                     {{_('楼层')}}
                     <strong>{{ rent['property'].get('floor','') }}</strong>
                 </li>
                 % end
 
                 % if 'house_name' in rent['property'] and rent.get('property',{}).get('house_name',''):
-                <li>
+                <li style="width: {{100/count}}%">
                     {{_('房间名')}}
                     <strong>{{ rent['property'].get('house_name','') }}</strong>
                 </li>
@@ -380,18 +384,20 @@
                         <span>{{publish_time}}</span>{{_('发布')}}
                     % end
                 </label>
-                % if 'country' in rent['property'] or 'city' in rent['property']:
-                    % country = get_country_name_by_code(rent['property'].get('country',{}).get('value'))
-                    % city = rent['property'].get('city',{}).get('name')
-                    % city_string = ', '.join([x for x in [country,city] if x])
-                    <div class="tag">
-                        <img src="/static/images/property_details/location-icon.png" alt=""/>
-                        <label>
-                            {{city_string}}
-                        </label>
-                    </div>
+                % if 'community' in rent['property'] or 'street' in rent['property'] or 'zipcode' in rent['property']:
+                <div class="tag">
+                    <img src="/static/images/property_details/location-icon.png" alt=""/>
+                    <label>
+                        % if rent['property'].get('community',''):
+                        {{rent['property'].get('community','')}},
+                        % end
+                        % if rent['property'].get('street',''):
+                        {{rent['property'].get('street','')}},
+                        % end
+                        {{rent['property'].get('zipcode','')}}
+                    </label>
+                </div>
                 % end
-
                 % if 'price' in rent and rent.get('price'):
                 <div class="rentPrice">
                     <div class="price_inner">
