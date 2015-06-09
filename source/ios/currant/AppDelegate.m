@@ -36,6 +36,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import <ATConnect.h>
 #import <JDFTooltips.h>
+#import <ALActionBlocks.h>
 #warning DEBUG_CODE
 #ifdef DEBUG
 #import <AFNetworkActivityLogger.h>
@@ -596,6 +597,7 @@
 - (void)onReceiveBetaUserDidRegister:(NSNotification *)notif {
     if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED]) {
         CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:90];
+        toolTips.viewForTouchToDismiss = self.tabBarController.view;
         [toolTips show];
 
 

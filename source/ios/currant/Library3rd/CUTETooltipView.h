@@ -10,4 +10,9 @@
 
 @interface CUTETooltipView : JDFTooltipView
 
+@property (nonatomic, weak) UIView *viewForTouchToDismiss;
+
+
+@property (nonatomic, weak) UIView *viewForPanToDismiss;
+
 @end

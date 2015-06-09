@@ -36,6 +36,7 @@
 #import "CUTENotificationKey.h"
 #import "CUTETooltipView.h"
 #import "CUTEUserDefaultKey.h"
+#import "JDFTooltipManager.h"
 
 #define kRegionDistance 800
 
@@ -51,6 +52,8 @@
     UIButton *_userLocationButton;
 
     UIImageView *_annotationView;
+
+    CUTETooltipView *_mapTipView;
 
     BFTask *_updateAddressTask;
 
@@ -137,24 +140,17 @@
                 if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_MAP_ADDRESS_BUTTON_DISPLAYED])
                 {
                     CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_textField.rightView hostView:self.view tooltipText:STR(@"按地址定位") arrowDirection:JDFTooltipViewArrowDirectionUp width:120];
+                    toolTips.viewForTouchToDismiss = _textField.rightView;
                     [toolTips show];
 
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_MAP_ADDRESS_BUTTON_DISPLAYED];
                     [[NSUserDefaults standardUserDefaults] synchronize];
                 }
             }];
+            toolTips.viewForTouchToDismiss = _textField;
             [toolTips show];
 
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_MAP_INPUT_DISPLAYED];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_MAP_DRAG_DISPLAYED])
-        {
-            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_annotationView hostView:self.view tooltipText:STR(@"拖动地图可以重新定位") arrowDirection:JDFTooltipViewArrowDirectionUp width:150];
-            [toolTips show];
-
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_MAP_DRAG_DISPLAYED];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
     });
@@ -463,6 +459,21 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(__unused BOOL)animated
 {
     if (_mapShowCurrentRegion) {
+
+        if (_mapTipView) {
+            [_mapTipView hideAnimated:YES];
+        }
+
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_MAP_DRAG_DISPLAYED])
+        {
+            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_annotationView hostView:self.view tooltipText:STR(@"拖动地图可以重新定位") arrowDirection:JDFTooltipViewArrowDirectionUp width:150];
+            [toolTips show];
+            _mapTipView = toolTips;
+
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_MAP_DRAG_DISPLAYED];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+
         //update field value
         CLLocation *location = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
                                                           longitude:mapView.centerCoordinate.longitude];

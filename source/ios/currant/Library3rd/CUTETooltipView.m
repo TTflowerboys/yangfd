@@ -11,6 +11,7 @@
 #import <UILabel+JDFTooltips.h>
 #import <UIView+JDFTooltips.h>
 #import "UIView+Border.h"
+#import <ALActionBlocks.h>
 
 #define CLOSE_ICON_WITDH 34
 
@@ -62,6 +63,8 @@
 
 @property (nonatomic, retain) UIImageView *closeIcon;
 
+@property (nonatomic, retain) UIGestureRecognizer *dismissGetureRecognizer;
+
 @end
 
 
@@ -76,6 +79,28 @@
     self.tooltipBackgroundColour = HEXCOLOR(0x333333, 1.0);
     self.textColour = [UIColor whiteColor];
     self.shadowEnabled = NO;
+}
+
+- (void)setViewForTouchToDismiss:(UIView *)viewForTouchToDismiss {
+    _viewForTouchToDismiss = viewForTouchToDismiss;
+
+    __weak typeof(self)weakSelf = self;
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithBlock:^(UIGestureRecognizer* weakSender) {
+        [weakSelf hideAnimated:YES];
+    }];
+    [_viewForTouchToDismiss addGestureRecognizer:gesture];
+    self.dismissGetureRecognizer = gesture;
+}
+
+- (void)setViewForPanToDismiss:(UIView *)viewForPanToDismiss {
+    _viewForPanToDismiss = viewForPanToDismiss;
+
+    __weak typeof(self)weakSelf = self;
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithBlock:^(UIGestureRecognizer* weakSender) {
+        [weakSelf hideAnimated:YES];
+    }];
+    [_viewForPanToDismiss addGestureRecognizer:panGesture];
+    self.dismissGetureRecognizer = panGesture;
 }
 
 
@@ -153,6 +178,9 @@
 - (void)hideAnimated:(BOOL)animated
 {
     self.closeIcon.hidden = YES;
+    [self.dismissGetureRecognizer.view removeGestureRecognizer:self.dismissGetureRecognizer];
+    self.dismissGetureRecognizer = nil;
+    
     [super hideAnimated:animated];
 }
 
