@@ -225,12 +225,17 @@
         width: 280px;
         margin: 150px auto 0 auto;
         overflow: hidden;
-        @media @phone{
-            margin: 150px auto;
+        @media @phone {
+            margin: 80px auto;
         }
         img {
             display: inline-block;
             float: left;
+            @media @phone {
+                float: none;
+                display: block;
+                margin: 0 auto 20px;
+            }
         }
 
         .holderText {
@@ -238,12 +243,22 @@
             float: left;
             width: 180px;
             margin-left: 20px;
-
+            text-align: left;
+            @media @phone {
+                display: block;
+                float: none;
+                margin: 0 auto;
+                text-align: center;
+                width: 200px;
+            }
             h2 {
                 margin: 0;
                 font-size: 24px;
                 line-height: 1.5;
                 color: #999;
+                @media @phone {
+                    font-size: 21px;
+                }
             }
             p {
                 margin: 0;
