@@ -143,10 +143,11 @@ $(function () {
     }
     $(window).on('hashchange', function () {
         var state = location.hash.slice(1)
-        switchTypeTab(state)
         if(state === 'rent') {
+            switchTypeTab(state)
             loadRentProperty()
         } else if(state === 'own') {
+            switchTypeTab(state)
             loadOwnProperty()
         }
     })
