@@ -29,6 +29,11 @@ $(function () {
         }
 
     }else {
+        if(team.isPhone()){
+            $headerTabs.show()
+        }else{
+            $headerButtons.show()
+        }
         loadRentProperty()
     }
 
@@ -111,8 +116,17 @@ $(function () {
 
         $('.buttons .button').removeClass('button').addClass('ghostButton')
         $('.buttons .' + state).removeClass('ghostButton').addClass('button')
+        location.hash = state
     }
-
+    $(window).on('hashchange', function () {
+        var state = location.hash.slice(1)
+        switchTypeTab(state)
+        if(state === 'rent') {
+            loadRentProperty()
+        } else if(state === 'own') {
+            loadOwnProperty()
+        }
+    })
     /*
      * User interaction on page
      * */
