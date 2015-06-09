@@ -37,15 +37,32 @@
                     <ul class="properties">
                         <li>
                             <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
-                            <!-- todo 国家城市数据结构更改后city中就没有country属性了，我把这儿更改后不知道会不会有问题，需要测试 --by levy-->
+                            {_if(rent.property.floor) {_}
+                                {= rent.property.floor =}
+                            {_}_}
+                            {_if(rent.property.floor && rent.property.house_name ) {_}
+                                -
+                            {_}_}
+                            {_if(rent.property.house_name) {_}
+                                {= rent.property.house_name =}
+                            {_}_}
+                            {_if(rent.property.floor && rent.property.house_name ) {_}
+                                ,
+                            {_}_}
+                            {_if(rent.property.community) {_}
+                                {= rent.property.community =},
+                            {_}_}
+                            {_if(rent.property.street) {_}
+                                {= rent.property.street =},
+                            {_}_}
+                            {_if(rent.property.city && rent.property.city.name) {_}
+                                {= rent.property.city.name + " " =},
+                            {_}_}
                             {_if(rent.property.country && rent.property.country.code) {_}
                                 {= window.team.countryMap[rent.property.country.code] + " " =}
                             {_}_}
-                            {_if(rent.property.city && rent.property.city.name) {_}
-                                {= rent.property.city.name + " " =}
-                            {_}_}
-                            {_if(rent.property.street) {_}
-                                {= rent.property.street =}
+                            {_if(rent.property.zipcode) {_}
+                                , {= rent.property.zipcode =}
                             {_}_}
                         </li>
                         {_if(rent.property.region_highlight && rent.property.region_highlight.length) {_}
