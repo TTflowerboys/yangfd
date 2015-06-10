@@ -243,7 +243,7 @@ def lupdate(user):
     ip=str,
 ))
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
-def ip_country(params):
+def ip_country(params, user):
     if "ip" in params:
         return f_app.geoip.get_country(params["ip"])
     else:
