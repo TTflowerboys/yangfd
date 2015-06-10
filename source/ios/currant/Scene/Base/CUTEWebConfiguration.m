@@ -59,13 +59,13 @@
         return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController)
         {
             TrackEvent(@"property-to-rent-list", kEventActionPress, @"open-fav-list", nil);
-            [NotificationCenter postNotificationName:KNOTIF_SHOW_FAVORITE_RENT_TICKET_LIST object:nil];
+            [NotificationCenter postNotificationName:KNOTIF_SHOW_FAVORITE_RENT_TICKET_LIST object:viewController];
         }];
     }
     else if ([self isURL:url matchPath:@"\\/property-list"]) {
         return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController) {
             TrackEvent(@"property-list", kEventActionPress, @"open-fav-list", nil);
-            [NotificationCenter postNotificationName:KNOTIF_SHOW_FAVORITE_PROPERTY_LIST object:nil];
+            [NotificationCenter postNotificationName:KNOTIF_SHOW_FAVORITE_PROPERTY_LIST object:viewController];
         }];
     }
 

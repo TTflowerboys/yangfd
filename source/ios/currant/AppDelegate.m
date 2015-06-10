@@ -422,7 +422,7 @@
                     controller.hidesBottomBarWhenPushed = NO;
                     __weak typeof(self)weakSelf = self;
                     controller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-                        [weakSelf showUserToRentTicket];
+                        [weakSelf showUserPageSection:@"/user-properties#rent" fromViewController:controller];
                     }];
                     [viewController setViewControllers:@[controller] animated:NO];
                     if (!silent) {
@@ -443,30 +443,29 @@
             unfinishedRentTicketController.hidesBottomBarWhenPushed = NO;
             __weak typeof(self)weakSelf = self;
             unfinishedRentTicketController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-                [weakSelf showUserToRentTicket];
+                [weakSelf showUserPageSection:@"/user-properties#rent" fromViewController:unfinishedRentTicketController];
             }];
             [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
             [unfinishedRentTicketController reloadWithTickets:unfinishedRentTickets];
         }
-
     }];
 
     [sequencer run];
 }
 
-//TODO, now user login 
-- (void)showUserToRentTicket {
-    [self showUserPageSection:@"/user-properties#rent"];
-}
-
-- (void)showUserPageSection:(NSString *)urlString {
-    [self.tabBarController setSelectedIndex:kUserTabBarIndex];
-    _lastSelectedTabIndex = kUserTabBarIndex;
-
-    UINavigationController *viewController = [[self.tabBarController viewControllers] objectAtIndex:kUserTabBarIndex];
-    if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
-        CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
+- (void)showUserPageSection:(NSString *)urlString fromViewController:(UIViewController *)viewController {
+     if ([viewController isKindOfClass:[CUTEWebViewController class]]) {
+        CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController;
         [webViewController loadURLInNewController:[NSURL URLWithString:urlString relativeToURL:[CUTEConfiguration hostURL]]];
+    }
+    else if ([viewController isKindOfClass:[UIViewController class]]) {
+        NSURL *url = [NSURL URLWithString:urlString relativeToURL:[CUTEConfiguration hostURL]];
+        TrackEvent(GetScreenName(viewController), kEventActionPress, GetScreenName(url), nil);
+        CUTEWebViewController *webViewController = [CUTEWebViewController new];
+        webViewController.url = url;
+        webViewController.hidesBottomBarWhenPushed = YES;
+        [viewController.navigationController pushViewController:webViewController animated:YES];
+        [webViewController loadURL:webViewController.url];
     }
 }
 
@@ -612,12 +611,11 @@
 
 
 - (void)onReceiveShowFavoriteRentTicketList:(NSNotification *)notif {
-    [self showUserPageSection:@"/user-favorites#rent"];
+    [self showUserPageSection:@"/user-favorites#rent" fromViewController:notif.object];
 }
 
 - (void)onReceiveShowFavoritePropertyList:(NSNotification *)notif {
-
-    [self showUserPageSection:@"/user-favorites#own"];
+    [self showUserPageSection:@"/user-favorites#own" fromViewController:notif.object];
 }
 
 
