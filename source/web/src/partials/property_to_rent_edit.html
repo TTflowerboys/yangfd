@@ -38,24 +38,17 @@
                         <td class="title">
                             <div class="text">{{_('房东类型')}}</div>
                         </td>
-                        <td id="landlordType">
-                            %for index, landlord_type in enumerate(landlord_type_list):
-                                    %if rent.get('landlord_type',{}).get('id',''):
-                                        %if (rent.get('landlord_type',{}).get('id','')==landlord_type.get('id')):
-                                        <div class="landlord_type selected" data-id="{{landlord_type.get('id')}}">
-                                            {{landlord_type.get('value')}}
-                                        </div>
-                                        %else:
-                                        <div class="landlord_type" data-id="{{landlord_type.get('id')}}">
-                                            {{landlord_type.get('value')}}
-                                        </div>
-                                        %end
+                        <td>
+                            <select id="landlordType" data-validator="required" data-name="{{_('房东类型')}}" style="width: 230px;">
+                                <option value="">{{_('请选择房东类型')}}</option>
+                                %for index, landlord_type in enumerate(landlord_type_list):
+                                    %if (rent.get('landlord_type',{}).get('id','')==landlord_type.get('id')):
+                                    <option selected value="{{landlord_type.get('id')}}">{{landlord_type.get('value')}}</option>
                                     %else:
-                                        <div class="landlord_type" data-id="{{landlord_type.get('id')}}">
-                                            {{landlord_type.get('value')}}
-                                        </div>
+                                    <option value="{{landlord_type.get('id')}}">{{landlord_type.get('value')}}</option>
                                     %end
                                 %end
+                            </select>
                         </td>
                     </tr>
                     <tr>

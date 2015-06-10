@@ -36,7 +36,6 @@
         }
     }
     initSelect('#propertyType')
-    initSelect('#landlordType')
     //一个简单的通过hash控制页面类容展示的机制
     function HashRoute(){
         var _ = this
@@ -590,7 +589,7 @@
     function getTicketData(options){
         var title = $('#title').val() || $('#title').attr('placeholder') //如果用户没有填写title，默认为街区+居室+出租类型，比如“Isle of Dogs三居室单间出租”
         var ticketData = $.extend(options,{
-            'landlordType': $('#landlordType .selected')[0].getAttribute('data-id'), //房东类型
+            'landlord_type': $('#landlordType').val(), //房东类型
             'rent_type': $('#rentalType .selected')[0].getAttribute('data-id'), //出租类型
             'deposit_type': $('#deposit_type').children('option:selected').val(), //押金方式
             'price': JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'value': $('#price')[0].value }), //出租价格
