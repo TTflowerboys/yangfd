@@ -596,6 +596,9 @@ class f_currant_ticket(f_ticket):
                                 else:
                                     t["creator_user"]["phone"] = t["creator_user"]["phone"][:3] + "***"
 
+                            if "wechat" in t["creator_user"] and t["creator_user"]["wechat"] is not None:
+                                t["creator_user"]["wechat"] = t["creator_user"]["wechat"][:3] + "***"
+
                     if isinstance(t.get("assignee"), list):
                         t["assignee"] = map(lambda x: user_dict.get(x), t["assignee"])
                     if t.get("budget"):
