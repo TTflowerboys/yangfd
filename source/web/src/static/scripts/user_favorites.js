@@ -52,8 +52,9 @@ $(function () {
             'per_page':-1
         }
         xhr = $.post('/api/1/user/favorite', params)
-            .success(function(val){
+            .success(function(data){
                 //Check if tab is still rent
+                var val = data.val
                 if($('.buttons .own').hasClass('button')){
                     var array = val
                     if(array && array.length > 0){
@@ -103,8 +104,9 @@ $(function () {
             'per_page':-1
         }
         xhr = $.post('/api/1/user/favorite', params)
-            .success(function(val){
+            .success(function(data){
                 //Check if tab is still rent
+                var val = data.val
                 if($('.buttons .rent').hasClass('button')){
                     var array = val
                     if(array && array.length > 0){

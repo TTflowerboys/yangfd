@@ -52,10 +52,11 @@ $(function () {
             'per_page': -1
         }
         xhr = $.post('/api/1/intention_ticket/search', params)
-            .success(function (val) {
+            .success(function (data) {
                 //Check if tab is still rent
                 //TODO:Disable check for production sync
                 //if ($('.buttons .own').hasClass('button')) {
+                    var val = data.val
                     var array = val
                     if (array && array.length > 0) {
                         _.each(array, function (ticket) {
@@ -90,7 +91,8 @@ $(function () {
             'status': ['draft', 'to rent', 'rent']
         }
         xhr = $.post('/api/1/rent_ticket/search', params)
-            .success(function (val) {
+            .success(function (data) {
+                var val = data.val
                 //Check if tab is still rent
                 if ($('.buttons .rent').hasClass('button')) {
                     if (val && val.length > 0) {
