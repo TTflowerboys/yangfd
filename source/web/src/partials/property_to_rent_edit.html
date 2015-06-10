@@ -40,12 +40,11 @@
                         </td>
                         <td>
                             <select id="landlordType" data-validator="required" data-name="{{_('房东类型')}}" style="width: 230px;">
-                                <option value="">{{_('请选择房东类型')}}</option>
                                 %for index, landlord_type in enumerate(landlord_type_list):
                                     %if (rent.get('landlord_type',{}).get('id','')==landlord_type.get('id')):
-                                    <option selected value="{{landlord_type.get('id')}}">{{landlord_type.get('value')}}</option>
+                                    <option selected value="{{landlord_type.get('id')}}" data-slug="{{landlord_type.get('slug')}}">{{landlord_type.get('value')}}</option>
                                     %else:
-                                    <option value="{{landlord_type.get('id')}}">{{landlord_type.get('value')}}</option>
+                                    <option value="{{landlord_type.get('id')}}" data-slug="{{landlord_type.get('slug')}}">{{landlord_type.get('value')}}</option>
                                     %end
                                 %end
                             </select>

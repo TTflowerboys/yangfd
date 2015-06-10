@@ -36,6 +36,9 @@
         }
     }
     initSelect('#propertyType')
+    if(!$('#landlordType').val()) {
+        $('#landlordType').find('option[data-slug=live_out_landlord]').prop('selected', 'selected').end().trigger('chosen:updated')
+    }
     //一个简单的通过hash控制页面类容展示的机制
     function HashRoute(){
         var _ = this
