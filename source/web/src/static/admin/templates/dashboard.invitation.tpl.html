@@ -26,6 +26,8 @@
             <tr>
                 <th>{%$root.i18n('邮箱')%}</th>
                 <th>{%$root.i18n('时间')%}</th>
+                <th>{%$root.i18n('IP')%}</th>
+                <th>{%$root.i18n('国家')%}</th>
                 <th>{%$root.i18n('状态')%}</th>
                 <th>{%$root.i18n('发送邀请码')%}</th>
             </tr>
@@ -38,13 +40,15 @@
                 <td>
                     <div>{%(item.time?(item.time * 1000 | date : 'short'):'')%}</div>
                 </td>
+                <td>{% item.ipaddress.length ? item.ipaddress[0] : '' %}</td>
+                <td>{% item.country %}</td>
                 <td>
                     <div>
                         {%item.status | invitationStatusName %}
                     </div>
                 </td>
                 <td style="text-align:center;">
-                    <span has-permission="admin,jr_admin" class="btn btn-success" ng-click="onSend(item,$index)" title="{%$root.i18n('发送')%}">
+                    <span has-permission="admin,jr_admin" class="btn btn-success" ng-click="onSend(item,$index)" title="{%$root.i18n('发送')%}" ng-disabled="item.status==='invited'">
                         <i class="fa fa-envelope-o"></i>
                     </span>
                 </td>

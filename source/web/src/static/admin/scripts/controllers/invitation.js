@@ -88,6 +88,13 @@
         function onGetList(data) {
             $scope.fetched = true
             $scope.list = data.val
+            _.each($scope.list, function (item) {
+                if(_.isArray(item.ipaddress) && item.ipaddress.length) {
+                    api.getCountry(item.ipaddress[0]).success(function (data) {
+                        item.country = data.country_name
+                    })
+                }
+            })
             $scope.pages[$scope.currentPageNumber] = $scope.list
 
             if (!$scope.list || $scope.list.length < $scope.perPage) {

@@ -26,6 +26,9 @@
                     status:status
                 }
                 return $http.post('/api/1/subscription/'+id+'/edit', data, config)
+            },
+            getCountry: function (ip) {
+                return $http.get('/reverse_proxy?link=' + encodeURIComponent('http://freegeoip.net/json/' + ip))
             }
         }
 

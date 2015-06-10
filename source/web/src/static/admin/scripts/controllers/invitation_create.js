@@ -19,11 +19,15 @@
             api.create($scope.item.email, {
                 successMessage: 'Invite successfully',
                 errorMessage: 'Invite failed'
-            }).success(function () {
-                if ($scope.$parent.currentPageNumber === 1) {
-                    $scope.$parent.refreshList()
-                }
-                $state.go('^')
+            }).success(function (data) {
+                api.invite($scope.item.email).success(function () {
+                    api.update(data.val,'invited').success(function(){
+                        if ($scope.$parent.currentPageNumber === 1) {
+                            $scope.$parent.refreshList()
+                        }
+                        $state.go('^')
+                    })
+                })
             })['finally'](function () {
                 $scope.loading = false
             })
