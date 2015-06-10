@@ -289,7 +289,19 @@ def user_fast_register(params):
 @f_api('/user/<user_id>/suspend')
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def user_suspend(user_id, user):
+    """
+    Suspend a user
+    """
     return f_app.user.update_set_key(user_id, "status", "suspended")
+
+
+@f_api('/user/<user_id>/activate')
+@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
+def user_activate(user_id, user):
+    """
+    (Re-)activate a suspended user
+    """
+    return f_app.user.update_set_key(user_id, "status", "new")
 
 
 @f_api('/user/edit', force_ssl=True, params=dict(
