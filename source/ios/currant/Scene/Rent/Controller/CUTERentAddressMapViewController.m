@@ -407,6 +407,9 @@
 
                 if (!IsArrayNilOrEmpty(landloardTypes) && !IsArrayNilOrEmpty(propertyTypes)) {
                     TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+
+                    self.ticket.landlordType = [CUTEPropertyInfoForm getDefaultLandloardType:landloardTypes];
+                    self.ticket.property.propertyType = [CUTEPropertyInfoForm getDefaultPropertyType:propertyTypes];
                     CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
                     controller.ticket = self.ticket;
                     CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
@@ -417,6 +420,7 @@
                     [form setAllPropertyTypes:propertyTypes];
                     [form setAllLandlordTypes:landloardTypes];
                     controller.formController.form = form;
+                    
                     [self.navigationController pushViewController:controller animated:YES];
                     [SVProgressHUD dismiss];
                 }

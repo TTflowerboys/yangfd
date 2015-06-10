@@ -50,13 +50,7 @@
     if (_landlordType) {
         return _landlordType;
     }
-    CUTEEnum *liveoutLandlord = [_allLandlordTypes find:^BOOL(CUTEEnum *object) {
-        return object.slug && [object.slug isEqualToString:@"live_out_landlord"];
-    }];
-    if (liveoutLandlord) {
-        return liveoutLandlord;
-    }
-    return [_allLandlordTypes firstObject];
+    return [CUTEPropertyInfoForm getDefaultLandloardType:_allLandlordTypes];
 }
 
 - (CUTEEnum *)defaultPropertyType {
@@ -64,14 +58,7 @@
         return _propertyType;
     }
 
-    CUTEEnum *apartment = [_allPropertyTypes find:^BOOL(CUTEEnum *object) {
-        return object.slug && [object.slug isEqualToString:@"apartment"];
-    }];
-
-    if (apartment) {
-        return apartment;
-    }
-    return [_allPropertyTypes firstObject];
+    return [CUTEPropertyInfoForm getDefaultPropertyType:_allPropertyTypes];
 }
 
 - (void)setAllPropertyTypes:(NSArray *)allPropertyTypes {
@@ -84,6 +71,28 @@
     return [_allPropertyTypes map:^id(CUTEEnum *object) {
         return [object value];
     }];
+}
+
++ (CUTEEnum *)getDefaultLandloardType:(NSArray *)types {
+    CUTEEnum *liveoutLandlord = [types find:^BOOL(CUTEEnum *object) {
+        return object.slug && [object.slug isEqualToString:@"live_out_landlord"];
+    }];
+    if (liveoutLandlord) {
+        return liveoutLandlord;
+    }
+    return [types firstObject];
+}
+
++ (CUTEEnum *)getDefaultPropertyType:(NSArray *)types {
+
+    CUTEEnum *apartment = [types find:^BOOL(CUTEEnum *object) {
+        return object.slug && [object.slug isEqualToString:@"apartment"];
+    }];
+
+    if (apartment) {
+        return apartment;
+    }
+    return [types firstObject];
 }
 
 @end

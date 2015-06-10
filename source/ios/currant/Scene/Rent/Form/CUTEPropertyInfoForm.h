@@ -36,4 +36,8 @@
 
 - (void)setAllPropertyTypes:(NSArray *)allPropertyTypes;
 
++ (CUTEEnum *)getDefaultLandloardType:(NSArray *)types;
+
++ (CUTEEnum *)getDefaultPropertyType:(NSArray *)types;
+
 @end
