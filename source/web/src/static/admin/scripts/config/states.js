@@ -472,7 +472,7 @@ angular.module('app')
             .state('dashboard.users', {
                 url: '/users',
                 templateUrl: '/static/admin/templates/dashboard.users.tpl.html',
-                controller: 'ctrlList',
+                controller: 'ctrlUserList',
                 resolve: {
                     api: function (userApi) {
                         return userApi

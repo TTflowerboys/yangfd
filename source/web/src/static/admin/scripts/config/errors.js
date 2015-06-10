@@ -9,6 +9,7 @@ angular.module('app')
         40105: i18n('没有管理员权限或管理员级别不够'),
         //TODO: server side mistake TBD
         40109: i18n('没有权限'),
+        40114: i18n('帐号已被禁用，请致电联系平台工作人员'),
         40300: i18n('没有权限'),
         40301: i18n('no ad in given channel'),
         40302: i18n('不存在的博客文章'),

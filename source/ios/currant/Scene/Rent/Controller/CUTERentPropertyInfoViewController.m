@@ -94,7 +94,7 @@
             cell.detailTextLabel.text = self.ticket.rentType.value;
         }
     }
-    else if ([field.key isEqualToString:@"location"]) {
+    else if ([field.key isEqualToString:@"address"]) {
         if (self.ticket.property) {
             cell.detailTextLabel.text = self.ticket.property.address;
         }
