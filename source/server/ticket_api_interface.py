@@ -564,6 +564,7 @@ def support_ticket_search(user, params):
     rent_deadline_time=datetime,
     minimum_rent_period="i18n:time_period",
     deposit_type="enum:deposit_type",
+    landlord_type="enum:landlord_type",
     bill_covered=bool,
 ))
 @f_app.user.login.check(check_role=True)
@@ -599,6 +600,7 @@ def rent_ticket_add(user, params):
     rent_deadline_time=datetime,
     minimum_rent_period="i18n:time_period",
     deposit_type="enum:deposit_type",
+    landlord_type="enum:landlord_type",
     bill_covered=bool,
     unset_fields=(list, None, str),
 ))
