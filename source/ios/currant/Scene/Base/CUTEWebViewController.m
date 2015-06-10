@@ -130,7 +130,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_CREATE object:self userInfo:nil];
     }];
 
-    [self.bridge registerHandler:@"wechatShareRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
+    [self.bridge registerHandler:@"shareRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dic = data;
         if (dic && [dic isKindOfClass:[NSDictionary class]]) {
             NSError *error = nil;
@@ -143,6 +143,14 @@
 
     [self.bridge registerHandler:@"openURLInNewController" handler:^(id data, WVJBResponseCallback responseCallback) {
         [self loadURLInNewController:[NSURL URLWithString:data relativeToURL:[CUTEConfiguration hostURL]]];
+    }];
+
+    [self.bridge registerHandler:@"openRentListTab" handler:^(id data, WVJBResponseCallback responseCallback) {
+        [NotificationCenter postNotificationName:KNOTIF_SHOW_RENT_TICKET_LIST_TAB object:nil];
+    }];
+
+    [self.bridge registerHandler:@"openPropertyListTab" handler:^(id data, WVJBResponseCallback responseCallback) {
+        [NotificationCenter postNotificationName:KNOTIF_SHOW_PROPERTY_LIST_TAB object:nil];
     }];
 }
 

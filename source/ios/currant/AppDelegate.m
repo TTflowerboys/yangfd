@@ -171,6 +171,9 @@
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogout:) name:KNOTIF_USER_DID_LOGOUT object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveBetaUserDidRegister:) name:KNOTIF_BETA_USER_DID_REGISTER object:nil];
 
+    [NotificationCenter addObserver:self selector:@selector(onReceiveShowRentTicketListTab:) name:KNOTIF_SHOW_RENT_TICKET_LIST_TAB object:nil];
+    [NotificationCenter addObserver:self selector:@selector(onReceiveShowPropertyListTab:) name:KNOTIF_SHOW_PROPERTY_LIST_TAB object:nil];
+
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
     UINavigationController *homeViewController = [self makeViewControllerWithTitle:STR(@"主页") icon:@"tab-home" urlPath:@"/" index:kHomeTabBarIndex];
@@ -358,21 +361,25 @@
             TrackEvent(@"tab-bar", kEventActionPress, @"open-rent-ticket-list-tab", nil);
         }
 
-        if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
-            CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
-
-            if (_lastSelectedTabIndex == tabBarController.selectedIndex) {
-                [webViewController.webView reload];
-            }
-            else {
-                if (!webViewController.webView.request) {// web page not load, so load it
-                    [webViewController loadURL:webViewController.url];
-                }
-            }
-        }
+        [self updateWebViewControllerTabAtIndex:tabBarController.selectedIndex];
     }
 
     _lastSelectedTabIndex = tabBarController.selectedIndex;
+}
+
+- (void)updateWebViewControllerTabAtIndex:(NSInteger)index {
+    UINavigationController *viewController = [[self.tabBarController viewControllers] objectAtIndex:index];
+    if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
+        CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
+        if (_lastSelectedTabIndex == self.tabBarController.selectedIndex) {
+            [webViewController.webView reload];
+        }
+        else {
+            if (!webViewController.webView.request) {// web page not load, so load it
+                [webViewController loadURL:webViewController.url];
+            }
+        }
+    }
 }
 
 - (void)updatePublishRentTicketTabWithController:(UINavigationController *)viewController silent:(BOOL)silent {
@@ -616,6 +623,18 @@
 
 - (void)onReceiveShowFavoritePropertyList:(NSNotification *)notif {
     [self showUserPageSection:@"/user-favorites#own" fromViewController:notif.object];
+}
+
+- (void)onReceiveShowRentTicketListTab:(NSNotification *)notif {
+    [self.tabBarController setSelectedIndex:kRentTicketListTabBarIndex];
+    [self updateWebViewControllerTabAtIndex:kRentTicketListTabBarIndex];
+    _lastSelectedTabIndex = kRentTicketListTabBarIndex;
+}
+
+- (void)onReceiveShowPropertyListTab:(NSNotification *)notif {
+    [self.tabBarController setSelectedIndex:kPropertyListTabBarIndex];
+    [self updateWebViewControllerTabAtIndex:kPropertyListTabBarIndex];
+    _lastSelectedTabIndex = kPropertyListTabBarIndex;
 }
 
 
