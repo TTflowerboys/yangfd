@@ -90,7 +90,7 @@
 
 
 - (NSString *)address {
-    return [CUTEAddressUtil buildAddress:@[NilNullToEmpty(self.street), NilNullToEmpty(self.city.name), NilNullToEmpty(self.postalCode), NilNullToEmpty(self.country.name)]];
+    return [CUTEAddressUtil buildAddress:@[NilNullToEmpty(self.street), NilNullToEmpty(self.city.name), NilNullToEmpty(self.postalCode)]];
 }
 
 
