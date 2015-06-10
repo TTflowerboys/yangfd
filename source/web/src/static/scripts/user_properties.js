@@ -4,6 +4,7 @@ $(function () {
     var $ownPlaceholder = $('#ownPlaceHolder')
     var $rentPlaceholder = $('#rentPlaceHolder')
     var isLoading = false
+    var xhr
 
     var $headerButtons = $('.contentHeader .buttons')
     var $headerTabs = $('.tabs')
@@ -38,6 +39,9 @@ $(function () {
     }
 
     function loadOwnProperty() {
+        if(xhr && xhr.readyState !== 4) {
+            xhr.abort()
+        }
         $placeholder.hide()
         $list.empty()
         $('#loadIndicator').show()
@@ -47,8 +51,8 @@ $(function () {
             'status': 'bought',
             'per_page': -1
         }
-        $.betterPost('/api/1/intention_ticket/search', params)
-            .done(function (val) {
+        xhr = $.post('/api/1/intention_ticket/search', params)
+            .success(function (val) {
                 //Check if tab is still rent
                 //TODO:Disable check for production sync
                 //if ($('.buttons .own').hasClass('button')) {
@@ -64,7 +68,7 @@ $(function () {
                 //}
             }).fail(function () {
                 $ownPlaceholder.show()
-            }).always(function () {
+            }).complete(function () {
                 $('#loadIndicator').hide()
                 isLoading = false
             })
@@ -72,6 +76,9 @@ $(function () {
 
 
     function loadRentProperty() {
+        if(xhr && xhr.readyState !== 4) {
+            xhr.abort()
+        }
         $placeholder.hide()
         $list.empty()
         $('#loadIndicator').show()
@@ -82,8 +89,8 @@ $(function () {
             'per_page': -1,
             'status': ['draft', 'to rent', 'rent']
         }
-        $.betterPost('/api/1/rent_ticket/search', params)
-            .done(function (val) {
+        xhr = $.post('/api/1/rent_ticket/search', params)
+            .success(function (val) {
                 //Check if tab is still rent
                 if ($('.buttons .rent').hasClass('button')) {
                     if (val && val.length > 0) {
@@ -104,7 +111,7 @@ $(function () {
                 }
             }).fail(function () {
                 $rentPlaceholder.show()
-            }).always(function () {
+            }).complete(function () {
                 $('#loadIndicator').hide()
                 isLoading = false
             })
@@ -116,7 +123,6 @@ $(function () {
 
         $('.buttons .button').removeClass('button').addClass('ghostButton')
         $('.buttons .' + state).removeClass('ghostButton').addClass('button')
-        location.hash = state
     }
     $(window).on('hashchange', function () {
         var state = location.hash.slice(1)
