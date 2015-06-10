@@ -19,7 +19,7 @@
                     <col class="nickname">
                     <col class="phone">
                     <col>
-                    <col style="width: 56px;">
+                    <col>
                 </colgroup>
                 <thead>
                     <tr>
@@ -44,6 +44,12 @@
                             <a class="btn btn-success" href ui-sref=".detail.favs({id:item.id})" title="View">
                                 <i class="fa fa-search-plus "></i>
                             </a>
+                            <span ng-show="item.status !== 'suspended'" has-permission="admin,jr_admin,operation" class="btn btn-danger" ng-click="onSuspend(item,$index)" title="{%$root.i18n('禁用')%}">
+                                <i class="fa fa-ban"></i>
+                            </span>
+                            <span ng-show="item.status === 'suspended'" has-permission="admin,jr_admin,operation" class="btn btn-success" ng-click="onActivate(item,$index)" title="{%$root.i18n('恢复')%}">
+                                <i class="fa  fa-rotate-left"></i>
+                            </span>
                         </td>
                     </tr>
                 </tbody>

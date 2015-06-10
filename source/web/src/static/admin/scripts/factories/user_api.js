@@ -66,7 +66,14 @@
             },
             getCurrentUser: function () {
                 return _user
+            },
+            suspend: function (id, config) {
+                return $http.get('/api/1/user/' + id + '/suspend', config)
+            },
+            activate: function (id, config) {
+                return $http.get('/api/1/user/' + id + '/activate', config)
             }
+
         }
 
     }
