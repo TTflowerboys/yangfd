@@ -36,6 +36,30 @@
                     </tr>
                     <tr>
                         <td class="title">
+                            <div class="text">{{_('房东类型')}}</div>
+                        </td>
+                        <td id="landlordType">
+                            %for index, landlord_type in enumerate(landlord_type_list):
+                                    %if rent.get('landlord_type',{}).get('id',''):
+                                        %if (rent.get('landlord_type',{}).get('id','')==landlord_type.get('id')):
+                                        <div class="landlord_type selected" data-id="{{landlord_type.get('id')}}">
+                                            {{landlord_type.get('value')}}
+                                        </div>
+                                        %else:
+                                        <div class="landlord_type" data-id="{{landlord_type.get('id')}}">
+                                            {{landlord_type.get('value')}}
+                                        </div>
+                                        %end
+                                    %else:
+                                        <div class="landlord_type" data-id="{{landlord_type.get('id')}}">
+                                            {{landlord_type.get('value')}}
+                                        </div>
+                                    %end
+                                %end
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
                             <div class="text">{{_('房产类型')}}</div>
                         </td>
                         <td id="propertyType">

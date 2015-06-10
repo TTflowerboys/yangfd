@@ -14,26 +14,29 @@
     var createStartTime = new Date()
     var smsSendTime
 
-    //选择房产类型
-    $('#propertyType div').click(function () {
-        var text = $(this).text()
-        $.each($('#propertyType div'), function (i, val) {
-            if ($(this).text() === text) {
-                if ($(this).hasClass('selected')) {
-                    return
+    function initSelect(selector) {
+        $(selector + ' div').click(function () {
+            var text = $(this).text()
+            $.each($(selector + ' div'), function (i, val) {
+                if ($(this).text() === text) {
+                    if ($(this).hasClass('selected')) {
+                        return
+                    } else {
+                        $(this).addClass('selected')
+                    }
                 } else {
-                    $(this).addClass('selected')
+                    if ($(this).hasClass('selected')) {
+                        $(this).removeClass('selected')
+                    }
                 }
-            } else {
-                if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected')
-                }
-            }
+            })
         })
-    })
-    if($('#propertyType .selected').length === 0) {
-        $('#propertyType div').eq(0).addClass('selected')
+        if($(selector + ' .selected').length === 0) {
+            $(selector + ' div').eq(0).addClass('selected')
+        }
     }
+    initSelect('#propertyType')
+    initSelect('#landlordType')
     //一个简单的通过hash控制页面类容展示的机制
     function HashRoute(){
         var _ = this
@@ -587,6 +590,7 @@
     function getTicketData(options){
         var title = $('#title').val() || $('#title').attr('placeholder') //如果用户没有填写title，默认为街区+居室+出租类型，比如“Isle of Dogs三居室单间出租”
         var ticketData = $.extend(options,{
+            'landlordType': $('#landlordType .selected')[0].getAttribute('data-id'), //房东类型
             'rent_type': $('#rentalType .selected')[0].getAttribute('data-id'), //出租类型
             'deposit_type': $('#deposit_type').children('option:selected').val(), //押金方式
             'price': JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'value': $('#price')[0].value }), //出租价格
