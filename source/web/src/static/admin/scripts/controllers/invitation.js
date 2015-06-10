@@ -4,7 +4,7 @@
 
 
 (function () {
-    function ctrlInvitationList($scope, fctModal, api) {
+    function ctrlInvitationList($scope, fctModal, api, $rootScope) {
         $scope.list = []
         $scope.perPage = 10
         $scope.currentPageNumber = 1
@@ -90,9 +90,12 @@
             $scope.list = data.val
             _.each($scope.list, function (item) {
                 if(_.isArray(item.ipaddress) && item.ipaddress.length) {
+                    item.country = $rootScope.i18n('载入中...')
                     api.getCountry(item.ipaddress[0]).success(function (data) {
-                        item.country = data.country_name
+                        item.country = window.team.countryMap[data.val] || $rootScope.i18n('无结果')
                     })
+                }else {
+                    item.country = $rootScope.i18n('无ip地址')
                 }
             })
             $scope.pages[$scope.currentPageNumber] = $scope.list
