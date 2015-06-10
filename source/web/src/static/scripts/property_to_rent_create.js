@@ -432,6 +432,7 @@
             'number': /^[0-9]+$/,
             'decimalNumber': /^\d+(\.(\d)+)?$/
         }
+        var includePhoneReg = /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/
         $errorMsg.text('').hide()
         function highlightErrorElem(elem){
             elem.css('border', '2px solid #f00').on('focus', function(){
@@ -476,6 +477,12 @@
                 }
             })
         })
+        if(includePhoneReg.test($('#description').val())) {
+            validate = false
+            errorMsg = i18n('为避免不必要骚扰，请勿在描述中填写联系方式')
+            highlightErrorElem($('#description'))
+        }
+
         /*if(imageArr.length === 0){
             validate = false
             errorMsg = i18n('请至少上传一张实景图')
