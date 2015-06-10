@@ -239,6 +239,17 @@ def lupdate(user):
     f_app.landregistry.check_update()
 
 
+@f_api('/ip_country', params=dict(
+    ip=str,
+))
+@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
+def ip_country(params):
+    if "ip" in params:
+        return f_app.geoip.get_country(params["ip"])
+    else:
+        return request.ip_country
+
+
 @f_api('/geonames/<_id>')
 def geonames_get(_id):
     return f_app.geonames.gazetteer.get(_id)
