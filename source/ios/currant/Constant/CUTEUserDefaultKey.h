@@ -23,4 +23,6 @@
 
 #define CUTE_USER_DEFAULT_TIP_FAVORITE_RENT_TICKET_DISPLAYED @"com.bbtechgroup.currant.publish.displayed.tip.favorite.rent.ticket"
 
+#define CUTE_USER_DEFAULT_TIP_FAVORITE_PROPERTY_DISPLAYED @"com.bbtechgroup.currant.publish.displayed.tip.favorite.property"
+
 #endif

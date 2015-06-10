@@ -30,7 +30,7 @@
              @{FXFormFieldKey: @"photos", FXFormFieldTitle:STR(@"添加照片"), FXFormFieldHeader: STR(@"房间照片"), FXFormFieldCell: [CUTEFormImagePickerCell class], FXFormFieldType:FXFormFieldTypeImage},
              @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldAction: @"editRentPrice", FXFormFieldHeader: STR(@"基本信息")},
                 @{FXFormFieldKey: @"propertyType", FXFormFieldTitle:STR(@"房产类型"),FXFormFieldOptions: _allPropertyTypes, FXFormFieldDefaultValue: [self defaultPropertyType], FXFormFieldAction: @"editPropertyType"},
-             @{FXFormFieldKey: @"rooms", FXFormFieldTitle:STR(@"房间"), FXFormFieldCell: [CUTEFormRoomsPickerCell class], @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"editRooms:"},
+             @{FXFormFieldKey: @"rooms", FXFormFieldTitle:STR(@"房屋户型"), FXFormFieldCell: [CUTEFormRoomsPickerCell class], @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"editRooms:"},
              @{FXFormFieldKey: @"rentType", FXFormFieldTitle:STR(@"出租类型"), FXFormFieldAction: @"editRentType"},
              @{FXFormFieldKey: @"address", FXFormFieldTitle:STR(@"地址"), FXFormFieldAction: @"editAddress"},
              @{FXFormFieldKey: @"area", FXFormFieldTitle:STR(@"面积（选填）"), FXFormFieldAction: @"editArea"},
