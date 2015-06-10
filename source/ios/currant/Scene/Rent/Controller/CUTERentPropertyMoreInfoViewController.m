@@ -20,6 +20,7 @@
 #import "CUTENotificationKey.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEFormLimitCharacterCountTextFieldCell.h"
+#import "CUTEFormTextViewCell.h"
 
 @implementation CUTERentPropertyMoreInfoViewController
 
@@ -92,6 +93,19 @@
 }
 
 - (void)onTicketDescriptionEdit:(id)sender {
+    CUTEFormTextViewCell *cell = (CUTEFormTextViewCell *)sender;
+    NSString *string = cell.textView.text;
+    if (!IsNilNullOrEmpty(string)) {
+        NSError *error;
+        NSDataDetector *detector = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypePhoneNumber error:&error];
+        NSTextCheckingResult *result = [detector firstMatchInString:string options:NSMatchingAnchored range:NSMakeRange(0, string.length)];
+        if (result && result.range.location != NSNotFound) {
+            [UIAlertView showWithTitle:STR(@"为避免不必要骚扰，请勿在此填写联系方式")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+            return;
+        }
+    }
+
+
     [self updateTicket];
 }
 
