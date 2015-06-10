@@ -17,6 +17,7 @@
              @"status": @"status",
              @"rentType": @"rent_type",
              @"depositType": @"deposit_type",
+             @"landlordType": @"landlord_type",
              @"space": @"space",
              @"price": @"price",
              @"billCovered": @"bill_covered",
@@ -35,6 +36,11 @@
 }
 
 + (NSValueTransformer *)rentTypeJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
+}
+
++ (NSValueTransformer *)landlordTypeJSONTransformer
 {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
 }
@@ -112,6 +118,9 @@
     if (self.rentType) {
         [dic setValue:self.rentType.identifier forKey:@"rent_type"];
     }
+    if (self.landlordType) {
+        [dic setValue:self.landlordType.identifier forKey:@"landlord_type"];
+    }
     if (self.rentAvailableTime) {
         [dic setValue:[NSNumber numberWithLong:self.rentAvailableTime] forKey:@"rent_available_time"];
     }
@@ -146,5 +155,6 @@
 
     return dic;
 }
+
 
 @end

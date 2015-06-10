@@ -34,6 +34,8 @@
 
 @property (strong, nonatomic) CUTEEnum *depositType;
 
+@property (strong, nonatomic) CUTEEnum *landlordType;
+
 @property (strong, nonatomic) CUTEArea *space;
 
 @property (nonatomic) BOOL billCovered;

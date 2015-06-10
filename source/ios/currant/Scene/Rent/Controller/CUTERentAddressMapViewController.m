@@ -395,9 +395,21 @@
         }
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithBlock:^id(BFTask *task) {
-                if (!IsArrayNilOrEmpty(task.result)) {
+            [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
+                return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+            }]] continueWithBlock:^id(BFTask *task) {
+                NSArray *landloardTypes;
+                NSArray *propertyTypes;
+                if (!IsArrayNilOrEmpty(task.result) && [task.result count] == 2) {
+                    landloardTypes = task.result[0];
+                    propertyTypes = task.result[1];
+                }
+
+                if (!IsArrayNilOrEmpty(landloardTypes) && !IsArrayNilOrEmpty(propertyTypes)) {
                     TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+
+                    self.ticket.landlordType = [CUTEPropertyInfoForm getDefaultLandloardType:landloardTypes];
+                    self.ticket.property.propertyType = [CUTEPropertyInfoForm getDefaultPropertyType:propertyTypes];
                     CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
                     controller.ticket = self.ticket;
                     CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
@@ -405,8 +417,10 @@
                     form.bedroomCount = currentTicket.property.bedroomCount;
                     form.livingroomCount = currentTicket.property.livingroomCount;
                     form.bathroomCount = currentTicket.property.bathroomCount;
-                    [form setAllPropertyTypes:task.result];
+                    [form setAllPropertyTypes:propertyTypes];
+                    [form setAllLandlordTypes:landloardTypes];
                     controller.formController.form = form;
+                    
                     [self.navigationController pushViewController:controller animated:YES];
                     [SVProgressHUD dismiss];
                 }
