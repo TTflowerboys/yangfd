@@ -286,6 +286,12 @@ def user_fast_register(params):
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
 
+@f_api('/user/<user_id>/suspend')
+@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
+def user_suspend(user_id, user):
+    return f_app.user.update_set_key(user_id, "status", "suspended")
+
+
 @f_api('/user/edit', force_ssl=True, params=dict(
     nolog=("password", "old_password"),
     nickname=str,
