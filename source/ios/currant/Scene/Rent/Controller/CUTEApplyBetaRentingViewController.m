@@ -15,6 +15,7 @@
 #import "CUTEEnumManager.h"
 #import "CUTERentContactForm.h"
 #import "CUTERentContactViewController.h"
+#import "UIAlertView+Blocks.h"
 
 @implementation CUTEApplyBetaRentingViewController
 
@@ -82,7 +83,9 @@
             [SVProgressHUD showErrorWithCancellation];
         }
         else {
-            [SVProgressHUD showSuccessWithStatus:STR(@"申请成功")];
+            [SVProgressHUD dismiss];
+            [UIAlertView showWithTitle:STR(@"申请成功") message:STR(@"我们会尽快处理，请定期检查您的邮件") cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            }];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
 

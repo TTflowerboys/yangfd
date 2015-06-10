@@ -217,28 +217,17 @@
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
 
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_SPLASH_DISPLAYED])
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED])
     {
         CUTESplashViewController *spalshViewController = [CUTESplashViewController new];
+        __weak typeof(self)weakSelf = self;
         spalshViewController.completion = ^ {
-            [self checkNeedShowBetaUserRegister];
+            [weakSelf showBetaUserRegister];
         };
         spalshViewController.applyBetaCompletion = ^ {
-            CUTEApplyBetaRentingViewController *controller = [CUTEApplyBetaRentingViewController new];
-            CUTEApplyBetaRentingForm *form = [CUTEApplyBetaRentingForm new];
-            form.singleUse = YES;
-            controller.formController.form = form;
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
-            [self.tabBarController presentViewController:nav animated:NO completion:^{
-
-            }];
+            [weakSelf showApplyInvitionCode];
         };
         [rootViewController presentViewController:spalshViewController animated:NO completion:nil];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_SPLASH_DISPLAYED];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-    else {
-        [self checkNeedShowBetaUserRegister];
     }
 
 //#warning DEBUG_CODE
@@ -294,37 +283,45 @@
     [[CUTETracker sharedInstance] trackMemoryWarning];
 }
 
-- (void)checkNeedShowBetaUserRegister {
+- (void)showBetaUserRegister {
+    [SVProgressHUD show];
+    [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        else if (task.exception) {
+            [SVProgressHUD showErrorWithException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [SVProgressHUD showErrorWithCancellation];
+        }
+        else {
+            CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
+            CUTERentContactForm *form = [CUTERentContactForm new];
+            form.isOnlyRegister = YES;
+            form.isInvitationCodeRequired = YES;
+            [form setAllCountries:task.result];
+            contactViewController.formController.form = form;
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:contactViewController];
+            [self.tabBarController presentViewController:nav animated:NO completion:^{
 
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED]) {
-        [SVProgressHUD show];
-        [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-            else if (task.exception) {
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [SVProgressHUD showErrorWithCancellation];
-            }
-            else {
-                CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
-                CUTERentContactForm *form = [CUTERentContactForm new];
-                form.isOnlyRegister = YES;
-                form.isInvitationCodeRequired = YES;
-                [form setAllCountries:task.result];
-                contactViewController.formController.form = form;
-                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:contactViewController];
-                [self.tabBarController presentViewController:nav animated:NO completion:^{
+            }];
+            [SVProgressHUD dismiss];
+        }
 
-                }];
-                [SVProgressHUD dismiss];
-            }
+        return task;
+    }];
+}
 
-            return task;
-        }];
-    }
+- (void)showApplyInvitionCode {
+    CUTEApplyBetaRentingViewController *controller = [CUTEApplyBetaRentingViewController new];
+    CUTEApplyBetaRentingForm *form = [CUTEApplyBetaRentingForm new];
+    form.singleUse = YES;
+    controller.formController.form = form;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self.tabBarController presentViewController:nav animated:NO completion:^{
+
+    }];
 }
 
 #pragma UITabbarViewControllerDelegate
