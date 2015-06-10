@@ -169,35 +169,35 @@
                         </td>
                         <td class="sales_price">
                             <div>
-                                <select id="unit" data-aa="{{_.currency}}">
-                                    %if _.currency:
+                                <select id="unit">
+                                    %if rent.get('price',{}).get('unit'):
                                         <option value="CNY"
-                                            %if _.currency== "CNY":
-                                            selected
-                                            %end
-                                            >{{_('人民币')}}</option>
+                                            %if rent.get('price',{}).get('unit') == "CNY":
+                                        selected
+                                        %end
+                                        >{{_('人民币')}}</option>
                                         <option value="GBP"
-                                            %if _.currency== "GBP":
-                                            selected
-                                            %end
-                                            >{{_('英镑')}}</option>
+                                            %if rent.get('price',{}).get('unit') == "GBP":
+                                        selected
+                                        %end
+                                        >{{_('英镑')}}</option>
                                         <option value="USD"
-                                            %if _.currency== "USD":
-                                            selected
-                                            %end
-                                            >{{_('美元')}}</option>
+                                            %if rent.get('price',{}).get('unit') == "USD":
+                                        selected
+                                        %end
+                                        >{{_('美元')}}</option>
                                         <option value="EUR"
-                                            %if _.currency== "EUR":
-                                            selected
-                                            %end
+                                            %if rent.get('price',{}).get('unit') == "EUR":
+                                        selected
+                                        %end
                                         >{{_('欧元')}}</option>
                                         <option value="HKD"
-                                            %if _.currency== "HKD":
-                                            selected
-                                            %end
+                                            %if rent.get('price',{}).get('unit') == "HKD":
+                                        selected
+                                        %end
                                         >{{_('港币')}}</option>
                                     %else:
-                                        <option value="CNY" selected>{{_('人民币')}}</option>
+                                        <option value="CNY">{{_('人民币')}}</option>
                                         <option value="GBP">{{_('英镑')}}</option>
                                         <option value="USD">{{_('美元')}}</option>
                                         <option value="EUR">{{_('欧元')}}</option>
