@@ -16,11 +16,13 @@
 
 #define kPageIndicatorHeight 14
 #define kPageIndicatorBottomMargin 22
-#define kButtonHeight 30
+#define kButtonHeight 40
 #define kButtonTopMargin 28
 #define kButtonBetweenMargin 10
 #define kButtonHorizontalMargin 50
 #define kButtonBottomMargin 40
+#define kContentHeight 362
+#define kButtonAreaHeight 140
 
 
 #define kPageCount 3
@@ -52,7 +54,7 @@
     [self.view addSubview:_pagingView];
 
     _pageIndicator = [[UIPageControl alloc] init];
-    _pageIndicator.frame = CGRectMake(0, RectHeightExclude(self.view.bounds, (kButtonHeight + kButtonBottomMargin + kPageIndicatorBottomMargin)), RectWidth(self.view.bounds), kPageIndicatorHeight);
+    _pageIndicator.frame = CGRectMake(0, RectHeightExclude(self.view.bounds, kButtonAreaHeight), RectWidth(self.view.bounds), kPageIndicatorHeight);
     _pageIndicator.pageIndicatorTintColor = HEXCOLOR(0xcccccc, 1);
     _pageIndicator.currentPageIndicatorTintColor = CUTE_MAIN_COLOR;
     [self.view addSubview:_pageIndicator];
@@ -83,12 +85,11 @@
 }
 
 
-#define kContentHeight 342
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [_pagingView updateFrame:self.view.bounds];
-    _pageIndicator.frame = CGRectMake(0, RectHeightExclude(self.view.bounds, kContentHeight) / 2 + kContentHeight, RectWidth(self.view.bounds), kPageIndicatorHeight);
+    _pageIndicator.frame = CGRectMake(0, RectHeightExclude(self.view.bounds, kButtonAreaHeight), RectWidth(self.view.bounds), kPageIndicatorHeight);
     _enterButton.frame = CGRectMake(kButtonHorizontalMargin, _pageIndicator.frame.origin.y + kButtonTopMargin, RectWidthExclude(self.view.bounds, kButtonHorizontalMargin * 2), kButtonHeight);
     _applyBetaButton.frame = CGRectMake(kButtonHorizontalMargin, _pageIndicator.frame.origin.y + kButtonTopMargin + kButtonBetweenMargin + kButtonHeight, RectWidthExclude(self.view.bounds, kButtonHorizontalMargin * 2), kButtonHeight);
 }

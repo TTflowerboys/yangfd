@@ -16,10 +16,10 @@
 #import <ALActionBlocks.h>
 #import <UIBarButtonItem+ALActionBlocks.h>
 #import "BBTWebBarButtonItem.h"
+#import <Aspects.h>
 
 @interface CUTERentListViewController ()
 {
-    CUTETooltipView *_tooltipView;
 }
 
 @end
@@ -35,20 +35,15 @@
         if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_FAVORITE_RENT_TICKET_DISPLAYED]) {
             CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetBarButtonItem:self.navigationItem.leftBarButtonItem hostView:self.navigationController.view tooltipText:STR(@"查看收藏的出租房") arrowDirection:JDFTooltipViewArrowDirectionUp width:150];
             [toolTips show];
-            _tooltipView = toolTips;
+
+            [self aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^(id<AspectInfo> aspectInfo) {
+                [toolTips hideAnimated:YES];
+            } error:nil];
 
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_FAVORITE_RENT_TICKET_DISPLAYED];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
     });
-}
-
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    if (_tooltipView) {
-        [_tooltipView hideAnimated:NO];
-    }
 }
 
 - (void)onMapButtonPressed:(id)sender {
