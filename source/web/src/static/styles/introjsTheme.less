@@ -237,13 +237,19 @@
             -webkit-border-radius: 0.2em 0 0 0.2em;
             -moz-border-radius: 0.2em 0 0 0.2em;
             border-radius: 0.2em 0 0 0.2em;
-            border-right: 2px;
+            border-right: 2px solid;
+            &.introjs-disabled {
+                border-right: 0;
+            }
         }
 
         .introjs-nextbutton {
             -webkit-border-radius: 0 0.2em 0.2em 0;
             -moz-border-radius: 0 0.2em 0.2em 0;
             border-radius: 0 0.2em 0.2em 0;
+            &.introjs-disabled {
+                border-left: 0;
+            }
         }
 
         .introjs-disabled, .introjs-disabled:hover, .introjs-disabled:focus {
