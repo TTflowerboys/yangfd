@@ -168,7 +168,7 @@ $(function () {
             var ticketId = $(this).attr('data-id')
 
             if (window.bridge !== undefined) {
-                window.bridge.callHandler('wechatShareRentTicket', _.first(_.where(window.rentArray, {id: ticketId})));
+                window.bridge.callHandler('shareRentTicket', _.first(_.where(window.rentArray, {id: ticketId})));
             }else{
                 $('#popupShareToWeChat')
                     .find('img').prop('src',

@@ -186,6 +186,8 @@ def user_login(params):
     budget="enum:budget",
     is_vip=bool,
     invitation_code=str,
+    wechat=str,
+    private_contact_methods=(list, None, str),
 ))
 @rate_limit("register", ip=10)
 def user_register(params):
@@ -201,6 +203,10 @@ def user_register(params):
     ``occupation`` must be ``student`` or ``professional``.
 
     """
+
+    if "private_contact_methods" in params and not set(params["private_contact_methods"]) <= {"email", "phone", "wechat"}:
+        abort(40000)
+
     params["email_message_type"] = params["system_message_type"] = ["system", "favorited_property_news", "intention_property_news", "my_property_news"]
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
     if f_app.user.get_id_by_phone(params["phone"]):
@@ -226,6 +232,8 @@ def user_register(params):
     locales=(list, None, str),
     occupation="enum:occupation",
     invitation_code=str,
+    wechat=str,
+    private_contact_methods=(list, None, str),
 ))
 @rate_limit("register", ip=5)
 def user_fast_register(params):
@@ -234,6 +242,9 @@ def user_fast_register(params):
 
     Password will be generated and sent to the provided mailbox, and SMS verification code will be sent immediately after registration.
     """
+
+    if "private_contact_methods" in params and not set(params["private_contact_methods"]) <= {"email", "phone", "wechat"}:
+        abort(40000)
 
     if "@" not in params["email"]:
         abort(40099, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
@@ -289,7 +300,19 @@ def user_fast_register(params):
 @f_api('/user/<user_id>/suspend')
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def user_suspend(user_id, user):
+    """
+    Suspend a user
+    """
     return f_app.user.update_set_key(user_id, "status", "suspended")
+
+
+@f_api('/user/<user_id>/activate')
+@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
+def user_activate(user_id, user):
+    """
+    (Re-)activate a suspended user
+    """
+    return f_app.user.update_set_key(user_id, "status", "new")
 
 
 @f_api('/user/edit', force_ssl=True, params=dict(
@@ -318,6 +341,8 @@ def user_suspend(user_id, user):
     email_message_type=(list, None, str),
     unset_fields=(list, None, str),
     idcard=(list, None, str),
+    wechat=str,
+    private_contact_methods=(list, None, str),
 ))
 @f_app.user.login.check(force=True)
 def current_user_edit(user, params):
@@ -329,6 +354,9 @@ def current_user_edit(user, params):
     ``system_message_type`` and ``email_message_type`` are the message types that user accepts. It should be the subset of ``system``, ``favorited_property_news``, ``intention_property_news``, ``my_property_news``.
     """
     unset_fields = params.pop("unset_fields", [])
+
+    if "private_contact_methods" in params and not set(params["private_contact_methods"]) <= {"email", "phone", "wechat"}:
+        abort(40000)
 
     if "email" in params:
         if "@" not in params["email"]:

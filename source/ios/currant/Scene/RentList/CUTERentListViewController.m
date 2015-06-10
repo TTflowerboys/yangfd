@@ -37,7 +37,7 @@
             [toolTips show];
 
             [self aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^(id<AspectInfo> aspectInfo) {
-                [toolTips hideAnimated:YES];
+                [toolTips hideAnimated:NO];
             } error:nil];
 
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_FAVORITE_RENT_TICKET_DISPLAYED];
