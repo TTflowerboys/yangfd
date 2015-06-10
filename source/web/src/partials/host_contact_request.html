@@ -2,6 +2,9 @@
     <div class="host" id="host">
         <img class="avatar" src="/static/images/property_details/ico_phoneowner.png"></img>
         <label class="hostName">{{rent.get('creator_user',{}).get('nickname','')}}</label>
+        %if rent.get('landlord_type') and rent.get('landlord_type').get('value'):
+        <label class="hostType">{{rent.get('landlord_type').get('value')}}</label>
+        %end
         <div class="hostPhone">
             <a href="tel:+{{rent.get('creator_user',{}).get('country_code','') }}{{rent.get('creator_user',{}).get('phone','')}}">
                 <img class="phoneIco" src="/static/images/property_details/ico_phone.png"></img>
