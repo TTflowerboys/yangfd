@@ -7,17 +7,20 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^BBTActionBlock) (UIViewController*);
+
+
 @interface BBTWebBarButtonItem : UIBarButtonItem
 
-+ (id)itemWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem actionBlock:(void (^)(UIWebView *webView))actionBlock;
-+ (id)itemWithCustomView:(UIView *)customView actionBlock:(void (^)(UIWebView *webView))actionBlock;
-+ (id)itemWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style actionBlock:(void (^)(UIWebView *webView))actionBlock;
-+ (id)itemWithImage:(UIImage *)image landscapeImagePhone:(UIImage *)landscapeImagePhone style:(UIBarButtonItemStyle)style actionBlock:(void (^)(UIWebView *webView))actionBlock __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0); // landscapeImagePhone will be used for the bar button image in landscape bars in UIUserInterfaceIdiomPhone only
-+ (id)itemWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style actionBlock:(void (^)(UIWebView *webView))actionBlock;
++ (id)itemWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem actionBlock:(BBTActionBlock)actionBlock;
++ (id)itemWithCustomView:(UIView *)customView actionBlock:(BBTActionBlock)actionBlock;
++ (id)itemWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style actionBlock:(BBTActionBlock)actionBlock;
++ (id)itemWithImage:(UIImage *)image landscapeImagePhone:(UIImage *)landscapeImagePhone style:(UIBarButtonItemStyle)style actionBlock:(BBTActionBlock)actionBlock __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_5_0); // landscapeImagePhone will be used for the bar button image in landscape bars in UIUserInterfaceIdiomPhone only
++ (id)itemWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style actionBlock:(BBTActionBlock)actionBlock;
 
-- (void)setActionBlock:(void (^)(UIWebView *webView))actionBlock;
+- (void)setActionBlock:(BBTActionBlock)actionBlock;
 
-@property (nonatomic, retain) UIWebView *webView;
+@property (nonatomic, weak) UIViewController *viewController;
 
 
 @end

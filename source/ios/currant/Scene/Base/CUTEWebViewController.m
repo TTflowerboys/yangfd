@@ -261,7 +261,7 @@
     else {
         [self clearBackButton];
         BBTWebBarButtonItem *leftBarButtonItem = [[CUTEWebConfiguration sharedInstance] getLeftBarItemFromURL:self.url];
-        leftBarButtonItem.webView = _webView;
+        leftBarButtonItem.viewController = self;
         self.navigationItem.leftBarButtonItem = leftBarButtonItem;
     }
 }
@@ -274,7 +274,7 @@
 
 - (void)updateRightButtonWithURL:(NSURL *)url {
     BBTWebBarButtonItem *rightBarButtonItem = [[CUTEWebConfiguration sharedInstance] getRightBarItemFromURL:url];
-    rightBarButtonItem.webView = _webView;
+    rightBarButtonItem.viewController = self;
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
 }
 

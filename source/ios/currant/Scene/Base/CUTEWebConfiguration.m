@@ -56,13 +56,14 @@
 
 - (BBTWebBarButtonItem *)getLeftBarItemFromURL:(NSURL *)url {
     if ([self isURL:url matchPath:@"\\/property-to-rent-list"]) {
-        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
+        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController)
+        {
             TrackEvent(@"property-to-rent-list", kEventActionPress, @"open-fav-list", nil);
             [NotificationCenter postNotificationName:KNOTIF_SHOW_FAVORITE_RENT_TICKET_LIST object:nil];
         }];
     }
     else if ([self isURL:url matchPath:@"\\/property-list"]) {
-        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
+        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController) {
             TrackEvent(@"property-list", kEventActionPress, @"open-fav-list", nil);
             [NotificationCenter postNotificationName:KNOTIF_SHOW_FAVORITE_PROPERTY_LIST object:nil];
         }];
@@ -83,7 +84,7 @@
         }];
     }
     else if ([self isURL:url matchPath:@"\\/property-to-rent\\/[0-9a-fA-F]{24}"]) {
-        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-share") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
+        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-share") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController) {
             TrackEvent(@"property-to-rent", kEventActionPress, @"share-to-wechat", nil);
             NSArray *paths = [url.path componentsSeparatedByString:@"/"];
             if (paths.count >= 3) {
@@ -105,7 +106,7 @@
         }];
     }
     else if ([self isURL:url matchPath:@"\\/wechat-poster\\/[0-9a-fA-F]{24}"]) {
-        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-share") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
+        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-share") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController) {
             NSArray *paths = [url.path componentsSeparatedByString:@"/"];
             if (paths.count >= 3) {
                 NSString *ticketId = paths[2];
@@ -130,7 +131,7 @@
 }
 
 - (BBTWebBarButtonItem *)getPhoneBarButtonItemWithCompletion:(dispatch_block_t)completion {
-    return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain actionBlock:^(UIWebView *webView) {
+    return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController) {
         NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",[CUTEConfiguration servicePhone]]];
 
         if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {

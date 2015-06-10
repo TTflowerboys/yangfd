@@ -9,44 +9,44 @@
 
 @interface BBTWebBarButtonItem ()
 
-@property (copy, nonatomic) void (^buttonActionBlock)(UIWebView *webView);
+@property (copy, nonatomic) BBTActionBlock buttonActionBlock;
 
 @end
 
 @implementation BBTWebBarButtonItem
 @synthesize buttonActionBlock;
 
-+ (id)itemWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem actionBlock:(void (^)(UIWebView *webView))actionBlock {
++ (id)itemWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem actionBlock:(BBTActionBlock)actionBlock {
 	BBTWebBarButtonItem *button = [[BBTWebBarButtonItem alloc] initWithBarButtonSystemItem:systemItem target:nil action:nil];
 	[button setActionBlock:actionBlock];
 	return button;
 }
 
-+ (id)itemWithCustomView:(UIView *)customView actionBlock:(void (^)(UIWebView *webView))actionBlock {
++ (id)itemWithCustomView:(UIView *)customView actionBlock:(BBTActionBlock)actionBlock {
 	BBTWebBarButtonItem *button = [[BBTWebBarButtonItem alloc] initWithCustomView:customView];
 	[button setActionBlock:actionBlock];
 	return button;
 }
 
-+ (id)itemWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style actionBlock:(void (^)(UIWebView *webView))actionBlock {
++ (id)itemWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style actionBlock:(BBTActionBlock)actionBlock {
 	BBTWebBarButtonItem *button = [[BBTWebBarButtonItem alloc] initWithImage:image style:style target:nil action:nil];
 	[button setActionBlock:actionBlock];
 	return button;
 }
 
-+ (id)itemWithImage:(UIImage *)image landscapeImagePhone:(UIImage *)landscapeImagePhone style:(UIBarButtonItemStyle)style actionBlock:(void (^)(UIWebView *webView))actionBlock {
++ (id)itemWithImage:(UIImage *)image landscapeImagePhone:(UIImage *)landscapeImagePhone style:(UIBarButtonItemStyle)style actionBlock:(BBTActionBlock)actionBlock {
 	BBTWebBarButtonItem *button = [[BBTWebBarButtonItem alloc] initWithImage:image landscapeImagePhone:landscapeImagePhone style:style target:nil action:nil];
 	[button setActionBlock:actionBlock];
 	return button;	
 }
 
-+ (id)itemWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style actionBlock:(void (^)(UIWebView *webView))actionBlock {
++ (id)itemWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style actionBlock:(BBTActionBlock)actionBlock {
 	BBTWebBarButtonItem *button = [[BBTWebBarButtonItem alloc] initWithTitle:title style:style target:nil action:nil];
 	[button setActionBlock:actionBlock];
 	return button;
 }
 
-- (void)setActionBlock:(void (^)(UIWebView *webView))actionBlock {
+- (void)setActionBlock:(BBTActionBlock)actionBlock {
 	self.buttonActionBlock = actionBlock;
 	[self setTarget:self];
 	[self setAction:@selector(executeActionBlock)];
@@ -54,7 +54,7 @@
 
 - (void)executeActionBlock {
 	if (self.buttonActionBlock) {
-		self.buttonActionBlock(self.webView);
+		self.buttonActionBlock(self.viewController);
 	}
 }
 
