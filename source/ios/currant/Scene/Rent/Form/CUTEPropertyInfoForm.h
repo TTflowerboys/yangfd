@@ -20,6 +20,7 @@
 
 @property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, strong) CUTERentPriceForm *rentPrice;
+@property (strong, nonatomic) CUTEEnum *landlordType;
 @property (nonatomic, strong) CUTEEnum *propertyType;
 @property (nonatomic, assign) NSUInteger bedroomCount;
 @property (nonatomic, assign) NSUInteger livingroomCount;
@@ -31,6 +32,7 @@
 @property (strong, nonatomic) CUTERentContactForm *submit;
 
 
+- (void)setAllLandlordTypes:(NSArray *)allLandlordTypes;
 
 - (void)setAllPropertyTypes:(NSArray *)allPropertyTypes;
 

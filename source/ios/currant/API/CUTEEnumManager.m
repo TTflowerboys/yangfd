@@ -116,6 +116,7 @@
     BFTask *enumTask = [BFTask taskForCompletionOfAllTasks:
             [@[@"property_type",
                @"deposit_type",
+               @"landlord_type",
                @"indoor_facility",
                @"region_highlight",
                @"rent_type",

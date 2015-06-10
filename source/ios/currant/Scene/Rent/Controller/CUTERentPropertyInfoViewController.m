@@ -126,6 +126,13 @@
     [self submit];
 }
 
+- (void)editLandlordType {
+    CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
+    self.ticket.landlordType = form.landlordType;
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)editPropertyType {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
     self.ticket.property.propertyType = form.propertyType;

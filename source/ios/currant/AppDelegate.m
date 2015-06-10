@@ -51,6 +51,7 @@
 #import "CUTETooltipView.h"
 #import "CUTEApplyBetaRentingViewController.h"
 #import "CUTEApplyBetaRentingForm.h"
+#import "NSArray+ObjectiveSugar.h"
 
 
 @interface AppDelegate () <UITabBarControllerDelegate>
@@ -532,8 +533,18 @@
     UIViewController *viewController = (UIViewController *)notif.object;
 
     if (ticket && viewController && [viewController isKindOfClass:[UIViewController class]] && viewController.navigationController) {
-        [[[CUTEEnumManager sharedInstance] getEnumsByType:@"property_type"] continueWithBlock:^id(BFTask *task) {
-            if (!IsArrayNilOrEmpty(task.result)) {
+
+        [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
+            return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+        }]] continueWithBlock:^id(BFTask *task) {
+            NSArray *landloardTypes;
+            NSArray *propertyTypes;
+            if (!IsArrayNilOrEmpty(task.result) && [task.result count] == 2) {
+                landloardTypes = task.result[0];
+                propertyTypes = task.result[1];
+            }
+
+            if (!IsArrayNilOrEmpty(landloardTypes) && !IsArrayNilOrEmpty(propertyTypes)) {
                 CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
                 controller.ticket = ticket;
                 CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
@@ -541,7 +552,8 @@
                 form.bedroomCount = ticket.property.bedroomCount;
                 form.livingroomCount = ticket.property.livingroomCount;
                 form.bathroomCount = ticket.property.bathroomCount;
-                [form setAllPropertyTypes:task.result];
+                [form setAllPropertyTypes:propertyTypes];
+                [form setAllLandlordTypes:landloardTypes];
                 controller.formController.form = form;
                 [viewController.navigationController pushViewController:controller animated:YES];
             }

@@ -18,6 +18,8 @@
 
 @interface CUTEPropertyInfoForm () {
     NSArray *_allPropertyTypes;
+
+    NSArray *_allLandlordTypes;
 }
 
 @end
@@ -28,7 +30,8 @@
 - (NSArray *)fields {
     return @[
              @{FXFormFieldKey: @"photos", FXFormFieldTitle:STR(@"添加照片"), FXFormFieldHeader: STR(@"房间照片"), FXFormFieldCell: [CUTEFormImagePickerCell class], FXFormFieldType:FXFormFieldTypeImage},
-             @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldAction: @"editRentPrice", FXFormFieldHeader: STR(@"基本信息")},
+             @{FXFormFieldKey: @"landlordType", FXFormFieldTitle:STR(@"房东类型"),FXFormFieldOptions: _allLandlordTypes, FXFormFieldDefaultValue: [self defaultLandloardType], FXFormFieldAction: @"editLandlordType", FXFormFieldHeader: STR(@"基本信息")},
+             @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldAction: @"editRentPrice"},
                 @{FXFormFieldKey: @"propertyType", FXFormFieldTitle:STR(@"房产类型"),FXFormFieldOptions: _allPropertyTypes, FXFormFieldDefaultValue: [self defaultPropertyType], FXFormFieldAction: @"editPropertyType"},
              @{FXFormFieldKey: @"rooms", FXFormFieldTitle:STR(@"房屋户型"), FXFormFieldCell: [CUTEFormRoomsPickerCell class], @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"editRooms:"},
              @{FXFormFieldKey: @"rentType", FXFormFieldTitle:STR(@"出租类型"), FXFormFieldAction: @"editRentType"},
@@ -37,6 +40,23 @@
              @{FXFormFieldKey: @"moreInfo", FXFormFieldTitle:STR(@"填写更多描述（选填）"), FXFormFieldAction: @"editMoreInfo"},
              @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"预览并发布"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
              ];
+}
+
+- (void)setAllLandlordTypes:(NSArray *)allLandlordTypes {
+    _allLandlordTypes = allLandlordTypes;
+}
+
+- (CUTEEnum *)defaultLandloardType {
+    if (_landlordType) {
+        return _landlordType;
+    }
+    CUTEEnum *liveoutLandlord = [_allLandlordTypes find:^BOOL(CUTEEnum *object) {
+        return object.slug && [object.slug isEqualToString:@"live_out_landlord"];
+    }];
+    if (liveoutLandlord) {
+        return liveoutLandlord;
+    }
+    return [_allLandlordTypes firstObject];
 }
 
 - (CUTEEnum *)defaultPropertyType {
