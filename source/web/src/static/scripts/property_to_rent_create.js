@@ -727,7 +727,7 @@
      * */
     function getPrivateContactMethods () {
         return _.map(_.filter($('[data-addContact]'), function (elem) {
-            return $(elem).is('[type=checkbox]') ? $(elem).is(':checked') : $(elem).val()
+            return $(elem).is('[type=checkbox]') ? !$(elem).is(':checked') : !$(elem).val()
         }), function (elem) {
             return $(elem).attr('data-addContact')
         })
@@ -803,13 +803,17 @@
                         $btn.text(window.i18n('重新发布')).prop('disabled', false)
                     })
             }
-            var privateContactMethods = JSON.stringify(getPrivateContactMethods())
-            if(privateContactMethods.length === 0) {
+            var privateContactMethods = getPrivateContactMethods()
+            if(privateContactMethods.length === 3) {
                 $errorMsg2.html(i18n('请至少展示一种联系方式给租客')).show()
                 $btn.text(window.i18n('重新发布')).prop('disabled', false)
                 return
             }
-            $.betterPost('/api/1/user/edit', {private_contact_methods: privateContactMethods, wechat: $('#wechat').val()})
+            var params = {private_contact_methods: JSON.stringify(privateContactMethods)}
+            if($('#wechat').val()) {
+                params.wechat = $('#wechat').val()
+            }
+            $.betterPost('/api/1/user/edit', params)
                 .done(function () {
                     publish()
                 }).fail(function (ret) {
