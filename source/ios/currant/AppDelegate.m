@@ -174,6 +174,7 @@
 
     [NotificationCenter addObserver:self selector:@selector(onReceiveShowRentTicketListTab:) name:KNOTIF_SHOW_RENT_TICKET_LIST_TAB object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveShowPropertyListTab:) name:KNOTIF_SHOW_PROPERTY_LIST_TAB object:nil];
+    [NotificationCenter addObserver:self selector:@selector(onReceiveShowSplashView:) name:KNOTIF_SHOW_SPLASH_VIEW object:nil];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
@@ -221,19 +222,7 @@
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
 
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED])
-    {
-        CUTESplashViewController *spalshViewController = [CUTESplashViewController new];
-        __weak typeof(self)weakSelf = self;
-        spalshViewController.completion = ^ {
-            [weakSelf showBetaUserRegister];
-        };
-        spalshViewController.applyBetaCompletion = ^ {
-            [weakSelf showApplyInvitionCode];
-        };
-        [rootViewController presentViewController:spalshViewController animated:NO completion:nil];
-    }
-
+    [self checkShowSplashViewController];
 //#warning DEBUG_CODE
 #ifdef DEBUG
 
@@ -292,6 +281,21 @@
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
     [[CUTETracker sharedInstance] trackMemoryWarning];
+}
+
+- (void)checkShowSplashViewController {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED])
+    {
+        CUTESplashViewController *spalshViewController = [CUTESplashViewController new];
+        __weak typeof(self)weakSelf = self;
+        spalshViewController.completion = ^ {
+            [weakSelf showBetaUserRegister];
+        };
+        spalshViewController.applyBetaCompletion = ^ {
+            [weakSelf showApplyInvitionCode];
+        };
+        [self.tabBarController presentViewController:spalshViewController animated:NO completion:nil];
+    }
 }
 
 - (void)showBetaUserRegister {
@@ -668,6 +672,10 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 
+}
+
+- (void)onReceiveShowSplashView:(NSNotification *)notif {
+    [self checkShowSplashViewController];
 }
 
 @end
