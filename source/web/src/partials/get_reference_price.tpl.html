@@ -1,15 +1,21 @@
 {_if(house.property_type && (house.property_type.slug === 'new_property' || house.property_type.slug === 'student_housing') && house.main_house_types && house.main_house_types.length){_}
-{=house.main_house_types[0].total_price_min.localized_unit_symbol=}
-        {_var minPrice = parseInt(house.main_house_types[0].total_price_min.localized_value)_}
-        {_ _.each(house.main_house_types, function (type) {_}
-            {_if (minPrice > parseInt(type.total_price_min.localized_value)){_}
-                {_minPrice = parseInt(type.total_price_min.localized_value)_}
-            {_}_}
-        {_})_}
-{!team.formatCurrency(parseInt(minPrice))!}{=window.i18n('起')=}
+
+    {_var minPrice = house.main_house_types[0].total_price_min_}
+    {_ _.each(house.main_house_types, function (type) {_}
+        {_if (parseInt(minPrice.value) > parseInt(type.total_price_min.value)){_}
+            {_minPrice = type.total_price_min_}
+        {_}_}
+    {_})_}
+
+    {=window.i18n('约')=}
+    {=minPrice.localized_unit_symbol=}
+    {!team.formatCurrency(parseInt(minPrice.localized_value))!}{=window.i18n('起')=}
+
 {_} else {_}
-{_if(house.total_price) {_}
-{=house.total_price.localized_unit_symbol=}
-{!team.formatCurrency(parseInt(house.total_price.localized_value))!}
-{_}_}
+
+    {_if(house.total_price) {_}
+        {=window.i18n('约')=}
+        {=house.total_price.localized_unit_symbol=}
+        {!team.formatCurrency(parseInt(house.total_price.localized_value))!}
+    {_}_}
 {_}_}

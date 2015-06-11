@@ -1,20 +1,32 @@
 {_if(house.property_type && (house.property_type.slug === 'new_property' || house.property_type.slug === 'student_housing') && house.main_house_types && house.main_house_types.length){_}
-{=house.main_house_types[0].total_price_min.unit_symbol=}
-        {_var minPrice = parseInt(house.main_house_types[0].total_price_min.value)_}
-        {_ _.each(house.main_house_types, function (type) {_}
-            {_if (minPrice > parseInt(type.total_price_min.value)){_}
-                {_minPrice = parseInt(type.total_price_min.value)_}
-            {_}_}
-        {_})_}
-{!team.formatCurrency(parseInt(minPrice))!}{=window.i18n('起')=}
+
+    {_var minPrice = house.main_house_types[0].total_price_min_}
+    {_ _.each(house.main_house_types, function (type) {_}
+        {_if (parseInt(minPrice.value) > parseInt(type.total_price_min.value)){_}
+            {_minPrice = type.total_price_min_}
+        {_}_}
+    {_})_}
+
+    {=minPrice.unit_symbol=}
+    {!team.formatCurrency(parseInt(minPrice.value))!}{=window.i18n('起')=}
+
 {_} else {_}
-{_if(house.total_price) {_}
-{=house.total_price.unit_symbol=}
-{!team.formatCurrency(parseInt(house.total_price.value))!}
-{_}_}
+
+    {_if(house.total_price) {_}
+        {=house.total_price.unit_symbol=}
+        {!team.formatCurrency(parseInt(house.total_price.value))!}
+    {_}_}
+
 {_}_}
 {_if (house.minimum_down_payment_rate) {_}
-<span style="display:block;">
-    {=window.i18n('首付')=}{=parseFloat(house.minimum_down_payment_rate * 100).toFixed(0) + '%'=}
-</span>
+<label class='price_reference'>
+    <!--@@include=get_reference_price.tpl.html  -->
+    <span class="down_payment">
+        {=window.i18n(',首付')=}{=parseFloat(house.minimum_down_payment_rate * 100).toFixed(0) + '%'=}
+    </span>
+</label>
+{_} else {_}
+<label class='price_reference'>
+    <!--@@include=get_reference_price.tpl.html  -->
+</label>
 {_}_}

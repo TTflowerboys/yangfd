@@ -6,22 +6,22 @@
         %end
     %end
     % if 'localized_unit_symbol' in minPrice:
-        {{_('(约')}}
+        {{_('约')}}
         <span>
             {{minPrice.get('localized_unit_symbol')}}
         </span>
         <span data-type="formatted_currency">
             {{int(float(minPrice.get('localized_value')))}}
         </span>
-        <span class="mute">{{_('起)')}}</span>
+        <span class="mute">{{_('起')}}</span>
     %end
 % else :
-    %if 'total_price' in property and property.get('total_price'):
-        <span class="mute">{{_('(约')}}</span>
+    %if 'total_price' in property and property.get('total_price') and 'localized_unit_symbol' in property.get('total_price'):
+        <span class="mute">{{_('约')}}</span>
         <br/>
         <span>{{property.get('total_price',{}).get('localized_unit_symbol','')}}</span>
         <span data-type="formatted_currency">
             {{int(float(property.get('total_price',{}).get('localized_value','')))}}
-        </span>)
+        </span>
     %end
 % end
