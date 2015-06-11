@@ -1,0 +1,39 @@
+/*
+  Localizable.string.strings
+  currant
+
+  Created by Foster Yin on 3/21/15.
+  Copyright (c) 2015 Foster Yin. All rights reserved.
+*/
+
+
+
+//validation message
+
+//edit address
+"City is required." = "城市不能为空";
+"Country is required" = "国家不能为空";
+"Postcode is required." = "Postcode不能为空";
+
+//register
+"Name is required." = "姓名不能为空";
+"Email is required." = "邮箱不能为空";
+"Phone is required." = "手机号不能为空";
+"Code is required." = "验证码不能为空";
+
+"Email has invalid syntax." = "邮箱格式不正确";
+
+//Reset Password
+
+"ConfirmPassword is is not repeatly exactly." = "确认新密码和新密码不一致";
+
+//edit area
+"Area is too small." = "面积不能为0";
+
+//rent price
+"RentPrice is too small." = "租金不能为0";
+
+
+//MWPhotoBrowser
+
+"Done" = "完成";
