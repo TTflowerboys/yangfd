@@ -69,7 +69,6 @@
     else {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
