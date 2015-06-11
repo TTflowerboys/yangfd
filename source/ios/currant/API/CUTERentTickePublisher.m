@@ -104,6 +104,8 @@
     __block CUTEProperty *retProperty = ticket.property;
     if (propertyParams.count > 0) {
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            NSCParameterAssert(ticket.property);
+            NSCParameterAssert(ticket.property.identifier);
             [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", ticket.property.identifier, @"/edit") parameters:propertyParams resultClass:[CUTEProperty class]] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [tcs setError:task.error];
@@ -126,6 +128,7 @@
 
     if (ticketParams.count > 0) {
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            NSCParameterAssert(ticket.identifier);
             [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:ticketParams resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [tcs setError:task.error];
@@ -284,6 +287,7 @@
                 }
                 NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toParams];
                 [params setObject:@"true" forKey:@"user_generated"];
+                NSCParameterAssert(property.identifier);
                 [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:[CUTEProperty class]]  continueWithBlock:^id(BFTask *task) {
                     if (task.error) {
                         [tcs setError:task.error];
@@ -310,6 +314,7 @@
             }
             NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
             [params setObject:@"true" forKey:@"user_generated"];
+            NSCParameterAssert(ticket.identifier);
             [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [tcs setError:task.error];
@@ -338,6 +343,7 @@
 - (BFTask *)deleteTicket:(CUTETicket *)ticket {
     ticket.status = kTicketStatusDeleted;
     ticket.property.status = kPropertyStatusDeleted;
+    NSCParameterAssert(ticket.identifier);
     return [BFTask taskForCompletionOfAllTasks:
             @[[self editProperty:ticket.property],
               [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:ticket.toParams resultClass:nil]
@@ -365,6 +371,7 @@
 - (BFTask *)editProperty:(CUTEProperty *)property {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toParams];
     [params setObject:@"true" forKey:@"user_generated"];
+    NSCParameterAssert(property.identifier);
     return [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:[CUTEProperty class]];
 }
 
