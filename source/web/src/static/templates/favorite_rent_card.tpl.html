@@ -27,8 +27,14 @@
                         {_}_}
                     </a>
                     {_if(fav.ticket.price) {_}
-                    <span class="price">{=fav.ticket.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(fav.ticket.price.value),0)!}</strong>{=window.i18n('/周')=}</span>
-                    {_}_}
+                    <span class="price">
+                        <span class="price_original">
+                            {=fav.ticket.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(fav.ticket.price.value),0)!}</strong>{=window.i18n('/周')=}
+                        </span>
+                        {_if(fav.ticket.price.localized_unit_symbol) {_}
+                        <span class="price_reference">{=window.i18n('约')=}{=fav.ticket.price.localized_unit_symbol=}{!team.formatCurrency(parseInt(fav.ticket.price.localized_value),0)!}{=window.i18n('/周')=}</span>
+                        {_}_}
+                    </span>                    {_}_}
                     <p class="date">{!team.parsePublishDate(parseInt(fav.ticket.last_modified_time))!}{=window.i18n('发布')=}</p>
                 </div>
                 <ul class="properties">

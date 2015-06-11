@@ -72,12 +72,30 @@
     alertView.cancelButtonIndex = 1;
     alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex)  {
         if (buttonIndex != alertView.cancelButtonIndex) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_DELETE object:nil userInfo:@{@"ticket": self.ticket}];
-            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:nil];
 
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            });
+            [SVProgressHUD show];
+            [[[CUTERentTickePublisher sharedInstance] deleteTicket:self.ticket] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                else if (task.exception) {
+                    [SVProgressHUD showErrorWithException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [SVProgressHUD showErrorWithCancellation];
+                }
+                else {
+                    [SVProgressHUD dismiss];
+                    
+                    [[CUTEDataManager sharedInstance] deleteUnfinishedRentTicket:self.ticket];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:nil];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self.navigationController popToRootViewControllerAnimated:YES];
+                    });
+                }
+                
+                return task;
+            }];
         }
     };
     [alertView show];

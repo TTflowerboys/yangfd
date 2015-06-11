@@ -160,7 +160,6 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketPublish:) name:KNOTIF_TICKET_PUBLISH object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketSync:) name:KNOTIF_TICKET_SYNC object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketDelete:) name:KNOTIF_TICKET_DELETE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketEdit:) name:KNOTIF_TICKET_EDIT object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveTicketCreate:) name:KNOTIF_TICKET_CREATE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketWechatShare:) name:KNOTIF_TICKET_WECHAT_SHARE object:nil];
@@ -487,13 +486,6 @@
 
 #pragma mark - Push Notification
 
-- (void)onReceiveTicketDelete:(NSNotification *)notif {
-    NSDictionary *userInfo = notif.userInfo;
-    CUTETicket *ticket = userInfo[@"ticket"];
-    [[CUTEDataManager sharedInstance] deleteUnfinishedRentTicket:ticket];
-    [[CUTERentTickePublisher sharedInstance] deleteTicket:ticket];
-}
-
 - (void)onReceiveTicketPublish:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
@@ -515,7 +507,7 @@
     CUTETicket *ticket = userInfo[@"ticket"];
     NSDictionary *ticketParams = userInfo[@"ticketParams"];
     NSDictionary *propertyParams = userInfo[@"propertyParams"];
-    if (ticket && ticket.identifier) {
+    if (ticket && ticket.identifier && ![[CUTEDataManager sharedInstance] isTicketDeleted:ticket.identifier]) {
         [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:ticket];
         [[[CUTERentTickePublisher sharedInstance] editTicketWithTicket:ticket ticketParams:ticketParams propertyParams:propertyParams] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
@@ -610,22 +602,19 @@
         }
     }
     else {
-        if (![bottomViewController isKindOfClass:[CUTERentTypeListViewController class]]) {
-            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
-                if (task.result) {
-                    CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
-                    [form setRentTypeList:task.result];
-                    CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
-                    controller.formController.form = form;
-                    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
-                    [viewControllers insertObject:controller atIndex:0];
-                    [navController setViewControllers:viewControllers animated:NO];
+        [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+            if (task.result) {
+                CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
+                [form setRentTypeList:task.result];
+                CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
+                controller.formController.form = form;
+                NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
+                [viewControllers insertObject:controller atIndex:0];
+                [navController setViewControllers:viewControllers animated:NO];
 
-                }
-                return nil;
-            }];
-
-        }
+            }
+            return nil;
+        }];
     }
 }
 
@@ -664,7 +653,7 @@
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
-    [[CUTEDataManager sharedInstance] deleteAllUnfinishedRentTickets];
+    [[CUTEDataManager sharedInstance] cleanAllUnfinishedRentTickets];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 }
 

@@ -39,6 +39,10 @@
     return self;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (!self.ticket) {
@@ -65,7 +69,6 @@
     else {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

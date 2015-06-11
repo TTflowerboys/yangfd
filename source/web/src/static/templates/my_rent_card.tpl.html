@@ -57,6 +57,9 @@
                         </li>
                         {_if(rent.price) {_}
                         <span class="price">{=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value),0)!}</strong>{=window.i18n('/周')=}</span>
+                            {_if(rent.price.localized_unit_symbol) {_}
+                            <span class="price_reference">{=window.i18n('约')=}{=rent.price.localized_unit_symbol=}{!team.formatCurrency(parseInt(rent.price.localized_value),0)!}{=window.i18n('/周')=}</span>
+                            {_}_}
                         {_}_}
                     </ul>
                     <ul class="actions">

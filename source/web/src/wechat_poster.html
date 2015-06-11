@@ -202,10 +202,10 @@
                             % end
                             % if 'localized_unit_symbol' in rent.get('price',{}) and rent.get('price',{}).get('localized_unit_symbol','') != rent.get('price',{}).get('unit_symbol',''):
                             <span class="price_reference">
-                                {{_('(约')}}
+                                {{_('约')}}
                                 {{rent.get('price',{}).get('localized_unit_symbol','')}}
                                 {{int(float(rent.get('price',{}).get('localized_value','')))}}
-                                {{_('/周)')}}
+                                {{_('/周')}}
                             </span>
                             % end
                         </p>
