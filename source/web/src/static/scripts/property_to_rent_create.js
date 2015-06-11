@@ -665,12 +665,12 @@
                     })
                     .fail(function (ret) {
                         $('.buttonLoading').trigger('end')
-                        $errorMsg.text(window.getErrorMessageFromErrorCode(ret)).show()
+                        $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
                         $btn.prop('disabled', false).text(window.i18n('预览并发布'))
                     })
             }).fail(function (ret) {
                 $('.buttonLoading').trigger('end')
-                $errorMsg.text(window.getErrorMessageFromErrorCode(ret)).show()
+                $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
                 $btn.prop('disabled', false).text(window.i18n('预览并发布'))
             })
         return false
@@ -725,15 +725,21 @@
     /*
      *  Get sms verfication code
      * */
+    function getPrivateContactMethods () {
+        return _.map(_.filter($('[data-addContact]'), function (elem) {
+            return $(elem).is('[type=checkbox]') ? $(elem).is(':checked') : $(elem).val()
+        }), function (elem) {
+            return $(elem).attr('data-addContact')
+        })
+    }
+    var needSMSCode
     $requestSMSCodeBtn.on('click', function (e) {
         $errorMsgOfGetCode.empty().hide()
         var $btn = $(this)
         // Check email and phone
         var valid = $.validate($('#form2'), {
             onError: function (dom, validator, index) {
-                $errorMsgOfGetCode.empty()
-                $errorMsgOfGetCode.text(window.getErrorMessage(dom.name, validator))
-                $errorMsgOfGetCode.show()
+                $errorMsgOfGetCode.html(window.getErrorMessage(dom.name, validator)).show()
             },
             exclude: ['code']
         })
@@ -747,19 +753,31 @@
                 noEmptyString: true,
                 exclude: ['code','rent_id']
             })
-            window.console.log(params)
+            params.private_contact_methods = JSON.stringify(getPrivateContactMethods())
             $.betterPost('/api/1/user/fast-register', params)
                 .done(function (val) {
                     window.user = val
-                    $('.leftWrap').addClass('hasLogin').find('form').remove()
+                    //$('.leftWrap').addClass('hasLogin').find('form').remove()
                     //ga('send', 'event', 'signup', 'result', 'signup-success')
-                    //TODO: Count down 1 min to enable resend
-                    //$requestSMSCodeBtn.prop('disabled', true)
+                    // Count down 1 min to enable resend
+                    $btn.prop('disabled', true)
+                    var timer = setTimeout(function () {
+                        $btn.prop('disabled', true)
+                    }, 60000)
+                    $.betterPost('/api/1/user/sms_verification/send', {
+                        country: $('#countryPhone').val() || $('#countryPhone option').eq(0).val(),
+                        phone: $('[name=phone]').val()
+                    }).done(function () {
+                        needSMSCode = true
+                        $btn.siblings('.sucMsg').show()
+                    }).fail(function (ret) {
+                        clearTimeout(timer)
+                        $errorMsgOfGetCode.html(window.getErrorMessageFromErrorCode(ret)).show()
+                        $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
+                    })
                 })
                 .fail(function (ret) {
-                    $errorMsgOfGetCode.empty()
-                    $errorMsgOfGetCode.append(window.getErrorMessageFromErrorCode(ret))
-                    $errorMsgOfGetCode.show()
+                    $errorMsgOfGetCode.html(window.getErrorMessageFromErrorCode(ret)).show()
                     $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
                 })
         }
@@ -768,22 +786,55 @@
     $('#publish').on('click', function(e) {
         $errorMsg2.empty().hide()
         var $btn = $(this)
+        function publishRentTicket (){
+            function publish() {
+                $btn.prop('disabled', true).text(window.i18n('发布中...'))
+                $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', {'status': 'to rent'})
+                    .done(function(val) {
+                        location.href = '/property-to-rent/' + window.ticketId + '/publish-success'
 
-        if(window.user){
-            $btn.prop('disabled', true).text(window.i18n('发布中...'))
-            $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', {'status': 'to rent'})
-                .done(function(val) {
-                    location.href = '/property-to-rent/' + window.ticketId + '/publish-success'
-
-                    ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'sms-receive', (new Date() - smsSendTime)/1000)
-                    ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'finish-publish', (new Date() - createStartTime)/1000)
-                })
-                .fail(function (ret) {
-                    $errorMsg2.empty()
-                    $errorMsg2.append(window.getErrorMessageFromErrorCode(ret))
-                    $errorMsg2.show()
+                        ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'sms-receive', (new Date() - smsSendTime)/1000)
+                        ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'finish-publish', (new Date() - createStartTime)/1000)
+                    })
+                    .fail(function (ret) {
+                        $errorMsg2.empty()
+                        $errorMsg2.append(window.getErrorMessageFromErrorCode(ret))
+                        $errorMsg2.show()
+                        $btn.text(window.i18n('重新发布')).prop('disabled', false)
+                    })
+            }
+            var privateContactMethods = JSON.stringify(getPrivateContactMethods())
+            if(privateContactMethods.length === 0) {
+                $errorMsg2.html(i18n('请至少展示一种联系方式给租客')).show()
+                $btn.text(window.i18n('重新发布')).prop('disabled', false)
+                return
+            }
+            $.betterPost('/api/1/user/edit', {private_contact_methods: privateContactMethods, wechat: $('#wechat').val()})
+                .done(function () {
+                    publish()
+                }).fail(function (ret) {
+                    $errorMsg2.html(window.getErrorMessageFromErrorCode(ret)).show()
                     $btn.text(window.i18n('重新发布')).prop('disabled', false)
                 })
+        }
+
+        if(window.user){
+            if(!needSMSCode) {
+                publishRentTicket()
+            } else if($('#code').val()) {
+                //todo 验证验证码
+                $.betterPost('/api/1/user/' + window.user.id + '/sms_verification/verify', {
+                    code: $('#code').val()
+                }).done(function () {
+                    publishRentTicket()
+                }).fail(function (ret) {
+                    $errorMsg2.html(window.getErrorMessageFromErrorCode(ret)).show()
+                    $btn.text(window.i18n('重新发布')).prop('disabled', false)
+                })
+
+            } else {
+                $errorMsg2.text(i18n('请填写您收到的短信验证码后再发布房产')).show()
+            }
         }
     })
     window.previewMoveTo = function(num){ //给iframe中的微信预览页调用的方法
@@ -820,19 +871,22 @@
         $('.infoBox .info').css('height', $('.infoBox .info dd').last().offset().top - $('.infoBox .info dt').first().offset().top -20 + 'px') //设置说明文案左边的竖线的高度
     }
     $(document).ready(function () {
-        if($('.editRoute').css('display') === 'none') {//防止display:none时chosen插件获取不到select的尺寸
-            $('.editRoute').css({
-                'visibility': 'hidden',
-                'display': 'block'
-            })
-            $('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
-            $('.editRoute').css({
-                'visibility': 'visiable',
-                'display': 'none'
-            })
-        }else {
-            $('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
-        }
+        $('.route').each(function (index, elem) {
+            if($(elem).css('display') === 'none') {//防止display:none时chosen插件获取不到select的尺寸
+                $(elem).css({
+                    'visibility': 'hidden',
+                    'display': 'block'
+                })
+                $(elem).find('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
+                $(elem).css({
+                    'visibility': 'visiable',
+                    'display': 'none'
+                })
+            }else {
+                $(elem).find('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
+            }
+        })
+
         showRoomOrHouse($('#rentalType .property_type.selected').index())
         initInfoHeight()
         $('#fileuploader').uploadFile({
