@@ -21,17 +21,13 @@
     <hr/>
     <div class="clearfix">
 
-        <div class="wrap leftWrap
-        %if user:
-        hasLogin
-        %end
-        ">
+        <div class="wrap leftWrap">
             <div class="titleWrap">
                 <h2>{{_('微信展示预览')}}</h2>
-                <h3>{{_('微信展示预览')}}</h3>
+                <h3>{{_('房东信息')}}</h3>
             </div>
             %if not user:
-
+            <!--未登录需要快速注册流程-->
             <form id="form2">
                 <div class="formGroup">
                     <p>{{_('为保证房源真实性，请先完善个人资料或')}}<a class="link" onclick="javascript:project.showSignInModalOrGoToSignIn()">{{_('点击此处登陆')}}</a>{{_('，再完成房源的发布')}}</p>
@@ -87,6 +83,31 @@
                         {{_('获取验证码')}}
                     </button>
                     <div class="errorMsgOfGetCode"></div>
+                    <div class="sucMsg" style="display: none;"><label></label>{{_('验证码已发送到您的手机，请将验证码填写到上方输入框后再发布房产')}}</div>
+                </div>
+
+                <div class="formGroup">
+                    <label></label>
+                    <span>{{_('确认代表您同意创建一个洋房东账号供以后查看租客请求使用')}}</span>
+                </div>
+            </form>
+            %else:
+            <!--已登录需要增加选择联系方式流程-->
+            <form id="form2">
+                <div class="formGroup">
+                    <p>{{_('为了方便租客联系您，请先完善您的联系方式，再完成房源的发布')}}</p>
+                </div>
+                <div class="formGroup">
+                    <label>{{_('姓名')}}</label>
+                    <span>{{user.get('nickname','')}}</span>
+                </div>
+                <div class="formGroup">
+                    <label for="email">{{_('邮箱')}}</label>
+                    <span>{{user.get('email','')}}</span>
+                </div>
+                <div class="formGroup">
+                    <label for="phone">{{_('手机号')}}</label>
+                    <span>{{user.get('phone','')}}</span>
                 </div>
 
                 <div class="formGroup">
@@ -98,11 +119,7 @@
 
         </div>
 
-        <div class="
-        %if not user:
-        rightWrap
-        %end
-        wrap clearfix">
+        <div class="rightWrap wrap clearfix">
             <div class="previewBox">
                 <iframe src="" id="previewIframe" name="previewIframe" style="width:252px;height: 447px;">
 

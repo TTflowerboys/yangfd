@@ -725,6 +725,7 @@
     /*
      *  Get sms verfication code
      * */
+    var needSMSCode
     $requestSMSCodeBtn.on('click', function (e) {
         $errorMsgOfGetCode.empty().hide()
         var $btn = $(this)
@@ -747,19 +748,30 @@
                 noEmptyString: true,
                 exclude: ['code','rent_id']
             })
-            window.console.log(params)
             $.betterPost('/api/1/user/fast-register', params)
                 .done(function (val) {
                     window.user = val
-                    $('.leftWrap').addClass('hasLogin').find('form').remove()
+                    //$('.leftWrap').addClass('hasLogin').find('form').remove()
                     //ga('send', 'event', 'signup', 'result', 'signup-success')
-                    //TODO: Count down 1 min to enable resend
-                    //$requestSMSCodeBtn.prop('disabled', true)
+                    // Count down 1 min to enable resend
+                    $btn.prop('disabled', true)
+                    var timer = setTimeout(function () {
+                        $btn.prop('disabled', true)
+                    }, 60000)
+                    $.betterPost('/api/1/user/sms_verification/send', {
+                        country: $('[name=country]').val(),
+                        phone: $('[name=phone]').val()
+                    }).done(function () {
+                        needSMSCode = true
+                        $btn.siblings('.sucMsg').show()
+                    }).fail(function (ret) {
+                        clearTimeout(timer)
+                        $errorMsgOfGetCode.text(window.getErrorMessageFromErrorCode(ret)).show()
+                        $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
+                    })
                 })
                 .fail(function (ret) {
-                    $errorMsgOfGetCode.empty()
-                    $errorMsgOfGetCode.append(window.getErrorMessageFromErrorCode(ret))
-                    $errorMsgOfGetCode.show()
+                    $errorMsgOfGetCode.text(window.getErrorMessageFromErrorCode(ret)).show()
                     $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
                 })
         }
@@ -768,8 +780,7 @@
     $('#publish').on('click', function(e) {
         $errorMsg2.empty().hide()
         var $btn = $(this)
-
-        if(window.user){
+        function publishRentTicket (){
             $btn.prop('disabled', true).text(window.i18n('发布中...'))
             $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', {'status': 'to rent'})
                 .done(function(val) {
@@ -784,6 +795,25 @@
                     $errorMsg2.show()
                     $btn.text(window.i18n('重新发布')).prop('disabled', false)
                 })
+        }
+
+        if(window.user){
+            if(!needSMSCode) {
+                publishRentTicket()
+            } else if($('#code').val()) {
+                //todo 验证验证码
+                $.betterPost('/api/1/user/' + window.user.id + '/sms_verification/verify', {
+                    code: $('#code').val()
+                }).done(function () {
+                    publishRentTicket()
+                }).fail(function (ret) {
+                    $errorMsg2.text(window.getErrorMessageFromErrorCode(ret)).show()
+                    $btn.text(window.i18n('重新发布')).prop('disabled', false)
+                })
+
+            } else {
+                $errorMsg2.text(i18n('请填写您收到的短信验证码后再发布房产')).show()
+            }
         }
     })
     window.previewMoveTo = function(num){ //给iframe中的微信预览页调用的方法
