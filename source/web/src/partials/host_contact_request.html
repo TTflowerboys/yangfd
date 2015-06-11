@@ -2,11 +2,13 @@
     <div class="host" id="host">
         <img class="avatar" src="/static/images/property_details/ico_phoneowner.png"></img>
         <label class="hostName">{{rent.get('creator_user',{}).get('nickname','')}}</label>
-        %if rent.get('landlord_type') and rent.get('landlord_type').get('value'):
-        <label class="hostType">{{rent.get('landlord_type').get('value')}}</label>
+        %if 'landlord_type' in rent and rent.get('landlord_type').get('value'):
+        <label class="hostType">{{rent.get('landlord_type',{}).get('value')}}</label>
         %end
 
-        %if 'phone' not in rent.get('creator_user',{}).get('private_contact_methods',[]):
+        % private_contact_methods = rent.get('creator_user',{}).get('private_contact_methods',[])
+        % private_contact_methods = [] if private_contact_methods is None else private_contact_methods
+        % if 'phone' not in private_contact_methods:
         <div class="hostPhone hostContact">
             <a href="tel:+{{rent.get('creator_user',{}).get('country_code','') }}{{rent.get('creator_user',{}).get('phone','')}}">
                 <img class="ico" src="/static/images/property_details/ico_phone.png"/>
@@ -14,7 +16,7 @@
             </a>
         </div>
         %end
-        %if 'email' not in rent.get('creator_user',{}).get('private_contact_methods',[]):
+        % if 'email' not in private_contact_methods:
         <div class="hostEmail hostContact">
             <a href="mailto:{{rent.get('creator_user',{}).get('email','')}}" class="clearfix">
                 <img class="ico" src="/static/images/property_details/ico_email.png"/>
@@ -22,7 +24,7 @@
             </a>
         </div>
         %end
-        %if 'wechat' not in rent.get('creator_user',{}).get('private_contact_methods',[]):
+        % if 'wechat' not in private_contact_methods:
         <div class="hostWechat hostContact">
             <img class="ico" src="/static/images/property_details/ico_wechat.png"/>
             <span>{{rent.get('creator_user',{}).get('wechat','')}}</span>
