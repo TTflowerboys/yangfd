@@ -23,27 +23,15 @@ function PhoneIntroJs(options) {
     }
 }
 function startIntroOnPhone() {
+
+
     new PhoneIntroJs({
-        text: i18n('点击此处可以联系房东'),
+        text: i18n('点击此处可以收藏房产'),
         arrow: 'bottom',
         style : {
             position: 'fixed',
             bottom: '50px',
-            left: '10%'
-        },
-        closeTrigger: {
-            elem: '.floatBar_phone .phone a',
-            event: 'click'
-        }
-    }).init()
-
-    new PhoneIntroJs({
-        text: i18n('点击此处可以收藏房产'),
-        arrow: 'bottom-right',
-        style : {
-            position: 'fixed',
-            bottom: '50px',
-            right: '5%'
+            left: '5%'
         },
         closeTrigger: {
             elem: '.floatBar_phone .favorite',
@@ -57,11 +45,6 @@ function startIntroOnWeb() {
     intro.setOptions({
         steps: [
             {
-                element: $('#contactRequest')[0],
-                intro: i18n('小提示：点击此处可以查看房东的完整联系方式'),
-                position: 'bottom'
-            },
-            {
                 element: $('.actions tr').eq(0)[0],
                 intro: i18n('小提示：看到中意的房产，可以点击此处的收藏按钮来收藏，也可以点击分享按钮将房产分享给您的朋友'),
                 position: 'bottom'
@@ -71,13 +54,14 @@ function startIntroOnWeb() {
         'doneLabel': window.i18n('关闭'),
         'nextLabel': window.i18n('下一条'),
         'prevLabel': window.i18n('上一条'),
+        'showStepNumbers': false
     })
     intro.start()
 }
 
 function initIntro() {
-    if(!($.cookie('introjs_rent') === 'hasShow')) {
-        $.cookie('introjs_rent', 'hasShow')
+    if(!($.cookie('introjs_property') === 'hasShow')) {
+        $.cookie('introjs_property', 'hasShow')
         if(window.team.isPhone()) {
             startIntroOnPhone()
         } else {
