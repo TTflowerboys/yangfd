@@ -160,7 +160,6 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketPublish:) name:KNOTIF_TICKET_PUBLISH object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketSync:) name:KNOTIF_TICKET_SYNC object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketDelete:) name:KNOTIF_TICKET_DELETE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketEdit:) name:KNOTIF_TICKET_EDIT object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveTicketCreate:) name:KNOTIF_TICKET_CREATE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketWechatShare:) name:KNOTIF_TICKET_WECHAT_SHARE object:nil];
@@ -486,13 +485,6 @@
 }
 
 #pragma mark - Push Notification
-
-- (void)onReceiveTicketDelete:(NSNotification *)notif {
-    NSDictionary *userInfo = notif.userInfo;
-    CUTETicket *ticket = userInfo[@"ticket"];
-    [[CUTEDataManager sharedInstance] deleteUnfinishedRentTicket:ticket];
-    [[CUTERentTickePublisher sharedInstance] deleteTicket:ticket];
-}
 
 - (void)onReceiveTicketPublish:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
