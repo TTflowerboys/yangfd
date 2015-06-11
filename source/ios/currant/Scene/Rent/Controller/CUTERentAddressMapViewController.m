@@ -399,8 +399,8 @@
             [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
                 return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
             }]] continueWithBlock:^id(BFTask *task) {
-                NSArray *landloardTypes;
-                NSArray *propertyTypes;
+                NSArray *landloardTypes = nil;
+                NSArray *propertyTypes = nil;
                 if (!IsArrayNilOrEmpty(task.result) && [task.result count] == 2) {
                     landloardTypes = task.result[0];
                     propertyTypes = task.result[1];

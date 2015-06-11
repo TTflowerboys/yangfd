@@ -63,14 +63,16 @@ typedef void (^ KeyValueChangeBlock) (NSString*, id);
 
 - (void)markPropertyKeyUpdated:(NSString *)propertyKey withValue:(id)value {
     id retValue = [self.sayer paramValueForKey:propertyKey withValue:value];
-    if (!retValue) {
-
-    }
-    [_updateMarkDictionary setObject:retValue forKey:[[[self.sayer class] JSONKeyPathsByPropertyKey] objectForKey:propertyKey]];
+    id retKey = [[[self.sayer class] JSONKeyPathsByPropertyKey] objectForKey:propertyKey];
+    NSCParameterAssert(retValue);
+    NSCParameterAssert(retKey);
+    [_updateMarkDictionary setObject:retValue forKey:retKey];
 }
 
 - (void)markPropertyKeyDeleted:(NSString *)propertyKey {
-    [_deleteMarkArray addObject:[[[self.sayer class] JSONKeyPathsByPropertyKey] objectForKey:propertyKey]];
+    id retKey = [[[self.sayer class] JSONKeyPathsByPropertyKey] objectForKey:propertyKey];
+    NSCParameterAssert(retKey);
+    [_deleteMarkArray addObject:retKey];
 }
 
 - (NSDictionary *)getEditedParams {
