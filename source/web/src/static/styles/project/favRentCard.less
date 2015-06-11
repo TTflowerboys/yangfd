@@ -141,31 +141,39 @@
             }
 
             >.price {
-                color: @red;
-                font-size: 14px;
+                max-width:30%;
                 position: absolute;
                 right: 0;
                 top: 0;
-                max-width:35%;
                 text-align:right;
-                margin-right: @standard-margin * 2;
+                margin-right: @padding-top;
 
-                strong {
-                    font-size: @normal-font-size;
+                .price_original{
+                    color: @red;
+                    font-size: 14px;
+                    display: block;
+                    >strong {
+                        font-size: @normal-font-size;
+                    }
+                }
+
+
+                >.price_reference {
+                    color: @grey;
                 }
 
                 @media @phone {
                     position: absolute;
-                    max-width:30%;
                     float: right;
                     margin-right: inherit;
+
                 }
             }
 
             > .date {
                 margin-right: @standard-margin * 2;
                 float: right;
-                margin-top: -20px;
+                margin-top: -@standard-margin;
 
                 @media @phone {
                     display:inherit;
