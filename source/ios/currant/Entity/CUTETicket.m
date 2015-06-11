@@ -160,7 +160,8 @@
         id fieldValue = [self valueForKey:key];
         if (fieldValue && ![fieldValue isEqual:[NSNull null]]) {
             id paramValue = [self paramValueForKey:key withValue:fieldValue];
-            NSCParameterAssert(paramValue);
+            NSAssert(paramValue, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
+
             if (paramValue) {
                 [params setObject:paramValue forKey:paramKey];
             }
