@@ -25,7 +25,7 @@ window.getI18nOfLanguage = function (language) {
 }
 
 window.changeCurrency = function(currency) {
-    var newUrl = team.setQuery('_currency', currency)
+    var newUrl = team.setQuery('_i18n_currency', currency)
     $.cookie('currant_currency', currency)
     location.href = newUrl
 }
