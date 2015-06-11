@@ -194,19 +194,19 @@
                                 {{rent.get('price',{}).get('unit_symbol','')}}
                                 {{int(float(rent.get('price',{}).get('value','')))}}
                                 % if 'bill_covered' in rent and rent.get('bill_covered'):
-                                <sub>
+                                <span class="sub">
                                     {{_(', 包Bill')}}
-                                </sub>
+                                </span>
                                 % end
                             </span>
                             % end
                             % if 'localized_unit_symbol' in rent.get('price',{}) and rent.get('price',{}).get('localized_unit_symbol','') != rent.get('price',{}).get('unit_symbol',''):
-                            <div class="price_reference">
+                            <span class="price_reference">
                                 {{_('(约')}}
                                 {{rent.get('price',{}).get('localized_unit_symbol','')}}
                                 {{int(float(rent.get('price',{}).get('localized_value','')))}}
                                 {{_('/周)')}}
-                            </div>
+                            </span>
                             % end
                         </p>
                         <p class="line3 animate">{{_('您就可以租到')}}</p>
@@ -239,7 +239,17 @@
                                 %if not rent['property'].get('floor',''):
                                 style="width:100%;"
                                 %end
-                                ><div><i class="estateIcon"></i>{{rent['property'].get('community','')}} {{rent['property'].get('street','')}} {{rent['property'].get('city',{}).get('name','')}}</div></li>
+                                >
+                                <div><i class="estateIcon"></i>
+                                %if rent['property'].get('community',''):
+                                {{rent['property'].get('community','')}},
+                                %end
+                                %if rent['property'].get('street',''):
+                                {{rent['property'].get('street','')}},
+                                %end
+                                {{rent['property'].get('city',{}).get('name','')}}
+                                </div>
+                            </li>
                             % if 'floor' in rent['property'] and rent['property'].get('floor',''):
                             <li class="animate door">
                                 <div>
