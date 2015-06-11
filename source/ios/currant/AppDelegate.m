@@ -507,7 +507,7 @@
     CUTETicket *ticket = userInfo[@"ticket"];
     NSDictionary *ticketParams = userInfo[@"ticketParams"];
     NSDictionary *propertyParams = userInfo[@"propertyParams"];
-    if (ticket && ticket.identifier) {
+    if (ticket && ticket.identifier && ![[CUTEDataManager sharedInstance] isTicketDeleted:ticket.identifier]) {
         [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:ticket];
         [[[CUTERentTickePublisher sharedInstance] editTicketWithTicket:ticket ticketParams:ticketParams propertyParams:propertyParams] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
@@ -656,7 +656,7 @@
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
-    [[CUTEDataManager sharedInstance] deleteAllUnfinishedRentTickets];
+    [[CUTEDataManager sharedInstance] cleanAllUnfinishedRentTickets];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 }
 

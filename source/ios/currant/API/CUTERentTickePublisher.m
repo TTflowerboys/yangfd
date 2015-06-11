@@ -345,10 +345,16 @@
     ticket.status = kTicketStatusDeleted;
     ticket.property.status = kPropertyStatusDeleted;
     NSAssert(ticket.identifier, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
-    return [BFTask taskForCompletionOfAllTasks:
-            @[[self editProperty:ticket.property],
-              [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:ticket.toParams resultClass:nil]
-              ]];
+    if (ticket.property && ticket.property.identifier) {
+        return [BFTask taskForCompletionOfAllTasks:
+                @[[self editProperty:ticket.property],
+                  [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:ticket.toParams resultClass:nil]
+                  ]];
+    }
+    else {
+        return [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:ticket.toParams resultClass:nil];
+    }
+
 }
 
 - (BFTask *)createProperty:(CUTEProperty *)property {

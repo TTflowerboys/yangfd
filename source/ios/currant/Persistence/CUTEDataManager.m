@@ -156,20 +156,30 @@
 }
 
 - (NSArray *)getAllUnfinishedRentTickets {
-    return [[[_store getAllItemsFromTable:KTABLE_UNFINISHE_RENT_TICKETS] sortedArrayUsingComparator:^NSComparisonResult(YTKKeyValueItem *obj1, YTKKeyValueItem *obj2) {
+    return [[[[_store getAllItemsFromTable:KTABLE_UNFINISHE_RENT_TICKETS] sortedArrayUsingComparator:^NSComparisonResult(YTKKeyValueItem *obj1, YTKKeyValueItem *obj2) {
         return [obj2.createdTime compare:obj1.createdTime];
     }] map:^id(YTKKeyValueItem *object) {
         MTLJSONAdapter *ticket = [[MTLJSONAdapter alloc] initWithJSONDictionary:object.itemObject modelClass:[CUTETicket class] error:nil];
         return [ticket model];
+    }] select:^BOOL(CUTETicket *object) {
+        return [object.status isEqualToString:kTicketStatusDraft];
     }];
 }
 
 - (void)deleteUnfinishedRentTicket:(CUTETicket *)ticket
 {
-    [_store deleteObjectById:ticket.identifier fromTable:KTABLE_UNFINISHE_RENT_TICKETS];
+    //just mark delegete
+    ticket.status = kTicketStatusDeleted;
+    [self saveRentTicketToUnfinised:ticket];
 }
 
-- (void)deleteAllUnfinishedRentTickets
+- (BOOL)isTicketDeleted:(NSString *)ticketId {
+    NSDictionary *json = [_store getObjectById:ticketId fromTable:KTABLE_UNFINISHE_RENT_TICKETS];
+    CUTETicket *ticket = (CUTETicket *)[[[MTLJSONAdapter alloc] initWithJSONDictionary:json modelClass:[CUTETicket class] error:nil] model];
+    return ticket && [ticket.status isEqualToString:kTicketStatusDeleted];
+}
+
+- (void)cleanAllUnfinishedRentTickets
 {
     [_store clearTable:KTABLE_UNFINISHE_RENT_TICKETS];
 }
