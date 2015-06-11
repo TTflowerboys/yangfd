@@ -76,7 +76,7 @@ function startIntroOnWeb() {
 }
 
 function initIntro() {
-    if(!($.cookie('introjs_rent') === 'hasShow')) {
+    if($.cookie('introjs_rent') !== 'hasShow') {
         $.cookie('introjs_rent', 'hasShow')
         if(window.team.isPhone()) {
             startIntroOnPhone()
