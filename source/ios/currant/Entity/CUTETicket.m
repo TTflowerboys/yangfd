@@ -12,6 +12,7 @@
 
 @implementation CUTETicket
 
+//Must have full mapping
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
     return @{@"identifier": @"id",
@@ -137,11 +138,11 @@
     else if ([key isEqualToString:@keypath(self.ticketDescription)]) {
         return value;
     }
-    
+
+    NSAssert(nil, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,key);
     return nil;
 }
 
-//TODO refine
 - (NSDictionary *)toParams {
     NSMutableArray *unsetFields = [NSMutableArray array];
     NSMutableDictionary *params =
@@ -159,11 +160,9 @@
         id fieldValue = [self valueForKey:key];
         if (fieldValue && ![fieldValue isEqual:[NSNull null]]) {
             id paramValue = [self paramValueForKey:key withValue:fieldValue];
+            NSCParameterAssert(paramValue);
             if (paramValue) {
                 [params setObject:paramValue forKey:paramKey];
-            }
-            else {
-
             }
         }
         else {

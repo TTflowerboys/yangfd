@@ -158,6 +158,7 @@
     else if ([key isEqualToString:@keypath(self.longitude)] && [value isKindOfClass:[NSNumber class]]) {
         return value;
     }
+    NSAssert(nil, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,key);
     return nil;
 }
 
@@ -180,11 +181,9 @@
         id fieldValue = [self valueForKey:key];
         if (fieldValue && ![fieldValue isEqual:[NSNull null]]) {
             id paramValue = [self paramValueForKey:key withValue:fieldValue];
+            NSCParameterAssert(paramValue);
             if (paramValue) {
                 [params setObject:paramValue forKey:paramKey];
-            }
-            else {
-
             }
         }
         else {
