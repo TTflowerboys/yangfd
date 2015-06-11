@@ -25,7 +25,7 @@
 
 - (NSString *)unitSymbol {
     return @{@"meter ** 2": @"m²",
-             @"foot ** 2": @"foot²"
+             @"foot ** 2": @"sq ft"
              }[self.unit];
 }
 
