@@ -5,12 +5,30 @@
         %if rent.get('landlord_type') and rent.get('landlord_type').get('value'):
         <label class="hostType">{{rent.get('landlord_type').get('value')}}</label>
         %end
-        <div class="hostPhone">
+
+        %if 'phone' not in rent.get('creator_user',{}).get('private_contact_methods',[]):
+        <div class="hostPhone hostContact">
             <a href="tel:+{{rent.get('creator_user',{}).get('country_code','') }}{{rent.get('creator_user',{}).get('phone','')}}">
-                <img class="phoneIco" src="/static/images/property_details/ico_phone.png"></img>
+                <img class="ico" src="/static/images/property_details/ico_phone.png"/>
                 <span>+{{rent.get('creator_user',{}).get('country_code','') }}</span> <span>{{rent.get('creator_user',{}).get('phone','')}}</span>
             </a>
         </div>
+        %end
+        %if 'email' not in rent.get('creator_user',{}).get('private_contact_methods',[]):
+        <div class="hostEmail hostContact">
+            <a href="mailto:{{rent.get('creator_user',{}).get('email','')}}" class="clearfix">
+                <img class="ico" src="/static/images/property_details/ico_email.png"/>
+                <span class="email">{{rent.get('creator_user',{}).get('email','')}}</span>
+            </a>
+        </div>
+        %end
+        %if 'wechat' not in rent.get('creator_user',{}).get('private_contact_methods',[]):
+        <div class="hostWechat hostContact">
+            <img class="ico" src="/static/images/property_details/ico_wechat.png"/>
+            <span>{{rent.get('creator_user',{}).get('wechat','')}}</span>
+        </div>
+        %end
+
     </div>
     <div class="contactRequest" id="contactRequest">
         <button id="contactRequestBtn" class="flatButton ajaxButton">{{_('查看房东完整联系方式')}}</button>

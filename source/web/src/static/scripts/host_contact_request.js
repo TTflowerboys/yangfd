@@ -15,8 +15,17 @@ $(function () {
             $.betterPost('/api/1/rent_ticket/' + rentId + '/contact_info')
                 .done(function (val) {
                     var host = val
-                    $($('.hostPhone span')[1]).text(host.phone)
-                    $($('.hostPhone a')).attr('href', 'tel:+' + host.country_code + host.phone)
+                    if($('.hostPhone').length) {
+                        $($('.hostPhone span')[1]).text(host.phone)
+                        $($('.hostPhone a')).attr('href', 'tel:+' + host.country_code + host.phone)
+                    }
+                    if($('.hostEmail').length) {
+                        $('.hostEmail span').text(host.email)
+                        $('.hostEmail a').attr('href', 'mailto:+' + host.email)
+                    }
+                    if($('.hostWechat').length) {
+                        $('.hostWechat span').text(host.wechat)
+                    }
 
                     $('.hostName').text(host.nickname)
 

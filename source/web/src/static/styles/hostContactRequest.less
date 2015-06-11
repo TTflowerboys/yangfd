@@ -54,22 +54,41 @@ main {
 
 
 
-        .hostPhone {
-            padding: @standard-margin @standard-margin @standard-margin*2 @standard-margin;
-            font-size: @slarge-font-size;
-            text-align: center;
+        .hostContact {
+            padding: @standard-margin @standard-margin @standard-margin @standard-margin * 6;
+            font-size: @slarge-font-size * 0.8;
+            text-align: left;
             color: @dark-text-color;
             position: relative;
-
+            @media @phone {
+                padding: @standard-margin @standard-margin @standard-margin @standard-margin;
+                text-align: center;
+            }
             a {
                 color: @dark-text-color;
                 text-decoration: none;
             }
-            .phoneIco{
+            .ico{
                 display: inline-block;
                 height: 32px;
                 width: 32px;
                 vertical-align: text-bottom;
+                float: left;
+                margin-right: 16px;
+                @media @phone {
+                    float: none;
+                }
+            }
+            span{
+                &.email{
+                    width: 255px;
+                    word-break: break-all;
+                    float: left;
+                    @media @phone{
+                        width:auto;
+                        float: none;
+                    }
+                }
             }
         }
     }
