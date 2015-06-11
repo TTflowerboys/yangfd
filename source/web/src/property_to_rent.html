@@ -148,10 +148,18 @@
                         </span>
                     % end
                     {{_('/周')}}
+                    % if 'localized_unit_symbol' in rent.get('price',{}) and rent.get('price',{}).get('localized_unit_symbol','') != rent.get('price',{}).get('unit_symbol',''):
+                    <div class="price_reference">
+                        {{_('(约')}}
+                        {{rent.get('price',{}).get('localized_unit_symbol','')}}
+                        {{int(float(rent.get('price',{}).get('localized_value','')))}}
+                        {{_('/周)')}}
+                    </div>
+                    % end
                     % if 'bill_covered' in rent and rent.get('bill_covered'):
-                        <span>
-                            {{_('包Bill')}}
-                        </span>
+                    <span>
+                        {{_('包Bill')}}
+                    </span>
                     % end
                 </div>
             </div>
@@ -414,6 +422,14 @@
                         </span>
                         % end
                     </div>
+                    % if 'localized_unit_symbol' in rent.get('price',{}) and rent.get('price',{}).get('localized_unit_symbol','') != rent.get('price',{}).get('unit_symbol',''):
+                    <div class="price_reference">
+                        {{_('(约')}}
+                        {{rent.get('price',{}).get('localized_unit_symbol','')}}
+                        {{int(float(rent.get('price',{}).get('localized_value','')))}}
+                        {{_('/周)')}}
+                    </div>
+                    % end
                     <div class="seperator"></div>
                     <ul class="priceItems">
                         <li>

@@ -98,51 +98,53 @@
     return tcs.task;
 }
 
-- (BFTask *)editTicketExcludeImage:(CUTETicket *)ticket {
+- (BFTask *)editTicketWithTicket:(CUTETicket *)ticket ticketParams:(NSDictionary *)ticketParams propertyParams:(NSDictionary *)propertyParams {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     Sequencer *sequencer = [Sequencer new];
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[self editProperty:ticket.property] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [tcs setError:task.error];
-            }
-            else if (task.exception) {
-                [tcs setException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [tcs cancel];
-            }
-            else {
-                CUTEProperty *property = task.result;
-                ticket.property.identifier = property.identifier;
-                completion(property);
-            }
-
-            return task;
+    __block CUTEProperty *retProperty = ticket.property;
+    if (propertyParams.count > 0) {
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", ticket.property.identifier, @"/edit") parameters:propertyParams resultClass:[CUTEProperty class]] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    [tcs setError:task.error];
+                }
+                else if (task.exception) {
+                    [tcs setException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [tcs cancel];
+                }
+                else {
+                    CUTEProperty *property = task.result;
+                    retProperty = property;
+                    completion(property);
+                }
+                return task;
+            }];
         }];
-    }];
+    }
 
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
-        [params setObject:@"true" forKey:@"user_generated"];
-        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [tcs setError:task.error];
-            }
-            else if (task.exception) {
-                [tcs setException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [tcs cancel];
-            }
-            else {
-                CUTETicket *ticket = task.result;
-                ticket.property = result;
-                [tcs setResult:ticket];
-            }
-            return nil;
+    if (ticketParams.count > 0) {
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:ticketParams resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    [tcs setError:task.error];
+                }
+                else if (task.exception) {
+                    [tcs setException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [tcs cancel];
+                }
+                else {
+                    CUTETicket *ticket = task.result;
+                    ticket.property = retProperty;
+                    [tcs setResult:ticket];
+                }
+                return nil;
+            }];
         }];
-    }];
+    }
 
     [sequencer run];
     return tcs.task;

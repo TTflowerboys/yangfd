@@ -51,6 +51,10 @@ PODS:
   - GoogleAnalytics-iOS-SDK/Core (3.12)
   - INTULocationManager (3.0.3)
   - JDFTooltips (1.0)
+  - KVOController (1.0.3)
+  - libextobjc/EXTKeyPathCoding (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/RuntimeExtensions (0.4.1)
   - Mantle (1.5.4):
     - Mantle/extobjc (= 1.5.4)
   - Mantle/extobjc (1.5.4)
@@ -102,6 +106,8 @@ DEPENDENCIES:
   - GoogleAnalytics-iOS-SDK (~> 3.11)
   - INTULocationManager (~> 3.0.1)
   - JDFTooltips
+  - KVOController (~> 1.0.3)
+  - libextobjc/EXTKeyPathCoding
   - Masonry (~> 0.6.1)
   - MWPhotoBrowser (~> 1.4.1)
   - ngrvalidator (~> 1.0.0)
@@ -151,6 +157,8 @@ SPEC CHECKSUMS:
   GoogleAnalytics-iOS-SDK: 0a3327a993b8ed2b8fe1c6c4a8dcf5b76d2237a8
   INTULocationManager: e79327803a163f5fec28eb042bb124ed0c6e4876
   JDFTooltips: 439e3f1010b5e689e8438f66fce8448726e59897
+  KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
+  libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad

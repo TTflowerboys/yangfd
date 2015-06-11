@@ -12,6 +12,11 @@
 		2C03AB4A1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */; };
 		2C03AB4B1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */; };
 		2C03AB4C1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */; };
+		2C06D3A31B29465800C147DE /* CUTEModelEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */; };
+		2C06D3A41B29465800C147DE /* CUTEModelEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */; };
+		2C06D3A51B29465800C147DE /* CUTEModelEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */; };
+		2C06D3A61B29465800C147DE /* CUTEModelEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */; };
+		2C06D3A71B29465800C147DE /* CUTEModelEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */; };
 		2C07AB8A1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
 		2C07AB8B1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
 		2C07AB8C1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
@@ -49,6 +54,11 @@
 		2C0AE1251B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1221B1EF20D00A73BE6 /* CUTERentCityViewController.m */; };
 		2C0AE1261B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1221B1EF20D00A73BE6 /* CUTERentCityViewController.m */; };
 		2C0AE1271B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1221B1EF20D00A73BE6 /* CUTERentCityViewController.m */; };
+		2C0C09FF1B29697F001F2583 /* CUTETicketEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C09FE1B29697F001F2583 /* CUTETicketEditingListener.m */; };
+		2C0C0A001B29697F001F2583 /* CUTETicketEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C09FE1B29697F001F2583 /* CUTETicketEditingListener.m */; };
+		2C0C0A011B29697F001F2583 /* CUTETicketEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C09FE1B29697F001F2583 /* CUTETicketEditingListener.m */; };
+		2C0C0A021B29697F001F2583 /* CUTETicketEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C09FE1B29697F001F2583 /* CUTETicketEditingListener.m */; };
+		2C0C0A031B29697F001F2583 /* CUTETicketEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C09FE1B29697F001F2583 /* CUTETicketEditingListener.m */; };
 		2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
@@ -625,6 +635,8 @@
 /* Begin PBXFileReference section */
 		2C03AB461B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormLimitCharacterCountTextFieldCell.h; sourceTree = "<group>"; };
 		2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormLimitCharacterCountTextFieldCell.m; sourceTree = "<group>"; };
+		2C06D3A11B29465800C147DE /* CUTEModelEditingListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEModelEditingListener.h; sourceTree = "<group>"; };
+		2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEModelEditingListener.m; sourceTree = "<group>"; };
 		2C07AB881AE8FF6600907075 /* UIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
 		2C07AB891AE8FF6600907075 /* UIView+Border.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Border.m"; sourceTree = "<group>"; };
 		2C0AE0F91B1D906100A73BE6 /* CUTEUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUserViewController.h; sourceTree = "<group>"; };
@@ -647,6 +659,8 @@
 		2C0AE1A01B20342A00A73BE6 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		2C0AE1A21B20343100A73BE6 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		2C0AE1A41B20343800A73BE6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		2C0C09FD1B29697F001F2583 /* CUTETicketEditingListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETicketEditingListener.h; sourceTree = "<group>"; };
+		2C0C09FE1B29697F001F2583 /* CUTETicketEditingListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETicketEditingListener.m; sourceTree = "<group>"; };
 		2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriod.h; sourceTree = "<group>"; };
 		2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriod.m; sourceTree = "<group>"; };
 		2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -1029,6 +1043,10 @@
 				2C427E9A1AD37D34000378A9 /* CUTETicket.m */,
 				2C4AEC7D1AD6466A004DEE23 /* CUTEUser.h */,
 				2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */,
+				2C06D3A11B29465800C147DE /* CUTEModelEditingListener.h */,
+				2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */,
+				2C0C09FD1B29697F001F2583 /* CUTETicketEditingListener.h */,
+				2C0C09FE1B29697F001F2583 /* CUTETicketEditingListener.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1867,6 +1885,7 @@
 				2CF8A6291AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CF8A6981AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FAA1B12CDF0006E993C /* CUTECountry.m in Sources */,
+				2C0C0A011B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
 				2C2FCDBF1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6421AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2C0AE1091B1D924D00A73BE6 /* CUTESettingForm.m in Sources */,
@@ -1893,6 +1912,7 @@
 				2CF8A5E81AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C63CAD61B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD41AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
+				2C06D3A51B29465800C147DE /* CUTEModelEditingListener.m in Sources */,
 				2CC4525F1B2711770004AE54 /* CUTEAddressUtil.m in Sources */,
 				2C427E4E1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85221AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
@@ -1986,6 +2006,7 @@
 				2CF8A62A1AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CF8A6991AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FAB1B12CDF0006E993C /* CUTECountry.m in Sources */,
+				2C0C0A021B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
 				2C2FCDC01AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6431AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2C0AE10A1B1D924D00A73BE6 /* CUTESettingForm.m in Sources */,
@@ -2012,6 +2033,7 @@
 				2CF8A5E91AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C63CAD71B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD51AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
+				2C06D3A61B29465800C147DE /* CUTEModelEditingListener.m in Sources */,
 				2CC452601B2711770004AE54 /* CUTEAddressUtil.m in Sources */,
 				2C427E4F1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85231AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
@@ -2105,6 +2127,7 @@
 				2CF8A6281AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CF8A6971AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FA91B12CDF0006E993C /* CUTECountry.m in Sources */,
+				2C0C0A001B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
 				2C2FCDBE1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6411AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2C0AE1081B1D924D00A73BE6 /* CUTESettingForm.m in Sources */,
@@ -2131,6 +2154,7 @@
 				2CF8A5E71AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C63CAD51B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD31AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
+				2C06D3A41B29465800C147DE /* CUTEModelEditingListener.m in Sources */,
 				2CC4525E1B2711770004AE54 /* CUTEAddressUtil.m in Sources */,
 				2C427E4D1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85211AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
@@ -2224,6 +2248,7 @@
 				2CF8A6271AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CF8A6961AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FA81B12CDF0006E993C /* CUTECountry.m in Sources */,
+				2C0C09FF1B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
 				2C2FCDBD1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6401AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2C0AE1071B1D924D00A73BE6 /* CUTESettingForm.m in Sources */,
@@ -2250,6 +2275,7 @@
 				2CF8A5E61AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C63CAD41B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD21AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
+				2C06D3A31B29465800C147DE /* CUTEModelEditingListener.m in Sources */,
 				2CC4525D1B2711770004AE54 /* CUTEAddressUtil.m in Sources */,
 				2C427E4C1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
 				2CAA85201AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
@@ -2393,9 +2419,11 @@
 				2C3099C81B09D26B004BA7F9 /* CUTERentPasswordViewController.m in Sources */,
 				2CA81FCF1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
 				2C3099C11B09CF6D004BA7F9 /* CUTERentPasswordForm.m in Sources */,
+				2C06D3A71B29465800C147DE /* CUTEModelEditingListener.m in Sources */,
 				2CF8A5F41AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
 				2CC3A0801AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
 				2CC3A0721AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
+				2C0C0A031B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
 				2C3DE2371B035719006FF191 /* CUTETracker.m in Sources */,
 				2C427E581AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2CC6C1D31AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,

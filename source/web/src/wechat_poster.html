@@ -189,23 +189,24 @@
                     <div class="page pageRental">
                         <p class="line1 animate">{{_('仅需')}}</p>
                         <p class="line2 animate">
-                            <span>
-                                %if rent.get('price',{}).get('unit','') == 'CNY':
-                                ¥
-                                %elif rent.get('price',{}).get('unit','') == 'GBP':
-                                £
-                                %elif rent.get('price',{}).get('unit','') == 'USD':
-                                $
-                                %elif rent.get('price',{}).get('unit','') == 'EUR':
-                                €
-                                %elif rent.get('price',{}).get('unit','') == 'HKD':
-                                HK$
-                                %end
-                                {{int(float(rent.get('price',{}).get('value','')))}}{{_('/周')}}</span>
-                            % if 'bill_covered' in rent and rent.get('bill_covered'):
-                            <sub>
-                                {{_('，包Bill')}}
-                            </sub>
+                            % if 'price' in rent and rent.get('price'):
+                            <span class="price_original">
+                                {{rent.get('price',{}).get('unit_symbol','')}}
+                                {{int(float(rent.get('price',{}).get('value','')))}}
+                                % if 'bill_covered' in rent and rent.get('bill_covered'):
+                                <sub>
+                                    {{_(', 包Bill')}}
+                                </sub>
+                                % end
+                            </span>
+                            % end
+                            % if 'localized_unit_symbol' in rent.get('price',{}) and rent.get('price',{}).get('localized_unit_symbol','') != rent.get('price',{}).get('unit_symbol',''):
+                            <div class="price_reference">
+                                {{_('(约')}}
+                                {{rent.get('price',{}).get('localized_unit_symbol','')}}
+                                {{int(float(rent.get('price',{}).get('localized_value','')))}}
+                                {{_('/周)')}}
+                            </div>
                             % end
                         </p>
                         <p class="line3 animate">{{_('您就可以租到')}}</p>

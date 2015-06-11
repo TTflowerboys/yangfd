@@ -13,6 +13,7 @@
 #import "CUTEDataManager.h"
 #import "CUTERentTickePublisher.h"
 #import "CUTENotificationKey.h"
+#import "CUTETicketEditingListener.h"
 
 @implementation CUTERentPropertyFacilityViewController
 
@@ -22,6 +23,7 @@
 }
 
 - (void)toggleIndoorFacility:(CUTEEnum *)facility on:(BOOL)on {
+    CUTETicketEditingListener *tickeListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
     CUTETicket *ticket = self.ticket;
     CUTEProperty *property = ticket.property;
     NSMutableArray *oldArray = [NSMutableArray arrayWithArray:property.indoorFacilities];
@@ -36,11 +38,12 @@
             property.indoorFacilities = oldArray;
         }
     }
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+    [tickeListener stopListenMark];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:tickeListener.getSyncUserInfo];
 }
 
 - (void)toggleCommunityFacility:(CUTEEnum *)facility on:(BOOL)on {
+    CUTETicketEditingListener *tickeListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
     CUTETicket *ticket = self.ticket;
     CUTEProperty *property = ticket.property;
     NSMutableArray *oldArray = [NSMutableArray arrayWithArray:property.communityFacilities];
@@ -55,8 +58,8 @@
             property.communityFacilities = oldArray;
         }
     }
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+    [tickeListener stopListenMark];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:tickeListener.getSyncUserInfo];
 }
 
 

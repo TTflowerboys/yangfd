@@ -239,8 +239,8 @@
 
 //    [CrashlyticsKit crash];
 //    [NSClassFromString(@"WebView") performSelector:NSSelectorFromString(@"_enableRemoteInspector")];
-//    [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
-//    [[AFNetworkActivityLogger sharedLogger] startLogging];
+    [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
+    [[AFNetworkActivityLogger sharedLogger] startLogging];
 #endif
 
     //TODO setup use user id in track and crash report
@@ -505,10 +505,11 @@
 - (void)onReceiveTicketSync:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
+    NSDictionary *ticketParams = userInfo[@"ticketParams"];
+    NSDictionary *propertyParams = userInfo[@"propertyParams"];
     if (ticket && ticket.identifier) {
-
         [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:ticket];
-        [[[CUTERentTickePublisher sharedInstance] editTicketExcludeImage:ticket] continueWithBlock:^id(BFTask *task) {
+        [[[CUTERentTickePublisher sharedInstance] editTicketWithTicket:ticket ticketParams:ticketParams propertyParams:propertyParams] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
@@ -519,7 +520,7 @@
                 [SVProgressHUD showErrorWithCancellation];
             }
             else {
-                [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:ticket];
+                [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:task.result];
             }
 
             return task;

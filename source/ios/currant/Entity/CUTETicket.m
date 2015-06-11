@@ -8,6 +8,7 @@
 
 #import "CUTETicket.h"
 #import "CUTECommonMacro.h"
+#import <EXTKeyPathCoding.h>
 
 @implementation CUTETicket
 
@@ -94,6 +95,51 @@
     }
 }
 
+- (id)paramValueForKey:(NSString *)key withValue:(id)value {
+    if ([key isEqualToString:@keypath(self.billCovered)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.status)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.property)] && [value isKindOfClass:[CUTEProperty class]]) {
+        return [(CUTEProperty *)value identifier];
+    }
+    else if ([key isEqualToString:@keypath(self.space)] && [value isKindOfClass:[CUTEArea class]]) {
+        return [(CUTEArea *)value toParams];
+    }
+    else if ([key isEqualToString:@keypath(self.price)] && [value isKindOfClass:[CUTECurrency class]]) {
+        return [(CUTECurrency *)value toParams];
+    }
+    else if ([key isEqualToString:@keypath(self.depositType)] && [value isKindOfClass:[CUTEEnum class]]) {
+        return [(CUTEEnum *)value identifier];
+    }
+    else if ([key isEqualToString:@keypath(self.rentType)] && [value isKindOfClass:[CUTEEnum class]]) {
+        return [(CUTEEnum *)value identifier];
+    }
+    else if ([key isEqualToString:@keypath(self.landlordType)] && [value isKindOfClass:[CUTEEnum class]]) {
+        return [(CUTEEnum *)value identifier];
+    }
+    else if ([key isEqualToString:@keypath(self.rentAvailableTime)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.rentDeadlineTime)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.minimumRentPeriod)] && [value isKindOfClass:[CUTETimePeriod class]]) {
+        return [(CUTETimePeriod *)value toParams];
+    }
+    else if ([key isEqualToString:@keypath(self.title)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.ticketDescription)]) {
+        return value;
+    }
+    
+    return nil;
+}
+
+//TODO refine
 - (NSDictionary *)toParams {
     NSMutableArray *unsetFields = [NSMutableArray array];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
@@ -155,6 +201,5 @@
 
     return dic;
 }
-
 
 @end

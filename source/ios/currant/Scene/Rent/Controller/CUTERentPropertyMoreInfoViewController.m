@@ -21,6 +21,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEFormLimitCharacterCountTextFieldCell.h"
 #import "CUTEFormTextViewCell.h"
+#import "CUTETicketEditingListener.h"
 
 @implementation CUTERentPropertyMoreInfoViewController
 
@@ -84,12 +85,11 @@
 }
 
 - (void)onTicketTitleEdit:(id)sender {
-//    CUTEPropertyMoreInfoForm *form = (CUTEPropertyMoreInfoForm *)[self.formController form];
-//    if (form.ticketTitle && form.ticketTitle.length > 30) {
-//        [SVProgressHUD showErrorWithStatus:STR(@"标题最长为30个字符")];
-//        return;
-//    }
-    [self updateTicket];
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+    self.ticket.title = self.form.ticketTitle;
+    [ticketListener stopListenMark];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
+
 }
 
 - (void)onTicketDescriptionEdit:(id)sender {
@@ -106,23 +106,25 @@
     }
 
 
-    [self updateTicket];
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+    self.ticket.ticketDescription = self.form.ticketDescription;
+    [ticketListener stopListenMark];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
+}
+
+- (CUTEPropertyMoreInfoForm *)form {
+    return (CUTEPropertyMoreInfoForm *)self.formController.form;
 }
 
 - (void)checkNeedUpdateTicketTitle {
     if (!self.ticket.title) {
+        CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
         self.ticket.title = self.ticket.titleForDisplay;
-        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+        [ticketListener stopListenMark];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
     }
 }
 
-- (void)updateTicket {
-    CUTEPropertyMoreInfoForm *form = (CUTEPropertyMoreInfoForm *)[self.formController form];
-    CUTETicket *ticket = self.ticket;
-    ticket.title = form.ticketTitle;
-    ticket.ticketDescription = form.ticketDescription;
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
 
-}
 
 @end
