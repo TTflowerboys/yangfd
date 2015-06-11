@@ -661,11 +661,14 @@ main {
                                 display: inline-block;
                                 width: 70px;
                                 text-align: right;
+                                &.addContactLabel{
+                                    width: auto;
+                                }
                             }
                             select{
                                 margin-right: 10px;
                             }
-                            input{
+                            input[type=text]{
                                 width: 280px;
                                 &#code{
                                     width: 140px;
@@ -687,6 +690,7 @@ main {
                                 display: inline-block;
                                 width: 280px;
                                 line-height: 1.5em;
+                                font-size: 16px;
                             }
                             p{
                                 a{
@@ -698,6 +702,12 @@ main {
                                 padding: 10px 175px 10px 0;
                                 text-align: right;
                                 color: #e60012;
+                            }
+                            .addContactWrap {
+                                margin: 8px 130px 0;
+                                label{
+                                    font-size: 14px;
+                                }
                             }
                         }
 
