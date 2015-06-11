@@ -29,6 +29,8 @@
 #import "UIImageView+Assets.h"
 #import "NSURL+Assets.h"
 #import <UIAlertView+Blocks.h>
+#import "CUTETicketEditingListener.h"
+#import "CUTENotificationKey.h"
 
 @interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate,  UINavigationControllerDelegate, UIImagePickerControllerDelegate, MWPhotoBrowserDelegate>
 {
@@ -398,15 +400,26 @@
         [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
         [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
         //TODO why here slow down the performance
-        [[[CUTERentTickePublisher sharedInstance] editTicket:self.ticket updateStatus:nil] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
+
+        [[[CUTERentTickePublisher sharedInstance] uploadImages:self.ticket.property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
-            else {
-                [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:task.result];
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
             }
-            return nil;
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+                self.ticket.property.realityImages = task.result;
+                [ticketListener stopListenMark];
+                [NotificationCenter postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
+            }
+            return task;
         }];
+
         return nil;
     }];
 }
@@ -506,14 +519,23 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             [SVProgressHUD dismiss];
 
             [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
-            [[[CUTERentTickePublisher sharedInstance] editTicket:self.ticket updateStatus:nil]  continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
+            [[[CUTERentTickePublisher sharedInstance] uploadImages:self.ticket.property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
-                else {
-                    [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:task.result];
+                else if (task.exception) {
+                    [SVProgressHUD showErrorWithException:task.exception];
                 }
-                return nil;
+                else if (task.isCancelled) {
+                    [SVProgressHUD showErrorWithCancellation];
+                }
+                else {
+                    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+                    self.ticket.property.realityImages = task.result;
+                    [ticketListener stopListenMark];
+                    [NotificationCenter postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
+                }
+                return task;
             }];
         }
     }];
