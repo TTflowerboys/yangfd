@@ -12,6 +12,7 @@
 #import "CUTECurrency.h"
 #import "CUTEProperty.h"
 #import "CUTETimePeriod.h"
+#import "CUTEModelEditingListener.h"
 
 #define kTicketStatusToRent @"to rent"
 #define kTicketStatusDraft @"draft"
@@ -20,7 +21,7 @@
 
 #define kTicketTitleMaxCharacterCount 30
 
-@interface CUTETicket : MTLModel <MTLJSONSerializing>
+@interface CUTETicket : MTLModel <MTLJSONSerializing, CUTEModelEditingListenerDelegate>
 
 @property (strong, nonatomic) NSString *identifier;
 

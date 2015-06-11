@@ -15,11 +15,12 @@
 #import "CUTEHouseType.h"
 #import "CUTECity.h"
 #import "CUTECountry.h"
+#import "CUTEModelEditingListener.h"
 
 #define kPropertyStatusDraft @"draft"
 #define kPropertyStatusDeleted @"deleted"
 
-@interface CUTEProperty : MTLModel <MTLJSONSerializing>
+@interface CUTEProperty : MTLModel <MTLJSONSerializing, CUTEModelEditingListenerDelegate>
 
 @property (strong, nonatomic) NSString *identifier;
 
@@ -66,7 +67,6 @@
 @property (strong, nonatomic) NSArray *indoorFacilities;
 
 @property (strong, nonatomic) NSArray *communityFacilities;
-
 
 - (NSDictionary *)toParams;
 

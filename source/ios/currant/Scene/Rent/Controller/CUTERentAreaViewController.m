@@ -14,6 +14,8 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTERentTickePublisher.h"
 #import "CUTENotificationKey.h"
+#import "CUTEModelEditingListener.h"
+#import "CUTETicketEditingListener.h"
 
 @implementation CUTERentAreaViewController
 
@@ -34,6 +36,7 @@
 - (void)updateTicket {
     CUTEAreaForm *form = (CUTEAreaForm *)self.formController.form;
     CUTETicket *ticket = self.ticket;
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
     ticket.space = [CUTEArea areaWithValue:form.area unit:form.unit];
     if (ticket.rentType.slug && [ticket.rentType.slug hasSuffix:@":whole"]) {
         ticket.property.space = ticket.space;
@@ -41,8 +44,8 @@
     else {
         ticket.property.space = nil;
     }
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+    [ticketListener stopListenMark];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:[ticketListener getSyncUserInfo]];
     if (self.updateRentAreaCompletion) {
         self.updateRentAreaCompletion();
     }

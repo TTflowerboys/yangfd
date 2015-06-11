@@ -14,6 +14,16 @@
 #import "NSURL+CUTE.h"
 #import "CUTEHouseType.h"
 #import "CUTEAddressUtil.h"
+#import <EXTKeyPathCoding.h>
+
+
+@interface CUTEProperty ()
+{
+    NSMutableDictionary *_updateMarkDictionary;
+
+    NSMutableArray *_deleteMarkArray;
+}
+@end
 
 @implementation CUTEProperty
 
@@ -83,6 +93,76 @@
 - (NSDictionary *)toI18nString:(NSString *)string {
     return @{DEFAULT_I18N_LOCALE: string};
 }
+
+- (id)paramValueForKey:(NSString *)key withValue:(id)value {
+    if ([key isEqualToString:@keypath(self.bedroomCount)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.livingroomCount)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.bathroomCount)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.zipcode)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.name)]) {
+        return [self toI18nString:value];
+    }
+    else if ([key isEqualToString:@keypath(self.propertyDescription)]) {
+        return [self toI18nString:self.propertyDescription];
+    }
+    else if ([key isEqualToString:@keypath(self.propertyType)] && [value isKindOfClass:[CUTEEnum class]]) {
+        return [(CUTEEnum *)value identifier];
+    }
+    else if ([key isEqualToString:@keypath(self.space)] && [value isKindOfClass:[CUTEArea class]]) {
+        return [(CUTEArea *)value toParams];
+    }
+    else if ([key isEqualToString:@keypath(self.houseName)]) {
+        return [self toI18nString:value];
+    }
+    else if ([key isEqualToString:@keypath(self.community)]) {
+        return [self toI18nString:value];
+    }
+    else if ([key isEqualToString:@keypath(self.floor)]) {
+        return [self toI18nString:value];
+    }
+    else if ([key isEqualToString:@keypath(self.street)]) {
+        return [self toI18nString:self.street];
+    }
+    else if ([key isEqualToString:@keypath(self.country)] && [value isKindOfClass:[CUTECountry class]]) {
+        return [(CUTECountry *)value code];
+    }
+    else if ([key isEqualToString:@keypath(self.city)] && [value isKindOfClass:[CUTECity class]]) {
+        return [(CUTECity *)value identifier];
+    }
+    else if ([key isEqualToString:@keypath(self.indoorFacilities)] && [value isKindOfClass:[NSArray class]]) {
+        return [[(NSArray *)value map:^id(CUTEEnum *object) {
+            return object.identifier;
+        }] componentsJoinedByString:@","];
+    }
+    else if ([key isEqualToString:@keypath(self.communityFacilities)] && [value isKindOfClass:[NSArray class]]) {
+        return [[(NSArray *)value map:^id(CUTEEnum *object) {
+            return object.identifier;
+        }] componentsJoinedByString:@","];
+    }
+    else if ([key isEqualToString:@keypath(self.realityImages)] && [value isKindOfClass:[NSArray class]]) {
+        NSArray *realityImages = [(NSArray *)value select:^BOOL(NSString *object) {
+            NSURL *url = [NSURL URLWithString:object];
+            return  url && [url isHttpOrHttpsURL];
+        }];
+        return @{DEFAULT_I18N_LOCALE: realityImages};
+    }
+    else if ([key isEqualToString:@keypath(self.latitude)] && [value isKindOfClass:[NSNumber class]]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.longitude)] && [value isKindOfClass:[NSNumber class]]) {
+        return value;
+    }
+    return nil;
+}
+
 
 - (NSDictionary *)toParams {
     //unset_fields
@@ -174,6 +254,43 @@
 
     return params;
 }
+
+- (NSDictionary *)toEditedParams {
+    NSCParameterAssert(self.identifier);
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic addEntriesFromDictionary:_updateMarkDictionary];
+
+    if (!IsArrayNilOrEmpty(_deleteMarkArray)) {
+        [dic setValue:[_deleteMarkArray componentsJoinedByString:@","] forKey:@"unset_fields"];
+    }
+
+    if (dic.count > 0) {
+        [dic setObject:self.identifier forKey:@"id"];
+    }
+
+    return dic;
+}
+
+- (void)markPropertyKeyUpdated:(NSString *)propertyKey {
+    if (!_updateMarkDictionary) {
+        _updateMarkDictionary = [NSMutableDictionary dictionary];
+    }
+
+    [_updateMarkDictionary setObject:[self valueForKey:propertyKey] forKey:propertyKey];
+}
+
+- (void)markPropertyKeyDeleted:(NSString *)propertyKey{
+    if (!_deleteMarkArray) {
+        _deleteMarkArray = [NSMutableArray array];
+    }
+    [_deleteMarkArray addObject:[[[self class] JSONKeyPathsByPropertyKey] objectForKey:propertyKey]];
+}
+
+- (void)clearMarks {
+    _updateMarkDictionary = nil;
+    _deleteMarkArray = nil;
+}
+
 
 - (NSString *)address {
     return [CUTEAddressUtil buildAddress:@[NilNullToEmpty(self.houseName), NilNullToEmpty(self.floor), NilNullToEmpty(self.community), NilNullToEmpty(self.street), NilNullToEmpty(self.city.name), NilNullToEmpty(self.zipcode)]];

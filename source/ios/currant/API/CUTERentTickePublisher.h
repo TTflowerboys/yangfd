@@ -17,7 +17,7 @@
 
 - (BFTask *)createTicket:(CUTETicket *)ticket;
 
-- (BFTask *)editTicketExcludeImage:(CUTETicket *)ticket;
+- (BFTask *)editTicketWithTicket:(CUTETicket *)ticket ticketParams:(NSDictionary *)ticketParams propertyParams:(NSDictionary *)propertyParams;
 
 - (BFTask *)editTicket:(CUTETicket *)ticket updateStatus:(void (^)(NSString *))updateStatus;
 
