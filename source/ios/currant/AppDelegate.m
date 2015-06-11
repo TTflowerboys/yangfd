@@ -52,6 +52,7 @@
 #import "CUTEApplyBetaRentingViewController.h"
 #import "CUTEApplyBetaRentingForm.h"
 #import "NSArray+ObjectiveSugar.h"
+#import "Aspects.h"
 
 
 @interface AppDelegate () <UITabBarControllerDelegate>
@@ -245,6 +246,13 @@
 
     //TODO setup use user id in track and crash report
     [Fabric with:@[CrashlyticsKit]];
+
+    [NSArray aspect_hookSelector:@selector(initWithObjects:count:) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo>info, id object, id countNum) {
+        if (!object) {
+            DebugLog(@"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
+        }
+
+    }error:nil];
 
     return YES;
 }

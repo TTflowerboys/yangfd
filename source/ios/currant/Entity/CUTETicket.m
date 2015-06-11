@@ -21,6 +21,7 @@
              @"landlordType": @"landlord_type",
              @"space": @"space",
              @"price": @"price",
+             @"property": @"property",
              @"billCovered": @"bill_covered",
              @"rentAvailableTime": @"rent_available_time",
              @"rentDeadlineTime": @"rent_deadline_time",
@@ -142,64 +143,47 @@
 //TODO refine
 - (NSDictionary *)toParams {
     NSMutableArray *unsetFields = [NSMutableArray array];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic addEntriesFromDictionary:@{
-                                    @"bill_covered":@(self.billCovered),
-                                    }];
-    if (self.status) {
-        [dic setValue:self.status forKey:@"status"];
-    }
+    NSMutableDictionary *params =
+    [NSMutableDictionary dictionaryWithDictionary:nil];
+
+    NSMutableDictionary *keysMapping = [NSMutableDictionary dictionaryWithDictionary:[[self class] JSONKeyPathsByPropertyKey]];
+    [keysMapping removeObjectForKey:@keypath(self.identifier)];//params don't need id
+    [keysMapping removeObjectForKey:@keypath(self.lastModifiedTime)];//no need;
+    //special for title
+    [keysMapping removeObjectForKey:@keypath(self.title)];
+    [keysMapping removeObjectForKey:@keypath(self.property)];
+
+    [keysMapping enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+        NSString *paramKey = obj;
+        id fieldValue = [self valueForKey:key];
+        if (fieldValue && ![fieldValue isEqual:[NSNull null]]) {
+            id paramValue = [self paramValueForKey:key withValue:fieldValue];
+            if (paramValue) {
+                [params setObject:paramValue forKey:paramKey];
+            }
+            else {
+
+            }
+        }
+        else {
+            [unsetFields addObject:paramKey];
+        }
+    }];
+
     if (self.property && self.property.identifier) {
-        [dic setValue:self.property.identifier forKey:@"property_id"];
-    }
-    if (self.space) {
-        [dic setValue:self.space.toParams forKey:@"space"];
-    }
-    if (self.price) {
-        [dic setValue:self.price.toParams forKey:@"price"];
-    }
-    if (self.depositType) {
-        [dic setValue:self.depositType.identifier forKey:@"deposit_type"];
-    }
-    if (self.rentType) {
-        [dic setValue:self.rentType.identifier forKey:@"rent_type"];
-    }
-    if (self.landlordType) {
-        [dic setValue:self.landlordType.identifier forKey:@"landlord_type"];
-    }
-    if (self.rentAvailableTime) {
-        [dic setValue:[NSNumber numberWithLong:self.rentAvailableTime] forKey:@"rent_available_time"];
-    }
-    else {
-        [unsetFields addObject:@"rent_available_time"];
-    }
-    if (self.rentDeadlineTime) {
-        [dic setValue:[NSNumber numberWithLong:self.rentDeadlineTime] forKey:@"rent_deadline_time"];
-    }
-    else {
-        [unsetFields addObject:@"rent_deadline_time"];
-    }
-    if (self.minimumRentPeriod) {
-        [dic setValue:[self minimumRentPeriod].toParams forKey:@"minimum_rent_period"];
-    }
-    else {
-        [unsetFields addObject:@"minimum_rent_period"];
+        [params setObject:self.property.identifier forKey:@"property_id"];
     }
 
     NSString *title = self.titleForDisplay;
     if (title) {
-        [dic setValue:title forKey:@"title"];
-    }
-
-    if (self.ticketDescription) {
-        [dic setValue:self.ticketDescription forKey:@"description"];
+        [params setValue:title forKey:@"title"];
     }
 
     if (!IsArrayNilOrEmpty(unsetFields)) {
-        [dic setValue:[unsetFields componentsJoinedByString:@","] forKey:@"unset_fields"];
+        [params setValue:[unsetFields componentsJoinedByString:@","] forKey:@"unset_fields"];
     }
 
-    return dic;
+    return params;
 }
 
 @end
