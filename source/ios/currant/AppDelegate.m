@@ -602,22 +602,19 @@
         }
     }
     else {
-        if (![bottomViewController isKindOfClass:[CUTERentTypeListViewController class]]) {
-            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
-                if (task.result) {
-                    CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
-                    [form setRentTypeList:task.result];
-                    CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
-                    controller.formController.form = form;
-                    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
-                    [viewControllers insertObject:controller atIndex:0];
-                    [navController setViewControllers:viewControllers animated:NO];
+        [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+            if (task.result) {
+                CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
+                [form setRentTypeList:task.result];
+                CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
+                controller.formController.form = form;
+                NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
+                [viewControllers insertObject:controller atIndex:0];
+                [navController setViewControllers:viewControllers animated:NO];
 
-                }
-                return nil;
-            }];
-
-        }
+            }
+            return nil;
+        }];
     }
 }
 
