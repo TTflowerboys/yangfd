@@ -275,6 +275,9 @@
                                 <td>
                                     <label class=price>
                                         <!--@@include=partials/get_unit_price.html  -->
+                                        <div class="price_reference">
+                                            <!--@@include=partials/get_reference_price.html  -->
+                                        </div>
                                     </label>
                                     %if property.get('minimum_down_payment_rate'):
                                         <label class="minimumDownPaymentRate" for="">
@@ -931,6 +934,9 @@
                             <tr>
                                 <td class="price_inner">
                                     <!--@@include=partials/get_unit_price.html  -->
+                                    <div class="price_reference">
+                                        <!--@@include=partials/get_reference_price.html  -->
+                                    </div>
                                 </td>
                                 %if property.get('minimum_down_payment_rate'):
                                     <td class="minimumDownPaymentRate">
@@ -1152,6 +1158,9 @@
                                     </h3>
                                     <label class="price">
                                         <!--@@include=partials/get_unit_price.html-->
+                                        <div class="price_reference">
+                                            <!--@@include=partials/get_reference_price.html  -->
+                                        </div>
                                     </label>
                                 </div>
                             </a>
