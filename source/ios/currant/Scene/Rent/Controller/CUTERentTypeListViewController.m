@@ -18,6 +18,7 @@
 #import "CUTEFormRentTypeCell.h"
 #import "CUTENotificationKey.h"
 #import "CUTETracker.h"
+#import "CUTETicketEditingListener.h"
 
 @interface CUTERentTypeListViewController ()
 {
@@ -77,7 +78,15 @@
 
     if (form.singleUseForReedit) {
         [self.navigationController popViewControllerAnimated:YES];
-        [self updateTicket];
+
+        CUTERentTypeListForm *form = (CUTERentTypeListForm *)[self.formController form];
+        CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+        self.ticket.rentType = form.rentType;
+        [ticketListener stopListenMark];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
+        if (self.updateRentTypeCompletion) {
+            self.updateRentTypeCompletion();
+        }
     }
     else  {
         CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
@@ -87,13 +96,5 @@
     }
 }
 
-- (void)updateTicket {
-    CUTERentTypeListForm *form = (CUTERentTypeListForm *)[self.formController form];
-    self.ticket.rentType = form.rentType;
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
-    if (self.updateRentTypeCompletion) {
-        self.updateRentTypeCompletion();
-    }
-}
 
 @end

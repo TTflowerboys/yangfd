@@ -41,6 +41,7 @@
 #import "CUTETracker.h"
 #import "Sequencer.h"
 #import <NSDate-Extensions/NSDate-Utilities.h>
+#import "CUTETicketEditingListener.h"
 
 @interface CUTERentPropertyInfoViewController () {
 
@@ -128,24 +129,30 @@
 
 - (void)editLandlordType {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
     self.ticket.landlordType = form.landlordType;
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+    [ticketListener stopListenMark];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)editPropertyType {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
     self.ticket.property.propertyType = form.propertyType;
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+    [ticketListener stopListenMark];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)editRooms:(id)sender {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
     self.ticket.property.bedroomCount = form.bedroomCount;
     self.ticket.property.livingroomCount = form.livingroomCount;
     self.ticket.property.bathroomCount = form.bathroomCount;
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+    [ticketListener stopListenMark];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
 }
 
 - (void)editArea {

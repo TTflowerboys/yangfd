@@ -139,6 +139,7 @@
     return nil;
 }
 
+//TODO refine
 - (NSDictionary *)toParams {
     NSMutableArray *unsetFields = [NSMutableArray array];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];

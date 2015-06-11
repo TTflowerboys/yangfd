@@ -635,7 +635,6 @@
 /* Begin PBXFileReference section */
 		2C03AB461B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormLimitCharacterCountTextFieldCell.h; sourceTree = "<group>"; };
 		2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormLimitCharacterCountTextFieldCell.m; sourceTree = "<group>"; };
-		2C06D3A01B2929C400C147DE /* CUTEModelEditing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEModelEditing.h; sourceTree = "<group>"; };
 		2C06D3A11B29465800C147DE /* CUTEModelEditingListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEModelEditingListener.h; sourceTree = "<group>"; };
 		2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEModelEditingListener.m; sourceTree = "<group>"; };
 		2C07AB881AE8FF6600907075 /* UIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
@@ -1044,7 +1043,6 @@
 				2C427E9A1AD37D34000378A9 /* CUTETicket.m */,
 				2C4AEC7D1AD6466A004DEE23 /* CUTEUser.h */,
 				2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */,
-				2C06D3A01B2929C400C147DE /* CUTEModelEditing.h */,
 				2C06D3A11B29465800C147DE /* CUTEModelEditingListener.h */,
 				2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */,
 				2C0C09FD1B29697F001F2583 /* CUTETicketEditingListener.h */,

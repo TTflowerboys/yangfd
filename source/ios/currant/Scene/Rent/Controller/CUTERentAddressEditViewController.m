@@ -25,6 +25,7 @@
 #import "CUTEPlacemark.h"
 #import "CUTERentAddressMapViewController.h"
 #import "NSArray+ObjectiveSugar.h"
+#import "CUTETicketEditingListener.h"
 
 @interface CUTERentAddressEditViewController () {
     CUTECountry *_lastCountry;
@@ -71,27 +72,47 @@
 
 - (void)optionBack {
     [self.navigationController popViewControllerAnimated:YES];
-    [self updateTicket];
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+    self.ticket.property.country = self.form.country;
+    self.ticket.property.city = self.form.city;
+    [ticketListener stopListenMark];
+    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
 
 - (void)onStreetEdit:(id)sender {
-    [self updateTicket];
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+    self.ticket.property.street = self.form.street;
+    [ticketListener stopListenMark];
+    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
 
 - (void)onHouseNameEdit:(id)sender {
-    [self updateTicket];
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+    self.ticket.property.houseName = self.form.houseName;
+    [ticketListener stopListenMark];
+    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
 
 - (void)onCommunityEdit:(id)sender {
-    [self updateTicket];
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+    self.ticket.property.community = self.form.community;
+    [ticketListener stopListenMark];
+    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
 
 - (void)onFloorEdit:(id)sender {
-    [self updateTicket];
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+    self.ticket.property.floor = self.form.floor;
+    [ticketListener stopListenMark];
+    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
 
 - (void)onPostcodeEdit:(id)sender {
-    [self updateTicket];
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+    self.ticket.property.zipcode = self.form.postcode;
+    [ticketListener stopListenMark];
+    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+
     [self updateAddress];
 }
 
@@ -142,11 +163,13 @@
                 CLLocation *location = task.result;
                 if (location && [location isKindOfClass:[CLLocation class]]) {
 
+                    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
                     self.ticket.property.latitude = location.coordinate.latitude;
                     self.ticket.property.longitude = location.coordinate.longitude;
+                    [ticketListener stopListenMark];
                     //check is a draft ticket not a unfinished one
                     if (!IsNilNullOrEmpty(self.ticket.identifier)) {
-                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
                     }
 
                     [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
@@ -164,8 +187,11 @@
                                 CUTEPlacemark *detailPlacemark = task.result;
                                 CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
                                 form.street = detailPlacemark.street;
+                                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+                                self.ticket.property.street = form.street;
+                                [ticketListener stopListenMark];
+                                [self syncWithUserInfo:ticketListener.getSyncUserInfo];
                                 [self.tableView reloadData];
-                                [self updateTicket];
                                 [SVProgressHUD dismiss];
                             }
                             else {
@@ -184,26 +210,15 @@
     }
 }
 
-- (void)updateTicket {
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)[self.formController form];
-    CUTETicket *ticket = self.ticket;
-    CUTEProperty *property = [ticket property];
-    property.houseName = form.houseName;
-    property.floor = form.floor;
-    property.community = form.community;
-    property.street = form.street;
-    property.city = form.city;
-    property.zipcode = form.postcode;
-    property.country = form.country;
-
-    //check is a draft ticket not a unfinished one
-    if (!IsNilNullOrEmpty(self.ticket.identifier)) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
-    }
-
+- (void)syncWithUserInfo:(NSDictionary *)userInfo {
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:userInfo];
     if (self.updateAddressCompletion) {
         self.updateAddressCompletion();
     }
+}
+
+- (CUTERentAddressEditForm *)form {
+    return (CUTERentAddressEditForm *)self.formController.form;
 }
 
 - (BOOL)validateForm {

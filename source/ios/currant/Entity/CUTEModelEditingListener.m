@@ -20,13 +20,13 @@ typedef void (^ KeyValueChangeBlock) (NSString*, id);
     NSMutableArray *_deleteMarkArray;
 
     FBKVOController *_listenController;
-
-    MTLModel<MTLJSONSerializing, CUTEModelEditingListenerDelegate> *_sayer;
 }
+
+@property (nonatomic, weak) MTLModel<MTLJSONSerializing, CUTEModelEditingListenerDelegate> *sayer;
+
 @end
 
 @implementation CUTEModelEditingListener
-@synthesize sayer = _sayer;
 
 + (CUTEModelEditingListener *)createListenerAndStartListenMarkWithSayer:(MTLModel<MTLJSONSerializing, CUTEModelEditingListenerDelegate> *)sayer {
     CUTEModelEditingListener *listener = [CUTEModelEditingListener new];
@@ -38,7 +38,7 @@ typedef void (^ KeyValueChangeBlock) (NSString*, id);
 
     _updateMarkDictionary = [NSMutableDictionary dictionary];
     _deleteMarkArray = [NSMutableArray array];
-    _sayer = sayer;
+    self.sayer = sayer;
 
     _listenController  = [FBKVOController controllerWithObserver:sayer];
     __block KeyValueChangeBlock changeBlock = ^ (NSString *key, id value) {
@@ -59,19 +59,18 @@ typedef void (^ KeyValueChangeBlock) (NSString*, id);
 - (void)stopListenMark {
     [_listenController unobserveAll];
     _listenController = nil;
-    _sayer = nil;
 }
 
 - (void)markPropertyKeyUpdated:(NSString *)propertyKey withValue:(id)value {
-    id retValue = [_sayer paramValueForKey:propertyKey withValue:value];
+    id retValue = [self.sayer paramValueForKey:propertyKey withValue:value];
     if (!retValue) {
 
     }
-    [_updateMarkDictionary setObject:retValue forKey:[[[_sayer class] JSONKeyPathsByPropertyKey] objectForKey:propertyKey]];
+    [_updateMarkDictionary setObject:retValue forKey:[[[self.sayer class] JSONKeyPathsByPropertyKey] objectForKey:propertyKey]];
 }
 
 - (void)markPropertyKeyDeleted:(NSString *)propertyKey {
-    [_deleteMarkArray addObject:[[[_sayer class] JSONKeyPathsByPropertyKey] objectForKey:propertyKey]];
+    [_deleteMarkArray addObject:[[[self.sayer class] JSONKeyPathsByPropertyKey] objectForKey:propertyKey]];
 }
 
 - (NSDictionary *)getEditedParams {

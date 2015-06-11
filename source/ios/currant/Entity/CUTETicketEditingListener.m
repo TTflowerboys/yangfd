@@ -51,10 +51,10 @@
     NSDictionary *propertyParams = _propertyListener.getEditedParams;
 
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithObject:self.sayer forKey:@"ticket"];
-    if (ticketParams) {
+    if (ticketParams && ticketParams.count) {
         [userInfo setObject:ticketParams forKey:@"ticketParams"];
     }
-    if (propertyParams) {
+    if (propertyParams && propertyParams.count) {
         [userInfo setObject:propertyParams forKey:@"propertyParams"];
     }
     

@@ -33,6 +33,13 @@
     [self updateTicket];
 }
 
+- (void)syncWithUserInfo:(NSDictionary *)userInfo {
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:userInfo];
+    if (self.updateRentAreaCompletion) {
+        self.updateRentAreaCompletion();
+    }
+}
+
 - (void)updateTicket {
     CUTEAreaForm *form = (CUTEAreaForm *)self.formController.form;
     CUTETicket *ticket = self.ticket;
@@ -45,10 +52,7 @@
         ticket.property.space = nil;
     }
     [ticketListener stopListenMark];
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:[ticketListener getSyncUserInfo]];
-    if (self.updateRentAreaCompletion) {
-        self.updateRentAreaCompletion();
-    }
+    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
 
 @end

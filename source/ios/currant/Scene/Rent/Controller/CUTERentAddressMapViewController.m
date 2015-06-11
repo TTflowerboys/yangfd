@@ -38,6 +38,7 @@
 #import "CUTEUserDefaultKey.h"
 #import "JDFTooltipManager.h"
 #import "CUTEAddressUtil.h"
+#import "CUTETicketEditingListener.h"
 
 #define kRegionDistance 800
 
@@ -450,6 +451,7 @@
     CLLocation *location = [[CLLocation alloc] initWithLatitude:property.latitude longitude:property.longitude];
     [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
         if (task.result) {
+            CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
             CUTEPlacemark *placemark = task.result;
             property.street = placemark.street;
             property.zipcode = placemark.postalCode;
@@ -458,8 +460,9 @@
             property.community = nil;
             property.floor = nil;
             property.houseName = nil;
+            [ticketListener stopListenMark];
+            [self syncWithUserInfo:ticketListener.getSyncUserInfo];
             _textField.text = property.address;
-
             [tcs setResult:_textField.text];
         }
         else {
@@ -470,6 +473,16 @@
     }];
 
     return tcs.task;
+}
+
+- (void)syncWithUserInfo:(NSDictionary *)userInfo {
+    //check is a draft ticket not a unfinished one
+    if (!IsNilNullOrEmpty(self.ticket.identifier)) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:userInfo];
+    }
+    if (self.updateAddressCompletion) {
+        self.updateAddressCompletion();
+    }
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(__unused BOOL)animated
@@ -493,9 +506,12 @@
         //update field value
         CLLocation *location = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
                                                           longitude:mapView.centerCoordinate.longitude];
+        CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
         CUTEProperty *property = self.ticket.property;
         property.latitude = location.coordinate.latitude;
         property.longitude = location.coordinate.longitude;
+        [ticketListener stopListenMark];
+        [self syncWithUserInfo:ticketListener.getSyncUserInfo];
         [_textField.indicatorView startAnimating];
         [[self checkNeedUpdateAddress] continueWithBlock:^id(BFTask *task) {
             [_textField.indicatorView stopAnimating];
@@ -503,13 +519,7 @@
                 [SVProgressHUD showErrorWithError:task.error];
                 return nil;
             } else {
-                //check is a draft ticket not a unfinished one
-                if (!IsNilNullOrEmpty(self.ticket.identifier)) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
-                }
-                if (self.updateAddressCompletion) {
-                    self.updateAddressCompletion();
-                }
+
                 return nil;
             }
         }];

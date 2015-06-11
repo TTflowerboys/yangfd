@@ -239,8 +239,8 @@
 
 //    [CrashlyticsKit crash];
 //    [NSClassFromString(@"WebView") performSelector:NSSelectorFromString(@"_enableRemoteInspector")];
-//    [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
-//    [[AFNetworkActivityLogger sharedLogger] startLogging];
+    [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
+    [[AFNetworkActivityLogger sharedLogger] startLogging];
 #endif
 
     //TODO setup use user id in track and crash report
