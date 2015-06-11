@@ -190,15 +190,15 @@
                         <p class="line1 animate">{{_('仅需')}}</p>
                         <p class="line2 animate">
                             <span>
-                                %if _.currency == 'CNY':
+                                %if rent.get('price',{}).get('unit','') == 'CNY':
                                 ¥
-                                %elif _.currency == 'GBP':
+                                %elif rent.get('price',{}).get('unit','') == 'GBP':
                                 £
-                                %elif _.currency == 'USD':
+                                %elif rent.get('price',{}).get('unit','') == 'USD':
                                 $
-                                %elif _.currency == 'EUR':
+                                %elif rent.get('price',{}).get('unit','') == 'EUR':
                                 €
-                                %elif _.currency == 'HKD':
+                                %elif rent.get('price',{}).get('unit','') == 'HKD':
                                 HK$
                                 %end
                                 {{int(float(rent.get('price',{}).get('value','')))}}{{_('/周')}}</span>
@@ -238,7 +238,7 @@
                                 %if not rent['property'].get('floor',''):
                                 style="width:100%;"
                                 %end
-                                ><div><i class="estateIcon"></i>{{rent['property'].get('community','')}} {{rent['property'].get('street','')}}</div></li>
+                                ><div><i class="estateIcon"></i>{{rent['property'].get('community','')}} {{rent['property'].get('street','')}} {{rent['property'].get('city',{}).get('name','')}}</div></li>
                             % if 'floor' in rent['property'] and rent['property'].get('floor',''):
                             <li class="animate door">
                                 <div>
