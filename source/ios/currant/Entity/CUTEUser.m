@@ -8,6 +8,7 @@
 
 #import "CUTEUser.h"
 #import "CUTECommonMacro.h"
+#import <EXTKeyPathCoding.h>
 
 @implementation CUTEUser
 
@@ -35,6 +36,30 @@
     return [self.roles containsObject:role];
 }
 
+- (id)paramValueForKey:(NSString *)key withValue:(id)value {
+    if ([key isEqualToString:@keypath(self.nickname)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.country)] && [value isKindOfClass:[CUTECountry class]]) {
+        return [(CUTECountry *)value code];
+    }
+    else if ([key isEqualToString:@keypath(self.phone)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.email)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.wechat)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.privateContactMethods)] && [value isKindOfClass:[NSArray class]] && !IsArrayNilOrEmpty(value)) {
+        return [(NSArray *)value componentsJoinedByString:@","];
+    }
+    
+    NSAssert(nil, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,key);
+    return nil;
+}
+
 - (NSDictionary *)toParams {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                   @"nickname":self.nickname,
@@ -46,7 +71,7 @@
         [params setObject:self.wechat forKey:@"wechat"];
     }
     
-    if (!IsArrayNilOrEmpty(self.privateContactMethods)) {
+    if (IsArrayNilOrEmpty(self.privateContactMethods)) {
         [params setObject:@"private_contact_methods" forKey:@"unset_fields"];
     }
     else {

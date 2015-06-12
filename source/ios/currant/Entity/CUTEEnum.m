@@ -36,7 +36,7 @@
         return [self.identifier isEqualToString:[object identifier]];
     }
     else {
-      return false;
+      return NO;
     }
 }
 

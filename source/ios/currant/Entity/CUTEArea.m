@@ -7,6 +7,7 @@
 //
 
 #import "CUTEArea.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTEArea
 
@@ -27,6 +28,15 @@
     return @{@"meter ** 2": @"m²",
              @"foot ** 2": @"sq ft"
              }[self.unit];
+}
+
+- (BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[self class]]) {
+        return [self.unit isEqualToString:[object unit]] && fequal(self.value, [(CUTEArea *)object value]);
+    }
+    else {
+        return NO;
+    }
 }
 
 - (NSDictionary *)toParams {

@@ -7,6 +7,7 @@
 //
 
 #import "CUTECurrency.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTECurrency
 
@@ -21,6 +22,15 @@
     currency.unit = unit;
     currency.value = value;
     return currency;
+}
+
+- (BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[self class]]) {
+        return [self.unit isEqualToString:[object unit]] && fequal(self.value, [(CUTECurrency *)object value]);
+    }
+    else {
+        return NO;
+    }
 }
 
 - (NSDictionary *)toParams {

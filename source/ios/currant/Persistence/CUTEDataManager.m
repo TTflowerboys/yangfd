@@ -76,7 +76,7 @@
             isLoggedIn = YES;
         }
     }
-    return isLoggedIn;
+    return isLoggedIn && _user && _user.identifier;
 }
 
 - (void)saveAllCookies {

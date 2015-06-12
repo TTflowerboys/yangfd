@@ -10,12 +10,13 @@
 #import <MTLJSONAdapter.h>
 #import "CUTEEnum.h"
 #import "CUTECountry.h"
+#import "CUTEModelEditingListener.h"
 
 #define kUserRoleAdmin @"admin"
 #define kUserRoleSales @"sales"
 #define kUserRoleBetaRenting @"beta_renting"
 
-@interface CUTEUser : MTLModel <MTLJSONSerializing>
+@interface CUTEUser : MTLModel <MTLJSONSerializing, CUTEModelEditingListenerDelegate>
 
 @property (strong, nonatomic) NSString *identifier;
 
