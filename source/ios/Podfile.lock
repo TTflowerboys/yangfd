@@ -122,7 +122,7 @@ DEPENDENCIES:
   - UIAlertView+Blocks (= 0.8.1)
   - UMengSocial (= 4.2.3)
   - WebViewJavascriptBridge (= 4.1.4)
-  - WeiboSDK (from `https://raw.github.com/sinaweibosdk/weibo_ios_sdk/master/WeiboSDK.podspec`)
+  - WeiboSDK (from `https://github.com/sinaweibosdk/weibo_ios_sdk`, tag `3.0.1`)
   - YTKKeyValueStore (= 0.1.2)
 
 EXTERNAL SOURCES:
@@ -131,7 +131,8 @@ EXTERNAL SOURCES:
   BBTUtility:
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
   WeiboSDK:
-    :podspec: https://raw.github.com/sinaweibosdk/weibo_ios_sdk/master/WeiboSDK.podspec
+    :git: https://github.com/sinaweibosdk/weibo_ios_sdk
+    :tag: 3.0.1
 
 CHECKOUT OPTIONS:
   BBTRestClient:
@@ -140,6 +141,9 @@ CHECKOUT OPTIONS:
   BBTUtility:
     :commit: f5f295b562ceb5097e2a224bf4332f39c2e2779f
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
+  WeiboSDK:
+    :git: https://github.com/sinaweibosdk/weibo_ios_sdk
+    :tag: 3.0.1
 
 SPEC CHECKSUMS:
   AFNetworkActivityLogger: 121486778117d53b3ab1c61d264b88081d0c3eee
@@ -179,7 +183,7 @@ SPEC CHECKSUMS:
   UIAlertView+Blocks: 45c3d3b7194906702d3e9a14c7ece5581505646d
   UMengSocial: 85882abe5b20aa38ad558ece71360e16b5d50909
   WebViewJavascriptBridge: f10ac16f2cd3adf2b941bd79477c55a8f6e01044
-  WeiboSDK: 852b2733a7a39e7e34400f6486e453ca389ce189
+  WeiboSDK: 818c49635fb9674740078da526fcd934835f11d3
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
 COCOAPODS: 0.36.3
