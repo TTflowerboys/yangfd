@@ -7,6 +7,7 @@
 //
 
 #import "CUTEUser.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTEUser
 
@@ -18,6 +19,8 @@
              @"country": @"country",
              @"phone": @"phone",
              @"email": @"email",
+             @"wechat": @"wechat",
+             @"privateContactMethods": @"private_contact_methods",
              @"roles": @"role",
              };
 }
@@ -33,12 +36,23 @@
 }
 
 - (NSDictionary *)toParams {
-    return @{
-             @"nickname":self.nickname,
-             @"country":self.country.code,
-             @"phone":self.phone,
-             @"email":self.email,
-             };
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                  @"nickname":self.nickname,
+                                                                                  @"country":self.country.code,
+                                                                                  @"phone":self.phone,
+                                                                                  @"email":self.email,
+                                                                                  }];
+    if (!IsNilNullOrEmpty(self.wechat)) {
+        [params setObject:self.wechat forKey:@"wechat"];
+    }
+    
+    if (!IsArrayNilOrEmpty(self.privateContactMethods)) {
+        [params setObject:@"private_contact_methods" forKey:@"unset_fields"];
+    }
+    else {
+        [params setObject:[self.privateContactMethods componentsJoinedByString:@","] forKey:@"private_contact_methods"];
+    }
+    return params;
 }
 
 @end

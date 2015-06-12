@@ -9,6 +9,7 @@
 #import "CUTEForm.h"
 #import "CUTEEnum.h"
 #import "CUTECountry.h"
+#import "CUTERentContactDisplaySettingForm.h"
 
 @interface CUTERentContactForm : CUTEForm
 
@@ -23,6 +24,8 @@
 @property (strong, nonatomic) NSString *code;
 
 @property (strong, nonatomic) NSString *invitationCode;
+
+@property (strong, nonatomic) CUTERentContactDisplaySettingForm *displaySetting;
 
 @property (nonatomic) BOOL isOnlyRegister;
 

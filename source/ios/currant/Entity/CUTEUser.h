@@ -29,6 +29,10 @@
 
 @property (strong, nonatomic) NSString *email;
 
+@property (strong, nonatomic) NSString *wechat;
+
+@property (strong, nonatomic) NSArray *privateContactMethods;
+
 @property (strong, nonatomic) NSArray *roles;
 
 - (BOOL)hasRole:(NSString *)role;
