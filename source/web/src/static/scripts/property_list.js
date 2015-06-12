@@ -316,6 +316,7 @@
         var params = window.getBaseRequestParams()
         params.per_page = 5
         var lastItemTime = getLastItemTimeByBudget(params.budget)
+        $('.isAllLoadedInfo').hide()
         if (lastItemTime) {
             params.mtime = lastItemTime
 
@@ -375,6 +376,9 @@
                     setCurrentResultCountByBudget(params.budget, getCurrentTotalCount())
 
                     updatePropertyCardMouseEnter()
+                }
+                if(isCurrentBudgetLoadFinished()) {
+                    $('.isAllLoadedInfo').show()
                 }
 
             })

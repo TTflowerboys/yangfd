@@ -331,7 +331,7 @@
 
         var params = window.getBaseRequestParams()
         params.per_page = itemsPerPage
-
+        $('.isAllLoadedInfo').hide()
         if (lastItemTime) {
             params.last_modified_time = lastItemTime
             //Load more triggered
@@ -379,6 +379,7 @@
                     isAllItemsLoaded = false
                 } else {
                     isAllItemsLoaded = true
+                    $('.isAllLoadedInfo').show()
                 }
 
             }).fail(function () {
