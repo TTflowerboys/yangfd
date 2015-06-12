@@ -33,7 +33,7 @@
             params.per_page = 5
 
             isLoading = true
-            var totalResultCount = getCurrentTotalCount()
+            var totalResultCount = 0
             $.betterPost('/api/1/property/search', params)
                 .done(function (val) {
                     var array = val.content
@@ -52,7 +52,14 @@
                             }
                         })
                         $('#result_list').html(resultHtml)
-                        totalResultCount = getCurrentTotalCount()
+                        setLastItemTimeBudget(params.budget, lastItemTime)
+                        setTotalResultCountByBudget(params.budget, totalResultCount)
+                        setCurrentResultCountByBudget(params.budget, getCurrentTotalCount())
+
+                        updatePropertyCardMouseEnter()
+                    }
+                    if(isCurrentBudgetLoadFinished()) {
+                        $('.isAllLoadedInfo').show()
                     }
                     me.resetload();
 

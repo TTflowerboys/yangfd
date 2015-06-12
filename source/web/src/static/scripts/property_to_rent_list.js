@@ -35,7 +35,7 @@
             params.per_page = itemsPerPage
 
             isLoading = true
-            var totalResultCount = getCurrentTotalCount()
+            var totalResultCount = 0
             $.betterPost('/api/1/rent_ticket/search', params)
                 .done(function (val) {
                     var array = val
@@ -53,6 +53,12 @@
                         })
                         $('#result_list').html(resultHtml)
                         totalResultCount = getCurrentTotalCount()
+                        isAllItemsLoaded = totalResultCount < itemsPerPage
+                    }else {
+                        isAllItemsLoaded = true
+                    }
+                    if(isAllItemsLoaded){
+                        $('.isAllLoadedInfo').show()
                     }
                     me.resetload();
 
