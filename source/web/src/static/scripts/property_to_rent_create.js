@@ -39,9 +39,9 @@
     if(!$('#landlordType').val()) {
         $('#landlordType').find('option[data-slug=live_out_landlord]').prop('selected', 'selected').end().trigger('chosen:updated')
     }
-    if(!$('#unit').val() && window.currency) {
+    if(!$('#unit option[selected]').length && window.currency) {
         $('#unit').find('option[value=' + window.currency + ']').prop('selected', 'selected').end().trigger('chosen:updated')
-    } else if(!$('#unit').val()) {
+    } else if(!$('#unit option[selected]').length) {
         $('#unit').find('option').eq(0).prop('selected', 'selected').end().trigger('chosen:updated')
     }
     //一个简单的通过hash控制页面类容展示的机制
