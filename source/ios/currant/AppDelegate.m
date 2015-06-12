@@ -658,6 +658,10 @@
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
     [[CUTEDataManager sharedInstance] cleanAllUnfinishedRentTickets];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+    //clear some user default
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self checkShowSplashViewController];
 }
 
 - (void)onReceiveBetaUserDidRegister:(NSNotification *)notif {
