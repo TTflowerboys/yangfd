@@ -232,10 +232,7 @@
     [[AFNetworkActivityLogger sharedLogger] startLogging];
 #endif
 
-    //TODO setup use user id in track and crash report
     [Fabric with:@[CrashlyticsKit]];
-
-
     return YES;
 }
 
