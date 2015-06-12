@@ -6,10 +6,17 @@ $(function () {
     $('select[name=currency]').find('option[value=' + currency + ']').prop('selected', true)
 })
 
-window.changeLanguage = function(language) {
-    var newUrl = team.setQuery('_i18n', language)
+window.changeLanguage = function (language) {
     $.cookie('currant_lang', language)
-    location.href=newUrl
+
+    if(window.user && language !== _.first(window.user.locales)){
+        $.betterPost('/api/1/user/edit', {
+            'locales': language
+        }).done(function (data) {
+            window.user = data
+            location.reload()
+        })
+    }
 }
 
 window.getI18nOfLanguage = function (language) {
@@ -24,10 +31,17 @@ window.getI18nOfLanguage = function (language) {
     }
 }
 
-window.changeCurrency = function(currency) {
-    var newUrl = team.setQuery('_i18n_currency', currency)
+window.changeCurrency = function (currency) {
     $.cookie('currant_currency', currency)
-    location.href = newUrl
+
+    if(window.user && currency !== _.first(window.user.currencies)){
+        $.betterPost('/api/1/user/edit', {
+            'currencies': currency
+        }).done(function (data) {
+            window.user = data
+            location.reload()
+        })
+    }
 }
 
 window.getCurrencyPresentation = function (currency) {
@@ -60,19 +74,4 @@ $('select[name=currency]').change(function () {
     window.changeCurrency(currency)
 
     ga('send', 'event', 'i18n', 'change', 'currency-change')
-})
-
-
-//check previous time language changed
-$(function () {
-    if (window.user) {
-        var requiredValue = window.lang
-        var userValue = _.first(window.user.locales)
-        if (requiredValue) {
-            if (requiredValue !== userValue) {
-
-                $.betterPost('/api/1/user/edit', {'locales':requiredValue})
-            }
-        }
-    }
 })

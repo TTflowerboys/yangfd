@@ -88,10 +88,24 @@
             td {
                 padding: 12px 0;
                 strong {
-                    font-size: 20px; color: #666; margin: 12px 0; display: block; font-weight: normal;
+                    font-size: 20px; color: #666; margin: 12px 4px 12px 0; display: inline-block; font-weight: normal;
+                }
+                input {
+                    height: 40px;
+                    padding-left: 4px;
+                    font-size: 14px;
+                    border: 1px solid #cccccc;
+                    border-radius: 4px;
+                    background: white;
                 }
                 p { margin: 12px 0; }
-                &.action { text-align: right; }
+                .status {
+                    display: inline-block;
+                }
+                &.action {
+                    vertical-align: top;
+                    padding-top: 28px;
+                }
 
             }
         }
