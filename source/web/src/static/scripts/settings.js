@@ -14,6 +14,22 @@ $('button[name=userChangeLanguage]').click(function () {
     }
 })
 
+$('button[name=userCurrency]').click(function () {
+    var $button = $(this)
+    var state = $button.attr('data-state')
+
+    if (state === 'normal') {
+        $button.attr('data-state', 'editing')
+        $button.text(window.i18n('确定'))
+        $('select[name=userCurrency]').show()
+        $('label[name=userCurrency]').hide()
+    }
+    else {
+        var currency = $('select[name=userCurrency]').children('option:selected').val();
+        window.changeCurrency(currency)
+    }
+})
+
 $('button[name=userChangeWechat]').click(function () {
     var $button = $(this)
     var state = $button.attr('data-state')
@@ -27,9 +43,9 @@ $('button[name=userChangeWechat]').click(function () {
     }
     else {
         var wechat = $('input[name=userWechat]').val();
-        if(wechat !== ''){
+        if (wechat !== '') {
             $.betterPost('/api/1/user/edit', {
-                'wechat':wechat
+                'wechat': wechat
             })
                 .done(function (data) {
                     window.user = data
@@ -39,10 +55,11 @@ $('button[name=userChangeWechat]').click(function () {
                     $('label[name=userWechat]').show()
 
                     $button.text(window.i18n('修改'))
+                    $button.attr('data-state', 'normal')
                 })
-        }else{
+        } else {
             $.betterPost('/api/1/user/edit', {
-                'unset_fields':'wechat'
+                'unset_fields': 'wechat'
             })
                 .done(function (data) {
                     window.user = data
@@ -52,6 +69,7 @@ $('button[name=userChangeWechat]').click(function () {
                     $('label[name=userWechat]').show()
 
                     $button.text(window.i18n('修改'))
+                    $button.attr('data-state', 'normal')
                 })
         }
 
@@ -60,21 +78,17 @@ $('button[name=userChangeWechat]').click(function () {
 
 $('[name=userWechat]').keyup(function (e) {
     // Enter
-    if(e.keyCode === 13) {
+    if (e.keyCode === 13) {
         $('button[name=userChangeWechat]').trigger('click')
     }
 })
 
-//check previous time language changed
+//Setup pages by remove duplicated nodes by device
+//TODO: only temporary walkaround for michael's code
 $(function () {
-    if (window.user) {
-        var requiredValue = window.lang
-        var userValue = _.first(window.user.locales)
-        if (requiredValue) {
-            if (requiredValue !== userValue) {
-                $('label[name=userLanguage]').text(window.getI18nOfLanguage(requiredValue))
-                $('select[name=userLanguage]').val(window.getI18nOfLanguage(requiredValue))
-            }
-        }
+    if (team.isPhone()) {
+        $('.setting').remove()
+    }else{
+        $('.setting_phone').remove()
     }
 })

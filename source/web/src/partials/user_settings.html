@@ -99,10 +99,10 @@
                         data-msg-required="{{_('请填写微信号')}}" style="display:none;"/></td>
                 </td>
                 <td>
-                    %if 'wechat' in user and user.get('wechat','') != 'NONE':
-                    {{_('已设置')}}
+                    %if user.get('wechat') is not None:
+                    <i></i>{{_('已设置')}}
                     %else:
-                    {{_('未设置')}}
+                    <i></i>{{_('未设置')}}
                     %end
                 </td>
                 <td class="action">
@@ -134,9 +134,9 @@
                 </td>
                 <td>
                     %if user.get('locales') and len(user.get('locales')):
-                    {{_('已设置')}}
+                    <i></i>{{_('已设置')}}
                     %else:
-                    {{_('未设置')}}
+                    <i></i>{{_('未设置')}}
                     %end
                 </td>
                 <td class="action">
@@ -144,6 +144,48 @@
                 </td>
             </tr>
             <!-- @endif -->
+            <tr>
+                <td>
+                    <strong>{{_('货币偏好设置')}}</strong>
+                    <p>{{_('设置网站上价格展示的货币类型')}}</p>
+                </td>
+                <td style="font-size:20px;">
+                    %if user.get('currencies') and len(user.get('currencies')):
+                    <label name="userCurrency">
+                        %if user.get('currencies')[0] == 'CNY':
+                        {{_('人民币')}}
+                        %elif user.get('currencies')[0] == 'GBP':
+                        {{_('英镑')}}
+                        %elif user.get('currencies')[0] == 'USD':
+                        {{_('美元')}}
+                        %elif user.get('currencies')[0] == 'EUR':
+                        {{_('欧元')}}
+                        %elif user.get('currencies')[0] == 'HKD':
+                        {{_('港币')}}
+                        %else:
+                        {{user.get('currencies')[0]}}
+                        %end
+                    </label>
+                    %end
+                    <select name="userCurrency" class="ghostSelect" style="min-width: 140px; display:none;">
+                        <option value="CNY" {{'selected' if user.get('currencies') is not None and user.get('currencies')[0] == 'CNY' else ''}}>{{_('人民币')}}</option>
+                        <option value="GBP" {{'selected' if user.get('currencies') is not None and user.get('currencies')[0] == 'GBP' else ''}}>{{_('英镑')}}</option>
+                        <option value="USD" {{'selected' if user.get('currencies') is not None and user.get('currencies')[0] == 'USD' else ''}}>{{_('美元')}}</option>
+                        <option value="EUR" {{'selected' if user.get('currencies') is not None and  user.get('currencies')[0] == 'EUR' else ''}}>{{_('欧元')}}</option>
+                        <option value="HKD" {{'selected' if user.get('currencies') is not None and  user.get('currencies')[0] == 'HKD' else ''}}>{{_('港币')}}</option>
+                    </select>
+                </td>
+                <td>
+                    %if user.get('currencies') and len(user.get('currencies')):
+                    <i></i>{{_('已设置')}}
+                    %else:
+                    <i></i>{{_('未设置')}}
+                    %end
+                </td>
+                <td class="action">
+                    <button name="userCurrency" data-state="normal" class="ghostButton red">{{_('修改')}}</button>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
