@@ -13,7 +13,7 @@
 
 {_} else {_}
 
-    {_if(house.total_price) {_}
+    {_if(house.total_price && house.total_price.localized_unit_symbol) {_}
         {=window.i18n('约')=}
         {=house.total_price.localized_unit_symbol=}
         {!team.formatCurrency(parseInt(house.total_price.localized_value))!}
