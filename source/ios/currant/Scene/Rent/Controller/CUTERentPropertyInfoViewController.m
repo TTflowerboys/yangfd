@@ -178,14 +178,13 @@
 }
 
 - (void)editRentPrice {
-    NSArray *requiredEnums = @[@"deposit_type", @"rent_period"];
+    NSArray *requiredEnums = @[@"deposit_type"];
     [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
         return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
     }]] continueWithSuccessBlock:^id(BFTask *task) {
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
           if (!_editRentPriceViewController) {
               NSArray *depositTypes = task.result[0];
-              NSArray *rentTypes = task.result[1];
               CUTETicket *ticket = self.ticket;
               if (!ticket.rentAvailableTime) {
                   ticket.rentAvailableTime = [[NSDate date] timeIntervalSince1970];
@@ -216,7 +215,7 @@
               form.rentDeadlineTime = [NSDate dateWithTimeIntervalSince1970:ticket.rentDeadlineTime];
               form.minimumRentPeriod = ticket.minimumRentPeriod;
 
-              [form setAllDepositTypes:[task.result objectAtIndex:0]];
+              [form setAllDepositTypes:depositTypes];
               controller.formController.form = form;
               controller.navigationItem.title = STR(@"租金");
               _editRentPriceViewController = controller;

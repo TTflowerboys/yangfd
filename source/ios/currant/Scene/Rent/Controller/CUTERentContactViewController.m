@@ -142,11 +142,11 @@
         if (!_displaySettingForm.displayEmail) {
             [privateContactMethods addObject:@"email"];
         }
-        if (!IsNilNullOrEmpty(_displaySettingForm.wechat)) {
-            user.wechat = _displaySettingForm.wechat;
+        if (IsNilNullOrEmpty(_displaySettingForm.wechat)) {
+            [privateContactMethods addObject:@"wechat"];
         }
         else {
-            [privateContactMethods addObject:@"wechat"];
+            user.wechat = _displaySettingForm.wechat;
         }
         user.privateContactMethods = privateContactMethods;
     }
@@ -263,6 +263,15 @@
     if (!formValidation) {
         return NO;
     }
+
+    if (_displaySettingForm) {
+        NSError *error = [_displaySettingForm validateFormWithScenario:nil];
+        if (error) {
+            [SVProgressHUD showErrorWithError:error];
+            return NO;
+        }
+    }
+
     if (!_retUser || !_userVerified) {
         [SVProgressHUD showErrorWithStatus:STR(@"手机未验证成功，请重发验证码")];
         return NO;

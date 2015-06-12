@@ -21,4 +21,11 @@
              ];
 }
 
+- (NSError *)validateFormWithScenario:(NSString *)scenario {
+    if (!self.displayPhone && !self.displayEmail && IsNilNullOrEmpty(self.wechat)) {
+        return [NSError errorWithDomain:@"CUTE" code:-1 userInfo:@{NSLocalizedDescriptionKey: STR(@"请至少展示一种联系方式给租客")}];
+    }
+    return nil;
+}
+
 @end

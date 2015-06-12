@@ -43,10 +43,16 @@
 
 
 - (void)onSubmitButtonPressed:(id)sender {
+    CUTERentContactDisplaySettingForm *form = (CUTERentContactDisplaySettingForm *)self.formController.form;
+    NSError *error = [form validateFormWithScenario:nil];
+    if (error) {
+        [SVProgressHUD showErrorWithError:error];
+        return;
+    }
+
     TrackEvent(GetScreenName(self), kEventActionPress, @"publish", nil);
 
     NSMutableDictionary *userParams = [NSMutableDictionary dictionary];
-    CUTERentContactDisplaySettingForm *form = (CUTERentContactDisplaySettingForm *)self.formController.form;
     NSMutableArray *privateContactMethods = [NSMutableArray array];
     if (!form.displayPhone) {
         [privateContactMethods addObject:@"phone"];
@@ -54,8 +60,8 @@
     if (!form.displayEmail) {
         [privateContactMethods addObject:@"email"];
     }
-    if (!IsNilNullOrEmpty(form.wechat)) {
-        [privateContactMethods addObject:@"email"];
+    if (IsNilNullOrEmpty(form.wechat)) {
+        [privateContactMethods addObject:@"wechat"];
     }
     else {
         [userParams setObject:form.wechat forKey:@"wechat"];
