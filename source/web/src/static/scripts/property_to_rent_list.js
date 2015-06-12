@@ -680,6 +680,9 @@
         if ($('[data-tab-name=list]').is(':visible')) {
             var scrollPos = $(window).scrollTop()
             var windowHeight = $(window).height()
+            if (window.team.isCurrantClient()) { //如果是在App中，footer被隐藏，所以windowHeight中补上footer的高度就不会有滚动加载难以触发的问题了
+                windowHeight += 420
+            }
             var listHeight = $('#result_list').height()
             var requireToScrollHeight = listHeight
 
