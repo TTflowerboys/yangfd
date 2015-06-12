@@ -26,7 +26,7 @@
     textView.text = [field fieldDescription] ?: @" ";
     CGSize textViewSize = [textView sizeThatFits:CGSizeMake(width - 10 - 10, FLT_MAX)];
 
-    CGFloat height = [field.title length]? 52: 0; // label height
+    CGFloat height = [field.title length]? 82: 0; // label height
     height += 12 + ceilf(textViewSize.height) + 12;
     return height;
 }
