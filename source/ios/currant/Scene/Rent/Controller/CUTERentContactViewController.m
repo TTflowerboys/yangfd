@@ -40,12 +40,17 @@
 #import "CUTEUserDefaultKey.h"
 #import "CUTEApplyBetaRentingForm.h"
 #import <ALActionBlocks.h>
+#import "CUTERentContactDisplaySettingForm.h"
+#import "CUTERentContactDisplaySettingViewController.h"
+#import "Sequencer.h"
 
 @interface CUTERentContactViewController () <TTTAttributedLabelDelegate> {
 
     BOOL _userVerified;
 
-    CUTEUser *_user;
+    CUTEUser *_retUser;
+
+    CUTERentContactDisplaySettingForm *_displaySettingForm;
 }
 
 @end
@@ -66,6 +71,7 @@
     else {
         self.navigationItem.title = STR(@"联系方式");
     }
+
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -120,20 +126,57 @@
     return IsNilNullOrEmpty(footer)? 0 : 70;
 }
 
+
+- (CUTEUser *)createUserWithFormInfo {
+    CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
+
+    CUTEUser* user = [CUTEUser new];
+    user.nickname = form.name;
+    user.email = form.email;
+    user.country = form.country;
+    user.phone = form.phone;
+
+    if (_displaySettingForm) {
+        NSMutableArray *privateContactMethods = [NSMutableArray array];
+        if (!_displaySettingForm.displayPhone) {
+            [privateContactMethods addObject:@"phone"];
+        }
+        if (!_displaySettingForm.displayEmail) {
+            [privateContactMethods addObject:@"email"];
+        }
+        if (!IsNilNullOrEmpty(_displaySettingForm.wechat)) {
+            user.wechat = _displaySettingForm.wechat;
+        }
+        user.privateContactMethods = privateContactMethods;
+    }
+    return user;
+}
+
 - (void)optionBack {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (void)onDisplaySettingPressed:(id)sender {
+    if (!_displaySettingForm) {
+        CUTERentContactDisplaySettingForm *form = [CUTERentContactDisplaySettingForm new];
+        form.displayPhone = YES;
+        form.displayEmail = YES;
+        _displaySettingForm = form;
+    }
+    CUTERentContactDisplaySettingViewController *controller = [CUTERentContactDisplaySettingViewController new];
+    controller.formController.form = _displaySettingForm;
+    controller.navigationItem.title = STR(@"设置联系方式展示");
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 
 - (void)onVerificationButtonPressed:(id)sender {
     if (![self validateFormWithScenario:@"fetchCode"]) {
         return;
     }
+
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
-    CUTEUser *user = [CUTEUser new];
-    user.nickname = form.name;
-    user.email = form.email;
-    user.country = form.country;
-    user.phone = form.phone;
+    CUTEUser *user = [self createUserWithFormInfo];
 
     [SVProgressHUD showWithStatus:STR(@"获取中...")];
     Sequencer *sequencer = [Sequencer new];
@@ -156,7 +199,7 @@
         }];
     }];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        if (_user) {
+        if (_retUser) {
             [SVProgressHUD showWithStatus:STR(@"发送中...")];
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone":user.phone, @"country":user.country.code} resultClass:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
@@ -180,7 +223,7 @@
                     [SVProgressHUD showErrorWithError:task.error];
                     return nil;
                 } else {
-                    _user = task.result;
+                    _retUser = task.result;
                     [SVProgressHUD dismiss];
                     [UIAlertView showWithTitle:STR(@"已成功为您创建帐号，密码已发至您的邮箱。验证码发送成功，请验证手机号") message:nil cancelButtonTitle:STR(@"确定") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 
@@ -198,9 +241,9 @@
 - (void)codeFieldEndEdit {
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
     //after create can validate the code
-    if (_user) {
+    if (_retUser) {
         [SVProgressHUD showWithStatus:STR(@"验证中...")];
-        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/user/", _user.identifier, @"/sms_verification/verify") parameters:@{@"code":form.code} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/user/", _retUser.identifier, @"/sms_verification/verify") parameters:@{@"code":form.code} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             //update verify status
             if (task.result) {
                 _userVerified = YES;
@@ -219,7 +262,7 @@
     if (!formValidation) {
         return NO;
     }
-    if (!_user || !_userVerified) {
+    if (!_retUser || !_userVerified) {
         [SVProgressHUD showErrorWithStatus:STR(@"手机未验证成功，请重发验证码")];
         return NO;
     }
@@ -236,11 +279,34 @@
     }
 
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
-    CUTEUser *user = _user;
+    CUTEUser *user = [self createUserWithFormInfo];
+    Sequencer *sequencer = [Sequencer new];
+    [SVProgressHUD showWithStatus:STR(@"发布中...")];
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        //user may update user info after create user in the send verification code process, like update private contact methods
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/edit" parameters:user.toParams resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                completion(user);
+            }
+            
+            return task;
+        }];
+    }];
 
-    if (form.isOnlyRegister) {
-        if ([user hasRole:kUserRoleBetaRenting]) {
-            [[CUTEDataManager sharedInstance] saveUser:user];
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        CUTEUser *retUser = result;
+        if (form.isOnlyRegister) {
+            [SVProgressHUD dismiss];
+            [[CUTEDataManager sharedInstance] saveUser:retUser];
             [[CUTEDataManager sharedInstance] saveAllCookies];
             [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
 
@@ -251,49 +317,40 @@
             }];
         }
         else {
-            [SVProgressHUD showSuccessWithStatus:STR(@"您已注册成功，请申请测试邀请码。")];
+            [[CUTEDataManager sharedInstance] saveUser:retUser];
+            [[CUTEDataManager sharedInstance] saveAllCookies];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
+            CUTETicket *ticket = self.ticket;
+            
+            [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
+                [SVProgressHUD showWithStatus:status];
+            }] continueWithBlock:^id(BFTask *task) {
+                if (task.error || task.exception || task.isCancelled) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                    return nil;
+                } else {
+                    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+
+                    NSArray *screeNames = @[GetScreenNameFromClass([CUTERentTypeListViewController class]),
+                                            GetScreenNameFromClass([CUTERentAddressMapViewController class]),
+                                            GetScreenNameFromClass([CUTERentPropertyInfoViewController class]),
+                                            GetScreenNameFromClass([CUTERentTicketPreviewViewController class]),
+                                            GetScreenNameFromClass([CUTERentContactViewController class])];
+                    TrackScreensStayDuration(KEventCategoryPostRentTicket, screeNames);
+
+                    [SVProgressHUD dismiss];
+                    [self.navigationController popToRootViewControllerAnimated:NO];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
+                    });
+                    return nil;
+                }
+                return nil;
+            }];
         }
-    }
-    else {
-        [[CUTEDataManager sharedInstance] saveUser:user];
-        [[CUTEDataManager sharedInstance] saveAllCookies];
-        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
-
-        [SVProgressHUD showWithStatus:STR(@"发布中...")];
-
-        CUTEUser *user = [CUTEUser new];
-        user.nickname = form.name;
-        user.email = form.email;
-        user.country = form.country;
-        user.phone = form.phone;
-        CUTETicket *ticket = self.ticket;
-
-        [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
-            [SVProgressHUD showWithStatus:status];
-        }] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
-                [SVProgressHUD showErrorWithError:task.error];
-                return nil;
-            } else {
-                TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
-
-                NSArray *screeNames = @[GetScreenNameFromClass([CUTERentTypeListViewController class]),
-                                        GetScreenNameFromClass([CUTERentAddressMapViewController class]),
-                                        GetScreenNameFromClass([CUTERentPropertyInfoViewController class]),
-                                        GetScreenNameFromClass([CUTERentTicketPreviewViewController class]),
-                                        GetScreenNameFromClass([CUTERentContactViewController class])];
-                TrackScreensStayDuration(KEventCategoryPostRentTicket, screeNames);
-
-                [SVProgressHUD dismiss];
-                [self.navigationController popToRootViewControllerAnimated:NO];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
-                });
-                return nil;
-            }
-            return nil;
-        }];
-    }
+    }];
+    
+    [sequencer run];
 }
 
 

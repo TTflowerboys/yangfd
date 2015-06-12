@@ -22,6 +22,7 @@
 #import "CUTERentAddressMapViewController.h"
 #import "CUTERentPropertyInfoViewController.h"
 #import <NSArray+ObjectiveSugar.h>
+#import "CUTERentContactDisplaySettingViewController.h"
 
 @implementation CUTERentTicketPreviewViewController
 
@@ -39,7 +40,7 @@
 
 - (void)updateRightButtonWithURL:(NSURL *)url {
     if (!self.navigationItem.rightBarButtonItem) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"发布") style:UIBarButtonItemStylePlain target:self action:@selector(onSubmitButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
     }
 }
 
@@ -48,71 +49,55 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)onSubmitButtonPressed:(id)sender {
-    TrackEvent(GetScreenName(self), kEventActionPress, @"publish", nil);
-    CUTETicket *ticket = self.ticket;
-    CUTEProperty *property = ticket.property;
 
-    if (ticket && property) {
-        if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
-            [SVProgressHUD showWithStatus:STR(@"发布中...")];
-            [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
-                [SVProgressHUD showWithStatus:status];
-            }] continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-                else {
-                    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
-
-                    NSArray *screeNames = @[GetScreenNameFromClass([CUTERentTypeListViewController class]),
-                                            GetScreenNameFromClass([CUTERentAddressMapViewController class]),
-                                            GetScreenNameFromClass([CUTERentPropertyInfoViewController class]),
-                                            GetScreenNameFromClass([CUTERentTicketPreviewViewController class])];
-                    TrackScreensStayDuration(KEventCategoryPostRentTicket, screeNames);
-                    [SVProgressHUD showSuccessWithStatus:STR(@"发布成功")];
-                    [self.navigationController popToRootViewControllerAnimated:NO];
-
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
-                    });
-                }
-                return nil;
-            }];
-        }
-        else {
-            [SVProgressHUD show];
-            [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
-                if (task.error) {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-                else if (task.exception) {
-                    [SVProgressHUD showErrorWithException:task.exception];
-                }
-                else if (task.isCancelled) {
-                    [SVProgressHUD showErrorWithCancellation];
-                }
-                else {
-                    CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
-                    contactViewController.ticket = self.ticket;
-                    CUTERentContactForm *form = [CUTERentContactForm new];
-                    [form setAllCountries:task.result];
-                    //set default country same with the property
-                    if (property.country) {
-                        form.country = [task.result find:^BOOL(CUTECountry *object) {
-                            return [object.code isEqualToString:property.country.code];
-                        }];
-                    }
-                    contactViewController.formController.form = form;
-                    [self.navigationController pushViewController:contactViewController animated:YES];
-                    [SVProgressHUD dismiss];
-                }
-
-                return task;
-            }];
-        }
+- (void)onContinueButtonPressed:(id)sender {
+    if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
+        CUTERentContactDisplaySettingViewController *controller = [CUTERentContactDisplaySettingViewController new];
+        CUTERentContactDisplaySettingForm *form = [CUTERentContactDisplaySettingForm new];
+        CUTEUser *user = [CUTEDataManager sharedInstance].user;
+        form.displayPhone = ![user.privateContactMethods containsObject:@"phone"];
+        form.displayEmail = ![user.privateContactMethods containsObject:@"email"];
+        form.wechat = user.wechat;
+        form.singleUseForReedit = YES;
+        controller.formController.form = form;
+        controller.ticket = self.ticket;
+        controller.navigationItem.title = STR(@"确认联系方式展示");
+        [self.navigationController pushViewController:controller animated:YES];
     }
+    else {
+        CUTETicket *ticket = self.ticket;
+        CUTEProperty *property = ticket.property;
+        [SVProgressHUD show];
+        [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
+                contactViewController.ticket = self.ticket;
+                CUTERentContactForm *form = [CUTERentContactForm new];
+                [form setAllCountries:task.result];
+                //set default country same with the property
+                if (property.country) {
+                    form.country = [task.result find:^BOOL(CUTECountry *object) {
+                        return [object.code isEqualToString:property.country.code];
+                    }];
+                }
+                contactViewController.formController.form = form;
+                [self.navigationController pushViewController:contactViewController animated:YES];
+                [SVProgressHUD dismiss];
+            }
 
+            return task;
+        }];
+    }
 }
+
 
 @end
