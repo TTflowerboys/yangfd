@@ -14,6 +14,57 @@ $('button[name=userChangeLanguage]').click(function () {
     }
 })
 
+$('button[name=userChangeWechat]').click(function () {
+    var $button = $(this)
+    var state = $button.attr('data-state')
+
+    if (state === 'normal') {
+        $button.attr('data-state', 'editing')
+        $button.text(window.i18n('确定'))
+
+        $('input[name=userWechat]').show()
+        $('label[name=userWechat]').hide()
+    }
+    else {
+        var wechat = $('input[name=userWechat]').val();
+        if(wechat !== ''){
+            $.betterPost('/api/1/user/edit', {
+                'wechat':wechat
+            })
+                .done(function (data) {
+                    window.user = data
+                    $('label[name=userWechat]').text(window.user.wechat)
+
+                    $('input[name=userWechat]').hide()
+                    $('label[name=userWechat]').show()
+
+                    $button.text(window.i18n('修改'))
+                })
+        }else{
+            $.betterPost('/api/1/user/edit', {
+                'unset_fields':'wechat'
+            })
+                .done(function (data) {
+                    window.user = data
+                    $('label[name=userWechat]').text('')
+
+                    $('input[name=userWechat]').hide()
+                    $('label[name=userWechat]').show()
+
+                    $button.text(window.i18n('修改'))
+                })
+        }
+
+    }
+})
+
+$('[name=userWechat]').keyup(function (e) {
+    // Enter
+    if(e.keyCode === 13) {
+        $('button[name=userChangeWechat]').trigger('click')
+    }
+})
+
 //check previous time language changed
 $(function () {
     if (window.user) {
