@@ -184,6 +184,8 @@
     }]] continueWithSuccessBlock:^id(BFTask *task) {
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
           if (!_editRentPriceViewController) {
+              NSArray *depositTypes = task.result[0];
+              NSArray *rentTypes = task.result[1];
               CUTETicket *ticket = self.ticket;
               if (!ticket.rentAvailableTime) {
                   ticket.rentAvailableTime = [[NSDate date] timeIntervalSince1970];
@@ -195,6 +197,12 @@
               if (!ticket.minimumRentPeriod) {
                   ticket.minimumRentPeriod = [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
               }
+              //TODO
+//              if (!ticket.depositType) {
+//                  ticket.depositType = [depositTypes find:^BOOL(id object) {
+//                      return object != nil;
+//                  }];
+//              }
 
               CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
               controller.ticket = self.ticket;

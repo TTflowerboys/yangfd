@@ -118,7 +118,7 @@
         NSDataDetector *detector = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypePhoneNumber error:&error];
         NSTextCheckingResult *result = [detector firstMatchInString:string options:0 range:NSMakeRange(0, string.length)];
         if (result && result.range.location != NSNotFound) {
-            [UIAlertView showWithTitle:STR(@"为避免不必要骚扰，请勿在此填写联系方式")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+            [UIAlertView showWithTitle:STR(@"平台将提供房东联系方式选择，请勿在此填写任何形式的联系方式，违规发布将会予以处理")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
             return;
         }
     }
