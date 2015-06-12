@@ -67,6 +67,7 @@
                                                                                   @"phone":self.phone,
                                                                                   @"email":self.email,
                                                                                   }];
+
     if (!IsNilNullOrEmpty(self.wechat)) {
         [params setObject:self.wechat forKey:@"wechat"];
     }

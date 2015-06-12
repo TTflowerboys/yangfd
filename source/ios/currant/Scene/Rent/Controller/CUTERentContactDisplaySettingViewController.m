@@ -54,8 +54,14 @@
     if (!form.displayEmail) {
         [privateContactMethods addObject:@"email"];
     }
-    [userParams setObject:[privateContactMethods componentsJoinedByString:@","] forKey:@"private_contace_methods"];
-    [userParams setObject:NilNullToEmpty(form.wechat) forKey:@"wechat"];
+    if (!IsNilNullOrEmpty(form.wechat)) {
+        [privateContactMethods addObject:@"email"];
+    }
+    else {
+        [userParams setObject:form.wechat forKey:@"wechat"];
+    }
+    [userParams setObject:[privateContactMethods componentsJoinedByString:@","] forKey:@"private_contact_methods"];
+
     
     Sequencer *sequencer = [Sequencer new];
     [SVProgressHUD showWithStatus:STR(@"发布中...")];

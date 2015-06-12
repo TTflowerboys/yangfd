@@ -145,6 +145,9 @@
         if (!IsNilNullOrEmpty(_displaySettingForm.wechat)) {
             user.wechat = _displaySettingForm.wechat;
         }
+        else {
+            [privateContactMethods addObject:@"wechat"];
+        }
         user.privateContactMethods = privateContactMethods;
     }
 }
