@@ -86,6 +86,29 @@
                     <a class="ghostButton red" href="/user_change_password">{{_('修改')}}</a>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <strong>{{_('微信号设置')}}</strong>
+                    <p>{{_('设置后将会默认展示给其他注册用户')}}</p>
+                </td>
+                <td style="font-size:20px;">
+                    %if 'wechat' in user and user.get('wechat','') != 'NONE':
+                    <label name="userWechat">{{user.get('wechat','')}}</label>
+                    %end
+                    <input name="userWechat" type="text" value={{user.get('wechat','')}} data-validator="trim"
+                        data-msg-required="{{_('请填写微信号')}}" style="display:none;"/></td>
+                </td>
+                <td>
+                    %if 'wechat' in user and user.get('wechat','') != 'NONE':
+                    {{_('已设置')}}
+                    %else:
+                    {{_('未设置')}}
+                    %end
+                </td>
+                <td class="action">
+                    <button name="userChangeWechat" data-state="normal" class="ghostButton red">{{_('修改')}}</button>
+                </td>
+            </tr>
             <!-- @if ENV!='production' -->
             <tr>
                 <td>
