@@ -7,7 +7,7 @@ angular.module('app')
             restrict: 'C',
             link: function (scope, element) {
                 scope.onBackClick = function(){
-                    $state.go($stateParams.from || '^')
+                    $state.go($stateParams.from || '^', $stateParams.fromParams)
                 }
             }
         }

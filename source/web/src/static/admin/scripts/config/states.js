@@ -763,4 +763,8 @@ angular.module('app')
                 url: '/noPermission',
                 templateUrl: '/static/admin/templates/no_permission.html'
             })
-    })
+    }).run(function($rootScope, $stateParams) {
+        $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+            $stateParams.fromParams = fromParams
+        });
+    });
