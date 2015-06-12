@@ -30,6 +30,7 @@ $(function () {
                     $('.hostName').text(host.nickname)
 
                     $('.contactRequest').hide()
+                    $('body,html').animate({scrollTop: $('#host').offset().top}, 300)
 
                     ga('send', 'pageview', '/host-contact-request/'+ rentId + '/contact-show-success')
                 })
