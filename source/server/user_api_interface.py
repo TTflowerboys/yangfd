@@ -335,7 +335,6 @@ def user_activate(user_id, user):
     intention=(list, None, "enum:intention"),
     locales=(list, None, str),
     currency=(list, None, str),
-    wechat_id=None,
     budget=("enum:budget", None),
     system_message_type=(list, None, str),
     email_message_type=(list, None, str),

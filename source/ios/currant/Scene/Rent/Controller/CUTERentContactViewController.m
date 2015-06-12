@@ -38,8 +38,8 @@
 #import "CUTERentPropertyInfoViewController.h"
 #import "CUTERentTicketPreviewViewController.h"
 #import "CUTEUserDefaultKey.h"
-#import "CUTEApplyBetaRentingViewController.h"
 #import "CUTEApplyBetaRentingForm.h"
+#import <ALActionBlocks.h>
 
 @interface CUTERentContactViewController () <TTTAttributedLabelDelegate> {
 
@@ -57,6 +57,11 @@
     [super viewDidLoad];
     if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED]) {
         self.navigationItem.title = STR(@"用户注册");
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"返回") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+            [self.navigationController dismissViewControllerAnimated:NO completion:^{
+                [NotificationCenter postNotificationName:KNOTIF_SHOW_SPLASH_VIEW object:nil];
+            }];
+        }];
     }
     else {
         self.navigationItem.title = STR(@"联系方式");
@@ -247,9 +252,6 @@
         }
         else {
             [SVProgressHUD showSuccessWithStatus:STR(@"您已注册成功，请申请测试邀请码。")];
-            CUTEApplyBetaRentingViewController *controller = [CUTEApplyBetaRentingViewController new];
-            controller.formController.form = [CUTEApplyBetaRentingForm new];
-            [self.navigationController pushViewController:controller animated:YES];
         }
     }
     else {

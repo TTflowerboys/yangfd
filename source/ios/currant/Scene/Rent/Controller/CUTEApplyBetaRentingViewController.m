@@ -10,48 +10,26 @@
 #import "CUTECommonMacro.h"
 #import "CUTEApplyBetaRentingForm.h"
 #import "CUTEAPIManager.h"
-#import "SVProgressHUD+CUTEAPI.h"
 #import <ALActionBlocks.h>
-#import "CUTEEnumManager.h"
-#import "CUTERentContactForm.h"
-#import "CUTERentContactViewController.h"
 #import "UIAlertView+Blocks.h"
+#import "CUTENotificationKey.h"
+#import "ALActionBlock.h"
+#import "SVProgressHUD+CUTEAPI.h"
 
 @implementation CUTEApplyBetaRentingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = STR(@"邀请码");
-
-    CUTEApplyBetaRentingForm *form = (CUTEApplyBetaRentingForm *)self.formController.form;
-    if (form.singleUse) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"注册") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-            [SVProgressHUD show];
-            [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
-                if (task.error) {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-                else if (task.exception) {
-                    [SVProgressHUD showErrorWithException:task.exception];
-                }
-                else if (task.isCancelled) {
-                    [SVProgressHUD showErrorWithCancellation];
-                }
-                else {
-                    CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
-                    CUTERentContactForm *form = [CUTERentContactForm new];
-                    form.isOnlyRegister = YES;
-                    form.isInvitationCodeRequired = YES;
-                    [form setAllCountries:task.result];
-                    contactViewController.formController.form = form;
-                    [self.navigationController pushViewController:contactViewController animated:YES];
-                    [SVProgressHUD dismiss];
-                }
-                
-                return task;
-            }];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"返回") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+        [self.navigationController dismissViewControllerAnimated:NO completion:^{
+            [NotificationCenter postNotificationName:KNOTIF_SHOW_SPLASH_VIEW object:nil];
         }];
-    }
+    }];
+}
+
+- (void)onEmailEdited:(id)sender {
+    [self submit];
 }
 
 - (BOOL)validate {
@@ -85,8 +63,10 @@
         else {
             [SVProgressHUD dismiss];
             [UIAlertView showWithTitle:STR(@"申请成功") message:STR(@"我们会尽快处理，请定期检查您的邮件") cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                [self.navigationController dismissViewControllerAnimated:NO completion:^{
+                    [NotificationCenter postNotificationName:KNOTIF_SHOW_SPLASH_VIEW object:nil];
+                }];
             }];
-            [self.navigationController popToRootViewControllerAnimated:YES];
         }
 
         return task;

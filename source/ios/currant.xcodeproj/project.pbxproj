@@ -661,6 +661,7 @@
 		2C0AE1A41B20343800A73BE6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2C0C09FD1B29697F001F2583 /* CUTETicketEditingListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETicketEditingListener.h; sourceTree = "<group>"; };
 		2C0C09FE1B29697F001F2583 /* CUTETicketEditingListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETicketEditingListener.m; sourceTree = "<group>"; };
+		2C0C0A041B29BD43001F2583 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriod.h; sourceTree = "<group>"; };
 		2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriod.m; sourceTree = "<group>"; };
 		2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -2494,6 +2495,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2CB43DE91ABD5CE3004DF663 /* zh-Hans */,
+				2C0C0A041B29BD43001F2583 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

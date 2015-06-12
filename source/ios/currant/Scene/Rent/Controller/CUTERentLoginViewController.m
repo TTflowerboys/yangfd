@@ -30,7 +30,6 @@
 #import "CUTERentPasswordForm.h"
 #import "CUTEEnumManager.h"
 #import "CUTEFormTextFieldCell.h"
-#import "CUTEApplyBetaRentingViewController.h"
 #import "CUTEUserDefaultKey.h"
 #import "CUTEApplyBetaRentingForm.h"
 #import "CUTETooltipView.h"
@@ -114,9 +113,6 @@
                 }
                 else {
                     [SVProgressHUD showSuccessWithStatus:STR(@"您还没有内测权限，请申请测试邀请码")];
-                    CUTEApplyBetaRentingViewController *controller = [CUTEApplyBetaRentingViewController new];
-                    controller.formController.form = [CUTEApplyBetaRentingForm new];
-                    [self.navigationController pushViewController:controller animated:YES];
                 }
             }
             return nil;

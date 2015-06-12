@@ -7,7 +7,7 @@
 %if property.get('space'):
     {{float("{0:.2f}".format(float(property.get('space').get('value'))))}}
     %if property.get('space').get('unit') == 'foot ** 2':
-        foot <sup>2</sup>
+        sq ft
     %elif property.get('space').get('unit') == 'acre':
         acre
     %elif property.get('space').get('unit') == 'meter ** 2':

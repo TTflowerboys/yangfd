@@ -42,7 +42,7 @@ class common(f_common):
 
     user_login_type = "phone"
     user_check_suspended = True
-    user_custom_fields = ["email", "register_time", "phone", "city", "country", "state", "zipcode", "gender", "date_of_birth", "intention", "wechat_id", "counter", "system_message_type", "email_message_type", "locales", "currency", "budget", "is_vip", "state", "address1", "address2", "occupation", "status", "wechat", "private_contact_methods"]
+    user_custom_fields = ["email", "register_time", "phone", "city", "country", "state", "zipcode", "gender", "date_of_birth", "intention", "counter", "system_message_type", "email_message_type", "locales", "currency", "budget", "is_vip", "state", "address1", "address2", "occupation", "status", "wechat", "private_contact_methods"]
     user_intention = ["cash_flow_protection", "forex", "study_abroad", "immigration_investment", "excess_returns", "fixed_income", "asset_preservation", "immigration_only", "holiday_travel"]
     admin_roles = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "support", "jr_support", "developer", "agency"]
     advanced_admin_roles = ["admin", "jr_admin", "sales", "operation", "support"]
