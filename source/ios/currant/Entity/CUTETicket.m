@@ -154,6 +154,7 @@
     //special for title
     [keysMapping removeObjectForKey:@keypath(self.title)];
     [keysMapping removeObjectForKey:@keypath(self.property)];
+    [keysMapping removeObjectForKey:@keypath(self.rentDeadlineTime)];
 
     [keysMapping enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
         NSString *paramKey = obj;
@@ -178,6 +179,12 @@
     NSString *title = self.titleForDisplay;
     if (title) {
         [params setValue:title forKey:@"title"];
+    }
+    if (self.rentDeadlineTime) {
+        [params setValue:@(self.rentDeadlineTime) forKey:@"rent_deadline_time"];
+    }
+    else {
+        [unsetFields addObject:@"rent_deadline_time"];
     }
 
     if (!IsArrayNilOrEmpty(unsetFields)) {
