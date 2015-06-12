@@ -547,7 +547,7 @@ def property_edit(property_id, user, params):
         if not user or not set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]):
             params["user_generated"] = True
             if user:
-                params["user_id"] = user["id"]
+                params["user_id"] = ObjectId(user["id"])
 
         params.setdefault("status", "draft")
 
@@ -564,7 +564,7 @@ def property_edit(property_id, user, params):
             if "user_id" in property:
                 assert user and property["user_id"] == user["id"], abort(40300, "Non-admin could only edit his own generated properties")
             elif user:
-                params["user_id"] = user["id"]
+                params["user_id"] = ObjectId(user["id"])
 
         def _action(params):
             unset_fields = params.get("unset_fields", [])

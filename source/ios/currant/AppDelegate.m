@@ -235,12 +235,6 @@
     //TODO setup use user id in track and crash report
     [Fabric with:@[CrashlyticsKit]];
 
-    [NSArray aspect_hookSelector:@selector(initWithObjects:count:) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo>info, id object, id countNum) {
-        if (!object) {
-            DebugLog(@"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
-        }
-
-    }error:nil];
 
     return YES;
 }
@@ -284,6 +278,7 @@
 }
 
 - (void)checkShowSplashViewController {
+
     if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED])
     {
         CUTESplashViewController *spalshViewController = [CUTESplashViewController new];
@@ -663,6 +658,10 @@
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
     [[CUTEDataManager sharedInstance] cleanAllUnfinishedRentTickets];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+    //clear some user default
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self checkShowSplashViewController];
 }
 
 - (void)onReceiveBetaUserDidRegister:(NSNotification *)notif {

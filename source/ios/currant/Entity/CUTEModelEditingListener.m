@@ -11,13 +11,13 @@
 #import <MTLJSONAdapter.h>
 #import "CUTECommonMacro.h"
 
-typedef void (^ KeyValueChangeBlock) (NSString*, id);
+typedef void (^ KeyValueChangeBlock) (NSString*, id, id);
 
 @interface CUTEModelEditingListener ()
 {
     NSMutableDictionary *_updateMarkDictionary;
 
-    NSMutableArray *_deleteMarkArray;
+    NSMutableSet *_deleteMarkSet;
 
     FBKVOController *_listenController;
 }
@@ -37,21 +37,15 @@ typedef void (^ KeyValueChangeBlock) (NSString*, id);
 - (void)startListenMarkWithSayer:(MTLModel<MTLJSONSerializing, CUTEModelEditingListenerDelegate> *)sayer {
 
     _updateMarkDictionary = [NSMutableDictionary dictionary];
-    _deleteMarkArray = [NSMutableArray array];
+    _deleteMarkSet = [NSMutableSet set];
     self.sayer = sayer;
 
     _listenController  = [FBKVOController controllerWithObserver:sayer];
-    __block KeyValueChangeBlock changeBlock = ^ (NSString *key, id value) {
-        if (value && ![value isEqual:[NSNull null]]) {
-            [self markPropertyKeyUpdated:key withValue:value];
-        }
-        else {
-            [self markPropertyKeyDeleted:key];
-        }
-    };
+    __weak typeof(self)weakSelf = self;
+
     [[[sayer class] propertyKeys] enumerateObjectsUsingBlock:^(NSString *obj, BOOL *stop) {
-        [_listenController observe:sayer keyPath:obj options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
-            changeBlock(obj, change[NSKeyValueChangeNewKey]);
+        [_listenController observe:sayer keyPath:obj options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary *change) {
+            [weakSelf markPropertyWithKey:obj oldValue:change[NSKeyValueChangeOldKey] newValue:change[NSKeyValueChangeNewKey]];
         }];
     }];
 }
@@ -59,6 +53,21 @@ typedef void (^ KeyValueChangeBlock) (NSString*, id);
 - (void)stopListenMark {
     [_listenController unobserveAll];
     _listenController = nil;
+}
+
+- (void)markPropertyWithKey:(NSString *)key oldValue:(id)oldValue newValue:(id)value {
+
+    if (IsNilOrNull(oldValue) && !IsNilOrNull(value)) {
+        [self markPropertyKeyUpdated:key withValue:value];
+    }
+    else if (!IsNilOrNull(oldValue) && IsNilOrNull(value)) {
+        [self markPropertyKeyDeleted:key];
+    }
+    else if (!IsNilOrNull(oldValue) && !IsNilOrNull(value)) {
+        if (![oldValue isEqual:value]) {
+            [self markPropertyKeyUpdated:key withValue:value];
+        }
+    }
 }
 
 - (void)markPropertyKeyUpdated:(NSString *)propertyKey withValue:(id)value {
@@ -72,15 +81,15 @@ typedef void (^ KeyValueChangeBlock) (NSString*, id);
 - (void)markPropertyKeyDeleted:(NSString *)propertyKey {
     id retKey = [[[self.sayer class] JSONKeyPathsByPropertyKey] objectForKey:propertyKey];
     NSAssert(retKey, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
-    [_deleteMarkArray addObject:retKey];
+    [_deleteMarkSet addObject:retKey];
 }
 
 - (NSDictionary *)getEditedParams {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic addEntriesFromDictionary:_updateMarkDictionary];
 
-    if (!IsArrayNilOrEmpty(_deleteMarkArray)) {
-        [dic setValue:[_deleteMarkArray componentsJoinedByString:@","] forKey:@"unset_fields"];
+    if (!IsArrayNilOrEmpty([_deleteMarkSet allObjects])) {
+        [dic setValue:[[_deleteMarkSet allObjects] componentsJoinedByString:@","] forKey:@"unset_fields"];
     }
 
     return dic;

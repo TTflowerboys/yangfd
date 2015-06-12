@@ -43,6 +43,7 @@
 #import "CUTERentContactDisplaySettingForm.h"
 #import "CUTERentContactDisplaySettingViewController.h"
 #import "Sequencer.h"
+#import "CUTEUserEditingListener.h"
 
 @interface CUTERentContactViewController () <TTTAttributedLabelDelegate> {
 
@@ -126,11 +127,8 @@
     return IsNilNullOrEmpty(footer)? 0 : 70;
 }
 
-
-- (CUTEUser *)createUserWithFormInfo {
+- (void)updateUserWithFormInfo:(CUTEUser *)user {
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
-
-    CUTEUser* user = [CUTEUser new];
     user.nickname = form.name;
     user.email = form.email;
     user.country = form.country;
@@ -149,7 +147,6 @@
         }
         user.privateContactMethods = privateContactMethods;
     }
-    return user;
 }
 
 - (void)optionBack {
@@ -176,7 +173,8 @@
     }
 
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
-    CUTEUser *user = [self createUserWithFormInfo];
+    CUTEUser *user = [CUTEUser new];
+    [self updateUserWithFormInfo:user];
 
     [SVProgressHUD showWithStatus:STR(@"获取中...")];
     Sequencer *sequencer = [Sequencer new];
@@ -273,18 +271,21 @@
 
 
 - (void)submit {
-
     if (![self validate]) {
         return;
     }
 
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
-    CUTEUser *user = [self createUserWithFormInfo];
+    CUTEUser *user = _retUser;
+    CUTEUserEditingListener *userListener = [CUTEUserEditingListener createListenerAndStartListenMarkWithSayer:user];
+    [self updateUserWithFormInfo:user];
+    [userListener stopListenMark];
+
     Sequencer *sequencer = [Sequencer new];
     [SVProgressHUD showWithStatus:STR(@"发布中...")];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         //user may update user info after create user in the send verification code process, like update private contact methods
-        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/edit" parameters:user.toParams resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/edit" parameters:userListener.getEditedParams resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
@@ -295,7 +296,8 @@
                 [SVProgressHUD showErrorWithCancellation];
             }
             else {
-                completion(user);
+                _retUser = task.result;
+                completion(task.result);
             }
             
             return task;

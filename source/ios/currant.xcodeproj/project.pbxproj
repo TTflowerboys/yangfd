@@ -69,6 +69,11 @@
 		2C0C0A101B2A916A001F2583 /* CUTERentContactDisplaySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C0A0D1B2A916A001F2583 /* CUTERentContactDisplaySettingViewController.m */; };
 		2C0C0A111B2A916A001F2583 /* CUTERentContactDisplaySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C0A0D1B2A916A001F2583 /* CUTERentContactDisplaySettingViewController.m */; };
 		2C0C0A121B2A916A001F2583 /* CUTERentContactDisplaySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C0A0D1B2A916A001F2583 /* CUTERentContactDisplaySettingViewController.m */; };
+		2C0C0A151B2AD02E001F2583 /* CUTEUserEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C0A141B2AD02E001F2583 /* CUTEUserEditingListener.m */; };
+		2C0C0A161B2AD02E001F2583 /* CUTEUserEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C0A141B2AD02E001F2583 /* CUTEUserEditingListener.m */; };
+		2C0C0A171B2AD02E001F2583 /* CUTEUserEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C0A141B2AD02E001F2583 /* CUTEUserEditingListener.m */; };
+		2C0C0A181B2AD02E001F2583 /* CUTEUserEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C0A141B2AD02E001F2583 /* CUTEUserEditingListener.m */; };
+		2C0C0A191B2AD02E001F2583 /* CUTEUserEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C0A141B2AD02E001F2583 /* CUTEUserEditingListener.m */; };
 		2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
@@ -676,6 +681,8 @@
 		2C0C0A061B2A8E9C001F2583 /* CUTERentContactDisplaySettingForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentContactDisplaySettingForm.m; sourceTree = "<group>"; };
 		2C0C0A0C1B2A916A001F2583 /* CUTERentContactDisplaySettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentContactDisplaySettingViewController.h; sourceTree = "<group>"; };
 		2C0C0A0D1B2A916A001F2583 /* CUTERentContactDisplaySettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentContactDisplaySettingViewController.m; sourceTree = "<group>"; };
+		2C0C0A131B2AD02E001F2583 /* CUTEUserEditingListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUserEditingListener.h; sourceTree = "<group>"; };
+		2C0C0A141B2AD02E001F2583 /* CUTEUserEditingListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUserEditingListener.m; sourceTree = "<group>"; };
 		2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriod.h; sourceTree = "<group>"; };
 		2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriod.m; sourceTree = "<group>"; };
 		2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -1062,6 +1069,8 @@
 				2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */,
 				2C0C09FD1B29697F001F2583 /* CUTETicketEditingListener.h */,
 				2C0C09FE1B29697F001F2583 /* CUTETicketEditingListener.m */,
+				2C0C0A131B2AD02E001F2583 /* CUTEUserEditingListener.h */,
+				2C0C0A141B2AD02E001F2583 /* CUTEUserEditingListener.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1956,6 +1965,7 @@
 				2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */,
 				2CC3A0851AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2CA81FB81B1303BC006E993C /* CUTEPlacemark.m in Sources */,
+				2C0C0A171B2AD02E001F2583 /* CUTEUserEditingListener.m in Sources */,
 				2C0C0A091B2A8E9C001F2583 /* CUTERentContactDisplaySettingForm.m in Sources */,
 				2C9AFF801AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA81F9C1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
@@ -2079,6 +2089,7 @@
 				2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */,
 				2CC3A0861AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2CA81FB91B1303BC006E993C /* CUTEPlacemark.m in Sources */,
+				2C0C0A181B2AD02E001F2583 /* CUTEUserEditingListener.m in Sources */,
 				2C0C0A0A1B2A8E9C001F2583 /* CUTERentContactDisplaySettingForm.m in Sources */,
 				2C9AFF811AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA81F9D1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
@@ -2202,6 +2213,7 @@
 				2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */,
 				2CC3A0841AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2CA81FB71B1303BC006E993C /* CUTEPlacemark.m in Sources */,
+				2C0C0A161B2AD02E001F2583 /* CUTEUserEditingListener.m in Sources */,
 				2C0C0A081B2A8E9C001F2583 /* CUTERentContactDisplaySettingForm.m in Sources */,
 				2C9AFF7F1AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA81F9B1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
@@ -2325,6 +2337,7 @@
 				2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */,
 				2CC3A0831AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2CA81FB61B1303BC006E993C /* CUTEPlacemark.m in Sources */,
+				2C0C0A151B2AD02E001F2583 /* CUTEUserEditingListener.m in Sources */,
 				2C0C0A071B2A8E9C001F2583 /* CUTERentContactDisplaySettingForm.m in Sources */,
 				2C9AFF7E1AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA81F9A1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
@@ -2439,6 +2452,7 @@
 				2CF8A6B91AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */,
 				2C0AE1121B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */,
 				2CF8A6AB1AF0C2620080DF10 /* BBTPickerView.m in Sources */,
+				2C0C0A191B2AD02E001F2583 /* CUTEUserEditingListener.m in Sources */,
 				2CA81FA51B12CB18006E993C /* CUTECity.m in Sources */,
 				2CAA85241AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CF8A65D1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */,

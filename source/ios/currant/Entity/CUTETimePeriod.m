@@ -29,6 +29,15 @@
     return @{@"day": STR(@"天"), @"week": STR(@"周"), @"month": STR(@"月")}[unit];
 }
 
+- (BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[self class]]) {
+        return [self.unit isEqualToString:[object unit]] && fequal(self.value, [(CUTETimePeriod *)object value]);
+    }
+    else {
+        return NO;
+    }
+}
+
 - (NSString *)unitForDisplay {
     return [CUTETimePeriod getDisplayUnitWithUnit:self.unit];
 }

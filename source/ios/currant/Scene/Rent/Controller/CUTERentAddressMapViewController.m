@@ -115,7 +115,14 @@
     [self.view addSubview:_userLocationButton];
     [_userLocationButton addTarget:self action:@selector(onUserLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    [self startUpdateLocation];
+    if (self.singleUseForReedit) {
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.ticket.property.latitude longitude:self.ticket.property.longitude];
+        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
+        [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+    }
+    else {
+        [self startUpdateLocation];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {

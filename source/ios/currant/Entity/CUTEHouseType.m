@@ -33,4 +33,5 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
 }
 
+
 @end
