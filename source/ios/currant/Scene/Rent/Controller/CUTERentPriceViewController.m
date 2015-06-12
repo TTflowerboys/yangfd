@@ -15,6 +15,7 @@
 #import "CUTERentTickePublisher.h"
 #import "CUTENotificationKey.h"
 #import "CUTETicketEditingListener.h"
+#import "NSDate-Utilities.h"
 
 @implementation CUTERentPriceViewController
 
@@ -44,6 +45,29 @@
     if ([field.key isEqualToString:@"rentPrice"]) {
         CUTEFormRentPriceTextFieldCell *textFieldCell = (CUTEFormRentPriceTextFieldCell *)cell;
         [textFieldCell setCurrencySymbol:form.currencySymbol];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    CUTERentPriceForm *form = (CUTERentPriceForm *)[[self formController] form];
+    FXFormField *field = [self.formController fieldForIndexPath:indexPath];
+    if ([field.key isEqualToString:@"rentAvailableTime"]) {
+        FXFormDatePickerCell *cell = (FXFormDatePickerCell *)[tableView cellForRowAtIndexPath:indexPath];
+        if (!form.rentAvailableTime || fequalzero([[form rentAvailableTime] timeIntervalSince1970])) {
+            form.rentAvailableTime = [NSDate date];
+            cell.datePicker.date = [NSDate date];
+            cell.datePicker.minimumDate = [NSDate date];
+            [cell update];
+        }
+    }
+    else if ([field.key isEqualToString:@"rentDeadlineTime"]) {
+        FXFormDatePickerCell *cell = (FXFormDatePickerCell *)[tableView cellForRowAtIndexPath:indexPath];
+        if (!form.rentDeadlineTime || fequalzero([[form rentDeadlineTime] timeIntervalSince1970])) {
+            form.rentDeadlineTime = [NSDate date];
+            cell.datePicker.date = [NSDate date];
+            cell.datePicker.minimumDate = [NSDate date];
+            [cell update];
+        }
     }
 }
 
@@ -80,14 +104,26 @@
 }
 
 - (void)onRentAvailableTimeEdit:(id)sender {
+    if ([self.form.rentDeadlineTime isEarlierThanDate:self.form.rentAvailableTime]) {
+        [SVProgressHUD showErrorWithStatus:STR(@"结束日期不应早于开始日期")];
+        return;
+    }
+
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
     self.ticket.rentAvailableTime = [[self.form rentAvailableTime] timeIntervalSince1970];
+    self.ticket.rentDeadlineTime = [[self.form rentDeadlineTime] timeIntervalSince1970];
     [ticketListener stopListenMark];
     [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
 
 - (void)onRentDeadlineTimeEdit:(id)sender {
+    if ([self.form.rentDeadlineTime isEarlierThanDate:self.form.rentAvailableTime]) {
+        [SVProgressHUD showErrorWithStatus:STR(@"结束日期不应早于开始日期")];
+        return;
+    }
+
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+    self.ticket.rentAvailableTime = [[self.form rentAvailableTime] timeIntervalSince1970];
     self.ticket.rentDeadlineTime = [[self.form rentDeadlineTime] timeIntervalSince1970];
     [ticketListener stopListenMark];
     [self syncWithUserInfo:ticketListener.getSyncUserInfo];

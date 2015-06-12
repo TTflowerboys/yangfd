@@ -211,8 +211,8 @@
               form.depositType = ticket.depositType;
               form.containBill = ticket.billCovered;
               form.needSetPeriod = YES;
-              form.rentAvailableTime = [NSDate dateWithTimeIntervalSince1970:ticket.rentAvailableTime];
-              form.rentDeadlineTime = [NSDate dateWithTimeIntervalSince1970:ticket.rentDeadlineTime];
+              form.rentAvailableTime = ticket.rentAvailableTime ?[NSDate dateWithTimeIntervalSince1970:ticket.rentAvailableTime]: nil;
+              form.rentDeadlineTime = ticket.rentDeadlineTime? [NSDate dateWithTimeIntervalSince1970:ticket.rentDeadlineTime]: nil;
               form.minimumRentPeriod = ticket.minimumRentPeriod;
 
               [form setAllDepositTypes:depositTypes];

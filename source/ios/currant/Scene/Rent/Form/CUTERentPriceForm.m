@@ -38,7 +38,7 @@
                                ]];
     if (self.needSetPeriod) {
         [array addObject:@{FXFormFieldKey: @"rentAvailableTime", FXFormFieldTitle:STR(@"开始日期"), FXFormFieldDefaultValue: _rentAvailableTime? : [NSDate new], FXFormFieldAction: @"onRentAvailableTimeEdit:", FXFormFieldCell: [CUTEFormDatePickerCell class]}];
-        [array addObject:@{FXFormFieldKey: @"rentDeadlineTime", FXFormFieldTitle:STR(@"结束日期"), FXFormFieldDefaultValue: _rentDeadlineTime? : [NSDate new], FXFormFieldAction: @"onRentDeadlineTimeEdit:", FXFormFieldCell: [CUTEFormDatePickerCell class]}];
+        [array addObject:@{FXFormFieldKey: @"rentDeadlineTime", FXFormFieldTitle:STR(@"结束日期"), FXFormFieldAction: @"onRentDeadlineTimeEdit:", FXFormFieldCell: [CUTEFormDatePickerCell class]}];
         [array addObject:@{FXFormFieldKey: @"minimumRentPeriod", FXFormFieldTitle: @"最短租期", FXFormFieldCell: [CUTEFormRentPeriodPickerCell class], @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"onMinimumRentPeriodEdit:"}];
     }
     return array;
@@ -46,6 +46,10 @@
 
 - (NSString *)currencySymbol {
     return [CUTECurrency symbolOfCurrencyUnit:self.currency];
+}
+
+- (void)setRentDeadlineTime:(NSDate *)rentDeadlineTime {
+    _rentDeadlineTime = rentDeadlineTime;
 }
 
 - (void)setAllDepositTypes:(NSArray *)depositTypes {
