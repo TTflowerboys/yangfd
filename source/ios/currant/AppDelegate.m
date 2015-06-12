@@ -578,6 +578,10 @@
     if (!viewController.topViewController) {
         [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:NO];
     }
+    else if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
+        [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:NO];
+        [viewController popToRootViewControllerAnimated:YES];
+    }
 }
 
 
