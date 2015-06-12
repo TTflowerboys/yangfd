@@ -55,12 +55,16 @@
 
 }
 
-- (void)trackScreen:(NSString *)screenName {
-    GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createScreenView];
-    [builder set:screenName forKey:kGAIScreenName];
+- (void)setupCommonParams:(GAIDictionaryBuilder *)builder {
     if (!IsNilNullOrEmpty([CUTEDataManager sharedInstance].user.identifier)) {
         [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
     }
+}
+
+- (void)trackScreen:(NSString *)screenName {
+    GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createScreenView];
+    [self setupCommonParams:builder];
+    [builder set:screenName forKey:kGAIScreenName];
     [_tracker send:[builder build]];
     [self updateScreenLastVisitTime:screenName];
 }
@@ -74,9 +78,7 @@
     NSTimeInterval endTime = [NSDate date].timeIntervalSince1970;
 
     GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createTimingWithCategory:category interval:[NSNumber numberWithDouble:endTime - startTime] name:kEventActionStay label:screenName];
-    if (!IsNilNullOrEmpty([CUTEDataManager sharedInstance].user.identifier)) {
-        [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
-    }
+    [self setupCommonParams:builder];
     [_tracker send:builder.build];
 }
 
@@ -92,34 +94,26 @@
     }];
 
     GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createTimingWithCategory:category interval:[NSNumber numberWithDouble:totalTime] name:kEventActionStay label:label];
-    if (!IsNilNullOrEmpty([CUTEDataManager sharedInstance].user.identifier)) {
-        [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
-    }
+    [self setupCommonParams:builder];
     [_tracker send:builder.build];
 }
 
 
 - (void)trackEventWithCategory:(NSString *)category action:(NSString *)action label:(NSString *)label value:(NSNumber *)value {
     GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createEventWithCategory:category action:action label:label value:value];
-    if (!IsNilNullOrEmpty([CUTEDataManager sharedInstance].user.identifier)) {
-        [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
-    }
+    [self setupCommonParams:builder];
     [_tracker send:[builder build]];
 }
 
 - (void)trackException:(NSException *)exception {
     GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createExceptionWithDescription:exception.description withFatal:@(0)];
-    if (!IsNilNullOrEmpty([CUTEDataManager sharedInstance].user.identifier)) {
-        [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
-    }
+    [self setupCommonParams:builder];
     [_tracker send:builder.build];
 }
 
 - (void)trackError:(NSError *)error {
     GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createExceptionWithDescription:error.description withFatal:@(0)];
-    if (!IsNilNullOrEmpty([CUTEDataManager sharedInstance].user.identifier)) {
-        [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
-    }
+    [self setupCommonParams:builder];
     [_tracker send:builder.build];
 }
 

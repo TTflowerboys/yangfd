@@ -21,7 +21,6 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    //TODO finish mapping
     return @{@"identifier": @"id",
              @"propertyType": @"property_type",
              @"realityImages": @"reality_images",

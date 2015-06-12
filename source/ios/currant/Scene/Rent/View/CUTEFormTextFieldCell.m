@@ -31,4 +31,9 @@
     self.textField.inputAccessoryView = inputAccessoryView;
 }
 
+- (void)textFieldDidBeginEditing:(__unused UITextField *)textField
+{
+    //disable select all when begin editing
+}
+
 @end
