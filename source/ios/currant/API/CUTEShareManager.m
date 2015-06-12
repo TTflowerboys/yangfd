@@ -24,6 +24,7 @@
 #import <WeiboSDK.h>
 #import "AppDelegate.h"
 #import "UIActionSheet+Blocks.h"
+#import "ATConnect.h"
 
 
 
@@ -38,6 +39,8 @@
 @property (strong, nonatomic) NSString *wbtoken;
 
 @property (strong, nonatomic) NSString *wbCurrentUserID;
+
+@property (nonatomic, weak) UIViewController *viewController;
 
 @end
 
@@ -77,12 +80,14 @@
                 if (backResp.errCode == WXSuccess) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [SVProgressHUD showSuccessWithStatus:STR(@"分享成功")];
+                        [self checkSurveyWhenShareSuccess];
                     });
 
                 }
                 else if (backResp.errCode == WXErrCodeUserCancel) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [SVProgressHUD showErrorWithStatus:STR(@"分享取消")];
+                        [self checkSurveyWhenShareCancelled];
                     });
                 }
                 else {
@@ -198,6 +203,7 @@
 }
 
 - (void)shareWithTicket:(CUTETicket *)ticket inController:(UIViewController *)controller {
+    self.viewController = controller;
 
     [[self getTicketShareImage:ticket] continueWithSuccessBlock:^id(BFTask *task) {
         if (task.result) {
@@ -266,6 +272,9 @@
                         }];
 
                     }
+                    else {
+                        [self checkSurveyWhenShareCancelled];
+                    }
                 });
             }];
         }
@@ -332,13 +341,29 @@
     {
         if (response.statusCode == WeiboSDKResponseStatusCodeSuccess) {
             [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
+            [self checkSurveyWhenShareSuccess];
         }
         else if (response.statusCode == WeiboSDKResponseStatusCodeUserCancel) {
             [SVProgressHUD showInfoWithStatus:STR(@"分享取消")];
+            [self checkSurveyWhenShareCancelled];
         }
         else {
             [SVProgressHUD showErrorWithError:[NSError errorWithDomain:STR(@"微博分享") code:response.statusCode userInfo:response.userInfo]];
         }
+    }
+}
+
+#pragma mark - Survey Method
+
+- (void)checkSurveyWhenShareSuccess {
+    if (self.viewController) {
+        [[ATConnect sharedConnection] engage:@"survey_after_share_success" fromViewController:self.viewController];
+    }
+}
+
+- (void)checkSurveyWhenShareCancelled {
+    if (self.viewController) {
+        [[ATConnect sharedConnection] engage:@"survey_after_share_cancellation" fromViewController:self.viewController];
     }
 }
 
