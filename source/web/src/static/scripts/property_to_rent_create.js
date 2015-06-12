@@ -489,7 +489,7 @@
         })
         if(includePhoneReg.test($('#description').val())) {
             validate = false
-            errorMsg = i18n('为避免不必要骚扰，请勿在描述中填写联系方式')
+            errorMsg = i18n('平台将提供房东联系方式选择，请勿在此填写任何形式的联系方式，违规发布将会予以处理')
             highlightErrorElem($('#description'))
         }
 
