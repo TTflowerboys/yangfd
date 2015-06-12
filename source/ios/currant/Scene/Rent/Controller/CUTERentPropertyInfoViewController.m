@@ -197,12 +197,12 @@
               if (!ticket.minimumRentPeriod) {
                   ticket.minimumRentPeriod = [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
               }
-              //TODO
-//              if (!ticket.depositType) {
-//                  ticket.depositType = [depositTypes find:^BOOL(id object) {
-//                      return object != nil;
-//                  }];
-//              }
+
+              if (!ticket.depositType) {
+                  ticket.depositType = [depositTypes find:^BOOL(CUTEEnum *object) {
+                      return object.slug && [object.slug isEqualToString:@"deposit_type:negotiable"];
+                  }];
+              }
 
               CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
               controller.ticket = self.ticket;
