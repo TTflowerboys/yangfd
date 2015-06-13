@@ -32,6 +32,8 @@
 #import "CUTETicketEditingListener.h"
 #import "CUTENotificationKey.h"
 #import "CUTEAPIManager.h"
+#import "NSString+CUTECDN.h"
+#import "NSArray+CUTECDN.h"
 
 @interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate,  UINavigationControllerDelegate, UIImagePickerControllerDelegate, MWPhotoBrowserDelegate>
 {
@@ -161,7 +163,7 @@
             imageView.frame = CGRectMake(sideWidth * idx + margin * (idx + 1), 0, sideWidth, sideWidth);
 
 
-            if (!IsNilNullOrEmpty(cover) && [cover isEqualToString:obj]) {
+            if (!IsNilNullOrEmpty(cover) && [cover isCDNPathEqualToCDNPath:obj]) {
                 UILabel *coverLabel = [UILabel new];
                 coverLabel.frame = CGRectMake(0, 0, 40, 20);
                 coverLabel.text = STR(@"封面");
@@ -482,7 +484,7 @@
 {
     NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
 
-    if (!IsNilNullOrEmpty(self.ticket.property.cover) && [asset isEqualToString:self.ticket.property.cover]) {
+    if (!IsNilNullOrEmpty(self.ticket.property.cover) && [asset isCDNPathEqualToCDNPath:self.ticket.property.cover]) {
         UIBarButtonItem *setCoverItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"已是封面") style:UIBarButtonItemStylePlain target:nil action:nil];
         setCoverItem.enabled = NO;
         return setCoverItem;
@@ -533,7 +535,9 @@
     [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
 
     [SVProgressHUD show];
-    [[[CUTERentTickePublisher sharedInstance] uploadImages:@[self.ticket.property.cover] updateStatus:nil] continueWithBlock:^id(BFTask *task) {
+    [[[CUTERentTickePublisher sharedInstance] uploadImages:@[self.ticket.property.cover] updateStatus:^(NSString *status) {
+        [SVProgressHUD showWithStatus:status];
+    }] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
@@ -561,7 +565,7 @@
                         NSString *oldCoverURLStr = self.ticket.property.cover;
                         self.ticket.property.cover = retProperty.cover;
                         NSMutableArray *realityImages = [NSMutableArray arrayWithArray:self.ticket.property.realityImages];
-                        [realityImages replaceObjectAtIndex:[self.ticket.property.realityImages indexOfObject:oldCoverURLStr] withObject:retProperty.cover];
+                        [realityImages replaceObjectAtIndex:[self.ticket.property.realityImages indexOfCDNPath:oldCoverURLStr] withObject:retProperty.cover];
                         [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
                         [SVProgressHUD showSuccessWithStatus:STR(@"设置成功")];
 
@@ -589,7 +593,7 @@
     }];
     self.ticket.property.realityImages = [NSMutableArray arrayWithArray:IsArrayNilOrEmpty(editedAssets)? @[]: editedAssets];
     //user may delete the cover
-    if (![editedAssets containsObject:self.ticket.property.cover]) {
+    if (![editedAssets containsCDNPath:self.ticket.property.cover]) {
         self.ticket.property.cover = nil;
     }
     [self update];

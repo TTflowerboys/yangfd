@@ -19,6 +19,8 @@
     NSMutableDictionary *_enumCache;
 
     NSMutableDictionary *_cityCache;
+
+    NSArray *_uploadCDNDomains;
 }
 
 @end
@@ -47,6 +49,10 @@
     return self;
 }
 
+
+- (NSArray *)uploadCDNDomains {
+    return _uploadCDNDomains;
+}
 
 - (BFTask *)getEnumsByType:(NSString *)type {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
@@ -109,6 +115,36 @@
             return task;
         }];
     }
+    return tcs.task;
+}
+
+- (BFTask *)getUploadCDNDomains {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+
+    if (IsArrayNilOrEmpty(_uploadCDNDomains)) {
+        [[[CUTEAPIManager sharedInstance] GET:@"/api/1/upload-cdn-domains" parameters:nil resultClass:nil] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [tcs setError:task.error];
+            }
+            else if (task.exception) {
+                [tcs setException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [tcs cancel];
+            }
+            else {
+                _uploadCDNDomains = task.result;
+                [tcs setResult:task.result];
+            }
+            
+            return task;
+        }];
+    }
+    else {
+        [tcs setResult:_uploadCDNDomains];
+    }
+
+
     return tcs.task;
 }
 
