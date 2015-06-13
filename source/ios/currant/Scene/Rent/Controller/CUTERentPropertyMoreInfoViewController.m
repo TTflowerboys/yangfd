@@ -68,7 +68,7 @@
 }
 
 - (void)delete {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"删除草稿") message:nil delegate:nil cancelButtonTitle:STR(@"确定") otherButtonTitles:STR(@"取消"), nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"删除") message:nil delegate:nil cancelButtonTitle:STR(@"确定") otherButtonTitles:STR(@"取消"), nil];
     alertView.cancelButtonIndex = 1;
     alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex)  {
         if (buttonIndex != alertView.cancelButtonIndex) {

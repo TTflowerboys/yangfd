@@ -24,6 +24,7 @@
     return @{@"identifier": @"id",
              @"propertyType": @"property_type",
              @"realityImages": @"reality_images",
+             @"cover": @"cover",
              @"name": @"name",
              @"country": @"country",
              @"city": @"city",
@@ -108,7 +109,7 @@
         return [self toI18nString:value];
     }
     else if ([key isEqualToString:@keypath(self.propertyDescription)]) {
-        return [self toI18nString:self.propertyDescription];
+        return [self toI18nString:value];
     }
     else if ([key isEqualToString:@keypath(self.propertyType)] && [value isKindOfClass:[CUTEEnum class]]) {
         return [(CUTEEnum *)value identifier];
@@ -126,7 +127,7 @@
         return [self toI18nString:value];
     }
     else if ([key isEqualToString:@keypath(self.street)]) {
-        return [self toI18nString:self.street];
+        return [self toI18nString:value];
     }
     else if ([key isEqualToString:@keypath(self.country)] && [value isKindOfClass:[CUTECountry class]]) {
         return [(CUTECountry *)value code];
@@ -143,6 +144,9 @@
         return [[(NSArray *)value map:^id(CUTEEnum *object) {
             return object.identifier;
         }] componentsJoinedByString:@","];
+    }
+    else if ([key isEqualToString:@keypath(self.cover)]) {
+        return @{DEFAULT_I18N_LOCALE: value};
     }
     else if ([key isEqualToString:@keypath(self.realityImages)] && [value isKindOfClass:[NSArray class]]) {
         NSArray *realityImages = [(NSArray *)value select:^BOOL(NSString *object) {

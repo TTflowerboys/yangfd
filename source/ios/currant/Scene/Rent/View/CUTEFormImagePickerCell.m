@@ -31,6 +31,7 @@
 #import <UIAlertView+Blocks.h>
 #import "CUTETicketEditingListener.h"
 #import "CUTENotificationKey.h"
+#import "CUTEAPIManager.h"
 
 @interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate,  UINavigationControllerDelegate, UIImagePickerControllerDelegate, MWPhotoBrowserDelegate>
 {
@@ -167,7 +168,7 @@
 - (void)onImageTapped:(UITapGestureRecognizer *)tapGesture {
     NSNumber *index = tapGesture.view.attachment;
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-    browser.displayActionButton = NO;
+    browser.displayActionButton = YES;
     browser.displaySelectionButtons = YES;
     browser.alwaysShowControls = NO;
     [browser setCurrentPhotoIndex:index.integerValue];
@@ -465,6 +466,16 @@
 
 - (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index
 {
+    if (index == 0) {
+        NSArray *subViews = [[photoBrowser view] subviews];
+        UIToolbar *toolbar = [subViews find:^BOOL(id object) {
+            return [object isKindOfClass:[UIToolbar class]];
+        }];
+
+        UIBarButtonItem *setCoverItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"设为封面") style:UIBarButtonItemStylePlain target:photoBrowser action:@selector(actionButtonPressed:)];
+        [toolbar setItems:@[setCoverItem]];
+    }
+
     NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
     return [MWPhoto photoWithURL:[NSURL URLWithString:asset]];
 }
@@ -484,6 +495,49 @@
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index selectedChanged:(BOOL)selected {
     NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
     asset.attachment = [NSNumber numberWithBool:selected];
+}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index {
+    NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
+    self.ticket.property.cover = asset;
+    [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
+
+    [SVProgressHUD show];
+    [[[CUTERentTickePublisher sharedInstance] uploadImages:@[self.ticket.property.cover] updateStatus:nil] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        else if (task.exception) {
+            [SVProgressHUD showErrorWithException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [SVProgressHUD showErrorWithCancellation];
+        }
+        else {
+            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", self.ticket.property.identifier, @"/edit") parameters:@{@"cover": @{DEFAULT_I18N_LOCALE: [task.result firstObject]}} resultClass:[CUTEProperty class]] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                else if (task.exception) {
+                    [SVProgressHUD showErrorWithException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [SVProgressHUD showErrorWithCancellation];
+                }
+                else {
+                    CUTEProperty *retProperty = task.result;
+                    self.ticket.property.cover = retProperty.cover;
+                    [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
+                    [SVProgressHUD showSuccessWithStatus:STR(@"设置成功")];
+                }
+                
+                return task;
+            }];
+        }
+        return task;
+    }];
+
+
 }
 
 - (void)photoBrowserDidFinishModalPresentation:(MWPhotoBrowser *)photoBrowser {

@@ -23,7 +23,7 @@
              @{FXFormFieldKey: @"ticketDescription", FXFormFieldTitle:STR(@"详细描述"),FXFormFieldType:FXFormFieldTypeLongText, FXFormFieldDefaultValue:_ticketDescription? : @"", FXFormFieldAction:@"onTicketDescriptionEdit:", FXFormFieldCell: [CUTEFormTextViewCell class], FXFormFieldPlaceholder: STR(@"补充您对租客的要求和对房屋特点的描述。平台将提供房东联系方式选择，请勿在此填写任何形式的联系方式，违规发布将会予以处理。")},
              @{FXFormFieldKey: @"facility", FXFormFieldTitle:STR(@"配套设施"), FXFormFieldAction:@"editFacilities"},
 //                @{FXFormFieldKey: @"feature", FXFormFieldTitle:STR(@"街区亮点")},
-             @{FXFormFieldKey: @"delete", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"删除草稿"), FXFormFieldHeader: @"", FXFormFieldAction: @"delete"},
+             @{FXFormFieldKey: @"delete", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"删除"), FXFormFieldHeader: @"", FXFormFieldAction: @"delete"},
              ];
 }
 

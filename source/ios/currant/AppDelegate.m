@@ -342,22 +342,7 @@
     //when show unfinished list controller, show type list page to add new one
     else if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController != nil) {
         if (_lastSelectedTabIndex == tabBarController.selectedIndex && [viewController.topViewController isKindOfClass:[CUTEUnfinishedRentTicketListViewController class]]) {
-            [SVProgressHUD show];
-            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
-                if (task.result) {
-                    CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
-                    [form setRentTypeList:task.result];
-                    CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
-                    controller.formController.form = form;
-                    controller.hidesBottomBarWhenPushed = YES;
-                    [viewController pushViewController:controller animated:YES];
-                    [SVProgressHUD dismiss];
-                }
-                else {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-                return nil;
-            }];
+            [self pushRentTypeViewControllerInNavigationController:viewController animated:YES];
         }
     }
     else {
@@ -369,6 +354,23 @@
     }
 
     _lastSelectedTabIndex = tabBarController.selectedIndex;
+}
+
+- (void)pushRentTypeViewControllerInNavigationController:(UINavigationController *)viewController animated:(BOOL)animated {
+    [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+        if (task.result) {
+            CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
+            [form setRentTypeList:task.result];
+            CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
+            controller.formController.form = form;
+            controller.hidesBottomBarWhenPushed = YES;
+            [viewController pushViewController:controller animated:animated];
+        }
+        else {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        return nil;
+    }];
 }
 
 - (void)updateWebViewControllerTabAtIndex:(NSInteger)index {
@@ -386,7 +388,7 @@
     }
 }
 
-- (void)updatePublishRentTicketTabWithController:(UINavigationController *)viewController silent:(BOOL)silent {
+- (void)updatePublishRentTicketTabWithController:(UINavigationController *)viewController silent:(BOOL)silent{
 
     Sequencer *sequencer = [Sequencer new];
 
@@ -456,6 +458,8 @@
             unfinishedRentTicketController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
                 [weakSelf showUserPageSection:@"/user-properties#rent" fromViewController:unfinishedRentTicketController];
             }];
+
+
             [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
             [unfinishedRentTicketController reloadWithTickets:unfinishedRentTickets];
         }
@@ -567,12 +571,15 @@
     [self.tabBarController setSelectedIndex:kEditTabBarIndex];
     _lastSelectedTabIndex = kEditTabBarIndex;
     UINavigationController *viewController = [[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex];
-    if (!viewController.topViewController) {
-        [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:NO];
+    UIViewController *fromController = notif.object;
+
+    if (fromController && fromController.navigationController == viewController) {
+        [self pushRentTypeViewControllerInNavigationController:viewController animated:YES];
     }
-    else if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
-        [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:NO];
-        [viewController popToRootViewControllerAnimated:YES];
+    else {
+        if ([viewController.topViewController isKindOfClass:[CUTEUnfinishedRentTicketListViewController class]]) {
+            [self pushRentTypeViewControllerInNavigationController:viewController animated:NO];
+        }
     }
 }
 
@@ -653,7 +660,7 @@
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
-    [[CUTEDataManager sharedInstance] cleanAllUnfinishedRentTickets];
+    [[CUTEDataManager sharedInstance] cleanAllRentTickets];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
     //clear some user default
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];

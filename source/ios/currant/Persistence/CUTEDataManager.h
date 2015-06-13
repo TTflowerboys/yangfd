@@ -36,7 +36,7 @@
 
 - (BOOL)isTicketDeleted:(NSString *)ticketId;
 
-- (void)cleanAllUnfinishedRentTickets;
+- (void)cleanAllRentTickets;
 
 - (void)saveImageURLString:(NSString *)imageURLStr forAssetURLString:(NSString *)urlStr;
 
