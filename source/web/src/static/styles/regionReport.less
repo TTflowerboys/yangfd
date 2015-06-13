@@ -7,6 +7,7 @@
 main {
     .info {
         position:relative;
+        overflow: hidden;
         img {
             //background: @footer-bg no-repeat center top;
             //background-size: cover;
@@ -16,6 +17,12 @@ main {
             width: 100%;
             border:0;
             color: transparent;//hide alt
+            -o-filter: blur(5px);
+            -ms-filter: blur(5px);
+            -moz-filter: blur(5px);
+            -webkit-filter: blur(5px);
+            filter: blur(5px);
+            transform: scale(1.05);
 
             @media @phone {
                 height:400px;
@@ -24,11 +31,11 @@ main {
 
         .img_shadow{
             background:#000000;
-            opacity: .20; /* Standards Compliant Browsers */
-            filter: alpha(opacity=20); /* IE 7 and Earlier */
+            opacity: .25; /* Standards Compliant Browsers */
+            filter: alpha(opacity=25); /* IE 7 and Earlier */
             /* Next 2 lines IE8 */
-            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=25)";
+            filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=25);
             min-width: 100%;
             min-height: 100%;
             position: absolute;
@@ -85,6 +92,7 @@ main {
                 line-height:30px;
                 margin-top:80px;
                 word-wrap: break-word;
+                font-weight: lighter;
 
                 @media @phone {
                     margin-top:25px;
