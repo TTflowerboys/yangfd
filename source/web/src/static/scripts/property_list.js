@@ -286,14 +286,14 @@
             return true
         }
         else if (baseRange[0] === '') {
-            return parseFloat(range[1]) < parseFloat(baseRange[1])
+            return parseFloat(range[1]) <= parseFloat(baseRange[1])
         }
         else if (baseRange[1] === '') {
-            return parseFloat(range[0]) > parseFloat(baseRange[1])
+            return parseFloat(range[0]) >= parseFloat(baseRange[1])
         }
         else {
-            return (parseFloat(range[0]) > parseFloat(baseRange[0]) && parseFloat(range[0]) < parseFloat(baseRange[1])) ||
-                (parseFloat(range[1]) > parseFloat(baseRange[0]) && parseFloat(range[1]) < parseFloat(baseRange[1]))
+            return (parseFloat(range[0]) >= parseFloat(baseRange[0]) && parseFloat(range[0]) <= parseFloat(baseRange[1])) ||
+                (parseFloat(range[1]) >= parseFloat(baseRange[0]) && parseFloat(range[1]) <= parseFloat(baseRange[1]))
         }
         return false
     }
@@ -312,14 +312,19 @@
             buildingAreaRange = getEnumRange(getEnumDataById(window.buildingAreaData, buildingArea))
         }
         _.each(array, function (house) {
-            if (house.main_house_types) {
+            if (house.property_type && (house.property_type.slug === 'new_property' || house.property_type.slug === 'student_housing') && house.main_house_types && house.main_house_types.length) {
                 house.main_house_types = _.filter(house.main_house_types, function (house_type) {
                     var priceCheck = true
                     var bedroomCountCheck = true
                     var buildingAreaCheck = true
                     if (budgetRange) {
-                        priceCheck = house_type.total_price_min && house_type.total_price_min.value && isRangeMatch([house_type.total_price_min.value, house_type.total_price_max.value],
-                            budgetRange)
+                        if(house_type.total_price_min && house_type.total_price_min.localized_unit && house_type.total_price_max.localized_unit){
+                            priceCheck = house_type.total_price_min.localized_value && isRangeMatch([house_type.total_price_min.localized_value, house_type.total_price_max.localized_value],
+                                budgetRange)
+                        }else{
+                            priceCheck = house_type.total_price_min && house_type.total_price_min.value && isRangeMatch([house_type.total_price_min.value, house_type.total_price_max.value],
+                                budgetRange)
+                        }
                     }
                     if (bedroomRange) {
                         bedroomCountCheck = parseInt(house_type.bedroom_count) >= parseInt(bedroomRange[0]) && parseInt(house_type.bedroom_count) <= parseInt(bedroomRange[1])
