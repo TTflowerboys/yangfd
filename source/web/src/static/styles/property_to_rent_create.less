@@ -446,18 +446,31 @@ main {
                         border: 2px dashed #ccc;
                         border-radius: 10px;
                         .ajax-file-upload-statusbar{
-                            box-sizing: content-box;
                             float: left;
                             position: relative;
                             width: 140px !important;
                             height: 140px;
                             margin: 5px;
                             //padding: 10px;
-                            padding: 0;
+                            padding: 10px;
                             border: 1px solid #ccc;
                             overflow: hidden;
-                            img{
-                                padding: 10px;
+                            &:hover{
+                                cursor: pointer;
+                                border: 1px solid #E60012;
+                            }
+                            &.cover{
+                                border: 2px solid #E60012;
+                                &:after {
+                                    position: absolute;
+                                    content: '';
+                                    display: block;
+                                    left: -1px;
+                                    top: -1px;
+                                    width: 63px;
+                                    height: 63px;
+                                    background: url("/static/images/icon/cover_icon.png");
+                                }
                             }
                             .ajax-file-upload-progress {
                                 position: absolute;
@@ -506,8 +519,23 @@ main {
                                 position: absolute;
                                 top: 10px;
                                 right: 10px;
+                                -moz-box-shadow: inset 0 39px 0 -24px #F50707;
+                                -webkit-box-shadow: inset 0 39px 0 -24px #F50707;
+                                box-shadow: inset 0 39px 0 -24px #F50707;
+                                background-color: #E90000;
+                                border-radius: 0px 0 0px 5px;
+                                color: #fff;
+                                font-weight: normal;
+                                padding: 3px 10px;
+                                text-decoration: none;
+                                text-shadow:none;
+                                cursor: pointer;
+                                vertical-align: top;
                             }
                         }
+                    }
+                    .tipOfSetCover{
+                        margin: 6px 0;
                     }
                     .with_weixin {
                         padding-top: 80px;

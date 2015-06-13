@@ -409,7 +409,7 @@
                     <div class="subtitle">
                         {{_('上传图片')}}
                     </div>
-                    <div class="image_panel">
+                    <div class="image_panel" data-cover="{{rent.get('property', {}).get('cover','')}}">
                         <div id="fileuploader" class="upload_image"
                             %if rent.get('property', {}).get('reality_images'):
                             data-files="{{','.join(rent.get('property', {}).get('reality_images'))}}"
@@ -418,6 +418,7 @@
                             {{_('请将图片文件直接拖拽至此，')}}<br>{{_('或者自行查找电脑中的图片文件。')}}
                         </div>
                         <div id="uploadProgress" class="clearfix"></div>
+                        <p class="tipOfSetCover">{{_('提示:点击上方的预览图可以将其设置为封面图，用来展示在出租房列表中')}}</p>
                         <div class="with_weixin" style="display: none">
                             <div class="information">
                                 <div class="on_phone">

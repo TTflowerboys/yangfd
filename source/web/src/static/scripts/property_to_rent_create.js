@@ -590,6 +590,11 @@
         if($('#longitude').val() !== '') {
             propertyData.longitude = $('#longitude').val()
         }
+        if($('.ajax-file-upload-statusbar.cover').length) {
+            propertyData.cover = JSON.stringify({'zh_Hans_CN': $('.ajax-file-upload-statusbar.cover').attr('data-url')})
+        } else {
+            delete propertyData.cover
+        }
         return propertyData
     }
 
@@ -917,6 +922,9 @@
             sizeErrorStr: window.i18n('不允许上传. 允许的最大尺寸为: '),
             uploadErrorStr: window.i18n('不允许上传'),
             maxFileCountErrorStr: window.i18n(' 不允许上传. 上传最大文件数为:'),
+            abortStr: window.i18n('停止'),
+            cancelStr: window.i18n('取消'),
+            deletelStr: window.i18n('删除'),
             deleteCallback: function(data, pd){
                 var url
                 if($.isArray(data)){
@@ -938,14 +946,27 @@
                     }
                 }
                 imageArr.push(data.val.url)
-                pd.progressDiv.hide()
+                pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').attr('data-url', data.val.url)
             },
             onLoad:function(obj) {
                 $.each(imageArr, function(i, v){
+                    var cover = $('.image_panel').attr('data-cover')
                     obj.createProgress(v)
-                    $('#uploadProgress').find('.ajax-file-upload-statusbar').eq(i).find('.ajax-file-upload-progress').hide()
+                    var previewElem = $('#uploadProgress').find('.ajax-file-upload-statusbar').eq(i)
+                    previewElem.attr('data-url', v).find('.ajax-file-upload-progress').hide()
+                    if(previewElem.attr('data-url') === cover) {
+                        previewElem.addClass('cover')
+                    }
                 })
             },
+            onSubmit: function () {
+                if(!$('.ajax-file-upload-statusbar.cover').length) {
+                    $('.ajax-file-upload-statusbar').eq(0).addClass('cover')
+                }
+            }
+        })
+        $('.image_panel').delegate('.ajax-file-upload-statusbar', 'click', function () {
+            $(this).toggleClass('cover').siblings('.ajax-file-upload-statusbar').removeClass('cover')
         })
     })
 })()
