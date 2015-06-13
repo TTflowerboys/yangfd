@@ -21,6 +21,7 @@
 #import "CUTEDataManager.h"
 #import "WebViewJavascriptBridge.h"
 #import "NSString+Encoding.h"
+#import "NSArray+ObjectiveSugar.h"
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
@@ -30,7 +31,7 @@
 
     NJKWebViewProgress *_progressProxy;
 
-    BOOL _needReloadURL;
+    NSURL *_needReloadURL;
 }
 
 @property (nonatomic, strong) WebViewJavascriptBridge *bridge;
@@ -220,7 +221,7 @@
     TrackScreen(GetScreenName(self.url));
 
     if (_needReloadURL) {
-        [self updateWithURL:self.url];
+        [self updateWithURL:_needReloadURL];
     }
 }
 
@@ -344,15 +345,24 @@
 
 - (void)onReceiveUserDidLogin:(NSNotification *)notif {
     if (notif.object != self && [[CUTEWebConfiguration sharedInstance] isURLLoginRequired:self.url]) {
-        if (_webView.request.URL && [_webView.request.URL.absoluteString isEqualToString:[[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:self.url].absoluteString]) {
-            _needReloadURL = YES;
+        NSURLComponents *urlComponents = [NSURLComponents componentsWithString:_webView.request.URL.absoluteString];
+        if (urlComponents && [urlComponents.URL.absoluteString isEqualToString:[[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:self.url].absoluteString]) {
+            _needReloadURL = self.url;
+        }
+        else if (urlComponents && [urlComponents.path hasPrefix:@"/signin"]) {
+            NSURLQueryItem *queryItem = [[urlComponents queryItems] find:^BOOL(NSURLQueryItem *object) {
+                return [[object name] isEqualToString:@"from"];
+            }];
+            if (queryItem) {
+                _needReloadURL = [NSURL URLWithString:queryItem.value];
+            }
         }
     }
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
     if (notif.object != self && [[CUTEWebConfiguration sharedInstance] isURLLoginRequired:self.url]) {
-        _needReloadURL = YES;
+        _needReloadURL = self.url;
     }
 }
 
