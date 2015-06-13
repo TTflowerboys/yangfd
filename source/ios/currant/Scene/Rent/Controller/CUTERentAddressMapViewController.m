@@ -206,9 +206,15 @@
                     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
                     [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
                 }
-
+                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
                 self.ticket.property.latitude = location.coordinate.latitude;
                 self.ticket.property.longitude = location.coordinate.longitude;
+                [ticketListener stopListenMark];
+                //check is a draft ticket not a unfinished one
+                if (!IsNilNullOrEmpty(self.ticket.identifier)) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
+                }
+
                 [self checkNeedUpdateAddress];
 
                 [SVProgressHUD dismiss];
