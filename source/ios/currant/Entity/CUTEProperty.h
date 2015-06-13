@@ -26,7 +26,9 @@
 
 @property (strong, nonatomic) CUTEEnum *propertyType;
 
-@property (strong, nonatomic) NSArray * realityImages;
+@property (strong, nonatomic) NSArray *realityImages;
+
+@property (strong, nonatomic) NSString *cover;
 
 @property (strong, nonatomic) NSString *name;
 
