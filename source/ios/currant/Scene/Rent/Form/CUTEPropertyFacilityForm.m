@@ -41,8 +41,8 @@
 - (NSArray *)fields {
     NSMutableArray *array = [NSMutableArray array];
     if (!IsArrayNilOrEmpty(_allIndoorFacilities)) {
-        int count = _allIndoorFacilities.count;
-        for (int i = 0; i < count; i++)
+        NSUInteger count = _allIndoorFacilities.count;
+        for (NSUInteger i = 0; i < count; i++)
         {
             CUTEEnum *facility = [_allIndoorFacilities objectAtIndex:i];
             if (i == 0) {
@@ -54,8 +54,8 @@
         }
     }
     if (!IsArrayNilOrEmpty(_allCommunityFacilities)) {
-        int count = _allCommunityFacilities.count;
-        for (int i = 0; i < count; i++)
+        NSUInteger count = _allCommunityFacilities.count;
+        for (NSUInteger i = 0; i < count; i++)
         {
             CUTEEnum *facility = [_allCommunityFacilities objectAtIndex:i];
             if (i == 0) {

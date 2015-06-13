@@ -57,7 +57,7 @@ static void releaseAssetCallback(void *info) {
 
     CGImageRef imageRef = CGImageSourceCreateThumbnailAtIndex(source, 0, (__bridge CFDictionaryRef) @{
                                                                                                       (NSString *)kCGImageSourceCreateThumbnailFromImageAlways : @YES,
-                                                                                                      (NSString *)kCGImageSourceThumbnailMaxPixelSize : [NSNumber numberWithInt:size],
+                                                                                                      (NSString *)kCGImageSourceThumbnailMaxPixelSize : [NSNumber numberWithInt:(int)size],
                                                                                                       (NSString *)kCGImageSourceCreateThumbnailWithTransform : @YES,
                                                                                                       });
     CFRelease(source);
