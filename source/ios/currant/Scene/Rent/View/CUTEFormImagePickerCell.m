@@ -140,18 +140,18 @@
     [_scrollView setHidden:!hidePlaceHolder];
     [_addButton setHidden:!hidePlaceHolder];
 
-    [self updateThumbnails:[self ticket].property.realityImages];
+    [self updateThumbnails:[self ticket].property.realityImages cover:self.ticket.property.cover];
 
     [self setNeedsLayout];
 }
 
-- (void)updateThumbnails:(NSArray *)items {
+- (void)updateThumbnails:(NSArray *)items cover:(NSString *)cover {
     [_scrollView removeAllSubViews];
 
     if (!IsArrayNilOrEmpty(items)) {
         CGFloat sideWidth = RectHeight(_scrollView.bounds);
         CGFloat margin = 10;
-        [items eachWithIndex:^(id obj, NSUInteger idx) {
+        [items eachWithIndex:^(NSString *obj, NSUInteger idx) {
             UIImageView *imageView = [[UIImageView alloc] init];
             [imageView setImageWithAssetURL:[NSURL URLWithString:obj] thumbnailWidth:sideWidth];
             [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onImageTapped:)]];
@@ -159,6 +159,18 @@
             imageView.attachment = [NSNumber numberWithInteger:idx];
             [_scrollView addSubview:imageView];
             imageView.frame = CGRectMake(sideWidth * idx + margin * (idx + 1), 0, sideWidth, sideWidth);
+
+
+            if (!IsNilNullOrEmpty(cover) && [cover isEqualToString:obj]) {
+                UILabel *coverLabel = [UILabel new];
+                coverLabel.frame = CGRectMake(0, 0, 40, 20);
+                coverLabel.text = STR(@"封面");
+                coverLabel.font = [UIFont systemFontOfSize:12];
+                coverLabel.textAlignment = NSTextAlignmentCenter;
+                coverLabel.backgroundColor = CUTE_MAIN_COLOR;
+                coverLabel.textColor = [UIColor whiteColor];
+                [imageView addSubview:coverLabel];
+            }
         }];
         _scrollView.contentSize = CGSizeMake((sideWidth + margin) * [items count], sideWidth);
         [_scrollView scrollRectToVisible:[(UIView *)[[_scrollView subviews] lastObject] frame] animated:NO];
@@ -458,6 +470,29 @@
 
 #pragma mark - MWPhotoBrowserDelegate
 
+- (UIToolbar *)getToolbarFromPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    NSArray *subViews = [[photoBrowser view] subviews];
+    UIToolbar *toolbar = [subViews find:^BOOL(id object) {
+        return [object isKindOfClass:[UIToolbar class]];
+    }];
+    return toolbar;
+}
+
+- (UIBarButtonItem *)getActionButtonForPhotoBrowser:(MWPhotoBrowser *)photoBrowser atIndex:(NSUInteger)index
+{
+    NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
+
+    if (!IsNilNullOrEmpty(self.ticket.property.cover) && [asset isEqualToString:self.ticket.property.cover]) {
+        UIBarButtonItem *setCoverItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"已是封面") style:UIBarButtonItemStylePlain target:nil action:nil];
+        setCoverItem.enabled = NO;
+        return setCoverItem;
+    }
+    else {
+        UIBarButtonItem *setCoverItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"设为封面") style:UIBarButtonItemStylePlain target:photoBrowser action:NSSelectorFromString(@"actionButtonPressed:")];
+        return setCoverItem;
+    }
+}
+
 
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
 {
@@ -466,20 +501,15 @@
 
 - (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index
 {
-    if (index == 0) {
-        NSArray *subViews = [[photoBrowser view] subviews];
-        UIToolbar *toolbar = [subViews find:^BOOL(id object) {
-            return [object isKindOfClass:[UIToolbar class]];
-        }];
-
-        UIBarButtonItem *setCoverItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"设为封面") style:UIBarButtonItemStylePlain target:photoBrowser action:NSSelectorFromString(@"actionButtonPressed:")];
-        [toolbar setItems:@[setCoverItem]];
-    }
-
     NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
     return [MWPhoto photoWithURL:[NSURL URLWithString:asset]];
 }
 
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index
+{
+    UIToolbar *toolbar = [self getToolbarFromPhotoBrowser:photoBrowser];
+    [toolbar setItems:@[[self getActionButtonForPhotoBrowser:photoBrowser atIndex:index]]];
+}
 
 - (BOOL)photoBrowser:(MWPhotoBrowser *)photoBrowser isPhotoSelectedAtIndex:(NSUInteger)index
 {
@@ -526,9 +556,21 @@
                 }
                 else {
                     CUTEProperty *retProperty = task.result;
-                    self.ticket.property.cover = retProperty.cover;
-                    [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
-                    [SVProgressHUD showSuccessWithStatus:STR(@"设置成功")];
+                    if (retProperty && !IsNilNullOrEmpty(retProperty.cover)) {
+
+                        NSString *oldCoverURLStr = self.ticket.property.cover;
+                        self.ticket.property.cover = retProperty.cover;
+                        NSMutableArray *realityImages = [NSMutableArray arrayWithArray:self.ticket.property.realityImages];
+                        [realityImages replaceObjectAtIndex:[self.ticket.property.realityImages indexOfObject:oldCoverURLStr] withObject:retProperty.cover];
+                        [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
+                        [SVProgressHUD showSuccessWithStatus:STR(@"设置成功")];
+
+                        UIToolbar *toolbar = [self getToolbarFromPhotoBrowser:photoBrowser];
+                        [toolbar setItems:@[[self getActionButtonForPhotoBrowser:photoBrowser atIndex:index]]];
+                    }
+                    else {
+                        [SVProgressHUD showErrorWithStatus:STR(@"设置失败")];
+                    }
                 }
                 
                 return task;
@@ -546,6 +588,10 @@
         return asset.attachment == nil || [asset.attachment boolValue];
     }];
     self.ticket.property.realityImages = [NSMutableArray arrayWithArray:IsArrayNilOrEmpty(editedAssets)? @[]: editedAssets];
+    //user may delete the cover
+    if (![editedAssets containsObject:self.ticket.property.cover]) {
+        self.ticket.property.cover = nil;
+    }
     [self update];
     [[self tableViewController] dismissViewControllerAnimated:YES completion:nil];
 }

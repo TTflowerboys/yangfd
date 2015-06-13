@@ -203,6 +203,14 @@
         [unsetFields addObject:@"longitude"];
     }
 
+    //here user not set the cover, just set the first image
+    if (!IsArrayNilOrEmpty(self.realityImages) && IsNilNullOrEmpty(self.cover)) {
+        [params setObject:[self.realityImages find:^BOOL(id object) {
+            NSURL *url = [NSURL URLWithString:object];
+            return  url && [url isHttpOrHttpsURL];
+        }] forKey:@"cover"];
+    }
+
     if (!IsArrayNilOrEmpty(unsetFields)) {
         [params setValue:[unsetFields componentsJoinedByString:@","] forKey:@"unset_fields"];
     }
