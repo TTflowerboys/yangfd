@@ -37,9 +37,42 @@ $(function () {
         }
         loadRentProperty()
     }
+    $('body').dropload({ //下拉刷新
+        domUp : {
+            domClass   : 'dropload-up',
+            domRefresh : '<div class="dropload-refresh">↓ ' + i18n('下拉刷新') + '</div>',
+            domUpdate  : '<div class="dropload-update">↑ ' + i18n('松开刷新') + '</div>',
+            domLoad    : '<div class="dropload-load"><span class="loading"></span>' + i18n('加载中...') + '</div>'
+        },
+        loadUpFn : function(me){
+            if(isLoading){
+                return me.resetload();
+            }
+            loadProperty().always(function () {
+                me.resetload();
+            })
+        },
 
-
+    });
+    function loadProperty() {
+        var defer = $.Deferred()
+        if($('.buttons .button').hasClass('own')) {
+            loadOwnProperty().then(function () {
+                defer.resolve()
+            }, function () {
+                defer.reject()
+            })
+        } else {
+            loadRentProperty().then(function () {
+                defer.resolve()
+            }, function () {
+                defer.reject()
+            })
+        }
+        return defer.promise()
+    }
     function loadOwnProperty() {
+        var defer = $.Deferred()
         if(xhr && xhr.readyState !== 4) {
             xhr.abort()
         }
@@ -81,16 +114,20 @@ $(function () {
                         $ownPlaceholder.show()
                     }
                 }
+                defer.resolve()
             }).fail(function(){
                 $ownPlaceholder.show()
+                defer.reject()
             }).complete(function () {
                 $('#loadIndicator').hide()
                 isLoading = false
             })
+        return defer.promise()
     }
 
 
     function loadRentProperty() {
+        var defer = $.Deferred()
         if(xhr && xhr.readyState !== 4) {
             xhr.abort()
         }
@@ -134,12 +171,15 @@ $(function () {
                         $rentPlaceholder.show()
                     }
                 }
+                defer.resolve()
             }).fail(function(){
                 $rentPlaceholder.show()
+                defer.reject()
             }).complete(function () {
                 $('#loadIndicator').hide()
                 isLoading = false
             })
+        return defer.promise()
     }
 
     function switchTypeTab(state) {
