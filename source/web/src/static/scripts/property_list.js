@@ -351,9 +351,11 @@
             $('#number_container').text(window.i18n('加载中'))
             $('#number_container').show()
         }
-
-        $('#loadIndicator').show()
         isLoading = true
+        $('#loadIndicator').show()
+        if($('body').height() - $(window).scrollTop() - $(window).height() < 120) {
+            $('body,html').animate({scrollTop: $('body').height()}, 300)
+        }
 
         var totalResultCount = getCurrentTotalCount()
         $.betterPost('/api/1/property/search', params)
@@ -1044,10 +1046,9 @@
         }
     }
 
-    $(window).scroll(function () {
-
+    function autoLoad() {
         if ($('[data-tab-name=list]').is(':visible')) {
-           // var scrollPos = $(window).scrollTop()
+            // var scrollPos = $(window).scrollTop()
             var windowHeight = $(window).height()
             var listHeight = $('#result_list').height()
             var itemCount = getCurrentTotalCount()
@@ -1056,26 +1057,30 @@
                 requireToScrollHeight = listHeight * 0.6
             }
 
-            setTimeout(function () {
-                if (windowHeight +  $(window).scrollTop() > requireToScrollHeight) {
-                    if (!isLoading) {
-                        if (isCurrentBudgetLoadFinished()) {
-                            if (!window.team.isPhone()) {
-                                var budget = getCurrentBelowNotFinishedBudget()
-                                if (budget) {
-                                    loadAddtionalPropertyList(budget,additionalReload)
-                                }
+            if (windowHeight +  $(window).scrollTop() > requireToScrollHeight) {
+                if (!isLoading) {
+                    if (isCurrentBudgetLoadFinished()) {
+                        if (!window.team.isPhone()) {
+                            var budget = getCurrentBelowNotFinishedBudget()
+                            if (budget) {
+                                loadAddtionalPropertyList(budget,additionalReload)
                             }
                         }
-                        else {
-                            loadPropertyList()
-                        }
+                    }
+                    else {
+                        $('.isAllLoadedInfo').hide()
+                        loadPropertyList()
                     }
                 }
-            }, 200)
+            }
         }
+    }
+    $(window).scroll(autoLoad)
+    $(document).ready(function () {
+        setTimeout(function () {
+            autoLoad()
+        }, 200)
     })
-
     /*
     * Map View
     * */

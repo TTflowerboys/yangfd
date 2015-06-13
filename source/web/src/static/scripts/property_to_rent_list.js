@@ -356,9 +356,11 @@
             $('#number_container').text(window.i18n('加载中'))
             $('#number_container').show()
         }
-
-        $('#loadIndicator').show()
         isLoading = true
+        $('#loadIndicator').show()
+        if($('body').height() - $(window).scrollTop() - $(window).height() < 120) {
+            $('body,html').animate({scrollTop: $('body').height()}, 300)
+        }
 
         var totalResultCount = getCurrentTotalCount()
         $.betterPost('/api/1/rent_ticket/search', params)
@@ -682,27 +684,31 @@
         }
     })
 
-    $(window).scroll(function () {
-
-        if ($('[data-tab-name=list]').is(':visible')) {
-            var scrollPos = $(window).scrollTop()
-            var windowHeight = $(window).height()
-            if (window.team.isCurrantClient()) { //如果是在App中，页头会被隐藏，需要补上一段距离
-                windowHeight += 420
-            }
-            var listHeight = $('#result_list').height()
-            var requireToScrollHeight = listHeight
-
-            setTimeout(function () {
-                if (windowHeight + scrollPos > requireToScrollHeight) {
-                    if (!isLoading && !isAllItemsLoaded) {
-                        loadRentList()
-                    }
-                }
-            }, 200)
+    function needLoad() {
+        var scrollPos = $(window).scrollTop()
+        var windowHeight = $(window).height()
+        if (window.team.isCurrantClient()) { //如果是在App中，页头会被隐藏，需要补上一段距离
+            windowHeight += 600
         }
-    })
+        var listHeight = $('#result_list').height()
+        var requireToScrollHeight = listHeight
+        return windowHeight + scrollPos > requireToScrollHeight && !isLoading && !isAllItemsLoaded
+    }
 
+    function autoLoad() {
+        if ($('[data-tab-name=list]').is(':visible')) {
+            if(needLoad()) {
+                $('.isAllLoadedInfo').hide()
+                loadRentList()
+            }
+        }
+    }
+    $(window).scroll(autoLoad)
+    $(document).ready(function () {
+        setTimeout(function () {
+            autoLoad()
+        }, 200)
+    })
     /*
     * Map View
     * */
