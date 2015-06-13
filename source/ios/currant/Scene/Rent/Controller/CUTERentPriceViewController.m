@@ -146,7 +146,7 @@
 
 - (void)syncWithUserInfo:(NSDictionary *)userInfo {
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:@{@"ticket": self.ticket}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:userInfo];
     if (self.updatePriceCompletion) {
         self.updatePriceCompletion();
     }
