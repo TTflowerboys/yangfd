@@ -173,7 +173,57 @@
         return description
     }
 
-    loadPropertyList(true)
+    var countryFromURL = window.team.getQuery('country', location.href)
+    if (countryFromURL) {
+        selectCountry(countryFromURL)
+    }
+
+    var cityFromURL = window.team.getQuery('city', location.href)
+    if (cityFromURL) {
+        selectCity(cityFromURL)
+    }
+
+    var propertyTypeFromURL = window.team.getQuery('property_type', location.href)
+    if (propertyTypeFromURL) {
+        selectPropertyType(propertyTypeFromURL)
+    }
+
+    var intentionFromURL = window.team.getQuery('intention', location.href)
+    if (intentionFromURL) {
+        removeAllSelectedIntentions() //remove all selected, only use the url intention
+        selectIntention(intentionFromURL)
+
+        if (window.team.isPhone()) {
+            showTags()
+        }
+    }
+
+    var budgetFromURL = window.team.getQuery('budget', location.href)
+    if (budgetFromURL) {
+        selectBudget(budgetFromURL)
+
+        if (window.team.isPhone()) {
+            showTags()
+        }
+    }
+
+    var bedroomFromURL = window.team.getQuery('bedroom_count', location.href)
+    if (bedroomFromURL) {
+        selectBedroom(bedroomFromURL)
+
+        if (window.team.isPhone()) {
+            showTags()
+        }
+    }
+
+    var buildingAreaFromURL = window.team.getQuery('building_area', location.href)
+    if (buildingAreaFromURL) {
+        selectBuildingArea(buildingAreaFromURL)
+
+        if (window.team.isPhone()) {
+            showTags()
+        }
+    }
 
     //在城市选择上使用chosen插件
     function initChosen (elem) {
@@ -194,6 +244,8 @@
     initChosen($('[name=propertyCountry]'))
     initChosen($('[name=propertyCity]'))
     initChosen($('[name=propertyType]'))
+    loadPropertyList(true)
+
     /*
     * Load Data from server
     * */
@@ -994,57 +1046,6 @@
     //     }
     // }
 
-    var countryFromURL = window.team.getQuery('country', location.href)
-    if (countryFromURL) {
-        selectCountry(countryFromURL)
-    }
-
-    var cityFromURL = window.team.getQuery('city', location.href)
-    if (cityFromURL) {
-        selectCity(cityFromURL)
-    }
-
-    var propertyTypeFromURL = window.team.getQuery('property_type', location.href)
-    if (propertyTypeFromURL) {
-        selectPropertyType(propertyTypeFromURL)
-    }
-
-    var intentionFromURL = window.team.getQuery('intention', location.href)
-    if (intentionFromURL) {
-        removeAllSelectedIntentions() //remove all selected, only use the url intention
-        selectIntention(intentionFromURL)
-
-        if (window.team.isPhone()) {
-            showTags()
-        }
-    }
-
-    var budgetFromURL = window.team.getQuery('budget', location.href)
-    if (budgetFromURL) {
-        selectBudget(budgetFromURL)
-
-        if (window.team.isPhone()) {
-            showTags()
-        }
-    }
-
-    var bedroomFromURL = window.team.getQuery('bedroom_count', location.href)
-    if (bedroomFromURL) {
-        selectBedroom(bedroomFromURL)
-
-        if (window.team.isPhone()) {
-            showTags()
-        }
-    }
-
-    var buildingAreaFromURL = window.team.getQuery('building_area', location.href)
-    if (buildingAreaFromURL) {
-        selectBuildingArea(buildingAreaFromURL)
-
-        if (window.team.isPhone()) {
-            showTags()
-        }
-    }
 
     function autoLoad() {
         if ($('[data-tab-name=list]').is(':visible')) {

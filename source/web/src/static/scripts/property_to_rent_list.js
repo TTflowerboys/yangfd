@@ -198,27 +198,6 @@
 
 
 
-    //在城市选择上使用chosen插件
-    function initChosen (elem) {
-        if(!window.team.isPhone()) {
-            elem.chosen({
-                width: '100%',
-                disable_search_threshold: 8
-            })
-        }
-        $(window).bind('resize', function () {
-            if(window.team.isPhone()) {
-                elem.show().siblings('.chosen-container').hide()
-            }else {
-                elem.hide().siblings('.chosen-container').show()
-            }
-        })
-    }
-    initChosen($('[name=propertyCountry]'))
-    initChosen($('[name=propertyCity]'))
-    initChosen($('[name=propertyType]'))
-    initChosen($('[name=rentType]'))
-    // Init top filters value from URL
     var countryFromURL = window.team.getQuery('country', location.href)
     if (countryFromURL) {
         selectCountry(countryFromURL)
@@ -281,6 +260,28 @@
             showTagsOnMobile()
         }
     }
+
+    //在城市选择上使用chosen插件
+    function initChosen (elem) {
+        if(!window.team.isPhone()) {
+            elem.chosen({
+                width: '100%',
+                disable_search_threshold: 8
+            })
+        }
+        $(window).bind('resize', function () {
+            if(window.team.isPhone()) {
+                elem.show().siblings('.chosen-container').hide()
+            }else {
+                elem.hide().siblings('.chosen-container').show()
+            }
+        })
+    }
+    initChosen($('[name=propertyCountry]'))
+    initChosen($('[name=propertyCity]'))
+    initChosen($('[name=propertyType]'))
+    initChosen($('[name=rentType]'))
+    // Init top filters value from URL
 
     // Init load rent property list
     loadRentList()
