@@ -21,7 +21,7 @@ $(function () {
                     }
                     if($('.hostEmail').length) {
                         $('.hostEmail span').text(host.email)
-                        $('.hostEmail a').attr('href', 'mailto:+' + host.email)
+                        $('.hostEmail a').attr('href', 'mailto:' + host.email)
                     }
                     if($('.hostWechat').length) {
                         $('.hostWechat span').text(host.wechat)
