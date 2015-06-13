@@ -660,7 +660,7 @@
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
-    [[CUTEDataManager sharedInstance] cleanAllUnfinishedRentTickets];
+    [[CUTEDataManager sharedInstance] cleanAllRentTickets];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
     //clear some user default
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];

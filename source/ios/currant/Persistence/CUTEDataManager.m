@@ -44,10 +44,10 @@
 #pragma mark - Tables
 
 #define KTABLE_SETTINGS @"cute_settings"
-#define KTABLE_UNFINISHE_RENT_TICKETS @"cute_unfinished_rent_tickets"
-#define KTABLE_URL_ASSET @"url_asset"
-#define KTABLE_ASSET_URL @"asset_url"
-#define KTABLE_SCREEN_LAST_VISIT_TIME @"screen_last_visit_time"
+#define KTABLE_RENT_TICKETS @"cute_rent_tickets"
+#define KTABLE_URL_ASSET @"cute_url_asset"
+#define KTABLE_ASSET_URL @"cute_asset_url"
+#define KTABLE_SCREEN_LAST_VISIT_TIME @"cute_screen_last_visit_time"
 
 
 #pragma mark - Keys
@@ -59,7 +59,7 @@
     _store = [[YTKKeyValueStore alloc] initDBWithName:@"cute.db"];
 
     [@[KTABLE_SETTINGS,
-       KTABLE_UNFINISHE_RENT_TICKETS,
+       KTABLE_RENT_TICKETS,
        KTABLE_ASSET_URL,
        KTABLE_URL_ASSET,
        KTABLE_SCREEN_LAST_VISIT_TIME] each:^(id object) {
@@ -145,18 +145,18 @@
 
 - (void)checkStatusAndSaveRentTicketToUnfinised:(CUTETicket *)ticket {
     if ([ticket.status isEqualToString:kTicketStatusDraft]) {
-        [self saveRentTicketToUnfinised:ticket];
+        [self saveRentTicket:ticket];
     }
 }
 
-- (void)saveRentTicketToUnfinised:(CUTETicket *)ticket {
+- (void)saveRentTicket:(CUTETicket *)ticket {
     DebugLog(@"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,ticket.identifier);
 
-    [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:ticket] withId:ticket.identifier intoTable:KTABLE_UNFINISHE_RENT_TICKETS];
+    [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:ticket] withId:ticket.identifier intoTable:KTABLE_RENT_TICKETS];
 }
 
 - (NSArray *)getAllUnfinishedRentTickets {
-    return [[[[_store getAllItemsFromTable:KTABLE_UNFINISHE_RENT_TICKETS] sortedArrayUsingComparator:^NSComparisonResult(YTKKeyValueItem *obj1, YTKKeyValueItem *obj2) {
+    return [[[[_store getAllItemsFromTable:KTABLE_RENT_TICKETS] sortedArrayUsingComparator:^NSComparisonResult(YTKKeyValueItem *obj1, YTKKeyValueItem *obj2) {
         return [obj2.createdTime compare:obj1.createdTime];
     }] map:^id(YTKKeyValueItem *object) {
         MTLJSONAdapter *ticket = [[MTLJSONAdapter alloc] initWithJSONDictionary:object.itemObject modelClass:[CUTETicket class] error:nil];
@@ -170,18 +170,18 @@
 {
     //just mark delegete
     ticket.status = kTicketStatusDeleted;
-    [self saveRentTicketToUnfinised:ticket];
+    [self saveRentTicket:ticket];
 }
 
 - (BOOL)isTicketDeleted:(NSString *)ticketId {
-    NSDictionary *json = [_store getObjectById:ticketId fromTable:KTABLE_UNFINISHE_RENT_TICKETS];
+    NSDictionary *json = [_store getObjectById:ticketId fromTable:KTABLE_RENT_TICKETS];
     CUTETicket *ticket = (CUTETicket *)[[[MTLJSONAdapter alloc] initWithJSONDictionary:json modelClass:[CUTETicket class] error:nil] model];
     return ticket && [ticket.status isEqualToString:kTicketStatusDeleted];
 }
 
-- (void)cleanAllUnfinishedRentTickets
+- (void)cleanAllRentTickets
 {
-    [_store clearTable:KTABLE_UNFINISHE_RENT_TICKETS];
+    [_store clearTable:KTABLE_RENT_TICKETS];
 }
 
 #pragma mark - Image URL Cache
