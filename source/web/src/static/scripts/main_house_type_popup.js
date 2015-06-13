@@ -3,32 +3,33 @@
     $(document).ready(function () {
         var cIndex = 0
 
-        var houseTypes = JSON.parse($('#propertyDetails_houseTypes_data').text())
-        var totalLength = houseTypes.length
+        if($('#propertyDetails_houseTypes_data').text() != ''){
+            var houseTypes = JSON.parse($('#propertyDetails_houseTypes_data').text())
+            var totalLength = houseTypes.length
 
-        if(houseTypes.length > 0){
-            for(var i = 0;i<houseTypes.length;i++){
-                var houseTypeTpl = _.template($('#main_house_type_popup_template').html())({houseType: houseTypes[i],index:i})
-                $('#main_house_type_popup').append(houseTypeTpl)
+            if(houseTypes.length > 0){
+                for(var i = 0;i<houseTypes.length;i++){
+                    var houseTypeTpl = _.template($('#main_house_type_popup_template').html())({houseType: houseTypes[i],index:i})
+                    $('#main_house_type_popup').append(houseTypeTpl)
 
-                $('#main_house_type_popup').find('#floorplanSlider'+i).responsiveSlides({
-                    pager: true,
-                    auto: false,
-                    nav: true,
-                    prevText: '<',
-                    nextText: '>'
+                    $('#main_house_type_popup').find('#floorplanSlider'+i).responsiveSlides({
+                        pager: true,
+                        auto: false,
+                        nav: true,
+                        prevText: '<',
+                        nextText: '>'
+                    })
+                }
+
+                $('#main_house_type_popup').find('.rslides_wrapper .leftPressArea').click(function (event) {
+                    $(event.target).parent().find('a.prev').click()
+                })
+
+                $('#main_house_type_popup').find('.rslides_wrapper .rightPressArea').click(function (event) {
+                    $(event.target).parent().find('a.next').click()
                 })
             }
-
-            $('#main_house_type_popup').find('.rslides_wrapper .leftPressArea').click(function (event) {
-                $(event.target).parent().find('a.prev').click()
-            })
-
-            $('#main_house_type_popup').find('.rslides_wrapper .rightPressArea').click(function (event) {
-                $(event.target).parent().find('a.next').click()
-            })
         }
-
 
         window.closeMainHouseType = function () {
             $('#main_house_type_popup').hide()

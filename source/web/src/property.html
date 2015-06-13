@@ -85,7 +85,7 @@
             %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('code') in ['US', 'GB']:
             <li><a href="#propertyDetails_aroundMap">{{_('周边配套')}}</a></li>
             %end
-            % if property.get('main_house_types'):
+            % if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
             <li class="menuItem"><a href="#propertyDetails_houseTypes">{{_('楼盘户型')}}</a></li>
             % end
             % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
@@ -275,9 +275,7 @@
                                 <td>
                                     <label class=price>
                                         <!--@@include=partials/get_unit_price.html  -->
-                                        <div class="price_reference">
-                                            <!--@@include=partials/get_reference_price.html  -->
-                                        </div>
+                                        <!--@@include=partials/get_reference_price.html  -->
                                     </label>
                                     %if property.get('minimum_down_payment_rate'):
                                         <label class="minimumDownPaymentRate" for="">
@@ -446,7 +444,7 @@
                                 </td>
                             </tr>
                         % end
-                        % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
+                        % if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
                             <tr>
                                 <td colspan="1" class="name">
                                     <i>
@@ -520,7 +518,7 @@
                     <img src="/static/images/common/ajax-loader.gif" id="mapLoadIndicator" class="mapLoadIndicator" style="display:none;"/>
                 </div>
             %end
-            % if property.get('main_house_types'):
+            % if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
                 <div id="propertyDetails_houseTypes" class="houseTypes scrollto">
                     <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('楼盘户型')}}</h3>
@@ -928,15 +926,13 @@
                     </div>
                 % end
 
-                %if property.get('total_price_min') or property.get('unit_price') or (property.get('main_house_types') and len(property.get('main_house_types'))):
+                %if property.get('total_price') or property.get('total_price_min') or property.get('unit_price') or (property.get('main_house_types') and len(property.get('main_house_types'))):
                     <div class="price">
                         <table>
                             <tr>
                                 <td class="price_inner">
                                     <!--@@include=partials/get_unit_price.html  -->
-                                    <div class="price_reference">
-                                        <!--@@include=partials/get_reference_price.html  -->
-                                    </div>
+                                    <!--@@include=partials/get_reference_price.html  -->
                                 </td>
                                 %if property.get('minimum_down_payment_rate'):
                                     <td class="minimumDownPaymentRate">
@@ -1158,9 +1154,7 @@
                                     </h3>
                                     <label class="price">
                                         <!--@@include=partials/get_unit_price.html-->
-                                        <div class="price_reference">
-                                            <!--@@include=partials/get_reference_price.html  -->
-                                        </div>
+                                        <!--@@include=partials/get_reference_price.html  -->
                                     </label>
                                 </div>
                             </a>
@@ -1202,7 +1196,7 @@
                 %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('code') in ['US', 'GB']:
                     <li><a href="#propertyDetails_aroundMap">{{_('周边配套')}}</a></li>
                 %end
-                % if property.get('main_house_types'):
+                % if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
                     <li class="menuItem"><a href="#propertyDetails_houseTypes">{{_('楼盘户型')}}</a></li>
                 % end
                 % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
