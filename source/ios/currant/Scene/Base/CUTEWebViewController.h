@@ -31,4 +31,6 @@
 
 - (BOOL)viewControllerCanGoBack;
 
+- (void)reload;
+
 @end
