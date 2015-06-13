@@ -31,7 +31,7 @@
         [SVProgressHUD show];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
 
-            SEL selector = @selector(localizedTitle);
+            SEL selector = NSSelectorFromString(@"localizedTitle");
             NSInteger sectionTitlesCount = [[[UILocalizedIndexedCollation currentCollation] sectionTitles] count];
 
             NSMutableArray *mutableSections = [[NSMutableArray alloc] initWithCapacity:sectionTitlesCount];

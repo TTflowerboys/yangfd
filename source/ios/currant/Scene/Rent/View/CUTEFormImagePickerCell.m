@@ -472,7 +472,7 @@
             return [object isKindOfClass:[UIToolbar class]];
         }];
 
-        UIBarButtonItem *setCoverItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"设为封面") style:UIBarButtonItemStylePlain target:photoBrowser action:@selector(actionButtonPressed:)];
+        UIBarButtonItem *setCoverItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"设为封面") style:UIBarButtonItemStylePlain target:photoBrowser action:NSSelectorFromString(@"actionButtonPressed:")];
         [toolbar setItems:@[setCoverItem]];
     }
 

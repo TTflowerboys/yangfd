@@ -16,7 +16,16 @@
 #import <NSString+SLRESTfulCoreData.h>
 
 
+
 @implementation FXFormController (CUTE)
+
+//- (id)formSectionAtIndex:(NSUInteger)index {
+//    SEL selector = NSSelectorFromString(@"sectionAtIndex:");
+//    if ([self respondsToSelector:selector]) {
+//        return [self performSelector:selector withObject:[NSNumber numberWithUnsignedInteger:index]];
+//    }
+//    return nil;
+//}
 
 - (void)updateSections {
     //just trigger setForm
@@ -34,6 +43,7 @@
 }
 
 @end
+
 
 
 @implementation CUTEFormViewController

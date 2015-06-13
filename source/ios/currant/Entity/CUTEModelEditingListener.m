@@ -22,7 +22,7 @@ typedef void (^ KeyValueChangeBlock) (NSString*, id, id);
     FBKVOController *_listenController;
 }
 
-@property (nonatomic, weak) MTLModel<MTLJSONSerializing, CUTEModelEditingListenerDelegate> *sayer;
+@property (nonatomic, strong) MTLModel<MTLJSONSerializing, CUTEModelEditingListenerDelegate> *sayer;
 
 @end
 

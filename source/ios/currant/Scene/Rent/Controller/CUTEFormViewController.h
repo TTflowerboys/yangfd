@@ -10,7 +10,13 @@
 
 @interface FXFormController (CUTE)
 
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-function"
+
 - (id)sectionAtIndex:(NSUInteger)index;
+
+#pragma clang diagnostic pop
 
 - (void)updateSections;
 

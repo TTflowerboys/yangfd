@@ -31,7 +31,7 @@
 
 - (BOOL)isEqual:(id)object {
     if ([object isKindOfClass:[self class]]) {
-        return [self.unit isEqualToString:[object unit]] && fequal(self.value, [(CUTETimePeriod *)object value]);
+        return [self.unit isEqualToString:[object unit]] && (self.value == [(CUTETimePeriod *)object value]);
     }
     else {
         return NO;

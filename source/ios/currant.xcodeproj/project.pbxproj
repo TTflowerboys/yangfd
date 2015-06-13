@@ -2556,21 +2556,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/currant/Library3rd",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Connection",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Core",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/UI",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-test-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/SinaWeiboSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/WeChatSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
 				PROVISIONING_PROFILE = "";
 			};
@@ -2587,21 +2579,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/currant/Library3rd",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Connection",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Core",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/UI",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-test-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/SinaWeiboSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/WeChatSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
 				PROVISIONING_PROFILE = "1ff635e2-77dd-4d57-8f1f-d6d252ec8ec6";
 			};
@@ -2618,21 +2602,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/currant/Library3rd",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Connection",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Core",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/UI",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/SinaWeiboSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/WeChatSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
 				PROVISIONING_PROFILE = "75e9aa95-6dab-4048-9035-eb7fe858fe46";
 			};
@@ -2649,21 +2625,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/currant/Library3rd",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Connection",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Core",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/UI",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-production-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/SinaWeiboSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/WeChatSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
 				PROVISIONING_PROFILE = "b8cd408d-2d40-41a3-86d0-33e8dd2aeddb";
 			};
@@ -2680,21 +2648,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/currant/Library3rd",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Connection",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Core",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/UI",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-dev-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/SinaWeiboSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/WeChatSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
 				PROVISIONING_PROFILE = "75e9aa95-6dab-4048-9035-eb7fe858fe46";
 			};
@@ -2712,21 +2672,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/currant/Library3rd",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Connection",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Core",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/UI",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/currant/currant-dev-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/SinaWeiboSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/WeChatSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
 				PROVISIONING_PROFILE = "1ff635e2-77dd-4d57-8f1f-d6d252ec8ec6";
 			};
@@ -2822,21 +2774,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/currant/Library3rd",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Connection",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Core",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/UI",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = currant/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/SinaWeiboSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/WeChatSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "75e9aa95-6dab-4048-9035-eb7fe858fe46";
 			};
@@ -2853,21 +2797,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/currant/Library3rd",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Connection",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Core",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/UI",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = currant/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/SinaWeiboSDK",
-					"$(PROJECT_DIR)/currant/Library3rd/ShareSDK/Extend/WeChatSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "75e9aa95-6dab-4048-9035-eb7fe858fe46";
 			};
