@@ -29,7 +29,7 @@ $(function () {
 
     $('.app-floatbar-close').on('click',function(e){
         $('.app-floatbar').hide()
-        $.cookie('show-app-floatbar',false)
+        $.cookie('show-app-floatbar',false,{ path: '/' })
     })
 })
 

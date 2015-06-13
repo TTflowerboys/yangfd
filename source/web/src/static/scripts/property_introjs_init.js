@@ -61,7 +61,10 @@ function startIntroOnWeb() {
 
 function initIntro() {
     if($.cookie('introjs_property') !== 'hasShow') {
-        $.cookie('introjs_property', 'hasShow', {expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 365)})
+        $.cookie('introjs_property', 'hasShow', {
+            path: '/',
+            expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 365)
+        })
         if(window.team.isPhone()) {
             startIntroOnPhone()
         } else {

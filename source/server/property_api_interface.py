@@ -557,10 +557,9 @@ def property_edit(property_id, user, params):
     else:
         property = f_app.property.get(property_id)
 
-        user_generated = False
+        user_generated = property.get("user_generated", False)
         if not user or not set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]):
             assert property.get("user_generated") == True, abort(40300, "Non-admin could only edit user generated properties")
-            user_generated = True
             if "user_id" in property:
                 assert user and property["user_id"] == user["id"], abort(40300, "Non-admin could only edit his own generated properties")
             elif user:

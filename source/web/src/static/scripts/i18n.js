@@ -7,7 +7,7 @@ $(function () {
 })
 
 window.changeLanguage = function (language) {
-    $.cookie('currant_lang', language)
+    $.cookie('currant_lang', language,{ path: '/' })
 
     if(window.user && language !== _.first(window.user.locales)){
         $.betterPost('/api/1/user/edit', {
@@ -34,7 +34,7 @@ window.getI18nOfLanguage = function (language) {
 }
 
 window.changeCurrency = function (currency) {
-    $.cookie('currant_currency', currency)
+    $.cookie('currant_currency', currency,{ path: '/' })
 
     if(window.user && currency !== _.first(window.user.currencies)){
         $.betterPost('/api/1/user/edit', {

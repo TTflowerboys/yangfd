@@ -3,7 +3,7 @@
     $(document).ready(function () {
         var cIndex = 0
 
-        if($('#propertyDetails_houseTypes_data').text() != ''){
+        if($('#propertyDetails_houseTypes_data').text() !== ''){
             var houseTypes = JSON.parse($('#propertyDetails_houseTypes_data').text())
             var totalLength = houseTypes.length
 
