@@ -207,6 +207,7 @@
 
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogin:) name:KNOTIF_USER_DID_LOGIN object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogout:) name:KNOTIF_USER_DID_LOGOUT object:nil];
+    [NotificationCenter addObserver:self selector:@selector(onReceiveTicketListReload:) name:KNOTIF_TICKET_LIST_RELOAD object:nil];
 }
 
 - (void)dealloc {
@@ -363,6 +364,19 @@
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
     if (notif.object != self && [[CUTEWebConfiguration sharedInstance] isURLLoginRequired:self.url]) {
         _needReloadURL = self.url;
+    }
+}
+
+- (void)onReceiveTicketListReload:(NSNotification *)notif {
+    if (_webView.request.URL.absoluteString) {
+
+        NSURLComponents *urlComponents = [NSURLComponents componentsWithString:_webView.request.URL.absoluteString];
+        if ([[urlComponents path] hasPrefix:@"/user-properties"]) {
+            _needReloadURL = self.url;
+        }
+        else if ([[urlComponents path] hasPrefix:@"/user-favorites"]) {
+            _needReloadURL = self.url;
+        }
     }
 }
 
