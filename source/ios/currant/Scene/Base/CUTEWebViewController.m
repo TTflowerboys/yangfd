@@ -261,6 +261,16 @@
     [self updateBackButton];
 }
 
+- (void)reload {
+    NSString *functionExisted = [self.webView stringByEvaluatingJavaScriptFromString:@"typeof window.$currantDropLoad.trigger === 'function'"];
+    if ([functionExisted isEqualToString:@"true"]) {
+        [self.webView stringByEvaluatingJavaScriptFromString:@"window.$currantDropLoad.trigger('loading')"];
+    }
+    else {
+        [self.webView reload];
+    }
+}
+
 - (void)updateBackButton {
     BOOL show = [self webViewCanGoBack] || [self viewControllerCanGoBack];
     if  (show) {

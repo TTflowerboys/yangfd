@@ -46,6 +46,7 @@
     });
 }
 
+
 - (void)onMapButtonPressed:(id)sender {
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_HIDE_ROOT_TAB_BAR object:nil];

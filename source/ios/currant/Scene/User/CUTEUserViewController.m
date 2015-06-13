@@ -41,6 +41,7 @@
 
 - (void)onSettingButtonPressed:(id)sender {
     CUTESettingViewController *settingViewController = [CUTESettingViewController new];
+    settingViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:settingViewController animated:YES];
 }
 
