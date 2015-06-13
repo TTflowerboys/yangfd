@@ -193,6 +193,7 @@
                             <span class="price_original">
                                 {{rent.get('price',{}).get('unit_symbol','')}}
                                 {{int(float(rent.get('price',{}).get('value','')))}}
+                                {{_('/周')}}
                                 % if 'bill_covered' in rent and rent.get('bill_covered'):
                                 <span class="sub">
                                     {{_(', 包Bill')}}
