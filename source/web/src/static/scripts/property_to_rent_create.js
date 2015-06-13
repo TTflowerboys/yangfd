@@ -537,6 +537,12 @@
     $('[data-trigger=updateTitle]').on('change', function () {
         updateTitle()
     })
+    function wrapData(data) {
+        var o = {}
+        var lang = window.lang || 'zh_Hans_CN'
+        o[lang] = data
+        return JSON.stringify(o)
+    }
     //获取房产模型数据
     function getPropertyData(options){
         /*var address = $('#country')[0].value + $('#city')[0].value + $('#street')[0].value +
@@ -552,14 +558,14 @@
             return $(v).data('id')
         }))
         var propertyData = $.extend(options, {
-            'name': JSON.stringify({'zh_Hans_CN': address}),
+            'name': wrapData(address),
             'property_type': $('#propertyType .selected').data('id'),
             'country': $('#country').val(), //todo
             'city': $('#city').val(), //todo
-            'street': JSON.stringify({'zh_Hans_CN': $('#street').val()}), //todo
-            'address': JSON.stringify({'zh_Hans_CN': address}),
-            'highlight': JSON.stringify({'zh_Hans_CN': []}), //todo?
-            'reality_images': JSON.stringify({'zh_Hans_CN': imageArr}),
+            'street': wrapData($('#street').val()), //todo
+            'address': wrapData(address),
+            'highlight': wrapData([]), //todo?
+            'reality_images': wrapData(imageArr),
             'region_highlight': JSON.stringify(regionHighlight),
             'kitchen_count': $('#kitchen_count').children('option:selected').val(),
             'bathroom_count': $('#bathroom_count').children('option:selected').val(),
@@ -567,19 +573,19 @@
             'living_room_count': $('#living_room_count').children('option:selected').val(),
             'indoor_facility': JSON.stringify(indoorFacility),
             'community_facility': JSON.stringify(communityFacility),
-            'real_address': JSON.stringify({'zh_Hans_CN': address}),
-            'description': JSON.stringify({'zh_Hans_CN': $('#description').val()}),
+            'real_address': wrapData(address),
+            'description': wrapData($('#description').val()),
             'zipcode': $('#postcode').val().trim().toUpperCase(),
             'user_generated': true
         })
         if($('#community').val() !== ''){
-            propertyData.community = JSON.stringify({'zh_Hans_CN': $('#community').val()})
+            propertyData.community = wrapData($('#community').val())
         }
         if($('#floor').val() !== ''){
-            propertyData.floor = JSON.stringify({'zh_Hans_CN': $('#floor').val()})
+            propertyData.floor = wrapData($('#floor').val())
         }
         if($('#house_name').val() !== ''){
-            propertyData.house_name = JSON.stringify({'zh_Hans_CN': $('#house_name').val()})
+            propertyData.house_name = wrapData($('#house_name').val())
         }
         if($('#rentalType .selected').index() === 1 && getSpace() !== false){
             propertyData.space = getSpace()
@@ -591,7 +597,7 @@
             propertyData.longitude = $('#longitude').val()
         }
         if($('.ajax-file-upload-statusbar.cover').length) {
-            propertyData.cover = JSON.stringify({'zh_Hans_CN': $('.ajax-file-upload-statusbar.cover').attr('data-url')})
+            propertyData.cover = wrapData($('.ajax-file-upload-statusbar.cover').attr('data-url'))
         } else {
             delete propertyData.cover
         }
