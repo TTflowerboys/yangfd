@@ -217,7 +217,7 @@
 //    _lastSelectedTabIndex = 0;
 
     [self.tabBarController setSelectedIndex:kEditTabBarIndex];
-    [self updatePublishRentTicketTabWithController:editViewController silent:NO];
+    [self updatePublishRentTicketTabWithController:editViewController silent:YES];
     _lastSelectedTabIndex = kEditTabBarIndex;
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
