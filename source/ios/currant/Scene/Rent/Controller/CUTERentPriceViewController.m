@@ -71,6 +71,15 @@
     }
 }
 
+- (void)onCurrencyEdit:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+    self.ticket.price = [CUTECurrency currencyWithValue:self.form.rentPrice unit:self.form.currency];
+    [ticketListener stopListenMark];
+    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+}
+
 - (void)onRentPriceEdit:(id)sender {
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
     self.ticket.price = [CUTECurrency currencyWithValue:self.form.rentPrice unit:self.form.currency];
@@ -136,7 +145,7 @@
     [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
 
-- (void)optionBack {
+- (void)onDepositTypeEdit:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
     self.ticket.depositType = self.form.depositType;
