@@ -32,9 +32,9 @@
 
 @property (strong, nonatomic) NSString *name;
 
-@property (nonatomic) CLLocationDegrees latitude;
+@property (nonatomic, strong) NSNumber *latitude;
 
-@property (nonatomic) CLLocationDegrees longitude;
+@property (nonatomic, strong) NSNumber *longitude;
 
 @property (strong, nonatomic) CUTECountry *country;
 

@@ -116,9 +116,11 @@
     [_userLocationButton addTarget:self action:@selector(onUserLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 
     if (self.singleUseForReedit) {
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.ticket.property.latitude longitude:self.ticket.property.longitude];
-        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
-        [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.ticket.property.latitude.doubleValue longitude:self.ticket.property.longitude.doubleValue];
+        if (location) {
+            MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
+            [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+        }
     }
     else {
         //wait to make sure indicator animation show
@@ -206,9 +208,15 @@
                     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
                     [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
                 }
+                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+                self.ticket.property.latitude = @(location.coordinate.latitude);
+                self.ticket.property.longitude = @(location.coordinate.longitude);
+                [ticketListener stopListenMark];
+                //check is a draft ticket not a unfinished one
+                if (!IsNilNullOrEmpty(self.ticket.identifier)) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
+                }
 
-                self.ticket.property.latitude = location.coordinate.latitude;
-                self.ticket.property.longitude = location.coordinate.longitude;
                 [self checkNeedUpdateAddress];
 
                 [SVProgressHUD dismiss];
@@ -458,30 +466,34 @@
 - (BFTask *)updateAddress {
     CUTEProperty *property = self.ticket.property;
     BFTaskCompletionSource *tcs  = [BFTaskCompletionSource taskCompletionSource];
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:property.latitude longitude:property.longitude];
-    [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
-        if (task.result) {
-            CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-            CUTEPlacemark *placemark = task.result;
-            property.street = placemark.street;
-            property.zipcode = placemark.postalCode;
-            property.country = placemark.country;
-            property.city = placemark.city;
-            property.community = nil;
-            property.floor = nil;
-            property.houseName = nil;
-            [ticketListener stopListenMark];
-            [self syncWithUserInfo:ticketListener.getSyncUserInfo];
-            _textField.text = property.address;
-            [tcs setResult:_textField.text];
-        }
-        else {
-            TrackEvent(GetScreenName(self), kEventActionRequestReturn, @"non-geocoding-result", nil);
-            [tcs setError:task.error];
-        }
-        return task;
-    }];
-
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:property.latitude.doubleValue longitude:property.longitude.doubleValue];
+    if (location) {
+        [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
+            if (task.result) {
+                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+                CUTEPlacemark *placemark = task.result;
+                property.street = placemark.street;
+                property.zipcode = placemark.postalCode;
+                property.country = placemark.country;
+                property.city = placemark.city;
+                property.community = nil;
+                property.floor = nil;
+                property.houseName = nil;
+                [ticketListener stopListenMark];
+                [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+                _textField.text = property.address;
+                [tcs setResult:_textField.text];
+            }
+            else {
+                TrackEvent(GetScreenName(self), kEventActionRequestReturn, @"non-geocoding-result", nil);
+                [tcs setError:task.error];
+            }
+            return task;
+        }];
+    }
+    else {
+        [tcs setError:nil];
+    }
     return tcs.task;
 }
 
@@ -518,8 +530,8 @@
                                                           longitude:mapView.centerCoordinate.longitude];
         CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
         CUTEProperty *property = self.ticket.property;
-        property.latitude = location.coordinate.latitude;
-        property.longitude = location.coordinate.longitude;
+        property.latitude = @(location.coordinate.latitude);
+        property.longitude = @(location.coordinate.longitude);
         [ticketListener stopListenMark];
         [self syncWithUserInfo:ticketListener.getSyncUserInfo];
         [_textField.indicatorView startAnimating];

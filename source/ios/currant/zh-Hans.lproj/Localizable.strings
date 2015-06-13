@@ -20,6 +20,7 @@
 "Email is required." = "邮箱不能为空";
 "Phone is required." = "手机号不能为空";
 "Code is required." = "验证码不能为空";
+"Password is required." = "密码不能为空";
 
 "Email has invalid syntax." = "邮箱格式不正确";
 

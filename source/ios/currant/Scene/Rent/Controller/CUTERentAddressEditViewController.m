@@ -164,8 +164,8 @@
                 if (location && [location isKindOfClass:[CLLocation class]]) {
 
                     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-                    self.ticket.property.latitude = location.coordinate.latitude;
-                    self.ticket.property.longitude = location.coordinate.longitude;
+                    self.ticket.property.latitude = @(location.coordinate.latitude);
+                    self.ticket.property.longitude = @(location.coordinate.longitude);
                     [ticketListener stopListenMark];
                     //check is a draft ticket not a unfinished one
                     if (!IsNilNullOrEmpty(self.ticket.identifier)) {
@@ -336,8 +336,8 @@
                         CLLocation *location = task.result;
                         if (location && [location isKindOfClass:[CLLocation class]]) {
                             [self.tableView reloadData];
-                            self.ticket.property.latitude = location.coordinate.latitude;
-                            self.ticket.property.longitude = location.coordinate.longitude;
+                            self.ticket.property.latitude = @(location.coordinate.latitude);
+                            self.ticket.property.longitude = @(location.coordinate.longitude);
                             self.lastPostcode = self.ticket.property.zipcode;
                             [SVProgressHUD dismiss];
                             [self createTicket];

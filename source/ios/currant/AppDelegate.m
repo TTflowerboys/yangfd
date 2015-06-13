@@ -216,13 +216,20 @@
 //    [firstWebviewController loadURL:firstWebviewController.url];
 //    _lastSelectedTabIndex = 0;
 
-    [self.tabBarController setSelectedIndex:kEditTabBarIndex];
-    [self updatePublishRentTicketTabWithController:editViewController silent:YES];
-    _lastSelectedTabIndex = kEditTabBarIndex;
-
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
 
-    [self checkShowSplashViewController];
+    if ([self checkShowSplashViewController]) {
+
+        [self.tabBarController setSelectedIndex:kEditTabBarIndex];
+        [self updatePublishRentTicketTabWithController:editViewController silent:YES];
+        _lastSelectedTabIndex = kEditTabBarIndex;
+    }
+    else {
+
+        [self.tabBarController setSelectedIndex:kEditTabBarIndex];
+        [self updatePublishRentTicketTabWithController:editViewController silent:NO];
+        _lastSelectedTabIndex = kEditTabBarIndex;
+    }
 //#warning DEBUG_CODE
 #ifdef DEBUG
 
@@ -274,7 +281,7 @@
     [[CUTETracker sharedInstance] trackMemoryWarning];
 }
 
-- (void)checkShowSplashViewController {
+- (BOOL)checkShowSplashViewController {
 
     if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED])
     {
@@ -287,6 +294,10 @@
             [weakSelf showApplyInvitionCode];
         };
         [self.tabBarController presentViewController:spalshViewController animated:NO completion:nil];
+        return YES;
+    }
+    else {
+        return NO;
     }
 }
 
@@ -378,7 +389,7 @@
     if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
         CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
         if (_lastSelectedTabIndex == self.tabBarController.selectedIndex) {
-            [webViewController.webView reload];
+            [webViewController reload];
         }
         else {
             if (!webViewController.webView.request) {// web page not load, so load it
