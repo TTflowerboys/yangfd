@@ -10,7 +10,7 @@
         % private_contact_methods = [] if private_contact_methods is None else private_contact_methods
         % if rent.get('creator_user',{}).get('phone','') and 'phone' not in private_contact_methods:
         <div class="hostPhone hostContact">
-            <a href="tel:+{{rent.get('creator_user',{}).get('country_code','') }}{{rent.get('creator_user',{}).get('phone','')}}">
+            <a>
                 <img class="ico" src="/static/images/property_details/ico_phone.png"/>
                 <span>+{{rent.get('creator_user',{}).get('country_code','') }}</span> <span>{{rent.get('creator_user',{}).get('phone','')}}</span>
             </a>
@@ -18,7 +18,7 @@
         %end
         % if rent.get('creator_user',{}).get('email','') and 'email' not in private_contact_methods:
         <div class="hostEmail hostContact">
-            <a href="mailto:{{rent.get('creator_user',{}).get('email','')}}" class="clearfix">
+            <a class="clearfix">
                 <img class="ico" src="/static/images/property_details/ico_email.png"/>
                 <span class="email">{{rent.get('creator_user',{}).get('email','')}}</span>
             </a>
