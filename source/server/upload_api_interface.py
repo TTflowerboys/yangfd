@@ -165,6 +165,15 @@ def upload_from_url(params):
         return result
 
 
+@f_api('/upload-cdn-domains')
+def upload_cdn_domains():
+    return [
+        'bbt-currant.s3.amazonaws.com',
+        '7vih1w.com2.z0.glb.qiniucdn.com',
+        'upload.yangfd.com'
+    ]
+
+
 @f_api('/qiniu/upload_file', params=dict(
     nolog=("data"),
     data=("file", True),
