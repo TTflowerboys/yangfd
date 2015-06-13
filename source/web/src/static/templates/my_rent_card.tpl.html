@@ -2,7 +2,9 @@
     <div class="rentCard">
             <div class="imagePart">
                 <a href="/property-to-rent/{=rent.id=}">
-                        {_if(rent.property.reality_images && rent.property.reality_images.length) {_}
+                        {_if (rent.property.cover){_}
+                            <img src="{=team.convertToHttps({'link':rent.property.cover, 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+                        {_ } else if(rent.property.reality_images && rent.property.reality_images.length) {_}
                             <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
                         {_ }else { _}
                             <img class="withPlaceholder"/>
