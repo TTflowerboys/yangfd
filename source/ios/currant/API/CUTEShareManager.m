@@ -123,7 +123,7 @@
 
 - (BFTask *)getTicketShareImage:(CUTETicket *)ticket {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    NSString *imageURL = IsArrayNilOrEmpty(ticket.property.realityImages)? nil : ticket.property.realityImages.firstObject;
+    NSString *imageURL = IsNilNullOrEmpty(ticket.property.cover)? (IsArrayNilOrEmpty(ticket.property.realityImages)? nil : ticket.property.realityImages.firstObject) : ticket.property.cover;
     if (imageURL && [NSURL URLWithString:imageURL].isAssetURL) {
 
         [SVProgressHUD showWithStatus:STR(@"获取房产中...")];

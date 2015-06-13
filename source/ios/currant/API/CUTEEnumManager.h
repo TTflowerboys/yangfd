@@ -21,6 +21,11 @@
 
 - (BFTask *)getCitiesByCountry:(CUTECountry *)country;
 
+- (BFTask *)getUploadCDNDomains;
+
 - (BFTask *)startLoadAllEnums;
+
+@property (nonatomic, readonly) NSArray *uploadCDNDomains;
+
 
 @end

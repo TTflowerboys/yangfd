@@ -217,6 +217,7 @@
 //    _lastSelectedTabIndex = 0;
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
+    [[CUTEEnumManager sharedInstance] getUploadCDNDomains];
 
     if ([self checkShowSplashViewController]) {
 

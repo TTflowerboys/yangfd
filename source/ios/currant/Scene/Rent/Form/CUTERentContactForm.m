@@ -35,7 +35,7 @@
               @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
              @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class],FXFormFieldAction: @"codeFieldEndEdit"},
              @{FXFormFieldKey: @"displaySetting", FXFormFieldTitle: STR(@"联系方式展示"), FXFormFieldCell: [CUTEFormTextCell class], FXFormFieldAction: @"onDisplaySettingPressed:"},
-             @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:_isOnlyRegister ? STR(@"完成注册"): STR(@"发布到微信"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
+             @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:_isOnlyRegister ? STR(@"完成注册"): STR(@"发布并分享到微信"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
              ];
 }
 
