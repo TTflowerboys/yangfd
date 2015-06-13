@@ -43,8 +43,8 @@
                 CUTETicket *ticket = [CUTETicket new];
                 ticket.identifier = dic[@"id"];
                 ticket.property = [CUTEProperty new];
-                ticket.property.latitude = [dic[@"latitude"] doubleValue];
-                ticket.property.longitude = [dic[@"longitude"] doubleValue];
+                ticket.property.latitude = dic[@"latitude"];
+                ticket.property.longitude = dic[@"longitude"];
                 return ticket;
             }];
 
@@ -55,11 +55,13 @@
                 NSMutableArray *locations = [NSMutableArray arrayWithCapacity:ticketList.count];
                 NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:ticketList.count];
                 for (CUTETicket *ticket in ticketList) {
-                    CLLocation *location = [[CLLocation alloc] initWithLatitude:ticket.property.latitude longitude:ticket.property.longitude];
-                    [locations addObject:location];
-                    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(ticket.property.latitude, ticket.property.longitude) addressDictionary:nil];
-                    placemark.attachment = ticket;
-                    [annotations addObject:placemark];
+                    CLLocation *location = [[CLLocation alloc] initWithLatitude:(CLLocationDegrees)ticket.property.latitude.doubleValue longitude:(CLLocationDegrees)ticket.property.longitude.doubleValue];
+                    if (location) {
+                        [locations addObject:location];
+                        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil];
+                        placemark.attachment = ticket;
+                        [annotations addObject:placemark];
+                    }
                 }
                 [self.mapView addAnnotations:annotations];
                 [self.mapView zoomToFitMapLocationsInsideArray:locations];

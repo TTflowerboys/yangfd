@@ -194,9 +194,9 @@
         }
     }];
 
-    if (!fequalzero(self.latitude) || !fequalzero(self.longitude)) {
-        [params setValue:@(self.latitude) forKey:@"latitude"];
-        [params setValue:@(self.longitude) forKey:@"longitude"];
+    if (self.latitude && self.longitude) {
+        [params setValue:self.latitude forKey:@"latitude"];
+        [params setValue:self.longitude forKey:@"longitude"];
     }
     else {
         [unsetFields addObject:@"latitude"];
