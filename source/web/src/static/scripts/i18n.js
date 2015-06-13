@@ -16,6 +16,8 @@ window.changeLanguage = function (language) {
             window.user = data
             location.reload()
         })
+    }else{
+        location.reload()
     }
 }
 
@@ -41,6 +43,8 @@ window.changeCurrency = function (currency) {
             window.user = data
             location.reload()
         })
+    }else{
+        location.reload()
     }
 }
 
