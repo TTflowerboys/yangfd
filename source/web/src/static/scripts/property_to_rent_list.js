@@ -57,9 +57,9 @@
                     }else {
                         isAllItemsLoaded = true
                     }
-                    if(isAllItemsLoaded){
+                    /*if(isAllItemsLoaded){
                         $('.isAllLoadedInfo').show()
-                    }
+                    }*/
                     me.resetload();
 
                 }).fail(function () {
@@ -388,7 +388,7 @@
                     isAllItemsLoaded = false
                 } else {
                     isAllItemsLoaded = true
-                    $('.isAllLoadedInfo').show()
+                    //$('.isAllLoadedInfo').show()
                 }
 
             }).fail(function () {

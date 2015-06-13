@@ -58,9 +58,9 @@
 
                         updatePropertyCardMouseEnter()
                     }
-                    if(isCurrentBudgetLoadFinished()) {
+                    /*if(isCurrentBudgetLoadFinished()) {
                         $('.isAllLoadedInfo').show()
-                    }
+                    }*/
                     me.resetload();
 
                 }).fail(function () {
@@ -438,9 +438,9 @@
 
                     updatePropertyCardMouseEnter()
                 }
-                if(isCurrentBudgetLoadFinished()) {
+                /*if(isCurrentBudgetLoadFinished()) {
                     $('.isAllLoadedInfo').show()
-                }
+                }*/
 
             })
             .fail(function () {
