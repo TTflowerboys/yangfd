@@ -76,13 +76,10 @@
 
     CUTERentTypeListForm *form = (CUTERentTypeListForm *)[self.formController form];
     form.rentType = [form rentTypeAtIndex:indexPath.row];
-    self.ticket.rentType = [form rentTypeAtIndex:indexPath.row];
     [tableView reloadData];
 
     if (form.singleUseForReedit) {
         [self.navigationController popViewControllerAnimated:YES];
-
-        CUTERentTypeListForm *form = (CUTERentTypeListForm *)[self.formController form];
         CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
         self.ticket.rentType = form.rentType;
         [ticketListener stopListenMark];
@@ -92,6 +89,7 @@
         }
     }
     else  {
+        self.ticket.rentType = form.rentType;
         CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
         mapController.ticket = self.ticket;
         mapController.hidesBottomBarWhenPushed = YES;
