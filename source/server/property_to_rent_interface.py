@@ -130,7 +130,7 @@ def property_to_rent_digest(rent_ticket_id):
 def property_to_rent_digest_image(rent_ticket_id):
     from libfelix.f_html2png import html2png
     response.set_header(b"Content-Type", b"image/png")
-    return html2png("://".join(request.urlparts[:2]) + "/property-to-rent-digest/" + rent_ticket_id, width=1000, height=2450, url=True)
+    return html2png("://".join(request.urlparts[:2]) + "/property-to-rent-digest/" + rent_ticket_id, width=1000, height="window.innerHeight", url=True)
 
 
 @f_get('/property-to-rent/create')
