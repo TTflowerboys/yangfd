@@ -75,14 +75,17 @@ static NSSet *RNCachingSupportedSchemes;
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request
 {
-    if ([[self supportedSchemes] containsObject:[[request URL] scheme]] && [request valueForHTTPHeaderField:RNCachingReloadHeader]) {
-        return YES;
-    }
-    // only handle http requests we haven't marked with our header.
-    if ([[self supportedSchemes] containsObject:[[request URL] scheme]] &&
-        ([request valueForHTTPHeaderField:RNCachingURLHeader] == nil))
+    if ([[self supportedSchemes] containsObject:[[request URL] scheme]])
     {
-        return YES;
+
+        if ([request valueForHTTPHeaderField:RNCachingReloadHeader]) {
+            return YES;
+        }
+
+        // only handle http requests we haven't marked with our header.
+        if ([request valueForHTTPHeaderField:RNCachingURLHeader] == nil) {
+            return YES;
+        }
     }
 
 
@@ -91,6 +94,7 @@ static NSSet *RNCachingSupportedSchemes;
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request
 {
+
     return request;
 }
 
@@ -102,6 +106,7 @@ static NSSet *RNCachingSupportedSchemes;
 #else
         [[self request] mutableCopy];
 #endif
+
         // we need to mark this request with our header so we know not to handle it in +[NSURLProtocol canInitWithRequest:].
         [connectionRequest setValue:@"" forHTTPHeaderField:RNCachingURLHeader];
 
@@ -118,6 +123,7 @@ static NSSet *RNCachingSupportedSchemes;
 {
     if ([self.request valueForHTTPHeaderField:RNCachingReloadHeader]) {
         [self loadRequest];
+
     }
     else {
         RNCachedData *cache = [RNCachedData getCacheForRequest:self.request];
@@ -130,6 +136,7 @@ static NSSet *RNCachingSupportedSchemes;
             } else {
 
                 if (response) {
+
                     [[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed]; // we handle caching ourselves.
                     [[self client] URLProtocol:self didLoadData:data];
                     [[self client] URLProtocolDidFinishLoading:self];
@@ -154,6 +161,19 @@ static NSSet *RNCachingSupportedSchemes;
 
 - (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response
 {
+
+    if ([request valueForHTTPHeaderField:RNCachingReloadHeader]) {
+        NSMutableURLRequest *connectionRequest =
+#if WORKAROUND_MUTABLE_COPY_LEAK
+        [request mutableCopyWorkaround];
+#else
+        [request mutableCopy];
+#endif
+        [connectionRequest setValue:nil forHTTPHeaderField:RNCachingReloadHeader];
+        request = connectionRequest;
+        
+    }
+
     // Thanks to Nick Dowell https://gist.github.com/1885821
     if (response != nil) {
         NSMutableURLRequest *redirectableRequest =
@@ -204,11 +224,6 @@ static NSSet *RNCachingSupportedSchemes;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     [[self client] URLProtocolDidFinishLoading:self];
-
-//    if ([self.request valueForHTTPHeaderField:RNCachingReloadHeader])
-    {
-        NSLog(@"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,self.request.URL.absoluteString);
-    }
 
     RNCachedData *cache = [RNCachedData new];
     [cache setResponse:[self response]];

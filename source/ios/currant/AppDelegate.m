@@ -153,11 +153,7 @@
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[userAgentComponents componentsJoinedByString:@"/"], @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
 
-    [RNCachingURLProtocol setSupportedSchemes:[NSSet setWithArray:@[@"http", @"https"]]];
-    [NSURLProtocol registerClass:[RNCachingURLProtocol class]];
-    [RNCachedData setDefaultTimeoutInterval:7 * 24 * 60 * 60];//7 days
-    [RNCachedData setHostList:[CUTEConfiguration webCacheHosts]];
-    [RNCachedData setExceptionRules:[CUTEConfiguration webCacheExceptionRules]];
+
 
     [[CUTEShareManager sharedInstance] setUpShareSDK];
 
@@ -221,6 +217,13 @@
 //    CUTEWebViewController *firstWebviewController = (CUTEWebViewController *)([(UINavigationController *)[rootViewController.viewControllers firstObject] topViewController]);
 //    [firstWebviewController loadURL:firstWebviewController.url];
 //    _lastSelectedTabIndex = 0;
+
+    [RNCachingURLProtocol setSupportedSchemes:[NSSet setWithArray:@[@"http", @"https"]]];
+    [NSURLProtocol registerClass:[RNCachingURLProtocol class]];
+    [RNCachedData setDefaultTimeoutInterval:7 * 24 * 60 * 60];//7 days
+    [RNCachedData setHostList:[CUTEConfiguration webCacheHosts]];
+    [RNCachedData setExceptionRules:[CUTEConfiguration webCacheExceptionRules]];
+
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
     [[CUTEEnumManager sharedInstance] getUploadCDNDomains];
