@@ -14,15 +14,26 @@
             delay: 2 * 60 * 1000
         })
 
+        //issue #6880 房产编辑里当修改了“房产类型”时，将不同类型数据差异的部分设为unset fields
+        function unsetFieldsByropertyType (item) {
+            console.log(item)
+            return item
+        }
+
+        function getSubmitItem(item) {
+            var submitItem = JSON.parse(angular.toJson(item))
+            submitItem = misc.cleanTempData(submitItem)
+            submitItem = misc.cleanI18nEmptyUnit(submitItem)
+            return unsetFieldsByropertyType(submitItem)
+        }
+
         function autoUpdate() {
             if ($state.current.controller !== 'ctrlPropertyEdit') {
                 $scope.cancelDelayer()
                 return
             }
             //Property item used for submit, use angular toJson to remove angular-specific tags
-            $scope.submitItem = JSON.parse(angular.toJson($scope.item))
-            $scope.submitItem = misc.cleanTempData($scope.submitItem)
-            $scope.submitItem = misc.cleanI18nEmptyUnit($scope.submitItem)
+            $scope.submitItem = getSubmitItem($scope.item)
             update(misc.getChangedI18nAttributes($scope.submitItem, $scope.lastItem))
             delayer.update()
         }
@@ -196,10 +207,8 @@
         $scope.submit = function ($event, form) {
             $event.preventDefault()
             $scope.submitted = true
-            var changed = JSON.parse(angular.toJson($scope.item))
-            changed = misc.cleanTempData(changed)
-            changed = misc.cleanI18nEmptyUnit(changed)
-            changed = misc.getChangedI18nAttributes(changed, $scope.lastItem)
+            var submitItem = getSubmitItem($scope.item)
+            var changed = misc.getChangedI18nAttributes(submitItem, $scope.lastItem)
             if (_.isEmpty(changed)) {
                 growl.addWarnMessage('没有修改或已自动保存')
                 return
@@ -239,10 +248,8 @@
 
         $scope.submitForPreview = function ($event, form) {
             $scope.submitted = true
-            var changed = JSON.parse(angular.toJson($scope.item))
-            changed = misc.cleanTempData(changed)
-            changed = misc.cleanI18nEmptyUnit(changed)
-            changed = misc.getChangedI18nAttributes(changed, $scope.lastItem)
+            var submitItem = getSubmitItem($scope.item)
+            var changed = misc.getChangedI18nAttributes(submitItem, $scope.lastItem)
             if (_.isEmpty(changed)) {
                 $window.open('property/' + $stateParams.id, '_blank')
                 return
