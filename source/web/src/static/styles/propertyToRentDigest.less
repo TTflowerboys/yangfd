@@ -1,0 +1,262 @@
+@import "project/_imports";
+@green: #afc327;
+@dark-gray: #333;
+.clearfix:after {
+    content: "\200B";
+    display: block;
+    height: 0;
+    clear: both
+}
+
+.clearfix {
+    *zoom:1
+}
+body{
+    width: 1000px;
+    height: 2450px;
+    background: url("/static/images/wechat_poster/property_digest_bg.jpg") no-repeat 0 0;
+    color: #fff;
+    font-weight: lighter;
+    header{
+        margin: 30px 0;
+        p {
+            margin: 0;
+        }
+        .location{
+            position: relative;
+            display: inline-block;
+            padding: 12px 22px;
+            background: @dark-gray;
+            font-size: 22px;
+            color: @green;
+            &:after{
+                position: absolute;
+                content: '';
+                top: 0;
+                right: -10px;
+                width: 20px;
+                height: 100%;
+                background: #333;
+                transform: skewX(15deg);
+            }
+        }
+        h1{
+            position: relative;
+            width: 640px;
+            float: left;
+            margin: 0;
+            padding: 24px 22px;
+            background: @green;
+            color: @dark-gray;
+            font-size: 32px;
+            &:after {
+                position: absolute;
+                content: '';
+                top: 0;
+                right: -360px;
+                width: 360px;
+                height: 100%;
+                background: url("/static/images/wechat_poster/logo_cover_back.png") 25px 50% no-repeat @dark-gray;
+                background-size: 80%;
+            }
+        }
+    }
+    main{
+        text-align: center;
+        section{
+            @width: 470px;
+            @height: 770px;
+            margin: 15px;
+            float: left;
+            width: @width;
+            height: @height;
+            &.pageRental{
+                &>p{
+                    position: relative;
+                    color: #afc327;
+                    margin: 0 auto;
+                }
+                p.line1{
+                    width: 100%;
+                    height: 54px;
+                    line-height: 1em;
+                    font-size: 43px;
+                    margin-top: 42px;
+                }
+                p.line2{
+                    display: inline-table;
+                    margin: 36px auto 0;
+                    padding: 10px 40px;
+                    color: #586c4f;
+                    font-size: 32px;
+                    font-weight: bold;
+
+                    &:after{
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        background: #afc327;
+                        transform: skewX(-15deg);
+                        left: 0;
+                        top:0;
+                        z-index: 0;
+                        content: '';
+                    }
+                    *{
+                        position: relative;
+                        z-index: 1;
+                    }
+                    .sub{
+                        font-size: 23px;
+                        vertical-align:baseline ;
+                    }
+                    .price_reference{
+                        display: block;
+                        font-size: 16px;
+                    }
+                }
+                p.line3{
+                    width: 100%;
+                    height: 24px;
+                    line-height: 24px;
+                    font-size: 18px;
+                    margin-top: 36px;
+                    font-weight: bold;
+
+                }
+                .itemBox{
+                    position: absolute;
+                    margin: 45px 25px;
+                    padding: 0;
+                    list-style: none;
+                    width: 420px;
+                    li{
+                        display: block;
+                        height: 54px;
+                        margin-bottom: 24px;
+                        font-size: 21px;
+                        text-align: left;
+                        overflow: hidden;
+                        line-height: 54px;
+                        border: 1px solid #fff;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        &.size, &.rental, &.estate, &.time{
+                            float: left;
+                            margin-right: 24px;
+                        }
+                        &.rooms, &.street, &.door{
+                            overflow: hidden;
+                        }
+                        &.size{
+                            width: 45%;
+                        }
+                        &.rooms{
+                        }
+                        &.rental{
+                            width: 30%;
+                        }
+                        &.street{
+                        }
+                        &.estate{
+                            width: 60%;
+                        }
+                        &.door{
+                        }
+                        &.time{
+                            width: 100%;
+                        }
+                        i{
+                            display: inline-block;
+                            float: left;
+                            width: 21px;
+                            height: 21px;
+                            margin: 14px 7px auto 14px;
+                            background-image: url("/static/images/wechat_poster/rentalIconSprites.png");
+                            background-size: 100%;
+                            background-repeat: no-repeat;
+                        }
+                        i.sizeIcon{
+                            background-position: 0 0;
+                        }
+                        i.roomsIcon{
+                            background-position: 0 percentage(1/6);
+                        }
+                        i.rentalIcon{
+                            background-position: 0 percentage(2/6);
+                        }
+                        i.estateIcon{
+                            background-position: 0 percentage(3/6);
+                        }
+                        i.streetIcon{
+                            background-position: 0 percentage(5/6);
+                        }
+                        i.doorIcon{
+                            background-position: 0 percentage(4/6);
+                        }
+                        i.timeIcon{
+                            background-position: 0 percentage(6/6);
+                        }
+                    }
+
+                }
+            }
+            &.pageDescription{
+
+                p{
+                    overflow: hidden;
+                    text-overflow:ellipsis;
+                    max-height: 220px;
+                    margin:  42px auto 30px;
+                    padding: 0 20px;
+                    font-size: 21px;
+                    font-weight: lighter;
+                    line-height: 1.5em;
+                }
+                .facilities{
+                    width: 400px;
+                    margin: 90px auto;
+                    padding: 0;
+                    list-style: none;
+                    text-align: left;
+                    li{
+                        display: block;
+                        float: left;
+                        width: 200px;
+                        height: 54px;
+                        line-height: 54px;
+                        font-size: 18px;
+                        i{
+                            position: relative;
+                            display: inline-block;
+                            float: left;
+                            text-align: center;
+                            width: 32px;
+                            height: 32px;
+                            line-height: 32px;
+                            margin: 11px 16px 11px;
+                            background-size: contain;
+                            background-position: 50% 50%;
+                            background-repeat: no-repeat;
+                            color: #afc327;
+                            font-size: 30px;
+                            img{
+                                max-width: 100%;
+                                max-height: 110%;
+                                position: relative;
+                                top: 50%;
+                                transform: translatey(-50%);
+                            }
+                        }
+                        &.gray *{
+                            opacity:0.4;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}

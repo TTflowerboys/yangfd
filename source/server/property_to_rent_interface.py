@@ -107,6 +107,25 @@ def rent_ticket_get(rent_ticket_id, user):
     return currant_util.common_template("property_to_rent", rent=rent_ticket, report=report, is_favorited=is_favorited, publish_time=publish_time, title=title, description=description, keywords=keywords, weixin=weixin)
 
 
+@f_get('/property-to-rent-digest/<rent_ticket_id:re:[0-9a-fA-F]{24}>')
+@currant_util.check_ip_and_redirect_domain
+def property_to_rent_digest(rent_ticket_id):
+    title = _('快来围观')
+    rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
+
+    report = None
+    if rent_ticket["property"].get('report_id'):
+        report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket["property"].get('report_id')))
+
+    if rent_ticket.get('title'):
+        title = _(rent_ticket.get('title', '')) + ', ' + title
+    description = rent_ticket.get('description', '')
+
+    keywords = currant_util.get_country_name_by_code(rent_ticket.get('country', {}).get('code', '')) + ',' + rent_ticket.get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
+
+    return currant_util.common_template("property_to_rent_digest.html", rent=rent_ticket, title=title, description=description, keywords=keywords, report=report)
+
+
 @f_get('/property-to-rent/create')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(role=["jr_admin", "operation", "jr_operation", "beta_renting"])
