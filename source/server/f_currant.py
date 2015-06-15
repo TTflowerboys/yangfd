@@ -229,9 +229,14 @@ class currant_mongo_upgrade(f_mongo_upgrade):
 
     def v10(self, m):
         for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
-            if "rent_ticket_reminder" not in user.get("email_message_type", []):
+            if "email_message_type" not in user:
+                f_app.user.get_database(m).update({"_id": user["_id"]}, {"$set": {"email_message_type": ["system", "favorited_property_news", "intention_property_news", "my_property_news", "rent_ticket_reminder"]}})
+            elif "rent_ticket_reminder" not in user["email_message_type"]:
                 self.logger.debug("Appending rent_ticket_reminder email message type for user", str(user["_id"]))
                 f_app.user.get_database(m).update({"_id": user["_id"]}, {"$push": {"email_message_type": "rent_ticket_reminder"}})
+
+            if "system_message_type" not in user:
+                f_app.user.get_database(m).update({"_id": user["_id"]}, {"$set": {"system_message_type": ["system", "favorited_property_news", "intention_property_news", "my_property_news"]}})
 
         for ticket in f_app.ticket.get_database(m).find({"type": "rent", "status": {"$in": ["draft", "to rent"]}}):
             added = f_app.task.get_database(m).find_one({"type": "rent_ticket_reminder", "ticket_id": str(ticket["_id"]), "status": "new"})
