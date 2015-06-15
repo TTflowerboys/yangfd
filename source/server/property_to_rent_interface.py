@@ -3,7 +3,7 @@ from __future__ import unicode_literals, absolute_import
 import logging
 import six
 from app import f_app
-from libfelix.f_interface import f_get, abort, template_gettext as _
+from libfelix.f_interface import f_get, abort, template_gettext as _, request, response
 import currant_util
 import currant_data_helper
 
@@ -124,6 +124,13 @@ def property_to_rent_digest(rent_ticket_id):
     keywords = currant_util.get_country_name_by_code(rent_ticket.get('country', {}).get('code', '')) + ',' + rent_ticket.get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
 
     return currant_util.common_template("property_to_rent_digest.html", rent=rent_ticket, title=title, description=description, keywords=keywords, report=report)
+
+
+@f_get('/property-to-rent-digest/<rent_ticket_id:re:[0-9a-fA-F]{24}>/image')
+def property_to_rent_digest_image(rent_ticket_id):
+    from libfelix.f_html2png import html2png
+    response.set_header(b"Content-Type", b"image/png")
+    return html2png("://".join(request.urlparts[:2]) + "/property-to-rent-digest/" + rent_ticket_id, width=1000, height="window.innerHeight", url=True)
 
 
 @f_get('/property-to-rent/create')

@@ -361,12 +361,8 @@ typedef enum : NSUInteger {
                 NSData *data = nil;
                 NSError *error = nil;
                 data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-                RNCachedData *cache = [RNCachedData new];
-                cache.response = response;
-                cache.data = data;
-                [RNCachedData saveCache:cache forRequest:request];
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    [weakSelf updateCache:cache];
+                    [weakSelf updateData:data response:response];
                     _loadStatus = CUTEWebViewLoadNewFinish;
                 });
             });
@@ -436,10 +432,9 @@ typedef enum : NSUInteger {
     return [dateFormatter dateFromString:string];
 }
 
-- (void)updateCache:(RNCachedData *)cache {
-    NSHTTPURLResponse *response = (NSHTTPURLResponse *)cache.response;
+- (void)updateData:(NSData *)data response:(NSURLResponse *)response {
     if ([_webView.request.URL.absoluteString isEqualToString:response.URL.absoluteString]) {
-        [_webView loadData:cache.data MIMEType:response.MIMEType textEncodingName:response.textEncodingName baseURL:response.URL];
+        [_webView loadData:data MIMEType:response.MIMEType textEncodingName:response.textEncodingName baseURL:response.URL];
     }
 }
 
