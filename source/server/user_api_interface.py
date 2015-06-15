@@ -207,7 +207,8 @@ def user_register(params):
     if "private_contact_methods" in params and not set(params["private_contact_methods"]) <= {"email", "phone", "wechat"}:
         abort(40000)
 
-    params["email_message_type"] = params["system_message_type"] = ["system", "favorited_property_news", "intention_property_news", "my_property_news", "rent_ticket_reminder"]
+    params["email_message_type"] = ["system", "favorited_property_news", "intention_property_news", "my_property_news", "rent_ticket_reminder"]
+    params["system_message_type"] = ["system", "favorited_property_news", "intention_property_news", "my_property_news"]
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40351)
@@ -249,6 +250,8 @@ def user_fast_register(params):
     if "@" not in params["email"]:
         abort(40099, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
 
+    params["email_message_type"] = ["system", "favorited_property_news", "intention_property_news", "my_property_news", "rent_ticket_reminder"]
+    params["system_message_type"] = ["system", "favorited_property_news", "intention_property_news", "my_property_news"]
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
     if f_app.user.get_id_by_email(params["email"]):
