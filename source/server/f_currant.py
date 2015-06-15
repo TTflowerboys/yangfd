@@ -20,6 +20,7 @@ from itertools import chain
 from PIL import ImageOps
 from scipy.misc import imread
 from bson import SON
+import qrcode
 from libfelix.f_common import f_app
 from libfelix.f_user import f_user
 from libfelix.f_ticket import f_ticket
@@ -225,6 +226,28 @@ class currant_mongo_upgrade(f_mongo_upgrade):
 
             self.logger.debug("setting default minimum_rent_period for ticket", str(ticket["_id"]))
             ticket_database.update({"_id": ticket["_id"]}, {"$set": {"minimum_rent_period": default_minimum_rent_period}})
+
+    def v10(self, m):
+        for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
+            if "rent_ticket_reminder" not in user.get("email_message_type", []):
+                self.logger.debug("Appending rent_ticket_reminder email message type for user", str(user["_id"]))
+                f_app.user.get_database(m).update({"_id": user["_id"]}, {"$push": {"email_message_type": "rent_ticket_reminder"}})
+
+        for ticket in f_app.ticket.get_database(m).find({"type": "rent", "status": {"$in": ["draft", "to rent"]}}):
+            self.logger.debug("Adding reminder for rent ticket", str(ticket["_id"]))
+            f_app.task.get_database(m).insert(dict(
+                type="rent_ticket_reminder",
+                start=datetime.utcnow() + timedelta(days=7),
+                ticket_id=str(ticket["_id"]),
+                status="new",
+            ))
+
+    def v11(self, m):
+        for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
+            while user.get("email_message_type", []).count("rent_ticket_reminder") >= 2:
+                self.logger.debug("Removing redundant rent_ticket_reminder email message type for user", str(user["_id"]))
+                f_app.user.get_database(m).update({"_id": user["_id"]}, {"$pull": {"email_message_type": "rent_ticket_reminder"}})
+                user["email_message_type"].remove["rent_ticket_reminder"]
 
 currant_mongo_upgrade()
 
@@ -758,6 +781,62 @@ class f_currant_plugins(f_app.plugin_base):
         message["status"] = message.pop("state", "deleted")
         return message
 
+    def task_on_rent_ticket_reminder(self, task):
+        try:
+            rent_ticket = f_app.ticket.output(task["ticket_id"])[0]
+        except:
+            self.logger.warning("Failed to load ticket", task["ticket_id"], ", ignoring reminder...")
+            return
+
+        if rent_ticket["status"] != "to rent":
+            self.logger.debug("ticket", task["ticket_id"], "is in", rent_ticket["status"], "ignoring reminder...")
+
+            if rent_ticket["status"] == "draft":
+                f_app.task.put(dict(
+                    type="rent_ticket_reminder",
+                    start=datetime.utcnow() + timedelta(days=7),
+                    ticket_id=task["ticket_id"],
+                ))
+
+            return
+
+        title = "您的“%(title)s”是否已经出租成功了？" % rent_ticket
+        url = 'http://yangfd.com/property-to-rent/' + rent_ticket["id"]
+
+        img = qrcode.make(url)
+        output = StringIO()
+        img.save(output)
+
+        try:
+            body = template(
+                "views/static/emails/rent_notice.html",
+                title=title,
+                nickname=rent_ticket["creator_user"]["nickname"],
+                formated_date='之前',  # TODO
+                rent_url=url,
+                rent_title=rent_ticket["title"],
+                has_rented_url=url + "/confirm_rent",
+                refresh_url=url + "/refresh",
+                edit_url=url + "/edit",
+                qrcode_image=output.getvalue(),
+                unsubscribe_url='http://yangfd.com/')  # TODO
+        except:
+            self.logger.warning("Invalid ticket", task["ticket_id"], ", ignoring reminder...")
+            return
+
+        f_app.email.schedule(
+            target=rent_ticket["creator_user"]["email"],
+            subject=title,
+            text=body,
+            display="html",
+        )
+
+        f_app.task.put(dict(
+            type="rent_ticket_reminder",
+            start=datetime.utcnow() + timedelta(days=7),
+            ticket_id=task["ticket_id"],
+        ))
+
     def task_on_assign_property_short_id(self, task):
         # Validate that the property is still available:
         try:
@@ -768,6 +847,7 @@ class f_currant_plugins(f_app.plugin_base):
         if "short_id" in property:
             return
 
+        self.logger.debug("Looking for a free short id for property", task["property_id"])
         # TODO: not infinity?
         while True:
             new_short_id = "".join([str(random.randint(0, 9)) for i in range(6)])
@@ -775,6 +855,7 @@ class f_currant_plugins(f_app.plugin_base):
             if not len(found_property):
                 break
 
+        self.logger.debug("Setting short id", new_short_id, "for property", task["property_id"])
         f_app.property.update_set(task["property_id"], {"short_id": new_short_id})
 
     def task_on_render_pdf(self, task):
@@ -1160,7 +1241,7 @@ class f_currant_plugins(f_app.plugin_base):
 
     def task_on_crawler_abacusinvestor(self, task):
         search_url = "http://www.abacusinvestor.com"
-        list_page = f_app.request.get(search_url, retry=3) 
+        list_page = f_app.request.get(search_url, retry=3)
         if list_page.status_code == 200:
             self.logger.debug("Start crawling abacusinvestor")
             list_page_dom_root = q(list_page.content)

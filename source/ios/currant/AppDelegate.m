@@ -217,6 +217,7 @@
 //    _lastSelectedTabIndex = 0;
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];
+    [[CUTEEnumManager sharedInstance] getUploadCDNDomains];
 
     if ([self checkShowSplashViewController]) {
 
@@ -680,16 +681,22 @@
 }
 
 - (void)onReceiveBetaUserDidRegister:(NSNotification *)notif {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED]) {
-        CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:90];
-        toolTips.viewForTouchToDismiss = self.tabBarController.view;
-        [toolTips show];
+
+    //wait for the register controller dismiss, in case of mis-order trigger viewWillDisappear
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED]) {
+            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:90];
+            [toolTips show];
+
+            [((UINavigationController *) (self.tabBarController.selectedViewController)).topViewController aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^ (id<AspectInfo> info) {
+                [toolTips hideAnimated:YES];
+            } error:nil];
 
 
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    });
 }
 
 - (void)onReceiveShowSplashView:(NSNotification *)notif {

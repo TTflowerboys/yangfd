@@ -44,11 +44,13 @@
                         lastItemTime = _.last(array).last_modified_time
                         window.rentList = array
                         _.each(array, function (rent) {
-                            var houseResult = _.template($('#rentCard_template').html())({rent: rent})
-                            resultHtml += houseResult
+                            if(rent && rent.property){
+                                var houseResult = _.template($('#rentCard_template').html())({rent: rent})
+                                resultHtml += houseResult
 
-                            if (lastItemTime > rent.last_modified_time) {
-                                lastItemTime = rent.last_modified_time
+                                if (lastItemTime > rent.last_modified_time) {
+                                    lastItemTime = rent.last_modified_time
+                                }
                             }
                         })
                         $('#result_list').html(resultHtml)

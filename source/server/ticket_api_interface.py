@@ -585,7 +585,15 @@ def rent_ticket_add(user, params):
         params.setdefault("user_id", ObjectId(user["id"]))
         params.setdefault("creator_user_id", ObjectId(user["id"]))
 
-    return f_app.ticket.add(params)
+    ticket_id = f_app.ticket.add(params)
+
+    f_app.task.put(dict(
+        type="rent_ticket_reminder",
+        start=datetime.utcnow() + timedelta(days=7),
+        ticket_id=ticket_id,
+    ))
+
+    return ticket_id
 
 
 @f_api('/rent_ticket/<ticket_id>/edit', params=dict(
