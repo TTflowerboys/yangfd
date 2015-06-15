@@ -229,7 +229,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
 
     def v10(self, m):
         for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
-            if "rent_ticket_reminder" not in user:
+            if "rent_ticket_reminder" not in user.get("email_message_type", []):
                 self.logger.debug("Appending rent_ticket_reminder email message type for user", str(user["_id"]))
                 f_app.user.get_database(m).update({"_id": user["_id"]}, {"$push": {"email_message_type": "rent_ticket_reminder"}})
 
@@ -241,6 +241,13 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                 ticket_id=str(ticket["_id"]),
                 status="new",
             ))
+
+    def v11(self, m):
+        for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
+            while user.get("email_message_type", []).count("rent_ticket_reminder") >= 2:
+                self.logger.debug("Removing redundant rent_ticket_reminder email message type for user", str(user["_id"]))
+                f_app.user.get_database(m).update({"_id": user["_id"]}, {"$pull": {"email_message_type": "rent_ticket_reminder"}})
+                user["email_message_type"].remove["rent_ticket_reminder"]
 
 currant_mongo_upgrade()
 
