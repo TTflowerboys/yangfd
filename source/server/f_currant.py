@@ -247,7 +247,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             while user.get("email_message_type", []).count("rent_ticket_reminder") >= 2:
                 self.logger.debug("Removing redundant rent_ticket_reminder email message type for user", str(user["_id"]))
                 f_app.user.get_database(m).update({"_id": user["_id"]}, {"$pull": {"email_message_type": "rent_ticket_reminder"}})
-                user["email_message_type"].remove["rent_ticket_reminder"]
+                user["email_message_type"].remove("rent_ticket_reminder")
 
 currant_mongo_upgrade()
 
