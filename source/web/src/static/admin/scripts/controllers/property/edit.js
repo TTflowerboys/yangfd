@@ -5,7 +5,7 @@
 (function () {
 
     function ctrlPropertyEdit($scope, $state, api, $stateParams, misc, growl, $window, propertyStatus, userApi,
-                              propertySellingStatus, propertyReviewStatus, $rootScope, $filter) {
+                              propertySellingStatus, propertyReviewStatus, $rootScope, $filter, houseProperty, notHouseProperty) {
 
         var delayer = new misc.Delayer({
             task: function () {
@@ -14,15 +14,37 @@
             delay: 2 * 60 * 1000
         })
 
+        //issue #6880 房产编辑里当修改了“房产类型”时，将不同类型数据差异的部分设为unset fields
+        function unsetFieldsByropertyType (item) {
+            //todo 找出怎么样在这里使用$scope.propertyType
+            switch($('[name=property_type]').attr('data-propertytype')) {
+                case 'house':
+                case 'student_housing':
+                case 'new_property':
+                    item.unset_fields = _.uniq((item.unset_fields || []).concat(notHouseProperty))
+                    break
+                case 'apartment':
+                    item.unset_fields = _.uniq((item.unset_fields || []).concat(houseProperty))
+                    break
+            }
+
+            return item
+        }
+
+        function getSubmitItem(item) {
+            var submitItem = JSON.parse(angular.toJson(item))
+            submitItem = misc.cleanTempData(submitItem)
+            submitItem = misc.cleanI18nEmptyUnit(submitItem)
+            return unsetFieldsByropertyType(submitItem)
+        }
+
         function autoUpdate() {
             if ($state.current.controller !== 'ctrlPropertyEdit') {
                 $scope.cancelDelayer()
                 return
             }
             //Property item used for submit, use angular toJson to remove angular-specific tags
-            $scope.submitItem = JSON.parse(angular.toJson($scope.item))
-            $scope.submitItem = misc.cleanTempData($scope.submitItem)
-            $scope.submitItem = misc.cleanI18nEmptyUnit($scope.submitItem)
+            $scope.submitItem = getSubmitItem($scope.item)
             update(misc.getChangedI18nAttributes($scope.submitItem, $scope.lastItem))
             delayer.update()
         }
@@ -65,7 +87,8 @@
         }
 
         $scope.item = {}
-
+        $scope.lastItem = $scope.lastItem || {}
+        $scope.itemOrigin = $scope.itemOrigin || {}
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
 
 
@@ -143,6 +166,7 @@
             if (!_.isEmpty(editItem.city)) {
                 editItem.city = editItem.city.id
             }
+            editItem.unset_fields = []
             //Property item which is the original one when enter the edit page, used for rollback
             $scope.itemOrigin = editItem
             //Property item which is currently editing, aka, used for two-way binding
@@ -196,10 +220,8 @@
         $scope.submit = function ($event, form) {
             $event.preventDefault()
             $scope.submitted = true
-            var changed = JSON.parse(angular.toJson($scope.item))
-            changed = misc.cleanTempData(changed)
-            changed = misc.cleanI18nEmptyUnit(changed)
-            changed = misc.getChangedI18nAttributes(changed, $scope.lastItem)
+            var submitItem = getSubmitItem($scope.item)
+            var changed = misc.getChangedI18nAttributes(submitItem, $scope.lastItem)
             if (_.isEmpty(changed)) {
                 growl.addWarnMessage('没有修改或已自动保存')
                 return
@@ -239,10 +261,8 @@
 
         $scope.submitForPreview = function ($event, form) {
             $scope.submitted = true
-            var changed = JSON.parse(angular.toJson($scope.item))
-            changed = misc.cleanTempData(changed)
-            changed = misc.cleanI18nEmptyUnit(changed)
-            changed = misc.getChangedI18nAttributes(changed, $scope.lastItem)
+            var submitItem = getSubmitItem($scope.item)
+            var changed = misc.getChangedI18nAttributes(submitItem, $scope.lastItem)
             if (_.isEmpty(changed)) {
                 $window.open('property/' + $stateParams.id, '_blank')
                 return

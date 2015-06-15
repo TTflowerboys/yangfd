@@ -64,3 +64,36 @@ angular.module('app')
         {name: i18n('最低首付比例'), value: 'minimum_down_payment_rate'},
         {name: i18n('开发商包租'), value: 'rental_guarantee'}
     ])
+    .constant('houseProperty', [
+        'unit_price',
+        'main_house_types',
+        'opening_time',
+        'completion_time',
+        'building_type',
+        'property_management_type',
+        'building_area',
+        'plot_ratio',
+        'planning_area',
+        'greening_rate',
+        'parking_space_count',
+        'planning_household_count',
+        'developer',
+        'property_management_company',
+        'effect_pictures',
+        'indoor_sample_room_picture',
+        'planning_map',
+        'sales_address'
+    ])
+    .constant('notHouseProperty', [
+        'total_price',
+        'bedroom_count',
+        'living_room_count',
+        'bathroom_count',
+        'kitchen_count',
+        'facing_direction',
+        'space',
+        'floor_plan',
+        'house_name',
+        'floor',
+        'community'
+    ])

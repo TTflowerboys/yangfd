@@ -730,7 +730,7 @@
 
                     <div>{%$root.i18n('拖动至此删除内容')%}</div>
                     <table class="table table-bordered table-striped table-condensed ">
-                        <tr ng-repeat="field in item.unset_fields">
+                        <tr ng-repeat="field in item.unset_fields track by $index">
                             <td>{%field|propertyKeyName%}</td>
                             <td>
                                 <span class="btn btn-danger" ng-click="onRemoveDelete($index)" title="{%$root.i18n('移除')%}">

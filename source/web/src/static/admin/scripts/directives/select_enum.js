@@ -13,7 +13,7 @@ angular.module('app')
                 enumOption: '@text',
                 enumSlug: '=?slug'
             },
-            link: function (scope) {
+            link: function (scope, element) {
                 scope.userLanguage = $rootScope.userLanguage
                 enumApi.getEnumsByType(scope.enumType)
                     .success(function (data) {
@@ -28,6 +28,7 @@ angular.module('app')
                     for(var p in scope.enumList){
                         if(scope.enumList[p].id===scope.enumId){
                             scope.enumSlug = scope.enumList[p].slug
+                            $(element).attr('data-' + $(element).attr('slug'), scope.enumSlug)
                             return
                         }
                     }
