@@ -229,8 +229,8 @@ class currant_mongo_upgrade(f_mongo_upgrade):
 
     def v10(self, m):
         for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
-            self.logger.debug("Appending rent_ticket_reminder email message type for user", str(user["_id"]))
             if "rent_ticket_reminder" not in user:
+                self.logger.debug("Appending rent_ticket_reminder email message type for user", str(user["_id"]))
                 f_app.user.get_database(m).update({"_id": user["_id"]}, {"$push": {"email_message_type": "rent_ticket_reminder"}})
 
         for ticket in f_app.ticket.get_database(m).find({"type": "rent", "status": {"$in": ["draft", "to rent"]}}):
