@@ -5,7 +5,7 @@
 (function () {
 
     function ctrlPropertyEdit($scope, $state, api, $stateParams, misc, growl, $window, propertyStatus, userApi,
-                              propertySellingStatus, propertyReviewStatus, $rootScope, $filter) {
+                              propertySellingStatus, propertyReviewStatus, $rootScope, $filter, houseProperty, notHouseProperty) {
 
         var delayer = new misc.Delayer({
             task: function () {
@@ -16,7 +16,18 @@
 
         //issue #6880 房产编辑里当修改了“房产类型”时，将不同类型数据差异的部分设为unset fields
         function unsetFieldsByropertyType (item) {
-            console.log(item)
+            //todo 找出怎么样在这里使用$scope.propertyType
+            switch($('[name=property_type]').attr('data-propertytype')) {
+                case 'house':
+                case 'student_housing':
+                case 'new_property':
+                    item.unset_fields = _.uniq((item.unset_fields || []).concat(notHouseProperty))
+                    break
+                case 'apartment':
+                    item.unset_fields = _.uniq((item.unset_fields || []).concat(houseProperty))
+                    break
+            }
+
             return item
         }
 
@@ -76,7 +87,8 @@
         }
 
         $scope.item = {}
-
+        $scope.lastItem = $scope.lastItem || {}
+        $scope.itemOrigin = $scope.itemOrigin || {}
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
 
 
@@ -154,6 +166,7 @@
             if (!_.isEmpty(editItem.city)) {
                 editItem.city = editItem.city.id
             }
+            editItem.unset_fields = []
             //Property item which is the original one when enter the edit page, used for rollback
             $scope.itemOrigin = editItem
             //Property item which is currently editing, aka, used for two-way binding
