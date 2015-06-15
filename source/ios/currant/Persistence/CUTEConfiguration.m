@@ -27,6 +27,16 @@ static NSString *host = nil;
     return [NSURL URLWithString:CONCAT(@"http://", [self host], @":8286")];
 }
 
++ (NSArray *)webCacheHosts {
+    return @[[self host],
+             @"static.yangfd.com",
+             @"upload.yangfd.com"];
+}
+
++ (NSArray *)webCacheExceptionRules {
+    return @[CONCAT(@"http://", [self host], @"/api")];
+}
+
 + (NSString *)yangfdScheme {
     return @"yangfd";
 }

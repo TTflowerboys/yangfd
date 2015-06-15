@@ -53,7 +53,7 @@
 #import "CUTEApplyBetaRentingForm.h"
 #import "NSArray+ObjectiveSugar.h"
 #import "Aspects.h"
-
+#import "RNCachingURLProtocol.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
@@ -153,6 +153,12 @@
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[userAgentComponents componentsJoinedByString:@"/"], @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
 
+    [RNCachingURLProtocol setSupportedSchemes:[NSSet setWithArray:@[@"http", @"https"]]];
+    [NSURLProtocol registerClass:[RNCachingURLProtocol class]];
+    [RNCachedData setDefaultTimeoutInterval:7 * 24 * 60 * 60];//7 days
+    [RNCachedData setHostList:[CUTEConfiguration webCacheHosts]];
+    [RNCachedData setExceptionRules:[CUTEConfiguration webCacheExceptionRules]];
+
     [[CUTEShareManager sharedInstance] setUpShareSDK];
 
     [[CUTETracker sharedInstance] setup];
@@ -239,6 +245,8 @@
     [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
     [[AFNetworkActivityLogger sharedLogger] startLogging];
 #endif
+
+
 
     [Fabric with:@[CrashlyticsKit]];
     return YES;

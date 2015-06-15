@@ -40,6 +40,7 @@ PODS:
   - Bolts/Tasks (1.1.5)
   - CTAssetsPickerController (2.9.4)
   - DACircularProgress (2.3.1)
+  - EGOCache (2.1.3)
   - FMDB (2.5):
     - FMDB/standard (= 2.5)
   - FMDB/common (2.5)
@@ -102,6 +103,7 @@ DEPENDENCIES:
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
   - Bolts (= 1.1.5)
   - CTAssetsPickerController (= 2.9.4)
+  - EGOCache (~> 2.1.3)
   - FXForms (= 1.2.12)
   - GoogleAnalytics-iOS-SDK (= 3.12)
   - INTULocationManager (= 3.0.3)
@@ -156,6 +158,7 @@ SPEC CHECKSUMS:
   Bolts: aac24961496d504aa56fc267cde95162a71bac39
   CTAssetsPickerController: 3030dc60f5d1a3c4e5b1c0aa9f069220d5bf7008
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  EGOCache: f0295dbe041156acabd39021354ad1045ee49e72
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   FXForms: b6a78bac9f6b597ce704e34ac7c1ce9ff628b1d5
   GoogleAnalytics-iOS-SDK: 0a3327a993b8ed2b8fe1c6c4a8dcf5b76d2237a8

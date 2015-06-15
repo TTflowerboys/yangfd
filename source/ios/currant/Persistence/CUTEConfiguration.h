@@ -16,6 +16,10 @@
 
 + (NSURL *)uploadHostURL;
 
++ (NSArray *)webCacheHosts;
+
++ (NSArray *)webCacheExceptionRules;
+
 + (NSString *)yangfdScheme;
 
 + (NSString *)ukServicePhone;

@@ -22,6 +22,15 @@
 #import "WebViewJavascriptBridge.h"
 #import "NSString+Encoding.h"
 #import "NSArray+ObjectiveSugar.h"
+#import "RNCachingURLProtocol.h"
+#import "NSDate-Utilities.h"
+
+typedef enum : NSUInteger {
+    CUTEWebViewLoadStart,
+    CUTEWebViewLoadFinish,
+    CUTEWebViewLoadNewStart,
+    CUTEWebViewLoadNewFinish,
+} CUTEWebViewLoadStatus;
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
@@ -32,6 +41,8 @@
     NJKWebViewProgress *_progressProxy;
 
     NSURL *_needReloadURL;
+
+    CUTEWebViewLoadStatus _loadStatus;
 }
 
 @property (nonatomic, strong) WebViewJavascriptBridge *bridge;
@@ -165,6 +176,7 @@
         [self updateWebView];
     }
     [_webView loadRequest:urlRequest];
+    _loadStatus = CUTEWebViewLoadFinish;
 
     [self updateBackButton];
     [self updateRightButtonWithURL:url];
@@ -264,6 +276,7 @@
 }
 
 - (void)reload {
+    _loadStatus = CUTEWebViewLoadFinish;
     NSString *functionExisted = [self.webView stringByEvaluatingJavaScriptFromString:@"typeof window.$currantDropLoad.trigger === 'function'"];
     if ([functionExisted isEqualToString:@"true"]) {
         [self.webView stringByEvaluatingJavaScriptFromString:@"window.$currantDropLoad.trigger('loading')"];
@@ -321,6 +334,9 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
 
+    if (_loadStatus == CUTEWebViewLoadFinish) {
+        _loadStatus = CUTEWebViewLoadStart;
+    }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
@@ -328,12 +344,45 @@
     [self updateBackButton];
     [self updateRightButtonWithURL:webView.request.URL];
     [self updateTitleWithURL:webView.request.URL];
+
+
+    if (_loadStatus == CUTEWebViewLoadStart) {
+        if ([RNCachedData isRequestCached:webView.request]) {
+            _loadStatus = CUTEWebViewLoadNewStart;
+
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:webView.request.URL
+                                                     cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                 timeoutInterval:600.0];
+            [request setValue:@"" forHTTPHeaderField:RNCachingReloadHeader];
+            __weak typeof(self)weakSelf = self;
+
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+                NSURLResponse *response = nil;
+                NSData *data = nil;
+                NSError *error = nil;
+                data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+                RNCachedData *cache = [RNCachedData new];
+                cache.response = response;
+                cache.data = data;
+                [RNCachedData saveCache:cache forRequest:request];
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    [weakSelf updateCache:cache];
+                    _loadStatus = CUTEWebViewLoadNewFinish;
+                });
+            });
+
+        }
+        else {
+            _loadStatus = CUTEWebViewLoadFinish;
+        }
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self updateBackButton];
     [self updateRightButtonWithURL:webView.request.URL];
     [self updateTitleWithURL:webView.request.URL];
+    _loadStatus = CUTEWebViewLoadFinish;
 }
 
 #pragma mark - NJKWebViewProgressDelegate
@@ -379,5 +428,20 @@
         }
     }
 }
+
+- (NSDate *)getHTTPDateWithString:(NSString *)string {
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEE',' dd' 'MMM' 'yyyy HH':'mm':'ss zzz"];
+    return [dateFormatter dateFromString:string];
+}
+
+- (void)updateCache:(RNCachedData *)cache {
+    NSHTTPURLResponse *response = (NSHTTPURLResponse *)cache.response;
+    if ([_webView.request.URL.absoluteString isEqualToString:response.URL.absoluteString]) {
+        [_webView loadData:cache.data MIMEType:response.MIMEType textEncodingName:response.textEncodingName baseURL:response.URL];
+    }
+}
+
 
 @end
