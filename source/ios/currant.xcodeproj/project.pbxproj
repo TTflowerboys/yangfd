@@ -663,6 +663,11 @@
 		2CFF2D3B1B2EC70C0037B348 /* RNCachedData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF2D381B2EC70C0037B348 /* RNCachedData.m */; };
 		2CFF2D3C1B2EC70C0037B348 /* RNCachedData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF2D381B2EC70C0037B348 /* RNCachedData.m */; };
 		2CFF2D3D1B2EC70C0037B348 /* RNCachedData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF2D381B2EC70C0037B348 /* RNCachedData.m */; };
+		2CFF2D401B2FC53A0037B348 /* RNCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF2D3F1B2FC53A0037B348 /* RNCache.m */; };
+		2CFF2D411B2FC53A0037B348 /* RNCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF2D3F1B2FC53A0037B348 /* RNCache.m */; };
+		2CFF2D421B2FC53A0037B348 /* RNCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF2D3F1B2FC53A0037B348 /* RNCache.m */; };
+		2CFF2D431B2FC53A0037B348 /* RNCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF2D3F1B2FC53A0037B348 /* RNCache.m */; };
+		2CFF2D441B2FC53A0037B348 /* RNCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF2D3F1B2FC53A0037B348 /* RNCache.m */; };
 		82037DC2E4CBE6EBA4114331 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
 		C4A0594E53CF2777C29B6FC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -959,6 +964,8 @@
 		2CF8A6B41AF0E8770080DF10 /* CUTERentLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentLoginViewController.m; sourceTree = "<group>"; };
 		2CFF2D371B2EC70C0037B348 /* RNCachedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCachedData.h; sourceTree = "<group>"; };
 		2CFF2D381B2EC70C0037B348 /* RNCachedData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCachedData.m; sourceTree = "<group>"; };
+		2CFF2D3E1B2FC53A0037B348 /* RNCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCache.h; sourceTree = "<group>"; };
+		2CFF2D3F1B2FC53A0037B348 /* RNCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCache.m; sourceTree = "<group>"; };
 		3D71FAA99AADAD5513E122AE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		74C38B0D53E631D7141C9D35 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		82E3282C891185CD9B12868A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1198,6 +1205,8 @@
 				2C99C9BD1B2E722300157D6F /* RNCachingURLProtocol.m */,
 				2CFF2D371B2EC70C0037B348 /* RNCachedData.h */,
 				2CFF2D381B2EC70C0037B348 /* RNCachedData.m */,
+				2CFF2D3E1B2FC53A0037B348 /* RNCache.h */,
+				2CFF2D3F1B2FC53A0037B348 /* RNCache.m */,
 			);
 			path = RNCachingURLProtocol;
 			sourceTree = "<group>";
@@ -2000,6 +2009,7 @@
 				2C3099C61B09D26B004BA7F9 /* CUTERentPasswordViewController.m in Sources */,
 				2C0AE1251B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */,
 				2CF8A5E81AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
+				2CFF2D421B2FC53A0037B348 /* RNCache.m in Sources */,
 				2C63CAD61B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD41AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C06D3A51B29465800C147DE /* CUTEModelEditingListener.m in Sources */,
@@ -2130,6 +2140,7 @@
 				2C3099C71B09D26B004BA7F9 /* CUTERentPasswordViewController.m in Sources */,
 				2C0AE1261B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */,
 				2CF8A5E91AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
+				2CFF2D431B2FC53A0037B348 /* RNCache.m in Sources */,
 				2C63CAD71B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD51AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C06D3A61B29465800C147DE /* CUTEModelEditingListener.m in Sources */,
@@ -2260,6 +2271,7 @@
 				2C3099C51B09D26B004BA7F9 /* CUTERentPasswordViewController.m in Sources */,
 				2C0AE1241B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */,
 				2CF8A5E71AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
+				2CFF2D411B2FC53A0037B348 /* RNCache.m in Sources */,
 				2C63CAD51B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD31AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C06D3A41B29465800C147DE /* CUTEModelEditingListener.m in Sources */,
@@ -2390,6 +2402,7 @@
 				2C3099C41B09D26B004BA7F9 /* CUTERentPasswordViewController.m in Sources */,
 				2C0AE1231B1EF20D00A73BE6 /* CUTERentCityViewController.m in Sources */,
 				2CF8A5E61AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
+				2CFF2D401B2FC53A0037B348 /* RNCache.m in Sources */,
 				2C63CAD41B230DEE0055687A /* CUTETooltipView.m in Sources */,
 				2C2FCDD21AFCCE4F002594D7 /* CUTEFormTextViewCell.m in Sources */,
 				2C06D3A31B29465800C147DE /* CUTEModelEditingListener.m in Sources */,
@@ -2549,6 +2562,7 @@
 				2CF8A65D1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */,
 				2CF8A6211AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
 				2C3099C81B09D26B004BA7F9 /* CUTERentPasswordViewController.m in Sources */,
+				2CFF2D441B2FC53A0037B348 /* RNCache.m in Sources */,
 				2CA81FCF1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
 				2C3099C11B09CF6D004BA7F9 /* CUTERentPasswordForm.m in Sources */,
 				2C99C9CC1B2E722300157D6F /* RNCachingURLProtocol.m in Sources */,

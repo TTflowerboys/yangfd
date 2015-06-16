@@ -60,8 +60,9 @@
 
 #import <Foundation/Foundation.h>
 #import "RNCachedData.h"
+#import "RNCache.h"
 
-extern NSString *const RNCachingReloadHeader;
+extern NSString *const RNCachingReloadIgnoringCacheHeader;
 
 
 

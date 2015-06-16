@@ -18,16 +18,5 @@
 @property (nonatomic, readwrite, strong) NSURLRequest *redirectRequest;
 
 
-+ (void)setHostList:(NSArray *)hostList; // host array
-
-+ (void)setExceptionRules:(NSArray *)exceptionRules; //regex
-
-+ (void)setDefaultTimeoutInterval:(NSTimeInterval)timeoutInterval;
-
-+ (BOOL)isRequestCached:(NSURLRequest *)request;
-
-+ (RNCachedData *)getCacheForRequest:(NSURLRequest *)request;
-
-+ (void)saveCache:(RNCachedData *)cache forRequest:(NSURLRequest *)request;
 
 @end

@@ -31,7 +31,7 @@
 
 
 static NSString *RNCachingURLHeader = @"X-RNCache";
-NSString *const RNCachingReloadHeader = @"X-RNCacheReload";
+NSString *const RNCachingReloadIgnoringCacheHeader = @"X-RNCacheReloadIgnoringCache";
 
 
 #define WORKAROUND_MUTABLE_COPY_LEAK 1
@@ -78,7 +78,7 @@ static NSSet *RNCachingSupportedSchemes;
     if ([[self supportedSchemes] containsObject:[[request URL] scheme]])
     {
 
-        if ([request valueForHTTPHeaderField:RNCachingReloadHeader]) {
+        if ([request valueForHTTPHeaderField:RNCachingReloadIgnoringCacheHeader]) {
             return YES;
         }
 
@@ -94,7 +94,6 @@ static NSSet *RNCachingSupportedSchemes;
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request
 {
-
     return request;
 }
 
@@ -121,12 +120,12 @@ static NSSet *RNCachingSupportedSchemes;
 
 - (void)startLoading
 {
-    if ([self.request valueForHTTPHeaderField:RNCachingReloadHeader]) {
+    if ([self.request valueForHTTPHeaderField:RNCachingReloadIgnoringCacheHeader]) {
         [self loadRequest];
 
     }
     else {
-        RNCachedData *cache = [RNCachedData getCacheForRequest:self.request];
+        RNCachedData *cache = [[RNCache sharedInstance] getCacheForRequest:self.request];
         if (cache) {
             NSData *data = [cache data];
             NSURLResponse *response = [cache response];
@@ -162,14 +161,16 @@ static NSSet *RNCachingSupportedSchemes;
 - (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response
 {
 
-    if ([request valueForHTTPHeaderField:RNCachingReloadHeader]) {
+    //TODO in iOS 7.3 not work?
+    if ([request valueForHTTPHeaderField:RNCachingReloadIgnoringCacheHeader]) {
         NSMutableURLRequest *connectionRequest =
 #if WORKAROUND_MUTABLE_COPY_LEAK
         [request mutableCopyWorkaround];
 #else
         [request mutableCopy];
 #endif
-        [connectionRequest setValue:nil forHTTPHeaderField:RNCachingReloadHeader];
+        [connectionRequest setValue:nil forHTTPHeaderField:RNCachingReloadIgnoringCacheHeader];
+        [connectionRequest setValue:nil forHTTPHeaderField:RNCachingURLHeader];
         request = connectionRequest;
         
     }
@@ -193,7 +194,7 @@ static NSSet *RNCachingSupportedSchemes;
         [cache setResponse:response];
         [cache setData:[self data]];
         [cache setRedirectRequest:redirectableRequest];
-        [RNCachedData saveCache:cache forRequest:redirectableRequest];
+        [[RNCache sharedInstance] saveCache:cache forRequest:redirectableRequest];
         [[self client] URLProtocol:self wasRedirectedToRequest:redirectableRequest redirectResponse:response];
         return redirectableRequest;
     } else {
@@ -228,7 +229,7 @@ static NSSet *RNCachingSupportedSchemes;
     RNCachedData *cache = [RNCachedData new];
     [cache setResponse:[self response]];
     [cache setData:[self data]];
-    [RNCachedData saveCache:cache forRequest:self.request];
+    [[RNCache sharedInstance] saveCache:cache forRequest:self.request];
 
     [self setConnection:nil];
     [self setData:nil];
