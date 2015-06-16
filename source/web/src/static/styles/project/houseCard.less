@@ -472,3 +472,223 @@
         }
     }
 }
+.houseCard_phone_intention {
+    display:none;
+    background:#fff;
+    color: @grey;
+    @media @phone {
+        display:block;
+        margin-bottom:20px;
+    }
+
+    a {
+        text-decoration:none;//in trigger text-decoration for inner element in samsung galaxy device
+    }
+
+    .imagePart {
+        overflow:hidden;
+        position:relative;
+        display:block;
+        img {
+            width:100%;
+            float:left;
+            min-height:160px;
+        }
+
+        .labels {
+            position: absolute;
+            left: 0;
+            top: 15px;
+            width:100%;
+            z-index:@house_card-image-text-z-index;
+            label {
+                position:static;
+                float:right;
+                color:white;
+                font-size:14px;
+                line-height:30px;
+                padding:5px 12px;
+
+                &.type {
+                    background:#333;
+                }
+                &.rent {
+                    background:#e60012;
+                }
+
+            }
+        }
+
+        @imagePart-height:85px;
+
+        .soldOut {
+            height: 160px;
+            position: absolute;
+            width: 100%;
+            img {
+                position: absolute;
+                left: 0;
+                top:0;
+                height:100%;
+                height:~"calc(100% - 85px)";
+                width:100%;
+                z-index:@house_card-sold-out-background-z-index;
+            }
+
+            label {
+                position:absolute;
+                z-index:@house_card-image-text-z-index;
+                width:100%;
+                height:160px;
+                color:#666666;
+                text-align: center;
+                display: block;
+                line-height:200px;
+                font-size:16px;
+            }
+        }
+
+        .imageText {
+            width:100%;
+            height:@imagePart-height;
+            float:left;
+
+            .left {
+                display:inline-block;
+                float:left;
+                width:60%;
+                height:100%;
+                padding:20px 12px;
+
+                .name {
+                    margin:0 0 6px 0;
+                    font-size:20px;
+                    .limitedLines(2, 24px, #fff);
+                    color: @black;
+                }
+                .size {
+                    display: none;
+                }
+
+            }
+
+            .right {
+                table{
+                    width: 100%;
+                }
+                display:inline-block;
+                float:right;
+                text-align: right;
+                width:40%;
+                height:100%;
+                padding-right: 20px;
+                .price {
+                    display: block;
+                    margin-top: 12px;
+                    color:#e60012;
+                    font-size:18px;
+                    strong {
+                        font-size:28px;
+                    }
+
+                    >.price_reference {
+                        color: @grey;
+                        display: none;
+                        strong {
+                            font-size:inherit;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .textPart {
+        overflow:hidden;
+        &_inner {
+            display: none;
+
+        }
+        .intentionStatus {
+            table-layout:fixed;
+            width:100%;
+            font-size: 16px;
+            color: @grey;
+            padding: 0 15px 10px;
+            .clearfix
+            .estimate {
+                width:40%;
+                float: left;
+            }
+            .properties {
+                float: right;
+                text-align: right;
+                width:60%;
+                background:transparent;
+            }
+        }
+    }
+    hr{
+        margin: 0 15px;
+        color: @border-color;
+    }
+    .propertyInfo{
+        padding: 10px 15px;
+        border-bottom: 1px solid @border-color;
+        .location{
+            color: @grey;
+            margin: 8px 0 0;
+            font-size: 14px;
+            .clearfix;
+            img{
+                display: block;
+                float: left;
+                width: 16px;
+                height: 16px;
+                min-height: 16px;
+                margin-right: 6px;
+            }
+            .limitedLines(1,16px)
+        }
+        .size {
+            padding: 10px 0 0;
+            font-size: 14px;
+            .clearfix;
+            & > div{
+                width: 48%;
+                float: left;
+                margin: 15px 2% 0 0;
+                p{
+                    margin: 0 0 5px;
+                }
+                .title{
+                    color: @grey;
+                }
+                .content{
+                    color: @black;
+                }
+            }
+            .room{
+                border-right: 1px solid @border-color;
+            }
+        }
+    }
+    .contact{
+        padding: 10px 0;
+        .clearfix;
+        a{
+            display: block;
+            float: left;
+            width: 48%;
+            height: 30px;
+            line-height: 30px;
+            margin-right: 2%;
+            color: @grey;
+            font-size: 14px;
+            text-align: center;
+            &.phone{
+                border-right: 1px solid @border-color;
+            }
+        }
+    }
+}
