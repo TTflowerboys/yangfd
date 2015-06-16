@@ -61,10 +61,16 @@
                     /*if(isCurrentBudgetLoadFinished()) {
                         $('.isAllLoadedInfo').show()
                     }*/
-                    me.resetload();
+                    $('.dropload-load').html(i18n('加载成功'))
+                    setTimeout(function () {
+                        me.resetload()
+                    },500)
 
                 }).fail(function () {
-                    me.resetload();
+                    $('.dropload-load').html(i18n('加载失败'))
+                    setTimeout(function () {
+                        me.resetload()
+                    },500)
                 }).always(function () {
                     updateResultCount(totalResultCount)
                     isLoading = false

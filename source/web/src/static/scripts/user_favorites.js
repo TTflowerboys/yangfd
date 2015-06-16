@@ -48,8 +48,16 @@ $(function () {
             if(isLoading){
                 return me.resetload();
             }
-            loadProperty().always(function () {
-                me.resetload();
+            loadProperty().done(function () {
+                $('.dropload-load').html(i18n('加载成功'))
+                setTimeout(function () {
+                    me.resetload()
+                },500)
+            }).fail(function () {
+                $('.dropload-load').html(i18n('加载失败'))
+                setTimeout(function () {
+                    me.resetload()
+                },500)
             })
         },
 
