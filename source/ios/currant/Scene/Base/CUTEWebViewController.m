@@ -24,13 +24,8 @@
 #import "NSArray+ObjectiveSugar.h"
 #import "RNCachingURLProtocol.h"
 #import "NSDate-Utilities.h"
+#import "Aspects.h"
 
-typedef enum : NSUInteger {
-    CUTEWebViewLoadStart,
-    CUTEWebViewLoadFinish,
-    CUTEWebViewLoadNewStart,
-    CUTEWebViewLoadNewFinish,
-} CUTEWebViewLoadStatus;
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
@@ -42,7 +37,9 @@ typedef enum : NSUInteger {
 
     NSURL *_needReloadURL;
 
-    CUTEWebViewLoadStatus _loadStatus;
+    id<AspectToken> _loadFinishHook;
+
+    id<AspectToken> _loadFailedHook;
 }
 
 @property (nonatomic, strong) WebViewJavascriptBridge *bridge;
@@ -165,6 +162,36 @@ typedef enum : NSUInteger {
         [NotificationCenter postNotificationName:KNOTIF_SHOW_PROPERTY_LIST_TAB object:nil];
     }];
 }
+- (void)addReloadIgnoringCacheHook {
+    typedef void (^ ReloadIgnoringCacheBlock) (id<AspectInfo> info, UIWebView *webView);
+
+    ReloadIgnoringCacheBlock reloadBlock = ^ (id<AspectInfo> info, UIWebView *webView) {
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:webView.request.URL
+                                                               cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                           timeoutInterval:600.0];
+        [request setValue:@"" forHTTPHeaderField:RNCachingReloadIgnoringCacheHeader];
+        __weak typeof(self)weakSelf = self;
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+            NSURLResponse *response = nil;
+            NSData *data = nil;
+            NSError *error = nil;
+            data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [weakSelf updateData:data response:response];
+            });
+        });
+    };
+
+    _loadFinishHook = [self aspect_hookSelector:@selector(webViewDidFinishLoad:) withOptions:AspectPositionAfter | AspectOptionAutomaticRemoval usingBlock:reloadBlock error:nil];
+    _loadFailedHook =[self aspect_hookSelector:@selector(webView:didFailLoadWithError:) withOptions:AspectPositionAfter | AspectOptionAutomaticRemoval usingBlock:reloadBlock error:nil];
+
+}
+
+- (void)clearReloadIgnoringCacheHook {
+    [_loadFinishHook remove];
+    [_loadFailedHook remove];
+}
 
 - (void)loadURL:(NSURL *)url {
     if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:url] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
@@ -176,11 +203,13 @@ typedef enum : NSUInteger {
         [self updateWebView];
     }
     [_webView loadRequest:urlRequest];
-    _loadStatus = CUTEWebViewLoadFinish;
 
     [self updateBackButton];
     [self updateRightButtonWithURL:url];
     [self updateTitleWithURL:url];
+
+    [self clearReloadIgnoringCacheHook];
+    [self addReloadIgnoringCacheHook];
 }
 
 - (void)loadURLInNewController:(NSURL *)url {
@@ -276,13 +305,14 @@ typedef enum : NSUInteger {
 }
 
 - (void)reload {
-    _loadStatus = CUTEWebViewLoadFinish;
     NSString *functionExisted = [self.webView stringByEvaluatingJavaScriptFromString:@"typeof window.$currantDropLoad.trigger === 'function'"];
     if ([functionExisted isEqualToString:@"true"]) {
         [self.webView stringByEvaluatingJavaScriptFromString:@"window.$currantDropLoad.trigger('loading')"];
     }
     else {
         [self.webView reload];
+        [self clearReloadIgnoringCacheHook];
+        [self addReloadIgnoringCacheHook];
     }
 }
 
@@ -334,9 +364,6 @@ typedef enum : NSUInteger {
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
 
-    if (_loadStatus == CUTEWebViewLoadFinish) {
-        _loadStatus = CUTEWebViewLoadStart;
-    }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
@@ -344,41 +371,12 @@ typedef enum : NSUInteger {
     [self updateBackButton];
     [self updateRightButtonWithURL:webView.request.URL];
     [self updateTitleWithURL:webView.request.URL];
-
-
-    if (_loadStatus == CUTEWebViewLoadStart) {
-        if ([RNCachedData isRequestCached:webView.request]) {
-            _loadStatus = CUTEWebViewLoadNewStart;
-
-            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:webView.request.URL
-                                                     cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                                 timeoutInterval:600.0];
-            [request setValue:@"" forHTTPHeaderField:RNCachingReloadHeader];
-            __weak typeof(self)weakSelf = self;
-
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-                NSURLResponse *response = nil;
-                NSData *data = nil;
-                NSError *error = nil;
-                data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    [weakSelf updateData:data response:response];
-                    _loadStatus = CUTEWebViewLoadNewFinish;
-                });
-            });
-
-        }
-        else {
-            _loadStatus = CUTEWebViewLoadFinish;
-        }
-    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self updateBackButton];
     [self updateRightButtonWithURL:webView.request.URL];
     [self updateTitleWithURL:webView.request.URL];
-    _loadStatus = CUTEWebViewLoadFinish;
 }
 
 #pragma mark - NJKWebViewProgressDelegate

@@ -86,7 +86,8 @@
     }
 
     _mapView = [[MKMapView alloc] init];
-    _mapView.frame = self.view.bounds;
+    _mapView.frame = CGRectMake(0, StatusBarHeight + TouchHeightDefault, RectWidth(self.view.bounds), RectHeightExclude(self.view.bounds, (StatusBarHeight + TouchHeightDefault)));
+//    _mapView.frame = self.view.bounds;
     _mapView.delegate = self;
     [self.view addSubview:_mapView];
 
@@ -207,6 +208,7 @@
                 if ([location distanceFromLocation:centerLocation] > 10) {
                     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
                     [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+//                    [_mapView addAnnotation:[[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil]];
                 }
                 CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
                 self.ticket.property.latitude = @(location.coordinate.latitude);

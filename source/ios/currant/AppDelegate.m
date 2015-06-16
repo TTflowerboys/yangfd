@@ -220,9 +220,9 @@
 
     [RNCachingURLProtocol setSupportedSchemes:[NSSet setWithArray:@[@"http", @"https"]]];
     [NSURLProtocol registerClass:[RNCachingURLProtocol class]];
-    [RNCachedData setDefaultTimeoutInterval:7 * 24 * 60 * 60];//7 days
-    [RNCachedData setHostList:[CUTEConfiguration webCacheHosts]];
-    [RNCachedData setExceptionRules:[CUTEConfiguration webCacheExceptionRules]];
+    [[RNCache sharedInstance] setDefaultTimeoutInterval:7 * 24 * 60 * 60];//7 days
+    [[RNCache sharedInstance] setHostList:[CUTEConfiguration webCacheHosts]];
+    [[RNCache sharedInstance] setExceptionRules:[CUTEConfiguration webCacheExceptionRules]];
 
 
     [[CUTEEnumManager sharedInstance] startLoadAllEnums];

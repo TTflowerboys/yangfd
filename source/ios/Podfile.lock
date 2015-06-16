@@ -79,6 +79,8 @@ PODS:
     - Mantle (~> 1.3)
   - PSTCollectionView (1.2.3)
   - RegExCategories (1.0)
+  - RNCachingURLProtocol+HybirdApp (0.0.1):
+    - EGOCache
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
@@ -103,7 +105,6 @@ DEPENDENCIES:
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
   - Bolts (= 1.1.5)
   - CTAssetsPickerController (= 2.9.4)
-  - EGOCache (~> 2.1.3)
   - FXForms (= 1.2.12)
   - GoogleAnalytics-iOS-SDK (= 3.12)
   - INTULocationManager (= 3.0.3)
@@ -116,6 +117,7 @@ DEPENDENCIES:
   - NJKWebViewProgress (= 0.2.3)
   - NSDate-Extensions (= 0.0.1)
   - RegExCategories (= 1.0)
+  - RNCachingURLProtocol+HybirdApp (from `git@github.com:Fykec/RNCachingURLProtocol.git`)
   - Sequencer (= 1.0.1)
   - SMCalloutView (= 2.1.2)
   - SVProgressHUD (= 1.1.3)
@@ -132,6 +134,8 @@ EXTERNAL SOURCES:
     :git: git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git
   BBTUtility:
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
+  RNCachingURLProtocol+HybirdApp:
+    :git: git@github.com:Fykec/RNCachingURLProtocol.git
   WeiboSDK:
     :git: https://github.com/sinaweibosdk/weibo_ios_sdk
     :tag: 3.0.1
@@ -143,6 +147,9 @@ CHECKOUT OPTIONS:
   BBTUtility:
     :commit: f5f295b562ceb5097e2a224bf4332f39c2e2779f
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
+  RNCachingURLProtocol+HybirdApp:
+    :commit: 47ea2228aa65173933adebc74aa0f62b0ac7a8fe
+    :git: git@github.com:Fykec/RNCachingURLProtocol.git
   WeiboSDK:
     :git: https://github.com/sinaweibosdk/weibo_ios_sdk
     :tag: 3.0.1
@@ -177,6 +184,7 @@ SPEC CHECKSUMS:
   Overcoat: 45e4d20eafc02c8d7fcde3cb89d35f0630a9fa80
   PSTCollectionView: 6749df92885353521f55279a7ce2b293762e2be4
   RegExCategories: e68befacacd5bda853c88f70ec745cb2d0cfb89c
+  RNCachingURLProtocol+HybirdApp: 21fa40f9134a7fe7e38b8d6ab8f16c930310df73
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   Sequencer: 53040fea35ecde55ba9cdb3a505a00cfb0e797b2
   SMCalloutView: 4078d89b847731e514b1a919fed33b383a24a106
