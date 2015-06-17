@@ -1,10 +1,13 @@
-$('button[name=userChangeLanguage]').click(function () {
+$('[name=userChangeLanguage]').click(function () {
     var $button = $(this)
     var state = $button.attr('data-state')
 
     if (state === 'normal') {
         $button.attr('data-state', 'editing')
         $button.text(window.i18n('确定'))
+        if (window.team.isPhone()) {
+            $button.removeClass('btn-edit').addClass('btn-red')
+        }
         $('select[name=userLanguage]').show()
         $('label[name=userLanguage]').hide()
     }
@@ -13,14 +16,16 @@ $('button[name=userChangeLanguage]').click(function () {
         window.changeLanguage(language)
     }
 })
-
-$('button[name=userCurrency]').click(function () {
+$('[name=userCurrency]').click(function () {
     var $button = $(this)
     var state = $button.attr('data-state')
 
     if (state === 'normal') {
         $button.attr('data-state', 'editing')
         $button.text(window.i18n('确定'))
+        if (window.team.isPhone()) {
+            $button.removeClass('btn-edit').addClass('btn-red')
+        }
         $('select[name=userCurrency]').show()
         $('label[name=userCurrency]').hide()
     }
@@ -30,13 +35,16 @@ $('button[name=userCurrency]').click(function () {
     }
 })
 
-$('button[name=userChangeWechat]').click(function () {
+$('[name=userChangeWechat]').click(function () {
     var $button = $(this)
     var state = $button.attr('data-state')
 
     if (state === 'normal') {
         $button.attr('data-state', 'editing')
         $button.text(window.i18n('确定'))
+        if (window.team.isPhone()) {
+            $button.removeClass('btn-edit').addClass('btn-red')
+        }
 
         $('input[name=userWechat]').show()
         $('label[name=userWechat]').hide()
@@ -55,6 +63,9 @@ $('button[name=userChangeWechat]').click(function () {
                     $('label[name=userWechat]').show()
 
                     $button.text(window.i18n('修改'))
+                    if (window.team.isPhone()) {
+                        $button.removeClass('btn-red').addClass('btn-edit').html('<i class="icon-nav-arrow-right"></i>')
+                    }
                     $button.attr('data-state', 'normal')
                 })
         } else {

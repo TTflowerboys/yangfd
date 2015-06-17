@@ -1,4 +1,6 @@
-<h1 class="caption">{{_('账户信息')}}</h1>
+<div class="header">
+    <h2>{{_('账户信息')}}</h2>
+</div>
 <div class="table_wrapper">
     <table>
         <!--<colgroup>-->
@@ -12,26 +14,25 @@
                 <td>
                     <strong>{{_('手机号')}}</strong>
                     <!--<p> {{_('手机号是您在洋房东的登录和')}} <br/>{{_('找回密码凭证')}}</p>-->
-                    <div class="status">
-                        %if user.get('phone_verified'):
-                        <i></i> {{_('已认证')}}
-                        %else:
-                        <i></i> {{_('未认证')}}
-                        %end
-                    </div>
-                    <div style="font-size: 20px;">
+                    %if user.get('phone_verified'):
+                    <i class="status green">{{_('已认证')}}</i>
+                    %else:
+                    <i class="status grey">{{_('未认证')}}</i>
+                    %end
+
+                </td>
+                <td class="action">
+                    <div style="">
                         %if user.get('phone'):
                         {{user.get('phone')}}
                         %end
                     </div>
-                </td>
-                <td class="action">
                     %if user.get('phone_verified'):
-                    <a class="ghostButton red" href="/user-change-phone-1">
-                        {{_('修改')}}
+                    <a class="btn-edit btn" href="/user-change-phone-1">
+                        <i class="icon-nav-arrow-right"></i>
                     </a>
                     %else:
-                    <a class="ghostButton red" href="/user-verify-phone-1">
+                    <a class="btn-red btn" href="/user-verify-phone-1">
                         {{_('认证')}}
                     </a>
                     %end
@@ -41,32 +42,32 @@
                 <td>
                     <strong>{{_('电子邮箱')}}</strong>
                     <!--<p>{{_('获取最新的投资讯息和账户信息')}} <br/> {{_('变动通知')}}</p>-->
-                    <div class="status">
                         %if user.get('email') and user.get('email_verified'):
-                        <i></i> {{_('已认证')}}
+                        <i class="status green">{{_('已认证')}}</i>
                         %elif user.get('email') and (not user.get('email_verified')):
-                        <i></i> {{_('未认证')}}
+                        <i class="status grey">{{_('未认证')}}</i>
                         %else:
-                        <i></i> {{_('未设置')}}
+                        <i class="status grey">{{_('未设置')}}</i>
                         %end
-                    </div>
-                    <div style="font-size: 20px;">
-                        %if user.get('email'):
-                        {{user.get('email')}}
-                        %end
-                    </div>
+
                 </td>
                 <td class="action">
+                    <div>
+                        %if user.get('email'):
+                        %import re
+                        {{re.sub(r'^(.{5})(.+)(.{8})$', '\\1***\\3', user.get('email'))}}
+                        %end
+                    </div>
                     %if user.get('email') and user.get('email_verified'):
-                    <a class="ghostButton red" href="/user-change-email">
-                        {{_('修改')}}
+                    <a class="btn-edit btn" href="/user-change-email">
+                        <i class="icon-nav-arrow-right"></i>
                     </a>
                     %elif user.get('email') and (not user.get('email_verified')):
-                    <a class="ghostButton red" href="/user-verify-email">
+                    <a class="btn-red btn" href="/user-verify-email">
                         {{_('认证')}}
                     </a>
                     %else:
-                    <a class="ghostButton red" href="/user-change-email">
+                    <a class="btn-red btn" href="/user-change-email">
                         {{_('设置')}}
                     </a>
                     %end
@@ -74,36 +75,32 @@
             </tr>
             <tr>
                 <td>
-                    <strong>{{_('登录密码')}}</strong>
-                    <!--<p>{{_('注册时设置的密码')}}</p>-->
-                    <div class="status">{{_('已设置')}}</div>
-                </td>
-                <td class="action">
-                    <a class="ghostButton red" href="/user_change_password">{{_('修改')}}</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
                     <strong>{{_('微信号设置')}}</strong>
                     <!--<p>{{_('设置后将会默认展示给其他注册用户')}}</p>-->
-                    <div class="status">
-                        %if user.get('wechat') is not None:
-                        {{_('已设置')}}
-                        %else:
-                        {{_('未设置')}}
-                        %end
-                    </div>
-                    <div style="font-size:20px;">
+                    %if user.get('wechat') is not None:
+                    <i class="status green">{{_('已设置')}}</i>
+                    %else:
+                    <i class="status green">{{_('未设置')}}</i>
+                    %end
+                </td>
+                <td class="action">
+                    <div>
                         %if 'wechat' in user and user.get('wechat','') != 'NONE':
                         <label name="userWechat">{{user.get('wechat','')}}</label>
                         %end
                         <input name="userWechat" type="text" value={{user.get('wechat','')}} data-validator="trim"
                             data-msg-required="{{_('请填写微信号')}}" style="display:none;"/>
                     </div>
-
+                    <a name="userChangeWechat" data-state="normal" class="btn-edit btn"><i class="icon-nav-arrow-right"></i></a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>{{_('修改密码')}}</strong>
+                    <!--<p>{{_('注册时设置的密码')}}</p>-->
                 </td>
                 <td class="action">
-                    <button name="userChangeWechat" data-state="normal" class="ghostButton red">{{_('修改')}}</button>
+                    <a class="btn-edit btn" href="/user_change_password"><i class="icon-nav-arrow-right"></i></a>
                 </td>
             </tr>
             <!-- @if ENV!='production' -->
@@ -111,14 +108,15 @@
                 <td>
                     <strong>{{_('语言设置')}}</strong>
                     <!--<p>{{_('网站及各类通知邮件默认语言')}}</p>-->
-                    <div class="status">
-                        %if user.get('locales') and len(user.get('locales')):
-                        {{_('已设置')}}
-                        %else:
-                        {{_('未设置')}}
-                        %end
-                    </div>
-                    <div style="font-size:20px;">
+                    %if user.get('locales') and len(user.get('locales')):
+                    <i class="status green">{{_('已设置')}}</i>
+                    %else:
+                    <i class="status green">{{_('未设置')}}</i>
+                    %end
+
+                </td>
+                <td class="action">
+                    <div>
                         %if user.get('locales') and len(user.get('locales')):
                         <label name="userLanguage">
                             %if user.get('locales')[0] == 'en_GB':
@@ -136,9 +134,7 @@
                         </select>
 
                     </div>
-                </td>
-                <td class="action">
-                    <button name="userChangeLanguage" data-state="normal" class="ghostButton red">{{_('修改')}}</button>
+                    <a name="userChangeLanguage" data-state="normal" class="btn-edit btn"><i class="icon-nav-arrow-right"></i></a>
                 </td>
             </tr>
             <!-- @endif -->
@@ -146,15 +142,16 @@
                 <td>
                     <strong>{{_('货币偏好设置')}}</strong>
                     <!--<p>{{_('设置网站上价格展示的货币类型')}}</p>-->
-                    <div class="status">
-                        %if user.get('currencies') and len(user.get('currencies')):
-                        <i></i>{{_('已设置')}}
-                        %else:
-                        <i></i>{{_('未设置')}}
-                        %end
-                    </div>
                     %if user.get('currencies') and len(user.get('currencies')):
-                    <div style="font-size:20px;">
+                    <i class="status green">{{_('已设置')}}</i>
+                    %else:
+                    <i class="status green">{{_('未设置')}}</i>
+                    %end
+
+                </td>
+                <td class="action">
+                    %if user.get('currencies') and len(user.get('currencies')):
+                    <div>
                         <label  name="userCurrency">
                             %if user.get('currencies')[0] == 'CNY':
                             {{_('人民币')}}
@@ -179,9 +176,7 @@
                         <option value="EUR" {{'selected' if user.get('currencies') is not None and  user.get('currencies')[0] == 'EUR' else ''}}>{{_('欧元')}}</option>
                         <option value="HKD" {{'selected' if user.get('currencies') is not None and  user.get('currencies')[0] == 'HKD' else ''}}>{{_('港币')}}</option>
                     </select>
-                </td>
-                <td class="action">
-                    <button name="userCurrency" data-state="normal" class="ghostButton red">{{_('修改')}}</button>
+                    <a name="userCurrency" data-state="normal" class="btn-edit btn"><i class="icon-nav-arrow-right"></i></a>
                 </td>
             </tr>
         </tbody>

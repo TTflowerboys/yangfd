@@ -1,4 +1,23 @@
 @import "project/_imports";
+@border-1: #d5d5d5;
+@border-2: #ccc;
+@border-3: #e3e3e3;
+@font-normal: #666;
+@font-light: #bbb;
+@font-dark: #333;
+@font-green: #4bd463;
+@red: #e60012;
+@bg-grey: #eeeeee;
+@white: #fff;
+@small-phone: ~"(max-width:359px)";
+.shadow(@color: #f1f1f1){
+    box-shadow: 0 1px 0 0 @color;
+}
+.bottomStyle(){
+    border-bottom: 1px solid #ececec;
+    .shadow(#dadada);
+    margin-bottom: 1px;
+}
 .main {
     table tr td {
         label[name=userLanguage] {
@@ -9,6 +28,10 @@
             border-radius: 4px;
             color: #999;
             width: 140px;
+            @media @phone{
+                border: 2px solid #cccccc;
+                color: #ccc;
+            }
         }
     }
 }
@@ -25,6 +48,39 @@
     .settings {
         @media @phone {
             display: none;
+        }
+    }
+    @media @phone{
+        .cv{
+            padding: 0;
+            background: @white;
+            .bottomStyle;
+            .header{
+                padding: 48px 20px 10px;
+                margin: 0;
+                h2{
+                    font-size: 18px;
+                }
+            }
+            hr{
+                display: none;
+            }
+            table{
+                tr td{
+                    padding: 0;
+                    &:last-child{
+                        padding-right: 20px !important;
+                    }
+                    select[name=country]{
+                        border: 2px solid #cccccc;
+                    }
+                }
+            }
+        }
+        .ghostButton{
+            padding: 6px 12px;
+            color: @red;
+            border-color:@red;
         }
     }
 }
@@ -75,94 +131,119 @@
     @media @phone {
         display: block;
     }
+    padding-bottom: 50px;
+    background: @bg-grey;
     .table_wrapper {
-        background: #f6f6f6;
-        padding: 0 16px;
+        background: @white !important;
+        padding: 0 !important;
+        .bottomStyle;
+    }
+}
+@media @phone {
+    .header{
+        padding: 32px 20px 10px;
+        border-bottom: 1px solid @border-1;
+        background: @bg-grey;
+        .shadow;
+        h2{
+            color: @font-normal;
+            font-size: 18px;
+        }
     }
     table {
-        background: #f6f6f6;
-        width: 100%;
-        color: #999;
+        margin: 1px 0 1px 20px;
+        width: ~'calc(100% - 20px)';
+        background: @white;
+        color: @font-light;
+        font-size: 16px;
+        @media @small-phone{
+            font-size: 14px;
+        }
         tr {
-            &:first-child { border-top: none; }
+            height: 72px;
+            @media @small-phone{
+                height:60px;
+            }
+            border-bottom: 1px solid @border-2;
+            &:last-child { border-bottom : none; }
             td {
-                padding: 12px 0;
-                strong {
-                    font-size: 20px; color: #666; margin: 12px 4px 12px 0; display: inline-block; font-weight: normal;
+                position: relative;
+                padding: 0;
+                &:first-child{
+                    color: @font-light;
+                    strong {
+                        color: @font-dark;
+                        font-weight: normal;
+                    }
+                    .status{
+                        display: block;
+                        font-style: normal;
+                        font-size: 12px;
+                        &.grey{
+                            color: @font-light;
+                        }
+                        &.green{
+                            color: @font-green;
+                        }
+                    }
                 }
+                &:last-child{
+                    text-align: right;
+                    line-height: 72px;
+                    @media @small-phone{
+                        line-height:60px;
+                    }
+                    a{
+                        display: inline-block;
+                        text-decoration: none;
+                        color: @font-light;
+                        &.btn-red{
+                            width: 72px;
+                            height: 72px;
+                            line-height: 72px;
+                            text-align: center;
+                            background: @red;
+                            color: @white;
+                            @media @small-phone{
+                                height: 60px;
+                                line-height: 60px;
+                                width:50px;
+                            }
+                        }
+                        &.btn-edit{
+                            margin-left: -12px;
+                            i{
+                                padding: 0 22px 0 12px;
+                            }
+                        }
+                    }
+                    div{
+                        line-height: 1.4em;
+                        overflow: hidden;
+                        display: inline-table;
+                        margin-right: 12px;
+                        @media @small-phone{
+                            max-width: 165px;
+                            word-break: break-all;
+                            margin-right: 6px;
+                        }
+                    }
+                }
+
                 input {
-                    height: 40px;
-                    padding-left: 4px;
-                    font-size: 14px;
-                    border: 1px solid #cccccc;
-                    border-radius: 4px;
+                    border: none !important;
                     background: white;
+                    text-align: right;
+                    font-size: 16px !important;
+                    @media @small-phone{
+                        font-size: 14px !important;
+                    }
+                    max-width: 150px;
                 }
-                p { margin: 12px 0; }
-                .status {
-                    display: inline-block;
-                }
-                &.action {
-                    vertical-align: top;
-                    padding-top: 28px;
-                }
-
             }
         }
     }
-    .cv {
-        background: #f6f6f6;
-        padding: 16px;
-        hr {
-            color: #cccccc;
-        }
-        .header {
-            margin: 16px 0;
-            h2 {
-                font-size: 20px;
-                display: inline-block;
-            }
-            button {
-                float: right;
-                margin-left: 8px;
-            }
-        }
-        col.head {
-            width: 48px;
-        }
-        td:first-child {
-            color: #999;
-        }
-        td {
-            padding: 12px 0;
-            input[name=nickname] {
-                height: 40px;
-                padding-left: 4px;
-                font-size: 14px;
-                border: 1px solid #cccccc;
-                border-radius: 4px;
-                background: white;
-            }
 
-            select[name=country] {
-                background: white;
-                border: 1px solid #cccccc;
-                border-radius: 4px;
-                width: 100%;
-            }
-        }
-        .error {
-            color: @red;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .success { color: #82cc00;
-            padding: 8px;
-            border: 1px solid;
-            border-radius: 4px;
-        }
-    }
 }
 .caption {
     padding: 16px;
