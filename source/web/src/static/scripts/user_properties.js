@@ -255,9 +255,10 @@ $(function () {
 
     function bindRentItemConfirmRentClick() {
         $('.actions #editAction').click(function (e) {
+            var ticketId = $(e.target).attr('data-id')
+
             if($(e.target).attr('data-type') === 'to rent'){
                 if (window.confirm(window.i18n('确定已经成功出租了吗？确定将不再接收系统刷新提醒')) === true) {
-                    var ticketId = $(e.target).attr('data-id')
                     var params = {
                         'status': 'rent'
                     }
@@ -271,8 +272,6 @@ $(function () {
                 }
             }else {
                 //Bind to it's edit button
-                var ticketId = $(e.target).attr('data-id')
-
                 if (window.bridge !== undefined) {
                     window.bridge.callHandler('editRentTicket',  _.first(_.where(window.rentArray, {id: ticketId})))
                 }else{
