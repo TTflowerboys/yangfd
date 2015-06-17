@@ -62,13 +62,47 @@
         }
     }
 
-    function createMapCenterPin(map, location) {
-        //http://msdn.microsoft.com/en-us/library/ff701719.aspx
-        var layer = new Microsoft.Maps.EntityCollection()
-        var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-building.png', width: 30, height: 45});
-        layer.push(pin)
-        map.entities.push(layer)
+    //http://stackoverflow.com/questions/9315732/how-do-i-add-a-radius-circle-to-bing-maps
+    function createMapCircle(map, location) {
+        var MM = Microsoft.Maps;
+        var R = 6371; // earth's mean radius in km
+
+
+        var radius = 0.5;      //radius of the circle
+        var latitude = location.latitude;    //latitude of the circle center
+        var longitude = location.longitude;   //longitude of the circle center
+
+        var backgroundColor = new Microsoft.Maps.Color(20, 100, 0, 0);
+        var borderColor = new Microsoft.Maps.Color(150, 200, 0, 0);
+
+        var lat = (latitude * Math.PI) / 180;
+        var lon = (longitude * Math.PI) / 180;
+        var d = parseFloat(radius) / R;
+        var circlePoints = [];
+        var brng = null;
+
+        for (var x = 0; x <= 360; x += 5) {
+            var p2 = new MM.Location(0, 0);
+            brng = x * Math.PI / 180;
+            p2.latitude = Math.asin(Math.sin(lat) * Math.cos(d) + Math.cos(lat) * Math.sin(d) * Math.cos(brng));
+
+            p2.longitude = ((lon + Math.atan2(Math.sin(brng) * Math.sin(d) * Math.cos(lat),
+                                              Math.cos(d) - Math.sin(lat) * Math.sin(p2.latitude))) * 180) / Math.PI;
+            p2.latitude = (p2.latitude * 180) / Math.PI;
+            circlePoints.push(p2);
+        }
+
+        var polygon = new MM.Polygon(circlePoints, { fillColor: backgroundColor, strokeColor: borderColor, strokeThickness: 1 });
+        map.entities.push(polygon);
     }
+
+    // function createMapCenterPin(map, location) {
+    //     //http://msdn.microsoft.com/en-us/library/ff701719.aspx
+    //     var layer = new Microsoft.Maps.EntityCollection()
+    //     var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-building.png', width: 30, height: 45});
+    //     layer.push(pin)
+    //     map.entities.push(layer)
+    // }
 
     function showInfoBox(map, mapId, result) {
         if (window.mapInfoBoxLayerCache[mapId]) {
@@ -261,7 +295,8 @@
             }
 
             if (showCenter) {
-                createMapCenterPin(map, location)
+                //createMapCenterPin(map, location)
+                createMapCircle(map, location)
             }
             callback()
         })
@@ -288,7 +323,9 @@
                 map.entities.push(polygon)
             }
             if (showCenter) {
-                createMapCenterPin(map, location)
+                //createMapCenterPin(map, location)
+                createMapCircle(map, location)
+
             }
             callback()
         })
@@ -315,7 +352,9 @@
                 map.entities.push(polygon)
             }
             if (showCenter) {
-                createMapCenterPin(map, location)
+                //createMapCenterPin(map, location)
+                createMapCircle(map, location)
+
             }
             callback()
         })
