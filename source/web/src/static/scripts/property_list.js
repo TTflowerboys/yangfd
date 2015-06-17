@@ -1104,7 +1104,9 @@
 
     window.getMap = function (mapId) {
         if (!window.mapCache[mapId]) {
-            window.mapCache[mapId] = new Microsoft.Maps.Map(document.getElementById(mapId), {credentials: bingMapKey});
+            var map = new Microsoft.Maps.Map(document.getElementById(mapId), {credentials: bingMapKey});
+            window.mapCache[mapId] = map
+
         }
         return window.mapCache[mapId]
     }
