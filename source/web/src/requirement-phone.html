@@ -15,7 +15,7 @@
     <div id="requirement" class="requirement">
         <div class="requirement_title">
             <H2 class="title">{{_('提交置业需求')}}</h2>
-            <h3 class="subtitle">{{_('如果您有海外投资置业的意向，请提交置业需求')}}{{_('或拨打 ')}}<a href="tel:4000926433">400-0926-433</a>{{_('告诉我们，洋房东置业顾问将竭诚为您服务')}}
+            <h3 class="subtitle">{{_('如果您有海外投资置业的意向，请提交置业需求')}}{{_('或拨打 ')}}<a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>{{_('告诉我们，洋房东置业顾问将竭诚为您服务')}}
             </h3>
         </div>
         <!--@@include=./partials/requirement_form.html -->

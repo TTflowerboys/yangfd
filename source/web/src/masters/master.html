@@ -162,9 +162,9 @@
                     <div class="contact">
                         <h3>{{_('联系我们')}}</h3>
                         <p class="phone">
-                            <a href="tel:4000926433">
+                            <a href="tel:{{get_phone_numbers('link')[0]}}">
                                 <img id="icon-message" alt="" src="/static/images/common/ico_footer_phone.png" />
-                                <span>400-0926-433</span>
+                                <span>{{get_phone_numbers('display')[0]}}</span>
                             </a>
                         </p>
                         <p class="email">

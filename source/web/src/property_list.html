@@ -138,7 +138,7 @@
             </div>
         </div>
         <div class="contact">
-            <a href="tel:4000926433" >{{_('拨打400-0926-433咨询')}}</a>
+            <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{_('拨打')+get_phone_numbers('display')[0]+_('咨询')}}</a>
         </div>
         <button id="showTags"  class="showTags textButton" data-state="closed">
             <label>{{_('更多选择')}}</label>
