@@ -48,6 +48,26 @@ def is_mobile_client():
     return b"currant" in request.headers.get('User-Agent').lower()
 
 
+def get_phone_numbers(use="display"):
+    if use == "display":
+        CN = "400-0926-433"
+        GB = "(0)2075151192"
+    elif use == "link":
+        CN = "4000926433"
+        GB = "02075151192"
+    else:
+        raise NotImplementedError
+
+    try:
+        if request.ip_country == "CN":
+            return [CN, GB]
+
+    except IndexError:
+        pass
+
+    return [GB, CN]
+
+
 def check_ip_and_redirect_domain(func):
     @wraps(func)
     def __check_ip_and_redirect_domain_replace_func(*args, **kwargs):
@@ -132,4 +152,5 @@ def common_template(path, **kwargs):
     kwargs.setdefault("totimestamp", totimestamp)
     kwargs.setdefault("is_mobile_client", is_mobile_client)
     kwargs.setdefault("get_country_name_by_code", get_country_name_by_code)
+    kwargs.setdefault("get_phone_numbers", get_phone_numbers)
     return template(path, **kwargs)
