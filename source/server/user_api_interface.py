@@ -353,7 +353,11 @@ def current_user_edit(user, params):
 
     ``gender`` should be in ``male``, ``female``, ``other``.
 
-    ``system_message_type`` and ``email_message_type`` are the message types that user accepts. It should be the subset of ``system``, ``favorited_property_news``, ``intention_property_news``, ``my_property_news``, ``rent_ticket_reminder``.
+    ``system_message_type`` and ``email_message_type`` are the message types that user accepts.
+
+    ``system_message_type`` should be the subset of ``system``, ``favorited_property_news``, ``intention_property_news``, ``my_property_news``.
+
+    ``email_message_type`` should be the subset of ``system``, ``favorited_property_news``, ``intention_property_news``, ``my_property_news``, ``rent_ticket_reminder``.
     """
     unset_fields = params.pop("unset_fields", [])
 
