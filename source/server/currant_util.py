@@ -48,6 +48,16 @@ def is_mobile_client():
     return b"currant" in request.headers.get('User-Agent').lower()
 
 
+def get_phone_numbers():
+    CN = "400-0926-433"
+    GB = "(0)2075151192"
+
+    if request.ip_country == "CN":
+        return [CN, GB]
+    else:
+        return [GB, CN]
+
+
 def check_ip_and_redirect_domain(func):
     @wraps(func)
     def __check_ip_and_redirect_domain_replace_func(*args, **kwargs):
