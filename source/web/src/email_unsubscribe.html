@@ -1,0 +1,49 @@
+<!--@@master = masters/master.html-->
+<!--@@block = head -->
+<!--build:css(dist) /static/styles/emailUnsubscribe.html.css-->
+<link rel="stylesheet" href="/static/styles/emailUnsubscribe.css"/>
+<!--endbuild-->
+<!--@@close-->
+
+<!--@@block = main -->
+<div class="content">
+    <h1 class="title">{{_('取消订阅')}}</h1>
+
+    <div class="table_wrapper">
+        <table>
+            <colgroup>
+                <col class="name">
+                <col class="switch">
+            </colgroup>
+
+            <tbody>
+                <tr>
+                    <td>
+                    </td>
+                    <td style="text-align:center;">
+                        {{_('邮件通知')}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong data-type="rent_ticket_reminder">{{_('接收出租提醒邮件')}}</strong>
+                        <p>{{_('每周将会发送至您的账户邮箱中，方便您更新出租状态')}}</p>
+                    </td>
+                    <td class="textCenter">
+                        <input type="checkbox"
+                        %if isinstance(user.get('email_message_type'), list) and ('rent_ticket_reminder' in user.get('email_message_type', [])):
+                        checked
+                        %end
+                        data-type="rent_ticket_reminder"
+                        />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--@@close-->
+    <!--@@block=scripts-->
+    <!--build:js /static/scripts/email_unsubscribe.html.js-->
+    <script src="/static/scripts/email_unsubscribe.js"></script>
+    <!--endbuild-->
+    <!--@@close-->

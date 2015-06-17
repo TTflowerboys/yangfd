@@ -175,3 +175,11 @@ def verify_email_status():
 def user(user):
     title = _('账户信息')
     return currant_util.common_template("user-phone", title=title)
+
+
+@f_get('/email-unsubscribe')
+@currant_util.check_ip_and_redirect_domain
+@f_app.user.login.check(force=True)
+def email_unsubscribe(user):
+    title = _('取消订阅')
+    return currant_util.common_template("email_unsubscribe", title=title)
