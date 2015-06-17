@@ -1,5 +1,5 @@
 <script id="my_rentCard_template" type="text/template">
-    <div class="rentCard">
+    <div class="rentCard"  data-id="{=rent.id=}">
             <div class="imagePart">
                 <a href="/property-to-rent/{=rent.id=}">
                         {_if (rent.property.cover){_}
@@ -89,7 +89,7 @@
                         </li>
                         {_}else if(rent.status === 'rent') {_}
                         <li class="hiddenInNonClient">
-                            <a id='editAction' class="action" data-id="{=rent.id=}" data-type="rent">{=window.i18n('编辑再发布')=}</a>
+                            <a id='editAction' class="action" data-id="{=rent.id=}" data-type="rent">{=window.i18n('重新发布')=}</a>
                         </li>
                         {_}_}
                     </ul>
