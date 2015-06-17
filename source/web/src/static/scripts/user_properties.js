@@ -131,10 +131,11 @@ $(function () {
         $('#loadIndicator').show()
         isLoading = true
 
+        var loadStatus = ['draft', 'to rent', 'rent']
         var params = {
             'user_id': window.user.id,
             'per_page': -1,
-            'status': ['draft', 'to rent', 'rent']
+            'status': JSON.stringify(loadStatus)
         }
         xhr = $.post('/api/1/rent_ticket/search', params)
             .success(function (data) {
@@ -144,8 +145,10 @@ $(function () {
                     if (val && val.length > 0) {
                         window.rentArray = val
                         _.each(val, function (rent) {
-                            var houseResult = _.template($('#my_rentCard_template').html())({rent: rent})
-                            $list.append(houseResult)
+                            if(rent.property){
+                                var houseResult = _.template($('#my_rentCard_template').html())({rent: rent})
+                                $list.append(houseResult)
+                            }
                         })
 
                         bindRentItemWechatShareClick()
@@ -251,19 +254,30 @@ $(function () {
     }
 
     function bindRentItemConfirmRentClick() {
-        $('.actions #confirmRent').click(function (e) {
-            if (window.confirm(window.i18n('确定已经成功出租了吗？确定将不再接收系统刷新提醒')) === true) {
-                var ticketId = $(e.target).attr('data-id')
-                var params = {
-                    'status': 'rent'
+        $('.actions #editAction').click(function (e) {
+            if($(e.target).attr('data-type') === 'to rent'){
+                if (window.confirm(window.i18n('确定已经成功出租了吗？确定将不再接收系统刷新提醒')) === true) {
+                    var ticketId = $(e.target).attr('data-id')
+                    var params = {
+                        'status': 'rent'
+                    }
+                    $.betterPost('/api/1/rent_ticket/' + ticketId + '/edit', params)
+                        .done(function (data) {
+                            location.reload()
+                        })
+                        .fail(function (ret) {
+                            window.alert(window.i18n('失败'))
+                        })
                 }
-                $.betterPost('/api/1/rent_ticket/' + ticketId + '/edit', params)
-                    .done(function (data) {
-                        location.reload()
-                    })
-                    .fail(function (ret) {
-                        window.alert(window.i18n('失败'))
-                    })
+            }else {
+                //Bind to it's edit button
+                var ticketId = $(e.target).attr('data-id')
+
+                if (window.bridge !== undefined) {
+                    window.bridge.callHandler('editRentTicket',  _.first(_.where(window.rentArray, {id: ticketId})))
+                }else{
+                    location.href = '/property-to-rent/' + ticketId + '/edit'
+                }
             }
         })
     }

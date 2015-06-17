@@ -65,6 +65,7 @@
                         <li>
                             <a id="wechatShare" class="action" data-id="{=rent.id=}">{=window.i18n('微信分享')=}</a>
                         </li>
+                        {_if(rent.status === 'to rent') {_}
                         <li>
                             {_if(team.isToday(parseInt(rent.last_modified_time))){_}
                             <p class="action">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('已刷新过')=}</p>
@@ -75,9 +76,22 @@
                                 <p>{=window.i18n('每24小时只能刷新一次')=}</p>
                             </div>
                         </li>
-                        <li>
-                            <a id='confirmRent' class="action" data-id="{=rent.id=}">{=window.i18n('确认已出租')=}</a>
+                        {_}_}
+
+
+                        {_if(rent.status === 'to rent') {_}
+                        <li class="hiddenInNonClient">
+                            <a id='editAction' class="action" data-id="{=rent.id=}" data-type="to rent">{=window.i18n('确认已出租')=}</a>
                         </li>
+                        {_}else if(rent.status === 'draft') {_}
+                        <li class="hiddenInNonClient">
+                            <a id='editAction' class="action" data-id="{=rent.id=}" data-type="draft">{=window.i18n('编辑')=}</a>
+                        </li>
+                        {_}else if(rent.status === 'rent') {_}
+                        <li class="hiddenInNonClient">
+                            <a id='editAction' class="action" data-id="{=rent.id=}" data-type="rent">{=window.i18n('编辑再发布')=}</a>
+                        </li>
+                        {_}_}
                     </ul>
                 </div>
             </div>
