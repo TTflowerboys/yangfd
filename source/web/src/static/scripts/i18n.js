@@ -66,6 +66,24 @@ window.getCurrencyPresentation = function (currency) {
     }
 }
 
+window.getCurrencySymbol = function (currency) {
+    if (currency === 'CNY') {
+        return window.i18n('¥')
+    }
+    else if (currency === 'GBP') {
+        return window.i18n('£')
+    }
+    else if (currency === 'USD') {
+        return window.i18n('$')
+    }
+    else if (currency === 'EUR') {
+        return window.i18n('€')
+    }
+    else if (currency === 'HKD') {
+        return window.i18n('HK$')
+    }
+}
+
 $('select[name=language]').change(function () {
     var language = $(this).children('option:selected').val();
     window.changeLanguage(language)

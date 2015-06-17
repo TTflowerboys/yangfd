@@ -1,7 +1,7 @@
 <script id="intentionCard_template" type="text/template">
     <div class="intentionCard">
         {_if (ticket.budget){_}
-        <h2 class="budget"><i>{=window.i18n('预算') + '(' + window.getCurrencyPresentation(window.currency) + '): ' =}</i>
+        <h2 class="budget"><i>{=window.i18n('预算') + '(' + window.getCurrencyPresentation(ticket.budget.currency) + '): ' =}</i>
             {=ticket.budget.value=}
         </h2>
         {_}_}
@@ -12,28 +12,26 @@
         <label class="status">{=ticket.status_presentation.value=}</label>
     </div>
     <div class="intentionCard_phone">
-        {_if (ticket.budget){_}
-        <h2 class="budget"><i>{=window.i18n('预算') + '(' + window.getCurrencyPresentation(window.currency) + '): ' =}</i>
-            {=ticket.budget.value=}
+        <h2 class="budget">
+            {_ if (ticket.budget) { _}
+            <i>{=window.i18n('预算:') =}</i>
+            <span>{=window.getCurrencySymbol(ticket.budget.currency)=}</span>{=ticket.budget.value=}
+            {_ } else { _}
+            <i>{=window.i18n('无预算数据')=}</i>
+            {_ } _}
         </h2>
-        {_}_}
+        <div class="intentionStatus">
+            <label class="status estimate">{=ticket.status_presentation.value=}</label>
+            <label class="properties">
+                {=project.formatDate(ticket.time)=}
+            </label>
+        </div>
+        {_ if (ticket.description) { _}
+        <hr/>
         <p class="detail">{=ticket.description=}</p>
-        <table class="textPart_innerTable">
-            <tr>
-                <td class="properties">
-                    <ul>
-                        <li>
-                            <label> <i>{=window.i18n('提交日期：')=}</i>
-                                {=project.formatDate(ticket.time)=}
-                            </label>
-                        </li>
-                    </ul>
-
-                </td>
-                <td class="estimate">
-                    <label class="status">{=ticket.status_presentation.value=}</label>
-                </td>
-            </tr>
-        </table>
+        {_ } _}
+        <div class="contact">
+            <a class="phone" href="tel:4000926433">{=window.i18n('拨打电话')=}</a>
+        </div>
     </div>
 </script>
