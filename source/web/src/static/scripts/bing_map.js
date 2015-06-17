@@ -13,6 +13,41 @@
         onMapScriptLoadCallback()
     }
 
+    //http://stackoverflow.com/questions/4327665/restrict-the-min-max-zoom-on-a-bing-map-with-v7-of-the-ajax-control
+    window.setMapZoom = function (map, min, max) {
+        // "map" is our Bing Maps object, overload the built-in getZoomRange function
+            // to set our own min/max zoom
+            map.getZoomRange = function ()
+            {
+                return {
+                    max: max,
+                    min: min
+                };
+            };
+
+            // Attach a handler to the event that gets fired whenever the map's view is about to change
+            Microsoft.Maps.Events.addHandler(map,'viewchangestart',restrictZoom);
+
+            // Forcibly set the zoom to our min/max whenever the view starts to change beyond them
+            var restrictZoom = function ()
+            {
+                if (map.getZoom() <= map.getZoomRange().min)
+                {
+                    map.setView({
+                        'zoom': map.getZoomRange().min,
+                        'animate': false
+                    });
+                }
+                else if (map.getZoom() >= map.getZoomRange().max)
+                {
+                    map.setView({
+                        'zoom': map.getZoomRange().max,
+                        'animate': false
+                    });
+                }
+            };
+    }
+
     var indicatorCounter = 0
     window.showMapIndicator = function () {
         indicatorCounter++
