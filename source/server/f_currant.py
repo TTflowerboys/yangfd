@@ -249,6 +249,14 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                     status="new",
                 ))
 
+    def v11(self, m):
+        for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
+            self.logger.debug("Reinitializing email/system message type for user", str(user["_id"]))
+            f_app.user.get_database(m).update({"_id": user["_id"]}, {"$set": {
+                "email_message_type": ["rent_ticket_reminder"],
+                "system_message_type": ["system"],
+            }})
+
 currant_mongo_upgrade()
 
 
@@ -736,7 +744,7 @@ class f_currant_plugins(f_app.plugin_base):
             }
             user_list = f_app.user.search({"register_time": {"$ne": None}, "system_message_type": "system"})
             f_app.message.add(message, user_list)
-        if "category" in params:
+        if False and "category" in params:
             # Favorite
             related_property_list = f_app.property.search({"news_category": {"$in": params["category"]}, "status": {"$in": ["selling", "sold out"]}})
             related_property_list = [ObjectId(property) for property in related_property_list]
