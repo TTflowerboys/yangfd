@@ -16,7 +16,7 @@ $('[name=userChangeLanguage]').click(function () {
         window.changeLanguage(language)
     }
 })
-$('[name=userCurrency]').click(function () {
+$('a[name=userCurrency],button[name=userCurrency]').click(function () {
     var $button = $(this)
     var state = $button.attr('data-state')
 
@@ -46,7 +46,7 @@ $('[name=userChangeWechat]').click(function () {
             $button.removeClass('btn-edit').addClass('btn-red')
         }
 
-        $('input[name=userWechat]').show()
+        $('input[name=userWechat]').show().trigger('focus')
         $('label[name=userWechat]').hide()
     }
     else {
