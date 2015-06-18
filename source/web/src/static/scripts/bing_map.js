@@ -103,7 +103,7 @@
         var R = 6371; // earth's mean radius in km
 
 
-        var radius = 0.5;      //radius of the circle
+        var radius = 0.1;      //radius of the circle
         var latitude = location.latitude;    //latitude of the circle center
         var longitude = location.longitude;   //longitude of the circle center
 
