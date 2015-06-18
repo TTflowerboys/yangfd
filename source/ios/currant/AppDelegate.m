@@ -214,9 +214,6 @@
                                                         NSForegroundColorAttributeName : [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1]
                                                         } forState:UIControlStateNormal];
     [self.window makeKeyAndVisible];
-//    CUTEWebViewController *firstWebviewController = (CUTEWebViewController *)([(UINavigationController *)[rootViewController.viewControllers firstObject] topViewController]);
-//    [firstWebviewController loadURL:firstWebviewController.url];
-//    _lastSelectedTabIndex = 0;
 
     [RNCachingURLProtocol setSupportedSchemes:[NSSet setWithArray:@[@"http", @"https"]]];
     [NSURLProtocol registerClass:[RNCachingURLProtocol class]];
@@ -405,7 +402,7 @@
         }
         else {
             if (!webViewController.webView.request) {// web page not load, so load it
-                [webViewController loadURL:webViewController.url];
+                [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
             }
         }
     }
@@ -494,7 +491,7 @@
 - (void)showUserPageSection:(NSString *)urlString fromViewController:(UIViewController *)viewController {
      if ([viewController isKindOfClass:[CUTEWebViewController class]]) {
         CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController;
-        [webViewController loadURLInNewController:[NSURL URLWithString:urlString relativeToURL:[CUTEConfiguration hostURL]]];
+        [webViewController loadRequesetInNewController:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString relativeToURL:[CUTEConfiguration hostURL]]]];
     }
     else if ([viewController isKindOfClass:[UIViewController class]]) {
         NSURL *url = [NSURL URLWithString:urlString relativeToURL:[CUTEConfiguration hostURL]];
@@ -503,7 +500,7 @@
         webViewController.url = url;
         webViewController.hidesBottomBarWhenPushed = YES;
         [viewController.navigationController pushViewController:webViewController animated:YES];
-        [webViewController loadURL:webViewController.url];
+        [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
     }
 }
 

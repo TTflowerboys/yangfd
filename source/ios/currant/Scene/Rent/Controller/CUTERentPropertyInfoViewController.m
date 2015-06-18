@@ -365,7 +365,7 @@
             TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
             CUTERentTicketPreviewViewController *controller = [[CUTERentTicketPreviewViewController alloc] init];
             controller.ticket = self.ticket;
-            [controller loadURL:[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]]];
+            [controller loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]]]];
             [self.navigationController pushViewController:controller animated:YES];
         }
         return task;
