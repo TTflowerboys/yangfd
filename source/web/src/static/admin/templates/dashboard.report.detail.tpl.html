@@ -27,7 +27,8 @@
         <div class="form-group">
             <label class="control-label">{%$root.i18n('街区介绍')%}</label>
             <div class="controls form-inline">
-                <div show-i18n="item.description"></div>
+                <div type-i18n="item.description" style="border:1px solid #DDD; padding: 16px;"
+                    ng-bind-html="renderHtml(item.description[userLanguage.value])"></div>
             </div>
         </div>
         <div class="form-group">
