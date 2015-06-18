@@ -142,12 +142,32 @@
     [_scrollView setHidden:!hidePlaceHolder];
     [_addButton setHidden:!hidePlaceHolder];
 
-    [self updateThumbnails:[self ticket].property.realityImages cover:self.ticket.property.cover];
+    [self updateThumbnails:[self ticket].property.realityImages];
 
     [self setNeedsLayout];
 }
 
-- (void)updateThumbnails:(NSArray *)items cover:(NSString *)cover {
+- (UILabel *)getCoverLabel {
+    UILabel *coverLabel = [UILabel new];
+    coverLabel.frame = CGRectMake(0, 0, 40, 20);
+    coverLabel.text = STR(@"封面");
+    coverLabel.font = [UIFont systemFontOfSize:12];
+    coverLabel.textAlignment = NSTextAlignmentCenter;
+    coverLabel.backgroundColor = CUTE_MAIN_COLOR;
+    coverLabel.textColor = [UIColor whiteColor];
+    return coverLabel;
+}
+
+- (BOOL)isCoverURLString:(NSString *)urlStr atIndex:(NSUInteger)index {
+    if (!IsNilNullOrEmpty(self.ticket.property.cover)) {
+        return [urlStr isCDNPathEqualToCDNPath:self.ticket.property.cover];
+    }
+    else {
+        return index == 0;
+    }
+}
+
+- (void)updateThumbnails:(NSArray *)items{
     [_scrollView removeAllSubViews];
 
     if (!IsArrayNilOrEmpty(items)) {
@@ -162,16 +182,8 @@
             [_scrollView addSubview:imageView];
             imageView.frame = CGRectMake(sideWidth * idx + margin * (idx + 1), 0, sideWidth, sideWidth);
 
-
-            if (!IsNilNullOrEmpty(cover) && [cover isCDNPathEqualToCDNPath:obj]) {
-                UILabel *coverLabel = [UILabel new];
-                coverLabel.frame = CGRectMake(0, 0, 40, 20);
-                coverLabel.text = STR(@"封面");
-                coverLabel.font = [UIFont systemFontOfSize:12];
-                coverLabel.textAlignment = NSTextAlignmentCenter;
-                coverLabel.backgroundColor = CUTE_MAIN_COLOR;
-                coverLabel.textColor = [UIColor whiteColor];
-                [imageView addSubview:coverLabel];
+            if ([self isCoverURLString:obj atIndex:idx]) {
+                [imageView addSubview:[self getCoverLabel]];
             }
         }];
         _scrollView.contentSize = CGSizeMake((sideWidth + margin) * [items count], sideWidth);
@@ -429,6 +441,9 @@
             else {
                 CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
                 self.ticket.property.realityImages = task.result;
+                if (IsNilNullOrEmpty(self.ticket.property.cover)) {
+                    self.ticket.property.cover = [self.ticket.property.realityImages firstObject];
+                }
                 [ticketListener stopListenMark];
                 [NotificationCenter postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
             }
@@ -484,7 +499,7 @@
 {
     NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
 
-    if (!IsNilNullOrEmpty(self.ticket.property.cover) && [asset isCDNPathEqualToCDNPath:self.ticket.property.cover]) {
+    if ([self isCoverURLString:asset atIndex:index]) {
         UIBarButtonItem *setCoverItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"已是封面") style:UIBarButtonItemStylePlain target:nil action:nil];
         setCoverItem.enabled = NO;
         return setCoverItem;
@@ -534,9 +549,9 @@
     self.ticket.property.cover = asset;
     [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
 
-    [SVProgressHUD show];
+    [SVProgressHUD showWithStatus:STR(@"设置中...")];
     [[[CUTERentTickePublisher sharedInstance] uploadImages:@[self.ticket.property.cover] updateStatus:^(NSString *status) {
-        [SVProgressHUD showWithStatus:status];
+
     }] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
@@ -636,6 +651,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
                 else {
                     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
                     self.ticket.property.realityImages = task.result;
+                    if (IsNilNullOrEmpty(self.ticket.property.cover)) {
+                        self.ticket.property.cover = [self.ticket.property.realityImages firstObject];
+                    }
                     [ticketListener stopListenMark];
                     [NotificationCenter postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
                 }

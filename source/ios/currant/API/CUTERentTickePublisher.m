@@ -169,6 +169,9 @@
             }] continueWithBlock:^id(BFTask *task) {
                 if (task.result) {
                     ticket.property.realityImages = task.result;
+                    if (IsNilNullOrEmpty(ticket.property.cover)) {
+                        ticket.property.cover = [ticket.property.realityImages firstObject];
+                    }
                     completion(task.result);
                 }
                 else {
@@ -271,6 +274,9 @@
                 [[self uploadImages:property.realityImages updateStatus:updateStatus] continueWithBlock:^id(BFTask *task) {
                     if (task.result) {
                         property.realityImages = task.result;
+                        if (IsNilNullOrEmpty(ticket.property.cover)) {
+                            ticket.property.cover = [ticket.property.realityImages firstObject];
+                        }
                         completion(task.result);
                     }
                     else {
