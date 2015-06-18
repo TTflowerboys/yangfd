@@ -41,7 +41,7 @@ $(function () {
     // Check url query from email
     if(team.getQuery('type') === 'rent_ticket' && team.getQuery('id')){
 
-        $(document).on("rentListLoadedSuccessfully", function (e) {
+        $(document).on('rentListLoadedSuccessfully', function (e) {
 
             if(_.first(_.where(window.rentArray, {id: team.getQuery('id')}))){
                 var cRent = _.first(_.where(window.rentArray, {id: team.getQuery('id')}))
