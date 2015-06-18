@@ -34,7 +34,7 @@ static NSString *host = nil;
 }
 
 + (NSArray *)webCacheExceptionRules {
-    return @[CONCAT(@"http://", [self host], @"/api")];
+    return @[CONCAT(@"http://", [self host], @"(:\\d{2,4})?", @"/api")];
 }
 
 + (NSString *)yangfdScheme {
