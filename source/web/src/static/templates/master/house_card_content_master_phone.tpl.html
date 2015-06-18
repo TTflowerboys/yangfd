@@ -61,7 +61,8 @@
                 <td class="properties">
                     <ul>
                         {_if(house.intention && house.intention.length) {_}
-                        <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
+                        <li>
+                            <i class="icon-tag_icon"></i>
                             <label>
                                 {_ _.each(house.intention, function(oneIntention) { _}
                                 {=oneIntention.value=}
@@ -70,7 +71,8 @@
                         </li>
                         {_}_}
                         {_if(house.street) {_}
-                        <li><img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                        <li>
+                            <i class="icon-location"></i>
                             <label>{=house.street=}</label>
                         </li>
                         {_}_}
