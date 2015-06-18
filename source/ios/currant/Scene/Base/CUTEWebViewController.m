@@ -25,6 +25,7 @@
 #import "RNCachingURLProtocol.h"
 #import "NSDate-Utilities.h"
 #import "Aspects.h"
+#import "NSURL+CUTE.h"
 
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
@@ -358,6 +359,12 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+
+    if (navigationType == UIWebViewNavigationTypeLinkClicked && [request.URL isHttpOrHttpsURL] && ![webView.request.URL isEquivalent:request.URL]) {
+        [self loadURLInNewController:request.URL];
+        return NO;
+    }
+
     return YES;
 }
 
