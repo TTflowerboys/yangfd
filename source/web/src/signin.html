@@ -15,46 +15,62 @@
 
     //Show error message based on url
     document.ready = function(){
+
+        //TODO:
+        var betaUrls = ['/property-to-rent-list','/property_to_rent_list','/property-to-rent/create']
         var topErrorArea = $($('form[name=signin]').find('.errorMessage')[0])
+
         if (team.getQuery('error_code')) {
+
+            if (team.getQuery('from') !== '') {
+                var fromUrl = window.team.getLocationUrl(team.getQuery('from'))
+            }
+
             topErrorArea.empty()
-            topErrorArea.append(window.getErrorMessageFromErrorCode(team.getQuery('error_code')))
+
+            if(fromUrl && _.indexOf(betaUrls,fromUrl.pathname)>=0){
+                topErrorArea.append(i18n('您访问的功能还在beta测试阶段！请点击<a href="/app-download">“申请内测”</a>继续访问'))
+            }else{
+                topErrorArea.append(window.getErrorMessageFromErrorCode(team.getQuery('error_code')))
+            }
             topErrorArea.show()
         }
+
+        $('form[name=signin]').submit(function (e) {
+            e.preventDefault()
+            ga('send', 'event', 'signin', 'click', 'signin-submit')
+            var errorArea = $($('form[name=signin]').find('.errorMessage')[1])
+            var valid = $.validate(this, {
+                onError: function (dom, validator, index) {
+                    errorArea.text(window.getErrorMessage(dom.name, validator))
+                    errorArea.show()
+                }
+            })
+            if (!valid) {return}
+            var params = $(this).serializeObject()
+            params.password = Base64.encode(params.password)
+            $.betterPost("/api/1/user/login", params)
+                .done(function (result) {
+                    ga('send', 'event', 'signin', 'result', 'signin-success')
+                    if (window.bridge !== undefined) {
+                        window.bridge.callHandler("login", result);
+                    }
+                    else {
+                        project.goBackFromURL()
+                    }
+                })
+                .fail(function (ret) {
+                    errorArea.empty()
+                    errorArea.append(window.getErrorMessageFromErrorCode(ret))
+                    errorArea.show()
+
+                    ga('send', 'event', 'signin', 'result', 'signin-failed',window.getErrorMessageFromErrorCode(ret))
+                })
+        })
     }
 
 
-    $('form[name=signin]').submit(function (e) {
-        e.preventDefault()
-        ga('send', 'event', 'signin', 'click', 'signin-submit')
-        var errorArea = $($('form[name=signin]').find('.errorMessage')[1])
-        var valid = $.validate(this, {
-            onError: function (dom, validator, index) {
-                errorArea.text(window.getErrorMessage(dom.name, validator))
-                errorArea.show()
-            }
-        })
-        if (!valid) {return}
-        var params = $(this).serializeObject()
-        params.password = Base64.encode(params.password)
-        $.betterPost("/api/1/user/login", params)
-            .done(function (result) {
-                ga('send', 'event', 'signin', 'result', 'signin-success')
-                if (window.bridge !== undefined) {
-                    window.bridge.callHandler("login", result);
-                }
-                else {
-                    project.goBackFromURL()
-                }
-            })
-            .fail(function (ret) {
-                errorArea.empty()
-                errorArea.append(window.getErrorMessageFromErrorCode(ret))
-                errorArea.show()
 
-                ga('send', 'event', 'signin', 'result', 'signin-failed',window.getErrorMessageFromErrorCode(ret))
-            })
-    })
 
 
 </script>

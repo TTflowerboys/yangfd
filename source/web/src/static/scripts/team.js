@@ -71,14 +71,26 @@
             return !m ? '' : decodeURIComponent(m[2]);
         },
 
+        getLocationUrl: function (href) {
+            var match = href.match(/^(https?\:)\/\/(([^:\/?#]*)(?:\:([0-9]+))?)(\/[^?#]*)(\?[^#]*|)(#.*|)$/);
+            return match && {
+                protocol: match[1],
+                host: match[2],
+                hostname: match[3],
+                port: match[4],
+                pathname: match[5],
+                search: match[6],
+                hash: match[7]
+            }
+        },
 
         /**
          * Convert a number to a friendly currency
          * @param {string | number} number 123456.789
          * @returns {string} currency 123,456.78
          */
-        encodeCurrency: function (number,fixedBit) {
-            if(fixedBit === undefined){
+        encodeCurrency: function (number, fixedBit) {
+            if (fixedBit === undefined) {
                 fixedBit = 2
             }
             var parts;
@@ -109,21 +121,21 @@
 
             if (currencyType === 'CNY') {
                 if (parseInt(number) > 100000000) {
-                    return '<strong>' + team.encodeCurrency(parseInt(number) / 100000000,fixedBit) + '</strong>' + '亿'
+                    return '<strong>' + team.encodeCurrency(parseInt(number) / 100000000, fixedBit) + '</strong>' + '亿'
                 }
                 else if (parseInt(number) > 10000) {
                     return '<strong>' + team.encodeCurrency(parseInt(number) / 10000) + '</strong>' + '万'
                 }
                 else {
-                    return '<strong>' + team.encodeCurrency(number,fixedBit) + '</strong>'
+                    return '<strong>' + team.encodeCurrency(number, fixedBit) + '</strong>'
                 }
             }
             else {
                 if (parseInt(number) > 1000) {
-                    return '<strong>' + team.encodeCurrency(parseInt(number) / 1000,fixedBit) + 'k' + '</strong>'
+                    return '<strong>' + team.encodeCurrency(parseInt(number) / 1000, fixedBit) + 'k' + '</strong>'
                 }
                 else {
-                    return  '<strong>' + team.encodeCurrency(number,fixedBit) + '</strong>'
+                    return  '<strong>' + team.encodeCurrency(number, fixedBit) + '</strong>'
                 }
             }
         },
@@ -156,7 +168,7 @@
             var diff = Math.floor((user_date - system_date) / 1000);
             if (diff <= 86400) {
                 return true
-            }else{
+            } else {
                 return false
             }
         },
@@ -208,10 +220,10 @@
             var ua = navigator.userAgent.toLowerCase()
             return (/currant/.test(ua)) ? true : false
         },
-        isProduction: function(){
-            if(window.location.host === 'yangfd.com' || window.location.host === 'youngfunding.co.uk' || window.location.host === 'yangfd.cn'){
+        isProduction: function () {
+            if (window.location.host === 'yangfd.com' || window.location.host === 'youngfunding.co.uk' || window.location.host === 'yangfd.cn') {
                 return true
-            }else {
+            } else {
                 return false
             }
         },
