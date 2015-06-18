@@ -25,6 +25,7 @@
 #import "RNCachingURLProtocol.h"
 #import "NSDate-Utilities.h"
 #import "Aspects.h"
+#import "NSURL+CUTE.h"
 
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
@@ -150,8 +151,9 @@
         }
     }];
 
+    //TODO remove this action in html files, this has been updated by the delegate hook
     [self.bridge registerHandler:@"openURLInNewController" handler:^(id data, WVJBResponseCallback responseCallback) {
-        [self loadURLInNewController:[NSURL URLWithString:data relativeToURL:[CUTEConfiguration hostURL]]];
+        [self loadRequesetInNewController:[NSURLRequest requestWithURL:[NSURL URLWithString:data relativeToURL:[CUTEConfiguration hostURL]]]];
     }];
 
     [self.bridge registerHandler:@"openRentListTab" handler:^(id data, WVJBResponseCallback responseCallback) {
@@ -193,12 +195,13 @@
     [_loadFailedHook remove];
 }
 
-- (void)loadURL:(NSURL *)url {
+- (void)loadRequest:(NSURLRequest *)urlRequest {
+    NSURL *url = urlRequest.URL;
     if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:url] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
         url =  [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:url];
     }
 
-    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url];
+
     if (!_webView) {
         [self updateWebView];
     }
@@ -212,7 +215,8 @@
     [self addReloadIgnoringCacheHook];
 }
 
-- (void)loadURLInNewController:(NSURL *)url {
+- (void)loadRequesetInNewController:(NSURLRequest *)urlRequest {
+    NSURL *url = urlRequest.URL;
     TrackEvent(GetScreenName(self.url), kEventActionPress, GetScreenName(url), nil);
     CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
     newWebViewController.url = url;
@@ -220,7 +224,7 @@
     [self.navigationController pushViewController:newWebViewController animated:YES];
 
     //the progress bar need navigationBar
-    [newWebViewController loadURL:newWebViewController.url];
+    [newWebViewController loadRequest:urlRequest];
 }
 
 
@@ -228,7 +232,7 @@
     [self updateWebView];
     //http://stackoverflow.com/questions/16073519/nsurlerrordomain-error-code-999-in-ios
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self loadURL:url];
+        [self loadRequest:[NSURLRequest requestWithURL:url]];
     });
 }
 
@@ -358,6 +362,12 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+
+    if (navigationType == UIWebViewNavigationTypeLinkClicked && [request.URL isHttpOrHttpsURL] && ![webView.request.URL isEquivalent:request.URL]) {
+        [self loadRequesetInNewController:request];
+        return NO;
+    }
+
     return YES;
 }
 

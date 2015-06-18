@@ -166,7 +166,7 @@
     newWebViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:newWebViewController animated:YES];
     //the progress bar need navigationBar
-    [newWebViewController loadURL:newWebViewController.url];
+    [newWebViewController loadRequest:[NSURLRequest requestWithURL:newWebViewController.url]];
 }
 
 

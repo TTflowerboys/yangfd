@@ -13,9 +13,9 @@
 
 @property (nonatomic, readonly) UIWebView *webView;
 
-- (void)loadURL:(NSURL *)url;
+- (void)loadRequest:(NSURLRequest *)urlRequest;
 
-- (void)loadURLInNewController:(NSURL*)url;
+- (void)loadRequesetInNewController:(NSURLRequest*)urlRequest;
 
 - (void)updateWithURL:(NSURL *)url;
 
