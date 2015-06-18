@@ -67,7 +67,7 @@
                     <div ng-bind="item.time * 1000 | date : 'yyyy-MM-dd H:mm'"></div>
                 </td>
                 <td style="text-align:center;">
-                    <span class="btn btn-success" ng-disable="item.isGenerating"  ng-click="generateImage(item)" title="{%$root.i18n('生成digest图片')%}">
+                    <span class="btn btn-success" ng-disabled="item.isGenerating"  ng-click="generateImage(item)" title="{%$root.i18n('生成digest图片')%}">
                         <i class="fa fa-picture-o"></i>
                     </span>
                     <a class="btn btn-success" ui-sref=".detail({id:item.id})" title="View">
