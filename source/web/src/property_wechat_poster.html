@@ -1,0 +1,394 @@
+<!--@@master = masters/wechat_poster_master.html-->
+
+<!--@@block =head -->
+<!--build:css(dist) /static/styles/property_wechat_poster.html.css-->
+<link rel="stylesheet" href="/static/styles/phone/wechatPoster.css">
+<link rel="stylesheet" href="/static/styles/phone/propertyWechatPoster.css">
+<!--endbuild-->
+<!--@@close-->
+
+<!--@@block =main -->
+<script type="text/javascript">
+    window.viewStartTime = new Date()
+    window.durationArray = []
+    window.isInit = false
+    var process = new Process({
+        canvasId: 'procanvas',
+        textId: 'proText',
+        outerWidth: '100',
+        innerWidth: '94',
+        backColor: 'rgba(51,51,51,1)',
+        underColor: '#3f3f3f',
+        activeColor: '#aec227'
+    })
+    process.moveTo(75, 10000, function(){
+        process.moveTo(90, 5000, function(){
+            process.moveTo(95, 5000, function() {
+                $(window).trigger('ownLoadEvent')
+            })
+        })
+    })
+</script>
+<div class="swiper-container mainSwiper" style="">
+    <div class="swiper-wrapper" style="">
+        <div class="swiper-slide swiper-slide-bg commen" style="">
+            <div class="page pageCover">
+                <div class="topTitleNav animate">
+                    <p class="location animate">{{get_country_name_by_code(property.get('country',{}).get('code',''))}}, {{property.get('city',{}).get('name','')}}, {{property.get('street','')}}</p>
+                    <p class="title animate fixFontSize">{{property.get('name','')}}</p>
+                    <p class="titleEn animate">Letting!</p>
+                </div>
+            </div>
+            <div class="bottomBox animate">
+                <div class="scrollUp">{{_('继续')}}</div>
+            </div>
+
+
+        </div>
+        <div class="swiper-slide swiper-slide-bg commen" style="">
+            <div class="page pageRental">
+                <p class="line1 animate">{{_('仅需')}}</p>
+                <p class="line2 animate">
+                    % if 'price' in property and property.get('price'):
+                    <span class="price_original">
+                        {{property.get('price',{}).get('unit_symbol','')}}
+                        {{int(float(property.get('price',{}).get('value','')))}}
+                        {{_('/周')}}
+                        % if 'bill_covered' in property and property.get('bill_covered'):
+                        <span class="sub">
+                            {{_(', 包Bill')}}
+                        </span>
+                        % end
+                    </span>
+                    % end
+                    % if 'localized_unit_symbol' in property.get('price',{}) and property.get('price',{}).get('localized_unit_symbol','') != property.get('price',{}).get('unit_symbol',''):
+                    <span class="price_reference">
+                        {{_('约')}}
+                        {{property.get('price',{}).get('localized_unit_symbol','')}}
+                        {{int(float(property.get('price',{}).get('localized_value','')))}}
+                        {{_('/周')}}
+                    </span>
+                    % end
+                </p>
+                <p class="line3 animate">{{_('您就可以租到')}}</p>
+                <ul class="itemBox clearfix">
+                    %if property.get('space',{}).get('value'):
+                    <li class="animate size">
+                        <div>
+                            <i class="sizeIcon"></i>
+                            %if float(property.get('space',{}).get('value',0)) < 1000:
+                            {{"{0:.2f}".format(float(property.get('space',{}).get('value',0)))}}
+                            %else:
+                            {{"{0:.0f}".format(float(property.get('space',{}).get('value',0)))}}
+                            %end
+                            {{!format_unit(property.get('space',{}).get('unit',''))}}
+                        </div>
+                    </li>
+                    %end
+                    <li class="animate rooms"
+                        %if not property.get('space',{}).get('value'):
+                    style="width:100%;"
+                    %end
+                    >
+                    <div>
+                        <i class="roomsIcon"></i>{{property.get('bedroom_count',0)}}<span>{{_('室')}}</span>{{property.get('living_room_count',0)}}<span>{{_('厅')}}</span>{{property.get('bathroom_count',0)}}<span>{{_('卫')}}</span>
+                    </div>
+                    </li>
+                    <li class="animate rental"><div><i class="rentalIcon"></i></div></li>
+                    <li class="animate street"><div><i class="streetIcon"></i>{{property.get('zipcode','')}}</div></li>
+                    <li class="animate estate"
+                        %if not property.get('floor',''):
+                    style="width:100%;"
+                    %end
+                    >
+                    <div><i class="estateIcon"></i>
+                        %if property.get('community',''):
+                        {{property.get('community','')}},
+                        %end
+                        %if property.get('street',''):
+                        {{property.get('street','')}},
+                        %end
+                        {{property.get('city',{}).get('name','')}}
+                    </div>
+                    </li>
+                    % if 'floor' in property and property.get('floor',''):
+                    <li class="animate door">
+                        <div>
+                            <i class="doorIcon"></i>
+                            {{property.get('floor','')}}
+                            % if 'house_name' in property and 'floor' in property:
+                            {{'-'}}
+                            % end
+                            {{property.get('house_name','')}}
+                        </div>
+                    </li>
+                    % end
+
+
+                </ul>
+            </div>
+            <div class="bottomBox animate">
+                <div class="scrollUp">{{_('继续')}}</div>
+            </div>
+        </div>
+        <div class="swiper-slide swiper-slide-bg commen
+                % if description or len(property.get('indoor_facility',[]))>0 or len(property.get('community_facility',[]))>0:
+                show
+                % else:
+                hideInWechat
+                % end
+                " style="">
+            <div class="page pageDescription">
+                %if description:
+                <h2 class="animate">&nbsp;</h2>
+                <p class="description animate">
+                    {{description}}
+                </p>
+                %else:
+                <h2 class="animate hideInWechat">&nbsp;</h2>
+                <p class="description animate hideInWechat">
+                    {{_('统计表明填写更多房产的描述和配套设施能缩短出租用时')}}
+                </p>
+                %end
+
+                <!--% if 'indoor_facility' in property or 'community_facility' in property:-->
+                <ul class="facilities clearfix">
+                    % for item in property.get('indoor_facility',[]):
+                    <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
+                    % end
+                    % for item in property.get('community_facility',[]):
+                    <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
+                    %end
+                </ul>
+                <!-- 只有上面的设施条数大于6时展示，js控制-->
+                <a class="btn btnModal animate morefacilitiesBtn" id="morefacilitiesBtn">{{_('更多设施')}}</a>
+                <!--% end-->
+
+            </div>
+            <div class="bottomBox animate">
+                <div class="scrollUp">{{_('继续')}}</div>
+            </div>
+        </div>
+        <div class="swiper-slide swiper-slide-bg commen" style="">
+            <div class="page pageMap">
+                <!--<img id="mapImage" src="" alt=""/>-->
+                <div class="mapImage" id="mapImage">
+                    <div class="pushpin animate"></div>
+                </div>
+            </div>
+            <div class="bottomBox mapBottom animate">
+                <div class="location">
+                    <h2>{{_('地址')}}</h2>
+                    <p>
+                        {{property.get('floor','')}}
+                        % if property.get('house_name') and property.get('floor'):
+                        -
+                        % end
+                        {{property.get('house_name','')}}
+                        % if property.get('house_name') or property.get('floor'):
+                        ,
+                        %end
+                        % if property.get('community',''):
+                        {{property.get('community','')}},
+                        % end
+                        % if property.get('street',''):
+                        {{property.get('street','')}},
+                        % end
+                        {{property.get('city',{}).get('name','')}},
+                        {{get_country_name_by_code(property.get('country',{}).get('code',''))}},
+                        {{property.get('zipcode','')}}
+                    </p>
+                    <!--<p>湖北省武汉市光谷大道<br>国际企业中心</p>-->
+                </div>
+                <div class="scrollUp">{{_('继续')}}</div>
+            </div>
+        </div>
+        % if property.get('reality_images', []) and len(property.get('reality_images', [])):
+        <div class="swiper-slide swiper-slide-bg commen" style="">
+            <div class="page pagePhoto swiper-container">
+                <ul class="swiper-wrapper photoList">
+                    % for item in property.get('reality_images'):
+                    <li class="swiper-slide" style="background-image: url('{{item}}')"></li>
+                    %end
+
+                </ul>
+            </div>
+
+            <div class="bottomBox photoBottom animate">
+                <div class="photoThumbsBox">
+                    <div class="photoThumbs swiper-container">
+                        <ul class="swiper-wrapper thumbList">
+                            % for item in property.get('reality_images'):
+                            <li class="swiper-slide" style="background-image: url('{{item}}')"></li>
+                            %end
+                        </ul>
+                    </div>
+                    <div class="arrowButton prevButton" data-action="Prev"></div>
+                    <div class="arrowButton nextButton" data-action="Next"></div>
+                </div>
+
+                <div class="scrollUp
+                        % if not report:
+                        hideOutsideWechat
+                        %end
+                        ">{{_('继续')}}</div>
+            </div>
+        </div>
+        % else:
+        <div class="swiper-slide swiper-slide-bg commen hideInWechat" style="">
+            <div class="page pagePhoto">
+                <p>{{_('暂无图片，上传您的房屋实景图片能极大增加租客联系您的几率')}}</p>
+            </div>
+            <div class="bottomBox animate">
+                <div class="scrollUp">{{_('继续')}}</div>
+            </div>
+        </div>
+        %end
+        % if report:
+        <div class="swiper-slide swiper-slide-bg commen " style="">
+            <div class="page pageRegion">
+                <h2 class="animate">{{_('街区报告：')}}<span>{{report.get('name','')}}</span></h2>
+                <p class="description animate">
+                    {{report.get('description','')}}
+                </p>
+                <a class="btn siteLink animate" href="/region-report/{{report.get('id','')}}">{{_('查看更多')}}</a>
+                <!--<p class="tag animate">-->
+                <!-- todo -->
+                <!--华人多, 学生多, 美食, 中国城-->
+                <!--暂无内容-->
+                <!--</p>-->
+            </div>
+            <div class="bottomBox animate hideOutsideWechat">
+                <div class="scrollUp">{{_('继续')}}</div>
+            </div>
+        </div>
+        % end
+        <div class="swiper-slide swiper-slide-bg commen hideOutsideWechat" style="">
+            <div class="page pageCoverBack">
+                <div class="topTitleNav animate">
+                    <p class="location animate">{{property.get('street','')}} {{property.get('city',{}).get('name','')}} {{get_country_name_by_code(property.get('country',{}).get('code',''))}}</p>
+                    <p class="title animate fixFontSize">{{property.get('name','')}}</p>
+                    <p class="contact animate">
+                        <a href="" class="btn">{{_('获取房东联系方式')}}</a>
+                    </p>
+                </div>
+            </div>
+            <div class="bottomBox coverBackBottom animate">
+
+                <div class="linkWrap clearfix">
+                    <div class="siteLinkBox">
+                        <a href="/app-download" class="btn siteLink">{{_('我也要发布')}}</a>
+                    </div>
+                    <div class="siteLinkBox">
+                        <!--todo 等城市API确定后，这里查看更多房源的链接改为查看对应城市的房源-->
+                        <a href="/property-list?country={{property.get('country',{}).get('code','')}}&city={{property.get('city',{}).get('id','')}}" class="btn siteLink">{{_('查看更多房产')}}</a>
+                    </div>
+                </div>
+                <div class="copyright clearfix">
+                    <div class="poweredBy">POWERED BY</div>
+                    <div class="logoBox">
+                        <div class="logo"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--微信签名 start-->
+<textarea id="pythonWeixin" style="display: none;">
+    {{json_dumps(weixin)}}
+</textarea>
+<!--微信签名 end-->
+<!--@@close-->
+
+<!--@@block =scripts -->
+<!--build:js /static/scripts/property_wechat_poster.html.js-->
+<script type="text/javascript" src="/static/scripts/wechat_poster.js"></script>
+<script type="text/javascript" src="/static/scripts/property_wechat_poster.js"></script>
+<!--endbuild-->
+
+<script>
+    if(!window.i18n){
+        window.i18n = function (name) {
+            var input = document.getElementById('i18n-str-' + name)
+            if (!input) { return name }
+            return input.value
+        }
+    }
+    function initMapSrc(config){
+        config.height = parseInt(config.width * $(window).height() / $(window).width())
+        var baseSrc = 'http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/{centerPoint}/{zoomLevel}?mapSize={width},{height}&mapLayer=TrafficFlow&format=jpeg&key={key}'
+        if(config.centerPoint !== ',') {
+            for(var k in config) {
+                baseSrc = baseSrc.replace('{' + k + '}', config[k])
+            }
+            $('.mapImage').css({
+                'background-image': 'url(' + baseSrc + ')'
+            })
+        } else {
+            $('.mapImage').css({
+                'background': 'rgba(255,255,255,0.6)'
+            }).find('.pushpin').addClass('noLocation').text(window.i18n('该房产暂无定位信息'))
+
+        }
+    }
+    initMapSrc({
+        key: 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43',
+        width: 600,
+        centerPoint: '{{property.get("latitude","")}},{{property.get("longitude","")}}',
+        zoomLevel: 14
+    })
+
+    /*
+     * Weixin share sdk
+     * */
+    $(function () {
+        var weixin = JSON.parse($('#pythonWeixin').text())
+
+        if (typeof window.wx !== 'undefined') {
+            window.wx.config({
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: 'wx123992a4d173037b', // 必填，公众号的唯一标识
+                timestamp: weixin.timestamp, // 必填，生成签名的时间戳
+                nonceStr: weixin.noncestr, // 必填，生成签名的随机串
+                signature: weixin.signature,// 必填，签名，见附录1
+                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            })
+
+            window.wx.ready(function(){
+                var wechatShareData = {
+                        title: '{{property.get('name','')}}',
+                        link: window.location.href,
+                        success:function(){
+                            ga('send', 'event', 'wechat_poster', 'share', 'share-to-wechat-success')
+                        },
+                        cancel:function(){
+                            ga('send', 'event', 'wechat_poster', 'share', 'share-to-wechat-cancel')
+                        }
+                    }
+                    % if property.get('reality_images'):
+                wechatShareData.imgUrl = '{{property.get('reality_images')[0]}}'
+                %end
+
+
+                %if description:
+                wechatShareData.desc = '{{description}}'.replace(/(\r\n|\n|\r)/gm,' ')
+
+                %end
+
+
+                window.wx.onMenuShareTimeline(wechatShareData);
+                window.wx.onMenuShareAppMessage(wechatShareData);
+                window.wx.onMenuShareQQ(wechatShareData);
+            })
+
+            window.wx.error(function(res){
+                ga('send', 'event', 'wechat_poster', 'share', 'share-to-wechat-config-error', res.errMsg)
+            })
+        }
+    })
+</script>
+<!--@@close-->
+
