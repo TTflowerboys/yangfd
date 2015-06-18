@@ -12,10 +12,11 @@
             </div>
         </div>
         <div id="phone" class="section">
-            <a href="tel:4000926433">
+            <a>
                 <img alt="" src="/static/images/common/float_bar/float-window-phone.png"/>
                 <div class="phone hint">
-                    <p>{{_('电话：')}} 400-0926-433</p>
+                    <p>{{_('电话：')}} {{get_phone_numbers('display')[0]}}</p>
+                    <p>{{_('电话：')}} {{get_phone_numbers('display')[1]}}</p>
                 </div>
             </a>
         </div>

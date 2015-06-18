@@ -104,9 +104,7 @@
             <li class="menuItem"><a href="#regionReport">{{_('街区报告')}}</a></li>
             % end
         </ul>
-        <a class="contact" href="tel:4000926433">
-            {{!_('拨打 <strong>400-0926-433</strong>')}}
-        </a>
+        <a class="contact" href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{ _('拨打 ')}}<strong>{{get_phone_numbers('display')[0]}}</strong></a>
     </nav>
 </div>
 <!--@@close-->
@@ -1093,7 +1091,7 @@
                 <div class="row" data-role="serverFeedback" style="display: none; color: red;"></div>
                 <div class="seperator"></div>
                 <div class="contact">
-                    {{_('或拨打')}}<a href="tel:4000926433">400-0926-433</a>{{_('咨询 ')}}
+                    {{_('或拨打')}}<a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>{{_('咨询 ')}}
                 </div>
             </form>
             <div class="seperator"></div>
@@ -1234,7 +1232,7 @@
             data-property-id="{{property.get('id','')}}"
             % end
             ><img src="/static/images/property_details/phone/favorite.png"></img></li>
-        <li class="phone"><a href="tel:4000926433" >{{_('拨打400-0926-433')}}</a></li>
+        <li class="phone"><a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a></li>
         <li class="requirement"><a href="/requirement?property={{property.get('id')}}"><img src="/static/images/property_details/phone/requirement.png"></img></a></li>
     </ul>
 
