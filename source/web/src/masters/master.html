@@ -11,6 +11,7 @@
         <!-- @@include =../partials/css_base.html -->
 
         <!--build:css(dist) /static/styles/project/master.html.css-->
+        <link rel="stylesheet" href="/static/styles/iconFont.css">
         <link rel="stylesheet" href="/static/styles/project/layout.css"/>
         <link rel="stylesheet" href="/static/styles/project/siteHeader.css"/>
         <link rel="stylesheet" href="/static/styles/project/responsivemobilemenu.css"/>
@@ -66,7 +67,7 @@
                             <img id="icon-message-notif" style="display:none" alt="" src="/static/images/common/header/message-notif.png" /> {{_('消息')}}
                         </a>
                         <a id="logout" class="logout" href="/logout">
-                            <img alt="" src="/static/images/common/header/logout.png"/> {{_('登出')}}
+                            <i class="icon-log_out"></i> {{_('登出')}}
                         </a>
                         %else:
                         <a id="login" class="login">{{_('登录')}}</a>
@@ -104,7 +105,7 @@
                         <li><a href="/news-list">{{_('投资资讯')}}</a></li>
                     </ul>
                     <div class="callus">
-                        <img id="icon-message" alt="" src="/static/images/common/header/phone.png" />
+                        <i class="icon-phone_icon" id="icon-message"></i>
                         <div class="contact">
                             <span class="title">{{_('免费咨询')}}</span>
                             <span class="phone">
@@ -163,7 +164,7 @@
                         <h3>{{_('联系我们')}}</h3>
                         <p class="phone">
                             <a href="tel:{{get_phone_numbers('link')[0]}}">
-                                <img id="icon-message" alt="" src="/static/images/common/ico_footer_phone.png" />
+                                <i class="icon-phone_icon" id="icon-message"></i>
                                 <span>{{get_phone_numbers('display')[0]}}</span>
                             </a>
                         </p>
