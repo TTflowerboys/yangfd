@@ -546,7 +546,7 @@
                                 {{report.get('name')}}
                             </h1>
                             <p class="des">
-                                {{report.get('description')}}
+                                {{clear_html_tags(report.get('description'))}}
                             </p>
                             <a class="ghostButton detail" href="/region-report/{{report.get('report_id')}}" target="_blank">
                                 {{_('查看详细街区报告')}}

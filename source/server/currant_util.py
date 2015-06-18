@@ -7,6 +7,7 @@ import bottle
 from app import f_app
 from libfelix.f_interface import template, request, redirect, template_gettext as _
 import currant_data_helper
+import lxml
 
 logger = logging.getLogger(__name__)
 BASE_KEYWORDS_ARRAY = ['洋房东', '海外置业', '楼盘', '公寓', '别墅', '学区房', '英国房产', '海外投资', '海外房产', '海外买房', '海外房地产', '海外房产投资', '英国房价', 'Youngfunding', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
@@ -130,6 +131,10 @@ def get_country_name_by_code(code):
         return ""
 
 
+def clear_html_tags(content):
+    return lxml.html.fromstring(content).text_content()
+
+
 def common_template(path, **kwargs):
     if 'title' not in kwargs:
         kwargs['title'] = _('洋房东')
@@ -153,4 +158,5 @@ def common_template(path, **kwargs):
     kwargs.setdefault("is_mobile_client", is_mobile_client)
     kwargs.setdefault("get_country_name_by_code", get_country_name_by_code)
     kwargs.setdefault("get_phone_numbers", get_phone_numbers)
+    kwargs.setdefault("clear_html_tags", clear_html_tags)
     return template(path, **kwargs)

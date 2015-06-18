@@ -36,7 +36,8 @@
             <div class="form-group col-sm-12">
                 <label class="control-label">{%$root.i18n('街区介绍')%}</label>
                 <div class="controls">
-                    <textarea ng-model="item.description[userLanguage.value]" class="form-control" type-i18n="item.description" rows="4"></textarea>
+                    <div edit-rich-content ng-model="item.description"></div>
+                    <!--<textarea ng-model="item.description[userLanguage.value]" class="form-control" type-i18n="item.description" rows="4"></textarea>-->
                 </div>
             </div>
         </div>
