@@ -19,6 +19,9 @@
             },
             create: function (data, config) {
                 return $http.post('/api/1/rent_ticket/none/edit', data, config)
+            },
+            generateImage: function (id) {
+                return $http.post('/api/1/rent_ticket/' + id + '/digest_image')
             }
         }
 

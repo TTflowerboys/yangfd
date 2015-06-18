@@ -873,7 +873,7 @@ def rent_ticket_search(user, params):
     return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort, time_field="last_modified_time"), fuzzy_user_info=fuzzy_user_info, location_only=location_only)
 
 
-@f_api('/rent_ticket/<ticket_id/digest_image>')
+@f_api('/rent_ticket/<ticket_id>/digest_image')
 def rent_ticket_digest_image(ticket_id):
     from libfelix.f_html2png import html2png
     image = html2png("://".join(request.urlparts[:2]) + "/property-to-rent-digest/" + ticket_id, width=1000, height="window.innerHeight", url=True)

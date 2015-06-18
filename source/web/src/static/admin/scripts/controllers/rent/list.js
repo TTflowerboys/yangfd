@@ -93,6 +93,16 @@
                 .success(onGetList)
 
         }
+        $scope.generateImage = function (item) {
+            item.isGenerating = true
+            api.generateImage(item.id)
+                .success(function (data) {
+                    window.open(data.url)
+                    item.isGenerating = false
+
+                })
+
+        }
 
         function onGetList(data) {
             $scope.fetched = true
