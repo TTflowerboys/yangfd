@@ -54,6 +54,7 @@
 #import "NSArray+ObjectiveSugar.h"
 #import "Aspects.h"
 #import "RNCachingURLProtocol.h"
+#import <NewRelicAgent/NewRelic.h>
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
@@ -147,6 +148,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+    [NewRelicAgent startWithApplicationToken:@"AA702288ba1ecd578f66c032589a84402e1b6a3cb9"];
+
     // Override point for customization after application launch.
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     NSArray *userAgentComponents =  @[[[NSBundle mainBundle] bundleIdentifier], [CUTEConfiguration versionBuild]];
