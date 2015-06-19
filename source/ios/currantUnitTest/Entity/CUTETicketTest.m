@@ -6,17 +6,30 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import <Specta/Specta.h>
-#define HC_SHORTHAND
-#import <OCHamcrest/OCHamcrest.h>
-#import <OCHamcrest/HCAssertThat.h>
-#import <OCHamcrest/HCIsEqual.h>
+#import "CUTETestCommon.h"
 #import "CUTETicket.h"
+#import "NSArray+ObjectiveSugar.h"
 
 
 SpecBegin(Ticket)
 
+describe(@"keypath", ^ {
+
+    //because change listener use this mapping
+    it(@"all keys in json mapping", ^ {
+        NSSet *keys = [CUTETicket propertyKeys];
+        NSDictionary *jsonMapping = [CUTETicket JSONKeyPathsByPropertyKey];
+        assertThat(@([jsonMapping.allKeys symmetricDifference:keys.allObjects].count), equalToInt(0));
+    });
+});
+
 describe(@"display title", ^ {
+
+    it(@"should be nil", ^ {
+        CUTETicket *ticket = [CUTETicket new];
+        assertThat(ticket.titleForDisplay, equalTo(@""));
+    });
+
     it(@"should be custom value", ^ {
         CUTETicket *ticket = [CUTETicket new];
         ticket.title = @"good";
@@ -53,8 +66,19 @@ describe(@"display title", ^ {
         ticket.rentType = rentType;
         assertThat(ticket.titleForDisplay, equalTo(@"华中科技大学 1居室 整租出租"));
     });
+});
 
 
+describe(@"params", ^ {
+    it(@"should not have id", ^ {
+        CUTETicket *ticket = [CUTETicket new];
+        assertThat(ticket.toParams[@"id"], equalTo(nil));
+    });
+
+    it(@"should not have property object", ^ {
+        CUTETicket *ticket = [CUTETicket new];
+        assertThat(ticket.toParams[@"property"], equalTo(nil));
+    });
 });
 
 SpecEnd

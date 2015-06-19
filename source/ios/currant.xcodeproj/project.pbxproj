@@ -203,6 +203,7 @@
 		2C9AFF7F1AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF7D1AF2355500E5F0BC /* BBTWebBarButtonItem.m */; };
 		2C9AFF801AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF7D1AF2355500E5F0BC /* BBTWebBarButtonItem.m */; };
 		2C9AFF811AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF7D1AF2355500E5F0BC /* BBTWebBarButtonItem.m */; };
+		2C9F1CC91B34300A0034487F /* CUTEPropertyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CC81B34300A0034487F /* CUTEPropertyTest.m */; };
 		2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -620,7 +621,6 @@
 		2CDC12661B33F91A00B6D3DD /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE2391B05CCDC006FF191 /* Fabric.framework */; };
 		2CDC126D1B34041E00B6D3DD /* CUTETicketTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC126C1B34041D00B6D3DD /* CUTETicketTest.m */; };
 		2CDC126F1B3404ED00B6D3DD /* SpectaTestTemplate in Resources */ = {isa = PBXBuildFile; fileRef = 2CDC126E1B3404ED00B6D3DD /* SpectaTestTemplate */; };
-		2CDC12711B340CFB00B6D3DD /* CUTETicketUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC12701B340CFB00B6D3DD /* CUTETicketUnitTest.m */; };
 		2CF8A5DC1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */; };
 		2CF8A5DD1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */; };
 		2CF8A5DE1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */; };
@@ -865,6 +865,7 @@
 		2C427EA11AD3802A000378A9 /* CUTEArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEArea.m; sourceTree = "<group>"; };
 		2C427EA71AD3803B000378A9 /* CUTECurrency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTECurrency.h; sourceTree = "<group>"; };
 		2C427EA81AD3803B000378A9 /* CUTECurrency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTECurrency.m; sourceTree = "<group>"; };
+		2C467BD91B34235400BBBAAA /* CUTETestCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETestCommon.h; sourceTree = "<group>"; };
 		2C4AEC7D1AD6466A004DEE23 /* CUTEUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUser.h; sourceTree = "<group>"; };
 		2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUser.m; sourceTree = "<group>"; };
 		2C554F891AC2BC3700F51D33 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -888,6 +889,7 @@
 		2C9AFF761AF2335900E5F0BC /* CUTEWebConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEWebConfiguration.m; sourceTree = "<group>"; };
 		2C9AFF7C1AF2355500E5F0BC /* BBTWebBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTWebBarButtonItem.h; sourceTree = "<group>"; };
 		2C9AFF7D1AF2355500E5F0BC /* BBTWebBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTWebBarButtonItem.m; sourceTree = "<group>"; };
+		2C9F1CC81B34300A0034487F /* CUTEPropertyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyTest.m; sourceTree = "<group>"; };
 		2CA2E6C21AC5487800053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DB1AC5496700053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
@@ -979,7 +981,6 @@
 		2CDC12691B33FDC400B6D3DD /* libPods-GoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-GoogleAnalytics.a"; path = "Pods/../build/Debug-iphoneos/libPods-GoogleAnalytics.a"; sourceTree = "<group>"; };
 		2CDC126C1B34041D00B6D3DD /* CUTETicketTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETicketTest.m; sourceTree = "<group>"; };
 		2CDC126E1B3404ED00B6D3DD /* SpectaTestTemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SpectaTestTemplate; sourceTree = "<group>"; };
-		2CDC12701B340CFB00B6D3DD /* CUTETicketUnitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETicketUnitTest.m; sourceTree = "<group>"; };
 		2CF8A5A71AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPropertyFacilityViewController.h; sourceTree = "<group>"; };
 		2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPropertyFacilityViewController.m; sourceTree = "<group>"; };
 		2CF8A5A91AF0B40E0080DF10 /* CUTERentPropertyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPropertyInfoViewController.h; sourceTree = "<group>"; };
@@ -1445,6 +1446,7 @@
 			children = (
 				2CDC126B1B3402ED00B6D3DD /* Entity */,
 				2CDC126E1B3404ED00B6D3DD /* SpectaTestTemplate */,
+				2C467BD91B34235400BBBAAA /* CUTETestCommon.h */,
 				2CDC11691B33F8C100B6D3DD /* Supporting Files */,
 			);
 			path = currantUnitTest;
@@ -1462,7 +1464,7 @@
 			isa = PBXGroup;
 			children = (
 				2CDC126C1B34041D00B6D3DD /* CUTETicketTest.m */,
-				2CDC12701B340CFB00B6D3DD /* CUTETicketUnitTest.m */,
+				2C9F1CC81B34300A0034487F /* CUTEPropertyTest.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -2576,7 +2578,6 @@
 				2CDC11791B33F8D300B6D3DD /* CUTEArea.m in Sources */,
 				2CDC117A1B33F8D300B6D3DD /* CUTECurrency.h in Sources */,
 				2CDC117B1B33F8D300B6D3DD /* CUTECurrency.m in Sources */,
-				2CDC12711B340CFB00B6D3DD /* CUTETicketUnitTest.m in Sources */,
 				2CDC117C1B33F8D300B6D3DD /* CUTETimePeriod.h in Sources */,
 				2CDC117D1B33F8D300B6D3DD /* CUTETimePeriod.m in Sources */,
 				2CDC117E1B33F8D300B6D3DD /* CUTEProperty.h in Sources */,
@@ -2712,6 +2713,7 @@
 				2CDC12021B33F8D300B6D3DD /* CUTERentTicketPreviewViewController.m in Sources */,
 				2CDC12031B33F8D300B6D3DD /* CUTERentAddressEditViewController.h in Sources */,
 				2CDC12041B33F8D300B6D3DD /* CUTERentAddressEditViewController.m in Sources */,
+				2C9F1CC91B34300A0034487F /* CUTEPropertyTest.m in Sources */,
 				2CDC12051B33F8D300B6D3DD /* CUTERentCityViewController.h in Sources */,
 				2CDC12061B33F8D300B6D3DD /* CUTERentCityViewController.m in Sources */,
 				2CDC12071B33F8D300B6D3DD /* CUTERentAddressMapViewController.h in Sources */,
