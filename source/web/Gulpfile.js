@@ -235,7 +235,7 @@ gulp.task('setupCDN', ['build:html-extend', 'fingerprint', 'revAll'], function (
             gulp.src(myPaths.dist + '*.html')
                 .pipe(replace(/\/static\/images\//g, argv.cdn + '/images/'))
                 .pipe(replace(/\/static\/sprite\//g, argv.cdn + '/sprite/'))
-                .pipe(replace(/\/static\/styles\//g, argv.cdn + '/styles/'))
+                //.pipe(replace(/\/static\/styles\//g, argv.cdn + '/styles/'))
                 .pipe(replace(/\/static\/scripts\//g, argv.cdn + '/scripts/'))
                 .pipe(replace(/\/static\/vendors\//g, argv.cdn + '/vendors/'))
                 .pipe(replace(/\/static\/bower_components\//g, argv.cdn + '/bower_components/'))
