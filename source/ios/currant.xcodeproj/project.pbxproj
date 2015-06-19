@@ -620,6 +620,7 @@
 		2CDC12661B33F91A00B6D3DD /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE2391B05CCDC006FF191 /* Fabric.framework */; };
 		2CDC126D1B34041E00B6D3DD /* CUTETicketTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC126C1B34041D00B6D3DD /* CUTETicketTest.m */; };
 		2CDC126F1B3404ED00B6D3DD /* SpectaTestTemplate in Resources */ = {isa = PBXBuildFile; fileRef = 2CDC126E1B3404ED00B6D3DD /* SpectaTestTemplate */; };
+		2CDC12711B340CFB00B6D3DD /* CUTETicketUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC12701B340CFB00B6D3DD /* CUTETicketUnitTest.m */; };
 		2CF8A5DC1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */; };
 		2CF8A5DD1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */; };
 		2CF8A5DE1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */; };
@@ -776,16 +777,6 @@
 		58DDC90D1C4509531DEC3BA6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
 		C4A0594E53CF2777C29B6FC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		2CDC12671B33FB3B00B6D3DD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2CB43DA11ABC1372004DF663 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2CA94A951ACA42CD00DF7497;
-			remoteInfo = "currant-dev";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2023655375ADEF150770F704 /* Pods-currantUnitTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-currantUnitTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-currantUnitTest/Pods-currantUnitTest.debug.xcconfig"; sourceTree = "<group>"; };
@@ -988,6 +979,7 @@
 		2CDC12691B33FDC400B6D3DD /* libPods-GoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-GoogleAnalytics.a"; path = "Pods/../build/Debug-iphoneos/libPods-GoogleAnalytics.a"; sourceTree = "<group>"; };
 		2CDC126C1B34041D00B6D3DD /* CUTETicketTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETicketTest.m; sourceTree = "<group>"; };
 		2CDC126E1B3404ED00B6D3DD /* SpectaTestTemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SpectaTestTemplate; sourceTree = "<group>"; };
+		2CDC12701B340CFB00B6D3DD /* CUTETicketUnitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETicketUnitTest.m; sourceTree = "<group>"; };
 		2CF8A5A71AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPropertyFacilityViewController.h; sourceTree = "<group>"; };
 		2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPropertyFacilityViewController.m; sourceTree = "<group>"; };
 		2CF8A5A91AF0B40E0080DF10 /* CUTERentPropertyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPropertyInfoViewController.h; sourceTree = "<group>"; };
@@ -1470,6 +1462,7 @@
 			isa = PBXGroup;
 			children = (
 				2CDC126C1B34041D00B6D3DD /* CUTETicketTest.m */,
+				2CDC12701B340CFB00B6D3DD /* CUTETicketUnitTest.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1733,7 +1726,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				2CDC12681B33FB3B00B6D3DD /* PBXTargetDependency */,
 			);
 			name = currantUnitTest;
 			productName = currantUnitTest;
@@ -1765,7 +1757,6 @@
 					};
 					2CDC11661B33F8C100B6D3DD = {
 						CreatedOnToolsVersion = 6.3.2;
-						TestTargetID = 2CA94A951ACA42CD00DF7497;
 					};
 				};
 			};
@@ -2585,6 +2576,7 @@
 				2CDC11791B33F8D300B6D3DD /* CUTEArea.m in Sources */,
 				2CDC117A1B33F8D300B6D3DD /* CUTECurrency.h in Sources */,
 				2CDC117B1B33F8D300B6D3DD /* CUTECurrency.m in Sources */,
+				2CDC12711B340CFB00B6D3DD /* CUTETicketUnitTest.m in Sources */,
 				2CDC117C1B33F8D300B6D3DD /* CUTETimePeriod.h in Sources */,
 				2CDC117D1B33F8D300B6D3DD /* CUTETimePeriod.m in Sources */,
 				2CDC117E1B33F8D300B6D3DD /* CUTEProperty.h in Sources */,
@@ -2820,14 +2812,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		2CDC12681B33FB3B00B6D3DD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2CA94A951ACA42CD00DF7497 /* currant-dev */;
-			targetProxy = 2CDC12671B33FB3B00B6D3DD /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2CB43DBE1ABC1373004DF663 /* LaunchScreen.xib */ = {
@@ -3121,7 +3105,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -3141,7 +3124,6 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/currant.app/currant";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -3152,7 +3134,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -3168,7 +3149,6 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/currant.app/currant";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
