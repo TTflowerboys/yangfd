@@ -95,7 +95,8 @@
                         <td class=properties>
                             <ul >
                                 %if property.get('intention'):
-                                    <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
+                                    <li>
+                                        <i class="icon-tag_icon"></i>
                                         <label>
                                             % for item in property.get('intention'):
                                                 %if item.get('value'):
@@ -106,7 +107,7 @@
                                     </li>
                                 %end
                                 %if property.get('street'):
-                                    <li><img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                                    <li><i class="icon-location_fill"></i>
                                         <label>
                                             {{property.get('street')}}
                                         </label>
@@ -224,7 +225,8 @@
                     <div class="right">
                         <ul class=properties>
                             %if property.get('intention'):
-                                <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
+                                <li>
+                                    <i class="icon-tag_icon"></i>
                                     <label>
                                         % for item in property.get('intention'):
                                             %if item.get('value'):
@@ -235,7 +237,7 @@
                                 </li>
                             %end
                             %if property.get('street'):
-                                <li><img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                                <li><i class="icon-location_fill"></i>
                                     <label>
                                         {{property.get('street')}}
                                     </label>

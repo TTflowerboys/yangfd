@@ -45,7 +45,7 @@
                     </div>
                     <ul class="properties">
                         <li>
-                            <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                            <i class="icon-location_fill"></i>
                             {_if(rent.property.floor) {_}
                                 {= rent.property.floor =}
                             {_}_}
@@ -75,7 +75,7 @@
                             {_}_}
                         </li>
                         {_if(rent.property.region_highlight && rent.property.region_highlight.length) {_}
-                        <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
+                        <li><i class="icon-tag_icon"></i>
                             {_ _.each(rent.region_highlight, function(highlight) { _}
                                 {=highlight.value=}
                             {_ }) _}

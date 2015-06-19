@@ -45,7 +45,7 @@
                     </div>
                     <ul class="properties">
                         <li>
-                            <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                            <i class="icon-location_fill"></i>
                             <!-- todo 国家城市数据结构更改后city中就没有country属性了，我把这儿更改后不知道会不会有问题，需要测试 --by levy-->
                             {_if(rent.property.country && rent.property.country.code) {_}
                                 {= window.team.countryMap[rent.property.country.code] + " " =}

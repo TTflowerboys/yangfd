@@ -41,7 +41,7 @@
                 </div>
                 <ul class="properties">
                     <li>
-                        <img src="/static/images/common/house_card/house-card-location.png" alt=""/>
+                        <i class="icon-location_fill"></i>
                         <!-- todo 国家城市数据结构更改后city中就没有country属性了，我把这儿更改后不知道会不会有问题，需要测试 --by levy-->
                         {_if(fav.ticket.property.country && fav.ticket.property.country.code) {_}
                         {= window.team.countryMap[fav.ticket.property.country.code] + " " =}
@@ -54,7 +54,7 @@
                         {_}_}
                     </li>
                     {_if(fav.ticket.property.region_highlight && fav.ticket.property.region_highlight.length) {_}
-                    <li><img src="/static/images/common/house_card/house-card-tag.png" alt=""/>
+                    <li><i class="icon-tag_icon"></i>
                         {_ _.each(fav.ticket.region_highlight, function(highlight) { _}
                         {=highlight.value=}
                         {_ }) _}
