@@ -107,7 +107,7 @@
 
             %if rent_budget_list:
                 <div class="propertyType hiddenOnPCWeb">
-                    <img class="propertyType_icon" alt="" src="/static/images/property_list/intention-tag.png"/>
+                    <i class="propertyType_icon icon-tag_icon"></i>
                     <h4 class="propertyType_title">{{_('房产类型')}}</h4>
                     <div id="propertyTypeTag" class="inner">
                         %for index, property_type in enumerate(property_type_list):
@@ -169,7 +169,7 @@
 
             %if bedroom_count_list:
                 <div class="bedroomCount">
-                    <img class="bedroomCount_icon" alt="" src="/static/images/property_list/bedroom-tag.png"/>
+                    <i class="bedroomCount_icon icon-room_category"></i>
                     <h4 class="bedroomCount_title">{{_('居室数')}}</h4>
                     <div id="bedroomCountTag" class="inner">
                         % for bedroom_count in bedroom_count_list:
@@ -181,7 +181,7 @@
 
             %if building_area_list:
                 <div class="space">
-                    <img class="space_icon" alt="" src="/static/images/property_list/size-tag.png"/>
+                    <i class="space_icon icon-size"></i>
                     <h4 class="space_title">{{_('面积')}}</h4>
                     <div id="spaceTag" class="inner">
                         % for building_area in building_area_list:

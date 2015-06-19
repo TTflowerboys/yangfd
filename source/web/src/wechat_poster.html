@@ -215,7 +215,7 @@
                             %if rent.get('space',{}).get('value'):
                             <li class="animate size">
                                 <div>
-                                    <i class="sizeIcon"></i>
+                                    <i class="icon-size"></i>
                                     %if float(rent.get('space',{}).get('value',0)) < 1000:
                                     {{"{0:.2f}".format(float(rent.get('space',{}).get('value',0)))}}
                                     %else:
@@ -231,17 +231,17 @@
                                 %end
                                 >
                                 <div>
-                                    <i class="roomsIcon"></i>{{rent['property'].get('bedroom_count',0)}}<span>{{_('室')}}</span>{{rent['property'].get('living_room_count',0)}}<span>{{_('厅')}}</span>{{rent['property'].get('bathroom_count',0)}}<span>{{_('卫')}}</span>
+                                    <i class="icon-rooms"></i>{{rent['property'].get('bedroom_count',0)}}<span>{{_('室')}}</span>{{rent['property'].get('living_room_count',0)}}<span>{{_('厅')}}</span>{{rent['property'].get('bathroom_count',0)}}<span>{{_('卫')}}</span>
                                 </div>
                             </li>
-                            <li class="animate rental"><div><i class="rentalIcon"></i>{{rent.get('rent_type',{}).get('value', '')}}</div></li>
-                            <li class="animate street"><div><i class="streetIcon"></i>{{rent['property'].get('zipcode','')}}</div></li>
+                            <li class="animate rental"><div><i class="icon-house"></i>{{rent.get('rent_type',{}).get('value', '')}}</div></li>
+                            <li class="animate street"><div><i class="icon-block_line"></i>{{rent['property'].get('zipcode','')}}</div></li>
                             <li class="animate estate"
                                 %if not rent['property'].get('floor',''):
                                 style="width:100%;"
                                 %end
                                 >
-                                <div><i class="estateIcon"></i>
+                                <div><i class="icon-building"></i>
                                 %if rent['property'].get('community',''):
                                 {{rent['property'].get('community','')}},
                                 %end
@@ -254,7 +254,7 @@
                             % if 'floor' in rent['property'] and rent['property'].get('floor',''):
                             <li class="animate door">
                                 <div>
-                                    <i class="doorIcon"></i>
+                                    <i class="icon-door"></i>
                                     {{rent['property'].get('floor','')}}
                                     % if 'house_name' in rent.get('property',{}) and 'floor' in rent.get('property',{}):
                                     {{'-'}}
@@ -266,7 +266,7 @@
                             % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
                             <li class="animate time">
                                 <div>
-                                    <i class="timeIcon"></i>
+                                    <i class="icon-clock"></i>
                                     % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
                                     {{rent.get('rent_available_time','').strftime("%Y-%m-%d")}}
                                     % end
@@ -281,7 +281,7 @@
                             % if 'minimum_rent_period' in rent:
                             <li class="animate time">
                                 <div>
-                                    <i class="timeIcon"></i>
+                                    <i class="icon-clock"></i>
                                     {{_('最短租期')}}
                                     <!--@@include=partials/get_rent_min_period.html  -->
                                 </div>

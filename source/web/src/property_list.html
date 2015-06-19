@@ -105,7 +105,7 @@
 
             %if intention_list:
                 <div class="intention">
-                    <img class="intention_icon" alt="" src="/static/images/property_list/intention-tag.png"/>
+                    <i class="intention_icon icon-tag_icon"></i>
                     <h4 class="intention_title">{{_('投资意向(多选)')}}</h4>
 
                     <div id="intentionTag" class="inner">
@@ -118,7 +118,7 @@
             %end
 
             <div class="bedroomCount">
-                <img class="bedroomCount_icon" alt="" src="/static/images/property_list/bedroom-tag.png"/>
+                <i class="bedroomCount_icon icon-room_category"></i>
                 <h4 class="bedroomCount_title">{{_('居室数')}}</h4>
                 <div id="bedroomCountTag" class="inner">
                     % for bedroom_count in bedroom_count_list:
@@ -128,13 +128,13 @@
             </div>
 
              <div class="buildingArea">
-                <img class="buildingArea_icon" alt="" src="/static/images/property_list/size-tag.png"/>
-                <h4 class="buildingArea_title">{{_('面积')}}</h4>
-                <div id="buildingAreaTag" class="inner">
+                 <i class="buildingArea_icon icon-size"></i>
+                 <h4 class="buildingArea_title">{{_('面积')}}</h4>
+                 <div id="buildingAreaTag" class="inner">
                     % for building_area in building_area_list:
                         <div class="toggleTag" data-id="{{building_area.get('id')}}">{{building_area.get('value')}}</div>
                     % end
-                </div>
+                 </div>
             </div>
         </div>
         <div class="contact">
