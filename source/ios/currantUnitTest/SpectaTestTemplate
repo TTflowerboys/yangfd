@@ -1,4 +1,5 @@
-#import <Specta/Specta.h>
+#import "CUTETestCommon.h"
+
 
 
 SpecBegin(Ticket)
