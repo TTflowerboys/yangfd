@@ -47,9 +47,7 @@ PODS:
   - FMDB/standard (2.5):
     - FMDB/common
   - FXForms (1.2.12)
-  - GoogleAnalytics-iOS-SDK (3.12):
-    - GoogleAnalytics-iOS-SDK/Core (= 3.12)
-  - GoogleAnalytics-iOS-SDK/Core (3.12)
+  - GoogleAnalytics (3.12.0)
   - INTULocationManager (3.0.3)
   - JDFTooltips (1.0)
   - KVOController (1.0.3)
@@ -107,7 +105,7 @@ DEPENDENCIES:
   - Bolts (= 1.1.5)
   - CTAssetsPickerController (= 2.9.4)
   - FXForms (= 1.2.12)
-  - GoogleAnalytics-iOS-SDK (= 3.12)
+  - GoogleAnalytics (= 3.12.0)
   - INTULocationManager (= 3.0.3)
   - JDFTooltips (= 1.0)
   - KVOController (= 1.0.3)
@@ -170,7 +168,7 @@ SPEC CHECKSUMS:
   EGOCache: f0295dbe041156acabd39021354ad1045ee49e72
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   FXForms: b6a78bac9f6b597ce704e34ac7c1ce9ff628b1d5
-  GoogleAnalytics-iOS-SDK: 13241762fa4aea845eb75bef6c0da3427a26e7b3
+  GoogleAnalytics: ef2e0b800ef3c1e62688cdfc959e0d3132bc246c
   INTULocationManager: e79327803a163f5fec28eb042bb124ed0c6e4876
   JDFTooltips: 439e3f1010b5e689e8438f66fce8448726e59897
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
