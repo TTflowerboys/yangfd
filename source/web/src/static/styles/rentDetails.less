@@ -54,6 +54,10 @@ body {
     color: white;
     cursor: pointer;
     text-shadow: 1px 1px 1px black;
+    i{
+        color: #999;
+        font-family: 'icomoon';
+    }
 }
 
 .stickyNavbar {
@@ -189,6 +193,13 @@ body {
                     display: inline-block;
                     float: left;
                 }
+                i{
+                    margin-top: 4px;
+                    display:inline-block;
+                    float:left;
+                    font-size: 16px;
+                    color: @red;
+                }
                 label {
                     display: inline-block;
                     float: right;
@@ -280,6 +291,10 @@ body {
                 margin-bottom: 40px;
                 .flatButton { padding: 0; width: 110px; font-size: 12px; line-height: 40px;
                     img { vertical-align: text-top; }
+                    i {
+                        font-size: 18px;
+                        vertical-align: text-top;
+                    }
                 }
             }
         }
@@ -525,6 +540,13 @@ body {
         >.tag {
             margin: 0px @standard-margin;
             .limitedLines(1, 30px, @background-grey);
+            i{
+                margin: 4px 4px 0 0;
+                display:inline-block;
+                float:left;
+                font-size: 16px;
+                color: @red;
+            }
         }
 
         >.priceItems {

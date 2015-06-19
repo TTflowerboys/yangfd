@@ -34,8 +34,8 @@
                             {_}_}
                         </a>
                         <div class="imgAction_wrapper">
-                            <img id='edit' data-id="{=rent.id=}" class="imgAction hiddenInNonClient" src="/static/images/user/button_edit.png" alt=""/>
-                            <img id='remove' data-id="{=rent.id=}" class="imgAction" src="/static/images/user/button_delete.png" alt=""/>
+                            <i id='edit' data-id="{=rent.id=}" class="imgAction hiddenInNonClient icon-edit"></i>
+                            <i id='remove' data-id="{=rent.id=}" class="imgAction icon-delete"></i>
                             {_if(rent.last_modified_time > rent.time ) {_}
                                 <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('更新过')=}</p>
                             {_}else{_}

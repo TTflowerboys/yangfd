@@ -45,7 +45,7 @@
                 </label>
             </div>
             <div class="rmm-toggled-share">
-                <img src="/static/images/property_details/phone/wechat_share.png" />
+                <i class="icon-wechat"></i>
             </div>
         </div>
         <ul class="rmm-menu" style="display:none;">
@@ -248,7 +248,7 @@
                         <h1 class=name>{{property.get('name')}}</h1>
                         % if 'intention' in property and property.get('intention'):
                             <div class="tag">
-                                <img src="/static/images/property_details/phone/tag-icon-phone.png" height=12 alt=""/>
+                                <i class="icon-tag_icon"></i>
                                 <label>
                                     {{tagString}}
                                 </label>
@@ -259,7 +259,7 @@
                             % city = property.get('city',{}).get('name')
                             % city_string = ', '.join([x for x in [country,city] if x])
                             <div class="tag">
-                                <img src="/static/images/property_details/phone/location-icon-phone.png" height=12 alt=""/>
+                                <i class="icon-location_fill"></i>
                                 <label>
                                     {{city_string}}
                                 </label>
@@ -380,9 +380,7 @@
                     <tbody>
                         <tr>
                             <td class="name">
-                                <i>
-                                    <img src="/static/images/property_details/icon-house.png" alt=""/>
-                                    </i>
+                                <i class="icon-house_icon"></i>
                                     <label>
                                         {{_('产权类型')}}
                                     </label>
@@ -394,9 +392,7 @@
                         % if 'decorative_style' in property:
                             <tr>
                                 <td class="name">
-                                    <i>
-                                        <img src="/static/images/property_details/icon-pallet.png" alt=""/>
-                                        </i>
+                                    <i class="icon-art"></i>
                                         <label>
                                             {{_('装修风格')}}
                                         </label>
@@ -409,8 +405,7 @@
                         % if 'address' in property:
                             <tr>
                                 <td class="name">
-                                    <i>
-                                        <img src="/static/images/property_details/icon-location.png" alt=""/>
+                                    <i class="icon-location_fill"></i>
                                         </i>
                                         <label>
                                             {{_('产权地址')}}
@@ -424,9 +419,7 @@
                         % if 'street' in property:
                             <tr>
                                 <td class="name">
-                                    <i>
-                                        <img src="/static/images/property_details/icon-map.png" alt=""/>
-                                        </i>
+                                    <i class="icon-block"></i>
                                         <label>
                                             {{_('街区')}}
                                         </label>
@@ -444,9 +437,7 @@
                         % if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
                             <tr>
                                 <td colspan="1" class="name">
-                                    <i>
-                                        <img src="/static/images/property_details/icon-kaleidoscope.png" alt=""/>
-                                        </i>
+                                    <i class="icon-room_category"></i>
                                         <label for="">
                                             {{_('主要户型')}}
                                         </label>
@@ -905,7 +896,7 @@
                 <h1>{{property.get('name','')}}</h1>
                 % if 'intention' in property and property.get('intention'):
                     <div class="tag">
-                        <img src="/static/images/property_details/tag-icon.png" alt=""/>
+                        <i class="icon-tag_icon"></i>
                         <label>
                             {{tagString}}
                         </label>
@@ -916,7 +907,7 @@
                     % city = property.get('city',{}).get('name')
                     % city_string = ', '.join([x for x in [country,city] if x])
                     <div class="tag">
-                        <img src="/static/images/property_details/location-icon.png" alt=""/>
+                        <i class="icon-location_fill"></i>
                         <label>
                             {{city_string}}
                         </label>
@@ -995,14 +986,14 @@
                         </td>
                         <td style="text-align:center;">
                             <button data-fn="shareToWeChat" class="flatButton green">
-                                <img src="/static/images/property_details/icon-wechat.png" alt=""/>
+                                <i class="icon-wechat"></i>
                                 {{_('分享到微信')}}
                             </button>
                         </td>
                         <td style="text-align:right;">
                             % name = property.get('name','')
                             <button class="flatButton orange" onclick="team.shareToWeibo({title:'{{name}}'}) ">
-                                <img src="/static/images/property_details/icon-weibo.png" alt=""/>
+                                <i class="icon-weibo"></i>
                                 {{_('分享到微博')}}
                             </button>
                         </td>
@@ -1213,7 +1204,7 @@
                 % end
         </ul>
         <div id="menu_button_phone" class="menu_button">
-            <img src="/static/images/property_details/phone/property-menu.png"/>
+            <i class="icon-menu"></i>
         </div>
      </div>
 

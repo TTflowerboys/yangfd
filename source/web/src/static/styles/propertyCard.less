@@ -4,21 +4,29 @@
     hr { color: #ccc; }
     img { vertical-align: middle; }
     > h1 { color: #333; }
-    > .tag { padding-right: 8px;
-             overflow:hidden;
-             line-height:1.8em;
-             img {
-                 margin-top: 4px;
-                 display:inline-block;
-                 float:left;
-             }
-             label {
-                 display:inline-block;
-                 float:right;
-                 width:91%;
-             }
-             a { text-decoration: none; }
-           }
+    > .tag {
+        padding-right: 8px;
+        overflow:hidden;
+        line-height:1.8em;
+        img {
+            margin-top: 4px;
+            display:inline-block;
+            float:left;
+        }
+        i{
+            margin-top: 4px;
+            display:inline-block;
+            float:left;
+            font-size: 16px;
+            color: @red;
+        }
+        label {
+            display:inline-block;
+            float:right;
+            width:91%;
+        }
+        a { text-decoration: none; }
+    }
 
     .price {
         margin:40px 0;
@@ -65,18 +73,25 @@
     }
 
     .numbers { .clearfix(); width:100%;
-                  td { width: 50%; border-left: 1px solid #ccc; padding-left: 8px;
-                        .percentage { display: block; font-size: 20px; min-height: 32px; vertical-align: bottom;
-                                      strong { line-height: 23px; }
-                                      &.emphasized { color: @red;
-                                                     strong { font-size: 23px; word-break:break-all; display:block; }
-                                                   }
-                                    }
-                      }
+    td {
+        width: 50%; border-left: 1px solid #ccc; padding-left: 8px;
+        .percentage {
+            display: block; font-size: 20px; min-height: 32px; vertical-align: bottom;
+            strong { line-height: 23px; }
+            &.emphasized { color: @red;
+                strong { font-size: 23px; word-break:break-all; display:block; }
+            }
+        }
+    }
                }
     > .actions { width: 100%;
-                 .flatButton { padding: 0; width: 110px; font-size: 12px; line-height: 40px;
-                               img { vertical-align: text-top; }
-                             }
-               }
+        .flatButton {
+            padding: 0; width: 110px; font-size: 12px; line-height: 40px;
+            img { vertical-align: text-top; }
+            i{
+                font-size: 18px;
+                vertical-align: text-top;
+            }
+        }
+    }
 }

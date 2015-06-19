@@ -11,7 +11,7 @@
         % if rent.get('creator_user',{}).get('phone','') and 'phone' not in private_contact_methods:
         <div class="hostPhone hostContact">
             <a>
-                <img class="ico" src="/static/images/property_details/ico_phone.png"/>
+                <i class="ico icon-phone_icon"></i>
                 <span>+{{rent.get('creator_user',{}).get('country_code','') }}</span> <span>{{rent.get('creator_user',{}).get('phone','')}}</span>
             </a>
         </div>
@@ -26,7 +26,7 @@
         %end
         % if rent.get('creator_user',{}).get('wechat','') and 'wechat' not in private_contact_methods:
         <div class="hostWechat hostContact">
-            <img class="ico" src="/static/images/property_details/ico_wechat.png"/>
+            <i class="ico icon-wechat"></i>
             <span>{{rent.get('creator_user',{}).get('wechat','')}}</span>
         </div>
         %end

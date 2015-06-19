@@ -40,7 +40,7 @@
                 </label>
             </div>
             <div class="rmm-toggled-share">
-                <img src="/static/images/property_details/phone/wechat_share.png" />
+                <i class="icon-wechat"></i>
             </div>
         </div>
         <ul class="rmm-menu" style="display:none;">
@@ -164,7 +164,7 @@
             </div>
             % if 'community' in rent['property'] or 'street' in rent['property'] or 'zipcode' in rent['property']:
             <div class="tag row">
-                <img src="/static/images/property_details/location-icon.png" alt=""/>
+                <i class="icon-location_fill"></i>
                 <label>
                     % if rent['property'].get('community',''):
                     {{rent['property'].get('community','')}},
@@ -395,7 +395,7 @@
                 </label>
                 % if 'community' in rent['property'] or 'street' in rent['property'] or 'zipcode' in rent['property']:
                 <div class="tag">
-                    <img src="/static/images/property_details/location-icon.png" alt=""/>
+                    <i class="icon-location_fill"></i>
                     <label>
                         % if rent['property'].get('community',''):
                         {{rent['property'].get('community','')}},
@@ -498,7 +498,7 @@
                             </td>
                             <td style="text-align:center;">
                                 <button data-fn="shareToWeChat" class="flatButton green" data-id="{{rent.get('id','')}}">
-                                    <img src="/static/images/property_details/icon-wechat.png" alt=""/>
+                                    <i class="icon-wechat"></i>
                                     {{_('分享到微信')}}
                                 </button>
                             </td>
@@ -510,7 +510,7 @@
                                     ,pic:'{{rent['property'].get('reality_images')[0]}}'
                                     % end
                                     }) ">
-                                    <img src="/static/images/property_details/icon-weibo.png" alt=""/>
+                                    <i class="icon-weibo"></i>
                                     {{_('分享到微博')}}
                                 </button>
                             </td>
