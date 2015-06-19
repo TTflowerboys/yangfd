@@ -1,0 +1,14 @@
+#import <Specta/Specta.h>
+
+
+SpecBegin(Ticket)
+
+describe(@"Ticket", ^ {
+
+it(@"", ^ {
+
+});
+
+});
+
+SpecEnd

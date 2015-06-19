@@ -5,7 +5,7 @@ inhibit_all_warnings!
 
 #xcodeproj 'currant'
 
-link_with 'currant', 'currant-dev', 'currant-test', 'currant-production', 'currantTests'
+#link_with 'currant', 'currant-dev', 'currant-test', 'currant-production', 'currantUnitTest'
 
 pod 'BBTUtility', :git => "git@git.bbtechgroup.com:bbt/ios-bbtutility.git"
 pod 'BBTRestClient', :git => "git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git"
@@ -39,3 +39,10 @@ pod 'KVOController', '1.0.3'
 pod 'libextobjc/EXTKeyPathCoding', '0.4.1'
 pod 'RNCachingURLProtocol+HybirdApp', :git => "git@github.com:Fykec/RNCachingURLProtocol.git"
 pod 'NewRelicAgent'
+
+#http://stackoverflow.com/questions/14512792/libraries-not-found-when-using-cocoapods-with-ios-logic-tests
+target 'currantUnitTest', :exclusive => false do
+    pod 'Specta'
+    pod 'OCHamcrest'
+    pod 'OHHTTPStubs'
+end
