@@ -52,10 +52,10 @@ def is_mobile_client():
 def get_phone_numbers(use="display"):
     if use == "display":
         CN = "400-0926-433"
-        GB = "(0)2075151192"
+        GB = "(0)2030402258"
     elif use == "link":
         CN = "4000926433"
-        GB = "02075151192"
+        GB = "02030402258"
     else:
         raise NotImplementedError
 
