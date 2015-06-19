@@ -880,7 +880,7 @@ def rent_ticket_digest_image(ticket_id):
 
     with f_app.storage.aws_s3() as b:
         filename = f_app.util.uuid()
-        b.upload(filename, image, policy="public-read")
+        b.upload(filename, image.read(), policy="public-read")
         result = {"url": b.get_public_url(filename)}
 
     return result
