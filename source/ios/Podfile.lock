@@ -66,6 +66,7 @@ PODS:
     - MBProgressHUD (~> 0.8)
     - PSTCollectionView (~> 1.2)
     - SDWebImage (~> 3.7)
+  - NewRelicAgent (5.1.0)
   - ngrvalidator (1.0.0)
   - NJKWebViewProgress (0.2.3):
     - NJKWebViewProgress/Core (= 0.2.3)
@@ -113,6 +114,7 @@ DEPENDENCIES:
   - libextobjc/EXTKeyPathCoding (= 0.4.1)
   - Masonry (= 0.6.1)
   - MWPhotoBrowser (= 1.4.1)
+  - NewRelicAgent
   - ngrvalidator (= 1.0.0)
   - NJKWebViewProgress (= 0.2.3)
   - NSDate-Extensions (= 0.0.1)
@@ -168,7 +170,7 @@ SPEC CHECKSUMS:
   EGOCache: f0295dbe041156acabd39021354ad1045ee49e72
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   FXForms: b6a78bac9f6b597ce704e34ac7c1ce9ff628b1d5
-  GoogleAnalytics-iOS-SDK: 0a3327a993b8ed2b8fe1c6c4a8dcf5b76d2237a8
+  GoogleAnalytics-iOS-SDK: 13241762fa4aea845eb75bef6c0da3427a26e7b3
   INTULocationManager: e79327803a163f5fec28eb042bb124ed0c6e4876
   JDFTooltips: 439e3f1010b5e689e8438f66fce8448726e59897
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
@@ -177,6 +179,7 @@ SPEC CHECKSUMS:
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MWPhotoBrowser: 2531e682860d62b8a7ba8659de02eb9040e431e5
+  NewRelicAgent: ab0ca8fe6477d3650eb58c95d5d26dfbd9be7bac
   ngrvalidator: 3d9f8402b2b3bbc070945e7defe1af0b5cc72e58
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   NSDate-Extensions: cbd68ecf5cf8a150644e184b4521d7734fea5ace

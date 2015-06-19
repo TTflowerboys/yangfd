@@ -38,4 +38,4 @@ pod 'Aspects', '1.4.1'
 pod 'KVOController', '1.0.3'
 pod 'libextobjc/EXTKeyPathCoding', '0.4.1'
 pod 'RNCachingURLProtocol+HybirdApp', :git => "git@github.com:Fykec/RNCachingURLProtocol.git"
-
+pod 'NewRelicAgent'
