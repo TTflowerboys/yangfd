@@ -601,7 +601,7 @@ class f_currant_ticket(f_ticket):
 
         if not location_only:
             user_id_set = filter(None, user_id_set)
-            user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields)
+            user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields, permission_check=permission_check)
             user_dict = {}
             enum_dict = f_app.enum.get(enum_id_set, multi_return=dict)
 
