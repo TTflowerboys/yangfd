@@ -54,6 +54,10 @@
     return _uploadCDNDomains;
 }
 
+- (void)setUploadCDNDomains:(NSArray *)uploadCDNDomains {
+    _uploadCDNDomains = uploadCDNDomains;
+}
+
 - (BFTask *)getEnumsByType:(NSString *)type {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     if ([_enumCache objectForKey:type]) {

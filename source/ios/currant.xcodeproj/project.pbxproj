@@ -204,6 +204,11 @@
 		2C9AFF801AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF7D1AF2355500E5F0BC /* BBTWebBarButtonItem.m */; };
 		2C9AFF811AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF7D1AF2355500E5F0BC /* BBTWebBarButtonItem.m */; };
 		2C9F1CC91B34300A0034487F /* CUTEPropertyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CC81B34300A0034487F /* CUTEPropertyTest.m */; };
+		2C9F1CCE1B37E4CF0034487F /* CUTEURLTest+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CCD1B37E4CF0034487F /* CUTEURLTest+CUTE.m */; };
+		2C9F1CCF1B37E93E0034487F /* currant-dev-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */; };
+		2C9F1CD41B37F1BC0034487F /* CUTEURLTest+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CD31B37F1BC0034487F /* CUTEURLTest+Assets.m */; };
+		2C9F1CD61B37F2970034487F /* CUTEStringTest+CUTECDN.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CD51B37F2970034487F /* CUTEStringTest+CUTECDN.m */; };
+		2C9F1CD81B37F6250034487F /* CUTEAddressUtilTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CD71B37F6250034487F /* CUTEAddressUtilTest.m */; };
 		2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -890,6 +895,10 @@
 		2C9AFF7C1AF2355500E5F0BC /* BBTWebBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTWebBarButtonItem.h; sourceTree = "<group>"; };
 		2C9AFF7D1AF2355500E5F0BC /* BBTWebBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTWebBarButtonItem.m; sourceTree = "<group>"; };
 		2C9F1CC81B34300A0034487F /* CUTEPropertyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyTest.m; sourceTree = "<group>"; };
+		2C9F1CCD1B37E4CF0034487F /* CUTEURLTest+CUTE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CUTEURLTest+CUTE.m"; sourceTree = "<group>"; };
+		2C9F1CD31B37F1BC0034487F /* CUTEURLTest+Assets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CUTEURLTest+Assets.m"; sourceTree = "<group>"; };
+		2C9F1CD51B37F2970034487F /* CUTEStringTest+CUTECDN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CUTEStringTest+CUTECDN.m"; sourceTree = "<group>"; };
+		2C9F1CD71B37F6250034487F /* CUTEAddressUtilTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAddressUtilTest.m; sourceTree = "<group>"; };
 		2CA2E6C21AC5487800053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DB1AC5496700053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
@@ -1287,6 +1296,25 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		2C9F1CCB1B37E4640034487F /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				2C9F1CCC1B37E4640034487F /* Category */,
+				2C9F1CD71B37F6250034487F /* CUTEAddressUtilTest.m */,
+			);
+			path = Misc;
+			sourceTree = "<group>";
+		};
+		2C9F1CCC1B37E4640034487F /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				2C9F1CCD1B37E4CF0034487F /* CUTEURLTest+CUTE.m */,
+				2C9F1CD31B37F1BC0034487F /* CUTEURLTest+Assets.m */,
+				2C9F1CD51B37F2970034487F /* CUTEStringTest+CUTECDN.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		2CB43DA01ABC1372004DF663 = {
 			isa = PBXGroup;
 			children = (
@@ -1444,6 +1472,7 @@
 		2CDC11681B33F8C100B6D3DD /* currantUnitTest */ = {
 			isa = PBXGroup;
 			children = (
+				2C9F1CCB1B37E4640034487F /* Misc */,
 				2CDC126B1B3402ED00B6D3DD /* Entity */,
 				2CDC126E1B3404ED00B6D3DD /* SpectaTestTemplate */,
 				2C467BD91B34235400BBBAAA /* CUTETestCommon.h */,
@@ -1833,6 +1862,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9F1CCF1B37E93E0034487F /* currant-dev-Info.plist in Resources */,
 				2CDC126F1B3404ED00B6D3DD /* SpectaTestTemplate in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2691,6 +2721,7 @@
 				2CDC11EC1B33F8D300B6D3DD /* CUTERentContactForm.m in Sources */,
 				2CDC11ED1B33F8D300B6D3DD /* CUTERentContactDisplaySettingForm.h in Sources */,
 				2CDC11EE1B33F8D300B6D3DD /* CUTERentContactDisplaySettingForm.m in Sources */,
+				2C9F1CD81B37F6250034487F /* CUTEAddressUtilTest.m in Sources */,
 				2CDC11EF1B33F8D300B6D3DD /* CUTERentPriceForm.h in Sources */,
 				2CDC11F01B33F8D300B6D3DD /* CUTERentPriceForm.m in Sources */,
 				2CDC11F11B33F8D300B6D3DD /* CUTERentShareForm.h in Sources */,
@@ -2721,6 +2752,7 @@
 				2CDC12091B33F8D300B6D3DD /* CUTERentAreaViewController.h in Sources */,
 				2CDC120A1B33F8D300B6D3DD /* CUTERentAreaViewController.m in Sources */,
 				2CDC120B1B33F8D300B6D3DD /* CUTERentContactViewController.h in Sources */,
+				2C9F1CCE1B37E4CF0034487F /* CUTEURLTest+CUTE.m in Sources */,
 				2CDC120C1B33F8D300B6D3DD /* CUTERentContactViewController.m in Sources */,
 				2CDC120D1B33F8D300B6D3DD /* CUTERentContactDisplaySettingViewController.h in Sources */,
 				2CDC120E1B33F8D300B6D3DD /* CUTERentContactDisplaySettingViewController.m in Sources */,
@@ -2754,6 +2786,7 @@
 				2CDC122A1B33F8D300B6D3DD /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,
 				2CDC122B1B33F8D300B6D3DD /* CUTEFormImagePickerCell.h in Sources */,
 				2CDC122C1B33F8D300B6D3DD /* CUTEFormImagePickerCell.m in Sources */,
+				2C9F1CD61B37F2970034487F /* CUTEStringTest+CUTECDN.m in Sources */,
 				2CDC122D1B33F8D300B6D3DD /* CUTEFormImagePickerPlaceholderView.h in Sources */,
 				2CDC122E1B33F8D300B6D3DD /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CDC122F1B33F8D300B6D3DD /* CUTEFormRentPriceTextFieldCell.h in Sources */,
@@ -2770,6 +2803,7 @@
 				2CDC123A1B33F8D300B6D3DD /* CUTEFormTextViewCell.m in Sources */,
 				2CDC123B1B33F8D300B6D3DD /* CUTEFormShareButtonCell.h in Sources */,
 				2CDC123C1B33F8D300B6D3DD /* CUTEFormShareButtonCell.m in Sources */,
+				2C9F1CD41B37F1BC0034487F /* CUTEURLTest+Assets.m in Sources */,
 				2CDC123D1B33F8D300B6D3DD /* CUTEQrcodeCell.h in Sources */,
 				2CDC123E1B33F8D300B6D3DD /* CUTEQrcodeCell.m in Sources */,
 				2CDC123F1B33F8D300B6D3DD /* CUTEMapTextField.h in Sources */,

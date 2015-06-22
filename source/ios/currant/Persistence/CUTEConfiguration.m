@@ -19,6 +19,10 @@ static NSString *host = nil;
     return host;
 }
 
++ (void)setHost:(NSString *)theHost {
+    host = theHost;
+}
+
 + (NSURL *)hostURL {
     return [NSURL URLWithString:CONCAT(@"http://", [self host])];
 }
