@@ -791,8 +791,7 @@ class f_currant_plugins(f_app.plugin_base):
 
     def task_on_rent_ticket_generate_digest_image(self, task):
         try:
-            self.logger.debug("I don't really know what's wrong:", task["ticket_id"])
-            rent_ticket = f_app.ticket.output(task["ticket_id"])[0]
+            rent_ticket = f_app.ticket.output([task["ticket_id"]])[0]
         except:
             self.logger.warning("Failed to load ticket", task["ticket_id"], ", skipping digest generation...")
             return
@@ -811,7 +810,7 @@ class f_currant_plugins(f_app.plugin_base):
 
     def task_on_rent_ticket_reminder(self, task):
         try:
-            rent_ticket = f_app.ticket.output(task["ticket_id"])[0]
+            rent_ticket = f_app.ticket.output([task["ticket_id"]])[0]
         except:
             self.logger.warning("Failed to load ticket", task["ticket_id"], ", ignoring reminder...")
             return
