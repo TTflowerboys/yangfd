@@ -522,7 +522,7 @@ class f_currant_user(f_user):
 
         property_dict = f_app.property.output(list(property_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
         item_dict = f_app.shop.item_output(list(item_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
-        ticket_dict = f_app.ticket.output(list(ticket_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
+        ticket_dict = f_app.ticket.item_output(list(ticket_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
         for fav in favorites:
             if "property_id" in fav:
                 fav["property"] = property_dict.get(fav.pop("property_id"))
@@ -579,7 +579,7 @@ class f_currant_ticket(f_ticket):
         Ticket
         ==================================================================
     """
-    def output(self, ticket_id_list, enable_custom_fields=True, ignore_nonexist=False, fuzzy_user_info=False, multi_return=list, location_only=False):
+    def output(self, ticket_id_list, enable_custom_fields=True, ignore_nonexist=False, fuzzy_user_info=False, multi_return=list, location_only=False, check_permission=True):
         ticket_list = f_app.ticket.get(ticket_id_list, ignore_nonexist=ignore_nonexist)
         user_id_set = set()
         enum_id_set = set()
@@ -597,7 +597,7 @@ class f_currant_ticket(f_ticket):
                     if t.get("budget"):
                         enum_id_set.add(t["budget"]["id"])
 
-        property_dict = f_app.property.output(list(property_id_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
+        property_dict = f_app.property.output(list(property_id_set), multi_return=dict, ignore_nonexist=ignore_nonexist, check_permission=check_permission)
 
         if not location_only:
             user_id_set = filter(None, user_id_set)
@@ -791,7 +791,7 @@ class f_currant_plugins(f_app.plugin_base):
 
     def task_on_rent_ticket_generate_digest_image(self, task):
         try:
-            rent_ticket = f_app.ticket.output([task["ticket_id"]])[0]
+            rent_ticket = f_app.ticket.output([task["ticket_id"]], check_permission=False)[0]
         except:
             self.logger.warning("Failed to load ticket", task["ticket_id"], ", skipping digest generation...")
             return
@@ -810,7 +810,7 @@ class f_currant_plugins(f_app.plugin_base):
 
     def task_on_rent_ticket_reminder(self, task):
         try:
-            rent_ticket = f_app.ticket.output([task["ticket_id"]])[0]
+            rent_ticket = f_app.ticket.output([task["ticket_id"]], check_permission=False)[0]
         except:
             self.logger.warning("Failed to load ticket", task["ticket_id"], ", ignoring reminder...")
             return
@@ -1590,23 +1590,24 @@ class f_property(f_app.module_base):
 
     def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, check_permission=True, location_only=False):
         ignore_sales_comment = True
-        user = f_app.user.login.get()
         propertys = self.get(property_id_list, ignore_nonexist=ignore_nonexist, force_reload=force_reload)
-        if user:
-            user_roles = f_app.user.get_role(user["id"])
-            if not location_only:
-                if set(["admin", "jr_admin", "sales", "jr_sales"]) & set(user_roles):
-                    ignore_sales_comment = False
+        if check_permission:
+            user = f_app.user.login.get()
+            if user:
+                user_roles = f_app.user.get_role(user["id"])
+                if not location_only:
+                    if set(["admin", "jr_admin", "sales", "jr_sales"]) & set(user_roles):
+                        ignore_sales_comment = False
 
         for property in propertys:
             if isinstance(property, dict):
                 if not location_only:
-                    if not user:
+                    if check_permission and not user:
                         if "brochure" in property:
                             for item in property["brochure"]:
                                 item.pop("url", None)
                                 item["rendered"] = item.get("rendered", [])[:5]
-                    if not user or not len(user_roles):
+                    if check_permission and (not user or not len(user_roles)):
                         property.pop("real_address", None)
                     if ignore_sales_comment:
                         property.pop("sales_comment", None)
