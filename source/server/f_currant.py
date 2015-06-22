@@ -823,11 +823,11 @@ class f_currant_plugins(f_app.plugin_base):
                 formated_date='之前',  # TODO
                 rent_url=url,
                 rent_title=rent_ticket["title"],
-                has_rented_url=url + "/confirm_rent",
-                refresh_url=url + "/refresh",
+                has_rented_url="http://yangfd.com//user-properties?type=rent_ticket&id=%s&action=confirm_rent" % (rent_ticket["id"],),
+                refresh_url="http://yangfd.com//user-properties?type=rent_ticket&id=%s&action=refresh" % (rent_ticket["id"],),
                 edit_url=url + "/edit",
                 qrcode_image=output.getvalue(),
-                unsubscribe_url='http://yangfd.com/')  # TODO
+                unsubscribe_url='http://yangfd.com/email-unsubscribe?email_message_type=rent_ticket_reminder')
         except:
             self.logger.warning("Invalid ticket", task["ticket_id"], ", ignoring reminder...")
             return
