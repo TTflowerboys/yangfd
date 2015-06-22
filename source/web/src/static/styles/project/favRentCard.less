@@ -276,8 +276,8 @@
             text-align: center;
             padding: @standard-margin @standard-margin;
 
-            > span {
-                vertical-align: text-bottom;
+            > span,i {
+                vertical-align: middle;
                 font-size:@root-font-size-mobile;
             }
         }
@@ -314,10 +314,12 @@
         span {
             vertical-align: middle;
         }
-        img {
+        img,i {
+            display: inline-block;
             vertical-align: middle;
             margin-right: 10px;
             margin-top: -5px;
+            font-size: 21px;
         }
     }
 }
