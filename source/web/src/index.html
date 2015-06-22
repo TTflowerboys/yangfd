@@ -53,13 +53,8 @@
                         href="/property-to-rent-list"
                     %end
                     >
-                    <div class="img_wrapper pc">
-                        <img alt="" class="normal" src="/static/images/index/choice-rental-icon.png"/>
-                        <img alt="" class="active" src="/static/images/index/choice-rental-icon-active.png"/>
-                    </div>
-                    <div class="img_wrapper phone">
-                        <img alt="" class="normal" src="/static/images/index/choice-rental-icon-phone.png"/>
-                        <img alt="" class="active" src="/static/images/index/choice-rental-icon-active-phone.png"/>
+                    <div class="img_wrapper">
+                        <i class="icon-calender_homepage"></i>
                     </div>
                     <div class="text">
                         <h3 class="question">
@@ -74,13 +69,8 @@
         %end
         <li>
             <a href="/guides">
-                <div class="img_wrapper pc">
-                    <img alt="" class="normal" src="/static/images/index/choice-house-icon.png"/>
-                    <img alt="" class="active" src="/static/images/index/choice-house-icon-active.png"/>
-                </div>
-                <div class="img_wrapper phone">
-                    <img alt="" class="normal" src="/static/images/index/choice-house-icon-phone.png"/>
-                    <img alt="" class="active" src="/static/images/index/choice-house-icon-active-phone.png"/>
+                <div class="img_wrapper">
+                    <i class="icon-house_homepage"></i>
                 </div>
                 <div class="text">
                     <h3 class="question">
@@ -100,13 +90,8 @@
                     href="/property-list"
                 %end
                 >
-                <div class="img_wrapper pc">
-                    <img alt="" class="normal" src="/static/images/index/choice-search-icon.png"/>
-                    <img alt="" class="active" src="/static/images/index/choice-search-icon-active.png"/>
-                </div>
-                <div class="img_wrapper phone">
-                    <img alt="" class="normal" src="/static/images/index/choice-search-icon-phone.png"/>
-                    <img alt="" class="active" src="/static/images/index/choice-search-icon-active-phone.png"/>
+                <div class="img_wrapper">
+                    <i class="icon-search_homepage"></i>
                 </div>
                 <div class="text">
                     <h3 class="question">
@@ -120,13 +105,8 @@
         </li>
         <li>
             <a style="cursor:pointer;" onclick="javascript:window.project.openRequirement(null, null, null)">
-                <div class="img_wrapper pc">
-                    <img alt="" class="normal" src="/static/images/index/choice-requirement-icon.png"/>
-                    <img alt="" class="active" src="/static/images/index/choice-requirement-icon-active.png"/>
-                </div>
-                <div class="img_wrapper phone">
-                    <img alt="" class="normal" src="/static/images/index/choice-requirement-icon-phone.png"/>
-                    <img alt="" class="active" src="/static/images/index/choice-requirement-icon-active-phone.png"/>
+                <div class="img_wrapper">
+                    <i class="icon-files_homepage"></i>
                 </div>
                 <div class="text last">
                     <h3 class="question">
@@ -171,7 +151,7 @@
                 <ul>
                     %for index, anno in enumerate(announcement_list):
                         <li class="item">
-                            <img class="icon" alt="" src="/static/images/index/announcement_icon.png"/>
+                            <i class="icon icon-message_notice"></i>
                             <a class="title" href="/news/{{anno.get('id')}}">{{anno.get('title', '')}}</a>
                             <a class="more" href="/notice-list">{{_('更多公告')}}</a>
                             <img class="close" style="display:none" alt="" src="/static/images/index/announcement_close.png"/>
@@ -186,7 +166,7 @@
                 <ul>
                     % for anno in announcement_list:
                         <li class="item">
-                            <img class="icon" alt="" src="/static/images/index/announcement_icon.png"/>
+                            <i class="icon icon-message_notice"></i>
                             <a class="title" href="/news/{{anno.get('id')}}">{{anno.get('title', '')}}</a>
                             <a class="more" href="/notice-list">{{_('更多公告')}}</a>
                             <img class="close" style="display:none" alt="" src="/static/images/index/announcement_close.png"/>
@@ -319,6 +299,12 @@
          pager: true
      })
  })
+    window.iconMap = {
+        'school_nearby_house': 'category_b',
+        'off_plan_property': 'category_e',
+        'existing_property': 'category_d',
+        'rental_guarantee': 'category_a'
+    }
 </script>
 <!--build:js /static/scripts/index.html.js-->
 <script src="/static/scripts/index.js"></script>

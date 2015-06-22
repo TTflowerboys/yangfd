@@ -313,6 +313,7 @@ main {
 
         .tabSelector_phone {
             display:none;//default hide
+
             @media @phone {
                 display:block;
                 overflow:hidden;
@@ -320,29 +321,41 @@ main {
                 z-index:@float_bar_phone-z-index;
                 bottom:50px;
                 right:0px;
-                padding:10px;
                 cursor:pointer;
+                opacity: 0.7;
+                background: #333;
+                height: 40px;
+                width: 40px;
+                border-radius: 5px;
+                margin: 10px;
+                color: #fff;
+                text-align: center;
+                line-height: 40px;
             }
 
             img {
                 height:40px;
                 width:40px;
             }
-
+            i{
+                font-size: 22px;
+                vertical-align: middle;
+                line-height: 40px;
+            }
             &[data-tab=map] {
-                img.list {
+                i.list {
                     display:block;
                 }
-                img.map {
+                i.map {
                     display:none;
                 }
             }
 
             &[data-tab=list] {
-                img.list {
+                i.list {
                     display:none;
                 }
-                img.map {
+                i.map {
                     display:block;
                 }
             }
@@ -377,25 +390,23 @@ main {
                     width:40px;
                     overflow:hidden;
                     cursor:pointer;
-
-                    img.normal {
-                        display:block;
+                    border: 2px solid @red;
+                    background: #fff;
+                    color: @red;
+                    line-height: 40px;
+                    vertical-align: middle;
+                    font-size: 22px;
+                    text-align: center;
+                    &.list{
+                        border-radius: 3px 3px 0 0;
                     }
-
-                    img.active {
-                        display:none;
+                    &.map{
+                        border-radius: 0 0 3px 3px;
                     }
-
-                    &.selectedTab {
-                        img.normal {
-                            display:none;
-                        }
-
-                        img.active {
-                            display:block;
-                        }
+                    &.selectedTab{
+                        background: @red;
+                        color: #fff;
                     }
-
                 }
             }
         }

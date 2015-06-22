@@ -43,12 +43,12 @@
             </p>
             %if user.get('phone_verified'):
             <a class="verificationStatus" href="/user-change-phone-1">
-                <i><img src="/static/images/user/user-phone.png" style="margin-top:2px;"/></i>
+                <i class="icon-cellphone"></i>
                 {{_('手机已验证')}}
             </a>
             %else:
             <a class="verificationStatus red" href="/user-verify-phone-1">
-                <i><img src="/static/images/user/user-phone.png" style="margin-top:2px;"/></i>
+                <i class="icon-cellphone"></i>
                 {{_('手机未验证')}}
                 %end
             </a>

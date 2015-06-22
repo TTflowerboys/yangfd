@@ -85,7 +85,7 @@
             %if budget_list:
                 <h3 class="title">{{_('从搜索结果中筛选')}}</h3>
                 <div class="price">
-                    <img class="price_icon" alt="" src="/static/images/property_list/price-tag.png"/>
+                    <i class="price_icon icon-coin_filter"></i>
                     <h4 class="price_title">{{_('价格')}}
                         (
                         {{_('单选')}}
@@ -153,13 +153,11 @@
         </h2>
         <div data-tabs>
             <ul id="tabSelector" class="tabSelector">
-                <li data-tab=list>
-                    <img class="active" alt="{{_('列表')}}" src="/static/images/property_list/tab-list-active.png"/>
-                    <img class="normal" alt="{{_('列表')}}" src="/static/images/property_list/tab-list-normal.png"/>
+                <li data-tab=list class="list">
+                    <i class="icon-list_view"></i>
                 </li>
-                <li data-tab=map>
-                    <img class="normal" alt="{{_('地图')}}" src="/static/images/property_list/tab-map-normal.png"/>
-                    <img class="active" alt="{{_('地图')}}" src="/static/images/property_list/tab-map-active.png"/>
+                <li data-tab=map  class="map">
+                    <i class="icon-map_view"></i>
                 </li>
             </ul>
             <div class="tabContent">
@@ -200,13 +198,13 @@
     </div>
 
     <div class="tabSelector_phone hiddenInClient" data-tab="list">
-        <img class="list" alt="" src="/static/images/property_list/tab-list-phone.png"/>
-        <img class="map" alt="" src="/static/images/property_list/tab-map-phone.png"/>
+        <i class="list icon-list_view"></i>
+        <i class="map icon-map_view "></i>
     </div>
 
     <ul class="floatBar_phone hiddenInClient">
         <li class="phone"><a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{_(u'拨打')+get_phone_numbers('display')[0]+_(u'咨询')}}</a></li>
-        <li class="requirement"><a href="/requirement"><img src="/static/images/property_details/phone/requirement.png"></img></a></li>
+        <li class="requirement"><a href="/requirement"><i class="icon-requirement_bottom"></i></a></li>
     </ul>
 </div>
 <!-- @@include=/static/templates/house_card.tpl.html-->

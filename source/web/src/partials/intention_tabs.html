@@ -4,13 +4,13 @@
         <ul class="controls">
             % for index, intention in enumerate(intention_list):
             % slug = intention.get('slug','')
+
             <li data-tab="{{slug}}"
                 data-id="{{intention.get('id')}}"
                 data-value="{{intention.get('value')}}">
                 <input id="{{intention.get('id')}}" name="intention" type="checkbox" value="{{intention.get('id')}}"/>
                 <label for="{{intention.get('id')}}">
-                    <img class="grey" src="/static/images/intention/icon/{{slug}}-grey.png" alt="{{intention.get('value')}}"/>
-                    <img class="red" src="/static/images/intention/icon/{{slug}}-red.png" alt="{{intention.get('value')}}"/>
+                    <i class="icon-{{icon_map[slug]}}"></i>
                 </label>
                 <label for="{{intention.get('id')}}">{{intention.get('value')}}</label>
             </li>

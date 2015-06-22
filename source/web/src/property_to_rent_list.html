@@ -120,7 +120,7 @@
 
             %if rent_budget_list:
                 <div class="rentalBudget">
-                    <img class="rentalBudget_icon" alt="" src="/static/images/property_list/price-tag.png"/>
+                    <i class="rentalBudget_icon icon-coin_filter"></i>
                     <h4 class="rentalBudget_title">{{_('租金')}}
                         (
                         <!--@@include=partials/current_currency.html -->
@@ -151,7 +151,7 @@
             %end
 
             <div class="calendar">
-                <img class="calendar_icon" alt="" src="/static/images/property_list/calendar-tag.png"/>
+                <i class="calendar_icon icon-calender_filter"></i>
                 <h4 class="calendar_title">{{_('起租日期')}}</h4>
                 <div class="inner">
                     <div class="date">
@@ -207,13 +207,11 @@
         </h2>
         <div data-tabs>
             <ul id="tabSelector" class="tabSelector">
-                <li data-tab=list>
-                    <img class="active" alt="{{_('列表')}}" src="/static/images/property_list/tab-list-active.png"/>
-                    <img class="normal" alt="{{_('列表')}}" src="/static/images/property_list/tab-list-normal.png"/>
+                <li data-tab=list class="list">
+                    <i class="icon-list_view"></i>
                 </li>
-                <li data-tab=map>
-                    <img class="normal" alt="{{_('地图')}}" src="/static/images/property_list/tab-map-normal.png"/>
-                    <img class="active" alt="{{_('地图')}}" src="/static/images/property_list/tab-map-active.png"/>
+                <li data-tab=map  class="map">
+                    <i class="icon-map_view"></i>
                 </li>
             </ul>
             <div class="tabContent">
@@ -252,8 +250,8 @@
     </div>
 
     <div class="tabSelector_phone hiddenInClient" data-tab="list">
-        <img class="list" alt="" src="/static/images/property_list/tab-list-phone.png"/>
-        <img class="map" alt="" src="/static/images/property_list/tab-map-phone.png"/>
+        <i class="list icon-list_view"></i>
+        <i class="map icon-map_view "></i>
     </div>
 
 </div>

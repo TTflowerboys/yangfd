@@ -291,7 +291,7 @@
                             <tr>
                                 <td>
                                     <a href="/calculator?property={{property.get('id')}}" class=calculator>
-                                        <img src="/static/images/property_details/phone/calculator.png"/>
+                                        <i class="icon-calc "></i>
                                     </a>
                                 </td>
                             </tr>
@@ -970,7 +970,7 @@
                                     style="{{ 'display:none' if is_favorited else ''}}"
                                     data-message-40090="{{_('已经收藏过了')}}"
                                     >
-                                <img src="/static/images/property_details/icon-star.png" alt=""/>
+                                <i class="icon-faver"></i>
                                 <span class="text"> {{_('收藏')}} </span>
                             </button>
                             <button data-fn="removeFav"
@@ -980,8 +980,8 @@
                                     data-property-id="{{property.get('id','')}}"
                                     % end
                                     >
-                                    <img src="/static/images/property_details/icon-star-active.png" alt=""/>
-                                    <span class="text"> {{_('取消收藏') }} </span>
+                                <i class="icon-faveractive"></i>
+                                <span class="text"> {{_('取消收藏') }} </span>
                             </button>
                         </td>
                         <td style="text-align:center;">
@@ -1214,16 +1214,16 @@
             data-property-id="{{property.get('id','')}}"
             style="{{ 'display:none' if is_favorited else ''}}"
             data-message-40090="{{_('已经收藏过了')}}"
-            ><img src="/static/images/property_details/phone/unfavorite.png"></img></li>
+            ><i class="icon-faver"></i></li>
         <li class="favorite"
             data-fn="removeFav"
             style="{{ 'display:none' if not is_favorited else ''}}"
             % if is_favorited:
             data-property-id="{{property.get('id','')}}"
             % end
-            ><img src="/static/images/property_details/phone/favorite.png"></img></li>
+            ><i class="icon-faveractive"></i></li>
         <li class="phone"><a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a></li>
-        <li class="requirement"><a href="/requirement?property={{property.get('id')}}"><img src="/static/images/property_details/phone/requirement.png"></img></a></li>
+        <li class="requirement"><a href="/requirement?property={{property.get('id')}}"><i class="icon-requirement_bottom"></i></a></li>
     </ul>
 
     % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':

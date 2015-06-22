@@ -482,7 +482,7 @@
                                     class="flatButton ajaxButton"
                                     style="{{ 'display:none' if is_favorited else ''}}"
                                     data-message-40090="{{_('已经收藏过了')}}">
-                                    <img src="/static/images/property_details/icon-star.png" alt=""/>
+                                    <i class="icon-faver"></i>
                                     <span class="text"> {{_('收藏')}} </span>
                                 </button>
                                 <button data-fn="removeFav"
@@ -492,7 +492,7 @@
                                         data-rent-id="{{rent.get('id','')}}"
                                     % end
                                     >
-                                <img src="/static/images/property_details/icon-star-active.png" alt=""/>
+                                    <i class="icon-faveractive"></i>
                                 <span class="text"> {{_('取消收藏') }} </span>
                                 </button>
                             </td>
@@ -540,7 +540,7 @@
         data-rent-id="{{rent.get('id','')}}"
         style="{{ 'display:none' if is_favorited else ''}}"
         data-message-40090="{{_('已经收藏过了')}}"
-        ><img src="/static/images/property_details/phone/unfavorite.png"></img>
+        ><i class="icon-faver"></i>
     </li>
     <li class="favorite"
         data-fn="removeFav"
@@ -548,7 +548,7 @@
     % if is_favorited:
     data-rent-id="{{rent.get('id','')}}"
     % end
-    ><img src="/static/images/property_details/phone/favorite.png"></img>
+    ><i class="icon-faveractive"></i></img>
     </li>
 </ul>
 

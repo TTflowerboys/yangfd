@@ -152,11 +152,8 @@ main {
                 height:100%;
 
                 &:hover, &.pseudo-class-hover {
-                    img.normal {
-                        display:none;
-                    }
-                    img.active {
-                        display:block;
+                    .img_wrapper{
+                        background: #ff0014;
                     }
                 }
 
@@ -173,27 +170,24 @@ main {
                 float:left;
                 display:inline-block;
                 width:80px;
+                height: 80px;
+                line-height: 80px;
+                border-radius: 50%;
+                background: @red;
+                text-align: center;
                 @media @phone {
                     margin:0 0px 16px 16px;
                     width:40px;
+                    height: 40px;
+                    line-height: 40px;
                 }
-
-                >.normal {
-                    display:block;
-                }
-                >.active {
-                    display:none;
-                }
-                &.pc {
-                    display:inline-block;
+                i{
+                    font-size: 42px;
+                    color: #fff;
+                    vertical-align: middle;
                     @media @phone {
-                        display:none;
-                    }
-                }
-                &.phone {
-                    display:none;
-                    @media @phone {
-                        display:inline-block;
+                        font-size: 21px;
+                        //vertical-align: text-bottom;
                     }
                 }
             }
@@ -550,14 +544,22 @@ main {
                             height:140px;
                         }
 
-                        > label { height: 60px; display: block; cursor: pointer; }
-                        img.grey { display: inline-block; }
-                        img.red { display: none; }
+                        > label {
+                            height: 60px;
+                            display: block;
+                            cursor: pointer;
+                            color: #ccc;
+                            i{
+                                font-size: 40px;
+                            }
+                        }
+
                         color: #999;
                         &.selected {
-                            img.grey { display: none; }
-                            img.red { display: inline-block; }
                             color: #e60012;
+                            label{
+                                color: #e60012;
+                            }
                         }
                         &:after {
                             .arrow(@direction: up; @fg:#222; @width: 20px;);
@@ -646,6 +648,8 @@ main {
             vertical-align:middle;
             .icon {
                 float: left;
+                font-size: 16px;
+                color: @red;
             }
             .title {
                 float: left;
@@ -833,12 +837,14 @@ main {
 
             }
 
-            img {
+            i {
+                color: #ccc;
+                font-size: 22px;
                 height: 22px;
-                vertical-align: middle;
 
                 @media @phone {
                     height:16px;
+                    font-size: 16px;
                 }
 
             }

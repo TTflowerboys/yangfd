@@ -27,6 +27,12 @@
             img {
                 margin-top:16px;
             }
+            i{
+                display: inline-block;
+                font-size: 28px;
+                color: #999;
+                vertical-align: middle;
+            }
         }
         margin-bottom:30px;
     }
@@ -43,10 +49,10 @@
             border-top: 1px solid #ccc;
             position: relative;
             i{
-                display: block;
-                margin: 15px auto;
+                display: inline-block;
                 font-size: 28px;
                 color: #999;
+                vertical-align: middle;
             }
             a{
                 text-decoration: none;
@@ -60,14 +66,19 @@
                     }
 
                     p{
-                        margin: 3px auto 0;
+                        display: inline-block;
+                        vertical-align: middle;
                         font-size: 12px;
                         line-height: 1em;
                         text-indent: inherit;
                         word-spacing: initial;
                         white-space: nowrap;
-                        color: rgb(230, 0, 18);
+                        color: @red;
                         text-decoration: none;
+                        i{
+                            color:@red;
+                            margin-bottom: 3px;
+                        }
                     }
                 }
             }
