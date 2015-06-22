@@ -699,7 +699,7 @@ class f_currant_plugins(f_app.plugin_base):
         ==================================================================
     """
 
-    task = ["assign_property_short_id", "render_pdf", "crawler_example", "crawler_london_home", "fortis_developments", "crawler_knightknox", "crawler_abacusinvestor", "crawler_knightknox_agents", "update_landregistry", "crawler_selectproperty"]
+    task = ["assign_property_short_id", "render_pdf", "crawler_example", "crawler_london_home", "fortis_developments", "crawler_knightknox", "crawler_abacusinvestor", "crawler_knightknox_agents", "update_landregistry", "crawler_selectproperty", "rent_ticket_reminder", "rent_ticket_generate_digest_image"]
 
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
@@ -788,6 +788,25 @@ class f_currant_plugins(f_app.plugin_base):
         logger.debug(message)
         message["status"] = message.pop("state", "deleted")
         return message
+
+    def task_on_rent_ticket_generate_digest_image(self, task):
+        try:
+            rent_ticket = f_app.ticket.output(task["ticket_id"])[0]
+        except:
+            self.logger.warning("Failed to load ticket", task["ticket_id"], ", skipping digest generation...")
+            return
+
+        if rent_ticket.get("digest_image_task_id") != task["id"]:
+            self.logger.warning("Ticket", task["ticket_id"], "seems to have another digest generation task scheduled, ignoring this one...")
+            return
+
+        from libfelix.f_html2png import html2png
+        image = html2png(task["fetch_url"], width=1000, height="window.innerHeight", url=True)
+
+        with f_app.storage.aws_s3() as b:
+            filename = f_app.util.uuid()
+            b.upload(filename, image.read(), policy="public-read")
+            f_app.ticket.update_set(task["ticket_id"], {"digest_image": b.get_public_url(filename), "digest_image_generate_time": datetime.utcnow()})
 
     def task_on_rent_ticket_reminder(self, task):
         try:

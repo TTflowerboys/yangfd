@@ -873,17 +873,36 @@ def rent_ticket_search(user, params):
     return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort, time_field="last_modified_time"), fuzzy_user_info=fuzzy_user_info, location_only=location_only)
 
 
-@f_api('/rent_ticket/<ticket_id>/digest_image')
-def rent_ticket_digest_image(ticket_id):
-    from libfelix.f_html2png import html2png
-    image = html2png("://".join(request.urlparts[:2]) + "/property-to-rent-digest/" + ticket_id, width=1000, height="window.innerHeight", url=True)
+@f_api('/rent_ticket/<ticket_id>/generate_digest_image')
+@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
+def rent_ticket_generate_digest_image(ticket_id, user):
+    """
+    (Re-)generate digest image.
+    """
+    ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "rent", abort(40000, "Invalid rent ticket")
+    fetch_url = "://".join(request.urlparts[:2]) + "/property-to-rent-digest/" + ticket_id
+    task_id = f_app.task.put(dict(
+        type="rent_ticket_generate_digest_image",
+        ticket_id=ticket_id,
+        fetch_url=fetch_url,
+        retry=3,
+    ))
+    f_app.ticket.update_set(ticket_id, {"digest_image_task_id": task_id})
+    return task_id
 
-    with f_app.storage.aws_s3() as b:
-        filename = f_app.util.uuid()
-        b.upload(filename, image.read(), policy="public-read")
-        result = {"url": b.get_public_url(filename)}
 
-    return result
+@f_api('/rent_ticket/<ticket_id>/digest_image_task_status')
+@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
+def rent_ticket_digest_image_task_status(ticket_id, user):
+    """
+    Inspect with the status of the associated rent_ticket_generate_digest_image task.
+    """
+    ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "rent", abort(40000, "Invalid rent ticket")
+    assert "digest_image_task_id" in ticket, abort(40400, "No rent_ticket_generate_digest_image task found for the provided rent ticket")
+    with f_app.mongo() as m:
+        return f_app.util.process_objectid(f_app.task.get_database(m).find_one({"_id": ObjectId(ticket["digest_image_task_id"])}))
 
 
 @f_api('/sale_ticket/add', params=dict(
