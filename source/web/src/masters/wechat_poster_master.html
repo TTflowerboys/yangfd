@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <title>{{title}}</title>
+        <meta name="Description" content="{{description}}">
+        <meta name="Keywords" content="{{keywords}}">
+        <!-- @@include = ../partials/meta.html -->
+        <meta name="viewport" content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <!--build:css(dist) /static/styles/wechat_poster_master.html.css-->
+        <link rel="stylesheet" href="/static/styles/team/reset.css">
+        <link rel="stylesheet" href="/static/bower_components/swiper/dist/css/swiper.min.css">
+        <link rel="stylesheet" href="/static/styles/phone/animation.css">
+        <link rel="stylesheet" href="/static/styles/iconFont.css">
+        <!--endbuild-->
+
+        <!--@@placeholder=head-->
+
+        <!-- @@include = ../partials/favicon.html -->
+    </head>
+    <body marginwidth="0" marginheight="0" class="loading">
+        <div class="loadingCover">
+            <div class="proBox">
+                <canvas id="procanvas" class="procanvas" value="0%"></canvas>
+                <span id="proText" class="proText"></span>
+            </div>
+            <p class="info">{{_('正在加载资源')}}<br>{{_('请稍后')}}</p>
+            <p class="logo"></p>
+        </div>
+        <script type="text/javascript">
+            window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
+            window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame
+            //进度条类
+            function Process(conf){
+                var defaultConfig = {
+
+                }
+                var config = {}
+                extendConfig()
+                var _ = this
+                var canvas = document.getElementById(config.canvasId)
+                var context = canvas.getContext('2d')
+                var textEle = document.getElementById(config.textId)
+                this.canvasvalue = canvas.getAttribute("value") || '0%'
+                this.process = parseInt(this.canvasvalue.substring(0, this.canvasvalue.length - 1))
+                this.scale = window.devicePixelRatio || 1
+                this.outerWidth = config.outerWidth
+                this.innerWidth = config.innerWidth
+                this.center = [this.outerWidth / 2 * this.scale, this.outerWidth / 2 * this.scale]
+
+                canvas.width = this.outerWidth * this.scale
+                canvas.height = this.outerWidth * this.scale
+
+                canvas.style.width = this.outerWidth + 'px'
+                canvas.style.height = this.outerWidth + 'px'
+
+                initStyle()
+
+                this.draw = function () {
+                    //开始画一个underColor的圆
+                    context.beginPath()
+                    context.moveTo(this.center[0], this.center[1])
+                    context.arc(this.center[0], this.center[1], this.center[0], 0, Math.PI * 2, false)
+                    context.closePath()
+                    context.fillStyle = config.underColor
+                    context.fill()
+
+                    // 画进度(activeColor)
+                    if(this.process !== 0 && this.process !== 100){
+                        context.beginPath()
+                        context.moveTo(this.center[0], this.center[1])
+                        context.arc(this.center[0], this.center[1], this.center[0], - Math.PI / 2, Math.PI*2* (this.process / 100) - Math.PI / 2, false)
+                        context.closePath()
+                        context.fillStyle = config.activeColor
+                        context.fill()
+                    }
+                    else if(this.process === 100){
+                        context.beginPath()
+                        context.moveTo(this.center[0], this.center[1])
+                        context.arc(this.center[0], this.center[1], this.center[0], 0, Math.PI*2, false)
+                        context.closePath()
+                        context.fillStyle = config.activeColor
+                        context.fill()
+                    }
+                    // 画内部空白(backColor)
+                    context.beginPath()
+                    context.moveTo(this.center[0], this.center[1])
+                    context.arc(this.center[0], this.center[1], this.center[0]*this.innerWidth/this.outerWidth, 0, Math.PI * 2, true)
+                    context.closePath()
+                    context.fillStyle = config.backColor
+                    context.fill()
+                }
+                this.changeText = function () {
+                    this.canvasvalue = this.process + '%';
+                    textEle.innerHTML = this.canvasvalue
+                }
+                function initStyle(){
+                    var w = _.outerWidth + 'px'
+                    canvas.parentElement.style.width = w
+                    canvas.parentElement.style.height = w
+                    canvas.nextElementSibling.style.lineHeight = w
+                }
+                function extendConfig(){
+                    var k
+                    for(k in defaultConfig){
+                        config[k] = defaultConfig[k]
+                    }
+                    for(k in conf){
+                        config[k] = conf[k]
+                    }
+                }
+
+            }
+            Process.prototype.moveTo = function(process, time, callback){
+                var _ = this,
+                    time = time || 3000,
+                    past = new Date,
+                    now,
+                    pastProcess = this.process,
+                    step = process - this.process
+                if(_.raf !== undefined){
+                    cancelAnimationFrame(_.raf)
+                }
+                function move(){
+                    now = new Date
+                    if((now - past) / time >= (_.process - pastProcess) / step){
+                        _.process =  Math.min(pastProcess + Math.floor((now - past) / time * step), process)
+                        _.draw()
+                        _.changeText()
+                    }
+                    if(_.process < process){
+                        _.raf = requestAnimationFrame(move)
+                    }
+                    if(_.process === process){
+                        setTimeout(function(){
+                            callback && typeof callback === 'function' && callback()
+                        },200)
+                    }
+                }
+                _.raf = requestAnimationFrame(move)
+            }
+            Process.prototype.finish = function(cb){
+                this.moveTo(100, 500, cb)
+            }
+
+
+        </script>
+        <!--切换到竖屏提醒框-->
+        <div class="onorientationNotice" style="display: none;">
+            <p>{{_('为了更好的体验，请将您的手机或平板竖过来')}}</p>
+            <button class="closeBtn"></button>
+        </div>
+
+        <!--@@placeholder=main-->
+
+        <!--build:js /static/scripts/wechat_poster_master.html.js-->
+        <script type="text/javascript" src="/static/scripts/track.js"></script>
+        <script type="text/javascript" src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/bower_components/swiper/dist/js/swiper.jquery.min.js"></script>
+        <script type="text/javascript" src="/static/scripts/team.js"></script>
+        <script type="text/javascript" src="/static/scripts/project.js"></script>
+        <script type="text/javascript" src="/static/vendors/jweixin-1.0.0.js"></script>
+        <!--endbuild-->
+
+        <!--@@placeholder=scripts-->
+    </body>
+</html>
