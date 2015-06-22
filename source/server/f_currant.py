@@ -796,7 +796,7 @@ class f_currant_plugins(f_app.plugin_base):
             self.logger.warning("Failed to load ticket", task["ticket_id"], ", skipping digest generation...")
             return
 
-        if rent_ticket.get("digest_image_task_id") != task["id"]:
+        if rent_ticket.get("digest_image_task_id") != str(task["_id"]):
             self.logger.warning("Ticket", task["ticket_id"], "seems to have another digest generation task scheduled, ignoring this one...")
             return
 
