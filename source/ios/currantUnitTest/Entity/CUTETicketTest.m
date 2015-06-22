@@ -79,6 +79,53 @@ describe(@"params", ^ {
         CUTETicket *ticket = [CUTETicket new];
         assertThat(ticket.toParams[@"property"], equalTo(nil));
     });
+
+    it(@"rent type should be id", ^ {
+        CUTETicket *ticket = [CUTETicket new];
+        CUTEEnum *rentType = [CUTEEnum new];
+        rentType.identifier = @"fdsjkagaklhgalkhgkhas";
+        ticket.rentType = rentType;
+        assertThat(ticket.toParams[@"rent_type"], instanceOf([NSString class]));
+    });
+
+    it(@"deposit type should be id", ^ {
+        CUTETicket *ticket = [CUTETicket new];
+        CUTEEnum *depositType = [CUTEEnum new];
+        depositType.identifier = @"fdsjkagaklhgalkhgkhas";
+        ticket.depositType = depositType;
+        assertThat(ticket.toParams[@"deposit_type"], instanceOf([NSString class]));
+    });
+
+    it(@"landlord type should be id", ^ {
+        CUTETicket *ticket = [CUTETicket new];
+        CUTEEnum *landlordType = [CUTEEnum new];
+        landlordType.identifier = @"fdsjkagaklhgalkhgkhas";
+        ticket.landlordType = landlordType;
+        assertThat(ticket.toParams[@"landlord_type"], instanceOf([NSString class]));
+    });
+
+    it(@"price should be dictionary", ^ {
+        CUTETicket *ticket = [CUTETicket new];
+        CUTECurrency *price = [CUTECurrency currencyWithValue:8 unit:@"CNY"];
+        ticket.price = price;
+        assertThat(ticket.toParams[@"price"], instanceOf([NSDictionary class]));
+    });
+
+    it(@"space should be dictionary", ^ {
+        CUTETicket *ticket = [CUTETicket new];
+        CUTEArea *space = [CUTEArea areaWithValue:1 unit:@"meter ** 2"];
+        ticket.space = space;
+        assertThat(ticket.toParams[@"space"], instanceOf([NSDictionary class]));
+    });
+
+    it(@"minimum rent period should be dictionary", ^ {
+        CUTETicket *ticket = [CUTETicket new];
+        CUTETimePeriod *period = [CUTETimePeriod timePeriodWithValue:2 unit:@"day"];
+        ticket.minimumRentPeriod = period;
+        assertThat(ticket.toParams[@"minimum_rent_period"], instanceOf([NSDictionary class]));
+    });
+
+
 });
 
 SpecEnd
