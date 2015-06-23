@@ -214,6 +214,11 @@
 		2C9F1CEA1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */; };
 		2C9F1CEB1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */; };
 		2C9F1CEC1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */; };
+		2C9F1CFC1B3961400034487F /* CUTEUserAgentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */; };
+		2C9F1CFD1B3961400034487F /* CUTEUserAgentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */; };
+		2C9F1CFE1B3961410034487F /* CUTEUserAgentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */; };
+		2C9F1CFF1B3961410034487F /* CUTEUserAgentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */; };
+		2C9F1D001B3961410034487F /* CUTEUserAgentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */; };
 		2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -906,6 +911,8 @@
 		2C9F1CD71B37F6250034487F /* CUTEAddressUtilTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAddressUtilTest.m; sourceTree = "<group>"; };
 		2C9F1CE61B3907AF0034487F /* NSString+OccurrenceCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OccurrenceCount.h"; sourceTree = "<group>"; };
 		2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+OccurrenceCount.m"; sourceTree = "<group>"; };
+		2C9F1CFA1B3961400034487F /* CUTEUserAgentUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUserAgentUtil.h; sourceTree = "<group>"; };
+		2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUserAgentUtil.m; sourceTree = "<group>"; };
 		2CA2E6C21AC5487800053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DB1AC5496700053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
@@ -1272,6 +1279,8 @@
 				2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */,
 				2CC4525B1B2711770004AE54 /* CUTEAddressUtil.h */,
 				2CC4525C1B2711770004AE54 /* CUTEAddressUtil.m */,
+				2C9F1CFA1B3961400034487F /* CUTEUserAgentUtil.h */,
+				2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -2101,6 +2110,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9F1CFE1B3961410034487F /* CUTEUserAgentUtil.m in Sources */,
 				2C9AFF721AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDE91B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A61F1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
@@ -2228,6 +2238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9F1CFF1B3961410034487F /* CUTEUserAgentUtil.m in Sources */,
 				2C9AFF731AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDEA1B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A6201AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
@@ -2355,6 +2366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9F1CFD1B3961400034487F /* CUTEUserAgentUtil.m in Sources */,
 				2C9AFF711AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDE81B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A61E1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
@@ -2482,6 +2494,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9F1CFC1B3961400034487F /* CUTEUserAgentUtil.m in Sources */,
 				2C9AFF701AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDE71B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A61D1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
@@ -2658,6 +2671,7 @@
 				2CDC11A01B33F8D300B6D3DD /* MasonryMake.h in Sources */,
 				2CDC11A11B33F8D300B6D3DD /* NSURL+CUTE.h in Sources */,
 				2CDC11A21B33F8D300B6D3DD /* NSURL+CUTE.m in Sources */,
+				2C9F1D001B3961410034487F /* CUTEUserAgentUtil.m in Sources */,
 				2CDC11A31B33F8D300B6D3DD /* NSURL+Assets.h in Sources */,
 				2CDC11A41B33F8D300B6D3DD /* NSURL+Assets.m in Sources */,
 				2CDC11A51B33F8D300B6D3DD /* NSURL+QueryParser.h in Sources */,
