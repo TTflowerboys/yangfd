@@ -27,7 +27,7 @@ describe(@"display title", ^ {
 
     it(@"should be nil", ^ {
         CUTETicket *ticket = [CUTETicket new];
-        assertThat(ticket.titleForDisplay, equalTo(@""));
+        assertThat(ticket.titleForDisplay, equalTo(nil));
     });
 
     it(@"should be custom value", ^ {
@@ -70,6 +70,15 @@ describe(@"display title", ^ {
 
 
 describe(@"params", ^ {
+
+    it(@"should be empty", ^{
+        CUTETicket *ticket = [CUTETicket new];
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
+        [params removeObjectForKey:@"unset_fields"];
+        assertThat(params, isEmpty());
+
+    });
+
     it(@"should not have id", ^ {
         CUTETicket *ticket = [CUTETicket new];
         assertThat(ticket.toParams[@"id"], equalTo(nil));

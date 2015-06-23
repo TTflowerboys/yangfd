@@ -426,7 +426,7 @@
                         }
 
                         if (localTicket) {
-                            if (!fequal(object.lastModifiedTime, localTicket.lastModifiedTime)) {
+                            if (!fequal(object.lastModifiedTime.doubleValue, localTicket.lastModifiedTime.doubleValue)) {
                                 //merge
                                 [object mergeValuesForKeysFromModel:localTicket];
                                 [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:object];

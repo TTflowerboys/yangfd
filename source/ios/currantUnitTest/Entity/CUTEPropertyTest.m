@@ -50,10 +50,11 @@ describe(@"params", ^{
         assertThat(property.toParams[@"country"], equalTo(country.code));
     });
 
-    it(@"property type should be id", ^{
+    it(@"city should be id", ^{
         CUTEProperty *property = [CUTEProperty new];
         CUTECity *city = [CUTECity new];
         city.identifier = RANDOM_UUID;
+        property.city = city;
         assertThat(property.toParams[@"city"], instanceOf([NSString class]));
     });
 

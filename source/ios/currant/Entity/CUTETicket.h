@@ -49,7 +49,7 @@
 
 @property (strong, nonatomic) CUTETimePeriod *minimumRentPeriod;
 
-@property (nonatomic) NSTimeInterval lastModifiedTime;
+@property (strong, nonatomic) NSNumber *lastModifiedTime;
 
 @property (strong, nonatomic) CUTEProperty *property;
 

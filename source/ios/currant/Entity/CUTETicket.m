@@ -93,6 +93,9 @@
     if (altTitle.length > kTicketTitleMaxCharacterCount) {
         return [NSString stringWithFormat:@"%@出租", self.rentType.value];
     }
+    else if (altTitle.length == 0) {
+        return nil;
+    }
     else {
         return altTitle;
     }
