@@ -39,13 +39,13 @@
 
 @property (strong, nonatomic) CUTEArea *space;
 
-@property (nonatomic) BOOL billCovered;
+@property (strong, nonatomic) NSNumber *billCovered;
 
 @property (strong, nonatomic) CUTECurrency *price;
 
-@property (nonatomic) NSTimeInterval rentAvailableTime;
+@property (strong, nonatomic) NSNumber *rentAvailableTime;
 
-@property (nonatomic) NSTimeInterval rentDeadlineTime;
+@property (strong, nonatomic) NSNumber *rentDeadlineTime;
 
 @property (strong, nonatomic) CUTETimePeriod *minimumRentPeriod;
 

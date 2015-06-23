@@ -87,9 +87,9 @@
     [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
 
-- (void)onContainBillSwitch:(id)sender {
+- (void)onBillCoveredSwitch:(id)sender {
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.billCovered = self.form.containBill;
+    self.ticket.billCovered = @(self.form.billCovered);
     [ticketListener stopListenMark];
     [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
@@ -99,8 +99,8 @@
     [self.tableView reloadData];
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
     if (self.form.needSetPeriod) {
-        self.ticket.rentAvailableTime = [[self.form rentAvailableTime] timeIntervalSince1970];
-        self.ticket.rentDeadlineTime = [[self.form rentDeadlineTime] timeIntervalSince1970];
+        self.ticket.rentAvailableTime = @([[self.form rentAvailableTime] timeIntervalSince1970]);
+        self.ticket.rentDeadlineTime = @([[self.form rentDeadlineTime] timeIntervalSince1970]);
         self.ticket.minimumRentPeriod = [self.form minimumRentPeriod];
     }
     else {
@@ -119,8 +119,8 @@
     }
 
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.rentAvailableTime = [[self.form rentAvailableTime] timeIntervalSince1970];
-    self.ticket.rentDeadlineTime = [[self.form rentDeadlineTime] timeIntervalSince1970];
+    self.ticket.rentAvailableTime = @([[self.form rentAvailableTime] timeIntervalSince1970]);
+    self.ticket.rentDeadlineTime = @([[self.form rentDeadlineTime] timeIntervalSince1970]);
     [ticketListener stopListenMark];
     [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
@@ -132,8 +132,8 @@
     }
 
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.rentAvailableTime = [[self.form rentAvailableTime] timeIntervalSince1970];
-    self.ticket.rentDeadlineTime = [[self.form rentDeadlineTime] timeIntervalSince1970];
+    self.ticket.rentAvailableTime = @([[self.form rentAvailableTime] timeIntervalSince1970]);
+    self.ticket.rentDeadlineTime = @([[self.form rentDeadlineTime] timeIntervalSince1970]);
     [ticketListener stopListenMark];
     [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
