@@ -209,6 +209,11 @@
 		2C9F1CD41B37F1BC0034487F /* CUTEURLTest+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CD31B37F1BC0034487F /* CUTEURLTest+Assets.m */; };
 		2C9F1CD61B37F2970034487F /* CUTEStringTest+CUTECDN.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CD51B37F2970034487F /* CUTEStringTest+CUTECDN.m */; };
 		2C9F1CD81B37F6250034487F /* CUTEAddressUtilTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CD71B37F6250034487F /* CUTEAddressUtilTest.m */; };
+		2C9F1CE81B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */; };
+		2C9F1CE91B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */; };
+		2C9F1CEA1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */; };
+		2C9F1CEB1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */; };
+		2C9F1CEC1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */; };
 		2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -899,6 +904,8 @@
 		2C9F1CD31B37F1BC0034487F /* CUTEURLTest+Assets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CUTEURLTest+Assets.m"; sourceTree = "<group>"; };
 		2C9F1CD51B37F2970034487F /* CUTEStringTest+CUTECDN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CUTEStringTest+CUTECDN.m"; sourceTree = "<group>"; };
 		2C9F1CD71B37F6250034487F /* CUTEAddressUtilTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAddressUtilTest.m; sourceTree = "<group>"; };
+		2C9F1CE61B3907AF0034487F /* NSString+OccurrenceCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OccurrenceCount.h"; sourceTree = "<group>"; };
+		2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+OccurrenceCount.m"; sourceTree = "<group>"; };
 		2CA2E6C21AC5487800053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DB1AC5496700053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
@@ -1292,6 +1299,8 @@
 				2CDABB341B2C4B840075D2E7 /* NSString+CUTECDN.m */,
 				2CDABB3A1B2C4DC30075D2E7 /* NSArray+CUTECDN.h */,
 				2CDABB3B1B2C4DC30075D2E7 /* NSArray+CUTECDN.m */,
+				2C9F1CE61B3907AF0034487F /* NSString+OccurrenceCount.h */,
+				2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2182,6 +2191,7 @@
 				2CA2E6B31AC5487800053965 /* main.m in Sources */,
 				2CF8A6B01AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A21AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
+				2C9F1CEA1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CA2E6B41AC5487800053965 /* CUTEConfiguration.m in Sources */,
 				2CF8A64C1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6511AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
@@ -2308,6 +2318,7 @@
 				2CA2E6CC1AC5496700053965 /* main.m in Sources */,
 				2CF8A6B11AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A31AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
+				2C9F1CEB1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CA2E6CD1AC5496700053965 /* CUTEConfiguration.m in Sources */,
 				2CF8A64D1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6521AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
@@ -2434,6 +2445,7 @@
 				2CA94A9D1ACA42CD00DF7497 /* main.m in Sources */,
 				2CF8A6AF1AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A11AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
+				2C9F1CE91B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CA94A9E1ACA42CD00DF7497 /* CUTEConfiguration.m in Sources */,
 				2CF8A64B1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6501AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
@@ -2560,6 +2572,7 @@
 				2CB43DAF1ABC1372004DF663 /* main.m in Sources */,
 				2CF8A6AE1AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A01AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
+				2C9F1CE81B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CDBB2FD1AC1472E0024E225 /* CUTEConfiguration.m in Sources */,
 				2CF8A64A1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A64F1AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
@@ -2659,6 +2672,7 @@
 				2CDC11AD1B33F8D300B6D3DD /* UIImage+CalculatedSize.h in Sources */,
 				2CDC11AE1B33F8D300B6D3DD /* UIImage+CalculatedSize.m in Sources */,
 				2CDC11AF1B33F8D300B6D3DD /* ALAsset+GetImage.h in Sources */,
+				2C9F1CEC1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CDC11B01B33F8D300B6D3DD /* ALAsset+GetImage.m in Sources */,
 				2CDC11B11B33F8D300B6D3DD /* NSString+CUTECDN.h in Sources */,
 				2CDC11B21B33F8D300B6D3DD /* NSString+CUTECDN.m in Sources */,
