@@ -723,9 +723,6 @@ def rent_ticket_search(user, params):
     if "user_id" in params:
         params["creator_user_id"] = params.pop("user_id")
 
-    if "rent_available_time" in params:
-        params["rent_available_time"] = {"$gte": params["rent_available_time"] - timedelta(days=7), "$lte": params["rent_available_time"] + timedelta(days=1)}
-
     params["$and"] = []
     property_params = {"$and": []}
     non_project_params = {"$and": []}
@@ -756,6 +753,28 @@ def rent_ticket_search(user, params):
 
     if "country" in params:
         property_params["country"] = params.pop("country")
+
+    if "rent_available_time" in params:
+        params["rent_available_time"] = {"$gte": params["rent_available_time"] - timedelta(days=7), "$lte": params["rent_available_time"] + timedelta(days=1)}
+
+    if "rent_deadline_time" in params:
+        params["rent_deadline_time"] = {"$or": [{"$gte": params["rent_deadline_time"] - timedelta(days=1)}, {"$exists": False}]}
+
+    if "rent_available_time" in params and "rent_deadline_time" in params:
+        # TODO: override minimum_rent_period only if necessary
+        # params["minimum_rent_period"] = {"type": ""}
+        pass
+
+    if "minimum_rent_period" in params:
+        rent_period_filter = []
+        for time_period_unit in f_app.common.i18n_unit_time_period:
+            condition = {"minimum_rent_period.unit": time_period_unit}
+            if time_period_unit == params["minimum_rent_period"]["unit"]:
+                condition["price.value_float"] = {"$gte": params["minimum_rent_period"]["value_float"]}
+            else:
+                condition["price.value_float"] = {"$gte": float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value": params["minimum_rent_period"]["value"]}, time_period_unit))}
+            rent_period_filter.append(condition)
+        params["$and"].append({"$or": rent_period_filter})
 
     if "rent_budget" in params:
         budget = f_app.util.parse_budget(params.pop("rent_budget"))
