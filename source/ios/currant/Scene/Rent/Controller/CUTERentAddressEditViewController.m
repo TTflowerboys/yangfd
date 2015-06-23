@@ -285,9 +285,9 @@
 
                     CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
                     form.propertyType = currentTicket.property.propertyType;
-                    form.bedroomCount = currentTicket.property.bedroomCount;
-                    form.livingroomCount = currentTicket.property.livingroomCount;
-                    form.bathroomCount = currentTicket.property.bathroomCount;
+                    form.bedroomCount = currentTicket.property.bedroomCount? currentTicket.property.bedroomCount.integerValue: 0;
+                    form.livingroomCount = currentTicket.property.livingroomCount? currentTicket.property.livingroomCount.integerValue: 0;
+                    form.bathroomCount = currentTicket.property.bathroomCount? currentTicket.property.bathroomCount.integerValue: 0;
                     [form setAllPropertyTypes:propertyTypes];
                     [form setAllLandlordTypes:landloardTypes];
                     controller.formController.form = form;

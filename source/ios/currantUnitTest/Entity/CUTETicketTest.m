@@ -51,7 +51,7 @@ describe(@"display title", ^ {
         CUTETicket *ticket = [CUTETicket new];
         ticket.property = [CUTEProperty new];
         ticket.property.community = @"华中科技大学";
-        ticket.property.bedroomCount = 1;
+        ticket.property.bedroomCount = @(1);
         assertThat(ticket.titleForDisplay, equalTo(@"华中科技大学 1居室"));
     });
 
@@ -60,7 +60,7 @@ describe(@"display title", ^ {
         CUTETicket *ticket = [CUTETicket new];
         ticket.property = [CUTEProperty new];
         ticket.property.community = @"华中科技大学";
-        ticket.property.bedroomCount = 1;
+        ticket.property.bedroomCount = @(1);
         CUTEEnum *rentType = [CUTEEnum new];
         rentType.value = @"整租";
         ticket.rentType = rentType;

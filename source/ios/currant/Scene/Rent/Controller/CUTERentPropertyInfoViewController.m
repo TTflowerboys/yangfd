@@ -148,9 +148,9 @@
 - (void)editRooms:(id)sender {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.property.bedroomCount = form.bedroomCount;
-    self.ticket.property.livingroomCount = form.livingroomCount;
-    self.ticket.property.bathroomCount = form.bathroomCount;
+    self.ticket.property.bedroomCount = @(form.bedroomCount);
+    self.ticket.property.livingroomCount = @(form.livingroomCount);
+    self.ticket.property.bathroomCount = @(form.bathroomCount);
     [ticketListener stopListenMark];
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
 }

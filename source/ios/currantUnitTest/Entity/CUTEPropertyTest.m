@@ -25,12 +25,13 @@ describe(@"keypath", ^ {
 
 describe(@"params", ^{
 
-//    it(@"should be empty", ^{
-//        CUTEProperty *property = [CUTEProperty new];
-//        NSDictionary *params = property.toParams;
-//        assertThat(params, isEmpty());
-//
-//    });
+    it(@"should be empty", ^{
+        CUTEProperty *property = [CUTEProperty new];
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toParams];
+        [params removeObjectForKey:@"unset_fields"];
+        assertThat(params, isEmpty());
+
+    });
 
     it(@"property type should be id", ^{
         CUTEProperty *property = [CUTEProperty new];
