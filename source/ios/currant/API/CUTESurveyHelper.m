@@ -19,7 +19,7 @@
     return [firstDate daysBeforeDate:lastDate] > days;
 }
 
-+ (void)checkShowAfterSevenDayHaveOrHaveNotPublishedRentTicketSurveyWithViewController:(UIViewController *)viewController {
++ (void)checkShowPublishedRentTicketSurveyWithViewController:(UIViewController *)viewController {
     if ([CUTESurveyHelper isAppUsageOverDays:7]) {
         if ([[CUTEUsageRecorder sharedInstance] getPublishedTicketCount] > 0) {
             [[ATConnect sharedConnection] engage:@"survey_after_7_days_and_have_published_ticket" fromViewController:viewController];
@@ -30,9 +30,13 @@
     }
 }
 
-+ (void)checkShowAfterSevenDayHaveFavoriteRentTicketSurveyWithViewController:(UIViewController *)viewController {
++ (void)checkShowFavoriteRentTicketSurveyWithViewController:(UIViewController *)viewController {
     if ([CUTESurveyHelper isAppUsageOverDays:7]) {
-
+        if ([[CUTEUsageRecorder sharedInstance] getFavoriteTicketCount] > 0) {
+            if ([[CUTEUsageRecorder sharedInstance] getPublishedTicketCount] == 0) {
+                [[ATConnect sharedConnection] engage:@"survey_after_7_days_and_have_favorite_ticket" fromViewController:viewController];
+            }
+        }
     }
 }
 

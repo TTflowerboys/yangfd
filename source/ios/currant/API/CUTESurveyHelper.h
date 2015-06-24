@@ -11,9 +11,9 @@
 
 @interface CUTESurveyHelper : NSObject
 
-+ (void)checkShowAfterSevenDayHaveOrHaveNotPublishedRentTicketSurveyWithViewController:(UIViewController *)viewController;
++ (void)checkShowPublishedRentTicketSurveyWithViewController:(UIViewController *)viewController;
 
-+ (void)checkShowAfterSevenDayHaveFavoriteRentTicketSurveyWithViewController:(UIViewController *)viewController;
++ (void)checkShowFavoriteRentTicketSurveyWithViewController:(UIViewController *)viewController;
 
 
 @end
