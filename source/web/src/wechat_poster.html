@@ -34,7 +34,7 @@
             <div class="page pageCover">
                 <div class="topTitleNav animate">
                     <p class="location animate">{{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}}, {{rent['property'].get('city',{}).get('name','')}}, {{rent['property'].get('street','')}}</p>
-                    <p class="title animate fixFontSize">{{rent.get('title','')}}</p>
+                    <p class="title animate fixFontSize" data-maxHeight="8vh">{{rent.get('title','')}}</p>
                     <p class="titleEn animate">Letting!</p>
                 </div>
             </div>
@@ -290,7 +290,7 @@
             <div class="page pageCoverBack">
                 <div class="topTitleNav animate">
                     <p class="location animate">{{rent['property'].get('street','')}} {{rent['property'].get('city',{}).get('name','')}} {{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}}</p>
-                    <p class="title animate fixFontSize">{{rent.get('title','')}}</p>
+                    <p class="title animate fixFontSize" data-maxHeight="8vh">{{rent.get('title','')}}</p>
                     <p class="contact animate">
                         <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" class="btn">{{_('获取房东联系方式')}}</a>
                     </p>

@@ -147,4 +147,15 @@ def property_wechat_poster(property_id):
     keywords = property.get('name', _('房产详情')) + ',' + currant_util.get_country_name_by_code(property.get('country', {}).get('code', '')) + ',' + property.get('city', {}).get('name', '') + ',' + ','.join(tags + currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
-    return currant_util.common_template("property_wechat_poster", property=property, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords, weixin=weixin)
+    def format_property(property):
+        res = '<div><i class="icon-rooms"></i><span>' + str(property.get('bedroom_count',0)) + _(u'室') + str(property.get('living_room_count',0)) + _(u'厅')
+        if property.get('space',{}):
+            res += "{0:.0f}".format(float(property.get('space',{}).get('value',0)))
+            res += currant_util.format_unit(property.get('space',{}).get('unit',''))
+        elif property.get('building_area',{}):
+            res += "{0:.0f}".format(float(property.get('building_area',{}).get('value',0)))
+            res += currant_util.format_unit(property.get('building_area',{}).get('unit',''))
+        res += '</span></div>'
+        return res
+
+    return currant_util.common_template("property_wechat_poster", property=property, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords, weixin=weixin, format_property=format_property)

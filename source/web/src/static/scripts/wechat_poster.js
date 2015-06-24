@@ -238,22 +238,31 @@
     function fixFontSize () {
         $('.fixFontSize').each(function (index, elem) {
             var $elem = $(elem)
-            var height = $elem.height()
             $elem.css({
-                height: 'auto',
                 overflow: 'visiable',
-                lineHeight: '1.4em'
             })
-
+            var height = parseHeight($elem.attr('data-maxHeight'))
             changeFontSize($elem, height)
         })
+        function parseHeight (height) {
+            if (typeof height === 'number') {
+                return height
+            }
+            if (typeof height === 'string') {
+                if (height.indexOf('vh')) {
+                    return parseFloat(height.replace('vh', '')) / 100 * $(window).height()
+                }
+                return parseFloat(height.replace('px', ''))
+            }
+        }
         function changeFontSize ($elem, height) {
-            if($elem.height() === 0) {
+            var currentHeight = $elem.height()
+            if(currentHeight === 0) {
                 return setTimeout(function () {
                     changeFontSize($elem, height)
-                },50)
+                },200)
             }
-            if($elem.height() - height > 10) {
+            if(currentHeight - height > 10) {
                 var newFontSize = parseInt($elem.css('fontSize')) - 1
                 $elem.css({
                     fontSize: newFontSize + 'px'

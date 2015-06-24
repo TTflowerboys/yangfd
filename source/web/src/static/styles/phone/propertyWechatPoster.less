@@ -1,4 +1,6 @@
-@blue: #46dcfd;
+@blue: #3adcff;
+@dark-blue: #0095b5;
+@black-blue: #00272f;
 *,
 *:before,
 *:after {
@@ -85,7 +87,7 @@ p{
     font-size: 16px;
     line-height: 100%;
     vertical-align: middle;
-    color: rgb(146, 163, 34);
+    color: @blue;
     border: 1px solid @blue;
     border-top: none;
     border-radius: 0 0 8px 8px;
@@ -158,20 +160,26 @@ p{
     background-image: url("/static/images/property_wechat_poster/container_bg.jpg");
     .coverCenter;
     .topTitleNav{
-        position: absolute;
-        top: -4vh;
+        float: left;
+        position: relative;
+        top: 50vh;
         width: 100%;
-        height: 40vh;
-        background: url("/static/images/wechat_poster/title_background.png") 50% 100%;
-        background-size: cover;
+        height: 32vh;
+        background-image:linear-gradient(172deg, fade(@dark-blue, 80%) 75%, transparent 0);
+        background-position: 0 0, 100% 0;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        text-align: left;
+        color: white;
         .animation(bounceInDown 0.6s linear 0s 1);
+
     }
     .bottomBox{
         width: 100%;
         position: absolute;
         height: 12vh;
         bottom: -3vh;
-        background: url("/static/images/wechat_poster/up_button_background.png") 50% 0%;
+        //background: url("/static/images/wechat_poster/up_button_background.png") 50% 0%;
         background-size: cover;
         .animation(bounceUp 0.6s linear 0.6s 1);
         opacity: 0;
@@ -209,7 +217,7 @@ p{
             margin: 4vh auto 3vh;
             font-size: 3.5vh;
             font-weight: 400;
-            color: #b6d11e;
+            color: @blue;
         }
         p{
             font-size: 4vh;
@@ -327,7 +335,6 @@ p{
     .coverCenter;
     .topTitleNav {
         p{
-            display: inline-block;
             opacity: 0;
             .animation(tada2 0.4s linear 0.6s 1);
             &.animation:nth-child(1){
@@ -340,39 +347,30 @@ p{
                 animation-delay: 1s;
             }
         }
-        .location{
-            min-width: 40vw;
-            margin: 8.5vh auto 3.5vh;
-            padding: 0 3vh;
-            height: 6vh;
-            background: #333;
-            color: @blue;
-            font-size: 3.4vh;
-            line-height: 6vh;
-        }
+
         .title{
             width: 90vw;
-            margin: 0 auto 2.5vh;
-            height: 8vh;
-            color: #333;
-            font-size: 5vh;
-            line-height: 8vh;
-            overflow: hidden;
+            margin: 6vh auto 1vh;
+            font-size: 4.8vh;
+            line-height: 5vh;
         }
-        .titleEn{
+        .street{
+            width: 90vw;
+            margin: 0 auto 1vh;
+            font-size: 3.6vh;
+            line-height: 1.3em;
+        }
+        .city{
+            width: 90vw;
             margin: 0 auto;
-            height: 10vh;
-            color: #333;
-            font-size: 8vh;
-            font-family: 'Aleo';
+            font-size: 3vh;
+            line-height: 4vh;
             font-weight: bold;
-            line-height: 10vh;
         }
     }
 }
 .pageRental{
     &>p{
-        //position: absolute;
         position: relative;
         color: @blue;
         opacity: 0;
@@ -386,16 +384,10 @@ p{
         margin-top: 6vh;
     }
     p.line2{
-        //width: 38vh;
-        //left: 50%;
-        //margin-left: -19vh;
         display: inline-table;
         margin: 4vh auto 0;
-        padding: 1vh 6vw 0;
-        //height: 6.16vh;
-        //line-height: 6.16vh;
-        //top: 22vh;
-        color: #586c4f;
+        padding: 1vh 6vw 1vh;
+        color: #815e82;
         font-size: 4.8vh;
         font-weight: bold;
         &.animation{
@@ -450,7 +442,7 @@ p{
             display: block;
             height: 7.2vh;
             margin-bottom: 3.2vh;
-            font-size: 3vh;
+            font-size: 2.4vh;
             text-align: left;
             overflow: hidden;
             .animation(tada1 0.2s linear 0s 1);
@@ -464,12 +456,15 @@ p{
                 border: 1px solid #fff;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
+                *{
+                    vertical-align: middle;
+                }
             }
-            &.size, &.rental, &.estate, &.time{
+            &.rooms:nth-child(1), &.size, &.rental, &.estate, &.time{
                 float: left;
                 margin-right: 3.2vh;
             }
-            &.rooms, &.street, &.door{
+            &.rooms:nth-child(2), &.street, &.door{
                 overflow: hidden;
             }
             &.size{
@@ -499,14 +494,9 @@ p{
             }
             i{
                 display: inline-block;
-                float: left;
-                width: 3vh;
-                height: 3vh;
-                margin: 2vh 1vh auto 2vh;
-                /* background-image: url("/static/images/wechat_poster/rentalIconSprites.png");
-                 background-size: 100%;
-                 background-repeat: no-repeat;*/
                 color: @blue;
+                font-size: 3vh;
+                margin: 0 2vw;
             }
             /*i.sizeIcon{
                 background-position: 0 0;
