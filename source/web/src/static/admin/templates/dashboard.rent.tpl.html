@@ -36,11 +36,12 @@
                 <th style="width: 14%;">{%$root.i18n('标题')%}</th>
                 <th style="width: 9%;">{%$root.i18n('出租类型')%}</th>
                 <th style="width: 9%;">{%$root.i18n('postcode')%}</th>
-                <th style="width: 18%;">{%$root.i18n('地址')%}</th>
+                <th style="width: 14%;">{%$root.i18n('地址')%}</th>
                 <th style="width: 9%;">{%$root.i18n('租金')%}</th>
                 <th style="width: 10%;">{%$root.i18n('发布人')%}</th>
-                <th style="width: 13%;">{%$root.i18n('发布时间')%}</th>
+                <th style="width: 10%;">{%$root.i18n('发布时间')%}</th>
                 <th style="width: 9%;">{%$root.i18n('汇总图')%}</th>
+                <th style="width: 7%;">{%$root.i18n('生成图床')%}</th>
                 <th style="width: 9%;">{%$root.i18n('管理')%}</th>
             </tr>
         </thead>
@@ -75,6 +76,11 @@
                         <i class="fa fa-picture-o"></i>
                     </span>
                     <span ng-if="item.isGenerating" ng-bind="item.digestStatus"></span>
+                </td>
+                <td>
+                    <a class="btn btn-primary" ui-sref=".digest({id:item.id})" title="{%$root.i18n('生成图床链接')%}">
+                        <i class="fa fa-magic "></i>
+                    </a>
                 </td>
                 <td style="text-align:center;">
                     <a class="btn btn-success" ui-sref=".detail({id:item.id})" title="View">

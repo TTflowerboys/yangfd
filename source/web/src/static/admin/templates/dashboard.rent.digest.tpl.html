@@ -1,0 +1,39 @@
+<div ui-view>
+
+
+    <div class="buttons">
+        <span class="btn-group">
+            <button class="btn btnGoBack" ng-click="onBackClick()">
+                <span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
+            </button>
+        </span>
+
+        <div class="btn-group form-inline" ng-controller="ctrlHasPermission">
+            <select class="form-control" ng-options="p.value as p.name for p in digest.typeMap" ng-model="digest.type" text="{%i18n('选择生成类型')%}"></select>
+        </div>
+        <div class="btn-group form-inline" ng-controller="ctrlHasPermission">
+            <input type="checkbox" ng-model="digest.needTag" id="needTag"/><label for="needTag">{%$root.i18n('是否需要image标签')%}</label>
+        </div>
+        <div class="btn-group form-inline">
+            <button class="btn btn-primary" ng-click="generate()">{%$root.i18n('生成')%}</button>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped table-condensed">
+        <tbody>
+            <tr>
+                <td>source</td>
+                <td>medium</td>
+            </tr>
+            <tr>
+                <td><textarea cols="60" rows="10" ng-model="digest.utm_source"></textarea></td>
+                <td><textarea cols="60" rows="10" ng-model="digest.utm_medium"></textarea></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <textarea name="" id="" cols="150" rows="90" ng-model="result"></textarea>
+    </div>
+
+
+</div>

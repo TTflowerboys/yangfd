@@ -324,6 +324,12 @@ angular.module('app')
                 controller: 'ctrlRentDetail',
                 resolve: rentResolve
             })
+            .state('dashboard.rent.digest', {
+                url: '/:id/digest',
+                templateUrl: '/static/admin/templates/dashboard.rent.digest.tpl.html',
+                controller: 'ctrlRentDigest',
+                resolve: rentResolve
+            })
 
         /**
          * operation 运营管理
