@@ -221,6 +221,16 @@
 		2C9F1D001B3961410034487F /* CUTEUserAgentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */; };
 		2C9F1D031B3961EB0034487F /* CUTEUserAgentUtilTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D021B3961EB0034487F /* CUTEUserAgentUtilTest.m */; };
 		2C9F1D081B3A60130034487F /* CUTEDataManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D071B3A60130034487F /* CUTEDataManagerTest.m */; };
+		2C9F1D161B3A85550034487F /* CUTEUsageRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D151B3A85550034487F /* CUTEUsageRecorder.m */; };
+		2C9F1D171B3A85550034487F /* CUTEUsageRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D151B3A85550034487F /* CUTEUsageRecorder.m */; };
+		2C9F1D181B3A85550034487F /* CUTEUsageRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D151B3A85550034487F /* CUTEUsageRecorder.m */; };
+		2C9F1D191B3A85550034487F /* CUTEUsageRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D151B3A85550034487F /* CUTEUsageRecorder.m */; };
+		2C9F1D1A1B3A85550034487F /* CUTEUsageRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D151B3A85550034487F /* CUTEUsageRecorder.m */; };
+		2C9F1D1D1B3A8E610034487F /* CUTESurveyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D1C1B3A8E610034487F /* CUTESurveyHelper.m */; };
+		2C9F1D1E1B3A8E610034487F /* CUTESurveyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D1C1B3A8E610034487F /* CUTESurveyHelper.m */; };
+		2C9F1D1F1B3A8E610034487F /* CUTESurveyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D1C1B3A8E610034487F /* CUTESurveyHelper.m */; };
+		2C9F1D201B3A8E610034487F /* CUTESurveyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D1C1B3A8E610034487F /* CUTESurveyHelper.m */; };
+		2C9F1D211B3A8E610034487F /* CUTESurveyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D1C1B3A8E610034487F /* CUTESurveyHelper.m */; };
 		2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -927,6 +937,10 @@
 		2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUserAgentUtil.m; sourceTree = "<group>"; };
 		2C9F1D021B3961EB0034487F /* CUTEUserAgentUtilTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUserAgentUtilTest.m; sourceTree = "<group>"; };
 		2C9F1D071B3A60130034487F /* CUTEDataManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEDataManagerTest.m; sourceTree = "<group>"; };
+		2C9F1D141B3A85550034487F /* CUTEUsageRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUsageRecorder.h; sourceTree = "<group>"; };
+		2C9F1D151B3A85550034487F /* CUTEUsageRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUsageRecorder.m; sourceTree = "<group>"; };
+		2C9F1D1B1B3A8E610034487F /* CUTESurveyHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTESurveyHelper.h; sourceTree = "<group>"; };
+		2C9F1D1C1B3A8E610034487F /* CUTESurveyHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTESurveyHelper.m; sourceTree = "<group>"; };
 		2CA2E6C21AC5487800053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DB1AC5496700053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
@@ -1455,6 +1469,8 @@
 				2C3DE2311B035719006FF191 /* CUTETracker.h */,
 				2C3DE2321B035719006FF191 /* CUTETracker.m */,
 				2C3DE2481B05F219006FF191 /* CUTETrackParams.h */,
+				2C9F1D1B1B3A8E610034487F /* CUTESurveyHelper.h */,
+				2C9F1D1C1B3A8E610034487F /* CUTESurveyHelper.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1497,6 +1513,8 @@
 				2CDBB2F91AC146790024E225 /* CUTEDataManager.m */,
 				2CDBB2FB1AC1472E0024E225 /* CUTEConfiguration.h */,
 				2CDBB2FC1AC1472E0024E225 /* CUTEConfiguration.m */,
+				2C9F1D141B3A85550034487F /* CUTEUsageRecorder.h */,
+				2C9F1D151B3A85550034487F /* CUTEUsageRecorder.m */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -2224,6 +2242,7 @@
 				2CF8A6381AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
 				2CF8A5F21AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
 				2C96E2761AE6566300F3590C /* CUTEShareManager.m in Sources */,
+				2C9F1D181B3A85550034487F /* CUTEUsageRecorder.m in Sources */,
 				2CA2E6B31AC5487800053965 /* main.m in Sources */,
 				2CF8A6B01AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A21AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
@@ -2252,6 +2271,7 @@
 				2CC6C1DF1AEE255A002758A7 /* NSURL+Assets.m in Sources */,
 				2CF8A6931AF0B65C0080DF10 /* CUTERentContactForm.m in Sources */,
 				2CF8A6B71AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */,
+				2C9F1D1F1B3A8E610034487F /* CUTESurveyHelper.m in Sources */,
 				2CF8A5DE1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */,
 				2C427EAB1AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6241AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
@@ -2352,6 +2372,7 @@
 				2CF8A6391AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
 				2CF8A5F31AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
 				2C96E2771AE6566300F3590C /* CUTEShareManager.m in Sources */,
+				2C9F1D191B3A85550034487F /* CUTEUsageRecorder.m in Sources */,
 				2CA2E6CC1AC5496700053965 /* main.m in Sources */,
 				2CF8A6B11AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A31AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
@@ -2380,6 +2401,7 @@
 				2CC6C1E01AEE255A002758A7 /* NSURL+Assets.m in Sources */,
 				2CF8A6941AF0B65C0080DF10 /* CUTERentContactForm.m in Sources */,
 				2CF8A6B81AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */,
+				2C9F1D201B3A8E610034487F /* CUTESurveyHelper.m in Sources */,
 				2CF8A5DF1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */,
 				2C427EAC1AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6251AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
@@ -2480,6 +2502,7 @@
 				2CF8A6371AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
 				2CF8A5F11AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
 				2C96E2751AE6566300F3590C /* CUTEShareManager.m in Sources */,
+				2C9F1D171B3A85550034487F /* CUTEUsageRecorder.m in Sources */,
 				2CA94A9D1ACA42CD00DF7497 /* main.m in Sources */,
 				2CF8A6AF1AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A11AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
@@ -2508,6 +2531,7 @@
 				2CC6C1DE1AEE255A002758A7 /* NSURL+Assets.m in Sources */,
 				2CF8A6921AF0B65C0080DF10 /* CUTERentContactForm.m in Sources */,
 				2CF8A6B61AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */,
+				2C9F1D1E1B3A8E610034487F /* CUTESurveyHelper.m in Sources */,
 				2CF8A5DD1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */,
 				2C427EAA1AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6231AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
@@ -2608,6 +2632,7 @@
 				2CF8A6361AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
 				2CF8A5F01AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
 				2C96E2741AE6566300F3590C /* CUTEShareManager.m in Sources */,
+				2C9F1D161B3A85550034487F /* CUTEUsageRecorder.m in Sources */,
 				2CB43DAF1ABC1372004DF663 /* main.m in Sources */,
 				2CF8A6AE1AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A01AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
@@ -2636,6 +2661,7 @@
 				2CC6C1DD1AEE255A002758A7 /* NSURL+Assets.m in Sources */,
 				2CF8A6911AF0B65C0080DF10 /* CUTERentContactForm.m in Sources */,
 				2CF8A6B51AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */,
+				2C9F1D1D1B3A8E610034487F /* CUTESurveyHelper.m in Sources */,
 				2CF8A5DC1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */,
 				2C427EA91AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6221AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
@@ -2734,6 +2760,7 @@
 				2CDC11C11B33F8D300B6D3DD /* CUTEUserDefaultKey.h in Sources */,
 				2CDC11C21B33F8D300B6D3DD /* CUTENotificationKey.h in Sources */,
 				2CDC11C31B33F8D300B6D3DD /* CUTEDataManager.h in Sources */,
+				2C9F1D211B3A8E610034487F /* CUTESurveyHelper.m in Sources */,
 				2CDC11C41B33F8D300B6D3DD /* CUTEDataManager.m in Sources */,
 				2CDC11C51B33F8D300B6D3DD /* CUTEConfiguration.h in Sources */,
 				2CDC11C61B33F8D300B6D3DD /* CUTEConfiguration.m in Sources */,
@@ -2783,6 +2810,7 @@
 				2CDC11F21B33F8D300B6D3DD /* CUTERentShareForm.m in Sources */,
 				2CDC11F31B33F8D300B6D3DD /* CUTERentTypeListForm.h in Sources */,
 				2CDC11F41B33F8D300B6D3DD /* CUTERentTypeListForm.m in Sources */,
+				2C9F1D1A1B3A85550034487F /* CUTEUsageRecorder.m in Sources */,
 				2CDC11F51B33F8D300B6D3DD /* CUTERentLoginForm.h in Sources */,
 				2CDC11F61B33F8D300B6D3DD /* CUTERentLoginForm.m in Sources */,
 				2CDC11F71B33F8D300B6D3DD /* CUTERentPasswordForm.h in Sources */,
@@ -2941,6 +2969,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-CUTE";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2955,6 +2984,8 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-test-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -2964,6 +2995,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-CUTE";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2978,6 +3010,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
 				PROVISIONING_PROFILE = "1ff635e2-77dd-4d57-8f1f-d6d252ec8ec6";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-test-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -2987,6 +3020,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-CUTE";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3001,6 +3035,8 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
 				PROVISIONING_PROFILE = "75e9aa95-6dab-4048-9035-eb7fe858fe46";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-production-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -3010,6 +3046,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-CUTE";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3024,6 +3061,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
 				PROVISIONING_PROFILE = "b8cd408d-2d40-41a3-86d0-33e8dd2aeddb";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-production-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -3034,6 +3072,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-CUTE";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3047,6 +3086,8 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
 				PROVISIONING_PROFILE = "75e9aa95-6dab-4048-9035-eb7fe858fe46";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-dev-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -3057,6 +3098,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-CUTE";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3071,6 +3113,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
 				PROVISIONING_PROFILE = "1ff635e2-77dd-4d57-8f1f-d6d252ec8ec6";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-dev-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -3160,6 +3203,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-CUTE";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3173,6 +3217,8 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "75e9aa95-6dab-4048-9035-eb7fe858fe46";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -3182,6 +3228,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-CUTE";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3196,6 +3243,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "75e9aa95-6dab-4048-9035-eb7fe858fe46";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -3206,6 +3254,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -3225,6 +3274,8 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currantUnitTest-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/currant.app/currant";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -3237,6 +3288,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -3252,6 +3304,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currantUnitTest-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/currant.app/currant";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};

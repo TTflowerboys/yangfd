@@ -15,10 +15,13 @@
 #define kEventActionRequestReturn @"request-return"
 #define kEventActionStay @"stay"
 #define kEventActionMemoryWarning @"memory-warning"
+#define kEventActionEnterForeground @"enter-foreground"
 
 #pragma -mark Specific
 
 #define KEventCategorySystem @"system"
+
+#define KEventCategoryUsage @"usage"
 
 #define KEventCategoryPostRentTicket @"post-rent-ticket"
 

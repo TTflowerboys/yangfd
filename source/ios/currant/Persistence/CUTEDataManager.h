@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "CUTETicket.h"
 #import "CUTEUser.h"
+#import "YTKKeyValueStore.h"
 
 @interface CUTEDataManager : NSObject
 
 + (instancetype)sharedInstance;
+
+@property (nonatomic, readonly) YTKKeyValueStore *store;
 
 @property (readonly, nonatomic) CUTEUser *user;
 
@@ -47,9 +50,5 @@
 - (void)saveAssetURLString:(NSString *)urlStr forImageURLString:(NSString *)imageURLStr;
 
 - (NSString *)getAssetURLStringForImageURLString:(NSString *)imageURLStr;
-
-- (void)saveScreen:(NSString *)screenName lastVisitTime:(NSTimeInterval)lastVisitTime;
-
-- (NSTimeInterval)getScreenLastVistiTime:(NSString *)screenName;
 
 @end

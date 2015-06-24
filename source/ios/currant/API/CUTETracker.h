@@ -31,6 +31,8 @@
 
 - (void)trackMemoryWarning;
 
+- (void)trackEnterForeground;
+
 
 #pragma -mark Util
 

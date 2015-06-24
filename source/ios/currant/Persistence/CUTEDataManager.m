@@ -47,7 +47,6 @@
 #define KTABLE_RENT_TICKETS @"cute_rent_tickets"
 #define KTABLE_URL_ASSET @"cute_url_asset"
 #define KTABLE_ASSET_URL @"cute_asset_url"
-#define KTABLE_SCREEN_LAST_VISIT_TIME @"cute_screen_last_visit_time"
 
 
 #pragma mark - Keys
@@ -61,10 +60,13 @@
     [@[KTABLE_SETTINGS,
        KTABLE_RENT_TICKETS,
        KTABLE_ASSET_URL,
-       KTABLE_URL_ASSET,
-       KTABLE_SCREEN_LAST_VISIT_TIME] each:^(id object) {
+       KTABLE_URL_ASSET] each:^(id object) {
            [_store createTableWithName:object];
        }];
+}
+
+- (YTKKeyValueStore *)store {
+    return _store;
 }
 
 - (BOOL)isUserLoggedIn {
@@ -207,14 +209,5 @@
     return [_store getStringById:imageURLStr fromTable:KTABLE_URL_ASSET];
 }
 
-#pragma mark - Screen Last visit time
-
-- (void)saveScreen:(NSString *)screenName lastVisitTime:(NSTimeInterval)lastVisitTime {
-    [_store putNumber:[NSNumber numberWithDouble:lastVisitTime] withId:screenName intoTable:KTABLE_SCREEN_LAST_VISIT_TIME];
-}
-
-- (NSTimeInterval)getScreenLastVistiTime:(NSString *)screenName {
-    return [[_store getNumberById:screenName fromTable:KTABLE_SCREEN_LAST_VISIT_TIME] doubleValue];
-}
 
 @end
