@@ -26,6 +26,11 @@
             params.city = $scope.selected.city
             params.rent_type = $scope.selected.rent_type
             params.last_modified_time = undefined
+            for(var key in params) {
+                if(params[key] === undefined || params[key] === '') {
+                    delete params[key]
+                }
+            }
         }
 
         $scope.searchRent = function () {
