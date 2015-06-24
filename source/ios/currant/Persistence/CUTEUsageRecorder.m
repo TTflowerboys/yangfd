@@ -7,13 +7,23 @@
 //
 
 #import "CUTEUsageRecorder.h"
-#import "CUTEDataManager.h"
+#import <YTKKeyValueStore.h>
 #import "NSArray+ObjectiveSugar.h"
 #import "CUTECommonMacro.h"
 
 #define KTABLE_SCREEN_LAST_VISIT_TIME @"cute_screen_last_visit_time"
-
 #define KTABLE_SCREEN_ENTER_FOREGROUND_TIME @"cute_screen_enter_foreground_time"
+#define KTABLE_RENT_TICKET_ID @"cute_rent_ticket_id"
+
+#define KTICKET_ACTION_PUBLISH @"publish"
+#define KTICKET_ACTION_FAVORITE @"favorite"
+
+@interface CUTEUsageRecorder () {
+
+    YTKKeyValueStore *_store;
+}
+
+@end
 
 @implementation CUTEUsageRecorder
 
@@ -31,14 +41,17 @@
 }
 
 - (void)setupStore {
+    _store  = [[YTKKeyValueStore alloc] initDBWithName:@"cute_usage.db"];
     [@[KTABLE_SCREEN_ENTER_FOREGROUND_TIME,
-       KTABLE_SCREEN_LAST_VISIT_TIME] each:^(id object) {
+       KTABLE_SCREEN_LAST_VISIT_TIME,
+       KTABLE_RENT_TICKET_ID
+       ] each:^(id object) {
            [self.store createTableWithName:object];
        }];
 }
 
 - (YTKKeyValueStore *)store {
-    return [CUTEDataManager sharedInstance].store;
+    return _store;
 }
 
 #pragma mark - Screen Last visit time
@@ -78,6 +91,31 @@
     return 0;
 }
 
+#pragma mark - Published Ticket id
 
+- (void)savePublishedTicketWithId:(NSString *)ticketId {
+    [[self store] putString:KTICKET_ACTION_PUBLISH withId:ticketId intoTable:KTABLE_RENT_TICKET_ID];
+}
+
+-(NSUInteger)getPublishedTicketCount {
+    return [[[[self store] getAllItemsFromTable:KTABLE_RENT_TICKET_ID] select:^BOOL(id object) {
+        YTKKeyValueItem *item = object;
+        return [item.itemObject isEqualToString:KTICKET_ACTION_PUBLISH];
+    }] count];
+}
+
+#pragma mark - Favorite Ticket id
+
+
+- (void)saveFavoriteTicketWithId:(NSString *)ticketId {
+    [[self store] putString:KTICKET_ACTION_FAVORITE withId:ticketId intoTable:KTABLE_RENT_TICKET_ID];
+}
+
+- (NSUInteger)getFavoriteTicketCount {
+    return [[[[self store] getAllItemsFromTable:KTABLE_RENT_TICKET_ID] select:^BOOL(id object) {
+        YTKKeyValueItem *item = object;
+        return [item.itemObject isEqualToString:KTICKET_ACTION_FAVORITE];
+    }] count];
+}
 
 @end

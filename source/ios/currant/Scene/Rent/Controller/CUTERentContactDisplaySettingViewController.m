@@ -20,6 +20,7 @@
 #import "CUTERentContactDisplaySettingForm.h"
 #import "Sequencer.h"
 #import "CUTEAPIManager.h"
+#import "CUTEUsageRecorder.h"
 
 @interface CUTERentContactDisplaySettingViewController ()
 
@@ -101,6 +102,7 @@
                 [SVProgressHUD showErrorWithError:task.error];
             }
             else {
+                [[CUTEUsageRecorder sharedInstance] savePublishedTicketWithId:self.ticket.identifier];
                 TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
 
                 NSArray *screeNames = @[GetScreenNameFromClass([CUTERentTypeListViewController class]),
