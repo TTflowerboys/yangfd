@@ -18,6 +18,7 @@
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTEConfiguration.h"
 #import "MemoryReporter.h"
+#import "CUTEUsageRecorder.h"
 
 @interface CUTETracker ()
 {
@@ -68,15 +69,12 @@
     [self setupCommonParams:builder];
     [builder set:screenName forKey:kGAIScreenName];
     [_tracker send:[builder build]];
-    [self updateScreenLastVisitTime:screenName];
+    [[CUTEUsageRecorder sharedInstance] saveScreen:screenName lastVisitTime:[NSDate date].timeIntervalSince1970];
 }
 
-- (void)updateScreenLastVisitTime:(NSString *)screenName {
-    [[CUTEDataManager sharedInstance] saveScreen:screenName lastVisitTime:[NSDate date].timeIntervalSince1970];
-}
 
 - (void)trackStayDurationWithCategory:(NSString *)category screenName:(NSString *)screenName {
-    NSTimeInterval startTime = [[CUTEDataManager sharedInstance] getScreenLastVistiTime:screenName];
+    NSTimeInterval startTime = [[CUTEUsageRecorder sharedInstance] getScreenLastVistiTime:screenName];
     NSTimeInterval endTime = [NSDate date].timeIntervalSince1970;
 
     GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createTimingWithCategory:category interval:[NSNumber numberWithDouble:endTime - startTime] name:kEventActionStay label:screenName];
@@ -88,7 +86,7 @@
     __block NSTimeInterval totalTime = 0;
     NSMutableString *label = [NSMutableString stringWithString:@"total"];
     [screenNames each:^(NSString* screenName) {
-        NSTimeInterval startTime = [[CUTEDataManager sharedInstance] getScreenLastVistiTime:screenName];
+        NSTimeInterval startTime = [[CUTEUsageRecorder sharedInstance] getScreenLastVistiTime:screenName];
         NSTimeInterval endTime = [NSDate date].timeIntervalSince1970;
         totalTime += (endTime - startTime);
         [label appendString:@":"];
@@ -123,6 +121,12 @@
     long usedMemory = 0;
     NSString *label = GetMemUsage(&usedMemory);
     [self trackEventWithCategory:KEventCategorySystem action:kEventActionMemoryWarning label:label value:@(usedMemory)];
+}
+
+- (void)trackEnterForeground {
+    NSDate *date = [NSDate new];
+    [[CUTEUsageRecorder sharedInstance] saveEnterForegroundTime:date.timeIntervalSince1970];
+    [self trackEventWithCategory:KEventCategoryUsage action:kEventActionEnterForeground label:date.description value:@(date.timeIntervalSince1970)];
 }
 
 - (NSString *)getScreenNameFromObject:(id)object {
