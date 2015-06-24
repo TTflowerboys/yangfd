@@ -40,8 +40,7 @@ pod 'libextobjc/EXTKeyPathCoding', '0.4.1'
 pod 'RNCachingURLProtocol+HybirdApp', :git => "git@github.com:Fykec/RNCachingURLProtocol.git"
 pod 'NewRelicAgent'
 
-#http://stackoverflow.com/questions/14512792/libraries-not-found-when-using-cocoapods-with-ios-logic-tests
-target 'currantUnitTest', :exclusive => false do
+target 'currantUnitTest', :exclusive => true do
     pod 'Specta'
     pod 'OCHamcrest'
     pod 'OHHTTPStubs'

@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
     locales=(list, None, str),
 ))
 def subscription_add(params):
-    target_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales", "admin"]}}))
+    target_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales", "admin", "operation"]}}))
     for target in target_list:
         if "email" in target:
             f_app.email.schedule(

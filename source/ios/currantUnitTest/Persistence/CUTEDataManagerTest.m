@@ -7,14 +7,34 @@
 //
 
 #import "CUTETestCommon.h"
+#import "CUTEDataManager.h"
 
+@interface CUTEDataManager (Private)
+
+- (void)setStore:(YTKKeyValueStore *)store;
+
+@end
 
 
 SpecBegin(DataManager)
 
-describe(@"", ^ {
+beforeAll(^{
+    YTKKeyValueStore *store = [[YTKKeyValueStore alloc] initWithDBWithPath:@"cute_test.db"];
+    [[CUTEDataManager sharedInstance] setStore:store];
+});
 
-    it(@"", ^ {
+describe(@"clearUser", ^{
+    [[CUTEDataManager sharedInstance] clearUser];
+    assertThat([CUTEDataManager sharedInstance].user, equalTo(nil));
+});
+
+describe(@"saveUser", ^ {
+    it(@"should be save success", ^ {
+        [[CUTEDataManager sharedInstance] clearUser];
+        CUTEUser *user = [CUTEUser new];
+        user.identifier = RANDOM_UUID;
+        [[CUTEDataManager sharedInstance] saveUser:user];
+        assertThat([CUTEDataManager sharedInstance].user, notNilValue());
 
     });
     
