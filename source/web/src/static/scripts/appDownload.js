@@ -32,4 +32,15 @@
             $('#submitBtn').trigger('click')
         }
     })*/
+    $('a.appStore').click(function (e) {
+        if (window.team.isWeChat()) {
+            e.preventDefault()
+            showGuideLine()
+        }
+    })
+    function showGuideLine () {
+        $('.guideLine').fadeIn(300).click(function () {
+            $(this).fadeOut(300)
+        })
+    }
 })(window.Swiper)
