@@ -157,9 +157,9 @@
 }
 
 - (CUTETicket *)getRentTicketById:(NSString *)ticketId {
-    YTKKeyValueItem *item = [_store getObjectById:ticketId fromTable:KTABLE_RENT_TICKETS];
+    id item = [_store getObjectById:ticketId fromTable:KTABLE_RENT_TICKETS];
     if (item) {
-        MTLJSONAdapter *ticket = [[MTLJSONAdapter alloc] initWithJSONDictionary:item.itemObject modelClass:[CUTETicket class] error:nil];
+        MTLJSONAdapter *ticket = [[MTLJSONAdapter alloc] initWithJSONDictionary:item modelClass:[CUTETicket class] error:nil];
         return (CUTETicket *)[ticket model];
     }
 

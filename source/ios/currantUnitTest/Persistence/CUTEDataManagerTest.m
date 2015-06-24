@@ -15,20 +15,17 @@
 
 @end
 
-
 SpecBegin(DataManager)
 
-beforeAll(^{
-    YTKKeyValueStore *store = [[YTKKeyValueStore alloc] initWithDBWithPath:@"cute_test.db"];
-    [[CUTEDataManager sharedInstance] setStore:store];
-});
 
 describe(@"clearUser", ^{
+
     [[CUTEDataManager sharedInstance] clearUser];
     assertThat([CUTEDataManager sharedInstance].user, equalTo(nil));
 });
 
 describe(@"saveUser", ^ {
+
     it(@"should be save success", ^ {
         [[CUTEDataManager sharedInstance] clearUser];
         CUTEUser *user = [CUTEUser new];
@@ -37,7 +34,65 @@ describe(@"saveUser", ^ {
         assertThat([CUTEDataManager sharedInstance].user, notNilValue());
 
     });
-    
+});
+
+describe(@"clearAllRentTickets", ^{
+
+    [[CUTEDataManager sharedInstance] clearAllRentTickets];
+    assertThatInt([[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets].count, equalToInt(0));
+});
+
+describe(@"saveRentTicket", ^{
+
+    beforeAll(^{
+
+        [[CUTEDataManager sharedInstance] clearAllRentTickets];
+    });
+
+    it(@"should be save success", ^{
+        CUTETicket *ticket = [CUTETicket new];
+        ticket.identifier = RANDOM_UUID;
+        ticket.status = kTicketStatusDraft;
+        [[CUTEDataManager sharedInstance] saveRentTicket:ticket];
+        assertThatInt([[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets].count, equalToInt(1));
+    });
+});
+
+describe(@"getRentTicketById", ^{
+
+    it(@"should be get ticket success", ^{
+        CUTETicket *ticket = [CUTETicket new];
+        ticket.identifier = RANDOM_UUID;
+        ticket.status = kTicketStatusDraft;
+        [[CUTEDataManager sharedInstance] saveRentTicket:ticket];
+        assertThat([[CUTEDataManager sharedInstance] getRentTicketById:ticket.identifier], notNilValue());
+    });
+});
+
+describe(@"markRentTicketDeleted", ^{
+
+    it(@"should mark success", ^{
+        CUTETicket *ticket = [CUTETicket new];
+        ticket.identifier = RANDOM_UUID;
+        ticket.status = kTicketStatusDraft;
+        [[CUTEDataManager sharedInstance] saveRentTicket:ticket];
+        assertThat([[CUTEDataManager sharedInstance] getRentTicketById:ticket.identifier], notNilValue());
+        [[CUTEDataManager sharedInstance] markRentTicketDeleted:ticket];
+        assertThat([[CUTEDataManager sharedInstance] getRentTicketById:ticket.identifier].status, equalTo(kTicketStatusDeleted));
+    });
+});
+
+describe(@"isRentTicketDeleted", ^{
+
+    it(@"should mark success", ^{
+        CUTETicket *ticket = [CUTETicket new];
+        ticket.identifier = RANDOM_UUID;
+        ticket.status = kTicketStatusDraft;
+        [[CUTEDataManager sharedInstance] saveRentTicket:ticket];
+        assertThat([[CUTEDataManager sharedInstance] getRentTicketById:ticket.identifier], notNilValue());
+        [[CUTEDataManager sharedInstance] markRentTicketDeleted:ticket];
+        assertThatBool([[CUTEDataManager sharedInstance] isRentTicketDeleted:ticket.identifier], isTrue());
+    });
 });
 
 SpecEnd
