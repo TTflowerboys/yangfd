@@ -7,7 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface CUTESurveyHelper : NSObject
+
++ (void)checkShowAfterSevenDayHaveOrHaveNotPublishedRentTicketSurveyWithViewController:(UIViewController *)viewController;
+
++ (void)checkShowAfterSevenDayHaveFavoriteRentTicketSurveyWithViewController:(UIViewController *)viewController;
+
 
 @end

@@ -22,4 +22,12 @@
 
 - (NSTimeInterval)getFirstEnterForegroundTime;
 
+- (void)savePublishedTicketWithId:(NSString *)ticketId;
+
+- (NSUInteger)getPublishedTicketCount;
+
+- (void)saveFavoriteTicketWithId:(NSString *)ticketId;
+
+- (NSUInteger)getFavoriteTicketCount;
+
 @end
