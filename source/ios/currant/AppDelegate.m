@@ -253,7 +253,7 @@
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    [[CUTEDataManager sharedInstance] saveAllCookies];
+    [[CUTEDataManager sharedInstance] persistAllCookies];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -507,7 +507,7 @@
 - (void)onReceiveTicketPublish:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
-    [[CUTEDataManager sharedInstance] deleteUnfinishedRentTicket:ticket];
+    [[CUTEDataManager sharedInstance] markRentTicketDeleted:ticket];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 
     //wait the bottom bar show animation, then present new controller
@@ -525,8 +525,8 @@
     CUTETicket *ticket = userInfo[@"ticket"];
     NSDictionary *ticketParams = userInfo[@"ticketParams"];
     NSDictionary *propertyParams = userInfo[@"propertyParams"];
-    if (ticket && ticket.identifier && ![[CUTEDataManager sharedInstance] isTicketDeleted:ticket.identifier]) {
-        [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:ticket];
+    if (ticket && ticket.identifier && ![[CUTEDataManager sharedInstance] isRentTicketDeleted:ticket.identifier]) {
+        [[CUTEDataManager sharedInstance] saveRentTicket:ticket];
         [[[CUTERentTickePublisher sharedInstance] editTicketWithTicket:ticket ticketParams:ticketParams propertyParams:propertyParams] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
@@ -538,7 +538,7 @@
                 [SVProgressHUD showErrorWithCancellation];
             }
             else {
-                [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:task.result];
+                [[CUTEDataManager sharedInstance] saveRentTicket:task.result];
             }
 
             return task;
@@ -678,7 +678,7 @@
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
-    [[CUTEDataManager sharedInstance] cleanAllRentTickets];
+    [[CUTEDataManager sharedInstance] clearAllRentTickets];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
     //clear some user default
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];

@@ -18,25 +18,27 @@
 
 - (BOOL)isUserLoggedIn;
 
-- (void)saveAllCookies;
+- (void)persistAllCookies;
 
-- (void)cleanAllCookies;
+- (void)clearAllCookies;
 
 - (void)restoreAllCookies;
 
 - (void)saveUser:(CUTEUser *)user;
 
-- (void)cleanUser;
+- (void)deleteUser;
 
-- (void)checkStatusAndSaveRentTicketToUnfinised:(CUTETicket *)ticket;
+- (void)saveRentTicket:(CUTETicket *)ticket;
 
 - (NSArray *)getAllUnfinishedRentTickets;
 
-- (void)deleteUnfinishedRentTicket:(CUTETicket *)ticket;
+- (CUTETicket *)getRentTicketById:(NSString *)ticketId;
 
-- (BOOL)isTicketDeleted:(NSString *)ticketId;
+- (void)markRentTicketDeleted:(CUTETicket *)ticket;
 
-- (void)cleanAllRentTickets;
+- (BOOL)isRentTicketDeleted:(NSString *)ticketId;
+
+- (void)clearAllRentTickets;
 
 - (void)saveImageURLString:(NSString *)imageURLStr forAssetURLString:(NSString *)urlStr;
 

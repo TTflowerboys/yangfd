@@ -101,7 +101,7 @@
                 CUTEUser *user = task.result;
                 if ([user hasRole:kUserRoleBetaRenting]) {
                     [SVProgressHUD dismiss];
-                    [[CUTEDataManager sharedInstance] saveAllCookies];
+                    [[CUTEDataManager sharedInstance] persistAllCookies];
                     [[CUTEDataManager sharedInstance] saveUser:task.result];
                     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
 
@@ -131,7 +131,7 @@
                     [SVProgressHUD showErrorWithError:task.error];
                 }
                 else {
-                    [[CUTEDataManager sharedInstance] saveAllCookies];
+                    [[CUTEDataManager sharedInstance] persistAllCookies];
                     [[CUTEDataManager sharedInstance] saveUser:task.result];
                     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
                     completion(task.result);

@@ -425,7 +425,7 @@
         [self update];
 
         [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-        [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
+        [[CUTEDataManager sharedInstance] saveRentTicket:self.ticket];
         //TODO why here slow down the performance
 
         [[[CUTERentTickePublisher sharedInstance] uploadImages:self.ticket.property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
@@ -547,7 +547,7 @@
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index {
     NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
     self.ticket.property.cover = asset;
-    [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
+    [[CUTEDataManager sharedInstance] saveRentTicket:self.ticket];
 
     [SVProgressHUD showWithStatus:STR(@"设置中...")];
     [[[CUTERentTickePublisher sharedInstance] uploadImages:@[self.ticket.property.cover] updateStatus:^(NSString *status) {
@@ -581,7 +581,7 @@
                         self.ticket.property.cover = retProperty.cover;
                         NSMutableArray *realityImages = [NSMutableArray arrayWithArray:self.ticket.property.realityImages];
                         [realityImages replaceObjectAtIndex:[self.ticket.property.realityImages indexOfCDNPath:oldCoverURLStr] withObject:retProperty.cover];
-                        [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
+                        [[CUTEDataManager sharedInstance] saveRentTicket:self.ticket];
                         [SVProgressHUD showSuccessWithStatus:STR(@"设置成功")];
 
                         UIToolbar *toolbar = [self getToolbarFromPhotoBrowser:photoBrowser];
@@ -637,7 +637,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             [picker dismissViewControllerAnimated:YES completion:NULL];
             [SVProgressHUD dismiss];
 
-            [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:self.ticket];
+            [[CUTEDataManager sharedInstance] saveRentTicket:self.ticket];
             [[[CUTERentTickePublisher sharedInstance] uploadImages:self.ticket.property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];

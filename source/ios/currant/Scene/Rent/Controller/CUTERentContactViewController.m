@@ -321,7 +321,7 @@
         if (form.isOnlyRegister) {
             [SVProgressHUD dismiss];
             [[CUTEDataManager sharedInstance] saveUser:retUser];
-            [[CUTEDataManager sharedInstance] saveAllCookies];
+            [[CUTEDataManager sharedInstance] persistAllCookies];
             [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
 
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];
@@ -332,7 +332,7 @@
         }
         else {
             [[CUTEDataManager sharedInstance] saveUser:retUser];
-            [[CUTEDataManager sharedInstance] saveAllCookies];
+            [[CUTEDataManager sharedInstance] persistAllCookies];
             [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
             CUTETicket *ticket = self.ticket;
             

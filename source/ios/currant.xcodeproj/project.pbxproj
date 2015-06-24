@@ -220,6 +220,7 @@
 		2C9F1CFF1B3961410034487F /* CUTEUserAgentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */; };
 		2C9F1D001B3961410034487F /* CUTEUserAgentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */; };
 		2C9F1D031B3961EB0034487F /* CUTEUserAgentUtilTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D021B3961EB0034487F /* CUTEUserAgentUtilTest.m */; };
+		2C9F1D081B3A60130034487F /* CUTEDataManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D071B3A60130034487F /* CUTEDataManagerTest.m */; };
 		2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -925,6 +926,7 @@
 		2C9F1CFA1B3961400034487F /* CUTEUserAgentUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUserAgentUtil.h; sourceTree = "<group>"; };
 		2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUserAgentUtil.m; sourceTree = "<group>"; };
 		2C9F1D021B3961EB0034487F /* CUTEUserAgentUtilTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUserAgentUtilTest.m; sourceTree = "<group>"; };
+		2C9F1D071B3A60130034487F /* CUTEDataManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEDataManagerTest.m; sourceTree = "<group>"; };
 		2CA2E6C21AC5487800053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DB1AC5496700053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
@@ -1346,6 +1348,14 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		2C9F1D061B3A5FF90034487F /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				2C9F1D071B3A60130034487F /* CUTEDataManagerTest.m */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
 		2CB43DA01ABC1372004DF663 = {
 			isa = PBXGroup;
 			children = (
@@ -1503,6 +1513,7 @@
 		2CDC11681B33F8C100B6D3DD /* currantUnitTest */ = {
 			isa = PBXGroup;
 			children = (
+				2C9F1D061B3A5FF90034487F /* Persistence */,
 				2C9F1CCB1B37E4640034487F /* Misc */,
 				2CDC126B1B3402ED00B6D3DD /* Entity */,
 				2CDC126E1B3404ED00B6D3DD /* SpectaTestTemplate */,
@@ -2863,6 +2874,7 @@
 				2CDC12491B33F8D300B6D3DD /* CUTEUnfinishedRentTicketCell.h in Sources */,
 				2CDC124A1B33F8D300B6D3DD /* CUTEUnfinishedRentTicketCell.m in Sources */,
 				2CDC124B1B33F8D300B6D3DD /* CUTEUnfinishedRentTicketPlaceholderImageView.h in Sources */,
+				2C9F1D081B3A60130034487F /* CUTEDataManagerTest.m in Sources */,
 				2CDC124C1B33F8D300B6D3DD /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */,
 				2CDC124D1B33F8D300B6D3DD /* CUTERentListViewController.h in Sources */,
 				2CDC124E1B33F8D300B6D3DD /* CUTERentListViewController.m in Sources */,

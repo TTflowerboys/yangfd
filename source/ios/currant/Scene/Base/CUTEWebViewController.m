@@ -88,7 +88,7 @@
             NSError *error = nil;
             CUTEUser *user = (CUTEUser *)[MTLJSONAdapter modelOfClass:[CUTEUser class] fromJSONDictionary:dic error:&error];
             if (!error && user) {
-                [[CUTEDataManager sharedInstance] saveAllCookies];
+                [[CUTEDataManager sharedInstance] persistAllCookies];
                 [[CUTEDataManager sharedInstance] saveUser:user];
             }
         }
@@ -110,8 +110,8 @@
 
     [self.bridge registerHandler:@"logout" handler:^(id data, WVJBResponseCallback responseCallback) {
 
-        [[CUTEDataManager sharedInstance] cleanAllCookies];
-        [[CUTEDataManager sharedInstance] cleanUser];
+        [[CUTEDataManager sharedInstance] clearAllCookies];
+        [[CUTEDataManager sharedInstance] deleteUser];
         CUTEWebViewController *webViewController = (CUTEWebViewController *)self;
         UIView *view = [self view];
         if (!IsArrayNilOrEmpty(view.subviews) && [[view subviews][0] isKindOfClass:[UIWebView class]]) {
