@@ -55,16 +55,16 @@
 
             %if user.get('email') and user.get('email_verified'):
             <a class="verificationStatus" href="/user-change-email">
-                <i><img src="/static/images/user/user-email.png" style="margin-top: 3px;"/></i>
+                <i class="icon-email"></i>
                 {{_('邮箱已验证')}}
             </a>
             %elif user.get('email') and (not user.get('email_verified')):
             <a class="verificationStatus red" href="/user-verify-email">
-                <i><img src="/static/images/user/user-email.png" style="margin-top: 3px;"/></i>
+                <i class="icon-email"></i>
                 {{_('邮箱未验证')}}
                 %else:
                 <a class="verificationStatus red" href="/user-change-email">
-                    <i><img src="/static/images/user/user-email.png" style="margin-top: 3px;"/></i>
+                    <i class="icon-email"></i>
                     {{_('邮箱未设置')}}
                 </a>
                 %end
@@ -111,8 +111,8 @@
                 </li>
                 <li>
                     <a href="/user-messages">
-                        <img id="icon-user_messages" src="/static/images/user/email.png"/>
-                        <img id="icon-user_messages-active" style="display:none" src="/static/images/user/email-active.png"/>
+                        <i id="icon-user-messages" class="icon-email"></i>
+                        <i id="icon-user-messages-active" class="icon-email active " style="display: none;"></i>
                     </a>
                     {{_('消息')}}
                 </li>

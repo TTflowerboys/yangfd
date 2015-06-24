@@ -59,7 +59,7 @@
                     <div class="user">
                         %if user:
                         <a class="nickname" href="/user-settings">
-                            <img alt="" src="/static/images/common/header/user.png"/> {{user.get('nickname')}}
+                            <i class="icon-user_header"></i> {{user.get('nickname')}}
                         </a>
                         <a class="message" id="message" href="/user-messages">
                             <img id="icon-message" alt="" src="/static/images/common/header/message.png" />
@@ -84,7 +84,7 @@
                         <a class="select-country">
                             <img alt="" src="/static/images/common/header/flag-uk.png" />
                             <span>{{_('英国')}}</span>
-                            <img alt="" src="/static/images/common/header/switch-normal.png" />
+                            <i class="icon-switch_button"></i>
                         </a>
                     </div>
                 </div>
@@ -117,13 +117,13 @@
                     <div class="rmm-toggled rmm-closed rmm-center-closed">
                         <div class="rmm-toggled-controls">
                             <div class="rmm-button">
-                                <img src="/static/images/common/header/phone/menu.png"/>
+                                <i class="icon-switch_button"></i>
                             </div>
                             <div class="rmm-center">
                                 {{_('洋房东')}}
                             </div>
                             <div class="rmm-toggled-title">
-                                <img src="/static/images/common/header/phone/user_phone.png" />
+                                <i class="icon-user_header"></i>
                             </div>
                         </div>
                         <ul class="rmm-menu" style="display:none;">
