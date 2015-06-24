@@ -7,7 +7,7 @@
         paginationClickable: true,
         autoplay: 4000
     });
-    $('#submitBtn').bind('click', function (e) {
+    /*$('#submitBtn').bind('click', function (e) {
         var email = $('[name=email]').val()
         if(!/.+@.+\..+/.test(email)) {
             window.alert(i18n('邮件格式不正确，请重新填写'))
@@ -31,5 +31,5 @@
         if(e.keyCode === 13) {
             $('#submitBtn').trigger('click')
         }
-    })
+    })*/
 })(window.Swiper)
