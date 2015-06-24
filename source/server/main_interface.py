@@ -539,4 +539,4 @@ def app_download():
 @f_get("/beta-app-download")
 @currant_util.check_ip_and_redirect_domain
 def beta_app_download():
-    redirect('http://fir.im/currant')
+    redirect('https://itunes.apple.com/cn/app/yang-fang-dong-ying-guo-zu/id980469674')
