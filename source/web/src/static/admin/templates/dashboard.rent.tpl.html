@@ -33,13 +33,14 @@
 
         <thead>
             <tr>
-                <th style="width: 18%;">{%$root.i18n('标题')%}</th>
+                <th style="width: 14%;">{%$root.i18n('标题')%}</th>
                 <th style="width: 9%;">{%$root.i18n('出租类型')%}</th>
                 <th style="width: 9%;">{%$root.i18n('postcode')%}</th>
                 <th style="width: 18%;">{%$root.i18n('地址')%}</th>
                 <th style="width: 9%;">{%$root.i18n('租金')%}</th>
                 <th style="width: 10%;">{%$root.i18n('发布人')%}</th>
-                <th style="width: 18%;">{%$root.i18n('发布时间')%}</th>
+                <th style="width: 13%;">{%$root.i18n('发布时间')%}</th>
+                <th style="width: 9%;">{%$root.i18n('汇总图')%}</th>
                 <th style="width: 9%;">{%$root.i18n('管理')%}</th>
             </tr>
         </thead>
@@ -66,10 +67,16 @@
                 <td>
                     <div ng-bind="item.time * 1000 | date : 'yyyy-MM-dd H:mm'"></div>
                 </td>
-                <td style="text-align:center;">
-                    <span class="btn btn-success" ng-disabled="item.isGenerating"  ng-click="generateImage(item)" title="{%$root.i18n('生成digest图片')%}">
+                <td>
+                    <span class="btn btn-success" ng-if="!item.isGenerating && (!item.digest_image_task_id || (item.digest_image_generate_time && Date.now() / 1000 - item.digest_image_generate_time > 24 * 3600))" ng-click="generateImage(item)" title="{%$root.i18n('生成digest图片')%}">
+                        <i class="fa fa-camera"></i>
+                    </span>
+                    <span class="btn btn-success" ng-if="item.digest_image" ng-click="openImage(item)" title="{%$root.i18n('查看digest图片')%}">
                         <i class="fa fa-picture-o"></i>
                     </span>
+                    <span ng-if="item.isGenerating" ng-bind="item.digestStatus"></span>
+                </td>
+                <td style="text-align:center;">
                     <a class="btn btn-success" ui-sref=".detail({id:item.id})" title="View">
                         <i class="fa fa-search-plus "></i>
                     </a>

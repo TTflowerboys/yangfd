@@ -1,6 +1,6 @@
 (function () {
 
-    function ctrlRentList($scope, fctModal, api, $state) {
+    function ctrlRentList($scope, fctModal, api, $state, $timeout) {
 
         $scope.list = []
         $scope.perPage = 12
@@ -97,16 +97,48 @@
             item.isGenerating = true
             api.generateImage(item.id)
                 .success(function (data) {
-                    window.open(data.url)
-                    item.isGenerating = false
-
+                    getDigestStatus(item)
                 })
 
+        }
+        function getDigestStatus (item) {
+            api.getDigestStatus(item.id)
+                .success(function (data) {
+                    item.digestStatus = data.val.status
+                    if(data.val.status === 'completed' || data.val.status === 'failed') {
+                        updateTicket(item)
+                        return
+                    }
+                    $timeout(function () {
+                        getDigestStatus(item)
+                    },500)
+                })
+        }
+        function updateTicket (item){
+            api.getOne(item.id, {errorMessage: true})
+                .success(function (data) {
+                    item.digest_image  = data.val.digest_image
+                    item.digest_image_generate_time  = data.val.digest_image_generate_time
+                    item.digest_image_task_id = data.val.digest_image_task_id
+                    item.isGenerating = false
+                })
+        }
+        $scope.openImage = function (item) {
+            window.open(item.digest_image)
         }
 
         function onGetList(data) {
             $scope.fetched = true
             $scope.list = data.val
+            _.each($scope.list, function (item) {
+                if(!item.isGenerating && (!item.digest_image_task_id || (item.digest_image_generate_time && Date.now() / 1000 - item.digest_image_generate_time > 24 * 3600))){
+                    return
+                }
+                if (!item.digest_image) {
+                    item.isGenerating = true
+                    getDigestStatus(item)
+                }
+            })
             $scope.pages[$scope.currentPageNumber] = $scope.list
 
             if (!$scope.list || $scope.list.length < $scope.perPage) {
