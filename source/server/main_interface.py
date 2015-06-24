@@ -9,6 +9,7 @@ from six.moves import cStringIO as StringIO
 from six.moves import urllib
 import qrcode
 import bottle
+from bson.objectid import ObjectId
 from app import f_app
 from libfelix.f_interface import f_get, f_post, static_file, template, request, response, redirect, html_redirect, error, abort, template_gettext as _
 import currant_util
@@ -540,3 +541,21 @@ def app_download():
 @currant_util.check_ip_and_redirect_domain
 def beta_app_download():
     redirect('https://itunes.apple.com/cn/app/yang-fang-dong-ying-guo-zu/id980469674')
+
+
+@f_get("/track", params=dict(
+    ticket_id=ObjectId,
+    property_id=ObjectId,
+    image_type=str,
+))
+def track(params):
+    """
+    ``image_type`` should be ``1x1`` or ``logo``.
+    """
+    params["log_type"] = "share_visit"
+    f_app.log.add(params)
+
+    if params["image_type"] == "1x1":
+        return static_file("images/1x1.png", root="views/static")
+    elif params["image_type"] == "logo":
+        return static_file("images/logo/logo.png", root="views/static")
