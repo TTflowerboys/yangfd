@@ -546,11 +546,11 @@ def beta_app_download():
 @f_get("/track", params=dict(
     ticket_id=ObjectId,
     property_id=ObjectId,
-    image_type=(str, "1x1"),
+    image_type=(str, "1px"),
 ))
 def track(params):
     """
-    ``image_type`` should be ``1x1`` or ``logo``.
+    ``image_type`` should be ``1px`` or ``logo``.
     """
     params["log_type"] = "share_visit"
 
@@ -558,8 +558,8 @@ def track(params):
     
     f_app.log.add(params)
 
-    if params["image_type"] == "1x1":
-        return static_file("images/1x1.png", root="views/static")
+    if params["image_type"] == "1px":
+        return static_file("images/1px.png", root="views/static")
     elif params["image_type"] == "logo":
         return static_file("images/logo/logo.png", root="views/static")
     else:
