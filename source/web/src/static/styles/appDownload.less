@@ -223,29 +223,67 @@ html,body,.page{
                     }
                     .appStore{
                         display: block;
-                        background: url("/static/images/media/app_store.png") 50% 50% no-repeat;
-                        background-size: 100% 100%;
+                        border: 2px solid #fff;
+                        color: #fff;
+                        border-radius: 10px;
                         float: left;
                         margin-left: 20%;
+                        text-decoration: none;
+                        .clearfix;
                         @width:288px;
                         @height:100px;
+                        @iconFontSize: 48px;
+                        @logoMargin:24px;
+                        @infoWidth:180px;
+                        @infoFontSize:22px;
+                        @infoMargin:20px;
+                        .size(@n:1){
+                            width: @n * @width;
+                            height: @n * @height;
+                            .appleLogo{
+                                line-height: @n * @height - 4px;
+                                margin: 0 @n * @logoMargin;
+                                i{
+                                    font-size: @n * @iconFontSize;
+                                }
+                            }
+                            .downloadInfo{
+                                margin-top: @n * @infoMargin;
+                                width: @n * @infoWidth;
+                                font-size: @n * @infoFontSize;
+                            }
+
+                        }
                         @media @screen-lg {
-                            width: @width;
-                            height: @height;
+                            .size();
                         }
                         @media @screen-md {
-                            width: 0.8 * @width;
-                            height: 0.8 * @height;
+                            .size(0.8);
                         }
                         @media @screen-sm {
-                            width: 0.6 * @width;
-                            height: 0.6 * @height;
+                            .size(0.6);
                         }
                         @media @phone {
-                            width: 0.9 * @width;
-                            height: 0.9 * @height;
+                            .size(0.9);
                             float: none;
                             margin: 0 auto 120px;
+                        }
+                        .appleLogo{
+                            float:left;
+                            i{
+                                vertical-align: middle;
+                            }
+                        }
+                        .downloadInfo{
+                            float: left;
+                            p{
+                                margin: 0;
+                                text-align: left;
+                                line-height: 1.3em;
+                                .bold{
+                                    font-weight: bold;
+                                }
+                            }
                         }
                     }
                     .qrcode{
