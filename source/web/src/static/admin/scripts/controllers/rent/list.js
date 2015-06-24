@@ -100,9 +100,13 @@
         }
         $scope.generateImage = function (item) {
             item.isGenerating = true
+            item.digestStatus = 'new'
             api.generateImage(item.id)
                 .success(function (data) {
-                    getDigestStatus(item)
+                    item.digestStatus = 'new'
+                    $timeout(function () {
+                        getDigestStatus(item)
+                    },2000)
                 })
 
         }
@@ -116,7 +120,7 @@
                     }
                     $timeout(function () {
                         getDigestStatus(item)
-                    },3000)
+                    },5000)
                 })
         }
         function updateTicket (item){
