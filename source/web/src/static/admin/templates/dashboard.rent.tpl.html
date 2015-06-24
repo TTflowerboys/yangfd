@@ -68,7 +68,7 @@
                     <div ng-bind="item.time * 1000 | date : 'yyyy-MM-dd H:mm'"></div>
                 </td>
                 <td>
-                    <span class="btn btn-success" ng-if="!item.isGenerating && (!item.digest_image_task_id || (item.digest_image_generate_time && Date.now() / 1000 - item.digest_image_generate_time > 24 * 3600))" ng-click="generateImage(item)" title="{%$root.i18n('生成digest图片')%}">
+                    <span class="btn btn-primary" ng-if="!item.isGenerating && (!item.digest_image_task_id || (item.digest_image_generate_time && Date.now() / 1000 - item.digest_image_generate_time > 24 * 3600))" ng-click="generateImage(item)" title="{%$root.i18n('生成digest图片')%}">
                         <i class="fa fa-camera"></i>
                     </span>
                     <span class="btn btn-success" ng-if="item.digest_image" ng-click="openImage(item)" title="{%$root.i18n('查看digest图片')%}">
