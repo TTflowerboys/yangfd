@@ -111,7 +111,7 @@
                     }
                     $timeout(function () {
                         getDigestStatus(item)
-                    },500)
+                    },3000)
                 })
         }
         function updateTicket (item){
