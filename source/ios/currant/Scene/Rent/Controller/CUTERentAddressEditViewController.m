@@ -255,7 +255,7 @@
                         CUTETicket *newTicket = task.result;
                         currentTicket.identifier = newTicket.identifier;
                         currentTicket.property.identifier = newTicket.property.identifier;
-                        [[CUTEDataManager sharedInstance] checkStatusAndSaveRentTicketToUnfinised:newTicket];
+                        [[CUTEDataManager sharedInstance] saveRentTicket:newTicket];
                         completion(currentTicket);
                     }
                     return nil;

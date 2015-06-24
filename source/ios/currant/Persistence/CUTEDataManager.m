@@ -79,7 +79,7 @@
     return isLoggedIn && _user && _user.identifier;
 }
 
-- (void)saveAllCookies {
+- (void)persistAllCookies {
     NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[CUTEConfiguration hostURL]];
     for (NSHTTPCookie *cookie in cookies) {
         if ([cookie.name isEqualToString:KSETTING_AUTH_COOKIE] && !IsNilNullOrEmpty(cookie.value)) {
@@ -90,7 +90,7 @@
 }
 
 
-- (void)cleanAllCookies {
+- (void)clearAllCookies {
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSArray *cookies = [storage cookies];
@@ -133,26 +133,30 @@
         [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:user] withId:KSETTING_USER intoTable:KTABLE_SETTINGS];
     }
     else {
-        [self cleanUser];
+        [self deleteUser];
     }
 }
 
-- (void)cleanUser {
+- (void)deleteUser
+{
     [_store deleteObjectById:KSETTING_USER fromTable:KTABLE_SETTINGS];
 }
 
 #pragma Rent Property
 
-- (void)checkStatusAndSaveRentTicketToUnfinised:(CUTETicket *)ticket {
-    if ([ticket.status isEqualToString:kTicketStatusDraft]) {
-        [self saveRentTicket:ticket];
-    }
-}
-
 - (void)saveRentTicket:(CUTETicket *)ticket {
     DebugLog(@"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,ticket.identifier);
-
     [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:ticket] withId:ticket.identifier intoTable:KTABLE_RENT_TICKETS];
+}
+
+- (CUTETicket *)getRentTicketById:(NSString *)ticketId {
+    YTKKeyValueItem *item = [_store getObjectById:ticketId fromTable:KTABLE_RENT_TICKETS];
+    if (item) {
+        MTLJSONAdapter *ticket = [[MTLJSONAdapter alloc] initWithJSONDictionary:item.itemObject modelClass:[CUTETicket class] error:nil];
+        return (CUTETicket *)[ticket model];
+    }
+
+    return nil;
 }
 
 - (NSArray *)getAllUnfinishedRentTickets {
@@ -166,20 +170,21 @@
     }];
 }
 
-- (void)deleteUnfinishedRentTicket:(CUTETicket *)ticket
+- (void)markRentTicketDeleted:(CUTETicket *)ticket
 {
     //just mark delegete
     ticket.status = kTicketStatusDeleted;
     [self saveRentTicket:ticket];
 }
 
-- (BOOL)isTicketDeleted:(NSString *)ticketId {
+- (BOOL)isRentTicketDeleted:(NSString *)ticketId
+{
     NSDictionary *json = [_store getObjectById:ticketId fromTable:KTABLE_RENT_TICKETS];
     CUTETicket *ticket = (CUTETicket *)[[[MTLJSONAdapter alloc] initWithJSONDictionary:json modelClass:[CUTETicket class] error:nil] model];
     return ticket && [ticket.status isEqualToString:kTicketStatusDeleted];
 }
 
-- (void)cleanAllRentTickets
+- (void)clearAllRentTickets
 {
     [_store clearTable:KTABLE_RENT_TICKETS];
 }
