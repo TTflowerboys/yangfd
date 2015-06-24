@@ -69,6 +69,10 @@
     return _store;
 }
 
+- (void)setStore:(YTKKeyValueStore *)store {
+    _store = store;
+}
+
 - (BOOL)isUserLoggedIn {
     NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSArray *cookies = [storage cookiesForURL:[CUTEConfiguration hostURL]];
@@ -135,12 +139,13 @@
         [_store putObject:[MTLJSONAdapter JSONDictionaryFromModel:user] withId:KSETTING_USER intoTable:KTABLE_SETTINGS];
     }
     else {
-        [self deleteUser];
+        [self clearUser];
     }
 }
 
-- (void)deleteUser
+- (void)clearUser
 {
+    _user = nil;
     [_store deleteObjectById:KSETTING_USER fromTable:KTABLE_SETTINGS];
 }
 

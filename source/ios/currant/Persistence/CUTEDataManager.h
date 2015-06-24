@@ -29,7 +29,7 @@
 
 - (void)saveUser:(CUTEUser *)user;
 
-- (void)deleteUser;
+- (void)clearUser;
 
 - (void)saveRentTicket:(CUTETicket *)ticket;
 

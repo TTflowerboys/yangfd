@@ -111,7 +111,7 @@
     [self.bridge registerHandler:@"logout" handler:^(id data, WVJBResponseCallback responseCallback) {
 
         [[CUTEDataManager sharedInstance] clearAllCookies];
-        [[CUTEDataManager sharedInstance] deleteUser];
+        [[CUTEDataManager sharedInstance] clearUser];
         CUTEWebViewController *webViewController = (CUTEWebViewController *)self;
         UIView *view = [self view];
         if (!IsArrayNilOrEmpty(view.subviews) && [[view subviews][0] isKindOfClass:[UIWebView class]]) {
