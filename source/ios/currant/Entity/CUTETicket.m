@@ -87,11 +87,14 @@
     }
     NSMutableString *altTitle = [NSMutableString string];
     [self appendPart:self.property.community?: (!IsNilOrNull(self.property.street) && [self.property.street isKindOfClass:[NSString class]]? self.property.street: @"") forString:altTitle];
-    [self appendPart:(self.property && self.property.bedroomCount)? [NSString stringWithFormat:@"%ld居室", (long)self.property.bedroomCount]: nil forString:altTitle];
+    [self appendPart:(self.property && self.property.bedroomCount)? [NSString stringWithFormat:@"%d居室", self.property.bedroomCount.intValue]: nil forString:altTitle];
     [self appendPart:self.rentType.value? [NSString stringWithFormat:@"%@出租", self.rentType.value]: nil forString:altTitle];
 
     if (altTitle.length > kTicketTitleMaxCharacterCount) {
         return [NSString stringWithFormat:@"%@出租", self.rentType.value];
+    }
+    else if (altTitle.length == 0) {
+        return nil;
     }
     else {
         return altTitle;
@@ -154,7 +157,6 @@
     //special for title
     [keysMapping removeObjectForKey:@keypath(self.title)];
     [keysMapping removeObjectForKey:@keypath(self.property)];
-    [keysMapping removeObjectForKey:@keypath(self.rentDeadlineTime)];
 
     [keysMapping enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
         NSString *paramKey = obj;
@@ -179,12 +181,6 @@
     NSString *title = self.titleForDisplay;
     if (title) {
         [params setValue:title forKey:@"title"];
-    }
-    if (self.rentDeadlineTime) {
-        [params setValue:@(self.rentDeadlineTime) forKey:@"rent_deadline_time"];
-    }
-    else {
-        [unsetFields addObject:@"rent_deadline_time"];
     }
 
     if (!IsArrayNilOrEmpty(unsetFields)) {

@@ -148,9 +148,9 @@
 - (void)editRooms:(id)sender {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.property.bedroomCount = form.bedroomCount;
-    self.ticket.property.livingroomCount = form.livingroomCount;
-    self.ticket.property.bathroomCount = form.bathroomCount;
+    self.ticket.property.bedroomCount = @(form.bedroomCount);
+    self.ticket.property.livingroomCount = @(form.livingroomCount);
+    self.ticket.property.bathroomCount = @(form.bathroomCount);
     [ticketListener stopListenMark];
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
 }
@@ -187,7 +187,7 @@
               NSArray *depositTypes = task.result[0];
               CUTETicket *ticket = self.ticket;
               if (!ticket.rentAvailableTime) {
-                  ticket.rentAvailableTime = [[NSDate date] timeIntervalSince1970];
+                  ticket.rentAvailableTime = @([[NSDate date] timeIntervalSince1970]);
               }
 
 //              if (!ticket.rentDeadlineTime) {
@@ -209,10 +209,10 @@
               form.currency = ticket.price.unit;
               form.rentPrice = ticket.price.value;
               form.depositType = ticket.depositType;
-              form.containBill = ticket.billCovered;
+              form.billCovered = ticket.billCovered? ticket.billCovered.boolValue: NO;
               form.needSetPeriod = YES;
-              form.rentAvailableTime = ticket.rentAvailableTime ?[NSDate dateWithTimeIntervalSince1970:ticket.rentAvailableTime]: nil;
-              form.rentDeadlineTime = ticket.rentDeadlineTime? [NSDate dateWithTimeIntervalSince1970:ticket.rentDeadlineTime]: nil;
+              form.rentAvailableTime = ticket.rentAvailableTime ?[NSDate dateWithTimeIntervalSince1970:ticket.rentAvailableTime.doubleValue]: nil;
+              form.rentDeadlineTime = ticket.rentDeadlineTime? [NSDate dateWithTimeIntervalSince1970:ticket.rentDeadlineTime.doubleValue]: nil;
               form.minimumRentPeriod = ticket.minimumRentPeriod;
 
               [form setAllDepositTypes:depositTypes];

@@ -54,11 +54,11 @@
 
 @property (strong, nonatomic) NSString *propertyDescription;
 
-@property (nonatomic) NSInteger bedroomCount;
+@property (strong, nonatomic) NSNumber *bedroomCount;
 
-@property (nonatomic) NSInteger livingroomCount;
+@property (strong, nonatomic) NSNumber *livingroomCount;
 
-@property (nonatomic) NSInteger bathroomCount;
+@property (strong, nonatomic) NSNumber *bathroomCount;
 
 @property (strong, nonatomic) CUTEArea *space;
 

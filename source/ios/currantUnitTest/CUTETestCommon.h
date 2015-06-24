@@ -15,4 +15,6 @@
 #import <OCHamcrest/HCAssertThat.h>
 #import <OCHamcrest/HCIsEqual.h>
 
+#define RANDOM_UUID [[NSUUID UUID] UUIDString]
+
 #endif

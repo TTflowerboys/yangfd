@@ -53,6 +53,8 @@
     // Initialize tracker. Replace with your tracking ID.
     _tracker = [[GAI sharedInstance] trackerWithTrackingId:[CUTEConfiguration gaTrackingId]];
 
+    // Task #6907 need this IDFA collection
+    //_tracker.allowIDFACollection = YES;
 }
 
 - (void)setupCommonParams:(GAIDictionaryBuilder *)builder {

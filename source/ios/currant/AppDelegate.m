@@ -55,6 +55,7 @@
 #import "Aspects.h"
 #import "RNCachingURLProtocol.h"
 #import <NewRelicAgent/NewRelic.h>
+#import "CUTEUserAgentUtil.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
@@ -149,18 +150,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    [NewRelicAgent startWithApplicationToken:@"AA702288ba1ecd578f66c032589a84402e1b6a3cb9"];
-
     // Override point for customization after application launch.
+    [NewRelicAgent startWithApplicationToken:@"AA702288ba1ecd578f66c032589a84402e1b6a3cb9"];
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-    NSArray *userAgentComponents =  @[[[NSBundle mainBundle] bundleIdentifier], [CUTEConfiguration versionBuild]];
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[userAgentComponents componentsJoinedByString:@"/"], @"UserAgent", nil];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-
-
-
+    [CUTEUserAgentUtil setupUserAgent];
     [[CUTEShareManager sharedInstance] setUpShareSDK];
-
     [[CUTETracker sharedInstance] setup];
     [ATConnect sharedConnection].apiKey = @"870539ce7c8666f4ba6440cae368b8aea448aa2220dc3af73bc254f0ab2f0a0b";
 
@@ -574,9 +568,9 @@
                 controller.ticket = ticket;
                 CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
                 form.propertyType = ticket.property.propertyType;
-                form.bedroomCount = ticket.property.bedroomCount;
-                form.livingroomCount = ticket.property.livingroomCount;
-                form.bathroomCount = ticket.property.bathroomCount;
+                form.bedroomCount = ticket.property.bedroomCount? ticket.property.bedroomCount.integerValue: 0;
+                form.livingroomCount = ticket.property.livingroomCount? ticket.property.livingroomCount.integerValue: 0;
+                form.bathroomCount = ticket.property.bathroomCount? ticket.property.bathroomCount.integerValue: 0;
                 [form setAllPropertyTypes:propertyTypes];
                 [form setAllLandlordTypes:landloardTypes];
                 controller.formController.form = form;

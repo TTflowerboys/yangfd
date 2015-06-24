@@ -209,6 +209,17 @@
 		2C9F1CD41B37F1BC0034487F /* CUTEURLTest+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CD31B37F1BC0034487F /* CUTEURLTest+Assets.m */; };
 		2C9F1CD61B37F2970034487F /* CUTEStringTest+CUTECDN.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CD51B37F2970034487F /* CUTEStringTest+CUTECDN.m */; };
 		2C9F1CD81B37F6250034487F /* CUTEAddressUtilTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CD71B37F6250034487F /* CUTEAddressUtilTest.m */; };
+		2C9F1CE81B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */; };
+		2C9F1CE91B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */; };
+		2C9F1CEA1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */; };
+		2C9F1CEB1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */; };
+		2C9F1CEC1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */; };
+		2C9F1CFC1B3961400034487F /* CUTEUserAgentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */; };
+		2C9F1CFD1B3961400034487F /* CUTEUserAgentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */; };
+		2C9F1CFE1B3961410034487F /* CUTEUserAgentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */; };
+		2C9F1CFF1B3961410034487F /* CUTEUserAgentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */; };
+		2C9F1D001B3961410034487F /* CUTEUserAgentUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */; };
+		2C9F1D031B3961EB0034487F /* CUTEUserAgentUtilTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D021B3961EB0034487F /* CUTEUserAgentUtilTest.m */; };
 		2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -783,6 +794,16 @@
 		C4A0594E53CF2777C29B6FC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2C9F1D041B3964860034487F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2CB43DA11ABC1372004DF663 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2CA94A951ACA42CD00DF7497;
+			remoteInfo = "currant-dev";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		2023655375ADEF150770F704 /* Pods-currantUnitTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-currantUnitTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-currantUnitTest/Pods-currantUnitTest.debug.xcconfig"; sourceTree = "<group>"; };
 		2C03AB461B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormLimitCharacterCountTextFieldCell.h; sourceTree = "<group>"; };
@@ -899,6 +920,11 @@
 		2C9F1CD31B37F1BC0034487F /* CUTEURLTest+Assets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CUTEURLTest+Assets.m"; sourceTree = "<group>"; };
 		2C9F1CD51B37F2970034487F /* CUTEStringTest+CUTECDN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CUTEStringTest+CUTECDN.m"; sourceTree = "<group>"; };
 		2C9F1CD71B37F6250034487F /* CUTEAddressUtilTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAddressUtilTest.m; sourceTree = "<group>"; };
+		2C9F1CE61B3907AF0034487F /* NSString+OccurrenceCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OccurrenceCount.h"; sourceTree = "<group>"; };
+		2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+OccurrenceCount.m"; sourceTree = "<group>"; };
+		2C9F1CFA1B3961400034487F /* CUTEUserAgentUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUserAgentUtil.h; sourceTree = "<group>"; };
+		2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUserAgentUtil.m; sourceTree = "<group>"; };
+		2C9F1D021B3961EB0034487F /* CUTEUserAgentUtilTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUserAgentUtilTest.m; sourceTree = "<group>"; };
 		2CA2E6C21AC5487800053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DB1AC5496700053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
@@ -1265,6 +1291,8 @@
 				2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */,
 				2CC4525B1B2711770004AE54 /* CUTEAddressUtil.h */,
 				2CC4525C1B2711770004AE54 /* CUTEAddressUtil.m */,
+				2C9F1CFA1B3961400034487F /* CUTEUserAgentUtil.h */,
+				2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1292,6 +1320,8 @@
 				2CDABB341B2C4B840075D2E7 /* NSString+CUTECDN.m */,
 				2CDABB3A1B2C4DC30075D2E7 /* NSArray+CUTECDN.h */,
 				2CDABB3B1B2C4DC30075D2E7 /* NSArray+CUTECDN.m */,
+				2C9F1CE61B3907AF0034487F /* NSString+OccurrenceCount.h */,
+				2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1301,6 +1331,7 @@
 			children = (
 				2C9F1CCC1B37E4640034487F /* Category */,
 				2C9F1CD71B37F6250034487F /* CUTEAddressUtilTest.m */,
+				2C9F1D021B3961EB0034487F /* CUTEUserAgentUtilTest.m */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1757,6 +1788,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				2C9F1D051B3964860034487F /* PBXTargetDependency */,
 			);
 			name = currantUnitTest;
 			productName = currantUnitTest;
@@ -1788,6 +1820,7 @@
 					};
 					2CDC11661B33F8C100B6D3DD = {
 						CreatedOnToolsVersion = 6.3.2;
+						TestTargetID = 2CA94A951ACA42CD00DF7497;
 					};
 				};
 			};
@@ -2092,6 +2125,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9F1CFE1B3961410034487F /* CUTEUserAgentUtil.m in Sources */,
 				2C9AFF721AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDE91B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A61F1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
@@ -2182,6 +2216,7 @@
 				2CA2E6B31AC5487800053965 /* main.m in Sources */,
 				2CF8A6B01AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A21AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
+				2C9F1CEA1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CA2E6B41AC5487800053965 /* CUTEConfiguration.m in Sources */,
 				2CF8A64C1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6511AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
@@ -2218,6 +2253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9F1CFF1B3961410034487F /* CUTEUserAgentUtil.m in Sources */,
 				2C9AFF731AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDEA1B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A6201AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
@@ -2308,6 +2344,7 @@
 				2CA2E6CC1AC5496700053965 /* main.m in Sources */,
 				2CF8A6B11AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A31AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
+				2C9F1CEB1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CA2E6CD1AC5496700053965 /* CUTEConfiguration.m in Sources */,
 				2CF8A64D1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6521AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
@@ -2344,6 +2381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9F1CFD1B3961400034487F /* CUTEUserAgentUtil.m in Sources */,
 				2C9AFF711AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDE81B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A61E1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
@@ -2434,6 +2472,7 @@
 				2CA94A9D1ACA42CD00DF7497 /* main.m in Sources */,
 				2CF8A6AF1AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A11AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
+				2C9F1CE91B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CA94A9E1ACA42CD00DF7497 /* CUTEConfiguration.m in Sources */,
 				2CF8A64B1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6501AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
@@ -2470,6 +2509,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9F1CFC1B3961400034487F /* CUTEUserAgentUtil.m in Sources */,
 				2C9AFF701AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDE71B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A61D1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
@@ -2560,6 +2600,7 @@
 				2CB43DAF1ABC1372004DF663 /* main.m in Sources */,
 				2CF8A6AE1AF0E5D10080DF10 /* CUTERentLoginForm.m in Sources */,
 				2CF8A6A01AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
+				2C9F1CE81B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CDBB2FD1AC1472E0024E225 /* CUTEConfiguration.m in Sources */,
 				2CF8A64A1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A64F1AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
@@ -2634,6 +2675,7 @@
 				2CDC11951B33F8D300B6D3DD /* BBTCenterImageView.m in Sources */,
 				2CDC11961B33F8D300B6D3DD /* UIView+Border.h in Sources */,
 				2CDC11971B33F8D300B6D3DD /* UIView+Border.m in Sources */,
+				2C9F1D031B3961EB0034487F /* CUTEUserAgentUtilTest.m in Sources */,
 				2CDC11981B33F8D300B6D3DD /* BBTWebBarButtonItem.h in Sources */,
 				2CDC11991B33F8D300B6D3DD /* BBTWebBarButtonItem.m in Sources */,
 				2CDC119A1B33F8D300B6D3DD /* UITabBarController+HideTabBar.h in Sources */,
@@ -2645,6 +2687,7 @@
 				2CDC11A01B33F8D300B6D3DD /* MasonryMake.h in Sources */,
 				2CDC11A11B33F8D300B6D3DD /* NSURL+CUTE.h in Sources */,
 				2CDC11A21B33F8D300B6D3DD /* NSURL+CUTE.m in Sources */,
+				2C9F1D001B3961410034487F /* CUTEUserAgentUtil.m in Sources */,
 				2CDC11A31B33F8D300B6D3DD /* NSURL+Assets.h in Sources */,
 				2CDC11A41B33F8D300B6D3DD /* NSURL+Assets.m in Sources */,
 				2CDC11A51B33F8D300B6D3DD /* NSURL+QueryParser.h in Sources */,
@@ -2659,6 +2702,7 @@
 				2CDC11AD1B33F8D300B6D3DD /* UIImage+CalculatedSize.h in Sources */,
 				2CDC11AE1B33F8D300B6D3DD /* UIImage+CalculatedSize.m in Sources */,
 				2CDC11AF1B33F8D300B6D3DD /* ALAsset+GetImage.h in Sources */,
+				2C9F1CEC1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CDC11B01B33F8D300B6D3DD /* ALAsset+GetImage.m in Sources */,
 				2CDC11B11B33F8D300B6D3DD /* NSString+CUTECDN.h in Sources */,
 				2CDC11B21B33F8D300B6D3DD /* NSString+CUTECDN.m in Sources */,
@@ -2848,6 +2892,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2C9F1D051B3964860034487F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2CA94A951ACA42CD00DF7497 /* currant-dev */;
+			targetProxy = 2C9F1D041B3964860034487F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2CB43DBE1ABC1373004DF663 /* LaunchScreen.xib */ = {
@@ -3141,6 +3193,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -3160,6 +3213,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/currant.app/currant";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -3170,6 +3224,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -3185,6 +3240,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/currant.app/currant";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;

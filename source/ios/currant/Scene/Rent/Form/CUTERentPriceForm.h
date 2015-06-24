@@ -16,7 +16,7 @@
 @property (strong, nonatomic) NSString *currency;
 @property (strong, nonatomic) CUTEEnum *depositType;
 @property (nonatomic) float rentPrice;
-@property (nonatomic) BOOL containBill;
+@property (nonatomic) BOOL billCovered;
 @property (nonatomic) BOOL needSetPeriod;
 @property (strong, nonatomic) NSDate *rentAvailableTime;
 @property (strong, nonatomic) NSDate *rentDeadlineTime;

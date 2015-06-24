@@ -27,7 +27,7 @@ describe(@"display title", ^ {
 
     it(@"should be nil", ^ {
         CUTETicket *ticket = [CUTETicket new];
-        assertThat(ticket.titleForDisplay, equalTo(@""));
+        assertThat(ticket.titleForDisplay, equalTo(nil));
     });
 
     it(@"should be custom value", ^ {
@@ -51,7 +51,7 @@ describe(@"display title", ^ {
         CUTETicket *ticket = [CUTETicket new];
         ticket.property = [CUTEProperty new];
         ticket.property.community = @"华中科技大学";
-        ticket.property.bedroomCount = 1;
+        ticket.property.bedroomCount = @(1);
         assertThat(ticket.titleForDisplay, equalTo(@"华中科技大学 1居室"));
     });
 
@@ -60,7 +60,7 @@ describe(@"display title", ^ {
         CUTETicket *ticket = [CUTETicket new];
         ticket.property = [CUTEProperty new];
         ticket.property.community = @"华中科技大学";
-        ticket.property.bedroomCount = 1;
+        ticket.property.bedroomCount = @(1);
         CUTEEnum *rentType = [CUTEEnum new];
         rentType.value = @"整租";
         ticket.rentType = rentType;
@@ -70,6 +70,15 @@ describe(@"display title", ^ {
 
 
 describe(@"params", ^ {
+
+    it(@"should be empty", ^{
+        CUTETicket *ticket = [CUTETicket new];
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
+        [params removeObjectForKey:@"unset_fields"];
+        assertThat(params, isEmpty());
+
+    });
+
     it(@"should not have id", ^ {
         CUTETicket *ticket = [CUTETicket new];
         assertThat(ticket.toParams[@"id"], equalTo(nil));
