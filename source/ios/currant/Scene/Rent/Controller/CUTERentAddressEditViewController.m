@@ -169,7 +169,7 @@
                     [ticketListener stopListenMark];
                     //check is a draft ticket not a unfinished one
                     if (!IsNilNullOrEmpty(self.ticket.identifier)) {
-                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
+                        [self syncWithUserInfo:ticketListener.getSyncUserInfo];
                     }
 
                     [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {

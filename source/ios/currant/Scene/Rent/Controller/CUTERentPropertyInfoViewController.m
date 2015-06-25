@@ -293,7 +293,7 @@
             __weak typeof(self)weakSelf = self;
             controller.updateAddressCompletion = ^ {
                 [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
-                    if ([field.key isEqualToString:@"location"]) {
+                    if ([field.key isEqualToString:@"address"]) {
                         [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 }];
