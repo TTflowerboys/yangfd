@@ -676,7 +676,7 @@ def admin_user_get_logs(user, user_id, params):
 @f_api("/user/admin/invite", params=dict(
     email=(str, True),
 ))
-@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
+@f_app.user.login.check(force=True, role=["admin", "jr_admin", "sales", "operation"])
 def user_admin_invite(user, params):
     code = f_app.user.invitation.add({"role": "beta_renting"})  # , "email": params["email"]})
     logger.debug("Generated invitation code:", code)
