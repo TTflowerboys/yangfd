@@ -521,8 +521,8 @@ class f_currant_user(f_user):
             return list(property_set | item_set | ticket_set)
 
         property_dict = f_app.property.output(list(property_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
-        item_dict = f_app.shop.item_output(list(item_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
-        ticket_dict = f_app.ticket.item_output(list(ticket_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
+        item_dict = f_app.shop.item.output(list(item_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
+        ticket_dict = f_app.ticket.output(list(ticket_set), multi_return=dict, ignore_nonexist=ignore_nonexist)
         for fav in favorites:
             if "property_id" in fav:
                 fav["property"] = property_dict.get(fav.pop("property_id"))
