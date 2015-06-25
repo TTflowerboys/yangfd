@@ -29,20 +29,6 @@
 }
 
 - (void)onEmailEdited:(id)sender {
-    [self submit];
-}
-
-- (BOOL)validate {
-    BOOL formValidation = [self validateFormWithScenario:@"submit"];
-    if (!formValidation) {
-        return NO;
-    }
-
-    return YES;
-}
-
-- (void)submit {
-
     if (![self validate]) {
         return;
     }
@@ -71,6 +57,19 @@
 
         return task;
     }];
+}
+
+- (BOOL)validate {
+    BOOL formValidation = [self validateFormWithScenario:@"submit"];
+    if (!formValidation) {
+        return NO;
+    }
+
+    return YES;
+}
+
+- (void)submit {
+    //have triggered onEmailEdited, need do nothing
 }
 
 @end
