@@ -525,8 +525,8 @@ def property_edit(property_id, user, params):
     All statuses, for reference: ``draft``, ``not translated``, ``translating``, ``rejected``, ``not reviewed``, ``selling``, ``hidden``, ``sold out``, ``deleted``, ``restricted``.
     """
 
-    if isinstance(params["cover"], six.string_types):
-        params["cover"] = {"zh_Hans_CN": params["cover"], "_18n": True}
+    if "cover" in params and isinstance(params["cover"], six.string_types):
+        params["cover"] = {"zh_Hans_CN": params["cover"], "_i18n": True}
 
     if "status" in params:
         assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed", "selling", "hidden", "sold out", "deleted", "restricted"), abort(40000, "Invalid status")
