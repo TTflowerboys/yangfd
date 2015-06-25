@@ -102,7 +102,7 @@
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     Sequencer *sequencer = [Sequencer new];
     __block CUTEProperty *retProperty = ticket.property;
-    if (propertyParams.count > 0) {
+    if (propertyParams && propertyParams.count > 0) {
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             NSAssert(ticket.property, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
             NSAssert(ticket.property.identifier, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
@@ -126,7 +126,7 @@
         }];
     }
 
-    if (ticketParams.count > 0) {
+    if (ticketParams && ticketParams.count > 0) {
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             NSAssert(ticket.identifier, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
 

@@ -537,7 +537,25 @@
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
     NSDictionary *ticketParams = userInfo[@"ticketParams"];
-    NSDictionary *propertyParams = userInfo[@"propertyParams"];
+    NSMutableDictionary *propertyParams = [NSMutableDictionary dictionaryWithDictionary:userInfo[@"propertyParams"]];
+
+    //validate latitude and longitude
+    if (propertyParams[@"latitude"] && !propertyParams[@"longitude"]) {
+        [propertyParams removeObjectForKey:@"latitude"];
+        [propertyParams removeObjectForKey:@"longitude"];
+    }
+    else if (!propertyParams[@"latitude"] && propertyParams[@"longitude"]) {
+        [propertyParams removeObjectForKey:@"latitude"];
+        [propertyParams removeObjectForKey:@"longitude"];
+    }
+    else if (propertyParams[@"latitude"] && propertyParams[@"longitude"]) {
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:[propertyParams[@"latitude"] doubleValue] longitude:[propertyParams[@"longitude"] doubleValue]];
+        if (!location) {
+            [propertyParams removeObjectForKey:@"latitude"];
+            [propertyParams removeObjectForKey:@"longitude"];
+        }
+    }
+
     if (ticket && ticket.identifier && ![[CUTEDataManager sharedInstance] isRentTicketDeleted:ticket.identifier]) {
         [[CUTEDataManager sharedInstance] saveRentTicket:ticket];
         [[[CUTERentTickePublisher sharedInstance] editTicketWithTicket:ticket ticketParams:ticketParams propertyParams:propertyParams] continueWithBlock:^id(BFTask *task) {
