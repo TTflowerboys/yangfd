@@ -10,6 +10,7 @@
 #import <YTKKeyValueStore.h>
 #import "NSArray+ObjectiveSugar.h"
 #import "CUTECommonMacro.h"
+#import "YTKKeyValueItem+CUTE.h"
 
 #define KTABLE_SCREEN_LAST_VISIT_TIME @"cute_screen_last_visit_time"
 #define KTABLE_SCREEN_ENTER_FOREGROUND_TIME @"cute_screen_enter_foreground_time"
@@ -75,7 +76,7 @@
     NSArray *items = [[self store] getAllItemsFromTable:KTABLE_SCREEN_ENTER_FOREGROUND_TIME];
     if (!IsArrayNilOrEmpty(items)) {
         YTKKeyValueItem *item = [items firstObject];
-        NSNumber *number = item.itemObject;
+        NSNumber *number = item.itemNumber;
         return [number doubleValue];
     }
     return 0;
@@ -85,7 +86,7 @@
     NSArray *items = [[self store] getAllItemsFromTable:KTABLE_SCREEN_ENTER_FOREGROUND_TIME];
     if (!IsArrayNilOrEmpty(items)) {
         YTKKeyValueItem *item = [items lastObject];
-        NSNumber *number = item.itemObject;
+        NSNumber *number = item.itemNumber;
         return [number doubleValue];
     }
     return 0;
@@ -100,7 +101,7 @@
 -(NSUInteger)getPublishedTicketCount {
     return [[[[self store] getAllItemsFromTable:KTABLE_RENT_TICKET_ID] select:^BOOL(id object) {
         YTKKeyValueItem *item = object;
-        return [item.itemObject isEqualToString:KTICKET_ACTION_PUBLISH];
+        return [item.itemString isEqualToString:KTICKET_ACTION_PUBLISH];
     }] count];
 }
 
@@ -114,7 +115,7 @@
 - (NSUInteger)getFavoriteTicketCount {
     return [[[[self store] getAllItemsFromTable:KTABLE_RENT_TICKET_ID] select:^BOOL(id object) {
         YTKKeyValueItem *item = object;
-        return [item.itemObject isEqualToString:KTICKET_ACTION_FAVORITE];
+        return [item.itemString isEqualToString:KTICKET_ACTION_FAVORITE];
     }] count];
 }
 
