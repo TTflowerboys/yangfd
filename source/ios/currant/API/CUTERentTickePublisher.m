@@ -402,6 +402,16 @@
 
                 NSArray *localTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
                 NSArray *remoteTickets = task.result;
+                NSArray *ticketIds = [remoteTickets map:^id(CUTETicket *object) {
+                    return object.identifier;
+                }];
+
+                [localTickets  each:^(CUTETicket *object) {
+                    if (![ticketIds containsObject:object.identifier]) {
+                        [[CUTEDataManager sharedInstance] markRentTicketDeleted:object];
+                    }
+                }];
+
                 [remoteTickets each:^(CUTETicket *object) {
                     if ([object isKindOfClass:[CUTETicket class]] && object.property) {
                         CUTETicket *localTicket = [localTickets find:^BOOL(CUTETicket *localObject) {
@@ -437,6 +447,9 @@
                         }
                     }
                 }];
+
+
+
                 NSArray *unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     [tcs setResult:unfinishedRentTickets];
