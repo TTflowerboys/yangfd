@@ -295,6 +295,15 @@
             }))
         })
     }
+
+    //安卓微信内置的浏览器不兼容linear-gradient
+    function compatibleQQBrowser () {
+        if(window.team.isQQBrowser()) {
+            $('[data-compatibleQQBrowser]').each(function () {
+                $(this).attr('style', $(this).attr('data-style'))
+            })
+        }
+    }
     $(function(){
         initModal()
         showBtnOrNot()
@@ -302,6 +311,7 @@
         showSixFacilitiesOnly()
         fixFontSize()
         formatPrice()
+        compatibleQQBrowser()
     })
 
 })(jQuery, window.Swiper)

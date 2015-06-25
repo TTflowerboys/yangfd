@@ -27,13 +27,12 @@
             })
         })
     })*/
-
 </script>
 <div class="swiper-container mainSwiper" style="">
     <div class="swiper-wrapper" style="">
         <div class="swiper-slide swiper-slide-bg commen" style="">
             <div class="page pageCover">
-                <div class="topTitleNav animate">
+                <div class="topTitleNav animate" data-compatibleQQBrowser data-style="background:url('/static/images/property_wechat_poster/title_nav_bg.png') 50% 100% no-repeat; background-size: cover;">
                     <p class="title animate fixFontSize" data-maxHeight="5.5vh">{{property.get('name','')}}</p>
                     <p class="street animate fixFontSize" data-maxHeight="9vh">{{property.get('street','')}}</p>
                     <p class="city animate">{{property.get('city',{}).get('name','')}} {{(property.get('country',{}).get('code',''))}}</p>
@@ -85,6 +84,8 @@
                 </p>
                 <ul class="itemBox clearfix">
 
+                    <!-- todo 可能为空的字段的处理，总楼层的取值的处理-->
+
                     % if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
                     % if len(property.get('main_house_types')) > 1:
                     <li class="animate rooms" style="width:45%;">
@@ -97,45 +98,43 @@
                     <li class="animate rooms" style="width:100%;">
                         {{!format_property(property.get('main_house_types')[0])}}
                     </li>
+                    <li class="animate rooms">
+                    </li>
                     % end
                     % elif property.get('bedroom_count'):
                     <li class="animate rooms" style="width:100%;">
                         {{!format_property(property)}}
                     </li>
+                    <li class="animate rooms">
+                    </li>
                     % end
-
 
                     <li class="animate decorative_style"><div><i class="icon-art"></i><span>{{property.get('decorative_style',{}).get('value','')}}</span></div></li>
-                    <li class="animate street"><div><i class="streetIcon"></i>{{property.get('zipcode','')}}</div></li>
-                    <li class="animate estate"
-                        %if not property.get('floor',''):
-                    style="width:100%;"
-                    %end
-                    >
-                    <div><i class="estateIcon"></i>
-                        %if property.get('community',''):
-                        {{property.get('community','')}},
-                        %end
-                        %if property.get('street',''):
-                        {{property.get('street','')}},
-                        %end
-                        {{property.get('city',{}).get('name','')}}
-                    </div>
-                    </li>
-                    % if 'floor' in property and property.get('floor',''):
-                    <li class="animate door">
-                        <div>
-                            <i class="doorIcon"></i>
-                            {{property.get('floor','')}}
-                            % if 'house_name' in property and 'floor' in property:
-                            {{'-'}}
-                            % end
-                            {{property.get('house_name','')}}
-                        </div>
-                    </li>
-                    % end
+                    <li class="animate equity_type"><div><i class="icon-house"></i><span>{{property.get('equity_type',{}).get('value','')}}</span></div></li>
 
+                    <li class="animate floor"><div><i class="icon-floor"></i><span>{{property.get('floor_plan',{})}}</span></div></li>
+                    <li class="animate building_type"><div><i class="icon-tag_icon"></i><span>{{property.get('building_type','')}}</span></div></li>
 
+                    <li class="animate address">
+                        <table>
+                            <tr>
+                                <td>
+                                    <i class="icon-location"></i>
+                                </td>
+                                <td data-compatibleQQBrowser data-style="padding-left: 4.5vw;">
+                                    %if property.get('community',''):
+                                    {{property.get('community','')}},
+                                    %end
+                                    %if property.get('street',''):
+                                    {{property.get('street','')}},
+                                    %end
+                                    {{property.get('city',{}).get('name','')}},
+                                    {{get_country_name_by_code(property.get('country',{}).get('code',''))}},
+                                    {{property.get('zipcode','')}}
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
                 </ul>
             </div>
             <div class="bottomBox animate">
@@ -143,7 +142,7 @@
             </div>
         </div>
         <div class="swiper-slide swiper-slide-bg commen
-                % if description or len(property.get('indoor_facility',[]))>0 or len(property.get('community_facility',[]))>0:
+                % if property.get('description',''):
                 show
                 % else:
                 hideInWechat
@@ -151,10 +150,14 @@
                 " style="">
             <div class="page pageDescription">
                 %if description:
-                <h2 class="animate">&nbsp;</h2>
+                <h2 class="animate">"</h2>
                 <p class="description animate">
-                    {{description}}
+                    {{property.get('description','')}}
                 </p>
+                <a class="btn btnModal animate viewMoreBtn" id="viewMoreBtn">
+                    <i class="icon-down_arrow"></i>
+                    {{_('查看更多')}}
+                </a>
                 %else:
                 <h2 class="animate hideInWechat">&nbsp;</h2>
                 <p class="description animate hideInWechat">
@@ -162,18 +165,7 @@
                 </p>
                 %end
 
-                <!--% if 'indoor_facility' in property or 'community_facility' in property:-->
-                <ul class="facilities clearfix">
-                    % for item in property.get('indoor_facility',[]):
-                    <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
-                    % end
-                    % for item in property.get('community_facility',[]):
-                    <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
-                    %end
-                </ul>
-                <!-- 只有上面的设施条数大于6时展示，js控制-->
-                <a class="btn btnModal animate morefacilitiesBtn" id="morefacilitiesBtn">{{_('更多设施')}}</a>
-                <!--% end-->
+
 
             </div>
             <div class="bottomBox animate">
@@ -305,6 +297,16 @@
         </div>
     </div>
 </div>
+
+
+<!--更多描述弹出层 start-->
+<div class="descriptionMore hide modal" data-trigger="viewMoreBtn">
+    <p>
+        {{property.get('description','')}}
+    </p>
+    <a class="btn btnCloseModal" id="closeViewMoreBtn">{{_('收起')}}</a>
+</div>
+<!--更多描述弹出层 end-->
 
 
 <!--微信签名 start-->
