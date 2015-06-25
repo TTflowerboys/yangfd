@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 import json
+import six
 from datetime import datetime
 from libfelix.f_common import f_app
 from libfelix.f_interface import f_api, abort, request
@@ -524,7 +525,7 @@ def property_edit(property_id, user, params):
     All statuses, for reference: ``draft``, ``not translated``, ``translating``, ``rejected``, ``not reviewed``, ``selling``, ``hidden``, ``sold out``, ``deleted``, ``restricted``.
     """
 
-    if isinstance(params["cover"], str):
+    if isinstance(params["cover"], six.string_types):
         params["cover"] = {"zh_Hans_CN": params["cover"], "_18n": True}
 
     if "status" in params:
