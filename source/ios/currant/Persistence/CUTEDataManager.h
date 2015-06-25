@@ -10,6 +10,7 @@
 #import "CUTETicket.h"
 #import "CUTEUser.h"
 #import "YTKKeyValueStore.h"
+#import "YTKKeyValueItem+CUTE.h"
 
 @interface CUTEDataManager : NSObject
 

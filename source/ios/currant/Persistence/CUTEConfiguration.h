@@ -28,6 +28,8 @@
 
 + (NSString *)apiEndpoint;
 
++ (NSString *)appStoreId;
+
 + (NSString *)googleAPIKey;
 
 + (NSString *)weixinAPPId;

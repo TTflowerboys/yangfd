@@ -288,7 +288,7 @@
             [SVProgressHUD dismiss];
             controller.lastCountry = form.country;
             controller.formController.form = form;
-            controller.navigationItem.title = STR(@"地址");
+            controller.navigationItem.title = STR(@"房产地址");
 
             __weak typeof(self)weakSelf = self;
             controller.updateAddressCompletion = ^ {
@@ -364,8 +364,9 @@
 
             TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
             CUTERentTicketPreviewViewController *controller = [[CUTERentTicketPreviewViewController alloc] init];
+            controller.url = [NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]];
             controller.ticket = self.ticket;
-            [controller loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]]]];
+            [controller loadRequest:[NSURLRequest requestWithURL:controller.url]];
             [self.navigationController pushViewController:controller animated:YES];
         }
         return task;

@@ -228,6 +228,11 @@
 		2C9F1D271B3AB6930034487F /* CUTEUserAgentUtilTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D021B3961EB0034487F /* CUTEUserAgentUtilTest.m */; };
 		2C9F1D281B3AB6930034487F /* CUTETicketTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC126C1B34041D00B6D3DD /* CUTETicketTest.m */; };
 		2C9F1D291B3AB6930034487F /* CUTEPropertyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1CC81B34300A0034487F /* CUTEPropertyTest.m */; };
+		2C9F1D2E1B3BB9800034487F /* YTKKeyValueItem+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D2D1B3BB9800034487F /* YTKKeyValueItem+CUTE.m */; };
+		2C9F1D2F1B3BB9870034487F /* YTKKeyValueItem+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D2D1B3BB9800034487F /* YTKKeyValueItem+CUTE.m */; };
+		2C9F1D301B3BB9880034487F /* YTKKeyValueItem+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D2D1B3BB9800034487F /* YTKKeyValueItem+CUTE.m */; };
+		2C9F1D311B3BB9880034487F /* YTKKeyValueItem+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D2D1B3BB9800034487F /* YTKKeyValueItem+CUTE.m */; };
+		2C9F1D321B3BB9890034487F /* YTKKeyValueItem+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D2D1B3BB9800034487F /* YTKKeyValueItem+CUTE.m */; };
 		2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -693,6 +698,8 @@
 		2C9F1D1B1B3A8E610034487F /* CUTESurveyHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTESurveyHelper.h; sourceTree = "<group>"; };
 		2C9F1D1C1B3A8E610034487F /* CUTESurveyHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTESurveyHelper.m; sourceTree = "<group>"; };
 		2C9F1D2A1B3ABA580034487F /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		2C9F1D2C1B3BB9800034487F /* YTKKeyValueItem+CUTE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YTKKeyValueItem+CUTE.h"; sourceTree = "<group>"; };
+		2C9F1D2D1B3BB9800034487F /* YTKKeyValueItem+CUTE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YTKKeyValueItem+CUTE.m"; sourceTree = "<group>"; };
 		2CA2E6C21AC5487800053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DB1AC5496700053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
@@ -1264,6 +1271,8 @@
 				2CDBB2FC1AC1472E0024E225 /* CUTEConfiguration.m */,
 				2C9F1D141B3A85550034487F /* CUTEUsageRecorder.h */,
 				2C9F1D151B3A85550034487F /* CUTEUsageRecorder.m */,
+				2C9F1D2C1B3BB9800034487F /* YTKKeyValueItem+CUTE.h */,
+				2C9F1D2D1B3BB9800034487F /* YTKKeyValueItem+CUTE.m */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -1958,6 +1967,7 @@
 				2C2FCDDB1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62E1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
+				2C9F1D301B3BB9880034487F /* YTKKeyValueItem+CUTE.m in Sources */,
 				2C2FCDE21B01B56E002594D7 /* CUTEFormViewController.m in Sources */,
 				2CCE680B1B1C3AB800351DED /* CUTEPropertyMapListViewController.m in Sources */,
 				2CDABB3E1B2C4DC30075D2E7 /* NSArray+CUTECDN.m in Sources */,
@@ -2088,6 +2098,7 @@
 				2C2FCDDC1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F51AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62F1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
+				2C9F1D311B3BB9880034487F /* YTKKeyValueItem+CUTE.m in Sources */,
 				2C2FCDE31B01B56E002594D7 /* CUTEFormViewController.m in Sources */,
 				2CCE680C1B1C3AB800351DED /* CUTEPropertyMapListViewController.m in Sources */,
 				2CDABB3F1B2C4DC30075D2E7 /* NSArray+CUTECDN.m in Sources */,
@@ -2218,6 +2229,7 @@
 				2C2FCDDA1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62D1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
+				2C9F1D2F1B3BB9870034487F /* YTKKeyValueItem+CUTE.m in Sources */,
 				2C2FCDE11B01B56E002594D7 /* CUTEFormViewController.m in Sources */,
 				2CCE680A1B1C3AB800351DED /* CUTEPropertyMapListViewController.m in Sources */,
 				2CDABB3D1B2C4DC30075D2E7 /* NSArray+CUTECDN.m in Sources */,
@@ -2348,6 +2360,7 @@
 				2C2FCDD91B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62C1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
+				2C9F1D2E1B3BB9800034487F /* YTKKeyValueItem+CUTE.m in Sources */,
 				2C2FCDE01B01B56E002594D7 /* CUTEFormViewController.m in Sources */,
 				2CCE68091B1C3AB800351DED /* CUTEPropertyMapListViewController.m in Sources */,
 				2CDABB3C1B2C4DC30075D2E7 /* NSArray+CUTECDN.m in Sources */,
@@ -2431,6 +2444,7 @@
 				2C9F1D261B3AB6930034487F /* CUTEAddressUtilTest.m in Sources */,
 				2C9F1D271B3AB6930034487F /* CUTEUserAgentUtilTest.m in Sources */,
 				2C9F1D281B3AB6930034487F /* CUTETicketTest.m in Sources */,
+				2C9F1D321B3BB9890034487F /* YTKKeyValueItem+CUTE.m in Sources */,
 				2C9F1D291B3AB6930034487F /* CUTEPropertyTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

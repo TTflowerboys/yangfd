@@ -264,8 +264,10 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar addSubview:_progressView];
 
-    TrackScreen(GetScreenName(self.url));
-
+    if (self.url) {
+        TrackScreen(GetScreenName(self.url));
+    }
+    
     if (_needReloadURL) {
         [self updateWithURL:_needReloadURL];
     }

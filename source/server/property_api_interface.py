@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 import json
+import six
 from datetime import datetime
 from libfelix.f_common import f_app
 from libfelix.f_interface import f_api, abort, request
@@ -385,7 +386,7 @@ property_params = dict(
     latitude=float,
     longitude=float,
     reality_images=("i18n", None, list, None, str, None, "replaces"),
-    # cover=("i18n", None, str),
+    cover=("fallback", None, ("i18n", None, str), str),
     videos=(list, None, dict(
         sources=(list, True, dict(
             url=str,
@@ -523,6 +524,9 @@ def property_edit(property_id, user, params):
 
     All statuses, for reference: ``draft``, ``not translated``, ``translating``, ``rejected``, ``not reviewed``, ``selling``, ``hidden``, ``sold out``, ``deleted``, ``restricted``.
     """
+
+    if "cover" in params and isinstance(params["cover"], six.string_types):
+        params["cover"] = {"zh_Hans_CN": params["cover"], "_i18n": True}
 
     if "status" in params:
         assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed", "selling", "hidden", "sold out", "deleted", "restricted"), abort(40000, "Invalid status")

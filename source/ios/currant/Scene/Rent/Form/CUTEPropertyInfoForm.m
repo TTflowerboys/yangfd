@@ -35,7 +35,7 @@
                 @{FXFormFieldKey: @"propertyType", FXFormFieldTitle:STR(@"房产类型"),FXFormFieldOptions: _allPropertyTypes, FXFormFieldDefaultValue: [self defaultPropertyType], FXFormFieldAction: @"editPropertyType"},
              @{FXFormFieldKey: @"rooms", FXFormFieldTitle:STR(@"房屋户型"), FXFormFieldCell: [CUTEFormRoomsPickerCell class], @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"editRooms:"},
              @{FXFormFieldKey: @"rentType", FXFormFieldTitle:STR(@"出租类型"), FXFormFieldAction: @"editRentType"},
-             @{FXFormFieldKey: @"address", FXFormFieldTitle:STR(@"地址"), FXFormFieldAction: @"editAddress"},
+             @{FXFormFieldKey: @"address", FXFormFieldTitle:STR(@"房产地址"), FXFormFieldAction: @"editAddress"},
              @{FXFormFieldKey: @"area", FXFormFieldTitle:STR(@"面积（选填）"), FXFormFieldAction: @"editArea"},
              @{FXFormFieldKey: @"moreInfo", FXFormFieldTitle:STR(@"更多详情和配套设施描述（选填）"), FXFormFieldAction: @"editMoreInfo"},
              @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"预览并发布"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},

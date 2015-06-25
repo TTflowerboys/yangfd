@@ -79,7 +79,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = STR(@"地址");
+    self.navigationItem.title = STR(@"房产地址");
 
     if (!self.singleUseForReedit) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
@@ -239,7 +239,7 @@
 
     if (!_rentAddressEditViewController) {
         CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
-        controller.navigationItem.title = STR(@"地址");
+        controller.navigationItem.title = STR(@"房产地址");
         controller.updateAddressCompletion = ^ {
             _isAddressUpdated = YES;
         };

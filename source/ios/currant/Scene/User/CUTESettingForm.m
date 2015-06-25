@@ -17,7 +17,7 @@
                              @[
                                @{FXFormFieldKey: @"version", FXFormFieldTitle:STR(@"版本"), @"style": @(UITableViewCellStyleValue1), FXFormFieldHeader: @""},
                                @{FXFormFieldKey: @"feedback", FXFormFieldTitle:STR(@"意见反馈"), FXFormFieldAction: @"onFeedBackPressed:", @"style": @(UITableViewCellStyleValue1)},
-                               @{FXFormFieldKey: @"rate", FXFormFieldTitle:STR(@"评分"), @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"onRatePressed:"},
+                               @{FXFormFieldKey: @"rate", FXFormFieldTitle:STR(@"觉得不错？去App Store评价"), @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"onRatePressed:"},
 //                               @{FXFormFieldKey: @"survey", FXFormFieldTitle:STR(@"用户调查"), @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"onSurveyPressed:"},
                                ]];
     return array;

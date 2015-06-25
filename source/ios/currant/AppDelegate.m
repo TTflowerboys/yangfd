@@ -162,6 +162,7 @@
     [CUTEUserAgentUtil setupUserAgent];
     [[CUTEShareManager sharedInstance] setUpShareSDK];
     [[CUTETracker sharedInstance] setup];
+    [ATConnect sharedConnection].appID = [CUTEConfiguration appStoreId];
     [ATConnect sharedConnection].apiKey = @"870539ce7c8666f4ba6440cae368b8aea448aa2220dc3af73bc254f0ab2f0a0b";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketPublish:) name:KNOTIF_TICKET_PUBLISH object:nil];

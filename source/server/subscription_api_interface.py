@@ -27,7 +27,7 @@ def subscription_add(params):
 
 
 @f_api('/subscription/<subscription_id>')
-@f_app.user.login.check(force=True, role=["admin", "jr_admin"])
+@f_app.user.login.check(force=True, role=["admin", "jr_admin", "sales", "operation"])
 def subscription_get(user, subscription_id):
     return f_app.feedback.output([subscription_id])[0]
 
@@ -35,13 +35,13 @@ def subscription_get(user, subscription_id):
 @f_api('/subscription/<subscription_id>/edit', params=dict(
     status=str,
 ))
-@f_app.user.login.check(force=True, role=["admin", "jr_admin"])
+@f_app.user.login.check(force=True, role=["admin", "jr_admin", "sales", "operation"])
 def subscription_edit(user, subscription_id, params):
     return f_app.feedback.update_set(subscription_id, params)
 
 
 @f_api('/subscription/<subscription_id>/remove')
-@f_app.user.login.check(force=True, role=["admin", "jr_admin"])
+@f_app.user.login.check(force=True, role=["admin", "jr_admin", "sales", "operation"])
 def subscription_remove(user, subscription_id):
     return f_app.feedback.remove(subscription_id)
 
@@ -51,7 +51,7 @@ def subscription_remove(user, subscription_id):
     email=str,
     status=str,
 ))
-@f_app.user.login.check(force=True, role=["admin", "jr_admin"])
+@f_app.user.login.check(force=True, role=["admin", "jr_admin", "sales", "operation"])
 def subscription_search(user, params):
     subscription_list = f_app.feedback.search(params)
     return f_app.feedback.output(subscription_list)
