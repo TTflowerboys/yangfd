@@ -555,10 +555,10 @@ def track(params, ticket_id=None, property_id=None, image_type=None):
     ``image_type`` should be ``1px`` or ``logo``.
     """
 
-    if ticket_id is not None:
+    if ticket_id is not None and ticket_id != "none":
         params["ticket_id"] = ObjectId(ticket_id)
 
-    if property_id is not None:
+    if property_id is not None and property_id != "none":
         params["property_id"] = ObjectId(property_id)
 
     if image_type is not None:
