@@ -81,11 +81,11 @@
 - (void)onPasswordEdit:(CUTEFormTextFieldCell *)cell {
     //if has password input, we think the user want to login
     if (!IsNilNullOrEmpty(cell.textField.text)) {
-        [self submit];
+        [self login];
     }
 }
 
-- (void)submit {
+- (void)login {
     if (![self validateFormWithScenario:@""]) {
         return;
     }
@@ -166,11 +166,15 @@
                 }
                 return nil;
             }];
-
+            
         }];
-
+        
         [sequencer run];
     }
+}
+
+- (void)submit {
+    //have triggered onPasswordEdit:, need do nothing
 }
 
 
