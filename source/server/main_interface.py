@@ -545,7 +545,7 @@ def beta_app_download():
     redirect('https://itunes.apple.com/cn/app/yang-fang-dong-ying-guo-zu/id980469674')
 
 
-@f_get("/track", params=dict(
+@f_get("/track", "/track.png", params=dict(
     ticket_id=ObjectId,
     property_id=ObjectId,
     image_type=(str, "1px"),
