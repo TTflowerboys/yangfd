@@ -288,7 +288,7 @@
             [SVProgressHUD dismiss];
             controller.lastCountry = form.country;
             controller.formController.form = form;
-            controller.navigationItem.title = STR(@"地址");
+            controller.navigationItem.title = STR(@"房产地址");
 
             __weak typeof(self)weakSelf = self;
             controller.updateAddressCompletion = ^ {
