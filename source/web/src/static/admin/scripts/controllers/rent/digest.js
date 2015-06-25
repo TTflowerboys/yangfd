@@ -27,7 +27,7 @@
             },'')
         }
         function generateDigest (source, media, type, campaign, needTag) {
-            var res = location.protocol + '//' + location.host + '/track?ticket_id=' + $stateParams.id + '&image_type=' + type + '&utm_source=' + source + '&utm_medium=' + media + '&utm_campaign=' + campaign
+            var res = location.protocol + '//' + location.host + '/track/' + $stateParams.id + '/none/' + type + '.png'
             if(needTag) {
                 res = '<img src="' + res + '"/>'
             }
