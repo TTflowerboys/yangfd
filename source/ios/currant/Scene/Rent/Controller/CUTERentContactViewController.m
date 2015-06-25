@@ -307,7 +307,7 @@
     [userListener stopListenMark];
 
     Sequencer *sequencer = [Sequencer new];
-    [SVProgressHUD showWithStatus:STR(@"发布中...")];
+    [SVProgressHUD showWithStatus:STR(@"更新中...")];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         //user may update user info after create user in the send verification code process, like update private contact methods
         [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/edit" parameters:userListener.getEditedParams resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
@@ -324,7 +324,6 @@
                 _retUser = task.result;
                 completion(task.result);
             }
-            
             return task;
         }];
     }];
