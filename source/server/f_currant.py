@@ -845,7 +845,7 @@ class f_currant_plugins(f_app.plugin_base):
                 has_rented_url="http://yangfd.com//user-properties?type=rent_ticket&id=%s&action=confirm_rent" % (rent_ticket["id"],),
                 refresh_url="http://yangfd.com//user-properties?type=rent_ticket&id=%s&action=refresh" % (rent_ticket["id"],),
                 edit_url=url + "/edit",
-                qrcode_image=output.getvalue(),
+                qrcode_image="data:image/png;base64," + output.getvalue().encode("base64"),
                 unsubscribe_url='http://yangfd.com/email-unsubscribe?email_message_type=rent_ticket_reminder')
         except:
             self.logger.warning("Invalid ticket", task["ticket_id"], ", ignoring reminder...")
