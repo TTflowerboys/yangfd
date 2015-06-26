@@ -545,19 +545,29 @@ def beta_app_download():
     redirect('https://itunes.apple.com/cn/app/yang-fang-dong-ying-guo-zu/id980469674')
 
 
-@f_get("/track", params=dict(
+@f_get("/track", "/track.png", "/track/<ticket_id>/<property_id>/<image_type>.png", params=dict(
     ticket_id=ObjectId,
     property_id=ObjectId,
     image_type=(str, "1px"),
 ))
-def track(params):
+def track(params, ticket_id=None, property_id=None, image_type=None):
     """
     ``image_type`` should be ``1px`` or ``logo``.
     """
+
+    if ticket_id is not None and ticket_id != "none":
+        params["ticket_id"] = ObjectId(ticket_id)
+
+    if property_id is not None and property_id != "none":
+        params["property_id"] = ObjectId(property_id)
+
+    if image_type is not None:
+        params["image_type"] = image_type
+
     params["log_type"] = "share_visit"
 
     assert {"property_id", "ticket_id"} & set(params), abort(40000, "No track target specified")
-    
+
     f_app.log.add(params)
 
     if params["image_type"] == "1px":
