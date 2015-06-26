@@ -519,7 +519,7 @@
 
         if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_MAP_DRAG_DISPLAYED])
         {
-            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_annotationView hostView:self.view tooltipText:STR(@"拖动地图可以重新定位") arrowDirection:JDFTooltipViewArrowDirectionUp width:150];
+            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_annotationView hostView:self.view tooltipText:STR(@"拖动地图可以修改房产位置") arrowDirection:JDFTooltipViewArrowDirectionUp width:150];
             [toolTips show];
             _mapTipView = toolTips;
 
