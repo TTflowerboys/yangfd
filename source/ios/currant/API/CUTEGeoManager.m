@@ -60,7 +60,13 @@
                 [tcs setResult:dic];
             }
             else {
-                [tcs setError:[NSError errorWithDomain:@"Google" code:-1 userInfo:@{NSLocalizedDescriptionKey: @"unknown error"}]];
+                if (response.statusCode == 500) {
+                    [tcs setError:[NSError errorWithDomain:@"Google" code:response.statusCode userInfo:@{NSLocalizedDescriptionKey: STR(@"请求失败")}]];
+                }
+                else {
+                    [tcs setError:[NSError errorWithDomain:@"Google" code:response.statusCode userInfo:@{NSLocalizedDescriptionKey: [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode]}]];
+                }
+
             }
         });
     });
