@@ -11,13 +11,18 @@
 #import "NSArray+ObjectiveSugar.h"
 #import "CUTECommonMacro.h"
 #import "YTKKeyValueItem+CUTE.h"
+#import "NSDate-Utilities.h"
 
 #define KTABLE_SCREEN_LAST_VISIT_TIME @"cute_screen_last_visit_time"
 #define KTABLE_SCREEN_ENTER_FOREGROUND_TIME @"cute_screen_enter_foreground_time"
-#define KTABLE_RENT_TICKET_ID @"cute_rent_ticket_id"
+#define KTABLE_PUBLISHED_RENT_TICKET_ID @"cute_published_rent_ticket_id"
+#define KTABLE_FAVORITE_RENT_TICKET_ID @"cute_favorite_rent_ticket_id"
+#define KTABLE_VISITED_RENT_TICKET_ID @"cute_visited_rent_ticket_id"
+#define KTABLE_APPTENTIVE_EVENT_TRIGGERED @"cute_apptentive_event_triggered"
 
 #define KTICKET_ACTION_PUBLISH @"publish"
 #define KTICKET_ACTION_FAVORITE @"favorite"
+#define KTICKET_ACTION_VISIT @"visit"
 
 @interface CUTEUsageRecorder () {
 
@@ -45,7 +50,9 @@
     _store  = [[YTKKeyValueStore alloc] initDBWithName:@"cute_usage.db"];
     [@[KTABLE_SCREEN_ENTER_FOREGROUND_TIME,
        KTABLE_SCREEN_LAST_VISIT_TIME,
-       KTABLE_RENT_TICKET_ID
+       KTABLE_PUBLISHED_RENT_TICKET_ID,
+       KTABLE_FAVORITE_RENT_TICKET_ID,
+       KTABLE_VISITED_RENT_TICKET_ID
        ] each:^(id object) {
            [self.store createTableWithName:object];
        }];
@@ -92,14 +99,27 @@
     return 0;
 }
 
+- (NSUInteger)getUsageDays {
+    NSArray *items = [[self store] getAllItemsFromTable:KTABLE_SCREEN_ENTER_FOREGROUND_TIME];
+    if (!IsArrayNilOrEmpty(items) && items.count >= 2) {
+        NSNumber *first = [[items firstObject] itemNumber];
+        NSNumber *last = [[items lastObject] itemNumber];
+        NSDate *firstDate = [NSDate dateWithTimeIntervalSince1970:first.doubleValue];
+        NSDate *lastDate = [NSDate dateWithTimeIntervalSince1970:last.doubleValue];
+        return [firstDate daysBeforeDate:lastDate];
+
+    }
+    return 0;
+}
+
 #pragma mark - Published Ticket id
 
 - (void)savePublishedTicketWithId:(NSString *)ticketId {
-    [[self store] putString:KTICKET_ACTION_PUBLISH withId:ticketId intoTable:KTABLE_RENT_TICKET_ID];
+    [[self store] putString:KTICKET_ACTION_PUBLISH withId:ticketId intoTable:KTABLE_PUBLISHED_RENT_TICKET_ID];
 }
 
 -(NSUInteger)getPublishedTicketCount {
-    return [[[[self store] getAllItemsFromTable:KTABLE_RENT_TICKET_ID] select:^BOOL(id object) {
+    return [[[[self store] getAllItemsFromTable:KTABLE_PUBLISHED_RENT_TICKET_ID] select:^BOOL(id object) {
         YTKKeyValueItem *item = object;
         return [item.itemString isEqualToString:KTICKET_ACTION_PUBLISH];
     }] count];
@@ -109,14 +129,35 @@
 
 
 - (void)saveFavoriteTicketWithId:(NSString *)ticketId {
-    [[self store] putString:KTICKET_ACTION_FAVORITE withId:ticketId intoTable:KTABLE_RENT_TICKET_ID];
+    [[self store] putString:KTICKET_ACTION_FAVORITE withId:ticketId intoTable:KTABLE_FAVORITE_RENT_TICKET_ID];
 }
 
 - (NSUInteger)getFavoriteTicketCount {
-    return [[[[self store] getAllItemsFromTable:KTABLE_RENT_TICKET_ID] select:^BOOL(id object) {
+    return [[[[self store] getAllItemsFromTable:KTABLE_FAVORITE_RENT_TICKET_ID] select:^BOOL(id object) {
         YTKKeyValueItem *item = object;
         return [item.itemString isEqualToString:KTICKET_ACTION_FAVORITE];
     }] count];
+}
+
+#pragma mark - Visit Ticket id
+
+- (void)saveVisitedTicketWithId:(NSString *)ticketId {
+    [[self store] putString:KTICKET_ACTION_VISIT withId:ticketId intoTable:KTABLE_VISITED_RENT_TICKET_ID];
+}
+
+- (NSUInteger)getVisitedTicketCount {
+    return [[[[self store] getAllItemsFromTable:KTABLE_VISITED_RENT_TICKET_ID] select:^BOOL(id object) {
+        YTKKeyValueItem *item = object;
+        return [item.itemString isEqualToString:KTICKET_ACTION_VISIT];
+    }] count];
+}
+
+- (void)saveApptentiveEventTriggered:(NSString *)event {
+    [[self store] putNumber:@(YES) withId:event intoTable:KTABLE_APPTENTIVE_EVENT_TRIGGERED];
+}
+
+- (BOOL)isApptentiveEventTriggered:(NSString *)event {
+    return [[[self store] getNumberById:event fromTable:event] boolValue];
 }
 
 @end

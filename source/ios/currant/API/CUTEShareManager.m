@@ -25,6 +25,8 @@
 #import "AppDelegate.h"
 #import "UIActionSheet+Blocks.h"
 #import "ATConnect.h"
+#import "CUTEUsageRecorder.h"
+#import "CUTEApptentiveEvent.h"
 
 
 
@@ -357,13 +359,21 @@
 
 - (void)checkSurveyWhenShareSuccess {
     if (self.viewController) {
-        [[ATConnect sharedConnection] engage:@"survey_after_share_success" fromViewController:self.viewController];
+        if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS]) {
+            if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS fromViewController:self.viewController]) {
+                [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS];
+            }
+        }
     }
 }
 
 - (void)checkSurveyWhenShareCancelled {
     if (self.viewController) {
-        [[ATConnect sharedConnection] engage:@"survey_after_share_cancellation" fromViewController:self.viewController];
+        if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION]) {
+            if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION fromViewController:self.viewController]) {
+                [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION];
+            }
+        }
     }
 }
 

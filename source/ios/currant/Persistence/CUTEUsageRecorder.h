@@ -22,6 +22,8 @@
 
 - (NSTimeInterval)getFirstEnterForegroundTime;
 
+- (NSUInteger)getUsageDays;
+
 - (void)savePublishedTicketWithId:(NSString *)ticketId;
 
 - (NSUInteger)getPublishedTicketCount;
@@ -29,5 +31,13 @@
 - (void)saveFavoriteTicketWithId:(NSString *)ticketId;
 
 - (NSUInteger)getFavoriteTicketCount;
+
+- (void)saveVisitedTicketWithId:(NSString *)ticketId;
+
+- (NSUInteger)getVisitedTicketCount;
+
+- (void)saveApptentiveEventTriggered:(NSString *)event;
+
+- (BOOL)isApptentiveEventTriggered:(NSString *)event;
 
 @end

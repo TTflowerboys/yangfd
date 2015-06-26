@@ -668,6 +668,7 @@
 		2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAPIManager.m; sourceTree = "<group>"; };
 		2C63CAD21B230DEE0055687A /* CUTETooltipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETooltipView.h; sourceTree = "<group>"; };
 		2C63CAD31B230DEE0055687A /* CUTETooltipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETooltipView.m; sourceTree = "<group>"; };
+		2C6D07CC1B3D5426001EBB90 /* CUTEApptentiveEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUTEApptentiveEvent.h; sourceTree = "<group>"; };
 		2C7520411ACA775C0008B42A /* CUTEViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEViewController.h; sourceTree = "<group>"; };
 		2C7520421ACA775C0008B42A /* CUTEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEViewController.m; sourceTree = "<group>"; };
 		2C79C2B61ACA5725000E7F67 /* NSURL+CUTE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+CUTE.h"; sourceTree = "<group>"; };
@@ -1282,6 +1283,7 @@
 			children = (
 				2CDBB3001AC150C90024E225 /* CUTEUserDefaultKey.h */,
 				2C96E2791AE74CCD00F3590C /* CUTENotificationKey.h */,
+				2C6D07CC1B3D5426001EBB90 /* CUTEApptentiveEvent.h */,
 			);
 			path = Constant;
 			sourceTree = "<group>";

@@ -18,6 +18,7 @@
 #import <MKMapView+BBT.h>
 #import <NSObject+Attachment.h>
 #import <NSArray+ObjectiveSugar.h>
+#import "CUTEUsageRecorder.h"
 
 @implementation CUTERentMapListViewController
 
@@ -144,6 +145,7 @@
     NSURL *url = [NSURL WebURLWithString:CONCAT(@"/property-to-rent/", ticekt.identifier)];
 
     [[self navigationController] setNavigationBarHidden:NO animated:NO];
+    [[CUTEUsageRecorder sharedInstance] saveVisitedTicketWithId:ticekt.identifier];
     TrackEvent(GetScreenName(self.url), kEventActionPress, GetScreenName(url), nil);
     CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
     newWebViewController.url = url;
