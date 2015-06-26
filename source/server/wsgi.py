@@ -8,9 +8,17 @@ if len(sys.argv) > 1 and sys.argv[1] == "-u":
     monkey.patch_all()
 
 import qiniu.config
-qiniu.config.set_default(
-    default_up_host="qiniu-proxy.bbtechgroup.com",
-    connection_timeout=1800)
+
+try:
+    # Old configuration
+    qiniu.config.set_default(
+        default_up_host="qiniu-proxy.bbtechgroup.com",
+        connection_timeout=1800)
+except TypeError:
+    zone_custom = qiniu.config.Zone("qiniu-proxy.bbtechgroup.com", "upload.qiniu.com")
+    qiniu.config.set_default(
+        default_zone=zone_custom,
+        connection_timeout=1800)
 
 import os
 import sys
