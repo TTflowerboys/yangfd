@@ -322,8 +322,10 @@
             }
             else {
                 _retUser = task.result;
-                completion(task.result);
             }
+
+            //no matter response ok or not just continue
+            completion(_retUser);
             return task;
         }];
     }];
