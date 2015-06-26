@@ -140,7 +140,7 @@ html,body,.page{
             text-align: left;
             @media @phone{
                 width: 100%;
-                margin-top: 30px;
+                margin-top: 10px;
             }
             .content{
                 position: relative;
@@ -172,6 +172,8 @@ html,body,.page{
                     transform: translate(-50%, 0);
                     text-align: center;
                     font-size: 16px;
+                    display: flex;
+                    flex-direction: column;
                 }
                 .logo{
                     width: 325px;
@@ -190,9 +192,10 @@ html,body,.page{
                         margin: 0.5 * @margin 0;
                     }
                     @media @phone{
+                        order: 2;
                         height: 45px;
                         width: 100%;
-                        margin: 10px 0;
+                        margin: 10px 0 40px;
                         background-position: 50% 50%;
                     }
                 }
@@ -202,7 +205,8 @@ html,body,.page{
                         line-height: 1.8em;
                     }
                     @media @phone {
-                        margin-top: 40px;
+                        order: 3;
+                        margin: 0px auto 180px;
                     }
                 }
                 .downloadWrap{
@@ -218,6 +222,7 @@ html,body,.page{
                         margin-top: 0.5 * @margin;
                     }
                     @media @phone {
+                        order: 1;
                         width: 100%;
                         margin: 40px 0;
                     }
@@ -264,9 +269,9 @@ html,body,.page{
                             .size(0.6);
                         }
                         @media @phone {
-                            .size(0.9);
+                            .size(0.72);
                             float: none;
-                            margin: 0 auto 120px;
+                            margin: 0 auto;
                         }
                         .appleLogo{
                             float:left;
