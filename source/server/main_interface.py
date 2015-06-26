@@ -46,12 +46,6 @@ def default(user):
     news_list = f_app.i18n.process_i18n(news_list)
 
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
-    icon_map = {
-        'school_nearby_house': 'category_b',
-        'off_plan_property': 'category_e',
-        'existing_property': 'category_d',
-        'rental_guarantee': 'category_a'
-    }
     title = _('洋房东')
     return currant_util.common_template(
         "index",
@@ -61,7 +55,7 @@ def default(user):
         announcement_list=announcement_list,
         news_list=news_list,
         intention_list=intention_list,
-        icon_map=icon_map
+        icon_map=currant_util.icon_map
     )
 
 
@@ -91,7 +85,7 @@ def signin():
 def intention():
     title = _('投资意向')
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
-    return currant_util.common_template("intention", intention_list=intention_list, title=title)
+    return currant_util.common_template("intention", intention_list=intention_list, title=title, icon_map=currant_util.icon_map)
 
 
 @f_get('/reset_password', '/reset-password')

@@ -13,6 +13,14 @@ logger = logging.getLogger(__name__)
 BASE_KEYWORDS_ARRAY = ['洋房东', '海外置业', '楼盘', '公寓', '别墅', '学区房', '英国房产', '海外投资', '海外房产', '海外买房', '海外房地产', '海外房产投资', '英国房价', 'Youngfunding', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
 
 
+icon_map = {
+    'school_nearby_house': 'category_b',
+    'off_plan_property': 'category_e',
+    'existing_property': 'category_d',
+    'rental_guarantee': 'category_a'
+}
+
+
 def format_unit(unit):
     if unit == 'foot ** 2':
         return 'foot<sup>2</sup>'
