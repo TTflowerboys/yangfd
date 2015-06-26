@@ -38,7 +38,14 @@ static NSString *host = nil;
 }
 
 + (NSArray *)webCacheExceptionRules {
-    return @[CONCAT(@"http://", [self host], @"(:\\d{2,4})?", @"/api")];
+    //filter out non html interface
+    return @[CONCAT(@"http://", [self host], @"(:\\d{2,4})?", @"/api"),
+             CONCAT(@"http://", [self host], @"/image/fetch"),
+             CONCAT(@"http://", [self host], @"/upload_image"),
+             CONCAT(@"http://", [self host], @"/reverse_proxy"),
+             CONCAT(@"http://", [self host], @"/logout"),
+             CONCAT(@"http://", [self host], @"/qrcode/generate"),
+             CONCAT(@"http://", [self host], @"/track")];
 }
 
 + (NSString *)yangfdScheme {
