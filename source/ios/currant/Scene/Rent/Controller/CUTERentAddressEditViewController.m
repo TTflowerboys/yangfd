@@ -113,7 +113,28 @@
     [ticketListener stopListenMark];
     [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 
-    [self updateAddress];
+    [self updateAddressWithGetLocationFailedBlock:^{
+        CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+        self.ticket.property.latitude = nil;
+        self.ticket.property.longitude = nil;
+        [ticketListener stopListenMark];
+        //check is a draft ticket not a unfinished one
+        if (!IsNilNullOrEmpty(self.ticket.identifier)) {
+            [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+        }
+
+        CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+        if (form.singleUseForReedit) {
+            [UIAlertView showWithTitle:STR(@"重新定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+
+            }];
+        }
+        else {
+            [UIAlertView showWithTitle:STR(@"重新定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+
+            }];
+        }
+    }];
 }
 
 - (void)onLocationEdit:(id)sender {
@@ -143,67 +164,60 @@
     [self.navigationController pushViewController:mapController animated:YES];
 }
 
-- (void)updateAddress {
+- (void)updateAddressWithGetLocationFailedBlock:(dispatch_block_t)failedBlock {
 
     NSString *postCodeIndex = [self.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (self.ticket.property.country && !IsNilNullOrEmpty(postCodeIndex)) {
         [SVProgressHUD showWithStatus:STR(@"搜索中...")];
 
         [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:self.ticket.property.country.code] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-            else if (task.exception) {
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [SVProgressHUD showErrorWithCancellation];
-            }
-            else {
-                CLLocation *location = task.result;
-                if (location && [location isKindOfClass:[CLLocation class]]) {
 
-                    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-                    self.ticket.property.latitude = @(location.coordinate.latitude);
-                    self.ticket.property.longitude = @(location.coordinate.longitude);
-                    [ticketListener stopListenMark];
-                    //check is a draft ticket not a unfinished one
-                    if (!IsNilNullOrEmpty(self.ticket.identifier)) {
-                        [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+            CLLocation *location = task.result;
+            if (location && [location isKindOfClass:[CLLocation class]]) {
+
+                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+                self.ticket.property.latitude = @(location.coordinate.latitude);
+                self.ticket.property.longitude = @(location.coordinate.longitude);
+                [ticketListener stopListenMark];
+                //check is a draft ticket not a unfinished one
+                if (!IsNilNullOrEmpty(self.ticket.identifier)) {
+                    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+                }
+
+                [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
+                    if (task.error) {
+                        [SVProgressHUD showErrorWithError:task.error];
                     }
-
-                    [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
-                        if (task.error) {
-                            [SVProgressHUD showErrorWithError:task.error];
-                        }
-                        else if (task.exception) {
-                            [SVProgressHUD showErrorWithException:task.exception];
-                        }
-                        else if (task.isCancelled) {
-                            [SVProgressHUD showErrorWithCancellation];
+                    else if (task.exception) {
+                        [SVProgressHUD showErrorWithException:task.exception];
+                    }
+                    else if (task.isCancelled) {
+                        [SVProgressHUD showErrorWithCancellation];
+                    }
+                    else {
+                        if (task.result) {
+                            CUTEPlacemark *detailPlacemark = task.result;
+                            CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+                            form.street = detailPlacemark.street;
+                            CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+                            self.ticket.property.street = form.street;
+                            [ticketListener stopListenMark];
+                            [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+                            [self.tableView reloadData];
+                            [SVProgressHUD dismiss];
                         }
                         else {
-                            if (task.result) {
-                                CUTEPlacemark *detailPlacemark = task.result;
-                                CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-                                form.street = detailPlacemark.street;
-                                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-                                self.ticket.property.street = form.street;
-                                [ticketListener stopListenMark];
-                                [self syncWithUserInfo:ticketListener.getSyncUserInfo];
-                                [self.tableView reloadData];
-                                [SVProgressHUD dismiss];
-                            }
-                            else {
-                                [SVProgressHUD dismiss];
-                            }
+                            [SVProgressHUD dismiss];
                         }
-                        return task;
-                    }];
+                    }
+                    return task;
+                }];
+            }
+            else {
+                if (failedBlock) {
+                    failedBlock();
                 }
-                else {
-                    [SVProgressHUD dismiss];
-                }
+                [SVProgressHUD dismiss];
             }
             return task;
         }];

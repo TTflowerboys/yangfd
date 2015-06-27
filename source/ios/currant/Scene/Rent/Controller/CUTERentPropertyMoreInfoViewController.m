@@ -38,20 +38,35 @@
     [self checkNeedUpdateTicketTitle];
 }
 
-- (void)onLeftButtonPressed:(id)sender {
+- (CUTEFormTextFieldCell *)getTicketTitleCell {
+    FXFormField *field = [self.formController fieldForKey:@"ticketTitle"];
+    NSIndexPath *indexPath = [self.formController indexPathForField:field];
+    CUTEFormTextFieldCell *cell = (CUTEFormTextFieldCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    return cell;
+}
+
+- (CUTEFormTextViewCell *)getTicketDescriptionCell {
     FXFormField *field = [self.formController fieldForKey:@"ticketDescription"];
     NSIndexPath *indexPath = [self.formController indexPathForField:field];
     CUTEFormTextViewCell *cell = (CUTEFormTextViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-    NSString *string = cell.textView.text;
+    return cell;
+}
 
-    if ([self checkDescriptionContainPhoneNumber:string]) {
-        [self warnDescriptionContainPhoneNumber];
+- (void)onLeftButtonPressed:(id)sender {
 
+    NSString *ticketTitle = [self getTicketTitleCell].textField.text;
+    NSString *ticketDescription = [self getTicketDescriptionCell].textView.text;
+
+    if ([self checkTitleLengthInvalid:ticketTitle]) {
+        [self showTitleLengthWarningAlert];
+        return;
     }
-    else {
-        [self.navigationController popViewControllerAnimated:YES];
+    if ([self checkDescriptionContainPhoneNumber:ticketDescription]) {
+        [self showDescriptionContainPhoneNumberWarningAlert];
+        return;
     }
 
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -122,6 +137,14 @@
 }
 
 - (void)onTicketTitleEdit:(id)sender {
+
+    CUTEFormTextFieldCell *cell = (CUTEFormTextFieldCell *)sender;
+    NSString *string = cell.textField.text;
+    if ([self checkTitleLengthInvalid:string]) {
+        [self showTitleLengthWarningAlert];
+        return;
+    }
+
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
     self.ticket.title = self.form.ticketTitle;
     [ticketListener stopListenMark];
@@ -133,7 +156,7 @@
     CUTEFormTextViewCell *cell = (CUTEFormTextViewCell *)sender;
     NSString *string = cell.textView.text;
     if ([self checkDescriptionContainPhoneNumber:string]) {
-        [self warnDescriptionContainPhoneNumber];
+        [self showDescriptionContainPhoneNumberWarningAlert];
         return;
     }
 
@@ -156,8 +179,16 @@
     return NO;
 }
 
-- (void)warnDescriptionContainPhoneNumber {
+- (BOOL)checkTitleLengthInvalid:(NSString *)string {
+    return string.length < 8 || string.length > 30;
+}
+
+- (void)showDescriptionContainPhoneNumberWarningAlert {
     [UIAlertView showWithTitle:STR(@"平台将提供房东联系方式选择，请删除在此填写任何形式的联系方式，违规发布将会予以处理")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+}
+
+- (void)showTitleLengthWarningAlert {
+    [UIAlertView showWithTitle:STR(@"字符长度限制为8-30")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
 }
 
 - (CUTEPropertyMoreInfoForm *)form {

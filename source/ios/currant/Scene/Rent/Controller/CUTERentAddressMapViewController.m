@@ -115,35 +115,52 @@
     _userLocationButton.frame = CGRectMake(ScreenWidth - 40 -15, ScreenHeight - TabBarHeight - 40 - 15, 40, 40);
     [self.view addSubview:_userLocationButton];
     [_userLocationButton addTarget:self action:@selector(onUserLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-
-    if (self.singleUseForReedit) {
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.ticket.property.latitude.doubleValue longitude:self.ticket.property.longitude.doubleValue];
-        if (location) {
-            MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
-            [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
-        }
-    }
-    else {
-        //wait to make sure indicator animation show
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self startUpdateLocation];
-        });
-    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
 
+    TrackScreen(GetScreenName(self));
     //update address after edit user's address
     CUTEProperty *property = self.ticket.property;
     _textField.text = property.address;
 
-    TrackScreen(GetScreenName(self));
 
-    if (_isAddressUpdated) {
-        [self onAddressLocationButtonTapped:nil];
-        _isAddressUpdated = NO;
+    if (self.singleUseForReedit) {
+
+        if (!self.ticket.property.latitude || !self.ticket.property.longitude) {
+            [self onAddressLocationButtonTapped:nil];
+        }
+        else {
+            CLLocation *location = [[CLLocation alloc] initWithLatitude:self.ticket.property.latitude.doubleValue longitude:self.ticket.property.longitude.doubleValue];
+            if (location) {
+                MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
+                [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+            }
+        }
     }
+    else {
+        if (!self.ticket.property.latitude || !self.ticket.property.longitude) {
+            //wait to make sure indicator animation show
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self startUpdateLocation];
+            });
+        }
+        else {
+            if (_isAddressUpdated) {
+                [self onAddressLocationButtonTapped:nil];
+                _isAddressUpdated = NO;
+            }
+            else {
+                CLLocation *location = [[CLLocation alloc] initWithLatitude:self.ticket.property.latitude.doubleValue longitude:self.ticket.property.longitude.doubleValue];
+                if (location) {
+                    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
+                    [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+                }
+            }
+        }
+    }
+
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_MAP_INPUT_DISPLAYED])
