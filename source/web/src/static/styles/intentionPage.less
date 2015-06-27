@@ -121,19 +121,26 @@
                      }
                     > label {
                         height: 60px; display: block; cursor: pointer;
+
                          @media @phone {
                              font-size:12px;
                              font-weight:bold;
                          }
+                        i{
+                            color: #ccc;
+                            font-size: 40px;
+                        }
 
                     }
-                    img.grey { display: inline-block; }
-                    img.red { display: none; }
+                    &.selected{
+
+                    }
                     color: #999;
                     &.selected {
-                        img.grey { display: none; }
-                        img.red { display: inline-block; }
-                        color: black;
+                        color: #333;
+                        > label i{
+                            color: @red;
+                        }
                     }
                     &:after {
                         .arrow(@direction: up; @fg:#ddd; @width: 20px;);
