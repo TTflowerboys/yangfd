@@ -227,6 +227,14 @@
                 return false
             }
         },
+        isQQBrowser: function () {
+            var ua = navigator.userAgent.toLowerCase()
+            return /mqqbrowser/.test(ua)
+        },
+        isAndroidBrowser: function () {
+            var ua = navigator.userAgent.toLowerCase()
+            return /android.+chrome/.test(ua)
+        },
         /**
          * convert to https link
          * @param {object} {link:'',property_id:'',news_id:''}

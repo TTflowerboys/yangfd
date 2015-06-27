@@ -1,10 +1,7 @@
 (function($, Swiper){
 
 
-    var mySwiper,
-        photoSwiper,
-        photoThumbsSwiper
-    mySwiper = new Swiper('.mainSwiper', {
+    var mySwiper = new Swiper('.mainSwiper', {
         direction: 'vertical',
         effect: 'slide',
         containerScroll: 'true',
@@ -23,7 +20,7 @@
          shadowScale: 0.94
          },*/
         onInit: function (swiper, direction) {
-            if($('.pagePhoto').length > 0 && $('.pagePhoto .photoList').length > 0){
+            if($('.pagePhoto').length > 0 && $('.pagePhoto .albumList').length > 0){
                 createPhotoListSwiper()
             }else{
                 allInitHanddler()
@@ -70,15 +67,56 @@
         mySwiper.slideTo(num, speed, callback)
     }
     function createPhotoListSwiper(){
-        photoSwiper = new Swiper('.pagePhoto', {
+        var albumSwiper,
+            albumThumbsSwiper,
+            photoSwiper
+
+        window.loadVideoStarted = false
+        function startLoadVideo() {
+
+            window.loadVideoStarted = true
+            var property = JSON.parse($('#pythonProperty').text())
+            if (property.videos && property.videos[0] && property.videos[0].sources) {
+                $.betterPost('/api/1/misc/get_video_source', {property_id:property.id})
+                    .done(function (data) {
+                        if (data && data.length) {
+                            var videoResult = _.template($('#propertyVideo_template').html())({sources: data})
+                            $('#videoContent').append(videoResult)
+                            $('#videoContent').append('<script>videojs.options.flash.swf = "/static/bower_components/video-js/dist/video-js/video-js.swf";</script>')
+                            $('#videoLoadIndicator').hide()
+                        }
+                    })
+                    .fail(function (ret) {
+                    })
+            }
+        }
+        function pauseVideo() {
+            if (typeof videojs !== 'undefined') {
+                var propertyPlayer = window.videojs('property_video')
+                if (propertyPlayer) {
+                    propertyPlayer.pause()
+                }
+            }
+        }
+        albumSwiper = new Swiper('.pagePhoto', {
             slidesPerView: 1,
             spaceBetween: 10,
             //nested: true,
+            onSlideChangeEnd: function (swiper) {
+                if ($(swiper.slides[swiper.activeIndex]).hasClass('video')) {
+                    if (window.loadVideoStarted) {
+                        return
+                    }
+                    startLoadVideo()
+                } else {
+                    pauseVideo()
+                }
+            }
         })
-        photoThumbsSwiper = new Swiper('.photoThumbs', {
+        albumThumbsSwiper = new Swiper('.photoThumbs', {
             effect: 'slide',
             slidesPerView: 3,
-            spaceBetween: 10,
+            spaceBetween: 20,
             centeredSlides: true,
             touchRatio: 0.3,
             //slideToClickedSlide: true,
@@ -90,18 +128,33 @@
             //prevButton: 'prevButton',
             onInit: function(){
                 allInitHanddler()
+            },
+            onSlideChangeEnd: function (swiper) {
+                if ($(swiper.slides[swiper.activeIndex]).hasClass('video')) {
+                    if (window.loadVideoStarted) {
+                        return
+                    }
+                    startLoadVideo()
+                } else {
+                    pauseVideo()
+                }
             }
         });
+        photoSwiper = new Swiper('.album', {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            nested: true,
+        })
         $('.photoThumbs').siblings('.arrowButton').on('click', function(){
             var action = $(this).data('action')
-            photoThumbsSwiper['slide' + action]()
+            albumThumbsSwiper['slide' + action]()
         }).end().delegate('.swiper-slide-prev', 'click', function () {
-            photoThumbsSwiper.slidePrev()
+            albumThumbsSwiper.slidePrev()
         }).delegate('.swiper-slide-next', 'click', function () {
-            photoThumbsSwiper.slideNext()
+            albumThumbsSwiper.slideNext()
         })
-        photoSwiper.params.control = photoThumbsSwiper;
-        photoThumbsSwiper.params.control = photoSwiper;
+        albumSwiper.params.control = albumThumbsSwiper;
+        albumThumbsSwiper.params.control = albumSwiper;
     }
     function allInitHanddler(){
         var obj = $('.swiper-slide')
@@ -274,12 +327,50 @@
             return
         }
     }
+    function formatPrice () {
+        function fmoney(s, n)
+        {
+            n = n >= 0 && n <= 20 ? n : 2;
+            s = parseFloat((s + '').replace(/[^\d\.-]/g, '')).toFixed(n) + '';
+            var l = s.split('.')[0].split('').reverse(),
+                r = s.split('.')[1];
+            var t = '';
+            for(var i = 0; i < l.length; i ++ )
+            {
+                t += l[i] + ((i + 1) % 3 === 0 && (i + 1) !== l.length ? ',' : '');
+            }
+            return t.split('').reverse().join('') + (n > 0 ? '.' + r : '');
+        }
+        $('[data-formatPrice]').each(function (index, elem) {
+            var text = $(elem).text()
+            $(elem).text(text.replace(/(\d+(.\d+)?)/, function (t) {
+                return fmoney(parseFloat(t), 0)
+            }))
+        })
+    }
+
+    //安卓微信内置的浏览器不兼容border width 使用vw、vh单位,以及calc
+    function compatibleBrowser () {
+        if (window.team.isQQBrowser() || window.team.isAndroidBrowser()) {
+            $('[data-compatibleQQBrowser]').each(function () {
+                $(this).attr('style', $(this).attr('data-style'))
+            })
+        }
+        if (window.team.isQQBrowser()) {
+            $('.photoThumbs .image,.photoThumbs .text_wrapper').css({
+                width: '100%',
+                height: '100%'
+            }).next('.border').hide()
+        }
+    }
     $(function(){
         initModal()
         showBtnOrNot()
         hidePage()
         showSixFacilitiesOnly()
         fixFontSize()
+        formatPrice()
+        compatibleBrowser()
     })
 
 })(jQuery, window.Swiper)

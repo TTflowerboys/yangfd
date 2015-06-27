@@ -1,593 +1,447 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <title>{{title}}</title>
-        <meta name="Description" content="{{description}}">
-        <meta name="Keywords" content="{{keywords}}">
-        <!-- @@include = ./partials/meta.html -->
-        <meta name="viewport" content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <meta name="format-detection" content="telephone=no">
-        <!--build:css(dist) /static/styles/wechat_poster.html.css-->
-        <link rel="stylesheet" href="/static/styles/team/reset.css">
-        <link rel="stylesheet" href="/static/bower_components/swiper/dist/css/swiper.min.css">
-        <link rel="stylesheet" href="/static/styles/phone/animation.css">
-        <link rel="stylesheet" href="/static/styles/iconFont.css">
-        <link rel="stylesheet" href="/static/styles/phone/wechatPoster.css">
-        <!--endbuild-->
+<!--@@master = masters/wechat_poster_master.html-->
 
-        <!-- @@include = ./partials/favicon.html -->
-    </head>
-    <body marginwidth="0" marginheight="0" class="loading">
-        <div class="loadingCover">
-            <div class="proBox">
-                <canvas id="procanvas" class="procanvas" value="0%"></canvas>
-                <span id="proText" class="proText"></span>
+<!--@@block =head -->
+<!--build:css(dist) /static/styles/wechat_poster.html.css-->
+<link rel="stylesheet" href="/static/styles/phone/wechatPoster.css">
+<!--endbuild-->
+<!--@@close-->
+
+<!--@@block =main -->
+<script type="text/javascript">
+    window.viewStartTime = new Date()
+    window.durationArray = []
+    window.isInit = false
+    var process = new Process({
+        canvasId: 'procanvas',
+        textId: 'proText',
+        outerWidth: '100',
+        innerWidth: '94',
+        backColor: 'rgba(51,51,51,1)',
+        underColor: '#3f3f3f',
+        activeColor: '#aec227'
+    })
+    process.moveTo(75, 10000, function(){
+        process.moveTo(90, 5000, function(){
+            process.moveTo(95, 5000, function() {
+                $(window).trigger('ownLoadEvent')
+            })
+        })
+    })
+</script>
+<div class="swiper-container mainSwiper" style="">
+    <div class="swiper-wrapper" style="">
+        <div class="swiper-slide swiper-slide-bg commen" style="">
+            <div class="page pageCover">
+                <div class="topTitleNav animate">
+                    <p class="location animate">{{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}}, {{rent['property'].get('city',{}).get('name','')}}, {{rent['property'].get('street','')}}</p>
+                    <p class="title animate fixFontSize" data-maxHeight="8vh">{{rent.get('title','')}}</p>
+                    <p class="titleEn animate">Letting!</p>
+                </div>
             </div>
-            <p class="info">{{_('正在加载资源')}}<br>{{_('请稍后')}}</p>
-            <p class="logo"></p>
+            <div class="bottomBox animate">
+                <div class="scrollUp">{{_('继续')}}</div>
+            </div>
+
+
         </div>
-        <script type="text/javascript">
-            window.viewStartTime = new Date()
-            window.durationArray = []
-            window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
-            window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame
-            window.isInit = false
-            //进度条类
-            function Process(conf){
-                var defaultConfig = {
-
-                }
-                var config = {}
-                extendConfig()
-                var _ = this
-                var canvas = document.getElementById(config.canvasId)
-                var context = canvas.getContext('2d')
-                var textEle = document.getElementById(config.textId)
-                this.canvasvalue = canvas.getAttribute("value") || '0%'
-                this.process = parseInt(this.canvasvalue.substring(0, this.canvasvalue.length - 1))
-                this.scale = window.devicePixelRatio || 1
-                this.outerWidth = config.outerWidth
-                this.innerWidth = config.innerWidth
-                this.center = [this.outerWidth / 2 * this.scale, this.outerWidth / 2 * this.scale]
-
-                canvas.width = this.outerWidth * this.scale
-                canvas.height = this.outerWidth * this.scale
-
-                canvas.style.width = this.outerWidth + 'px'
-                canvas.style.height = this.outerWidth + 'px'
-
-                initStyle()
-
-                this.draw = function () {
-                    //开始画一个underColor的圆
-                    context.beginPath()
-                    context.moveTo(this.center[0], this.center[1])
-                    context.arc(this.center[0], this.center[1], this.center[0], 0, Math.PI * 2, false)
-                    context.closePath()
-                    context.fillStyle = config.underColor
-                    context.fill()
-
-                    // 画进度(activeColor)
-                    if(this.process !== 0 && this.process !== 100){
-                        context.beginPath()
-                        context.moveTo(this.center[0], this.center[1])
-                        context.arc(this.center[0], this.center[1], this.center[0], - Math.PI / 2, Math.PI*2* (this.process / 100) - Math.PI / 2, false)
-                        context.closePath()
-                        context.fillStyle = config.activeColor
-                        context.fill()
-                    }
-                    else if(this.process === 100){
-                        context.beginPath()
-                        context.moveTo(this.center[0], this.center[1])
-                        context.arc(this.center[0], this.center[1], this.center[0], 0, Math.PI*2, false)
-                        context.closePath()
-                        context.fillStyle = config.activeColor
-                        context.fill()
-                    }
-                    // 画内部空白(backColor)
-                    context.beginPath()
-                    context.moveTo(this.center[0], this.center[1])
-                    context.arc(this.center[0], this.center[1], this.center[0]*this.innerWidth/this.outerWidth, 0, Math.PI * 2, true)
-                    context.closePath()
-                    context.fillStyle = config.backColor
-                    context.fill()
-                }
-                this.changeText = function () {
-                    this.canvasvalue = this.process + '%';
-                    textEle.innerHTML = this.canvasvalue
-                }
-                function initStyle(){
-                    var w = _.outerWidth + 'px'
-                    canvas.parentElement.style.width = w
-                    canvas.parentElement.style.height = w
-                    canvas.nextElementSibling.style.lineHeight = w
-                }
-                function extendConfig(){
-                    var k
-                    for(k in defaultConfig){
-                        config[k] = defaultConfig[k]
-                    }
-                    for(k in conf){
-                        config[k] = conf[k]
-                    }
-                }
-
-            }
-            Process.prototype.moveTo = function(process, time, callback){
-                var _ = this,
-                    time = time || 3000,
-                    past = new Date,
-                    now,
-                    pastProcess = this.process,
-                    step = process - this.process
-                if(_.raf !== undefined){
-                    cancelAnimationFrame(_.raf)
-                }
-                function move(){
-                    now = new Date
-                    if((now - past) / time >= (_.process - pastProcess) / step){
-                        _.process =  Math.min(pastProcess + Math.floor((now - past) / time * step), process)
-                        _.draw()
-                        _.changeText()
-                    }
-                    if(_.process < process){
-                        _.raf = requestAnimationFrame(move)
-                    }
-                    if(_.process === process){
-                        setTimeout(function(){
-                            callback && typeof callback === 'function' && callback()
-                        },200)
-                    }
-                }
-                _.raf = requestAnimationFrame(move)
-            }
-            Process.prototype.finish = function(cb){
-                this.moveTo(100, 500, cb)
-            }
-            var process = new Process({
-                canvasId: 'procanvas',
-                textId: 'proText',
-                outerWidth: '100',
-                innerWidth: '94',
-                backColor: 'rgba(51,51,51,1)',
-                underColor: '#3f3f3f',
-                activeColor: '#aec227'
-            })
-            process.moveTo(75, 10000, function(){
-                process.moveTo(90, 5000, function(){
-                    process.moveTo(95, 5000, function() {
-                        $(window).trigger('ownLoadEvent')
-                    })
-                })
-            })
-
-        </script>
-        <!--切换到竖屏提醒框-->
-        <div class="onorientationNotice" style="display: none;">
-            <p>{{_('为了更好的体验，请将您的手机或平板竖过来')}}</p>
-            <button class="closeBtn"></button>
-        </div>
-        <div class="swiper-container mainSwiper" style="">
-            <div class="swiper-wrapper" style="">
-                <div class="swiper-slide swiper-slide-bg commen" style="">
-                    <div class="page pageCover">
-                        <div class="topTitleNav animate">
-                            <p class="location animate">{{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}}, {{rent['property'].get('city',{}).get('name','')}}, {{rent['property'].get('street','')}}</p>
-                            <p class="title animate fixFontSize">{{rent.get('title','')}}</p>
-                            <p class="titleEn animate">Letting!</p>
-                        </div>
-                    </div>
-                    <div class="bottomBox animate">
-                        <div class="scrollUp">{{_('继续')}}</div>
-                    </div>
-
-
-                </div>
-                <div class="swiper-slide swiper-slide-bg commen" style="">
-                    <div class="page pageRental">
-                        <p class="line1 animate">{{_('仅需')}}</p>
-                        <p class="line2 animate">
-                            % if 'price' in rent and rent.get('price'):
-                            <span class="price_original">
-                                {{rent.get('price',{}).get('unit_symbol','')}}
-                                {{int(float(rent.get('price',{}).get('value','')))}}
-                                {{_('/周')}}
-                                % if 'bill_covered' in rent and rent.get('bill_covered'):
-                                <span class="sub">
-                                    {{_(', 包Bill')}}
-                                </span>
-                                % end
-                            </span>
-                            % end
-                            % if 'localized_unit_symbol' in rent.get('price',{}) and rent.get('price',{}).get('localized_unit_symbol','') != rent.get('price',{}).get('unit_symbol',''):
-                            <span class="price_reference">
-                                {{_('约')}}
-                                {{rent.get('price',{}).get('localized_unit_symbol','')}}
-                                {{int(float(rent.get('price',{}).get('localized_value','')))}}
-                                {{_('/周')}}
-                            </span>
-                            % end
-                        </p>
-                        <p class="line3 animate">{{_('您就可以租到')}}</p>
-                        <ul class="itemBox clearfix">
-                            %if rent.get('space',{}).get('value'):
-                            <li class="animate size">
-                                <div>
-                                    <i class="icon-size"></i>
-                                    %if float(rent.get('space',{}).get('value',0)) < 1000:
-                                    {{"{0:.2f}".format(float(rent.get('space',{}).get('value',0)))}}
-                                    %else:
-                                    {{"{0:.0f}".format(float(rent.get('space',{}).get('value',0)))}}
-                                    %end
-                                    {{!format_unit(rent.get('space',{}).get('unit',''))}}
-                                </div>
-                            </li>
+        <div class="swiper-slide swiper-slide-bg commen" style="">
+            <div class="page pageRental">
+                <p class="line1 animate">{{_('仅需')}}</p>
+                <p class="line2 animate">
+                    % if 'price' in rent and rent.get('price'):
+                    <span class="price_original">
+                        {{rent.get('price',{}).get('unit_symbol','')}}
+                        {{int(float(rent.get('price',{}).get('value','')))}}
+                        {{_('/周')}}
+                        % if 'bill_covered' in rent and rent.get('bill_covered'):
+                        <span class="sub">
+                            {{_(', 包Bill')}}
+                        </span>
+                        % end
+                    </span>
+                    % end
+                    % if 'localized_unit_symbol' in rent.get('price',{}) and rent.get('price',{}).get('localized_unit_symbol','') != rent.get('price',{}).get('unit_symbol',''):
+                    <span class="price_reference">
+                        {{_('约')}}
+                        {{rent.get('price',{}).get('localized_unit_symbol','')}}
+                        {{int(float(rent.get('price',{}).get('localized_value','')))}}
+                        {{_('/周')}}
+                    </span>
+                    % end
+                </p>
+                <p class="line3 animate">{{_('您就可以租到')}}</p>
+                <ul class="itemBox clearfix">
+                    %if rent.get('space',{}).get('value'):
+                    <li class="animate size">
+                        <div>
+                            <i class="icon-size"></i>
+                            %if float(rent.get('space',{}).get('value',0)) < 1000:
+                            {{"{0:.2f}".format(float(rent.get('space',{}).get('value',0)))}}
+                            %else:
+                            {{"{0:.0f}".format(float(rent.get('space',{}).get('value',0)))}}
                             %end
-                            <li class="animate rooms"
-                                %if not rent.get('space',{}).get('value'):
-                                style="width:100%;"
-                                %end
-                                >
-                                <div>
-                                    <i class="icon-rooms"></i>{{rent['property'].get('bedroom_count',0)}}<span>{{_('室')}}</span>{{rent['property'].get('living_room_count',0)}}<span>{{_('厅')}}</span>{{rent['property'].get('bathroom_count',0)}}<span>{{_('卫')}}</span>
-                                </div>
-                            </li>
-                            <li class="animate rental"><div><i class="icon-house"></i>{{rent.get('rent_type',{}).get('value', '')}}</div></li>
-                            <li class="animate street"><div><i class="icon-block_line"></i>{{rent['property'].get('zipcode','')}}</div></li>
-                            <li class="animate estate"
-                                %if not rent['property'].get('floor',''):
-                                style="width:100%;"
-                                %end
-                                >
-                                <div><i class="icon-building"></i>
-                                %if rent['property'].get('community',''):
-                                {{rent['property'].get('community','')}},
-                                %end
-                                %if rent['property'].get('street',''):
-                                {{rent['property'].get('street','')}},
-                                %end
-                                {{rent['property'].get('city',{}).get('name','')}}
-                                </div>
-                            </li>
-                            % if 'floor' in rent['property'] and rent['property'].get('floor',''):
-                            <li class="animate door">
-                                <div>
-                                    <i class="icon-door"></i>
-                                    {{rent['property'].get('floor','')}}
-                                    % if 'house_name' in rent.get('property',{}) and 'floor' in rent.get('property',{}):
-                                    {{'-'}}
-                                    % end
-                                    {{rent['property'].get('house_name','')}}
-                                </div>
-                            </li>
+                            {{!format_unit(rent.get('space',{}).get('unit',''))}}
+                        </div>
+                    </li>
+                    %end
+                    <li class="animate rooms"
+                        %if not rent.get('space',{}).get('value'):
+                    style="width:100%;"
+                    %end
+                    >
+                    <div>
+                        <i class="icon-rooms"></i>{{rent['property'].get('bedroom_count',0)}}<span>{{_('室')}}</span>{{rent['property'].get('living_room_count',0)}}<span>{{_('厅')}}</span>{{rent['property'].get('bathroom_count',0)}}<span>{{_('卫')}}</span>
+                    </div>
+                    </li>
+                    <li class="animate rental"><div><i class="icon-house"></i>{{rent.get('rent_type',{}).get('value', '')}}</div></li>
+                    <li class="animate street"><div><i class="icon-block_line"></i>{{rent['property'].get('zipcode','')}}</div></li>
+                    <li class="animate estate"
+                        %if not rent['property'].get('floor',''):
+                    style="width:100%;"
+                    %end
+                    >
+                    <div><i class="icon-building"></i>
+                        %if rent['property'].get('community',''):
+                        {{rent['property'].get('community','')}},
+                        %end
+                        %if rent['property'].get('street',''):
+                        {{rent['property'].get('street','')}},
+                        %end
+                        {{rent['property'].get('city',{}).get('name','')}}
+                    </div>
+                    </li>
+                    % if 'floor' in rent['property'] and rent['property'].get('floor',''):
+                    <li class="animate door">
+                        <div>
+                            <i class="icon-door"></i>
+                            {{rent['property'].get('floor','')}}
+                            % if 'house_name' in rent.get('property',{}) and 'floor' in rent.get('property',{}):
+                            {{'-'}}
                             % end
+                            {{rent['property'].get('house_name','')}}
+                        </div>
+                    </li>
+                    % end
+                    % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
+                    <li class="animate time">
+                        <div>
+                            <i class="icon-clock"></i>
                             % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
-                            <li class="animate time">
-                                <div>
-                                    <i class="icon-clock"></i>
-                                    % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
-                                    {{rent.get('rent_available_time','').strftime("%Y-%m-%d")}}
-                                    % end
-                                    % if 'rent_deadline_time' in rent and rent.get('rent_deadline_time',''):
-                                    {{'至 ' + rent.get('rent_deadline_time').strftime("%Y-%m-%d")}}
-                                    % else :
-                                    {{_('起')}}
-                                    % end
-                                </div>
-                            </li>
+                            {{rent.get('rent_available_time','').strftime("%Y-%m-%d")}}
                             % end
-                            % if 'minimum_rent_period' in rent:
-                            <li class="animate time">
-                                <div>
-                                    <i class="icon-clock"></i>
-                                    {{_('最短租期')}}
-                                    <!--@@include=partials/get_rent_min_period.html  -->
-                                </div>
-                            </li>
+                            % if 'rent_deadline_time' in rent and rent.get('rent_deadline_time',''):
+                            {{'至 ' + rent.get('rent_deadline_time').strftime("%Y-%m-%d")}}
+                            % else :
+                            {{_('起')}}
                             % end
-                        </ul>
-                    </div>
-                    <div class="bottomBox animate">
-                        <div class="scrollUp">{{_('继续')}}</div>
-                    </div>
-                </div>
-                <div class="swiper-slide swiper-slide-bg commen
+                        </div>
+                    </li>
+                    % end
+                    % if 'minimum_rent_period' in rent:
+                    <li class="animate time">
+                        <div>
+                            <i class="icon-clock"></i>
+                            {{_('最短租期')}}
+                            <!--@@include=partials/get_rent_min_period.html  -->
+                        </div>
+                    </li>
+                    % end
+                </ul>
+            </div>
+            <div class="bottomBox animate">
+                <div class="scrollUp">{{_('继续')}}</div>
+            </div>
+        </div>
+        <div class="swiper-slide swiper-slide-bg commen
                 % if 'description' in rent and rent.get('description') or len(rent['property'].get('indoor_facility',[]))>0 or len(rent['property'].get('community_facility',[]))>0:
                 show
                 % else:
                 hideInWechat
                 % end
                 " style="">
-                    <div class="page pageDescription">
-                        %if 'description' in rent and rent.get('description'):
-                        <h2 class="animate">&nbsp;</h2>
-                        <p class="description animate">
-                            {{rent.get('description','')}}
-                        </p>
-                        %else:
-                        <h2 class="animate hideInWechat">&nbsp;</h2>
-                        <p class="description animate hideInWechat">
-                            {{_('统计表明填写更多房产的描述和配套设施能缩短出租用时')}}
-                        </p>
-                        %end
-                        %if 'description' in rent and rent.get('description'):
-                        <a class="btn btnModal animate viewMoreBtn" id="viewMoreBtn">{{_('查看更多')}}</a>
-                        % end
-                        <!--% if 'indoor_facility' in rent['property'] or 'community_facility' in rent['property']:-->
-                        <ul class="facilities clearfix">
-                            % for item in rent['property'].get('indoor_facility',[]):
-                            <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
-                            % end
-                            % for item in rent['property'].get('community_facility',[]):
-                            <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
-                            %end
-                        </ul>
-                        <!-- 只有上面的设施条数大于6时展示，js控制-->
-                        <a class="btn btnModal animate morefacilitiesBtn" id="morefacilitiesBtn">{{_('更多设施')}}</a>
-                        <!--% end-->
+            <div class="page pageDescription">
+                %if 'description' in rent and rent.get('description'):
+                <h2 class="animate">&nbsp;</h2>
+                <p class="description animate">
+                    {{rent.get('description','')}}
+                </p>
+                %else:
+                <h2 class="animate hideInWechat">&nbsp;</h2>
+                <p class="description animate hideInWechat">
+                    {{_('统计表明填写更多房产的描述和配套设施能缩短出租用时')}}
+                </p>
+                %end
+                %if 'description' in rent and rent.get('description'):
+                <a class="btn btnModal animate viewMoreBtn" id="viewMoreBtn">{{_('查看更多')}}</a>
+                % end
+                <!--% if 'indoor_facility' in rent['property'] or 'community_facility' in rent['property']:-->
+                <ul class="facilities clearfix">
+                    % for item in rent['property'].get('indoor_facility',[]):
+                    <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
+                    % end
+                    % for item in rent['property'].get('community_facility',[]):
+                    <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
+                    %end
+                </ul>
+                <!-- 只有上面的设施条数大于6时展示，js控制-->
+                <a class="btn btnModal animate morefacilitiesBtn" id="morefacilitiesBtn">{{_('更多设施')}}</a>
+                <!--% end-->
 
-                    </div>
-                    <div class="bottomBox animate">
-                        <div class="scrollUp">{{_('继续')}}</div>
-                    </div>
+            </div>
+            <div class="bottomBox animate">
+                <div class="scrollUp">{{_('继续')}}</div>
+            </div>
+        </div>
+        <div class="swiper-slide swiper-slide-bg commen" style="">
+            <div class="page pageMap">
+                <!--<img id="mapImage" src="" alt=""/>-->
+                <div class="mapImage" id="mapImage">
+                    <div class="pushpin animate"></div>
                 </div>
-                <div class="swiper-slide swiper-slide-bg commen" style="">
-                    <div class="page pageMap">
-                        <!--<img id="mapImage" src="" alt=""/>-->
-                        <div class="mapImage" id="mapImage">
-                            <div class="pushpin animate"></div>
-                        </div>
-                    </div>
-                    <div class="bottomBox mapBottom animate">
-                        <div class="location">
-                            <h2>{{_('地址')}}</h2>
-                            <p>
-                                {{rent['property'].get('floor','')}}
-                                % if rent.get('property',{}).get('house_name') and rent.get('property',{}).get('floor'):
-                                -
-                                % end
-                                {{rent['property'].get('house_name','')}}
-                                % if rent.get('property',{}).get('house_name') or rent.get('property',{}).get('floor'):
-                                ,
-                                %end
-                                % if rent['property'].get('community',''):
-                                {{rent['property'].get('community','')}},
-                                % end
-                                % if rent['property'].get('street',''):
-                                {{rent['property'].get('street','')}},
-                                % end
-                                {{rent['property'].get('city',{}).get('name','')}},
-                                {{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}},
-                                {{rent['property'].get('zipcode','')}}
-                            </p>
-                            <!--<p>湖北省武汉市光谷大道<br>国际企业中心</p>-->
-                        </div>
-                        <div class="scrollUp">{{_('继续')}}</div>
-                    </div>
+            </div>
+            <div class="bottomBox mapBottom animate">
+                <div class="location">
+                    <h2>{{_('地址')}}</h2>
+                    <p>
+                        {{rent['property'].get('floor','')}}
+                        % if rent.get('property',{}).get('house_name') and rent.get('property',{}).get('floor'):
+                        -
+                        % end
+                        {{rent['property'].get('house_name','')}}
+                        % if rent.get('property',{}).get('house_name') or rent.get('property',{}).get('floor'):
+                        ,
+                        %end
+                        % if rent['property'].get('community',''):
+                        {{rent['property'].get('community','')}},
+                        % end
+                        % if rent['property'].get('street',''):
+                        {{rent['property'].get('street','')}},
+                        % end
+                        {{rent['property'].get('city',{}).get('name','')}},
+                        {{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}},
+                        {{rent['property'].get('zipcode','')}}
+                    </p>
+                    <!--<p>湖北省武汉市光谷大道<br>国际企业中心</p>-->
                 </div>
-                % if rent['property'].get('reality_images', []) and len(rent['property'].get('reality_images', [])):
-                <div class="swiper-slide swiper-slide-bg commen" style="">
-                    <div class="page pagePhoto swiper-container">
-                        <ul class="swiper-wrapper photoList">
+                <div class="scrollUp">{{_('继续')}}</div>
+            </div>
+        </div>
+        % if rent['property'].get('reality_images', []) and len(rent['property'].get('reality_images', [])):
+        <div class="swiper-slide swiper-slide-bg commen" style="">
+            <div class="page pagePhoto swiper-container">
+                <ul class="swiper-wrapper photoList">
+                    % for item in rent['property'].get('reality_images'):
+                    <li class="swiper-slide" style="background-image: url('{{item}}')"></li>
+                    %end
+
+                </ul>
+            </div>
+
+            <div class="bottomBox photoBottom animate">
+                <div class="photoThumbsBox">
+                    <div class="photoThumbs swiper-container">
+                        <ul class="swiper-wrapper thumbList">
                             % for item in rent['property'].get('reality_images'):
                             <li class="swiper-slide" style="background-image: url('{{item}}')"></li>
                             %end
-
                         </ul>
                     </div>
+                    <div class="arrowButton prevButton" data-action="Prev"></div>
+                    <div class="arrowButton nextButton" data-action="Next"></div>
+                </div>
 
-                    <div class="bottomBox photoBottom animate">
-                        <div class="photoThumbsBox">
-                            <div class="photoThumbs swiper-container">
-                                <ul class="swiper-wrapper thumbList">
-                                    % for item in rent['property'].get('reality_images'):
-                                    <li class="swiper-slide" style="background-image: url('{{item}}')"></li>
-                                    %end
-                                </ul>
-                            </div>
-                            <div class="arrowButton prevButton" data-action="Prev"></div>
-                            <div class="arrowButton nextButton" data-action="Next"></div>
-                        </div>
-
-                        <div class="scrollUp
+                <div class="scrollUp
                         % if not report:
                         hideOutsideWechat
                         %end
                         ">{{_('继续')}}</div>
-                    </div>
+            </div>
+        </div>
+        % else:
+        <div class="swiper-slide swiper-slide-bg commen hideInWechat" style="">
+            <div class="page pagePhoto">
+                <p>{{_('暂无图片，上传您的房屋实景图片能极大增加租客联系您的几率')}}</p>
+            </div>
+            <div class="bottomBox animate">
+                <div class="scrollUp">{{_('继续')}}</div>
+            </div>
+        </div>
+        %end
+        % if report:
+        <div class="swiper-slide swiper-slide-bg commen " style="">
+            <div class="page pageRegion">
+                <h2 class="animate">{{_('街区报告：')}}<span>{{report.get('name','')}}</span></h2>
+                <p class="description animate">
+                    {{clear_html_tags(report.get('description',''))}}
+                </p>
+                <a class="btn siteLink animate" href="/region-report/{{report.get('id','')}}">{{_('查看更多')}}</a>
+                <!--<p class="tag animate">-->
+                <!-- todo -->
+                <!--华人多, 学生多, 美食, 中国城-->
+                <!--暂无内容-->
+                <!--</p>-->
+            </div>
+            <div class="bottomBox animate hideOutsideWechat">
+                <div class="scrollUp">{{_('继续')}}</div>
+            </div>
+        </div>
+        % end
+        <div class="swiper-slide swiper-slide-bg commen hideOutsideWechat" style="">
+            <div class="page pageCoverBack">
+                <div class="topTitleNav animate">
+                    <p class="location animate">{{rent['property'].get('street','')}} {{rent['property'].get('city',{}).get('name','')}} {{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}}</p>
+                    <p class="title animate fixFontSize" data-maxHeight="8vh">{{rent.get('title','')}}</p>
+                    <p class="contact animate">
+                        <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" class="btn">{{_('获取房东联系方式')}}</a>
+                    </p>
                 </div>
-                % else:
-                <div class="swiper-slide swiper-slide-bg commen hideInWechat" style="">
-                    <div class="page pagePhoto">
-                        <p>{{_('暂无图片，上传您的房屋实景图片能极大增加租客联系您的几率')}}</p>
-                    </div>
-                    <div class="bottomBox animate">
-                        <div class="scrollUp">{{_('继续')}}</div>
-                    </div>
-                </div>
-                %end
-                % if report:
-                <div class="swiper-slide swiper-slide-bg commen " style="">
-                    <div class="page pageRegion">
-                        <h2 class="animate">{{_('街区报告：')}}<span>{{report.get('name','')}}</span></h2>
-                        <p class="description animate">
-                            {{clear_html_tags(report.get('description',''))}}
-                        </p>
-                        <a class="btn siteLink animate" href="/region-report/{{report.get('id','')}}">{{_('查看更多')}}</a>
-                        <!--<p class="tag animate">-->
-                            <!-- todo -->
-                            <!--华人多, 学生多, 美食, 中国城-->
-                            <!--暂无内容-->
-                        <!--</p>-->
-                    </div>
-                    <div class="bottomBox animate hideOutsideWechat">
-                        <div class="scrollUp">{{_('继续')}}</div>
-                    </div>
-                </div>
-                % end
-                <div class="swiper-slide swiper-slide-bg commen hideOutsideWechat" style="">
-                    <div class="page pageCoverBack">
-                        <div class="topTitleNav animate">
-                            <p class="location animate">{{rent['property'].get('street','')}} {{rent['property'].get('city',{}).get('name','')}} {{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}}</p>
-                            <p class="title animate fixFontSize">{{rent.get('title','')}}</p>
-                            <p class="contact animate">
-                                <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" class="btn">{{_('获取房东联系方式')}}</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="bottomBox coverBackBottom animate">
+            </div>
+            <div class="bottomBox coverBackBottom animate">
 
-                        <div class="linkWrap clearfix">
-                            <div class="siteLinkBox">
-                                <a href="/app-download" class="btn siteLink">{{_('我也要发布')}}</a>
-                            </div>
-                            <div class="siteLinkBox">
-                                <!--todo 等城市API确定后，这里查看更多房源的链接改为查看对应城市的房源-->
-                                <a href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('code','')}}&city={{rent['property'].get('city',{}).get('id','')}}" class="btn siteLink">{{_('查看更多房源')}}</a>
-                            </div>
-                        </div>
-                        <div class="copyright clearfix">
-                            <div class="poweredBy">POWERED BY</div>
-                            <div class="logoBox">
-                                <div class="logo"></div>
-                            </div>
-                        </div>
+                <div class="linkWrap clearfix">
+                    <div class="siteLinkBox">
+                        <a href="/app-download" class="btn siteLink">{{_('我也要发布')}}</a>
+                    </div>
+                    <div class="siteLinkBox">
+                        <!--todo 等城市API确定后，这里查看更多房源的链接改为查看对应城市的房源-->
+                        <a href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('code','')}}&city={{rent['property'].get('city',{}).get('id','')}}" class="btn siteLink">{{_('查看更多房源')}}</a>
+                    </div>
+                </div>
+                <div class="copyright clearfix">
+                    <div class="poweredBy">POWERED BY</div>
+                    <div class="logoBox">
+                        <div class="logo"></div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <!--更多描述弹出层 start-->
-        <div class="descriptionMore hide modal" data-trigger="viewMoreBtn">
-            <p>
-                {{rent.get('description','')}}
-            </p>
-            <a class="btn btnCloseModal" id="closeViewMoreBtn">{{_('收起')}}</a>
-        </div>
-        <!--更多描述弹出层 end-->
-        <!--更多设施弹出层 start-->
-        <div class="facilitiesMore hide modal" data-trigger="morefacilitiesBtn">
-            <h2 class="animate">{{_('居家设施')}}</h2>
-            <!-- 等图标设计完成后再做sprites-->
-            <ul class="facilities clearfix">
-                % for item in rent['property'].get('indoor_facility',[]):
-                <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
-                % end
-                <!--<li class="animate"><i class="tvIcon"></i><span>电视机</span></li>
-                <li class="animate"><i class="fireIcon"></i><span>天然气</span></li>
-                <li class="animate"><i class="iceIcon"></i><span>电冰箱</span></li>
-                <li class="animate gray"><i class="heaterIcon gray"></i><span>热水器</span></li>
-                <li class="animate"><i class="washerIcon"></i><span>洗衣机</span></li>
-                <li class="animate"><i class="warmIcon"></i><span>暖气</span></li>-->
-            </ul>
-            <h2 class="animate">{{_('社区设施')}}</h2>
-            <ul class="facilities clearfix">
-                % for item in rent['property'].get('community_facility',[]):
-                <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
-                %end
-            </ul>
-            <a class="btn btnCloseModal" id="closeFacilitiesMoreBtn">{{_('收起')}}</a>
-        </div>
-        <!--更多设施弹出层 end-->
+<!--更多描述弹出层 start-->
+<div class="descriptionMore hide modal" data-trigger="viewMoreBtn">
+    <p>
+        {{rent.get('description','')}}
+    </p>
+    <a class="btn btnCloseModal" id="closeViewMoreBtn">{{_('收起')}}</a>
+</div>
+<!--更多描述弹出层 end-->
+<!--更多设施弹出层 start-->
+<div class="facilitiesMore hide modal" data-trigger="morefacilitiesBtn">
+    <h2 class="animate">{{_('居家设施')}}</h2>
+    <!-- 等图标设计完成后再做sprites-->
+    <ul class="facilities clearfix">
+        % for item in rent['property'].get('indoor_facility',[]):
+        <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
+        % end
+        <!--<li class="animate"><i class="tvIcon"></i><span>电视机</span></li>
+        <li class="animate"><i class="fireIcon"></i><span>天然气</span></li>
+        <li class="animate"><i class="iceIcon"></i><span>电冰箱</span></li>
+        <li class="animate gray"><i class="heaterIcon gray"></i><span>热水器</span></li>
+        <li class="animate"><i class="washerIcon"></i><span>洗衣机</span></li>
+        <li class="animate"><i class="warmIcon"></i><span>暖气</span></li>-->
+    </ul>
+    <h2 class="animate">{{_('社区设施')}}</h2>
+    <ul class="facilities clearfix">
+        % for item in rent['property'].get('community_facility',[]):
+        <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
+        %end
+    </ul>
+    <a class="btn btnCloseModal" id="closeFacilitiesMoreBtn">{{_('收起')}}</a>
+</div>
+<!--更多设施弹出层 end-->
 
-        <!--微信签名 start-->
-        <textarea id="pythonWeixin" style="display: none;">
-            {{json_dumps(weixin)}}
-        </textarea>
-        <!--微信签名 end-->
+<!--微信签名 start-->
+<textarea id="pythonWeixin" style="display: none;">
+    {{json_dumps(weixin)}}
+</textarea>
+<!--微信签名 end-->
+<!--@@close-->
 
-        <!--build:js /static/scripts/wechat_poster.html.js-->
-        <script type="text/javascript" src="/static/scripts/track.js"></script>
-        <script type="text/javascript" src="/static/bower_components/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="/static/bower_components/swiper/dist/js/swiper.jquery.min.js"></script>
-        <script type="text/javascript" src="/static/scripts/team.js"></script>
-        <script type="text/javascript" src="/static/scripts/project.js"></script>
-        <script type="text/javascript" src="/static/scripts/wechat_poster.js"></script>
-        <script type="text/javascript" src="/static/vendors/jweixin-1.0.0.js"></script>
-        <!--endbuild-->
+<!--@@block =scripts -->
+<!--build:js /static/scripts/wechat_poster.html.js-->
+<script type="text/javascript" src="/static/scripts/wechat_poster.js"></script>
+<!--endbuild-->
 
-        <script>
-            if(!window.i18n){
-                window.i18n = function (name) {
-                    var input = document.getElementById('i18n-str-' + name)
-                    if (!input) { return name }
-                    return input.value
-                }
+<script>
+    if(!window.i18n){
+        window.i18n = function (name) {
+            var input = document.getElementById('i18n-str-' + name)
+            if (!input) { return name }
+            return input.value
+        }
+    }
+    function initMapSrc(config){
+        config.height = parseInt(config.width * $(window).height() / $(window).width())
+        var baseSrc = 'http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/{centerPoint}/{zoomLevel}?mapSize={width},{height}&mapLayer=TrafficFlow&format=jpeg&key={key}'
+        if(config.centerPoint !== ',') {
+            for(var k in config) {
+                baseSrc = baseSrc.replace('{' + k + '}', config[k])
             }
-            function initMapSrc(config){
-                config.height = parseInt(config.width * $(window).height() / $(window).width())
-                var baseSrc = 'http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/{centerPoint}/{zoomLevel}?mapSize={width},{height}&mapLayer=TrafficFlow&format=jpeg&key={key}'
-                if(config.centerPoint !== ',') {
-                    for(var k in config) {
-                        baseSrc = baseSrc.replace('{' + k + '}', config[k])
-                    }
-                    $('.mapImage').css({
-                        'background-image': 'url(' + baseSrc + ')'
-                    })
-                } else {
-                    $('.mapImage').css({
-                        'background': 'rgba(255,255,255,0.6)'
-                    }).find('.pushpin').addClass('noLocation').text(window.i18n('该房产暂无定位信息'))
+            $('.mapImage').css({
+                'background-image': 'url(' + baseSrc + ')'
+            })
+        } else {
+            $('.mapImage').css({
+                'background': 'rgba(255,255,255,0.6)'
+            }).find('.pushpin').addClass('noLocation').text(window.i18n('该房产暂无定位信息'))
 
-                }
-            }
-            initMapSrc({
-                key: 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43',
-                width: 600,
-                centerPoint: '{{rent["property"].get("latitude","")}},{{rent["property"].get("longitude","")}}',
-                zoomLevel: 14
+        }
+    }
+    initMapSrc({
+        key: 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43',
+        width: 600,
+        centerPoint: '{{rent["property"].get("latitude","")}},{{rent["property"].get("longitude","")}}',
+        zoomLevel: 14
+    })
+
+    /*
+     * Weixin share sdk
+     * */
+    $(function () {
+        var weixin = JSON.parse($('#pythonWeixin').text())
+
+        if (typeof window.wx !== 'undefined') {
+            window.wx.config({
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: 'wx123992a4d173037b', // 必填，公众号的唯一标识
+                timestamp: weixin.timestamp, // 必填，生成签名的时间戳
+                nonceStr: weixin.noncestr, // 必填，生成签名的随机串
+                signature: weixin.signature,// 必填，签名，见附录1
+                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
             })
 
-            /*
-             * Weixin share sdk
-             * */
-            $(function () {
-                var weixin = JSON.parse($('#pythonWeixin').text())
-
-                if (typeof window.wx !== 'undefined') {
-                    window.wx.config({
-                        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                        appId: 'wx123992a4d173037b', // 必填，公众号的唯一标识
-                        timestamp: weixin.timestamp, // 必填，生成签名的时间戳
-                        nonceStr: weixin.noncestr, // 必填，生成签名的随机串
-                        signature: weixin.signature,// 必填，签名，见附录1
-                        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-                    })
-
-                    window.wx.ready(function(){
-                        var wechatShareData = {
-                            title: '{{rent.get('title','')}}',
-                            link: window.location.href,
-                            success:function(){
-                                ga('send', 'event', 'wechat_poster', 'share', 'share-to-wechat-success')
-                            },
-                            cancel:function(){
-                                ga('send', 'event', 'wechat_poster', 'share', 'share-to-wechat-cancel')
-                            }
+            window.wx.ready(function(){
+                var wechatShareData = {
+                        title: '{{rent.get('title','')}}',
+                        link: window.location.href,
+                        success:function(){
+                            ga('send', 'event', 'wechat_poster', 'share', 'share-to-wechat-success')
+                        },
+                        cancel:function(){
+                            ga('send', 'event', 'wechat_poster', 'share', 'share-to-wechat-cancel')
                         }
-                        % if rent['property'].get('reality_images'):
-                            wechatShareData.imgUrl = '{{rent['property'].get('reality_images')[0]}}'
-                        %end
+                    }
+                    % if rent['property'].get('reality_images'):
+                wechatShareData.imgUrl = '{{rent['property'].get('reality_images')[0]}}'
+                %end
 
 
-                        %if rent.get('description'):
-                            wechatShareData.desc = '{{rent.get('description').replace('\n','\\n').replace('\r\n','\\r\\n')}}'.replace(/(\r\n|\n|\r)/gm,' ')
+                %if rent.get('description'):
+                wechatShareData.desc = '{{rent.get('description').replace('\n','\\n').replace('\r\n','\\r\\n')}}'.replace(/(\r\n|\n|\r)/gm,' ')
 
-                        %end
+                %end
 
-
-                        window.wx.onMenuShareTimeline(wechatShareData);
-                        window.wx.onMenuShareAppMessage(wechatShareData);
-                        window.wx.onMenuShareQQ(wechatShareData);
-                    })
-
-                    window.wx.error(function(res){
-                        ga('send', 'event', 'wechat_poster', 'share', 'share-to-wechat-config-error', res.errMsg)
-                    })
-                }
+                window.wx.onMenuShareTimeline(wechatShareData);
+                window.wx.onMenuShareAppMessage(wechatShareData);
+                window.wx.onMenuShareQQ(wechatShareData);
             })
-        </script>
-    </body>
-</html>
+
+            window.wx.error(function(res){
+                ga('send', 'event', 'wechat_poster', 'share', 'share-to-wechat-config-error', res.errMsg)
+            })
+        }
+    })
+</script>
+<!--@@close-->
+
