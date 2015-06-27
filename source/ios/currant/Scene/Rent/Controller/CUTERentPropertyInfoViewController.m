@@ -86,6 +86,15 @@
         }
     }
     else if ([field.key isEqualToString:@"area"]) {
+        if (self.ticket.rentType) {
+            if ([self.ticket.rentType.slug hasSuffix:@":whole"]) {
+                cell.textLabel.text = STR(@"房屋面积（选填）");
+            }
+            else {
+                cell.textLabel.text = STR(@"房间面积（选填）");
+            }
+        }
+
         if (self.ticket.space) {
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f %@", self.ticket.space.value, self.ticket.space.unitSymbol];
         }
@@ -250,11 +259,17 @@
 
             __weak typeof(self)weakSelf = self;
             controller.updateRentTypeCompletion = ^ {
+                NSMutableArray *updateIndexes = [NSMutableArray array];
                 [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
                     if ([field.key isEqualToString:@"rentType"]) {
-                        [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                        [updateIndexes addObject:indexPath];
+                    }
+                    else if ([field.key isEqualToString:@"area"]) {
+                        [updateIndexes addObject:indexPath];
                     }
                 }];
+
+                [[weakSelf tableView] reloadRowsAtIndexPaths:updateIndexes withRowAnimation:UITableViewRowAnimationNone];
             };
 
             [self.navigationController pushViewController:controller animated:YES];

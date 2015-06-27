@@ -307,6 +307,10 @@ $(function () {
 
                             //Remove refresh from rent status
                             $(e.target).parent().prev().remove()
+
+                            if (window.bridge !== undefined) {
+                                window.bridge.callHandler('notifyRentTicketDidBeRented', _.first(_.where(window.rentArray, {id: ticketId})))
+                            }
                         })
                         .fail(function (ret) {
                             window.alert(window.i18n('无法更新，请检查后重试'))

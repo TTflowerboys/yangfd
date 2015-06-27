@@ -17,5 +17,6 @@
 
 + (void)checkShowUserVisitManyRentTicketSurveyWithViewController:(UIViewController *)viewController;
 
++ (void)checkShowRentTicketDidBeRentedSurveyWithViewController:(UIViewController *)viewController;
 
 @end

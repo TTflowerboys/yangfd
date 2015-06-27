@@ -55,7 +55,7 @@
     }
 
     if (self.singleUseForReedit) {
-        [array addObject:@{FXFormFieldKey: @"location", FXFormFieldTitle:STR(@"位置"), FXFormFieldAction: @"onLocationEdit:", FXFormFieldCell: [CUTEFormTextCell class]}];
+        [array insertObject:@{FXFormFieldKey: @"location", FXFormFieldTitle:STR(@"房产位置"), FXFormFieldAction: @"onLocationEdit:", FXFormFieldCell: [CUTEFormTextCell class], FXFormFieldHeader:STR(@"地图")} atIndex:0];
     }
 
     return array;

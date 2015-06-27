@@ -175,6 +175,11 @@ $(function () {
                         if(realCount === 0) {
                             $rentPlaceholder.show()
                         }
+                        else {
+                            if (window.bridge !== undefined) {
+                                window.bridge.callHandler('notifyUserHaveFavoriteRentTicket')
+                            }
+                        }
                     }else{
                         $rentPlaceholder.show()
                     }
