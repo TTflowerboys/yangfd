@@ -59,14 +59,17 @@
                     <div class="user">
                         %if user:
                         <a class="nickname" href="/user-settings">
-                            <i class="icon-user_header"></i> {{user.get('nickname')}}
+                            <i class="icon-user_header"></i>
+                            <span>{{user.get('nickname')}}</span>
                         </a>
                         <a class="message" id="message" href="/user-messages">
                             <img id="icon-message" alt="" src="/static/images/common/header/message.png" />
-                            <img id="icon-message-notif" style="display:none" alt="" src="/static/images/common/header/message-notif.png" /> {{_('消息')}}
+                            <img id="icon-message-notif" style="display:none" alt="" src="/static/images/common/header/message-notif.png" />
+                            <span>{{_('消息')}}</span>
                         </a>
                         <a id="logout" class="logout" href="/logout">
-                            <i class="icon-log_out"></i> {{_('登出')}}
+                            <i class="icon-log_out"></i>
+                            <span>{{_('登出')}}</span>
                         </a>
                         %else:
                         <a id="login" class="login">{{_('登录')}}</a>
