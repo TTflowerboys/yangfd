@@ -86,6 +86,7 @@
         NSNumber *number = item.itemNumber;
         return [number doubleValue];
     }
+
     return 0;
 }
 

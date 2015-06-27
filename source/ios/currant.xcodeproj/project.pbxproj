@@ -180,6 +180,7 @@
 		2C6D07D11B3E4A54001EBB90 /* CUTEWebHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D07CE1B3E4A53001EBB90 /* CUTEWebHandler.m */; };
 		2C6D07D21B3E4A54001EBB90 /* CUTEWebHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D07CE1B3E4A53001EBB90 /* CUTEWebHandler.m */; };
 		2C6D07D31B3E4A54001EBB90 /* CUTEWebHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D07CE1B3E4A53001EBB90 /* CUTEWebHandler.m */; };
+		2C6D07D51B3E77AF001EBB90 /* CUTEUsageManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D07D41B3E77AF001EBB90 /* CUTEUsageManagerTest.m */; };
 		2C7520431ACA775C0008B42A /* CUTEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7520421ACA775C0008B42A /* CUTEViewController.m */; };
 		2C7520441ACA775C0008B42A /* CUTEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7520421ACA775C0008B42A /* CUTEViewController.m */; };
 		2C7520451ACA775C0008B42A /* CUTEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7520421ACA775C0008B42A /* CUTEViewController.m */; };
@@ -676,6 +677,7 @@
 		2C6D07CC1B3D5426001EBB90 /* CUTEApptentiveEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUTEApptentiveEvent.h; sourceTree = "<group>"; };
 		2C6D07CD1B3E4A53001EBB90 /* CUTEWebHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEWebHandler.h; sourceTree = "<group>"; };
 		2C6D07CE1B3E4A53001EBB90 /* CUTEWebHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEWebHandler.m; sourceTree = "<group>"; };
+		2C6D07D41B3E77AF001EBB90 /* CUTEUsageManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUsageManagerTest.m; sourceTree = "<group>"; };
 		2C7520411ACA775C0008B42A /* CUTEViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEViewController.h; sourceTree = "<group>"; };
 		2C7520421ACA775C0008B42A /* CUTEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEViewController.m; sourceTree = "<group>"; };
 		2C79C2B61ACA5725000E7F67 /* NSURL+CUTE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+CUTE.h"; sourceTree = "<group>"; };
@@ -1130,6 +1132,7 @@
 			isa = PBXGroup;
 			children = (
 				2C9F1D071B3A60130034487F /* CUTEDataManagerTest.m */,
+				2C6D07D41B3E77AF001EBB90 /* CUTEUsageManagerTest.m */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -2453,6 +2456,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C9F1D221B3AB6930034487F /* CUTEDataManagerTest.m in Sources */,
+				2C6D07D51B3E77AF001EBB90 /* CUTEUsageManagerTest.m in Sources */,
 				2C9F1D231B3AB6930034487F /* CUTEURLTest+CUTE.m in Sources */,
 				2C9F1D241B3AB6930034487F /* CUTEURLTest+Assets.m in Sources */,
 				2C9F1D251B3AB6930034487F /* CUTEStringTest+CUTECDN.m in Sources */,

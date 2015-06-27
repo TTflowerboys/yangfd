@@ -17,4 +17,8 @@
 
 #define DEFAULT_I18N_LOCALE @"zh_Hans_CN"
 
+#define TICK   NSDate *startTime = [NSDate date]
+
+#define TOCK   NSLog(@"Time: %f", -[startTime timeIntervalSinceNow])
+
 #endif

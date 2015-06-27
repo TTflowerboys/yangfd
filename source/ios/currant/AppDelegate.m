@@ -57,6 +57,7 @@
 #import <NewRelicAgent/NewRelic.h>
 #import "CUTEUserAgentUtil.h"
 #import "CUTESurveyHelper.h"
+#import "CUTEUsageRecorder.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
@@ -250,8 +251,6 @@
     [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
     [[AFNetworkActivityLogger sharedLogger] startLogging];
 #endif
-
-
 
     [Fabric with:@[CrashlyticsKit]];
     return YES;
