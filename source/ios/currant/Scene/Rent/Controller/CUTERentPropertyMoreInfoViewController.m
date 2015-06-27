@@ -22,16 +22,36 @@
 #import "CUTEFormLimitCharacterCountTextFieldCell.h"
 #import "CUTEFormTextViewCell.h"
 #import "CUTETicketEditingListener.h"
+#import "CUTENavigationUtil.h"
+
 
 @implementation CUTERentPropertyMoreInfoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self checkNeedUpdateTicketTitle];
+}
+
+- (void)onLeftButtonPressed:(id)sender {
+    FXFormField *field = [self.formController fieldForKey:@"ticketDescription"];
+    NSIndexPath *indexPath = [self.formController indexPathForField:field];
+    CUTEFormTextViewCell *cell = (CUTEFormTextViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    NSString *string = cell.textView.text;
+
+    if ([self checkDescriptionContainPhoneNumber:string]) {
+        [self warnDescriptionContainPhoneNumber];
+
+    }
+    else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -112,21 +132,32 @@
 - (void)onTicketDescriptionEdit:(id)sender {
     CUTEFormTextViewCell *cell = (CUTEFormTextViewCell *)sender;
     NSString *string = cell.textView.text;
-    if (!IsNilNullOrEmpty(string)) {
-        NSError *error;
-        NSDataDetector *detector = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypePhoneNumber error:&error];
-        NSTextCheckingResult *result = [detector firstMatchInString:string options:0 range:NSMakeRange(0, string.length)];
-        if (result && result.range.location != NSNotFound) {
-            [UIAlertView showWithTitle:STR(@"平台将提供房东联系方式选择，请删除在此填写任何形式的联系方式，违规发布将会予以处理")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
-            return;
-        }
+    if ([self checkDescriptionContainPhoneNumber:string]) {
+        [self warnDescriptionContainPhoneNumber];
+        return;
     }
-
 
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
     self.ticket.ticketDescription = self.form.ticketDescription;
     [ticketListener stopListenMark];
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
+}
+
+- (BOOL)checkDescriptionContainPhoneNumber:(NSString *)string {
+    if (!IsNilNullOrEmpty(string)) {
+        NSError *error;
+        NSDataDetector *detector = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypePhoneNumber error:&error];
+        NSTextCheckingResult *result = [detector firstMatchInString:string options:0 range:NSMakeRange(0, string.length)];
+        if (result && result.range.location != NSNotFound) {
+            return YES;
+        }
+    }
+
+    return NO;
+}
+
+- (void)warnDescriptionContainPhoneNumber {
+    [UIAlertView showWithTitle:STR(@"平台将提供房东联系方式选择，请删除在此填写任何形式的联系方式，违规发布将会予以处理")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
 }
 
 - (CUTEPropertyMoreInfoForm *)form {
