@@ -154,6 +154,14 @@
                 params.rent_available_time = rentAvailableTime
             }
         }
+
+        var rentDeadlineTime
+        if($('[name=rentPeriodEndDate]').val()) {
+            rentDeadlineTime = new Date($('#rentPeriodEndDate').val()).getTime() / 1000
+            if(rentDeadlineTime) {
+                params.rent_deadline_time = rentDeadlineTime
+            }
+        }
         return params;
     }
 
@@ -615,9 +623,13 @@
     var $dateInput = $('.date input')
     function resetDateInputType () {
         if(window.team.isPhone()) {
-            $dateInput.get(0).type = 'date'
+            $dateInput.each(function () {
+                $(this).get(0).type = 'date'
+            })
         }else{
-            $dateInput.get(0).type = 'text'
+            $dateInput.each(function () {
+                $(this).get(0).type = 'text'
+            })
         }
     }
     resetDateInputType()
@@ -1018,6 +1030,14 @@
         if($('[name=rentPeriodStartDate]').val()){
             rentAvailableTime = new Date($('#rentPeriodStartDate').val()).getTime() / 1000
             params.rent_available_time = rentAvailableTime
+        }
+
+        var rentDeadlineTime
+        if($('[name=rentPeriodEndDate]').val()) {
+            rentDeadlineTime = new Date($('#rentPeriodEndDate').val()).getTime() / 1000
+            if(rentDeadlineTime) {
+                params.rent_deadline_time = rentDeadlineTime
+            }
         }
 
         //Empty map list

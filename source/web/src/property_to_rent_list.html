@@ -105,7 +105,7 @@
             <h3 class="title">{{_('从搜索结果中筛选')}}</h3>
 
 
-            %if rent_budget_list:
+            %if property_type_list:
                 <div class="propertyType hiddenOnPCWeb">
                     <i class="propertyType_icon icon-tag_icon"></i>
                     <h4 class="propertyType_title">{{_('房产类型')}}</h4>
@@ -158,11 +158,11 @@
                         <input type="text" class="" id="rentPeriodStartDate" name="rentPeriodStartDate" value="" placeholder="{{_('请选择起租日期')}}"/>
                         <i class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
                     </div>
-                    <!--<span>{{_('至')}}</span>
+                    <span>{{_('至')}}</span>
                     <div class="date">
                         <input type="text" class="" id="rentPeriodEndDate" name="rentPeriodEndDate" value="" placeholder="{{_('请选择结束日期')}}"/>
                         <i class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
-                    </div>-->
+                    </div>
                     <button class="button red confirmDate">{{_('确定')}}</button>
                 </div>
             </div>
