@@ -62,10 +62,10 @@
                         {_}_}
                     </ul>
                     <ul class="actions">
+                        {_if(rent.status === 'to rent') {_}
                         <li>
                             <a id="wechatShare" class="action" data-id="{=rent.id=}">{=window.i18n('微信分享')=}</a>
                         </li>
-                        {_if(rent.status === 'to rent') {_}
                         <li>
                             {_if(team.isToday(parseInt(rent.last_modified_time))){_}
                             <p class="action">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('已刷新过')=}</p>
@@ -77,7 +77,6 @@
                             </div>
                         </li>
                         {_}_}
-
 
                         {_if(rent.status === 'to rent') {_}
                         <li class="hiddenInNonClient">
