@@ -124,6 +124,7 @@
     //update address after edit user's address
     CUTEProperty *property = self.ticket.property;
     _textField.text = property.address;
+    [_textField setNeedsDisplay];
 
 
     if (self.singleUseForReedit) {
@@ -501,6 +502,7 @@
                 [ticketListener stopListenMark];
                 [self syncWithUserInfo:ticketListener.getSyncUserInfo];
                 _textField.text = property.address;
+                [_textField setNeedsDisplay];
                 [tcs setResult:_textField.text];
             }
             else {

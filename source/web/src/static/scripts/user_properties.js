@@ -178,11 +178,15 @@ $(function () {
                             }
                         })
 
-                        bindRentItemWechatShareClick()
-                        bindRentItemRefreshClick()
-                        bindRentItemConfirmRentClick()
-                        bindRentItemRemoveClick()
-                        bindRentItemEditClick()
+                        if($list.length > 0){
+                            bindRentItemWechatShareClick()
+                            bindRentItemRefreshClick()
+                            bindRentItemConfirmRentClick()
+                            bindRentItemRemoveClick()
+                            bindRentItemEditClick()
+                        }else{
+                            $rentPlaceholder.show()
+                        }
                     } else {
                         $rentPlaceholder.show()
                     }

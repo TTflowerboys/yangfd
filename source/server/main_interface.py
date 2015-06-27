@@ -82,7 +82,8 @@ def signin():
 
 @f_get('/intention')
 @currant_util.check_ip_and_redirect_domain
-def intention():
+@f_app.user.login.check()
+def intention(user):
     title = _('投资意向')
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     return currant_util.common_template("intention", intention_list=intention_list, title=title, icon_map=currant_util.icon_map)
