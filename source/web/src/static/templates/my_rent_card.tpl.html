@@ -61,37 +61,39 @@
                         <span class="price">{=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value),0)!}</strong>{=window.i18n('/周')=}</span>
                         {_}_}
                     </ul>
-                    <ul class="actions">
-                        {_if(rent.status === 'to rent') {_}
-                        <li>
-                            <a id="wechatShare" class="action" data-id="{=rent.id=}">{=window.i18n('微信分享')=}</a>
-                        </li>
-                        <li>
-                            {_if(team.isToday(parseInt(rent.last_modified_time))){_}
-                            <p class="action">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('已刷新过')=}</p>
-                            {_}else{_}
-                            <a id="refresh" class="action" data-id="{=rent.id=}">{=window.i18n('刷新')=}</a>
-                            {_}_}
-                            <div id="arrowBox" class="arrowBox">
-                                <p>{=window.i18n('每24小时只能刷新一次')=}</p>
-                            </div>
-                        </li>
-                        {_}_}
 
                         {_if(rent.status === 'to rent') {_}
-                        <li class="hiddenInNonClient">
-                            <a id='editAction' class="action" data-id="{=rent.id=}" data-type="to rent">{=window.i18n('确认已出租')=}</a>
-                        </li>
+                        <ul class="actions">
+                            <li>
+                                <a id="wechatShare" class="action" data-id="{=rent.id=}">{=window.i18n('微信分享')=}</a>
+                            </li>
+                            <li>
+                                {_if(team.isToday(parseInt(rent.last_modified_time))){_}
+                                <p class="action">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('已刷新过')=}</p>
+                                {_}else{_}
+                                <a id="refresh" class="action" data-id="{=rent.id=}">{=window.i18n('刷新')=}</a>
+                                {_}_}
+                                <div id="arrowBox" class="arrowBox">
+                                    <p>{=window.i18n('每24小时只能刷新一次')=}</p>
+                                </div>
+                            </li>
+                            <li>
+                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="to rent">{=window.i18n('确认已出租')=}</a>
+                            </li>
+                        </ul>
                         {_}else if(rent.status === 'draft') {_}
-                        <li class="hiddenInNonClient">
-                            <a id='editAction' class="action" data-id="{=rent.id=}" data-type="draft">{=window.i18n('编辑')=}</a>
-                        </li>
+                        <ul class="actions hiddenInNonClient">
+                            <li >
+                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="draft">{=window.i18n('编辑')=}</a>
+                            </li>
+                        </ul>
                         {_}else if(rent.status === 'rent') {_}
-                        <li class="hiddenInNonClient">
-                            <a id='editAction' class="action" data-id="{=rent.id=}" data-type="rent">{=window.i18n('重新发布')=}</a>
-                        </li>
+                        <ul class="actions hiddenInNonClient">
+                            <li >
+                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="rent">{=window.i18n('重新发布')=}</a>
+                            </li>
+                        </ul>
                         {_}_}
-                    </ul>
                 </div>
             </div>
     </div>
