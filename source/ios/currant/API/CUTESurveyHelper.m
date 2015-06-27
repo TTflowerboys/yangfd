@@ -51,10 +51,19 @@
 
 + (void)checkShowUserVisitManyRentTicketSurveyWithViewController:(UIViewController *)viewController {
     if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_USER_VISIT_MANY_RENT_TICKET]) {
-        if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_USER_VISIT_MANY_RENT_TICKET fromViewController:viewController]) {
-            [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_USER_VISIT_MANY_RENT_TICKET];
+        if ([[CUTEUsageRecorder sharedInstance] getVisitedTicketCount] >= 7) {
+            if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_USER_VISIT_MANY_RENT_TICKET fromViewController:viewController]) {
+                [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_USER_VISIT_MANY_RENT_TICKET];
+            }
         }
+    }
+}
 
++ (void)checkShowRentTicketDidBeRentedSurveyWithViewController:(UIViewController *)viewController {
+    if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_RENT_TICKET_DID_BE_RENTED]) {
+        if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_RENT_TICKET_DID_BE_RENTED fromViewController:viewController]) {
+            [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_RENT_TICKET_DID_BE_RENTED];
+        }
     }
 }
 
