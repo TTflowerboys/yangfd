@@ -148,7 +148,7 @@ def property_wechat_poster(property_id):
     weixin = f_app.wechat.get_jsapi_signature()
 
     def format_property(property):
-        res = '<div><i class="icon-rooms"></i><span>' + str(property.get('bedroom_count',0)) + _('室') + str(property.get('living_room_count',0)) + _('厅')
+        res = '<div><i class="icon-rooms"></i><span>' + unicode(str(property.get('bedroom_count',0))) + _(u'室') + unicode(str(property.get('living_room_count',0))) + _(u'厅')
         if property.get('space',{}):
             res += "{0:.0f}".format(float(property.get('space',{}).get('value',0)))
             res += currant_util.format_unit(property.get('space',{}).get('unit',''))
