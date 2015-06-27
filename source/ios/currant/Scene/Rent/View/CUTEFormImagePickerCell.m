@@ -35,6 +35,8 @@
 #import "NSString+CUTECDN.h"
 #import "NSArray+CUTECDN.h"
 
+#define kImageMaxCount 12
+
 @interface CUTEFormImagePickerCell () <CTAssetsPickerControllerDelegate,  UINavigationControllerDelegate, UIImagePickerControllerDelegate, MWPhotoBrowserDelegate>
 {
     CUTEFormImagePickerPlaceholderView *_placeholderView;
@@ -394,7 +396,20 @@
             [self showImagePickerFrom:[self tableViewController]];
         }
         else if (buttonIndex == 1) {
-            [self showCameraFrom:[self tableViewController]];
+
+            if (self.ticket.property.realityImages.count >= kImageMaxCount) {
+                UIAlertView *alertView =
+                [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:STR(@"您好，最多只能上传%d张图片"), kImageMaxCount]
+                                           message:nil
+                                          delegate:nil
+                                 cancelButtonTitle:nil
+                                 otherButtonTitles:STR(@"OK"), nil];
+                
+                [alertView show];
+            }
+            else {
+                [self showCameraFrom:[self tableViewController]];
+            }
         }
     }];
 }
@@ -454,7 +469,6 @@
     }];
 }
 
-#define kImageMaxCount 12
 
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(ALAsset *)asset
 {
