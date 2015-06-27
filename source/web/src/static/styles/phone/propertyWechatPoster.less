@@ -30,7 +30,7 @@
 }
 
 .limitedLines(@lines:5; @line-height: 20px;@bg: white) {
-    height: @line-height * @lines; line-height: @line-height;
+    max-height: @line-height * @lines; line-height: @line-height;
     overflow: hidden; position: relative; background: @bg;
     &:after {
         content: ''; display: block; position: absolute;
@@ -162,17 +162,26 @@ p{
     .topTitleNav{
         float: left;
         position: relative;
-        top: 50vh;
+        top: 45vh;
         width: 100%;
-        height: 32vh;
-        background:linear-gradient(172deg, fade(@dark-blue, 80%) 80%, transparent 0);
-        background-position: 0 0, 100% 0;
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
+        height: 25vh;
+        background: fade(@dark-blue, 80%);
         text-align: left;
         color: white;
         .animation(bounceInDown 0.6s linear 0s 1);
-
+        .before{
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            left: 0;
+            top: 100%;
+            border-style: solid;
+            border-width: 0;
+            border-bottom-width: 5vh;
+            border-left-width: 100vw;
+            border-color: transparent fade(@dark-blue, 80%);
+        }
     }
     .bottomBox{
         width: 100%;
@@ -204,31 +213,61 @@ p{
     .mapBottom{
         height: 40vh;
         bottom: -4vh;
-        background-image: url("/static/images/wechat_poster/map_bottom_bg.png");
         h2{
             margin: 4vh auto 3vh;
-            font-size: 3.5vh;
+            font-size: 5vh;
             font-weight: 400;
             color: @blue;
         }
         p{
-            font-size: 4vh;
+            font-size: 3.5vh;
             line-height: 1.5em;
             font-weight: lighter;
             padding: 0 4vw;
+        }
+        .before{
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-position: center 106%;
+            background-size: cover;
+            filter: url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%2…stdDeviation%3D%225%22%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3C%2Fsvg%3E#blur");
+            -webkit-filter: blur(5px);
+            filter: blur(5px);
+            z-index: -1;
+
+        }
+        &:after{
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.6);
+            z-index: -1;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            //box-shadow: 0px 0px 4px -2px #000;
+
         }
     }
     .photoBottom{
         z-index: 100;
         height: 35vh;
         bottom: -4vh;
-        background-image: url("/static/images/wechat_poster/map_bottom_bg.png");
+        background: rgba(0,0,0,0.6);
         animation-delay: 0s;
         .photoThumbsBox{
             position: relative;
-            width: 44vh;
+            width: 80vw;
             height: 14vh;
             margin: 6vh auto;
+            .photoThumbs{
+                height: 14vh;
+            }
             .arrowButton{
                 width: 3vh;
                 height: 6vh;
@@ -248,24 +287,109 @@ p{
                 right: -5vh;
             }
             .swiper-wrapper{
+                width: 100%;
+                height: 14vh;
                 margin: 0;
+                overflow: visible;
                 .swiper-slide{
-                    width: 14vh;
                     height: 14vh;
-                    .coverCenter;
-                    background-repeat: no-repeat;
+                    line-height: 14vh;
+                    /*display: -webkit-box;
+                    display: -ms-flexbox;
+                    display: -webkit-flex;
+                    display: flex;
+                    -webkit-box-pack: center;
+                    -ms-flex-pack: center;
+                    -webkit-justify-content: center;
+                    justify-content: center;
+                    -webkit-box-align: center;
+                    -ms-flex-align: center;
+                    -webkit-align-items: center;
+                    align-items: center;*/
+                    .image{
+                        left: 0;
+                        top: 0;
+                        position: absolute;
+                        width: calc(~'100% - 8px');
+                        height: calc(~'100% - 8px');
+                        .coverCenter;
+                        background-repeat: no-repeat;
+
+                        &:before{
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            background-color: rgba(255,255,255,0.6);
+                            z-index: 0;
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                    .text_wrapper{
+                        width: calc(~'100% - 8px');
+                        height: calc(~'100% - 8px');
+                        position: absolute;
+                        color: #111;
+                        left: 0;
+                        top: 0;
+                        i{
+                            display: inline-block;
+                            background: @blue;
+                            color: #333;
+                            width: 5vh;
+                            height: 5vh;
+                            line-height: 5vh;
+                            font-size: 2.7vh;
+                            border-radius: 50%;
+                            opacity: 0.6;
+                        }
+                    }
+                    .border{
+                        position: absolute;
+                        width: calc(~'100% - 7px');
+                        height: calc(~'100% - 7px');
+                        top: 3px;
+                        left: 3px;
+                        border: 2px solid #fff;
+                        border-top: 0;
+                        border-left: 0;
+                        &:after{
+                            content: '';
+                            position: absolute;
+                            width: calc(~'100% + 2px');
+                            height: calc(~'100% + 2px');
+                            top: 4px;
+                            left: 4px;
+                            border: 2px solid #fff;
+                            border-top: 0;
+                            border-left: 0;
+                        }
+                    }
+
                 }
                 .swiper-slide-active{
-                    border: 3px solid @blue;
+                    .image{
+                        border: 3px solid @blue;
+                    }
+                    .border{
+                        border-color: @blue;
+                        &:after{
+                            border-color:@blue;
+                        }
+                    }
+                    .text_wrapper i{
+                        opacity: 0.8;
+                    }
                 }
             }
         }
 
     }
     .coverBackBottom{
-        height: 26vh;
+        height: 16vh;
         bottom: -4vh;
-        background-image: url("/static/images/wechat_poster/copyright_background.png");
+        //background-image: url("/static/images/wechat_poster/copyright_background.png");
         .linkWrap{
             margin: 4.2vh 5vw;
             .siteLink{
@@ -287,19 +411,20 @@ p{
         }
         .copyright{
             margin: 3.8vh 3vw;
-            border-top: 1px solid #535353;
+            //border-top: 1px solid #535353;
             padding: 2vh 0;
             .poweredBy{
-                width: 40%;
+                width: 35%;
                 float: left;
-                height: 4.5vh;
-                line-height: 4vh;
+                height: 5vh;
+                line-height: 1.2em;
                 font-size: 2.2vh;
                 color: @blue;
                 font-weight: bold;
+                text-align: right;
             }
             .logoBox{
-                float: left;
+                float: right;
                 width: 60%;
                 .logo{
                     height: 4.5vh;
@@ -320,6 +445,15 @@ p{
     overflow: hidden;
     background-image: url("/static/images/property_wechat_poster/container_bg.jpg");
     .coverCenter;
+    .linkBtn{
+        display: inline-block;
+        color: #ffd1aa;
+        border: 2px solid @blue;
+        font-size: 2.8vh;
+        padding: 2.4vh 14vw;
+        border-radius: 2vh;
+        text-decoration: none;
+    }
 
 }
 .pageCover{
@@ -329,13 +463,13 @@ p{
         p{
             opacity: 0;
             .animation(tada2 0.4s linear 0.6s 1);
-            &.animation:nth-child(1){
+            &.animation:nth-child(2){
                 animation-delay: 0.6s;
             }
-            &.animation:nth-child(2){
+            &.animation:nth-child(3){
                 animation-delay: 0.8s;
             }
-            &.animation:nth-child(3){
+            &.animation:nth-child(4){
                 animation-delay: 1s;
             }
         }
@@ -550,10 +684,60 @@ p{
         font-size: 3vh;
         white-space: pre-line;
         font-weight: lighter;
+        text-align: left;
         .limitedLines(10, 1.5em, transparent);
         .animation(tada2 0.4s linear 0s 1);
     }
-    .viewMoreBtn{
+
+    .linkBtnWrap{
+        opacity: 0;
+        margin-top: 10vh;
+        .animation(tada2 0.4s linear 0s 1);
+        &.animation{
+            animation-delay: 0.6s;
+        }
+    }
+}
+
+.modal{
+    width: 100%;
+    height: 100%;
+    padding: 10vh 0;
+    overflow: auto;
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    overflow: auto;
+    background-image: url("/static/images/property_wechat_poster/container_bg.jpg");
+    .coverCenter;
+    text-align: center;
+    opacity: 0;
+    .animation(fadeInDown 0.4s linear 0s 1);
+    color:#fff;
+    h2{font-size: 3vh;}
+
+}
+.modal.hideAnimation{
+    .animation(fadeOutUp 0.4s linear 0s 1);
+}
+.descriptionMore p{
+    width: 84vw;
+    margin: 0 auto 8vh;
+    color: #fff;
+    text-align: left;
+    font-size: 3vh;
+    line-height: 1.5em;
+}
+.btn{
+    display: inline-block;
+    padding: 1.3vh 4vh;
+    border-radius: 1.2vh;
+    border: 1px solid #fff;
+    cursor: pointer;
+    font-size:2.6vh;
+    color: #fff;
+    text-decoration:none;
+    &.viewMoreBtn{
         position: relative;
         padding: 1.3vh 2vh;
         border: none;
@@ -580,56 +764,18 @@ p{
                     color-stop(0.5,  rgba(0,0,0,0.6)),
                     color-stop(1.00,  rgba(0,0,0,0)));
         }
+        span{
+            vertical-align: middle;
+        }
         i{
             vertical-align: middle;
             font-size: 3.6vh;
             margin-right: 3vw;
         }
     }
-    .viewMoreBtn.animation{
+    &.viewMoreBtn.animation{
         animation-delay: 0.4s;
     }
-
-}
-
-.modal{
-    width: 100%;
-    height: 100%;
-    padding: 10vh 0;
-    overflow: auto;
-    position: absolute;
-    top: 0;
-    z-index: 100;
-    overflow: auto;
-    background-image: url("/static/images/property_wechat_poster/container_bg.jpg");
-    .coverCenter;
-    text-align: center;
-    opacity: 0;
-    .animation(fadeInDown 0.4s linear 0s 1);
-    color:#fff;
-    h2{font-size: 3vh;}
-
-}
-.modal.hideAnimation{
-    .animation(fadeOutUp 0.4s linear 0s 1);
-}
-.descriptionMore p{
-    width: 90vw;
-    margin: 0 auto 8vh;
-    color: #fff;
-    text-align: center;
-    font-size: 3.4vh;
-    line-height: 1.5em;
-}
-.btn{
-    display: inline-block;
-    padding: 1.3vh 4vh;
-    border-radius: 1.2vh;
-    border: 1px solid #fff;
-    cursor: pointer;
-    font-size:2.6vh;
-    color: #fff;
-    text-decoration:none;
 }
 .page a:hover{
     border-color: @blue;
@@ -651,7 +797,7 @@ p{
             width: 28vh;
             height: 12vh;
             margin-left: -14vh;
-            background: url("/static/images/wechat_poster/pushpin.png") 50% 50% no-repeat;
+            background: url("/static/images/property_wechat_poster/pushpin.png") 50% 50% no-repeat;
             background-size: contain;
             .animation(bounceInDown2 0.6s linear 0s 1);
             line-height: 12vh;
@@ -671,20 +817,126 @@ p{
         text-align: center;
         vertical-align: middle;
     }
-    .photoList{
+    .albumList{
         margin: 0;
         padding: 0;
         position: relative;
-        li{
+        li.albumWrap{
             width: 100%;
             height: 100%;
-            background-repeat: no-repeat;
-            background-position: 50% 25%;
-            background-size: contain;
+            .album{
+                position: relative;
+                width: 100%;
+                height: 100%;
+                .photoList{
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    .img{
+                        width: 100%;
+                        height: 100%;
+                        background-repeat: no-repeat;
+                        background-position: 50% 25%;
+                        background-size: contain;
+                    }
+
+                }
+            }
+        }
+        .video{
+            width: 100vw;
+            margin-top: 15vh;
+            height: 50vh;
+            line-height: 50vh;
+            .video-js{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
         }
     }
 
 }
+
+.pageIncome{
+    h2{
+        margin: 12vh auto 6vh;
+        color: @blue;
+        font-size: 3.6vh;
+        opacity:0;
+        .animation(tada2 0.4s linear 0s 1);
+    }
+    p{
+        width: 90vw;
+        font-size: 3.2vh;
+        line-height: 1.5em;
+        margin: 0 auto 9vh;
+        opacity:0;
+        .animation(tada2 0.4s linear 0s 1);
+        &.animation{
+            animation-delay: 0.2s;
+        }
+    }
+    ul{
+        >*{
+            opacity:0;
+            .animation(tada1 0.4s linear 0s 1);
+            &:nth-child(1){
+                animation-delay: 0.4s;
+            }
+            &:nth-child(2){
+                animation-delay: 0.5s;
+            }
+            &:nth-child(3){
+                animation-delay: 0.6s;
+            }
+            &:nth-child(4){
+                animation-delay: 0.7s;
+            }
+            &:nth-child(5){
+                animation-delay: 0.8s;
+            }
+            &:nth-child(6){
+                animation-delay: 0.9s;
+            }
+            &:nth-child(7){
+                animation-delay: 1.0s;
+            }
+        }
+        li{
+
+            line-height: 9vh;
+            width: 90vw;
+            margin: 0 auto;
+            font-size: 2.8vh;
+
+            &.bold{
+                font-weight: bold;
+            }
+            span{
+                display: inline-block;
+                width: 42vw;
+                &.key{
+                    text-align: left;
+                }
+                &.value{
+                    font-size: 3.6vh;
+                    vertical-align: middle;
+                    text-align: right;
+                    sub{
+                        top:0px;
+                        right: 3px;
+                    }
+                }
+            }
+        }
+        hr{
+            margin: 1vh 0;
+            border-top-width: 2px;
+        }
+    }
+}
+
 .pageRegion{
     h2{
         //position: absolute;
@@ -710,7 +962,7 @@ p{
     }
     p.description{
         opacity: 0;
-        margin: 0 auto 4vh;
+        margin: 0 auto 8vh;
         font-size: 2.8vh;
         font-weight: lighter;
         line-height: 1.6em;
@@ -756,28 +1008,93 @@ p{
 .pageCoverBack{
     background-image: url("/static/images/property_wechat_poster/page_cover_bg.jpg");
     .coverCenter;
-    .topTitleNav{
+    .topTitleNav {
         p{
-            &:extend(.pageCover .topTitleNav p all);
+            opacity: 0;
+            .animation(tada2 0.4s linear 0.6s 1);
+            &.animation:nth-child(2){
+                animation-delay: 0.6s;
+            }
+            &.animation:nth-child(3){
+                animation-delay: 0.8s;
+            }
+            &.animation:nth-child(4){
+                animation-delay: 1s;
+            }
         }
-        .location{
-            &:extend(.pageCover .topTitleNav .location);
-        }
+
         .title{
-            &:extend(.pageCover .topTitleNav .title);
+            width: 90vw;
+            margin: 6vh auto 1vh;
+            font-size: 4.8vh;
+            line-height: 5vh;
         }
-        .contact{
+        .street{
+            width: 90vw;
+            margin: 0 auto 1vh;
+            font-size: 3.6vh;
+            line-height: 1.3em;
+        }
+        .city{
+            width: 90vw;
+            margin: 0 auto;
+            font-size: 3vh;
+            line-height: 4vh;
+            font-weight: bold;
+        }
+    }
+    .moreProperytWrap{
+        opacity: 0;
+        .animation(bounceUpDown 0.6s linear 0s 1);
+
+        &.animation{
+            animation-delay:0.6s;
+        }
+
+        .before,.after{
+            content: '';
             position: absolute;
-            width: 80%;
-            left: 10%;
-            height: 6vh;
-            top: 28.5vh;
-            font-size: 5.4vh;
-            .btn{
-                color: #333;
-                border:2px solid #000;
-                text-decoration: none;
-                cursor: pointer;
+            width: 0;
+            height: 0;
+            right: 0;
+            border-style: solid;
+            border-width: 0;
+            border-color: transparent rgba(0,39,47,0.8);
+        }
+        .before{
+            bottom: 100%;
+            border-top-width: 5vh;
+            border-right-width: 100vw;
+        }
+        position: relative;
+        top: 74.8vh;
+        height: 4vh;
+        background: rgba(0,39,47,0.8);
+        .after{
+            top: 100%;
+            border-bottom-width: 5vh;
+            border-right-width: 100vw;
+        }
+        a{
+            opacity: 0;
+            .animation(tada3 0.4s linear 0s 1);
+
+            &.animation{
+                animation-delay:1.0s;
+            }
+
+            position: absolute;
+            top: -1vh;
+            right: 5vw;
+            color: #fff;
+            text-decoration: none;
+            font-size: 2.8vh;
+            z-index: 110;
+            *{vertical-align: middle;}
+            i{
+                margin-left: 2vw;
+                font-size: 5vh;
+                color: @blue;
             }
         }
     }
