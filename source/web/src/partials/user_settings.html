@@ -95,7 +95,7 @@
                     %if 'wechat' in user and user.get('wechat','') != 'NONE':
                     <label name="userWechat">{{user.get('wechat','')}}</label>
                     %end
-                    <input name="userWechat" type="text" value={{user.get('wechat','')}} data-validator="trim"
+                    <input name="userWechat" type="text" value="{{user.get('wechat','')}}" data-validator="trim"
                         data-msg-required="{{_('请填写微信号')}}" style="display:none;"/></td>
                 </td>
                 <td>
