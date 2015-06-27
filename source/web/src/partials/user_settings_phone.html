@@ -78,16 +78,20 @@
                     <strong>{{_('微信号设置')}}</strong>
                     <!--<p>{{_('设置后将会默认展示给其他注册用户')}}</p>-->
                     %if user.get('wechat') is not None:
-                    <i class="status green">{{_('已设置')}}</i>
+                    <i class="status green active wechatStatus set">{{_('已设置')}}</i>
+                    <i class="status grey wechatStatus notSet">{{_('未设置')}}</i>
                     %else:
-                    <i class="status green">{{_('未设置')}}</i>
+                    <i class="status green wechatStatus set">{{_('已设置')}}</i>
+                    <i class="status grey active wechatStatus notSet">{{_('未设置')}}</i>
                     %end
                 </td>
                 <td class="action">
                     <div>
+                        <label name="userWechat">
                         %if 'wechat' in user and user.get('wechat','') != 'NONE':
-                        <label name="userWechat">{{user.get('wechat','')}}</label>
+                        {{user.get('wechat','')}}
                         %end
+                        </label>
                         <input name="userWechat" type="text" value="{{user.get('wechat','')}}" data-validator="trim"
                             data-msg-required="{{_('请填写微信号')}}" style="display:none;"/>
                     </div>

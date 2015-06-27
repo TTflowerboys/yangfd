@@ -35,6 +35,14 @@ $('a[name=userCurrency],button[name=userCurrency]').click(function () {
     }
 })
 
+function updateWechatStatus (hasSet) {
+    $('.wechatStatus').removeClass('active')
+    if(hasSet) {
+        $('.wechatStatus.set').addClass('active')
+    } else {
+        $('.wechatStatus.notSet').addClass('active')
+    }
+}
 $('[name=userChangeWechat]').click(function () {
     var $button = $(this)
     var state = $button.attr('data-state')
@@ -56,6 +64,7 @@ $('[name=userChangeWechat]').click(function () {
                 'wechat': wechat
             })
                 .done(function (data) {
+                    updateWechatStatus(true)
                     window.user = data
                     $('label[name=userWechat]').text(window.user.wechat)
 
@@ -73,6 +82,7 @@ $('[name=userChangeWechat]').click(function () {
                 'unset_fields': 'wechat'
             })
                 .done(function (data) {
+                    updateWechatStatus(false)
                     window.user = data
                     $('label[name=userWechat]').text('')
 
@@ -80,6 +90,9 @@ $('[name=userChangeWechat]').click(function () {
                     $('label[name=userWechat]').show()
 
                     $button.text(window.i18n('修改'))
+                    if (window.team.isPhone()) {
+                        $button.removeClass('btn-red').addClass('btn-edit').html('<i class="icon-nav-arrow-right"></i>')
+                    }
                     $button.attr('data-state', 'normal')
                 })
         }
