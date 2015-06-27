@@ -57,7 +57,7 @@
             <tr>
                 <td>{{_('姓名')}}</td>
                 <td>
-                    <input name="nickname" type="text" value={{user.get('nickname')}} data-validator="required,trim"
+                    <input name="nickname" type="text" value="{{user.get('nickname')}}" data-validator="required,trim"
                         data-msg-required="{{_('请填写姓名')}}"/></td>
             </tr>
             <tr>
