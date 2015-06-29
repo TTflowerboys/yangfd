@@ -341,7 +341,14 @@
 
 
     NSString *street = [CUTEAddressUtil buildAddress:@[NilNullToEmpty(self.ticket.property.community), NilNullToEmpty(self.ticket.property.street)]];
-    NSString *components = [CUTEGeoManager buildComponentsWithDictionary:@{@"country": self.ticket.property.country.code, @"locality": self.ticket.property.city.name}];
+    NSMutableDictionary *componmentsDictionary = [NSMutableDictionary dictionary];
+    if (self.ticket.property.country.code) {
+        [componmentsDictionary setObject:self.ticket.property.country.code forKey:@"country"];
+    }
+    if (self.ticket.property.city.name) {
+        [componmentsDictionary setObject:self.ticket.property.city.name forKey:@"locality"];
+    }
+    NSString *components = [CUTEGeoManager buildComponentsWithDictionary:componmentsDictionary];
     [[[CUTEGeoManager sharedInstance] geocodeWithAddress:street components:components] continueWithBlock:^id(BFTask *task) {
         [_textField.indicatorView stopAnimating];
         if (task.error) {
