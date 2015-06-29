@@ -148,7 +148,7 @@ $(function () {
     }
 
 
-    function loadRentProperty(noDraft) {
+    function loadRentProperty(rentStatus) {
         var defer = $.Deferred()
         if (xhr && xhr.readyState !== 4) {
             xhr.abort()
@@ -158,10 +158,7 @@ $(function () {
         $('#loadIndicator').show()
         isLoading = true
 
-        var loadStatus = ['draft', 'to rent', 'rent']
-        if (noDraft) {
-            loadStatus.shift()
-        }
+        var loadStatus = rentStatus || ['draft', 'to rent', 'rent']
         var params = {
             'user_id': window.user.id,
             'per_page': -1,
@@ -221,10 +218,16 @@ $(function () {
     }
 
     $(window).on('hashchange', function () {
-        var state = location.hash.slice(1)
+        var hash = location.hash.slice(1)
+        var state = hash.split('?')[0]
+        var extraParam = hash.split('?')[1]
+        var rentStatus
+        if(extraParam) {
+            rentStatus = decodeURIComponent(extraParam.match(/status=(.+)/)[1])
+        }
         if (state === 'rent') {
             switchTypeTab(state)
-            loadRentProperty()
+            loadRentProperty(rentStatus)
         } else if (state === 'own') {
             switchTypeTab(state)
             loadOwnProperty()
@@ -235,7 +238,7 @@ $(function () {
         } else if (state === 'rentOnly') {
             $('.ui-tabs,.buttons').hide()
             switchTypeTab('rent')
-            loadRentProperty(true)
+            loadRentProperty(rentStatus)
         }
     })
     $(window).trigger('hashchange')
