@@ -162,6 +162,41 @@
 .houseCard_phone .textPart .properties {
     border: 0;
 }
+.houseCard_phone_new{
+    .textPart .status{
+        .estimate {
+            width:40%;
+            float: left;
+            color: #ffa400;
+        }
+        .properties {
+            float: right;
+            text-align: right;
+            width:60%;
+            background:transparent;
+        }
+    }
+    .contact{
+        border-top: 1px solid @border-color;
+        padding: 10px 0;
+        .clearfix;
+        a{
+            display: block;
+            float: left;
+            width: 48%;
+            height: 30px;
+            line-height: 30px;
+            margin-right: 2%;
+            color: @grey;
+            font-size: 14px;
+            text-align: center;
+            &.phone{
+                border-right: 1px solid @border-color;
+            }
+        }
+    }
+
+}
 .textPart_innerTable .estimate {
     position: relative;
     .status {

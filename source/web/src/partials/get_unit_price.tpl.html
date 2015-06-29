@@ -40,7 +40,7 @@
 
             {_if (house.total_price.localized_unit_symbol) {_}
             <!--@@include=get_reference_price.tpl.html  -->
-            ,
+            <span class="comma">,</span>
             {_}_}
             <span class="down_payment">
                 {=window.i18n('首付')=}{=parseFloat(house.minimum_down_payment_rate * 100).toFixed(0) + '%'=}

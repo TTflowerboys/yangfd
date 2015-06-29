@@ -1,4 +1,4 @@
-<a class="imagePart"
+<!--<a class="imagePart"
    %if is_mobile_client():
    href="#" onclick="window.bridge.callHandler(&quot;openURLInNewController&quot;, '/property/{=house.id=}');return false;"
    %else:
@@ -43,7 +43,7 @@
             </p>
             {_if (house.property_type && house.property_type.slug !== 'new_property' && house.property_type.slug !== 'student_housing'){_}
             <p class=size>
-                <!--@@include=../../partials/get_size.tpl.html -->
+                &lt;!&ndash;@@include=../../partials/get_size.tpl.html &ndash;&gt;
             </p>
             {_}_}
         </div>
@@ -52,7 +52,7 @@
                 <tr>
                     <td>
                         <label class=price>
-                            <!--@@include=../../partials/get_unit_price.tpl.html -->
+                            &lt;!&ndash;@@include=../../partials/get_unit_price.tpl.html &ndash;&gt;
                         </label>
                     </td>
                 </tr>
@@ -103,4 +103,77 @@
         </table>
         <p class="border"></p>
     </a>
+</div>-->
+
+
+<!--@@master=master/house_card_content_master_phone.tpl.html-->
+<!--@@block=action_phone -->
+<div class="status">
+    <label class="properties">
+        {=project.formatDate(house.time)=}{{_('发布')}}
+    </label>
+
 </div>
+<hr/>
+<div class="propertyInfo">
+    <p class="location">
+        <i class="icon-location_fill"></i>
+        <label>
+            {_if (house.street){_}
+            {=house.street=},
+            {_}_}
+            {_if (house.city){_}
+            {=house.city.name=},
+            {_}_}
+            {_if (house.country){_}
+            {=window.team.countryMap[house.country.code]=}
+            {_}_}
+        </label>
+    </p>
+    <p class="tag">
+        <i class="icon-tag_icon"></i>
+        <label>
+            {_ _.each(house.intention, function(oneIntention) { _}
+            {=oneIntention.value=}
+            {_})_}
+        </label>
+    </p>
+    {_if(house.living_room_count || house.bathroom_count || house.space) {_}
+    <div class="size">
+        <div class="room">
+            <p class="title">{=window.i18n('房间')=}</p>
+            <p class="content">
+                {_if(house.living_room_count) {_}
+                {=house.living_room_count=}{=window.i18n('室')=}
+                {_}_}
+                {_if(house.bathroom_count) {_}
+                {=house.bathroom_count=}{=window.i18n('卫')=}
+                {_}_}
+            </p>
+        </div>
+        <div class="space">
+            <p class="title">{=window.i18n('面积')=}</p>
+            <p class="content">
+                {_if(house.space) {_}
+                {= parseFloat(house.space.value).toFixed(2)=}
+                {_if (house.space.unit === 'foot ** 2'){_}
+                SQFT
+                {_} else if(house.space.unit === 'acre'){_}
+                ACRE
+                {_} else if (house.space.unit === 'meter ** 2') {_}
+                m <sup>2</sup>
+                {_} else if (house.space.unit === 'kilometer ** 2') {_}
+                km <sup>2</sup>
+                {_} else {_}
+                {=house.space.unit=}
+                {_}_}
+                {_}_}
+            </p>
+        </div>
+    </div>
+    {_}_}
+</div>
+<!--@@close -->
+<!--@@block=cover_phone -->
+
+<!--@@close-->

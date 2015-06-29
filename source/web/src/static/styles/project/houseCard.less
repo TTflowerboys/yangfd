@@ -482,7 +482,7 @@
         }
     }
 }
-.houseCard_phone_intention {
+.houseCard_phone_new {
     display:none;
     background:#fff;
     color: @grey;
@@ -603,8 +603,12 @@
                     }
 
                     >.price_reference {
+                        font-size: 14px;
                         color: @grey;
-                        display: none;
+                        display: inherit;
+                        .down_payment,.comma{
+                            display: none;
+                        }
                         strong {
                             font-size:inherit;
                         }
@@ -620,24 +624,14 @@
             display: none;
 
         }
-        .intentionStatus {
+        .status {
             table-layout:fixed;
             width:100%;
             font-size: 14px;
             color: @grey;
             padding: 0 15px 10px;
             .clearfix;
-            .estimate {
-                width:40%;
-                float: left;
-                color: #ffa400;
-            }
-            .properties {
-                float: right;
-                text-align: right;
-                width:60%;
-                background:transparent;
-            }
+
         }
     }
     hr{
@@ -645,9 +639,8 @@
         color: @border-color;
     }
     .propertyInfo{
-        padding: 10px 15px;
-        border-bottom: 1px solid @border-color;
-        .location{
+        padding: 10px 15px 20px;
+        .location, .tag{
             color: @grey;
             margin: 8px 0 0;
             font-size: 14px;
@@ -684,22 +677,5 @@
             }
         }
     }
-    .contact{
-        padding: 10px 0;
-        .clearfix;
-        a{
-            display: block;
-            float: left;
-            width: 48%;
-            height: 30px;
-            line-height: 30px;
-            margin-right: 2%;
-            color: @grey;
-            font-size: 14px;
-            text-align: center;
-            &.phone{
-                border-right: 1px solid @border-color;
-            }
-        }
-    }
+
 }

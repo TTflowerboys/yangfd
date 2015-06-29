@@ -14,6 +14,9 @@ body{
 }
 
 main {
+    @media @phone {
+        background: #eeeeee;
+    }
     .category {
         text-align:center;
         margin-top:96px;
@@ -381,12 +384,10 @@ main {
                 }
             }
 
-            .houseCard_phone {
-                .textPart_inner {
-                    .border {
-                        margin:0;
-                        width:100%;
-                    }
+            .houseCard_phone_new {
+                .propertyInfo .size > div .content{
+                    font-size: 18px;
+                    color: @red;
                 }
             }
         }
