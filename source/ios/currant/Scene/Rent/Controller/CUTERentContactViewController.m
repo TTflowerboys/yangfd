@@ -148,7 +148,12 @@
         else {
             user.wechat = _displaySettingForm.wechat;
         }
-        user.privateContactMethods = privateContactMethods;
+        if (IsArrayNilOrEmpty(privateContactMethods)) {
+            user.privateContactMethods = nil;
+        }
+        else {
+            user.privateContactMethods = privateContactMethods;
+        }
     }
 }
 
