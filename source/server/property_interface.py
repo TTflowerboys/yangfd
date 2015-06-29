@@ -148,14 +148,14 @@ def property_wechat_poster(property_id):
     weixin = f_app.wechat.get_jsapi_signature()
 
     def format_property(property):
-        res = '<div><i class="icon-rooms"></i><span>' + unicode(str(property.get('bedroom_count',0))) + _(u'室') + unicode(str(property.get('living_room_count',0))) + _(u'厅')
+        res = u'<div><i class="icon-rooms"></i><span>' + unicode(str(property.get('bedroom_count',0))) + unicode(_(u'室')) + unicode(str(property.get('living_room_count',0))) + unicode(_(u'厅'))
         if property.get('space',{}):
-            res += "{0:.0f}".format(float(property.get('space',{}).get('value',0)))
-            res += currant_util.format_unit(property.get('space',{}).get('unit',''))
+            res += unicode("{0:.0f}".format(float(property.get('space',{}).get('value',0))))
+            res += unicode(currant_util.format_unit(property.get('space',{}).get('unit','')))
         elif property.get('building_area',{}):
-            res += "{0:.0f}".format(float(property.get('building_area',{}).get('value',0)))
-            res += currant_util.format_unit(property.get('building_area',{}).get('unit',''))
-        res += '</span></div>'
+            res += unicode("{0:.0f}".format(float(property.get('building_area',{}).get('value',0))))
+            res += unicode(currant_util.format_unit(property.get('building_area',{}).get('unit','')))
+        res += u'</span></div>'
         return res
 
     return currant_util.common_template("property_wechat_poster", property=property, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords, weixin=weixin, format_property=format_property)
