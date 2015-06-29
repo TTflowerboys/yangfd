@@ -158,7 +158,7 @@ $(function () {
         $('#loadIndicator').show()
         isLoading = true
 
-        var loadStatus = ['draft', 'to rent', 'rent']
+        var loadStatus = ['to rent', 'rent']
         var params = {
             'user_id': window.user.id,
             'per_page': -1,
@@ -213,6 +213,8 @@ $(function () {
 
         $('.buttons .button').removeClass('button').addClass('ghostButton')
         $('.buttons .' + state).removeClass('ghostButton').addClass('button')
+
+        location.hash = state
     }
 
     $(window).on('hashchange', function () {
@@ -223,6 +225,14 @@ $(function () {
         } else if (state === 'own') {
             switchTypeTab(state)
             loadOwnProperty()
+        } else if (state === 'ownOnly') {
+            $('.ui-tabs,.buttons').hide()
+            switchTypeTab('own')
+            loadOwnProperty()
+        } else if (state === 'rentOnly') {
+            $('.ui-tabs,.buttons').hide()
+            switchTypeTab('rent')
+            loadRentProperty()
         }
     })
     $(window).trigger('hashchange')
@@ -231,22 +241,22 @@ $(function () {
      * */
     $('button#showRentBtn').click(function () {
         switchTypeTab('rent')
-        loadRentProperty()
+        //loadRentProperty()
     })
 
     $('button#showOwnBtn').click(function () {
         switchTypeTab('own')
-        loadOwnProperty()
+        //loadOwnProperty()
     })
 
     $('#showRentTab').click(function () {
         switchTypeTab('rent')
-        loadRentProperty()
+        //loadRentProperty()
     })
 
     $('#showOwnTab').click(function () {
         switchTypeTab('own')
-        loadOwnProperty()
+        //loadOwnProperty()
     })
 
 
