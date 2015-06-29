@@ -465,7 +465,7 @@
                     controller.hidesBottomBarWhenPushed = NO;
                     __weak typeof(self)weakSelf = self;
                     controller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-                        [weakSelf showUserPageSection:@"/user-properties#rent" fromViewController:controller];
+                        [weakSelf showUserPageSection:@"/user-properties#rentOnly?status=to%20rent%2Crent" fromViewController:controller];
                     }];
                     [viewController setViewControllers:@[controller] animated:NO];
                     if (!silent) {
@@ -486,7 +486,7 @@
             unfinishedRentTicketController.hidesBottomBarWhenPushed = NO;
             __weak typeof(self)weakSelf = self;
             unfinishedRentTicketController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-                [weakSelf showUserPageSection:@"/user-properties#rent" fromViewController:unfinishedRentTicketController];
+                [weakSelf showUserPageSection:@"/user-properties#rentOnly?status=to%20rent%2Crent" fromViewController:unfinishedRentTicketController];
             }];
 
 
