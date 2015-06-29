@@ -148,7 +148,7 @@ $(function () {
     }
 
 
-    function loadRentProperty() {
+    function loadRentProperty(noDraft) {
         var defer = $.Deferred()
         if (xhr && xhr.readyState !== 4) {
             xhr.abort()
@@ -158,7 +158,10 @@ $(function () {
         $('#loadIndicator').show()
         isLoading = true
 
-        var loadStatus = ['to rent', 'rent']
+        var loadStatus = ['draft', 'to rent', 'rent']
+        if (noDraft) {
+            loadStatus.shift()
+        }
         var params = {
             'user_id': window.user.id,
             'per_page': -1,
@@ -232,7 +235,7 @@ $(function () {
         } else if (state === 'rentOnly') {
             $('.ui-tabs,.buttons').hide()
             switchTypeTab('rent')
-            loadRentProperty()
+            loadRentProperty(true)
         }
     })
     $(window).trigger('hashchange')
