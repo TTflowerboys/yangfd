@@ -33,10 +33,11 @@
 
         <thead>
             <tr>
-                <th style="width: 14%;">{%$root.i18n('标题')%}</th>
+                <th style="width: 10%;">{%$root.i18n('标题')%}</th>
                 <th style="width: 9%;">{%$root.i18n('出租类型')%}</th>
+                <th style="width: 8%;">{%$root.i18n('房东类型')%}</th>
                 <th style="width: 9%;">{%$root.i18n('postcode')%}</th>
-                <th style="width: 14%;">{%$root.i18n('地址')%}</th>
+                <th style="width: 10%;">{%$root.i18n('地址')%}</th>
                 <th style="width: 9%;">{%$root.i18n('租金')%}</th>
                 <th style="width: 10%;">{%$root.i18n('发布人')%}</th>
                 <th style="width: 10%;">{%$root.i18n('发布时间')%}</th>
@@ -52,6 +53,9 @@
                 </td>
                 <td>
                     <div show-i18n="item.rent_type.value"></div>
+                </td>
+                <td>
+                    <div show-i18n="item.landlord_type.value"></div>
                 </td>
                 <td>
                     <div ng-bind="item.property.zipcode"></div>
