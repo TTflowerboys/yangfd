@@ -13,7 +13,7 @@
 #import "CUTEEnumManager.h"
 #import "CUTEAPIManager.h"
 #import "CUTENotificationKey.h"
-#import "CUTERentTickePublisher.h"
+#import "CUTERentTicketPublisher.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTERentContactViewController.h"
 #import "CUTERentContactForm.h"

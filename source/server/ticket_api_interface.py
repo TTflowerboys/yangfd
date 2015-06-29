@@ -758,7 +758,7 @@ def rent_ticket_search(user, params):
         params["rent_available_time"] = {"$gte": params["rent_available_time"] - timedelta(days=7), "$lte": params["rent_available_time"] + timedelta(days=1)}
 
     if "rent_deadline_time" in params:
-        params["rent_deadline_time"] = {"$or": [{"$gte": params["rent_deadline_time"] - timedelta(days=1)}, {"$exists": False}]}
+        params["$and"].append({"$or": [{"rent_deadline_time": {"$gte": params["rent_deadline_time"] - timedelta(days=1)}}, {"rent_deadline_time": {"$exists": False}}]})
 
     if "rent_available_time" in params and "rent_deadline_time" in params:
         # TODO: override minimum_rent_period only if necessary

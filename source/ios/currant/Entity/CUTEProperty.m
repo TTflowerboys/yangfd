@@ -150,8 +150,11 @@
     }
     else if ([key isEqualToString:@keypath(self.realityImages)] && [value isKindOfClass:[NSArray class]]) {
         NSArray *realityImages = [(NSArray *)value select:^BOOL(NSString *object) {
-            NSURL *url = [NSURL URLWithString:object];
-            return  url && [url isHttpOrHttpsURL];
+            if ([object isKindOfClass:[NSString class]]) {
+                NSURL *url = [NSURL URLWithString:object];
+                return  url && [url isHttpOrHttpsURL];
+            }
+            return NO;
         }];
         return @{DEFAULT_I18N_LOCALE: realityImages};
     }

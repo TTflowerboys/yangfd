@@ -33,7 +33,7 @@
 #import "CUTERentTypeListForm.h"
 #import "CUTERentAddressMapViewController.h"
 #import "CUTENotificationKey.h"
-#import "CUTERentTickePublisher.h"
+#import "CUTERentTicketPublisher.h"
 #import "CUTERentAddressEditViewController.h"
 #import "CUTERentAddressEditForm.h"
 #import "CUTENavigationUtil.h"
@@ -165,25 +165,29 @@
 }
 
 - (void)editArea {
-  if (!_editAreaViewController) {
-      CUTERentAreaViewController *controller = [CUTERentAreaViewController new];
-      controller.ticket = self.ticket;
-      CUTEAreaForm *form = [CUTEAreaForm new];
-      form.area = self.ticket.space.value;
-      controller.formController.form = form;
-      _editAreaViewController = controller;
+    if (!_editAreaViewController) {
+        CUTERentAreaViewController *controller = [CUTERentAreaViewController new];
+        controller.ticket = self.ticket;
+        CUTEAreaForm *form = [CUTEAreaForm new];
+        form.area = self.ticket.space.value;
+        controller.formController.form = form;
+        _editAreaViewController = controller;
 
-      __weak typeof(self)weakSelf = self;
-      _editAreaViewController.updateRentAreaCompletion = ^ {
-          [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
-              if ([field.key isEqualToString:@"area"]) {
-                  [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-              }
-          }];
-      };
+        __weak typeof(self)weakSelf = self;
+        _editAreaViewController.updateRentAreaCompletion = ^ {
+            [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
+                if ([field.key isEqualToString:@"area"]) {
+                    [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                }
+            }];
+        };
 
-  }
-  [self.navigationController pushViewController:_editAreaViewController animated:YES];
+    }
+
+    //in case of push twice time
+    if (self.navigationController.topViewController != _editAreaViewController) {
+        [self.navigationController pushViewController:_editAreaViewController animated:YES];
+    }
 }
 
 - (void)editRentPrice {
@@ -192,53 +196,58 @@
         return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
     }]] continueWithSuccessBlock:^id(BFTask *task) {
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
-          if (!_editRentPriceViewController) {
-              NSArray *depositTypes = task.result[0];
-              CUTETicket *ticket = self.ticket;
-              if (!ticket.rentAvailableTime) {
-                  ticket.rentAvailableTime = @([[NSDate date] timeIntervalSince1970]);
-              }
+            if (!_editRentPriceViewController) {
+                NSArray *depositTypes = task.result[0];
+                CUTETicket *ticket = self.ticket;
+                if (!ticket.rentAvailableTime) {
+                    ticket.rentAvailableTime = @([[NSDate date] timeIntervalSince1970]);
+                }
 
-//              if (!ticket.rentDeadlineTime) {
-//                  ticket.rentDeadlineTime = [[[NSDate dateWithTimeIntervalSince1970:[ticket rentAvailableTime]] dateByAddingDays:1] timeIntervalSince1970];
-//              }
-              if (!ticket.minimumRentPeriod) {
-                  ticket.minimumRentPeriod = [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
-              }
+                //              if (!ticket.rentDeadlineTime) {
+                //                  ticket.rentDeadlineTime = [[[NSDate dateWithTimeIntervalSince1970:[ticket rentAvailableTime]] dateByAddingDays:1] timeIntervalSince1970];
+                //              }
+                if (!ticket.minimumRentPeriod) {
+                    ticket.minimumRentPeriod = [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
+                }
 
-              if (!ticket.depositType) {
-                  ticket.depositType = [depositTypes find:^BOOL(CUTEEnum *object) {
-                      return object.slug && [object.slug isEqualToString:@"deposit_type:negotiable"];
-                  }];
-              }
+                if (!ticket.depositType) {
+                    ticket.depositType = [depositTypes find:^BOOL(CUTEEnum *object) {
+                        return object.slug && [object.slug isEqualToString:@"deposit_type:negotiable"];
+                    }];
+                }
 
-              CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
-              controller.ticket = self.ticket;
-              CUTERentPriceForm *form = [CUTERentPriceForm new];
-              form.currency = ticket.price.unit;
-              form.rentPrice = ticket.price.value;
-              form.depositType = ticket.depositType;
-              form.billCovered = ticket.billCovered? ticket.billCovered.boolValue: NO;
-              form.needSetPeriod = YES;
-              form.rentAvailableTime = ticket.rentAvailableTime ?[NSDate dateWithTimeIntervalSince1970:ticket.rentAvailableTime.doubleValue]: nil;
-              form.rentDeadlineTime = ticket.rentDeadlineTime? [NSDate dateWithTimeIntervalSince1970:ticket.rentDeadlineTime.doubleValue]: nil;
-              form.minimumRentPeriod = ticket.minimumRentPeriod;
+                CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
+                controller.ticket = self.ticket;
+                CUTERentPriceForm *form = [CUTERentPriceForm new];
+                form.currency = ticket.price.unit;
+                form.rentPrice = ticket.price.value;
+                form.depositType = ticket.depositType;
+                form.billCovered = ticket.billCovered? ticket.billCovered.boolValue: NO;
+                form.needSetPeriod = YES;
+                form.rentAvailableTime = ticket.rentAvailableTime ?[NSDate dateWithTimeIntervalSince1970:ticket.rentAvailableTime.doubleValue]: nil;
+                form.rentDeadlineTime = ticket.rentDeadlineTime? [NSDate dateWithTimeIntervalSince1970:ticket.rentDeadlineTime.doubleValue]: nil;
+                form.minimumRentPeriod = ticket.minimumRentPeriod;
 
-              [form setAllDepositTypes:depositTypes];
-              controller.formController.form = form;
-              controller.navigationItem.title = STR(@"租金");
-              _editRentPriceViewController = controller;
+                [form setAllDepositTypes:depositTypes];
+                controller.formController.form = form;
+                controller.navigationItem.title = STR(@"租金");
+                _editRentPriceViewController = controller;
 
-              __weak typeof(self)weakSelf = self;
-              _editRentPriceViewController.updatePriceCompletion = ^ {
-                  [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
-                      if ([field.key isEqualToString:@"rentPrice"]) {
-                          [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                      }
-                  }];
-              };
-          }
-            [self.navigationController pushViewController:_editRentPriceViewController animated:YES];
+                __weak typeof(self)weakSelf = self;
+                _editRentPriceViewController.updatePriceCompletion = ^ {
+                    [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
+                        if ([field.key isEqualToString:@"rentPrice"]) {
+                            [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                        }
+                    }];
+                };
+            }
+
+
+            //in case of push twice time
+            if (self.navigationController.topViewController != _editRentPriceViewController) {
+                [self.navigationController pushViewController:_editRentPriceViewController animated:YES];
+            }
         }
 
         return nil;
@@ -361,7 +370,7 @@
     }
 
     [SVProgressHUD show];
-    [[[CUTERentTickePublisher sharedInstance] editTicket:self.ticket updateStatus:^(NSString *status) {
+    [[[CUTERentTicketPublisher sharedInstance] editTicket:self.ticket updateStatus:^(NSString *status) {
         [SVProgressHUD showWithStatus:status];
     }] continueWithBlock:^id(BFTask *task) {
         if (task.error) {

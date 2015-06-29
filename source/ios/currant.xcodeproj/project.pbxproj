@@ -376,10 +376,10 @@
 		2CC6C1DE1AEE255A002758A7 /* NSURL+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1DC1AEE255A002758A7 /* NSURL+Assets.m */; };
 		2CC6C1DF1AEE255A002758A7 /* NSURL+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1DC1AEE255A002758A7 /* NSURL+Assets.m */; };
 		2CC6C1E01AEE255A002758A7 /* NSURL+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1DC1AEE255A002758A7 /* NSURL+Assets.m */; };
-		2CC6C1EB1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1EA1AEE2E59002758A7 /* CUTERentTickePublisher.m */; };
-		2CC6C1EC1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1EA1AEE2E59002758A7 /* CUTERentTickePublisher.m */; };
-		2CC6C1ED1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1EA1AEE2E59002758A7 /* CUTERentTickePublisher.m */; };
-		2CC6C1EE1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1EA1AEE2E59002758A7 /* CUTERentTickePublisher.m */; };
+		2CC6C1EB1AEE2E59002758A7 /* CUTERentTicketPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1EA1AEE2E59002758A7 /* CUTERentTicketPublisher.m */; };
+		2CC6C1EC1AEE2E59002758A7 /* CUTERentTicketPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1EA1AEE2E59002758A7 /* CUTERentTicketPublisher.m */; };
+		2CC6C1ED1AEE2E59002758A7 /* CUTERentTicketPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1EA1AEE2E59002758A7 /* CUTERentTicketPublisher.m */; };
+		2CC6C1EE1AEE2E59002758A7 /* CUTERentTicketPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1EA1AEE2E59002758A7 /* CUTERentTicketPublisher.m */; };
 		2CCE67EC1B1C084A00351DED /* CUTEMapListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE67EB1B1C084A00351DED /* CUTEMapListViewController.m */; };
 		2CCE67ED1B1C085300351DED /* CUTEMapListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE67EB1B1C084A00351DED /* CUTEMapListViewController.m */; };
 		2CCE67EE1B1C085300351DED /* CUTEMapListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE67EB1B1C084A00351DED /* CUTEMapListViewController.m */; };
@@ -775,8 +775,8 @@
 		2CC6C1D51AEE2400002758A7 /* AssetsLibraryProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetsLibraryProvider.m; sourceTree = "<group>"; };
 		2CC6C1DB1AEE255A002758A7 /* NSURL+Assets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Assets.h"; sourceTree = "<group>"; };
 		2CC6C1DC1AEE255A002758A7 /* NSURL+Assets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Assets.m"; sourceTree = "<group>"; };
-		2CC6C1E91AEE2E59002758A7 /* CUTERentTickePublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentTickePublisher.h; sourceTree = "<group>"; };
-		2CC6C1EA1AEE2E59002758A7 /* CUTERentTickePublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentTickePublisher.m; sourceTree = "<group>"; };
+		2CC6C1E91AEE2E59002758A7 /* CUTERentTicketPublisher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentTicketPublisher.h; sourceTree = "<group>"; };
+		2CC6C1EA1AEE2E59002758A7 /* CUTERentTicketPublisher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentTicketPublisher.m; sourceTree = "<group>"; };
 		2CCE67EA1B1C084A00351DED /* CUTEMapListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEMapListViewController.h; sourceTree = "<group>"; };
 		2CCE67EB1B1C084A00351DED /* CUTEMapListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEMapListViewController.m; sourceTree = "<group>"; };
 		2CCE67F21B1C0F9F00351DED /* CUTERentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentListViewController.h; sourceTree = "<group>"; };
@@ -1227,8 +1227,8 @@
 				2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */,
 				2CA5F76E1AE10382001132E0 /* CUTEImageUploader.h */,
 				2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */,
-				2CC6C1E91AEE2E59002758A7 /* CUTERentTickePublisher.h */,
-				2CC6C1EA1AEE2E59002758A7 /* CUTERentTickePublisher.m */,
+				2CC6C1E91AEE2E59002758A7 /* CUTERentTicketPublisher.h */,
+				2CC6C1EA1AEE2E59002758A7 /* CUTERentTicketPublisher.m */,
 				2CB7490B1ADE4755003BC2A5 /* SVProgressHUD+CUTEAPI.h */,
 				2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */,
 				2C96E2721AE6566300F3590C /* CUTEShareManager.h */,
@@ -1951,7 +1951,7 @@
 				2CB7490F1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C3DE24D1B074247006FF191 /* CUTESplashViewController.m in Sources */,
 				2C0AE11E1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
-				2CC6C1ED1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */,
+				2CC6C1ED1AEE2E59002758A7 /* CUTERentTicketPublisher.m in Sources */,
 				2CA81FBF1B1425D1006E993C /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2C4AEC811AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A6101AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
@@ -2083,7 +2083,7 @@
 				2CB749101ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C3DE24E1B074247006FF191 /* CUTESplashViewController.m in Sources */,
 				2C0AE11F1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
-				2CC6C1EE1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */,
+				2CC6C1EE1AEE2E59002758A7 /* CUTERentTicketPublisher.m in Sources */,
 				2CA81FC01B1425D1006E993C /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2C4AEC821AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A6111AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
@@ -2215,7 +2215,7 @@
 				2CB7490E1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C3DE24C1B074247006FF191 /* CUTESplashViewController.m in Sources */,
 				2C0AE11D1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
-				2CC6C1EC1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */,
+				2CC6C1EC1AEE2E59002758A7 /* CUTERentTicketPublisher.m in Sources */,
 				2CA81FBE1B1425D1006E993C /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2C4AEC801AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A60F1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
@@ -2347,7 +2347,7 @@
 				2CB7490D1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C3DE24B1B074247006FF191 /* CUTESplashViewController.m in Sources */,
 				2C0AE11C1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
-				2CC6C1EB1AEE2E59002758A7 /* CUTERentTickePublisher.m in Sources */,
+				2CC6C1EB1AEE2E59002758A7 /* CUTERentTicketPublisher.m in Sources */,
 				2CA81FBD1B1425D1006E993C /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2C4AEC7F1AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A60E1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,

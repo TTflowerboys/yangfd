@@ -24,7 +24,7 @@
 #import "CUTEConfiguration.h"
 #import <UIAlertView+Blocks.h>
 #import "CUTENotificationKey.h"
-#import "CUTERentTickePublisher.h"
+#import "CUTERentTicketPublisher.h"
 #import <TTTAttributedLabel.h>
 #import <NSArray+ObjectiveSugar.h>
 #import "NSURL+CUTE.h"
@@ -350,7 +350,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
             CUTETicket *ticket = self.ticket;
             
-            [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
+            [[[CUTERentTicketPublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
                 [SVProgressHUD showWithStatus:status];
             }] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {

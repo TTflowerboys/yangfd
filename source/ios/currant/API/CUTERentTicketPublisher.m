@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTERentTickePublisher.h"
+#import "CUTERentTicketPublisher.h"
 #import <Bolts.h>
 #import <Sequencer.h>
 #import "CUTECommonMacro.h"
@@ -17,7 +17,7 @@
 #import "NSURL+Assets.h"
 #import "CUTEDataManager.h"
 
-@interface CUTERentTickePublisher () {
+@interface CUTERentTicketPublisher () {
 
 
 }
@@ -25,7 +25,7 @@
 @end
 
 
-@implementation CUTERentTickePublisher
+@implementation CUTERentTicketPublisher
 
 + (instancetype)sharedInstance
 {

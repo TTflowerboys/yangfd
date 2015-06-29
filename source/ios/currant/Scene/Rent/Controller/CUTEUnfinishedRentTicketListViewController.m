@@ -20,7 +20,7 @@
 #import "CUTENotificationKey.h"
 #import "CUTEAPIManager.h"
 #import "NSArray+ObjectiveSugar.h"
-#import "CUTERentTickePublisher.h"
+#import "CUTERentTicketPublisher.h"
 
 @interface CUTEUnfinishedRentTicketListViewController ()
 
@@ -56,7 +56,7 @@
 - (void)refreshTable {
     if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
         [self.refreshControl beginRefreshing];
-        [[[CUTERentTickePublisher sharedInstance] syncTickets] continueWithBlock:^id(BFTask *task) {
+        [[[CUTERentTicketPublisher sharedInstance] syncTickets] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [self.refreshControl endRefreshing];
                 [SVProgressHUD showErrorWithError:task.error];

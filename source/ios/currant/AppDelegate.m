@@ -27,7 +27,7 @@
 #import "CUTERentShareViewController.h"
 #import "CUTERentShareForm.h"
 #import "CUTEUnfinishedRentTicketListViewController.h"
-#import "CUTERentTickePublisher.h"
+#import "CUTERentTicketPublisher.h"
 #import "CUTEPropertyInfoForm.h"
 #import "CUTERentPropertyInfoViewController.h"
 #import "CUTEImageUploader.h"
@@ -427,7 +427,7 @@
             if (!silent) {
                 [SVProgressHUD show];
             }
-            [[[CUTERentTickePublisher sharedInstance] syncTickets] continueWithBlock:^id(BFTask *task) {
+            [[[CUTERentTicketPublisher sharedInstance] syncTickets] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
@@ -463,10 +463,7 @@
                     CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
                     controller.formController.form = form;
                     controller.hidesBottomBarWhenPushed = NO;
-                    __weak typeof(self)weakSelf = self;
-                    controller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-                        [weakSelf showUserPageSection:@"/user-properties#rentOnly?status=to%20rent%2Crent" fromViewController:controller];
-                    }];
+                    controller.navigationItem.leftBarButtonItem = [self getRentTicketLeftBarButtonItemWithViewController:controller];
                     [viewController setViewControllers:@[controller] animated:NO];
                     if (!silent) {
                         [SVProgressHUD dismiss];
@@ -484,10 +481,7 @@
             }
             CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
             unfinishedRentTicketController.hidesBottomBarWhenPushed = NO;
-            __weak typeof(self)weakSelf = self;
-            unfinishedRentTicketController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-                [weakSelf showUserPageSection:@"/user-properties#rentOnly?status=to%20rent%2Crent" fromViewController:unfinishedRentTicketController];
-            }];
+            unfinishedRentTicketController.navigationItem.leftBarButtonItem = [self getRentTicketLeftBarButtonItemWithViewController:unfinishedRentTicketController];
 
 
             [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
@@ -496,6 +490,13 @@
     }];
 
     [sequencer run];
+}
+- (UIBarButtonItem *)getRentTicketLeftBarButtonItemWithViewController:(UIViewController *)viewController {
+    __weak typeof(self)weakSelf = self;
+    return [[UIBarButtonItem alloc] initWithTitle:STR(@"已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+        [weakSelf showUserPageSection:@"/user-properties#rentOnly?status=to%20rent%2Crent" fromViewController:viewController];
+    }];
+
 }
 
 - (void)showUserPageSection:(NSString *)urlString fromViewController:(UIViewController *)viewController {
@@ -557,7 +558,7 @@
 
     if (ticket && ticket.identifier && ![[CUTEDataManager sharedInstance] isRentTicketDeleted:ticket.identifier]) {
         [[CUTEDataManager sharedInstance] saveRentTicket:ticket];
-        [[[CUTERentTickePublisher sharedInstance] editTicketWithTicket:ticket ticketParams:ticketParams propertyParams:propertyParams] continueWithBlock:^id(BFTask *task) {
+        [[[CUTERentTicketPublisher sharedInstance] editTicketWithTicket:ticket ticketParams:ticketParams propertyParams:propertyParams] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
@@ -651,6 +652,7 @@
         else {
             NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
             CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
+            unfinishedRentTicketController.navigationItem.leftBarButtonItem = [self getRentTicketLeftBarButtonItemWithViewController:unfinishedRentTicketController];
             [viewControllers insertObject:unfinishedRentTicketController atIndex:0];
             [navController setViewControllers:viewControllers animated:NO];
             [unfinishedRentTicketController reloadWithTickets:unfinishedRentTickets];
@@ -663,6 +665,7 @@
                 [form setRentTypeList:task.result];
                 CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
                 controller.formController.form = form;
+                controller.navigationItem.leftBarButtonItem = [self getRentTicketLeftBarButtonItemWithViewController:controller];
                 NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
                 [viewControllers insertObject:controller atIndex:0];
                 [navController setViewControllers:viewControllers animated:NO];

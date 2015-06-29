@@ -11,7 +11,7 @@
 #import "CUTETicket.h"
 
 
-@interface CUTERentTickePublisher : NSObject
+@interface CUTERentTicketPublisher : NSObject
 
 + (instancetype)sharedInstance;
 

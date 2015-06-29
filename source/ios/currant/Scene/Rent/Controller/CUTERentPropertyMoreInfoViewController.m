@@ -15,7 +15,7 @@
 #import "CUTEDataManager.h"
 #import "CUTEPropertyMoreInfoForm.h"
 #import "CUTEDataManager.h"
-#import "CUTERentTickePublisher.h"
+#import "CUTERentTicketPublisher.h"
 #import <UIAlertView+Blocks.h>
 #import "CUTENotificationKey.h"
 #import "SVProgressHUD+CUTEAPI.h"
@@ -109,7 +109,7 @@
         if (buttonIndex != alertView.cancelButtonIndex) {
 
             [SVProgressHUD show];
-            [[[CUTERentTickePublisher sharedInstance] deleteTicket:self.ticket] continueWithBlock:^id(BFTask *task) {
+            [[[CUTERentTicketPublisher sharedInstance] deleteTicket:self.ticket] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }

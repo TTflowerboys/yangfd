@@ -22,7 +22,7 @@
 #import <MWPhotoBrowser.h>
 #import <Bolts.h>
 #import <AVFoundation/AVFoundation.h>
-#import "CUTERentTickePublisher.h"
+#import "CUTERentTicketPublisher.h"
 #import "CUTEImageUploader.h"
 #import <Sequencer/Sequencer.h>
 #import <UIImageView+AFNetworking.h>
@@ -443,7 +443,7 @@
         [[CUTEDataManager sharedInstance] saveRentTicket:self.ticket];
         //TODO why here slow down the performance
 
-        [[[CUTERentTickePublisher sharedInstance] uploadImages:self.ticket.property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
+        [[[CUTERentTicketPublisher sharedInstance] uploadImages:self.ticket.property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
@@ -564,7 +564,7 @@
     [[CUTEDataManager sharedInstance] saveRentTicket:self.ticket];
 
     [SVProgressHUD showWithStatus:STR(@"设置中...")];
-    [[[CUTERentTickePublisher sharedInstance] uploadImages:@[self.ticket.property.cover] updateStatus:^(NSString *status) {
+    [[[CUTERentTicketPublisher sharedInstance] uploadImages:@[self.ticket.property.cover] updateStatus:^(NSString *status) {
 
     }] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
@@ -652,7 +652,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             [SVProgressHUD dismiss];
 
             [[CUTEDataManager sharedInstance] saveRentTicket:self.ticket];
-            [[[CUTERentTickePublisher sharedInstance] uploadImages:self.ticket.property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
+            [[[CUTERentTicketPublisher sharedInstance] uploadImages:self.ticket.property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }

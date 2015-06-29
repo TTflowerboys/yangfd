@@ -12,7 +12,7 @@
 #import "CUTEUser.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTETicket.h"
-#import "CUTERentTickePublisher.h"
+#import "CUTERentTicketPublisher.h"
 #import "CUTEAPIManager.h"
 #import "CUTENotificationKey.h"
 #import <Base64.h>
@@ -141,7 +141,7 @@
         }];
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[[CUTERentTickePublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
+            [[[CUTERentTicketPublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
                 [SVProgressHUD showWithStatus:status];
             }] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
