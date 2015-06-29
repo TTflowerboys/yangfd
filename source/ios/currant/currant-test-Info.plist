@@ -36,7 +36,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>CurrantHost</key>
-	<string>yangfd.com</string>
+	<string>currant-test.bbtechgroup.com</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
