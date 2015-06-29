@@ -11,7 +11,7 @@
 #import "CUTEDataManager.h"
 #import "CUTEPropertyFacilityForm.h"
 #import "CUTEDataManager.h"
-#import "CUTERentTickePublisher.h"
+#import "CUTERentTicketPublisher.h"
 #import "CUTENotificationKey.h"
 #import "CUTETicketEditingListener.h"
 

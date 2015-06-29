@@ -12,7 +12,7 @@
 #import "CUTEDataManager.h"
 #import "CUTEFormRentPriceTextFieldCell.h"
 #import "SVProgressHUD+CUTEAPI.h"
-#import "CUTERentTickePublisher.h"
+#import "CUTERentTicketPublisher.h"
 #import "CUTENotificationKey.h"
 #import "CUTETicketEditingListener.h"
 #import "NSDate-Utilities.h"

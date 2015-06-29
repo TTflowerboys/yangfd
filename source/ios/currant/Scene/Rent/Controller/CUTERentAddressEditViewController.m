@@ -12,7 +12,7 @@
 #import "CUTEDataManager.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEDataManager.h"
-#import "CUTERentTickePublisher.h"
+#import "CUTERentTicketPublisher.h"
 #import "CUTENotificationKey.h"
 #import "CUTEAPIManager.h"
 #import "CUTEEnumManager.h"
@@ -261,7 +261,7 @@
         Sequencer *sequencer = [Sequencer new];
         if (IsNilNullOrEmpty(currentTicket.identifier)) {
             [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                [[[CUTERentTickePublisher sharedInstance] createTicket:currentTicket] continueWithBlock:^id(BFTask *task) {
+                [[[CUTERentTicketPublisher sharedInstance] createTicket:currentTicket] continueWithBlock:^id(BFTask *task) {
                     if (task.error || task.exception || task.isCancelled) {
                         [SVProgressHUD showErrorWithError:task.error];
                     }

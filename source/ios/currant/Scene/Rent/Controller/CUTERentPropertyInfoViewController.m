@@ -33,7 +33,7 @@
 #import "CUTERentTypeListForm.h"
 #import "CUTERentAddressMapViewController.h"
 #import "CUTENotificationKey.h"
-#import "CUTERentTickePublisher.h"
+#import "CUTERentTicketPublisher.h"
 #import "CUTERentAddressEditViewController.h"
 #import "CUTERentAddressEditForm.h"
 #import "CUTENavigationUtil.h"
@@ -361,7 +361,7 @@
     }
 
     [SVProgressHUD show];
-    [[[CUTERentTickePublisher sharedInstance] editTicket:self.ticket updateStatus:^(NSString *status) {
+    [[[CUTERentTicketPublisher sharedInstance] editTicket:self.ticket updateStatus:^(NSString *status) {
         [SVProgressHUD showWithStatus:status];
     }] continueWithBlock:^id(BFTask *task) {
         if (task.error) {

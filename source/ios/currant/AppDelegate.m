@@ -27,7 +27,7 @@
 #import "CUTERentShareViewController.h"
 #import "CUTERentShareForm.h"
 #import "CUTEUnfinishedRentTicketListViewController.h"
-#import "CUTERentTickePublisher.h"
+#import "CUTERentTicketPublisher.h"
 #import "CUTEPropertyInfoForm.h"
 #import "CUTERentPropertyInfoViewController.h"
 #import "CUTEImageUploader.h"
@@ -427,7 +427,7 @@
             if (!silent) {
                 [SVProgressHUD show];
             }
-            [[[CUTERentTickePublisher sharedInstance] syncTickets] continueWithBlock:^id(BFTask *task) {
+            [[[CUTERentTicketPublisher sharedInstance] syncTickets] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
@@ -558,7 +558,7 @@
 
     if (ticket && ticket.identifier && ![[CUTEDataManager sharedInstance] isRentTicketDeleted:ticket.identifier]) {
         [[CUTEDataManager sharedInstance] saveRentTicket:ticket];
-        [[[CUTERentTickePublisher sharedInstance] editTicketWithTicket:ticket ticketParams:ticketParams propertyParams:propertyParams] continueWithBlock:^id(BFTask *task) {
+        [[[CUTERentTicketPublisher sharedInstance] editTicketWithTicket:ticket ticketParams:ticketParams propertyParams:propertyParams] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }

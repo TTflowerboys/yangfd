@@ -12,7 +12,7 @@
 #import "CUTEDataManager.h"
 #import "CUTEAreaForm.h"
 #import "SVProgressHUD+CUTEAPI.h"
-#import "CUTERentTickePublisher.h"
+#import "CUTERentTicketPublisher.h"
 #import "CUTENotificationKey.h"
 #import "CUTEModelEditingListener.h"
 #import "CUTETicketEditingListener.h"
