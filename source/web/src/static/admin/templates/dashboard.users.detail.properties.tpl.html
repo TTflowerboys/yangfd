@@ -3,13 +3,14 @@
 
         <thead>
             <tr>
-                <th style="width: 18%;">{%$root.i18n('标题')%}</th>
+                <th style="width: 16%;">{%$root.i18n('标题')%}</th>
                 <th style="width: 9%;">{%$root.i18n('出租类型')%}</th>
                 <th style="width: 9%;">{%$root.i18n('postcode')%}</th>
-                <th style="width: 18%;">{%$root.i18n('地址')%}</th>
+                <th style="width: 16%;">{%$root.i18n('地址')%}</th>
                 <th style="width: 9%;">{%$root.i18n('租金')%}</th>
-                <th style="width: 10%;">{%$root.i18n('发布人')%}</th>
-                <th style="width: 18%;">{%$root.i18n('发布时间')%}</th>
+                <th style="width: 9%;">{%$root.i18n('发布人')%}</th>
+                <th style="width: 16%;">{%$root.i18n('发布时间')%}</th>
+                <th style="width: 7%;">{%$root.i18n('发布状态')%}</th>
                 <th style="width: 9%;">{%$root.i18n('管理')%}</th>
             </tr>
         </thead>
@@ -35,6 +36,9 @@
                 </td>
                 <td>
                     <div ng-bind="item.time * 1000 | date : 'yyyy-MM-dd H:mm'"></div>
+                </td>
+                <td>
+                    <div ng-bind="item.status | keyName:rentStatus"></div>
                 </td>
                 <td style="text-align:center;">
                     <a class="btn btn-success" ui-sref="dashboard.rent.detail({id:item.id})" title="View">
