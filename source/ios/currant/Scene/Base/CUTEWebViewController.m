@@ -129,7 +129,11 @@
     [self updateTitleWithURL:url];
 
     [self clearReloadIgnoringCacheHook];
-    [self addReloadIgnoringCacheHook];
+
+    //only reload for cache
+    if ([[RNCache sharedInstance] isRequestCached:urlRequest]) {
+        [self addReloadIgnoringCacheHook];
+    }
 }
 
 - (void)loadRequesetInNewController:(NSURLRequest *)urlRequest {
