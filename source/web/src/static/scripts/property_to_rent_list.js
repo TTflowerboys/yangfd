@@ -637,10 +637,11 @@
     //$rentPeriodStartDate.attr('placeholder',$.format.date(new Date(), 'yyyy-MM-dd'))
     $dateInput.each(function (index, elem) {
         $(elem).dateRangePicker({
+            //startDate: new Date(new Date().getTime() + 3600 * 24 * 30 * 1000),
             autoClose: true,
             singleDate: true,
             showShortcuts: false,
-            lookBehind: true,
+            lookBehind: false,
             getValue: function() {
                 //return this.value || $.format.date(new Date(), 'yyyy-MM-dd');
             }
