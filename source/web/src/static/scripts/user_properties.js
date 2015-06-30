@@ -5,6 +5,7 @@ $(function () {
     var $rentPlaceholder = $('#rentPlaceHolder')
     var isLoading = false
     var xhr
+    var ownPropertyArray
 
     var $headerButtons = $('.contentHeader .buttons')
     var $headerTabs = $('.tabs')
@@ -127,6 +128,7 @@ $(function () {
                 //if ($('.buttons .own').hasClass('button')) {
                 var val = data.val
                 var array = val
+                ownPropertyArray = val
                 if (array && array.length > 0) {
                     _.each(array, function (ticket) {
                         var houseResult = _.template($('#houseCard_template').html())({ticket: ticket})
@@ -395,7 +397,9 @@ $(function () {
         }
 
     })
-    $('#list').on('click', '.houseCard_phone #removeProperty', function (event) {
+    $('#list').on('click', '.houseCard_phone_new [data-action="removeProperty"]', function (event) {
+        event.stopPropagation()
+        event.preventDefault()
         if (window.confirm(window.i18n('确定删除该房产吗？')) === true) {
             var ticketId = $(event.target).attr('data-id')
             $.betterPost('/api/1/intention_ticket/' + ticketId + '/remove')
@@ -408,5 +412,27 @@ $(function () {
         }
 
     })
+
+    bindItemWechatShareClick()
+
+    function bindItemWechatShareClick() {
+        $('body').delegate('.wechatShare', 'click', function() {
+            var intentionId = $(this).attr('data-id')
+            var property = _.first(_.where(ownPropertyArray, {id: intentionId})).property
+            openWeChatShare(property.id)
+        })
+    }
+    function openWeChatShare (propertyId) {
+        if (window.team.isWeChat()) {
+            if (window.team.isWeChatiOS()) {
+                $('.wechatPage_popup .buttonHolder').attr('src', '/static/images/property_details/wechat_share/phone/wechat_button_ios.png')
+            }
+            $('.wechatPage_popup').modal()
+            $('.wechatPage_popup').find('.close-modal').hide()
+        }
+        else {
+            location.href = '/wechat_share?property=' + propertyId
+        }
+    }
 
 })
