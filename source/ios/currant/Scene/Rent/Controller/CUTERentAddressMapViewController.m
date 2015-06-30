@@ -205,6 +205,12 @@
             else if (status == INTULocationStatusError) {
                 [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置失败")}]];
             }
+            else if (status == INTULocationStatusServicesDenied) {
+                [tcs cancel];
+            }
+            else {
+                [tcs setError:nil];
+            }
         }
 
     }];
@@ -240,6 +246,11 @@
                 [self checkNeedUpdateAddress];
 
                 [SVProgressHUD dismiss];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD dismiss];
+                [UIAlertView showWithTitle:STR(@"此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                }];
             }
             else {
                 [SVProgressHUD showErrorWithError:task.error];
