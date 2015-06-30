@@ -1,0 +1,15 @@
+#import "CUTETestCommon.h"
+#import <KIF.h>
+
+
+SpecBegin(SplashUI)
+
+describe(@"ApplyBeta", ^ {
+
+it(@"", ^ {
+
+});
+
+});
+
+SpecEnd

@@ -11,7 +11,6 @@
 		2C03AB491B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */; };
 		2C03AB4A1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */; };
 		2C03AB4B1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */; };
-		2C056D1C1B414F4B0075037A /* currantUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C056D1B1B414F4B0075037A /* currantUITest.m */; };
 		2C056D2F1B423A110075037A /* CUTESettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C056D291B423A110075037A /* CUTESettingViewController.m */; };
 		2C056D301B423A110075037A /* CUTESettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C056D291B423A110075037A /* CUTESettingViewController.m */; };
 		2C056D311B423A110075037A /* CUTESettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C056D291B423A110075037A /* CUTESettingViewController.m */; };
@@ -108,6 +107,9 @@
 		2C056DA71B423BBA0075037A /* CUTEFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C056D9D1B423BBA0075037A /* CUTEFormViewController.m */; };
 		2C056DA81B423BBA0075037A /* CUTEFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C056D9D1B423BBA0075037A /* CUTEFormViewController.m */; };
 		2C056DA91B423BBA0075037A /* CUTEFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C056D9D1B423BBA0075037A /* CUTEFormViewController.m */; };
+		2C056DAC1B4245990075037A /* CUTESplashUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C056DAB1B4245990075037A /* CUTESplashUITest.m */; };
+		2C056DAE1B42474C0075037A /* SpectaUITestTemplate in Resources */ = {isa = PBXBuildFile; fileRef = 2C056DAD1B42474C0075037A /* SpectaUITestTemplate */; };
+		2C056DB11B424D140075037A /* KIFTestActor+Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C056DB01B424D140075037A /* KIFTestActor+Login.m */; };
 		2C06D3A31B29465800C147DE /* CUTEModelEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */; };
 		2C06D3A41B29465800C147DE /* CUTEModelEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */; };
 		2C06D3A51B29465800C147DE /* CUTEModelEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */; };
@@ -625,7 +627,6 @@
 		2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormLimitCharacterCountTextFieldCell.m; sourceTree = "<group>"; };
 		2C056D171B414F4B0075037A /* currantUITest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = currantUITest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C056D1A1B414F4B0075037A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2C056D1B1B414F4B0075037A /* currantUITest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = currantUITest.m; sourceTree = "<group>"; };
 		2C056D281B423A110075037A /* CUTESettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTESettingViewController.h; sourceTree = "<group>"; };
 		2C056D291B423A110075037A /* CUTESettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTESettingViewController.m; sourceTree = "<group>"; };
 		2C056D2A1B423A110075037A /* CUTEUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUserViewController.h; sourceTree = "<group>"; };
@@ -658,6 +659,10 @@
 		2C056D9B1B423BBA0075037A /* CUTEForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEForm.m; sourceTree = "<group>"; };
 		2C056D9C1B423BBA0075037A /* CUTEFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormViewController.h; sourceTree = "<group>"; };
 		2C056D9D1B423BBA0075037A /* CUTEFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormViewController.m; sourceTree = "<group>"; };
+		2C056DAB1B4245990075037A /* CUTESplashUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTESplashUITest.m; sourceTree = "<group>"; };
+		2C056DAD1B42474C0075037A /* SpectaUITestTemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SpectaUITestTemplate; sourceTree = "<group>"; };
+		2C056DAF1B424D140075037A /* KIFTestActor+Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestActor+Login.h"; sourceTree = "<group>"; };
+		2C056DB01B424D140075037A /* KIFTestActor+Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestActor+Login.m"; sourceTree = "<group>"; };
 		2C06D3A11B29465800C147DE /* CUTEModelEditingListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEModelEditingListener.h; sourceTree = "<group>"; };
 		2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEModelEditingListener.m; sourceTree = "<group>"; };
 		2C07AB881AE8FF6600907075 /* UIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
@@ -1011,8 +1016,8 @@
 			isa = PBXGroup;
 			children = (
 				2C056D241B4231F40075037A /* Scene */,
-				2C056D1B1B414F4B0075037A /* currantUITest.m */,
 				2C056D191B414F4B0075037A /* Supporting Files */,
+				2C056DAD1B42474C0075037A /* SpectaUITestTemplate */,
 			);
 			path = currantUITest;
 			sourceTree = "<group>";
@@ -1028,6 +1033,7 @@
 		2C056D241B4231F40075037A /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				2C056DAA1B4245550075037A /* Splash */,
 				2C056D261B4232340075037A /* User */,
 				2C056D251B4231F40075037A /* Rent */,
 			);
@@ -1044,6 +1050,8 @@
 		2C056D261B4232340075037A /* User */ = {
 			isa = PBXGroup;
 			children = (
+				2C056DAF1B424D140075037A /* KIFTestActor+Login.h */,
+				2C056DB01B424D140075037A /* KIFTestActor+Login.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1093,6 +1101,14 @@
 			children = (
 				2C056D921B423B4D0075037A /* CUTESplashViewController.h */,
 				2C056D931B423B4D0075037A /* CUTESplashViewController.m */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		2C056DAA1B4245550075037A /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				2C056DAB1B4245990075037A /* CUTESplashUITest.m */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -1803,6 +1819,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C056DAE1B42474C0075037A /* SpectaUITestTemplate in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2126,7 +2143,8 @@
 				2C056D901B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
 				2C056DA31B423BBA0075037A /* CUTEForm.m in Sources */,
 				2C056D3A1B423A110075037A /* CUTEUserViewController.m in Sources */,
-				2C056D1C1B414F4B0075037A /* currantUITest.m in Sources */,
+				2C056DB11B424D140075037A /* KIFTestActor+Login.m in Sources */,
+				2C056DAC1B4245990075037A /* CUTESplashUITest.m in Sources */,
 				2C056D401B423A110075037A /* CUTESettingForm.m in Sources */,
 				2C056D5C1B423AB20075037A /* CUTERentContactViewController.m in Sources */,
 				2C056D561B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
