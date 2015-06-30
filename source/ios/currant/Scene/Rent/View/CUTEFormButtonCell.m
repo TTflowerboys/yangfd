@@ -21,6 +21,7 @@
     [super setUp];
     self.accessoryType = UITableViewCellAccessoryNone;
     self.accessoryView = nil;
+    self.accessibilityLabel = self.textLabel.text;
 }
 
 - (void)update {

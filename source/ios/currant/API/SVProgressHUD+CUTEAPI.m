@@ -9,6 +9,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTECommonMacro.h"
 #import "CUTETracker.h"
+#import "Bolts.h"
 
 @implementation SVProgressHUD (CUTEAPI)
 
@@ -54,6 +55,15 @@ static NSDictionary *messageDicionary = nil;
     }
     else if (error && [error.domain isEqualToString:@"com.ngr.validator.domain"]) {
         [SVProgressHUD showErrorWithStatus:STR(error.localizedDescription)];
+    }
+    else if (error && [error.domain isEqualToString:@"bolts"]) {
+         NSArray *errors = error.userInfo[@"errors"];
+        if (error.code == kBFMultipleErrorsError && !IsArrayNilOrEmpty(errors)) {
+            [SVProgressHUD showErrorWithStatus:[[(NSError *)errors.firstObject userInfo] objectForKey:NSLocalizedDescriptionKey]];
+        }
+        else {
+            [SVProgressHUD showErrorWithStatus:error.userInfo[NSLocalizedDescriptionKey]];
+        }
     }
     else {
         [SVProgressHUD showErrorWithStatus:error.userInfo[NSLocalizedDescriptionKey]];

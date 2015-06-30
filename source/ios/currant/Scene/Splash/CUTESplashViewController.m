@@ -53,6 +53,8 @@
     _pagingView.dateSource = self;
     [self.view addSubview:_pagingView];
 
+    _pagingView.accessibilityLabel = STR(@"引导页面");
+
     _pageIndicator = [[UIPageControl alloc] init];
     _pageIndicator.frame = CGRectMake(0, RectHeightExclude(self.view.bounds, kButtonAreaHeight), RectWidth(self.view.bounds), kPageIndicatorHeight);
     _pageIndicator.pageIndicatorTintColor = HEXCOLOR(0xcccccc, 1);
