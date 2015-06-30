@@ -3,7 +3,7 @@ from __future__ import unicode_literals, absolute_import
 import logging
 import six
 from app import f_app
-from libfelix.f_interface import f_get, abort, template_gettext as _, request, response
+from libfelix.f_interface import f_get, abort, template_gettext as _
 import currant_util
 import currant_data_helper
 

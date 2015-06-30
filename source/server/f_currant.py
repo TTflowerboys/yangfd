@@ -5,8 +5,10 @@ import random
 import re
 import json
 import csv
+import logging
 import time
 from collections import defaultdict
+from itertools import chain
 import phonenumbers
 import numpy as np
 from bson.objectid import ObjectId
@@ -16,11 +18,9 @@ import six
 from six.moves import cStringIO as StringIO
 from six.moves import urllib
 from pyquery import PyQuery as q
-from itertools import chain
 from PIL import ImageOps
 from scipy.misc import imread
 from bson import SON
-import qrcode
 from libfelix.f_common import f_app
 from libfelix.f_user import f_user
 from libfelix.f_ticket import f_ticket
@@ -34,21 +34,19 @@ from libfelix.f_shop.f_recurring_bm import f_recurring_billing_model
 from libfelix.f_order import f_order
 from libfelix.f_mongo import f_mongo_upgrade
 
-import logging
+# Fix crash in environments that have no display.
+import matplotlib
+import matplotlib.font_manager as fm
+import matplotlib.pyplot as plt
+from matplotlib.dates import DateFormatter
+
+fontprop = fm.FontProperties(fname="data/wqy-microhei.ttc")
+matplotlib.use('Agg')
+
 logger = logging.getLogger(__name__)
 f_app.dependency_register('pyquery', race="python")
 f_app.dependency_register('matplotlib', race="python")
 f_app.dependency_register('scipy', race="python")
-
-# Fix crash in environments that have no display.
-import matplotlib
-import matplotlib.font_manager as fm
-fontprop = fm.FontProperties(fname="data/wqy-microhei.ttc")
-matplotlib.use('Agg')
-
-
-import matplotlib.pyplot as plt
-from matplotlib.dates import DateFormatter
 
 
 class currant_mongo_upgrade(f_mongo_upgrade):
