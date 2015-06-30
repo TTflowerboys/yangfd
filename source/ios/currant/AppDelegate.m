@@ -709,6 +709,18 @@
 
 - (void)onReceiveUserDidLogin:(NSNotification *)notif {
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+
+    NSArray *tabItemControllers = self.tabBarController.viewControllers;
+
+    [tabItemControllers each:^(UINavigationController *nav) {
+        if ([nav isKindOfClass:[UINavigationController class]]) {
+            if ([nav.topViewController isKindOfClass:[CUTEWebViewController class]]) {
+                CUTEWebViewController *webViewController = (CUTEWebViewController *)nav.topViewController;
+                [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
+            }
+        }
+    }];
+
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
