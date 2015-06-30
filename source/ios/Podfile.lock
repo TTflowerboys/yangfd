@@ -50,6 +50,9 @@ PODS:
   - GoogleAnalytics (3.12.0)
   - INTULocationManager (3.0.3)
   - JDFTooltips (1.0)
+  - KIF (3.2.3):
+    - KIF/XCTest (= 3.2.3)
+  - KIF/XCTest (3.2.3)
   - KVOController (1.0.3)
   - libextobjc/EXTKeyPathCoding (0.4.1):
     - libextobjc/RuntimeExtensions
@@ -111,6 +114,7 @@ DEPENDENCIES:
   - GoogleAnalytics (= 3.12.0)
   - INTULocationManager (= 3.0.3)
   - JDFTooltips (= 1.0)
+  - KIF
   - KVOController (= 1.0.3)
   - libextobjc/EXTKeyPathCoding (= 0.4.1)
   - Masonry (= 0.6.1)
@@ -177,6 +181,7 @@ SPEC CHECKSUMS:
   GoogleAnalytics: ef2e0b800ef3c1e62688cdfc959e0d3132bc246c
   INTULocationManager: e79327803a163f5fec28eb042bb124ed0c6e4876
   JDFTooltips: 439e3f1010b5e689e8438f66fce8448726e59897
+  KIF: a94bffe9c97e449e44f8fa481c53243d21309e1e
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
