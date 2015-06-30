@@ -12,7 +12,7 @@
     <body style="margin:0;padding:0;">
         <div style="margin: 0 auto; padding: 0;font-size: 16px; font-family: Helvetica, Arial, sans-serif; line-height: 1.5; color:#999; background:#fff;text-align: center;">
             <div style="height: 84px;background: #333;">
-                <img style="padding: 15px 0 0 20px; float: left;" src="upload.yangfd.com/logo.png" alt="Logo"/>
+                <img style="padding: 15px 0 0 20px; float: left;" src="http://upload.yangfd.com/logo.png" alt="Logo"/>
                 <span style="color: #ccc; font-family: serif; float: left; padding: 30px 0 0 20px;">{{_('洋房东')}}</span>
             </div>
             <div style="max-width: 720px;margin: 0 auto;">
@@ -21,7 +21,9 @@
             <div style="padding: 70px 20px;border-top: 1px solid #ccc; margin: -1px 20px 0; color: #9d9d9d;line-height: 1.8em;font-size: 18px">
                 <p style="margin: 0; padding: 0;">{{_('该邮件为自动发送，请勿直接回复。')}}</p>
                 <p style="margin: 0; padding: 0;">{{_('如有任何问题，欢迎您与我们联系，我们将竭诚为您服务。')}}</p>
+                %if 'unsubscribe_url' in vars() or 'unsubscribe_url' in globals():
                 <p style="margin: 0; padding: 0;">{{_('不想收到此类邮件？')}}<a href="{{unsubscribe_url}}" style="color: #e60012; text-decoration: none;font-weight: bold;">{{_('点击退订')}}></a></p>
+                %end
                 <p style="margin: 0; padding: 0;">{{_('Email：')}}<a style="color: #9d9d9d; text-decoration: none;" href="mailto:services@youngfunding.co.uk">services@youngfunding.co.uk</a></p>
                 <p style="margin: 0; padding: 0;">{{_('英国客服电话：')}}<a href="tel:4000926433" style="color: #9d9d9d; text-decoration: none;">400-0926-433</a></p>
                 <p style="margin: 0; padding: 0;">{{_('中国客服电话：')}}<a href="tel:02075151192" style="color: #9d9d9d; text-decoration: none;">(0)2075151192</a></p>
