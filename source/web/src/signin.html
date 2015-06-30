@@ -29,7 +29,7 @@
             topErrorArea.empty()
 
             if(fromUrl && _.indexOf(betaUrls,fromUrl.pathname)>=0){
-                topErrorArea.append(i18n('您访问的功能还在内测邀请阶段！请点击<a href="/app-download">“申请内测”</a>继续访问'))
+                topErrorArea.append(i18n('您访问的功能还在内测邀请阶段！请点击<a href="/app-download?from=signin">“申请内测”</a>继续访问'))
             }else{
                 topErrorArea.append(window.getErrorMessageFromErrorCode(team.getQuery('error_code')))
             }

@@ -2,12 +2,22 @@
  * Created by levy on 15-5-13.
  */
 (function(Swiper){
+    //Display ask invitation when from sign in page
+    var from = window.team.getQuery('from', location.href)
+    if(from === 'signin'){
+        $('.downloadWrap').hide()
+        $('.emailWrap').show()
+    }else{
+        $('.downloadWrap').show()
+        $('.emailWrap').hide()
+    }
+
     window.swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         paginationClickable: true,
         autoplay: 4000
     });
-    /*$('#submitBtn').bind('click', function (e) {
+    $('#submitBtn').bind('click', function (e) {
         var email = $('[name=email]').val()
         if(!/.+@.+\..+/.test(email)) {
             window.alert(i18n('邮件格式不正确，请重新填写'))
@@ -31,7 +41,7 @@
         if(e.keyCode === 13) {
             $('#submitBtn').trigger('click')
         }
-    })*/
+    })
     $('a.appStore').click(function (e) {
         if (window.team.isWeChat()) {
             e.preventDefault()
