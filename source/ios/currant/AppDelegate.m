@@ -122,6 +122,7 @@
 
 - (UINavigationController *)makeEditViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
     UINavigationController *nav = [[UINavigationController alloc] init];
+    nav.view.backgroundColor = HEXCOLOR(0xeeeeee, 1);
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:nil];
     tabItem.tag = kEditTabBarIndex;
     nav.tabBarItem = tabItem;
