@@ -171,6 +171,39 @@
             </p>
         </div>
     </div>
+    {_} else if (house.main_house_types && house.main_house_types.length) {_}
+    <div class="size">
+        <div class="room">
+            <p class="title">{=window.i18n('主要户型')=}</p>
+            <p class="content">
+                {_if(house.main_house_types[0].living_room_count) {_}
+                {=house.main_house_types[0].living_room_count=}{=window.i18n('室')=}
+                {_}_}
+                {_if(house.main_house_types[0].bathroom_count) {_}
+                {=house.main_house_types[0].bathroom_count=}{=window.i18n('卫')=}
+                {_}_}
+            </p>
+        </div>
+        <div class="space">
+            <p class="title">{=window.i18n('面积')=}</p>
+            <p class="content">
+                {_if(house.main_house_types[0].building_area) {_}
+                {= parseFloat(house.main_house_types[0].building_area.value).toFixed(2)=}
+                {_if (house.main_house_types[0].building_area.unit === 'foot ** 2'){_}
+                SQFT
+                {_} else if(house.main_house_types[0].building_area.unit === 'acre'){_}
+                ACRE
+                {_} else if (house.main_house_types[0].building_area.unit === 'meter ** 2') {_}
+                m <sup>2</sup>
+                {_} else if (house.main_house_types[0].building_area.unit === 'kilometer ** 2') {_}
+                km <sup>2</sup>
+                {_} else {_}
+                {=house.main_house_types[0].building_area.unit=}
+                {_}_}
+                {_}_}
+            </p>
+        </div>
+    </div>
     {_}_}
 </div>
 <!--@@close -->
