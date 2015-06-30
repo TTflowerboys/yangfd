@@ -951,6 +951,10 @@
                         throw('Unexpected response data of uploading file!')
                     }
                 }
+                if(data.ret) {
+                    pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').remove()
+                    return alert(window.i18n('上传错误：错误代码') + '(' + data.ret + '),' + data.debug_msg)
+                }
                 imageArr.push(data.val.url)
                 pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').attr('data-url', data.val.url)
             },
