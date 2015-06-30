@@ -29,6 +29,8 @@
 
 @interface CUTERentAddressEditViewController () {
     CUTECountry *_lastCountry;
+
+    BOOL _updateLocationFromAddressFailed;
 }
 
 @end
@@ -113,27 +115,31 @@
     [ticketListener stopListenMark];
     [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 
-    [self updateAddressWithGetLocationFailedBlock:^{
-        CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-        self.ticket.property.latitude = nil;
-        self.ticket.property.longitude = nil;
-        [ticketListener stopListenMark];
-        //check is a draft ticket not a unfinished one
-        if (!IsNilNullOrEmpty(self.ticket.identifier)) {
-            [self syncWithUserInfo:ticketListener.getSyncUserInfo];
-        }
+    [self updateAddressWithGetLocationSuccessBlock:^{
+        _updateLocationFromAddressFailed = NO;
+
+    } failedBlock:^{
 
         CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
         if (form.singleUseForReedit) {
-            [UIAlertView showWithTitle:STR(@"重新定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+            self.ticket.property.latitude = nil;
+            self.ticket.property.longitude = nil;
+            [ticketListener stopListenMark];
+            //check is a draft ticket not a unfinished one
+            if (!IsNilNullOrEmpty(self.ticket.identifier)) {
+                [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+            }
+
+            [UIAlertView showWithTitle:STR(@"新Postcode定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 
             }];
         }
         else {
-            [UIAlertView showWithTitle:STR(@"重新定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-
-            }];
+            [SVProgressHUD showErrorWithStatus:STR(@"新Postcode定位失败")];
+            _updateLocationFromAddressFailed = YES;
         }
+        return;
     }];
 }
 
@@ -164,7 +170,7 @@
     [self.navigationController pushViewController:mapController animated:YES];
 }
 
-- (void)updateAddressWithGetLocationFailedBlock:(dispatch_block_t)failedBlock {
+- (void)updateAddressWithGetLocationSuccessBlock:(dispatch_block_t)successBlock failedBlock:(dispatch_block_t)failedBlock {
 
     NSString *postCodeIndex = [self.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (self.ticket.property.country && !IsNilNullOrEmpty(postCodeIndex)) {
@@ -212,12 +218,16 @@
                     }
                     return task;
                 }];
+
+                if (successBlock) {
+                    successBlock();
+                }
             }
             else {
                 if (failedBlock) {
                     failedBlock();
                 }
-                [SVProgressHUD dismiss];
+
             }
             return task;
         }];
@@ -326,6 +336,27 @@
     if (![self validateForm]) {
         return;
     }
+
+    if (_updateLocationFromAddressFailed) {
+        CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+        if (!form.singleUseForReedit){
+            [UIAlertView showWithTitle:STR(@"新Postcode定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"返回") otherButtonTitles:@[STR(@"下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+
+                if (buttonIndex == alertView.cancelButtonIndex) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                else {
+                    self.ticket.property.latitude = nil;
+                    self.ticket.property.longitude = nil;
+                    [self createTicket];
+                }
+            }];
+        }
+
+        _updateLocationFromAddressFailed = NO;
+        return;
+    }
+
 
     if (!IsNilNullOrEmpty(self.ticket.property.zipcode)  && ![self.lastPostcode isEqualToString:self.ticket.property.zipcode]) {
         [UIAlertView showWithTitle:STR(@"是否按新postcode重新定位再继续？") message:nil cancelButtonTitle:STR(@"不用") otherButtonTitles:@[STR(@"好的")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
