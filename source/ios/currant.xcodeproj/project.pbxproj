@@ -11,6 +11,7 @@
 		2C03AB491B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */; };
 		2C03AB4A1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */; };
 		2C03AB4B1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */; };
+		2C056D1C1B414F4B0075037A /* currantUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C056D1B1B414F4B0075037A /* currantUITest.m */; };
 		2C06D3A31B29465800C147DE /* CUTEModelEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */; };
 		2C06D3A41B29465800C147DE /* CUTEModelEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */; };
 		2C06D3A51B29465800C147DE /* CUTEModelEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */; };
@@ -565,9 +566,17 @@
 		2CF8A6B81AF0E8770080DF10 /* CUTERentLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6B41AF0E8770080DF10 /* CUTERentLoginViewController.m */; };
 		34D881172AC55C3D2258749D /* libPods-currantUnitTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9944537C0C578A8C1AC5F4F9 /* libPods-currantUnitTest.a */; };
 		C4A0594E53CF2777C29B6FC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
+		CE9A25E962A0F1D3000CCCE0 /* libPods-currantUITest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B61531570149B3B8064A77A9 /* libPods-currantUITest.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2C056D221B414F590075037A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2CB43DA11ABC1372004DF663 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2CA94A951ACA42CD00DF7497;
+			remoteInfo = "currant-dev";
+		};
 		2C9F1D041B3964860034487F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2CB43DA11ABC1372004DF663 /* Project object */;
@@ -578,9 +587,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18DA79D8CFA21C24664B55B7 /* Pods-currantUITest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-currantUITest.release.xcconfig"; path = "Pods/Target Support Files/Pods-currantUITest/Pods-currantUITest.release.xcconfig"; sourceTree = "<group>"; };
 		2023655375ADEF150770F704 /* Pods-currantUnitTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-currantUnitTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-currantUnitTest/Pods-currantUnitTest.debug.xcconfig"; sourceTree = "<group>"; };
 		2C03AB461B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormLimitCharacterCountTextFieldCell.h; sourceTree = "<group>"; };
 		2C03AB471B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormLimitCharacterCountTextFieldCell.m; sourceTree = "<group>"; };
+		2C056D171B414F4B0075037A /* currantUITest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = currantUITest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C056D1A1B414F4B0075037A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C056D1B1B414F4B0075037A /* currantUITest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = currantUITest.m; sourceTree = "<group>"; };
 		2C06D3A11B29465800C147DE /* CUTEModelEditingListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEModelEditingListener.h; sourceTree = "<group>"; };
 		2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEModelEditingListener.m; sourceTree = "<group>"; };
 		2C07AB881AE8FF6600907075 /* UIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
@@ -882,9 +895,19 @@
 		74C38B0D53E631D7141C9D35 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		82E3282C891185CD9B12868A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9944537C0C578A8C1AC5F4F9 /* libPods-currantUnitTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-currantUnitTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A72961BF1C54DDFB6163354D /* Pods-currantUITest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-currantUITest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-currantUITest/Pods-currantUITest.debug.xcconfig"; sourceTree = "<group>"; };
+		B61531570149B3B8064A77A9 /* libPods-currantUITest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-currantUITest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2C056D141B414F4B0075037A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE9A25E962A0F1D3000CCCE0 /* libPods-currantUITest.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2CA2E6B51AC5487800053965 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -952,6 +975,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C056D181B414F4B0075037A /* currantUITest */ = {
+			isa = PBXGroup;
+			children = (
+				2C056D241B4231F40075037A /* Scene */,
+				2C056D1B1B414F4B0075037A /* currantUITest.m */,
+				2C056D191B414F4B0075037A /* Supporting Files */,
+			);
+			path = currantUITest;
+			sourceTree = "<group>";
+		};
+		2C056D191B414F4B0075037A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2C056D1A1B414F4B0075037A /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2C056D241B4231F40075037A /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				2C056D261B4232340075037A /* User */,
+				2C056D251B4231F40075037A /* Rent */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		2C056D251B4231F40075037A /* Rent */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Rent;
+			sourceTree = "<group>";
+		};
+		2C056D261B4232340075037A /* User */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		2C0AE0F81B1D904100A73BE6 /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -1142,6 +1206,7 @@
 			children = (
 				2CB43DAB1ABC1372004DF663 /* currant */,
 				2CDC11681B33F8C100B6D3DD /* currantUnitTest */,
+				2C056D181B414F4B0075037A /* currantUITest */,
 				2CB43DAA1ABC1372004DF663 /* Products */,
 				D3CF69D5B9EAF34A84603044 /* Pods */,
 				EE6A7AB7A64BC31EFB1C1CFA /* Frameworks */,
@@ -1156,6 +1221,7 @@
 				2CA2E6DB1AC5496700053965 /* currant.app */,
 				2CA94AAE1ACA42CD00DF7497 /* currant.app */,
 				2CDC11671B33F8C100B6D3DD /* currantUnitTest.xctest */,
+				2C056D171B414F4B0075037A /* currantUITest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1468,6 +1534,8 @@
 				74C38B0D53E631D7141C9D35 /* Pods.release.xcconfig */,
 				2023655375ADEF150770F704 /* Pods-currantUnitTest.debug.xcconfig */,
 				5D3E39977A7B87935D649365 /* Pods-currantUnitTest.release.xcconfig */,
+				A72961BF1C54DDFB6163354D /* Pods-currantUITest.debug.xcconfig */,
+				18DA79D8CFA21C24664B55B7 /* Pods-currantUITest.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1489,6 +1557,7 @@
 				2C554F891AC2BC3700F51D33 /* MapKit.framework */,
 				82E3282C891185CD9B12868A /* libPods.a */,
 				9944537C0C578A8C1AC5F4F9 /* libPods-currantUnitTest.a */,
+				B61531570149B3B8064A77A9 /* libPods-currantUITest.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1496,6 +1565,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2C056D161B414F4B0075037A /* currantUITest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C056D1F1B414F4B0075037A /* Build configuration list for PBXNativeTarget "currantUITest" */;
+			buildPhases = (
+				90221652E3F1318264843052 /* Check Pods Manifest.lock */,
+				2C056D131B414F4B0075037A /* Sources */,
+				2C056D141B414F4B0075037A /* Frameworks */,
+				2C056D151B414F4B0075037A /* Resources */,
+				6E8D749CF6B1B67DD516E7AD /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2C056D231B414F590075037A /* PBXTargetDependency */,
+			);
+			name = currantUITest;
+			productName = currantUITest;
+			productReference = 2C056D171B414F4B0075037A /* currantUITest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		2CA2E6AB1AC5487800053965 /* currant-test */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2CA2E6BF1AC5487800053965 /* Build configuration list for PBXNativeTarget "currant-test" */;
@@ -1607,6 +1696,10 @@
 				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Foster Yin";
 				TargetAttributes = {
+					2C056D161B414F4B0075037A = {
+						CreatedOnToolsVersion = 6.3.2;
+						TestTargetID = 2CA94A951ACA42CD00DF7497;
+					};
 					2CA2E6AB1AC5487800053965 = {
 						DevelopmentTeam = CVJ4KG6V54;
 					};
@@ -1644,11 +1737,19 @@
 				2CA2E6AB1AC5487800053965 /* currant-test */,
 				2CA2E6C41AC5496700053965 /* currant-production */,
 				2CDC11661B33F8C100B6D3DD /* currantUnitTest */,
+				2C056D161B414F4B0075037A /* currantUITest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2C056D151B414F4B0075037A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2CA2E6B91AC5487800053965 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1875,6 +1976,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		6E8D749CF6B1B67DD516E7AD /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-currantUITest/Pods-currantUITest-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		83D600DD1003B41D039AAE24 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1888,6 +2004,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-currantUnitTest/Pods-currantUnitTest-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		90221652E3F1318264843052 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		A02E954989AD2505AB628CB7 /* Copy Pods Resources */ = {
@@ -1923,6 +2054,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2C056D131B414F4B0075037A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C056D1C1B414F4B0075037A /* currantUITest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2CA2E6AD1AC5487800053965 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2472,6 +2611,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2C056D231B414F590075037A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2CA94A951ACA42CD00DF7497 /* currant-dev */;
+			targetProxy = 2C056D221B414F590075037A /* PBXContainerItemProxy */;
+		};
 		2C9F1D051B3964860034487F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2CA94A951ACA42CD00DF7497 /* currant-dev */;
@@ -2501,6 +2645,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2C056D201B414F4B0075037A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A72961BF1C54DDFB6163354D /* Pods-currantUITest.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = currantUITest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/currant.app/currant";
+			};
+			name = Debug;
+		};
+		2C056D211B414F4B0075037A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 18DA79D8CFA21C24664B55B7 /* Pods-currantUITest.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = currantUITest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/currant.app/currant";
+			};
+			name = Release;
+		};
 		2CA2E6C01AC5487800053965 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3D71FAA99AADAD5513E122AE /* Pods.debug.xcconfig */;
@@ -2851,6 +3037,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2C056D1F1B414F4B0075037A /* Build configuration list for PBXNativeTarget "currantUITest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C056D201B414F4B0075037A /* Debug */,
+				2C056D211B414F4B0075037A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2CA2E6BF1AC5487800053965 /* Build configuration list for PBXNativeTarget "currant-test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

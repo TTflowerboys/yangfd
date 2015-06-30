@@ -45,3 +45,10 @@ target 'currantUnitTest', :exclusive => true do
     pod 'OCHamcrest'
     pod 'OHHTTPStubs'
 end
+
+target 'currantUITest', :exclusive => true do
+    pod 'Specta'
+    pod 'OCHamcrest'
+    pod 'OHHTTPStubs'
+	pod 'KIF'
+end
