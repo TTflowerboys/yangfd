@@ -330,7 +330,7 @@ $(function () {
                             $(e.target).parent().prev().remove()
 
                             if (window.bridge !== undefined) {
-                                window.bridge.callHandler('notifyRentTicketDidBeRented', _.first(_.where(window.rentArray, {id: ticketId})))
+                                window.bridge.callHandler('notifyRentTicketIsRented', _.first(_.where(window.rentArray, {id: ticketId})))
                             }
                         })
                         .fail(function (ret) {

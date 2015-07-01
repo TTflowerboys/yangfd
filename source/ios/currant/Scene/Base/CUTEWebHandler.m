@@ -109,7 +109,7 @@
         [NotificationCenter postNotificationName:KNOTIF_SHOW_PROPERTY_LIST_TAB object:nil];
     }];
 
-    [self.bridge registerHandler:@"notifyRentTicketDidBeRented" handler:^(id data, WVJBResponseCallback responseCallback) {
+    [self.bridge registerHandler:@"notifyRentTicketIsRented" handler:^(id data, WVJBResponseCallback responseCallback) {
         [CUTESurveyHelper checkShowRentTicketDidBeRentedSurveyWithViewController:webViewController];
     }];
 

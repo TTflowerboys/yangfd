@@ -60,9 +60,9 @@
 }
 
 + (void)checkShowRentTicketDidBeRentedSurveyWithViewController:(UIViewController *)viewController {
-    if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_RENT_TICKET_DID_BE_RENTED]) {
-        if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_RENT_TICKET_DID_BE_RENTED fromViewController:viewController]) {
-            [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_RENT_TICKET_DID_BE_RENTED];
+    if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_RENT_TICKET_IS_RENTED]) {
+        if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_RENT_TICKET_IS_RENTED fromViewController:viewController]) {
+            [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_RENT_TICKET_IS_RENTED];
         }
     }
 }

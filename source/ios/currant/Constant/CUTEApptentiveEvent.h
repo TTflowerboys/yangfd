@@ -21,6 +21,6 @@
 
 #define APPTENTIVE_EVENT_SURVEY_AFTER_USER_VISIT_MANY_RENT_TICKET @"survey_after_user_visit_many_rent_ticket"
 
-#define APPTENTIVE_EVENT_SURVEY_AFTER_RENT_TICKET_DID_BE_RENTED @"survey_after_rent_ticket_did_be_rented"
+#define APPTENTIVE_EVENT_SURVEY_AFTER_RENT_TICKET_IS_RENTED @"survey_after_rent_ticket_is_rented"
 
 #endif
