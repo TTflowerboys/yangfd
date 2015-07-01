@@ -412,7 +412,7 @@ main {
             }
 
             .hint {
-                width: 180px;
+                width: 185px;
                 display: inline-block;
                 font-size: 16px;
                 color: #333;
@@ -434,7 +434,7 @@ main {
             }
 
             .hint {
-                width: 180px;
+                width: 185px;
                 display: inline-block;
                 font-size: 16px;
                 color: #333;
@@ -796,12 +796,12 @@ main {
 
     }
 
-    .houseCard_phone {
+    .houseCard_phone_new {
         .relatedNews {
             max-height:215px;
             display:block;
             width:100%;
-            border-bottom:1px solid #ccc;
+            border-top:1px solid #ccc;
             .newsList();
 
             .title {
@@ -884,9 +884,14 @@ main {
         }
 
         .houseCard {
-            display: inline-block;
-            width: 860px;
-
+            .description_wrapper {
+                padding-right: 340px;
+            }
+            &:hover{
+                .tagDetail p{
+                    .limitedLines(6, 24px, #fff9e4);
+                }
+            }
             @media @phone {
                 display:none;
                 width:100%;
@@ -896,56 +901,64 @@ main {
             .description .details .properties label {
                 width:91%;
             }
-        }
-
-        .houseCard_phone {
-            margin-bottom:0;
-        }
-
-        .tagDetail {
-            float: right;
-            width: 320px;
-            height: @house_card-height;
-            margin-left: 20px;
-            display: inline-block;
-            background: #fff4f5;
-            border: 1px solid #e0c1c4;
-            padding: 33px 16px 16px 16px;
+            .tagDetail {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 320px;
+                height: 213px;
+                margin: 20px 0 0 0px;
+                display: inline-block;
+                border-left: 1px solid #ccc;
+                padding: 13px 16px 16px 26px;
 
 
-            @media @phone {
-                float:left;
-                display:block;
-                border: 0;
-                border-bottom:1px solid #ccc;
-                width:100%;
-                height:auto;
-                margin-left:0;
-                padding-top:10px;
-            }
-
-
-            h3 {
-                font-size: 16px;
-                color: #e60012;
-                background: #fff4f5;
-                line-height: 1;
-                margin-bottom: 10px;
                 @media @phone {
-                    font-size:@base-font-size-mobile;
-                    margin-bottom:20px;
+                    float:left;
+                    display:block;
+                    border: 0;
+                    width:100%;
+                    height:auto;
+                    margin-left:0;
+                    padding-top:10px;
+                }
+
+
+                h3 {
+                    font-size: 16px;
+                    color: #e60012;
+                    line-height: 1;
+                    margin-bottom: 10px;
+                    @media @phone {
+                        font-size:@base-font-size-mobile;
+                        margin-bottom:20px;
+                    }
+                }
+
+                p {
+                    font-size: @base-font-size-mobile;
+                    color: #666;
+                    line-height: 2;
+                    margin: 0;
+                    .limitedLines(6, 24px, #fff);
+                }
+
+            }
+        }
+
+        .houseCard_phone_new {
+            margin-bottom:0;
+            .tagDetail{
+                border-top: 1px solid #ccc;
+                padding: 15px 20px 5px;
+                h3{
+                    font-size: 16px;
+                    color: @red;
                 }
             }
-
-            p {
-                font-size: @base-font-size-mobile;
-                color: #666;
-                line-height: 2;
-                margin: 0;
-                .limitedLines(6, 24px, #fff4f5);
-            }
-
         }
+
+
 
         .houseCard_suggestionHolder {
             float:left;

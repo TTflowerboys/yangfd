@@ -6,6 +6,14 @@
 <!--@@close -->
 <!--@@block=action -->
 <div class="otherAction">
-    <button id="removeProperty" data-id="{=ticket.id=}" class="ghostButton darkGray">{{_('移除')}}</button>
+    <i data-action="removeProperty" data-id="{=ticket.id=}" class="icon-delete"></i>
 </div>
+<div class="bottomAction">
+    <a class="wechatShare action" data-id="{=ticket.id=}">{=window.i18n('分享到微信')=}</a>
+    <a class="action" data-id="{=ticket.id=}" data-action="removeProperty">{=window.i18n('移除')=}</a>
+</div>
+<!--@@close-->
+
+<!--@@block=cover -->
+
 <!--@@close-->

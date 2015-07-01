@@ -1,0 +1,215 @@
+<!--<a class="imagePart"
+   %if is_mobile_client():
+   href="#" onclick="window.bridge.callHandler(&quot;openURLInNewController&quot;, '/property/{=house.id=}');return false;"
+   %else:
+   href="/property/{=house.id=}"
+   %end
+   >
+    {_if (house.cover){_}
+    <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+    {_ } else if(house.reality_images && house.reality_images.length) {_}
+    <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+    {_ }else { _}
+    <img class="withPlaceholder"/>
+    {_}_}
+    <div class="labels">
+        {_if (house.property_type && house.property_type.value){_}
+        <label class="type" for="">{=house.property_type.value=}</label>
+        {_}_}
+        {_if (house.rental_guarantee_term){_}
+        <label class="rent" for="">{=house.rental_guarantee_term + ' ' + window.i18n('年包租')=}
+            {_if (house.rental_guarantee_rate){_}
+            {=' ' +  parseFloat(house.rental_guarantee_rate).toFixed(2) + '%'=}
+            {_}_}
+        </label>
+        {_}_}
+    </div>
+    {_if (house.status === 'sold out'){_}
+    <div class="soldOut">
+        <img alt="" src="/static/images/background/sold-out.png"/>
+        <label for="">{=window.i18n('售罄')=}</label>
+    </div>
+    {_}_}
+    <div class="imageText">
+        <div class="left">
+            <p class=name>
+                {_if (house.country){_}
+                {=window.team.countryMap[house.country.code]=}
+                {_}_}
+                {_if (house.city){_}
+                {=house.city.name=}
+                {_}_}
+                {=house.name=}
+            </p>
+            {_if (house.property_type && house.property_type.slug !== 'new_property' && house.property_type.slug !== 'student_housing'){_}
+            <p class=size>
+                &lt;!&ndash;@@include=../../partials/get_size.tpl.html &ndash;&gt;
+            </p>
+            {_}_}
+        </div>
+        <div class="right">
+            <table>
+                <tr>
+                    <td>
+                        <label class=price>
+                            &lt;!&ndash;@@include=../../partials/get_unit_price.tpl.html &ndash;&gt;
+                        </label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</a>
+<div class="textPart" >
+    <a class="textPart_inner"
+       %if is_mobile_client():
+       href="#" onclick="window.bridge.callHandler(&quot;openURLInNewController&quot;, '/property/{=house.id=}');return false;"
+       %else:
+       href="/property/{=house.id=}"
+       %end
+       >
+       <table class="textPart_innerTable">
+            <tr>
+                <td class="properties noBorder">
+                    <ul >
+                        {_if(house.intention && house.intention.length) {_}
+                        <li><i class="icon-tag_icon"></i>
+                            <label>
+                                {_ _.each(house.intention, function(oneIntention) { _}
+                                {=oneIntention.value=}
+                                {_})_}
+                            </label>
+                        </li>
+                        {_}_}
+                        {_if(house.street) {_}
+                        <li><i class="icon-location_fill"></i>
+                            <label>{=house.street=}</label>
+                        </li>
+                        {_}_}
+                    </ul>
+                </td>
+                <td class=estimate>
+                    <div >
+                        {_if(house.annual_return_estimated) {_}
+                        <span class=label>{=window.i18n('预计年化收益率')=}</span>
+                        <span class=value><strong>{=house.annual_return_estimated=}</strong></span>
+                        {_} else if (house.annual_cash_return_estimated) { _}
+                        <span class=label>{=window.i18n('预估租金收益率')=}</span>
+                        <span class=value><strong>{=house.annual_cash_return_estimated=}</strong></span>
+                        {_}_}
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <p class="border"></p>
+    </a>
+</div>-->
+
+
+<!--@@master=master/house_card_content_master_phone.tpl.html-->
+<!--@@block=action_phone -->
+<div class="statusWrap">
+    <label class="properties">
+        {=project.formatDate(house.time)=}{{_('发布')}}
+    </label>
+
+</div>
+<hr/>
+<div class="propertyInfo">
+    <p class="location">
+        <i class="icon-location_fill"></i>
+        <label>
+            {_if (house.street){_}
+            {=house.street=},
+            {_}_}
+            {_if (house.city){_}
+            {=house.city.name=},
+            {_}_}
+            {_if (house.country){_}
+            {=window.team.countryMap[house.country.code]=}
+            {_}_}
+        </label>
+    </p>
+    <p class="tag">
+        <i class="icon-tag_icon"></i>
+        <label>
+            {_ _.each(house.intention, function(oneIntention) { _}
+            {=oneIntention.value=}
+            {_})_}
+        </label>
+    </p>
+    {_if(house.living_room_count || house.bathroom_count || house.space) {_}
+    <div class="size">
+        <div class="room">
+            <p class="title">{=window.i18n('房间')=}</p>
+            <p class="content">
+                {_if(house.living_room_count) {_}
+                {=house.living_room_count=}{=window.i18n('室')=}
+                {_}_}
+                {_if(house.bathroom_count) {_}
+                {=house.bathroom_count=}{=window.i18n('卫')=}
+                {_}_}
+            </p>
+        </div>
+        <div class="space">
+            <p class="title">{=window.i18n('面积')=}</p>
+            <p class="content">
+                {_if(house.space) {_}
+                {= parseFloat(house.space.value).toFixed(2)=}
+                {_if (house.space.unit === 'foot ** 2'){_}
+                SQFT
+                {_} else if(house.space.unit === 'acre'){_}
+                ACRE
+                {_} else if (house.space.unit === 'meter ** 2') {_}
+                m <sup>2</sup>
+                {_} else if (house.space.unit === 'kilometer ** 2') {_}
+                km <sup>2</sup>
+                {_} else {_}
+                {=house.space.unit=}
+                {_}_}
+                {_}_}
+            </p>
+        </div>
+    </div>
+    {_} else if (house.main_house_types && house.main_house_types.length) {_}
+    <div class="size">
+        <div class="room">
+            <p class="title">{=window.i18n('主要户型')=}</p>
+            <p class="content">
+                {_if(house.main_house_types[0].living_room_count) {_}
+                {=house.main_house_types[0].living_room_count=}{=window.i18n('室')=}
+                {_}_}
+                {_if(house.main_house_types[0].bathroom_count) {_}
+                {=house.main_house_types[0].bathroom_count=}{=window.i18n('卫')=}
+                {_}_}
+            </p>
+        </div>
+        <div class="space">
+            <p class="title">{=window.i18n('面积')=}</p>
+            <p class="content">
+                {_if(house.main_house_types[0].building_area) {_}
+                {= parseFloat(house.main_house_types[0].building_area.value).toFixed(2)=}
+                {_if (house.main_house_types[0].building_area.unit === 'foot ** 2'){_}
+                SQFT
+                {_} else if(house.main_house_types[0].building_area.unit === 'acre'){_}
+                ACRE
+                {_} else if (house.main_house_types[0].building_area.unit === 'meter ** 2') {_}
+                m <sup>2</sup>
+                {_} else if (house.main_house_types[0].building_area.unit === 'kilometer ** 2') {_}
+                km <sup>2</sup>
+                {_} else {_}
+                {=house.main_house_types[0].building_area.unit=}
+                {_}_}
+                {_}_}
+            </p>
+        </div>
+    </div>
+    {_}_}
+</div>
+<!--@@close -->
+<!--@@block=cover_phone -->
+<div class="tagDetail" data-intention-id={=house.category_intention.id=}>
+    <h3 class="tag">{=house.category_intention.value=}</h3>
+    <p class="description"></p>
+</div>
+<!--@@close-->

@@ -7,3 +7,11 @@
 <!--@@block=more_detail -->
 <div class="publishTime">{=project.formatDate(house.time)=}</div>
 <!--@@close-->
+
+<!--@@block=cover -->
+<div class="tagDetail" data-intention-id={=house.category_intention.id=}>
+    <h3 class="tag">{=house.category_intention.value=}</h3>
+    <p class="description"></p>
+</div>
+<!--@@close-->
+

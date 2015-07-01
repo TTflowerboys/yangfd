@@ -314,7 +314,7 @@ $(function () {
             var favoriteId = $(event.currentTarget).attr('data-id')
             $.betterPost('/api/1/user/favorite/' + favoriteId + '/remove')
                 .done(function (data) {
-                    $(event.currentTarget).parent('.otherAction').hide().parent('.houseCard_phone_new').addClass('gray')
+                    $(event.currentTarget).parent('.otherAction').hide().parents('.houseCard_phone_new').addClass('gray')
                     var $undoButton = $(event.currentTarget).parents('.houseCard_phone_new').find('.undoFavorite[data-id=' + favoriteId + ']')
                     $undoButton.parent().show()
 
@@ -332,7 +332,7 @@ $(function () {
             var favoriteId = $(event.currentTarget).attr('data-id')
             $.betterPost('/api/1/user/favorite/' + favoriteId + '/remove')
                 .done(function (data) {
-                    $(event.currentTarget).parent('.otherAction').hide()
+                    $(event.currentTarget).parent('.otherAction').hide().parents('.houseCard').addClass('gray')
                     var $undoButton = $(event.currentTarget).parents('.houseCard').find('.undoFavorite[data-id=' + favoriteId + ']')
                     $undoButton.parent().show()
 

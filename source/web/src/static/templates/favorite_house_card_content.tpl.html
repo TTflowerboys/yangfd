@@ -7,14 +7,15 @@
 <!--@@close -->
 
 
-<!--@@block=action -->
+<!--@@block=other_action -->
 <div class="otherAction">
-    <button data-id={=fav.id=} class="cancelFavorite ghostButton darkGray">{=window.i18n('取消收藏')=}</button>
+    <i data-id={=fav.id=} class="cancelFavorite icon-delete"></i>
+</div>
+<div class="undoFavorite_shadow otherAction" style="display:none;">
+    <i class="icon-refresh undoFavorite" data-id={=fav.id=} data-property-id="{=fav.property.id=}"></i>
 </div>
 <!--@@close-->
 
 <!--@@block=cover -->
-<div class="undoFavorite_shadow" style="display:none;">
-    <button data-id={=fav.id=} data-property-id="{=fav.property.id=}" class="undoFavorite"> <i class="icon-refresh"></i><span>{=window.i18n('撤销')=}</span></button>
-</div>
+
 <!--@@close-->

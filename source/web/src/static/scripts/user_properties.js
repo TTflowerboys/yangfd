@@ -384,7 +384,7 @@ $(function () {
     /*
      * User interaction on property list item
      * */
-    $('#list').on('click', '.houseCard #removeProperty', function (event) {
+    $('#list').on('click', '.houseCard [data-action="removeProperty"]', function (event) {
         if (window.confirm(window.i18n('确定删除该房产吗？')) === true) {
             var ticketId = $(event.target).attr('data-id')
             $.betterPost('/api/1/intention_ticket/' + ticketId + '/remove')
