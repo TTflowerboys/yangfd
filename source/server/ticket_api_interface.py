@@ -676,7 +676,7 @@ def rent_ticket_contact_info(user, ticket_id):
     user_details = f_app.user.output([ticket["creator_user_id"]], custom_fields=f_app.common.user_custom_fields)[0]
 
     max_allowed_existing_request = 1
-    existing_requests = f_app.mongo_index.search(f_app.log.get_database, {"id": user["id"], "ticket_id": ticket_id}, per_page=max_allowed_existing_request)
+    existing_requests = f_app.mongo_index.search(f_app.log.get_database, {"id": ObjectId(user["id"]), "ticket_id": ticket_id}, per_page=max_allowed_existing_request)
     if len(existing_requests["content"]) >= max_allowed_existing_request:
         user_details["email"] = "services@youngfunding.co.uk"
         user_details["wechat"] = "yangfd1"
