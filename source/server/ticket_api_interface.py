@@ -681,6 +681,7 @@ def rent_ticket_contact_info(user, ticket_id):
         user_details["email"] = "services@youngfunding.co.uk"
         user_details["wechat"] = "yangfd1"
         user_details.pop("phone", None)
+        user_details["private_contact_methods"] = ["phone"]
 
     return user_details
 
