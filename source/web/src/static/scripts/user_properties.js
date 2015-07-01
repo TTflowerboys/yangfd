@@ -208,13 +208,14 @@ $(function () {
     }
 
     function switchTypeTab(state) {
+        var originHash = location.hash.slice(1)
+        var param = originHash.split('?')[1]
         $('.ui-tabs-nav li').removeClass('ui-tabs-selected')
-        $('.ui-tabs-nav .' + state).addClass('ui-tabs-selected')
+        $('.ui-tabs-nav .' + state.replace('Only', '')).addClass('ui-tabs-selected')
 
         $('.buttons .button').removeClass('button').addClass('ghostButton')
-        $('.buttons .' + state).removeClass('ghostButton').addClass('button')
-
-        location.hash = state
+        $('.buttons .' + state.replace('Only', '')).removeClass('ghostButton').addClass('button')
+        location.hash = state + (param ? '?' + param : '')
     }
 
     $(window).on('hashchange', function () {
@@ -233,11 +234,11 @@ $(function () {
             loadOwnProperty()
         } else if (state === 'ownOnly') {
             $('.ui-tabs,.buttons').hide()
-            switchTypeTab('own')
+            switchTypeTab('ownOnly')
             loadOwnProperty()
         } else if (state === 'rentOnly') {
             $('.ui-tabs,.buttons').hide()
-            switchTypeTab('rent')
+            switchTypeTab('rentOnly')
             loadRentProperty(rentStatus)
         }
     })
