@@ -223,7 +223,7 @@ $(function () {
         var extraParam = hash.split('?')[1]
         var rentStatus
         if(extraParam) {
-            rentStatus = decodeURIComponent(extraParam.match(/status=(.+)/)[1])
+            rentStatus = decodeURIComponent(extraParam.match(/status=(.+)/)[1]).split(',')
         }
         if (state === 'rent') {
             switchTypeTab(state)
