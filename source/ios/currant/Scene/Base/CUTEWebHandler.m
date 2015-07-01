@@ -113,8 +113,8 @@
         [CUTESurveyHelper checkShowRentTicketDidBeRentedSurveyWithViewController:webViewController];
     }];
 
-    [self.bridge registerHandler:@"notifyUserHaveFavoriteRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
-        [CUTESurveyHelper checkShowFavoriteRentTicketSurveyWithViewController:webViewController];
+    [self.bridge registerHandler:@"notifyLoadFavoriteRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
+        [CUTESurveyHelper checkShowFavoriteRentTicketSurveyWithViewController:webViewController data:data];
     }];
 }
 

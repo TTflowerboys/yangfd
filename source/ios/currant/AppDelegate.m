@@ -254,6 +254,11 @@
 #endif
 
     [Fabric with:@[CrashlyticsKit]];
+
+    [[CUTETracker sharedInstance] trackEnterForeground];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [CUTESurveyHelper checkShowPublishedRentTicketSurveyWithViewController:self.tabBarController];
+    });
     return YES;
 }
 
@@ -743,7 +748,6 @@
             [((UINavigationController *) (self.tabBarController.selectedViewController)).topViewController aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^ (id<AspectInfo> info) {
                 [toolTips hideAnimated:YES];
             } error:nil];
-
 
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED];
             [[NSUserDefaults standardUserDefaults] synchronize];

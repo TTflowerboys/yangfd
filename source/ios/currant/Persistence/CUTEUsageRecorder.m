@@ -52,7 +52,8 @@
        KTABLE_SCREEN_LAST_VISIT_TIME,
        KTABLE_PUBLISHED_RENT_TICKET_ID,
        KTABLE_FAVORITE_RENT_TICKET_ID,
-       KTABLE_VISITED_RENT_TICKET_ID
+       KTABLE_VISITED_RENT_TICKET_ID,
+       KTABLE_APPTENTIVE_EVENT_TRIGGERED
        ] each:^(id object) {
            [self.store createTableWithName:object];
        }];
