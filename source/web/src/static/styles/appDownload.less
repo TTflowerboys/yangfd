@@ -176,27 +176,28 @@ html,body,.page{
                     flex-direction: column;
                 }
                 .logo{
-                    width: 325px;
-                    background: url("/static/images/logo/logo_app_download.png") 0% 50% no-repeat;
+
                     background-size: contain;
                     @media @screen-lg{
+                        width: 325px;
                         height: 88px;
                         margin: @margin 0;
                     }
                     @media @screen-md{
-                        height: 70px;
+                        width: 227px;
+                        height: 60px;
                         margin: 0.7 * @margin 0;
                     }
                     @media @screen-sm{
-                        height: 50px;
+                        width: 162px;
+                        height: 44px;
                         margin: 0.5 * @margin 0;
                     }
                     @media @phone{
                         order: 2;
-                        height: 45px;
-                        width: 100%;
-                        margin: 10px 0 40px;
-                        background-position: 50% 50%;
+                        width: 162px;
+                        height: 44px;
+                        margin: 10px auto 40px auto;
                     }
                 }
                 .text{
