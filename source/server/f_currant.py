@@ -36,12 +36,12 @@ from libfelix.f_mongo import f_mongo_upgrade
 
 # Fix crash in environments that have no display.
 import matplotlib
+matplotlib.use('Agg')
 import matplotlib.font_manager as fm
 import matplotlib.pyplot as plt
 from matplotlib.dates import DateFormatter
 
 fontprop = fm.FontProperties(fname="data/wqy-microhei.ttc")
-matplotlib.use('Agg')
 
 logger = logging.getLogger(__name__)
 f_app.dependency_register('pyquery', race="python")
