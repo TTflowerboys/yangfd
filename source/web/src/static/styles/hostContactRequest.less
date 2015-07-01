@@ -55,11 +55,15 @@ main {
 
 
         .hostContact {
+            display: none;
             padding: @standard-margin @standard-margin @standard-margin @standard-margin * 6;
             font-size: @slarge-font-size * 0.8;
             text-align: left;
             color: @dark-text-color;
             position: relative;
+            &.show{
+                display: block;
+            }
             @media @phone {
                 padding: @standard-margin @standard-margin @standard-margin @standard-margin;
                 text-align: center;

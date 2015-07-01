@@ -15,16 +15,22 @@ $(function () {
             $.betterPost('/api/1/rent_ticket/' + rentId + '/contact_info')
                 .done(function (val) {
                     var host = val
-                    if($('.hostPhone').length) {
-                        $($('.hostPhone span')[1]).text(host.phone)
-                        $($('.hostPhone a')).attr('href', 'tel:+' + host.country_code + host.phone)
+                    if(host.private_contact_methods.indexOf('phone') < 0) {
+                        $('.hostPhone').addClass('show').find('span').eq(1).text(host.phone)
+                        $('.hostPhone a').attr('href', 'tel:+' + host.country_code + host.phone)
+                    } else {
+                        $('.hostPhone').removeClass('show')
                     }
-                    if($('.hostEmail').length) {
-                        $('.hostEmail span').text(host.email)
+                    if(host.private_contact_methods.indexOf('email') < 0) {
+                        $('.hostEmail').addClass('show').find('span').text(host.email)
                         $('.hostEmail a').attr('href', 'mailto:' + host.email)
+                    } else {
+                        $('.hostEmail').removeClass('show')
                     }
-                    if($('.hostWechat').length) {
-                        $('.hostWechat span').text(host.wechat)
+                    if(host.private_contact_methods.indexOf('wechat') < 0) {
+                        $('.hostWechat').addClass('show').find('span').text(host.wechat)
+                    } else {
+                        $('.hostWechat').removeClass('show')
                     }
 
                     $('.hostName').text(host.nickname)

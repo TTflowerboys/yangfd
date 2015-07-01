@@ -8,29 +8,35 @@
 
         % private_contact_methods = rent.get('creator_user',{}).get('private_contact_methods',[])
         % private_contact_methods = [] if private_contact_methods is None else private_contact_methods
+
+        <div class="hostPhone hostContact
         % if rent.get('creator_user',{}).get('phone','') and 'phone' not in private_contact_methods:
-        <div class="hostPhone hostContact">
+        show
+        % end
+        ">
             <a>
                 <i class="ico icon-phone_icon"></i>
                 <span>+{{rent.get('creator_user',{}).get('country_code','') }}</span> <span>{{rent.get('creator_user',{}).get('phone','')}}</span>
             </a>
         </div>
-        %end
+        <div class="hostEmail hostContact
         % if rent.get('creator_user',{}).get('email','') and 'email' not in private_contact_methods:
-        <div class="hostEmail hostContact">
+        show
+        % end
+        ">
             <a class="clearfix">
                 <img class="ico" src="/static/images/property_details/ico_email.png"/>
                 <span class="email">{{rent.get('creator_user',{}).get('email','')}}</span>
             </a>
         </div>
-        %end
+        <div class="hostWechat hostContact
         % if rent.get('creator_user',{}).get('wechat','') and 'wechat' not in private_contact_methods:
-        <div class="hostWechat hostContact">
+        show
+        % end
+        ">
             <i class="ico icon-wechat"></i>
             <span>{{rent.get('creator_user',{}).get('wechat','')}}</span>
         </div>
-        %end
-
     </div>
     <div class="contactRequest" id="contactRequest">
         <button id="contactRequestBtn" class="flatButton ajaxButton">{{_('查看房东完整联系方式')}}</button>
