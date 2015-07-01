@@ -29,4 +29,6 @@ describe(@"saveEnterForegroundTime", ^ {
     });
 });
 
+//TODO more test case
+
 SpecEnd
