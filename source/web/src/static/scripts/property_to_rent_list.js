@@ -662,7 +662,7 @@
     })
 
     $('.calendar .clear').bind('click', function(event){
-        $(this).siblings('input').val('').trigger('change').attr('placeholder', i18n('请选择起租日期'))
+        $(this).siblings('input').val('').trigger('change').attr('placeholder', i18n('请选择日期'))
     })
     $('.confirmDate').click(function () {
         if(isLoading){
