@@ -131,6 +131,7 @@
                 [self syncWithUserInfo:ticketListener.getSyncUserInfo];
             }
 
+            [SVProgressHUD dismiss];
             [UIAlertView showWithTitle:STR(@"新Postcode定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 
             }];
@@ -163,7 +164,7 @@
             else {
                 [self.tableView reloadData];
             }
-            
+
             return task;
         }];
     };
@@ -322,7 +323,7 @@
                 else {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
-                
+
                 return nil;
             }];
         }];
@@ -391,7 +392,7 @@
                             [SVProgressHUD showErrorWithStatus:STR(@"重新定位失败")];
                         }
                     }
-                    
+
                     return task;
                 }];
             }
