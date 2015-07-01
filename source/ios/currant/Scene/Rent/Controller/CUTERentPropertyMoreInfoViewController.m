@@ -122,7 +122,7 @@
                 else {
                     [SVProgressHUD dismiss];
                     [[CUTEDataManager sharedInstance] markRentTicketDeleted:self.ticket];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:self];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [self.navigationController popToRootViewControllerAnimated:YES];
                     });

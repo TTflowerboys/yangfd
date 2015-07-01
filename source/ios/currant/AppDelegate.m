@@ -646,6 +646,8 @@
 }
 
 - (void)onReceiveTicketListReload:(NSNotification *)notif {
+    UIViewController *fromController = (UIViewController *)notif.object;
+
     NSArray *unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
     UINavigationController *navController = [[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex];
 
@@ -656,11 +658,20 @@
             [unfinishedController reloadWithTickets:unfinishedRentTickets];
         }
         else {
-            NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
             CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
             unfinishedRentTicketController.navigationItem.leftBarButtonItem = [self getRentTicketLeftBarButtonItemWithViewController:unfinishedRentTicketController];
-            [viewControllers insertObject:unfinishedRentTicketController atIndex:0];
-            [navController setViewControllers:viewControllers animated:NO];
+
+            if (fromController.navigationController == navController) {
+                NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
+                [viewControllers insertObject:unfinishedRentTicketController atIndex:0];
+                [navController setViewControllers:viewControllers animated:NO];
+            }
+            else {
+                NSMutableArray *viewControllers = [NSMutableArray array];
+                [viewControllers insertObject:unfinishedRentTicketController atIndex:0];
+                [navController setViewControllers:viewControllers animated:NO];
+            }
+
             [unfinishedRentTicketController reloadWithTickets:unfinishedRentTickets];
         }
     }
@@ -672,10 +683,17 @@
                 CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
                 controller.formController.form = form;
                 controller.navigationItem.leftBarButtonItem = [self getRentTicketLeftBarButtonItemWithViewController:controller];
-                NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
-                [viewControllers insertObject:controller atIndex:0];
-                [navController setViewControllers:viewControllers animated:NO];
 
+                if (fromController.navigationController == navController) {
+                    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
+                    [viewControllers insertObject:controller atIndex:0];
+                    [navController setViewControllers:viewControllers animated:NO];
+                }
+                else {
+                    NSMutableArray *viewControllers = [NSMutableArray array];
+                    [viewControllers insertObject:controller atIndex:0];
+                    [navController setViewControllers:viewControllers animated:NO];
+                }
             }
             return nil;
         }];

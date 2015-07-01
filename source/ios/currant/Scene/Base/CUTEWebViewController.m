@@ -344,14 +344,17 @@
 }
 
 - (void)onReceiveTicketListReload:(NSNotification *)notif {
-    if (_webView.request.URL.absoluteString) {
 
-        NSURLComponents *urlComponents = [NSURLComponents componentsWithString:_webView.request.URL.absoluteString];
-        if ([[urlComponents path] hasPrefix:@"/user-properties"]) {
-            _needReloadURL = self.url;
-        }
-        else if ([[urlComponents path] hasPrefix:@"/user-favorites"]) {
-            _needReloadURL = self.url;
+    if (notif.object != self) {
+        if (_webView.request.URL.absoluteString) {
+
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithString:_webView.request.URL.absoluteString];
+            if ([[urlComponents path] hasPrefix:@"/user-properties"]) {
+                _needReloadURL = self.url;
+            }
+            else if ([[urlComponents path] hasPrefix:@"/user-favorites"]) {
+                _needReloadURL = self.url;
+            }
         }
     }
 }
