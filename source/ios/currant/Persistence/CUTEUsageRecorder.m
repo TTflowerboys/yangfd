@@ -158,7 +158,7 @@
 }
 
 - (BOOL)isApptentiveEventTriggered:(NSString *)event {
-    return [[[self store] getNumberById:event fromTable:event] boolValue];
+    return [[[self store] getNumberById:event fromTable:KTABLE_APPTENTIVE_EVENT_TRIGGERED] boolValue];
 }
 
 @end
