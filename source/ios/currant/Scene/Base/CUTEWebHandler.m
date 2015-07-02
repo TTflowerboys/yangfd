@@ -113,8 +113,20 @@
         [CUTESurveyHelper checkShowRentTicketDidBeRentedSurveyWithViewController:webViewController];
     }];
 
-    [self.bridge registerHandler:@"notifyUserHaveFavoriteRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
-        [CUTESurveyHelper checkShowFavoriteRentTicketSurveyWithViewController:webViewController];
+    [self.bridge registerHandler:@"notifyRentTicketIsDeleted" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSDictionary *dic = data;
+        if (dic && [dic isKindOfClass:[NSDictionary class]]) {
+            NSError *error = nil;
+            CUTETicket *ticket = (CUTETicket *)[MTLJSONAdapter modelOfClass:[CUTETicket class] fromJSONDictionary:dic error:&error];
+            if (!error && ticket) {
+                [[CUTEDataManager sharedInstance] markRentTicketDeleted:ticket];
+                [NotificationCenter postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:webViewController];
+            }
+        }
+    }];
+
+    [self.bridge registerHandler:@"notifyLoadFavoriteRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
+        [CUTESurveyHelper checkShowFavoriteRentTicketSurveyWithViewController:webViewController data:data];
     }];
 }
 

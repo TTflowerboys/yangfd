@@ -38,11 +38,11 @@
 
 @property(copy) void (^responseBlock)(BaseResp *);
 
-@property (strong, nonatomic) NSString *wbtoken;
-
-@property (strong, nonatomic) NSString *wbCurrentUserID;
-
 @property (nonatomic, weak) UIViewController *viewController;
+
+@property (copy) dispatch_block_t successBlock;
+
+@property (copy) dispatch_block_t cancellationBlock;
 
 @end
 
@@ -82,14 +82,14 @@
                 if (backResp.errCode == WXSuccess) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [SVProgressHUD showSuccessWithStatus:STR(@"分享成功")];
-                        [self checkSurveyWhenShareSuccess];
+                        [self checkCallShareSuccessBlock];
                     });
 
                 }
                 else if (backResp.errCode == WXErrCodeUserCancel) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [SVProgressHUD showErrorWithStatus:STR(@"分享取消")];
-                        [self checkSurveyWhenShareCancelled];
+                        [self checkCallShareCancellationBlock];
                     });
                 }
                 else {
@@ -204,8 +204,10 @@
     return tcs.task;
 }
 
-- (void)shareWithTicket:(CUTETicket *)ticket inController:(UIViewController *)controller {
+- (void)shareWithTicket:(CUTETicket *)ticket inController:(UIViewController *)controller successBlock:(dispatch_block_t)successBlock cancellationBlock:(dispatch_block_t)cancellationBlock {
     self.viewController = controller;
+    self.successBlock = successBlock;
+    self.cancellationBlock = cancellationBlock;
 
     [[self getTicketShareImage:ticket] continueWithSuccessBlock:^id(BFTask *task) {
         if (task.result) {
@@ -275,7 +277,7 @@
 
                     }
                     else {
-                        [self checkSurveyWhenShareCancelled];
+                        [self checkCallShareCancellationBlock];
                     }
                 });
             }];
@@ -343,11 +345,11 @@
     {
         if (response.statusCode == WeiboSDKResponseStatusCodeSuccess) {
             [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
-            [self checkSurveyWhenShareSuccess];
+            [self checkCallShareSuccessBlock];
         }
         else if (response.statusCode == WeiboSDKResponseStatusCodeUserCancel) {
             [SVProgressHUD showInfoWithStatus:STR(@"分享取消")];
-            [self checkSurveyWhenShareCancelled];
+            [self checkCallShareCancellationBlock];
         }
         else {
             [SVProgressHUD showErrorWithError:[NSError errorWithDomain:STR(@"微博分享") code:response.statusCode userInfo:response.userInfo]];
@@ -357,23 +359,15 @@
 
 #pragma mark - Survey Method
 
-- (void)checkSurveyWhenShareSuccess {
-    if (self.viewController) {
-        if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS]) {
-            if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS fromViewController:self.viewController]) {
-                [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS];
-            }
-        }
+- (void)checkCallShareSuccessBlock {
+    if (self.successBlock) {
+        self.successBlock();
     }
 }
 
-- (void)checkSurveyWhenShareCancelled {
-    if (self.viewController) {
-        if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION]) {
-            if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION fromViewController:self.viewController]) {
-                [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION];
-            }
-        }
+- (void)checkCallShareCancellationBlock {
+    if (self.cancellationBlock) {
+        self.cancellationBlock();
     }
 }
 

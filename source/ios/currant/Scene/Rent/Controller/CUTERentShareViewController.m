@@ -19,6 +19,9 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTENotificationKey.h"
 #import "CUTEAPIManager.h"
+#import "CUTEUsageRecorder.h"
+#import "ATConnect.h"
+#import "CUTEApptentiveEvent.h"
 
 @interface CUTERentShareViewController ()
 
@@ -39,7 +42,21 @@
 }
 
 - (void)shareToWechat {
-    [[CUTEShareManager sharedInstance] shareWithTicket:self.ticket inController:self];
+    [[CUTEShareManager sharedInstance] shareWithTicket:self.ticket inController:self successBlock:^{
+        if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS]) {
+            if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS fromViewController:self]) {
+                [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS];
+            }
+        }
+
+    } cancellationBlock:^{
+        if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION]) {
+            if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION fromViewController:self]) {
+                [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION];
+            }
+        }
+
+    }];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath  {

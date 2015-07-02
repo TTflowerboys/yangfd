@@ -13,7 +13,7 @@
 
 + (void)checkShowPublishedRentTicketSurveyWithViewController:(UIViewController *)viewController;
 
-+ (void)checkShowFavoriteRentTicketSurveyWithViewController:(UIViewController *)viewController;
++ (void)checkShowFavoriteRentTicketSurveyWithViewController:(UIViewController *)viewController data:(id)data;
 
 + (void)checkShowUserVisitManyRentTicketSurveyWithViewController:(UIViewController *)viewController;
 

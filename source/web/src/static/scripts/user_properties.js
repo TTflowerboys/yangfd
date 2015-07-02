@@ -370,6 +370,9 @@ $(function () {
                 }
                 $.betterPost('/api/1/rent_ticket/' + ticketId + '/edit', params)
                     .done(function (data) {
+                        if (window.bridge !== undefined) {
+                            window.bridge.callHandler('notifyRentTicketIsDeleted', _.first(_.where(window.rentArray, {id: ticketId})))
+                        }
                         location.reload()
                     })
                     .fail(function (ret) {

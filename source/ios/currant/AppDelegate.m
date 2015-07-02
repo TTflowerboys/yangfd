@@ -254,6 +254,11 @@
 #endif
 
     [Fabric with:@[CrashlyticsKit]];
+
+    [[CUTETracker sharedInstance] trackEnterForeground];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [CUTESurveyHelper checkShowPublishedRentTicketSurveyWithViewController:self.tabBarController];
+    });
     return YES;
 }
 
@@ -637,10 +642,12 @@
 - (void)onReceiveTicketWechatShare:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
-    [[CUTEShareManager sharedInstance] shareWithTicket:ticket inController:self.tabBarController];
+    [[CUTEShareManager sharedInstance] shareWithTicket:ticket inController:self.tabBarController successBlock:nil cancellationBlock:nil];
 }
 
 - (void)onReceiveTicketListReload:(NSNotification *)notif {
+    UIViewController *fromController = (UIViewController *)notif.object;
+
     NSArray *unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
     UINavigationController *navController = [[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex];
 
@@ -651,11 +658,20 @@
             [unfinishedController reloadWithTickets:unfinishedRentTickets];
         }
         else {
-            NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
             CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
             unfinishedRentTicketController.navigationItem.leftBarButtonItem = [self getRentTicketLeftBarButtonItemWithViewController:unfinishedRentTicketController];
-            [viewControllers insertObject:unfinishedRentTicketController atIndex:0];
-            [navController setViewControllers:viewControllers animated:NO];
+
+            if (fromController.navigationController == navController) {
+                NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
+                [viewControllers insertObject:unfinishedRentTicketController atIndex:0];
+                [navController setViewControllers:viewControllers animated:NO];
+            }
+            else {
+                NSMutableArray *viewControllers = [NSMutableArray array];
+                [viewControllers insertObject:unfinishedRentTicketController atIndex:0];
+                [navController setViewControllers:viewControllers animated:NO];
+            }
+
             [unfinishedRentTicketController reloadWithTickets:unfinishedRentTickets];
         }
     }
@@ -667,10 +683,17 @@
                 CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
                 controller.formController.form = form;
                 controller.navigationItem.leftBarButtonItem = [self getRentTicketLeftBarButtonItemWithViewController:controller];
-                NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
-                [viewControllers insertObject:controller atIndex:0];
-                [navController setViewControllers:viewControllers animated:NO];
 
+                if (fromController.navigationController == navController) {
+                    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
+                    [viewControllers insertObject:controller atIndex:0];
+                    [navController setViewControllers:viewControllers animated:NO];
+                }
+                else {
+                    NSMutableArray *viewControllers = [NSMutableArray array];
+                    [viewControllers insertObject:controller atIndex:0];
+                    [navController setViewControllers:viewControllers animated:NO];
+                }
             }
             return nil;
         }];
@@ -743,7 +766,6 @@
             [((UINavigationController *) (self.tabBarController.selectedViewController)).topViewController aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^ (id<AspectInfo> info) {
                 [toolTips hideAnimated:YES];
             } error:nil];
-
 
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED];
             [[NSUserDefaults standardUserDefaults] synchronize];
