@@ -70,6 +70,12 @@
     <p>{{_('点击后在弹出的菜单中选择 [在Safari中打开]')}}</p>
     <i class="arrow"></i>
 </div>
+
+<!--微信签名 start-->
+<textarea id="pythonWeixin" style="display: none;">
+    {{json_dumps(weixin)}}
+</textarea>
+<!--微信签名 end-->
 <!--@@close-->
 
 <!--@@block=scripts -->
@@ -78,7 +84,51 @@
 <script src="/static/bower_components/swiper/dist/js/swiper.jquery.js"></script>
 <script src="/static/scripts/appDownload.js"></script>
 <!--endbuild-->
+<script>
+    /*
+     * Weixin share sdk
+     * */
+    $(function () {
+        var weixin = JSON.parse($('#pythonWeixin').text())
 
+        if (typeof window.wx !== 'undefined') {
+            window.wx.config({
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: 'wx123992a4d173037b', // 必填，公众号的唯一标识
+                timestamp: weixin.timestamp, // 必填，生成签名的时间戳
+                nonceStr: weixin.noncestr, // 必填，生成签名的随机串
+                signature: weixin.signature,// 必填，签名，见附录1
+                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            })
+
+            window.wx.ready(function(){
+                var wechatShareData = {
+                        title: '{{title}}',
+                        link: window.location.href,
+                        imgUrl: '/static/images/icon/app_icon_x120_150427.png',
+//                        desc: '',
+                        success:function(){
+//                            ga('send', 'event', 'wechat_poster', 'share', 'share-to-wechat-success')
+                        },
+                        cancel:function(){
+//                            ga('send', 'event', 'wechat_poster', 'share', 'share-to-wechat-cancel')
+                        }
+                    }
+
+
+
+
+                window.wx.onMenuShareTimeline(wechatShareData);
+                window.wx.onMenuShareAppMessage(wechatShareData);
+                window.wx.onMenuShareQQ(wechatShareData);
+            })
+
+            window.wx.error(function(res){
+//                ga('send', 'event', 'wechat_poster', 'share', 'share-to-wechat-config-error', res.errMsg)
+            })
+        }
+    })
+</script>
 
 <!--@@close-->
 

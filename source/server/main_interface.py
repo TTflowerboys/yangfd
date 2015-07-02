@@ -529,9 +529,9 @@ def wechat_endpoint():
 def app_download():
     if any(pattern in request.get_header('User-Agent') for pattern in (b'iPhone', b'iPod', b'iPad')) and b"MicroMessenger" not in request.get_header('User-Agent'):
         redirect('https://itunes.apple.com/cn/app/yang-fang-dong-ying-guo-zu/id980469674')
-
+    weixin = f_app.wechat.get_jsapi_signature()
     title = _('洋房东APP下载页')
-    return currant_util.common_template("app_download", title=title)
+    return currant_util.common_template("app_download", title=title, weixin=weixin)
 
 
 @f_get("/beta-app-download")
