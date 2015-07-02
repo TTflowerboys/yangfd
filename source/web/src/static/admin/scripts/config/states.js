@@ -324,6 +324,12 @@ angular.module('app')
                 controller: 'ctrlRentDetail',
                 resolve: rentResolve
             })
+            .state('dashboard.rent.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.rent.edit.tpl.html',
+                controller: 'ctrlRentEdit',
+                resolve: rentResolve
+            })
             .state('dashboard.rent.digest', {
                 url: '/:id/digest',
                 templateUrl: '/static/admin/templates/dashboard.rent.digest.tpl.html',

@@ -1,0 +1,36 @@
+<div ui-view>
+    <div class="buttons">
+        <span class="btn-group">
+            <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span>{%$root.i18n('返回')%}</button>
+        </span>
+<!--        <span class="btn-group">
+            <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+        </span>-->
+    </div>
+    <form class="form-horizontal login" method="post" autocomplete="on" ng-class="{submitted:submitted}"
+        ng-submit="submit($event,createRent)" name="createRent" novalidate>
+        <div class="row">
+            <div class="form-group  col-sm-3">
+                <label class="control-label">{%$root.i18n('标题')%}</label>
+
+                <div class="controls">
+                    <input type="text" class="form-control" ng-model="item.title" required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group  col-sm-3">
+                <label class="control-label">{%$root.i18n('详细描述')%}</label>
+
+                <div class="controls">
+                    <input type="text" class="form-control" ng-model="item.description"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group  col-sm-3">
+                <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
+            </div>
+        </div>
+    </form>
+</div>

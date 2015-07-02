@@ -12,7 +12,7 @@
             },
             update: function (id, data, config) {
                 data = misc.formatUnsetField(data)
-                return $http.post('/api/1/rent_ticket/' + id + '/edit?_i18n=disabled', data, config)
+                return $http.post('/api/1/rent_ticket/' + id + '/edit', data, config)
             },
             remove: function (id, config) {
                 return $http.post('/api/1/rent_ticket/' + id + '/edit', {status: 'deleted'}, config)
