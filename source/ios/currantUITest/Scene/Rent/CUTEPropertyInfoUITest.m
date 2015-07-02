@@ -30,8 +30,9 @@ describe(@"PropertyInfo", ^ {
         UITableView *tableView = nil;
         [tester tryFindingAccessibilityElement:nil view:&tableView withIdentifier:STR(@"房产信息表单") tappable:YES error:nil];
         assertThat(tableView, notNilValue());
-        [tester swipeRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:1] inTableView:tableView inDirection:KIFSwipeDirectionUp];
-        UITableViewCell *areaCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:5 inSection:1]];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:6 inSection:1];
+        [tester swipeRowAtIndexPath:indexPath inTableView:tableView inDirection:KIFSwipeDirectionUp];
+        UITableViewCell *areaCell = [tableView cellForRowAtIndexPath:indexPath];
         assertThat(areaCell.textLabel.text, equalTo(@"房屋面积（选填）"));
     });
     
