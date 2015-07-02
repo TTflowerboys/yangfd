@@ -1,3 +1,4 @@
+<!--@@placeholder=var -->
 <div class="imagePart">
     {_if (house.cover){_}
     <a href="/property/{=house.id=}">
@@ -33,9 +34,12 @@
 </div>
 
 <div class="description_wrapper">
-    <div class=description>
+    <a class=description
+        % if not ('no_link' in vars() or 'no_link' in globals()):
+        href="/property/{=house.id=}"
+        %end
+        >
         <h1 class=name>
-            <a href="/property/{=house.id=}">
                 {_if (house.country){_}
                 {=window.team.countryMap[house.country.code]=}
                 {_}_}
@@ -43,7 +47,6 @@
                 {=house.city.name=}
                 {_}_}
                 {=house.name=}
-            </a>
         </h1>
         <!--@@placeholder=price -->
         <ul class=properties>
@@ -63,82 +66,95 @@
                 <label>{=house.street=}</label>
             </li>
             {_}_}
+            % if 'show_rooms' in vars() or 'show_rooms' in globals():
+            {_if(house.living_room_count || house.bathroom_count || house.space) {_}
+            <li>
+                <i class="icon-rooms"></i>
+                <label>
+                    {_if(house.living_room_count) {_}
+                    <span class="bold">{=house.living_room_count=}</span>{=window.i18n('室')=}
+                    {_}_}
+                    {_if(house.bathroom_count) {_}
+                    <span class="bold">{=house.bathroom_count=}</span>{=window.i18n('卫')=}
+                    {_}_}
+
+                    {_if(house.space) {_}
+                    <span class="bold">{= parseFloat(house.space.value).toFixed(2)=}</span>
+                    {_if (house.space.unit === 'foot ** 2'){_}
+                    SQFT
+                    {_} else if(house.space.unit === 'acre'){_}
+                    ACRE
+                    {_} else if (house.space.unit === 'meter ** 2') {_}
+                    m <sup>2</sup>
+                    {_} else if (house.space.unit === 'kilometer ** 2') {_}
+                    km <sup>2</sup>
+                    {_} else {_}
+                    {=house.space.unit=}
+                    {_}_}
+                    {_}_}
+                </label>
+            </li>
+            {_} else if (house.main_house_types && house.main_house_types.length) {_}
+            <li>
+                <i class="icon-rooms"></i>
+                <label>
+                    {_if(house.main_house_types[0].living_room_count) {_}
+                    <span class="bold">{=house.main_house_types[0].living_room_count=}</span>{=window.i18n('室')=}
+                    {_}_}
+                    {_if(house.main_house_types[0].bathroom_count) {_}
+                    <span class="bold">{=house.main_house_types[0].bathroom_count=}</span>{=window.i18n('卫')=}
+                    {_}_}
+
+                    {_if(house.main_house_types[0].building_area) {_}
+                    <span class="bold">{= parseFloat(house.main_house_types[0].building_area.value).toFixed(2)=}</span>
+                    {_if (house.main_house_types[0].building_area.unit === 'foot ** 2'){_}
+                    SQFT
+                    {_} else if(house.main_house_types[0].building_area.unit === 'acre'){_}
+                    ACRE
+                    {_} else if (house.main_house_types[0].building_area.unit === 'meter ** 2') {_}
+                    m <sup>2</sup>
+                    {_} else if (house.main_house_types[0].building_area.unit === 'kilometer ** 2') {_}
+                    km <sup>2</sup>
+                    {_} else {_}
+                    {=house.main_house_types[0].building_area.unit=}
+                    {_}_}
+                    {_}_}
+                </label>
+            </li>
+            {_}_}
+            % end
         </ul>
         <div class=details>
-            {_if(house.living_room_count || house.bathroom_count || house.space) {_}
-            <div class="size">
-                <div class="room">
-                    <p class="title">{=window.i18n('房间')=}</p>
+            {_if (house.annual_return_estimated || house.annual_cash_return_estimated) {_}
+            <div class="left">
+                {_if (house.annual_return_estimated) { _}
+                <div style="width: 50%">
+                    <p class="title">{=window.i18n('预计年化收益率')=}</p>
                     <p class="content">
-                        {_if(house.living_room_count) {_}
-                        <span class="bold">{=house.living_room_count=}</span>{=window.i18n('室')=}
-                        {_}_}
-                        {_if(house.bathroom_count) {_}
-                        <span class="bold">{=house.bathroom_count=}</span>{=window.i18n('卫')=}
-                        {_}_}
+                        <span class="bold">{=house.annual_return_estimated=}</span>
                     </p>
                 </div>
-                <div class="space">
-                    <p class="title">{=window.i18n('面积')=}</p>
+                {_}_}
+
+                {_if (house.annual_cash_return_estimated) { _}
+                <div style="width: 42%">
+                    <p class="title">{=window.i18n('预估租金收益率')=}</p>
                     <p class="content">
-                        {_if(house.space) {_}
-                        <span class="bold">{= parseFloat(house.space.value).toFixed(2)=}</span>
-                        {_if (house.space.unit === 'foot ** 2'){_}
-                        SQFT
-                        {_} else if(house.space.unit === 'acre'){_}
-                        ACRE
-                        {_} else if (house.space.unit === 'meter ** 2') {_}
-                        m <sup>2</sup>
-                        {_} else if (house.space.unit === 'kilometer ** 2') {_}
-                        km <sup>2</sup>
-                        {_} else {_}
-                        {=house.space.unit=}
-                        {_}_}
-                        {_}_}
+                        <span class="bold">{=house.annual_cash_return_estimated=}</span>
                     </p>
                 </div>
-            </div>
-            {_} else if (house.main_house_types && house.main_house_types.length) {_}
-            <div class="size">
-                <div class="room">
-                    <p class="title">{=window.i18n('主要户型')=}</p>
-                    <p class="content">
-                        {_if(house.main_house_types[0].living_room_count) {_}
-                        <span class="bold">{=house.main_house_types[0].living_room_count=}</span>{=window.i18n('室')=}
-                        {_}_}
-                        {_if(house.main_house_types[0].bathroom_count) {_}
-                        <span class="bold">{=house.main_house_types[0].bathroom_count=}</span>{=window.i18n('卫')=}
-                        {_}_}
-                    </p>
-                </div>
-                <div class="space">
-                    <p class="title">{=window.i18n('面积')=}</p>
-                    <p class="content">
-                        {_if(house.main_house_types[0].building_area) {_}
-                        <span class="bold">{= parseFloat(house.main_house_types[0].building_area.value).toFixed(2)=}</span>
-                        {_if (house.main_house_types[0].building_area.unit === 'foot ** 2'){_}
-                        SQFT
-                        {_} else if(house.main_house_types[0].building_area.unit === 'acre'){_}
-                        ACRE
-                        {_} else if (house.main_house_types[0].building_area.unit === 'meter ** 2') {_}
-                        m <sup>2</sup>
-                        {_} else if (house.main_house_types[0].building_area.unit === 'kilometer ** 2') {_}
-                        km <sup>2</sup>
-                        {_} else {_}
-                        {=house.main_house_types[0].building_area.unit=}
-                        {_}_}
-                        {_}_}
-                    </p>
-                </div>
+                {_}_}
             </div>
             {_}_}
 
             <!--@@placeholder=more_detail -->
         </div>
         <!--@@placeholder=action -->
-    </div>
+        <!--@@placeholder=bottom_action -->
+    </a>
 </div>
 <div class="otherActionWrap">
+
     <!--@@placeholder=other_action -->
 </div>
 <!--@@placeholder=cover -->

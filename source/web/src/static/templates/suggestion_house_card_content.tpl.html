@@ -1,17 +1,31 @@
 <!--@@master=master/house_card_content_master.tpl.html-->
+
+<!--@@block=var -->
+% show_rooms = 'show'
+<!--@@close -->
+
 <!--@@block=price -->
 <span class=price>
     <!--@@include=../../partials/get_unit_price.tpl.html -->
 </span>
 <!--@@close -->
+
 <!--@@block=more_detail -->
 <div class="publishTime">{=project.formatDate(house.time)=}</div>
 <!--@@close-->
 
-<!--@@block=cover -->
-<div class="tagDetail" data-intention-id={=house.category_intention.id=}>
-    <h3 class="tag">{=house.category_intention.value=}</h3>
-    <p class="description"></p>
+<!--@@block=action -->
+<div class="consultAction">
+    <button class="openRequirement ghostButton red" onclick="window.project.openRequirement(null, '', '', '{=house.id=}')"><i class="icon-requirement"></i><label>{{_('我要咨询')}}</label> </button>
 </div>
 <!--@@close-->
+
+<!--@@block=cover -->
+<a class="tagDetail" data-intention-id={=house.category_intention.id=} href="/property/{=house.id=}">
+    <h3 class="tag">{=house.category_intention.value=}</h3>
+    <p class="description"></p>
+</a>
+<!--@@close-->
+
+
 
