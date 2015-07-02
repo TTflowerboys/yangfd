@@ -442,7 +442,7 @@
             'number': /^[0-9]+$/,
             'decimalNumber': /^\d+(\.(\d)+)?$/
         }
-        var includePhoneReg = /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/
+
         $errorMsg.text('').hide()
         function highlightErrorElem(elem){
             elem.css('border', '2px solid #f00').on('focus', function(){
@@ -487,11 +487,22 @@
                 }
             })
         })
-        if(includePhoneReg.test($('#description').val())) {
-            validate = false
-            errorMsg = i18n('平台将提供房东联系方式选择，请勿在此填写任何形式的联系方式，违规发布将会予以处理')
-            highlightErrorElem($('#description'))
+        function checkContaction (elem) {
+            var includePhoneReg = /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/
+            var includeEmailReg = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i
+            var wordBlacklist = ['微信', '微博', 'QQ', '电话', 'weixin', 'wechat', 'whatsapp', 'facebook', 'weibo']
+            var val = elem.val()
+            if (includePhoneReg.test(val) || includeEmailReg.test(val) || _.some(wordBlacklist, function (v) {
+                    return val.toLowerCase().indexOf(v.toLowerCase()) !== -1
+                })) {
+                validate = false
+                errorMsg = i18n('平台将提供房东联系方式选择，请勿在此填写任何形式的联系方式，违规发布将会予以处理')
+                highlightErrorElem(elem)
+            }
         }
+        checkContaction($('#title'))
+        checkContaction($('#description'))
+
 
         /*if(imageArr.length === 0){
             validate = false
