@@ -48,6 +48,11 @@
 
 @implementation CUTEFormViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.tableView.accessibilityIdentifier = @"Form";
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 

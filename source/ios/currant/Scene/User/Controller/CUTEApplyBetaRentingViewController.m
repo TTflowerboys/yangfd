@@ -26,6 +26,7 @@
             [NotificationCenter postNotificationName:KNOTIF_SHOW_SPLASH_VIEW object:nil];
         }];
     }];
+    self.tableView.accessibilityIdentifier = STR(@"申请邀请码");
 }
 
 - (void)onEmailEdited:(id)sender {

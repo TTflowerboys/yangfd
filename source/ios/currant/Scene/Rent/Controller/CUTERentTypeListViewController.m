@@ -58,6 +58,8 @@
     else {
         self.navigationItem.title = STR(@"出租类型");
     }
+    self.tableView.accessibilityLabel = STR(@"出租类型列表");
+    self.tableView.accessibilityIdentifier = STR(@"出租类型列表");
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
