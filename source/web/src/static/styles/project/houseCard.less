@@ -114,6 +114,37 @@
             top:0;
             width:100%;
             height:100%;
+            .consultAction{
+                position: absolute;
+                top: 90px;
+                right: 21px;
+                button {
+                    i {
+                        margin-right: 5px;
+                        vertical-align: middle;
+                        line-height: 18px;
+                        font-size: 16px;
+                        color: #fff;
+                    }
+                    label {
+                        vertical-align: middle;
+                        line-height: 18px;
+                        font-size: 14px;
+                        cursor:pointer;
+                        color: #fff;
+                    }
+                    &.openRequirement {
+                        display:none;
+                        background:@red;//may cover on text so, need a background color
+                    }
+                    border-radius:6px;
+                    font-size:18px;
+                    line-height:18px;
+                    padding: 6px 8px;
+                    border: none;
+                    background:@red;
+                }
+            }
         }
 
         position:relative;
@@ -245,38 +276,9 @@
             bottom: @border-width;
 
         }
-        >.consultAction{
-            position: absolute;
-            top: 70px;
-            right: 21px;
-            button {
-                i {
-                    margin-right: 5px;
-                    vertical-align: middle;
-                    line-height: 18px;
-                    font-size: 16px;
-                    color: #fff;
-                }
-                label {
-                    vertical-align: middle;
-                    line-height: 18px;
-                    font-size: 14px;
-                    cursor:pointer;
-                    color: #fff;
-                }
-                &.openRequirement {
-                    display:none;
-                    background:@red;//may cover on text so, need a background color
-                }
-                border-radius:6px;
-                font-size:18px;
-                line-height:18px;
-                padding: 6px 8px;
-                border: none;
-                background:@red;
-            }
-        }
+
     }
+
 }
 
 .houseCard_phone {
@@ -501,7 +503,7 @@
     border-bottom: 2px solid #e4e4e4;
     @media @phone {
         display:block;
-        margin-bottom:20px;
+        margin-bottom:24px;
     }
 
     a {
@@ -653,21 +655,27 @@
     }
     .propertyInfo{
         padding: 10px 15px 20px;
-        .location, .tag{
-            color: @grey;
-            margin: 8px 0 0;
-            font-size: 14px;
-            .clearfix;
-            i{
-                display: block;
-                float: left;
-                font-size: 16px;
-                color: #e60012;
-                margin-right: 6px;
+        .properties{
+            li{
+                color: @grey;
+                margin: 8px 0 0;
+                font-size: 14px;
+                .clearfix;
+                label{
+                    line-height: 16px;
+                    vertical-align: middle;
+                }
+                i{
+                    display: block;
+                    float: left;
+                    font-size: 16px;
+                    color: #e60012;
+                    margin-right: 6px;
+                }
+                .limitedLines(1,16px)
             }
-            .limitedLines(1,16px)
         }
-        .size {
+        .estimated {
             padding: 10px 0 0;
             font-size: 14px;
             .clearfix;
@@ -675,6 +683,9 @@
                 width: 48%;
                 float: left;
                 margin: 15px 2% 0 0;
+                &:nth-child(1){
+                    border-right: 1px solid #ccc;
+                }
                 p{
                     margin: 0 0 5px;
                 }
@@ -682,12 +693,12 @@
                     color: @grey;
                 }
                 .content{
-                    color: @black;
+                    color: @red;
+                    font-size:18px;
+                    font-weight: bold;
                 }
             }
-            .room{
-                border-right: 1px solid @border-color;
-            }
+
         }
     }
     .otherAction{

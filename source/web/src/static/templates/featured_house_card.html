@@ -132,40 +132,37 @@
             </a>
             <hr/>
             <div class="propertyInfo">
-                %if property.get('street'):
-                <p class="location">
-                    <i class="icon-location_fill"></i>
-                    <label>{{property.get('street')}}</label>
-                </p>
-                %end
-                %if property.get('intention'):
-                <p class="tag">
-                    <i class="icon-tag_icon"></i>
-                    <label>
-                        % for item in property.get('intention'):
-                        %if item.get('value'):
-                        {{item.get('value')}}
-                        %end
-                        %end
-                    </label>
-                </p>
-                %end
-                % if property.get('living_room_count') or property.get('bathroom_count') or property.get('space') :
-                <div class="size">
-                    <div class="room">
-                        <p class="title">{{_('房间')}}</p>
-                        <p class="content">
+                <ul class="properties">
+                    %if property.get('street'):
+                    <li>
+                        <i class="icon-location_fill"></i>
+                        <label>{{property.get('street')}}</label>
+                    </li>
+                    %end
+                    %if property.get('intention'):
+                    <li>
+                        <i class="icon-tag_icon"></i>
+                        <label>
+                            % for item in property.get('intention'):
+                            %if item.get('value'):
+                            {{item.get('value')}}
+                            %end
+                            %end
+                        </label>
+                    </li>
+                    %end
+
+                    % if property.get('living_room_count') or property.get('bathroom_count') or property.get('space') :
+                    <li>
+                        <i class="icon-rooms"></i>
+                        <label>
                             % if property.get('living_room_count'):
                             <span class="bold">{{property.get('living_room_count')}}</span>{{_('室')}}
                             % end
                             % if property.get('bathroom_count'):
                             <span class="bold">{{property.get('bathroom_count')}}</span>{{_('卫')}}
-                            % end
-                        </p>
-                    </div>
-                    <div class="space">
-                        <p class="title">{{_('面积')}}</p>
-                        <p class="content">
+                            %end
+
                             % if property.get('space') :
                             <span class="bold">{{"{0:.2f}".format(float(property.get('space',{}).get('value',0)))}}</span>
                             % if property.get('space',{}).get('unit') == 'foot ** 2' :
@@ -180,25 +177,19 @@
                             {{property.space.unit}}
                             % end
                             % end
-                        </p>
-                    </div>
-                </div>
-                % elif property.get('main_house_types') and len(property.get('main_house_types')):
-                <div class="size">
-                    <div class="room">
-                        <p class="title">{{_('主要户型')}}</p>
-                        <p class="content">
+                        </label>
+                    </li>
+                    % elif property.get('main_house_types') and len(property.get('main_house_types')):
+                    <li>
+                        <i class="icon-rooms"></i>
+                        <label>
                             % if property.get('main_house_types')[0].get('living_room_count') :
                             <span class="bold">{{property.get('main_house_types')[0].get('living_room_count')}}</span>{{_('室')}}
                             % end
                             % if property.get('main_house_types')[0].get('bathroom_count') :
                             <span class="bold">{{property.get('main_house_types')[0].get('bathroom_count')}}</span>{{_('卫')}}
                             % end
-                        </p>
-                    </div>
-                    <div class="space">
-                        <p class="title">{{_('面积')}}</p>
-                        <p class="content">
+
                             % if property.get('main_house_types')[0].get('building_area') :
                             <span class="bold">{{"{0:.2f}".format(float(property.get('main_house_types')[0].get('building_area',{}).get('value')))}}</span>
                             % if property.get('main_house_types')[0].get('building_area',{}).get('unit') == 'foot ** 2' :
@@ -213,8 +204,32 @@
                             {{property.main_house_types[0].building_area.unit}}
                             % end
                             % end
+                        </label>
+                    </li>
+                    % end
+                </ul>
+                % if property.get('annual_return_estimated') or property.get('annual_cash_return_estimated') :
+                <div class="estimated">
+                    %if property.get('annual_return_estimated'):
+                    <div>
+                        <p class="title">{{_('预计年化收益率')}}</p>
+                        <p class="content">
+                            <span class="bold">
+                                {{property.get('annual_return_estimated')}}
+                            </span>
                         </p>
                     </div>
+                    %end
+                    %if property.get('annual_cash_return_estimated'):
+                    <div>
+                        <p class="title">{{_('预估现金年化收益率')}}</p>
+                        <p class="content">
+                            <span class="bold">
+                                {{property.get('annual_cash_return_estimated')}}
+                            </span>
+                        </p>
+                    </div>
+                    %end
                 </div>
                 % end
 
@@ -400,9 +415,9 @@
                 <div class=action>
                     <!--<a href="/property/{{property.get('id')}}" title="{{property.get('name','')}}" class="button red">{{_('查看详情')}}</a>-->
                 </div>
-                <div class="consultAction">
-                    <button class="openRequirement ghostButton red" onclick="window.project.openRequirement(null, '', '', '{{property.get('id')}}')"><i class="icon-requirement"></i><label>{{_('我要咨询')}}</label> </button>
-                </div>
+            </div>
+            <div class="consultAction">
+                <button class="openRequirement ghostButton red" onclick="window.project.openRequirement(null, '', '', '{{property.get('id')}}')"><i class="icon-requirement"></i><label>{{_('我要咨询')}}</label> </button>
             </div>
         </div>
 
