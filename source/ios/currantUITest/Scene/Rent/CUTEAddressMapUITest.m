@@ -11,6 +11,7 @@
 #import "CUTECommonMacro.h"
 #import "KIFUITestActor+RentType.h"
 #import "KIFUITestActor+Login.h"
+#import "KIFUITestActor+AddressMap.h"
 
 
 SpecBegin(AddressMapUI)
@@ -23,17 +24,8 @@ describe(@"AddressMap", ^ {
     });
 
     it(@"should get current location ok", ^ {
-        [tester waitForTimeInterval:2];
-        //location permission
-        if ([tester tryFindingViewWithAccessibilityLabel:STR(@"允许") error:nil]) {
-            [tester tapViewWithAccessibilityLabel:STR(@"允许")];
-        }
-
-        [tester waitForAnimationsToFinish];
-        [tester waitForAbsenceOfViewWithAccessibilityLabel:@"MapTextFieldIndicator"];
-        [tester waitForAnimationsToFinish];
-    });
-    
+        [tester setPropertyLocationWithCurrentLocation];
+    });    
 });
 
 SpecEnd

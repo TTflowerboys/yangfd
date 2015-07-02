@@ -70,6 +70,8 @@
     self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:self action:@selector(onPreviewButtonPressed:)];
+    self.tableView.accessibilityLabel = STR(@"房产信息表单");
+    self.tableView.accessibilityIdentifier = self.tableView.accessibilityLabel;
 }
 
 

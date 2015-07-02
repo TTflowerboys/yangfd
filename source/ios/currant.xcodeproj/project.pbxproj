@@ -177,6 +177,8 @@
 		2C317F691B451F230041E05E /* KIFUITestActor+RentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C317F681B451F230041E05E /* KIFUITestActor+RentType.m */; };
 		2C317F6B1B4522D20041E05E /* CUTEAddressMapUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C317F6A1B4522D20041E05E /* CUTEAddressMapUITest.m */; };
 		2C317F6D1B452C620041E05E /* CUTEAddressEditUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C317F6C1B452C620041E05E /* CUTEAddressEditUITest.m */; };
+		2C317F6F1B4538340041E05E /* CUTEPropertyInfoUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C317F6E1B4538340041E05E /* CUTEPropertyInfoUITest.m */; };
+		2C317F721B4538C30041E05E /* KIFUITestActor+AddressMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C317F711B4538C30041E05E /* KIFUITestActor+AddressMap.m */; };
 		2C3DE2331B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
 		2C3DE2341B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
 		2C3DE2351B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
@@ -717,6 +719,9 @@
 		2C317F681B451F230041E05E /* KIFUITestActor+RentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+RentType.m"; sourceTree = "<group>"; };
 		2C317F6A1B4522D20041E05E /* CUTEAddressMapUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAddressMapUITest.m; sourceTree = "<group>"; };
 		2C317F6C1B452C620041E05E /* CUTEAddressEditUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAddressEditUITest.m; sourceTree = "<group>"; };
+		2C317F6E1B4538340041E05E /* CUTEPropertyInfoUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyInfoUITest.m; sourceTree = "<group>"; };
+		2C317F701B4538C30041E05E /* KIFUITestActor+AddressMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFUITestActor+AddressMap.h"; sourceTree = "<group>"; };
+		2C317F711B4538C30041E05E /* KIFUITestActor+AddressMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+AddressMap.m"; sourceTree = "<group>"; };
 		2C3DE2311B035719006FF191 /* CUTETracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETracker.h; sourceTree = "<group>"; };
 		2C3DE2321B035719006FF191 /* CUTETracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETracker.m; sourceTree = "<group>"; };
 		2C3DE2391B05CCDC006FF191 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -1059,11 +1064,14 @@
 		2C056D251B4231F40075037A /* Rent */ = {
 			isa = PBXGroup;
 			children = (
-				2C11485C1B44F2A50003DEF7 /* CUTERentTypeUITest.m */,
 				2C317F671B451F230041E05E /* KIFUITestActor+RentType.h */,
 				2C317F681B451F230041E05E /* KIFUITestActor+RentType.m */,
+				2C317F701B4538C30041E05E /* KIFUITestActor+AddressMap.h */,
+				2C317F711B4538C30041E05E /* KIFUITestActor+AddressMap.m */,
+				2C11485C1B44F2A50003DEF7 /* CUTERentTypeUITest.m */,
 				2C317F6A1B4522D20041E05E /* CUTEAddressMapUITest.m */,
 				2C317F6C1B452C620041E05E /* CUTEAddressEditUITest.m */,
+				2C317F6E1B4538340041E05E /* CUTEPropertyInfoUITest.m */,
 			);
 			path = Rent;
 			sourceTree = "<group>";
@@ -1131,9 +1139,9 @@
 		2C056DAA1B4245550075037A /* Splash */ = {
 			isa = PBXGroup;
 			children = (
-				2C056DAB1B4245990075037A /* CUTESplashUITest.m */,
 				2C6D7B1C1B428F25007853FD /* KIFUITestActor+SplashUI.h */,
 				2C6D7B1D1B428F25007853FD /* KIFUITestActor+SplashUI.m */,
+				2C056DAB1B4245990075037A /* CUTESplashUITest.m */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -2170,11 +2178,13 @@
 				2C1148581B44E4DA0003DEF7 /* CUTELoginUITest.m in Sources */,
 				2C056D8A1B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
 				2C6D7B181B428E49007853FD /* CUTEApplyBetaUITest.m in Sources */,
+				2C317F721B4538C30041E05E /* KIFUITestActor+AddressMap.m in Sources */,
 				2C056D901B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
 				2C056DA31B423BBA0075037A /* CUTEForm.m in Sources */,
 				2C056D3A1B423A110075037A /* CUTEUserViewController.m in Sources */,
 				2C6D7B1E1B428F25007853FD /* KIFUITestActor+SplashUI.m in Sources */,
 				2C056DAC1B4245990075037A /* CUTESplashUITest.m in Sources */,
+				2C317F6F1B4538340041E05E /* CUTEPropertyInfoUITest.m in Sources */,
 				2C056D401B423A110075037A /* CUTESettingForm.m in Sources */,
 				2C11485B1B44F0F50003DEF7 /* KIFUITestActor+Login.m in Sources */,
 				2C317F6B1B4522D20041E05E /* CUTEAddressMapUITest.m in Sources */,
