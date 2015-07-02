@@ -76,7 +76,7 @@ def subscription_notification_ready(user, params):
             abort(40099, logger.warning("No '@' in email address supplied:", params["target"], exc_info=False))
         subscription_list = f_app.feedback.get(f_app.feedback.search({"email": params["target"]}))
 
-    #fitter the reduplicate subscriptions
+    # fitter the reduplicate subscriptions
     for subscription in subscription_list:
         if subscription["email"] not in emails:
             noti_subscription_list.append(subscription)
@@ -85,7 +85,7 @@ def subscription_notification_ready(user, params):
     for subscription in noti_subscription_list:
         locale = subscription.get("locales", [f_app.common.i18n_default_locale])[0]
         request._requested_i18n_locales_list = [locale]
-        #TODO  how to match locales with template name in sendcloud
+        # TODO: how to match locales with template name in sendcloud
         if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
             template_invoke_name = "we_are_ready_cn"
             sendgrid_template_id = "02664aeb-17b3-4cad-b8c4-309d70531667"
