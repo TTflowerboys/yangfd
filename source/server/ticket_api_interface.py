@@ -3,7 +3,6 @@ from __future__ import unicode_literals, absolute_import
 from datetime import datetime, timedelta
 import random
 import logging
-import phonenumbers
 from bson.objectid import ObjectId
 from app import f_app
 from libfelix.f_interface import f_api, abort, template, request
