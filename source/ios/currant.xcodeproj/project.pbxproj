@@ -109,7 +109,6 @@
 		2C056DA91B423BBA0075037A /* CUTEFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C056D9D1B423BBA0075037A /* CUTEFormViewController.m */; };
 		2C056DAC1B4245990075037A /* CUTESplashUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C056DAB1B4245990075037A /* CUTESplashUITest.m */; };
 		2C056DAE1B42474C0075037A /* SpectaUITestTemplate in Resources */ = {isa = PBXBuildFile; fileRef = 2C056DAD1B42474C0075037A /* SpectaUITestTemplate */; };
-		2C056DB11B424D140075037A /* KIFTestActor+Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C056DB01B424D140075037A /* KIFTestActor+Login.m */; };
 		2C06D3A31B29465800C147DE /* CUTEModelEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */; };
 		2C06D3A41B29465800C147DE /* CUTEModelEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */; };
 		2C06D3A51B29465800C147DE /* CUTEModelEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */; };
@@ -142,6 +141,9 @@
 		2C0C0A161B2AD02E001F2583 /* CUTEUserEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C0A141B2AD02E001F2583 /* CUTEUserEditingListener.m */; };
 		2C0C0A171B2AD02E001F2583 /* CUTEUserEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C0A141B2AD02E001F2583 /* CUTEUserEditingListener.m */; };
 		2C0C0A181B2AD02E001F2583 /* CUTEUserEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C0A141B2AD02E001F2583 /* CUTEUserEditingListener.m */; };
+		2C1148581B44E4DA0003DEF7 /* CUTELoginUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1148571B44E4DA0003DEF7 /* CUTELoginUITest.m */; };
+		2C11485B1B44F0F50003DEF7 /* KIFUITestActor+Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C11485A1B44F0F50003DEF7 /* KIFUITestActor+Login.m */; };
+		2C11485D1B44F2A50003DEF7 /* CUTERentTypeUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C11485C1B44F2A50003DEF7 /* CUTERentTypeUITest.m */; };
 		2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
@@ -172,6 +174,9 @@
 		2C2FCDE81B01E521002594D7 /* ALAsset+GetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */; };
 		2C2FCDE91B01E521002594D7 /* ALAsset+GetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */; };
 		2C2FCDEA1B01E521002594D7 /* ALAsset+GetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */; };
+		2C317F691B451F230041E05E /* KIFUITestActor+RentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C317F681B451F230041E05E /* KIFUITestActor+RentType.m */; };
+		2C317F6B1B4522D20041E05E /* CUTEAddressMapUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C317F6A1B4522D20041E05E /* CUTEAddressMapUITest.m */; };
+		2C317F6D1B452C620041E05E /* CUTEAddressEditUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C317F6C1B452C620041E05E /* CUTEAddressEditUITest.m */; };
 		2C3DE2331B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
 		2C3DE2341B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
 		2C3DE2351B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
@@ -663,8 +668,6 @@
 		2C056D9D1B423BBA0075037A /* CUTEFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormViewController.m; sourceTree = "<group>"; };
 		2C056DAB1B4245990075037A /* CUTESplashUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTESplashUITest.m; sourceTree = "<group>"; };
 		2C056DAD1B42474C0075037A /* SpectaUITestTemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SpectaUITestTemplate; sourceTree = "<group>"; };
-		2C056DAF1B424D140075037A /* KIFTestActor+Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestActor+Login.h"; sourceTree = "<group>"; };
-		2C056DB01B424D140075037A /* KIFTestActor+Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestActor+Login.m"; sourceTree = "<group>"; };
 		2C06D3A11B29465800C147DE /* CUTEModelEditingListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEModelEditingListener.h; sourceTree = "<group>"; };
 		2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEModelEditingListener.m; sourceTree = "<group>"; };
 		2C07AB881AE8FF6600907075 /* UIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
@@ -688,6 +691,10 @@
 		2C0C0A041B29BD43001F2583 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2C0C0A131B2AD02E001F2583 /* CUTEUserEditingListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUserEditingListener.h; sourceTree = "<group>"; };
 		2C0C0A141B2AD02E001F2583 /* CUTEUserEditingListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUserEditingListener.m; sourceTree = "<group>"; };
+		2C1148571B44E4DA0003DEF7 /* CUTELoginUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTELoginUITest.m; sourceTree = "<group>"; };
+		2C1148591B44F0F50003DEF7 /* KIFUITestActor+Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFUITestActor+Login.h"; sourceTree = "<group>"; };
+		2C11485A1B44F0F50003DEF7 /* KIFUITestActor+Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+Login.m"; sourceTree = "<group>"; };
+		2C11485C1B44F2A50003DEF7 /* CUTERentTypeUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentTypeUITest.m; sourceTree = "<group>"; };
 		2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriod.h; sourceTree = "<group>"; };
 		2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriod.m; sourceTree = "<group>"; };
 		2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -706,6 +713,10 @@
 		2C2FCDD81B01B0DE002594D7 /* CUTEFormSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormSwitchCell.m; sourceTree = "<group>"; };
 		2C2FCDE51B01E521002594D7 /* ALAsset+GetImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+GetImage.h"; sourceTree = "<group>"; };
 		2C2FCDE61B01E521002594D7 /* ALAsset+GetImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+GetImage.m"; sourceTree = "<group>"; };
+		2C317F671B451F230041E05E /* KIFUITestActor+RentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFUITestActor+RentType.h"; sourceTree = "<group>"; };
+		2C317F681B451F230041E05E /* KIFUITestActor+RentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+RentType.m"; sourceTree = "<group>"; };
+		2C317F6A1B4522D20041E05E /* CUTEAddressMapUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAddressMapUITest.m; sourceTree = "<group>"; };
+		2C317F6C1B452C620041E05E /* CUTEAddressEditUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAddressEditUITest.m; sourceTree = "<group>"; };
 		2C3DE2311B035719006FF191 /* CUTETracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETracker.h; sourceTree = "<group>"; };
 		2C3DE2321B035719006FF191 /* CUTETracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETracker.m; sourceTree = "<group>"; };
 		2C3DE2391B05CCDC006FF191 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -1048,6 +1059,11 @@
 		2C056D251B4231F40075037A /* Rent */ = {
 			isa = PBXGroup;
 			children = (
+				2C11485C1B44F2A50003DEF7 /* CUTERentTypeUITest.m */,
+				2C317F671B451F230041E05E /* KIFUITestActor+RentType.h */,
+				2C317F681B451F230041E05E /* KIFUITestActor+RentType.m */,
+				2C317F6A1B4522D20041E05E /* CUTEAddressMapUITest.m */,
+				2C317F6C1B452C620041E05E /* CUTEAddressEditUITest.m */,
 			);
 			path = Rent;
 			sourceTree = "<group>";
@@ -1055,9 +1071,10 @@
 		2C056D261B4232340075037A /* User */ = {
 			isa = PBXGroup;
 			children = (
-				2C056DAF1B424D140075037A /* KIFTestActor+Login.h */,
-				2C056DB01B424D140075037A /* KIFTestActor+Login.m */,
+				2C1148591B44F0F50003DEF7 /* KIFUITestActor+Login.h */,
+				2C11485A1B44F0F50003DEF7 /* KIFUITestActor+Login.m */,
 				2C6D7B171B428E49007853FD /* CUTEApplyBetaUITest.m */,
+				2C1148571B44E4DA0003DEF7 /* CUTELoginUITest.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -2140,22 +2157,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C056D341B423A110075037A /* CUTESettingViewController.m in Sources */,
+				2C11485D1B44F2A50003DEF7 /* CUTERentTypeUITest.m in Sources */,
 				2C056D7E1B423ABD0075037A /* CUTERentContactDisplaySettingForm.m in Sources */,
+				2C317F691B451F230041E05E /* KIFUITestActor+RentType.m in Sources */,
 				2C056D781B423ABD0075037A /* CUTEApplyBetaRentingForm.m in Sources */,
 				2C056D681B423AB20075037A /* CUTERentPasswordViewController.m in Sources */,
 				2C056D501B423AB20075037A /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2C056D621B423AB20075037A /* CUTERentLoginViewController.m in Sources */,
 				2C056D841B423ABD0075037A /* CUTERentContactForm.m in Sources */,
+				2C317F6D1B452C620041E05E /* CUTEAddressEditUITest.m in Sources */,
 				2C056D991B423B4D0075037A /* CUTESplashViewController.m in Sources */,
+				2C1148581B44E4DA0003DEF7 /* CUTELoginUITest.m in Sources */,
 				2C056D8A1B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
 				2C6D7B181B428E49007853FD /* CUTEApplyBetaUITest.m in Sources */,
 				2C056D901B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
 				2C056DA31B423BBA0075037A /* CUTEForm.m in Sources */,
 				2C056D3A1B423A110075037A /* CUTEUserViewController.m in Sources */,
 				2C6D7B1E1B428F25007853FD /* KIFUITestActor+SplashUI.m in Sources */,
-				2C056DB11B424D140075037A /* KIFTestActor+Login.m in Sources */,
 				2C056DAC1B4245990075037A /* CUTESplashUITest.m in Sources */,
 				2C056D401B423A110075037A /* CUTESettingForm.m in Sources */,
+				2C11485B1B44F0F50003DEF7 /* KIFUITestActor+Login.m in Sources */,
+				2C317F6B1B4522D20041E05E /* CUTEAddressMapUITest.m in Sources */,
 				2C056D5C1B423AB20075037A /* CUTERentContactViewController.m in Sources */,
 				2C056D561B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
 				2C056DA91B423BBA0075037A /* CUTEFormViewController.m in Sources */,

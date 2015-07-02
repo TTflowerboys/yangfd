@@ -8,7 +8,7 @@
 
 #import "CUTETestCommon.h"
 #import <KIF.h>
-#import "KIFTestActor+Login.h"
+#import "KIFUITestActor+Login.h"
 #import "CUTECommonMacro.h"
 #import "Base64.h"
 #import "SVProgressHUD+CUTEAPI.h"

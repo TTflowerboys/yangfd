@@ -23,6 +23,7 @@
     self.textLabel.textColor = HEXCOLOR(0x333333, 1.0);
     self.textLabel.font = [UIFont systemFontOfSize:16];
     self.textField.accessibilityLabel = self.textLabel.text;
+    self.textField.accessibilityIdentifier = self.textField.accessibilityLabel;
 }
 
 - (void)setUp {

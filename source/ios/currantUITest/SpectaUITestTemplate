@@ -1,5 +1,6 @@
 #import "CUTETestCommon.h"
 #import <KIF.h>
+#import "CUTECommonMacro.h"
 
 
 SpecBegin(SplashUI)

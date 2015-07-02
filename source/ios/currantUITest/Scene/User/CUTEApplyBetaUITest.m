@@ -10,13 +10,13 @@
 #import <KIF.h>
 #import "KIFUITestActor+SplashUI.h"
 #import "KIFTestActor.h"
-#import "KIFTestActor+Login.h"
+#import "KIFUITestActor+Login.h"
 #import "CUTECommonMacro.h"
 #import "Base64.h"
 #import "SVProgressHUD+CUTEAPI.h"
 
 
-SpecBegin(ApplyBeta)
+SpecBegin(ApplyBetaUI)
 
 describe(@"Apply beta", ^ {
 
@@ -34,6 +34,7 @@ describe(@"Apply beta", ^ {
         [tester tapViewWithAccessibilityLabel:STR(@"确认")];
 
         [[tester usingTimeout:20] waitForViewWithAccessibilityLabel:STR(@"申请成功")];
+        [tester waitForAnimationsToFinish];
         [tester tapViewWithAccessibilityLabel:STR(@"OK")];
     });
 
@@ -45,9 +46,10 @@ describe(@"Apply beta", ^ {
         NSString *emailId = [[RANDOM_UUID base64EncodedString] substringToIndex:10];
         [tester enterText:CONCAT(emailId, @"@gmail.com") intoViewWithAccessibilityLabel:STR(@"邮箱")];
 
-        [tester tapViewWithAccessibilityLabel:STR(@"申请")];
+        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"申请邀请码")];
 
         [[tester usingTimeout:20] waitForViewWithAccessibilityLabel:STR(@"申请成功")];
+        [tester waitForAnimationsToFinish];
         [tester tapViewWithAccessibilityLabel:STR(@"OK")];
 
     });

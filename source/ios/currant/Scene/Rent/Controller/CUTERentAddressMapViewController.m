@@ -91,6 +91,7 @@
     _mapView.delegate = self;
     [self.view addSubview:_mapView];
 
+
     UIImageView *annotationView =  [[UIImageView alloc] init];
     annotationView.image = IMAGE(@"icon-location-building");
     [self.view addSubview:annotationView];
@@ -110,6 +111,8 @@
     [self.view addSubview:_textField];
     _textField.rightView.userInteractionEnabled = YES;
     [_textField.rightView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onAddressLocationButtonTapped:)]];
+    _textField.accessibilityIdentifier = @"MapTextField";
+    _textField.accessibilityLabel = @"MapTextField";
     _userLocationButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_userLocationButton setImage:IMAGE(@"map-user-location") forState:UIControlStateNormal];
     _userLocationButton.frame = CGRectMake(ScreenWidth - 40 -15, ScreenHeight - TabBarHeight - 40 - 15, 40, 40);

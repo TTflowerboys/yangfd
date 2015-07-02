@@ -73,6 +73,8 @@
         self.navigationItem.title = STR(@"联系方式");
     }
 
+    self.tableView.accessibilityIdentifier = STR(@"用户信息");
+
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

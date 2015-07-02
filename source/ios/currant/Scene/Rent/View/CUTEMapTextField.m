@@ -18,6 +18,7 @@
     if (self) {
         _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [self addSubview:_indicatorView];
+        _indicatorView.accessibilityLabel = @"MapTextFieldIndicator";
     }
     return self;
 }
