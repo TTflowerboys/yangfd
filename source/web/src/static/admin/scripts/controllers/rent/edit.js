@@ -50,6 +50,7 @@
                 return
             }
             $scope.loading = true
+
             api.update($stateParams.id, changed, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
