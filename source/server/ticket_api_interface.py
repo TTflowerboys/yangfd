@@ -928,6 +928,7 @@ def rent_ticket_suspend(ticket_id, user):
     """
     ticket = f_app.ticket.get(ticket_id)
     assert ticket["type"] == "rent", abort(40000, "Invalid rent ticket")
+    ticket = f_app.ticket.update_set(ticket_id, {"status": "draft"})
 
     ticket = f_app.ticket.output([ticket_id])[0]
     user = f_app.user.get(ticket["creator_user"]["id"])
