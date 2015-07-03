@@ -42,6 +42,10 @@ describe(@"AddressEdit", ^ {
         [tester tryFindingAccessibilityElement:nil view:&textField withIdentifier:@"Postcode" tappable:NO error:nil];
         [textField becomeFirstResponder];
         [tester clearTextFromAndThenEnterText:@"430079" intoViewWithAccessibilityLabel:@"Postcode"];
+        [tester tapViewWithAccessibilityLabel:STR(@"确认")];
+        [tester waitForViewWithAccessibilityLabel:STR(@"是否按新postcode重新定位再继续？")];
+        [tester waitForAnimationsToFinish];
+        [tester tapViewWithAccessibilityLabel:STR(@"好的")];
         [tester waitForAbsenceOfViewWithAccessibilityLabel:STR(@"搜索中...")];
         //request
         [tester waitForTimeInterval:10];
@@ -78,6 +82,7 @@ describe(@"AddressEdit", ^ {
         cell = [tableView cellForRowAtIndexPath:indexPath];
         assertThat(cell.detailTextLabel.text, notNilValue());//city
         [tester clearTextFromAndThenEnterText:@"430079" intoViewWithAccessibilityLabel:@"Postcode"];
+        [tester tapViewWithAccessibilityLabel:STR(@"确认")];
         [tester waitForViewWithAccessibilityLabel:STR(@"是否按新postcode重新定位再继续？")];
         [tester waitForAnimationsToFinish];
         [tester tapViewWithAccessibilityLabel:STR(@"好的")];
