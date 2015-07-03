@@ -518,6 +518,19 @@
             validate = false
             errorMsg = i18n('图片正在上传中，请稍后再发布')
         }
+
+        function checkHtmlTag (elem) {
+            var val = elem.val()
+            var tagReg = /(?:<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\/>))|(?:\[([a-z]+)([^\[]+)*(?:\](.*)\[\/\4\]|\/\]))/i
+
+            if (tagReg.test(val)) {
+                validate = false
+                errorMsg = i18n('输入框中含有HTML标签，请重新编辑后再继续')
+                highlightErrorElem(elem)
+            }
+        }
+        checkHtmlTag($('#description'))
+
         if(!validate){
             //window.console.log(errorMsg)
             $errorMsg.text(errorMsg).show()
