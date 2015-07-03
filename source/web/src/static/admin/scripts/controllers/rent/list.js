@@ -54,6 +54,14 @@
             })
         }
 
+        $scope.onSuspend = function (item) {
+            fctModal.show('Do you want to suspend it and send email to notify owner?', undefined, function () {
+                api.suspend(item.id, {errorMessage: true}).success(function () {
+                    location.reload()
+                })
+            })
+        }
+
         $scope.nextPage = function () {
             var lastItem = $scope.list[$scope.list.length - 1]
             if (lastItem.last_modified_time) {
