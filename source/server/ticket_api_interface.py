@@ -936,13 +936,14 @@ def rent_ticket_suspend(ticket_id, user):
         f_app.email.schedule(
             target=user["email"],
             subject=title,
-            text=template("static/emails/rent_suspend_notice", params=dict(
+            text=template(
+                "static/emails/rent_suspend_notice",
                 nickname=user.get("nickname"),
                 formated_date='之前',  # TODO
                 rent_url="http://yangfd.com/property-to-rent/" + ticket_id,
                 rent_edit_url="http://yangfd.com/property-to-rent/" + ticket_id + "/edit",
                 title=title,
-            )),
+            ),
             display="html",
         )
 
