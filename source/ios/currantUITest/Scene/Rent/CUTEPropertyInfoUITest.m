@@ -34,8 +34,8 @@ describe(@"PropertyInfo", ^ {
         [tester swipeRowAtIndexPath:indexPath inTableView:tableView inDirection:KIFSwipeDirectionUp];
         UITableViewCell *areaCell = [tableView cellForRowAtIndexPath:indexPath];
         assertThat(areaCell.textLabel.text, equalTo(@"房屋面积（选填）"));
+
     });
-    
 });
 
 SpecEnd
