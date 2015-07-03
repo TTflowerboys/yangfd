@@ -14,6 +14,9 @@
                 data = misc.formatUnsetField(data)
                 return $http.post('/api/1/rent_ticket/' + id + '/edit', data, config)
             },
+            suspend: function (id, config) {
+                return $http.post('/api/1/rent_ticket/' + id + '/suspend', config)
+            },
             remove: function (id, config) {
                 return $http.post('/api/1/rent_ticket/' + id + '/edit', {status: 'deleted'}, config)
             },
