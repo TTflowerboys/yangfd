@@ -23,6 +23,9 @@ angular.module('app')
         var rentResolve = {
             api: function (rentApi) {
                 return rentApi
+            },
+            propertyApi: function (propertyApi){
+                return propertyApi
             }
         }
 
