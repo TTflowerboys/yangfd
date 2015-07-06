@@ -1,10 +1,5 @@
 <!--@@master=master/house_card_content_master_phone.tpl.html-->
 
-<!--@@block=price -->
-<span class=price>
-    <!--@@include=../../partials/get_unit_price.tpl.html -->
-</span>
-<!--@@close -->
 
 
 <!--@@block=action_phone -->
@@ -18,7 +13,7 @@
         <label>{=window.i18n('取消收藏')=}</label>
     </a>
 </div>
-<div class="undoFavorite_shadow" style="display:none;">
+<div class="undoFavorite_shadow otherAction" style="display:none;">
     <button id="undoFavorite"  data-id={=fav.id=} data-property-id="{=fav.property.id=}" class="undoFavorite">
         <i class="icon-refresh"></i>
         <span>{=window.i18n('撤销')=}</span>

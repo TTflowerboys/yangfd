@@ -1,11 +1,26 @@
 <!--@@master=master/house_card_content_master_phone.tpl.html-->
-<!--@@block=price -->
-<span class=price>
-    <!--@@include=../../partials/get_unit_price.tpl.html -->
-</span>
-<!--@@close -->
-<!--@@block=action_phone -->
-<!--<div class="otherAction">
-    <button id="removeProperty" data-id="{=ticket.id=}" class="ghostButton redPhone">{{_('移除')}}</button>
-</div>-->
+
+<!--@@block=right_content -->
+<a><i class="icon-delete" data-action="removeProperty"></i></a>
+<!--<a><i class="icon-edit"></i></a>-->
 <!--@@close-->
+
+<!--@@block=action_phone -->
+{_if(house.property_type && (house.property_type.slug === 'new_property' || house.property_type.slug === 'student_housing') && house.main_house_types && house.main_house_types.length || house.total_price && house.total_price.localized_unit_symbol){_}
+<label class="price">
+    <!--@@include=../../partials/get_unit_price.tpl.html -->
+</label>
+{_}_}
+
+<!--@@close-->
+
+<!--@@block=cover_phone -->
+<div class="otherAction">
+    <a class="wechatShare action" data-id="{=ticket.id=}">{=window.i18n('分享到微信')=}</a>
+    <a class="wechatShare action" data-id="{=ticket.id=}" data-action="removeProperty">{=window.i18n('移除')=}</a>
+</div>
+
+<!--@@close-->
+
+
+

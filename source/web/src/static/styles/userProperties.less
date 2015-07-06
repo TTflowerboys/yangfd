@@ -236,3 +236,46 @@ div.content {
         }
     }
 }
+.houseCard_phone_new .imagePart .imageText .right{
+    a{
+        color: #999;
+        font-size: 21px;
+        padding: 4px;
+    }
+    .price{
+        display: none;
+    }
+}
+.houseCard_phone_new .textPart{
+    .price{
+        display: inline-block;
+        padding: 0 15px;
+        color: #e60012;
+        font-size: 16px;
+        >strong{
+            font-size: 24px;
+        }
+        .price_reference {
+            display: none;
+        }
+    }
+}
+.houseCard{
+    &:hover{
+        border-top-color: #d2d2d2;
+        background-color: #fff;
+        .description > h1{
+            .limitedLines(1, 30px, #fff);
+        }
+    }
+    .description {
+        .properties{
+            border-bottom: none;
+        }
+        .details {
+            .left{
+                display: none;
+            }
+        }
+    }
+}

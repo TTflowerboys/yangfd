@@ -308,14 +308,14 @@ $(function () {
      * */
     function bindPropertyItemCancelFav(propertyId){
 
-        $('.houseCard_phone[data-property-id=' + propertyId + '] .cancelFavorite').on('click', function (event) {
+        $('.houseCard_phone_new[data-property-id=' + propertyId + '] .cancelFavorite').on('click', function (event) {
             ga('send', 'event', 'user-fav', 'click', 'cancel-fav')
 
             var favoriteId = $(event.currentTarget).attr('data-id')
             $.betterPost('/api/1/user/favorite/' + favoriteId + '/remove')
                 .done(function (data) {
-                    $(event.currentTarget).hide()
-                    var $undoButton = $(event.currentTarget).parents('.houseCard_phone').find('.undoFavorite[data-id=' + favoriteId + ']')
+                    $(event.currentTarget).parent('.otherAction').hide().parents('.houseCard_phone_new').addClass('gray')
+                    var $undoButton = $(event.currentTarget).parents('.houseCard_phone_new').find('.undoFavorite[data-id=' + favoriteId + ']')
                     $undoButton.parent().show()
 
                     ga('send', 'event', 'user-fav', 'click', 'cancel-fav-success')
@@ -332,7 +332,7 @@ $(function () {
             var favoriteId = $(event.currentTarget).attr('data-id')
             $.betterPost('/api/1/user/favorite/' + favoriteId + '/remove')
                 .done(function (data) {
-                    $(event.currentTarget).hide()
+                    $(event.currentTarget).parent('.otherAction').hide().parents('.houseCard').addClass('gray')
                     var $undoButton = $(event.currentTarget).parents('.houseCard').find('.undoFavorite[data-id=' + favoriteId + ']')
                     $undoButton.parent().show()
 
@@ -346,7 +346,7 @@ $(function () {
     }
 
     function bindPropertyItemUndoCancel(propertyId){
-        $('.houseCard_phone[data-property-id=' + propertyId + '] .undoFavorite').on('click', function (event) {
+        $('.houseCard_phone_new[data-property-id=' + propertyId + '] .undoFavorite').on('click', function (event) {
             ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav')
 
             $.betterPost('/api/1/user/favorite/add', {'property_id': propertyId, 'type':'property'})
@@ -357,7 +357,7 @@ $(function () {
                             var fav = data
                             var houseResult = _.template($('#houseCard_template').html())({fav: fav})
                             $('.houseCard[data-property-id=' + propertyId + ']').remove()
-                            $('.houseCard_phone[data-property-id=' + propertyId + ']').replaceWith(houseResult)
+                            $('.houseCard_phone_new[data-property-id=' + propertyId + ']').replaceWith(houseResult)
 
                             bindPropertyItemCancelFav(fav.property.id)
                             bindPropertyItemUndoCancel(fav.property.id)
@@ -380,7 +380,7 @@ $(function () {
                         .done(function (data) {
                             var fav = data
                             var houseResult = _.template($('#houseCard_template').html())({fav: fav})
-                            $('.houseCard_phone[data-property-id=' + propertyId + ']').remove()
+                            $('.houseCard_phone_new[data-property-id=' + propertyId + ']').remove()
                             $('.houseCard[data-property-id=' + propertyId + ']').replaceWith(houseResult)
 
                             bindPropertyItemCancelFav(fav.property.id)

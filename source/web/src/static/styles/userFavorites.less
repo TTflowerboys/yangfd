@@ -1,5 +1,20 @@
 @import "/project/_imports";
 
+.gray {
+    transition: all ease 0.4s 0s;
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+
+    filter: grayscale(100%);
+
+    filter: gray;
+    >*{
+        transition: all ease 0.4s 0s;
+        opacity: 0.5;
+    }
+}
 .page{
     @media @phone{
         position: static;
@@ -56,130 +71,26 @@
                 margin-top:0px;
             }
             .houseCard {
-                margin-bottom: 100px;
-                .description {
-
-                    .properties {
-                        li {
-                            margin-bottom: 8px;
-                            img {
-                                height: 16px;
-                                vertical-align: middle;
-                            }
-                            span {
-                                font-size: 12px;
-                                height: 16px;
-                                line-height: 16px;
-                                margin-left: 8px;
-                            }
-                        }
-                    }
-                }
-
-                .status {
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    color: #0090c6;
-                    font-size: 14px;
-                }
-
-                .action > a {
-                    height: 40px;
-                    padding: 6px 40px;
-                }
                 .otherAction {
-                    position: absolute;
-                    right: 0;
-                    bottom: 0;
-                    height: 40px;
-                    button {
-                        margin-top: 6px;
-                        height: 28px;
-                        font-size: 14px;
-                        padding: 0 24px;
-                    }
+                    opacity: 1;
                 }
-
-                .undoFavorite {
-                    &_shadow {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        .imageOpacity(0.4);
-                        background: #373737;
-                        z-index: @house_card-undo-shadow-z-index;
+                &_phone_new {
+                    transition: all ease 0.4s 0s;
+                    .propertyInfo .size > div .content{
+                        font-size: 18px;
+                        color: #e61919;
                     }
-
-                    position: absolute;
-                    bottom: 15px;
-                    right: 20px;
-                    border: 0 solid;
-                    display: inline-block;
-                    background: transparent;
-                    padding: 0;
-                    height: 25px;
-                    font-size: 16px;
-                    color: white;
-
-                    span {
-                        vertical-align: middle;
-                    }
-                    img,i {
-                        display: inline-block;
-                        vertical-align: middle;
-                        margin-right: 10px;
-                        margin-top: -5px;
-                        font-size: 21px;
-                    }
-                }
-                &_phone {
-                    position: relative;
-
                     .otherAction {
-                        display: none;
-                        border-top: 1px solid @border-color;
-                        border-bottom: 1px solid @border-color;
-                        min-height: 42px;
-                        > a {
-                            display: block;
-                            text-align: center;
-                            padding: @standard-margin @standard-margin;
-
-                            > label,i{
-                                color:#999;
-                                font-size:@root-font-size-mobile;
-                            }
-                        }
-
-                        @media @phone {
-                            display: inherit;
-                        }
+                        opacity: 1;
                     }
                     .undoFavorite {
-                        &_shadow {
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            .imageOpacity(0.4);
-                            background: #373737;
-                            z-index: @house_card-undo-shadow-z-index;
+                        width: 100%;
+                        background: none;
+                        border: none;
+                        font-size: 14px;
+                        &:active{
+                            border: none;
                         }
-
-                        position: absolute;
-                        bottom: 10px;
-                        right: 20px;
-                        border: 0 solid;
-                        display: inline-block;
-                        background: transparent;
-                        padding: 0;
-                        height: 25px;
-                        font-size: 16px;
-                        color: white;
 
                         span {
                             vertical-align: middle;
@@ -187,9 +98,9 @@
                         img,i {
                             display: inline-block;
                             vertical-align: middle;
-                            margin-right: 10px;
+                            margin-right: 2px;
                             margin-top: -5px;
-                            font-size: 21px;
+                            font-size: 18px;
                         }
                     }
                 }

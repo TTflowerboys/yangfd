@@ -3,7 +3,7 @@
 @border-width: 2px;
 @border-color: #d2d2d2;
 @padding-top: 20px;
-@black: #333333;
+@black: #666;
 @grey: #a3a3a3;
 .houseCard {
     float:left; position: relative; border-top: @border-width solid @border-color; font-size: 14px; color: @grey;
@@ -11,6 +11,13 @@
     min-width: 700px;
     display:block;
     width:100%;
+    &:hover {
+        background-color: #fff9e4;
+        border-color: #ff8a00;
+        .description > h1{
+            .limitedLines(1, 30px, #fff9e4);
+        }
+    }
 
     @media @phone {
         position:static;
@@ -49,7 +56,7 @@
         .labels {
             position: absolute;
             right: 0;
-            top:0;
+            top: 10px;
             height:40px;
             width:100%;
             z-index:@house_card-image-text-z-index;
@@ -62,10 +69,10 @@
                 padding:0 12px;
 
                 &.type {
-                    background:#333;
+                    background:rgba(51,51,51,0.75);
                 }
                 &.rent {
-                    background:#e60012;
+                    background:rgba(230,0,18,0.75);
                 }
 
             }
@@ -97,14 +104,47 @@
 
 
     .description {
-
+        display: block;
+        color: #a3a3a3;
+        text-decoration: none;
         &_wrapper {
             position:absolute;
             padding-left: 320px + @padding-top;
-            padding-top: @padding-top;
+            padding-top: 14px;
             top:0;
             width:100%;
             height:100%;
+            .consultAction{
+                position: absolute;
+                top: 90px;
+                right: 21px;
+                button {
+                    i {
+                        margin-right: 5px;
+                        vertical-align: middle;
+                        line-height: 18px;
+                        font-size: 16px;
+                        color: #fff;
+                    }
+                    label {
+                        vertical-align: middle;
+                        line-height: 18px;
+                        font-size: 14px;
+                        cursor:pointer;
+                        color: #fff;
+                    }
+                    &.openRequirement {
+                        display:none;
+                        background:@red;//may cover on text so, need a background color
+                    }
+                    border-radius:6px;
+                    font-size:18px;
+                    line-height:18px;
+                    padding: 6px 8px;
+                    border: none;
+                    background:@red;
+                }
+            }
         }
 
         position:relative;
@@ -118,13 +158,13 @@
         }
 
         > h1 {
-            font-size: 24px;
+            font-size: 21px;
             font-weight: bold;
             margin: 0;
             color: @black;
             font-family: @font-normal;
             max-width:60%;
-            .limitedLines(2, 34px);
+            .limitedLines(1, 30px, white);
 
             a {
                 text-decoration:none;
@@ -136,7 +176,7 @@
             color: @red;
             font-size: 14px;
             position: absolute;
-            right: 0;
+            right: 21px;
             top: 0;
             max-width:40%;
             text-align:right;
@@ -158,76 +198,68 @@
                 }
             }
         }
+        .properties {
+            cursor: pointer;
+            margin: 12px 21px 12px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
 
-        > .details {
-            font-family: @font-song;
-            overflow: hidden;
-            .left {
+            li {
+                line-height:1.6em;
+                overflow:hidden;
+            }
+            i{
+                margin-right: 8px;
+                font-size: 16px;
+                color: @red;
                 float: left;
-                width:50%; // for ie
-
-                .size {
-                    margin-bottom: 0;
-                }
-                > .estimate {
-                    overflow: hidden;
-                    @media @phone {
-                        float:left;
-                        width:100%;
-                    }
-                    .label {
-                        float: left;
-                        line-height: 1.4;
-                        margin-right: 1em;
-                        max-width:60%;
-                    }
-                    .value {
-                        float: left;
-                        color: @red;
-                        font-size: 26px;
-                        line-height: 1;
-                    }
-                }
-
+                line-height: 18px;
             }
 
-            >.right {
-                float: right;
-                width: 50%;
-                padding-left: 16px;
+            label {
+                float: left;
+                width: 410px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                line-height: 1.6em;
+            }
 
-                > .properties {
+            @media @phone {
+                float:left;
+                max-width:100%;
+            }
 
-                    li {
-                        line-height:1.4em;
-                        overflow:hidden;
+        }
+        > .details {
+            overflow: hidden;
+            .clearfix;
+            .left{
+                width: 75%;
+                float: left;
+                .clearfix;
+                >div{
+                    margin-right: 4%;
+                    float: left;
+                    border-right: 1px solid #ccc;
+                    &:nth-last-child(1){
+                        border-right: 0;
                     }
-
-                    img {
-                        vertical-align:middle;
-                        display: inline-block;
-                        float: left;
-                        margin-top:3px;
-                    }
-                    i{
-                        float: left;
-                        margin-right: 5px;
+                    .content{
+                        min-height: 0;
+                        margin-top: 6px;
                         font-size: 16px;
+                        color: @red;
+                        .bold{
+                            font-size: 21px;
+                        }
                     }
-
-                    label {
-                        display: inline-block;
-                        float: right;
-                        width: 88%;
-                    }
-
-                    @media @phone {
-                        float:left;
-                        max-width:100%;
-                    }
-
                 }
-
+            }
+            .publishTime{
+                position: absolute;
+                right: 21px;
+                bottom: 22px;
             }
         }
         > .action {
@@ -242,29 +274,11 @@
             position: absolute;
             right: 0;
             bottom: @border-width;
-            button {
-                img {
-                    margin-right: 5px;
-                    vertical-align: middle;
-                    line-height: 20px;
-                }
-                label {
-                    vertical-align: middle;
-                    line-height: 20px;
-                    font-size: 20px;
-                    cursor:pointer;
-                }
-                &.openRequirement {
-                    display:none;
-                    background:white;//may cover on text so, need a background color
-                }
-                border-radius:6px;
-                font-size:20px;
-                line-height:20px;
-                padding: 8px 6px;
-            }
+
         }
+
     }
+
 }
 
 .houseCard_phone {
@@ -305,10 +319,10 @@
                 padding:0 12px;
 
                 &.type {
-                    background:#333;
+                    background:rgba(51,51,51,0.75);
                 }
                 &.rent {
-                    background:#e60012;
+                    background:rgba(230,0,18,0.75);
                 }
 
             }
@@ -482,14 +496,14 @@
         }
     }
 }
-.houseCard_phone_intention {
+.houseCard_phone_new {
     display:none;
     background:#fff;
     color: @grey;
     border-bottom: 2px solid #e4e4e4;
     @media @phone {
         display:block;
-        margin-bottom:20px;
+        margin-bottom:24px;
     }
 
     a {
@@ -521,10 +535,10 @@
                 padding:5px 12px;
 
                 &.type {
-                    background:#333;
+                    background:rgba(51,51,51,0.75);
                 }
                 &.rent {
-                    background:#e60012;
+                    background:rgba(230,0,18,0.75);
                 }
 
             }
@@ -586,6 +600,7 @@
             .right {
                 table{
                     width: 100%;
+                    height: 100%;
                 }
                 display:inline-block;
                 float:right;
@@ -595,7 +610,7 @@
                 padding-right: 20px;
                 .price {
                     display: block;
-                    margin-top: 12px;
+                    margin-top: 4px;
                     color:#e60012;
                     font-size:16px;
                     strong {
@@ -603,8 +618,12 @@
                     }
 
                     >.price_reference {
+                        font-size: 14px;
                         color: @grey;
-                        display: none;
+                        display: inherit;
+                        .down_payment,.comma{
+                            display: none;
+                        }
                         strong {
                             font-size:inherit;
                         }
@@ -620,24 +639,14 @@
             display: none;
 
         }
-        .intentionStatus {
+        .statusWrap {
             table-layout:fixed;
             width:100%;
             font-size: 14px;
             color: @grey;
             padding: 0 15px 10px;
             .clearfix;
-            .estimate {
-                width:40%;
-                float: left;
-                color: #ffa400;
-            }
-            .properties {
-                float: right;
-                text-align: right;
-                width:60%;
-                background:transparent;
-            }
+
         }
     }
     hr{
@@ -645,23 +654,28 @@
         color: @border-color;
     }
     .propertyInfo{
-        padding: 10px 15px;
-        border-bottom: 1px solid @border-color;
-        .location{
-            color: @grey;
-            margin: 8px 0 0;
-            font-size: 14px;
-            .clearfix;
-            i{
-                display: block;
-                float: left;
-                font-size: 16px;
-                color: #e60012;
-                margin-right: 6px;
+        padding: 10px 15px 20px;
+        .properties{
+            li{
+                color: @grey;
+                margin: 8px 0 0;
+                font-size: 14px;
+                .clearfix;
+                label{
+                    line-height: 16px;
+                    vertical-align: middle;
+                }
+                i{
+                    display: block;
+                    float: left;
+                    font-size: 16px;
+                    color: #e60012;
+                    margin-right: 6px;
+                }
+                .limitedLines(1,16px)
             }
-            .limitedLines(1,16px)
         }
-        .size {
+        .estimated {
             padding: 10px 0 0;
             font-size: 14px;
             .clearfix;
@@ -669,6 +683,9 @@
                 width: 48%;
                 float: left;
                 margin: 15px 2% 0 0;
+                &:nth-child(1){
+                    border-right: 1px solid #ccc;
+                }
                 p{
                     margin: 0 0 5px;
                 }
@@ -676,30 +693,37 @@
                     color: @grey;
                 }
                 .content{
-                    color: @black;
+                    color: @red;
+                    font-size:18px;
+                    font-weight: bold;
                 }
             }
-            .room{
-                border-right: 1px solid @border-color;
-            }
+
         }
     }
-    .contact{
+    .otherAction{
+        display: flex;
+        flex-direction: row;
+        border-top: 1px solid @border-color;
         padding: 10px 0;
         .clearfix;
         a{
-            display: block;
-            float: left;
-            width: 48%;
+            flex: 1;
+            text-align: center;
+            //display: block;
+            //float: left;
+            //width: 48%;
             height: 30px;
             line-height: 30px;
             margin-right: 2%;
             color: @grey;
             font-size: 14px;
             text-align: center;
-            &.phone{
-                border-right: 1px solid @border-color;
+            border-right: 1px solid @border-color;
+            &:nth-last-child(1){
+                border-right: none;
             }
         }
     }
+
 }

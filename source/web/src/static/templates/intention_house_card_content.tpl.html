@@ -1,7 +1,11 @@
 <!--@@master=master/house_card_content_master.tpl.html-->
 <!--@@block=price -->
 <label class="status">{=ticket.status_presentation.value=}</label>
+<span class=price>
+    <!--@@include=../../partials/get_unit_price.tpl.html -->
+</span>
 <!--@@close -->
+
 <!--@@block=action -->
 
 <!--@@close-->

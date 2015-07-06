@@ -1,65 +1,15 @@
 <!--@@master=master/house_card_content_master_phone.tpl.html-->
 <!--@@block=action_phone -->
-<div class="intentionStatus">
+<div class="statusWrap">
     <label class="status estimate">{=ticket.status_presentation.value=}</label>
     <label class="properties">
         {=project.formatDate(ticket.time)=}
     </label>
 </div>
-<hr/>
-<div class="propertyInfo">
-    <p class="location">
-        <i class="icon-location_fill"></i>
-        <label>
-            {_if (house.street){_}
-            {=house.street=},
-            {_}_}
-            {_if (house.city){_}
-            {=house.city.name=},
-            {_}_}
-            {_if (house.country){_}
-            {=window.team.countryMap[house.country.code]=}
-            {_}_}
-        </label>
-    </p>
-    {_if(house.living_room_count || house.bathroom_count || house.space) {_}
-    <div class="size">
-        <div class="room">
-            <p class="title">{=window.i18n('房间')=}</p>
-            <p class="content">
-                {_if(house.living_room_count) {_}
-                {=house.living_room_count=}{=window.i18n('室')=}
-                {_}_}
-                {_if(house.bathroom_count) {_}
-                {=house.bathroom_count=}{=window.i18n('卫')=}
-                {_}_}
-            </p>
-        </div>
-        <div class="space">
-            <p class="title">{=window.i18n('面积')=}</p>
-            <p class="content">
-                {_if(house.space) {_}
-                {= parseFloat(house.space.value).toFixed(2)=}
-                {_if (house.space.unit === 'foot ** 2'){_}
-                SQFT
-                {_} else if(house.space.unit === 'acre'){_}
-                ACRE
-                {_} else if (house.space.unit === 'meter ** 2') {_}
-                m <sup>2</sup>
-                {_} else if (house.space.unit === 'kilometer ** 2') {_}
-                km <sup>2</sup>
-                {_} else {_}
-                {=house.space.unit=}
-                {_}_}
-                {_}_}
-            </p>
-        </div>
-    </div>
-    {_}_}
-</div>
+
 <!--@@close -->
 <!--@@block=cover_phone -->
-<div class="contact">
+<div class="contact otherAction">
     <a class="phone" href="tel:{{get_phone_numbers('link')[0]}}">{=window.i18n('拨打电话')=}</a>
     <a class="wechatShare" class="action" data-id="{=ticket.id=}">{=window.i18n('微信')=}</a>
 </div>

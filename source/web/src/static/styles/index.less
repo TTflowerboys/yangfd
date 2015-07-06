@@ -33,7 +33,7 @@
     }
 
     .list {
-        margin-top: 28px;
+        margin-top: 20px;
         .item {
             display: block;
             font-size: @base-font-size-mobile;
@@ -45,6 +45,9 @@
 }
 
 main {
+    @media @phone{
+        background-color: #f6f6f6;
+    }
     .gallery {
         li {
             position: relative;
@@ -412,7 +415,7 @@ main {
             }
 
             .hint {
-                width: 180px;
+                width: 185px;
                 display: inline-block;
                 font-size: 16px;
                 color: #333;
@@ -434,7 +437,7 @@ main {
             }
 
             .hint {
-                width: 180px;
+                width: 185px;
                 display: inline-block;
                 font-size: 16px;
                 color: #333;
@@ -724,13 +727,28 @@ main {
         .houseCard {
             .description_wrapper {
                 padding-right:320px;
-
-                .description .details .properties label {
-                    width:91%;
+                .consultAction{
+                    right: 361px;
+                }
+                .description {
+                    .details .properties {
+                        li{
+                            margin-bottom: 0;
+                            label {
+                                width:91%;
+                            }
+                        }
+                    }
+                    .price br{
+                        display: none;
+                    }
                 }
             }
 
             .relatedNews {
+                display: block;
+                text-decoration: none;
+                color: #666666;
                 position:absolute;
                 top:0;
                 right:0;
@@ -744,7 +762,7 @@ main {
                 }
 
                 .title {
-                    margin-top: 20px;
+                    margin-top:8px;
                 }
             }
 
@@ -782,7 +800,6 @@ main {
                             font-size: 12px;
                             height: 16px;
                             line-height: 16px;
-                            margin-left: 8px;
                         }
                     }
                 }
@@ -796,12 +813,17 @@ main {
 
     }
 
-    .houseCard_phone {
+    .houseCard_phone_new {
+        .price {
+            .mute:nth-child(1),br{
+                display: none;
+            }
+        }
         .relatedNews {
             max-height:215px;
             display:block;
             width:100%;
-            border-bottom:1px solid #ccc;
+            border-top:1px solid #ccc;
             .newsList();
 
             .title {
@@ -884,9 +906,17 @@ main {
         }
 
         .houseCard {
-            display: inline-block;
-            width: 860px;
-
+            .description_wrapper {
+                padding-right: 340px;
+                .consultAction{
+                    right: 361px;
+                }
+            }
+            &:hover{
+                .tagDetail p{
+                    .limitedLines(6, 24px, #fff9e4);
+                }
+            }
             @media @phone {
                 display:none;
                 width:100%;
@@ -896,56 +926,65 @@ main {
             .description .details .properties label {
                 width:91%;
             }
-        }
-
-        .houseCard_phone {
-            margin-bottom:0;
-        }
-
-        .tagDetail {
-            float: right;
-            width: 320px;
-            height: @house_card-height;
-            margin-left: 20px;
-            display: inline-block;
-            background: #fff4f5;
-            border: 1px solid #e0c1c4;
-            padding: 33px 16px 16px 16px;
+            .tagDetail {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 320px;
+                height: 213px;
+                margin: 20px 0 0 0px;
+                display: inline-block;
+                border-left: 1px solid #ccc;
+                padding: 13px 16px 16px 26px;
+                text-decoration: none;
 
 
-            @media @phone {
-                float:left;
-                display:block;
-                border: 0;
-                border-bottom:1px solid #ccc;
-                width:100%;
-                height:auto;
-                margin-left:0;
-                padding-top:10px;
-            }
-
-
-            h3 {
-                font-size: 16px;
-                color: #e60012;
-                background: #fff4f5;
-                line-height: 1;
-                margin-bottom: 10px;
                 @media @phone {
-                    font-size:@base-font-size-mobile;
-                    margin-bottom:20px;
+                    float:left;
+                    display:block;
+                    border: 0;
+                    width:100%;
+                    height:auto;
+                    margin-left:0;
+                    padding-top:10px;
+                }
+
+
+                h3 {
+                    font-size: 16px;
+                    color: #e60012;
+                    line-height: 1;
+                    margin-bottom: 20px;
+                    @media @phone {
+                        font-size:@base-font-size-mobile;
+                        margin-bottom:20px;
+                    }
+                }
+
+                p {
+                    font-size: @base-font-size-mobile;
+                    color: #666;
+                    line-height: 2;
+                    margin: 0;
+                    .limitedLines(6, 24px, #fff);
+                }
+
+            }
+        }
+
+        .houseCard_phone_new {
+            margin-bottom:0;
+            .tagDetail{
+                border-top: 1px solid #ccc;
+                padding: 15px 20px 5px;
+                h3{
+                    font-size: 16px;
+                    color: @red;
                 }
             }
-
-            p {
-                font-size: @base-font-size-mobile;
-                color: #666;
-                line-height: 2;
-                margin: 0;
-                .limitedLines(6, 24px, #fff4f5);
-            }
-
         }
+
+
 
         .houseCard_suggestionHolder {
             float:left;
@@ -953,16 +992,64 @@ main {
             min-height:@house_card-height;
             min-width: 700px;
             display:inline-block;
-            width:860px;
+            width:100%;
+            padding-right: 340px;
 
             @media @phone {
+                background: #fff;
                 position:static;
                 min-height:0;
                 min-width:0;
                 display:block;
                 width:100%;
+                padding: 0;
             }
+            .tagDetail {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 320px;
+                height: 213px;
+                margin: 20px 0 0 0px;
+                display: inline-block;
+                border-left: 1px solid #ccc;
+                padding: 13px 16px 16px 26px;
+                text-decoration: none;
 
+
+                @media @phone {
+                    position: static;
+                    float:left;
+                    display:block;
+                    border: 0;
+                    width:100%;
+                    height:auto;
+                    margin-left:0;
+                    padding-top: 20px;
+                    border-top: 1px solid #ccc;
+                }
+
+
+                h3 {
+                    font-size: 16px;
+                    color: #e60012;
+                    line-height: 1;
+                    margin-bottom: 20px;
+                    @media @phone {
+                        font-size:@base-font-size-mobile;
+                        margin-bottom:20px;
+                    }
+                }
+
+                p {
+                    font-size: @base-font-size-mobile;
+                    color: #666;
+                    line-height: 2;
+                    margin: 0;
+                    .limitedLines(6, 24px, #fff);
+                }
+
+            }
             .emptyPlaceHolder {
                 width:525px;
                 margin:50px auto 0 auto;
@@ -971,6 +1058,7 @@ main {
                 @media @phone {
                     width:100%;
                     margin: 20px auto;
+                    text-align: center;
                 }
 
                 img {
@@ -1006,6 +1094,7 @@ main {
                         color:#999;
 
                         @media @phone {
+                            line-height: 2;
                             font-size:@base-title-font-size-mobile;
                         }
 
@@ -1019,7 +1108,7 @@ main {
 
                         @media @phone {
                             font-size:@base-font-size-mobile;
-                            line-height:20px;
+                            line-height:2;
                         }
 
                         a {

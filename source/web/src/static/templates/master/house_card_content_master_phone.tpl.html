@@ -1,4 +1,11 @@
-<a class="imagePart" href="/property/{=house.id=}">
+<!--@@placeholder=var -->
+<a class="imagePart"
+    %if is_mobile_client():
+    href="#" onclick="window.bridge.callHandler(&quot;openURLInNewController&quot;, '/property/{=house.id=}');return false;"
+    %else:
+    href="/property/{=house.id=}"
+    %end
+    >
     {_if (house.cover){_}
     <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
     {_ } else if(house.reality_images && house.reality_images.length) {_}
@@ -45,6 +52,7 @@
             <table>
                 <tr>
                     <td>
+                        <!--@@placeholder=right_content -->
                         <label class="price">
                             <!--@@include=../../../partials/get_unit_price.tpl.html -->
                         </label>
@@ -55,50 +63,115 @@
     </div>
 </a>
 <div class="textPart">
-    <a class="textPart_inner" href="/property/{=house.id=}">
-        <table class="textPart_innerTable">
-            <tr>
-                <td class="properties">
-                    <ul>
-                        {_if(house.intention && house.intention.length) {_}
-                        <li>
-                            <i class="icon-tag_icon"></i>
-                            <label>
-                                {_ _.each(house.intention, function(oneIntention) { _}
-                                {=oneIntention.value=}
-                                {_})_}
-                            </label>
-                        </li>
-                        {_}_}
-                        {_if(house.street) {_}
-                        <li>
-                            <i class="icon-location_fill"></i>
-                            <label>{=house.street=}</label>
-                        </li>
-                        {_}_}
-                    </ul>
-                </td>
-                <td class="estimate">
-                    <div>
-                        <table class="inner">
-                            <tr>
-                                <td>
-                                    {_if(house.annual_return_estimated) {_}
-                                    <span class="label">{=window.i18n('预计年化收益率')=}</span>
-                                    <span class="value"><strong>{=house.annual_return_estimated=}</strong></span>
-                                    {_} else if (house.annual_cash_return_estimated) { _}
-                                    <span class="label">{=window.i18n('预估租金收益率')=}</span>
-                                    <span class="value"><strong>{=house.annual_cash_return_estimated=}</strong></span>
-                                    {_}_}
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <p></p>
-    </a>
+
     <!--@@placeholder=action_phone -->
+    <hr/>
+    <div class="propertyInfo">
+        <ul class="properties">
+            <li>
+                <i class="icon-location_fill"></i>
+                <label>
+                    {_if (house.street){_}
+                    {=house.street=},
+                    {_}_}
+                    {_if (house.city){_}
+                    {=house.city.name=},
+                    {_}_}
+                    {_if (house.country){_}
+                    {=window.team.countryMap[house.country.code]=}
+                    {_}_}
+                </label>
+            </li>
+            <li>
+                <i class="icon-tag_icon"></i>
+                <label>
+                    {_ _.each(house.intention, function(oneIntention) { _}
+                    {=oneIntention.value=}
+                    {_})_}
+                </label>
+            </li>
+
+            % if 'show_rooms' in vars() or 'show_rooms' in globals():
+            {_if(house.living_room_count || house.bathroom_count || house.space) {_}
+            <li>
+                <i class="icon-rooms"></i>
+                <label>
+                    {_if(house.living_room_count) {_}
+                    <span class="bold">{=house.living_room_count=}</span>{=window.i18n('室')=}
+                    {_}_}
+                    {_if(house.bathroom_count) {_}
+                    <span class="bold">{=house.bathroom_count=}</span>{=window.i18n('卫')=}
+                    {_}_}
+
+                    {_if(house.space) {_}
+                    <span class="bold">{= parseFloat(house.space.value).toFixed(2)=}</span>
+                    {_if (house.space.unit === 'foot ** 2'){_}
+                    SQFT
+                    {_} else if(house.space.unit === 'acre'){_}
+                    ACRE
+                    {_} else if (house.space.unit === 'meter ** 2') {_}
+                    m <sup>2</sup>
+                    {_} else if (house.space.unit === 'kilometer ** 2') {_}
+                    km <sup>2</sup>
+                    {_} else {_}
+                    {=house.space.unit=}
+                    {_}_}
+                    {_}_}
+                </label>
+            </li>
+            {_} else if (house.main_house_types && house.main_house_types.length) {_}
+            <li>
+                <i class="icon-rooms"></i>
+                <label>
+                    {_if(house.main_house_types[0].living_room_count) {_}
+                    <span class="bold">{=house.main_house_types[0].living_room_count=}</span>{=window.i18n('室')=}
+                    {_}_}
+                    {_if(house.main_house_types[0].bathroom_count) {_}
+                    <span class="bold">{=house.main_house_types[0].bathroom_count=}</span>{=window.i18n('卫')=}
+                    {_}_}
+
+                    {_if(house.main_house_types[0].building_area) {_}
+                    <span class="bold">{= parseFloat(house.main_house_types[0].building_area.value).toFixed(2)=}</span>
+                    {_if (house.main_house_types[0].building_area.unit === 'foot ** 2'){_}
+                    SQFT
+                    {_} else if(house.main_house_types[0].building_area.unit === 'acre'){_}
+                    ACRE
+                    {_} else if (house.main_house_types[0].building_area.unit === 'meter ** 2') {_}
+                    m <sup>2</sup>
+                    {_} else if (house.main_house_types[0].building_area.unit === 'kilometer ** 2') {_}
+                    km <sup>2</sup>
+                    {_} else {_}
+                    {=house.main_house_types[0].building_area.unit=}
+                    {_}_}
+                    {_}_}
+                </label>
+            </li>
+            {_}_}
+            % end
+        </ul>
+
+
+
+        {_if(house.annual_return_estimated || house.annual_cash_return_estimated) {_}
+        <div class="estimated">
+            {_if(house.annual_return_estimated) {_}
+            <div>
+                <p class="title">{=window.i18n('预计年化收益率')=}</p>
+                <p class="content">
+                    {=house.annual_return_estimated=}
+                </p>
+            </div>
+            {_}_}
+            {_if (house.annual_cash_return_estimated) { _}
+            <div>
+                <p class="title">{=window.i18n('预估现金年化收益率')=}</p>
+                <p class="content">
+                    {=house.annual_cash_return_estimated=}
+                </p>
+            </div>
+            {_}_}
+        </div>
+        {_}_}
+    </div>
 </div>
 <!--@@placeholder=cover_phone -->

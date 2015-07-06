@@ -1,11 +1,30 @@
 <!--@@master=master/house_card_content_master.tpl.html-->
+
+
+<!--@@block=var -->
+% no_link = ''
+<!--@@close -->
+
 <!--@@block=price -->
 <span class=price>
     <!--@@include=../../partials/get_unit_price.tpl.html -->
 </span>
 <!--@@close -->
+
 <!--@@block=action -->
+
+
+<!--@@close-->
+
+<!--@@block=other_action -->
 <div class="otherAction">
-    <button id="removeProperty" data-id="{=ticket.id=}" class="ghostButton darkGray">{{_('移除')}}</button>
+    <i data-action="removeProperty" data-id="{=ticket.id=}" class="icon-delete"></i>
+</div>
+<!--@@close-->
+
+<!--@@block=bottom_action -->
+<div class="bottomAction">
+    <div class="wechatShare action" data-id="{=ticket.id=}">{=window.i18n('分享到微信')=}</div>
+    <div class="action" data-id="{=ticket.id=}" data-action="removeProperty">{=window.i18n('移除')=}</div>
 </div>
 <!--@@close-->
