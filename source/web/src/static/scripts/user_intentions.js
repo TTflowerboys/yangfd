@@ -88,7 +88,9 @@ $(function () {
     }
 
     function loadRentIntentionTicket() {
-
+        $placeholder.hide()
+        $list.empty()
+        $rentPlaceholder.show()
     }
 
     function getStatusPresentation(status) {
