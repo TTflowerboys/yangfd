@@ -12,6 +12,7 @@
 #import "KIFUITestActor+Login.h"
 #import "KIFUITestActor+RentType.h"
 #import "KIFUITestActor+AddressMap.h"
+#import "KIFUITestActor+PropertyInfo.h"
 
 
 SpecBegin(PropertyInfoUI)
@@ -35,7 +36,10 @@ describe(@"PropertyInfo", ^ {
         UITableViewCell *areaCell = [tableView cellForRowAtIndexPath:indexPath];
         assertThat(areaCell.textLabel.text, equalTo(@"房屋面积（选填）"));
     });
-    
+
+    it(@"should increment bedroom count success", ^{
+        [tester setBedroomCount];
+    });
 });
 
 SpecEnd

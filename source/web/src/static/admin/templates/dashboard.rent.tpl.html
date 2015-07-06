@@ -93,6 +93,10 @@
                     <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
                         <i class="fa fa-edit "></i>
                     </a>
+
+                    <span has-permission="admin,jr_admin" class="btn btn-warning" ng-click="onSuspend(item,$index)" title="{%$root.i18n('下架并通知')%}">
+                        <i class="fa fa-minus-circle"></i>
+                    </span>
                     <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">
                         <i class="fa fa-trash-o"></i>
                     </span>

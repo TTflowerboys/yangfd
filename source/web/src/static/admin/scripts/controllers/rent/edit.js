@@ -4,7 +4,7 @@
 
 (function () {
 
-    function ctrlRentEdit($scope, $state, api, $stateParams, misc, growl) {
+    function ctrlRentEdit($scope, $state, api,propertyApi, $stateParams, misc, growl) {
 
         $scope.item = {}
 
@@ -41,22 +41,36 @@
         $scope.submit = function ($event, form) {
             $event.preventDefault()
             $scope.submitted = true
+            var rentChanged = {
+                title: $scope.item.title,
+                description:$scope.item.description
+            }
             var changed = JSON.parse(angular.toJson($scope.item))
             changed = misc.cleanTempData(changed)
             changed = misc.cleanI18nEmptyUnit(changed)
             changed = misc.getChangedI18nAttributes(changed, $scope.itemOrigin)
-            if (_.isEmpty(changed)) {
+            if (_.isEmpty(changed)&&_.isEmpty(rentChanged)) {
                 growl.addWarnMessage('Nothing to update')
                 return
             }
             $scope.loading = true
 
-            api.update($stateParams.id, changed, {
+            if (!_.isEmpty(changed.property)) {
+                propertyApi.update($scope.item.property.id, changed.property, {
+                    successMessage: 'Update successfully',
+                    errorMessage: 'Update failed'
+                }).success(function (data) {
+                    //TODO
+                })
+            }
+
+            api.update($stateParams.id, rentChanged, {
                 successMessage: 'Update successfully',
                 errorMessage: 'Update failed'
             }).success(function (data) {
                 angular.extend(currentItem, data.val)
                 $state.go('^')
+                location.reload()
             })['finally'](function () {
                 $scope.loading = false
             })

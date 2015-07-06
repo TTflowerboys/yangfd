@@ -231,6 +231,8 @@
 		2C44E4151AE242F200E61BBA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
 		2C44E4161AE242F300E61BBA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
 		2C44E4171AE242F400E61BBA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
+		2C464D611B46985400289BB0 /* CUTEPublishRentTicketUSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C464D601B46985400289BB0 /* CUTEPublishRentTicketUSTest.m */; };
+		2C464D641B469B6900289BB0 /* KIFUITestActor+PropertyInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C464D631B469B6900289BB0 /* KIFUITestActor+PropertyInfo.m */; };
 		2C4AEC7F1AD6466A004DEE23 /* CUTEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */; };
 		2C4AEC801AD6466A004DEE23 /* CUTEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */; };
 		2C4AEC811AD6466A004DEE23 /* CUTEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */; };
@@ -746,6 +748,9 @@
 		2C427EA11AD3802A000378A9 /* CUTEArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEArea.m; sourceTree = "<group>"; };
 		2C427EA71AD3803B000378A9 /* CUTECurrency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTECurrency.h; sourceTree = "<group>"; };
 		2C427EA81AD3803B000378A9 /* CUTECurrency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTECurrency.m; sourceTree = "<group>"; };
+		2C464D601B46985400289BB0 /* CUTEPublishRentTicketUSTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPublishRentTicketUSTest.m; sourceTree = "<group>"; };
+		2C464D621B469B6900289BB0 /* KIFUITestActor+PropertyInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFUITestActor+PropertyInfo.h"; sourceTree = "<group>"; };
+		2C464D631B469B6900289BB0 /* KIFUITestActor+PropertyInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+PropertyInfo.m"; sourceTree = "<group>"; };
 		2C467BD91B34235400BBBAAA /* CUTETestCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETestCommon.h; sourceTree = "<group>"; };
 		2C4AEC7D1AD6466A004DEE23 /* CUTEUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUser.h; sourceTree = "<group>"; };
 		2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUser.m; sourceTree = "<group>"; };
@@ -1036,6 +1041,7 @@
 		2C056D181B414F4B0075037A /* currantUITest */ = {
 			isa = PBXGroup;
 			children = (
+				2C464D5F1B46982E00289BB0 /* UserStory */,
 				2C056D241B4231F40075037A /* Scene */,
 				2C056D191B414F4B0075037A /* Supporting Files */,
 				2C056DAD1B42474C0075037A /* SpectaUITestTemplate */,
@@ -1068,6 +1074,8 @@
 				2C317F681B451F230041E05E /* KIFUITestActor+RentType.m */,
 				2C317F701B4538C30041E05E /* KIFUITestActor+AddressMap.h */,
 				2C317F711B4538C30041E05E /* KIFUITestActor+AddressMap.m */,
+				2C464D621B469B6900289BB0 /* KIFUITestActor+PropertyInfo.h */,
+				2C464D631B469B6900289BB0 /* KIFUITestActor+PropertyInfo.m */,
 				2C11485C1B44F2A50003DEF7 /* CUTERentTypeUITest.m */,
 				2C317F6A1B4522D20041E05E /* CUTEAddressMapUITest.m */,
 				2C317F6C1B452C620041E05E /* CUTEAddressEditUITest.m */,
@@ -1223,6 +1231,14 @@
 				2C0C0A141B2AD02E001F2583 /* CUTEUserEditingListener.m */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		2C464D5F1B46982E00289BB0 /* UserStory */ = {
+			isa = PBXGroup;
+			children = (
+				2C464D601B46985400289BB0 /* CUTEPublishRentTicketUSTest.m */,
+			);
+			path = UserStory;
 			sourceTree = "<group>";
 		};
 		2C554F8B1AC2BCCD00F51D33 /* PropertyList */ = {
@@ -2182,6 +2198,7 @@
 				2C056D901B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
 				2C056DA31B423BBA0075037A /* CUTEForm.m in Sources */,
 				2C056D3A1B423A110075037A /* CUTEUserViewController.m in Sources */,
+				2C464D611B46985400289BB0 /* CUTEPublishRentTicketUSTest.m in Sources */,
 				2C6D7B1E1B428F25007853FD /* KIFUITestActor+SplashUI.m in Sources */,
 				2C056DAC1B4245990075037A /* CUTESplashUITest.m in Sources */,
 				2C317F6F1B4538340041E05E /* CUTEPropertyInfoUITest.m in Sources */,
@@ -2191,6 +2208,7 @@
 				2C056D5C1B423AB20075037A /* CUTERentContactViewController.m in Sources */,
 				2C056D561B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
 				2C056DA91B423BBA0075037A /* CUTEFormViewController.m in Sources */,
+				2C464D641B469B6900289BB0 /* KIFUITestActor+PropertyInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

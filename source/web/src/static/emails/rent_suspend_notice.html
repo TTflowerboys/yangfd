@@ -1,0 +1,58 @@
+<!--@@master = ../../masters/email_new.html-->
+<!--@@block=content-->
+<h1 style="padding: 60px 20px; margin: 15px 0 0; font-size: 19px;text-align: left;">{{_('您好，尊敬的')}} {{nickname}}</h1>
+<div style="padding: 0px 20px 60px; border-bottom: 1px solid #ccc; margin: 0;line-height: 2em;font-size: 18px;">
+    <p style="margin: 0;">{{_('我是洋房东的管理员，这是一封很重要的通知，请您务必认真阅读。')}}</p>
+    <p style="margin: 0;">{{_('首先真诚感谢您')}}{{formated_date}}{{_('在洋房东上发布您的出租房')}}</p>
+    <a href="{{rent_url}}" style="font-size: 24px;color: #e60012; font-weight: bold;line-height: 4em;">{{rent_title}}</a>
+    <p style="margin: 0;">{{_('针对您发布的此房产，我们监测到一些可能会影响您的房屋展示效果的问题，为避免给您带来不必要的影响，已帮您下架该房产，请在草稿中检查后重新提交。')}}</p>
+    <a href="{{rent_edit_url}}" style="display:inline-block;margin:70px auto 50px;padding: 22px 45px; background: #e60012; color: #fff; font-size: 24px; text-decoration: none;border-radius: 8px;">{{_('立即去修改')}}</a>
+</div>
+<div style="padding: 28px 20px 60px; border-bottom: 1px solid #ccc; margin: 0;line-height: 2em;font-size: 18px;">
+    <p style="margin: 20px 0">{{_('可能的问题有以下几种：')}}</p>
+    <table style="margin:0;padding: 0;list-style: none;overflow: hidden;border: 0;">
+        <tbody style="margin: 0;line-height: 1.5em;font-size: 17px;">
+            <tr height="150px" style="vertical-align: middle">
+                <td style="text-align: left;padding-right: 50px;">
+                    <h2 style="margin: 0 0 25px;color: #333;font-size: 20px;">{{_('1.您提交的房屋图片内容或形式可能有误')}}</h2>
+                    <p style="margin: 0;">
+                        {{_('认真选择您的房产展示图片能极大加快您出租的速度，请优选图片，不要用模糊图片或者截取其他网站的图片上传。')}}
+                        <a href="{{rent_edit_url}}" style="color: #e60012; text-decoration: none;font-weight: bold;">{{_('现在就去修改')}}></a>
+                    </p>
+                </td>
+            </tr>
+            <tr height="150px" style="vertical-align: middle">
+                <td style="text-align: left;padding-right: 50px;">
+                    <h2 style="margin: 0 0 25px;color: #333;font-size: 20px;">{{_('2.您提交的照片不能有其他渠道的水印')}}</h2>
+                    <p style="margin: 0;">{{_('请您明白在洋房东平台使用带有其他渠道水印的图片可能会给您或者平台带来法律风险。')}}
+                        <a href="{{rent_edit_url}}" style="color: #e60012; text-decoration: none;font-weight: bold;">{{_('现在就去修改')}}></a>
+                        </a>
+                    </p>
+                </td>
+            </tr>
+            <tr height="150px" style="vertical-align: middle">
+                <td style="text-align: left;padding-right: 50px;">
+                    <h2 style="margin: 0 0 25px;color: #333;font-size: 20px;">{{_('3.您提交的任何资料、任何图片，不允许添加您任何的联系方式')}}</h2>
+                    <p style="margin: 0;">{{_('洋房东为您提供了完善的联系方式展示，并且提供了保障联系方式不被中介随意获取的机制，保护您的隐私不被侵犯，请您务必不要在房源中添加任何形式的联系方式。')}}
+                        <a href="{{rent_edit_url}}" style="color: #e60012; text-decoration: none;font-weight: bold;">{{_('现在就去修改')}}>
+                        </a>
+                    </p>
+                </td>
+            </tr>
+            <tr height="150px" style="vertical-align: middle">
+                <td style="text-align: left;padding-right: 50px;">
+                    <h2 style="margin: 0 0 25px;color: #333;font-size: 20px;">{{_('3.您提交的房源中包含了非房源的广告或非法内容')}}</h2>
+                    <p style="margin: 0;">{{_('一经发现，洋房东按用户协议对此种内容进行删除或对相关用户进行封号。')}}
+                        <a href="{{rent_edit_url}}" style="color: #e60012; text-decoration: none;font-weight: bold;">{{_('现在就去修改')}}>
+                        </a>
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="margin: 0;">{{_('感谢您的阅读，针对以上问题，即刻开始，您有48小时的时间进行修改。')}}</p>
+    <p style="margin: 0;">{{_('如果逾期未进行修改，洋房东管理员将不得已对其进行删除！')}}</p>
+    <p style="margin: 0;">{{_('真诚感谢您对我们的支持。')}}</p>
+    <p style="margin: 0;">{{_('祝您生活愉快。')}}</p>
+</div>
+<!--@@close-->

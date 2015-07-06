@@ -19,17 +19,17 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group  col-sm-3">
+            <div class="form-group  col-sm-9">
                 <label class="control-label">{%$root.i18n('详细描述')%}</label>
 
                 <div class="controls">
-                    <input type="text" class="form-control" ng-model="item.description"/>
+                    <textarea rows="4" class="form-control" ng-model="item.description"></textarea>
                 </div>
             </div>
         </div>
-<!--        <div class="row">
-            <div class="form-group  col-sm-12" edit-gallery-box="item.property.reality_images" cover="item.property.cover" width-limit="1280" watermark="true" thumbnail-size="320,213" text="{%$root.i18n('实景图')%}{%$root.i18n('(最大宽度是1280px)')%}"></div>
-        </div>-->
+        <div class="row">
+            <div class="form-group  col-sm-12" edit-i18n-gallery-box="item.property.reality_images" cover="item.property.cover" width-limit="1280" watermark="true" thumbnail-size="320,213" text="{%$root.i18n('实景图')%}{%$root.i18n('(最大宽度是1280px)')%}"></div>
+        </div>
         <div class="row">
             <div class="form-group  col-sm-3">
                 <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">

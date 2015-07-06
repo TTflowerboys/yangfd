@@ -44,6 +44,7 @@
     if (!form.singleUseForReedit) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
     }
+    self.tableView.accessibilityIdentifier = STR(@"地址编辑表单");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
