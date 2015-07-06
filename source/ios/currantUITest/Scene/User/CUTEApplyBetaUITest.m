@@ -25,12 +25,12 @@ describe(@"Apply beta", ^ {
     });
 
     it(@"should apply success with done button", ^ {
-        [tester swipeToSplashEnd];
-        [tester tapViewWithAccessibilityLabel:STR(@"申请内测，获取邀请码")];
-        [tester waitForAnimationsToFinish];
-
-        NSString *emailId = [[RANDOM_UUID base64EncodedString] substringToIndex:10];
-        [tester enterText:CONCAT(emailId, @"@gmail.com") intoViewWithAccessibilityLabel:STR(@"邮箱")];
+//        [tester swipeToSplashEnd];
+//        [tester tapViewWithAccessibilityLabel:STR(@"申请内测，获取邀请码")];
+//        [tester waitForAnimationsToFinish];
+//
+//        NSString *emailId = [[RANDOM_UUID base64EncodedString] substringToIndex:10];
+//        [tester enterText:CONCAT(emailId, @"@gmail.com") intoViewWithAccessibilityLabel:STR(@"邮箱")];
 //        [tester tapViewWithAccessibilityLabel:STR(@"确认")];
 //
 //        [[tester usingTimeout:20] waitForViewWithAccessibilityLabel:STR(@"申请成功")];
@@ -39,12 +39,12 @@ describe(@"Apply beta", ^ {
     });
 
     it(@"should apply success with apply button", ^ {
-        [tester swipeToSplashEnd];
-        [tester tapViewWithAccessibilityLabel:STR(@"申请内测，获取邀请码")];
-        [tester waitForAnimationsToFinish];
-
-        NSString *emailId = [[RANDOM_UUID base64EncodedString] substringToIndex:10];
-        [tester enterText:CONCAT(emailId, @"@gmail.com") intoViewWithAccessibilityLabel:STR(@"邮箱")];
+//        [tester swipeToSplashEnd];
+//        [tester tapViewWithAccessibilityLabel:STR(@"申请内测，获取邀请码")];
+//        [tester waitForAnimationsToFinish];
+//
+//        NSString *emailId = [[RANDOM_UUID base64EncodedString] substringToIndex:10];
+//        [tester enterText:CONCAT(emailId, @"@gmail.com") intoViewWithAccessibilityLabel:STR(@"邮箱")];
 
 //        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"申请邀请码")];
 //

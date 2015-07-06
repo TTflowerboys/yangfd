@@ -204,7 +204,8 @@
     return tcs.task;
 }
 
-- (void)shareWithTicket:(CUTETicket *)ticket inController:(UIViewController *)controller successBlock:(dispatch_block_t)successBlock cancellationBlock:(dispatch_block_t)cancellationBlock {
+- (void)shareTicket:(CUTETicket *)ticket inController:(UIViewController *)controller successBlock:(dispatch_block_t)successBlock cancellationBlock:(dispatch_block_t)cancellationBlock
+{
     self.viewController = controller;
     self.successBlock = successBlock;
     self.cancellationBlock = cancellationBlock;
@@ -284,6 +285,59 @@
         }
         return nil;
     }];
+}
+
+- (void)shareText:(NSString *)text urlString:(NSString *)urlString inController:(UIViewController *)controller successBlock:(dispatch_block_t)successBlock cancellationBlock:(dispatch_block_t)cancellationBlock {
+    self.viewController = controller;
+    self.successBlock = successBlock;
+    self.cancellationBlock = cancellationBlock;
+
+    [UIActionSheet showInView:controller.view withTitle:STR(@"分享") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:@[STR(@"微信好友"), STR(@"微信朋友圈"), STR(@"新浪微博")] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+
+        [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (buttonIndex == 0) {
+
+                BaseReq *req = [self makeWechatRequstWithScene:WXSceneSession title:text description:nil thumbData:UIImagePNGRepresentation([UIImage appIcon]) url:urlString];
+                [self shareToWechatWithReq:req];
+            }
+
+            else if (buttonIndex == 1) {
+                BaseReq *req = [self makeWechatRequstWithScene: WXSceneTimeline title:text description:nil thumbData:UIImagePNGRepresentation([UIImage appIcon]) url:urlString];
+                [self shareToWechatWithReq:req];
+            }
+            else if (buttonIndex == 2) {
+
+                NSInteger maxContentLength = 140;
+                NSString *content = [self truncateString:NilNullToEmpty(text) length:maxContentLength - urlString.length];
+                content = CONCAT(NilNullToEmpty(content), @" ", NilNullToEmpty(urlString));
+
+                if ([WeiboSDK isCanShareInWeiboAPP]) {
+                    WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
+                    authRequest.redirectURI = [CUTEConfiguration umengCallbackURLString];
+                    authRequest.scope = @"all";
+                    WBMessageObject *message = [WBMessageObject new];
+                    message.text = content;
+                    WBImageObject *imageObject = [WBImageObject new];
+                    imageObject.imageData = UIImagePNGRepresentation([UIImage appIcon]);
+                    message.imageObject = imageObject;
+
+                    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message authInfo:authRequest access_token:nil];
+                    //    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
+                    [WeiboSDK sendRequest:request];
+                }
+                else {
+                    [[UMSocialControllerService defaultControllerService] setShareText:content shareImage:[UIImage appIcon] socialUIDelegate:self];
+                    [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(controller,[UMSocialControllerService defaultControllerService],YES);
+                }
+            }
+            else {
+                [self checkCallShareCancellationBlock];
+            }
+        });
+    }];
+
 }
 
 //http://stackoverflow.com/questions/2952298/how-can-i-truncate-an-nsstring-to-a-set-length
