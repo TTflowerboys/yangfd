@@ -9,7 +9,6 @@
 <!--@@close-->
 <!--@@block = main -->
 <div class="content">
-    <textarea id="dataTicketList" style="display:none;">{{json_dumps(intention_ticket_list)}}</textarea>
     <div class="contentHeader">
         <h1>{{_('我的房产')}}</h1>
         <div class="buttons" style="display: none">
@@ -29,7 +28,9 @@
         </ul>
     </div>
 
-    <div id="list" class="list">
+    <div class="list_wrapper">
+        <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
+        <div id="list" class="list"></div>
     </div>
 
     <div id="rentPlaceHolder" class="emptyPlaceHolder" style="display:none;">

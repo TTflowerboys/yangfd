@@ -124,16 +124,9 @@ def user_crowdfunding(user):
 @f_app.user.login.check(force=True)
 def user_intentions(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    intention_ticket_list = currant_data_helper.get_intention_ticket_list(user)
-    intention_ticket_status_list = f_app.enum.get_all('intention_ticket_status')
-    for ticket in intention_ticket_list:
-        for ticket_status in intention_ticket_status_list:
-            if 'intention_ticket_status:' + ticket['status'] == ticket_status['slug']:
-                ticket['status_presentation'] = ticket_status
 
-    intention_ticket_list = f_app.i18n.process_i18n(intention_ticket_list)
     title = _('意向单')
-    return currant_util.common_template("user_intentions", user=user, intention_ticket_list=intention_ticket_list, title=title)
+    return currant_util.common_template("user_intentions", user=user, title=title)
 
 
 @f_get('/user_properties', '/user-properties')
