@@ -368,7 +368,7 @@
                     $.betterPost(api, params)
                         .done(function (val) {
                             successArea.show().siblings().hide()
-                            successArea.find('.qrcode').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.protocol + '//' + location.host + "/app-download"))
+                            successArea.find('.qrcode').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.protocol + '//' + location.host + '/app-download'))
                             submitSuccessCallBack()
                             //ga('send', 'event', 'requirementPopup', 'result', 'submit-success');
                         })
