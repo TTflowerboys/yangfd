@@ -55,17 +55,18 @@
                 NSMutableArray *locations = [NSMutableArray arrayWithCapacity:propertyList.count];
                 NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:propertyList.count];
                 for (CUTEProperty *property in propertyList) {
-                    CLLocation *location = [[CLLocation alloc] initWithLatitude:property.latitude.doubleValue longitude:property.longitude.doubleValue];
-                    if (location) {
-                        [locations addObject:location];
-                        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil];
-                        placemark.attachment = property;
-                        [annotations addObject:placemark];
+                    if (property.latitude && property.longitude) {
+                        CLLocation *location = [[CLLocation alloc] initWithLatitude:property.latitude.doubleValue longitude:property.longitude.doubleValue];
+                        if (location) {
+                            [locations addObject:location];
+                            MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil];
+                            placemark.attachment = property;
+                            [annotations addObject:placemark];
+                        }
                     }
                 }
                 [self.mapView addAnnotations:annotations];
                 [self.mapView zoomToFitMapLocationsInsideArray:locations];
-
             }
         }
         return task;
