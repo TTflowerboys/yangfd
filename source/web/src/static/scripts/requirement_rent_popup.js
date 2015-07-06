@@ -2,10 +2,9 @@
 
     window.resetRequirementRentForm = function(container){
         var successArea = container.find('.requirement .successWrap')
-        successArea.hide()
+        successArea.hide().siblings().show()
         var $errorMsg = container.find('.requirementRentFormError')
         $errorMsg.hide()
-        container.find('.requirement_rent_form').show()
 
         /*if(container.find('form[name=requirement]')[0]){
             container.find('form[name=requirement]')[0].reset()
@@ -174,7 +173,7 @@
                 $.betterPost('/api/1/user/phone_test', theParams)
                     .done(function () {
                         $errorMsg.hide()
-                        $input.css('border', '2px solid #ccc')
+                        $input.css('border', '')
                         enableSubmitButton(true)
                     })
                     .fail(function () {
@@ -185,7 +184,7 @@
             }
             else {
                 $errorMsg.hide()
-                $input.css('border', '2px solid #ccc')
+                $input.css('border', '')
                 enableSubmitButton(true)
             }
         }
@@ -209,21 +208,41 @@
             }
         }
     }
+    function getPhoneCode (countryCode) {
+        return {'GB':'+44','CN':'+86','HK':'+852','US':'+1'}[countryCode]
+    }
     function getSerializeObject (form) {
         var data = {}
         form.find('[data-serialize]').each(function () {
             var serialize = $(this).attr('data-serialize').split('|')
-            var key = serialize[0]
-            var option = serialize[1]
-            if (!option) {
-                return data[key] = $(this).val()
+            var key = serialize[0].trim()
+            var option = serialize[1] ? serialize[1].trim() : undefined
+            var val
+            if ($(this).is('[type=checkbox]')) {
+                val = $(this).is(':checked')
+            } else {
+                val = $(this).val()
             }
-            if(option === 'i18n') {
-
+            if(val === undefined || val === '') {
+                return
+            }
+            if (!option) {
+                data[key] = val
+                return
+            }
+            if (option === 'time') {
+                data[key] = new Date(val).getTime() / 1000
+                return
+            }
+            if (option === 'reverse') {
+                data[key] = !val
+                return
             }
         })
+        data.phone = getPhoneCode(form.find('[name=country]').val()) + form.find('[name=requirementRentPhone]').val()
         return data
     }
+
 
     window.setupRequirementRentForm = function(container, submitSuccessCallBack) {
         var $errorMsg = container.find('.requirementRentFormError')
@@ -264,6 +283,7 @@
         function checkInputOfCurrentStep($formWrap, currentStep) {
             return checkForm($formWrap.find('.requirement_rent_form .step' + currentStep))
         }
+
         function checkForm(element) {
             var validate = true
             var errorMsg = ''
@@ -323,43 +343,52 @@
             }
             return validate
         }
+
+
+        function initSubmit (container) {
+            if(!container.data('initSubmit')) {
+                container.data('initSubmit', true)
+                container.find('button[type=submit]').on('click', function () {
+                    container.find('form.requirement_rent_form').trigger('submit')
+                })
+                container.find('form.requirement_rent_form').submit(function (e) {
+                    e.preventDefault()
+                    $errorMsg.hide()
+                    var successArea = container.find('.successWrap')
+                    container.find('form input, form textarea').each(function (index) {
+                        $(this).css('border', '')
+                    })
+
+                    if (!checkForm($(this))) {return}
+
+                    var params = getSerializeObject($(this))
+                    params.locales = window.lang
+
+                    var api = '/api/1/rent_intention_ticket/add'
+                    $.betterPost(api, params)
+                        .done(function (val) {
+                            successArea.show().siblings().hide()
+                            successArea.find('.qrcode').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.protocol + '//' + location.host + "/app-download"))
+                            submitSuccessCallBack()
+                            //ga('send', 'event', 'requirementPopup', 'result', 'submit-success');
+                        })
+                        .fail(function (ret) {
+                            $errorMsg.empty()
+                            $errorMsg.append(window.getErrorMessageFromErrorCode(ret, api))
+                            $errorMsg.show()
+
+                            //ga('send', 'event', 'requirementPopup', 'click', 'submit-failed',window.getErrorMessageFromErrorCode(ret, api));
+                        })
+
+                })
+            }
+        }
         initStep(container)
         initLocation(container)
         initDateInput(container)
         initRequirementRentTitle(container)
         initContactInfo(container)
-        container.find('button[type=submit]').off('click').on('click', function () {
-            container.find('form.requirement_rent_form').trigger('submit')
-        })
-        container.find('form.requirement_rent_form').off('submit').submit(function (e) {
-            e.preventDefault()
-            $errorMsg.hide()
-            var successArea = container.find('.successWrap')
-            container.find('form input, form textarea').each(function (index) {
-                $(this).css('border', '')
-            })
-
-            if (!checkForm($(this))) {return}
-
-            var params = getSerializeObject($(this))
-            params.locales = window.lang
-
-            var api = '/api/1/rent_intention_ticket/add'
-            $.betterPost(api, params)
-                .done(function (val) {
-                    successArea.show().siblings().hide()
-                    submitSuccessCallBack()
-                    //ga('send', 'event', 'requirementPopup', 'result', 'submit-success');
-                })
-                .fail(function (ret) {
-                    $errorMsg.empty()
-                    $errorMsg.append(window.getErrorMessageFromErrorCode(ret, api))
-                    $errorMsg.show()
-
-                    //ga('send', 'event', 'requirementPopup', 'click', 'submit-failed',window.getErrorMessageFromErrorCode(ret, api));
-                })
-
-        })
+        initSubmit(container)
 
 
 
@@ -383,11 +412,11 @@
         window.showRequirementRentCancelButton(popup)
 
         window.setupRequirementRentForm(popup, function () {
-            popup.find('.requirement_title').hide()
+            /*popup.find('.requirement_title').hide()
 
             setTimeout(function () {
                 popup.hide()
-            }, 2000)
+            }, 2000)*/
         })
 
         var wrapper = popup.find('.requirement_wrapper')
@@ -401,9 +430,6 @@
         }
     }
 
-    $('.select-country').click(function(){
-        window.openRequirementRentForm()
-
-        //ga('send', 'event', 'floatBar', 'click', 'open-requirement-popup');
-    })
+    //入口
+    //window.openRequirementRentForm()
 })()

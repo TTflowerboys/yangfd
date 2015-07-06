@@ -12,6 +12,9 @@
 
         <!--build:css(dist) /static/styles/project/master.html.css-->
         <link rel="stylesheet" href="/static/bower_components/chosen/chosen.min.css"/>
+        <link rel="stylesheet" href="/static/bower_components/jquery.daterangepicker/daterangepicker.css"/>
+        <link rel="stylesheet" href="/static/styles/dateRangePickerOverwirte.css"/>
+        <link rel="stylesheet" href="/static/styles/requirementRentPopup.css"/>
         <link rel="stylesheet" href="/static/styles/project/layout.css"/>
         <link rel="stylesheet" href="/static/styles/project/siteHeader.css"/>
         <link rel="stylesheet" href="/static/styles/project/responsivemobilemenu.css"/>
@@ -247,10 +250,16 @@
 
         <!-- @@include =../partials/requirement_popup.html -->
 
+        <!-- @@include = ../partials/requirement_rent_popup.html -->
+
+
         <!-- @@include =../partials/js_base.html -->
 
         <!-- build:js /static/scripts/master.html.js -->
         <script src="/static/bower_components/chosen/chosen.jquery.min.js"></script>
+        <script src="/static/bower_components/moment/moment.js"></script>
+        <script src="/static/bower_components/jquery.daterangepicker/jquery.daterangepicker.js"></script>
+        <script src="/static/scripts/requirement_rent_popup.js"></script>
         <script src="/static/scripts/resize_main.js"></script>
         <script src="/static/scripts/responsivemobilemenu.js"></script>
         <script src="/static/scripts/master.js"></script>

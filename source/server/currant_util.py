@@ -164,6 +164,10 @@ def common_template(path, **kwargs):
         kwargs['budget_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('budget'))
     if 'occupation_list' not in kwargs:
         kwargs['occupation_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('occupation'))
+    if 'rent_type_list' not in kwargs:
+        kwargs['rent_type_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
+    if 'rent_budget_list' not in kwargs:
+        kwargs['rent_budget_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('rent_budget'))
 
     # setup page utils
     kwargs.setdefault("format_unit", format_unit)

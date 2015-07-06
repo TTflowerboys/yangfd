@@ -30,6 +30,11 @@
                 }
             }
         }
+        .info .requirement_title .subtitle {
+            font-size: 14px;
+            margin-top: 40px;
+
+        }
         .formWrap{
             float: left;
             .stepWrap{
@@ -312,6 +317,58 @@
                 }
             }
 
+        }
+        .successWrap{
+            position: relative;
+            h2{
+                font-size: 36px;
+                color: #333333;
+                margin-bottom: 85px;
+            }
+            p{
+                line-height: 1.8em;
+                margin:0 0 24px;
+                color: #999;
+                a{
+                    color: @red;
+                }
+            }
+            .contact {
+                margin-top: 277px;
+
+                .hint {
+                    font-size:16px;
+                    color:#999;
+                    line-height:24px;
+                }
+                a {
+                    font-size:24px;
+                    text-decoration:none;
+                    color:@red;
+                    line-height:24px;
+                    display:block;
+                }
+            }
+            .qrcodeWrap{
+                position: absolute;
+                bottom: 0;
+                right: 135px;
+                padding: 18px;
+                border-radius: 5px;
+                border:1px solid #cccccc;
+                .qrcode{
+                    width: 160px;
+                    height: 160px;
+                    margin-bottom: 14px;
+                }
+                p{
+                    font-size: 14px;
+                    color: #999;
+                    text-align: center;
+                    line-height: 1.2em;
+                    margin: 0;
+                }
+            }
         }
 
     }

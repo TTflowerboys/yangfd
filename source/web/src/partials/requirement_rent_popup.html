@@ -1,5 +1,4 @@
 <textarea id="countryData" style="display: none;">
-    %print country_list
     {{json_dumps(country_list)}}
 </textarea>
 <div id="requirement_rent_popup" class="requirement_popup requirement_rent_popup"  style="display:none">
@@ -65,9 +64,9 @@
                         <div class="row">
                             <div class="col">
                                 <p class="title">{{_('租期')}}</p>
-                                <input type="text" class="startDate dateInput" data-validator="date" data-name="{{'租期开始日期'}}" data-serialize="rent_available_time"/>
+                                <input type="text" class="startDate dateInput" data-validator="date" data-name="{{'租期开始日期'}}" data-serialize="rent_available_time|time"/>
                                 <span class="bridge">{{_('至')}}</span>
-                                <input type="text" class="endDate dateInput" data-validator="date"  data-name="{{'租期结束日期'}}" data-serialize="rent_deadline_time"/>
+                                <input type="text" class="endDate dateInput" data-validator="date"  data-name="{{'租期结束日期'}}" data-serialize="rent_deadline_time|time"/>
                             </div>
                         </div>
                         <div class="row">
@@ -89,7 +88,7 @@
                             <input type="text" class="requirementRentEmail" name="requirementRentEmail" placeholder="{{_('邮箱')}}" data-validator="required,trim,email"  data-name="{{'邮箱'}}" data-serialize="email"/>
                         </div>
                         <div class="row">
-                            <input type="checkbox" class="requirementRentAgree" name="requirementRentAgree" id="requirementRentAgree"/>
+                            <input type="checkbox" class="requirementRentAgree" name="requirementRentAgree" id="requirementRentAgree" data-serialize="noregister|reverse"/>
                             <label for="requirementRentAgree">{{_('我希望注册一个账号以便后期修改求租信息')}}</label>
                         </div>
 
@@ -112,7 +111,20 @@
                 </div>
             </div>
             <div class="successWrap">
-                <h2 class="successMessage" style="display:none">{{_('置业需求已提交，稍后我们的置业顾问会联系您')}}</h2>
+                <h2>{{_('提交成功')}}</h2>
+                <p>{{_('您的求租意向已经提交成功，我们会将此信息推送给符合您需求的房屋出租者。')}}</p>
+                <p>{{_('您可以在')}}<a href="">xxxxxxxx</a> {{_('中查看您的求租需求信息，如果您已经成功租得房屋，')}}<br>{{_('请及时更改您的求租状态。')}}</p>
+                <div class="contact">
+                    <label class="hint">{{_('联系我们')}}</label>
+                    <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
+                </div>
+                <div class="qrcodeWrap">
+                    <img class="qrcode" width="160" height="160" alt="{{_('二维码')}}"/>
+                    <p>
+                        {{_('扫一扫分享')}}<br>
+                        {{_('提高联系方式获取次数')}}
+                    </p>
+                </div>
             </div>
         </div>
         <button name="cancel" class="cancel"><i class="icon-delete"></i></button>
