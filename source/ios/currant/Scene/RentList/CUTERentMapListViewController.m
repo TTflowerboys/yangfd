@@ -56,12 +56,14 @@
                 NSMutableArray *locations = [NSMutableArray arrayWithCapacity:ticketList.count];
                 NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:ticketList.count];
                 for (CUTETicket *ticket in ticketList) {
-                    CLLocation *location = [[CLLocation alloc] initWithLatitude:(CLLocationDegrees)ticket.property.latitude.doubleValue longitude:(CLLocationDegrees)ticket.property.longitude.doubleValue];
-                    if (location) {
-                        [locations addObject:location];
-                        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil];
-                        placemark.attachment = ticket;
-                        [annotations addObject:placemark];
+                    if (ticket.property.latitude && ticket.property.longitude) {
+                        CLLocation *location = [[CLLocation alloc] initWithLatitude:(CLLocationDegrees)ticket.property.latitude.doubleValue longitude:(CLLocationDegrees)ticket.property.longitude.doubleValue];
+                        if (location) {
+                            [locations addObject:location];
+                            MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil];
+                            placemark.attachment = ticket;
+                            [annotations addObject:placemark];
+                        }
                     }
                 }
                 [self.mapView addAnnotations:annotations];
