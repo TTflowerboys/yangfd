@@ -9,7 +9,7 @@
         <label class="date"> <i>{=window.i18n('提交日期：')=}</i>
             {=project.formatTime(ticket.time)=}
         </label>
-        <label class="status">{=ticket.status_presentation.value=}</label>
+        <label class="status">{=ticket.status_presentation=}</label>
     </div>
     <div class="intentionCard_phone">
         <h2 class="budget">
@@ -21,7 +21,7 @@
             {_ } _}
         </h2>
         <div class="intentionStatus">
-            <label class="status estimate">{=ticket.status_presentation.value=}</label>
+            <label class="status estimate">{=ticket.status_presentation=}</label>
             <label class="properties">
                 {=project.formatDate(ticket.time)=}
             </label>
