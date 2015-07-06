@@ -1025,7 +1025,7 @@ def rent_ticket_search(user, params):
 
     location_only = params.pop("location_only", False)
     if location_only and "latitude" not in params:
-        params["loc"] = {"$exists": True}
+        property_params["loc"] = {"$exists": True}
 
     if "latitude" in params:
         assert "longitude" in params, abort(40000)
