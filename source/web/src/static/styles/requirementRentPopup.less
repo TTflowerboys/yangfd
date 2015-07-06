@@ -1,0 +1,380 @@
+@import "project/_imports";
+
+.requirement_rent_popup {
+    .date-picker-wrapper{
+        margin-left: 88px;
+        z-index: 103;
+        .month-wrapper table {
+            background-color: #FAFAFA;
+        }
+    }
+    .requirement {
+        position: relative;
+        overflow: visible;
+        &_wrapper {
+            .cancel{
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                font-size: 21px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #999;
+                &:hover{
+                    color: #666;
+                }
+            }
+        }
+        .info .requirement_title .subtitle {
+            font-size: 14px;
+            margin-top: 40px;
+
+        }
+        .formWrap{
+            float: left;
+            .stepWrap{
+                padding: 0 40px 68px;
+                border-bottom: 1px solid #ccc;
+                .step{
+                    position: relative;
+                    display: inline-block;
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    vertical-align: middle;
+                    color: #fff;
+                    font-size: 21px;
+                    font-weight: bold;
+                    background: #c2c2c2;
+                    border-radius: 50%;
+                    margin-right: 206px;
+                    text-align: center;
+
+                    &:after{
+                        position: absolute;
+                        z-index: -1;
+                        content: '';
+                        width: 246px;
+                        height: 8px;
+                        top: 16px;
+                        left: 20px;
+                        background: #c2c2c2;
+                    }
+                    &.step3{
+                        margin-right: 0;
+                        &:after{
+                            display: none;
+                        }
+                    }
+                    .info{
+                        margin: 0;
+                        width: 240px;
+                        left: -100px;
+                        top: 46px;
+                        text-align: center;
+                        position: absolute;
+                        font-size: 15px;
+                        font-weight: normal;
+                        color: #999999;
+                    }
+                }
+
+            }
+            &.inStep1{
+                .stepWrap .step1{
+                    background: @red;
+                    .info{
+                        color: @red;
+                    }
+                }
+            }
+            &.inStep2{
+                .stepWrap .step1{
+                    background: @red;
+                    &:after{
+                        background: @red;
+                    }
+                    .info{
+                        color: @red;
+                    }
+                }
+                .stepWrap .step2{
+                    background: @red;
+                    .info{
+                        color: @red;
+                    }
+                }
+            }
+            &.inStep3{
+                .stepWrap .step1{
+                    background: @red;
+                    &:after{
+                        background: @red;
+                    }
+                    .info{
+                        color: @red;
+                    }
+                }
+                .stepWrap .step2{
+                    background: @red;
+                    &:after{
+                        background: @red;
+                    }
+                    .info{
+                        color: @red;
+                    }
+                }
+                .stepWrap .step3{
+                    background: @red;
+                    .info{
+                        color: @red;
+                    }
+                }
+            }
+
+            .requirement_rent_form{
+                position: relative;
+                height: 390px;
+                padding: 20px;
+                color: #999;
+                select,input[type=text], textarea{
+                    padding-left: 12px;
+                    background: #fff;
+                    border: 1px solid #cccccc;
+                    border-radius: 5px;
+                }
+                select,input[type=text]{
+                    height: 40px;
+
+                }
+                textarea{
+                    padding-top: 6px;
+                }
+                .step1{
+
+                    height: 200px;
+                    select{
+                        width: 260px;
+                        height: 40px;
+                        margin-right: 20px;
+                    }
+                    .chosen-container{
+                        margin-right: 20px;
+                    }
+
+                }
+                .step2{
+                    .row{
+                        margin-bottom: 20px;
+                        .clearfix;
+                        .col{
+                            width: 265px;
+                            float: left;
+                            margin-right: 20px;
+                        }
+                        .title{
+                            margin: 0 0 8px;
+                        }
+                        .rentType,.rentBudget{
+                            width: 265px;
+                        }
+                        .dateInput{
+                            width: 110px;
+                        }
+                        .bridge{
+                            padding: 0 10px;
+                        }
+                        > input, > textarea{
+                            width: 550px;
+                        }
+                    }
+                }
+                .step3{
+                    .row{
+                        margin-bottom: 20px;
+                        &:nth-child(1){
+                            margin: 42px 0;
+                        }
+                        select, .chosen-container{
+                            vertical-align: top;
+                            width: 120px;
+                            margin-right: 20px;
+                        }
+                        input[type=text]{
+                            width: 240px;
+                        }
+                        label{
+                            font-size: 13px;
+                        }
+                        input[type=checkbox]{
+                            visibility: hidden;
+                            visibility: visible\0;
+                            border: none;
+                            margin-right: 10px;
+                            vert-align: middle;
+                            &+label{
+                                position: relative;
+                            }
+                            &+label:after{
+                                position: absolute;
+                                visibility: visible;
+                                visibility: hidden\0;
+                                content:'';
+                                z-index: 10;
+                                width: 16px;
+                                height: 16px;
+                                top: 50%;
+                                margin-top: -8px;
+                                left: -24px;
+                                background: url('/static/images/common/checkbox_background.png') 0 0 no-repeat;
+                            }
+                            &:checked+label:after,&.checked+label:after{
+                                background-position: 0 -16px;
+                            }
+                        }
+                    }
+                    .chosen-container-single .chosen-single span{
+                        margin-right: 0;
+                    }
+                }
+                .chosen-container{
+                    font-size: 16px;
+                    .chosen-single{
+                        padding: 0 12px;
+                        height: 40px;
+                        line-height: 40px;
+                        color: #999;
+                        border-radius: 5px;
+                        background: #fff;
+                        border: 1px solid #cccccc;
+                        abbr{
+                            background-image: url('/static/images/common/chosen-sprite.png');
+                        }
+                        div{
+                            width: 20px;
+                            b{
+                                background-image: url('/static/images/common/chosen-sprite.png');
+                                width: 12px;
+                                background-position: 0 12px;
+                            }
+                        }
+                    }
+                    &.chosen-with-drop .chosen-single{
+                        border: 1px solid #cccccc;
+                        border-radius: 5px 5px 0 0;
+                        border-bottom: none;
+                        div b{
+                            background-position: -17px 12px;
+                        }
+                    }
+
+                    .chosen-drop{
+                        font-size: 14px;
+                        border: 1px solid #cccccc;
+                        input{
+                            margin: 0 0 5px 5px !important;
+                            height: 24px !important;
+                            line-height: 24px !important;
+                            &[type=text]{
+                                background-image: url('/static/images/common/chosen-sprite.png');
+                                background-repeat: no-repeat;
+                                background-position: 100% -20px;
+                                box-sizing: border-box;
+                                width: 90%;
+                            }
+                        }
+                        .chosen-results{
+                            color: #999;
+                        }
+                    }
+                    &.chosen-with-drop .chosen-drop{
+                        border-top: none;
+                    }
+
+                }
+                .requirementRentFormError{
+                    position: absolute;
+                    bottom: 20px;
+                    color: @red;
+                }
+            }
+
+            .actionWrap{
+                .actionButton{
+                    margin-right: 20px;
+                    padding: 10px 40px;
+                    font-size: 18px;
+                    border-radius: 8px;
+                    &.ghostButton:hover{
+                        color: darken(@red, 5%);
+                        border-color: darken(@red, 5%);
+                    }
+                }
+            }
+
+        }
+        .successWrap{
+            position: relative;
+            h2{
+                font-size: 36px;
+                color: #333333;
+                margin-bottom: 85px;
+            }
+            p{
+                line-height: 1.8em;
+                margin:0 0 24px;
+                color: #999;
+                a{
+                    color: @red;
+                }
+            }
+            .contact {
+                margin-top: 277px;
+
+                .hint {
+                    font-size:16px;
+                    color:#999;
+                    line-height:24px;
+                }
+                a {
+                    font-size:24px;
+                    text-decoration:none;
+                    color:@red;
+                    line-height:24px;
+                    display:block;
+                }
+            }
+            .qrcodeWrap{
+                position: absolute;
+                bottom: 0;
+                right: 135px;
+                padding: 18px;
+                border-radius: 5px;
+                border:1px solid #cccccc;
+                .qrcode{
+                    width: 160px;
+                    height: 160px;
+                    margin-bottom: 14px;
+                }
+                p{
+                    font-size: 14px;
+                    color: #999;
+                    text-align: center;
+                    line-height: 1.2em;
+                    margin: 0;
+                }
+            }
+        }
+
+    }
+
+
+
+
+
+}

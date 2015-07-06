@@ -185,7 +185,7 @@
     })
 
     /*postcode 和地址部分*/
-    $('.select-chosen').chosen({width: '87%', disable_search_threshold: 8 }) //调用chosen插件
+    $('.main_container').find('.select-chosen').chosen({width: '87%', disable_search_threshold: 8 }) //调用chosen插件
     $('#country-select').bind('change', function () {
         $('#city-select').html('').trigger('chosen:updated')
         getCityListForSelect($('#country-select').val())
