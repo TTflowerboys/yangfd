@@ -370,20 +370,21 @@ def intention_ticket_search(user, params):
     nickname=(str, True),
     phone=(str, True),
     email=(str, True),
-    budget="enum:budget",
+    rent_type="enum:rent_type",
+    rent_budget="enum:rent_budget",
+    rent_available_time=datetime,
+    rent_deadline_time=datetime,
+    minimum_rent_period="i18n:time_period",
     country=("country", True),
     description=str,
+    title=str,
     city="geonames_gazetteer:city",
-    block=str,
-    equity_type='enum:equity_type',
-    rent_intention=(list, None, 'enum:rent_intention'),
     noregister=bool,
     custom_fields=(list, None, dict(
         key=(str, True),
         value=(str, True),
     )),
     locales=(list, None, str),
-    property_id=ObjectId,
 ))
 def rent_intention_ticket_add(params):
     """
@@ -406,14 +407,13 @@ def rent_intention_ticket_add(params):
             # Non-register user can use his / her phone number again
             if shadow_user_id:
                 user_id = ObjectId(shadow_user_id)
-                f_app.user.update_set(user_id, {"nickname": params["nickname"], "rent_intention": params.get("rent_intention", []), "locales": params.get("locales", [])})
+                f_app.user.update_set(user_id, {"nickname": params["nickname"], "locales": params.get("locales", [])})
             else:
                 # Add shadow account for noregister user
                 user_params = {
                     "nickname": params["nickname"],
                     "phone": params["phone"],
                     "email": params["email"],
-                    "rent_intention": params.get("rent_intention", []),
                     "locales": params.get("locales", [])
                 }
                 if "country" in params:
@@ -469,14 +469,13 @@ def rent_intention_ticket_add(params):
             if shadow_user_id:
                 # The target user exists
                 user_id = shadow_user_id
-                f_app.user.update_set(user_id, {"nickname": params["nickname"], "rent_intention": params.get("rent_intention", []), "locales": params.get("locales", [])})
+                f_app.user.update_set(user_id, {"nickname": params["nickname"], "locales": params.get("locales", [])})
             else:
                 # Add shadow account for noregister user
                 user_params = {
                     "nickname": params["nickname"],
                     "phone": params["phone"],
                     "email": params["email"],
-                    "rent_intention": params.get("rent_intention", []),
                     "locales": params.get("locales", [])
                 }
                 if "country" in params:
@@ -533,7 +532,7 @@ def rent_intention_ticket_add(params):
         f_app.user.counter_update(shadow_user_id)
 
     sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales"]}}))
-    budget_enum = f_app.enum.get(params["budget"]["_id"]) if "budget" in params else None
+    budget_enum = f_app.enum.get(params["rent_budget"]["_id"]) if "budget" in params else None
     for sales in sales_list:
         if "email" in sales:
             locale = sales.get("locales", [f_app.common.i18n_default_locale])[0]
@@ -608,6 +607,49 @@ def rent_intention_ticket_remove(user, ticket_id):
         f_app.ticket.update_set_status(ticket_id, "deleted")
     else:
         abort(40399)
+
+
+@f_api('/rent_intention_ticket/<ticket_id>/edit', params=dict(
+    country="country",
+    title=str,
+    description=str,
+    city="geonames_gazetteer:city",
+    rent_type="enum:rent_type",
+    rent_budget="enum:rent_budget",
+    rent_available_time=datetime,
+    rent_deadline_time=datetime,
+    minimum_rent_period="i18n:time_period",
+    custom_fields=(list, None, dict(
+        key=str,
+        value=str,
+        index=int,
+    )),
+    status=str,
+    updated_comment=str,
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
+def rent_intention_ticket_edit(user, ticket_id, params):
+    """
+    ``status`` must be one of these values: "new", "assigned", "in_progress", "deposit", "suspended", "bought", "canceled"
+    """
+    history_params = {"updated_time": datetime.utcnow()}
+    user_roles = f_app.user.get_role(user["id"])
+    ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "rent_intention", abort(40000, "Invalid rent_intention ticket")
+    if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & set(user_roles)) == 0:
+        if user["id"] not in ticket.get("assignee", []):
+            abort(40399, logger.warning("Permission denied.", exc_info=False))
+
+    if "status" in params:
+        if params["status"] not in f_app.common.rent_intention_ticket_statuses:
+            abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
+
+    if "updated_comment" in params:
+        history_params["updated_comment"] = params.pop("updated_comment")
+
+    f_app.ticket.update_set(ticket_id, params, history_params=history_params)
+
+    return f_app.ticket.output([ticket_id])[0]
 
 
 @f_api('/support_ticket/add', params=dict(
