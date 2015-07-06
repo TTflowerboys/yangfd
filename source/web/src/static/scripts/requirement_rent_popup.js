@@ -406,17 +406,17 @@
 
 
     window.openRequirementRentForm = function (event, budgetId, intentionId, propertyId) {
+        if(window.team.isPhone()) {
+            location.href = '/rent-requirement'
+            return
+        }
         var popup = $('#requirement_rent_popup')
         window.resetRequirementRentForm(popup)
         popup.find('.requirement_title').show()
         window.showRequirementRentCancelButton(popup)
 
         window.setupRequirementRentForm(popup, function () {
-            /*popup.find('.requirement_title').hide()
 
-            setTimeout(function () {
-                popup.hide()
-            }, 2000)*/
         })
 
         var wrapper = popup.find('.requirement_wrapper')
@@ -425,8 +425,7 @@
             wrapper.css('top', $(window).scrollTop() - headerHeight)
         }
         else {
-            wrapper.css('top',
-                        $(window).scrollTop() - headerHeight + ($(window).height() - (wrapper.outerHeight() - headerHeight)) / 2)
+            wrapper.css('top', $(window).scrollTop() - headerHeight + ($(window).height() - (wrapper.outerHeight() - headerHeight)) / 2)
         }
     }
 
