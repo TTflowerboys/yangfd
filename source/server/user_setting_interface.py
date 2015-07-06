@@ -132,7 +132,7 @@ def user_intentions(user):
                 ticket['status_presentation'] = ticket_status
 
     intention_ticket_list = f_app.i18n.process_i18n(intention_ticket_list)
-    title = _('投资意向单')
+    title = _('意向单')
     return currant_util.common_template("user_intentions", user=user, intention_ticket_list=intention_ticket_list, title=title)
 
 

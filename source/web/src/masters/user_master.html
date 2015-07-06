@@ -29,7 +29,7 @@
             <!-- @if ENV!='production' -->
             <li><a href="/user-crowdfunding">{{_('海外众筹')}}</a></li>
             <!-- @endif -->
-            <li><a href="/user-intentions">{{_('投资意向单')}}</a></li>
+            <li><a href="/user-intentions">{{_('意向单')}}</a></li>
             <li><a href="/user-properties">{{_('我的房产')}}</a></li>
             <li><a href="/user-messages">{{_('消息')}}</a></li>
         </ul>
@@ -109,7 +109,7 @@
                         <i id="icon-user-intentions" class="icon-requirement"></i>
                         <i id="icon-user-intentions-active" class="icon-requirement active" style="display: none;"></i>
                     </a>
-                    {{_('投资意向单')}}
+                    {{_('意向单')}}
                 </li>
                 <li>
                     <a href="/user-properties">
@@ -150,7 +150,7 @@
             userPageHeaderTitle.innerHTML = "{{_('海外众筹')}}"
         }
         else if (urlPath === 'user_intentions' || urlPath === 'user-intentions') {
-            userPageHeaderTitle.innerHTML = "{{_('投资意向单')}}"
+            userPageHeaderTitle.innerHTML = "{{_('意向单')}}"
         }
         else if (urlPath === 'user_properties' || urlPath === 'user-properties') {
             userPageHeaderTitle.innerHTML = "{{_('我的房产')}}"

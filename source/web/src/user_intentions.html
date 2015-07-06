@@ -11,12 +11,42 @@
 <div class="content">
     <textarea id="dataTicketList" style="display:none;">{{json_dumps(intention_ticket_list)}}</textarea>
     <div class="contentHeader">
-        <h1>{{_('投资意向单')}}</h1>
+        <h1>{{_('我的房产')}}</h1>
+        <div class="buttons" style="display: none">
+            <button id="showRentBtn" class="rent button red">{{_('求租意向单')}}</button>
+            <button id="showInvestmentBtn" class="investment ghostButton red">{{_('投资意向单')}}</button>
+        </div>
     </div>
+    <div class="tabs ui-tabs ui-widget" style="display: none">
+        <ul class="ui-tabs-nav">
+            <li id="showRentTab" class="ui-tabs-selected rent">
+                <a>{{_('求租意向单')}}</a>
+            </li>
+
+            <li id="showInvestmentTab" class="investment">
+                <a>{{_('投资意向单')}}</a>
+            </li>
+        </ul>
+    </div>
+
     <div id="list" class="list">
     </div>
 
-    <div id="emptyPlaceHolder" class="emptyPlaceHolder" style="display:none;">
+    <div id="rentPlaceHolder" class="emptyPlaceHolder" style="display:none;">
+        <img src="/static/images/icon/notice.png" alt=""/>
+        <div class="holderText">
+            <h2>{{_('没有求租意向单')}}</h2>
+            <p>
+                %if is_mobile_client():
+                    {{!_('要租房？去<a href="#" onclick="window.bridge.callHandler(&quot;？？？？&quot;);return false;">发布求租意向单</a>吧')}}
+                %else:
+                    {{!_('要租房？去<a href="">发布求租意向单</a>吧')}}
+                %end
+            </p>
+        </div>
+    </div>
+
+    <div id="investmentPlaceHolder" class="emptyPlaceHolder" style="display:none;">
         <img src="/static/images/icon/notice.png" alt=""/>
         <div class="holderText">
             <h2>{{_('没有投资意向单')}}
@@ -26,6 +56,8 @@
             </p>
         </div>
     </div>
+
+
     <!-- @@include=static/templates/intention_house_card.tpl.html-->
     <!-- @@include=static/templates/intention_card.tpl.html-->
 
