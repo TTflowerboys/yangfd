@@ -42,7 +42,7 @@
 }
 
 - (void)shareToWechat {
-    [[CUTEShareManager sharedInstance] shareWithTicket:self.ticket inController:self successBlock:^{
+    [[CUTEShareManager sharedInstance] shareTicket:self.ticket inController:self successBlock:^{
         if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS]) {
             if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS fromViewController:self]) {
                 [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS];

@@ -20,6 +20,7 @@
 #import "CUTESurveyHelper.h"
 #import "CUTEApptentiveEvent.h"
 #import "ATConnect.h"
+#import "CUTEShareManager.h"
 
 @implementation CUTEWebHandler
 
@@ -93,6 +94,17 @@
             if (!error && ticket) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_WECHAT_SHARE object:self userInfo:@{@"ticket": ticket}];
             }
+        }
+    }];
+
+    [self.bridge registerHandler:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSDictionary *dic = data;
+        if (dic && [dic isKindOfClass:[NSDictionary class]]) {
+           [[CUTEShareManager sharedInstance] shareText:dic[@"text"] urlString:dic[@"url"] inController:webViewController successBlock:^{
+               responseCallback(@{@"msg":@"ok"});
+           } cancellationBlock:^{
+               responseCallback(@{@"msg":@"cancel"});
+           }];
         }
     }];
 

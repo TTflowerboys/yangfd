@@ -19,6 +19,8 @@
 
 - (BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 
-- (void)shareWithTicket:(CUTETicket *)ticket inController:(UIViewController *)controller successBlock:(dispatch_block_t)successBlock cancellationBlock:(dispatch_block_t)cancellationBlock;
+- (void)shareTicket:(CUTETicket *)ticket inController:(UIViewController *)controller successBlock:(dispatch_block_t)successBlock cancellationBlock:(dispatch_block_t)cancellationBlock;
+
+- (void)shareText:(NSString *)text urlString:(NSString *)urlString inController:(UIViewController *)controller successBlock:(dispatch_block_t)successBlock cancellationBlock:(dispatch_block_t)cancellationBlock;
 
 @end
