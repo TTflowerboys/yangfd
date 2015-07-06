@@ -738,6 +738,8 @@ def rent_ticket_search(user, params):
     main_house_types_elem_params = {"$and": []}
 
     location_only = params.pop("location_only", False)
+    if location_only and "latitude" not in params:
+        params["loc"] = {"$exists": True}
 
     if "latitude" in params:
         assert "longitude" in params, abort(40000)
