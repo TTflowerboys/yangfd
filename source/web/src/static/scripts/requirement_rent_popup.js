@@ -248,7 +248,10 @@
 
     window.setupRequirementRentForm = function(container, submitSuccessCallBack) {
         var $errorMsg = container.find('.requirementRentFormError')
-
+        var requirementRentAgreeWrap = $('.requirementRentAgreeWrap')
+        if (window.user) {
+            requirementRentAgreeWrap.hide()
+        }
         container.find('.select-chosen').add(container.find('[name=country]')).each(function (index, elem) {
             if(!$(elem).data('chosen')) {
                 $(elem).data('chosen', true).chosen({ disable_search_threshold: 8 }) //调用chosen插件
