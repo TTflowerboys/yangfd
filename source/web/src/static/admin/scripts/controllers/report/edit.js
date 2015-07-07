@@ -75,7 +75,7 @@
             api.update(angular.extend(changed, {id: $stateParams.id}), {
                 params: {_i18n: 'disabled'},
                 successMessage: 'Update successfully',
-                errorMessage: 'Update failed'
+                errorMessage: true
             }).success(function (data) {
                 angular.extend(currentItem, data.val)
                 $state.go('^')

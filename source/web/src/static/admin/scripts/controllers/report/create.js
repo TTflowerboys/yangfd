@@ -17,7 +17,7 @@
             }
             api.create($scope.item, {
                 successMessage: 'Update successfully',
-                errorMessage: 'Update failed'
+                errorMessage: true
             }).success(function () {
                 if ($scope.$parent.currentPageNumber === 1) {
                     $scope.$parent.refreshList()

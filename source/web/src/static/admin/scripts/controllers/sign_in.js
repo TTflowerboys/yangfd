@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlSignIn($scope, $state, $http, $rootScope, userApi, $stateParams, growl,errors) {
+    function ctrlSignIn($scope, $state, $http, $rootScope, userApi, $stateParams, growl, errors) {
         $scope.user = {}
         $scope.submitDisabled = true
 
@@ -13,18 +13,25 @@
             if (form.$invalid) {
                 return
             }
-            $scope.submitDisabled = true;
+            $scope.submitDisabled = true
             userApi.signIn($scope.user)
                 .success(function (data, status, headers, config) {
+
                     if (_.isEmpty(data.val.role)) {
                         growl.addErrorMessage($rootScope.renderHtml(errors[40105]), {enableHtml: true})
                         $http.get('/logout', {errorMessage: true})
                         return
                     }
+                    window._user = data.val
+
                     angular.extend($scope.user, data.val)
                     $state.go($stateParams.from || 'dashboard')
+                })['finally'](function () {
+                    $scope.submitDisabled = false
                 })
+
         }
+
 
         $scope.onChangeText = function () {
             $scope.submitDisabled = false;

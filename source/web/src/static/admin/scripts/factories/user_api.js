@@ -21,9 +21,6 @@
                 var params = _.pick(user, 'country', 'phone', 'password')
                 params.password = Base64.encode(params.password)
                 return $http.post('/api/1/user/login', params, {errorMessage: true})
-                    .success(function (data, status, headers, config) {
-                        _user = data.val
-                    })
             },
             checkLogin: function () {
                 var deferred = $q.defer()
