@@ -95,7 +95,7 @@
                     </li>
                     <li class="animate rental"><div><i class="icon-house"></i>{{rent.get('rent_type',{}).get('value', '')}}</div></li>
                     <li class="animate street"><div><i class="icon-block_line"></i>{{rent['property'].get('zipcode','')}}</div></li>
-                    <li class="animate estate"
+                    <!--<li class="animate estate"
                         %if not rent['property'].get('floor',''):
                     style="width:100%;"
                     %end
@@ -109,7 +109,7 @@
                         %end
                         {{rent['property'].get('city',{}).get('name','')}}
                     </div>
-                    </li>
+                    </li>-->
                     % if 'floor' in rent['property'] and rent['property'].get('floor',''):
                     <li class="animate door">
                         <div>
