@@ -434,6 +434,7 @@
 		2CC4D20C1B4BD33E004BD217 /* share.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CC4D20B1B4BD33E004BD217 /* share.js.txt */; };
 		2CC4D20E1B4BD854004BD217 /* createRentTicket.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CC4D20D1B4BD854004BD217 /* createRentTicket.js.txt */; };
 		2CC4D2111B4BD8E3004BD217 /* KIFUITestActor+FilePath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4D2101B4BD8E3004BD217 /* KIFUITestActor+FilePath.m */; };
+		2CC4D2131B4BDF70004BD217 /* logout.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CC4D2121B4BDF70004BD217 /* logout.js.txt */; };
 		2CC6C1CF1AEE03D7002758A7 /* UIImageView+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */; };
 		2CC6C1D01AEE03D7002758A7 /* UIImageView+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */; };
 		2CC6C1D11AEE03D7002758A7 /* UIImageView+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */; };
@@ -864,6 +865,7 @@
 		2CC4D20D1B4BD854004BD217 /* createRentTicket.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = createRentTicket.js.txt; sourceTree = "<group>"; };
 		2CC4D20F1B4BD8E3004BD217 /* KIFUITestActor+FilePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFUITestActor+FilePath.h"; sourceTree = "<group>"; };
 		2CC4D2101B4BD8E3004BD217 /* KIFUITestActor+FilePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+FilePath.m"; sourceTree = "<group>"; };
+		2CC4D2121B4BDF70004BD217 /* logout.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = logout.js.txt; sourceTree = "<group>"; };
 		2CC6C1CD1AEE03D7002758A7 /* UIImageView+Assets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Assets.h"; sourceTree = "<group>"; };
 		2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Assets.m"; sourceTree = "<group>"; };
 		2CC6C1D41AEE2400002758A7 /* AssetsLibraryProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsLibraryProvider.h; sourceTree = "<group>"; };
@@ -1492,6 +1494,7 @@
 			children = (
 				2CC4D20B1B4BD33E004BD217 /* share.js.txt */,
 				2CC4D20D1B4BD854004BD217 /* createRentTicket.js.txt */,
+				2CC4D2121B4BDF70004BD217 /* logout.js.txt */,
 			);
 			path = TestData;
 			sourceTree = "<group>";
@@ -1890,6 +1893,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CC4D2131B4BDF70004BD217 /* logout.js.txt in Resources */,
 				2CC4D20C1B4BD33E004BD217 /* share.js.txt in Resources */,
 				2C056DAE1B42474C0075037A /* SpectaUITestTemplate in Resources */,
 				2CC4D20E1B4BD854004BD217 /* createRentTicket.js.txt in Resources */,

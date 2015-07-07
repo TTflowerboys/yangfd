@@ -56,6 +56,16 @@ describe(@"WebHandler", ^ {
         [tester waitForAnimationsToFinish];
         [tester waitForViewWithAccessibilityLabel:STR(@"出租发布")];
     });
+
+    it(@"should logout success", ^{
+        [tester waitForTimeInterval:5];//page load
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        CUTEWebViewController *webViewController = (CUTEWebViewController *)[[[appDelegate.tabBarController viewControllers] firstObject] topViewController];
+
+        NSString *fileName = @"logout.js.txt";
+        [webViewController.webView stringByEvaluatingJavaScriptFromString:[tester getFileContentWithFileName:fileName]];
+        [tester waitForAnimationsToFinish];
+    });
 });
 
 SpecEnd
