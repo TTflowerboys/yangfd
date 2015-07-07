@@ -1,0 +1,5 @@
+window.bridge.callHandler('share', {'text': 'share text', 'url': 'http://yangfd.com'}, function (response) {
+	if (response['msg'] === 'ok') {
+		window.alert('Share success')
+	}
+})

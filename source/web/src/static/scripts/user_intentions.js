@@ -88,9 +88,53 @@ $(function () {
     }
 
     function loadRentIntentionTicket() {
+         var defer = $.Deferred()
+        if (xhr && xhr.readyState !== 4) {
+            xhr.abort()
+        }
         $placeholder.hide()
         $list.empty()
-        $rentPlaceholder.show()
+        $('#loadIndicator').show()
+
+        var params = {
+            'user_id': window.user.id,
+            'per_page': -1
+        }
+        //TODO update api call
+        xhr = $.post('/api/1/intention_ticket/search', params)
+            .success(function (data) {
+                //Check if tab is still rent
+                //TODO:Disable check for production sync
+                //if ($('.buttons .own').hasClass('button')) {
+                var val = data.val
+                var array = val
+                investmentTicketArray = array;
+                if (array && array.length > 0) {
+                    _.each(array, function (ticket) {
+                        if (ticket.property) {
+                            //TODO update templates
+                            ticket.status_presentation = getStatusPresentation(ticket.status)
+                            var houseResult = _.template($('#houseCard_template').html())({ticket: ticket})
+                            $('#list').append(houseResult)
+                        }
+                        else {
+                            var intentionResult = _.template($('#intentionCard_template').html())({ticket: ticket})
+                            $('#list').append(intentionResult)
+                        }
+                    })
+                } else {
+                    $rentPlaceholder.show()
+
+                }
+                defer.resolve()
+            }).fail(function () {
+                $rentPlaceholder.show()
+                defer.reject()
+            }).complete(function () {
+                $('#loadIndicator').hide()
+                isLoading = false
+            })
+        return defer.promise()
     }
 
     function getStatusPresentation(status) {

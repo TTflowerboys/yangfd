@@ -82,7 +82,9 @@
             }
             var $span = container.find('.city-select').next('.chosen-container').find('.chosen-single span')
             var originContent = $span.html()
-            $span.html(window.i18n('城市列表加载中...'))
+            container.find('.city-select').html(
+                '<option value="">' + i18n('城市列表加载中') + '</option>'
+            ).trigger('chosen:updated')
             geonamesApi.getCity(country, function (val) {
                 if(country === container.find('.country-select').val()) {
                     $span.html(originContent)
@@ -407,7 +409,7 @@
 
     window.openRequirementRentForm = function (event, budgetId, intentionId, propertyId) {
         if(window.team.isPhone()) {
-            location.href = '/rent-requirement'
+            location.href = '/requirement-rent'
             return
         }
         var popup = $('#requirement_rent_popup')
