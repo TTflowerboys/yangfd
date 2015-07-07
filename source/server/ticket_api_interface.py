@@ -363,7 +363,7 @@ def intention_ticket_search(user, params):
             params["status"] = {"$in": params["status"]}
         else:
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
-    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=enable_custom_fields)
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=enable_custom_fields, ignore_nonexist=True)
 
 
 @f_api('/rent_intention_ticket/add', params=dict(
