@@ -17,6 +17,10 @@
             link = location.origin + '/news/' + newsId
             $('#linkInput').val(link)
             $('.mainPage').find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(link))
+        } else {
+            link = location.origin + '/app-download'
+            $('#linkInput').val(link)
+            $('.mainPage').find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(link))
         }
 
         $('button[name=shareLink]').click(function (event) {

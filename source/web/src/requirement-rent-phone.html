@@ -11,44 +11,40 @@
 <textarea id="countryData" style="display: none;">
     {{json_dumps(full_country_list)}}
 </textarea>
-<div id="requirement_rent_popup" class="requirement_popup requirement_rent_phone" >
+<div class="requirement_rent_phone" >
     <div class="requirement_wrapper">
         <div id="requirement" class="requirement">
-            <div class="info">
-                <div class="requirement_title">
-                    <h2 class="title">{{_('出租需求')}}</h2>
-                    <h3 class="subtitle">{{_('如果您有求租房子的需求，请告诉我们，我们将收集相应的资源并且及时反馈给您')}}
-                    </h3>
-                </div>
-                <div class="contact">
-                    <label class="hint">{{_('联系我们')}}</label>
-                    <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
-                </div>
-            </div>
-            <div class="formWrap">
+            <div class="formWrap" style="display: none;">
                 <div class="stepWrap ">
-                    <div class="step step1">1<p class="info">{{_('选择求租地址')}}</p></div>
-                    <div class="step step2">2<p class="info">{{_('填写求租详情')}}</p></div>
-                    <div class="step step3">3<p class="info">{{_('求租者联系方式')}}</p></div>
+                    <div class="step step1"><i>1</i><p class="info">{{_('选择求租地址')}}</p></div>
+                    <div class="step step2"><i>2</i><p class="info">{{_('填写求租详情')}}</p></div>
+                    <div class="step step3"><i>3</i><p class="info">{{_('求租者联系方式')}}</p></div>
+                </div>
+                <div class="tips">
+                    <!-- todo 文案要更改-->
+                    {{_('为了您的投资安全和满足相关监管机构要求，在您确认前，我们需要验证您的身份，请务必填写准确。')}}
                 </div>
                 <form class="requirement_rent_form">
-                    <table class="step1" data-show-step="1">
-                        <tr>
-                            <td>
-                                <select class="select-chosen country-select" data-placeholder="{{_('请选择国家')}}" data-change-title data-validator="required" data-name="{{'国家'}}" data-serialize="country">
-
+                    <div class="step1" data-show-step="1">
+                        <div class="row">
+                            <div class="col">
+                                <p class="inputPlaceholder">{{_('国家')}}</p>
+                                <select dir="rtl" class="select-chosen country-select" data-placeholder="{{_('请选择国家')}}" data-change-title data-validator="required" data-name="{{'国家'}}" data-serialize="country">
                                 </select>
-                                <select class="select-chosen city-select" data-placeholder="{{_('请选择城市')}}" data-change-title data-validator="required" data-name="{{'城市'}}" data-serialize="city">
-
+                            </div>
+                            <div class="col">
+                                <p class="inputPlaceholder">{{_('城市')}}</p>
+                                <select dir="rtl" class="select-chosen city-select" data-placeholder="{{_('请选择城市')}}" data-change-title data-validator="required" data-name="{{'城市'}}" data-serialize="city">
                                 </select>
-                            </td>
-                        </tr>
-                    </table>
+                            </div>
+                        </div>
+                    </div>
                     <div class="step2" data-show-step="2">
                         <div class="row">
                             <div class="col">
                                 <p class="title">{{_('求租类型')}}</p>
-                                <select class="select-chosen rentType" data-change-title data-validator="required" data-name="{{'求租类型'}}" data-serialize="rent_type">
+                                <p class="inputPlaceholder">{{_('求租类型')}}</p>
+                                <select dir="rtl" class="select-chosen rentType" data-change-title data-validator="required" data-name="{{'求租类型'}}" data-serialize="rent_type">
                                     %for index, rent_type in enumerate(rent_type_list):
                                     <option value="{{rent_type.get('id')}}">
                                         {{rent_type.get('value')}}
@@ -61,7 +57,11 @@
                                     <!--@@include=./partials/current_currency.html -->
                                     {{_('/周')}}
                                     )</p>
-                                <select class="select-chosen rentBudget" data-validator="required" data-name="{{'预算'}}" data-serialize="rent_budget">
+                                <p class="inputPlaceholder">{{_('预算')}}(
+                                    <!--@@include=./partials/current_currency.html -->
+                                    {{_('/周')}}
+                                    )</p>
+                                <select dir="rtl" class="select-chosen rentBudget" data-validator="required" data-name="{{'预算'}}" data-serialize="rent_budget">
                                     %for index, rent_budget in enumerate(rent_budget_list):
                                     %if rent_budget.get('currency') == _.currency:
                                     <option value="{{rent_budget.get('id')}}" data-index="{{index}}">{{rent_budget.get('value')}}</option>
@@ -73,16 +73,18 @@
                         <div class="row">
                             <div class="col">
                                 <p class="title">{{_('租期')}}</p>
-                                <input type="text" class="startDate dateInput" data-validator="date" data-name="{{'租期开始日期'}}" data-serialize="rent_available_time|time"/>
+                                <p class="inputPlaceholder">{{_('租期开始日期')}}</p>
+                                <input dir="rtl" type="date" class="startDate dateInput" data-validator="date" data-name="{{'租期开始日期'}}" data-serialize="rent_available_time|time"/>
                                 <span class="bridge">{{_('至')}}</span>
-                                <input type="text" class="endDate dateInput" data-validator="date"  data-name="{{'租期结束日期'}}" data-serialize="rent_deadline_time|time"/>
+                                <p class="inputPlaceholder" style="top: 67px;">{{_('租期结束日期')}}</p>
+                                <input dir="rtl" type="date" class="endDate dateInput" data-validator="date"  data-name="{{'租期结束日期'}}" data-serialize="rent_deadline_time|time"/>
                             </div>
                         </div>
                         <div class="row">
                             <input type="text" class="requirementRentTitle" name="requirementRentTitle" placeholder="{{_('求租标题')}}" data-validator="required,trim,maxLength(30)"  data-name="{{'求租标题'}}" data-serialize="title"/>
                         </div>
                         <div class="row">
-                            <textarea name="requirementRentDesc" id="" rows="3" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}" data-validator="trim,maxLength(150)" data-name="{{'求租描述'}}" data-serialize="description"></textarea>
+                            <textarea name="requirementRentDesc" id="" rows="8" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}" data-validator="trim,maxLength(150)" data-name="{{'求租描述'}}" data-serialize="description"></textarea>
                         </div>
                     </div>
                     <div class="step3" data-show-step="3">
@@ -105,24 +107,24 @@
                     <div class="requirementRentFormError"></div>
                 </form>
                 <div class="actionWrap">
-                    <div data-show-step="1">
+                    <div class="step1" data-show-step="1">
                         <button class="actionButton ghostButton red" data-action="gotoNext">{{_('下一步')}}</button>
                     </div>
-                    <div data-show-step="2">
+                    <div class="step2" data-show-step="2">
                         <button class="actionButton ghostButton red" data-action="gotoPrev">{{_('上一步')}}</button>
                         <button class="actionButton ghostButton red" data-action="gotoNext">{{_('下一步')}}</button>
 
                     </div>
-                    <div data-show-step="3">
+                    <div class="step3" data-show-step="3">
                         <button class="actionButton ghostButton red" data-action="gotoPrev">{{_('上一步')}}</button>
                         <button class="actionButton button gray ajaxButton" type="submit" disabled>{{_('提交')}}</button>
                     </div>
                 </div>
             </div>
-            <div class="successWrap">
+            <div class="successWrap" style="display: none;">
                 <h2>{{_('提交成功')}}</h2>
                 <p>{{_('您的求租意向已经提交成功，我们会将此信息推送给符合您需求的房屋出租者。')}}</p>
-                <p>{{_('您可以在')}}<a href="">xxxxxxxx</a> {{_('中查看您的求租需求信息，如果您已经成功租得房屋，')}}<br>{{_('请及时更改您的求租状态。')}}</p>
+                <p>{{_('您可以在')}}<a href="">xxxxxxxx</a> {{_('中查看您的求租需求信息，如果您已经成功租得房屋，')}}{{_('请及时更改您的求租状态。')}}</p>
                 <div class="contact">
                     <label class="hint">{{_('联系我们')}}</label>
                     <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
@@ -134,6 +136,7 @@
                         {{_('提高联系方式获取次数')}}
                     </p>
                 </div>
+                <a class="button red shareButton" href="/wechat_share">{{_('分享，提高联系方式展示次数')}}</a>
             </div>
         </div>
     </div>
@@ -144,21 +147,10 @@
 <!--@@block = scripts -->
 
 <script>
- var requirementContainer = $('main')
- window.resetRequirementForm(requirementContainer)
- window.setRequirementFormContent(requirementContainer, team.getQuery('budget', location.href), team.getQuery('intention', location.href))
+ var requirementRentContainer = $('main')
+ window.resetRequirementRentForm(requirementRentContainer)
+ window.setupRequirementRentForm(requirementRentContainer)
 
- window.setupRequirementForm(requirementContainer, function () {
-     setTimeout(function () {
-         var propertyId = window.team.getQuery('property', location.href)
-         if (propertyId) {
-             location.href= '/property/' + propertyId
-         }
-         else {
-             history.go(-1)
-         }
-     }, 2000)
- })
 
 </script>
 
