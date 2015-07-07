@@ -39,7 +39,7 @@
             <h2>{{_('没有求租意向单')}}</h2>
             <p>
                 %if is_mobile_client():
-                    {{!_('要租房？去<a href="#" onclick="window.bridge.callHandler(&quot;？？？？&quot;);return false;">发布求租意向单</a>吧')}}
+                    {{!_('要租房？去<a href="#" onclick="window.openRequirementRentForm();return false;">发布求租意向单</a>吧')}}
                 %else:
                     {{!_('要租房？去<a href="">发布求租意向单</a>吧')}}
                 %end
