@@ -407,7 +407,7 @@
 
     window.openRequirementRentForm = function (event, budgetId, intentionId, propertyId) {
         if(window.team.isPhone()) {
-            location.href = '/rent-requirement'
+            location.href = '/requirement-rent'
             return
         }
         var popup = $('#requirement_rent_popup')

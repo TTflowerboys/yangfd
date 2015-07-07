@@ -18,11 +18,11 @@ def requirement():
     return currant_util.common_template("requirement-phone", intention_list=intention_list, title=title)
 
 
-@f_get('/rent-requirement')
+@f_get('/requirement-rent')
 @currant_util.check_ip_and_redirect_domain
-def rent_requirement():
+def requirement_rent():
     title = _('提交租房需求')
-    return currant_util.common_template("rent-requirement-phone", title=title)
+    return currant_util.common_template("requirement-rent-phone", title=title)
 
 
 @f_get('/wechat_share')
