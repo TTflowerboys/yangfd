@@ -110,16 +110,12 @@ $(function () {
                 var array = val
                 investmentTicketArray = array;
                 if (array && array.length > 0) {
-                    _.each(array, function (ticket) {
-                        if (ticket.property) {
+                    _.each(array, function (rent) {
+                        if (rent.property) {
                             //TODO update templates
-                            ticket.status_presentation = getStatusPresentation(ticket.status)
-                            var houseResult = _.template($('#houseCard_template').html())({ticket: ticket})
+                            rent.status_presentation = getStatusPresentation(rent.status)
+                            var houseResult = _.template($('#rentIntentionCard_template').html())({rent: rent})
                             $('#list').append(houseResult)
-                        }
-                        else {
-                            var intentionResult = _.template($('#intentionCard_template').html())({ticket: ticket})
-                            $('#list').append(intentionResult)
                         }
                     })
                 } else {

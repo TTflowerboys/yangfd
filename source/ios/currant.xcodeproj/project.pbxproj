@@ -431,6 +431,10 @@
 		2CC4525E1B2711770004AE54 /* CUTEAddressUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4525C1B2711770004AE54 /* CUTEAddressUtil.m */; };
 		2CC4525F1B2711770004AE54 /* CUTEAddressUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4525C1B2711770004AE54 /* CUTEAddressUtil.m */; };
 		2CC452601B2711770004AE54 /* CUTEAddressUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4525C1B2711770004AE54 /* CUTEAddressUtil.m */; };
+		2CC4D20C1B4BD33E004BD217 /* share.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CC4D20B1B4BD33E004BD217 /* share.js.txt */; };
+		2CC4D20E1B4BD854004BD217 /* createRentTicket.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CC4D20D1B4BD854004BD217 /* createRentTicket.js.txt */; };
+		2CC4D2111B4BD8E3004BD217 /* KIFUITestActor+FilePath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC4D2101B4BD8E3004BD217 /* KIFUITestActor+FilePath.m */; };
+		2CC4D2131B4BDF70004BD217 /* logout.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CC4D2121B4BDF70004BD217 /* logout.js.txt */; };
 		2CC6C1CF1AEE03D7002758A7 /* UIImageView+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */; };
 		2CC6C1D01AEE03D7002758A7 /* UIImageView+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */; };
 		2CC6C1D11AEE03D7002758A7 /* UIImageView+Assets.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */; };
@@ -857,6 +861,11 @@
 		2CC3A0961AFA2279008C9AC8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2CC4525B1B2711770004AE54 /* CUTEAddressUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEAddressUtil.h; sourceTree = "<group>"; };
 		2CC4525C1B2711770004AE54 /* CUTEAddressUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAddressUtil.m; sourceTree = "<group>"; };
+		2CC4D20B1B4BD33E004BD217 /* share.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = share.js.txt; sourceTree = "<group>"; };
+		2CC4D20D1B4BD854004BD217 /* createRentTicket.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = createRentTicket.js.txt; sourceTree = "<group>"; };
+		2CC4D20F1B4BD8E3004BD217 /* KIFUITestActor+FilePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFUITestActor+FilePath.h"; sourceTree = "<group>"; };
+		2CC4D2101B4BD8E3004BD217 /* KIFUITestActor+FilePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+FilePath.m"; sourceTree = "<group>"; };
+		2CC4D2121B4BDF70004BD217 /* logout.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = logout.js.txt; sourceTree = "<group>"; };
 		2CC6C1CD1AEE03D7002758A7 /* UIImageView+Assets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Assets.h"; sourceTree = "<group>"; };
 		2CC6C1CE1AEE03D7002758A7 /* UIImageView+Assets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Assets.m"; sourceTree = "<group>"; };
 		2CC6C1D41AEE2400002758A7 /* AssetsLibraryProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsLibraryProvider.h; sourceTree = "<group>"; };
@@ -1047,6 +1056,8 @@
 				2C056D241B4231F40075037A /* Scene */,
 				2C056D191B414F4B0075037A /* Supporting Files */,
 				2C056DAD1B42474C0075037A /* SpectaUITestTemplate */,
+				2CC4D20F1B4BD8E3004BD217 /* KIFUITestActor+FilePath.h */,
+				2CC4D2101B4BD8E3004BD217 /* KIFUITestActor+FilePath.m */,
 			);
 			path = currantUITest;
 			sourceTree = "<group>";
@@ -1240,6 +1251,7 @@
 			children = (
 				2C464D601B46985400289BB0 /* CUTEPublishRentTicketUSTest.m */,
 				2C464D671B4A2B2C00289BB0 /* CUTEWebHandlerUSTest.m */,
+				2CC4D20A1B4BD30E004BD217 /* TestData */,
 			);
 			path = UserStory;
 			sourceTree = "<group>";
@@ -1475,6 +1487,16 @@
 				2C056D9D1B423BBA0075037A /* CUTEFormViewController.m */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		2CC4D20A1B4BD30E004BD217 /* TestData */ = {
+			isa = PBXGroup;
+			children = (
+				2CC4D20B1B4BD33E004BD217 /* share.js.txt */,
+				2CC4D20D1B4BD854004BD217 /* createRentTicket.js.txt */,
+				2CC4D2121B4BDF70004BD217 /* logout.js.txt */,
+			);
+			path = TestData;
 			sourceTree = "<group>";
 		};
 		2CCE67F11B1C0F7C00351DED /* RentList */ = {
@@ -1871,7 +1893,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CC4D2131B4BDF70004BD217 /* logout.js.txt in Resources */,
+				2CC4D20C1B4BD33E004BD217 /* share.js.txt in Resources */,
 				2C056DAE1B42474C0075037A /* SpectaUITestTemplate in Resources */,
+				2CC4D20E1B4BD854004BD217 /* createRentTicket.js.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2200,6 +2225,7 @@
 				2C317F721B4538C30041E05E /* KIFUITestActor+AddressMap.m in Sources */,
 				2C056D901B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
 				2C056DA31B423BBA0075037A /* CUTEForm.m in Sources */,
+				2CC4D2111B4BD8E3004BD217 /* KIFUITestActor+FilePath.m in Sources */,
 				2C056D3A1B423A110075037A /* CUTEUserViewController.m in Sources */,
 				2C464D611B46985400289BB0 /* CUTEPublishRentTicketUSTest.m in Sources */,
 				2C6D7B1E1B428F25007853FD /* KIFUITestActor+SplashUI.m in Sources */,

@@ -12,7 +12,7 @@
 #import "CUTEWebViewController.h"
 #import "KIFUITestActor+Login.h"
 #import "AppDelegate.h"
-
+#import "KIFUITestActor+FilePath.h"
 
 @interface AppDelegate (Private)
 
@@ -25,7 +25,7 @@ SpecBegin(WebHandlerUS)
 
 describe(@"WebHandler", ^ {
 
-    beforeAll(^{
+    before(^{
         [tester logout];
         [tester login];
         [tester tapViewWithAccessibilityLabel:STR(@"主页")];
@@ -36,8 +36,35 @@ describe(@"WebHandler", ^ {
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         CUTEWebViewController *webViewController = (CUTEWebViewController *)[[[appDelegate.tabBarController viewControllers] firstObject] topViewController];
 
-        [webViewController.webView stringByEvaluatingJavaScriptFromString:@"window.bridge.callHandler('share', {'text': 'good text', 'url':'http://www.baidu.com'})"];
+        NSString *fileName = @"share.js.txt";
+        [webViewController.webView stringByEvaluatingJavaScriptFromString:[tester getFileContentWithFileName:fileName]];
         [tester waitForViewWithAccessibilityLabel:STR(@"分享")];
+
+        [system waitForApplicationToOpenAnyURLWhileExecutingBlock:^{
+            [tester tapViewWithAccessibilityLabel:STR(@"微信好友")];
+        } returning:YES];
+        [tester waitForTimeInterval:3];
+    });
+
+    it(@"should create rent ticket success", ^{
+        [tester waitForTimeInterval:5];//page load
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        CUTEWebViewController *webViewController = (CUTEWebViewController *)[[[appDelegate.tabBarController viewControllers] firstObject] topViewController];
+
+        NSString *fileName = @"createRentTicket.js.txt";
+        [webViewController.webView stringByEvaluatingJavaScriptFromString:[tester getFileContentWithFileName:fileName]];
+        [tester waitForAnimationsToFinish];
+        [tester waitForViewWithAccessibilityLabel:STR(@"出租发布")];
+    });
+
+    it(@"should logout success", ^{
+        [tester waitForTimeInterval:5];//page load
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        CUTEWebViewController *webViewController = (CUTEWebViewController *)[[[appDelegate.tabBarController viewControllers] firstObject] topViewController];
+
+        NSString *fileName = @"logout.js.txt";
+        [webViewController.webView stringByEvaluatingJavaScriptFromString:[tester getFileContentWithFileName:fileName]];
+        [tester waitForAnimationsToFinish];
     });
 });
 

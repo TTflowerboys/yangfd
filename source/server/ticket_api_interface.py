@@ -363,7 +363,7 @@ def intention_ticket_search(user, params):
             params["status"] = {"$in": params["status"]}
         else:
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
-    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=enable_custom_fields)
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=enable_custom_fields, ignore_nonexist=True)
 
 
 @f_api('/rent_intention_ticket/add', params=dict(
@@ -650,6 +650,80 @@ def rent_intention_ticket_edit(user, ticket_id, params):
     f_app.ticket.update_set(ticket_id, params, history_params=history_params)
 
     return f_app.ticket.output([ticket_id])[0]
+
+
+@f_api('/rent_intention_ticket/search', params=dict(
+    status=(list, None, str),
+    per_page=int,
+    time=datetime,
+    sort=(list, ["time", 'desc'], str),
+    phone=str,
+    country="country",
+    city="geonames_gazetteer:city",
+    rent_type="enum:rent_type",
+    rent_budget="enum:rent_budget",
+    rent_available_time=datetime,
+    rent_deadline_time=datetime,
+    minimum_rent_period="i18n:time_period",
+    user_id=ObjectId,
+))
+@f_app.user.login.check(force=True)
+def rent_intention_ticket_search(user, params):
+    """
+    ``status`` must be one of these values: ``new``, ``rent``, ``canceled``.
+    """
+    params.setdefault("type", "rent_intention")
+
+    params["$and"] = []
+
+    if "phone" in params:
+        params["phone"] = f_app.util.parse_phone(params)
+
+    if "rent_available_time" in params:
+        params["rent_available_time"] = {"$gte": params["rent_available_time"] - timedelta(days=7), "$lte": params["rent_available_time"] + timedelta(days=1)}
+
+    if "rent_deadline_time" in params:
+        params["$and"].append({"$or": [{"rent_deadline_time": {"$gte": params["rent_deadline_time"] - timedelta(days=1)}}, {"rent_deadline_time": {"$exists": False}}]})
+
+    if "rent_available_time" in params and "rent_deadline_time" in params:
+        # TODO: override minimum_rent_period only if necessary
+        # params["minimum_rent_period"] = {"type": ""}
+        pass
+
+    if "minimum_rent_period" in params:
+        rent_period_filter = []
+        for time_period_unit in f_app.common.i18n_unit_time_period:
+            condition = {"minimum_rent_period.unit": time_period_unit}
+            if time_period_unit == params["minimum_rent_period"]["unit"]:
+                condition["minimum_rent_period.value_float"] = {"$gte": params["minimum_rent_period"]["value_float"]}
+            else:
+                condition["minimum_rent_period.value_float"] = {"$gte": float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value": params["minimum_rent_period"]["value"]}, time_period_unit))}
+            rent_period_filter.append(condition)
+        params["$and"].append({"$or": rent_period_filter})
+
+    user_roles = f_app.user.get_role(user["id"])
+    enable_custom_fields = True
+    if set(user_roles) & set(["admin", "jr_admin", "sales"]):
+        pass
+    if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & set(user_roles)) == 0:
+        params["assignee"] = ObjectId(user["id"])
+    elif len(user_roles) == 0:
+        # General users
+        params["user_id"] = ObjectId(user["id"])
+        enable_custom_fields = False
+
+    if len(params["$and"]) < 1:
+        params.pop("$and")
+
+    sort = params.pop("sort")
+    per_page = params.pop("per_page", 0)
+
+    if "status" in params:
+        if set(params["status"]) <= set(f_app.common.rent_intention_ticket_statuses):
+            params["status"] = {"$in": params["status"]}
+        else:
+            abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=enable_custom_fields)
 
 
 @f_api('/support_ticket/add', params=dict(
@@ -1067,9 +1141,9 @@ def rent_ticket_search(user, params):
         for time_period_unit in f_app.common.i18n_unit_time_period:
             condition = {"minimum_rent_period.unit": time_period_unit}
             if time_period_unit == params["minimum_rent_period"]["unit"]:
-                condition["price.value_float"] = {"$gte": params["minimum_rent_period"]["value_float"]}
+                condition["minimum_rent_period.value_float"] = {"$gte": params["minimum_rent_period"]["value_float"]}
             else:
-                condition["price.value_float"] = {"$gte": float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value": params["minimum_rent_period"]["value"]}, time_period_unit))}
+                condition["minimum_rent_period.value_float"] = {"$gte": float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value": params["minimum_rent_period"]["value"]}, time_period_unit))}
             rent_period_filter.append(condition)
         params["$and"].append({"$or": rent_period_filter})
 
