@@ -85,6 +85,7 @@
     controller.url = [NSURL WebURLWithString:urlPath];
     nav.tabBarItem = tabItem;
     nav.tabBarItem.tag = index;
+    nav.tabBarItem.accessibilityLabel = title;
     controller.navigationItem.title = STR(@"洋房东");
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     [nav setViewControllers:@[controller]];
@@ -99,6 +100,7 @@
     controller.url = [NSURL WebURLWithString:urlPath];
     nav.tabBarItem = tabItem;
     nav.tabBarItem.tag = kPropertyListTabBarIndex;
+    nav.tabBarItem.accessibilityLabel = title;
     controller.navigationItem.title = STR(@"洋房东");
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     [nav setViewControllers:@[controller]];
@@ -113,6 +115,7 @@
     controller.url = [NSURL WebURLWithString:urlPath];
     nav.tabBarItem = tabItem;
     nav.tabBarItem.tag = kRentTicketListTabBarIndex;
+    nav.tabBarItem.accessibilityLabel = title;
     controller.navigationItem.title = STR(@"洋房东");
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     [nav setViewControllers:@[controller]];
@@ -126,6 +129,7 @@
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:nil];
     tabItem.tag = kEditTabBarIndex;
     nav.tabBarItem = tabItem;
+    nav.tabBarItem.accessibilityLabel = title;
 
     [nav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]} forState:UIControlStateNormal];
     [nav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]} forState:UIControlStateSelected];
@@ -143,6 +147,7 @@
     controller.url = [NSURL WebURLWithString:urlPath];
     nav.tabBarItem = tabItem;
     nav.tabBarItem.tag = index;
+    nav.tabBarItem.accessibilityLabel = title;
     controller.navigationItem.title = STR(@"洋房东");
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     [nav setViewControllers:@[controller]];

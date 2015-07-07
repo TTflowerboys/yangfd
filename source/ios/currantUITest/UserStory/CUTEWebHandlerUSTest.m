@@ -32,10 +32,12 @@ describe(@"WebHandler", ^ {
     });
 
     it(@"should share text and url success", ^ {
+        [tester waitForTimeInterval:5];//page load
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         CUTEWebViewController *webViewController = (CUTEWebViewController *)[[[appDelegate.tabBarController viewControllers] firstObject] topViewController];
 
         [webViewController.webView stringByEvaluatingJavaScriptFromString:@"window.bridge.callHandler('share', {'text': 'good text', 'url':'http://www.baidu.com'})"];
+        [tester waitForViewWithAccessibilityLabel:STR(@"分享")];
     });
 });
 
