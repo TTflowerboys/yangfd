@@ -118,6 +118,8 @@
                     height: 40px;
                     @media @phone{
                         height: 54px;
+                        line-height: 54px;
+                        vertical-align: middle;
                         box-shadow: 0 0 8px -5px #000;
                     }
                 }
@@ -127,7 +129,6 @@
                 &>div{
                     .row{
                         margin-bottom: 20px;
-                        .clearfix;
                         >input{
                             width: 100%;
                         }
@@ -190,6 +191,7 @@
                 }
                 .step2{
                     .row{
+                        width: 100%;
                         .title{
                             margin: 0 0 8px;
                             @media @phone{
@@ -209,8 +211,8 @@
 
                         }
                         .dateInput{
-                            display: inline-block;
-                            width: 100%;
+                            display: block !important;
+                            width: 100% !important;
                             padding-right: 10px;
                             text-align: right;
                             &.startDate{
