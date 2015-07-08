@@ -204,8 +204,8 @@ def intention_ticket_add(params):
             xsmtpapi["template_id"] = sendgrid_template_id
             f_app.email.schedule(
                 target=sales["email"],
-                subject=f_app.util.get_format_email_subject(template("static/emails/new_ticket_title")),
-                text=template("static/emails/new_ticket", params=params),
+                subject=f_app.util.get_format_email_subject(template("static/emails/new_intention_ticket_title")),
+                text=template("static/emails/new_intention_ticket", params=params),
                 display="html",
                 template_invoke_name=template_invoke_name,
                 substitution_vars=substitution_vars,
@@ -531,14 +531,20 @@ def rent_intention_ticket_add(params):
     if shadow_user_id is not None:
         f_app.user.counter_update(shadow_user_id)
 
+    if f_app.common.use_ssl:
+        schema = "https://"
+    else:
+        schema = "http://"
+    admin_console_url = "%s%s/admin#" % (schema, request.urlparts[1])
+
     sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales"]}}))
     budget_enum = f_app.enum.get(params["rent_budget"]["_id"]) if "budget" in params else None
     for sales in sales_list:
         if "email" in sales:
             f_app.email.schedule(
                 target=sales["email"],
-                subject=f_app.util.get_format_email_subject(template("static/emails/new_rent_ticket_title")),
-                text=template("static/emails/new_rent_ticket", params=params),
+                subject=f_app.util.get_format_email_subject(template("static/emails/new_rent_intention_ticket_title")),
+                text=template("static/emails/new_rent_intention_ticket", params=params, admin_console_url=admin_console_url),
                 display="html",
             )
             if False:
@@ -770,8 +776,8 @@ def support_ticket_add(params):
         if "email" in support:
             f_app.email.schedule(
                 target=support["email"],
-                subject=template("static/emails/new_ticket_title"),
-                text=template("static/emails/new_ticket", params=params),
+                subject=template("static/emails/new_intention_ticket_title"),
+                text=template("static/emails/new_intention_ticket", params=params),
                 display="html",
             )
 
