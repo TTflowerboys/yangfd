@@ -1,0 +1,23 @@
+%if full_country_list:
+<select name="country" class="country ghostSelect" style="color:#4d4d4d;">
+
+    %for index, country  in enumerate(full_country_list):
+    <option value="{{country.get('code')}}"
+        %if country.get('code') == 'GB' :
+        selected
+        %end
+    >
+        %if country.get('code') == 'GB' :
+        (+44)
+        %elif country.get('code') == 'CN':
+        (+86)
+        %elif country.get('code') == 'US' :
+        (+1)
+        %elif country.get('code') == 'HK' :
+        (+852)
+        %end
+        {{get_country_name_by_code(country.get('code'))}}
+    </option>
+    %end
+</select>
+%end
