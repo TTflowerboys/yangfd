@@ -1,9 +1,11 @@
 <script id="houseCard_template" type="text/template">
     {_var house = ticket.property_}
+    {_ if (house) {_}
     <div class="houseCard" data-property-id="{=ticket.property.id=}">
         <!--@@include=ticket_house_card_content.tpl.html  -->
     </div>
     <div class="houseCard_phone_new" data-property-id="{=ticket.property.id=}">
         <!--@@include=ticket_house_card_content_phone.tpl.html  -->
     </div>
+    {_}_}
 </script>

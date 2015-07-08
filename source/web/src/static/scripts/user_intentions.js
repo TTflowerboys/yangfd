@@ -100,8 +100,7 @@ $(function () {
             'user_id': window.user.id,
             'per_page': -1
         }
-        //TODO update api call
-        xhr = $.post('/api/1/intention_ticket/search', params)
+        xhr = $.post('/api/1/rent_intention_ticket/search', params)
             .success(function (data) {
                 //Check if tab is still rent
                 //TODO:Disable check for production sync
@@ -111,12 +110,9 @@ $(function () {
                 investmentTicketArray = array;
                 if (array && array.length > 0) {
                     _.each(array, function (rent) {
-                        if (rent.property) {
-                            //TODO update templates
-                            rent.status_presentation = getStatusPresentation(rent.status)
-                            var houseResult = _.template($('#rentIntentionCard_template').html())({rent: rent})
-                            $('#list').append(houseResult)
-                        }
+                        rent.status_presentation = getStatusPresentation(rent.status)
+                        var houseResult = _.template($('#rentIntentionCard_template').html())({ticket: rent})
+                        $('#list').append(houseResult)
                     })
                 } else {
                     $rentPlaceholder.show()

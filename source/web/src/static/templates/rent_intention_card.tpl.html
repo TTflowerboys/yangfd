@@ -1,100 +1,51 @@
 <script id="rentIntentionCard_template" type="text/template">
-    <div class="rentCard"  data-id="{=rent.id=}">
-            <div class="imagePart">
-                <a href="/property-to-rent/{=rent.id=}">
-                        {_if (rent.property.cover){_}
-                            <img src="{=team.convertToHttps({'link':rent.property.cover, 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
-                        {_ } else if(rent.property.reality_images && rent.property.reality_images.length) {_}
-                            <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
-                        {_ }else { _}
-                            <img class="withPlaceholder"/>
-                        {_ } _}
+    <div class="rentIntentionCard"  data-id="{=ticket.id=}">
 
-                    <div class="labels">
-                        <label class="status">
-                            {_if(rent.status === 'draft') {_}
-                            {=window.i18n('草稿')=}
-                            {_}_}
-                            {_if(rent.status === 'to rent') {_}
-                            {=window.i18n('发布中')=}
-                            {_}_}
-                            {_if(rent.status === 'rent') {_}
-                            {=window.i18n('已出租')=}
-                            {_}_}
-                        </label>
-                    </div>
-                </a>
-            </div>
-            <div class="description_wrapper">
-                <div class="description">
-                    <div class="titles">
-                        <a href="/property-to-rent/{=rent.id=}">
-                            {_if(rent.title) {_}
-                            <p class="name" id="name">{=rent.title=}</p>
-                            {_}_}
-                        </a>
-                        <div class="imgAction_wrapper">
-                            <i id='edit' data-id="{=rent.id=}" class="imgAction hiddenInNonClient icon-edit"></i>
-                            <i id='remove' data-id="{=rent.id=}" class="imgAction icon-delete"></i>
-                            {_if(rent.last_modified_time > rent.time ) {_}
-                                <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('更新过')=}</p>
-                            {_}else{_}
-                                <p class="date">{!team.parsePublishDate(parseInt(rent.time))!}{=window.i18n('发布')=}</p>
-                            {_}_}
-                        </div>
-                    </div>
-                    <ul class="properties">
-                        <li>
-                            <i class="icon-location_fill"></i>
-                            <!-- todo 国家城市数据结构更改后city中就没有country属性了，我把这儿更改后不知道会不会有问题，需要测试 --by levy-->
-                            {_if(rent.property.country && rent.property.country.code) {_}
-                                {= window.team.countryMap[rent.property.country.code] + " " =}
-                            {_}_}
-                            {_if(rent.property.city && rent.property.city.name) {_}
-                                {= rent.property.city.name + " " =}
-                            {_}_}
-                            {_if(rent.property.street) {_}
-                                {= rent.property.street =}
-                            {_}_}
-                        </li>
-                        {_if(rent.price) {_}
-                        <span class="price">{=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value),0)!}</strong>{=window.i18n('/周')=}</span>
-                        {_}_}
-                    </ul>
-
-                        {_if(rent.status === 'to rent') {_}
-                        <ul class="actions">
-                            <li>
-                                <a id="wechatShare" class="action" data-id="{=rent.id=}">{=window.i18n('微信分享')=}</a>
-                            </li>
-                            <li>
-                                {_if(team.isToday(parseInt(rent.last_modified_time))){_}
-                                <p class="action">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('已刷新过')=}</p>
-                                {_}else{_}
-                                <a id="refresh" class="action" data-id="{=rent.id=}">{=window.i18n('刷新')=}</a>
-                                {_}_}
-                                <div id="arrowBox" class="arrowBox">
-                                    <p>{=window.i18n('每24小时只能刷新一次')=}</p>
-                                </div>
-                            </li>
-                            <li>
-                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="to rent">{=window.i18n('确认已出租')=}</a>
-                            </li>
-                        </ul>
-                        {_}else if(rent.status === 'draft') {_}
-                        <ul class="actions hiddenInNonClient">
-                            <li >
-                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="draft">{=window.i18n('编辑')=}</a>
-                            </li>
-                        </ul>
-                        {_}else if(rent.status === 'rent') {_}
-                        <ul class="actions hiddenInNonClient">
-                            <li >
-                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="rent">{=window.i18n('重新发布')=}</a>
-                            </li>
-                        </ul>
-                        {_}_}
-                </div>
-            </div>
+        <div class="top">
+            <h2 class="title">
+                {=ticket.title=}
+            </h2>
+            <label class="date"> <i>{=window.i18n('提交日期：')=}</i>
+                {=project.formatTime(ticket.time)=}
+            </label>
+            <label class="status">{=ticket.status_presentation=}</label>
+        </div>
+        <div class="middle">
+            <ul class=properties>
+                {_ if (ticket.rent_type.value) {_}
+                <li>
+                    <i class="icon-house_icon"></i>
+                    <label for="">
+                        {=ticket.rent_type.value=}
+                    </label>
+                </li>
+                {_}_}
+                <li>
+                    <i class="icon-location_fill"></i>
+                    <label for="">
+                        {=ticket.city.name=}, {=ticket.country.code=}
+                    </label>
+                </li>
+                <li>
+                    <i class="icon-time"></i>
+                    <label for="">
+                        {=project.formatDate(ticket.rent_available_time)=}-{=project.formatDate(ticket.rent_deadline_time)=}
+                    </label>
+                </li>
+            </ul>
+            <label class="price" for="">
+                 {=window.getCurrencySymbol(ticket.rent_budget.currency)=} {=ticket.rent_budget.value=} /{=window.i18n('周')=}
+            </label>
+        </div>
+        <div class="bottom">
+            <p class="detail">{=ticket.description=}</p>
+            <button class="action" data-status={=ticket.status=}>
+                {_if (ticket.status === 'new') {_}
+                {=window.i18n('我已租到')=}
+                {_} else if (ticket.status = 'rent') {_}
+                {=window.i18n('重新发布')=}
+                {_}_}
+            </button>
+        </div>
     </div>
 </script>
