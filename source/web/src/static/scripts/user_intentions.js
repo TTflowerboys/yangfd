@@ -110,7 +110,7 @@ $(function () {
                 investmentTicketArray = array;
                 if (array && array.length > 0) {
                     _.each(array, function (rent) {
-                        rent.status_presentation = getStatusPresentation(rent.status)
+                        rent.status_presentation = getRentIntentionStatusPresentation(rent.status)
                         var houseResult = _.template($('#rentIntentionCard_template').html())({ticket: rent})
                         $('#list').append(houseResult)
                     })
@@ -137,6 +137,13 @@ $(function () {
                 'suspend': window.i18n('未达成定金'),
                 'bought': window.i18n('购房已成功'),
                 'canceled': window.i18n('未达成购房'),
+               }[status];
+    }
+
+    function getRentIntentionStatusPresentation(status) {
+        return {'new': window.i18n('求租中'),
+                'rent': window.i18n('已租到'),
+                'canceled': window.i18n('已取消'),
                }[status];
     }
 
@@ -191,6 +198,7 @@ $(function () {
 
 
     bindItemWechatShareClick()
+    bindRentIntentionTicketChangeStatusClick()
 
     function bindItemWechatShareClick() {
         $('body').delegate('.wechatShare', 'click', function() {
@@ -198,6 +206,27 @@ $(function () {
             var ticketArray = investmentTicketArray
             var property = _.first(_.where(ticketArray, {id: intentionId})).property
             openWeChatShare(property.id)
+        })
+    }
+
+    function bindRentIntentionTicketChangeStatusClick() {
+        $('body').delegate('#rentIntentionTicketChangeStatus', 'click', function() {
+            var ticketId = $(this).attr('data-id')
+            var status = $(this).attr('data-status')
+            if (status === 'new') {
+                 if (window.confirm('已经租到？')) {
+                     changeRentIntentionTicketStatus(ticketId, 'rent', function (data) {
+                         loadRentIntentionTicket()
+                     })
+                }
+            }
+            else if (status === 'rent') {
+                 if (window.confirm('重新发布？')) {
+                     changeRentIntentionTicketStatus(ticketId, 'new', function (data) {
+                         loadRentIntentionTicket()
+                     })
+                }
+            }
         })
     }
     function openWeChatShare (propertyId) {
@@ -211,6 +240,15 @@ $(function () {
         else {
             location.href = '/wechat_share?property=' + propertyId
         }
+    }
+
+    function changeRentIntentionTicketStatus(ticketId, status,  callback) {
+        $.betterPost('/api/1/rent_intention_ticket/' + ticketId + '/edit', {'status': status}).done(function (data) {
+            callback(data)
+        })
+        .fail(function (data) {
+            callback(data)
+        })
     }
 
 })

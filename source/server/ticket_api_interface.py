@@ -379,6 +379,8 @@ def intention_ticket_search(user, params):
     description=str,
     title=str,
     city="geonames_gazetteer:city",
+    address=str,
+    zipcode=str,
     noregister=bool,
     custom_fields=(list, None, dict(
         key=(str, True),
@@ -597,13 +599,10 @@ def rent_intention_ticket_get(user, ticket_id):
     enable_custom_fields = True
     if set(user_roles) & set(["admin", "jr_admin", "sales"]):
         pass
-    elif len(user_roles) == 0:
+    else:
         if ticket.get("creator_user_id") != user["id"] and ticket.get("user_id") != user["id"]:
             abort(40399, logger.warning("Permission denied.", exc_info=False))
         enable_custom_fields = False
-    elif "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & set(user_roles)) == 0:
-        if user["id"] not in ticket.get("assignee", []):
-            abort(40399, logger.warning("Permission denied.", exc_info=False))
 
     return f_app.ticket.output([ticket_id], enable_custom_fields=enable_custom_fields)[0]
 
@@ -632,6 +631,8 @@ def rent_intention_ticket_remove(user, ticket_id):
     rent_budget="enum:rent_budget",
     rent_available_time=datetime,
     rent_deadline_time=datetime,
+    address=str,
+    zipcode=str,
     minimum_rent_period="i18n:time_period",
     custom_fields=(list, None, dict(
         key=str,
@@ -641,7 +642,7 @@ def rent_intention_ticket_remove(user, ticket_id):
     status=str,
     updated_comment=str,
 ))
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
+@f_app.user.login.check(force=True, check_role=True)
 def rent_intention_ticket_edit(user, ticket_id, params):
     """
     ``status`` must be one of these values: "new", "assigned", "in_progress", "deposit", "suspended", "bought", "canceled"
@@ -650,9 +651,11 @@ def rent_intention_ticket_edit(user, ticket_id, params):
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
     assert ticket["type"] == "rent_intention", abort(40000, "Invalid rent_intention ticket")
-    if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & set(user_roles)) == 0:
-        if user["id"] not in ticket.get("assignee", []):
-            abort(40399, logger.warning("Permission denied.", exc_info=False))
+
+    if set(user_roles) & set(["admin", "jr_admin", "sales"]):
+        pass
+    elif ticket.get("creator_user_id") != user["id"] and ticket.get("user_id") != user["id"]:
+        abort(40399, logger.warning("Permission denied.", exc_info=False))
 
     if "status" in params:
         if params["status"] not in f_app.common.rent_intention_ticket_statuses:
@@ -673,6 +676,7 @@ def rent_intention_ticket_edit(user, ticket_id, params):
     sort=(list, ["time", 'desc'], str),
     phone=str,
     country="country",
+    zipcode=str,
     city="geonames_gazetteer:city",
     rent_type="enum:rent_type",
     rent_budget="enum:rent_budget",

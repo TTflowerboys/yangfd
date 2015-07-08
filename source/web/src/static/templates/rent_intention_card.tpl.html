@@ -5,7 +5,7 @@
             <h2 class="title">
                 {=ticket.title=}
             </h2>
-            <label class="status">{=ticket.status_presentation=}</label>
+            <label class="status" data-status={=ticket.status=}>{=ticket.status_presentation=}</label>
              <label class="price_phone" for="">
                  {=window.getCurrencySymbol(ticket.rent_budget.currency)=} <strong> {=ticket.rent_budget.value=}</strong> /{=window.i18n('周')=}
             </label>
@@ -42,7 +42,7 @@
         </div>
         <div class="bottom">
             <p class="description">{=ticket.description=}</p>
-            <button class="action ghostButton red" data-status={=ticket.status=}>
+            <button id="rentIntentionTicketChangeStatus" class="action ghostButton red" data-status={=ticket.status=} data-id="{=ticket.id=}">
                 {_if (ticket.status === 'new') {_}
                 {=window.i18n('我已租到')=}
                 {_} else if (ticket.status = 'rent') {_}
