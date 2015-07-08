@@ -34,20 +34,27 @@
 </div>
 
 <div class="description_wrapper">
-    <a class=description
-        % if not ('no_link' in vars() or 'no_link' in globals()):
-        href="/property/{=house.id=}"
-        %end
-        >
+    % if not ('no_link' in vars() or 'no_link' in globals()):
+    <a class="description" href="/property/{=house.id=}">
+    % else:
+    <div class="description">
+    % end
         <h1 class=name>
-                {_if (house.country){_}
-                {=window.team.countryMap[house.country.code]=}
-                {_}_}
-                {_if (house.city){_}
-                {=house.city.name=}
-                {_}_}
-                {=house.name=}
+        % if ('no_link' in vars() or 'no_link' in globals()):
+        <a class="description" href="/property/{=house.id=}">
+        % end
+            {_if (house.country){_}
+            {=window.team.countryMap[house.country.code]=}
+            {_}_}
+            {_if (house.city){_}
+            {=house.city.name=}
+            {_}_}
+            {=house.name=}
+        % if ('no_link' in vars() or 'no_link' in globals()):
+        </a>
+        % end
         </h1>
+
         <!--@@placeholder=price -->
         <ul class=properties>
             {_if(house.intention && house.intention.length) {_}
@@ -124,7 +131,11 @@
         </div>
         <!--@@placeholder=action -->
         <!--@@placeholder=bottom_action -->
+    % if ('no_link' in vars() or 'no_link' in globals()):
+    </div>
+    % else:
     </a>
+    % end
     <!--@@placeholder=consult_action -->
 </div>
 <div class="otherActionWrap">
