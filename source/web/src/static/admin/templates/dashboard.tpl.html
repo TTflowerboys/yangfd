@@ -133,6 +133,11 @@
                                 <a href ui-sref="dashboard.rent" ui-sref-active="active"><i
                                     class="fa fa-home"></i><span class="hidden-sm text">{%$root.i18n('出租房数据管理')%}</span></a>
                             </li>
+                            <li has-permission="admin,jr_admin,operation,jr_operation"
+                                ng-class="{active:$state.includes('dashboard.rent_intention')}">
+                                <a href ui-sref="dashboard.rent_intention" ui-sref-active="active"><i
+                                    class="fa fa-home"></i><span class="hidden-sm text">{%$root.i18n('求租意向单管理')%}</span></a>
+                            </li>
                             <li has-permission="admin,jr_admin,sales,jr_sales"
                                 ng-class="{active:$state.includes('dashboard.intention')}">
                                 <a href ui-sref="dashboard.intention" ui-sref-active="active"><i

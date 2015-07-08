@@ -1,0 +1,117 @@
+<div ui-view>
+    <div ng-controller="ctrlIntention">
+
+        <div class="buttons">
+            <!--<div class="btn-group">
+                <button class="btn" ui-sref=".create">
+                    <span class="fa fa-plus-circle"></span> {%$root.i18n('添加求租意向单')%}
+                </button>
+            </div>-->
+<!--            <div class="btn-group form-inline">
+                <select class="form-control" ng-options="p.value as p.name for p in intentionTicketStatus" ng-model="selected.status">
+                    <option value="">-- {%$root.i18n('过滤条件')%} --</option>
+                </select>
+            </div>-->
+
+            <span class="btn-group pull-right">
+                <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+            </span>
+        </div>
+
+        <table class="table table-bordered table-striped table-condensed">
+            <colgroup>
+                <col class="status">
+                <col class="title">
+                <col class="nickname">
+                <col class="phone">
+                <col class="email">
+                <col class="time">
+                <col class="rent_type">
+                <col class="rent_budget">
+                <col class="period">
+                <col class="city">
+                <col class="postcode">
+                <col class="地址">
+                <col class="详情">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>{%$root.i18n('状态')%}</th>
+                    <th>{%$root.i18n('标题')%}</th>
+                    <th>{%$root.i18n('客户姓名')%}</th>
+                    <th>{%$root.i18n('客户手机')%}</th>
+                    <th>{%$root.i18n('客户邮箱')%}</th>
+                    <th>{%$root.i18n('提交时间')%}</th>
+                    <th>{%$root.i18n('出租类型')%}</th>
+                    <th>{%$root.i18n('预算')%}</th>
+                    <th>{%$root.i18n('租期')%}</th>
+                    <th>{%$root.i18n('城市')%}</th>
+                    <th>{%$root.i18n('Postcode')%}</th>
+                    <th>{%$root.i18n('地址')%}</th>
+                    <th>{%$root.i18n('详情')%}</th>
+                    <!--<th></th>-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list">
+                    <td>
+                        {%item.status | intentionTicketStatusName %}
+                    </td>
+                    <td>
+                        {%item.title%}
+                    </td>
+                    <td>
+                        {%item.nickname%}
+                    </td>
+                    <td>
+                        {%item.phone%}
+                    </td>
+                    <td>
+                        {%item.email%}
+                    </td>
+                    <td>
+                        {%(item.time?(item.time * 1000 | date : 'short'):'')%}
+                    </td>
+                    <td>
+                        {%item.rent_type.value%}
+                    </td>
+                    <td >
+                        {%item.rent_budget.value%}
+                    </td>
+                    <td >
+                        {%(item.rent_available_time?(item.rent_available_time * 1000 | date : 'shortDate'):'') + $root.i18n('起') + (item.rent_deadline_time?  $root.i18n('至') + (item.rent_deadline_time * 1000 | date : 'shortDate'):'') %}
+                    </td>
+                    <td >
+                        {%item.city.name%}
+                    </td>
+                    <td >
+                        {%item.zipcode%}
+                    </td>
+                    <td >
+                        {%item.address%}
+                    </td>
+                    <td >
+                        {%item.description%}
+                    </td>
+<!--                    <td>
+                        <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
+                            <i class="fa fa-search-plus"></i>
+                        </a>
+                    </td>-->
+                </tr>
+            </tbody>
+        </table>
+        <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+        <div class="buttons">
+
+            <span class="btn-group pull-right">
+                <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+            </span>
+
+        </div>
+
+        <!--/container-->
+    </div>
+</div>
