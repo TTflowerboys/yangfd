@@ -66,6 +66,26 @@ describe(@"WebHandler", ^ {
         [webViewController.webView stringByEvaluatingJavaScriptFromString:[tester getFileContentWithFileName:fileName]];
         [tester waitForAnimationsToFinish];
     });
+
+    it(@"should open rent list tab success", ^{
+        [tester waitForTimeInterval:5];
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        CUTEWebViewController *webViewController = (CUTEWebViewController *)[[[appDelegate.tabBarController viewControllers] firstObject] topViewController];
+        NSString *fileName = @"openRentListTab.js.txt";
+        [webViewController.webView stringByEvaluatingJavaScriptFromString:[tester getFileContentWithFileName:fileName]];
+        [tester waitForAnimationsToFinish];
+        [tester waitForViewWithAccessibilityLabel:STR(@"出租列表-洋房东")];
+    });
+
+    it(@"should open property list tab success", ^{
+        [tester waitForTimeInterval:5];
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        CUTEWebViewController *webViewController = (CUTEWebViewController *)[[[appDelegate.tabBarController viewControllers] firstObject] topViewController];
+        NSString *fileName = @"openPropertyListTab.js.txt";
+        [webViewController.webView stringByEvaluatingJavaScriptFromString:[tester getFileContentWithFileName:fileName]];
+        [tester waitForAnimationsToFinish];
+        [tester waitForViewWithAccessibilityLabel:STR(@"房产列表-洋房东")];
+    });
 });
 
 SpecEnd

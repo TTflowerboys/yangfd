@@ -407,6 +407,8 @@
 		2CB7490E1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
 		2CB7490F1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
 		2CB749101ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
+		2CBA9CA61B4D4023004B2BE3 /* openRentListTab.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CBA9CA51B4D4023004B2BE3 /* openRentListTab.js.txt */; };
+		2CBA9CA81B4D4078004B2BE3 /* openPropertyListTab.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CBA9CA71B4D4078004B2BE3 /* openPropertyListTab.js.txt */; };
 		2CC3A06E1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
 		2CC3A06F1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
 		2CC3A0701AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
@@ -850,6 +852,8 @@
 		2CB748F51ADCED09003BC2A5 /* MasonryMake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasonryMake.h; sourceTree = "<group>"; };
 		2CB7490B1ADE4755003BC2A5 /* SVProgressHUD+CUTEAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD+CUTEAPI.h"; sourceTree = "<group>"; };
 		2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD+CUTEAPI.m"; sourceTree = "<group>"; };
+		2CBA9CA51B4D4023004B2BE3 /* openRentListTab.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openRentListTab.js.txt; sourceTree = "<group>"; };
+		2CBA9CA71B4D4078004B2BE3 /* openPropertyListTab.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openPropertyListTab.js.txt; sourceTree = "<group>"; };
 		2CC3A06C1AF87D74008C9AC8 /* CUTENavigationUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTENavigationUtil.h; sourceTree = "<group>"; };
 		2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTENavigationUtil.m; sourceTree = "<group>"; };
 		2CC3A07A1AF8D90E008C9AC8 /* NSURL+QueryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+QueryParser.h"; sourceTree = "<group>"; };
@@ -1495,6 +1499,8 @@
 				2CC4D20B1B4BD33E004BD217 /* share.js.txt */,
 				2CC4D20D1B4BD854004BD217 /* createRentTicket.js.txt */,
 				2CC4D2121B4BDF70004BD217 /* logout.js.txt */,
+				2CBA9CA51B4D4023004B2BE3 /* openRentListTab.js.txt */,
+				2CBA9CA71B4D4078004B2BE3 /* openPropertyListTab.js.txt */,
 			);
 			path = TestData;
 			sourceTree = "<group>";
@@ -1894,7 +1900,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CC4D2131B4BDF70004BD217 /* logout.js.txt in Resources */,
+				2CBA9CA81B4D4078004B2BE3 /* openPropertyListTab.js.txt in Resources */,
 				2CC4D20C1B4BD33E004BD217 /* share.js.txt in Resources */,
+				2CBA9CA61B4D4023004B2BE3 /* openRentListTab.js.txt in Resources */,
 				2C056DAE1B42474C0075037A /* SpectaUITestTemplate in Resources */,
 				2CC4D20E1B4BD854004BD217 /* createRentTicket.js.txt in Resources */,
 			);
