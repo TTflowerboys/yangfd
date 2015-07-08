@@ -371,7 +371,7 @@ def intention_ticket_search(user, params):
     phone=(str, True),
     email=(str, True),
     rent_type="enum:rent_type",
-    rent_budget="enum:rent_budget",
+    rent_budget=("enum:rent_budget", True),
     rent_available_time=datetime,
     rent_deadline_time=datetime,
     minimum_rent_period="i18n:time_period",
@@ -535,38 +535,46 @@ def rent_intention_ticket_add(params):
     budget_enum = f_app.enum.get(params["rent_budget"]["_id"]) if "budget" in params else None
     for sales in sales_list:
         if "email" in sales:
-            locale = sales.get("locales", [f_app.common.i18n_default_locale])[0]
-            request._requested_i18n_locales_list = [locale]
-            if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
-                template_invoke_name = "new_ticket_cn"
-                sendgrid_template_id = "35489862-87a8-491b-be84-e20069c8495e"
-            else:
-                template_invoke_name = "new_ticket_en"
-                sendgrid_template_id = "b59446de-5d8b-45b6-8fe1-f8bf64c8a99c"
-            budget = f_app.i18n.match_i18n(budget_enum["value"], _i18n=[locale]) if budget_enum else ""
-            substitution_vars = {
-                "to": [sales["email"]],
-                "sub": {
-                    "%nickname%": [params["nickname"]],
-                    "%phone%": [params["phone"]],
-                    "%email%": [params["email"]],
-                    "%description%": [params.get("description", "")],
-                    "%budget%": [budget],
-                    "%logo_url%": [f_app.common.email_template_logo_url]
-                }
-            }
-            xsmtpapi = substitution_vars
-            xsmtpapi["category"] = ["new_ticket"]
-            xsmtpapi["template_id"] = sendgrid_template_id
             f_app.email.schedule(
                 target=sales["email"],
-                subject=f_app.util.get_format_email_subject(template("static/emails/new_ticket_title")),
-                text=template("static/emails/new_ticket", params=params),
+                subject=f_app.util.get_format_email_subject(template("static/emails/new_rent_ticket_title")),
+                text=template("static/emails/new_rent_ticket", params=params),
                 display="html",
-                template_invoke_name=template_invoke_name,
-                substitution_vars=substitution_vars,
-                xsmtpapi=xsmtpapi,
             )
+            if False:
+                # Old routine
+                locale = sales.get("locales", [f_app.common.i18n_default_locale])[0]
+                request._requested_i18n_locales_list = [locale]
+                if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
+                    template_invoke_name = "new_ticket_cn"
+                    sendgrid_template_id = "35489862-87a8-491b-be84-e20069c8495e"
+                else:
+                    template_invoke_name = "new_ticket_en"
+                    sendgrid_template_id = "b59446de-5d8b-45b6-8fe1-f8bf64c8a99c"
+                budget = f_app.i18n.match_i18n(budget_enum["value"], _i18n=[locale]) if budget_enum else ""
+                substitution_vars = {
+                    "to": [sales["email"]],
+                    "sub": {
+                        "%nickname%": [params["nickname"]],
+                        "%phone%": [params["phone"]],
+                        "%email%": [params["email"]],
+                        "%description%": [params.get("description", "")],
+                        "%budget%": [budget],
+                        "%logo_url%": [f_app.common.email_template_logo_url]
+                    }
+                }
+                xsmtpapi = substitution_vars
+                xsmtpapi["category"] = ["new_ticket"]
+                xsmtpapi["template_id"] = sendgrid_template_id
+                f_app.email.schedule(
+                    target=sales["email"],
+                    subject=f_app.util.get_format_email_subject(template("static/emails/new_rent_ticket_title")),
+                    text=template("static/emails/new_rent_ticket", params=params),
+                    display="html",
+                    template_invoke_name=template_invoke_name,
+                    substitution_vars=substitution_vars,
+                    xsmtpapi=xsmtpapi,
+                )
 
     return ticket_id
 
