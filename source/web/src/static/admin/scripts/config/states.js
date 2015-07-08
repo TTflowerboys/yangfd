@@ -29,6 +29,12 @@ angular.module('app')
             }
         }
 
+        var rentIntentionResolve = {
+            api: function (rentIntentionApi) {
+                return rentIntentionApi
+            }
+        }
+
         var intentionResolve = {
             api: function (intentionApi) {
                 return intentionApi
@@ -339,7 +345,21 @@ angular.module('app')
                 controller: 'ctrlRentDigest',
                 resolve: rentResolve
             })
-
+        /**
+         * 出租意向单管理
+         */
+            .state('dashboard.rent_intention', {
+                url: '/rent_intention',
+                templateUrl: '/static/admin/templates/dashboard.rent_intention.tpl.html',
+                controller: 'ctrlRentIntentionList',
+                resolve: rentIntentionResolve
+            })
+            /*.state('dashboard.rent_intention.detail', {
+                url: '/:id',
+                templateUrl: '/static/admin/templates/dashboard.rent.rent_intention.tpl.html',
+                controller: 'ctrlrentIntentionDetail',
+                resolve: rentIntentionResolve
+            })*/
         /**
          * operation 运营管理
          */
