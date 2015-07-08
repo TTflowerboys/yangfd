@@ -17,7 +17,16 @@
     window.bedroomCountData = getData('bedroomCountData')
     window.spaceData = getData('spaceData')
     //used in mobile client
-
+    function filterObjectProperty (rent) {
+        var obj = _.clone(rent)
+        var arr = ['community', 'floor', 'house_name']
+        _.each(arr, function(val) {
+            if(typeof obj.property[val] === 'object') {
+                delete obj.property[val]
+            }
+        })
+        return obj
+    }
     var currantDropLoad = $('body').dropload({ //下拉刷新
         domUp : {
             domClass   : 'dropload-up',
@@ -45,6 +54,7 @@
                         window.rentList = array
                         _.each(array, function (rent) {
                             if(rent && rent.property){
+                                rent = filterObjectProperty(rent)
                                 var houseResult = _.template($('#rentCard_template').html())({rent: rent})
                                 resultHtml += houseResult
 
@@ -392,6 +402,7 @@
                     window.rentList = window.rentList.concat(array)
 
                     _.each(array, function (rent) {
+                        rent = filterObjectProperty(rent)
                         var houseResult = _.template($('#rentCard_template').html())({rent: rent})
                         $('#result_list').append(houseResult)
 
@@ -1049,7 +1060,7 @@
                 var array = val
                 //TODO: All rents must have location, filter those have no location
                 if (!_.isEmpty(array)) {
-                    window.rentMapList = array
+                    window.rentMapList = _.map(array, filterObjectProperty)
                     updateMap()
                 }else{
                     window.alert(window.i18n('暂无结果'))
