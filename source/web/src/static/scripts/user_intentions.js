@@ -191,6 +191,7 @@ $(function () {
 
 
     bindItemWechatShareClick()
+    bindRentIntentionTicketChangeStatusClick()
 
     function bindItemWechatShareClick() {
         $('body').delegate('.wechatShare', 'click', function() {
@@ -198,6 +199,27 @@ $(function () {
             var ticketArray = investmentTicketArray
             var property = _.first(_.where(ticketArray, {id: intentionId})).property
             openWeChatShare(property.id)
+        })
+    }
+
+    function bindRentIntentionTicketChangeStatusClick() {
+        $('body').delegate('#rentIntentionTicketChangeStatus', 'click', function() {
+            var ticketId = $(this).attr('data-id')
+            var status = $(this).attr('data-status')
+            if (status === 'new') {
+                 if (window.confirm('已经租到？')) {
+                     changeRentIntentionTicketStatus(ticketId, 'rent', function (data) {
+                         loadRentIntentionTicket()
+                     })
+                }
+            }
+            else if (status === 'rent') {
+                 if (window.confirm('重新发布？')) {
+                     changeRentIntentionTicketStatus(ticketId, 'new', function (data) {
+                         loadRentIntentionTicket()
+                     })
+                }
+            }
         })
     }
     function openWeChatShare (propertyId) {
@@ -211,6 +233,15 @@ $(function () {
         else {
             location.href = '/wechat_share?property=' + propertyId
         }
+    }
+
+    function changeRentIntentionTicketStatus(ticketId, status,  callback) {
+        $.betterPost('/api/1/rent_intention_ticket/' + ticketId + '/edit', {'status': status}).done(function (data) {
+            callback(data)
+        })
+        .fail(function (data) {
+            callback(data)
+        })
     }
 
 })

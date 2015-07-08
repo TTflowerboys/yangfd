@@ -42,7 +42,7 @@
         </div>
         <div class="bottom">
             <p class="description">{=ticket.description=}</p>
-            <button class="action ghostButton red" data-status={=ticket.status=}>
+            <button id="rentIntentionTicketChangeStatus" class="action ghostButton red" data-status={=ticket.status=} data-id="{=ticket.id=}">
                 {_if (ticket.status === 'new') {_}
                 {=window.i18n('我已租到')=}
                 {_} else if (ticket.status = 'rent') {_}
