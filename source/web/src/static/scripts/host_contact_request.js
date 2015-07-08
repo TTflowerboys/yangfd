@@ -33,6 +33,11 @@ $(function () {
                         $('.hostWechat').removeClass('show')
                     }
 
+                    //issue #7021 触碰到了获取房东联系上限时弹出求租需求单填写框
+                    if(host.wechat === 'yangfd1') {
+                        window.openRequirementRentForm()
+                    }
+
                     $('.hostName').text(host.nickname)
 
                     $('.contactRequest').hide()

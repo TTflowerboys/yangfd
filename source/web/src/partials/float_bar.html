@@ -5,12 +5,21 @@
         </div>
     </div>
     <div class="contact">
+        % if not ('show_requirement_rent_in_floatbar' in vars() or 'show_requirement_rent_in_floatbar' in globals()):
         <div id="requirement" class="section">
             <i class="icon-requirement"></i>
             <div class="requirement hint">
                 <p>{{_('提交置业需求')}}</p>
             </div>
         </div>
+        % else :
+        <div class="section">
+            <i class="icon-requirement" data-action="requirementRent"></i>
+            <div class="requirement hint">
+                <p>{{_('提交求租需求')}}</p>
+            </div>
+        </div>
+        % end
         <div id="phone" class="section">
             <a>
                 <i class="icon-phone_icon"></i>

@@ -147,9 +147,14 @@
 <!--@@block = scripts -->
 
 <script>
- var requirementRentContainer = $('main')
- window.resetRequirementRentForm(requirementRentContainer)
- window.setupRequirementRentForm(requirementRentContainer)
+
+ if (window.team.isPhone()) {
+     var requirementRentContainer = $('main')
+     window.resetRequirementRentForm(requirementRentContainer)
+     window.setupRequirementRentForm(requirementRentContainer)
+ } else {
+     location.href = '/?rent_ticket=true'
+ }
 
 
 </script>

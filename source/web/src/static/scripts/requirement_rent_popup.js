@@ -436,4 +436,15 @@
 
     //入口
     //window.openRequirementRentForm()
+    if (window.team.getQuery('rent_ticket',location.href) === 'true') {
+        window.openRequirementRentForm()
+    }
+
+    $('[data-action=requirementRent]')
+        .css({
+            'cursor': 'pointer'
+        })
+        .click(function () {
+        window.openRequirementRentForm()
+    })
 })()
