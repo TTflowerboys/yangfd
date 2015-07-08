@@ -30,9 +30,17 @@
                     </label>
                 </li>
                 <li>
-                    <i class="icon-time"></i>
                     <label for="">
-                        {=project.formatDate(ticket.rent_available_time)=}-{=project.formatDate(ticket.rent_deadline_time)=}
+                        {_if (ticket.rent_available_time && ticket.rent_deadline_time) { _}
+                        <i class="icon-time"></i>
+                        {=project.formatDate(ticket.rent_available_time)=} {=window.i18n('到')=} {=project.formatDate(ticket.rent_deadline_time)=}
+                        {_ } else if (ticket.rent_available_time && !ticket.rent_deadline_time) {_}
+                        <i class="icon-time"></i>
+                        {=project.formatDate(ticket.rent_available_time)=} {=window.i18n('起')=}
+                        {_ } else if (!ticket.rent_available_time && ticket.rent_deadline_time) {_}
+                        <i class="icon-time"></i>
+                        {=project.formatDate(ticket.rent_deadline_time)=} {=window.i18n('止')=}
+                        {_}_}
                     </label>
                 </li>
             </ul>
