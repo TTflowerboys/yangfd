@@ -154,17 +154,13 @@
                         }
 
                         .col{
-                            width: 265px;
-                            float: left;
-                            margin-right: 20px;
-                            @media @phone {
-                                position: relative;
-                                width: 100%;
-                                float: none;
-                                margin: 0 0 24px;
-                                &:nth-last-child(1){
-                                    margin: 0;
-                                }
+                            display: block;
+                            position: relative;
+                            width: 100%;
+                            float: none;
+                            margin: 0 0 24px;
+                            &:nth-last-child(1){
+                                margin: 0;
                             }
                         }
 
@@ -206,25 +202,25 @@
                                 width: 100%;
                             }
                         }
-                        .dateInput{
-                            display: inline-block;
+                        &.startDateRow{
                             width: 100%;
-                            padding-right: 10px;
-                            text-align: right;
-                            &.startDate{
-                                border-radius: 5px 5px 0 0;
-                            }
-                            &.endDate{
-                                margin-top: -1px;
-                                border-radius: 0 0 5px 5px;
+                            margin-bottom: -1px;
+                            position: relative;
+                            .dateInput{
+                                display: inline-block;
+                                width: 100%;
+                                padding-right: 10px;
+                                text-align: right;
+                                &.startDate{
+                                    border-radius: 5px 5px 0 0;
+                                }
+                                &.endDate{
+                                    border-radius: 0 0 5px 5px;
+                                }
                             }
                         }
-                        .bridge{
-                            padding: 0 10px;
-                            @media @phone{
-                                display: none;
-                            }
-                        }
+
+                       
                         > input, > textarea{
                             width: 550px;
                             @media @phone{

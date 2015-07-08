@@ -82,15 +82,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <p class="title">{{_('租期')}}</p>
-                                <p class="inputPlaceholder">{{_('租期开始日期')}}</p>
-                                <input dir="rtl" type="date" class="startDate dateInput" data-validator="date" data-name="{{'开始日期'}}" data-serialize="rent_available_time|time"/>
-                                <span class="bridge">{{_('至')}}</span>
-                                <p class="inputPlaceholder" style="top: 67px;">{{_('租期结束日期')}}</p>
-                                <input dir="rtl" type="date" class="endDate dateInput" data-validator="date"  data-name="{{'结束日期'}}" data-serialize="rent_deadline_time|time"/>
-                            </div>
+                        <div class="row startDateRow">
+                            <p class="inputPlaceholder">{{_('租期开始日期')}}</p>
+                            <input dir="rtl" type="date" class="startDate dateInput" data-validator="date" data-name="{{'开始日期'}}" data-serialize="rent_available_time|time"/>
+                        </div>
+                        <div class="row endDateRow">
+                            <p class="inputPlaceholder">{{_('租期结束日期')}}</p>
+                            <input dir="rtl" type="date" class="endDate dateInput" data-validator="date"  data-name="{{'结束日期'}}" data-serialize="rent_deadline_time|time"/>
                         </div>
                         <div class="row">
                             <input type="text" class="requirementRentTitle" name="requirementRentTitle" placeholder="{{_('求租标题')}}" data-validator="required,trim,maxLength(50)"  data-name="{{'求租标题'}}" data-serialize="title"/>
