@@ -5,7 +5,11 @@
             <h2 class="title">
                 {=ticket.title=}
             </h2>
-            <label class="status">{=ticket.status_presentation=}</label>
+            {_if (ticket.status === 'rent') {_}
+            <label class="status rent">{=ticket.status_presentation=}</label>
+            {_} else {_}
+            <label class="status rent">{=ticket.status_presentation=}</label>
+            {_}_}
              <label class="price_phone" for="">
                  {=window.getCurrencySymbol(ticket.rent_budget.currency)=} <strong> {=ticket.rent_budget.value=}</strong> /{=window.i18n('周')=}
             </label>

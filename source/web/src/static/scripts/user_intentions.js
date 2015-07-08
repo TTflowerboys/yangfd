@@ -110,7 +110,7 @@ $(function () {
                 investmentTicketArray = array;
                 if (array && array.length > 0) {
                     _.each(array, function (rent) {
-                        rent.status_presentation = getStatusPresentation(rent.status)
+                        rent.status_presentation = getRentIntentionStatusPresentation(rent.status)
                         var houseResult = _.template($('#rentIntentionCard_template').html())({ticket: rent})
                         $('#list').append(houseResult)
                     })
@@ -137,6 +137,13 @@ $(function () {
                 'suspend': window.i18n('未达成定金'),
                 'bought': window.i18n('购房已成功'),
                 'canceled': window.i18n('未达成购房'),
+               }[status];
+    }
+
+    function getRentIntentionStatusPresentation(status) {
+        return {'new': window.i18n('求租中'),
+                'rent': window.i18n('已租到'),
+                'canceled': window.i18n('已取消'),
                }[status];
     }
 
