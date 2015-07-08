@@ -37,6 +37,14 @@
         }
         .houseCard{
             margin-bottom: 48px;
+            &:hover{
+                border-top: 2px solid #d2d2d2;
+                background-color:transparent;
+                .description h1{
+                    color: @red;
+                    .limitedLines(2, 24px, #fff);
+                }
+            }
             .description {
                 .price{
                     position: static;
@@ -76,11 +84,12 @@
                     right: 21px;
                     top: 0px;
                     i{
+                        cursor: pointer;
                         font-size: 18px;
                         margin-left: 10px;
                         color: #a3a3a3;
                         &:hover{
-                            color: #777;
+                            color: @red;
                         }
                     }
                 }
@@ -112,6 +121,7 @@
             .otherActionWrap{
                 opacity: 1;
                 .otherAction{
+                    cursor: pointer;
                     position: absolute;
                     right: 21px;
                     top: 20px;
@@ -120,7 +130,7 @@
                         margin-left: 10px;
                         color: #a3a3a3;
                         &:hover{
-                            color: #777;
+                            color: @red;
                         }
                     }
                 }

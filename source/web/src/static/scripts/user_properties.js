@@ -283,7 +283,7 @@ $(function () {
                 $('#popupShareToWeChat')
                     .find('img').prop('src',
                         '/qrcode/generate?content=' + encodeURIComponent(location.origin + '/wechat-poster/' + ticketId)).end()
-                    .modal()
+                    .modal({zIndex:15})
             }
 
             //ga('send', 'event', 'property_detail', 'share', 'open-wechat-web')
@@ -430,11 +430,16 @@ $(function () {
             if (window.team.isWeChatiOS()) {
                 $('.wechatPage_popup .buttonHolder').attr('src', '/static/images/property_details/wechat_share/phone/wechat_button_ios.png')
             }
-            $('.wechatPage_popup').modal()
+            $('.wechatPage_popup').modal({zIndex:15})
             $('.wechatPage_popup').find('.close-modal').hide()
         }
-        else {
+        else if (window.team.isPhone()) {
             location.href = '/wechat_share?property=' + propertyId
+        } else {
+            $('#popupShareToWeChat')
+                .find('img').prop('src',
+                '/qrcode/generate?content=' + encodeURIComponent(location.origin + '/property-wechat-poster/' + propertyId)).end()
+                .modal({zIndex:15})
         }
     }
 

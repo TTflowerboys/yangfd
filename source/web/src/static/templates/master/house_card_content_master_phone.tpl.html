@@ -119,33 +119,6 @@
                     {_}_}
                 </label>
             </li>
-            {_} else if (house.main_house_types && house.main_house_types.length) {_}
-            <li>
-                <i class="icon-rooms"></i>
-                <label>
-                    {_if(house.main_house_types[0].living_room_count) {_}
-                    <span class="bold">{=house.main_house_types[0].living_room_count=}</span>{=window.i18n('室')=}
-                    {_}_}
-                    {_if(house.main_house_types[0].bathroom_count) {_}
-                    <span class="bold">{=house.main_house_types[0].bathroom_count=}</span>{=window.i18n('卫')=}
-                    {_}_}
-
-                    {_if(house.main_house_types[0].building_area) {_}
-                    <span class="bold">{= parseFloat(house.main_house_types[0].building_area.value).toFixed(2)=}</span>
-                    {_if (house.main_house_types[0].building_area.unit === 'foot ** 2'){_}
-                    SQFT
-                    {_} else if(house.main_house_types[0].building_area.unit === 'acre'){_}
-                    ACRE
-                    {_} else if (house.main_house_types[0].building_area.unit === 'meter ** 2') {_}
-                    m <sup>2</sup>
-                    {_} else if (house.main_house_types[0].building_area.unit === 'kilometer ** 2') {_}
-                    km <sup>2</sup>
-                    {_} else {_}
-                    {=house.main_house_types[0].building_area.unit=}
-                    {_}_}
-                    {_}_}
-                </label>
-            </li>
             {_}_}
             % end
         </ul>

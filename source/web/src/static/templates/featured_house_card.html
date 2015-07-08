@@ -179,33 +179,6 @@
                             % end
                         </label>
                     </li>
-                    % elif property.get('main_house_types') and len(property.get('main_house_types')):
-                    <li>
-                        <i class="icon-rooms"></i>
-                        <label>
-                            % if property.get('main_house_types')[0].get('living_room_count') :
-                            <span class="bold">{{property.get('main_house_types')[0].get('living_room_count')}}</span>{{_('室')}}
-                            % end
-                            % if property.get('main_house_types')[0].get('bathroom_count') :
-                            <span class="bold">{{property.get('main_house_types')[0].get('bathroom_count')}}</span>{{_('卫')}}
-                            % end
-
-                            % if property.get('main_house_types')[0].get('building_area') :
-                            <span class="bold">{{"{0:.2f}".format(float(property.get('main_house_types')[0].get('building_area',{}).get('value')))}}</span>
-                            % if property.get('main_house_types')[0].get('building_area',{}).get('unit') == 'foot ** 2' :
-                            SQFT
-                            %elif property.get('main_house_types')[0].get('building_area',{}).get('unit') == 'acre':
-                            ACRE
-                            %elif property.get('main_house_types')[0].get('building_area',{}).get('unit') == 'meter ** 2':
-                            m <sup>2</sup>
-                            %elif property.get('main_house_types')[0].get('building_area',{}).get('unit') == 'kilometer ** 2':
-                            km <sup>2</sup>
-                            % else:
-                            {{property.main_house_types[0].building_area.unit}}
-                            % end
-                            % end
-                        </label>
-                    </li>
                     % end
                 </ul>
                 % if property.get('annual_return_estimated') or property.get('annual_cash_return_estimated') :
@@ -287,19 +260,23 @@
         </div>
 
         <div class="description_wrapper">
-            <div class=description>
+            <a class=description
+                %if is_mobile_client():
+                href="#" onclick="window.bridge.callHandler(&quot;openURLInNewController&quot;, &quot;/property/{{property.get('id')}}&quot;);return false;"
+                %else:
+                href="/property/{{property.get('id')}}"
+                %end
+                >
                 <h1 class=name>
-                    <a title="{{property.get('name','')}}" href="/property/{{property.get('id')}}">
-                        %if property.get('country'):
-                            {{get_country_name_by_code(property.get('country').get('code'))}}
-                        %end
-                        %if property.get('city') and property.get('city').get('name'):
-                            {{property.get('city').get('name')}}
-                        %end
-                        %if property.get('name'):
-                            {{property.get('name')}}
-                        %end
-                    </a>
+                    %if property.get('country'):
+                        {{get_country_name_by_code(property.get('country').get('code'))}}
+                    %end
+                    %if property.get('city') and property.get('city').get('name'):
+                        {{property.get('city').get('name')}}
+                    %end
+                    %if property.get('name'):
+                        {{property.get('name')}}
+                    %end
                 </h1>
                 <span class=price>
                     <!--@@include=../../partials/get_unit_price.html -->
@@ -354,33 +331,6 @@
                                 % end
                             </label>
                         </li>
-                        % elif property.get('main_house_types') and len(property.get('main_house_types')):
-                        <li>
-                            <i class="icon-rooms"></i>
-                            <label>
-                                % if property.get('main_house_types')[0].get('living_room_count') :
-                                <span class="bold">{{property.get('main_house_types')[0].get('living_room_count')}}</span>{{_('室')}}
-                                % end
-                                % if property.get('main_house_types')[0].get('bathroom_count') :
-                                <span class="bold">{{property.get('main_house_types')[0].get('bathroom_count')}}</span>{{_('卫')}}
-                                % end
-
-                                % if property.get('main_house_types')[0].get('building_area') :
-                                <span class="bold">{{"{0:.2f}".format(float(property.get('main_house_types')[0].get('building_area',{}).get('value')))}}</span>
-                                % if property.get('main_house_types')[0].get('building_area',{}).get('unit') == 'foot ** 2' :
-                                SQFT
-                                %elif property.get('main_house_types')[0].get('building_area',{}).get('unit') == 'acre':
-                                ACRE
-                                %elif property.get('main_house_types')[0].get('building_area',{}).get('unit') == 'meter ** 2':
-                                m <sup>2</sup>
-                                %elif property.get('main_house_types')[0].get('building_area',{}).get('unit') == 'kilometer ** 2':
-                                km <sup>2</sup>
-                                % else:
-                                {{property.main_house_types[0].building_area.unit}}
-                                % end
-                                % end
-                            </label>
-                        </li>
                         % end
                     </ul>
                     
@@ -415,7 +365,7 @@
                 <div class=action>
                     <!--<a href="/property/{{property.get('id')}}" title="{{property.get('name','')}}" class="button red">{{_('查看详情')}}</a>-->
                 </div>
-            </div>
+            </a>
             <div class="consultAction">
                 <button class="openRequirement ghostButton red" onclick="window.project.openRequirement(null, '', '', '{{property.get('id')}}')"><i class="icon-requirement"></i><label>{{_('我要咨询')}}</label> </button>
             </div>
