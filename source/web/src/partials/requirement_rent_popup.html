@@ -26,7 +26,7 @@
                     <table class="step1" data-show-step="1">
                         <tr>
                             <td>
-                                <select class="select-chosen country-select" data-placeholder="{{_('请选择国家')}}" data-change-title data-validator="required" data-name="{{'国家'}}" data-serialize="country">
+                                <select class="select-chosen country-select" data-placeholder="{{_('请选择国家')}}" data-validator="required" data-name="{{'国家'}}" data-serialize="country">
 
                                 </select>
                                 <select class="select-chosen city-select" data-placeholder="{{_('请选择城市')}}" data-change-title data-validator="required" data-name="{{'城市'}}" data-serialize="city">
@@ -62,7 +62,7 @@
                                     <!--@@include=./current_currency.html -->
                                     {{_('/周')}}
                                     )</p>
-                                <select class="select-chosen rentBudget" data-validator="required" data-name="{{'预算'}}" data-serialize="rent_budget">
+                                <select class="select-chosen rentBudget" data-change-title data-validator="required" data-name="{{'预算'}}" data-serialize="rent_budget">
                                     %for index, rent_budget in enumerate(rent_budget_list):
                                     %if rent_budget.get('currency') == _.currency:
                                     <option value="{{rent_budget.get('id')}}" data-index="{{index}}">{{rent_budget.get('value')}}</option>
@@ -74,13 +74,13 @@
                         <div class="row">
                             <div class="col">
                                 <p class="title">{{_('租期')}}</p>
-                                <input type="text" class="startDate dateInput" data-validator="date" data-name="{{'租期开始日期'}}" data-serialize="rent_available_time|time"/>
+                                <input type="text" class="startDate dateInput" placeholder="{{'开始日期'}}" data-validator="date" data-name="{{'开始日期'}}" data-serialize="rent_available_time|time"/>
                                 <span class="bridge">{{_('至')}}</span>
-                                <input type="text" class="endDate dateInput" data-validator="date"  data-name="{{'租期结束日期'}}" data-serialize="rent_deadline_time|time"/>
+                                <input type="text" class="endDate dateInput" placeholder="{{'结束日期'}}" data-validator="date"  data-name="{{'结束日期'}}" data-serialize="rent_deadline_time|time"/>
                             </div>
                         </div>
                         <div class="row">
-                            <input type="text" class="requirementRentTitle" name="requirementRentTitle" placeholder="{{_('求租标题')}}" data-validator="required,trim,maxLength(30)"  data-name="{{'求租标题'}}" data-serialize="title"/>
+                            <input type="text" class="requirementRentTitle" name="requirementRentTitle" placeholder="{{_('求租标题')}}" data-validator="required,trim,maxLength(50)"  data-name="{{'求租标题'}}" data-serialize="title"/>
                         </div>
                         <div class="row">
                             <textarea name="requirementRentDesc" id="" rows="3" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}" data-validator="trim,maxLength(150)" data-name="{{'求租描述'}}" data-serialize="description"></textarea>

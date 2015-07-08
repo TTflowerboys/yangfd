@@ -103,6 +103,9 @@
             var $dateInput = container.find('.dateInput')
             container.data('initDateInput', true)
             $dateInput.each(function (index, elem) {
+                if($(elem).hasClass('startDate')) {
+                    $(elem).val(window.moment().format('YYYY-MM-DD'))
+                }
                 $(elem).dateRangePicker({
                     //startDate: new Date(new Date().getTime() + 3600 * 24 * 30 * 1000),
                     autoClose: true,
@@ -137,9 +140,9 @@
             return text
         }
         function getRequirementRentTitle(container) {
-            return i18n('我想在') + getText(container.find('.country-select')) + i18n('的') +
-                getText(container.find('.city-select')) +
-                i18n('求租') + getText(container.find('.rentType')) + i18n('出租的房子')
+            return i18n('我想在') + getText(container.find('.city-select')) +
+                i18n('求租') + getText(container.find('.rentBudget')) + window.getCurrencyPresentation(window.currency) + i18n('/周的') +
+                getText(container.find('.rentType')) + i18n('出租房')
         }
         if (!container.data('initRequirementRentTitle')) {
             container.data('initRequirementRentTitle', true)
@@ -436,7 +439,7 @@
 
     //入口
     //window.openRequirementRentForm()
-    if (window.team.getQuery('rent_ticket',location.href) === 'true') {
+    if (window.team.getQuery('rent_intention_ticket',location.href) === 'true') {
         window.openRequirementRentForm()
     }
 
