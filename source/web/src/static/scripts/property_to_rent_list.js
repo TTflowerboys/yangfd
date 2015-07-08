@@ -1060,7 +1060,7 @@
                 var array = val
                 //TODO: All rents must have location, filter those have no location
                 if (!_.isEmpty(array)) {
-                    window.rentMapList = _.map(array, filterObjectProperty)
+                    window.rentMapList = array
                     updateMap()
                 }else{
                     window.alert(window.i18n('暂无结果'))
