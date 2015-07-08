@@ -71,4 +71,30 @@
             }
         }
     }
+    .main{
+        color: #666;
+        .box{
+            padding: 100px 0;
+        }
+        .box-1{
+            .wrap{
+                .clearfix;
+
+
+                li{
+                    display: block;
+                    float: left;
+                    margin-left: 100px;
+                    @media @phone{
+                        width: 100%;
+                        float: none;
+                        margin: 0;
+                    }
+                    .title{
+                        font-size: 38px;
+                    }
+                }
+            }
+        }
+    }
 }
