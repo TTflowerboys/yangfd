@@ -16,14 +16,20 @@
         <div id="requirement" class="requirement">
             <div class="formWrap" style="display: none;">
                 <div class="stepWrap ">
-                    <div class="step step1"><i>1</i><p class="info">{{_('选择求租地址')}}</p></div>
-                    <div class="step step2"><i>2</i><p class="info">{{_('填写求租详情')}}</p></div>
-                    <div class="step step3"><i>3</i><p class="info">{{_('求租者联系方式')}}</p></div>
+                    <div class="step step1">
+                        <i>1</i><p class="info">{{_('选择求租地址')}}</p>
+                        <p class="hint">{{_('提交求租需求可以获取1个额外的联系房东机会')}}</p>
+                    </div>
+                    <div class="step step2">
+                        <i>2</i><p class="info">{{_('填写求租详情')}}</p>
+                        <p class="hint">{{_('平台有满足您需求的新房源出现时，')}}<br>{{_('可以第一时间通知您')}}</p>
+                    </div>
+                    <div class="step step3">
+                        <i>3</i><p class="info">{{_('求租者联系方式')}}</p>
+                        <p class="hint">{{_('选择成为洋房东会员，享受更多海外置业和租房服务')}}</p>
+                    </div>
                 </div>
-                <div class="tips">
-                    <!-- todo 文案要更改-->
-                    {{_('为了您的投资安全和满足相关监管机构要求，在您确认前，我们需要验证您的身份，请务必填写准确。')}}
-                </div>
+
                 <form class="requirement_rent_form">
                     <div class="step1" data-show-step="1">
                         <div class="row">
@@ -123,20 +129,15 @@
             </div>
             <div class="successWrap" style="display: none;">
                 <h2>{{_('提交成功')}}</h2>
-                <p>{{_('您的求租意向已经提交成功，我们会将此信息推送给符合您需求的房屋出租者。')}}</p>
-                <p>{{_('您可以在')}}<a href="">xxxxxxxx</a> {{_('中查看您的求租需求信息，如果您已经成功租得房屋，')}}{{_('请及时更改您的求租状态。')}}</p>
-                <div class="contact">
-                    <label class="hint">{{_('联系我们')}}</label>
-                    <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
-                </div>
-                <div class="qrcodeWrap">
-                    <img class="qrcode" width="160" height="160" alt="{{_('二维码')}}"/>
-                    <p>
-                        {{_('扫一扫分享')}}<br>
-                        {{_('提高联系方式获取次数')}}
-                    </p>
-                </div>
-                <a class="button red shareButton" href="/wechat_share">{{_('分享，提高联系方式展示次数')}}</a>
+                <p class="hint">{{_('您的求租意向单已经提交成功，您可以：')}}</p>
+                <p>{{_('获取1个额外的联系房东机会')}}</p>
+                <p>{{_('当平台有满足您需求的房源出现时，')}}<br>{{_('会第一时间通知您')}}</p>
+                <p>{{_('在个人中心在中查看自己的')}}<a href="/user-intentions#rent">{{_('求租意向单 ')}}</a> {{_('，当您已经租到房子时可以修改状态通知，平台停止推荐')}}</p>
+
+                <p class="hint buttonHint">{{_('分享洋房东App得到转发就获取 1个 额外的联系房东机会')}}</p>
+                <p class="buttonWrap">
+                    <a class="button red shareButton" href="/wechat_share">{{_('分享洋房东APP')}}</a>
+                </p>
             </div>
         </div>
     </div>

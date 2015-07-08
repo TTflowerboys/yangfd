@@ -36,9 +36,9 @@
                 text-align: center;
             }
             .stepWrap{
-                padding-bottom: 21px;
+                padding-bottom: 30px;
                 border-bottom: 1px solid #ccc;
-                margin-bottom: 21px;
+                margin-bottom: 36px;
                 .step{
                     position: relative;
                     display: none;
@@ -74,6 +74,11 @@
                         @media @phone{
                             line-height: 34px;
                         }
+                    }
+                    .hint{
+                        margin: 34px 0 0;
+                        color: #999;
+                        font-size: 14px;
                     }
                 }
 
@@ -411,9 +416,19 @@
             p{
                 line-height: 1.8em;
                 margin:0 0 24px;
-                color: #999;
+                color: #666;
+                font-size: 15px;
                 a{
                     color: @red;
+                }
+                &.hint{
+                    color: #999;
+                    font-size: 13px;
+                    margin: 0 0 32px;
+                    &.buttonHint{
+                        margin-top: 100px;
+                        text-align: center;
+                    }
                 }
             }
             .contact {
@@ -458,13 +473,17 @@
                     margin: 0;
                 }
             }
-            .shareButton{
-                display: none;
-                @media @phone{
-                    margin: 200px 0 100px;
-                    display: block;
-                    font-size: 18px;
-                    padding: 18px 0;
+            .buttonWrap{
+                text-align: center;
+                .shareButton{
+                    display: none;
+                    @media @phone{
+                        color: #fff;
+                        margin: 0 0 100px;
+                        display: inline-block;
+                        font-size: 18px;
+                        padding: 20px 28px;
+                    }
                 }
             }
         }

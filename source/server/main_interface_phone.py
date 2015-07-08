@@ -22,7 +22,7 @@ def requirement():
 @currant_util.check_ip_and_redirect_domain
 def requirement_rent():
     title = _('提交租房需求')
-    return currant_util.common_template("requirement-rent-phone", title=title)
+    return currant_util.common_template("requirement_rent_phone", title=title)
 
 
 @f_get('/wechat_share')

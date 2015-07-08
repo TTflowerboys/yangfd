@@ -33,10 +33,15 @@
                 }
             }
         }
-        .info .requirement_title .subtitle {
-            font-size: 14px;
-            margin-top: 40px;
+        .info{
+            margin-right: 150px;
+            .requirement_title .hint {
+                color: #999999;
+                font-size: 14px;
+                margin-top: 40px;
+                max-width: 400px;
 
+            }
         }
         .formWrap{
             float: left;
@@ -323,15 +328,23 @@
         }
         .successWrap{
             position: relative;
+            padding-bottom: 100px;
             h2{
                 font-size: 36px;
                 color: #333333;
                 margin-bottom: 85px;
             }
             p{
+                &.hint{
+                    color: #999;
+                    margin-bottom: 36px;
+                    font-size: 14px;
+                }
+                max-width: 420px;
                 line-height: 1.8em;
                 margin:0 0 24px;
-                color: #999;
+                color: #666;
+                font-size: 16px;
                 a{
                     color: @red;
                 }
@@ -354,15 +367,16 @@
             }
             .qrcodeWrap{
                 position: absolute;
-                bottom: 0;
+                bottom: 100px;
                 right: 135px;
-                padding: 18px;
+                padding: 10px 10px 24px 10px;
                 border-radius: 5px;
                 border:1px solid #cccccc;
+                background-color: #fff;
                 .qrcode{
-                    width: 160px;
-                    height: 160px;
-                    margin-bottom: 14px;
+                    width: 220px;
+                    height: 220px;
+                    margin-bottom: 0px;
                 }
                 p{
                     font-size: 14px;
