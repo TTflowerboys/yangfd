@@ -1,0 +1,74 @@
+@import "project/_imports";
+
+@screen-lg: ~"(min-width:1901px)";
+@screen-md: ~"(min-width:1360px) and (max-width:1900px)";
+@screen-sm: ~"(min-width:769px) and (max-width:1359px)";
+
+.container{
+    max-width: 1280px;
+    margin: 0 auto;
+    .header{
+        background: url("/static/images/rental_available/header_bg.jpg") center bottom no-repeat;
+        background-size: cover;
+        height: 600px;
+        color: #fff;
+        overflow: hidden;
+        a{
+            color: #fff;
+            text-decoration: none;
+        }
+        @media @phone{
+            height: 300px;
+        }
+        .wrap{
+            margin-bottom: 60px;
+            .clearfix;
+            @media @phone{
+                margin-bottom: 20px;
+            }
+            .logo{
+                float: left;
+                margin: 100px 60px 100px 100px;
+                width: 450px;
+                height: 95px;
+                background: url("/static/images/logo/logo_app_download.png") center 50% no-repeat;
+                background-size: contain;
+                @media @phone{
+                    float: none;
+                    width: 200px;
+                    height: 50px;
+                    margin: 40px auto 20px;
+                }
+            }
+            .contact{
+                margin: 100px 100px 100px 0;
+                float: right;
+                text-align: right;
+                @media @phone{
+                    float: none;
+                    text-align: center;
+                    margin: 0;
+                }
+                a{
+                    display: block;
+                    font-size: 21px;
+                    line-height: 1.6em;
+                    &.phone{
+                        font-weight: bold;
+                    }
+                    @media @phone{
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+        h1{
+            font-size: 50px;
+            text-align: center;
+            @media @phone{
+                font-size: 32px;
+
+            }
+        }
+    }
+}

@@ -1,0 +1,65 @@
+<!--@@master=masters/basic_master.html -->
+
+
+<!--@@block=head -->
+<!--build:css(dist) /static/styles/rental_available.html.css-->
+<link rel="stylesheet" href="/static/styles/rentalAvailable.css"/>
+<!--endbuild-->
+<!--@@close-->
+
+<!--@@block=main -->
+
+<div class="container">
+    <div class="header">
+        <div class="wrap">
+            <div class="logo"></div>
+            <div class="contact">
+                <a class="site" href="http://www.yangfd.com">
+                    http://www.yangfd.com
+                </a>
+                <a class="phone" href="tel:{{get_phone_numbers('link')[0]}}">
+                    {{get_phone_numbers('display')[0]}}
+                </a>
+            </div>
+        </div>
+        <h1>{{_('洋房东租房服务')}}</h1>
+    </div>
+    <div class="main">
+        <div class="box">
+            <dl>
+                <dt>{{_('租房市场的现有问题)}}</dt>
+                <dd>
+                    <ul>
+                        <li>{{'租房信息零散化'}}</li>
+                        <li>{{'租房平台广告化'}}</li>
+                        <li>{{'租房成交复杂化'}}</li>
+                    </ul>
+                </dd>
+                <dt>{{_('租房市场的总体概况)}}</dt>
+                <dd>
+                    <ul>
+                        <li>{{'租房市场供不应求'}}</li>
+                        <li>{{'租房人群流动多样'}}</li>
+                        <li>{{'租房市场稳步增长'}}</li>
+                    </ul>
+                </dd>
+                <dt>{{_('租房市场的市场缺失)}}</dt>
+                <dd>
+                    <ul>
+                        <li>{{'聚合的房源展示平台'}}</li>
+                        <li>{{'严格的房源管理机制'}}</li>
+                        <li>{{'简单的房源发布系统'}}</li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="footer">
+
+    </div>
+</div>
+
+<!--@@close-->
+
+<!--@@block=scripts -->
+<!--@@close-->

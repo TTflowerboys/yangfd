@@ -571,3 +571,11 @@ def track(params, ticket_id=None, property_id=None, image_type=None):
         return static_file("images/logo/logo.png", root="views/static")
     else:
         raise NotImplementedError
+
+
+@f_get('/rental-available')
+@currant_util.check_ip_and_redirect_domain
+def rental_available():
+    # issue #6990
+    title = _('洋房东租房服务')
+    return currant_util.common_template("rental_available", title=title)
