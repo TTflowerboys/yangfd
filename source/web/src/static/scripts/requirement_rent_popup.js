@@ -29,7 +29,7 @@
         function getCountryList() { //通过window.team.countryMap来获取国家列表
 
             container.find('.country-select').append(
-                _.reduce(JSON.parse($('#countryData').text()), function(pre, val, key) {
+                _.reduce(JSON.parse($('#fullCountryData').text()), function(pre, val, key) {
                     return pre + '<option value="' + val.code + '"' + (val.code === 'GB' ? ' selected' : '') +  '>' + window.team.countryMap[val.code] + '</option>'
                 }, '<option value="">' + i18n('请选择国家') + '</option>')
             ).trigger('chosen:updated').trigger('change')
