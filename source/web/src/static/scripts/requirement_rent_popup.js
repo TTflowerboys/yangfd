@@ -90,9 +90,9 @@
                     $span.html(originContent)
                     container.find('.city-select').html(
                         _.reduce(val, function(pre, val, key) {
-                            return pre + '<option value="' + val.id + '">' + val.name + (country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
+                            return pre + '<option value="' + val.id + '"' + (val.name === 'London' ? ' selected' : '') + '>' + val.name + (country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
                         }, '<option value="">' + i18n('请选择城市') + '</option>')
-                    ).trigger('chosen:updated')
+                    ).trigger('chosen:updated').trigger('change')
                 }
             })
         }

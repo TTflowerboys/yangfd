@@ -44,6 +44,12 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="row">
+                            <input type="text" placeholder="{{_('地址')}}" data-validator="" data-name="{{'地址'}}" data-serialize="address"/>
+                        </div>
+                        <div class="row">
+                            <input type="text" placeholder="{{_('邮编')}}" data-validator="" data-name="{{'邮编'}}" data-serialize="zipcode"/>
+                        </div>
                     </div>
                     <div class="step2" data-show-step="2">
                         <div class="row">
@@ -152,7 +158,9 @@
  if (window.team.isPhone()) {
      var requirementRentContainer = $('main')
      window.resetRequirementRentForm(requirementRentContainer)
-     window.setupRequirementRentForm(requirementRentContainer)
+     window.setupRequirementRentForm(requirementRentContainer, function () {
+         
+     })
  } else {
      location.href = '/?rent_ticket=true'
  }
