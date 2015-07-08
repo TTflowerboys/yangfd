@@ -48,7 +48,7 @@
                             <input type="text" placeholder="{{_('地址')}}" data-validator="" data-name="{{'地址'}}" data-serialize="address"/>
                         </div>
                         <div class="row">
-                            <input type="text" placeholder="{{_('Postcode')}}" data-validator="" data-name="{{'Postcode'}}" data-serialize="zipcode"/>
+                            <input type="text" placeholder="{{_('Postal area')}}" data-validator="" data-name="{{'Postal area'}}" data-serialize="zipcode_index"/>
                         </div>
                     </div>
                     <div class="step2" data-show-step="2">
@@ -136,9 +136,9 @@
             <div class="successWrap" style="display: none;">
                 <h2>{{_('提交成功')}}</h2>
                 <p class="hint">{{_('您的求租意向单已经提交成功，您可以：')}}</p>
-                <p>{{_('获取1个额外的联系房东机会')}}</p>
-                <p>{{_('当平台有满足您需求的房源出现时，')}}<br>{{_('会第一时间通知您')}}</p>
-                <p>{{_('在个人中心在中查看自己的')}}<a href="/user-intentions#rent">{{_('求租意向单 ')}}</a> {{_('，当您已经租到房子时可以修改状态通知，平台停止推荐')}}</p>
+                <p class="item">{{_('获取1个额外的联系房东机会')}}</p>
+                <p class="item">{{_('当平台有满足您需求的房源出现时，')}}<br>{{_('会第一时间通知您')}}</p>
+                <p class="item">{{_('在个人中心在中查看自己的')}}<a href="/user-intentions#rent">{{_('求租意向单 ')}}</a> {{_('，当您已经租到房子时可以修改状态通知，平台停止推荐')}}</p>
 
                 <p class="hint buttonHint">{{_('分享洋房东App得到转发就获取 1个 额外的联系房东机会')}}</p>
                 <p class="buttonWrap">
@@ -162,7 +162,7 @@
 
      })
  } else {
-     location.href = '/?rent_ticket=true'
+     location.href = '/?rent_intention_ticket=true'
  }
 
 

@@ -429,8 +429,24 @@
                     font-size: 13px;
                     margin: 0 0 32px;
                     &.buttonHint{
-                        margin-top: 100px;
+                        padding-top: 30px;
+                        margin-top: 80px;
                         text-align: center;
+                        border-top: 1px solid #ccc;
+                    }
+                }
+                &.item{
+                    position: relative;
+                    padding-left: 12px;
+                    &:before{
+                        content: '';
+                        display: block;
+                        width: 5px;
+                        height: 2px;
+                        background-color: #999;
+                        position: absolute;
+                        left: 4px;
+                        top: 13px;
                     }
                 }
             }

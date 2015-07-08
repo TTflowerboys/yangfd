@@ -36,7 +36,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" placeholder="{{_('Postcode')}}" data-validator="" data-name="{{'Postcode'}}" data-serialize="zipcode"/>
+                                <input type="text" placeholder="{{_('Postal area')}}" data-validator="" data-name="{{'Postal area'}}" data-serialize="zipcode_index"/>
                             </td>
                         </tr>
                         <tr>
@@ -116,26 +116,27 @@
                     </div>
                     <div data-show-step="3">
                         <button class="actionButton ghostButton red" data-action="gotoPrev">{{_('上一步')}}</button>
-                        <button class="actionButton button gray ajaxButton" type="submit" disabled>{{_('提交')}}</button>
+                        <button class="actionButton button gray ajaxButton" type="submit">{{_('提交')}}</button>
                     </div>
                 </div>
             </div>
             <div class="successWrap">
                 <h2>{{_('提交成功')}}</h2>
                 <p class="hint">您的求租意向单已经提交成功，您可以：</p>
-                <p>{{_('获取 1个 额外的联系房东机会')}}</p>
-                <p>{{_('当平台有满足您需求的房源出现时，会第一时间通知您')}}</p>
-                <p>{{_('在个人中心在中查看自己的')}}<a href="/user-intentions#rent">{{_('求租意向单')}}</a> {{_('，当您已经租到房子时可以修改状态通知平台停止推荐')}}</p>
+                <p class="item">{{_('获取 1个 额外的联系房东机会')}}</p>
+                <p class="item">{{_('当平台有满足您需求的房源出现时，会第一时间通知您')}}</p>
+                <p class="item">{{_('在个人中心在中查看自己的')}}<a href="/user-intentions#rent">{{_('求租意向单')}}</a> {{_('，当您已经租到房子时可以修改状态通知平台停止推荐')}}</p>
                 <!--<div class="contact">
                     <label class="hint">{{_('联系我们')}}</label>
                     <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
                 </div>-->
                 <div class="qrcodeWrap">
-                    <img class="qrcode" width="192" height="192" alt="{{_('二维码')}}"/>
+                    <div class="imageWrap">
+                        <img class="qrcode" width="192" height="192" alt="{{_('二维码')}}"/>
+                    </div>
                     <p>
                         {{_('扫一扫分享“洋房动App”')}}<br>
-                        {{_('分享得到转发就获取')}}<br>
-                        {{_('1个额外的联系房东机会')}}
+                        {{_('转发就获取1个额外联系房东机会')}}
                     </p>
                 </div>
             </div>
