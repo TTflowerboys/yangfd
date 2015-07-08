@@ -388,7 +388,8 @@ def intention_ticket_search(user, params):
     )),
     locales=(list, None, str),
 ))
-def rent_intention_ticket_add(params):
+@f_app.user.login.check(check_role=True)
+def rent_intention_ticket_add(params, user):
     """
     ``noregister`` is default to **True**, which means if ``noregister`` is not given, the visitor will *not be registered*.
     ``creator_user_id`` is the ticket creator, while ``user_id`` stands for the customer of this ticket.
@@ -397,7 +398,6 @@ def rent_intention_ticket_add(params):
     noregister = params.pop("noregister", True)
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
-    user = f_app.user.login_get()
     user_id = None
     user_id_by_phone = f_app.user.get_id_by_phone(params["phone"], force_registered=True)
     shadow_user_id = f_app.user.get_id_by_phone(params["phone"])
@@ -463,7 +463,7 @@ def rent_intention_ticket_add(params):
             creator_user_id = user_id
     else:
         creator_user_id = ObjectId(user["id"])
-        if user["id"] == user_id_by_phone:
+        if not set(user["role"]) & set(f_app.common.admin_roles) or user["id"] == user_id_by_phone:
             # This ticket is created by user on his own
             user_id = user["id"]
         else:
