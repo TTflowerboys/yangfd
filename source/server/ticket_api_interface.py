@@ -380,7 +380,7 @@ def intention_ticket_search(user, params):
     title=str,
     city="geonames_gazetteer:city",
     address=str,
-    zipcode=str,
+    zipcode_index=str,
     noregister=bool,
     custom_fields=(list, None, dict(
         key=(str, True),
@@ -632,7 +632,7 @@ def rent_intention_ticket_remove(user, ticket_id):
     rent_available_time=datetime,
     rent_deadline_time=datetime,
     address=str,
-    zipcode=str,
+    zipcode_index=str,
     minimum_rent_period="i18n:time_period",
     custom_fields=(list, None, dict(
         key=str,
