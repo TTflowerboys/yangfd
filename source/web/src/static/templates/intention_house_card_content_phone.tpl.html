@@ -11,6 +11,6 @@
 <!--@@block=cover_phone -->
 <div class="contact otherAction">
     <a class="phone" href="tel:{{get_phone_numbers('link')[0]}}">{=window.i18n('拨打电话')=}</a>
-    <a class="wechatShare" class="action" data-id="{=ticket.id=}">{=window.i18n('微信')=}</a>
+    <a id="wechatShare" class="action" href="javascript:void(0);" data-id="{=ticket.id=}">{=window.i18n('微信')=}</a>
 </div>
 <!--@@close-->

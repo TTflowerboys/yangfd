@@ -100,11 +100,22 @@
     [self.bridge registerHandler:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dic = data;
         if (dic && [dic isKindOfClass:[NSDictionary class]]) {
-           [[CUTEShareManager sharedInstance] shareText:dic[@"text"] urlString:dic[@"url"] inController:webViewController successBlock:^{
-               responseCallback(@{@"msg":@"ok"});
-           } cancellationBlock:^{
-               responseCallback(@{@"msg":@"cancel"});
-           }];
+            [[[CUTEShareManager sharedInstance] shareText:dic[@"texg"] urlString:dic[@"url"] inController:webViewController] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    responseCallback(@{@"msg":@"error"});
+                }
+                else if (task.exception) {
+
+                }
+                else if (task.isCancelled) {
+                    responseCallback(@{@"msg":@"cancel"});
+                }
+                else {
+                    responseCallback(@{@"msg":@"ok"});
+                }
+                
+                return task;
+            }];
         }
     }];
 
