@@ -11,6 +11,7 @@
 #import "KIFUITestActor+Login.h"
 #import "KIFUITestActor+RentType.h"
 #import "CUTECommonMacro.h"
+#import "KIFUITestActor+AddressMap.h"
 
 
 SpecBegin(AddressEditUI)
@@ -25,10 +26,7 @@ describe(@"AddressEdit", ^ {
 
     it(@"should edit address success when create", ^ {
         [tester waitForTimeInterval:2];
-        //location permission
-        if ([tester tryFindingViewWithAccessibilityLabel:STR(@"允许") error:nil]) {
-            [tester tapViewWithAccessibilityLabel:STR(@"允许")];
-        }
+        [tester allowLocationAccess];
 
         [tester waitForAnimationsToFinish];
         [tester waitForAbsenceOfViewWithAccessibilityLabel:@"MapTextFieldIndicator"];

@@ -38,8 +38,6 @@
 
 @property(copy) void (^responseBlock)(BaseResp *);
 
-@property (nonatomic, weak) UIViewController *viewController;
-
 @property (nonatomic, retain) BFTaskCompletionSource *taskCompletionSource;
 
 @end
@@ -203,10 +201,9 @@
     return tcs.task;
 }
 
-- (BFTask *)shareTicket:(CUTETicket *)ticket inController:(UIViewController *)controller
+- (BFTask *)shareTicket:(CUTETicket *)ticket
 {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    self.viewController = controller;
     self.taskCompletionSource = tcs;
 
     [[self getTicketShareImage:ticket] continueWithSuccessBlock:^id(BFTask *task) {
@@ -216,7 +213,10 @@
             UIImage *imageData = task.result;
             NSString *url = [[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString];
 
-            [UIActionSheet showInView:controller.view withTitle:STR(@"分享") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:@[STR(@"微信好友"), STR(@"微信朋友圈"), STR(@"新浪微博")] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            
+
+            [UIActionSheet showInView:appDelegate.window withTitle:STR(@"分享") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:@[STR(@"微信好友"), STR(@"微信朋友圈"), STR(@"新浪微博")] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
 
                 [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
 
@@ -269,7 +269,7 @@
                             else {
 
                                 [[UMSocialControllerService defaultControllerService] setShareText:content shareImage:sinaImage socialUIDelegate:self];
-                                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(controller,[UMSocialControllerService defaultControllerService],YES);
+                                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(appDelegate.window.rootViewController,[UMSocialControllerService defaultControllerService],YES);
                             }
 
                             return nil;
@@ -288,13 +288,13 @@
     return tcs.task;
 }
 
-- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString inController:(UIViewController *)controller {
+- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    self.viewController = controller;
     self.taskCompletionSource = tcs;
-    
 
-    [UIActionSheet showInView:controller.view withTitle:STR(@"分享") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:@[STR(@"微信好友"), STR(@"微信朋友圈"), STR(@"新浪微博")] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+
+    [UIActionSheet showInView:appDelegate.window withTitle:STR(@"分享") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:@[STR(@"微信好友"), STR(@"微信朋友圈"), STR(@"新浪微博")] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
 
         [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
 
@@ -331,7 +331,7 @@
                 }
                 else {
                     [[UMSocialControllerService defaultControllerService] setShareText:content shareImage:[UIImage appIcon] socialUIDelegate:self];
-                    [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(controller,[UMSocialControllerService defaultControllerService],YES);
+                    [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(appDelegate.window.rootViewController,[UMSocialControllerService defaultControllerService],YES);
                 }
             }
             else {

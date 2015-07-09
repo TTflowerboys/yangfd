@@ -10,6 +10,8 @@
 
 @interface KIFUITestActor (AddressMap)
 
+- (void)allowLocationAccess;
+
 - (void)setPropertyLocationWithCurrentLocation;
 
 @end

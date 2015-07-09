@@ -20,8 +20,8 @@
 
 - (BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 
-- (BFTask *)shareTicket:(CUTETicket *)ticket inController:(UIViewController *)controller;
+- (BFTask *)shareTicket:(CUTETicket *)ticket;
 
-- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString inController:(UIViewController *)controller;
+- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString;
 
 @end

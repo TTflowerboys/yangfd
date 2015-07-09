@@ -409,6 +409,7 @@
 		2CB749101ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
 		2CBA9CA61B4D4023004B2BE3 /* openRentListTab.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CBA9CA51B4D4023004B2BE3 /* openRentListTab.js.txt */; };
 		2CBA9CA81B4D4078004B2BE3 /* openPropertyListTab.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CBA9CA71B4D4078004B2BE3 /* openPropertyListTab.js.txt */; };
+		2CBA9CAA1B4E5E49004B2BE3 /* CUTEShareUSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBA9CA91B4E5E49004B2BE3 /* CUTEShareUSTest.m */; };
 		2CC3A06E1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
 		2CC3A06F1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
 		2CC3A0701AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
@@ -854,6 +855,7 @@
 		2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD+CUTEAPI.m"; sourceTree = "<group>"; };
 		2CBA9CA51B4D4023004B2BE3 /* openRentListTab.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openRentListTab.js.txt; sourceTree = "<group>"; };
 		2CBA9CA71B4D4078004B2BE3 /* openPropertyListTab.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openPropertyListTab.js.txt; sourceTree = "<group>"; };
+		2CBA9CA91B4E5E49004B2BE3 /* CUTEShareUSTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEShareUSTest.m; sourceTree = "<group>"; };
 		2CC3A06C1AF87D74008C9AC8 /* CUTENavigationUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTENavigationUtil.h; sourceTree = "<group>"; };
 		2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTENavigationUtil.m; sourceTree = "<group>"; };
 		2CC3A07A1AF8D90E008C9AC8 /* NSURL+QueryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+QueryParser.h"; sourceTree = "<group>"; };
@@ -1255,6 +1257,7 @@
 			children = (
 				2C464D601B46985400289BB0 /* CUTEPublishRentTicketUSTest.m */,
 				2C464D671B4A2B2C00289BB0 /* CUTEWebHandlerUSTest.m */,
+				2CBA9CA91B4E5E49004B2BE3 /* CUTEShareUSTest.m */,
 				2CC4D20A1B4BD30E004BD217 /* TestData */,
 			);
 			path = UserStory;
@@ -2240,6 +2243,7 @@
 				2C056DAC1B4245990075037A /* CUTESplashUITest.m in Sources */,
 				2C317F6F1B4538340041E05E /* CUTEPropertyInfoUITest.m in Sources */,
 				2C464D681B4A2B2C00289BB0 /* CUTEWebHandlerUSTest.m in Sources */,
+				2CBA9CAA1B4E5E49004B2BE3 /* CUTEShareUSTest.m in Sources */,
 				2C056D401B423A110075037A /* CUTESettingForm.m in Sources */,
 				2C11485B1B44F0F50003DEF7 /* KIFUITestActor+Login.m in Sources */,
 				2C317F6B1B4522D20041E05E /* CUTEAddressMapUITest.m in Sources */,
