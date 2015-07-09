@@ -74,33 +74,6 @@
                     </li>
                     <li class="animate rental"><div><i class="rentalIcon"></i>{{rent.get('rent_type',{}).get('value', '')}}</div></li>
                     <li class="animate street"><div><i class="streetIcon"></i>{{rent['property'].get('zipcode','')}}</div></li>
-                    <!--<li class="animate estate"
-                        %if not rent['property'].get('floor',''):
-                    style="width:100%;"
-                    %end
-                    >
-                    <div><i class="estateIcon"></i>
-                        %if rent['property'].get('community',''):
-                        {{rent['property'].get('community','')}},
-                        %end
-                        %if rent['property'].get('street',''):
-                        {{rent['property'].get('street','')}},
-                        %end
-                        {{rent['property'].get('city',{}).get('name','')}}
-                    </div>
-                    </li>
-                    % if 'floor' in rent['property'] and rent['property'].get('floor',''):
-                    <li class="animate door">
-                        <div>
-                            <i class="doorIcon"></i>
-                            {{rent['property'].get('floor','')}}
-                            % if 'house_name' in rent.get('property',{}) and 'floor' in rent.get('property',{}):
-                            {{'-'}}
-                            % end
-                            {{rent['property'].get('house_name','')}}
-                        </div>
-                    </li>
-                    % end-->
                     % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
                     <li class="animate time">
                         <div>
