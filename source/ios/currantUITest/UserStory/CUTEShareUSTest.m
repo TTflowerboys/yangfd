@@ -28,6 +28,10 @@ describe(@"share ticket", ^ {
         }
         [[CUTEShareManager sharedInstance] shareTicket:ticket];
         [tester waitForViewWithAccessibilityLabel:STR(@"分享")];
+        [system waitForApplicationToOpenAnyURLWhileExecutingBlock:^{
+            [tester tapViewWithAccessibilityLabel:STR(@"微信好友")];
+        } returning:YES];
+        [tester waitForTimeInterval:3];
         
     });
     
@@ -35,7 +39,12 @@ describe(@"share ticket", ^ {
 
 describe(@"share text and url", ^{
     it(@"should success", ^{
-
+        [[CUTEShareManager sharedInstance] shareText:@"share text" urlString:@"http://www.baidu.com"];
+        [tester waitForViewWithAccessibilityLabel:STR(@"分享")];
+        [system waitForApplicationToOpenAnyURLWhileExecutingBlock:^{
+            [tester tapViewWithAccessibilityLabel:STR(@"微信好友")];
+        } returning:YES];
+        [tester waitForTimeInterval:3];
     });
 });
 
