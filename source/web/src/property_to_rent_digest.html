@@ -153,10 +153,10 @@
             </section>
             % if report:
             <section class="pageRegion">
-                <h2 class="animate">{{_('街区报告：')}}<span>{{report.get('name','')}}</span></h2>
-                <p class="description animate">
+                <h2 >{{_('街区报告：')}}<span>{{report.get('name','')}}</span></h2>
+                <div class="description">
                     {{!report.get('description','')}}
-                </p>
+                </div>
             </section>
             % end
             % if rent['property'].get('cover', ''):
