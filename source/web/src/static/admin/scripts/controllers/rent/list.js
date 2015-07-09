@@ -47,7 +47,7 @@
         }
 
         $scope.onRemove = function (item) {
-            fctModal.show('Do you want to remove it?', undefined, function () {
+            fctModal.show(i18n('Do you want to remove it?'), undefined, function () {
                 api.remove(item.id, {errorMessage: true}).success(function () {
                     $scope.list.splice($scope.list.indexOf(item), 1)
                 })
@@ -55,7 +55,7 @@
         }
 
         $scope.onSuspend = function (item) {
-            fctModal.show('Do you want to suspend it and send email to notify owner?', undefined, function () {
+            fctModal.show(i18n('Do you want to suspend it and send email to notify owner?'), undefined, function () {
                 api.suspend(item.id, {errorMessage: true}).success(function () {
                     location.reload()
                 })
