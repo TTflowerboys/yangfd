@@ -47,6 +47,12 @@
             <i class="ico icon-wechat"></i>
             <span>{{rent.get('creator_user',{}).get('wechat','')}}</span>
         </div>
+        % if user:
+        <div class="hint">
+            <p>{{_('房东联系方式加载中...')}}</p>
+            <img src="/static/images/common/ajax-loader.gif" alt=""/>
+        </div>
+        %end
     </div>
     %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
     <div class="contactRequest

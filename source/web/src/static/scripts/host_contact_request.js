@@ -32,7 +32,7 @@ $(function () {
                     } else {
                         $('.hostWechat').removeClass('show')
                     }
-
+                    $('.host .hint').fadeOut()
                     //issue #7021 触碰到了获取房东联系上限时弹出求租需求单填写框
                     if(host.wechat === 'yangfd1') {
                         window.openRequirementRentForm({
@@ -49,6 +49,7 @@ $(function () {
                     ga('send', 'pageview', '/host-contact-request/'+ rentId + '/contact-show-success')
                 })
                 .fail(function (ret) {
+                    $('.host .hint').fadeOut()
                     $feedback.empty()
                     $feedback.append(window.getErrorMessageFromErrorCode(ret))
                     $feedback.show()
