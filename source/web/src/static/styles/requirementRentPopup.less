@@ -330,7 +330,8 @@
         }
         .successWrap{
             position: relative;
-            padding-bottom: 100px;
+            padding: 0 0 100px 100px;
+
             h2{
                 font-size: 36px;
                 color: #333333;
@@ -407,6 +408,55 @@
                     text-align: center;
                     line-height: 1.2em;
                     margin: 10px 0;
+                }
+            }
+            .hostContactWrap{
+                position: absolute;
+                bottom: 100px;
+                right: 135px;
+                width: 360px;
+                margin: 10px 10px 20px;
+                padding: 15px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                .hint{
+                    margin: 10px 0;
+                }
+                .host{
+                    padding-top: 10px;
+                    color: #999;
+
+                    .avatar{
+                        display: block;
+                        margin: 0 auto;
+                    }
+                    .hostName{
+                        margin: 10px 0 20px;
+                        display: block;
+                        text-align: center;
+                        font-size: 21px;
+                    }
+                    .hostContact{
+                        display: none;
+                        font-size: 16px;
+                        margin-bottom: 10px;
+                        color: #666;
+                        text-align: center;
+                        a{
+                            color: #666;
+                            text-decoration: none;
+                        }
+                        i{
+                            vertical-align: middle;
+                            font-size: 21px;
+                            color: @red;
+                            margin-right: 5px;
+                        }
+                        &.show{
+                            display: block;
+                        }
+                    }
+
                 }
             }
         }

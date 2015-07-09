@@ -1,6 +1,6 @@
 (function () {
 
-    window.resetRequirementRentForm = function(container){
+    window.resetRequirementRentForm = function(container, option){
         var successArea = container.find('.requirement .successWrap')
         successArea.hide().siblings().show()
         var $errorMsg = container.find('.requirementRentFormError')
@@ -248,8 +248,48 @@
         return data
     }
 
+    function initShowAndHide(container, option) {
+        if(option && option.requestContact === 'true') {
+            container.find('[data-show=requestContact]').show()
+            container.find('[data-hide=requestContact]').hide()
+        } else {
+            container.find('[data-show=requestContact]').hide()
+            container.find('[data-hide=requestContact]').show()
+        }
+    }
+    function getHostContact(container, option) {
+        if(option && option.requestContact === 'true' && option.ticketId) {
+            $.betterPost('/api/1/rent_ticket/' + option.ticketId + '/contact_info')
+                .done(function (val) {
+                    var host = val
+                    if(host.private_contact_methods.indexOf('phone') < 0) {
+                        container.find('.hostPhone').addClass('show').find('span').eq(1).text(host.phone)
+                        $('.hostPhone a').attr('href', 'tel:+' + host.country_code + host.phone)
+                    } else {
+                        container.find('.hostPhone').removeClass('show')
+                    }
+                    if(host.private_contact_methods.indexOf('email') < 0) {
+                        container.find('.hostEmail').addClass('show').find('span').text(host.email)
+                        container.find('.hostEmail a').attr('href', 'mailto:' + host.email)
+                    } else {
+                        container.find('.hostEmail').removeClass('show')
+                    }
+                    if(host.private_contact_methods.indexOf('wechat') < 0) {
+                        container.find('.hostWechat').addClass('show').find('span').text(host.wechat)
+                    } else {
+                        container.find('.hostWechat').removeClass('show')
+                    }
+                    container.find('.hostName').text(host.nickname)
+                    container.find('.hostType').text(host.landlord_type)
+                    container.find('.hostContactWrap .hint').hide().next('.host').show()
+                })
+                .fail(function (ret) {
+                    container.find('.hostContactWrap .hint').text(window.i18n('获取联系方式失败：' + window.getErrorMessageFromErrorCode(ret)))
+                })
+        }
+    }
 
-    window.setupRequirementRentForm = function(container, submitSuccessCallBack) {
+    window.setupRequirementRentForm = function(container, option, submitSuccessCallBack) {
         var $errorMsg = container.find('.requirementRentFormError')
         var requirementRentAgreeWrap = $('.requirementRentAgreeWrap')
         if (window.user) {
@@ -353,7 +393,7 @@
         }
 
 
-        function initSubmit (container) {
+        function initSubmit (container, option) {
             if(!container.data('initSubmit')) {
                 container.data('initSubmit', true)
                 container.find('button[type=submit]').on('click', function () {
@@ -377,6 +417,7 @@
                         .done(function (val) {
                             successArea.show().siblings().hide()
                             successArea.find('.qrcode').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.protocol + '//' + location.host + '/app-download'))
+                            getHostContact(container, option)
                             submitSuccessCallBack()
                             //ga('send', 'event', 'requirementPopup', 'result', 'submit-success');
                         })
@@ -391,12 +432,14 @@
                 })
             }
         }
+
+        initShowAndHide(container, option)
         initStep(container)
         initLocation(container)
         initDateInput(container)
         initRequirementRentTitle(container)
         initContactInfo(container)
-        initSubmit(container)
+        initSubmit(container, option)
 
 
 
@@ -413,17 +456,17 @@
 
 
 
-    window.openRequirementRentForm = function (event, budgetId, intentionId, propertyId) {
+    window.openRequirementRentForm = function (option) {
         if(window.team.isPhone()) {
-            location.href = '/requirement-rent'
+            location.href = '/requirement-rent?' + $.param(option)
             return
         }
         var popup = $('#requirement_rent_popup')
-        window.resetRequirementRentForm(popup)
+        window.resetRequirementRentForm(popup, option)
         popup.find('.requirement_title').show()
         window.showRequirementRentCancelButton(popup)
 
-        window.setupRequirementRentForm(popup, function () {
+        window.setupRequirementRentForm(popup, option, function () {
 
         })
 

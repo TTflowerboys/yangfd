@@ -8,7 +8,8 @@
             <div class="info">
                 <div class="requirement_title">
                     <h2 class="title">{{_('求租意向单')}}</h2>
-                    <h3 class="hint">{{_('提交您的求租需求，获取 1个 额外的联系房东机会，')}}<br>{{_('同时当平台有满足您需求的房源出现时，可以第一时间通知您。')}}
+                    <h3 class="hint" data-hide="requestContact">{{_('提交您的求租需求，获取 1个 额外的联系房东机会，')}}<br>{{_('同时当平台有满足您需求的房源出现时，可以第一时间通知您。')}}
+                    <h3 class="hint" data-show="requestContact">{{_('您已达到查看房东联系方式的上限，提交您的求租需求可以获取1个额外的联系房东机会')}}<br>{{_('同时当平台有满足您需求的房源出现时，可以第一时间通知您。')}}
                     </h3>
                 </div>
                 <!--<div class="contact">
@@ -130,7 +131,32 @@
                     <label class="hint">{{_('联系我们')}}</label>
                     <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
                 </div>-->
-                <div class="qrcodeWrap">
+
+                <div data-show="requestContact" class="hostContactWrap">
+                    <p class="hint">{{_('正在为您加载您要查看的房东联系方式...')}}</p>
+                    <div class="host" style="display: none">
+                        <img class="avatar" src="/static/images/property_details/ico_phoneowner.png"></img>
+                        <label class="hostName"></label>
+                        <!--<label class="hostType"></label>-->
+                        <div class="hostPhone hostContact">
+                            <a>
+                                <i class="ico icon-phone_icon"></i>
+                                <span></span> <span></span>
+                            </a>
+                        </div>
+                        <div class="hostEmail hostContact">
+                            <a class="clearfix">
+                                <i class="ico icon-email"></i>
+                                <span class="email"></span>
+                            </a>
+                        </div>
+                        <div class="hostWechat hostContact">
+                            <i class="ico icon-wechat"></i>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="qrcodeWrap" style="display: none;">
                     <div class="imageWrap">
                         <img class="qrcode" width="192" height="192" alt="{{_('二维码')}}"/>
                     </div>
