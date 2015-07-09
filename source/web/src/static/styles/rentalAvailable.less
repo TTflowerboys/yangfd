@@ -9,8 +9,10 @@
     @media @phone{
         min-width: 0;
     }
+    background-color: #666;
 }
 .container{
+    background-color: #fff;
     max-width: 1200px;
     margin: 0 auto;
     font-weight: lighter;
@@ -229,8 +231,14 @@
                         margin: 0 80px 70px;
                         width: auto;
                         text-align: center;
+                        &:nth-last-child(1){
+                            margin-bottom: 0;
+                        }
                         @media @phone{
                             margin: 0 40px 30px;
+                            &:nth-last-child(1){
+                                margin-bottom: 0;
+                            }
                         }
                         .imgWrap{
                             display: block;
@@ -267,7 +275,127 @@
                 }
             }
             &.box-5{
-
+                .wrap-1{
+                    text-align: center;
+                    li{
+                        width: 400px;
+                        display: inline-block;
+                        margin: 0 80px 70px;
+                        text-align: center;
+                        @media @phone{
+                            width: auto;
+                            margin: 0 30px 15px;;
+                        }
+                        .imgWrap{
+                            height: 90px;
+                            line-height: 90px;
+                            display: block;
+                            float: left;
+                            @media @phone{
+                                height: 60px;
+                                line-height: 60px;
+                            }
+                            img{
+                                vertical-align: middle;
+                            }
+                        }
+                        .textWrap{
+                            height: 90px;
+                            margin-left: 60px;
+                            font-size: 30px;
+                            overflow: hidden;
+                            display: block;
+                            text-align: left;
+                            &:before{
+                                content: '';
+                                display: inline-block;
+                                vertical-align: middle;
+                                width: 0;
+                                height: 100%;
+                            }
+                            @media @phone{
+                                height: 60px;
+                                margin-left: 50px;
+                                font-size: 16px;
+                            }
+                            span{
+                                display: inline-block;
+                                vertical-align: middle;
+                                line-height: 1.3em;
+                            }
+                        }
+                    }
+                }
+                h3{
+                    margin: 100px 0;
+                    font-size: 36px;
+                    color: #bb282a;
+                    text-align: center;
+                    @media @phone{
+                        font-size: 22px;
+                        margin: 40px 0;
+                    }
+                }
+                .wrap-2{
+                    text-align: center;
+                    margin: 0 auto;
+                    .clearfix;
+                    br{
+                        display: none;
+                        @media @phone{
+                            display: block;
+                        }
+                    }
+                    li{
+                        width: 300px;
+                        display: inline-block;
+                        margin: 0 40px 70px;
+                        text-align: center;
+                        @media @phone{
+                            width: auto;
+                            margin: 0 20px 15px;
+                            min-width: 260px;
+                        }
+                        .imgWrap{
+                            height: 90px;
+                            line-height: 90px;
+                            display: block;
+                            float: left;
+                            @media @phone{
+                                height: 60px;
+                                line-height: 60px;
+                            }
+                            img{
+                                vertical-align: middle;
+                            }
+                        }
+                        .textWrap{
+                            height: 90px;
+                            margin-left: 60px;
+                            font-size: 30px;
+                            overflow: hidden;
+                            display: block;
+                            text-align: left;
+                            &:before{
+                                content: '';
+                                display: inline-block;
+                                vertical-align: middle;
+                                width: 0;
+                                height: 100%;
+                            }
+                            @media @phone{
+                                height: 60px;
+                                margin-left: 50px;
+                                font-size: 16px;
+                            }
+                            span{
+                                display: inline-block;
+                                vertical-align: middle;
+                                line-height: 1.3em;
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -299,5 +427,123 @@
             }
         }
 
+    }
+    .footer{
+        height: 900px;
+        background: url("/static/images/rental_available/footer_bg.jpg") center top no-repeat;
+        background-size: cover;
+        color: #fff;
+        overflow: hidden;
+        text-align: center;
+        a{
+            color: #fff;
+            text-decoration: none;
+        }
+        @media @phone{
+            height: 600px;
+        }
+        h2{
+            margin: 200px 0 0;
+            font-size: 48px;
+            font-weight: normal;
+            @media @phone{
+                margin: 90px 0 0;
+                font-size: 30px;
+            }
+        }
+        .appStore{
+            margin: 50px auto 0;
+            display: block;
+            border: 2px solid #fff;
+            color: #fff;
+            border-radius: 10px;
+            text-decoration: none;
+            .clearfix;
+            @width:328px;
+            @height:100px;
+            @iconFontSize: 48px;
+            @logoMargin:24px;
+            @infoWidth:210px;
+            @infoFontSize:22px;
+            @infoMargin:20px;
+            .size(@n:1){
+                width: @n * @width;
+                height: @n * @height;
+                .appleLogo{
+                    line-height: @n * @height - 4px;
+                    margin: 0 @n * @logoMargin;
+                    i{
+                        font-size: @n * @iconFontSize;
+                    }
+                }
+                .downloadInfo{
+                    margin-top: @n * @infoMargin;
+                    width: @n * @infoWidth;
+                    font-size: @n * @infoFontSize;
+                }
+
+            }
+            .size(0.6);
+            @media @phone {
+                .size(0.75);
+                float: none;
+                margin: 30px auto 0;
+            }
+            .appleLogo{
+                float:left;
+                i{
+                    vertical-align: middle;
+                }
+            }
+            .downloadInfo{
+                float: left;
+                p{
+                    margin: 0;
+                    text-align: left;
+                    line-height: 1.3em;
+                    &.bold{
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        .link{
+            display: block;
+            margin: 50px auto 0;
+            font-size: 30px;
+            @media @phone{
+                margin: 25px auto 0;
+                font-size: 18px;
+            }
+        }
+        hr{
+            margin: 50px 70px;
+            opacity: 0.8;
+            border-top-width: 2px;
+            @media @phone{
+                margin: 24px 10px;
+            }
+        }
+        h3{
+            font-size: 21px;
+            @media @phone{
+                font-size: 16px;
+            }
+        }
+        .qrcode{
+            margin: 40px auto 0;
+            @media @phone{
+                margin: 25px auto 0;
+            }
+        }
+        .copyright{
+            font-size: 16px;
+            opacity: 0.5;
+            margin: 50px auto 0;
+            @media @phone{
+                margin: 25px auto 0;
+                font-size: 14px;
+            }
+        }
     }
 }
