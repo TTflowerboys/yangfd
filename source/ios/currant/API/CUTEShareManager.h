@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "WXApi.h"
 #import "CUTETicket.h"
+#import "BFTask.h"
 
 @interface CUTEShareManager : NSObject
 
@@ -19,8 +20,8 @@
 
 - (BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 
-- (void)shareTicket:(CUTETicket *)ticket inController:(UIViewController *)controller successBlock:(dispatch_block_t)successBlock cancellationBlock:(dispatch_block_t)cancellationBlock;
+- (BFTask *)shareTicket:(CUTETicket *)ticket inController:(UIViewController *)controller;
 
-- (void)shareText:(NSString *)text urlString:(NSString *)urlString inController:(UIViewController *)controller successBlock:(dispatch_block_t)successBlock cancellationBlock:(dispatch_block_t)cancellationBlock;
+- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString inController:(UIViewController *)controller;
 
 @end

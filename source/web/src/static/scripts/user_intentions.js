@@ -201,7 +201,7 @@ $(function () {
     bindRentIntentionTicketChangeStatusClick()
 
     function bindItemWechatShareClick() {
-        $('body').delegate('.wechatShare', 'click', function() {
+        $('body').delegate('#wechatShare', 'click', function() {
             var intentionId = $(this).attr('data-id')
             var ticketArray = investmentTicketArray
             var property = _.first(_.where(ticketArray, {id: intentionId})).property

@@ -40,9 +40,7 @@
 
 @property (nonatomic, weak) UIViewController *viewController;
 
-@property (copy) dispatch_block_t successBlock;
-
-@property (copy) dispatch_block_t cancellationBlock;
+@property (nonatomic, retain) BFTaskCompletionSource *taskCompletionSource;
 
 @end
 
@@ -94,13 +92,14 @@
                 }
                 else {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [[CUTETracker sharedInstance] trackError:[NSError errorWithDomain:@"Wechat" code:backResp.errCode userInfo:@{NSLocalizedDescriptionKey:backResp.errStr}]];
+                        NSError *error = [NSError errorWithDomain:@"Wechat" code:backResp.errCode userInfo:@{NSLocalizedDescriptionKey:backResp.errStr}];
+                        [[CUTETracker sharedInstance] trackError:error];
                         [SVProgressHUD showErrorWithStatus:STR(@"分享失败")];
+                        [self checkCallShareFailedBlockWithError:error];
                     });
                 }
             }
         }];
-
     }
     else {
         [SVProgressHUD showErrorWithStatus:STR(@"请安装微信")];
@@ -204,11 +203,11 @@
     return tcs.task;
 }
 
-- (void)shareTicket:(CUTETicket *)ticket inController:(UIViewController *)controller successBlock:(dispatch_block_t)successBlock cancellationBlock:(dispatch_block_t)cancellationBlock
+- (BFTask *)shareTicket:(CUTETicket *)ticket inController:(UIViewController *)controller
 {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     self.viewController = controller;
-    self.successBlock = successBlock;
-    self.cancellationBlock = cancellationBlock;
+    self.taskCompletionSource = tcs;
 
     [[self getTicketShareImage:ticket] continueWithSuccessBlock:^id(BFTask *task) {
         if (task.result) {
@@ -285,12 +284,15 @@
         }
         return nil;
     }];
+
+    return tcs.task;
 }
 
-- (void)shareText:(NSString *)text urlString:(NSString *)urlString inController:(UIViewController *)controller successBlock:(dispatch_block_t)successBlock cancellationBlock:(dispatch_block_t)cancellationBlock {
+- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString inController:(UIViewController *)controller {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     self.viewController = controller;
-    self.successBlock = successBlock;
-    self.cancellationBlock = cancellationBlock;
+    self.taskCompletionSource = tcs;
+    
 
     [UIActionSheet showInView:controller.view withTitle:STR(@"分享") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:@[STR(@"微信好友"), STR(@"微信朋友圈"), STR(@"新浪微博")] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
 
@@ -338,6 +340,7 @@
         });
     }];
 
+    return tcs.task;
 }
 
 //http://stackoverflow.com/questions/2952298/how-can-i-truncate-an-nsstring-to-a-set-length
@@ -406,7 +409,9 @@
             [self checkCallShareCancellationBlock];
         }
         else {
-            [SVProgressHUD showErrorWithError:[NSError errorWithDomain:STR(@"微博分享") code:response.statusCode userInfo:response.userInfo]];
+            NSError *error = [NSError errorWithDomain:STR(@"微博分享") code:response.statusCode userInfo:response.userInfo];
+            [SVProgressHUD showErrorWithError:error];
+            [self checkCallShareFailedBlockWithError:error];
         }
     }
 }
@@ -414,15 +419,15 @@
 #pragma mark - Survey Method
 
 - (void)checkCallShareSuccessBlock {
-    if (self.successBlock) {
-        self.successBlock();
-    }
+    [self.taskCompletionSource setResult:nil];
+}
+
+- (void)checkCallShareFailedBlockWithError:(NSError *)error {
+    [self.taskCompletionSource setError:error];
 }
 
 - (void)checkCallShareCancellationBlock {
-    if (self.cancellationBlock) {
-        self.cancellationBlock();
-    }
+    [self.taskCompletionSource cancel];
 }
 
 
