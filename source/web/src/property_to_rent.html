@@ -531,11 +531,13 @@
 
 <ul class="floatBar_phone">
     <li class="phone">
+        %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
         <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" >
             {{_('联系房东')+':'}}
             <span>+{{rent.get('creator_user',{}).get('country_code','') }}</span>
             <span>{{rent.get('creator_user',{}).get('phone','')}}</span>
         </a>
+        %end
     </li>
     <li class="favorite"
         data-fn="addFav"
