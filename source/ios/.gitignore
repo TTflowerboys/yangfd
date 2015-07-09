@@ -27,5 +27,8 @@ Pods
 # Test logs
 test-reports/
 
+# Infer
+infer-out/
+
 #yasnippets
 snippets
