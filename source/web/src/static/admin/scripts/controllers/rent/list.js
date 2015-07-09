@@ -55,7 +55,7 @@
         }
 
         $scope.onSuspend = function (item) {
-            fctModal.show(i18n('Do you want to suspend it and then send email to notify owner?'), undefined, function () {
+            fctModal.show(i18n('Do you want to suspend it and send email to notify owner?'), undefined, function () {
                 api.suspend(item.id, {errorMessage: true}).success(function () {
                     location.reload()
                 })
