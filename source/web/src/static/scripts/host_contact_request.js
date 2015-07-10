@@ -6,7 +6,48 @@ $(function () {
     var $requestSMSCodeBtn = $contactRequestForm.find('[name=getCodeBtn]')
     var $submit = $contactRequestForm.find('[type=submit]')
     var $feedback = $contactRequestForm.find('[data-role=serverFeedback]')
+    var $residueDegree = $requestContactBtn.find('.residueDegree')
 
+    function getResidueDegree() {
+        if ($residueDegree.length > 0 && window.user) {
+            $.betterPost('/api/1/credit/view_rent_ticket_contact_info/amount')
+                .done(function (val) {
+                    $residueDegree.text(val)
+                })
+                .fail(function (ret) {
+                    $requestContactBtn.find('.hint').hide()
+                })
+        } else{
+            $requestContactBtn.find('.hint').hide()
+        }
+    }
+    function setActionOfGetContactOnPhone() { //issue #7021 当用户获取联系方式的次数为0时，直接跳转到提交求租需求单
+        if (window.team.isPhone() && window.user && rentId) {
+            $.betterPost('/api/1/credit/view_rent_ticket_contact_info/amount')
+                .done(function (val) {
+                    if(val === 0) {
+                        $('.floatBar_phone .phone a').click(function (e) {
+                            e.preventDefault()
+                            window.openRequirementRentForm({
+                                requestContact: 'true',
+                                ticketId: rentId
+                            })
+                            return false
+                        })
+                    }
+                })
+                .fail(function (ret) {
+                })
+        }
+    }
+    function reduceResidueDegree() {
+        if($residueDegree.length > 0 && parseInt($residueDegree.text()) > 0) {
+            //$residueDegree.text(parseInt($residueDegree.text()) - 1)
+            getResidueDegree()
+        }
+    }
+    getResidueDegree()
+    setActionOfGetContactOnPhone()
     /*
      * Control request contact button based on user login or not
      * */
@@ -46,6 +87,8 @@ $(function () {
                     $('.contactRequest').hide()
                     $('body,html').animate({scrollTop: $('#host').offset().top}, 300)
 
+                    reduceResidueDegree()
+
                     ga('send', 'pageview', '/host-contact-request/'+ rentId + '/contact-show-success')
                 })
                 .fail(function (ret) {
@@ -58,7 +101,7 @@ $(function () {
                 })
         }
         else {
-            $('#contactRequestBtn').hide()
+            $('#contactRequestBtn').hide().next('.knownMore').hide()
             $('.contactRequestForm').show()
 
             ga('send', 'pageview', '/host-contact-request/'+ rentId)

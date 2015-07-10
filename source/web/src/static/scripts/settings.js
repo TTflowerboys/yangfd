@@ -107,6 +107,19 @@ $('[name=userWechat]').keyup(function (e) {
     }
 })
 
+function getResidueDegree() {
+    var $residueDegree = $('.residueDegree')
+    if ($residueDegree.length > 0 && window.user) {
+        $.betterPost('/api/1/credit/view_rent_ticket_contact_info/amount')
+            .done(function (val) {
+                $residueDegree.text(val)
+            })
+            .fail(function (ret) {
+                $residueDegree.parent('label').text(window.i18n('获取失败'))
+            })
+    }
+}
+
 //Setup pages by remove duplicated nodes by device
 //TODO: only temporary walkaround for michael's code
 $(function () {
@@ -115,4 +128,5 @@ $(function () {
     }else{
         $('.setting_phone').remove()
     }
+    getResidueDegree()
 })

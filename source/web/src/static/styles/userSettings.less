@@ -127,6 +127,9 @@
                 }
                 &.action {
                     text-align: right;
+                    .getMore{
+                        padding: 2px 13px;
+                    }
                 }
                 i.wechatStatus {
                     font-style: normal;
@@ -174,6 +177,7 @@
             font-size: 14px;
         }
         tr {
+            position: relative;
             height: 72px;
             @media @small-phone{
                 height:60px;
@@ -244,6 +248,12 @@
                             i{
                                 padding: 0 22px 0 12px;
                             }
+                        }
+                        &.getMore{
+                            position: absolute;
+                            left: 0;
+                            top: 50%;
+                            transform: translate(0,-50%);
                         }
                     }
                     div{

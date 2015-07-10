@@ -14,6 +14,7 @@ main {
 }
 
 .host_wrapper {
+    overflow: hidden;
     background: #f4f4f4;
     color: @light-text-color;
     .host {
@@ -37,7 +38,6 @@ main {
             text-align: center;
             display: inline-block;
             font-weight: bold;
-
             @media @phone {
                 padding-top: @standard-margin*4;
             }
@@ -53,78 +53,98 @@ main {
         }
 
 
-
-        .hostContact {
-            display: none;
-            padding: @standard-margin @standard-margin @standard-margin @standard-margin * 6;
-            font-size: @slarge-font-size * 0.8;
-            text-align: left;
-            color: @dark-text-color;
-            position: relative;
-            &.show{
-                display: block;
-            }
-            @media @phone {
-                padding: @standard-margin @standard-margin @standard-margin @standard-margin;
-                text-align: center;
-            }
-            a {
+        .hostContactWrap{
+            margin: 20px 0;
+            .hostContact {
+                display: none;
+                padding: @standard-margin @standard-margin @standard-margin @standard-margin * 6;
+                font-size: @slarge-font-size * 0.8;
+                text-align: left;
                 color: @dark-text-color;
-                text-decoration: none;
-            }
-            .ico{
-                display: inline-block;
-                height: 32px;
-                width: 32px;
-                vertical-align: text-bottom;
-                float: left;
-                margin-right: 16px;
-                font-size: 32px;
-                color: @red;
-                @media @phone {
-                    float: none;
+                position: relative;
+                &.show{
+                    display: block;
                 }
-            }
-            span{
-                &.email{
-                    width: 255px;
-                    word-break: break-all;
+                @media @phone {
+                    padding: @standard-margin @standard-margin @standard-margin @standard-margin * 3;
+                    text-align: left;
+                }
+                a {
+                    color: @dark-text-color;
+                    text-decoration: none;
+                }
+                .ico{
+                    display: inline-block;
+                    height: 32px;
+                    width: 32px;
+                    vertical-align: text-bottom;
                     float: left;
-                    @media @phone{
-                        width:auto;
+                    margin-right: 16px;
+                    font-size: 32px;
+                    color: #666666;
+                    @media @phone {
                         float: none;
                     }
                 }
+                span{
+                    &.email{
+                        width: 255px;
+                        word-break: break-all;
+                        float: left;
+                        @media @phone{
+                            width:auto;
+                            float: none;
+                        }
+                    }
+                }
+            }
+            .hint{
+                color: #999;
+                font-size: 16px;
+                text-align: center;
+                p{
+                    margin-bottom: 20px;
+                }
+                img{
+                    display: inline-block;
+                    margin-bottom:20px;
+                }
             }
         }
 
-        .hint{
-            color: #999;
-            font-size: 16px;
-            text-align: center;
-            p{
-                margin-bottom: 20px;
-            }
-            img{
-                display: inline-block;
-                margin-bottom:20px;
-            }
-        }
     }
 
     .contactRequest {
         &.hide{
             display: none;
         }
-        border-top: 1px solid @border-color;
         margin: @standard-margin;
 
-        button {
-            width: 100%;
-            margin: @standard-margin*2 0;
-            padding: @standard-margin*2 0;
+        button.ghostButton {
+            display: block;
+            margin: @standard-margin*2 auto;
+            padding: @standard-margin 45px;
             line-height: 1;
             font-size: @root-font-size;
+            color: #e60012;
+            border-color: #e60012;
+            p{
+                margin: 0;
+                font-size: 21px;
+
+                &.hint{
+                    margin-top: 4px;
+                    font-size: 14px;
+                }
+            }
+        }
+        .knownMore{
+            margin-bottom: 27px;
+            display: block;
+            font-size: 14px;
+            color: #e60012;
+            text-align: center;
+            text-decoration: underline;
         }
     }
 }

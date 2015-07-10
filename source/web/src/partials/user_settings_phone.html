@@ -183,6 +183,18 @@
                     <a name="userCurrency" data-state="normal" class="btn-edit btn"><i class="icon-nav-arrow-right"></i></a>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <strong>{{_('剩余获取房东')}}<br/>{{_('联系方式的机会')}}</strong>
+                </td>
+                <td class="action">
+                    <label>
+                        {{_('本月剩余')}}<span class="residueDegree"></span>{{_('次')}}
+                    </label>
+                    <a href="/qa-rent" data-state="normal" class="btn-edit btn"><i class="icon-nav-arrow-right"></i></a>
+                    <a href="/qa-rent" name="getMore" type="button" class="ghostButton red getMore">{{_('获取更多')}}</a>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>

@@ -190,6 +190,24 @@
                     <button name="userCurrency" data-state="normal" class="ghostButton red">{{_('修改')}}</button>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <strong>{{_('剩余获取房东联系方式')}}<br>{{_('的机会')}}</strong>
+                    <p>{{_('作为租客，每次获取一个房源的房东')}}<br>{{_('联系方式会用掉一次机会')}}</p>
+                </td>
+                <td style="font-size:20px;">
+                    <label>
+                        {{_('本月剩余')}}<span class="residueDegree"></span>{{_('次')}}
+                    </label>
+
+                </td>
+                <td>
+
+                </td>
+                <td class="action">
+                    <a href="/qa-rent" data-state="normal" class="ghostButton red getMore">{{_('获取更多')}}</a>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
