@@ -258,7 +258,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
     def v12(self, m):
         credit = {
             "type": "view_rent_ticket_contact_info",
-            "amount": 2,
+            "amount": 1,
             "expire_time": datetime.utcnow() + timedelta(days=30),
             "valid_since": datetime.utcnow(),
             "tag": "initial",
@@ -757,14 +757,15 @@ class f_currant_plugins(f_app.plugin_base):
                 index_params["phone_national_number"] = str(phonenumbers.parse(index_params["phone"]).national_number)
             f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
 
-        credit = {
-            "type": "view_rent_ticket_contact_info",
-            "amount": 2,
-            "expire_time": datetime.utcnow() + timedelta(days=30),
-            "tag": "initial",
-            "user_id": user_id,
-        }
-        f_app.user.credit.add(credit)
+        if not noregister:
+            credit = {
+                "type": "view_rent_ticket_contact_info",
+                "amount": 1,
+                "expire_time": datetime.utcnow() + timedelta(days=30),
+                "tag": "initial",
+                "user_id": user_id,
+            }
+            f_app.user.credit.add(credit)
 
         return user_id
 
