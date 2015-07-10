@@ -7,28 +7,87 @@
         <style type="text/css">
             img { outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
             a img { border: none; }
+            @media only screen and (max-width: 600px) {
+                img[class=logoEmailHeader]{
+                    width: 210px !important;
+                }
+                [class=noHorizolPaddingOnMobile]{
+                    padding-left: 0 !important;
+                    padding-right: 0 !important;
+                }
+                [class=extraSmallFontSize]{
+                    font-size: 14px !important;
+                    line-height: 1.6em;
+                }
+                [class=smallFontSize]{
+                    font-size: 16px !important;
+                }
+                [class=middleFontSize]{
+                    font-size: 18px !important;
+                }
+                [class=largeFontSize]{
+                    font-size: 21px !important;
+                }
+                table { max-width: 100%; width: 100% !important; }
+                table td { padding-left: 10px; padding-right: 10px; }
+                td[class=mailFooterWrap]{
+                    padding: 35px 20px !important;
+                }
+            }
         </style>
+        <!--@@placeholder=head-->
     </head>
-    <body style="margin:0;padding:0;">
-        <div style="margin: 0 auto; padding: 0;font-size: 16px; font-family: Helvetica, Arial, sans-serif; line-height: 1.5; color:#999; background:#fff;text-align: center;">
-            <div style="height: 84px;background: #333;">
-                <img style="padding: 15px 0 0 20px; float: left;" src="http://upload.yangfd.com/logo.png" alt="Logo"/>
-                <span style="color: #ccc; font-family: serif; float: left; padding: 30px 0 0 20px;">{{_('洋房东')}}</span>
-            </div>
-            <div style="max-width: 720px;margin: 0 auto;">
-                <!--@@placeholder = content-->
-            </div>
-            <div style="padding: 70px 20px;border-top: 1px solid #ccc; margin: -1px 20px 0; color: #9d9d9d;line-height: 1.8em;font-size: 18px">
-                <p style="margin: 0; padding: 0;">{{_('该邮件为自动发送，请勿直接回复。')}}</p>
-                <p style="margin: 0; padding: 0;">{{_('如有任何问题，欢迎您与我们联系，我们将竭诚为您服务。')}}</p>
-                %if 'unsubscribe_url' in vars() or 'unsubscribe_url' in globals():
-                <p style="margin: 0; padding: 0;">{{_('不想收到此类邮件？')}}<a href="{{unsubscribe_url}}" style="color: #e60012; text-decoration: none;font-weight: bold;">{{_('点击退订')}}></a></p>
-                %end
-                <p style="margin: 0; padding: 0;">{{_('Email：')}}<a style="color: #9d9d9d; text-decoration: none;" href="mailto:services@youngfunding.co.uk">services@youngfunding.co.uk</a></p>
-                <p style="margin: 0; padding: 0;">{{_('英国客服电话：')}}<a href="tel:02030402258" style="color: #9d9d9d; text-decoration: none;">(0)2030402258</a></p>
-                <p style="margin: 0; padding: 0;">{{_('中国客服电话：')}}<a href="tel:4000926433" style="color: #9d9d9d; text-decoration: none;">400-0926-433</a></p>
-            </div>
-        </div>
-
+    <body bgcolor="#eee" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" style="height: auto; padding:0; margin:0; -webkit-text-size-adjust:none; -ms-text-size-adjust: 100%;background-color: #eee;">
+        <table cellspacing="0" cellpadding="0" border="0" align="center" width="100%" class="tableContent" style="max-width: 720px;background-color: #fff;margin: 0 auto; padding: 0;font-size: 16px; font-family: Helvetica, Arial, sans-serif; line-height: 1.5; color:#999; background:#fff;text-align: center;">
+            <tbody>
+                <tr class="mailHeader">
+                    <td style="background: #333; padding-left: 10px; padding-right: 10px;">
+                        <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                            <tr>
+                                <td style="font-size: 22px; color: #FFFFFF; letter-spacing: 3px;">
+                                    <div style="padding: 20px 0 20px 10px;text-align: left;">
+                                        <img class="logoEmailHeader" src="http://upload.yangfd.com/logo_email_header.png" alt="" style="vertical-align: middle"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="mailMain">
+                    <td style="padding-left: 10px; padding-right: 10px;">
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" style="border-bottom: 1px solid #ccc;">
+                            <tr>
+                                <td style="">
+                                    <!--@@placeholder = content-->
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="mailFooter">
+                    <td class="mailFooterWrap" style="padding: 70px 20px; margin: -1px 20px 0; color: #9d9d9d;line-height: 1.8em;font-size: 18px">
+                        <table class="smallFontSize" width="100%">
+                            <tr>
+                                <td>{{_('该邮件为自动发送，请勿直接回复。')}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{_('如有任何问题，欢迎您与我们联系，我们将竭诚为您服务。')}}</td>
+                            </tr>
+                            %if 'unsubscribe_url' in vars() or 'unsubscribe_url' in globals():
+                            <tr>
+                                <td>{{_('不想收到此类邮件？')}}<a href="{{unsubscribe_url}}" style="color: #e60012; text-decoration: none;font-weight: bold;">{{_('点击退订')}}></a></td>
+                            </tr>
+                            %end
+                            <tr>
+                                <td>{{_('英国客服电话：')}}<a href="tel:02030402258" style="color: #9d9d9d; text-decoration: none;">(0)2030402258</a></td>
+                            </tr>
+                            <tr>
+                                <td>{{_('中国客服电话：')}}<a href="tel:4000926433" style="color: #9d9d9d; text-decoration: none;">400-0926-433</a></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </body>
 </html>
