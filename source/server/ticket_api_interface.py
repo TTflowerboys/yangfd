@@ -1063,7 +1063,7 @@ def rent_ticket_contact_info(user, ticket_id):
     })
     if not len(order_id_list):
         # BUY BUY BUY
-        passes = f_app.user.credit.get("rent_ticket_view_contact_info", amount_only=True)
+        passes = f_app.user.credit.get("view_rent_ticket_contact_info", amount_only=True)
         if passes:
             order_id = f_app.shop.item.buy(f_app.common.view_rent_ticket_contact_info_id, order_params={"ticket_id": ticket_id}, params={"payment_method": "deadbeef"})
             order = f_app.order.get(order_id)
