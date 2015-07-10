@@ -262,19 +262,19 @@
             $.betterPost('/api/1/rent_ticket/' + option.ticketId + '/contact_info')
                 .done(function (val) {
                     var host = val
-                    if(host.private_contact_methods.indexOf('phone') < 0) {
+                    if(host.private_contact_methods.indexOf('phone') < 0 && host.phone) {
                         container.find('.hostPhone').addClass('show').find('span').eq(1).text(host.phone)
                         $('.hostPhone a').attr('href', 'tel:+' + host.country_code + host.phone)
                     } else {
                         container.find('.hostPhone').removeClass('show')
                     }
-                    if(host.private_contact_methods.indexOf('email') < 0) {
+                    if(host.private_contact_methods.indexOf('email') < 0 && host.email) {
                         container.find('.hostEmail').addClass('show').find('span').text(host.email)
                         container.find('.hostEmail a').attr('href', 'mailto:' + host.email)
                     } else {
                         container.find('.hostEmail').removeClass('show')
                     }
-                    if(host.private_contact_methods.indexOf('wechat') < 0) {
+                    if(host.private_contact_methods.indexOf('wechat') < 0 && host.wechat) {
                         container.find('.hostWechat').addClass('show').find('span').text(host.wechat)
                     } else {
                         container.find('.hostWechat').removeClass('show')
