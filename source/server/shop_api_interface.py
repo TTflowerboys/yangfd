@@ -163,7 +163,7 @@ def shop_item_search(user, shop_id, params):
 def shop_item_edit(user, shop_id, item_id, params):
     """
     ``status`` can be ``draft``, ``rejected``, ``not reviewed``, ``new``, ``sold out``, ``deleted``, ``translating``, ``not translated``.
-    ``shop_id`` is constant ``54a3c92b6b809945b0d996bf``
+    ``shop_id`` is constant ``54a3c92b6b809945b0d996bf`` for crowdfunding items.
     ``quantity`` should be ``True``
     """
     if "status" in params:

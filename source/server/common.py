@@ -32,7 +32,7 @@ class common(f_common):
     mongo_dbname = "currant"
     mongo_server = "172.20.1.22"
     mongo_auth = False
-    mongo_dbversion = 11
+    mongo_dbversion = 13
 
     memcache_server = ["172.20.1.22:11211"]
     memcache_lib = "memcache"
@@ -54,6 +54,9 @@ class common(f_common):
     support_ticket_statuses = ["new", "assigned", "in_progress", "solved", "unsolved"]
 
     user_action_types = ["click_page", "click_property", "submit_intention_ticket", "submit_intention_ticket_success", "click_registration", "submit_registration", "submit_registration_success", "submit_intention_tag", "submit_property_request", "submit_property_request_success"]
+
+    virtual_shop_id = "54bca9b46b8099382cf7a515"
+    view_rent_ticket_contact_info_id = "523ac0ef5c8988c84d6022cb"
 
     property_list_per_page = 10
 
