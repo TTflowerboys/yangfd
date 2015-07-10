@@ -50,3 +50,4 @@ API Reference
    shop_api
    log_api
    order_api
+   credit_api

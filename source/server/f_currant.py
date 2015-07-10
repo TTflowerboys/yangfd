@@ -255,6 +255,42 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                 "system_message_type": ["system"],
             }})
 
+    def v12(self, m):
+        credit = {
+            "type": "view_rent_ticket_contact_info",
+            "amount": 2,
+            "expire_time": datetime.utcnow() + timedelta(days=30),
+            "valid_since": datetime.utcnow(),
+            "tag": "initial",
+            "status": "new",
+        }
+        for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
+            f_app.user.credit.get_database(m).update({"type": "view_rent_ticket_contact_info", "user_id": user["_id"]}, {"$set": dict(user_id=user["_id"], **credit)}, upsert=True)
+
+    def v13(self, m):
+        virtual_shop = {
+            "admin_user": [],
+            "_id": ObjectId(f_app.common.virtual_shop_id),
+            "name": "virtual_shop",
+            "status": "new",
+            "time": datetime.utcnow()
+        }
+        f_app.shop.get_database(m).update({"_id": virtual_shop["_id"]}, {"$set": virtual_shop}, upsert=True)
+
+        view_rent_ticket_contact_info_item = {
+            "status": "new",
+            "_id": ObjectId(f_app.common.view_rent_ticket_contact_info_id),
+            "shop_id": ObjectId(f_app.common.virtual_shop_id),
+            "type": "normal",
+            "quantity": True,
+            "price_credits": [{"type": "view_rent_ticket_contact_info", "amount": 1}],
+            "price": 100,
+            "status": "new",
+            "time": datetime.utcnow()
+        }
+        f_app.shop.item.get_database(m).update({"_id": view_rent_ticket_contact_info_item["_id"]}, {"$set": view_rent_ticket_contact_info_item}, upsert=True)
+
+
 currant_mongo_upgrade()
 
 

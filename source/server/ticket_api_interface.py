@@ -1049,17 +1049,30 @@ def rent_ticket_contact_info(user, ticket_id):
     if ticket["status"] not in {"to rent", "rent"}:
         abort(40399, logger.warning("specified rent ticket is currently not available", exc_info=False))
 
-    f_app.log.add("rent_ticket_view_contact_info", ticket_id=ticket_id)
-    user_details = f_app.user.output([ticket["creator_user_id"]], custom_fields=f_app.common.user_custom_fields)[0]
-
-    max_allowed_existing_request = 1
-    existing_requests = f_app.mongo_index.search(f_app.log.get_database, {"id": ObjectId(user["id"]), "type": "rent_ticket_view_contact_info"}, per_page=max_allowed_existing_request + 1)
-    if len(existing_requests["content"]) >= max_allowed_existing_request + 1:
+    def mask(user_details):
         user_details["email"] = "services@youngfunding.co.uk"
         user_details["wechat"] = "yangfd1"
         user_details.pop("phone", None)
         user_details["private_contact_methods"] = ["phone"]
 
+    user_details = f_app.user.output([ticket["creator_user_id"]], custom_fields=f_app.common.user_custom_fields)[0]
+
+    order_id_list = f_app.order.search({
+        "items.id": f_app.common.view_rent_ticket_contact_info_id,
+        "ticket_id": ticket_id,
+    })
+    if not len(order_id_list):
+        # BUY BUY BUY
+        passes = f_app.user.credit.get("view_rent_ticket_contact_info", amount_only=True)
+        if passes:
+            order_id = f_app.shop.item.buy(f_app.common.view_rent_ticket_contact_info_id, order_params={"ticket_id": ticket_id}, params={"payment_method": "deadbeef"})
+            order = f_app.order.get(order_id)
+            if order["status"] != "paid":
+                mask(user_details)
+        else:
+            mask(user_details)
+
+    f_app.log.add("rent_ticket_view_contact_info", ticket_id=ticket_id)
     return user_details
 
 
