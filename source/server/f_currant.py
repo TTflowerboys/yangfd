@@ -261,6 +261,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "amount": 2,
             "expire_time": datetime.utcnow() + timedelta(days=30),
             "valid_since": datetime.utcnow(),
+            "tag": "initial",
             "status": "new",
         }
         for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
@@ -279,6 +280,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         view_rent_ticket_contact_info_item = {
             "status": "new",
             "_id": ObjectId(f_app.common.view_rent_ticket_contact_info_id),
+            "shop_id": ObjectId(f_app.common.virtual_shop_id),
             "type": "normal",
             "quantity": True,
             "price_credits": {"view_rent_ticket_contact_info": 1},
