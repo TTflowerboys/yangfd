@@ -259,7 +259,9 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         credit = {
             "type": "view_rent_ticket_contact_info",
             "amount": 2,
-            "expire_time": datetime.utcnow() + timedelta(days=30)
+            "expire_time": datetime.utcnow() + timedelta(days=30),
+            "valid_since": datetime.utcnow(),
+            "status": "new",
         }
         for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
             f_app.user.credit.get_database(m).update({"type": "view_rent_ticket_contact_info"}, {"$set": credit}, upsert=True)
