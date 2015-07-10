@@ -283,7 +283,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "shop_id": ObjectId(f_app.common.virtual_shop_id),
             "type": "normal",
             "quantity": True,
-            "price_credits": [{"view_rent_ticket_contact_info": 1}],
+            "price_credits": [{"type": "view_rent_ticket_contact_info", "amount": 1}],
             "price": 100,
             "status": "new",
             "time": datetime.utcnow()
