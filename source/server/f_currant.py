@@ -264,7 +264,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "status": "new",
         }
         for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
-            f_app.user.credit.get_database(m).update({"type": "view_rent_ticket_contact_info", user_id=user["_id"]}, {"$set": dict(user_id=user["_id"], **credit)}, upsert=True)
+            f_app.user.credit.get_database(m).update({"type": "view_rent_ticket_contact_info", "user_id": user["_id"]}, {"$set": dict(user_id=user["_id"], **credit)}, upsert=True)
 
     def v13(self, m):
         virtual_shop = {
