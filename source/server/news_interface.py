@@ -120,10 +120,15 @@ def partner():
     title = _('合作伙伴')
     return currant_util.common_template("partner", title=title)
 
+@f_get('/qa-rent')
+@currant_util.check_ip_and_redirect_domain
+def qa():
+    title = _('海外租房帮助中心')
+    return currant_util.common_template("qa_rent", title=title)
 
-@f_get('/qa')
+@f_get('/qa-crowdfunding')
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready
 def qa():
-    title = _('众筹投资问答')
-    return currant_util.common_template("qa", title=title)
+    title = _('众筹投资帮助中心')
+    return currant_util.common_template("qa_crowdfunding", title=title)
