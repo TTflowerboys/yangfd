@@ -11,10 +11,16 @@
 #import "CUTECommonMacro.h"
 #import "CUTEDataManager.h"
 #import "CUTENotificationKey.h"
+#import "KIFTestActor+OHHttpStubs.h"
+
 
 @implementation KIFUITestActor (Login)
 
 - (void)login {
+
+//    [tester setStubEnabled:YES];
+//    [tester registerRequestURLPath:@"/api/1/user/login" toResponseFileAtPath:@"login.json"];
+
     [self logout];
     [self swipeToSplashEnd];
     [self tapViewWithAccessibilityLabel:STR(@"有邀请码？进入应用")];
@@ -32,6 +38,12 @@
 //    [self waitForViewWithAccessibilityLabel:STR(@"登录中...")];
     [[self usingTimeout:20] waitForAbsenceOfViewWithAccessibilityLabel:STR(@"登录中...")];
     [self waitForAnimationsToFinish];
+
+
+    //set cookie mannually
+//    NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:@{@"name":@"currant_auth", @"value": @"\"!ritVWhLagvVWED5zsNKyzg==?gAJVDGN1cnJhbnRfYXV0aHEBfXECKFUFbG9naW5xA4hVAmlkcQRVGDU0MDNlZGU0ZTc0ZmQ1Njk3YWY3ODNlMHEFdYZxBi4=\"", @"domain": @"currant-dev.bbtechgroup.com", @"path": @"/"}];
+//    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+
 }
 
 - (void)logout {
