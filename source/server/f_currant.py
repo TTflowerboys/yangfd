@@ -757,6 +757,15 @@ class f_currant_plugins(f_app.plugin_base):
                 index_params["phone_national_number"] = str(phonenumbers.parse(index_params["phone"]).national_number)
             f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
 
+        credit = {
+            "type": "view_rent_ticket_contact_info",
+            "amount": 2,
+            "expire_time": datetime.utcnow() + timedelta(days=30),
+            "tag": "initial",
+            "user_id": user_id,
+        }
+        f_app.user.credit.add(credit)
+
         return user_id
 
     def user_update_after(self, user_id, params):
