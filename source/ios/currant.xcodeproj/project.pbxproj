@@ -272,6 +272,8 @@
 		2C96E28A1AE89D8A00F3590C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */; };
 		2C96E28B1AE89D9300F3590C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */; };
 		2C96E28C1AE89D9B00F3590C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */; };
+		2C974CB11B4FC81200E6739D /* KIFTestActor+OHHttpStubs.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C974CB01B4FC81200E6739D /* KIFTestActor+OHHttpStubs.m */; };
+		2C974CB41B4FC94B00E6739D /* login.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C974CB31B4FC94B00E6739D /* login.json */; };
 		2C9AFF701AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
 		2C9AFF711AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
 		2C9AFF721AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
@@ -785,6 +787,9 @@
 		2C96E2731AE6566300F3590C /* CUTEShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEShareManager.m; sourceTree = "<group>"; };
 		2C96E2791AE74CCD00F3590C /* CUTENotificationKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTENotificationKey.h; sourceTree = "<group>"; };
 		2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		2C974CAF1B4FC81200E6739D /* KIFTestActor+OHHttpStubs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestActor+OHHttpStubs.h"; sourceTree = "<group>"; };
+		2C974CB01B4FC81200E6739D /* KIFTestActor+OHHttpStubs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestActor+OHHttpStubs.m"; sourceTree = "<group>"; };
+		2C974CB31B4FC94B00E6739D /* login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login.json; sourceTree = "<group>"; };
 		2C9AFF6E1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormFixNonBreakingSpaceTextFieldCell.h; sourceTree = "<group>"; };
 		2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormFixNonBreakingSpaceTextFieldCell.m; sourceTree = "<group>"; };
 		2C9AFF751AF2335900E5F0BC /* CUTEWebConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEWebConfiguration.h; sourceTree = "<group>"; };
@@ -1058,12 +1063,15 @@
 		2C056D181B414F4B0075037A /* currantUITest */ = {
 			isa = PBXGroup;
 			children = (
+				2C974CB21B4FC93400E6739D /* MockData */,
 				2C464D5F1B46982E00289BB0 /* UserStory */,
 				2C056D241B4231F40075037A /* Scene */,
 				2C056D191B414F4B0075037A /* Supporting Files */,
 				2C056DAD1B42474C0075037A /* SpectaUITestTemplate */,
 				2CC4D20F1B4BD8E3004BD217 /* KIFUITestActor+FilePath.h */,
 				2CC4D2101B4BD8E3004BD217 /* KIFUITestActor+FilePath.m */,
+				2C974CAF1B4FC81200E6739D /* KIFTestActor+OHHttpStubs.h */,
+				2C974CB01B4FC81200E6739D /* KIFTestActor+OHHttpStubs.m */,
 			);
 			path = currantUITest;
 			sourceTree = "<group>";
@@ -1334,6 +1342,14 @@
 				2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		2C974CB21B4FC93400E6739D /* MockData */ = {
+			isa = PBXGroup;
+			children = (
+				2C974CB31B4FC94B00E6739D /* login.json */,
+			);
+			path = MockData;
 			sourceTree = "<group>";
 		};
 		2C9F1CCB1B37E4640034487F /* Misc */ = {
@@ -1907,6 +1923,7 @@
 				2CC4D20C1B4BD33E004BD217 /* share.js.txt in Resources */,
 				2CBA9CA61B4D4023004B2BE3 /* openRentListTab.js.txt in Resources */,
 				2C056DAE1B42474C0075037A /* SpectaUITestTemplate in Resources */,
+				2C974CB41B4FC94B00E6739D /* login.json in Resources */,
 				2CC4D20E1B4BD854004BD217 /* createRentTicket.js.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2242,6 +2259,7 @@
 				2C6D7B1E1B428F25007853FD /* KIFUITestActor+SplashUI.m in Sources */,
 				2C056DAC1B4245990075037A /* CUTESplashUITest.m in Sources */,
 				2C317F6F1B4538340041E05E /* CUTEPropertyInfoUITest.m in Sources */,
+				2C974CB11B4FC81200E6739D /* KIFTestActor+OHHttpStubs.m in Sources */,
 				2C464D681B4A2B2C00289BB0 /* CUTEWebHandlerUSTest.m in Sources */,
 				2CBA9CAA1B4E5E49004B2BE3 /* CUTEShareUSTest.m in Sources */,
 				2C056D401B423A110075037A /* CUTESettingForm.m in Sources */,

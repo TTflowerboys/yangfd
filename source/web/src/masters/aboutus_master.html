@@ -26,6 +26,18 @@
                 <img id="icon-terms-active"  style="display:none" alt="" src="/static/images/news/declaration-active.png"/>
                 <h3>{{_('服务声明')}}</h3>
             </a></li>
+            <li><a href="/qa-rent">
+                <img id="icon-qa-rent" alt="" src="/static/images/news/qa.png"/>
+                <img id="icon-qa-rent-active" style="display:none" alt="" src="/static/images/news/qa-active.png"/>
+                <h3>{{_('海外租房帮助中心')}}</h3>
+            </a></li>
+            <!-- @if ENV!='production' -->
+            <li><a href="/qa-crowdfunding">
+                <img id="icon-qa-crowdfunding" alt="" src="/static/images/news/qa.png"/>
+                <img id="icon-qa-crowdfunding-active" style="display:none" alt="" src="/static/images/news/qa-active.png"/>
+                <h3>{{_('众筹投资帮助中心')}}</h3>
+            </a></li>
+            <!-- @endif -->
             <li><a href="/about/marketing">
                 <img id="icon-marketing" alt="" src="/static/images/news/marketing.png"/>
                 <img id="icon-marketing-active"  style="display:none" alt="" src="/static/images/news/marketing-active.png"/>
@@ -41,13 +53,6 @@
                 <img id="icon-partner-active" style="display:none" alt="" src="/static/images/news/partner-active.png"/>
                 <h3>{{_('合作伙伴')}}</h3>
             </a></li>
-            <!-- @if ENV!='production' -->
-            <li><a href="/qa">
-                <img id="icon-qa" alt="" src="/static/images/news/qa.png"/>
-                <img id="icon-qa-active" style="display:none" alt="" src="/static/images/news/qa-active.png"/>
-                <h3>{{_('投资问答')}}</h3>
-            </a></li>
-            <!-- @endif -->
         </ul>
     </div>
 </div>
