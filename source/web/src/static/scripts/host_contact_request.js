@@ -7,12 +7,19 @@ $(function () {
     var $submit = $contactRequestForm.find('[type=submit]')
     var $feedback = $contactRequestForm.find('[data-role=serverFeedback]')
     var $residueDegree = $requestContactBtn.find('.residueDegree')
+    var $exhaustSubmitTip = $requestContactBtn.find('.exhaustSubmitTip')
 
     function getResidueDegree() {
         if ($residueDegree.length > 0 && window.user) {
             $.betterPost('/api/1/credit/view_rent_ticket_contact_info/amount')
                 .done(function (val) {
-                    $residueDegree.text(val)
+                    $residueDegree.text(val.amount)
+
+                    if(val.amount === 0) {
+                        $exhaustSubmitTip.css("display", "inline")
+                    }else{
+                        $exhaustSubmitTip.css("display", "none")
+                    }
                 })
                 .fail(function (ret) {
                     $requestContactBtn.find('.hint').hide()
@@ -25,7 +32,9 @@ $(function () {
         if (window.team.isPhone() && window.user && rentId) {
             $.betterPost('/api/1/credit/view_rent_ticket_contact_info/amount')
                 .done(function (val) {
-                    if(val === 0) {
+                    if(val.amount === 0) {
+                        $exhaustSubmitTip.css("display", "inline")
+
                         $('.floatBar_phone .phone a').click(function (e) {
                             e.preventDefault()
                             window.openRequirementRentForm({
@@ -34,6 +43,8 @@ $(function () {
                             })
                             return false
                         })
+                    }else{
+                        $exhaustSubmitTip.css("display", "none")
                     }
                 })
                 .fail(function (ret) {
