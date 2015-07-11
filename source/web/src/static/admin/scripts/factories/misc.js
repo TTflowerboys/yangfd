@@ -85,7 +85,10 @@ angular.module('app')
                 var allKeys = _.union(_.keys(newJson), _.keys(oldJson))
 
                 _.each(allKeys, function (key) {
-                    if (oldJson[key] === undefined) {
+                    if(oldJson[key] === newJson[key] || angular.equals(newJson[key], oldJson[key])) {
+                        return
+                    }
+                    if (oldJson[key] === undefined || (oldJson[key] === null && newJson[key] !== null)) {
                         return addToResult(key, newJson[key])
                     }
                     if (newJson[key] === undefined) {
@@ -110,29 +113,15 @@ angular.module('app')
                         }
                         return addToResult(key, '')
                     }
-                    if (oldJson[key] === null && newJson[key] !== null) {
-                        return addToResult(key, newJson[key])
-                    }
-                    if (newJson.hasOwnProperty(key) &&
-                        newJson[key] !== oldJson[key] &&
-                        newJson[key].toString() !== oldJson[key].toString()) {
-                        return addToResult(key, newJson[key])
-                    }
-                    if (_.isArray(newJson[key]) && !angular.equals(newJson[key], oldJson[key])) {
-                        return addToResult(key, newJson[key])
-                    }
                     if (_.isObject(newJson[key])) {
                         var obj = newJson[key],
                             temp
-                        if (obj._i18n !== undefined && !angular.equals(newJson[key], oldJson[key])) {
+                        if (obj._i18n !== undefined || key === 'unit_price') {
                             return addToResult(key, newJson[key])
                         }
-                        if (obj._i18n_unit !== undefined && !angular.equals(newJson[key], oldJson[key])) {
+                        if (obj._i18n_unit !== undefined) {
                             delete newJson[key].value_float
                             delete newJson[key].type
-                            return addToResult(key, newJson[key])
-                        }
-                        if (key === 'unit_price' && !angular.equals(newJson[key], oldJson[key])) {
                             return addToResult(key, newJson[key])
                         }
                         temp = self.getChangedI18nAttributes(newJson[key], oldJson[key])
@@ -140,6 +129,7 @@ angular.module('app')
                             return addToResult(key, temp)
                         }
                     }
+                    return addToResult(key, newJson[key])
                 })
                 return _.isEmpty(result) ? undefined : result
             },
