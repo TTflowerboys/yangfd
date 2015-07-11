@@ -14,19 +14,19 @@
 SpecBegin(UsageManager)
 
 describe(@"saveEnterForegroundTime", ^ {
-    it(@"should save 10000 times", ^ {
-        int count = 10000;
-        NSDate *date = [NSDate new];
-        TICK;
-        for (int i = 0; i < count; i++)
-        {
-            [[CUTEUsageRecorder sharedInstance] saveEnterForegroundTime:date.timeIntervalSince1970 + i];
-        }
-        TOCK;
-        
-        NSUInteger days = [[CUTEUsageRecorder sharedInstance] getUsageDays];
-
-    });
+//    it(@"should save 10000 times", ^ {
+//        int count = 10000;
+//        NSDate *date = [NSDate new];
+//        TICK;
+//        for (int i = 0; i < count; i++)
+//        {
+//            [[CUTEUsageRecorder sharedInstance] saveEnterForegroundTime:date.timeIntervalSince1970 + i];
+//        }
+//        TOCK;
+//        
+//        NSUInteger days = [[CUTEUsageRecorder sharedInstance] getUsageDays];
+//
+//    });
 });
 
 //TODO more test case

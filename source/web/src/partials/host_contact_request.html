@@ -42,7 +42,7 @@
     </div>
     %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
     <div class="contactRequest" id="contactRequest">
-        <button id="contactRequestBtn" class="ajaxButton ghostButton red"><p>{{_('获取房东联系方式')}}</p><p class="hint">({{_('剩余')}}<span class="residueDegree"></span>{{_('次')}})</p></button>
+        <button id="contactRequestBtn" class="ajaxButton ghostButton red"><p>{{_('获取房东联系方式')}}</p><p class="hint">({{_('剩余')}}<span class="residueDegree"></span>{{_('次')}}<span style="display: none" class="exhaustSubmitTip">{{_('，提交求租需求继续获取')}}</span>)</p></button>
         <a class="knownMore" href="/qa-rent">{{_('点击了解如何增加联系房东的机会')}}</a>
         <form class="contactRequestForm" name="contactRequestForm"
             data-message-success="{{_('提交成功')}}"

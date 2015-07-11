@@ -20,7 +20,9 @@ SpecBegin(PropertyInfoUI)
 describe(@"PropertyInfo", ^ {
 
     beforeAll(^{
+        [tester logout];
         [tester login];
+        [tester waitForTimeInterval:5];//ticket or rent-type load
         [tester selectRentTypeWhole];
         [tester setPropertyLocationWithCurrentLocation];
         [tester tapViewWithAccessibilityLabel:STR(@"继续")];

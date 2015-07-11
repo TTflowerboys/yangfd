@@ -19,6 +19,7 @@ SpecBegin(AddressEditUI)
 describe(@"AddressEdit", ^ {
 
     beforeAll(^{
+        [tester logout];
         [tester login];
         [tester waitForTimeInterval:5];//ticket or rent-type load
         [tester selectRentTypeWhole];

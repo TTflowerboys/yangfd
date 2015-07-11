@@ -19,6 +19,7 @@ SpecBegin(ShareUS)
 describe(@"share ticket", ^ {
     before(^{
         [tester login];
+
     });
 
     it(@"should success", ^ {
@@ -32,9 +33,9 @@ describe(@"share ticket", ^ {
             [tester tapViewWithAccessibilityLabel:STR(@"微信好友")];
         } returning:YES];
         [tester waitForTimeInterval:3];
-        
+
     });
-    
+
 });
 
 describe(@"share text and url", ^{

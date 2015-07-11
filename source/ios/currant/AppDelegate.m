@@ -166,7 +166,7 @@
     [NewRelicAgent startWithApplicationToken:@"AA702288ba1ecd578f66c032589a84402e1b6a3cb9"];
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-    [CUTEUserAgentUtil setupUserAgent];
+    [CUTEUserAgentUtil setupWebViewUserAgent];
     [[CUTEShareManager sharedInstance] setUpShareSDK];
     [[CUTETracker sharedInstance] setup];
     [ATConnect sharedConnection].appID = [CUTEConfiguration appStoreId];

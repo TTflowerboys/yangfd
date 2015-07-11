@@ -19,7 +19,9 @@ SpecBegin(AddressMapUI)
 describe(@"AddressMap", ^ {
 
     beforeAll(^{
+        [tester logout];
         [tester login];
+        [tester waitForTimeInterval:10];
         [tester selectRentTypeWhole];
     });
 
