@@ -136,6 +136,18 @@ def order_search_anonymous(user, params):
     return order_list
 
 
+@f_api('/order/search_view_rent_ticket_contact_info', params=dict(
+    per_page=int,
+))
+@f_app.user.login.check(force=True)
+def order_search_view_rent_ticket_contact_info(user, params):
+    per_page = params.pop("per_page", 0)
+    return f_app.order.output(f_app.order.custom_search({
+        "user.id": user["id"],
+        "items.id": f_app.common.view_rent_ticket_contact_info_id
+    }, per_page=per_page))
+
+
 @f_api('/order/search', params=dict(
     item_id=ObjectId,
     per_page=int,
