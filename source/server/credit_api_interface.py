@@ -11,4 +11,4 @@ def credit_amount(credit_type, user):
     """
     assert credit_type in ["view_rent_ticket_contact_info", ], abort(40000)
 
-    return f_app.user.credit.get(credit_type, user_id=user["id"], amount_only=True)
+    return f_app.user.credit.get(credit_type, user_id=user["id"])

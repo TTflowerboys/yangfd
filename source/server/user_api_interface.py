@@ -168,6 +168,18 @@ def user_login(params):
     user = f_app.user.login.success(user_id)
 
     result = f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields, user=user)[0]
+
+    if b"currant" in request.get_header('User-Agent'):
+        credits = f_app.user.credit.get("view_rent_ticket_contact_info", tag="download_ios_app")
+        if not len(credits["credits"]):
+            credit = {
+                "type": "view_rent_ticket_contact_info",
+                "amount": 1,
+                "tag": "download_ios_app",
+                "user_id": user_id,
+            }
+            f_app.user.credit.add(credit)
+
     return result
 
 
