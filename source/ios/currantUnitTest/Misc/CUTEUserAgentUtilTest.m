@@ -20,7 +20,7 @@
 
 SpecBegin(UserAgentUtil)
 
-describe(@"setupUserAgent", ^ {
+describe(@"setupWebViewUserAgent", ^ {
 
     it(@"should setup ok", ^ {
         NSString *userAgent = [[NSUserDefaults standardUserDefaults] stringForKey:@"UserAgent"];
@@ -38,9 +38,9 @@ describe(@"setupUserAgent", ^ {
     });
 });
 
-describe(@"userAgent", ^{
+describe(@"setUpAPIUserAgent", ^{
 
-    it(@"should set AFNetworking user agent ok", ^{
+    it(@"should set user agent ok", ^{
 
         NSURLRequest *request = [[[[CUTEAPIManager sharedInstance] backingManager] requestSerializer] requestWithMethod:@"GET" URLString:@"www.baidu.com" parameters:nil error:nil];
         NSString *userAgent = [request allHTTPHeaderFields][@"User-Agent"];

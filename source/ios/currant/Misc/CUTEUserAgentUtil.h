@@ -10,7 +10,7 @@
 
 @interface CUTEUserAgentUtil : NSObject
 
-+ (void)setupUserAgent;
++ (void)setupWebViewUserAgent;
 
 + (NSString *)userAgent;
 
