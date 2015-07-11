@@ -12,4 +12,6 @@
 
 + (void)setupUserAgent;
 
++ (NSString *)userAgent;
+
 @end

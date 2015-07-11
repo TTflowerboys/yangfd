@@ -12,9 +12,14 @@
 @implementation CUTEUserAgentUtil
 
 + (void)setupUserAgent {
-    NSArray *userAgentComponents =  @[[[NSBundle mainBundle] bundleIdentifier], [CUTEConfiguration versionBuild]];
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[userAgentComponents componentsJoinedByString:@"/"], @"UserAgent", nil];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:[CUTEUserAgentUtil userAgent], @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+}
+
++ (NSString *)userAgent {
+    NSArray *userAgentComponents =  @[[[NSBundle mainBundle] bundleIdentifier], [CUTEConfiguration versionBuild]];
+    return [userAgentComponents componentsJoinedByString:@"/"];
+
 }
 
 @end

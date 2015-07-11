@@ -11,6 +11,7 @@
 #import <UIImageView+AFNetworking.h>
 #import "CUTEConfiguration.h"
 #import "CUTECommonMacro.h"
+#import "CUTEUserAgentUtil.h"
 
 
 @interface CUTEAPIManager () {
@@ -19,6 +20,8 @@
 
     UIImageView *_imageDownloader;
 }
+
+@property (nonatomic, readonly) BBTRestClient *backingManager;
 
 @end
 
@@ -45,10 +48,15 @@
         [_backingManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [_backingManager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
         [_backingManager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
+        [_backingManager.requestSerializer setValue:[CUTEUserAgentUtil userAgent] forHTTPHeaderField:@"User-Agent"];
 
         _imageDownloader = [UIImageView new];
     }
     return self;
+}
+
+- (BBTRestClient *)backingManager {
+    return _backingManager;
 }
 
 - (BFTask *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass  {
