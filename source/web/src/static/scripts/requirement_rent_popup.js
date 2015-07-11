@@ -201,7 +201,7 @@
                 if (window.user.nickname) {
                     container.find('[name=requirementRentName]').val(window.user.nickname)
                 }
-                if (window.user.country.code) {
+                if (window.user.country && window.user.country.code) {
                     container.find('[name=country]').val(window.user.country.code).trigger('change').trigger('chosen:updated')
                 }
                 if (window.user.phone) {
