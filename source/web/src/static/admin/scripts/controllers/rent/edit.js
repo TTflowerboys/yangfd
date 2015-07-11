@@ -61,6 +61,7 @@
                     errorMessage: 'Update failed'
                 }).success(function (data) {
                     //TODO
+                    angular.extend(currentItem.property, data.val)
                 })
             }
 
@@ -70,7 +71,7 @@
             }).success(function (data) {
                 angular.extend(currentItem, data.val)
                 $state.go('^')
-                location.reload()
+                //location.reload()
             })['finally'](function () {
                 $scope.loading = false
             })
