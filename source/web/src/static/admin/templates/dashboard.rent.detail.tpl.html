@@ -167,14 +167,14 @@
                                             <label class="control-label">{%$root.i18n('楼层')%}</label>
 
                                             <div class="controls">
-                                                <div ng-bind="item.property.floor"></div>
+                                                <div ng-bind="item.property.floor[userLanguage.value]"></div>
                                             </div>
                                         </div>
                                         <div class="form-group  col-sm-6" ng-if="item.property.house_name">
                                             <label class="control-label">{%$root.i18n('门牌号')%}</label>
 
                                             <div class="controls">
-                                                <div ng-bind="item.property.house_name"></div>
+                                                <div ng-bind="item.property.house_name[userLanguage.value]"></div>
                                             </div>
                                         </div>
                                         <div class="form-group  col-sm-6" ng-if="item.property.zipcode">
