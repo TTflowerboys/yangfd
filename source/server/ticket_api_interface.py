@@ -466,6 +466,18 @@ def rent_intention_ticket_add(params, user):
         if not set(user["role"]) & set(f_app.common.admin_roles) or user["id"] == user_id_by_phone:
             # This ticket is created by user on his own
             user_id = user["id"]
+
+            credits = f_app.user.credit.get("view_rent_ticket_contact_info", tag="rent_intention_ticket")
+            if not len(credits["credits"]):
+                credit = {
+                    "type": "view_rent_ticket_contact_info",
+                    "amount": 1,
+                    "expire_time": datetime.utcnow() + timedelta(days=30),
+                    "tag": "rent_intention_ticket",
+                    "user_id": user_id,
+                }
+                f_app.user.credit.add(credit)
+
         else:
             # This ticket is created by sales
             if shadow_user_id:
