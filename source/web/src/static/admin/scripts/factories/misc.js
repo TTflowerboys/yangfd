@@ -125,9 +125,7 @@ angular.module('app')
                             return addToResult(key, newJson[key])
                         }
                         temp = self.getChangedI18nAttributes(newJson[key], oldJson[key])
-                        if (temp) {
-                            return addToResult(key, temp)
-                        }
+                        return temp ? addToResult(key, temp) : undefined
                     }
                     return addToResult(key, newJson[key])
                 })
