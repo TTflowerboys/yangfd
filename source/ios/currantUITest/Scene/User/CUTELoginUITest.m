@@ -19,6 +19,7 @@ describe(@"Login", ^ {
 
     it(@"should success", ^ {
         [tester login];
+
     });
 
 });

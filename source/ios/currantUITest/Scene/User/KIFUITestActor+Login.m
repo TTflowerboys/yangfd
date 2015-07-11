@@ -21,7 +21,6 @@
 //    [tester setStubEnabled:YES];
 //    [tester registerRequestURLPath:@"/api/1/user/login" toResponseFileAtPath:@"login.json"];
 
-    [self logout];
     [self swipeToSplashEnd];
     [self tapViewWithAccessibilityLabel:STR(@"有邀请码？进入应用")];
     [self waitForAnimationsToFinish];

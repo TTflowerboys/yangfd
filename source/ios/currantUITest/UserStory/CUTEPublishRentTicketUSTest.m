@@ -22,17 +22,19 @@ describe(@"PublishRentTicket", ^ {
 
     before(^{
         [tester logout];
-    });
-
-    it(@"should publish success", ^ {
         [tester login];
         //wait for the unfinished ticket load
         [tester waitForTimeInterval:10];
         [tester selectRentTypeWhole];
+        [tester waitForViewWithAccessibilityLabel:STR(@"房产位置")];
         [tester setPropertyLocationWithCurrentLocation];
         [tester waitForTimeInterval:3];
         [tester tapViewWithAccessibilityLabel:STR(@"继续")];
         [tester setBedroomCount];
+
+    });
+
+    it(@"should publish success", ^ {
         [tester tapViewWithAccessibilityLabel:STR(@"预览")];
         [tester waitForAnimationsToFinish];
         [tester tapViewWithAccessibilityLabel:STR(@"继续")];
@@ -52,15 +54,6 @@ describe(@"PublishRentTicket", ^ {
     });
 
     it(@"should publish success with photoes", ^ {
-        [tester login];
-        //wait for the unfinished ticket load
-        [tester waitForTimeInterval:10];
-        [tester selectRentTypeWhole];
-        [tester waitForViewWithAccessibilityLabel:STR(@"房产位置")];
-        [tester setPropertyLocationWithCurrentLocation];
-        [tester waitForTimeInterval:3];
-        [tester tapViewWithAccessibilityLabel:STR(@"继续")];
-        [tester setBedroomCount];
         [tester tapViewWithAccessibilityLabel:STR(@"添加照片")];
         [tester swipeViewWithAccessibilityLabel:STR(@"房产信息列表") inDirection:KIFSwipeDirectionDown];
         [tester waitForViewWithAccessibilityLabel:STR(@"选择照片")];
