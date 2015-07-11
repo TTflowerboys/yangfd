@@ -55,7 +55,7 @@
             }
             $scope.loading = true
 
-            if (!_.isEmpty(changed.property)) {
+            if (changed && !_.isEmpty(changed.property)) {
                 propertyApi.update($scope.item.property.id, changed.property, {
                     successMessage: 'Update successfully',
                     errorMessage: 'Update failed'
@@ -63,18 +63,20 @@
                     //TODO
                     angular.extend(currentItem.property, data.val)
                 })
+                delete changed.property
             }
-
-            api.update($stateParams.id, rentChanged, {
-                successMessage: 'Update successfully',
-                errorMessage: 'Update failed'
-            }).success(function (data) {
-                angular.extend(currentItem, data.val)
-                $state.go('^')
-                //location.reload()
-            })['finally'](function () {
-                $scope.loading = false
-            })
+            if (!_.isEmpty(changed)) {
+                api.update($stateParams.id, changed, {
+                    successMessage: 'Update successfully',
+                    errorMessage: 'Update failed'
+                }).success(function (data) {
+                    angular.extend(currentItem, data.val)
+                    $state.go('^')
+                    //location.reload()
+                })['finally'](function () {
+                    $scope.loading = false
+                })
+            }
 
         }
     }
