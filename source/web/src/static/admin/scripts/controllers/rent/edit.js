@@ -33,6 +33,7 @@
                 })
                 editItem.rent = temp
             }
+            editItem = misc.cleanI18nEmptyUnit(editItem)
             $scope.itemOrigin = editItem
             $scope.item = angular.copy($scope.itemOrigin)
         }
