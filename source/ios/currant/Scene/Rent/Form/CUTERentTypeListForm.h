@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "CUTEForm.h"
 #import "CUTEEnum.h"
+#import "CUTETicketForm.h"
 
-@interface CUTERentTypeListForm : CUTEForm
+@interface CUTERentTypeListForm : CUTETicketForm
 
 @property (strong, nonatomic) CUTEEnum *rentType;
 

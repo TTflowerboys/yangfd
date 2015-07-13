@@ -45,14 +45,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (!self.ticket) {
+
+    CUTERentTypeListForm *form = (CUTERentTypeListForm *)self.formController.form;
+    if (!form.ticket) {
         CUTETicket *ticket = [CUTETicket new];
         CUTEProperty *property = [CUTEProperty new];
         property.status = kPropertyStatusDraft;
         ticket.status = kTicketStatusDraft;
         ticket.price = [CUTECurrency currencyWithValue:100.0 unit:[CUTECurrency defaultCurrencyUnit]];//default price
         ticket.property = property;
-        self.ticket = ticket;
+        form.ticket = ticket;
         self.navigationItem.title = STR(@"出租发布");
     }
     else {
@@ -82,8 +84,10 @@
 
     if (form.singleUseForReedit) {
         [self.navigationController popViewControllerAnimated:YES];
-        CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-        self.ticket.rentType = form.rentType;
+
+        //TODO refine listener,
+        CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:form.ticket];
+        form.ticket.rentType = form.rentType;
         [ticketListener stopListenMark];
         [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
         if (self.updateRentTypeCompletion) {
@@ -91,9 +95,9 @@
         }
     }
     else  {
-        self.ticket.rentType = form.rentType;
+        form.ticket.rentType = form.rentType;
         CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
-        mapController.ticket = self.ticket;
+        mapController.ticket = form.ticket;
         mapController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:mapController animated:YES];
     }

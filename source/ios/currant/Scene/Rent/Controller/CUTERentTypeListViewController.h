@@ -13,7 +13,6 @@
 
 @interface CUTERentTypeListViewController : CUTEFormViewController
 
-@property (nonatomic, strong) CUTETicket *ticket;
 
 @property (nonatomic, copy) dispatch_block_t updateRentTypeCompletion;
 

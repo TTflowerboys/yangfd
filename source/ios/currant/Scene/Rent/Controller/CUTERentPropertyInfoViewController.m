@@ -265,7 +265,7 @@
             form.rentType = self.ticket.rentType;
             [form setRentTypeList:task.result];
             CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
-            controller.ticket = self.ticket;
+            form.ticket = self.ticket;
             controller.formController.form = form;
 
             __weak typeof(self)weakSelf = self;
@@ -296,8 +296,8 @@
 
 - (void)editAddress {
     CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
-    controller.ticket = self.ticket;
     CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
+    form.ticket = self.ticket;
     form.singleUseForReedit = YES;
     [SVProgressHUD show];
     [[form updateWithTicket:self.ticket] continueWithBlock:^id(BFTask *task) {
