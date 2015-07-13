@@ -263,28 +263,28 @@
                 .done(function (val) {
                     var host = val
                     if(host.private_contact_methods.indexOf('phone') < 0 && host.phone) {
-                        container.find('.hostPhone').addClass('show').find('span').eq(1).text(host.phone)
+                        $('.hostPhone').addClass('show').find('span').eq(1).text(host.phone)
                         $('.hostPhone a').attr('href', 'tel:+' + host.country_code + host.phone)
                     } else {
-                        container.find('.hostPhone').removeClass('show')
+                        $('.hostPhone').removeClass('show')
                     }
                     if(host.private_contact_methods.indexOf('email') < 0 && host.email) {
-                        container.find('.hostEmail').addClass('show').find('span').text(host.email)
-                        container.find('.hostEmail a').attr('href', 'mailto:' + host.email)
+                        $('.hostEmail').addClass('show').find('span').text(host.email)
+                        $('.hostEmail a').attr('href', 'mailto:' + host.email)
                     } else {
-                        container.find('.hostEmail').removeClass('show')
+                        $('.hostEmail').removeClass('show')
                     }
                     if(host.private_contact_methods.indexOf('wechat') < 0 && host.wechat) {
-                        container.find('.hostWechat').addClass('show').find('span').text(host.wechat)
+                        $('.hostWechat').addClass('show').find('span').text(host.wechat)
                     } else {
-                        container.find('.hostWechat').removeClass('show')
+                        $('.hostWechat').removeClass('show')
                     }
-                    container.find('.hostName').text(host.nickname)
-                    container.find('.hostType').text(host.landlord_type)
-                    container.find('.hostContactWrap .hint').hide().next('.host').show()
+                    $('.hostName').text(host.nickname)
+                    $('.hostType').text(host.landlord_type)
+                    $('.hostContactWrap .hint').hide().next('.host').show()
                 })
                 .fail(function (ret) {
-                    container.find('.hostContactWrap .hint').text(window.i18n('获取联系方式失败：' + window.getErrorMessageFromErrorCode(ret)))
+                    $('.hostContactWrap .hint').text(window.i18n('获取联系方式失败：' + window.getErrorMessageFromErrorCode(ret)))
                 })
         }
     }
