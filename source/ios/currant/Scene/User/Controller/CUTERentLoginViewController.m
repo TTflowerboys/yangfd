@@ -34,6 +34,8 @@
 #import "CUTEApplyBetaRentingForm.h"
 #import "CUTETooltipView.h"
 #import "JDFTooltipManager.h"
+#import "CUTECredit.h"
+#import "NSArray+ObjectiveSugar.h"
 
 @implementation CUTERentLoginViewController
 
@@ -99,21 +101,16 @@
             }
             else {
                 CUTEUser *user = task.result;
-                if ([user hasRole:kUserRoleBetaRenting]) {
-                    [SVProgressHUD dismiss];
-                    [[CUTEDataManager sharedInstance] persistAllCookies];
-                    [[CUTEDataManager sharedInstance] saveUser:task.result];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
+                [[CUTEDataManager sharedInstance] persistAllCookies];
+                [[CUTEDataManager sharedInstance] saveUser:user];
 
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                    [self dismissViewControllerAnimated:YES completion:^{
-                        [NotificationCenter postNotificationName:KNOTIF_BETA_USER_DID_REGISTER object:nil];
-                    }];
-                }
-                else {
-                    [SVProgressHUD showSuccessWithStatus:STR(@"您还没有内测权限，请申请测试邀请码")];
-                }
+                [SVProgressHUD dismiss];
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [self dismissViewControllerAnimated:YES completion:^{
+                    [NotificationCenter postNotificationName:KNOTIF_BETA_USER_DID_REGISTER object:nil];
+                }];
             }
             return nil;
         }];
