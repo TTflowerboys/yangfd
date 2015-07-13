@@ -87,7 +87,9 @@ $(function () {
                 .done(function (val) {
                     var host = val
                     if(host.private_contact_methods && host.private_contact_methods.indexOf('phone') < 0 && host.phone) {
-                        $('.hostPhone').addClass('show').find('span').eq(1).text(host.phone)
+                        $('.hostPhone').addClass('show').each(function(){
+                            $(this).find('span').eq(1).text(host.phone)
+                        })
                         $('.hostPhone a').attr('href', 'tel:+' + host.country_code + host.phone)
                     } else {
                         $('.hostPhone').removeClass('show')
