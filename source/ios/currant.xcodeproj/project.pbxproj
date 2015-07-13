@@ -148,6 +148,7 @@
 		2C1251931B53909A0037F5B6 /* CUTECredit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251911B53909A0037F5B6 /* CUTECredit.m */; };
 		2C1251941B53909A0037F5B6 /* CUTECredit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251911B53909A0037F5B6 /* CUTECredit.m */; };
 		2C1251951B53909A0037F5B6 /* CUTECredit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251911B53909A0037F5B6 /* CUTECredit.m */; };
+		2C1251971B53A6650037F5B6 /* CUTECreditUSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251961B53A6650037F5B6 /* CUTECreditUSTest.m */; };
 		2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
@@ -715,6 +716,7 @@
 		2C11485C1B44F2A50003DEF7 /* CUTERentTypeUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentTypeUITest.m; sourceTree = "<group>"; };
 		2C1251901B53909A0037F5B6 /* CUTECredit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTECredit.h; sourceTree = "<group>"; };
 		2C1251911B53909A0037F5B6 /* CUTECredit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTECredit.m; sourceTree = "<group>"; };
+		2C1251961B53A6650037F5B6 /* CUTECreditUSTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTECreditUSTest.m; sourceTree = "<group>"; };
 		2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriod.h; sourceTree = "<group>"; };
 		2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriod.m; sourceTree = "<group>"; };
 		2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -1274,6 +1276,7 @@
 				2C464D601B46985400289BB0 /* CUTEPublishRentTicketUSTest.m */,
 				2C464D671B4A2B2C00289BB0 /* CUTEWebHandlerUSTest.m */,
 				2CBA9CA91B4E5E49004B2BE3 /* CUTEShareUSTest.m */,
+				2C1251961B53A6650037F5B6 /* CUTECreditUSTest.m */,
 				2CC4D20A1B4BD30E004BD217 /* TestData */,
 			);
 			path = UserStory;
@@ -2259,6 +2262,7 @@
 				2C056D8A1B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
 				2C6D7B181B428E49007853FD /* CUTEApplyBetaUITest.m in Sources */,
 				2C317F721B4538C30041E05E /* KIFUITestActor+AddressMap.m in Sources */,
+				2C1251971B53A6650037F5B6 /* CUTECreditUSTest.m in Sources */,
 				2C056D901B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
 				2C056DA31B423BBA0075037A /* CUTEForm.m in Sources */,
 				2CC4D2111B4BD8E3004BD217 /* KIFUITestActor+FilePath.m in Sources */,
