@@ -15,26 +15,13 @@
             margin: 35px auto 0 !important;
         }
         td[class=iconRentNoticeWrap]{
-            display: none !important;
+            padding: 40px 0 20px !important;
         }
-        td[class=rentTextWrap1]{
-            padding: 120px 0 20px !important;
-            background: url("http://upload.yangfd.com/email_ways_icon_1.gif") center 20px no-repeat !important;
-            background-size: 74px !important;
-            text-align: center !important;
+        td[class=iconRentNoticeWrap] img{
+            width: 74px !important;
+            height: 74px !important;
         }
-        td[class=rentTextWrap2]{
-            padding: 120px 0 20px !important;
-            background: url("http://upload.yangfd.com/email_ways_icon_2.gif") center 20px no-repeat !important;
-            background-size: 74px !important;
-            text-align: center !important;
-        }
-        td[class=rentTextWrap3]{
-            padding: 120px 0 20px !important;
-            background: url("http://upload.yangfd.com/email_ways_icon_3.gif") center 20px no-repeat !important;
-            background-size: 74px !important;
-            text-align: center !important;
-        }
+
         h2[class=rentTextTitle]{
             font-size: 21px !important;
             margin-bottom: 8px !important;
@@ -43,24 +30,26 @@
 </style>
 <!--@@close-->
 <!--@@block=content-->
-<h1 class="nickname" style="padding: 60px 20px; margin: 15px 0 0; font-size: 19px;text-align: left;">{{_('你好，')}} {{nickname}}</h1>
-<div class="noHorizolPaddingOnMobile" style="padding: 0px 20px 60px; border-bottom: 1px solid #ccc; margin: 0;line-height: 2em;font-size: 18px;">
+<h1 class="nickname" style="padding: 60px 20px; margin: 15px 0 0; font-size: 18px;text-align: left;">{{_('你好，')}} {{nickname}}</h1>
+<div class="noHorizolPaddingOnMobile" style="padding: 0px 20px 60px; border-bottom: 1px solid #ccc; margin: 0;line-height: 1.5em;font-size: 16px;">
     <p class="extraSmallFontSize" style="margin: 0;">{{_('您')}}{{formated_date}}{{_('在洋房东上发布的出租房')}}</p>
     <a class="middleFontSize" href="{{rent_url}}" style="font-size: 24px;color: #e60012; font-weight: bold;line-height: 4em;">{{rent_title}}</a>
     <p class="extraSmallFontSize" style="margin: 0;">{{_('已经在洋房东平台上收到了不少的关注,如果该房产已经成功出租，为避免您收到其他租客的询问，您可以点击下面的“我已成功出租”，则您的房源将不再在平台展示。')}}</p>
-    <a class="hasRentedButton" href="{{has_rented_url}}" style="display:inline-block;margin:70px auto 50px;padding: 22px 45px; background: #e60012; color: #fff; font-size: 24px; text-decoration: none;border-radius: 8px;">{{_('我已成功出租')}}</a>
+    <a class="hasRentedButton" href="{{has_rented_url}}" style="display:inline-block;margin:40px auto 0;padding: 22px 45px; background: #e60012; color: #fff; font-size: 24px; text-decoration: none;border-radius: 8px;">{{_('我已成功出租')}}</a>
 </div>
-<div class="noHorizolPaddingOnMobile" style="padding: 28px 20px 60px; margin: 0;line-height: 2em;font-size: 18px;">
+<div class="noHorizolPaddingOnMobile" style="padding: 28px 20px 60px; margin: 0;line-height: 1.5em;font-size: 16px;">
     <p class="extraSmallFontSize" style="margin: 20px 0">{{_('如果您还未出租出去，我们建议您尝试下面的方法，帮您尽快将房产租出去：')}}</p>
     <table style="margin:0;padding: 0;list-style: none;overflow: hidden;border: 0;">
-        <tbody style="margin: 0;line-height: 1.5em;font-size: 17px;">
+        <tbody style="margin: 0;line-height: 1.5em;">
             <tr style="vertical-align: middle">
-                <td class="iconRentNoticeWrap" style="padding: 40px;">
+                <td class="iconRentNoticeWrap" style="padding:60px 0 40px;">
                     <a href="{{refresh_url}}">
-                        <img class="iconRentNotice" src="http://upload.yangfd.com/email_ways_icon_1.gif" alt=""/>
+                        <img class="iconRentNotice" src="http://upload.yangfd.com/email_ways_icon_1.gif" alt="" style="width: 120px;height: 120px;"/>
                     </a>
                 </td>
-                <td class="rentTextWrap1" style="text-align: left;padding: 40px 50px 40px 0;">
+            </tr>
+            <tr>
+                <td style="padding: 0 0 20px;">
                     <h2 class="rentTextTitle" style="margin: 0 0 25px;color: #333;font-size: 26px;">{{_('去平台上刷新您的房源')}}</h2>
                     <p class="extraSmallFontSize" style="margin: 0;">
                         {{_('洋房东每天都有大量新房源出租，刷新将为您赢得排名提升，让平台的租客更容易找到您的房产。同时，洋房东会将当天的新房源和刷新的房源同步到全英各大媒体和论坛，刷新可以尽可能多的曝光您的房源。')}}
@@ -69,21 +58,25 @@
                 </td>
             </tr>
             <tr style="vertical-align: middle">
-                <td class="iconRentNoticeWrap" style="padding: 40px;">
+                <td class="iconRentNoticeWrap" style="padding: 60px 0 40px;">
                     <a href="{{edit_url}}">
-                        <img class="iconRentNotice" src="http://upload.yangfd.com/email_ways_icon_2.gif" alt=""/>
+                        <img class="iconRentNotice" src="http://upload.yangfd.com/email_ways_icon_2.gif" alt="" style="width: 120px;height: 120px;"/>
                     </a>
                 </td>
-                <td class="rentTextWrap2" style="text-align: left;padding: 40px 50px 40px 0;">
+            </tr>
+            <tr>
+                <td style="padding: 0 0 20px;">
                     <h2 class="rentTextTitle" style="margin: 0 0 25px;color: #333;font-size: 26px;">{{_('优化您的房源资料')}}</h2>
                     <p class="extraSmallFontSize" style="margin: 0;">{{_('平台的统计数据表明详细的房源描述，优质的房源图片能提升您房源的访问量。')}}<a href="{{edit_url}}" style="color: #e60012; text-decoration: none;font-weight: bold;">{{_('现在就去>')}}</a></p>
                 </td>
             </tr>
             <tr style="vertical-align: middle">
-                <td class="iconRentNoticeWrap" style="padding: 40px;">
-                    <img class="iconRentNotice" src="http://upload.yangfd.com/email_ways_icon_3.gif" alt=""/>
+                <td class="iconRentNoticeWrap" style="padding: 60px 0 40px;">
+                    <img class="iconRentNotice" src="http://upload.yangfd.com/email_ways_icon_3.gif" alt="" style="width: 120px;height: 120px;"/>
                 </td>
-                <td class="rentTextWrap3" style="text-align: left;padding: 40px 50px 40px 0;">
+            </tr>
+            <tr>
+                <td style="padding: 0 0 20px;">
                     <h2 class="rentTextTitle" style="margin: 0 0 25px;color: #333;font-size: 26px;">{{_('分享您的房源资料')}}</h2>
                     <p class="extraSmallFontSize" style="margin: 0;">{{_('洋房东为您的房源制作了高大上的移动主页，扫描下方二维码，将移动主页分享到您的朋友圈，发动您的好友们帮您找靠谱租客吧。')}}</p>
                 </td>
