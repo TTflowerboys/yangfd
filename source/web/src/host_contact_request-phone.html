@@ -21,7 +21,7 @@
 
         <div class="hostContactWrap">
             <div class="hostPhone hostContact
-            % if rent.get('creator_user',{}).get('phone','') and 'phone' not in private_contact_methods and not user:
+            % if rent.get('creator_user',{}).get('phone','') and 'phone' not in private_contact_methods:
             show
             % end
             ">
@@ -31,7 +31,7 @@
                 </a>
             </div>
             <div class="hostEmail hostContact
-            % if rent.get('creator_user',{}).get('email','') and 'email' not in private_contact_methods and not user:
+            % if rent.get('creator_user',{}).get('email','') and 'email' not in private_contact_methods:
             show
             % end
             ">
@@ -41,7 +41,7 @@
                 </a>
             </div>
             <div class="hostWechat hostContact
-            % if rent.get('creator_user',{}).get('wechat','') and 'wechat' not in private_contact_methods and not user:
+            % if rent.get('creator_user',{}).get('wechat','') and 'wechat' not in private_contact_methods:
             show
             % end
             ">
@@ -49,21 +49,16 @@
                 <span>{{rent.get('creator_user',{}).get('wechat','')}}</span>
             </div>
             % if user:
-            <div class="hint">
+            <!--<div class="hint">
                 <p>{{_('房东联系方式加载中...')}}</p>
                 <img src="/static/images/common/ajax-loader.gif" alt=""/>
-            </div>
+            </div>-->
             %end
         </div>
     </div>
     %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
-    <div class="contactRequest
-    %if user:
-    hide
-    %end
-        " id="contactRequest">
-        <button id="contactRequestBtn" class="ajaxButton ghostButton red"><p>{{_('获取房东联系方式')}}</p><p class="hint">({{_('剩余')}}<span class="residueDegree"></span>{{_('次')}}<span style="display: none" class="exhaustTip">{{_('，提交求租需求继续获取')}}</span>)</p></button>
-        <a class="knownMore" href="/qa-rent">{{_('点击了解如何增加联系房东的机会')}}</a>
+    <div class="contactRequest" id="contactRequest">
+        <button id="contactRequestBtn" class="ajaxButton ghostButton red"><p>{{_('获取房东联系方式')}}</p><p style="display: none" class="hint">({{_('剩余')}}<span class="residueDegree"></span>{{_('次')}}<span style="display: none" class="exhaustSubmitTip">{{_('，提交求租需求继续获取')}}</span>)</p></button>
         <form class="contactRequestForm" name="contactRequestForm"
             data-message-success="{{_('提交成功')}}"
             data-message-40000="{{_('你填写的手机或邮箱的格式不正确')}}"

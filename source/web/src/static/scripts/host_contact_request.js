@@ -6,6 +6,7 @@ $(function () {
     var $requestSMSCodeBtn = $contactRequestForm.find('[name=getCodeBtn]')
     var $submit = $contactRequestForm.find('[type=submit]')
     var $feedback = $contactRequestForm.find('[data-role=serverFeedback]')
+    var $hint = $requestContactBtn.find('.hint')
     var $residueDegree = $requestContactBtn.find('.residueDegree')
     var $exhaustSubmitTip = $requestContactBtn.find('.exhaustSubmitTip')
 
@@ -15,10 +16,21 @@ $(function () {
                 .done(function (val) {
                     $residueDegree.text(val.amount)
 
-                    if(val.amount === 0) {
-                        $exhaustSubmitTip.css("display", "inline")
-                    }else{
-                        $exhaustSubmitTip.css("display", "none")
+                    // If user submitted before, or already pass cooling period since last submit
+                    if(val.amount === 0){
+                        if(_.findIndex(val.credits,{tag:'rent_intention_ticket'}) < 0){
+                            $hint.css('display', 'block')
+                            $exhaustSubmitTip.css('display', 'inline')
+
+                            $requestContactBtn.on('click', function (e) {
+                                window.openRequirementRentForm({
+                                    requestContact: 'true',
+                                    ticketId: rentId
+                                })
+                            })
+                        }else{
+                            $hint.css('display', 'none')
+                        }
                     }
                 })
                 .fail(function (ret) {
@@ -32,19 +44,26 @@ $(function () {
         if (window.team.isPhone() && window.user && rentId) {
             $.betterPost('/api/1/credit/view_rent_ticket_contact_info/amount')
                 .done(function (val) {
-                    if(val.amount === 0) {
-                        $exhaustSubmitTip.css("display", "inline")
+                    $residueDegree.text(val.amount)
 
-                        $('.floatBar_phone .phone a').click(function (e) {
-                            e.preventDefault()
-                            window.openRequirementRentForm({
-                                requestContact: 'true',
-                                ticketId: rentId
+                    if(val.amount === 0) {
+
+                        if(_.findIndex(val.credits,{tag:'rent_intention_ticket'}) < 0){
+                            $hint.css('display', 'block')
+                            $exhaustSubmitTip.css('display', 'inline')
+
+                            $('.floatBar_phone .phone a').click(function (e) {
+                                e.preventDefault()
+                                window.openRequirementRentForm({
+                                    requestContact: 'true',
+                                    ticketId: rentId
+                                })
+                                return false
                             })
-                            return false
-                        })
-                    }else{
-                        $exhaustSubmitTip.css("display", "none")
+                        }else{
+                            $hint.css('display', 'none')
+                        }
+
                     }
                 })
                 .fail(function (ret) {
@@ -67,31 +86,31 @@ $(function () {
             $.betterPost('/api/1/rent_ticket/' + rentId + '/contact_info')
                 .done(function (val) {
                     var host = val
-                    if(host.private_contact_methods.indexOf('phone') < 0 && host.phone) {
+                    if(host.private_contact_methods && host.private_contact_methods.indexOf('phone') < 0 && host.phone) {
                         $('.hostPhone').addClass('show').find('span').eq(1).text(host.phone)
                         $('.hostPhone a').attr('href', 'tel:+' + host.country_code + host.phone)
                     } else {
                         $('.hostPhone').removeClass('show')
                     }
-                    if(host.private_contact_methods.indexOf('email') < 0 && host.email) {
+                    if(host.private_contact_methods && host.private_contact_methods.indexOf('email') < 0 && host.email) {
                         $('.hostEmail').addClass('show').find('span').text(host.email)
                         $('.hostEmail a').attr('href', 'mailto:' + host.email)
                     } else {
                         $('.hostEmail').removeClass('show')
                     }
-                    if(host.private_contact_methods.indexOf('wechat') < 0 && host.wechat) {
+                    if(host.private_contact_methods && host.private_contact_methods.indexOf('wechat') < 0 && host.wechat) {
                         $('.hostWechat').addClass('show').find('span').text(host.wechat)
                     } else {
                         $('.hostWechat').removeClass('show')
                     }
                     $('.host .hint').fadeOut()
                     //issue #7021 触碰到了获取房东联系上限时弹出求租需求单填写框
-                    if(host.wechat === 'yangfd1') {
+                    /*if(host.wechat === 'yangfd1') {
                         window.openRequirementRentForm({
                             requestContact: 'true',
                             ticketId: rentId
                         })
-                    }
+                    }*/
 
                     $('.hostName').text(host.nickname)
 
@@ -254,11 +273,11 @@ $(function () {
 
     // Init contact request section based on url params
     // If url have 'requestContact = true', means init with request contact button clicked
-    var initRequestContact = team.getQuery('requestContact')
+    /*var initRequestContact = team.getQuery('requestContact')
     if(initRequestContact){
         $requestContactBtn.click()
         //window.location.hash = 'contactRequest'
-    }
+    }*/
 
 
 })
