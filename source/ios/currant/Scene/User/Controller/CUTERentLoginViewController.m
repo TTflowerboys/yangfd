@@ -34,6 +34,8 @@
 #import "CUTEApplyBetaRentingForm.h"
 #import "CUTETooltipView.h"
 #import "JDFTooltipManager.h"
+#import "CUTECredit.h"
+#import "NSArray+ObjectiveSugar.h"
 
 @implementation CUTERentLoginViewController
 
@@ -85,6 +87,60 @@
     }
 }
 
+- (BFTask *)checkNeedAddDownloadAppCredit {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    Sequencer *sequencer = [Sequencer new];
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/credit/view_rent_ticket_contact_info/amount" parameters:nil resultClass:[CUTECredit class] resultKeyPath:@"val.credits"] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [tcs setError:task.error];
+            }
+            else if (task.exception) {
+                [tcs setException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [tcs cancel];
+            }
+            else {
+                CUTECredit *downloadCredit = [task.result detect:^BOOL(CUTECredit *object) {
+                    return [object.tag isEqualToString:@"download_ios_app"];
+                }];
+                if (downloadCredit) {
+                    [tcs setResult:nil];
+                }
+                else {
+                    completion(task.result);
+                }
+            }
+            return task;
+        }];
+    }];
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/credit/view_rent_ticket_contact_info/share_app_completed" parameters:nil resultClass:nil] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [tcs setError:task.error];
+            }
+            else if (task.exception) {
+                [tcs setException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [tcs cancel];
+            }
+            else {
+                [tcs setResult:task.result];
+            }
+            return task;
+        }];
+    }];
+
+    [sequencer run];
+
+    return tcs.task;
+}
+
 - (void)login {
     if (![self validateFormWithScenario:@""]) {
         return;
@@ -99,21 +155,30 @@
             }
             else {
                 CUTEUser *user = task.result;
-                if ([user hasRole:kUserRoleBetaRenting]) {
-                    [SVProgressHUD dismiss];
-                    [[CUTEDataManager sharedInstance] persistAllCookies];
-                    [[CUTEDataManager sharedInstance] saveUser:task.result];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
+                [[CUTEDataManager sharedInstance] persistAllCookies];
+                [[CUTEDataManager sharedInstance] saveUser:user];
 
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                    [self dismissViewControllerAnimated:YES completion:^{
-                        [NotificationCenter postNotificationName:KNOTIF_BETA_USER_DID_REGISTER object:nil];
-                    }];
-                }
-                else {
-                    [SVProgressHUD showSuccessWithStatus:STR(@"您还没有内测权限，请申请测试邀请码")];
-                }
+                [[self checkNeedAddDownloadAppCredit] continueWithBlock:^id(BFTask *task) {
+                    if (task.error) {
+                        [SVProgressHUD showErrorWithError:task.error];
+                    }
+                    else if (task.exception) {
+                        [SVProgressHUD showErrorWithException:task.exception];
+                    }
+                    else if (task.isCancelled) {
+                        [SVProgressHUD showErrorWithCancellation];
+                    }
+                    else {
+                        [SVProgressHUD dismiss];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
+                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];
+                        [[NSUserDefaults standardUserDefaults] synchronize];
+                        [self dismissViewControllerAnimated:YES completion:^{
+                            [NotificationCenter postNotificationName:KNOTIF_BETA_USER_DID_REGISTER object:nil];
+                        }];
+                    }
+                    return task;
+                }];
             }
             return nil;
         }];
