@@ -31,6 +31,8 @@
     [super viewDidLoad];
 
     self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
+    self.tableView.accessibilityLabel = STR(@"更多房产信息表单");
+    self.tableView.accessibilityIdentifier = self.tableView.accessibilityLabel;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
