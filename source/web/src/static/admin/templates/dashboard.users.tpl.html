@@ -20,12 +20,14 @@
                     <col class="phone">
                     <col>
                     <col>
+                    <col>
                 </colgroup>
                 <thead>
                     <tr>
                         <th>{%$root.i18n('用户姓名')%}</th>
                         <th>{%$root.i18n('用户手机')%}</th>
                         <th>{%$root.i18n('用户邮箱')%}</th>
+                        <th>{%$root.i18n('注册时间')%}</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -39,6 +41,9 @@
                         </td>
                         <td>
                             {%item.email%}
+                        </td>
+                        <td>
+                            <div>{%(item.register_time?(item.register_time * 1000 | date : 'short'):'')%}</div>
                         </td>
                         <td>
                             <a class="btn btn-success" href ui-sref=".detail.favs({id:item.id})" title="View">
