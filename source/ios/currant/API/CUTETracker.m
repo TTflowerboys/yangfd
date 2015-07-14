@@ -73,7 +73,7 @@
     NSTimeInterval startTime = [[CUTEUsageRecorder sharedInstance] getScreenLastVistiTime:screenName];
     NSTimeInterval endTime = [NSDate date].timeIntervalSince1970;
 
-    GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createTimingWithCategory:category interval:[NSNumber numberWithDouble:endTime - startTime] name:kEventActionStay label:screenName];
+    GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createTimingWithCategory:category interval:@((NSUInteger)((endTime - startTime) * 1000)) name:kEventActionStay label:screenName];
     [self setupCommonParams:builder];
     [_tracker send:builder.build];
 }
@@ -89,7 +89,7 @@
         [label appendString:screenName];
     }];
 
-    GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createTimingWithCategory:category interval:[NSNumber numberWithDouble:totalTime] name:kEventActionStay label:label];
+    GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createTimingWithCategory:category interval:@((NSUInteger)(totalTime * 1000)) name:kEventActionStay label:label];
     [self setupCommonParams:builder];
     [_tracker send:builder.build];
 }
