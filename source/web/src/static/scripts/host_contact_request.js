@@ -149,7 +149,7 @@ $(function () {
             $requestContactBtn.find('.hint').hide()
         }
     }
-    function setActionOfGetContactOnPhone() { //issue #7021 当用户获取联系方式的次数为0时，直接跳转到提交求租需求单
+    /*function setActionOfGetContactOnPhone() { //issue #7021 当用户获取联系方式的次数为0时，直接跳转到提交求租需求单
         if (window.team.isPhone() && window.user && rentId && $('.floatBar_phone .phone a').length) {
             $.betterPost('/api/1/credit/view_rent_ticket_contact_info/amount')
                 .done(function (val) {
@@ -161,14 +161,14 @@ $(function () {
                             $hint.css('display', 'block')
                             $exhaustSubmitTip.css('display', 'inline')
 
-                            /*$('.floatBar_phone .phone a').click(function (e) {
+                            $('.floatBar_phone .phone a').click(function (e) {
                                 e.preventDefault()
                                 window.openRequirementRentForm({
                                     requestContact: 'true',
                                     ticketId: rentId
                                 })
                                 return false
-                            })*/
+                            })
                         }else{
                             $hint.css('display', 'none')
                         }
@@ -178,7 +178,7 @@ $(function () {
                 .fail(function (ret) {
                 })
         }
-    }
+    }*/
     function reduceResidueDegree() {
         if($residueDegree.length > 0 && parseInt($residueDegree.text()) > 0) {
             //$residueDegree.text(parseInt($residueDegree.text()) - 1)
