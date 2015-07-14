@@ -153,6 +153,11 @@
 		2C1251CB1B53CEEA0037F5B6 /* CUTETicketForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251C91B53CEEA0037F5B6 /* CUTETicketForm.m */; };
 		2C1251CC1B53CEEA0037F5B6 /* CUTETicketForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251C91B53CEEA0037F5B6 /* CUTETicketForm.m */; };
 		2C1251CD1B53CEEA0037F5B6 /* CUTETicketForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251C91B53CEEA0037F5B6 /* CUTETicketForm.m */; };
+		2C1251CF1B54A9D20037F5B6 /* CUTEUnfinishedRentTicketUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251CE1B54A9D20037F5B6 /* CUTEUnfinishedRentTicketUITest.m */; };
+		2C1251D21B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251D11B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m */; };
+		2C1251D31B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251D11B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m */; };
+		2C1251D41B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251D11B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m */; };
+		2C1251D51B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251D11B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m */; };
 		2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
@@ -723,6 +728,9 @@
 		2C1251961B53A6650037F5B6 /* CUTECreditUSTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTECreditUSTest.m; sourceTree = "<group>"; };
 		2C1251C81B53CEEA0037F5B6 /* CUTETicketForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETicketForm.h; sourceTree = "<group>"; };
 		2C1251C91B53CEEA0037F5B6 /* CUTETicketForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETicketForm.m; sourceTree = "<group>"; };
+		2C1251CE1B54A9D20037F5B6 /* CUTEUnfinishedRentTicketUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUnfinishedRentTicketUITest.m; sourceTree = "<group>"; };
+		2C1251D01B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUnfinishedRentTicketListForm.h; sourceTree = "<group>"; };
+		2C1251D11B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUnfinishedRentTicketListForm.m; sourceTree = "<group>"; };
 		2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriod.h; sourceTree = "<group>"; };
 		2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriod.m; sourceTree = "<group>"; };
 		2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -1121,6 +1129,7 @@
 				2C317F6A1B4522D20041E05E /* CUTEAddressMapUITest.m */,
 				2C317F6C1B452C620041E05E /* CUTEAddressEditUITest.m */,
 				2C317F6E1B4538340041E05E /* CUTEPropertyInfoUITest.m */,
+				2C1251CE1B54A9D20037F5B6 /* CUTEUnfinishedRentTicketUITest.m */,
 			);
 			path = Rent;
 			sourceTree = "<group>";
@@ -1713,6 +1722,8 @@
 				2CF8A6701AF0B65C0080DF10 /* CUTERentShareForm.m */,
 				2CF8A6711AF0B65C0080DF10 /* CUTERentTypeListForm.h */,
 				2CF8A6721AF0B65C0080DF10 /* CUTERentTypeListForm.m */,
+				2C1251D01B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.h */,
+				2C1251D11B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m */,
 			);
 			path = Form;
 			sourceTree = "<group>";
@@ -2280,6 +2291,7 @@
 				2C056DAC1B4245990075037A /* CUTESplashUITest.m in Sources */,
 				2C317F6F1B4538340041E05E /* CUTEPropertyInfoUITest.m in Sources */,
 				2C974CB11B4FC81200E6739D /* KIFTestActor+OHHttpStubs.m in Sources */,
+				2C1251CF1B54A9D20037F5B6 /* CUTEUnfinishedRentTicketUITest.m in Sources */,
 				2C464D681B4A2B2C00289BB0 /* CUTEWebHandlerUSTest.m in Sources */,
 				2CBA9CAA1B4E5E49004B2BE3 /* CUTEShareUSTest.m in Sources */,
 				2C056D401B423A110075037A /* CUTESettingForm.m in Sources */,
@@ -2368,6 +2380,7 @@
 				2C056D651B423AB20075037A /* CUTERentPasswordViewController.m in Sources */,
 				2C056DA61B423BBA0075037A /* CUTEFormViewController.m in Sources */,
 				2CA2E6B11AC5487800053965 /* CUTEPropertyListViewController.m in Sources */,
+				2C1251D41B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m in Sources */,
 				2CC3A0701AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
 				2CF8A6891AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2C03AB4A1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,
@@ -2502,6 +2515,7 @@
 				2C056D661B423AB20075037A /* CUTERentPasswordViewController.m in Sources */,
 				2C056DA71B423BBA0075037A /* CUTEFormViewController.m in Sources */,
 				2CA2E6CA1AC5496700053965 /* CUTEPropertyListViewController.m in Sources */,
+				2C1251D51B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m in Sources */,
 				2CC3A0711AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
 				2CF8A68A1AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2C03AB4B1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,
@@ -2636,6 +2650,7 @@
 				2C056D641B423AB20075037A /* CUTERentPasswordViewController.m in Sources */,
 				2C056DA51B423BBA0075037A /* CUTEFormViewController.m in Sources */,
 				2CA94A9B1ACA42CD00DF7497 /* CUTEPropertyListViewController.m in Sources */,
+				2C1251D31B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m in Sources */,
 				2CC3A06F1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
 				2CF8A6881AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2C03AB491B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,
@@ -2770,6 +2785,7 @@
 				2C056D631B423AB20075037A /* CUTERentPasswordViewController.m in Sources */,
 				2C056DA41B423BBA0075037A /* CUTEFormViewController.m in Sources */,
 				2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */,
+				2C1251D21B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m in Sources */,
 				2CC3A06E1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */,
 				2CF8A6871AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.m in Sources */,
 				2C03AB481B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,

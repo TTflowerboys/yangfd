@@ -491,12 +491,13 @@
                 [SVProgressHUD dismiss];
             }
             CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
+            unfinishedRentTicketController.form = [CUTEUnfinishedRentTicketListForm new];
             unfinishedRentTicketController.hidesBottomBarWhenPushed = NO;
             unfinishedRentTicketController.navigationItem.leftBarButtonItem = [self getRentTicketLeftBarButtonItemWithViewController:unfinishedRentTicketController];
 
-
             [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
-            [unfinishedRentTicketController reloadWithTickets:unfinishedRentTickets];
+            unfinishedRentTicketController.form.unfinishedRentTickets = unfinishedRentTickets;
+            [unfinishedRentTicketController.tableView reloadData];
         }
     }];
 
@@ -660,10 +661,12 @@
     if (unfinishedRentTickets.count > 0) {
         if ([bottomViewController isKindOfClass:[CUTEUnfinishedRentTicketListViewController class]]) {
             CUTEUnfinishedRentTicketListViewController *unfinishedController = (CUTEUnfinishedRentTicketListViewController *)bottomViewController;
-            [unfinishedController reloadWithTickets:unfinishedRentTickets];
+            unfinishedController.form.unfinishedRentTickets = unfinishedRentTickets;
+            [unfinishedController.tableView reloadData];
         }
         else {
             CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
+            unfinishedRentTicketController.form = [CUTEUnfinishedRentTicketListForm new];
             unfinishedRentTicketController.navigationItem.leftBarButtonItem = [self getRentTicketLeftBarButtonItemWithViewController:unfinishedRentTicketController];
 
             if (fromController.navigationController == navController) {
@@ -677,7 +680,8 @@
                 [navController setViewControllers:viewControllers animated:NO];
             }
 
-            [unfinishedRentTicketController reloadWithTickets:unfinishedRentTickets];
+            unfinishedRentTicketController.form.unfinishedRentTickets = unfinishedRentTickets;
+            [unfinishedRentTicketController.tableView reloadData];
         }
     }
     else {

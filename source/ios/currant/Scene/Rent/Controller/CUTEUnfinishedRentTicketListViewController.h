@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CUTEUnfinishedRentTicketListForm.h"
 
 @interface CUTEUnfinishedRentTicketListViewController : UITableViewController
 
+@property (strong, nonatomic) CUTEUnfinishedRentTicketListForm *form;
 
 - (void)refreshTable;
-
-- (void)reloadWithTickets:(NSArray *)tickets;
 
 @end
