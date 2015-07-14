@@ -161,14 +161,14 @@ $(function () {
                             $hint.css('display', 'block')
                             $exhaustSubmitTip.css('display', 'inline')
 
-                            $('.floatBar_phone .phone a').click(function (e) {
+                            /*$('.floatBar_phone .phone a').click(function (e) {
                                 e.preventDefault()
                                 window.openRequirementRentForm({
                                     requestContact: 'true',
                                     ticketId: rentId
                                 })
                                 return false
-                            })
+                            })*/
                         }else{
                             $hint.css('display', 'none')
                         }
@@ -249,7 +249,7 @@ $(function () {
         }
     })
     getResidueDegree()
-    setActionOfGetContactOnPhone()
+    //setActionOfGetContactOnPhone()
     /*
      *  Get sms verfication code
      * */
