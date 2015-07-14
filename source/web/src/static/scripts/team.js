@@ -236,6 +236,22 @@
             return /android.+chrome/.test(ua)
         },
         /**
+         * 返回当前的客户端：pc,mobile,wechat,app之一
+         * @returns {string}
+         */
+        getClient: function () {
+            if(window.team.isWeChat()) {
+                return 'wechat'
+            }
+            if(window.team.isCurrantClient()) {
+                return 'app'
+            }
+            if(window.team.isPhone()) {
+                return 'mobile'
+            }
+            return 'pc'
+        },
+        /**
          * convert to https link
          * @param {object} {link:'',property_id:'',news_id:''}
          * @returns {string}

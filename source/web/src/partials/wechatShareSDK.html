@@ -1,0 +1,85 @@
+<style>
+    .guideLine {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 106;
+        background: rgba(0,0,0,0.75);
+    }
+    .guideLine p{
+        width: 180px;
+        margin: 20px auto;
+        line-height: 1.4em;
+        color: #fff;
+        font-size: 18px;
+    }
+    .guideLine i.arrow{
+        display: block;
+        position: absolute;
+        right: 21px;
+        top: 6px;
+        width: 52px;
+        height: 40px;
+        background: url("/static/images/app_download/guide_arrow.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+</style>
+<!--微信签名 start-->
+<textarea id="pythonWeixin" style="display: none;">
+    {{json_dumps(weixin)}}
+</textarea>
+<!--微信签名 end-->
+<div class="guideLine" style="display: none;">
+    <p>{{_('点击后在弹出的菜单中选择 [在Safari中打开]')}}</p>
+    <i class="arrow"></i>
+</div>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    /*
+     * Weixin share sdk
+     * */
+    $(function(){
+        window.wechatShareSDK = window.wechatShareSDK || {}
+        var weixin = JSON.parse($('#pythonWeixin').text())
+        function showGuideLine () {
+            $('.guideLine').fadeIn(300).click(function () {
+                $(this).fadeOut(300)
+            })
+        }
+        if (typeof window.wx !== 'undefined') {
+            window.wx.config({
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: 'wx123992a4d173037b', // 必填，公众号的唯一标识
+                timestamp: weixin.timestamp, // 必填，生成签名的时间戳
+                nonceStr: weixin.noncestr, // 必填，生成签名的随机串
+                signature: weixin.signature,// 必填，签名，见附录1
+                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            })
+            window.wx.ready(function(){
+                window.wechatShareSDK.init = function (option) {
+                    var defaultWechatShareData = {
+                        title: '{{title}}',
+                        link: window.location.href,
+                        imgUrl: 'http://upload.yangfd.com/app_icon_x120_150427.png',
+    //                        desc: '',
+                        success:function(){
+
+                        },
+                        cancel:function(){
+
+                        }
+                    }
+                    var wechatShareData = $.extend(defaultWechatShareData, option)
+                    window.wx.onMenuShareTimeline(wechatShareData);
+                    window.wx.onMenuShareAppMessage(wechatShareData);
+                    window.wx.onMenuShareQQ(wechatShareData);
+                    showGuideLine()
+                }
+            })
+
+        }
+    })
+</script>

@@ -119,15 +119,18 @@ main {
             display: none;
         }
         margin: @standard-margin;
-
+        text-align: center;
         button.ghostButton {
-            display: block;
+            display: inline-block;
             margin: @standard-margin*2 auto;
             padding: @standard-margin 45px;
             line-height: 1;
             font-size: @root-font-size;
             color: #e60012;
             border-color: #e60012;
+            @media @phone{
+                padding: @standard-margin 25px;
+            }
             p{
                 margin: 0;
                 font-size: 21px;
@@ -211,6 +214,174 @@ main {
             margin-top: @standard-margin;
             padding: 14px 0px;
             width: 35%; float: right;
+        }
+    }
+}
+
+.amountModal{
+    border-radius: 0;
+    height: 682px;
+    background: #eee;
+    width: 1280px;
+    padding: 100px 40px;
+    @media @phone{
+        width: 100%;
+        height: 100%;
+        padding: 60px 20px;
+    }
+    &:before{
+        position: absolute;
+        content: '';
+        z-index: -1;
+        width: 200%;
+        height: 100%;
+        left: -50%;
+        top: 0;
+        background: #eee;
+    }
+    a.close-modal{
+        width: 41px;
+        height: 41px;
+        right: 20px;
+        top: 20px;
+        font-size: 21px;
+        font-family: 'icomoon';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background: none;
+        color: #999;
+        text-decoration: none;
+        @media @phone{
+            right: 5px;
+            top: 5px;
+        }
+        &:hover{
+            color: #666;
+        }
+        &:before{
+            content: "\e60f";
+            text-indent: 0;
+            width: 21px;
+            height: 21px;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+    }
+    .title{
+        font-size: 32px;
+        color: #333;
+        line-height: 1.2em;
+        text-align: left;
+        margin-bottom: 100px;
+        @media @phone{
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+    }
+    .logo{
+        margin-bottom: 60px;
+        @media @phone{
+            margin-bottom: 30px;
+        }
+        img{
+            display: inline-block;
+            margin-right: 20px;
+            vertical-align: middle;
+            @media @phone{
+                display: block;
+                margin: 0 auto 10px;
+            }
+        }
+        .text{
+            display: inline-block;
+            text-align: left;
+            font-size: 24px;
+            color: #333;
+            line-height: 1.2em;
+            vertical-align: middle;
+            @media @phone{
+                display: block;
+                font-size: 14px;
+                text-align: center;
+            }
+            p{
+                margin: 0;
+            }
+        }
+    }
+    .clearfix{
+        .clearfix;
+        .intro{
+            float: left;
+            width: 880px;
+            text-align: left;
+            font-weight: lighter;
+            @media @phone{
+                float: none;
+                width: 100%;
+                text-align: center;
+            }
+            li{
+                display: inline-block;
+                width: 430px;
+                margin-bottom: 24px;
+                font-size: 21px;
+                color: #666;
+                @media @phone{
+                    display: block;
+                    width: 100%;
+                    margin-bottom: 10px;
+                    font-size: 12px;
+                }
+            }
+        }
+        .buttonWrap{
+            float: right;
+            padding-right: 80px;
+            @media @phone{
+                padding-right: 0;
+                margin-bottom: 40px;
+                float: none;
+                text-align: center;
+            }
+            .ghostButton{
+                padding: 14px;
+                border-width: 2px;
+                border-radius: 8px;
+                font-size: 20px;
+                margin-right: 24px;
+                @media @phone{
+                    border-width: 1px;
+                    padding: 8px 12px;
+                    border-radius: 3px;
+                    margin-right: 12px;
+                    font-size: 14px;
+                }
+                &:nth-last-child(1){
+                    margin-right: 0;
+                }
+                i{
+                    margin-right: 8px;
+                    font-size: 30px;
+                    vertical-align: middle;
+                    @media @phone{
+                        margin-right: 5px;
+                        font-size: 18px;
+                    }
+                }
+                span{
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+            }
         }
     }
 }
