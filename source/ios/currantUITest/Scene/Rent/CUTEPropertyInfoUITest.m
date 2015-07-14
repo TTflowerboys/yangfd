@@ -44,4 +44,34 @@ describe(@"PropertyInfo", ^ {
     });
 });
 
+describe(@"PropertyInfoEdit", ^{
+
+    beforeAll(^{
+        [tester logout];
+        [tester login];
+        [tester waitForTimeInterval:5];//ticket or rent-type load
+        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] inTableViewWithAccessibilityIdentifier:STR(@"出租房草稿列表")];
+    });
+
+    it(@"should edit rent price success", ^{
+        [tester waitForViewWithAccessibilityLabel:STR(@"房产信息")];
+         [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"房产信息表单")];
+        [tester waitForAnimationsToFinish];
+        [tester waitForViewWithAccessibilityLabel:STR(@"租金")];
+        UITableView *tableView = (UITableView *)[tester waitForViewWithAccessibilityLabel:STR(@"租金表单")];
+        UIAccessibilityElement *element = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:tableView];
+        element.accessibilityIdentifier = STR(@"租金");
+        [tester clearTextFromElement:element inView:tableView];
+        [tester enterTextIntoCurrentFirstResponder:@"178"];
+        [tester tapViewWithAccessibilityLabel:STR(@"确定")];
+        [tester waitForAnimationsToFinish];
+        [tester tapViewWithAccessibilityLabel:STR(@"房产信息")];
+        [tester waitForAnimationsToFinish];
+        tableView = (UITableView *)[tester waitForViewWithAccessibilityLabel:STR(@"房产信息表单")];
+        UITableViewCell *rentPriceCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
+        assertThat(rentPriceCell.detailTextLabel.text, equalTo(@"£178.00/周"));
+    });
+});
+
 SpecEnd
+
