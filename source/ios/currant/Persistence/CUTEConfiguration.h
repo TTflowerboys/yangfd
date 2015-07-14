@@ -40,8 +40,6 @@
 
 + (NSString *)umengCallbackURLString;
 
-+ (NSString *)gaTrackingId;
-
 + (NSString *) appVersion;
 
 + (NSString *) versionBuild;

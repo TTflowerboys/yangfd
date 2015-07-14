@@ -7,16 +7,12 @@
 //
 
 #import "CUTETracker.h"
-#import <GAI.h>
-#import <GAIDictionaryBuilder.h>
-#import <GAITracker.h>
-#import <GAIFields.h>
+#import <Google/Analytics.h>
 #import "CUTEDataManager.h"
 #import "NSString+SLRESTfulCoreData.h"
 #import "CUTECommonMacro.h"
 #import "CUTEDataManager.h"
 #import <NSArray+ObjectiveSugar.h>
-#import "CUTEConfiguration.h"
 #import "MemoryReporter.h"
 #import "CUTEUsageRecorder.h"
 
@@ -52,7 +48,7 @@
 //    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
 
     // Initialize tracker. Replace with your tracking ID.
-    _tracker = [[GAI sharedInstance] trackerWithTrackingId:[CUTEConfiguration gaTrackingId]];
+    _tracker = [GAI sharedInstance].defaultTracker;
 
     // Task #6907 need this IDFA collection
     //_tracker.allowIDFACollection = YES;

@@ -88,10 +88,6 @@ static NSString *host = nil;
     return @"http://sns.whalecloud.com/sina2/callback";
 }
 
-+ (NSString *)gaTrackingId {
-    return @"UA-55542465-2";
-}
-
 
 //http://stackoverflow.com/questions/7608632/how-do-i-get-the-current-version-of-my-ios-project-in-code
 + (NSString *) appVersion

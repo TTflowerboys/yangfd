@@ -505,6 +505,10 @@
 		2CF2347F1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
 		2CF234801B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
 		2CF234811B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
+		2CF234831B55198500B516E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CF234821B55198500B516E6 /* GoogleService-Info.plist */; };
+		2CF234841B55198500B516E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CF234821B55198500B516E6 /* GoogleService-Info.plist */; };
+		2CF234851B55198500B516E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CF234821B55198500B516E6 /* GoogleService-Info.plist */; };
+		2CF234861B55198500B516E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CF234821B55198500B516E6 /* GoogleService-Info.plist */; };
 		2CF8A5DC1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */; };
 		2CF8A5DD1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */; };
 		2CF8A5DE1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */; };
@@ -937,6 +941,7 @@
 		2CDC126E1B3404ED00B6D3DD /* SpectaTestTemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SpectaTestTemplate; sourceTree = "<group>"; };
 		2CF2347C1B54F2E500B516E6 /* CUTEKeyboardStateListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEKeyboardStateListener.h; sourceTree = "<group>"; };
 		2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEKeyboardStateListener.m; sourceTree = "<group>"; };
+		2CF234821B55198500B516E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2CF8A5A71AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPropertyFacilityViewController.h; sourceTree = "<group>"; };
 		2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPropertyFacilityViewController.m; sourceTree = "<group>"; };
 		2CF8A5A91AF0B40E0080DF10 /* CUTERentPropertyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPropertyInfoViewController.h; sourceTree = "<group>"; };
@@ -1462,6 +1467,7 @@
 		2CB43DAC1ABC1372004DF663 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2CF234821B55198500B516E6 /* GoogleService-Info.plist */,
 				2CB43DAD1ABC1372004DF663 /* Info.plist */,
 				2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */,
 				2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */,
@@ -1972,6 +1978,7 @@
 			files = (
 				2CA2E6BD1AC5487800053965 /* Images.xcassets in Resources */,
 				2CB66C2C1AFB687200C3CDED /* London.gpx in Resources */,
+				2CF234851B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C261AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4161AE242F300E61BBA /* Localizable.strings in Resources */,
 			);
@@ -1983,6 +1990,7 @@
 			files = (
 				2CA2E6D61AC5496700053965 /* Images.xcassets in Resources */,
 				2CB66C2D1AFB687200C3CDED /* London.gpx in Resources */,
+				2CF234861B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C271AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4171AE242F400E61BBA /* Localizable.strings in Resources */,
 			);
@@ -1994,6 +2002,7 @@
 			files = (
 				2CA94AA91ACA42CD00DF7497 /* Images.xcassets in Resources */,
 				2CB66C2B1AFB687200C3CDED /* London.gpx in Resources */,
+				2CF234841B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C251AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4151AE242F200E61BBA /* Localizable.strings in Resources */,
 			);
@@ -2005,6 +2014,7 @@
 			files = (
 				2CB43DD91ABC26B2004DF663 /* Images.xcassets in Resources */,
 				2CB66C2A1AFB687200C3CDED /* London.gpx in Resources */,
+				2CF234831B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C241AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4141AE242EE00E61BBA /* Localizable.strings in Resources */,
 			);
