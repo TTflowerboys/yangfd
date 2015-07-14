@@ -2,6 +2,7 @@
     A simple jQuery modal (http://github.com/kylefox/jquery-modal)
     Version 0.5.2
 */
+/*modified by levy.li on 2015-7-13*/
 (function($) {
 
   var current = null;
@@ -172,6 +173,9 @@
   $.fn.modal = function(options){
     if (this.length === 1) {
       current = new $.modal(this, options);
+      $(window).resize(function () {
+        current.resize()
+      })
     }
     return this;
   };

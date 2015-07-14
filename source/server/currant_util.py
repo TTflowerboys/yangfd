@@ -172,6 +172,8 @@ def common_template(path, **kwargs):
         kwargs['rent_type_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     if 'rent_budget_list' not in kwargs:
         kwargs['rent_budget_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('rent_budget'))
+    if 'weixin' not in kwargs:
+        kwargs['weixin'] = weixin = f_app.wechat.get_jsapi_signature()
 
     # setup page utils
     kwargs.setdefault("format_unit", format_unit)

@@ -571,7 +571,7 @@
     <a class="gotIt" href ="#close-modal" rel="modal:close">{{_('我知道了')}}</a>
 </div>
 
-
+<!--@@include=./partials/host_contact_request_amount_modal.html  -->
 
 <textarea id="pythonWeixin" style="display: none;">
     {{json_dumps(weixin)}}
@@ -604,7 +604,8 @@
             // init the first slides
             initSlidesImages($('.pictures [data-tab-name]').first().find('.swiper-wrapper'))
         </script>
-
+        <!--weibo SDK-->
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2806233261" type="text/javascript" charset="utf-8"></script>
         <!--build:js /static/scripts/property-to-rent.html.js-->
         <script type="text/javascript" src="/static/bower_components/intro.js/minified/intro.min.js"></script>
         <script type="text/javascript" src="/static/scripts/rent_introjs_init.js"></script>
