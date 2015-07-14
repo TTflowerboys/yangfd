@@ -13,9 +13,9 @@
     <textarea id="dataReport" style="display:none;">{{json_dumps(report)}}</textarea>
     <div class="info">
         % if not report.get('image'):
-            <img alt="{{report.get('name')}}" src="" style="background:url('/static/images/background/login-background.jpg') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/images/background/login-background.jpg', sizingMethod='scale');"/>
+            <div class="img" title="{{report.get('name')}}" style="background:url('/static/images/background/login-background.jpg') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/images/background/login-background.jpg', sizingMethod='scale');"></div>
         % else:
-            <img alt="{{report.get('name')}}" src="" style="background:url('{{!fetch_image(report.get('image'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(report.get('image'))}}', sizingMethod='scale');"/>
+            <div class="img" title="{{report.get('name')}}" style="background:url('{{!fetch_image(report.get('image'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(report.get('image'))}}', sizingMethod='scale');"></div>
         % end
         <div class="img_shadow"></div>
         <div class="text_container">

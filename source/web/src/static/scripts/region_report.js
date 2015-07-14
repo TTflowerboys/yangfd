@@ -8,7 +8,7 @@
 
     function setBannerHeight () {
         var textHeight = $('.info .text').height()
-        $('.info >img').height(textHeight + 120)
+        $('.info >.img').height(textHeight + 120)
     }
     setBannerHeight()
     $(window).resize(setBannerHeight)
