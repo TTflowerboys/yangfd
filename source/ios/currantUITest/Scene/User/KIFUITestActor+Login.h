@@ -10,6 +10,7 @@
 
 @interface KIFUITestActor (Login)
 
+//TODO add login with "确定" and "登录"
 - (void)login;
 
 - (void)logout;
