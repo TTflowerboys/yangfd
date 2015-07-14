@@ -36,6 +36,7 @@
 #import "JDFTooltipManager.h"
 #import "CUTECredit.h"
 #import "NSArray+ObjectiveSugar.h"
+#import "CUTEKeyboardStateListener.h"
 
 @implementation CUTERentLoginViewController
 
@@ -171,7 +172,16 @@
 }
 
 - (void)submit {
-    //have triggered onPasswordEdit:, need do nothing
+    //when the keyboard dismissed
+    if (![CUTEKeyboardStateListener sharedInstance].isVisible) {
+         CUTEFormTextFieldCell *passwordCell = (CUTEFormTextFieldCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+        if (!IsNilNullOrEmpty(passwordCell.textField.text)) {
+            [self login];
+        }
+    }
+    else {
+        //have triggered onPasswordEdit:, need do nothing
+    }
 }
 
 

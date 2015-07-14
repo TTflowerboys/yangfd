@@ -291,8 +291,8 @@
         }
         else {
             CUTEProperty *property = self.ticket.property;
-            _rentAddressEditViewController.ticket = self.ticket;
             CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
+            form.ticket = self.ticket;
             NSArray *countries = task.result;
             [form setAllCountries:countries];
 

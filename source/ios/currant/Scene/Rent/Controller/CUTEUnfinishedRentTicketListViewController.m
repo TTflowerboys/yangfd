@@ -24,7 +24,6 @@
 
 @interface CUTEUnfinishedRentTicketListViewController ()
 
-@property (strong, nonatomic) NSArray *unfinishedRentTickets;
 
 @end
 
@@ -42,47 +41,34 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
 //    [self refreshTable];
+    self.tableView.accessibilityLabel = STR(@"出租房草稿列表");
+    self.tableView.accessibilityIdentifier = self.tableView.accessibilityLabel;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
 
-- (void)reloadWithTickets:(NSArray *)tickets {
-    self.unfinishedRentTickets = tickets;
-    [self.tableView reloadData];
-}
-
 - (void)refreshTable {
-    if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
-        [self.refreshControl beginRefreshing];
-        [[[CUTERentTicketPublisher sharedInstance] syncTickets] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [self.refreshControl endRefreshing];
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-            else if (task.exception) {
-                [self.refreshControl endRefreshing];
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [self.refreshControl endRefreshing];
-                [SVProgressHUD showErrorWithCancellation];
-            }
-            else {
-                self.unfinishedRentTickets = task.result;
-                [self.refreshControl endRefreshing];
-                [self.tableView reloadData];
-            }
-            return task;
-        }];
-    }
-    else {
-        [self.refreshControl beginRefreshing];
-        self.unfinishedRentTickets = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
+    [self.refreshControl beginRefreshing];
+    [[self.form reload] continueWithBlock:^id(BFTask *task) {
         [self.refreshControl endRefreshing];
-        [self.tableView reloadData];
-    }
+        if (task.error) {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        else if (task.exception) {
+            [SVProgressHUD showErrorWithException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [SVProgressHUD showErrorWithCancellation];
+        }
+        else {
+            [self.tableView reloadData];
+        }
+        
+        return task;
+    }];
+
 
     //scroll to the top, the first one is the recent edit one
 //    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
@@ -110,7 +96,7 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.unfinishedRentTickets.count;
+    return self.form.unfinishedRentTickets.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -123,13 +109,13 @@
     if (!cell) {
         cell = [[CUTEUnfinishedRentTicketCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ticketCell"];
     }
-    CUTETicket *ticket = [self.unfinishedRentTickets objectAtIndex:indexPath.row];
+    CUTETicket *ticket = [self.form.unfinishedRentTickets objectAtIndex:indexPath.row];
     [cell updateWithTicket:ticket];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    CUTETicket *ticket = [self.unfinishedRentTickets objectAtIndex:indexPath.row];
+    CUTETicket *ticket = [self.form.unfinishedRentTickets objectAtIndex:indexPath.row];
     if (ticket) {
         [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
             return [[CUTEEnumManager sharedInstance] getEnumsByType:object];

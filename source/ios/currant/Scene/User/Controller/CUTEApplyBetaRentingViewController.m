@@ -15,6 +15,7 @@
 #import "CUTENotificationKey.h"
 #import "ALActionBlock.h"
 #import "SVProgressHUD+CUTEAPI.h"
+#import "CUTEKeyboardStateListener.h"
 
 @implementation CUTEApplyBetaRentingViewController
 
@@ -71,6 +72,13 @@
 
 - (void)submit {
     //have triggered onEmailEdited, need do nothing
+    //when the keyboard dismissed
+    if (![CUTEKeyboardStateListener sharedInstance].isVisible) {
+        [self onEmailEdited:nil];
+    }
+    else {
+        //have triggered onPasswordEdit:, need do nothing
+    }
 }
 
 @end

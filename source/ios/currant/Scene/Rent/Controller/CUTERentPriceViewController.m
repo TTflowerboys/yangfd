@@ -32,6 +32,8 @@
     [super viewDidLoad];
 
     self.navigationItem.title = STR(@"租金");
+    self.tableView.accessibilityIdentifier = STR(@"租金表单");
+    self.tableView.accessibilityLabel = self.tableView.accessibilityIdentifier;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

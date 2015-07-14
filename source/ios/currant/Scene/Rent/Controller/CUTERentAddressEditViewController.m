@@ -75,44 +75,51 @@
 
 - (void)optionBack {
     [self.navigationController popViewControllerAnimated:YES];
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.property.country = self.form.country;
-    self.ticket.property.city = self.form.city;
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:form.ticket];
+    form.ticket.property.country = self.form.country;
+    form.ticket.property.city = self.form.city;
     [ticketListener stopListenMark];
     [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
 
 - (void)onStreetEdit:(id)sender {
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.property.street = self.form.street;
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:form.ticket];
+    form.ticket.property.street = self.form.street;
     [ticketListener stopListenMark];
     [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
 
 - (void)onHouseNameEdit:(id)sender {
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.property.houseName = self.form.houseName;
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:form.ticket];
+    form.ticket.property.houseName = self.form.houseName;
     [ticketListener stopListenMark];
     [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
 
 - (void)onCommunityEdit:(id)sender {
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.property.community = self.form.community;
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:form.ticket];
+    form.ticket.property.community = self.form.community;
     [ticketListener stopListenMark];
     [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
 
 - (void)onFloorEdit:(id)sender {
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.property.floor = self.form.floor;
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:form.ticket];
+    form.ticket.property.floor = self.form.floor;
     [ticketListener stopListenMark];
     [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
 
 - (void)onPostcodeEdit:(id)sender {
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.property.zipcode = self.form.postcode;
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:form.ticket];
+    form.ticket.property.zipcode = self.form.postcode;
     [ticketListener stopListenMark];
     [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 
@@ -123,12 +130,12 @@
 
         CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
         if (form.singleUseForReedit) {
-            CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-            self.ticket.property.latitude = nil;
-            self.ticket.property.longitude = nil;
+            CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:form.ticket];
+            form.ticket.property.latitude = nil;
+            form.ticket.property.longitude = nil;
             [ticketListener stopListenMark];
             //check is a draft ticket not a unfinished one
-            if (!IsNilNullOrEmpty(self.ticket.identifier)) {
+            if (!IsNilNullOrEmpty(form.ticket.identifier)) {
                 [self syncWithUserInfo:ticketListener.getSyncUserInfo];
             }
 
@@ -146,13 +153,13 @@
 }
 
 - (void)onLocationEdit:(id)sender {
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
-    mapController.ticket = self.ticket;
+    mapController.ticket = form.ticket;
     mapController.hidesBottomBarWhenPushed = YES;
     mapController.singleUseForReedit = [(CUTERentAddressEditForm *)self.formController.form singleUseForReedit];
     mapController.updateAddressCompletion = ^ {
-        CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-        [[form updateWithTicket:self.ticket] continueWithBlock:^id(BFTask *task) {
+        [[form updateWithTicket:form.ticket] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
@@ -174,21 +181,22 @@
 
 - (void)updateAddressWithGetLocationSuccessBlock:(dispatch_block_t)successBlock failedBlock:(dispatch_block_t)failedBlock {
 
-    NSString *postCodeIndex = [self.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
-    if (self.ticket.property.country && !IsNilNullOrEmpty(postCodeIndex)) {
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+    NSString *postCodeIndex = [form.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if (form.ticket.property.country && !IsNilNullOrEmpty(postCodeIndex)) {
         [SVProgressHUD showWithStatus:STR(@"搜索中...")];
 
-        [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:self.ticket.property.country.code] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:form.ticket.property.country.code] continueWithBlock:^id(BFTask *task) {
 
             CLLocation *location = task.result;
             if (location && [location isKindOfClass:[CLLocation class]]) {
 
-                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-                self.ticket.property.latitude = @(location.coordinate.latitude);
-                self.ticket.property.longitude = @(location.coordinate.longitude);
+                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:form.ticket];
+                form.ticket.property.latitude = @(location.coordinate.latitude);
+                form.ticket.property.longitude = @(location.coordinate.longitude);
                 [ticketListener stopListenMark];
                 //check is a draft ticket not a unfinished one
-                if (!IsNilNullOrEmpty(self.ticket.identifier)) {
+                if (!IsNilNullOrEmpty(form.ticket.identifier)) {
                     [self syncWithUserInfo:ticketListener.getSyncUserInfo];
                 }
 
@@ -207,8 +215,8 @@
                             CUTEPlacemark *detailPlacemark = task.result;
                             CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
                             form.street = detailPlacemark.street;
-                            CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-                            self.ticket.property.street = form.street;
+                            CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:form.ticket];
+                            form.ticket.property.street = form.street;
                             [ticketListener stopListenMark];
                             [self syncWithUserInfo:ticketListener.getSyncUserInfo];
                             [self.tableView reloadData];
@@ -248,7 +256,8 @@
 }
 
 - (BOOL)validateForm {
-    CUTEProperty *property = [self.ticket property];
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+    CUTEProperty *property = [form.ticket property];
 
     if (!property.country) {
         [SVProgressHUD showErrorWithStatus:STR(@"请填写国家")];
@@ -267,7 +276,8 @@
 }
 
 - (void)createTicket {
-    CUTETicket *currentTicket = self.ticket;
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+    CUTETicket *currentTicket = form.ticket;
     if (currentTicket) {
         [SVProgressHUD show];
         Sequencer *sequencer = [Sequencer new];
@@ -303,19 +313,19 @@
                 if (!IsArrayNilOrEmpty(landloardTypes) && !IsArrayNilOrEmpty(propertyTypes)) {
                     TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
 
-                    self.ticket.landlordType = [CUTEPropertyInfoForm getDefaultLandloardType:landloardTypes];
-                    self.ticket.property.propertyType = [CUTEPropertyInfoForm getDefaultPropertyType:propertyTypes];
+                    form.ticket.landlordType = [CUTEPropertyInfoForm getDefaultLandloardType:landloardTypes];
+                    form.ticket.property.propertyType = [CUTEPropertyInfoForm getDefaultPropertyType:propertyTypes];
 
                     CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
-                    controller.ticket = self.ticket;
+                    controller.ticket = form.ticket;
 
-                    CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
-                    form.propertyType = currentTicket.property.propertyType;
-                    form.bedroomCount = currentTicket.property.bedroomCount? currentTicket.property.bedroomCount.integerValue: 0;
-                    form.livingroomCount = currentTicket.property.livingroomCount? currentTicket.property.livingroomCount.integerValue: 0;
-                    form.bathroomCount = currentTicket.property.bathroomCount? currentTicket.property.bathroomCount.integerValue: 0;
-                    [form setAllPropertyTypes:propertyTypes];
-                    [form setAllLandlordTypes:landloardTypes];
+                    CUTEPropertyInfoForm *infoForm = [CUTEPropertyInfoForm new];
+                    infoForm.propertyType = currentTicket.property.propertyType;
+                    infoForm.bedroomCount = currentTicket.property.bedroomCount? currentTicket.property.bedroomCount.integerValue: 0;
+                    infoForm.livingroomCount = currentTicket.property.livingroomCount? currentTicket.property.livingroomCount.integerValue: 0;
+                    infoForm.bathroomCount = currentTicket.property.bathroomCount? currentTicket.property.bathroomCount.integerValue: 0;
+                    [infoForm setAllPropertyTypes:propertyTypes];
+                    [infoForm setAllLandlordTypes:landloardTypes];
                     controller.formController.form = form;
 
                     [self.navigationController pushViewController:controller animated:YES];
@@ -339,8 +349,10 @@
         return;
     }
 
+
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+
     if (_updateLocationFromAddressFailed) {
-        CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
         if (!form.singleUseForReedit){
             [UIAlertView showWithTitle:STR(@"新Postcode定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"返回") otherButtonTitles:@[STR(@"下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 
@@ -348,8 +360,8 @@
                     [self.navigationController popViewControllerAnimated:YES];
                 }
                 else {
-                    self.ticket.property.latitude = nil;
-                    self.ticket.property.longitude = nil;
+                    form.ticket.property.latitude = nil;
+                    form.ticket.property.longitude = nil;
                     [self createTicket];
                 }
             }];
@@ -360,16 +372,16 @@
     }
 
 
-    if (!IsNilNullOrEmpty(self.ticket.property.zipcode)  && ![self.lastPostcode isEqualToString:self.ticket.property.zipcode]) {
+    if (!IsNilNullOrEmpty(form.ticket.property.zipcode)  && ![self.lastPostcode isEqualToString:form.ticket.property.zipcode]) {
         [UIAlertView showWithTitle:STR(@"是否按新postcode重新定位再继续？") message:nil cancelButtonTitle:STR(@"不用") otherButtonTitles:@[STR(@"好的")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == alertView.cancelButtonIndex) {
                 [self createTicket];
             }
             else {
                 [SVProgressHUD show];
-                NSString *postCodeIndex = [self.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
+                NSString *postCodeIndex = [form.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
 
-                [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:self.ticket.property.country.code]continueWithBlock:^id(BFTask *task) {
+                [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:form.ticket.property.country.code]continueWithBlock:^id(BFTask *task) {
                     if (task.error) {
                         [SVProgressHUD showErrorWithError:task.error];
                     }
@@ -383,9 +395,9 @@
                         CLLocation *location = task.result;
                         if (location && [location isKindOfClass:[CLLocation class]]) {
                             [self.tableView reloadData];
-                            self.ticket.property.latitude = @(location.coordinate.latitude);
-                            self.ticket.property.longitude = @(location.coordinate.longitude);
-                            self.lastPostcode = self.ticket.property.zipcode;
+                            form.ticket.property.latitude = @(location.coordinate.latitude);
+                            form.ticket.property.longitude = @(location.coordinate.longitude);
+                            self.lastPostcode = form.ticket.property.zipcode;
                             [SVProgressHUD dismiss];
                             [self createTicket];
                         }

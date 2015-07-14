@@ -24,9 +24,6 @@ describe(@"share ticket", ^ {
 
     it(@"should success", ^ {
         CUTETicket *ticket = [[[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets] firstObject];
-        if(ticket) {
-
-        }
         [[CUTEShareManager sharedInstance] shareTicket:ticket];
         [tester waitForViewWithAccessibilityLabel:STR(@"分享")];
         [system waitForApplicationToOpenAnyURLWhileExecutingBlock:^{
