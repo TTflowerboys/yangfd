@@ -199,7 +199,7 @@ def user_login(params):
     is_vip=bool,
     invitation_code=str,
     wechat=str,
-    private_contact_methods=(list, None, str),
+    private_contact_methods=(list, [], str),
 ))
 @rate_limit("register", ip=10)
 def user_register(params):
@@ -246,7 +246,7 @@ def user_register(params):
     occupation="enum:occupation",
     invitation_code=str,
     wechat=str,
-    private_contact_methods=(list, None, str),
+    private_contact_methods=(list, [], str),
 ))
 @rate_limit("register", ip=5)
 def user_fast_register(params):
@@ -256,7 +256,7 @@ def user_fast_register(params):
     Password will be generated and sent to the provided mailbox, and SMS verification code will be sent immediately after registration.
     """
 
-    if "private_contact_methods" in params and not set(params["private_contact_methods"]) <= {"email", "phone", "wechat"}:
+    if not set(params["private_contact_methods"]) <= {"email", "phone", "wechat"}:
         abort(40000)
 
     if "@" not in params["email"]:
@@ -502,6 +502,7 @@ def admin_user_search(user, params):
     phone=(str, True),
     role=(list, True, str),
     country=("country", True),
+    private_contact_methods=(list, [], str),
 ))
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
 def admin_user_add(user, params):

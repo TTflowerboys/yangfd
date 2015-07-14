@@ -290,6 +290,11 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         }
         f_app.shop.item.get_database(m).update({"_id": view_rent_ticket_contact_info_item["_id"]}, {"$set": view_rent_ticket_contact_info_item}, upsert=True)
 
+    def v14(self, m):
+        for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}, "private_contact_methods": {"$exists": False}}):
+            self.logger.debug("Setting default private_contact_methods for user", str(user["_id"]))
+            f_app.user.get_database(m).update({"_id": user["_id"]}, {"$set": {"private_contact_methods": []}})
+
 
 currant_mongo_upgrade()
 
@@ -749,6 +754,10 @@ class f_currant_plugins(f_app.plugin_base):
             ticket["user_id"] = str(ticket["user_id"])
 
         return ticket
+
+    def user_add(self, params, noregister):
+        params.setdefault("private_contact_methods", [])
+        return params
 
     def user_add_after(self, user_id, params, noregister):
         index_params = f_app.util.try_get_value(params, ["nickname", "phone", "email"])
