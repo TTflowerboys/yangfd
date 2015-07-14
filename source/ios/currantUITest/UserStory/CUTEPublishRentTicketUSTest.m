@@ -84,11 +84,14 @@ describe(@"DeleteTicket", ^{
         [tester waitForTimeInterval:10];
         UITableView *tableView = (UITableView *)[tester waitForViewWithAccessibilityLabel:STR(@"出租房草稿列表")];
         NSInteger originalCount = [tableView numberOfRowsInSection:0];
+        assertThatInt(originalCount, isNot(0));
         [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] inTableViewWithAccessibilityIdentifier:STR(@"出租房草稿列表")];
         [tester waitForAnimationsToFinish];
         [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:7 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"房产信息表单")];
         [tester waitForAnimationsToFinish];
-        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"更多房产信息表单")];
+        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"更多房产信息表单")];
+        [tester waitForAnimationsToFinish];
+        [tester tapViewWithAccessibilityLabel:STR(@"确定")];
         [tester waitForAnimationsToFinishWithTimeout:2];
         tableView = (UITableView *)[tester waitForViewWithAccessibilityLabel:STR(@"出租房草稿列表")];
         NSInteger newCount = [tableView numberOfRowsInSection:0];
