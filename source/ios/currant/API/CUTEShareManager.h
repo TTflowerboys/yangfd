@@ -12,6 +12,13 @@
 #import "CUTETicket.h"
 #import "BFTask.h"
 
+
+extern NSString * const CUTEShareServiceWechatFriend;
+
+extern NSString * const CUTEShareServiceWechatCircle;
+
+extern NSString * const CUTEShareServiceSinaWeibo;
+
 @interface CUTEShareManager : NSObject
 
 + (instancetype)sharedInstance;
@@ -22,6 +29,6 @@
 
 - (BFTask *)shareTicket:(CUTETicket *)ticket;
 
-- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString;
+- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString inServices:(NSArray *)services;
 
 @end

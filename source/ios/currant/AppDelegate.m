@@ -86,6 +86,7 @@
     nav.tabBarItem = tabItem;
     nav.tabBarItem.tag = index;
     nav.tabBarItem.accessibilityLabel = title;
+    nav.view.backgroundColor = CUTE_BACKGROUND_COLOR;
     controller.navigationItem.title = STR(@"洋房东");
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     [nav setViewControllers:@[controller]];
@@ -96,6 +97,7 @@
 
     CUTEPropertyListViewController *controller = [[CUTEPropertyListViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] init];
+    nav.view.backgroundColor = CUTE_BACKGROUND_COLOR;
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     controller.url = [NSURL WebURLWithString:urlPath];
     nav.tabBarItem = tabItem;
@@ -111,6 +113,7 @@
 
     CUTERentListViewController *controller = [[CUTERentListViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] init];
+    nav.view.backgroundColor = CUTE_BACKGROUND_COLOR;
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     controller.url = [NSURL WebURLWithString:urlPath];
     nav.tabBarItem = tabItem;
@@ -125,7 +128,7 @@
 
 - (UINavigationController *)makeEditViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
     UINavigationController *nav = [[UINavigationController alloc] init];
-    nav.view.backgroundColor = HEXCOLOR(0xeeeeee, 1);
+    nav.view.backgroundColor = CUTE_BACKGROUND_COLOR;
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:nil];
     tabItem.tag = kEditTabBarIndex;
     nav.tabBarItem = tabItem;
@@ -143,6 +146,7 @@
 
     CUTEUserViewController *controller = [[CUTEUserViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] init];
+    nav.view.backgroundColor = CUTE_BACKGROUND_COLOR;
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     controller.url = [NSURL WebURLWithString:urlPath];
     nav.tabBarItem = tabItem;

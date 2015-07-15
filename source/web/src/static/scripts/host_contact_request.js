@@ -81,7 +81,7 @@ $(function () {
         var client = window.team.getClient()
         if(client === 'app') {
             return $('#shareApp').off('click').on('click', function () {
-                window.bridge.callHandler('share', {'text': window.i18n('我正在使用洋房东App查找租房信息，海外租房轻松搞定，你也来试试吧'), 'url': 'http://yangfd.com/app-download'}, function(response) {
+                window.bridge.callHandler('share', {'text': window.i18n('我正在使用洋房东App查找租房信息，海外租房轻松搞定，你也来试试吧'), 'url': 'http://yangfd.com/app-download', 'services': ['Wechat Circle', 'Sina Weibo']}, function(response) {
                     if (response.msg === 'ok') {
                         return shareSuccessCallback()
                     }

@@ -47,7 +47,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self)
     {
-        self.backgroundColor = HEXCOLOR(0xeeeeee, 1);
+        self.backgroundColor = CUTE_BACKGROUND_COLOR;
         self.selectionStyle = UITableViewCellSeparatorStyleNone;
 
         _placeholderView = [[CUTEUnfinishedRentTicketPlaceholderImageView alloc] initWithFrame:self.contentView.bounds];
