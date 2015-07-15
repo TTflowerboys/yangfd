@@ -13,6 +13,4 @@
 
 @interface CUTERentPropertyMoreInfoViewController : CUTEFormViewController
 
-@property (strong, nonatomic) CUTETicket *ticket;
-
 @end

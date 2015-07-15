@@ -74,22 +74,25 @@
     self.tableView.accessibilityIdentifier = self.tableView.accessibilityLabel;
 }
 
+- (CUTEPropertyInfoForm *)form {
+    return (CUTEPropertyInfoForm *)self.formController.form;
+}
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     FXFormField *field = [self.formController fieldForIndexPath:indexPath];
     if ([field.key isEqualToString:@"photos"]) {
         CUTEFormImagePickerCell *pickerCell = (CUTEFormImagePickerCell *)cell;
-        pickerCell.ticket = self.ticket;
+        pickerCell.ticket = self.form.ticket;
         [pickerCell update];
     }
     else if ([field.key isEqualToString:@"rentPrice"]) {
-        if (self.ticket.price) {
-            cell.detailTextLabel.text = CONCAT([CUTECurrency symbolOfCurrencyUnit:self.ticket.price.unit], [NSString stringWithFormat:@"%.2lf", self.ticket.price.value], @"/", STR(@"周"));
+        if (self.form.ticket.price) {
+            cell.detailTextLabel.text = CONCAT([CUTECurrency symbolOfCurrencyUnit:self.form.ticket.price.unit], [NSString stringWithFormat:@"%.2lf", self.form.ticket.price.value], @"/", STR(@"周"));
         }
     }
     else if ([field.key isEqualToString:@"area"]) {
-        if (self.ticket.rentType) {
-            if ([self.ticket.rentType.slug hasSuffix:@":whole"]) {
+        if (self.form.ticket.rentType) {
+            if ([self.form.ticket.rentType.slug hasSuffix:@":whole"]) {
                 cell.textLabel.text = STR(@"房屋面积（选填）");
             }
             else {
@@ -97,25 +100,25 @@
             }
         }
 
-        if (self.ticket.space) {
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f %@", self.ticket.space.value, self.ticket.space.unitSymbol];
+        if (self.form.ticket.space) {
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f %@", self.form.ticket.space.value, self.form.ticket.space.unitSymbol];
         }
     }
     else if ([field.key isEqualToString:@"rentType"]) {
-        if (self.ticket.rentType) {
-            cell.detailTextLabel.text = self.ticket.rentType.value;
+        if (self.form.ticket.rentType) {
+            cell.detailTextLabel.text = self.form.ticket.rentType.value;
         }
     }
     else if ([field.key isEqualToString:@"address"]) {
-        if (self.ticket.property) {
-            cell.detailTextLabel.text = self.ticket.property.address;
+        if (self.form.ticket.property) {
+            cell.detailTextLabel.text = self.form.ticket.property.address;
         }
     }
 }
 
 - (void)onLeftButtonPressed:(id)sender {
 
-    if ([self.ticket.status isEqual:kTicketStatusDraft]) {
+    if ([self.form.ticket.status isEqual:kTicketStatusDraft]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"您确定放弃发布吗？放弃后系统将会将您已填写的信息保存为草稿") message:nil delegate:nil cancelButtonTitle:STR(@"放弃") otherButtonTitles:STR(@"取消"), nil];
         alertView.cancelButtonIndex = 1;
         alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex)  {
@@ -140,8 +143,8 @@
 
 - (void)editLandlordType {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.landlordType = form.landlordType;
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
+    self.form.ticket.landlordType = form.landlordType;
     [ticketListener stopListenMark];
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
     [self.navigationController popViewControllerAnimated:YES];
@@ -149,8 +152,8 @@
 
 - (void)editPropertyType {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.property.propertyType = form.propertyType;
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
+    self.form.ticket.property.propertyType = form.propertyType;
     [ticketListener stopListenMark];
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
     [self.navigationController popViewControllerAnimated:YES];
@@ -158,10 +161,10 @@
 
 - (void)editRooms:(id)sender {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.property.bedroomCount = @(form.bedroomCount);
-    self.ticket.property.livingroomCount = @(form.livingroomCount);
-    self.ticket.property.bathroomCount = @(form.bathroomCount);
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
+    self.form.ticket.property.bedroomCount = @(form.bedroomCount);
+    self.form.ticket.property.livingroomCount = @(form.livingroomCount);
+    self.form.ticket.property.bathroomCount = @(form.bathroomCount);
     [ticketListener stopListenMark];
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
 }
@@ -169,9 +172,9 @@
 - (void)editArea {
     if (!_editAreaViewController) {
         CUTERentAreaViewController *controller = [CUTERentAreaViewController new];
-        controller.ticket = self.ticket;
+        controller.ticket = self.form.ticket;
         CUTEAreaForm *form = [CUTEAreaForm new];
-        form.area = self.ticket.space.value;
+        form.area = self.form.ticket.space.value;
         controller.formController.form = form;
         _editAreaViewController = controller;
 
@@ -200,7 +203,7 @@
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
             if (!_editRentPriceViewController) {
                 NSArray *depositTypes = task.result[0];
-                CUTETicket *ticket = self.ticket;
+                CUTETicket *ticket = self.form.ticket;
                 if (!ticket.rentAvailableTime) {
                     ticket.rentAvailableTime = @([[NSDate date] timeIntervalSince1970]);
                 }
@@ -219,7 +222,7 @@
                 }
 
                 CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
-                controller.ticket = self.ticket;
+                controller.ticket = self.form.ticket;
                 CUTERentPriceForm *form = [CUTERentPriceForm new];
                 form.currency = ticket.price.unit;
                 form.rentPrice = ticket.price.value;
@@ -262,10 +265,10 @@
         if (task.result) {
             CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
             form.singleUseForReedit = YES;
-            form.rentType = self.ticket.rentType;
+            form.rentType = self.form.ticket.rentType;
             [form setRentTypeList:task.result];
             CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
-            form.ticket = self.ticket;
+            form.ticket = self.form.ticket;
             controller.formController.form = form;
 
             __weak typeof(self)weakSelf = self;
@@ -297,10 +300,10 @@
 - (void)editAddress {
     CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
     CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
-    form.ticket = self.ticket;
+    form.ticket = self.form.ticket;
     form.singleUseForReedit = YES;
     [SVProgressHUD show];
-    [[form updateWithTicket:self.ticket] continueWithBlock:^id(BFTask *task) {
+    [[form updateWithTicket:self.form.ticket] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
@@ -334,10 +337,10 @@
 - (void)editMoreInfo {
 
     TrackEvent(GetScreenName(self), kEventActionPress, @"enter-more", nil);
-    CUTETicket *ticket = self.ticket;
+    CUTETicket *ticket = self.form.ticket;
     CUTERentPropertyMoreInfoViewController *controller = [CUTERentPropertyMoreInfoViewController new];
-    controller.ticket = ticket;
     CUTEPropertyMoreInfoForm *form = [CUTEPropertyMoreInfoForm new];
+    form.ticket = ticket;
     form.ticketTitle = ticket.titleForDisplay;
     form.ticketDescription = ticket.ticketDescription;
     controller.formController.form = form;
@@ -354,11 +357,11 @@
         return NO;
     }
 
-    if (!_editRentPriceViewController && !self.ticket.price) {
+    if (!_editRentPriceViewController && !self.form.ticket.price) {
         [SVProgressHUD showErrorWithStatus:STR(@"请编辑租金")];
         return NO;
     }
-    if (fequalzero(self.ticket.price.value)) {
+    if (fequalzero(self.form.ticket.price.value)) {
         [SVProgressHUD showErrorWithStatus:STR(@"租金不能为0")];
         return NO;
     }
@@ -372,7 +375,7 @@
     }
 
     [SVProgressHUD show];
-    [[[CUTERentTicketPublisher sharedInstance] editTicket:self.ticket updateStatus:^(NSString *status) {
+    [[[CUTERentTicketPublisher sharedInstance] editTicket:self.form.ticket updateStatus:^(NSString *status) {
         [SVProgressHUD showWithStatus:status];
     }] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
@@ -390,8 +393,8 @@
 
             TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
             CUTERentTicketPreviewViewController *controller = [[CUTERentTicketPreviewViewController alloc] init];
-            controller.url = [NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]];
-            controller.ticket = self.ticket;
+            controller.url = [NSURL URLWithString:CONCAT(@"/wechat-poster/", self.form.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]];
+            controller.ticket = self.form.ticket;
             [controller loadRequest:[NSURLRequest requestWithURL:controller.url]];
             [self.navigationController pushViewController:controller animated:YES];
         }

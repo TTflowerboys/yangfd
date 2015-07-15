@@ -40,6 +40,10 @@
     [self checkNeedUpdateTicketTitle];
 }
 
+- (CUTEPropertyMoreInfoForm *)form {
+    return self.formController.form;
+}
+
 - (CUTEFormTextFieldCell *)getTicketTitleCell {
     FXFormField *field = [self.formController fieldForKey:@"ticketTitle"];
     NSIndexPath *indexPath = [self.formController indexPathForField:field];
@@ -86,10 +90,10 @@
         return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
     }]] continueWithSuccessBlock:^id(BFTask *task) {
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
-            CUTETicket *ticket = self.ticket;
+            CUTETicket *ticket = self.form.ticket;
             CUTEProperty *property = [ticket property];
             CUTERentPropertyFacilityViewController *controller = [[CUTERentPropertyFacilityViewController alloc] init];
-            controller.ticket = self.ticket;
+            controller.ticket = self.form.ticket;
             CUTEPropertyFacilityForm *form = [CUTEPropertyFacilityForm new];
             [form setAllIndoorFacilities:task.result[0]];
             [form setSelectedIndoorFacilities:property.indoorFacilities];
@@ -111,7 +115,7 @@
         if (buttonIndex != alertView.cancelButtonIndex) {
 
             [SVProgressHUD show];
-            [[[CUTERentTicketPublisher sharedInstance] deleteTicket:self.ticket] continueWithBlock:^id(BFTask *task) {
+            [[[CUTERentTicketPublisher sharedInstance] deleteTicket:self.form.ticket] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
@@ -123,13 +127,13 @@
                 }
                 else {
                     [SVProgressHUD dismiss];
-                    [[CUTEDataManager sharedInstance] markRentTicketDeleted:self.ticket];
+                    [[CUTEDataManager sharedInstance] markRentTicketDeleted:self.form.ticket];
                     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:self];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [self.navigationController popToRootViewControllerAnimated:YES];
                     });
                 }
-                
+
                 return task;
             }];
         }
@@ -147,8 +151,8 @@
         return;
     }
 
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.title = self.form.ticketTitle;
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
+    self.form.ticket.title = self.form.ticketTitle;
     [ticketListener stopListenMark];
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
 
@@ -162,8 +166,8 @@
         return;
     }
 
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.ticketDescription = self.form.ticketDescription;
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
+    self.form.ticket.ticketDescription = self.form.ticketDescription;
     [ticketListener stopListenMark];
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
 }
@@ -193,14 +197,10 @@
     [UIAlertView showWithTitle:STR(@"字符长度限制为8-30")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
 }
 
-- (CUTEPropertyMoreInfoForm *)form {
-    return (CUTEPropertyMoreInfoForm *)self.formController.form;
-}
-
 - (void)checkNeedUpdateTicketTitle {
-    if (!self.ticket.title) {
-        CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-        self.ticket.title = self.ticket.titleForDisplay;
+    if (!self.form.ticket.title) {
+        CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
+        self.form.ticket.title = self.form.ticket.titleForDisplay;
         [ticketListener stopListenMark];
         [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
     }

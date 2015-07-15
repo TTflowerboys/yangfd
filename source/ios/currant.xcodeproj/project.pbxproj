@@ -149,10 +149,6 @@
 		2C1251941B53909A0037F5B6 /* CUTECredit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251911B53909A0037F5B6 /* CUTECredit.m */; };
 		2C1251951B53909A0037F5B6 /* CUTECredit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251911B53909A0037F5B6 /* CUTECredit.m */; };
 		2C1251971B53A6650037F5B6 /* CUTECreditUSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251961B53A6650037F5B6 /* CUTECreditUSTest.m */; };
-		2C1251CA1B53CEEA0037F5B6 /* CUTETicketForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251C91B53CEEA0037F5B6 /* CUTETicketForm.m */; };
-		2C1251CB1B53CEEA0037F5B6 /* CUTETicketForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251C91B53CEEA0037F5B6 /* CUTETicketForm.m */; };
-		2C1251CC1B53CEEA0037F5B6 /* CUTETicketForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251C91B53CEEA0037F5B6 /* CUTETicketForm.m */; };
-		2C1251CD1B53CEEA0037F5B6 /* CUTETicketForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251C91B53CEEA0037F5B6 /* CUTETicketForm.m */; };
 		2C1251CF1B54A9D20037F5B6 /* CUTEUnfinishedRentTicketUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251CE1B54A9D20037F5B6 /* CUTEUnfinishedRentTicketUITest.m */; };
 		2C1251D21B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251D11B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m */; };
 		2C1251D31B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251D11B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m */; };
@@ -509,6 +505,10 @@
 		2CF234841B55198500B516E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CF234821B55198500B516E6 /* GoogleService-Info.plist */; };
 		2CF234851B55198500B516E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CF234821B55198500B516E6 /* GoogleService-Info.plist */; };
 		2CF234861B55198500B516E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CF234821B55198500B516E6 /* GoogleService-Info.plist */; };
+		2CF2348A1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF234891B5668E900B516E6 /* CUTERentAddressMapForm.m */; };
+		2CF2348B1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF234891B5668E900B516E6 /* CUTERentAddressMapForm.m */; };
+		2CF2348C1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF234891B5668E900B516E6 /* CUTERentAddressMapForm.m */; };
+		2CF2348D1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF234891B5668E900B516E6 /* CUTERentAddressMapForm.m */; };
 		2CF8A5DC1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */; };
 		2CF8A5DD1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */; };
 		2CF8A5DE1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */; };
@@ -734,8 +734,6 @@
 		2C1251901B53909A0037F5B6 /* CUTECredit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTECredit.h; sourceTree = "<group>"; };
 		2C1251911B53909A0037F5B6 /* CUTECredit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTECredit.m; sourceTree = "<group>"; };
 		2C1251961B53A6650037F5B6 /* CUTECreditUSTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTECreditUSTest.m; sourceTree = "<group>"; };
-		2C1251C81B53CEEA0037F5B6 /* CUTETicketForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETicketForm.h; sourceTree = "<group>"; };
-		2C1251C91B53CEEA0037F5B6 /* CUTETicketForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETicketForm.m; sourceTree = "<group>"; };
 		2C1251CE1B54A9D20037F5B6 /* CUTEUnfinishedRentTicketUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUnfinishedRentTicketUITest.m; sourceTree = "<group>"; };
 		2C1251D01B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUnfinishedRentTicketListForm.h; sourceTree = "<group>"; };
 		2C1251D11B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUnfinishedRentTicketListForm.m; sourceTree = "<group>"; };
@@ -942,6 +940,9 @@
 		2CF2347C1B54F2E500B516E6 /* CUTEKeyboardStateListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEKeyboardStateListener.h; sourceTree = "<group>"; };
 		2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEKeyboardStateListener.m; sourceTree = "<group>"; };
 		2CF234821B55198500B516E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2CF234871B56672B00B516E6 /* CUTETicketViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETicketViewModelProtocol.h; sourceTree = "<group>"; };
+		2CF234881B5668E900B516E6 /* CUTERentAddressMapForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentAddressMapForm.h; sourceTree = "<group>"; };
+		2CF234891B5668E900B516E6 /* CUTERentAddressMapForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentAddressMapForm.m; sourceTree = "<group>"; };
 		2CF8A5A71AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPropertyFacilityViewController.h; sourceTree = "<group>"; };
 		2CF8A5A81AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPropertyFacilityViewController.m; sourceTree = "<group>"; };
 		2CF8A5A91AF0B40E0080DF10 /* CUTERentPropertyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPropertyInfoViewController.h; sourceTree = "<group>"; };
@@ -1548,8 +1549,7 @@
 				2C056D9B1B423BBA0075037A /* CUTEForm.m */,
 				2C056D9C1B423BBA0075037A /* CUTEFormViewController.h */,
 				2C056D9D1B423BBA0075037A /* CUTEFormViewController.m */,
-				2C1251C81B53CEEA0037F5B6 /* CUTETicketForm.h */,
-				2C1251C91B53CEEA0037F5B6 /* CUTETicketForm.m */,
+				2CF234871B56672B00B516E6 /* CUTETicketViewModelProtocol.h */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1730,6 +1730,8 @@
 				2CF8A6681AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.m */,
 				2CF8A6691AF0B65C0080DF10 /* CUTERentAddressEditForm.h */,
 				2CF8A66A1AF0B65C0080DF10 /* CUTERentAddressEditForm.m */,
+				2CF234881B5668E900B516E6 /* CUTERentAddressMapForm.h */,
+				2CF234891B5668E900B516E6 /* CUTERentAddressMapForm.m */,
 				2CF8A66D1AF0B65C0080DF10 /* CUTERentPriceForm.h */,
 				2CF8A66E1AF0B65C0080DF10 /* CUTERentPriceForm.m */,
 				2CF8A66F1AF0B65C0080DF10 /* CUTERentShareForm.h */,
@@ -2422,11 +2424,11 @@
 				2C056D8D1B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
 				2CF8A6A21AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CEA1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
+				2CF2348C1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
 				2CA2E6B41AC5487800053965 /* CUTEConfiguration.m in Sources */,
 				2CF8A64C1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6511AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
 				2CDABB371B2C4B840075D2E7 /* NSString+CUTECDN.m in Sources */,
-				2C1251CC1B53CEEA0037F5B6 /* CUTETicketForm.m in Sources */,
 				2CA81F791B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */,
 				2C79C2BA1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2CC3A07E1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
@@ -2558,11 +2560,11 @@
 				2C056D8E1B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
 				2CF8A6A31AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CEB1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
+				2CF2348D1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
 				2CA2E6CD1AC5496700053965 /* CUTEConfiguration.m in Sources */,
 				2CF8A64D1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6521AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
 				2CDABB381B2C4B840075D2E7 /* NSString+CUTECDN.m in Sources */,
-				2C1251CD1B53CEEA0037F5B6 /* CUTETicketForm.m in Sources */,
 				2CA81F7A1B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */,
 				2C79C2BB1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2CC3A07F1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
@@ -2694,11 +2696,11 @@
 				2C056D8C1B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
 				2CF8A6A11AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CE91B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
+				2CF2348B1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
 				2CA94A9E1ACA42CD00DF7497 /* CUTEConfiguration.m in Sources */,
 				2CF8A64B1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6501AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
 				2CDABB361B2C4B840075D2E7 /* NSString+CUTECDN.m in Sources */,
-				2C1251CB1B53CEEA0037F5B6 /* CUTETicketForm.m in Sources */,
 				2CA81F781B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */,
 				2C79C2B91ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2CC3A07D1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
@@ -2830,11 +2832,11 @@
 				2C056D8B1B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
 				2CF8A6A01AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CE81B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
+				2CF2348A1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
 				2CDBB2FD1AC1472E0024E225 /* CUTEConfiguration.m in Sources */,
 				2CF8A64A1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A64F1AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
 				2CDABB351B2C4B840075D2E7 /* NSString+CUTECDN.m in Sources */,
-				2C1251CA1B53CEEA0037F5B6 /* CUTETicketForm.m in Sources */,
 				2CA81F771B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */,
 				2C79C2B81ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2CC3A07C1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
