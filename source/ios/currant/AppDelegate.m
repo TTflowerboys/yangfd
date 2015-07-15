@@ -97,7 +97,7 @@
 
     CUTEPropertyListViewController *controller = [[CUTEPropertyListViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] init];
-    nav.view.backgroundColor = CUTE_BACKGROUND_COLOR
+    nav.view.backgroundColor = CUTE_BACKGROUND_COLOR;
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     controller.url = [NSURL WebURLWithString:urlPath];
     nav.tabBarItem = tabItem;
