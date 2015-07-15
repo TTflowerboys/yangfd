@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CUTETicket.h"
+#import <EXTSynthesize.h>
 
 @protocol CUTETicketViewModelProtocol <NSObject>
 

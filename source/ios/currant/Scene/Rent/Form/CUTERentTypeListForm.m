@@ -21,6 +21,8 @@
 
 @implementation CUTERentTypeListForm
 
+@synthesizeAssociation(CUTERentTypeListForm, ticket);
+
 - (NSString *)formKeyFromTitle:(NSString *)title {
     if ([title isEqualToString:@"单间"]) {
         return @"single";
