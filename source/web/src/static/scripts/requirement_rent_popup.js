@@ -422,14 +422,14 @@
                             successArea.find('.qrcode').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.protocol + '//' + location.host + '/app-download'))
                             getHostContact(container, option)
                             submitSuccessCallBack()
-                            //ga('send', 'event', 'requirementPopup', 'result', 'submit-success');
+                            ga('send', 'event', 'rentRequirementPopup', 'result', 'submit-success');
                         })
                         .fail(function (ret) {
                             $errorMsg.empty()
                             $errorMsg.append(window.getErrorMessageFromErrorCode(ret, api))
                             $errorMsg.show()
 
-                            //ga('send', 'event', 'requirementPopup', 'click', 'submit-failed',window.getErrorMessageFromErrorCode(ret, api));
+                            ga('send', 'event', 'rentRequirementPopup', 'click', 'submit-failed',window.getErrorMessageFromErrorCode(ret, api));
                         })
 
                 })
@@ -450,7 +450,7 @@
         container.find('button[name=cancel]').off('click').on('click', function () {
             container.hide()
 
-            //ga('send', 'event', 'floatBar', 'click', 'cancel-requirement-popup')
+            ga('send', 'event', 'rentRequirementPopup', 'click', 'cancel-requirement-popup')
         });
         container.find('.requirement_popup_shadow').on('click', function () {
             container.hide()
