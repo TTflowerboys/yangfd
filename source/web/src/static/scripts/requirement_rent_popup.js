@@ -262,6 +262,7 @@
             $.betterPost('/api/1/rent_ticket/' + option.ticketId + '/contact_info')
                 .done(function (val) {
                     var host = val
+                    host.private_contact_methods = host.private_contact_methods || []
                     if(host.private_contact_methods.indexOf('phone') < 0 && host.phone) {
                         $('.hostPhone').addClass('show').each(function(){
                             $(this).find('span').eq(1).text(host.phone)
