@@ -107,7 +107,13 @@ def rent_ticket_get(rent_ticket_id, user):
     keywords = title + ',' + currant_util.get_country_name_by_code(rent_ticket["property"].get('country', {}).get('code', '')) + ',' + rent_ticket["property"].get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
-    return currant_util.common_template("property_to_rent", rent=rent_ticket, rent_type_list=rent_type_list, rent_budget_list=rent_budget_list, report=report, is_favorited=is_favorited, publish_time=publish_time, title=title, description=description, keywords=keywords, weixin=weixin)
+    contact_info_already_fetched = len(f_app.order.search({
+        "items.id": f_app.common.view_rent_ticket_contact_info_id,
+        "ticket_id": rent_ticket_id,
+        "user.id": user["id"],
+    })) > 0
+
+    return currant_util.common_template("property_to_rent", rent=rent_ticket, rent_type_list=rent_type_list, rent_budget_list=rent_budget_list, report=report, is_favorited=is_favorited, publish_time=publish_time, title=title, description=description, keywords=keywords, weixin=weixin, contact_info_already_fetched=contact_info_already_fetched)
 
 
 @f_get('/property-to-rent-digest/<rent_ticket_id:re:[0-9a-fA-F]{24}>')
