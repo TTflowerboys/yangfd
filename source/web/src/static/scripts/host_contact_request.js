@@ -40,7 +40,7 @@ $(function () {
                 'id' : 'shareAppToWeibo',
                 'default_image':'http://upload.yangfd.com/app_icon_x120_150427.png',
                 'default_text' : window.i18n('我正在使用洋房东App查找租房信息，海外租房轻松搞定，你也来试试吧: http://yangfd.com/app-download'),
-                'action': 'publish',
+                //'action': 'publish',
                 'position':'c',
                 'callback' : function(o) {
                     shareSuccessCallback()
@@ -62,6 +62,17 @@ $(function () {
                 cancel:function(){
                     $('.guideLine').hide()
                     //todo 微信中取消了分享
+                }
+            }, {
+                appMessage: {
+                    success:function(){
+                        $('.guideLine').text(window.i18n('分享到朋友圈才有效'))
+                    }
+                },
+                qq: {
+                    success:function(){
+                        $('.guideLine').text(window.i18n('分享到朋友圈才有效'))
+                    }
                 }
             })
         })
@@ -116,7 +127,6 @@ $(function () {
                                 })
                             })
                         }
-                        //todo 暂时隐藏分享入口，留一个测试微信的url入口
                         else if (_.findIndex(val.credits,{tag:'share_app'}) < 0 && !(window.team.isPhone() && !window.team.isWeChat() && !window.team.isCurrantClient())) { //尚未分享过App,并且不是在mobile web
                             $exhaustSubmitTip.text(window.i18n('，分享洋房东App继续获取')).css('display', 'inline')
                             $hint.css('display', 'block')

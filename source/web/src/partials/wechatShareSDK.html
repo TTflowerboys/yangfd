@@ -59,7 +59,8 @@
                 jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
             })
             window.wx.ready(function(){
-                window.wechatShareSDK.init = function (option) {
+                window.wechatShareSDK.init = function (option, callbackObj) {
+                    callbackObj = callbackObj || {}
                     var defaultWechatShareData = {
                         title: '{{title}}',
                         link: window.location.href,
@@ -73,9 +74,13 @@
                         }
                     }
                     var wechatShareData = $.extend(defaultWechatShareData, option)
-                    window.wx.onMenuShareTimeline(wechatShareData);
-                    window.wx.onMenuShareAppMessage(wechatShareData);
-                    window.wx.onMenuShareQQ(wechatShareData);
+                    var timelineWechatShareData = $.extend(wechatShareData, callbackObj.timeline)
+                    var appMessageWechatShareData = $.extend(wechatShareData, callbackObj.appMessage)
+                    var qqWechatShareData = $.extend(wechatShareData, callbackObj.qq)
+
+                    window.wx.onMenuShareTimeline(timelineWechatShareData);
+                    window.wx.onMenuShareAppMessage(appMessageWechatShareData);
+                    window.wx.onMenuShareQQ(qqWechatShareData);
                     showGuideLine()
                 }
             })
