@@ -1,0 +1,234 @@
+/*! Created by frank on 14-9-9.  */
+@import "_imports";
+@border-width: 2px;
+@padding-top: 20px;
+
+.contactCard {
+    float:left; position: relative; border-top: @border-width solid @border-color; font-size: 14px; color: @grey;
+    min-height: @house_card-height;
+    min-width: 700px;
+    width:100%;
+    margin-bottom: 60px;
+
+    a {
+        text-decoration:none;
+        color: @grey;
+    }
+
+    &:hover #name{
+        color: @red;
+
+        @media @phone {
+            color: @black;
+        }
+    }
+
+    @media @phone {
+        min-width: initial;
+        border-bottom: 1px solid @border-color;
+        background-color: @white;
+    }
+
+    p { margin: 0; }
+
+    .imagePart {
+        position:relative;
+        top: -@border-width;
+        height:100%;
+        min-height:@house_card_image-height;
+        width:320px;
+        z-index:@house_card-image-z-index;
+
+        @media @phone {
+            width: 100%;
+            height: 100%;
+        }
+
+        img {
+            position: absolute;
+            width: 320px;
+            min-height: 213px;
+            cursor:pointer;
+
+            @media @phone {
+                position:static;
+                float:left;
+                width: 100%;
+                min-height: 213px;
+            }
+        }
+
+        .withPlaceholder{
+            background-color: @white;
+        }
+
+
+        .labels {
+            position: absolute;
+            right: 0;
+            top:0;
+            height:40px;
+            width:100%;
+            z-index:@house_card-image-text-z-index;
+            label {
+                position:static;
+                float:right;
+                color:white;
+                line-height:40px;
+                font-size: @root-font-size;
+                padding:0 12px;
+                margin-top: 20px;
+
+                &.rent-type {
+                    background: #e61919;
+                }
+                &.property-type {
+                    background: #333;
+                }
+
+            }
+        }
+    }
+
+    .description {
+        position:relative;
+        width:100%;
+        height:100%;
+
+        &_wrapper {
+            overflow: hidden;
+            position:absolute;
+            padding-left: 320px + @padding-top;
+            padding-top: @padding-top;
+            top:0;
+            width:100%;
+            height:100%;
+
+            @media @phone {
+                position:relative;
+                padding: 10px 10px 0px 10px;
+            }
+        }
+
+        @media @phone {
+            margin-left:0;
+            padding-top:0;
+        }
+
+        .titles{
+            display: block;
+            .name {
+                font-size: @normal-font-size;
+                font-weight: bold;
+                margin: 0;
+                color: @black;
+                font-family: @font-normal;
+                max-width:70%;
+                .limitedLines(2, 24px);
+
+                a {
+                    text-decoration:none;
+                    color:@black;
+                }
+
+                @media @phone {
+                    min-width: 100px;
+                    font-size: @root-font-size;
+                    .limitedLines(2, 24px);
+                }
+            }
+
+            .imgAction {
+                margin-right: @standard-margin;
+                cursor:pointer;
+
+                &_wrapper{
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    max-width:35%;
+                    text-align:right;
+                    i{
+                        font-size: 18px;
+                        color: #B9B9B9;
+                    }
+                }
+
+                &:first-child {
+                    margin-right: @standard-margin*2;
+                }
+            }
+
+            .date {
+                margin-top: @standard-margin;
+                margin-right: @standard-margin;
+
+                @media @phone {
+                    position:relative;
+                }
+            }
+        }
+
+        >.properties {
+            display: inline-block;
+            margin-top: @padding-top/2;
+
+            @media @phone {
+                display: block;
+            }
+
+            > li {
+                .limitedLines(1, 24px);
+                i{
+                    color: @red;
+                }
+                @media @phone {
+                    margin-top: @standard-margin*2;
+                    .limitedLines(1, 24px);
+                }
+            }
+
+
+        }
+        > .price {
+            position: absolute;
+            right: 10px;
+            top: 0;
+            color: @red;
+            font-size: 18px;
+            display: block;
+            color: @red;
+            strong {
+                font-size: 21px;
+            }
+        }
+
+        .hostContactWrap{
+            margin-top: 10px;
+            @media @phone{
+                padding-bottom: 10px;
+            }
+            .hostContact{
+                display: none;
+                margin-bottom: 10px;
+                font-size: 14px;
+                color: #666;
+                &.show{
+                    display: block;
+                }
+                i,span,strong{
+                    vertical-align: middle;
+
+                }
+                i{
+                    font-size: 18px;
+                    margin-right: 4px;
+                }
+                strong{
+                    color: @red;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

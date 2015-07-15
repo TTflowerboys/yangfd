@@ -3,6 +3,7 @@ $(function () {
     var $placeholder = $('.emptyPlaceHolder')
     var $ownPlaceholder = $('#ownPlaceHolder')
     var $rentPlaceholder = $('#rentPlaceHolder')
+    var $contactPlaceholder = $('#rentPlaceHolder')
     var isLoading = false
     var xhr
     var ownPropertyArray
@@ -97,8 +98,14 @@ $(function () {
             }, function () {
                 defer.reject()
             })
-        } else {
+        } else if($('.buttons .button').hasClass('rent')) {
             loadRentProperty().then(function () {
+                defer.resolve()
+            }, function () {
+                defer.reject()
+            })
+        } else if($('.buttons .button').hasClass('contact')) {
+            loadContactProperty().then(function () {
                 defer.resolve()
             }, function () {
                 defer.reject()
@@ -209,6 +216,45 @@ $(function () {
         return defer.promise()
     }
 
+    function loadContactProperty() {
+        var defer = $.Deferred()
+        if (xhr && xhr.readyState !== 4) {
+            xhr.abort()
+        }
+        $placeholder.hide()
+        $list.empty()
+        $('#loadIndicator').show()
+        isLoading = true
+
+        var params = {
+            'per_page': -1,
+        }
+        xhr = $.post('/api/1/order/search_view_rent_ticket_contact_info', params)
+            .success(function (data) {
+                if (data.val && data.val.length > 0) {
+                    _.each(data.val, function (obj) {
+                        if (obj.ticket) {
+                            var houseResult = _.template($('#my_contactCard_template').html())({rent: obj.ticket})
+                            $list.append(houseResult)
+                        }
+                    })
+                    if($list.length === 0){
+                        $contactPlaceholder.show()
+                    }
+                } else {
+                    $contactPlaceholder.show()
+                }
+                defer.resolve()
+            }).fail(function () {
+                $contactPlaceholder.show()
+                defer.reject()
+            }).complete(function () {
+                $('#loadIndicator').hide()
+                isLoading = false
+            })
+        return defer.promise()
+    }
+
     function switchTypeTab(state) {
         var originHash = location.hash.slice(1)
         var param = originHash.split('?')[1]
@@ -228,45 +274,50 @@ $(function () {
         if(extraParam) {
             rentStatus = decodeURIComponent(extraParam.match(/status=(.+)/)[1]).split(',')
         }
-        if (state === 'rent') {
-            switchTypeTab(state)
-            loadRentProperty(rentStatus)
-        } else if (state === 'own') {
-            switchTypeTab(state)
-            loadOwnProperty()
-        } else if (state === 'ownOnly') {
-            $('.ui-tabs,.buttons').hide()
-            switchTypeTab('ownOnly')
-            loadOwnProperty()
-        } else if (state === 'rentOnly') {
-            $('.ui-tabs,.buttons').hide()
-            switchTypeTab('rentOnly')
-            loadRentProperty(rentStatus)
+        switch(state) {
+            case 'rent':
+                switchTypeTab(state)
+                loadRentProperty(rentStatus)
+                break
+            case 'rentOnly':
+                $('.ui-tabs,.buttons').hide()
+                switchTypeTab('rentOnly')
+                loadRentProperty(rentStatus)
+                break
+            case 'own':
+                switchTypeTab(state)
+                loadOwnProperty()
+                break
+            case 'ownOnly':
+                $('.ui-tabs,.buttons').hide()
+                switchTypeTab('ownOnly')
+                loadOwnProperty()
+                break
+            case 'contact':
+                switchTypeTab(state)
+                loadContactProperty()
+                break
+            case 'contactOnly':
+                $('.ui-tabs,.buttons').hide()
+                switchTypeTab(state)
+                loadContactProperty()
+                break
         }
+
     })
     $(window).trigger('hashchange')
     /*
      * User interaction on page
      * */
-    $('button#showRentBtn').click(function () {
-        switchTypeTab('rent')
-        //loadRentProperty()
+    _.each(['Rent', 'Own', 'Contact'], function (val) {
+        $('button#show' + val + 'Btn').click(function () {
+            switchTypeTab(val.toLowerCase())
+        })
+        $('#show' + val + 'Tab').click(function () {
+            switchTypeTab(val.toLowerCase())
+        })
     })
 
-    $('button#showOwnBtn').click(function () {
-        switchTypeTab('own')
-        //loadOwnProperty()
-    })
-
-    $('#showRentTab').click(function () {
-        switchTypeTab('rent')
-        //loadRentProperty()
-    })
-
-    $('#showOwnTab').click(function () {
-        switchTypeTab('own')
-        //loadOwnProperty()
-    })
 
 
     /*

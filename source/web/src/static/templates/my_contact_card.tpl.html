@@ -1,0 +1,98 @@
+<script id="my_contactCard_template" type="text/template">
+    <div class="contactCard"  data-id="{=rent.id=}">
+            <div class="imagePart">
+                <a href="/property-to-rent/{=rent.id=}">
+                        {_if (rent.property.cover){_}
+                            <img src="{=team.convertToHttps({'link':rent.property.cover, 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+                        {_ } else if(rent.property.reality_images && rent.property.reality_images.length) {_}
+                            <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+                        {_ }else { _}
+                            <img class="withPlaceholder"/>
+                        {_ } _}
+
+                    <div class="labels">
+                        {_if(rent.property.property_type) {_}
+                        <label class="property-type">{=rent.property.property_type.value=}</label>
+                        {_}_}
+                        {_if(rent.rent_type) {_}
+                        <label class="rent-type">{=rent.rent_type.value=}</label>
+                        {_}_}
+                    </div>
+                </a>
+            </div>
+            <div class="description_wrapper">
+                <div class="description">
+                    <div class="titles">
+                        <a href="/property-to-rent/{=rent.id=}">
+                            {_if(rent.title) {_}
+                            <p class="name">{=rent.title=}</p>
+                            {_}_}
+                        </a>
+                    </div>
+                    <ul class="properties">
+                        <li>
+                            <i class="icon-location_fill"></i>
+                            <!-- todo 国家城市数据结构更改后city中就没有country属性了，我把这儿更改后不知道会不会有问题，需要测试 --by levy-->
+                            {_if(rent.property.country && rent.property.country.code) {_}
+                                {= window.team.countryMap[rent.property.country.code] + " " =}
+                            {_}_}
+                            {_if(rent.property.city && rent.property.city.name) {_}
+                                {= rent.property.city.name + " " =}
+                            {_}_}
+                            {_if(rent.property.street) {_}
+                                {= rent.property.street =}
+                            {_}_}
+                        </li>
+                    </ul>
+                    {_if(rent.price) {_}
+                    <span class="price">{=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value),0)!}</strong>{=window.i18n('/周')=}</span>
+                    {_}_}
+
+                    {_if(rent.creator_user) {_}
+
+                    {_private_contact_methods=rent.creator_user.private_contact_methods || []_}
+                    <div class="hostContactWrap">
+                        <div class="hostContact
+                        {_if(rent.creator_user.nickname) {_}
+                        show
+                        {_}_}
+                        ">
+                            <span>Publisher: </span>
+                            <strong>{= rent.creator_user.nickname =}</strong>
+                        </div>
+                        <div class="hostPhone hostContact
+                        {_if(rent.creator_user.phone && private_contact_methods.indexOf('phone') < 0) {_}
+                        show
+                        {_}_}
+                        ">
+                            <a>
+                                <i class="ico icon-phone_icon"></i>
+                                <span>+{= rent.creator_user.country_code =}</span> <span>{= rent.creator_user.phone =}</span>
+                            </a>
+                        </div>
+                        <div class="hostEmail hostContact
+                        {_if(rent.creator_user.email && private_contact_methods.indexOf('email') < 0) {_}
+                        show
+                        {_}_}
+                        ">
+                            <a class="clearfix">
+                                <i class="ico icon-email"></i>
+                                <span class="email">{= rent.creator_user.email =}</span>
+                            </a>
+                        </div>
+                        <div class="hostWechat hostContact
+                        {_if(rent.creator_user.wechat && private_contact_methods.indexOf('wechat') < 0) {_}
+                        show
+                        {_}_}
+                        ">
+                            <i class="ico icon-wechat"></i>
+                            <span>{= rent.creator_user.wechat =}</span>
+                        </div>
+                    </div>
+
+                    {_}_}
+
+                </div>
+            </div>
+    </div>
+</script>
