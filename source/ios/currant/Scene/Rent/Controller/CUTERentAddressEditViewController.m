@@ -155,7 +155,8 @@
 - (void)onLocationEdit:(id)sender {
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
-    mapController.ticket = form.ticket;
+    CUTERentAddressMapForm *mapForm = [CUTERentAddressMapForm new];
+    mapForm.ticket = form.ticket;
     mapController.hidesBottomBarWhenPushed = YES;
     mapController.singleUseForReedit = [(CUTERentAddressEditForm *)self.formController.form singleUseForReedit];
     mapController.updateAddressCompletion = ^ {
@@ -317,9 +318,9 @@
                     form.ticket.property.propertyType = [CUTEPropertyInfoForm getDefaultPropertyType:propertyTypes];
 
                     CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
-                    controller.ticket = form.ticket;
 
                     CUTEPropertyInfoForm *infoForm = [CUTEPropertyInfoForm new];
+                    infoForm.ticket  = form.ticket;
                     infoForm.propertyType = currentTicket.property.propertyType;
                     infoForm.bedroomCount = currentTicket.property.bedroomCount? currentTicket.property.bedroomCount.integerValue: 0;
                     infoForm.livingroomCount = currentTicket.property.livingroomCount? currentTicket.property.livingroomCount.integerValue: 0;

@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "FXForms.h"
 #import "CUTETicket.h"
+#import "CUTERentAddressMapForm.h"
 
 @interface CUTERentAddressMapViewController : UIViewController <FXFormFieldViewController>
 
 @property (nonatomic, strong) FXFormField *field;
 
-@property (strong, nonatomic) CUTETicket *ticket;
+@property (strong, nonatomic) CUTERentAddressMapForm *form;
 
 @property (nonatomic) BOOL singleUseForReedit;
 

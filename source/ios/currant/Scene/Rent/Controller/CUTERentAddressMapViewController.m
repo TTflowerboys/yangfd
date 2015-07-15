@@ -125,18 +125,18 @@
 
     TrackScreen(GetScreenName(self));
     //update address after edit user's address
-    CUTEProperty *property = self.ticket.property;
+    CUTEProperty *property = self.form.ticket.property;
     _textField.text = property.address;
     [_textField setNeedsDisplay];
 
 
     if (self.singleUseForReedit) {
 
-        if (!self.ticket.property.latitude || !self.ticket.property.longitude) {
+        if (!self.form.ticket.property.latitude || !self.form.ticket.property.longitude) {
             [self onAddressLocationButtonTapped:nil];
         }
         else {
-            CLLocation *location = [[CLLocation alloc] initWithLatitude:self.ticket.property.latitude.doubleValue longitude:self.ticket.property.longitude.doubleValue];
+            CLLocation *location = [[CLLocation alloc] initWithLatitude:self.form.ticket.property.latitude.doubleValue longitude:self.form.ticket.property.longitude.doubleValue];
             if (location) {
                 MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
                 [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
@@ -144,7 +144,7 @@
         }
     }
     else {
-        if (!self.ticket.property.latitude || !self.ticket.property.longitude) {
+        if (!self.form.ticket.property.latitude || !self.form.ticket.property.longitude) {
             //wait to make sure indicator animation show
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self startUpdateLocation];
@@ -156,7 +156,7 @@
                 _isAddressUpdated = NO;
             }
             else {
-                CLLocation *location = [[CLLocation alloc] initWithLatitude:self.ticket.property.latitude.doubleValue longitude:self.ticket.property.longitude.doubleValue];
+                CLLocation *location = [[CLLocation alloc] initWithLatitude:self.form.ticket.property.latitude.doubleValue longitude:self.form.ticket.property.longitude.doubleValue];
                 if (location) {
                     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
                     [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
@@ -172,7 +172,7 @@
             CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_textField hostView:self.view tooltipText:STR(@"点击填写详细地址") arrowDirection:JDFTooltipViewArrowDirectionUp width:150 showCompletionBlock:^{
 
             } hideCompletionBlock:^{
-                
+
                 if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_MAP_ADDRESS_BUTTON_DISPLAYED])
                 {
                     CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_textField.rightView hostView:self.view tooltipText:STR(@"按地址定位") arrowDirection:JDFTooltipViewArrowDirectionUp width:120];
@@ -194,31 +194,6 @@
 }
 
 
-- (BFTask *)requestLocation {
-    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    //only need INTULocationAccuracyCity, if set other small accuracy will be very slow
-    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyCity timeout:30 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
-        if (currentLocation) {
-            [tcs setResult:currentLocation];
-        }
-        else {
-            if (status == INTULocationStatusTimedOut) {
-                [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置超时")}]];
-            }
-            else if (status == INTULocationStatusError) {
-                [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置失败")}]];
-            }
-            else if (status == INTULocationStatusServicesDenied) {
-                [tcs cancel];
-            }
-            else {
-                [tcs setError:nil];
-            }
-        }
-
-    }];
-    return tcs.task;
-}
 
 - (void)startUpdateLocation {
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
@@ -228,7 +203,7 @@
     }
     else {
         [SVProgressHUD show];
-        [[self requestLocation] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEGeoManager sharedInstance] requestCurrentLocation] continueWithBlock:^id(BFTask *task) {
             if (task.result) {
                 CLLocation *location = task.result;
                 CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:_mapView.centerCoordinate.latitude longitude:_mapView.centerCoordinate.longitude];
@@ -237,12 +212,12 @@
                     [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
 //                    [_mapView addAnnotation:[[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil]];
                 }
-                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-                self.ticket.property.latitude = @(location.coordinate.latitude);
-                self.ticket.property.longitude = @(location.coordinate.longitude);
+                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
+                self.form.ticket.property.latitude = @(location.coordinate.latitude);
+                self.form.ticket.property.longitude = @(location.coordinate.longitude);
                 [ticketListener stopListenMark];
                 //check is a draft ticket not a unfinished one
-                if (!IsNilNullOrEmpty(self.ticket.identifier)) {
+                if (!IsNilNullOrEmpty(self.form.ticket.identifier)) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
                 }
 
@@ -290,9 +265,9 @@
             [SVProgressHUD showErrorWithCancellation];
         }
         else {
-            CUTEProperty *property = self.ticket.property;
+            CUTEProperty *property = self.form.ticket.property;
             CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
-            form.ticket = self.ticket;
+            form.ticket = self.form.ticket;
             NSArray *countries = task.result;
             [form setAllCountries:countries];
 
@@ -354,13 +329,13 @@
     [_textField.indicatorView startAnimating];
 
 
-    NSString *street = [CUTEAddressUtil buildAddress:@[NilNullToEmpty(self.ticket.property.community), NilNullToEmpty(self.ticket.property.street)]];
+    NSString *street = [CUTEAddressUtil buildAddress:@[NilNullToEmpty(self.form.ticket.property.community), NilNullToEmpty(self.form.ticket.property.street)]];
     NSMutableDictionary *componmentsDictionary = [NSMutableDictionary dictionary];
-    if (self.ticket.property.country.code) {
-        [componmentsDictionary setObject:self.ticket.property.country.code forKey:@"country"];
+    if (self.form.ticket.property.country.code) {
+        [componmentsDictionary setObject:self.form.ticket.property.country.code forKey:@"country"];
     }
-    if (self.ticket.property.city.name) {
-        [componmentsDictionary setObject:self.ticket.property.city.name forKey:@"locality"];
+    if (self.form.ticket.property.city.name) {
+        [componmentsDictionary setObject:self.form.ticket.property.city.name forKey:@"locality"];
     }
     NSString *components = [CUTEGeoManager buildComponentsWithDictionary:componmentsDictionary];
     [[[CUTEGeoManager sharedInstance] geocodeWithAddress:street components:components] continueWithBlock:^id(BFTask *task) {
@@ -394,7 +369,7 @@
 }
 
 - (BOOL)validateForm {
-    CUTEProperty *property = [self.ticket property];
+    CUTEProperty *property = [self.form.ticket property];
 
     if (!property.country) {
         if (!_rentAddressEditViewController) {
@@ -432,7 +407,7 @@
         return;
     }
 
-    CUTETicket *currentTicket = self.ticket;
+    CUTETicket *currentTicket = self.form.ticket;
     if (currentTicket) {
         [SVProgressHUD show];
         Sequencer *sequencer = [Sequencer new];
@@ -468,11 +443,11 @@
                 if (!IsArrayNilOrEmpty(landloardTypes) && !IsArrayNilOrEmpty(propertyTypes)) {
                     TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
 
-                    self.ticket.landlordType = [CUTEPropertyInfoForm getDefaultLandloardType:landloardTypes];
-                    self.ticket.property.propertyType = [CUTEPropertyInfoForm getDefaultPropertyType:propertyTypes];
+                    self.form.ticket.landlordType = [CUTEPropertyInfoForm getDefaultLandloardType:landloardTypes];
+                    self.form.ticket.property.propertyType = [CUTEPropertyInfoForm getDefaultPropertyType:propertyTypes];
                     CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
-                    controller.ticket = self.ticket;
                     CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
+                    form.ticket = self.form.ticket;
                     form.propertyType = currentTicket.property.propertyType;
                     form.bedroomCount = currentTicket.property.bedroomCount? currentTicket.property.bedroomCount.integerValue: 0;
                     form.livingroomCount = currentTicket.property.livingroomCount? currentTicket.property.livingroomCount.integerValue: 0;
@@ -480,7 +455,7 @@
                     [form setAllPropertyTypes:propertyTypes];
                     [form setAllLandlordTypes:landloardTypes];
                     controller.formController.form = form;
-                    
+
                     [self.navigationController pushViewController:controller animated:YES];
                     [SVProgressHUD dismiss];
                 }
@@ -505,13 +480,13 @@
 }
 
 - (BFTask *)updateAddress {
-    CUTEProperty *property = self.ticket.property;
+    CUTEProperty *property = self.form.ticket.property;
     BFTaskCompletionSource *tcs  = [BFTaskCompletionSource taskCompletionSource];
     CLLocation *location = [[CLLocation alloc] initWithLatitude:property.latitude.doubleValue longitude:property.longitude.doubleValue];
     if (location) {
         [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
             if (task.result) {
-                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
                 CUTEPlacemark *placemark = task.result;
                 property.street = placemark.street;
                 property.zipcode = placemark.postalCode;
@@ -541,7 +516,7 @@
 
 - (void)syncWithUserInfo:(NSDictionary *)userInfo {
     //check is a draft ticket not a unfinished one
-    if (!IsNilNullOrEmpty(self.ticket.identifier)) {
+    if (!IsNilNullOrEmpty(self.form.ticket.identifier)) {
         [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:userInfo];
     }
     if (self.updateAddressCompletion) {
@@ -570,8 +545,8 @@
         //update field value
         CLLocation *location = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
                                                           longitude:mapView.centerCoordinate.longitude];
-        CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-        CUTEProperty *property = self.ticket.property;
+        CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
+        CUTEProperty *property = self.form.ticket.property;
         property.latitude = @(location.coordinate.latitude);
         property.longitude = @(location.coordinate.longitude);
         [ticketListener stopListenMark];

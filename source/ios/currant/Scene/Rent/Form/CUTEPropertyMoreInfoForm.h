@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "CUTEForm.h"
 #import "CUTEPropertyFacilityForm.h"
+#import "CUTETicketViewModelProtocol.h"
 
-@interface CUTEPropertyMoreInfoForm : CUTEForm
+@interface CUTEPropertyMoreInfoForm : CUTEForm <CUTETicketViewModelProtocol>
 
 @property (nonatomic, copy) NSString *ticketTitle;
 @property (nonatomic, copy) NSString *ticketDescription;

@@ -97,7 +97,9 @@
     else  {
         form.ticket.rentType = form.rentType;
         CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
-        mapController.ticket = form.ticket;
+        CUTERentAddressMapForm *mapForm = [CUTERentAddressMapForm new];
+        mapForm.ticket = form.ticket;
+        mapController.form = mapForm;
         mapController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:mapController animated:YES];
     }

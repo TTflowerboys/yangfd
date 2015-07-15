@@ -129,8 +129,8 @@
             }
             if (!IsArrayNilOrEmpty(landloardTypes) && !IsArrayNilOrEmpty(propertyTypes)) {
                 CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
-                controller.ticket = ticket;
                 CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
+                form.ticket = ticket;
                 form.propertyType = ticket.property.propertyType;
                 form.bedroomCount = ticket.property.bedroomCount? ticket.property.bedroomCount.integerValue: 0;
                 form.livingroomCount = ticket.property.livingroomCount? ticket.property.livingroomCount.integerValue: 0;
