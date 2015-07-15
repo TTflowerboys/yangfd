@@ -12,6 +12,9 @@ $(function () {
     var $shareAppModal = $('.shareAppModal')
     var $downloadAppModal = $('.downloadAppModal')
 
+    //Init residue degree
+    getResidueDegree()
+
     function initDisplayOfElement () { //根据data-show-client初始化元素在不同客户端的显示或隐藏状态
         $('[data-show-client]').each(function () {
             var $this = $(this)
@@ -81,6 +84,7 @@ $(function () {
         var client = window.team.getClient()
         if(client === 'app') {
             return $('#shareApp').off('click').on('click', function () {
+                ga('send', 'event', 'request_host_contact', 'click', 'share_in_app_for_contact')
                 window.bridge.callHandler('share', {'text': window.i18n('我正在使用洋房东App查找租房信息，海外租房轻松搞定，你也来试试吧'), 'url': 'http://yangfd.com/app-download', 'services': ['Wechat Circle', 'Sina Weibo']}, function(response) {
                     if (response.msg === 'ok') {
                         return shareSuccessCallback()
@@ -90,9 +94,11 @@ $(function () {
             })
         }
         if(client === 'wechat') {
+            ga('send', 'event', 'request_host_contact', 'click', 'share_in_wechat_for_contact')
             return shareAppToCircle()
         }
         if(client === 'pc') {
+            ga('send', 'event', 'request_host_contact', 'click', 'share_to_weibo_on_pc_for_contact')
             return shareAppToWeibo()
         }
 
@@ -125,6 +131,8 @@ $(function () {
                                     requestContact: 'true',
                                     ticketId: rentId
                                 })
+                                ga('send', 'pageview', '/host-contact-request/'+ rentId)
+                                ga('send', 'event', 'request_host_contact', 'click', 'open-requirement-rent-form-to-contact')
                             })
                         }
                         else if (_.findIndex(val.credits,{tag:'share_app'}) < 0 && !(window.team.isPhone() && !window.team.isWeChat() && !window.team.isCurrantClient())) { //尚未分享过App,并且不是在mobile web
@@ -132,6 +140,9 @@ $(function () {
                             $hint.css('display', 'block')
                             $requestContactBtn.off('click').on('click', function (e) {
                                 window.shareAppToGetMoreAmount()
+                                ga('send', 'pageview', '/host-contact-request/'+ rentId)
+                                ga('send', 'event', 'request_host_contact', 'click', 'open-share-form-to-contact')
+
                             })
 
                         }
@@ -145,6 +156,8 @@ $(function () {
                             $hint.css('display', 'block')
                             $requestContactBtn.off('click').on('click', function (e) {
                                 window.downloadAppToGetMoreAmount()
+                                ga('send', 'pageview', '/host-contact-request/'+ rentId)
+                                ga('send', 'event', 'request_host_contact', 'click', 'open-download-app-form-to-contact')
                             })
 
                         } else{
@@ -159,36 +172,7 @@ $(function () {
             $requestContactBtn.find('.hint').hide()
         }
     }
-    /*function setActionOfGetContactOnPhone() { //issue #7021 当用户获取联系方式的次数为0时，直接跳转到提交求租需求单
-        if (window.team.isPhone() && window.user && rentId && $('.floatBar_phone .phone a').length) {
-            $.betterPost('/api/1/credit/view_rent_ticket_contact_info/amount')
-                .done(function (val) {
-                    $residueDegree.text(val.amount)
 
-                    if(val.amount === 0) {
-
-                        if(_.findIndex(val.credits,{tag:'rent_intention_ticket'}) < 0){
-                            $hint.css('display', 'block')
-                            $exhaustSubmitTip.css('display', 'inline')
-
-                            $('.floatBar_phone .phone a').click(function (e) {
-                                e.preventDefault()
-                                window.openRequirementRentForm({
-                                    requestContact: 'true',
-                                    ticketId: rentId
-                                })
-                                return false
-                            })
-                        }else{
-                            $hint.css('display', 'none')
-                        }
-
-                    }
-                })
-                .fail(function (ret) {
-                })
-        }
-    }*/
     function reduceResidueDegree() {
         if($residueDegree.length > 0 && parseInt($residueDegree.text()) > 0) {
             //$residueDegree.text(parseInt($residueDegree.text()) - 1)
@@ -219,13 +203,6 @@ $(function () {
                     $('.hostWechat').removeClass('show')
                 }
                 $('.host .hint').fadeOut()
-                //issue #7021 触碰到了获取房东联系上限时弹出求租需求单填写框
-                /*if(host.wechat === 'yangfd1') {
-                 window.openRequirementRentForm({
-                 requestContact: 'true',
-                 ticketId: rentId
-                 })
-                 }*/
 
                 $('.hostName').text(host.nickname)
 
@@ -259,8 +236,7 @@ $(function () {
             ga('send', 'pageview', '/host-contact-request/'+ rentId)
         }
     })
-    getResidueDegree()
-    //setActionOfGetContactOnPhone()
+
     /*
      *  Get sms verfication code
      * */
@@ -392,15 +368,5 @@ $(function () {
             $contactRequestForm.find('[type=submit]').prop('disabled', true)
         }
     })
-
-
-    // Init contact request section based on url params
-    // If url have 'requestContact = true', means init with request contact button clicked
-    /*var initRequestContact = team.getQuery('requestContact')
-    if(initRequestContact){
-        $requestContactBtn.click()
-        //window.location.hash = 'contactRequest'
-    }*/
-
 
 })
