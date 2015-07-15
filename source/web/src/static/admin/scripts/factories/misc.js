@@ -113,7 +113,7 @@ angular.module('app')
                         }
                         return addToResult(key, '')
                     }
-                    if (_.isObject(newJson[key])) {
+                    if (_.isObject(newJson[key]) && !_.isArray(newJson[key])) {
                         var obj = newJson[key],
                             temp
                         if (obj._i18n !== undefined || key === 'unit_price') {
