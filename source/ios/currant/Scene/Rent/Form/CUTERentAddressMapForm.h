@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "CUTETicketViewModelProtocol.h"
+#import "BFTask.h"
 
 @interface CUTERentAddressMapForm : NSObject <CUTETicketViewModelProtocol>
+
 
 @end

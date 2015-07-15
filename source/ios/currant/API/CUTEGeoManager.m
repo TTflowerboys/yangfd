@@ -17,6 +17,7 @@
 #import "NSString+Encoding.h"
 #import "CUTETracker.h"
 #import "BBTJSON.h"
+#import "INTULocationManager.h"
 
 @implementation CUTEGeoManager
 
@@ -214,6 +215,32 @@
             return task;
         }
     }];
+}
+
+- (BFTask *)requestCurrentLocation {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    //only need INTULocationAccuracyCity, if set other small accuracy will be very slow
+    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyCity timeout:30 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+        if (currentLocation) {
+            [tcs setResult:currentLocation];
+        }
+        else {
+            if (status == INTULocationStatusTimedOut) {
+                [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置超时")}]];
+            }
+            else if (status == INTULocationStatusError) {
+                [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置失败")}]];
+            }
+            else if (status == INTULocationStatusServicesDenied) {
+                [tcs cancel];
+            }
+            else {
+                [tcs setError:nil];
+            }
+        }
+
+    }];
+    return tcs.task;
 }
 
 

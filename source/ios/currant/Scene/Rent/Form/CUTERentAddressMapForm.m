@@ -7,6 +7,10 @@
 //
 
 #import "CUTERentAddressMapForm.h"
+#import "BFTask.h"
+#import "BFTaskCompletionSource.h"
+#import "INTULocationManager.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTERentAddressMapForm
 

@@ -22,4 +22,6 @@
 
 - (BFTask *)searchPostcodeIndex:(NSString *)postCodeIndex countryCode:(NSString *)countryCode;
 
+- (BFTask *)requestCurrentLocation;
+
 @end

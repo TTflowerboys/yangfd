@@ -194,31 +194,6 @@
 }
 
 
-- (BFTask *)requestLocation {
-    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    //only need INTULocationAccuracyCity, if set other small accuracy will be very slow
-    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyCity timeout:30 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
-        if (currentLocation) {
-            [tcs setResult:currentLocation];
-        }
-        else {
-            if (status == INTULocationStatusTimedOut) {
-                [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置超时")}]];
-            }
-            else if (status == INTULocationStatusError) {
-                [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置失败")}]];
-            }
-            else if (status == INTULocationStatusServicesDenied) {
-                [tcs cancel];
-            }
-            else {
-                [tcs setError:nil];
-            }
-        }
-
-    }];
-    return tcs.task;
-}
 
 - (void)startUpdateLocation {
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
@@ -228,7 +203,7 @@
     }
     else {
         [SVProgressHUD show];
-        [[self requestLocation] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEGeoManager sharedInstance] requestCurrentLocation] continueWithBlock:^id(BFTask *task) {
             if (task.result) {
                 CLLocation *location = task.result;
                 CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:_mapView.centerCoordinate.latitude longitude:_mapView.centerCoordinate.longitude];
