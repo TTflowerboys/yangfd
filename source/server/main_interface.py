@@ -125,8 +125,12 @@ def rent_ticket_get(rent_ticket_id, user):
     #     report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket.get('zipcode_index')))
 
     title = _('房东联系方式')
-
-    return currant_util.common_template("host_contact_request-phone", rent=rent_ticket, title=title)
+    contact_info_already_fetched = len(f_app.order.search({
+        "items.id": f_app.common.view_rent_ticket_contact_info_id,
+        "ticket_id": rent_ticket_id,
+        "user.id": user["id"],
+    })) > 0
+    return currant_util.common_template("host_contact_request-phone", rent=rent_ticket, title=title, contact_info_already_fetched=contact_info_already_fetched)
 
 
 @f_get('/wechat-poster/<rent_ticket_id:re:[0-9a-fA-F]{24}>')

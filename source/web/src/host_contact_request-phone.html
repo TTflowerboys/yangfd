@@ -8,7 +8,11 @@
 
 <!--@@block = main-->
 
-<div class="host_wrapper fullHeightInClient">
+<div class="host_wrapper fullHeightInClient
+    %if contact_info_already_fetched:
+    contact_info_already_fetched
+    %end
+    ">
     <div class="host" id="host">
         <img class="avatar" src="/static/images/property_details/ico_phoneowner.png"></img>
         <label class="hostName">{{rent.get('creator_user',{}).get('nickname','')}}</label>
