@@ -15,12 +15,8 @@
         color: @grey;
     }
 
-    &:hover #name{
-        color: @red;
-
-        @media @phone {
-            color: @black;
-        }
+    &:hover .name{
+        color: @red !important;
     }
 
     @media @phone {
@@ -174,7 +170,7 @@
 
         >.properties {
             display: inline-block;
-            margin-top: @padding-top/2;
+            margin-top: 8px;
             width: 100%;
             @media @phone {
                 display: block;
@@ -208,13 +204,13 @@
         }
 
         .hostContactWrap{
-            margin-top: 10px;
+            margin-top: 0px;
             @media @phone{
                 padding-bottom: 10px;
             }
             .hostContact{
                 display: none;
-                margin-bottom: 10px;
+                margin-bottom:4px;
                 font-size: 14px;
                 color: #666;
                 &.show{
@@ -231,6 +227,12 @@
                 strong{
                     color: @red;
                     font-weight: bold;
+                }
+                a{
+                    cursor: pointer;
+                    &:hover{
+                        color: @red !important;
+                    }
                 }
             }
         }
