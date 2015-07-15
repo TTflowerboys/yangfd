@@ -54,7 +54,7 @@ $(function () {
     function shareAppToCircle() {
         $('#shareAppToCircle').off('click').on('click', function () {
             window.wechatShareSDK.init({
-                title: window.i18n('洋房东App'),
+                title: window.i18n('我正在使用洋房东App查找租房信息，海外租房轻松搞定，你也来试试吧'),
                 link: 'http://yangfd.com/app-download',
                 imgUrl: 'http://upload.yangfd.com/app_icon_x120_150427.png',
                 desc: window.i18n('我正在使用洋房东App查找租房信息，海外租房轻松搞定，你也来试试吧'),
@@ -135,20 +135,13 @@ $(function () {
                                 ga('send', 'event', 'request_host_contact', 'click', 'open-requirement-rent-form-to-contact')
                             })
                         }
-                        else if (_.findIndex(val.credits,{tag:'share_app'}) < 0 && !(window.team.isPhone() && !window.team.isWeChat() && !window.team.isCurrantClient())) { //尚未分享过App,并且不是在mobile web
+                        else if (window.team.getQuery('testShare') === 'true' && _.findIndex(val.credits,{tag:'share_app'}) < 0 && !(window.team.isPhone() && !window.team.isWeChat() && !window.team.isCurrantClient())) { //尚未分享过App,并且不是在mobile web
                             $exhaustSubmitTip.text(window.i18n('，分享洋房东App继续获取')).css('display', 'inline')
                             $hint.css('display', 'block')
                             $requestContactBtn.off('click').on('click', function (e) {
                                 window.shareAppToGetMoreAmount()
                                 ga('send', 'pageview', '/host-contact-request/'+ rentId)
                                 ga('send', 'event', 'request_host_contact', 'click', 'open-share-form-to-contact')
-
-                            })
-
-                        }
-                        else if(window.team.getQuery('testWechatShare') === 'true') {
-                            $requestContactBtn.off('click').on('click', function (e) {
-                                window.shareAppToGetMoreAmount()
                             })
                         }
                         else if (_.findIndex(val.credits,{tag:'download_ios_app'}) < 0 && !window.team.isCurrantClient()) { //尚未下载过App
