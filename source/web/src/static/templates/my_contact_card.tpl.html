@@ -28,6 +28,11 @@
                             <p class="name">{=rent.title=}</p>
                             {_}_}
                         </a>
+                        {_if(rent.last_modified_time > rent.time ) {_}
+                        <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('更新过')=}</p>
+                        {_}else{_}
+                        <p class="date">{!team.parsePublishDate(parseInt(rent.time))!}{=window.i18n('发布')=}</p>
+                        {_}_}
                     </div>
                     <ul class="properties">
                         <li>
@@ -57,7 +62,7 @@
                         show
                         {_}_}
                         ">
-                            <span>Publisher: </span>
+                            <span>{{_('房东：')}} </span>
                             <strong>{= rent.creator_user.nickname =}</strong>
                         </div>
                         <div class="hostPhone hostContact

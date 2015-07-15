@@ -145,7 +145,7 @@
                 &_wrapper{
                     position: absolute;
                     right: 0;
-                    top: 0;
+                    top: 20px;
                     max-width:35%;
                     text-align:right;
                     i{
@@ -162,9 +162,12 @@
             .date {
                 margin-top: @standard-margin;
                 margin-right: @standard-margin;
-
+                position: absolute;
+                right: 0;
+                top: 24px;
                 @media @phone {
                     position:relative;
+                    top: 0;
                 }
             }
         }
@@ -172,12 +175,13 @@
         >.properties {
             display: inline-block;
             margin-top: @padding-top/2;
-
+            width: 100%;
             @media @phone {
                 display: block;
             }
 
             > li {
+                width: 100%;
                 .limitedLines(1, 24px);
                 i{
                     color: @red;
