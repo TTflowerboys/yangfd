@@ -21,6 +21,7 @@
 #import "CUTEAPIManager.h"
 #import "NSArray+ObjectiveSugar.h"
 #import "CUTERentTicketPublisher.h"
+#import "CUTEUIMacro.h"
 
 @interface CUTEUnfinishedRentTicketListViewController ()
 
@@ -36,7 +37,7 @@
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"创建") style:UIBarButtonItemStylePlain target:self action:@selector(onAddButtonPressed:)];
     self.navigationItem.title = STR(@"出租房草稿");
-    self.tableView.backgroundColor = HEXCOLOR(0xeeeeee, 1);
+    self.tableView.backgroundColor = CUTE_BACKGROUND_COLOR;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
