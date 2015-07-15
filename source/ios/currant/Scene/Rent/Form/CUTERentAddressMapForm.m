@@ -14,4 +14,6 @@
 
 @implementation CUTERentAddressMapForm
 
+@synthesizeAssociation(CUTERentAddressMapForm, ticket);
+
 @end

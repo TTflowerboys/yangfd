@@ -68,6 +68,8 @@ PODS:
   - KVOController (1.0.3)
   - libextobjc/EXTKeyPathCoding (0.4.1):
     - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSynthesize (0.4.1):
+    - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.4.1)
   - Mantle (1.5.4):
     - Mantle/extobjc (= 1.5.4)
@@ -129,6 +131,7 @@ DEPENDENCIES:
   - KIF
   - KVOController (= 1.0.3)
   - libextobjc/EXTKeyPathCoding (= 0.4.1)
+  - libextobjc/EXTSynthesize (= 0.4.1)
   - Masonry (= 0.6.1)
   - MWPhotoBrowser (= 1.4.1)
   - NewRelicAgent

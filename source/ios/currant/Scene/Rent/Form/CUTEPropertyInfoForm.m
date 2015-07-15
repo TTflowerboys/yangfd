@@ -27,6 +27,8 @@
 
 @implementation CUTEPropertyInfoForm
 
+@synthesizeAssociation(CUTEPropertyInfoForm, ticket);
+
 - (NSArray *)fields {
     return @[
              @{FXFormFieldKey: @"photos", FXFormFieldTitle:STR(@"添加照片"), FXFormFieldHeader: STR(@"房间照片"), FXFormFieldCell: [CUTEFormImagePickerCell class], FXFormFieldType:FXFormFieldTypeImage},
