@@ -116,51 +116,55 @@ $(function () {
 
     function getResidueDegree() {
         if ($residueDegree.length > 0 && window.user) {
-            $.betterPost('/api/1/credit/view_rent_ticket_contact_info/amount')
-                .done(function (val) {
-                    $residueDegree.text(val.amount)
+            if(!$requestContactBtn.parents('.host_wrapper').hasClass('contact_info_already_fetched')){
+                $.betterPost('/api/1/credit/view_rent_ticket_contact_info/amount')
+                    .done(function (val) {
+                        $residueDegree.text(val.amount)
 
-                    // If user submitted before, or already pass cooling period since last submit
-                    if(val.amount === 0){
-                        if(_.findIndex(val.credits,{tag:'rent_intention_ticket'}) < 0){ //尚未提交过出租需求单
-                            $hint.css('display', 'block')
-                            $exhaustSubmitTip.css('display', 'inline')
+                        // If user submitted before, or already pass cooling period since last submit
+                        if(val.amount === 0){
+                            if(_.findIndex(val.credits,{tag:'rent_intention_ticket'}) < 0){ //尚未提交过出租需求单
+                                $hint.css('display', 'block')
+                                $exhaustSubmitTip.css('display', 'inline')
 
-                            $requestContactBtn.off('click').on('click', function (e) {
-                                window.openRequirementRentForm({
-                                    requestContact: 'true',
-                                    ticketId: rentId
+                                $requestContactBtn.off('click').on('click', function (e) {
+                                    window.openRequirementRentForm({
+                                        requestContact: 'true',
+                                        ticketId: rentId
+                                    })
+                                    ga('send', 'pageview', '/host-contact-request/'+ rentId)
+                                    ga('send', 'event', 'request_host_contact', 'click', 'open-requirement-rent-form-to-contact')
                                 })
-                                ga('send', 'pageview', '/host-contact-request/'+ rentId)
-                                ga('send', 'event', 'request_host_contact', 'click', 'open-requirement-rent-form-to-contact')
-                            })
+                            }
+                            else if (window.team.getQuery('testShare') === 'true' && _.findIndex(val.credits,{tag:'share_app'}) < 0 && !(window.team.isPhone() && !window.team.isWeChat() && !window.team.isCurrantClient())) { //尚未分享过App,并且不是在mobile web
+                                $exhaustSubmitTip.text(window.i18n('，分享洋房东App继续获取')).css('display', 'inline')
+                                $hint.css('display', 'block')
+                                $requestContactBtn.off('click').on('click', function (e) {
+                                    window.shareAppToGetMoreAmount()
+                                    ga('send', 'pageview', '/host-contact-request/'+ rentId)
+                                    ga('send', 'event', 'request_host_contact', 'click', 'open-share-form-to-contact')
+                                })
+                            }
+                            else if (_.findIndex(val.credits,{tag:'download_ios_app'}) < 0 && !window.team.isCurrantClient()) { //尚未下载过App
+                                $exhaustSubmitTip.text(window.i18n('，下载洋房东App继续获取')).css('display', 'inline')
+                                $hint.css('display', 'block')
+                                $requestContactBtn.off('click').on('click', function (e) {
+                                    window.downloadAppToGetMoreAmount()
+                                    ga('send', 'pageview', '/host-contact-request/'+ rentId)
+                                    ga('send', 'event', 'request_host_contact', 'click', 'open-download-app-form-to-contact')
+                                })
+                            } else{
+                                $hint.css('display', 'none')
+                            }
                         }
-                        else if (window.team.getQuery('testShare') === 'true' && _.findIndex(val.credits,{tag:'share_app'}) < 0 && !(window.team.isPhone() && !window.team.isWeChat() && !window.team.isCurrantClient())) { //尚未分享过App,并且不是在mobile web
-                            $exhaustSubmitTip.text(window.i18n('，分享洋房东App继续获取')).css('display', 'inline')
-                            $hint.css('display', 'block')
-                            $requestContactBtn.off('click').on('click', function (e) {
-                                window.shareAppToGetMoreAmount()
-                                ga('send', 'pageview', '/host-contact-request/'+ rentId)
-                                ga('send', 'event', 'request_host_contact', 'click', 'open-share-form-to-contact')
-                            })
-                        }
-                        else if (_.findIndex(val.credits,{tag:'download_ios_app'}) < 0 && !window.team.isCurrantClient()) { //尚未下载过App
-                            $exhaustSubmitTip.text(window.i18n('，下载洋房东App继续获取')).css('display', 'inline')
-                            $hint.css('display', 'block')
-                            $requestContactBtn.off('click').on('click', function (e) {
-                                window.downloadAppToGetMoreAmount()
-                                ga('send', 'pageview', '/host-contact-request/'+ rentId)
-                                ga('send', 'event', 'request_host_contact', 'click', 'open-download-app-form-to-contact')
-                            })
+                    })
+                    .fail(function (ret) {
+                        $requestContactBtn.find('.hint').hide()
+                    })
+            } else {
+                $requestContactBtn.text(window.i18n('查看房东联系方式'))
+            }
 
-                        } else{
-                            $hint.css('display', 'none')
-                        }
-                    }
-                })
-                .fail(function (ret) {
-                    $requestContactBtn.find('.hint').hide()
-                })
         } else{
             $requestContactBtn.find('.hint').hide()
         }
