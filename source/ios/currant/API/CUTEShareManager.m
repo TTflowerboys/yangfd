@@ -32,6 +32,12 @@
 
 #define THNUMBNAIL_SIZE 100
 
+NSString * const CUTEShareServiceWechatFriend = @"Wechat Friend";
+
+NSString * const CUTEShareServiceWechatCircle= @"Wechat Circle";
+
+NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
+
 @interface CUTEShareManager () <UMSocialUIDelegate, WXApiDelegate, WeiboSDKDelegate> {
 
 }

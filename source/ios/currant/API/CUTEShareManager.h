@@ -12,12 +12,12 @@
 #import "CUTETicket.h"
 #import "BFTask.h"
 
-NSString *CUTEShareServiceWechatFriend = @"Wechat Friend";
 
-NSString *CUTEShareServiceWechatCircle= @"Wechat Circle";
+extern NSString * const CUTEShareServiceWechatFriend;
 
-NSString *CUTEShareServiceSinaWeibo = @"Sina Weibo";
+extern NSString * const CUTEShareServiceWechatCircle;
 
+extern NSString * const CUTEShareServiceSinaWeibo;
 
 @interface CUTEShareManager : NSObject
 
