@@ -27,7 +27,7 @@
 #import "ATConnect.h"
 #import "CUTEUsageRecorder.h"
 #import "CUTEApptentiveEvent.h"
-
+#import "NSArray+ObjectiveSugar.h"
 
 
 #define THNUMBNAIL_SIZE 100
@@ -201,6 +201,12 @@
     return tcs.task;
 }
 
+- (NSArray *)defaultShareTitles {
+    return [@[CUTEShareServiceWechatFriend, CUTEShareServiceWechatCircle, CUTEShareServiceSinaWeibo] map:^id(id object) {
+        return STR(object);
+    }];
+}
+
 - (BFTask *)shareTicket:(CUTETicket *)ticket
 {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
@@ -214,9 +220,8 @@
             NSString *url = [[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString];
 
             AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-            
 
-            [UIActionSheet showInView:appDelegate.window withTitle:STR(@"分享") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:@[STR(@"微信好友"), STR(@"微信朋友圈"), STR(@"新浪微博")] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+            [UIActionSheet showInView:appDelegate.window withTitle:STR(@"分享") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:[self defaultShareTitles] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
 
                 [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
 
@@ -288,28 +293,40 @@
     return tcs.task;
 }
 
-- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString {
+- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString inServices:(NSArray *)services {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     self.taskCompletionSource = tcs;
 
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 
-    [UIActionSheet showInView:appDelegate.window withTitle:STR(@"分享") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:@[STR(@"微信好友"), STR(@"微信朋友圈"), STR(@"新浪微博")] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+    NSArray *otherButtons = nil;
+    if (IsArrayNilOrEmpty(services)) {
+        otherButtons = [self defaultShareTitles];
+    }
+    else {
+        otherButtons = [services map:^id(NSString *object) {
+            return STR(object);
+        }];
+    }
+
+    [UIActionSheet showInView:appDelegate.window withTitle:STR(@"分享") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:otherButtons tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
 
         [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (buttonIndex == 0) {
+            NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+            
+            if ([buttonTitle isEqualToString:STR(CUTEShareServiceWechatFriend)]) {
 
                 BaseReq *req = [self makeWechatRequstWithScene:WXSceneSession title:text description:nil thumbData:UIImagePNGRepresentation([UIImage appIcon]) url:urlString];
                 [self shareToWechatWithReq:req];
             }
 
-            else if (buttonIndex == 1) {
+            else if ([buttonTitle isEqualToString:STR(CUTEShareServiceWechatCircle)]) {
                 BaseReq *req = [self makeWechatRequstWithScene: WXSceneTimeline title:text description:nil thumbData:UIImagePNGRepresentation([UIImage appIcon]) url:urlString];
                 [self shareToWechatWithReq:req];
             }
-            else if (buttonIndex == 2) {
+            else if ([buttonTitle isEqualToString:STR(CUTEShareServiceSinaWeibo)]) {
 
                 NSInteger maxContentLength = 140;
                 NSString *content = [self truncateString:NilNullToEmpty(text) length:maxContentLength - urlString.length];
