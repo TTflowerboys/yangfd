@@ -19,10 +19,18 @@
         <ul class="contact">
             <li>
                 <span class="hint">
-                    {{_('电话：')}}
+                    {{get_phone_numbers("country_name")[0]}}{{_('电话：')}}
                 </span>
                 <lable class="value">
                     <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
+                </lable>
+            </li>
+            <li>
+                <span class="hint">
+                    {{get_phone_numbers("country_name")[1]}}{{_('电话：')}}
+                </span>
+                <lable class="value">
+                    <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[1]}}</a>
                 </lable>
             </li>
             <li>
