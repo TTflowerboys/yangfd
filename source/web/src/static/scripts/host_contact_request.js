@@ -69,12 +69,12 @@ $(function () {
             }, {
                 appMessage: {
                     success:function(){
-                        $('.guideLine').text(window.i18n('分享到朋友圈才有效'))
+                        $('.guideLine p').text(window.i18n('[分享到朋友圈]才有效'))
                     }
                 },
                 qq: {
                     success:function(){
-                        $('.guideLine').text(window.i18n('分享到朋友圈才有效'))
+                        $('.guideLine p').text(window.i18n('[分享到朋友圈]才有效'))
                     }
                 }
             })
