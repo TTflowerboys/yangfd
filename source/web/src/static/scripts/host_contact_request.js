@@ -136,7 +136,7 @@ $(function () {
                                     ga('send', 'event', 'request_host_contact', 'click', 'open-requirement-rent-form-to-contact')
                                 })
                             }
-                            else if (window.team.getQuery('testShare') === 'true' && _.findIndex(val.credits,{tag:'share_app'}) < 0 && !(window.team.isPhone() && !window.team.isWeChat() && !window.team.isCurrantClient())) { //尚未分享过App,并且不是在mobile web
+                            else if (_.findIndex(val.credits,{tag:'share_app'}) < 0 && !(window.team.isPhone() && !window.team.isWeChat() && !window.team.isCurrantClient())) { //尚未分享过App,并且不是在mobile web
                                 $exhaustSubmitTip.text(window.i18n('，分享洋房东App继续获取')).css('display', 'inline')
                                 $hint.css('display', 'block')
                                 $requestContactBtn.off('click').on('click', function (e) {
