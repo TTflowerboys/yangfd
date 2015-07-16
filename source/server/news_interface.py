@@ -122,19 +122,19 @@ def partner():
 
 @f_get('/qa-rent')
 @currant_util.check_ip_and_redirect_domain
-def qa():
+def qa_rent():
     title = _('海外租房帮助中心')
     return currant_util.common_template("qa_rent", title=title)
 
 @f_get('/qa-rent-app')
 @currant_util.check_ip_and_redirect_domain
-def qa():
+def qa_rent_app():
     title = _('洋房东APP帮助中心')
     return currant_util.common_template("qa_rent_app", title=title)
 
 @f_get('/qa-crowdfunding')
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready
-def qa():
+def qa_crowdfunding():
     title = _('众筹投资帮助中心')
     return currant_util.common_template("qa_crowdfunding", title=title)
