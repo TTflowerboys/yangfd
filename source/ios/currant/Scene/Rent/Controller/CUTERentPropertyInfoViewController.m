@@ -81,6 +81,8 @@
     FXFormField *field = [self.formController fieldForIndexPath:indexPath];
     if ([field.key isEqualToString:@"photos"]) {
         CUTEFormImagePickerCell *pickerCell = (CUTEFormImagePickerCell *)cell;
+        CUTETicketForm *form = [CUTETicketForm new];
+        pickerCell.form = form;
         pickerCell.form.ticket = self.form.ticket;
         [pickerCell update];
     }

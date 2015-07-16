@@ -594,6 +594,8 @@
                         self.form.ticket.property.cover = retProperty.cover;
                         NSMutableArray *realityImages = [NSMutableArray arrayWithArray:self.form.ticket.property.realityImages];
                         [realityImages replaceObjectAtIndex:[self.form.ticket.property.realityImages indexOfCDNPath:oldCoverURLStr] withObject:retProperty.cover];
+                        self.form.ticket.property.realityImages = realityImages;
+                        
                         [[CUTEDataManager sharedInstance] saveRentTicket:self.form.ticket];
                         [SVProgressHUD showSuccessWithStatus:STR(@"设置成功")];
 
