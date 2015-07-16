@@ -315,7 +315,19 @@
             'FR': '法国',
             'IT': '意大利',
             'ES': '西班牙',
-            'HK': '香港'
+            'HK': '香港',
+            'TW': '台湾',
+            'SG': '新加坡',
+            'MY': '马来西亚',
+            'IE': '爱尔兰',
+        },
+        getPhoneCodeOfCountry: function (code) {
+            return {
+                'CN': '+86',
+                'GB': '+44',
+                'US': '+1',
+                'HK': '+852'
+            }[code]
         },
         parsePeriodUnit: function(unit) {
             return {

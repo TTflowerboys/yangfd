@@ -11,7 +11,23 @@
         <input class="email ghostInput" name="email" type="text" placeholder="{{_('邮箱(必填)')}}" data-validator="required, trim email"/>
     </div>
     <div class="form_row">
-        <p class="budgetHint">{{_('您的预算')}}
+        <p class="hint">{{_('您想置业的国家')}}</p>
+        <select name="countrySelect" class="countrySelect ghostSelect" style="color:#4d4d4d;">
+
+            %for index, country  in enumerate(country_list_for_intention):
+            <option value="{{country.get('code')}}"
+                %if country.get('code') == 'GB' :
+            selected
+            %end
+            >
+
+            {{country.get('name')}}
+            </option>
+            %end
+        </select>
+    </div>
+    <div class="form_row">
+        <p class="hint">{{_('您的预算')}}
             (
             <!--@@include=current_currency.html -->
             )

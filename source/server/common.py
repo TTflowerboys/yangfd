@@ -76,7 +76,7 @@ class common(f_common):
     }
     i18n_sitemap_enable_locales = False
     country_list = ["GB", "CN", "HK", "US"]
-
+    country_list_for_intention = ["CN", "TW", "HK", "US", "GB", "FR", "SG", "MY", "IE"]
     sitemap_domain = "www.yangfd.com"
 
     params_replaces_list = {

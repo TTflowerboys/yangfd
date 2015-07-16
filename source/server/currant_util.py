@@ -98,6 +98,8 @@ def check_crowdfunding_ready(func):
 def get_country_list():
     return map(lambda country: {"_country": True, "code": country}, f_app.common.country_list)
 
+def get_country_list_for_intention():
+    return map(lambda country: {"_country": True, "code": country, "name": get_country_name_by_code(country)}, f_app.common.country_list_for_intention)
 
 def get_country_name_by_code(code):
     countryMap = {
@@ -111,7 +113,11 @@ def get_country_name_by_code(code):
         "FR": "法国",
         "IT": "意大利",
         "ES": "西班牙",
-        "HK": "香港"
+        "HK": "香港",
+        "TW": "台湾",
+        "SG": "新加坡",
+        "MY": "马来西亚",
+        "IE": "爱尔兰",
     }
     if code:
         return countryMap[code]
@@ -164,6 +170,9 @@ def common_template(path, **kwargs):
     if 'country_list' not in kwargs:
         country_list = get_country_list()
         kwargs['country_list'] = country_list
+    if 'country_list_for_intention' not in kwargs:
+        country_list_for_intention = get_country_list_for_intention()
+        kwargs['country_list_for_intention'] = country_list_for_intention
     if 'budget_list' not in kwargs:
         kwargs['budget_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('budget'))
     if 'occupation_list' not in kwargs:

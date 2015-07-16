@@ -100,6 +100,8 @@
             if (!valid) {return}
 
             var params = $(this).serializeObject()
+            params.phone = window.team.getPhoneCodeOfCountry(params.country) + params.phone
+            params.country = params.countrySelect
             params.locales = window.lang
 
             //for requirement phone page
