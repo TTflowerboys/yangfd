@@ -38,7 +38,6 @@
 #import "CUTEUserDefaultKey.h"
 #import "JDFTooltipManager.h"
 #import "CUTEAddressUtil.h"
-#import "CUTETicketEditingListener.h"
 
 #define kRegionDistance 800
 
@@ -193,6 +192,13 @@
 
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+    if (self.updateAddressCompletion) {
+        self.updateAddressCompletion();
+    }
+}
 
 
 - (void)startUpdateLocation {
@@ -212,13 +218,14 @@
                     [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
 //                    [_mapView addAnnotation:[[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil]];
                 }
-                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
-                self.form.ticket.property.latitude = @(location.coordinate.latitude);
-                self.form.ticket.property.longitude = @(location.coordinate.longitude);
-                [ticketListener stopListenMark];
+                CUTERentAddressMapForm *form = self.form;
                 //check is a draft ticket not a unfinished one
-                if (!IsNilNullOrEmpty(self.form.ticket.identifier)) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
+                if (!IsNilNullOrEmpty(form.ticket.identifier)) {
+                    [form syncTicketWithUpdateInfo:@{@"property.latitude": @(location.coordinate.latitude), @"property.longitude": @(location.coordinate.longitude)}];
+                }
+                else {
+                    form.ticket.property.latitude = @(location.coordinate.latitude);
+                    form.ticket.property.longitude = @(location.coordinate.longitude);
                 }
 
                 [self checkNeedUpdateAddress];
@@ -486,17 +493,16 @@
     if (location) {
         [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
             if (task.result) {
-                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
                 CUTEPlacemark *placemark = task.result;
-                property.street = placemark.street;
-                property.zipcode = placemark.postalCode;
-                property.country = placemark.country;
-                property.city = placemark.city;
-                property.community = nil;
-                property.floor = nil;
-                property.houseName = nil;
-                [ticketListener stopListenMark];
-                [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+                [self.form syncTicketWithUpdateInfo:@{@"property.street": placemark.street,
+                            @"property.zipcode": placemark.postalCode,
+                            @"property.country": placemark.country,
+                            @"property.city": placemark.city,
+                            @"property.community": [NSNull null],
+                            @"property.floor": [NSNull null],
+                            @"property.houseName": [NSNull null],
+                            }];
+
                 _textField.text = property.address;
                 [_textField setNeedsDisplay];
                 [tcs setResult:_textField.text];
@@ -512,16 +518,6 @@
         [tcs setError:nil];
     }
     return tcs.task;
-}
-
-- (void)syncWithUserInfo:(NSDictionary *)userInfo {
-    //check is a draft ticket not a unfinished one
-    if (!IsNilNullOrEmpty(self.form.ticket.identifier)) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:userInfo];
-    }
-    if (self.updateAddressCompletion) {
-        self.updateAddressCompletion();
-    }
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(__unused BOOL)animated
@@ -545,12 +541,15 @@
         //update field value
         CLLocation *location = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
                                                           longitude:mapView.centerCoordinate.longitude];
-        CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
-        CUTEProperty *property = self.form.ticket.property;
-        property.latitude = @(location.coordinate.latitude);
-        property.longitude = @(location.coordinate.longitude);
-        [ticketListener stopListenMark];
-        [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+
+        if (!IsNilNullOrEmpty(self.form.ticket.identifier)) {
+            [self.form syncTicketWithUpdateInfo:@{@"property.latitude": @(location.coordinate.latitude), @"property.longitude": @(location.coordinate.longitude)}];
+        }
+        else {
+            self.form.ticket.property.latitude = @(location.coordinate.latitude);
+            self.form.ticket.property.longitude = @(location.coordinate.longitude);
+        }
+
         [_textField.indicatorView startAnimating];
         [[self checkNeedUpdateAddress] continueWithBlock:^id(BFTask *task) {
             [_textField.indicatorView stopAnimating];

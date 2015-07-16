@@ -12,7 +12,6 @@
 
 @interface CUTERentShareViewController : CUTEFormViewController
 
-@property (strong, nonatomic) CUTETicket *ticket;
 
 
 @end

@@ -8,8 +8,9 @@
 
 #import "CUTEForm.h"
 #import "CUTEArea.h"
+#import "CUTETicketForm.h"
 
-@interface CUTEAreaForm : CUTEForm
+@interface CUTEAreaForm : CUTETicketForm
 
 @property (strong, nonatomic) NSString *unitPresentation;
 

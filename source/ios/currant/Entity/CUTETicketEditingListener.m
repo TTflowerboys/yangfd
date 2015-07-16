@@ -11,7 +11,6 @@
 
 @interface CUTETicketEditingListener () {
 
-    CUTEModelEditingListener *_propertyListener;
 
 }
 
@@ -44,21 +43,6 @@
 - (void)stopListenMark {
     [super stopListenMark];
     [_propertyListener stopListenMark];
-}
-
-- (NSDictionary *)getSyncUserInfo {
-    NSDictionary *ticketParams = self.getEditedParams;
-    NSDictionary *propertyParams = _propertyListener.getEditedParams;
-
-    NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithObject:self.sayer forKey:@"ticket"];
-    if (ticketParams && ticketParams.count) {
-        [userInfo setObject:ticketParams forKey:@"ticketParams"];
-    }
-    if (propertyParams && propertyParams.count) {
-        [userInfo setObject:propertyParams forKey:@"propertyParams"];
-    }
-    
-    return userInfo;
 }
 
 @end

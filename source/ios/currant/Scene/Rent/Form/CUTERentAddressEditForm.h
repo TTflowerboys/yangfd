@@ -14,9 +14,9 @@
 #import "CUTECountry.h"
 #import "CUTETicket.h"
 #import "BFTask.h"
-#import "CUTETicketViewModelProtocol.h"
+#import "CUTETicketForm.h"
 
-@interface CUTERentAddressEditForm : CUTEForm <CUTETicketViewModelProtocol>
+@interface CUTERentAddressEditForm : CUTETicketForm
 
 @property (strong, nonatomic) CUTECountry *country;
 @property (strong, nonatomic) CUTECity *city;

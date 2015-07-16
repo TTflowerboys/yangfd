@@ -29,7 +29,6 @@
 #import "UIImageView+Assets.h"
 #import "NSURL+Assets.h"
 #import <UIAlertView+Blocks.h>
-#import "CUTETicketEditingListener.h"
 #import "CUTENotificationKey.h"
 #import "CUTEAPIManager.h"
 #import "NSString+CUTECDN.h"
@@ -94,7 +93,7 @@
 
 - (BFTask *)updateImagesFromAssets:(NSArray *)assets {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    [[[CUTEImageUploader sharedInstance] getAssetURLsOrNullsFromURLArray:self.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEImageUploader sharedInstance] getAssetURLsOrNullsFromURLArray:self.form.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
         NSArray *urlHasAssetOrNullArrray = IsArrayNilOrEmpty(task.result)? [NSMutableArray array]: [NSMutableArray arrayWithArray:task.result];
         NSArray *assetURLs  = [assets map:^id(ALAsset *object) {
             return [[object valueForProperty:ALAssetPropertyAssetURL] absoluteString];
@@ -105,22 +104,22 @@
         }];
 
         NSMutableArray *deletedImages = [NSMutableArray array];
-        if (!IsArrayNilOrEmpty(self.ticket.property.realityImages) && urlHasAssetOrNullArrray.count == self.ticket.property.realityImages.count) {
+        if (!IsArrayNilOrEmpty(self.form.ticket.property.realityImages) && urlHasAssetOrNullArrray.count == self.form.ticket.property.realityImages.count) {
             int count = urlHasAssetOrNullArrray.count;
             for (int i = 0; i < count; i++)
             {
                 NSString *object = [urlHasAssetOrNullArrray objectAtIndex:i];
                 if (!IsNilOrNull(object) && ![assetURLs containsObject:object]) {
-                    [deletedImages addObject:[self.ticket.property.realityImages objectAtIndex:i]];
+                    [deletedImages addObject:[self.form.ticket.property.realityImages objectAtIndex:i]];
                 }
             }
         }
 
-        NSMutableArray *newImages = [NSMutableArray arrayWithArray:self.ticket.property.realityImages? : @[]];
+        NSMutableArray *newImages = [NSMutableArray arrayWithArray:self.form.ticket.property.realityImages? : @[]];
         [newImages removeObjectsInArray:deletedImages];
         [newImages addObjectsFromArray:newAddImages];
-        self.ticket.property.realityImages = [NSMutableArray arrayWithArray:IsArrayNilOrEmpty(newImages)? @[]: newImages];
-        [tcs setResult:self.ticket.property.realityImages];
+        self.form.ticket.property.realityImages = [NSMutableArray arrayWithArray:IsArrayNilOrEmpty(newImages)? @[]: newImages];
+        [tcs setResult:self.form.ticket.property.realityImages];
         return nil;
     }];
 
@@ -128,23 +127,23 @@
 }
 
 - (void)addImage:(NSString *)imageURLStr {
-    if (IsArrayNilOrEmpty(self.ticket.property.realityImages)) {
-        self.ticket.property.realityImages = [NSMutableArray arrayWithObject:imageURLStr];
+    if (IsArrayNilOrEmpty(self.form.ticket.property.realityImages)) {
+        self.form.ticket.property.realityImages = [NSMutableArray arrayWithObject:imageURLStr];
     }
     else
     {
-        self.ticket.property.realityImages = [NSMutableArray arrayWithArray:[self.ticket.property.realityImages arrayByAddingObject:imageURLStr]];
+        self.form.ticket.property.realityImages = [NSMutableArray arrayWithArray:[self.form.ticket.property.realityImages arrayByAddingObject:imageURLStr]];
     }
 }
 
 - (void)update
 {
-    BOOL hidePlaceHolder = !IsArrayNilOrEmpty([self ticket].property.realityImages);
+    BOOL hidePlaceHolder = !IsArrayNilOrEmpty(self.form.ticket.property.realityImages);
     [_placeholderView setHidden:hidePlaceHolder];
     [_scrollView setHidden:!hidePlaceHolder];
     [_addButton setHidden:!hidePlaceHolder];
 
-    [self updateThumbnails:[self ticket].property.realityImages];
+    [self updateThumbnails:self.form.ticket.property.realityImages];
 
     [self setNeedsLayout];
 }
@@ -161,8 +160,8 @@
 }
 
 - (BOOL)isCoverURLString:(NSString *)urlStr atIndex:(NSUInteger)index {
-    if (!IsNilNullOrEmpty(self.ticket.property.cover)) {
-        return [urlStr isCDNPathEqualToCDNPath:self.ticket.property.cover];
+    if (!IsNilNullOrEmpty(self.form.ticket.property.cover)) {
+        return [urlStr isCDNPathEqualToCDNPath:self.form.ticket.property.cover];
     }
     else {
         return index == 0;
@@ -313,7 +312,7 @@
             [SVProgressHUD showErrorWithCancellation];
         }
         else {
-            [[[CUTEImageUploader sharedInstance] getAssetsOrNullsFromURLArray:self.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEImageUploader sharedInstance] getAssetsOrNullsFromURLArray:self.form.ticket.property.realityImages] continueWithBlock:^id(BFTask *task) {
                 NSArray *assets = IsArrayNilOrEmpty(task.result)? [NSMutableArray array]: [NSMutableArray arrayWithArray:task.result];
                 [self assetsPickerController].selectedAssets = [NSMutableArray arrayWithArray:[assets select:^BOOL(id object) {
                     return !IsNilOrNull(object);
@@ -397,14 +396,14 @@
         }
         else if (buttonIndex == 1) {
 
-            if (self.ticket.property.realityImages.count >= kImageMaxCount) {
+            if (self.form.ticket.property.realityImages.count >= kImageMaxCount) {
                 UIAlertView *alertView =
                 [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:STR(@"您好，最多只能上传%d张图片"), kImageMaxCount]
                                            message:nil
                                           delegate:nil
                                  cancelButtonTitle:nil
                                  otherButtonTitles:STR(@"OK"), nil];
-                
+
                 [alertView show];
             }
             else {
@@ -440,10 +439,10 @@
         [self update];
 
         [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-        [[CUTEDataManager sharedInstance] saveRentTicket:self.ticket];
+        [[CUTEDataManager sharedInstance] saveRentTicket:self.form.ticket];
         //TODO why here slow down the performance
 
-        [[[CUTERentTicketPublisher sharedInstance] uploadImages:self.ticket.property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
+        [[[CUTERentTicketPublisher sharedInstance] uploadImages:self.form.ticket.property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
@@ -454,13 +453,13 @@
                 [SVProgressHUD showErrorWithCancellation];
             }
             else {
-                CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-                self.ticket.property.realityImages = task.result;
-                if (IsNilNullOrEmpty(self.ticket.property.cover)) {
-                    self.ticket.property.cover = [self.ticket.property.realityImages firstObject];
+                NSArray *images = task.result;
+                NSString *cover = self.form.ticket.property.cover;
+                if (IsNilNullOrEmpty(cover)) {
+                    cover = [self.form.ticket.property.realityImages firstObject];
                 }
-                [ticketListener stopListenMark];
-                [NotificationCenter postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
+                [self.form syncTicketWithUpdateInfo:@{@"property.realityImages": images, @"property.cover": cover}];
+
             }
             return task;
         }];
@@ -511,7 +510,7 @@
 
 - (UIBarButtonItem *)getActionButtonForPhotoBrowser:(MWPhotoBrowser *)photoBrowser atIndex:(NSUInteger)index
 {
-    NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
+    NSString *asset = [self.form.ticket.property.realityImages objectAtIndex:index];
 
     if ([self isCoverURLString:asset atIndex:index]) {
         UIBarButtonItem *setCoverItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"已是封面") style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -527,12 +526,12 @@
 
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
 {
-    return [[[self ticket] property] realityImages].count;
+    return [[self.form.ticket property] realityImages].count;
 }
 
 - (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index
 {
-    NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
+    NSString *asset = [self.form.ticket.property.realityImages objectAtIndex:index];
     return [MWPhoto photoWithURL:[NSURL URLWithString:asset]];
 }
 
@@ -544,7 +543,7 @@
 
 - (BOOL)photoBrowser:(MWPhotoBrowser *)photoBrowser isPhotoSelectedAtIndex:(NSUInteger)index
 {
-    NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
+    NSString *asset = [self.form.ticket.property.realityImages objectAtIndex:index];
     if (!asset.attachment) {
         return YES;
     }
@@ -554,17 +553,17 @@
 }
 
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index selectedChanged:(BOOL)selected {
-    NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
+    NSString *asset = [self.form.ticket.property.realityImages objectAtIndex:index];
     asset.attachment = [NSNumber numberWithBool:selected];
 }
 
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index {
-    NSString *asset = [[self ticket].property.realityImages objectAtIndex:index];
-    self.ticket.property.cover = asset;
-    [[CUTEDataManager sharedInstance] saveRentTicket:self.ticket];
+    NSString *asset = [self.form.ticket.property.realityImages objectAtIndex:index];
+    self.form.ticket.property.cover = asset;
+    [[CUTEDataManager sharedInstance] saveRentTicket:self.form.ticket];
 
     [SVProgressHUD showWithStatus:STR(@"设置中...")];
-    [[[CUTERentTicketPublisher sharedInstance] uploadImages:@[self.ticket.property.cover] updateStatus:^(NSString *status) {
+    [[[CUTERentTicketPublisher sharedInstance] uploadImages:@[self.form.ticket.property.cover] updateStatus:^(NSString *status) {
 
     }] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
@@ -577,7 +576,7 @@
             [SVProgressHUD showErrorWithCancellation];
         }
         else {
-            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", self.ticket.property.identifier, @"/edit") parameters:@{@"cover": @{DEFAULT_I18N_LOCALE: [task.result firstObject]}} resultClass:[CUTEProperty class]] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", self.form.ticket.property.identifier, @"/edit") parameters:@{@"cover": @{DEFAULT_I18N_LOCALE: [task.result firstObject]}} resultClass:[CUTEProperty class]] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
@@ -591,11 +590,13 @@
                     CUTEProperty *retProperty = task.result;
                     if (retProperty && !IsNilNullOrEmpty(retProperty.cover)) {
 
-                        NSString *oldCoverURLStr = self.ticket.property.cover;
-                        self.ticket.property.cover = retProperty.cover;
-                        NSMutableArray *realityImages = [NSMutableArray arrayWithArray:self.ticket.property.realityImages];
-                        [realityImages replaceObjectAtIndex:[self.ticket.property.realityImages indexOfCDNPath:oldCoverURLStr] withObject:retProperty.cover];
-                        [[CUTEDataManager sharedInstance] saveRentTicket:self.ticket];
+                        NSString *oldCoverURLStr = self.form.ticket.property.cover;
+                        self.form.ticket.property.cover = retProperty.cover;
+                        NSMutableArray *realityImages = [NSMutableArray arrayWithArray:self.form.ticket.property.realityImages];
+                        [realityImages replaceObjectAtIndex:[self.form.ticket.property.realityImages indexOfCDNPath:oldCoverURLStr] withObject:retProperty.cover];
+                        self.form.ticket.property.realityImages = realityImages;
+                        
+                        [[CUTEDataManager sharedInstance] saveRentTicket:self.form.ticket];
                         [SVProgressHUD showSuccessWithStatus:STR(@"设置成功")];
 
                         UIToolbar *toolbar = [self getToolbarFromPhotoBrowser:photoBrowser];
@@ -605,7 +606,7 @@
                         [SVProgressHUD showErrorWithStatus:STR(@"设置失败")];
                     }
                 }
-                
+
                 return task;
             }];
         }
@@ -617,13 +618,13 @@
 
 - (void)photoBrowserDidFinishModalPresentation:(MWPhotoBrowser *)photoBrowser {
 
-    NSArray *editedAssets = [[self ticket].property.realityImages select:^BOOL(NSString *asset) {
+    NSArray *editedAssets = [self.form.ticket.property.realityImages select:^BOOL(NSString *asset) {
         return asset.attachment == nil || [asset.attachment boolValue];
     }];
-    self.ticket.property.realityImages = [NSMutableArray arrayWithArray:IsArrayNilOrEmpty(editedAssets)? @[]: editedAssets];
+    self.form.ticket.property.realityImages = [NSMutableArray arrayWithArray:IsArrayNilOrEmpty(editedAssets)? @[]: editedAssets];
     //user may delete the cover
-    if (![editedAssets containsCDNPath:self.ticket.property.cover]) {
-        self.ticket.property.cover = nil;
+    if (![editedAssets containsCDNPath:self.form.ticket.property.cover]) {
+        self.form.ticket.property.cover = nil;
     }
     [self update];
     [[self tableViewController] dismissViewControllerAnimated:YES completion:nil];
@@ -651,8 +652,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             [picker dismissViewControllerAnimated:YES completion:NULL];
             [SVProgressHUD dismiss];
 
-            [[CUTEDataManager sharedInstance] saveRentTicket:self.ticket];
-            [[[CUTERentTicketPublisher sharedInstance] uploadImages:self.ticket.property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
+            [[CUTEDataManager sharedInstance] saveRentTicket:self.form.ticket];
+            [[[CUTERentTicketPublisher sharedInstance] uploadImages:self.form.ticket.property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
@@ -663,13 +664,13 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
                     [SVProgressHUD showErrorWithCancellation];
                 }
                 else {
-                    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-                    self.ticket.property.realityImages = task.result;
-                    if (IsNilNullOrEmpty(self.ticket.property.cover)) {
-                        self.ticket.property.cover = [self.ticket.property.realityImages firstObject];
+                    NSArray *images = task.result;
+                    NSString *cover = self.form.ticket.property.cover;
+                    if (IsNilNullOrEmpty(cover)) {
+                        cover = [self.form.ticket.property.realityImages firstObject];
                     }
-                    [ticketListener stopListenMark];
-                    [NotificationCenter postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
+
+                    [self.form syncTicketWithUpdateInfo:@{@"property.realityImages": images, @"property.cover": cover}];
                 }
                 return task;
             }];

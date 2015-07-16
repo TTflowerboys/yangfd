@@ -15,9 +15,9 @@
 #import "CUTEAreaForm.h"
 #import "CUTEProperty.h"
 #import "CUTERentTypeListForm.h"
-#import "CUTETicketViewModelProtocol.h"
+#import "CUTETicketForm.h"
 
-@interface CUTEPropertyInfoForm : CUTEForm <CUTETicketViewModelProtocol>
+@interface CUTEPropertyInfoForm : CUTETicketForm
 
 @property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, strong) CUTERentPriceForm *rentPrice;

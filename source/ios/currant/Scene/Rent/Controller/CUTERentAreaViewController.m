@@ -15,13 +15,23 @@
 #import "CUTERentTicketPublisher.h"
 #import "CUTENotificationKey.h"
 #import "CUTEModelEditingListener.h"
-#import "CUTETicketEditingListener.h"
 
 @implementation CUTERentAreaViewController
+
+- (CUTEAreaForm *)form {
+    return (CUTEAreaForm *)self.formController.form;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = STR(@"面积");
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.updateRentAreaCompletion) {
+        self.updateRentAreaCompletion();
+    }
 }
 
 - (void)optionBack {
@@ -33,26 +43,18 @@
     [self updateTicket];
 }
 
-- (void)syncWithUserInfo:(NSDictionary *)userInfo {
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:userInfo];
-    if (self.updateRentAreaCompletion) {
-        self.updateRentAreaCompletion();
-    }
-}
-
 - (void)updateTicket {
     CUTEAreaForm *form = (CUTEAreaForm *)self.formController.form;
-    CUTETicket *ticket = self.ticket;
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    ticket.space = [CUTEArea areaWithValue:form.area unit:form.unit];
+    CUTETicket *ticket = self.form.ticket;
+    CUTEArea *area = [CUTEArea areaWithValue:form.area unit:form.unit];
     if (ticket.rentType.slug && [ticket.rentType.slug hasSuffix:@":whole"]) {
-        ticket.property.space = ticket.space;
+        [form syncTicketWithUpdateInfo:
+                            @{@"space": area, @"property.space": area}];
     }
     else {
-        ticket.property.space = nil;
+        [form syncTicketWithUpdateInfo:
+                            @{@"space": area, @"property.space": [NSNull null]}];
     }
-    [ticketListener stopListenMark];
-    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
 }
 
 @end

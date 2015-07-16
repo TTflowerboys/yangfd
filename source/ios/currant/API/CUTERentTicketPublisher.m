@@ -98,10 +98,34 @@
     return tcs.task;
 }
 
+- (NSDictionary *)validatePropertyParams:(NSDictionary *)propertyParams {
+    NSMutableDictionary *retPropertyParams = [NSMutableDictionary dictionaryWithDictionary:propertyParams];
+
+    //validate latitude and longitude
+    if (propertyParams[@"latitude"] && !propertyParams[@"longitude"]) {
+        [retPropertyParams removeObjectForKey:@"latitude"];
+        [retPropertyParams removeObjectForKey:@"longitude"];
+    }
+    else if (!propertyParams[@"latitude"] && propertyParams[@"longitude"]) {
+        [retPropertyParams removeObjectForKey:@"latitude"];
+        [retPropertyParams removeObjectForKey:@"longitude"];
+    }
+    else if (propertyParams[@"latitude"] && propertyParams[@"longitude"]) {
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:[propertyParams[@"latitude"] doubleValue] longitude:[propertyParams[@"longitude"] doubleValue]];
+        if (!location) {
+            [retPropertyParams removeObjectForKey:@"latitude"];
+            [retPropertyParams removeObjectForKey:@"longitude"];
+        }
+    }
+    return retPropertyParams;
+}
+
 - (BFTask *)editTicketWithTicket:(CUTETicket *)ticket ticketParams:(NSDictionary *)ticketParams propertyParams:(NSDictionary *)propertyParams {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     Sequencer *sequencer = [Sequencer new];
     __block CUTEProperty *retProperty = ticket.property;
+    propertyParams = [self validatePropertyParams:propertyParams];
+
     if (propertyParams && propertyParams.count > 0) {
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             NSAssert(ticket.property, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");

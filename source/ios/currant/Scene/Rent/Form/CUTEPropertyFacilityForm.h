@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "CUTEForm.h"
 #import "CUTEEnum.h"
+#import "CUTETicketForm.h"
 
-@interface CUTEPropertyFacilityForm : CUTEForm
+@interface CUTEPropertyFacilityForm : CUTETicketForm
 
 - (void)setAllIndoorFacilities:(NSArray *)indoorFacilities;
 

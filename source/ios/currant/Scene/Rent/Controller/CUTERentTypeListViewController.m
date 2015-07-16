@@ -18,7 +18,6 @@
 #import "CUTEFormRentTypeCell.h"
 #import "CUTENotificationKey.h"
 #import "CUTETracker.h"
-#import "CUTETicketEditingListener.h"
 
 @interface CUTERentTypeListViewController ()
 {
@@ -84,12 +83,9 @@
 
     if (form.singleUseForReedit) {
         [self.navigationController popViewControllerAnimated:YES];
+        [form syncTicketWithUpdateInfo:@{
+                                         @"rentType": form.rentType}];
 
-        //TODO refine listener,
-        CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:form.ticket];
-        form.ticket.rentType = form.rentType;
-        [ticketListener stopListenMark];
-        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
         if (self.updateRentTypeCompletion) {
             self.updateRentTypeCompletion();
         }
