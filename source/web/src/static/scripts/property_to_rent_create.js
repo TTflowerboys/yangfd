@@ -13,6 +13,12 @@
     window.ticketId = $('#publish').data('ticketid') || location.hash.split('#/publish/')[1]
     var createStartTime = new Date()
     var smsSendTime
+    function redirectOnPhone () {
+        if (window.team.isPhone()) {
+            location.href = '/app-download'
+        }
+    }
+    redirectOnPhone()
 
     function initSelect(selector) {
         $(selector + ' div').click(function () {
