@@ -1,0 +1,254 @@
+<!--@@master=masters/aboutus_master.html-->
+<!--@@block=head -->
+
+<!--build:css(dist) /static/styles/qa.html.css-->
+<link rel="stylesheet" href="/static/styles/aboutus.css"/>
+<link rel="stylesheet" href="/static/styles/qa.css"/>
+<!--endbuild-->
+
+<!--@@close-->
+
+<!--@@block=main -->
+
+<div class="container">
+    <h1 class="title">{{_('洋房东APP帮助中心')}}</h1>
+    <div class="content">
+        <p class="intro">
+            洋房东致力于为英国华人房东和租客提供专业简单的租房找房工具。为房东带来极速租房发布体验，独有的伦敦街区生活、房价报告，杂志般的房源移动主页。为租客带来个性化的找房体验，优质房源，长租短租，地图找房，让海外租房变得简单、便利。如您有其他问题，请随时联系我们：
+        </p>
+        <ul class="contact">
+            <li>
+                <span class="hint">
+                    {{_('电话：')}}
+                </span>
+                <lable class="value">
+                    <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
+                </lable>
+            </li>
+            <li>
+                <span class="hint">
+                    {{_('邮箱：')}}
+                </span>
+                <lable class="value">
+                    <a href="mailto:services@youngfunding.co.uk">services@youngfunding.co.uk</a>
+                </lable>
+            </li>
+        </ul>
+
+        <div class="qas">
+            <div class="general qaCategory">
+                <h3 name="contactRequest">{{_('App安装遇到问题?')}}</h3>
+                <ul class="questions">
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('怎样安装洋房东APP?')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('洋房东APP暂时只支持iOS７以上系统版本，您可以在苹果App Store直接搜索下载，也可以进入我们的官方网站进行下载安装，网址：http://yangfd.com/app-download；再次感谢您对洋房东团队的支持！')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('APP安装失败怎么办？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('如果您遇到洋房东App安装失败，请先检查您的系统版本是否为iOS7以上版本；如果自行解决不了的问题，可以24小时随时邮件给我们，洋房东团队会尽快为您解决问题！')}}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="general qaCategory">
+                <h3 name="contactRequest">{{_('发布房产遇到问题?')}}</h3>
+                <ul class="questions">
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_(如何发布房产？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('房产发布流程：登陆应用，在首页点击下方【+出租发布】，即可按照系统提示快速发布您的房产信息！发布过程超级省力！')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('如何查看自己已经发布的房产？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('点击【+出租发布】，点击左上角【已发布】，即可查看到自己的房产。')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('刷新已经发布的房产的规则和作用是什么？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('刷新将使您的房源在平台房产列表中置顶展示，同时展示刷新时间，向租客表示您的房源依然待出租。')}}
+                        </p>
+                        <p class="answer">
+                            {{_('刷新规则为点击【+出租发布】，点击左上角【已发布】，打开已发布的房产列表，找出要刷新的房产，点击“刷新”即可。注意每24小时只能刷新一次。')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('如何编辑修改已经发布的房产？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('点击【+出租发布】，点击左上角【已发布】，打开已发布的房产列表，找出要编辑修改的房产，点击房产标题右边的【笔形】图标，即可编辑修改自己的房产。')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('房产怎么被出租？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('当您发布出租信息后，平台的租客会第一时间看到您的房产信息，通过平台获取您的联系方式主动与您联系。注：房客与房东接触或租金谈判，洋房东不会介入。洋房东团队不会以任何形式收取任何费用！')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('房子租出去后，怎么删除在平台上的出租信息？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('点击【+出租发布】，点击左上角【已发布】，打开已发布的房产列表，找出要修改的房产，点击“确认已出租”，该房源将不再平台展示，但您以后想再次出租时可以在此重新发布即可。')}}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="general qaCategory">
+                <h3 name="contactRequest">{{_('房产分享遇到问题?')}}</h3>
+                <ul class="questions">
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('发布房源信息，如何分享微信好友，朋友圈或者新浪微博？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('发布成功后分享：在您出租信息发布成功后，直接在弹出的分享选择中选择“微信好友”，微信朋友圈”或者“新浪微博”。')}}
+
+                        </p>
+                        <p class="answer">
+                            {{_('分享自己已发布的房源：点击【+出租发布】，点击左上角【已发布】，打开已发布的房产列表，直接点击“微信分享”，在弹出的分享选择中可以选择“微信好友”，微信朋友圈”或者“新浪微博”。')}}
+                        </p>
+                        <p class="answer">
+                            {{_('分享平台的房源：在【出租列表】点开您要分享的房产详情，点击右上角的分享图标，在弹出的分享选择中可以选择“微信好友”，微信朋友圈”或者“新浪微博”。')}}
+                        </p>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="general qaCategory">
+                <h3 name="contactRequest">{{_('收取租金问题?')}}</h3>
+                <ul class="questions">
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('洋房东全线服务及洋房东app免费吗？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('洋房东专业租房团队为您免费服务，不会以任何形式收取您任何费用，请您安心使用！')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('房东怎样收取租金？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('洋房东专业租房团队只为您提供专业全面的租房信息平台。在房东和房客自行联系后，线下可自行交易，洋房东租房团队将不会以任何形式收取任何费用！请您安心使用！')}}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="general qaCategory">
+                <h3 name="contactRequest">{{_('如何获取房东联系方式？')}}</h3>
+                <ul class="questions">
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('什么是联系房东机会?')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('作为洋房东平台的租客，每次选择获取一个房源的房东联系方式会用掉一次联系房东机会，重复获取同一个房源的房东联系方式不会重复消耗。此举是为了保护平台上的房东的隐私，防止房东联系方式被随意泄露给无关人员。')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('作为租客，我有多少联系房东的机会?')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('当您注册成为洋房东平台用户时，会获得')}}<strong>1</strong>{{_('次联系房东的机会。同时自注册时间起，每个月将获得')}}<strong>1</strong>{{_('次联系房东的机会，但不会累加。此外，您还可以使用下面介绍的其他方法增加自己联系房东的机会。')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('如何通过提交求租需求单获取额外联系房东的机会?')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('当您查看心仪房源时，如果没有剩余联系房东机会，可以填写点击‘获取联系方式’后弹出的求租需求单来获取')}}<strong>1</strong>{{_('次额外的联系房东的机会，提交成功后您将可以看到房东的联系方式，但是多次提交求租需求但不能叠加获取联系房东机会。')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('如何通过分享洋房东APP获取额外联系房东的机会?')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('当您查看心仪房源时，如果没有剩余联系房东机会，可以点击‘获取联系方式’后，根据弹出的分享说明将洋房东APP分享到新浪微博或微信朋友圈来获取')}}<strong>1</strong>{{_('次额外的联系房东的机会，提交成功后您将可以看到房东的联系方式，但是多次提交求租需求但不能叠加获取联系房东机会。')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('如何通过下载洋房东APP获取额外联系房东的机会?')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('当您查看心仪房源时，如果没有剩余联系房东机会，可以点击‘获取联系方式’后，根据弹出的下载APP说明下载APP，并且登录您的帐号来获取')}}<strong>1</strong>{{_('次额外的联系房东的机会，提交成功后您将可以看到房东的联系方式，但是多次提交求租需求但不能叠加获取联系房东机会。')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('如何查看所有我获取过联系方式的房源?')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('在您的个人中心的“我的房产”中点击"')}}<a href="/user-properties#contact">{{_('已联系')}}</a>{{_('"就能查看所有您获取过联系方式的房源的列表，点击“查看联系方式”可以再次获取，并且不会消耗联系房东的机会。')}}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--@@close-->
+<!--@@block = scripts -->
+<script>
+    window.updateCategoryFixed = function () {
+        if (!window.team.isPhone()) {
+            var scrollOffset = $(window).scrollTop()
+            var $list = $('.content')
+            var listTop = $list.offset().top
+            var $category = $('.category')
+            var tagsLeft = $list.offset().left + $list.width() + 40
+            if (scrollOffset > listTop - 20) {
+                $category.css({'position': 'fixed', 'top': '20px', left: tagsLeft})
+            }
+            else {
+                $category.css({'position': 'static', 'top': '0', left: '0'})
+            }
+        }
+    }
+    $(window).scroll(window.updateCategoryFixed);
+    $(window).resize(window.updateCategoryFixed);
+</script>
+<!--@@close -->
