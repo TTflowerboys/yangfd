@@ -177,7 +177,6 @@
     [ATConnect sharedConnection].apiKey = @"870539ce7c8666f4ba6440cae368b8aea448aa2220dc3af73bc254f0ab2f0a0b";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketPublish:) name:KNOTIF_TICKET_PUBLISH object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketSync:) name:KNOTIF_TICKET_SYNC object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketEdit:) name:KNOTIF_TICKET_EDIT object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveTicketCreate:) name:KNOTIF_TICKET_CREATE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketWechatShare:) name:KNOTIF_TICKET_WECHAT_SHARE object:nil];
@@ -542,55 +541,12 @@
     //wait the bottom bar show animation, then present new controller
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         CUTERentShareViewController *shareController = [CUTERentShareViewController new];
-        shareController.formController.form = [CUTERentShareForm new];
-        shareController.ticket = ticket;
+        CUTERentShareForm *form = [CUTERentShareForm new];
+        form.ticket = ticket;
+        shareController.formController.form = form;
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:shareController];
         [self.tabBarController presentViewController:nc animated:NO completion:nil];
     });
-}
-
-- (void)onReceiveTicketSync:(NSNotification *)notif {
-    NSDictionary *userInfo = notif.userInfo;
-    CUTETicket *ticket = userInfo[@"ticket"];
-    NSDictionary *ticketParams = userInfo[@"ticketParams"];
-    NSMutableDictionary *propertyParams = [NSMutableDictionary dictionaryWithDictionary:userInfo[@"propertyParams"]];
-
-    //validate latitude and longitude
-    if (propertyParams[@"latitude"] && !propertyParams[@"longitude"]) {
-        [propertyParams removeObjectForKey:@"latitude"];
-        [propertyParams removeObjectForKey:@"longitude"];
-    }
-    else if (!propertyParams[@"latitude"] && propertyParams[@"longitude"]) {
-        [propertyParams removeObjectForKey:@"latitude"];
-        [propertyParams removeObjectForKey:@"longitude"];
-    }
-    else if (propertyParams[@"latitude"] && propertyParams[@"longitude"]) {
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:[propertyParams[@"latitude"] doubleValue] longitude:[propertyParams[@"longitude"] doubleValue]];
-        if (!location) {
-            [propertyParams removeObjectForKey:@"latitude"];
-            [propertyParams removeObjectForKey:@"longitude"];
-        }
-    }
-
-    if (ticket && ticket.identifier && ![[CUTEDataManager sharedInstance] isRentTicketDeleted:ticket.identifier]) {
-        [[CUTEDataManager sharedInstance] saveRentTicket:ticket];
-        [[[CUTERentTicketPublisher sharedInstance] editTicketWithTicket:ticket ticketParams:ticketParams propertyParams:propertyParams] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-            else if (task.exception) {
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [SVProgressHUD showErrorWithCancellation];
-            }
-            else {
-                [[CUTEDataManager sharedInstance] saveRentTicket:task.result];
-            }
-
-            return task;
-        }];
-    }
 }
 
 - (void)onReceiveTicketEdit:(NSNotification *)notif {

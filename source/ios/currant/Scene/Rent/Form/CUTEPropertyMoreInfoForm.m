@@ -17,8 +17,6 @@
 
 @implementation CUTEPropertyMoreInfoForm
 
-@synthesizeAssociation(CUTEPropertyMoreInfoForm, ticket);
-
 - (NSArray *)fields {
     return @[
              @{FXFormFieldKey: @"ticketTitle", FXFormFieldTitle:STR(@"标题"), FXFormFieldHeader:STR(@"其他"), FXFormFieldDefaultValue:_ticketTitle? :@"", FXFormFieldCell: [CUTEFormLimitCharacterCountTextFieldCell class], FXFormFieldAction:@"onTicketTitleEdit:"},

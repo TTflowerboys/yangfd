@@ -12,6 +12,6 @@
 
 + (CUTETicketEditingListener *)createListenerAndStartListenMarkWithSayer:(MTLModel<MTLJSONSerializing, CUTEModelEditingListenerDelegate> *)sayer;
 
-- (NSDictionary *)getSyncUserInfo;
+@property (nonatomic, readonly) CUTEModelEditingListener *propertyListener;
 
 @end

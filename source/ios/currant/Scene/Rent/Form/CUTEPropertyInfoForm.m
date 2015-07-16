@@ -27,7 +27,6 @@
 
 @implementation CUTEPropertyInfoForm
 
-@synthesizeAssociation(CUTEPropertyInfoForm, ticket);
 
 - (NSArray *)fields {
     return @[

@@ -7,7 +7,8 @@
 //
 
 #import "CUTEForm.h"
+#import "CUTETicketForm.h"
 
-@interface CUTERentShareForm : CUTEForm
+@interface CUTERentShareForm : CUTETicketForm
 
 @end

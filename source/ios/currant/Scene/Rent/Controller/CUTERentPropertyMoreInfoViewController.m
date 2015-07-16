@@ -21,7 +21,6 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEFormLimitCharacterCountTextFieldCell.h"
 #import "CUTEFormTextViewCell.h"
-#import "CUTETicketEditingListener.h"
 #import "CUTENavigationUtil.h"
 
 
@@ -37,11 +36,15 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self checkNeedUpdateTicketTitle];
+
+    if (!self.form.ticket.title) {
+        [self.form syncTicketWithUpdateInfo:@{@"title": self.form.ticket.titleForDisplay}];
+    }
+
 }
 
 - (CUTEPropertyMoreInfoForm *)form {
-    return self.formController.form;
+    return (CUTEPropertyMoreInfoForm *)self.formController.form;
 }
 
 - (CUTEFormTextFieldCell *)getTicketTitleCell {
@@ -93,8 +96,8 @@
             CUTETicket *ticket = self.form.ticket;
             CUTEProperty *property = [ticket property];
             CUTERentPropertyFacilityViewController *controller = [[CUTERentPropertyFacilityViewController alloc] init];
-            controller.ticket = self.form.ticket;
             CUTEPropertyFacilityForm *form = [CUTEPropertyFacilityForm new];
+            form.ticket = self.form.ticket;
             [form setAllIndoorFacilities:task.result[0]];
             [form setSelectedIndoorFacilities:property.indoorFacilities];
             [form setAllCommunityFacilities:task.result[1]];
@@ -151,11 +154,7 @@
         return;
     }
 
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
-    self.form.ticket.title = self.form.ticketTitle;
-    [ticketListener stopListenMark];
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
-
+    [self.form syncTicketWithUpdateInfo:@{@"title": self.form.ticketTitle}];
 }
 
 - (void)onTicketDescriptionEdit:(id)sender {
@@ -166,10 +165,7 @@
         return;
     }
 
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
-    self.form.ticket.ticketDescription = self.form.ticketDescription;
-    [ticketListener stopListenMark];
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
+    [self.form syncTicketWithUpdateInfo:@{@"ticketDescription": self.form.ticketDescription}];
 }
 
 - (BOOL)checkDescriptionContainPhoneNumber:(NSString *)string {
@@ -196,16 +192,6 @@
 - (void)showTitleLengthWarningAlert {
     [UIAlertView showWithTitle:STR(@"字符长度限制为8-30")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
 }
-
-- (void)checkNeedUpdateTicketTitle {
-    if (!self.form.ticket.title) {
-        CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
-        self.form.ticket.title = self.form.ticket.titleForDisplay;
-        [ticketListener stopListenMark];
-        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
-    }
-}
-
 
 
 @end

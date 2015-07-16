@@ -41,7 +41,6 @@
 #import "CUTETracker.h"
 #import "Sequencer.h"
 #import <NSDate-Extensions/NSDate-Utilities.h>
-#import "CUTETicketEditingListener.h"
 
 @interface CUTERentPropertyInfoViewController () {
 
@@ -82,7 +81,7 @@
     FXFormField *field = [self.formController fieldForIndexPath:indexPath];
     if ([field.key isEqualToString:@"photos"]) {
         CUTEFormImagePickerCell *pickerCell = (CUTEFormImagePickerCell *)cell;
-        pickerCell.ticket = self.form.ticket;
+        pickerCell.form.ticket = self.form.ticket;
         [pickerCell update];
     }
     else if ([field.key isEqualToString:@"rentPrice"]) {
@@ -143,37 +142,30 @@
 
 - (void)editLandlordType {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
-    self.form.ticket.landlordType = form.landlordType;
-    [ticketListener stopListenMark];
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
     [self.navigationController popViewControllerAnimated:YES];
+    [form syncTicketWithUpdateInfo:@{@"landlordType": form.landlordType}];
 }
 
 - (void)editPropertyType {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
-    self.form.ticket.property.propertyType = form.propertyType;
-    [ticketListener stopListenMark];
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
     [self.navigationController popViewControllerAnimated:YES];
+    [form syncTicketWithUpdateInfo:@{@"property.propertyType": form.propertyType}];
 }
 
 - (void)editRooms:(id)sender {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.form.ticket];
-    self.form.ticket.property.bedroomCount = @(form.bedroomCount);
-    self.form.ticket.property.livingroomCount = @(form.livingroomCount);
-    self.form.ticket.property.bathroomCount = @(form.bathroomCount);
-    [ticketListener stopListenMark];
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:ticketListener.getSyncUserInfo];
+
+    [form syncTicketWithUpdateInfo:@{@"property.bedroomCount": @(form.bedroomCount),
+       @"property.livingroomCount": @(form.livingroomCount),
+         @"property.bathroomCount": @(form.bathroomCount),
+          }];
 }
 
 - (void)editArea {
     if (!_editAreaViewController) {
         CUTERentAreaViewController *controller = [CUTERentAreaViewController new];
-        controller.ticket = self.form.ticket;
         CUTEAreaForm *form = [CUTEAreaForm new];
+        form.ticket = self.form.ticket;
         form.area = self.form.ticket.space.value;
         controller.formController.form = form;
         _editAreaViewController = controller;
@@ -222,8 +214,8 @@
                 }
 
                 CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
-                controller.ticket = self.form.ticket;
                 CUTERentPriceForm *form = [CUTERentPriceForm new];
+                form.ticket = self.form.ticket;
                 form.currency = ticket.price.unit;
                 form.rentPrice = ticket.price.value;
                 form.depositType = ticket.depositType;

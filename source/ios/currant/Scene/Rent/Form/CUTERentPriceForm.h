@@ -10,8 +10,9 @@
 #import "CUTEForm.h"
 #import "CUTEEnum.h"
 #import "CUTETimePeriod.h"
+#import "CUTETicketForm.h"
 
-@interface CUTERentPriceForm : CUTEForm
+@interface CUTERentPriceForm : CUTETicketForm
 
 @property (strong, nonatomic) NSString *currency;
 @property (strong, nonatomic) CUTEEnum *depositType;

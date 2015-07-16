@@ -13,7 +13,7 @@
 #import "CUTEDataManager.h"
 #import "CUTERentTicketPublisher.h"
 #import "CUTENotificationKey.h"
-#import "CUTETicketEditingListener.h"
+
 
 @implementation CUTERentPropertyFacilityViewController
 
@@ -22,44 +22,48 @@
     self.navigationItem.title = STR(@"设施");
 }
 
+- (CUTEPropertyFacilityForm *)form {
+    return (CUTEPropertyFacilityForm *)self.formController.form;
+}
+
 - (void)toggleIndoorFacility:(CUTEEnum *)facility on:(BOOL)on {
-    CUTETicketEditingListener *tickeListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    CUTETicket *ticket = self.ticket;
+    CUTETicket *ticket = self.form.ticket;
     CUTEProperty *property = ticket.property;
     NSMutableArray *oldArray = [NSMutableArray arrayWithArray:property.indoorFacilities];
+    NSArray *array = [NSArray array];
     if (on) {
         if (![oldArray containsObject:facility]) {
-            property.indoorFacilities = [oldArray arrayByAddingObject:facility];
+            array = [oldArray arrayByAddingObject:facility];
         }
     }
     else {
         if ([oldArray containsObject:facility]) {
             [oldArray removeObject:facility];
-            property.indoorFacilities = oldArray;
+            array = oldArray;
         }
     }
-    [tickeListener stopListenMark];
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:tickeListener.getSyncUserInfo];
+
+    [self.form syncTicketWithUpdateInfo:@{@"property.indoorFacilities": array}];
 }
 
 - (void)toggleCommunityFacility:(CUTEEnum *)facility on:(BOOL)on {
-    CUTETicketEditingListener *tickeListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    CUTETicket *ticket = self.ticket;
+    CUTETicket *ticket = self.form.ticket;
     CUTEProperty *property = ticket.property;
     NSMutableArray *oldArray = [NSMutableArray arrayWithArray:property.communityFacilities];
+    NSArray *array = [NSArray array];
     if (on) {
         if (![oldArray containsObject:facility]) {
-            property.communityFacilities = [oldArray arrayByAddingObject:facility];
+            array = [oldArray arrayByAddingObject:facility];
         }
     }
     else {
         if ([oldArray containsObject:facility]) {
             [oldArray removeObject:facility];
-            property.communityFacilities = oldArray;
+            array = oldArray;
         }
     }
-    [tickeListener stopListenMark];
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:tickeListener.getSyncUserInfo];
+
+    [self.form syncTicketWithUpdateInfo:@{@"property.communityFacilities": array}];
 }
 
 
@@ -84,7 +88,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    CUTETicket *ticket = self.ticket;
+    CUTETicket *ticket = self.form.ticket;
     CUTEProperty *property = ticket.property;
     FXFormSwitchCell *switchCell = (FXFormSwitchCell *)cell;
     CUTEPropertyFacilityForm *form = (CUTEPropertyFacilityForm *)self.formController.form;

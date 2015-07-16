@@ -9,9 +9,10 @@
 #import "FXForms.h"
 #import "CUTETicket.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "CUTETicketForm.h"
 
 @interface CUTEFormImagePickerCell : FXFormImagePickerCell
 
-@property (strong, nonatomic) CUTETicket *ticket;
+@property (strong, nonatomic) CUTETicketForm *form;
 
 @end

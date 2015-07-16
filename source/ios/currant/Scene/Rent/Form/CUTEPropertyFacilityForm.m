@@ -28,6 +28,7 @@
 
 @implementation CUTEPropertyFacilityForm
 
+
 - (instancetype)init
 {
     self = [super init];

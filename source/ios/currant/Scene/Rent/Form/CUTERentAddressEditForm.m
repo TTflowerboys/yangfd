@@ -30,7 +30,6 @@
 
 @implementation CUTERentAddressEditForm
 
-@synthesizeAssociation(CUTERentAddressEditForm, ticket);
 
 - (NSArray *)fields {
     NSMutableArray *array = [NSMutableArray

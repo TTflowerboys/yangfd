@@ -14,7 +14,6 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTERentTicketPublisher.h"
 #import "CUTENotificationKey.h"
-#import "CUTETicketEditingListener.h"
 #import "NSDate-Utilities.h"
 
 @implementation CUTERentPriceViewController
@@ -38,7 +37,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+}
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.updatePriceCompletion) {
+        self.updatePriceCompletion();
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -75,43 +80,36 @@
 
 - (void)onCurrencyEdit:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
-    
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.price = [CUTECurrency currencyWithValue:self.form.rentPrice unit:self.form.currency];
-    [ticketListener stopListenMark];
-    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+    [self.form syncTicketWithUpdateInfo:@{@"price":[CUTECurrency currencyWithValue:self.form.rentPrice unit:self.form.currency]}];
 }
 
 - (void)onRentPriceEdit:(id)sender {
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.price = [CUTECurrency currencyWithValue:self.form.rentPrice unit:self.form.currency];
-    [ticketListener stopListenMark];
-    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+    [self.form syncTicketWithUpdateInfo:@{@"price":[CUTECurrency currencyWithValue:self.form.rentPrice unit:self.form.currency]}];
 }
 
 - (void)onBillCoveredSwitch:(id)sender {
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.billCovered = @(self.form.billCovered);
-    [ticketListener stopListenMark];
-    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+    [self.form syncTicketWithUpdateInfo:@{@"billCovered": @(self.form.billCovered)}];
 }
 
 - (void)onRentPeriodSwitch:(id)sender {
     [self.formController updateSections];
     [self.tableView reloadData];
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+
     if (self.form.needSetPeriod) {
-        self.ticket.rentAvailableTime = @([[self.form rentAvailableTime] timeIntervalSince1970]);
-        self.ticket.rentDeadlineTime = @([[self.form rentDeadlineTime] timeIntervalSince1970]);
-        self.ticket.minimumRentPeriod = [self.form minimumRentPeriod];
+
+        [self.form syncTicketWithUpdateInfo:@{@"rentAvailableTime": @([[self.form rentAvailableTime] timeIntervalSince1970]),
+                                              @"rentDeadlineTime": @([[self.form rentDeadlineTime] timeIntervalSince1970]),
+                                              @"minimumRentPeriod": [self.form minimumRentPeriod]
+                                              }];
     }
     else {
-        self.ticket.rentAvailableTime = 0;
-        self.ticket.rentDeadlineTime = 0;
-        self.ticket.minimumRentPeriod = nil;
+        [self.form syncTicketWithUpdateInfo:@{@"rentAvailableTime": [NSNull null],
+                                              @"rentDeadlineTime": [NSNull null],
+                                              @"minimumRentPeriod": [NSNull null]
+                                              }];
+        
     }
-    [ticketListener stopListenMark];
-    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+
 }
 
 - (void)onRentAvailableTimeEdit:(id)sender {
@@ -120,11 +118,10 @@
         return;
     }
 
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.rentAvailableTime = @([[self.form rentAvailableTime] timeIntervalSince1970]);
-    self.ticket.rentDeadlineTime = @([[self.form rentDeadlineTime] timeIntervalSince1970]);
-    [ticketListener stopListenMark];
-    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+    [self.form syncTicketWithUpdateInfo:@{@"rentAvailableTime": @([[self.form rentAvailableTime] timeIntervalSince1970]),
+                                          @"rentDeadlineTime": @([[self.form rentDeadlineTime] timeIntervalSince1970]),
+                                          }];
+
 }
 
 - (void)onRentDeadlineTimeEdit:(id)sender {
@@ -133,34 +130,20 @@
         return;
     }
 
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.rentAvailableTime = @([[self.form rentAvailableTime] timeIntervalSince1970]);
-    self.ticket.rentDeadlineTime = @([[self.form rentDeadlineTime] timeIntervalSince1970]);
-    [ticketListener stopListenMark];
-    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+    [self.form syncTicketWithUpdateInfo:@{@"rentAvailableTime": @([[self.form rentAvailableTime] timeIntervalSince1970]),
+                                          @"rentDeadlineTime": @([[self.form rentDeadlineTime] timeIntervalSince1970]),
+                                          }];
 }
 
 - (void)onMinimumRentPeriodEdit:(id)sender {
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.minimumRentPeriod = [self.form minimumRentPeriod];
-    [ticketListener stopListenMark];
-    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
+    [self.form syncTicketWithUpdateInfo:@{@"minimumRentPeriod": [self.form minimumRentPeriod],
+                                          }];
 }
 
 - (void)onDepositTypeEdit:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
-    self.ticket.depositType = self.form.depositType;
-    [ticketListener stopListenMark];
-    [self syncWithUserInfo:ticketListener.getSyncUserInfo];
-}
-
-- (void)syncWithUserInfo:(NSDictionary *)userInfo {
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_SYNC object:nil userInfo:userInfo];
-    if (self.updatePriceCompletion) {
-        self.updatePriceCompletion();
-    }
+    [self.form syncTicketWithUpdateInfo:@{@"depositType": [self.form depositType],
+                                          }];
 }
 
 - (CUTERentPriceForm *)form {

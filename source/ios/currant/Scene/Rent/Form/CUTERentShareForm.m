@@ -15,6 +15,7 @@
 
 @implementation CUTERentShareForm
 
+
 - (NSArray *)fields {
     return @[@{FXFormFieldKey: @"view", FXFormFieldTitle: STR(@"查看我的房产"), FXFormFieldCell: [CUTEFormTextCell class]},
              @{FXFormFieldKey: @"edit", FXFormFieldTitle: STR(@"编辑我的房产"), FXFormFieldCell: [CUTEFormTextCell class]},

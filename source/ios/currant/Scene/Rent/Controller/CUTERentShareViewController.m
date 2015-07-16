@@ -22,6 +22,7 @@
 #import "CUTEUsageRecorder.h"
 #import "ATConnect.h"
 #import "CUTEApptentiveEvent.h"
+#import "CUTERentShareForm.h"
 
 @interface CUTERentShareViewController ()
 
@@ -29,20 +30,24 @@
 
 @implementation CUTERentShareViewController
 
+- (CUTERentShareForm *)form {
+    return (CUTERentShareForm *)self.formController.form;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"完成") style:UIBarButtonItemStylePlain target:self action:@selector(onDoneButtonPressed:)];
     self.navigationItem.title = STR(@"发布成功");
-    
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self shareToWechat];
     });
 }
 
 - (void)shareToWechat {
-    [[[CUTEShareManager sharedInstance] shareTicket:self.ticket] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEShareManager sharedInstance] shareTicket:self.form.ticket] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
@@ -65,7 +70,7 @@
                 }
             }
         }
-        
+
         return task;
     }];
 }
@@ -80,7 +85,7 @@
     }
     else if ([field.key isEqualToString:@"qrcode"]) {
         CUTEQrcodeCell *qrcodeCell = (CUTEQrcodeCell *)cell;
-        NSURL *originalURL = [NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]];
+        NSURL *originalURL = [NSURL URLWithString:CONCAT(@"/wechat-poster/", self.form.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]];
         NSString *content = [[originalURL absoluteString] URLEncode];
         NSString *path = CONCAT(@"/qrcode/generate?content=", content);
         NSURL *url = [NSURL URLWithString:path relativeToURL:[CUTEConfiguration hostURL]];
@@ -92,13 +97,13 @@
     FXFormField *field = [self.formController fieldForIndexPath:indexPath];
     if ([field.key isEqualToString:@"view"]) {
         CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
-        controller.url = [NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]];
+        controller.url = [NSURL URLWithString:CONCAT(@"/wechat-poster/", self.form.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]];
         [controller loadRequest:[NSURLRequest requestWithURL:controller.url]];
         [self.navigationController pushViewController:controller animated:YES];
     }
     if ([field.key isEqualToString:@"edit"]) {
         [SVProgressHUD show];
-        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", self.ticket.identifier) parameters:nil resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", self.form.ticket.identifier) parameters:nil resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
@@ -117,12 +122,12 @@
                     [SVProgressHUD showErrorWithStatus:STR(@"获取失败")];
                 }
             }
-            
+
             return task;
         }];
     }
     else if ([field.key isEqualToString:@"copyLink"]) {
-        [UIPasteboard generalPasteboard].string = [[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString];
+        [UIPasteboard generalPasteboard].string = [[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.form.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString];
         [SVProgressHUD showSuccessWithStatus:STR(@"已复制至粘贴版")];
     }
     else if ([field.key isEqualToString:@"qrcode"]) {
