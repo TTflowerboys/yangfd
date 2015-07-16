@@ -124,7 +124,7 @@ gulp.task('clean', function () {
 })
 
 gulp.task('revAll', ['build:html-extend'], function () {
-    return gulp.src(['dist/static/admin/templates/**/*.html', 'dist/static/admin/*.js', 'dist/static/fonts/**/*', 'dist/static/images/**/*', 'dist/static/scripts/**/*', 'dist/static/styles/**/*.css', 'dist/static/templates/**/*', 'dist/static/sprite/css/sprite.css'], {base: 'dist'})
+    return gulp.src(['dist/static/admin/templates/**/*.html', 'dist/static/admin/*.js', 'dist/static/fonts/**/*', 'dist/static/images/**/*', 'dist/static/scripts/**/*', 'dist/static/styles/**/*.css', 'dist/static/templates/**/*', 'dist/static/sprite/css/sprite-build.css'], {base: 'dist'})
         .pipe(gulp.dest(myPaths.dist))
         .pipe(rev())
         .pipe(gulp.dest(myPaths.dist))  // write rev'd assets to build dir
@@ -210,7 +210,6 @@ gulp.task('build:less2css', ['build:copy-sprite-static'], function (done) {
 gulp.task('sprite', ['clean', 'build:clean-sprite', 'build:copy-src-to-sprite'], function () {
     return gulp.src(myPaths.sprite_html, {base: './sprite/'})
         .pipe(pageSprite({image_src:'./sprite', image_dist:myPaths.sprite_dist, css_dist:myPaths.sprite_dist + 'css'  +'/'}))
-        .pipe(replace(/\/static\/sprite\//g, '/static/sprite/css/'))
         .pipe(gulp.dest(myPaths.sprite))
 })
 
