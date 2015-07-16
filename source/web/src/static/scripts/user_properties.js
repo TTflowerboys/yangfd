@@ -524,6 +524,7 @@ $(function () {
                         }
 
                         container.find('.hostName').text(host.nickname)
+                        container.find('.actions').hide()
                     })
                     .fail(function (ret) {
                         window.alert(window.getErrorMessageFromErrorCode(ret))
