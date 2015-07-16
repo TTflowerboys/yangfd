@@ -499,30 +499,31 @@ $(function () {
     function bindGetHostContactClick () {
 
         $('.getHostContact').buttonLoading().click(function () {
+            var container = $(this).parents('.contactCard')
             if(!$(this).hasClass('buttonLoading')) {
                 $.betterPost('/api/1/rent_ticket/' + $(this).attr('data-id') + '/contact_info')
                     .done(function (val) {
                         var host = val
                         host.private_contact_methods = host.private_contact_methods || []
                         if(host.private_contact_methods.indexOf('phone') < 0 && host.phone) {
-                            $('.hostPhone').addClass('show').find('span').eq(1).text(host.phone)
-                            $('.hostPhone a').attr('href', 'tel:+' + host.country_code + host.phone)
+                            container.find('.hostPhone').addClass('show').find('span').eq(1).text(host.phone)
+                            container.find('.hostPhone a').attr('href', 'tel:+' + host.country_code + host.phone)
                         } else {
-                            $('.hostPhone').removeClass('show')
+                            container.find('.hostPhone').removeClass('show')
                         }
                         if(host.private_contact_methods.indexOf('email') < 0 && host.email) {
-                            $('.hostEmail').addClass('show').find('span').text(host.email)
-                            $('.hostEmail a').attr('href', 'mailto:' + host.email)
+                            container.find('.hostEmail').addClass('show').find('span').text(host.email)
+                            container.find('.hostEmail a').attr('href', 'mailto:' + host.email)
                         } else {
-                            $('.hostEmail').removeClass('show')
+                            container.find('.hostEmail').removeClass('show')
                         }
                         if(host.private_contact_methods.indexOf('wechat') < 0 && host.wechat) {
-                            $('.hostWechat').addClass('show').find('span').text(host.wechat)
+                            container.find('.hostWechat').addClass('show').find('span').text(host.wechat)
                         } else {
-                            $('.hostWechat').removeClass('show')
+                            container.find('.hostWechat').removeClass('show')
                         }
 
-                        $('.hostName').text(host.nickname)
+                        container.find('.hostName').text(host.nickname)
                     })
                     .fail(function (ret) {
                         window.alert(window.getErrorMessageFromErrorCode(ret))

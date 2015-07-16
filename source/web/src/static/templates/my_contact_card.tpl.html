@@ -63,7 +63,7 @@
                     {_}_}
                     ">
                         <span>{{_('房东：')}} </span>
-                        <strong>{= rent.creator_user.nickname =}</strong>
+                        <strong class="hostName">{= rent.creator_user.nickname =}</strong>
                     </div>
                     <div class="hostPhone hostContact
                     {_if(rent.creator_user.phone && private_contact_methods.indexOf('phone') < 0) {_}
