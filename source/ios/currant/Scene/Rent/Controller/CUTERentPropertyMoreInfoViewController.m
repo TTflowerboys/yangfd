@@ -28,6 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = STR(@"更多详情");
 
     self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
     self.tableView.accessibilityLabel = STR(@"更多房产信息表单");
@@ -190,7 +191,7 @@
 }
 
 - (void)showTitleLengthWarningAlert {
-    [UIAlertView showWithTitle:STR(@"字符长度限制为8-30")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+    [UIAlertView showWithTitle:STR(@"标题字符长度限制为8到30")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
 }
 
 
