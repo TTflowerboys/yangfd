@@ -316,6 +316,14 @@
             'IT': '意大利',
             'ES': '西班牙',
             'HK': '香港'
+        },
+        parsePeriodUnit: function(unit) {
+            return {
+                'day': window.i18n('天'),
+                'week': window.i18n('周'),
+                'month': window.i18n('月'),
+                'year': window.i18n('年')
+            }[unit]
         }
     }
 })

@@ -196,24 +196,30 @@
         }
 
         >.details {
-            font-family: @font-song;
             overflow: hidden;
             width:100%;
             position: absolute;
             bottom: 0;
             margin-bottom: @padding-top/2;
+            padding-top: @padding-top/2;
+            border-top: 1px solid #ccc;
             >.left {
                 float: left;
                 width:70%; // for ie
 
                 .label{
+                    font-family: @font-song;
                     margin-bottom: 10px;
                 }
 
                 .value{
+                    line-height: 1em;
                     font-size: @normal-font-size;
                     font-weight: bold;
                     color: @red;
+                    span{
+                        font-size: @root-font-size * 1.4;
+                    }
                 }
 
                 .room{

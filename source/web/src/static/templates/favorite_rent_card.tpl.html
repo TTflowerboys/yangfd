@@ -65,32 +65,29 @@
                     <div class="left">
                         {_if(fav.ticket.property.bedroom_count || fav.ticket.property.living_room_count) {_}
                         <div class="room">
-                            <p class="label">{=window.i18n('居室')=}</p>
+                            <p class="label">{=window.i18n('房间')=}</p>
                             <p class="value">
                                 {_if(fav.ticket.property.bedroom_count) {_}
-                                {=fav.ticket.property.bedroom_count + window.i18n('室') =}
+                                <span>{=fav.ticket.property.bedroom_count=}</span>{=window.i18n('室') =}
                                 {_}_}
                                 {_if(fav.ticket.property.living_room_count) {_}
-                                {=fav.ticket.property.living_room_count + window.i18n('厅')=}
+                                <span>{=fav.ticket.property.living_room_count=}</span>{=window.i18n('厅')=}
                                 {_}_}
                             </p>
                         </div>
                         {_}_}
-                        {_if(fav.ticket.space) {_}
+                        {_if(fav.ticket.rent_available_time || fav.ticket.minimum_rent_period) {_}
                         <div class="size">
-                            <p class="label">{=window.i18n('面积')=}</p>
+                            <p class="label">
+                                {_if(fav.ticket.rent_available_time) {_}
+                                {=window.moment(parseInt(fav.ticket.rent_available_time)*1000).format('YYYY{{_('年')}}MM{{_('月')}}DD{{_('日')}}')=}{{_('起')}}
+                                {_}_}
+                            </p>
                             <p class="value">
-                                {= parseFloat(fav.ticket.space.value).toFixed(2)=}
-                                {_if (fav.ticket.space.unit === 'foot ** 2'){_}
-                                sq ft
-                                {_} else if(fav.ticket.space.unit === 'acre'){_}
-                                acre
-                                {_} else if (fav.ticket.space.unit === 'meter ** 2') {_}
-                                m <sup>2</sup>
-                                {_} else if (fav.ticket.space.unit === 'kilometer ** 2') {_}
-                                km <sup>2</sup>
-                                {_} else {_}
-                                {=fav.ticket.space.unit=}
+                                {_if(fav.ticket.minimum_rent_period) {_}
+                                {{_('至少租住')}}<span>{=fav.ticket.minimum_rent_period.value=}</span>{=team.parsePeriodUnit(fav.ticket.minimum_rent_period.unit)=}
+                                {_}else{_}
+                                {{_('租期不限')}}
                                 {_}_}
                             </p>
                         </div>

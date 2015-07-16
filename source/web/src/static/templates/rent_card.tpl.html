@@ -86,32 +86,29 @@
                         <div class="left">
                             {_if(rent.property.bedroom_count || rent.property.living_room_count) {_}
                             <div class="room">
-                                <p class="label">{=window.i18n('居室')=}</p>
+                                <p class="label">{=window.i18n('房间')=}</p>
                                 <p class="value">
                                     {_if(rent.property.bedroom_count) {_}
-                                        {=rent.property.bedroom_count + window.i18n('室') =}
+                                        <span>{=rent.property.bedroom_count=}</span>{=window.i18n('室') =}
                                     {_}_}
                                     {_if(rent.property.living_room_count) {_}
-                                        {=rent.property.living_room_count + window.i18n('厅')=}
+                                        <span>{=rent.property.living_room_count=}</span>{=window.i18n('厅')=}
                                     {_}_}
                                 </p>
                             </div>
                             {_}_}
-                            {_if(rent.space) {_}
+                            {_if(rent.rent_available_time || rent.minimum_rent_period) {_}
                             <div class="size">
-                                <p class="label">{=window.i18n('面积')=}</p>
+                                <p class="label">
+                                    {_if(rent.rent_available_time) {_}
+                                    {=window.moment(parseInt(rent.rent_available_time)*1000).format('YYYY{{_('年')}}MM{{_('月')}}DD{{_('日')}}')=}{{_('起')}}
+                                    {_}_}
+                                </p>
                                 <p class="value">
-                                    {= parseFloat(rent.space.value).toFixed(2)=}
-                                    {_if (rent.space.unit === 'foot ** 2'){_}
-                                    sq ft
-                                    {_} else if(rent.space.unit === 'acre'){_}
-                                    acre
-                                    {_} else if (rent.space.unit === 'meter ** 2') {_}
-                                    m <sup>2</sup>
-                                    {_} else if (rent.space.unit === 'kilometer ** 2') {_}
-                                    km <sup>2</sup>
-                                    {_} else {_}
-                                    {=rent.space.unit=}
+                                    {_if(rent.minimum_rent_period) {_}
+                                    {{_('至少租住')}}<span>{=rent.minimum_rent_period.value=}</span>{=team.parsePeriodUnit(rent.minimum_rent_period.unit)=}
+                                    {_}else{_}
+                                    {{_('租期不限')}}
                                     {_}_}
                                 </p>
                             </div>
