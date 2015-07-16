@@ -48,18 +48,18 @@
             <li>
                 <a
                     %if is_mobile_client():
-                        href="#" onclick="window.bridge.callHandler(&quot;openRentListTab&quot;);return false;"
+                        href="#" onclick="window.bridge.callHandler(&quot;createRentTicket&quot;);return false;"
                     %else:
-                        href="/property-to-rent-list"
+                        href="/property-to-rent/create"
                     %end
                     >
                     <i class="img_wrapper icon-calender_homepage"></i>
                     <div class="text">
                         <h3 class="question">
-                            {{_('找海外出租房？')}}
+                            {{_('出租海外房产？')}}
                         </h3>
                         <label class="choice">
-                            {{_('看看洋房东优质房源')}}
+                            {{_('极速发布，覆盖全英')}}
                         </label>
                     </div>
                 </a>
