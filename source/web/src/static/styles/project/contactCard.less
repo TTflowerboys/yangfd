@@ -227,11 +227,39 @@
                     color: @red;
                     font-weight: bold;
                 }
-                a{
+                a[href]{
                     cursor: pointer;
                     &:hover{
                         color: @red !important;
                     }
+                }
+            }
+        }
+        .actions{
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            @media @phone{
+                position: static;
+                text-align: center;
+                border-top: 1px solid #ccc;
+            }
+            a{
+                display: block;
+                padding: 10px 16px;
+                border: 2px solid @red;
+                color: @red;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+                line-height: 1em;
+                @media @phone{
+                    border: none;
+                    color: #999;
+                }
+                &:hover{
+                    color: lighten(@red, 5%);
+                    border-color: lighten(@red, 5%);
                 }
             }
         }
