@@ -22,8 +22,7 @@
         })
         this.change()
     }
-    var showState
-    showState = new ShowState('main')
+    var showState = new ShowState('main')
 
     function initChosen (elem) {
         if(!window.team.isPhone()) {
@@ -152,8 +151,8 @@
             })
     })
 
-    /*function skipIntention(){
+    function skipIntention(){
         location.href = '/'
         ga('send', 'event', 'intention-selection', 'click', 'skip-intention-selection')
-    }*/
+    }
 })()
