@@ -262,6 +262,21 @@
     return YES;
 }
 
+- (CUTERentPropertyInfoViewController *)createInfoViewControllerWithTicket:(CUTETicket *)currentTicket propertyTypes:(NSArray *)propertyTypes landlordTypes:(NSArray *)landlordTypes {
+    CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
+
+    CUTEPropertyInfoForm *infoForm = [CUTEPropertyInfoForm new];
+    infoForm.ticket  = currentTicket;
+    infoForm.propertyType = currentTicket.property.propertyType;
+    infoForm.bedroomCount = currentTicket.property.bedroomCount? currentTicket.property.bedroomCount.integerValue: 0;
+    infoForm.livingroomCount = currentTicket.property.livingroomCount? currentTicket.property.livingroomCount.integerValue: 0;
+    infoForm.bathroomCount = currentTicket.property.bathroomCount? currentTicket.property.bathroomCount.integerValue: 0;
+    [infoForm setAllPropertyTypes:propertyTypes];
+    [infoForm setAllLandlordTypes:landlordTypes];
+    controller.formController.form = infoForm;
+    return controller;
+}
+
 - (void)createTicket {
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     CUTETicket *currentTicket = form.ticket;
@@ -290,31 +305,19 @@
             [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
                 return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
             }]] continueWithBlock:^id(BFTask *task) {
-                NSArray *landloardTypes = nil;
+                NSArray *landlordTypes = nil;
                 NSArray *propertyTypes = nil;
                 if (!IsArrayNilOrEmpty(task.result) && [task.result count] == 2) {
-                    landloardTypes = task.result[0];
+                    landlordTypes = task.result[0];
                     propertyTypes = task.result[1];
                 }
 
-                if (!IsArrayNilOrEmpty(landloardTypes) && !IsArrayNilOrEmpty(propertyTypes)) {
+                if (!IsArrayNilOrEmpty(landlordTypes) && !IsArrayNilOrEmpty(propertyTypes)) {
                     TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
 
-                    form.ticket.landlordType = [CUTEPropertyInfoForm getDefaultLandloardType:landloardTypes];
+                    form.ticket.landlordType = [CUTEPropertyInfoForm getDefaultLandloardType:landlordTypes];
                     form.ticket.property.propertyType = [CUTEPropertyInfoForm getDefaultPropertyType:propertyTypes];
-
-                    CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
-
-                    CUTEPropertyInfoForm *infoForm = [CUTEPropertyInfoForm new];
-                    infoForm.ticket  = form.ticket;
-                    infoForm.propertyType = currentTicket.property.propertyType;
-                    infoForm.bedroomCount = currentTicket.property.bedroomCount? currentTicket.property.bedroomCount.integerValue: 0;
-                    infoForm.livingroomCount = currentTicket.property.livingroomCount? currentTicket.property.livingroomCount.integerValue: 0;
-                    infoForm.bathroomCount = currentTicket.property.bathroomCount? currentTicket.property.bathroomCount.integerValue: 0;
-                    [infoForm setAllPropertyTypes:propertyTypes];
-                    [infoForm setAllLandlordTypes:landloardTypes];
-                    controller.formController.form = form;
-
+                    CUTERentPropertyInfoViewController *controller = [self createInfoViewControllerWithTicket:currentTicket propertyTypes:propertyTypes landlordTypes:landlordTypes];
                     [self.navigationController pushViewController:controller animated:YES];
                     [SVProgressHUD dismiss];
                 }
