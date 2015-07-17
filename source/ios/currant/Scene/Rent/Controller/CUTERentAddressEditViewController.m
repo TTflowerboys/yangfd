@@ -53,7 +53,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+
     if (self.updateAddressCompletion) {
         self.updateAddressCompletion();
     }
@@ -83,10 +83,16 @@
 - (void)optionBack {
     [self.navigationController popViewControllerAnimated:YES];
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    [form syncTicketWithUpdateInfo:@{
-                                     @"property.country": self.form.country,
-                                     @"property.city": self.form.city
-                                     }];
+    if (self.form.city) {
+        [form syncTicketWithUpdateInfo:
+         @{@"property.country": self.form.country,
+           @"property.city": self.form.city}];
+
+    }
+    else {
+        [form syncTicketWithUpdateInfo:@{@"property.country": self.form.country,}];
+    }
+    
 }
 
 - (void)onStreetEdit:(id)sender {
