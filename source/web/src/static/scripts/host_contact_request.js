@@ -42,7 +42,7 @@ $(function () {
             W.widget.publish({
                 'id' : 'shareAppToWeibo',
                 'default_image':'http://upload.yangfd.com/app_icon_x120_150427.png',
-                'default_text' : window.i18n('我正在使用洋房东App查找租房信息，海外租房轻松搞定，你也来试试吧: http://yangfd.com/app-download'),
+                'default_text' : window.i18n('发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！ http://yangfd.com/app-download'),
                 //'action': 'publish',
                 'position':'c',
                 'callback' : function(o) {
@@ -54,10 +54,10 @@ $(function () {
     function shareAppToCircle() {
         $('#shareAppToCircle').off('click').on('click', function () {
             window.wechatShareSDK.init({
-                title: window.i18n('我正在使用洋房东App查找租房信息，海外租房轻松搞定，你也来试试吧'),
+                title: window.i18n('发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'),
                 link: 'http://yangfd.com/app-download',
                 imgUrl: 'http://upload.yangfd.com/app_icon_x120_150427.png',
-                desc: window.i18n('我正在使用洋房东App查找租房信息，海外租房轻松搞定，你也来试试吧'),
+                desc: window.i18n('发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'),
                 success:function(){
                     $('.guideLine').hide()
                     shareSuccessCallback()
@@ -85,7 +85,7 @@ $(function () {
         if(client === 'app') {
             return $('#shareApp').off('click').on('click', function () {
                 ga('send', 'event', 'request_host_contact', 'click', 'share_in_app_for_contact')
-                window.bridge.callHandler('share', {'text': window.i18n('我正在使用洋房东App查找租房信息，海外租房轻松搞定，你也来试试吧'), 'url': 'http://yangfd.com/app-download', 'services': ['Wechat Circle', 'Sina Weibo']}, function(response) {
+                window.bridge.callHandler('share', {'text': window.i18n('发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'), 'url': 'http://yangfd.com/app-download', 'services': ['Wechat Circle', 'Sina Weibo']}, function(response) {
                     if (response.msg === 'ok') {
                         return shareSuccessCallback()
                     }
@@ -135,8 +135,8 @@ $(function () {
                                     ga('send', 'event', 'request_host_contact', 'click', 'open-requirement-rent-form-to-contact')
                                 })
                             }
-                            else if (_.findIndex(val.credits,{tag:'share_app'}) < 0 && !(window.team.isPhone() && !window.team.isWeChat() && !window.team.isCurrantClient())) { //尚未分享过App,并且不是在mobile web
-                                $exhaustSubmitTip.text(window.i18n('，分享洋房东App继续获取')).css('display', 'inline')
+                            else if (_.findIndex(val.credits,{tag:'share_app'}) < 0 && !(window.team.isPhone() && !window.team.isWeChat())) { //尚未分享过App,并且不是在mobile web
+                                $exhaustSubmitTip.text(window.i18n('，分享洋房东App，给大家送福利，分享成功继续获取')).css('display', 'inline')
                                 $hint.css('display', 'block')
                                 $requestContactBtn.off('click').on('click', function (e) {
                                     window.shareAppToGetMoreAmount()

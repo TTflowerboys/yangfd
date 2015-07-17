@@ -35,7 +35,7 @@
     <div class="content">
         <img class="logo" src="/static/images/logo/logo_app_download.png">
         <ul class="text">
-            <li>{{_('/ 三步发布租房，不用费力思考 /')}}</li>
+            <li>{{_('/ 三步免费发布租房，不用费力思考 /')}}</li>
             <li>{{_('/ 专业的街区报告，不用费力介绍周边设施 /')}}</li>
             <li>{{_('/ 高大上的朋友圈展示，提升房产档次 /')}}</li>
             <li>{{_('/ 一次发布，全英多渠道同步 /')}}</li>
@@ -104,20 +104,17 @@
 
             window.wx.ready(function(){
                 var wechatShareData = {
-                        title: '{{title}}',
+                        title: window.i18n('发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'),
                         link: window.location.href,
                         imgUrl: 'http://upload.yangfd.com/app_icon_x120_150427.png',
-//                        desc: '',
+                        desc: window.i18n('发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'),
                         success:function(){
-//                            ga('send', 'event', 'wechat_poster', 'share', 'share-to-wechat-success')
+                            ga('send', 'event', 'app_download', 'share', 'share-to-wechat-success')
                         },
                         cancel:function(){
-//                            ga('send', 'event', 'wechat_poster', 'share', 'share-to-wechat-cancel')
+                            ga('send', 'event', 'app_download', 'share', 'share-to-wechat-cancel')
                         }
                     }
-
-
-
 
                 window.wx.onMenuShareTimeline(wechatShareData);
                 window.wx.onMenuShareAppMessage(wechatShareData);
