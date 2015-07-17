@@ -47,7 +47,7 @@
 }
 
 - (void)shareToWechat {
-    [[[CUTEShareManager sharedInstance] shareTicket:self.form.ticket] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEShareManager sharedInstance] shareTicket:self.form.ticket viewController:self] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }

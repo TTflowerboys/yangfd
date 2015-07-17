@@ -28,9 +28,7 @@
             <!-- @if ENV!='production' -->
             <li><a href="/crowdfunding-introduce">{{_('海外众筹')}}</a></li>
             <!-- @endif -->
-            %if user and "beta_renting" in user.get('role',[]):
             <li  class="rentHeaderItem"><a href="/property-to-rent-list">{{_('海外租房')}}</a></li>
-            %end
             <li><a href="/news-list">{{_('投资资讯')}}</a></li>
         </ul>
         <ul class="rmm-center-menu" style="display:none;">

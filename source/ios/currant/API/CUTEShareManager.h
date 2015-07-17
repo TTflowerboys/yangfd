@@ -27,8 +27,8 @@ extern NSString * const CUTEShareServiceSinaWeibo;
 
 - (BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 
-- (BFTask *)shareTicket:(CUTETicket *)ticket;
+- (BFTask *)shareTicket:(CUTETicket *)ticket viewController:(UIViewController *)viewController;
 
-- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString inServices:(NSArray *)services;
+- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString inServices:(NSArray *)services viewController:(UIViewController *)viewController;
 
 @end

@@ -100,7 +100,7 @@
     [self.bridge registerHandler:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dic = data;
         if (dic && [dic isKindOfClass:[NSDictionary class]]) {
-            [[[CUTEShareManager sharedInstance] shareText:dic[@"text"] urlString:dic[@"url"] inServices:dic[@"services"]] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEShareManager sharedInstance] shareText:dic[@"text"] urlString:dic[@"url"] inServices:dic[@"services"] viewController:webViewController] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     responseCallback(@{@"msg":@"error"});
                 }

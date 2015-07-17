@@ -12,31 +12,12 @@ $(function () {
 
 
     //Init page with rent
-    //TODO: do this for for production sync
-    if (team.isProduction()) {
-
-        // Display header buttons and tabs based on whether user have beta_renting role or not
-        if (!_.isEmpty(window.user.role) && _.indexOf(window.user.role, 'beta_renting') !== -1) {
-            if (team.isPhone()) {
-                $headerTabs.show()
-            } else {
-                $headerButtons.show()
-            }
-            loadRentIntentionTicket()
-        } else {
-            $headerButtons.hide()
-            $headerTabs.hide()
-            switchTypeTab('investment')
-            loadInvestmentTicket()
-        }
+    if (team.isPhone()) {
+        $headerTabs.show()
     } else {
-        if (team.isPhone()) {
-            $headerTabs.show()
-        } else {
-            $headerButtons.show()
-        }
-        loadRentIntentionTicket()
+        $headerButtons.show()
     }
+    loadRentIntentionTicket()
 
     function loadInvestmentTicket() {
 
