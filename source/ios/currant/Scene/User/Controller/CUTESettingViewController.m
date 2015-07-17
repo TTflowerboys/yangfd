@@ -12,6 +12,7 @@
 #import <ATConnect.h>
 #import <ATEngagementBackend.h>
 #import "CUTEConfiguration.h"
+#import "CUTEWebViewController.h"
 
 @interface CUTESettingViewController ()
 
@@ -39,6 +40,14 @@
 
 - (void)onRatePressed:(id)sender {
     [[ATConnect sharedConnection] openAppStore];
+}
+
+- (void)onHelpPressed:(id)sender {
+    CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
+    newWebViewController.url = [NSURL URLWithString:@"/qa-app" relativeToURL:[CUTEConfiguration hostURL]];
+    newWebViewController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:newWebViewController animated:YES];
+    [newWebViewController loadRequest:[NSURLRequest requestWithURL:newWebViewController.url]];
 }
 
 - (void)onSurveyPressed:(id)sender {
