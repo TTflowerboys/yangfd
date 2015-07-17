@@ -1,24 +1,32 @@
 <form name="register" class="registerForm">
     <div class="form bordered">
         <div class="form_row active">
-            <img src="/static/images/signin/user.png" alt=""/>
+            <span class="iconWrap">
+                <img src="/static/images/signin/user.png" alt=""/>
+            </span>
             <input name="nickname" placeholder={{_('姓名')}} size=20 data-validator="required, trim">
         </div>
         <hr>
         <!-- @@include=phone_row.html -->
         <hr>
         <div class="form_row">
-            <img src="/static/images/signin/lock.png" alt=""/>
+            <span class="iconWrap">
+                <img src="/static/images/signin/lock.png" alt=""/>
+            </span>
             <input name="password" type="password" placeholder={{_('密码')}} size=20 data-validator="required, trim">
         </div>
         <hr>
         <div class="form_row">
-            <i class="icon-email"></i>
+            <span class="iconWrap">
+                <i class="icon-email"></i>
+            </span>
             <input name="email" placeholder={{_('邮箱')}} data-validator="required, trim email">
         </div>
         <hr>
         <div class="form_row">
-            <img src="/static/images/signin/sms.png" alt=""/>
+            <span class="iconWrap">
+                <img src="/static/images/signin/sms.png" alt=""/>
+            </span>
             <input name="invitation_code" placeholder={{_('邀请码（选填）')}} size=20 data-validator="trim">
         </div>
     </div>

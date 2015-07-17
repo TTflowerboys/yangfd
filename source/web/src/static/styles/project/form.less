@@ -24,16 +24,18 @@
         line-height: 34px;
         white-space: nowrap;
         overflow: hidden;
-        > i, > img { vertical-align: middle;}
-        > i{ color: #ccc;font-size: 16px;}
-        > img{
-            margin-left: 1px;
+        .iconWrap{
+            width: 18px;
+            line-height: 1em;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            > i, > img { vertical-align: middle;}
+            > i{ color: #ccc;font-size: 16px;}
         }
-        &.phone > img{
-            margin-left: 2px;
-        }
+
         &.active {
-            > i { color: @red; }
+            i { color: @red; }
         }
     }
     input { border: none; line-height: 24px; margin-left: 8px; vertical-align: middle;
