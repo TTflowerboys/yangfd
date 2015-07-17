@@ -49,8 +49,6 @@
 #import "CUTERentContactViewController.h"
 #import "CUTEUserViewController.h"
 #import "CUTETooltipView.h"
-#import "CUTEApplyBetaRentingViewController.h"
-#import "CUTEApplyBetaRentingForm.h"
 #import "NSArray+ObjectiveSugar.h"
 #import "Aspects.h"
 #import "RNCachingURLProtocol.h"
@@ -187,7 +185,6 @@
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowFavoritePropertyList:) name:KNOTIF_SHOW_FAVORITE_PROPERTY_LIST object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogin:) name:KNOTIF_USER_DID_LOGIN object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogout:) name:KNOTIF_USER_DID_LOGOUT object:nil];
-    [NotificationCenter addObserver:self selector:@selector(onReceiveBetaUserDidRegister:) name:KNOTIF_BETA_USER_DID_REGISTER object:nil];
 
     [NotificationCenter addObserver:self selector:@selector(onReceiveShowRentTicketListTab:) name:KNOTIF_SHOW_RENT_TICKET_LIST_TAB object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveShowPropertyListTab:) name:KNOTIF_SHOW_PROPERTY_LIST_TAB object:nil];
@@ -264,6 +261,13 @@
     [Fabric with:@[CrashlyticsKit]];
 
     [[CUTETracker sharedInstance] trackEnterForeground];
+
+
+    //wait for the register controller dismiss, in case of mis-order trigger viewWillDisappear
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self checkShowPublishRentTicketTooltip];
+    });
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [CUTESurveyHelper checkShowPublishedRentTicketSurveyWithViewController:self.tabBarController];
     });
@@ -315,18 +319,12 @@
 }
 
 - (BOOL)checkShowSplashViewController {
-
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED])
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_SPLASH_DISPLAYED])
     {
         CUTESplashViewController *spalshViewController = [CUTESplashViewController new];
-        __weak typeof(self)weakSelf = self;
-        spalshViewController.completion = ^ {
-            [weakSelf showBetaUserRegister];
-        };
-        spalshViewController.applyBetaCompletion = ^ {
-            [weakSelf showApplyInvitionCode];
-        };
         [self.tabBarController presentViewController:spalshViewController animated:NO completion:nil];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_SPLASH_DISPLAYED];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         return YES;
     }
     else {
@@ -334,46 +332,21 @@
     }
 }
 
-- (void)showBetaUserRegister {
-    [SVProgressHUD show];
-    [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
-        if (task.error) {
-            [SVProgressHUD showErrorWithError:task.error];
-        }
-        else if (task.exception) {
-            [SVProgressHUD showErrorWithException:task.exception];
-        }
-        else if (task.isCancelled) {
-            [SVProgressHUD showErrorWithCancellation];
-        }
-        else {
-            CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
-            CUTERentContactForm *form = [CUTERentContactForm new];
-            form.isOnlyRegister = YES;
-            form.isInvitationCodeRequired = YES;
-            [form setAllCountries:task.result];
-            contactViewController.formController.form = form;
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:contactViewController];
-            [self.tabBarController presentViewController:nav animated:NO completion:^{
+- (void)checkShowPublishRentTicketTooltip {
 
-            }];
-            [SVProgressHUD dismiss];
-        }
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED]) {
+        CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:90];
+        [toolTips show];
 
-        return task;
-    }];
+        [((UINavigationController *) (self.tabBarController.selectedViewController)).topViewController aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^ (id<AspectInfo> info) {
+            [toolTips hideAnimated:YES];
+        } error:nil];
+
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
-- (void)showApplyInvitionCode {
-    CUTEApplyBetaRentingViewController *controller = [CUTEApplyBetaRentingViewController new];
-    CUTEApplyBetaRentingForm *form = [CUTEApplyBetaRentingForm new];
-    form.singleUse = YES;
-    controller.formController.form = form;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
-    [self.tabBarController presentViewController:nav animated:NO completion:^{
-
-    }];
-}
 
 #pragma UITabbarViewControllerDelegate
 
@@ -718,32 +691,10 @@
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
     [[CUTEDataManager sharedInstance] clearAllRentTickets];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
-    //clear some user default
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [self checkShowSplashViewController];
-}
-
-- (void)onReceiveBetaUserDidRegister:(NSNotification *)notif {
-
-    //wait for the register controller dismiss, in case of mis-order trigger viewWillDisappear
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED]) {
-            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:90];
-            [toolTips show];
-
-            [((UINavigationController *) (self.tabBarController.selectedViewController)).topViewController aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^ (id<AspectInfo> info) {
-                [toolTips hideAnimated:YES];
-            } error:nil];
-
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-    });
 }
 
 - (void)onReceiveShowSplashView:(NSNotification *)notif {
-    [self checkShowSplashViewController];
+
 }
 
 @end
