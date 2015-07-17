@@ -138,7 +138,7 @@ def rent_ticket_get(rent_ticket_id, user):
         "items.id": f_app.common.view_rent_ticket_contact_info_id,
         "ticket_id": rent_ticket_id,
         "user.id": user["id"],
-    })) > 0
+    })) > 0 if user else False
     return currant_util.common_template("host_contact_request-phone", rent=rent_ticket, title=title, contact_info_already_fetched=contact_info_already_fetched)
 
 

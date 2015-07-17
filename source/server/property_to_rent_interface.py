@@ -111,7 +111,7 @@ def rent_ticket_get(rent_ticket_id, user):
         "items.id": f_app.common.view_rent_ticket_contact_info_id,
         "ticket_id": rent_ticket_id,
         "user.id": user["id"],
-    })) > 0
+    })) > 0 if user else False
 
     return currant_util.common_template("property_to_rent", rent=rent_ticket, rent_type_list=rent_type_list, rent_budget_list=rent_budget_list, report=report, is_favorited=is_favorited, publish_time=publish_time, title=title, description=description, keywords=keywords, weixin=weixin, contact_info_already_fetched=contact_info_already_fetched)
 
