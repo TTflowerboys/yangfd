@@ -213,7 +213,7 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
     }];
 }
 
-- (BFTask *)shareTicket:(CUTETicket *)ticket
+- (BFTask *)shareTicket:(CUTETicket *)ticket viewController:(UIViewController *)viewController
 {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     self.taskCompletionSource = tcs;
@@ -278,9 +278,12 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
                                 [WeiboSDK sendRequest:request];
                             }
                             else {
+                                //TODO test case
+                                //Window root controller not ok
 
                                 [[UMSocialControllerService defaultControllerService] setShareText:content shareImage:sinaImage socialUIDelegate:self];
-                                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(appDelegate.window.rootViewController,[UMSocialControllerService defaultControllerService],YES);
+                                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(viewController,[UMSocialControllerService defaultControllerService],YES);
+
                             }
 
                             return nil;
@@ -299,7 +302,7 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
     return tcs.task;
 }
 
-- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString inServices:(NSArray *)services {
+- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString inServices:(NSArray *)services viewController:(UIViewController *)viewController {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     self.taskCompletionSource = tcs;
 
@@ -354,7 +357,7 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
                 }
                 else {
                     [[UMSocialControllerService defaultControllerService] setShareText:content shareImage:[UIImage appIcon] socialUIDelegate:self];
-                    [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(appDelegate.window.rootViewController,[UMSocialControllerService defaultControllerService],YES);
+                    [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(viewController,[UMSocialControllerService defaultControllerService],YES);
                 }
             }
             else {
