@@ -16,7 +16,7 @@
 #import "UIImageView+Assets.h"
 #import "NSObject+Attachment.h"
 
-@interface CUTEUnfinishedRentTicketCell () <BBTPagingViewViewDataSource, BBTPagingViewViewDelegate> {
+@interface CUTEUnfinishedRentTicketCell () <BBTPagingViewViewDataSource> {
 
     BBTPagingView *_scrollImageView;
 
@@ -55,7 +55,6 @@
 
         _scrollImageView = [[BBTPagingView alloc] init];
         [self.contentView addSubview:_scrollImageView];
-        _scrollImageView.delegate = self;
         _scrollImageView.dateSource = self;
         //http://stackoverflow.com/questions/6636844/uiscrollview-inside-uitableviewcell-touch-detect
         //make scrollview can pass touch to tableviewcell and responsable for pan
@@ -185,10 +184,6 @@
     imageView.attachment = identifier;
 
     return imageView;
-}
-
-- (void)onPagingViewScrollToIndex:(NSInteger)index {
-
 }
 
 @end

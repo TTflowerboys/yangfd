@@ -61,17 +61,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED]) {
-        self.navigationItem.title = STR(@"用户注册");
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"返回") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-            [self.navigationController dismissViewControllerAnimated:NO completion:^{
-                [NotificationCenter postNotificationName:KNOTIF_SHOW_SPLASH_VIEW object:nil];
-            }];
-        }];
-    }
-    else {
-        self.navigationItem.title = STR(@"联系方式");
-    }
+    self.navigationItem.title = STR(@"联系方式");
 
     self.tableView.accessibilityIdentifier = STR(@"用户信息");
 
@@ -236,9 +226,7 @@
             //no user just creat one
             [SVProgressHUD showWithStatus:STR(@"发送中...")];
             NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:user.toParams];
-            if (!IsNilNullOrEmpty(form.invitationCode)) {
-                [params setObject:form.invitationCode forKey:@"invitation_code"];
-            }
+            
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/fast-register" parameters:params resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
@@ -341,14 +329,10 @@
         CUTEUser *retUser = result;
         if (form.isOnlyRegister) {
             [SVProgressHUD dismiss];
-            [[CUTEDataManager sharedInstance] saveUser:retUser];
-            [[CUTEDataManager sharedInstance] persistAllCookies];
-            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
-
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];
-            [[NSUserDefaults standardUserDefaults] synchronize];
             [self dismissViewControllerAnimated:YES completion:^{
-                [NotificationCenter postNotificationName:KNOTIF_BETA_USER_DID_REGISTER object:nil];
+                [[CUTEDataManager sharedInstance] saveUser:retUser];
+                [[CUTEDataManager sharedInstance] persistAllCookies];
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
             }];
         }
         else {

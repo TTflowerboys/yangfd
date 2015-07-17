@@ -31,7 +31,7 @@
     NSMutableArray *fields = [NSMutableArray arrayWithArray:@[@{FXFormFieldKey: @"login", FXFormFieldTitle: STR(@"登录"), FXFormFieldHeader: STR(@"已有帐号"), FXFormFieldCell: [CUTEFormCenterTextCell class], @"textLabel.textColor": CUTE_MAIN_COLOR, FXFormFieldAction: @"login"},
                                                               @{FXFormFieldKey: @"name", FXFormFieldTitle: STR(@"姓名"), FXFormFieldHeader: STR(@"还没有帐号？10秒创建"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
                                                               @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"邮箱"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
-                                                              @{FXFormFieldKey: @"invitationCode", FXFormFieldTitle: STR(@"邀请码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+//                                                              @{FXFormFieldKey: @"invitationCode", FXFormFieldTitle: STR(@"邀请码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
                                                               @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTECountry *)[_allCountries firstObject], FXFormFieldAction: @"optionBack"},
                                                               @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
                                                               @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class],FXFormFieldAction: @"codeFieldEndEdit"},
@@ -64,10 +64,6 @@
                                                           NGRValidate(@"phone").required(),
                                                           NGRValidate(@"code").required()
                                                           ]];
-    }
-
-    if (_isInvitationCodeRequired) {
-        [validateFields addObject:NGRValidate(@"invitationCode").required()];
     }
 
     [NGRValidator validateModel:self error:&error delegate:nil rules:^NSArray *{

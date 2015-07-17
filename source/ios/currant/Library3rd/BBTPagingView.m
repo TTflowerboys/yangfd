@@ -160,6 +160,17 @@ static NSString *kImageKey = @"imageKey";
     return nil;
 }
 
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);
+    if (scrollView.contentOffset.x > pageWidth * (self.pageViews.count - 1)) {
+        if (self.delegate != nil) {
+            if ([self.delegate respondsToSelector:@selector(onPagingViewDragOver)]) {
+                [self.delegate onPagingViewDragOver];
+            }
+        }
+    }
+}
+
 
 // at the end of scroll animation, reset the boolean used when scrolls originate from the UIPageControl
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -168,7 +179,6 @@ static NSString *kImageKey = @"imageKey";
     CGFloat pageWidth = CGRectGetWidth(self.scrollView.frame);
     NSUInteger page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     self.currentPage = page;
-    [[self delegate] onPagingViewScrollToIndex:page];
 
     [self markResuablePageViewsAvailableExclude:@[@(page -1), @(page), @(page + 1)]];
     // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
@@ -176,6 +186,12 @@ static NSString *kImageKey = @"imageKey";
     [self loadScrollViewWithPage:page];
     [self loadScrollViewWithPage:page + 1];
 
+
+    if (self.delegate != nil) {
+        if ([self.delegate respondsToSelector:@selector(onPagingViewScrollToIndex:)]) {
+            [self.delegate onPagingViewScrollToIndex:page];
+        }
+    }
     // a possible optimization would be to unload the views+controllers which are no longer visible
 }
 

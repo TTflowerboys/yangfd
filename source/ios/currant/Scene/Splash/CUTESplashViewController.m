@@ -33,8 +33,6 @@
 
     UIButton *_enterButton;
 
-    UIButton *_applyBetaButton;
-
     UIPageControl *_pageIndicator;
 
     NSTimer *_timer;
@@ -65,7 +63,7 @@
     _enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _enterButton.frame = CGRectMake(kButtonHorizontalMargin, RectHeightExclude(self.view.bounds, (kButtonHeight + kButtonBottomMargin)), RectWidthExclude(self.view.bounds, kButtonHorizontalMargin * 2), kButtonHeight);
     [_enterButton setTitleColor:CUTE_MAIN_COLOR forState:UIControlStateNormal];
-    [_enterButton setTitle:STR(@"有邀请码？进入应用") forState:UIControlStateNormal];
+    [_enterButton setTitle:STR(@"进入应用") forState:UIControlStateNormal];
     _enterButton.titleLabel.font = [UIFont systemFontOfSize:14];
     _enterButton.layer.borderColor = CUTE_MAIN_COLOR.CGColor;
     _enterButton.layer.borderWidth = 1;
@@ -73,15 +71,6 @@
     [self.view addSubview:_enterButton];
     [_enterButton addTarget:self action:@selector(onEnterButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [_enterButton setHidden:YES];
-
-    _applyBetaButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _applyBetaButton.frame = CGRectMake(kButtonHorizontalMargin, RectHeightExclude(self.view.bounds, (kButtonHeight + kButtonBottomMargin + kButtonHeight + kButtonBetweenMargin)), RectWidthExclude(self.view.bounds, kButtonHorizontalMargin * 2), kButtonHeight);
-    [_applyBetaButton setTitle:STR(@"申请内测，获取邀请码") forState:UIControlStateNormal];
-    [_applyBetaButton setTitleColor:CUTE_MAIN_COLOR forState:UIControlStateNormal];
-    _applyBetaButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    [self.view addSubview:_applyBetaButton];
-    [_applyBetaButton addTarget:self action:@selector(onApplyBetaButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_applyBetaButton setHidden:YES];
 
     [_pagingView reloadWithPageCount:kPageCount];
 }
@@ -93,24 +82,18 @@
     [_pagingView updateFrame:self.view.bounds];
     _pageIndicator.frame = CGRectMake(0, RectHeightExclude(self.view.bounds, kButtonAreaHeight), RectWidth(self.view.bounds), kPageIndicatorHeight);
     _enterButton.frame = CGRectMake(kButtonHorizontalMargin, _pageIndicator.frame.origin.y + kButtonTopMargin, RectWidthExclude(self.view.bounds, kButtonHorizontalMargin * 2), kButtonHeight);
-    _applyBetaButton.frame = CGRectMake(kButtonHorizontalMargin, _pageIndicator.frame.origin.y + kButtonTopMargin + kButtonBetweenMargin + kButtonHeight, RectWidthExclude(self.view.bounds, kButtonHorizontalMargin * 2), kButtonHeight);
 }
 
 - (void)onEnterButtonPressed:(id)sender {
-    [self dismissViewControllerAnimated:NO completion:^{
-        if (self.completion) {
-            self.completion();
-        }
+    [UIView animateKeyframesWithDuration:0.3 delay:0 options:0 animations:^{
+        _pagingView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self dismissViewControllerAnimated:NO completion:^{
+
+        }];
     }];
 }
 
-- (void)onApplyBetaButtonPressed:(id)sender {
-    [self dismissViewControllerAnimated:NO completion:^{
-        if (self.applyBetaCompletion) {
-            self.applyBetaCompletion();
-        }
-    }];
-}
 
 #pragma mark - BBTPagingViewDataSource
 
@@ -119,7 +102,7 @@
     UIView *view = [[UIView alloc] initWithFrame:_pagingView.bounds];
     view.backgroundColor = HEXCOLOR(0xf0e8d4, 1);
     UIImageView *imageView = [[UIImageView alloc] init];
-    NSString *imageName = [NSString stringWithFormat:@"img-splash-%d", (index + 1)];
+    NSString *imageName = [NSString stringWithFormat:@"img-splash-%ld", (index + 1)];
     imageView.image = IMAGE(imageName);
     [view addSubview:imageView];
     CGSize imageSize = imageView.image.size;
@@ -156,22 +139,21 @@
     if (kPageCount - 1 != index) {
         [UIView animateWithDuration:0.2 animations:^{
             _enterButton.alpha = 0;
-            _applyBetaButton.alpha = 0;
         } completion:^(BOOL finished) {
             [_enterButton setHidden:YES];
-            [_applyBetaButton setHidden:YES];
         }];
     }
     else {
         [_enterButton setHidden:NO];
-        [_applyBetaButton setHidden:NO];
         [UIView animateWithDuration:0.2 animations:^{
             _enterButton.alpha = 1;
-            _applyBetaButton.alpha = 1;
         } completion:^(BOOL finished) {
         }];
     }
+}
 
+- (void)onPagingViewDragOver {
+    [self onEnterButtonPressed:nil];
 }
 
 @end

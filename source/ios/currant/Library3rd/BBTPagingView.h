@@ -17,7 +17,11 @@
 
 @protocol BBTPagingViewViewDelegate <NSObject>
 
+@optional
+
 - (void)onPagingViewScrollToIndex:(NSInteger)index;
+
+- (void)onPagingViewDragOver;
 
 @end
 

@@ -23,8 +23,6 @@
 
 @property (strong, nonatomic) NSString *code;
 
-@property (strong, nonatomic) NSString *invitationCode;
-
 @property (strong, nonatomic) CUTERentContactDisplaySettingForm *displaySetting;
 
 @property (nonatomic) BOOL isOnlyRegister;

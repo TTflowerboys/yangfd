@@ -102,15 +102,13 @@
             }
             else {
                 CUTEUser *user = task.result;
-                [[CUTEDataManager sharedInstance] persistAllCookies];
-                [[CUTEDataManager sharedInstance] saveUser:user];
-
                 [SVProgressHUD dismiss];
-                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_BETA_USER_REGISTERED];
-                [[NSUserDefaults standardUserDefaults] synchronize];
+
+
                 [self dismissViewControllerAnimated:YES completion:^{
-                    [NotificationCenter postNotificationName:KNOTIF_BETA_USER_DID_REGISTER object:nil];
+                    [[CUTEDataManager sharedInstance] persistAllCookies];
+                    [[CUTEDataManager sharedInstance] saveUser:user];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
                 }];
             }
             return nil;
