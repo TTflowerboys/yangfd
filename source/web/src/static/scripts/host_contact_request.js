@@ -124,8 +124,7 @@ $(function () {
                         // If user submitted before, or already pass cooling period since last submit
                         if(val.amount === 0){
                             if(_.findIndex(val.credits,{tag:'rent_intention_ticket'}) < 0){ //尚未提交过出租需求单
-                                $hint.css('display', 'block')
-                                $exhaustSubmitTip.css('display', 'inline')
+                                $hint.html('<span class="exhaustSubmitTip">(' + window.i18n('提交求租需求继续获取') + ')</span>').css('display', 'block')
 
                                 $requestContactBtn.off('click').on('click', function (e) {
                                     window.openRequirementRentForm({
