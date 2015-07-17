@@ -195,7 +195,7 @@ def get_report(report_id):
 def get_message_list(user):
     message_list = f_app.message.get_by_user(
         user['id'],
-        {"state": {"$in": ["read", "new"]}},
+        {"state": {"$in": ["read", "new"]}, "type": {"$in": ["system", "favorited_property_news","intention_property_news","my_property_news"]}},
     )
     message_list = sorted(message_list, key=lambda message: message.get('time'), reverse=True)
     return message_list
