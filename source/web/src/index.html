@@ -37,14 +37,7 @@
 </div>
 
 <div class="userChoice_wrapper">
-    <ul
-        %if user and "beta_renting" in user.get('role',[]):
-            class="userChoice_beta"
-        %else:
-            class="userChoice"
-        %end
-            >
-        %if user and "beta_renting" in user.get('role',[]):
+    <ul class="userChoice">
             <li>
                 <a
                     %if is_mobile_client():
@@ -64,7 +57,6 @@
                     </div>
                 </a>
             </li>
-        %end
         <li>
             <a href="/guides">
                 <i class="img_wrapper icon-house_homepage"></i>
