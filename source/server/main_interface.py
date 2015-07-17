@@ -86,7 +86,16 @@ def signin():
 def intention(user):
     title = _('投资意向')
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
-    return currant_util.common_template("intention", intention_list=intention_list, title=title, icon_map=currant_util.icon_map)
+    rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
+    property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
+    property_country_list = currant_util.get_country_list()
+    country = "GB"
+    geonames_params = dict({
+        "feature_code": {"$in": ["PPLC", "PPLA", "PPLA2"]},
+        "country": country
+    })
+    property_city_list = f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(geonames_params, per_page=-1))
+    return currant_util.common_template("intention", intention_list=intention_list, title=title, icon_map=currant_util.icon_map, rent_type_list=rent_type_list, property_type_list=property_type_list, property_country_list=property_country_list, property_city_list=property_city_list)
 
 
 @f_get('/reset_password', '/reset-password')
