@@ -25,7 +25,13 @@
         white-space: nowrap;
         overflow: hidden;
         > i, > img { vertical-align: middle;}
-        > i{ color: #ccc;font-size: 16px; margin-left: -4px;}
+        > i{ color: #ccc;font-size: 16px;}
+        > img{
+            margin-left: 1px;
+        }
+        &.phone > img{
+            margin-left: 2px;
+        }
         &.active {
             > i { color: @red; }
         }
