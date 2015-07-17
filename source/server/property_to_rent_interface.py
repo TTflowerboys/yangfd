@@ -21,7 +21,8 @@ logger = logging.getLogger(__name__)
     building_area=str
 ))
 @currant_util.check_ip_and_redirect_domain
-def property_to_rent_list(params):
+@f_app.user.login.check(role=["jr_admin", "operation", "jr_operation", "beta_renting"])
+def property_to_rent_list(params, user):
     city_list = f_app.i18n.process_i18n(f_app.enum.get_all('city'))
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     rent_budget_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_budget'))
@@ -136,7 +137,8 @@ def property_to_rent_digest(rent_ticket_id):
 
 @f_get('/property-to-rent/create')
 @currant_util.check_ip_and_redirect_domain
-def property_to_rent_create():
+@f_app.user.login.check(role=["jr_admin", "operation", "jr_operation", "beta_renting"])
+def property_to_rent_create(user):
     region_highlight_list = f_app.i18n.process_i18n(f_app.enum.get_all('region_highlight'))
     indoor_facility_list = f_app.i18n.process_i18n(f_app.enum.get_all('indoor_facility'))
     community_facility_list = f_app.i18n.process_i18n(f_app.enum.get_all('community_facility'))
@@ -153,7 +155,8 @@ def property_to_rent_create():
 
 @f_get('/property-to-rent/<rent_ticket_id:re:[0-9a-fA-F]{24}>/edit')
 @currant_util.check_ip_and_redirect_domain
-def property_to_rent_edit(rent_ticket_id):
+@f_app.user.login.check(role=["jr_admin", "operation", "jr_operation", "beta_renting"])
+def property_to_rent_edit(rent_ticket_id, user):
     title = _('出租房源编辑')
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
     keywords = title + ',' + currant_util.get_country_name_by_code(rent_ticket["property"].get('country', {}).get('code', '')) + ',' + rent_ticket["property"].get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
@@ -171,7 +174,8 @@ def property_to_rent_edit(rent_ticket_id):
 
 @f_get('/property-to-rent/<rent_ticket_id:re:[0-9a-fA-F]{24}>/publish-success')
 @currant_util.check_ip_and_redirect_domain
-def property_to_rent_publish_success(rent_ticket_id):
+@f_app.user.login.check(role=["jr_admin", "operation", "jr_operation", "beta_renting"])
+def property_to_rent_publish_success(rent_ticket_id, user):
     title = _('房源发布成功')
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
     keywords = title + ',' + currant_util.get_country_name_by_code(rent_ticket["property"].get('country', {}).get('code', '')) + ',' + rent_ticket["property"].get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
