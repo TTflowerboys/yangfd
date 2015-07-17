@@ -42,7 +42,7 @@ $(function () {
             W.widget.publish({
                 'id' : 'shareAppToWeibo',
                 'default_image':'http://upload.yangfd.com/app_icon_x120_150427.png',
-                'default_text' : window.i18n('我发现了一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！ http://yangfd.com/app-download'),
+                'default_text' : window.i18n('发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！ http://yangfd.com/app-download'),
                 //'action': 'publish',
                 'position':'c',
                 'callback' : function(o) {
@@ -54,10 +54,10 @@ $(function () {
     function shareAppToCircle() {
         $('#shareAppToCircle').off('click').on('click', function () {
             window.wechatShareSDK.init({
-                title: window.i18n('我发现了一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'),
+                title: window.i18n('发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'),
                 link: 'http://yangfd.com/app-download',
                 imgUrl: 'http://upload.yangfd.com/app_icon_x120_150427.png',
-                desc: window.i18n('我发现了一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'),
+                desc: window.i18n('发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'),
                 success:function(){
                     $('.guideLine').hide()
                     shareSuccessCallback()
@@ -85,7 +85,7 @@ $(function () {
         if(client === 'app') {
             return $('#shareApp').off('click').on('click', function () {
                 ga('send', 'event', 'request_host_contact', 'click', 'share_in_app_for_contact')
-                window.bridge.callHandler('share', {'text': window.i18n('我发现了一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'), 'url': 'http://yangfd.com/app-download', 'services': ['Wechat Circle', 'Sina Weibo']}, function(response) {
+                window.bridge.callHandler('share', {'text': window.i18n('发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'), 'url': 'http://yangfd.com/app-download', 'services': ['Wechat Circle', 'Sina Weibo']}, function(response) {
                     if (response.msg === 'ok') {
                         return shareSuccessCallback()
                     }
