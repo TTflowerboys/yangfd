@@ -45,7 +45,8 @@ static NSString *host = nil;
              CONCAT(@"http://", [self host], @"/reverse_proxy"),
              CONCAT(@"http://", [self host], @"/logout"),
              CONCAT(@"http://", [self host], @"/qrcode/generate"),
-             CONCAT(@"http://", [self host], @"/track")];
+             CONCAT(@"http://", [self host], @"/track"),
+             CONCAT(@"http://", [self host], @"/wechat-poster")];
 }
 
 + (NSString *)yangfdScheme {

@@ -37,7 +37,7 @@ describe(@"share ticket", ^ {
 
 describe(@"share text and url", ^{
     it(@"should success", ^{
-        [[CUTEShareManager sharedInstance] shareText:@"share text" urlString:@"http://www.baidu.com"];
+        [[CUTEShareManager sharedInstance] shareText:@"share text" urlString:@"http://www.baidu.com" inServices:@[CUTEShareServiceWechatCircle, CUTEShareServiceSinaWeibo]];
         [tester waitForViewWithAccessibilityLabel:STR(@"分享")];
         [system waitForApplicationToOpenAnyURLWhileExecutingBlock:^{
             [tester tapViewWithAccessibilityLabel:STR(@"微信好友")];

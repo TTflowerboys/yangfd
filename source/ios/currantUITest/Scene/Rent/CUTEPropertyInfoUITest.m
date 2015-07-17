@@ -53,6 +53,21 @@ describe(@"PropertyInfoEdit", ^{
         [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] inTableViewWithAccessibilityIdentifier:STR(@"出租房草稿列表")];
     });
 
+    it(@"should edit landlord type success", ^{
+        [tester waitForViewWithAccessibilityLabel:STR(@"房产信息")];
+         [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"房产信息表单")];
+        [tester waitForAnimationsToFinish];
+        [tester waitForViewWithAccessibilityLabel:STR(@"房东类型")];
+        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0] inTableViewWithAccessibilityIdentifier:STR(@"Form")];
+        [tester waitForAnimationsToFinish];
+        UITableView *tableView =(UITableView *)[tester waitForViewWithAccessibilityLabel:STR(@"房产信息表单")];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+        assertThat(cell.detailTextLabel.text, notNilValue());
+        assertThat(cell.detailTextLabel.text, equalTo(@"我是目前租住的租客"));
+
+    });
+
+
     it(@"should edit rent price success", ^{
         [tester waitForViewWithAccessibilityLabel:STR(@"房产信息")];
          [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"房产信息表单")];
@@ -71,7 +86,44 @@ describe(@"PropertyInfoEdit", ^{
         UITableViewCell *rentPriceCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
         assertThat(rentPriceCell.detailTextLabel.text, equalTo(@"£178.00/周"));
     });
+
+    it(@"should edit property type success", ^{
+        [tester waitForViewWithAccessibilityLabel:STR(@"房产信息")];
+        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"房产信息表单")];
+        [tester waitForAnimationsToFinish];
+        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] inTableViewWithAccessibilityIdentifier:@"Form"];
+        UITableView *tableView =(UITableView *)[tester waitForViewWithAccessibilityLabel:STR(@"房产信息表单")];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]];
+        assertThat(cell.detailTextLabel.text, notNilValue());
+        assertThat(cell.detailTextLabel.text, equalTo(@"别墅"));
+
+    });
+
+    it(@"should edit rent type success", ^{
+
+        [tester waitForViewWithAccessibilityLabel:STR(@"房产信息")];
+        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"房产信息表单")];
+        [tester waitForAnimationsToFinish];
+        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] inTableViewWithAccessibilityIdentifier:@"Form"];
+        UITableView *tableView =(UITableView *)[tester waitForViewWithAccessibilityLabel:STR(@"房产信息表单")];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        assertThat(cell.detailTextLabel.text, notNilValue());
+        assertThat(cell.detailTextLabel.text, equalTo(@"单间"));
+
+    });
+
+    it(@"should edit address success", ^{
+
+    });
+
+
+    it(@"should edit property area success", ^ {
+
+    });
+
+    it(@"should edit more info success", ^ {
+
+    });
 });
 
 SpecEnd
-
