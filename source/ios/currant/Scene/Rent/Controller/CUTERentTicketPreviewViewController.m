@@ -28,7 +28,7 @@
 
 - (void)updateTitleWithURL:(NSURL *)url {
     if (!self.navigationItem.title) {
-        self.navigationItem.title = STR(@"预览");
+        self.navigationItem.title = STR(@"预览房源移动主页");
     }
 }
 
