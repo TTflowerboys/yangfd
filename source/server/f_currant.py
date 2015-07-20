@@ -3127,5 +3127,29 @@ class f_maponics(f_app.plugin_base):
     def neighborhood_search(self, params, per_page=100):
         return f_app.mongo_index.search(self.neighborhood.get_database, params, notime=True, sort_field="population", count=False, per_page=per_page)["content"]
 
+    def neighborhood_assign_to_geonames_postcode(self, country):
+        import shapely.wkt
+        import shapely.geometry
+
+        all_neighborhoods = self.neighborhood.get(self.neighborhood.search({"country": country, "status": "new"}))
+
+        for neighborhood in all_neighborhoods:
+            neighborhood["shapely"] = shapely.wkt.loads(neighborhood["wkt"])
+
+        with f_app.mongo() as m:
+            for postcode in f_app.geonames.postcode.get(f_app.geonames.postcode.search({"country": country, "status": "new"}, per_page=0, sort=False)):
+                if "longitude" not in postcode:
+                    continue
+
+                postcode["neighborhoods"] = []
+                for neighborhood in all_neighborhoods:
+                    if shapely.geometry.Point(float(postcode["longitude"]), float(postcode["latitude"])).within(neighborhood["shapely"]):
+                        postcode["neighborhoods"].append(ObjectId(neighborhood["id"]))
+
+                if len(postcode["neighborhoods"]):
+                    self.logger.debug("Assigning neighborhoods", postcode["neighborhoods"], "to postcode", postcode["id"])
+                    self.postcode.get_database(m).update({"_id": ObjectId(postcode["id"])}, {"$set": {"neighborhoods": postcode["neighborhoods"]}})
+
+        f_app.geonames.postcode.get(f_app.geonames.postcode.search({"country": country, "status": "new"}, per_page=0, sort=False), force_reload=True)
 
 f_maponics()
