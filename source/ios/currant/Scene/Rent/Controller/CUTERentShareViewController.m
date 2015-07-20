@@ -57,7 +57,6 @@
         }
         else if (task.isCancelled) {
             TrackScreen(GetScreenName(@"share-cancellation"));
-            [SVProgressHUD showErrorWithCancellation];
             if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION]) {
                 if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION fromViewController:self]) {
                     [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION];
