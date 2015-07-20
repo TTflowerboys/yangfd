@@ -3092,6 +3092,7 @@ class f_maponics(f_app.plugin_base):
             with f_app.mongo() as m:
                 self.neighborhood.get_database(m).ensure_index([("nid", ASCENDING)])
                 self.neighborhood.get_database(m).ensure_index([("loc", GEO2D)])
+                self.neighborhood.get_database(m).ensure_index([("country", ASCENDING)])
 
                 for r in rows:
                     if first:
@@ -3131,25 +3132,26 @@ class f_maponics(f_app.plugin_base):
         import shapely.wkt
         import shapely.geometry
 
-        all_neighborhoods = self.neighborhood.get(self.neighborhood.search({"country": country, "status": "new"}))
+        all_neighborhoods = self.neighborhood.get(self.neighborhood.search({"country": country}))
 
         for neighborhood in all_neighborhoods:
             neighborhood["shapely"] = shapely.wkt.loads(neighborhood["wkt"])
 
         with f_app.mongo() as m:
-            for postcode in f_app.geonames.postcode.get(f_app.geonames.postcode.search({"country": country, "status": "new"}, per_page=0, sort=False)):
-                if "longitude" not in postcode:
+            for postcode in f_app.geonames.postcode.get_database(m).find({"country": country}):
+                if "loc" not in postcode:
                     continue
 
                 postcode["neighborhoods"] = []
+                point = shapely.geometry.Point(*postcode["loc"])
                 for neighborhood in all_neighborhoods:
-                    if shapely.geometry.Point(float(postcode["longitude"]), float(postcode["latitude"])).within(neighborhood["shapely"]):
+                    if point.within(neighborhood["shapely"]):
                         postcode["neighborhoods"].append(ObjectId(neighborhood["id"]))
 
                 if len(postcode["neighborhoods"]):
-                    self.logger.debug("Assigning neighborhoods", postcode["neighborhoods"], "to postcode", postcode["id"])
-                    self.postcode.get_database(m).update({"_id": ObjectId(postcode["id"])}, {"$set": {"neighborhoods": postcode["neighborhoods"]}})
+                    self.logger.debug("Assigning neighborhoods", postcode["neighborhoods"], "to postcode", postcode["_id"])
+                    f_app.geonames.postcode.get_database(m).update({"_id": postcode["_id"]}, {"$set": {"neighborhoods": postcode["neighborhoods"]}})
+                    f_app.geonames.postcode.get(postcode["_id"], force_reload=True)
 
-        f_app.geonames.postcode.get(f_app.geonames.postcode.search({"country": country, "status": "new"}, per_page=0, sort=False), force_reload=True)
 
 f_maponics()
