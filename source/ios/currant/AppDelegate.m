@@ -673,7 +673,14 @@
 
 
 - (void)onReceiveUserDidLogin:(NSNotification *)notif {
-    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+
+    if (notif.object && [notif.object isKindOfClass:[UIViewController class]] && [(UIViewController *)notif.object navigationController] == [[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex]) {
+        //login in the create process, not reload the list
+    }
+    else {
+
+        [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+    }
 
     NSArray *tabItemControllers = self.tabBarController.viewControllers;
 
