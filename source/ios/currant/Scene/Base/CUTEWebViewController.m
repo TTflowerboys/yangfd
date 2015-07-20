@@ -119,10 +119,13 @@
         url =  [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:url];
     }
 
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.allHTTPHeaderFields = urlRequest.allHTTPHeaderFields;
+
     if (!_webView) {
         [self updateWebView];
     }
-    [_webView loadRequest:urlRequest];
+    [_webView loadRequest:request];
 
     [self updateBackButton];
     [self updateRightButtonWithURL:url];
