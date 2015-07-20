@@ -227,7 +227,7 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
 
             AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 
-            [UIActionSheet showInView:appDelegate.window withTitle:STR(@"分享") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:[self defaultShareTitles] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+            [UIActionSheet showInView:appDelegate.window withTitle:STR(@"分享我的房源移动主页") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:[self defaultShareTitles] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
 
                 [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
 
