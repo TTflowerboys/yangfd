@@ -23,6 +23,7 @@
 #import "ATConnect.h"
 #import "CUTEApptentiveEvent.h"
 #import "CUTERentShareForm.h"
+#import "CUTETracker.h"
 
 @interface CUTERentShareViewController ()
 
@@ -42,11 +43,11 @@
     self.navigationItem.title = STR(@"发布成功");
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self shareToWechat];
+        [self shareRentTicket];
     });
 }
 
-- (void)shareToWechat {
+- (void)shareRentTicket {
     [[[CUTEShareManager sharedInstance] shareTicket:self.form.ticket viewController:self] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
@@ -55,7 +56,7 @@
             [SVProgressHUD showErrorWithException:task.exception];
         }
         else if (task.isCancelled) {
-            [SVProgressHUD showErrorWithCancellation];
+            TrackScreen(GetScreenName(@"share-cancellation"));
             if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION]) {
                 if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION fromViewController:self]) {
                     [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION];
@@ -64,6 +65,8 @@
 
         }
         else {
+
+            TrackScreen(GetScreenName(@"share-success"));
             if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS]) {
                 if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS fromViewController:self]) {
                     [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS];
@@ -135,7 +138,7 @@
     }
     else if ([field.key isEqualToString:@"wechat"]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [self shareToWechat];
+        [self shareRentTicket];
     }
 
 }
