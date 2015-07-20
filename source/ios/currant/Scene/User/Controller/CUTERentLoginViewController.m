@@ -37,6 +37,8 @@
 #import "CUTECredit.h"
 #import "NSArray+ObjectiveSugar.h"
 #import "CUTEKeyboardStateListener.h"
+#import "CUTERentContactDisplaySettingViewController.h"
+#import "CUTERentContactDisplaySettingForm.h"
 
 @implementation CUTERentLoginViewController
 
@@ -117,7 +119,6 @@
     }
     else {
         [SVProgressHUD showWithStatus:STR(@"登录中...")];
-        CUTETicket *ticket = self.ticket;
 
         Sequencer *sequencer = [Sequencer new];
 
@@ -137,32 +138,20 @@
         }];
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[[CUTERentTicketPublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
-                [SVProgressHUD showWithStatus:status];
-            }] continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
-                    [SVProgressHUD showErrorWithError:task.error];
-                    return nil;
-                } else {
-                    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
-
-                    NSArray *screeNames = @[GetScreenNameFromClass([CUTERentTypeListViewController class]),
-                                            GetScreenNameFromClass([CUTERentAddressMapViewController class]),
-                                            GetScreenNameFromClass([CUTERentPropertyInfoViewController class]),
-                                            GetScreenNameFromClass([CUTERentTicketPreviewViewController class]),
-                                            GetScreenNameFromClass([CUTERentContactViewController class]),
-                                            GetScreenNameFromClass([CUTERentLoginViewController class])];
-                    TrackScreensStayDuration(KEventCategoryPostRentTicket, screeNames);
-                    [SVProgressHUD dismiss];
-                    [self.navigationController popToRootViewControllerAnimated:NO];
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": ticket}];
-                    });
-                    return nil;
-                }
-                return nil;
-            }];
+            [SVProgressHUD dismiss];
             
+            CUTEUser *user = (CUTEUser *)result;
+            CUTERentContactDisplaySettingViewController *controller = [CUTERentContactDisplaySettingViewController new];
+            CUTERentContactDisplaySettingForm *form = [CUTERentContactDisplaySettingForm new];
+            form.displayPhone = ![user.privateContactMethods containsObject:@"phone"];
+            form.displayEmail = ![user.privateContactMethods containsObject:@"email"];
+            form.wechat = user.wechat;
+            form.singleUseForReedit = YES;
+            controller.formController.form = form;
+            controller.ticket = self.ticket;
+            controller.navigationItem.title = STR(@"确认联系方式展示");
+            [self.navigationController pushViewController:controller animated:YES];
+
         }];
         
         [sequencer run];
