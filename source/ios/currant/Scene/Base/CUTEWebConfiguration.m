@@ -34,11 +34,12 @@
 }
 
 - (NSArray *)loginRequiredURLPathArray {
-    return @[@"/user", @"/user_favorites?type=rent"];
+    return @[@"/user", @"/user-favorites", @"/user-properties"];
 }
 
 - (BOOL)isURLLoginRequired:(NSURL *)url {
-    return [[self loginRequiredURLPathArray] containsObject:url.path];
+    NSString *urlPath = [[url path] stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+    return [[self loginRequiredURLPathArray] containsObject:urlPath];
 }
 
 - (NSURL *)getRedirectToLoginURLFromURL:(NSURL *)url {
