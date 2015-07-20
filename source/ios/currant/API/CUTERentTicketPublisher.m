@@ -16,6 +16,7 @@
 #import "CUTEAPIManager.h"
 #import "NSURL+Assets.h"
 #import "CUTEDataManager.h"
+#import "CUTENotificationKey.h"
 
 @interface CUTERentTicketPublisher () {
 
@@ -372,16 +373,18 @@
 }
 
 - (BFTask *)deleteTicket:(CUTETicket *)ticket {
+    BFTask *task = nil;
     if (ticket.property && ticket.property.identifier) {
-        return [BFTask taskForCompletionOfAllTasks:
+        task = [BFTask taskForCompletionOfAllTasks:
                 @[ [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", ticket.property.identifier, @"/edit") parameters:@{@"status": kPropertyStatusDeleted} resultClass:[CUTEProperty class]],
                   [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:@{@"status": kTicketStatusDeleted} resultClass:nil]
                   ]];
     }
     else {
-        return [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:@{@"status": kTicketStatusDeleted} resultClass:nil];
+        task = [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:@{@"status": kTicketStatusDeleted} resultClass:nil];
     }
 
+    return task;
 }
 
 - (BFTask *)createProperty:(CUTEProperty *)property {

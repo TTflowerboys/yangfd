@@ -3036,3 +3036,122 @@ class f_currant_order(f_order):
         return order_id_list
 
 f_currant_order()
+
+
+class f_maponics(f_app.plugin_base):
+    nested_attr = ("neighborhood",)
+    maponics_neighborhood_database = "maponics_neighborhood"
+
+    def __init__(self, *args, **kwargs):
+        f_app.module_install("maponics", self)
+
+    def neighborhood_get_database(self, m):
+        return getattr(m, self.maponics_neighborhood_database)
+
+    @f_cache("maponicsneighborhood", support_multi=True)
+    def neighborhood_get(self, neighborhood_id_or_list, force_reload=False):
+        def _format_each(neighborhood):
+            return f_app.util.process_objectid(neighborhood)
+
+        if f_app.util.batch_iterable(neighborhood_id_or_list):
+            result = {}
+
+            with f_app.mongo() as m:
+                result_list = list(self.neighborhood.get_database(m).find({"_id": {"$in": [ObjectId(user_id) for user_id in neighborhood_id_or_list]}, "status": {"$ne": "deleted"}}))
+
+            if not force_reload and len(result_list) < len(neighborhood_id_or_list):
+                found_list = map(lambda neighborhood: str(neighborhood["_id"]), result_list)
+                abort(40400, self.logger.warning("Non-exist neighborhood:", filter(lambda neighborhood_id: neighborhood_id not in found_list, neighborhood_id_or_list), exc_info=False))
+
+            for neighborhood in result_list:
+                result[neighborhood["id"]] = _format_each(neighborhood)
+
+            return result
+
+        else:
+            with f_app.mongo() as m:
+                result = self.neighborhood.get_database(m).find_one({"_id": ObjectId(neighborhood_id_or_list), "status": {"$ne": "deleted"}})
+
+                if result is None:
+                    if not force_reload:
+                        abort(40400, self.logger.warning("Non-exist neighborhood:", neighborhood_id_or_list, exc_info=False))
+
+                    return None
+
+            return _format_each(result)
+
+    def neighborhood_get_by_nid(self, nid):
+        return self.neighborhood.search({"nid": nid})
+
+    def neighborhood_import(self, filename, geonames_city_id):
+        with open(filename) as f:
+            rows = csv.reader(f.readlines(), delimiter=b"|", quoting=csv.QUOTE_NONE)
+            count = 0
+            first = True
+
+            with f_app.mongo() as m:
+                self.neighborhood.get_database(m).ensure_index([("nid", ASCENDING)])
+                self.neighborhood.get_database(m).ensure_index([("loc", GEO2D)])
+                self.neighborhood.get_database(m).ensure_index([("country", ASCENDING)])
+
+                for r in rows:
+                    if first:
+                        # First line is header
+                        first = False
+                        continue
+
+                    params = {
+                        "nid": r[0],
+                        "name": r[1].decode("utf-8"),
+                        "ntype": r[2],
+                        "country": r[3],
+                        "metro": r[4],
+                        "latitude": r[5],
+                        "longitude": r[6],
+                        "loc": [float(r[6]), float(r[5])],
+                        "ncs_code": r[7],
+                        "parentnid": r[8],
+                        "relver": r[9],
+                        "wkt": r[10],
+                        "status": "new",
+                        "geonames_city_id": ObjectId(geonames_city_id),
+                    }
+
+                    self.neighborhood.get_database(m).update({
+                        "nid": params["nid"],
+                    }, {"$set": params}, upsert=True)
+
+                    count += 1
+                    if count % 100 == 1:
+                        self.logger.debug("maponics neighborhood imported", count, "records...")
+
+    def neighborhood_search(self, params, per_page=100):
+        return f_app.mongo_index.search(self.neighborhood.get_database, params, notime=True, sort_field="population", count=False, per_page=per_page)["content"]
+
+    def neighborhood_assign_to_geonames_postcode(self, country):
+        import shapely.wkt
+        import shapely.geometry
+
+        all_neighborhoods = self.neighborhood.get(self.neighborhood.search({"country": country}))
+
+        for neighborhood in all_neighborhoods:
+            neighborhood["shapely"] = shapely.wkt.loads(neighborhood["wkt"])
+
+        with f_app.mongo() as m:
+            for postcode in f_app.geonames.postcode.get_database(m).find({"country": country}):
+                if "loc" not in postcode:
+                    continue
+
+                postcode["neighborhoods"] = []
+                point = shapely.geometry.Point(*postcode["loc"])
+                for neighborhood in all_neighborhoods:
+                    if point.within(neighborhood["shapely"]):
+                        postcode["neighborhoods"].append(ObjectId(neighborhood["id"]))
+
+                if len(postcode["neighborhoods"]):
+                    self.logger.debug("Assigning neighborhoods", postcode["neighborhoods"], "to postcode", postcode["_id"])
+                    f_app.geonames.postcode.get_database(m).update({"_id": postcode["_id"]}, {"$set": {"neighborhoods": postcode["neighborhoods"]}})
+                    f_app.geonames.postcode.get(postcode["_id"], force_reload=True)
+
+
+f_maponics()

@@ -113,14 +113,14 @@
     [_loadFailedHook remove];
 }
 
-- (void)loadRequest:(NSURLRequest *)urlRequest {
-    NSURL *url = urlRequest.URL;
+- (void)loadRequest:(NSURLRequest *)originalRequest {
+    NSURL *url = originalRequest.URL;
     if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:url] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
         url =  [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:url];
     }
 
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    request.allHTTPHeaderFields = urlRequest.allHTTPHeaderFields;
+    request.allHTTPHeaderFields = originalRequest.allHTTPHeaderFields;
 
     if (!_webView) {
         [self updateWebView];
@@ -134,7 +134,7 @@
     [self clearReloadIgnoringCacheHook];
 
     //only reload for cache
-    if ([[RNCache sharedInstance] isRequestCached:urlRequest]) {
+    if ([[RNCache sharedInstance] isRequestCached:request]) {
         [self addReloadIgnoringCacheHook];
     }
 }
