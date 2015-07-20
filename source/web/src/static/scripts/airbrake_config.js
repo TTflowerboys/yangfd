@@ -9,9 +9,5 @@ window.onerror = function(message, file, line, col, error) {
         report.params = report.params || {}
         report.params.stack = error.stack
     }
-    if(window.user && window.user.id) {
-        report.session = report.session || {}
-        report.session.userid = window.user.id
-    }
     airbrake.push(report);
 }

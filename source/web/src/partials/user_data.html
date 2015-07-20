@@ -5,5 +5,9 @@
 <script>
     var userElement = document.getElementById("pythonUserData")
     window.user = JSON.parse(userElement.innerHTML)
+    if(window.user && window.user.id) {
+        airbrake && airbrake.addSession({userid: window.user.id})
+        qbaka && (qbaka.user =  window.user.id)
+    }
 </script>
 %end
