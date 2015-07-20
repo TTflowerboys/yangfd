@@ -1,0 +1,18 @@
+
+<!-- @if ENV=='production' -->
+<script>
+window.env = 'production'
+</script>
+<!-- @endif -->
+
+<!-- @if ENV=='debug' -->
+<script>
+window.env = 'debug'
+</script>
+<!-- @endif -->
+
+
+<!--build:js /static/scripts/airbrake.js-->
+<script src="/static/bower_components/airbrake-js-client/dist/client.js"></script>
+<script src="/static/scripts/airbrake_config.js"></script>
+<!--endbuild-->

@@ -57,7 +57,8 @@
     "fancyBox": "fancyapps/fancyBox#2.1.5",
     "photoswipe": "4.0.7",
     "dropload": "0.3.0",
-    "intro.js": "1.0.0"
+    "intro.js": "1.0.0",
+    "airbrake-js-client": "~0.5.0"
   },
   "resolutions": {
     "jquery": "2.1.0",
