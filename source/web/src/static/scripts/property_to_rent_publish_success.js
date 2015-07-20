@@ -7,6 +7,7 @@
     })
 
     $(function() {
+        ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'finish-publish', (new Date().getTime() - parseInt(window.team.getQuery('createStartTime')))/1000)
         $('.qrcodeBox').find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.protocol + '//' + location.host + '/wechat-poster/' + $('.qrcodeBox img').attr('data-id')))
         $('#copyBtn').attr('data-clipboard-text', location.protocol + '//' + location.host + '/wechat-poster/' + $('#copyBtn').data('id'))
         var client = new window.ZeroClipboard( document.getElementById('copyBtn') )

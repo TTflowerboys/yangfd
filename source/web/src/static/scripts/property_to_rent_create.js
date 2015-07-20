@@ -832,10 +832,7 @@
                 $btn.prop('disabled', true).text(window.i18n('发布中...'))
                 $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', {'status': 'to rent'})
                     .done(function(val) {
-                        location.href = '/property-to-rent/' + window.ticketId + '/publish-success'
-
-                        ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'sms-receive', (new Date() - smsSendTime)/1000)
-                        ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'finish-publish', (new Date() - createStartTime)/1000)
+                        location.href = '/property-to-rent/' + window.ticketId + '/publish-success?createStartTime=' + createStartTime.getTime()
                     })
                     .fail(function (ret) {
                         $errorMsg2.empty()
@@ -871,6 +868,7 @@
                 $.betterPost('/api/1/user/' + window.user.id + '/sms_verification/verify', {
                     code: $('#code').val()
                 }).done(function () {
+                    ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'sms-receive', (new Date() - smsSendTime)/1000)
                     publishRentTicket()
                 }).fail(function (ret) {
                     $errorMsg2.html(window.getErrorMessageFromErrorCode(ret)).show()
