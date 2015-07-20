@@ -51,7 +51,7 @@
 
 
 - (void)onContinueButtonPressed:(id)sender {
-    
+
     TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
     if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
         CUTERentContactDisplaySettingViewController *controller = [CUTERentContactDisplaySettingViewController new];

@@ -133,6 +133,9 @@
     else if ([object isKindOfClass:[NSURL class]]) {
         return [self getScreenNameFromURL:object];
     }
+    else if ([object isKindOfClass:[NSString class]]) {
+        return object;
+    }
     return [object description];
 }
 
