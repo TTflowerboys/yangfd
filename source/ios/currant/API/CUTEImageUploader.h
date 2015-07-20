@@ -23,4 +23,6 @@
 
 - (BFTask *)getAssetURLsOrNullsFromURLArray:(NSArray *)array;
 
+- (void)cancelTaskForAssetURLString:(NSString *)assetURLStr;
+
 @end

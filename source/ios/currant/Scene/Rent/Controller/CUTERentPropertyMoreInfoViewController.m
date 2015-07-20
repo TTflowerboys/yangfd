@@ -22,6 +22,8 @@
 #import "CUTEFormLimitCharacterCountTextFieldCell.h"
 #import "CUTEFormTextViewCell.h"
 #import "CUTENavigationUtil.h"
+#import "NSURL+Assets.h"
+#import "CUTEImageUploader.h"
 
 
 @implementation CUTERentPropertyMoreInfoViewController
@@ -130,7 +132,15 @@
                     [SVProgressHUD showErrorWithCancellation];
                 }
                 else {
+
                     [SVProgressHUD dismiss];
+                    NSArray *images = [self.form.ticket.property realityImages];
+                    [images each:^(NSString *object) {
+                        if ([[NSURL URLWithString:object] isAssetURL]) {
+                            [[CUTEImageUploader sharedInstance] cancelTaskForAssetURLString:object];
+                        }
+                    }];
+
                     [[CUTEDataManager sharedInstance] markRentTicketDeleted:self.form.ticket];
                     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:self];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

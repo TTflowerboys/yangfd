@@ -21,6 +21,7 @@
 #import "ALAsset+GetImage.h"
 #import "UIImage+CalculatedSize.h"
 #import "CUTEAPIManager.h"
+#import "NSObject+Attachment.h"
 
 @interface CUTEImageUploader () {
 
@@ -149,7 +150,8 @@
         [[self getImageDataWithAssetURLString:assetURLStr] continueWithBlock:^id(BFTask *task) {
             NSData *imageData = task.result;
             if (imageData) {
-                [[_imageUploader HTTPRequestOperationWithRequest:[self makeUploadRequestWithURL:[NSURL URLWithString:@"/api/1/upload_image" relativeToURL:[CUTEConfiguration uploadHostURL]] data:imageData] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+                AFHTTPRequestOperation *operation = [_imageUploader HTTPRequestOperationWithRequest:[self makeUploadRequestWithURL:[NSURL URLWithString:@"/api/1/upload_image" relativeToURL:[CUTEConfiguration uploadHostURL]] data:imageData] success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSDictionary *responseDic = (NSDictionary *)responseObject;
                     if ([[responseDic objectForKey:@"ret"] integerValue] == 0) {
                         NSString *urlStr = responseDic[@"val"][@"url"];
@@ -166,7 +168,9 @@
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [_requestTaskDictionary removeObjectForKey:assetURLStr];
                     [tcs setError:error];
-                }] start];
+                }] ;
+                tcs.task.attachment = operation;
+                [operation start];
             }
             else {
                 [_requestTaskDictionary removeObjectForKey:assetURLStr];
@@ -234,6 +238,14 @@
     }
     else {
         return [BFTask taskWithResult:[NSNull null]];
+    }
+}
+
+- (void)cancelTaskForAssetURLString:(NSString *)assetURLStr {
+    BFTask *task = [_requestTaskDictionary objectForKey:assetURLStr];
+    if (task && task.attachment && [task.attachment isKindOfClass:[AFHTTPRequestOperation class]]) {
+        [(AFHTTPRequestOperation *)task.attachment cancel];
+        [_requestTaskDictionary removeObjectForKey:assetURLStr];
     }
 }
 
