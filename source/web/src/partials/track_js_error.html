@@ -10,6 +10,26 @@
     window.env = 'debug'
 </script>
 <!-- @endif -->
+
+
+<!--build:js /static/scripts/airbrake.js-->
+<script src="/static/bower_components/airbrake-js-client/dist/client.js"></script>
+<!--endbuild-->
+<script type="text/javascript">
+    window.airbrake = new window.airbrakeJs.Client({projectId: 113692, projectKey: '666a2a183ac4ac2191cf8e5736251d69'});
+    window.airbrake.setEnvironmentName(window.env)
+    window.onerror=function(message, file, line, col, error){
+        var report = {error: {message: message, fileName: file, lineNumber: line}}
+        if(col) {
+            report.error.colNumber = col
+        }
+        if(error && error.stack) {
+            report.params = report.params || {}
+            report.params.stack = error.stack
+        }
+        window.airbrake.push(report);
+    };
+</script>
 <script type="text/javascript">
     window.qbaka||function(e,t){var n=[];var r=e.qbaka=function(){n.push(arguments)};e.__qbaka_eh=e.onerror;e.onerror=function(){r("onerror",arguments);if(e.__qbaka_eh)try{e.__qbaka_eh.apply(e,arguments)}catch(t){}};e.onerror.qbaka=1;r.sv=2;r._=n;r.log=function(){r("log",arguments)};r.report=function(){r("report",arguments,new Error)};var i=t.createElement("script"),s=t.getElementsByTagName("script")[0],o=function(){s.parentNode.insertBefore(i,s)};i.type="text/javascript";i.async=!0;i.src=("https:"==t.location.protocol?"https:":"http:")+"//qbaka.r.worldssl.net/reporting.js";typeof i.async=="undefined"&&t.addEventListener?t.addEventListener("DOMContentLoaded",o):o();r.key="216261a9628a75a0a5714e9f6632d98f"}(window,document);qbaka.options={autoStacktrace:1,trackEvents:1};
     qbaka('tag', window.env);
