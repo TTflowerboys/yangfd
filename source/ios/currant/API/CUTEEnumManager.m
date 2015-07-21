@@ -13,12 +13,15 @@
 #import "CUTEAPIManager.h"
 #import "CUTECity.h"
 #import "CUTECountry.h"
+#import "CUTENeighborhood.h"
 
 @interface CUTEEnumManager () {
 
     NSMutableDictionary *_enumCache;
 
     NSMutableDictionary *_cityCache;
+
+    NSMutableDictionary *_neighborhoodCache;
 
     NSArray *_uploadCDNDomains;
 }
@@ -45,6 +48,7 @@
     if (self) {
         _enumCache = [NSMutableDictionary dictionary];
         _cityCache = [NSMutableDictionary dictionary];
+        _neighborhoodCache = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -120,6 +124,43 @@
         }];
     }
     return tcs.task;
+}
+
+- (BFTask *)getNeighborhoodByCity:(CUTECity *)city {
+
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    if ([_neighborhoodCache objectForKey:city.identifier]) {
+        [tcs setResult:[_neighborhoodCache objectForKey:city.identifier]];
+    }
+    else {
+        if ([city.country isEqualToString:@"GB"] && [city.name isEqualToString:@"London"]) {
+            [[[CUTEAPIManager sharedInstance] GET:@"/api/1/maponics_neighborhood/search" parameters:nil resultClass:[CUTENeighborhood class]] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    [tcs setError:task.error];
+                }
+                else if (task.exception) {
+                    [tcs setException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [tcs cancel];
+                }
+                else {
+                    NSArray *neighborhoods = task.result;
+                    neighborhoods = [neighborhoods sortBy:@"fieldDescription"];
+                    [_neighborhoodCache setObject:neighborhoods forKey:city.identifier];
+                    [tcs setResult:neighborhoods];
+                }
+                return task;
+            }];
+        }
+        else {
+            [tcs setResult:nil];
+        }
+    }
+
+    return tcs.task;
+
+
 }
 
 - (BFTask *)getUploadCDNDomains {

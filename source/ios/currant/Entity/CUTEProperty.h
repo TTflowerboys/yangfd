@@ -16,6 +16,7 @@
 #import "CUTECity.h"
 #import "CUTECountry.h"
 #import "CUTEModelEditingListener.h"
+#import "CUTENeighborhood.h"
 
 #define kPropertyStatusDraft @"draft"
 #define kPropertyStatusDeleted @"deleted"
@@ -51,6 +52,8 @@
 @property (strong, nonatomic) NSString *houseName;
 
 @property (readonly, nonatomic) NSString *address;
+
+@property (strong, nonatomic) NSArray *neighborhoods;
 
 @property (strong, nonatomic) NSString *propertyDescription;
 

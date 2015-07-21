@@ -15,6 +15,8 @@
 
 @property (strong, nonatomic) CUTECountry *lastCountry;
 
+@property (strong, nonatomic) CUTECity *lastCity;
+
 @property (strong, nonatomic) NSString *lastPostcode;
 
 @property (nonatomic, copy) dispatch_block_t updateAddressCompletion;
