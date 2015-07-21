@@ -194,13 +194,12 @@
         CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
         if (form.singleUseForReedit) {
 
+
+            form.ticket.property.latitude = nil;
+            form.ticket.property.longitude = nil;
             //check is a draft ticket not a unfinished one
             if (!IsNilNullOrEmpty(form.ticket.identifier)) {
                 [form syncTicketWithUpdateInfo:@{@"property.latitude": [NSNull null], @"property.longitude": [NSNull null]}];
-            }
-            else {
-                form.ticket.property.latitude = nil;
-                form.ticket.property.longitude = nil;
             }
 
             [SVProgressHUD dismiss];
@@ -256,13 +255,11 @@
             CLLocation *location = task.result;
             if (location && [location isKindOfClass:[CLLocation class]]) {
 
+                form.ticket.property.latitude = @(location.coordinate.latitude);
+                form.ticket.property.longitude = @(location.coordinate.longitude);
                 //check is a draft ticket not a unfinished one
                 if (!IsNilNullOrEmpty(form.ticket.identifier)) {
                     [form syncTicketWithUpdateInfo:@{@"property.latitude": @(location.coordinate.latitude), @"property.longitude": @(location.coordinate.longitude)}];
-                }
-                else {
-                    form.ticket.property.latitude = @(location.coordinate.latitude);
-                    form.ticket.property.longitude = @(location.coordinate.longitude);
                 }
 
                 [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
