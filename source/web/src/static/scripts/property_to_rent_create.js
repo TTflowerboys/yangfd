@@ -196,6 +196,11 @@
         $('#city-select').html('').trigger('chosen:updated')
         getCityListForSelect($('#country-select').val())
     })
+    $('#city-select').bind('change', function () {
+        $('#neighborhood-select').html('').trigger('chosen:updated')
+        getNeighborhoodListForSelect($('#city-select').val())
+    })
+    bindDataModel()
     function getCountryList() { //通过window.team.countryMap来获取国家列表
 
         $('#country-select').append(
@@ -203,7 +208,9 @@
                 return pre + '<option value="' + val.code + '">' + window.team.countryMap[val.code] + '</option>'
             }, '<option value="">' + i18n('请选择国家') + '</option>')
         ).trigger('chosen:updated')
-        bindDataModel()
+        if($('#country').val()) {
+            $('#country-select').val($('#country').val()).trigger('chosen:updated').trigger('change')
+        }
     }
     function GeonamesApi () {
         var url = '/api/1/geonames/search'
@@ -223,6 +230,21 @@
                 country: country,
                 feature_code: 'city'
             }, callback, reject)
+        }
+        this.getNeighborhood = function (city, callback, reject) {
+            //todo 等待搜索neighborhood的api完成
+            setTimeout(function () {
+                callback([
+                    {id: '1', name: 'test neighborhood1'},
+                    {id: '2', name: 'test neighborhood2'},
+                    {id: '3', name: 'test neighborhood3'},
+                    {id: '4', name: 'test neighborhood4'},
+                    {id: '5', name: 'this'},
+                    {id: '6', name: 'is'},
+                    {id: '7', name: 'test'},
+                    {id: '8', name: 'data'},
+                ])
+            }, 5000)
         }
         this.getAdmin1 = function (country, callback, reject) {
             this.getAdmin({
@@ -255,9 +277,6 @@
             //todo 暂时不考虑编辑页的问题
             var val = $('#' + $(elem).attr('data-model')).val()
             var text = $('#' + $(elem).attr('data-model')).data('text')
-            if($(elem).attr('id') !== 'country-select' && val !== '') {
-                $(elem).html('<option value="">' + i18n('请选择城市') + '</option>' + '<option value="' + val + '">' + text + '</option>')
-            }
             $(elem).val(val).trigger('change').trigger('chosen:updated')
             $(elem).bind('change', function() {
                 $('#' + $(elem).data('model')).val($(elem).val())
@@ -281,9 +300,32 @@
                     }, '<option value="">' + i18n('请选择城市') + '</option>')
                 ).trigger('chosen:updated')
                 if($('#city').val()) {
-                    $('#city-select').val($('#city').val()).trigger('chosen:updated')
+                    $('#city-select').val($('#city').val()).trigger('chosen:updated').trigger('change')
                 }else {
                     $('#city-select').trigger('chosen:open')
+                }
+            }
+        })
+    }
+    function getNeighborhoodListForSelect(city) {
+        if(!city){
+            return
+        }
+        var $span = $('#neighborhood_select_chosen .chosen-single span')
+        var originContent = $span.html()
+        $span.html(window.i18n('neighborhood列表加载中...'))
+        geonamesApi.getNeighborhood(city, function (val) {
+            if(city === $('#city-select').val()) {
+                $span.html(originContent)
+                $('#neighborhood-select').html(
+                    _.reduce(val, function(pre, val, key) {
+                        return pre + '<option value="' + val.id + '">' + val.name + '</option>'
+                    }, '<option value="">' + i18n('请选择neighborhood') + '</option>')
+                ).trigger('chosen:updated')
+                if($('#neighborhood').val()) {
+                    $('#neighborhood-select').val($('#neighborhood').val()).trigger('chosen:updated')
+                }else {
+                    $('#city-neighborhood').trigger('chosen:open')
                 }
             }
         })
@@ -602,6 +644,7 @@
             'property_type': $('#propertyType .selected').data('id'),
             'country': $('#country').val(), //todo
             'city': $('#city').val(), //todo
+            'maponics_neighborhood': $('#neighborhood').val(),
             'street': wrapData($('#street').val()), //todo
             'address': wrapData(address),
             'highlight': wrapData([]), //todo?
