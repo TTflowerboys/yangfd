@@ -525,7 +525,7 @@
         ga('send', 'event', 'index', 'click', 'click-related-news',$(e.currentTarget).text())
     })
 
-    $('.houseFeatured .houseCard_phone .relatedNews .list a').click(function(e){
+    $('.houseFeatured .houseCard_phone_new .relatedNews .list a').click(function(e){
         ga('send', 'event', 'index', 'click', 'click-related-news',$(e.currentTarget).text())
     })
 

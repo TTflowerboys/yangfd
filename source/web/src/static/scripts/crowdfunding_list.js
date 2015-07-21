@@ -55,7 +55,7 @@ $(window).resize(window.updateTagsFixed);
 
     function getCurrentTotalCount() {
         if (window.team.isPhone()) {
-            return $('#result_list').children('.houseCard_phone').length
+            return $('#result_list').children('.houseCard_phone_new').length
         }
         else {
             return $('#result_list').children('.houseCard').length
