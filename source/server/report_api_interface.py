@@ -269,6 +269,19 @@ def ip_country(params, user):
         return request.ip_country
 
 
+@f_api('/maponics_neighborhood/search', params=dict(
+    country="country",
+    name=str,
+))
+def maponics_neighborhood_search(params):
+    if "country" in params:
+        params["country"] = params["country"]["code"]
+    neighborhoods = f_app.maponics.neighborhood.get(f_app.maponics.neighborhood.search(params, per_page=-1))
+    for neighborhood in neighborhoods:
+        neighborhood.pop("wkt")
+    return neighborhoods
+
+
 @f_api('/geonames/<_id>')
 def geonames_get(_id):
     return f_app.geonames.gazetteer.get(_id)
