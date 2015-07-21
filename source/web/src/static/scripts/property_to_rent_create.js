@@ -796,7 +796,24 @@
         })
 
         // Fast register user
-        if (valid) {
+        function requestSMSCode () {
+            $btn.prop('disabled', true)
+            var timer = setTimeout(function () {
+                $btn.prop('disabled', false)
+            }, 60000)
+            $.betterPost('/api/1/user/sms_verification/send', {
+                country: $('#countryPhone').val() || $('#countryPhone option').eq(0).val(),
+                phone: $('[name=phone]').val()
+            }).done(function () {
+                needSMSCode = true
+                $btn.siblings('.sucMsg').show()
+            }).fail(function (ret) {
+                clearTimeout(timer)
+                $errorMsgOfGetCode.html(window.getErrorMessageFromErrorCode(ret)).show()
+                $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
+            })
+        }
+        if (valid && !$btn.data('register')) {
             $btn.prop('disabled', true).text(window.i18n('发送中...'))
             smsSendTime = new Date()
 
@@ -807,30 +824,24 @@
             params.private_contact_methods = JSON.stringify(getPrivateContactMethods())
             $.betterPost('/api/1/user/fast-register', params)
                 .done(function (val) {
+                    $btn.data('register', true)
                     window.user = val
+                    $('#nickname').prop('readonly', true)
+                    $('#email').prop('readonly', true)
+                    $('#phone').prop('readonly', true)
+                    $('#countryPhone').prop('disabled', true).trigger('chosen:updated')
                     //$('.leftWrap').addClass('hasLogin').find('form').remove()
                     //ga('send', 'event', 'signup', 'result', 'signup-success')
                     // Count down 1 min to enable resend
-                    $btn.prop('disabled', true)
-                    var timer = setTimeout(function () {
-                        $btn.prop('disabled', true)
-                    }, 60000)
-                    $.betterPost('/api/1/user/sms_verification/send', {
-                        country: $('#countryPhone').val() || $('#countryPhone option').eq(0).val(),
-                        phone: $('[name=phone]').val()
-                    }).done(function () {
-                        needSMSCode = true
-                        $btn.siblings('.sucMsg').show()
-                    }).fail(function (ret) {
-                        clearTimeout(timer)
-                        $errorMsgOfGetCode.html(window.getErrorMessageFromErrorCode(ret)).show()
-                        $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
-                    })
+                    requestSMSCode()
+
                 })
                 .fail(function (ret) {
                     $errorMsgOfGetCode.html(window.getErrorMessageFromErrorCode(ret)).show()
                     $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
                 })
+        } else if($btn.data('register')) {
+            requestSMSCode()
         }
     })
 
