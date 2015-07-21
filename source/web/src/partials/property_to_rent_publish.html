@@ -82,20 +82,20 @@
                         <input type="checkbox" id="addContact-phone" checked="checked" data-addContact="phone"/><label class="addContactLabel" for="addContact-phone">{{_('展示电话给注册租客')}}</label>
                     </p>
                 </div>
-                <div class="formGroup">
-                    <label for="email">{{_('微信号')}}</label>
-                    <input type="text" id="wechat" name="wechat" data-validator="trim" data-addContact="wechat"/>
-                </div>
+
                 <div class="formGroup">
                     <label for="code">{{_('验证码')}}</label>
                     <input type="text" id="code" name="code" data-validator="required trim"/>
                     <button type="button" id="requestSMSCodeBtn" class="ajaxButton">
                         {{_('获取验证码')}}
                     </button>
-                    <div class="errorMsgOfGetCode"></div>
+                    <div class="errorMsgOfGetCode" style="display: none;"></div>
                     <div class="sucMsg" style="display: none;"><label></label>{{_('验证码已发送到您的手机，请将验证码填写到上方输入框后再发布房产')}}</div>
                 </div>
-
+                <div class="formGroup">
+                    <label for="email">{{_('微信号')}}</label>
+                    <input type="text" id="wechat" name="wechat" data-validator="trim" data-addContact="wechat"/>
+                </div>
                 <div class="formGroup">
                     <label></label>
                     <span>{{_('确认代表您同意创建一个洋房东账号供以后查看租客请求使用')}}</span>

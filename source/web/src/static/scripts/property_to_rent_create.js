@@ -483,11 +483,21 @@
                 }
             }
             $.each(validator, function(i, v){
+                var minLength, maxLength
                 if(/maxLength\((\d+)\)/.test(v)) {
-                    var maxLength = parseInt(v.match(/maxLength\((\d+)\)/)[1])
+                    maxLength = parseInt(v.match(/maxLength\((\d+)\)/)[1])
                     if(value.length > maxLength){
                         validate = false
-                        errorMsg = $this.data('name') + i18n('超出长度限制')
+                        errorMsg = $this.data('name') + i18n('超出长度限制(最多') + maxLength + i18n('个字符')
+                        highlightErrorElem($this)
+                    }
+                }
+                if(/lengthRange\((\d+)\-(\d+)\)/.test(v)) {
+                    minLength = parseInt(v.match(/lengthRange\((\d+)\-(\d+)\)/)[1])
+                    maxLength = parseInt(v.match(/lengthRange\((\d+)\-(\d+)\)/)[2])
+                    if(value.length > maxLength || value.length < minLength){
+                        validate = false
+                        errorMsg = $this.data('name') + i18n('超出字符数范围限制(') + minLength + '~' + maxLength + i18n('个字符)')
                         highlightErrorElem($this)
                     }
                 }
