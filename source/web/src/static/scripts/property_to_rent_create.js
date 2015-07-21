@@ -198,7 +198,13 @@
     })
     $('#city-select').bind('change', function () {
         $('#neighborhood-select').html('').trigger('chosen:updated')
-        getNeighborhoodListForSelect($('#city-select').val())
+        if($('#city-select :selected').text().toLowerCase() === 'london'){
+            $('#neighborhood_select_chosen').show()
+            getNeighborhoodListForSelect()
+        } else {
+            clearData('neighborhood')
+            $('#neighborhood_select_chosen').hide()
+        }
     })
     bindDataModel()
     function getCountryList() { //通过window.team.countryMap来获取国家列表
@@ -212,71 +218,14 @@
             $('#country-select').val($('#country').val()).trigger('chosen:updated').trigger('change')
         }
     }
-    function GeonamesApi () {
-        var url = '/api/1/geonames/search'
-        this.getAdmin = function (config, callback, reject) {
-            $.betterPost(url, config)
-                .done(function (val) {
-                    callback.call(null, val)
-                })
-                .fail(function (ret) {
-                    if(reject && typeof reject === 'function') {
-                        reject(ret)
-                    }
-                })
-        }
-        this.getCity = function (country, callback, reject) {
-            this.getAdmin({
-                country: country,
-                feature_code: 'city'
-            }, callback, reject)
-        }
-        this.getNeighborhood = function (city, callback, reject) {
-            //todo 等待搜索neighborhood的api完成
-            setTimeout(function () {
-                callback([
-                    {id: '1', name: 'test neighborhood1'},
-                    {id: '2', name: 'test neighborhood2'},
-                    {id: '3', name: 'test neighborhood3'},
-                    {id: '4', name: 'test neighborhood4'},
-                    {id: '5', name: 'this'},
-                    {id: '6', name: 'is'},
-                    {id: '7', name: 'test'},
-                    {id: '8', name: 'data'},
-                ])
-            }, 5000)
-        }
-        this.getAdmin1 = function (country, callback, reject) {
-            this.getAdmin({
-                country: country,
-                feature_code: 'ADM1'
-            }, callback, reject)
-        }
-        this.getAdmin2 = function (country, admin1, callback, reject) {
-            this.getAdmin({
-                country: country,
-                admin1: admin1,
-                feature_code: 'ADM2'
-            }, callback, reject)
-        }
-        this.getCityByLocation = function (country, latitude, longitude, callback, reject) {
-            this.getAdmin({
-                search_range: 50000,
-                country: country,
-                latitude: latitude,
-                longitude: longitude,
-                feature_code: 'city'
-            }, callback, reject)
-        }
-    }
-    var geonamesApi = new GeonamesApi()
+
     getCountryList()
 
     function bindDataModel() { //将带有data-model的下拉列表与对应的隐藏表单数据简单的绑定
         $('[data-model]').each(function(index, elem) {
             //todo 暂时不考虑编辑页的问题
             var val = $('#' + $(elem).attr('data-model')).val()
-            var text = $('#' + $(elem).attr('data-model')).data('text')
+            //var text = $('#' + $(elem).attr('data-model')).data('text')
             $(elem).val(val).trigger('change').trigger('chosen:updated')
             $(elem).bind('change', function() {
                 $('#' + $(elem).data('model')).val($(elem).val())
@@ -291,7 +240,7 @@
         var $span = $('#city_select_chosen .chosen-single span')
         var originContent = $span.html()
         $span.html(window.i18n('城市列表加载中...'))
-        geonamesApi.getCity(country, function (val) {
+        window.geonamesApi.getCity(country, function (val) {
             if(country === $('#country-select').val()) {
                 $span.html(originContent)
                 $('#city-select').html(
@@ -307,15 +256,12 @@
             }
         })
     }
-    function getNeighborhoodListForSelect(city) {
-        if(!city){
-            return
-        }
+    function getNeighborhoodListForSelect() {
         var $span = $('#neighborhood_select_chosen .chosen-single span')
         var originContent = $span.html()
         $span.html(window.i18n('neighborhood列表加载中...'))
-        geonamesApi.getNeighborhood(city, function (val) {
-            if(city === $('#city-select').val()) {
+        window.geonamesApi.getNeighborhood(function (val) {
+            if($('#city-select :selected').text().toLowerCase() === 'london') {
                 $span.html(originContent)
                 $('#neighborhood-select').html(
                     _.reduce(val, function(pre, val, key) {
@@ -330,7 +276,18 @@
             }
         })
     }
-
+    function clearData(str) {
+        $('#' + str + '-select').find('option').eq(0).attr('selected',true)
+        $('#' + str + '-select').trigger('chosen:updated')
+        $('#' + str).val('')
+    }
+    function clearLocationData () {
+        clearData('neighborhood')
+        clearData('city')
+        clearData('country')
+        $('#latitude').val('')
+        $('#longitude').val('')
+    }
 
     $('#findAddress').click(function () {
         var $btn = $(this)
@@ -342,16 +299,7 @@
         }
         hidePostcodeNoResultMsg()
         var postcodeIndex = $('#postcode').val().replace(/\s/g, '').toUpperCase()
-        function clearLocationData () {
-            $('#city-select').find('option').eq(0).attr('selected',true)
-            $('#city-select').trigger('chosen:updated')
-            $('#city').val('')
-            $('#country-select').find('option').eq(0).attr('selected',true)
-            $('#country-select').trigger('chosen:updated')
-            $('#country').val('')
-            $('#latitude').val('')
-            $('#longitude').val('')
-        }
+
         function fillAdress(val) { //使用postcode查询得来得数据中得一条来填充表单项
             $('#country-select').val(val.country).trigger('chosen:updated')
             $('#country').val(val.country)
@@ -360,7 +308,7 @@
             $('#latitude').val(val.latitude)
             $('#longitude').val(val.longitude)
             var geocodeApiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + $('#latitude').val() + ',' + $('#longitude').val() + '&result_type=street_address&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
-            geonamesApi.getCityByLocation(val.country, val.latitude, val.longitude, function (val) {
+            window.geonamesApi.getCityByLocation(val.country, val.latitude, val.longitude, function (val) {
                 $.betterGet('/reverse_proxy?link=' + encodeURIComponent(geocodeApiUrl))
                     .done(function (data) {
                         data = JSON.parse(data)
@@ -644,7 +592,6 @@
             'property_type': $('#propertyType .selected').data('id'),
             'country': $('#country').val(), //todo
             'city': $('#city').val(), //todo
-            'maponics_neighborhood': $('#neighborhood').val(),
             'street': wrapData($('#street').val()), //todo
             'address': wrapData(address),
             'highlight': wrapData([]), //todo?
@@ -661,6 +608,9 @@
             'zipcode': $('#postcode').val().trim().toUpperCase(),
             'user_generated': true
         })
+        if($('#neighborhood').val() !== ''){
+            propertyData.maponics_neighborhood = $('#neighborhood').val()
+        }
         if($('#community').val() !== ''){
             propertyData.community = wrapData($('#community').val())
         }
