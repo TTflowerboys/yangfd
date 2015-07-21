@@ -219,13 +219,12 @@
 //                    [_mapView addAnnotation:[[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil]];
                 }
                 CUTERentAddressMapForm *form = self.form;
+
+                form.ticket.property.latitude = @(location.coordinate.latitude);
+                form.ticket.property.longitude = @(location.coordinate.longitude);
                 //check is a draft ticket not a unfinished one
                 if (!IsNilNullOrEmpty(form.ticket.identifier)) {
                     [form syncTicketWithUpdateInfo:@{@"property.latitude": @(location.coordinate.latitude), @"property.longitude": @(location.coordinate.longitude)}];
-                }
-                else {
-                    form.ticket.property.latitude = @(location.coordinate.latitude);
-                    form.ticket.property.longitude = @(location.coordinate.longitude);
                 }
 
                 [self checkNeedUpdateAddress];
@@ -569,12 +568,10 @@
         CLLocation *location = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
                                                           longitude:mapView.centerCoordinate.longitude];
 
+        self.form.ticket.property.latitude = @(location.coordinate.latitude);
+        self.form.ticket.property.longitude = @(location.coordinate.longitude);
         if (!IsNilNullOrEmpty(self.form.ticket.identifier)) {
             [self.form syncTicketWithUpdateInfo:@{@"property.latitude": @(location.coordinate.latitude), @"property.longitude": @(location.coordinate.longitude)}];
-        }
-        else {
-            self.form.ticket.property.latitude = @(location.coordinate.latitude);
-            self.form.ticket.property.longitude = @(location.coordinate.longitude);
         }
 
         [_textField.indicatorView startAnimating];
