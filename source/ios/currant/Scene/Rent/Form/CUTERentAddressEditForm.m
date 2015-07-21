@@ -13,7 +13,7 @@
 #import "CUTEFormFixNonBreakingSpaceTextFieldCell.h"
 #import "CUTEFormDefaultCell.h"
 #import "CUTECity.h"
-#import "CUTERentCityViewController.h"
+#import "CUTEFormFieldOptionViewController.h"
 #import "CUTEFormTextCell.h"
 #import "CUTEEnumManager.h"
 #import "Sequencer.h"
@@ -49,20 +49,20 @@
         [array insertObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldAction: @"onCountryEdit:", FXFormFieldHeader:STR(@"位置"), FXFormFieldHeader:STR(@"地址")} atIndex:0];
     }
     if (_city) {
-        [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: _allCities, FXFormFieldDefaultValue: _city, FXFormFieldAction: @"onCityEdit:", FXFormFieldViewController: [CUTERentCityViewController class]} atIndex:1];
+        [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: _allCities, FXFormFieldDefaultValue: _city, FXFormFieldAction: @"onCityEdit:", FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:1];
     }
     else {
         if (!IsArrayNilOrEmpty(_allCities)) {
-             [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions:_allCities, FXFormFieldAction: @"onCityEdit:",  FXFormFieldViewController: [CUTERentCityViewController class]} atIndex:1];
+             [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions:_allCities, FXFormFieldAction: @"onCityEdit:",  FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:1];
         }
     }
 
     if (_neighborhood) {
-        [array insertObject:@{FXFormFieldKey: @"neighborhood", FXFormFieldTitle: STR(@"Neighbourhood"), FXFormFieldOptions: _allNeighborhoods, FXFormFieldDefaultValue: _neighborhood, FXFormFieldAction: @"onNeighborhoodEdit:", FXFormFieldViewController: [CUTERentCityViewController class]} atIndex:2];
+        [array insertObject:@{FXFormFieldKey: @"neighborhood", FXFormFieldTitle: STR(@"Neighbourhood"), FXFormFieldOptions: _allNeighborhoods, FXFormFieldDefaultValue: _neighborhood, FXFormFieldAction: @"onNeighborhoodEdit:", FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:2];
     }
     else {
         if (!IsArrayNilOrEmpty(_allNeighborhoods)) {
-            [array insertObject:@{FXFormFieldKey: @"neighborhood", FXFormFieldTitle: STR(@"Neighbourhood"), FXFormFieldOptions:_allNeighborhoods, FXFormFieldAction: @"onNeighborhoodEdit:",  FXFormFieldViewController: [CUTERentCityViewController class]} atIndex:2];
+            [array insertObject:@{FXFormFieldKey: @"neighborhood", FXFormFieldTitle: STR(@"Neighbourhood"), FXFormFieldOptions:_allNeighborhoods, FXFormFieldAction: @"onNeighborhoodEdit:",  FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:2];
         }
     }
 

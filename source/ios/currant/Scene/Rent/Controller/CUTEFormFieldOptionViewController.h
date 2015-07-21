@@ -9,8 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FXForms.h"
 
-@interface CUTERentCityViewController : UITableViewController <FXFormFieldViewController>
+@interface CUTEFormFieldOptionViewController : UITableViewController <FXFormFieldViewController>
 
-@property (strong, nonatomic) NSArray *cities;
 
 @end
