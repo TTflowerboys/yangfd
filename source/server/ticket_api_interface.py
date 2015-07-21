@@ -379,7 +379,7 @@ def intention_ticket_search(user, params):
     description=str,
     title=str,
     city="geonames_gazetteer:city",
-    maponics_neighborhood="maponics_neighborhood",
+    maponics_neighborhood=(list, None, "maponics_neighborhood"),
     address=str,
     zipcode_index=str,
     noregister=bool,
@@ -637,7 +637,7 @@ def rent_intention_ticket_remove(user, ticket_id):
 
 @f_api('/rent_intention_ticket/<ticket_id>/edit', params=dict(
     country="country",
-    maponics_neighborhood="maponics_neighborhood",
+    maponics_neighborhood=(list, None, "maponics_neighborhood"),
     title=str,
     description=str,
     city="geonames_gazetteer:city",
@@ -690,7 +690,7 @@ def rent_intention_ticket_edit(user, ticket_id, params):
     sort=(list, ["time", 'desc'], str),
     phone=str,
     country="country",
-    maponics_neighborhood="maponics_neighborhood",
+    maponics_neighborhood=(list, None, "maponics_neighborhood"),
     zipcode=str,
     city="geonames_gazetteer:city",
     rent_type="enum:rent_type",
@@ -708,6 +708,9 @@ def rent_intention_ticket_search(user, params):
     params.setdefault("type", "rent_intention")
 
     params["$and"] = []
+
+    if "maponics_neighborhood" in params:
+        params["maponics_neighborhood"] = {"$in": params["maponics_neighborhood"]}
 
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params)

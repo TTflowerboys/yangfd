@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
     city='geonames_gazetteer:city',
     street=('i18n', None, str),
     report_id=ObjectId,
-    maponics_neighborhood="maponics_neighborhood",
+    maponics_neighborhood=(list, None, "maponics_neighborhood"),
     equity_type='enum:equity_type',
     property_price_type="enum:property_price_type",
     target_property_id=(ObjectId, None, "str"),
@@ -72,6 +72,9 @@ def property_search(user, params):
 
     if "intention" in params:
         params["intention"] = {"$in": params.pop("intention", [])}
+
+    if "maponics_neighborhood" in params:
+        params["maponics_neighborhood"] = {"$in": params["maponics_neighborhood"]}
 
     params["$and"] = []
     non_project_params = {"$and": []}
@@ -220,7 +223,7 @@ def property_search(user, params):
     intention=(list, None, "enum:intention"),
     country='country',
     city='geonames_gazetteer:city',
-    maponics_neighborhood="maponics_neighborhood",
+    maponics_neighborhood=(list, None, "maponics_neighborhood"),
     street=('i18n', None, str),
     report_id=ObjectId,
     bedroom_count=int,
@@ -363,7 +366,7 @@ property_params = dict(
     property_type="enum:property_type",
     country='country',
     city='geonames_gazetteer:city',
-    maponics_neighborhood="maponics_neighborhood",
+    maponics_neighborhood=(list, None, "maponics_neighborhood"),
     street=("i18n", None, str),
     zipcode=str,
     report_id=ObjectId,
