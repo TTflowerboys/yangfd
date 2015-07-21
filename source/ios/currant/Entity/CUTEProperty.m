@@ -31,6 +31,7 @@
              @"street": @"street",
              @"zipcode": @"zipcode",
              @"community": @"community",
+             @"neighborhoods": @"maponics_neighborhood",
              @"floor": @"floor",
              @"houseName": @"house_name",
              @"latitude": @"latitude",
@@ -47,39 +48,36 @@
              };
 }
 
-+ (NSValueTransformer *)propertyTypeJSONTransformer
-{
++ (NSValueTransformer *)propertyTypeJSONTransformer {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
 }
 
-+ (NSValueTransformer *)countryJSONTransformer
-{
++ (NSValueTransformer *)countryJSONTransformer {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECountry class]];
 }
 
-+ (NSValueTransformer *)cityJSONTransformer
-{
++ (NSValueTransformer *)cityJSONTransformer {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECity class]];
 }
 
-+ (NSValueTransformer *)spaceJSONTransformer
-{
++ (NSValueTransformer *)spaceJSONTransformer {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEArea class]];
 }
 
-+ (NSValueTransformer *)mainHouseTypesJSONTransformer
-{
++ (NSValueTransformer *)mainHouseTypesJSONTransformer {
     return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEHouseType class]];
 }
 
-+ (NSValueTransformer *)indoorFacilitiesJSONTransformer
-{
++ (NSValueTransformer *)indoorFacilitiesJSONTransformer {
     return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEEnum class]];
 }
 
-+ (NSValueTransformer *)communityFacilitiesJSONTransformer
-{
++ (NSValueTransformer *)communityFacilitiesJSONTransformer {
     return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEEnum class]];
+}
+
++ (NSValueTransformer *)neighborhoodsJSONTransformer {
+    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTENeighborhood class]];
 }
 
 - (NSDictionary *)toI18nString:(NSString *)string {
@@ -142,6 +140,11 @@
     }
     else if ([key isEqualToString:@keypath(self.communityFacilities)] && [value isKindOfClass:[NSArray class]]) {
         return [[(NSArray *)value map:^id(CUTEEnum *object) {
+            return object.identifier;
+        }] componentsJoinedByString:@","];
+    }
+    else if ([key isEqualToString:@keypath(self.neighborhoods)] && [value isKindOfClass:[NSArray class]]) {
+        return [[(NSArray *)value map:^id(CUTENeighborhood *object) {
             return object.identifier;
         }] componentsJoinedByString:@","];
     }

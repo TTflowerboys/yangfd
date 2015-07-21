@@ -260,69 +260,96 @@
         _rentAddressEditViewController = controller;
     }
 
+    CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
+    form.ticket = self.form.ticket;
+    form.houseName = form.ticket.property.houseName;
+    form.floor = form.ticket.property.floor;
+    form.community = form.ticket.property.community;
+    form.street = form.ticket.property.street;
+    form.postcode = form.ticket.property.zipcode;
+    _rentAddressEditViewController.lastPostcode = form.ticket.property.zipcode;
 
-    [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
-        if (task.error) {
-            [SVProgressHUD showErrorWithError:task.error];
-        }
-        else if (task.exception) {
-            [SVProgressHUD showErrorWithException:task.exception];
-        }
-        else if (task.isCancelled) {
-            [SVProgressHUD showErrorWithCancellation];
-        }
-        else {
-            CUTEProperty *property = self.form.ticket.property;
-            CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
-            form.ticket = self.form.ticket;
-            NSArray *countries = task.result;
-            [form setAllCountries:countries];
 
-            Sequencer *sequencer = [Sequencer new];
-            NSInteger countryIndex = [countries indexOfObject:property.country];
-            if (countryIndex != NSNotFound) {
-                [form setCountry:[countries objectAtIndex:countryIndex]];
-                _rentAddressEditViewController.lastCountry = form.country;
-                _rentAddressEditViewController.lastPostcode = property.zipcode;
-                [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-
-                    CUTECountry *country = [countries objectAtIndex:countryIndex];
-                    [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
-                        NSArray *cities = task.result;
-                        if (!IsArrayNilOrEmpty(cities)) {
-                            [form setAllCities:cities];
-                            NSInteger cityIndex = [cities indexOfObject:property.city];
-                            if (cityIndex != NSNotFound) {
-                                [form setCity:[cities objectAtIndex:cityIndex]];
-                            }
-                            completion(cities);
-                        }
-                        else {
-                            [SVProgressHUD showErrorWithError:task.error];
-                        }
-                        return task;
-                    }];
-
-                }];
+    Sequencer *sequencer = [Sequencer new];
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [SVProgressHUD showErrorWithError:task.error];
             }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                NSArray *countries = task.result;
+                [form setAllCountries:countries];
+                completion(countries);
+            }
+            
+            return task;
+        }];
+    }];
 
-            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                form.houseName = property.houseName;
-                form.floor = property.floor;
-                form.community = property.community;
-                form.street = property.street;
-                form.postcode = property.zipcode;
-                _rentAddressEditViewController.formController.form = form;
-                [_rentAddressEditViewController.tableView reloadData];
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
 
-                [self.navigationController pushViewController:_rentAddressEditViewController animated:YES];
+        NSArray *countries = (NSArray *)result;
+        NSInteger countryIndex = [countries indexOfObject:self.form.ticket.property.country];
+        if (countryIndex != NSNotFound) {
+            [form setCountry:[countries objectAtIndex:countryIndex]];
+            _rentAddressEditViewController.lastCountry = form.country;
+
+            CUTECountry *country = [countries objectAtIndex:countryIndex];
+            [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
+                NSArray *cities = task.result;
+                if (!IsArrayNilOrEmpty(cities)) {
+                    [form setAllCities:cities];
+                    completion(cities);
+                }
+                else {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                return task;
+            }];
+        }
+    }];
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        NSArray *cities = (NSArray *)result;
+        NSInteger cityIndex = [cities indexOfObject:self.form.ticket.property.city];
+        if (cityIndex != NSNotFound) {
+            [form setCity:[cities objectAtIndex:cityIndex]];
+            _rentAddressEditViewController.lastCity = form.city;
+            [[[CUTEEnumManager sharedInstance] getNeighborhoodByCity:form.city] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                else if (task.exception) {
+                    [SVProgressHUD showErrorWithException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [SVProgressHUD showErrorWithCancellation];
+                }
+                else {
+                    [form setAllNeighborhoods:task.result];
+                    completion(task.result);
+                }
+                
+                return task;
             }];
 
-            [sequencer run];
         }
-
-        return task;
     }];
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        _rentAddressEditViewController.formController.form = form;
+        [_rentAddressEditViewController.tableView reloadData];
+        [self.navigationController pushViewController:_rentAddressEditViewController animated:YES];
+    }];
+
+    [sequencer run];
+
 }
 
 - (void)onAddressLocationButtonTapped:(id)sender {

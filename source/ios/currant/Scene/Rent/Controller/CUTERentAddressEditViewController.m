@@ -27,7 +27,7 @@
 #import "NSArray+ObjectiveSugar.h"
 
 @interface CUTERentAddressEditViewController () {
-    CUTECountry *_lastCountry;
+
 
     BOOL _updateLocationFromAddressFailed;
 }
@@ -48,7 +48,17 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self checkNeedUpdateCityOptions];
+
+    [SVProgressHUD show];
+    [[BFTask taskForCompletionOfAllTasksWithResults:@[[self checkNeedUpdateCityOptions], [self checkNeedUpdateNeighborhoodOptions]]] continueWithSuccessBlock:^id(BFTask *task) {
+        [SVProgressHUD dismiss];
+        NSArray *taskResults = (NSArray *)task.result;
+        if ([taskResults[0] boolValue] || [taskResults[1] boolValue]) {
+            [[self tableView] reloadData];
+        }
+        return task;
+    }];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -59,40 +69,98 @@
     }
 }
 
-- (void)checkNeedUpdateCityOptions {
+- (BFTask *)checkNeedUpdateCityOptions {
 
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+
+    __block BOOL needUpdate = NO;
     [self.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
         if ([field.key isEqualToString:@"country"]) {
             CUTECountry *country = field.value;
             if ((_lastCountry || country) && ![_lastCountry isEqual:country]) {
-                [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
-                    if (task.result) {
-                        [(CUTERentAddressEditForm *)self.formController.form setCity:nil];
-                        [(CUTERentAddressEditForm *)self.formController.form setAllCities:task.result];
-                        [self.formController updateSections];
-                        [self.tableView reloadData];
-                    }
-                    return task;
-                }];
+                needUpdate = YES;
             }
             _lastCountry = country;
         }
     }];
+
+    if (needUpdate) {
+        [[[CUTEEnumManager sharedInstance] getCitiesByCountry:_lastCountry] continueWithBlock:^id(BFTask *task) {
+            [(CUTERentAddressEditForm *)self.formController.form setCity:nil];
+            [(CUTERentAddressEditForm *)self.formController.form setAllCities:task.result];
+            [self.formController updateSections];
+            [tcs setResult:@(needUpdate)];
+            return task;
+        }];
+    }
+    else {
+        [tcs setResult:@(needUpdate)];
+    }
+
+    return tcs.task;
 }
 
-- (void)optionBack {
+- (BFTask *)checkNeedUpdateNeighborhoodOptions {
+
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+
+    __block BOOL needUpdate = NO;
+
+    [self.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
+        if ([field.key isEqualToString:@"city"]) {
+            CUTECity *city = field.value;
+            if ((_lastCity || city) && ![_lastCity isEqual:city]) {
+                needUpdate = YES;
+            }
+            _lastCity = city;
+        }
+    }];
+
+    if (needUpdate) {
+        [[[CUTEEnumManager sharedInstance] getNeighborhoodByCity:_lastCity] continueWithBlock:^id(BFTask *task) {
+
+            [(CUTERentAddressEditForm *)self.formController.form setNeighborhood:nil];
+            [(CUTERentAddressEditForm *)self.formController.form setAllNeighborhoods:task.result];
+            [self.formController updateSections];
+            [tcs setResult:@(needUpdate)];
+            return task;
+        }];
+    }
+    else {
+        [tcs setResult:@(needUpdate)];
+    }
+
+    return tcs.task;
+}
+
+- (void)onCountryEdit:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+    [form syncTicketWithUpdateInfo:@{@"property.country": self.form.country,}];
+}
+
+- (void)onCityEdit:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     if (self.form.city) {
-        [form syncTicketWithUpdateInfo:
-         @{@"property.country": self.form.country,
-           @"property.city": self.form.city}];
+        [form syncTicketWithUpdateInfo:@{@"property.city": self.form.city}];
 
     }
     else {
-        [form syncTicketWithUpdateInfo:@{@"property.country": self.form.country,}];
+        [form syncTicketWithUpdateInfo:@{@"property.city": [NSNull null]}];
     }
-    
+}
+
+- (void)onNeighborhoodEdit:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+    if (self.form.neighborhood) {
+        [form syncTicketWithUpdateInfo:@{@"property.neighborhoods": @[form.neighborhood]}];
+
+    }
+    else {
+        [form syncTicketWithUpdateInfo:@{@"property.neighborhoods": [NSNull null]}];
+    }
 }
 
 - (void)onStreetEdit:(id)sender {

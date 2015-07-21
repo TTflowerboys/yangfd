@@ -15,11 +15,13 @@
 #import "CUTETicket.h"
 #import "BFTask.h"
 #import "CUTETicketForm.h"
+#import "CUTENeighborhood.h"
 
 @interface CUTERentAddressEditForm : CUTETicketForm
 
 @property (strong, nonatomic) CUTECountry *country;
 @property (strong, nonatomic) CUTECity *city;
+@property (strong, nonatomic) CUTENeighborhood *neighborhood;
 @property (strong, nonatomic) NSString *postcode;
 @property (strong, nonatomic) NSString *street;
 @property (strong, nonatomic) NSString *community;
@@ -33,6 +35,8 @@
 - (void)setAllCountries:(NSArray *)allCountries;
 
 - (void)setAllCities:(NSArray *)allCities;
+
+- (void)setAllNeighborhoods:(NSArray *)allNeighborhoods;
 
 - (BFTask *)updateWithTicket:(CUTETicket *)ticket;
 

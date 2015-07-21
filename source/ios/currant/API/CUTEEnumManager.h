@@ -10,6 +10,7 @@
 #import <BBTRestClient.h>
 #import <Bolts.h>
 #import "CUTECountry.h"
+#import "CUTECity.h"
 
 @interface CUTEEnumManager : NSObject
 
@@ -20,6 +21,8 @@
 - (BFTask *)getCountriesWithCountryCode:(BOOL)showCountryCode;
 
 - (BFTask *)getCitiesByCountry:(CUTECountry *)country;
+
+- (BFTask *)getNeighborhoodByCity:(CUTECity *)city;
 
 - (BFTask *)getUploadCDNDomains;
 

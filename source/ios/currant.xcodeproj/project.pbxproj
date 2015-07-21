@@ -419,6 +419,10 @@
 		2CB7490E1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
 		2CB7490F1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
 		2CB749101ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
+		2CB86AC91B5E1C170065EE56 /* CUTENeighborhood.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB86AC81B5E1C170065EE56 /* CUTENeighborhood.m */; };
+		2CB86ACA1B5E1C170065EE56 /* CUTENeighborhood.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB86AC81B5E1C170065EE56 /* CUTENeighborhood.m */; };
+		2CB86ACB1B5E1C170065EE56 /* CUTENeighborhood.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB86AC81B5E1C170065EE56 /* CUTENeighborhood.m */; };
+		2CB86ACC1B5E1C170065EE56 /* CUTENeighborhood.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB86AC81B5E1C170065EE56 /* CUTENeighborhood.m */; };
 		2CBA9CA61B4D4023004B2BE3 /* openRentListTab.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CBA9CA51B4D4023004B2BE3 /* openRentListTab.js.txt */; };
 		2CBA9CA81B4D4078004B2BE3 /* openPropertyListTab.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CBA9CA71B4D4078004B2BE3 /* openPropertyListTab.js.txt */; };
 		2CBA9CAA1B4E5E49004B2BE3 /* CUTEShareUSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBA9CA91B4E5E49004B2BE3 /* CUTEShareUSTest.m */; };
@@ -890,6 +894,8 @@
 		2CB748F51ADCED09003BC2A5 /* MasonryMake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasonryMake.h; sourceTree = "<group>"; };
 		2CB7490B1ADE4755003BC2A5 /* SVProgressHUD+CUTEAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD+CUTEAPI.h"; sourceTree = "<group>"; };
 		2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD+CUTEAPI.m"; sourceTree = "<group>"; };
+		2CB86AC71B5E1C170065EE56 /* CUTENeighborhood.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTENeighborhood.h; sourceTree = "<group>"; };
+		2CB86AC81B5E1C170065EE56 /* CUTENeighborhood.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTENeighborhood.m; sourceTree = "<group>"; };
 		2CBA9CA51B4D4023004B2BE3 /* openRentListTab.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openRentListTab.js.txt; sourceTree = "<group>"; };
 		2CBA9CA71B4D4078004B2BE3 /* openPropertyListTab.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openPropertyListTab.js.txt; sourceTree = "<group>"; };
 		2CBA9CA91B4E5E49004B2BE3 /* CUTEShareUSTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEShareUSTest.m; sourceTree = "<group>"; };
@@ -1292,6 +1298,8 @@
 				2C427E9A1AD37D34000378A9 /* CUTETicket.m */,
 				2C4AEC7D1AD6466A004DEE23 /* CUTEUser.h */,
 				2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */,
+				2CB86AC71B5E1C170065EE56 /* CUTENeighborhood.h */,
+				2CB86AC81B5E1C170065EE56 /* CUTENeighborhood.m */,
 				2C06D3A11B29465800C147DE /* CUTEModelEditingListener.h */,
 				2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */,
 				2C0C09FD1B29697F001F2583 /* CUTETicketEditingListener.h */,
@@ -2351,6 +2359,7 @@
 				2CF234801B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */,
 				2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */,
 				2CC6C1D81AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
+				2CB86ACB1B5E1C170065EE56 /* CUTENeighborhood.m in Sources */,
 				2CF8A6751AF0B65C0080DF10 /* CUTEAreaForm.m in Sources */,
 				2CCE67F61B1C0F9F00351DED /* CUTERentListViewController.m in Sources */,
 				2C9AFF791AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
@@ -2488,6 +2497,7 @@
 				2CF234811B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */,
 				2CA2E6C71AC5496700053965 /* AppDelegate.m in Sources */,
 				2CC6C1D91AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
+				2CB86ACC1B5E1C170065EE56 /* CUTENeighborhood.m in Sources */,
 				2CF8A6761AF0B65C0080DF10 /* CUTEAreaForm.m in Sources */,
 				2CCE67F71B1C0F9F00351DED /* CUTERentListViewController.m in Sources */,
 				2C9AFF7A1AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
@@ -2625,6 +2635,7 @@
 				2CF2347F1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */,
 				2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */,
 				2CC6C1D71AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
+				2CB86ACA1B5E1C170065EE56 /* CUTENeighborhood.m in Sources */,
 				2CF8A6741AF0B65C0080DF10 /* CUTEAreaForm.m in Sources */,
 				2CCE67F51B1C0F9F00351DED /* CUTERentListViewController.m in Sources */,
 				2C9AFF781AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
@@ -2762,6 +2773,7 @@
 				2CF2347E1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */,
 				2CB43DB21ABC1372004DF663 /* AppDelegate.m in Sources */,
 				2CC6C1D61AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
+				2CB86AC91B5E1C170065EE56 /* CUTENeighborhood.m in Sources */,
 				2CF8A6731AF0B65C0080DF10 /* CUTEAreaForm.m in Sources */,
 				2CCE67F41B1C0F9F00351DED /* CUTERentListViewController.m in Sources */,
 				2C9AFF771AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
