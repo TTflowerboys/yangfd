@@ -68,9 +68,12 @@
                 _this.update(containInputData)
             })
             this.chosenResults.delegate('li', 'click', function () {
+                var hasChanged = !$(this).hasClass('result-selected')
                 var index = $(this).attr('data-option-array-index')
                 $(this).addClass('result-selected').siblings().removeClass('result-selected')
-                _this.elem.val(_this.data[index].value).trigger('chosen:updated').trigger('change')
+                if(hasChanged) {
+                    _this.elem.val(_this.data[index].value).trigger('chosen:updated').trigger('change')
+                }
                 _this.hideDrop()
             })
             this.elem.bind('chosen:updated', function () {
