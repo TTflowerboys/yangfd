@@ -3035,7 +3035,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
-				PROVISIONING_PROFILE = "50feafde-c12b-4ae5-af7e-7b35a7a9efbe";
+				PROVISIONING_PROFILE = "86c7420c-7e7c-40f7-98cf-42783151b5c4";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-test-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3061,7 +3061,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
-				PROVISIONING_PROFILE = "bbaaba10-16aa-400c-8976-770ce532cd6c";
+				PROVISIONING_PROFILE = "a5e46afa-8d22-4766-ab42-c32da2b84d4f";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-test-Bridging-Header.h";
 			};
 			name = Release;
@@ -3137,7 +3137,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
-				PROVISIONING_PROFILE = "50feafde-c12b-4ae5-af7e-7b35a7a9efbe";
+				PROVISIONING_PROFILE = "86c7420c-7e7c-40f7-98cf-42783151b5c4";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-dev-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3164,7 +3164,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = currant;
-				PROVISIONING_PROFILE = "bbaaba10-16aa-400c-8976-770ce532cd6c";
+				PROVISIONING_PROFILE = "a5e46afa-8d22-4766-ab42-c32da2b84d4f";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-dev-Bridging-Header.h";
 			};
 			name = Release;
@@ -3268,7 +3268,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "50feafde-c12b-4ae5-af7e-7b35a7a9efbe";
+				PROVISIONING_PROFILE = "86c7420c-7e7c-40f7-98cf-42783151b5c4";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3294,7 +3294,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "50feafde-c12b-4ae5-af7e-7b35a7a9efbe";
+				PROVISIONING_PROFILE = "86c7420c-7e7c-40f7-98cf-42783151b5c4";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-Bridging-Header.h";
 			};
 			name = Release;
