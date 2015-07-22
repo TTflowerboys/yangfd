@@ -10,6 +10,7 @@
 #import "CUTEUIMacro.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTECommonMacro.h"
+#import "CUTEStringMatcher.h"
 
 @interface CUTEFormFieldOptionViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
 {
@@ -176,6 +177,7 @@ sectionForSectionIndexTitle:(NSString *)title
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@", searchString];
     self.filterResults = [self.rawResults filteredArrayUsingPredicate:predicate];
+//    self.filterResults = [CUTEStringMatcher matchElementsWithString:searchString sourceElements:self.rawResults attributeSelector:@selector(name)];
     return YES;
 }
 

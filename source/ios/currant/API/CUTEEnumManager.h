@@ -12,6 +12,8 @@
 #import "CUTECountry.h"
 #import "CUTECity.h"
 
+
+//TODO for file size, cache it in disk
 @interface CUTEEnumManager : NSObject
 
 + (instancetype)sharedInstance;
