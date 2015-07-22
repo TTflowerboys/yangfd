@@ -22,12 +22,11 @@
             })
         }
         this.create = function () {
-            this.chosen = $('<div class="chosen-container chosen-container-single' + ((option.disable_search_threshold && option.disable_search_threshold >= this.data.length) ? ' chosen-container-single-nosearch' : '') + '"><a class="chosen-single" tabindex="-1"><span></span><div><b></b></div></a><div class="chosen-drop-shadow"></div><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off" spellcheck="false" autofocus><i class="icon-search"></i></div><ul class="chosen-results"></ul></div></div>')
+            this.chosen = $('<div class="chosen-container chosen-container-single' + ((option.disable_search_threshold && option.disable_search_threshold >= this.data.length) ? ' chosen-container-single-nosearch' : '') + '"><a class="chosen-single" tabindex="-1"><span></span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off" spellcheck="false" autofocus><i class="icon-search"></i></div><ul class="chosen-results"></ul></div></div>')
             this.chosenSingle = this.chosen.find('.chosen-single')
             this.chosenSingleSpan = this.chosenSingle.find('span')
             this.chosenSearch = this.chosen.find('.chosen-search input')
             this.chosenDrop = this.chosen.find('.chosen-drop').hide()
-            this.chosenDropShadow = this.chosen.find('.chosen-drop-shadow').hide()
             this.chosenResults = this.chosen.find('.chosen-results')
             this.update(this.data)
             this.elem.after(this.chosen)
@@ -55,16 +54,11 @@
         }
         this.hideDrop = function () {
             this.chosenDrop.hide()
-            this.chosenDropShadow.hide()
         }
         this.bindEvent  = function () {
             var _this = this
             this.chosenSingle.bind('click', function () {
                 _this.chosenDrop.toggle()
-                _this.chosenDropShadow.toggle()
-            })
-            this.chosenDropShadow.bind('click', function () {
-                _this.hideDrop()
             })
             this.chosenSearch.bind('keyup', function () {
                 var input = $(this).val()
