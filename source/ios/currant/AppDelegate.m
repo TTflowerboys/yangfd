@@ -338,7 +338,12 @@
         CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:90];
         [toolTips show];
 
-        [((UINavigationController *) (self.tabBarController.selectedViewController)).topViewController aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^ (id<AspectInfo> info) {
+        UINavigationController *nav = (UINavigationController *)[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex];
+        [nav aspect_hookSelector:@selector(pushViewController:animated:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^ (id<AspectInfo> info) {
+            [toolTips hideAnimated:YES];
+        } error:nil];
+
+        [self.tabBarController aspect_hookSelector:@selector(setSelectedIndex:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^ (id<AspectInfo> info) {
             [toolTips hideAnimated:YES];
         } error:nil];
 
