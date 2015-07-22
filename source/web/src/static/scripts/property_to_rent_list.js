@@ -294,14 +294,12 @@
                 width: '100%',
                 disable_search_threshold: 8
             })
+        } else {
+            elem.chosenPhone({
+                width: '100%',
+                disable_search_threshold: 8
+            })
         }
-        $(window).bind('resize', function () {
-            if(window.team.isPhone()) {
-                elem.show().siblings('.chosen-container').hide()
-            }else {
-                elem.hide().siblings('.chosen-container').show()
-            }
-        })
     }
     initChosen($('[name=propertyCountry]'))
     initChosen($('[name=propertyCity]'))
