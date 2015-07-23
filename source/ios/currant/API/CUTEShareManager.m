@@ -83,14 +83,12 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
                 SendMessageToWXResp *backResp = (SendMessageToWXResp *)resp;
                 if (backResp.errCode == WXSuccess) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [SVProgressHUD showSuccessWithStatus:STR(@"分享成功")];
                         [self checkCallShareSuccessBlock];
                     });
 
                 }
                 else if (backResp.errCode == WXErrCodeUserCancel) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [SVProgressHUD showErrorWithStatus:STR(@"分享取消")];
                         [self checkCallShareCancellationBlock];
                     });
                 }
@@ -427,11 +425,9 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
     if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
     {
         if (response.statusCode == WeiboSDKResponseStatusCodeSuccess) {
-            [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
             [self checkCallShareSuccessBlock];
         }
         else if (response.statusCode == WeiboSDKResponseStatusCodeUserCancel) {
-            [SVProgressHUD showInfoWithStatus:STR(@"分享取消")];
             [self checkCallShareCancellationBlock];
         }
         else {
