@@ -10,6 +10,6 @@
 
 @interface CUTEStringMatcher : NSObject
 
-+ (NSArray *)matchElementsWithString:(NSString *)string sourceElements:(NSArray *)sourceElements attributeSelector:(SEL)selector;
++ (NSArray *)matchElementsWithString:(NSString *)string sourceElements:(NSArray *)sourceElements keyPath:(NSString *)keyPath;
 
 @end

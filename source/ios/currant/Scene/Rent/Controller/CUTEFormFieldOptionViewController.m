@@ -177,7 +177,7 @@ sectionForSectionIndexTitle:(NSString *)title
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@", searchString];
     self.filterResults = [self.rawResults filteredArrayUsingPredicate:predicate];
-//    self.filterResults = [CUTEStringMatcher matchElementsWithString:searchString sourceElements:self.rawResults attributeSelector:@selector(name)];
+//    self.filterResults = [CUTEStringMatcher matchElementsWithString:searchString sourceElements:self.rawResults keyPath:@"name"];
     return YES;
 }
 
