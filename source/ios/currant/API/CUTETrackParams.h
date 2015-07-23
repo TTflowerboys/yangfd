@@ -25,4 +25,6 @@
 
 #define KEventCategoryPostRentTicket @"post-rent-ticket"
 
+#define KEventCategoryShare @"share"
+
 #endif

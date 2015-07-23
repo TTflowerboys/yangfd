@@ -48,11 +48,23 @@
 }
 
 - (void)shareRentTicket {
-    [[[CUTEShareManager sharedInstance] shareTicket:self.form.ticket viewController:self] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEShareManager sharedInstance] shareTicket:self.form.ticket viewController:self onButtonPressBlock:^(NSString * buttonName) {
+        if ([buttonName isEqualToString:CUTEShareServiceWechatFriend]) {
+            TrackScreen(@"share-to-wechat");
+        }
+        else if ([buttonName isEqualToString:CUTEShareServiceWechatCircle]) {
+            TrackScreen(@"share-to-wechat");
+        }
+        else if ([buttonName isEqualToString:CUTEShareServiceSinaWeibo]) {
+            TrackScreen(@"share-to-weibo");
+        }
+    }] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
+            [[CUTETracker sharedInstance] trackError:task.error];
             [SVProgressHUD showErrorWithError:task.error];
         }
         else if (task.exception) {
+            [[CUTETracker sharedInstance] trackException:task.exception];
             [SVProgressHUD showErrorWithException:task.exception];
         }
         else if (task.isCancelled) {
@@ -66,6 +78,16 @@
         }
         else {
 
+            if ([task.result isEqualToString:CUTEShareServiceWechatFriend]) {
+                TrackEvent(KEventCategoryShare, kEventActionPress, @"wechat-friend", @(1));
+            }
+            else if ([task.result isEqualToString:CUTEShareServiceWechatCircle]) {
+                TrackEvent(KEventCategoryShare, kEventActionPress, @"wechat-circle", @(1));
+            }
+            else if ([task.result isEqualToString:CUTEShareServiceSinaWeibo]) {
+                TrackEvent(KEventCategoryShare, kEventActionPress, @"weibo", @(1));
+            }
+
             TrackScreen(GetScreenName(@"share-success"));
             if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS]) {
                 if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS fromViewController:self]) {
@@ -75,7 +97,7 @@
         }
 
         return task;
-    }];
+    } ];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath  {

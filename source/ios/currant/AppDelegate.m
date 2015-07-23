@@ -586,7 +586,7 @@
 - (void)onReceiveTicketWechatShare:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
-    [[CUTEShareManager sharedInstance] shareTicket:ticket viewController:self.tabBarController];
+    [[CUTEShareManager sharedInstance] shareTicket:ticket viewController:self.tabBarController onButtonPressBlock:nil];
 }
 
 - (void)onReceiveTicketListReload:(NSNotification *)notif {

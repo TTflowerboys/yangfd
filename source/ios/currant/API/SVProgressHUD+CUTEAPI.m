@@ -8,7 +8,6 @@
 
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTECommonMacro.h"
-#import "CUTETracker.h"
 #import "Bolts.h"
 
 @implementation SVProgressHUD (CUTEAPI)
@@ -49,7 +48,6 @@ static NSDictionary *messageDicionary = nil;
 }
 
 + (void)showErrorWithError:(NSError *)error {
-    [[CUTETracker sharedInstance] trackError:error];
     if (error && [error.domain isEqualToString:@"BBTAPIDomain"]) {
         [SVProgressHUD showErrorWithStatus:[SVProgressHUD apiErrorMessageFromCode:error.code]];
     }
@@ -71,7 +69,6 @@ static NSDictionary *messageDicionary = nil;
 }
 
 + (void)showErrorWithException:(NSException *)exception {
-    [[CUTETracker sharedInstance] trackException:exception];
     [SVProgressHUD showErrorWithStatus:exception.userInfo[NSLocalizedDescriptionKey]];
 }
 

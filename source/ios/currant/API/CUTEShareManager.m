@@ -17,7 +17,6 @@
 #import "CUTEConfiguration.h"
 #import "NSURL+Assets.h"
 #import "CUTEAPIManager.h"
-#import "CUTETracker.h"
 #import <UMSocial.h>
 #import <UMSocialWechatHandler.h>
 #import <UMSocialSinaHandler.h>
@@ -75,29 +74,30 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
     [WeiboSDK registerApp:[CUTEConfiguration sinaAppKey]];
 }
 
-- (void)shareToWechatWithReq:(BaseReq *)req {
+- (void)shareToWechatWithReq:(SendMessageToWXReq *)req {
     if([WXApi isWXAppInstalled]){
-        TrackScreen(@"share-to-wechat");
         [self sendRequst:req onResponse:^(BaseResp *resp) {
             if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
                 SendMessageToWXResp *backResp = (SendMessageToWXResp *)resp;
                 if (backResp.errCode == WXSuccess) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self checkCallShareSuccessBlock];
+                        if (req.scene == WXSceneSession) {
+                            [self.taskCompletionSource setResult:CUTEShareServiceWechatFriend];
+                        }
+                        else if (req.scene == WXSceneTimeline) {
+                            [self.taskCompletionSource setResult:CUTEShareServiceWechatCircle];
+                        }
                     });
-
                 }
                 else if (backResp.errCode == WXErrCodeUserCancel) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self checkCallShareCancellationBlock];
+                        [self.taskCompletionSource cancel];
                     });
                 }
                 else {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         NSError *error = [NSError errorWithDomain:@"Wechat" code:backResp.errCode userInfo:@{NSLocalizedDescriptionKey:backResp.errStr}];
-                        [[CUTETracker sharedInstance] trackError:error];
-                        [SVProgressHUD showErrorWithStatus:STR(@"分享失败")];
-                        [self checkCallShareFailedBlockWithError:error];
+                        [self.taskCompletionSource setError:error];
                     });
                 }
             }
@@ -109,7 +109,7 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
 
 }
 
-- (BaseReq *)makeWechatRequstWithScene:(int)scene title:(NSString *)title description:(NSString *)description thumbData:(NSData *)imageData url: (NSString *)url {
+- (SendMessageToWXReq *)makeWechatRequstWithScene:(int)scene title:(NSString *)title description:(NSString *)description thumbData:(NSData *)imageData url: (NSString *)url {
     WXMediaMessage *message = [WXMediaMessage message];
     message.title = title;
     message.description = description;
@@ -211,7 +211,7 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
     }];
 }
 
-- (BFTask *)shareTicket:(CUTETicket *)ticket viewController:(UIViewController *)viewController
+- (BFTask *)shareTicket:(CUTETicket *)ticket viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock
 {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     self.taskCompletionSource = tcs;
@@ -234,14 +234,20 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
                     if (buttonIndex == 0) {
 
                         UIImage *image = [(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
-                        BaseReq *req = [self makeWechatRequstWithScene:WXSceneSession title:title description:description thumbData:UIImagePNGRepresentation(image) url:url];
+                        SendMessageToWXReq *req = [self makeWechatRequstWithScene:WXSceneSession title:title description:description thumbData:UIImagePNGRepresentation(image) url:url];
                         [self shareToWechatWithReq:req];
+                        if (pressBlock) {
+                            pressBlock(CUTEShareServiceWechatFriend);
+                        }
                     }
 
                     else if (buttonIndex == 1) {
                         UIImage *image = [(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
-                        BaseReq *req = [self makeWechatRequstWithScene: WXSceneTimeline title:title description:description thumbData:UIImagePNGRepresentation(image) url:url];
+                        SendMessageToWXReq *req = [self makeWechatRequstWithScene: WXSceneTimeline title:title description:description thumbData:UIImagePNGRepresentation(image) url:url];
                         [self shareToWechatWithReq:req];
+                        if (pressBlock) {
+                            pressBlock(CUTEShareServiceWechatCircle);
+                        }
                     }
                     else if (buttonIndex == 2) {
                         UIImage *sinaImage = nil;
@@ -274,6 +280,10 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
                                 WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message authInfo:authRequest access_token:nil];
                                 //    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
                                 [WeiboSDK sendRequest:request];
+
+                                if (pressBlock) {
+                                    pressBlock(CUTEShareServiceSinaWeibo);
+                                }
                             }
                             else {
                                 //TODO test case
@@ -282,6 +292,9 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
                                 [[UMSocialControllerService defaultControllerService] setShareText:content shareImage:sinaImage socialUIDelegate:self];
                                 [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(viewController,[UMSocialControllerService defaultControllerService],YES);
 
+                                if (pressBlock) {
+                                    pressBlock(CUTEShareServiceSinaWeibo);
+                                }
                             }
 
                             return nil;
@@ -289,7 +302,7 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
 
                     }
                     else {
-                        [self checkCallShareCancellationBlock];
+                        [self.taskCompletionSource cancel];
                     }
                 });
             }];
@@ -325,12 +338,12 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
             
             if ([buttonTitle isEqualToString:STR(CUTEShareServiceWechatFriend)]) {
 
-                BaseReq *req = [self makeWechatRequstWithScene:WXSceneSession title:text description:nil thumbData:UIImagePNGRepresentation([UIImage appIcon]) url:urlString];
+                SendMessageToWXReq *req = [self makeWechatRequstWithScene:WXSceneSession title:text description:nil thumbData:UIImagePNGRepresentation([UIImage appIcon]) url:urlString];
                 [self shareToWechatWithReq:req];
             }
 
             else if ([buttonTitle isEqualToString:STR(CUTEShareServiceWechatCircle)]) {
-                BaseReq *req = [self makeWechatRequstWithScene: WXSceneTimeline title:text description:nil thumbData:UIImagePNGRepresentation([UIImage appIcon]) url:urlString];
+                SendMessageToWXReq *req = [self makeWechatRequstWithScene: WXSceneTimeline title:text description:nil thumbData:UIImagePNGRepresentation([UIImage appIcon]) url:urlString];
                 [self shareToWechatWithReq:req];
             }
             else if ([buttonTitle isEqualToString:STR(CUTEShareServiceSinaWeibo)]) {
@@ -359,7 +372,7 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
                 }
             }
             else {
-                [self checkCallShareCancellationBlock];
+                [self.taskCompletionSource cancel];
             }
         });
     }];
@@ -425,32 +438,16 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
     if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
     {
         if (response.statusCode == WeiboSDKResponseStatusCodeSuccess) {
-            [self checkCallShareSuccessBlock];
+            [self.taskCompletionSource setResult:CUTEShareServiceSinaWeibo];
         }
         else if (response.statusCode == WeiboSDKResponseStatusCodeUserCancel) {
-            [self checkCallShareCancellationBlock];
+            [self.taskCompletionSource cancel];
         }
         else {
             NSError *error = [NSError errorWithDomain:STR(@"微博分享") code:response.statusCode userInfo:response.userInfo];
-            [SVProgressHUD showErrorWithError:error];
-            [self checkCallShareFailedBlockWithError:error];
+            [self.taskCompletionSource setError:error];
         }
     }
 }
-
-#pragma mark - Survey Method
-
-- (void)checkCallShareSuccessBlock {
-    [self.taskCompletionSource setResult:nil];
-}
-
-- (void)checkCallShareFailedBlockWithError:(NSError *)error {
-    [self.taskCompletionSource setError:error];
-}
-
-- (void)checkCallShareCancellationBlock {
-    [self.taskCompletionSource cancel];
-}
-
 
 @end

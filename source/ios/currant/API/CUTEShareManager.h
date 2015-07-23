@@ -19,6 +19,8 @@ extern NSString * const CUTEShareServiceWechatCircle;
 
 extern NSString * const CUTEShareServiceSinaWeibo;
 
+typedef void(^CUTEShareButtonPressBlock)(NSString *buttonName);
+
 @interface CUTEShareManager : NSObject
 
 + (instancetype)sharedInstance;
@@ -27,7 +29,7 @@ extern NSString * const CUTEShareServiceSinaWeibo;
 
 - (BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 
-- (BFTask *)shareTicket:(CUTETicket *)ticket viewController:(UIViewController *)viewController;
+- (BFTask *)shareTicket:(CUTETicket *)ticket viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock;
 
 - (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString inServices:(NSArray *)services viewController:(UIViewController *)viewController;
 
