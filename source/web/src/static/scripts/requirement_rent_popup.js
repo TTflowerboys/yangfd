@@ -469,6 +469,7 @@
 
 
     window.openRequirementRentForm = function (option) {
+        option = option || {}
         if(window.team.isPhone()) {
             location.href = '/requirement-rent?' + $.param(option)
             return

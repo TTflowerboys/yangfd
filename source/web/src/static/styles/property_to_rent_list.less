@@ -538,7 +538,11 @@ main {
             .info {
                 float:left;
                 margin-left:20px;
-
+                @media @phone{
+                    float: none;
+                    margin-left: 0;
+                    text-align: center;
+                }
 
                 .hint {
                     font-size:24px;
