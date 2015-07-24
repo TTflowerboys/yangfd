@@ -10,7 +10,7 @@
         margin-right:0;
     }
 
-    input {
+    input[type=text] {
         width: 270px;
         padding-left: 0.5em;
         padding-right: 0.5em;
@@ -28,7 +28,12 @@
         }
 
     }
-    .form_row { line-height: 1.5; }
+    .form_row {
+        line-height: 1.5;
+        &.requirementAgreeWrap label{
+            margin-left: 10px;
+        }
+    }
     .hint {
         font-size: 14px;
         color: #333333;

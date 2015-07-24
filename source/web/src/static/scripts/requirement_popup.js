@@ -78,7 +78,12 @@
             }
         }
 
-
+        var requirementAgreeWrap = $('.requirementAgreeWrap')
+        if (window.user) {
+            requirementAgreeWrap.hide()
+        } else {
+            container.find('[name=requirementAgree]').prop('checked', true)
+        }
         //remove bind event first Bug #5515
         container.find('form[name=requirement]').off('submit').submit(function (e) {
             e.preventDefault()
@@ -114,7 +119,11 @@
                 //still don't have, remove it
                 delete params.property_id
             }
-
+            if($('#requirementAgree').is(':checked')) {
+                params.noregister = false
+            } else {
+                params.noregister = true
+            }
             var button = $('form[name=requirement] button[type=submit]')
             button.css('cursor', 'wait')
             var api = '/api/1/intention_ticket/add'
