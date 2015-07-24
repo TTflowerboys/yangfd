@@ -19,6 +19,8 @@ extern NSString * const CUTEShareServiceWechatCircle;
 
 extern NSString * const CUTEShareServiceSinaWeibo;
 
+extern NSString * const CUTEShareServiceCopyLink;
+
 typedef void(^CUTEShareButtonPressBlock)(NSString *buttonName);
 
 @interface CUTEShareManager : NSObject
