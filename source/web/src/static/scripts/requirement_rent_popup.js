@@ -80,14 +80,14 @@
             var $neighborhoodSelectChosen = $neighborhoodSelect.next('.chosen-container')
             var $span = $neighborhoodSelectChosen.find('.chosen-single span')
             var originContent = $span.html()
-            $span.html(window.i18n('neighborhood列表加载中...'))
+            $span.html(window.i18n('街区列表加载中...'))
             window.geonamesApi.getNeighborhood(function (val) {
                 if(container.find('.city-select :selected').text().toLowerCase() === 'london') {
                     $span.html(originContent)
                     $neighborhoodSelect.html(
                         _.reduce(val, function(pre, val, key) {
                             return pre + '<option value="' + val.id + '">' + val.name + '</option>'
-                        }, '<option value="">' + i18n('请选择neighborhood') + '</option>')
+                        }, '<option value="">' + i18n('请选择街区') + '</option>')
                     ).trigger('chosen:updated')
                     $neighborhoodSelect.trigger('chosen:open')
                 }
@@ -199,10 +199,10 @@
                     container.find('[name=requirementRentName]').val(window.user.nickname)
                 }
                 if (window.user.country && window.user.country.code) {
-                    container.find('[name=country]').val(window.user.country.code).trigger('change').trigger('chosen:updated')
+                    container.find('[name=country]').val(window.user.country.code).trigger('chosen:updated')
                 }
                 if (window.user.phone) {
-                    container.find('[name=requirementRentPhone]').val(window.user.phone).trigger('change')
+                    container.find('[name=requirementRentPhone]').val(window.user.phone)
                 }
                 if (window.user.email) {
                     container.find('[name=requirementRentEmail]').val(window.user.email)

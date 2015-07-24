@@ -259,14 +259,14 @@
     function getNeighborhoodListForSelect() {
         var $span = $('#neighborhood_select_chosen .chosen-single span')
         var originContent = $span.html()
-        $span.html(window.i18n('neighborhood列表加载中...'))
+        $span.html(window.i18n('街区列表加载中...'))
         window.geonamesApi.getNeighborhood(function (val) {
             if($('#city-select :selected').text().toLowerCase() === 'london') {
                 $span.html(originContent)
                 $('#neighborhood-select').html(
                     _.reduce(val, function(pre, val, key) {
                         return pre + '<option value="' + val.id + '">' + val.name + '</option>'
-                    }, '<option value="">' + i18n('请选择neighborhood') + '</option>')
+                    }, '<option value="">' + i18n('请选择街区') + '</option>')
                 ).trigger('chosen:updated')
                 if($('#neighborhood').val()) {
                     $('#neighborhood-select').val($('#neighborhood').val()).trigger('chosen:updated')

@@ -146,14 +146,14 @@
                                 <!--todo data-text在编辑页中需要填充用户已经填写过的国家或者城市名称-->
                                 <input type="hidden" id="country" name="country" data-validator="required, trim" data-name="{{_('国家')}}" value="{{rent.get('property',{}).get('country',{}).get('code','')}}" data-text="{{get_country_name_by_code(rent.get('property',{}).get('country',{}).get('code',''))}}"/>
                                 <input type="hidden" id="city" name="city" data-validator="required, trim" data-name="{{_('城市')}}" value="{{rent.get('property',{}).get('city',{}).get('id','')}}" data-text="{{rent.get('property',{}).get('city',{}).get('name','')}}">
-                                <input type="hidden" id="neighborhood" name="neighborhood" data-validator="trim" data-name="{{_('neighborhood')}}" value="{{rent.get('property',{}).get('maponics_neighborhood',{}).get('id','')}}" data-text="{{rent.get('property',{}).get('maponics_neighborhood',{}).get('name','')}}">
+                                <input type="hidden" id="neighborhood" name="neighborhood" data-validator="trim" data-name="{{_('街区')}}" value="{{rent.get('property',{}).get('maponics_neighborhood',{}).get('id','')}}" data-text="{{rent.get('property',{}).get('maponics_neighborhood',{}).get('name','')}}">
                                 <select id="country-select" data-model="country" class="select-chosen" data-placeholder="{{_('请选择国家')}}">
                                     <!--<option value="">' + i18n('请选择国家') + '</option>-->
                                 </select>
                                 <select id="city-select" data-model="city" class="select-chosen" data-placeholder="{{_('请选择城市')}}">
                                     <!--<option value="">{{_('请选择城市')}}</option>-->
                                 </select>
-                                <select id="neighborhood-select" data-model="neighborhood" class="select-chosen" data-placeholder="{{_('请选择neighborhood')}}" style="display: none;"></select>
+                                <select id="neighborhood-select" data-model="neighborhood" class="select-chosen" data-placeholder="{{_('请选择街区')}}" style="display: none;"></select>
                                 <!--<input placeholder="{{_('街区')}}" id="region" name="region" data-name="{{_('街区')}}" value="" data-trigger="updateTitle">-->
                                 <input placeholder="{{_('街道（选填）')}}" id="street" name="street" data-name="{{_('街道')}}" value="{{rent.get('property',{}).get('street','')}}" data-trigger="updateTitle">
                                 <input placeholder="{{_('小区（选填）')}}" id="community" value="{{rent.get('property',{}).get('community','')}}" data-trigger="updateTitle">

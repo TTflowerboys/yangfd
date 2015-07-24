@@ -25,10 +25,10 @@ function GeonamesApi () {
         }, callback, reject)
     }
     this.getNeighborhood = function (callback, reject) {
-        if(!cache.neighbourhood) {
+        if(!cache.neighborhood) {
             $.betterPost('/api/1/maponics_neighborhood/search')
                 .done(function (val) {
-                    cache.neighbourhood = val
+                    cache.neighborhood = val
                     callback.call(null, val)
                 })
                 .fail(function (ret) {
@@ -37,7 +37,7 @@ function GeonamesApi () {
                     }
                 })
         } else {
-            callback.call(null, cache.neighbourhood)
+            callback.call(null, cache.neighborhood)
         }
     }
     this.getAdmin1 = function (country, callback, reject) {
