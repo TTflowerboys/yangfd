@@ -519,9 +519,10 @@
     //wait the bottom bar show animation, then present new controller
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         CUTERentShareViewController *shareController = [CUTERentShareViewController new];
-        CUTERentShareForm *form = [CUTERentShareForm new];
-        form.ticket = ticket;
-        shareController.formController.form = form;
+        shareController.ticket = ticket;
+//        CUTERentShareForm *form = [CUTERentShareForm new];
+//        form.ticket = ticket;
+//        shareController.formController.form = form;
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:shareController];
         [self.tabBarController presentViewController:nc animated:NO completion:nil];
     });
