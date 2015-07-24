@@ -9,6 +9,15 @@
         <!--build:css(dist) /static/styles/project/big_picture_bg_master.html.css-->
         <link rel="stylesheet" href="/static/styles/bigPictureBg.css"/>
         <!--endbuild-->
+        %if is_mobile_client():
+        <!--build:css(dist) /static/styles/client/ios.html.css-->
+        <link rel="stylesheet" href="/static/styles/client/ios.css"/>
+        <!--endbuild-->
+        %else:
+        <!--build:css(dist) /static/styles/client/nonios.html.css-->
+        <link rel="stylesheet" href="/static/styles/client/nonios.css"/>
+        <!--endbuild-->
+        %end
 
         <!--[if lte IE 8]>
         <script src="/static/bower_components/html5shiv/dist/html5shiv.min.js"></script>

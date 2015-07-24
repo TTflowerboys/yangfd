@@ -9,13 +9,15 @@
             this.change()
         }
         this.change = function () {
-
+            $('.page').css('height', '0px')
             _this.views.each(function () {
                 if($(this).attr('data-show') === _this.state) {
                     return $(this).show()
                 }
                 $(this).hide()
             })
+            $('html, body').scrollTop(0)
+            $('.page').css('height', 'auto')
         }
         $('[data-action]').click(function () {
             _this.changeState($(this).attr('data-action'))
