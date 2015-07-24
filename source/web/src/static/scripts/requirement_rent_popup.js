@@ -17,7 +17,6 @@
     }
     function initLocation(container) {
         if(!container.data('initLocation')){
-            var geonamesApi = new GeonamesApi()
             container.data('initLocation', true)
             container.find('.country-select').bind('change', function () {
                 container.find('.city-select').html('').trigger('chosen:updated')
@@ -34,48 +33,7 @@
                 }, '<option value="">' + i18n('请选择国家') + '</option>')
             ).trigger('chosen:updated').trigger('change')
         }
-        function GeonamesApi () {
-            var url = '/api/1/geonames/search'
-            this.getAdmin = function (config, callback, reject) {
-                $.betterPost(url, config)
-                    .done(function (val) {
-                        callback.call(null, val)
-                    })
-                    .fail(function (ret) {
-                        if(reject && typeof reject === 'function') {
-                            reject(ret)
-                        }
-                    })
-            }
-            this.getCity = function (country, callback, reject) {
-                this.getAdmin({
-                    country: country,
-                    feature_code: 'city'
-                }, callback, reject)
-            }
-            this.getAdmin1 = function (country, callback, reject) {
-                this.getAdmin({
-                    country: country,
-                    feature_code: 'ADM1'
-                }, callback, reject)
-            }
-            this.getAdmin2 = function (country, admin1, callback, reject) {
-                this.getAdmin({
-                    country: country,
-                    admin1: admin1,
-                    feature_code: 'ADM2'
-                }, callback, reject)
-            }
-            this.getCityByLocation = function (country, latitude, longitude, callback, reject) {
-                this.getAdmin({
-                    search_range: 50000,
-                    country: country,
-                    latitude: latitude,
-                    longitude: longitude,
-                    feature_code: 'city'
-                }, callback, reject)
-            }
-        }
+
         function getCityListForSelect(country) {
             if(!country){
                 return
@@ -85,7 +43,7 @@
             container.find('.city-select').html(
                 '<option value="">' + i18n('城市列表加载中') + '</option>'
             ).trigger('chosen:updated')
-            geonamesApi.getCity(country, function (val) {
+            window.geonamesApi.getCity(country, function (val) {
                 if(country === container.find('.country-select').val()) {
                     $span.html(originContent)
                     container.find('.city-select').html(
