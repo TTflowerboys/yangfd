@@ -1,15 +1,22 @@
 function GeonamesApi () {
     var url = '/api/1/geonames/search'
+    var cache = {}
     this.getAdmin = function (config, callback, reject) {
-        $.betterPost(url, config)
-            .done(function (val) {
-                callback.call(null, val)
-            })
-            .fail(function (ret) {
-                if(reject && typeof reject === 'function') {
-                    reject(ret)
-                }
-            })
+        if(!cache[$.param(config)]) {
+            $.betterPost(url, config)
+                .done(function (val) {
+                    cache[$.param(config)] = val
+                    callback.call(null, val)
+                })
+                .fail(function (ret) {
+                    if(reject && typeof reject === 'function') {
+                        reject(ret)
+                    }
+                })
+        } else {
+            callback.call(null, cache[$.param(config)])
+        }
+
     }
     this.getCity = function (country, callback, reject) {
         this.getAdmin({
@@ -18,15 +25,20 @@ function GeonamesApi () {
         }, callback, reject)
     }
     this.getNeighborhood = function (callback, reject) {
-        $.betterPost('/api/1/maponics_neighborhood/search')
-            .done(function (val) {
-                callback.call(null, val)
-            })
-            .fail(function (ret) {
-                if(reject && typeof reject === 'function') {
-                    reject(ret)
-                }
-            })
+        if(!cache.neighbourhood) {
+            $.betterPost('/api/1/maponics_neighborhood/search')
+                .done(function (val) {
+                    cache.neighbourhood = val
+                    callback.call(null, val)
+                })
+                .fail(function (ret) {
+                    if(reject && typeof reject === 'function') {
+                        reject(ret)
+                    }
+                })
+        } else {
+            callback.call(null, cache.neighbourhood)
+        }
     }
     this.getAdmin1 = function (country, callback, reject) {
         this.getAdmin({

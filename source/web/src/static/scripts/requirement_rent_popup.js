@@ -16,22 +16,32 @@
         container.find('button[name=cancel]').show()
     }
     function initLocation(container) {
+        var $countrySelect = container.find('.country-select')
+        var $citySelect = container.find('.city-select')
+        var $neighborhoodSelect = container.find('.neighborhood-select')
         if(!container.data('initLocation')){
             container.data('initLocation', true)
-            container.find('.country-select').bind('change', function () {
-                container.find('.city-select').html('').trigger('chosen:updated')
-                getCityListForSelect(container.find('.country-select').val())
+            $countrySelect.bind('change', function () {
+                var country = $countrySelect.val()
+                if(country) {
+                    $citySelect.html('').trigger('chosen:updated')
+                    getCityListForSelect(country)
+                } else {
+                    $citySelect.find('option').eq(0).attr('selected',true)
+                    $citySelect.trigger('chosen:updated')
+                }
+
             })
-            container.find('.city-select').bind('change', function () {
-                container.find('.neighborhood-select').html('').trigger('chosen:updated')
+            $citySelect.bind('change', function () {
+                $neighborhoodSelect.html('').trigger('chosen:updated')
                 if(container.find('.city-select :selected').text().toLowerCase() === 'london'){
-                    container.find('.neighborhood-select').next('.chosen-container').parents('tr').show()
+                    $neighborhoodSelect.next('.chosen-container').parents('.row').show()
                     getNeighborhoodListForSelect()
                 } else {
                     //clearData('neighborhood')
-                    $('.neighborhood-select').find('option').eq(0).attr('selected',true)
-                    $('.neighborhood-select').trigger('chosen:updated')
-                    container.find('.neighborhood-select').next('.chosen-container').parents('tr').hide()
+                    $neighborhoodSelect.find('option').eq(0).attr('selected',true)
+                    $neighborhoodSelect.trigger('chosen:updated')
+                    $neighborhoodSelect.next('.chosen-container').parents('.row').hide()
                 }
             })
             getCountryList()
@@ -39,7 +49,7 @@
 
         function getCountryList() { //通过window.team.countryMap来获取国家列表
 
-            container.find('.country-select').append(
+            $countrySelect.append(
                 _.reduce(JSON.parse($('#fullCountryData').text()), function(pre, val, key) {
                     return pre + '<option value="' + val.code + '"' + (val.code === 'GB' ? ' selected' : '') +  '>' + window.team.countryMap[val.code] + '</option>'
                 }, '<option value="">' + i18n('请选择国家') + '</option>')
@@ -50,15 +60,15 @@
             if(!country){
                 return
             }
-            var $span = container.find('.city-select').next('.chosen-container').find('.chosen-single span')
+            var $span = $citySelect.next('.chosen-container').find('.chosen-single span')
             var originContent = $span.html()
-            container.find('.city-select').html(
+            $citySelect.html(
                 '<option value="">' + i18n('城市列表加载中') + '</option>'
             ).trigger('chosen:updated')
             window.geonamesApi.getCity(country, function (val) {
-                if(country === container.find('.country-select').val()) {
+                if(country === $countrySelect.val()) {
                     $span.html(originContent)
-                    container.find('.city-select').html(
+                    $citySelect.html(
                         _.reduce(val, function(pre, val, key) {
                             return pre + '<option value="' + val.id + '"' + (val.name === 'London' ? ' selected' : '') + '>' + val.name + (country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
                         }, '<option value="">' + i18n('请选择城市') + '</option>')
@@ -67,8 +77,7 @@
             })
         }
         function getNeighborhoodListForSelect() {
-            var $neighborhoodSelect = container.find('.neighborhood-select')
-            var $neighborhoodSelectChosen = container.find('.neighborhood-select').next('.chosen-container')
+            var $neighborhoodSelectChosen = $neighborhoodSelect.next('.chosen-container')
             var $span = $neighborhoodSelectChosen.find('.chosen-single span')
             var originContent = $span.html()
             $span.html(window.i18n('neighborhood列表加载中...'))
@@ -286,11 +295,7 @@
         if (window.user) {
             requirementRentAgreeWrap.hide()
         }
-        container.find('.select-chosen').add(container.find('[name=country]')).each(function (index, elem) {
-            if(!$(elem).data('chosen')) {
-                $(elem).data('chosen', true).chosen({ disable_search_threshold: 8 }) //调用chosen插件
-            }
-        })
+
         var actionMap = {
             gotoPrev: function gotoPrev ($formWrap) {
                 var currentStep = parseInt($formWrap.attr('data-step'))
@@ -425,8 +430,22 @@
         }
 
         initShowAndHide(container, option)
-        initStep(container)
         initLocation(container)
+        container.find('.select-chosen').add(container.find('[name=country]')).each(function (index, elem) {
+            if(!$(elem).data('chosen')) {
+                if(!window.team.isPhone()) {
+                    $(elem).data('chosen', true).chosen({ disable_search_threshold: 8 }) //调用chosen插件
+                } else {
+                    $(elem).data('chosen', true).chosenPhone({
+                        disable_search_threshold: 8,
+                        callback: function () {
+                            this.chosenSingle.prepend('<p class="hint">' + $(elem).attr('data-hint') + '</p>')
+                        }
+                    }) //调用chosen插件
+                }
+            }
+        })
+        initStep(container)
         initDateInput(container)
         initRequirementRentTitle(container)
         initContactInfo(container)
