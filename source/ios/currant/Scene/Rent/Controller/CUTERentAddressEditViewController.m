@@ -220,6 +220,7 @@
     CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
     CUTERentAddressMapForm *mapForm = [CUTERentAddressMapForm new];
     mapForm.ticket = form.ticket;
+    mapController.form = mapForm;
     mapController.hidesBottomBarWhenPushed = YES;
     mapController.singleUseForReedit = [(CUTERentAddressEditForm *)self.formController.form singleUseForReedit];
     mapController.updateAddressCompletion = ^ {
