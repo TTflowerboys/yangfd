@@ -40,8 +40,8 @@
                 }
                 window.durationArray[index] = (new Date() - window.viewStartTime)/1000 - preTotalTime
 
-                ga('send', 'event', 'wechat_poster', 'time-consuming', 'page'+index, window.durationArray[index])
-                ga('send', 'pageview', '/wechat-poster/' + getCurrentRentId() + '/'+ (index+1))
+                //ga('send', 'event', 'wechat_poster', 'time-consuming', 'page'+index, window.durationArray[index])
+                //ga('send', 'pageview', '/wechat-poster/' + getCurrentRentId() + '/'+ (index+1))
             }
         },
         onTransitionEnd: function (swiper, direction) {
@@ -56,7 +56,7 @@
             }
         },
         onReachEnd: function (swiper){
-            ga('send', 'event', 'wechat_poster', 'time-consuming', 'total-time', (new Date() - window.viewStartTime)/1000)
+            //ga('send', 'event', 'wechat_poster', 'time-consuming', 'total-time', (new Date() - window.viewStartTime)/1000)
         }
     });
     window.wechatSwiperMoveTo = function(num, speed, callback) {
@@ -180,7 +180,7 @@
 
             // Get and send poster load time, aka from user open poster to user see first page
             window.durationArray[0] = (new Date() - window.viewStartTime)/1000
-            ga('send', 'event', 'wechat_poster', 'time-consuming', 'load-time', window.durationArray[0])
+            //ga('send', 'event', 'wechat_poster', 'time-consuming', 'load-time', window.durationArray[0])
         }
     })
     $(window).load(function(){
@@ -196,11 +196,11 @@
             modal.removeClass('hide').addClass('animation')
 
             //Record when user view more
-            if(triggerId === 'viewMoreBtn'){
-                ga('send', 'event', 'wechat_poster', 'click', 'view-description')
-            }else if(triggerId === 'morefacilitiesBtn'){
-                ga('send', 'event', 'wechat_poster', 'click', 'view-facilities')
-            }
+            //if(triggerId === 'viewMoreBtn'){
+                //ga('send', 'event', 'wechat_poster', 'click', 'view-description')
+            //}else if(triggerId === 'morefacilitiesBtn'){
+                //ga('send', 'event', 'wechat_poster', 'click', 'view-facilities')
+            //}
         })
         $('.btnCloseModal').on('click', function(){
             var modal = $(this).parents('.modal')
@@ -250,14 +250,14 @@
         })
     }
     // Get current rent ticket id
-    function getCurrentRentId(){
+    /*function getCurrentRentId(){
         var urlpaths = window.location.pathname.split('/')
         if(urlpaths.length>0){
             return urlpaths[urlpaths.length-1]
         }else{
             return null
         }
-    }
+    }*/
     // 横屏监听
     function UpdateOrientation(){
         this.notShow = false
