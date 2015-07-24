@@ -25,6 +25,8 @@
 #import "CUTERentShareForm.h"
 #import "CUTETracker.h"
 #import "UIBarButtonItem+ALActionBlocks.h"
+#import "Aspects.h"
+#import "CUTEUIMacro.h"
 
 @interface CUTERentShareViewController ()
 
@@ -44,9 +46,48 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"完成") style:UIBarButtonItemStylePlain block:^(id weakSender) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"分享") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-        [self shareRentTicket];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"编辑") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+        [SVProgressHUD show];
+        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", self.ticket.identifier) parameters:nil resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                if (task.result) {
+                    [SVProgressHUD dismiss];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_EDIT object:self userInfo:@{@"ticket": task.result}];
+                }
+                else {
+                    [SVProgressHUD showErrorWithStatus:STR(@"获取失败")];
+                }
+            }
+
+            return task;
+        }];
     }];
+
+    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [shareButton setTitle:STR(@"分享") forState:UIControlStateNormal];
+    [shareButton addTarget:self action:@selector(shareRentTicket) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:shareButton];
+    shareButton.backgroundColor = [UIColor whiteColor];
+    [shareButton setTitleColor:CUTE_MAIN_COLOR forState:UIControlStateNormal];
+    MakeBegin(shareButton)
+    MakeLeftEqualTo(self.view.left);
+    MakeRighEqualTo(self.view.right);
+    MakeBottomEqualTo(self.view.bottom);
+    MakeHeightEqualTo(@(50));
+    MakeEnd
+
+    [self.view aspect_hookSelector:@selector(addSubview:) withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> info) {
+        [self.view bringSubviewToFront:shareButton];
+    } error:nil];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]]]];
