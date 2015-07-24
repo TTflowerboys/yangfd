@@ -294,6 +294,8 @@
         var requirementRentAgreeWrap = $('.requirementRentAgreeWrap')
         if (window.user) {
             requirementRentAgreeWrap.hide()
+        } else {
+            container.find('[name=requirementRentAgree]').prop('checked', true)
         }
 
         var actionMap = {
