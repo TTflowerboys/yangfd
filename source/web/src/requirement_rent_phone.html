@@ -36,20 +36,24 @@
                         <div class="row">
                             <div class="col">
                                 <p class="inputPlaceholder">{{_('国家')}}</p>
-                                <select dir="rtl" class="select-chosen country-select" data-placeholder="{{_('请选择国家')}}" data-validator="required" data-name="{{'国家'}}" data-serialize="country">
+                                <select dir="rtl" class="select-chosen country-select" data-placeholder="{{_('请选择国家')}}" data-validator="required" data-name="{{_('国家')}}" data-hint="{{_('国家')}}" data-serialize="country">
                                 </select>
                             </div>
                             <div class="col">
                                 <p class="inputPlaceholder">{{_('城市')}}</p>
-                                <select dir="rtl" class="select-chosen city-select" data-placeholder="{{_('请选择城市')}}" data-change-title data-validator="required" data-name="{{'城市'}}" data-serialize="city">
+                                <select dir="rtl" class="select-chosen city-select" data-placeholder="{{_('请选择城市')}}" data-change-title data-validator="required" data-name="{{_('城市')}}" data-hint="{{_('城市')}}" data-serialize="city">
                                 </select>
                             </div>
                         </div>
                         <div class="row">
-                            <input type="text" placeholder="{{_('地址')}}" data-validator="" data-name="{{'地址'}}" data-serialize="address"/>
+                            <p class="inputPlaceholder">{{_('neighborhood')}}</p>
+                            <select class="select-chosen neighborhood-select" data-placeholder="{{_('请选择neighborhood')}}" data-validator="" data-name="{{_('neighborhood')}}" data-hint="{{_('neighborhood')}}" data-serialize="maponics_neighborhood"></select>
                         </div>
                         <div class="row">
-                            <input type="text" placeholder="{{_('Postal area')}}" data-validator="" data-name="{{'Postal area'}}" data-serialize="zipcode_index"/>
+                            <input type="text" placeholder="{{_('地址')}}" data-validator="" data-name="{{_('地址')}}" data-serialize="address"/>
+                        </div>
+                        <div class="row">
+                            <input type="text" placeholder="{{_('Postal area')}}" data-validator="" data-name="{{_('Postal area')}}" data-serialize="zipcode_index"/>
                         </div>
                     </div>
                     <div class="step2" data-show-step="2">
@@ -57,7 +61,7 @@
                             <div class="col">
                                 <p class="title">{{_('求租类型')}}</p>
                                 <p class="inputPlaceholder">{{_('求租类型')}}</p>
-                                <select dir="rtl" class="select-chosen rentType" data-change-title data-validator="required" data-name="{{'求租类型'}}" data-serialize="rent_type">
+                                <select dir="rtl" class="select-chosen rentType" data-change-title data-validator="required" data-name="{{_('求租类型')}}" data-hint="{{_('求租类型')}}" data-serialize="rent_type">
                                     %for index, rent_type in enumerate(rent_type_list):
                                     <option value="{{rent_type.get('id')}}">
                                         {{rent_type.get('value')}}
@@ -74,7 +78,10 @@
                                     <!--@@include=./partials/current_currency.html -->
                                     {{_('/周')}}
                                     )</p>
-                                <select dir="rtl" class="select-chosen rentBudget" data-change-title data-validator="required" data-name="{{'预算'}}" data-serialize="rent_budget">
+                                <select dir="rtl" class="select-chosen rentBudget" data-change-title data-validator="required" data-name="{{_('预算')}}" data-hint="{{_('预算')}}(
+                                    <!--@@include=./partials/current_currency.html -->
+                                    {{_('/周')}}
+                                    )" data-serialize="rent_budget">
                                     %for index, rent_budget in enumerate(rent_budget_list):
                                     %if rent_budget.get('currency') == _.currency:
                                     <option value="{{rent_budget.get('id')}}" data-index="{{index}}">{{rent_budget.get('value')}}</option>
@@ -85,29 +92,29 @@
                         </div>
                         <div class="row startDateRow">
                             <p class="inputPlaceholder">{{_('租期开始日期')}}</p>
-                            <input dir="rtl" type="date" class="startDate dateInput" data-validator="date" data-name="{{'开始日期'}}" data-serialize="rent_available_time|time"/>
+                            <input dir="rtl" type="date" class="startDate dateInput" data-validator="date" data-name="{{_('开始日期')}}" data-serialize="rent_available_time|time"/>
                         </div>
                         <div class="row endDateRow">
                             <p class="inputPlaceholder">{{_('租期结束日期')}}</p>
-                            <input dir="rtl" type="date" class="endDate dateInput" data-validator="date"  data-name="{{'结束日期'}}" data-serialize="rent_deadline_time|time"/>
+                            <input dir="rtl" type="date" class="endDate dateInput" data-validator="date"  data-name="{{_('结束日期')}}" data-serialize="rent_deadline_time|time"/>
                         </div>
                         <div class="row">
-                            <input type="text" class="requirementRentTitle" name="requirementRentTitle" placeholder="{{_('求租标题')}}" data-validator="required,trim,maxLength(50)"  data-name="{{'求租标题'}}" data-serialize="title"/>
+                            <input type="text" class="requirementRentTitle" name="requirementRentTitle" placeholder="{{_('求租标题')}}" data-validator="required,trim,maxLength(50)"  data-name="{{_('求租标题')}}" data-serialize="title"/>
                         </div>
                         <div class="row">
-                            <textarea name="requirementRentDesc" id="" rows="8" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}" data-validator="trim,maxLength(150)" data-name="{{'求租描述'}}" data-serialize="description"></textarea>
+                            <textarea name="requirementRentDesc" id="" rows="8" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}" data-validator="trim,maxLength(150)" data-name="{{_('求租描述')}}" data-serialize="description"></textarea>
                         </div>
                     </div>
                     <div class="step3" data-show-step="3">
                         <div class="row">
-                            <input type="text" class="requirementRentName" name="requirementRentName" placeholder="{{_('姓名')}}" data-validator="required,trim,maxLength(20)"  data-name="{{'姓名'}}" data-serialize="nickname"/>
+                            <input type="text" class="requirementRentName" name="requirementRentName" placeholder="{{_('姓名')}}" data-validator="required,trim,maxLength(20)"  data-name="{{_('姓名')}}" data-serialize="nickname"/>
                         </div>
                         <div class="row">
                             <!-- @@include =./partials/country_select_full.html -->
-                            <input type="text" class="requirementRentPhone" name="requirementRentPhone" placeholder="{{_('电话')}}" data-validator="required,trim,number"  data-name="{{'电话'}}"/>
+                            <input type="text" class="requirementRentPhone" name="requirementRentPhone" placeholder="{{_('电话')}}" data-validator="required,trim,number"  data-name="{{_('电话')}}"/>
                         </div>
                         <div class="row">
-                            <input type="text" class="requirementRentEmail" name="requirementRentEmail" placeholder="{{_('邮箱')}}" data-validator="required,trim,email"  data-name="{{'邮箱'}}" data-serialize="email"/>
+                            <input type="text" class="requirementRentEmail" name="requirementRentEmail" placeholder="{{_('邮箱')}}" data-validator="required,trim,email"  data-name="{{_('邮箱')}}" data-serialize="email"/>
                         </div>
                         <div class="row requirementRentAgreeWrap">
                             <input type="checkbox" class="requirementRentAgree" name="requirementRentAgree" id="requirementRentAgree" data-serialize="noregister|reverse"/>

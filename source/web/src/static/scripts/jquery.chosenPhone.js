@@ -32,6 +32,9 @@
             this.elem.after(this.chosen)
             this.initStyle()
             this.bindEvent()
+            if(option.callback && _.isFunction(option.callback)) {
+                option.callback.call(this)
+            }
         }
         this.initStyle = function () {
             this.elem.hide()
@@ -45,9 +48,9 @@
             } else {
                 this.chosen.removeClass('chosen-container-single-nosearch')
             }
-            this.chosenSingleSpan.text(_.find(this.data, function (obj) {
+            this.chosenSingleSpan.text((_.find(this.data, function (obj) {
                 return obj.selected
-            }).text)
+            }) || {}).text)
             this.chosenResults.html(_.reduce(data, function (pre, cur, index) {
                 return pre + '<li class="active-result' + (cur.selected ? ' result-selected' : '') + '" data-option-array-index="' + cur.index + '">' + cur.text + '</li>'
             }, ''))
