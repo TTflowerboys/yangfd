@@ -27,6 +27,7 @@
 #import "CUTEUsageRecorder.h"
 #import "CUTEApptentiveEvent.h"
 #import "NSArray+ObjectiveSugar.h"
+#import "CUTEActivityView.h"
 
 
 #define THNUMBNAIL_SIZE 100
@@ -36,6 +37,8 @@ NSString * const CUTEShareServiceWechatFriend = @"Wechat Friend";
 NSString * const CUTEShareServiceWechatCircle= @"Wechat Circle";
 
 NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
+
+NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
 @interface CUTEShareManager () <UMSocialUIDelegate, WXApiDelegate, WeiboSDKDelegate> {
 
@@ -211,6 +214,97 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
     }];
 }
 
+- (CUTEActivity *)getWechatFriendActivityWithTitle:(NSString *)title description:(NSString *)description url:(NSString *)url image:(UIImage *)image buttonPressedBlock:(dispatch_block_t)callback {
+    CUTEActivity *wechatFriendActivity = [CUTEActivity new];
+    wechatFriendActivity.activityTitle = STR(CUTEShareServiceWechatFriend);
+    wechatFriendActivity.activityType = CUTEShareServiceWechatFriend;
+    wechatFriendActivity.activityImage = IMAGE(@"icon-share-wechat-friend");
+    wechatFriendActivity.performActivityBlock = ^ {
+        UIImage *thumbnailImage = [(UIImage *)image thumbnailImage:THNUMBNAIL_SIZE transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
+        SendMessageToWXReq *req = [self makeWechatRequstWithScene:WXSceneSession title:title description:description thumbData:UIImagePNGRepresentation(thumbnailImage) url:url];
+        [self shareToWechatWithReq:req];
+        if (callback) {
+            callback();
+        }
+    };
+    return wechatFriendActivity;
+}
+
+- (CUTEActivity *)getWechatCircleActivityWithTitle:(NSString *)title description:(NSString *)description url:(NSString *)url image:(UIImage *)imageData buttonPressedBlock:(dispatch_block_t)callback {
+    CUTEActivity *wechatCircleActivity = [CUTEActivity new];
+    wechatCircleActivity.activityTitle = STR(CUTEShareServiceWechatCircle);
+    wechatCircleActivity.activityType = CUTEShareServiceWechatCircle;
+    wechatCircleActivity.activityImage = IMAGE(@"icon-share-wechat-circle");
+    wechatCircleActivity.performActivityBlock = ^ {
+        UIImage *image = [(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
+        SendMessageToWXReq *req = [self makeWechatRequstWithScene: WXSceneTimeline title:title description:description thumbData:UIImagePNGRepresentation(image) url:url];
+        [self shareToWechatWithReq:req];
+        if (callback) {
+            callback();
+        }
+    };
+    return wechatCircleActivity;
+}
+
+- (CUTEActivity *)getSinaWeiboActivityWithTitle:(NSString *)title description:(NSString *)description url:(NSString *)url image:(UIImage *)imageData viewController:(UIViewController *)viewController buttonPressedBlock:(dispatch_block_t)callback {
+    CUTEActivity *weiboActivity = [CUTEActivity new];
+    weiboActivity.activityTitle = STR(CUTEShareServiceSinaWeibo);
+    weiboActivity.activityType = CUTEShareServiceSinaWeibo;
+    weiboActivity.activityImage = IMAGE(@"icon-share-sina-weibo");
+    weiboActivity.performActivityBlock = ^ {
+        UIImage *sinaImage = nil;
+        if ([imageData isKindOfClass:[UIImage class]]) {
+            sinaImage = [(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE * 3 transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
+        }
+
+        [[[CUTEAPIManager sharedInstance] GET:@"http://api.t.sina.com.cn/short_url/shorten.json" parameters:@{@"url_long": url, @"source": [CUTEConfiguration sinaAppKey]} resultClass:nil resultKeyPath:@""] continueWithBlock:^id(BFTask *task) {
+            NSString *shortUrl = url;
+            NSArray *urlArray = task.result;
+            if (!IsArrayNilOrEmpty(urlArray) && urlArray[0] && urlArray[0][@"url_short"]) {
+                shortUrl = urlArray[0][@"url_short"];
+            }
+
+            NSInteger maxContentLength = 140;
+            NSString *content = [self truncateString:CONCAT(NilNullToEmpty(title), @" ", NilNullToEmpty(description)) length:maxContentLength - shortUrl.length - 1];
+            content = CONCAT(NilNullToEmpty(content), @" ", NilNullToEmpty(shortUrl));
+
+            if ([WeiboSDK isCanShareInWeiboAPP]) {
+                WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
+                authRequest.redirectURI = [CUTEConfiguration umengCallbackURLString];
+                authRequest.scope = @"all";
+
+                WBMessageObject *message = [WBMessageObject new];
+                message.text = content;
+                WBImageObject *imageObject = [WBImageObject new];
+                imageObject.imageData = UIImagePNGRepresentation(sinaImage);
+                message.imageObject = imageObject;
+
+                WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message authInfo:authRequest access_token:nil];
+                //    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
+                [WeiboSDK sendRequest:request];
+
+                if (callback) {
+                    callback();
+                }
+            }
+            else {
+                //TODO test case
+                //Window root controller not ok
+
+                [[UMSocialControllerService defaultControllerService] setShareText:content shareImage:sinaImage socialUIDelegate:self];
+                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(viewController,[UMSocialControllerService defaultControllerService],YES);
+
+                if (callback) {
+                    callback();
+                }
+            }
+
+            return nil;
+        }];
+    };
+    return weiboActivity;
+}
+
 - (BFTask *)shareTicket:(CUTETicket *)ticket viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock
 {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
@@ -221,91 +315,43 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
             NSString *title = ticket.titleForDisplay;
             NSString *description = IsNilNullOrEmpty(ticket.ticketDescription)? ticket.property.address: ticket.ticketDescription;
             UIImage *imageData = task.result;
-            NSString *url = [[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString];
-
-            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-
-            [UIActionSheet showInView:appDelegate.window withTitle:STR(@"分享我的房源移动主页") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:[self defaultShareTitles] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
-
-                [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
+            NSString *urlString = [[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString];
 
 
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    if (buttonIndex == 0) {
-
-                        UIImage *image = [(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
-                        SendMessageToWXReq *req = [self makeWechatRequstWithScene:WXSceneSession title:title description:description thumbData:UIImagePNGRepresentation(image) url:url];
-                        [self shareToWechatWithReq:req];
-                        if (pressBlock) {
-                            pressBlock(CUTEShareServiceWechatFriend);
-                        }
-                    }
-
-                    else if (buttonIndex == 1) {
-                        UIImage *image = [(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
-                        SendMessageToWXReq *req = [self makeWechatRequstWithScene: WXSceneTimeline title:title description:description thumbData:UIImagePNGRepresentation(image) url:url];
-                        [self shareToWechatWithReq:req];
-                        if (pressBlock) {
-                            pressBlock(CUTEShareServiceWechatCircle);
-                        }
-                    }
-                    else if (buttonIndex == 2) {
-                        UIImage *sinaImage = nil;
-                        if ([imageData isKindOfClass:[UIImage class]]) {
-                            sinaImage = [(UIImage *)imageData thumbnailImage:THNUMBNAIL_SIZE * 3 transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationDefault];
-                        }
-
-                        [[[CUTEAPIManager sharedInstance] GET:@"http://api.t.sina.com.cn/short_url/shorten.json" parameters:@{@"url_long": url, @"source": [CUTEConfiguration sinaAppKey]} resultClass:nil resultKeyPath:@""] continueWithBlock:^id(BFTask *task) {
-                            NSString *shortUrl = url;
-                            NSArray *urlArray = task.result;
-                            if (!IsArrayNilOrEmpty(urlArray) && urlArray[0] && urlArray[0][@"url_short"]) {
-                                shortUrl = urlArray[0][@"url_short"];
-                            }
-
-                            NSInteger maxContentLength = 140;
-                            NSString *content = [self truncateString:CONCAT(NilNullToEmpty(title), @" ", NilNullToEmpty(description)) length:maxContentLength - shortUrl.length - 1];
-                            content = CONCAT(NilNullToEmpty(content), @" ", NilNullToEmpty(shortUrl));
-
-                            if ([WeiboSDK isCanShareInWeiboAPP]) {
-                                WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
-                                authRequest.redirectURI = [CUTEConfiguration umengCallbackURLString];
-                                authRequest.scope = @"all";
-
-                                WBMessageObject *message = [WBMessageObject new];
-                                message.text = content;
-                                WBImageObject *imageObject = [WBImageObject new];
-                                imageObject.imageData = UIImagePNGRepresentation(sinaImage);
-                                message.imageObject = imageObject;
-
-                                WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message authInfo:authRequest access_token:nil];
-                                //    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
-                                [WeiboSDK sendRequest:request];
-
-                                if (pressBlock) {
-                                    pressBlock(CUTEShareServiceSinaWeibo);
-                                }
-                            }
-                            else {
-                                //TODO test case
-                                //Window root controller not ok
-
-                                [[UMSocialControllerService defaultControllerService] setShareText:content shareImage:sinaImage socialUIDelegate:self];
-                                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(viewController,[UMSocialControllerService defaultControllerService],YES);
-
-                                if (pressBlock) {
-                                    pressBlock(CUTEShareServiceSinaWeibo);
-                                }
-                            }
-
-                            return nil;
-                        }];
-
-                    }
-                    else {
-                        [self.taskCompletionSource cancel];
-                    }
-                });
+            CUTEActivity *wechatFriendActivity = [self getWechatFriendActivityWithTitle:title description:description url:urlString image:imageData buttonPressedBlock:^{
+                if (pressBlock) {
+                    pressBlock(CUTEShareServiceWechatFriend);
+                }
             }];
+
+            CUTEActivity *wechatCircleActivity = [self getWechatCircleActivityWithTitle:title description:description url:urlString image:imageData buttonPressedBlock:^{
+                if (pressBlock) {
+                    pressBlock(CUTEShareServiceWechatCircle);
+                }
+            }];
+
+            CUTEActivity *weiboActivity = [self getSinaWeiboActivityWithTitle:title description:description url:urlString image:imageData viewController:viewController buttonPressedBlock:^{
+                if (pressBlock) {
+                    pressBlock(CUTEShareServiceSinaWeibo);
+                }
+            }];
+
+            CUTEActivity *copyLinkActivity = [CUTEActivity new];
+            copyLinkActivity.activityTitle = STR(@"复制链接");
+            copyLinkActivity.activityType = CUTEShareServiceCopyLink;
+            copyLinkActivity.activityImage = IMAGE(@"icon-share-copy-link");
+            copyLinkActivity.performActivityBlock = ^ {
+                [UIPasteboard generalPasteboard].string = urlString;
+                [SVProgressHUD showSuccessWithStatus:STR(@"已复制至粘贴版")];
+            };
+
+            NSArray *acitivies = @[wechatFriendActivity, wechatCircleActivity, weiboActivity, copyLinkActivity];
+            CUTEActivityView *activityView = [[CUTEActivityView alloc] initWithAcitities:acitivies];
+            activityView.onDismissButtonPressedBlock = ^ {
+                [self.taskCompletionSource cancel];
+            };
+            
+            [activityView show:YES];
         }
         return nil;
     }];
@@ -317,65 +363,41 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     self.taskCompletionSource = tcs;
 
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-
-    NSArray *otherButtons = nil;
+    NSArray *activityKeys = nil;
     if (IsArrayNilOrEmpty(services)) {
-        otherButtons = [self defaultShareTitles];
+        activityKeys = [self defaultShareTitles];
     }
     else {
-        otherButtons = [services map:^id(NSString *object) {
+        activityKeys = [services map:^id(NSString *object) {
             return STR(object);
         }];
     }
+    NSString *title = text;
+    UIImage *imageData = [UIImage appIcon];
 
-    [UIActionSheet showInView:appDelegate.window withTitle:STR(@"分享") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:otherButtons tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+    NSMutableArray *activities = [NSMutableArray array];
 
-        [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
+    if ([activityKeys containsObject:CUTEShareServiceWechatFriend]) {
+        [activities addObject:[self getWechatFriendActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
+        }]];
+    }
 
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-            
-            if ([buttonTitle isEqualToString:STR(CUTEShareServiceWechatFriend)]) {
+    if ([activityKeys containsObject:CUTEShareServiceWechatCircle]) {
+        [activities addObject:[self getWechatCircleActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
+        }]];
+    }
 
-                SendMessageToWXReq *req = [self makeWechatRequstWithScene:WXSceneSession title:text description:nil thumbData:UIImagePNGRepresentation([UIImage appIcon]) url:urlString];
-                [self shareToWechatWithReq:req];
-            }
+    if ([activityKeys containsObject:CUTEShareServiceSinaWeibo]) {
+        [activities addObject:[self getSinaWeiboActivityWithTitle:title description:nil url:urlString image:imageData viewController:viewController buttonPressedBlock:^{
+        }]];
+    }
 
-            else if ([buttonTitle isEqualToString:STR(CUTEShareServiceWechatCircle)]) {
-                SendMessageToWXReq *req = [self makeWechatRequstWithScene: WXSceneTimeline title:text description:nil thumbData:UIImagePNGRepresentation([UIImage appIcon]) url:urlString];
-                [self shareToWechatWithReq:req];
-            }
-            else if ([buttonTitle isEqualToString:STR(CUTEShareServiceSinaWeibo)]) {
+    CUTEActivityView *activityView = [[CUTEActivityView alloc] initWithAcitities:activities];
+    activityView.onDismissButtonPressedBlock = ^ {
+        [self.taskCompletionSource cancel];
+    };
 
-                NSInteger maxContentLength = 140;
-                NSString *content = [self truncateString:NilNullToEmpty(text) length:maxContentLength - urlString.length];
-                content = CONCAT(NilNullToEmpty(content), @" ", NilNullToEmpty(urlString));
-
-                if ([WeiboSDK isCanShareInWeiboAPP]) {
-                    WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
-                    authRequest.redirectURI = [CUTEConfiguration umengCallbackURLString];
-                    authRequest.scope = @"all";
-                    WBMessageObject *message = [WBMessageObject new];
-                    message.text = content;
-                    WBImageObject *imageObject = [WBImageObject new];
-                    imageObject.imageData = UIImagePNGRepresentation([UIImage appIcon]);
-                    message.imageObject = imageObject;
-
-                    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message authInfo:authRequest access_token:nil];
-                    //    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
-                    [WeiboSDK sendRequest:request];
-                }
-                else {
-                    [[UMSocialControllerService defaultControllerService] setShareText:content shareImage:[UIImage appIcon] socialUIDelegate:self];
-                    [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(viewController,[UMSocialControllerService defaultControllerService],YES);
-                }
-            }
-            else {
-                [self.taskCompletionSource cancel];
-            }
-        });
-    }];
+    [activityView show:YES];
 
     return tcs.task;
 }

@@ -494,6 +494,14 @@
 		2CCE680A1B1C3AB800351DED /* CUTEPropertyMapListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE68081B1C3AB800351DED /* CUTEPropertyMapListViewController.m */; };
 		2CCE680B1B1C3AB800351DED /* CUTEPropertyMapListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE68081B1C3AB800351DED /* CUTEPropertyMapListViewController.m */; };
 		2CCE680C1B1C3AB800351DED /* CUTEPropertyMapListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE68081B1C3AB800351DED /* CUTEPropertyMapListViewController.m */; };
+		2CD15D411B6213FF00C870C0 /* CUTEActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD15D401B6213FF00C870C0 /* CUTEActivityView.m */; };
+		2CD15D421B6213FF00C870C0 /* CUTEActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD15D401B6213FF00C870C0 /* CUTEActivityView.m */; };
+		2CD15D431B6213FF00C870C0 /* CUTEActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD15D401B6213FF00C870C0 /* CUTEActivityView.m */; };
+		2CD15D441B6213FF00C870C0 /* CUTEActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD15D401B6213FF00C870C0 /* CUTEActivityView.m */; };
+		2CD15D471B62141700C870C0 /* CUTEActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD15D461B62141700C870C0 /* CUTEActivity.m */; };
+		2CD15D481B62141700C870C0 /* CUTEActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD15D461B62141700C870C0 /* CUTEActivity.m */; };
+		2CD15D491B62141700C870C0 /* CUTEActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD15D461B62141700C870C0 /* CUTEActivity.m */; };
+		2CD15D4A1B62141700C870C0 /* CUTEActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD15D461B62141700C870C0 /* CUTEActivity.m */; };
 		2CDABB351B2C4B840075D2E7 /* NSString+CUTECDN.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDABB341B2C4B840075D2E7 /* NSString+CUTECDN.m */; };
 		2CDABB361B2C4B840075D2E7 /* NSString+CUTECDN.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDABB341B2C4B840075D2E7 /* NSString+CUTECDN.m */; };
 		2CDABB371B2C4B840075D2E7 /* NSString+CUTECDN.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDABB341B2C4B840075D2E7 /* NSString+CUTECDN.m */; };
@@ -939,6 +947,10 @@
 		2CCE68011B1C3AA300351DED /* CUTERentMapListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentMapListViewController.m; sourceTree = "<group>"; };
 		2CCE68071B1C3AB800351DED /* CUTEPropertyMapListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyMapListViewController.h; sourceTree = "<group>"; };
 		2CCE68081B1C3AB800351DED /* CUTEPropertyMapListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyMapListViewController.m; sourceTree = "<group>"; };
+		2CD15D3F1B6213FF00C870C0 /* CUTEActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEActivityView.h; sourceTree = "<group>"; };
+		2CD15D401B6213FF00C870C0 /* CUTEActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEActivityView.m; sourceTree = "<group>"; };
+		2CD15D451B62141700C870C0 /* CUTEActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEActivity.h; sourceTree = "<group>"; };
+		2CD15D461B62141700C870C0 /* CUTEActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEActivity.m; sourceTree = "<group>"; };
 		2CDABB331B2C4B840075D2E7 /* NSString+CUTECDN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CUTECDN.h"; sourceTree = "<group>"; };
 		2CDABB341B2C4B840075D2E7 /* NSString+CUTECDN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CUTECDN.m"; sourceTree = "<group>"; };
 		2CDABB3A1B2C4DC30075D2E7 /* NSArray+CUTECDN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+CUTECDN.h"; sourceTree = "<group>"; };
@@ -1265,6 +1277,10 @@
 				2C63CAD31B230DEE0055687A /* CUTETooltipView.m */,
 				2CF2347C1B54F2E500B516E6 /* CUTEKeyboardStateListener.h */,
 				2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */,
+				2CD15D3F1B6213FF00C870C0 /* CUTEActivityView.h */,
+				2CD15D401B6213FF00C870C0 /* CUTEActivityView.m */,
+				2CD15D451B62141700C870C0 /* CUTEActivity.h */,
+				2CD15D461B62141700C870C0 /* CUTEActivity.m */,
 			);
 			path = Library3rd;
 			sourceTree = "<group>";
@@ -2365,6 +2381,7 @@
 				2CF8A6421AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6061AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CF234801B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */,
+				2CD15D431B6213FF00C870C0 /* CUTEActivityView.m in Sources */,
 				2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */,
 				2CC6C1D81AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
 				2CB86ACB1B5E1C170065EE56 /* CUTENeighborhood.m in Sources */,
@@ -2450,6 +2467,7 @@
 				2CF8A6A21AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CEA1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CF2348C1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
+				2CD15D491B62141700C870C0 /* CUTEActivity.m in Sources */,
 				2CA2E6B41AC5487800053965 /* CUTEConfiguration.m in Sources */,
 				2CF8A64C1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6511AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
@@ -2504,6 +2522,7 @@
 				2CF8A6431AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6071AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CF234811B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */,
+				2CD15D441B6213FF00C870C0 /* CUTEActivityView.m in Sources */,
 				2CA2E6C71AC5496700053965 /* AppDelegate.m in Sources */,
 				2CC6C1D91AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
 				2CB86ACC1B5E1C170065EE56 /* CUTENeighborhood.m in Sources */,
@@ -2589,6 +2608,7 @@
 				2CF8A6A31AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CEB1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CF2348D1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
+				2CD15D4A1B62141700C870C0 /* CUTEActivity.m in Sources */,
 				2CA2E6CD1AC5496700053965 /* CUTEConfiguration.m in Sources */,
 				2CF8A64D1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6521AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
@@ -2643,6 +2663,7 @@
 				2CF8A6411AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6051AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CF2347F1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */,
+				2CD15D421B6213FF00C870C0 /* CUTEActivityView.m in Sources */,
 				2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */,
 				2CC6C1D71AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
 				2CB86ACA1B5E1C170065EE56 /* CUTENeighborhood.m in Sources */,
@@ -2728,6 +2749,7 @@
 				2CF8A6A11AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CE91B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CF2348B1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
+				2CD15D481B62141700C870C0 /* CUTEActivity.m in Sources */,
 				2CA94A9E1ACA42CD00DF7497 /* CUTEConfiguration.m in Sources */,
 				2CF8A64B1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A6501AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
@@ -2782,6 +2804,7 @@
 				2CF8A6401AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6041AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CF2347E1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */,
+				2CD15D411B6213FF00C870C0 /* CUTEActivityView.m in Sources */,
 				2CB43DB21ABC1372004DF663 /* AppDelegate.m in Sources */,
 				2CC6C1D61AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
 				2CB86AC91B5E1C170065EE56 /* CUTENeighborhood.m in Sources */,
@@ -2867,6 +2890,7 @@
 				2CF8A6A01AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CE81B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CF2348A1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
+				2CD15D471B62141700C870C0 /* CUTEActivity.m in Sources */,
 				2CDBB2FD1AC1472E0024E225 /* CUTEConfiguration.m in Sources */,
 				2CF8A64A1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
 				2CF8A64F1AF0B40E0080DF10 /* CUTEQrcodeCell.m in Sources */,
