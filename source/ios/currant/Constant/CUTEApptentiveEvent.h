@@ -9,6 +9,8 @@
 #ifndef currant_CUTEApptentiveEvent_h
 #define currant_CUTEApptentiveEvent_h
 
+#define APPTENTIVE_EVENT_APP_LAUNCH @"app_launch"
+
 #define APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS @"survey_after_share_success"
 
 #define APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION @"survey_after_share_cancellation"

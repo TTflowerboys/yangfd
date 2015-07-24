@@ -56,6 +56,7 @@
 #import "CUTEUserAgentUtil.h"
 #import "CUTESurveyHelper.h"
 #import "CUTEUsageRecorder.h"
+#import "CUTEApptentiveEvent.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
@@ -269,8 +270,10 @@
     });
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_APP_LAUNCH fromViewController:self.tabBarController];
         [CUTESurveyHelper checkShowPublishedRentTicketSurveyWithViewController:self.tabBarController];
     });
+
     return YES;
 }
 
