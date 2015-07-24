@@ -643,12 +643,19 @@
         var ticketData = $.extend(options,{
             'landlord_type': $('#landlordType').val(), //房东类型
             'rent_type': $('#rentalType .selected')[0].getAttribute('data-id'), //出租类型
-            'deposit_type': $('#deposit_type').children('option:selected').val(), //押金方式
+            //'deposit_type': $('#deposit_type').children('option:selected').val(), //押金方式
             'price': JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'value': $('#price')[0].value }), //出租价格
             'bill_covered': $('#billCovered').is(':checked'), //是否包物业水电费
             'rent_available_time': new Date($('#rentPeriodStartDate').val()).getTime() / 1000, //出租开始时间
             'title': title,
         })
+        if($('#deposit').val() !== ''){
+            ticketData.deposit = JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'value': $('#deposit').val() })
+        } else {
+            ticketData.unset_fields = ticketData.unset_fields || []
+            ticketData.unset_fields.push('deposit')
+            ticketData.unset_fields = JSON.stringify(ticketData.unset_fields)
+        }
         if($('#description').val() !== ''){
             ticketData.description = $('#description').val()
         }

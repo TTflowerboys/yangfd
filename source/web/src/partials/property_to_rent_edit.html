@@ -214,16 +214,7 @@
                                 %end
                             </div>
                             <div class="lease" id="lease">
-                                <select id="deposit_type">
 
-                                    %for index, deposit_type in enumerate(deposit_type_list):
-                                        %if rent.get('deposit_type') and rent.get('deposit_type', {}).get('id')==deposit_type.get('id'):
-                                            <option value="{{deposit_type.get('id')}}" selected>{{deposit_type.get('value')}}</option>
-                                        %else:
-                                            <option value="{{deposit_type.get('id')}}">{{deposit_type.get('value')}}</option>
-                                        %end
-                                    %end
-                                </select>
                             </div>
                             <div class="billCovered">
                                 <input id="billCovered" type="checkbox"
@@ -236,6 +227,20 @@
                             <!--<div id="sales_price_error" class="error">
                                 {{_('请填写租金')}}
                             </div>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <div class="text">{{_('押金')}}</div>
+                        </td>
+                        <td class="deposit_price">
+                            <div class="" id="">
+                                %if 'deposit' in rent:
+                                <input id="deposit" name="deposit" type="text" data-validator="trim, number" data-name="{{_('押金')}}" value="{{int(float(rent.get('deposit',{}).get('value','')))}}" placeholder="{{_('如不填写则默认为面议')}}"/>
+                                %else:
+                                <input id="deposit" name="deposit" type="text" data-validator="trim, number" data-name="{{_('押金')}}" value="" placeholder="{{_('如不填写则默认为面议')}}"/>
+                                %end
+                            </div>
                         </td>
                     </tr>
                     <tr class="title">
