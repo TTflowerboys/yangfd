@@ -295,6 +295,30 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             self.logger.debug("Setting default private_contact_methods for user", str(user["_id"]))
             f_app.user.get_database(m).update({"_id": user["_id"]}, {"$set": {"private_contact_methods": []}})
 
+    def v15(self, m):
+        all_deposit_type = f_app.util.process_objectid(list(f_app.enum.get_database(m).find({
+            "type": "deposit_type",
+        })))
+        deposit_type_dict = {deposit_type["id"]: deposit_type for deposit_type in all_deposit_type}
+
+        ticket_database = f_app.ticket.get_database(m)
+        for ticket in ticket_database.find({"type": "rent", "deposit_type": {"$exists": True}}):
+            if str(ticket["deposit_type"]["_id"]) in deposit_type_dict:
+                deposit_type = deposit_type_dict[str(ticket["deposit_type"]["_id"])]
+                if "price" not in ticket:
+                    continue
+                if deposit_type["value"]["zh_Hans_CN"] == "押一付三":
+                    self.logger.debug("Migrating ticket", str(ticket["_id"]), "to new deposit param")
+                    ticket_database.update({"_id": ticket["_id"]}, {"$set": {"deposit": ticket["price"]}})
+                elif deposit_type["value"]["zh_Hans_CN"] in ("", ""):
+                    ticket["price"]["value"] *= 3
+                    self.logger.debug("Migrating ticket", str(ticket["_id"]), "to new deposit param")
+                    ticket_database.update({"_id": ticket["_id"]}, {"$set": {"deposit": ticket["price"]}})
+
+            else:
+                self.logger.warning("Invalid deposit_type enum", str(ticket["deposit_type"]["_id"]), "found in ticket", str(ticket["_id"]))
+
+            ticket_database.update({"_id": ticket["_id"]}, {"$unset": {"deposit_type": True}})
 
 currant_mongo_upgrade()
 

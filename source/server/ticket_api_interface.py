@@ -958,7 +958,7 @@ def support_ticket_search(user, params):
     rent_available_time=datetime,
     rent_deadline_time=datetime,
     minimum_rent_period="i18n:time_period",
-    deposit_type="enum:deposit_type",
+    deposit="i18n:currency",
     landlord_type="enum:landlord_type",
     bill_covered=bool,
 ))
@@ -1002,7 +1002,7 @@ def rent_ticket_add(user, params):
     rent_available_time=datetime,
     rent_deadline_time=datetime,
     minimum_rent_period="i18n:time_period",
-    deposit_type="enum:deposit_type",
+    deposit="i18n:currency",
     landlord_type="enum:landlord_type",
     bill_covered=bool,
     unset_fields=(list, None, str),
