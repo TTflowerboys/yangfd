@@ -22,6 +22,18 @@
                 container.find('.city-select').html('').trigger('chosen:updated')
                 getCityListForSelect(container.find('.country-select').val())
             })
+            container.find('.city-select').bind('change', function () {
+                container.find('.neighborhood-select').html('').trigger('chosen:updated')
+                if(container.find('.city-select :selected').text().toLowerCase() === 'london'){
+                    container.find('.neighborhood-select').next('.chosen-container').parents('tr').show()
+                    getNeighborhoodListForSelect()
+                } else {
+                    //clearData('neighborhood')
+                    $('.neighborhood-select').find('option').eq(0).attr('selected',true)
+                    $('.neighborhood-select').trigger('chosen:updated')
+                    container.find('.neighborhood-select').next('.chosen-container').parents('tr').hide()
+                }
+            })
             getCountryList()
         }
 
@@ -51,6 +63,24 @@
                             return pre + '<option value="' + val.id + '"' + (val.name === 'London' ? ' selected' : '') + '>' + val.name + (country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
                         }, '<option value="">' + i18n('请选择城市') + '</option>')
                     ).trigger('chosen:updated').trigger('change')
+                }
+            })
+        }
+        function getNeighborhoodListForSelect() {
+            var $neighborhoodSelect = container.find('.neighborhood-select')
+            var $neighborhoodSelectChosen = container.find('.neighborhood-select').next('.chosen-container')
+            var $span = $neighborhoodSelectChosen.find('.chosen-single span')
+            var originContent = $span.html()
+            $span.html(window.i18n('neighborhood列表加载中...'))
+            window.geonamesApi.getNeighborhood(function (val) {
+                if(container.find('.city-select :selected').text().toLowerCase() === 'london') {
+                    $span.html(originContent)
+                    $neighborhoodSelect.html(
+                        _.reduce(val, function(pre, val, key) {
+                            return pre + '<option value="' + val.id + '">' + val.name + '</option>'
+                        }, '<option value="">' + i18n('请选择neighborhood') + '</option>')
+                    ).trigger('chosen:updated')
+                    $neighborhoodSelect.trigger('chosen:open')
                 }
             })
         }
@@ -186,7 +216,7 @@
             } else {
                 val = $(this).val()
             }
-            if(val === undefined || val === '') {
+            if(val === undefined || val === '' || val === null) {
                 return
             }
             if (!option) {

@@ -271,7 +271,7 @@
                 if($('#neighborhood').val()) {
                     $('#neighborhood-select').val($('#neighborhood').val()).trigger('chosen:updated')
                 }else {
-                    $('#city-neighborhood').trigger('chosen:open')
+                    $('#neighborhood-select').trigger('chosen:open')
                 }
             }
         })

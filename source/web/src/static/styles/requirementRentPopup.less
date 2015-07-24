@@ -13,7 +13,7 @@
     }
     .requirement {
         position: relative;
-        overflow: visible;
+        overflow: visible !important;
         &_wrapper {
             .cancel{
                 position: absolute;
@@ -165,8 +165,10 @@
                 }
                 .step1{
 
-                    height: 200px;
                     margin-top: 50px;
+                    tr{
+                        height: 60px;
+                    }
                     select{
                         width: 260px;
                         height: 40px;
