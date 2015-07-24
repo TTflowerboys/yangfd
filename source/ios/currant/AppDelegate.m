@@ -683,13 +683,48 @@
 
 - (void)onReceiveUserDidLogin:(NSNotification *)notif {
 
-    if (notif.object && [notif.object isKindOfClass:[UIViewController class]] && [(UIViewController *)notif.object navigationController] == [[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex]) {
-        //login in the create process, not reload the list
+    NSArray *unbindedTicket = [[[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets] select:^BOOL(CUTETicket *object) {
+        return object.creatorUser == nil;
+    }];
+
+    if (!IsArrayNilOrEmpty(unbindedTicket)) {
+        [SVProgressHUD showWithStatus:STR(@"同步中...")];
+        [[[CUTERentTicketPublisher sharedInstance] bindTickets:unbindedTicket] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                [SVProgressHUD dismiss];
+                if (notif.object && [notif.object isKindOfClass:[UIViewController class]] && [(UIViewController *)notif.object navigationController] == [[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex]) {
+                    //login in the create process, not reload the list
+                }
+                else {
+
+                    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+                }
+            }
+            return task;
+        }];
+
     }
     else {
+        if (notif.object && [notif.object isKindOfClass:[UIViewController class]] && [(UIViewController *)notif.object navigationController] == [[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex]) {
+            //login in the create process, not reload the list
+        }
+        else {
 
-        [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+            [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+        }
     }
+
+
+
 
     NSArray *tabItemControllers = self.tabBarController.viewControllers;
 

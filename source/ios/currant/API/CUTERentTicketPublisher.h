@@ -29,4 +29,6 @@
 
 - (BFTask *)syncTickets;
 
+- (BFTask *)bindTickets:(NSArray *)unbindedTicket;
+
 @end

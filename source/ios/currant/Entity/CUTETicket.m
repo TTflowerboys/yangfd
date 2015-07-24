@@ -30,7 +30,8 @@
              @"minimumRentPeriod": @"minimum_rent_period",
              @"lastModifiedTime": @"last_modified_time",
              @"rentType": @"rent_type",
-             @"ticketDescription": @"description"
+             @"ticketDescription": @"description",
+             @"creatorUser": @"creator_user",
              };
 }
 

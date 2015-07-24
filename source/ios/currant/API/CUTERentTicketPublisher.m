@@ -490,4 +490,10 @@
     return tcs.task;
 }
 
+- (BFTask *)bindTickets:(NSArray *)unbindedTicket {
+    return [BFTask taskForCompletionOfAllTasks:[unbindedTicket map:^id(CUTETicket *object) {
+        return  [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", object.identifier, @"/edit") parameters:nil resultClass:nil];
+    }]];
+}
+
 @end
