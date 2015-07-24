@@ -416,11 +416,11 @@
         }
         isLoading = true
         $('#loadIndicator').show()
-        if($('body').height() - $(window).scrollTop() - $(window).height() < 120) {
+        var totalResultCount = getCurrentTotalCount()
+        if($('body').height() - $(window).scrollTop() - $(window).height() < 120 && totalResultCount > 0) {
             $('body,html').animate({scrollTop: $('body').height()}, 300)
         }
 
-        var totalResultCount = getCurrentTotalCount()
         $.betterPost('/api/1/property/search', params)
             .done(function (val) {
                 var array = val.content
