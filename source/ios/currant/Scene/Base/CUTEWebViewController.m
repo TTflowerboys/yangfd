@@ -28,7 +28,6 @@
 #import "NSURL+CUTE.h"
 #import "CUTEWebHandler.h"
 
-
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
     UIWebView *_webView;
@@ -40,10 +39,6 @@
     CUTEWebHandler *_webHandler;
 
     NSURL *_needReloadURL;
-
-    id<AspectToken> _loadFinishHook;
-
-    id<AspectToken> _loadFailedHook;
 }
 
 
@@ -82,43 +77,44 @@
     [_webHandler setupWithWebView:_webView viewController:self];
     
 }
-- (void)addReloadIgnoringCacheHook {
-    typedef void (^ ReloadIgnoringCacheBlock) (id<AspectInfo> info, UIWebView *webView);
 
-    ReloadIgnoringCacheBlock reloadBlock = ^ (id<AspectInfo> info, UIWebView *webView) {
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:webView.request.URL
-                                                               cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                                           timeoutInterval:600.0];
-        [request setValue:@"" forHTTPHeaderField:RNCachingReloadIgnoringCacheHeader];
-        __weak typeof(self)weakSelf = self;
+- (void)loadRequestIgnoringCache:(NSURLRequest *)urlRequest {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlRequest.URL
+                                                           cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                       timeoutInterval:600.0];
+    [request setValue:@"" forHTTPHeaderField:RNCachingReloadIgnoringCacheHeader];
+    __weak typeof(self)weakSelf = self;
 
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-            NSURLResponse *response = nil;
-            NSData *data = nil;
-            NSError *error = nil;
-            data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-            dispatch_async(dispatch_get_main_queue(), ^(void) {
-                [weakSelf updateData:data response:response];
-            });
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+        NSURLResponse *response = nil;
+        NSData *data = nil;
+        NSError *error = nil;
+        data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            [weakSelf updateData:data response:response];
         });
-    };
-
-    _loadFinishHook = [self aspect_hookSelector:@selector(webViewDidFinishLoad:) withOptions:AspectPositionAfter | AspectOptionAutomaticRemoval usingBlock:reloadBlock error:nil];
-    _loadFailedHook =[self aspect_hookSelector:@selector(webView:didFailLoadWithError:) withOptions:AspectPositionAfter | AspectOptionAutomaticRemoval usingBlock:reloadBlock error:nil];
-
+    });
 }
 
-- (void)clearReloadIgnoringCacheHook {
-    [_loadFinishHook remove];
-    [_loadFailedHook remove];
+- (void)checkLoadIgnoringCache:(NSURLRequest *)urlRequest {
+    //only reload for cache
+    if ([[RNCache sharedInstance] isRequestCached:urlRequest]) {
+        //delay to make cache loading
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self loadRequestIgnoringCache:urlRequest];
+        });
+    }
 }
 
-- (void)loadRequest:(NSURLRequest *)originalRequest {
-    NSURL *url = originalRequest.URL;
+- (NSURL *)getURLAfterUserPermissionCheck:(NSURL *)url {
     if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:url] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
         url =  [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:url];
     }
+    return url;
+}
 
+- (void)loadRequest:(NSURLRequest *)originalRequest {
+    NSURL *url = [self getURLAfterUserPermissionCheck:originalRequest.URL];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.allHTTPHeaderFields = originalRequest.allHTTPHeaderFields;
 
@@ -131,12 +127,7 @@
     [self updateRightButtonWithURL:url];
     [self updateTitleWithURL:url];
 
-    [self clearReloadIgnoringCacheHook];
-
-    //only reload for cache
-    if ([[RNCache sharedInstance] isRequestCached:request]) {
-        [self addReloadIgnoringCacheHook];
-    }
+    [self checkLoadIgnoringCache:request];
 }
 
 - (void)loadRequesetInNewController:(NSURLRequest *)urlRequest {
@@ -241,8 +232,7 @@
     }
     else {
         [self.webView reload];
-        [self clearReloadIgnoringCacheHook];
-        [self addReloadIgnoringCacheHook];
+        [self checkLoadIgnoringCache:self.webView.request];
     }
 }
 
@@ -283,7 +273,6 @@
 }
 
 
-
 #pragma UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -292,6 +281,11 @@
     if (navigationType == UIWebViewNavigationTypeLinkClicked && [request.URL isHttpOrHttpsURL] && ![webView.request.URL isEquivalent:request.URL]) {
         [self loadRequesetInNewController:request];
         return NO;
+    }
+
+    //TODO, does here will cause load circle
+    if (![[self.url absoluteString] isEqualToString:request.URL.absoluteString] && ![[webView.request.URL absoluteString] isEqualToString:request.URL.absoluteString]) {
+        [self checkLoadIgnoringCache:request];
     }
 
     return YES;
@@ -324,25 +318,40 @@
 #pragma mark - Notification
 
 - (void)onReceiveUserDidLogin:(NSNotification *)notif {
-    if (notif.object != self && [[CUTEWebConfiguration sharedInstance] isURLLoginRequired:self.url]) {
-        NSURLComponents *urlComponents = [NSURLComponents componentsWithString:_webView.request.URL.absoluteString];
-        if (urlComponents && [urlComponents.URL.absoluteString isEqualToString:[[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:self.url].absoluteString]) {
-            _needReloadURL = self.url;
+
+    if (notif.object != self) {
+        if ([[CUTEWebConfiguration sharedInstance] isURLNeedRefreshContentWhenUserChange:_webView.request.URL]) {
+            _needReloadURL = self.url; //user click into a url need user update, just back to top
         }
-        else if (urlComponents && [urlComponents.path hasPrefix:@"/signin"]) {
-            NSURLQueryItem *queryItem = [[urlComponents queryItems] find:^BOOL(NSURLQueryItem *object) {
-                return [[object name] isEqualToString:@"from"];
-            }];
-            if (queryItem) {
-                _needReloadURL = [NSURL URLWithString:queryItem.value];
+        else if (notif.object != self && [[CUTEWebConfiguration sharedInstance] isURLLoginRequired:self.url]) {
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithString:_webView.request.URL.absoluteString];
+            if (urlComponents && [urlComponents.URL.absoluteString isEqualToString:[[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:self.url].absoluteString]) {
+                _needReloadURL = self.url;
+            }
+            else if (urlComponents && [urlComponents.path hasPrefix:@"/signin"]) {
+                NSURLQueryItem *queryItem = [[urlComponents queryItems] find:^BOOL(NSURLQueryItem *object) {
+                    return [[object name] isEqualToString:@"from"];
+                }];
+                if (queryItem) {
+                    _needReloadURL = [NSURL URLWithString:queryItem.value];
+                }
+            }
+            else {
+                _needReloadURL = self.url;
             }
         }
     }
+
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
-    if (notif.object != self && [[CUTEWebConfiguration sharedInstance] isURLLoginRequired:self.url]) {
-        _needReloadURL = self.url;
+    if (notif.object != self) {
+        if ([[CUTEWebConfiguration sharedInstance] isURLNeedRefreshContentWhenUserChange:_webView.request.URL]) {
+            _needReloadURL = self.url; //user click into a url need user update, just back to top
+        }
+        else if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:self.url]) {
+            _needReloadURL = self.url;
+        }
     }
 }
 

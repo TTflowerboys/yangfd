@@ -37,9 +37,19 @@
     return @[@"/user", @"/user-favorites", @"/user-properties"];
 }
 
+- (NSArray *)needRefreshContentWhenUserChangeURLPathArray {
+    return @[@"/requirement"];
+}
+
 - (BOOL)isURLLoginRequired:(NSURL *)url {
     NSString *urlPath = [[url path] stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
     return [[self loginRequiredURLPathArray] containsObject:urlPath];
+}
+
+- (BOOL)isURLNeedRefreshContentWhenUserChange:(NSURL *)url {
+    //like http://currant-dev.bbtechgroup.com/requirement?budget=&intention=&property=
+    NSString *urlPath = [[url path] stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+    return [[self needRefreshContentWhenUserChangeURLPathArray] containsObject:urlPath];
 }
 
 - (NSURL *)getRedirectToLoginURLFromURL:(NSURL *)url {
