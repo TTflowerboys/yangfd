@@ -669,12 +669,20 @@
 }
 
 - (void)onReceiveShowRentTicketListTab:(NSNotification *)notif {
+    UINavigationController *nav = [[self.tabBarController viewControllers] objectAtIndex:kRentTicketListTabBarIndex];
+    if (nav == [(UIViewController *)notif.object navigationController]) {
+        [nav popToRootViewControllerAnimated:YES];
+    }
     [self.tabBarController setSelectedIndex:kRentTicketListTabBarIndex];
     [self updateWebViewControllerTabAtIndex:kRentTicketListTabBarIndex];
     _lastSelectedTabIndex = kRentTicketListTabBarIndex;
 }
 
 - (void)onReceiveShowPropertyListTab:(NSNotification *)notif {
+    UINavigationController *nav = [[self.tabBarController viewControllers] objectAtIndex:kPropertyListTabBarIndex];
+    if (nav == [(UIViewController *)notif.object navigationController]) {
+        [nav popToRootViewControllerAnimated:YES];
+    }
     [self.tabBarController setSelectedIndex:kPropertyListTabBarIndex];
     [self updateWebViewControllerTabAtIndex:kPropertyListTabBarIndex];
     _lastSelectedTabIndex = kPropertyListTabBarIndex;
