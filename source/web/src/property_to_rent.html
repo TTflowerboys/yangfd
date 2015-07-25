@@ -206,7 +206,7 @@
                     {{_('押金')}}
                     % if 'deposit' in rent and rent.get('deposit',{}).get('value'):
                     <strong>
-                        {{rent.get('deposit',{}).get('unit_symbol','')}}{{rent.get('deposit',{}).get('value','')}}
+                        {{rent.get('deposit',{}).get('unit_symbol','')}}{{rent.get('deposit',{}).get('value',0)}}
                     </strong>
                     % else :
                     <strong>
@@ -464,11 +464,13 @@
                             {{_('押金')}}
                             % if 'deposit' in rent and rent.get('deposit',{}).get('value'):
                             <strong>
-                                {{rent.get('deposit',{}).get('unit_symbol','')}}{{int(float(rent.get('deposit',{}).get('value','')))}}
+                                {{rent.get('deposit',{}).get('unit_symbol','')}}{{int(float(rent.get('deposit',{}).get('value',0)))}}
                             </strong>
+                            % if 'deposit' in rent and rent.get('deposit',{}).get('localized_value'):
                             <span>
-                                {{_('约')}}{{rent.get('deposit',{}).get('localized_unit_symbol','')}}{{int(float(rent.get('deposit',{}).get('localized_value','')))}}
+                                {{_('约')}}{{rent.get('deposit',{}).get('localized_unit_symbol')}}{{int(float(rent.get('deposit',{}).get('localized_value', 0)))}}
                             </span>
+                            % end
                             % else :
                             <strong>
                                 {{_('面议')}}
