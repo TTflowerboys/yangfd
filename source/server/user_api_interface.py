@@ -222,6 +222,9 @@ def user_register(params):
     params["email_message_type"] = ["rent_ticket_reminder"]
     params["system_message_type"] = ["system"]
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
+
+    if "email" in params and f_app.user.get_id_by_email(params["email"]):
+        abort(40325)
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40351)
 
@@ -351,6 +354,7 @@ def user_activate(user_id, user):
     locales=(list, None, str),
     currencies=(list, None, str),
     budget=("enum:budget", None),
+    user_type=(list, None, "enum:user_type"),
     system_message_type=(list, None, str),
     email_message_type=(list, None, str),
     unset_fields=(list, None, str),
