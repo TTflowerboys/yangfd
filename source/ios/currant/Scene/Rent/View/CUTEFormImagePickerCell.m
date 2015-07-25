@@ -33,6 +33,7 @@
 #import "CUTEAPIManager.h"
 #import "NSString+CUTECDN.h"
 #import "NSArray+CUTECDN.h"
+#import "NSURL+CUTE.h"
 
 #define kImageMaxCount 12
 
@@ -417,6 +418,23 @@
     [self showActionSheet];
 }
 
+- (void)syncPropertyImages:(NSArray *)images cover:(NSString *)cover {
+    NSArray *onlineImages = [images select:^BOOL(NSString *object) {
+        return [[NSURL URLWithString:object] isHttpOrHttpsURL];
+    }];
+
+    NSMutableDictionary *updateInfo = [NSMutableDictionary dictionary];
+    [updateInfo setObject:IsArrayNilOrEmpty(onlineImages)? [NSNull null]: onlineImages forKey:@"property.realityImages"];
+    if (!IsNilNullOrEmpty(cover) && [[NSURL URLWithString:cover] isHttpOrHttpsURL]) {
+        [updateInfo setObject:cover forKey:@"property.cover"];
+    }
+    else {
+        [updateInfo setObject:[NSNull null] forKey:@"property.cover"];
+    }
+
+    [self.form syncTicketWithUpdateInfo:updateInfo];
+}
+
 - (void)didSelectWithTableView:(UITableView *)tableView controller:(UIViewController *)controller
 {
     [tableView deselectRowAtIndexPath:tableView.indexPathForSelectedRow animated:YES];
@@ -458,7 +476,7 @@
                 if (IsNilNullOrEmpty(cover)) {
                     cover = [self.form.ticket.property.realityImages firstObject];
                 }
-                [self.form syncTicketWithUpdateInfo:@{@"property.realityImages": images, @"property.cover": cover}];
+                [self syncPropertyImages:images cover:cover];
 
             }
             return task;
@@ -669,8 +687,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
                     if (IsNilNullOrEmpty(cover)) {
                         cover = [self.form.ticket.property.realityImages firstObject];
                     }
-
-                    [self.form syncTicketWithUpdateInfo:@{@"property.realityImages": images, @"property.cover": cover}];
+                    [self syncPropertyImages:images cover:cover];
                 }
                 return task;
             }];
