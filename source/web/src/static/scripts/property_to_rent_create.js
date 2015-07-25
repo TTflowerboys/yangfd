@@ -50,6 +50,9 @@
     } else if(!$('#unit option[selected]').length) {
         $('#unit').find('option').eq(0).prop('selected', 'selected').end().trigger('chosen:updated')
     }
+    $('#unit').bind('change', function () {
+        $('label[for=deposit]').text(window.team.getCurrencySymbol($('#unit').val()))
+    }).trigger('change')
     //一个简单的通过hash控制页面类容展示的机制
     function HashRoute(){
         var _ = this

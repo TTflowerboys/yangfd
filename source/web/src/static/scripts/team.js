@@ -336,6 +336,15 @@
                 'month': window.i18n('月'),
                 'year': window.i18n('年')
             }[unit]
+        },
+        getCurrencySymbol: function (code) {
+            return {
+                'CNY': '¥',
+                'GBP': '£',
+                'USD': '$',
+                'EUR': '€',
+                'HKD': '$'
+            }[code]
         }
     }
 })

@@ -238,8 +238,9 @@
                                 %if 'deposit' in rent:
                                 <input id="deposit" name="deposit" type="text" data-validator="trim, number" data-name="{{_('押金')}}" value="{{int(float(rent.get('deposit',{}).get('value','')))}}" placeholder="{{_('如不填写则默认为面议')}}"/>
                                 %else:
-                                <input id="deposit" name="deposit" type="text" data-validator="trim, number" data-name="{{_('押金')}}" value="" placeholder="{{_('如不填写则默认为面议')}}"/>
+                                <input id="deposit" name="deposit" type="text" data-validator="trim, number" data-name="{{_('押金')}}" value="" placeholder="{{_('填写金额，如不填写则默认为面议')}}"/>
                                 %end
+                                <label for="deposit"></label>
                             </div>
                         </td>
                     </tr>
