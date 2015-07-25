@@ -125,11 +125,11 @@
     }];
 
     [self.bridge registerHandler:@"openRentListTab" handler:^(id data, WVJBResponseCallback responseCallback) {
-        [NotificationCenter postNotificationName:KNOTIF_SHOW_RENT_TICKET_LIST_TAB object:nil];
+        [NotificationCenter postNotificationName:KNOTIF_SHOW_RENT_TICKET_LIST_TAB object:webViewController];
     }];
 
     [self.bridge registerHandler:@"openPropertyListTab" handler:^(id data, WVJBResponseCallback responseCallback) {
-        [NotificationCenter postNotificationName:KNOTIF_SHOW_PROPERTY_LIST_TAB object:nil];
+        [NotificationCenter postNotificationName:KNOTIF_SHOW_PROPERTY_LIST_TAB object:webViewController];
     }];
 
     [self.bridge registerHandler:@"notifyRentTicketIsRented" handler:^(id data, WVJBResponseCallback responseCallback) {

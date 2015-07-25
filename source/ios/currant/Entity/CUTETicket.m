@@ -158,6 +158,7 @@
     //special for title
     [keysMapping removeObjectForKey:@keypath(self.title)];
     [keysMapping removeObjectForKey:@keypath(self.property)];
+    [keysMapping removeObjectForKey:@keypath(self.creatorUser)];
 
     [keysMapping enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
         NSString *paramKey = obj;
