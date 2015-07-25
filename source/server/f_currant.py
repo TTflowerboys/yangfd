@@ -308,10 +308,11 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                 if "price" not in ticket:
                     continue
                 if deposit_type["value"]["zh_Hans_CN"] == "押一付三":
+                    ticket["price"]["value"] *= 4
                     self.logger.debug("Migrating ticket", str(ticket["_id"]), "to new deposit param")
                     ticket_database.update({"_id": ticket["_id"]}, {"$set": {"deposit": ticket["price"]}})
                 elif deposit_type["value"]["zh_Hans_CN"] in ("", ""):
-                    ticket["price"]["value"] *= 3
+                    ticket["price"]["value"] *= 3 * 4
                     self.logger.debug("Migrating ticket", str(ticket["_id"]), "to new deposit param")
                     ticket_database.update({"_id": ticket["_id"]}, {"$set": {"deposit": ticket["price"]}})
 

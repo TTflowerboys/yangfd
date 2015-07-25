@@ -426,10 +426,9 @@ def current_user_edit(user, params):
 @f_api("/user/admin/search", params=dict(
     per_page=int,
     register_time=datetime,
-    role=str,
+    role=(list, None, str),
     phone=str,
     country="country",
-    has_role=bool,
     has_intention_ticket=bool,
     has_register_time=bool,
     query=str,
@@ -445,26 +444,16 @@ def admin_user_search(user, params):
 
     All senior roles can search for themselves and their junior roles.
 
-    Only users with roles will be returned if ``has_role`` is true.
-
-    If ``has_role`` is false, only users without roles will be returned.
-
-    All users can be fetched if ``has_role`` is not given.
-
     ``has_intention_ticket`` and ``has_register_time`` work like above.
 
     """
     user_roles = f_app.user.get_role(user["id"])
-    if "has_role" in params:
-        has_role = params.pop("has_role")
-        if has_role:
-            params["role"] = {"$not": {"$size": 0}}
-        else:
-            params["role"] = {"$nin": f_app.common.admin_roles}
     if "role" in params:
-        if not f_app.user.check_set_role_permission(user["id"], params["role"]):
+        if not all(f_app.user.check_set_role_permission(user["id"], role) for role in params["role"]):
             abort(40399, logger.warning("Permission denied", exc_info=False))
+        params["role"] = {"$in": params["role"]}
     else:
+        params["role"] = {}
         if "admin" in user_roles:
             pass
         elif "jr_admin" in user_roles:
