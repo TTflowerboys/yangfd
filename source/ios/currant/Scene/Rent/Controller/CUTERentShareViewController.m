@@ -227,4 +227,9 @@
 }
 
 
+- (void)updateTitleWithURL:(NSURL *)url {
+    self.navigationItem.title = STR(@"发布成功");
+}
+
+
 @end

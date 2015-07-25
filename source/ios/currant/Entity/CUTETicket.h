@@ -13,6 +13,7 @@
 #import "CUTEProperty.h"
 #import "CUTETimePeriod.h"
 #import "CUTEModelEditingListener.h"
+#import "CUTEUser.h"
 
 #define kTicketStatusToRent @"to rent"
 #define kTicketStatusDraft @"draft"
@@ -52,6 +53,9 @@
 @property (strong, nonatomic) NSNumber *lastModifiedTime;
 
 @property (strong, nonatomic) CUTEProperty *property;
+
+@property (strong, nonatomic) CUTEUser *creatorUser;
+
 
 - (NSString *)titleForDisplay;
 
