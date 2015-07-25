@@ -15,10 +15,9 @@
 #import "CUTEFormDefaultCell.h"
 #import "CUTEFormSwitchCell.h"
 #import "CUTEFormRentPeriodPickerCell.h"
+#import "CUTEFormCurrencyTextFieldCell.h"
 
 @interface CUTERentPriceForm () {
-
-    NSArray *_allDepositTypes;
 
     NSArray *_allRentPeriods;
 }
@@ -31,8 +30,8 @@
     NSMutableArray *array = [NSMutableArray arrayWithArray:
                              @[
                                @{FXFormFieldKey: @"currency", FXFormFieldTitle:STR(@"货币"), FXFormFieldOptions: [CUTECurrency currencyUnitArray], FXFormFieldDefaultValue: _currency ? : [CUTECurrency defaultCurrencyUnit], FXFormFieldHeader: STR(@"租金"), FXFormFieldAction: @"onCurrencyEdit:"},
-                               @{FXFormFieldKey: @"depositType", FXFormFieldTitle:STR(@"押金"), FXFormFieldOptions: _allDepositTypes, FXFormFieldDefaultValue: _depositType? : [_allDepositTypes firstObject], FXFormFieldAction: @"onDepositTypeEdit:"},
                                @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldCell: [CUTEFormRentPriceTextFieldCell class], FXFormFieldDefaultValue: @(_rentPrice), @"textField.keyboardType": @(UIKeyboardTypeDecimalPad), FXFormFieldAction: @"onRentPriceEdit:"},
+                               @{FXFormFieldKey: @"deposit", FXFormFieldTitle:STR(@"押金"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldCell: [CUTEFormCurrencyTextFieldCell class], @"textField.keyboardType": @(UIKeyboardTypeDecimalPad),FXFormFieldHeader: @"", FXFormFieldPlaceholder: STR(@"如不填写则默认为面议"), FXFormFieldAction: @"onDepositEdit:"},
                                @{FXFormFieldKey: @"billCovered", FXFormFieldTitle:STR(@"包Bill"), FXFormFieldHeader: STR(@"其他"), FXFormFieldDefaultValue: @(_billCovered), FXFormFieldAction: @"onBillCoveredSwitch:", FXFormFieldCell: [CUTEFormSwitchCell class]},
                                @{FXFormFieldKey: @"needSetPeriod", FXFormFieldTitle:STR(@"设置租期"), FXFormFieldHeader: STR(@"租期"), FXFormFieldDefaultValue: @(_needSetPeriod), FXFormFieldAction: @"onRentPeriodSwitch:", FXFormFieldCell: [CUTEFormSwitchCell class]},
                                ]];
@@ -50,10 +49,6 @@
 
 - (void)setRentDeadlineTime:(NSDate *)rentDeadlineTime {
     _rentDeadlineTime = rentDeadlineTime;
-}
-
-- (void)setAllDepositTypes:(NSArray *)depositTypes {
-    _allDepositTypes = depositTypes;
 }
 
 - (NSError *)validateFormWithScenario:(NSString *)scenario {

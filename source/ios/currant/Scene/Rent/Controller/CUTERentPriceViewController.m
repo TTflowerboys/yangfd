@@ -15,6 +15,7 @@
 #import "CUTERentTicketPublisher.h"
 #import "CUTENotificationKey.h"
 #import "NSDate-Utilities.h"
+#import "CUTEFormCurrencyTextFieldCell.h"
 
 @implementation CUTERentPriceViewController
 
@@ -51,6 +52,10 @@
     CUTERentPriceForm *form = (CUTERentPriceForm *)[[self formController] form];
     if ([field.key isEqualToString:@"rentPrice"]) {
         CUTEFormRentPriceTextFieldCell *textFieldCell = (CUTEFormRentPriceTextFieldCell *)cell;
+        [textFieldCell setCurrencySymbol:form.currencySymbol];
+    }
+    else if ([field.key isEqualToString:@"deposit"]) {
+        CUTEFormCurrencyTextFieldCell *textFieldCell = (CUTEFormCurrencyTextFieldCell *)cell;
         [textFieldCell setCurrencySymbol:form.currencySymbol];
     }
 }
@@ -140,10 +145,8 @@
                                           }];
 }
 
-- (void)onDepositTypeEdit:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-    [self.form syncTicketWithUpdateInfo:@{@"depositType": [self.form depositType],
-                                          }];
+- (void)onDepositEdit:(id)sender {
+    [self.form syncTicketWithUpdateInfo:@{@"deposit": [CUTECurrency currencyWithValue:self.form.deposit.floatValue unit:self.form.currency],}];
 }
 
 - (CUTERentPriceForm *)form {

@@ -15,8 +15,9 @@
 @interface CUTERentPriceForm : CUTETicketForm
 
 @property (strong, nonatomic) NSString *currency;
-@property (strong, nonatomic) CUTEEnum *depositType;
 @property (nonatomic) float rentPrice;
+@property (nonatomic) NSNumber *deposit;
+
 @property (nonatomic) BOOL billCovered;
 @property (nonatomic) BOOL needSetPeriod;
 @property (strong, nonatomic) NSDate *rentAvailableTime;
@@ -24,7 +25,5 @@
 @property (strong, nonatomic) CUTETimePeriod *minimumRentPeriod;
 
 - (NSString *)currencySymbol;
-
-- (void)setAllDepositTypes:(NSArray *)depositTypes;
 
 @end
