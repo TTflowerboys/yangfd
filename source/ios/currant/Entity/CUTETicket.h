@@ -34,8 +34,6 @@
 
 @property (strong, nonatomic) CUTEEnum *rentType;
 
-@property (strong, nonatomic) CUTEEnum *depositType;
-
 @property (strong, nonatomic) CUTEEnum *landlordType;
 
 @property (strong, nonatomic) CUTEArea *space;
@@ -49,6 +47,8 @@
 @property (strong, nonatomic) NSNumber *rentDeadlineTime;
 
 @property (strong, nonatomic) CUTETimePeriod *minimumRentPeriod;
+
+@property (strong, nonatomic) CUTECurrency *deposit;
 
 @property (strong, nonatomic) NSNumber *lastModifiedTime;
 

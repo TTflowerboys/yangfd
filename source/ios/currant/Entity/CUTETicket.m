@@ -19,7 +19,7 @@
              @"title": @"title",
              @"status": @"status",
              @"rentType": @"rent_type",
-             @"depositType": @"deposit_type",
+             @"deposit": @"deposit",
              @"landlordType": @"landlord_type",
              @"space": @"space",
              @"price": @"price",
@@ -55,9 +55,9 @@
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTETimePeriod class]];
 }
 
-+ (NSValueTransformer *)depositTypeJSONTransformer
++ (NSValueTransformer *)depositJSONTransformer
 {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
 }
 
 + (NSValueTransformer *)spaceJSONTransformer
@@ -118,8 +118,8 @@
     else if ([key isEqualToString:@keypath(self.price)] && [value isKindOfClass:[CUTECurrency class]]) {
         return [(CUTECurrency *)value toParams];
     }
-    else if ([key isEqualToString:@keypath(self.depositType)] && [value isKindOfClass:[CUTEEnum class]]) {
-        return [(CUTEEnum *)value identifier];
+    else if ([key isEqualToString:@keypath(self.deposit)] && [value isKindOfClass:[CUTECurrency class]]) {
+        return [(CUTECurrency *)value toParams];
     }
     else if ([key isEqualToString:@keypath(self.rentType)] && [value isKindOfClass:[CUTEEnum class]]) {
         return [(CUTEEnum *)value identifier];
