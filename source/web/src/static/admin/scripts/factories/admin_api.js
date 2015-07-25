@@ -1,9 +1,9 @@
 /* Created by frank on 14-8-23. */
 (function () {
 
-    function adminApi($http) {
+    function adminApi($http, permissions) {
         var defaultParams = {
-            has_role: true
+            role: JSON.stringify(_.pluck(permissions, 'value'))
         }
         return {
             getAll: function (config) {

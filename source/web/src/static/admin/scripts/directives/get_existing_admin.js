@@ -3,7 +3,7 @@
  */
 
 angular.module('app')
-    .directive('getExistingAdmin', function ($http, misc) {
+    .directive('getExistingAdmin', function ($http, misc, permissions) {
 
         return {
             restrict: 'AE',
@@ -72,7 +72,8 @@ angular.module('app')
                     return $http.get('/api/1/user/admin/search', {
                         params: {
                             country: scope.item.country,
-                            phone: scope.item.phone
+                            phone: scope.item.phone,
+                            role: JSON.stringify(_.pluck(permissions, 'value').concat(['beta_renting']).concat(['']))
                         }, errorMessage: true
                     })
                 }
