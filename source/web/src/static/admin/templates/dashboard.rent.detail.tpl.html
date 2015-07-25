@@ -279,8 +279,8 @@
 
                                             </div>
                                             <div class="col-sm-6 col-md-5 col-lg-4">
-                                                {%$root.i18n('支付方式:')%}
-                                                <span class="input-xlarge uneditable-input" show-i18n="item.deposit_type.value"></span>
+                                                {%$root.i18n('押金:')%}
+                                                <span class="input-xlarge uneditable-input" ng-bind="item.deposit.value | currency : currencyTypes[item.deposit.unit] : 2"></span>
                                             </div>
 
                                         </li>
