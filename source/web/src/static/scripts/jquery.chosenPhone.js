@@ -1,5 +1,8 @@
 (function($) {
     $.fn.chosenPhone = function (option) {
+        option = $.extend({
+            duration: 200
+        }, option)
         return this.each(function() {
             var elem, data;
             elem = $(this)
@@ -10,6 +13,7 @@
         })
     }
     function Chosen(elem, option) {
+        var _this = this
         this.elem = $(elem)
         this.fetch = function () {
             return _.map(this.elem.find('option'), function(option, index){
@@ -22,12 +26,14 @@
             })
         }
         this.create = function () {
-            this.chosen = $('<div class="chosen-container chosen-container-single' + ((option.disable_search_threshold && option.disable_search_threshold >= this.data.length) ? ' chosen-container-single-nosearch' : '') + '"><a class="chosen-single" tabindex="-1"><span></span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off" spellcheck="false" autofocus><i class="icon-search"></i></div><ul class="chosen-results"></ul></div></div>')
+            this.body = this.elem.parents('body')
+            this.chosen = $('<div class="chosen-container chosen-container-single' + ((option.disable_search_threshold && option.disable_search_threshold >= this.data.length) ? ' chosen-container-single-nosearch' : '') + '"><a class="chosen-single" tabindex="-1"><span></span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off" spellcheck="false" autofocus="true"><i class="icon-search"></i></div><ul class="chosen-results"></ul><div class="close-chosen-drop"><span>' + i18n('取消') + '</span></div></div></div>')
             this.chosenSingle = this.chosen.find('.chosen-single')
             this.chosenSingleSpan = this.chosenSingle.find('span')
             this.chosenSearch = this.chosen.find('.chosen-search input')
             this.chosenDrop = this.chosen.find('.chosen-drop').hide()
             this.chosenResults = this.chosen.find('.chosen-results')
+            this.closeBtn = this.chosen.find('.close-chosen-drop')
             this.update(this.data)
             this.elem.after(this.chosen)
             this.initStyle()
@@ -56,12 +62,17 @@
             }, ''))
         }
         this.hideDrop = function () {
-            this.chosenDrop.hide()
+            this.chosenDrop.fadeOut(option.duration, function () {
+                _this.body.css('overflow-y', '')
+            })
+        }
+        this.showDrop = function () {
+            this.body.css('overflow-y', 'hidden')
+            this.chosenDrop.fadeIn(option.duration)
         }
         this.bindEvent  = function () {
-            var _this = this
             this.chosenSingle.bind('click', function () {
-                _this.chosenDrop.toggle()
+                _this.showDrop()
             })
             this.chosenSearch.bind('keyup', function () {
                 var input = $(this).val()
@@ -70,13 +81,20 @@
                 })
                 _this.update(containInputData)
             })
-            this.chosenResults.delegate('li', 'click', function () {
+            this.chosenResults.delegate('li', 'click', function (e) {
+                e.stopPropagation()
                 var hasChanged = !$(this).hasClass('result-selected')
                 var index = $(this).attr('data-option-array-index')
                 $(this).addClass('result-selected').siblings().removeClass('result-selected')
-                if(hasChanged) {
-                    _this.elem.val(_this.data[index].value).trigger('chosen:updated').trigger('change')
-                }
+
+                setTimeout(function () {
+                    _this.hideDrop()
+                    if(hasChanged) {
+                        _this.elem.val(_this.data[index].value).trigger('chosen:updated').trigger('change')
+                    }
+                },100)
+            })
+            this.closeBtn.bind('click', function () {
                 _this.hideDrop()
             })
             this.elem.bind('chosen:updated', function () {

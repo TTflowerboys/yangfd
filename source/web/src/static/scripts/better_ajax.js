@@ -11,8 +11,9 @@ $.each(['Post', 'Get'], function (index, key) {
         return $[hiddenName].apply($, arguments)
     }
     $['better' + key] = function () {
+        window.betterAjaxXhr = window.betterAjaxXhr || {}
         var deferred = $.Deferred()
-        $[hiddenName].apply($, arguments).done(function (data, textStatus, jqXHR) {
+        window.betterAjaxXhr[arguments[0]] = $[hiddenName].apply($, arguments).done(function (data, textStatus, jqXHR) {
             if (data.ret !== undefined) {
                 if (data.ret === 0) {
                     deferred.resolve(data.val)

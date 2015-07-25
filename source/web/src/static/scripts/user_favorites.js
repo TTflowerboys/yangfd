@@ -41,6 +41,7 @@ $(function () {
                 },500)
             })
         },
+        domDown: {}
 
     });
     function loadProperty() {

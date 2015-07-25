@@ -90,6 +90,7 @@
                     }
                 })
         },
+        domDown: {}
 
     });
     window.$currantDropLoad = $(currantDropLoad)
@@ -338,7 +339,9 @@
             'country': countryCode,
             'feature_code': 'city'
         }
-
+        if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/geonames/search'] && window.betterAjaxXhr['/api/1/geonames/search'].readyState !== 4) {
+            window.betterAjaxXhr['/api/1/geonames/search'].abort()
+        }
         //Empty city select
         $('select[name=propertyCity]').html('<option value="">' + i18n('城市列表加载中...') + '</option>').trigger('chosen:updated')
 
@@ -359,7 +362,9 @@
     }
 
     function loadRentList(reload) {
-
+        if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/rent_ticket/search'] && window.betterAjaxXhr['/api/1/rent_ticket/search'].readyState !== 4) {
+            window.betterAjaxXhr['/api/1/rent_ticket/search'].abort()
+        }
         var params = window.getBaseRequestParams()
         params.per_page = itemsPerPage
         $('.isAllLoadedInfo').hide()
@@ -464,9 +469,7 @@
     var $countrySelect = $('select[name=propertyCountry]')
     $countrySelect.change(function () {
         var countryCode = $('select[name=propertyCountry]').children('option:selected').val()
-        if(isLoading){
-            return
-        }
+
         ga('send', 'event', 'rent_list', 'change', 'select-country',
             $('select[name=propertyCountry]').children('option:selected').text())
         if(countryCode) {
@@ -479,9 +482,7 @@
 
     var $citySelect = $('select[name=propertyCity]')
     $citySelect.change(function () {
-        if(isLoading){
-            return
-        }
+
         ga('send', 'event', 'rent_list', 'change', 'select-city',
             $('select[name=propertyCity]').children('option:selected').text())
         loadRentListByView()
@@ -489,9 +490,7 @@
 
     var $propertyTypeSelect = $('select[name=propertyType]')
     $propertyTypeSelect.change(function () {
-        if(isLoading){
-            return
-        }
+
         ga('send', 'event', 'rent_list', 'change', 'select-proprty-type',
             $('select[name=propertyType]').children('option:selected').text())
         loadRentListByView()
@@ -499,9 +498,7 @@
 
     var $rentTypeSelect = $('select[name=rentType]')
     $rentTypeSelect.change(function () {
-        if(isLoading){
-            return
-        }
+
         ga('send', 'event', 'rent_list', 'change', 'select-rent-type',
             $('select[name=rentType]').children('option:selected').text())
         loadRentListByView()
@@ -545,9 +542,8 @@
     }
 
     $('#tags #propertyTypeTag').on('click', '.toggleTag', function (event) {
-        if(isLoading){
-            return
-        }
+        event.stopPropagation()
+
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -562,9 +558,8 @@
     })
 
     $('#tags #rentBudgetTag').on('click', '.toggleTag', function (event) {
-        if(isLoading){
-            return
-        }
+        event.stopPropagation()
+
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -579,9 +574,8 @@
     })
 
     $('#tags #rentPeriodTag').on('click', '.toggleTag', function (event) {
-        if(isLoading){
-            return
-        }
+        event.stopPropagation()
+
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -596,9 +590,8 @@
     })
 
     $('#tags #bedroomCountTag').on('click', '.toggleTag', function (event) {
-        if(isLoading){
-            return
-        }
+        event.stopPropagation()
+
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -613,9 +606,8 @@
     })
 
     $('#tags #spaceTag').on('click', '.toggleTag', function (event) {
-        if(isLoading){
-            return
-        }
+        event.stopPropagation()
+
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -674,9 +666,7 @@
         $(this).siblings('input').val('').trigger('change').attr('placeholder', i18n('请选择日期'))
     })
     $('.confirmDate').click(function () {
-        if(isLoading){
-            return
-        }
+
         loadRentListByView()
     })
     // Show or Hide tag filters on mobile
@@ -1000,6 +990,9 @@
 
 
     function loadRentMapList() {
+        if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/rent_ticket/search'] && window.betterAjaxXhr['/api/1/rent_ticket/search'].readyState !== 4) {
+            window.betterAjaxXhr['/api/1/rent_ticket/search'].abort()
+        }
         var params = {'location_only': 1}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
         if (country) {

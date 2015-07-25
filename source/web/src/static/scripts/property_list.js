@@ -80,6 +80,8 @@
                 })
         },
 
+        domDown: {}
+
     });
     window.$currantDropLoad = $(currantDropLoad)
     function fnTransition(dom,num){
@@ -348,6 +350,9 @@
     }
 
     function updateCityByCountry(countryCode) {
+        if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/geonames/search'] && window.betterAjaxXhr['/api/1/geonames/search'].readyState !== 4) {
+            window.betterAjaxXhr['/api/1/geonames/search'].abort()
+        }
         var params = {
             'country': countryCode,
             'feature_code': 'city'
@@ -383,6 +388,9 @@
     }
 
     function loadPropertyList(reload) {
+        if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/property/search'] && window.betterAjaxXhr['/api/1/property/search'].readyState !== 4) {
+            window.betterAjaxXhr['/api/1/property/search'].abort()
+        }
         var params = window.getBaseRequestParams()
         params.per_page = 5
         var lastItemTime = getLastItemTimeByBudget(params.budget)
@@ -908,9 +916,7 @@
     var $countrySelect = $('select[name=propertyCountry]')
     $countrySelect.change(function () {
         var countryCode = $('select[name=propertyCountry]').children('option:selected').val()
-        if(isLoading){
-            return
-        }
+
         ga('send', 'event', 'property_list', 'change', 'select-country',
             $('select[name=propertyCountry]').children('option:selected').text())
         if(countryCode) {
@@ -923,9 +929,7 @@
 
     var $citySelect = $('select[name=propertyCity]')
     $citySelect.change(function () {
-        if(isLoading){
-            return
-        }
+
         ga('send', 'event', 'property_list', 'change', 'select-city',
             $('select[name=propertyCity]').children('option:selected').text())
         loadPropertyListByView()
@@ -934,9 +938,7 @@
 
     var $propertyTypeSelect = $('select[name=propertyType]')
     $propertyTypeSelect.change(function () {
-        if(isLoading){
-            return
-        }
+
         ga('send', 'event', 'property_list', 'change', 'select-proprty-type',
             $('select[name=propertyType]').children('option:selected').text())
         loadPropertyListByView()
@@ -944,9 +946,8 @@
 
 
     $('#tags #budgetTag').on('click', '.toggleTag', function (event) {
-        if(isLoading){
-            return
-        }
+        event.stopPropagation()
+
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -961,9 +962,8 @@
     })
 
     $('#tags #intentionTag').on('click', '.toggleTag', function (event) {
-        if(isLoading){
-            return
-        }
+        event.stopPropagation()
+
         var $item = $(event.target)
         if ($item.hasClass('selected')) {
             $item.removeClass('selected')
@@ -977,9 +977,8 @@
     })
 
     $('#tags #bedroomCountTag').on('click', '.toggleTag', function (event) {
-        if(isLoading){
-            return
-        }
+        event.stopPropagation()
+
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -994,9 +993,8 @@
     })
 
     $('#tags #buildingAreaTag').on('click', '.toggleTag', function (event) {
-        if(isLoading){
-            return
-        }
+        event.stopPropagation()
+
         var $item = $(event.target)
         var alreadySelected = $item.hasClass('selected')
         var $parent = $(event.target.parentNode)
@@ -1355,6 +1353,9 @@
     })
 
     function loadPropertyMapList() {
+        if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/property/search'] && window.betterAjaxXhr['/api/1/property/search'].readyState !== 4) {
+            window.betterAjaxXhr['/api/1/property/search'].abort()
+        }
         var params = window.getBaseRequestParams()
         params.location_only = 1
 
