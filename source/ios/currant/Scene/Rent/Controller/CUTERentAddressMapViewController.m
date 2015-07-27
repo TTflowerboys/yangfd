@@ -520,7 +520,8 @@
         [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
             if (task.result) {
                 CUTEPlacemark *placemark = task.result;
-                [self.form syncTicketWithUpdateInfo:@{@"property.street": placemark.street,
+                NSString *street = IsArrayNilOrEmpty(property.neighborhoods)? [CUTEAddressUtil buildAddress:@[placemark.street, placemark.neighborhood]]: [CUTEAddressUtil buildAddress:@[placemark.street, [(CUTENeighborhood *)property.neighborhoods.firstObject name]]];
+                [self.form syncTicketWithUpdateInfo:@{@"property.street": street,
                             @"property.zipcode": placemark.postalCode,
                             @"property.country": placemark.country,
                             @"property.city": placemark.city,

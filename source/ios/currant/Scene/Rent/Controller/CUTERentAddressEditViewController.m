@@ -25,6 +25,8 @@
 #import "CUTEPlacemark.h"
 #import "CUTERentAddressMapViewController.h"
 #import "NSArray+ObjectiveSugar.h"
+#import "CUTEPostcodePlace.h"
+#import "CUTEAddressUtil.h"
 
 @interface CUTERentAddressEditViewController () {
 
@@ -253,17 +255,26 @@
 
         [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:form.ticket.property.country.code] continueWithBlock:^id(BFTask *task) {
 
-            CLLocation *location = task.result;
-            if (location && [location isKindOfClass:[CLLocation class]]) {
+            NSArray *places = (NSArray *)task.result;
+            if (!IsArrayNilOrEmpty(places)) {
+                CUTEPostcodePlace *place = [places firstObject];
+                form.ticket.property.latitude = place.latitude;
+                form.ticket.property.longitude = place.longitude;
+                form.ticket.property.neighborhoods = place.neighborhoods;
 
-                form.ticket.property.latitude = @(location.coordinate.latitude);
-                form.ticket.property.longitude = @(location.coordinate.longitude);
+                form.neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
+                [self.tableView reloadData];
+
                 //check is a draft ticket not a unfinished one
                 if (!IsNilNullOrEmpty(form.ticket.identifier)) {
-                    [form syncTicketWithUpdateInfo:@{@"property.latitude": @(location.coordinate.latitude), @"property.longitude": @(location.coordinate.longitude)}];
+                    NSMutableDictionary *updateInfo = [NSMutableDictionary dictionaryWithDictionary:@{@"property.latitude": place.latitude, @"property.longitude": place.longitude}];
+                    if (place.neighborhoods) {
+                        [updateInfo setObject:place.neighborhoods forKey:@"property.neighborhoods"];
+                    }
+                    [form syncTicketWithUpdateInfo:updateInfo];
                 }
 
-                [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
+                [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:place.latitude.doubleValue longitude:place.longitude.doubleValue]] continueWithBlock:^id(BFTask *task) {
                     if (task.error) {
                         [SVProgressHUD showErrorWithError:task.error];
                     }
@@ -277,7 +288,9 @@
                         if (task.result) {
                             CUTEPlacemark *detailPlacemark = task.result;
                             CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-                            form.street = detailPlacemark.street;
+                            CUTEProperty *property = form.ticket.property;
+                            NSString *street = IsArrayNilOrEmpty(property.neighborhoods)? [CUTEAddressUtil buildAddress:@[detailPlacemark.street, detailPlacemark.neighborhood]]: [CUTEAddressUtil buildAddress:@[detailPlacemark.street, [(CUTENeighborhood *)property.neighborhoods.firstObject name]]];
+                            form.street = street;
                             [form syncTicketWithUpdateInfo:@{@"property.street": form.street}];
                             [self.tableView reloadData];
                             [SVProgressHUD dismiss];
@@ -448,11 +461,14 @@
                         [SVProgressHUD showErrorWithCancellation];
                     }
                     else {
-                        CLLocation *location = task.result;
-                        if (location && [location isKindOfClass:[CLLocation class]]) {
+                        NSArray *places = (NSArray *)task.result;
+                        if (!IsArrayNilOrEmpty(places)) {
+                            CUTEPostcodePlace *place = [places firstObject];
+                            form.neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
                             [self.tableView reloadData];
-                            form.ticket.property.latitude = @(location.coordinate.latitude);
-                            form.ticket.property.longitude = @(location.coordinate.longitude);
+                            form.ticket.property.latitude = place.latitude;
+                            form.ticket.property.longitude = place.longitude;
+                            form.ticket.property.neighborhoods = place.neighborhoods;
                             self.lastPostcode = form.ticket.property.zipcode;
                             [SVProgressHUD dismiss];
                             [self createTicket];

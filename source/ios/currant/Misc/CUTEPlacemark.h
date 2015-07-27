@@ -13,6 +13,7 @@
 
 @interface CUTEPlacemark : NSObject
 
+@property (nonatomic, copy) NSString *neighborhood;
 @property (nonatomic, copy) NSString *street;
 @property (nonatomic, copy) NSString *thoroughfare; // street address, eg. 1 Infinite Loop
 @property (nonatomic, copy) NSString *subThoroughfare; // eg. 1
