@@ -30,6 +30,9 @@
             params.city = $scope.selected.city
             params.property_type = $scope.selected.property_type
             params.mtime = undefined
+            params = _.omit(params, function (val) {
+                return val === '' || val === undefined
+            })
         }
 
         $scope.searchProperty = function () {
