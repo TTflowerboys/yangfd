@@ -17,6 +17,16 @@ angular.module('app')
                 }, function (value) {
                     scope.newValue = misc.getIntersectionById(value, scope.item[scope.name])
                 })
+                scope.clearNewsCategory = function (item) {
+                    var data = {id: item.id}
+                    data.unset_fields = ([scope.name])
+                    scope.api.update(item.id, data, {
+                        errorMessage: true
+                    }).then(function () {
+                        scope.open = false
+                        delete scope.item[scope.name]
+                    })
+                }
                 scope.onSubmit = function (item, newValue) {
                     var data = {id: item.id}
                     data[scope.name] = _.map(newValue, function (i) {
