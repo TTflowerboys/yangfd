@@ -26,8 +26,8 @@
             })
         }
         this.create = function () {
-            this.body = this.elem.parents('body')
-            this.chosen = $('<div class="chosen-container chosen-container-single' + ((option.disable_search_threshold && option.disable_search_threshold >= this.data.length) ? ' chosen-container-single-nosearch' : '') + '"><a class="chosen-single" tabindex="-1"><span></span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off" spellcheck="false" autofocus="true"><i class="icon-search"></i></div><ul class="chosen-results"></ul><div class="close-chosen-drop"><span>' + i18n('取消') + '</span></div></div></div>')
+            this.body = this.elem.parents('body,html')
+            this.chosen = $('<div class="chosen-container chosen-container-single' + ((option.disable_search_threshold && option.disable_search_threshold >= this.data.length) ? ' chosen-container-single-nosearch' : '') + '"><a class="chosen-single" tabindex="-1"><span></span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off" spellcheck="false"><i class="icon-search"></i></div><ul class="chosen-results"></ul><div class="close-chosen-drop"><span>' + i18n('取消') + '</span></div></div></div>')
             this.chosenSingle = this.chosen.find('.chosen-single')
             this.chosenSingleSpan = this.chosenSingle.find('span')
             this.chosenSearch = this.chosen.find('.chosen-search input')
@@ -63,24 +63,45 @@
         }
         this.hideDrop = function () {
             this.chosenDrop.fadeOut(option.duration, function () {
-                _this.body.css('overflow-y', '')
+                _this.body.css({
+                    'overflow-y': '',
+                    'height': ''
+                })
             })
         }
         this.showDrop = function () {
-            this.body.css('overflow-y', 'hidden')
+            document.body.scrollTop = 1
+            document.body.scrollTop = 0
+            this.body.css({
+                'overflow': 'hidden',
+                'height': $(window).height()
+            })
             this.chosenDrop.fadeIn(option.duration)
         }
         this.bindEvent  = function () {
             this.chosenSingle.bind('click', function () {
                 _this.showDrop()
             })
-            this.chosenSearch.bind('keyup', function () {
-                var input = $(this).val()
-                var containInputData = _.filter(_this.data, function (obj) {
-                    return obj.text.toLowerCase().indexOf(input.toLowerCase()) === 0
+            this.chosenSearch
+                .bind('focus', function () {
+                    if (window.team.isIOS()) {
+                        _this.chosenDrop.css({
+                            'height': _this.chosenDrop.height() - 284
+                        })
+                    }
                 })
-                _this.update(containInputData)
-            })
+                .bind('blur', function () {
+                    _this.chosenDrop.css({
+                        'height': ''
+                    })
+                })
+                .bind('keyup', function () {
+                    var input = $(this).val()
+                    var containInputData = _.filter(_this.data, function (obj) {
+                        return obj.text.toLowerCase().indexOf(input.toLowerCase()) === 0
+                    })
+                    _this.update(containInputData)
+                })
             this.chosenResults.delegate('li', 'click', function (e) {
                 e.stopPropagation()
                 var hasChanged = !$(this).hasClass('result-selected')

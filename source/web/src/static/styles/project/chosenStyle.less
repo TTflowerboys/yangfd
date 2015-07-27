@@ -1,5 +1,8 @@
-@import "project/_imports";
+@import "_imports";
 .chosen-container{
+    @media @phone{
+        position: static;
+    }
     .chosen-single{
         padding: 0 12px;
         height: 40px;
@@ -9,6 +12,7 @@
         background: transparent;
         border: 2px solid #cccccc;
         @media @phone {
+            position: relative;
             border:0;
             line-height: 40px;
         }
@@ -60,12 +64,13 @@
         border: 2px solid #ccc;
         border-radius: 0 0 4px 4px;
         @media @phone {
-            position: fixed;
+            -webkit-overflow-scrolling: touch;
+            position: absolute;
             z-index: 100;
-            width: 100vw;
-            height: 100vh;
             left: 0;
+            right: 0;
             top: 0;
+            bottom: 0;
             border-width: 1px;
 
         }
@@ -152,7 +157,7 @@
         .close-chosen-drop{
             box-shadow: 0px -4px 16px -14px #000;
             border-top: 1px solid #ddd;
-            position: fixed;
+            position: absolute;
             left: 0;
             bottom: 0;
             width: 100%;

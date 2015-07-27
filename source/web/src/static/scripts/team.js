@@ -235,6 +235,11 @@
             var ua = navigator.userAgent.toLowerCase()
             return /android.+chrome/.test(ua)
         },
+        isIOS: function () {
+            var ua = navigator.userAgent.toLowerCase()
+
+            return (/iPhone|currant/i).test(ua)
+        },
         /**
          * 返回当前的客户端：pc,mobile,wechat,app之一
          * @returns {string}
