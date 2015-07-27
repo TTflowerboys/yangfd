@@ -100,7 +100,17 @@
     [self.bridge registerHandler:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dic = data;
         if (dic && [dic isKindOfClass:[NSDictionary class]]) {
-            [[[CUTEShareManager sharedInstance] shareText:dic[@"text"] urlString:dic[@"url"] inServices:dic[@"services"] viewController:webViewController] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEShareManager sharedInstance] shareText:dic[@"text"] urlString:dic[@"url"] inServices:dic[@"services"] viewController:webViewController onButtonPressBlock:^(NSString *buttonName) {
+                if ([buttonName isEqualToString:CUTEShareServiceWechatFriend]) {
+                    TrackEvent(KEventCategoryShare, kEventActionPress, @"wechat-friend", @(1));
+                }
+                else if ([buttonName isEqualToString:CUTEShareServiceWechatCircle]) {
+                    TrackEvent(KEventCategoryShare, kEventActionPress, @"wechat-circle", @(1));
+                }
+                else if ([buttonName isEqualToString:CUTEShareServiceSinaWeibo]) {
+                    TrackEvent(KEventCategoryShare, kEventActionPress, @"weibo", @(1));
+                }
+            }] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     responseCallback(@{@"msg":@"error"});
                 }

@@ -359,7 +359,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
     return tcs.task;
 }
 
-- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString inServices:(NSArray *)services viewController:(UIViewController *)viewController {
+- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString inServices:(NSArray *)services viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     self.taskCompletionSource = tcs;
 
@@ -379,16 +379,25 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
     if ([activityKeys containsObject:CUTEShareServiceWechatFriend]) {
         [activities addObject:[self getWechatFriendActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
+            if (pressBlock) {
+                pressBlock(CUTEShareServiceWechatFriend);
+            }
         }]];
     }
 
     if ([activityKeys containsObject:CUTEShareServiceWechatCircle]) {
         [activities addObject:[self getWechatCircleActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
+            if (pressBlock) {
+                pressBlock(CUTEShareServiceWechatCircle);
+            }
         }]];
     }
 
     if ([activityKeys containsObject:CUTEShareServiceSinaWeibo]) {
         [activities addObject:[self getSinaWeiboActivityWithTitle:title description:nil url:urlString image:imageData viewController:viewController buttonPressedBlock:^{
+            if (pressBlock) {
+                pressBlock(CUTEShareServiceSinaWeibo);
+            }
         }]];
     }
 

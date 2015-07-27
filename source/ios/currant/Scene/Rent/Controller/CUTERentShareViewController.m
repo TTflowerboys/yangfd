@@ -97,15 +97,18 @@
 
 - (void)shareRentTicket {
     [[[CUTEShareManager sharedInstance] shareTicket:self.ticket viewController:self onButtonPressBlock:^(NSString * buttonName) {
+        TrackScreen(@"press-to-share");
+
         if ([buttonName isEqualToString:CUTEShareServiceWechatFriend]) {
-            TrackScreen(@"share-to-wechat");
+            TrackEvent(KEventCategoryShare, kEventActionPress, @"wechat-friend", @(1));
         }
         else if ([buttonName isEqualToString:CUTEShareServiceWechatCircle]) {
-            TrackScreen(@"share-to-wechat");
+            TrackEvent(KEventCategoryShare, kEventActionPress, @"wechat-circle", @(1));
         }
         else if ([buttonName isEqualToString:CUTEShareServiceSinaWeibo]) {
-            TrackScreen(@"share-to-weibo");
+            TrackEvent(KEventCategoryShare, kEventActionPress, @"weibo", @(1));
         }
+
     }] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [[CUTETracker sharedInstance] trackError:task.error];
@@ -125,17 +128,6 @@
 
         }
         else {
-
-            if ([task.result isEqualToString:CUTEShareServiceWechatFriend]) {
-                TrackEvent(KEventCategoryShare, kEventActionPress, @"wechat-friend", @(1));
-            }
-            else if ([task.result isEqualToString:CUTEShareServiceWechatCircle]) {
-                TrackEvent(KEventCategoryShare, kEventActionPress, @"wechat-circle", @(1));
-            }
-            else if ([task.result isEqualToString:CUTEShareServiceSinaWeibo]) {
-                TrackEvent(KEventCategoryShare, kEventActionPress, @"weibo", @(1));
-            }
-
             TrackScreen(GetScreenName(@"share-success"));
             if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS]) {
                 if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_SUCCESS fromViewController:self]) {
