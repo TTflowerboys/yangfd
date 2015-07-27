@@ -365,11 +365,22 @@ def postcode_search(params):
 
     if "postcode_area" in params and params["postcode_area"]:
         assert "country" in params, abort(40000, "country must present to query postcode area")
-        return f_app.geonames.postcode.get_postcode_areas(params["country"])
+        postcodes = f_app.geonames.postcode.get_postcode_areas(params["country"])
 
     else:
         assert "postcode" in params or "postcode_index" in params, abort(40000, "either postcode or postcode_index must present")
-        return f_app.geonames.postcode.get(f_app.geonames.postcode.search(params, per_page=-1))
+        postcodes = f_app.geonames.postcode.get(f_app.geonames.postcode.search(params, per_page=-1))
+
+    for postcode in postcodes:
+        if "neighborhoods" in postcode and postcode["neighborhoods"]:
+            def expand_neighborhood(neighborhood_id):
+                neighborhood = f_app.maponics.neighborhood.get(neighborhood_id)
+                neighborhood.pop('wkt', None)
+                return neighborhood
+
+            postcode["neighborhoods"] = map(expand_neighborhood, postcode["neighborhoods"])
+
+    return postcodes
 
 
 @f_api('/doogal/districts_and_wards')
