@@ -27,6 +27,14 @@
     var showState
     showState = new ShowState('main')
 
+    $('[data-user-type]').click(function () {
+        var apiUrl = '/api/1/user/edit'
+        if (window.betterAjaxXhr && window.betterAjaxXhr[apiUrl] && window.betterAjaxXhr[apiUrl].readyState !== 4) {
+            window.betterAjaxXhr[apiUrl].abort()
+        }
+        $.betterPost(apiUrl, {user_type: $(this).attr('data-user-type')})
+    })
+
     function initChosen (elem) {
         if(!window.team.isPhone()) {
             elem.chosen({

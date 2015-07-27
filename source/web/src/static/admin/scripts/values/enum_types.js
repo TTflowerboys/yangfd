@@ -23,7 +23,8 @@ angular.module('app')
         { name: i18n('房产价格类型'), value: 'property_price_type' },
         { name: i18n('平台资讯类别'), value: 'news_category' },
         { name: i18n('投资意向单状态'), value: 'intention_ticket_status' },
-        { name: i18n('客服单状态'), value: 'support_ticket_status' }
+        { name: i18n('客服单状态'), value: 'support_ticket_status' },
+        { name: i18n('用户类型'), value: 'user_type' }
     ]).run(function ($rootScope, enumTypes) {
         $rootScope.enumTypes = enumTypes
     })
