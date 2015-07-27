@@ -434,7 +434,7 @@
     //验证表单,验证前会重置一下，隐藏上次验证的错误提示信息，遇到错误会把相应的表单变成红色边框，并且返回false
     function validateForm(form){
         var validate = true
-        var errorMsg = ''
+        var errorArr = []
         var regex = {
             'email': /.+@.+\..+/,
             'nonDecimal': /[^0-9.\s,]/,
@@ -463,14 +463,20 @@
             }
             if(validator.indexOf('required') >= 0 && value === ''){
                 validate = false
-                errorMsg = $(this).data('name') + i18n('不能为空')
+                errorArr.push({
+                    elem: $this,
+                    msg: $(this).data('name') + i18n('不能为空')
+                })
                 highlightErrorElem($(this))
                 //return false
             }
             for(var key in regex){
                 if(value.length > 0 && validator.indexOf(key) >= 0 && !regex[key].test(value)){
                     validate = false
-                    errorMsg = $(this).data('name') + i18n('格式不正确')
+                    errorArr.push({
+                        elem: $this,
+                        msg: $(this).data('name') + i18n('格式不正确')
+                    })
                     highlightErrorElem($(this))
                     //return false
                 }
@@ -481,7 +487,10 @@
                     maxLength = parseInt(v.match(/maxLength\((\d+)\)/)[1])
                     if(value.length > maxLength){
                         validate = false
-                        errorMsg = $this.data('name') + i18n('超出长度限制(最多') + maxLength + i18n('个字符')
+                        errorArr.push({
+                            elem: $this,
+                            msg: $this.data('name') + i18n('超出长度限制(最多') + maxLength + i18n('个字符')
+                        })
                         highlightErrorElem($this)
                     }
                 }
@@ -490,7 +499,10 @@
                     maxLength = parseInt(v.match(/lengthRange\((\d+)\-(\d+)\)/)[2])
                     if(value.length > maxLength || value.length < minLength){
                         validate = false
-                        errorMsg = $this.data('name') + i18n('超出字符数范围限制(') + minLength + '~' + maxLength + i18n('个字符)')
+                        errorArr.push({
+                            elem: $this,
+                            msg: $this.data('name') + i18n('超出字符数范围限制(') + minLength + '~' + maxLength + i18n('个字符)')
+                        })
                         highlightErrorElem($this)
                     }
                 }
@@ -505,7 +517,10 @@
                     return val.toLowerCase().indexOf(v.toLowerCase()) !== -1
                 })) {
                 validate = false
-                errorMsg = i18n('平台将提供房东联系方式选择，请删除在此填写任何形式的联系方式，违规发布将会予以处理')
+                errorArr.push({
+                    elem: elem,
+                    msg: i18n('平台将提供房东联系方式选择，请删除在此填写任何形式的联系方式，违规发布将会予以处理')
+                })
                 highlightErrorElem(elem)
             }
         }
@@ -525,7 +540,10 @@
         })
         if(isUploading){
             validate = false
-            errorMsg = i18n('图片正在上传中，请稍后再发布')
+            errorArr.push({
+                elem:  $('#uploadProgress'),
+                msg: i18n('图片正在上传中，请稍后再发布')
+            })
         }
 
         function checkHtmlTag (elem) {
@@ -534,7 +552,10 @@
 
             if (tagReg.test(val)) {
                 validate = false
-                errorMsg = i18n('输入框中含有HTML标签，请重新编辑后再继续')
+                errorArr.push({
+                    elem: elem,
+                    msg: i18n('输入框中含有HTML标签，请重新编辑后再继续')
+                })
                 highlightErrorElem(elem)
             }
         }
@@ -542,7 +563,13 @@
 
         if(!validate){
             //window.console.log(errorMsg)
-            $errorMsg.text(errorMsg).show()
+            if (_.some(errorArr, function (obj) {
+                    return (obj.elem.parents('#more_information').length)
+                })) {
+                $('#load_more .load_more').trigger('click')
+            }
+            errorArr[errorArr.length - 1].elem.trigger('focus')
+            $errorMsg.text(errorArr[errorArr.length - 1].msg).show()
         }
         return validate
     }
