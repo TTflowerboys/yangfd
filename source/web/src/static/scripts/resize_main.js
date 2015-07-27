@@ -1,7 +1,5 @@
 /* Created by frank on 14-9-23. */
 (function () {
-    resizeMain()
-    $(window).on('resize', resizeMain)
     function resizeMain() {
         var $main = $('#main')
         var siblingsHeight = 0
@@ -9,5 +7,9 @@
             siblingsHeight += $(dom).height()
         })
         $main.css({minHeight: $(window).height() - siblingsHeight})
+    }
+    if (!window.team.isCurrantClient()) {
+        resizeMain()
+        $(window).on('resize', resizeMain)
     }
 })()
