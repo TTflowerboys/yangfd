@@ -517,6 +517,10 @@
 		2CE2A96A1B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9681B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m */; };
 		2CE2A96B1B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9681B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m */; };
 		2CE2A96C1B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9681B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m */; };
+		2CE2A96F1B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A96E1B660B8B0089ED20 /* CUTEPostcodePlace.m */; };
+		2CE2A9701B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A96E1B660B8B0089ED20 /* CUTEPostcodePlace.m */; };
+		2CE2A9711B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A96E1B660B8B0089ED20 /* CUTEPostcodePlace.m */; };
+		2CE2A9721B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A96E1B660B8B0089ED20 /* CUTEPostcodePlace.m */; };
 		2CF2347E1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
 		2CF2347F1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
 		2CF234801B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
@@ -971,6 +975,8 @@
 		2CDC126E1B3404ED00B6D3DD /* SpectaTestTemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SpectaTestTemplate; sourceTree = "<group>"; };
 		2CE2A9671B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormCurrencyTextFieldCell.h; sourceTree = "<group>"; };
 		2CE2A9681B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormCurrencyTextFieldCell.m; sourceTree = "<group>"; };
+		2CE2A96D1B660B8B0089ED20 /* CUTEPostcodePlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPostcodePlace.h; sourceTree = "<group>"; };
+		2CE2A96E1B660B8B0089ED20 /* CUTEPostcodePlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPostcodePlace.m; sourceTree = "<group>"; };
 		2CF2347C1B54F2E500B516E6 /* CUTEKeyboardStateListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEKeyboardStateListener.h; sourceTree = "<group>"; };
 		2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEKeyboardStateListener.m; sourceTree = "<group>"; };
 		2CF234821B55198500B516E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1328,6 +1334,8 @@
 				2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */,
 				2CB86AC71B5E1C170065EE56 /* CUTENeighborhood.h */,
 				2CB86AC81B5E1C170065EE56 /* CUTENeighborhood.m */,
+				2CE2A96D1B660B8B0089ED20 /* CUTEPostcodePlace.h */,
+				2CE2A96E1B660B8B0089ED20 /* CUTEPostcodePlace.m */,
 				2C06D3A11B29465800C147DE /* CUTEModelEditingListener.h */,
 				2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */,
 				2C0C09FD1B29697F001F2583 /* CUTETicketEditingListener.h */,
@@ -2475,6 +2483,7 @@
 				2CF8A6A21AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CEA1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CF2348C1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
+				2CE2A9711B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
 				2CD15D491B62141700C870C0 /* CUTEActivity.m in Sources */,
 				2CA2E6B41AC5487800053965 /* CUTEConfiguration.m in Sources */,
 				2CF8A64C1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
@@ -2617,6 +2626,7 @@
 				2CF8A6A31AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CEB1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CF2348D1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
+				2CE2A9721B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
 				2CD15D4A1B62141700C870C0 /* CUTEActivity.m in Sources */,
 				2CA2E6CD1AC5496700053965 /* CUTEConfiguration.m in Sources */,
 				2CF8A64D1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
@@ -2759,6 +2769,7 @@
 				2CF8A6A11AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CE91B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CF2348B1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
+				2CE2A9701B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
 				2CD15D481B62141700C870C0 /* CUTEActivity.m in Sources */,
 				2CA94A9E1ACA42CD00DF7497 /* CUTEConfiguration.m in Sources */,
 				2CF8A64B1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,
@@ -2901,6 +2912,7 @@
 				2CF8A6A01AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CE81B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CF2348A1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
+				2CE2A96F1B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
 				2CD15D471B62141700C870C0 /* CUTEActivity.m in Sources */,
 				2CDBB2FD1AC1472E0024E225 /* CUTEConfiguration.m in Sources */,
 				2CF8A64A1AF0B40E0080DF10 /* CUTEMapTextField.m in Sources */,

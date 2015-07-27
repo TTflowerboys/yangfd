@@ -748,6 +748,7 @@
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
+    [[RNCache sharedInstance] clearCache];
     [[CUTEDataManager sharedInstance] clearAllRentTickets];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 }

@@ -54,7 +54,7 @@ PODS:
     - GoogleNetworkingUtilities (~> 1.0)
     - GoogleSymbolUtilities (~> 1.0)
     - GoogleUtilities (~> 1.0)
-  - GoogleAnalytics (3.12.0)
+  - GoogleAnalytics (3.13.0)
   - GoogleNetworkingUtilities (1.0.0):
     - GoogleSymbolUtilities (~> 1.0)
   - GoogleSymbolUtilities (1.0.0)
@@ -134,7 +134,7 @@ PODS:
   - SDWebImage/Core (3.7.3)
   - Sequencer (1.0.1)
   - SMCalloutView (2.1.2)
-  - Specta (1.0.2)
+  - Specta (1.0.3)
   - SVProgressHUD (1.1.3)
   - TTTAttributedLabel (1.13.3)
   - UIActionSheet+Blocks (0.8.1)
@@ -202,7 +202,7 @@ CHECKOUT OPTIONS:
     :commit: f5f295b562ceb5097e2a224bf4332f39c2e2779f
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
   RNCachingURLProtocol+HybirdApp:
-    :commit: 9984b6c9687fba83bbd370307d118ac23405b281
+    :commit: 78b7eb3443672561225db16fd0ba4331dcc1eee6
     :git: https://github.com/Fykec/RNCachingURLProtocol.git
   WeiboSDK:
     :git: https://github.com/sinaweibosdk/weibo_ios_sdk
@@ -223,7 +223,7 @@ SPEC CHECKSUMS:
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   FXForms: b6a78bac9f6b597ce704e34ac7c1ce9ff628b1d5
   Google: 875f5a8ade86dd02e36586e4a54814843938c7f6
-  GoogleAnalytics: ef2e0b800ef3c1e62688cdfc959e0d3132bc246c
+  GoogleAnalytics: fcf1f1cad57ae1a9a53520018f0f680ceeeb8b49
   GoogleNetworkingUtilities: 292992ab31b7b4ba32809a0e8b40e324cdfb2c0c
   GoogleSymbolUtilities: a7b0feed1fe667c8d5e647177938d0ecd62d6948
   GoogleUtilities: e3475cd4d45134221d2f3f3626095a1c49b62041
@@ -250,7 +250,7 @@ SPEC CHECKSUMS:
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   Sequencer: 53040fea35ecde55ba9cdb3a505a00cfb0e797b2
   SMCalloutView: 4078d89b847731e514b1a919fed33b383a24a106
-  Specta: 9cec98310dca411f7c7ffd6943552b501622abfe
+  Specta: cf3e4188cf35375c3ee2cd03f8db8f1f4ef98234
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TTTAttributedLabel: 6f3174aef8e738f44dff97c2eb7d8184f6ab6277
   UIActionSheet+Blocks: 7fdab45fc8f15ac2dc1cd65af1470746600b5f46
