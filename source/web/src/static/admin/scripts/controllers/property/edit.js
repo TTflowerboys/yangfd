@@ -213,6 +213,7 @@
                 editTargetItem.country = editTargetItem.country.code
             }
             if (!_.isEmpty(editTargetItem.city)) {
+                editTargetItem.cityName = editTargetItem.city.name
                 editTargetItem.city = editTargetItem.city.id
             }
             $scope.targetItem = editTargetItem

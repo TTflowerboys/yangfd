@@ -54,7 +54,7 @@
                             <label class="control-label" ui-draggable="true" drag="'city'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">{%$root.i18n('城市')%}</label>
 
                             <div class="controls">
-                                <div select-city-by-country country="item.country" ng-model="item.city"></div>
+                                <div select-city-by-country country="item.country" ng-model="item.city" city-name="item.cityName"></div>
 
                             </div>
                         </div>

@@ -9,9 +9,10 @@ angular.module('app')
             scope: {
                 selectedCityId: '=ngModel',
                 enumOption: '@text',
-                country: '=country'
+                country: '=country',
+                cityName: '=?cityName'
             },
-            link: function (scope) {
+            link: function (scope, elem) {
                 scope.$watch('country', function (newValue) {
                     if (_.isEmpty(newValue)) {
                         scope.cityList = []
@@ -28,7 +29,9 @@ angular.module('app')
                             scope.cityList = data.val
                         })
                 })
-
+                $(elem).change(function () {
+                    scope.cityName = elem.find('option:selected').text()
+                })
             }
         }
     })
