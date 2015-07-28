@@ -150,10 +150,10 @@
                                 <select id="country-select" data-model="country" class="select-chosen" data-placeholder="{{_('请选择国家')}}">
                                     <!--<option value="">' + i18n('请选择国家') + '</option>-->
                                 </select>
-                                <select id="city-select" data-model="city" class="select-chosen" data-placeholder="{{_('请选择城市')}}">
+                                <select id="city-select" data-model="city" class="select-chosen" data-placeholder="{{_('请选择城市')}}" data-trigger="updateTitle">
                                     <!--<option value="">{{_('请选择城市')}}</option>-->
                                 </select>
-                                <select id="neighborhood-select" data-model="neighborhood" class="select-chosen" data-placeholder="{{_('请选择街区')}}" style="display: none;"></select>
+                                <select id="neighborhood-select" data-model="neighborhood" class="select-chosen" data-placeholder="{{_('请选择街区')}}" style="display: none;" data-trigger="updateTitle"></select>
                                 <!--<input placeholder="{{_('街区')}}" id="region" name="region" data-name="{{_('街区')}}" value="" data-trigger="updateTitle">-->
                                 <input placeholder="{{_('街道（选填）')}}" id="street" name="street" data-name="{{_('街道')}}" value="{{rent.get('property',{}).get('street','')}}" data-trigger="updateTitle">
                                 <input placeholder="{{_('小区（选填）')}}" id="community" value="{{rent.get('property',{}).get('community','')}}" data-trigger="updateTitle">
@@ -454,7 +454,7 @@
                             </div>
                         </td>
                         <td class="content">
-                            <input class="headline" id="title" value="{{rent.get('title','')}}" placeholder="{{rent.get('title','')}}" data-validator="lengthRange(8-30)" data-name="{{_('标题')}}">
+                            <input class="headline" id="title" value="{{rent.get('title','')}}" placeholder="{{rent.get('title','')}}" data-attr="placeholder" data-validator="lengthRange(8-30)" data-name="{{_('标题')}}">
                         </td>
                     </tr>
                     <tr>
