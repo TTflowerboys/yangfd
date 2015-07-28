@@ -377,7 +377,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
     NSMutableArray *activities = [NSMutableArray array];
 
-    if ([activityKeys containsObject:CUTEShareServiceWechatFriend]) {
+    if ([activityKeys containsObject:STR(CUTEShareServiceWechatFriend)]) {
         [activities addObject:[self getWechatFriendActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
             if (pressBlock) {
                 pressBlock(CUTEShareServiceWechatFriend);
@@ -385,7 +385,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
         }]];
     }
 
-    if ([activityKeys containsObject:CUTEShareServiceWechatCircle]) {
+    if ([activityKeys containsObject:STR(CUTEShareServiceWechatCircle)]) {
         [activities addObject:[self getWechatCircleActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
             if (pressBlock) {
                 pressBlock(CUTEShareServiceWechatCircle);
@@ -393,7 +393,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
         }]];
     }
 
-    if ([activityKeys containsObject:CUTEShareServiceSinaWeibo]) {
+    if ([activityKeys containsObject:STR(CUTEShareServiceSinaWeibo)]) {
         [activities addObject:[self getSinaWeiboActivityWithTitle:title description:nil url:urlString image:imageData viewController:viewController buttonPressedBlock:^{
             if (pressBlock) {
                 pressBlock(CUTEShareServiceSinaWeibo);
@@ -439,6 +439,18 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response {
 
+    if (response.responseType == UMSResponseShareToSNS || response.responseType == UMSResponseShareToMutilSNS) {
+        if (response.responseCode == UMSResponseCodeSuccess) {
+            [self.taskCompletionSource setResult:CUTEShareServiceSinaWeibo];
+        }
+        else if (response.responseCode == UMSResponseCodeCancel) {
+            [self.taskCompletionSource cancel];
+        }
+        else {
+            NSError *error = [NSError errorWithDomain:STR(@"微博分享") code:response.responseCode userInfo:@{NSLocalizedDescriptionKey: response.description}];
+            [self.taskCompletionSource setError:error];
+        }
+    }
 }
 
 #pragma mark -Base Methods
