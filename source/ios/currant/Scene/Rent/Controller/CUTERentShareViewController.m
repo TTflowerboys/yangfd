@@ -28,7 +28,7 @@
 #import "Aspects.h"
 #import "CUTEUIMacro.h"
 
-@interface CUTERentShareViewController ()
+@interface CUTERentShareViewController () 
 
 @end
 

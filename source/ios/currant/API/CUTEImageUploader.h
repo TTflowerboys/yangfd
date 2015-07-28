@@ -19,7 +19,7 @@
 
 - (BFTask *)getAssetsOrNullsFromURLArray:(NSArray *)array;
 
-- (BFTask *)getAssetOrNullFromURL:(NSString *)object;
+- (BFTask *)getAssetOrNullFromURLString:(NSString *)object;
 
 - (BFTask *)getAssetURLsOrNullsFromURLArray:(NSArray *)array;
 

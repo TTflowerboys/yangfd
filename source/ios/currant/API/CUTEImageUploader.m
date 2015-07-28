@@ -187,12 +187,12 @@
 
 - (BFTask *)getAssetsOrNullsFromURLArray:(NSArray *)array {
     return [BFTask taskForCompletionOfAllTasksWithResults:[array map:^id(NSString *object) {
-        return [self getAssetOrNullFromURL:object];
+        return [self getAssetOrNullFromURLString:object];
         }
     ]];
 }
 
-- (BFTask *)getAssetOrNullFromURL:(NSString *)object {
+- (BFTask *)getAssetOrNullFromURLString:(NSString *)object {
     NSURL *url = [NSURL URLWithString:object];
     if (![url isAssetURL]) {
         NSString *assetString = [[CUTEDataManager sharedInstance] getAssetURLStringForImageURLString:object];

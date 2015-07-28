@@ -28,6 +28,8 @@
 #import "CUTEApptentiveEvent.h"
 #import "NSArray+ObjectiveSugar.h"
 #import "CUTEActivityView.h"
+#import "CUTEDataManager.h"
+#import "NSURL+CUTE.h"
 
 
 #define THNUMBNAIL_SIZE 100
@@ -129,12 +131,22 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
 - (BFTask *)getTicketShareImage:(CUTETicket *)ticket {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    NSString *imageURL = IsNilNullOrEmpty(ticket.property.cover)? (IsArrayNilOrEmpty(ticket.property.realityImages)? nil : ticket.property.realityImages.firstObject) : ticket.property.cover;
-    if (imageURL && [NSURL URLWithString:imageURL].isAssetURL) {
+    NSString *imageURLString = IsNilNullOrEmpty(ticket.property.cover)? (IsArrayNilOrEmpty(ticket.property.realityImages)? nil : ticket.property.realityImages.firstObject) : ticket.property.cover;
 
+    NSURL *assetURL = nil;
+    if (imageURLString && [NSURL URLWithString:imageURLString].isAssetURL) {
+        assetURL = [NSURL URLWithString:imageURLString];
+    }
+    else if (imageURLString && ![NSURL URLWithString:imageURLString].isAssetURL) {
+        NSString *assetURLString = [[CUTEDataManager sharedInstance] getAssetURLStringForImageURLString:imageURLString];
+        if (assetURLString) {
+            assetURL = [NSURL URLWithString:assetURLString];
+        }
+    }
+
+    if (assetURL) {
         [SVProgressHUD showWithStatus:STR(@"获取房产中...")];
-        [[[CUTEImageUploader sharedInstance] getAssetOrNullFromURL:imageURL] continueWithBlock:^id(BFTask *task) {
-
+        [[[CUTEImageUploader sharedInstance] getAssetOrNullFromURLString:assetURL.absoluteString] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [tcs setError:task.error];
                 [SVProgressHUD showErrorWithError:task.error];
@@ -170,11 +182,10 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
         }];
 
     }
-    else if (imageURL && ![NSURL URLWithString:imageURL].isAssetURL) {
-
+    else if (imageURLString && ![NSURL URLWithString:imageURLString].isHttpOrHttpsURL) {
         [SVProgressHUD showWithStatus:STR(@"获取房产中...")];
 
-        [[[CUTEAPIManager sharedInstance] downloadImage:imageURL] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPIManager sharedInstance] downloadImage:imageURLString] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [tcs setError:task.error];
                 [SVProgressHUD showErrorWithError:task.error];
@@ -198,7 +209,6 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
             }
             return task;
         }];
-
     }
     else {
         UIImage *image = [UIImage appIcon];
@@ -377,7 +387,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
     NSMutableArray *activities = [NSMutableArray array];
 
-    if ([activityKeys containsObject:CUTEShareServiceWechatFriend]) {
+    if ([activityKeys containsObject:STR(CUTEShareServiceWechatFriend)]) {
         [activities addObject:[self getWechatFriendActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
             if (pressBlock) {
                 pressBlock(CUTEShareServiceWechatFriend);
@@ -385,7 +395,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
         }]];
     }
 
-    if ([activityKeys containsObject:CUTEShareServiceWechatCircle]) {
+    if ([activityKeys containsObject:STR(CUTEShareServiceWechatCircle)]) {
         [activities addObject:[self getWechatCircleActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
             if (pressBlock) {
                 pressBlock(CUTEShareServiceWechatCircle);
@@ -393,7 +403,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
         }]];
     }
 
-    if ([activityKeys containsObject:CUTEShareServiceSinaWeibo]) {
+    if ([activityKeys containsObject:STR(CUTEShareServiceSinaWeibo)]) {
         [activities addObject:[self getSinaWeiboActivityWithTitle:title description:nil url:urlString image:imageData viewController:viewController buttonPressedBlock:^{
             if (pressBlock) {
                 pressBlock(CUTEShareServiceSinaWeibo);
@@ -439,6 +449,18 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response {
 
+    if (response.responseType == UMSResponseShareToSNS || response.responseType == UMSResponseShareToMutilSNS) {
+        if (response.responseCode == UMSResponseCodeSuccess) {
+            [self.taskCompletionSource setResult:CUTEShareServiceSinaWeibo];
+        }
+        else if (response.responseCode == UMSResponseCodeCancel) {
+            [self.taskCompletionSource cancel];
+        }
+        else {
+            NSError *error = [NSError errorWithDomain:STR(@"微博分享") code:response.responseCode userInfo:@{NSLocalizedDescriptionKey: response.description}];
+            [self.taskCompletionSource setError:error];
+        }
+    }
 }
 
 #pragma mark -Base Methods
