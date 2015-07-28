@@ -19,17 +19,11 @@
 @implementation CUTETicketForm
 
 
-//TODO Fix the cannot listen error
 - (BFTask *)syncTicketWithUpdateInfo:(NSDictionary *)updateInfo {
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
     
     [updateInfo each:^(id key, id value) {
-        if ([key hasPrefix:@"property."]) {
-            [self.ticket.property setValue:value forKey:[key substringFromIndex:@"property.".length]];
-        }
-        else {
-            [self.ticket setValue:value forKeyPath:key];
-        }
+        [self.ticket setValue:value forKeyPath:key];
     }];
 
     [ticketListener stopListenMark];
