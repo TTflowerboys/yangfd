@@ -87,12 +87,22 @@
         return self.title;
     }
     NSMutableString *altTitle = [NSMutableString string];
-    [self appendPart:self.property.community?: (!IsNilOrNull(self.property.street) && [self.property.street isKindOfClass:[NSString class]]? self.property.street: @"") forString:altTitle];
+    if (!IsNilNullOrEmpty(self.property.community)) {
+        [self appendPart:self.property.community forString:altTitle];
+    }
+    else if (!IsArrayNilOrEmpty(self.property.neighborhoods) && [[self.property.neighborhoods firstObject] isKindOfClass:[CUTENeighborhood class]]) {
+        CUTENeighborhood *neighborhood = [self.property.neighborhoods firstObject];
+        [self appendPart:neighborhood.name forString:altTitle];
+    }
+    else if (!IsNilNullOrEmpty(self.property.street)) {
+        [self appendPart:self.property.street forString:altTitle];
+    }
+
     [self appendPart:(self.property && self.property.bedroomCount)? [NSString stringWithFormat:@"%d居室", self.property.bedroomCount.intValue]: nil forString:altTitle];
     [self appendPart:self.rentType.value? [NSString stringWithFormat:@"%@出租", self.rentType.value]: nil forString:altTitle];
 
     if (altTitle.length > kTicketTitleMaxCharacterCount) {
-        return [NSString stringWithFormat:@"%@出租", self.rentType.value];
+        return [NSString stringWithFormat:@"%d居室%@出租", self.property.bedroomCount.intValue, self.rentType.value];
     }
     else if (altTitle.length == 0) {
         return nil;
