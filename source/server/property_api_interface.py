@@ -73,9 +73,6 @@ def property_search(user, params):
     if "intention" in params:
         params["intention"] = {"$in": params.pop("intention", [])}
 
-    if "maponics_neighborhood" in params:
-        params["maponics_neighborhood"] = {"$in": params["maponics_neighborhood"]}
-
     params["$and"] = []
     non_project_params = {"$and": []}
     main_house_types_elem_params = {"$and": []}
@@ -120,6 +117,12 @@ def property_search(user, params):
             main_house_types_elem_price_filter.append(house_condition)
         non_project_params["$and"].append({"$or": non_project_price_filter})
         main_house_types_elem_params["$and"].append({"$or": main_house_types_elem_price_filter})
+
+    if "maponics_neighborhood" in params:
+        params["$and"].append({"$or": [
+            {"maponics_neighborhood": params["maponics_neighborhood"]},
+            {"maponics_parent_neighborhood": params["maponics_neighborhood"]},
+        ]})
 
     if "name" in params:
         name = params.pop("name")
@@ -259,6 +262,12 @@ def property_search_with_plot(user, params):
         params["intention"] = {"$in": params.pop("intention", [])}
 
     params["$and"] = []
+
+    if "maponics_neighborhood" in params:
+        params["$and"].append({"$or": [
+            {"maponics_neighborhood": params["maponics_neighborhood"]},
+            {"maponics_parent_neighborhood": params["maponics_neighborhood"]},
+        ]})
 
     if "name" in params:
         name = params.pop("name")
@@ -536,6 +545,16 @@ def property_edit(property_id, user, params):
 
     if "status" in params:
         assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed", "selling", "hidden", "sold out", "deleted", "restricted"), abort(40000, "Invalid status")
+
+    if "maponics_neighborhood" in params:
+        neighborhood = f_app.maponics.neighborhood.get(params["maponics_neighborhood"]["_id"])
+        if neighborhood and "parentnid" in neighborhood and neighborhood["parentnid"]:
+            params["maponics_parent_neighborhood"] = {
+                "_maponics_neighborhood": True,
+                "_id": f_app.maponics.neighborhood.get(f_app.maponics.neighborhood.get_by_nid(neighborhood["parentnid"]))[0]["_id"],
+            }
+        else:
+            params["maponics_parent_neighborhood"] = None
 
     if "zipcode" in params and "report_id" not in params:
         report_id = None

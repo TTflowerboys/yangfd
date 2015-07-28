@@ -1113,6 +1113,7 @@ def rent_ticket_contact_info(user, ticket_id):
     intention=(list, None, "enum:intention"),
     country='country',
     city='geonames_gazetteer:city',
+    maponics_neighborhood="maponics_neighborhood",
     location_only=bool,
     latitude=float,
     longitude=float,
@@ -1263,6 +1264,13 @@ def rent_ticket_search(user, params):
             building_area_filter.append(house_condition)
         non_project_params["$and"].append({"$or": space_filter})
         main_house_types_elem_params["$and"].append({"$or": building_area_filter})
+
+    if "maponics_neighborhood" in params:
+        property_params["$and"].append({"$or": [
+            {"maponics_neighborhood": params["maponics_neighborhood"]},
+            {"maponics_parent_neighborhood": params["maponics_neighborhood"]},
+        ]})
+        params.pop("maponics_neighborhood")
 
     if "space" in params:
         space_filter = []
