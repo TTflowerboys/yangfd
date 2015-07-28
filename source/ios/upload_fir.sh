@@ -7,6 +7,7 @@
 #
 
 if which fir >/dev/null; then
+	echo "Start :)"
 else
     echo "Please install fir-cli sudo gem install fir-cli --no-ri --no-rdoc"
 fi
