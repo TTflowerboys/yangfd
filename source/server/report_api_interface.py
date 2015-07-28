@@ -279,6 +279,9 @@ def maponics_neighborhood_search(params):
     neighborhoods = f_app.maponics.neighborhood.get(f_app.maponics.neighborhood.search(params, per_page=-1))
     for neighborhood in neighborhoods:
         neighborhood.pop("wkt")
+        if "parentnid" in neighborhood and neighborhood["parentnid"]:
+            neighborhood["parent"] = f_app.maponics.neighborhood.get(f_app.maponics.neighborhood.get_by_nid(neighborhood["parentnid"]))
+            neighborhood["parent"].pop("wkt")
     return neighborhoods
 
 
