@@ -65,7 +65,7 @@
         border-radius: 0 0 4px 4px;
         @media @phone {
             -webkit-overflow-scrolling: touch;
-            position: absolute;
+            position: fixed;
             z-index: 100;
             left: 0;
             right: 0;
@@ -129,6 +129,7 @@
         .chosen-results{
             color: #999;
             @media @phone{
+                -webkit-overflow-scrolling: touch;
                 max-height: calc(~'100% - 120px');
                 li{
                     padding: 10px 10px;
