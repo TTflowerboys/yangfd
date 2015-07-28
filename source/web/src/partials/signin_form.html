@@ -4,7 +4,9 @@
         <!-- @@include=phone_row.html -->
         <hr>
         <div class="form_row">
-            <img src="/static/images/signin/lock.png" alt=""/>
+            <span class="iconWrap">
+                <img src="/static/images/signin/lock.png" alt="">
+            </span>
             <input name="password" type="password" placeholder={{_('密码')}} size=10 data-validator="required, trim">
             <a id="forgotPassword" href="#" onclick="project.goToResetPassword()"
                 style="position:absolute; right:0;font-size:12px; color:#aaa;">{{_('忘记密码')}}</a>
