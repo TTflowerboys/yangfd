@@ -16,6 +16,7 @@ body{
     background: url("/static/images/wechat_poster/property_digest_bg.jpg") no-repeat 0 0;
     color: #fff;
     font-weight: lighter;
+    background-size: 1000px 100%;
     header{
         margin: 30px 0;
         p {
@@ -63,6 +64,36 @@ body{
     main{
         padding: 0 10px;
         text-align: center;
+        .qa{
+            padding: 25px;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+            text-align: left;
+            ul{
+                padding-top: 20px;
+                li{
+                    h3{
+                        i{
+                            margin-right: 12px;
+                            vertical-align: middle;
+                        }
+                        span{
+                            display: inline-block;
+                            vertical-align: middle;
+                        }
+                        margin-bottom: 24px;
+                        font-size: 28px;
+                        color: @green;
+                    }
+                    p{
+                        margin: 0 0 60px;
+                        padding-left: 42px;
+                        font-size: 18px;
+                        line-height: 1.4em;
+                        font-weight: lighter;
+                    }
+                }
+            }
+        }
         section{
             @width: 460px;
             @height: 770px;
