@@ -11,7 +11,13 @@
             },
             getById:function(id){
                 return $http.get('/api/1/geonames/'+id)
+            },
+            getNeighborhood: function (config) {
+                config = config || {}
+                config.params = config.params || {}
+                return $http.get('/api/1/maponics_neighborhood/search', config)
             }
+
 
         }
     }
