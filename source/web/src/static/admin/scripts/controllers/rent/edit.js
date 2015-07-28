@@ -33,6 +33,9 @@
                 })
                 editItem.rent = temp
             }
+            if (editItem.property && !_.isEmpty(editItem.property.city)) {
+                editItem.property.cityName = editItem.property.city.name
+            }
             editItem = misc.cleanI18nEmptyUnit(editItem)
             $scope.itemOrigin = editItem
             $scope.item = angular.copy($scope.itemOrigin)

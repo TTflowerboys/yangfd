@@ -164,6 +164,7 @@
                 editItem.country = editItem.country.code
             }
             if (!_.isEmpty(editItem.city)) {
+                editItem.cityName = editItem.city.name
                 editItem.city = editItem.city.id
             }
             editItem.unset_fields = []

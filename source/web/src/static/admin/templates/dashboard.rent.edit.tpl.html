@@ -10,7 +10,7 @@
     <form class="form-horizontal login" method="post" autocomplete="on" ng-class="{submitted:submitted}"
         ng-submit="submit($event,createRent)" name="createRent" novalidate>
         <div class="row">
-            <div class="form-group col-sm-3">
+            <div class="form-group col-sm-3" ng-if="item.property.cityName.toLowerCase() === 'london'">
                 <label class="control-label">{%$root.i18n('街区')%}</label>
                 <div class="controls">
                     <div select-neighborhood-by-city city="item.property.city" ng-model="item.property.maponics_neighborhood"></div>

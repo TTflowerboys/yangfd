@@ -9,7 +9,6 @@ angular.module('app')
                 city: '=city'
             },
             link: function (scope) {
-                console.log(scope.selectedNeighborhood)
                 scope.$watch('city', function (newValue) {
                     if (_.isEmpty(newValue)) {
                         scope.neighborhoodList = []
