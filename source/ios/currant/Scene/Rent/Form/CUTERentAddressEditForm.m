@@ -142,6 +142,26 @@
         }
     }];
 
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[[CUTEEnumManager sharedInstance] getNeighborhoodByCity:form.city] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [tcs setError:task.error];
+            }
+            else if (task.exception) {
+                [tcs setException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [tcs cancel];
+            }
+            else {
+                [form setAllNeighborhoods:task.result];
+                form.neighborhood = IsArrayNilOrEmpty(ticket.property.neighborhoods)? nil: [ticket.property.neighborhoods firstObject];
+                completion(task.result);
+            }
+            return task;
+        }];
+    }];
+
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         form.street = ticket.property.street;

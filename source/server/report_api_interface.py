@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
     name=("i18n", None, str),
     country='country',
     city='geonames_gazetteer:city',
-    maponics_neighborhood=(list, None, "maponics_neighborhood"),
+    maponics_neighborhood="maponics_neighborhood",
     zipcode_index=str,
     ward=str,
     district=str,
@@ -103,7 +103,7 @@ def report_get(report_id):
 @f_api('/report/<report_id>/edit', params=dict(
     name=("i18n", None, str),
     zipcode_index=str,
-    maponics_neighborhood=(list, None, "maponics_neighborhood"),
+    maponics_neighborhood="maponics_neighborhood",
     ward=str,
     district=str,
     country='country',

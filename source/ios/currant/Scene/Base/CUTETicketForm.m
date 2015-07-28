@@ -18,6 +18,7 @@
 
 @implementation CUTETicketForm
 
+
 - (BFTask *)syncTicketWithUpdateInfo:(NSDictionary *)updateInfo {
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
     

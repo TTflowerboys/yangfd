@@ -121,7 +121,7 @@
     if (needUpdate) {
         [[[CUTEEnumManager sharedInstance] getNeighborhoodByCity:_lastCity] continueWithBlock:^id(BFTask *task) {
 
-            [(CUTERentAddressEditForm *)self.formController.form setNeighborhood:nil];
+            [(CUTERentAddressEditForm *)self.formController.form setNeighborhood:IsArrayNilOrEmpty(self.form.ticket.property.neighborhoods)? nil: [self.form.ticket.property.neighborhoods firstObject]];
             [(CUTERentAddressEditForm *)self.formController.form setAllNeighborhoods:task.result];
             [self.formController updateSections];
             [tcs setResult:@(needUpdate)];
