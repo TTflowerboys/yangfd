@@ -529,6 +529,22 @@
 		2CE2A97C1B68A3E90089ED20 /* CUTERentPeriodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A97A1B68A3E90089ED20 /* CUTERentPeriodViewController.m */; };
 		2CE2A97D1B68A3E90089ED20 /* CUTERentPeriodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A97A1B68A3E90089ED20 /* CUTERentPeriodViewController.m */; };
 		2CE2A97E1B68A3E90089ED20 /* CUTERentPeriodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A97A1B68A3E90089ED20 /* CUTERentPeriodViewController.m */; };
+		2CE2A9811B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9801B68E1680089ED20 /* CUTERentConfirmPhoneForm.m */; };
+		2CE2A9821B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9801B68E1680089ED20 /* CUTERentConfirmPhoneForm.m */; };
+		2CE2A9831B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9801B68E1680089ED20 /* CUTERentConfirmPhoneForm.m */; };
+		2CE2A9841B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9801B68E1680089ED20 /* CUTERentConfirmPhoneForm.m */; };
+		2CE2A9871B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9861B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m */; };
+		2CE2A9881B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9861B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m */; };
+		2CE2A9891B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9861B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m */; };
+		2CE2A98A1B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9861B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m */; };
+		2CE2A98D1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A98C1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m */; };
+		2CE2A98E1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A98C1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m */; };
+		2CE2A98F1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A98C1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m */; };
+		2CE2A9901B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A98C1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m */; };
+		2CE2A9931B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9921B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m */; };
+		2CE2A9941B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9921B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m */; };
+		2CE2A9951B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9921B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m */; };
+		2CE2A9961B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9921B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m */; };
 		2CF2347E1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
 		2CF2347F1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
 		2CF234801B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
@@ -989,6 +1005,14 @@
 		2CE2A9741B68A32E0089ED20 /* CUTERentPeriodForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriodForm.m; sourceTree = "<group>"; };
 		2CE2A9791B68A3E90089ED20 /* CUTERentPeriodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriodViewController.h; sourceTree = "<group>"; };
 		2CE2A97A1B68A3E90089ED20 /* CUTERentPeriodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriodViewController.m; sourceTree = "<group>"; };
+		2CE2A97F1B68E1680089ED20 /* CUTERentConfirmPhoneForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentConfirmPhoneForm.h; sourceTree = "<group>"; };
+		2CE2A9801B68E1680089ED20 /* CUTERentConfirmPhoneForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentConfirmPhoneForm.m; sourceTree = "<group>"; };
+		2CE2A9851B68E17E0089ED20 /* CUTERentVerifyPhoneForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentVerifyPhoneForm.h; sourceTree = "<group>"; };
+		2CE2A9861B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentVerifyPhoneForm.m; sourceTree = "<group>"; };
+		2CE2A98B1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentConfirmPhoneViewController.h; sourceTree = "<group>"; };
+		2CE2A98C1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentConfirmPhoneViewController.m; sourceTree = "<group>"; };
+		2CE2A9911B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentVerifyPhoneViewController.h; sourceTree = "<group>"; };
+		2CE2A9921B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentVerifyPhoneViewController.m; sourceTree = "<group>"; };
 		2CF2347C1B54F2E500B516E6 /* CUTEKeyboardStateListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEKeyboardStateListener.h; sourceTree = "<group>"; };
 		2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEKeyboardStateListener.m; sourceTree = "<group>"; };
 		2CF234821B55198500B516E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1227,6 +1251,10 @@
 				2C056D481B423AB20075037A /* CUTERentLoginViewController.m */,
 				2C056D491B423AB20075037A /* CUTERentPasswordViewController.h */,
 				2C056D4A1B423AB20075037A /* CUTERentPasswordViewController.m */,
+				2CE2A98B1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.h */,
+				2CE2A98C1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m */,
+				2CE2A9911B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.h */,
+				2CE2A9921B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1246,6 +1274,10 @@
 				2C056D701B423ABD0075037A /* CUTERentLoginForm.m */,
 				2C056D711B423ABD0075037A /* CUTERentPasswordForm.h */,
 				2C056D721B423ABD0075037A /* CUTERentPasswordForm.m */,
+				2CE2A97F1B68E1680089ED20 /* CUTERentConfirmPhoneForm.h */,
+				2CE2A9801B68E1680089ED20 /* CUTERentConfirmPhoneForm.m */,
+				2CE2A9851B68E17E0089ED20 /* CUTERentVerifyPhoneForm.h */,
+				2CE2A9861B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m */,
 			);
 			path = Form;
 			sourceTree = "<group>";
@@ -2406,9 +2438,11 @@
 				2CF8A61F1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
 				2CCE68041B1C3AA300351DED /* CUTERentMapListViewController.m in Sources */,
 				2CF8A6291AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
+				2CE2A9951B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m in Sources */,
 				2CF8A6981AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FAA1B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C0C0A011B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
+				2CE2A9831B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */,
 				2C2FCDBF1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6421AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6061AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
@@ -2486,6 +2520,7 @@
 				2CA2E6B21AC5487800053965 /* CUTEDataManager.m in Sources */,
 				2CF8A61A1AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2621B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
+				2CE2A9891B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */,
 				2C0AE1171B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */,
 				2CF8A5F71AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6841AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
@@ -2533,6 +2568,7 @@
 				2CF8A6241AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
 				2C056D811B423ABD0075037A /* CUTERentContactForm.m in Sources */,
 				2CE2A96B1B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m in Sources */,
+				2CE2A98F1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C1251941B53909A0037F5B6 /* CUTECredit.m in Sources */,
 				2CC3A0931AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D531B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
@@ -2551,9 +2587,11 @@
 				2CF8A6201AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
 				2CCE68051B1C3AA300351DED /* CUTERentMapListViewController.m in Sources */,
 				2CF8A62A1AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
+				2CE2A9961B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m in Sources */,
 				2CF8A6991AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FAB1B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C0C0A021B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
+				2CE2A9841B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */,
 				2C2FCDC01AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6431AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6071AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
@@ -2631,6 +2669,7 @@
 				2CA2E6CB1AC5496700053965 /* CUTEDataManager.m in Sources */,
 				2CF8A61B1AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2631B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
+				2CE2A98A1B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */,
 				2C0AE1181B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */,
 				2CF8A5F81AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6851AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
@@ -2678,6 +2717,7 @@
 				2CF8A6251AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
 				2C056D821B423ABD0075037A /* CUTERentContactForm.m in Sources */,
 				2CE2A96C1B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m in Sources */,
+				2CE2A9901B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C1251951B53909A0037F5B6 /* CUTECredit.m in Sources */,
 				2CC3A0941AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D541B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
@@ -2696,9 +2736,11 @@
 				2CF8A61E1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
 				2CCE68031B1C3AA300351DED /* CUTERentMapListViewController.m in Sources */,
 				2CF8A6281AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
+				2CE2A9941B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m in Sources */,
 				2CF8A6971AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FA91B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C0C0A001B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
+				2CE2A9821B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */,
 				2C2FCDBE1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6411AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6051AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
@@ -2776,6 +2818,7 @@
 				2CA94A9C1ACA42CD00DF7497 /* CUTEDataManager.m in Sources */,
 				2CF8A6191AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2611B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
+				2CE2A9881B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */,
 				2C0AE1161B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */,
 				2CF8A5F61AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6831AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
@@ -2823,6 +2866,7 @@
 				2CF8A6231AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
 				2C056D801B423ABD0075037A /* CUTERentContactForm.m in Sources */,
 				2CE2A96A1B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m in Sources */,
+				2CE2A98E1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C1251931B53909A0037F5B6 /* CUTECredit.m in Sources */,
 				2CC3A0921AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D521B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
@@ -2841,9 +2885,11 @@
 				2CF8A61D1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
 				2CCE68021B1C3AA300351DED /* CUTERentMapListViewController.m in Sources */,
 				2CF8A6271AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
+				2CE2A9931B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m in Sources */,
 				2CF8A6961AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FA81B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C0C09FF1B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
+				2CE2A9811B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */,
 				2C2FCDBD1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2CF8A6401AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6041AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
@@ -2921,6 +2967,7 @@
 				2CDBB2FA1AC146790024E225 /* CUTEDataManager.m in Sources */,
 				2CF8A6181AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2601B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
+				2CE2A9871B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */,
 				2C0AE1151B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */,
 				2CF8A5F51AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6821AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
@@ -2968,6 +3015,7 @@
 				2CF8A6221AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
 				2C056D7F1B423ABD0075037A /* CUTERentContactForm.m in Sources */,
 				2CE2A9691B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m in Sources */,
+				2CE2A98D1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C1251921B53909A0037F5B6 /* CUTECredit.m in Sources */,
 				2CC3A0911AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D511B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
