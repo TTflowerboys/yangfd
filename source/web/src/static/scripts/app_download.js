@@ -56,5 +56,4 @@
     }
 
     window.team.initDisplayOfElement()
-    $(window).resize(window.team.initDisplayOfElement)
 })(window.Swiper)
