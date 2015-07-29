@@ -321,6 +321,12 @@ class currant_mongo_upgrade(f_mongo_upgrade):
 
             ticket_database.update({"_id": ticket["_id"]}, {"$unset": {"deposit_type": True}})
 
+    def v16(self, m):
+        feedback_database = f_app.feedback.get_database(m)
+        for feedback in feedback_database.find({"tag": {"$exists": False}}):
+            self.logger.debug("Setting default tag for feedback", str(feedback["_id"]))
+            feedback_database.update({"_id": feedback["_id"]}, {"$set": {"tag": ["invitation"]}})
+
 currant_mongo_upgrade()
 
 

@@ -12,18 +12,20 @@ logger = logging.getLogger(__name__)
 @f_api('/subscription/add', params=dict(
     email=(str, True),
     locales=(list, None, str),
-    tag=(list, None, str),
+    tag=(list, ["invitation"], str),
 ))
 def subscription_add(params):
-    target_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales", "admin", "operation"]}}))
-    for target in target_list:
-        if "email" in target:
-            f_app.email.schedule(
-                target=target["email"],
-                subject=f_app.util.get_format_email_subject(template("static/emails/new_invitation_title")),
-                text=template("static/emails/new_invitation", params=params),
-                display="html",
-            )
+    if "invitation" in params:
+        target_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales", "admin", "operation"]}}))
+        for target in target_list:
+            if "email" in target:
+                f_app.email.schedule(
+                    target=target["email"],
+                    subject=f_app.util.get_format_email_subject(template("static/emails/new_invitation_title")),
+                    text=template("static/emails/new_invitation", params=params),
+                    display="html",
+                )
+
     return f_app.feedback.add(params)
 
 
