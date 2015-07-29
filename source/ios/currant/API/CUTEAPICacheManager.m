@@ -147,29 +147,30 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
 - (BFTask *)getNeighborhoodByCityIgnoringCache:(CUTECity *)city {
 
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    if ([city.country isEqualToString:@"GB"] && [city.name isEqualToString:@"London"]) {
-        [[[CUTEAPIManager sharedInstance] GET:@"/api/1/maponics_neighborhood/search" parameters:nil resultClass:[CUTENeighborhood class]] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [tcs setError:task.error];
-            }
-            else if (task.exception) {
-                [tcs setException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [tcs cancel];
-            }
-            else {
+
+    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/maponics_neighborhood/search" parameters:@{@"city": city.identifier} resultClass:[CUTENeighborhood class]] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            [tcs setError:task.error];
+        }
+        else if (task.exception) {
+            [tcs setException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [tcs cancel];
+        }
+        else {
+            if (!IsArrayNilOrEmpty(task.result)) {
                 NSArray *neighborhoods = task.result;
                 neighborhoods = [neighborhoods sortBy:@"fieldDescription"];
                 [_cache setObject:neighborhoods forKey:CONCAT(CUTEAPICacheNeighborhoodKeyPrefix, city.identifier)];
                 [tcs setResult:neighborhoods];
             }
-            return task;
-        }];
-    }
-    else {
-        [tcs setResult:nil];
-    }
+            else {
+                [tcs setResult:task.result];
+            }
+        }
+        return task;
+    }];
 
     return tcs.task;
 }

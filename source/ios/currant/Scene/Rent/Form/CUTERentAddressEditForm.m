@@ -143,23 +143,28 @@
     }];
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEAPICacheManager sharedInstance] getNeighborhoodByCity:form.city] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [tcs setError:task.error];
-            }
-            else if (task.exception) {
-                [tcs setException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [tcs cancel];
-            }
-            else {
-                [form setAllNeighborhoods:task.result];
-                form.neighborhood = ticket.property.neighborhood;
-                completion(task.result);
-            }
-            return task;
-        }];
+        if (form.city) {
+            [[[CUTEAPICacheManager sharedInstance] getNeighborhoodByCity:form.city] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    [tcs setError:task.error];
+                }
+                else if (task.exception) {
+                    [tcs setException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [tcs cancel];
+                }
+                else {
+                    [form setAllNeighborhoods:task.result];
+                    form.neighborhood = ticket.property.neighborhood;
+                    completion(task.result);
+                }
+                return task;
+            }];
+        }
+        else {
+            completion(nil);
+        }
     }];
 
 

@@ -17,13 +17,13 @@
 
 + (instancetype)sharedInstance;
 
-- (BFTask *)getEnumsByType:(NSString *)type;
+- (BFTask *)getEnumsByType:( NSString *)type;
 
 - (BFTask *)getCountriesWithCountryCode:(BOOL)showCountryCode;
 
-- (BFTask *)getCitiesByCountry:(CUTECountry *)country;
+- (BFTask *)getCitiesByCountry:( CUTECountry *)country;
 
-- (BFTask *)getNeighborhoodByCity:(CUTECity *)city;
+- (BFTask *)getNeighborhoodByCity:( CUTECity *)city;
 
 - (BFTask *)getUploadCDNDomains;
 
