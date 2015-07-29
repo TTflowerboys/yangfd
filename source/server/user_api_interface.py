@@ -459,7 +459,7 @@ def admin_user_search(user, params):
     else:
         params["role"] = {}
         if "admin" in user_roles:
-            pass
+            params.pop("role")
         elif "jr_admin" in user_roles:
             params["role"]["$nin"] = ["admin"]
         elif "sales" in user_roles:
