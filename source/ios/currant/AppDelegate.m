@@ -17,7 +17,7 @@
 #import "NSURL+CUTE.h"
 #import "CUTEUIMacro.h"
 #import "CUTECommonMacro.h"
-#import "CUTEEnumManager.h"
+#import "CUTEAPICacheManager.h"
 #import "CUTERentTypeListForm.h"
 #import <AFNetworkActivityIndicatorManager.h>
 #import "SVProgressHUD+CUTEAPI.h"
@@ -234,9 +234,7 @@
     [[RNCache sharedInstance] setHostList:[CUTEConfiguration webCacheHosts]];
     [[RNCache sharedInstance] setExceptionRules:[CUTEConfiguration webCacheExceptionRules]];
 
-
-    [[CUTEEnumManager sharedInstance] startLoadAllEnums];
-    [[CUTEEnumManager sharedInstance] getUploadCDNDomains];
+    [[CUTEAPICacheManager sharedInstance] refresh];
 
     if ([self checkShowSplashViewController]) {
 
@@ -382,7 +380,7 @@
 }
 
 - (void)pushRentTypeViewControllerInNavigationController:(UINavigationController *)viewController animated:(BOOL)animated {
-    [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
         if (task.result) {
             CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
             [form setRentTypeList:task.result];
@@ -451,7 +449,7 @@
             if (!silent) {
                 [SVProgressHUD show];
             }
-            [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
                 if (task.result) {
                     CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
                     [form setRentTypeList:task.result];
@@ -539,7 +537,7 @@
     if (ticket && viewController && [viewController isKindOfClass:[UIViewController class]] && viewController.navigationController) {
 
         [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
-            return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+            return [[CUTEAPICacheManager sharedInstance] getEnumsByType:object];
         }]] continueWithBlock:^id(BFTask *task) {
             NSArray *landloardTypes = nil;
             NSArray *propertyTypes = nil;
@@ -637,7 +635,7 @@
         }
     }
     else {
-        [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
             if (task.result) {
                 CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
                 [form setRentTypeList:task.result];

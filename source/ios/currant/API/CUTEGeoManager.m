@@ -12,7 +12,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEPlacemark.h"
 #import "CUTEConfiguration.h"
-#import "CUTEEnumManager.h"
+#import "CUTEAPICacheManager.h"
 #import "NSArray+ObjectiveSugar.h"
 #import "NSString+Encoding.h"
 #import "CUTETracker.h"
@@ -95,13 +95,13 @@
             if (result) {
                 CUTEPlacemark *placemark = [CUTEPlacemark placeMarkWithGoogleResult:result];
 
-                [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
+                [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
                     if (!IsArrayNilOrEmpty(task.result)) {
                         NSArray *coutries = [(NSArray *)task.result select:^BOOL(CUTECountry *object) {
                             return [[object code] isEqualToString:placemark.country.code];
                         }];
                         CUTECountry *country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
-                        [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
+                        [[[CUTEAPICacheManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
                             NSArray *cities = task.result;
                             if (!IsArrayNilOrEmpty(cities)) {
                                 CUTECity *city = [cities find:^BOOL(CUTECity *object) {

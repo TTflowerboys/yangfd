@@ -28,7 +28,7 @@
 #import "CUTERentTicketPreviewViewController.h"
 #import "CUTERentPasswordViewController.h"
 #import "CUTERentPasswordForm.h"
-#import "CUTEEnumManager.h"
+#import "CUTEAPICacheManager.h"
 #import "CUTEFormTextFieldCell.h"
 #import "CUTEUserDefaultKey.h"
 #import "CUTEApplyBetaRentingForm.h"
@@ -52,7 +52,7 @@
 }
 
 - (void)resetPassword {
-    [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }

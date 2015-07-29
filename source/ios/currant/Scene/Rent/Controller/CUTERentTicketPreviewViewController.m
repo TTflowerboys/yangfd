@@ -10,7 +10,7 @@
 #import "CUTENavigationUtil.h"
 #import "CUTECommonMacro.h"
 #import "CUTEDataManager.h"
-#import "CUTEEnumManager.h"
+#import "CUTEAPICacheManager.h"
 #import "CUTEAPIManager.h"
 #import "CUTENotificationKey.h"
 #import "CUTERentTicketPublisher.h"
@@ -70,7 +70,7 @@
         CUTETicket *ticket = self.ticket;
         CUTEProperty *property = ticket.property;
         [SVProgressHUD show];
-        [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }

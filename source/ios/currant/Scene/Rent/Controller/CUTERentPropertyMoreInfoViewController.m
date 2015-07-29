@@ -9,7 +9,7 @@
 #import "CUTERentPropertyMoreInfoViewController.h"
 #import "CUTERentPropertyFacilityViewController.h"
 #import "CUTEPropertyFacilityForm.h"
-#import "CUTEEnumManager.h"
+#import "CUTEAPICacheManager.h"
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTECommonMacro.h"
 #import "CUTEDataManager.h"
@@ -132,7 +132,7 @@
 
     NSArray *requiredEnums = @[@"indoor_facility", @"community_facility"];
     [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
-        return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+        return [[CUTEAPICacheManager sharedInstance] getEnumsByType:object];
     }]] continueWithSuccessBlock:^id(BFTask *task) {
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
             CUTETicket *ticket = self.form.ticket;

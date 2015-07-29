@@ -7,13 +7,13 @@
 //
 
 #import "NSString+CUTECDN.h"
-#import "CUTEEnumManager.h"
+#import "CUTEAPICacheManager.h"
 #import "CUTECommonMacro.h"
 
 @implementation NSString (CUTECDN)
 
 - (NSURL *)getUniformHostCDNURL:(NSURL *)url {
-    NSArray *uploadCDNDomains = [CUTEEnumManager sharedInstance].uploadCDNDomains;
+    NSArray *uploadCDNDomains = [CUTEAPICacheManager sharedInstance].uploadCDNDomains;
     if ([uploadCDNDomains containsObject:url.host]) {
         NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
         components.host = @"upload.yangfd.com";
@@ -23,14 +23,14 @@
 }
 
 - (BOOL)isCDNPathEqualToCDNPath:(NSString *)aCDNPath {
-    if (IsArrayNilOrEmpty([CUTEEnumManager sharedInstance].uploadCDNDomains)) {
-        [[CUTEEnumManager sharedInstance] getUploadCDNDomains];
+    if (IsArrayNilOrEmpty([CUTEAPICacheManager sharedInstance].uploadCDNDomains)) {
+        [[CUTEAPICacheManager sharedInstance] getUploadCDNDomains];
     }
     BOOL stringCompare = [self isEqualToString:aCDNPath];
     if (stringCompare) {
         return YES;
     }
-    else if (!IsArrayNilOrEmpty([CUTEEnumManager sharedInstance].uploadCDNDomains)) {
+    else if (!IsArrayNilOrEmpty([CUTEAPICacheManager sharedInstance].uploadCDNDomains)) {
         NSURL *url = [self getUniformHostCDNURL:[NSURL URLWithString:self]];
         NSURL *aUrl = [self getUniformHostCDNURL:[NSURL URLWithString:aCDNPath]];
         return [url.absoluteString isEqualToString:aUrl.absoluteString];

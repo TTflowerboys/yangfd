@@ -15,7 +15,7 @@
 #import "CUTERentAddressEditForm.h"
 #import "CUTERentAddressEditViewController.h"
 #import "CUTERentPropertyInfoViewController.h"
-#import "CUTEEnumManager.h"
+#import "CUTEAPICacheManager.h"
 #import "CUTEEnum.h"
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTEDataManager.h"
@@ -273,7 +273,7 @@
 
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
@@ -302,7 +302,7 @@
             _rentAddressEditViewController.lastCountry = form.country;
 
             CUTECountry *country = [countries objectAtIndex:countryIndex];
-            [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEAPICacheManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
                 NSArray *cities = task.result;
                 if (!IsArrayNilOrEmpty(cities)) {
                     [form setAllCities:cities];
@@ -322,7 +322,7 @@
         if (cityIndex != NSNotFound) {
             [form setCity:[cities objectAtIndex:cityIndex]];
             _rentAddressEditViewController.lastCity = form.city;
-            [[[CUTEEnumManager sharedInstance] getNeighborhoodByCity:form.city] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEAPICacheManager sharedInstance] getNeighborhoodByCity:form.city] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
@@ -466,7 +466,7 @@
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
-                return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+                return [[CUTEAPICacheManager sharedInstance] getEnumsByType:object];
             }]] continueWithBlock:^id(BFTask *task) {
                 NSArray *landloardTypes = nil;
                 NSArray *propertyTypes = nil;

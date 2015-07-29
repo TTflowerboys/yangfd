@@ -30,7 +30,7 @@
 #import "NSURL+CUTE.h"
 #import "CUTERentLoginForm.h"
 #import "CUTERentLoginViewController.h"
-#import "CUTEEnumManager.h"
+#import "CUTEAPICacheManager.h"
 #import "MasonryMake.h"
 #import "CUTETracker.h"
 #import "CUTERentTypeListViewController.h"
@@ -374,7 +374,7 @@
 
 - (void)login {
 
-    [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
