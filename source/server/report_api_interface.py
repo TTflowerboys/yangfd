@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime
+from bson.objectid import ObjectId
 from libfelix.f_common import f_app
 from libfelix.f_interface import f_api, abort, request
 
@@ -271,9 +272,12 @@ def ip_country(params, user):
 
 @f_api('/maponics_neighborhood/search', params=dict(
     country="country",
+    city='geonames_gazetteer:city',
     name=str,
 ))
 def maponics_neighborhood_search(params):
+    if "city" in params:
+        params["geonames_city_id"] = ObjectId(params.pop("city")["_id"])
     if "country" in params:
         params["country"] = params["country"]["code"]
     neighborhoods = f_app.maponics.neighborhood.get(f_app.maponics.neighborhood.search(params, per_page=-1))
