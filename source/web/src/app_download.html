@@ -60,6 +60,13 @@
                 <input name="email" type="email" placeholder="{{_('留下您的邮箱，适配您的设备后将通知您')}}"/>
                 <button id="subscribeBtn">{{_('订阅')}}</button>
             </div>
+            <div class="info clearfix" style="display: none;">
+                <div class="infoLeft">
+                    <h3>{{_('感谢您的订阅！')}}</h3>
+                    <p class="hiddenOnPCWeb">{{_('您也可以扫描下方的二维码关注公众号获取安卓应用发布信息')}}</p>
+                </div>
+                <div class="qrcode"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -74,18 +81,8 @@
             <li>{{_('/ 全程免费，让您不再为高昂的中介费而烦恼 /')}}</li>
         </ul>
 
-        <div class="emailWrap clearfix">
-            <input name="email" type="email" placeholder="{{_('输入您的邮箱地址')}}"/>
-            <button id="submitBtn">参与内测</button>
-        </div>
-        <div class="info clearfix" style="display: none;">
-            <div class="infoLeft">
-                <h3>{{_('感谢您的订阅！')}}</h3>
-                <p class="hiddenOnMobile">{{_('您也可以扫描右边的二维码关注公众号获取应用更新')}}</p>
-                <p class="hiddenOnPCWeb">{{_('您也可以扫描下方的二维码关注公众号获取应用更新')}}</p>
-            </div>
-            <div class="qrcode"></div>
-        </div>
+
+
     </div>
 
 </div>
