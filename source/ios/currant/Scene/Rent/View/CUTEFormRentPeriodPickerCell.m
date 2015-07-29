@@ -11,6 +11,7 @@
 #import "CUTERentPriceForm.h"
 #import "CUTEUIMacro.h"
 #import "BBTInputAccessoryView.h"
+#import "CUTERentPeriodForm.h"
 
 @implementation CUTEFormRentPeriodPickerCell
 
@@ -31,7 +32,7 @@
 
     self.textLabel.text = self.field.title;
 
-    CUTERentPriceForm *form = (CUTERentPriceForm *)self.field.form;
+    CUTERentPeriodForm *form = (CUTERentPeriodForm *)self.field.form;
     if (form.minimumRentPeriod) {
         self.detailTextLabel.text = [NSString stringWithFormat:@"%d%@", (int)form.minimumRentPeriod.value, form.minimumRentPeriod.unitForDisplay];
         [self.pickerView selectRow:(int)form.minimumRentPeriod.value inComponent:0 animated:NO];
@@ -103,7 +104,7 @@
 
 - (void)pickerView:(__unused UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(__unused NSInteger)component
 {
-    CUTERentPriceForm *form = (CUTERentPriceForm *)self.field.form;
+    CUTERentPeriodForm *form = (CUTERentPeriodForm *)self.field.form;
 
     NSInteger rentPeriodValue = [self.pickerView selectedRowInComponent:0];
     if (rentPeriodValue > 0) {

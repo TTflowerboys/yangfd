@@ -16,11 +16,13 @@
 #import "CUTEProperty.h"
 #import "CUTERentTypeListForm.h"
 #import "CUTETicketForm.h"
+#import "CUTERentPeriodForm.h"
 
 @interface CUTEPropertyInfoForm : CUTETicketForm
 
 @property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, strong) CUTERentPriceForm *rentPrice;
+@property (strong, nonatomic) CUTERentPeriodForm *rentPeriod;
 @property (strong, nonatomic) CUTEEnum *landlordType;
 @property (nonatomic, strong) CUTEEnum *propertyType;
 @property (nonatomic, assign) NSUInteger bedroomCount;

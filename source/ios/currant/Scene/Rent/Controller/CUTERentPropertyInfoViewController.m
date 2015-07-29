@@ -41,12 +41,10 @@
 #import "CUTETracker.h"
 #import "Sequencer.h"
 #import <NSDate-Extensions/NSDate-Utilities.h>
+#import "CUTERentPeriodViewController.h"
 
 @interface CUTERentPropertyInfoViewController () {
 
-    CUTERentAreaViewController *_editAreaViewController;
-
-    CUTERentPriceViewController *_editRentPriceViewController;
 }
 
 @end
@@ -89,6 +87,21 @@
     else if ([field.key isEqualToString:@"rentPrice"]) {
         if (self.form.ticket.price) {
             cell.detailTextLabel.text = CONCAT([CUTECurrency symbolOfCurrencyUnit:self.form.ticket.price.unit], [NSString stringWithFormat:@"%.2lf", self.form.ticket.price.value], @"/", STR(@"周"));
+        }
+    }
+    else if ([field.key isEqualToString:@"rentPeriod"]) {
+
+        if (!IsNilOrNull(self.form.ticket.rentAvailableTime)) {
+            NSDateFormatter *formatter = [NSDateFormatter new];
+            formatter.dateStyle = NSDateFormatterMediumStyle;
+            formatter.timeStyle = NSDateFormatterNoStyle;
+            cell.detailTextLabel.text = CONCAT([formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.form.ticket.rentAvailableTime.doubleValue]], STR(@"起"));
+        }
+        else if (!IsNilOrNull(self.form.ticket.rentDeadlineTime)) {
+            NSDateFormatter *formatter = [NSDateFormatter new];
+            formatter.dateStyle = NSDateFormatterMediumStyle;
+            formatter.timeStyle = NSDateFormatterNoStyle;
+            cell.detailTextLabel.text = CONCAT([formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.form.ticket.rentDeadlineTime.doubleValue]], STR(@"起"));
         }
     }
     else if ([field.key isEqualToString:@"area"]) {
@@ -164,79 +177,94 @@
 }
 
 - (void)editArea {
-    if (!_editAreaViewController) {
-        CUTERentAreaViewController *controller = [CUTERentAreaViewController new];
-        CUTEAreaForm *form = [CUTEAreaForm new];
-        form.ticket = self.form.ticket;
-        form.area = self.form.ticket.space.value;
-        controller.formController.form = form;
-        _editAreaViewController = controller;
 
-        __weak typeof(self)weakSelf = self;
-        _editAreaViewController.updateRentAreaCompletion = ^ {
-            [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
-                if ([field.key isEqualToString:@"area"]) {
-                    [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                }
-            }];
-        };
+    CUTERentAreaViewController *controller = [CUTERentAreaViewController new];
+    CUTEAreaForm *form = [CUTEAreaForm new];
+    form.ticket = self.form.ticket;
+    form.area = self.form.ticket.space.value;
+    controller.formController.form = form;
 
-    }
+    __weak typeof(self)weakSelf = self;
+    controller.updateRentAreaCompletion = ^ {
+        [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
+            if ([field.key isEqualToString:@"area"]) {
+                [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }];
+    };
 
     //in case of push twice time
-    if (self.navigationController.topViewController != _editAreaViewController) {
-        [self.navigationController pushViewController:_editAreaViewController animated:YES];
+    if (![self.navigationController.topViewController isKindOfClass:[CUTERentAreaViewController class]]) {
+        [self.navigationController pushViewController:controller animated:YES];
     }
 }
 
 - (void)editRentPrice {
 
-    if (!_editRentPriceViewController) {
-        CUTETicket *ticket = self.form.ticket;
-        if (!ticket.rentAvailableTime) {
-            ticket.rentAvailableTime = @([[NSDate date] timeIntervalSince1970]);
-        }
+    CUTETicket *ticket = self.form.ticket;
+    CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
+    CUTERentPriceForm *form = [CUTERentPriceForm new];
+    form.ticket = self.form.ticket;
+    form.currency = ticket.price.unit;
+    form.rentPrice = ticket.price.value;
+    form.deposit = ticket.deposit? @(ticket.deposit.value): nil;
+    form.billCovered = ticket.billCovered? ticket.billCovered.boolValue: NO;
+    controller.formController.form = form;
+    controller.navigationItem.title = STR(@"租金");
 
-        //              if (!ticket.rentDeadlineTime) {
-        //                  ticket.rentDeadlineTime = [[[NSDate dateWithTimeIntervalSince1970:[ticket rentAvailableTime]] dateByAddingDays:1] timeIntervalSince1970];
-        //              }
-        if (!ticket.minimumRentPeriod) {
-            ticket.minimumRentPeriod = [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
-        }
 
-        CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
-        CUTERentPriceForm *form = [CUTERentPriceForm new];
-        form.ticket = self.form.ticket;
-        form.currency = ticket.price.unit;
-        form.rentPrice = ticket.price.value;
-        form.deposit = ticket.deposit? @(ticket.deposit.value): nil;
-        form.billCovered = ticket.billCovered? ticket.billCovered.boolValue: NO;
-        form.needSetPeriod = YES;
-        form.rentAvailableTime = ticket.rentAvailableTime ?[NSDate dateWithTimeIntervalSince1970:ticket.rentAvailableTime.doubleValue]: nil;
-        form.rentDeadlineTime = ticket.rentDeadlineTime? [NSDate dateWithTimeIntervalSince1970:ticket.rentDeadlineTime.doubleValue]: nil;
-        form.minimumRentPeriod = ticket.minimumRentPeriod;
-
-        controller.formController.form = form;
-        controller.navigationItem.title = STR(@"租金");
-        _editRentPriceViewController = controller;
-
-        __weak typeof(self)weakSelf = self;
-        _editRentPriceViewController.updatePriceCompletion = ^ {
-            [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
-                if ([field.key isEqualToString:@"rentPrice"]) {
-                    [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                }
-            }];
-        };
-    }
+    __weak typeof(self)weakSelf = self;
+    controller.updatePriceCompletion = ^ {
+        [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
+            if ([field.key isEqualToString:@"rentPrice"]) {
+                [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }];
+    };
 
 
     //in case of push twice time
-    if (self.navigationController.topViewController != _editRentPriceViewController) {
-        [self.navigationController pushViewController:_editRentPriceViewController animated:YES];
+    if (![self.navigationController.topViewController isKindOfClass:[CUTERentPriceViewController class]]) {
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+}
+
+- (void)editRentPeriod {
+
+    CUTETicket *ticket = self.form.ticket;
+    if (!ticket.rentAvailableTime) {
+        ticket.rentAvailableTime = @([[NSDate date] timeIntervalSince1970]);
+    }
+    if (!ticket.minimumRentPeriod) {
+        ticket.minimumRentPeriod = [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
     }
 
+    CUTERentPeriodViewController *controller = [[CUTERentPeriodViewController alloc] init];
+    CUTERentPeriodForm *form = [CUTERentPeriodForm new];
+    form.ticket = self.form.ticket;
+    form.needSetPeriod = YES;
+    form.rentAvailableTime = ticket.rentAvailableTime ?[NSDate dateWithTimeIntervalSince1970:ticket.rentAvailableTime.doubleValue]: nil;
+    form.rentDeadlineTime = ticket.rentDeadlineTime? [NSDate dateWithTimeIntervalSince1970:ticket.rentDeadlineTime.doubleValue]: nil;
+    form.minimumRentPeriod = ticket.minimumRentPeriod;
 
+    controller.formController.form = form;
+    controller.navigationItem.title = STR(@"租期");
+
+
+    __weak typeof(self)weakSelf = self;
+
+    controller.updatePeriodCompletion = ^ {
+        [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
+            if ([field.key isEqualToString:@"rentPeriod"]) {
+                [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }];
+    };
+
+    //in case of push twice time
+    if ([self.navigationController.topViewController isKindOfClass:[CUTERentPeriodViewController class]]) {
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 - (void)editRentType {
@@ -336,7 +364,7 @@
         return NO;
     }
 
-    if (!_editRentPriceViewController && !self.form.ticket.price) {
+    if (!self.form.ticket.price) {
         [SVProgressHUD showErrorWithStatus:STR(@"请编辑租金")];
         return NO;
     }

@@ -19,10 +19,7 @@
 @property (nonatomic) NSNumber *deposit;
 
 @property (nonatomic) BOOL billCovered;
-@property (nonatomic) BOOL needSetPeriod;
-@property (strong, nonatomic) NSDate *rentAvailableTime;
-@property (strong, nonatomic) NSDate *rentDeadlineTime;
-@property (strong, nonatomic) CUTETimePeriod *minimumRentPeriod;
+
 
 - (NSString *)currencySymbol;
 

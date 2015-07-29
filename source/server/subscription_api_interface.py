@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 @f_api('/subscription/add', params=dict(
     email=(str, True),
     locales=(list, None, str),
+    tag=(list, None, str),
 ))
 def subscription_add(params):
     target_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales", "admin", "operation"]}}))
@@ -50,9 +51,12 @@ def subscription_remove(user, subscription_id):
     time=datetime,
     email=str,
     status=str,
+    tag=(list, None, str),
 ))
 @f_app.user.login.check(force=True, role=["admin", "jr_admin", "sales", "operation"])
 def subscription_search(user, params):
+    if "tag" in params:
+        params["tag"] = {"$in": params["tag"]}
     subscription_list = f_app.feedback.search(params)
     return f_app.feedback.output(subscription_list)
 
