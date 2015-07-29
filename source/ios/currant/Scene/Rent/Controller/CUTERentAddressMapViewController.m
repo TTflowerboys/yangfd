@@ -220,11 +220,13 @@
                 }
                 CUTERentAddressMapForm *form = self.form;
 
-                form.ticket.property.latitude = @(location.coordinate.latitude);
-                form.ticket.property.longitude = @(location.coordinate.longitude);
                 //check is a draft ticket not a unfinished one
                 if (!IsNilNullOrEmpty(form.ticket.identifier)) {
                     [form syncTicketWithUpdateInfo:@{@"property.latitude": @(location.coordinate.latitude), @"property.longitude": @(location.coordinate.longitude)}];
+                }
+                else {
+                    form.ticket.property.latitude = @(location.coordinate.latitude);
+                    form.ticket.property.longitude = @(location.coordinate.longitude);
                 }
 
                 [self checkNeedUpdateAddress];
@@ -520,7 +522,7 @@
         [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
             if (task.result) {
                 CUTEPlacemark *placemark = task.result;
-                NSString *street = IsArrayNilOrEmpty(property.neighborhoods)? [CUTEAddressUtil buildAddress:@[placemark.street, placemark.neighborhood]]: [CUTEAddressUtil buildAddress:@[placemark.street, [(CUTENeighborhood *)property.neighborhoods.firstObject name]]];
+                NSString *street = property.neighborhood == nil ? [CUTEAddressUtil buildAddress:@[placemark.street, placemark.neighborhood]]: [CUTEAddressUtil buildAddress:@[placemark.street, [(CUTENeighborhood *)property.neighborhood name]]];
                 [self.form syncTicketWithUpdateInfo:@{@"property.street": street,
                             @"property.zipcode": placemark.postalCode,
                             @"property.country": placemark.country,

@@ -53,7 +53,7 @@
 
 @property (readonly, nonatomic) NSString *address;
 
-@property (strong, nonatomic) NSArray *neighborhoods;
+@property (strong, nonatomic) CUTENeighborhood *neighborhood;
 
 @property (strong, nonatomic) NSString *propertyDescription;
 

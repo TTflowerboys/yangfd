@@ -7,6 +7,8 @@
 //
 
 #import "CUTENeighborhood.h"
+#import "NSValueTransformer+MTLPredefinedTransformerAdditions.h"
+#import "CUTECommonMacro.h"
 
 @implementation CUTENeighborhood
 
@@ -14,11 +16,20 @@
 {
     return @{@"identifier": @"id",
              @"name": @"name",
-             @"country": @"country"};
+             @"country": @"country",
+             @"parent": @"parent"};
 }
+
++ (NSValueTransformer *)parentJSONTransformer {
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTENeighborhood class]];
+}
+
 
 //FXForm use this to display
 - (NSString *)fieldDescription {
+    if (self.parent && !IsNilNullOrEmpty(self.parent.name) && !IsNilNullOrEmpty(self.name)) {
+        return CONCAT(self.name, @", ", self.parent.name);
+    }
     return self.name;
 }
 

@@ -175,7 +175,7 @@ sectionForSectionIndexTitle:(NSString *)title
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@", searchString];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.fieldDescription contains[c] %@", searchString];
     self.filterResults = [self.rawResults filteredArrayUsingPredicate:predicate];
 //    self.filterResults = [CUTEStringMatcher matchElementsWithString:searchString sourceElements:self.rawResults keyPath:@"name"];
     return YES;
