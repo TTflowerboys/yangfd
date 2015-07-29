@@ -235,6 +235,10 @@
             var ua = navigator.userAgent.toLowerCase()
             return /android.+chrome/.test(ua)
         },
+        isAndroid: function () {
+            var ua = navigator.userAgent.toLowerCase()
+            return /android/.test(ua)
+        },
         isIOS: function () {
             var ua = navigator.userAgent.toLowerCase()
 
@@ -255,6 +259,28 @@
                 return 'mobile'
             }
             return 'pc'
+        },
+        getClients: function () {
+            var clients = []
+            if(window.team.isWeChat()) {
+                clients.push('wechat')
+            }
+            if(window.team.isCurrantClient()) {
+                clients.push('app')
+            }
+            if(window.team.isPhone()) {
+                clients.push('mobile')
+            }
+            if(window.team.isAndroid()) {
+                clients.push('android')
+            }
+            if(window.team.isIOS()) {
+                clients.push('ios')
+            }
+            if(!clients.length) {
+                clients.push('pc')
+            }
+            return clients
         },
         /**
          * convert to https link
@@ -354,10 +380,10 @@
         initDisplayOfElement: function initDisplayOfElement () { //根据data-show-client初始化元素在不同客户端的显示或隐藏状态
             $('[data-show-client]').each(function () {
                 var $this = $(this)
-                var client = window.team.getClient()
+                var clients = window.team.getClients()
                 var showClient = $this.attr('data-show-client')
                 $this.css('display','')
-                if(showClient.split(',').indexOf(client) < 0) {
+                if(!(_.intersection(showClient.split(','), clients).length)) {
                     $this.hide()
                 }
             })

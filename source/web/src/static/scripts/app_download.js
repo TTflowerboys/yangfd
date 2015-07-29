@@ -53,4 +53,7 @@
             $(this).fadeOut(300)
         })
     }
+
+    window.team.initDisplayOfElement()
+    $(window).resize(window.team.initDisplayOfElement)
 })(window.Swiper)
