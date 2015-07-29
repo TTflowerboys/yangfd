@@ -17,7 +17,8 @@
         $scope.selected.status = {}
 
         var params = {
-            per_page: $scope.perPage
+            per_page: $scope.perPage,
+            tag:['invitation']
         }
 
         api.getAll({ params: params }).success(onGetList)

@@ -16,7 +16,11 @@
                 return
             }
             $scope.loading = true
-            api.create($scope.item.email, {
+            var data = {
+                email:$scope.item.email,
+                tag:['invitation']
+            }
+            api.create(data, {
                 successMessage: 'Invite successfully',
                 errorMessage: 'Invite failed'
             }).success(function (data) {
