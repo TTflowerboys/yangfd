@@ -31,7 +31,7 @@
              @"street": @"street",
              @"zipcode": @"zipcode",
              @"community": @"community",
-             @"neighborhoods": @"maponics_neighborhood",
+             @"neighborhood": @"maponics_neighborhood",
              @"floor": @"floor",
              @"houseName": @"house_name",
              @"latitude": @"latitude",
@@ -76,8 +76,8 @@
     return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEEnum class]];
 }
 
-+ (NSValueTransformer *)neighborhoodsJSONTransformer {
-    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTENeighborhood class]];
++ (NSValueTransformer *)neighborhoodJSONTransformer {
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTENeighborhood class]];
 }
 
 - (NSDictionary *)toI18nString:(NSString *)string {
@@ -143,10 +143,8 @@
             return object.identifier;
         }] componentsJoinedByString:@","];
     }
-    else if ([key isEqualToString:@keypath(self.neighborhoods)] && [value isKindOfClass:[NSArray class]]) {
-        return [[(NSArray *)value map:^id(CUTENeighborhood *object) {
-            return object.identifier;
-        }] componentsJoinedByString:@","];
+    else if ([key isEqualToString:@keypath(self.neighborhood)] && [value isKindOfClass:[CUTENeighborhood class]]) {
+        return [(CUTENeighborhood *)value identifier];
     }
     else if ([key isEqualToString:@keypath(self.cover)]) {
         return @{DEFAULT_I18N_LOCALE: value};
@@ -161,11 +159,22 @@
         }];
         return @{DEFAULT_I18N_LOCALE: realityImages};
     }
-    else if ([key isEqualToString:@keypath(self.latitude)] && [value isKindOfClass:[NSNumber class]]) {
+    else if ([key isEqualToString:@keypath(self.latitude)]) {
+        if ([value isKindOfClass:[NSNumber class]]) {
+            return value;
+        }
+        else if ([value isKindOfClass:[NSString class]]) {
+            return [NSNumber numberWithDouble:[(NSString *)value doubleValue]];
+        }
         return value;
     }
-    else if ([key isEqualToString:@keypath(self.longitude)] && [value isKindOfClass:[NSNumber class]]) {
-        return value;
+    else if ([key isEqualToString:@keypath(self.longitude)]) {
+        if ([value isKindOfClass:[NSNumber class]]) {
+            return value;
+        }
+        else if ([value isKindOfClass:[NSString class]]) {
+            return [NSNumber numberWithDouble:[(NSString *)value doubleValue]];
+        }
     }
     NSAssert(nil, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,key);
     return nil;

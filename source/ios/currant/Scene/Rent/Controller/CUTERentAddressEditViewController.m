@@ -121,7 +121,7 @@
     if (needUpdate) {
         [[[CUTEEnumManager sharedInstance] getNeighborhoodByCity:_lastCity] continueWithBlock:^id(BFTask *task) {
 
-            [(CUTERentAddressEditForm *)self.formController.form setNeighborhood:IsArrayNilOrEmpty(self.form.ticket.property.neighborhoods)? nil: [self.form.ticket.property.neighborhoods firstObject]];
+            [(CUTERentAddressEditForm *)self.formController.form setNeighborhood:self.form.ticket.property.neighborhood];
             [(CUTERentAddressEditForm *)self.formController.form setAllNeighborhoods:task.result];
             [self.formController updateSections];
             [tcs setResult:@(needUpdate)];
@@ -157,11 +157,11 @@
     [self.navigationController popViewControllerAnimated:YES];
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     if (self.form.neighborhood) {
-        [form syncTicketWithUpdateInfo:@{@"property.neighborhoods": @[form.neighborhood]}];
+        [form syncTicketWithUpdateInfo:@{@"property.neighborhood": form.neighborhood}];
 
     }
     else {
-        [form syncTicketWithUpdateInfo:@{@"property.neighborhoods": [NSNull null]}];
+        [form syncTicketWithUpdateInfo:@{@"property.neighborhood": [NSNull null]}];
     }
 }
 
@@ -197,11 +197,13 @@
         if (form.singleUseForReedit) {
 
 
-            form.ticket.property.latitude = nil;
-            form.ticket.property.longitude = nil;
             //check is a draft ticket not a unfinished one
             if (!IsNilNullOrEmpty(form.ticket.identifier)) {
                 [form syncTicketWithUpdateInfo:@{@"property.latitude": [NSNull null], @"property.longitude": [NSNull null]}];
+            }
+            else {
+                form.ticket.property.latitude = nil;
+                form.ticket.property.longitude = nil;
             }
 
             [SVProgressHUD dismiss];
@@ -258,20 +260,23 @@
             NSArray *places = (NSArray *)task.result;
             if (!IsArrayNilOrEmpty(places)) {
                 CUTEPostcodePlace *place = [places firstObject];
-                form.ticket.property.latitude = place.latitude;
-                form.ticket.property.longitude = place.longitude;
-                form.ticket.property.neighborhoods = place.neighborhoods;
-
                 form.neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
-                [self.tableView reloadData];
 
                 //check is a draft ticket not a unfinished one
                 if (!IsNilNullOrEmpty(form.ticket.identifier)) {
+                    //TODO check why here place's latitude parse as NSString?
                     NSMutableDictionary *updateInfo = [NSMutableDictionary dictionaryWithDictionary:@{@"property.latitude": place.latitude, @"property.longitude": place.longitude}];
                     if (place.neighborhoods) {
-                        [updateInfo setObject:place.neighborhoods forKey:@"property.neighborhoods"];
+                        [updateInfo setObject:form.neighborhood forKey:@"property.neighborhood"];
                     }
                     [form syncTicketWithUpdateInfo:updateInfo];
+                }
+                else {
+
+                    form.ticket.property.latitude = place.latitude;
+                    form.ticket.property.longitude = place.longitude;
+                    form.ticket.property.neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
+                    [self.tableView reloadData];
                 }
 
                 [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:place.latitude.doubleValue longitude:place.longitude.doubleValue]] continueWithBlock:^id(BFTask *task) {
@@ -289,7 +294,7 @@
                             CUTEPlacemark *detailPlacemark = task.result;
                             CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
                             CUTEProperty *property = form.ticket.property;
-                            NSString *street = IsArrayNilOrEmpty(property.neighborhoods)? [CUTEAddressUtil buildAddress:@[detailPlacemark.street, detailPlacemark.neighborhood]]: [CUTEAddressUtil buildAddress:@[detailPlacemark.street, [(CUTENeighborhood *)property.neighborhoods.firstObject name]]];
+                            NSString *street = property.neighborhood == nil? [CUTEAddressUtil buildAddress:@[detailPlacemark.street, detailPlacemark.neighborhood]]: [CUTEAddressUtil buildAddress:@[detailPlacemark.street, [(CUTENeighborhood *)property.neighborhood name]]];
                             form.street = street;
                             [form syncTicketWithUpdateInfo:@{@"property.street": form.street}];
                             [self.tableView reloadData];
@@ -468,7 +473,7 @@
                             [self.tableView reloadData];
                             form.ticket.property.latitude = place.latitude;
                             form.ticket.property.longitude = place.longitude;
-                            form.ticket.property.neighborhoods = place.neighborhoods;
+                            form.ticket.property.neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
                             self.lastPostcode = form.ticket.property.zipcode;
                             [SVProgressHUD dismiss];
                             [self createTicket];

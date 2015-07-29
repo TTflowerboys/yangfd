@@ -155,7 +155,7 @@
             }
             else {
                 [form setAllNeighborhoods:task.result];
-                form.neighborhood = IsArrayNilOrEmpty(ticket.property.neighborhoods)? nil: [ticket.property.neighborhoods firstObject];
+                form.neighborhood = ticket.property.neighborhood;
                 completion(task.result);
             }
             return task;
