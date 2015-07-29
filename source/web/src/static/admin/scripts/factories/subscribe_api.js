@@ -3,7 +3,7 @@
  */
 (function () {
 
-    function invitationApi($http) {
+    function subscribeApi($http) {
 
         return {
             invite: function (email, config) {
@@ -34,5 +34,5 @@
 
     }
 
-    angular.module('app').factory('invitationApi', invitationApi)
+    angular.module('app').factory('subscribeApi', subscribeApi)
 })()
