@@ -225,7 +225,7 @@
     };
 
     //in case of push twice time
-    if ([self.navigationController.topViewController isKindOfClass:[CUTERentPeriodViewController class]]) {
+    if (![self.navigationController.topViewController isKindOfClass:[CUTERentPeriodViewController class]]) {
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
