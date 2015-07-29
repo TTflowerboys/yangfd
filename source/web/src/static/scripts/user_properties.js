@@ -486,6 +486,7 @@ $(function () {
                         var host = val
                         host.private_contact_methods = host.private_contact_methods || []
                         if(host.private_contact_methods.indexOf('phone') < 0 && host.phone) {
+                            container.find('.hostPhone').addClass('show').find('span').eq(0).text('+' + host.country_code)
                             container.find('.hostPhone').addClass('show').find('span').eq(1).text(host.phone)
                             container.find('.hostPhone a').attr('href', 'tel:+' + host.country_code + host.phone)
                         } else {

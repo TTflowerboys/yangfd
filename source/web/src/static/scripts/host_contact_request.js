@@ -182,6 +182,7 @@ $(function () {
                 var host = val
                 host.private_contact_methods = host.private_contact_methods || []
                 if(host.private_contact_methods.indexOf('phone') < 0 && host.phone) {
+                    $('.hostPhone').addClass('show').find('span').eq(0).text('+' + host.country_code)
                     $('.hostPhone').addClass('show').find('span').eq(1).text(host.phone)
                     $('.hostPhone a').attr('href', 'tel:+' + host.country_code + host.phone)
                 } else {
