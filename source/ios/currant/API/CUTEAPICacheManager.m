@@ -57,21 +57,12 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
     return self;
 }
 
-- (void)clearCache {
-    [_cache clearCache];
-}
-
-- (id)getCacheObjectForKey:(NSString *)key {
-    return [_cache objectForKey:key];
-}
-
-
-- (void)setCacheObject:(id)object forKey:(NSString *)key {
-    [_cache setObject:object forKey:key];
-}
-
 - (NSArray *)uploadCDNDomains {
-    return [self getCacheObjectForKey:CUTEAPICacheCDNDomainsKey];
+    id<NSCoding> cacheObject = [_cache objectForKey:CUTEAPICacheCDNDomainsKey];
+    if (cacheObject && [(NSObject *)cacheObject isKindOfClass:[NSArray class]]) {
+        return (NSArray *)cacheObject;
+    }
+    return nil;
 }
 
 - (BFTask *)getEnumsByTypeIgnoringCache:(NSString *)type {
@@ -79,7 +70,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
     [[[CUTEAPIManager sharedInstance] GET:@"/api/1/enum/search" parameters:@{@"type": type} resultClass:[CUTEEnum class]] continueWithSuccessBlock:^id(BFTask *task) {
         NSArray *result = task.result;
         if (result && !IsArrayNilOrEmpty(result)) {
-            [self setCacheObject:result forKey:CONCAT(CUTEAPICacheEnumKeyPrefix, type)];
+            [_cache setObject:result forKey:CONCAT(CUTEAPICacheEnumKeyPrefix, type)];
             [tcs setResult:result];
         }
         else {
@@ -92,7 +83,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
 
 - (BFTask *)getEnumsByType:(NSString *)type {
 
-    id cacheObject = [self getCacheObjectForKey:CONCAT(CUTEAPICacheEnumKeyPrefix, type)];
+    id cacheObject = [_cache objectForKey:CONCAT(CUTEAPICacheEnumKeyPrefix, type)];
     if (cacheObject && [cacheObject isKindOfClass:[NSArray class]]) {
         return [BFTask taskWithResult:cacheObject];
     }
@@ -130,7 +121,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
         else {
             NSArray *cities = task.result;
             cities = [cities sortBy:@"fieldDescription"];
-            [self setCacheObject:cities forKey:CONCAT(CUTEAPICacheCityKeyPrefix, country.code)];
+            [_cache setObject:cities forKey:CONCAT(CUTEAPICacheCityKeyPrefix, country.code)];
             [tcs setResult:cities];
         }
 
@@ -141,7 +132,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
 
 
 - (BFTask *)getCitiesByCountry:(CUTECountry *)country {
-    id cacheObject = [self getCacheObjectForKey:CONCAT(CUTEAPICacheCityKeyPrefix, country.code)];
+    id cacheObject = [_cache objectForKey:CONCAT(CUTEAPICacheCityKeyPrefix, country.code)];
     if (cacheObject && [cacheObject isKindOfClass:[NSArray class]]) {
         return [BFTask taskWithResult:cacheObject];
 
@@ -170,7 +161,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
             else {
                 NSArray *neighborhoods = task.result;
                 neighborhoods = [neighborhoods sortBy:@"fieldDescription"];
-                [self setCacheObject:neighborhoods forKey:CONCAT(CUTEAPICacheNeighborhoodKeyPrefix, city.identifier)];
+                [_cache setObject:neighborhoods forKey:CONCAT(CUTEAPICacheNeighborhoodKeyPrefix, city.identifier)];
                 [tcs setResult:neighborhoods];
             }
             return task;
@@ -184,7 +175,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
 }
 
 - (BFTask *)getNeighborhoodByCity:(CUTECity *)city {
-    id cacheObject = [self getCacheObjectForKey:CONCAT(CUTEAPICacheNeighborhoodKeyPrefix, city.identifier)];
+    id cacheObject = [_cache objectForKey:CONCAT(CUTEAPICacheNeighborhoodKeyPrefix, city.identifier)];
     if (cacheObject && [cacheObject isKindOfClass:[NSArray class]]) {
         return [BFTask taskWithResult:cacheObject];
     }
@@ -207,7 +198,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
             [tcs cancel];
         }
         else {
-            [self setCacheObject:task.result forKey:CUTEAPICacheCDNDomainsKey];
+            [_cache setObject:task.result forKey:CUTEAPICacheCDNDomainsKey];
             [tcs setResult:task.result];
         }
 
@@ -218,7 +209,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
 
 - (BFTask *)getUploadCDNDomains {
 
-    id cacheObject = [self getCacheObjectForKey:CUTEAPICacheCDNDomainsKey];
+    id cacheObject = [_cache objectForKey:CUTEAPICacheCDNDomainsKey];
     if (cacheObject && [cacheObject isKindOfClass:[NSArray class]]) {
         return [BFTask taskWithResult:cacheObject];
     }
