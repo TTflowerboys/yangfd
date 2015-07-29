@@ -24,6 +24,7 @@
 #import "CUTENavigationUtil.h"
 #import "NSURL+Assets.h"
 #import "CUTEImageUploader.h"
+#import "CUTERentAreaViewController.h"
 
 
 @implementation CUTERentPropertyMoreInfoViewController
@@ -86,6 +87,44 @@
     if ([field.key isEqualToString:@"ticketTitle"]) {
         CUTEFormLimitCharacterCountTextFieldCell *titleCell = (CUTEFormLimitCharacterCountTextFieldCell *)cell;
         titleCell.limitCount = kTicketTitleMaxCharacterCount;
+    }
+    else if ([field.key isEqualToString:@"area"]) {
+        if (self.form.ticket.rentType) {
+            if ([self.form.ticket.rentType.slug hasSuffix:@":whole"]) {
+                cell.textLabel.text = STR(@"房屋面积");
+            }
+            else {
+                cell.textLabel.text = STR(@"房间面积");
+            }
+        }
+
+        if (self.form.ticket.space) {
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f %@", self.form.ticket.space.value, self.form.ticket.space.unitSymbol];
+        }
+    }
+
+}
+
+- (void)editArea {
+
+    CUTERentAreaViewController *controller = [CUTERentAreaViewController new];
+    CUTEAreaForm *form = [CUTEAreaForm new];
+    form.ticket = self.form.ticket;
+    form.area = self.form.ticket.space.value;
+    controller.formController.form = form;
+
+    __weak typeof(self)weakSelf = self;
+    controller.updateRentAreaCompletion = ^ {
+        [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
+            if ([field.key isEqualToString:@"area"]) {
+                [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }];
+    };
+
+    //in case of push twice time
+    if (![self.navigationController.topViewController isKindOfClass:[CUTERentAreaViewController class]]) {
+        [self.navigationController pushViewController:controller animated:YES];
     }
 }
 
