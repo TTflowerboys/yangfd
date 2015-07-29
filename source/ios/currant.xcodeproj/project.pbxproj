@@ -521,6 +521,14 @@
 		2CE2A9701B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A96E1B660B8B0089ED20 /* CUTEPostcodePlace.m */; };
 		2CE2A9711B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A96E1B660B8B0089ED20 /* CUTEPostcodePlace.m */; };
 		2CE2A9721B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A96E1B660B8B0089ED20 /* CUTEPostcodePlace.m */; };
+		2CE2A9751B68A32E0089ED20 /* CUTERentPeriodForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9741B68A32E0089ED20 /* CUTERentPeriodForm.m */; };
+		2CE2A9761B68A32E0089ED20 /* CUTERentPeriodForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9741B68A32E0089ED20 /* CUTERentPeriodForm.m */; };
+		2CE2A9771B68A32E0089ED20 /* CUTERentPeriodForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9741B68A32E0089ED20 /* CUTERentPeriodForm.m */; };
+		2CE2A9781B68A32E0089ED20 /* CUTERentPeriodForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9741B68A32E0089ED20 /* CUTERentPeriodForm.m */; };
+		2CE2A97B1B68A3E90089ED20 /* CUTERentPeriodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A97A1B68A3E90089ED20 /* CUTERentPeriodViewController.m */; };
+		2CE2A97C1B68A3E90089ED20 /* CUTERentPeriodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A97A1B68A3E90089ED20 /* CUTERentPeriodViewController.m */; };
+		2CE2A97D1B68A3E90089ED20 /* CUTERentPeriodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A97A1B68A3E90089ED20 /* CUTERentPeriodViewController.m */; };
+		2CE2A97E1B68A3E90089ED20 /* CUTERentPeriodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A97A1B68A3E90089ED20 /* CUTERentPeriodViewController.m */; };
 		2CF2347E1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
 		2CF2347F1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
 		2CF234801B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
@@ -977,6 +985,10 @@
 		2CE2A9681B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormCurrencyTextFieldCell.m; sourceTree = "<group>"; };
 		2CE2A96D1B660B8B0089ED20 /* CUTEPostcodePlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPostcodePlace.h; sourceTree = "<group>"; };
 		2CE2A96E1B660B8B0089ED20 /* CUTEPostcodePlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPostcodePlace.m; sourceTree = "<group>"; };
+		2CE2A9731B68A32E0089ED20 /* CUTERentPeriodForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriodForm.h; sourceTree = "<group>"; };
+		2CE2A9741B68A32E0089ED20 /* CUTERentPeriodForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriodForm.m; sourceTree = "<group>"; };
+		2CE2A9791B68A3E90089ED20 /* CUTERentPeriodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriodViewController.h; sourceTree = "<group>"; };
+		2CE2A97A1B68A3E90089ED20 /* CUTERentPeriodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriodViewController.m; sourceTree = "<group>"; };
 		2CF2347C1B54F2E500B516E6 /* CUTEKeyboardStateListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEKeyboardStateListener.h; sourceTree = "<group>"; };
 		2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEKeyboardStateListener.m; sourceTree = "<group>"; };
 		2CF234821B55198500B516E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1706,6 +1718,8 @@
 				2CF8A5B21AF0B40E0080DF10 /* CUTERentAreaViewController.m */,
 				2CF8A5B51AF0B40E0080DF10 /* CUTERentPriceViewController.h */,
 				2CF8A5B61AF0B40E0080DF10 /* CUTERentPriceViewController.m */,
+				2CE2A9791B68A3E90089ED20 /* CUTERentPeriodViewController.h */,
+				2CE2A97A1B68A3E90089ED20 /* CUTERentPeriodViewController.m */,
 				2CF8A5B71AF0B40E0080DF10 /* CUTERentShareViewController.h */,
 				2CF8A5B81AF0B40E0080DF10 /* CUTERentShareViewController.m */,
 				2CF8A5B91AF0B40E0080DF10 /* CUTERentTypeListViewController.h */,
@@ -1788,6 +1802,8 @@
 				2CF234891B5668E900B516E6 /* CUTERentAddressMapForm.m */,
 				2CF8A66D1AF0B65C0080DF10 /* CUTERentPriceForm.h */,
 				2CF8A66E1AF0B65C0080DF10 /* CUTERentPriceForm.m */,
+				2CE2A9731B68A32E0089ED20 /* CUTERentPeriodForm.h */,
+				2CE2A9741B68A32E0089ED20 /* CUTERentPeriodForm.m */,
 				2CF8A66F1AF0B65C0080DF10 /* CUTERentShareForm.h */,
 				2CF8A6701AF0B65C0080DF10 /* CUTERentShareForm.m */,
 				2CF8A6711AF0B65C0080DF10 /* CUTERentTypeListForm.h */,
@@ -2415,6 +2431,7 @@
 				2CA5F7721AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2C056D4D1B423AB20075037A /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2CF8A6331AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
+				2CE2A97D1B68A3E90089ED20 /* CUTERentPeriodViewController.m in Sources */,
 				2C0AE1251B1EF20D00A73BE6 /* CUTEFormFieldOptionViewController.m in Sources */,
 				2CF8A5E81AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C63CAD61B230DEE0055687A /* CUTETooltipView.m in Sources */,
@@ -2441,6 +2458,7 @@
 				2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62E1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
 				2C9F1D301B3BB9880034487F /* YTKKeyValueItem+CUTE.m in Sources */,
+				2CE2A9771B68A32E0089ED20 /* CUTERentPeriodForm.m in Sources */,
 				2C4A13B21B5E5CF600FA9F99 /* CUTEStringMatcher.m in Sources */,
 				2CCE680B1B1C3AB800351DED /* CUTEPropertyMapListViewController.m in Sources */,
 				2CDABB3E1B2C4DC30075D2E7 /* NSArray+CUTECDN.m in Sources */,
@@ -2558,6 +2576,7 @@
 				2CA5F7731AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2C056D4E1B423AB20075037A /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2CF8A6341AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
+				2CE2A97E1B68A3E90089ED20 /* CUTERentPeriodViewController.m in Sources */,
 				2C0AE1261B1EF20D00A73BE6 /* CUTEFormFieldOptionViewController.m in Sources */,
 				2CF8A5E91AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C63CAD71B230DEE0055687A /* CUTETooltipView.m in Sources */,
@@ -2584,6 +2603,7 @@
 				2C1E66F51AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62F1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
 				2C9F1D311B3BB9880034487F /* YTKKeyValueItem+CUTE.m in Sources */,
+				2CE2A9781B68A32E0089ED20 /* CUTERentPeriodForm.m in Sources */,
 				2C4A13B31B5E5CF600FA9F99 /* CUTEStringMatcher.m in Sources */,
 				2CCE680C1B1C3AB800351DED /* CUTEPropertyMapListViewController.m in Sources */,
 				2CDABB3F1B2C4DC30075D2E7 /* NSArray+CUTECDN.m in Sources */,
@@ -2701,6 +2721,7 @@
 				2CA5F7711AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2C056D4C1B423AB20075037A /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2CF8A6321AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
+				2CE2A97C1B68A3E90089ED20 /* CUTERentPeriodViewController.m in Sources */,
 				2C0AE1241B1EF20D00A73BE6 /* CUTEFormFieldOptionViewController.m in Sources */,
 				2CF8A5E71AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C63CAD51B230DEE0055687A /* CUTETooltipView.m in Sources */,
@@ -2727,6 +2748,7 @@
 				2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62D1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
 				2C9F1D2F1B3BB9870034487F /* YTKKeyValueItem+CUTE.m in Sources */,
+				2CE2A9761B68A32E0089ED20 /* CUTERentPeriodForm.m in Sources */,
 				2C4A13B11B5E5CF600FA9F99 /* CUTEStringMatcher.m in Sources */,
 				2CCE680A1B1C3AB800351DED /* CUTEPropertyMapListViewController.m in Sources */,
 				2CDABB3D1B2C4DC30075D2E7 /* NSArray+CUTECDN.m in Sources */,
@@ -2844,6 +2866,7 @@
 				2CA5F7701AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2C056D4B1B423AB20075037A /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2CF8A6311AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
+				2CE2A97B1B68A3E90089ED20 /* CUTERentPeriodViewController.m in Sources */,
 				2C0AE1231B1EF20D00A73BE6 /* CUTEFormFieldOptionViewController.m in Sources */,
 				2CF8A5E61AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,
 				2C63CAD41B230DEE0055687A /* CUTETooltipView.m in Sources */,
@@ -2870,6 +2893,7 @@
 				2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62C1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
 				2C9F1D2E1B3BB9800034487F /* YTKKeyValueItem+CUTE.m in Sources */,
+				2CE2A9751B68A32E0089ED20 /* CUTERentPeriodForm.m in Sources */,
 				2C4A13B01B5E5CF600FA9F99 /* CUTEStringMatcher.m in Sources */,
 				2CCE68091B1C3AB800351DED /* CUTEPropertyMapListViewController.m in Sources */,
 				2CDABB3C1B2C4DC30075D2E7 /* NSArray+CUTECDN.m in Sources */,

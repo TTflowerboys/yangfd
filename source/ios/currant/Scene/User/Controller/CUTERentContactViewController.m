@@ -186,7 +186,6 @@
     }
     [self makeVerficationCodeTextFieldBecomeFirstResponder];
 
-    CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
     CUTEUser *user = [CUTEUser new];
     [self updateUserWithFormInfo:user];
     [SVProgressHUD showWithStatus:STR(@"获取中...")];

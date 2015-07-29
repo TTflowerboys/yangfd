@@ -41,12 +41,15 @@
 #import "CUTETracker.h"
 #import "Sequencer.h"
 #import <NSDate-Extensions/NSDate-Utilities.h>
+#import "CUTERentPeriodViewController.h"
 
 @interface CUTERentPropertyInfoViewController () {
 
     CUTERentAreaViewController *_editAreaViewController;
 
     CUTERentPriceViewController *_editRentPriceViewController;
+
+    CUTERentPeriodViewController *_editRentPeriodViewController;
 }
 
 @end
@@ -89,6 +92,21 @@
     else if ([field.key isEqualToString:@"rentPrice"]) {
         if (self.form.ticket.price) {
             cell.detailTextLabel.text = CONCAT([CUTECurrency symbolOfCurrencyUnit:self.form.ticket.price.unit], [NSString stringWithFormat:@"%.2lf", self.form.ticket.price.value], @"/", STR(@"周"));
+        }
+    }
+    else if ([field.key isEqualToString:@"rentPeriod"]) {
+
+        if (!IsNilOrNull(self.form.ticket.rentAvailableTime)) {
+            NSDateFormatter *formatter = [NSDateFormatter new];
+            formatter.dateStyle = NSDateFormatterMediumStyle;
+            formatter.timeStyle = NSDateFormatterNoStyle;
+            cell.detailTextLabel.text = CONCAT([formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.form.ticket.rentAvailableTime.doubleValue]], STR(@"起"));
+        }
+        else if (!IsNilOrNull(self.form.ticket.rentDeadlineTime)) {
+            NSDateFormatter *formatter = [NSDateFormatter new];
+            formatter.dateStyle = NSDateFormatterMediumStyle;
+            formatter.timeStyle = NSDateFormatterNoStyle;
+            cell.detailTextLabel.text = CONCAT([formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.form.ticket.rentDeadlineTime.doubleValue]], STR(@"起"));
         }
     }
     else if ([field.key isEqualToString:@"area"]) {
@@ -192,18 +210,8 @@
 - (void)editRentPrice {
 
     if (!_editRentPriceViewController) {
+
         CUTETicket *ticket = self.form.ticket;
-        if (!ticket.rentAvailableTime) {
-            ticket.rentAvailableTime = @([[NSDate date] timeIntervalSince1970]);
-        }
-
-        //              if (!ticket.rentDeadlineTime) {
-        //                  ticket.rentDeadlineTime = [[[NSDate dateWithTimeIntervalSince1970:[ticket rentAvailableTime]] dateByAddingDays:1] timeIntervalSince1970];
-        //              }
-        if (!ticket.minimumRentPeriod) {
-            ticket.minimumRentPeriod = [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
-        }
-
         CUTERentPriceViewController *controller = [[CUTERentPriceViewController alloc] init];
         CUTERentPriceForm *form = [CUTERentPriceForm new];
         form.ticket = self.form.ticket;
@@ -211,11 +219,6 @@
         form.rentPrice = ticket.price.value;
         form.deposit = ticket.deposit? @(ticket.deposit.value): nil;
         form.billCovered = ticket.billCovered? ticket.billCovered.boolValue: NO;
-        form.needSetPeriod = YES;
-        form.rentAvailableTime = ticket.rentAvailableTime ?[NSDate dateWithTimeIntervalSince1970:ticket.rentAvailableTime.doubleValue]: nil;
-        form.rentDeadlineTime = ticket.rentDeadlineTime? [NSDate dateWithTimeIntervalSince1970:ticket.rentDeadlineTime.doubleValue]: nil;
-        form.minimumRentPeriod = ticket.minimumRentPeriod;
-
         controller.formController.form = form;
         controller.navigationItem.title = STR(@"租金");
         _editRentPriceViewController = controller;
@@ -235,8 +238,45 @@
     if (self.navigationController.topViewController != _editRentPriceViewController) {
         [self.navigationController pushViewController:_editRentPriceViewController animated:YES];
     }
+}
 
+- (void)editRentPeriod {
+    if (!_editRentPeriodViewController) {
+        CUTETicket *ticket = self.form.ticket;
+        if (!ticket.rentAvailableTime) {
+            ticket.rentAvailableTime = @([[NSDate date] timeIntervalSince1970]);
+        }
+        if (!ticket.minimumRentPeriod) {
+            ticket.minimumRentPeriod = [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
+        }
 
+        CUTERentPeriodViewController *controller = [[CUTERentPeriodViewController alloc] init];
+        CUTERentPeriodForm *form = [CUTERentPeriodForm new];
+        form.ticket = self.form.ticket;
+        form.needSetPeriod = YES;
+        form.rentAvailableTime = ticket.rentAvailableTime ?[NSDate dateWithTimeIntervalSince1970:ticket.rentAvailableTime.doubleValue]: nil;
+        form.rentDeadlineTime = ticket.rentDeadlineTime? [NSDate dateWithTimeIntervalSince1970:ticket.rentDeadlineTime.doubleValue]: nil;
+        form.minimumRentPeriod = ticket.minimumRentPeriod;
+
+        controller.formController.form = form;
+        controller.navigationItem.title = STR(@"租期");
+        _editRentPeriodViewController = controller;
+
+        __weak typeof(self)weakSelf = self;
+
+        _editRentPeriodViewController.updatePeriodCompletion = ^ {
+            [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
+                if ([field.key isEqualToString:@"rentPeriod"]) {
+                    [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                }
+            }];
+        };
+    }
+
+    //in case of push twice time
+    if (self.navigationController.topViewController != _editRentPeriodViewController) {
+        [self.navigationController pushViewController:_editRentPeriodViewController animated:YES];
+    }
 }
 
 - (void)editRentType {

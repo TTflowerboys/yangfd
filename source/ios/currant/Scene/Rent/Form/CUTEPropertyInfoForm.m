@@ -33,6 +33,7 @@
              @{FXFormFieldKey: @"photos", FXFormFieldTitle:STR(@"添加照片"), FXFormFieldHeader: STR(@"房间照片"), FXFormFieldCell: [CUTEFormImagePickerCell class], FXFormFieldType:FXFormFieldTypeImage},
              @{FXFormFieldKey: @"landlordType", FXFormFieldTitle:STR(@"房东类型"),FXFormFieldOptions: _allLandlordTypes, FXFormFieldDefaultValue: [self defaultLandloardType], FXFormFieldAction: @"editLandlordType", FXFormFieldHeader: STR(@"基本信息")},
              @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldAction: @"editRentPrice"},
+             @{FXFormFieldKey: @"rentPeriod", FXFormFieldTitle:STR(@"租期"), FXFormFieldAction: @"editRentPeriod"},
                 @{FXFormFieldKey: @"propertyType", FXFormFieldTitle:STR(@"房产类型"),FXFormFieldOptions: _allPropertyTypes, FXFormFieldDefaultValue: [self defaultPropertyType], FXFormFieldAction: @"editPropertyType"},
              @{FXFormFieldKey: @"rooms", FXFormFieldTitle:STR(@"房屋户型"), FXFormFieldCell: [CUTEFormRoomsPickerCell class], @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"editRooms:"},
              @{FXFormFieldKey: @"rentType", FXFormFieldTitle:STR(@"出租类型"), FXFormFieldAction: @"editRentType"},
