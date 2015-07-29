@@ -1,7 +1,7 @@
 (function () {
     var $phoneInupt = $('[name=phone]')
     var $errorMsg = $('.errorMessage')
-    var $getCodeBtn = $('.getCode')
+    //var $getCodeBtn = $('.getCode')
     $('.phoneRow').click(function () {
        $(this).find('.phoneReadonly').hide().next('.phoneEdit').show()
     })
