@@ -15,17 +15,6 @@ $(function () {
     //Init residue degree
     getResidueDegree()
 
-    function initDisplayOfElement () { //根据data-show-client初始化元素在不同客户端的显示或隐藏状态
-        $('[data-show-client]').each(function () {
-            var $this = $(this)
-            var client = window.team.getClient()
-            var showClient = $this.attr('data-show-client')
-            $this.css('display','')
-            if(showClient.split(',').indexOf(client) < 0) {
-                $this.hide()
-            }
-        })
-    }
     function shareSuccessCallback () {
         //call increment count api
         $.betterPost('/api/1/credit/view_rent_ticket_contact_info/share_app_completed')
@@ -104,13 +93,13 @@ $(function () {
 
     }
     window.shareAppToGetMoreAmount = function () {
-        initDisplayOfElement()
+        window.team.initDisplayOfElement()
         shareApp()
         $shareAppModal.modal()
     }
 
     window.downloadAppToGetMoreAmount = function () {
-        initDisplayOfElement()
+        window.team.initDisplayOfElement()
         $downloadAppModal.modal()
     }
 
