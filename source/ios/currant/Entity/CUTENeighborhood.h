@@ -17,4 +17,7 @@
 
 @property (strong, nonatomic) NSString *country;
 
+@property (strong, nonatomic) CUTENeighborhood *parent;
+
+
 @end
