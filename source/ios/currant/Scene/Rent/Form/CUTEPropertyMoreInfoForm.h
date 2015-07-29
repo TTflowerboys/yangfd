@@ -10,11 +10,13 @@
 #import "CUTEForm.h"
 #import "CUTEPropertyFacilityForm.h"
 #import "CUTETicketForm.h"
+#import "CUTEAreaForm.h"
 
 @interface CUTEPropertyMoreInfoForm : CUTETicketForm
 
 @property (nonatomic, copy) NSString *ticketTitle;
 @property (nonatomic, copy) NSString *ticketDescription;
+@property (strong, nonatomic) CUTEAreaForm *area;
 @property (nonatomic, strong) CUTEPropertyFacilityForm *facility;
 //@property (nonatomic, copy) NSString *feature;
 

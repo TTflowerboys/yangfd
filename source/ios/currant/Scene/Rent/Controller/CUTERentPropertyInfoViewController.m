@@ -104,20 +104,6 @@
             cell.detailTextLabel.text = CONCAT([formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.form.ticket.rentDeadlineTime.doubleValue]], STR(@"起"));
         }
     }
-    else if ([field.key isEqualToString:@"area"]) {
-        if (self.form.ticket.rentType) {
-            if ([self.form.ticket.rentType.slug hasSuffix:@":whole"]) {
-                cell.textLabel.text = STR(@"房屋面积（选填）");
-            }
-            else {
-                cell.textLabel.text = STR(@"房间面积（选填）");
-            }
-        }
-
-        if (self.form.ticket.space) {
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f %@", self.form.ticket.space.value, self.form.ticket.space.unitSymbol];
-        }
-    }
     else if ([field.key isEqualToString:@"rentType"]) {
         if (self.form.ticket.rentType) {
             cell.detailTextLabel.text = self.form.ticket.rentType.value;
@@ -174,29 +160,6 @@
        @"property.livingroomCount": @(form.livingroomCount),
          @"property.bathroomCount": @(form.bathroomCount),
           }];
-}
-
-- (void)editArea {
-
-    CUTERentAreaViewController *controller = [CUTERentAreaViewController new];
-    CUTEAreaForm *form = [CUTEAreaForm new];
-    form.ticket = self.form.ticket;
-    form.area = self.form.ticket.space.value;
-    controller.formController.form = form;
-
-    __weak typeof(self)weakSelf = self;
-    controller.updateRentAreaCompletion = ^ {
-        [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
-            if ([field.key isEqualToString:@"area"]) {
-                [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-            }
-        }];
-    };
-
-    //in case of push twice time
-    if (![self.navigationController.topViewController isKindOfClass:[CUTERentAreaViewController class]]) {
-        [self.navigationController pushViewController:controller animated:YES];
-    }
 }
 
 - (void)editRentPrice {
@@ -285,12 +248,13 @@
                     if ([field.key isEqualToString:@"rentType"]) {
                         [updateIndexes addObject:indexPath];
                     }
-                    else if ([field.key isEqualToString:@"area"]) {
-                        [updateIndexes addObject:indexPath];
-                    }
                 }];
 
                 [[weakSelf tableView] reloadRowsAtIndexPaths:updateIndexes withRowAnimation:UITableViewRowAnimationNone];
+
+                if (self.form.ticket.property.space) {
+                    [SVProgressHUD showWithStatus:STR(@"请更新面积")];
+                }
             };
 
             [self.navigationController pushViewController:controller animated:YES];
@@ -301,7 +265,6 @@
         }
         return nil;
     }];
-
 }
 
 - (void)editAddress {
