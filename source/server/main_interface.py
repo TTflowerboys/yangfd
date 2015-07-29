@@ -66,6 +66,13 @@ def signup():
     return currant_util.common_template("signup", title=title)
 
 
+@f_get('/verify-phone')
+@currant_util.check_ip_and_redirect_domain
+def verify_phone():
+    title = _('手机验证')
+    return currant_util.common_template("verify_phone", title=title)
+
+
 @f_get('/vip_sign_up')
 @currant_util.check_ip_and_redirect_domain
 def vip_sign_up():

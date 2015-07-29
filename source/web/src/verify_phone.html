@@ -1,0 +1,54 @@
+<!--@@master=masters/big_picture_bg_master.html -->
+
+<!--@@block=head -->
+<!--build:css(dist) /static/styles/verify_phone.html.css-->
+<link rel="stylesheet" href="/static/styles/verifyPhone.css"/>
+<!--endbuild-->
+<!--@@close-->
+
+<!--@@block=main -->
+<div class="verifyPhone">
+    <ol class="stepWrap">
+        <li class="active"><strong>1</strong><span>{{_('注册')}}</span></li>
+        <li class="active"><strong>2</strong><span>{{_('手机验证')}}</span></li>
+        <li><strong>3</strong><span>{{_('完成')}}</span></li>
+    </ol>
+    <div class="formWrap">
+        <div class="form_row">
+            <div class="hint">{{_('包含验证码的短信已经发送至您的手机，如暂未收到，请于60秒后重新获取')}}</div>
+        </div>
+        <div class="form_row phoneRow">
+            <div class="phoneReadonly">
+                <input type="text" value="+{{user.get('country_code')}} {{user.get('phone')}}" readonly/>
+                <label>{{_('更改')}}</label>
+            </div>
+            <div class="phoneEdit" style="display: none;">
+                <!-- @@include=./partials/country_select_in_user.html -->
+                <input name="phone" type="tel" size=20 data-validator="required, trim, number" placeholder="{{_('手机')}}">
+            </div>
+        </div>
+        <div class="form_row codeRow">
+            <input name="code" data-validator="required number" placeholder="{{_('手机验证码')}}">
+            <button name="code" type="button" class="button green ajaxButton getCode">{{_('获取验证码')}}</button>
+        </div>
+
+        <div class="form_row">
+            <h4 class="formsHint">{{_('手机号为登录和找回密码凭证，请填写真实号码')}}</h4>
+        </div>
+        <div class="form_row">
+            <p class="errorMessage" style="display:none;color:red;"></p>
+        </div>
+        <div class="form_row">
+            <button type="submit" class="button red ajaxButton verifyBtn">{{_('验证')}}</button>
+        </div>
+    </div>
+</div>
+
+
+<!--@@close-->
+
+<!--@@block=scripts -->
+<!--build:js /static/scripts/verify_phone.html.js-->
+<script src="/static/scripts/verify_phone.js"></script>
+<!--endbuild-->
+<!--@@close-->
