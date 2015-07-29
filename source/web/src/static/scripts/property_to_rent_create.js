@@ -264,6 +264,9 @@
         var originContent = $span.html()
         $span.html(window.i18n('街区列表加载中...'))
         window.geonamesApi.getNeighborhood(function (val) {
+            $('.buttonLoading').trigger('end')
+            $('.buttonLoading').prop('disabled', false).text(window.i18n('重新获取'))
+            $('#address').show()
             if($('#city-select :selected').text().toLowerCase() === 'london') {
                 $span.html(originContent)
                 $('#neighborhood-select').html(
@@ -308,6 +311,9 @@
             $('#country').val(val.country)
             //$('#city-select').html('<option value="' + val.admin1 + '">' + val.admin1_name + '</option>').val(val.admin1).trigger('chosen:updated')
             //$('#city').val(val.admin1)
+            if (val.neighborhoods && val.neighborhoods.length) {
+                $('#neighborhood').val(val.neighborhoods[0].id)
+            }
             $('#latitude').val(val.latitude)
             $('#longitude').val(val.longitude)
             var geocodeApiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + $('#latitude').val() + ',' + $('#longitude').val() + '&result_type=street_address&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
@@ -325,9 +331,11 @@
                             })
                         }
                         $('#street').val(streetArr.join(','))
-                        $('.buttonLoading').trigger('end')
-                        $btn.prop('disabled', false).text(window.i18n('重新获取'))
-                        $('#address').show()
+                        if(val && val.length && val[0].name.toLowerCase() !== 'london') {
+                            $('.buttonLoading').trigger('end')
+                            $btn.prop('disabled', false).text(window.i18n('重新获取'))
+                            $('#address').show()
+                        }
                     }).fail(function () {
                         $('.buttonLoading').trigger('end')
                         $btn.prop('disabled', false).text(window.i18n('重新获取'))
