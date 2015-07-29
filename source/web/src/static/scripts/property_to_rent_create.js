@@ -280,6 +280,10 @@
                     $('#neighborhood-select').trigger('chosen:open')
                 }
             }
+        }, function (ret) {
+            $('.buttonLoading').trigger('end')
+            $('.buttonLoading').prop('disabled', false).text(window.i18n('重新获取'))
+            $('#address').show()
         })
     }
     function clearData(str) {
