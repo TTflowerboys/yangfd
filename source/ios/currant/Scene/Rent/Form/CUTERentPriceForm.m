@@ -31,7 +31,7 @@
                              @[
                                @{FXFormFieldKey: @"currency", FXFormFieldTitle:STR(@"货币"), FXFormFieldOptions: [CUTECurrency currencyUnitArray], FXFormFieldDefaultValue: _currency ? : [CUTECurrency defaultCurrencyUnit], FXFormFieldHeader: STR(@"租金"), FXFormFieldAction: @"onCurrencyEdit:"},
                                @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldCell: [CUTEFormRentPriceTextFieldCell class], FXFormFieldDefaultValue: @(_rentPrice), @"textField.keyboardType": @(UIKeyboardTypeDecimalPad), FXFormFieldAction: @"onRentPriceEdit:"},
-                               @{FXFormFieldKey: @"deposit", FXFormFieldTitle:STR(@"押金"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldCell: [CUTEFormCurrencyTextFieldCell class], @"textField.keyboardType": @(UIKeyboardTypeDecimalPad),FXFormFieldHeader: @"", FXFormFieldPlaceholder: STR(@"填写金额，如不填写则为面议"), FXFormFieldAction: @"onDepositEdit:"},
+                               @{FXFormFieldKey: @"deposit", FXFormFieldTitle:STR(@"押金"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldCell: [CUTEFormCurrencyTextFieldCell class], @"textField.keyboardType": @(UIKeyboardTypeDecimalPad),FXFormFieldHeader: @"", FXFormFieldPlaceholder: STR(@"填写金额，不填则为面议"), FXFormFieldAction: @"onDepositEdit:"},
                                @{FXFormFieldKey: @"billCovered", FXFormFieldTitle:STR(@"包Bill"), FXFormFieldHeader: STR(@"其他"), FXFormFieldDefaultValue: @(_billCovered), FXFormFieldAction: @"onBillCoveredSwitch:", FXFormFieldCell: [CUTEFormSwitchCell class]},
                                ]];
     return array;
