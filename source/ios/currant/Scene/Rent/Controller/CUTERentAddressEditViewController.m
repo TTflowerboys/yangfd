@@ -15,7 +15,7 @@
 #import "CUTERentTicketPublisher.h"
 #import "CUTENotificationKey.h"
 #import "CUTEAPIManager.h"
-#import "CUTEEnumManager.h"
+#import "CUTEAPICacheManager.h"
 #import <Sequencer.h>
 #import "CUTERentPropertyInfoViewController.h"
 #import "CUTETracker.h"
@@ -87,7 +87,7 @@
     }];
 
     if (needUpdate) {
-        [[[CUTEEnumManager sharedInstance] getCitiesByCountry:_lastCountry] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPICacheManager sharedInstance] getCitiesByCountry:_lastCountry] continueWithBlock:^id(BFTask *task) {
             [(CUTERentAddressEditForm *)self.formController.form setCity:nil];
             [(CUTERentAddressEditForm *)self.formController.form setAllCities:task.result];
             [self.formController updateSections];
@@ -119,7 +119,7 @@
     }];
 
     if (needUpdate) {
-        [[[CUTEEnumManager sharedInstance] getNeighborhoodByCity:_lastCity] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPICacheManager sharedInstance] getNeighborhoodByCity:_lastCity] continueWithBlock:^id(BFTask *task) {
 
             [(CUTERentAddressEditForm *)self.formController.form setNeighborhood:self.form.ticket.property.neighborhood];
             [(CUTERentAddressEditForm *)self.formController.form setAllNeighborhoods:task.result];
@@ -387,7 +387,7 @@
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
-                return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+                return [[CUTEAPICacheManager sharedInstance] getEnumsByType:object];
             }]] continueWithBlock:^id(BFTask *task) {
                 NSArray *landlordTypes = nil;
                 NSArray *propertyTypes = nil;

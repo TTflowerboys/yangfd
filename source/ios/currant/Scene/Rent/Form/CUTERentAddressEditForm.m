@@ -15,7 +15,7 @@
 #import "CUTECity.h"
 #import "CUTEFormFieldOptionViewController.h"
 #import "CUTEFormTextCell.h"
-#import "CUTEEnumManager.h"
+#import "CUTEAPICacheManager.h"
 #import "Sequencer.h"
 
 
@@ -91,7 +91,7 @@
 
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEEnumManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [tcs setError:task.error];
             }
@@ -115,7 +115,7 @@
         NSInteger countryIndex = [countries indexOfObject:ticket.property.country];
         if (countryIndex != NSNotFound) {
             CUTECountry *country = [countries objectAtIndex:countryIndex];
-            [[[CUTEEnumManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEAPICacheManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
                 NSArray *cities = task.result;
                 if (!IsArrayNilOrEmpty(cities)) {
                     NSArray *cities = task.result;
@@ -143,7 +143,7 @@
     }];
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEEnumManager sharedInstance] getNeighborhoodByCity:form.city] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPICacheManager sharedInstance] getNeighborhoodByCity:form.city] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [tcs setError:task.error];
             }

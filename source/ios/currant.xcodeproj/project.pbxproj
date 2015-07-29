@@ -213,10 +213,10 @@
 		2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E2A1ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
-		2C427E4C1AD2414D000378A9 /* CUTEEnumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E4B1AD2414D000378A9 /* CUTEEnumManager.m */; };
-		2C427E4D1AD2414D000378A9 /* CUTEEnumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E4B1AD2414D000378A9 /* CUTEEnumManager.m */; };
-		2C427E4E1AD2414D000378A9 /* CUTEEnumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E4B1AD2414D000378A9 /* CUTEEnumManager.m */; };
-		2C427E4F1AD2414D000378A9 /* CUTEEnumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E4B1AD2414D000378A9 /* CUTEEnumManager.m */; };
+		2C427E4C1AD2414D000378A9 /* CUTEAPICacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E4B1AD2414D000378A9 /* CUTEAPICacheManager.m */; };
+		2C427E4D1AD2414D000378A9 /* CUTEAPICacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E4B1AD2414D000378A9 /* CUTEAPICacheManager.m */; };
+		2C427E4E1AD2414D000378A9 /* CUTEAPICacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E4B1AD2414D000378A9 /* CUTEAPICacheManager.m */; };
+		2C427E4F1AD2414D000378A9 /* CUTEAPICacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E4B1AD2414D000378A9 /* CUTEAPICacheManager.m */; };
 		2C427E541AD25110000378A9 /* CUTEEnum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E531AD25110000378A9 /* CUTEEnum.m */; };
 		2C427E551AD25110000378A9 /* CUTEEnum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E531AD25110000378A9 /* CUTEEnum.m */; };
 		2C427E561AD25110000378A9 /* CUTEEnum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E531AD25110000378A9 /* CUTEEnum.m */; };
@@ -810,8 +810,8 @@
 		2C401E241ACB972D00613093 /* CUTEUIMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUIMacro.h; sourceTree = "<group>"; };
 		2C401E251ACB9CE100613093 /* ObjectUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ObjectUtil.c; sourceTree = "<group>"; };
 		2C401E261ACB9CE100613093 /* ObjectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectUtil.h; sourceTree = "<group>"; };
-		2C427E4A1AD2414D000378A9 /* CUTEEnumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEEnumManager.h; sourceTree = "<group>"; };
-		2C427E4B1AD2414D000378A9 /* CUTEEnumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEEnumManager.m; sourceTree = "<group>"; };
+		2C427E4A1AD2414D000378A9 /* CUTEAPICacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEAPICacheManager.h; sourceTree = "<group>"; };
+		2C427E4B1AD2414D000378A9 /* CUTEAPICacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAPICacheManager.m; sourceTree = "<group>"; };
 		2C427E521AD25110000378A9 /* CUTEEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEEnum.h; sourceTree = "<group>"; };
 		2C427E531AD25110000378A9 /* CUTEEnum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEEnum.m; sourceTree = "<group>"; };
 		2C427E921AD37D20000378A9 /* CUTEProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEProperty.h; sourceTree = "<group>"; };
@@ -1568,8 +1568,8 @@
 		2CB43DD71ABC266C004DF663 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				2C427E4A1AD2414D000378A9 /* CUTEEnumManager.h */,
-				2C427E4B1AD2414D000378A9 /* CUTEEnumManager.m */,
+				2C427E4A1AD2414D000378A9 /* CUTEAPICacheManager.h */,
+				2C427E4B1AD2414D000378A9 /* CUTEAPICacheManager.m */,
 				2C5ECC4F1AD525AC00163E9E /* CUTEAPIManager.h */,
 				2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */,
 				2C0AE10C1B1DAFB100A73BE6 /* CUTEGeoManager.h */,
@@ -2440,7 +2440,7 @@
 				2C06D3A51B29465800C147DE /* CUTEModelEditingListener.m in Sources */,
 				2CC4525F1B2711770004AE54 /* CUTEAddressUtil.m in Sources */,
 				2C056D591B423AB20075037A /* CUTERentContactViewController.m in Sources */,
-				2C427E4E1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
+				2C427E4E1AD2414D000378A9 /* CUTEAPICacheManager.m in Sources */,
 				2CAA85221AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F801B0CA543006E993C /* CUTEHouseType.m in Sources */,
 				2CA81F711B0B5621006E993C /* MemoryReporter.m in Sources */,
@@ -2585,7 +2585,7 @@
 				2C06D3A61B29465800C147DE /* CUTEModelEditingListener.m in Sources */,
 				2CC452601B2711770004AE54 /* CUTEAddressUtil.m in Sources */,
 				2C056D5A1B423AB20075037A /* CUTERentContactViewController.m in Sources */,
-				2C427E4F1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
+				2C427E4F1AD2414D000378A9 /* CUTEAPICacheManager.m in Sources */,
 				2CAA85231AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F811B0CA543006E993C /* CUTEHouseType.m in Sources */,
 				2CA81F721B0B5621006E993C /* MemoryReporter.m in Sources */,
@@ -2730,7 +2730,7 @@
 				2C06D3A41B29465800C147DE /* CUTEModelEditingListener.m in Sources */,
 				2CC4525E1B2711770004AE54 /* CUTEAddressUtil.m in Sources */,
 				2C056D581B423AB20075037A /* CUTERentContactViewController.m in Sources */,
-				2C427E4D1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
+				2C427E4D1AD2414D000378A9 /* CUTEAPICacheManager.m in Sources */,
 				2CAA85211AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F7F1B0CA543006E993C /* CUTEHouseType.m in Sources */,
 				2CA81F701B0B5621006E993C /* MemoryReporter.m in Sources */,
@@ -2875,7 +2875,7 @@
 				2C06D3A31B29465800C147DE /* CUTEModelEditingListener.m in Sources */,
 				2CC4525D1B2711770004AE54 /* CUTEAddressUtil.m in Sources */,
 				2C056D571B423AB20075037A /* CUTERentContactViewController.m in Sources */,
-				2C427E4C1AD2414D000378A9 /* CUTEEnumManager.m in Sources */,
+				2C427E4C1AD2414D000378A9 /* CUTEAPICacheManager.m in Sources */,
 				2CAA85201AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F7E1B0CA543006E993C /* CUTEHouseType.m in Sources */,
 				2CA81F6F1B0B5621006E993C /* MemoryReporter.m in Sources */,

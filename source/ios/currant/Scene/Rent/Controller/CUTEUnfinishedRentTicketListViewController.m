@@ -11,7 +11,7 @@
 #import "CUTERentTypeListViewController.h"
 #import "CUTERentTypeListForm.h"
 #import "SVProgressHUD+CUTEAPI.h"
-#import "CUTEEnumManager.h"
+#import "CUTEAPICacheManager.h"
 #import "CUTETicket.h"
 #import "CUTEDataManager.h"
 #import "CUTERentPropertyInfoViewController.h"
@@ -77,7 +77,7 @@
 
 - (void)onAddButtonPressed:(id)sender {
     [SVProgressHUD show];
-    [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
         if (task.result) {
             CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
             [form setRentTypeList:task.result];
@@ -119,7 +119,7 @@
     CUTETicket *ticket = [self.form.unfinishedRentTickets objectAtIndex:indexPath.row];
     if (ticket) {
         [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
-            return [[CUTEEnumManager sharedInstance] getEnumsByType:object];
+            return [[CUTEAPICacheManager sharedInstance] getEnumsByType:object];
         }]] continueWithBlock:^id(BFTask *task) {
             NSArray *landloardTypes = nil;
             NSArray *propertyTypes = nil;

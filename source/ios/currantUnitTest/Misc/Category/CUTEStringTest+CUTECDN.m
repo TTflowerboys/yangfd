@@ -7,10 +7,10 @@
 //
 
 #import "CUTETestCommon.h"
-#import "CUTEEnumManager.h"
+#import "CUTEAPICacheManager.h"
 #import "NSString+CUTECDN.h"
 
-@interface CUTEEnumManager (Private)
+@interface CUTEAPICacheManager (Private)
 
 - (void)setUploadCDNDomains:(NSArray *)uploadCDNDomains;
 
@@ -23,7 +23,7 @@ describe(@"isCDNPathEqualToCDNPath", ^ {
 
     beforeAll(^{
         //just make fake data
-        [[CUTEEnumManager sharedInstance] setUploadCDNDomains:@[@"static.yangfd.com", @"aws-s3.bbtechgroup.com"]];
+        [[CUTEAPICacheManager sharedInstance] setUploadCDNDomains:@[@"static.yangfd.com", @"aws-s3.bbtechgroup.com"]];
     });
 
     it(@"should work on simple text compare", ^ {

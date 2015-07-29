@@ -10,7 +10,7 @@
 #import "CUTEPropertyInfoForm.h"
 #import "CUTERentTypeListForm.h"
 #import "CUTEDataManager.h"
-#import "CUTEEnumManager.h"
+#import "CUTEAPICacheManager.h"
 #import "CUTETicket.h"
 #import "CUTERentTypeListForm.h"
 #import "CUTERentAddressMapViewController.h"

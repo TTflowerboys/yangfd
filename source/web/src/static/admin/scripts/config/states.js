@@ -693,7 +693,7 @@ angular.module('app')
                 controller: 'ctrlReportEdit',
                 resolve: reportResolve
             })
-        /***
+        /***房源信息
          * 微信
          */
             .state('dashboard.weixin', {
@@ -769,25 +769,45 @@ angular.module('app')
                 }
             })
         /**
+         * 用戶申請入口
+         * */
+            .state('dashboard.subscribe', {
+                url: '/subscribe',
+                templateUrl: '/static/admin/templates/dashboard.subscribe.tpl.html'
+            })
+        /**
          * 邀请码
          * */
-            .state('dashboard.invitation', {
+            .state('dashboard.subscribe.invitation', {
                 url: '/invitation',
                 templateUrl: '/static/admin/templates/dashboard.invitation.tpl.html',
                 controller: 'ctrlInvitationList',
                 resolve: {
-                    api: function (invitationApi) {
-                        return invitationApi
+                    api: function (subscribeApi) {
+                        return subscribeApi
                     }
                 }
             })
-            .state('dashboard.invitation.create', {
+            .state('dashboard.subscribe.invitation.create', {
                 url: '/create',
                 templateUrl: '/static/admin/templates/dashboard.invitation.create.tpl.html',
                 controller: 'ctrlInvitationCreate',
                 resolve: {
-                    api: function (invitationApi) {
-                        return invitationApi
+                    api: function (subscribeApi) {
+                        return subscribeApi
+                    }
+                }
+            })
+        /**
+         * Android订阅申请
+         * */
+            .state('dashboard.subscribe.android', {
+                url: '/android',
+                templateUrl: '/static/admin/templates/dashboard.subscription_android.tpl.html',
+                controller: 'ctrlAndroidSubscriptionList',
+                resolve: {
+                    api: function (subscribeApi) {
+                        return subscribeApi
                     }
                 }
             })

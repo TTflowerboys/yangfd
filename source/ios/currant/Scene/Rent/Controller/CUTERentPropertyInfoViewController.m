@@ -18,7 +18,7 @@
 #import <BBTJSON.h>
 #import <NSArray+ObjectiveSugar.h>
 #import <UIAlertView+Blocks.h>
-#import "CUTEEnumManager.h"
+#import "CUTEAPICacheManager.h"
 #import "CUTECommonMacro.h"
 #import "CUTERentPriceViewController.h"
 #import "CUTERentPriceForm.h"
@@ -225,13 +225,13 @@
     };
 
     //in case of push twice time
-    if ([self.navigationController.topViewController isKindOfClass:[CUTERentPeriodViewController class]]) {
+    if (![self.navigationController.topViewController isKindOfClass:[CUTERentPeriodViewController class]]) {
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
 
 - (void)editRentType {
-    [[[CUTEEnumManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
         if (task.result) {
             CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
             form.singleUseForReedit = YES;

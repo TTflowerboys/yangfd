@@ -13,8 +13,7 @@
 #import "CUTECity.h"
 
 
-//TODO for file size, cache it in disk
-@interface CUTEEnumManager : NSObject
+@interface CUTEAPICacheManager : NSObject
 
 + (instancetype)sharedInstance;
 
@@ -28,7 +27,7 @@
 
 - (BFTask *)getUploadCDNDomains;
 
-- (BFTask *)startLoadAllEnums;
+- (BFTask *)refresh;
 
 @property (nonatomic, readonly) NSArray *uploadCDNDomains;
 
