@@ -229,7 +229,7 @@
             //todo 暂时不考虑编辑页的问题
             var val = $('#' + $(elem).attr('data-model')).val()
             //var text = $('#' + $(elem).attr('data-model')).data('text')
-            $(elem).val(val).trigger('change').trigger('chosen:updated')
+            $(elem).val(val).trigger('chosen:updated')
             $(elem).bind('change', function() {
                 $('#' + $(elem).data('model')).val($(elem).val())
             })
