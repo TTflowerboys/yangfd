@@ -3169,7 +3169,7 @@ class f_maponics(f_app.plugin_base):
             neighborhood["shapely"] = shapely.wkt.loads(neighborhood["wkt"])
 
         with f_app.mongo() as m:
-            for postcode in f_app.geonames.postcode.get_database(m).find({"country": country}):
+            for postcode in list(f_app.geonames.postcode.get_database(m).find({"country": country})):
                 if "loc" not in postcode:
                     continue
 
@@ -3180,7 +3180,7 @@ class f_maponics(f_app.plugin_base):
                         postcode["neighborhoods"].append(ObjectId(neighborhood["id"]))
 
                 if len(postcode["neighborhoods"]):
-                    self.logger.debug("Assigning neighborhoods", postcode["neighborhoods"], "to postcode", postcode["_id"])
+                    self.logger.debug("Assigning neighborhoods", postcode["neighborhoods"], "to postcode", postcode["postcode"], "id:", postcode["_id"])
                     f_app.geonames.postcode.get_database(m).update({"_id": postcode["_id"]}, {"$set": {"neighborhoods": postcode["neighborhoods"]}})
                     f_app.geonames.postcode.get(postcode["_id"], force_reload=True)
 

@@ -522,15 +522,15 @@
         [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
             if (task.result) {
                 CUTEPlacemark *placemark = task.result;
-                NSString *street = property.neighborhood == nil ? [CUTEAddressUtil buildAddress:@[placemark.street, placemark.neighborhood]]: [CUTEAddressUtil buildAddress:@[placemark.street, [(CUTENeighborhood *)property.neighborhood name]]];
-                [self.form syncTicketWithUpdateInfo:@{@"property.street": street,
-                            @"property.zipcode": placemark.postalCode,
-                            @"property.country": placemark.country,
-                            @"property.city": placemark.city,
-                            @"property.community": [NSNull null],
-                            @"property.floor": [NSNull null],
-                            @"property.houseName": [NSNull null],
-                            }];
+                NSString *street = property.neighborhood == nil ? [CUTEAddressUtil buildAddress:@[NilNullToEmpty(placemark.street), NilNullToEmpty(placemark.neighborhood)]]: [CUTEAddressUtil buildAddress:@[NilNullToEmpty(placemark.street), NilNullToEmpty([(CUTENeighborhood *)property.neighborhood name])]];
+                [self.form syncTicketWithUpdateInfo:@{@"property.street": NilNullToEmpty(street),
+                                                      @"property.zipcode": placemark.postalCode == nil? [NSNull null]: placemark.postalCode,
+                                                      @"property.country": placemark.country,
+                                                      @"property.city": placemark.city == nil? [NSNull null]: placemark.city,
+                                                      @"property.community": [NSNull null],
+                                                      @"property.floor": [NSNull null],
+                                                      @"property.houseName": [NSNull null],
+                                                      }];
 
                 _textField.text = property.address;
                 [_textField setNeedsDisplay];

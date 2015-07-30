@@ -27,6 +27,7 @@
 #import "NSArray+ObjectiveSugar.h"
 #import "CUTEPostcodePlace.h"
 #import "CUTEAddressUtil.h"
+#import "CUTENavigationUtil.h"
 
 @interface CUTERentAddressEditViewController () {
 
@@ -42,10 +43,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+
+    self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
+
     if (!form.singleUseForReedit) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
     }
     self.tableView.accessibilityIdentifier = STR(@"地址编辑表单");
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,6 +74,29 @@
     if (self.updateAddressCompletion) {
         self.updateAddressCompletion();
     }
+}
+
+- (void)onLeftButtonPressed:(id)sender {
+
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+    if (form.singleUseForReedit && _updateLocationFromAddressFailed) {
+
+        [UIAlertView showWithTitle:STR(@"新Postcode定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置") message:nil cancelButtonTitle:STR(@"返回") otherButtonTitles:@[STR(@"前往地图")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+
+            if (buttonIndex == alertView.cancelButtonIndex) {
+                [self clearTicketLocation];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else {
+                [self onLocationEdit:nil];
+            }
+        }];
+
+        _updateLocationFromAddressFailed = NO;
+        return;
+    }
+
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (BFTask *)checkNeedUpdateCityOptions {
@@ -139,6 +167,7 @@
     [self.navigationController popViewControllerAnimated:YES];
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     [form syncTicketWithUpdateInfo:@{@"property.country": self.form.country,}];
+    [self refreshLocation];
 }
 
 - (void)onCityEdit:(id)sender {
@@ -185,38 +214,103 @@
     [form syncTicketWithUpdateInfo:@{@"property.floor": self.form.floor}];
 }
 
+-  (void)clearTicketLocation {
+
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+    //check is a draft ticket not a unfinished one
+    if (!IsNilNullOrEmpty(form.ticket.identifier)) {
+        [form syncTicketWithUpdateInfo:@{@"property.latitude": [NSNull null], @"property.longitude": [NSNull null]}];
+    }
+    else {
+        form.ticket.property.latitude = nil;
+        form.ticket.property.longitude = nil;
+    }
+
+}
+
+- (void)refreshLocation {
+    Sequencer *sequencer = [Sequencer new];
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [SVProgressHUD showWithStatus:STR(@"搜索中...")];
+        [[self updateLocationWhenAddressChange] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                CUTEPostcodePlace *place = task.result;
+                 CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+                if (place && [place isKindOfClass:[CUTEPostcodePlace class]]) {
+                    form.neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
+
+                    //check is a draft ticket not a unfinished one
+                    if (!IsNilNullOrEmpty(form.ticket.identifier)) {
+                        //TODO check why here place's latitude parse as NSString?
+                        NSMutableDictionary *updateInfo = [NSMutableDictionary dictionaryWithDictionary:@{@"property.latitude": place.latitude, @"property.longitude": place.longitude}];
+                        if (place.neighborhoods) {
+                            [updateInfo setObject:form.neighborhood forKey:@"property.neighborhood"];
+                        }
+                        [form syncTicketWithUpdateInfo:updateInfo];
+                    }
+                    else {
+
+                        form.ticket.property.latitude = place.latitude;
+                        form.ticket.property.longitude = place.longitude;
+                        form.ticket.property.neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
+                        [self.tableView reloadData];
+                    }
+
+                    _updateLocationFromAddressFailed = NO;
+                    completion(nil);
+                }
+                else {
+                    [SVProgressHUD showErrorWithStatus:STR(@"新Postcode定位失败")];
+                    _updateLocationFromAddressFailed = YES;
+                }
+            }
+            return task;
+        }];
+    }];
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:self.form.ticket.property.latitude.doubleValue longitude:self.form.ticket.property.longitude.doubleValue]] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                CUTEPlacemark *detailPlacemark = task.result;
+                CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+                CUTEProperty *property = form.ticket.property;
+                NSString *street = property.neighborhood == nil? [CUTEAddressUtil buildAddress:@[NilNullToEmpty(detailPlacemark.street), NilNullToEmpty(detailPlacemark.neighborhood)]]: [CUTEAddressUtil buildAddress:@[NilNullToEmpty(detailPlacemark.street), NilNullToEmpty([(CUTENeighborhood *)property.neighborhood name])]];
+                form.street = street;
+                [form syncTicketWithUpdateInfo:@{@"property.street": NilNullToEmpty(form.street)}];
+                [self.tableView reloadData];
+                [SVProgressHUD dismiss];
+            }
+            
+            return task;
+        }];
+    }];
+    
+    [sequencer run];
+
+}
+
 - (void)onPostcodeEdit:(id)sender {
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     [form syncTicketWithUpdateInfo:@{@"property.zipcode": self.form.postcode}];
-    [self updateAddressWithGetLocationSuccessBlock:^{
-        _updateLocationFromAddressFailed = NO;
-
-    } failedBlock:^{
-
-        CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-        if (form.singleUseForReedit) {
-
-
-            //check is a draft ticket not a unfinished one
-            if (!IsNilNullOrEmpty(form.ticket.identifier)) {
-                [form syncTicketWithUpdateInfo:@{@"property.latitude": [NSNull null], @"property.longitude": [NSNull null]}];
-            }
-            else {
-                form.ticket.property.latitude = nil;
-                form.ticket.property.longitude = nil;
-            }
-
-            [SVProgressHUD dismiss];
-            [UIAlertView showWithTitle:STR(@"新Postcode定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-
-            }];
-        }
-        else {
-            [SVProgressHUD showErrorWithStatus:STR(@"新Postcode定位失败")];
-            _updateLocationFromAddressFailed = YES;
-        }
-        return;
-    }];
+    [self refreshLocation];
 }
 
 - (void)onLocationEdit:(id)sender {
@@ -248,78 +342,26 @@
     [self.navigationController pushViewController:mapController animated:YES];
 }
 
-- (void)updateAddressWithGetLocationSuccessBlock:(dispatch_block_t)successBlock failedBlock:(dispatch_block_t)failedBlock {
+
+- (BFTask *)updateLocationWhenAddressChange {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
 
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     NSString *postCodeIndex = [form.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (form.ticket.property.country && !IsNilNullOrEmpty(postCodeIndex)) {
-        [SVProgressHUD showWithStatus:STR(@"搜索中...")];
-
         [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:form.ticket.property.country.code] continueWithBlock:^id(BFTask *task) {
-
             NSArray *places = (NSArray *)task.result;
             if (!IsArrayNilOrEmpty(places)) {
-                CUTEPostcodePlace *place = [places firstObject];
-                form.neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
-
-                //check is a draft ticket not a unfinished one
-                if (!IsNilNullOrEmpty(form.ticket.identifier)) {
-                    //TODO check why here place's latitude parse as NSString?
-                    NSMutableDictionary *updateInfo = [NSMutableDictionary dictionaryWithDictionary:@{@"property.latitude": place.latitude, @"property.longitude": place.longitude}];
-                    if (place.neighborhoods) {
-                        [updateInfo setObject:form.neighborhood forKey:@"property.neighborhood"];
-                    }
-                    [form syncTicketWithUpdateInfo:updateInfo];
-                }
-                else {
-
-                    form.ticket.property.latitude = place.latitude;
-                    form.ticket.property.longitude = place.longitude;
-                    form.ticket.property.neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
-                    [self.tableView reloadData];
-                }
-
-                [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:place.latitude.doubleValue longitude:place.longitude.doubleValue]] continueWithBlock:^id(BFTask *task) {
-                    if (task.error) {
-                        [SVProgressHUD showErrorWithError:task.error];
-                    }
-                    else if (task.exception) {
-                        [SVProgressHUD showErrorWithException:task.exception];
-                    }
-                    else if (task.isCancelled) {
-                        [SVProgressHUD showErrorWithCancellation];
-                    }
-                    else {
-                        if (task.result) {
-                            CUTEPlacemark *detailPlacemark = task.result;
-                            CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-                            CUTEProperty *property = form.ticket.property;
-                            NSString *street = property.neighborhood == nil? [CUTEAddressUtil buildAddress:@[detailPlacemark.street, detailPlacemark.neighborhood]]: [CUTEAddressUtil buildAddress:@[detailPlacemark.street, [(CUTENeighborhood *)property.neighborhood name]]];
-                            form.street = street;
-                            [form syncTicketWithUpdateInfo:@{@"property.street": form.street}];
-                            [self.tableView reloadData];
-                            [SVProgressHUD dismiss];
-                        }
-                        else {
-                            [SVProgressHUD dismiss];
-                        }
-                    }
-                    return task;
-                }];
-
-                if (successBlock) {
-                    successBlock();
-                }
+                [tcs setResult:places.firstObject];
             }
             else {
-                if (failedBlock) {
-                    failedBlock();
-                }
-
+                [tcs setError:task.error];
             }
             return task;
         }];
     }
+
+    return tcs.task;
 }
 
 - (CUTERentAddressEditForm *)form {
@@ -426,20 +468,16 @@
 
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
 
-    if (_updateLocationFromAddressFailed) {
-        if (!form.singleUseForReedit){
-            [UIAlertView showWithTitle:STR(@"新Postcode定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"返回") otherButtonTitles:@[STR(@"下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-
-                if (buttonIndex == alertView.cancelButtonIndex) {
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
-                else {
-                    form.ticket.property.latitude = nil;
-                    form.ticket.property.longitude = nil;
-                    [self createTicket];
-                }
-            }];
-        }
+    if (!form.singleUseForReedit && _updateLocationFromAddressFailed) {
+        [UIAlertView showWithTitle:STR(@"新Postcode定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"返回") otherButtonTitles:@[STR(@"下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex == alertView.cancelButtonIndex) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else {
+                [self clearTicketLocation];
+                [self createTicket];
+            }
+        }];
 
         _updateLocationFromAddressFailed = NO;
         return;
