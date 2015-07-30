@@ -32,25 +32,24 @@
 
     [self.bridge registerHandler:@"login" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dic = data;
+        CUTEUser *user = nil;
         if (dic && [dic isKindOfClass:[NSDictionary class]]) {
             NSError *error = nil;
-            CUTEUser *user = (CUTEUser *)[MTLJSONAdapter modelOfClass:[CUTEUser class] fromJSONDictionary:dic error:&error];
-            if (!error && user) {
-                [[CUTEDataManager sharedInstance] persistAllCookies];
-                [[CUTEDataManager sharedInstance] saveUser:user];
-            }
+            user = (CUTEUser *)[MTLJSONAdapter modelOfClass:[CUTEUser class] fromJSONDictionary:dic error:&error];
         }
 
-        UIView *view = [webViewController view];
-        if (!IsArrayNilOrEmpty(view.subviews) && [[view subviews][0] isKindOfClass:[UIWebView class]]) {
-            UIWebView *webView = (UIWebView *)[view subviews][0];
-            NSURL *url = [[webView request] URL];
-            NSDictionary *queryDictionary = [url queryDictionary];
-            if (queryDictionary && queryDictionary[@"from"]) {
-                NSString *fromURLStr = [queryDictionary[@"from"] URLDecode];
-                [webViewController updateWithURL:[NSURL URLWithString:fromURLStr]];
-                [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:webViewController];
-                responseCallback(nil);
+        if (user && [user isKindOfClass:[CUTEUser class]]) {
+            UIView *view = [webViewController view];
+            if (!IsArrayNilOrEmpty(view.subviews) && [[view subviews][0] isKindOfClass:[UIWebView class]]) {
+                UIWebView *webView = (UIWebView *)[view subviews][0];
+                NSURL *url = [[webView request] URL];
+                NSDictionary *queryDictionary = [url queryDictionary];
+                if (queryDictionary && queryDictionary[@"from"]) {
+                    NSString *fromURLStr = [queryDictionary[@"from"] URLDecode];
+                    [webViewController updateWithURL:[NSURL URLWithString:fromURLStr]];
+                    [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:webViewController userInfo:@{@"user": user}];
+                    responseCallback(nil);
+                }
             }
         }
     }];

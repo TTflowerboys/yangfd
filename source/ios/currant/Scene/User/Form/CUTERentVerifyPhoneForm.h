@@ -7,9 +7,12 @@
 //
 
 #import "CUTEForm.h"
+#import "CUTEUser.h"
 
 @interface CUTERentVerifyPhoneForm : CUTEForm
 
 @property (strong, nonatomic) NSString *code;
+
+@property (strong, nonatomic) CUTEUser *user;
 
 @end

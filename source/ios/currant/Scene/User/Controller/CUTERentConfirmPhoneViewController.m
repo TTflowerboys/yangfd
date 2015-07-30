@@ -7,6 +7,14 @@
 //
 
 #import "CUTERentConfirmPhoneViewController.h"
+#import "CUTERentVerifyPhoneViewController.h"
+#import "CUTERentVerifyPhoneForm.h"
+#import "CUTECommonMacro.h"
+#import "CUTERentConfirmPhoneForm.h"
+#import "CUTEUser.h"
+#import "CUTEDataManager.h"
+#import "CUTEAPIManager.h"
+#import "SVProgressHUD+CUTEAPI.h"
 
 @interface CUTERentConfirmPhoneViewController ()
 
@@ -17,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationItem.title = STR(@"确认手机号");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +33,47 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)optionBack {
+    [self.navigationController popViewControllerAnimated:YES];
 }
-*/
+
+- (void)submit {
+    CUTERentConfirmPhoneForm *form = (CUTERentConfirmPhoneForm *)self.formController.form;
+
+    if (![form.phone isEqualToString:form.user.phone] || ![form.country isEqual:form.user.country]) {
+        [SVProgressHUD showWithStatus:STR(@"更新号码中...")];
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/edit" parameters:@{@"phone":form.phone, @"country": form.country.code} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                form.user.phone = form.phone;
+                form.user.country = form.country;
+                
+                CUTERentVerifyPhoneViewController *controller = [CUTERentVerifyPhoneViewController new];
+                CUTERentVerifyPhoneForm *verifyForm = [CUTERentVerifyPhoneForm new];
+                verifyForm.user = form.user;
+                controller.formController.form = verifyForm;
+                [self.navigationController pushViewController:controller animated:YES];
+            }
+
+
+            return task;
+        }];
+    }
+    else {
+        CUTERentVerifyPhoneViewController *controller = [CUTERentVerifyPhoneViewController new];
+        CUTERentVerifyPhoneForm *verifyForm = [CUTERentVerifyPhoneForm new];
+        verifyForm.user = form.user;
+        controller.formController.form = verifyForm;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+}
 
 @end

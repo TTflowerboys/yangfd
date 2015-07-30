@@ -47,8 +47,6 @@
 
 @interface CUTERentContactViewController () <TTTAttributedLabelDelegate> {
 
-    BOOL _userVerified;
-
     CUTEUser *_retUser;
 
     CUTERentContactDisplaySettingForm *_displaySettingForm;
@@ -254,7 +252,7 @@
         [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/user/", _retUser.identifier, @"/sms_verification/verify") parameters:@{@"code":form.code} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             //update verify status
             if (task.result) {
-                _userVerified = YES;
+                _retUser.phoneVerified = @(YES);
                 [SVProgressHUD showSuccessWithStatus:STR(@"验证成功")];
             }
             else {
@@ -279,7 +277,7 @@
         }
     }
 
-    if (!_retUser || !_userVerified) {
+    if (!_retUser || !_retUser.phoneVerified.boolValue) {
         [SVProgressHUD showErrorWithStatus:STR(@"手机未验证成功，请重发验证码")];
         return NO;
     }
@@ -329,15 +327,11 @@
         if (form.isOnlyRegister) {
             [SVProgressHUD dismiss];
             [self dismissViewControllerAnimated:YES completion:^{
-                [[CUTEDataManager sharedInstance] saveUser:retUser];
-                [[CUTEDataManager sharedInstance] persistAllCookies];
-                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": retUser}];
             }];
         }
         else {
-            [[CUTEDataManager sharedInstance] saveUser:retUser];
-            [[CUTEDataManager sharedInstance] persistAllCookies];
-            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": retUser}];
             CUTETicket *ticket = self.ticket;
             
             [[[CUTERentTicketPublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {

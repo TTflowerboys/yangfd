@@ -23,6 +23,7 @@
              @"wechat": @"wechat",
              @"privateContactMethods": @"private_contact_methods",
              @"roles": @"role",
+             @"phoneVerified": @"phone_verified"
              };
 }
 
