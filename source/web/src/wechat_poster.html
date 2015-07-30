@@ -110,6 +110,16 @@
                         {{rent['property'].get('city',{}).get('name','')}}
                     </div>
                     </li>-->
+                    <li class="animate deposit"
+                        % if not ('floor' in rent['property'] and rent['property'].get('floor','')):
+                        style="width:100%;"
+                        %end
+                        >
+                        <div>
+                            <i class="icon-coin_filter"></i>
+                            {{_('押金')}}{{rent.get('deposit',{}).get('unit_symbol','')}}{{rent.get('deposit',{}).get('value',_('面议'))}}
+                        </div>
+                    </li>
                     % if 'floor' in rent['property'] and rent['property'].get('floor',''):
                     <li class="animate door">
                         <div>
