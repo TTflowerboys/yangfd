@@ -90,18 +90,15 @@
         }
     }
     else if ([field.key isEqualToString:@"rentPeriod"]) {
-
-        if (!IsNilOrNull(self.form.ticket.rentAvailableTime)) {
-            NSDateFormatter *formatter = [NSDateFormatter new];
-            formatter.dateStyle = NSDateFormatterMediumStyle;
-            formatter.timeStyle = NSDateFormatterNoStyle;
-            cell.detailTextLabel.text = CONCAT([formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.form.ticket.rentAvailableTime.doubleValue]], STR(@"起"));
+        if ((IsNilOrNull(self.form.ticket.rentAvailableTime) && IsNilOrNull(self.form.ticket.rentDeadlineTime) && IsNilOrNull(self.form.ticket.minimumRentPeriod))) {
+            cell.detailTextLabel.text = STR(@"不限");
         }
-        else if (!IsNilOrNull(self.form.ticket.rentDeadlineTime)) {
+        else if (!IsNilOrNull(self.form.ticket.rentAvailableTime) && !IsNilOrNull(self.form.ticket.minimumRentPeriod)) {
             NSDateFormatter *formatter = [NSDateFormatter new];
             formatter.dateStyle = NSDateFormatterMediumStyle;
             formatter.timeStyle = NSDateFormatterNoStyle;
-            cell.detailTextLabel.text = CONCAT([formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.form.ticket.rentDeadlineTime.doubleValue]], STR(@"起"));
+
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@%@%d%@", [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.form.ticket.rentAvailableTime.doubleValue]], STR(@"起"), STR(@"至少租"), self.form.ticket.minimumRentPeriod.value, self.form.ticket.minimumRentPeriod.unitForDisplay];
         }
     }
     else if ([field.key isEqualToString:@"rentType"]) {
