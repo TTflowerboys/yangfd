@@ -96,6 +96,7 @@
                         line-height: 50px;
                         margin-right: 15px;
                         width: 100px;
+                        background-color: #fff;
                     }
                     input{
                         display: inline-block;
@@ -118,6 +119,10 @@
                 button{
                     width:  calc(~'100% - 180px');
                     font-size: 14px;
+                    padding: 10px 0px;
+                    &[disabled] {
+                        background-color: #ccc;
+                    }
                     @media @phone{
                         width:  calc(~'100% - 140px');
                         line-height: 30px;

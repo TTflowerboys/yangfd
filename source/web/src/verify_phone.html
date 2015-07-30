@@ -24,12 +24,12 @@
             </div>
             <div class="phoneEdit" style="display: none;">
                 <!-- @@include=./partials/country_select_in_user.html -->
-                <input name="phone" type="tel" size=20 data-validator="required, trim, number" placeholder="{{_('手机')}}">
+                <input name="phone" type="tel" size=20 data-validator="required, trim, number" placeholder="{{_('手机')}}" value="{{user.get('phone')}}">
             </div>
         </div>
         <div class="form_row codeRow">
             <input name="code" data-validator="required number" placeholder="{{_('手机验证码')}}">
-            <button name="code" type="button" class="button green ajaxButton getCode">{{_('获取验证码')}}</button>
+            <button name="code" type="button" class="button green ajaxButton getCode manualTriggerLoadingEnd">{{_('获取验证码')}}</button>
         </div>
 
         <div class="form_row">
