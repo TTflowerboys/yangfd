@@ -108,9 +108,7 @@
 
 
                 [self dismissViewControllerAnimated:YES completion:^{
-                    [[CUTEDataManager sharedInstance] persistAllCookies];
-                    [[CUTEDataManager sharedInstance] saveUser:user];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": user}];
                 }];
             }
             return nil;
@@ -128,9 +126,8 @@
                     [SVProgressHUD showErrorWithError:task.error];
                 }
                 else {
-                    [[CUTEDataManager sharedInstance] persistAllCookies];
-                    [[CUTEDataManager sharedInstance] saveUser:task.result];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self];
+                    CUTEUser *user = task.result;
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": user}];
                     completion(task.result);
                 }
                 return nil;

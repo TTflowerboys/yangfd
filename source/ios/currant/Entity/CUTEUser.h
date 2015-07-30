@@ -32,6 +32,8 @@
 
 @property (strong, nonatomic) NSString *wechat;
 
+@property (strong, nonatomic) NSNumber *phoneVerified;
+
 @property (strong, nonatomic) NSArray *privateContactMethods;
 
 @property (strong, nonatomic) NSArray *roles;

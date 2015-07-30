@@ -57,6 +57,8 @@
 #import "CUTESurveyHelper.h"
 #import "CUTEUsageRecorder.h"
 #import "CUTEApptentiveEvent.h"
+#import "CUTERentConfirmPhoneViewController.h"
+#import "CUTERentConfirmPhoneForm.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
@@ -698,6 +700,16 @@
 
 
 - (void)onReceiveUserDidLogin:(NSNotification *)notif {
+    CUTEUser *user = [notif.userInfo objectForKey:@"user"];
+
+    if (!user.phoneVerified.boolValue) {
+        [self verifyUserPhone:user];
+        return;
+    }
+
+    [[CUTEDataManager sharedInstance] saveUser:user];
+    [[CUTEDataManager sharedInstance] persistAllCookies];
+
 
     NSArray *unbindedTicket = [[[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets] select:^BOOL(CUTETicket *object) {
         return object.creatorUser == nil;
@@ -759,6 +771,42 @@
     [[RNCache sharedInstance] clearCache];
     [[CUTEDataManager sharedInstance] clearAllRentTickets];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+}
+
+- (void)verifyUserPhone:(CUTEUser *)user {
+    [SVProgressHUD showWithStatus:STR(@"获取验证中...")];
+    [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        else if (task.exception) {
+            [SVProgressHUD showErrorWithException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [SVProgressHUD showErrorWithCancellation];
+        }
+        else {
+            CUTERentConfirmPhoneViewController *controller = [[CUTERentConfirmPhoneViewController alloc] init];
+            CUTERentConfirmPhoneForm *form = [CUTERentConfirmPhoneForm new];
+            [form setAllCountries:task.result];
+            //set default country same with the property
+            if (user.country) {
+                form.country = [task.result find:^BOOL(CUTECountry *object) {
+                    return [object.code isEqualToString:user.country.code];
+                }];
+            }
+            form.phone = user.phone;
+            form.user = user;
+            controller.formController.form = form;
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+            [self.tabBarController presentViewController:nav animated:YES completion:^{
+
+            }];
+            [SVProgressHUD dismiss];
+        }
+
+        return task;
+    }];
 }
 
 - (void)onReceiveShowSplashView:(NSNotification *)notif {

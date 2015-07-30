@@ -8,11 +8,16 @@
 
 #import "CUTEForm.h"
 #import "CUTECountry.h"
+#import "CUTEUser.h"
 
 @interface CUTERentConfirmPhoneForm : CUTEForm
 
 @property (strong, nonatomic) CUTECountry *country;
 
 @property (strong, nonatomic) NSString *phone;
+
+@property (strong, nonatomic) CUTEUser *user;
+
+- (void)setAllCountries:(NSArray *)allCountries;
 
 @end
