@@ -359,7 +359,7 @@ $(function () {
                             $(e.target).text(window.i18n('重新发布'))
                             $(e.target).attr('data-type','rent')
                             $(e.target).parent().parent().parent().find('.imgAction_wrapper .date').text(window.i18n('今天更新过'))
-                            $(e.target).parent().parent().parent().parent().parent().find('.status').text(window.i18n('已出租'))
+                            $(e.target).parent().parent().parent().parent().parent().find('.status').text(window.i18n('已租出'))
 
                             //Remove refresh from rent status
                             $(e.target).parent().prev().remove()
