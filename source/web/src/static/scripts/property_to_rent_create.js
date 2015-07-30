@@ -264,8 +264,8 @@
         var originContent = $span.html()
         $span.html(window.i18n('街区列表加载中...'))
         window.geonamesApi.getNeighborhood(function (val) {
-            $('.buttonLoading').trigger('end')
             $('.buttonLoading').prop('disabled', false).text(window.i18n('重新获取'))
+            $('.buttonLoading').trigger('end')
             $('#address').show()
             if($('#city-select :selected').text().toLowerCase() === 'london') {
                 $span.html(originContent)
@@ -281,8 +281,8 @@
                 }
             }
         }, function (ret) {
-            $('.buttonLoading').trigger('end')
             $('.buttonLoading').prop('disabled', false).text(window.i18n('重新获取'))
+            $('.buttonLoading').trigger('end')
             $('#address').show()
         })
     }
