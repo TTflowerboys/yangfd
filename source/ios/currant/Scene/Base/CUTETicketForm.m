@@ -23,7 +23,7 @@
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
     
     [updateInfo each:^(id key, id value) {
-        [self.ticket setValue:value forKeyPath:key];
+        [self.ticket setValue:IsNull(value)? nil: value forKeyPath:key];
     }];
 
     [ticketListener stopListenMark];
