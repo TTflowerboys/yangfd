@@ -145,6 +145,7 @@ $(function () {
                                 $hint.css('display', 'none')
                             }
                         }
+                        $requestContactBtn.prop('disabled', false)
                     })
                     .fail(function (ret) {
                         $requestContactBtn.find('.hint').hide()
@@ -212,7 +213,7 @@ $(function () {
      * Control request contact button based on user login or not
      * */
     $requestContactBtn.on('click', function (e) {
-        if (window.user && rentId) {
+        if (window.user && rentId && !$(this).attr('disabled')) {
             getContactInfo()
         }
         else {
