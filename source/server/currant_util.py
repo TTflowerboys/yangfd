@@ -137,6 +137,18 @@ def get_country_name_by_code(code):
     else:
         return ""
 
+def get_phone_code_by_country(code):
+    phone_code_map = {
+        "CN": "86",
+        "GB": "44",
+        "US": "1",
+        "HK": "852"
+    }
+    if code:
+        return phone_code_map[code]
+    else:
+        return ""
+
 
 def get_phone_numbers(use="display"):
     if use == "display":
@@ -205,6 +217,7 @@ def common_template(path, **kwargs):
     kwargs.setdefault("totimestamp", totimestamp)
     kwargs.setdefault("is_mobile_client", is_mobile_client)
     kwargs.setdefault("get_country_name_by_code", get_country_name_by_code)
+    kwargs.setdefault("get_phone_code_by_country", get_phone_code_by_country)
     kwargs.setdefault("get_phone_numbers", get_phone_numbers)
     kwargs.setdefault("clear_html_tags", clear_html_tags)
     kwargs.setdefault("redirect", redirect)

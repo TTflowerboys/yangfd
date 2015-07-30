@@ -49,13 +49,11 @@
         var originParams
         if(window.user && window.user.country) {
             originParams = {
-                country: window.user.country.code,
-                phone: window.user.phone
+                phone:'+' + window.user.country_code + window.user.phone
             }
         }
         var params = {
-            country: $('[name=country]').val(),
-            phone: $('[name=phone]').val()
+            phone: '+' + $('[name=country_code]').val() + $('[name=phone]').val()
         }
         if (_.isEqual(originParams, params)) {//如果电话号码没改过，则直接发验证码，否则需要重设用户的电话号码
             sendSms()
@@ -115,8 +113,7 @@
     }
     var onPhoneNumberChange = function () {
         var params = {
-            country: $('[name=country]').val(),
-            phone: $('[name=phone]').val()
+            phone: '+' + $('[name=country_code]').val() + $('[name=phone]').val()
         }
         if (params.phone) {
             enableSubmitButton(false)
