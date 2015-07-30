@@ -18,6 +18,9 @@
 #import "CUTETicketForm.h"
 #import "CUTERentPeriodForm.h"
 
+
+@class CUTERentAddressEditForm;
+
 @interface CUTEPropertyInfoForm : CUTETicketForm
 
 @property (nonatomic, strong) NSArray *photos;
@@ -29,7 +32,7 @@
 @property (nonatomic, assign) NSUInteger livingroomCount;
 @property (nonatomic, assign) NSUInteger bathroomCount;
 @property (strong, nonatomic) CUTERentTypeListForm *rentType;
-@property (strong, nonatomic) NSString *address;
+@property (strong, nonatomic) CUTERentAddressEditForm *rentAddress;
 @property (nonatomic, strong) CUTEPropertyMoreInfoForm *moreInfo;
 @property (strong, nonatomic) CUTERentContactForm *submit;
 
