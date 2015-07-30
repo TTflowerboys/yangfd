@@ -25,7 +25,11 @@
                     window.user = data
                     $errorMsg.text(window.i18n('验证成功'))
                     $errorMsg.show()
-                    window.project.goToIntention()
+                    if(window.team.getQuery('from')) {
+                        window.project.goBackFromURL()
+                    } else {
+                        window.project.goToIntention()
+                    }
                 })
                 .fail(function (ret) {
                     $errorMsg.text(window.i18n('验证失败'))

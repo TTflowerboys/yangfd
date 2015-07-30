@@ -8,6 +8,7 @@ from app import f_app
 from libfelix.f_interface import template, request, redirect, template_gettext as _
 import currant_data_helper
 import lxml
+import urllib
 
 logger = logging.getLogger(__name__)
 BASE_KEYWORDS_ARRAY = ['洋房东', '海外置业', '楼盘', '公寓', '别墅', '学区房', '英国房产', '海外投资', '海外房产', '海外买房', '海外房地产', '海外房产投资', '英国房价', 'Youngfunding', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
@@ -82,6 +83,18 @@ def check_ip_and_redirect_domain(func):
         return func(*args, **kwargs)
 
     return __check_ip_and_redirect_domain_replace_func
+
+
+#检验登陆用户的手机号没有验证过则跳转到验证手机号的页面，这个函数目前没有使用，用的是写在master.html模板中的跳转
+def check_phone_verified_and_redirect_domain(func):
+    @wraps(func)
+    def __check_phone_verified_and_redirect_domain_replace_func(*args, **kwargs):
+        if f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields()) and not f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields()).get('phone_verified'):
+            redirect('/verify-phone?from=' + urllib.quote(request.url.encode("utf-8")))
+        else:
+            return func(*args, **kwargs)
+
+    return __check_phone_verified_and_redirect_domain_replace_func
 
 
 def check_crowdfunding_ready(func):
@@ -183,6 +196,8 @@ def common_template(path, **kwargs):
         kwargs['rent_budget_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('rent_budget'))
     if 'weixin' not in kwargs:
         kwargs['weixin'] = weixin = f_app.wechat.get_jsapi_signature()
+    if 'request_uri' not in kwargs:
+        kwargs['request_uri'] = urllib.quote(request.url.encode("utf-8"))
 
     # setup page utils
     kwargs.setdefault("format_unit", format_unit)
@@ -192,4 +207,5 @@ def common_template(path, **kwargs):
     kwargs.setdefault("get_country_name_by_code", get_country_name_by_code)
     kwargs.setdefault("get_phone_numbers", get_phone_numbers)
     kwargs.setdefault("clear_html_tags", clear_html_tags)
+    kwargs.setdefault("redirect", redirect)
     return template(path, **kwargs)

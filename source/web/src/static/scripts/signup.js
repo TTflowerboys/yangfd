@@ -66,7 +66,7 @@ $(function () {
                 if (window.bridge !== undefined) {
                     window.bridge.callHandler('login', result);
                 }
-                window.project.goToVerifyPhone()
+                location.href = '/verify-phone'
             }).fail(function (ret) {
                 errorArea.empty()
                 errorArea.append(window.getErrorMessageFromErrorCode(ret))
