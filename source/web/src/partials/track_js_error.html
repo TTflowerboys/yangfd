@@ -11,6 +11,18 @@
 </script>
 <!-- @endif -->
 
+<!-- @if ENV=='test' -->
+<script>
+    window.env = 'test'
+</script>
+<!-- @endif -->
+
+<!-- @if ENV=='dev' -->
+<script>
+    window.env = 'dev'
+</script>
+<!-- @endif -->
+
 
 <!--build:js /static/scripts/airbrake.js-->
 <script src="/static/bower_components/airbrake-js-client/dist/client.js"></script>
