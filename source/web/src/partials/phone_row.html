@@ -4,23 +4,17 @@
     </span>
     %if country_list:
     <select name="country" class=addLeft>
-        % for country in country_list:
-            % if country.get('code') == 'GB':
-                <option value="{{country.get('code')}}"
-                % if country.get('code') == user.get('country',{}).get('code') if user and user.get('country') else None:
-                selected
-                %end
-                >
-                    (+44) {{get_country_name_by_code(country.get('code'))}}
-                </option>
-                % country_list.remove(country)
-            %end
-        %end
 
         %for index, country  in enumerate(country_list):
         <option value="{{country.get('code')}}"
-            % if country.get('code') == user.get('country',{}).get('code') if user and user.get('country') else None:
-            selected
+            % if user :
+                %if country.get('code') == user.get('country',{}).get('code'):
+                    selected
+                %end
+            %else:
+                % if country.get('code') == 'GB':
+                selected
+                %end
             %end
             >
             %if country.get('code') == 'CN':

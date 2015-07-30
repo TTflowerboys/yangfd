@@ -46,34 +46,28 @@
                 <div class="formGroup">
                     <label for="phone">{{_('手机号')}}</label>
                     <select name="country" id="countryPhone">
-                        % for country in country_list:
-                            % if country.get('code') == 'GB':
-                                <option value="{{country.get('code')}}"
-                                % if country.get('code') == user.get('country',{}).get('code') if user and user.get('country') else None:
-                                selected
-                                %end
-                                >
-                                (+44){{get_country_name_by_code(country.get('code'))}}
-                                </option>
-                                % country_list.remove(country)
-                            %end
-                        %end
                         %for index, country in enumerate(country_list):
                         <option value="{{country.get('code')}}"
-                            % if country.get('code') == user.get('country',{}).get('code') if user and user.get('country') else None:
-                        selected
-                        %end
-                        >
-                        %if (country.get('code') == 'CN'):
-                        (+86)
-                        %elif (country.get('code') == 'GB') :
-                        (+44)
-                        %elif (country.get('code') == 'US') :
-                        (+1)
-                        %elif (country.get('code') == 'HK') :
-                        (+852)
-                        %end
-                        {{get_country_name_by_code(country.get('code'))}}
+                            % if user :
+                            %if country.get('code') == user.get('country',{}).get('code'):
+                            selected
+                            %end
+                            %else:
+                            % if country.get('code') == 'GB':
+                            selected
+                            %end
+                            %end
+                            >
+                                %if (country.get('code') == 'CN'):
+                                (+86)
+                                %elif (country.get('code') == 'GB') :
+                                (+44)
+                                %elif (country.get('code') == 'US') :
+                                (+1)
+                                %elif (country.get('code') == 'HK') :
+                                (+852)
+                                %end
+                                {{get_country_name_by_code(country.get('code'))}}
                         </option>
                         %end
                     </select>
