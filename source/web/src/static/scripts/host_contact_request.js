@@ -151,10 +151,12 @@ $(function () {
                         $requestContactBtn.find('.hint').hide()
                     })
             } else {
+                $requestContactBtn.prop('disabled', false)
                 $requestContactBtn.text(window.i18n('查看房东联系方式'))
             }
 
         } else{
+            $requestContactBtn.prop('disabled', false)
             $requestContactBtn.find('.hint').hide()
         }
     }
