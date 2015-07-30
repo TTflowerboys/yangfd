@@ -53,6 +53,9 @@
         ticket.status = kTicketStatusDraft;
         ticket.price = [CUTECurrency currencyWithValue:100.0 unit:[CUTECurrency defaultCurrencyUnit]];//default price
         ticket.property = property;
+        ticket.rentAvailableTime = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
+        ticket.minimumRentPeriod =  [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
+
         form.ticket = ticket;
         self.navigationItem.title = STR(@"出租发布");
     }
