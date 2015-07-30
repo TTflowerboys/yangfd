@@ -132,6 +132,9 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
 
 
 - (BFTask *)getCitiesByCountry:(CUTECountry *)country {
+    if (IsNilOrNull(country)) {
+        return [BFTask taskWithResult:nil];
+    }
     id cacheObject = [_cache objectForKey:CONCAT(CUTEAPICacheCityKeyPrefix, country.code)];
     if (cacheObject && [cacheObject isKindOfClass:[NSArray class]]) {
         return [BFTask taskWithResult:cacheObject];
@@ -176,6 +179,9 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
 }
 
 - (BFTask *)getNeighborhoodByCity:(CUTECity *)city {
+    if (IsNilOrNull(city)) {
+        return [BFTask taskWithResult:nil];
+    }
     id cacheObject = [_cache objectForKey:CONCAT(CUTEAPICacheNeighborhoodKeyPrefix, city.identifier)];
     if (cacheObject && [cacheObject isKindOfClass:[NSArray class]]) {
         return [BFTask taskWithResult:cacheObject];

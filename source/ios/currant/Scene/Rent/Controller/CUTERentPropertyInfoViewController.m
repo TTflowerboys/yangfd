@@ -195,20 +195,14 @@
 - (void)editRentPeriod {
 
     CUTETicket *ticket = self.form.ticket;
-    if (!ticket.rentAvailableTime) {
-        ticket.rentAvailableTime = @([[NSDate date] timeIntervalSince1970]);
-    }
-    if (!ticket.minimumRentPeriod) {
-        ticket.minimumRentPeriod = [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
-    }
-
     CUTERentPeriodViewController *controller = [[CUTERentPeriodViewController alloc] init];
     CUTERentPeriodForm *form = [CUTERentPeriodForm new];
     form.ticket = self.form.ticket;
-    form.needSetPeriod = YES;
-    form.rentAvailableTime = ticket.rentAvailableTime ?[NSDate dateWithTimeIntervalSince1970:ticket.rentAvailableTime.doubleValue]: nil;
-    form.rentDeadlineTime = ticket.rentDeadlineTime? [NSDate dateWithTimeIntervalSince1970:ticket.rentDeadlineTime.doubleValue]: nil;
-    form.minimumRentPeriod = ticket.minimumRentPeriod;
+    form.needSetPeriod = !(IsNilOrNull(ticket.rentAvailableTime) && IsNilOrNull(ticket.rentDeadlineTime) && IsNilOrNull(ticket.minimumRentPeriod));
+    
+    form.rentAvailableTime = IsNilOrNull(ticket.rentAvailableTime) ? nil :[NSDate dateWithTimeIntervalSince1970:ticket.rentAvailableTime.doubleValue];
+    form.rentDeadlineTime = IsNilOrNull(ticket.rentDeadlineTime)? nil: [NSDate dateWithTimeIntervalSince1970:ticket.rentDeadlineTime.doubleValue];
+    form.minimumRentPeriod = IsNilOrNull(ticket.minimumRentPeriod)? nil: ticket.minimumRentPeriod;
 
     controller.formController.form = form;
     controller.navigationItem.title = STR(@"租期");

@@ -72,11 +72,20 @@
     [self.tableView reloadData];
 
     if (self.form.needSetPeriod) {
+        CUTERentPeriodForm *form = (CUTERentPeriodForm *)self.form;
+        if (!form.rentAvailableTime) {
+            form.rentAvailableTime = [NSDate date];
+        }
+        if (!form.minimumRentPeriod) {
+            form.minimumRentPeriod = [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
+        }
+        
+        NSMutableDictionary *updateInfo = [NSMutableDictionary dictionaryWithDictionary:@{@"rentAvailableTime": @([[self.form rentAvailableTime] timeIntervalSince1970]), @"minimumRentPeriod": [self.form minimumRentPeriod]}];
 
-        [self.form syncTicketWithUpdateInfo:@{@"rentAvailableTime": @([[self.form rentAvailableTime] timeIntervalSince1970]),
-                                              @"rentDeadlineTime": @([[self.form rentDeadlineTime] timeIntervalSince1970]),
-                                              @"minimumRentPeriod": [self.form minimumRentPeriod]
-                                              }];
+        if (!IsNilOrNull(self.form.rentDeadlineTime)) {
+            [updateInfo setObject:@([[self.form rentDeadlineTime] timeIntervalSince1970]) forKey:@"rentDeadlineTime"];
+        }
+        [self.form syncTicketWithUpdateInfo:updateInfo];
     }
     else {
         [self.form syncTicketWithUpdateInfo:@{@"rentAvailableTime": [NSNull null],
