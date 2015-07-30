@@ -3,9 +3,11 @@
     var $errorMsg = $('.errorMessage')
     var $getCodeBtn = $('.getCode')
     var $verifyBtn = $('.verifyBtn')
+    var $hint = $('.formsHint')
     var isPhoneValid = true
     $('.phoneRow').bind('click', function () {
-       $(this).find('.phoneReadonly').hide().next('.phoneEdit').show()
+        $hint.show()
+        $(this).find('.phoneReadonly').hide().next('.phoneEdit').show()
     })
     requestSmsCode() //页面载入即自动发送验证码
     $getCodeBtn.bind('click', function () {
