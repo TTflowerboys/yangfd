@@ -4,9 +4,9 @@
 angular.module('app')
     .constant('rentStatus', [
         {name: i18n('草稿'), value: 'draft'},
-        {name: i18n('出租中'), value: 'to rent'},
+        {name: i18n('发布中'), value: 'to rent'},
         {name: i18n('隐藏'), value: 'hidden'},
-        {name: i18n('已出租'), value: 'rent'},
+        {name: i18n('已租出'), value: 'rent'},
     ])
     .run(function ($rootScope, rentStatus) {
         $rootScope.rentStatus = rentStatus
