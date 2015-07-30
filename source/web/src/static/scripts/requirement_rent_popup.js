@@ -86,7 +86,7 @@
                     $span.html(originContent)
                     $neighborhoodSelect.html(
                         _.reduce(val, function(pre, val, key) {
-                            return pre + '<option value="' + val.id + '">' + val.name + '</option>'
+                            return pre + '<option value="' + val.id + '">' + val.name + (val.parent && val.parent.name ? ', ' + val.parent.name : '') + '</option>'
                         }, '<option value="">' + i18n('请选择街区') + '</option>')
                     ).trigger('chosen:updated')
                     $neighborhoodSelect.trigger('chosen:open')
