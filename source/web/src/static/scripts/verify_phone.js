@@ -62,10 +62,12 @@
         }
         function editUser() {
             $.betterPost('/api/1/user/edit', params)
-                .done(function () {
+                .done(function (val) {
+                    window.user = val
                     sendSms()
                 })
                 .fail(function (ret) {
+                    $('.buttonLoading').trigger('end')
                     $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
                     $getCodeBtn.prop('disabled', false).text(i18n('重新获取验证码'))
                 })
