@@ -66,7 +66,7 @@ $(function () {
                 if (window.bridge !== undefined) {
                     window.bridge.callHandler('login', result);
                 }
-                window.project.goToIntention()
+                window.project.goToVerifyPhone()
             }).fail(function (ret) {
                 errorArea.empty()
                 errorArea.append(window.getErrorMessageFromErrorCode(ret))
