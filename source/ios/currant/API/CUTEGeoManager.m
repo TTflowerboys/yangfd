@@ -98,7 +98,7 @@
                 [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
                     if (!IsArrayNilOrEmpty(task.result)) {
                         NSArray *coutries = [(NSArray *)task.result select:^BOOL(CUTECountry *object) {
-                            return [[object code] isEqualToString:placemark.country.code];
+                            return [[object ISOcountryCode] isEqualToString:placemark.country.ISOcountryCode];
                         }];
                         CUTECountry *country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
                         [[[CUTEAPICacheManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {

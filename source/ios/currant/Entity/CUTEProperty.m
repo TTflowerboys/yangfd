@@ -128,7 +128,7 @@
         return [self toI18nString:value];
     }
     else if ([key isEqualToString:@keypath(self.country)] && [value isKindOfClass:[CUTECountry class]]) {
-        return [(CUTECountry *)value code];
+        return [(CUTECountry *)value ISOcountryCode];
     }
     else if ([key isEqualToString:@keypath(self.city)] && [value isKindOfClass:[CUTECity class]]) {
         return [(CUTECity *)value identifier];

@@ -12,9 +12,9 @@
 
 @property (strong, nonatomic) NSString *name;
 
-@property (strong, nonatomic) NSString *countryCodeAndName;
+@property (strong, nonatomic) NSString *countryCode; // +86
 
-@property (strong, nonatomic) NSString *code;
+@property (strong, nonatomic) NSString *ISOcountryCode; // CN
 
 @property (nonatomic) BOOL showCountryCode;
 

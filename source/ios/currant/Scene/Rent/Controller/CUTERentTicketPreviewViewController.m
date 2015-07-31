@@ -88,7 +88,7 @@
                 //set default country same with the property
                 if (property.country) {
                     form.country = [task.result find:^BOOL(CUTECountry *object) {
-                        return [object.code isEqualToString:property.country.code];
+                        return [object.ISOcountryCode isEqualToString:property.country.ISOcountryCode];
                     }];
                 }
                 contactViewController.formController.form = form;

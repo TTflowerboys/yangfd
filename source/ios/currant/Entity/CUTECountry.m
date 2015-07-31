@@ -13,11 +13,11 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
-    return @{@"code": @"code",
+    return @{@"ISOcountryCode": @"code",
              @"name": @"name",};
 }
 
-+ (NSString *)nameOfCode:(NSString *)code {
++ (NSString *)nameOfISOcountryCode:(NSString *)code {
     return @{@"GB": STR(@"英国"),
              @"CN": STR(@"中国"),
              @"US": STR(@"美国"),
@@ -25,7 +25,7 @@
              }[code];
 }
 
-+ (NSString *)countryCodeAndNameOfCode:(NSString *)code {
++ (NSString *)countryCodeAndNameOfISOcountryCode:(NSString *)code {
     return @{@"GB": STR(@"（+44）英国"),
              @"CN": STR(@"（+86）中国"),
              @"US": STR(@"（+1）美国"),
@@ -33,12 +33,24 @@
              }[code];
 }
 
++ (NSString *)countryCodeOfISOcountryCode:(NSString *)code {
+    return @{@"GB": @"+44",
+             @"CN": @"+86",
+             @"US": @"+1",
+             @"HK": @"+851",
+             }[code];
+}
+
 - (NSString *)name {
-    return _name?: [CUTECountry nameOfCode:self.code];
+    return _name?: [CUTECountry nameOfISOcountryCode:self.ISOcountryCode];
+}
+
+- (NSString *)countryCode {
+    return [CUTECountry countryCodeOfISOcountryCode:self.ISOcountryCode];
 }
 
 - (NSString *)countryCodeAndName {
-    return [CUTECountry countryCodeAndNameOfCode:self.code];
+    return [CUTECountry countryCodeAndNameOfISOcountryCode:self.ISOcountryCode];
 }
 
 //FXForm use this to display
@@ -48,7 +60,7 @@
 
 - (BOOL)isEqual:(id)object {
     if ([object isKindOfClass:[CUTECountry class]]) {
-        return [self.code isEqualToString:((CUTECountry *)object).code];
+        return [self.ISOcountryCode isEqualToString:((CUTECountry *)object).ISOcountryCode];
     }
     return NO;
 

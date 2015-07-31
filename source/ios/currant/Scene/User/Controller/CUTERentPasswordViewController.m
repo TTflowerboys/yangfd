@@ -46,7 +46,7 @@
     [SVProgressHUD showWithStatus:STR(@"发送中...")];
     CUTECountry *country = [[self.formController fieldForKey:@"country"] value];
     NSString *phone = [[self.formController fieldForKey:@"phone"] value];
-    [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone":phone, @"country":country.code} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone":CONCAT(NilNullToEmpty(country.countryCode), NilNullToEmpty(phone))} resultClass:nil] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }

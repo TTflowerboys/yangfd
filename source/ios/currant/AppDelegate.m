@@ -792,7 +792,7 @@
             //set default country same with the property
             if (user.country) {
                 form.country = [task.result find:^BOOL(CUTECountry *object) {
-                    return [object.code isEqualToString:user.country.code];
+                    return [object.countryCode isEqualToString:user.countryCode];
                 }];
             }
             form.phone = user.phone;

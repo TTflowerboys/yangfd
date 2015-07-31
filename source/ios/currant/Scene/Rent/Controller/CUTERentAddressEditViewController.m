@@ -258,7 +258,7 @@
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     NSString *postCodeIndex = [newPostcode stringByReplacingOccurrencesOfString:@" " withString:@""];
     if (form.ticket.property.country && !IsNilNullOrEmpty(postCodeIndex)) {
-        [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:form.ticket.property.country.code] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:form.ticket.property.country.ISOcountryCode] continueWithBlock:^id(BFTask *task) {
             NSArray *places = (NSArray *)task.result;
             if (!IsArrayNilOrEmpty(places)) {
                 [tcs setResult:places.firstObject];
