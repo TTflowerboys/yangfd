@@ -63,7 +63,7 @@
     [self makeVerficationCodeTextFieldBecomeFirstResponder];
     CUTERentVerifyPhoneForm *form = (CUTERentVerifyPhoneForm *)self.formController.form;
     [SVProgressHUD showWithStatus:STR(@"发送中...")];
-    [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone":form.user.phone, @"country":form.user.country.code} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone":form.user.phone, @"country":form.user.country.ISOcountryCode} resultClass:nil] continueWithBlock:^id(BFTask *task) {
         if (task.error || task.exception || task.isCancelled) {
             [SVProgressHUD showErrorWithError:task.error];
         }

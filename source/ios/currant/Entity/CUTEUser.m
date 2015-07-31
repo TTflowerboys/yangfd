@@ -42,7 +42,7 @@
         return value;
     }
     else if ([key isEqualToString:@keypath(self.country)] && [value isKindOfClass:[CUTECountry class]]) {
-        return [(CUTECountry *)value code];
+        return [(CUTECountry *)value ISOcountryCode];
     }
     else if ([key isEqualToString:@keypath(self.phone)]) {
         return value;
@@ -64,8 +64,8 @@
 - (NSDictionary *)toParams {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                   @"nickname":self.nickname,
-                                                                                  @"country":self.country.code,
-                                                                                  @"phone":self.phone,
+                                                                                  @"country":self.country.ISOcountryCode,
+                                                                                  @"phone": CONCAT(NilNullToEmpty(self.countryCode), NilNullToEmpty(self.phone)),
                                                                                   @"email":self.email,
                                                                                   }];
 

@@ -70,7 +70,7 @@
             //set default country same with the property
             if (self.ticket.property.country) {
                 form.country = [task.result find:^BOOL(CUTECountry *object) {
-                    return [object.code isEqualToString:self.ticket.property.country.code];
+                    return [object.ISOcountryCode isEqualToString:self.ticket.property.country.ISOcountryCode];
                 }];
             }
             controller.formController.form = form;
@@ -98,7 +98,7 @@
     CUTERentLoginForm *form = (CUTERentLoginForm *)self.formController.form;
     if (form.isOnlyRegister) {
         [SVProgressHUD showWithStatus:STR(@"登录中...")];
-        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/login" parameters:@{@"country":form.country.code, @"phone": form.phone, @"password": [form.password base64EncodedString]} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/login" parameters:@{@"country":form.country.ISOcountryCode, @"phone": form.phone, @"password": [form.password base64EncodedString]} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
@@ -121,7 +121,7 @@
         Sequencer *sequencer = [Sequencer new];
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/login" parameters:@{@"country":form.country.code, @"phone": form.phone, @"password": [form.password base64EncodedString]} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/login" parameters:@{@"country":form.country.ISOcountryCode, @"phone": form.phone, @"password": [form.password base64EncodedString]} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }

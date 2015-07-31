@@ -362,8 +362,8 @@
 
     NSString *street = [CUTEAddressUtil buildAddress:@[NilNullToEmpty(self.form.ticket.property.community), NilNullToEmpty(self.form.ticket.property.street)]];
     NSMutableDictionary *componmentsDictionary = [NSMutableDictionary dictionary];
-    if (self.form.ticket.property.country.code) {
-        [componmentsDictionary setObject:self.form.ticket.property.country.code forKey:@"country"];
+    if (self.form.ticket.property.country.ISOcountryCode) {
+        [componmentsDictionary setObject:self.form.ticket.property.country.ISOcountryCode forKey:@"country"];
     }
     if (self.form.ticket.property.city.name) {
         [componmentsDictionary setObject:self.form.ticket.property.city.name forKey:@"locality"];

@@ -189,7 +189,7 @@
     [SVProgressHUD showWithStatus:STR(@"获取中...")];
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/check_exist" parameters:@{@"country":user.country.code, @"phone": user.phone} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/check_exist" parameters:@{@"country":user.country.ISOcountryCode, @"phone": user.phone} resultClass:nil] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
@@ -209,7 +209,7 @@
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         if (_retUser) {
             [SVProgressHUD showWithStatus:STR(@"发送中...")];
-            [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone":user.phone, @"country":user.country.code} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone":user.phone, @"country":user.country.ISOcountryCode} resultClass:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
@@ -388,7 +388,7 @@
             //set default country same with the property
             if (self.ticket.property.country) {
                 form.country = [task.result find:^BOOL(CUTECountry *object) {
-                    return [object.code isEqualToString:self.ticket.property.country.code];
+                    return [object.ISOcountryCode isEqualToString:self.ticket.property.country.ISOcountryCode];
                 }];
             }
 

@@ -94,9 +94,9 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
 
 - (BFTask *)getCountriesWithCountryCode:(BOOL)showCountryCode {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    NSArray *rawArray = @[@{@"code": @"GB"},
-                          @{@"code": @"CN"},
-                          @{@"code": @"US"}];
+    NSArray *rawArray = @[@{@"ISOcountryCode": @"GB"},
+                          @{@"ISOcountryCode": @"CN"},
+                          @{@"ISOcountryCode": @"US"}];
     [tcs setResult:[rawArray map:^id(id object) {
         CUTECountry *country = [CUTECountry modelWithDictionary:object error:nil];
         country.showCountryCode =showCountryCode;
@@ -108,7 +108,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
 - (BFTask *)getCitiesByCountryIgnoringCache:(CUTECountry *)country {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
 
-    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/geonames/search" parameters:@{@"country": country.code, @"feature_code": @"city"} resultClass:[CUTECity class]] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/geonames/search" parameters:@{@"country": country.ISOcountryCode, @"feature_code": @"city"} resultClass:[CUTECity class]] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [tcs setError:task.error];
         }
@@ -121,7 +121,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
         else {
             NSArray *cities = task.result;
             cities = [cities sortBy:@"fieldDescription"];
-            [_cache setObject:cities forKey:CONCAT(CUTEAPICacheCityKeyPrefix, country.code)];
+            [_cache setObject:cities forKey:CONCAT(CUTEAPICacheCityKeyPrefix, country.ISOcountryCode)];
             [tcs setResult:cities];
         }
 
@@ -135,7 +135,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
     if (IsNilOrNull(country)) {
         return [BFTask taskWithResult:nil];
     }
-    id cacheObject = [_cache objectForKey:CONCAT(CUTEAPICacheCityKeyPrefix, country.code)];
+    id cacheObject = [_cache objectForKey:CONCAT(CUTEAPICacheCityKeyPrefix, country.ISOcountryCode)];
     if (cacheObject && [cacheObject isKindOfClass:[NSArray class]]) {
         return [BFTask taskWithResult:cacheObject];
 

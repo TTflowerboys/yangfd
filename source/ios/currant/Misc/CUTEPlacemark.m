@@ -74,7 +74,7 @@
     placemark.thoroughfare = [CUTEPlacemark getComponentByType:@"route" fromCompnents:components];
     placemark.subLocality = [CUTEPlacemark getComponentByType:@"sublocality" fromCompnents:components];
     CUTECountry *country = [CUTECountry new];
-    country.code = [CUTEPlacemark getISOCountryCodefromCompnents:components];
+    country.ISOcountryCode = [CUTEPlacemark getISOCountryCodefromCompnents:components];
     CUTECity *city = [CUTECity new];
     city.name = [CUTEPlacemark getComponentByType:@"locality" fromCompnents:components];
     placemark.city = city;
