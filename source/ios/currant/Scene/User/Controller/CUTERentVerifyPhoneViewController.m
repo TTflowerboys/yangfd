@@ -31,11 +31,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    CUTERentVerifyPhoneForm *form = (CUTERentVerifyPhoneForm *)self.formController.form;
-    //if not verified, and disappear, then clear the cookie, let user login again
-    if (!form.user.phoneVerified.boolValue) {
-        [[CUTEDataManager sharedInstance] clearAllCookies];
-    }
 }
 
 - (void)didReceiveMemoryWarning {

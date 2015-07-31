@@ -26,7 +26,7 @@
 - (NSArray *)fields {
 
     NSMutableArray *fields = [NSMutableArray arrayWithArray:@[@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTECountry *)[_allCountries firstObject], FXFormFieldAction: @"optionBack"},
-                                                              @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+                                                              @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class], FXFormFieldAction: @"onPhoneEdit:"},
                                                               @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"确认"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
                                                               ]];
     
