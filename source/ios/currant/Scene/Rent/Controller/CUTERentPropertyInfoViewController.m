@@ -106,7 +106,7 @@
             cell.detailTextLabel.text = self.form.ticket.rentType.value;
         }
     }
-    else if ([field.key isEqualToString:@"address"]) {
+    else if ([field.key isEqualToString:@"rentAddress"]) {
         if (self.form.ticket.property) {
             cell.detailTextLabel.text = self.form.ticket.property.address;
         }
@@ -276,14 +276,13 @@
         }
         else {
             [SVProgressHUD dismiss];
-            controller.lastCountry = form.country;
             controller.formController.form = form;
             controller.navigationItem.title = STR(@"房产地址");
 
             __weak typeof(self)weakSelf = self;
             controller.updateAddressCompletion = ^ {
                 [weakSelf.formController enumerateFieldsWithBlock:^(FXFormField *field, NSIndexPath *indexPath) {
-                    if ([field.key isEqualToString:@"address"]) {
+                    if ([field.key isEqualToString:@"rentAddress"]) {
                         [[weakSelf tableView] reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
                 }];
