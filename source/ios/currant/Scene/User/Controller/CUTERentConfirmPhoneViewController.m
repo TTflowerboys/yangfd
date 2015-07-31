@@ -17,6 +17,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEKeyboardStateListener.h"
 #import "UIBarButtonItem+ALActionBlocks.h"
+#import "CUTENotificationKey.h"
 
 @interface CUTERentConfirmPhoneViewController ()
 
@@ -36,6 +37,7 @@
             //if not verified, and disappear, then clear the cookie, let user login again
             if (!form.user.phoneVerified.boolValue) {
                 [[CUTEDataManager sharedInstance] clearAllCookies];
+                [NotificationCenter postNotificationName:KNOTIF_CLEAR_ALL_COOKIES object:self];
             }
         }];
     }];
