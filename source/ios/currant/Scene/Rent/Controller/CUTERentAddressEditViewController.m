@@ -167,7 +167,6 @@
     [self.navigationController popViewControllerAnimated:YES];
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     [form syncTicketWithUpdateInfo:@{@"property.country": self.form.country,}];
-    [self refreshLocation];
 }
 
 - (void)onCityEdit:(id)sender {
