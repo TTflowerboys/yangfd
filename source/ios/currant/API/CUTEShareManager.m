@@ -353,6 +353,9 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
             copyLinkActivity.performActivityBlock = ^ {
                 [UIPasteboard generalPasteboard].string = urlString;
                 [SVProgressHUD showSuccessWithStatus:STR(@"已复制至粘贴版")];
+                if (pressBlock) {
+                    pressBlock(CUTEShareServiceCopyLink);
+                }
             };
 
             NSArray *acitivies = @[wechatFriendActivity, wechatCircleActivity, weiboActivity, copyLinkActivity];

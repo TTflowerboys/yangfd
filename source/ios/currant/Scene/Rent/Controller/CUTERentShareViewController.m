@@ -108,7 +108,14 @@
         else if ([buttonName isEqualToString:CUTEShareServiceSinaWeibo]) {
             TrackEvent(KEventCategoryShare, kEventActionPress, @"weibo", @(1));
         }
-
+        else if ([buttonName isEqualToString:CUTEShareServiceCopyLink]) {
+            TrackEvent(KEventCategoryShare, kEventActionPress, @"copy-link", @(1));
+            if (![[CUTEUsageRecorder sharedInstance] isApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_COPY_LINK]) {
+                if ([[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION fromViewController:self]) {
+                    [[CUTEUsageRecorder sharedInstance] saveApptentiveEventTriggered:APPTENTIVE_EVENT_SURVEY_AFTER_COPY_LINK];
+                }
+            }
+        }
     }] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [[CUTETracker sharedInstance] trackError:task.error];
