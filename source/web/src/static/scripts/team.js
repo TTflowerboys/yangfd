@@ -387,6 +387,23 @@
                     $this.hide()
                 }
             })
+        },
+        setUserType: function (userType) {
+            if (window.user) {
+                var apiUrl = '/api/1/user/edit'
+                var userTypeData
+                if (!window.user.user_type) {
+                    userTypeData = window.userTypeMap[userType]
+                } else if (_.pluck(window.user.user_type, 'slug').indexOf(userType) < 0) {
+                    userTypeData = JSON.stringify(_.pluck(window.user.user_type, 'id').concat([window.userTypeMap[userType]]))
+                }
+                if(userTypeData && userTypeData.length) {
+                    $.betterPost(apiUrl, {user_type: userTypeData})
+                        .done(function (val) {
+                            window.user = val
+                        })
+                }
+            }
         }
     }
 })

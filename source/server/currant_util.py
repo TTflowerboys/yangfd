@@ -210,6 +210,8 @@ def common_template(path, **kwargs):
         kwargs['weixin'] = weixin = f_app.wechat.get_jsapi_signature()
     if 'request_uri' not in kwargs:
         kwargs['request_uri'] = urllib.quote(request.url.encode("utf-8"))
+    if 'user_type_list' not in kwargs:
+        kwargs['user_type_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('user_type'))
 
     # setup page utils
     kwargs.setdefault("format_unit", format_unit)

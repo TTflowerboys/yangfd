@@ -400,6 +400,7 @@
                     container.find('form.requirement_rent_form').trigger('submit')
                 })
                 container.find('form.requirement_rent_form').submit(function (e) {
+                    window.team.setUserType('tenant')
                     e.preventDefault()
                     $errorMsg.hide()
                     var successArea = container.find('.successWrap')

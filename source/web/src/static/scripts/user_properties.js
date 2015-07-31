@@ -479,6 +479,7 @@ $(function () {
     function bindGetHostContactClick () {
 
         $('.getHostContact').buttonLoading().click(function () {
+            window.team.setUserType('tenant')
             var container = $(this).parents('.contactCard')
             if(!$(this).hasClass('buttonLoading')) {
                 $.betterPost('/api/1/rent_ticket/' + $(this).attr('data-id') + '/contact_info')

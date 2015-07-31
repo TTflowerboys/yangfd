@@ -169,6 +169,7 @@ $(function () {
     }
 
     function getContactInfo() {
+        window.team.setUserType('tenant')
         $.betterPost('/api/1/rent_ticket/' + rentId + '/contact_info')
             .done(function (val) {
                 var host = val
@@ -216,6 +217,7 @@ $(function () {
      * */
     $requestContactBtn.on('click', function (e) {
         if (window.user && rentId && !$(this).attr('disabled')) {
+            window.team.setUserType('tenant')
             getContactInfo()
         }
         else {

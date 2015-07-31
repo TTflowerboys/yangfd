@@ -749,6 +749,7 @@
             submit(propertyData)
         }
         function submit (propertyData) {
+            window.team.setUserType('landlord')
             $.betterPost('/api/1/property/' + window.propertyId + '/edit', propertyData)
                 .done(function (val) {
                     if(typeof val === 'string') {

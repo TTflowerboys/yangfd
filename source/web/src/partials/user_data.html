@@ -11,3 +11,20 @@
     }
 </script>
 %end
+
+%if user_type_list:
+<textarea id="pythonUserTypeListData" style="display: none">
+    {{json_dumps(user_type_list)}}
+</textarea>
+<script>
+    (function () {
+        var user_type_list = JSON.parse(document.getElementById("pythonUserTypeListData").innerHTML)
+        if(user_type_list.length) {
+            window.userTypeMap = user_type_list.reduce(function (pre, obj) {
+                pre[obj.slug] = obj.id
+                return pre
+            },{})
+        }
+    })()
+</script>
+%end

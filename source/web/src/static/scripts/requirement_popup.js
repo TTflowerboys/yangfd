@@ -86,6 +86,7 @@
         }
         //remove bind event first Bug #5515
         container.find('form[name=requirement]').off('submit').submit(function (e) {
+            window.team.setUserType('investor')
             e.preventDefault()
 
             var errorArea = $(this).find('.errorMessage')
