@@ -39,12 +39,14 @@
 
         a {
             img {
+                &.withPlaceholder{
+                    min-height: 213px;
+                }
                 position: absolute;
                 top: 0;
                 left: 0;
                 height:100%;
                 cursor:pointer;
-
                 @media @phone {
                     position:static;
                     float:left;
@@ -298,6 +300,9 @@
         position:relative;
         display:block;
         img {
+            &.withPlaceholder{
+                min-height: 213px;
+            }
             width:100%;
             float:left;
             min-height:160px;
@@ -519,6 +524,9 @@
             width:100%;
             float:left;
             min-height:160px;
+            &.withPlaceholder{
+                min-height: 213px;
+            }
         }
 
         .labels {
