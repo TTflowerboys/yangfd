@@ -456,6 +456,9 @@
 
         $errorMsg.text('').hide()
         function highlightErrorElem(elem){
+            if(!elem.length) {
+                return
+            }
             if (elem.is('select') && elem.next('.chosen-container').length) {
                 elem = elem.add(elem.next('.chosen-container'))
             }
@@ -485,7 +488,6 @@
                     elem: $this,
                     msg: $(this).data('name') + i18n('不能为空')
                 })
-                highlightErrorElem($(this))
                 //return false
             }
             for(var key in regex){
@@ -495,7 +497,6 @@
                         elem: $this,
                         msg: $(this).data('name') + i18n('格式不正确')
                     })
-                    highlightErrorElem($(this))
                     //return false
                 }
             }
@@ -509,7 +510,6 @@
                             elem: $this,
                             msg: $this.data('name') + i18n('超出长度限制(最多') + maxLength + i18n('个字符')
                         })
-                        highlightErrorElem($this)
                     }
                 }
                 if(/lengthRange\((\d+)\-(\d+)\)/.test(v)) {
@@ -521,7 +521,6 @@
                             elem: $this,
                             msg: $this.data('name') + i18n('超出字符数范围限制(') + minLength + '~' + maxLength + i18n('个字符)')
                         })
-                        highlightErrorElem($this)
                     }
                 }
             })
@@ -532,7 +531,6 @@
                 elem: $('#bedroom_count'),
                 msg: i18n('房间数最少为1')
             })
-            highlightErrorElem($('#bedroom_count'))
         }
         function checkContaction (elem) {
             var includePhoneReg = /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/
@@ -547,13 +545,18 @@
                     elem: elem,
                     msg: i18n('平台将提供房东联系方式选择，请删除在此填写任何形式的联系方式，违规发布将会予以处理')
                 })
-                highlightErrorElem(elem)
             }
         }
         checkContaction($('#title'))
         checkContaction($('#description'))
 
-
+        if($('#rentPeriodEndDate').val() && $('#rentPeriodStartDate').val() && new Date($('#rentPeriodEndDate').val()) < new Date($('#rentPeriodStartDate').val())) {
+            validate = false
+            errorArr.push({
+                elem: $('#rentPeriodEndDate').add($('#rentPeriodStartDate')),
+                msg: i18n('租期结束时间必须大于或等于租期开始时间')
+            })
+        }
         /*if(imageArr.length === 0){
             validate = false
             errorMsg = i18n('请至少上传一张实景图')
@@ -582,13 +585,15 @@
                     elem: elem,
                     msg: i18n('输入框中含有HTML标签，请重新编辑后再继续')
                 })
-                highlightErrorElem(elem)
             }
         }
         checkHtmlTag($('#description'))
 
         if(!validate){
             //window.console.log(errorMsg)
+            _.each(errorArr, function (obj) {
+                highlightErrorElem(obj.elem)
+            })
             if (_.some(errorArr, function (obj) {
                     return (obj.elem.parents('#more_information').length)
                 })) {
