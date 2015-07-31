@@ -94,11 +94,11 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
 
 - (BFTask *)getCountriesWithCountryCode:(BOOL)showCountryCode {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    NSArray *rawArray = @[@{@"ISOcountryCode": @"GB"},
-                          @{@"ISOcountryCode": @"CN"},
-                          @{@"ISOcountryCode": @"US"}];
+    NSArray *rawArray = @[@{@"code": @"GB"},
+                          @{@"code": @"CN"},
+                          @{@"code": @"US"}];
     [tcs setResult:[rawArray map:^id(id object) {
-        CUTECountry *country = [CUTECountry modelWithDictionary:object error:nil];
+        CUTECountry *country = (CUTECountry *)[[[MTLJSONAdapter alloc] initWithJSONDictionary:object modelClass:[CUTECountry class] error:nil] model];
         country.showCountryCode =showCountryCode;
         return country;
     }]];

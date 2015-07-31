@@ -58,7 +58,7 @@
 
     if (![form.phone isEqualToString:form.user.phone] || ![form.country isEqual:form.user.country]) {
         [SVProgressHUD showWithStatus:STR(@"更新号码中...")];
-        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/edit" parameters:@{@"phone":form.phone, @"country": form.country.ISOcountryCode} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/edit" parameters:@{@"phone":CONCAT(NilNullToEmpty(form.country.countryCode), NilNullToEmpty(form.phone))} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
