@@ -45,15 +45,15 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" style="display: none;">
                             <p class="inputPlaceholder">{{_('街区')}}</p>
-                            <select class="select-chosen neighborhood-select" data-change-title data-placeholder="{{_('请选择街区')}}" data-validator="" data-name="{{_('街区')}}" data-hint="{{_('街区')}}" data-serialize="maponics_neighborhood"></select>
+                            <select class="select-chosen neighborhood-select" data-change-title data-placeholder="{{_('请选择街区(选填)')}}" data-validator="" data-name="{{_('街区')}}" data-hint="{{_('街区')}}" data-serialize="maponics_neighborhood"></select>
                         </div>
                         <div class="row">
-                            <input type="text" placeholder="{{_('地址')}}" data-validator="" data-name="{{_('地址')}}" data-serialize="address"/>
+                            <input type="text" placeholder="{{_('地址(选填)')}}" data-validator="" data-name="{{_('地址')}}" data-serialize="address"/>
                         </div>
                         <div class="row">
-                            <input type="text" placeholder="{{_('Postal area')}}" data-validator="" data-name="{{_('Postal area')}}" data-serialize="zipcode_index"/>
+                            <input type="text" placeholder="{{_('Postal area(选填)')}}" data-validator="" data-name="{{_('Postal area')}}" data-serialize="zipcode_index"/>
                         </div>
                     </div>
                     <div class="step2" data-show-step="2">

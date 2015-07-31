@@ -80,14 +80,14 @@
             var $neighborhoodSelectChosen = $neighborhoodSelect.next('.chosen-container')
             var $span = $neighborhoodSelectChosen.find('.chosen-single span')
             var originContent = $span.html()
-            $span.html(window.i18n('街区列表加载中...'))
+            $span.html(window.i18n('街区列表加载中...(选填)'))
             window.geonamesApi.getNeighborhood(function (val) {
                 if(container.find('.city-select :selected').text().toLowerCase() === 'london') {
                     $span.html(originContent)
                     $neighborhoodSelect.html(
                         _.reduce(val, function(pre, val, key) {
                             return pre + '<option value="' + val.id + '">' + val.name + (val.parent && val.parent.name ? ', ' + val.parent.name : '') + '</option>'
-                        }, '<option value="">' + i18n('请选择街区') + '</option>')
+                        }, '<option value="">' + i18n('请选择街区(选填)') + '</option>')
                     ).trigger('chosen:updated')
                     $neighborhoodSelect.trigger('chosen:open')
                 }
@@ -435,6 +435,7 @@
 
         initShowAndHide(container, option)
         initLocation(container)
+        $('.neighborhood-select').parents('.row').show()
         container.find('.select-chosen').add(container.find('[name=country]')).each(function (index, elem) {
             if(!$(elem).data('chosen')) {
                 if(!window.team.isPhone()) {
@@ -449,6 +450,7 @@
                 }
             }
         })
+        $('.neighborhood-select').parents('.row').hide()
         initStep(container)
         initDateInput(container)
         initRequirementRentTitle(container)
