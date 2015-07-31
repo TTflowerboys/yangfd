@@ -15,6 +15,8 @@
 
 #define APPTENTIVE_EVENT_SURVEY_AFTER_SHARE_CANCELLATION @"survey_after_share_cancellation"
 
+#define APPTENTIVE_EVENT_SURVEY_AFTER_COPY_LINK @"survey_after_copy_link"
+
 #define APPTENTIVE_EVENT_SURVEY_AFTER_7_DAYS_AND_HAVE_PUBLISHED_TICKET @"survey_after_7_days_and_have_published_ticket"
 
 #define APPTENTIVE_EVENT_SURVEY_AFTER_7_DAYS_AND_HAVE_NOT_PUBLISHED_TICKET @"survey_after_7_days_and_have_not_published_ticket"

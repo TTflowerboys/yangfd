@@ -268,8 +268,6 @@
     form.community = form.ticket.property.community;
     form.street = form.ticket.property.street;
     form.postcode = form.ticket.property.zipcode;
-    _rentAddressEditViewController.lastPostcode = form.ticket.property.zipcode;
-
 
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
@@ -299,7 +297,6 @@
         NSInteger countryIndex = [countries indexOfObject:self.form.ticket.property.country];
         if (countryIndex != NSNotFound) {
             [form setCountry:[countries objectAtIndex:countryIndex]];
-            _rentAddressEditViewController.lastCountry = form.country;
 
             CUTECountry *country = [countries objectAtIndex:countryIndex];
             [[[CUTEAPICacheManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
@@ -321,7 +318,6 @@
         NSInteger cityIndex = [cities indexOfObject:self.form.ticket.property.city];
         if (cityIndex != NSNotFound) {
             [form setCity:[cities objectAtIndex:cityIndex]];
-            _rentAddressEditViewController.lastCity = form.city;
             [[[CUTEAPICacheManager sharedInstance] getNeighborhoodByCity:form.city] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];

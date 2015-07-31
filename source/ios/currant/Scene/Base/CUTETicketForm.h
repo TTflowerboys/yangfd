@@ -10,9 +10,13 @@
 #import "CUTETicket.h"
 #import "BFTask.h"
 
+typedef void(^UpdateTicketBlock)(CUTETicket *ticket);
+
 @interface CUTETicketForm : CUTEForm
 
 @property (strong, nonatomic) CUTETicket *ticket;
+
+- (BFTask *)syncTicketWithBlock:(UpdateTicketBlock)block;
 
 - (BFTask *)syncTicketWithUpdateInfo:(NSDictionary *)updateInfo;
 

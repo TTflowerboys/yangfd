@@ -18,6 +18,42 @@
 
 @implementation CUTETicketForm
 
+- (BFTask *)syncTicketWithBlock:(UpdateTicketBlock)block {
+
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+    block(self.ticket);
+    [ticketListener stopListenMark];
+
+    NSDictionary *ticketParams = [ticketListener getEditedParams];
+    NSDictionary *propertyParams = [ticketListener.propertyListener getEditedParams];
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+
+    if (self.ticket && self.ticket.identifier && ![[CUTEDataManager sharedInstance] isRentTicketDeleted:self.ticket.identifier]) {
+        [[CUTEDataManager sharedInstance] saveRentTicket:self.ticket];
+        [[[CUTERentTicketPublisher sharedInstance] editTicketWithTicket:self.ticket ticketParams:ticketParams propertyParams:propertyParams] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [tcs setError:task.error];
+            }
+            else if (task.exception) {
+                [tcs setException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [tcs cancel];
+            }
+            else {
+                [[CUTEDataManager sharedInstance] saveRentTicket:task.result];
+                [tcs setResult:self.ticket];
+            }
+            return task;
+        }];
+    }
+    else {
+        [tcs setResult:self.ticket];
+    }
+
+    return tcs.task;
+}
+
 
 - (BFTask *)syncTicketWithUpdateInfo:(NSDictionary *)updateInfo {
     CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
