@@ -737,49 +737,70 @@
         var propertyData = getPropertyData({
             'status': 'draft', //将property设置为草稿状态，第二步发布时再不需要设置成草稿状态
         })
-
         $btn.prop('disabled', true).text(window.i18n('发布中...'))
-        $.betterPost('/api/1/property/' + window.propertyId + '/edit', propertyData)
-            .done(function (val) {
-                if(typeof val === 'string') {
-                    window.propertyId = val
-                }
-                var ticketData = getTicketData({
-                    'property_id': val,
-                    'status': 'draft',
-                })
-                var ticketApi
-                //window.console.log(ticketData)
-                if(window.ticketId){
-                    ticketApi = '/api/1/rent_ticket/' + window.ticketId + '/edit'
-                }else{
-                    ticketApi = '/api/1/rent_ticket/add'
-                }
-                $.betterPost(ticketApi, ticketData)
-                    .done(function(val){
-                        if(!window.ticketId) {
-                            hashRoute.locationHashTo('/publish/' + val)
-                            window.ticketId = val
-                        }
-                        else{
-                            hashRoute.locationHashTo('/publish/' + window.ticketId)
-                        }
-                        $('.buttonLoading').trigger('end')
-                        $btn.prop('disabled', false).text(window.i18n('预览并发布'))
+        if (!propertyData.latitude || !propertyData.longitude) {
+            getLocation(propertyData, submit)
+        } else {
+            submit(propertyData)
+        }
+        function submit (propertyData) {
+            $.betterPost('/api/1/property/' + window.propertyId + '/edit', propertyData)
+                .done(function (val) {
+                    if(typeof val === 'string') {
+                        window.propertyId = val
+                    }
+                    var ticketData = getTicketData({
+                        'property_id': val,
+                        'status': 'draft',
+                    })
+                    var ticketApi
+                    //window.console.log(ticketData)
+                    if(window.ticketId){
+                        ticketApi = '/api/1/rent_ticket/' + window.ticketId + '/edit'
+                    }else{
+                        ticketApi = '/api/1/rent_ticket/add'
+                    }
+                    $.betterPost(ticketApi, ticketData)
+                        .done(function(val){
+                            if(!window.ticketId) {
+                                hashRoute.locationHashTo('/publish/' + val)
+                                window.ticketId = val
+                            }
+                            else{
+                                hashRoute.locationHashTo('/publish/' + window.ticketId)
+                            }
+                            $('.buttonLoading').trigger('end')
+                            $btn.prop('disabled', false).text(window.i18n('预览并发布'))
 
-                        //
-                        ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'first-step', (new Date() - createStartTime)/1000)
-                    })
-                    .fail(function (ret) {
-                        $('.buttonLoading').trigger('end')
-                        $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
-                        $btn.prop('disabled', false).text(window.i18n('预览并发布'))
-                    })
-            }).fail(function (ret) {
-                $('.buttonLoading').trigger('end')
-                $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
-                $btn.prop('disabled', false).text(window.i18n('预览并发布'))
-            })
+                            //
+                            ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'first-step', (new Date() - createStartTime)/1000)
+                        })
+                        .fail(function (ret) {
+                            $('.buttonLoading').trigger('end')
+                            $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
+                            $btn.prop('disabled', false).text(window.i18n('预览并发布'))
+                        })
+                }).fail(function (ret) {
+                    $('.buttonLoading').trigger('end')
+                    $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
+                    $btn.prop('disabled', false).text(window.i18n('预览并发布'))
+                })
+        }
+        function getLocation (property, callback) {
+            $.betterPost('/api/1/postcode/search', 'postcode_index=' + property.zipcode.replace(/\s/g, ''))
+                .done(function(val) {
+                    if(val.length) {
+                        property.latitude = val[0].latitude
+                        property.longitude = val[0].longitude
+                    }
+                    callback(property)
+                })
+                .fail(function(ret) {
+                    $('.buttonLoading').trigger('end')
+                    $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
+                    $btn.prop('disabled', false).text(window.i18n('预览并发布'))
+                })
+        }
         return false
     })
 
