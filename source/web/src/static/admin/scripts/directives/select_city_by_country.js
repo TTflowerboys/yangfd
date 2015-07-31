@@ -30,7 +30,9 @@ angular.module('app')
                         })
                 })
                 $(elem).change(function () {
-                    scope.cityName = elem.find('option:selected').text()
+                    scope.$apply(function () {
+                        scope.cityName = elem.find('option:selected').text()
+                    })
                 })
             }
         }
