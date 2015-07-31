@@ -13,8 +13,6 @@
 
 @interface CUTERentAddressEditViewController : CUTEFormViewController
 
-@property (strong, nonatomic) NSString *lastPostcode;
-
 @property (nonatomic, copy) dispatch_block_t updateAddressCompletion;
 
 

@@ -90,7 +90,7 @@
     if (!IsNilNullOrEmpty(self.property.community)) {
         [self appendPart:self.property.community forString:altTitle];
     }
-    else if (!self.property.neighborhood && [self.property.neighborhood isKindOfClass:[CUTENeighborhood class]]) {
+    else if (self.property.neighborhood && [self.property.neighborhood isKindOfClass:[CUTENeighborhood class]] && !IsNilNullOrEmpty(self.property.neighborhood.name)) {
         CUTENeighborhood *neighborhood = self.property.neighborhood;
         [self appendPart:neighborhood.name forString:altTitle];
     }

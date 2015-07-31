@@ -118,6 +118,7 @@
         [form syncTicketWithBlock:^(CUTETicket *ticket) {
             ticket.property.country = newCountry;
             ticket.property.city = nil;
+            ticket.property.zipcode = nil;
             ticket.property.neighborhood = nil;
             ticket.property.street = nil;
             ticket.property.community = nil;
@@ -150,6 +151,7 @@
 
         [form syncTicketWithBlock:^(CUTETicket *ticket) {
             ticket.property.city = newCity;
+            ticket.property.zipcode = nil;
             ticket.property.neighborhood = nil;
             ticket.property.street = nil;
             ticket.property.community = nil;
@@ -187,6 +189,7 @@
                     form.neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
 
                     [form syncTicketWithBlock:^(CUTETicket *ticket) {
+                        ticket.property.zipcode = newPostcode;
                         ticket.property.latitude = place.latitude;
                         ticket.property.longitude = place.longitude;
                         ticket.property.neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
@@ -197,6 +200,14 @@
                     completion(nil);
                 }
                 else {
+
+                    [form syncTicketWithBlock:^(CUTETicket *ticket) {
+                        ticket.property.zipcode = newPostcode;
+                        ticket.property.latitude = nil;
+                        ticket.property.longitude = nil;
+                        ticket.property.neighborhood = nil;
+                    }];
+
                     [SVProgressHUD showErrorWithStatus:STR(@"新Postcode定位失败")];
                     _updateLocationFromAddressFailed = YES;
                 }
@@ -285,7 +296,7 @@
 - (void)onPostcodeEdit:(id)sender {
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     if (![form.postcode isEqualToString:form.ticket.property.zipcode]) {
-        [self updateLocationWhenPostcodeChange:form.postcode];
+        [self updateAddressWhenPostcodeChange:form.postcode];
     }
 }
 
@@ -487,52 +498,7 @@
         return;
     }
 
-
-    if (!IsNilNullOrEmpty(form.ticket.property.zipcode)  && ![self.lastPostcode isEqualToString:form.ticket.property.zipcode]) {
-        [UIAlertView showWithTitle:STR(@"是否按新postcode重新定位再继续？") message:nil cancelButtonTitle:STR(@"不用") otherButtonTitles:@[STR(@"好的")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            if (buttonIndex == alertView.cancelButtonIndex) {
-                [self createTicket];
-            }
-            else {
-                [SVProgressHUD show];
-                NSString *postCodeIndex = [form.ticket.property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""];
-
-                [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:form.ticket.property.country.code]continueWithBlock:^id(BFTask *task) {
-                    if (task.error) {
-                        [SVProgressHUD showErrorWithError:task.error];
-                    }
-                    else if (task.exception) {
-                        [SVProgressHUD showErrorWithException:task.exception];
-                    }
-                    else if (task.isCancelled) {
-                        [SVProgressHUD showErrorWithCancellation];
-                    }
-                    else {
-                        NSArray *places = (NSArray *)task.result;
-                        if (!IsArrayNilOrEmpty(places)) {
-                            CUTEPostcodePlace *place = [places firstObject];
-                            form.neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
-                            [self.tableView reloadData];
-                            form.ticket.property.latitude = place.latitude;
-                            form.ticket.property.longitude = place.longitude;
-                            form.ticket.property.neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
-                            self.lastPostcode = form.ticket.property.zipcode;
-                            [SVProgressHUD dismiss];
-                            [self createTicket];
-                        }
-                        else {
-                            [SVProgressHUD showErrorWithStatus:STR(@"重新定位失败")];
-                        }
-                    }
-
-                    return task;
-                }];
-            }
-        }];
-    }
-    else {
-        [self createTicket];
-    }
+    [self createTicket];
 }
 
 

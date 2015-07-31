@@ -268,8 +268,6 @@
     form.community = form.ticket.property.community;
     form.street = form.ticket.property.street;
     form.postcode = form.ticket.property.zipcode;
-    _rentAddressEditViewController.lastPostcode = form.ticket.property.zipcode;
-
 
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
