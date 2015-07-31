@@ -21,8 +21,8 @@
 
 @property (strong, nonatomic) CUTECountry *country;
 @property (strong, nonatomic) CUTECity *city;
-@property (strong, nonatomic) CUTENeighborhood *neighborhood;
 @property (strong, nonatomic) NSString *postcode;
+@property (strong, nonatomic) CUTENeighborhood *neighborhood;
 @property (strong, nonatomic) NSString *street;
 @property (strong, nonatomic) NSString *community;
 @property (strong, nonatomic) NSString *floor;
