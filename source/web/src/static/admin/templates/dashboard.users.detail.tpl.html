@@ -34,6 +34,10 @@
                         <div><i class="fa fa-building-o"></i> {%$root.i18n('城市')%}</div>
                         <span data-ng-bind="item.city.name"></span>
                     </li>
+                    <li>
+                        <div><i class="fa fa-building-o"></i> {%$root.i18n('用户类型')%}</div>
+                        <span ng-repeat="user_type in item.user_type">{%user_type.value + ' '%}</span>
+                    </li>
                 </ul>
 
                 <h3>Contact Information</h3>
