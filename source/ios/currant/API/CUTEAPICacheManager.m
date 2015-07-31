@@ -234,6 +234,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
                @"region_highlight",
                @"rent_type",
                @"rent_period",
+               @"user_type",
                @"community_facility"]
              map:^id(id object) {
                  return [self getEnumsByTypeIgnoringCache:object];

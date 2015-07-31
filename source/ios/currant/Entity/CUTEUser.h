@@ -38,6 +38,8 @@
 
 @property (strong, nonatomic) NSArray *roles;
 
+@property (strong, nonatomic) NSArray *userTypes;
+
 - (BOOL)hasRole:(NSString *)role;
 
 - (NSDictionary *)toParams;

@@ -59,6 +59,7 @@
 #import "CUTEApptentiveEvent.h"
 #import "CUTERentConfirmPhoneViewController.h"
 #import "CUTERentConfirmPhoneForm.h"
+#import "CUTEAPIManager.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
@@ -188,6 +189,7 @@
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowFavoritePropertyList:) name:KNOTIF_SHOW_FAVORITE_PROPERTY_LIST object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogin:) name:KNOTIF_USER_DID_LOGIN object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogout:) name:KNOTIF_USER_DID_LOGOUT object:nil];
+    [NotificationCenter addObserver:self selector:@selector(onReceiveMarkUserAsLandlord:) name:KNOTIF_MARK_USER_AS_LANDLORD object:nil];
 
     [NotificationCenter addObserver:self selector:@selector(onReceiveShowRentTicketListTab:) name:KNOTIF_SHOW_RENT_TICKET_LIST_TAB object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveShowPropertyListTab:) name:KNOTIF_SHOW_PROPERTY_LIST_TAB object:nil];
@@ -511,6 +513,7 @@
     }
 }
 
+
 #pragma mark - Push Notification
 
 - (void)onReceiveTicketPublish:(NSNotification *)notif {
@@ -772,6 +775,50 @@
     [[CUTEDataManager sharedInstance] clearAllRentTickets];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 }
+
+- (void)onReceiveMarkUserAsLandlord:(NSNotification *)notif {
+    CUTEUser *user = notif.userInfo[@"user"];
+    BOOL userIsLandlord = [user.userTypes find:^BOOL(CUTEEnum *object) {
+        return [object.slug isEqualToString:@"landlord"];
+    }] != nil;
+
+    if (!userIsLandlord) {
+        [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"user_type"] continueWithSuccessBlock:^id(BFTask *task) {
+            if (!IsArrayNilOrEmpty(task.result)) {
+                CUTEEnum *landlordUserType = [task.result find:^BOOL(CUTEEnum *object) {
+                    return [object.slug isEqualToString:@"landlord"];
+                }];
+                NSMutableArray *types = [NSMutableArray arrayWithArray:user.userTypes];
+                [types addObject:landlordUserType];
+
+                NSString *typeList = [[types map:^id(CUTEEnum *object) {
+                    return object.identifier;
+                }] componentsJoinedByString:@","];
+
+                [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/edit" parameters:@{@"user_type": typeList} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
+                    if (task.error) {
+                        [SVProgressHUD showErrorWithError:task.error];
+                    }
+                    else if (task.exception) {
+                        [SVProgressHUD showErrorWithException:task.exception];
+                    }
+                    else if (task.isCancelled) {
+                        [SVProgressHUD showErrorWithCancellation];
+                    }
+                    else {
+                        if (task.result && [task.result isKindOfClass:[CUTEUser class]])  {
+                            [[CUTEDataManager sharedInstance] saveUser:task.result];
+                        }
+                    }
+
+                    return task;
+                }];
+            }
+            return task;
+        }];
+    }
+}
+
 
 - (void)verifyUserPhone:(CUTEUser *)user {
     [SVProgressHUD showWithStatus:STR(@"获取验证中...")];

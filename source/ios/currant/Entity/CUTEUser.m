@@ -23,6 +23,7 @@
              @"wechat": @"wechat",
              @"privateContactMethods": @"private_contact_methods",
              @"roles": @"role",
+             @"userTypes": @"user_type",
              @"phoneVerified": @"phone_verified"
              };
 }
@@ -30,6 +31,11 @@
 + (NSValueTransformer *)countryJSONTransformer
 {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECountry class]];
+}
+
++ (NSValueTransformer *)userTypesJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEEnum class]];
 }
 
 

@@ -423,6 +423,9 @@
                         currentTicket.identifier = newTicket.identifier;
                         currentTicket.property.identifier = newTicket.property.identifier;
                         [[CUTEDataManager sharedInstance] saveRentTicket:newTicket];
+                        if ([CUTEDataManager sharedInstance].user) {
+                            [NotificationCenter postNotificationName:KNOTIF_MARK_USER_AS_LANDLORD object:self userInfo:@{@"user": [CUTEDataManager sharedInstance].user}];
+                        }
                         completion(currentTicket);
                     }
                     return nil;

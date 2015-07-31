@@ -328,11 +328,13 @@
         if (form.isOnlyRegister) {
             [SVProgressHUD dismiss];
             [self dismissViewControllerAnimated:YES completion:^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": retUser}];
+                [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": retUser}];
+                [NotificationCenter postNotificationName:KNOTIF_MARK_USER_AS_LANDLORD object:self userInfo:@{@"user": retUser}];
             }];
         }
         else {
-            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": retUser}];
+            [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": retUser}];
+            [NotificationCenter postNotificationName:KNOTIF_MARK_USER_AS_LANDLORD object:self userInfo:@{@"user": retUser}];
             CUTETicket *ticket = self.ticket;
             
             [[[CUTERentTicketPublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
