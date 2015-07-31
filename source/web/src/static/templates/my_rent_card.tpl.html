@@ -34,8 +34,8 @@
                             {_}_}
                         </a>
                         <div class="imgAction_wrapper">
-                            <i id='edit' data-id="{=rent.id=}" class="imgAction hiddenInNonClient icon-edit"></i>
-                            <i id='remove' data-id="{=rent.id=}" class="imgAction icon-delete"></i>
+                            <i id='edit' data-id="{=rent.id=}" class="imgAction hiddenInNonClient icon-edit" data-need-bridge></i>
+                            <i id='remove' data-id="{=rent.id=}" class="imgAction icon-delete" data-need-bridge></i>
                             {_if(rent.last_modified_time > rent.time ) {_}
                                 <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('更新过')=}</p>
                             {_}else{_}
@@ -65,7 +65,7 @@
                         {_if(rent.status === 'to rent') {_}
                         <ul class="actions">
                             <li>
-                                <a id="wechatShare" class="action" data-id="{=rent.id=}">{=window.i18n('微信分享')=}</a>
+                                <a id="wechatShare" class="action" data-id="{=rent.id=}" data-need-bridge>{=window.i18n('微信分享')=}</a>
                             </li>
                             <li>
                                 {_if(team.isToday(parseInt(rent.last_modified_time))){_}
@@ -78,19 +78,19 @@
                                 </div>
                             </li>
                             <li>
-                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="to rent">{=window.i18n('确认已租出')=}</a>
+                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="to rent" data-need-bridge>{=window.i18n('确认已租出')=}</a>
                             </li>
                         </ul>
                         {_}else if(rent.status === 'draft') {_}
                         <ul class="actions hiddenInNonClient">
                             <li >
-                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="draft">{=window.i18n('编辑')=}</a>
+                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="draft" data-need-bridge>{=window.i18n('编辑')=}</a>
                             </li>
                         </ul>
                         {_}else if(rent.status === 'rent') {_}
                         <ul class="actions hiddenInNonClient">
                             <li >
-                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="rent">{=window.i18n('重新发布')=}</a>
+                                <a id='editAction' class="action" data-id="{=rent.id=}" data-type="rent" data-need-bridge>{=window.i18n('重新发布')=}</a>
                             </li>
                         </ul>
                         {_}_}

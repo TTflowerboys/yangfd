@@ -13,6 +13,7 @@
            %else:
            href="/property/{{property.get('id')}}"
            %end
+            data-need-bridge
            >
            %if property.get('cover'):
                 <img alt="{{property.get('name','')}}" src="{{!fetch_image(property.get('cover'), thumbnail=True, property_id=property.get('id'))}}" onerror="window.onImgError(this);"/>
@@ -89,6 +90,7 @@
            %else:
                href="/property/{{property.get('id')}}"
            %end
+            data-need-bridge
            >
                 <table class="textPart_innerTable">
                     <tr>
@@ -266,6 +268,7 @@
                 %else:
                 href="/property/{{property.get('id')}}"
                 %end
+                data-need-bridge
                 >
                 <h1 class=name>
                     %if property.get('country'):

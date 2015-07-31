@@ -5,6 +5,7 @@
     %else:
     href="/property/{=house.id=}"
     %end
+    data-need-bridge
     >
     {_if (house.cover){_}
     <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
