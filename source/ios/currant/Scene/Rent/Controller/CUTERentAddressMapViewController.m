@@ -135,10 +135,12 @@
             [self onAddressLocationButtonTapped:nil];
         }
         else {
-            CLLocation *location = [[CLLocation alloc] initWithLatitude:self.form.ticket.property.latitude.doubleValue longitude:self.form.ticket.property.longitude.doubleValue];
-            if (location) {
-                MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
-                [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+            if (!IsNilOrNull(self.form.ticket.property.latitude) && !IsNilOrNull(self.form.ticket.property.longitude)) {
+                CLLocation *location = [[CLLocation alloc] initWithLatitude:self.form.ticket.property.latitude.doubleValue longitude:self.form.ticket.property.longitude.doubleValue];
+                if (location) {
+                    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
+                    [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+                }
             }
         }
     }
@@ -155,10 +157,12 @@
                 _isAddressUpdated = NO;
             }
             else {
-                CLLocation *location = [[CLLocation alloc] initWithLatitude:self.form.ticket.property.latitude.doubleValue longitude:self.form.ticket.property.longitude.doubleValue];
-                if (location) {
-                    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
-                    [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+                if (!IsNilOrNull(self.form.ticket.property.latitude) && !IsNilOrNull(self.form.ticket.property.longitude)) {
+                    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.form.ticket.property.latitude.doubleValue longitude:self.form.ticket.property.longitude.doubleValue];
+                    if (location) {
+                        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
+                        [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+                    }
                 }
             }
         }
@@ -286,7 +290,7 @@
                 [form setAllCountries:countries];
                 completion(countries);
             }
-            
+
             return task;
         }];
     }];
@@ -332,7 +336,7 @@
                     [form setAllNeighborhoods:task.result];
                     completion(task.result);
                 }
-                
+
                 return task;
             }];
 
