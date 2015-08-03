@@ -101,35 +101,47 @@
 }
 
 - (void)updateAddressWhenCountryChange:(CUTECountry *)newCountry {
-
-
+    [SVProgressHUD show];
     [[[CUTEAPICacheManager sharedInstance] getCitiesByCountry:newCountry] continueWithBlock:^id(BFTask *task) {
-        CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-        [form setCity:nil];
-        [form setAllCities:task.result];
-        form.postcode = nil;
-        [form setNeighborhood:nil];
-        [form setAllNeighborhoods:nil];
-        form.street = nil;
-        form.community = nil;
-        form.floor = nil;
-        form.houseName = nil;
+        if (task.error) {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        else if (task.exception) {
+            [SVProgressHUD showErrorWithException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [SVProgressHUD showErrorWithCancellation];
+        }
+        else {
+            [SVProgressHUD dismiss];
 
-        [form syncTicketWithBlock:^(CUTETicket *ticket) {
-            ticket.property.country = newCountry;
-            ticket.property.city = nil;
-            ticket.property.zipcode = nil;
-            ticket.property.neighborhood = nil;
-            ticket.property.street = nil;
-            ticket.property.community = nil;
-            ticket.property.floor = nil;
-            ticket.property.houseName = nil;
-            ticket.property.latitude = nil;
-            ticket.property.longitude = nil;
-        }];
+            CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+            [form setCity:nil];
+            [form setAllCities:task.result];
+            form.postcode = nil;
+            [form setNeighborhood:nil];
+            [form setAllNeighborhoods:nil];
+            form.street = nil;
+            form.community = nil;
+            form.floor = nil;
+            form.houseName = nil;
 
-        [self.formController updateSections];
-        [self.tableView reloadData];
+            [form syncTicketWithBlock:^(CUTETicket *ticket) {
+                ticket.property.country = newCountry;
+                ticket.property.city = nil;
+                ticket.property.zipcode = nil;
+                ticket.property.neighborhood = nil;
+                ticket.property.street = nil;
+                ticket.property.community = nil;
+                ticket.property.floor = nil;
+                ticket.property.houseName = nil;
+                ticket.property.latitude = nil;
+                ticket.property.longitude = nil;
+            }];
+            
+            [self.formController updateSections];
+            [self.tableView reloadData];
+        }
 
         return task;
     }];
@@ -138,31 +150,44 @@
 
 - (void)updateAddressWhenCityChange:(CUTECity *)newCity {
 
+    [SVProgressHUD show];
     [[[CUTEAPICacheManager sharedInstance] getNeighborhoodByCity:newCity] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        else if (task.exception) {
+            [SVProgressHUD showErrorWithException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [SVProgressHUD showErrorWithCancellation];
+        }
+        else {
+            [SVProgressHUD dismiss];
 
-        CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-        [form setAllNeighborhoods:task.result];
-        form.postcode = nil;
-        form.neighborhood = nil;
-        form.street = nil;
-        form.community = nil;
-        form.floor = nil;
-        form.houseName = nil;
+            CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+            [form setAllNeighborhoods:task.result];
+            form.postcode = nil;
+            form.neighborhood = nil;
+            form.street = nil;
+            form.community = nil;
+            form.floor = nil;
+            form.houseName = nil;
 
-        [form syncTicketWithBlock:^(CUTETicket *ticket) {
-            ticket.property.city = newCity;
-            ticket.property.zipcode = nil;
-            ticket.property.neighborhood = nil;
-            ticket.property.street = nil;
-            ticket.property.community = nil;
-            ticket.property.floor = nil;
-            ticket.property.houseName = nil;
-            ticket.property.latitude = nil;
-            ticket.property.longitude = nil;
-        }];
-
-        [self.formController updateSections];
-        [self.tableView reloadData];
+            [form syncTicketWithBlock:^(CUTETicket *ticket) {
+                ticket.property.city = newCity;
+                ticket.property.zipcode = nil;
+                ticket.property.neighborhood = nil;
+                ticket.property.street = nil;
+                ticket.property.community = nil;
+                ticket.property.floor = nil;
+                ticket.property.houseName = nil;
+                ticket.property.latitude = nil;
+                ticket.property.longitude = nil;
+            }];
+            
+            [self.formController updateSections];
+            [self.tableView reloadData];
+        }
 
         return task;
     }];
