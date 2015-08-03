@@ -14,6 +14,21 @@ body {
     -ms-user-select: none;
     user-select: none;
 }
+.turnColorToGray {
+    transition: all ease 0.4s 0s;
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+
+    filter: grayscale(100%);
+
+    filter: gray;
+    >*{
+        transition: all ease 0.4s 0s;
+        opacity: 0.5;
+    }
+}
 
 .siteHeader_phone {
     @media @phone {
@@ -212,27 +227,41 @@ body {
                 margin: 30px 0;
                 background: #f4f4f4;
 
-                .price_inner {
-                    width: 100%;
-                    padding-top: @standard-margin;
-                    padding-left: @standard-margin;
-                    padding-right: @standard-margin;
-                    color: @red;
-                    font-size: @normal-font-size;
-                    display: inline-block;
+                .priceBox{
+                    position: relative;
+                    padding-bottom: 16px;
+                    .price_inner {
+                        width: 100%;
+                        padding-top: @standard-margin;
+                        padding-left: @standard-margin;
+                        padding-right: @standard-margin;
+                        color: @red;
+                        font-size: @normal-font-size;
+                        display: inline-block;
 
-                    strong { font-size: 36px; }
-                }
+                        strong { font-size: 36px; }
+                    }
 
-                .price_reference {
-                    width: 100%;
-                    padding-left: @standard-margin;
-                    padding-right: @standard-margin;
-                    display: inline-block;
+                    .price_reference {
+                        width: 100%;
+                        padding-left: @standard-margin;
+                        padding-right: @standard-margin;
+                        display: inline-block;
+                    }
+                    .rentOut{
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        height: 100%;
+                        padding: 0 27px;
+                        font-size: 18px;
+                        background-color: #666;
+                        color: #fff;
+                    }
                 }
 
                 .seperator {
-                    margin: @standard-margin*2 @standard-margin;
+                    margin:0 @standard-margin @standard-margin*2 ;
                 }
 
                 .priceItems {
@@ -375,6 +404,16 @@ body {
 
             }
             .item {
+                .rentOut{
+                    z-index: 2;
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(255,255,255,0.4);
+                    text-align: center;
+                    color: #333;
+                    font-size: 28px;
+                }
                 &.selectedTab { display: block; }
                 .swiper-pagination {
                     bottom: 0;

@@ -81,7 +81,7 @@ def property_to_rent_list(params):
 @f_app.user.login.check(check_role=True)
 def rent_ticket_get(rent_ticket_id, user):
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
-    if rent_ticket["status"] not in ["draft", "to rent"]:
+    if rent_ticket["status"] not in ["draft", "to rent", "rent"]:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
 
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
