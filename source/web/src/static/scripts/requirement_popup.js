@@ -16,8 +16,8 @@
                 container.find('input[name=nickname]').val(window.user.nickname)
             }
 
-            if (window.user.country) {
-                container.find('select[name=country]').val(window.user.country.code)
+            if (window.user.country_code) {
+                container.find('select[name=country_code]').val(window.user.country_code)
             }
 
             if (window.user.email) {
@@ -51,9 +51,8 @@
 
         var onPhoneNumberChange = function () {
             var params = container.find('form[name=requirement]').serializeObject()
-            var theParams = {'country': '', 'phone': ''}
-            theParams.country = params.country
-            theParams.phone = params.phone
+            var theParams = {}
+            theParams.phone = '+' + params.country_code + params.phone
             var errorArea = container.find('form[name=requirement]').find('.errorMessage')
             errorArea.hide()
             var $input = container.find('form[name=requirement] input[name=phone]')
@@ -106,7 +105,7 @@
             if (!valid) {return}
 
             var params = $(this).serializeObject()
-            params.phone = '+' + window.team.getPhoneCodeOfCountry(params.country) + params.phone
+            params.phone = '+' + params.country_code + params.phone
             params.country = params.countrySelect
             params.locales = window.lang
 
