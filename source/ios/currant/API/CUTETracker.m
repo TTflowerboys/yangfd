@@ -15,6 +15,7 @@
 #import <NSArray+ObjectiveSugar.h>
 #import "MemoryReporter.h"
 #import "CUTEUsageRecorder.h"
+#import "CUTEConfiguration.h"
 
 @interface CUTETracker ()
 {
@@ -58,6 +59,7 @@
     if (!IsNilNullOrEmpty([CUTEDataManager sharedInstance].user.identifier)) {
         [builder set:[CUTEDataManager sharedInstance].user.identifier forKey:kGAIUserId];
     }
+    [builder set:[CUTEConfiguration host] forKey:kGAIHostname];
 }
 
 - (void)trackScreen:(NSString *)screenName {
