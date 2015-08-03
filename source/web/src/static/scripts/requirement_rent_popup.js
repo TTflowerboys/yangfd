@@ -166,9 +166,8 @@
 
         var onPhoneNumberChange = function () {
             var params = container.find('form').serializeObject()
-            var theParams = {'country': '', 'phone': ''}
-            theParams.country = params.country
-            theParams.phone = params.requirementRentPhone
+            var theParams = {}
+            theParams.phone = '+' + params.country_code + params.requirementRentPhone
             $errorMsg.hide()
             var $input = container.find('form input[name=requirementRentPhone]')
             if (theParams.phone) {
@@ -211,9 +210,6 @@
             }
         }
     }
-    function getPhoneCode (countryCode) {
-        return {'GB':'+44','CN':'+86','HK':'+852','US':'+1'}[countryCode]
-    }
     function getSerializeObject (form) {
         var data = {}
         form.find('[data-serialize]').each(function () {
@@ -242,7 +238,7 @@
                 return
             }
         })
-        data.phone = getPhoneCode(form.find('[name=country]').val()) + form.find('[name=requirementRentPhone]').val()
+        data.phone = '+' + form.find('[name=country_code]').val() + form.find('[name=requirementRentPhone]').val()
         return data
     }
 
@@ -424,10 +420,10 @@
                         })
                         .fail(function (ret) {
                             $errorMsg.empty()
-                            $errorMsg.append(window.getErrorMessageFromErrorCode(ret, api))
+                            $errorMsg.append(window.getErrorMessageFromErrorCode(ret))
                             $errorMsg.show()
 
-                            ga('send', 'event', 'rentRequirementPopup', 'click', 'submit-failed',window.getErrorMessageFromErrorCode(ret, api));
+                            ga('send', 'event', 'rentRequirementPopup', 'click', 'submit-failed',window.getErrorMessageFromErrorCode(ret));
                         })
 
                 })
@@ -437,7 +433,7 @@
         initShowAndHide(container, option)
         initLocation(container)
         $('.neighborhood-select').parents('.row').show()
-        container.find('.select-chosen').add(container.find('[name=country]')).each(function (index, elem) {
+        container.find('.select-chosen').add(container.find('[name=country_code]')).each(function (index, elem) {
             if(!$(elem).data('chosen')) {
                 if(!window.team.isPhone()) {
                     $(elem).data('chosen', true).chosen({ disable_search_threshold: 8 }) //调用chosen插件
