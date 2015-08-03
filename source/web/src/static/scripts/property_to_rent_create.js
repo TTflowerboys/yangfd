@@ -515,11 +515,18 @@
                 if(/lengthRange\((\d+)\-(\d+)\)/.test(v)) {
                     minLength = parseInt(v.match(/lengthRange\((\d+)\-(\d+)\)/)[1])
                     maxLength = parseInt(v.match(/lengthRange\((\d+)\-(\d+)\)/)[2])
-                    if(value.length > maxLength || value.length < minLength){
+                    if(value.length < minLength){
                         validate = false
                         errorArr.push({
                             elem: $this,
-                            msg: $this.data('name') + i18n('超出字符数范围限制(') + minLength + '~' + maxLength + i18n('个字符)')
+                            msg: $this.data('name') + i18n('过短，请至少填写') + minLength + i18n('个字')
+                        })
+                    }
+                    if(value.length > maxLength){
+                        validate = false
+                        errorArr.push({
+                            elem: $this,
+                            msg: $this.data('name') + i18n('超长，请最多填写') + maxLength + i18n('个字')
                         })
                     }
                 }
@@ -700,7 +707,7 @@
 
     //获取出租单模型数据
     function getTicketData(options){
-        var title = $('#title').val() || $('#title').attr('placeholder') //如果用户没有填写title，默认为街区+居室+出租类型，比如“Isle of Dogs三居室单间出租”
+        var title = $('#title').val().trim() || $('#title').attr('placeholder').trim() //如果用户没有填写title，默认为街区+居室+出租类型，比如“Isle of Dogs三居室单间出租”
         var ticketData = $.extend(options,{
             'landlord_type': $('#landlordType').val(), //房东类型
             'rent_type': $('#rentalType .selected')[0].getAttribute('data-id'), //出租类型
