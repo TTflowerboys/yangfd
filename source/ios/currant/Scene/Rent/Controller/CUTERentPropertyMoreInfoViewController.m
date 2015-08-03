@@ -25,6 +25,7 @@
 #import "NSURL+Assets.h"
 #import "CUTEImageUploader.h"
 #import "CUTERentAreaViewController.h"
+#import "RegExCategories.h"
 
 
 @implementation CUTERentPropertyMoreInfoViewController
@@ -73,8 +74,12 @@
     if ([self checkShowTitleLengthWarningAlert:ticketTitle]) {
         return;
     }
-    if ([self checkDescriptionContainPhoneNumber:ticketDescription]) {
-        [self showDescriptionContainPhoneNumberWarningAlert];
+
+    if ([self checkShowContentForbiddenWarningAlert:ticketTitle]) {
+        return;
+    }
+
+    if ([self checkShowContentForbiddenWarningAlert:ticketDescription]) {
         return;
     }
 
@@ -201,6 +206,9 @@
     if ([self checkShowTitleLengthWarningAlert:string]) {
         return;
     }
+    if ([self checkShowContentForbiddenWarningAlert:string]) {
+        return;
+    }
 
     [self.form syncTicketWithUpdateInfo:@{@"title": self.form.ticketTitle}];
 }
@@ -208,25 +216,11 @@
 - (void)onTicketDescriptionEdit:(id)sender {
     CUTEFormTextViewCell *cell = (CUTEFormTextViewCell *)sender;
     NSString *string = cell.textView.text;
-    if ([self checkDescriptionContainPhoneNumber:string]) {
-        [self showDescriptionContainPhoneNumberWarningAlert];
+    if ([self checkShowContentForbiddenWarningAlert:string]) {
         return;
     }
 
     [self.form syncTicketWithUpdateInfo:@{@"ticketDescription": self.form.ticketDescription}];
-}
-
-- (BOOL)checkDescriptionContainPhoneNumber:(NSString *)string {
-    if (!IsNilNullOrEmpty(string)) {
-        NSError *error;
-        NSDataDetector *detector = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypePhoneNumber error:&error];
-        NSTextCheckingResult *result = [detector firstMatchInString:string options:0 range:NSMakeRange(0, string.length)];
-        if (result && result.range.location != NSNotFound) {
-            return YES;
-        }
-    }
-
-    return NO;
 }
 
 - (BOOL)checkShowTitleLengthWarningAlert:(NSString *)title {
@@ -241,9 +235,62 @@
     return NO;
 }
 
-- (void)showDescriptionContainPhoneNumberWarningAlert {
-    [UIAlertView showWithTitle:STR(@"平台将提供房东联系方式选择，请删除在此填写任何形式的联系方式，违规发布将会予以处理")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+- (BOOL)checkShowContentForbiddenWarningAlert:(NSString *)content {
+    if (!IsNilNullOrEmpty(content)) {
+        NSError *error;
+
+        //Phone check
+        NSDataDetector *detector = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypePhoneNumber error:&error];
+        NSTextCheckingResult *result = [detector firstMatchInString:content options:0 range:NSMakeRange(0, content.length)];
+        if (result && result.range.location != NSNotFound) {
+            NSString *phone = [content substringWithRange:result.range];
+            [UIAlertView showWithTitle:CONCAT(STR(@"平台将提供房东联系方式选择，请删除“电话"), phone, STR(@"”，违规发布将会予以处理")) message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+            return YES;
+        }
+
+        //Email check
+        NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+        NSArray *emailMatches = [content matches:RX(emailRegex)];
+        if (emailMatches.count > 0) {
+            NSString *result = [emailMatches objectAtIndex:0];
+            [UIAlertView showWithTitle:CONCAT(STR(@"平台将提供房东联系方式选择，请删除“邮箱"), result, STR(@"”，违规发布将会予以处理") ) message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+            return YES;
+        }
+
+        //black list check
+        NSArray *blackList = [CUTERentPropertyMoreInfoViewController contactBlackList];
+        __block NSString *blackItem = nil;
+        [blackList each:^(id object) {
+            if ([[content lowercaseString] containsString:[object lowercaseString]]) {
+                blackItem = object;
+                return;
+            }
+        }];
+
+        if (blackItem) {
+            [UIAlertView showWithTitle:CONCAT(STR(@"平台将提供房东联系方式选择，请删除“"), blackItem, STR(@"”相关信息，违规发布将会予以处理"))  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+            return YES;
+        }
+
+        //html tag check
+        NSString *htmlTagRegext = @"<[^>]*>";
+        if ([content isMatch:RX(htmlTagRegext)]) {
+            [UIAlertView showWithTitle:STR(@"请删除HTML相关字符")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+            return YES;
+        }
+    }
+
+    return NO;
 }
 
++ (NSArray *)contactBlackList {
+    static NSArray *blackList = nil;
+    if (blackList == nil) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"contact-blacklist" ofType:@"csv"];
+        NSString* fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        blackList = [fileContents componentsSeparatedByString:@","];
+    }
+    return blackList;
+}
 
 @end

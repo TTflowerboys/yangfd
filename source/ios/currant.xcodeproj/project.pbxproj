@@ -545,6 +545,10 @@
 		2CE2A9941B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9921B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m */; };
 		2CE2A9951B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9921B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m */; };
 		2CE2A9961B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE2A9921B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m */; };
+		2CE2A9981B6F1C000089ED20 /* contact-blacklist.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2A9971B6F1C000089ED20 /* contact-blacklist.csv */; };
+		2CE2A9991B6F1C000089ED20 /* contact-blacklist.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2A9971B6F1C000089ED20 /* contact-blacklist.csv */; };
+		2CE2A99A1B6F1C000089ED20 /* contact-blacklist.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2A9971B6F1C000089ED20 /* contact-blacklist.csv */; };
+		2CE2A99B1B6F1C000089ED20 /* contact-blacklist.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2A9971B6F1C000089ED20 /* contact-blacklist.csv */; };
 		2CF2347E1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
 		2CF2347F1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
 		2CF234801B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
@@ -1013,6 +1017,7 @@
 		2CE2A98C1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentConfirmPhoneViewController.m; sourceTree = "<group>"; };
 		2CE2A9911B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentVerifyPhoneViewController.h; sourceTree = "<group>"; };
 		2CE2A9921B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentVerifyPhoneViewController.m; sourceTree = "<group>"; };
+		2CE2A9971B6F1C000089ED20 /* contact-blacklist.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "contact-blacklist.csv"; sourceTree = "<group>"; };
 		2CF2347C1B54F2E500B516E6 /* CUTEKeyboardStateListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEKeyboardStateListener.h; sourceTree = "<group>"; };
 		2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEKeyboardStateListener.m; sourceTree = "<group>"; };
 		2CF234821B55198500B516E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1564,6 +1569,7 @@
 			isa = PBXGroup;
 			children = (
 				2CF234821B55198500B516E6 /* GoogleService-Info.plist */,
+				2CE2A9971B6F1C000089ED20 /* contact-blacklist.csv */,
 				2CB43DAD1ABC1372004DF663 /* Info.plist */,
 				2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */,
 				2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */,
@@ -2085,6 +2091,7 @@
 				2CF234851B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C261AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4161AE242F300E61BBA /* Localizable.strings in Resources */,
+				2CE2A99A1B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2097,6 +2104,7 @@
 				2CF234861B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C271AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4171AE242F400E61BBA /* Localizable.strings in Resources */,
+				2CE2A99B1B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2109,6 +2117,7 @@
 				2CF234841B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C251AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4151AE242F200E61BBA /* Localizable.strings in Resources */,
+				2CE2A9991B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2121,6 +2130,7 @@
 				2CF234831B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C241AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4141AE242EE00E61BBA /* Localizable.strings in Resources */,
+				2CE2A9981B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
