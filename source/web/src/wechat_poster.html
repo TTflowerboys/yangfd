@@ -35,7 +35,11 @@
                 <div class="topTitleNav animate">
                     <p class="location animate">{{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}}, {{rent['property'].get('city',{}).get('name','')}}, {{rent['property'].get('street','')}}</p>
                     <p class="title animate fixFontSize" data-maxHeight="8vh">{{rent.get('title','')}}</p>
+                    % if rent.get('status')=='to rent':
                     <p class="titleEn animate">Letting!</p>
+                    % elif rent.get('status') == 'rent':
+                    <p class="rentOut animate">{{_('抱歉，房屋已租出')}}</p>
+                    % end
                 </div>
             </div>
             <div class="bottomBox animate">
@@ -301,21 +305,35 @@
                 <div class="topTitleNav animate">
                     <p class="location animate">{{rent['property'].get('street','')}} {{rent['property'].get('city',{}).get('name','')}} {{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}}</p>
                     <p class="title animate fixFontSize" data-maxHeight="8vh">{{rent.get('title','')}}</p>
+
+                    % if rent.get('status')=='to rent':
                     <p class="contact animate">
                         <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" class="btn">{{_('获取房东联系方式')}}</a>
                     </p>
+                    % elif rent.get('status') == 'rent':
+                    <p class="rentOut animate">
+                        <a href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('code','')}}&city={{rent['property'].get('city',{}).get('id','')}}" class="btn siteLink">{{_('此房源已出租，查看其他房源')}}</a>
+                    </p>
+                    % end
                 </div>
             </div>
             <div class="bottomBox coverBackBottom animate">
 
                 <div class="linkWrap clearfix">
+
+                    % if rent.get('status')=='to rent':
                     <div class="siteLinkBox">
                         <a href="/app-download" class="btn siteLink">{{_('我也要发布')}}</a>
                     </div>
                     <div class="siteLinkBox">
-                        <!--todo 等城市API确定后，这里查看更多房源的链接改为查看对应城市的房源-->
                         <a href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('code','')}}&city={{rent['property'].get('city',{}).get('id','')}}" class="btn siteLink">{{_('查看更多房源')}}</a>
                     </div>
+                    % elif rent.get('status') == 'rent':
+                    <div class="rentOut">
+                        <a href="/app-download" class="btn siteLink">{{_('我有出租需求')}}</a>
+                    </div>
+                    % end
+
                 </div>
                 <div class="copyright clearfix">
                     <div class="poweredBy">POWERED BY</div>
