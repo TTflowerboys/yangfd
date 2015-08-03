@@ -312,7 +312,7 @@
                     </p>
                     % elif rent.get('status') == 'rent':
                     <p class="rentOut animate">
-                        <a href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('code','')}}&city={{rent['property'].get('city',{}).get('id','')}}" class="btn siteLink">{{_('此房源已出租，查看其他房源')}}</a>
+                        <a href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('code','')}}&city={{rent['property'].get('city',{}).get('id','')}}" class="btn siteLink">{{_('此房源已租出，查看其他房源')}}</a>
                     </p>
                     % end
                 </div>
