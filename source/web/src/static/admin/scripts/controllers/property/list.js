@@ -121,6 +121,9 @@
                         api.getOne(listItem.target_property_id, {errorMessage: true})
                             .success(function (data) {
                                 $scope.list[index] = angular.extend(data.val, $scope.list[index])
+                                _.each($scope.list[index].unset_fields, function (field) {
+                                    delete $scope.list[index][field]
+                                })
                             })
                     })(index)
                 }
