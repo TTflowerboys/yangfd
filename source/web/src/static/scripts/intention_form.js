@@ -29,7 +29,9 @@
             data.noregister = data.register === 'on' ? false : true
             data.register = undefined
         }
-
+        data.phone = '+' + data.country_code + data.phone
+        data.country = window.team.getCountryFromPhoneCode(data.country_code)
+        delete data.country_code
         var api = '/api/1/intention_ticket/add'
         $.betterPost(api, data)
             .done(function () {

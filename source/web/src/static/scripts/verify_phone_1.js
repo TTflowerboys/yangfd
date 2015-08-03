@@ -10,7 +10,8 @@ $('form[name=verifyPhone1]').submit(function (e) {
 
     if (!valid) {return}
     var params = $(this).serializeObject()
-
+    params.phone = '+' + params.country_code + params.phone
+    delete params.country_code
     function updateUserPhone() {
         return $.betterPost('/api/1/user/edit', params)
             .done(function (data) {

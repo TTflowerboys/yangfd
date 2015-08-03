@@ -48,10 +48,10 @@
         errorArea.text(window.i18n('发送中...'))
         errorArea.show()
         var phone = $('form[name=info]').find('.phone input[name=phone]').val()
-        var country = $('form[name=info]').find('.phone select[name=country]').val()
+        var country_code = $('form[name=info]').find('.phone select[name=country_code]').val()
 
-        if (!country) {
-            errorArea.text(window.i18n('国家不能为空'))
+        if (!country_code) {
+            errorArea.text(window.i18n('电话区号不能为空'))
             errorArea.show()
             return
         }
@@ -62,7 +62,7 @@
             return
         }
 
-        var theParams = {'country':country, 'phone': phone}
+        var theParams = {'phone': '+' + country_code + phone}
         $.betterPost('/api/1/user/sms_verification/send', theParams)
             .done(function (val) {
                 errorArea.text(window.i18n('发送成功'))
@@ -139,6 +139,8 @@
             errorArea.show()
             return
         }
+        params.phone = '+' + params.country_code + params.phone
+        delete params.country_code
         $.betterPost('/api/1/user/' + window.user.id + '/sms_verification/verify', {'code':params.code})
             .done(function (data) {
                 errorArea.text(window.i18n('验证成功'))

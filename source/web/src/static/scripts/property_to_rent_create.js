@@ -892,8 +892,7 @@
                 $btn.prop('disabled', false)
             }, 60000)
             $.betterPost('/api/1/user/sms_verification/send', {
-                country: $('#countryPhone').val() || $('#countryPhone option').eq(0).val(),
-                phone: $('[name=phone]').val()
+                phone: '+' + $('[name=country_code]').val() + $('[name=phone]').val()
             }).done(function () {
                 needSMSCode = true
                 $btn.siblings('.sucMsg').show()
@@ -911,6 +910,9 @@
                 noEmptyString: true,
                 exclude: ['code','rent_id']
             })
+            params.phone = '+' + params.country_code +params.phone
+            params.country = window.team.getCountryFromPhoneCode(params.country_code)
+            delete params.country_code
             params.private_contact_methods = JSON.stringify(getPrivateContactMethods())
             $.betterPost('/api/1/user/fast-register', params)
                 .done(function (val) {

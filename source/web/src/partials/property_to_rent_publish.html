@@ -45,32 +45,7 @@
                 </div>
                 <div class="formGroup">
                     <label for="phone">{{_('手机号')}}</label>
-                    <select name="country" id="countryPhone">
-                        %for index, country in enumerate(country_list):
-                        <option value="{{country.get('code')}}"
-                            % if user :
-                            %if country.get('code') == user.get('country',{}).get('code'):
-                            selected
-                            %end
-                            %else:
-                            % if country.get('code') == 'GB':
-                            selected
-                            %end
-                            %end
-                            >
-                                %if (country.get('code') == 'CN'):
-                                (+86)
-                                %elif (country.get('code') == 'GB') :
-                                (+44)
-                                %elif (country.get('code') == 'US') :
-                                (+1)
-                                %elif (country.get('code') == 'HK') :
-                                (+852)
-                                %end
-                                {{get_country_name_by_code(country.get('code'))}}
-                        </option>
-                        %end
-                    </select>
+                    <!-- @@include=country_code_select.html -->
                     <input type="text" id="phone" name="phone" data-validator="required trim number"/>
                     <p class="addContactWrap">
                         <input type="checkbox" id="addContact-phone" checked="checked" data-addContact="phone"/><label class="addContactLabel" for="addContact-phone">{{_('展示电话给注册租客')}}</label>

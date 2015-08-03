@@ -253,6 +253,9 @@ $(function () {
                 noEmptyString: true,
                 exclude: ['code','rent_id']
             })
+            params.phone = '+' + params.country_code + params.phone
+            params.country = window.team.getCountryFromPhoneCode(params.country_code)
+            delete params.country_code
             $.betterPost('/api/1/user/fast-register', params)
                 .done(function (val) {
                     //Clear any feedback before
@@ -330,7 +333,7 @@ $(function () {
         $submit.prop('disabled', true)
         $feedback.hide()
         var params = $(this).serializeObject({
-            exclude: ['nickname','email','country','phone','rent_id']
+            exclude: ['nickname','email','country','phone','rent_id','country_code']
         })
 
         var api = '/api/1/user/' + window.user.id + '/sms_verification/verify'

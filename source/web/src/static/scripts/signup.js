@@ -52,7 +52,9 @@ $(function () {
         }
 
         var params = $(this).serializeObject()
-
+        params.phone = '+' + params.country_code +params.phone
+        params.country = window.team.getCountryFromPhoneCode(params.country_code)
+        delete params.country_code
         if(_.isEmpty(params.invitation_code) || params.invitation_code === ''){
             delete params.invitation_code
         }else {

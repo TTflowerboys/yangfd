@@ -60,6 +60,9 @@ $(function () {
         }
 
         var params = $(this).serializeObject()
+        params.phone = '+' + params.country_code +params.phone
+        params.country = window.team.getCountryFromPhoneCode(params.country_code)
+        delete params.country_code
         params.password = Base64.encode(params.password)
         //params.challenge = getRecaptchaChallenge()
         //params.solution = getRecaptchaResponse()

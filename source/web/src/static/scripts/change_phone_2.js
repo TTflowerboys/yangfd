@@ -7,8 +7,7 @@ $('button[name=code]').click(function (e) {
     resultArea.show()
 
     var phone = window.user.phone
-    var country = window.user.country.code
-    var theParams = {'country':country, 'phone': phone}
+    var theParams = {'phone': '+' + window.user.country_code + phone}
     $.betterPost('/api/1/user/sms_verification/send', theParams)
         .done(function (val) {
             resultArea.text(window.i18n('发送成功'))

@@ -352,13 +352,17 @@
             'MY': '马来西亚',
             'IE': '爱尔兰',
         },
-        getPhoneCodeOfCountry: function (code) {
-            return {
-                'CN': '+86',
-                'GB': '+44',
-                'US': '+1',
-                'HK': '+852'
-            }[code]
+        countryCodeMap: {
+            'CN': '86',
+            'GB': '44',
+            'US': '1',
+            'HK': '852'
+        },
+        getPhoneCodeOfCountry: function (countryCode) {
+            return this.countryCodeMap[countryCode]
+        },
+        getCountryFromPhoneCode: function (code) {
+            return _.invert(this.countryCodeMap)[code]
         },
         parsePeriodUnit: function(unit) {
             return {

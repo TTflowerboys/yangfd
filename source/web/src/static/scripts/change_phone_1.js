@@ -10,9 +10,12 @@ $('form[name=changePhone1]').submit(function (e) {
     }})
 
     if (!valid) {return}
-    var params = $(this).serializeObject()
+    var params = {
+        old_phone: '+' + $('[name=country_code]').eq(0).val() + $('[name=old_phone]').val().trim(),
+        phone: '+' + $('[name=country_code]').eq(1).val() + $('[name=phone]').val().trim()
+    }
 
-    if (params.old_phone.toString() !== window.user.phone.toString()) {
+    if (params.old_phone.toString() !== '+' + window.user.country_code + window.user.phone.toString()) {
         resultArea.text(window.i18n('原手机号不正确'))
         resultArea.show()
         return

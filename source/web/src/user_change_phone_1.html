@@ -19,12 +19,12 @@
         <div class="inner">
             <div class="phone row">
                 <label>{{_('原手机号')}}</label>
-                <!-- @@include =partials/country_select_in_user.html -->
+                <!-- @@include =partials/country_code_select.html -->
                 <input name="old_phone" type="tel" value={{user.get('phone')}} data-validator="required number"/>
             </div>
             <div class="phone row">
                 <label>{{_('新手机号')}}</label>
-                <!-- @@include =partials/country_select_in_user.html -->
+                <!-- @@include =partials/country_code_select.html -->
                 <input name="phone" type="tel" data-validator="required number"/>
             </div>
             <p class="resultMessage" style="display:none"></p>

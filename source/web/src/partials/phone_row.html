@@ -3,30 +3,16 @@
         <img src="/static/images/signin/phone-active.png" alt=""/>
     </span>
     %if country_list:
-    <select name="country" class=addLeft>
+    <select name="country_code" class=addLeft>
 
-        %for index, country  in enumerate(country_list):
-        <option value="{{country.get('code')}}"
-            % if user :
-                %if country.get('code') == user.get('country',{}).get('code'):
-                    selected
-                %end
-            %else:
-                % if country.get('code') == 'GB':
-                selected
-                %end
-            %end
-            >
-            %if country.get('code') == 'CN':
-            (+86)
-            %elif country.get('code') == 'GB' :
-            (+44)
-            %elif country.get('code') == 'US' :
-            (+1)
-            %elif country.get('code') == 'HK' :
-            (+852)
-            %end
-            {{get_country_name_by_code(country.get('code'))}}
+        %for index, country  in enumerate(full_country_list):
+        <option value="{{get_phone_code_by_country(country.get('code'))}}"
+            %if user and user.get('country_code') and (str(user.get('country_code')) == get_phone_code_by_country(country.get('code'))):
+        selected
+        %end
+        ">
+        +{{(get_phone_code_by_country(country.get('code')))}}
+        {{get_country_name_by_code(country.get('code'))}}
         </option>
         %end
     </select>

@@ -31,6 +31,8 @@ $('form[name=signin]').submit(function (e) {
     if (!valid) {return}
 
     var params = $(this).serializeObject()
+    params.phone = '+' + params.country_code +params.phone
+    delete params.country_code
     params.password = Base64.encode(params.password)
     $.betterPost('/api/1/user/login', params)
         .done(function () {
