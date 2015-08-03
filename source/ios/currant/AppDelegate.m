@@ -837,10 +837,12 @@
             CUTERentConfirmPhoneForm *form = [CUTERentConfirmPhoneForm new];
             [form setAllCountries:task.result];
             //set default country same with the property
-            if (user.country) {
-                form.country = [task.result find:^BOOL(CUTECountry *object) {
-                    return [object.countryCode isEqualToString:user.countryCode];
-                }];
+            if (user.countryCode) {
+                for (CUTECountry *object in task.result) {
+                    if ([object.countryCode isEqualToNumber:user.countryCode]) {
+                        form.country = object;
+                    }
+                }
             }
             form.phone = user.phone;
             form.user = user;

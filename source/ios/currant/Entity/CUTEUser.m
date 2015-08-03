@@ -71,7 +71,7 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                   @"nickname":self.nickname,
                                                                                   @"country":self.country.ISOcountryCode,
-                                                                                  @"phone": CONCAT(NilNullToEmpty(self.countryCode), NilNullToEmpty(self.phone)),
+                                                                                  @"phone": CONCAT(@"+", NilNullToEmpty(self.countryCode.stringValue), NilNullToEmpty(self.phone)),
                                                                                   @"email":self.email,
                                                                                   }];
 
