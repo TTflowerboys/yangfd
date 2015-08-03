@@ -70,8 +70,7 @@
     NSString *ticketTitle = [self getTicketTitleCell].textField.text;
     NSString *ticketDescription = [self getTicketDescriptionCell].textView.text;
 
-    if ([self checkTitleLengthInvalid:ticketTitle]) {
-        [self showTitleLengthWarningAlert];
+    if ([self checkShowTitleLengthWarningAlert:ticketTitle]) {
         return;
     }
     if ([self checkDescriptionContainPhoneNumber:ticketDescription]) {
@@ -199,8 +198,7 @@
 
     CUTEFormTextFieldCell *cell = (CUTEFormTextFieldCell *)sender;
     NSString *string = cell.textField.text;
-    if ([self checkTitleLengthInvalid:string]) {
-        [self showTitleLengthWarningAlert];
+    if ([self checkShowTitleLengthWarningAlert:string]) {
         return;
     }
 
@@ -231,16 +229,20 @@
     return NO;
 }
 
-- (BOOL)checkTitleLengthInvalid:(NSString *)string {
-    return string.length < 8 || string.length > 30;
+- (BOOL)checkShowTitleLengthWarningAlert:(NSString *)title {
+    if (title.length < 8) {
+        [UIAlertView showWithTitle:STR(@"标题过短，请至少填写8个字")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+        return YES;
+    }
+    else if (title.length > 30) {
+        [UIAlertView showWithTitle:STR(@"标题超长，请最多填写30个字")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+        return YES;
+    }
+    return NO;
 }
 
 - (void)showDescriptionContainPhoneNumberWarningAlert {
     [UIAlertView showWithTitle:STR(@"平台将提供房东联系方式选择，请删除在此填写任何形式的联系方式，违规发布将会予以处理")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
-}
-
-- (void)showTitleLengthWarningAlert {
-    [UIAlertView showWithTitle:STR(@"标题字符长度限制为8到30")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
 }
 
 
