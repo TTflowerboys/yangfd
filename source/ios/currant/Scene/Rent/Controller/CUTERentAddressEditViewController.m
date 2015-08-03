@@ -28,6 +28,7 @@
 #import "CUTEPostcodePlace.h"
 #import "CUTEAddressUtil.h"
 #import "CUTENavigationUtil.h"
+#import "Aspects.h"
 
 @interface CUTERentAddressEditViewController () {
 
@@ -253,6 +254,8 @@
                 [SVProgressHUD showErrorWithCancellation];
             }
             else {
+                [SVProgressHUD dismiss];
+                
                 CUTEPlacemark *detailPlacemark = task.result;
                 CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
                 CUTEProperty *property = form.ticket.property;
@@ -264,7 +267,6 @@
                 }];
 
                 [self.tableView reloadData];
-                [SVProgressHUD dismiss];
             }
 
             return task;
@@ -368,7 +370,9 @@
     mapController.form = mapForm;
     mapController.hidesBottomBarWhenPushed = YES;
     mapController.singleUseForReedit = [(CUTERentAddressEditForm *)self.formController.form singleUseForReedit];
-    mapController.updateAddressCompletion = ^ {
+
+    [mapController aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionAfter | AspectOptionAutomaticRemoval usingBlock:^(id<AspectInfo> info) {
+        [SVProgressHUD show];
         [[form updateWithTicket:form.ticket] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
@@ -380,12 +384,15 @@
                 [SVProgressHUD showErrorWithCancellation];
             }
             else {
+                [SVProgressHUD dismiss];
+                [self.formController updateSections];
                 [self.tableView reloadData];
             }
 
             return task;
         }];
-    };
+    } error:nil];
+
     [self.navigationController pushViewController:mapController animated:YES];
 }
 

@@ -196,15 +196,6 @@
 
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-
-    if (self.updateAddressCompletion) {
-        self.updateAddressCompletion();
-    }
-}
-
-
 - (void)startUpdateLocation {
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     if (status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted) {
@@ -263,6 +254,7 @@
         _rentAddressEditViewController = controller;
     }
 
+    [SVProgressHUD show];
     CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
     form.ticket = self.form.ticket;
     form.houseName = form.ticket.property.houseName;
@@ -342,6 +334,7 @@
     }];
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [SVProgressHUD dismiss];
         _rentAddressEditViewController.formController.form = form;
         [_rentAddressEditViewController.tableView reloadData];
         [self.navigationController pushViewController:_rentAddressEditViewController animated:YES];
