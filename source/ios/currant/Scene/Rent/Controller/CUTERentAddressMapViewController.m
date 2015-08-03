@@ -224,14 +224,12 @@
                 }
                 CUTERentAddressMapForm *form = self.form;
 
-                //check is a draft ticket not a unfinished one
-                if (!IsNilNullOrEmpty(form.ticket.identifier)) {
-                    [form syncTicketWithUpdateInfo:@{@"property.latitude": @(location.coordinate.latitude), @"property.longitude": @(location.coordinate.longitude)}];
-                }
-                else {
-                    form.ticket.property.latitude = @(location.coordinate.latitude);
-                    form.ticket.property.longitude = @(location.coordinate.longitude);
-                }
+
+                [form syncTicketWithBlock:^(CUTETicket *ticket) {
+                    ticket.property.latitude = @(location.coordinate.latitude);
+                    ticket.property.longitude = @(location.coordinate.longitude);
+                }];
+
 
                 [self checkNeedUpdateAddress];
 
@@ -525,15 +523,17 @@
         [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
             if (task.result) {
                 CUTEPlacemark *placemark = task.result;
-                NSString *street = property.neighborhood == nil ? [CUTEAddressUtil buildAddress:@[NilNullToEmpty(placemark.street), NilNullToEmpty(placemark.neighborhood)]]: [CUTEAddressUtil buildAddress:@[NilNullToEmpty(placemark.street), NilNullToEmpty([(CUTENeighborhood *)property.neighborhood name])]];
-                [self.form syncTicketWithUpdateInfo:@{@"property.street": NilNullToEmpty(street),
-                                                      @"property.zipcode": placemark.postalCode == nil? [NSNull null]: placemark.postalCode,
-                                                      @"property.country": placemark.country,
-                                                      @"property.city": placemark.city == nil? [NSNull null]: placemark.city,
-                                                      @"property.community": [NSNull null],
-                                                      @"property.floor": [NSNull null],
-                                                      @"property.houseName": [NSNull null],
-                                                      }];
+                [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+                    ticket.property.country = placemark.country;
+                    ticket.property.city = placemark.city;
+                    ticket.property.zipcode = placemark.postalCode;
+                    ticket.property.neighborhood = nil;
+                    ticket.property.street = [CUTEAddressUtil buildAddress:@[NilNullToEmpty(placemark.street), NilNullToEmpty(placemark.neighborhood)]];
+                    ticket.property.community = nil;
+                    ticket.property.floor = nil;
+                    ticket.property.houseName = nil;
+
+                }];
 
                 _textField.text = property.address;
                 [_textField setNeedsDisplay];
@@ -574,11 +574,11 @@
         CLLocation *location = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
                                                           longitude:mapView.centerCoordinate.longitude];
 
-        self.form.ticket.property.latitude = @(location.coordinate.latitude);
-        self.form.ticket.property.longitude = @(location.coordinate.longitude);
-        if (!IsNilNullOrEmpty(self.form.ticket.identifier)) {
-            [self.form syncTicketWithUpdateInfo:@{@"property.latitude": @(location.coordinate.latitude), @"property.longitude": @(location.coordinate.longitude)}];
-        }
+
+        [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+            ticket.property.latitude = @(location.coordinate.latitude);
+            ticket.property.longitude = @(location.coordinate.longitude);
+        }];
 
         [_textField.indicatorView startAnimating];
         [[self checkNeedUpdateAddress] continueWithBlock:^id(BFTask *task) {

@@ -272,10 +272,7 @@
     }];
     
     [sequencer run];
-    
 }
-
-
 
 - (BFTask *)updateLocationWhenPostcodeChange:(NSString *)newPostcode {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
