@@ -197,7 +197,7 @@
             else {
                 if ([task.result boolValue]) {
                     [SVProgressHUD dismiss];
-                    [[[UIAlertView alloc] initWithTitle:CONCAT(STR(@"电话已被使用！请登录或者修改密码，如该用户不是您，请联系洋房东"), @" ", [CUTEConfiguration ukServicePhone], STR(@"或"), @" ", [CUTEConfiguration servicePhone]) message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil] show];
+                    [[[UIAlertView alloc] initWithTitle:CONCAT(STR(@"电话已被使用！请登录或者修改密码，如该用户不是您，请联系英国客服"), @" ", [CUTEConfiguration ukServicePhone], STR(@"或中国客服"), @" ", [CUTEConfiguration servicePhone]) message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil] show];
                 }
                 else {
                     completion(nil);
