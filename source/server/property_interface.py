@@ -124,8 +124,8 @@ def pdfviewer(user, property_id, params):
 @currant_util.check_ip_and_redirect_domain
 def property_wechat_poster(property_id):
     property = f_app.i18n.process_i18n(currant_data_helper.get_property_or_target_property(property_id))
-    #if property["status"] not in ["selling", "sold out", "restricted"]:
-    #    assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
+    # if property["status"] not in ["selling", "sold out", "restricted"]:
+    #     assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
 
     related_property_list = f_app.i18n.process_i18n(currant_data_helper.get_related_property_list(property))
 
@@ -148,14 +148,14 @@ def property_wechat_poster(property_id):
     weixin = f_app.wechat.get_jsapi_signature()
 
     def format_property(property):
-        res = u'<div><i class="icon-rooms"></i><span>' + unicode(str(property.get('bedroom_count',0))) + unicode(_(u'室')) + unicode(str(property.get('living_room_count',0))) + unicode(_(u'厅'))
-        if property.get('space',{}):
-            res += unicode("{0:.0f}".format(float(property.get('space',{}).get('value',0))))
-            res += unicode(currant_util.format_unit(property.get('space',{}).get('unit','')))
-        elif property.get('building_area',{}):
-            res += unicode("{0:.0f}".format(float(property.get('building_area',{}).get('value',0))))
-            res += unicode(currant_util.format_unit(property.get('building_area',{}).get('unit','')))
-        res += u'</span></div>'
+        res = '<div><i class="icon-rooms"></i><span>' + str(property.get('bedroom_count', 0)) + _('室') + str(property.get('living_room_count', 0)) + _('厅')
+        if property.get('space', {}):
+            res += "{0:.0f}".format(float(property.get('space', {}).get('value', 0)))
+            res += currant_util.format_unit(property.get('space', {}).get('unit', ''))
+        elif property.get('building_area', {}):
+            res += "{0:.0f}".format(float(property.get('building_area', {}).get('value', 0)))
+            res += currant_util.format_unit(property.get('building_area', {}).get('unit', ''))
+        res += '</span></div>'
         return res
 
     return currant_util.common_template("property_wechat_poster", property=property, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords, weixin=weixin, format_property=format_property)
