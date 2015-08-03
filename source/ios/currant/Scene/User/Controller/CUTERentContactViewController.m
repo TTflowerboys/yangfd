@@ -190,14 +190,14 @@
     [SVProgressHUD showWithStatus:STR(@"获取中...")];
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/check_exist" parameters:@{@"phone": CONCAT(NilNullToEmpty(user.countryCode), NilNullToEmpty(user.phone))} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/check_exist" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(user.countryCode.stringValue), NilNullToEmpty(user.phone))} resultClass:nil] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
             else {
                 if ([task.result boolValue]) {
                     [SVProgressHUD dismiss];
-                    [[[UIAlertView alloc] initWithTitle:CONCAT(STR(@"电话已被使用！请登录或者修改密码，如该用户不是您，请联系洋房东"), @" ", [CUTEConfiguration ukServicePhone], STR(@"或"), @" ", [CUTEConfiguration servicePhone]) message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil] show];
+                    [[[UIAlertView alloc] initWithTitle:CONCAT(STR(@"电话已被使用！请登录或者修改密码，如该用户不是您，请联系英国客服"), @" ", [CUTEConfiguration ukServicePhone], STR(@"或中国客服"), @" ", [CUTEConfiguration servicePhone]) message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil] show];
                 }
                 else {
                     completion(nil);
@@ -210,7 +210,7 @@
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         if (_retUser) {
             [SVProgressHUD showWithStatus:STR(@"发送中...")];
-            [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone": CONCAT(NilNullToEmpty(user.countryCode), NilNullToEmpty(user.phone))} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(user.countryCode.stringValue), NilNullToEmpty(user.phone))} resultClass:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }

@@ -24,7 +24,7 @@
 
 @property (strong, nonatomic) CUTECountry *country;
 
-@property (strong, nonatomic) NSString *countryCode;
+@property (strong, nonatomic) NSNumber *countryCode;
 
 @property (strong, nonatomic) NSString *phone;
 

@@ -33,11 +33,11 @@
              }[code];
 }
 
-+ (NSString *)countryCodeOfISOcountryCode:(NSString *)code {
-    return @{@"GB": @"+44",
-             @"CN": @"+86",
-             @"US": @"+1",
-             @"HK": @"+851",
++ (NSNumber *)countryCodeOfISOcountryCode:(NSString *)code {
+    return @{@"GB": @(44),
+             @"CN": @(86),
+             @"US": @(1),
+             @"HK": @(851),
              }[code];
 }
 
@@ -45,7 +45,7 @@
     return _name?: [CUTECountry nameOfISOcountryCode:self.ISOcountryCode];
 }
 
-- (NSString *)countryCode {
+- (NSNumber *)countryCode {
     return [CUTECountry countryCodeOfISOcountryCode:self.ISOcountryCode];
 }
 
