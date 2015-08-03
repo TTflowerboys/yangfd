@@ -25,6 +25,7 @@
 #import "NSURL+Assets.h"
 #import "CUTEImageUploader.h"
 #import "CUTERentAreaViewController.h"
+#import "RegExCategories.h"
 
 
 @implementation CUTERentPropertyMoreInfoViewController
@@ -70,12 +71,15 @@
     NSString *ticketTitle = [self getTicketTitleCell].textField.text;
     NSString *ticketDescription = [self getTicketDescriptionCell].textView.text;
 
-    if ([self checkTitleLengthInvalid:ticketTitle]) {
-        [self showTitleLengthWarningAlert];
+    if ([self checkShowTitleLengthWarningAlert:ticketTitle]) {
         return;
     }
-    if ([self checkDescriptionContainPhoneNumber:ticketDescription]) {
-        [self showDescriptionContainPhoneNumberWarningAlert];
+
+    if ([self checkShowContentForbiddenWarningAlert:ticketTitle]) {
+        return;
+    }
+
+    if ([self checkShowContentForbiddenWarningAlert:ticketDescription]) {
         return;
     }
 
@@ -199,8 +203,10 @@
 
     CUTEFormTextFieldCell *cell = (CUTEFormTextFieldCell *)sender;
     NSString *string = cell.textField.text;
-    if ([self checkTitleLengthInvalid:string]) {
-        [self showTitleLengthWarningAlert];
+    if ([self checkShowTitleLengthWarningAlert:string]) {
+        return;
+    }
+    if ([self checkShowContentForbiddenWarningAlert:string]) {
         return;
     }
 
@@ -210,20 +216,66 @@
 - (void)onTicketDescriptionEdit:(id)sender {
     CUTEFormTextViewCell *cell = (CUTEFormTextViewCell *)sender;
     NSString *string = cell.textView.text;
-    if ([self checkDescriptionContainPhoneNumber:string]) {
-        [self showDescriptionContainPhoneNumberWarningAlert];
+    if ([self checkShowContentForbiddenWarningAlert:string]) {
         return;
     }
 
     [self.form syncTicketWithUpdateInfo:@{@"ticketDescription": self.form.ticketDescription}];
 }
 
-- (BOOL)checkDescriptionContainPhoneNumber:(NSString *)string {
-    if (!IsNilNullOrEmpty(string)) {
+- (BOOL)checkShowTitleLengthWarningAlert:(NSString *)title {
+    if (title.length < 8) {
+        [UIAlertView showWithTitle:STR(@"标题过短，请至少填写8个字")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+        return YES;
+    }
+    else if (title.length > 30) {
+        [UIAlertView showWithTitle:STR(@"标题超长，请最多填写30个字")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)checkShowContentForbiddenWarningAlert:(NSString *)content {
+    if (!IsNilNullOrEmpty(content)) {
         NSError *error;
+
+        //Phone check
         NSDataDetector *detector = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypePhoneNumber error:&error];
-        NSTextCheckingResult *result = [detector firstMatchInString:string options:0 range:NSMakeRange(0, string.length)];
+        NSTextCheckingResult *result = [detector firstMatchInString:content options:0 range:NSMakeRange(0, content.length)];
         if (result && result.range.location != NSNotFound) {
+            NSString *phone = [content substringWithRange:result.range];
+            [UIAlertView showWithTitle:CONCAT(STR(@"平台将提供房东联系方式选择，请删除“电话"), phone, STR(@"”，违规发布将会予以处理")) message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+            return YES;
+        }
+
+        //Email check
+        NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+        NSArray *emailMatches = [content matches:RX(emailRegex)];
+        if (emailMatches.count > 0) {
+            NSString *result = [emailMatches objectAtIndex:0];
+            [UIAlertView showWithTitle:CONCAT(STR(@"平台将提供房东联系方式选择，请删除“邮箱"), result, STR(@"”，违规发布将会予以处理") ) message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+            return YES;
+        }
+
+        //black list check
+        NSArray *blackList = [CUTERentPropertyMoreInfoViewController contactBlackList];
+        __block NSString *blackItem = nil;
+        [blackList each:^(id object) {
+            if ([[content lowercaseString] containsString:[object lowercaseString]]) {
+                blackItem = object;
+                return;
+            }
+        }];
+
+        if (blackItem) {
+            [UIAlertView showWithTitle:CONCAT(STR(@"平台将提供房东联系方式选择，请删除“"), blackItem, STR(@"”相关信息，违规发布将会予以处理"))  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+            return YES;
+        }
+
+        //html tag check
+        NSString *htmlTagRegext = @"<[^>]*>";
+        if ([content isMatch:RX(htmlTagRegext)]) {
+            [UIAlertView showWithTitle:STR(@"请删除HTML相关字符")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
             return YES;
         }
     }
@@ -231,17 +283,14 @@
     return NO;
 }
 
-- (BOOL)checkTitleLengthInvalid:(NSString *)string {
-    return string.length < 8 || string.length > 30;
++ (NSArray *)contactBlackList {
+    static NSArray *blackList = nil;
+    if (blackList == nil) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"contact-blacklist" ofType:@"csv"];
+        NSString* fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        blackList = [fileContents componentsSeparatedByString:@","];
+    }
+    return blackList;
 }
-
-- (void)showDescriptionContainPhoneNumberWarningAlert {
-    [UIAlertView showWithTitle:STR(@"平台将提供房东联系方式选择，请删除在此填写任何形式的联系方式，违规发布将会予以处理")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
-}
-
-- (void)showTitleLengthWarningAlert {
-    [UIAlertView showWithTitle:STR(@"标题字符长度限制为8到30")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
-}
-
 
 @end

@@ -147,7 +147,7 @@
 
         if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
 
-            [UIAlertView showWithTitle:STR(@"联系洋房东") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"英国 02030402258"), STR(@"中国 4000926433")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            [UIAlertView showWithTitle:STR(@"联系洋房东") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[CONCAT(STR(@"英国"), @" ", [CUTEConfiguration ukServicePhone]), CONCAT(STR(@"中国"), @" ", [CUTEConfiguration servicePhone])] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                 if (buttonIndex == 1) {
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString  stringWithFormat:@"tel:%@",[CUTEConfiguration ukServicePhone]]]];
                 }
