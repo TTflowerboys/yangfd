@@ -368,7 +368,7 @@
             return {
                 'day': window.i18n('天'),
                 'week': window.i18n('周'),
-                'month': window.i18n('月'),
+                'month': window.i18n('个月'),
                 'year': window.i18n('年')
             }[unit]
         },
