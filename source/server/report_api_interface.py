@@ -90,7 +90,7 @@ def report_add(user, params):
             abort(40000, logger.warning("Invalid params: zipcode_index is already in use!"))
 
     if "maponics_neighborhood" in params:
-        if f_app.report.search({"maponics_neighborhood": {"$in": params["maponics_neighborhood"]}}):
+        if f_app.report.search({"maponics_neighborhood": params["maponics_neighborhood"]}):
             abort(40000, logger.warning("Invalid params: maponics_neighborhood is already in use!"))
 
     return f_app.report.add(params)
@@ -174,7 +174,7 @@ def report_edit(report_id, params):
             abort(40000, logger.warning("Invalid params: zipcode_index is already in use!"))
 
     if "maponics_neighborhood" in params:
-        if f_app.report.search({"maponics_neighborhood": {"$in": params["maponics_neighborhood"]}}):
+        if f_app.report.search({"maponics_neighborhood": params["maponics_neighborhood"]}):
             abort(40000, logger.warning("Invalid params: maponics_neighborhood is already in use!"))
 
     return f_app.report.update_set(report_id, params)
@@ -192,11 +192,9 @@ def report_remove(report_id):
     zipcode_index=str,
     country='country',
     city='geonames_gazetteer:city',
-    maponics_neighborhood=(list, None, "maponics_neighborhood")
+    maponics_neighborhood="maponics_neighborhood"
 ))
 def report_search(params):
-    if "maponics_neighborhood" in params:
-        params["maponics_neighborhood"] = {"$in": params["maponics_neighborhood"]}
     per_page = params.pop("per_page", 0)
     report_list = f_app.report.search(params, per_page=per_page)
     return f_app.report.output(report_list)

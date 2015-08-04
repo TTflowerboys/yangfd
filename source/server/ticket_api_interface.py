@@ -709,9 +709,6 @@ def rent_intention_ticket_search(user, params):
 
     params["$and"] = []
 
-    if "maponics_neighborhood" in params:
-        params["maponics_neighborhood"] = {"$in": params["maponics_neighborhood"]}
-
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params)
 
