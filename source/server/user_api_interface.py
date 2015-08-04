@@ -433,6 +433,7 @@ def current_user_edit(user, params):
     role=(list, None, str),
     phone=str,
     country="country",
+    email=str,
     has_intention_ticket=bool,
     has_register_time=bool,
     query=str,
