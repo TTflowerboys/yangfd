@@ -30,7 +30,8 @@ angular.module('app')
                             })
                     }
                 }
-                scope.$watch(['neighborhood', 'zipcode'],  updateReportList)
+                scope.$watch('neighborhood',  updateReportList)
+                scope.$watch('zipcode',  updateReportList)
                 updateReportList()
             }
         }

@@ -4,7 +4,7 @@
 
         return {
             search: function (data, config) {
-                return $http.get('/api/1/report/search?_i18n=disabled', data, config)
+                return $http.post('/api/1/report/search?_i18n=disabled', data, config)
             },
         }
 

@@ -1,6 +1,6 @@
 <span>
-    <select class="form-control" ng-model="selectedReport" chosen chosen-list="reportList">
+    <select class="form-control" ng-model="selectedReport" chosen-list="reportList">
         <option value="">-- {%enumOption?enumOption:$root.i18n('选择')%} --</option>
-        <option ng-repeat="report in reportList" value="{{report.id}}" ng-selected="report.id === selectedReport.id">{{report.name}}</option>
+        <option ng-repeat="report in reportList" value="{{report.id}}" ng-selected="report.id === selectedReport.id" ng-bind="report.name[$root.userLanguage.value]"></option>
     </select>
 </span>
