@@ -61,7 +61,7 @@
                         <div class="form-group col-sm-3" ng-if="item.cityName.toLowerCase() === 'london'">
                             <label class="control-label">{%$root.i18n('街区')%}</label>
                             <div class="controls">
-                                <div select-neighborhood-by-city city="item.city" ng-model="item.maponics_neighborhood"></div>
+                                <div select-neighborhood-by-city city="item.city" city-name="item.cityName" ng-model="item.maponics_neighborhood"></div>
                             </div>
                         </div>
                     </div>
@@ -78,6 +78,13 @@
 
                             <div class="controls">
                                 <input type="text" class="form-control" ng-model="item.zipcode"/>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label class="control-label" ui-draggable="true" drag="'report_id'" drag-channel="delete,reset" title="{%$root.i18n('拖动删除')%}">{%$root.i18n('街区报告')%}</label>
+
+                            <div class="controls">
+                                <div select-report neighborhood="item.maponics_neighborhood" zipcode="item.zipcode" ng-model="item.report_id"></div>
                             </div>
                         </div>
                         <!--<div class="form-group col-sm-3">

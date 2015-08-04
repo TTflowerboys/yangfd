@@ -13,7 +13,7 @@
             <div class="form-group col-sm-3" ng-if="item.property.cityName.toLowerCase() === 'london'">
                 <label class="control-label">{%$root.i18n('街区')%}</label>
                 <div class="controls">
-                    <div select-neighborhood-by-city city="item.property.city" ng-model="item.property.maponics_neighborhood"></div>
+                    <div select-neighborhood-by-city city="item.property.city" city-name="item.cityName" ng-model="item.property.maponics_neighborhood"></div>
                 </div>
             </div>
         </div>

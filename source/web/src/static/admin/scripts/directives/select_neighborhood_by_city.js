@@ -6,23 +6,27 @@ angular.module('app')
             scope: {
                 selectedNeighborhood: '=ngModel',
                 enumOption: '@text',
-                city: '=city'
+                city: '=city',
+                cityName: '=cityName'
             },
             link: function (scope) {
                 scope.$watch('city', function (newValue) {
                     if (_.isEmpty(newValue)) {
                         scope.neighborhoodList = []
-                        scope.selectedCityId = undefined
+                        scope.selectedNeighborhood = undefined
                         return
                     }
+                    scope.selectedNeighborhood = undefined
                     var config = {}
                     config.params = {
                         'city':newValue,
                     }
-                    geonamesApi.getNeighborhood(config)
-                        .success(function (data) {
-                            scope.neighborhoodList = data.val
-                        })
+                    if(scope.cityName.toLowerCase() === 'london') {
+                        geonamesApi.getNeighborhood(config)
+                            .success(function (data) {
+                                scope.neighborhoodList = data.val
+                            })
+                    }
                 })
 
             }

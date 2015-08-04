@@ -112,7 +112,8 @@ angular.module('app')
                             return addToResult(key, [])
                         }
                         if (_.isObject(oldJson[key])) {
-                            return addToResult(key, {})
+                            result.unset_fields = result.unset_fields || []
+                            return result.unset_fields.push(key)
                         }
                         return addToResult(key, '')
                     }
