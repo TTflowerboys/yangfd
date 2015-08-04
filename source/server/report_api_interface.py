@@ -85,10 +85,6 @@ logger = logging.getLogger(__name__)
 ))
 @f_app.user.login.check(force=True, role=["admin", "jr_admin", "operation", "jr_operation"])
 def report_add(user, params):
-    if "zipcode_index" in params:
-        if f_app.report.search({"zipcode_index": params["zipcode_index"]}):
-            abort(40000, logger.warning("Invalid params: zipcode_index is already in use!"))
-
     if "maponics_neighborhood" in params:
         if f_app.report.search({"maponics_neighborhood": params["maponics_neighborhood"]}):
             abort(40000, logger.warning("Invalid params: maponics_neighborhood is already in use!"))
@@ -169,10 +165,6 @@ def report_get(report_id):
     image=str,
 ))
 def report_edit(report_id, params):
-    if "zipcode_index" in params:
-        if f_app.report.search({"zipcode_index": params["zipcode_index"]}):
-            abort(40000, logger.warning("Invalid params: zipcode_index is already in use!"))
-
     if "maponics_neighborhood" in params:
         if f_app.report.search({"maponics_neighborhood": params["maponics_neighborhood"]}):
             abort(40000, logger.warning("Invalid params: maponics_neighborhood is already in use!"))
