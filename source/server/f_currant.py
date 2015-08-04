@@ -3082,6 +3082,7 @@ class f_maponics(f_app.plugin_base):
     @f_cache("maponicsneighborhood", support_multi=True)
     def neighborhood_get(self, neighborhood_id_or_list, force_reload=False):
         def _format_each(neighborhood):
+            neighborhood.pop("wkt", None)
             return f_app.util.process_objectid(neighborhood)
 
         if f_app.util.batch_iterable(neighborhood_id_or_list):
