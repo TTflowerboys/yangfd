@@ -35,7 +35,7 @@
                 <div class="topTitleNav animate">
                     <p class="location animate">{{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}}, {{rent['property'].get('city',{}).get('name','')}}, {{rent['property'].get('street','')}}</p>
                     <p class="title animate fixFontSize" data-maxHeight="8vh">{{rent.get('title','')}}</p>
-                    % if rent.get('status')=='to rent':
+                    % if not rent.get('status')=='rent':
                     <p class="titleEn animate">Letting!</p>
                     % elif rent.get('status') == 'rent':
                     <p class="rentOut animate">{{_('抱歉，房屋已租出')}}</p>
