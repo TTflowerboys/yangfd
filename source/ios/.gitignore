@@ -15,6 +15,7 @@ build/
 xcuserdata
 *.xcuserdatad
 *.xccheckout
+*.scscmblueprint
 profile
 *.moved-aside
 DerivedData
