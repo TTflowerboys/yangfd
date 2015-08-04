@@ -112,7 +112,7 @@ class common(f_common):
     clickatell_password = "EaSeURGSXGXNbM"
     nexmo_api_key = "069872f2"
     nexmo_api_secret = "9c4d83a4"
-    nexmo_default_sender = "19786745650"
+    nexmo_default_sender = "13605895103"
 
     user_sms_verification_msg = "%s 为您的洋房东手机验证码，1小时内有效。感谢您注册成为洋房东的会员。"
 
