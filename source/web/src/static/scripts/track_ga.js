@@ -1,4 +1,5 @@
 // Google Analytics
+/* jshint ignore:start */
 (function (i, s, o, g, r, a, m) {
     i['GoogleAnalyticsObject'] = r;
     i[r] = i[r] || function () {
@@ -36,3 +37,4 @@ if(document.domain==='currant-dev.bbtechgroup.com'||document.domain==='localhost
 
     ga('send', 'pageview');
 }
+/* jshint ignore:end */
