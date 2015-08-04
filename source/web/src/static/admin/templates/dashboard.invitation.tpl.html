@@ -30,6 +30,7 @@
                 <th>{%$root.i18n('国家')%}</th>
                 <th>{%$root.i18n('状态')%}</th>
                 <th>{%$root.i18n('发送邀请码')%}</th>
+                <th>{%$root.i18n('邮箱注册情况')%}</th>
             </tr>
         </thead>
         <tbody>
@@ -51,6 +52,10 @@
                     <span has-permission="admin,jr_admin,sales,operation" class="btn btn-success" ng-click="onSend(item,$index)" title="{%$root.i18n('发送')%}" ng-disabled="item.status==='invited'">
                         <i class="fa fa-envelope-o"></i>
                     </span>
+                </td>
+                <td>
+                    <a ng-if="item.register.id" ng-bind="item.register.nickname" ui-sref="dashboard.users.detail({ id: item.register.id })"></a>
+                    <div ng-if="!item.register.id" ng-bind="item.register"></div>
                 </td>
             </tr>
         </tbody>

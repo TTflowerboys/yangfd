@@ -26,6 +26,12 @@
             },
             getCountry: function (ip) {
                 return $http.get('/api/1/ip_country?ip=' + ip)
+            },
+            searchUserByEmail: function (email) {
+                var data = {
+                    email: email
+                }
+                return $http.post('/api/1/user/admin/search', data)
             }
         }
 

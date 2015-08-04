@@ -90,6 +90,7 @@
             $scope.fetched = true
             $scope.list = data.val
             _.each($scope.list, function (item) {
+                item.register = $rootScope.i18n('载入中...')
                 if(_.isArray(item.ipaddress) && item.ipaddress.length) {
                     item.country = $rootScope.i18n('载入中...')
                     api.getCountry(item.ipaddress[0]).success(function (data) {
@@ -98,6 +99,13 @@
                 }else {
                     item.country = $rootScope.i18n('无ip地址')
                 }
+                api.searchUserByEmail(item.email).success(function (data) {
+                    if(data.val && data.val.length) {
+                        item.register = data.val[0]
+                    } else{
+                        item.register = $rootScope.i18n('无结果')
+                    }
+                })
             })
             $scope.pages[$scope.currentPageNumber] = $scope.list
 
