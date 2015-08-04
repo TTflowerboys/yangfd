@@ -3319,6 +3319,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shashank Sharma (4TJ8663C63)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3362,6 +3363,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brothers Bridge Technology LLC (CVJ4KG6V54)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
