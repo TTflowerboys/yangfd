@@ -159,8 +159,7 @@
 
 - (NSDictionary *)toParams {
     NSMutableArray *unsetFields = [NSMutableArray array];
-    NSMutableDictionary *params =
-    [NSMutableDictionary dictionaryWithDictionary:nil];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
 
     NSMutableDictionary *keysMapping = [NSMutableDictionary dictionaryWithDictionary:[[self class] JSONKeyPathsByPropertyKey]];
     [keysMapping removeObjectForKey:@keypath(self.identifier)];//params don't need id
