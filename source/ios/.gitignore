@@ -13,8 +13,10 @@ build/
 *.perspectivev3
 !default.perspectivev3
 xcuserdata
+xcshareddata
 *.xcuserdatad
 *.xccheckout
+*.scscmblueprint
 profile
 *.moved-aside
 DerivedData
