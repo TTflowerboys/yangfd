@@ -68,6 +68,15 @@
         }
     }
 
+    input[name=email]{
+        max-width: 270px;
+        width:270px;
+        @media @phone {
+            width: 85%;
+            width:~"calc(100% - 20px)";
+        }
+    }
+
     .captchaCode {
 
         @media @phone {
