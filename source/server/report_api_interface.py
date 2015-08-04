@@ -271,11 +271,16 @@ def maponics_neighborhood_search(params):
     if "country" in params:
         params["country"] = params["country"]["code"]
     neighborhoods = f_app.maponics.neighborhood.get(f_app.maponics.neighborhood.search(params, per_page=-1))
+    neighborhood_dict = {neighborhood["nid"]: neighborhood for neighborhood in neighborhoods}
     for neighborhood in neighborhoods:
-        neighborhood.pop("wkt")
+        neighborhood.pop("wkt", None)
         if "parentnid" in neighborhood and neighborhood["parentnid"]:
-            neighborhood["parent"] = f_app.maponics.neighborhood.get(f_app.maponics.neighborhood.get_by_nid(neighborhood["parentnid"]))[0]
-            neighborhood["parent"].pop("wkt")
+            if neighborhood["parentnid"] in neighborhood_dict:
+                neighborhood["parent"] = neighborhood_dict[neighborhood["parentnid"]]
+            else:
+                neighborhood["parent"] = f_app.maponics.neighborhood.get(f_app.maponics.neighborhood.get_by_nid(neighborhood["parentnid"]))[0]
+                neighborhood_dict[neighborhood["parentnid"]] = neighborhood["parent"]
+            neighborhood["parent"].pop("wkt", None)
     return neighborhoods
 
 
