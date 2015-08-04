@@ -3160,6 +3160,7 @@ class f_maponics(f_app.plugin_base):
     def neighborhood_search(self, params, per_page=0):
         return f_app.mongo_index.search(self.neighborhood.get_database, params, notime=True, sort_field="population", count=False, per_page=per_page)["content"]
 
+    # TODO: work with new get()
     def neighborhood_assign_to_geonames_postcode(self, country):
         import shapely.wkt
         import shapely.geometry
