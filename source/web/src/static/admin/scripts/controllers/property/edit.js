@@ -167,6 +167,9 @@
                 editItem.cityName = editItem.city.name
                 editItem.city = editItem.city.id
             }
+            if(_.isEmpty(editItem.zipcode_index)) {
+                editItem.zipcode_index = editItem.zipcode.trim().slice(0, editItem.zipcode.trim().length - 3)
+            }
             editItem.unset_fields = []
             //Property item which is the original one when enter the edit page, used for rollback
             $scope.itemOrigin = editItem

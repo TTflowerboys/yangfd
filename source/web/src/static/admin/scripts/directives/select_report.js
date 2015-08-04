@@ -6,12 +6,12 @@ angular.module('app')
             scope: {
                 selectedReport: '=ngModel',
                 neighborhood: '=neighborhood',
-                zipcode: '=zipcode'
+                zipcodeIndex: '=zipcodeIndex'
             },
             link: function (scope) {
                 function updateReportList() {
                     var config = {}
-                        if(_.isEmpty(scope.neighborhood) && _.isEmpty(scope.zipcode)) {
+                        if(_.isEmpty(scope.neighborhood) && _.isEmpty(scope.zipcodeIndex)) {
                             scope.reportList = []
                             scope.selectedReport = undefined
                             return
@@ -19,8 +19,8 @@ angular.module('app')
                         if(scope.neighborhood) {
                             config.maponics_neighborhood = scope.neighborhood
                         }
-                        if(scope.zipcode) {
-                            config.zipcode_index = scope.zipcode
+                        if(scope.zipcodeIndex) {
+                            config.zipcode_index = scope.zipcodeIndex
                         }
 
                     if(!_.isEmpty(config)){
@@ -31,7 +31,7 @@ angular.module('app')
                     }
                 }
                 scope.$watch('neighborhood',  updateReportList)
-                scope.$watch('zipcode',  updateReportList)
+                scope.$watch('zipcodeIndex',  updateReportList)
                 updateReportList()
             }
         }
