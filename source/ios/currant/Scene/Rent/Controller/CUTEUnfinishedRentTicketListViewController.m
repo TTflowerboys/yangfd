@@ -22,6 +22,7 @@
 #import "NSArray+ObjectiveSugar.h"
 #import "CUTERentTicketPublisher.h"
 #import "CUTEUIMacro.h"
+#import "CUTETracker.h"
 
 @interface CUTEUnfinishedRentTicketListViewController ()
 
@@ -116,6 +117,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    TrackEvent(GetScreenName(self), kEventActionPress, @"item", nil);
+
     CUTETicket *ticket = [self.form.unfinishedRentTickets objectAtIndex:indexPath.row];
     if (ticket) {
         [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
