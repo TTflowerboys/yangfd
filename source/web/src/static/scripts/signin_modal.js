@@ -36,7 +36,14 @@ $('form[name=signin]').submit(function (e) {
     params.password = Base64.encode(params.password)
     $.betterPost('/api/1/user/login', params)
         .done(function () {
-            location.reload()
+            if(window.signinSuccessCallback && _.isFunction(window.signinSuccessCallback)) {
+                window.signinSuccessCallback()
+                    .then(function () {
+                        location.reload()
+                    })
+            } else {
+                location.reload()
+            }
             $('#modal_shadow').hide()
             $('#modal').hide()
 

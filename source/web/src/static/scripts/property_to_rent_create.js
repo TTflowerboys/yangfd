@@ -124,6 +124,14 @@
         $('[data-route=step1]').hide()
         $('[data-route=step2]').show()
         initInfoHeight()
+        window.signinSuccessCallback = function () {
+            var deferred = $.Deferred()
+            $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit')
+                .always(function () {
+                    deferred.resolve()
+                })
+            return deferred.promise()
+        }
     }).when('/1', function() {
         ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-cover')
 
