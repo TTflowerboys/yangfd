@@ -179,7 +179,8 @@
         shareToWeibo: function (_options, _config) {
             var defaultOptions = {
                 url: location.href || '',
-                title: document.title || ''
+                title: document.title || '',
+                searchPic: false
             }
             var defaultConfig = {
                 width: 800,
