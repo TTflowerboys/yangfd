@@ -37,7 +37,6 @@
 #import <ATConnect.h>
 #import <JDFTooltips.h>
 #import <ALActionBlocks.h>
-#warning DEBUG_CODE
 #ifdef DEBUG
 #import <AFNetworkActivityLogger.h>
 #endif
