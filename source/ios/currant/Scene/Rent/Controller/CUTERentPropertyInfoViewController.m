@@ -135,7 +135,8 @@
 }
 
 - (void)onPreviewButtonPressed:(id)sender {
-    [self submit];
+    TrackEvent(GetScreenName(self), kEventActionPress, @"preview", nil);
+    [self submitEditingTicket];
 }
 
 - (void)editLandlordType {
@@ -328,8 +329,7 @@
     return YES;
 }
 
-- (void)submit
-{
+- (void)submitEditingTicket {
     if (![self validate]) {
         return;
     }
@@ -360,6 +360,12 @@
         }
         return task;
     }];
+}
+
+- (void)submit
+{
+    TrackEvent(GetScreenName(self), kEventActionPress, @"preview-and-publish", nil);
+    [self submitEditingTicket];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
