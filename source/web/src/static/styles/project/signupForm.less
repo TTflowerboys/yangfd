@@ -27,13 +27,14 @@
                 width:~"calc(35% - 12px)";
             }
         }
-        > input {
+        > input[name=phone] {
             display: inline-block;
             vertical-align: middle;
             margin-left: 8px;
             padding: 8px 0 8px 0;
             width: 200px;
             @media @phone {
+                max-width: 100%;
                 padding: 8px 0 8px 8px;
                 width: 130px;               /* fallback for browsers without support for calc() */
                 width:~"calc(65% - 20px)";
@@ -53,7 +54,7 @@
     }
 
     input[name=phone] {
-        max-width: 270px;
+        max-width: 150px;
     }
 
     input[name=password] {
