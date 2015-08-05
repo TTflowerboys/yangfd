@@ -918,6 +918,7 @@
                 .done(function (val) {
                     $btn.data('register', true)
                     window.user = val
+                    $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit') // #7249 快速注册成功需要将草稿绑定给登录用户
                     $('#nickname').prop('readonly', true)
                     $('#email').prop('readonly', true)
                     $('#phone').prop('readonly', true)
