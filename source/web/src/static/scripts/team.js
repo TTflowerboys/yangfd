@@ -245,6 +245,10 @@
 
             return (/iPhone|currant/i).test(ua)
         },
+        isIpad: function () {
+            var ua = navigator.userAgent.toLowerCase()
+            return (/ipad/i).test(ua)
+        },
         /**
          * 返回当前的客户端：pc,mobile,wechat,app之一
          * @returns {string}
@@ -277,6 +281,9 @@
             }
             if(window.team.isIOS()) {
                 clients.push('ios')
+            }
+            if(window.team.isIpad()) {
+                clients.push('ipad')
             }
             if(!clients.length) {
                 clients.push('pc')
