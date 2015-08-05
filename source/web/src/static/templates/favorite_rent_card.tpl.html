@@ -80,7 +80,7 @@
                         <div class="size">
                             <p class="label">
                                 {_if(fav.ticket.rent_available_time) {_}
-                                {=window.moment(parseInt(fav.ticket.rent_available_time)*1000).format('YYYY{{_('年')}}MM{{_('月')}}DD{{_('日')}}')=}{{_('起')}}
+                                {=window.moment(parseInt(fav.ticket.rent_available_time)*1000) > window.moment().add(1,'days').hours(0).minutes(0).seconds(0) ? window.moment(parseInt(fav.ticket.rent_available_time)*1000).format('YYYY{{_('年')}}MM{{_('月')}}DD{{_('日')}}') + '{{_('起')}}' : '{{_('可立即入住')}}'=}
                                 {_}_}
                             </p>
                             <p class="value">
