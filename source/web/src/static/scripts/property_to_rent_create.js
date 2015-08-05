@@ -1070,7 +1070,7 @@
 
         showRoomOrHouse($('#rentalType .property_type.selected').index())
         initInfoHeight()
-        $('#fileuploader').uploadFile({
+        var uploadFileConfig = {
             url: '/api/1/upload_image',
             fileName: 'data',
             formData: {watermark: true},
@@ -1140,7 +1140,11 @@
                     $('.ajax-file-upload-statusbar').eq(0).addClass('cover')
                 }
             }
-        })
+        }
+        if(window.team.getClients().indexOf('ipad') >= 0) {
+            uploadFileConfig.allowDuplicates = true
+        }
+        $('#fileuploader').uploadFile(uploadFileConfig)
         $('.image_panel').delegate('.ajax-file-upload-statusbar', 'click', function () {
             $(this).toggleClass('cover').siblings('.ajax-file-upload-statusbar').removeClass('cover')
         })
