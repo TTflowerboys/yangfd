@@ -142,22 +142,26 @@
 - (void)editLandlordType {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
     [self.navigationController popViewControllerAnimated:YES];
-    [form syncTicketWithUpdateInfo:@{@"landlordType": form.landlordType}];
+    [form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.landlordType = form.landlordType;
+    }];
 }
 
 - (void)editPropertyType {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
     [self.navigationController popViewControllerAnimated:YES];
-    [form syncTicketWithUpdateInfo:@{@"property.propertyType": form.propertyType}];
+    [form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.property.propertyType = form.propertyType;
+    }];
 }
 
 - (void)editRooms:(id)sender {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
-
-    [form syncTicketWithUpdateInfo:@{@"property.bedroomCount": @(form.bedroomCount),
-       @"property.livingroomCount": @(form.livingroomCount),
-         @"property.bathroomCount": @(form.bathroomCount),
-          }];
+    [form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.property.bedroomCount = @(form.bedroomCount);
+        ticket.property.livingroomCount = @(form.livingroomCount);
+        ticket.property.bathroomCount = @(form.bathroomCount);
+    }];
 }
 
 - (void)editRentPrice {

@@ -42,8 +42,9 @@
             array = oldArray;
         }
     }
-
-    [self.form syncTicketWithUpdateInfo:@{@"property.indoorFacilities": array}];
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.property.indoorFacilities = array;
+    }];
 }
 
 - (void)toggleCommunityFacility:(CUTEEnum *)facility on:(BOOL)on {
@@ -63,7 +64,9 @@
         }
     }
 
-    [self.form syncTicketWithUpdateInfo:@{@"property.communityFacilities": array}];
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.property.communityFacilities = array;
+    }];
 }
 
 

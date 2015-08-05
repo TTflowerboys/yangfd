@@ -63,20 +63,28 @@
 
 - (void)onCurrencyEdit:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
-    [self.form syncTicketWithUpdateInfo:@{@"price":[CUTECurrency currencyWithValue:self.form.rentPrice unit:self.form.currency]}];
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.price = [CUTECurrency currencyWithValue:self.form.rentPrice unit:self.form.currency];
+    }];
 }
 
 - (void)onRentPriceEdit:(id)sender {
-    [self.form syncTicketWithUpdateInfo:@{@"price":[CUTECurrency currencyWithValue:self.form.rentPrice unit:self.form.currency]}];
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.price = [CUTECurrency currencyWithValue:self.form.rentPrice unit:self.form.currency];
+    }];
 }
 
 - (void)onBillCoveredSwitch:(id)sender {
-    [self.form syncTicketWithUpdateInfo:@{@"billCovered": @(self.form.billCovered)}];
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.billCovered = @(self.form.billCovered);
+    }];
 }
 
 
 - (void)onDepositEdit:(id)sender {
-    [self.form syncTicketWithUpdateInfo:@{@"deposit": [CUTECurrency currencyWithValue:self.form.deposit.floatValue unit:self.form.currency],}];
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.deposit = [CUTECurrency currencyWithValue:self.form.deposit.floatValue unit:self.form.currency];
+    }];
 }
 
 - (CUTERentPriceForm *)form {

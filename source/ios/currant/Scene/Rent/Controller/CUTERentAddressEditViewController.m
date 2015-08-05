@@ -327,39 +327,46 @@
 - (void)onNeighborhoodEdit:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    if (self.form.neighborhood) {
-        [form syncTicketWithUpdateInfo:@{@"property.neighborhood": form.neighborhood}];
-
-    }
-    else {
-        [form syncTicketWithUpdateInfo:@{@"property.neighborhood": [NSNull null]}];
-    }
+    [form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.property.neighborhood = form.neighborhood;
+    }];
 }
 
 - (void)onStreetEdit:(id)sender {
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    [form syncTicketWithUpdateInfo:@{@"property.street": self.form.street}];
+    [form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.property.street = form.street;
+    }];
 }
 
 - (void)onHouseNameEdit:(id)sender {
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    [form syncTicketWithUpdateInfo:@{@"property.houseName": self.form.houseName}];
+    [form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.property.houseName = form.houseName;
+    }];
 }
 
 - (void)onCommunityEdit:(id)sender {
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    [form syncTicketWithUpdateInfo:@{@"property.community": self.form.community}];
+    [form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.property.community = form.community;
+    }];
 }
 
 - (void)onFloorEdit:(id)sender {
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    [form syncTicketWithUpdateInfo:@{@"property.floor": self.form.floor}];
+    [form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.property.floor = form.floor;
+    }];
 }
 
 -  (void)clearTicketLocation {
 
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    [form syncTicketWithUpdateInfo:@{@"property.latitude": [NSNull null], @"property.longitude": [NSNull null]}];
+    [form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.property.latitude = nil;
+        ticket.property.longitude = nil;
+    }];
 }
 
 - (void)onLocationEdit:(id)sender {

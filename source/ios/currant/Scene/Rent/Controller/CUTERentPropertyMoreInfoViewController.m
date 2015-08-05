@@ -43,7 +43,9 @@
     [super viewWillDisappear:animated];
 
     if (!self.form.ticket.title) {
-        [self.form syncTicketWithUpdateInfo:@{@"title": self.form.ticket.titleForDisplay}];
+        [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+            ticket.title = self.form.ticket.titleForDisplay;
+        }];
     }
 
 }
@@ -209,8 +211,9 @@
     if ([self checkShowContentForbiddenWarningAlert:string]) {
         return;
     }
-
-    [self.form syncTicketWithUpdateInfo:@{@"title": self.form.ticketTitle}];
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.title = self.form.ticketTitle;
+    }];
 }
 
 - (void)onTicketDescriptionEdit:(id)sender {
@@ -220,7 +223,9 @@
         return;
     }
 
-    [self.form syncTicketWithUpdateInfo:@{@"ticketDescription": self.form.ticketDescription}];
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.ticketDescription = self.form.ticketDescription;
+    }];
 }
 
 - (BOOL)checkShowTitleLengthWarningAlert:(NSString *)title {

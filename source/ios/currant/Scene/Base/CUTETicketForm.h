@@ -18,7 +18,5 @@ typedef void(^UpdateTicketBlock)(CUTETicket *ticket);
 
 - (BFTask *)syncTicketWithBlock:(UpdateTicketBlock)block;
 
-- (BFTask *)syncTicketWithUpdateInfo:(NSDictionary *)updateInfo;
-
 
 @end

@@ -86,8 +86,9 @@
 
     if (form.singleUseForReedit) {
         [self.navigationController popViewControllerAnimated:YES];
-        [form syncTicketWithUpdateInfo:@{
-                                         @"rentType": form.rentType}];
+        [form syncTicketWithBlock:^(CUTETicket *ticket) {
+            ticket.rentType = form.rentType;
+        }];
 
         if (self.updateRentTypeCompletion) {
             self.updateRentTypeCompletion();
