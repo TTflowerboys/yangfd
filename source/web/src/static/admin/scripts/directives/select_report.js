@@ -11,18 +11,16 @@ angular.module('app')
             link: function (scope) {
                 function updateReportList() {
                     var config = {}
-                        if(_.isEmpty(scope.neighborhood) && _.isEmpty(scope.zipcodeIndex)) {
-                            scope.reportList = []
-                            scope.selectedReport = undefined
-                            return
-                        }
-                        if(scope.neighborhood) {
-                            config.maponics_neighborhood = scope.neighborhood
-                        }
-                        if(scope.zipcodeIndex) {
-                            config.zipcode_index = scope.zipcodeIndex
-                        }
-
+                    if(_.isEmpty(scope.neighborhood) && _.isEmpty(scope.zipcodeIndex)) {
+                        scope.reportList = []
+                        return
+                    }
+                    if(scope.neighborhood) {
+                        config.maponics_neighborhood = scope.neighborhood
+                    }
+                    if(scope.zipcodeIndex) {
+                        config.zipcode_index = scope.zipcodeIndex
+                    }
                     if(!_.isEmpty(config)){
                         reportApi.search(config)
                             .success(function (data) {

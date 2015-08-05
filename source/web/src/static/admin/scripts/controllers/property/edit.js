@@ -15,7 +15,7 @@
         })
 
         //issue #6880 房产编辑里当修改了“房产类型”时，将不同类型数据差异的部分设为unset fields
-        function unsetFieldsByropertyType (item) {
+        function unsetFieldsByPropertyType (item) {
             //todo 找出怎么样在这里使用$scope.propertyType
             switch($('[name=property_type]').attr('data-propertytype')) {
                 case 'house':
@@ -35,7 +35,7 @@
             var submitItem = JSON.parse(angular.toJson(item))
             submitItem = misc.cleanTempData(submitItem)
             submitItem = misc.cleanI18nEmptyUnit(submitItem)
-            return unsetFieldsByropertyType(submitItem)
+            return unsetFieldsByPropertyType(submitItem)
         }
 
         function autoUpdate() {

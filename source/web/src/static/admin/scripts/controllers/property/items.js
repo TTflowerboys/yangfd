@@ -4,7 +4,7 @@
 (function () {
 
     function ctrlPropertyItems($scope, $rootScope, apiFactory) {
-        var isInit = true
+        /*var isInit = true
         $scope.$watch('item.zipcode', function (newValue) {
             if (isInit) {
                 if (newValue) {
@@ -32,7 +32,7 @@
                     }
                 })
             }
-        })
+        })*/
 
         $scope.addHighlight = function () {
             if (_.isEmpty($scope.item.highlight)) {
