@@ -71,30 +71,30 @@
     [self.formController updateSections];
     [self.tableView reloadData];
 
+    CUTERentPeriodForm *form = (CUTERentPeriodForm *)self.form;
+
     if (self.form.needSetPeriod) {
-        CUTERentPeriodForm *form = (CUTERentPeriodForm *)self.form;
         if (!form.rentAvailableTime) {
             form.rentAvailableTime = [NSDate date];
         }
         if (!form.minimumRentPeriod) {
             form.minimumRentPeriod = [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
         }
-        
-        NSMutableDictionary *updateInfo = [NSMutableDictionary dictionaryWithDictionary:@{@"rentAvailableTime": @([[self.form rentAvailableTime] timeIntervalSince1970]), @"minimumRentPeriod": [self.form minimumRentPeriod]}];
 
-        if (!IsNilOrNull(self.form.rentDeadlineTime)) {
-            [updateInfo setObject:@([[self.form rentDeadlineTime] timeIntervalSince1970]) forKey:@"rentDeadlineTime"];
-        }
-        [self.form syncTicketWithUpdateInfo:updateInfo];
+        [form syncTicketWithBlock:^(CUTETicket *ticket) {
+            ticket.rentAvailableTime = @([[form rentAvailableTime] timeIntervalSince1970]);
+            ticket.minimumRentPeriod = form.minimumRentPeriod;
+            ticket.rentDeadlineTime = form.rentDeadlineTime? @([form rentDeadlineTime].timeIntervalSince1970): nil;
+        }];
+
     }
     else {
-        [self.form syncTicketWithUpdateInfo:@{@"rentAvailableTime": [NSNull null],
-                                              @"rentDeadlineTime": [NSNull null],
-                                              @"minimumRentPeriod": [NSNull null]
-                                              }];
-
+        [form syncTicketWithBlock:^(CUTETicket *ticket) {
+            ticket.rentAvailableTime = nil;
+            ticket.rentDeadlineTime = nil;
+            ticket.minimumRentPeriod = nil;
+        }];
     }
-
 }
 
 - (void)onRentAvailableTimeEdit:(id)sender {
@@ -103,10 +103,10 @@
         return;
     }
 
-    [self.form syncTicketWithUpdateInfo:@{@"rentAvailableTime": @([[self.form rentAvailableTime] timeIntervalSince1970]),
-                                          @"rentDeadlineTime": @([[self.form rentDeadlineTime] timeIntervalSince1970]),
-                                          }];
-
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.rentAvailableTime = @([[self.form rentAvailableTime] timeIntervalSince1970]);
+        ticket.rentDeadlineTime = self.form.rentDeadlineTime? @([self.form rentDeadlineTime].timeIntervalSince1970): nil;
+    }];
 }
 
 - (void)onRentDeadlineTimeEdit:(id)sender {
@@ -115,14 +115,16 @@
         return;
     }
 
-    [self.form syncTicketWithUpdateInfo:@{@"rentAvailableTime": @([[self.form rentAvailableTime] timeIntervalSince1970]),
-                                          @"rentDeadlineTime": @([[self.form rentDeadlineTime] timeIntervalSince1970]),
-                                          }];
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.rentAvailableTime = @([[self.form rentAvailableTime] timeIntervalSince1970]);
+        ticket.rentDeadlineTime = self.form.rentDeadlineTime? @([self.form rentDeadlineTime].timeIntervalSince1970): nil;
+    }];
 }
 
 - (void)onMinimumRentPeriodEdit:(id)sender {
-    [self.form syncTicketWithUpdateInfo:@{@"minimumRentPeriod": [self.form minimumRentPeriod],
-                                          }];
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.minimumRentPeriod = self.form.minimumRentPeriod;
+    }];
 }
 
 

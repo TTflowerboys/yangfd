@@ -45,16 +45,17 @@
 
 - (void)updateTicket {
     CUTEAreaForm *form = (CUTEAreaForm *)self.formController.form;
-    CUTETicket *ticket = self.form.ticket;
     CUTEArea *area = [CUTEArea areaWithValue:form.area unit:form.unit];
-    if (ticket.rentType.slug && [ticket.rentType.slug hasSuffix:@":whole"]) {
-        [form syncTicketWithUpdateInfo:
-                            @{@"space": area, @"property.space": area}];
-    }
-    else {
-        [form syncTicketWithUpdateInfo:
-                            @{@"space": area, @"property.space": [NSNull null]}];
-    }
+    [form syncTicketWithBlock:^(CUTETicket *ticket) {
+        if (ticket.rentType.slug && [ticket.rentType.slug hasSuffix:@":whole"]) {
+            ticket.space = area;
+            ticket.property.space = area;
+        }
+        else {
+            ticket.space = area;
+            ticket.property.space = nil;
+        }
+    }];
 }
 
 @end

@@ -423,16 +423,11 @@
         return [[NSURL URLWithString:object] isHttpOrHttpsURL];
     }];
 
-    NSMutableDictionary *updateInfo = [NSMutableDictionary dictionary];
-    [updateInfo setObject:IsArrayNilOrEmpty(onlineImages)? [NSNull null]: onlineImages forKey:@"property.realityImages"];
-    if (!IsNilNullOrEmpty(cover) && [[NSURL URLWithString:cover] isHttpOrHttpsURL]) {
-        [updateInfo setObject:cover forKey:@"property.cover"];
-    }
-    else {
-        [updateInfo setObject:[NSNull null] forKey:@"property.cover"];
-    }
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        ticket.property.realityImages = !IsArrayNilOrEmpty(onlineImages)? onlineImages: nil;
+        ticket.property.cover = !IsNilNullOrEmpty(cover) && [[NSURL URLWithString:cover] isHttpOrHttpsURL] ? cover: nil;
+    }];
 
-    [self.form syncTicketWithUpdateInfo:updateInfo];
 }
 
 - (void)didSelectWithTableView:(UITableView *)tableView controller:(UIViewController *)controller
