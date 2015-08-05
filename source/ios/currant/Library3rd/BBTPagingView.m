@@ -136,7 +136,7 @@ static NSString *kImageKey = @"imageKey";
 
 
 - (void)markResuablePageViewsAvailableExclude:(NSArray *)excludeArray {
-    int count = self.pageViews.count;
+    NSUInteger count = self.pageViews.count;
     for (int i = 0; i < count; i++)
     {
         UIView *pageView = [self.pageViews objectAtIndex:i];

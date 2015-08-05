@@ -102,7 +102,7 @@
     UIView *view = [[UIView alloc] initWithFrame:_pagingView.bounds];
     view.backgroundColor = HEXCOLOR(0xf0e8d4, 1);
     UIImageView *imageView = [[UIImageView alloc] init];
-    NSString *imageName = [NSString stringWithFormat:@"img-splash-%ld", (index + 1)];
+    NSString *imageName = [NSString stringWithFormat:@"img-splash-%d", (index + 1)];
     imageView.image = IMAGE(imageName);
     [view addSubview:imageView];
     CGSize imageSize = imageView.image.size;
