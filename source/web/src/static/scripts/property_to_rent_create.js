@@ -888,18 +888,33 @@
         // Fast register user
         function requestSMSCode () {
             $btn.prop('disabled', true)
-            var timer = setTimeout(function () {
+            /*var timer = setTimeout(function () {
                 $btn.prop('disabled', false)
-            }, 60000)
+            }, 60000)*/
+            //倒计时60s后再将获取验证码按钮变为可用状态
+            function countDown () {
+                var text = i18n('{time}s后可再次获取')
+                var time = 60
+                function update() {
+                    if(time === 0) {
+                        $btn.prop('disabled', false).text(i18n('重新获取验证码'))
+                    } else{
+                        $btn.prop('disabled', true).text(text.replace('{time}', time--))
+                        setTimeout(update, 1000)
+                    }
+                }
+                update()
+            }
             $.betterPost('/api/1/user/sms_verification/send', {
                 phone: '+' + $('[name=country_code]').val() + $('[name=phone]').val()
             }).done(function () {
                 needSMSCode = true
                 $btn.siblings('.sucMsg').show()
             }).fail(function (ret) {
-                clearTimeout(timer)
                 $errorMsgOfGetCode.html(window.getErrorMessageFromErrorCode(ret)).show()
-                $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
+            }).always(function () {
+                $('.buttonLoading').trigger('end')
+                countDown()
             })
         }
         if (valid && !$btn.data('register')) {
@@ -930,6 +945,7 @@
 
                 })
                 .fail(function (ret) {
+                    $('.buttonLoading').trigger('end')
                     $errorMsgOfGetCode.html(window.getErrorMessageFromErrorCode(ret)).show()
                     $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
                 })

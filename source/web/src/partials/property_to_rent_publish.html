@@ -55,7 +55,7 @@
                 <div class="formGroup">
                     <label for="code">{{_('验证码')}}</label>
                     <input type="text" id="code" name="code" data-validator="required trim"/>
-                    <button type="button" id="requestSMSCodeBtn" class="ajaxButton">
+                    <button type="button" id="requestSMSCodeBtn" class="ajaxButton manualTriggerLoadingEnd">
                         {{_('获取验证码')}}
                     </button>
                     <div class="errorMsgOfGetCode" style="display: none;"></div>
