@@ -819,9 +819,9 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/no_permission.html'
             })
             /*修改一下以去除缓存*/
-            .state('blank', {
-                url: '/blank'
-            })
+            //.state('blank', {
+            //    url: '/blank'
+            //})
     }).run(function($rootScope, $stateParams) {
         $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
             $stateParams.fromParams = fromParams
