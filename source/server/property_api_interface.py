@@ -562,10 +562,16 @@ def property_edit(property_id, user, params):
         if property_id != "none":
             property = f_app.property.get(property_id)
             if "report_id" not in property:
-                report_id = f_app.util.find_region_report(params["zipcode"])
+                if "maponics_neighborhood" in params:
+                    maponics_neighborhood_id = params["maponics_neighborhood"]["_id"]
+                elif "maponics_neighborhood" in property:
+                    maponics_neighborhood_id = property["maponics_neighborhood"]["id"]
+                else:
+                    maponics_neighborhood_id = None
+                report_id = f_app.util.find_region_report(params["zipcode"], maponics_neighborhood_id)
 
         else:
-            report_id = f_app.util.find_region_report(params["zipcode"])
+            report_id = f_app.util.find_region_report(params["zipcode"], params.get("maponics_neighborhood", {}).get("_id"))
 
         if report_id:
             params["report_id"] = ObjectId(report_id)

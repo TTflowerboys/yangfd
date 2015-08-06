@@ -1096,6 +1096,7 @@ def rent_ticket_contact_info(user, ticket_id):
     status=(list, ["to rent"], str),
     per_page=int,
     last_modified_time=datetime,
+    time=datetime,
     sort=(list, ["last_modified_time", 'desc'], str),
     rent_type="enum:rent_type",
     user_id=ObjectId,
@@ -1152,7 +1153,6 @@ def rent_ticket_search(user, params):
     if "latitude" in params:
         assert "longitude" in params, abort(40000)
         assert "per_page" not in params, abort(40000)
-        assert "sort" not in params, abort(40000)
         property_params["latitude"] = params.pop("latitude")
         property_params["longitude"] = params.pop("longitude")
         property_params["search_range"] = params.pop("search_range")
@@ -1315,7 +1315,7 @@ def rent_ticket_search(user, params):
             property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
         params["property_id"] = {"$in": property_id_list}
 
-    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort, time_field="last_modified_time"), fuzzy_user_info=fuzzy_user_info, location_only=location_only)
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort, time_field=sort[0]), fuzzy_user_info=fuzzy_user_info, location_only=location_only)
 
 
 @f_api('/rent_ticket/<ticket_id>/generate_digest_image')
