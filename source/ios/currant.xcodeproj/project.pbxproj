@@ -278,6 +278,10 @@
 		2C79C2B91ACA5725000E7F67 /* NSURL+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79C2B71ACA5725000E7F67 /* NSURL+CUTE.m */; };
 		2C79C2BA1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79C2B71ACA5725000E7F67 /* NSURL+CUTE.m */; };
 		2C79C2BB1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79C2B71ACA5725000E7F67 /* NSURL+CUTE.m */; };
+		2C86D4221B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C86D4211B7307DD00A4DD1D /* CUTEPhoneUtil.m */; };
+		2C86D4231B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C86D4211B7307DD00A4DD1D /* CUTEPhoneUtil.m */; };
+		2C86D4241B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C86D4211B7307DD00A4DD1D /* CUTEPhoneUtil.m */; };
+		2C86D4251B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C86D4211B7307DD00A4DD1D /* CUTEPhoneUtil.m */; };
 		2C96E2741AE6566300F3590C /* CUTEShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEShareManager.m */; };
 		2C96E2751AE6566300F3590C /* CUTEShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEShareManager.m */; };
 		2C96E2761AE6566300F3590C /* CUTEShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C96E2731AE6566300F3590C /* CUTEShareManager.m */; };
@@ -869,6 +873,8 @@
 		2C7520421ACA775C0008B42A /* CUTEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEViewController.m; sourceTree = "<group>"; };
 		2C79C2B61ACA5725000E7F67 /* NSURL+CUTE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+CUTE.h"; sourceTree = "<group>"; };
 		2C79C2B71ACA5725000E7F67 /* NSURL+CUTE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+CUTE.m"; sourceTree = "<group>"; };
+		2C86D4201B7307DD00A4DD1D /* CUTEPhoneUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPhoneUtil.h; sourceTree = "<group>"; };
+		2C86D4211B7307DD00A4DD1D /* CUTEPhoneUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPhoneUtil.m; sourceTree = "<group>"; };
 		2C96E2721AE6566300F3590C /* CUTEShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEShareManager.h; sourceTree = "<group>"; };
 		2C96E2731AE6566300F3590C /* CUTEShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEShareManager.m; sourceTree = "<group>"; };
 		2C96E2791AE74CCD00F3590C /* CUTENotificationKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTENotificationKey.h; sourceTree = "<group>"; };
@@ -1447,6 +1453,8 @@
 				2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */,
 				2CC4525B1B2711770004AE54 /* CUTEAddressUtil.h */,
 				2CC4525C1B2711770004AE54 /* CUTEAddressUtil.m */,
+				2C86D4201B7307DD00A4DD1D /* CUTEPhoneUtil.h */,
+				2C86D4211B7307DD00A4DD1D /* CUTEPhoneUtil.m */,
 				2C9F1CFA1B3961400034487F /* CUTEUserAgentUtil.h */,
 				2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */,
 				2C4A13AE1B5E5CF600FA9F99 /* CUTEStringMatcher.h */,
@@ -2465,6 +2473,7 @@
 				2CCE67F61B1C0F9F00351DED /* CUTERentListViewController.m in Sources */,
 				2C9AFF791AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
 				2C5ECC531AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
+				2C86D4241B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */,
 				2CF8A6561AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
 				2CA81FA31B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB7490F1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
@@ -2614,6 +2623,7 @@
 				2CCE67F71B1C0F9F00351DED /* CUTERentListViewController.m in Sources */,
 				2C9AFF7A1AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
 				2C5ECC541AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
+				2C86D4251B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */,
 				2CF8A6571AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
 				2CA81FA41B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB749101ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
@@ -2763,6 +2773,7 @@
 				2CCE67F51B1C0F9F00351DED /* CUTERentListViewController.m in Sources */,
 				2C9AFF781AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
 				2C5ECC521AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
+				2C86D4231B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */,
 				2CF8A6551AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
 				2CA81FA21B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB7490E1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
@@ -2912,6 +2923,7 @@
 				2CCE67F41B1C0F9F00351DED /* CUTERentListViewController.m in Sources */,
 				2C9AFF771AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
 				2C5ECC511AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
+				2C86D4221B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */,
 				2CF8A6541AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
 				2CA81FA11B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB7490D1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,

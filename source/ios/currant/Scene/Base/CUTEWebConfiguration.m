@@ -18,6 +18,7 @@
 #import "CUTETracker.h"
 #import "UIAlertView+Blocks.h"
 #import "CUTENotificationKey.h"
+#import "CUTEPhoneUtil.h"
 
 @implementation CUTEWebConfiguration
 
@@ -143,24 +144,7 @@
 
 - (BBTWebBarButtonItem *)getPhoneBarButtonItemWithCompletion:(dispatch_block_t)completion {
     return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-phone") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController) {
-        NSURL *phoneUrl = [NSURL URLWithString:[NSString  stringWithFormat:@"telprompt:%@",[CUTEConfiguration servicePhone]]];
-
-        if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
-
-            [UIAlertView showWithTitle:STR(@"联系洋房东") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[CONCAT(STR(@"英国"), @" ", [CUTEConfiguration ukServicePhone]), CONCAT(STR(@"中国"), @" ", [CUTEConfiguration servicePhone])] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                if (buttonIndex == 1) {
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString  stringWithFormat:@"tel:%@",[CUTEConfiguration ukServicePhone]]]];
-                }
-                else if (buttonIndex == 2) {
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString  stringWithFormat:@"tel:%@",[CUTEConfiguration servicePhone]]]];
-                }
-            }];
-
-        } else
-        {
-            UIAlertView *calert = [[UIAlertView alloc]initWithTitle:STR(@"电话不可用") message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil, nil];
-            [calert show];
-        }
+        [CUTEPhoneUtil showServicePhoneAlert];
         completion();
     }];
 }

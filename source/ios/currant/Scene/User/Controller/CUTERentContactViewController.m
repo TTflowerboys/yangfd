@@ -44,6 +44,7 @@
 #import "CUTERentContactDisplaySettingViewController.h"
 #import "Sequencer.h"
 #import "CUTEUserEditingListener.h"
+#import "CUTEPhoneUtil.h"
 
 @interface CUTERentContactViewController () <TTTAttributedLabelDelegate> {
 
@@ -60,9 +61,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = STR(@"联系方式");
-
     self.tableView.accessibilityIdentifier = STR(@"用户信息");
-
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -197,7 +196,18 @@
             else {
                 if ([task.result boolValue]) {
                     [SVProgressHUD dismiss];
-                    [[[UIAlertView alloc] initWithTitle:CONCAT(STR(@"电话已被使用！请登录或者修改密码，如该用户不是您，请联系英国客服"), @" ", [CUTEConfiguration ukServicePhone], STR(@"或中国客服"), @" ", [CUTEConfiguration servicePhone]) message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil] show];
+                    [UIAlertView showWithTitle:CONCAT(STR(@"电话已被使用！请登录或者修改密码，如该用户不是您，请联系客服")) message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"登录"), STR(@"修改密码"), STR(@"联系客服")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                        NSString *buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
+                        if ([buttonTitle isEqualToString:STR(@"登录")]) {
+                            [self login];
+                        }
+                        else if ([buttonTitle isEqualToString:STR(@"修改密码")]) {
+                            [self login];
+                        }
+                        else if ([buttonTitle isEqualToString:STR(@"联系客服")]) {
+                            [CUTEPhoneUtil showServicePhoneAlert];
+                        }
+                    }];
                 }
                 else {
                     completion(nil);
