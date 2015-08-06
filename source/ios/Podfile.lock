@@ -101,9 +101,9 @@ PODS:
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.4.1)
   - libextobjc/UmbrellaHeader (0.4.1)
-  - Mantle (1.5.4):
-    - Mantle/extobjc (= 1.5.4)
-  - Mantle/extobjc (1.5.4)
+  - Mantle (1.5.5):
+    - Mantle/extobjc (= 1.5.5)
+  - Mantle/extobjc (1.5.5)
   - Masonry (0.6.1)
   - MBProgressHUD (0.9.1)
   - MWPhotoBrowser (1.4.1):
@@ -111,7 +111,7 @@ PODS:
     - MBProgressHUD (~> 0.8)
     - PSTCollectionView (~> 1.2)
     - SDWebImage (~> 3.7)
-  - NewRelicAgent (5.1.2)
+  - NewRelicAgent (5.2.0)
   - ngrvalidator (1.0.0)
   - NJKWebViewProgress (0.2.3):
     - NJKWebViewProgress/Core (= 0.2.3)
@@ -121,7 +121,7 @@ PODS:
   - NSDate-Extensions (0.0.1)
   - ObjectiveSugar (1.1.0)
   - OCHamcrest (4.1.1)
-  - OHHTTPStubs (4.0.2)
+  - OHHTTPStubs (4.1.0)
   - Overcoat (1.2.1):
     - AFNetworking (~> 2.0)
     - Mantle (~> 1.3)
@@ -214,8 +214,8 @@ SPEC CHECKSUMS:
   ALActionBlocks: ac91b1a37b60a8004fb687ddade0600446f3d3fa
   apptentive-ios: be0b8dbc17b443eb624b3a015017f521b096f003
   Aspects: 7595ba96a6727a58ebcbfc954497fc5d2fdde546
-  BBTRestClient: 25965557c7608407aaaa0b30d1ea07735e971488
-  BBTUtility: 034a9709d4b90c986d133a06f0123e4c328f23f2
+  BBTRestClient: d3205d65ebc0851c0f8c4c69e2fedf9ace0b6134
+  BBTUtility: 55ffd4489f190073d4a889839b6a67cc2f76fc5f
   Bolts: aac24961496d504aa56fc267cde95162a71bac39
   CTAssetsPickerController: 3030dc60f5d1a3c4e5b1c0aa9f069220d5bf7008
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
@@ -232,21 +232,21 @@ SPEC CHECKSUMS:
   KIF: a94bffe9c97e449e44f8fa481c53243d21309e1e
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
-  Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
+  Mantle: 1b29072a707453975b200a173cf77ec1e2810b75
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MWPhotoBrowser: 2531e682860d62b8a7ba8659de02eb9040e431e5
-  NewRelicAgent: 7089e6a018d350bff1be872881ffd468af292fb0
+  NewRelicAgent: 04c306364d4c95d6463287ab037276d56e5b1ca8
   ngrvalidator: 3d9f8402b2b3bbc070945e7defe1af0b5cc72e58
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   NSDate-Extensions: cbd68ecf5cf8a150644e184b4521d7734fea5ace
   ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
   OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
-  OHHTTPStubs: dbd1957d414659783e07b49c961940b7564c23d9
+  OHHTTPStubs: f3473ab21dbf0815253ac96b977d5c36f1daad09
   Overcoat: 45e4d20eafc02c8d7fcde3cb89d35f0630a9fa80
   PSTCollectionView: 6749df92885353521f55279a7ce2b293762e2be4
   RegExCategories: e68befacacd5bda853c88f70ec745cb2d0cfb89c
-  RNCachingURLProtocol+HybirdApp: 21fa40f9134a7fe7e38b8d6ab8f16c930310df73
+  RNCachingURLProtocol+HybirdApp: a7239a40a343861cc8e9f194ed5f89674922b84c
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   Sequencer: 53040fea35ecde55ba9cdb3a505a00cfb0e797b2
   SMCalloutView: 4078d89b847731e514b1a919fed33b383a24a106
@@ -260,4 +260,4 @@ SPEC CHECKSUMS:
   WeiboSDK: 818c49635fb9674740078da526fcd934835f11d3
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-COCOAPODS: 0.36.3
+COCOAPODS: 0.38.2
