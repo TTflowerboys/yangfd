@@ -2279,7 +2279,16 @@ class f_currant_util(f_util):
         return subject
 
     # TODO: now we only consider UK
-    def find_region_report(self, zipcode):
+    def find_region_report(self, zipcode, maponics_neighborhood_id=None):
+        # Try to find neighborhood first
+        if maponics_neighborhood_id:
+            region_report = f_app.report.search({"maponics_neighborhood._id": ObjectId(maponics_neighborhood_id)})
+            if len(region_report) == 1:
+                return region_report[0]
+            elif len(region_report) > 1:
+                self.logger.warning("Multiple region report found for neighborhood", maponics_neighborhood_id, ", ignoring region report assignment.")
+                return
+
         params = {"postcode_index": zipcode.replace(" ", ""), "country": "GB"}
         postcode = f_app.geonames.postcode.get(f_app.geonames.postcode.search(params, per_page=-1))
         if len(postcode) == 1:
