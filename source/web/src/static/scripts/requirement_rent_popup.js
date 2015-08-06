@@ -36,7 +36,7 @@
                 $neighborhoodSelect.html('').trigger('chosen:updated')
                 if(container.find('.city-select :selected').text().toLowerCase() === 'london'){
                     $neighborhoodSelect.next('.chosen-container').parents('.row').show()
-                    getNeighborhoodListForSelect()
+                    getNeighborhoodListForSelect($citySelect.val())
                 } else {
                     //clearData('neighborhood')
                     $neighborhoodSelect.find('option').eq(0).attr('selected',true)
@@ -76,12 +76,12 @@
                 }
             })
         }
-        function getNeighborhoodListForSelect() {
+        function getNeighborhoodListForSelect(city) {
             var $neighborhoodSelectChosen = $neighborhoodSelect.next('.chosen-container')
             var $span = $neighborhoodSelectChosen.find('.chosen-single span')
             var originContent = $span.html()
             $span.html(window.i18n('街区列表加载中...(选填)'))
-            window.geonamesApi.getNeighborhood(function (val) {
+            window.geonamesApi.getNeighborhood(city, function (val) {
                 if(container.find('.city-select :selected').text().toLowerCase() === 'london') {
                     $span.html(originContent)
                     $neighborhoodSelect.html(

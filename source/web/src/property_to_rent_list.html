@@ -72,6 +72,24 @@
                 %end
             </select>
         </div>
+        <span>{{_('的')}}</span>
+        <div class="selectWrap selectNeighborhoodSubwaySchoolWrap">
+            <select class="ghostSelect" name="parent">
+                <option value="" disabled selected>{{_('街区/地铁/学校')}}</option>
+                <option class="rightArrow" value="neighborhood">{{_('街区')}}</option>
+                <option class="rightArrow" value="subwayLine">{{_('地铁')}}</option>
+                <option class="rightArrow" value="school">{{_('学校')}}</option>
+            </select>
+            <select class="ghostSelect" name="neighborhood" style="display: none;" data-placeholder="{{_('街区列表加载中...')}}">
+            </select>
+            <select class="ghostSelect" name="subwayLine" style="display: none;" data-placeholder="{{_('地铁线列表加载中...')}}">
+            </select>
+            <select class="ghostSelect" name="subwayStation" style="display: none;" data-placeholder="{{_('地铁站列表加载中...')}}">
+            </select>
+            <select class="ghostSelect" name="school" style="display: none;" data-placeholder="{{_('学校列表加载中...')}}">
+            </select>
+        </div>
+        <span>{{_('附近，')}}</span>
         <span>{{_('找')}}</span>
         <hr class="separator_phone hiddenOnMobile"/>
         <div class="selectWrap">

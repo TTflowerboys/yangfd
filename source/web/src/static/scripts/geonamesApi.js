@@ -24,9 +24,11 @@ function GeonamesApi () {
             feature_code: 'city'
         }, callback, reject)
     }
-    this.getNeighborhood = function (callback, reject) {
+    this.getNeighborhood = function (city, callback, reject) {
         if(!cache.neighborhood) {
-            $.betterPost('/api/1/maponics_neighborhood/search')
+            $.betterPost('/api/1/maponics_neighborhood/search', {
+                city: city
+            })
                 .done(function (val) {
                     cache.neighborhood = val
                     callback.call(null, val)
