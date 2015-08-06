@@ -238,14 +238,12 @@
                                 float:left;
                                 width: 220px;
                                 .title {
-                                    font-size:20px;
                                     font-weight:bold;
-                                    line-height:32px;
-                                    color:#666;
-                                    white-space: nowrap;
-                                    overflow: hidden;
-                                    text-overflow: ellipsis;
+                                    .limitedLines(2, 25px, #f9f9f9);
                                     word-wrap:break-word;
+                                    white-space:pre;
+                                    color:#666;
+                                    top:5px;
                                 }
 
                                 .subtitle {
