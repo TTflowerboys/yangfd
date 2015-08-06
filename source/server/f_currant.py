@@ -308,11 +308,13 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                 if "price" not in ticket:
                     continue
                 if deposit_type["value"]["zh_Hans_CN"] == "押一付三":
-                    ticket["price"]["value"] *= 4
+                    ticket["price"]["value_float"] *= 4
+                    ticket["price"]["value"] = str(ticket["price"]["value_float"])
                     self.logger.debug("Migrating ticket", str(ticket["_id"]), "to new deposit param")
                     ticket_database.update({"_id": ticket["_id"]}, {"$set": {"deposit": ticket["price"]}})
-                elif deposit_type["value"]["zh_Hans_CN"] in ("", ""):
-                    ticket["price"]["value"] *= 3 * 4
+                elif deposit_type["value"]["zh_Hans_CN"] in ("押三付三", "押三付一"):
+                    ticket["price"]["value_float"] *= 4 * 3
+                    ticket["price"]["value"] = str(ticket["price"]["value_float"])
                     self.logger.debug("Migrating ticket", str(ticket["_id"]), "to new deposit param")
                     ticket_database.update({"_id": ticket["_id"]}, {"$set": {"deposit": ticket["price"]}})
 
@@ -326,6 +328,19 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         for feedback in feedback_database.find({"tag": {"$exists": False}}):
             self.logger.debug("Setting default tag for feedback", str(feedback["_id"]))
             feedback_database.update({"_id": feedback["_id"]}, {"$set": {"tag": ["invitation"]}})
+
+    def v17(self, m):
+        ticket_database = f_app.ticket.get_database(m)
+        for ticket in ticket_database.find({"type": "rent", "deposit": {"$exists": True}}):
+            if "price" not in ticket:
+                continue
+            times = ticket["deposit"]["value"].count(".")
+            if times > 1:
+                # Affected deposit
+                self.logger.debug("Fixing deposit for ticket", str(ticket["_id"]))
+                ticket["price"]["value_float"] *= times
+                ticket["price"]["value"] = str(ticket["price"]["value_float"])
+                ticket_database.update({"_id": ticket["_id"]}, {"$set": {"deposit": ticket["price"]}})
 
 currant_mongo_upgrade()
 
