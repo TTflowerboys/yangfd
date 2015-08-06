@@ -177,12 +177,24 @@
 }
 
 
+- (void)makeVerficationCodeTextFieldResignFirstResponder {
+
+    FXFormField *field = [[self formController] fieldForKey:@"code"];
+    NSIndexPath *indexPath = [[self formController] indexPathForField:field];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+
+    if ([cell isKindOfClass:[CUTEFormVerificationCodeCell class]]) {
+        CUTEFormVerificationCodeCell *codeCell = (CUTEFormVerificationCodeCell *)cell;
+        [codeCell.textField resignFirstResponder];
+    }
+}
+
+
 - (void)onVerificationButtonPressed:(id)sender {
 
     if (![self validateFormWithScenario:@"fetchCode"]) {
         return;
     }
-    [self makeVerficationCodeTextFieldBecomeFirstResponder];
 
     CUTEUser *user = [CUTEUser new];
     [self updateUserWithFormInfo:user];
@@ -196,12 +208,14 @@
             else {
                 if ([task.result boolValue]) {
                     [SVProgressHUD dismiss];
-                    [UIAlertView showWithTitle:CONCAT(STR(@"电话已被使用！请登录或者修改密码，如该用户不是您，请联系客服")) message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"登录"), STR(@"修改密码"), STR(@"联系客服")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                    //remove keyboard overlay
+//                    [self makeVerficationCodeTextFieldResignFirstResponder];
+                    [UIAlertView showWithTitle:CONCAT(STR(@"电话已被使用！请登录或者重置密码，如该用户不是您，请联系客服")) message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"登录"), STR(@"重置密码"), STR(@"联系客服")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                         NSString *buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
                         if ([buttonTitle isEqualToString:STR(@"登录")]) {
                             [self login];
                         }
-                        else if ([buttonTitle isEqualToString:STR(@"修改密码")]) {
+                        else if ([buttonTitle isEqualToString:STR(@"重置密码")]) {
                             [self login];
                         }
                         else if ([buttonTitle isEqualToString:STR(@"联系客服")]) {
@@ -210,6 +224,7 @@
                     }];
                 }
                 else {
+                    [self makeVerficationCodeTextFieldBecomeFirstResponder];
                     completion(nil);
                 }
             }
