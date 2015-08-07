@@ -152,10 +152,10 @@ gulp.task('revAgain', ['fingerprint'], function () {
         .pipe(gulp.dest(myPaths.dist))
         .pipe(rev.manifest())
         .pipe(replace(/"static/g,'"/static'))
-        .pipe(gulp.dest(myPaths.dist)); // write manifest to build dir
+        .pipe(gulp.dest(myPaths.dist + 'mainfest')); // write manifest to build dir
 })
 gulp.task('fingerprintAgain', ['revAgain'], function () {
-    var manifest = require(myPaths.dist + 'rev-manifest');
+    var manifest = require(myPaths.dist + 'mainfest/rev-manifest');
     var options = {
         verbose: false,
         mode: 'replace'
