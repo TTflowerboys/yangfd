@@ -3214,3 +3214,84 @@ class f_maponics(f_app.plugin_base):
                     self.logger.debug("Warning: no neighborhood found for postcode", postcode["postcode"], "id:", postcode["_id"])
 
 f_maponics()
+
+
+class f_hesa(f_app.plugin_base):
+    nested_attr = ("university",)
+    hesa_university_database = "hesa_university"
+
+    def __init__(self, *args, **kwargs):
+        f_app.module_install("hesa", self)
+
+    def university_get_database(self, m):
+        return getattr(m, self.hesa_university_database)
+
+    @f_cache("hesauniversity", support_multi=True)
+    def university_get(self, university_id_or_list, force_reload=False):
+        def _format_each(university):
+            return f_app.util.process_objectid(university)
+
+        if f_app.util.batch_iterable(university_id_or_list):
+            result = {}
+
+            with f_app.mongo() as m:
+                result_list = list(self.university.get_database(m).find({"_id": {"$in": [ObjectId(user_id) for user_id in university_id_or_list]}, "status": {"$ne": "deleted"}}))
+
+            if not force_reload and len(result_list) < len(university_id_or_list):
+                found_list = map(lambda university: str(university["_id"]), result_list)
+                abort(40400, self.logger.warning("Non-exist university:", filter(lambda university_id: university_id not in found_list, university_id_or_list), exc_info=False))
+
+            for university in result_list:
+                result[university["id"]] = _format_each(university)
+
+            return result
+
+        else:
+            with f_app.mongo() as m:
+                result = self.university.get_database(m).find_one({"_id": ObjectId(university_id_or_list), "status": {"$ne": "deleted"}})
+
+                if result is None:
+                    if not force_reload:
+                        abort(40400, self.logger.warning("Non-exist university:", university_id_or_list, exc_info=False))
+
+                    return None
+
+            return _format_each(result)
+
+    def university_get_by_hesa_id(self, hesa_id):
+        return self.university.search({"hesa_id": hesa_id})
+
+    def university_import(self, filename, country="GB"):
+        with open(filename) as f:
+            rows = csv.reader(f.readlines())
+            count = 0
+            with f_app.mongo() as m:
+                self.university.get_database(m).ensure_index([("hesa_id", ASCENDING)])
+                self.university.get_database(m).ensure_index([("postcode", ASCENDING)])
+                self.university.get_database(m).ensure_index([("country", ASCENDING)])
+
+                for r in rows:
+                    params = {
+                        "hesa_id": r[0],
+                        "hep": r[1],
+                        "ukprn": r[2],
+                        "name": r[3],
+                        "phone": r[4],
+                        "postcode": r[5],
+                        "postcode_index": r[5].replace(" ", ""),
+                        "country": country,
+                        "status": "new",
+                    }
+
+                    self.university.get_database(m).update({
+                        "hesa_id": params["hesa_id"],
+                    }, {"$set": params}, upsert=True)
+
+                    count += 1
+                    if count % 100 == 1:
+                        self.logger.debug("hesa university imported", count, "records...")
+
+    def university_search(self, params, per_page=0):
+        return f_app.mongo_index.search(self.university.get_database, params, notime=True, sort_field="population", count=False, per_page=per_page)["content"]
+
+f_hesa()
