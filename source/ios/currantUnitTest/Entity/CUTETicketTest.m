@@ -55,6 +55,15 @@ describe(@"display title", ^ {
         assertThat(ticket.titleForDisplay, equalTo(@"华中科技大学 1居室"));
     });
 
+    it(@"should use studio with bedroom count 0", ^ {
+
+        CUTETicket *ticket = [CUTETicket new];
+        ticket.property = [CUTEProperty new];
+        ticket.property.community = @"华中科技大学";
+        ticket.property.bedroomCount = @(0);
+        assertThat(ticket.titleForDisplay, equalTo(@"华中科技大学 Studio"));
+    });
+
     it(@"should have rent type", ^ {
 
         CUTETicket *ticket = [CUTETicket new];

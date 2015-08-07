@@ -45,9 +45,9 @@ describe(@"params", ^{
         CUTEProperty *property = [CUTEProperty new];
         CUTECountry *country = [CUTECountry new];
         country.name = @"中国";
-        country.code = @"CN";
+        country.ISOcountryCode = @"CN";
         property.country = country;
-        assertThat(property.toParams[@"country"], equalTo(country.code));
+        assertThat(property.toParams[@"country"], equalTo(country.ISOcountryCode));
     });
 
     it(@"city should be id", ^{

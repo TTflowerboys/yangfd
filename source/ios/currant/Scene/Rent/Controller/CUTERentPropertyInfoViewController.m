@@ -317,11 +317,6 @@
 - (BOOL)validate {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
 
-    if (form.bedroomCount < 1) {
-        [SVProgressHUD showErrorWithStatus:STR(@"居室数至少为1个")];
-        return NO;
-    }
-
     if (!self.form.ticket.price) {
         [SVProgressHUD showErrorWithStatus:STR(@"请编辑租金")];
         return NO;

@@ -32,7 +32,7 @@
     self.textLabel.text = self.field.title;
 
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.field.form;
-    self.detailTextLabel.text = [NSString stringWithFormat:@"%d室%d厅%d卫", form.bedroomCount, form.livingroomCount, form.bathroomCount];
+    [self setDisplayTitleWithForm:form];
 
     [@[@"bedroomCount", @"livingroomCount", @"bathroomCount"] eachWithIndex:^(id obj, NSUInteger idx) {
         if ([[form valueForKey:obj] integerValue] < [self.pickerView numberOfRowsInComponent:idx]) {
@@ -68,6 +68,18 @@
     if (self.field.action) self.field.action(self);
 }
 
+- (void)setDisplayTitleWithForm:(CUTEPropertyInfoForm *)form {
+    if (form.bedroomCount == 0) {
+        self.detailTextLabel.text = LocalizedRoomTitle([NSString stringWithFormat:@"%d%@", form.bedroomCount, @"室"]);
+    }
+    else {
+        self.detailTextLabel.text = CONCAT(LocalizedRoomTitle([NSString stringWithFormat:@"%d%@", form.bedroomCount, @"室"]),
+                                           LocalizedRoomTitle([NSString stringWithFormat:@"%d%@", form.livingroomCount, @"厅"]),
+                                           LocalizedRoomTitle([NSString stringWithFormat:@"%d%@", form.bathroomCount, @"卫"]));
+    }
+}
+
+
 - (NSInteger)numberOfComponentsInPickerView:(__unused UIPickerView *)pickerView
 {
     return 3;
@@ -80,14 +92,33 @@
 
 - (NSString *)pickerView:(__unused UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(__unused NSInteger)component
 {
-    return [NSString stringWithFormat:@"%d%@", row, @[STR(@"室"), STR(@"厅"), STR(@"卫")][component]];
+    return LocalizedRoomTitle([NSString stringWithFormat:@"%d%@", row, @[@"室", @"厅", @"卫"][component]]);
 }
 
 - (void)pickerView:(__unused UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(__unused NSInteger)component
 {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.field.form;
     [form setValue:@(row) forKey:@[@"bedroomCount", @"livingroomCount", @"bathroomCount"][component]];
-    self.detailTextLabel.text = [NSString stringWithFormat:@"%d室%d厅%d卫", form.bedroomCount, form.livingroomCount, form.bathroomCount];
+
+    //Sudio cannot choose livingroom, bathroom
+    if (form.bedroomCount == 0) {
+        if (form.livingroomCount != 0) {
+            [pickerView selectRow:0 inComponent:1 animated:NO];
+            form.livingroomCount = 0;
+            [form syncTicketWithBlock:^(CUTETicket *ticket) {
+                ticket.property.livingroomCount = 0;
+            }];
+        }
+        if (form.bathroomCount != 0) {
+            [pickerView selectRow:0 inComponent:2 animated:NO];
+            form.bathroomCount = 0;
+            [form syncTicketWithBlock:^(CUTETicket *ticket) {
+                ticket.property.bathroomCount = 0;
+            }];
+        }
+    }
+
+    [self setDisplayTitleWithForm:form];
 }
 
 
