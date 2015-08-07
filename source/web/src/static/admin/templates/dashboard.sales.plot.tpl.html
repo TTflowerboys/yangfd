@@ -45,7 +45,7 @@
                         <table>
                             <tr ng-if="item.bedroom_count">
                                 <td>{%$root.i18n('居室数')%}</td>
-                                <td>{%item.bedroom_count%}</td>
+                                <td>{%item.bedroom_count|showBedroom%}</td>
                             </tr>
                             <tr ng-if="item.living_room_count">
                                 <td>{%$root.i18n('客厅数')%}</td>

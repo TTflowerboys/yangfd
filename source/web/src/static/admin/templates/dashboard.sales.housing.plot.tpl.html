@@ -9,7 +9,7 @@
             <div class="btn-group form-inline">
                 <div>
                     <div class="btn-group form-inline">
-                        <input type="number" min="0" class="form-control" ng-model="selected.bedroom_count" placeholder="{%$root.i18n('居室数')%}"/>
+                        <input type="number" min="0" class="form-control" ng-model="selected.bedroom_count" placeholder="{%$root.i18n('居室数,填0表示studio')%}"/>
                     </div>
                     <div class="btn-group form-inline">
                         <input type="number" min="0" class="form-control" ng-model="selected.living_room_count" placeholder="{%$root.i18n('客厅数')%}"/>
@@ -97,7 +97,7 @@
                         <table>
                             <tr ng-if="item.bedroom_count">
                                 <td>{%$root.i18n('居室数')%}</td>
-                                <td>{%item.bedroom_count%}</td>
+                                <td>{%item.bedroom_count|showBedroom%}</td>
                             </tr>
                             <tr ng-if="item.living_room_count">
                                 <td>{%$root.i18n('客厅数')%}</td>
