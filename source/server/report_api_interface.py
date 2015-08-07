@@ -187,6 +187,8 @@ def report_remove(report_id):
     maponics_neighborhood="maponics_neighborhood"
 ))
 def report_search(params):
+    if "zipcode_index" in params:
+        params["maponics_neighborhood"] = {"$exists": False}
     per_page = params.pop("per_page", 0)
     report_list = f_app.report.search(params, per_page=per_page)
     return f_app.report.output(report_list)
