@@ -140,9 +140,9 @@
             },
             editRoomCount: function (id, limit, ceiling, type, value) {
                 var slug = type+':'
-                slug += limit ? limit : ''
+                slug += limit !== undefined ? limit : ''
                 slug += ','
-                slug += ceiling ? ceiling : ''
+                slug += ceiling !== undefined ? ceiling : ''
                 var data = {
                     type: type,
                     slug: slug,

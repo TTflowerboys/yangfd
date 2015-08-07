@@ -33,6 +33,12 @@
                     <div class="table_wrapper">
                         <table class="text">
                             <tr>
+                                {_if(houseType.bedroom_count === 0) {_}
+                                <td>
+                                    <span class="name">{=window.i18n('户型')=}</span>
+                                    <span class="value">studio</span>
+                                </td>
+                                {_}else{_}
                                 {_ if (houseType.bedroom_count && houseType.bedroom_count > 0){ _}
                                 <td>
                                     <span class="name">{=window.i18n('卧室')=}</span>
@@ -56,6 +62,7 @@
                                     <span class="name">{=window.i18n('厨房')=}</span>
                                     <span class="value">{=houseType.kitchen_count=}</span>
                                 </td>
+                                {_ } _}
                                 {_ } _}
                             </tr>
                         </table>

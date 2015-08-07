@@ -89,7 +89,13 @@
                     %end
                     >
                     <div>
-                        <i class="roomsIcon"></i>{{rent['property'].get('bedroom_count',0)}}<span>{{_('室')}}</span>{{rent['property'].get('living_room_count',0)}}<span>{{_('厅')}}</span>{{rent['property'].get('bathroom_count',0)}}<span>{{_('卫')}}</span>
+                        <i class="roomsIcon"></i>
+                        % if 'bedroom_count' in rent['property'] and rent['property'].get('bedroom_count') == 0 :
+                        <span>studio</span>
+                        %else:
+                        {{rent['property'].get('bedroom_count',0)}}<span>{{_('室')}}</span>{{rent['property'].get('living_room_count',0)}}<span>{{_('厅')}}</span>{{rent['property'].get('bathroom_count',0)}}<span>{{_('卫')}}
+                        %end
+                    </span>
                     </div>
                     </li>
                     <li class="animate rental"><div><i class="rentalIcon"></i>{{rent.get('rent_type',{}).get('value', '')}}</div></li>

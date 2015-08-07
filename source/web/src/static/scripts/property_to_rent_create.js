@@ -540,13 +540,13 @@
                 }
             })
         })
-        if (parseInt($('#bedroom_count').val()) < 1) {
+        /*if (parseInt($('#bedroom_count').val()) < 1) {
             validate = false
             errorArr.push({
                 elem: $('#bedroom_count'),
                 msg: i18n('房间数最少为1')
             })
-        }
+        }*/
         function checkContaction (elem) {
             var includePhoneReg = /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/
             var includeEmailReg = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i
@@ -627,7 +627,7 @@
         return JSON.stringify({'unit': $('#spaceUnit').children('option:selected').val(), 'value': $('#roomSize').val()})
     }
     function updateTitle() {
-        var defaultTitle = ($('#community').val() ? $('#community').val() : ($('#neighborhood-select').val() ? $('#neighborhood-select').find(':selected').text().replace(/,.+$/,'') : $('#street').val())) + ' ' + $('#bedroom_count').children('option:selected').val() + window.i18n('居室') + $('#rentalType .selected').text().trim() + window.i18n('出租')
+        var defaultTitle = ($('#community').val() ? $('#community').val() : ($('#neighborhood-select').val() ? $('#neighborhood-select').find(':selected').text().replace(/,.+$/,'') : $('#street').val())) + ' ' + ($('#bedroom_count').children('option:selected').val() > 0 ? $('#bedroom_count').children('option:selected').val() + window.i18n('居室') : 'Studio') + $('#rentalType .selected').text().trim() + window.i18n('出租')
         $('#title').attr('placeholder', defaultTitle)
     }
     updateTitle()

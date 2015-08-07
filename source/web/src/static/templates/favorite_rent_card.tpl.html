@@ -63,6 +63,14 @@
                 </ul>
                 <div class="details">
                     <div class="left">
+                        {_if(fav.ticket.property.bedroom_count === 0) {_}
+                        <div class="room">
+                            <p class="label">{=window.i18n('户型')=}</p>
+                            <p class="value">
+                                <span>studio</span>
+                            </p>
+                        </div>
+                        {_}else{_}
                         {_if(fav.ticket.property.bedroom_count || fav.ticket.property.living_room_count) {_}
                         <div class="room">
                             <p class="label">{=window.i18n('房间')=}</p>
@@ -75,6 +83,7 @@
                                 {_}_}
                             </p>
                         </div>
+                        {_}_}
                         {_}_}
                         {_if(fav.ticket.rent_available_time || fav.ticket.minimum_rent_period) {_}
                         <div class="size">

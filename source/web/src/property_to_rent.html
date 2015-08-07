@@ -238,6 +238,12 @@
                     </strong>
                 </li>
                 % end
+                % if 'bedroom_count' in rent['property'] and rent['property'].get('bedroom_count') == 0 :
+                <li>
+                    {{_('户型')}}
+                    <strong>studio</strong>
+                </li>
+                %else:
                 % if rent['property'].get('bedroom_count','') :
                 <li>
                     {{_('卧室')}}
@@ -258,6 +264,7 @@
                     <strong>{{ rent['property'].get('living_room_count','') }}</strong>
                 </li>
                 % end
+                %end
             </ul>
             % if ('street' in rent['property'] and rent.get('property',{}).get('street','')) or ('community' in rent['property'] and rent.get('property',{}).get('community','')) or ('floor' in rent['property'] and rent.get('property',{}).get('floor','')) or ('house_name' in rent['property'] and rent.get('property',{}).get('house_name','')):
             % count = sum([bool(x in rent['property'] and rent["property"][x]) for x in ["street", "community", "floor", "house_name"]])

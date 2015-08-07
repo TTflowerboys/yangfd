@@ -85,6 +85,14 @@
                     </ul>
                     <div class="details">
                         <div class="left">
+                            {_if(rent.property.bedroom_count === 0) {_}
+                            <div class="room">
+                                <p class="label">{=window.i18n('户型')=}</p>
+                                <p class="value">
+                                    <span>studio</span>
+                                </p>
+                            </div>
+                            {_}else{_}
                             {_if(rent.property.bedroom_count || rent.property.living_room_count) {_}
                             <div class="room">
                                 <p class="label">{=window.i18n('房间')=}</p>
@@ -97,6 +105,7 @@
                                     {_}_}
                                 </p>
                             </div>
+                            {_}_}
                             {_}_}
                             {_if(rent.rent_available_time || rent.minimum_rent_period) {_}
                             <div class="size">

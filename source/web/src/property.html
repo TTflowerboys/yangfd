@@ -340,6 +340,12 @@
                                 </strong>
                             % end
                         </li>
+                        % if 'bedroom_count' in property and property.get('bedroom_count') == 0:
+                        <li>
+                            {{_('户型')}}
+                            <strong>studio</strong>
+                        </li>
+                        % else:
                         % if property.get('bedroom_count','') :
                             <li>
                                 {{_('卧室')}}
@@ -366,6 +372,7 @@
                                 {{_('厨房')}}
                                 <strong>{{ property.get('kitchen_count','') }}</strong>
                             </li>
+                        % end
                         % end
                     </ul>
                     <div class="seperator"></div>
@@ -447,11 +454,15 @@
                                         % for type in property.get('main_house_types'):
                                             <a href="#propertyDetails_houseTypes">
                                                 <span class="toggleTag selected">
+                                                    % if 'bedroom_count' in type and type.get('bedroom_count') == 0:
+                                                        studio
+                                                    % else:
                                                     %if 'bedroom_count' in type and type.get('bedroom_count') != 0:
                                                         {{type.get('bedroom_count',0)}}{{_('室')}}
                                                     %end
                                                     %if 'living_room_count' in type and type.get('living_room_count') != 0:
                                                         {{type.get('living_room_count',0)}}{{_('厅')}}
+                                                    %end
                                                     %end
                                                     % if 'value' in type.get('building_area_min',{}) and 'unit' in type.get('building_area_min',{}):
                                                         (
@@ -527,6 +538,12 @@
                                                     <div class="table_wrapper">
                                                         <table class="text">
                                                             <tr>
+                                                                % if 'bedroom_count' in item and item.get('bedroom_count') == 0:
+                                                                <td>
+                                                                    <span class="name">{{_('户型')}}</span>
+                                                                    <span class="value">studio</span>
+                                                                </td>
+                                                                % else:
                                                                 %if 'bedroom_count' in item and item.get('bedroom_count') != 0:
                                                                     <td>
                                                                         <span class="name">{{_('卧室')}}</span>
@@ -550,6 +567,7 @@
                                                                         <span class="name">{{_('厨房')}}</span>
                                                                         <span class="value">{{item.get('kitchen_count',0)}}</span>
                                                                     </td>
+                                                                %end
                                                                 %end
                                                             </tr>
                                                         </table>
