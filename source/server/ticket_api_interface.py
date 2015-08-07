@@ -1226,17 +1226,19 @@ def rent_ticket_search(user, params):
 
     if "bedroom_count" in params:
         bedroom_count = f_app.util.parse_bedroom_count(params.pop("bedroom_count"))
-        if bedroom_count[0] and bedroom_count[1]:
+        if bedroom_count[0] is not None and bedroom_count[1] is not None:
             if bedroom_count[0] == bedroom_count[1]:
                 bedroom_filter = bedroom_count[0]
             elif bedroom_count[0] > bedroom_count[1]:
                 abort(40000, logger.warning("Invalid bedroom_count: start value cannot be greater than end value"))
             else:
                 bedroom_filter = {"$gte": bedroom_count[0], "$lte": bedroom_count[1]}
-        elif bedroom_count[0]:
+        elif bedroom_count[0] is not None:
             bedroom_filter = {"$gte": bedroom_count[0]}
-        elif bedroom_count[1]:
+        elif bedroom_count[1] is not None:
             bedroom_filter = {"$lte": bedroom_count[1]}
+        else:
+            logger.error("Invalid bedroom_count enum")
 
         non_project_params["bedroom_count"] = bedroom_filter
         main_house_types_elem_params["bedroom_count"] = bedroom_filter
@@ -1554,17 +1556,19 @@ def sale_ticket_search(user, params):
 
     if "bedroom_count" in params:
         bedroom_count = f_app.util.parse_bedroom_count(params.pop("bedroom_count"))
-        if bedroom_count[0] and bedroom_count[1]:
+        if bedroom_count[0] is not None and bedroom_count[1] is not None:
             if bedroom_count[0] == bedroom_count[1]:
                 bedroom_filter = bedroom_count[0]
             elif bedroom_count[0] > bedroom_count[1]:
                 abort(40000, logger.warning("Invalid bedroom_count: start value cannot be greater than end value"))
             else:
                 bedroom_filter = {"$gte": bedroom_count[0], "$lte": bedroom_count[1]}
-        elif bedroom_count[0]:
+        elif bedroom_count[0] is not None:
             bedroom_filter = {"$gte": bedroom_count[0]}
-        elif bedroom_count[1]:
+        elif bedroom_count[1] is not None:
             bedroom_filter = {"$lte": bedroom_count[1]}
+        else:
+            logger.error("Invalid bedroom_count enum")
 
         non_project_params["bedroom_count"] = bedroom_filter
         main_house_types_elem_params["bedroom_count"] = bedroom_filter
