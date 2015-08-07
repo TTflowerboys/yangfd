@@ -284,6 +284,19 @@ def maponics_neighborhood_search(params):
     return neighborhoods
 
 
+@f_api('/hesa_university/search', params=dict(
+    country="country",
+    postcode=str,
+    postcode_index=str,
+    name=str,
+))
+def hesa_university_search(params):
+    if "country" in params:
+        params["country"] = params["country"]["code"]
+    universities = f_app.hesa.university.get(f_app.hesa.university.search(params, per_page=-1))
+    return universities
+
+
 @f_api('/geonames/<_id>')
 def geonames_get(_id):
     return f_app.geonames.gazetteer.get(_id)
