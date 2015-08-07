@@ -24,6 +24,7 @@ logger = logging.getLogger(__name__)
     street=('i18n', None, str),
     report_id=ObjectId,
     maponics_neighborhood="maponics_neighborhood",
+    hesa_university=ObjectId,
     equity_type='enum:equity_type',
     property_price_type="enum:property_price_type",
     target_property_id=(ObjectId, None, "str"),
@@ -77,10 +78,16 @@ def property_search(user, params):
     non_project_params = {"$and": []}
     main_house_types_elem_params = {"$and": []}
 
+    if "hesa_university" in params:
+        assert "latitude" not in params, abort(40000)
+        hesa_university = f_app.hesa.university.get(str(params.pop("hesa_university")))
+        postcode = f_app.geonames.postcode.get(f_app.geonames.postcode.search({"postcode": hesa_university["postcode"]}, per_page=-1))
+        params["latitude"] = postcode["latitude"]
+        params["longitude"] = postcode["longitude"]
+
     if "latitude" in params:
         assert "longitude" in params, abort(40000)
         assert "per_page" not in params, abort(40000)
-        assert "sort" not in params, abort(40000)
     elif "longitude" in params:
         abort(40000)
     else:
