@@ -673,7 +673,7 @@
             'highlight': wrapData([]), //todo?
             'reality_images': wrapData(imageArr),
             'region_highlight': JSON.stringify(regionHighlight),
-            'kitchen_count': $('#kitchen_count').children('option:selected').val(),
+            //'kitchen_count': $('#kitchen_count').children('option:selected').val(),
             'bathroom_count': $('#bathroom_count').children('option:selected').val(),
             'bedroom_count': $('#bedroom_count').children('option:selected').val(),
             'living_room_count': $('#living_room_count').children('option:selected').val(),
