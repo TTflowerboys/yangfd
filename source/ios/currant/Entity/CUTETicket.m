@@ -199,6 +199,7 @@ NSString *LocalizedRoomTitle(NSString *title) {
         [params setObject:self.property.identifier forKey:@"property_id"];
     }
 
+    //like createTicket, not set title, will set a default title
     NSString *title = self.titleForDisplay;
     if (title) {
         [params setValue:title forKey:@"title"];
