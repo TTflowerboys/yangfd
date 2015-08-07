@@ -50,6 +50,7 @@
         CUTETicket *ticket = [CUTETicket new];
         CUTEProperty *property = [CUTEProperty new];
         property.status = kPropertyStatusDraft;
+        property.bedroomCount = @(0);
         ticket.status = kTicketStatusDraft;
         ticket.price = [CUTECurrency currencyWithValue:100.0 unit:[CUTECurrency defaultCurrencyUnit]];//default price
         ticket.property = property;
