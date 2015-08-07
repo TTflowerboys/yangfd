@@ -81,13 +81,13 @@
                 <option class="rightArrow" value="subwayLine">{{_('地铁')}}</option>
                 <option class="rightArrow" value="school">{{_('学校')}}</option>
             </select>
-            <select class="ghostSelect" name="neighborhood" style="display: none;" data-placeholder="{{_('街区列表加载中...')}}">
+            <select class="ghostSelect" name="neighborhood" data-serialize="maponics_neighborhood" style="display: none;" data-placeholder="{{_('街区列表加载中...')}}">
             </select>
             <select class="ghostSelect" name="subwayLine" style="display: none;" data-placeholder="{{_('地铁线列表加载中...')}}">
             </select>
             <select class="ghostSelect" name="subwayStation" style="display: none;" data-placeholder="{{_('地铁站列表加载中...')}}">
             </select>
-            <select class="ghostSelect" name="school" style="display: none;" data-placeholder="{{_('学校列表加载中...')}}">
+            <select class="ghostSelect" name="school" data-serialize="hesa_university" style="display: none;" data-placeholder="{{_('学校列表加载中...')}}">
             </select>
         </div>
         <span>{{_('附近，')}}</span>

@@ -319,10 +319,20 @@
         var $containerAll = $container.add($container.prev('span')).add($container.next('span'))
         $containerAll.hide()
         var $citySelect = $('[name=propertyCity]')
+        var $countrySelect = $('[name=propertyCountry]')
         var dataMap = {
-            neighborhood: ['London'],
-            school: [],
-            subwayLine: [],
+            neighborhood: {
+                country: ['GB'],
+                city: ['London']
+            },
+            school: {
+                country: ['GB'],
+                city: ['*']
+            },
+            subwayLine: {
+                country: [],
+                city: []
+            },
         }
         var selectMap = {
             parent: $container.find('[name=parent]'),
@@ -355,52 +365,50 @@
             })
             chosenMap[elem.attr('name')] = elem.next('.chosen-container')
         })
-        function initDisplay() {
+        var getListAction = {
+            neighborhood: function getNeighborhoodList (city) {
+                window.geonamesApi.getNeighborhood(city, function (val) {
+                    selectMap.neighborhood.html(
+                        _.reduce(val, function(pre, val, key) {
+                            return pre + '<option value="' + val.id + '">' + val.name + (val.parent && val.parent.name ? ', ' + val.parent.name : '') + '</option>'
+                        }, '<option value="">' + i18n('请选择街区') + '</option>')
+                    ).trigger('chosen:updated').trigger('chosen:open')
+                })
+            },
+            school: function getSchoolList(params) {
+                window.geonamesApi.getSchool(params, function (val) {
+                    selectMap.school.html(
+                        _.reduce(val, function(pre, val, key) {
+                            return pre + '<option value="' + val.id + '">' + val.name + (val.parent && val.parent.name ? ', ' + val.parent.name : '') + '</option>'
+                        }, '<option value="">' + i18n('请选择学校') + '</option>')
+                    ).trigger('chosen:updated').trigger('chosen:open')
+                })
+            },
+            subwayLine: function getSubwayLineList () {
+
+            }
+        }
+        function initDisplayByCity() {
+            var city = $citySelect.val()
+            //var country = $countrySelect.val()
             var cityName = $citySelect.find(':selected').text().trim()
-            if (_.every(dataMap, function (cityList) {
-                    return cityList.indexOf(cityName) < 0
+            if (_.every(dataMap, function (obj) {
+                    return obj.city.indexOf(cityName) < 0 && obj.city.indexOf('*') < 0
                 })) {
                 $containerAll.parent('.category').removeClass('three')
                 $containerAll.hide()
-                return true
+                return
             } else {
                 $containerAll.parent('.category').addClass('three')
             }
-        }
-        initDisplay()
-        $citySelect.bind('change', function () {
-            var getListAction = {
-                neighborhood: function getNeighborhoodList (city) {
-                    selectMap.neighborhood.html('<option value="">' + i18n('请选择街区') + '</option>')
-                    window.geonamesApi.getNeighborhood(city, function (val) {
-                        selectMap.neighborhood.html(
-                            _.reduce(val, function(pre, val, key) {
-                                return pre + '<option value="' + val.id + '">' + val.name + (val.parent && val.parent.name ? ', ' + val.parent.name : '') + '</option>'
-                            }, '<option value="">' + i18n('请选择街区') + '</option>')
-                        ).trigger('chosen:updated').trigger('chosen:open')
-                    })
-                },
-                school: function getSchoolList() {
-
-                },
-                subwayLine: function getSubwayLineList () {
-
-                }
-            }
-            var city = $citySelect.val()
-            var cityName = $citySelect.find(':selected').text().trim()
-            _.each(selectMap, function (elem) {
-                elem.val('').trigger('change')
-            })
-            if(initDisplay()){
-                return
-            }
             selectMap.parent.html(parentSelectHtml)
-            _.each(dataMap, function (cityList, key) {
-                if(cityList.indexOf(cityName) < 0) {
+            _.each(dataMap, function (obj, key) {
+                if(obj.city.indexOf(cityName) < 0 && obj.city.indexOf('*') < 0) {
                     selectMap.parent.find('[value=' + key + ']').prop('disabled', true)
                 } else {
-                    getListAction[key].call(null, city)
+                    if(key !== 'school') { //学校数据无法根据城市来搜索，目前直接搜全国的
+                        getListAction[key].call(null, city)
+                    }
                     selectMap.parent.find('[value=' + key + ']').prop('disabled', false)
                 }
             })
@@ -411,6 +419,55 @@
             } else{
                 $containerAll.show()
             }
+        }
+        function initDisplayByCountry () {
+            var country = $countrySelect.val()
+            var cityName = $citySelect.find(':selected').text().trim()
+            if (_.every(dataMap, function (obj) {
+                    return obj.country.indexOf(country) < 0 && obj.country.indexOf('*') < 0
+                })) {
+                $containerAll.parent('.category').removeClass('three')
+                $containerAll.hide()
+                return
+            } else {
+                $containerAll.parent('.category').addClass('three')
+            }
+            selectMap.parent.html(parentSelectHtml)
+            _.each(dataMap, function (obj, key) {
+                if((obj.country.indexOf(country) < 0 && obj.country.indexOf('*') < 0) || (obj.city.indexOf(cityName) < 0 && obj.city.indexOf('*') < 0)) {
+                    selectMap.parent.find('[value=' + key + ']').prop('disabled', true)
+                } else {
+                    if(key === 'school') { //学校数据无法根据城市来搜索，目前直接搜全国的
+                        getListAction[key].call(null, {
+                            country: country
+                        })
+                    }
+                    selectMap.parent.find('[value=' + key + ']').prop('disabled', false)
+                }
+            })
+            selectMap.parent.trigger('chosen:updated')
+            showChosen('parent')
+            if(window.team.isPhone()) {
+                $container.show()
+            } else{
+                $containerAll.show()
+            }
+        }
+        initDisplayByCountry()
+        initDisplayByCity()
+        $citySelect.bind('change', function () {
+            //var city = $citySelect.val()
+            //var cityName = $citySelect.find(':selected').text().trim()
+            _.each(selectMap, function (elem) {
+                elem.val('').trigger('change')
+            })
+            initDisplayByCity()
+        })
+        $countrySelect.bind('change', function () {
+            _.each(selectMap, function (elem) {
+                elem.val('').trigger('change')
+            })
+            initDisplayByCountry()
         })
 
         function showChosen(name) {
@@ -481,7 +538,7 @@
         _this.getParam = function getParamOfNeighborhoodSubwaySchool() {
             var param = {}
             if(selectMap.parent.val() && selectMap[selectMap.parent.val()].val()) {
-                param[selectMap.parent.val() === 'neighborhood' ? 'maponics_neighborhood' : selectMap.parent.val()] = selectMap[selectMap.parent.val()].val()
+                param[selectMap[selectMap.parent.val()].attr('data-serialize')] = selectMap[selectMap.parent.val()].val()
             }
             return param
         }

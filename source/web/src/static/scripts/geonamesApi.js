@@ -1,6 +1,9 @@
 function GeonamesApi () {
     var url = '/api/1/geonames/search'
-    var cache = {}
+    var cache = {
+        neighborhood: {},
+        school: {}
+    }
     this.getAdmin = function (config, callback, reject) {
         if(!cache[$.param(config)]) {
             $.betterPost(url, config)
@@ -25,12 +28,12 @@ function GeonamesApi () {
         }, callback, reject)
     }
     this.getNeighborhood = function (city, callback, reject) {
-        if(!cache.neighborhood) {
+        if(!cache.neighborhood[$.param(city)]) {
             $.betterPost('/api/1/maponics_neighborhood/search', {
                 city: city
             })
                 .done(function (val) {
-                    cache.neighborhood = val
+                    cache.neighborhood[$.param(city)] = val
                     callback.call(null, val)
                 })
                 .fail(function (ret) {
@@ -39,7 +42,23 @@ function GeonamesApi () {
                     }
                 })
         } else {
-            callback.call(null, cache.neighborhood)
+            callback.call(null, cache.neighborhood[$.param(city)])
+        }
+    }
+    this.getSchool = function (params, callback, reject) {
+        if(!cache.school[$.param(params)]) {
+            $.betterPost('/api/1/hesa_university/search', params)
+                .done(function (val) {
+                    cache.school[$.param(params)] = val
+                    callback.call(null, val)
+                })
+                .fail(function (ret) {
+                    if(reject && typeof reject === 'function') {
+                        reject(ret)
+                    }
+                })
+        } else {
+            callback.call(null, cache.school[$.param(params)])
         }
     }
     this.getAdmin1 = function (country, callback, reject) {

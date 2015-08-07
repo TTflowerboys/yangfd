@@ -121,7 +121,7 @@
 
                 setTimeout(function () {
                     _this.hideDrop()
-                    if(hasChanged) {
+                    if(hasChanged && _this.data[index]) {
                         _this.elem.val(_this.data[index].value).trigger('chosen:updated').trigger('change')
                     }
                 },100)
