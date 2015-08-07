@@ -145,13 +145,33 @@ gulp.task('fingerprint', ['revAll'], function () {
         .pipe(gulp.dest(myPaths.dist));
 });
 
+gulp.task('revAgain', ['fingerprint'], function () {
+    return gulp.src(['dist/static/admin/*.js'], {base: 'dist'})
+        .pipe(gulp.dest(myPaths.dist))
+        .pipe(rev())
+        .pipe(gulp.dest(myPaths.dist))
+        .pipe(rev.manifest())
+        .pipe(replace(/"static/g,'"/static'))
+        .pipe(gulp.dest(myPaths.dist + 'mainfest')); // write manifest to build dir
+})
+gulp.task('fingerprintAgain', ['revAgain'], function () {
+    var manifest = require(myPaths.dist + 'mainfest/rev-manifest');
+    var options = {
+        verbose: false,
+        mode: 'replace'
+    };
+
+    return gulp.src(['dist/admin.html'], {base: 'dist'})
+        .pipe(fingerprint(manifest, options))
+        .pipe(gulp.dest(myPaths.dist));
+});
 // Build Target:
 // 'debug': local python server
 // 'dev': xxx-dev.bbtechgroup.com
 // 'test': xxx-test.bbtechgroup.com
 // 'production': online production version
 
-gulp.task('build', ['bower', 'lint', 'clean', 'build:clean-sprite', 'build:copy-src-to-sprite', 'sprite', 'build:copy-sprite-static', 'build:less2css', 'build:html-extend', 'revAll', 'fingerprint', 'setupCDN'],
+gulp.task('build', ['bower', 'lint', 'clean', 'build:clean-sprite', 'build:copy-src-to-sprite', 'sprite', 'build:copy-sprite-static', 'build:less2css', 'build:html-extend', 'revAll', 'fingerprint', 'revAgain', 'fingerprintAgain', 'setupCDN'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
@@ -227,7 +247,7 @@ gulp.task('build:html-extend', ['build:less2css'], function () {
         .pipe(gulp.dest(myPaths.dist))
 })
 
-gulp.task('setupCDN', ['build:html-extend', 'fingerprint', 'revAll'], function () {
+gulp.task('setupCDN', ['build:html-extend', 'fingerprint', 'revAll', 'revAgain', 'fingerprintAgain'], function () {
     if (argv.cdn) {
         var relaceRev =  function () {
             //html should only in root folder
