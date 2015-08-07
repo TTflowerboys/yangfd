@@ -1,13 +1,14 @@
 (function($) {
     $.fn.chosenPhone = function (option) {
         option = $.extend({
-            duration: 200
+            duration: 200,
+            display_disabled_options: true
         }, option)
         return this.each(function() {
             var elem, data;
             elem = $(this)
             data = elem.data('chosen')
-            if(!(data instanceof Chosen) && elem.css('display') !== 'none') {
+            if(!(data instanceof Chosen)) {
                 elem.data('chosen', new Chosen(this, option))
             }
         })
@@ -18,6 +19,8 @@
         this.fetch = function () {
             return _.map(this.elem.find('option'), function(option, index){
                 return {
+                    disabled: $(option).attr('disabled'),
+                    class: $(option).attr('class'),
                     index: index,
                     value: $(option).attr('value'),
                     text: $(option).text(),
@@ -57,9 +60,17 @@
             this.chosenSingleSpan.text((_.find(this.data, function (obj) {
                 return obj.selected
             }) || {}).text)
-            this.chosenResults.html(_.reduce(data, function (pre, cur, index) {
-                return pre + '<li class="active-result' + (cur.selected ? ' result-selected' : '') + '" data-option-array-index="' + cur.index + '">' + cur.text + '</li>'
-            }, ''))
+            var palceholder = this.elem.attr('data-placeholder') ? this.elem.attr('data-placeholder') : ''
+            var dropHtml = _.reduce(data, function (pre, cur, index) {
+                if(!option.display_disabled_options && cur.disabled){
+                    return pre
+                }
+                return pre + '<li class="active-result' + (cur.selected ? ' result-selected' : '') + (option.inherit_select_classes ? ' ' + cur.class : '') + '" data-option-array-index="' + cur.index + '">' + cur.text + '</li>'
+            }, '')
+            if(dropHtml === '') {
+                dropHtml = '<li class="active-result">' + palceholder + '</li>'
+            }
+            this.chosenResults.html(dropHtml)
         }
         this.hideDrop = function () {
             this.chosenDrop.fadeOut(option.duration, function () {
@@ -121,6 +132,9 @@
             this.elem.bind('chosen:updated', function () {
                 _this.data = _this.fetch()
                 _this.update(_this.data)
+            })
+            this.elem.bind('chosen:open', function () {
+                _this.showDrop()
             })
         }
         this.data = this.fetch()

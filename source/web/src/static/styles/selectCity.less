@@ -1,24 +1,40 @@
 @import "project/_imports";
-.selectWrap{
-    display:inline-block;
-    min-width: 150px;
-    font-size: 14px;
-    &.selectCityWrap{
-        width: 200px;
+.category{
+    @media @phone{
+        width: 100%;
+    }
+    .selectWrap{
+        display:inline-block;
+        min-width: 150px;
+        font-size: 14px;
+        &.selectCityWrap{
+            width: 200px;
+            @media @phone{
+                width:49%;
+                width: calc(~'50% - 1px');
+            }
+        }
+        select{
+            width: 100% !important;
+        }
+        @media @phone{
+            display:inline-block;
+            min-width: 50px;
+            width:50%;
+            float: left;
+            font-size:@base-font-size-mobile;
+            font-weight:bold;
+        }
+
+    }
+    &.three .selectWrap{
         @media @phone{
             width:33%;
         }
+        &.selectCityWrap{
+            @media @phone{
+                width:33%;
+            }
+        }
     }
-    select{
-        width: 100% !important;
-    }
-    @media @phone{
-        display:inline-block;
-        min-width: 50px;
-        width:33%;
-        float: left;
-        font-size:@base-font-size-mobile;
-        font-weight:bold;
-    }
-
 }

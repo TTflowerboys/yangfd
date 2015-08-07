@@ -131,11 +131,11 @@
         if (city) {
             params.city = city
         }
-        var propertyType = $('select[name=propertyType]').children('option:selected').val()
+        var propertyType = window.team.isPhone() ? getSelectedTagFilterDataId('#propertyTypeTag') : $('select[name=propertyType]').children('option:selected').val()
         if (propertyType) {
             params.property_type = propertyType
         }
-        var rentType = $('select[name=rentType]').children('option:selected').val()
+        var rentType = window.team.isPhone() ? getSelectedTagFilterDataId('#rentTypeTag') : $('select[name=rentType]').children('option:selected').val()
         if (rentType) {
             params.rent_type = rentType
         }
@@ -189,7 +189,7 @@
 
         var selectedCountry = $('select[name=propertyCountry]').children('option:selected').text()
         var selectedCity = $('select[name=propertyCity]').children('option:selected').text()
-        var selectedRentType = $('select[name=rentType]').children('option:selected').text()
+        var selectedRentType = getSelectedTagValueWithTagName('rentTypeTag')
         var selectedPropertyType = getSelectedTagValueWithTagName('propertyTypeTag')
         var selectedRentalBudget = getSelectedTagValueWithTagName('rentalBudgetTag')
         var selectedRentPeriod = getSelectedTagValueWithTagName('rentPeriodTag')
@@ -250,6 +250,10 @@
     var rentTypeFromURL = window.team.getQuery('rent_type', location.href)
     if (rentTypeFromURL) {
         selectRentType(rentTypeFromURL)
+        selectTagFilter('#rentTypeTag', rentTypeFromURL)
+        if (window.team.isPhone()) {
+            showTagsOnMobile()
+        }
     }
 
     // Init side tag filters value from URL
@@ -338,15 +342,36 @@
                     display_disabled_options: false,
                     width: '200px'
                 })
-                elem.bind('change', function () {
-                    _this.Event.trigger('action')
+
+            } else {
+                elem.chosenPhone({
+                    disable_search_threshold: 8,
+                    inherit_select_classes: true,
+                    display_disabled_options: false,
                 })
-                chosenMap[elem.attr('name')] = elem.next('.chosen-container')
             }
+            elem.bind('change', function () {
+                _this.Event.trigger('action')
+            })
+            chosenMap[elem.attr('name')] = elem.next('.chosen-container')
         })
+        function initDisplay() {
+            var cityName = $citySelect.find(':selected').text().trim()
+            if (_.every(dataMap, function (cityList) {
+                    return cityList.indexOf(cityName) < 0
+                })) {
+                $containerAll.parent('.category').removeClass('three')
+                $containerAll.hide()
+                return true
+            } else {
+                $containerAll.parent('.category').addClass('three')
+            }
+        }
+        initDisplay()
         $citySelect.bind('change', function () {
             var getListAction = {
                 neighborhood: function getNeighborhoodList (city) {
+                    selectMap.neighborhood.html('<option value="">' + i18n('请选择街区') + '</option>')
                     window.geonamesApi.getNeighborhood(city, function (val) {
                         selectMap.neighborhood.html(
                             _.reduce(val, function(pre, val, key) {
@@ -367,10 +392,8 @@
             _.each(selectMap, function (elem) {
                 elem.val('').trigger('change')
             })
-            if (_.every(dataMap, function (cityList) {
-                    return cityList.indexOf(cityName) < 0
-                })) {
-                return $containerAll.hide()
+            if(initDisplay()){
+                return
             }
             selectMap.parent.html(parentSelectHtml)
             _.each(dataMap, function (cityList, key) {
@@ -383,7 +406,11 @@
             })
             selectMap.parent.trigger('chosen:updated')
             showChosen('parent')
-            $containerAll.show()
+            if(window.team.isPhone()) {
+                $container.show()
+            } else{
+                $containerAll.show()
+            }
         })
 
         function showChosen(name) {
@@ -722,6 +749,22 @@
         }
 
         ga('send', 'event', 'rent_list', 'change', 'change-property-type', $item.text())
+        loadRentListByView()
+    })
+
+    $('#tags #rentTypeTag').on('click', '.toggleTag', function (event) {
+        event.stopPropagation()
+
+        var $item = $(event.target)
+        var alreadySelected = $item.hasClass('selected')
+        var $parent = $(event.target.parentNode)
+        $parent.find('.toggleTag').removeClass('selected')
+
+        if (!alreadySelected) {
+            $item.addClass('selected')
+        }
+
+        ga('send', 'event', 'rent_list', 'change', 'change-rent-type', $item.text())
         loadRentListByView()
     })
 
@@ -1170,11 +1213,11 @@
         if (city) {
             params.city = city
         }
-        var propertyType = $('select[name=propertyType]').children('option:selected').val()
+        var propertyType = window.team.isPhone() ? getSelectedTagFilterDataId('#propertyTypeTag') : $('select[name=propertyType]').children('option:selected').val()
         if (propertyType) {
             params.property_type = propertyType
         }
-        var rentType = $('select[name=rentType]').children('option:selected').val()
+        var rentType = window.team.isPhone() ? getSelectedTagFilterDataId('#rentTypeTag') : $('select[name=rentType]').children('option:selected').val()
         if (rentType) {
             params.rent_type = rentType
         }

@@ -48,7 +48,7 @@
 </div>
 
 <div class="category_wrapper">
-    <div class="category">
+    <div class="category three">
         <span>{{_('我想在')}}</span>
         <div class="selectWrap">
             <select class="ghostSelect" name="propertyCountry">
@@ -72,6 +72,7 @@
                 %end
             </select>
         </div>
+        <hr class="separator_phone"/>
         <span>{{_('的')}}</span>
         <div class="selectWrap selectNeighborhoodSubwaySchoolWrap">
             <select class="ghostSelect" name="parent">
@@ -92,8 +93,8 @@
         <span>{{_('附近，')}}</span>
         <span>{{_('找')}}</span>
         <hr class="separator_phone hiddenOnMobile"/>
-        <div class="selectWrap">
-            <select class="ghostSelect hiddenOnMobile" name="propertyType">
+        <div class="selectWrap hiddenOnMobile">
+            <select class="ghostSelect" name="propertyType">
                 <option value="" selected>{{_('任意类型房产')}}</option>
                 %for index, property_type in enumerate(property_type_list):
                 <option value="{{property_type.get('id')}}">{{property_type.get('value')}}</option>
@@ -101,8 +102,7 @@
             </select>
         </div>
         <span>{{_('的')}}</span>
-        <hr class="separator_phone"/>
-        <div class="selectWrap">
+        <div class="selectWrap hiddenOnMobile">
             <select class="ghostSelect" name="rentType">
                 <option value="" selected>{{_('单间或整租')}}</option>
                 %for index, rent_type in enumerate(rent_type_list):
@@ -119,7 +119,18 @@
             <a href="/property-to-rent/create" class="rentalCreate button red"><span class=big>{{_('发布租房信息')}}</span></a>
 
             <h3 class="title">{{_('从搜索结果中筛选')}}</h3>
-
+            %if rent_type_list:
+            <div class="rentType hiddenOnPCWeb">
+                <i class="rentType_icon icon-house"></i>
+                <h4 class="rentType_title">{{_('出租类型')}}</h4>
+                <div id="rentTypeTag" class="inner">
+                    %for index, rent_type in enumerate(rent_type_list):
+                    <div class="toggleTag" data-id="{{rent_type.get('id')}}">{{rent_type.get('value')}}
+                    </div>
+                    %end
+                </div>
+            </div>
+            %end
 
             %if property_type_list:
                 <div class="propertyType hiddenOnPCWeb">
