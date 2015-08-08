@@ -10,6 +10,21 @@
 #import "CUTECommonMacro.h"
 #import "CUTEUIMacro.h"
 
+static void SetCellSeperatorToLeft(UITableViewCell* cell)
+{
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+
+    if([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]){
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+}
+
 @implementation CUTEFormCenterTextCell
 
 + (CGFloat)heightForField:(FXFormField *)field width:(CGFloat)width
@@ -20,6 +35,7 @@
 - (void)update {
     [super update];
 
+//    SetCellSeperatorToLeft(self);
     if (self.textColor) {
         self.textLabel.textColor = self.textColor;
     }

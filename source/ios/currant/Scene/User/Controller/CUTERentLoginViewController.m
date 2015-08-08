@@ -39,6 +39,8 @@
 #import "CUTEKeyboardStateListener.h"
 #import "CUTERentContactDisplaySettingViewController.h"
 #import "CUTERentContactDisplaySettingForm.h"
+#import "CUTERentPassword2ViewController.h"
+#import "CUTERentPassword2Form.h"
 
 @implementation CUTERentLoginViewController
 
@@ -81,6 +83,15 @@
 
         return task;
     }];
+}
+
+- (void)resetPasswordWithEmail {
+    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+    CUTERentPassword2ViewController *controller = [CUTERentPassword2ViewController new];
+    CUTERentPassword2Form *form = [CUTERentPassword2Form new];
+    controller.formController.form = form;
+    controller.navigationItem.title = STR(@"重置密码");
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)onPasswordEdit:(CUTEFormTextFieldCell *)cell {

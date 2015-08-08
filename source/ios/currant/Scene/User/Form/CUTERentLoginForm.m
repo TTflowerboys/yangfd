@@ -31,7 +31,8 @@
              @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
              @{FXFormFieldKey: @"password", FXFormFieldTitle: STR(@"密码"), FXFormFieldCell: [CUTEFormTextFieldCell class],  FXFormFieldAction: @"onPasswordEdit:"},
              @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"登录"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
-             @{FXFormFieldKey: @"resetPassword", FXFormFieldTitle: STR(@"重置密码"), FXFormFieldHeader: STR(@"忘记密码？"), FXFormFieldCell: [CUTEFormCenterTextCell class], @"textLabel.textColor": CUTE_MAIN_COLOR, FXFormFieldAction: @"resetPassword"},
+             @{FXFormFieldKey: @"resetPassword", FXFormFieldTitle: STR(@"通过短信重置密码"), FXFormFieldHeader: STR(@"忘记密码？"), FXFormFieldCell: [CUTEFormCenterTextCell class], FXFormFieldAction: @"resetPassword"},
+             @{FXFormFieldKey: @"resetPasswordWithEmail", FXFormFieldTitle: STR(@"通过邮箱重置密码"), FXFormFieldCell: [CUTEFormCenterTextCell class], FXFormFieldAction: @"resetPasswordWithEmail"},
              ];
 }
 

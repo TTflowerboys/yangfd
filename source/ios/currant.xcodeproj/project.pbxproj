@@ -154,6 +154,14 @@
 		2C1251D31B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251D11B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m */; };
 		2C1251D41B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251D11B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m */; };
 		2C1251D51B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1251D11B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m */; };
+		2C1A95E11B75A73200483A74 /* CUTERentPassword2Form.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A95E01B75A73200483A74 /* CUTERentPassword2Form.m */; };
+		2C1A95E41B75A79400483A74 /* CUTERentPassword2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A95E31B75A79400483A74 /* CUTERentPassword2ViewController.m */; };
+		2C1A95E51B75A90D00483A74 /* CUTERentPassword2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A95E31B75A79400483A74 /* CUTERentPassword2ViewController.m */; };
+		2C1A95E61B75A90D00483A74 /* CUTERentPassword2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A95E31B75A79400483A74 /* CUTERentPassword2ViewController.m */; };
+		2C1A95E71B75A90E00483A74 /* CUTERentPassword2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A95E31B75A79400483A74 /* CUTERentPassword2ViewController.m */; };
+		2C1A95E81B75A91600483A74 /* CUTERentPassword2Form.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A95E01B75A73200483A74 /* CUTERentPassword2Form.m */; };
+		2C1A95E91B75A91700483A74 /* CUTERentPassword2Form.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A95E01B75A73200483A74 /* CUTERentPassword2Form.m */; };
+		2C1A95EA1B75A91800483A74 /* CUTERentPassword2Form.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A95E01B75A73200483A74 /* CUTERentPassword2Form.m */; };
 		2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
@@ -797,6 +805,10 @@
 		2C1251CE1B54A9D20037F5B6 /* CUTEUnfinishedRentTicketUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUnfinishedRentTicketUITest.m; sourceTree = "<group>"; };
 		2C1251D01B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUnfinishedRentTicketListForm.h; sourceTree = "<group>"; };
 		2C1251D11B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUnfinishedRentTicketListForm.m; sourceTree = "<group>"; };
+		2C1A95DF1B75A73200483A74 /* CUTERentPassword2Form.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPassword2Form.h; sourceTree = "<group>"; };
+		2C1A95E01B75A73200483A74 /* CUTERentPassword2Form.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPassword2Form.m; sourceTree = "<group>"; };
+		2C1A95E21B75A79400483A74 /* CUTERentPassword2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPassword2ViewController.h; sourceTree = "<group>"; };
+		2C1A95E31B75A79400483A74 /* CUTERentPassword2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPassword2ViewController.m; sourceTree = "<group>"; };
 		2C1E66F01AE4EEA30014EEA6 /* CUTERentPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPeriod.h; sourceTree = "<group>"; };
 		2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPeriod.m; sourceTree = "<group>"; };
 		2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -1262,6 +1274,8 @@
 				2C056D481B423AB20075037A /* CUTERentLoginViewController.m */,
 				2C056D491B423AB20075037A /* CUTERentPasswordViewController.h */,
 				2C056D4A1B423AB20075037A /* CUTERentPasswordViewController.m */,
+				2C1A95E21B75A79400483A74 /* CUTERentPassword2ViewController.h */,
+				2C1A95E31B75A79400483A74 /* CUTERentPassword2ViewController.m */,
 				2CE2A98B1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.h */,
 				2CE2A98C1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m */,
 				2CE2A9911B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.h */,
@@ -1285,6 +1299,8 @@
 				2C056D701B423ABD0075037A /* CUTERentLoginForm.m */,
 				2C056D711B423ABD0075037A /* CUTERentPasswordForm.h */,
 				2C056D721B423ABD0075037A /* CUTERentPasswordForm.m */,
+				2C1A95DF1B75A73200483A74 /* CUTERentPassword2Form.h */,
+				2C1A95E01B75A73200483A74 /* CUTERentPassword2Form.m */,
 				2CE2A97F1B68E1680089ED20 /* CUTERentConfirmPhoneForm.h */,
 				2CE2A9801B68E1680089ED20 /* CUTERentConfirmPhoneForm.m */,
 				2CE2A9851B68E17E0089ED20 /* CUTERentVerifyPhoneForm.h */,
@@ -2466,6 +2482,7 @@
 				2CF8A6061AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CF234801B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */,
 				2CD15D431B6213FF00C870C0 /* CUTEActivityView.m in Sources */,
+				2C1A95E91B75A91700483A74 /* CUTERentPassword2Form.m in Sources */,
 				2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */,
 				2CC6C1D81AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
 				2CB86ACB1B5E1C170065EE56 /* CUTENeighborhood.m in Sources */,
@@ -2478,6 +2495,7 @@
 				2CA81FA31B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB7490F1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C0AE11E1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
+				2C1A95E61B75A90D00483A74 /* CUTERentPassword2ViewController.m in Sources */,
 				2CC6C1ED1AEE2E59002758A7 /* CUTERentTicketPublisher.m in Sources */,
 				2C4AEC811AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A6101AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
@@ -2616,6 +2634,7 @@
 				2CF8A6071AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CF234811B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */,
 				2CD15D441B6213FF00C870C0 /* CUTEActivityView.m in Sources */,
+				2C1A95EA1B75A91800483A74 /* CUTERentPassword2Form.m in Sources */,
 				2CA2E6C71AC5496700053965 /* AppDelegate.m in Sources */,
 				2CC6C1D91AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
 				2CB86ACC1B5E1C170065EE56 /* CUTENeighborhood.m in Sources */,
@@ -2628,6 +2647,7 @@
 				2CA81FA41B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB749101ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C0AE11F1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
+				2C1A95E71B75A90E00483A74 /* CUTERentPassword2ViewController.m in Sources */,
 				2CC6C1EE1AEE2E59002758A7 /* CUTERentTicketPublisher.m in Sources */,
 				2C4AEC821AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A6111AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
@@ -2766,6 +2786,7 @@
 				2CF8A6051AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CF2347F1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */,
 				2CD15D421B6213FF00C870C0 /* CUTEActivityView.m in Sources */,
+				2C1A95E81B75A91600483A74 /* CUTERentPassword2Form.m in Sources */,
 				2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */,
 				2CC6C1D71AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
 				2CB86ACA1B5E1C170065EE56 /* CUTENeighborhood.m in Sources */,
@@ -2778,6 +2799,7 @@
 				2CA81FA21B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB7490E1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C0AE11D1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
+				2C1A95E51B75A90D00483A74 /* CUTERentPassword2ViewController.m in Sources */,
 				2CC6C1EC1AEE2E59002758A7 /* CUTERentTicketPublisher.m in Sources */,
 				2C4AEC801AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A60F1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
@@ -2951,6 +2973,7 @@
 				2CF8A67D1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9B1AD37D34000378A9 /* CUTETicket.m in Sources */,
+				2C1A95E11B75A73200483A74 /* CUTERentPassword2Form.m in Sources */,
 				2CCE67FB1B1C397E00351DED /* CUTEListViewController.m in Sources */,
 				2C056D3B1B423A110075037A /* CUTESettingForm.m in Sources */,
 				2C056D941B423B4D0075037A /* CUTESplashViewController.m in Sources */,
@@ -2976,6 +2999,7 @@
 				2C427E541AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2CF8A6A71AF0C2620080DF10 /* BBTPickerView.m in Sources */,
 				2CA81FCB1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
+				2C1A95E41B75A79400483A74 /* CUTERentPassword2ViewController.m in Sources */,
 				2C7520431ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2C056D631B423AB20075037A /* CUTERentPasswordViewController.m in Sources */,
 				2C056DA41B423BBA0075037A /* CUTEFormViewController.m in Sources */,
