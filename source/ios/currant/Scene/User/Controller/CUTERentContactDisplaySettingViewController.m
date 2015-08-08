@@ -21,6 +21,7 @@
 #import "Sequencer.h"
 #import "CUTEAPIManager.h"
 #import "CUTEUsageRecorder.h"
+#import "NSArray+ObjectiveSugar.h"
 
 @interface CUTERentContactDisplaySettingViewController ()
 
@@ -105,12 +106,11 @@
                 [[CUTEUsageRecorder sharedInstance] savePublishedTicketWithId:self.ticket.identifier];
                 TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
 
-                NSArray *screeNames = @[GetScreenNameFromClass([CUTERentTypeListViewController class]),
-                                        GetScreenNameFromClass([CUTERentAddressMapViewController class]),
-                                        GetScreenNameFromClass([CUTERentPropertyInfoViewController class]),
-                                        GetScreenNameFromClass([CUTERentTicketPreviewViewController class]),
-                                        GetScreenNameFromClass([CUTERentContactDisplaySettingViewController class])];
-                TrackScreensStayDuration(KEventCategoryPostRentTicket, screeNames);
+                NSArray *screenNames = [[self.navigationController viewControllers] map:^id(UIViewController *object) {
+                    return GetScreenName(object);
+                }];
+                //Notice: one only one ticket in publishing, so not calculate the duration base on different ticket
+                TrackScreensStayDuration(KEventCategoryPostRentTicket, screenNames);
                 [SVProgressHUD showSuccessWithStatus:STR(@"发布成功")];
                 [self.navigationController popToRootViewControllerAnimated:NO];
 
