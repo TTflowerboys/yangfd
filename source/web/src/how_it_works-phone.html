@@ -167,7 +167,7 @@
  })
 
  %if intention_list:
- var slugFromURL = window.team.getQuery('slug', location.href)
+ var slugFromURL = window.team.getQuery('slug', window.location.href)
  if (slugFromURL) {
      window.updatePage(slugFromURL)
  }
