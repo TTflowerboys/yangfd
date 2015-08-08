@@ -19,7 +19,7 @@
                 {{_('分享到微信')}}
             </button>
             <button class="flatButton orange" onclick="team.shareToWeibo({
-            title:'{{rent.get('title','')}}{{rent.get('description','')}}',
+            title:'{{rent.get('title','')}} {{rent.get('description','')}}',
             url: location.protocol + '//' + location.host + '/property-to-rent/{{rent.get('id')}}'
             % if len(rent.get('property',{}).get('reality_images', [])):
             ,pic:'{{rent.get('property',{}).get('reality_images', [])[0]}}'
