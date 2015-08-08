@@ -342,6 +342,9 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                 ticket["price"]["value"] = str(ticket["price"]["value_float"])
                 ticket_database.update({"_id": ticket["_id"]}, {"$set": {"deposit": ticket["price"]}})
 
+    def v18(self, m):
+        f_app.enum.get_database(m).ensure_index([("type", ASCENDING), ("sort_value", ASCENDING)])
+
 currant_mongo_upgrade()
 
 

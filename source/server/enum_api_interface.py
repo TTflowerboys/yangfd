@@ -25,6 +25,7 @@ def enum_list(params):
 @f_api('/enum/add', params=dict(
     type=(str, True),
     value=("i18n", True, str),
+    sort_value=int,
     # Field for message_api_interface
     country="country",
     state="enum:state",
@@ -69,6 +70,7 @@ def enum_add(user, params):
 @f_api('/enum/<enum_id>/edit', params=dict(
     type=str,
     value=("i18n", None, str),
+    sort_value=int,
     country="country",
     state="enum:state",
     currency=str,
@@ -92,10 +94,12 @@ def enum_edit(user, enum_id, params):
     time=datetime,
     currency=str,
     type=str,
+    sort=bool,
 ))
 def enum_search(params):
     per_page = params.pop("per_page", 0)
-    return f_app.enum.get(f_app.enum.search(params, per_page=per_page))
+    sort = params.pop("sort", False)
+    return f_app.enum.get(f_app.enum.search(params, per_page=per_page, sort=("sort_value", "desc") if sort else ("time", "desc")))
 
 
 @f_api('/enum/<enum_id>/check')
