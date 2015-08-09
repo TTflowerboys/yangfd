@@ -40,6 +40,8 @@ def how_it_works(params):
         for intention in f_app.enum.get_all('intention'):
             if intention.get('slug') == current_intention_title:
                 current_intention = intention
+                break
+        else: current_intention = f_app.enum.get_all('intention')[0]
     else:
         current_intention = f_app.enum.get_all('intention')[0]
     current_intention = f_app.i18n.process_i18n(current_intention)
