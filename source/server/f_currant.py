@@ -1809,7 +1809,7 @@ class f_property(f_app.module_base):
 
         search_command = SON([
             ('geoNear', self.property_database),
-            ('near', [longitude, latitude]),
+            ('near', [float(longitude), float(latitude)]),
             ('maxDistance', search_range * 1.0 / f_app.common.earth_radius),
             ('spherical', True),
             ('query', params),
