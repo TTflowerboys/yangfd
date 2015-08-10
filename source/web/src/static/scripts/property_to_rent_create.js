@@ -710,6 +710,9 @@
         } else {
             delete propertyData.cover
         }
+        if($('#cooperation').length && $('#cooperation').is(':checked')){
+            propertyData.partner = true
+        }
         return propertyData
     }
 

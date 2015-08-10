@@ -548,7 +548,12 @@
                 </table>
             </div>
         </form>
-
+        % if user and set(user.get('role')) & set(['jr_admin','admin','jr_operation','operation']):
+        <div class="cooperation">
+            <input id="cooperation" type="checkbox">
+            <label for="cooperation">是否为平台合作房源</label>
+        </div>
+        % end
         <div class="errorMsg" style="display: none;"></div>
         <div style="text-align: center">
             %if rent.get('property',{}) and rent.get('property',{}).get('id',''):
