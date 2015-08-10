@@ -40,7 +40,7 @@
                             {_if(rent.property.partner) {_}
                                 <p class="partner">{=window.i18n('平台合作房源')=}</p>
                             {_}else { _}
-                                {_if(rent.last_modified_time > rent.time ) {_}
+                                {_if(rent.last_modified_time - rent.time > 1000) {_}
                                     <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('更新过')=}</p>
                                 {_}else{_}
                                     <p class="date">{!team.parsePublishDate(parseInt(rent.time))!}{=window.i18n('发布')=}</p>
