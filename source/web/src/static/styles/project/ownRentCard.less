@@ -2,6 +2,7 @@
 @import "_imports";
 @border-width: 2px;
 @padding-top: 20px;
+@light-blue:rgb(0,168,255);
 
 .rentCard {
     float:left; position: relative; border-top: @border-width solid @border-color; font-size: 14px; color: @grey;
@@ -159,6 +160,22 @@
 
                 @media @phone {
                     position:relative;
+                }
+            }
+
+            .partner {
+                margin-top: @standard-margin;
+                margin-right: @standard-margin;
+                width:100px;
+                padding: 1px;
+                text-align:center;
+                color: @light-blue;
+                border:1px solid @light-blue;
+                float: right;
+
+                @media @phone {
+                    position:relative;
+                    margin-right: inherit;
                 }
             }
         }
