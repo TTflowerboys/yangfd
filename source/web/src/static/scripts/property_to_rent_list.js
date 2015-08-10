@@ -293,6 +293,11 @@
         }
     }
 
+    var partnerFromURL = window.team.getQuery('partner',location.href)
+    if (partnerFromURL) {
+        //TODO
+    }
+
     //在城市选择上使用chosen插件
     function initChosen (elem, config) {
         var defaultConfit = {
