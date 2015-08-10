@@ -3264,6 +3264,18 @@ class f_hesa(f_app.plugin_base):
     def university_get_by_hesa_id(self, hesa_id):
         return self.university.search({"hesa_id": hesa_id})
 
+    def university_update(self, university_id, params):
+        with f_app.mongo() as m:
+            self.university.get_database(m).update(
+                {"_id": ObjectId(university_id)},
+                params,
+            )
+        university = self.university.get(university_id, force_reload=True)
+        return university
+
+    def university_update_set(self, university_id, params):
+        return self.university.update(university_id, {"$set": params})
+
     def university_import(self, filename, country="GB"):
         with open(filename) as f:
             rows = csv.reader(f.readlines())
