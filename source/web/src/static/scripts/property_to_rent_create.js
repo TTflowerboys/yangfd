@@ -750,7 +750,7 @@
             ticketData.rent_deadline_time = new Date($('#rentPeriodEndDate').val()).getTime() / 1000
         }
         if($('#minimumRentPeriod').val()) {
-            ticketData.minimum_rent_period = JSON.stringify({unit: $('#minimumRentPeriod').val().split(',')[1], value: $('#minimumRentPeriod').val().split(',')[0]})
+            ticketData.minimum_rent_period = JSON.stringify({unit: $('#minimumRentPeriodUnit').val(), value: $('#minimumRentPeriod').val()})
         }
         return ticketData
     }
