@@ -286,6 +286,19 @@ def maponics_neighborhood_search(params):
     return neighborhoods
 
 
+@f_api('/hesa_university/<hesa_university_id>')
+def hesa_university(hesa_university_id):
+    return f_app.hesa.university.get(hesa_university_id)
+
+
+@f_api('/hesa_university/<hesa_university_id>/edit', params=dict(
+    city='geonames_gazetteer:city',
+))
+@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
+def hesa_university_edit(hesa_university_id, params):
+    return f_app.hesa.university.update_set(hesa_university_id, params)
+
+
 @f_api('/hesa_university/search', params=dict(
     country="country",
     postcode=str,
