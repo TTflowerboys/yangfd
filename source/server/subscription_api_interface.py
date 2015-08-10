@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
     tag=(list, ["invitation"], str),
 ))
 def subscription_add(params):
-    if "invitation" in params:
+    if "invitation" in params["tag"]:
         target_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales", "admin", "operation"]}}))
         for target in target_list:
             if "email" in target:

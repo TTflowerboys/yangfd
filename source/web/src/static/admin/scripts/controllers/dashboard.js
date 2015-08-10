@@ -11,7 +11,7 @@
             .then(function (user) {
                 if (_.isEmpty(user.role)) {
                     growl.addErrorMessage($rootScope.renderHtml(errors[40105]), {enableHtml: true})
-                    location.href = '/'
+                    window.location.href = '/'
                     return
                 }
                 angular.extend($scope.user, user)

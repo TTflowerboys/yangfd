@@ -73,25 +73,35 @@
 
 - (void)trackStayDurationWithCategory:(NSString *)category screenName:(NSString *)screenName {
     NSTimeInterval startTime = [[CUTEUsageRecorder sharedInstance] getScreenLastVistiTime:screenName];
+#ifdef DEBUG
+    NSAssert(!fequalzero(startTime), @"[%@|%@|%d] %@ %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ , screenName, @"Start time should not be zero");
+#endif
     NSTimeInterval endTime = [NSDate date].timeIntervalSince1970;
+    NSNumber *interval = @((NSUInteger)((endTime - startTime) * 1000));
 
-    GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createTimingWithCategory:category interval:@((NSUInteger)((endTime - startTime) * 1000)) name:kEventActionStay label:screenName];
-    [self setupCommonParams:builder];
-    [_tracker send:builder.build];
+    [self trackTimingWithCategory:category action:kEventActionStay label:screenName interval:interval];
+    [self trackEventWithCategory:category action:kEventActionStay label:screenName value:interval];
 }
 
 - (void)trackStayDurationWithCategory:(NSString *)category screenNames:(NSArray *)screenNames {
-    __block NSTimeInterval totalTime = 0;
+    NSTimeInterval startTime = [[CUTEUsageRecorder sharedInstance] getScreenLastVistiTime:screenNames.firstObject];
+#ifdef DEBUG
+    NSAssert(!fequalzero(startTime), @"[%@|%@|%d] %@ %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ , screenNames.firstObject, @"Start time should not be zero");
+#endif
+    NSTimeInterval totalTime = [[NSDate date] timeIntervalSince1970] - startTime;
     NSMutableString *label = [NSMutableString stringWithString:@"total"];
     [screenNames each:^(NSString* screenName) {
-        NSTimeInterval startTime = [[CUTEUsageRecorder sharedInstance] getScreenLastVistiTime:screenName];
-        NSTimeInterval endTime = [NSDate date].timeIntervalSince1970;
-        totalTime += (endTime - startTime);
         [label appendString:@":"];
         [label appendString:screenName];
     }];
+    NSNumber *interval = @((NSUInteger)(totalTime * 1000));
 
-    GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createTimingWithCategory:category interval:@((NSUInteger)(totalTime * 1000)) name:kEventActionStay label:label];
+    [self trackTimingWithCategory:category action:kEventActionStay label:label interval:interval];
+    [self trackEventWithCategory:category action:kEventActionStay label:label value:interval];
+}
+
+- (void)trackTimingWithCategory:(NSString *)category action:(NSString *)action label:(NSString *)label interval:(NSNumber *)interval {
+    GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createTimingWithCategory:category interval:interval name:action label:label];
     [self setupCommonParams:builder];
     [_tracker send:builder.build];
 }

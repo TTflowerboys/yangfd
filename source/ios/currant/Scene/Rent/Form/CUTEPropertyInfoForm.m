@@ -35,7 +35,7 @@
              @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldAction: @"editRentPrice"},
              @{FXFormFieldKey: @"rentPeriod", FXFormFieldTitle:STR(@"租期"), FXFormFieldAction: @"editRentPeriod"},
                 @{FXFormFieldKey: @"propertyType", FXFormFieldTitle:STR(@"房产类型"),FXFormFieldOptions: _allPropertyTypes, FXFormFieldDefaultValue: [self defaultPropertyType], FXFormFieldAction: @"editPropertyType"},
-             @{FXFormFieldKey: @"rooms", FXFormFieldTitle:STR(@"房屋户型"), FXFormFieldCell: [CUTEFormRoomsPickerCell class], @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"editRooms:"},
+             @{FXFormFieldKey: @"rooms", FXFormFieldTitle:STR(@"房屋户型（可选Studio）"), FXFormFieldCell: [CUTEFormRoomsPickerCell class], @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"editRooms:"},
              @{FXFormFieldKey: @"rentType", FXFormFieldTitle:STR(@"出租类型"), FXFormFieldAction: @"editRentType"},
              @{FXFormFieldKey: @"rentAddress", FXFormFieldTitle:STR(@"房产地址"), FXFormFieldAction: @"editAddress"},
              @{FXFormFieldKey: @"moreInfo", FXFormFieldTitle:STR(@"更多详情和配套设施描述（选填）"), FXFormFieldAction: @"editMoreInfo"},

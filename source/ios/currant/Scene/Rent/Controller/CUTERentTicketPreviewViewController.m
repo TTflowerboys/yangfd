@@ -26,6 +26,11 @@
 
 @implementation CUTERentTicketPreviewViewController
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    TrackScreen(GetScreenName(self));
+}
+
 - (void)updateTitleWithURL:(NSURL *)url {
     if (!self.navigationItem.title) {
         self.navigationItem.title = STR(@"预览房源移动主页");

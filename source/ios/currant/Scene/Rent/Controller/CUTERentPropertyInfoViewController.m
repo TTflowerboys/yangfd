@@ -315,8 +315,6 @@
 
 
 - (BOOL)validate {
-    CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;
-
     if (!self.form.ticket.price) {
         [SVProgressHUD showErrorWithStatus:STR(@"请编辑租金")];
         return NO;

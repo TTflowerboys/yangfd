@@ -173,7 +173,7 @@
                 $('.wechatPage_popup').find('.close-modal').hide()
             }
             else {
-                location.href = "/wechat_share?news=" + newsId
+                window.location.href = "/wechat_share?news=" + newsId
             }
         }
 
@@ -222,14 +222,14 @@
 
         $('[data-fn=shareToWeChat]').on('click', function () {
             $('#popupShareToWeChat')
-                .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.href)).end()
+                .find('img').prop('src', '/qrcode/generate?content=' + encodeURIComponent(window.location.href)).end()
                 .modal()
             ga('send', 'event', 'news', 'share', 'open-wechat')
         })
 
         $('[data-fn=shareToWeibo]').on('click', function () {
             var news = JSON.parse($('#newsData').text())
-            var params = {'title': news.title, 'url': location.href}
+            var params = {'title': news.title, 'url': window.location.href}
             if (news.images && news.images.length > 0) {
                 params.pic = news.images[0]
             }

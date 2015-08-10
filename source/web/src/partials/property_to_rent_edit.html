@@ -249,12 +249,13 @@
                             <div class="text">
                                 {{_('房屋户型')}}
                             </div>
+                            <div class="tip">{{_('(可选studio)')}}</div>
                         </td>
                         <td class="room_count">
                             <div>
                                 <select id="bedroom_count" data-trigger="updateTitle">
                                     %for index,value in enumerate(['studio',1,2,3,4,5]):
-                                    %if rent.get('property',{}).get('bedroom_count',0) == index:
+                                    %if rent.get('property',{}).get('bedroom_count',1) == index:
                                     <option value="{{index}}" selected>{{value}}</option>
                                     %else:
                                     <option value="{{index}}">{{value}}</option>
@@ -266,7 +267,7 @@
                             <div>
                                 <select id="living_room_count">
                                     %for index,value in enumerate([0,1,2,3,4,5]):
-                                    %if rent.get('property',{}).get('living_room_count',0) == value:
+                                    %if rent.get('property',{}).get('living_room_count',1) == value:
                                     <option value="{{value}}" selected>{{value}}</option>
                                     %else:
                                     <option value="{{value}}">{{value}}</option>
@@ -290,7 +291,7 @@
                             <div>
                                 <select id="bathroom_count">
                                     %for index,value in enumerate([0,1,2,3]):
-                                    %if rent.get('property',{}).get('bathroom_count',0) == value:
+                                    %if rent.get('property',{}).get('bathroom_count',1) == value:
                                     <option value="{{value}}" selected>{{value}}</option>
                                     %else:
                                     <option value="{{value}}">{{value}}</option>

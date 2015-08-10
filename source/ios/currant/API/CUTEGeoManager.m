@@ -19,6 +19,7 @@
 #import "BBTJSON.h"
 #import "INTULocationManager.h"
 #import "CUTEPostcodePlace.h"
+#import "Sequencer.h"
 
 @implementation CUTEGeoManager
 
@@ -75,127 +76,185 @@
     return tcs.task;
 }
 
+- (BFTask *)requsetReverseGeocodeLocation:(CLLocation *)location {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+
+    NSString *geocoderURLString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/geocode/json?latlng=%lf,%lf&key=%@&language=en", location.coordinate.latitude, location.coordinate.longitude, [CUTEConfiguration googleAPIKey]];
+    [[self reverseProxyWithLink:geocoderURLString] continueWithBlock:^id(BFTask *task) {
+        NSDictionary *dic = task.result;
+        NSDictionary *result = nil;
+        if (dic && dic[@"results"] && !IsArrayNilOrEmpty(dic[@"results"])) {
+            result = dic[@"results"][0];
+        }
+        if (result) {
+            CUTEPlacemark *placemark = [CUTEPlacemark placeMarkWithGoogleResult:result];
+
+            [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
+                if (!IsArrayNilOrEmpty(task.result)) {
+                    NSArray *coutries = [(NSArray *)task.result select:^BOOL(CUTECountry *object) {
+                        return [[object ISOcountryCode] isEqualToString:placemark.country.ISOcountryCode];
+                    }];
+                    CUTECountry *country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
+                    [[[CUTEAPICacheManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
+                        NSArray *cities = task.result;
+                        if (!IsArrayNilOrEmpty(cities)) {
+                            CUTECity *city = [cities find:^BOOL(CUTECity *object) {
+                                return [[[placemark city].name lowercaseString] hasPrefix:[[object name] lowercaseString]];
+                            }];
+                            placemark.country = country;
+                            placemark.city = city;
+                            [tcs setResult:placemark];
+                        }
+                        else {
+                            [tcs setError:task.error];
+                        }
+
+                        return task;
+                    }];
+                }
+                else {
+                    [tcs setError:task.error];
+                }
+
+                return task;
+            }];
+
+        }
+        else {
+            [tcs setError:task.error];
+        }
+        return nil;
+    }];
+    return tcs.task;
+}
 
 - (BFTask *)reverseGeocodeLocation:(CLLocation *)location {
 
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    NSString *geocoderURLString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/geocode/json?latlng=%lf,%lf&key=%@&language=en", location.coordinate.latitude, location.coordinate.longitude, [CUTEConfiguration googleAPIKey]];
 
-    __block NSInteger retryCount = 3;
-    __block dispatch_block_t requestBlock;
+    Sequencer *sequencer = [Sequencer new];
 
-    requestBlock = ^ {
-
-        [[self reverseProxyWithLink:geocoderURLString] continueWithBlock:^id(BFTask *task) {
-            NSDictionary *dic = task.result;
-            NSDictionary *result = nil;
-            if (dic && dic[@"results"] && !IsArrayNilOrEmpty(dic[@"results"])) {
-                result = dic[@"results"][0];
-            }
-            if (result) {
-                CUTEPlacemark *placemark = [CUTEPlacemark placeMarkWithGoogleResult:result];
-
-                [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
-                    if (!IsArrayNilOrEmpty(task.result)) {
-                        NSArray *coutries = [(NSArray *)task.result select:^BOOL(CUTECountry *object) {
-                            return [[object ISOcountryCode] isEqualToString:placemark.country.ISOcountryCode];
-                        }];
-                        CUTECountry *country = IsArrayNilOrEmpty(coutries)? nil: [coutries firstObject];
-                        [[[CUTEAPICacheManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
-                            NSArray *cities = task.result;
-                            if (!IsArrayNilOrEmpty(cities)) {
-                                CUTECity *city = [cities find:^BOOL(CUTECity *object) {
-                                    return [[[placemark city].name lowercaseString] hasPrefix:[[object name] lowercaseString]];
-                                }];
-                                placemark.country = country;
-                                placemark.city = city;
-                                [tcs setResult:placemark];
-                                retryCount = 0;
-                            }
-                            else {
-                                if (retryCount == 0) {
-                                    [tcs setError:task.error];
-                                }
-                                else {
-                                    retryCount--;
-                                    requestBlock();
-                                }
-                            }
-
-                            return task;
-                        }];
-                    }
-                    else {
-                        if (retryCount == 0) {
-                            [tcs setError:task.error];
-                        }
-                        else {
-                            retryCount--;
-                            requestBlock();
-                        }
-                    }
-                    
-                    return task;
-                }];
-                
+    //retry for 3 times
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[self requsetReverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
+            if (task.result) {
+                [tcs setResult:task.result];
             }
             else {
-                if (retryCount == 0) {
-                    [tcs setError:task.error];
-                }
-                else {
-                    [[CUTETracker sharedInstance] trackError:task.error];
-                    retryCount--;
-                    requestBlock();
-                }
+                [[CUTETracker sharedInstance] trackError:task.error];
+                completion(task.error);
             }
-            return nil;
+            return task;
         }];
-    };
+    }];
 
-    retryCount--;
-    requestBlock();
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[self requsetReverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
+            if (task.result) {
+                [tcs setResult:task.result];
+            }
+            else {
+                [[CUTETracker sharedInstance] trackError:task.error];
+                completion(task.error);
+            }
+            return task;
+        }];
+    }];
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[self requsetReverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
+            if (task.result) {
+                [tcs setResult:task.result];
+            }
+            else {
+                [[CUTETracker sharedInstance] trackError:task.error];
+                [tcs setError:task.error];
+            }
+            return task;
+        }];
+    }];
+
+    
+    [sequencer run];
 
     return tcs.task;
 }
 
-- (BFTask *)geocodeWithAddress:(NSString *)address components:(NSString *)components {
+- (BFTask *)requestGeocodeWithAddress:(NSString *)address components:(NSString *)components  {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     NSString *geocoderURLString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/geocode/json?key=%@&language=en&components=%@", [CUTEConfiguration googleAPIKey], [components URLEncode]];
     if (!IsNilNullOrEmpty(address)) {
         geocoderURLString = CONCAT(geocoderURLString, @"&", @"address=", [address URLEncode]);
     }
 
-    __block NSInteger retryCount = 3;
-    __block dispatch_block_t requestBlock;
-    requestBlock = ^ {
-        [[self reverseProxyWithLink:geocoderURLString] continueWithBlock:^id(BFTask *task) {
-            NSDictionary *dic = task.result;
-            NSDictionary *result = nil;
-            if (dic && dic[@"results"] && !IsArrayNilOrEmpty(dic[@"results"])) {
-                result = dic[@"results"][0];
-            }
-            if (result) {
-                CUTEPlacemark *placemark = [CUTEPlacemark placeMarkWithGoogleResult:result];
-                [tcs setResult:placemark];
-                retryCount = 0;
+    [[self reverseProxyWithLink:geocoderURLString] continueWithBlock:^id(BFTask *task) {
+        NSDictionary *dic = task.result;
+        NSDictionary *result = nil;
+        if (dic && dic[@"results"] && !IsArrayNilOrEmpty(dic[@"results"])) {
+            result = dic[@"results"][0];
+        }
+        if (result) {
+            CUTEPlacemark *placemark = [CUTEPlacemark placeMarkWithGoogleResult:result];
+            [tcs setResult:placemark];
+        }
+        else {
+            [tcs setError:task.error];
+        }
+        return nil;
+    }];
+    return tcs.task;
+}
+
+- (BFTask *)geocodeWithAddress:(NSString *)address components:(NSString *)components {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+
+    Sequencer *sequencer = [Sequencer new];
+
+    //retry for 3 times
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[self requestGeocodeWithAddress:address components:components] continueWithBlock:^id(BFTask *task) {
+            if (task.result) {
+                [tcs setResult:task.result];
             }
             else {
-                if (retryCount == 0) {
-                    [tcs setError:task.error];
-                }
-                else {
-                    [[CUTETracker sharedInstance] trackError:task.error];
-                    retryCount--;
-                    requestBlock();
-                }
+                [[CUTETracker sharedInstance] trackError:task.error];
+                completion(task.error);
             }
-            return nil;
+            return task;
         }];
-    };
 
-    retryCount--;
-    requestBlock();
+    }];
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[self requestGeocodeWithAddress:address components:components] continueWithBlock:^id(BFTask *task) {
+            if (task.result) {
+                [tcs setResult:task.result];
+            }
+            else {
+                [[CUTETracker sharedInstance] trackError:task.error];
+                completion(task.error);
+            }
+            return task;
+        }];
+
+    }];
+
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[self requestGeocodeWithAddress:address components:components] continueWithBlock:^id(BFTask *task) {
+            if (task.result) {
+                [tcs setResult:task.result];
+            }
+            else {
+                [[CUTETracker sharedInstance] trackError:task.error];
+                [tcs setError:task.error];
+            }
+            return task;
+        }];
+
+    }];
+
+    
+    [sequencer run];
 
     return tcs.task;
 }

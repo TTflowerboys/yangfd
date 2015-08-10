@@ -49,6 +49,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    TrackScreen(GetScreenName(self));
 }
 
 - (void)refreshTable {
@@ -119,6 +120,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     TrackEvent(GetScreenName(self), kEventActionPress, @"item", nil);
+    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
 
     CUTETicket *ticket = [self.form.unfinishedRentTickets objectAtIndex:indexPath.row];
     if (ticket) {

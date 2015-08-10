@@ -29,7 +29,7 @@
 <script>
  var requirementContainer = $('main')
  window.resetRequirementForm(requirementContainer)
- window.setRequirementFormContent(requirementContainer, team.getQuery('budget', location.href), team.getQuery('intention', location.href))
+ window.setRequirementFormContent(requirementContainer, team.getQuery('budget', window.location.href), team.getQuery('intention', location.href))
 
  window.setupRequirementForm(requirementContainer, function () {
      setTimeout(function () {
