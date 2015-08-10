@@ -109,7 +109,7 @@
                 .bind('keyup', function () {
                     var input = $(this).val()
                     var containInputData = _.filter(_this.data, function (obj) {
-                        return obj.text.toLowerCase().indexOf(input.toLowerCase()) === 0
+                        return obj.text.toLowerCase().indexOf(input.toLowerCase()) >= 0
                     })
                     _this.update(containInputData)
                 })
