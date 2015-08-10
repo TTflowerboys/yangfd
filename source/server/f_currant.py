@@ -1809,7 +1809,7 @@ class f_property(f_app.module_base):
 
         search_command = SON([
             ('geoNear', self.property_database),
-            ('near', [longitude, latitude]),
+            ('near', [float(longitude), float(latitude)]),
             ('maxDistance', search_range * 1.0 / f_app.common.earth_radius),
             ('spherical', True),
             ('query', params),
@@ -2299,7 +2299,7 @@ class f_currant_util(f_util):
     # TODO: now we only consider UK
     def find_region_report(self, zipcode, maponics_neighborhood_id=None):
         # Try to find neighborhood first
-        if maponics_neighborhood_id:
+        if False and maponics_neighborhood_id:
             region_report = f_app.report.search({"maponics_neighborhood._id": ObjectId(maponics_neighborhood_id)})
             if len(region_report) == 1:
                 return region_report[0]
