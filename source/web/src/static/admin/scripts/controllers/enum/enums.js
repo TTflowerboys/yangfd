@@ -65,7 +65,7 @@
             }
 
             $scope.item.value = _.object($scope.item.tempValues)
-            api.addEnum($scope.item.type, $scope.item.value, $scope.item.slug)
+            api.addEnum($scope.item.type, $scope.item.value, $scope.item.slug, $scope.item.sort_value)
                 .success(function () {
                     $scope.item.value = undefined
                     $scope.item.tempValues = undefined
@@ -74,10 +74,10 @@
         $scope.editI18nEnum = function ($event, form) {
 
             $scope.item.value = _.object($scope.item.tempValues)
-            api.editEnum($stateParams.id, $scope.item.type, $scope.item.value, $scope.item.slug)
+            api.editEnum($stateParams.id, $scope.item.type, $scope.item.value, $scope.item.slug, $scope.item.sort_value)
                 .success(function () {
                     $state.go('^')
-                    location.reload()
+                    //location.reload()
                 })
         }
         $scope.addCountry = function ($event, form) {
@@ -87,7 +87,7 @@
                 return
             }
             $scope.item.value = _.object($scope.item.tempValues)
-            api.addCountry($scope.item.slug, $scope.item.value)
+            api.addCountry($scope.item.slug, $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $scope.item.slug = undefined
                     $scope.item.value = undefined
@@ -97,10 +97,10 @@
         $scope.editCountry = function ($event, form) {
 
             $scope.item.value = _.object($scope.item.tempValues)
-            api.editCountry($stateParams.id, $scope.item.slug, $scope.item.value)
+            api.editCountry($stateParams.id, $scope.item.slug, $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $state.go('^')
-                    location.reload()
+                    //location.reload()
                 })
         }
         $scope.addState = function ($event, form) {
@@ -109,7 +109,7 @@
                 return
             }
             $scope.item.value = _.object($scope.item.tempValues)
-            api.addState($scope.item.country, $scope.item.value)
+            api.addState($scope.item.country, $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $scope.item.value = undefined
                     $scope.item.tempValues = undefined
@@ -118,10 +118,10 @@
         $scope.editState = function ($event, form) {
 
             $scope.item.value = _.object($scope.item.tempValues)
-            api.editState($stateParams.id, $scope.item.country, $scope.item.value)
+            api.editState($stateParams.id, $scope.item.country, $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $state.go('^')
-                    location.reload()
+                    //location.reload()
                 })
         }
         $scope.addCity = function ($event, form) {
@@ -130,7 +130,7 @@
                 return
             }
             $scope.item.value = _.object($scope.item.tempValues)
-            api.addCity($scope.item.country, $scope.item.value)
+            api.addCity($scope.item.country, $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $scope.item.value = undefined
                     $scope.item.tempValues = undefined
@@ -139,10 +139,10 @@
         $scope.editCity = function ($event, form) {
 
             $scope.item.value = _.object($scope.item.tempValues)
-            api.editCity($stateParams.id, $scope.item.country, $scope.item.value)
+            api.editCity($stateParams.id, $scope.item.country, $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $state.go('^')
-                    location.reload()
+                    //location.reload()
                 })
         }
         $scope.removeI18nValue = function (index) {
@@ -175,7 +175,7 @@
                 return
             }
             $scope.item.value = _.object($scope.item.tempValues)
-            api.addBudget($scope.item.limit, $scope.item.ceiling, $scope.item.currency, $scope.item.value)
+            api.addBudget($scope.item.limit, $scope.item.ceiling, $scope.item.currency, $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $scope.item.limit = undefined
                     $scope.item.ceiling = undefined
@@ -187,10 +187,10 @@
 
             $scope.item.value = _.object($scope.item.tempValues)
             api.editBudget($stateParams.id, $scope.item.limit, $scope.item.ceiling, $scope.item.currency,
-                $scope.item.value)
+                $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $state.go('^')
-                    location.reload()
+                    //location.reload()
                 })
         }
         $scope.getEditBuildingArea = function () {
@@ -222,7 +222,7 @@
             }
             $scope.item.value = _.object($scope.item.tempValues)
             api.addBuildingArea($scope.item.limit, $scope.item.ceiling, $scope.item.area.replace(' ** ', '_**_'),
-                $scope.item.value)
+                $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $scope.item.limit = undefined
                     $scope.item.ceiling = undefined
@@ -235,10 +235,10 @@
             $scope.item.value = _.object($scope.item.tempValues)
             api.editBuildingArea($stateParams.id, $scope.item.limit, $scope.item.ceiling,
                 $scope.item.area.replace(' ** ', '_**_'),
-                $scope.item.value)
+                $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $state.go('^')
-                    location.reload()
+                    //location.reload()
                 })
         }
         $scope.getIntentionList = function () {
@@ -264,7 +264,7 @@
             }
             $scope.item.value = _.object(valueArray)
             $scope.item.description = _.object(descriptionArray)
-            api.addIntention($scope.item.value, $scope.item.description, $scope.item.slug)
+            api.addIntention($scope.item.value, $scope.item.description, $scope.item.slug, $scope.item.sort_value)
                 .success(function () {
                     $scope.item.image = undefined
                     $scope.item.value = undefined
@@ -304,10 +304,10 @@
             }
             $scope.item.value = _.object(valueArray)
             $scope.item.description = _.object(descriptionArray)
-            api.editIntention($stateParams.id, $scope.item.value, $scope.item.description, $scope.item.slug)
+            api.editIntention($stateParams.id, $scope.item.value, $scope.item.description, $scope.item.slug, $scope.item.sort_value)
                 .success(function () {
                     $state.go('^')
-                    location.reload()
+                    //location.reload()
                 })
         }
         $scope.addIntentionValue = function () {
@@ -388,7 +388,7 @@
                 return
             }
             $scope.item.value = _.object($scope.item.tempValues)
-            api.addRoomCount($scope.item.limit, $scope.item.ceiling, $scope.item.type, $scope.item.value)
+            api.addRoomCount($scope.item.limit, $scope.item.ceiling, $scope.item.type, $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $scope.item.limit = undefined
                     $scope.item.ceiling = undefined
@@ -400,10 +400,10 @@
 
             $scope.item.value = _.object($scope.item.tempValues)
             api.editRoomCount($stateParams.id, $scope.item.limit, $scope.item.ceiling, $scope.item.type,
-                $scope.item.value)
+                $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $state.go('^')
-                    location.reload()
+                    //location.reload()
                 })
         }
         $scope.getEditRentBudget = function () {
@@ -433,7 +433,7 @@
                 return
             }
             $scope.item.value = _.object($scope.item.tempValues)
-            api.addRentBudget($scope.item.limit, $scope.item.ceiling, $scope.item.currency, $scope.item.value)
+            api.addRentBudget($scope.item.limit, $scope.item.ceiling, $scope.item.currency, $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $scope.item.limit = undefined
                     $scope.item.ceiling = undefined
@@ -445,10 +445,10 @@
 
             $scope.item.value = _.object($scope.item.tempValues)
             api.editRentBudget($stateParams.id, $scope.item.limit, $scope.item.ceiling, $scope.item.currency,
-                $scope.item.value)
+                $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $state.go('^')
-                    location.reload()
+                    //location.reload()
                 })
         }
     }

@@ -24,6 +24,7 @@
                 <th>{%$root.i18n('最小面积')%}</th>
                 <th>{%$root.i18n('最大面积')%}</th>
                 <th>{%$root.i18n('面积单位')%}</th>
+                <th>{%$root.i18n('sort_value')%}</th>
                 <th>{%$root.i18n('操作')%}</th>
             </tr>
             <tr ng-repeat="item in building_area">
@@ -31,6 +32,7 @@
                 <td>{%item.slug.substring((item.slug.indexOf(':')+1), item.slug.indexOf(','))%}</td>
                 <td>{%item.slug.substring((item.slug.indexOf(',')+1),item.slug.lastIndexOf(','))%}</td>
                 <td>{%item.slug.substring(item.slug.lastIndexOf(',')+1).replace('_**_',' ** ')%}</td>
+                <td>{%item.sort_value%}</td>
                 <td style="text-align:center;">
                     <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
                         <i class="fa fa-edit "></i>

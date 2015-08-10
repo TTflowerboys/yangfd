@@ -4,71 +4,79 @@
 
     function enumApi($http) {
         return {
-            addEnum: function (type, value, slug) {
+            addEnum: function (type, value, slug, sort_value) {
                 var data = {
                     type: type,
                     slug: slug,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/add', data, {errorMessage: true})
             },
-            editEnum: function (id, type, value, slug) {
+            editEnum: function (id, type, value, slug, sort_value) {
                 var data = {
                     type: type,
                     slug: slug,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
-            addCity: function (countryId, value) {
+            addCity: function (countryId, value, sort_value) {
                 var data = {
                     type: 'city',
                     country: countryId,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/add', data, {errorMessage: true})
             },
-            editCity: function (id, countryId, value) {
+            editCity: function (id, countryId, value, sort_value) {
                 var data = {
                     type: 'city',
                     country: countryId,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
-            addState: function (countryId, value) {
+            addState: function (countryId, value, sort_value) {
                 var data = {
                     type: 'state',
                     country: countryId,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/add', data, {errorMessage: true})
             },
-            editState: function (id, countryId, value) {
+            editState: function (id, countryId, value, sort_value) {
                 var data = {
                     type: 'state',
                     country: countryId,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
-            addCountry: function (slug, value) {
+            addCountry: function (slug, value, sort_value) {
                 var data = {
                     type: 'country',
                     slug: slug,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/add', data, {errorMessage: true})
             },
-            editCountry: function (id, slug, value) {
+            editCountry: function (id, slug, value, sort_value) {
                 var data = {
                     type: 'country',
                     slug: slug,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
-            addBudget: function (limit, ceiling, currency, value) {
+            addBudget: function (limit, ceiling, currency, value, sort_value) {
                 var slug = 'budget:'
                 slug += limit ? limit : ''
                 slug += ','
@@ -79,11 +87,12 @@
                     type: 'budget',
                     slug: slug,
                     currency: currency,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/add', data, {errorMessage: true})
             },
-            editBudget: function (id, limit, ceiling, currency, value) {
+            editBudget: function (id, limit, ceiling, currency, value, sort_value) {
                 var slug = 'budget:'
                 slug += limit ? limit : ''
                 slug += ','
@@ -94,11 +103,12 @@
                     type: 'budget',
                     slug: slug,
                     currency: currency,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
-            addBuildingArea: function (limit, ceiling, area, value) {
+            addBuildingArea: function (limit, ceiling, area, value, sort_value) {
                 var slug = 'building_area:'
                 slug += limit ? limit : ''
                 slug += ','
@@ -108,11 +118,12 @@
                 var data = {
                     type: 'building_area',
                     slug: slug,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/add', data, {errorMessage: true})
             },
-            editBuildingArea: function (id, limit, ceiling, area, value) {
+            editBuildingArea: function (id, limit, ceiling, area, value, sort_value) {
                 var slug = 'building_area:'
                 slug += limit ? limit : ''
                 slug += ','
@@ -122,11 +133,12 @@
                 var data = {
                     type: 'building_area',
                     slug: slug,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
-            addRoomCount: function (limit, ceiling, type, value) {
+            addRoomCount: function (limit, ceiling, type, value, sort_value) {
                 var slug = type+':'
                 slug += limit ? limit : ''
                 slug += ','
@@ -134,11 +146,12 @@
                 var data = {
                     type: type,
                     slug: slug,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/add', data, {errorMessage: true})
             },
-            editRoomCount: function (id, limit, ceiling, type, value) {
+            editRoomCount: function (id, limit, ceiling, type, value, sort_value) {
                 var slug = type+':'
                 slug += limit !== undefined ? limit : ''
                 slug += ','
@@ -146,25 +159,28 @@
                 var data = {
                     type: type,
                     slug: slug,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
-            addIntention: function (value, description, slug) {
+            addIntention: function (value, description, slug, sort_value) {
                 var data = {
                     type: 'intention',
                     value: value,
                     slug: slug,
-                    description: description
+                    description: description,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/add', data, {errorMessage: true})
             },
-            editIntention: function (id, value, description, slug) {
+            editIntention: function (id, value, description, slug, sort_value) {
                 var data = {
                     type: 'intention',
                     value: value,
                     slug: slug,
-                    description: description
+                    description: description,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
@@ -197,7 +213,7 @@
                     errorMessage: true
                 }, config))
             },
-            addRentBudget: function (limit, ceiling, currency, value) {
+            addRentBudget: function (limit, ceiling, currency, value, sort_value) {
                 var slug = 'rent_budget:'
                 slug += limit ? limit : ''
                 slug += ','
@@ -208,11 +224,12 @@
                     type: 'rent_budget',
                     slug: slug,
                     currency: currency,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/add', data, {errorMessage: true})
             },
-            editRentBudget: function (id, limit, ceiling, currency, value) {
+            editRentBudget: function (id, limit, ceiling, currency, value, sort_value) {
                 var slug = 'rent_budget:'
                 slug += limit ? limit : ''
                 slug += ','
@@ -223,7 +240,8 @@
                     type: 'rent_budget',
                     slug: slug,
                     currency: currency,
-                    value: value
+                    value: value,
+                    sort_value: sort_value || 0
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
