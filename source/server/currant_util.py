@@ -203,7 +203,7 @@ def common_template(path, **kwargs):
         country_list_for_intention = get_country_list_for_intention()
         kwargs['country_list_for_intention'] = country_list_for_intention
     if 'budget_list' not in kwargs:
-        kwargs['budget_list'] = sorted(f_app.i18n.process_i18n(f_app.enum.get_all('budget')), key=lambda budget: budget['sort_value'])
+        kwargs['budget_list'] = sorted(f_app.i18n.process_i18n(f_app.enum.get_all('budget')), key=lambda budget: budget.get('sort_value', 0))
     if 'occupation_list' not in kwargs:
         kwargs['occupation_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('occupation'))
     if 'rent_type_list' not in kwargs:
@@ -211,7 +211,7 @@ def common_template(path, **kwargs):
     if 'rent_budget_list' not in kwargs:
         kwargs['rent_budget_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('rent_budget'))
     if 'weixin' not in kwargs:
-        kwargs['weixin'] = weixin = f_app.wechat.get_jsapi_signature()
+        kwargs['weixin'] = f_app.wechat.get_jsapi_signature()
     if 'request_uri' not in kwargs:
         kwargs['request_uri'] = urllib.quote(request.url.encode("utf-8"))
     if 'user_type_list' not in kwargs:
