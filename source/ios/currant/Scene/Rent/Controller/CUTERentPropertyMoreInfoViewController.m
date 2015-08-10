@@ -229,12 +229,12 @@
 }
 
 - (BOOL)checkShowTitleLengthWarningAlert:(NSString *)title {
-    if (title.length < 8) {
-        [UIAlertView showWithTitle:STR(@"标题过短，请至少填写8个字")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+    if (title.length < kTicketTitleMinCharacterCount) {
+        [UIAlertView showWithTitle:[NSString stringWithFormat:STR(@"标题过短，请至少填写%d个字"), kTicketTitleMinCharacterCount]  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
         return YES;
     }
-    else if (title.length > 30) {
-        [UIAlertView showWithTitle:STR(@"标题超长，请最多填写30个字")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+    else if (title.length > kTicketTitleMaxCharacterCount) {
+        [UIAlertView showWithTitle:[NSString stringWithFormat:STR(@"标题超长，请最多填写%d个字") , kTicketTitleMaxCharacterCount] message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
         return YES;
     }
     return NO;

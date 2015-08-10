@@ -19,8 +19,8 @@
 #define kTicketStatusDraft @"draft"
 #define kTicketStatusDeleted @"deleted"
 
-
-#define kTicketTitleMaxCharacterCount 30
+#define kTicketTitleMinCharacterCount 8
+#define kTicketTitleMaxCharacterCount 40
 
 extern NSString *LocalizedRoomTitle(NSString *title);
 
