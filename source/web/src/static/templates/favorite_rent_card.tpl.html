@@ -36,8 +36,18 @@
                         {_if(fav.ticket.price.localized_unit_symbol) {_}
                         <span class="price_reference">{=window.i18n('约')=}{=fav.ticket.price.localized_unit_symbol=}{!team.formatCurrency(parseInt(fav.ticket.price.localized_value),0)!}{=window.i18n('/周')=}</span>
                         {_}_}
-                    </span>                    {_}_}
-                    <p class="date">{!team.parsePublishDate(parseInt(fav.ticket.last_modified_time))!}{=window.i18n('发布')=}</p>
+                    </span>
+                    {_}_}
+
+                    {_if(fav.ticket.property.partner) {_}
+                        <p class="partner">{=window.i18n('平台合作房源')=}</p>
+                    {_}else { _}
+                        {_if(fav.ticket.last_modified_time > fav.ticket.time ) {_}
+                            <p class="date">{!team.parsePublishDate(parseInt(fav.ticket.last_modified_time))!}{=window.i18n('更新过')=}</p>
+                        {_}else{_}
+                            <p class="date">{!team.parsePublishDate(parseInt(fav.ticket.time))!}{=window.i18n('发布')=}</p>
+                        {_}_}
+                    {_ } _}
                 </div>
                 <ul class="properties">
                     <li>
