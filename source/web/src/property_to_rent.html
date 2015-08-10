@@ -181,15 +181,17 @@
             <div class="tag row">
                 <i class="icon-location_fill"></i>
                 <label>
+                    % display_location=[]
                     % if rent['property'].get('community',''):
-                    {{rent['property'].get('community','')}},
+                    % display_location.append(rent['property'].get('community',''))
                     % end
                     % if rent['property'].get('street',''):
-                    {{rent['property'].get('street','')}},
+                    % display_location.append(rent['property'].get('street',''))
                     % end
                     %if not rent.get('property',{}).get('partner'):
-                    {{rent['property'].get('zipcode','')}}
+                    % display_location.append(rent['property'].get('zipcode',''))
                     %end
+                    {{','.join(display_location)}}
                 </label>
             </div>
             % end
@@ -425,15 +427,17 @@
                 <div class="tag">
                     <i class="icon-location_fill"></i>
                     <label>
+                        % display_location=[]
                         % if rent['property'].get('community',''):
-                        {{rent['property'].get('community','')}},
+                        % display_location.append(rent['property'].get('community',''))
                         % end
                         % if rent['property'].get('street',''):
-                        {{rent['property'].get('street','')}},
+                        % display_location.append(rent['property'].get('street',''))
                         % end
                         %if not rent.get('property',{}).get('partner'):
-                        {{rent['property'].get('zipcode','')}}
+                        % display_location.append(rent['property'].get('zipcode',''))
                         %end
+                        {{','.join(display_location)}}
                     </label>
                 </div>
                 % end
@@ -576,9 +580,13 @@
     <li class="phone">
         %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
         <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" >
+            % if not rent.get('property',{}).get('partner'):
             {{_('联系房东')+':'}}
             <span>+{{rent.get('creator_user',{}).get('country_code','') }}</span>
             <span>{{rent.get('creator_user',{}).get('phone','')}}</span>
+            % else:
+            {{_('联系平台')}}
+            %end
         </a>
         %end
     </li>

@@ -372,7 +372,7 @@
                         _.reduce(val, function(pre, val, key) {
                             return pre + '<option value="' + val.id + '">' + val.name + (val.parent && val.parent.name ? ', ' + val.parent.name : '') + '</option>'
                         }, '<option value="">' + i18n('请选择街区') + '</option>')
-                    ).trigger('chosen:updated').trigger('chosen:open')
+                    ).trigger('chosen:updated')
                 })
             },
             school: function getSchoolList(params) {
@@ -381,7 +381,7 @@
                         _.reduce(val, function(pre, val, key) {
                             return pre + '<option value="' + val.id + '">' + val.name + (val.parent && val.parent.name ? ', ' + val.parent.name : '') + '</option>'
                         }, '<option value="">' + i18n('请选择学校') + '</option>')
-                    ).trigger('chosen:updated').trigger('chosen:open')
+                    ).trigger('chosen:updated')
                 })
             },
             subwayLine: function getSubwayLineList () {
