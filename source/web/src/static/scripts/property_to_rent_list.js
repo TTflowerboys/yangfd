@@ -350,7 +350,7 @@
                     disable_search_threshold: 8,
                     inherit_select_classes: true,
                     display_disabled_options: false,
-                    width: '200px'
+                    width: '240px'
                 })
 
             } else {
