@@ -1,0 +1,36 @@
+<div class="host_wrapper">
+    <div class="host" id="host">
+        <img class="avatar" src="/static/images/property_details/ico_phoneowner.png"></img>
+        <label class="hostName">{{_('洋房东官方')}}</label>
+
+        <div class="hostContactWrap">
+            <div class="hostPhone hostContact show">
+                <i class="ico icon-phone_icon" style="vertical-align: top;"></i>
+
+                <div style="display: inline-block;">
+                    <a href="tel:{{get_phone_numbers('link')[0]}}">
+                        <span>{{get_phone_numbers("country_name")[0]}}{{_('：')}} {{get_phone_numbers('display')[0]}}</span>
+                    </a>
+                    <br/>
+                    <a href="tel:{{get_phone_numbers('link')[1]}}">
+                        <span>{{get_phone_numbers("country_name")[1]}}{{_('：')}} {{get_phone_numbers('display')[1]}}</span>
+                    </a>
+                </div>
+            </div>
+            <!--<div class="hostPhone hostContact show">
+
+            </div>-->
+            <div class="hostEmail hostContact show">
+                <a class="clearfix" href="mailto:services@youngfunding.co.uk?subject=Feedback">
+                    <i class="ico icon-email"></i>
+                    <span class="email">services@youngfunding.co.uk</span>
+                </a>
+            </div>
+            <div class="hostWechat hostContact show">
+                <i class="ico icon-wechat"></i>
+                <span>yangfd1</span>
+            </div>
+        </div>
+    </div>
+
+</div>

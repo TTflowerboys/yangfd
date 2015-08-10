@@ -143,11 +143,15 @@
             <div class="rentPrice row">
                 <div class="title">
                     <h1 class="name">{{rent.get('title','')}}</h1>
+                    %if not rent.get('property',{}).get('partner'):
                     <label class="publishDate">
                         % if publish_time:
                         <span>{{publish_time}}</span>{{_('发布')}}
                         % end
                     </label>
+                    %else:
+                    <label class="partner">{{_('平台合作房源')}}</label>
+                    %end
                 </div>
 
                 <div class="price_inner">
@@ -173,7 +177,7 @@
                     % end
                 </div>
             </div>
-            % if 'community' in rent['property'] or 'street' in rent['property'] or 'zipcode' in rent['property']:
+            % if 'community' in rent['property'] or rent['property'].get('street') or ('zipcode' in rent['property'] and not rent.get('property',{}).get('partner')):
             <div class="tag row">
                 <i class="icon-location_fill"></i>
                 <label>
@@ -183,7 +187,9 @@
                     % if rent['property'].get('street',''):
                     {{rent['property'].get('street','')}},
                     % end
+                    %if not rent.get('property',{}).get('partner'):
                     {{rent['property'].get('zipcode','')}}
+                    %end
                 </label>
             </div>
             % end
@@ -406,12 +412,16 @@
         <div class="aside">
             <div class="propertyCard">
                 <h1>{{rent.get('title','')}}</h1>
+                %if not rent.get('property',{}).get('partner'):
                 <label class="publishDate">
                     % if publish_time:
-                        <span>{{publish_time}}</span>{{_('发布')}}
+                    <span>{{publish_time}}</span>{{_('发布')}}
                     % end
                 </label>
-                % if 'community' in rent['property'] or 'street' in rent['property'] or 'zipcode' in rent['property']:
+                %else:
+                <label class="partner">{{_('平台合作房源')}}</label>
+                %end
+                % if 'community' in rent['property'] or rent['property'].get('street') or ('zipcode' in rent['property'] and not rent.get('property',{}).get('partner')):
                 <div class="tag">
                     <i class="icon-location_fill"></i>
                     <label>
@@ -421,7 +431,9 @@
                         % if rent['property'].get('street',''):
                         {{rent['property'].get('street','')}},
                         % end
+                        %if not rent.get('property',{}).get('partner'):
                         {{rent['property'].get('zipcode','')}}
+                        %end
                     </label>
                 </div>
                 % end
@@ -549,8 +561,10 @@
                     </table>
                 </div>
 
-                %if 'creator_user' in rent:
+                %if 'creator_user' in rent and not rent.get('property',{}).get('partner'):
                 <!--@@include=./partials/host_contact_request.html -->
+                %elif 'creator_user' in rent and rent.get('property',{}).get('partner'):
+                <!--@@include=./partials/host_contact_partner.html -->
                 %end
 
             </div>

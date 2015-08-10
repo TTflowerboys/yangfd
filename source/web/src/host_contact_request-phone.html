@@ -7,7 +7,7 @@
 <!--@@close-->
 
 <!--@@block = main-->
-
+%if not rent.get('property',{}).get('partner'):
 <div class="host_wrapper fullHeightInClient
     %if contact_info_already_fetched:
     contact_info_already_fetched
@@ -108,6 +108,9 @@
     % end
 </div>
 <!--@@include=partials/host_contact_request_amount_modal.html  -->
+% else:
+<!--@@include=./partials/host_contact_partner.html -->
+%end
 <!--@@close-->
 
 <!--@@block = scripts -->
