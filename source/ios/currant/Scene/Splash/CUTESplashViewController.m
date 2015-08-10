@@ -22,7 +22,7 @@
 #define kButtonHorizontalMargin 50
 #define kButtonBottomMargin 40
 #define kContentHeight 362
-#define kButtonAreaHeight 140
+#define kButtonAreaHeight 90
 
 
 #define kPageCount 3
