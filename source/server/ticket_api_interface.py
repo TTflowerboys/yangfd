@@ -1151,7 +1151,7 @@ def rent_ticket_search(user, params):
     if "hesa_university" in params:
         assert "latitude" not in params, abort(40000)
         hesa_university = f_app.hesa.university.get(str(params.pop("hesa_university")))
-        postcode = f_app.geonames.postcode.get(f_app.geonames.postcode.search({"postcode": hesa_university["postcode"]}, per_page=-1))
+        postcode = f_app.geonames.postcode.get(f_app.geonames.postcode.search({"postcode": hesa_university["postcode"]}, per_page=-1))[0]
         params["latitude"] = postcode["latitude"]
         params["longitude"] = postcode["longitude"]
 
