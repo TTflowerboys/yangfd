@@ -455,7 +455,7 @@
                             </div>
                         </td>
                         <td class="content">
-                            <input class="headline" id="title" value="{{rent.get('title','')}}" placeholder="{{rent.get('title','')}}" data-attr="placeholder" data-validator="trim,lengthRange(8-30)" data-name="{{_('标题')}}">
+                            <input class="headline" id="title" value="{{rent.get('title','')}}" placeholder="{{rent.get('title','')}}" data-attr="placeholder" data-validator="trim,lengthRange(8-40)" data-name="{{_('标题')}}">
                         </td>
                     </tr>
                     <tr>
@@ -465,7 +465,7 @@
                             </div>
                         </td>
                         <td class="content">
-                            <textarea class="description" id="description" data-validator="maxLength(150)" data-name="{{_('描述')}}" placeholder="{{_('补充您对租客的要求和对房屋特点的描述。平台将提供房东联系方式选择，请勿在此填写任何形式的联系方式，违规发布将会予以处理')}}">{{rent.get('description','')}}</textarea>
+                            <textarea class="description" id="description" data-name="{{_('描述')}}" placeholder="{{_('补充您对租客的要求和对房屋特点的描述。平台将提供房东联系方式选择，请勿在此填写任何形式的联系方式，违规发布将会予以处理')}}">{{rent.get('description','')}}</textarea>
                         </td>
                     </tr>
                     <tr class="facilitiesBox">
@@ -548,6 +548,7 @@
                 </table>
             </div>
         </form>
+
         <div class="errorMsg" style="display: none;"></div>
         <div style="text-align: center">
             %if rent.get('property',{}) and rent.get('property',{}).get('id',''):
