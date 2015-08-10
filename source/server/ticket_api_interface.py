@@ -1117,6 +1117,7 @@ def rent_ticket_contact_info(user, ticket_id):
     latitude=float,
     longitude=float,
     search_range=(int, 5000),
+    partner=bool,
 ))
 @f_app.user.login.check(check_role=True)
 def rent_ticket_search(user, params):
@@ -1180,6 +1181,9 @@ def rent_ticket_search(user, params):
 
     if "country" in params:
         property_params["country"] = params.pop("country")
+
+    if "partner" in params:
+        property_params["partner"] = params.pop("partner")
 
     if "rent_available_time" in params:
         params["rent_available_time"] = {"$gte": params["rent_available_time"] - timedelta(days=7), "$lte": params["rent_available_time"] + timedelta(days=1)}
