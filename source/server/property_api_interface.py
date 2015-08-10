@@ -552,6 +552,9 @@ def property_edit(property_id, user, params):
     All statuses, for reference: ``draft``, ``not translated``, ``translating``, ``rejected``, ``not reviewed``, ``selling``, ``hidden``, ``sold out``, ``deleted``, ``restricted``.
     """
 
+    if "partner" in params:
+        assert set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "no access to specify partner")
+
     if "cover" in params and isinstance(params["cover"], six.string_types):
         params["cover"] = {"zh_Hans_CN": params["cover"], "_i18n": True}
 
