@@ -447,6 +447,11 @@
         }
     })
 
+    //input 失去焦点时，自动trigger，查询地址
+    $('input[name=postcode]').focusout(function () {
+        $('#findAddress').click()
+    })
+
     $('#inputAddress').click(function () {
         $('#address').show()
     })

@@ -6,6 +6,8 @@
 @grey: #a3a3a3;
 @light-orange:rgb(255, 249, 228);
 @border-hover-color:rgb(255, 138, 0);
+@light-blue:rgb(0,168,255);
+
 .rentCard {
     float:left; position: relative; border-top: @border-width solid @border-color; font-size: 14px; color: @grey;
     min-height: @house_card-height;
@@ -177,6 +179,22 @@
                     position:relative;
                 }
             }
+
+            > .partner {
+                display: none;
+                width:100px;
+                padding: 1px;
+                text-align:center;
+                color: @light-blue;
+                border:1px solid @light-blue;
+                float: right;
+
+                @media @phone {
+                    display:inherit;
+                    position:relative;
+                }
+            }
+
         }
 
         >.properties {
@@ -239,6 +257,15 @@
 
                 > .date {
 
+                }
+
+                > .partner {
+                    width:100px;
+                    padding: 1px;
+                    text-align:center;
+                    color: @light-blue;
+                    border:1px solid @light-blue;
+                    float: right;
                 }
 
             }
