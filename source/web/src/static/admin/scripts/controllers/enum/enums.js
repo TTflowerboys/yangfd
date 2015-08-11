@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlEnums($scope, $rootScope, $state, $stateParams, api, fctModal) {
+    function ctrlEnums($scope, $rootScope, $state, $stateParams, api, fctModal, geonamesApi) {
         $scope.enums = []
         $scope.item = {}
 
@@ -191,6 +191,30 @@
                 .success(function () {
                     $state.go('^')
                     //location.reload()
+                })
+        }
+        $scope.getHesaUniversityList = function (country) {
+            api.getHesaUniversityList(country).success(function (data) {
+                $scope.hesaUniversityList = data.val
+            })
+            geonamesApi.getAll({
+                params: {
+                    country: country,
+                    feature_code: 'city'
+                }
+            }).success(function (data) {
+                $scope.cityList = data.val
+            })
+        }
+
+        $scope.editCityOfHesaUniversity = function (item) {
+            item.edit = true
+        }
+        $scope.submitCityOfHesaUniversity = function (item) {
+            api.editHesaUniversity(item.id, item.citySelected)
+                .success(function () {
+                    item.edit = false
+                    item.city = item.citySelected
                 })
         }
         $scope.getEditBuildingArea = function () {

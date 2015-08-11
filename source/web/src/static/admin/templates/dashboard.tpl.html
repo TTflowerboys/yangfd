@@ -120,6 +120,12 @@
                                             <span class="hidden-sm text">{%$root.i18n('租房预算')%}</span>
                                         </a>
                                     </li>
+                                    <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.hesa_university')}">
+                                        <a class="submenu" href ui-sref="dashboard.enums.hesa_university">
+                                            <i class="fa fa-angle-right"></i>
+                                            <span class="hidden-sm text">{%$root.i18n('学校')%}</span>
+                                        </a>
+                                    </li>
                                 </ul>
 
                             </li>

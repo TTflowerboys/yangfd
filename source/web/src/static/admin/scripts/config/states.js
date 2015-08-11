@@ -289,6 +289,12 @@ angular.module('app')
                 controller: 'ctrlEnums',
                 resolve: enumResolve
             })
+            .state('dashboard.enums.hesa_university', {
+                url: '/hesa_university',
+                templateUrl: '/static/admin/templates/dashboard.enums.hesa_university.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
         /**
          * 房产
          */

@@ -250,6 +250,15 @@
             },
             check: function (id, config) {
                 return $http.post('/api/1/enum/' + id + '/check', null, config)
+            },
+            getHesaUniversityList: function (country) {
+                var data = {
+                    country: country
+                }
+                return $http.post('/api/1/hesa_university/search', data)
+            },
+            editHesaUniversity: function (id, city) {
+                return $http.post('/api/1/hesa_university/' + id + '/edit', {city: city}, {errorMessage: true})
             }
         }
 

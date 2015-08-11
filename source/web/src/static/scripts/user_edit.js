@@ -60,7 +60,7 @@ $('#cvEdit').submit(function (e) {
                 successArea.text(window.i18n('更新成功'))
                 successArea.show()
 
-                location.reload()
+                window.location.reload()
             })
             .fail(function (data) {
                 errorArea.text(window.i18n('更新失败'))
