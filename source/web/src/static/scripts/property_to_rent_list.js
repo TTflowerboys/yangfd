@@ -396,10 +396,10 @@
         }
         function initDisplayByCity() {
             var city = $citySelect.val()
-            //var country = $countrySelect.val()
+            var country = $countrySelect.val()
             var cityName = $citySelect.find(':selected').text().trim()
             if (_.every(dataMap, function (obj) {
-                    return obj.city.indexOf(cityName) < 0 && obj.city.indexOf('*') < 0
+                    return obj.country.indexOf(country) < 0 && obj.country.indexOf('*') < 0 || (obj.city.indexOf(cityName) < 0 && obj.city.indexOf('*') < 0)
                 })) {
                 $containerAll.parent('.category').removeClass('three')
                 $containerAll.hide()
@@ -409,7 +409,7 @@
             }
             selectMap.parent.html(parentSelectHtml)
             _.each(dataMap, function (obj, key) {
-                if(obj.city.indexOf(cityName) < 0 && obj.city.indexOf('*') < 0) {
+                if(obj.country.indexOf(country) < 0 && obj.country.indexOf('*') < 0 || (obj.city.indexOf(cityName) < 0 && obj.city.indexOf('*') < 0)) {
                     selectMap.parent.find('[value=' + key + ']').prop('disabled', true)
                 } else {
                     if(key !== 'school') { //学校数据无法根据城市来搜索，目前直接搜全国的
