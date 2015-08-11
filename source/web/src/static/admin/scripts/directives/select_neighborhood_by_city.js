@@ -19,9 +19,9 @@ angular.module('app')
                     }
                     var config = {}
                     config.params = {
-                        'city':newValue,
+                        'city':newValue.id,
                     }
-                    if(scope.cityName.toLowerCase() === 'london') {
+                    if(scope.cityName && scope.cityName.toLowerCase() === 'london') {
                         geonamesApi.getNeighborhood(config)
                             .success(function (data) {
                                 scope.neighborhoodList = data.val
