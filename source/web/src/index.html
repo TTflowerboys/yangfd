@@ -130,40 +130,6 @@
     </div>
 %end
 
-%if announcement_list:
-    %if user:
-        <div class="announcement_wrapper" style="background:#eee">
-            <div id="announcement" class="announcement" style="border-bottom: 0px solid #ccc;">
-                <ul>
-                    %for index, anno in enumerate(announcement_list):
-                        <li class="item">
-                            <i class="icon icon-message_notice"></i>
-                            <a class="title" href="/news/{{anno.get('id')}}">{{anno.get('title', '')}}</a>
-                            <a class="more" href="/notice-list">{{_('更多公告')}}</a>
-                            <img class="close" style="display:none" alt="" src="/static/images/index/announcement_close.png"/>
-                        </li>
-                    %end
-                </ul>
-            </div>
-        </div>
-    %else:
-        <div class="announcement_wrapper">
-            <div id="announcement" class="announcement">
-                <ul>
-                    % for anno in announcement_list:
-                        <li class="item">
-                            <i class="icon icon-message_notice"></i>
-                            <a class="title" href="/news/{{anno.get('id')}}">{{anno.get('title', '')}}</a>
-                            <a class="more" href="/notice-list">{{_('更多公告')}}</a>
-                            <img class="close" style="display:none" alt="" src="/static/images/index/announcement_close.png"/>
-                        </li>
-                    % end
-                </ul>
-            </div>
-        </div>
-    %end
-%end
-
 %if user:
     <textarea id="dataBudgetList" style="display:none;">{{json_dumps(budget_list)}}</textarea>
     <textarea id="dataIntentionList" style="display:none">
