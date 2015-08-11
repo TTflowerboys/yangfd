@@ -212,9 +212,9 @@
         }
         $scope.submitCityOfHesaUniversity = function (item) {
             api.editHesaUniversity(item.id, item.citySelected)
-                .success(function () {
+                .success(function (data) {
+                    angular.extend(item,data.val)
                     item.edit = false
-                    item.city = item.citySelected
                 })
         }
         $scope.getEditBuildingArea = function () {
