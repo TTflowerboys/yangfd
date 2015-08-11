@@ -39,9 +39,6 @@ def default(user):
                 property["related_news"] = currant_data_helper.get_property_related_news_list(property)
         property_list = f_app.i18n.process_i18n(property_list)
 
-    announcement_list = currant_data_helper.get_announcement_list()
-    announcement_list = f_app.i18n.process_i18n(announcement_list)
-
     news_list = currant_data_helper.get_featured_new_list()
     news_list = f_app.i18n.process_i18n(news_list)
 
@@ -52,7 +49,6 @@ def default(user):
         title=title,
         property_list=property_list,
         homepage_ad_list=homepage_ad_list,
-        announcement_list=announcement_list,
         news_list=news_list,
         intention_list=intention_list,
         icon_map=currant_util.icon_map
