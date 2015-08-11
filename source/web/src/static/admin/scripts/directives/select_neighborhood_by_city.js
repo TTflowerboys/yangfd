@@ -10,13 +10,13 @@ angular.module('app')
                 cityName: '=cityName'
             },
             link: function (scope) {
+                scope.selectedNeighborhood = _.isArray(scope.selectedNeighborhood) ? scope.selectedNeighborhood[0] : scope.selectedNeighborhood
                 scope.$watch('city', function (newValue) {
                     if (_.isEmpty(newValue)) {
                         scope.neighborhoodList = []
                         scope.selectedNeighborhood = undefined
                         return
                     }
-                    scope.selectedNeighborhood = undefined
                     var config = {}
                     config.params = {
                         'city':newValue,
