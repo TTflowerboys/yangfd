@@ -295,7 +295,7 @@ def hesa_university(hesa_university_id):
     city='geonames_gazetteer:city',
 ))
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
-def hesa_university_edit(hesa_university_id, params):
+def hesa_university_edit(hesa_university_id, params, user):
     return f_app.hesa.university.update_set(hesa_university_id, params)
 
 
