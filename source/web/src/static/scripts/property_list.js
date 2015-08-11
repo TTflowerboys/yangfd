@@ -30,7 +30,9 @@
                 return me.resetload();
             }
             var params = window.getBaseRequestParams()
-            params.per_page = 5
+            if(!params.hesa_university){
+                params.per_page = 5
+            }
 
             isLoading = true
             var totalResultCount = 0
@@ -652,7 +654,9 @@
             window.betterAjaxXhr['/api/1/property/search'].abort()
         }
         var params = window.getBaseRequestParams()
-        params.per_page = 5
+        if(!params.hesa_university){
+            params.per_page = 5
+        }
         var lastItemTime = getLastItemTimeByBudget(params.budget)
         $('.isAllLoadedInfo').hide()
         if (lastItemTime) {
@@ -739,7 +743,9 @@
      * */
     function loadAddtionalPropertyList(budgetType,reload) {
         var params = window.getBaseRequestParams()
-        params.per_page = 6
+        if(!params.hesa_university){
+            params.per_page = 6
+        }
         params.budget = budgetType
 
         var lastItemTime = getLastItemTimeByBudget(budgetType)
