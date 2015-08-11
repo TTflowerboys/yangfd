@@ -126,17 +126,53 @@ main {
         }
     }
 
-    .userChoice {
-        &_wrapper {
-            background:#333;
-            width:100%;
+    .roleChooser {
+        .tab {
+            width:1200px;
+            margin:45px auto;
+            height:80px;
             overflow:hidden;
-        }
 
+            &_wrapper {
+                background:#333;
+                width:100%;
+                overflow:hidden;
+            }
+
+            >li {
+                display:inline-block;
+                width:33%;
+                color:white;
+                overflow:hidden;
+
+                .img_wrapper {
+                    font-size:40px;
+                    float:left;
+                    vertical-align:middle;
+                }
+
+                .text {
+                    display:inline-block;
+                    float:left;
+                    margin-left:20px;
+                    vertical-align:middle;
+                    
+                }
+            }
+        }
+    }
+
+    .userChoice {
         width:1200px;
         margin:45px auto;
         height:80px;
         overflow:hidden;
+
+        &_wrapper {
+            width:100%;
+            overflow:hidden;
+            background: #f6f6f6;
+        }
 
         @media @phone {
             width:100%;
@@ -146,21 +182,14 @@ main {
 
         li {
             display:inline-block;
-            width: initial!important;
-            margin-right: 25px;
+            width: 33%;
             overflow:hidden;
 
             >a {
                 display: block;
                 overflow:hidden;
                 height:100%;
-
-                &:hover, &.pseudo-class-hover {
-                    .img_wrapper{
-                        background: #ff0014;
-                    }
-                }
-
+                color:#555;
             }
 
             @media @phone {
@@ -176,11 +205,9 @@ main {
                 width:80px;
                 height: 80px;
                 line-height: 80px;
-                border-radius: 50%;
-                background: @red;
                 text-align: center;
                 font-size: 42px;
-                color: #fff;
+                color:#555;
                 vertical-align: middle;
                 @media @phone {
                     margin:0 0px 16px 16px;
@@ -195,10 +222,8 @@ main {
             .text {
                 display:inline-block;
                 float:left;
-                height:80px;
-                vertical-align:80px;
+                vertical-align:middle;
                 margin-left:20px;
-                color:#ccc;
                 overflow:hidden;
 
                 @media @phone {
@@ -215,8 +240,6 @@ main {
                 }
                 .question {
                     font-size:22px;
-                    margin-top:10px;
-
                     @media @phone {
                         float:left;
                         margin-top:0px;
@@ -225,20 +248,6 @@ main {
                         width:100%;
                     }
 
-                }
-
-                .choice {
-                    font-size:16px;
-                    color:#ccc;
-                    text-decoration:none;
-                    cursor: pointer;
-
-                    @media @phone {
-                        float:left;
-                        font-size:12px;
-                        display:block;
-                        width:100%;
-                    }
                 }
             }
         }

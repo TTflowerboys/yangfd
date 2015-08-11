@@ -36,160 +36,58 @@
     %end
 </div>
 
-<div class="userChoice_wrapper">
-    <ul class="userChoice">
-            <li>
-                <a
-                    %if is_mobile_client():
-                        href="#" onclick="window.bridge.callHandler(&quot;createRentTicket&quot;);return false;"
-                    %else:
-                        href="/property-to-rent/create"
-                    %end
-                    data-need-bridge
-                    >
-                    <i class="img_wrapper icon-calender_homepage"></i>
-                    <div class="text">
-                        <h3 class="question">
-                            {{_('出租海外房产？')}}
-                        </h3>
-                        <label class="choice">
-                            {{_('极速发布，覆盖全英')}}
-                        </label>
-                    </div>
-                </a>
-            </li>
-        <li>
-            <a href="/guides">
+
+<div class="roleChooser" data-tabs>
+    <div class="tab_wrapper">
+        <ul class="tab">
+            <li data-tab="buyer">
                 <i class="img_wrapper icon-house_homepage"></i>
                 <div class="text">
-                    <h3 class="question">
-                        {{_('首次海外置业？')}}
+                    <h3 class="title">
+                        {{_('海外置业')}}
                     </h3>
-                    <label class="choice">
-                        {{_('先读读海外置业指南')}}
+                    <label class="hint">
+                        {{_('优质海外房产投资机会')}}
                     </label>
                 </div>
-            </a>
-        </li>
-        <li>
-            <a
-                %if is_mobile_client():
-                    href="#" onclick="window.bridge.callHandler(&quot;openPropertyListTab&quot;);return false;"
-                %else:
-                    href="/property-list"
-                %end
-                data-need-bridge
-                >
-                <i class="img_wrapper icon-search_homepage"></i>
+            </li>
+            <li data-tab="landlord">
+                <i class="img_wrapper icon-house_homepage"></i>
                 <div class="text">
-                    <h3 class="question">
-                        {{_('已经有置业目标？')}}
+                    <h3 class="title">
+                        {{_('房东服务')}}
                     </h3>
-                    <label class="choice" >
-                        {{_('开始选房吧')}}
+                    <label class="hint">
+                        {{_('朋友圈里的卖房租房助手')}}
                     </label>
                 </div>
-            </a>
-        </li>
-        <li>
-            <a style="cursor:pointer;" onclick="javascript:window.project.openRequirement(null, null, null)">
-                <i class="img_wrapper icon-files_homepage"></i>
-                <div class="text last">
-                    <h3 class="question">
-                        {{_('立即提交置业需求？')}}
+            </li>
+            <li data-tab="renter">
+                <i class="img_wrapper icon-house_homepage"></i>
+                <div class="text">
+                    <h3 class="title">
+                        {{_('租房服务')}}
                     </h3>
-                    <label class="choice"  style="cursor:pointer;" onclick="javascript:window.project.openRequirement(null, null, null)">
-                        {{_('让置业顾问帮我选房')}}
+                    <label class="hint">
+                        {{_('优质海外华人房源')}}
                     </label>
                 </div>
-            </a>
-        </li>
-    </ul>
-
-</div>
-
-%if not user:
-    <div class="howItWorks">
-        <!-- @@include=partials/how_it_works_tabs.html-->
-    </div>
-    <div class="howItWorks_phone">
-        <label class="title">{{_('为您推荐')}}</label>
-        <ul class="controls">
-            % for index, intention in enumerate(intention_list):
-                % slug = intention.get('slug','')
-                <li style="width: {{99.99 / 3}}%" data-tab="{{slug}}"
-                    data-id="{{intention.get('id')}}"
-                    data-value="{{intention.get('value')}}">
-                    <a href="/how_it_works?slug={{slug}}">
-                        <img alt="" src="/static/images/intention/icon/{{slug}}-red.png"/>
-                        <label for="{{intention.get('id')}}">{{intention.get('value')}}</label>
-                    </a>
-                </li>
-            %end
+            </li>
         </ul>
     </div>
-%end
+    <ul class="content">
+        <li data-tab-name="buyer">
+            <!-- @@include =./partials/index_buyer.html -->
+        </li>
+        <li data-tab-name="landlord">
+            <!-- @@include =./partials/index_landlord.html -->
+        </li>
+        <li data-tab-name="renter">
+            <!-- @@include =./partials/index_renter.html -->
+        </li>
+    </ul>
+</div>
 
-%if user:
-    <textarea id="dataBudgetList" style="display:none;">{{json_dumps(budget_list)}}</textarea>
-    <textarea id="dataIntentionList" style="display:none">
-    {{json_dumps(intention_list)}}
-    </textarea>
-    <div class="tags_wrapper" name="intentionForm">
-        <div id="tags" class="tags">
-            <h2 class="title">{{_('为您推荐')}}</h2>
-
-            <div id="budgetTag" class="budget">
-                <label class="hint" for="">{{_('您的预算')}}
-                    (
-                    {{_('单选')}},
-                    <!--@@include=partials/current_currency.html -->
-                    ):&nbsp;</label>
-                %for index, budget in enumerate(budget_list):
-                    %if budget.get('currency') == _.currency:
-                        <div class="toggleTag" data-id="{{budget.get('id')}}">{{budget.get('value')}}</div>
-                    %end
-                %end
-            </div>
-            <div id="intentionTag" class="intention">
-                <label class="hint" for="">{{_('投资意向(多选)')}}:&nbsp;</label>
-                <ul id="list">
-
-                </ul>
-                <button id="add" class="ghostButton red add">
-                    <img alt="" src="/static/images/intention/add.png"/> {{_('添加')}}
-                </button>
-                <div id="suggestionTip" class="suggestionTip" style="display:none">
-                    <p>{{_('获取为您推荐的房产投资机会')}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="intentionTabs_wrapper" style="height:0;">
-            <a class="howItWorks_button ghostButton red" href="/how_it_works">{{_('查看标签说明')}}</a>
-            <!-- @@include=partials/intention_tabs.html-->
-            <img class="collapseButton" id="collapseButton" src="/static/images/intention/collapse.png"
-                 style="cursor: pointer;"/>
-        </div>
-    </div>
-%end
-
-%if not user:
-    <textarea id="dataPropertyList" style="display:none">
-    {{json_dumps(property_list)}}
-    </textarea>
-    <div class="houseFeatured">
-        % for property in property_list:
-            <!-- @@include=/static/templates/featured_house_card.html -->
-        % end
-    </div>
-%else:
-    <div id="suggestionHouses" class="suggestionHouses">
-        <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
-
-        <div id="list" class="list">
-        </div>
-    </div>
-%end
 
 %if news_list :
     <div class="news_wrapper">

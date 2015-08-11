@@ -1,12 +1,14 @@
 (function () {
-    $('#announcement').on('click', 'ul>li>.close', function (event) {
-        var $item = $(event.target.parentNode)
-        $item.remove()
-        var $container = $(event.delegateTarget)
-        if ($container.find('ul>li').length === 0) {
-            $container.hide()
+    $('.roleChooser').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
+        if (tabName === 'buyer') {
+            window.console.log('buyer')
+        } else if (tabName === 'landlord') {
+            window.console.log('landlord')
         }
-    })
+        else if (tabName === 'renter'){
+            window.console.log('renter')
+        }
+    });
 
     function getSelectedBudgetTypeId() {
         var $selectedChild = $('#tags #budgetTag').children('.selected')
@@ -15,14 +17,6 @@
         }
         return ''
     }
-
-    // function getSelectedBudgetTypeValue() {
-    //     var $selectedChild = $('#tags #budgetTag').children('.selected')
-    //     if ($selectedChild.length) {
-    //         return $selectedChild.first().text()
-    //     }
-    //     return ''
-    // }
 
     function getSelectedIntentionIds() {
         var $selectedChildren = $('#tags #intentionTag ul').children('.selected')
@@ -40,23 +34,6 @@
         }
         return ''
     }
-
-    // function getSelectedIntentionValues() {
-    //     var $selectedChildren = $('#tags #intentionTag ul').children('.selected')
-    //     if ($selectedChildren.length) {
-    //         var ids = ''
-    //         _.each($selectedChildren, function (child) {
-    //             ids += $(child).clone().children().remove().end().text()
-    //             ids += ','
-    //         })
-
-    //         if (_.last(ids) === ',') {
-    //             ids = ids.substring(0, ids.length - 1)
-    //         }
-    //         return ids
-    //     }
-    //     return ''
-    // }
 
     function getAllIntentionIds() {
         var rawIntentionList = $('#dataIntentionList').text()
@@ -373,6 +350,7 @@
     }
 
     function addIntetionTag(id, value) {
+        var $intentionTag = $('#tags #intentionTag')
         $intentionTag.find('#list').append('<li class="toggleTag selected" data-id="' + id + '">' +
                                            value +
                                            '<img alt="" src="/static/images/intention/close.png"/></li>'
@@ -380,6 +358,7 @@
     }
 
     function removeIntentionTag(id) {
+        var $intentionTag = $('#tags #intentionTag')
         $intentionTag.find('#list li[data-id=' + id + ']').remove()
     }
 
@@ -392,9 +371,9 @@
         }
     }
 
-    if (window.user) {
-        $('[data-tabs]').tabs({trigger: 'hover'})
-        var $intentionDetails = $('[data-tabs]')
+    function setupUserPropertyChooser() {
+        $('.intentionChooser').tabs({trigger: 'hover'})
+        var $intentionDetails = $('.intentionChooser')
 
         var $budgetTag = $('#tags #budgetTag')
         var $intentionTag = $('#tags #intentionTag')
@@ -484,35 +463,22 @@
             $('.intentionTabs_wrapper').animate({height: '0'}, 400, 'swing')
 
             ga('send', 'event', 'index', 'click', 'collapse-intention-selection')
-        })
 
+        })
+    }
+
+
+    if (window.user) {
+        setupUserPropertyChooser()
     }
     else {
-        $('[data-tabs]').tabs({trigger: 'hover'})
-
-        //load featured data
-        // var houseArray = JSON.parse($('#dataPropertyList').text())
-        //  _.each(houseArray, function (house) {
-        //     var houseResult = {}
-        //      houseResult = _.template($('#featured_houseCard_template').html())({house: house})
-        //      $('.houseFeatured').append(houseResult)
-        //  })
-
+        $('.intentionChooser').tabs({trigger: 'hover'})
         updatePropertyCardMouseEnter()
     }
 
     //GA Event - Home Slideshow
     $('.gallery .rslides').find( 'li' ).find('.button').click(function(e){
         ga('send', 'event', 'index', 'click', 'slideshow-button',$(e.currentTarget).text())
-    })
-
-    //GA Event - Announcement
-    $('.announcement ul .title').click(function(e){
-        ga('send', 'event', 'index', 'click', 'top-annoument',$(e.currentTarget).text())
-    })
-
-    $('.announcement ul .more').click(function(e){
-        ga('send', 'event', 'index', 'click', 'more-annoument')
     })
 
     //GA Event - Feature Property
