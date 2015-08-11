@@ -301,6 +301,7 @@ def hesa_university_edit(hesa_university_id, params, user):
 
 @f_api('/hesa_university/search', params=dict(
     country="country",
+    city='geonames_gazetteer:city',
     postcode=str,
     postcode_index=str,
     name=str,
