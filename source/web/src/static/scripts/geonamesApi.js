@@ -27,13 +27,11 @@ function GeonamesApi () {
             feature_code: 'city'
         }, callback, reject)
     }
-    this.getNeighborhood = function (city, callback, reject) {
-        if(!cache.neighborhood[$.param(city)]) {
-            $.betterPost('/api/1/maponics_neighborhood/search', {
-                city: city
-            })
+    this.getNeighborhood = function (config, callback, reject) {
+        if(!cache.neighborhood[$.param(config)]) {
+            $.betterPost('/api/1/maponics_neighborhood/search', config)
                 .done(function (val) {
-                    cache.neighborhood[$.param(city)] = val
+                    cache.neighborhood[$.param(config)] = val
                     callback.call(null, val)
                 })
                 .fail(function (ret) {
@@ -42,7 +40,7 @@ function GeonamesApi () {
                     }
                 })
         } else {
-            callback.call(null, cache.neighborhood[$.param(city)])
+            callback.call(null, cache.neighborhood[$.param(config)])
         }
     }
     this.getSchool = function (params, callback, reject) {

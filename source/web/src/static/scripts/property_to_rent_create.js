@@ -271,7 +271,7 @@
         var $span = $('#neighborhood_select_chosen .chosen-single span')
         var originContent = $span.html()
         $span.html(window.i18n('街区列表加载中...'))
-        window.geonamesApi.getNeighborhood(city, function (val) {
+        window.geonamesApi.getNeighborhood({city: city}, function (val) {
             $('.buttonLoading').prop('disabled', false).text(window.i18n('重新获取'))
             $('.buttonLoading').trigger('end')
             $('#address').show()

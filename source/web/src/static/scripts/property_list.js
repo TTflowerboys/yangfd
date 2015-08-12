@@ -321,8 +321,8 @@
             chosenMap[elem.attr('name')] = elem.next('.chosen-container')
         })
         var getListAction = {
-            neighborhood: function getNeighborhoodList (city) {
-                window.geonamesApi.getNeighborhood(city, function (val) {
+            neighborhood: function getNeighborhoodList (params) {
+                window.geonamesApi.getNeighborhood(params, function (val) {
                     selectMap.neighborhood.html(
                         _.reduce(val, function(pre, val, key) {
                             return pre + '<option value="' + val.id + '">' + val.name + (val.parent && val.parent.name ? ', ' + val.parent.name : '') + '</option>'
@@ -361,9 +361,11 @@
                 if(obj.country.indexOf(country) < 0 && obj.country.indexOf('*') < 0 || (obj.city.indexOf(cityName) < 0 && obj.city.indexOf('*') < 0)) {
                     selectMap.parent.find('[value=' + key + ']').prop('disabled', true)
                 } else {
-                    if(key !== 'school') { //学校数据无法根据城市来搜索，目前直接搜全国的
-                        getListAction[key].call(null, city)
-                    }
+                    var params = _.omit({
+                        country: country,
+                        city: city
+                    }, _.isEmpty)
+                    getListAction[key].call(null, params)
                     selectMap.parent.find('[value=' + key + ']').prop('disabled', false)
                 }
             })
