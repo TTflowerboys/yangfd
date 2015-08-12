@@ -469,7 +469,7 @@
 
 
                 %if rent.get('description'):
-                wechatShareData.desc = '{{rent.get('description').replace('\n','\\n').replace('\r\n','\\r\\n')}}'.replace(/(\r\n|\n|\r)/gm,' ')
+                wechatShareData.desc = '{{rent.get('description').replace('\n','\\n').replace('\r\n','\\r\\n')}}'.replace(/(\r\n|\n|\r)/gm,'').slice(0,100)
 
                 %end
 

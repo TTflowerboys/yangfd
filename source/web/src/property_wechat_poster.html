@@ -521,7 +521,7 @@
 
 
                 %if description:
-                wechatShareData.desc = '{{description}}'.replace(/(\r\n|\n|\r)/gm,' ')
+                wechatShareData.desc = '{{description}}'.replace(/(\r\n|\n|\r)/gm,'').slice(0,100)
 
                 %end
 

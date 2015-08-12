@@ -1399,7 +1399,7 @@
                         }
                     }
                     if (property.description) {
-                        wechatShareData.desc = property.description.replace(/(\r\n|\n|\r)/gm,' ')
+                        wechatShareData.desc = property.description.replace(/(\r\n|\n|\r)/gm,'').slice(0, 100)
                     }
 
                     window.wx.onMenuShareTimeline(wechatShareData);
