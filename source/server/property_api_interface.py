@@ -564,10 +564,10 @@ def property_edit(property_id, user, params):
     if "maponics_neighborhood" in params:
         neighborhood = f_app.maponics.neighborhood.get(params["maponics_neighborhood"]["_id"])
         if neighborhood and "parentnid" in neighborhood and neighborhood["parentnid"]:
-            params["maponics_parent_neighborhood"] = {
+            params["maponics_parent_neighborhood"] = [{
                 "_maponics_neighborhood": True,
                 "_id": ObjectId(f_app.maponics.neighborhood.get(f_app.maponics.neighborhood.get_by_nid(neighborhood["parentnid"]))[0]["id"]),
-            }
+            }]
         else:
             params["maponics_parent_neighborhood"] = None
 

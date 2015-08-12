@@ -3216,6 +3216,18 @@ class f_maponics(f_app.plugin_base):
                 else:
                     self.logger.debug("Warning: no neighborhood found for postcode", postcode["postcode"], "id:", postcode["_id"])
 
+    def neighborhood_assign_to_property(self, country):
+        for property in f_app.property.get(f_app.property.search({"country.code": country, "zipcode": {"$exists": True}}, per_page=-1)):
+            postcode_ids = f_app.geonames.postcode.search({"country": country, "postcode_index": property["zipcode"].replace(" ", "")})
+            assert len(postcode_ids) == 1
+            postcode = f_app.geonames.postcode.get(postcode_ids[0])
+            if "neighborhoods" in postcode and postcode["neighborhoods"]:
+                self.logger.debug("Assigning neighborhood", postcode["neighborhoods"][0], "to property", property["id"])
+                f_app.property.update_set(property["id"], {"maponics_neighborhood": {"_maponics_neighborhood": True, "_id": ObjectId(postcode["neighborhoods"][0])}})
+                if len(postcode["neighborhoods"]) > 1:
+                    self.logger.debug("Assigning other neighborhoods", postcode["neighborhoods"][1:], "to property", property["id"])
+                    f_app.property.update_set(property["id"], {"maponics_parent_neighborhood": [{"_maponics_neighborhood": True, "_id": ObjectId(x)} for x in postcode["neighborhoods"][1:]]})
+
 f_maponics()
 
 
