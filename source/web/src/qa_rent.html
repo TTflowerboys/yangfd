@@ -45,7 +45,173 @@
 
         <div class="qas">
             <div class="general qaCategory">
-                <h3 name="contactRequest">{{_('如何获取房东联系方式？')}}</h3>
+                <h3 name="contactRequest">{{_('发布房产遇到问题?')}}</h3>
+                <ul class="questions">
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('如何发布房产？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('房产发布流程：在网站顶部导航选择“海外租房”，进入后点击页面右侧的“')}}<a href="/property-to-rent/create" target="_blank">{{_('发布租房信息')}}</a>{{_('”，即可按照系统提示快速发布您的房产信息！发布过程超级省力！')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('如何查看自己已经发布的房产？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“')}}<a href="/user-properties#rent" target="_blank">{{_('出租房产')}}</a>{{('”中可以看到您发布的所有出租房源。')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('刷新已经发布的房产的规则和作用是什么？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('刷新将使您的房源在平台房产列表中置顶展示，同时展示刷新时间，向租客表示您的房源依然待出租。')}}
+                        </p>
+                        <p class="answer">
+                            {{_('点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“')}}<a href="/user-properties#rent" target="_blank">{{_('出租房产')}}</a>{{('”中找出要刷新的房产，点击“刷新”即可。注意每24小时只能刷新一次。')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('如何编辑修改已经发布的房产？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“')}}<a href="/user-properties#rent" target="_blank">{{_('出租房产')}}</a>{{('”中找到您要编辑的房源，点击笔型的“编辑”按钮。')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('房产怎么被出租？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('当您发布出租信息后，平台的租客会第一时间看到您的房产信息，通过平台获取您的联系方式主动与您联系。注：房客与房东接触或租金谈判，洋房东不会介入。洋房东团队不会以任何形式收取任何费用！')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('房子租出去后，怎么删除在平台上的出租信息？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“')}}<a href="/user-properties#rent" target="_blank">{{_('出租房产')}}</a>{{('”中找到您要编辑的房源，点击“已出租”按钮。')}}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="general qaCategory">
+                <h3 name="contactRequest">{{_('房产分享遇到问题?')}}</h3>
+                <ul class="questions">
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('发布房源信息，如何分享微信好友，朋友圈或者新浪微博？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('发布成功后分享：在您出租信息发布成功后，直接在发布成功页用微信扫描二维码后，自行分享给“微信好友”，微信朋友圈”或者点击“分享到新浪微博”。')}}
+
+                        </p>
+                        <p class="answer">
+                            {{_('分享自己已发布的房源：点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“')}}<a href="/user-properties#rent" target="_blank">{{_('出租房产')}}</a>{{('”中找到您要分享的房源，点击“微信分享”。')}}
+                        </p>
+                        <p class="answer">
+                            {{_('分享平台的房源：在房源详情页面右侧的分享栏，找到“微信分享”和“微博分享”，点击进行分享。')}}
+                        </p>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="general qaCategory">
+                <h3 name="contactRequest">{{_('如何更快将房源出租出去？')}}</h3>
+                <ul class="questions">
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('提高照片数量质量')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('大量的房屋照片和较好的质量会让租客直观的看到您的房源，甚至有可能让您不用带租客去看房！')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('房产的标题要传达正确信息')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('经洋房东后台统计，每位租客大概只用2秒来游览一套房屋的标题。您的标题可以简短显示出：房屋特色/大概地址/几室几厅，这样会加速合适租客找到您。')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('详细的房产详情')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('越详细的房产信息越能让租客了解您的房产，减少沟通的成本！')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('更多的联系方式')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('越多的联系方式会让租客越容易联系到您，减少时间的浪费！')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('房屋的特色')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('请尽可能把您房屋的特色写在房产详情里面，这样可以吸引更多的租客！')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('定期刷新您的房产')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('刷新可以使您的房产被顶到第一的位置！让租客第一眼就看到您的房源！')}}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="general qaCategory">
+                <h3 name="contactRequest">{{_('收取租金问题?')}}</h3>
+                <ul class="questions">
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('洋房东全线服务及洋房东app免费吗？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('洋房东专业租房团队为您免费服务，不会以任何形式收取您任何费用，请您安心使用！')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('房东怎样收取租金？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('洋房东专业租房团队只为您提供专业全面的租房信息平台。在房东和房客自行联系后，线下可自行交易，洋房东租房团队将不会以任何形式收取任何费用！请您安心使用！')}}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="general qaCategory">
+                <h3 name="contactRequest">{{_('租客如何获取房东联系方式？')}}</h3>
                 <ul class="questions">
                     <li>
                         <h4 class="title">
