@@ -146,7 +146,7 @@ gulp.task('fingerprint', ['revAll'], function () {
 });
 
 gulp.task('revAgain', ['fingerprint'], function () {
-    return gulp.src(['dist/static/admin/*.js'], {base: 'dist'})
+    return gulp.src(['dist/static/admin/*.js', 'dist/static/themes/genius_dashboard/css/bundle.css'], {base: 'dist'})
         .pipe(gulp.dest(myPaths.dist))
         .pipe(rev())
         .pipe(gulp.dest(myPaths.dist))
