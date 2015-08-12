@@ -3219,7 +3219,9 @@ class f_maponics(f_app.plugin_base):
     def neighborhood_assign_to_property(self, country):
         for property in f_app.property.get(f_app.property.search({"country.code": country, "zipcode": {"$exists": True}}, per_page=-1)):
             postcode_ids = f_app.geonames.postcode.search({"country": country, "postcode_index": property["zipcode"].replace(" ", "")})
-            assert len(postcode_ids) == 1
+            if len(postcode_ids) != 1:
+                self.logger.warning("Multiple or no zipcode found for property", property["id"], "zipcode:", property["zipcode"], "ignoring assignment...")
+                continue
             postcode = f_app.geonames.postcode.get(postcode_ids[0])
             if "neighborhoods" in postcode and postcode["neighborhoods"]:
                 self.logger.debug("Assigning neighborhood", postcode["neighborhoods"][0], "to property", property["id"])
