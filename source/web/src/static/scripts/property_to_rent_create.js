@@ -1147,12 +1147,20 @@
                 if(!$('.ajax-file-upload-statusbar.cover').length) {
                     $('.ajax-file-upload-statusbar').eq(0).addClass('cover')
                 }
+            },
+            onError: function (files,status,errMsg,pd) {
+                //files: list of files
+                //status: error status
+                //errMsg: error message
+                window.alert(i18n('图片') + files.toString() + i18n('上传失败(') + status + ':' + errMsg + i18n(')，请重新上传'))
+                uploadObj.existingFileNames = _.difference(uploadObj.existingFileNames, files)
+                pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').remove()
             }
         }
         if(window.team.getClients().indexOf('ipad') >= 0) {
             uploadFileConfig.allowDuplicates = true
         }
-        $('#fileuploader').uploadFile(uploadFileConfig)
+        var uploadObj = $('#fileuploader').uploadFile(uploadFileConfig)
         $('.image_panel').delegate('.ajax-file-upload-statusbar', 'click', function () {
             $(this).toggleClass('cover').siblings('.ajax-file-upload-statusbar').removeClass('cover')
         })
