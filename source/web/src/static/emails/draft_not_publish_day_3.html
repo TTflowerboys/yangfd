@@ -1,29 +1,34 @@
 <!--@@master = ../../masters/email_new.html-->
 <!--@@block=content-->
 <div style="max-width:720px;margin:0 auto">
-    <h1 class="noHorizolPaddingOnMobile" style="padding:60px 20px;margin:15px 0 0;font-size:19px;text-align:left">尊敬的{{nickname}}您好：</h1>
-    <div class="noHorizolPaddingOnMobile" style="padding:0px 20px 60px;border-bottom:1px solid #ccc;margin:0;line-height:2em;font-size:18px;text-align:left">
-        <p style="margin:12px 0">我是洋房东的租房顾问</p>
-        <p style="margin:12px 0">感谢您对洋房东的支持，可是您的出租房产已经在草稿箱中躺了3天了！</p>
-        <p style="margin:12px 0">为了帮您更快的出租房产，请尽快将他们发布出去吧！</p>
-        <p style="text-align: center;margin: 35px 0;">
-            <a href="https://appsto.re/gb/QEmC6.i" style="display: inline-block;margin:20px;padding: 12px 20px; background: #e60012; color: #fff; font-size: 18px; text-decoration: none;border-radius: 8px;">{{_('手机点此发布')}}</a>
-            <a href="http://yangfd.com/user-properties#rent" style="display: inline-block;margin:20px;padding: 12px 20px; background: #e60012; color: #fff; font-size: 18px; text-decoration: none;border-radius: 8px;">{{_('PC点此发布')}}</a>
-        </p>
-        <p style="margin:12px 0">如果您有任何宝贵意见，请直接联系我们:</p>
-        <p style="margin:12px 0">
-            <span style="display: inline-block;vertical-align: top;">
-                电话：
-            </span>
-            <span style="display: inline-block">
-                <a href="tel:02030402258" style="color: #9d9d9d; text-decoration: none;">(0)2030402258</a>（英国）
-                <br/>
-                <a href="tel:4000926433" style="color: #9d9d9d; text-decoration: none;">400-0926-433</a>（中国）
-            </span>
-        </p>
-        <p style="margin:12px 0;word-break: break-all;">邮箱：<a href="mailto:Services@youngfunding.co.uk" style="text-decoration: none;color: #9d9d9d;">Services@youngfunding.co.uk</a></p>
-        <p style="margin:40px 0 10px;text-align:left;">祝您的房产早日出租</p>
-        <p style="margin:40px 0 0;text-align:right;font-size: 16px;color: #666;line-height: 1.4em;">洋房东租房团队</p>
+    <h1 class="noHorizolPaddingOnMobile" style="padding:60px 20px;margin:15px 0 0;font-size:19px;text-align:left">{{_('尊敬的')}}{{nickname}}{{_('您好：')}}</h1>
+    <div class="noHorizolPaddingOnMobile" style="padding:0px 20px 60px;border-bottom:1px solid #ccc;margin:0;line-height:2em;font-size:18px;">
+        <div class="smallFontSize">
+            <p style="margin:12px 0">{{_('我是洋房东的租房顾问')}}</p>
+            <p style="margin:12px 0">{{_('感谢您对洋房东的支持，可是您的出租房产已经在草稿箱中躺了3天了！')}}</p>
+            <p style="margin:12px 0">{{_('为了帮您更快的出租房产，请尽快将他们发布出去吧！')}}</p>
+            <p style="text-align: center;margin: 35px 0;">
+                <a href="https://appsto.re/gb/QEmC6.i" style="display: inline-block;margin:20px;padding: 12px 20px; background: #e60012; color: #fff; font-size: 18px; text-decoration: none;border-radius: 8px;">{{_('手机点此发布')}}</a>
+                <a href="http://yangfd.com/user-properties#rent" style="display: inline-block;margin:20px;padding: 12px 20px; background: #e60012; color: #fff; font-size: 18px; text-decoration: none;border-radius: 8px;">{{_('PC点此发布')}}</a>
+            </p>
+        </div>
+
+        <div class="smallFontSize" style="text-align: center;margin: 40px auto 0">
+            <p style="margin:12px 0">{{_('如果您有任何宝贵意见，请直接联系我们:')}}</p>
+            <p style="margin:12px 0">
+                <span style="display: inline-block;vertical-align: top;">
+                    电话：
+                </span>
+                <span style="display: inline-block">
+                    <a href="tel:02030402258" style="color: #9d9d9d; text-decoration: none;">(0)2030402258</a>（{{_('英国')}}）
+                    <br/>
+                    <a href="tel:4000926433" style="color: #9d9d9d; text-decoration: none;">400-0926-433</a>（{{_('中国')}}）
+                </span>
+            </p>
+            <p style="margin:12px 0;word-break: break-all;">{{_('邮箱：')}}<a href="mailto:Services@youngfunding.co.uk" style="text-decoration: none;color: #9d9d9d;">Services@youngfunding.co.uk</a></p>
+            <p style="margin:40px 0 10px;text-align:left;">{{_('祝您的房产早日出租')}}</p>
+        </div>
+        <p style="margin:40px 0 0;text-align:right;font-size: 16px;color: #666;line-height: 1.4em;">{{_('洋房东租房团队')}}</p>
         <p style="margin:10px 0;text-align:right;font-size: 16px;color:#666;line-height: 1.4em;">{{date}}</p>
     </div>
 </div>
