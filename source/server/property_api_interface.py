@@ -131,6 +131,7 @@ def property_search(user, params):
             {"maponics_neighborhood": params["maponics_neighborhood"]},
             {"maponics_parent_neighborhood": params["maponics_neighborhood"]},
         ]})
+        params.pop("maponics_neighborhood")
 
     if "name" in params:
         name = params.pop("name")
@@ -279,6 +280,7 @@ def property_search_with_plot(user, params):
             {"maponics_neighborhood": params["maponics_neighborhood"]},
             {"maponics_parent_neighborhood": params["maponics_neighborhood"]},
         ]})
+        params.pop("maponics_neighborhood")
 
     if "name" in params:
         name = params.pop("name")
