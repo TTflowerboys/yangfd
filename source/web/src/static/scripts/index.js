@@ -1,5 +1,7 @@
 (function () {
-    $('.roleChooser').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
+    $('#roleChooser').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
+        window.scrollTo(0, $('#roleChooser').offset().top)
+
         if (tabName === 'buyer') {
             window.console.log('buyer')
         } else if (tabName === 'landlord') {
