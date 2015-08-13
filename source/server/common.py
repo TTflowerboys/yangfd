@@ -132,6 +132,7 @@ class common(f_common):
     captchasnet_width = 140
     captchasnet_height = 100
     captchasnet_html = "<input type='hidden' name='challenge' value='%(challenge)s'><a href='#' onclick='refreshCaptcha()'><img src='http://image.captchas.net?client=%(username)s&random=%(challenge)s&width=%(width)d&height=%(height)d' height='%(height)s' alt='captcha' width='%(width)s' border='0' /></a><input name='solution' size=10 type=text data-validator='required, trim'>"
+    captchasnet_letters = 4
 
     sendcloud_api_user = "postmaster@yangfd.sendcloud.org"
     sendcloud_api_key = "p5WEtUrypcHiNWgL"
