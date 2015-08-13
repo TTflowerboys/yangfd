@@ -127,6 +127,12 @@ class common(f_common):
     touclick_private_key = "89fbafb1-083c-41f1-a580-86396121bb16"
     touclick_api_version = "v2-2"
 
+    captchasnet_username = 'felixonmars'
+    captchasnet_secret = 'uFoPPa8gd36dnZGskPd0zcjEbYS7llh1GhrQu8IO'
+    captchasnet_width = 100
+    captchasnet_height = 48
+    captchasnet_html = "<input type='hidden' name='challenge' value='%(challenge)s'><a href='#' onclick='refreshCaptcha()'><img src='http://image.captchas.net?client=%(username)s&random=%(challenge)s&width='%(width)d'&height='%(height)d' height='%(height)s' alt='captcha' width='%(width)s' border='0' /></a><input name='solution' size=10 type=text data-validator='required, trim'>"
+
     sendcloud_api_user = "postmaster@yangfd.sendcloud.org"
     sendcloud_api_key = "p5WEtUrypcHiNWgL"
     sendcloud_sender_name = "YangFd"
@@ -153,15 +159,15 @@ class common(f_common):
     captcha_provider_smart = {
         "CN":
         {
-            "method": "opencaptcha",
+            "method": "captchasnet",
         },
         "INTRANET":
         {
-            "method": "opencaptcha",
+            "method": "captchasnet",
         },
         "default":
         {
-            "method": "opencaptcha",
+            "method": "captchasnet",
         }
     }
 
