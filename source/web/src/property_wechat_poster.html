@@ -182,6 +182,23 @@
             </div>
         </div>
 
+        %if property.get('highlight') and len(property.get('highlight')):
+        <div class="swiper-slide swiper-slide-bg comen">
+            <div class="page pageHighlight">
+                <h2 class="animate">{{_('楼盘亮点')}}</h2>
+                <ul class="highlight">
+                    % for item in property.get('highlight'):
+                    <li class="animate">{{item}}</li>
+                    %end
+                </ul>
+
+            </div>
+            <div class="bottomBox animate">
+                <div class="scrollUp"><i class="icon-up_arrow"></i></div>
+            </div>
+        </div>
+        %end
+
         <div class="swiper-slide swiper-slide-bg commen" style="">
             <div class="page pageMap">
                 <!--<img id="mapImage" src="" alt=""/>-->

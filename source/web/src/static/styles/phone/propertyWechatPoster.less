@@ -782,7 +782,50 @@ p{
     color: @blue;
 }
 
-
+.pageHighlight{
+    h2{
+        margin: 8vh auto 6vh;
+        color: @blue;
+        font-size: 3.6vh;
+        opacity:0;
+        .animation(tada2 0.4s linear 0s 1);
+    }
+    ul{
+        max-height: 70vh;
+        overflow: hidden;
+        li{
+            opacity:0;
+            width: 90vw;
+            margin: 3vh auto;
+            font-size: 2.8vh;
+            display: inline-block;
+            line-height: 1.4em;
+            vertical-align: middle;
+            .animation(tada1 0.4s linear 0s 1);
+            &:nth-child(1){
+                animation-delay: 0.4s;
+            }
+            &:nth-child(2){
+                animation-delay: 0.5s;
+            }
+            &:nth-child(3){
+                animation-delay: 0.6s;
+            }
+            &:nth-child(4){
+                animation-delay: 0.7s;
+            }
+            &:nth-child(5){
+                animation-delay: 0.8s;
+            }
+            &:nth-child(6){
+                animation-delay: 0.9s;
+            }
+            &:nth-child(7){
+                animation-delay: 1.0s;
+            }
+        }
+    }
+}
 
 .pageMap{
     .mapImage{
