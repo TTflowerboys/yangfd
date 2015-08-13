@@ -113,7 +113,7 @@
                     })
                     _this.update(containInputData)
                 })
-            this.chosenResults.delegate('li', 'click', function (e) {
+            this.chosenResults.on('click', 'li', function (e) {
                 e.stopPropagation()
                 var hasChanged = !$(this).hasClass('result-selected')
                 var index = $(this).attr('data-option-array-index')
