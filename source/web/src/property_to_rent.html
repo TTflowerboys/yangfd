@@ -237,7 +237,11 @@
             <ul class="numbers">
                 % if rent.get('space'):
                 <li>
+                    % if rent.get('rent_type',{}).get('slug','') == 'rent_type:whole':
                     {{_('房屋面积')}}
+                    % else:
+                    {{_('房间面积')}}
+                    % end
                     <strong>
                         {{float("{0:.2f}".format(float(rent.get('space',{}).get('value',0))))}}
                         <span class="unit">
