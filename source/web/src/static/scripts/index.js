@@ -1,4 +1,31 @@
 (function () {
+    function initSwiper ($container, index) {
+        var className = 'swiper-container' + index
+        var defaultOptions = {
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            autoplay: 4000
+        }
+        var options
+        if($container.find('.swiper-slide').length <= 10) { //小于10张图时用原点,否则用数字
+            options = _.extend(defaultOptions, {
+                pagination: '.swiper-pagination',
+                paginationClickable: '.swiper-pagination'
+            })
+        }else {
+            options = _.extend(defaultOptions, {
+                pagination: '.swiper-pagination',
+                paginationBulletRender: function (index, className) {
+                    return '<span class="' + className + ' number">' + (index + 1) + '/' + $container.find('.swiper-slide').length + '</span>';
+                }
+            })
+        }
+        $container.addClass(className).attr('data-swiper', className)
+        window.swiperInstance = window.swiperInstance || {}
+        window.swiperInstance[className] = new window.Swiper('.' + className, options)
+    }
+    initSwiper($('.swiper-container').eq(0), 0)
+
     $('#announcement').on('click', 'ul>li>.close', function (event) {
         var $item = $(event.target.parentNode)
         $item.remove()
