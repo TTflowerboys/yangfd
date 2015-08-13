@@ -131,10 +131,6 @@
             @media @phone{
                 -webkit-overflow-scrolling: touch;
                 max-height: calc(~'100% - 120px');
-                li{
-                    padding: 10px 10px;
-                    line-height: 1;
-                }
             }
             .active-result{
                 text-indent: inherit;
@@ -146,6 +142,10 @@
                 list-style: none;
                 line-height: 14px;
                 word-wrap: break-word;
+                @media @phone{
+                    padding: 10px 10px;
+                    line-height: 1;
+                }
                 &.highlighted{
                     /*background-color: transparent;
                     background-image: none;
