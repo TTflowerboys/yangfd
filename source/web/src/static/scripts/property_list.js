@@ -472,19 +472,23 @@
             }
         }
         _.each(chosenMap, function (elem, key) {
-            if(key === 'parent') {
-                return
-            }
+            /*if(key === 'parent') {
+             return
+             }*/
             addEvent(document.body, 'mousedown', function (event) {
-                //需要在子选项展开前跳到父选项，所以在此处要使用事件捕获来阻止.chosen-container上的鼠标按下事件冒泡
                 if($(event.target).parents('.chosen-container').length && $(event.target).parents('.chosen-container').is(elem) && $(event.target).parents('.chosen-single').length){
                     selectMap[key].val('').trigger('change').trigger('chosen:updated')
                     selectMap.parent.val('').trigger('change').trigger('chosen:updated')
                     showChosen('parent')
-                    openChosen('parent')
-                    event.stopPropagation()
+                    //event.stopPropagation()
                 }
             }, true)
+            addEvent(document.body, 'mouseup', function (event) {
+                if($(event.target).parents('.chosen-container').length && $(event.target).parents('.chosen-container').is(elem) && $(event.target).parents('.chosen-single').length){
+                    openChosen('parent')
+                }
+            }, true)
+
             /*elem.on('click', '.chosen-single', function (e) {
              openChosen('parent')
              showChosen('parent')
