@@ -56,38 +56,38 @@
 
                 <p class="line2 animate">
                     % if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
-                    % minPrice = property.get('main_house_types')[0].get('total_price_min')
-                    %for index, type  in enumerate(property.get('main_house_types')):
-                    %if int(float(minPrice.get('value'))) > int(float(type.get('total_price_min').get('value'))):
-                    %   minPrice = type.get('total_price_min')
-                    %end
-                    %end
+                        % minPrice = property.get('main_house_types')[0].get('total_price_min')
+                        %for index, type  in enumerate(property.get('main_house_types')):
+                            %if int(float(minPrice.get('value'))) > int(float(type.get('total_price_min').get('value'))):
+                            %   minPrice = type.get('total_price_min')
+                            %end
+                        %end
                     <span class="price_original" data-formatPrice>
                         {{minPrice.get('unit_symbol')}}
                         {{int(float(minPrice.get('value')))}}
                     </span>
                     <span class="sub">{{_('起')}}</span>
-                    %if minPrice.get('localized_value',''):
+                        %if minPrice.get('localized_value',''):
                     <span class="price_reference" data-formatPrice>
                         {{_('约')}}
                         {{minPrice.get('localized_unit_symbol','')}}
                         {{int(float(minPrice.get('localized_value','')))}}
                     </span>
-                    %end
+                        %end
                     % else :
-                    %if 'total_price' in property and property.get('total_price'):
+                        %if 'total_price' in property and property.get('total_price'):
                     <span class="price_original" data-formatPrice>
                         {{property.get('total_price',{}).get('unit_symbol','')}}
                         {{int(float(property.get('total_price',{}).get('value','')))}}
                     </span>
-                    %end
-                    % if 'localized_unit_symbol' in property.get('total_price',{}) and property.get('total_price',{}).get('localized_unit_symbol','') != property.get('total_price',{}).get('unit_symbol',''):
+                        %end
+                        % if 'localized_unit_symbol' in property.get('total_price',{}) and property.get('total_price',{}).get('localized_unit_symbol','') != property.get('total_price',{}).get('unit_symbol',''):
                     <span class="price_reference" data-formatPrice>
                         {{_('约')}}
                         {{property.get('total_price',{}).get('localized_unit_symbol','')}}
                         {{int(float(property.get('total_price',{}).get('localized_value','')))}}
                     </span>
-                    % end
+                        % end
                     % end
                 </p>
                 <ul class="itemBox clearfix">
@@ -327,31 +327,70 @@
         %if property.get('estimated_monthly_cost') and property.get('estimated_monthly_rent'):
         <div class="swiper-slide swiper-slide-bg commen " style="">
             <div class="page pageIncome">
-                <h2 class="animate">{{_('月收支分析图')}}</h2>
+                <h2 class="animate">{{_('房产投资分析')}}</h2>
+                % if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
+                % sample = property.get('main_house_types')[0]
+                % minPrice = sample.get('total_price_min')
+
+                %for index, type  in enumerate(property.get('main_house_types')):
+                %if int(float(minPrice.get('value'))) > int(float(type.get('total_price_min').get('value'))):
+                %   minPrice = type.get('total_price_min')
+                %   sample = type
+                %end
+                %end
+
+                % else :
+                %if 'total_price' in property and property.get('total_price'):
+                % sample = property
+                %end
+                % end
                 <p class="description animate">
-                    % if property.get('estimated_income_description'):
-                    {{property.get('estimated_income_description','')}}
+                    % if property.get('name'):
+                    {{property.get('name','')}}{{_('投资分析')}}
                     % else:
-                    {{_('基于该地区相似房产的月收支分析')}}
+                    {{_('基于该地区相似房产的投资分析')}}
                     % end
+                    <br/>
+                    {{_('以')}}
+                    <span class="price_original" data-formatPrice>
+                        {{sample.get('total_price',{}).get('unit_symbol')}}
+                        {{int(float(sample.get('total_price',{}).get('value')))}}
+                    </span>
+                    {{_('为购入房价')}}
+                </p>
+                <p class="houseType animate">
+                    {{_('参考户型')}}
+                % if sample.get('bedroom_count') != 0:
+                    {{sample.get('bedroom_count', 0)}}{{_('室')}}{{sample.get('living_room_count', 0)}}{{_('厅')}}
+                % else:
+                    studio
+                % end
                 </p>
                 <ul>
                     <li class="animate">
-                        <span class="key">{{_('预期总收入')}}</span>
-                        <span class="value"><sub>{{property.get('estimated_monthly_rent',{}).get('unit_symbol','')}}</sub>{{property.get('estimated_monthly_rent',{}).get('value','0')}}</span>
+                        <span class="key">{{_('房产价格：')}}</span>
+                        <span class="value"><sub>{{sample.get('total_price',{}).get('unit_symbol')}}</sub><span data-formatPrice>{{int(float(sample.get('total_price',{}).get('value')))}}</span></span>
                     </li>
-                    % net_earning = float(property.get('estimated_monthly_rent',{}).get('value','0'))
-                    % for item in property.get('estimated_monthly_cost',[]):
-                    % net_earning = net_earning - float(item.get('price',{}).get('value','0'))
                     <li class="animate">
-                        <span class="key">{{item.get('item')}}</span>
-                        <span class="value"><sub>{{item.get('price',{}).get('unit_symbol','')}}</sub>-{{item.get('price',{}).get('value','0')}}</span>
+                        <span class="key">{{_('年租金回报：')}}</span>
+                        <span class="value"><sub>{{property.get('estimated_monthly_rent',{}).get('unit_symbol','')}}</sub><span data-formatPrice>{{float(property.get('estimated_monthly_rent',{}).get('value','0'))*12}}</span></span>
                     </li>
+                    % service_charge = 0
+                    % for item in property.get('estimated_monthly_cost',[]):
+                    % service_charge += float(item.get('price',{}).get('value','0')) * 12
                     % end
-                    <hr class="animate"/>
+                    % net_earning = float(float(property.get('estimated_monthly_rent',{}).get('value','0'))) * 12 - service_charge
+                    <li class="animate">
+                        <span class="key">{{_('年管理费用&服务费：')}}</span>
+                        <span class="value"><sub>{{item.get('price',{}).get('unit_symbol','')}}</sub>-<span data-formatPrice>{{service_charge}}</span></span>
+                    </li>
                     <li class="bold animate">
-                        <span class="key">{{_('预期净收益')}}</span>
-                        <span class="value"><sub>{{property.get('estimated_monthly_rent',{}).get('unit_symbol','')}}</sub>{{net_earning}}</span>
+                        <span class="key">{{_('年净租金回报：')}}</span>
+                        <span class="value"><sub>{{property.get('estimated_monthly_rent',{}).get('unit_symbol','')}}</sub><span data-formatPrice>{{net_earning}}</span></span>
+                    </li>
+                    <li class="bold animate">
+                        <span class="key">{{_('年净租金回报率：')}}</span>
+                        <span class="value">{{round(net_earning/(float(sample.get('total_price',{}).get('value')))*100, 2)}}%</span>
                     </li>
                 </ul>
             </div>
