@@ -3,7 +3,7 @@
     var lastItemTime
     var isLoading = false
     var isAllItemsLoaded = false
-    var viewMode = 'list'
+    var viewMode = window.team.getQuery('viewMode', window.location.href)?  window.team.getQuery('viewMode', window.location.href): 'list'
 
     // Init all filter options
     window.countryData = getData('countryData')
@@ -221,11 +221,6 @@
         return description
     }
 
-
-
-
-
-
     var countryFromURL = window.team.getQuery('country', location.href)
     if (countryFromURL) {
         selectCountry(countryFromURL)
@@ -234,6 +229,16 @@
     var cityFromURL = window.team.getQuery('city', location.href)
     if (cityFromURL) {
         selectCity(cityFromURL)
+    }
+
+    var neighborhoodFromURL = window.team.getQuery('neighborhood', location.href)
+    if (neighborhoodFromURL) {
+        selectNeighborhood(neighborhoodFromURL)
+    }
+
+    var schoolFromURL = window.team.getQuery('school', location.href)
+    if (schoolFromURL) {
+        selectSchool(schoolFromURL)
     }
 
     var propertyTypeFromURL = window.team.getQuery('property_type', location.href)
@@ -314,6 +319,8 @@
     }
     initChosen($('[name=propertyCountry]'))
     initChosen($('[name=propertyCity]'))
+    initChosen($('[name=neighborhood]'))
+    initChosen($('[name=school]'))
     initChosen($('[name=propertyType]'))
     initChosen($('[name=rentType]'))
 
@@ -567,7 +574,7 @@
     // Init top filters value from URL
 
     // Init load rent property list
-    loadRentList()
+
 
     function getData(key) {
         return JSON.parse(document.getElementById(key).innerHTML)
@@ -715,7 +722,19 @@
             lastItemTime = null
             loadRentList(true)
         }else if(viewMode === 'map'){
-            loadRentMapList()
+            if (typeof Microsoft === 'undefined'){
+                var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'
+                window.onBingMapScriptLoad = function () {
+                    if (typeof Microsoft === 'undefined') {
+                        window.alert(window.i18n('地图加载失败'))
+                    }else{
+                        loadRentMapList()
+                    }
+                }
+                $('body').append(scriptString)
+            }else{
+                loadRentMapList()
+            }
         }
     }
 
@@ -770,6 +789,15 @@
     function selectCity(id) {
         $('select[name=propertyCity]').find('option[value=' + id + ']').prop('selected', true).trigger('chosen:updated')
     }
+
+    function selectNeighborhood(id) {
+        $('select[name=neighborhood]').find('option[value=' + id + ']').prop('selected', true).trigger('chosen:updated')
+    }
+
+    function selectSchool(id) {
+        $('select[name=school]').find('option[value=' + id + ']').prop('selected', true).trigger('chosen:updated')
+    }
+
 
     function selectPropertyType(id) {
         $('select[name=propertyType]').find('option[value=' + id + ']').prop('selected', true)
@@ -991,7 +1019,7 @@
     }
 
     function autoLoad() {
-        if ($('[data-tab-name=list]').is(':visible')) {
+        if ($('[data-tab-name=list]').hasClass('selectedTab')) {
             if(needLoad()) {
                 $('.isAllLoadedInfo').hide()
                 loadRentList()
@@ -999,10 +1027,17 @@
         }
     }
     $(window).scroll(autoLoad)
+
     $(document).ready(function () {
         setTimeout(function () {
-            autoLoad()
-        }, 200)
+            var $tabContainer = $('[data-tabs]')
+            var $tab = $tabContainer.find('[data-tab=' + viewMode + ']')
+            $tab.parent().show()
+            $tab.addClass('selectedTab')
+            $tab.siblings().removeClass('selectedTab')
+            openTabContent(viewMode)
+            loadRentListByView()
+        }, 20)
     })
     /*
     * Map View
@@ -1212,53 +1247,39 @@
         map.entities.clear();
     }
 
+
+
     $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
-        if (tabName === 'map') {
-            viewMode = 'map'
-            if (typeof Microsoft === 'undefined'){
-                var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'
-                window.onBingMapScriptLoad = function () {
-                    if (typeof Microsoft === 'undefined') {
-                        window.alert(window.i18n('地图加载失败'))
-                    }else{
-                        loadRentMapList()
-                    }
-                }
-                $('body').append(scriptString)
-            }else{
-                loadRentMapList()
-            }
-        }else if (tabName === 'list') {
-            viewMode = 'list'
-            loadRentList(true)
-        }
+        viewMode = tabName
+        loadRentListByView()
     })
+
+
+
+    function openTabContent(tabName) {
+        var $tabContainer = $('[data-tabs]')
+        var $tabContents = null
+
+
+        $tabContents = $tabContainer.find('[data-tab-name=' + tabName + ']')
+        $tabContents.addClass('selectedTab').show()
+        $tabContents.siblings().removeClass('selectedTab').hide()
+        $tabContainer.trigger('openTab', [$('.tabSelector [tab-name=' + tabName + ']'), tabName])
+    }
 
     $('.tabSelector_phone').click(function (e) {
         var currentTab = $(this).attr('data-tab')
-        var $tabContainer = $('[data-tabs]')
-        var tabName = ''
-        var $tabContents = null
-
         if (currentTab === 'list'){
             viewMode = 'map'
             //to show map
-            tabName = 'map'
-            $tabContents = $tabContainer.find('[data-tab-name=' + tabName + ']')
-            $tabContents.addClass('selectedTab').show()
-            $tabContents.siblings().removeClass('selectedTab').hide()
-            $tabContainer.trigger('openTab', [$('.tabSelector [tab-name=' + tabName + ']'), tabName])
-            $(this).attr('data-tab', 'map')
+            openTabContent(viewMode)
+            $(this).attr('data-tab', viewMode)
         }
         else {
             viewMode = 'list'
             //to show list
-            tabName = 'list'
-            $tabContents = $tabContainer.find('[data-tab-name=' + tabName + ']')
-            $tabContents.addClass('selectedTab').show()
-            $tabContents.siblings().removeClass('selectedTab').hide()
-            $tabContainer.trigger('openTab', [$('.tabSelector [tab-name=' + tabName + ']'), tabName])
-            $(this).attr('data-tab', 'list')
+            openTabContent(viewMode)
+            $(this).attr('data-tab', viewMode)
         }
     })
 
