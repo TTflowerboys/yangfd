@@ -121,7 +121,7 @@ class common(f_common):
 
     opencaptcha_width = 100
     opencaptcha_height = 48
-    opencaptcha_html = "<input type='hidden' name='challenge' value='%(challenge)s'><a href='#' onclick='refreshCaptcha()'><img src='http://www.opencaptcha.com/img/%(challenge)s'  height='%(height)s' alt='captcha' width='%(width)s' border='0'/></a><input name='solution' size=10 type=text data-validator='required, trim'>"
+    opencaptcha_html = "<input type='hidden' name='challenge' value='%(challenge)s'><a onclick='refreshCaptcha()'><img src='http://www.opencaptcha.com/img/%(challenge)s' height='%(height)s' alt='captcha' width='%(width)s' border='0'/></a><input name='solution' size=10 type=text data-validator='required, trim'>"
 
     touclick_public_key = "031024af-e0a6-4f38-a189-8f51378be624"
     touclick_private_key = "89fbafb1-083c-41f1-a580-86396121bb16"
@@ -131,7 +131,7 @@ class common(f_common):
     captchasnet_secret = 'uFoPPa8gd36dnZGskPd0zcjEbYS7llh1GhrQu8IO'
     captchasnet_width = 140
     captchasnet_height = 100
-    captchasnet_html = "<input type='hidden' name='challenge' value='%(challenge)s'><a href='#' onclick='refreshCaptcha()'><img src='http://image.captchas.net?client=%(username)s&random=%(challenge)s&width=%(width)d&height=%(height)d%(customization)s' height='%(height)s' alt='captcha' width='%(width)s' border='0' /></a><input name='solution' size=10 type=text data-validator='required, trim'>"
+    captchasnet_html = "<input type='hidden' name='challenge' value='%(challenge)s'><a onclick='refreshCaptcha()'><img src='http://image.captchas.net?client=%(username)s&random=%(challenge)s&width=%(width)d&height=%(height)d%(customization)s' height='%(height)s' alt='captcha' width='%(width)s' border='0' /></a><input name='solution' size=10 type=text data-validator='required, trim'>"
     captchasnet_letters = 4
 
     sendcloud_api_user = "postmaster@yangfd.sendcloud.org"
