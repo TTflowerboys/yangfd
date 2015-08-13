@@ -167,6 +167,9 @@
                 editItem.cityName = editItem.city.name
                 editItem.city = editItem.city.id
             }
+            if(!_.isEmpty(editItem.maponics_neighborhood)){
+                editItem.maponics_neighborhood = editItem.maponics_neighborhood.id
+            }
             if(_.isEmpty(editItem.zipcode_index) && !_.isEmpty(editItem.zipcode)) {
                 editItem.zipcode_index = editItem.zipcode.trim().slice(0, editItem.zipcode.trim().length - 3)
             }
@@ -218,6 +221,9 @@
             if (!_.isEmpty(editTargetItem.city)) {
                 editTargetItem.cityName = editTargetItem.city.name
                 editTargetItem.city = editTargetItem.city.id
+            }
+            if(!_.isEmpty(editTargetItem.maponics_neighborhood)){
+                editTargetItem.maponics_neighborhood = editTargetItem.maponics_neighborhood.id
             }
             if(_.isEmpty(editTargetItem.zipcode_index) && !_.isEmpty(editTargetItem.zipcode)) {
                 editTargetItem.zipcode_index = editTargetItem.zipcode.trim().slice(0, editTargetItem.zipcode.trim().length - 3)

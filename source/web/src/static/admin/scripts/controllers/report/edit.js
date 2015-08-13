@@ -54,6 +54,9 @@
                 editItem.cityName = editItem.city.name
                 editItem.city = editItem.city.id
             }
+            if(!_.isEmpty(editItem.maponics_neighborhood)){
+                editItem.maponics_neighborhood = editItem.maponics_neighborhood.id
+            }
             $scope.itemOrigin = editItem
             $scope.item = angular.copy($scope.itemOrigin)
         }

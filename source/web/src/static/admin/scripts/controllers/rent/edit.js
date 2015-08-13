@@ -36,6 +36,9 @@
             if (editItem.property && !_.isEmpty(editItem.property.city)) {
                 editItem.property.cityName = editItem.property.city.name
             }
+            if(editItem.property && !_.isEmpty(editItem.property.maponics_neighborhood)){
+                editItem.property.maponics_neighborhood = editItem.property.maponics_neighborhood.id
+            }
             editItem = misc.cleanI18nEmptyUnit(editItem)
             $scope.itemOrigin = editItem
             $scope.item = angular.copy($scope.itemOrigin)
