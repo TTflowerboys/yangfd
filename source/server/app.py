@@ -11,6 +11,7 @@ import libfelix.f_ad
 import libfelix.f_blog
 import libfelix.f_captcha.f_opencaptcha
 import libfelix.f_captcha.f_recaptcha
+import libfelix.f_captcha.f_captchasnet
 # import libfelix.f_captcha.f_touclick
 import libfelix.f_common
 import libfelix.f_email
