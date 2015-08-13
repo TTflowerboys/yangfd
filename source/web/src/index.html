@@ -1,6 +1,7 @@
 <!--@@master=masters/master.html-->
 <!--@@block=head -->
 <!--build:css(dist) /static/styles/index.html.css-->
+<link rel="stylesheet" href="/static/bower_components/swiper/dist/css/swiper.min.css">
 <link rel="stylesheet" href="/static/styles/project/houseCard.css"/>
 <link rel="stylesheet" href="/static/styles/project/processCard.css"/>
 <link rel="stylesheet" href="/static/styles/index.css"/>
@@ -9,10 +10,10 @@
 <!--@@block=main -->
 <div class="gallery">
     %if homepage_ad_list:
-        <div class="rslides_wrapper">
-            <ul class="rslides" data-init="false">
+        <div class=" swiper-container">
+            <ul class=" swiper-wrapper" data-init="false">
                 % for ad in homepage_ad_list:
-                    <li>
+                    <li class="swiper-slide">
                         <div class="img hiddenOnMobile" style="background:url('{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}', sizingMethod='scale');" data-url="{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}">
                             <div class="img_shadow"></div>
                         </div>
@@ -32,6 +33,9 @@
                     </li>
                 % end
             </ul>
+            %if len(homepage_ad_list) > 1:
+            <div class="swiper-pagination"></div>
+            %end
         </div>
     %end
 </div>
@@ -246,11 +250,6 @@
 <!--@@block=scripts -->
 <script>
 
- $(function () {
-     $(".rslides").responsiveSlides({
-         pager: true
-     })
- })
     window.iconMap = {
         'school_nearby_house': 'category_b',
         'off_plan_property': 'category_e',
@@ -259,6 +258,7 @@
     }
 </script>
 <!--build:js /static/scripts/index.html.js-->
+<script type="text/javascript" src="/static/bower_components/swiper/dist/js/swiper.jquery.min.js"></script>
 <script src="/static/scripts/index.js"></script>
 <!--endbuild-->
 <!--@@close-->
