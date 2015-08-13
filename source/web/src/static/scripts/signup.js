@@ -7,7 +7,9 @@ $(function () {
     }
 
     function showRecaptcha(containerId) {
-
+        if($('#' + containerId).find('a img').length){
+            $('#' + containerId).find('a img').hide()
+        }
         $.betterPost('/api/1/captcha/generate', {})
             .done(function (data) {
                 if (data) {
