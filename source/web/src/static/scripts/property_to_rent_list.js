@@ -807,6 +807,7 @@
         $('select[name=rentType]').find('option[value=' + id + ']').prop('selected', true)
     }
 
+    //TODO update url parameter by selector change and tag change
 
     /*
      * Interactions with side tag filters
@@ -1039,6 +1040,8 @@
             loadRentListByView()
         }, 20)
     })
+
+
     /*
     * Map View
     * */
