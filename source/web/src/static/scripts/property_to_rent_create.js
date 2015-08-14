@@ -924,7 +924,6 @@
             $.betterPost('/api/1/user/sms_verification/send', {
                 phone: '+' + $('[name=country_code]').val() + $('[name=phone]').val()
             }).done(function () {
-                needSMSCode = true
                 $btn.siblings('.sucMsg').show()
             }).fail(function (ret) {
                 $errorMsgOfGetCode.html(window.getErrorMessageFromErrorCode(ret)).show()
@@ -957,6 +956,7 @@
                     //$('.leftWrap').addClass('hasLogin').find('form').remove()
                     //ga('send', 'event', 'signup', 'result', 'signup-success')
                     // Count down 1 min to enable resend
+                    needSMSCode = true
                     requestSMSCode()
 
                 })
@@ -966,6 +966,7 @@
                     $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
                 })
         } else if($btn.data('register')) {
+            needSMSCode = true
             requestSMSCode()
         }
     })
