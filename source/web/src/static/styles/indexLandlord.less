@@ -9,6 +9,10 @@
         text-align:center;
         padding:130px 0;
 
+        @media @phone {
+            display:none;
+        }
+
         .title {
             display:block;
             font-size:38px;
@@ -52,36 +56,118 @@
         height: @appDownloadHeight;
         background: url("/static/images/background/index_app_bg.jpg") 50% 50% no-repeat;
         background-size: cover;
+
+        @media @phone {
+            height: auto;
+            background-image: url("/static/images/background/ad_app_bg_mobile.jpg");
+        }
+
+        &:after{
+            @media @phone{
+                position: absolute;
+                z-index: 1;
+                content: '';
+                width: 100%;
+                height: 100%;
+                left: 0;
+                bottom: 0;
+                background-size: 100% 100%;
+                background-image: url("/static/images/background/index_app_quadrangle_mobile_bg.png");
+            }
+        }
+
         .wrapLeft {
+            @media @phone {
+                width:100%;
+                top:-100px;
+            }
             .content {
                 height:@appDownloadHeight;
+
+                @media @phone {
+                    height:300px;
+                }
 
                 .logo {
                     height:88px;
                     width:325px;
+
+                    @media @phone {
+                        height:44px;
+                        width:162px;
+                        margin-bottom:16px;
+                    }
+                }
+
+                .title {
+                    @media @phone {
+                        font-size:12px;
+                    }
+                }
+
+                .text {
+                    @media @phone {
+                        margin:15px;
+                        font-size:14px;
+                    }
                 }
             }
         }
 
         .wrapCenter {
             width:20%;
+            @media @phone {
+                width:100%;
+                top:340px;
+                margin-top:0px;
+            }
             .downloadWrap {
+
                 >a {
                     width:206px;
                     height:66px;
 
+                    @media @phone {
+                        width:120px;
+                        height:32px;
+                        margin-bottom:10px;
+                        border-radius:6px;
+                    }
+
                     .logo {
                         line-height:62px;
                         margin:0 10px;
+
+                        @media @phone {
+                            line-height:19px;
+                            margin-top:5px;
+                        }
+
+                        i {
+                            @media @phone {
+                                font-size:19px;
+                                line-height:1em;
+                            }
+                        }
                     }
 
                     .downloadInfo {
                         width:140px;
+                        @media @phone {
+                            width:70px;
+                            margin-top:5px;
+                        }
                         p {
                             font-size:14px;
+                            @media @phone {
+                                font-size:7px;
+                            }
                         }
                         p.bold {
                             font-size:16px;
+                            @media @phone {
+                                font-size:8px;
+                            }
                         }
                     }
                 }
@@ -90,6 +176,10 @@
 
         .wrapRight {
             width:38%;
+
+            @media @phone {
+                display:none;
+            }
         }
     }
 }
