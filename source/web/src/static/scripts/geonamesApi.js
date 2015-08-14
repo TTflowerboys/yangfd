@@ -31,8 +31,9 @@ function GeonamesApi () {
         if(!cache.neighborhood[$.param(config)]) {
             $.betterPost('/api/1/maponics_neighborhood/search', config)
                 .done(function (val) {
-                    cache.neighborhood[$.param(config)] = val
-                    callback.call(null, val)
+                    var valSorted = _.sortBy(val, 'name')
+                    cache.neighborhood[$.param(config)] = valSorted
+                    callback.call(null, valSorted)
                 })
                 .fail(function (ret) {
                     if(reject && typeof reject === 'function') {
