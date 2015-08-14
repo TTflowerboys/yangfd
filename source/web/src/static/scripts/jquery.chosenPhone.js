@@ -51,6 +51,9 @@
                 width: option.width || '100%',
             })
         }
+        this.findPositionOfInput = function (text) {
+            return [text.toLowerCase().indexOf(this.input.toLowerCase()), text.toLowerCase().indexOf(this.input.toLowerCase()) + this.input.length]
+        }
         this.update = function (data) {
             if (option.disable_search_threshold && option.disable_search_threshold >= this.data.length) {
                 this.chosen.addClass('chosen-container-single-nosearch')
@@ -62,8 +65,14 @@
             }) || {}).text)
             var palceholder = this.elem.attr('data-placeholder') ? this.elem.attr('data-placeholder') : ''
             var dropHtml = _.reduce(data, function (pre, cur, index) {
+                var length = _this.input ? _this.input.length : 0
+                var inputPos
                 if(!option.display_disabled_options && cur.disabled){
                     return pre
+                }
+                if(length) {
+                    inputPos = _this.findPositionOfInput(cur.text)
+                    return pre + '<li class="active-result' + (cur.selected ? ' result-selected' : '') + (option.inherit_select_classes ? ' ' + cur.class : '') + '" data-option-array-index="' + cur.index + '">' + cur.text.slice(0, inputPos[0]) + '<strong>' + cur.text.slice(inputPos[0], inputPos[1]) + '</strong>' + cur.text.slice(inputPos[1]) + '</li>'
                 }
                 return pre + '<li class="active-result' + (cur.selected ? ' result-selected' : '') + (option.inherit_select_classes ? ' ' + cur.class : '') + '" data-option-array-index="' + cur.index + '">' + cur.text + '</li>'
             }, '')
@@ -79,6 +88,9 @@
                     'height': ''
                 })
             })
+            this.input = ''
+            this.chosenSearch.val('')
+            this.update(this.data)
         }
         this.showDrop = function () {
             document.body.scrollTop = 1
@@ -107,9 +119,9 @@
                     })
                 })
                 .bind('keyup', function () {
-                    var input = $(this).val()
+                    _this.input = $(this).val()
                     var containInputData = _.filter(_this.data, function (obj) {
-                        return obj.text.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                        return obj.text.toLowerCase().indexOf(_this.input.toLowerCase()) >= 0
                     })
                     _this.update(containInputData)
                 })
