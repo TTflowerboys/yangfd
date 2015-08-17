@@ -1,5 +1,10 @@
 @import "project/_imports";
 
+@screen-lg: ~"(min-width:1901px)";
+@screen-md: ~"(min-width:1360px) and (max-width:1900px)";
+@screen-sm: ~"(min-width:768px) and (max-width:1359px)";
+
+
 .landlordService {
     width:100%;
     background:#f6f6f6;
@@ -88,9 +93,25 @@
                     height:300px;
                 }
 
+                @media @screen-lg{
+                    width:580px;
+                    height:450px;
+                    font-size: 21px;
+                }
+
+                @media @screen-md{
+                    height:450px;
+                }
+
                 .logo {
                     height:88px;
                     width:325px;
+
+                    @media @screen-lg{
+                        width: 325px;
+                        height: 88px;
+                        margin: 50px 0px;
+                    }
 
                     @media @phone {
                         height:44px;
@@ -132,6 +153,49 @@
                         height:32px;
                         margin-bottom:10px;
                         border-radius:6px;
+                    }
+
+                    @width:308px;
+                    @height:100px;
+                    @iconFontSize: 48px;
+                    @logoMargin:24px;
+                    @infoWidth:200px;
+                    @infoFontSize:17px;
+                    @infoFontSizeBold:25px;
+                    @infoMargin:20px;
+                    .size(@n:1){
+                        width: @n * @width;
+                        height: @n * @height;
+                        .logo{
+                            line-height: @n * @height - 4px;
+                            margin: 0 @n * @logoMargin;
+                            i{
+                                font-size: @n * @iconFontSize;
+                            }
+                        }
+                        .downloadInfo{
+                            margin-top: @n * @infoMargin;
+                            width: @n * @infoWidth;
+                            font-size: @n * @infoFontSize;
+                            .bold{
+                                font-size: @n * @infoFontSizeBold;
+                            }
+                        }
+
+                    }
+                    @media @screen-lg {
+                        .size(0.8);
+                    }
+                    @media @screen-md {
+                        .size(0.8);
+                    }
+                    @media @screen-sm {
+                        .size(0.8);
+                    }
+                    @media @phone {
+                        .size(0.72);
+                        float: none;
+                        margin: 0 auto;
                     }
 
                     .logo {
@@ -179,6 +243,24 @@
 
             @media @phone {
                 display:none;
+            }
+
+            .phone {
+                @media @screen-lg{
+                    width:293px;
+                    height: 600px;
+                }
+
+                .swiper-container{
+
+                    @width: 342px;
+                    @height: 606px;
+
+                    @media @screen-lg{
+                        width: 0.75 * @width;
+                        height: 0.75 * @height;
+                    }
+                }
             }
         }
     }
