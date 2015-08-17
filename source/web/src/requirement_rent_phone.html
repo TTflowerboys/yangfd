@@ -70,6 +70,27 @@
                                 </select>
                             </div>
                             <div class="col">
+                                <p class="title">{{_('居室数')}}</p>
+                                <p class="inputPlaceholder">{{_('居室数')}}</p>
+                                <select dir="rtl" class="select-chosen bedroomCount" data-validator="required" data-name="{{_('居室数')}}" data-hint="{{_('居室数')}}" data-serialize="bedroom_count">
+                                    %for index,value in enumerate(['studio',1,2,3,4,5,6,7,8,9,10]):
+                                    %if 1 == index:
+                                    <option value="{{index}}" selected>
+                                        {{value}}{{_('室')}}
+                                    </option>
+                                    %else:
+                                    <option value="{{index}}">
+                                        % bedroom_count_text = [str(value)]
+                                        %if index != 0:
+                                        %bedroom_count_text.append(_('室'))
+                                        %end
+                                        {{''.join(bedroom_count_text)}}
+                                    </option>
+                                    %end
+                                    %end
+                                </select>
+                            </div>
+                            <div class="col">
                                 <p class="title">{{_('预算')}}(
                                     <!--@@include=./partials/current_currency.html -->
                                     {{_('/周')}}
