@@ -188,6 +188,12 @@
                     % if rent['property'].get('street',''):
                     % display_location.append(rent['property'].get('street',''))
                     % end
+                    %if rent.get('property',{}).get('city'):
+                    % display_location.append(rent['property'].get('city',{}).get('name'))
+                    %end
+                    %if rent.get('property',{}).get('country'):
+                    % display_location.append(get_country_name_by_code(rent['property'].get('country',{}).get('code')))
+                    %end
                     %if not rent.get('property',{}).get('partner'):
                     % display_location.append(rent['property'].get('zipcode',''))
                     %end
