@@ -45,6 +45,8 @@
                 }
             })
             getCountryList()
+        } else {
+            $citySelect.trigger('change')
         }
 
         function getCountryList() { //通过window.team.countryMap来获取国家列表
@@ -432,7 +434,6 @@
         }
 
         initShowAndHide(container, option)
-        initLocation(container)
         $('.neighborhood-select').parents('.row').show()
         container.find('.select-chosen').add(container.find('[name=country_code]')).each(function (index, elem) {
             if(!$(elem).data('chosen')) {
@@ -449,6 +450,7 @@
             }
         })
         $('.neighborhood-select').parents('.row').hide()
+        initLocation(container)
         initStep(container)
         initDateInput(container)
         initRequirementRentTitle(container)
