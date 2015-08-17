@@ -2050,17 +2050,37 @@
 						TestTargetID = 2CA94A951ACA42CD00DF7497;
 					};
 					2CA2E6AB1AC5487800053965 = {
-						DevelopmentTeam = CVJ4KG6V54;
+						DevelopmentTeam = QAMFRU8FS9;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					2CA2E6C41AC5496700053965 = {
 						DevelopmentTeam = QAMFRU8FS9;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					2CA94A951ACA42CD00DF7497 = {
-						DevelopmentTeam = CVJ4KG6V54;
+						DevelopmentTeam = QAMFRU8FS9;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					2CB43DA81ABC1372004DF663 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = CVJ4KG6V54;
+						DevelopmentTeam = QAMFRU8FS9;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					2CDC11661B33F8C100B6D3DD = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -3190,8 +3210,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-CUTE";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Cheng Zhang (3G52XM7QH8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Cheng Zhang (3G52XM7QH8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/currant/Library3rd",
@@ -3204,7 +3224,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = currant;
-				PROVISIONING_PROFILE = "86c7420c-7e7c-40f7-98cf-42783151b5c4";
+				PROVISIONING_PROFILE = "a5e46afa-8d22-4766-ab42-c32da2b84d4f";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-test-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3243,8 +3263,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-CUTE";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Cheng Zhang (3G52XM7QH8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Cheng Zhang (3G52XM7QH8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/currant/Library3rd",
@@ -3257,7 +3277,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = currant;
-				PROVISIONING_PROFILE = "86c7420c-7e7c-40f7-98cf-42783151b5c4";
+				PROVISIONING_PROFILE = "f155c909-1074-4dc6-a3fc-aaf790e03c9e";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-production-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3297,7 +3317,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-CUTE";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Cheng Zhang (3G52XM7QH8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/currant/Library3rd",
@@ -3310,7 +3331,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = currant;
-				PROVISIONING_PROFILE = "86c7420c-7e7c-40f7-98cf-42783151b5c4";
+				PROVISIONING_PROFILE = "a5e46afa-8d22-4766-ab42-c32da2b84d4f";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-dev-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3433,8 +3454,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-CUTE";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Cheng Zhang (3G52XM7QH8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Cheng Zhang (3G52XM7QH8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/currant/Library3rd",
@@ -3447,7 +3468,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "86c7420c-7e7c-40f7-98cf-42783151b5c4";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3460,8 +3481,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-CUTE";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Cheng Zhang (3G52XM7QH8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Cheng Zhang (3G52XM7QH8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/currant/Library3rd",
@@ -3474,7 +3495,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "86c7420c-7e7c-40f7-98cf-42783151b5c4";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-Bridging-Header.h";
 			};
 			name = Release;
