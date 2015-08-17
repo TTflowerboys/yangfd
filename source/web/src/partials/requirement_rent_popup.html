@@ -64,6 +64,28 @@
                                 </select>
                             </div>
                             <div class="col">
+                                <p class="title">{{_('居室数')}}</p>
+                                <select class="select-chosen bedroomCount" data-validator="required" data-name="{{_('求租类型')}}" data-serialize="bedroom_count">
+                                    %for index,value in enumerate(['studio',1,2,3,4,5,6,7,8,9,10]):
+                                    %if rent.get('property',{}).get('bedroom_count',1) == index:
+                                    <option value="{{index}}" selected>
+                                        {{value}}{{_('室')}}
+                                    </option>
+                                    %else:
+                                    <option value="{{index}}">
+                                        % bedroom_count_text = [str(value)]
+                                        %if index != 0:
+                                        %bedroom_count_text.append(_('室'))
+                                        %end
+                                        {{''.join(bedroom_count_text)}}
+                                    </option>
+                                    %end
+                                    %end
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
                                 <p class="title">{{_('预算')}}(
                                     <!--@@include=./current_currency.html -->
                                     {{_('/周')}}
@@ -76,8 +98,6 @@
                                     %end
                                 </select>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col">
                                 <p class="title">{{_('租期')}}</p>
                                 <input type="text" class="startDate dateInput" placeholder="{{_('开始日期')}}" data-validator="date" data-name="{{_('开始日期')}}" data-serialize="rent_available_time|time"/>
