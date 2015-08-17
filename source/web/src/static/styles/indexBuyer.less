@@ -59,12 +59,18 @@
         display:inline-block;
         width: 33%;
         overflow:hidden;
+        float:left;
 
         >a {
             display: block;
             overflow:hidden;
             height:100%;
             color:#666;
+            width:220px;
+            margin:0 auto;
+            @media @phone {
+                width:100%;
+            }
         }
 
         @media @phone {
