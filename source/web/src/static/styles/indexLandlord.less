@@ -1,0 +1,267 @@
+@import "project/_imports";
+
+@screen-lg: ~"(min-width:1901px)";
+@screen-md: ~"(min-width:1360px) and (max-width:1900px)";
+@screen-sm: ~"(min-width:768px) and (max-width:1359px)";
+
+
+.landlordService {
+    width:100%;
+    background:#f6f6f6;
+    >.publish {
+        width:1200px;
+        margin:0 auto;
+        text-align:center;
+        padding:130px 0;
+
+        @media @phone {
+            display:none;
+        }
+
+        .title {
+            display:block;
+            font-size:38px;
+            line-height:1em;
+            color:#333;
+        }
+
+        .hint {
+            display:block;
+            margin-top:32px;
+            font-size:24px;
+            line-height:1em;
+            color:#b5b5b5;
+        }
+
+        .button {
+            display:block;
+            margin:0 auto;
+            margin-top:65px;
+            padding:10px 14px;
+
+            i {
+                font-size:34px;
+                vertical-align: middle;
+            }
+
+            label {
+                font-size:22px;
+                line-height:34px;
+                vertical-align: middle;
+                margin-left: 6px;
+            }
+        }
+    }
+
+    @appDownloadHeight: 450px;
+    
+    .appDownload {
+        position: relative;
+        width: 100%;
+        height: @appDownloadHeight;
+        background: url("/static/images/background/index_app_bg.jpg") 50% 50% no-repeat;
+        background-size: cover;
+
+        @media @phone {
+            height: auto;
+            background-image: url("/static/images/background/ad_app_bg_mobile.jpg");
+        }
+
+        &:after{
+            @media @phone{
+                position: absolute;
+                z-index: 1;
+                content: '';
+                width: 100%;
+                height: 100%;
+                left: 0;
+                bottom: 0;
+                background-size: 100% 100%;
+                background-image: url("/static/images/background/index_app_quadrangle_mobile_bg.png");
+            }
+        }
+
+        .wrapLeft {
+            @media @phone {
+                width:100%;
+                top:-100px;
+            }
+            .content {
+                height:@appDownloadHeight;
+
+                @media @phone {
+                    height:300px;
+                }
+
+                @media @screen-lg{
+                    width:580px;
+                    height:450px;
+                    font-size: 21px;
+                }
+
+                @media @screen-md{
+                    height:450px;
+                }
+
+                .logo {
+                    height:88px;
+                    width:325px;
+
+                    @media @screen-lg{
+                        width: 325px;
+                        height: 88px;
+                        margin: 50px 0px;
+                    }
+
+                    @media @phone {
+                        height:44px;
+                        width:162px;
+                        margin-bottom:16px;
+                    }
+                }
+
+                .title {
+                    @media @phone {
+                        font-size:12px;
+                    }
+                }
+
+                .text {
+                    @media @phone {
+                        margin:15px;
+                        font-size:14px;
+                    }
+                }
+            }
+        }
+
+        .wrapCenter {
+            width:20%;
+            @media @phone {
+                width:100%;
+                top:340px;
+                margin-top:0px;
+            }
+            .downloadWrap {
+
+                >a {
+                    width:206px;
+                    height:66px;
+
+                    @media @phone {
+                        width:120px;
+                        height:32px;
+                        margin-bottom:10px;
+                        border-radius:6px;
+                    }
+
+                    @width:308px;
+                    @height:100px;
+                    @iconFontSize: 48px;
+                    @logoMargin:24px;
+                    @infoWidth:200px;
+                    @infoFontSize:17px;
+                    @infoFontSizeBold:25px;
+                    @infoMargin:20px;
+                    .size(@n:1){
+                        width: @n * @width;
+                        height: @n * @height;
+                        .logo{
+                            line-height: @n * @height - 4px;
+                            margin: 0 @n * @logoMargin;
+                            i{
+                                font-size: @n * @iconFontSize;
+                            }
+                        }
+                        .downloadInfo{
+                            margin-top: @n * @infoMargin;
+                            width: @n * @infoWidth;
+                            font-size: @n * @infoFontSize;
+                            .bold{
+                                font-size: @n * @infoFontSizeBold;
+                            }
+                        }
+
+                    }
+                    @media @screen-lg {
+                        .size(0.8);
+                    }
+                    @media @screen-md {
+                        .size(0.8);
+                    }
+                    @media @screen-sm {
+                        .size(0.8);
+                    }
+                    @media @phone {
+                        .size(0.72);
+                        float: none;
+                        margin: 0 auto;
+                    }
+
+                    .logo {
+                        line-height:62px;
+                        margin:0 10px;
+
+                        @media @phone {
+                            line-height:19px;
+                            margin-top:5px;
+                        }
+
+                        i {
+                            @media @phone {
+                                font-size:19px;
+                                line-height:1em;
+                            }
+                        }
+                    }
+
+                    .downloadInfo {
+                        width:140px;
+                        @media @phone {
+                            width:70px;
+                            margin-top:5px;
+                        }
+                        p {
+                            font-size:14px;
+                            @media @phone {
+                                font-size:7px;
+                            }
+                        }
+                        p.bold {
+                            font-size:16px;
+                            @media @phone {
+                                font-size:8px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .wrapRight {
+            width:38%;
+
+            @media @phone {
+                display:none;
+            }
+
+            .phone {
+                @media @screen-lg{
+                    width:293px;
+                    height: 600px;
+                }
+
+                .swiper-container{
+
+                    @width: 342px;
+                    @height: 606px;
+
+                    @media @screen-lg{
+                        width: 0.75 * @width;
+                        height: 0.75 * @height;
+                    }
+                }
+            }
+        }
+    }
+}

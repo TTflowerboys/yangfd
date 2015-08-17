@@ -43,6 +43,18 @@ def default(user):
     news_list = f_app.i18n.process_i18n(news_list)
 
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
+
+    rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
+    property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
+    property_country_list = currant_util.get_country_list()
+
+    property_city_list = []
+    geonames_params = dict({
+        "feature_code": {"$in": ["PPLC", "PPLA", "PPLA2"]},
+        "country": "GB"
+    })
+    property_city_list = f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(geonames_params, per_page=-1))
+
     title = _('洋房东')
     return currant_util.common_template(
         "index",
@@ -51,6 +63,10 @@ def default(user):
         homepage_ad_list=homepage_ad_list,
         news_list=news_list,
         intention_list=intention_list,
+        property_country_list=property_country_list,
+        property_city_list=property_city_list,
+        rent_type_list=rent_type_list,
+        property_type_list=property_type_list,
         icon_map=currant_util.icon_map
     )
 

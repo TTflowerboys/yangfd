@@ -375,6 +375,7 @@ def intention_ticket_search(user, params):
     rent_available_time=datetime,
     rent_deadline_time=datetime,
     minimum_rent_period="i18n:time_period",
+    bedroom_count="enum:bedroom_count",
     country=("country", True),
     description=str,
     title=str,
@@ -641,6 +642,7 @@ def rent_intention_ticket_remove(user, ticket_id):
     title=str,
     description=str,
     city="geonames_gazetteer:city",
+    bedroom_count="enum:bedroom_count",
     rent_type="enum:rent_type",
     rent_budget="enum:rent_budget",
     rent_available_time=datetime,
@@ -958,6 +960,10 @@ def support_ticket_search(user, params):
     deposit="i18n:currency",
     landlord_type="enum:landlord_type",
     bill_covered=bool,
+    custom_fields=(list, None, dict(
+        key=(str, True),
+        value=(str, True),
+    )),
 ))
 @f_app.user.login.check(check_role=True)
 def rent_ticket_add(user, params):
@@ -1003,6 +1009,10 @@ def rent_ticket_add(user, params):
     landlord_type="enum:landlord_type",
     bill_covered=bool,
     unset_fields=(list, None, str),
+    custom_fields=(list, None, dict(
+        key=(str, True),
+        value=(str, True),
+    )),
 ))
 @f_app.user.login.check(check_role=True)
 def rent_ticket_edit(ticket_id, user, params):

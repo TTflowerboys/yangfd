@@ -787,7 +787,9 @@ class f_currant_plugins(f_app.plugin_base):
         ==================================================================
     """
 
-    task = ["assign_property_short_id", "render_pdf", "crawler_example", "crawler_london_home", "fortis_developments", "crawler_knightknox", "crawler_abacusinvestor", "crawler_knightknox_agents", "update_landregistry", "crawler_selectproperty", "rent_ticket_reminder", "rent_ticket_generate_digest_image"]
+    task = ["assign_property_short_id", "render_pdf", "crawler_example", "crawler_london_home", "fortis_developments", "crawler_knightknox",
+            "crawler_abacusinvestor", "crawler_knightknox_agents", "update_landregistry", "crawler_selectproperty", "rent_ticket_reminder",
+            "rent_ticket_generate_digest_image", "rent_ticket_check_intention"]
 
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
@@ -803,6 +805,90 @@ class f_currant_plugins(f_app.plugin_base):
             ticket["user_id"] = str(ticket["user_id"])
 
         return ticket
+
+    def ticket_update_after(self, ticket_id, params, ignore_error=True):
+        if "status" in params and params["status"] == "to rent":
+            f_app.task.add(dict(
+                type="rent_ticket_check_intention",
+                ticket_id=ticket_id,
+            ))
+
+    def task_on_rent_ticket_check_intention(self, task):
+        ticket_id = task["ticket_id"]
+        ticket = f_app.ticket.get(ticket_id)
+
+        # Scan existing rent intention ticket
+        params = {
+            "type": "rent_intention",
+            "status": "new",
+            "country": ticket["country"],
+            "city": ticket["city"],
+        }
+        rent_intention_tickets = f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1))
+
+        for intention_ticket in rent_intention_tickets:
+            if "email" not in intention_ticket["creator_user"]:
+                continue
+
+            if "rent_budget" not in intention_ticket or "bedroom_count" not in intention_ticket or "minimum_rent_period" not in intention_ticket or "rent_type" not in intention_ticket:
+                continue
+
+            bedroom_count = f_app.util.parse_bedroom_count(ticket["property"]["bedroom_count"])
+            A = True
+            if bedroom_count[0] is not None:
+                A = A and bedroom_count[0] <= ticket["property"]["bedroom_count"]
+            if bedroom_count[1] is not None:
+                A = A and bedroom_count[1] >= ticket["property"]["bedroom_count"]
+
+            rent_budget = f_app.util.parse_budget(intention_ticket["rent_budget"])
+            B = True
+            price = ticket["price"]["value_float"]
+            if ticket["price"]["unit"] != rent_budget[2]:
+                price = float(f_app.i18n.convert_currency({"unit": ticket["price"]["unit"], "value": ticket["price"]["value"]}, rent_budget[2]))
+            if rent_budget[0]:
+                B = B and float(rent_budget[0]) <= price
+            if rent_budget[1]:
+                B = B and float(rent_budget[1]) >= price
+
+            C = ticket["rent_available_time"].month == intention_ticket["rent_available_time"].month and ticket["rent_deadline_time"].month == intention_ticket["rent_deadline_time"].month
+
+            D = ticket["minimum_rent_period"]["value_float"] >= intention_ticket["minimum_rent_period"]["value_float"]
+
+            if "maponics_neighborhood" in ticket and "maponics_neighborhood" in intention_ticket:
+                E = ticket["maponics_neighborhood"]["id"] == intention_ticket["maponics_neighborhood"]["id"]
+            else:
+                E = ticket["property"]["zipcode_index"] == intention_ticket["zipcode_index"]
+
+            F = ticket["rent_type"]["id"] == intention_ticket["rent_type"]["id"]
+
+            score = A + B + C + D + E + F
+
+            if score == 6:
+                title = "洋房东给你匹配到了合适的房源，快来看看吧！"
+                digest_url = "http://yangfd.com/wechat-poster/%s/image" % ticket_id
+                f_app.email.schedule(dict(
+                    target=intention_ticket["creator_user"]["email"],
+                    subject=title,
+                    # TODO
+                    text=template("static/emails/rent_intention_matched_1", title=title, nickname=intention_ticket["creator_user"]["nickname"], rent_ticket_id=ticket_id, date="", digest_url=digest_url),
+                    display="html",
+                    ticket_match_user_id=intention_ticket["creator_user"]["id"],
+                ))
+            elif score >= 4:
+                title = "洋房东给你匹配到了一些房源，快来看看吧！"
+                digest_url = "http://yangfd.com/wechat-poster/%s/image" % ticket_id
+                sent_in_a_day = f_app.task.search({"status": {"$exists": True}, "type": "email", "ticket_match_user_id": intention_ticket["creator_user"]["id"], "start": {"$gte": datetime.utcnow() - timedelta(days=1)}})
+                if len(sent_in_a_day):
+                    pass
+                else:
+                    f_app.email.schedule(dict(
+                        target=intention_ticket["creator_user"]["email"],
+                        subject=title,
+                        # TODO
+                        text=template("static/emails/rent_intention_matched_4", title=title, nickname=intention_ticket["creator_user"]["nickname"], rent_ticket_id=ticket_id, date="", digest_url=digest_url),
+                        display="html",
+                        ticket_match_user_id=intention_ticket["creator_user"]["id"],
+                    ))
 
     def user_add(self, params, noregister):
         params.setdefault("private_contact_methods", [])
