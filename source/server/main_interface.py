@@ -126,6 +126,28 @@ def reset_password():
     return currant_util.common_template("reset_password", title=title)
 
 
+@f_get('/reset_password_phone', '/reset-password-phone')
+@currant_util.check_ip_and_redirect_domain
+def reset_password_phone():
+    title = _('使用短信验证码重置密码')
+    return currant_util.common_template("reset_password_phone", title=title)
+
+
+@f_get('/reset_password_email_1', '/reset-password-email-1')
+@currant_util.check_ip_and_redirect_domain
+def reset_password_email_1():
+    title = _('使用绑定邮箱重置密码')
+    return currant_util.common_template("reset_password_email_1", title=title)
+
+
+@f_get('/reset_password_email_2', '/reset-password-email-2')
+@currant_util.check_ip_and_redirect_domain
+def reset_password_email_2():
+    title = _('使用绑定邮箱重置密码')
+    return currant_util.common_template("reset_password_email_2", title=title)
+
+
+
 @f_get('/property-for-sale/create')
 @currant_util.check_ip_and_redirect_domain
 @currant_util.check_crowdfunding_ready

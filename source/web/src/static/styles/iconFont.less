@@ -1,3 +1,5 @@
+@import "project/_imports";
+
 @font-face {
     font-family: 'icomoon';
     src:url('/static/fonts/icon_font/icomoon.eot');
@@ -21,6 +23,9 @@
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    &.red{
+        color: @red;
+    }
 }
 .icon-android:before {
     content: "\e65d";
