@@ -1,0 +1,118 @@
+<div class="userChoice_wrapper">
+    <ul class="userChoice">
+        <li>
+            <a href="/guides">
+                <i class="img_wrapper icon-building"></i>
+                <div class="text">
+                    <h3 class="question">
+                        {{_('首次海外置业？')}}
+                    </h3>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a
+                %if is_mobile_client():
+                    href="#" onclick="window.bridge.callHandler(&quot;openPropertyListTab&quot;);return false;"
+                %else:
+                    href="/property-list"
+                %end
+                    data-need-bridge
+                    >
+                <i class="img_wrapper icon-search_homepage"></i>
+                <div class="text">
+                    <h3 class="question">
+                        {{_('已经有置业目标？')}}
+                    </h3>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a style="cursor:pointer;" onclick="javascript:window.project.openRequirement(null, null, null)">
+                <i class="img_wrapper icon-files_homepage"></i>
+                <div class="text last">
+                    <h3 class="question">
+                        {{_('立即提交置业需求？')}}
+                    </h3>
+                 </div>
+            </a>
+        </li>
+    </ul>
+</div>
+
+%if user:
+    <textarea id="dataBudgetList" style="display:none;">{{json_dumps(budget_list)}}</textarea>
+    <textarea id="dataIntentionList" style="display:none">
+    {{json_dumps(intention_list)}}
+    </textarea>
+    <div class="tags_wrapper" name="intentionForm">
+        <div id="tags" class="tags">
+            <h2 class="title">{{_('为您推荐')}}</h2>
+
+            <div id="budgetTag" class="budget">
+                <label class="hint" for="">{{_('您的预算')}}
+                    (
+                    {{_('单选')}},
+                    <!--@@include=current_currency.html -->
+                    ):&nbsp;</label>
+                %for index, budget in enumerate(budget_list):
+                    %if budget.get('currency') == _.currency:
+                        <div class="toggleTag" data-id="{{budget.get('id')}}">{{budget.get('value')}}</div>
+                    %end
+                %end
+            </div>
+            <div id="intentionTag" class="intention">
+                <label class="hint" for="">{{_('投资意向(多选)')}}:&nbsp;</label>
+                <ul id="list">
+
+                </ul>
+                <button id="add" class="ghostButton red add">
+                    <img alt="" src="/static/images/intention/add.png"/> {{_('添加')}}
+                </button>
+                <div id="suggestionTip" class="suggestionTip" style="display:none">
+                    <p>{{_('获取为您推荐的房产投资机会')}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="intentionTabs_wrapper" style="height:0;">
+            <a class="howItWorks_button ghostButton red" href="/how_it_works">{{_('查看标签说明')}}</a>
+            <!-- @@include=intention_tabs.html-->
+            <img class="collapseButton" id="collapseButton" src="/static/images/intention/collapse.png"
+                 style="cursor: pointer;"/>
+        </div>
+    </div>
+    <div id="suggestionHouses" class="suggestionHouses">
+        <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
+
+        <div id="list" class="list">
+        </div>
+    </div>
+%else:
+    <div class="howItWorks">
+        <!-- @@include=how_it_works_tabs.html-->
+    </div>
+    <div class="howItWorks_phone">
+        <label class="title">{{_('为您推荐')}}</label>
+        <ul class="controls">
+            % for index, intention in enumerate(intention_list):
+                % slug = intention.get('slug','')
+                <li style="width: {{99.99 / 3}}%" data-tab="{{slug}}"
+                    data-id="{{intention.get('id')}}"
+                    data-value="{{intention.get('value')}}">
+                    <a href="/how_it_works?slug={{slug}}">
+                        <img alt="" src="/static/images/intention/icon/{{slug}}-red.png"/>
+                        <label for="{{intention.get('id')}}">{{intention.get('value')}}</label>
+                    </a>
+                </li>
+            %end
+        </ul>
+    </div>
+    <textarea id="dataPropertyList" style="display:none">
+    {{json_dumps(property_list)}}
+    </textarea>
+    <div class="houseFeatured">
+        % for property in property_list:
+            <!-- @@include=../static/templates/featured_house_card.html -->
+        % end
+    </div>
+%end

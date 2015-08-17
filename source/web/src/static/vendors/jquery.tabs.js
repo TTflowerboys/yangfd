@@ -25,7 +25,7 @@
                         $tabContainer.trigger('openTab', [e.currentTarget, tabName])
                     })
                 })
-            if (options.autoSelectFirst) {
+            if (options.autoSelectFirst && $tabContainer.find('[data-tab-name]' + '.' + options.className).length === 0) {
                 var $firstTab = $tabContainer.find('[data-tab]').eq(0)
                 $firstTab.addClass(options.className).show()
 

@@ -169,1010 +169,117 @@ main {
         }
     }
 
-    .userChoice {
-        &_wrapper {
-            background:#333;
-            width:100%;
+    .roleChooser {
+        .tab {
+            width:1200px;
+            margin:0px auto;
             overflow:hidden;
-        }
-
-        width:1200px;
-        margin:45px auto;
-        height:80px;
-        overflow:hidden;
-
-        @media @phone {
-            width:100%;
-            margin:0px;
-            height:auto;
-        }
-
-        li {
-            display:inline-block;
-            width: initial!important;
-            margin-right: 25px;
-            overflow:hidden;
-
-            >a {
-                display: block;
-                overflow:hidden;
-                height:100%;
-
-                &:hover, &.pseudo-class-hover {
-                    .img_wrapper{
-                        background: #ff0014;
-                    }
-                }
-
-            }
+            height:122px;
 
             @media @phone {
                 width:100%;
-                height:72px;
-                display:block;
-                padding-top:16px;
-            }
-
-            .img_wrapper {
-                float:left;
-                display:inline-block;
-                width:80px;
-                height: 80px;
-                line-height: 80px;
-                border-radius: 50%;
-                background: @red;
-                text-align: center;
-                font-size: 42px;
-                color: #fff;
-                vertical-align: middle;
-                @media @phone {
-                    margin:0 0px 16px 16px;
-                    width:40px;
-                    height: 40px;
-                    line-height: 40px;
-                    font-size: 21px;
-                }
-
-            }
-   
-            .text {
-                display:inline-block;
-                float:left;
-                height:80px;
-                vertical-align:80px;
-                margin-left:20px;
-                color:#ccc;
-                overflow:hidden;
-
-                @media @phone {
-                    border-bottom:1px solid #555;
-                    width:~"calc(100% - 72px)";
-                    height:100%;
-                    margin-left:16px;
-                }
-
-                &.last {
-                    @media @phone {
-                        border-bottom:0;
-                    }
-                }
-                .question {
-                    font-size:22px;
-                    margin-top:10px;
-
-                    @media @phone {
-                        float:left;
-                        margin-top:0px;
-                        font-size:14px;
-                        display:block;
-                        width:100%;
-                    }
-
-                }
-
-                .choice {
-                    font-size:16px;
-                    color:#ccc;
-                    text-decoration:none;
-                    cursor: pointer;
-
-                    @media @phone {
-                        float:left;
-                        font-size:12px;
-                        display:block;
-                        width:100%;
-                    }
-                }
-            }
-        }
-    }
-
-    .howItWorks_phone {
-        display:none;
-        @media @phone {
-	    display:block;
-        }
-        background:#eee;
-        overflow:hidden;
-        border-bottom:1px #ccc solid;
-
-        .title {
-            float:left;
-            display:block;
-            font-size:16px;
-            margin:20px 0 0 12px;
-            color:#333;
-        }
-        ul {
-            width:100%;
-            float:left;
-            li {
-                float:left;
-                margin:25px 0;
-                text-align:center;
-
-                a {
-                    text-decoration:none;
-                    color:#999;
-                    font-size:@base-font-size-mobile;
-                    display:block;
-                    width:100%;
-                    height:100%;
-                    img {
-                        display:block;
-                        margin:0 auto 15px auto;
-                    }
-                }
-            }
-        }
-    }
-
-    .howItWorks {
-        height: 500px;
-        background: #f6f6f6;
-        width: 100%;
-        overflow: hidden;
-
-        @media @phone {
-            display:none;
-        }
-
-        [data-tabs] {
-            margin-top: 60px;
-        }
-
-        .row { .clearfix(); position: relative;
-               width: @max-width;
-               margin: 0 auto;
-               &.intention {
-                   > ul { .clearfix(); text-align: center;  border-bottom:1px solid #ccc;
-                          li { float: left; width: 16.66%; height: 30px; margin-top:11px; position: relative; line-height: 1;
-                               color: #999;
-                               &.selectedTab {
-                                   color: #333;
-                               }
-                               > label {
-                                   height: 20px;
-                                   display: block;
-                                   cursor: pointer;
-                               }
-
-                               &:after {
-                                   border-top:2px solid #e60012;
-                                   height:0;
-                                   width:100%;
-                                   display: none;
-                                   content: ' ';
-                                   position: absolute;
-                                   bottom: 0;
-                                   left: 0;
-                               }
-                               &.selectedTab:after {
-                                   display: block;
-                               }
-                             }
-                        }
-               }
-               > label { font-size: 24px; color:#333; float:left; display:inline-block; }
-               > .controls { margin-left: 20px; float:left; display:inline-block;
-                             li {
-                                 min-width:120px;
-                             }
-                             input { display: none; }
-                           }
-             }
-
-        .details {
-            width: @max-width;
-            margin: 50px auto 0 auto;
-
-            .processInfo {
-                display:block;
-                overflow:hidden;
                 height:40px;
-                img {
-                    float:left;
-                }
-                i{
-                    float: left;
-                    font-size: 40px;
-                    color: @red;
-                }
-                p {
-                    float:left;
-                    display:inline-block;
-                    width:900px;
-                    margin:0 30px;
-                }
-
-                a {
-                    float:left;
-                    font-size:16px;
-                    padding:4px 14px;
-                }
             }
 
-        }
-
-    }
-
-    .tags {
-        overflow: hidden;
-        width: @max-width;
-        margin: 0 auto;
-
-        @media @phone {
-            width:auto;
-            margin:12px;
-        }
-
-
-        &_wrapper {
-            background: #f6f6f6;
-            width: 100%;
-            overflow:hidden;
-        }
-
-        .title {
-            font-size: 24px;
-            margin: 0;
-            padding-top: 56px;
-            padding-bottom: 20px;
-            line-height: 1;
-            color: #333;
-            border-bottom: 1px solid #ccc;
-
-            @media @phone {
-                font-size:16px;
-                padding-top:12px;
-                padding-bottom:12px;
-            }
-        }
-
-        .budget {
-            margin-top: 40px;
-            margin-bottom: 50px;
-
-            @media @phone {
-                margin-top:12px;
-                margin-bottom:12px;
-            }
-
-            .hint {
-                width: 200px;
-                display: inline-block;
-                font-size: 16px;
-                color: #333;
-
-                @media @phone {
-                    display:block;
-                    font-size:@base-font-size-mobile;
-                    color:#b6b6b6;
-                    margin-bottom:20px;
-                }
-
-            }
-        }
-
-        .intention {
-            margin-bottom: 40px;
-            @media @phone {
-                margin-bottom:0;
-            }
-
-            .hint {
-                width: 200px;
-                display: inline-block;
-                font-size: 16px;
-                color: #333;
-
-                @media @phone {
-                    display:block;
-                    font-size:@base-font-size-mobile;
-                    color:#b6b6b6;
-                    margin-bottom:20px;
-                }
-            }
-
-            ul {
-                display: inline-block;
-            }
-
-            .toggleTag {
-                img {
-                    vertical-align: middle;
-                    margin-left: 6px;
-                    max-width:none;
-                }
-            }
-
-            .add {
-                padding: 1px 10px;
-                vertical-align:top;
-                img {
-                    max-width:none;
-                }
-                @media @phone {
-                    font-size:@base-font-size-mobile;
-                    height:28px;
-                }
-            }
-
-            .suggestionTip {
-                background: #ff6773;
-                display: inline-block;
-                padding: 4px;
-                margin-left: 12px;
-                position: relative;
-
-                &:before {
-                    content: '';
-                    display: block;
-                    width: 0;
-                    height: 0;
-                    position: absolute;
-                    top: 50%;
-                    margin-top: -5px;
-                    right: 100%;
-                    border: 5px solid #ff6773;
-                    border-left-color: transparent;
-                    border-top-color: transparent;
-                    border-bottom-color: transparent;
-                }
-
-                p {
-                    display: inline-block;
-                    margin: 0;
-                    font-size: @base-font-size-mobile;
-                    color: white;
-                }
-            }
-        }
-    }
-
-    .intentionTabs_wrapper {
-        width: 100%;
-        background: #333;
-        overflow: hidden;
-
-        .howItWorks_button {
-            display:none;
-            @media @phone {
-	        display:block;
-                float:right;
-                margin-right:12px;
-                margin-top:15px;
-            }
-        }
-        
-        [data-tabs] {
-            margin-top: 80px;
-        }
-        .row { .clearfix(); position: relative;
-               width: @max-width;
-               margin: 0 auto;
-
-               @media @phone {
-                   width:100%;
-               }
-
-               &.budget {
-                   @height: 40px;
-                   height: @height; line-height: @height;
-                   margin: @height 0;
-               }
-               > label { width: 88px; font-size: 16px; position: absolute; display: none; }
-               > .controls {
-                   .clearfix(); text-align: center;
-                   margin-left: 88px;
-                   @media @phone {
-                       margin-left:0;
-
-                   }
-                   li { float: left; width: 14.14%; height: 110px; position: relative; line-height: 1;
-                        @media @phone {
-                            width:33.33%;
-                            height:140px;
-                        }
-
-                        > label {
-                            height: 60px;
-                            display: block;
-                            cursor: pointer;
-                            color: #ccc;
-                            i{
-                                font-size: 40px;
-                            }
-                        }
-
-                        color: #999;
-                        &.selected {
-                            color: #e60012;
-                            label{
-                                color: #e60012;
-                            }
-                        }
-                        &:after {
-                            .arrow(@direction: up; @fg:#222; @width: 20px;);
-                            display: none;
-                            content: ' ';
-                            position: absolute; bottom: 0; left: 50%;
-
-                            @media @phone {
-                                display:none;
-                            }
-                        }
-                        &.selectedTab:after {
-                            display: block;
-
-                            @media @phone {
-                                display:none;
-                            }
-
-                        }
-
-                        input { display: none; }
-                      }
-               }
-             }
-
-        .details {
-            width: @max-width;
-            margin: 0 auto;
-            @media @phone {
-                display:none;
-            }
-
-            > div { @height: 270px; line-height: @height; height: @height; text-align: center;
-                    background: #222; position: relative; display: none;
-                    img { vertical-align: middle; }
-                    &.selected { display: block; }
-                    .arrow { position: absolute; width: 100%; bottom: 100%;
-                             span { margin-left: 88px; display: block; position: relative;
-                                    &:before {
-                                        content: ' ';
-                                        position: absolute; bottom: 100%;
-                                        .arrow(@direction: up; @fg:#ddd; @width: 20px;)
-                                    }
-                                  }
-                           }
-                  }
-        }
-
-        .collapseButton {
-            display: block;
-            margin: 28px auto;
-            width: 60px;
-
-            @media @phone {
-                margin-bottom:0;
-                margin-top:auto;
-            }
-        }
-    }
-
-    .announcement {
-        &_wrapper {
-            width: 100%;
-
-            @media @phone {
-                background:#eee;
-            }
-        }
-
-        overflow: hidden;
-        width: @max-width;
-        margin: 0 auto;
-        padding-top: 22px;
-        padding-bottom: 22px;
-        border-bottom: 1px solid #ccc;
-
-        @media @phone {
-            width:100%;
-            padding: 10px 25px 10px 12px;
-            border-bottom: none;
-        }
-
-        .item {
-            display: block;
-            height: 16px;
-            vertical-align:middle;
-            .icon {
-                float: left;
-                font-size: 16px;
-                color: @red;
-            }
-            .title {
-                float: left;
-                margin-left: 10px;
-                font-size: 14px;
-                line-height: 16px;
-                color: #999;
-                text-decoration: none;
-
-                @media @phone {
-                    font-size:@base-font-size-mobile;
-                }
-            }
-            .more {
-                float:right;
-                font-size: 14px;
-                line-height: 16px;
-                text-decoration:none;
-                color:#aaaaaa;
-
-                @media @phone {
-                    font-size:@base-font-size-mobile;
-                }
-
-            }
-            .close {
-                float: right;
-                line-height:16px;
-            }
-        }
-    }
-
-    .houseFeatured {
-        margin: 0 auto;
-        width: @max-width;
-        min-height:400px;
-        overflow:hidden;
-
-        @media @phone {
-            width:100%;
-            min-height: 0;
-        }
-
-        .more {
-            float: right;
-            text-decoration: none;
-            color: #aaaaaa;
-            font-size: 14px;
-            line-height: 30px;
-        }
-
-        .houseCard_category {
-            margin-top: 100px;
-            margin-bottom: 32px;
-            font-size: 24px;
-            line-height: 30px;
-
-            @media @phone {
-                display:block;
-                margin-top:50px;
-                margin-bottom:15px;
-                margin-left:12px;
-                font-size:16px;
-                line-height:1;
-            }
-        }
-
-        .houseCard {
-            .description_wrapper {
-                padding-right:320px;
-                .consultAction{
-                    right: 361px;
-                }
-                .description {
-                    .details .properties {
-                        li{
-                            margin-bottom: 0;
-                            label {
-                                cursor: pointer;
-                                width:91%;
-                            }
-                        }
-                    }
-                    .price br{
-                        display: none;
-                    }
-                }
-            }
-
-            .relatedNews {
-                display: block;
-                text-decoration: none;
-                color: #666666;
-                position:absolute;
-                top:0;
-                right:0;
-                margin-top: 18px;
-                .newsList();
-                width: 320px;
-                height: 195px;
-                @media @phone {
-                    float:left;
-
-                }
-
-                .title {
-                    margin-top:8px;
-                }
-            }
-
-            height: @house_card-height;
-            width:100%;
-            margin-bottom: 100px;
-
-            @media @phone {
-                height:auto;
-            }
-
-            .description {
-                height: @house_card-height - 20px;
-                width: 520px;
-                display: block;
-                position: relative;
-
-                @media @phone {
-                    position:static;
-                    width:100%;
-                    height:auto;
-                    display:block;
-                }
-
-                .properties {
-                   // width: 50%;
-                    li {
-                        margin-bottom: 8px;
-                        label{
-                            cursor: pointer;
-                        }
-                        img {
-                            height: 16px;
-                            vertical-align: middle;
-                        }
-                        span {
-                            font-size: 12px;
-                            height: 16px;
-                            line-height: 16px;
-                        }
-                    }
-                }
-            }
-            .action > a {
-                width: 260px;
-            }
-
-        }
-
-
-    }
-
-    .houseCard_phone_new {
-        .price {
-            .mute:nth-child(1),br{
-                display: none;
-            }
-        }
-        .relatedNews {
-            max-height:215px;
-            display:block;
-            width:100%;
-            border-top:1px solid #ccc;
-            .newsList();
-
-            .title {
-                margin-top: 16px;
-            }
-            .list {
-                margin-top:10px;
-                margin-bottom:10px;
-            }
-        }
-    }
-
-    .suggestionHouses {
-        width: @max-width;
-        margin: 0 auto 100px auto;
-        overflow: hidden;
-
-        @media @phone {
-            width:100%;
-        }
-
-
-        .loadIndicator {
-            margin: 60px auto 20px auto;
-            display: block;
-        }
-
-        .houseCard_header {
-            margin-top: 50px;
-            margin-bottom: 20px;
-            overflow:hidden;
-
-            @media @phone {
-                padding-left:12px;
+            &_wrapper {
+                background:#333;
                 width:100%;
-                padding-bottom:0;
-
-            }
-
-            i {
-                color: #ccc;
-                font-size: 22px;
-                height: 22px;
-
-                @media @phone {
-                    height:16px;
-                    font-size: 16px;
-                }
-
-            }
-            h2 {
-                display: inline-block;
-                font-size: 16px;
-                color: #333;
-                margin-left: 12px;
-
-                @media @phone {
-                    font-size:16px;
-                    line-height:1;
-                }
-
-            }
-
-            a {
-                text-decoration: none;
-                color: #e60012;
-                margin-left: 20px;
-
-                @media @phone {
-                    float:right;
-                    font-size:@base-font-size-mobile;
-                    margin-left:auto;
-                    margin-right:12px;
-                }
-            }
-        }
-
-        .houseCard_wrapper {
-            overflow:hidden;
-        }
-
-        .houseCard {
-            .description_wrapper {
-                padding-right: 340px;
-                .consultAction{
-                    right: 361px;
-                }
-            }
-            &:hover{
-                .tagDetail p{
-                    .limitedLines(6, 24px, #fff9e4);
-                }
-            }
-            @media @phone {
-                display:none;
-                width:100%;
-                margin-bottom:0;
-            }
-
-            .description .properties label{
-                cursor: pointer;
-                width:91%;
-            }
-            .tagDetail {
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 320px;
-                height: 213px;
-                margin: 20px 0 0 0px;
-                display: inline-block;
-                border-left: 1px solid #ccc;
-                padding: 13px 16px 16px 26px;
-                text-decoration: none;
-
-
-                @media @phone {
-                    float:left;
-                    display:block;
-                    border: 0;
-                    width:100%;
-                    height:auto;
-                    margin-left:0;
-                    padding-top:10px;
-                }
-
-
-                h3 {
-                    font-size: 16px;
-                    color: #e60012;
-                    line-height: 1;
-                    margin-bottom: 20px;
-                    @media @phone {
-                        font-size:@base-font-size-mobile;
-                        margin-bottom:20px;
-                    }
-                }
-
-                p {
-                    font-size: @base-font-size-mobile;
-                    color: #666;
-                    line-height: 2;
-                    margin: 0;
-                    .limitedLines(6, 24px, #fff);
-                }
-
-            }
-        }
-
-        .houseCard_phone_new {
-            margin-bottom:0;
-            .tagDetail{
-                border-top: 1px solid #ccc;
-                padding: 15px 20px 5px;
-                h3{
-                    font-size: 16px;
-                    color: @red;
-                }
-            }
-        }
-
-
-
-        .houseCard_suggestionHolder {
-            float:left;
-            position: relative; border-top:2px solid #d2d2d2; font-size: 14px; color: #a3a3a3;
-            min-height:@house_card-height;
-            min-width: 700px;
-            display:inline-block;
-            width:100%;
-            padding-right: 340px;
-
-            @media @phone {
-                background: #fff;
-                position:static;
-                min-height:0;
-                min-width:0;
-                display:block;
-                width:100%;
-                padding: 0;
-            }
-            .tagDetail {
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 320px;
-                height: 213px;
-                margin: 20px 0 0 0px;
-                display: inline-block;
-                border-left: 1px solid #ccc;
-                padding: 13px 16px 16px 26px;
-                text-decoration: none;
-
-
-                @media @phone {
-                    position: static;
-                    float:left;
-                    display:block;
-                    border: 0;
-                    width:100%;
-                    height:auto;
-                    margin-left:0;
-                    padding-top: 20px;
-                    border-top: 1px solid #ccc;
-                }
-
-
-                h3 {
-                    font-size: 16px;
-                    color: #e60012;
-                    line-height: 1;
-                    margin-bottom: 20px;
-                    @media @phone {
-                        font-size:@base-font-size-mobile;
-                        margin-bottom:20px;
-                    }
-                }
-
-                p {
-                    font-size: @base-font-size-mobile;
-                    color: #666;
-                    line-height: 2;
-                    margin: 0;
-                    .limitedLines(6, 24px, #fff);
-                }
-
-            }
-            .emptyPlaceHolder {
-                width:525px;
-                margin:50px auto 0 auto;
                 overflow:hidden;
 
                 @media @phone {
-                    width:100%;
-                    margin: 20px auto;
-                    text-align: center;
+                    background:#ffffff;
+                }
+            }
+
+            >li {
+                display:inline-block;
+                width:33%;
+                color:#aaa;
+                overflow:hidden;
+                position:relative;
+                padding:40px 0;
+                cursor:pointer;
+
+                @media @phone {
+                    float:left;
+                    padding:10px 0;
+                    color:#999;
+                    height:100%;
+                }
+                &.selectedTab {
+                    color:white;
+                    @media @phone {
+                        color:#444;
+                    }
                 }
 
-                img {
-                    display:inline-block;
+                .img_wrapper {
+                    font-size:42px;
+                    line-height:1em;
                     float:left;
-                    width:80px;
+                    vertical-align:middle;
 
                     @media @phone {
-                        display:block;
-                        margin:10px auto;
-                        float:none;
+                        font-size:18px;
+                        margin-left: 10px;
                     }
-
                 }
 
-                .holderText {
+                .text {
                     display:inline-block;
                     float:left;
-                    width:420px;
                     margin-left:20px;
+                    vertical-align:middle;
 
                     @media @phone {
-                        width:auto;
-                        margin-left:12px;
-                        margin-right:12px;
-
+                        margin-left:10px;
                     }
 
-                    h2 {
-                        margin:0;
-                        font-size:24px;
-                        line-height:1.5;
-                        color:#999;
+                    .title {
+                        font-size:20px;
+                        line-height:1em;
+                        margin-bottom:8px;
+                        cursor:pointer;
 
                         @media @phone {
-                            line-height: 2;
-                            font-size:@base-title-font-size-mobile;
+ 	                    margin-bottom: 0px;
+	                    font-size: 14px;
+	                    vertical-align: middle;
+	                    line-height: 18px;
                         }
-
                     }
 
-                    p {
-                        margin: 0;
-                        font-size:16px;
-                        line-height:36px;
-                        color:#ccc;
+                    .hint {
+                        font-size:14px;
+                        line-height:1em;
+                        display:block;
+                        cursor:pointer;
 
                         @media @phone {
-                            font-size:@base-font-size-mobile;
-                            line-height:2;
-                        }
-
-                        a {
-                            text-decoration:none;
-                            color:#e60012;
-                            font-weight:bold;
-
-                            @media @phone {
-                                font-size:@base-font-size-mobile;
-                            }
+                            display:none;
                         }
                     }
+                }
+
+                &:after {
+                    .arrow(up; #f6f6f6; 32px;);
+                    position: absolute;
+                    bottom: 0;
+                    left:72px;
+                    display: none;
+                    margin:0 auto;
+                    @media @phone {
+                        border-color: #e60012;
+                        left: 0px;
+                        width: 100%;
+                        border-width: 2px;
+                    }
+                }
+                &.selectedTab:after {
+                    display: inline-block;
                 }
             }
         }
-
     }
 
     .news {
