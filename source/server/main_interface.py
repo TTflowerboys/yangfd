@@ -101,7 +101,7 @@ def signin():
 
 @f_get('/intention')
 @currant_util.check_ip_and_redirect_domain
-@f_app.user.login.check()
+@f_app.user.login.check(force=True)
 def intention(user):
     title = _('投资意向')
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
