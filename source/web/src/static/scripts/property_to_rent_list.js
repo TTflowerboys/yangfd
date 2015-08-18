@@ -795,9 +795,11 @@
         setTimeout(function () {
             var $tabContainer = $('[data-tabs]')
             var $tab = $tabContainer.find('[data-tab=' + viewMode + ']')
-            $tab.parent().show()
-            $tab.addClass('selectedTab')
-            $tab.siblings().removeClass('selectedTab')
+            if (!window.team.isPhone()) {
+                $tab.parent().show()
+                $tab.addClass('selectedTab')
+                $tab.siblings().removeClass('selectedTab')
+            }
             openTabContent(viewMode)
             loadRentListByView()
         }, 20)
