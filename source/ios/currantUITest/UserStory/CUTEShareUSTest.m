@@ -24,7 +24,7 @@ describe(@"share ticket", ^ {
 
     it(@"should success", ^ {
         CUTETicket *ticket = [[[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets] firstObject];
-        [[CUTEShareManager sharedInstance] shareTicket:ticket];
+//        [[CUTEShareManager sharedInstance] shareTicket:ticket];
         [tester waitForViewWithAccessibilityLabel:STR(@"分享")];
         [system waitForApplicationToOpenAnyURLWhileExecutingBlock:^{
             [tester tapViewWithAccessibilityLabel:STR(@"微信好友")];
@@ -37,7 +37,7 @@ describe(@"share ticket", ^ {
 
 describe(@"share text and url", ^{
     it(@"should success", ^{
-        [[CUTEShareManager sharedInstance] shareText:@"share text" urlString:@"http://www.baidu.com" inServices:@[CUTEShareServiceWechatCircle, CUTEShareServiceSinaWeibo]];
+//        [[CUTEShareManager sharedInstance] shareText:@"share text" urlString:@"http://www.baidu.com" inServices:@[CUTEShareServiceWechatCircle, CUTEShareServiceSinaWeibo]];
         [tester waitForViewWithAccessibilityLabel:STR(@"分享")];
         [system waitForApplicationToOpenAnyURLWhileExecutingBlock:^{
             [tester tapViewWithAccessibilityLabel:STR(@"微信好友")];
