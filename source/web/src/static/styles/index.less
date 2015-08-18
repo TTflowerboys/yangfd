@@ -124,10 +124,17 @@ main {
                 }
             }
         }
-        .swiper-pagination {
+        .bannerPagination {
+            transform: translate3d(0, 0, 0);
+            z-index: 10;
+            position: absolute;
+            text-align: center;
+            width: 100%;
+            left: 0;
             bottom: 0;
             background: rgba(0, 0, 0, .3);
             .swiper-pagination-bullet {
+                margin: 0 5px;
                 text-indent: -9999px;
                 border-radius: 4.5px;
                 background: #fff;
@@ -136,6 +143,7 @@ main {
                 width: 9px;
                 height: 9px;
                 opacity: 0.8;
+                cursor: pointer;
                 &.number{
                     display: none;
                 }

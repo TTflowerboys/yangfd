@@ -1,8 +1,9 @@
 (function () {
 
-    function initSwiper ($container, index) {
-        var className = 'swiper-container' + index
+    function initBanner () {
+        var $container = $('.indexBanner')
         var defaultOptions = {
+            container: '.indexBanner',
             nextButton: '.swiper-button-next',
             prevButton: '.swiper-button-prev',
             autoplay: 4000
@@ -10,22 +11,20 @@
         var options
         if($container.find('.swiper-slide').length <= 10) { //小于10张图时用原点,否则用数字
             options = _.extend(defaultOptions, {
-                pagination: '.swiper-pagination',
-                paginationClickable: '.swiper-pagination'
+                pagination: '.bannerPagination',
+                paginationClickable: '.bannerPagination'
             })
         }else {
             options = _.extend(defaultOptions, {
-                pagination: '.swiper-pagination',
+                pagination: '.bannerPagination',
                 paginationBulletRender: function (index, className) {
                     return '<span class="' + className + ' number">' + (index + 1) + '/' + $container.find('.swiper-slide').length + '</span>';
                 }
             })
         }
-        $container.addClass(className).attr('data-swiper', className)
-        window.swiperInstance = window.swiperInstance || {}
-        window.swiperInstance[className] = new window.Swiper('.' + className, options)
+        window.bannerSwiper = new window.Swiper('.indexBanner', options)
     }
-    initSwiper($('.swiper-container').eq(0), 0)
+    initBanner()
 
     $('#roleChooser').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
         window.scrollTo(0, $('#roleChooser').offset().top)

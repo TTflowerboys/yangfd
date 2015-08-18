@@ -12,7 +12,7 @@
         $('.emailWrap').hide()
     }
 
-    window.swiper = new Swiper('.swiper-container', {
+    window.swiper = new Swiper('.appDownloadSwiper', {
         pagination: '.swiper-pagination',
         paginationClickable: true,
         autoplay: 4000

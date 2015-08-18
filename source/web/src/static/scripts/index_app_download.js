@@ -11,7 +11,7 @@
     $('.downloadWrap .web').hide()
     $('.downloadWrap .subscribeAndroid').hide()
 
-    window.swiper = new Swiper('.swiper-container', {
+    window.indexAppDownloadSwiper = new Swiper('.appDownloadSwiper', {
         pagination: '.swiper-pagination',
         paginationClickable: true,
         autoplay: 4000

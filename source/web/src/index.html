@@ -16,7 +16,7 @@
 <!--@@block=main -->
 <div class="gallery">
     %if homepage_ad_list:
-        <div class=" swiper-container">
+        <div class="indexBanner swiper-container">
             <ul class=" swiper-wrapper" data-init="false">
                 % for ad in homepage_ad_list:
                     <li class="swiper-slide">
@@ -40,7 +40,7 @@
                 % end
             </ul>
             %if len(homepage_ad_list) > 1:
-            <div class="swiper-pagination"></div>
+            <div class="bannerPagination"></div>
             %end
         </div>
     %end
@@ -170,7 +170,6 @@
 <!--build:js /static/scripts/index.html.js-->
 <script type="text/javascript" src="/static/bower_components/swiper/dist/js/swiper.jquery.min.js"></script>
 <script src="/static/scripts/index.js"></script>
-<script src="/static/bower_components/swiper/dist/js/swiper.jquery.js"></script>
 <script src="/static/scripts/index_app_download.js"></script>
 <script src="/static/scripts/index_renter.js"></script>
 <!--endbuild-->
