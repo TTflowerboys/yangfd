@@ -8,8 +8,6 @@
 .landlordService {
     width:100%;
     background:#f6f6f6;
-    border-bottom:1px solid #ccc;
-    padding-bottom:20px;
 
     >.publish {
         width:1200px;
@@ -57,6 +55,9 @@
     }
 
     >.publishInClient {
+        border-bottom:1px solid #ccc;
+        padding-bottom:20px;
+
         .title {
             display:block;
             margin-top:150px;
@@ -174,100 +175,6 @@
                 width:100%;
                 top:340px;
                 margin-top:0px;
-            }
-            .downloadWrap {
-
-                >a {
-                    width:206px;
-                    height:66px;
-
-                    @media @phone {
-                        width:120px;
-                        height:32px;
-                        margin-bottom:10px;
-                        border-radius:6px;
-                    }
-
-                    @width:308px;
-                    @height:100px;
-                    @iconFontSize: 48px;
-                    @logoMargin:24px;
-                    @infoWidth:200px;
-                    @infoFontSize:17px;
-                    @infoFontSizeBold:25px;
-                    @infoMargin:20px;
-                    .size(@n:1){
-                        width: @n * @width;
-                        height: @n * @height;
-                        .logo{
-                            line-height: @n * @height - 4px;
-                            margin: 0 @n * @logoMargin;
-                            i{
-                                font-size: @n * @iconFontSize;
-                            }
-                        }
-                        .downloadInfo{
-                            margin-top: @n * @infoMargin;
-                            width: @n * @infoWidth;
-                            font-size: @n * @infoFontSize;
-                            .bold{
-                                font-size: @n * @infoFontSizeBold;
-                            }
-                        }
-
-                    }
-                    @media @screen-lg {
-                        .size(0.8);
-                    }
-                    @media @screen-md {
-                        .size(0.8);
-                    }
-                    @media @screen-sm {
-                        .size(0.8);
-                    }
-                    @media @phone {
-                        .size(0.72);
-                        float: none;
-                        margin: 0 auto;
-                    }
-
-                    .logo {
-                        line-height:62px;
-                        margin:0 10px;
-
-                        @media @phone {
-                            line-height:19px;
-                            margin-top:5px;
-                        }
-
-                        i {
-                            @media @phone {
-                                font-size:19px;
-                                line-height:1em;
-                            }
-                        }
-                    }
-
-                    .downloadInfo {
-                        width:140px;
-                        @media @phone {
-                            width:70px;
-                            margin-top:5px;
-                        }
-                        p {
-                            font-size:14px;
-                            @media @phone {
-                                font-size:7px;
-                            }
-                        }
-                        p.bold {
-                            font-size:16px;
-                            @media @phone {
-                                font-size:8px;
-                            }
-                        }
-                    }
-                }
             }
         }
 
