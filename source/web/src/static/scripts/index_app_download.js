@@ -1,7 +1,4 @@
-/**
- * Created by levy on 15-5-13.
- */
-(function(Swiper){
+window.setupDownload = function (Swiper) {
     //Display ask invitation when from sign in page
 
     $('.downloadWrap').show()
@@ -28,5 +25,4 @@
             $(this).fadeOut(300)
         })
     }
-
-})(window.Swiper)
+}
