@@ -789,7 +789,7 @@ class f_currant_plugins(f_app.plugin_base):
 
     task = ["assign_property_short_id", "render_pdf", "crawler_example", "crawler_london_home", "fortis_developments", "crawler_knightknox",
             "crawler_abacusinvestor", "crawler_knightknox_agents", "update_landregistry", "crawler_selectproperty", "rent_ticket_reminder",
-            "rent_ticket_generate_digest_image", "rent_ticket_check_intention"]
+            "rent_ticket_generate_digest_image", "rent_ticket_check_intention", "rent_intention_ticket_check_rent"]
 
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
@@ -807,9 +807,16 @@ class f_currant_plugins(f_app.plugin_base):
         return ticket
 
     def ticket_update_after(self, ticket_id, params, ignore_error=True):
-        if "status" in params and params["status"] == "to rent":
+        ticket = f_app.ticket.get(ticket_id)
+        if ticket["type"] == "rent" and "status" in params and params["status"] == "to rent":
             f_app.task.add(dict(
                 type="rent_ticket_check_intention",
+                ticket_id=ticket_id,
+            ))
+
+        elif ticket["type"] == "rent_intention" and "status" in params and params["status"] == "new":
+            f_app.task.add(dict(
+                type="rent_intention_ticket_check_rent",
                 ticket_id=ticket_id,
             ))
 
@@ -833,7 +840,7 @@ class f_currant_plugins(f_app.plugin_base):
             if "rent_budget" not in intention_ticket or "bedroom_count" not in intention_ticket or "minimum_rent_period" not in intention_ticket or "rent_type" not in intention_ticket:
                 continue
 
-            bedroom_count = f_app.util.parse_bedroom_count(ticket["property"]["bedroom_count"])
+            bedroom_count = f_app.util.parse_bedroom_count(intention_ticket["bedroom_count"])
             A = True
             if bedroom_count[0] is not None:
                 A = A and bedroom_count[0] <= ticket["property"]["bedroom_count"]
@@ -850,7 +857,8 @@ class f_currant_plugins(f_app.plugin_base):
             if rent_budget[1]:
                 B = B and float(rent_budget[1]) >= price
 
-            C = ticket["rent_available_time"].month == intention_ticket["rent_available_time"].month and ticket["rent_deadline_time"].month == intention_ticket["rent_deadline_time"].month
+            C = ticket["rent_available_time"].year == intention_ticket["rent_available_time"].year and ticket["rent_available_time"].month == intention_ticket["rent_available_time"].month and \
+                ticket["rent_deadline_time"].year == intention_ticket["rent_deadline_time"].year and ticket["rent_deadline_time"].month == intention_ticket["rent_deadline_time"].month
 
             D = ticket["minimum_rent_period"]["value_float"] >= intention_ticket["minimum_rent_period"]["value_float"]
 
@@ -889,6 +897,92 @@ class f_currant_plugins(f_app.plugin_base):
                         display="html",
                         ticket_match_user_id=intention_ticket["creator_user"]["id"],
                     ))
+
+    def task_on_rent_intention_ticket_check_rent(self, task):
+        ticket_id = task["ticket_id"]
+        intention_ticket = f_app.ticket.get(ticket_id)
+        ticket_creator_user = f_app.user.get(intention_ticket["creator_user_id"])
+
+        if "email" not in ticket_creator_user:
+            self.logger.debug("Ignoring rent_intention_ticket_check_rent for ticket", ticket_id, "as the creator user doesn't have email filled.")
+            return
+
+        # Scan existing rent intention ticket
+        params = {
+            "type": "rent",
+            "status": "to rent",
+            "country": intention_ticket["country"],
+            "city": intention_ticket["city"],
+        }
+        rent_tickets = f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1))
+
+        bedroom_count = f_app.util.parse_bedroom_count(intention_ticket["bedroom_count"])
+        rent_budget = f_app.util.parse_budget(intention_ticket["rent_budget"])
+
+        best_matches = []
+        good_matches = []
+
+        for ticket in rent_tickets:
+            if "price" not in ticket or "bedroom_count" not in ticket["property"] or "minimum_rent_period" not in ticket or "rent_type" not in ticket:
+                continue
+
+            A = True
+            if bedroom_count[0] is not None:
+                A = A and bedroom_count[0] <= ticket["property"]["bedroom_count"]
+            if bedroom_count[1] is not None:
+                A = A and bedroom_count[1] >= ticket["property"]["bedroom_count"]
+
+            B = True
+            price = ticket["price"]["value_float"]
+            if ticket["price"]["unit"] != rent_budget[2]:
+                price = float(f_app.i18n.convert_currency({"unit": ticket["price"]["unit"], "value": ticket["price"]["value"]}, rent_budget[2]))
+            if rent_budget[0]:
+                B = B and float(rent_budget[0]) <= price
+            if rent_budget[1]:
+                B = B and float(rent_budget[1]) >= price
+
+            C = ticket["rent_available_time"].year == intention_ticket["rent_available_time"].year and ticket["rent_available_time"].month == intention_ticket["rent_available_time"].month and \
+                ticket["rent_deadline_time"].year == intention_ticket["rent_deadline_time"].year and ticket["rent_deadline_time"].month == intention_ticket["rent_deadline_time"].month
+
+            D = ticket["minimum_rent_period"]["value_float"] >= intention_ticket["minimum_rent_period"]["value_float"]
+
+            if "maponics_neighborhood" in ticket and "maponics_neighborhood" in intention_ticket:
+                E = ticket["maponics_neighborhood"]["id"] == intention_ticket["maponics_neighborhood"]["id"]
+            else:
+                E = ticket["property"]["zipcode_index"] == intention_ticket["zipcode_index"]
+
+            F = ticket["rent_type"]["id"] == intention_ticket["rent_type"]["id"]
+
+            score = A + B + C + D + E + F
+
+            if score == 6:
+                best_matches.append(ticket)
+
+            elif score >= 4:
+                good_matches.append(ticket)
+
+        if len(best_matches):
+            title = "洋房东给你匹配到了合适的房源，快来看看吧！"
+            f_app.email.schedule(dict(
+                target=intention_ticket["creator_user"]["email"],
+                subject=title,
+                # TODO
+                text=template("static/emails/rent_intention_digest", nickname=intention_ticket["creator_user"]["nickname"], matched_rent_ticket_list=best_matches, date=""),
+                display="html",
+                ticket_match_user_id=intention_ticket["creator_user"]["id"],
+            ))
+        elif len(good_matches):
+            title = "洋房东给你匹配到了一些房源，快来看看吧！"
+            f_app.email.schedule(dict(
+                target=intention_ticket["creator_user"]["email"],
+                subject=title,
+                # TODO
+                text=template("static/emails/rent_intention_digest", nickname=intention_ticket["creator_user"]["nickname"], matched_rent_ticket_list=good_matches, date=""),
+                display="html",
+                ticket_match_user_id=intention_ticket["creator_user"]["id"],
+            ))
+        else:
+            self.logger.debug("No rent_ticket matched for rent_intention_ticket", ticket_id, "ignoring email...")
 
     def user_add(self, params, noregister):
         params.setdefault("private_contact_methods", [])

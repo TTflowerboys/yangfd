@@ -661,7 +661,7 @@ def rent_intention_ticket_remove(user, ticket_id):
 @f_app.user.login.check(force=True, check_role=True)
 def rent_intention_ticket_edit(user, ticket_id, params):
     """
-    ``status`` must be one of these values: "new", "assigned", "in_progress", "deposit", "suspended", "bought", "canceled"
+    ``status`` must be one of these values: "new", "rent", "canceled"
     """
     history_params = {"updated_time": datetime.utcnow()}
     user_roles = f_app.user.get_role(user["id"])
