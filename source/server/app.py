@@ -26,7 +26,7 @@ import libfelix.f_log
 import libfelix.f_message
 import libfelix.f_mongo
 import libfelix.f_order
-import libfelix.f_ticket
+import libfelix.f_re
 import libfelix.f_shop
 import libfelix.f_shop.f_recurring_bm
 import libfelix.f_sms.f_clickatell
@@ -34,6 +34,7 @@ import libfelix.f_sms.f_nexmo
 import libfelix.f_storage
 import libfelix.f_storage.f_aws_s3
 import libfelix.f_storage.f_qiniu
+import libfelix.f_ticket
 import libfelix.f_user
 import libfelix.f_wechat
 import f_currant
