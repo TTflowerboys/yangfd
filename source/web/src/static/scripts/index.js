@@ -33,7 +33,9 @@
             window.console.log('buyer')
         } else if (tabName === 'landlord') {
             window.console.log('landlord')
-            window.setupDownload(window.Swiper)
+            if (typeof window.indexAppDownloadSwiper === 'undefined') {
+                window.setupDownload(window.Swiper)
+            }
         }
         else if (tabName === 'renter'){
             window.console.log('renter')
