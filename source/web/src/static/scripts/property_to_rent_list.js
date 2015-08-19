@@ -230,7 +230,7 @@
         citySelect: $('[name=propertyCity]'),
         countrySelect: $('[name=propertyCountry]')
     })
-    filterOfNeighborhoodSubwaySchool.Event.bind('change', function (params) {
+    filterOfNeighborhoodSubwaySchool.Event.bind('change', function () {
         //console.log('change:')
         //console.log(filterOfNeighborhoodSubwaySchool.getParam())
         loadRentListByView()
