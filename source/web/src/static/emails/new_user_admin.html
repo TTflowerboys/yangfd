@@ -1,0 +1,15 @@
+<!--@@master = ../../masters/email.html-->
+<!--@@block=content-->
+%   params = _i18n(params)
+<p>{{_('收到新的置业需求信息如下：')}}</p>
+<ul>
+    <li>{{_('用户姓名：')}}{{params.get("nickname")}}</li>
+    <li>{{_('用户手机：')}}{{params.get("phone")}}</li>
+    %   if "email" in params:
+    <li>{{_('用户邮箱：')}}{{params.get("email")}}</li>
+    %   end
+    %   if "wechat" in params:
+    <li>{{_('用户微信：')}}{{params.get("wechat")}}</li>
+    %   end
+</ul>
+<!--@@close-->
