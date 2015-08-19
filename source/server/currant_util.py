@@ -218,6 +218,8 @@ def common_template(path, **kwargs):
         kwargs['user_type_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('user_type'))
     if 'f_app' not in kwargs:
         kwargs['f_app'] = f_app
+    if 'bedroom_count_list' not in kwargs:
+        kwargs['bedroom_count_list'] = f_app.i18n.process_i18n(f_app.enum.get_all("bedroom_count"))
 
     # setup page utils
     kwargs.setdefault("format_unit", format_unit)

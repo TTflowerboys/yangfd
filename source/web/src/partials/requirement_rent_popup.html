@@ -54,32 +54,26 @@
                     <div class="step2" data-show-step="2">
                         <div class="row">
                             <div class="col">
+                                <p class="title">{{_('居室数')}}</p>
+                                <select class="select-chosen bedroomCount" data-validator="required" data-name="{{_('居室数')}}" data-serialize="bedroom_count">
+                                    % for index,bedroom_count in enumerate(bedroom_count_list):
+                                    <option value="{{bedroom_count.get('id')}}"
+                                        %if index == 0 :
+                                        selected
+                                        %end
+                                        >
+                                        {{bedroom_count.get('value')}}
+                                    </option>
+                                    % end
+                                </select>
+                            </div>
+                            <div class="col">
                                 <p class="title">{{_('求租类型')}}</p>
                                 <select class="select-chosen rentType" data-change-title data-validator="required" data-name="{{_('求租类型')}}" data-serialize="rent_type">
                                     %for index, rent_type in enumerate(rent_type_list):
                                     <option value="{{rent_type.get('id')}}">
                                         {{rent_type.get('value')}}
                                     </option>
-                                    %end
-                                </select>
-                            </div>
-                            <div class="col">
-                                <p class="title">{{_('居室数')}}</p>
-                                <select class="select-chosen bedroomCount" data-validator="required" data-name="{{_('居室数')}}" data-serialize="bedroom_count">
-                                    %for index,value in enumerate(['studio',1,2,3,4,5,6,7,8,9,10]):
-                                    %if 1 == index:
-                                    <option value="{{index}}" selected>
-                                        {{value}}{{_('室')}}
-                                    </option>
-                                    %else:
-                                    <option value="{{index}}">
-                                        % bedroom_count_text = [str(value)]
-                                        %if index != 0:
-                                        %bedroom_count_text.append(_('室'))
-                                        %end
-                                        {{''.join(bedroom_count_text)}}
-                                    </option>
-                                    %end
                                     %end
                                 </select>
                             </div>
