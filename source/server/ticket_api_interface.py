@@ -212,11 +212,12 @@ def intention_ticket_add(params):
                 xsmtpapi=xsmtpapi,
             )
 
+    title = "恭喜，洋房东已经收到您的投资意向单！"
     f_app.email.schedule(
         target=params["email"],
-        subject="恭喜，洋房东已经收到您的投资意向单！",
+        subject=title,
         # TODO
-        text=template("static/emails/receive_intention", date="", nickname=params["nickname"]),
+        text=template("static/emails/receive_intention", date="", nickname=params["nickname"], title=title),
         display="html",
     )
 
