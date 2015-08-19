@@ -221,108 +221,10 @@
         return description
     }
 
-    var countryFromURL = window.team.getQuery('country', location.href)
-    if (countryFromURL) {
-        selectCountry(countryFromURL)
-    }
 
-    var cityFromURL = window.team.getQuery('city', location.href)
-    if (cityFromURL) {
-        selectCity(cityFromURL)
-    }
-
-    var neighborhoodFromURL = window.team.getQuery('neighborhood', location.href)
-    if (neighborhoodFromURL) {
-        selectNeighborhood(neighborhoodFromURL)
-    }
-
-    var schoolFromURL = window.team.getQuery('school', location.href)
-    if (schoolFromURL) {
-        selectSchool(schoolFromURL)
-    }
-
-    var propertyTypeFromURL = window.team.getQuery('property_type', location.href)
-    if (propertyTypeFromURL) {
-        selectPropertyType(propertyTypeFromURL)
-
-        selectTagFilter('#propertyTypeTag', propertyTypeFromURL)
-
-        if (window.team.isPhone()) {
-            showTagsOnMobile()
-        }
-    }
-
-    var rentTypeFromURL = window.team.getQuery('rent_type', location.href)
-    if (rentTypeFromURL) {
-        selectRentType(rentTypeFromURL)
-        selectTagFilter('#rentTypeTag', rentTypeFromURL)
-        if (window.team.isPhone()) {
-            showTagsOnMobile()
-        }
-    }
-
-    // Init side tag filters value from URL
-    var rentBudgetFromURL = window.team.getQuery('rent_budget', location.href)
-    if (rentBudgetFromURL) {
-        selectTagFilter('#rentBudgetTag', rentBudgetFromURL)
-
-        if (window.team.isPhone()) {
-            showTagsOnMobile()
-        }
-    }
-
-    var rentPeriodFromURL = window.team.getQuery('rent_period', location.href)
-    if (rentPeriodFromURL) {
-        selectTagFilter('#rentPeriodTag', rentPeriodFromURL)
-
-        if (window.team.isPhone()) {
-            showTagsOnMobile()
-        }
-    }
-
-    var bedroomFromURL = window.team.getQuery('bedroom_count', location.href)
-    if (bedroomFromURL) {
-        selectTagFilter('#bedroomCountTag', bedroomFromURL)
-
-        if (window.team.isPhone()) {
-            showTagsOnMobile()
-        }
-    }
-
-    var spaceFromURL = window.team.getQuery('space', location.href)
-    if (spaceFromURL) {
-        selectTagFilter('#spaceTag', spaceFromURL)
-
-        if (window.team.isPhone()) {
-            showTagsOnMobile()
-        }
-    }
-
-   /*
-    TODO:
-    var partnerFromURL = window.team.getQuery('partner',location.href)
-    if (partnerFromURL) {
-    }*/
-
-    //在城市选择上使用chosen插件
-    function initChosen (elem, config) {
-        var defaultConfit = {
-            width: '100%',
-            disable_search_threshold: 8
-        }
-        config = _.extend(defaultConfit, config)
-        if(!window.team.isPhone()) {
-            elem.chosen(config)
-        } else {
-            elem.chosenPhone(config)
-        }
-    }
-    initChosen($('[name=propertyCountry]'))
-    initChosen($('[name=propertyCity]'))
-    initChosen($('[name=neighborhood]'))
-    initChosen($('[name=school]'))
-    initChosen($('[name=propertyType]'))
-    initChosen($('[name=rentType]'))
+    //Filter Setup
+    window.currantModule.setupFiltersFromURL(location.href)
+    window.currantModule.bindFiltersToChosenControls()
 
     var filterOfNeighborhoodSubwaySchool = new window.currantModule.InitFilterOfNeighborhoodSubwaySchool({
         citySelect: $('[name=propertyCity]'),
@@ -333,10 +235,19 @@
         //console.log(filterOfNeighborhoodSubwaySchool.getParam())
         loadRentListByView()
     })
-    // Init top filters value from URL
 
-    // Init load rent property list
 
+    //Tag setup
+    window.currantModule.setupTagsFromURL(location.href)
+
+    //check showTags at first time in mobile
+    if (window.team.isPhone()) {
+        var tagQueries = ['property_type', 'rent_type', 'rent_budget', 'rent_period', 'bedroom_count', 'space']
+        var tagQuery = _.find(tagQueries, function(key){ return window.team.getQuery(key, location.href) !== ''})
+        if (tagQuery) {
+            showTagsOnMobile()
+        }
+    }
 
     function getData(key) {
         return JSON.parse(document.getElementById(key).innerHTML)
@@ -544,43 +455,9 @@
     })
 
 
-    function selectCountry(code) {
-        $('select[name=propertyCountry]').find('option[value=' + code + ']').prop('selected', true)
-    }
-
-    function selectCity(id) {
-        $('select[name=propertyCity]').find('option[value=' + id + ']').prop('selected', true).trigger('chosen:updated')
-    }
-
-    function selectNeighborhood(id) {
-        $('select[name=neighborhood]').find('option[value=' + id + ']').prop('selected', true).trigger('chosen:updated')
-    }
-
-    function selectSchool(id) {
-        $('select[name=school]').find('option[value=' + id + ']').prop('selected', true).trigger('chosen:updated')
-    }
-
-
-    function selectPropertyType(id) {
-        $('select[name=propertyType]').find('option[value=' + id + ']').prop('selected', true)
-    }
-
-    function selectRentType(id) {
-        $('select[name=rentType]').find('option[value=' + id + ']').prop('selected', true)
-    }
 
     //TODO update url parameter by selector change and tag change
 
-    /*
-     * Interactions with side tag filters
-     * */
-
-    function selectTagFilter(tag, dataid) {
-        var $item = $('#tags ' + tag).find('[data-id=' + dataid + ']')
-        var $parent = $item.parent()
-        $parent.find('.toggleTag').removeClass('selected')
-        $item.addClass('selected')
-    }
 
     function getSelectedTagFilterDataId(tag) {
         var $selectedChild = $('#tags ' + tag).children('.selected')
