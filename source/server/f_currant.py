@@ -964,29 +964,29 @@ class f_currant_plugins(f_app.plugin_base):
         if len(best_matches):
             title = "洋房东给你匹配到了合适的房源，快来看看吧！"
             f_app.email.schedule(dict(
-                target=intention_ticket["creator_user"]["email"],
+                target=ticket_creator_user["email"],
                 subject=title,
                 # TODO
-                text=template("static/emails/rent_intention_digest", nickname=intention_ticket["creator_user"]["nickname"], matched_rent_ticket_list=best_matches, date=""),
+                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=best_matches, date=""),
                 display="html",
-                ticket_match_user_id=intention_ticket["creator_user"]["id"],
+                ticket_match_user_id=ticket_creator_user["id"],
             ))
         elif len(good_matches):
             title = "洋房东给你匹配到了一些房源，快来看看吧！"
             f_app.email.schedule(dict(
-                target=intention_ticket["creator_user"]["email"],
+                target=ticket_creator_user["email"],
                 subject=title,
                 # TODO
-                text=template("static/emails/rent_intention_digest", nickname=intention_ticket["creator_user"]["nickname"], matched_rent_ticket_list=good_matches, date=""),
+                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=good_matches, date=""),
                 display="html",
-                ticket_match_user_id=intention_ticket["creator_user"]["id"],
+                ticket_match_user_id=ticket_creator_user["id"],
             ))
         else:
             f_app.email.schedule(
-                target=intention_ticket["creator_user"]["email"],
+                target=ticket_creator_user["email"],
                 subject="恭喜，洋房东已经收到您的求租意向单！",
                 # TODO
-                text=template("static/emails/receive_rent_intention", date="", nickname=intention_ticket["creator_user"]["nickname"]),
+                text=template("static/emails/receive_rent_intention", date="", nickname=ticket_creator_user["nickname"]),
                 display="html",
             )
 
