@@ -2444,7 +2444,12 @@ class f_currant_util(f_util):
         if isinstance(bedroom_count, six.string_types) or isinstance(bedroom_count, ObjectId):
             bedroom_count = f_app.enum.get(bedroom_count)
         elif isinstance(bedroom_count, dict):
-            bedroom_count = f_app.enum.get(bedroom_count["_id"])
+            if "_id" in bedroom_count:
+                bedroom_count = f_app.enum.get(bedroom_count["_id"])
+            elif "id" in bedroom_count:
+                bedroom_count = f_app.enum.get(bedroom_count["id"])
+            else:
+                raise TypeError
         else:
             abort(40000, self.logger.warning("wrong type, cannot parse bedroom_count", exc_info=False))
 
