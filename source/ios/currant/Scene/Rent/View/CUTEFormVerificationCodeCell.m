@@ -9,8 +9,19 @@
 #import "CUTEFormVerificationCodeCell.h"
 #import "CUTECommonMacro.h"
 #import "CUTEUIMacro.h"
+#import <NSTimer+Blocks.h>
 
-#define VERIFICATION_BUTTON_WIDTH 67
+#define VERIFICATION_BUTTON_PADDING 20
+#define TEXTFIELD_RIGHT_MARGIN 20
+
+@interface CUTEFormVerificationCodeCell () {
+    
+    NSTimer *_timer;
+    
+}
+
+@end
+
 
 @implementation CUTEFormVerificationCodeCell
 
@@ -32,8 +43,39 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.verificationButton.frame = CGRectMake(RectWidthExclude(self.contentView.bounds, VERIFICATION_BUTTON_WIDTH), 0, VERIFICATION_BUTTON_WIDTH, RectHeight(self.contentView.bounds));
-    self.textField.frame = RectSetWidth(self.textField.frame, 100);
+    CGSize textSize = TextSizeOfLabel(self.verificationButton.titleLabel);
+    CGFloat buttonWidth = textSize.width + VERIFICATION_BUTTON_PADDING * 2;
+    self.verificationButton.frame = CGRectMake(RectWidthExclude(self.contentView.bounds, buttonWidth), 0, buttonWidth, RectHeight(self.contentView.bounds));
+    CGFloat leftMargin = RectX(self.textLabel.frame) + RectWidth(self.textLabel.frame);
+    CGFloat rightMargin = TEXTFIELD_RIGHT_MARGIN + buttonWidth;
+    self.textField.frame = CGRectMake(leftMargin, 0,  RectWidth(self.contentView.frame) - leftMargin - rightMargin, RectHeight(self.contentView.frame));
+}
+
+- (void)updateButtonTitle:(NSString *)title {
+    [self.verificationButton setTitle:title forState:UIControlStateNormal];
+    [self setNeedsLayout];
+}
+
+- (void)startCountDown {
+    [self.verificationButton setEnabled:NO];
+    self.verificationButton.backgroundColor = HEXCOLOR(0x999999, 1);
+    
+    __block int count = 60;
+    __weak typeof(self)weakSelf = self;
+    [weakSelf updateButtonTitle:[NSString stringWithFormat:@"%@%d%@", STR(@"剩余"), count, STR(@"秒")]];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 block:^{
+        count = count - 1;
+        if (count == 0) {
+            [_timer invalidate];
+            _timer = nil;
+            [weakSelf updateButtonTitle:STR(@"重新发送")];
+            [weakSelf.verificationButton setEnabled:YES];
+            weakSelf.verificationButton.backgroundColor = CUTE_MAIN_COLOR;
+        }
+        else {
+            [weakSelf updateButtonTitle:[NSString stringWithFormat:@"%@%d%@", STR(@"剩余"), count, STR(@"秒")]];
+        }
+    } repeats:YES];
 
 }
 

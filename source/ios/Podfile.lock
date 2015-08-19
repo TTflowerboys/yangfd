@@ -119,6 +119,7 @@ PODS:
   - NJKWebViewProgress/Core (0.2.3)
   - NJKWebViewProgress/ProgressView (0.2.3)
   - NSDate-Extensions (0.0.1)
+  - NSTimer-Blocks (0.0.1)
   - ObjectiveSugar (1.1.0)
   - OCHamcrest (4.1.1)
   - OHHTTPStubs (4.2.0):
@@ -179,6 +180,7 @@ DEPENDENCIES:
   - ngrvalidator (= 1.0.0)
   - NJKWebViewProgress (= 0.2.3)
   - NSDate-Extensions (= 0.0.1)
+  - NSTimer-Blocks
   - OCHamcrest
   - OHHTTPStubs
   - RegExCategories (= 1.0)
@@ -252,6 +254,7 @@ SPEC CHECKSUMS:
   ngrvalidator: 3d9f8402b2b3bbc070945e7defe1af0b5cc72e58
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   NSDate-Extensions: cbd68ecf5cf8a150644e184b4521d7734fea5ace
+  NSTimer-Blocks: 88faf9aef5f250ead087f3f67ae642517083bf36
   ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
   OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
   OHHTTPStubs: f639130b83fb5f4f022d38f841141b0a6fa77249

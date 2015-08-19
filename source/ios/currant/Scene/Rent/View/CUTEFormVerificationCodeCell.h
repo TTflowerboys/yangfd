@@ -13,5 +13,6 @@
 
 @property (strong, nonatomic) UIButton *verificationButton;
 
+- (void)startCountDown;
 
 @end
