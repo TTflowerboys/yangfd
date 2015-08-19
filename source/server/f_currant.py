@@ -982,7 +982,13 @@ class f_currant_plugins(f_app.plugin_base):
                 ticket_match_user_id=intention_ticket["creator_user"]["id"],
             ))
         else:
-            self.logger.debug("No rent_ticket matched for rent_intention_ticket", ticket_id, "ignoring email...")
+            f_app.email.schedule(
+                target=intention_ticket["creator_user"]["email"],
+                subject="恭喜，洋房东已经收到您的求租意向单！",
+                # TODO
+                text=template("static/emails/receive_rent_intention", date="", nickname=intention_ticket["creator_user"]["nickname"]),
+                display="html",
+            )
 
     def user_add(self, params, noregister):
         params.setdefault("private_contact_methods", [])
