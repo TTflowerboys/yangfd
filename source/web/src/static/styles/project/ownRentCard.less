@@ -153,65 +153,66 @@
                     margin-right: @standard-margin*2;
                 }
             }
+        }
+
+        >.meta {
 
             .date {
-                margin-top: @standard-margin;
+                margin-top: @standard-margin*2;
                 margin-right: @standard-margin;
-
+                display: inline-block;
+                float: right;
                 @media @phone {
-                    position:relative;
+
                 }
             }
 
             .partner {
-                margin-top: @standard-margin;
+                margin-top: @standard-margin*2;
                 margin-right: @standard-margin;
                 width:100px;
-                padding: 1px;
                 text-align:center;
                 color: @light-blue;
                 border:1px solid @light-blue;
+                padding: 1px;
+                display: inline-block;
                 float: right;
 
                 @media @phone {
-                    position:relative;
-                    margin-right: inherit;
+
                 }
             }
-        }
 
-        >.properties {
-            display: inline-block;
-            margin-top: @padding-top/2;
-            max-width: 70%;
-            @media @phone {
-                display: block;
-            }
-
-            > li {
-                @media @phone {
-                    float: left;
-                    margin-top: @standard-margin*2;
-                    width:70%;
-                    .limitedLines(1, 24px);
-                }
-            }
             > .price {
                 color: @red;
                 font-size: 14px;
-                display: block;
+                display: inline-block;
                 margin-top: @standard-margin;
 
                 strong {
                     font-size: @normal-font-size;
                 }
 
+            }
+        }
+
+        >.properties {
+            display: inline-block;
+            margin-top: @padding-top/2;
+
+            @media @phone {
+                display: block;
+            }
+
+            > li {
+                .limitedLines(2, 24px);
+
                 @media @phone {
-                    max-width:25%;
-                    float: right;
-                    margin-right: @standard-margin;
+                    float: left;
+                    margin-top: @standard-margin;
                 }
             }
+
 
         }
 
