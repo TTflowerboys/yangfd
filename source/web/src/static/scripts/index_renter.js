@@ -26,7 +26,7 @@
             return url
         }
 
-        var url = '/property-to-rent-list?' + 'viewMode=' + viewMode
+        var url = '/property-to-rent-list?' + 'mode=' + viewMode
         url = appendParam(url, 'country', country)
         url = appendParam(url, 'city', city)
         url = appendParam(url, 'neighborhood', neighborhood)

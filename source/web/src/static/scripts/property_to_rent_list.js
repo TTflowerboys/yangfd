@@ -3,7 +3,7 @@
     var lastItemTime
     var isLoading = false
     var isAllItemsLoaded = false
-    var viewMode = window.team.getQuery('viewMode', window.location.href)?  window.team.getQuery('viewMode', window.location.href): 'list'
+    var mode = window.team.getQuery('mode', window.location.href)?  window.team.getQuery('mode', window.location.href): 'list'
 
     // Init all filter options
     window.countryData = getData('countryData')
@@ -391,10 +391,10 @@
     }
 
     function loadRentListByView() {
-        if(viewMode === 'list'){
+        if(mode === 'list'){
             lastItemTime = null
             loadRentList(true)
-        }else if(viewMode === 'map'){
+        }else if(mode === 'map'){
             if (typeof Microsoft === 'undefined'){
                 var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'
                 window.onBingMapScriptLoad = function () {
@@ -671,18 +671,18 @@
     $(document).ready(function () {
         setTimeout(function () {
             var $tabContainer = $('[data-tabs]')
-            var $tab = $tabContainer.find('[data-tab=' + viewMode + ']')
+            var $tab = $tabContainer.find('[data-tab=' + mode + ']')
             if (!window.team.isPhone()) {
                 $tab.parent().show()
                 $tab.addClass('selectedTab')
                 $tab.siblings().removeClass('selectedTab')
             }
-            openTabContent(viewMode)
+            openTabContent(mode)
         }, 20)
     })
 
     $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
-        viewMode = tabName
+        mode = tabName
         loadRentListByView()
     })
 
@@ -700,16 +700,16 @@
     $('.tabSelector_phone').click(function (e) {
         var currentTab = $(this).attr('data-tab')
         if (currentTab === 'list'){
-            viewMode = 'map'
+            mode = 'map'
             //to show map
-            openTabContent(viewMode)
-            $(this).attr('data-tab', viewMode)
+            openTabContent(mode)
+            $(this).attr('data-tab', mode)
         }
         else {
-            viewMode = 'list'
+            mode = 'list'
             //to show list
-            openTabContent(viewMode)
-            $(this).attr('data-tab', viewMode)
+            openTabContent(mode)
+            $(this).attr('data-tab', mode)
         }
     })
 
