@@ -230,10 +230,11 @@
         citySelect: $('[name=propertyCity]'),
         countrySelect: $('[name=propertyCountry]')
     })
-    filterOfNeighborhoodSubwaySchool.Event.bind('change', function () {
+    filterOfNeighborhoodSubwaySchool.Event.bind('change', function (params) {
         //console.log('change:')
         //console.log(filterOfNeighborhoodSubwaySchool.getParam())
         loadRentListByView()
+        //TODO update URL query
     })
 
 
@@ -411,6 +412,10 @@
         }
     }
 
+    function updateURLQuery(key, value) {
+        var newUrl = window.team.setQuery(key, value, location.href)
+        history.pushState({}, null, newUrl)
+    }
 
     /*
      * All Interactions with top filters
@@ -428,36 +433,38 @@
             clearCity()
         }
         loadRentListByView()
+        updateURLQuery('country', countryCode)
     })
 
     var $citySelect = $('select[name=propertyCity]')
     $citySelect.change(function () {
 
+        var cityId = $('select[name=propertyCity]').children('option:selected').val()
         ga('send', 'event', 'rent_list', 'change', 'select-city',
             $('select[name=propertyCity]').children('option:selected').text())
         loadRentListByView()
+        updateURLQuery('city', cityId)
     })
 
     var $propertyTypeSelect = $('select[name=propertyType]')
     $propertyTypeSelect.change(function () {
 
+        var propertyTypeId = $('select[name=propertyType]').children('option:selected').val()
         ga('send', 'event', 'rent_list', 'change', 'select-proprty-type',
             $('select[name=propertyType]').children('option:selected').text())
         loadRentListByView()
+        updateURLQuery('property_type', propertyTypeId)
     })
 
     var $rentTypeSelect = $('select[name=rentType]')
     $rentTypeSelect.change(function () {
 
+        var rentTypeId = $('select[name=rentType]').children('option:selected').val()
         ga('send', 'event', 'rent_list', 'change', 'select-rent-type',
             $('select[name=rentType]').children('option:selected').text())
         loadRentListByView()
+        updateURLQuery('rent_type', rentTypeId)
     })
-
-
-
-    //TODO update url parameter by selector change and tag change
-
 
     function getSelectedTagFilterDataId(tag) {
         var $selectedChild = $('#tags ' + tag).children('.selected')
