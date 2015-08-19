@@ -34,7 +34,7 @@
                             {_}_}
                         </a>
                         <div class="imgAction_wrapper">
-                            <i id='edit' data-id="{=rent.id=}" class="imgAction hiddenInNonClient icon-edit" data-need-bridge></i>
+                            <i id='edit' data-id="{=rent.id=}" class="imgAction hiddenOnMobile icon-edit" data-need-bridge></i>
                             <i id='remove' data-id="{=rent.id=}" class="imgAction icon-delete" data-need-bridge></i>
 
                             {_if(rent.property.partner) {_}
@@ -87,13 +87,13 @@
                             </li>
                         </ul>
                         {_}else if(rent.status === 'draft') {_}
-                        <ul class="actions hiddenInNonClient">
+                        <ul class="actions hiddenOnMobile">
                             <li >
                                 <a id='editAction' class="action" data-id="{=rent.id=}" data-type="draft" data-need-bridge>{=window.i18n('编辑')=}</a>
                             </li>
                         </ul>
                         {_}else if(rent.status === 'rent') {_}
-                        <ul class="actions hiddenInNonClient">
+                        <ul class="actions hiddenOnMobile">
                             <li >
                                 <a id='editAction' class="action" data-id="{=rent.id=}" data-type="rent" data-need-bridge>{=window.i18n('重新发布')=}</a>
                             </li>
