@@ -678,7 +678,6 @@
                 $tab.siblings().removeClass('selectedTab')
             }
             openTabContent(viewMode)
-            loadRentListByView()
         }, 20)
     })
 
