@@ -967,7 +967,7 @@ class f_currant_plugins(f_app.plugin_base):
                 target=ticket_creator_user["email"],
                 subject=title,
                 # TODO
-                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=best_matches, date=""),
+                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=best_matches, date="", title=title),
                 display="html",
                 ticket_match_user_id=ticket_creator_user["id"],
             ))
@@ -977,7 +977,7 @@ class f_currant_plugins(f_app.plugin_base):
                 target=ticket_creator_user["email"],
                 subject=title,
                 # TODO
-                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=good_matches, date=""),
+                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=good_matches, date="", title=title),
                 display="html",
                 ticket_match_user_id=ticket_creator_user["id"],
             ))
