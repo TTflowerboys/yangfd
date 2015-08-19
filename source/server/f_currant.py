@@ -2422,7 +2422,12 @@ class f_currant_util(f_util):
         if isinstance(budget, six.string_types) or isinstance(budget, ObjectId):
             budget = f_app.enum.get(budget)
         elif isinstance(budget, dict):
-            budget = f_app.enum.get(budget["_id"])
+            if "_id" in budget:
+                budget = f_app.enum.get(budget["_id"])
+            elif "id" in budget:
+                budget = f_app.enum.get(budget["id"])
+            else:
+                raise TypeError
         else:
             abort(40000, self.logger.warning("wrong type, cannot parse budget", exc_info=False))
 
