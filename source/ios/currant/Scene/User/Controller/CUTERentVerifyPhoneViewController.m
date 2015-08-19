@@ -16,6 +16,7 @@
 #import "CUTEFormVerificationCodeCell.h"
 #import "Sequencer.h"
 #import "CUTEConfiguration.h"
+#import "CUTEKeyboardStateListener.h"
 
 @interface CUTERentVerifyPhoneViewController ()
 
@@ -74,11 +75,10 @@
     }];
 }
 
-
-- (void)codeFieldEndEdit {
+- (void)verify {
     CUTERentVerifyPhoneForm *form = (CUTERentVerifyPhoneForm *)self.formController.form;
     //after create can validate the code
-
+    
     if (form.user) {
         [SVProgressHUD showWithStatus:STR(@"验证中...")];
         [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/user/", form.user.identifier, @"/sms_verification/verify") parameters:@{@"code":form.code} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
@@ -89,7 +89,7 @@
                 [[CUTEDataManager sharedInstance] saveUser:form.user];
                 [[CUTEDataManager sharedInstance] persistAllCookies];
                 [self.navigationController dismissViewControllerAnimated:YES completion:^{
-
+                    
                 }];
             }
             else {
@@ -97,6 +97,30 @@
             }
             return nil;
         }];
+    }
+}
+
+
+- (void)onCodeEdit:(id)sender {
+    CUTERentVerifyPhoneForm *form = (CUTERentVerifyPhoneForm *)self.formController.form;
+    if (!IsNilNullOrEmpty(form.code)) {
+        [self verify];
+    }
+}
+
+- (void)submit {
+    //when the keyboard dismissed
+    if (![CUTEKeyboardStateListener sharedInstance].isVisible) {
+        CUTERentVerifyPhoneForm *form = (CUTERentVerifyPhoneForm *)self.formController.form;
+        if (!IsNilNullOrEmpty(form.code)) {
+            [self verify];
+        }
+        else {
+            
+        }
+    }
+    else {
+        //have triggered onPasswordEdit:, need do nothing
     }
 }
 
