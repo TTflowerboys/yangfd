@@ -158,7 +158,7 @@
                     % if 'price' in rent and rent.get('price'):
                         <span>{{rent.get('price',{}).get('unit_symbol','')}}</span>
                         <span data-type="formatted_currency">
-                            {{int(float(rent.get('price',{}).get('value','')))}}
+                            {{f_app.re.filter_zero(rent.get('price',{}).get('value',''))}}
                         </span>
                     % end
                     {{_('/周')}}
@@ -229,7 +229,7 @@
                     {{_('押金')}}
                     % if 'deposit' in rent and rent.get('deposit',{}).get('value'):
                     <strong>
-                        {{rent.get('deposit',{}).get('unit_symbol','')}}{{rent.get('deposit',{}).get('value',0)}}
+                        {{rent.get('deposit',{}).get('unit_symbol','')}}{{f_app.re.filter_zero(rent.get('deposit',{}).get('value'))}}
                     </strong>
                     % else :
                     <strong>
@@ -457,7 +457,7 @@
                         <div class="price_inner">
                             <span>{{rent.get('price',{}).get('unit_symbol','')}}</span>
                             <span data-type="formatted_currency">
-                                {{int(float(rent.get('price',{}).get('value','')))}}
+                                {{f_app.re.filter_zero(rent.get('price',{}).get('value',''))}}
                             </span>
                             {{_('/周')}}
                             % if 'bill_covered' in rent and rent.get('bill_covered'):
@@ -514,7 +514,7 @@
                             {{_('押金')}}
                             % if 'deposit' in rent and rent.get('deposit',{}).get('value'):
                             <strong>
-                                {{rent.get('deposit',{}).get('unit_symbol','')}}{{int(float(rent.get('deposit',{}).get('value',0)))}}
+                                {{rent.get('deposit',{}).get('unit_symbol','')}}{{f_app.re.filter_zero(rent.get('deposit',{}).get('value'))}}
                             </strong>
                             % if 'deposit' in rent and rent.get('deposit',{}).get('localized_value'):
                             <span>
