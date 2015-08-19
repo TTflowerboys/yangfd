@@ -236,7 +236,13 @@
             }
             return param
         }
-
+        _this.getUrlParam = function () {
+            var param = {}
+            if(selectMap.parent.val() && selectMap[selectMap.parent.val()].val()) {
+                param[selectMap.parent.val()] = selectMap[selectMap.parent.val()].val()
+            }
+            return param
+        }
         _this.Event.bind('action', function () {
             _this.param = _this.param || {}
             var param = _this.getParam()

@@ -234,7 +234,10 @@
         //console.log('change:')
         //console.log(filterOfNeighborhoodSubwaySchool.getParam())
         loadRentListByView()
-        //TODO update URL query
+        var params = filterOfNeighborhoodSubwaySchool.getUrlParam()
+        _.each(params, function (val, key) {
+            updateURLQuery(key, val)
+        })
     })
 
 
