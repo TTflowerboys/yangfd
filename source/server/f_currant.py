@@ -831,7 +831,7 @@ class f_currant_plugins(f_app.plugin_base):
             "country": ticket["country"],
             "city": ticket["city"],
         }
-        rent_intention_tickets = f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1))
+        rent_intention_tickets = f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), check_permission=False)
 
         for intention_ticket in rent_intention_tickets:
             if "email" not in intention_ticket["creator_user"]:
@@ -914,7 +914,7 @@ class f_currant_plugins(f_app.plugin_base):
             "country": intention_ticket["country"],
             "city": intention_ticket["city"],
         }
-        rent_tickets = f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1))
+        rent_tickets = f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), check_permission=False)
 
         bedroom_count = f_app.util.parse_bedroom_count(intention_ticket["bedroom_count"])
         rent_budget = f_app.util.parse_budget(intention_ticket["rent_budget"])
