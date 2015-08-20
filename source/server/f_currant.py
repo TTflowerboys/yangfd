@@ -962,8 +962,10 @@ class f_currant_plugins(f_app.plugin_base):
 
             if "maponics_neighborhood" in ticket and "maponics_neighborhood" in intention_ticket:
                 E = ticket["maponics_neighborhood"]["id"] == intention_ticket["maponics_neighborhood"]["id"]
-            else:
+            elif "zipcode_index" in ticket["property"] and "zipcode_index" in intention_ticket:
                 E = ticket["property"]["zipcode_index"] == intention_ticket["zipcode_index"]
+            else:
+                E = 1
 
             F = ticket["rent_type"]["id"] == intention_ticket["rent_type"]["id"]
 
