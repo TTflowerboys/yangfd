@@ -385,6 +385,11 @@
                     }
                 })
             })
+            if(element.find('.startDate').val() && element.find('.endDate').val() && new Date(element.find('.endDate').val()) <= new Date(element.find('.startDate').val())) {
+                validate = false
+                errorMsg = i18n('结束日期需要大于开始日期')
+                highlightErrorElem(element.find('.endDate'))
+            }
             if(!validate){
                 $errorMsg.text(errorMsg).show()
             }
