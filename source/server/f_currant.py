@@ -918,7 +918,7 @@ class f_currant_plugins(f_app.plugin_base):
             "type": "rent",
             "status": "to rent",
         }
-        rent_tickets = f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), check_permission=False)
+        rent_tickets = f_app.i18n.process_i18n(f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), check_permission=False))
 
         bedroom_count = f_app.util.parse_bedroom_count(intention_ticket["bedroom_count"])
         rent_budget = f_app.util.parse_budget(intention_ticket["rent_budget"])
