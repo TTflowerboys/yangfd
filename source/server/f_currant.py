@@ -980,13 +980,14 @@ class f_currant_plugins(f_app.plugin_base):
             except:
                 self.logger.warning("Bad ticket detected:", ticket["id"])
 
+        import currant_util
         if len(best_matches):
             title = "洋房东给你匹配到了合适的房源，快来看看吧！"
             f_app.email.schedule(dict(
                 target=ticket_creator_user["email"],
                 subject=title,
                 # TODO
-                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=best_matches, date="", title=title),
+                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=best_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code),
                 display="html",
                 ticket_match_user_id=ticket_creator_user["id"],
             ))
@@ -996,7 +997,7 @@ class f_currant_plugins(f_app.plugin_base):
                 target=ticket_creator_user["email"],
                 subject=title,
                 # TODO
-                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=good_matches, date="", title=title),
+                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=good_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code),
                 display="html",
                 ticket_match_user_id=ticket_creator_user["id"],
             ))
