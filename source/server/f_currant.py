@@ -857,8 +857,9 @@ class f_currant_plugins(f_app.plugin_base):
             if rent_budget[1]:
                 B = B and float(rent_budget[1]) >= price
 
-            C = ticket["rent_available_time"].year == intention_ticket["rent_available_time"].year and ticket["rent_available_time"].month == intention_ticket["rent_available_time"].month and \
-                ticket["rent_deadline_time"].year == intention_ticket["rent_deadline_time"].year and ticket["rent_deadline_time"].month == intention_ticket["rent_deadline_time"].month
+            C = ticket["rent_available_time"].year == intention_ticket["rent_available_time"].year and ticket["rent_available_time"].month == intention_ticket["rent_available_time"].month
+            if "rent_deadline_time" in ticket and "rent_deadline_time" in intention_ticket:
+                C = C and ticket["rent_deadline_time"].year == intention_ticket["rent_deadline_time"].year and ticket["rent_deadline_time"].month == intention_ticket["rent_deadline_time"].month
 
             D = ticket["minimum_rent_period"]["value_float"] >= intention_ticket["minimum_rent_period"]["value_float"]
 
@@ -911,8 +912,6 @@ class f_currant_plugins(f_app.plugin_base):
         params = {
             "type": "rent",
             "status": "to rent",
-            "country": intention_ticket["country"],
-            "city": intention_ticket["city"],
         }
         rent_tickets = f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), check_permission=False)
 
@@ -924,6 +923,12 @@ class f_currant_plugins(f_app.plugin_base):
 
         for ticket in rent_tickets:
             if "price" not in ticket or "bedroom_count" not in ticket["property"] or "minimum_rent_period" not in ticket or "rent_type" not in ticket:
+                continue
+
+            if ticket["property"]["country"]["code"] != intention_ticket["country"]["code"]:
+                continue
+
+            if ticket["property"]["city"]["id"] != intention_ticket["city"]["_id"]:
                 continue
 
             A = True
@@ -941,8 +946,9 @@ class f_currant_plugins(f_app.plugin_base):
             if rent_budget[1]:
                 B = B and float(rent_budget[1]) >= price
 
-            C = ticket["rent_available_time"].year == intention_ticket["rent_available_time"].year and ticket["rent_available_time"].month == intention_ticket["rent_available_time"].month and \
-                ticket["rent_deadline_time"].year == intention_ticket["rent_deadline_time"].year and ticket["rent_deadline_time"].month == intention_ticket["rent_deadline_time"].month
+            C = ticket["rent_available_time"].year == intention_ticket["rent_available_time"].year and ticket["rent_available_time"].month == intention_ticket["rent_available_time"].month
+            if "rent_deadline_time" in ticket and "rent_deadline_time" in intention_ticket:
+                C = C and ticket["rent_deadline_time"].year == intention_ticket["rent_deadline_time"].year and ticket["rent_deadline_time"].month == intention_ticket["rent_deadline_time"].month
 
             D = ticket["minimum_rent_period"]["value_float"] >= intention_ticket["minimum_rent_period"]["value_float"]
 
