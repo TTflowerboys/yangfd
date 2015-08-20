@@ -146,10 +146,16 @@
     }
     else {
         if (!self.form.ticket.property.latitude || !self.form.ticket.property.longitude) {
-            //wait to make sure indicator animation show
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self startUpdateLocation];
-            });
+            if (_isAddressUpdated) {
+                [self onAddressLocationButtonTapped:nil];
+                _isAddressUpdated = NO;
+            }
+            else {
+                //wait to make sure indicator animation show
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self startUpdateLocation];
+                });
+            }
         }
         else {
             if (_isAddressUpdated) {
@@ -214,7 +220,6 @@
 //                    [_mapView addAnnotation:[[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil]];
                 }
                 CUTERentAddressMapForm *form = self.form;
-
 
                 [form syncTicketWithBlock:^(CUTETicket *ticket) {
                     ticket.property.latitude = @(location.coordinate.latitude);
