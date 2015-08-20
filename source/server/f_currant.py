@@ -880,14 +880,14 @@ class f_currant_plugins(f_app.plugin_base):
             if score == 6:
                 title = "洋房东给你匹配到了合适的房源，快来看看吧！"
                 digest_url = "http://yangfd.com/wechat-poster/%s/image" % ticket_id
-                f_app.email.schedule(dict(
+                f_app.email.schedule(
                     target=intention_ticket["creator_user"]["email"],
                     subject=title,
                     # TODO
                     text=template("static/emails/rent_intention_matched_1", title=title, nickname=intention_ticket["creator_user"]["nickname"], rent_ticket_id=ticket_id, date="", digest_url=digest_url),
                     display="html",
                     ticket_match_user_id=intention_ticket["creator_user"]["id"],
-                ))
+                )
             elif score >= 4:
                 title = "洋房东给你匹配到了一些房源，快来看看吧！"
                 digest_url = "http://yangfd.com/wechat-poster/%s/image" % ticket_id
@@ -895,14 +895,14 @@ class f_currant_plugins(f_app.plugin_base):
                 if len(sent_in_a_day):
                     pass
                 else:
-                    f_app.email.schedule(dict(
+                    f_app.email.schedule(
                         target=intention_ticket["creator_user"]["email"],
                         subject=title,
                         # TODO
                         text=template("static/emails/rent_intention_matched_4", title=title, nickname=intention_ticket["creator_user"]["nickname"], rent_ticket_id=ticket_id, date="", digest_url=digest_url),
                         display="html",
                         ticket_match_user_id=intention_ticket["creator_user"]["id"],
-                    ))
+                    )
 
     def task_on_rent_intention_ticket_check_rent(self, task):
         ticket_id = task["ticket_id"]
@@ -983,24 +983,24 @@ class f_currant_plugins(f_app.plugin_base):
         import currant_util
         if len(best_matches):
             title = "洋房东给你匹配到了合适的房源，快来看看吧！"
-            f_app.email.schedule(dict(
+            f_app.email.schedule(
                 target=ticket_creator_user["email"],
                 subject=title,
                 # TODO
                 text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=best_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code),
                 display="html",
                 ticket_match_user_id=ticket_creator_user["id"],
-            ))
+            )
         elif len(good_matches):
             title = "洋房东给你匹配到了一些房源，快来看看吧！"
-            f_app.email.schedule(dict(
+            f_app.email.schedule(
                 target=ticket_creator_user["email"],
                 subject=title,
                 # TODO
                 text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=good_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code),
                 display="html",
                 ticket_match_user_id=ticket_creator_user["id"],
-            ))
+            )
         else:
             title = "恭喜，洋房东已经收到您的求租意向单！"
             f_app.email.schedule(
