@@ -67,10 +67,7 @@ $(function () {
         $.betterPost('/api/1/user/register', params)
             .done(function (result) {
                 ga('send', 'event', 'signup', 'result', 'signup-success')
-                if (window.bridge !== undefined) {
-                    window.bridge.callHandler('login', result);
-                }
-                location.href = '/verify-phone'
+                window.project.goToVerifyPhone()
             }).fail(function (ret) {
                 errorArea.empty()
                 errorArea.append(window.getErrorMessageFromErrorCode(ret))

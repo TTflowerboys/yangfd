@@ -150,8 +150,13 @@
         if (!data.budget && !data.intention) { location.href = '/';  return;}
         $intentionform.find('[type=submit]').css({cursor: 'wait'})
         $.betterPost('/api/1/user/edit', data)
-            .done(function(){
-                location.href = '/'
+            .done(function(result){
+                if (window.bridge !== undefined) {
+                    window.bridge.callHandler('login', result);
+                }
+                else {
+                    window.project.goBackFromURL()
+                }
                 ga('send', 'event', 'intention-selection', 'result', 'intention-submit-success')
             })
             .fail(function(errorCode){

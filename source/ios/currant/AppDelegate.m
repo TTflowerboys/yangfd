@@ -704,10 +704,10 @@
 - (void)onReceiveUserDidLogin:(NSNotification *)notif {
     CUTEUser *user = [notif.userInfo objectForKey:@"user"];
 
-    if (!user.phoneVerified.boolValue) {
-        [self verifyUserPhone:user];
-        return;
-    }
+//    if (!user.phoneVerified.boolValue) {
+//        [self verifyUserPhone:user];
+//        return;
+//    }
 
     [[CUTEDataManager sharedInstance] saveUser:user];
     [[CUTEDataManager sharedInstance] persistAllCookies];

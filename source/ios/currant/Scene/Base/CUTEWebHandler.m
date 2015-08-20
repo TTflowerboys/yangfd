@@ -24,6 +24,8 @@
 
 @implementation CUTEWebHandler
 
+
+//TODO JS-Native api call need version control, for html host on remote, not sync with current code
 - (void)setupWithWebView:(UIWebView *)webView viewController:(CUTEWebViewController *)webViewController {
 
     [self.bridge registerHandler:@"handshake" handler:^(id data, WVJBResponseCallback responseCallback) {

@@ -19,6 +19,7 @@
 #import "UIAlertView+Blocks.h"
 #import "CUTENotificationKey.h"
 #import "CUTEPhoneUtil.h"
+#import "NSString+Encoding.h"
 
 @implementation CUTEWebConfiguration
 
@@ -55,7 +56,7 @@
 
 - (NSURL *)getRedirectToLoginURLFromURL:(NSURL *)url {
     NSURL *originalURL = url;
-    return [NSURL WebURLWithString:CONCAT(@"/signin?from=", [originalURL.absoluteString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding])];
+    return [NSURL WebURLWithString:CONCAT(@"/signin?from=", [originalURL.absoluteString URLEncode])];
 
     return url;
 }
