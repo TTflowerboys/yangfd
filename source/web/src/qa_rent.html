@@ -45,7 +45,7 @@
 
         <div class="qas">
             <div class="general qaCategory">
-                <h3 name="contactRequest">{{_('发布房产遇到问题?')}}</h3>
+                <h3 id="publish"><a href="#publish">{{_('发布房产遇到问题?')}}</a></h3>
                 <ul class="questions">
                     <li>
                         <h4 class="title">
@@ -107,7 +107,7 @@
                 </ul>
             </div>
             <div class="general qaCategory">
-                <h3 name="contactRequest">{{_('房产分享遇到问题?')}}</h3>
+                <h3 id="share"><a href="#share">{{_('房产分享遇到问题?')}}</a></h3>
                 <ul class="questions">
                     <li>
                         <h4 class="title">
@@ -129,7 +129,30 @@
                 </ul>
             </div>
             <div class="general qaCategory">
-                <h3 name="contactRequest">{{_('如何更快将房源出租出去？')}}</h3>
+                <h3 id="rental"><a href="#rental">{{_('收取租金问题?')}}</a></h3>
+                <ul class="questions">
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('洋房东全线服务及洋房东app免费吗？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('洋房东专业租房团队为您免费服务，不会以任何形式收取您任何费用，请您安心使用！')}}
+                        </p>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            <div class="indicator"></div>
+                            {{_('房东怎样收取租金？')}}
+                        </h4>
+                        <p class="answer">
+                            {{_('洋房东专业租房团队只为您提供专业全面的租房信息平台。在房东和房客自行联系后，线下可自行交易，洋房东租房团队将不会以任何形式收取任何费用！请您安心使用！')}}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="general qaCategory">
+                <h3 id="tips"><a href="#tips">{{_('如何更快将房源出租出去?')}}</a></h3>
                 <ul class="questions">
                     <li>
                         <h4 class="title">
@@ -188,30 +211,7 @@
                 </ul>
             </div>
             <div class="general qaCategory">
-                <h3 name="contactRequest">{{_('收取租金问题?')}}</h3>
-                <ul class="questions">
-                    <li>
-                        <h4 class="title">
-                            <div class="indicator"></div>
-                            {{_('洋房东全线服务及洋房东app免费吗？')}}
-                        </h4>
-                        <p class="answer">
-                            {{_('洋房东专业租房团队为您免费服务，不会以任何形式收取您任何费用，请您安心使用！')}}
-                        </p>
-                    </li>
-                    <li>
-                        <h4 class="title">
-                            <div class="indicator"></div>
-                            {{_('房东怎样收取租金？')}}
-                        </h4>
-                        <p class="answer">
-                            {{_('洋房东专业租房团队只为您提供专业全面的租房信息平台。在房东和房客自行联系后，线下可自行交易，洋房东租房团队将不会以任何形式收取任何费用！请您安心使用！')}}
-                        </p>
-                    </li>
-                </ul>
-            </div>
-            <div class="general qaCategory">
-                <h3 name="contactRequest">{{_('租客如何获取房东联系方式？')}}</h3>
+                <h3 id="contact"><a href="#contact">{{_('如何获取房东联系方式?')}}</a></h3>
                 <ul class="questions">
                     <li>
                         <h4 class="title">
