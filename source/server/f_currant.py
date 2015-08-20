@@ -918,7 +918,7 @@ class f_currant_plugins(f_app.plugin_base):
             "type": "rent",
             "status": "to rent",
         }
-        rent_tickets = f_app.i18n.process_i18n(f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), check_permission=False))
+        rent_tickets = f_app.i18n.process_i18n(f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), check_permission=False), _i18n=["zh_Hans_CN"])
 
         bedroom_count = f_app.util.parse_bedroom_count(intention_ticket["bedroom_count"])
         rent_budget = f_app.util.parse_budget(intention_ticket["rent_budget"])
@@ -927,55 +927,58 @@ class f_currant_plugins(f_app.plugin_base):
         good_matches = []
 
         for ticket in rent_tickets:
-            if "price" not in ticket or "property" not in ticket or "bedroom_count" not in ticket["property"] or "minimum_rent_period" not in ticket or "rent_type" not in ticket or "country" not in ticket["property"]:
-                continue
+            try:
+                if "price" not in ticket or "property" not in ticket or "bedroom_count" not in ticket["property"] or "minimum_rent_period" not in ticket or "rent_type" not in ticket or "country" not in ticket["property"]:
+                    continue
 
-            if ticket["property"]["country"]["code"] != intention_ticket["country"]["code"]:
-                continue
+                if ticket["property"]["country"]["code"] != intention_ticket["country"]["code"]:
+                    continue
 
-            if ticket["property"]["city"]["id"] != intention_ticket["city"]["id"]:
-                continue
+                if ticket["property"]["city"]["id"] != intention_ticket["city"]["id"]:
+                    continue
 
-            A = True
-            if bedroom_count[0] is not None:
-                A = A and bedroom_count[0] <= ticket["property"]["bedroom_count"]
-            if bedroom_count[1] is not None:
-                A = A and bedroom_count[1] >= ticket["property"]["bedroom_count"]
+                A = True
+                if bedroom_count[0] is not None:
+                    A = A and bedroom_count[0] <= ticket["property"]["bedroom_count"]
+                if bedroom_count[1] is not None:
+                    A = A and bedroom_count[1] >= ticket["property"]["bedroom_count"]
 
-            B = True
-            price = ticket["price"]["value_float"]
-            if ticket["price"]["unit"] != rent_budget[2]:
-                price = float(f_app.i18n.convert_currency({"unit": ticket["price"]["unit"], "value": ticket["price"]["value"]}, rent_budget[2]))
-            if rent_budget[0]:
-                B = B and float(rent_budget[0]) <= price
-            if rent_budget[1]:
-                B = B and float(rent_budget[1]) >= price
+                B = True
+                price = ticket["price"]["value_float"]
+                if ticket["price"]["unit"] != rent_budget[2]:
+                    price = float(f_app.i18n.convert_currency({"unit": ticket["price"]["unit"], "value": ticket["price"]["value"]}, rent_budget[2]))
+                if rent_budget[0]:
+                    B = B and float(rent_budget[0]) <= price
+                if rent_budget[1]:
+                    B = B and float(rent_budget[1]) >= price
 
-            C = ticket["rent_available_time"].year == intention_ticket["rent_available_time"].year and ticket["rent_available_time"].month == intention_ticket["rent_available_time"].month
-            if "rent_deadline_time" in ticket and "rent_deadline_time" in intention_ticket:
-                C = C and ticket["rent_deadline_time"].year == intention_ticket["rent_deadline_time"].year and ticket["rent_deadline_time"].month == intention_ticket["rent_deadline_time"].month
+                C = ticket["rent_available_time"].year == intention_ticket["rent_available_time"].year and ticket["rent_available_time"].month == intention_ticket["rent_available_time"].month
+                if "rent_deadline_time" in ticket and "rent_deadline_time" in intention_ticket:
+                    C = C and ticket["rent_deadline_time"].year == intention_ticket["rent_deadline_time"].year and ticket["rent_deadline_time"].month == intention_ticket["rent_deadline_time"].month
 
-            if "minimum_rent_period" in ticket and "minimum_rent_period" in intention_ticket:
-                D = ticket["minimum_rent_period"]["value_float"] >= intention_ticket["minimum_rent_period"]["value_float"]
-            else:
-                D = 1
+                if "minimum_rent_period" in ticket and "minimum_rent_period" in intention_ticket:
+                    D = ticket["minimum_rent_period"]["value_float"] >= intention_ticket["minimum_rent_period"]["value_float"]
+                else:
+                    D = 1
 
-            if "maponics_neighborhood" in ticket and "maponics_neighborhood" in intention_ticket:
-                E = ticket["maponics_neighborhood"]["id"] == intention_ticket["maponics_neighborhood"]["id"]
-            elif "zipcode_index" in ticket["property"] and "zipcode_index" in intention_ticket:
-                E = ticket["property"]["zipcode_index"] == intention_ticket["zipcode_index"]
-            else:
-                E = 1
+                if "maponics_neighborhood" in ticket and "maponics_neighborhood" in intention_ticket:
+                    E = ticket["maponics_neighborhood"]["id"] == intention_ticket["maponics_neighborhood"]["id"]
+                elif "zipcode_index" in ticket["property"] and "zipcode_index" in intention_ticket:
+                    E = ticket["property"]["zipcode_index"] == intention_ticket["zipcode_index"]
+                else:
+                    E = 1
 
-            F = ticket["rent_type"]["id"] == intention_ticket["rent_type"]["id"]
+                F = ticket["rent_type"]["id"] == intention_ticket["rent_type"]["id"]
 
-            score = A + B + C + D + E + F
+                score = A + B + C + D + E + F
 
-            if score == 6:
-                best_matches.append(ticket)
+                if score == 6:
+                    best_matches.append(ticket)
 
-            elif score >= 4:
-                good_matches.append(ticket)
+                elif score >= 4:
+                    good_matches.append(ticket)
+            except:
+                self.logger.warning("Bad ticket detected:", ticket["id"])
 
         if len(best_matches):
             title = "洋房东给你匹配到了合适的房源，快来看看吧！"
