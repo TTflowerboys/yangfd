@@ -878,7 +878,7 @@ class f_currant_plugins(f_app.plugin_base):
             score = A + B + C + D + E + F
 
             if score == 6:
-                title = "洋房东给你匹配到了合适的房源，快来看看吧！"
+                title = "洋房东给您匹配到了合适的房源，快来看看吧！"
                 digest_url = "http://yangfd.com/wechat-poster/%s/image" % ticket_id
                 f_app.email.schedule(
                     target=intention_ticket["creator_user"]["email"],
@@ -889,7 +889,7 @@ class f_currant_plugins(f_app.plugin_base):
                     ticket_match_user_id=intention_ticket["creator_user"]["id"],
                 )
             elif score >= 4:
-                title = "洋房东给你匹配到了一些房源，快来看看吧！"
+                title = "洋房东给您匹配到了一些房源，快来看看吧！"
                 digest_url = "http://yangfd.com/wechat-poster/%s/image" % ticket_id
                 sent_in_a_day = f_app.task.search({"status": {"$exists": True}, "type": "email", "ticket_match_user_id": intention_ticket["creator_user"]["id"], "start": {"$gte": datetime.utcnow() - timedelta(days=1)}})
                 if len(sent_in_a_day):
@@ -982,7 +982,7 @@ class f_currant_plugins(f_app.plugin_base):
 
         import currant_util
         if len(best_matches):
-            title = "洋房东给你匹配到了合适的房源，快来看看吧！"
+            title = "洋房东给您匹配到了合适的房源，快来看看吧！"
             f_app.email.schedule(
                 target=ticket_creator_user["email"],
                 subject=title,
@@ -992,7 +992,7 @@ class f_currant_plugins(f_app.plugin_base):
                 ticket_match_user_id=ticket_creator_user["id"],
             )
         elif len(good_matches):
-            title = "洋房东给你匹配到了一些房源，快来看看吧！"
+            title = "洋房东给您匹配到了一些房源，快来看看吧！"
             f_app.email.schedule(
                 target=ticket_creator_user["email"],
                 subject=title,
