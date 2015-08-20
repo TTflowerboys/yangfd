@@ -861,7 +861,10 @@ class f_currant_plugins(f_app.plugin_base):
             if "rent_deadline_time" in ticket and "rent_deadline_time" in intention_ticket:
                 C = C and ticket["rent_deadline_time"].year == intention_ticket["rent_deadline_time"].year and ticket["rent_deadline_time"].month == intention_ticket["rent_deadline_time"].month
 
-            D = ticket["minimum_rent_period"]["value_float"] >= intention_ticket["minimum_rent_period"]["value_float"]
+            if "minimum_rent_period" in ticket and "minimum_rent_period" in intention_ticket:
+                D = ticket["minimum_rent_period"]["value_float"] >= intention_ticket["minimum_rent_period"]["value_float"]
+            else:
+                D = 1
 
             if "maponics_neighborhood" in ticket and "maponics_neighborhood" in intention_ticket:
                 E = ticket["maponics_neighborhood"]["id"] == intention_ticket["maponics_neighborhood"]["id"]
@@ -950,7 +953,10 @@ class f_currant_plugins(f_app.plugin_base):
             if "rent_deadline_time" in ticket and "rent_deadline_time" in intention_ticket:
                 C = C and ticket["rent_deadline_time"].year == intention_ticket["rent_deadline_time"].year and ticket["rent_deadline_time"].month == intention_ticket["rent_deadline_time"].month
 
-            D = ticket["minimum_rent_period"]["value_float"] >= intention_ticket["minimum_rent_period"]["value_float"]
+            if "minimum_rent_period" in ticket and "minimum_rent_period" in intention_ticket:
+                D = ticket["minimum_rent_period"]["value_float"] >= intention_ticket["minimum_rent_period"]["value_float"]
+            else:
+                D = 1
 
             if "maponics_neighborhood" in ticket and "maponics_neighborhood" in intention_ticket:
                 E = ticket["maponics_neighborhood"]["id"] == intention_ticket["maponics_neighborhood"]["id"]
