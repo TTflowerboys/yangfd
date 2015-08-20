@@ -918,8 +918,8 @@
 		2C9F1D2A1B3ABA580034487F /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		2C9F1D2C1B3BB9800034487F /* YTKKeyValueItem+CUTE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YTKKeyValueItem+CUTE.h"; sourceTree = "<group>"; };
 		2C9F1D2D1B3BB9800034487F /* YTKKeyValueItem+CUTE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YTKKeyValueItem+CUTE.m"; sourceTree = "<group>"; };
-		2CA2E6C21AC5487800053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2CA2E6DB1AC5496700053965 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CA2E6C21AC5487800053965 /* currant-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "currant-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CA2E6DB1AC5496700053965 /* currant-production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "currant-production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
 		2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-test-Info.plist"; sourceTree = "<group>"; };
 		2CA5F76E1AE10382001132E0 /* CUTEImageUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEImageUploader.h; sourceTree = "<group>"; };
@@ -940,7 +940,7 @@
 		2CA81FB51B1303BC006E993C /* CUTEPlacemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPlacemark.m; sourceTree = "<group>"; };
 		2CA81FC91B15CA50006E993C /* CUTEMapBackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEMapBackView.h; sourceTree = "<group>"; };
 		2CA81FCA1B15CA50006E993C /* CUTEMapBackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEMapBackView.m; sourceTree = "<group>"; };
-		2CA94AAE1ACA42CD00DF7497 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CA94AAE1ACA42CD00DF7497 /* currant-dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "currant-dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-dev-Info.plist"; sourceTree = "<group>"; };
 		2CAA851E1AEA65CC00432BF1 /* NSString+Encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encoding.h"; sourceTree = "<group>"; };
 		2CAA851F1AEA65CC00432BF1 /* NSString+Encoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encoding.m"; sourceTree = "<group>"; };
@@ -1561,9 +1561,9 @@
 			isa = PBXGroup;
 			children = (
 				2CB43DA91ABC1372004DF663 /* currant.app */,
-				2CA2E6C21AC5487800053965 /* currant.app */,
-				2CA2E6DB1AC5496700053965 /* currant.app */,
-				2CA94AAE1ACA42CD00DF7497 /* currant.app */,
+				2CA2E6C21AC5487800053965 /* currant-test.app */,
+				2CA2E6DB1AC5496700053965 /* currant-production.app */,
+				2CA94AAE1ACA42CD00DF7497 /* currant-dev.app */,
 				2CDC11671B33F8C100B6D3DD /* currantUnitTest.xctest */,
 				2C056D171B414F4B0075037A /* currantUITest.xctest */,
 			);
@@ -1951,7 +1951,7 @@
 			);
 			name = "currant-test";
 			productName = currant;
-			productReference = 2CA2E6C21AC5487800053965 /* currant.app */;
+			productReference = 2CA2E6C21AC5487800053965 /* currant-test.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2CA2E6C41AC5496700053965 /* currant-production */ = {
@@ -1972,7 +1972,7 @@
 			);
 			name = "currant-production";
 			productName = currant;
-			productReference = 2CA2E6DB1AC5496700053965 /* currant.app */;
+			productReference = 2CA2E6DB1AC5496700053965 /* currant-production.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2CA94A951ACA42CD00DF7497 /* currant-dev */ = {
@@ -1992,7 +1992,7 @@
 			);
 			name = "currant-dev";
 			productName = currant;
-			productReference = 2CA94AAE1ACA42CD00DF7497 /* currant.app */;
+			productReference = 2CA94AAE1ACA42CD00DF7497 /* currant-dev.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2CB43DA81ABC1372004DF663 /* currant */ = {
@@ -3222,8 +3222,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = currant;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
+				PRODUCT_NAME = "currant-test";
 				PROVISIONING_PROFILE = "4c822f02-feca-4b03-babe-9cddf70f5d80";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-test-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3249,8 +3249,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = currant;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
+				PRODUCT_NAME = "currant-test";
 				PROVISIONING_PROFILE = "af2379ba-bf2a-49ec-9341-71a6e43edee6";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-test-Bridging-Header.h";
 			};
@@ -3275,8 +3275,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = currant;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
+				PRODUCT_NAME = "currant-production";
 				PROVISIONING_PROFILE = "4c822f02-feca-4b03-babe-9cddf70f5d80";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-production-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3302,8 +3302,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = currant;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
+				PRODUCT_NAME = "currant-production";
 				PROVISIONING_PROFILE = "f3cd444c-b602-41c4-a180-95774a660000";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-production-Bridging-Header.h";
 			};
@@ -3329,8 +3329,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = currant;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
+				PRODUCT_NAME = "currant-dev";
 				PROVISIONING_PROFILE = "4c822f02-feca-4b03-babe-9cddf70f5d80";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-dev-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3357,8 +3357,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = currant;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
+				PRODUCT_NAME = "currant-dev";
 				PROVISIONING_PROFILE = "af2379ba-bf2a-49ec-9341-71a6e43edee6";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-dev-Bridging-Header.h";
 			};
