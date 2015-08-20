@@ -81,7 +81,7 @@ def signup():
 @f_get('/verify-phone')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
-def verify_phone():
+def verify_phone(user):
     title = _('手机验证')
     return currant_util.common_template("verify_phone", title=title)
 
