@@ -928,7 +928,7 @@ class f_currant_plugins(f_app.plugin_base):
             if ticket["property"]["country"]["code"] != intention_ticket["country"]["code"]:
                 continue
 
-            if ticket["property"]["city"]["id"] != intention_ticket["city"]["_id"]:
+            if ticket["property"]["city"]["id"] != intention_ticket["city"]["id"]:
                 continue
 
             A = True
