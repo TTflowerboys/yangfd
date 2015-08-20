@@ -617,3 +617,4 @@ def rental_available():
     # issue #6990
     title = _('洋房东租房服务')
     return currant_util.common_template("rental_available", title=title)
+

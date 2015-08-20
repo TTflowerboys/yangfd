@@ -12,6 +12,8 @@
                 <img width="100%" height="auto" src="{{rent.get('property',{}).get('cover')}}_thumbnail"/>
                 % elif len(rent.get('property',{}).get('reality_images',[])):
                 <img width="100%" height="auto" src="{{rent.get('property',{}).get('reality_images',[])[0]}}_thumbnail"/>
+                % else :
+                <img style="background-color:#eee;background-image: url('http://upload.yangfd.com/holder.png');background-size: 20%;background-repeat: no-repeat;background-position: center;width:500px;min-height:250px;" alt=""/>
                 %end
                 <table style="width: 100%;padding: 10px;box-sizing: border-box;line-height: 1em;">
                     <tr>
