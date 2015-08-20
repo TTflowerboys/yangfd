@@ -927,7 +927,7 @@ class f_currant_plugins(f_app.plugin_base):
         good_matches = []
 
         for ticket in rent_tickets:
-            if "price" not in ticket or "bedroom_count" not in ticket["property"] or "minimum_rent_period" not in ticket or "rent_type" not in ticket:
+            if "price" not in ticket or "property" not in ticket or "bedroom_count" not in ticket["property"] or "minimum_rent_period" not in ticket or "rent_type" not in ticket:
                 continue
 
             if ticket["property"]["country"]["code"] != intention_ticket["country"]["code"]:
