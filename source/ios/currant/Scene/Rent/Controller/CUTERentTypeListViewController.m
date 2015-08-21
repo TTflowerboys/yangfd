@@ -80,7 +80,7 @@
     MakeBegin(hintLabel)
     MakeBottomEqualTo(hintLabel.superview.bottom).offset(-135);
     MakeLeftEqualTo(hintLabel.superview);
-    MakeRighEqualTo(~)hintLabel.superview);
+    MakeRighEqualTo(hintLabel.superview);
     MakeEnd
 }
 
