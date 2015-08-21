@@ -240,17 +240,20 @@
     [[CUTEAPICacheManager sharedInstance] refresh];
 
     if ([self checkShowSplashViewController]) {
-
-        [self.tabBarController setSelectedIndex:kEditTabBarIndex];
         [self updatePublishRentTicketTabWithController:editViewController silent:YES];
-        _lastSelectedTabIndex = kEditTabBarIndex;
     }
     else {
-
-        [self.tabBarController setSelectedIndex:kEditTabBarIndex];
         [self updatePublishRentTicketTabWithController:editViewController silent:NO];
-        _lastSelectedTabIndex = kEditTabBarIndex;
+
     }
+
+    //defautl open home page
+    [self.tabBarController setSelectedIndex:kHomeTabBarIndex];
+    [self updateWebViewControllerTabAtIndex:self.tabBarController.selectedIndex];
+    CUTEWebViewController *webViewController = (CUTEWebViewController *)homeViewController.topViewController;
+    [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
+    _lastSelectedTabIndex = kHomeTabBarIndex;
+
 //#warning DEBUG_CODE
 #ifdef DEBUG
 
