@@ -9,6 +9,7 @@
 
     @media @phone {
         height:auto;
+//        border-bottom:0px;
     }
 
     .category {
@@ -110,6 +111,8 @@
             margin:0px;
             height:auto;
             display:block;
+            margin-top:62px;
+            margin-bottom:62px;
         }
 
         &_wrapper {
@@ -131,9 +134,9 @@
                 display:block;
                 margin-top:62px;
             }
-            &:last-child {
+            &:first-child {
                 @media @phone {
-                    margin-bottom:62px;
+                    margin-top:0px;
                 }
             }
 
@@ -153,7 +156,7 @@
                 @media @phone {
                     float:none;
                     margin:0px auto;
-                    height: auto;
+                    height: 77px;
                     width: 77px;
                     display:block;
                 }
@@ -169,7 +172,8 @@
                         border-radius:50%;
                         border:2px solid #e60012;
                         line-height: 73px;
-                        width: 73px;
+                        width: 77px;
+                        height:77px;
                         display:block;
                     }
                 }
