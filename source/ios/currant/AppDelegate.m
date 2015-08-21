@@ -240,17 +240,19 @@
     [[CUTEAPICacheManager sharedInstance] refresh];
 
     if ([self checkShowSplashViewController]) {
-
-        [self.tabBarController setSelectedIndex:kEditTabBarIndex];
         [self updatePublishRentTicketTabWithController:editViewController silent:YES];
-        _lastSelectedTabIndex = kEditTabBarIndex;
     }
     else {
-
-        [self.tabBarController setSelectedIndex:kEditTabBarIndex];
         [self updatePublishRentTicketTabWithController:editViewController silent:NO];
-        _lastSelectedTabIndex = kEditTabBarIndex;
+
     }
+
+    //defautl open home page
+    [self.tabBarController setSelectedIndex:kHomeTabBarIndex];
+    CUTEWebViewController *webViewController = (CUTEWebViewController *)homeViewController.topViewController;
+    [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
+    _lastSelectedTabIndex = kHomeTabBarIndex;
+
 //#warning DEBUG_CODE
 #ifdef DEBUG
 
@@ -404,7 +406,13 @@
     if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
         CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
         if (_lastSelectedTabIndex == self.tabBarController.selectedIndex) {
-            [webViewController reload];
+            //在网络情况不好时，可能加载没有正常开始，比如在飞行模式，这个时候 request.URL.absoluteString 长度为0，那么就需要重新开始加载，而不是reload
+            if (IsNilOrNull(webViewController.webView.request) || IsNilOrNull(webViewController.webView.request.URL) || IsNilNullOrEmpty(webViewController.webView.request.URL.absoluteString)) {
+                [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
+            }
+            else {
+                [webViewController reload];
+            }
         }
         else {
             if (!webViewController.webView.request) {// web page not load, so load it
