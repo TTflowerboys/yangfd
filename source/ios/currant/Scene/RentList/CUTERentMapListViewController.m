@@ -82,8 +82,7 @@
     [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [numberFormatter setCurrencySymbol:symbol];
     [numberFormatter setMaximumFractionDigits:2];
-    NSNumber *c = [NSNumber numberWithFloat:price];
-    return CONCAT([numberFormatter stringFromNumber:c], suffix);
+    return CONCAT(FloatToString(price), suffix);
 }
 
 - (void)showCalloutViewWithObject:(id)object inView:(UIView *)view {

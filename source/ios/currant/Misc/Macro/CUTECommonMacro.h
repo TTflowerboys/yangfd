@@ -21,4 +21,6 @@
 
 #define TOCK   NSLog(@"Time: %f", -[startTime timeIntervalSinceNow])
 
+#define FloatToString(x) [[NSNumber numberWithFloat:x] stringValue]
+
 #endif
