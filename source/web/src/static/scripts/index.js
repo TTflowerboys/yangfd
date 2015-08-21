@@ -27,7 +27,7 @@
     initBanner()
 
     $('#roleChooser').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
-        if ($(target).parents('[data-tabs]').first()[0] == $('#roleChooser')[0]) {
+        if ($(target).parents('[data-tabs]').first()[0] === $('#roleChooser')[0]) {
             window.scrollTo(0, $('#roleChooser').offset().top)
             var windowHeight = $(window).height()
             var tabbarHeight = $('#roleChooser .tab_wrapper').height()
@@ -57,6 +57,7 @@
     $('.intentionChooser').tabs({trigger:'hover'}).on('openTab', function () {
 
     })
+
 
     $('#announcement').on('click', 'ul>li>.close', function (event) {
         var $item = $(event.target.parentNode)
