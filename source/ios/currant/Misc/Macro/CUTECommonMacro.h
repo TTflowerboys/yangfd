@@ -21,6 +21,10 @@
 
 #define TOCK   NSLog(@"Time: %f", -[startTime timeIntervalSinceNow])
 
+//Same with format float with %g
+//64-bit floating-point number (double), printed in the style of %e if the exponent is less than –4 or greater than or equal to the precision, in the style of %f otherwise.
+//	NSString *gstr = [NSString stringWithFormat:@"%g", 0.01]; print 0.01
+//  NSString *gstrLong = [NSString stringWithFormat:@"%g", 0.00001]; print 1e-05
 #define FloatToString(x) [[NSNumber numberWithFloat:x] stringValue]
 
 #endif
