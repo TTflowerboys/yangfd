@@ -104,7 +104,9 @@ $(function () {
     }
 
     function getResidueDegree() {
-        if ($residueDegree.length > 0 && window.user) {
+        if($requestContactBtn.attr('data-protectedHost')) {
+            $requestContactBtn.prop('disabled', false)
+        } else if ($residueDegree.length > 0 && window.user) {
             if(!$requestContactBtn.parents('.host_wrapper').hasClass('contact_info_already_fetched')){
                 $.betterPost('/api/1/credit/view_rent_ticket_contact_info/amount')
                     .done(function (val) {
@@ -168,36 +170,43 @@ $(function () {
         }
     }
 
+    function getPlatformContactInfo() {
+        window.team.setUserType('tenant')
+        var contactInfo = { 'country': {'code': 'GB', '_country': true},'country_code': 44, 'private_contact_methods': ['phone'], 'wechat': 'yangfd1', 'nickname': i18n('洋房东'), 'email': 'services@youngfunding.co.uk'}
+        updateContactInfo(contactInfo)
+    }
+    function updateContactInfo(host) {
+        host.private_contact_methods = host.private_contact_methods || []
+        if(host.private_contact_methods.indexOf('phone') < 0 && host.phone) {
+            $('.hostPhone').addClass('show').find('span').eq(0).text('+' + host.country_code)
+            $('.hostPhone').addClass('show').find('span').eq(1).text(host.phone)
+            $('.hostPhone a').attr('href', 'tel:+' + host.country_code + host.phone)
+        } else {
+            $('.hostPhone').removeClass('show')
+        }
+        if(host.private_contact_methods.indexOf('email') < 0 && host.email) {
+            $('.hostEmail').addClass('show').find('span').text(host.email)
+            $('.hostEmail a').attr('href', 'mailto:' + host.email)
+        } else {
+            $('.hostEmail').removeClass('show')
+        }
+        if(host.private_contact_methods.indexOf('wechat') < 0 && host.wechat) {
+            $('.hostWechat').addClass('show').find('span').text(host.wechat)
+        } else {
+            $('.hostWechat').removeClass('show')
+        }
+        $('.host .hint').fadeOut()
+
+        $('.hostName').text(host.nickname)
+
+        $('.contactRequest').hide()
+        $('body,html').animate({scrollTop: $('#host').offset().top}, 300)
+    }
     function getContactInfo() {
         window.team.setUserType('tenant')
         $.betterPost('/api/1/rent_ticket/' + rentId + '/contact_info')
             .done(function (val) {
-                var host = val
-                host.private_contact_methods = host.private_contact_methods || []
-                if(host.private_contact_methods.indexOf('phone') < 0 && host.phone) {
-                    $('.hostPhone').addClass('show').find('span').eq(0).text('+' + host.country_code)
-                    $('.hostPhone').addClass('show').find('span').eq(1).text(host.phone)
-                    $('.hostPhone a').attr('href', 'tel:+' + host.country_code + host.phone)
-                } else {
-                    $('.hostPhone').removeClass('show')
-                }
-                if(host.private_contact_methods.indexOf('email') < 0 && host.email) {
-                    $('.hostEmail').addClass('show').find('span').text(host.email)
-                    $('.hostEmail a').attr('href', 'mailto:' + host.email)
-                } else {
-                    $('.hostEmail').removeClass('show')
-                }
-                if(host.private_contact_methods.indexOf('wechat') < 0 && host.wechat) {
-                    $('.hostWechat').addClass('show').find('span').text(host.wechat)
-                } else {
-                    $('.hostWechat').removeClass('show')
-                }
-                $('.host .hint').fadeOut()
-
-                $('.hostName').text(host.nickname)
-
-                $('.contactRequest').hide()
-                $('body,html').animate({scrollTop: $('#host').offset().top}, 300)
+                updateContactInfo(val)
 
                 reduceResidueDegree()
 
@@ -216,8 +225,9 @@ $(function () {
      * Control request contact button based on user login or not
      * */
     $requestContactBtn.on('click', function (e) {
-        if (window.user && rentId && !$(this).attr('disabled')) {
-            window.team.setUserType('tenant')
+        if($requestContactBtn.attr('data-protectedHost')){
+            getPlatformContactInfo()
+        } else if (window.user && rentId && !$(this).attr('disabled')) {
             getContactInfo()
         }
         else {
