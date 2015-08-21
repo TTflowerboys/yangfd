@@ -18,6 +18,7 @@
 #import "CUTEFormRentTypeCell.h"
 #import "CUTENotificationKey.h"
 #import "CUTETracker.h"
+#import "MasonryMake.h"
 
 @interface CUTERentTypeListViewController ()
 {
@@ -67,6 +68,20 @@
     }
     self.tableView.accessibilityLabel = STR(@"出租类型列表");
     self.tableView.accessibilityIdentifier = STR(@"出租类型列表");
+
+    self.tableView.backgroundView = [UIView new];
+    UILabel *hintLabel = [UILabel new];
+    hintLabel.textColor = HEXCOLOR(0x999999, 1);
+    hintLabel.textAlignment = NSTextAlignmentCenter;
+    hintLabel.numberOfLines = 0;
+    hintLabel.font = [UIFont systemFontOfSize:16];
+    hintLabel.text = STR(@"您有整套或单间房源要出租？\n从这里开始免费发布！");
+    [self.tableView.backgroundView addSubview:hintLabel];
+    MakeBegin(hintLabel)
+    MakeBottomEqualTo(hintLabel.superview.bottom).offset(-135);
+    MakeLeftEqualTo(hintLabel.superview);
+    MakeRighEqualTo(~)hintLabel.superview);
+    MakeEnd
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
