@@ -3251,7 +3251,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
 				PRODUCT_NAME = "currant-test";
-				PROVISIONING_PROFILE = "af2379ba-bf2a-49ec-9341-71a6e43edee6";
+				PROVISIONING_PROFILE = "fdc92589-40ba-4658-98a1-4d35c4f53faf";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-test-Bridging-Header.h";
 			};
 			name = Release;
@@ -3304,7 +3304,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
 				PRODUCT_NAME = "currant-production";
-				PROVISIONING_PROFILE = "f3cd444c-b602-41c4-a180-95774a660000";
+				PROVISIONING_PROFILE = "0a1f9a34-1cb1-4b28-9f35-0648a3e9bca8";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-production-Bridging-Header.h";
 			};
 			name = Release;
@@ -3359,7 +3359,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
 				PRODUCT_NAME = "currant-dev";
-				PROVISIONING_PROFILE = "af2379ba-bf2a-49ec-9341-71a6e43edee6";
+				PROVISIONING_PROFILE = "fdc92589-40ba-4658-98a1-4d35c4f53faf";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-dev-Bridging-Header.h";
 			};
 			name = Release;
@@ -3495,7 +3495,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "af2379ba-bf2a-49ec-9341-71a6e43edee6";
+				PROVISIONING_PROFILE = "fdc92589-40ba-4658-98a1-4d35c4f53faf";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-Bridging-Header.h";
 			};
 			name = Release;

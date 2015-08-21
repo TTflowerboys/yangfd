@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2CA2E6C41AC5496700053965"
-               BuildableName = "currant.app"
+               BuildableName = "currant-production.app"
                BlueprintName = "currant-production"
                ReferencedContainer = "container:currant.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2CA2E6C41AC5496700053965"
-            BuildableName = "currant.app"
+            BuildableName = "currant-production.app"
             BlueprintName = "currant-production"
             ReferencedContainer = "container:currant.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2CA2E6C41AC5496700053965"
-            BuildableName = "currant.app"
+            BuildableName = "currant-production.app"
             BlueprintName = "currant-production"
             ReferencedContainer = "container:currant.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2CA2E6C41AC5496700053965"
-            BuildableName = "currant.app"
+            BuildableName = "currant-production.app"
             BlueprintName = "currant-production"
             ReferencedContainer = "container:currant.xcodeproj">
          </BuildableReference>
