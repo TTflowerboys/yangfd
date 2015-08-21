@@ -225,16 +225,15 @@ $(function () {
      * Control request contact button based on user login or not
      * */
     $requestContactBtn.on('click', function (e) {
-        if($requestContactBtn.attr('data-protectedHost')){
-            getPlatformContactInfo()
-        } else if (window.user && rentId && !$(this).attr('disabled')) {
-            getContactInfo()
-        }
-        else {
+        if(!window.user){
             $('#contactRequestBtn').hide().next('.knownMore').hide()
             $('.contactRequestForm').show()
 
             ga('send', 'pageview', '/host-contact-request/'+ rentId)
+        } else if($requestContactBtn.attr('data-protectedHost')){
+            getPlatformContactInfo()
+        } else if (rentId && !$(this).attr('disabled')) {
+            getContactInfo()
         }
     })
 
