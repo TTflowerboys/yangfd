@@ -38,6 +38,19 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)startVerficationCodeCountDown {
+
+    FXFormField *field = [[self formController] fieldForKey:@"code"];
+    NSIndexPath *indexPath = [[self formController] indexPathForField:field];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+
+    if ([cell isKindOfClass:[CUTEFormVerificationCodeCell class]]) {
+        CUTEFormVerificationCodeCell *codeCell = (CUTEFormVerificationCodeCell *)cell;
+        [codeCell startCountDown];
+    }
+}
+
+
 - (void)onVerificationButtonPressed:(id)sender {
     if (![self validateFormWithScenario:@"fetchCode"]) {
         return;
@@ -58,6 +71,7 @@
         }
         else {
             _userIdentifier = task.result;
+            [self startVerficationCodeCountDown];
             [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
         }
 
