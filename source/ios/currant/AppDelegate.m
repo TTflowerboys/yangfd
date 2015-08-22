@@ -190,6 +190,7 @@
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogout:) name:KNOTIF_USER_DID_LOGOUT object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveMarkUserAsLandlord:) name:KNOTIF_MARK_USER_AS_LANDLORD object:nil];
 
+    [NotificationCenter addObserver:self selector:@selector(onReceiveShowHomeTab:) name:KNOTIF_SHOW_HOME_TAB object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveShowRentTicketListTab:) name:KNOTIF_SHOW_RENT_TICKET_LIST_TAB object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveShowPropertyListTab:) name:KNOTIF_SHOW_PROPERTY_LIST_TAB object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveShowSplashView:) name:KNOTIF_SHOW_SPLASH_VIEW object:nil];
@@ -202,6 +203,7 @@
     UINavigationController *propertyListViewController = [self makePropertyListViewControllerWithTitle:STR(@"新房") icon:@"tab-property" urlPath:@"/property-list"];
     UINavigationController *rentTicketListViewController = [self makeRentListViewControllerWithTitle:STR(@"租房") icon:@"tab-rent" urlPath:@"/property-to-rent-list"];
     UINavigationController *userViewController = [self makeUserViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user" index: kUserTabBarIndex];
+//     UINavigationController *userViewController = [self makeUserViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/intention?from=%2Fuser" index: kUserTabBarIndex];
     [rootViewController setViewControllers:@[homeViewController,
                                              propertyListViewController,
                                              editViewController,
@@ -686,6 +688,16 @@
 
 - (void)onReceiveShowFavoritePropertyList:(NSNotification *)notif {
     [self showUserPageSection:@"/user-favorites#own" fromViewController:notif.object];
+}
+
+- (void)onReceiveShowHomeTab:(NSNotification *)notif {
+    UINavigationController *nav = [[self.tabBarController viewControllers] objectAtIndex:kHomeTabBarIndex];
+    if (nav == [(UIViewController *)notif.object navigationController]) {
+        [nav popToRootViewControllerAnimated:YES];
+    }
+    [self.tabBarController setSelectedIndex:kHomeTabBarIndex];
+    [self updateWebViewControllerTabAtIndex:kHomeTabBarIndex];
+    _lastSelectedTabIndex = kHomeTabBarIndex;
 }
 
 - (void)onReceiveShowRentTicketListTab:(NSNotification *)notif {
