@@ -14,14 +14,7 @@
             </a>
         </li>
         <li>
-            <a
-                %if is_mobile_client():
-                    href="#" onclick="window.bridge.callHandler(&quot;openPropertyListTab&quot;);return false;"
-                %else:
-                    href="/property-list"
-                %end
-                    data-need-bridge
-                    >
+            <a href="/property-list">
                 <i class="img_wrapper icon-search_homepage"></i>
                 <div class="text">
                     <h3 class="question">
@@ -34,7 +27,7 @@
             </a>
         </li>
         <li>
-            <a style="cursor:pointer;" onclick="javascript:window.project.openRequirement(null, null, null)">
+            <a href="/requirement">
                 <i class="img_wrapper icon-files_homepage"></i>
                 <div class="text last">
                     <h3 class="question">
