@@ -27,20 +27,37 @@
     initBanner()
 
     $('#roleChooser').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
-        window.scrollTo(0, $('#roleChooser').offset().top)
+        if ($(target).parents('[data-tabs]').first()[0] === $('#roleChooser')[0]) {
+            window.scrollTo(0, $('#roleChooser').offset().top)
+            var windowHeight = $(window).height()
+            var tabbarHeight = $('#roleChooser .tab_wrapper').height()
 
-        if (tabName === 'buyer') {
-            window.console.log('buyer')
-        } else if (tabName === 'landlord') {
-            window.console.log('landlord')
-            if (typeof window.indexAppDownloadSwiper === 'undefined') {
-                window.setupDownload(window.Swiper)
+            if (tabName === 'landlord') {
+                window.console.log('landlord')
+                if (window.team.isCurrantClient()) {
+                    var publishHeight = $('.publishInClient').height()
+                    $('.publishInClient').css('margin-top', ((windowHeight - tabbarHeight - publishHeight) / 2) + 'px')
+                }
+                else  {
+                    if (typeof window.indexAppDownloadSwiper === 'undefined') {
+                        window.setupDownload(window.Swiper)
+                    }
+                }
+            }
+            else if (tabName === 'renter'){
+                if (window.team.isCurrantClient()) {
+                    var questionHeight = $('.renterService ul.questionChooser').height()
+                    $('ul.questionChooser').css('margin-top', ((windowHeight - tabbarHeight - questionHeight)/ 2) + 'px')
+                    $('.renterService').css('border-bottom', '0px');
+                }
             }
         }
-        else if (tabName === 'renter'){
-            window.console.log('renter')
-        }
     });
+
+    $('.intentionChooser').tabs({trigger:'hover'}).on('openTab', function () {
+
+    })
+
 
     $('#announcement').on('click', 'ul>li>.close', function (event) {
         var $item = $(event.target.parentNode)

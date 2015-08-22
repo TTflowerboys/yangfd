@@ -2537,7 +2537,7 @@ class f_currant_util(f_util):
         params = {"postcode_index": zipcode.replace(" ", ""), "country": "GB"}
         postcode = f_app.geonames.postcode.get(f_app.geonames.postcode.search(params, per_page=-1))
         if len(postcode) == 1:
-            region_report = f_app.report.search({"zipcode_index": postcode[0]["postcode"].split()[0], "country.code": "GB"})
+            region_report = f_app.report.search({"zipcode_index": postcode[0]["postcode"].split()[0], "country.code": "GB", "maponics_neighborhood": {"$exists": False}})
             if len(region_report) == 1:
                 return region_report[0]
 
