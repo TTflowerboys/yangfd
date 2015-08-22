@@ -135,6 +135,10 @@
         [webViewController loadRequesetInNewController:[NSURLRequest requestWithURL:[NSURL URLWithString:data relativeToURL:[CUTEConfiguration hostURL]]]];
     }];
 
+    [self.bridge registerHandler:@"openHomeTab" handler:^(id data, WVJBResponseCallback responseCallback) {
+        [NotificationCenter postNotificationName:KNOTIF_SHOW_HOME_TAB object:webViewController];
+    }];
+
     [self.bridge registerHandler:@"openRentListTab" handler:^(id data, WVJBResponseCallback responseCallback) {
         [NotificationCenter postNotificationName:KNOTIF_SHOW_RENT_TICKET_LIST_TAB object:webViewController];
     }];

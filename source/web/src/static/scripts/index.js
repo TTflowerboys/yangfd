@@ -26,7 +26,7 @@
     }
     initBanner()
 
-    $('#roleChooser').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
+    $('#roleChooser').tabs({trigger: 'click', autoSelectFirst: false}).on('openTab', function (event, target, tabName) {
         if ($(target).parents('[data-tabs]').first()[0] === $('#roleChooser')[0]) {
             window.scrollTo(0, $('#roleChooser').offset().top)
             var windowHeight = $(window).height()

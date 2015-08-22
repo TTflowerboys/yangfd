@@ -7,6 +7,7 @@
         this.changeState = function (state) {
             this.state = state
             this.change()
+
         }
         this.change = function () {
             $('.page').css('height', '0px')
@@ -19,9 +20,13 @@
             $('html, body').scrollTop(0)
             $('.page').css('height', 'auto')
         }
-        $('[data-action]').click(function () {
-            _this.changeState($(this).attr('data-action'))
-        })
+
+        if (!window.team.isCurrantClient()) {
+            $('[data-action]').click(function () {
+                _this.changeState($(this).attr('data-action'))
+            })
+        }
+
         this.change()
     }
     var showState
@@ -32,7 +37,15 @@
         if (window.betterAjaxXhr && window.betterAjaxXhr[apiUrl] && window.betterAjaxXhr[apiUrl].readyState !== 4) {
             window.betterAjaxXhr[apiUrl].abort()
         }
-        $.betterPost(apiUrl, {user_type: $(this).attr('data-user-type')})
+
+        $.betterPost(apiUrl, {user_type: $(this).attr('data-user-type')}, function (result) {
+            if (window.bridge !== undefined) {
+                window.bridge.callHandler('login', result);
+                window.setTimeout(function() {
+                    window.bridge.callHandler('openHomeTab');
+                }, 200);
+            }
+        })
     })
 
     function initChosen (elem) {
@@ -151,12 +164,9 @@
         $intentionform.find('[type=submit]').css({cursor: 'wait'})
         $.betterPost('/api/1/user/edit', data)
             .done(function(result){
-                if (window.bridge !== undefined) {
-                    window.bridge.callHandler('login', result);
-                }
-                else {
-                    window.project.goBackFromURL()
-                }
+
+                window.project.goBackFromURL()
+
                 ga('send', 'event', 'intention-selection', 'result', 'intention-submit-success')
             })
             .fail(function(errorCode){

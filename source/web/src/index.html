@@ -50,7 +50,16 @@
 <div class="roleChooser" id="roleChooser" data-tabs>
     <div class="tab_wrapper">
         <ul class="tab">
-            <li data-tab="buyer">
+            %if user and user.get('user_type') and len(user.get('user_type')):
+                % user_type_slug = user.get('user_type')[0].get('slug')
+            %else:
+                % user_type_slug = ''
+            %end
+            <li data-tab="buyer"
+                %if user_type_slug == 'investor' or user_type_slug == '':
+                class="selectedTab"
+                %end
+                >
                 <div class="inner">
                     <i class="img_wrapper icon-invest"></i>
                     <div class="text">
@@ -63,7 +72,11 @@
                     </div>
                 </div>
             </li>
-            <li data-tab="landlord">
+            <li data-tab="landlord"
+                %if user_type_slug == 'landlord':
+                class="selectedTab"
+                %end
+                >
                 <div class="inner">
                     <i class="img_wrapper icon-house_homepage"></i>
                     <div class="text">
@@ -76,7 +89,11 @@
                     </div>
                 </div>
             </li>
-            <li data-tab="renter">
+            <li data-tab="renter"
+                %if user_type_slug == 'tenant':
+                class="selectedTab"
+                %end
+                >
                 <div class="inner">
                     <i class="img_wrapper icon-key"></i>
                     <div class="text">
