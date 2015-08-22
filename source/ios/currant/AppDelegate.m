@@ -238,6 +238,8 @@
     [[RNCache sharedInstance] setDefaultTimeoutInterval:7 * 24 * 60 * 60];//7 days
     [[RNCache sharedInstance] setHostList:[CUTEConfiguration webCacheHosts]];
     [[RNCache sharedInstance] setExceptionRules:[CUTEConfiguration webCacheExceptionRules]];
+    [[RNCache sharedInstance] setResponseEntityRequiredMIMETypes:[CUTEConfiguration responseEntityRequiredMIMETypes]];
+    [[RNCache sharedInstance] setAllowedResponseStatusCodes:[CUTEConfiguration cacheAllowedResponseStatusCodes]];
 
     [[CUTEAPICacheManager sharedInstance] refresh];
 
