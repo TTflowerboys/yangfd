@@ -56,6 +56,7 @@
         }
         else {
             [SVProgressHUD showSuccessWithStatus:STR(@"重置密码请求已发送，请前往邮箱查看重置密码邮件")];
+            [self.navigationController popViewControllerAnimated:YES];
         }
         
         return task;
