@@ -1,3 +1,7 @@
+<textarea id="fullCountryData" style="display: none;">
+    {{json_dumps(full_country_list)}}
+</textarea>
+
 %if not ('rent_intention_ticket' in vars() or 'rent_intention_ticket' in globals()):
 %    rent_intention_ticket = {}
 %end

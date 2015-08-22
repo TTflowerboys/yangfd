@@ -8,10 +8,11 @@
 
 <!--@@block = main-->
 
-<textarea id="fullCountryData" style="display: none;">
-    {{json_dumps(full_country_list)}}
-</textarea>
+
 <!-- @@include= ./partials/requirement_rent_phone.html-->
+<div class="editRentIntentionWrap">
+    <!-- @@include= ./partials/requirement_rent_popup.html-->
+</div>
 <!--@@close-->
 
 <!--@@block = scripts -->
@@ -37,6 +38,7 @@ function getOptionFromQurey(str) {
      })
  } else {
 //     window.location.href = '/?rent_intention_ticket=true'
+     window.openRequirementRentForm()
  }
 
 

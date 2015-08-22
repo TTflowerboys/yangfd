@@ -1,6 +1,9 @@
 <textarea id="fullCountryData" style="display: none;">
     {{json_dumps(full_country_list)}}
 </textarea>
+%if not ('rent_intention_ticket' in vars() or 'rent_intention_ticket' in globals()):
+%    rent_intention_ticket = {}
+%end
 <div id="requirement_rent_popup" class="requirement_popup requirement_rent_popup"  style="display:none">
     <div id="requirement_popup_shadow" class="requirement_popup_shadow"></div>
     <div class="requirement_wrapper">
@@ -27,27 +30,27 @@
                     <table class="step1" data-show-step="1">
                         <tr>
                             <td>
-                                <select class="select-chosen country-select" data-placeholder="{{_('请选择国家')}}" data-validator="required" data-name="{{_('国家')}}" data-serialize="country">
+                                <select class="select-chosen country-select" data-placeholder="{{_('请选择国家')}}" data-validator="required" data-name="{{_('国家')}}" data-serialize="country" data-value="{{rent_intention_ticket.get('country',{}).get('code','')}}">
 
                                 </select>
-                                <select class="select-chosen city-select" data-placeholder="{{_('请选择城市')}}" data-change-title data-validator="required" data-name="{{_('城市')}}" data-serialize="city">
+                                <select class="select-chosen city-select" data-placeholder="{{_('请选择城市')}}" data-change-title data-validator="required" data-name="{{_('城市')}}" data-serialize="city" data-value="{{rent_intention_ticket.get('city',{}).get('name','')}}">
 
                                 </select>
                             </td>
                         </tr>
                         <tr class="row" style="display: none;">
                             <td>
-                                <select class="select-chosen neighborhood-select" data-placeholder="{{_('请选择街区(选填)')}}" data-change-title data-change-title data-validator="" data-name="{{_('街区')}}" data-serialize="maponics_neighborhood"></select>
+                                <select class="select-chosen neighborhood-select" data-placeholder="{{_('请选择街区(选填)')}}" data-change-title data-change-title data-validator="" data-name="{{_('街区')}}" data-serialize="maponics_neighborhood" data-value="{{rent_intention_ticket.get('maponics_neighborhood',{}).get('id','')}}"></select>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" placeholder="{{_('Postcode(选填)')}}" data-validator="" data-name="{{_('Postcode')}}" data-serialize="zipcode_index"/>
+                                <input type="text" placeholder="{{_('Postcode(选填)')}}" data-validator="" data-name="{{_('Postcode')}}" data-serialize="zipcode_index" value="{{rent_intention_ticket.get('zipcode_index','')}}"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input style="width: 360px;" type="text" placeholder="{{_('地址(选填)')}}" data-validator="" data-name="{{_('地址')}}" data-serialize="address"/>
+                                <input style="width: 360px;" type="text" placeholder="{{_('地址(选填)')}}" data-validator="" data-name="{{_('地址')}}" data-serialize="address" value="{{rent_intention_ticket.get('address','')}}"/>
                             </td>
                         </tr>
                     </table>
@@ -58,7 +61,7 @@
                                 <select class="select-chosen bedroomCount" data-validator="required" data-name="{{_('居室数')}}" data-serialize="bedroom_count">
                                     % for index,bedroom_count in enumerate(bedroom_count_list):
                                     <option value="{{bedroom_count.get('id')}}"
-                                        %if index == 0 :
+                                        %if rent_intention_ticket.get('bedroom_count',{}).get('id','') == bedroom_count.get('id') or ((not rent_intention_ticket.get('bedroom_count',{}).get('id','')) and index == 0):
                                         selected
                                         %end
                                         >
@@ -71,7 +74,11 @@
                                 <p class="title">{{_('求租类型')}}</p>
                                 <select class="select-chosen rentType" data-change-title data-validator="required" data-name="{{_('求租类型')}}" data-serialize="rent_type">
                                     %for index, rent_type in enumerate(rent_type_list):
-                                    <option value="{{rent_type.get('id')}}">
+                                    <option value="{{rent_type.get('id')}}"
+                                        %if rent_intention_ticket.get('rent_type',{}).get('id','') == rent_type.get('id') or ((not rent_intention_ticket.get('rent_type',{}).get('id','')) and index == 0):
+                                        selected
+                                        %end
+                                        >
                                         {{rent_type.get('value')}}
                                     </option>
                                     %end
@@ -87,23 +94,27 @@
                                 <select class="select-chosen rentBudget" data-change-title data-validator="required" data-name="{{_('预算')}}" data-serialize="rent_budget">
                                     %for index, rent_budget in enumerate(rent_budget_list):
                                     %if rent_budget.get('currency') == _.currency:
-                                    <option value="{{rent_budget.get('id')}}" data-index="{{index}}">{{rent_budget.get('value')}}</option>
+                                    <option value="{{rent_budget.get('id')}}" data-index="{{index}}"
+                                    %if rent_intention_ticket.get('rent_budget',{}).get('id','') == rent_budget.get('id') or ((not rent_intention_ticket.get('rent_budget',{}).get('id','')) and index == 0):
+                                    selected
+                                    %end
+                                        >{{rent_budget.get('value')}}</option>
                                     %end
                                     %end
                                 </select>
                             </div>
                             <div class="col">
                                 <p class="title">{{_('租期')}}</p>
-                                <input type="text" class="startDate dateInput" placeholder="{{_('开始日期')}}" data-validator="date" data-name="{{_('开始日期')}}" data-serialize="rent_available_time|time"/>
+                                <input type="text" class="startDate dateInput" placeholder="{{_('开始日期')}}" data-validator="date" data-name="{{_('开始日期')}}" data-serialize="rent_available_time|time" data-value="{{rent_intention_ticket.get('rent_available_time','')}}"/>
                                 <span class="bridge">{{_('至')}}</span>
-                                <input type="text" class="endDate dateInput" placeholder="{{_('结束日期')}}" data-validator="date"  data-name="{{_('结束日期')}}" data-serialize="rent_deadline_time|time"/>
+                                <input type="text" class="endDate dateInput" placeholder="{{_('结束日期')}}" data-validator="date"  data-name="{{_('结束日期')}}" data-serialize="rent_deadline_time|time" data-value="{{rent_intention_ticket.get('rent_deadline_time','')}}"/>
                             </div>
                         </div>
                         <div class="row">
-                            <input type="text" class="requirementRentTitle" name="requirementRentTitle" placeholder="{{_('求租标题')}}" data-validator="required,trim,maxLength(100)"  data-name="{{_('求租标题')}}" data-serialize="title"/>
+                            <input type="text" class="requirementRentTitle" name="requirementRentTitle" placeholder="{{_('求租标题')}}" data-validator="required,trim,maxLength(100)"  data-name="{{_('求租标题')}}" data-serialize="title" data-value="{{rent_intention_ticket.get('title','')}}"/>
                         </div>
                         <div class="row">
-                            <textarea name="requirementRentDesc" id="" rows="3" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}" data-validator="trim,maxLength(300)" data-name="{{_('求租描述')}}" data-serialize="description"></textarea>
+                            <textarea name="requirementRentDesc" id="" rows="3" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}" data-validator="trim,maxLength(300)" data-name="{{_('求租描述')}}" data-serialize="description">{{rent_intention_ticket.get('description','')}}</textarea>
                         </div>
                     </div>
                     <div class="step3" data-show-step="3">
