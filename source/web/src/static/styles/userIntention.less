@@ -422,15 +422,22 @@
 
         .action {
             float:right;
-
+            margin-left: 20px;
             @media @phone {
-                float:none;
-                display:block;
-                width:100%;
-                height:40px;
-                border:0px;
-                border-top:1px solid #ccc;
-                color:#ababab;
+                float: right;
+                margin: 0;
+                display: inline-block;
+                width: 50%;
+                height: 40px;
+                line-height: 27px;
+                border: 0px;
+                border-top: 1px solid #ccc;
+                color: #ababab;
+                vertical-align: middle;
+                text-align: center;
+                &:nth-child(1){
+                    border-right: 1px solid #ccc;
+                }
             }
 
         }

@@ -1,0 +1,196 @@
+%if not ('rent_intention_ticket' in vars() or 'rent_intention_ticket' in globals()):
+%    rent_intention_ticket = {}
+%end
+<div class="requirement_rent_phone fullHeightInClient">
+    <div class="requirement_wrapper">
+        <div id="requirement" class="requirement">
+            <div class="formWrap" style="display: none;">
+                <div class="stepWrap ">
+                    <div class="step step1">
+                        <i>1</i><p class="info">{{_('选择求租地址')}}</p>
+                        <p class="hint" data-hide="requestContact">{{_('洋房东致力于提供最精准最优质的服务给我们每一位客户，提交求租需求可以获取1个额外的联系房东机会')}}</p>
+                        <p class="hint" data-show="requestContact">{{_('洋房东致力于提供最精准最优质的服务给我们每一位客户，请您填写求租需求后继续联系此房东')}}</p>
+                    </div>
+                    <div class="step step2">
+                        <i>2</i><p class="info">{{_('填写求租详情')}}</p>
+                        <p class="hint">{{_('平台有满足您需求的新房源出现时，')}}<br>{{_('可以第一时间通知您')}}</p>
+                    </div>
+                    <div class="step step3">
+                        <i>3</i><p class="info">{{_('求租者联系方式')}}</p>
+                        <p class="hint">{{_('选择成为洋房东会员，享受更多海外置业和租房服务')}}</p>
+                    </div>
+                </div>
+
+                <form class="requirement_rent_form">
+                    <div class="step1" data-show-step="1">
+                        <div class="row">
+                            <div class="col">
+                                <p class="inputPlaceholder">{{_('国家')}}</p>
+                                <select dir="rtl" class="select-chosen country-select" data-placeholder="{{_('请选择国家')}}" data-validator="required" data-name="{{_('国家')}}" data-hint="{{_('国家')}}" data-serialize="country" data-value="{{rent_intention_ticket.get('country',{}).get('code','')}}">
+                                </select>
+                            </div>
+                            <div class="col">
+                                <p class="inputPlaceholder">{{_('城市')}}</p>
+                                <select dir="rtl" class="select-chosen city-select" data-placeholder="{{_('请选择城市')}}" data-change-title data-validator="required" data-name="{{_('城市')}}" data-hint="{{_('城市')}}" data-serialize="city" data-value="{{rent_intention_ticket.get('city',{}).get('name','')}}">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row" style="display: none;">
+                            <p class="inputPlaceholder">{{_('街区')}}</p>
+                            <select class="select-chosen neighborhood-select" data-change-title data-placeholder="{{_('请选择街区(选填)')}}" data-validator="" data-name="{{_('街区')}}" data-hint="{{_('街区')}}" data-serialize="maponics_neighborhood" data-value="{{rent_intention_ticket.get('maponics_neighborhood',{}).get('id','')}}"></select>
+                        </div>
+                        <div class="row">
+                            <input type="text" placeholder="{{_('地址(选填)')}}" data-validator="" data-name="{{_('地址')}}" data-serialize="address" value="{{rent_intention_ticket.get('address','')}}"/>
+                        </div>
+                        <div class="row">
+                            <input type="text" placeholder="{{_('Postcode(选填)')}}" data-validator="" data-name="{{_('Postcode')}}" data-serialize="zipcode_index" value="{{rent_intention_ticket.get('zipcode_index','')}}"/>
+                        </div>
+                    </div>
+                    <div class="step2" data-show-step="2">
+                        <div class="row">
+                            <div class="col">
+                                <p class="title">{{_('居室数')}}</p>
+                                <p class="inputPlaceholder">{{_('居室数')}}</p>
+                                <select dir="rtl" class="select-chosen bedroomCount" data-validator="required" data-name="{{_('居室数')}}" data-hint="{{_('居室数')}}" data-serialize="bedroom_count">
+                                    % for index,bedroom_count in enumerate(bedroom_count_list):
+                                    <option value="{{bedroom_count.get('id')}}"
+                                        %if rent_intention_ticket.get('bedroom_count',{}).get('id','') == bedroom_count.get('id') or ((not rent_intention_ticket.get('bedroom_count',{}).get('id','')) and index == 0):
+                                        selected
+                                        %end
+                                        >
+                                        {{bedroom_count.get('value')}}
+                                    </option>
+                                    % end
+                                </select>
+                            </div>
+                            <div class="col">
+                                <p class="title">{{_('求租类型')}}</p>
+                                <p class="inputPlaceholder">{{_('求租类型')}}</p>
+                                <select dir="rtl" class="select-chosen rentType" data-validator="required" data-change-title data-name="{{_('求租类型')}}" data-hint="{{_('求租类型')}}" data-serialize="rent_type">
+                                    %for index, rent_type in enumerate(rent_type_list):
+                                    <option value="{{rent_type.get('id')}}"
+                                        %if rent_intention_ticket.get('rent_type',{}).get('id','') == rent_type.get('id') or ((not rent_intention_ticket.get('rent_type',{}).get('id','')) and index == 0):
+                                        selected
+                                        %end
+                                        >
+                                        {{rent_type.get('value')}}
+                                    </option>
+                                    %end
+                                </select>
+                            </div>
+                            <div class="col">
+                                <p class="title">{{_('预算')}}(
+                                    <!--@@include=./current_currency.html -->
+                                    {{_('/周')}}
+                                    )</p>
+                                <p class="inputPlaceholder">{{_('预算')}}(
+                                    <!--@@include=./current_currency.html -->
+                                    {{_('/周')}}
+                                    )</p>
+                                <select dir="rtl" class="select-chosen rentBudget" data-change-title data-validator="required" data-name="{{_('预算')}}" data-hint="{{_('预算')}}(
+                                    <!--@@include=./current_currency.html -->
+                                    {{_('/周')}}
+                                    )" data-serialize="rent_budget">
+                                    %for index, rent_budget in enumerate(rent_budget_list):
+                                    %if rent_budget.get('currency') == _.currency:
+                                    <option value="{{rent_budget.get('id')}}" data-index="{{index}}"
+                                    %if rent_intention_ticket.get('rent_budget',{}).get('id','') == rent_budget.get('id') or ((not rent_intention_ticket.get('rent_budget',{}).get('id','')) and index == 0):
+                                    selected
+                                    %end
+                                        >{{rent_budget.get('value')}}</option>
+                                    %end
+                                    %end
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row startDateRow">
+                            <p class="inputPlaceholder">{{_('租期开始日期')}}</p>
+                            <input dir="rtl" type="date" class="startDate dateInput" data-validator="date" data-name="{{_('开始日期')}}" data-serialize="rent_available_time|time" data-value="{{rent_intention_ticket.get('rent_available_time','')}}"/>
+                        </div>
+                        <div class="row endDateRow">
+                            <p class="inputPlaceholder">{{_('租期结束日期')}}</p>
+                            <input dir="rtl" type="date" class="endDate dateInput" data-validator="date"  data-name="{{_('结束日期')}}" data-serialize="rent_deadline_time|time" data-value="{{rent_intention_ticket.get('rent_deadline_time','')}}"/>
+                        </div>
+                        <div class="row">
+                            <input type="text" class="requirementRentTitle" name="requirementRentTitle" placeholder="{{_('求租标题')}}" data-validator="required,trim,maxLength(100)"  data-name="{{_('求租标题')}}" data-serialize="title" data-value="{{rent_intention_ticket.get('title','')}}"/>
+                        </div>
+                        <div class="row">
+                            <textarea name="requirementRentDesc" id="" rows="8" placeholder="{{_('写下您的其他需求和描述，方便我们在挑选房源时作为参考')}}" data-validator="trim,maxLength(300)" data-name="{{_('求租描述')}}" data-serialize="description">{{rent_intention_ticket.get('description','')}}</textarea>
+                        </div>
+                    </div>
+                    <div class="step3" data-show-step="3">
+                        <div class="row">
+                            <input type="text" class="requirementRentName" name="requirementRentName" placeholder="{{_('姓名')}}" data-validator="required,trim,maxLength(20)"  data-name="{{_('姓名')}}" data-serialize="nickname"/>
+                        </div>
+                        <div class="row">
+                            <!-- @@include =./country_code_select.html -->
+                            <input type="text" class="requirementRentPhone" name="requirementRentPhone" placeholder="{{_('电话')}}" data-validator="required,trim,number"  data-name="{{_('电话')}}"/>
+                        </div>
+                        <div class="row">
+                            <input type="text" class="requirementRentEmail" name="requirementRentEmail" placeholder="{{_('邮箱')}}" data-validator="required,trim,email"  data-name="{{_('邮箱')}}" data-serialize="email"/>
+                        </div>
+                        <div class="row requirementRentAgreeWrap">
+                            <input type="checkbox" class="requirementRentAgree currantCheckbox" name="requirementRentAgree" id="requirementRentAgree" data-serialize="noregister|reverse"/>
+                            <label for="requirementRentAgree">{{_('我希望注册为会员以便以后能够更新我的求租需求')}}</label>
+                        </div>
+
+                    </div>
+                    <div class="requirementRentFormError"></div>
+                </form>
+                <div class="actionWrap">
+                    <div class="step1" data-show-step="1">
+                        <button class="actionButton ghostButton red" data-action="gotoNext">{{_('下一步')}}</button>
+                    </div>
+                    <div class="step2" data-show-step="2">
+                        <button class="actionButton ghostButton red" data-action="gotoPrev">{{_('上一步')}}</button>
+                        <button class="actionButton ghostButton red" data-action="gotoNext">{{_('下一步')}}</button>
+
+                    </div>
+                    <div class="step3" data-show-step="3">
+                        <button class="actionButton ghostButton red" data-action="gotoPrev">{{_('上一步')}}</button>
+                        <button class="actionButton button red ajaxButton" type="submit">{{_('提交')}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="successWrap" style="display: none;">
+                <h2>{{_('提交成功')}}</h2>
+
+                <div data-show="requestContact" class="hostContactWrap">
+                    <p class="hint">{{_('正在为您加载您要查看的房东联系方式...')}}</p>
+                    <div class="host" style="display: none">
+                        <img class="avatar" src="/static/images/property_details/ico_phoneowner.png"></img>
+                        <label class="hostName"></label>
+                        <!--<label class="hostType"></label>-->
+                        <div class="hostPhone hostContact">
+                            <a>
+                                <i class="ico icon-phone_icon"></i>
+                                <span></span> <span></span>
+                            </a>
+                        </div>
+                        <div class="hostEmail hostContact">
+                            <a class="clearfix">
+                                <i class="ico icon-email"></i>
+                                <span class="email"></span>
+                            </a>
+                        </div>
+                        <div class="hostWechat hostContact">
+                            <i class="ico icon-wechat"></i>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="hint">{{_('您的求租意向单已经提交成功，您可以：')}}</p>
+                <p class="item" data-hide="requestContact">{{_('获取 1个 额外的联系房东机会')}}</p>
+                <p class="item" data-show="requestContact">{{_('已获取到当前房东的联系方式')}}</p>
+                <p class="item">{{_('当平台有满足您需求的房源出现时，')}}<br>{{_('会第一时间通知您')}}</p>
+                <p class="item">{{_('在个人中心在中查看自己的')}}<a href="/user-intentions#rent">{{_('求租意向单 ')}}</a> {{_('，便捷地查看已联系过房东的联系方式，当您已经租到房子时可以修改求租单状态，平台将停止向您推荐')}}</p>
+
+                <p class="hint buttonHint" style="display: none;">{{_('分享洋房东App得到转发就获取 1个 额外的联系房东机会')}}</p>
+                <p class="buttonWrap" style="display: none;">
+                    <a class="button red shareButton" href="/wechat_share">{{_('分享洋房东APP')}}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -50,10 +50,10 @@
         }
 
         function getCountryList() { //通过window.team.countryMap来获取国家列表
-
+            var defaultValue = $countrySelect.attr('data-value') || 'GB'
             $countrySelect.append(
                 _.reduce(JSON.parse($('#fullCountryData').text()), function(pre, val, key) {
-                    return pre + '<option value="' + val.code + '"' + (val.code === 'GB' ? ' selected' : '') +  '>' + window.team.countryMap[val.code] + '</option>'
+                    return pre + '<option value="' + val.code + '"' + (val.code === defaultValue ? ' selected' : '') +  '>' + window.team.countryMap[val.code] + '</option>'
                 }, '<option value="">' + i18n('请选择国家') + '</option>')
             ).trigger('chosen:updated').trigger('change')
         }
@@ -69,10 +69,11 @@
             ).trigger('chosen:updated')
             window.geonamesApi.getCity(country, function (val) {
                 if(country === $countrySelect.val()) {
+                    var defaultValue = $citySelect.attr('data-value') || 'London'
                     $span.html(originContent)
                     $citySelect.html(
                         _.reduce(val, function(pre, val, key) {
-                            return pre + '<option value="' + val.id + '"' + (val.name === 'London' ? ' selected' : '') + '>' + val.name + (country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
+                            return pre + '<option value="' + val.id + '"' + (val.name === defaultValue ? ' selected' : '') + '>' + val.name + (country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
                         }, '<option value="">' + i18n('请选择城市') + '</option>')
                     ).trigger('chosen:updated').trigger('change')
                 }
@@ -85,13 +86,14 @@
             $span.html(window.i18n('街区列表加载中...(选填)'))
             window.geonamesApi.getNeighborhood({city: city}, function (val) {
                 if(container.find('.city-select :selected').text().toLowerCase() === 'london') {
+                    var defaultValue = $neighborhoodSelect.attr('data-value')
                     $span.html(originContent)
                     $neighborhoodSelect.html(
                         _.reduce(val, function(pre, val, key) {
-                            return pre + '<option value="' + val.id + '">' + val.name + (val.parent && val.parent.name ? ', ' + val.parent.name : '') + '</option>'
+                            return pre + '<option value="' + val.id + '"' + (val.id === defaultValue ? ' selected' : '') + '>' + val.name + (val.parent && val.parent.name ? ', ' + val.parent.name : '') + '</option>'
                         }, '<option value="">' + i18n('请选择街区(选填)') + '</option>')
                     ).trigger('chosen:updated')
-                    $neighborhoodSelect.trigger('chosen:open')
+                    //$neighborhoodSelect.trigger('chosen:open')
                 }
             })
         }
@@ -104,6 +106,9 @@
             $dateInput.each(function (index, elem) {
                 if($(elem).hasClass('startDate')) {
                     $(elem).val(window.moment().format('YYYY-MM-DD'))
+                }
+                if($(elem).attr('data-value')) {
+                    $(elem).val(window.moment($(elem).attr('data-value')).format('YYYY-MM-DD'))
                 }
                 $(elem).dateRangePicker({
                     //startDate: new Date(new Date().getTime() + 3600 * 24 * 30 * 1000),
@@ -146,9 +151,13 @@
         }
         if (!container.data('initRequirementRentTitle')) {
             container.data('initRequirementRentTitle', true)
-            container.find('[data-change-title]').on('change', function () {
-                container.find('.requirementRentTitle').val(getRequirementRentTitle(container))
-            })
+            if(container.find('.requirementRentTitle').attr('data-value')) {
+                container.find('.requirementRentTitle').val(container.find('.requirementRentTitle').attr('data-value'))
+            } else {
+                container.find('[data-change-title]').on('change', function () {
+                    container.find('.requirementRentTitle').val(getRequirementRentTitle(container))
+                })
+            }
         }
     }
 
@@ -416,8 +425,8 @@
 
                     var params = getSerializeObject($(this))
                     params.locales = window.lang
-
-                    var api = '/api/1/rent_intention_ticket/add'
+                    var rent_intention_ticket_id = (location.href.match(/rent\-intention\/([0-9a-fA-F]{24})\/edit/) || [])[1]
+                    var api = rent_intention_ticket_id ?  '/api/1/rent_intention_ticket/' + rent_intention_ticket_id + '/edit' : '/api/1/rent_intention_ticket/add'
                     $.betterPost(api, params)
                         .done(function (val) {
                             successArea.show().siblings().hide()

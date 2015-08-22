@@ -278,6 +278,9 @@
                             }
                         }
                     }
+                    .chosen-container .chosen-single span{
+                        float: none;
+                    }
                 }
                 .chosen-container{
                     font-size: 16px;
@@ -290,9 +293,12 @@
                         background: #fff;
                         border: 1px solid #cccccc;
                         span{
+                            float: right;
                             margin-right: 16px;
                             text-align: right;
                             color: #333;
+                            max-width: 200px;
+                            max-width: calc(~'100% - 60px');
                         }
                         .hint{
                             margin: 0;

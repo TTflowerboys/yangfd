@@ -618,3 +618,15 @@ def rental_available():
     title = _('洋房东租房服务')
     return currant_util.common_template("rental_available", title=title)
 
+
+@f_get('/rent-intention/<rent_intention_ticket_id:re:[0-9a-fA-F]{24}>/edit')
+@currant_util.check_ip_and_redirect_domain
+def rent_intention_edit(rent_intention_ticket_id):
+
+    title = _('求租意向单编辑')
+    rent_intention_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_intention_ticket_id], fuzzy_user_info=True)[0])
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields())
+    if user.get('id') != rent_intention_ticket.get('creator_user',{}).get('id'):
+        redirect('/')
+
+    return currant_util.common_template("rent_intention_edit", title=title, rent_intention_ticket=rent_intention_ticket)

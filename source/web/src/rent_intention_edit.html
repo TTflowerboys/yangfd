@@ -29,14 +29,14 @@ function getOptionFromQurey(str) {
     return option
 }
  if (window.team.isPhone()) {
-     var requirementRentContainer = $('main')
+     var requirementRentContainer = $('.requirement_rent_phone')
      var option = getOptionFromQurey(location.search)
      window.resetRequirementRentForm(requirementRentContainer, option)
      window.setupRequirementRentForm(requirementRentContainer, option, function () {
 
      })
  } else {
-     window.location.href = '/?rent_intention_ticket=true'
+//     window.location.href = '/?rent_intention_ticket=true'
  }
 
 
