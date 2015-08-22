@@ -891,7 +891,7 @@ def user_email_recovery_send(params):
     f_app.email.schedule(
         target=params["email"],
         subject=title,
-        text=template("static/emails", reset_password_url=url, title=title),
+        text=template("static/emails/reset_password_by_email", reset_password_url=url, title=title),
         display="plain",
     )
 
