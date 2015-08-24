@@ -109,13 +109,31 @@
         </ul>
     </div>
     <ul class="content">
-        <li data-tab-name="buyer">
+        <li data-tab-name="buyer"
+            %if user_type_slug == 'investor' or user_type_slug == '':
+            class="selectedTab"
+            %else:
+            style="display:none;"
+            %end
+            >
             <!-- @@include =./partials/index_buyer.html -->
         </li>
-        <li data-tab-name="landlord" style="display:none;">
+        <li data-tab-name="landlord"
+            %if user_type_slug == 'landlord' or user_type_slug == '':
+            class="selectedTab"
+            %else:
+            style="display:none;"
+            %end
+            >
             <!-- @@include =./partials/index_landlord.html -->
         </li>
-        <li data-tab-name="renter" style="display:none;">
+        <li data-tab-name="renter"
+            %if user_type_slug == 'tenant' or user_type_slug == '':
+            class="selectedTab"
+            %else:
+            style="display:none;"
+            %end
+            >
             <!-- @@include =./partials/index_renter.html -->
         </li>
     </ul>

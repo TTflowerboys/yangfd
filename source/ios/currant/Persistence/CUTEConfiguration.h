@@ -20,6 +20,10 @@
 
 + (NSArray *)webCacheExceptionRules;
 
++ (NSArray *)responseEntityRequiredMIMETypes;
+
++ (NSArray *)cacheAllowedResponseStatusCodes;
+
 + (NSString *)yangfdScheme;
 
 + (NSString *)ukServicePhone;

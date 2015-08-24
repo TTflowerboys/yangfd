@@ -216,7 +216,7 @@ CHECKOUT OPTIONS:
     :commit: f5f295b562ceb5097e2a224bf4332f39c2e2779f
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
   RNCachingURLProtocol+HybirdApp:
-    :commit: 4e1f71401888761e6bf9e2cfef9ed35b20850951
+    :commit: 692bd5e4c2347938f3fcf9e107d3d98a64522a88
     :git: https://github.com/Fykec/RNCachingURLProtocol.git
   WeiboSDK:
     :git: https://github.com/sinaweibosdk/weibo_ios_sdk

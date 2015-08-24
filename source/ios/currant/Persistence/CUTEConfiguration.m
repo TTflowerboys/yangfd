@@ -49,6 +49,24 @@ static NSString *host = nil;
              CONCAT(@"http://", [self host], @"/wechat-poster")];
 }
 
++ (NSArray *)responseEntityRequiredMIMETypes {
+    return @[@"text/html",
+             @"text/css",
+             @"text/xml",
+             @"application/javascript",
+             @"application/font-woff",
+             @"image/jpeg",
+             @"image/png",
+             @"image/gif",
+             @"image/svg+xml",
+             @"image/x-icon",
+             ];
+}
+
++ (NSArray *)cacheAllowedResponseStatusCodes {
+    return @[@(200)];
+}
+
 + (NSString *)yangfdScheme {
     return @"yangfd";
 }

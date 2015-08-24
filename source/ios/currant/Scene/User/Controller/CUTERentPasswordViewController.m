@@ -38,11 +38,38 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)makeVerficationCodeTextFieldBecomeFirstResponder {
+
+    FXFormField *field = [[self formController] fieldForKey:@"code"];
+    NSIndexPath *indexPath = [[self formController] indexPathForField:field];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+
+    if ([cell isKindOfClass:[CUTEFormVerificationCodeCell class]]) {
+        CUTEFormVerificationCodeCell *codeCell = (CUTEFormVerificationCodeCell *)cell;
+        [codeCell.textField becomeFirstResponder];
+    }
+}
+
+
+- (void)startVerficationCodeCountDown {
+
+    FXFormField *field = [[self formController] fieldForKey:@"code"];
+    NSIndexPath *indexPath = [[self formController] indexPathForField:field];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+
+    if ([cell isKindOfClass:[CUTEFormVerificationCodeCell class]]) {
+        CUTEFormVerificationCodeCell *codeCell = (CUTEFormVerificationCodeCell *)cell;
+        [codeCell startCountDown];
+    }
+}
+
+
 - (void)onVerificationButtonPressed:(id)sender {
     if (![self validateFormWithScenario:@"fetchCode"]) {
         return;
     }
 
+    [self makeVerficationCodeTextFieldBecomeFirstResponder];
     [SVProgressHUD showWithStatus:STR(@"发送中...")];
     CUTECountry *country = [[self.formController fieldForKey:@"country"] value];
     NSString *phone = [[self.formController fieldForKey:@"phone"] value];
@@ -58,6 +85,7 @@
         }
         else {
             _userIdentifier = task.result;
+            [self startVerficationCodeCountDown];
             [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
         }
 

@@ -17,11 +17,19 @@
 - (NSArray *)fields {
     return @[
              @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"邮箱"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
-             @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"邮箱验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class]},
-             @{FXFormFieldKey: @"password", FXFormFieldTitle: STR(@"新密码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
-             @{FXFormFieldKey: @"confirmPassword", FXFormFieldTitle: STR(@"确认新密码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
-             @{FXFormFieldKey: @"reset", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"重置"), FXFormFieldHeader: @"", FXFormFieldAction: @"reset"},
+             @{FXFormFieldKey: @"reset", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"请求重置密码"), FXFormFieldHeader: @"", FXFormFieldAction: @"reset"},
              ];
+}
+
+- (NSError *)validateFormWithScenario:(NSString *)scenario {
+    NSError *error = nil;
+    [NGRValidator validateModel:self error:&error delegate:nil rules:^NSArray *{
+        return @[
+                 NGRValidate(@"email").required().syntax(NGRSyntaxEmail),
+                 ];
+    }];
+
+    return error;
 }
 
 @end

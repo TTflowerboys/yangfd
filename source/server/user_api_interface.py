@@ -878,6 +878,43 @@ def email_verify(user_id, params):
     return result
 
 
+@f_api("/user/email_recovery/send", params=dict(
+    email=(str, True),
+))
+@rate_limit(ip=5)
+def user_email_recovery_send(params):
+    user_id, code = f_app.user.email.recovery(params["email"])
+
+    url = "http://yangfd.com/reset_password_email_2?user_id=" + user_id + "code=" + code
+    title = "重设您的密码 - 洋房东"
+
+    f_app.email.schedule(
+        target=params["email"],
+        subject=title,
+        text=template("static/emails/reset_password_by_email", reset_password_url=url, title=title),
+        display="html",
+    )
+
+
+@f_api("/user/email_recovery/reset_password", params=dict(
+    nolog=("new_password"),
+    user_id=(ObjectId, True, "str"),
+    code=(str, True),
+    new_password=(str, True, "notrim", "base64"),
+))
+@rate_limit(ip=5)
+def user_email_recovery_reset_password(params):
+    user_id = params["user_id"]
+    f_app.user.email.verify(user_id, params["code"])
+    f_app.user.update_set_key(user_id, "password", params["new_password"])
+
+    f_app.user.login.success(user_id)
+    f_app.log.add("login", user_id=user_id)
+
+    result = f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
+    return result
+
+
 @f_api('/user/get_by_phone', force_ssl=True, params=dict(
     phone=(str, True),
     country="country",
