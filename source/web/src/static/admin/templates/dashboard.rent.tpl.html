@@ -39,10 +39,11 @@
                 <th style="width: 9%;">{%$root.i18n('postcode')%}</th>
                 <th style="width: 10%;">{%$root.i18n('地址')%}</th>
                 <th style="width: 9%;">{%$root.i18n('租金')%}</th>
-                <th style="width: 10%;">{%$root.i18n('发布人')%}</th>
-                <th style="width: 10%;">{%$root.i18n('发布时间')%}</th>
-                <th style="width: 9%;">{%$root.i18n('汇总图')%}</th>
-                <th style="width: 7%;">{%$root.i18n('生成图床')%}</th>
+                <th style="width: 9%;">{%$root.i18n('发布人')%}</th>
+                <th style="width: 8%;">{%$root.i18n('发布时间')%}</th>
+                <th style="width: 8%;">{%$root.i18n('汇总图')%}</th>
+                <th style="width: 6%;">{%$root.i18n('生成图床')%}</th>
+                <th style="width: 5%;">{%$root.i18n('备注')%}</th>
                 <th style="width: 9%;">{%$root.i18n('管理')%}</th>
             </tr>
         </thead>
@@ -85,6 +86,10 @@
                     <a class="btn btn-primary" ui-sref=".digest({id:item.id})" title="{%$root.i18n('生成图床的链接')%}">
                         <i class="fa fa-magic "></i>
                     </a>
+                </td>
+                <td>
+
+                    <div edit-custom-fields ng-model="item.custom_fields" update="updateItem(data)" item-id="item.id" test="window.console.log(param)"></div>
                 </td>
                 <td style="text-align:center;">
                     <a class="btn btn-success" ui-sref=".detail({id:item.id})" title="View">
