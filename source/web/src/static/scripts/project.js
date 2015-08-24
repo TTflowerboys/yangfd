@@ -15,7 +15,17 @@
         },
         goToResetPassword: function () {
             var from = team.getQuery('from', location.href)
-            location.href = '/reset_password?from=' + encodeURIComponent(from ? from : location.href)
+            location.href = '/reset-password?from=' + encodeURIComponent(from ? from : location.href)
+            return false //prevent default action for <a>
+        },
+        goToResetPasswordByPhone: function () {
+            var from = team.getQuery('from', location.href)
+            location.href = '/reset-password-phone?from=' + encodeURIComponent(from ? from : location.href)
+            return false //prevent default action for <a>
+        },
+        goToResetPasswordByEmail: function () {
+            var from = team.getQuery('from', location.href)
+            location.href = '/reset-password-email-1?from=' + encodeURIComponent(from ? from : location.href)
             return false //prevent default action for <a>
         },
         goToVerifyPhone: function () {
