@@ -1184,12 +1184,13 @@ class f_currant_plugins(f_app.plugin_base):
             self.logger.warning("Ticket doesn't have a valid creator user:", task["ticket_id"], ", ignoring reminder...")
             return
 
-        f_app.email.schedule(
-            target=rent_ticket["creator_user"]["email"],
-            subject=title,
-            text=body,
-            display="html",
-        )
+        if "rent_ticket_reminder" in rent_ticket["creator_user"]["email_message_type"]:
+            f_app.email.schedule(
+                target=rent_ticket["creator_user"]["email"],
+                subject=title,
+                text=body,
+                display="html",
+            )
 
         f_app.task.put(dict(
             type="rent_ticket_reminder",
