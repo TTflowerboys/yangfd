@@ -76,7 +76,7 @@
             % if 'show_rooms' in vars() or 'show_rooms' in globals():
             {_if(house.living_room_count || house.bathroom_count || house.space) {_}
             <li>
-                <i class="icon-rooms"></i>
+                <i class="icon-room_category"></i>
                 <label>
                     {_if(house.living_room_count) {_}
                     <span class="bold">{=house.living_room_count=}</span>{=window.i18n('室')=}
