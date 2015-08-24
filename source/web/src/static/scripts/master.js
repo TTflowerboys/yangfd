@@ -38,7 +38,7 @@ $(function () {
     })
 
     window.addEventListener('contextmenu', function(e) {
-        if($(e.target).is('a')) {
+        if(window.team.isPhone()) {
             e.preventDefault()
             return false
         }
