@@ -36,8 +36,9 @@
             CUTERentConfirmPhoneForm *form = (CUTERentConfirmPhoneForm *)self.formController.form;
             //if not verified, and disappear, then clear the cookie, let user login again
             if (!form.user.phoneVerified.boolValue) {
+                [[CUTEDataManager sharedInstance] clearUser];
                 [[CUTEDataManager sharedInstance] clearAllCookies];
-                [NotificationCenter postNotificationName:KNOTIF_CLEAR_ALL_COOKIES object:self];
+                [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGOUT object:self];
             }
         }];
     }];
