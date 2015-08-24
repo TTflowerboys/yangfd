@@ -48,8 +48,10 @@
                 NSDictionary *queryDictionary = [url queryDictionary];
                 if (queryDictionary && queryDictionary[@"from"]) {
                     NSString *fromURLStr = [queryDictionary[@"from"] URLDecode];
-                    [webViewController updateWithURL:[NSURL URLWithString:fromURLStr]];
+                    //update user data and cookie storage first
                     [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:webViewController userInfo:@{@"user": user}];
+                    //then update webview
+                    [webViewController updateWithURL:[NSURL URLWithString:fromURLStr]];
                     responseCallback(nil);
                 }
             }

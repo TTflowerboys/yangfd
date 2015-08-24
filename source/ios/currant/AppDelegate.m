@@ -726,14 +726,8 @@
 - (void)onReceiveUserDidLogin:(NSNotification *)notif {
     CUTEUser *user = [notif.userInfo objectForKey:@"user"];
 
-    if (!user.phoneVerified.boolValue) {
-        [self verifyUserPhone:user];
-        return;
-    }
-
     [[CUTEDataManager sharedInstance] saveUser:user];
     [[CUTEDataManager sharedInstance] persistAllCookies];
-
 
     NSArray *unbindedTicket = [[[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets] select:^BOOL(CUTETicket *object) {
         return object.creatorUser == nil;
@@ -776,8 +770,6 @@
     }
 
 
-
-
     NSArray *tabItemControllers = self.tabBarController.viewControllers;
 
     [tabItemControllers each:^(UINavigationController *nav) {
@@ -789,6 +781,9 @@
         }
     }];
 
+    if (!user.phoneVerified.boolValue) {
+        [self verifyUserPhone:user];
+    }
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
