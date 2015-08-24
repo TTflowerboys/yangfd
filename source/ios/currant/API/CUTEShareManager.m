@@ -182,7 +182,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
         }];
 
     }
-    else if (imageURLString && ![NSURL URLWithString:imageURLString].isHttpOrHttpsURL) {
+    else if (imageURLString && [NSURL URLWithString:imageURLString].isHttpOrHttpsURL) {
         [SVProgressHUD showWithStatus:STR(@"获取房产中...")];
 
         [[[CUTEAPIManager sharedInstance] downloadImage:imageURLString] continueWithBlock:^id(BFTask *task) {
