@@ -140,12 +140,14 @@ def reset_password_email_1():
     return currant_util.common_template("reset_password_email_1", title=title)
 
 
-@f_get('/reset_password_email_2', '/reset-password-email-2')
+@f_get('/reset_password_email_2', '/reset-password-email-2', params=dict(
+    user_id=str,
+    code=str
+))
 @currant_util.check_ip_and_redirect_domain
-def reset_password_email_2():
+def reset_password_email_2(params):
     title = _('使用绑定邮箱重置密码')
-    return currant_util.common_template("reset_password_email_2", title=title)
-
+    return currant_util.common_template("reset_password_email_2", title=title, user_id=params['user_id'], code=params['code'])
 
 
 @f_get('/property-for-sale/create')
