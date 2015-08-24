@@ -34,10 +34,12 @@
                             {_}_}
                         </a>
                         <div class="imgAction_wrapper">
+                            {_if(window.team.isCurrantClient()) {_}
+                            <i id='edit' data-id="{=rent.id=}" class="imgAction icon-edit" data-need-bridge></i>
+                            {_}else {_}
                             <i id='edit' data-id="{=rent.id=}" class="imgAction hiddenOnMobile icon-edit" data-need-bridge></i>
+                            {_}_}
                             <i id='remove' data-id="{=rent.id=}" class="imgAction icon-delete" data-need-bridge></i>
-
-
 
                         </div>
                     </div>
