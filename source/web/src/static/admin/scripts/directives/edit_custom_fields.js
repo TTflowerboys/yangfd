@@ -12,7 +12,9 @@ angular.module('app')
 
                 $scope.tooltip = function () {
                     setTimeout(function () {
-                        $element.find('[data-toggle="tooltip"]').tooltip()
+                        $element.find('[data-toggle="tooltip"]').tooltip({
+                            title: $element.find('[data-toggle="tooltip"]').attr('data-title')
+                        })
                     }, 200)
                 }
                 $scope.initEditCustomFields = function () {
@@ -27,15 +29,7 @@ angular.module('app')
                         })
                     }, 200)
                 }
-                $scope.showEditCustomFields = function () {
-                    $element.popover({
-                        title: $rootScope.i18n('编辑备注'),
-                        //content: $element.find('[data-content]').html(),
-                        //html: true,
-                        //trigger: 'click',
-                        selector: '.popoverContent'
-                    })
-                }
+
                 $scope.showEditCustomFields = function () {
                     $element.find('[data-toggle="tooltip"]').popover('toggle')
                 }

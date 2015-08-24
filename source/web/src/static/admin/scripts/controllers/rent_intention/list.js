@@ -98,6 +98,13 @@
             })
         }
 
+        $scope.updateItem = function (item) {
+            api.update(item)
+                .success(function () {
+                    $scope.refreshList()
+                })
+        }
+
     }
 
     angular.module('app').controller('ctrlRentIntentionList', ctrlRentIntentionList)

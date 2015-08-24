@@ -39,7 +39,8 @@
                     <th>{%$root.i18n('提交时间')%}</th>
                     <th>{%$root.i18n('受理时间')%}</th>
                     <th>{%$root.i18n('指派')%}</th>
-                    <th></th>
+                    <th>{%$root.i18n('备注')%}</th>
+                    <th>{%$root.i18n('管理')%}</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,6 +65,9 @@
                     </td>
                     <td class="form-inline" style="white-space: nowrap;">
                         <div add-assignee ng-model="item" type="intention_ticket"></div>
+                    </td>
+                    <td>
+                        <div edit-custom-fields ng-model="item.custom_fields" update="updateItem(data)" item-id="item.id"></div>
                     </td>
                     <td>
                         <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
