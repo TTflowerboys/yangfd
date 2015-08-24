@@ -54,7 +54,7 @@
             $.betterPost("/api/1/user/login", params)
                 .done(function (result) {
                     ga('send', 'event', 'signin', 'result', 'signin-success')
-                    if (window.user && window.user.phone_verified) {
+                    if (result && result.phone_verified) {
                         if (window.bridge !== undefined) {
                             window.bridge.callHandler("login", result);
                         }
