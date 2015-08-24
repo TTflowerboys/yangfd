@@ -885,7 +885,7 @@ def email_verify(user_id, params):
 def user_email_recovery_send(params):
     user_id, code = f_app.user.email.recovery(params["email"])
 
-    url = "http://yangfd.com/reset_password_email_2?user_id=" + user_id + "code=" + code
+    url = "http://yangfd.com/reset_password_email_2?user_id=" + user_id + "&code=" + code
     title = "重设您的密码 - 洋房东"
 
     f_app.email.schedule(
