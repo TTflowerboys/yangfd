@@ -38,14 +38,19 @@
             window.betterAjaxXhr[apiUrl].abort()
         }
 
-        $.betterPost(apiUrl, {user_type: $(this).attr('data-user-type')}, function (result) {
-            if (window.bridge !== undefined) {
-                window.bridge.callHandler('login', result);
-                window.setTimeout(function() {
-                    window.bridge.callHandler('openHomeTab');
-                }, 200);
-            }
-        })
+        $.betterPost(apiUrl, {user_type: $(this).attr('data-user-type')})
+            .done(function (data) {
+                window.user = data
+                if (window.bridge !== undefined) {
+                    window.bridge.callHandler('login', data);
+                    window.setTimeout(function() {
+                        window.bridge.callHandler('openHomeTab');
+                    }, 200);
+                    window.alert(i18n('选择成功'))
+                }
+            })
+            .fail(function (data) {
+            })
     })
 
     function initChosen (elem) {
