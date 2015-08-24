@@ -13,7 +13,10 @@
             },
             remove: function (id) {
                 return $http.post('/api/1/rent_ticket/' + id + '/edit', {status: 'deleted'})
-            }
+            },
+            update: function (data, config) {
+                return $http.post('/api/1/rent_ticket/' + data.id + '/edit', data, config)
+            },
         }
     }
 

@@ -10,7 +10,10 @@
                     status: 'new,assigned,in_progress,deposit,suspended,canceled'
                 })
                 return $http.get('/api/1/intention_ticket/search', config)
-            }
+            },
+            update: function (data, config) {
+                return $http.post('/api/1/intention_ticket/' + data.id + '/edit', data, config)
+            },
         }
 
     }
