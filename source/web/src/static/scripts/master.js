@@ -23,6 +23,9 @@ $(function () {
         $('.app-floatbar').hide()
     }else{
         if (window.team.isPhone() && !window.project.isMobileClient()) {
+            if($('.floatBar_phone').length){
+                $('.app-floatbar').css('bottom', $('.floatBar_phone').height() + 'px')
+            }
             $('.app-floatbar').show()
         }
     }
