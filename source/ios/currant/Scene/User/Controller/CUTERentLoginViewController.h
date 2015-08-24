@@ -14,4 +14,9 @@
 
 @property (strong, nonatomic) CUTETicket *ticket;
 
+- (void)resetPassword;
+
+- (void)resetPasswordWithEmail;
+
+
 @end
