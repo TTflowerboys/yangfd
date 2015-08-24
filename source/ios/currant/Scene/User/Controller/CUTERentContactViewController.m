@@ -374,11 +374,13 @@
             [SVProgressHUD dismiss];
             [self dismissViewControllerAnimated:YES completion:^{
                 [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": retUser}];
+                [NotificationCenter postNotificationName:KNOTIF_USER_VERIFY_PHONE object:self userInfo:@{@"user": retUser}];
                 [NotificationCenter postNotificationName:KNOTIF_MARK_USER_AS_LANDLORD object:self userInfo:@{@"user": retUser}];
             }];
         }
         else {
             [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": retUser}];
+            [NotificationCenter postNotificationName:KNOTIF_USER_VERIFY_PHONE object:self userInfo:@{@"user": retUser}];
             [NotificationCenter postNotificationName:KNOTIF_MARK_USER_AS_LANDLORD object:self userInfo:@{@"user": retUser}];
             CUTETicket *ticket = self.ticket;
             

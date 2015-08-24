@@ -188,6 +188,7 @@
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowFavoritePropertyList:) name:KNOTIF_SHOW_FAVORITE_PROPERTY_LIST object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogin:) name:KNOTIF_USER_DID_LOGIN object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogout:) name:KNOTIF_USER_DID_LOGOUT object:nil];
+    [NotificationCenter addObserver:self selector:@selector(onReceiveUserVerifyPhone:) name:KNOTIF_USER_VERIFY_PHONE object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveMarkUserAsLandlord:) name:KNOTIF_MARK_USER_AS_LANDLORD object:nil];
 
     [NotificationCenter addObserver:self selector:@selector(onReceiveShowHomeTab:) name:KNOTIF_SHOW_HOME_TAB object:nil];
@@ -780,10 +781,6 @@
             }
         }
     }];
-
-    if (!user.phoneVerified.boolValue) {
-        [self verifyUserPhone:user];
-    }
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
@@ -835,8 +832,12 @@
     }
 }
 
+- (void)onReceiveUserVerifyPhone:(NSNotification *)notif {
+    CUTEUser *user = notif.userInfo[@"user"];
+    if (user.phoneVerified) {
+        return;
+    }
 
-- (void)verifyUserPhone:(CUTEUser *)user {
     [SVProgressHUD showWithStatus:STR(@"获取验证中...")];
     [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
