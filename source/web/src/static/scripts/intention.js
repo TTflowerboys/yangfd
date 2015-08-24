@@ -32,7 +32,7 @@
     var showState
     showState = new ShowState('main')
 
-    $('[data-user-type] a').click(function () {
+    window.chooseUserType = function () {
         var $dataUserType = $(this).parents('[data-user-type]')
         var apiUrl = '/api/1/user/edit'
         if (window.betterAjaxXhr && window.betterAjaxXhr[apiUrl] && window.betterAjaxXhr[apiUrl].readyState !== 4) {
@@ -52,7 +52,8 @@
             })
             .fail(function (data) {
             })
-    })
+    }
+
 
     function initChosen (elem) {
         if(!window.team.isPhone()) {

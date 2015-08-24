@@ -22,7 +22,7 @@
         <li data-action="intentionForm" data-user-type="
         {{filter(lambda user_type: user_type.get('slug')=='investor', user_type_list)[0].get('id')}}
             ">
-            <a href="#">
+            <a href="#" onclick="window.chooseUserType()">
                 <p class="iconWrap">
                     <i class="icon-invest"></i>
                 </p>
@@ -33,7 +33,7 @@
         <li data-action="publishBox" data-user-type="
         {{filter(lambda user_type: user_type.get('slug')=='landlord', user_type_list)[0].get('id')}}
         ">
-            <a href="#">
+            <a href="#" onclick="window.chooseUserType()">
                 <p class="iconWrap">
                     <i class="icon-house_homepage"></i>
                 </p>
@@ -44,7 +44,7 @@
         <li data-action="searchTicketBox" data-user-type="
         {{filter(lambda user_type: user_type.get('slug')=='tenant', user_type_list)[0].get('id')}}
         ">
-            <a href="#">
+            <a href="#" onclick="window.chooseUserType()">
                 <p class="iconWrap">
                     <i class="icon-key"></i>
                 </p>
