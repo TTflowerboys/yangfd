@@ -345,6 +345,12 @@ class currant_mongo_upgrade(f_mongo_upgrade):
     def v18(self, m):
         f_app.enum.get_database(m).ensure_index([("type", ASCENDING), ("sort_value", ASCENDING)])
 
+    def v19(self, m):
+        for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
+            if "rent_intention_ticket_check_rent" not in user["email_message_type"]:
+                self.logger.debug("Appending rent_intention_ticket_check_rent email message type for user", str(user["_id"]))
+                f_app.user.get_database(m).update({"_id": user["_id"]}, {"$push": {"email_message_type": "rent_intention_ticket_check_rent"}})
+
 currant_mongo_upgrade()
 
 
@@ -837,6 +843,9 @@ class f_currant_plugins(f_app.plugin_base):
             if "email" not in intention_ticket["creator_user"]:
                 continue
 
+            if "rent_intention_ticket_check_rent" not in intention_ticket["creator_user"]["email_message_type"]:
+                continue
+
             if "rent_budget" not in intention_ticket or "bedroom_count" not in intention_ticket or "minimum_rent_period" not in intention_ticket or "rent_type" not in intention_ticket:
                 continue
 
@@ -876,6 +885,7 @@ class f_currant_plugins(f_app.plugin_base):
             F = ticket["rent_type"]["id"] == intention_ticket["rent_type"]["id"]
 
             score = A + B + C + D + E + F
+            unsubscribe_url = 'http://yangfd.com/email-unsubscribe?email_message_type=rent_intention_ticket_check_rent'
 
             if score == 6:
                 title = "洋房东给您匹配到了合适的房源，快来看看吧！"
@@ -884,7 +894,7 @@ class f_currant_plugins(f_app.plugin_base):
                     target=intention_ticket["creator_user"]["email"],
                     subject=title,
                     # TODO
-                    text=template("static/emails/rent_intention_matched_1", title=title, nickname=intention_ticket["creator_user"]["nickname"], rent_ticket_id=ticket_id, date="", digest_url=digest_url),
+                    text=template("static/emails/rent_intention_matched_1", title=title, nickname=intention_ticket["creator_user"]["nickname"], rent_ticket_id=ticket_id, date="", digest_url=digest_url, unsubscribe_url=unsubscribe_url),
                     display="html",
                     ticket_match_user_id=intention_ticket["creator_user"]["id"],
                 )
@@ -899,7 +909,7 @@ class f_currant_plugins(f_app.plugin_base):
                         target=intention_ticket["creator_user"]["email"],
                         subject=title,
                         # TODO
-                        text=template("static/emails/rent_intention_matched_4", title=title, nickname=intention_ticket["creator_user"]["nickname"], rent_ticket_id=ticket_id, date="", digest_url=digest_url),
+                        text=template("static/emails/rent_intention_matched_4", title=title, nickname=intention_ticket["creator_user"]["nickname"], rent_ticket_id=ticket_id, date="", digest_url=digest_url, unsubscribe_url=unsubscribe_url),
                         display="html",
                         ticket_match_user_id=intention_ticket["creator_user"]["id"],
                     )
@@ -911,6 +921,9 @@ class f_currant_plugins(f_app.plugin_base):
 
         if "email" not in ticket_creator_user:
             self.logger.debug("Ignoring rent_intention_ticket_check_rent for ticket", ticket_id, "as the creator user doesn't have email filled.")
+            return
+
+        if "rent_intention_ticket_check_rent" not in ticket_creator_user["email_message_type"]:
             return
 
         # Scan existing rent intention ticket
@@ -981,13 +994,14 @@ class f_currant_plugins(f_app.plugin_base):
                 self.logger.warning("Bad ticket detected:", ticket["id"])
 
         import currant_util
+        unsubscribe_url = 'http://yangfd.com/email-unsubscribe?email_message_type=rent_intention_ticket_check_rent'
         if len(best_matches):
             title = "洋房东给您匹配到了合适的房源，快来看看吧！"
             f_app.email.schedule(
                 target=ticket_creator_user["email"],
                 subject=title,
                 # TODO
-                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=best_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code),
+                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=best_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                 display="html",
                 ticket_match_user_id=ticket_creator_user["id"],
             )
@@ -997,7 +1011,7 @@ class f_currant_plugins(f_app.plugin_base):
                 target=ticket_creator_user["email"],
                 subject=title,
                 # TODO
-                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=good_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code),
+                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=good_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                 display="html",
                 ticket_match_user_id=ticket_creator_user["id"],
             )
@@ -1007,7 +1021,7 @@ class f_currant_plugins(f_app.plugin_base):
                 target=ticket_creator_user["email"],
                 subject=title,
                 # TODO
-                text=template("static/emails/receive_rent_intention", date="", nickname=ticket_creator_user["nickname"], title=title),
+                text=template("static/emails/receive_rent_intention", date="", nickname=ticket_creator_user["nickname"], title=title, unsubscribe_url=unsubscribe_url),
                 display="html",
             )
 
