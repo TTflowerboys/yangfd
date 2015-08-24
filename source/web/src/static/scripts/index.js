@@ -28,28 +28,39 @@
 
 
     function initRoleChooserContent (tabName) {
-           var windowHeight = $(window).height()
-            var tabbarHeight = $('#roleChooser .tab_wrapper').height()
+        var windowHeight = $(window).height()
+        var tabbarHeight = $('#roleChooser .tab_wrapper').height()
 
-            if (tabName === 'landlord') {
-                window.console.log('landlord')
-                if (window.team.isCurrantClient()) {
-                    var publishHeight = $('.publishInClient').height()
-                    $('.publishInClient').css('margin-top', ((windowHeight - tabbarHeight - publishHeight) / 2) + 'px')
-                }
-                else  {
-                    if (typeof window.indexAppDownloadSwiper === 'undefined') {
-                        window.setupDownload(window.Swiper)
-                    }
+        if (tabName === 'buyer') {
+            $('.intentionChooser').tabs({trigger:'hover'}).on('openTab', function () {
+
+            })
+            if (window.user) {
+                setupUserPropertyChooser()
+            }
+            else {
+                $('.intentionChooser').tabs({trigger: 'hover'})
+            }
+        }
+        else if (tabName === 'landlord') {
+            window.console.log('landlord')
+            if (window.team.isCurrantClient()) {
+                var publishHeight = $('.publishInClient').height()
+                $('.publishInClient').css('margin-top', ((windowHeight - tabbarHeight - publishHeight) / 2) + 'px')
+            }
+            else  {
+                if (typeof window.indexAppDownloadSwiper === 'undefined') {
+                    window.setupDownload(window.Swiper)
                 }
             }
-            else if (tabName === 'renter'){
-                if (window.team.isCurrantClient()) {
-                    var questionHeight = $('.renterService ul.questionChooser').height()
-                    $('ul.questionChooser').css('margin-top', ((windowHeight - tabbarHeight - questionHeight)/ 2) + 'px')
-                    $('.renterService').css('border-bottom', '0px');
-                }
+        }
+        else if (tabName === 'renter'){
+            if (window.team.isCurrantClient()) {
+                var questionHeight = $('.renterService ul.questionChooser').height()
+                $('ul.questionChooser').css('margin-top', ((windowHeight - tabbarHeight - questionHeight)/ 2) + 'px')
+                $('.renterService').css('border-bottom', '0px');
             }
+        }
     }
 
     function selectRoleChooserTab(tabName) {
@@ -65,7 +76,7 @@
         }
     });
 
-     if (window.user.user_type) {
+    if (window.user && window.user.user_type) {
         if (window.user.user_type[0].slug === 'investor') {
             selectRoleChooserTab('buyer')
             initRoleChooserContent('buyer')
@@ -84,10 +95,6 @@
         selectRoleChooserTab('buyer')
         initRoleChooserContent('buyer')
     }
-
-    $('.intentionChooser').tabs({trigger:'hover'}).on('openTab', function () {
-
-    })
 
 
     $('#announcement').on('click', 'ul>li>.close', function (event) {
@@ -580,11 +587,7 @@
         })
     }
 
-    if (window.user) {
-        setupUserPropertyChooser()
-    }
-    else {
-        $('.intentionChooser').tabs({trigger: 'hover'})
+    if (!window.user) {
         updatePropertyCardMouseEnter()
     }
 
