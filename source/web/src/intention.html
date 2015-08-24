@@ -20,37 +20,31 @@
     <hr/>
     <ul class="mainWrap">
         <li data-action="intentionForm" data-user-type="
-        {{filter(lambda user_type: user_type.get('slug')=='investor', user_type_list)[0].get('id')}}
+            {{filter(lambda user_type: user_type.get('slug')=='investor', user_type_list)[0].get('id')}}
             ">
-            <a href="#" onclick="window.chooseUserType()">
-                <p class="iconWrap">
-                    <i class="icon-invest"></i>
-                </p>
-                <p class="title">{{_('我是投资者')}}</p>
-                <p class="hint">{{_('我希望购置海外房产用于自住或者投资')}}</p>
-            </a>
+            <p class="iconWrap">
+                <i class="icon-invest"></i>
+            </p>
+            <p class="title">{{_('我是投资者')}}</p>
+            <p class="hint">{{_('我希望购置海外房产用于自住或者投资')}}</p>
         </li>
         <li data-action="publishBox" data-user-type="
-        {{filter(lambda user_type: user_type.get('slug')=='landlord', user_type_list)[0].get('id')}}
-        ">
-            <a href="#" onclick="window.chooseUserType()">
-                <p class="iconWrap">
-                    <i class="icon-house_homepage"></i>
-                </p>
-                <p class="title">{{_('我是房东')}}</p>
-                <p class="hint">{{_('我有房产需要出租，希望能够找到合适的租客')}}</p>
-            </a>
+            {{filter(lambda user_type: user_type.get('slug')=='landlord', user_type_list)[0].get('id')}}
+            ">
+            <p class="iconWrap">
+                <i class="icon-house_homepage"></i>
+            </p>
+            <p class="title">{{_('我是房东')}}</p>
+            <p class="hint">{{_('我有房产需要出租，希望能够找到合适的租客')}}</p>
         </li>
         <li data-action="searchTicketBox" data-user-type="
-        {{filter(lambda user_type: user_type.get('slug')=='tenant', user_type_list)[0].get('id')}}
-        ">
-            <a href="#" onclick="window.chooseUserType()">
-                <p class="iconWrap">
-                    <i class="icon-key"></i>
-                </p>
-                <p class="title">{{_('我是租客')}}</p>
-                <p class="hint">{{_('我希望找到适合自己租住的房产')}}</p>
-            </a>
+            {{filter(lambda user_type: user_type.get('slug')=='tenant', user_type_list)[0].get('id')}}
+            ">
+            <p class="iconWrap">
+                <i class="icon-key"></i>
+            </p>
+            <p class="title">{{_('我是租客')}}</p>
+            <p class="hint">{{_('我希望找到适合自己租住的房产')}}</p>
         </li>
     </ul>
 </div>
