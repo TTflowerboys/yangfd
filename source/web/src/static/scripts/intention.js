@@ -46,7 +46,7 @@
                     window.setTimeout(function() {
                         window.bridge.callHandler('openHomeTab');
                     }, 200);
-                    window.alert(i18n('选择成功'))
+                    //window.alert(i18n('选择成功'))
                 }
             })
             .fail(function (data) {
