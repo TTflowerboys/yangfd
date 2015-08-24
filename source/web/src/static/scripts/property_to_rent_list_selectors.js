@@ -78,8 +78,8 @@
         }
         initChosen($('[name=propertyCountry]'))
         initChosen($('[name=propertyCity]'))
-        initChosen($('[name=neighborhood]'))
-        initChosen($('[name=school]'))
+        //initChosen($('[name=neighborhood]'))
+        //initChosen($('[name=school]'))
         initChosen($('[name=propertyType]'))
         initChosen($('[name=rentType]'))
     }
