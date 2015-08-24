@@ -26,37 +26,75 @@
     }
     initBanner()
 
-    $('#roleChooser').tabs({trigger: 'click', autoSelectFirst: false}).on('openTab', function (event, target, tabName) {
-        if ($(target).parents('[data-tabs]').first()[0] === $('#roleChooser')[0]) {
-            window.scrollTo(0, $('#roleChooser').offset().top)
-            var windowHeight = $(window).height()
-            var tabbarHeight = $('#roleChooser .tab_wrapper').height()
 
-            if (tabName === 'landlord') {
-                window.console.log('landlord')
-                if (window.team.isCurrantClient()) {
-                    var publishHeight = $('.publishInClient').height()
-                    $('.publishInClient').css('margin-top', ((windowHeight - tabbarHeight - publishHeight) / 2) + 'px')
-                }
-                else  {
-                    if (typeof window.indexAppDownloadSwiper === 'undefined') {
-                        window.setupDownload(window.Swiper)
-                    }
-                }
+    function initRoleChooserContent (tabName) {
+        var windowHeight = $(window).height()
+        var tabbarHeight = $('#roleChooser .tab_wrapper').height()
+
+        if (tabName === 'buyer') {
+            $('.intentionChooser').tabs({trigger:'hover'}).on('openTab', function () {
+
+            })
+            if (window.user) {
+                setupUserPropertyChooser()
             }
-            else if (tabName === 'renter'){
-                if (window.team.isCurrantClient()) {
-                    var questionHeight = $('.renterService ul.questionChooser').height()
-                    $('ul.questionChooser').css('margin-top', ((windowHeight - tabbarHeight - questionHeight)/ 2) + 'px')
-                    $('.renterService').css('border-bottom', '0px');
+            else {
+                $('.intentionChooser').tabs({trigger: 'hover'})
+            }
+        }
+        else if (tabName === 'landlord') {
+            window.console.log('landlord')
+            if (window.team.isCurrantClient()) {
+                var publishHeight = $('.publishInClient').height()
+                $('.publishInClient').css('margin-top', ((windowHeight - tabbarHeight - publishHeight) / 2) + 'px')
+            }
+            else  {
+                if (typeof window.indexAppDownloadSwiper === 'undefined') {
+                    window.setupDownload(window.Swiper)
                 }
             }
         }
+        else if (tabName === 'renter'){
+            if (window.team.isCurrantClient()) {
+                var questionHeight = $('.renterService ul.questionChooser').height()
+                $('ul.questionChooser').css('margin-top', ((windowHeight - tabbarHeight - questionHeight)/ 2) + 'px')
+                $('.renterService').css('border-bottom', '0px');
+            }
+        }
+    }
+
+    function selectRoleChooserTab(tabName) {
+        $('#roleChooser .tab [data-tab=' + tabName + ']').addClass('selectedTab')
+        $('#roleChooser .content [data-tab-name=' + tabName + ']').addClass('selectedTab')
+        $('#roleChooser .content [data-tab-name=' + tabName + ']').show()
+    }
+
+    $('#roleChooser').tabs({trigger: 'click', autoSelectFirst: false}).on('openTab', function (event, target, tabName) {
+        if ($(target).parents('[data-tabs]').first()[0] === $('#roleChooser')[0]) {
+            window.scrollTo(0, $('#roleChooser').offset().top)
+            initRoleChooserContent(tabName)
+        }
     });
 
-    $('.intentionChooser').tabs({trigger:'hover'}).on('openTab', function () {
+    if (window.user && window.user.user_type) {
+        if (window.user.user_type[0].slug === 'investor') {
+            selectRoleChooserTab('buyer')
+            initRoleChooserContent('buyer')
+        }
+        else if (window.user.user_type[0].slug === 'landlord') {
+            selectRoleChooserTab('landlord')
+            initRoleChooserContent('landlord')
 
-    })
+        }
+        else if (window.user.user_type[0].slug === 'tenant') {
+            selectRoleChooserTab('renter')
+            initRoleChooserContent('renter')
+        }
+    }
+    else {
+        selectRoleChooserTab('buyer')
+        initRoleChooserContent('buyer')
+    }
 
 
     $('#announcement').on('click', 'ul>li>.close', function (event) {
@@ -549,11 +587,7 @@
         })
     }
 
-    if (window.user) {
-        setupUserPropertyChooser()
-    }
-    else {
-        $('.intentionChooser').tabs({trigger: 'hover'})
+    if (!window.user) {
         updatePropertyCardMouseEnter()
     }
 

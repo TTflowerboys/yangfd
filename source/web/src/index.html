@@ -50,15 +50,7 @@
 <div class="roleChooser" id="roleChooser" data-tabs>
     <div class="tab_wrapper">
         <ul class="tab">
-            %if user and user.get('user_type') and len(user.get('user_type')):
-                % user_type_slug = user.get('user_type')[0].get('slug')
-            %else:
-                % user_type_slug = ''
-            %end
             <li data-tab="buyer"
-                %if user_type_slug == 'investor' or user_type_slug == '':
-                class="selectedTab"
-                %end
                 >
                 <div class="inner">
                     <i class="img_wrapper icon-invest"></i>
@@ -73,9 +65,6 @@
                 </div>
             </li>
             <li data-tab="landlord"
-                %if user_type_slug == 'landlord':
-                class="selectedTab"
-                %end
                 >
                 <div class="inner">
                     <i class="img_wrapper icon-house_homepage"></i>
@@ -90,9 +79,6 @@
                 </div>
             </li>
             <li data-tab="renter"
-                %if user_type_slug == 'tenant':
-                class="selectedTab"
-                %end
                 >
                 <div class="inner">
                     <i class="img_wrapper icon-key"></i>
@@ -110,29 +96,17 @@
     </div>
     <ul class="content">
         <li data-tab-name="buyer"
-            %if user_type_slug == 'investor' or user_type_slug == '':
-            class="selectedTab"
-            %else:
             style="display:none;"
-            %end
             >
             <!-- @@include =./partials/index_buyer.html -->
         </li>
         <li data-tab-name="landlord"
-            %if user_type_slug == 'landlord' or user_type_slug == '':
-            class="selectedTab"
-            %else:
             style="display:none;"
-            %end
             >
             <!-- @@include =./partials/index_landlord.html -->
         </li>
         <li data-tab-name="renter"
-            %if user_type_slug == 'tenant' or user_type_slug == '':
-            class="selectedTab"
-            %else:
             style="display:none;"
-            %end
             >
             <!-- @@include =./partials/index_renter.html -->
         </li>

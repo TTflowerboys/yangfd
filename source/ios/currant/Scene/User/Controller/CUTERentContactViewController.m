@@ -228,7 +228,14 @@
                             [self login];
                         }
                         else if ([buttonTitle isEqualToString:STR(@"重置密码")]) {
-                            [self login];
+                            [UIAlertView showWithTitle:STR(@"重置密码") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"通过短信"), STR(@"通过邮箱")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                if (buttonIndex == 1) {
+                                    [self resetPasswordWithType:@"phone"];
+                                }
+                                else if (buttonIndex == 2) {
+                                    [self resetPasswordWithType:@"email"];
+                                }
+                            }];
                         }
                         else if ([buttonTitle isEqualToString:STR(@"联系客服")]) {
                             [CUTEPhoneUtil showServicePhoneAlert];
@@ -405,7 +412,6 @@
     [sequencer run];
 }
 
-
 - (void)login {
 
     [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
@@ -434,6 +440,49 @@
 
             loginViewController.formController.form = form;
             [self.navigationController pushViewController:loginViewController animated:YES];
+        }
+
+        return task;
+    }];
+}
+
+
+- (void)resetPasswordWithType:(NSString *)type {
+
+    [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            [SVProgressHUD showErrorWithError:task.error];
+        }
+        else if (task.exception) {
+            [SVProgressHUD showErrorWithException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [SVProgressHUD showErrorWithCancellation];
+        }
+        else {
+            TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+            CUTERentLoginViewController *loginViewController = [CUTERentLoginViewController new];
+            loginViewController.ticket = self.ticket;
+            CUTERentLoginForm *form = [CUTERentLoginForm new];
+            form.isOnlyRegister = ((CUTERentContactForm *)self.formController.form).isOnlyRegister;
+            [form setAllCountries:task.result];
+            //set default country same with the property
+            if (self.ticket.property.country) {
+                form.country = [task.result find:^BOOL(CUTECountry *object) {
+                    return [object.ISOcountryCode isEqualToString:self.ticket.property.country.ISOcountryCode];
+                }];
+            }
+
+            loginViewController.formController.form = form;
+            [self.navigationController pushViewController:loginViewController animated:YES];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if ([type isEqualToString:@"phone"]) {
+                    [loginViewController resetPassword];
+                }
+                else if ([type isEqualToString:@"email"]) {
+                    [loginViewController resetPasswordWithEmail];
+                }
+            });
         }
 
         return task;
