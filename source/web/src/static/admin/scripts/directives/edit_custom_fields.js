@@ -7,7 +7,6 @@ angular.module('app')
                 customFields: '=ngModel',
                 itemId: '=itemId',
                 update: '&',
-                test: '&'
             },
             controller: function ($scope, $element, $rootScope, $compile) {
 
