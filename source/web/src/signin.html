@@ -54,11 +54,17 @@
             $.betterPost("/api/1/user/login", params)
                 .done(function (result) {
                     ga('send', 'event', 'signin', 'result', 'signin-success')
-                    if (window.bridge !== undefined) {
-                        window.bridge.callHandler("login", result);
+                    if (window.user && window.user.phone_verified) {
+                        if (window.bridge !== undefined) {
+                            window.bridge.callHandler("login", result);
+                        }
+                        else {
+                            project.goBackFromURL()
+                        }
                     }
                     else {
-                        project.goBackFromURL()
+                        //Here will redirect to verifiy phone
+                        project.goToVerifyPhone()
                     }
                 })
                 .fail(function (ret) {
