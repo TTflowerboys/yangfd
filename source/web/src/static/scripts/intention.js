@@ -32,13 +32,14 @@
     var showState
     showState = new ShowState('main')
 
-    $('[data-user-type]').click(function () {
+    $('[data-user-type] a').click(function () {
+        var $dataUserType = $(this).parents('[data-user-type]')
         var apiUrl = '/api/1/user/edit'
         if (window.betterAjaxXhr && window.betterAjaxXhr[apiUrl] && window.betterAjaxXhr[apiUrl].readyState !== 4) {
             window.betterAjaxXhr[apiUrl].abort()
         }
 
-        $.betterPost(apiUrl, {user_type: $(this).attr('data-user-type')})
+        $.betterPost(apiUrl, {user_type: $dataUserType.attr('data-user-type')})
             .done(function (data) {
                 window.user = data
                 if (window.bridge !== undefined) {
