@@ -19,7 +19,7 @@ $(function () {
     })
 
     //Display float app download bar based on cookie
-    if($.cookie('show-app-floatbar') === 'false'){
+    if(_.isFunction($.cookie) && $.cookie('show-app-floatbar') === 'false'){
         $('.app-floatbar').hide()
     }else{
         if (window.team.isPhone() && !window.project.isMobileClient()) {
@@ -32,7 +32,16 @@ $(function () {
 
     $('.app-floatbar-close').on('click',function(e){
         $('.app-floatbar').hide()
-        $.cookie('show-app-floatbar',false,{ path: '/' })
+        if(_.isFunction($.cookie)) {
+            $.cookie('show-app-floatbar',false,{ path: '/' })
+        }
+    })
+
+    window.addEventListener('contextmenu', function(e) {
+        if($(e.target).is('a')) {
+            e.preventDefault()
+            return false
+        }
     })
 })
 
