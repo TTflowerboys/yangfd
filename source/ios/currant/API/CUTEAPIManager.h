@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <Bolts.h>
+#import <BBTRestClient.h>
 
 @interface CUTEAPIManager : NSObject
 
 + (instancetype)sharedInstance;
+
+- (BBTRestClient *)backingManager;
 
 - (BFTask *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass;
 

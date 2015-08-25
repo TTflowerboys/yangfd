@@ -167,6 +167,7 @@
 
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogin:) name:KNOTIF_USER_DID_LOGIN object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogout:) name:KNOTIF_USER_DID_LOGOUT object:nil];
+    [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidUpdate:) name:KNOTIF_USER_DID_UPDATE object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveClearAllCookies:) name:KNOTIF_CLEAR_ALL_COOKIES object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveTicketListReload:) name:KNOTIF_TICKET_LIST_RELOAD object:nil];
 }
@@ -346,6 +347,17 @@
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
+    if (notif.object != self) {
+        if ([[CUTEWebConfiguration sharedInstance] isURLNeedRefreshContentWhenUserChange:_webView.request.URL]) {
+            _needReloadURL = self.url; //user click into a url need user update, just back to top
+        }
+        else if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:self.url]) {
+            _needReloadURL = self.url;
+        }
+    }
+}
+
+- (void)onReceiveUserDidUpdate:(NSNotification *)notif {
     if (notif.object != self) {
         if ([[CUTEWebConfiguration sharedInstance] isURLNeedRefreshContentWhenUserChange:_webView.request.URL]) {
             _needReloadURL = self.url; //user click into a url need user update, just back to top

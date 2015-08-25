@@ -35,6 +35,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>CurrantChannel</key>
+	<string>dev</string>
 	<key>CurrantHost</key>
 	<string>172.22.27.191:8181</string>
 	<key>Fabric</key>

@@ -13,6 +13,8 @@
 #import <ATEngagementBackend.h>
 #import "CUTEConfiguration.h"
 #import "CUTEWebViewController.h"
+#import <BBTAppUpdater.h>
+#import "CUTEAPIManager.h"
 
 @interface CUTESettingViewController ()
 
@@ -48,6 +50,15 @@
     newWebViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:newWebViewController animated:YES];
     [newWebViewController loadRequest:[NSURLRequest requestWithURL:newWebViewController.url]];
+}
+
+- (void)onCheckUpdatePressed:(id)sender {
+    NSString *checkUrl = @"/api/1/app/currant/check_update";
+    NSDictionary *appInfo = [[NSBundle mainBundle] infoDictionary];
+    NSDictionary *checkParams = @{@"version":[appInfo objectForKey:(NSString *)kCFBundleVersionKey], @"platform":@"ios", @"channel":[appInfo objectForKey:@"CurrantChannel"]};
+    NSURLRequest *request = [[[[CUTEAPIManager sharedInstance] backingManager] requestSerializer] requestWithMethod:@"GET" URLString:[NSURL URLWithString:checkUrl relativeToURL:[CUTEConfiguration hostURL]].absoluteString parameters:checkParams error:nil];
+    [[BBTAppUpdater sharedInstance] checkUpdateManuallyWithRequeset:request];
+
 }
 
 - (void)onSurveyPressed:(id)sender {

@@ -35,6 +35,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>CurrantChannel</key>
+	<string>dev</string>
 	<key>CurrantHost</key>
 	<string>currant-dev.bbtechgroup.com</string>
 	<key>Fabric</key>
