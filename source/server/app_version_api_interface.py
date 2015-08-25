@@ -21,7 +21,7 @@ def app_version_check_update(app, params):
     url=str,
     platform=(str, True),
 ))
-@f_app.user.login.check(force=50)
+@f_app.user.login.check(role=['admin'])
 def app_version_add(app, user, params):
     """
     Use ``dev`` channel for development purpose (such as CI and TestFlight).
@@ -39,7 +39,7 @@ def app_version_add(app, user, params):
     url=str,
     platform=str,
 ))
-@f_app.user.login.check(force=50)
+@f_app.user.login.check(role=['admin'])
 def app_version_update(app, version_id, user, params):
     """
     Pass ``deleted`` to ``status`` to remove a certain version.
@@ -51,7 +51,7 @@ def app_version_update(app, version_id, user, params):
     platform=str,
     channel=str,
 ))
-@f_app.user.login.check(force=50)
+@f_app.user.login.check(role=['admin'])
 def app_version_search(app, params, user):
     params["app"] = app
     return f_app.version.search(params)
@@ -70,7 +70,7 @@ def app_crash_report(app):
     time=datetime,
     count=bool,
 ))
-@f_app.user.login.check(force=50)
+@f_app.user.login.check(role=['admin'])
 def app_crash_report_search(app, params, user):
     """
     Acra Report Search API
