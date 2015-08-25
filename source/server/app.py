@@ -36,6 +36,7 @@ import libfelix.f_storage.f_aws_s3
 import libfelix.f_storage.f_qiniu
 import libfelix.f_ticket
 import libfelix.f_user
+import libfelix.f_version
 import libfelix.f_wechat
 import f_currant
 

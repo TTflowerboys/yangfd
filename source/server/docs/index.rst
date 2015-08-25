@@ -51,3 +51,4 @@ API Reference
    log_api
    order_api
    credit_api
+   app_version_api
