@@ -50,9 +50,10 @@
                     NSString *fromURLStr = [queryDictionary[@"from"] URLDecode];
                     //update user data and cookie storage first
                     [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:webViewController userInfo:@{@"user": user}];
-                    //then update webview
-                    [webViewController updateWithURL:[NSURL URLWithString:fromURLStr]];
+
                     responseCallback(nil);
+                    //update url will update webview, let update url after the call back
+                    [webViewController updateWithURL:[NSURL URLWithString:fromURLStr]];
                 }
             }
         }

@@ -43,11 +43,11 @@
             .done(function (data) {
                 window.user = data
                 if (window.bridge !== undefined) {
-                    window.bridge.callHandler('login', data);
-                    window.setTimeout(function() {
+                    //login will refresh webview, so must put in the end
+                    window.bridge.callHandler('login', data, function () {
+                        //but open home tab state depend on user if logged in
                         window.bridge.callHandler('openHomeTab');
-                    }, 200);
-                    //window.alert(i18n('选择成功'))
+                    });
                 }
             })
             .fail(function (data) {
