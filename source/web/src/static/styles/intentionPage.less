@@ -76,7 +76,7 @@
             padding: 40px 20px;
             width: 100%;
         }
-        li{
+        li {
             width: 360px;
             height: 400px;
             padding-top: 150px;
@@ -85,10 +85,12 @@
             a {
                 text-decoration:none;
             }
+
             @media @phone{
                 width: 100%;
                 padding-top: 40px;
                 height: 220px;
+                display:block;
             }
             p{
                 text-align: center;
@@ -154,14 +156,17 @@
                 font-size: 14px;
                 color: #999;
             }
-            &:hover{
-                .iconWrap i:after{
-                    width: 100%;
-                    height: 100%;
-                    transition: all ease-in 0.3s 0s;
-                }
-                .title,.hint{
-                    color: @red;
+
+            @media @pc {
+                &:hover{
+                    .iconWrap i:after{
+                        width: 100%;
+                        height: 100%;
+                        transition: all ease-in 0.3s 0s;
+                    }
+                    .title,.hint{
+                        color: @red;
+                    }
                 }
             }
         }
