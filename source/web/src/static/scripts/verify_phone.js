@@ -15,10 +15,10 @@
             requestSmsCode()
         }
     })
-    if (window.bridge !== undefined && window.user) {
-        //login will refresh webview, so must put in the end
-        window.bridge.callHandler('login', window.user);
-    }
+    // if (window.bridge !== undefined && window.user) {
+    //     //login will refresh webview, so must put in the end
+    //     window.bridge.callHandler('login', window.user);
+    // }
     $verifyBtn.bind('click', function () {
         var code = $('[name=code]').val()
         var params = {
@@ -31,7 +31,8 @@
                     window.user = data
                     $errorMsg.text(window.i18n('验证成功'))
                     $errorMsg.show()
-                    window.project.goBackFromURL()
+                    //                    window.project.goBackFromURL()
+                    window.project.goToIntention()
                 })
                 .fail(function (ret) {
                     $errorMsg.text(window.i18n('验证失败'))
