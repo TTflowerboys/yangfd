@@ -67,7 +67,7 @@ $(function () {
         $.betterPost('/api/1/user/register', params)
             .done(function (result) {
                 ga('send', 'event', 'signup', 'result', 'signup-success')
-                window.project.goToVerifyPhone()
+                window.project.goToIntention()
             }).fail(function (ret) {
                 errorArea.empty()
                 errorArea.append(window.getErrorMessageFromErrorCode(ret))

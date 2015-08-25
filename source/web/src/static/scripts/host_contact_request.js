@@ -230,6 +230,8 @@ $(function () {
             $('.contactRequestForm').show()
 
             ga('send', 'pageview', '/host-contact-request/'+ rentId)
+        } else if(window.user && !window.user.phone_verified) {
+            window.project.goToVerifyPhone()
         } else if($requestContactBtn.attr('data-protectedHost')){
             getPlatformContactInfo()
         } else if (rentId && !$(this).attr('disabled')) {

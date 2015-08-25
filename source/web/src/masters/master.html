@@ -28,10 +28,7 @@
         <link rel="stylesheet" href="/static/styles/requirementForm.css"/>
         <!--endbuild-->
 
-        <!-- #7183 如果登陆用户没有验证过手机号，则跳转到验证手机的页面 -->
-        %if user and not user.get('phone_verified'):
-            %redirect('/verify-phone?from=' + request_uri)
-        %end
+
 
         %if is_mobile_client():
             <!--build:css(dist) /static/styles/client/ios.html.css-->
