@@ -215,7 +215,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   BBTAppUpdater:
-    :commit: 2b88c406ef36af555d3338ec28a4f42dc468178a
+    :commit: f6dc95e1d98aa73aea250b2bf97eaee5e8e6cdda
     :git: git@git.bbtechgroup.com:bbt/ios-bbtappupdater.git
   BBTRestClient:
     :commit: 07bd8338bac2c99fbf383655740896fe8e5cc10e
