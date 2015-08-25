@@ -212,8 +212,8 @@
     </table>
 </div>
 <!--Hide User Setting-->
-<!--<h1 class="caption">{{_('消息设置')}}</h1>
-<div class="table_wrapper">
+<h1 class="caption">{{_('消息设置')}}</h1>
+<!--<div class="table_wrapper">
     <table>
         <colgroup>
             <col class="name">
@@ -315,3 +315,63 @@
         </tbody>
     </table>
 </div>-->
+<div class="table_wrapper messageTableWrapper">
+    <table>
+        <colgroup>
+            <col class="name">
+            <col class="switch">
+        </colgroup>
+
+        <tbody>
+            <tr>
+                <td>
+                </td>
+                <td style="text-align:center;">
+                    {{_('邮件通知')}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong data-type="rent_ticket_reminder">{{_('接收出租提醒邮件')}}</strong>
+                    <p>{{_('每周将会发送至您的账户邮箱中，方便您更新出租状态')}}</p>
+                </td>
+                <td class="textCenter">
+                    <input type="checkbox"
+                        %if isinstance(user.get('email_message_type'), list) and ('rent_ticket_reminder' in user.get('email_message_type', [])):
+                    checked
+                    %end
+                    data-type="rent_ticket_reminder"
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong data-type="rent_ticket_draft_reminder">{{_('草稿未发布的提醒邮件')}}</strong>
+                    <p>{{_('提醒您发布您可能忘记的房源，避免错过出租良机')}}</p>
+                </td>
+                <td class="textCenter">
+                    <input type="checkbox"
+                        %if isinstance(user.get('email_message_type'), list) and ('rent_ticket_draft_reminder' in user.get('email_message_type', [])):
+                    checked
+                    %end
+                    data-type="rent_ticket_draft_reminder"
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong data-type="rent_intention_ticket_check_rent">{{_('平台推荐出租房源邮件')}}</strong>
+                    <p>{{_('平台按照您的求租需求为您精心挑选的房源')}}</p>
+                </td>
+                <td class="textCenter">
+                    <input type="checkbox"
+                        %if isinstance(user.get('email_message_type'), list) and ('rent_intention_ticket_check_rent' in user.get('email_message_type', [])):
+                    checked
+                    %end
+                    data-type="rent_intention_ticket_check_rent"
+                    />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
