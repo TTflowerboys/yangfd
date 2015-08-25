@@ -32,8 +32,8 @@
     var showState
     showState = new ShowState('main')
 
-    window.chooseUserType = function (userType) {
-        var $dataUserType = $('ul.mainWrap').find('[data-user-type=' + userType + ']')
+    window.chooseUserType = function (userTypeSlug) {
+        var $dataUserType = $('ul.mainWrap').find('[data-user-type-slug=' + userTypeSlug + ']')
         var apiUrl = '/api/1/user/edit'
         if (window.betterAjaxXhr && window.betterAjaxXhr[apiUrl] && window.betterAjaxXhr[apiUrl].readyState !== 4) {
             window.betterAjaxXhr[apiUrl].abort()
