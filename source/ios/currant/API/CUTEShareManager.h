@@ -33,6 +33,8 @@ typedef void(^CUTEShareButtonPressBlock)(NSString *buttonName);
 
 - (BFTask *)shareTicket:(CUTETicket *)ticket viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock;
 
+- (BFTask *)shareProperty:(CUTEProperty *)property viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock;
+
 - (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString inServices:(NSArray *)services viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock;
 
 @end

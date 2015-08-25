@@ -182,6 +182,7 @@
     [NotificationCenter addObserver:self selector:@selector(onReceiveTicketCreate:) name:KNOTIF_TICKET_CREATE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketWechatShare:) name:KNOTIF_TICKET_WECHAT_SHARE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketListReload:) name:KNOTIF_TICKET_LIST_RELOAD object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceivePropertyShare:) name:KNOTIF_PROPERTY_SHARE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveHideRootTabBar:) name:KNOTIF_HIDE_ROOT_TAB_BAR object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowRootTabBar:) name:KNOTIF_SHOW_ROOT_TAB_BAR object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowFavoriteRentTicketList:) name:KNOTIF_SHOW_FAVORITE_RENT_TICKET_LIST object:nil];
@@ -606,6 +607,22 @@
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
     [[CUTEShareManager sharedInstance] shareTicket:ticket viewController:self.tabBarController onButtonPressBlock:^(NSString *buttonName) {
+        if ([buttonName isEqualToString:CUTEShareServiceWechatFriend]) {
+            TrackEvent(KEventCategoryShare, kEventActionPress, @"wechat-friend", @(1));
+        }
+        else if ([buttonName isEqualToString:CUTEShareServiceWechatCircle]) {
+            TrackEvent(KEventCategoryShare, kEventActionPress, @"wechat-circle", @(1));
+        }
+        else if ([buttonName isEqualToString:CUTEShareServiceSinaWeibo]) {
+            TrackEvent(KEventCategoryShare, kEventActionPress, @"weibo", @(1));
+        }
+    }];
+}
+
+- (void)onReceivePropertyShare:(NSNotification *)notif {
+    NSDictionary *userInfo = notif.userInfo;
+    CUTEProperty *property = userInfo[@"property"];
+    [[CUTEShareManager sharedInstance] shareProperty:property viewController:self.tabBarController onButtonPressBlock:^(NSString *buttonName) {
         if ([buttonName isEqualToString:CUTEShareServiceWechatFriend]) {
             TrackEvent(KEventCategoryShare, kEventActionPress, @"wechat-friend", @(1));
         }
