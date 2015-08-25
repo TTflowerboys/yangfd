@@ -74,6 +74,27 @@
         }
     }];
 
+    [self.bridge registerHandler:@"updateUser" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSDictionary *dic = data;
+        CUTEUser *user = nil;
+        if (dic && [dic isKindOfClass:[NSDictionary class]]) {
+            NSError *error = nil;
+            user = (CUTEUser *)[MTLJSONAdapter modelOfClass:[CUTEUser class] fromJSONDictionary:dic error:&error];
+            if (!error && [user isKindOfClass:[CUTEUser class]]) {
+                [[CUTEDataManager sharedInstance] saveUser:user];
+                [[CUTEDataManager sharedInstance] persistAllCookies];
+                responseCallback(@{@"msg":@"ok"});
+                [NotificationCenter postNotificationName:KNOTIF_USER_DID_UPDATE object:webViewController userInfo:@{@"user": user}];
+            }
+            else {
+                responseCallback(@{@"msg":@"error"});
+            }
+        }
+        else {
+            responseCallback(@{@"msg":@"error"});
+        }
+    }];
+
     [self.bridge registerHandler:@"editRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
 
         NSDictionary *dic = data;
