@@ -805,6 +805,39 @@ angular.module('app')
                 }
             })
         /**
+         * App版本管理
+         * */
+            .state('dashboard.appversion', {
+                url: '/appversion',
+                templateUrl: '/static/admin/templates/dashboard.appversion.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api: function (appversionApi) {
+                        return appversionApi
+                    }
+                }
+            })
+            .state('dashboard.appversion.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.appversion.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: {
+                    api: function (appversionApi) {
+                        return appversionApi
+                    }
+                }
+            })
+            .state('dashboard.appversion.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.appversion.create.tpl.html',
+                controller: 'ctrlEdit',
+                resolve: {
+                    api: function (appversionApi) {
+                        return appversionApi
+                    }
+                }
+            })
+        /**
          * Android订阅申请
          * */
             .state('dashboard.subscribe.android', {
