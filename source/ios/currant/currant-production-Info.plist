@@ -35,6 +35,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>4</string>
+	<key>CurrantChannel</key>
+	<string>production</string>
 	<key>CurrantHost</key>
 	<string>yangfd.com</string>
 	<key>Fabric</key>

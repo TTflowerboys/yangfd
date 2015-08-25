@@ -59,6 +59,7 @@
 #import "CUTERentConfirmPhoneViewController.h"
 #import "CUTERentConfirmPhoneForm.h"
 #import "CUTEAPIManager.h"
+#import <BBTAppUpdater.h>
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
@@ -282,6 +283,8 @@
         [[ATConnect sharedConnection] engage:APPTENTIVE_EVENT_APP_LAUNCH fromViewController:self.tabBarController];
         [CUTESurveyHelper checkShowPublishedRentTicketSurveyWithViewController:self.tabBarController];
     });
+
+    [self checkAppUpdate];
 
     return YES;
 }
@@ -524,6 +527,17 @@
         [viewController.navigationController pushViewController:webViewController animated:YES];
         [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
     }
+}
+
+- (void)checkAppUpdate
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSString *checkUrl = @"/api/1/app/currant/check_update";
+        NSDictionary *appInfo = [[NSBundle mainBundle] infoDictionary];
+        NSDictionary *checkParams = @{@"version":[appInfo objectForKey:(NSString *)kCFBundleVersionKey], @"platform":@"ios", @"channel":[appInfo objectForKey:@"CurrantChannel"]};
+        NSURLRequest *request = [[[[CUTEAPIManager sharedInstance] backingManager] requestSerializer] requestWithMethod:@"GET" URLString:[NSURL URLWithString:checkUrl relativeToURL:[CUTEConfiguration hostURL]].absoluteString parameters:checkParams error:nil];
+        [[BBTAppUpdater sharedInstance] checkUpdateWithRequeset:request];
+    });
 }
 
 
