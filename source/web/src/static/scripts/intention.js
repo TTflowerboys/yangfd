@@ -32,8 +32,8 @@
     var showState
     showState = new ShowState('main')
 
-    $('li[data-user-type]').bind('click touchstart', function () {
-        var $dataUserType = $(this)
+    window.chooseUserType = function (userType) {
+        var $dataUserType = $('ul.mainWrap').find('[data-user-type=' + userType + ']')
         var apiUrl = '/api/1/user/edit'
         if (window.betterAjaxXhr && window.betterAjaxXhr[apiUrl] && window.betterAjaxXhr[apiUrl].readyState !== 4) {
             window.betterAjaxXhr[apiUrl].abort()
@@ -52,8 +52,7 @@
             })
             .fail(function (data) {
             })
-
-    })
+    }
 
     function initChosen (elem) {
         if(!window.team.isPhone()) {
