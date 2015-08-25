@@ -28,6 +28,8 @@ PODS:
     - apptentive-ios/arc-files (= 1.7.3)
   - apptentive-ios/arc-files (1.7.3)
   - Aspects (1.4.1)
+  - BBTAppUpdater (0.0.1):
+    - SVProgressHUD
   - BBTRestClient (0.0.1):
     - Overcoat (~> 1.2)
   - BBTUtility (0.0.1):
@@ -163,6 +165,7 @@ DEPENDENCIES:
   - ALActionBlocks (= 1.0.3)
   - apptentive-ios (= 1.7.3)
   - Aspects (= 1.4.1)
+  - BBTAppUpdater (from `git@git.bbtechgroup.com:bbt/ios-bbtappupdater.git`)
   - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`)
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
   - Bolts (= 1.1.5)
@@ -198,6 +201,8 @@ DEPENDENCIES:
   - YTKKeyValueStore (= 0.1.2)
 
 EXTERNAL SOURCES:
+  BBTAppUpdater:
+    :git: git@git.bbtechgroup.com:bbt/ios-bbtappupdater.git
   BBTRestClient:
     :git: git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git
   BBTUtility:
@@ -209,6 +214,9 @@ EXTERNAL SOURCES:
     :tag: 3.0.1
 
 CHECKOUT OPTIONS:
+  BBTAppUpdater:
+    :commit: 2b88c406ef36af555d3338ec28a4f42dc468178a
+    :git: git@git.bbtechgroup.com:bbt/ios-bbtappupdater.git
   BBTRestClient:
     :commit: 07bd8338bac2c99fbf383655740896fe8e5cc10e
     :git: git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git
@@ -228,6 +236,7 @@ SPEC CHECKSUMS:
   ALActionBlocks: ac91b1a37b60a8004fb687ddade0600446f3d3fa
   apptentive-ios: be0b8dbc17b443eb624b3a015017f521b096f003
   Aspects: 7595ba96a6727a58ebcbfc954497fc5d2fdde546
+  BBTAppUpdater: 2aba37021612f15bf1cb9f3a34c5c147c5a9f4fe
   BBTRestClient: d3205d65ebc0851c0f8c4c69e2fedf9ace0b6134
   BBTUtility: 55ffd4489f190073d4a889839b6a67cc2f76fc5f
   Bolts: aac24961496d504aa56fc267cde95162a71bac39
