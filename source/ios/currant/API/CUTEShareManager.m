@@ -129,9 +129,9 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
     return req;
 }
 
-- (BFTask *)getTicketShareImage:(CUTETicket *)ticket {
+- (BFTask *)getPropertyShareImage:(CUTEProperty *)property {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    NSString *imageURLString = IsNilNullOrEmpty(ticket.property.cover)? (IsArrayNilOrEmpty(ticket.property.realityImages)? nil : ticket.property.realityImages.firstObject) : ticket.property.cover;
+    NSString *imageURLString = IsNilNullOrEmpty(property.cover)? (IsArrayNilOrEmpty(property.realityImages)? nil : property.realityImages.firstObject) : property.cover;
 
     NSURL *assetURL = nil;
     if (imageURLString && [NSURL URLWithString:imageURLString].isAssetURL) {
@@ -315,51 +315,54 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
     return weiboActivity;
 }
 
+- (CUTEActivityView *)getActivityViewWithTitle:(NSString *)title description:(NSString *)description url:(NSString *)urlString image:(UIImage *)imageData viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock {
+    CUTEActivity *wechatFriendActivity = [self getWechatFriendActivityWithTitle:title description:description url:urlString image:imageData buttonPressedBlock:^{
+        if (pressBlock) {
+            pressBlock(CUTEShareServiceWechatFriend);
+        }
+    }];
+
+    CUTEActivity *wechatCircleActivity = [self getWechatCircleActivityWithTitle:title description:description url:urlString image:imageData buttonPressedBlock:^{
+        if (pressBlock) {
+            pressBlock(CUTEShareServiceWechatCircle);
+        }
+    }];
+
+    CUTEActivity *weiboActivity = [self getSinaWeiboActivityWithTitle:title description:description url:urlString image:imageData viewController:viewController buttonPressedBlock:^{
+        if (pressBlock) {
+            pressBlock(CUTEShareServiceSinaWeibo);
+        }
+    }];
+
+    CUTEActivity *copyLinkActivity = [CUTEActivity new];
+    copyLinkActivity.activityTitle = STR(@"复制链接");
+    copyLinkActivity.activityType = CUTEShareServiceCopyLink;
+    copyLinkActivity.activityImage = IMAGE(@"icon-share-copy-link");
+    copyLinkActivity.performActivityBlock = ^ {
+        [UIPasteboard generalPasteboard].string = urlString;
+        [SVProgressHUD showSuccessWithStatus:STR(@"已复制至粘贴版")];
+        if (pressBlock) {
+            pressBlock(CUTEShareServiceCopyLink);
+        }
+    };
+
+    NSArray *acitivies = @[wechatFriendActivity, wechatCircleActivity, weiboActivity, copyLinkActivity];
+    CUTEActivityView *activityView = [[CUTEActivityView alloc] initWithAcitities:acitivies];
+    return activityView;
+}
+
 - (BFTask *)shareTicket:(CUTETicket *)ticket viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock
 {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     self.taskCompletionSource = tcs;
 
-    [[self getTicketShareImage:ticket] continueWithSuccessBlock:^id(BFTask *task) {
+    [[self getPropertyShareImage:ticket.property] continueWithSuccessBlock:^id(BFTask *task) {
         if (task.result) {
             NSString *title = ticket.titleForDisplay;
             NSString *description = IsNilNullOrEmpty(ticket.ticketDescription)? ticket.property.address: ticket.ticketDescription;
             UIImage *imageData = task.result;
             NSString *urlString = [[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString];
-
-
-            CUTEActivity *wechatFriendActivity = [self getWechatFriendActivityWithTitle:title description:description url:urlString image:imageData buttonPressedBlock:^{
-                if (pressBlock) {
-                    pressBlock(CUTEShareServiceWechatFriend);
-                }
-            }];
-
-            CUTEActivity *wechatCircleActivity = [self getWechatCircleActivityWithTitle:title description:description url:urlString image:imageData buttonPressedBlock:^{
-                if (pressBlock) {
-                    pressBlock(CUTEShareServiceWechatCircle);
-                }
-            }];
-
-            CUTEActivity *weiboActivity = [self getSinaWeiboActivityWithTitle:title description:description url:urlString image:imageData viewController:viewController buttonPressedBlock:^{
-                if (pressBlock) {
-                    pressBlock(CUTEShareServiceSinaWeibo);
-                }
-            }];
-
-            CUTEActivity *copyLinkActivity = [CUTEActivity new];
-            copyLinkActivity.activityTitle = STR(@"复制链接");
-            copyLinkActivity.activityType = CUTEShareServiceCopyLink;
-            copyLinkActivity.activityImage = IMAGE(@"icon-share-copy-link");
-            copyLinkActivity.performActivityBlock = ^ {
-                [UIPasteboard generalPasteboard].string = urlString;
-                [SVProgressHUD showSuccessWithStatus:STR(@"已复制至粘贴版")];
-                if (pressBlock) {
-                    pressBlock(CUTEShareServiceCopyLink);
-                }
-            };
-
-            NSArray *acitivies = @[wechatFriendActivity, wechatCircleActivity, weiboActivity, copyLinkActivity];
-            CUTEActivityView *activityView = [[CUTEActivityView alloc] initWithAcitities:acitivies];
+            CUTEActivityView *activityView = [self getActivityViewWithTitle:title description:description url:urlString image:imageData viewController:viewController onButtonPressBlock:pressBlock];
             activityView.onDismissButtonPressedBlock = ^ {
                 [self.taskCompletionSource cancel];
             };
@@ -369,6 +372,31 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
         return nil;
     }];
 
+    return tcs.task;
+}
+
+- (BFTask *)shareProperty:(CUTEProperty *)property viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock
+{
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    self.taskCompletionSource = tcs;
+
+    [[self getPropertyShareImage:property] continueWithSuccessBlock:^id(BFTask *task) {
+        if (task.result) {
+            NSString *title = property.name;
+            NSString *description = IsNilNullOrEmpty(property.propertyDescription)? property.address: property.propertyDescription;
+            UIImage *imageData = task.result;
+            NSString *urlString = [[NSURL URLWithString:CONCAT(@"/property/", property.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString];
+
+            CUTEActivityView *activityView = [self getActivityViewWithTitle:title description:description url:urlString image:imageData viewController:viewController onButtonPressBlock:pressBlock];
+            activityView.onDismissButtonPressedBlock = ^ {
+                [self.taskCompletionSource cancel];
+            };
+
+            [activityView show:YES];
+        }
+        return nil;
+    }];
+    
     return tcs.task;
 }
 

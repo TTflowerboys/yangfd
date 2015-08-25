@@ -92,13 +92,30 @@
         }];
     }
     else if ([self isURL:url matchPath:@"\\/property\\/[0-9a-fA-F]{24}"]) {
-        return [self getPhoneBarButtonItemWithCompletion:^{
-            TrackEvent(GetScreenName(url), kEventActionPress, @"call-yangfd", nil);
+        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-share") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController) {
+            TrackEvent(@"property", kEventActionPress, @"share", nil);
+            NSArray *paths = [url.path componentsSeparatedByString:@"/"];
+            if (paths.count >= 3) {
+                NSString *propertyId = paths[2];
+                [SVProgressHUD show];
+                [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", propertyId) parameters:nil resultClass:[CUTEProperty class]] continueWithBlock:^id(BFTask *task) {
+                    if (task.error || task.exception || task.isCancelled) {
+                        [SVProgressHUD showErrorWithError:task.error];
+                    }
+                    else {
+                        [SVProgressHUD dismiss];
+                        CUTEProperty *property = task.result;
+                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_PROPERTY_SHARE object:self userInfo:@{@"property": property}];
+
+                    }
+                    return nil;
+                }];
+            }
         }];
     }
     else if ([self isURL:url matchPath:@"\\/property-to-rent\\/[0-9a-fA-F]{24}"]) {
         return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-share") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController) {
-            TrackEvent(@"property-to-rent", kEventActionPress, @"share-to-wechat", nil);
+            TrackEvent(@"property-to-rent", kEventActionPress, @"share", nil);
             NSArray *paths = [url.path componentsSeparatedByString:@"/"];
             if (paths.count >= 3) {
                 NSString *ticketId = paths[2];

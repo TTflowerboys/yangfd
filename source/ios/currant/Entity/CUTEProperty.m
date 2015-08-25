@@ -16,6 +16,8 @@
 #import "CUTEAddressUtil.h"
 #import <EXTKeyPathCoding.h>
 #import "EXTKeyPathCoding.h"
+#import <MTLValueTransformer.h>
+#import <NSValueTransformer+MTLInversionAdditions.h>
 
 @implementation CUTEProperty
 
@@ -77,13 +79,32 @@
 }
 
 + (NSValueTransformer *)neighborhoodJSONTransformer {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTENeighborhood class]];
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^CUTENeighborhood *(id dic) {
+        if ([dic isKindOfClass:[NSDictionary class]]) {
+            return (CUTENeighborhood *)[[[MTLJSONAdapter alloc] initWithJSONDictionary:dic modelClass:[CUTENeighborhood class] error:nil] model];
+        }
+        else {
+            return nil;
+        }
+    } reverseBlock:^id(CUTENeighborhood *neighbood) {
+        return [neighbood dictionaryValue];
+    }];
+}
+
++ (NSValueTransformer *)propertyDescriptionJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSString *(id str) {
+        if ([str isKindOfClass:[NSString class]]) {
+            return str;
+        }
+        else {
+            return nil;
+        }
+    } reverseBlock:^id(NSString *str) {
+        return str;
+    }];
 }
 
 - (NSDictionary *)toI18nString:(NSString *)string {
-    if (!string) {
-
-    }
     return !IsNilOrNull(string)? @{DEFAULT_I18N_LOCALE: string}: nil;
 }
 
