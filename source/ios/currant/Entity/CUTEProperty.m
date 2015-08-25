@@ -91,6 +91,19 @@
     }];
 }
 
++ (NSValueTransformer *)propertyDescriptionJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSString *(id str) {
+        if ([str isKindOfClass:[NSString class]]) {
+            return str;
+        }
+        else {
+            return nil;
+        }
+    } reverseBlock:^id(NSString *str) {
+        return str;
+    }];
+}
+
 - (NSDictionary *)toI18nString:(NSString *)string {
     return !IsNilOrNull(string)? @{DEFAULT_I18N_LOCALE: string}: nil;
 }
