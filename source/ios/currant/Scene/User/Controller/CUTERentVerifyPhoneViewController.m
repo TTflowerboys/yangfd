@@ -133,7 +133,7 @@
         }
     }
     else {
-        //have triggered onPasswordEdit:, need do nothing
+        //have triggered onCodeEdit:, need do nothing
     }
 }
 
