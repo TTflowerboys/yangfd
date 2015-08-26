@@ -30,6 +30,7 @@
 #import "CUTEActivityView.h"
 #import "CUTEDataManager.h"
 #import "NSURL+CUTE.h"
+#import "NSString+Truncate.h"
 
 
 #define THNUMBNAIL_SIZE 100
@@ -115,9 +116,13 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 }
 
 - (SendMessageToWXReq *)makeWechatRequstWithScene:(int)scene title:(NSString *)title description:(NSString *)description thumbData:(NSData *)imageData url: (NSString *)url {
+
+    NSString *truncatedTitle = [title truncateWithLength:512];
+    NSString *truncatedDescription = [description truncateWithLength:1024];
+
     WXMediaMessage *message = [WXMediaMessage message];
-    message.title = title;
-    message.description = description;
+    message.title = truncatedTitle;
+    message.description = truncatedDescription;
     message.thumbData = imageData;
     WXWebpageObject *ext = [WXWebpageObject object];
     ext.webpageUrl = url;
@@ -275,7 +280,9 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
             }
 
             NSInteger maxContentLength = 140;
-            NSString *content = [self truncateString:CONCAT(NilNullToEmpty(title), @" ", NilNullToEmpty(description)) length:maxContentLength - shortUrl.length - 1];
+            //__NSCFString to NSString
+            NSString *content = CONCAT(NilNullToEmpty(title), @" ", NilNullToEmpty(description));
+            content = [content truncateWithLength:maxContentLength - shortUrl.length - 1];
             content = CONCAT(NilNullToEmpty(content), @" ", NilNullToEmpty(shortUrl));
 
             if ([WeiboSDK isCanShareInWeiboAPP]) {
@@ -452,18 +459,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
     return tcs.task;
 }
 
-//http://stackoverflow.com/questions/2952298/how-can-i-truncate-an-nsstring-to-a-set-length
-- (NSString *)truncateString:(NSString *)str length:(NSInteger)length {
-    // define the range you're interested in
-    NSRange stringRange = {0, MIN([str length], length)};
 
-    // adjust the range to include dependent chars
-    stringRange = [str rangeOfComposedCharacterSequencesForRange:stringRange];
-
-    // Now you can create the short string
-    NSString *shortString = [str substringWithRange:stringRange];
-    return shortString;
-}
 
 - (BOOL)handleOpenURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     if ([url.scheme hasPrefix:@"wx"]) {
