@@ -10,6 +10,23 @@
 #import "CUTECommonMacro.h"
 #import "CUTEUIMacro.h"
 
+static UIView *CUTEFormsFirstResponder(UIView *view)
+{
+    if ([view isFirstResponder])
+    {
+        return view;
+    }
+    for (UIView *subview in view.subviews)
+    {
+        UIView *responder = CUTEFormsFirstResponder(subview);
+        if (responder)
+        {
+            return responder;
+        }
+    }
+    return nil;
+}
+
 @implementation CUTEFormButtonCell
 
 + (CGFloat)heightForField:(FXFormField *)field width:(CGFloat)width
@@ -48,7 +65,7 @@
 - (void)didSelectWithTableView:(UITableView *)tableView controller:(UIViewController *)controller
 {
     if (!_disable) {
-        [tableView resignFirstResponder];
+        [CUTEFormsFirstResponder(tableView) resignFirstResponder];
         self.field.action(self);
         [tableView deselectRowAtIndexPath:tableView.indexPathForSelectedRow animated:YES];
     }
