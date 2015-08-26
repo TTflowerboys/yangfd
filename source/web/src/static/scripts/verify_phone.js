@@ -15,10 +15,10 @@
             requestSmsCode()
         }
     })
-    if (window.bridge !== undefined && window.user) {
+    /*if (window.bridge !== undefined && window.user) {
         //login will refresh webview, so must put in the end
         window.bridge.callHandler('login', window.user);
-    }
+    }*/
     $verifyBtn.bind('click', function () {
         var code = $('[name=code]').val()
         var params = {
@@ -29,6 +29,9 @@
             $.betterPost('/api/1/user/' + window.user.id + '/sms_verification/verify', params)
                 .done(function (data) {
                     window.user = data
+                    if (window.bridge !== undefined && window.user) {
+                        window.bridge.callHandler('updateUser', window.user);
+                    }
                     $errorMsg.text(window.i18n('验证成功'))
                     $errorMsg.show()
                     window.project.goBackFromURL()
