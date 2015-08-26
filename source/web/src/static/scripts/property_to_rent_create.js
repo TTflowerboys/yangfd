@@ -1013,6 +1013,9 @@
 
         if(window.user){
             if(!needSMSCode) {
+                if(!window.user.phone_verified) {
+                    return window.project.goToVerifyPhone()
+                }
                 publishRentTicket()
             } else if($('#code').val()) {
                 //todo 验证验证码

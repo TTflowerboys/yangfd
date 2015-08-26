@@ -136,7 +136,6 @@ def property_to_rent_digest(rent_ticket_id):
 
 @f_get('/property-to-rent/create')
 @currant_util.check_ip_and_redirect_domain
-@currant_util.check_phone_verified_and_redirect_domain
 def property_to_rent_create():
     region_highlight_list = f_app.i18n.process_i18n(f_app.enum.get_all('region_highlight'))
     indoor_facility_list = f_app.i18n.process_i18n(f_app.enum.get_all('indoor_facility'))
