@@ -27,6 +27,9 @@ class common(f_common):
 
     log_file = "currant.log"
 
+    sentry = True
+    sentry_dsn = "http://dcc7b828827043af9752543a78c905c7:8e889b61c1b04a0c80938df2bf660732@sentry.bbtechgroup.com/2"
+
     cookie_name = "currant_auth"
 
     mongo_dbname = "currant"
