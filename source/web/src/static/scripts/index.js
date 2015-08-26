@@ -563,7 +563,7 @@
             ga('send', 'event', 'index', 'change', 'remove-intention-on-tag',$li.text())
         })
 
-        $intentionDetails.find('[name=intention]').on('change', function () {
+        $intentionDetails.find('[name=intention]').on('change', function (event) {
             var $li = $(this).closest('li')
 
             $li.toggleClass('selected', this.checked)
