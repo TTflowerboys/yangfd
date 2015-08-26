@@ -55,14 +55,20 @@
                 .done(function (result) {
                     ga('send', 'event', 'signin', 'result', 'signin-success')
                     if (result) {
-                        if (window.bridge !== undefined) {
-                            window.bridge.callHandler("login", result);
-                        }
-                        if (result.user_type && result.user_type.length){
-                            return project.goBackFromURL()
+                        if(result.phone_verified) {
+                            if(result.user_type && result.user_type.length) {
+                                if (window.bridge !== undefined ) {
+                                    window.bridge.callHandler("login", result);
+                                } else {
+                                    project.goBackFromURL()
+                                }
+                            } else {
+                                project.goToIntention()
+                            }
+                        } else {
+                            project.goToVerifyPhone(true)
                         }
                     }
-                    project.goToIntention()
                 })
                 .fail(function (ret) {
                     errorArea.empty()

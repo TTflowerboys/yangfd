@@ -28,9 +28,9 @@
             location.href = '/reset-password-email-1?from=' + encodeURIComponent(from ? from : location.href)
             return false //prevent default action for <a>
         },
-        goToVerifyPhone: function () {
+        goToVerifyPhone: function (sign) {
             var from = team.getQuery('from', location.href)
-            location.href = '/verify-phone?from=' + encodeURIComponent(from ? from : location.href)
+            location.href = '/verify-phone?from=' + encodeURIComponent(from ? from : location.href) + sign ? '&sign=true' : 'sign'
             return false //prevent default action for <a>
         },
         goToIntention: function () {

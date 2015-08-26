@@ -44,7 +44,7 @@
                 window.user = data
                 if (window.bridge !== undefined) {
                     //login will refresh webview, so must put in the end
-                    window.bridge.callHandler('updateUser', data, function () {
+                    window.bridge.callHandler('login', data, function () {
                         //but open home tab state depend on user if logged in
                         window.bridge.callHandler('openHomeTab');
                     });
