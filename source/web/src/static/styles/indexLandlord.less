@@ -95,7 +95,7 @@
         background-size: cover;
 
         @media @phone {
-            height: auto;
+//            height:300px;
             background-image: url("/static/images/background/ad_app_bg_mobile.jpg");
         }
 
@@ -116,7 +116,7 @@
         .wrapLeft {
             @media @phone {
                 width:100%;
-                top:-100px;
+                top:-50px;
             }
             .content {
                 height:@appDownloadHeight;
@@ -171,20 +171,56 @@
             width:20%;
             @media @phone {
                 width:100%;
-                top:340px;
+                height:100px;
+                top:360px;
                 margin-top:0px;
             }
 
             .downloadWrap {
+                display:block;
                 @media @phone {
                     margin-bottom: 70px;
                     margin-top: auto;
                 }
                 >a {
+
+                    .clearfix;
+                    @width:308px;
+                    @height:100px;
+                    @iconFontSize: 48px;
+                    @logoMargin:24px;
+                    @infoWidth:200px;
+                    @infoFontSize:17px;
+                    @infoFontSizeBold:25px;
+                    @infoMargin:20px;
+                    .size(@n:1){
+                        width: @n * @width;
+                        height: @n * @height;
+                        .logo{
+                            line-height: @n * @height - 4px;
+                            margin: 0 @n * @logoMargin;
+                            i{
+                                font-size: @n * @iconFontSize;
+                            }
+                        }
+                        .downloadInfo{
+                            margin-top: @n * @infoMargin;
+                            width: @n * @infoWidth;
+                            font-size: @n * @infoFontSize;
+                            .bold{
+                                font-size: @n * @infoFontSizeBold;
+                            }
+                        }
+
+                    }
                     @media @phone {
                         width:150px;
                         height:60px;
                     }
+
+                     @media @screen-md {
+                         .size(0.7);
+                     }
 
                     .logo {
                         @media @phone {
