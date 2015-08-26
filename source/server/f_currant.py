@@ -351,6 +351,10 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                 self.logger.debug("Appending rent_intention_ticket_check_rent email message type for user", str(user["_id"]))
                 f_app.user.get_database(m).update({"_id": user["_id"]}, {"$push": {"email_message_type": "rent_intention_ticket_check_rent"}})
 
+    def v20(self, m):
+        f_app.task.get_database(m).update({"type": "rent_ticket_reminder", "status": {"$ne": "completed"}}, {"$set": {"status": "canceled"}}, multi=True)
+        
+
 currant_mongo_upgrade()
 
 
@@ -923,7 +927,7 @@ class f_currant_plugins(f_app.plugin_base):
             self.logger.debug("Ignoring rent_intention_ticket_check_rent for ticket", ticket_id, "as the creator user doesn't have email filled.")
             return
 
-        if "rent_intention_ticket_check_rent" not in ticket_creator_user["email_message_type"]:
+        if "rent_intention_ticket_check_rent" not in ticket_creator_user.get("email_message_type", []):
             return
 
         # Scan existing rent intention ticket
