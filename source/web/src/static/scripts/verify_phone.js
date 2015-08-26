@@ -25,12 +25,13 @@
             $.betterPost('/api/1/user/' + window.user.id + '/sms_verification/verify', params)
                 .done(function (data) {
                     window.user = data
-                    if (window.bridge !== undefined && window.user && window.user.user_type && window.user.user_type.length) {
-                        if(window.team.getQuery('from').indexOf('intention') >= 0){
+
+                    if(window.team.getQuery('from').indexOf('intention') >= 0){
+                        if(window.bridge !== undefined && window.user && window.user.user_type && window.user.user_type.length) {
                             window.bridge.callHandler('login', window.user);
-                        } else {
-                            window.bridge.callHandler('updateUser', window.user);
                         }
+                    } else {
+                        window.bridge.callHandler('updateUser', window.user);
                     }
                     $errorMsg.text(window.i18n('验证成功'))
                     $errorMsg.show()
