@@ -30,14 +30,29 @@
     self.accessoryView = nil;
 }
 
+- (void)setDisable:(BOOL)disable {
+    _disable = disable;
+    [self setNeedsLayout];
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
 
     self.textLabel.textColor = [UIColor whiteColor];
     self.textLabel.font = [UIFont systemFontOfSize:16];
-    self.textLabel.backgroundColor = CUTE_MAIN_COLOR;
+    self.textLabel.backgroundColor = _disable? HEXCOLOR(0x999999, 1): CUTE_MAIN_COLOR;
     self.textLabel.textAlignment = NSTextAlignmentCenter;
     self.textLabel.frame = self.bounds;
 }
+
+- (void)didSelectWithTableView:(UITableView *)tableView controller:(UIViewController *)controller
+{
+    if (!_disable) {
+        [tableView resignFirstResponder];
+        self.field.action(self);
+        [tableView deselectRowAtIndexPath:tableView.indexPathForSelectedRow animated:YES];
+    }
+}
+
 
 @end
