@@ -74,6 +74,13 @@
     }
 
 
+    $('#roleChooser').tabs({trigger: 'click', autoSelectFirst: false}).on('openTab', function (event, target, tabName) {
+        if ($(target).parents('[data-tabs]').first()[0] === $('#roleChooser')[0]) {
+            window.scrollTo(0, $('#roleChooser').offset().top)
+            initRoleChooserContent(tabName)
+        }
+    });
+
     if (window.user && window.user.user_type) {
         if (window.user.user_type[0].slug === 'investor') {
             selectRoleChooserTab('buyer')
@@ -94,12 +101,6 @@
         initRoleChooserContent('buyer')
     }
 
-    $('#roleChooser').tabs({trigger: 'click', autoSelectFirst: false}).on('openTab', function (event, target, tabName) {
-        if ($(target).parents('[data-tabs]').first()[0] === $('#roleChooser')[0]) {
-            window.scrollTo(0, $('#roleChooser').offset().top)
-            initRoleChooserContent(tabName)
-        }
-    });
 
 
     $('#announcement').on('click', 'ul>li>.close', function (event) {
