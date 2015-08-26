@@ -13,6 +13,6 @@
 
 @property (strong, nonatomic) UIButton *verificationButton;
 
-- (void)startCountDown;
+- (void)startCountDownWithCompletion:(dispatch_block_t)completion;
 
 @end

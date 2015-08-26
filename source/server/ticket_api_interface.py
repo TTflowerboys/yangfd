@@ -562,7 +562,7 @@ def rent_intention_ticket_add(params, user):
         schema = "http://"
     admin_console_url = "%s%s/admin#" % (schema, request.urlparts[1])
 
-    sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["sales"]}}))
+    sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["operation", "jr_operation"]}}))
     budget_enum = f_app.enum.get(params["rent_budget"]["_id"]) if "budget" in params else None
     for sales in sales_list:
         if "email" in sales:

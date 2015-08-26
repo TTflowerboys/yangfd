@@ -12,5 +12,6 @@
 
 @property (strong, nonatomic) UIButton *button;
 
+@property (nonatomic) BOOL disable;
 
 @end

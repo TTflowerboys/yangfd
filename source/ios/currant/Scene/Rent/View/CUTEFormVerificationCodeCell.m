@@ -56,7 +56,7 @@
     [self setNeedsLayout];
 }
 
-- (void)startCountDown {
+- (void)startCountDownWithCompletion:(dispatch_block_t)completion {
     [self.verificationButton setEnabled:NO];
     self.verificationButton.backgroundColor = HEXCOLOR(0x999999, 1);
     
@@ -71,6 +71,10 @@
             [weakSelf updateButtonTitle:STR(@"重新发送")];
             [weakSelf.verificationButton setEnabled:YES];
             weakSelf.verificationButton.backgroundColor = CUTE_MAIN_COLOR;
+            
+            if (completion) {
+                completion();
+            }
         }
         else {
             [weakSelf updateButtonTitle:[NSString stringWithFormat:@"%@%d%@", STR(@"剩余"), count, STR(@"秒")]];

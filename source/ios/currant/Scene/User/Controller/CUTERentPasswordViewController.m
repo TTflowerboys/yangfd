@@ -59,7 +59,7 @@
 
     if ([cell isKindOfClass:[CUTEFormVerificationCodeCell class]]) {
         CUTEFormVerificationCodeCell *codeCell = (CUTEFormVerificationCodeCell *)cell;
-        [codeCell startCountDown];
+        [codeCell startCountDownWithCompletion:nil];
     }
 }
 

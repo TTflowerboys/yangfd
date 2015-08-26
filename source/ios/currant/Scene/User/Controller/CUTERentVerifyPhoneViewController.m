@@ -17,6 +17,7 @@
 #import "Sequencer.h"
 #import "CUTEConfiguration.h"
 #import "CUTEKeyboardStateListener.h"
+#import "CUTEFormButtonCell.h"
 
 @interface CUTERentVerifyPhoneViewController ()
 
@@ -28,6 +29,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = STR(@"验证手机号");
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    CUTERentVerifyPhoneForm *form = (CUTERentVerifyPhoneForm *)self.formController.form;
+    if (IsNilNullOrEmpty(form.code)) {
+        [self disableSubmitButton:YES];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -58,7 +68,7 @@
     }
 }
 
-- (void)startVerficationCodeCountDown {
+- (void)startVerficationCodeCountDownWithCompletion:(dispatch_block_t)completion {
     
     FXFormField *field = [[self formController] fieldForKey:@"code"];
     NSIndexPath *indexPath = [[self formController] indexPathForField:field];
@@ -66,7 +76,18 @@
     
     if ([cell isKindOfClass:[CUTEFormVerificationCodeCell class]]) {
         CUTEFormVerificationCodeCell *codeCell = (CUTEFormVerificationCodeCell *)cell;
-        [codeCell startCountDown];
+        [codeCell startCountDownWithCompletion:completion];
+    }
+}
+
+- (void)disableSubmitButton:(BOOL)disable {
+    FXFormField *field = [[self formController] fieldForKey:@"submit"];
+    NSIndexPath *indexPath = [[self formController] indexPathForField:field];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+
+    if ([cell isKindOfClass:[CUTEFormButtonCell class]]) {
+        CUTEFormButtonCell *button = (CUTEFormButtonCell *)cell;
+        button.disable = disable;
     }
 }
 
@@ -82,7 +103,10 @@
         }
         else {
             [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
-            [self startVerficationCodeCountDown];
+            [self disableSubmitButton:NO];
+            [self startVerficationCodeCountDownWithCompletion:^{
+                [self disableSubmitButton:YES];
+            }];;
         }
         return nil;
     }];
