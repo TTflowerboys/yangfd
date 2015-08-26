@@ -25,22 +25,16 @@
             $.betterPost('/api/1/user/' + window.user.id + '/sms_verification/verify', params)
                 .done(function (data) {
                     window.user = data
-
-                    $errorMsg.text(window.i18n('验证成功'))
-                    $errorMsg.show()
-                    if(!window.team.getQuery('sign')) {
-                        window.project.goBackFromURL()
-                    } else {
-                        if(data.user_type && user.data_type.length) {
-                            if (window.bridge !== undefined && window.user) {
-                                window.bridge.callHandler('login', window.user);
-                            } else {
-                                window.project.goBackFromURL()
-                            }
+                    if (window.bridge !== undefined && window.user && window.user.user_type && window.user.user_type.length) {
+                        if(window.team.getQuery('from').indexOf('intention') >= 0){
+                            window.bridge.callHandler('login', window.user);
                         } else {
-                            window.project.goToIntention()
+                            window.bridge.callHandler('updateUser', window.user);
                         }
                     }
+                    $errorMsg.text(window.i18n('验证成功'))
+                    $errorMsg.show()
+                    window.project.goBackFromURL()
                 })
                 .fail(function (ret) {
                     $errorMsg.text(window.i18n('验证失败'))

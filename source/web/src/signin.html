@@ -55,18 +55,13 @@
                 .done(function (result) {
                     ga('send', 'event', 'signin', 'result', 'signin-success')
                     if (result) {
-                        if(result.phone_verified) {
-                            if(result.user_type && result.user_type.length) {
-                                if (window.bridge !== undefined ) {
-                                    window.bridge.callHandler("login", result);
-                                } else {
-                                    project.goBackFromURL()
-                                }
-                            } else {
-                                project.goToIntention()
-                            }
+                        if (window.bridge !== undefined && result.user_type && result.user_type.length && result.phone_verified) {
+                            window.bridge.callHandler("login", result);
+                        }
+                        if (result.user_type && result.user_type.length){
+                            return project.goBackFromURL()
                         } else {
-                            project.goToVerifyPhone(true)
+                            project.goToIntention()
                         }
                     }
                 })
