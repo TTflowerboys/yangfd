@@ -31,7 +31,9 @@
                             window.bridge.callHandler('login', window.user);
                         }
                     } else {
-                        window.bridge.callHandler('updateUser', window.user);
+                        if(window.bridge !== undefined && window.user){
+                            window.bridge.callHandler('updateUser', window.user);
+                        }
                     }
                     $errorMsg.text(window.i18n('验证成功'))
                     $errorMsg.show()
