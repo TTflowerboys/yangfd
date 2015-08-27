@@ -189,9 +189,9 @@
         updatePropertyCardMouseEnter()
     }
 
-    function removePropertyCard(id) {
-        $('#suggestionHouses #list .houseCard_wrapper[data-category-intention-id=' + id + ']').remove()
-    }
+    // function removePropertyCard(id) {
+    //     $('#suggestionHouses #list .houseCard_wrapper[data-category-intention-id=' + id + ']').remove()
+    // }
 
     function updatePropertyCardMouseEnter() {
         $('.houseCard').mouseenter(function(event){
@@ -302,6 +302,69 @@
         }
     }
 
+    function getPropertyXhrKey(url, params) {
+        var str = JSON.stringify(params)
+        return url + str
+    }
+
+    function savePropertyXhrCache(url, params, result) {
+        var key = getPropertyXhrKey(url, params)
+        if (!window.propertyXhrCache) {
+            window.propertyXhrCache = {}
+        }
+        window.propertyXhrCache[key] = result
+    }
+
+    function getPropertyXhrCache(url ,params) {
+        var key = getPropertyXhrKey(url, params)
+        if (!window.propertyXhrCache) {
+            return null
+        }
+        else {
+            return window.propertyXhrCache[key]
+        }
+    }
+
+    $.propertyGet = function (url, params) {
+        var deferred = $.Deferred()
+        var cacheResult = getPropertyXhrCache(url, params)
+        if (cacheResult) {
+            deferred.resolve(cacheResult)
+        }
+        else {
+            var xhr = $.get(url, params).done(function (data, textStatus, jqXHR) {
+                if (data.ret !== undefined) {
+                    if (data.ret === 0) {
+                        deferred.resolve(data.val)
+                        savePropertyXhrCache(url, params, data.val)
+                    } else {
+                        deferred.reject(data.ret)
+                    }
+                } else {
+                    deferred.resolve(data, textStatus, jqXHR)
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                deferred.reject(jqXHR.status)
+            }).always(function() {
+
+            })
+
+            if (!window.requestXhrArray) {
+                window.requestXhrArray = []
+            }
+            window.requestXhrArray.push(xhr)
+        }
+        return deferred.promise()
+    }
+
+    function cancelLoadPropertyList() {
+        _.each(window.requestXhrArray, function (xhr) {
+            if (xhr && xhr.readyState !== 4) {
+                xhr.abort()
+            }
+        })
+        window.requestXhrArray = []
+    }
 
 
     function loadPropertyListWithBudgetAndIntention(budgetType, intention) {
@@ -329,11 +392,11 @@
 
 
         _.each(usedIntention, function (oneIntention) {
-            var params = {'random': true, 'intention': oneIntention}
+            var params = {'random': true, 'intention': oneIntention, 'per_page':5}
             if (usedBudget) {
                 params.budget = usedBudget
             }
-            var apiCall = $.betterPost('/api/1/property/search', params)
+            var apiCall = $.propertyGet('/api/1/property/search', params)
                     .done(function (val) {
                         var array = val.content
                         var item = {}
@@ -361,6 +424,7 @@
             requestArray.push(apiCall)
         })
 
+
         $.when.apply($, requestArray)
             .done(function () {
                 updatePropertyCards(responseArray)
@@ -378,49 +442,11 @@
     }
 
     function loadPropertyList(budgetType, intention) {
-        if (window.project.currentBudgetId !== budgetType) {
-            //load all
-            $('#suggestionHouses #list').empty()
-            loadPropertyListWithBudgetAndIntention(budgetType, commaStringToArray(intention))
-        }
-        else {
-            //compare intention list
-            var newIntentionArray = commaStringToArray(intention)
-            var currentIntentionArray = commaStringToArray(window.project.currentIntentionIds)
-
-            var newAddIntentionArray = _.difference(newIntentionArray, currentIntentionArray)
-            var deleteIntentionArray = _.difference(currentIntentionArray, newIntentionArray)
-
-            if (_.isEmpty(newAddIntentionArray) && !_.isEmpty(deleteIntentionArray)) {
-                // remove data
-                _.each(deleteIntentionArray, function (item) {
-                    removePropertyCard(item)
-                })
-
-                //if remove all intention restore back to all intention
-                if ($('#suggestionHouses').find('#list').children().length === 0)  {
-                    loadPropertyListWithBudgetAndIntention(budgetType, '')
-                }
-            }
-            else if (!_.isEmpty(newAddIntentionArray) && _.isEmpty(deleteIntentionArray)) {
-
-                //if the result is from suggestion, when user have new newAddIntentionArray, remove them
-                if (currentIntentionArray.length === 0) {
-                    $('#suggestionHouses #list').empty()
-                }
-                //append data
-                loadPropertyListWithBudgetAndIntention(budgetType, newAddIntentionArray)
-            }
-            else {
-                //load all
-                $('#suggestionHouses #list').empty()
-                loadPropertyListWithBudgetAndIntention(budgetType, commaStringToArray(intention))
-            }
-        }
-
+        cancelLoadPropertyList()
+        $('#suggestionHouses #list').empty()
+        loadPropertyListWithBudgetAndIntention(budgetType, commaStringToArray(intention))
         window.project.currentBudgetId = budgetType
         window.project.currentIntentionIds = intention
-
         updateUserTags(window.project.currentBudgetId, window.project.currentIntentionIds)
     }
 
