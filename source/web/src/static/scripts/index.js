@@ -55,6 +55,7 @@
             }
             else  {
                 window.team.initDisplayOfElement()
+                $('.downloadWrap a.web').hide()
                 if (typeof window.indexAppDownloadSwiper === 'undefined') {
                     window.setupDownload(window.Swiper)
                 }
