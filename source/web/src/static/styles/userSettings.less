@@ -10,7 +10,7 @@
 @bg-grey: #eeeeee;
 @white: #fff;
 @small-phone: ~"(max-width:319px)";
-@medium-phone: ~"(max-width:359px) and (min-width:320px)";
+@medium-phone: ~"(max-width:390px) and (min-width:320px)";
 .shadow(@color: #f1f1f1){
     box-shadow: 0 1px 0 0 @color;
 }
@@ -23,7 +23,7 @@
     table tr td {
         label[name=userLanguage] {
         }
-        select[name=userLanguage] {
+        select[name=userLanguage] ,select[name=userCurrency] {
             background: white;
             border: 1px solid #cccccc;
             border-radius: 4px;
@@ -32,6 +32,12 @@
             @media @phone{
                 border: 2px solid #cccccc;
                 color: #ccc;
+            }
+            @media @medium-phone{
+                width: 132px;
+            }
+            @media @small-phone{
+                width: 120px;
             }
         }
     }
@@ -177,8 +183,11 @@
         background: @white;
         color: @font-light;
         font-size: 16px;
-        @media @small-phone{
+        @media @medium-phone{
             font-size: 14px;
+        }
+        @media @small-phone{
+            font-size: 12px;
         }
         tr {
             position: relative;

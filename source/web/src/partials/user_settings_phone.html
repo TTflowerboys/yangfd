@@ -154,8 +154,9 @@
 
                 </td>
                 <td class="action">
-                    %if user.get('currencies') and len(user.get('currencies')):
                     <div>
+                        %if user.get('currencies') and len(user.get('currencies')):
+
                         <label  name="userCurrency">
                             %if user.get('currencies')[0] == 'CNY':
                             {{_('人民币')}}
@@ -171,15 +172,16 @@
                             {{user.get('currencies')[0]}}
                             %end
                         </label>
+                        %end
+                        <select name="userCurrency" class="ghostSelect" style="display:none;">
+                            <option value="CNY" {{'selected' if user.get('currencies') is not None and user.get('currencies')[0] == 'CNY' else ''}}>{{_('人民币')}}</option>
+                            <option value="GBP" {{'selected' if user.get('currencies') is not None and user.get('currencies')[0] == 'GBP' else ''}}>{{_('英镑')}}</option>
+                            <option value="USD" {{'selected' if user.get('currencies') is not None and user.get('currencies')[0] == 'USD' else ''}}>{{_('美元')}}</option>
+                            <option value="EUR" {{'selected' if user.get('currencies') is not None and  user.get('currencies')[0] == 'EUR' else ''}}>{{_('欧元')}}</option>
+                            <option value="HKD" {{'selected' if user.get('currencies') is not None and  user.get('currencies')[0] == 'HKD' else ''}}>{{_('港币')}}</option>
+                        </select>
                     </div>
-                    %end
-                    <select name="userCurrency" class="ghostSelect" style="min-width: 140px; display:none;">
-                        <option value="CNY" {{'selected' if user.get('currencies') is not None and user.get('currencies')[0] == 'CNY' else ''}}>{{_('人民币')}}</option>
-                        <option value="GBP" {{'selected' if user.get('currencies') is not None and user.get('currencies')[0] == 'GBP' else ''}}>{{_('英镑')}}</option>
-                        <option value="USD" {{'selected' if user.get('currencies') is not None and user.get('currencies')[0] == 'USD' else ''}}>{{_('美元')}}</option>
-                        <option value="EUR" {{'selected' if user.get('currencies') is not None and  user.get('currencies')[0] == 'EUR' else ''}}>{{_('欧元')}}</option>
-                        <option value="HKD" {{'selected' if user.get('currencies') is not None and  user.get('currencies')[0] == 'HKD' else ''}}>{{_('港币')}}</option>
-                    </select>
+
                     <a name="userCurrency" data-state="normal" class="btn-edit btn"><i class="icon-nav-arrow-right"></i></a>
                 </td>
             </tr>
