@@ -87,7 +87,8 @@
         }
         return JSON.stringify(cMessageTypes)
     }
-    $('.messageTableWrapper input[type="checkbox"]').change(function (event) {
+    $('.messageTableWrapper input[type="checkbox"]').unbind("change").change(function (event) {
+        console.log(event)
         if (window.user) {
             ga('send', 'event', 'email-unsubscribe', 'click', 'update ' + $(event.currentTarget).attr('data-type'))
             if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/user/edit'] && window.betterAjaxXhr['/api/1/user/edit'].readyState !== 4) {
