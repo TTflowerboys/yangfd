@@ -22,7 +22,9 @@
                 }
             })
         }
-        window.bannerSwiper = new window.Swiper('.indexBanner', options)
+        if($container.find('.swiper-slide').length > 1){
+            window.bannerSwiper = new window.Swiper('.indexBanner', options)
+        }
     }
     initBanner()
 
