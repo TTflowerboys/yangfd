@@ -24,7 +24,7 @@
         if (/^(\d){6}$/.test(code)) {
             $.betterPost('/api/1/user/' + window.user.id + '/sms_verification/verify', params)
                 .done(function (data) {
-                    window.user = data
+                    window.user.phone_verified = true
 
                     if(window.team.getQuery('from').indexOf('intention') >= 0){
                         if(window.bridge !== undefined && window.user && window.user.user_type && window.user.user_type.length) {
