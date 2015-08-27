@@ -28,7 +28,7 @@ def property_to_rent_list(params):
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
     country_list = currant_util.get_country_list()
     rent_period_list = f_app.i18n.process_i18n(f_app.enum.get_all("rent_period"))
-    bedroom_count_list = f_app.i18n.process_i18n(f_app.enum.get_all("bedroom_count"))
+    bedroom_count_list = f_app.i18n.process_i18n(currant_util.get_sorted_enums("bedroom_count"))
     building_area_list = f_app.i18n.process_i18n(f_app.enum.get_all("building_area"))
     property_country_list = currant_util.get_country_list()
 

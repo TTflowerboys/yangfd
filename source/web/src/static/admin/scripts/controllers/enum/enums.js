@@ -76,7 +76,7 @@
             $scope.item.value = _.object($scope.item.tempValues)
             api.editEnum($stateParams.id, $scope.item.type, $scope.item.value, $scope.item.slug, $scope.item.sort_value)
                 .success(function () {
-                    $state.go('^')
+                    $state.go('^',{},{reload:true})
                     //location.reload()
                 })
         }
@@ -99,7 +99,7 @@
             $scope.item.value = _.object($scope.item.tempValues)
             api.editCountry($stateParams.id, $scope.item.slug, $scope.item.value, $scope.item.sort_value)
                 .success(function () {
-                    $state.go('^')
+                    $state.go('^',{},{reload:true})
                     //location.reload()
                 })
         }
@@ -120,7 +120,7 @@
             $scope.item.value = _.object($scope.item.tempValues)
             api.editState($stateParams.id, $scope.item.country, $scope.item.value, $scope.item.sort_value)
                 .success(function () {
-                    $state.go('^')
+                    $state.go('^',{},{reload:true})
                     //location.reload()
                 })
         }
@@ -141,7 +141,7 @@
             $scope.item.value = _.object($scope.item.tempValues)
             api.editCity($stateParams.id, $scope.item.country, $scope.item.value, $scope.item.sort_value)
                 .success(function () {
-                    $state.go('^')
+                    $state.go('^',{},{reload:true})
                     //location.reload()
                 })
         }
@@ -189,7 +189,7 @@
             api.editBudget($stateParams.id, $scope.item.limit, $scope.item.ceiling, $scope.item.currency,
                 $scope.item.value, $scope.item.sort_value)
                 .success(function () {
-                    $state.go('^')
+                    $state.go('^',{},{reload:true})
                     //location.reload()
                 })
         }
@@ -261,13 +261,18 @@
                 $scope.item.area.replace(' ** ', '_**_'),
                 $scope.item.value, $scope.item.sort_value)
                 .success(function () {
-                    $state.go('^')
+                    $state.go('^',{},{reload:true})
                     //location.reload()
                 })
         }
         $scope.getIntentionList = function () {
             api.getEnumsByType('intention').success(function (data) {
                 $scope.intentionList = data.val
+            })
+        }
+        $scope.updateRoomCountList = function updateList() {
+            api.getEnumsByType('bedroom_count').success(function (data) {
+                $scope.roomCount = data.val
             })
         }
         $scope.addIntention = function ($event, form) {
@@ -330,7 +335,7 @@
             $scope.item.description = _.object(descriptionArray)
             api.editIntention($stateParams.id, $scope.item.value, $scope.item.description, $scope.item.slug, $scope.item.sort_value)
                 .success(function () {
-                    $state.go('^')
+                    $state.go('^',{},{reload:true})
                     //location.reload()
                 })
         }
@@ -426,7 +431,7 @@
             api.editRoomCount($stateParams.id, $scope.item.limit, $scope.item.ceiling, $scope.item.type,
                 $scope.item.value, $scope.item.sort_value)
                 .success(function () {
-                    $state.go('^')
+                    $state.go('^',{},{reload:true})
                     //location.reload()
                 })
         }
@@ -471,7 +476,7 @@
             api.editRentBudget($stateParams.id, $scope.item.limit, $scope.item.ceiling, $scope.item.currency,
                 $scope.item.value, $scope.item.sort_value)
                 .success(function () {
-                    $state.go('^')
+                    $state.go('^',{},{reload:true})
                     //location.reload()
                 })
         }

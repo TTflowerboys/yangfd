@@ -109,7 +109,7 @@ def check_crowdfunding_ready(func):
 
 
 def get_sorted_enums(type):
-    return sorted(f_app.enum.get_all('rent_type'), key=lambda enum: enum.get("sort_value", 0))
+    return sorted(f_app.enum.get_all(type), key=lambda enum: enum.get("sort_value", 0))
 
 
 def get_country_list():

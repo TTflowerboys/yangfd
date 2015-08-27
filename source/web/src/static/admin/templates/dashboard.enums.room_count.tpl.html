@@ -1,4 +1,4 @@
-<div ui-view ng-controller="ctrlGetRoomCountByType">
+<div ui-view ng-init="updateRoomCountList()">
     <span class="btn-group">
         <button class="btn" ui-sref=".create">
             <span class="fa fa-plus-circle"></span>{%$root.i18n('添加房间数')%}
