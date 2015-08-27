@@ -361,8 +361,13 @@ def user_activate(user_id, user):
     idcard=(list, None, str),
     wechat=str,
     private_contact_methods=(list, None, str),
+    custom_fields=(list, None, dict(
+        key=(str, True),
+        value=(str, True),
+    )),
+    user_id=(ObjectId, None, "str"),
 ))
-@f_app.user.login.check(force=True)
+@f_app.user.login.check(force=True, check_role=True)
 def current_user_edit(user, params):
     """
     Edit current user basic information.
@@ -377,6 +382,11 @@ def current_user_edit(user, params):
     """
     unset_fields = params.pop("unset_fields", [])
 
+    user_id = user["id"]
+    if "user_id" in params or "custom_fields" in params:
+        assert set(user["role"]) & set(["admin", "jr_admin", "sales"]), abort(40300, "no permission to touch other user")
+        user_id = params.pop("user_id")
+
     if "private_contact_methods" in params and not set(params["private_contact_methods"]) <= {"email", "phone", "wechat"}:
         abort(40000)
 
@@ -387,7 +397,7 @@ def current_user_edit(user, params):
             abort(40325)
 
     if "password" in params:
-        user = f_app.user.get(user["id"])
+        user = f_app.user.get(user_id)
 
         if "old_password" not in params:
             abort(40098, logger.warning("Invalid params: current password not provided", exc_info=False))
@@ -400,8 +410,8 @@ def current_user_edit(user, params):
 
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params, retain_country=True)
-        user_id = f_app.user.get_id_by_phone(params["phone"])
-        if user_id and user_id != user["id"]:
+        _user_id = f_app.user.get_id_by_phone(params["phone"])
+        if _user_id and _user_id != user_id:
             abort(40351)
 
     if "gender" in params:
@@ -416,15 +426,15 @@ def current_user_edit(user, params):
         if not set(params["email_message_type"]) <= set(f_app.common.message_type):
             abort(40000, logger.warning("Invalid params: email_message_type", params["email_message_type"], exc_info=False))
 
-    f_app.user.update_set(user["id"], params)
+    f_app.user.update_set(user_id, params)
 
     if unset_fields:
-        f_app.user.update(user["id"], {"$unset": {i: "" for i in unset_fields}})
+        f_app.user.update(user_id, {"$unset": {i: "" for i in unset_fields}})
 
     custom_fields = copy(f_app.common.user_custom_fields)
     custom_fields.append("idcard")
 
-    return f_app.user.output([user["id"]], custom_fields=custom_fields)[0]
+    return f_app.user.output([user_id], custom_fields=custom_fields)[0]
 
 
 @f_api("/user/admin/search", params=dict(
