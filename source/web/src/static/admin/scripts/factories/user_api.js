@@ -12,7 +12,11 @@
             getOne: function (id, config) {
                 return $http.get('/api/1/user/admin/' + id, config)
             },
-
+            update: function (id, data) {
+                data.user_id = id
+                delete data.id
+                return $http.post('/api/1/user/edit', data)
+            },
             search: function (config) {
                 return $http.get('/api/1/user/admin/search?has_role=false', config)
             },

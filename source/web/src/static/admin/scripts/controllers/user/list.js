@@ -115,6 +115,12 @@
                 $scope.noPrev = false
             }
         }
+        $scope.updateItem = function (item) {
+            api.update(item.id, item)
+                .success(function () {
+                    $scope.refreshList()
+                })
+        }
 
     }
 
