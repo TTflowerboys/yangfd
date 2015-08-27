@@ -350,6 +350,7 @@ $(function () {
         var api = '/api/1/user/' + window.user.id + '/sms_verification/verify'
         $.betterPost(api, params)
             .done(function () {
+                window.user.phone_verified = true
                 ga('send', 'pageview', '/host-contact-request/'+ rentId + '/phone-verify-success')
 
                 $feedback.show().text($(this).attr('data-message-success'))
