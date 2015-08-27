@@ -344,7 +344,7 @@ $(function () {
         $submit.prop('disabled', true)
         $feedback.hide()
         var params = $(this).serializeObject({
-            exclude: ['nickname','email','country','phone','rent_id','country_code']
+            exclude: ['nickname','email','country','phone','rent_id','country_code', 'occupation']
         })
 
         var api = '/api/1/user/' + window.user.id + '/sms_verification/verify'
