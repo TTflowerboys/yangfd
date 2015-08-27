@@ -58,7 +58,7 @@
                         if (window.bridge !== undefined && result.user_type && result.user_type.length && result.phone_verified) {
                             window.bridge.callHandler("login", result);
                         }
-                        if (result.user_type && result.user_type.length){
+                        if (result.user_type && result.user_type.length || window.team.getQuery('from').indexOf('host-contact-request') >= 0){
                             return project.goBackFromURL()
                         } else {
                             project.goToIntention()
