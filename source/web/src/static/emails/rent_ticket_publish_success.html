@@ -4,7 +4,7 @@
     <h1 class="noHorizolPaddingOnMobile" style="padding:60px 20px;margin:15px 0 0;font-size:19px;text-align:left">{{_('尊敬的')}}{{nickname}}{{_('您好：')}}</h1>
     <div class="noHorizolPaddingOnMobile" style="padding:0px 20px 60px;margin:0;line-height:1.5em;font-size:18px;text-align: left;">
         <div class="smallFontSize">
-            <p style="margin:12px 0">{{_('我是洋房东的Jimmy')}}</p>
+            <p style="margin:12px 0">{{_('我是洋房东的')}}{{currant_name}}</p>
             <p style="margin:12px 0">{{_('感谢您对洋房东的支持，您在本平台发布的『')}}{{rent.get('title',_('出租房产'))}}{{_('』已经成功发布！')}}</p>
             <a style="display: block;border: 1px solid #ccc;margin: 40px auto 0;max-width: 500px;cursor: pointer;color:#999;" href="http://yangfd.com/property-to-rent/{{rent.get('id')}}">
                 % if rent.get('property',{}).get('cover') :
@@ -138,7 +138,7 @@
 
             <p style="margin:40px 0 10px;text-align:left;">{{_('祝您的房产早日出租！')}}</p>
         </div>
-        <p style="margin:40px 0 0;text-align:right;font-size: 16px;color: #666;line-height: 1.4em;">{{_('Jimmy')}}</p>
+        <p style="margin:40px 0 0;text-align:right;font-size: 16px;color: #666;line-height: 1.4em;">{{currant_name}}</p>
         <p style="margin:10px 0;text-align:right;font-size: 16px;color:#666;line-height: 1.4em;">{{date}}</p>
     </div>
 </div>
