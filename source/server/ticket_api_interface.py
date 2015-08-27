@@ -1390,7 +1390,7 @@ def rent_ticket_suspend(ticket_id, user):
             text=template(
                 "static/emails/rent_suspend_notice",
                 nickname=user.get("nickname"),
-                formated_date='之前',  # TODO
+                date='',  # TODO
                 rent_title=ticket["title"],
                 rent_url="http://yangfd.com/property-to-rent/" + ticket_id,
                 rent_edit_url="http://yangfd.com/property-to-rent/" + ticket_id + "/edit",
