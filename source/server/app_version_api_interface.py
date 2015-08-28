@@ -14,6 +14,12 @@ def app_version_check_update(app, params):
     return f_app.version.check_update(params)
 
 
+@f_api("/app/<app>/version/<version_id>")
+@f_app.user.login.check(role=['admin'])
+def app_version_get(app, version_id):
+    return f_app.version.get(version_id)
+
+
 @f_api("/app/<app>/version/add", params=dict(
     version=(str, True),
     changelog=(list, None, str),
