@@ -823,6 +823,16 @@ class f_currant_plugins(f_app.plugin_base):
                 type="rent_ticket_check_intention",
                 ticket_id=ticket_id,
             ))
+            ticket = f_app.ticket.output([ticket_id])[0]
+            title = "恭喜，您的房源已经发布成功！"
+            f_app.email.schedule(
+                target=ticket["creator_user"]["email"],
+                subject=title,
+                # TODO
+                text=template("static/emails/rent_ticket_publish_success", title=title, nickname=ticket["creator_user"]["nickname"], rent=ticket, date=""),
+                display="html",
+                ticket_match_user_id=ticket["creator_user"]["id"],
+            )
 
         elif ticket["type"] == "rent_intention" and "status" in params and params["status"] == "new":
             f_app.task.add(dict(
