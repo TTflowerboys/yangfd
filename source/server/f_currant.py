@@ -827,6 +827,7 @@ class f_currant_plugins(f_app.plugin_base):
                 type="rent_ticket_check_intention",
                 ticket_id=ticket_id,
             ))
+            import currant_util
             ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id]), _i18n=["zh_Hans_CN"])[0]
             title = "恭喜，您的房源已经发布成功！"
             f_app.email.schedule(
