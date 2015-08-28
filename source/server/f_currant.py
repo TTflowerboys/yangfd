@@ -843,8 +843,6 @@ class f_currant_plugins(f_app.plugin_base):
                 type="rent_intention_ticket_check_rent",
                 ticket_id=ticket_id,
             ))
-        else:
-            self.logger.debug("ignoring ticket", ticket_id, "type:", ticket["type"], "status:", params.get("status"))
 
     def task_on_rent_ticket_check_intention(self, task):
         ticket_id = task["ticket_id"]
