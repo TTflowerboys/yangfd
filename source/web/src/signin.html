@@ -58,10 +58,16 @@
                         if(window.bridge !== undefined) {
                             if (result.user_type && result.user_type.length && result.phone_verified){
                                 return window.bridge.callHandler("login", result);
-                            } else if(window.team.getQuery('from').indexOf('host-contact-request') >= 0 || result.user_type && result.user_type.length) {
-                                return window.project.goToVerifyPhone()
-                            } else {
-                                window.project.goToVerifyPhoneThenIntention()
+                            } else if(!result.phone_verified) {
+                                if(window.team.getQuery('from').indexOf('host-contact-request') >= 0 || result.user_type && result.user_type.length){
+                                    return window.project.goToVerifyPhone()
+                                } else {
+                                    return window.project.goToVerifyPhoneThenIntention()
+                                }
+                            } else if(window.team.getQuery('from').indexOf('host-contact-request') >= 0){
+                                return window.bridge.callHandler("login", result);
+                            } else{
+                                return window.project.goToIntention()
                             }
                         } else if (result.user_type && result.user_type.length || window.team.getQuery('from').indexOf('host-contact-request') >= 0){
                             return project.goBackFromURL()
