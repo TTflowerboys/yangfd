@@ -38,6 +38,11 @@
             location.href = '/intention?from=' + encodeURIComponent(from ? from : location.href)
             return false //prevent default action for <a>
         },
+        goToVerifyPhoneThenIntention: function () {
+            var from = team.getQuery('from', location.href)
+            location.href = '/verify-phone?from=' + encodeURIComponent('/intention' + (from ? '?from=' + from : ''))
+            return false
+        },
         goBackFromURL: function () {
             if (team.getQuery('from') !== '') {
                 window.location.href = team.getQuery('from');

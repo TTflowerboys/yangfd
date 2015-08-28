@@ -55,11 +55,12 @@
                 .done(function (result) {
                     ga('send', 'event', 'signin', 'result', 'signin-success')
                     if (result) {
-                        if (window.bridge !== undefined && result.user_type && result.user_type.length && result.phone_verified) {
-                            window.bridge.callHandler("login", result);
-                        }
                         if (result.user_type && result.user_type.length || window.team.getQuery('from').indexOf('host-contact-request') >= 0){
-                            return project.goBackFromURL()
+                            if(window.bridge !== undefined){
+                                return window.bridge.callHandler("login", result);
+                            } else {
+                                return project.goBackFromURL()
+                            }
                         } else {
                             project.goToIntention()
                         }
