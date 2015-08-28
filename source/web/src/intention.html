@@ -164,6 +164,12 @@
 <!--@@close-->
 <!--@@block = scripts-->
 <!--build:js /static/scripts/intention.html.js-->
+<script>
+    if(window.user && !window.user.phone_verified){
+        location.href = '/verify-phone?from=' + encodeURIComponent(location.href)
+        console.log('aaa')
+    }
+</script>
 <script src="/static/bower_components/chosen/chosen.jquery.min.js"></script>
 <script src="/static/scripts/intention.js"></script>
 <!--endbuild-->
