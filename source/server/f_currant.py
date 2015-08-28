@@ -848,6 +848,9 @@ class f_currant_plugins(f_app.plugin_base):
         ticket_id = task["ticket_id"]
         ticket = f_app.ticket.get(ticket_id)
 
+        if "country" not in ticket or "city" not in ticket:
+            return
+
         # Scan existing rent intention ticket
         params = {
             "type": "rent_intention",
