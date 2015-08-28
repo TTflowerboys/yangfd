@@ -806,7 +806,7 @@ class f_currant_plugins(f_app.plugin_base):
             phonenumber = phonenumbers.parse(raw_row["phone"])
             result_row["phone"] = phonenumbers.format_number(phonenumber, phonenumbers.PhoneNumberFormat.NATIONAL).replace(" ", "")
             result_row["country_code"] = phonenumber.country_code
-        if "custom_fields" in raw_row and set(raw_row.get("role", [])) & set(f_app.common.advanced_admin_roles):
+        if "custom_fields" in raw_row and set(f_app.user.get_role(user["id"])) & set(f_app.common.advanced_admin_roles):
             result_row["custom_fields"] = raw_row["custom_fields"]
         return result_row
 
@@ -820,18 +820,21 @@ class f_currant_plugins(f_app.plugin_base):
 
     def ticket_update_after(self, ticket_id, params, ignore_error=True):
         ticket = f_app.ticket.get(ticket_id)
+        if "$set" in params:
+            params = params["$set"]
         if ticket["type"] == "rent" and "status" in params and params["status"] == "to rent":
             f_app.task.add(dict(
                 type="rent_ticket_check_intention",
                 ticket_id=ticket_id,
             ))
-            ticket = f_app.ticket.output([ticket_id])[0]
+            import currant_util
+            ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id]), _i18n=["zh_Hans_CN"])[0]
             title = "恭喜，您的房源已经发布成功！"
             f_app.email.schedule(
                 target=ticket["creator_user"]["email"],
                 subject=title,
                 # TODO
-                text=template("static/emails/rent_ticket_publish_success", title=title, nickname=ticket["creator_user"]["nickname"], rent=ticket, date=""),
+                text=template("static/emails/rent_ticket_publish_success", title=title, nickname=ticket["creator_user"]["nickname"], rent=ticket, date="", get_country_name_by_code=currant_util.get_country_name_by_code),
                 display="html",
                 ticket_match_user_id=ticket["creator_user"]["id"],
             )
@@ -845,6 +848,9 @@ class f_currant_plugins(f_app.plugin_base):
     def task_on_rent_ticket_check_intention(self, task):
         ticket_id = task["ticket_id"]
         ticket = f_app.ticket.get(ticket_id)
+
+        if "country" not in ticket or "city" not in ticket:
+            return
 
         # Scan existing rent intention ticket
         params = {
