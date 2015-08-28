@@ -22,6 +22,11 @@ def enum_list(params):
     return f_app.enum.get_all(params["type"])
 
 
+@f_api('/enum/<enum_id>/deprecate')
+def enum_deprecate(enum_id):
+    return f_app.enum.update_set(enum_id, {"$status": "deprecated"})
+
+
 @f_api('/enum/add', params=dict(
     type=(str, True),
     value=("i18n", True, str),
