@@ -19,10 +19,11 @@ SpecBegin(AddressEditUI)
 describe(@"AddressEdit", ^ {
 
     beforeAll(^{
-        [tester logout];
-        [tester login];
+//        [tester logout];
+//        [tester login];
         [tester waitForTimeInterval:5];//ticket or rent-type load
-        [tester selectRentTypeWhole];
+        [tester tapViewWithAccessibilityLabel:STR(@"出租发布")];
+//        [tester selectRentTypeWhole];
     });
 
     it(@"should edit address success when create", ^ {
