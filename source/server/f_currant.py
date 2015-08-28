@@ -833,7 +833,7 @@ class f_currant_plugins(f_app.plugin_base):
                 target=ticket["creator_user"]["email"],
                 subject=title,
                 # TODO
-                text=template("static/emails/rent_ticket_publish_success", title=title, nickname=ticket["creator_user"]["nickname"], rent=ticket, date=""),
+                text=template("static/emails/rent_ticket_publish_success", title=title, nickname=ticket["creator_user"]["nickname"], rent=ticket, date="", get_country_name_by_code=currant_util.get_country_name_by_code),
                 display="html",
                 ticket_match_user_id=ticket["creator_user"]["id"],
             )
