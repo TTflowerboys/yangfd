@@ -78,9 +78,9 @@
             },
             addBudget: function (limit, ceiling, currency, value, sort_value) {
                 var slug = 'budget:'
-                slug += limit ? limit : ''
+                slug += limit !== undefined ? limit : ''
                 slug += ','
-                slug += ceiling ? ceiling : ''
+                slug += ceiling !== undefined ? ceiling : ''
                 slug += ','
                 slug += currency
                 var data = {
@@ -94,9 +94,9 @@
             },
             editBudget: function (id, limit, ceiling, currency, value, sort_value) {
                 var slug = 'budget:'
-                slug += limit ? limit : ''
+                slug += limit !== undefined ? limit : ''
                 slug += ','
-                slug += ceiling ? ceiling : ''
+                slug += ceiling !== undefined ? ceiling : ''
                 slug += ','
                 slug += currency
                 var data = {
@@ -110,9 +110,9 @@
             },
             addBuildingArea: function (limit, ceiling, area, value, sort_value) {
                 var slug = 'building_area:'
-                slug += limit ? limit : ''
+                slug += limit !== undefined ? limit : ''
                 slug += ','
-                slug += ceiling ? ceiling : ''
+                slug += ceiling !== undefined ? ceiling : ''
                 slug += ','
                 slug += area
                 var data = {
@@ -125,9 +125,9 @@
             },
             editBuildingArea: function (id, limit, ceiling, area, value, sort_value) {
                 var slug = 'building_area:'
-                slug += limit ? limit : ''
+                slug += limit !== undefined ? limit : ''
                 slug += ','
-                slug += ceiling ? ceiling : ''
+                slug += ceiling !== undefined ? ceiling : ''
                 slug += ','
                 slug += area
                 var data = {
@@ -140,9 +140,9 @@
             },
             addRoomCount: function (limit, ceiling, type, value, sort_value) {
                 var slug = type+':'
-                slug += limit ? limit : ''
+                slug += limit !== undefined ? limit : ''
                 slug += ','
-                slug += ceiling ? ceiling : ''
+                slug += ceiling !== undefined ? ceiling : ''
                 var data = {
                     type: type,
                     slug: slug,
@@ -215,9 +215,9 @@
             },
             addRentBudget: function (limit, ceiling, currency, value, sort_value) {
                 var slug = 'rent_budget:'
-                slug += limit ? limit : ''
+                slug += limit !== undefined ? limit : ''
                 slug += ','
-                slug += ceiling ? ceiling : ''
+                slug += ceiling !== undefined ? ceiling : ''
                 slug += ','
                 slug += currency
                 var data = {
@@ -231,9 +231,9 @@
             },
             editRentBudget: function (id, limit, ceiling, currency, value, sort_value) {
                 var slug = 'rent_budget:'
-                slug += limit ? limit : ''
+                slug += limit !== undefined ? limit : ''
                 slug += ','
-                slug += ceiling ? ceiling : ''
+                slug += ceiling !== undefined ? ceiling : ''
                 slug += ','
                 slug += currency
                 var data = {

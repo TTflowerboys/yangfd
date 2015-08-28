@@ -163,8 +163,8 @@
                     var index0 = $scope.item.slug.indexOf(':') + 1
                     var index1 = $scope.item.slug.indexOf(',')
                     var index2 = $scope.item.slug.lastIndexOf(',')
-                    $scope.item.limit = parseInt($scope.item.slug.substring(index0, index1), 10)
-                    $scope.item.ceiling = parseInt($scope.item.slug.substring(index1 + 1, index2), 10)
+                    $scope.item.limit = !isNaN(parseInt($scope.item.slug.substring(index0, index1), 10)) ? parseInt($scope.item.slug.substring(index0, index1), 10) : undefined
+                    $scope.item.ceiling = !isNaN(parseInt($scope.item.slug.substring(index1 + 1, index2), 10)) ? parseInt($scope.item.slug.substring(index1 + 1, index2), 10) : undefined
                 })
         }
         $scope.addBudget = function ($event, form) {
@@ -232,8 +232,8 @@
                     var index0 = $scope.item.slug.indexOf(':') + 1
                     var index1 = $scope.item.slug.indexOf(',')
                     var index2 = $scope.item.slug.lastIndexOf(',')
-                    $scope.item.limit = parseInt($scope.item.slug.substring(index0, index1), 10)
-                    $scope.item.ceiling = parseInt($scope.item.slug.substring(index1 + 1, index2), 10)
+                    $scope.item.limit = !isNaN(parseInt($scope.item.slug.substring(index0, index1), 10)) ? parseInt($scope.item.slug.substring(index0, index1), 10) : undefined
+                    $scope.item.ceiling = !isNaN(parseInt($scope.item.slug.substring(index1 + 1, index2), 10)) ? parseInt($scope.item.slug.substring(index1 + 1, index2), 10) : undefined
                     $scope.item.area = $scope.item.slug.substring(index2 + 1).replace('_**_', ' ** ')
                 })
         }
@@ -385,7 +385,7 @@
                     alertText += '确认删除？'
                     fctModal.show(alertText, undefined, function () {
                         api.remove(item.id, {errorMessage: true}).success(function () {
-                            location.reload()
+                            $state.reload()
                         })
                     })
                 }
@@ -450,8 +450,8 @@
                     var index0 = $scope.item.slug.indexOf(':') + 1
                     var index1 = $scope.item.slug.indexOf(',')
                     var index2 = $scope.item.slug.lastIndexOf(',')
-                    $scope.item.limit = parseInt($scope.item.slug.substring(index0, index1), 10)
-                    $scope.item.ceiling = parseInt($scope.item.slug.substring(index1 + 1, index2), 10)
+                    $scope.item.limit = !isNaN(parseInt($scope.item.slug.substring(index0, index1), 10)) ? parseInt($scope.item.slug.substring(index0, index1), 10) : undefined
+                    $scope.item.ceiling = !isNaN(parseInt($scope.item.slug.substring(index1 + 1, index2), 10)) ? parseInt($scope.item.slug.substring(index1 + 1, index2), 10) : undefined
                 })
         }
         $scope.addRentBudget = function ($event, form) {
