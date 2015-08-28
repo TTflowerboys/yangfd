@@ -405,8 +405,8 @@
                     }
                     var index0 = $scope.item.slug.indexOf(':') + 1
                     var index1 = $scope.item.slug.indexOf(',')
-                    $scope.item.limit = parseInt($scope.item.slug.substring(index0, index1), 10)
-                    $scope.item.ceiling = parseInt($scope.item.slug.substring(index1 + 1), 10)
+                    $scope.item.limit = !isNaN(parseInt($scope.item.slug.substring(index0, index1), 10)) ? parseInt($scope.item.slug.substring(index0, index1), 10) : undefined
+                    $scope.item.ceiling = !isNaN(parseInt($scope.item.slug.substring(index1 + 1), 10)) ? parseInt($scope.item.slug.substring(index1 + 1), 10) : undefined
                 })
         }
         $scope.addRoomCount = function ($event, form) {
