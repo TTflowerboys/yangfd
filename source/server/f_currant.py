@@ -820,6 +820,8 @@ class f_currant_plugins(f_app.plugin_base):
 
     def ticket_update_after(self, ticket_id, params, ignore_error=True):
         ticket = f_app.ticket.get(ticket_id)
+        if "$set" in params:
+            params = params["$set"]
         if ticket["type"] == "rent" and "status" in params and params["status"] == "to rent":
             f_app.task.add(dict(
                 type="rent_ticket_check_intention",
