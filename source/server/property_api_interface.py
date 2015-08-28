@@ -163,10 +163,11 @@ def property_search(user, params):
         elif bedroom_count[1] is not None:
             bedroom_filter = {"$lte": bedroom_count[1]}
         else:
-            logger.error("Invalid bedroom_count enum")
+            bedroom_filter = None
 
-        non_project_params["bedroom_count"] = bedroom_filter
-        main_house_types_elem_params["bedroom_count"] = bedroom_filter
+        if bedroom_filter is not None:
+            non_project_params["bedroom_count"] = bedroom_filter
+            main_house_types_elem_params["bedroom_count"] = bedroom_filter
 
     if "building_area" in params:
         building_area_filter = []
