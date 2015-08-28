@@ -3,8 +3,8 @@
         <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
     </span>
 </div>
-<form name="countryCreateForm" class="form-horizontal"
-    style="max-width: 800px; padding-bottom: 100px;" ng-submit="addIntention($event,countryCreateForm)"
+<form name="intentionCreateForm" class="form-horizontal"
+    style="max-width: 800px; padding-bottom: 100px;" ng-submit="addIntention($event,intentionCreateForm)"
     novalidate>
 
     <div class="form-group">
@@ -67,7 +67,7 @@
         </div>
     </div>
     <div class="form-actions" style="margin-bottom: 80px;">
-        <input type="submit" class="btn btn-primary" ng-click="onResetLanguage()" value="{%$root.i18n('提交')%}">
+        <input type="submit" class="btn btn-primary" ng-click="onResetLanguage()" value="{%$root.i18n('提交')%}" ng-disabled="intentionCreateForm.$invalid || !item.tempValues.length">
         <input type="button" class="btn btnGoBack" ng-click="onBackClick()" value="{%$root.i18n('取消')%}">
     </div>
     <div class="help-block">* {%$root.i18n('必填')%}</div>

@@ -12,7 +12,7 @@
 
         <div class="controls">
             <select class="form-control" ng-model="item.type" style="width: 185px;"
-                ng-options="p.value as p.name for p in enumTypes">
+                ng-options="p.value as p.name for p in enumTypes" required>
                 <option value="">-- {%$root.i18n('选择')%} --</option>
             </select>
         </div>
@@ -78,7 +78,7 @@
     </div>
 
     <div class="form-actions" style="margin-bottom: 80px;">
-        <input type="submit" class="btn btn-primary" ng-click="onResetLanguage()" value="{%$root.i18n('提交')%}">
+        <input type="submit" class="btn btn-primary" ng-click="onResetLanguage()" value="{%$root.i18n('提交')%}" ng-disabled="enumCreateForm.$invalid || !item.tempValues.length">
         <input type="button" class="btn btnGoBack" ng-click="onBackClick()" value="{%$root.i18n('取消')%}">
     </div>
     <div class="help-block">* {%$root.i18n('必填')%}</div>

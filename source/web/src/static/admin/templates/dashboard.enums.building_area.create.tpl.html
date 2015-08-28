@@ -7,7 +7,7 @@
     style="max-width: 800px; padding-bottom: 100px;" ng-submit="addBuildingArea($event,buildingAreaCreateForm)"
     novalidate>
     <div class="form-group">
-        <select class="form-control" ng-options="item for item in i18nArea" ng-model="item.area">
+        <select class="form-control" ng-options="item for item in i18nArea" ng-model="item.area" required>
             <option value="">-- {%$root.i18n('面积单位')%} --</option>
         </select>
     </div>
@@ -80,7 +80,7 @@
     </div>
 
     <div class="form-actions" style="margin-bottom: 80px;">
-        <input type="submit" class="btn btn-primary" ng-click="onResetLanguage()" value="{%$root.i18n('提交')%}">
+        <input type="submit" class="btn btn-primary" ng-click="onResetLanguage()" value="{%$root.i18n('提交')%}" ng-disabled="buildingAreaCreateForm.$invalid || !item.tempValues.length">
         <input type="button" class="btn btnGoBack" ng-click="onBackClick()" value="{%$root.i18n('取消')%}">
     </div>
     <div class="help-block">* {%$root.i18n('必填')%}</div>

@@ -11,7 +11,7 @@
         <label class="control-label">{%$root.i18n('国家标识')%} *</label>
 
         <div class="controls">
-            <input class="form-control" type="text" ng-model="item.slug"/>
+            <input class="form-control" type="text" ng-model="item.slug" required/>
         </div>
     </div>
     <div class="form-group">
@@ -66,7 +66,7 @@
     </div>
 
     <div class="form-actions" style="margin-bottom: 80px;">
-        <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
+        <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}" ng-disabled="countryEditForm.$invalid || !item.tempValues.length">
         <input type="button" class="btn btnGoBack" ng-click="onBackClick()" value="{%$root.i18n('取消')%}">
     </div>
     <div class="help-block">* {%$root.i18n('必填')%}</div>

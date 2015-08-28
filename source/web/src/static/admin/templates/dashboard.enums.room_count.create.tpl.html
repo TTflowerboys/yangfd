@@ -7,7 +7,7 @@
     style="max-width: 800px; padding-bottom: 100px;" ng-submit="addRoomCount($event,roomCountCreateForm)"
     novalidate>
     <div class="form-group">
-        <select class="form-control" ng-options="p.value as p.name for p in roomCountType" ng-model="item.type">
+        <select class="form-control" ng-options="p.value as p.name for p in roomCountType" ng-model="item.type" required>
             <option value="">-- {%$root.i18n('房间类型')%} --</option>
         </select>
     </div>
@@ -79,7 +79,7 @@
         </div>
     </div>
     <div class="form-actions" style="margin-bottom: 80px;">
-        <input type="submit" class="btn btn-primary" ng-click="onResetLanguage()" value="{%$root.i18n('提交')%}">
+        <input type="submit" class="btn btn-primary" ng-click="onResetLanguage()" value="{%$root.i18n('提交')%}" ng-disabled="roomCountCreateForm.$invalid || !item.tempValues.length">
         <input type="button" class="btn btnGoBack" ng-click="onBackClick()" value="{%$root.i18n('取消')%}">
     </div>
     <div class="help-block">* {%$root.i18n('必填')%}</div>

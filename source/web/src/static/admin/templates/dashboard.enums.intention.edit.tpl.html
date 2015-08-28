@@ -4,8 +4,8 @@
     </span>
 </div>
 <div ng-init="getEditIntention()"></div>
-<form name="countryEditForm" class="form-horizontal"
-    style="max-width: 800px; padding-bottom: 100px;" ng-submit="editIntention($event,countryEditForm)"
+<form name="intentionEditForm" class="form-horizontal"
+    style="max-width: 800px; padding-bottom: 100px;" ng-submit="editIntention($event,intentionEditForm)"
     novalidate>
     <div class="form-group">
         <label class="control-label">{%$root.i18n('内容')%} *</label>
@@ -69,7 +69,7 @@
         </div>
     </div>
     <div class="form-actions" style="margin-bottom: 80px;">
-        <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
+        <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}" ng-disabled="intentionEditForm.$invalid || !item.tempValues.length">
         <input type="button" class="btn btnGoBack" ng-click="onBackClick()" value="{%$root.i18n('取消')%}">
     </div>
     <div class="help-block">* {%$root.i18n('必填')%}</div>
