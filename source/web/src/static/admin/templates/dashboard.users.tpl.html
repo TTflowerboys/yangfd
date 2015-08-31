@@ -41,9 +41,13 @@
                         </td>
                         <td>
                             {%item.phone%}
+                            <i ng-if="!item.phone_verified" class="fa fa-check-circle btn btn-default btn-xs" tooltip data-title="{%$root.i18n('未验证')%}"></i>
+                            <i ng-if="item.phone_verified" class="fa fa-check-circle btn btn-success btn-xs" tooltip data-title="{%$root.i18n('已验证')%}"></i>
                         </td>
                         <td>
                             {%item.email%}
+                            <i ng-if="!item.email_verified" class="fa fa-check-circle btn btn-default btn-xs" tooltip data-title="{%$root.i18n('未验证')%}"></i>
+                            <i ng-if="item.email_verified" class="fa fa-check-circle btn btn-success btn-xs" tooltip data-title="{%$root.i18n('已验证')%}"></i>
                         </td>
                         <td>
                             <div>
