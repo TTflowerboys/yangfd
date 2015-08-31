@@ -139,6 +139,7 @@
     [nav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]} forState:UIControlStateNormal];
     [nav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]} forState:UIControlStateSelected];
     nav.title = STR(@"出租发布");
+    nav.tabBarItem.accessibilityLabel = nav.title;
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     return nav;
 }
