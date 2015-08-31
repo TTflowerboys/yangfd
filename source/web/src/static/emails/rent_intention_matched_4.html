@@ -1,5 +1,6 @@
 <!--@@master = ../../masters/email_new.html-->
 <!--@@block=content-->
+%rent = rent_ticket
 <div style="max-width:720px;margin:0 auto">
     <h1 class="noHorizolPaddingOnMobile" style="padding:60px 20px;margin:15px 0 0;font-size:19px;text-align:left">{{_('尊敬的')}}{{nickname}}{{_('您好：')}}</h1>
     <div class="noHorizolPaddingOnMobile" style="padding:0px 20px 60px;margin:0;line-height:1.5em;font-size:18px;">
@@ -13,15 +14,132 @@
                 <a href="http://yangfd.com/property-list" style="display: inline-block;margin:20px;padding: 12px 20px; background: #e60012; color: #fff; font-size: 18px; text-decoration: none;border-radius: 8px;">{{_('直接置业')}}</a>
             </p>
             <p style="margin:12px 0">{{_('另外，我们为你匹配到了：')}}</p>
-            <p style="margin: 30px auto">
-                <a href="http://yangfd.com/property-to-rent/{{rent_ticket_id}}" style="">
-                    <img width="100%" style="position: relative;top: 0px;left: 0; text-align: center; z-index: 1;" src="{{digest_url}}" alt="{{_('房产图片')}}"/>
-                </a>
-            </p>
-            <p style="margin:12px 0">{{_('点击以下链接查看房源详情及房东联系方式:')}}</p>
-            <p style="text-align: center;margin: 20px 0 40px">
-                <a href="http://yangfd.com/property-to-rent/{{rent_ticket_id}}" style="color:#e60012;">http://yangfd.com/property-to-rent/{{rent_ticket_id}}</a>
-            </p>
+            <a href="http://yangfd.com/property-to-rent/{{rent.get('id')}}" style="display: block;border: 1px solid #ccc;margin: 40px auto 0;max-width: 500px;cursor: pointer;color:#999;">
+                % if rent.get('property',{}).get('cover') :
+                <img width="100%" height="auto" src="{{rent.get('property',{}).get('cover')}}_thumbnail"/>
+                % elif len(rent.get('property',{}).get('reality_images',[])):
+                <img width="100%" height="auto" src="{{rent.get('property',{}).get('reality_images',[])[0]}}_thumbnail"/>
+                % else :
+                <img style="background-color:#eee;background: url('http://upload.yangfd.com/holder.png') no-repeat 50% 50%;background-size: 20%;width:500px;min-height:250px;" alt=""/>
+                %end
+                <table style="width: 100%;padding: 10px;box-sizing: border-box;line-height: 1em;">
+                    <tr>
+                        <td style="padding:0;">
+                            <table style="width:100%;border-spacing:0">
+                                <tr>
+                                    <td style="width: 65%;text-align: left;color: #666;font-size:16px;line-height: 1.4em;">
+                                        {{rent.get('title')}}
+                                    </td>
+                                    <td style="width: 35%;text-align: right;font-size: 14px;color: #e60012;">
+                                        <span>{{rent.get('price',{}).get('unit_symbol','')}}</span>
+                                        <span style="font-size: 18px;">
+                                            {{int(float(rent.get('price',{}).get('value','')))}}
+                                        </span>
+                                        {{_('/周')}}
+                                        % if 'bill_covered' in rent and rent.get('bill_covered'):
+                                        <span>
+                                            {{_('，包Bill')}}
+                                        </span>
+                                        % end
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    % if rent.get('time'):
+                    <tr>
+                        <td style="text-align: left;font-size:14px;">
+                            <span>{{str(rent.get('time')).split(' ')[0]}}</span>{{_('发布')}}
+                        </td>
+                    </tr>
+                    % end
+                    <tr>
+                        <td>
+                            <hr style="border-top: 1px solid #ccc !important;border-bottom: none;height: 0;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 14px;text-align: left;">
+                            {{_('地址：')}}
+                            % display_location=[]
+                            % if rent['property'].get('community',''):
+                            % display_location.append(rent['property'].get('community',''))
+                            % end
+                            % if rent['property'].get('street',''):
+                            % display_location.append(rent['property'].get('street',''))
+                            % end
+                            %if rent.get('property',{}).get('city'):
+                            % display_location.append(rent['property'].get('city',{}).get('name'))
+                            %end
+                            %if rent.get('property',{}).get('country'):
+                            % display_location.append(get_country_name_by_code(rent['property'].get('country',{}).get('code')))
+                            %end
+                            %if not rent.get('property',{}).get('partner'):
+                            % display_location.append(rent['property'].get('zipcode',''))
+                            %end
+                            {{','.join(display_location)}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table style="width: 100%;line-height: 1.4em;margin-top: 20px;">
+                                <tr>
+                                    <td style="text-align: left;width: 49%;border-right: 1px solid #ccc;">
+                                        <div style="font-size: 14px;">{{_('房间')}}</div>
+                                        <div style="color: #e60012;font-size: 14px;">
+                                            % if 'bedroom_count' in rent['property'] and rent['property'].get('bedroom_count') == 0 :
+                                            <span >studio</span>
+                                            %else:
+                                            % if rent['property'].get('bedroom_count','') :
+                                            <span style="font-size: 16px;">{{ rent['property'].get('bedroom_count','') }}</span>
+                                            {{_('室')}}
+                                            % end
+                                            % if rent['property'].get('bathroom_count') :
+                                            <span style="font-size: 16px;">{{ rent['property'].get('bathroom_count') }}</span>
+                                            {{_('卫')}}
+                                            % end
+                                            %end
+                                        </div>
+                                    </td>
+                                    <td style="text-align: left;padding-left: 2%;">
+                                        <div style="font-size: 14px;">
+                                            % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
+                                            <span>
+                                                {{rent.get('rent_available_time').strftime("%Y-%m-%d")}}
+                                            </span>
+                                            % end
+                                            % if 'rent_deadline_time' in rent and rent.get('rent_deadline_time',''):
+                                            <span>
+                                                {{'至 ' + rent.get('rent_deadline_time').strftime("%Y-%m-%d")}}
+                                            </span>
+                                            % else:
+                                            {{_('起')}}
+                                            %end
+
+                                        </div>
+                                        <div style="color: #e60012;font-size: 14px;">
+                                            %if rent.get('minimum_rent_period',{}).get('value') and rent.get('minimum_rent_period',{}).get('unit'):
+                                            {{_('最少租住')}}
+                                            {{rent.get('minimum_rent_period',{}).get('value')}}
+                                            %if rent.get('minimum_rent_period',{}).get('unit') == 'day':
+                                            {{_('天')}}
+                                            %elif rent.get('minimum_rent_period',{}).get('unit') == 'week':
+                                            {{_('周')}}
+                                            %elif rent.get('minimum_rent_period',{}).get('unit') == 'month':
+                                            {{_('个月')}}
+                                            %else:
+                                            {{property.get('space').get('unit')}}
+                                            %end
+                                            %end
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </a>
         </div>
 
         <div class="smallFontSize" style="text-align: center;margin: 40px auto 0">
