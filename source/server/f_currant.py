@@ -847,17 +847,14 @@ class f_currant_plugins(f_app.plugin_base):
 
     def task_on_rent_ticket_check_intention(self, task):
         ticket_id = task["ticket_id"]
-        ticket = f_app.ticket.get(ticket_id)
-
-        if "country" not in ticket or "city" not in ticket:
-            return
+        ticket = f_app.ticket.output([ticket_id], check_permission=False)[0]
 
         # Scan existing rent intention ticket
         params = {
             "type": "rent_intention",
             "status": "new",
-            "country": ticket["country"],
-            "city": ticket["city"],
+            "country": ticket["property"]["country"],
+            "city": ticket["property"]["city"],
         }
         rent_intention_tickets = f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), check_permission=False)
 
