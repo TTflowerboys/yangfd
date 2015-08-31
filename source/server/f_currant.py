@@ -846,14 +846,14 @@ class f_currant_plugins(f_app.plugin_base):
 
     def task_on_rent_ticket_check_intention(self, task):
         ticket_id = task["ticket_id"]
-        ticket = f_app.ticket.output([ticket_id], check_permission=False)[0]
+        ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id], check_permission=False)[0], _i18n=["zh_Hans_CN"])
 
         # Scan existing rent intention ticket
         params = {
             "type": "rent_intention",
             "status": "new",
-            "country": ticket["property"]["country"],
-            "city": ticket["property"]["city"],
+            "country.code": ticket["property"]["country"]["code"],
+            "city._id": ObjectId(ticket["property"]["city"]["id"]),
         }
         rent_intention_tickets = f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), check_permission=False)
 
@@ -861,7 +861,7 @@ class f_currant_plugins(f_app.plugin_base):
             if "email" not in intention_ticket["creator_user"]:
                 continue
 
-            if "rent_intention_ticket_check_rent" not in intention_ticket["creator_user"]["email_message_type"]:
+            if "rent_intention_ticket_check_rent" not in intention_ticket["creator_user"].get("email_message_type", []):
                 continue
 
             if "rent_budget" not in intention_ticket or "bedroom_count" not in intention_ticket or "rent_type" not in intention_ticket:
@@ -907,18 +907,16 @@ class f_currant_plugins(f_app.plugin_base):
 
             if score == 6:
                 title = "洋房东给您匹配到了合适的房源，快来看看吧！"
-                digest_url = "http://yangfd.com/wechat-poster/%s/image" % ticket_id
                 f_app.email.schedule(
                     target=intention_ticket["creator_user"]["email"],
                     subject=title,
                     # TODO
-                    text=template("static/emails/rent_intention_matched_1", title=title, nickname=intention_ticket["creator_user"]["nickname"], rent_ticket_id=ticket_id, date="", digest_url=digest_url, unsubscribe_url=unsubscribe_url),
+                    text=template("static/emails/rent_intention_matched_1", title=title, nickname=intention_ticket["creator_user"]["nickname"], date="", rent_ticket=ticket, unsubscribe_url=unsubscribe_url),
                     display="html",
                     ticket_match_user_id=intention_ticket["creator_user"]["id"],
                 )
             elif score >= 4:
                 title = "洋房东给您匹配到了一些房源，快来看看吧！"
-                digest_url = "http://yangfd.com/wechat-poster/%s/image" % ticket_id
                 sent_in_a_day = f_app.task.search({"status": {"$exists": True}, "type": "email", "ticket_match_user_id": intention_ticket["creator_user"]["id"], "start": {"$gte": datetime.utcnow() - timedelta(days=1)}})
                 if len(sent_in_a_day):
                     pass
@@ -927,7 +925,7 @@ class f_currant_plugins(f_app.plugin_base):
                         target=intention_ticket["creator_user"]["email"],
                         subject=title,
                         # TODO
-                        text=template("static/emails/rent_intention_matched_4", title=title, nickname=intention_ticket["creator_user"]["nickname"], rent_ticket_id=ticket_id, date="", digest_url=digest_url, unsubscribe_url=unsubscribe_url),
+                        text=template("static/emails/rent_intention_matched_4", title=title, nickname=intention_ticket["creator_user"]["nickname"], date="", rent_ticket=ticket, unsubscribe_url=unsubscribe_url),
                         display="html",
                         ticket_match_user_id=intention_ticket["creator_user"]["id"],
                     )
