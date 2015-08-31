@@ -904,6 +904,7 @@ class f_currant_plugins(f_app.plugin_base):
 
             score = A + B + C + D + E + F
             unsubscribe_url = 'http://yangfd.com/email-unsubscribe?email_message_type=rent_intention_ticket_check_rent'
+            import currant_util
 
             if score == 6:
                 title = "洋房东给您匹配到了合适的房源，快来看看吧！"
@@ -911,7 +912,7 @@ class f_currant_plugins(f_app.plugin_base):
                     target=intention_ticket["creator_user"]["email"],
                     subject=title,
                     # TODO
-                    text=template("static/emails/rent_intention_matched_1", title=title, nickname=intention_ticket["creator_user"]["nickname"], date="", rent_ticket=ticket, unsubscribe_url=unsubscribe_url),
+                    text=template("static/emails/rent_intention_matched_1", title=title, nickname=intention_ticket["creator_user"]["nickname"], date="", rent_ticket=ticket, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                     display="html",
                     ticket_match_user_id=intention_ticket["creator_user"]["id"],
                 )
@@ -925,7 +926,7 @@ class f_currant_plugins(f_app.plugin_base):
                         target=intention_ticket["creator_user"]["email"],
                         subject=title,
                         # TODO
-                        text=template("static/emails/rent_intention_matched_4", title=title, nickname=intention_ticket["creator_user"]["nickname"], date="", rent_ticket=ticket, unsubscribe_url=unsubscribe_url),
+                        text=template("static/emails/rent_intention_matched_4", title=title, nickname=intention_ticket["creator_user"]["nickname"], date="", rent_ticket=ticket, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                         display="html",
                         ticket_match_user_id=intention_ticket["creator_user"]["id"],
                     )
