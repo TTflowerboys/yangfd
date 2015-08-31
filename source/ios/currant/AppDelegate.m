@@ -50,7 +50,6 @@
 #import "CUTETooltipView.h"
 #import "NSArray+ObjectiveSugar.h"
 #import "Aspects.h"
-#import "RNCachingURLProtocol.h"
 #import "CUTEUserAgentUtil.h"
 #import "CUTESurveyHelper.h"
 #import "CUTEUsageRecorder.h"
@@ -228,14 +227,6 @@
                                                         NSForegroundColorAttributeName : [UIColor colorWithRed:.5 green:.5 blue:.5 alpha:1]
                                                         } forState:UIControlStateNormal];
     [self.window makeKeyAndVisible];
-
-    [RNCachingURLProtocol setSupportedSchemes:[NSSet setWithArray:@[@"http", @"https"]]];
-    [NSURLProtocol registerClass:[RNCachingURLProtocol class]];
-    [[RNCache sharedInstance] setDefaultTimeoutInterval:7 * 24 * 60 * 60];//7 days
-    [[RNCache sharedInstance] setHostList:[CUTEConfiguration webCacheHosts]];
-    [[RNCache sharedInstance] setExceptionRules:[CUTEConfiguration webCacheExceptionRules]];
-    [[RNCache sharedInstance] setResponseEntityRequiredMIMETypes:[CUTEConfiguration responseEntityRequiredMIMETypes]];
-    [[RNCache sharedInstance] setAllowedResponseStatusCodes:[CUTEConfiguration cacheAllowedResponseStatusCodes]];
 
     [[CUTEAPICacheManager sharedInstance] refresh];
 
@@ -808,7 +799,6 @@
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
-    [[RNCache sharedInstance] clearCache];
     [[CUTEDataManager sharedInstance] clearAllRentTickets];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 }

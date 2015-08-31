@@ -22,7 +22,6 @@
 #import "WebViewJavascriptBridge.h"
 #import "NSString+Encoding.h"
 #import "NSArray+ObjectiveSugar.h"
-#import "RNCachingURLProtocol.h"
 #import "NSDate-Utilities.h"
 #import "Aspects.h"
 #import "NSURL+CUTE.h"
@@ -78,34 +77,6 @@
     
 }
 
-- (void)loadRequestIgnoringCache:(NSURLRequest *)urlRequest {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlRequest.URL
-                                                           cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                                       timeoutInterval:600.0];
-    [request setValue:@"" forHTTPHeaderField:RNCachingReloadIgnoringCacheHeader];
-    __weak typeof(self)weakSelf = self;
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-        NSURLResponse *response = nil;
-        NSData *data = nil;
-        NSError *error = nil;
-        data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
-            [weakSelf updateData:data response:response];
-        });
-    });
-}
-
-- (void)checkLoadIgnoringCache:(NSURLRequest *)urlRequest {
-    //only reload for cache
-    if ([[RNCache sharedInstance] isRequestCached:urlRequest]) {
-        //delay to make cache loading
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self loadRequestIgnoringCache:urlRequest];
-        });
-    }
-}
-
 - (NSURL *)getURLAfterUserPermissionCheck:(NSURL *)url {
     if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:url] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
         url =  [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:url];
@@ -126,8 +97,6 @@
     [self updateBackButton];
     [self updateRightButtonWithURL:url];
     [self updateTitleWithURL:url];
-
-    [self checkLoadIgnoringCache:request];
 }
 
 - (void)loadRequesetInNewController:(NSURLRequest *)urlRequest {
@@ -234,7 +203,6 @@
     }
     else {
         [self.webView reload];
-        [self checkLoadIgnoringCache:self.webView.request];
     }
 }
 
@@ -283,11 +251,6 @@
     if (navigationType == UIWebViewNavigationTypeLinkClicked && [request.URL isHttpOrHttpsURL] && ![webView.request.URL isEquivalent:request.URL]) {
         [self loadRequesetInNewController:request];
         return NO;
-    }
-
-    //TODO, does here will cause load circle
-    if (![[self.url absoluteString] isEqualToString:request.URL.absoluteString] && ![[webView.request.URL absoluteString] isEqualToString:request.URL.absoluteString]) {
-        [self checkLoadIgnoringCache:request];
     }
 
     return YES;
