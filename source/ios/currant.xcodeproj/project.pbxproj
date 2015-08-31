@@ -442,6 +442,14 @@
 		2CBA9CA61B4D4023004B2BE3 /* openRentListTab.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CBA9CA51B4D4023004B2BE3 /* openRentListTab.js.txt */; };
 		2CBA9CA81B4D4078004B2BE3 /* openPropertyListTab.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CBA9CA71B4D4078004B2BE3 /* openPropertyListTab.js.txt */; };
 		2CBA9CAA1B4E5E49004B2BE3 /* CUTEShareUSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBA9CA91B4E5E49004B2BE3 /* CUTEShareUSTest.m */; };
+		2CBF30B11B9459D000EB2D51 /* STWebArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */; };
+		2CBF30B21B9459D500EB2D51 /* STWebArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */; };
+		2CBF30B31B9459D600EB2D51 /* STWebArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */; };
+		2CBF30B41B9459D700EB2D51 /* STWebArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */; };
+		2CBF30B71B945A2E00EB2D51 /* CUTEWebArchiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF30B61B945A2E00EB2D51 /* CUTEWebArchiveManager.m */; };
+		2CBF30B81B945EA200EB2D51 /* CUTEWebArchiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF30B61B945A2E00EB2D51 /* CUTEWebArchiveManager.m */; };
+		2CBF30B91B945EA200EB2D51 /* CUTEWebArchiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF30B61B945A2E00EB2D51 /* CUTEWebArchiveManager.m */; };
+		2CBF30BA1B945EA300EB2D51 /* CUTEWebArchiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF30B61B945A2E00EB2D51 /* CUTEWebArchiveManager.m */; };
 		2CC3A06E1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
 		2CC3A06F1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
 		2CC3A0701AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
@@ -971,6 +979,10 @@
 		2CBA9CA51B4D4023004B2BE3 /* openRentListTab.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openRentListTab.js.txt; sourceTree = "<group>"; };
 		2CBA9CA71B4D4078004B2BE3 /* openPropertyListTab.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openPropertyListTab.js.txt; sourceTree = "<group>"; };
 		2CBA9CA91B4E5E49004B2BE3 /* CUTEShareUSTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEShareUSTest.m; sourceTree = "<group>"; };
+		2CBF30AF1B9459D000EB2D51 /* STWebArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STWebArchiver.h; path = STWebArchiver/STWebArchiver.h; sourceTree = "<group>"; };
+		2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STWebArchiver.m; path = STWebArchiver/STWebArchiver.m; sourceTree = "<group>"; };
+		2CBF30B51B945A2E00EB2D51 /* CUTEWebArchiveManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEWebArchiveManager.h; sourceTree = "<group>"; };
+		2CBF30B61B945A2E00EB2D51 /* CUTEWebArchiveManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEWebArchiveManager.m; sourceTree = "<group>"; };
 		2CC3A06C1AF87D74008C9AC8 /* CUTENavigationUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTENavigationUtil.h; sourceTree = "<group>"; };
 		2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTENavigationUtil.m; sourceTree = "<group>"; };
 		2CC3A07A1AF8D90E008C9AC8 /* NSURL+QueryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+QueryParser.h"; sourceTree = "<group>"; };
@@ -1346,6 +1358,8 @@
 		2C27F1E81ACCEA6C002BECCF /* Library3rd */ = {
 			isa = PBXGroup;
 			children = (
+				2CBF30AF1B9459D000EB2D51 /* STWebArchiver.h */,
+				2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */,
 				2C3DE2391B05CCDC006FF191 /* Fabric.framework */,
 				2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */,
 				2CF8A6A51AF0C2620080DF10 /* BBTPickerView.h */,
@@ -1638,6 +1652,8 @@
 		2CB43DD71ABC266C004DF663 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				2CBF30B51B945A2E00EB2D51 /* CUTEWebArchiveManager.h */,
+				2CBF30B61B945A2E00EB2D51 /* CUTEWebArchiveManager.m */,
 				2C427E4A1AD2414D000378A9 /* CUTEAPICacheManager.h */,
 				2C427E4B1AD2414D000378A9 /* CUTEAPICacheManager.m */,
 				2C5ECC4F1AD525AC00163E9E /* CUTEAPIManager.h */,
@@ -2519,6 +2535,7 @@
 				2C9AFF791AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
 				2C5ECC531AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
 				2C86D4241B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */,
+				2CBF30B91B945EA200EB2D51 /* CUTEWebArchiveManager.m in Sources */,
 				2CF8A6561AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
 				2CA81FA31B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB7490F1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
@@ -2630,6 +2647,7 @@
 				2CC6C1DF1AEE255A002758A7 /* NSURL+Assets.m in Sources */,
 				2C9F1D1F1B3A8E610034487F /* CUTESurveyHelper.m in Sources */,
 				2CF8A5DE1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */,
+				2CBF30B31B9459D600EB2D51 /* STWebArchiver.m in Sources */,
 				2C427EAB1AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6241AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
 				2C056D811B423ABD0075037A /* CUTERentContactForm.m in Sources */,
@@ -2672,6 +2690,7 @@
 				2C9AFF7A1AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
 				2C5ECC541AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
 				2C86D4251B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */,
+				2CBF30BA1B945EA300EB2D51 /* CUTEWebArchiveManager.m in Sources */,
 				2CF8A6571AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
 				2CA81FA41B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB749101ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
@@ -2783,6 +2802,7 @@
 				2CC6C1E01AEE255A002758A7 /* NSURL+Assets.m in Sources */,
 				2C9F1D201B3A8E610034487F /* CUTESurveyHelper.m in Sources */,
 				2CF8A5DF1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */,
+				2CBF30B41B9459D700EB2D51 /* STWebArchiver.m in Sources */,
 				2C427EAC1AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6251AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
 				2C056D821B423ABD0075037A /* CUTERentContactForm.m in Sources */,
@@ -2825,6 +2845,7 @@
 				2C9AFF781AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
 				2C5ECC521AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
 				2C86D4231B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */,
+				2CBF30B81B945EA200EB2D51 /* CUTEWebArchiveManager.m in Sources */,
 				2CF8A6551AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
 				2CA81FA21B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB7490E1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
@@ -2936,6 +2957,7 @@
 				2CC6C1DE1AEE255A002758A7 /* NSURL+Assets.m in Sources */,
 				2C9F1D1E1B3A8E610034487F /* CUTESurveyHelper.m in Sources */,
 				2CF8A5DD1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */,
+				2CBF30B21B9459D500EB2D51 /* STWebArchiver.m in Sources */,
 				2C427EAA1AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6231AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
 				2C056D801B423ABD0075037A /* CUTERentContactForm.m in Sources */,
@@ -2978,6 +3000,7 @@
 				2C5ECC511AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
 				2C86D4221B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */,
 				2CF8A6541AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
+				2CBF30B71B945A2E00EB2D51 /* CUTEWebArchiveManager.m in Sources */,
 				2CA81FA11B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB7490D1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C0AE11C1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
@@ -3089,6 +3112,7 @@
 				2CC6C1DD1AEE255A002758A7 /* NSURL+Assets.m in Sources */,
 				2C9F1D1D1B3A8E610034487F /* CUTESurveyHelper.m in Sources */,
 				2CF8A5DC1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */,
+				2CBF30B11B9459D000EB2D51 /* STWebArchiver.m in Sources */,
 				2C427EA91AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6221AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
 				2C056D7F1B423ABD0075037A /* CUTERentContactForm.m in Sources */,

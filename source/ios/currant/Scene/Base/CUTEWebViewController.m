@@ -55,10 +55,15 @@
     return self;
 }
 
-- (void)updateWebView {
+- (void)createOrUpdateWebView:(UIWebView *)webView {
     [_webView removeFromSuperview];
     _webView = nil;
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, RectWidth(self.view.bounds), RectHeightExclude(self.view.bounds, (StatusBarHeight + TouchHeightDefault + TabBarHeight)))];
+    if (webView) {
+        _webView = webView;
+    }
+    else {
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, RectWidth(self.view.bounds), RectHeightExclude(self.view.bounds, (StatusBarHeight + TouchHeightDefault + TabBarHeight)))];
+    }
     [self.view addSubview:_webView];
 
     MakeBegin(_webView)
@@ -77,6 +82,7 @@
     
 }
 
+//TODO move permission check out of the controller, export a delegate
 - (NSURL *)getURLAfterUserPermissionCheck:(NSURL *)url {
     if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:url] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
         url =  [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:url];
@@ -90,13 +96,25 @@
     request.allHTTPHeaderFields = originalRequest.allHTTPHeaderFields;
 
     if (!_webView) {
-        [self updateWebView];
+        [self createOrUpdateWebView:nil];
     }
     [_webView loadRequest:request];
 
     [self updateBackButton];
     [self updateRightButtonWithURL:url];
     [self updateTitleWithURL:url];
+}
+
+- (void)loadWebArchive:(CUTEWebArchive *)archive {
+
+    if (!_webView) {
+        [self createOrUpdateWebView:nil];
+    }
+    [_webView loadData:archive.data MIMEType:archive.MIMEType textEncodingName:archive.textEncodingName baseURL:archive.URL];
+
+    [self updateBackButton];
+    [self updateRightButtonWithURL:archive.URL];
+    [self updateTitleWithURL:archive.URL];
 }
 
 - (void)loadRequesetInNewController:(NSURLRequest *)urlRequest {
@@ -113,7 +131,7 @@
 
 
 - (void)updateWithURL:(NSURL *)url {
-    [self updateWebView];
+    [self createOrUpdateWebView:nil];
     //http://stackoverflow.com/questions/16073519/nsurlerrordomain-error-code-999-in-ios
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self loadRequest:[NSURLRequest requestWithURL:url]];
@@ -266,6 +284,8 @@
     [self updateBackButton];
     [self updateRightButtonWithURL:webView.request.URL];
     [self updateTitleWithURL:webView.request.URL];
+    //[[[[[[webView _documentView] webView] mainFrame] dataSource] webArchive] data]
+//    NSData *webarchive = [[[[[[webView performSelector:@selector(_documentView)] performSelector:@selector(webView)] performSelector:@selector(mainFrame)] performSelector:@selector(dataSource)] performSelector:@selector(webArchive)] performSelector:@selector(data)];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {

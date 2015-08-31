@@ -8,15 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "CUTEViewController.h"
+#import "CUTEWebArchiveManager.h"
 
 @interface CUTEWebViewController : CUTEViewController <UIWebViewDelegate>
 
 @property (nonatomic, readonly) UIWebView *webView;
 
+@property (nonatomic) BOOL webArchiveRequired;
 
 - (void)loadRequest:(NSURLRequest *)urlRequest;
 
 - (void)loadRequesetInNewController:(NSURLRequest*)urlRequest;
+
+- (void)loadWebArchive:(CUTEWebArchive *)archive;
 
 - (void)updateWithURL:(NSURL *)url;
 
