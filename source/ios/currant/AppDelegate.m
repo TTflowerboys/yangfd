@@ -51,7 +51,6 @@
 #import "NSArray+ObjectiveSugar.h"
 #import "Aspects.h"
 #import "RNCachingURLProtocol.h"
-#import <NewRelicAgent/NewRelic.h>
 #import "CUTEUserAgentUtil.h"
 #import "CUTESurveyHelper.h"
 #import "CUTEUsageRecorder.h"
@@ -164,13 +163,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-    // Override point for customization after application launch.
-    //Dislable feature for NRFeatureFlag_InteractionTracing, when method swizzle, the feature will throw exceptions
-    //https://discuss.newrelic.com/t/new-relic-detected-an-unrecognized-selector/14654
-    //and by the way disable no need features
-    [NewRelicAgent disableFeatures:NRFeatureFlag_InteractionTracing | NRFeatureFlag_SwiftInteractionTracing | NRFeatureFlag_CrashReporting];
-    [NewRelicAgent startWithApplicationToken:@"AA702288ba1ecd578f66c032589a84402e1b6a3cb9"];
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     [CUTEUserAgentUtil setupWebViewUserAgent];

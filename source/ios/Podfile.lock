@@ -113,7 +113,6 @@ PODS:
     - MBProgressHUD (~> 0.8)
     - PSTCollectionView (~> 1.2)
     - SDWebImage (~> 3.7)
-  - NewRelicAgent (5.2.1)
   - ngrvalidator (1.0.0)
   - NJKWebViewProgress (0.2.3):
     - NJKWebViewProgress/Core (= 0.2.3)
@@ -179,7 +178,6 @@ DEPENDENCIES:
   - libextobjc (= 0.4.1)
   - Masonry (= 0.6.1)
   - MWPhotoBrowser (= 1.4.1)
-  - NewRelicAgent
   - ngrvalidator (= 1.0.0)
   - NJKWebViewProgress (= 0.2.3)
   - NSDate-Extensions (= 0.0.1)
@@ -259,7 +257,6 @@ SPEC CHECKSUMS:
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MWPhotoBrowser: 2531e682860d62b8a7ba8659de02eb9040e431e5
-  NewRelicAgent: 142e1849875da74318acdb64afa3658c034e0bae
   ngrvalidator: 3d9f8402b2b3bbc070945e7defe1af0b5cc72e58
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   NSDate-Extensions: cbd68ecf5cf8a150644e184b4521d7734fea5ace
