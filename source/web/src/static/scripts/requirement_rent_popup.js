@@ -105,10 +105,10 @@
             container.data('initDateInput', true)
             $dateInput.each(function (index, elem) {
                 if($(elem).hasClass('startDate')) {
-                    $(elem).val(window.moment().format('YYYY-MM-DD'))
+                    $(elem).attr('value', window.moment.utc($(elem).attr('data-value') || new Date()).format('YYYY-MM-DD'))
                 }
                 if($(elem).attr('data-value')) {
-                    $(elem).val(window.moment($(elem).attr('data-value')).format('YYYY-MM-DD'))
+                    $(elem).attr('value', window.moment.utc($(elem).attr('data-value')).format('YYYY-MM-DD'))
                 }
                 $(elem).dateRangePicker({
                     //startDate: new Date(new Date().getTime() + 3600 * 24 * 30 * 1000),
@@ -119,6 +119,7 @@
                     container: container,
                     getValue: function() {
                         //return this.value || $.format.date(new Date(), 'yyyy-MM-dd');
+                        return $(this).val()
                     }
                 })
                     .bind('datepicker-change', function (event, obj) {

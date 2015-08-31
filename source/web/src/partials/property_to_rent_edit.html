@@ -335,7 +335,7 @@
                             <div>
                                 <div class="date">
                                     %if 'rent_available_time' in rent:
-                                    <input id="rentPeriodStartDate" type="text" value="{{rent.get('rent_available_time').strftime("%Y-%m-%d")}}" placeholder="{{_('起租日期')}}"/><i class="calendarIcon"></i>
+                                    <input id="rentPeriodStartDate" type="text" value="{{rent.get('rent_available_time','')}}" placeholder="{{_('起租日期')}}"/><i class="calendarIcon"></i>
                                     %else:
                                     <input id="rentPeriodStartDate" type="text" placeholder="{{_('起租日期')}}"/><i class="calendarIcon"></i>
                                     %end
@@ -347,7 +347,7 @@
                             <div>
                                 <div class="date">
                                     %if 'rent_deadline_time' in rent:
-                                    <input id="rentPeriodEndDate" type="text" value="{{rent.get('rent_deadline_time').strftime("%Y-%m-%d")}}" placeholder="{{_('结束日期')}}"/><i class="calendarIcon"></i>
+                                    <input id="rentPeriodEndDate" type="text" value="{{rent.get('rent_deadline_time','')}}" placeholder="{{_('结束日期')}}"/><i class="calendarIcon"></i>
                                     %else:
                                     <input id="rentPeriodEndDate" type="text" placeholder="{{_('结束日期')}}"/><i class="calendarIcon"></i>
                                     %end

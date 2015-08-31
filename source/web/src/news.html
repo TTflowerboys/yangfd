@@ -45,7 +45,7 @@
 
         <div class="button-group">
             %if 'time' in news:
-                <label class="date" for=""> <i class="hint">{{news.get('time').strftime('%Y-%m-%d')}}</i></label>
+                <label class="date" for=""> <i class="hint" data-utc-time="{{news.get('time')}}"></i></label>
             %end
 
             %for cate in news.get('category',{}):

@@ -19,7 +19,7 @@ $(function () {
     })
 
     //Display float app download bar based on cookie
-    if(_.isFunction($.cookie) && $.cookie('show-app-floatbar') === 'false'){
+    if(typeof $.cookie === 'function' && $.cookie('show-app-floatbar') === 'false'){
         $('.app-floatbar').hide()
     }else{
         if (window.team.isPhone() && !window.project.isMobileClient()) {
@@ -42,6 +42,11 @@ $(function () {
             e.preventDefault()
             return false
         }
+    })
+
+    $('[data-utc-time]').each(function () {
+        var format = $(this).attr('data-utc-format') || 'YYYY-MM-DD'
+        $(this).append(window.moment.utc($(this).attr('data-utc-time')).format(format))
     })
 })
 

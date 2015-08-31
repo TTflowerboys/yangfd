@@ -834,14 +834,18 @@
     })
 
     //startDate
-    if($('#rentPeriodStartDate').val() === ''){
-        $('#rentPeriodStartDate').val($.format.date(new Date(), 'yyyy-MM-dd'))
+    $('#rentPeriodStartDate').attr('value', window.moment.utc($('#rentPeriodStartDate').val() || new Date()).format('YYYY-MM-DD'))
+    if($('#rentPeriodEndDate').val()){
+        $('#rentPeriodEndDate').attr('value', window.moment.utc($('#rentPeriodEndDate').val()).format('YYYY-MM-DD'))
     }
     $('.date>input').each(function (index, elem) {
         $(elem).parent('.date').dateRangePicker({
             autoClose: true,
             singleDate: true,
-            showShortcuts: false
+            showShortcuts: false,
+            getValue: function() {
+                return $(this).find('input').val();
+            }
         })
         .bind('datepicker-change', function (event, obj) {
             $(elem).val($.format.date(new Date(obj.date1), 'yyyy-MM-dd'))

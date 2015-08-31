@@ -147,10 +147,10 @@
                         <div>
                             <i class="icon-clock"></i>
                             % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
-                            {{rent.get('rent_available_time','').strftime("%Y-%m-%d")}}
+                            <span data-utc-time="{{rent.get('rent_available_time','')}}"></span>
                             % end
                             % if 'rent_deadline_time' in rent and rent.get('rent_deadline_time',''):
-                            {{'至 ' + rent.get('rent_deadline_time').strftime("%Y-%m-%d")}}
+                            <span data-utc-time="{{rent.get('rent_deadline_time')}}">{{_('至 ')}}</span>
                             % else :
                             {{_('起')}}
                             % end

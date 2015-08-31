@@ -105,10 +105,10 @@
                         <div>
                             <i class="timeIcon"></i>
                             % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
-                            {{rent.get('rent_available_time','').strftime("%Y-%m-%d")}}
+                            <span data-utc-time="{{rent.get('rent_available_time','')}}"></span>
                             % end
                             % if 'rent_deadline_time' in rent and rent.get('rent_deadline_time',''):
-                            {{'至 ' + rent.get('rent_deadline_time').strftime("%Y-%m-%d")}}
+                            <span data-utc-time="{{rent.get('rent_deadline_time')}}">{{_('至 ')}}</span>
                             % else :
                             {{_('起')}}
                             % end
@@ -202,8 +202,10 @@
         <!--<script type="text/javascript" src="/static/scripts/track_ga.js"></script>-->
         <!--<script type="text/javascript" src="/static/scripts/track.js"></script>-->
         <script type="text/javascript" src="/static/bower_components/jquery/dist/jquery.min.js"></script>
-        <!--<script type="text/javascript" src="/static/scripts/team.js"></script>-->
-        <!--<script type="text/javascript" src="/static/scripts/project.js"></script>-->
+        <script type="text/javascript" src="/static/bower_components/moment/moment.js"></script>
+        <script type="text/javascript" src="/static/scripts/team.js"></script>
+        <script type="text/javascript" src="/static/scripts/project.js"></script>
+        <script type="text/javascript" src="/static/scripts/master.js"></script>
         <!--<script type="text/javascript" src="/static/scripts/propertyToRentDigest.js"></script>-->
         <!--endbuild-->
         <script>
