@@ -100,8 +100,13 @@ def enum_edit(user, enum_id, params):
     currency=str,
     type=str,
     sort=bool,
+    status=(list, ["new"], str)
 ))
 def enum_search(params):
+    if "status" in params:
+        assert set(params["status"]) <= set(["new", "deprecated"]), abort(40000, "invalid enum status")
+        params["status"] = {"$in": params["status"]}
+
     per_page = params.pop("per_page", 0)
     sort = params.pop("sort", False)
     return f_app.enum.get(f_app.enum.search(params, per_page=per_page, sort=("sort_value", "desc") if sort else ("time", "desc")))
