@@ -351,9 +351,8 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                 self.logger.debug("Appending rent_intention_ticket_check_rent email message type for user", str(user["_id"]))
                 f_app.user.get_database(m).update({"_id": user["_id"]}, {"$push": {"email_message_type": "rent_intention_ticket_check_rent"}})
 
-    def v20(self, m):
+    def vnext(self, m):
         f_app.task.get_database(m).update({"type": "rent_ticket_reminder", "status": {"$ne": "completed"}}, {"$set": {"status": "canceled"}}, multi=True)
-        
 
 currant_mongo_upgrade()
 
@@ -865,7 +864,7 @@ class f_currant_plugins(f_app.plugin_base):
             if "rent_intention_ticket_check_rent" not in intention_ticket["creator_user"]["email_message_type"]:
                 continue
 
-            if "rent_budget" not in intention_ticket or "bedroom_count" not in intention_ticket or "minimum_rent_period" not in intention_ticket or "rent_type" not in intention_ticket:
+            if "rent_budget" not in intention_ticket or "bedroom_count" not in intention_ticket or "rent_type" not in intention_ticket:
                 continue
 
             bedroom_count = f_app.util.parse_bedroom_count(intention_ticket["bedroom_count"])
@@ -960,7 +959,7 @@ class f_currant_plugins(f_app.plugin_base):
 
         for ticket in rent_tickets:
             try:
-                if "price" not in ticket or "property" not in ticket or "bedroom_count" not in ticket["property"] or "minimum_rent_period" not in ticket or "rent_type" not in ticket or "country" not in ticket["property"]:
+                if "price" not in ticket or "property" not in ticket or "bedroom_count" not in ticket["property"] or "rent_type" not in ticket or "country" not in ticket["property"]:
                     continue
 
                 if ticket["property"]["country"]["code"] != intention_ticket["country"]["code"]:
