@@ -852,8 +852,8 @@ class f_currant_plugins(f_app.plugin_base):
         params = {
             "type": "rent_intention",
             "status": "new",
-            "country": ticket["property"]["country"],
-            "city": ticket["property"]["city"],
+            "country.code": ticket["property"]["country"]["code"],
+            "city.id": ticket["property"]["city"]["id"],
         }
         rent_intention_tickets = f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), check_permission=False)
 
