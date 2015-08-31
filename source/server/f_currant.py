@@ -853,7 +853,7 @@ class f_currant_plugins(f_app.plugin_base):
             "type": "rent_intention",
             "status": "new",
             "country.code": ticket["property"]["country"]["code"],
-            "city.id": ticket["property"]["city"]["id"],
+            "city._id": ObjectId(ticket["property"]["city"]["id"]),
         }
         rent_intention_tickets = f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), check_permission=False)
 
