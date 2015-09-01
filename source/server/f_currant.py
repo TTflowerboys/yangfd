@@ -351,8 +351,13 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                 self.logger.debug("Appending rent_intention_ticket_check_rent email message type for user", str(user["_id"]))
                 f_app.user.get_database(m).update({"_id": user["_id"]}, {"$push": {"email_message_type": "rent_intention_ticket_check_rent"}})
 
-    def vnext(self, m):
+    def v20(self, m):
         f_app.task.get_database(m).update({"type": "rent_ticket_reminder", "status": {"$ne": "completed"}}, {"$set": {"status": "canceled"}}, multi=True)
+        f_app.task.get_database(m).insert({
+            "type": "rent_ticket_reminder",
+            "status": "new",
+            "start": datetime.utcnow(),
+        })
 
 currant_mongo_upgrade()
 
@@ -1159,60 +1164,119 @@ class f_currant_plugins(f_app.plugin_base):
             f_app.ticket.update_set(task["ticket_id"], {"digest_image": b.get_public_url(filename), "digest_image_generate_time": datetime.utcnow()})
 
     def task_on_rent_ticket_reminder(self, task):
-        try:
-            rent_ticket = f_app.ticket.output([task["ticket_id"]], check_permission=False)[0]
-        except:
-            self.logger.warning("Failed to load ticket", task["ticket_id"], ", ignoring reminder...")
-            return
+        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "to rent"}), check_permission=False)
 
-        if rent_ticket["status"] != "to rent":
-            self.logger.debug("ticket", task["ticket_id"], "is in", rent_ticket["status"], "ignoring reminder...")
+        for rent_ticket in tickets:
+            last_email = f_app.task.search({"status": {"$exists": True}, "type": "email", "rent_ticket_reminder": "is_rent_success", "start": {"$gte": datetime.utcnow() - timedelta(days=7)}})
 
-            if rent_ticket["status"] == "draft":
-                f_app.task.put(dict(
-                    type="rent_ticket_reminder",
-                    start=datetime.utcnow() + timedelta(days=7),
-                    ticket_id=task["ticket_id"],
-                ))
+            if last_email:
+                # Sent within 7 days, skipping
+                continue
 
-            return
+            title = "您的“%(title)s”是否已经出租成功了？" % rent_ticket
+            url = 'http://yangfd.com/property-to-rent/' + rent_ticket["id"]
 
-        title = "您的“%(title)s”是否已经出租成功了？" % rent_ticket
-        url = 'http://yangfd.com/property-to-rent/' + rent_ticket["id"]
+            try:
+                body = template(
+                    "views/static/emails/rent_notice.html",
+                    title=title,
+                    nickname=rent_ticket["creator_user"]["nickname"],
+                    formated_date='之前',  # TODO
+                    rent_url=url,
+                    rent_title=rent_ticket["title"],
+                    has_rented_url="http://yangfd.com//user-properties?type=rent_ticket&id=%s&action=confirm_rent" % (rent_ticket["id"],),
+                    refresh_url="http://yangfd.com//user-properties?type=rent_ticket&id=%s&action=refresh" % (rent_ticket["id"],),
+                    edit_url=url + "/edit",
+                    qrcode_image="http://yangfd.com/qrcode/generate?content=" + urllib.parse.quote(url),
+                    unsubscribe_url='http://yangfd.com/email-unsubscribe?email_message_type=rent_ticket_reminder')
+            except:
+                self.logger.warning("Invalid ticket", rent_ticket["id"], ", ignoring reminder...")
+                continue
 
-        try:
-            body = template(
-                "views/static/emails/rent_notice.html",
-                title=title,
-                nickname=rent_ticket["creator_user"]["nickname"],
-                formated_date='之前',  # TODO
-                rent_url=url,
-                rent_title=rent_ticket["title"],
-                has_rented_url="http://yangfd.com//user-properties?type=rent_ticket&id=%s&action=confirm_rent" % (rent_ticket["id"],),
-                refresh_url="http://yangfd.com//user-properties?type=rent_ticket&id=%s&action=refresh" % (rent_ticket["id"],),
-                edit_url=url + "/edit",
-                qrcode_image="http://yangfd.com/qrcode/generate?content=" + urllib.parse.quote(url),
-                unsubscribe_url='http://yangfd.com/email-unsubscribe?email_message_type=rent_ticket_reminder')
-        except:
-            self.logger.warning("Invalid ticket", task["ticket_id"], ", ignoring reminder...")
-            return
+            if "creator_user" not in rent_ticket or "email" not in rent_ticket["creator_user"]:
+                self.logger.warning("Ticket doesn't have a valid creator user:", task["ticket_id"], ", ignoring reminder...")
+                continue
 
-        if "creator_user" not in rent_ticket or "email" not in rent_ticket["creator_user"]:
-            self.logger.warning("Ticket doesn't have a valid creator user:", task["ticket_id"], ", ignoring reminder...")
-            return
+            if "rent_ticket_reminder" in rent_ticket["creator_user"]["email_message_type"]:
+                f_app.email.schedule(
+                    target=rent_ticket["creator_user"]["email"],
+                    subject=title,
+                    text=body,
+                    display="html",
+                    rent_ticket_reminder="is_rent_success",
+                )
 
-        if "rent_ticket_reminder" in rent_ticket["creator_user"]["email_message_type"]:
-            f_app.email.schedule(
-                target=rent_ticket["creator_user"]["email"],
-                subject=title,
-                text=body,
-                display="html",
-            )
+        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"lte": datetime.utcnow() - timedelta(days=7)}}), check_permission=False)
+
+        for rent_ticket in tickets:
+            last_email = f_app.task.search({"status": {"$exists": True}, "type": "email", "rent_ticket_reminder": "draft_7day"})
+
+            if last_email:
+                # Sent, skipping
+                continue
+
+            title = "您的出租房产已经在草稿箱中躺了7天了！"
+            try:
+                body = template(
+                    "views/static/emails/draft_not_publish_day_7",
+                    nickname=rent_ticket["creator_user"]["nickname"],
+                    date="",
+                    title=title,
+                    unsubscribe_url='http://yangfd.com/email-unsubscribe?email_message_type=rent_ticket_reminder')
+            except:
+                self.logger.warning("Invalid ticket", rent_ticket["id"], ", ignoring reminder...")
+                continue
+
+            if "creator_user" not in rent_ticket or "email" not in rent_ticket["creator_user"]:
+                self.logger.warning("Ticket doesn't have a valid creator user:", task["ticket_id"], ", ignoring reminder...")
+                continue
+
+            if "rent_ticket_reminder" in rent_ticket["creator_user"]["email_message_type"]:
+                f_app.email.schedule(
+                    target=rent_ticket["creator_user"]["email"],
+                    subject=title,
+                    text=body,
+                    display="html",
+                    rent_ticket_reminder="draft_7day",
+                )
+
+        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"lte": datetime.utcnow() - timedelta(days=3)}}), check_permission=False)
+
+        for rent_ticket in tickets:
+            last_email = f_app.task.search({"status": {"$exists": True}, "type": "email", "rent_ticket_reminder": {"$in": ["draft_3day", "draft_7day"]}})
+
+            if last_email:
+                # Sent, skipping
+                continue
+
+            title = "您的出租房产已经在草稿箱中躺了3天了！"
+            try:
+                body = template(
+                    "views/static/emails/draft_not_publish_day_3",
+                    nickname=rent_ticket["creator_user"]["nickname"],
+                    date="",
+                    title=title,
+                    unsubscribe_url='http://yangfd.com/email-unsubscribe?email_message_type=rent_ticket_reminder')
+            except:
+                self.logger.warning("Invalid ticket", rent_ticket["id"], ", ignoring reminder...")
+                continue
+
+            if "creator_user" not in rent_ticket or "email" not in rent_ticket["creator_user"]:
+                self.logger.warning("Ticket doesn't have a valid creator user:", task["ticket_id"], ", ignoring reminder...")
+                continue
+
+            if "rent_ticket_reminder" in rent_ticket["creator_user"]["email_message_type"]:
+                f_app.email.schedule(
+                    target=rent_ticket["creator_user"]["email"],
+                    subject=title,
+                    text=body,
+                    display="html",
+                    rent_ticket_reminder="draft_3day",
+                )
 
         f_app.task.put(dict(
             type="rent_ticket_reminder",
-            start=datetime.utcnow() + timedelta(days=7),
-            ticket_id=task["ticket_id"],
+            start=datetime.utcnow() + timedelta(days=1),
         ))
 
     def task_on_assign_property_short_id(self, task):
