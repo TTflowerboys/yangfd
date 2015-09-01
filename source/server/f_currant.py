@@ -1173,10 +1173,9 @@ class f_currant_plugins(f_app.plugin_base):
                 # Sent within 7 days, skipping
                 continue
 
-            title = "您的“%(title)s”是否已经出租成功了？" % rent_ticket
-            url = 'http://yangfd.com/property-to-rent/' + rent_ticket["id"]
-
             try:
+                title = "您的“%(title)s”是否已经出租成功了？" % rent_ticket
+                url = 'http://yangfd.com/property-to-rent/' + rent_ticket["id"]
                 body = template(
                     "views/static/emails/rent_notice.html",
                     title=title,
