@@ -504,15 +504,15 @@ class f_currant_user(f_user):
 
     def counter_update(self, user_id, counter_name="all"):
         if counter_name == "all":
-            intention_tickets = f_app.ticket.search({"user_id": ObjectId(user_id), "type": "intention"})
-            support_tickets = f_app.ticket.search({"user_id": ObjectId(user_id), "type": "support"})
+            intention_tickets = f_app.ticket.search({"user_id": ObjectId(user_id), "type": "intention"}, per_page=0)
+            support_tickets = f_app.ticket.search({"user_id": ObjectId(user_id), "type": "support"}, per_page=0)
             self.update_set(user_id, {"counter.intention": len(intention_tickets), "counter.support": len(support_tickets)})
 
         elif counter_name == "intention":
-            intention_tickets = f_app.ticket.search({"user_id": ObjectId(user_id), "type": "intention"})
+            intention_tickets = f_app.ticket.search({"user_id": ObjectId(user_id), "type": "intention"}, per_page=0)
             self.update_set(user_id, {"counter.intention": len(intention_tickets)})
         elif counter_name == "support":
-            support_tickets = f_app.ticket.search({"user_id": ObjectId(user_id), "type": "support"})
+            support_tickets = f_app.ticket.search({"user_id": ObjectId(user_id), "type": "support"}, per_page=0)
             self.update_set(user_id, {"counter.support": len(support_tickets)})
 
         return f_app.user.get(user_id)
@@ -1164,7 +1164,7 @@ class f_currant_plugins(f_app.plugin_base):
             f_app.ticket.update_set(task["ticket_id"], {"digest_image": b.get_public_url(filename), "digest_image_generate_time": datetime.utcnow()})
 
     def task_on_rent_ticket_reminder(self, task):
-        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "to rent"}), check_permission=False)
+        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "to rent"}, per_page=0), check_permission=False)
 
         for rent_ticket in tickets:
             last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "rent_ticket_reminder": "is_rent_success", "start": {"$gte": datetime.utcnow() - timedelta(days=7)}})
@@ -1206,7 +1206,7 @@ class f_currant_plugins(f_app.plugin_base):
                     rent_ticket_reminder="is_rent_success",
                 )
 
-        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=7)}}), check_permission=False)
+        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=7)}}, per_page=0, notime=True), check_permission=False)
 
         for rent_ticket in tickets:
             last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "rent_ticket_reminder": "draft_7day"})
@@ -1240,7 +1240,7 @@ class f_currant_plugins(f_app.plugin_base):
                     rent_ticket_reminder="draft_7day",
                 )
 
-        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=3)}}), check_permission=False)
+        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=3)}}, per_page=0, notime=True), check_permission=False)
 
         for rent_ticket in tickets:
             last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "rent_ticket_reminder": {"$in": ["draft_3day", "draft_7day"]}})
