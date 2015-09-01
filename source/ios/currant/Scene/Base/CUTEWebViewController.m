@@ -22,7 +22,6 @@
 #import "WebViewJavascriptBridge.h"
 #import "NSString+Encoding.h"
 #import "NSArray+ObjectiveSugar.h"
-#import "RNCachingURLProtocol.h"
 #import "NSDate-Utilities.h"
 #import "Aspects.h"
 #import "NSURL+CUTE.h"
@@ -56,10 +55,15 @@
     return self;
 }
 
-- (void)updateWebView {
+- (void)createOrUpdateWebView:(UIWebView *)webView {
     [_webView removeFromSuperview];
     _webView = nil;
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, RectWidth(self.view.bounds), RectHeightExclude(self.view.bounds, (StatusBarHeight + TouchHeightDefault + TabBarHeight)))];
+    if (webView) {
+        _webView = webView;
+    }
+    else {
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, RectWidth(self.view.bounds), RectHeightExclude(self.view.bounds, (StatusBarHeight + TouchHeightDefault + TabBarHeight)))];
+    }
     [self.view addSubview:_webView];
 
     MakeBegin(_webView)
@@ -78,34 +82,7 @@
     
 }
 
-- (void)loadRequestIgnoringCache:(NSURLRequest *)urlRequest {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlRequest.URL
-                                                           cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                                       timeoutInterval:600.0];
-    [request setValue:@"" forHTTPHeaderField:RNCachingReloadIgnoringCacheHeader];
-    __weak typeof(self)weakSelf = self;
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-        NSURLResponse *response = nil;
-        NSData *data = nil;
-        NSError *error = nil;
-        data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
-            [weakSelf updateData:data response:response];
-        });
-    });
-}
-
-- (void)checkLoadIgnoringCache:(NSURLRequest *)urlRequest {
-    //only reload for cache
-    if ([[RNCache sharedInstance] isRequestCached:urlRequest]) {
-        //delay to make cache loading
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self loadRequestIgnoringCache:urlRequest];
-        });
-    }
-}
-
+//TODO move permission check out of the controller, export a delegate
 - (NSURL *)getURLAfterUserPermissionCheck:(NSURL *)url {
     if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:url] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
         url =  [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:url];
@@ -119,15 +96,25 @@
     request.allHTTPHeaderFields = originalRequest.allHTTPHeaderFields;
 
     if (!_webView) {
-        [self updateWebView];
+        [self createOrUpdateWebView:nil];
     }
     [_webView loadRequest:request];
 
     [self updateBackButton];
     [self updateRightButtonWithURL:url];
     [self updateTitleWithURL:url];
+}
 
-    [self checkLoadIgnoringCache:request];
+- (void)loadWebArchive:(CUTEWebArchive *)archive {
+
+    if (!_webView) {
+        [self createOrUpdateWebView:nil];
+    }
+    [_webView loadData:archive.data MIMEType:archive.MIMEType textEncodingName:archive.textEncodingName baseURL:archive.URL];
+
+    [self updateBackButton];
+    [self updateRightButtonWithURL:archive.URL];
+    [self updateTitleWithURL:archive.URL];
 }
 
 - (void)loadRequesetInNewController:(NSURLRequest *)urlRequest {
@@ -144,7 +131,7 @@
 
 
 - (void)updateWithURL:(NSURL *)url {
-    [self updateWebView];
+    [self createOrUpdateWebView:nil];
     //http://stackoverflow.com/questions/16073519/nsurlerrordomain-error-code-999-in-ios
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self loadRequest:[NSURLRequest requestWithURL:url]];
@@ -234,7 +221,6 @@
     }
     else {
         [self.webView reload];
-        [self checkLoadIgnoringCache:self.webView.request];
     }
 }
 
@@ -285,11 +271,6 @@
         return NO;
     }
 
-    //TODO, does here will cause load circle
-    if (![[self.url absoluteString] isEqualToString:request.URL.absoluteString] && ![[webView.request.URL absoluteString] isEqualToString:request.URL.absoluteString]) {
-        [self checkLoadIgnoringCache:request];
-    }
-
     return YES;
 }
 
@@ -303,6 +284,8 @@
     [self updateBackButton];
     [self updateRightButtonWithURL:webView.request.URL];
     [self updateTitleWithURL:webView.request.URL];
+    //[[[[[[webView _documentView] webView] mainFrame] dataSource] webArchive] data]
+//    NSData *webarchive = [[[[[[webView performSelector:@selector(_documentView)] performSelector:@selector(webView)] performSelector:@selector(mainFrame)] performSelector:@selector(dataSource)] performSelector:@selector(webArchive)] performSelector:@selector(data)];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {

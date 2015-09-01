@@ -50,8 +50,6 @@
 #import "CUTETooltipView.h"
 #import "NSArray+ObjectiveSugar.h"
 #import "Aspects.h"
-#import "RNCachingURLProtocol.h"
-#import <NewRelicAgent/NewRelic.h>
 #import "CUTEUserAgentUtil.h"
 #import "CUTESurveyHelper.h"
 #import "CUTEUsageRecorder.h"
@@ -60,6 +58,8 @@
 #import "CUTERentConfirmPhoneForm.h"
 #import "CUTEAPIManager.h"
 #import <BBTAppUpdater.h>
+#import "CUTEWebArchiveManager.h"
+#import "CUTEWebConfiguration.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
@@ -79,54 +79,62 @@
 #define kRentTicketListTabBarIndex 3
 #define kUserTabBarIndex 4
 
-- (UINavigationController *)makeViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath index:(NSInteger)index {
-
-    CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
+- (UINavigationController *)getTabBarNavigationControllerWithTitle:(NSString *)title icon:(NSString *)icon index:(NSInteger)index {
     UINavigationController *nav = [[UINavigationController alloc] init];
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    controller.url = [NSURL WebURLWithString:urlPath];
     nav.tabBarItem = tabItem;
     nav.tabBarItem.tag = index;
     nav.tabBarItem.accessibilityLabel = title;
     nav.view.backgroundColor = CUTE_BACKGROUND_COLOR;
-    controller.navigationItem.title = STR(@"洋房东");
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
+    return nav;
+
+}
+
+- (UINavigationController *)makeIndexViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
+
+    UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kHomeTabBarIndex];
+    CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
+    controller.navigationItem.title = STR(@"洋房东");
+    controller.url = [NSURL WebURLWithString:urlPath];
+    controller.webArchiveRequired = YES;
     [nav setViewControllers:@[controller]];
     return nav;
 }
 
 - (UINavigationController *)makePropertyListViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
 
+    UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kPropertyListTabBarIndex];
     CUTEPropertyListViewController *controller = [[CUTEPropertyListViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] init];
-    nav.view.backgroundColor = CUTE_BACKGROUND_COLOR;
-    UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     controller.url = [NSURL WebURLWithString:urlPath];
-    nav.tabBarItem = tabItem;
-    nav.tabBarItem.tag = kPropertyListTabBarIndex;
-    nav.tabBarItem.accessibilityLabel = title;
     controller.navigationItem.title = STR(@"洋房东");
-    [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
+    controller.webArchiveRequired = YES;
     [nav setViewControllers:@[controller]];
     return nav;
 }
 
 - (UINavigationController *)makeRentListViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
 
+    UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kRentTicketListTabBarIndex];
     CUTERentListViewController *controller = [[CUTERentListViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] init];
-    nav.view.backgroundColor = CUTE_BACKGROUND_COLOR;
-    UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     controller.url = [NSURL WebURLWithString:urlPath];
-    nav.tabBarItem = tabItem;
-    nav.tabBarItem.tag = kRentTicketListTabBarIndex;
-    nav.tabBarItem.accessibilityLabel = title;
     controller.navigationItem.title = STR(@"洋房东");
-    [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
+    controller.webArchiveRequired = YES;
     [nav setViewControllers:@[controller]];
     return nav;
 }
 
+
+- (UINavigationController *)makeUserViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
+
+    UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kUserTabBarIndex];
+    CUTEUserViewController *controller = [[CUTEUserViewController alloc] init];
+    controller.url = [NSURL WebURLWithString:urlPath];
+    controller.navigationItem.title = STR(@"洋房东");
+    controller.webArchiveRequired = YES;
+    [nav setViewControllers:@[controller]];
+    return nav;
+}
 
 - (UINavigationController *)makeEditViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
     UINavigationController *nav = [[UINavigationController alloc] init];
@@ -144,33 +152,7 @@
     return nav;
 }
 
-
-- (UINavigationController *)makeUserViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath index:(NSInteger)index {
-
-    CUTEUserViewController *controller = [[CUTEUserViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] init];
-    nav.view.backgroundColor = CUTE_BACKGROUND_COLOR;
-    UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    controller.url = [NSURL WebURLWithString:urlPath];
-    nav.tabBarItem = tabItem;
-    nav.tabBarItem.tag = index;
-    nav.tabBarItem.accessibilityLabel = title;
-    controller.navigationItem.title = STR(@"洋房东");
-    [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
-    [nav setViewControllers:@[controller]];
-    return nav;
-}
-
-
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-    // Override point for customization after application launch.
-    //Dislable feature for NRFeatureFlag_InteractionTracing, when method swizzle, the feature will throw exceptions
-    //https://discuss.newrelic.com/t/new-relic-detected-an-unrecognized-selector/14654
-    //and by the way disable no need features
-    [NewRelicAgent disableFeatures:NRFeatureFlag_InteractionTracing | NRFeatureFlag_SwiftInteractionTracing | NRFeatureFlag_CrashReporting];
-    [NewRelicAgent startWithApplicationToken:@"AA702288ba1ecd578f66c032589a84402e1b6a3cb9"];
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     [CUTEUserAgentUtil setupWebViewUserAgent];
@@ -201,13 +183,12 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
-    UINavigationController *homeViewController = [self makeViewControllerWithTitle:STR(@"主页") icon:@"tab-home" urlPath:@"/" index:kHomeTabBarIndex];
+    UINavigationController *homeViewController = [self makeIndexViewControllerWithTitle:STR(@"主页") icon:@"tab-home" urlPath:@"/"];
 
     UINavigationController *editViewController = [self makeEditViewControllerWithTitle:STR(@"发布") icon:@"tab-edit" urlPath:@"/rent_new"];
     UINavigationController *propertyListViewController = [self makePropertyListViewControllerWithTitle:STR(@"新房") icon:@"tab-property" urlPath:@"/property-list"];
     UINavigationController *rentTicketListViewController = [self makeRentListViewControllerWithTitle:STR(@"租房") icon:@"tab-rent" urlPath:@"/property-to-rent-list"];
-    UINavigationController *userViewController = [self makeUserViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user" index: kUserTabBarIndex];
-//     UINavigationController *userViewController = [self makeUserViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/intention?from=%2Fuser" index: kUserTabBarIndex];
+    UINavigationController *userViewController = [self makeUserViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user"];
     [rootViewController setViewControllers:@[homeViewController,
                                              propertyListViewController,
                                              editViewController,
@@ -237,14 +218,6 @@
                                                         } forState:UIControlStateNormal];
     [self.window makeKeyAndVisible];
 
-    [RNCachingURLProtocol setSupportedSchemes:[NSSet setWithArray:@[@"http", @"https"]]];
-    [NSURLProtocol registerClass:[RNCachingURLProtocol class]];
-    [[RNCache sharedInstance] setDefaultTimeoutInterval:7 * 24 * 60 * 60];//7 days
-    [[RNCache sharedInstance] setHostList:[CUTEConfiguration webCacheHosts]];
-    [[RNCache sharedInstance] setExceptionRules:[CUTEConfiguration webCacheExceptionRules]];
-    [[RNCache sharedInstance] setResponseEntityRequiredMIMETypes:[CUTEConfiguration responseEntityRequiredMIMETypes]];
-    [[RNCache sharedInstance] setAllowedResponseStatusCodes:[CUTEConfiguration cacheAllowedResponseStatusCodes]];
-
     [[CUTEAPICacheManager sharedInstance] refresh];
 
     if ([self checkShowSplashViewController]) {
@@ -257,8 +230,7 @@
 
     //defautl open home page
     [self.tabBarController setSelectedIndex:kHomeTabBarIndex];
-    CUTEWebViewController *webViewController = (CUTEWebViewController *)homeViewController.topViewController;
-    [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
+    [self updateWebViewControllerTabAtIndex:kHomeTabBarIndex];
     _lastSelectedTabIndex = kHomeTabBarIndex;
 
 //#warning DEBUG_CODE
@@ -286,6 +258,10 @@
     });
 
     [self checkAppUpdate];
+
+    [CUTEWebViewController aspect_hookSelector:@selector(webViewDidStartLoad:) withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> info, UIWebView *webView) {
+
+    } error:nil];
 
     return YES;
 }
@@ -415,18 +391,44 @@
     UINavigationController *viewController = [[self.tabBarController viewControllers] objectAtIndex:index];
     if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
         CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
+
+        NSURL *originalURL = webViewController.url;
+        NSURL *redirectedURL = originalURL;
+        if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:originalURL] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
+            redirectedURL = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:originalURL];
+        }
+        dispatch_block_t loadBlock = ^ {
+            CUTEWebArchive *archive = [[CUTEWebArchiveManager sharedInstance] getWebArchiveWithURL:redirectedURL];
+            if (archive) {
+                [webViewController loadWebArchive:archive];
+            }
+            else {
+                [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
+                if (webViewController.webArchiveRequired) {
+                    [[CUTEWebArchiveManager sharedInstance]  archiveURL:redirectedURL];
+                }
+            }
+        };
+
+        dispatch_block_t reloadBlock = ^ {
+            [webViewController reload];
+            if (webViewController.webArchiveRequired) {
+                [[CUTEWebArchiveManager sharedInstance]  archiveURL:redirectedURL];
+            }
+        };
+
         if (_lastSelectedTabIndex == self.tabBarController.selectedIndex) {
             //在网络情况不好时，可能加载没有正常开始，比如在飞行模式，这个时候 request.URL.absoluteString 长度为0，那么就需要重新开始加载，而不是reload
             if (IsNilOrNull(webViewController.webView.request) || IsNilOrNull(webViewController.webView.request.URL) || IsNilNullOrEmpty(webViewController.webView.request.URL.absoluteString)) {
-                [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
+                loadBlock();
             }
             else {
-                [webViewController reload];
+                reloadBlock();
             }
         }
         else {
             if (!webViewController.webView.request) {// web page not load, so load it
-                [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
+                loadBlock();
             }
         }
     }
@@ -755,7 +757,6 @@
     _lastSelectedTabIndex = kPropertyListTabBarIndex;
 }
 
-
 - (void)onReceiveUserDidLogin:(NSNotification *)notif {
     CUTEUser *user = [notif.userInfo objectForKey:@"user"];
 
@@ -816,7 +817,6 @@
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
-    [[RNCache sharedInstance] clearCache];
     [[CUTEDataManager sharedInstance] clearAllRentTickets];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 }

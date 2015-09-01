@@ -31,42 +31,6 @@ static NSString *host = nil;
     return [NSURL URLWithString:CONCAT(@"http://", [self host], @":8286")];
 }
 
-+ (NSArray *)webCacheHosts {
-    return @[[self host],
-             @"static.yangfd.com",
-             @"upload.yangfd.com"];
-}
-
-+ (NSArray *)webCacheExceptionRules {
-    //filter out non html interface
-    return @[CONCAT(@"http://", [self host], @"(:\\d{2,4})?", @"/api"),
-             CONCAT(@"http://", [self host], @"/image/fetch"),
-             CONCAT(@"http://", [self host], @"/upload_image"),
-             CONCAT(@"http://", [self host], @"/reverse_proxy"),
-             CONCAT(@"http://", [self host], @"/logout"),
-             CONCAT(@"http://", [self host], @"/qrcode/generate"),
-             CONCAT(@"http://", [self host], @"/track"),
-             CONCAT(@"http://", [self host], @"/wechat-poster")];
-}
-
-+ (NSArray *)responseEntityRequiredMIMETypes {
-    return @[@"text/html",
-             @"text/css",
-             @"text/xml",
-             @"application/javascript",
-             @"application/font-woff",
-             @"image/jpeg",
-             @"image/png",
-             @"image/gif",
-             @"image/svg+xml",
-             @"image/x-icon",
-             ];
-}
-
-+ (NSArray *)cacheAllowedResponseStatusCodes {
-    return @[@(200)];
-}
-
 + (NSString *)yangfdScheme {
     return @"yangfd";
 }

@@ -113,7 +113,6 @@ PODS:
     - MBProgressHUD (~> 0.8)
     - PSTCollectionView (~> 1.2)
     - SDWebImage (~> 3.7)
-  - NewRelicAgent (5.2.1)
   - ngrvalidator (1.0.0)
   - NJKWebViewProgress (0.2.3):
     - NJKWebViewProgress/Core (= 0.2.3)
@@ -137,13 +136,12 @@ PODS:
   - OHHTTPStubs/NSURLSession (4.2.0):
     - OHHTTPStubs/Core
   - OHHTTPStubs/OHPathHelpers (4.2.0)
+  - Ono (1.2.2)
   - Overcoat (1.2.1):
     - AFNetworking (~> 2.0)
     - Mantle (~> 1.3)
   - PSTCollectionView (1.2.3)
   - RegExCategories (1.0)
-  - RNCachingURLProtocol+HybirdApp (0.0.1):
-    - EGOCache
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
@@ -170,6 +168,7 @@ DEPENDENCIES:
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
   - Bolts (= 1.1.5)
   - CTAssetsPickerController (= 2.9.4)
+  - EGOCache (~> 2.1.3)
   - FXForms (= 1.2.12)
   - Google/Analytics (~> 1.0.0)
   - INTULocationManager (= 3.0.3)
@@ -179,15 +178,14 @@ DEPENDENCIES:
   - libextobjc (= 0.4.1)
   - Masonry (= 0.6.1)
   - MWPhotoBrowser (= 1.4.1)
-  - NewRelicAgent
   - ngrvalidator (= 1.0.0)
   - NJKWebViewProgress (= 0.2.3)
   - NSDate-Extensions (= 0.0.1)
   - NSTimer-Blocks
   - OCHamcrest
   - OHHTTPStubs
+  - Ono
   - RegExCategories (= 1.0)
-  - RNCachingURLProtocol+HybirdApp (from `https://github.com/Fykec/RNCachingURLProtocol.git`)
   - Sequencer (= 1.0.1)
   - SMCalloutView (= 2.1.2)
   - Specta
@@ -207,8 +205,6 @@ EXTERNAL SOURCES:
     :git: git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git
   BBTUtility:
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
-  RNCachingURLProtocol+HybirdApp:
-    :git: https://github.com/Fykec/RNCachingURLProtocol.git
   WeiboSDK:
     :git: https://github.com/sinaweibosdk/weibo_ios_sdk
     :tag: 3.0.1
@@ -223,9 +219,6 @@ CHECKOUT OPTIONS:
   BBTUtility:
     :commit: f5f295b562ceb5097e2a224bf4332f39c2e2779f
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
-  RNCachingURLProtocol+HybirdApp:
-    :commit: 692bd5e4c2347938f3fcf9e107d3d98a64522a88
-    :git: https://github.com/Fykec/RNCachingURLProtocol.git
   WeiboSDK:
     :git: https://github.com/sinaweibosdk/weibo_ios_sdk
     :tag: 3.0.1
@@ -259,7 +252,6 @@ SPEC CHECKSUMS:
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MWPhotoBrowser: 2531e682860d62b8a7ba8659de02eb9040e431e5
-  NewRelicAgent: 142e1849875da74318acdb64afa3658c034e0bae
   ngrvalidator: 3d9f8402b2b3bbc070945e7defe1af0b5cc72e58
   NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   NSDate-Extensions: cbd68ecf5cf8a150644e184b4521d7734fea5ace
@@ -267,10 +259,10 @@ SPEC CHECKSUMS:
   ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
   OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
   OHHTTPStubs: f639130b83fb5f4f022d38f841141b0a6fa77249
+  Ono: 80b1c686777d3f6d5d5ce6fcac8a74afef4ca197
   Overcoat: 45e4d20eafc02c8d7fcde3cb89d35f0630a9fa80
   PSTCollectionView: 6749df92885353521f55279a7ce2b293762e2be4
   RegExCategories: e68befacacd5bda853c88f70ec745cb2d0cfb89c
-  RNCachingURLProtocol+HybirdApp: a7239a40a343861cc8e9f194ed5f89674922b84c
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   Sequencer: 53040fea35ecde55ba9cdb3a505a00cfb0e797b2
   SMCalloutView: 4078d89b847731e514b1a919fed33b383a24a106
