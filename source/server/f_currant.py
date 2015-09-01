@@ -1206,7 +1206,7 @@ class f_currant_plugins(f_app.plugin_base):
                     rent_ticket_reminder="is_rent_success",
                 )
 
-        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"lte": datetime.utcnow() - timedelta(days=7)}}), check_permission=False)
+        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=7)}}), check_permission=False)
 
         for rent_ticket in tickets:
             last_email = f_app.task.search({"status": {"$exists": True}, "type": "email", "rent_ticket_reminder": "draft_7day"})
@@ -1240,7 +1240,7 @@ class f_currant_plugins(f_app.plugin_base):
                     rent_ticket_reminder="draft_7day",
                 )
 
-        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"lte": datetime.utcnow() - timedelta(days=3)}}), check_permission=False)
+        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=3)}}), check_permission=False)
 
         for rent_ticket in tickets:
             last_email = f_app.task.search({"status": {"$exists": True}, "type": "email", "rent_ticket_reminder": {"$in": ["draft_3day", "draft_7day"]}})
