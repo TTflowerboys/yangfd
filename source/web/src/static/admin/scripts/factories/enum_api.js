@@ -184,12 +184,18 @@
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
-            getEnumsByType: function (type) {
-                return $http.get('/api/1/enum', {
-                    params: {
-                        type: type,
-                        _i18n: 'disabled'
-                    }
+            getEnumsByType: function (type, status) {
+                var params = {
+                    type: type,
+                    _i18n: 'disabled'
+                }
+                if(status) {
+                    params = angular.extend(params, {
+                        status: JSON.stringify([status])
+                    })
+                }
+                return $http.get('/api/1/enum/search', {
+                    params: params
                 })
             },
             // origin means non-i18n
@@ -247,6 +253,9 @@
             },
             remove: function (id, config) {
                 return $http.post('/api/1/enum/' + id + '/remove', {mode: 'clean'}, config)
+            },
+            deprecate: function (id, config) {
+                return $http.post('/api/1/enum/' + id + '/deprecate', null,  config)
             },
             check: function (id, config) {
                 return $http.post('/api/1/enum/' + id + '/check', null, config)

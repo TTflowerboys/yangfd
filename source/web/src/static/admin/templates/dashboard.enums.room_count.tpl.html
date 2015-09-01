@@ -1,4 +1,4 @@
-<div ui-view ng-init="updateRoomCountList()">
+<div ui-view>
     <span class="btn-group">
         <button class="btn" ui-sref=".create">
             <span class="fa fa-plus-circle"></span>{%$root.i18n('添加房间数')%}
@@ -6,7 +6,10 @@
 
     </span>
     <div class="btn-group form-inline">
-        <select class="form-control" ng-options="p.value as p.name for p in roomCountType" ng-model="item.type">
+        <select class="form-control" ng-options="p.key as p.value for p in [{key: 'new', value: $root.i18n('正常')},{key: 'deprecated', value: $root.i18n('已弃用')}]" ng-model="status" ng-change="getRoomCountList(type, status)"></select>
+    </div>
+    <div class="btn-group form-inline">
+        <select class="form-control" ng-options="p.value as p.name for p in roomCountType" ng-model="type" ng-init="type='bedroom_count'" ng-change="getRoomCountList(type, status)">
             <option value="">-- {%$root.i18n('房间类型')%} --</option>
         </select>
     </div>
@@ -14,7 +17,7 @@
         <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
     </div>
 
-    <table class="table table-bordered table-striped table-condensed"
+    <table class="table table-bordered table-striped table-condensed" ng-init="getRoomCountList(type, status)"
         style="margin-bottom:30px">
         <colgroup>
             <col/>
@@ -45,9 +48,12 @@
                     <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">
                         <i class="fa fa-trash-o"></i>
                     </span>
+                    <span has-permission="admin,jr_admin" class="btn btn-warning" ng-click="onDeprecate(item,$index)" ng-disabled="item.status==='deprecated'" title="{%$root.i18n('弃用')%}">
+                        <i class="fa fa-ban"></i>
+                    </span>
                 </td>
             </tr>
         </tbody>
     </table>
-    <div ng-show="cities.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+    <div ng-show="roomCount.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
 </div>

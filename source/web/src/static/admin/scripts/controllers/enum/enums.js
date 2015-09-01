@@ -6,14 +6,15 @@
     function ctrlEnums($scope, $rootScope, $state, $stateParams, api, fctModal, geonamesApi) {
         $scope.enums = []
         $scope.item = {}
+        $scope.status = 'new'
 
-        $scope.getEnums = function () {
+        $scope.getEnums = function (status) {
             for (var i = 0; i < $rootScope.enumTypes.length; i += 1) {
-                getEnumByIndex(i)
+                getEnumByIndex(i, status)
             }
         }
-        function getEnumByIndex(index) {
-            api.getEnumsByType($rootScope.enumTypes[index].value)
+        function getEnumByIndex(index, status) {
+            api.getEnumsByType($rootScope.enumTypes[index].value, status)
                 .success(function (data) {
                     $scope.enums[index] = data.val || {}
                 })
@@ -46,6 +47,42 @@
                         }
                     }
                     $scope.item.country = $scope.item.country.id
+                })
+        }
+        $scope.getBudget = function (status) {
+            api.getEnumsByType('budget', status)
+                .success(function (data) {
+                    $scope.budget = data.val
+                })
+        }
+        $scope.getBuildingArea = function (status) {
+            api.getEnumsByType('building_area', status)
+                .success(function (data) {
+                    $scope.building_area = data.val
+                })
+        }
+        $scope.getCity = function (status) {
+            api.getEnumsByType('city', status)
+                .success(function (data) {
+                    $scope.cities = data.val
+                })
+        }
+        $scope.getCountry = function (status) {
+            api.getEnumsByType('country', status)
+                .success(function (data) {
+                    $scope.countries = data.val
+                })
+        }
+        $scope.getRentBudget = function (status) {
+            api.getEnumsByType('rent_budget', status)
+                .success(function (data) {
+                    $scope.rent_budget = data.val
+                })
+        }
+        $scope.getState = function (status) {
+            api.getEnumsByType('state', status)
+                .success(function (data) {
+                    $scope.states = data.val
                 })
         }
         $scope.addI18nValue = function () {
@@ -265,13 +302,13 @@
                     //location.reload()
                 })
         }
-        $scope.getIntentionList = function () {
-            api.getEnumsByType('intention').success(function (data) {
+        $scope.getIntentionList = function (status) {
+            api.getEnumsByType('intention', status).success(function (data) {
                 $scope.intentionList = data.val
             })
         }
-        $scope.updateRoomCountList = function updateList() {
-            api.getEnumsByType('bedroom_count').success(function (data) {
+        $scope.getRoomCountList = function (type, status) {
+            api.getEnumsByType(type, status).success(function (data) {
                 $scope.roomCount = data.val
             })
         }
@@ -385,6 +422,48 @@
                     alertText += '确认删除？'
                     fctModal.show(alertText, undefined, function () {
                         api.remove(item.id, {errorMessage: true}).success(function () {
+                            $state.reload()
+                        })
+                    })
+                }
+            })
+        }
+        $scope.onDeprecate = function (item) {
+            api.check(item.id, {errorMessage: true}).success(function (data) {
+                var res = data.val
+                if (res) {
+                    var txt = []
+                    if (res.item.length > 0) {
+                        txt.push(i18n('众筹') + res.item.length + i18n('条'))
+                    }
+                    if (res.news.length > 0) {
+                        txt.push(i18n('房产资讯') + res.news.length + i18n('条'))
+                    }
+                    if (res.property.length > 0) {
+                        txt.push(i18n('房产') + res.property.length + i18n('条'))
+                    }
+                    if (res.ticket.length > 0) {
+                        txt.push(i18n('投资意向单') + res.ticket.length + i18n('条'))
+                    }
+                    if (res.user.length > 0) {
+                        txt.push(i18n('用户') + res.user.length + i18n('条'))
+                    }
+                    var count = res.item.length + res.news.length + res.property.length + res.ticket.length + res.user.length
+                    var alertText = ''
+                    if (count > 0) {
+                        alertText += i18n('此数据有') + count + i18n('条引用,其中')
+                        for (var index in txt) {
+                            alertText += txt[index]
+                            if (index < txt.length - 1) {
+                                alertText += i18n('，')
+                            } else {
+                                alertText += i18n('。')
+                            }
+                        }
+                    }
+                    alertText += '确认弃用？'
+                    fctModal.show(alertText, undefined, function () {
+                        api.deprecate(item.id, {errorMessage: true}).success(function () {
                             $state.reload()
                         })
                     })

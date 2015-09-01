@@ -4,11 +4,14 @@
             <span class="fa fa-plus-circle"></span>{%$root.i18n('添加枚举')%}
         </button>
     </span>
+    <div class="btn-group form-inline">
+        <select class="form-control" ng-options="p.key as p.value for p in [{key: 'new', value: $root.i18n('正常')},{key: 'deprecated', value: $root.i18n('已弃用')}]" ng-model="status" ng-change="getEnums(status)"></select>
+    </div>
     <div class="btn-group form-inline pull-right">
         <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
     </div>
 
-    <div ng-init="getEnums()"></div>
+    <div ng-init="getEnums(status)"></div>
     <div scrolling-tabs-wrapper>
 
         <tabset>
@@ -33,6 +36,9 @@
                                 </a>
                                 <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">
                                     <i class="fa fa-trash-o"></i>
+                                </span>
+                                <span has-permission="admin,jr_admin" class="btn btn-warning" ng-click="onDeprecate(item,$index)" ng-disabled="item.status==='deprecated'" title="{%$root.i18n('弃用')%}">
+                                    <i class="fa fa-ban"></i>
                                 </span>
                             </td>
                         </tr>

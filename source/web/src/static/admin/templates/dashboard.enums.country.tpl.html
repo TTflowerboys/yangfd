@@ -4,13 +4,16 @@
             <span class="fa fa-plus-circle"></span>{%$root.i18n('添加国家')%}
         </button>
     </span>
+    <div class="btn-group form-inline">
+        <select class="form-control" ng-options="p.key as p.value for p in [{key: 'new', value: $root.i18n('正常')},{key: 'deprecated', value: $root.i18n('已弃用')}]" ng-model="status" ng-change="getCountry(status)"></select>
+    </div>
     <div class="btn-group form-inline pull-right">
         <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
     </div>
 
     <div get-countries></div>
 
-    <table class="table table-bordered table-striped table-condensed"
+    <table class="table table-bordered table-striped table-condensed" ng-init="getCountry(status)"
         style="margin-bottom:30px">
         <colgroup>
             <col style="width: 200px;"/>
@@ -24,7 +27,7 @@
                 <th>{%$root.i18n('sort_value')%}</th>
                 <th>{%$root.i18n('操作')%}</th>
             </tr>
-            <tr ng-repeat="item in countries">
+            <tr ng-repeat="item in countries" >
                 <td><div show-i18n="item.value"></div></td>
                 <td>{%item.slug%}</td>
                 <td>{%item.sort_value%}</td>
@@ -34,6 +37,9 @@
                     </a>
                     <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">
                         <i class="fa fa-trash-o"></i>
+                    </span>
+                    <span has-permission="admin,jr_admin" class="btn btn-warning" ng-click="onDeprecate(item,$index)" ng-disabled="item.status==='deprecated'" title="{%$root.i18n('弃用')%}">
+                        <i class="fa fa-ban"></i>
                     </span>
                 </td>
             </tr>
