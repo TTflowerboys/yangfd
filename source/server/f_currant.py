@@ -1167,7 +1167,7 @@ class f_currant_plugins(f_app.plugin_base):
         tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "to rent"}, per_page=0), check_permission=False)
 
         for rent_ticket in tickets:
-            last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "rent_ticket_reminder": "is_rent_success", "start": {"$gte": datetime.utcnow() - timedelta(days=7)}})
+            last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "rent_ticket_reminder": "is_rent_success", "ticket_id": rent_ticket["id"], "start": {"$gte": datetime.utcnow() - timedelta(days=7)}})
 
             if last_email:
                 # Sent within 7 days, skipping
@@ -1204,12 +1204,13 @@ class f_currant_plugins(f_app.plugin_base):
                     text=body,
                     display="html",
                     rent_ticket_reminder="is_rent_success",
+                    ticket_id=rent_ticket["id"],
                 )
 
         tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=7)}}, per_page=0, notime=True), check_permission=False)
 
         for rent_ticket in tickets:
-            last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "rent_ticket_reminder": "draft_7day"})
+            last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "ticket_id": rent_ticket["id"], "rent_ticket_reminder": "draft_7day"})
 
             if last_email:
                 # Sent, skipping
@@ -1238,12 +1239,13 @@ class f_currant_plugins(f_app.plugin_base):
                     text=body,
                     display="html",
                     rent_ticket_reminder="draft_7day",
+                    ticket_id=rent_ticket["id"],
                 )
 
         tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=3)}}, per_page=0, notime=True), check_permission=False)
 
         for rent_ticket in tickets:
-            last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "rent_ticket_reminder": {"$in": ["draft_3day", "draft_7day"]}})
+            last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "ticket_id": rent_ticket["id"], "rent_ticket_reminder": {"$in": ["draft_3day", "draft_7day"]}})
 
             if last_email:
                 # Sent, skipping
@@ -1272,6 +1274,7 @@ class f_currant_plugins(f_app.plugin_base):
                     text=body,
                     display="html",
                     rent_ticket_reminder="draft_3day",
+                    ticket_id=rent_ticket["id"],
                 )
 
         f_app.task.put(dict(
