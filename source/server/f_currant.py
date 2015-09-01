@@ -1168,7 +1168,7 @@ class f_currant_plugins(f_app.plugin_base):
 
         for rent_ticket in tickets:
             if "creator_user" not in rent_ticket or "email" not in rent_ticket["creator_user"]:
-                self.logger.warning("Ticket doesn't have a valid creator user:", task["ticket_id"], ", ignoring reminder...", exc_info=False)
+                self.logger.warning("Ticket doesn't have a valid creator user:", rent_ticket["id"], ", ignoring reminder...", exc_info=False)
                 continue
 
             if "rent_ticket_reminder" not in rent_ticket["creator_user"]["email_message_type"]:
@@ -1212,7 +1212,7 @@ class f_currant_plugins(f_app.plugin_base):
 
         for rent_ticket in tickets:
             if "creator_user" not in rent_ticket or "email" not in rent_ticket["creator_user"]:
-                self.logger.warning("Ticket doesn't have a valid creator user:", task["ticket_id"], ", ignoring reminder...", exc_info=False)
+                self.logger.warning("Ticket doesn't have a valid creator user:", rent_ticket["id"], ", ignoring reminder...", exc_info=False)
                 continue
 
             if "rent_ticket_reminder" not in rent_ticket["creator_user"]["email_message_type"]:
@@ -1249,7 +1249,7 @@ class f_currant_plugins(f_app.plugin_base):
 
         for rent_ticket in tickets:
             if "creator_user" not in rent_ticket or "email" not in rent_ticket["creator_user"]:
-                self.logger.warning("Ticket doesn't have a valid creator user:", task["ticket_id"], ", ignoring reminder...", exc_info=False)
+                self.logger.warning("Ticket doesn't have a valid creator user:", rent_ticket["id"], ", ignoring reminder...", exc_info=False)
                 continue
 
             if "rent_ticket_reminder" not in rent_ticket["creator_user"]["email_message_type"]:
