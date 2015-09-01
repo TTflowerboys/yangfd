@@ -63,6 +63,9 @@ angular.module('app')
                         }
                     })
                 })
+                elem.delegate('.hiddenPopover', 'click', function () {
+                    elem.find('.remarkBtn').popover('hide')
+                })
             }
         }
     })
