@@ -1231,6 +1231,8 @@ class f_currant_plugins(f_app.plugin_base):
                     nickname=rent_ticket["creator_user"]["nickname"],
                     date="",
                     title=title,
+                    rent_ticket_title=rent_ticket["title"],
+                    rent_ticket_edit_url="http://yangfd.com/property-to-rent/%s/edit" % rent_ticket["id"],
                     unsubscribe_url='http://yangfd.com/email-unsubscribe?email_message_type=rent_ticket_reminder')
             except:
                 self.logger.warning("Invalid ticket", rent_ticket["id"], ", ignoring reminder...")
@@ -1268,6 +1270,8 @@ class f_currant_plugins(f_app.plugin_base):
                     nickname=rent_ticket["creator_user"]["nickname"],
                     date="",
                     title=title,
+                    rent_ticket_title=rent_ticket["title"],
+                    rent_ticket_edit_url="http://yangfd.com/property-to-rent/%s/edit" % rent_ticket["id"],
                     unsubscribe_url='http://yangfd.com/email-unsubscribe?email_message_type=rent_ticket_reminder')
             except:
                 self.logger.warning("Invalid ticket", rent_ticket["id"], ", ignoring reminder...")
