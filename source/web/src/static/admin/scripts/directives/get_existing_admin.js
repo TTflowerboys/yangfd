@@ -73,7 +73,7 @@ angular.module('app')
                         params: {
                             country: scope.item.country,
                             phone: scope.item.phone,
-                            role: JSON.stringify(_.pluck(permissions, 'value').concat(['beta_renting']).concat(['']))
+                            //role: JSON.stringify(_.pluck(permissions, 'value').concat(['beta_renting']).concat(['']))
                         }, errorMessage: true
                     })
                 }
