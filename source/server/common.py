@@ -35,7 +35,7 @@ class common(f_common):
     mongo_dbname = "currant"
     mongo_server = "172.20.1.22"
     mongo_auth = False
-    mongo_dbversion = 19
+    mongo_dbversion = 20
 
     memcache_server = ["172.20.1.22:11211"]
     memcache_lib = "memcache"
@@ -146,7 +146,7 @@ class common(f_common):
     sendgrid_sender_name = "YangFd"
 
     email_provider_sender_smart = {
-        "CN":
+        "CN-disabled":
         {
             "method": "sendcloud",
             "sender": "noreply@yangfd.com"

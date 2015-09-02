@@ -993,13 +993,6 @@ def rent_ticket_add(user, params):
         params.setdefault("creator_user_id", ObjectId(user["id"]))
 
     ticket_id = f_app.ticket.add(params)
-
-    f_app.task.put(dict(
-        type="rent_ticket_reminder",
-        start=datetime.utcnow() + timedelta(days=7),
-        ticket_id=ticket_id,
-    ))
-
     return ticket_id
 
 
