@@ -54,7 +54,11 @@
                     <a ng-bind="item.title" ng-href="/property-to-rent/{%item.id%}"></a>
                 </td>
                 <td>
-                    <div show-i18n="item.rent_type.value"></div>
+                    <div>{%$root.i18n('出租类型:')%}{%item.rent_type.value%}</div>
+                    <div>{%$root.i18n('居室:')%}
+                        <span ng-if="item.property.bedroom_count === 0">Studio</span>
+                        <span ng-if="item.property.bedroom_count != 0">{%item.property.bedroom_count%}</span>
+                    </div>
                 </td>
                 <td>
                     <div>{%$root.i18n('租期：')%}{%(item.rent_available_time?(item.rent_available_time * 1000 | date : 'shortDate'):'') + $root.i18n('起') + (item.rent_deadline_time?  $root.i18n('至') + (item.rent_deadline_time * 1000 | date : 'shortDate'):'') %}</div>
