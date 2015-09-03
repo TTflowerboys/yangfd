@@ -71,7 +71,6 @@
 
 
 <!--@@block = main-->
-% from datetime import timedelta
 % show_requirement_rent_in_floatbar = 'true'
 
 <div class="propertyDetails">
@@ -136,7 +135,7 @@
                     <h1 class="name">{{rent.get('title','')}}</h1>
                     %if not rent.get('property',{}).get('partner'):
                     <label class="publishDate">
-                        % if rent.get('last_modified_time') - rent.get('time') > datetime.timedelta(seconds=1):
+                        % if last_modified_time - publish_time > 1000 :
                         <span>{{last_modified_time}}</span>{{_('更新过')}}
                         % else:
                         <span>{{publish_time}}</span>{{_('发布')}}
@@ -417,7 +416,7 @@
                 <h1>{{rent.get('title','')}}</h1>
                 %if not rent.get('property',{}).get('partner'):
                 <label class="publishDate">
-                    % if rent.get('last_modified_time') - rent.get('time') > datetime.timedelta(seconds=1):
+                    % if last_modified_time - publish_time > 1000 :
                     <span>{{last_modified_time}}</span>{{_('更新过')}}
                     % else:
                     <span>{{publish_time}}</span>{{_('发布')}}
