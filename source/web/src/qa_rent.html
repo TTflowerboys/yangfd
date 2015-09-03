@@ -12,36 +12,12 @@
 
 <div class="container">
     <h1 class="title">{{_('海外租房业务帮助中心')}} </h1>
+
     <div class="content">
         <p class="intro">
-            洋房东致力于为英国华人房东和租客提供专业简单的租房找房工具。为房东带来极速租房发布体验，独有的伦敦街区生活、房价报告，杂志般的房源移动主页。为租客带来个性化的找房体验，优质房源，长租短租，地图找房，让海外租房变得简单、便利。如您有其他问题，请随时联系我们：
+            洋房东致力于为英国华人房东和租客提供专业简单的租房找房工具。为房东带来极速租房发布体验，独有的伦敦街区生活、房价报告，杂志般的房源移动主页。为租客带来个性化的找房体验，优质房源，长租短租，地图找房，让海外租房变得简单、便利。如您有其他问题，请随时联系我们。
         </p>
-        <ul class="contact">
-            <li>
-                <span class="hint">
-                    {{get_phone_numbers("country_name")[0]}}{{_('电话：')}}
-                </span>
-                <lable class="value">
-                    <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
-                </lable>
-            </li>
-            <li>
-                <span class="hint">
-                    {{get_phone_numbers("country_name")[1]}}{{_('电话：')}}
-                </span>
-                <lable class="value">
-                    <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[1]}}</a>
-                </lable>
-            </li>
-            <li>
-                <span class="hint">
-                    {{_('邮箱：')}}
-                </span>
-                <lable class="value">
-                    <a href="mailto:services@youngfunding.co.uk">services@youngfunding.co.uk</a>
-                </lable>
-            </li>
-        </ul>
+
 
         <div class="qas">
             <div class="general qaCategory">
@@ -53,7 +29,8 @@
                             {{_('如何发布房产？')}}
                         </h4>
                         <p class="answer">
-                            {{_('房产发布流程：在网站顶部导航选择“海外租房”，进入后点击页面右侧的“')}}<a href="/property-to-rent/create" target="_blank">{{_('发布租房信息')}}</a>{{_('”，即可按照系统提示快速发布您的房产信息！发布过程超级省力！')}}
+                            {{_('房产发布流程：在网站顶部导航选择“海外租房”，进入后点击页面右侧的“')}}<a href="/property-to-rent/create"
+                                                                          target="_blank">{{_('发布租房信息')}}</a>{{_('”，即可按照系统提示快速发布您的房产信息！发布过程超级省力！')}}
                         </p>
                     </li>
                     <li>
@@ -73,6 +50,7 @@
                         <p class="answer">
                             {{_('刷新将使您的房源在平台房产列表中置顶展示，同时展示刷新时间，向租客表示您的房源依然待出租。')}}
                         </p>
+
                         <p class="answer">
                             {{_('点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“')}}<a href="/user-properties#rent" target="_blank">{{_('出租房产')}}</a>{{('”中找出要刷新的房产，点击“刷新”即可。注意每24小时只能刷新一次。')}}
                         </p>
@@ -118,9 +96,12 @@
                             {{_('发布成功后分享：在您出租信息发布成功后，直接在发布成功页用微信扫描二维码后，自行分享给“微信好友”，微信朋友圈”或者点击“分享到新浪微博”。')}}
 
                         </p>
+
                         <p class="answer">
-                            {{_('分享自己已发布的房源：点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“')}}<a href="/user-properties#rent" target="_blank">{{_('出租房产')}}</a>{{('”中找到您要分享的房源，点击“微信分享”。')}}
+                            {{_('分享自己已发布的房源：点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“')}}<a href="/user-properties#rent"
+                                                                                target="_blank">{{_('出租房产')}}</a>{{('”中找到您要分享的房源，点击“微信分享”。')}}
                         </p>
+
                         <p class="answer">
                             {{_('分享平台的房源：在房源详情页面右侧的分享栏，找到“微信分享”和“微博分享”，点击进行分享。')}}
                         </p>
@@ -271,28 +252,55 @@
             </div>
         </div>
 
+        <ul class="contact">
+            <li>
+                <span class="hint">
+                    {{get_phone_numbers("country_name")[0]}}{{_('电话：')}}
+                </span>
+                <lable class="value">
+                    <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
+                </lable>
+            </li>
+            <li>
+                <span class="hint">
+                    {{get_phone_numbers("country_name")[1]}}{{_('电话：')}}
+                </span>
+                <lable class="value">
+                    <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[1]}}</a>
+                </lable>
+            </li>
+            <li>
+                <span class="hint">
+                    {{_('邮箱：')}}
+                </span>
+                <lable class="value">
+                    <a href="mailto:services@youngfunding.co.uk">services@youngfunding.co.uk</a>
+                </lable>
+            </li>
+        </ul>
+
     </div>
 </div>
 
 <!--@@close-->
 <!--@@block = scripts -->
 <script>
- window.updateCategoryFixed = function () {
-     if (!window.team.isPhone()) {
-         var scrollOffset = $(window).scrollTop()
-         var $list = $('.content')
-         var listTop = $list.offset().top
-         var $category = $('.category')
-         var tagsLeft = $list.offset().left + $list.width() + 40
-         if (scrollOffset > listTop - 20) {
-             $category.css({'position':'fixed', 'top':'20px', left:tagsLeft})
-         }
-         else {
-             $category.css({'position':'static', 'top':'0', left:'0'})
-         }
-     }
- }
- $(window).scroll(window.updateCategoryFixed);
- $(window).resize(window.updateCategoryFixed);
+    window.updateCategoryFixed = function () {
+        if (!window.team.isPhone()) {
+            var scrollOffset = $(window).scrollTop()
+            var $list = $('.content')
+            var listTop = $list.offset().top
+            var $category = $('.category')
+            var tagsLeft = $list.offset().left + $list.width() + 40
+            if (scrollOffset > listTop - 20) {
+                $category.css({'position': 'fixed', 'top': '20px', left: tagsLeft})
+            }
+            else {
+                $category.css({'position': 'static', 'top': '0', left: '0'})
+            }
+        }
+    }
+    $(window).scroll(window.updateCategoryFixed);
+    $(window).resize(window.updateCategoryFixed);
 </script>
 <!--@@close -->

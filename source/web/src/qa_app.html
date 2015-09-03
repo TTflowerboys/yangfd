@@ -16,32 +16,7 @@
         <p class="intro">
             {{_('洋房东致力于为英国华人房东和租客提供专业简单的租房找房工具。为房东带来极速租房发布体验，独有的伦敦街区生活、房价报告，杂志般的房源移动主页。为租客带来个性化的找房体验，优质房源，长租短租，地图找房，让海外租房变得简单、便利。如您有其他问题，请随时联系我们：')}}
             </p>
-        <ul class="contact">
-            <li>
-                <span class="hint">
-                    {{get_phone_numbers("country_name")[0]}}{{_('电话：')}}
-                </span>
-                <lable class="value">
-                    <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
-                </lable>
-            </li>
-            <li>
-                <span class="hint">
-                    {{get_phone_numbers("country_name")[1]}}{{_('电话：')}}
-                </span>
-                <lable class="value">
-                    <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[1]}}</a>
-                </lable>
-            </li>
-            <li>
-                <span class="hint">
-                    {{_('邮箱：')}}
-                </span>
-                <lable class="value">
-                    <a href="mailto:services@youngfunding.co.uk">services@youngfunding.co.uk</a>
-                </lable>
-            </li>
-        </ul>
+
 
         <div class="qas">
             <div class="general qaCategory">
@@ -294,6 +269,32 @@
             </div>
         </div>
 
+        <ul class="contact">
+            <li>
+                <span class="hint">
+                    {{get_phone_numbers("country_name")[0]}}{{_('电话：')}}
+                </span>
+                <lable class="value">
+                    <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
+                </lable>
+            </li>
+            <li>
+                <span class="hint">
+                    {{get_phone_numbers("country_name")[1]}}{{_('电话：')}}
+                </span>
+                <lable class="value">
+                    <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[1]}}</a>
+                </lable>
+            </li>
+            <li>
+                <span class="hint">
+                    {{_('邮箱：')}}
+                </span>
+                <lable class="value">
+                    <a href="mailto:services@youngfunding.co.uk">services@youngfunding.co.uk</a>
+                </lable>
+            </li>
+        </ul>
     </div>
 </div>
 
