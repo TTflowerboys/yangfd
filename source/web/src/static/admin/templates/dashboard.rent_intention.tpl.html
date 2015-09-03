@@ -36,13 +36,14 @@
             </colgroup>
             <thead>
                 <tr>
-                    <th>{%$root.i18n('状态')%}</th>
-                    <th>{%$root.i18n('标题')%}</th>
-                    <th>{%$root.i18n('客户')%}</th>
                     <th>{%$root.i18n('提交时间')%}</th>
+                    <th>{%$root.i18n('客户')%}</th>
+                    <th>{%$root.i18n('预算')%}</th>
+                    <th>{%$root.i18n('租期')%}</th>
                     <th>{%$root.i18n('出租需求')%}</th>
-                    <th>{%$root.i18n('出租位置')%}</th>
+                    <th>{%$root.i18n('地址')%}</th>
                     <th>{%$root.i18n('详情')%}</th>
+                    <th>{%$root.i18n('状态')%}</th>
                     <th>{%$root.i18n('备注')%}</th>
                     <th>{%$root.i18n('管理')%}</th>
                 </tr>
@@ -50,23 +51,16 @@
             <tbody>
                 <tr ng-repeat="item in list">
                     <td>
-                        {%item.status | intentionTicketStatusName %}
-                    </td>
-                    <td style="width: 200px">
-                        {%item.title%}
-                    </td>
-                    <td>
-                        <div>{%item.nickname%}</div>
-                        <div>{%item.phone%}</div>
-                        <div>{%item.email%}</div>
-                    </td>
-                    <td>
                         {%(item.time?(item.time * 1000 | date : 'short'):'')%}
                     </td>
                     <td>
+                        <div>{%item.rent_budget.currency%}{%item.rent_budget.value%}</div>
+                    </td>
+                    <td>
+                        <div>{%(item.rent_available_time?(item.rent_available_time * 1000 | date : 'shortDate'):'') + $root.i18n('起') + (item.rent_deadline_time?  $root.i18n('至') + (item.rent_deadline_time * 1000 | date : 'shortDate'):'') %}</div>
+                    </td>
+                    <td>
                         <div>{%$root.i18n('出租类型:')%}{%item.rent_type.value%}</div>
-                        <div>{%$root.i18n('预算:')%}{%item.rent_budget.currency%}{%item.rent_budget.value%}</div>
-                        <div>{%$root.i18n('租期:')%}{%(item.rent_available_time?(item.rent_available_time * 1000 | date : 'shortDate'):'') + $root.i18n('起') + (item.rent_deadline_time?  $root.i18n('至') + (item.rent_deadline_time * 1000 | date : 'shortDate'):'') %}</div>
                     </td>
                     <td >
                         <div>{%item.city.name%}</div>
@@ -74,8 +68,16 @@
                         <div>{%item.maponics_neighborhood.name%}</div>
                         <div>{%item.address%}</div>
                     </td>
+                    <td>
+                        <div>{%item.nickname%}</div>
+                        <div>{%item.phone%}</div>
+                        <div>{%item.email%}</div>
+                    </td>
                     <td >
                         {%item.description%}
+                    </td>
+                    <td>
+                        {%item.status | intentionTicketStatusName %}
                     </td>
                     <td>
                         <div edit-custom-fields ng-model="item.custom_fields" update="updateItem(data)" item-id="item.id"></div>

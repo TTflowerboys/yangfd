@@ -35,12 +35,13 @@
             <tr>
                 <th style="width: 10%;">{%$root.i18n('标题')%}</th>
                 <th style="width: 9%;">{%$root.i18n('出租类型')%}</th>
+                <th style="width: 9%;">{%$root.i18n('租期')%}</th>
                 <th style="width: 8%;">{%$root.i18n('房东类型')%}</th>
+                <th style="width: 9%;">{%$root.i18n('租金')%}</th>
                 <th style="width: 9%;">{%$root.i18n('postcode')%}</th>
                 <th style="width: 10%;">{%$root.i18n('地址')%}</th>
-                <th style="width: 9%;">{%$root.i18n('租金')%}</th>
-                <th style="width: 9%;">{%$root.i18n('发布人')%}</th>
                 <th style="width: 8%;">{%$root.i18n('发布时间')%}</th>
+                <th style="width: 9%;">{%$root.i18n('发布人')%}</th>
                 <th style="width: 8%;">{%$root.i18n('汇总图')%}</th>
                 <th style="width: 6%;">{%$root.i18n('生成图床')%}</th>
                 <th style="width: 5%;">{%$root.i18n('备注')%}</th>
@@ -56,7 +57,14 @@
                     <div show-i18n="item.rent_type.value"></div>
                 </td>
                 <td>
+                    <div>{%$root.i18n('租期：')%}{%(item.rent_available_time?(item.rent_available_time * 1000 | date : 'shortDate'):'') + $root.i18n('起') + (item.rent_deadline_time?  $root.i18n('至') + (item.rent_deadline_time * 1000 | date : 'shortDate'):'') %}</div>
+                    <div>{%$root.i18n('至少租住：')%}{%item.minimum_rent_period.value + ' ' + item.minimum_rent_period.unit %}</div>
+                </td>
+                <td>
                     <div show-i18n="item.landlord_type.value"></div>
+                </td>
+                <td>
+                    <div ng-bind="item.price.value | currency : currencyTypes[item.price.unit] : 2"></div>
                 </td>
                 <td>
                     <div ng-bind="item.property.zipcode"></div>
@@ -65,13 +73,10 @@
                     <div ng-bind="item.property | propertyAddress"></div>
                 </td>
                 <td>
-                    <div ng-bind="item.price.value | currency : currencyTypes[item.price.unit] : 2"></div>
+                    <div ng-bind="item.time * 1000 | date : 'yyyy-MM-dd H:mm'"></div>
                 </td>
                 <td>
                     <a ui-sref="dashboard.users.detail.properties({ id: item.creator_user.id })" ng-bind="item.creator_user.nickname"></a>
-                </td>
-                <td>
-                    <div ng-bind="item.time * 1000 | date : 'yyyy-MM-dd H:mm'"></div>
                 </td>
                 <td>
                     <span class="btn btn-primary" ng-if="!item.isGenerating" ng-click="generateImage(item)" title="{%$root.i18n('生成digest图片')%}">
