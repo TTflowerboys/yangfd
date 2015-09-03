@@ -54,7 +54,7 @@
                     <a ng-bind="item.title" ng-href="/property-to-rent/{%item.id%}"></a>
                 </td>
                 <td>
-                    <div>{%$root.i18n('出租类型:')%}{%item.rent_type.value%}</div>
+                    <div>{%$root.i18n('出租类型:')%}<span show-i18n="item.rent_type.value"></span></div>
                     <div>{%$root.i18n('居室:')%}
                         <span ng-if="item.property.bedroom_count === 0">Studio</span>
                         <span ng-if="item.property.bedroom_count != 0">{%item.property.bedroom_count%}</span>
