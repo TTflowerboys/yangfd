@@ -90,6 +90,9 @@ def rent_ticket_get(rent_ticket_id, user):
     is_favorited = f_app.user.favorite.is_favorited(rent_ticket_id, 'rent_ticket', user["id"] if user else None)
 
     publish_time = f_app.util.format_time(rent_ticket.get('time'))
+    # TODO: Need to check if last modify time exists
+    last_modified_time = f_app.util.format_time(rent_ticket.get('last_modified_time'))
+
     report = None
     if rent_ticket["property"].get('report_id'):
         report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket["property"].get('report_id')))
@@ -112,7 +115,7 @@ def rent_ticket_get(rent_ticket_id, user):
         "user.id": user["id"],
     })) > 0 if user else False
 
-    return currant_util.common_template("property_to_rent", rent=rent_ticket, rent_type_list=rent_type_list, rent_budget_list=rent_budget_list, report=report, is_favorited=is_favorited, publish_time=publish_time, title=title, description=description, keywords=keywords, weixin=weixin, contact_info_already_fetched=contact_info_already_fetched)
+    return currant_util.common_template("property_to_rent", rent=rent_ticket, rent_type_list=rent_type_list, rent_budget_list=rent_budget_list, report=report, is_favorited=is_favorited, publish_time=publish_time, last_modified_time=last_modified_time, title=title, description=description, keywords=keywords, weixin=weixin, contact_info_already_fetched=contact_info_already_fetched)
 
 
 @f_get('/property-to-rent-digest/<rent_ticket_id:re:[0-9a-fA-F]{24}>')

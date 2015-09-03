@@ -135,7 +135,9 @@
                     <h1 class="name">{{rent.get('title','')}}</h1>
                     %if not rent.get('property',{}).get('partner'):
                     <label class="publishDate">
-                        % if publish_time:
+                        % if last_modified_time - publish_time > 1000:
+                        <span>{{last_modified_time}}</span>{{_('更新过')}}
+                        % else:
                         <span>{{publish_time}}</span>{{_('发布')}}
                         % end
                     </label>
