@@ -463,7 +463,7 @@
         var regex = {
             'email': /.+@.+\..+/,
             'nonDecimal': /[^0-9.\s,]/,
-            'number': /^[0-9]+$/,
+            'number': /^[0-9]+(\.[0-9]+)?$/,
             'decimalNumber': /^\d+(\.(\d)+)?$/
         }
 
@@ -541,6 +541,48 @@
                             elem: $this,
                             msg: $this.data('name') + i18n('超长，请最多填写') + maxLength + i18n('个字')
                         })
+                    }
+                }
+                if(/(>|>=|<|<=)\((\d+)\)/.test(v)) {
+                    var symbol = v.match(/(>|>=|<|<=)\((\d+)\)/)[1]
+                    var reference = v.match(/(>|>=|<|<=)\((\d+)\)/)[2]
+                    switch(symbol) {
+                        case '>':
+                            if(Number(value) <= Number(reference)) {
+                                validate = false
+                                errorArr.push({
+                                    elem: $this,
+                                    msg: $this.data('name') + i18n('必须大于') + reference
+                                })
+                            }
+                            break;
+                        case '>=':
+                            if(Number(value) < Number(reference)) {
+                                validate = false
+                                errorArr.push({
+                                    elem: $this,
+                                    msg: $this.data('name') + i18n('必须大于或等于') + reference
+                                })
+                            }
+                            break;
+                        case '<':
+                            if(Number(value) >= Number(reference)) {
+                                validate = false
+                                errorArr.push({
+                                    elem: $this,
+                                    msg: $this.data('name') + i18n('必须小于') + reference
+                                })
+                            }
+                            break;
+                        case '<=':
+                            if(Number(value) > Number(reference)) {
+                                validate = false
+                                errorArr.push({
+                                    elem: $this,
+                                    msg: $this.data('name') + i18n('必须小于或等于') + reference
+                                })
+                            }
+                            break;
                     }
                 }
             })

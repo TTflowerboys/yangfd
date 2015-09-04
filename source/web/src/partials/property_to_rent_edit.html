@@ -208,9 +208,9 @@
                             </div>
                             <div>
                                 %if 'price' in rent:
-                                <input id="price" name="price" type="text" data-validator="required, trim, number" data-name="{{_('租金')}}" value="{{int(float(rent.get('price',{}).get('value','')))}}">{{_('/周')}}
+                                <input id="price" name="price" type="text" data-validator="required, trim, number, >(0)" data-name="{{_('租金')}}" value="{{int(float(rent.get('price',{}).get('value','')))}}">{{_('/周')}}
                                 %else:
-                                <input id="price" name="price" type="text" data-validator="required, trim, number" data-name="{{_('租金')}}">{{_('/周')}}
+                                <input id="price" name="price" type="text" data-validator="required, trim, number, >(0)" data-name="{{_('租金')}}">{{_('/周')}}
                                 %end
                             </div>
                             <div class="lease" id="lease">
