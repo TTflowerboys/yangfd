@@ -21,11 +21,8 @@
         .formWrap{
             .delegate_rent_form{
                 position: relative;
-                padding: 20px;
+                padding: 0 0 20px;
                 color: #999;
-                @media @phone{
-                    padding: 0px;
-                }
                 select,input[type=text],input[type=date], textarea{
                     padding-left: 20px;
                     background: #fff;
@@ -48,6 +45,9 @@
                 }
                 .row{
                     margin-bottom: 20px;
+                    &:nth-child(1){
+                        margin-bottom: 40px;
+                    }
                     >input, select, .col > input, .col > select{
                         width: 100%;
                     }
@@ -100,6 +100,9 @@
                     }
                     &.delegateRentAgreeWrap{
                         padding-left: 26px;
+                        input{
+                            display: none;
+                        }
                     }
                 }
 
