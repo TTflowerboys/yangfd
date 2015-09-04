@@ -444,6 +444,9 @@ def current_user_edit(user, params):
     phone=str,
     country="country",
     email=str,
+    occupation="enum:occupation",
+    user_type=(list, None, "enum:user_type"),
+    budget="enum:budget",
     has_intention_ticket=bool,
     has_register_time=bool,
     query=str,
@@ -481,14 +484,20 @@ def admin_user_search(user, params):
             # support
             params["role"]["$nin"] = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "developer", "agency"]
 
+    if "user_type" in params:
+        params["user_type"] = {"$in": params["user_type"]}
+
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params)
+
     per_page = params.pop("per_page", 0)
+
     if "has_intention_ticket" in params:
         if params.pop("has_intention_ticket", False):
             params["counter.intention"] = {"$gt": 0}
         else:
             params["counter.intention"] = 0
+
     if "has_register_time" in params:
         if params.pop("has_register_time", True):
             params["register_time"] = {"$exists": True}
