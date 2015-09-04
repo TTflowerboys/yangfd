@@ -25,6 +25,13 @@ def requirement_rent():
     return currant_util.common_template("requirement_rent_phone", title=title)
 
 
+@f_get('/delegate-rent')
+@currant_util.check_ip_and_redirect_domain
+def delegate_rent():
+    title = _('提交委托出租需求')
+    return currant_util.common_template("delegate_rent_phone", title=title)
+
+
 @f_get('/wechat_share')
 @currant_util.check_ip_and_redirect_domain
 def wechat_share():

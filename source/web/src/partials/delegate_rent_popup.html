@@ -1,0 +1,140 @@
+%if not ('delegate_rent_ticket' in vars() or 'delegate_rent_ticket' in globals()):
+%    delegate_rent_ticket = {}
+%end
+<div id="delegate_rent_popup" class="requirement_popup delegate_rent_popup"  style="display:none">
+    <div id="requirement_popup_shadow" class="requirement_popup_shadow"></div>
+    <div class="requirement_wrapper">
+        <div id="requirement" class="requirement">
+            <div class="info">
+                <div class="requirement_title">
+                    <h2 class="title">{{_('提交委托出租需求')}}</h2>
+                    <ol class="introductions">
+                        <li>
+                            {{_('提交您的联系方式和房源位置，由平台通过landregistry核实房源归属')}}
+                        </li>
+                        <li>
+                            {{_('房源发布到全英推广，让高大上的房源广告给您的房源提升身价')}}
+                        </li>
+                        <li>
+                            {{_('平台经纪人帮你搞定带看，核实租客，租金收取，让您完全省心省力')}}
+                        </li>
+                        <li>
+                            {{_('业内最低佣金比例')}}
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+            <div class="formWrap">
+
+                <form class="delegate_rent_form">
+                    <table>
+                        <tr>
+                            <td>
+                                <select class="select-chosen country-select small" data-placeholder="{{_('请选择国家')}}" data-validator="required" data-name="{{_('国家')}}" data-serialize="country" data-value="{{delegate_rent_ticket.get('country',{}).get('code','')}}">
+
+                                </select>
+                                <select class="select-chosen city-select small" data-placeholder="{{_('请选择城市')}}" data-validator="required" data-name="{{_('城市')}}" data-serialize="city" data-value="{{delegate_rent_ticket.get('city',{}).get('name','')}}">
+
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span class="title">{{_('Postcode')}}</span>
+                                <input class="big" type="text" placeholder="{{_('Postcode')}}" data-validator="" data-name="{{_('Postcode')}}" data-serialize="zipcode_index" value="{{delegate_rent_ticket.get('zipcode_index','')}}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="title">{{_('门牌号')}}</span>
+                                <select class="select-chosen house-name-select small" data-placeholder="{{_('请选择门牌号')}}" data-validator="required" data-name="{{_('门牌号')}}" data-serialize="" data-value="">
+
+                                </select>
+                                <button class="ghostButton red ajaxButton">{{_('查门牌号')}}</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="title">{{_('姓名')}}</span>
+                                <input type="text" class="requirementRentName big" name="requirementRentName" placeholder="{{_('姓名')}}" data-validator="required,trim,maxLength(20)"  data-name="{{_('姓名')}}" data-serialize="nickname"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="phoneWrap">
+                                <span class="title">{{_('手机号')}}</span>
+                                <!-- @@include =country_code_select.html -->
+                                <input type="text" class="requirementRentPhone small" name="requirementRentPhone" placeholder="{{_('手机号')}}" data-validator="required,trim,phone"  data-name="{{_('手机号')}}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="title">{{_('验证码')}}</span>
+                                <input type="text" class="requirementRentCode small" name="requirementRentCode" placeholder="{{_('验证码')}}" data-validator="required,trim "  data-name="{{_('验证码')}}" data-serialize=""/>
+                                <button class="ghostButton red ajaxButton">{{_('获取验证码')}}</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="delegateRentAgreeWrap">
+                                <input type="checkbox" class="delegateRentAgree currantCheckbox" name="delegateRentAgree" id="delegateRentAgree" data-serialize="noregister|reverse"/>
+                                <label for="delegateRentAgree">{{_('我希望注册为会员以便以后能够更新我的出租需求')}}</label>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="delegateRentFormError"></div>
+                </form>
+                <div class="actionWrap">
+                    <button class="actionButton button red ajaxButton" type="submit">{{_('提交')}}</button>
+                </div>
+            </div>
+            <div class="successWrap">
+                <h2>{{_('提交成功')}}</h2>
+                <p class="hint">您的求租意向单已经提交成功，您可以：</p>
+                <p class="item" data-hide="requestContact">{{_('获取 1个 额外的联系房东机会')}}</p>
+                <p class="item" data-show="requestContact">{{_('已获取到当前房东的联系方式')}}</p>
+                <p class="item">{{_('让满足您求租需求的房源第一时间主动找到你，找房再也不用临时抱佛脚')}}</p>
+                <p class="item">{{_('在个人中心在中查看自己的')}}<a href="/user-intentions#rent">{{_('求租意向单')}}</a> {{_('，便捷地查看已联系过房东的联系方式，当您已经租到房子时可以修改求租单状态，平台将停止向您推荐')}}</p>
+                <!--<div class="contact">
+                    <label class="hint">{{_('联系我们')}}</label>
+                    <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
+                </div>-->
+
+                <div data-show="requestContact" class="hostContactWrap">
+                    <p class="hint">{{_('正在为您加载您要查看的房东联系方式...')}}</p>
+                    <div class="host" style="display: none">
+                        <img class="avatar" src="/static/images/property_details/ico_phoneowner.png"></img>
+                        <label class="hostName"></label>
+                        <!--<label class="hostType"></label>-->
+                        <div class="hostPhone hostContact">
+                            <a>
+                                <i class="ico icon-phone_icon"></i>
+                                <span></span> <span></span>
+                            </a>
+                        </div>
+                        <div class="hostEmail hostContact">
+                            <a class="clearfix">
+                                <i class="ico icon-email"></i>
+                                <span class="email"></span>
+                            </a>
+                        </div>
+                        <div class="hostWechat hostContact">
+                            <i class="ico icon-wechat"></i>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="qrcodeWrap" style="display: none;">
+                    <div class="imageWrap">
+                        <img class="qrcode" width="192" height="192" alt="{{_('二维码')}}"/>
+                    </div>
+                    <p>
+                        {{_('扫一扫分享“洋房动App”')}}<br>
+                        {{_('转发就获取1个额外联系房东机会')}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <button name="cancel" class="cancel"><i class="icon-delete"></i></button>
+    </div>
+</div>
