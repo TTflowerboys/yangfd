@@ -46,10 +46,15 @@
     [GAI sharedInstance].dispatchInterval = 20;
 
     // Optional: set Logger to VERBOSE for debug information.
-//    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+
+#ifdef DEBUG
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+#endif
 
     // Initialize tracker. Replace with your tracking ID.
     _tracker = [GAI sharedInstance].defaultTracker;
+    NSAssert(_tracker != nil, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
+
 
     // Task #6907 need this IDFA collection
     //_tracker.allowIDFACollection = YES;
