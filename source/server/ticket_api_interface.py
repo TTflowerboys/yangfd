@@ -859,6 +859,95 @@ def rent_request_ticket_edit(user, ticket_id, params):
     return f_app.ticket.output([ticket_id])[0]
 
 
+@f_api('/sell_request_ticket/add', params=dict(
+    nickname=(str, True),
+    phone=(str, True),
+    postcode=(str, True),
+    country=("country", True),
+    posttown=str,
+    premise=str,
+    street=str,
+    county=str,
+))
+def sell_request_ticket_add(params):
+    """
+    Add a sell_request ticket. ``creator_user_id`` is the result of ``get_id_by_phone``.
+
+    If no id is found, **40324 non-exist user** error will occur.
+    """
+    params.setdefault("type", "sell_request")
+    params["phone"] = f_app.util.parse_phone(params, retain_country=True)
+
+    user_id = f_app.user.get_id_by_phone(params["phone"])
+    if user_id is not None:
+        params["creator_user_id"] = ObjectId(user_id)
+        params["user_id"] = ObjectId(user_id)
+    else:
+        abort(40324)
+
+    ticket_id = f_app.ticket.add(params)
+    return ticket_id
+
+
+@f_api('/sell_request_ticket/<ticket_id>')
+@f_app.user.login.check(force=True)
+def sell_request_ticket_get(user, ticket_id):
+    """
+    View single sell_request ticket.
+    """
+    user_roles = f_app.user.get_role(user["id"])
+    ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "sell_request", abort(40000, "Invalid sell_request ticket")
+
+    if set(user_roles) & set(["admin", "jr_admin", "sales"]):
+        pass
+    elif ticket.get("creator_user_id") != user["id"] and ticket.get("user_id") != user["id"]:
+        abort(40399, logger.warning("Permission denied.", exc_info=False))
+
+    return f_app.ticket.output([ticket_id])[0]
+
+
+@f_api('/sell_request_ticket/<ticket_id>/remove')
+@f_app.user.login.check(force=True)
+def sell_request_ticket_remove(user, ticket_id):
+    """
+    Remove single sell_request ticket.
+    """
+    user_roles = f_app.user.get_role(user["id"])
+    ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "sell_request", abort(40000, "Invalid sell_request ticket")
+
+    if set(user_roles) & set(["admin", "jr_admin", "sales"]):
+        pass
+    elif ticket.get("creator_user_id") != user["id"] and ticket.get("user_id") != user["id"]:
+        abort(40399, logger.warning("Permission denied.", exc_info=False))
+
+    f_app.ticket.update_set_status(ticket_id, "deleted")
+
+
+@f_api('/sell_request_ticket/<ticket_id>/edit', params=dict(
+    country="country",
+    posttown=str,
+    premise=str,
+    street=str,
+    county=str,
+    status=str,
+))
+@f_app.user.login.check(force=True)
+def sell_request_ticket_edit(user, ticket_id, params):
+    user_roles = f_app.user.get_role(user["id"])
+    ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "sell_request", abort(40000, "Invalid sell_request ticket")
+
+    if set(user_roles) & set(["admin", "jr_admin", "sales"]):
+        pass
+    elif ticket.get("creator_user_id") != user["id"] and ticket.get("user_id") != user["id"]:
+        abort(40399, logger.warning("Permission denied.", exc_info=False))
+
+    f_app.ticket.update_set(ticket_id, params)
+    return f_app.ticket.output([ticket_id])[0]
+
+
 @f_api('/support_ticket/search', params=dict(
     assignee=ObjectId,
     status=(list, None, str),
