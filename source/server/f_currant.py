@@ -1070,7 +1070,7 @@ class f_currant_plugins(f_app.plugin_base):
 
             operations_list = f_app.user.get(f_app.user.search({"role": {"$in": ["operation", "jr_operation"]}}))
             for operation in operations_list:
-                if "email" in operation:
+                if "email" in operation and False:  # Disabled :/
                     f_app.email.schedule(
                         target=operation["email"],
                         subject=f_app.util.get_format_email_subject(template("static/emails/new_user_admin_title")),
