@@ -422,7 +422,7 @@
                     alertText += '确认删除？'
                     fctModal.show(alertText, undefined, function () {
                         api.remove(item.id, {errorMessage: true}).success(function () {
-                            $state.reload()
+                            $state.transitionTo($state.current, angular.copy($stateParams), { reload: true, inherit: true, notify: true });
                         })
                     })
                 }
@@ -464,7 +464,7 @@
                     alertText += '确认弃用？'
                     fctModal.show(alertText, undefined, function () {
                         api.deprecate(item.id, {errorMessage: true}).success(function () {
-                            $state.reload()
+                            $state.transitionTo($state.current, angular.copy($stateParams), { reload: true, inherit: true, notify: true });
                         })
                     })
                 }
