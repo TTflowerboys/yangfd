@@ -14,7 +14,7 @@ angular.module('app')
         {name: i18n('亮点'), value: 'highlight'},
         {name: i18n('详情'), value: 'description'},
         {name: i18n('预计租金年化回报率'), value: 'annual_cash_return_estimated'},
-        {name: i18n('预计年化收益率'), value: 'annual_return_estimated'},
+        {name: i18n('预计年总回报率'), value: 'annual_return_estimated'},
         {name: i18n('开发商包租百分比'), value: 'rental_guarantee_rate'},
         {name: i18n('开发商包租年限'), value: 'rental_guarantee_term'},
         {name: i18n('投资标签'), value: 'intention'},

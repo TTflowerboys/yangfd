@@ -96,13 +96,13 @@
                     <ul>
                         {_ if (house.min_annual_return_estimated && house.max_annual_return_estimated) { _}
                         <li>
-                            <span class=label>{=window.i18n('预计年化收益率')=}</span>
+                            <span class=label>{=window.i18n('预计年总回报率')=}</span>
                             <span class=value><strong>{=house.min_annual_return_estimated + "~" + house.max_annual_return_estimated=}</strong></span>
                         </li>
                         {_}_}
                         {_ if (house.min_annual_cash_return_estimated && house.max_annual_cash_return_estimated) { _}
                         <li>
-                            <span class=label>{=window.i18n('预估现金年化收益率')=}</span>
+                            <span class=label>{=window.i18n('预计年租金收益率')=}</span>
                             <span class=value>{!team.formatCurrency(parseInt(house.min_annual_cash_return_estimated)) + '~' + team.formatCurrency(parseInt(house.max_annual_cash_return_estimated))!}</span>
                         </li>
                         {_}_}

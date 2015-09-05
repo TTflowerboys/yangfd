@@ -120,10 +120,10 @@
                         <td class=estimate>
                             <div >
                                 %if property.get('annual_return_estimated'):
-                                    <span class=label>{{_('预计年化收益率')}}</span>
+                                    <span class=label>{{_('预计年总回报率')}}</span>
                                     <span class=value><strong>{{property.get('annual_return_estimated')}}</strong></span>
                                 %elif property.get('annual_cash_return_estimated'):
-                                    <span class=label>{{_('预估现金年化收益率')}}</span>
+                                    <span class=label>{{_('预计年租金收益率')}}</span>
                                     <span class=value><strong>{{property.get('annual_cash_return_estimated')}}</strong></span>
                                 %end
                             </div>
@@ -187,7 +187,7 @@
                 <div class="estimated">
                     %if property.get('annual_return_estimated'):
                     <div>
-                        <p class="title">{{_('预计年化收益率')}}</p>
+                        <p class="title">{{_('预计年总回报率')}}</p>
                         <p class="content">
                             <span class="bold">
                                 {{property.get('annual_return_estimated')}}
@@ -197,7 +197,7 @@
                     %end
                     %if property.get('annual_cash_return_estimated'):
                     <div>
-                        <p class="title">{{_('预估现金年化收益率')}}</p>
+                        <p class="title">{{_('预计年租金收益率')}}</p>
                         <p class="content">
                             <span class="bold">
                                 {{property.get('annual_cash_return_estimated')}}
@@ -342,7 +342,7 @@
                         <div class="left">
                             %if property.get('annual_return_estimated'):
                             <div style="width: 50%;">
-                                <p class="title">{{_('预计年化收益率')}}</p>
+                                <p class="title">{{_('预计年总回报率')}}</p>
                                 <p class="content">
                                     <span class="bold">
                                         {{property.get('annual_return_estimated')}}
@@ -352,7 +352,7 @@
                             %end
                             %if property.get('annual_cash_return_estimated'):
                             <div style="width: 42%;">
-                                <p class="title">{{_('预估现金年化收益率')}}</p>
+                                <p class="title">{{_('预计年租金收益率')}}</p>
                                 <p class="content">
                                     <span class="bold">
                                         {{property.get('annual_cash_return_estimated')}}

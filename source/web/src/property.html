@@ -293,13 +293,13 @@
             <div class="numbers_phone">
                 %if property.get('annual_return_estimated'):
                     <div id="annualReturnEstimatedColumn" class="column">
-                        <span class="text">{{!_('预计年化收益率')}}</span>
+                        <span class="text">{{!_('预计年总回报率')}}</span>
                         <span class="percentage emphasized"><strong>{{property.get('annual_return_estimated')}}</strong></span>
                     </div>
                 % end
                 %if property.get('annual_cash_return_estimated'):
                     <div id="annualCashReturnEstimatedColumn" class="column">
-                        <span class="text">{{!_('预估租金收益率')}}</span>
+                        <span class="text">{{!_('预计年租金收益率')}}</span>
                         <span class="percentage emphasized"><strong>{{property.get('annual_cash_return_estimated')}}</strong></span>
                     </div>
                 %end
@@ -956,14 +956,14 @@
                         %if property.get('annual_return_estimated'):
                             <td>
                                 <span class="percentage emphasized"><strong>{{property.get('annual_return_estimated')}}</strong></span>
-                                <span class="text">{{!_('预计<br/>年化收益率')}}</span>
+                                <span class="text">{{!_('预计<br/>年总回报率')}}</span>
                             </td>
                         % end
 
                         %if property.get('annual_cash_return_estimated'):
                             <td>
                                 <span class="percentage emphasized"><strong>{{property.get('annual_cash_return_estimated')}}</strong></span>
-                                <span class="text">{{!_('预估租金<br/>收益率')}}</span>
+                                <span class="text">{{!_('预计年租金<br/>收益率')}}</span>
                             </td>
                         %end
                     </tr>
