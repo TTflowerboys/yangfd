@@ -91,23 +91,24 @@ def get_related_property_list(property):
 
 # Rent tiket
 
+
 def get_related_rent_ticket_list(rent_ticket):
     params = {
         "type": "rent",
         "status": {"$in": ["to rent"]},
     }
     property_params = {"$and": []}
-    if rent_ticket.get('property',{}).get('maponics_neighborhood'):
+    if rent_ticket.get('property', {}).get('maponics_neighborhood'):
         property_params["$and"].append({"$or": [
-            {"maponics_neighborhood": rent_ticket.get('property',{}).get('maponics_neighborhood',{}).get('id')},
-            {"maponics_parent_neighborhood": rent_ticket.get('property',{}).get('maponics_neighborhood',{}).get('id')},
+            {"maponics_neighborhood": rent_ticket.get('property', {}).get('maponics_neighborhood', {}).get('id')},
+            {"maponics_parent_neighborhood": rent_ticket.get('property', {}).get('maponics_neighborhood', {}).get('id')},
         ]})
 
-    if rent_ticket.get('property',{}).get('city'):
-        property_params["city"] = rent_ticket.get('property',{}).get('city',{}).get('id')
+    if rent_ticket.get('property', {}).get('city'):
+        property_params["city"] = rent_ticket.get('property', {}).get('city', {}).get('id')
 
-    if rent_ticket.get('property',{}).get('country'):
-        property_params["country"] = rent_ticket.get('property',{}).get('country',{}).get('code')
+    if rent_ticket.get('property', {}).get('country'):
+        property_params["country"] = rent_ticket.get('property', {}).get('country', {}).get('code')
 
     if not len(property_params["$and"]):
         property_params.pop("$and")
