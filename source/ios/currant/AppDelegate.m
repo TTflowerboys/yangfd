@@ -60,6 +60,7 @@
 #import <BBTAppUpdater.h>
 #import "CUTEWebArchiveManager.h"
 #import "CUTEWebConfiguration.h"
+#import <GGLContext.h>
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
@@ -157,9 +158,15 @@
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     [CUTEUserAgentUtil setupWebViewUserAgent];
     [[CUTEShareManager sharedInstance] setUpShareSDK];
-    [[CUTETracker sharedInstance] setup];
     [ATConnect sharedConnection].appID = [CUTEConfiguration appStoreId];
     [ATConnect sharedConnection].apiKey = @"870539ce7c8666f4ba6440cae368b8aea448aa2220dc3af73bc254f0ab2f0a0b";
+
+    // Configure tracker from GoogleService-Info.plist.
+    NSError *configureError;
+    [[GGLContext sharedInstance] configureWithError:&configureError];
+    NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
+    [[CUTETracker sharedInstance] setup];
+
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketPublish:) name:KNOTIF_TICKET_PUBLISH object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketEdit:) name:KNOTIF_TICKET_EDIT object:nil];
