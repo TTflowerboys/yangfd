@@ -89,6 +89,58 @@ def get_related_property_list(property):
     else:
         return []
 
+# Rent tiket
+
+def get_related_rent_ticket_list(rent_ticket):
+    params = {
+        "type": "rent",
+        "status": {"$in": ["to rent"]},
+    }
+    property_params = {"$and": []}
+    if rent_ticket.get('property',{}).get('maponics_neighborhood'):
+        property_params["$and"].append({"$or": [
+            {"maponics_neighborhood": rent_ticket.get('property',{}).get('maponics_neighborhood',{}).get('id')},
+            {"maponics_parent_neighborhood": rent_ticket.get('property',{}).get('maponics_neighborhood',{}).get('id')},
+        ]})
+
+    if rent_ticket.get('property',{}).get('city'):
+        property_params["city"] = rent_ticket.get('property',{}).get('city',{}).get('id')
+
+    if rent_ticket.get('property',{}).get('country'):
+        property_params["country"] = rent_ticket.get('property',{}).get('country',{}).get('code')
+
+    if not len(property_params["$and"]):
+        property_params.pop("$and")
+
+    if len(property_params):
+        property_params.setdefault("status", {"$exists": True})
+        property_params.setdefault("user_generated", True)
+
+        property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
+        params["property_id"] = {"$in": property_id_list}
+
+
+    raw_related_rent_ticket_list = f_app.ticket.output(f_app.ticket.search(params, per_page=20))
+
+
+    related_rent_ticket_list = []
+    if len(raw_related_rent_ticket_list) > 3:
+        import random
+        i = 6
+        while i > 0 and len(related_rent_ticket_list) < 3:
+            item = random.choice(raw_related_rent_ticket_list)
+            if item.get('id') != rent_ticket.get('id'):
+                raw_related_rent_ticket_list.remove(item)
+                related_rent_ticket_list.insert(-1, item)
+                i = i - 1
+
+    else:
+        for item in raw_related_rent_ticket_list:
+            if item.get('id') != rent_ticket.get('id'):
+                related_rent_ticket_list.insert(-1, item)
+    return related_rent_ticket_list
+
+
 # Crowdfunding
 
 

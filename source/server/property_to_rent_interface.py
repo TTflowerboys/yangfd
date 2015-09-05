@@ -84,6 +84,8 @@ def rent_ticket_get(rent_ticket_id, user):
     if rent_ticket["status"] not in ["draft", "to rent", "rent"]:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
 
+    # related_rent_ticket_list = f_app.i18n.process_i18n(currant_data_helper.get_related_rent_ticket_list(rent_ticket))
+
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     rent_budget_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_budget'))
 
