@@ -3,7 +3,9 @@ from __future__ import unicode_literals, absolute_import
 from datetime import datetime
 from bson.objectid import ObjectId
 from libfelix.f_common import f_app
+from libfelix.f_cache import f_cache
 from libfelix.f_interface import f_api, abort, request
+import libfelix.f_request
 
 
 import logging
@@ -412,6 +414,20 @@ def postcode_search(params):
             postcode["neighborhoods"] = map(expand_neighborhood, postcode["neighborhoods"])
 
     return postcodes
+
+
+@f_api('/uk-address-lookup', params=dict(
+    postcode=(str, True),
+))
+def uk_address_lookup(params):
+    @f_cache("alliesukaddresslookup")
+    def allies_uk_address_lookup(postcode):
+        try:
+            return f_app.request.get("http://ws.postcoder.com/pcw/PCW78-N8PC8-NWSWK-BH4MH/address/uk/" + postcode + "?format=json", format="json")
+        except:
+            abort(50300)
+
+    return allies_uk_address_lookup(params["postcode"])
 
 
 @f_api('/doogal/districts_and_wards')
