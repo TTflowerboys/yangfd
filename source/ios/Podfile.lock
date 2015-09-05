@@ -40,6 +40,7 @@ PODS:
   - Bolts/AppLinks (1.1.5):
     - Bolts/Tasks
   - Bolts/Tasks (1.1.5)
+  - Cordova (3.8.0)
   - CTAssetsPickerController (2.9.4)
   - DACircularProgress (2.3.1)
   - EGOCache (2.1.3)
@@ -167,6 +168,7 @@ DEPENDENCIES:
   - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`)
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
   - Bolts (= 1.1.5)
+  - Cordova
   - CTAssetsPickerController (= 2.9.4)
   - EGOCache (~> 2.1.3)
   - FXForms (= 1.2.12)
@@ -233,6 +235,7 @@ SPEC CHECKSUMS:
   BBTRestClient: d3205d65ebc0851c0f8c4c69e2fedf9ace0b6134
   BBTUtility: 55ffd4489f190073d4a889839b6a67cc2f76fc5f
   Bolts: aac24961496d504aa56fc267cde95162a71bac39
+  Cordova: 41554048698d50e70387ca2ab5bbdd1286fd0e39
   CTAssetsPickerController: 3030dc60f5d1a3c4e5b1c0aa9f069220d5bf7008
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   EGOCache: f0295dbe041156acabd39021354ad1045ee49e72

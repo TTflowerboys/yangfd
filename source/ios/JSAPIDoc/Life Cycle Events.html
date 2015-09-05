@@ -1,0 +1,61 @@
+<!DOCTYPE html><html>
+
+<head>
+<meta charset="utf-8">
+<title></title>
+<link rel="stylesheet" type="text/css" href="GitHub2.css">
+
+<style> @media print{ {.hljs{overflow: visible; word-wrap: break-word;} }</style></head><body>
+<h1 id="toc_0">Life Cycle Events</h1>
+
+<ol>
+<li><p>deviceready</p>
+
+<p>Cordova native code is initialized and Cordova APIs can be called from JavaScript</p></li>
+<li><p>viewreappear</p>
+
+<p>View Controller appear again, the first time cordova may not load finished, so first time appear, not call this</p></li>
+<li><p>viewdisappear</p>
+
+<p>View Controller disppear</p></li>
+<li><p>window.onunload</p>
+
+<p>dom onunload, can do saving state </p></li>
+</ol>
+
+<h2 id="toc_1">Example Code</h2>
+
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+<pre><code>&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;
+window.onunload = function() {
+
+}
+(function () {
+ document.addEventListener(&#39;deviceready&#39;, onDeviceReady, false);
+
+function onDeviceReady() {
+    window.alert(&#39;view deviceready&#39;)
+}
+
+
+document.addEventListener(&#39;viewreappear&#39;, onViewReappear, false);
+
+function onViewReappear() {
+
+    window.alert(&#39;view reappear&#39;)
+}
+
+document.addEventListener(&#39;viewdisappear&#39;, onViewDisappear, false);
+
+function onViewDisappear() {
+
+    window.alert(&#39;view disappear&#39;)
+}
+})()
+&lt;/script&gt;
+</code></pre>
+
+</body>
+
+</html>

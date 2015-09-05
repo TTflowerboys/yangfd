@@ -26,6 +26,7 @@
 #import "NSArray+ObjectiveSugar.h"
 #import "CUTEHouseType.h"
 #import "UIAlertView+Blocks.h"
+#import "CUTECDVViewController.h"
 
 @implementation CUTEPropertyMapListViewController
 
@@ -161,12 +162,11 @@
 
     [[self navigationController] setNavigationBarHidden:NO animated:NO];
     TrackEvent(GetScreenName(self.url), kEventActionPress, GetScreenName(url), nil);
-    CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
-    newWebViewController.url = url;
+    CUTECDVViewController *newWebViewController = [[CUTECDVViewController alloc] init];
+    newWebViewController.startPage = url.absoluteString;
     newWebViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:newWebViewController animated:YES];
     //the progress bar need navigationBar
-    [newWebViewController loadRequest:[NSURLRequest requestWithURL:newWebViewController.url]];
 }
 
 

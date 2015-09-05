@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTEWebViewController.h"
+#import "CUTECDVViewController.h"
 
-@interface CUTEUserViewController : CUTEWebViewController
+@interface CUTEUserViewController : CUTECDVViewController
 
 @end

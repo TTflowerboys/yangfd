@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTEWebViewController.h"
+#import "CUTECDVViewController.h"
 #import "CUTETicket.h"
 
-@interface CUTERentTicketPreviewViewController : CUTEWebViewController
+@interface CUTERentTicketPreviewViewController : CUTECDVViewController
 
 @property (strong, nonatomic) CUTETicket *ticket;
 

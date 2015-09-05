@@ -245,6 +245,14 @@
 		2C427EAA1AD3803B000378A9 /* CUTECurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427EA81AD3803B000378A9 /* CUTECurrency.m */; };
 		2C427EAB1AD3803B000378A9 /* CUTECurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427EA81AD3803B000378A9 /* CUTECurrency.m */; };
 		2C427EAC1AD3803B000378A9 /* CUTECurrency.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427EA81AD3803B000378A9 /* CUTECurrency.m */; };
+		2C44CCD41B9AEEA700720BEB /* CUTECDVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44CCD31B9AEEA700720BEB /* CUTECDVViewController.m */; };
+		2C44CCD51B9AF31E00720BEB /* CUTECDVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44CCD31B9AEEA700720BEB /* CUTECDVViewController.m */; };
+		2C44CCD61B9AF31F00720BEB /* CUTECDVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44CCD31B9AEEA700720BEB /* CUTECDVViewController.m */; };
+		2C44CCD71B9AF32000720BEB /* CUTECDVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44CCD31B9AEEA700720BEB /* CUTECDVViewController.m */; };
+		2C44CCD91B9AF5BE00720BEB /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2C44CCD81B9AF5BE00720BEB /* config.xml */; };
+		2C44CCDA1B9AF5BE00720BEB /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2C44CCD81B9AF5BE00720BEB /* config.xml */; };
+		2C44CCDB1B9AF5BE00720BEB /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2C44CCD81B9AF5BE00720BEB /* config.xml */; };
+		2C44CCDC1B9AF5BE00720BEB /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2C44CCD81B9AF5BE00720BEB /* config.xml */; };
 		2C44E4141AE242EE00E61BBA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
 		2C44E4151AE242F200E61BBA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
 		2C44E4161AE242F300E61BBA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */; };
@@ -870,6 +878,9 @@
 		2C427EA11AD3802A000378A9 /* CUTEArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEArea.m; sourceTree = "<group>"; };
 		2C427EA71AD3803B000378A9 /* CUTECurrency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTECurrency.h; sourceTree = "<group>"; };
 		2C427EA81AD3803B000378A9 /* CUTECurrency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTECurrency.m; sourceTree = "<group>"; };
+		2C44CCD21B9AEEA700720BEB /* CUTECDVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTECDVViewController.h; sourceTree = "<group>"; };
+		2C44CCD31B9AEEA700720BEB /* CUTECDVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTECDVViewController.m; sourceTree = "<group>"; };
+		2C44CCD81B9AF5BE00720BEB /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
 		2C464D601B46985400289BB0 /* CUTEPublishRentTicketUSTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPublishRentTicketUSTest.m; sourceTree = "<group>"; };
 		2C464D621B469B6900289BB0 /* KIFUITestActor+PropertyInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFUITestActor+PropertyInfo.h"; sourceTree = "<group>"; };
 		2C464D631B469B6900289BB0 /* KIFUITestActor+PropertyInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+PropertyInfo.m"; sourceTree = "<group>"; };
@@ -1624,6 +1635,7 @@
 				2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */,
 				2CB66C231AFB66F200C3CDED /* Manchester.gpx */,
 				2CB66C291AFB687200C3CDED /* London.gpx */,
+				2C44CCD81B9AF5BE00720BEB /* config.xml */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1700,6 +1712,8 @@
 				2C056D9D1B423BBA0075037A /* CUTEFormViewController.m */,
 				2CF2348E1B57614C00B516E6 /* CUTETicketForm.h */,
 				2CF2348F1B57614C00B516E6 /* CUTETicketForm.m */,
+				2C44CCD21B9AEEA700720BEB /* CUTECDVViewController.h */,
+				2C44CCD31B9AEEA700720BEB /* CUTECDVViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -2067,7 +2081,7 @@
 			attributes = {
 				CLASSPREFIX = CUTE;
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "Foster Yin";
+				ORGANIZATIONNAME = BBTechgroup;
 				TargetAttributes = {
 					2C056D161B414F4B0075037A = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -2155,6 +2169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA2E6BD1AC5487800053965 /* Images.xcassets in Resources */,
+				2C44CCDB1B9AF5BE00720BEB /* config.xml in Resources */,
 				2CB66C2C1AFB687200C3CDED /* London.gpx in Resources */,
 				2CF234851B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C261AFB66F200C3CDED /* Manchester.gpx in Resources */,
@@ -2168,6 +2183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA2E6D61AC5496700053965 /* Images.xcassets in Resources */,
+				2C44CCDC1B9AF5BE00720BEB /* config.xml in Resources */,
 				2CB66C2D1AFB687200C3CDED /* London.gpx in Resources */,
 				2CF234861B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C271AFB66F200C3CDED /* Manchester.gpx in Resources */,
@@ -2181,6 +2197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA94AA91ACA42CD00DF7497 /* Images.xcassets in Resources */,
+				2C44CCDA1B9AF5BE00720BEB /* config.xml in Resources */,
 				2CB66C2B1AFB687200C3CDED /* London.gpx in Resources */,
 				2CF234841B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C251AFB66F200C3CDED /* Manchester.gpx in Resources */,
@@ -2194,6 +2211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CB43DD91ABC26B2004DF663 /* Images.xcassets in Resources */,
+				2C44CCD91B9AF5BE00720BEB /* config.xml in Resources */,
 				2CB66C2A1AFB687200C3CDED /* London.gpx in Resources */,
 				2CF234831B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C241AFB66F200C3CDED /* Manchester.gpx in Resources */,
@@ -2535,6 +2553,7 @@
 				2C9AFF791AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
 				2C5ECC531AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
 				2C86D4241B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */,
+				2C44CCD61B9AF31F00720BEB /* CUTECDVViewController.m in Sources */,
 				2CBF30B91B945EA200EB2D51 /* CUTEWebArchiveManager.m in Sources */,
 				2CF8A6561AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
 				2CA81FA31B12CB18006E993C /* CUTECity.m in Sources */,
@@ -2690,6 +2709,7 @@
 				2C9AFF7A1AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
 				2C5ECC541AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
 				2C86D4251B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */,
+				2C44CCD71B9AF32000720BEB /* CUTECDVViewController.m in Sources */,
 				2CBF30BA1B945EA300EB2D51 /* CUTEWebArchiveManager.m in Sources */,
 				2CF8A6571AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
 				2CA81FA41B12CB18006E993C /* CUTECity.m in Sources */,
@@ -2845,6 +2865,7 @@
 				2C9AFF781AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
 				2C5ECC521AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
 				2C86D4231B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */,
+				2C44CCD51B9AF31E00720BEB /* CUTECDVViewController.m in Sources */,
 				2CBF30B81B945EA200EB2D51 /* CUTEWebArchiveManager.m in Sources */,
 				2CF8A6551AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
 				2CA81FA21B12CB18006E993C /* CUTECity.m in Sources */,
@@ -3000,6 +3021,7 @@
 				2C5ECC511AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
 				2C86D4221B7307DD00A4DD1D /* CUTEPhoneUtil.m in Sources */,
 				2CF8A6541AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m in Sources */,
+				2C44CCD41B9AEEA700720BEB /* CUTECDVViewController.m in Sources */,
 				2CBF30B71B945A2E00EB2D51 /* CUTEWebArchiveManager.m in Sources */,
 				2CA81FA11B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB7490D1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,

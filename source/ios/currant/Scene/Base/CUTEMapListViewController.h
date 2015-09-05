@@ -6,11 +6,11 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTEWebViewController.h"
 #import <MapKit/MapKit.h>
 #import <SMCalloutView.h>
 #import "CUTEMapView.h"
 #import "CUTEMapBackView.h"
+#import "CUTEViewController.h"
 
 @interface CUTEMapListViewController : CUTEViewController <MKMapViewDelegate, SMCalloutViewDelegate>
 

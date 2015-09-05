@@ -41,6 +41,7 @@ pod 'KVOController', '1.0.3'
 pod 'libextobjc', '0.4.1'
 pod 'EGOCache', '~> 2.1.3'
 pod 'Ono'
+pod 'Cordova'
 
 target 'currantUnitTest', :exclusive => true do
     pod 'Specta'

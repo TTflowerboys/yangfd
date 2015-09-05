@@ -60,7 +60,7 @@
 #import <BBTAppUpdater.h>
 #import "CUTEWebArchiveManager.h"
 #import "CUTEWebConfiguration.h"
-#import <GGLContext.h>
+#import "CUTECDVViewController.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
@@ -80,6 +80,16 @@
 #define kRentTicketListTabBarIndex 3
 #define kUserTabBarIndex 4
 
+- (CUTEWebArchive *)getWebArchiveWithURL:(NSURL *)url {
+    NSURL *originalURL = url;
+    NSURL *redirectedURL = originalURL;
+    if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:originalURL] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
+        redirectedURL = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:originalURL];
+    }
+    CUTEWebArchive *archive = [[CUTEWebArchiveManager sharedInstance] getWebArchiveWithURL:redirectedURL];
+    return archive;
+}
+
 - (UINavigationController *)getTabBarNavigationControllerWithTitle:(NSString *)title icon:(NSString *)icon index:(NSInteger)index {
     UINavigationController *nav = [[UINavigationController alloc] init];
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
@@ -95,10 +105,10 @@
 - (UINavigationController *)makeIndexViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
 
     UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kHomeTabBarIndex];
-    CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
+    CUTECDVViewController *controller = [[CUTECDVViewController alloc] init];
     controller.navigationItem.title = STR(@"洋房东");
-    controller.url = [NSURL WebURLWithString:urlPath];
-    controller.webArchiveRequired = YES;
+    controller.startPage = [NSURL WebURLWithString:urlPath].absoluteString;
+    controller.webArchive = [self getWebArchiveWithURL:[NSURL WebURLWithString:urlPath]];
     [nav setViewControllers:@[controller]];
     return nav;
 }
@@ -107,9 +117,9 @@
 
     UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kPropertyListTabBarIndex];
     CUTEPropertyListViewController *controller = [[CUTEPropertyListViewController alloc] init];
-    controller.url = [NSURL WebURLWithString:urlPath];
+    controller.startPage = [NSURL WebURLWithString:urlPath].absoluteString;
     controller.navigationItem.title = STR(@"洋房东");
-    controller.webArchiveRequired = YES;
+    controller.webArchive = [self getWebArchiveWithURL:[NSURL WebURLWithString:urlPath]];
     [nav setViewControllers:@[controller]];
     return nav;
 }
@@ -118,9 +128,9 @@
 
     UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kRentTicketListTabBarIndex];
     CUTERentListViewController *controller = [[CUTERentListViewController alloc] init];
-    controller.url = [NSURL WebURLWithString:urlPath];
+    controller.startPage = [NSURL WebURLWithString:urlPath].absoluteString;
     controller.navigationItem.title = STR(@"洋房东");
-    controller.webArchiveRequired = YES;
+    controller.webArchive = [self getWebArchiveWithURL:[NSURL WebURLWithString:urlPath]];
     [nav setViewControllers:@[controller]];
     return nav;
 }
@@ -130,9 +140,9 @@
 
     UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kUserTabBarIndex];
     CUTEUserViewController *controller = [[CUTEUserViewController alloc] init];
-    controller.url = [NSURL WebURLWithString:urlPath];
+    controller.startPage = [NSURL WebURLWithString:urlPath].absoluteString;
     controller.navigationItem.title = STR(@"洋房东");
-    controller.webArchiveRequired = YES;
+    controller.webArchive = [self getWebArchiveWithURL:[NSURL WebURLWithString:urlPath]];
     [nav setViewControllers:@[controller]];
     return nav;
 }
@@ -266,10 +276,6 @@
 
     [self checkAppUpdate];
 
-    [CUTEWebViewController aspect_hookSelector:@selector(webViewDidStartLoad:) withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> info, UIWebView *webView) {
-
-    } error:nil];
-
     return YES;
 }
 
@@ -396,30 +402,27 @@
 
 - (void)updateWebViewControllerTabAtIndex:(NSInteger)index {
     UINavigationController *viewController = [[self.tabBarController viewControllers] objectAtIndex:index];
-    if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
-        CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
+    if ([viewController.topViewController isKindOfClass:[CUTECDVViewController class]]) {
+        CUTECDVViewController *webViewController = (CUTECDVViewController *)viewController.topViewController;
 
-        NSURL *originalURL = webViewController.url;
+        NSURL *originalURL = [NSURL URLWithString:webViewController.startPage];
         NSURL *redirectedURL = originalURL;
         if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:originalURL] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
             redirectedURL = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:originalURL];
         }
         dispatch_block_t loadBlock = ^ {
-            CUTEWebArchive *archive = [[CUTEWebArchiveManager sharedInstance] getWebArchiveWithURL:redirectedURL];
-            if (archive) {
-                [webViewController loadWebArchive:archive];
-            }
-            else {
-                [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
-                if (webViewController.webArchiveRequired) {
-                    [[CUTEWebArchiveManager sharedInstance]  archiveURL:redirectedURL];
-                }
+            [webViewController loadRequest:[NSURLRequest requestWithURL:redirectedURL]];
+
+            //arvhive bottom view controller, the fist one show to user
+            if ([viewController.viewControllers indexOfObject:webViewController] == 0) {
+                [[CUTEWebArchiveManager sharedInstance]  archiveURL:redirectedURL];
             }
         };
 
         dispatch_block_t reloadBlock = ^ {
             [webViewController reload];
-            if (webViewController.webArchiveRequired) {
+            //arvhive bottom view controller, the fist one show to user
+            if ([viewController.viewControllers indexOfObject:webViewController] == 0) {
                 [[CUTEWebArchiveManager sharedInstance]  archiveURL:redirectedURL];
             }
         };
@@ -431,11 +434,6 @@
             }
             else {
                 reloadBlock();
-            }
-        }
-        else {
-            if (!webViewController.webView.request) {// web page not load, so load it
-                loadBlock();
             }
         }
     }
@@ -524,18 +522,17 @@
 }
 
 - (void)showUserPageSection:(NSString *)urlString fromViewController:(UIViewController *)viewController {
-     if ([viewController isKindOfClass:[CUTEWebViewController class]]) {
-        CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController;
+     if ([viewController isKindOfClass:[CUTECDVViewController class]]) {
+        CUTECDVViewController *webViewController = (CUTECDVViewController *)viewController;
         [webViewController loadRequesetInNewController:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString relativeToURL:[CUTEConfiguration hostURL]]]];
     }
     else if ([viewController isKindOfClass:[UIViewController class]]) {
         NSURL *url = [NSURL URLWithString:urlString relativeToURL:[CUTEConfiguration hostURL]];
         TrackEvent(GetScreenName(viewController), kEventActionPress, GetScreenName(url), nil);
-        CUTEWebViewController *webViewController = [CUTEWebViewController new];
-        webViewController.url = url;
+        CUTECDVViewController *webViewController = [CUTECDVViewController new];
+        webViewController.startPage = url.absoluteString;
         webViewController.hidesBottomBarWhenPushed = YES;
         [viewController.navigationController pushViewController:webViewController animated:YES];
-        [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
     }
 }
 
@@ -815,9 +812,9 @@
 
     [tabItemControllers each:^(UINavigationController *nav) {
         if ([nav isKindOfClass:[UINavigationController class]]) {
-            if ([nav.topViewController isKindOfClass:[CUTEWebViewController class]]) {
-                CUTEWebViewController *webViewController = (CUTEWebViewController *)nav.topViewController;
-                [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
+            if ([nav.topViewController isKindOfClass:[CUTECDVViewController class]]) {
+                CUTECDVViewController *webViewController = (CUTECDVViewController *)nav.topViewController;
+                [webViewController loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webViewController.startPage]]];
             }
         }
     }];

@@ -1,5 +1,4 @@
 (function () {
-
     function initBanner () {
         var $container = $('.indexBanner')
         var defaultOptions = {

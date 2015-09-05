@@ -1,0 +1,11 @@
+<widget id="com.bbtechgroup.currant" version="1.1.1">
+    <name>洋房东</name>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <author email="fyin@bbtechgroup.com" href="http://yangfd.com">
+        YangFd iOS Team
+    </author>
+    <content src="/" />
+    <access origin="*" />
+</widget>

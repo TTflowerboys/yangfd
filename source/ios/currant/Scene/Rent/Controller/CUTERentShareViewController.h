@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "CUTETicket.h"
 #import "CUTEFormViewController.h"
-#import "CUTEWebViewController.h"
+#import "CUTECDVViewController.h"
 
-@interface CUTERentShareViewController : CUTEWebViewController
+@interface CUTERentShareViewController : CUTECDVViewController
 
 @property (strong, nonatomic) CUTETicket *ticket;
 

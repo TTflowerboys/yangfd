@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "WebViewJavascriptBridge.h"
-#import "CUTEWebViewController.h"
+#import <UIKit/UIKit.h>
 
 @interface CUTEWebHandler : NSObject
 
 @property (strong, nonatomic) WebViewJavascriptBridge *bridge;
 
-- (void)setupWithWebView:(UIWebView *)webView viewController:(CUTEWebViewController *)webViewController;
+- (void)setupWithWebView:(UIWebView *)webView viewController:(UIViewController *)webViewController;
 
 @end

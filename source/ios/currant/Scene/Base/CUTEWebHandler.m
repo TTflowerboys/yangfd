@@ -10,7 +10,6 @@
 #import "CUTETracker.h"
 #import "CUTEUser.h"
 #import "CUTEDataManager.h"
-#import "CUTEWebViewController.h"
 #import "NSString+Encoding.h"
 #import "CUTECommonMacro.h"
 #import "CUTENotificationKey.h"
@@ -21,12 +20,13 @@
 #import "CUTEApptentiveEvent.h"
 #import "ATConnect.h"
 #import "CUTEShareManager.h"
+#import "CUTECDVViewController.h"
 
 @implementation CUTEWebHandler
 
 
 //TODO JS-Native api call need version control, for html host on remote, not sync with current code
-- (void)setupWithWebView:(UIWebView *)webView viewController:(CUTEWebViewController *)webViewController {
+- (void)setupWithWebView:(UIWebView *)webView viewController:(UIViewController *)webViewController {
 
     [self.bridge registerHandler:@"handshake" handler:^(id data, WVJBResponseCallback responseCallback) {
         TrackEvent(KEventCategorySystem, @"handshake", webView.request.URL.absoluteString, nil);
@@ -52,8 +52,9 @@
                     [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:webViewController userInfo:@{@"user": user}];
 
                     responseCallback(nil);
+                    //TODO
                     //update url will update webview, let update url after the call back
-                    [webViewController updateWithURL:[NSURL URLWithString:fromURLStr]];
+                    //[webViewController updateWithURL:[NSURL URLWithString:fromURLStr]];
                 }
             }
         }
@@ -68,7 +69,8 @@
             NSURL *url = [NSURL URLWithString:data relativeToURL:[CUTEConfiguration hostURL]];
             NSDictionary *queryDictionary = [url queryDictionary];
             if (queryDictionary && queryDictionary[@"return_url"]) {
-                [webViewController updateWithURL:[NSURL URLWithString:CONCAT([queryDictionary[@"return_url"] URLDecode], @"?from=", [webViewController.url.absoluteString URLEncode]? : @"/") relativeToURL:[CUTEConfiguration hostURL]]];
+                //TODO
+//                [webViewController updateWithURL:[NSURL URLWithString:CONCAT([queryDictionary[@"return_url"] URLDecode], @"?from=", [webViewController.url.absoluteString URLEncode]? : @"/") relativeToURL:[CUTEConfiguration hostURL]]];
                 [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGOUT object:webViewController];
             }
         }
@@ -156,7 +158,9 @@
 
     //TODO remove this action in html files, this has been updated by the delegate hook
     [self.bridge registerHandler:@"openURLInNewController" handler:^(id data, WVJBResponseCallback responseCallback) {
-        [webViewController loadRequesetInNewController:[NSURLRequest requestWithURL:[NSURL URLWithString:data relativeToURL:[CUTEConfiguration hostURL]]]];
+
+        CUTECDVViewController *cdvViewController = (CUTECDVViewController *)webViewController;
+        [cdvViewController loadRequesetInNewController:[NSURLRequest requestWithURL:[NSURL URLWithString:data relativeToURL:[CUTEConfiguration hostURL]]]];
     }];
 
     [self.bridge registerHandler:@"openHomeTab" handler:^(id data, WVJBResponseCallback responseCallback) {
