@@ -96,6 +96,7 @@
 
 
     module.setupDelegateRentForm = function setupDelegateRentForm (container, option, submitSuccessCallBack) {
+        var addressArray
         var $errorMsg = container.find('.delegateRentFormError')
         var delegateRentAgreeWrap = $('.delegateRentAgreeWrap')
         if (window.user) {
@@ -183,7 +184,28 @@
             }
             return validate
         }
-
+        function initAddressLookup (container) {
+            container.find('.addressLookupBtn').off('click').on('click', function (e) {
+                e.preventDefault()
+                var postcode = container.find('[name=postcode]').val()
+                if(postcode && postcode.length) {
+                    $.betterPost('/api/1/uk-address-lookup', {postcode: postcode})
+                        .done(function (val) {
+                            addressArray = val
+                            container.find('.house-name-select').html(
+                                _.reduce(val, function(pre, val, key) {
+                                    return pre + '<option value="' + key + '">' + val.summaryline + '</option>'
+                                }, '<option value="">' + i18n('请选择门牌号') + '</option>')
+                            ).trigger('chosen:updated')
+                        })
+                        .fail(function (ret) {
+                            $errorMsg.empty().append(window.getErrorMessageFromErrorCode(ret)).show()
+                        })
+                } else {
+                    $errorMsg.text(i18n('请先填写postcode')).show()
+                }
+            })
+        }
         function initContactInfo (container) {
             var $errorMsg = container.find('.delegateRentFormError')
 
@@ -454,6 +476,9 @@
             function submitForm (form) {
                 var successArea = container.find('.requirement .successWrap')
                 var params = getSerializeObject(form)
+                params.premise = addressArray[$('.house-name-select').val()].premise
+                params.street = addressArray[$('.house-name-select').val()].street
+                params.posttown = addressArray[$('.house-name-select').val()].posttown
                 var delegate_rent_ticket_id = (location.href.match(/delegate\-rent\/([0-9a-fA-F]{24})\/edit/) || [])[1]
                 var api = delegate_rent_ticket_id ?  '/api/1/rent_request_ticket/' + delegate_rent_ticket_id + '/edit' : '/api/1/rent_request_ticket/add'
                 $.betterPost(api, params)
@@ -524,7 +549,7 @@
         })
         initLocation(container)
         initContactInfo(container)
-
+        initAddressLookup(container)
         //Only bind click once
         container.find('button[name=cancel]').off('click').on('click', function () {
             container.hide()

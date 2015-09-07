@@ -23,11 +23,11 @@
                         </div>
                     </div>
                     <div class="row buttonWrap">
-                        <input class="big" type="text" placeholder="{{_('Postcode')}}" data-validator="required" data-name="{{_('Postcode')}}" data-hint="{{_('Postcode')}}" data-serialize="postcode" value="{{delegate_rent_ticket.get('zipcode_index','')}}"/>
-                        <button class="ghostButton red ajaxButton">{{_('查询地址')}}</button>
+                        <input class="big" type="text" name="postcode" placeholder="{{_('Postcode')}}" data-validator="required" data-name="{{_('Postcode')}}" data-hint="{{_('Postcode')}}" data-serialize="postcode" value="{{delegate_rent_ticket.get('zipcode_index','')}}"/>
+                        <button class="ghostButton red ajaxButton addressLookupBtn">{{_('查询地址')}}</button>
                     </div>
                     <div class="row">
-                        <select class="select-chosen house-name-select small" data-placeholder="{{_('请选择门牌号')}}" data-validator="" data-name="{{_('门牌号')}}" data-hint="{{_('门牌号(<i>须填写postcode</i>)')}}" data-serialize="" data-value="">
+                        <select class="select-chosen house-name-select small" data-placeholder="{{_('请选择门牌号')}}" data-validator="" data-name="{{_('门牌号')}}" data-hint="{{_('门牌号(<i>须填写postcode</i>)')}}" data-value="">
 
                         </select>
                     </div>
@@ -66,49 +66,7 @@
             </div>
             <div class="successWrap" style="display: none;">
                 <h2>{{_('提交成功')}}</h2>
-                <p class="hint">您的求租意向单已经提交成功，您可以：</p>
-                <p class="item" data-hide="requestContact">{{_('获取 1个 额外的联系房东机会')}}</p>
-                <p class="item" data-show="requestContact">{{_('已获取到当前房东的联系方式')}}</p>
-                <p class="item">{{_('让满足您求租需求的房源第一时间主动找到你，找房再也不用临时抱佛脚')}}</p>
-                <p class="item">{{_('在个人中心在中查看自己的')}}<a href="/user-intentions#rent">{{_('求租意向单')}}</a> {{_('，便捷地查看已联系过房东的联系方式，当您已经租到房子时可以修改求租单状态，平台将停止向您推荐')}}</p>
-                <!--<div class="contact">
-                    <label class="hint">{{_('联系我们')}}</label>
-                    <a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>
-                </div>-->
-
-                <div data-show="requestContact" class="hostContactWrap">
-                    <p class="hint">{{_('正在为您加载您要查看的房东联系方式...')}}</p>
-                    <div class="host" style="display: none">
-                        <img class="avatar" src="/static/images/property_details/ico_phoneowner.png"/>
-                        <label class="hostName"></label>
-                        <!--<label class="hostType"></label>-->
-                        <div class="hostPhone hostContact">
-                            <a>
-                                <i class="ico icon-phone_icon"></i>
-                                <span></span> <span></span>
-                            </a>
-                        </div>
-                        <div class="hostEmail hostContact">
-                            <a class="clearfix">
-                                <i class="ico icon-email"></i>
-                                <span class="email"></span>
-                            </a>
-                        </div>
-                        <div class="hostWechat hostContact">
-                            <i class="ico icon-wechat"></i>
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="qrcodeWrap" style="display: none;">
-                    <div class="imageWrap">
-                        <img class="qrcode" width="192" height="192" alt="{{_('二维码')}}"/>
-                    </div>
-                    <p>
-                        {{_('扫一扫分享“洋房动App”')}}<br>
-                        {{_('转发就获取1个额外联系房东机会')}}
-                    </p>
-                </div>
+                <p class="hint">您的委托求租需求已经提交成功</p>
             </div>
         </div>
     </div>
