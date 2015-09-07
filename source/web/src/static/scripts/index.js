@@ -457,7 +457,9 @@
     $('#delegateRentButton').on('click', function () {
         window.currantModule.openDelegateRent()
     })
-
+    $('#delegateSaleButton').on('click', function () {
+        window.currantModule.openDelegateSale()
+    })
     //GA Event - Home Slideshow
     $('.gallery .rslides').find( 'li' ).find('.button').click(function(e){
         ga('send', 'event', 'index', 'click', 'slideshow-button',$(e.currentTarget).text())
