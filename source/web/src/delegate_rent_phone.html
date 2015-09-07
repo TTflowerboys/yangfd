@@ -1,0 +1,44 @@
+<!--@@master = ./masters/master.html-->
+<!--@@block = head-->
+<!--build:css(dist) /static/styles/delegate-rent-phone.html.css-->
+<link rel="stylesheet" href="/static/styles/delegateRentPhone.css"/>
+<!--endbuild-->
+
+<!--@@close-->
+
+<!--@@block = main-->
+
+<!-- @@include= ./partials/delegate_rent_phone.html-->
+<!--@@close-->
+
+<!--@@block = scripts -->
+<!--build:js /static/scripts/requirement-rent-phone.html.js-->
+<script src="/static/scripts/index_delegate_rent.js"></script>
+<!--endbuild-->
+<script>
+function getOptionFromQurey(str) {
+    if(!str) {
+        return
+    }
+    var arr = str.slice(1).split('&')
+    var option = {}
+    _.each(arr, function (val) {
+        option[val.split('=')[0]] = val.split('=')[1]
+    })
+    return option
+}
+if (window.team.isPhone()) {
+    var delegateRentContainer = $('main')
+    var option = getOptionFromQurey(location.search)
+    window.currantModule.resetDelegateRentForm(delegateRentContainer, option)
+    window.currantModule.setupDelegateRentForm(delegateRentContainer, option, function () {
+
+    })
+    } else {
+        window.location.href = '/'
+}
+
+</script>
+
+
+<!--@@close -->

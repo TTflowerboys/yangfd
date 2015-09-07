@@ -1,4 +1,37 @@
 (function () {
+
+    $.propertyGet = function (url, params) {
+        var deferred = $.Deferred()
+        var cacheResult = getPropertyXhrCache(url, params)
+        if (cacheResult) {
+            deferred.resolve(cacheResult)
+        }
+        else {
+            var xhr = $.get(url, params).done(function (data, textStatus, jqXHR) {
+                if (data.ret !== undefined) {
+                    if (data.ret === 0) {
+                        deferred.resolve(data.val)
+                        savePropertyXhrCache(url, params, data.val)
+                    } else {
+                        deferred.reject(data.ret)
+                    }
+                } else {
+                    deferred.resolve(data, textStatus, jqXHR)
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                deferred.reject(jqXHR.status)
+            }).always(function() {
+
+            })
+
+            if (!window.requestXhrArray) {
+                window.requestXhrArray = []
+            }
+            window.requestXhrArray.push(xhr)
+        }
+        return deferred.promise()
+    }
+
     function initBanner () {
         var $container = $('.indexBanner')
         var defaultOptions = {
@@ -324,38 +357,6 @@
         }
     }
 
-    $.propertyGet = function (url, params) {
-        var deferred = $.Deferred()
-        var cacheResult = getPropertyXhrCache(url, params)
-        if (cacheResult) {
-            deferred.resolve(cacheResult)
-        }
-        else {
-            var xhr = $.get(url, params).done(function (data, textStatus, jqXHR) {
-                if (data.ret !== undefined) {
-                    if (data.ret === 0) {
-                        deferred.resolve(data.val)
-                        savePropertyXhrCache(url, params, data.val)
-                    } else {
-                        deferred.reject(data.ret)
-                    }
-                } else {
-                    deferred.resolve(data, textStatus, jqXHR)
-                }
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                deferred.reject(jqXHR.status)
-            }).always(function() {
-
-            })
-
-            if (!window.requestXhrArray) {
-                window.requestXhrArray = []
-            }
-            window.requestXhrArray.push(xhr)
-        }
-        return deferred.promise()
-    }
-
     function cancelLoadPropertyList() {
         _.each(window.requestXhrArray, function (xhr) {
             if (xhr && xhr.readyState !== 4) {
@@ -452,6 +453,10 @@
     if (!window.user) {
         updatePropertyCardMouseEnter()
     }
+
+    $('#delegateRentButton').on('click', function () {
+        window.currantModule.openDelegateRent()
+    })
 
     //GA Event - Home Slideshow
     $('.gallery .rslides').find( 'li' ).find('.button').click(function(e){

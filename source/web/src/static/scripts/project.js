@@ -61,7 +61,13 @@
             }
             return false //prevent default action for <a>
         },
-        showSignInModal: function () {
+        showSignInModal: function (options) {
+            if(options && options.country_code) {
+                $('#modal').find('[name=country_code]').val(options.country_code)
+            }
+            if(options && options.phone) {
+                $('#modal').find('[name=phone]').val(options.phone)
+            }
             $('#modal_shadow').show()
             $('#modal').show()
             return false

@@ -29,4 +29,38 @@
     <div class="appDownload hiddenInClient">
         <!-- @@include =app_download_content.html -->
     </div>
+
+    <div class="delegationRent">
+        <h3 class="title">
+            {{_('懒得自己找租客？')}}<br class="hiddenOnPCWeb"/>{{_('洋房东委托出租为您服务')}}
+        </h3>
+        <div class="clientInfo">
+            <div class="avatar">
+                <img src="/static/images/index/client_avatar.jpg" alt="avatar"/>
+            </div>
+            <p class="name">Michael Fassbender</p>
+            <p class="info">YOUNGFUNDING <br class="hiddenOnMobile"/>Rental Manager</p>
+        </div>
+        <div class="rightWrap">
+            <ol class="introductions">
+                <li>
+                    {{_('提交您的联系方式和房源位置，由平台通过landregistry核实房源归属')}}
+                </li>
+                <li>
+                    {{_('房源发布到全英推广，让高大上的房源广告给您的房源提升身价')}}
+                </li>
+                <li>
+                    {{_('平台经纪人帮你搞定带看，核实租客，租金收取，让您完全省心省力')}}
+                </li>
+                <li>
+                    {{_('业内最低佣金比例')}}
+                </li>
+            </ol>
+            <div class="buttonWrap">
+                <a id="delegateRentButton" class="button red">
+                    {{_('我要委托出租')}}
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

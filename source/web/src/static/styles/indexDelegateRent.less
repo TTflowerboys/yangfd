@@ -1,0 +1,338 @@
+@import "project/_imports";
+
+
+.delegate_rent_popup {
+    @media @phone {
+        display: none;
+    }
+    .date-picker-wrapper{
+        margin-left: 88px;
+        z-index: 103;
+        .month-wrapper table {
+            background-color: #FAFAFA;
+        }
+    }
+    .requirement {
+        position: relative;
+        overflow: visible !important;
+        .clearfix;
+        &_wrapper {
+            .cancel{
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                font-size: 21px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #999;
+                &:hover{
+                    color: #666;
+                }
+            }
+        }
+        .info{
+            margin-right: 150px;
+            .requirement_title .introductions {
+                margin-top: 54px;
+                max-width: 520px;
+                color: #999999;
+                font-size: 15px;
+                list-style-type: decimal;
+                list-style-position: inside;
+                li{
+                    margin-bottom: 22px;
+                    line-height: 1;
+                }
+            }
+        }
+        .formWrap{
+            width: 500px;
+            float: left;
+
+            .delegate_rent_form{
+                position: relative;
+                padding: 20px 20px 30px;
+                margin-bottom: 20px;
+                color: #999;
+                select, input[type=text], input[type=password], textarea{
+                    font-size: 16px;
+                    padding-left: 12px;
+                    background: #fff;
+                    border: 1px solid #cccccc;
+                    border-radius: 5px;
+                }
+                select, input[type=text], input[type=password]{
+                    height: 40px;
+                    margin-right: 16px;
+                    vertical-align: middle;
+                    &.small{
+                        width: 208px;
+                        & + .chosen-container{
+                            margin-right: 16px;
+                        }
+                    }
+                    &.big{
+                        width: 328px;
+                    }
+                }
+                textarea{
+                    padding-top: 6px;
+                }
+
+                tr{
+                    height: 60px;
+                    &:nth-child(1) td{
+                        padding-bottom: 50px;
+                    }
+                    td{
+                        font-size: 0;
+                        .title{
+                            display: inline-block;
+                            width: 102px;
+                            height: 40px;
+                            line-height: 40px;
+                            vertical-align: middle;
+                            font-size: 14px;
+                            font-weight: bold;
+                            color: #333;
+                        }
+                        &.phoneWrap {
+                            select{
+                                width: 105px;
+                            }
+                            .chosen-container{
+                                margin-right: 16px;
+                            }
+                        }
+                        &.delegateRentAgreeWrap{
+                            padding-left: 12px;
+                            font-size: 14px;
+                        }
+                        .ghostButton.red, .button.red{
+                            height: 40px;
+                            font-size: 14px;
+                            padding: 0;
+                            display: inline-block;
+                            width: 104px;
+                        }
+                    }
+                }
+
+                .chosen-container{
+                    font-size: 16px;
+                    .chosen-single{
+                        padding: 0 12px;
+                        height: 40px;
+                        line-height: 40px;
+                        color: #999;
+                        border-radius: 5px;
+                        background: #fff;
+                        border: 1px solid #cccccc;
+                        abbr{
+                            background-image: url('/static/images/common/chosen-sprite.png');
+                        }
+                        div{
+                            width: 20px;
+                            b{
+                                background-image: url('/static/images/common/chosen-sprite.png');
+                                width: 12px;
+                                background-position: 0 12px;
+                            }
+                        }
+                        span{
+                            margin-right: 10px;
+                        }
+                    }
+                    &.chosen-with-drop .chosen-single{
+                        border: 1px solid #cccccc;
+                        border-radius: 5px 5px 0 0;
+                        border-bottom: none;
+                        div b{
+                            background-position: -17px 12px;
+                        }
+                    }
+
+                    .chosen-drop{
+                        font-size: 14px;
+                        border: 1px solid #cccccc;
+                        input{
+                            margin: 0 0 5px 5px !important;
+                            height: 24px !important;
+                            line-height: 24px !important;
+                            &[type=text]{
+                                background-image: url('/static/images/common/chosen-sprite.png');
+                                background-repeat: no-repeat;
+                                background-position: 100% -20px;
+                                box-sizing: border-box;
+                                width: 90%;
+                            }
+                        }
+                        .chosen-results{
+                            color: #999;
+                        }
+                    }
+                    &.chosen-with-drop .chosen-drop{
+                        border-top: none;
+                    }
+
+                }
+                .delegateRentFormError{
+                    position: absolute;
+                    bottom: 0;
+                    color: @red;
+                }
+            }
+
+            .actionWrap{
+                padding: 0 20px;
+                .actionButton{
+                    margin-right: 20px;
+                    padding: 10px 40px;
+                    font-size: 18px;
+                    border-radius: 8px;
+                    &.ghostButton:hover{
+                        color: darken(@red, 5%);
+                        border-color: darken(@red, 5%);
+                    }
+                }
+            }
+
+        }
+        .successWrap{
+            position: relative;
+            padding: 0 0 100px 100px;
+
+            h2{
+                font-size: 36px;
+                color: #333333;
+                margin-bottom: 85px;
+            }
+            p{
+                &.hint{
+                    color: #999;
+                    margin-bottom: 36px;
+                    font-size: 14px;
+                }
+                &.item{
+                    position: relative;
+                    padding-left: 20px;
+                    &:before{
+                        content: '';
+                        display: block;
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 50%;
+                        background-color: #999;
+                        position: absolute;
+                        left: 0px;
+                        top: 9px;
+                    }
+                }
+                max-width: 420px;
+                line-height: 1.8em;
+                margin:0 0 24px;
+                color: #666;
+                font-size: 16px;
+                a{
+                    color: @red;
+                }
+            }
+            .contact {
+                margin-top: 277px;
+
+                .hint {
+                    font-size:16px;
+                    color:#999;
+                    line-height:24px;
+                }
+                a {
+                    font-size:24px;
+                    text-decoration:none;
+                    color:@red;
+                    line-height:24px;
+                    display:block;
+                }
+            }
+            .qrcodeWrap{
+                width: 300px;
+                position: absolute;
+                bottom: 100px;
+                right: 135px;
+                text-align: center;
+                .imageWrap{
+                    display: inline-block;
+                    margin: 0 auto;
+                    padding: 2px;
+                    border-radius: 5px;
+                    border:1px solid #cccccc;
+                    background-color: #fff;
+                    .qrcode{
+                        width: 210px;
+                        height: 210px;
+                        margin-bottom: 0px;
+                    }
+                }
+                p{
+                    font-size: 14px;
+                    color: #999;
+                    text-align: center;
+                    line-height: 1.2em;
+                    margin: 10px 0;
+                }
+            }
+            .hostContactWrap{
+                position: absolute;
+                bottom: 100px;
+                right: 135px;
+                width: 360px;
+                margin: 10px 10px 20px;
+                padding: 15px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                .hint{
+                    margin: 10px 0;
+                }
+                .host{
+                    padding-top: 10px;
+                    color: #999;
+
+                    .avatar{
+                        display: block;
+                        margin: 0 auto;
+                    }
+                    .hostName{
+                        margin: 10px 0 20px;
+                        display: block;
+                        text-align: center;
+                        font-size: 21px;
+                    }
+                    .hostContact{
+                        display: none;
+                        font-size: 16px;
+                        margin-bottom: 10px;
+                        color: #666;
+                        text-align: left;
+                        padding-left: 10px;
+                        a{
+                            color: #666;
+                            text-decoration: none;
+                        }
+                        i{
+                            vertical-align: middle;
+                            font-size: 21px;
+                            margin-right: 5px;
+                        }
+                        &.show{
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
