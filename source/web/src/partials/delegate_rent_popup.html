@@ -43,13 +43,13 @@
                         <tr>
                             <td>
                                 <span class="title">{{_('Postcode')}}</span>
-                                <input class="big" type="text" placeholder="{{_('Postcode')}}" data-validator="" data-name="{{_('Postcode')}}" data-serialize="zipcode_index" value="{{delegate_rent_ticket.get('zipcode_index','')}}"/>
+                                <input class="big" type="text" name="postcode" placeholder="{{_('Postcode')}}" data-validator="required" data-name="{{_('Postcode')}}" data-serialize="postcode" value="{{delegate_rent_ticket.get('postcode','')}}"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <span class="title">{{_('门牌号')}}</span>
-                                <select class="select-chosen house-name-select small" data-placeholder="{{_('请选择门牌号')}}" data-validator="required" data-name="{{_('门牌号')}}" data-serialize="" data-value="">
+                                <select class="select-chosen house-name-select small" data-placeholder="{{_('请选择门牌号')}}" data-name="{{_('门牌号')}}" data-serialize="" data-value="">
 
                                 </select>
                                 <button class="ghostButton red ajaxButton">{{_('查门牌号')}}</button>
@@ -58,34 +58,47 @@
                         <tr>
                             <td>
                                 <span class="title">{{_('姓名')}}</span>
-                                <input type="text" class="requirementRentName big" name="requirementRentName" placeholder="{{_('姓名')}}" data-validator="required,trim,maxLength(20)"  data-name="{{_('姓名')}}" data-serialize="nickname"/>
+                                <input type="text" class="delegateRentName big" name="delegateRentName" placeholder="{{_('姓名')}}" data-validator="required,trim,maxLength(20)"  data-name="{{_('姓名')}}" data-serialize="nickname"/>
                             </td>
                         </tr>
                         <tr>
                             <td class="phoneWrap">
                                 <span class="title">{{_('手机号')}}</span>
                                 <!-- @@include =country_code_select.html -->
-                                <input type="text" class="requirementRentPhone small" name="requirementRentPhone" placeholder="{{_('手机号')}}" data-validator="required,trim,phone"  data-name="{{_('手机号')}}"/>
+                                <input type="text" class="delegateRentPhone small" name="delegateRentPhone" placeholder="{{_('手机号')}}" data-validator="required,trim,phone"  data-name="{{_('手机号')}}" data-serialize="phone"/>
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="passwordWrap" style="display: none;">
+                            <td>
+                                <span class="title">{{_('密码')}}</span>
+                                <input type="password" class="delegateRentPassword small" name="delegateRentPassword" placeholder="{{_('密码')}}" data-validator=""  data-name="{{_('密码')}}"/>
+                                <button class="button red ajaxButton login">{{_('登录')}}</button>
+                            </td>
+                        </tr>
+                        <tr class="emailWrap" style="display: none;">
+                            <td>
+                                <span class="title">{{_('Email')}}</span>
+                                <input type="text" class="delegateRentEmail big" name="delegateRentEmail" placeholder="{{_('Email')}}" data-name="{{_('Email')}}"/>
+                            </td>
+                        </tr>
+                        <tr class="codeWrap" style="display: none;">
                             <td>
                                 <span class="title">{{_('验证码')}}</span>
-                                <input type="text" class="requirementRentCode small" name="requirementRentCode" placeholder="{{_('验证码')}}" data-validator="required,trim "  data-name="{{_('验证码')}}" data-serialize=""/>
+                                <input type="text" class="delegateRentCode small" name="delegateRentCode" placeholder="{{_('验证码')}}" data-validator="trim"  data-name="{{_('验证码')}}"/>
                                 <button class="ghostButton red ajaxButton">{{_('获取验证码')}}</button>
                             </td>
                         </tr>
-                        <tr>
+                       <!-- <tr>
                             <td class="delegateRentAgreeWrap">
                                 <input type="checkbox" class="delegateRentAgree currantCheckbox" name="delegateRentAgree" id="delegateRentAgree" data-serialize="noregister|reverse"/>
                                 <label for="delegateRentAgree">{{_('我希望注册为会员以便以后能够更新我的出租需求')}}</label>
                             </td>
-                        </tr>
+                        </tr>-->
                     </table>
                     <div class="delegateRentFormError"></div>
                 </form>
                 <div class="actionWrap">
-                    <button class="actionButton button red ajaxButton" type="submit">{{_('提交')}}</button>
+                    <button class="actionButton button red ajaxButton" type="submit" disabled>{{_('提交')}}</button>
                 </div>
             </div>
             <div class="successWrap">
@@ -103,7 +116,7 @@
                 <div data-show="requestContact" class="hostContactWrap">
                     <p class="hint">{{_('正在为您加载您要查看的房东联系方式...')}}</p>
                     <div class="host" style="display: none">
-                        <img class="avatar" src="/static/images/property_details/ico_phoneowner.png"></img>
+                        <img class="avatar" src="/static/images/property_details/ico_phoneowner.png"/>
                         <label class="hostName"></label>
                         <!--<label class="hostType"></label>-->
                         <div class="hostPhone hostContact">

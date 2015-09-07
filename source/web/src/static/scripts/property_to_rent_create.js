@@ -937,6 +937,7 @@
     }
     var needSMSCode
     $requestSMSCodeBtn.on('click', function (e) {
+        e.preventDefault()
         $errorMsgOfGetCode.empty().hide()
         var $btn = $(this)
         // Check email and phone

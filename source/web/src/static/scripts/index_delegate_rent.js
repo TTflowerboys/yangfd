@@ -92,8 +92,21 @@
     }
 
 
-    function initContactInfo (container) {
+
+
+
+    module.setupDelegateRentForm = function setupDelegateRentForm (container, option, submitSuccessCallBack) {
         var $errorMsg = container.find('.delegateRentFormError')
+        var delegateRentAgreeWrap = $('.delegateRentAgreeWrap')
+        if (window.user) {
+            delegateRentAgreeWrap.hide()
+        } else {
+            container.find('[name=delegateRentAgree]').prop('checked', true)
+        }
+
+        function getPhone() {
+            return '+' + container.find('[name=country_code]').val() + container.find('[name=delegateRentPhone]').val()
+        }
         function enableSubmitButton(enable) {
             var button = container.find('button[type=submit]')
             if (enable) {
@@ -105,96 +118,6 @@
                 button.removeClass('red').addClass('gray')
             }
         }
-
-        var onPhoneNumberChange = function () {
-            var params = container.find('form').serializeObject()
-            var theParams = {}
-            theParams.phone = '+' + params.country_code + params.requirementRentPhone
-            $errorMsg.hide()
-            var $input = container.find('form input[name=requirementRentPhone]')
-            if (theParams.phone) {
-                enableSubmitButton(false)
-                $.betterPost('/api/1/user/phone_test', theParams)
-                    .done(function () {
-                        $errorMsg.hide()
-                        $input.css('border', '')
-                        enableSubmitButton(true)
-                    })
-                    .fail(function () {
-                        $errorMsg.text(window.getErrorMessage('phone', 'number'))
-                        $errorMsg.show()
-                        $input.css('border', '2px solid red')
-                    })
-            }
-            else {
-                $errorMsg.hide()
-                $input.css('border', '')
-                enableSubmitButton(true)
-            }
-        }
-        container.find('form select[name=country]').on('change', onPhoneNumberChange)
-        container.find('form input[name=requirementRentPhone]').on('change', onPhoneNumberChange)
-        if (!container.data('initContactInfo')) {
-            container.data('initContactInfo', true)
-            if (window.user) {
-                if (window.user.nickname) {
-                    container.find('[name=requirementRentName]').val(window.user.nickname)
-                }
-                if (window.user.country && window.user.country.code) {
-                    container.find('[name=country]').val(window.user.country.code).trigger('chosen:updated')
-                }
-                if (window.user.phone) {
-                    container.find('[name=requirementRentPhone]').val(window.user.phone)
-                }
-                if (window.user.email) {
-                    container.find('[name=requirementRentEmail]').val(window.user.email)
-                }
-            }
-        }
-    }
-    function getSerializeObject (form) {
-        var data = {}
-        form.find('[data-serialize]').each(function () {
-            var serialize = $(this).attr('data-serialize').split('|')
-            var key = serialize[0].trim()
-            var option = serialize[1] ? serialize[1].trim() : undefined
-            var val
-            if ($(this).is('[type=checkbox]')) {
-                val = $(this).is(':checked')
-            } else {
-                val = $(this).val()
-            }
-            if(val === undefined || val === '' || val === null) {
-                return
-            }
-            if (!option) {
-                data[key] = val
-                return
-            }
-            if (option === 'time') {
-                data[key] = new Date(val).getTime() / 1000
-                return
-            }
-            if (option === 'reverse') {
-                data[key] = !val
-                return
-            }
-        })
-        data.phone = '+' + form.find('[name=country_code]').val() + form.find('[name=requirementRentPhone]').val()
-        return data
-    }
-
-
-    module.setupDelegateRentForm = function setupDelegateRentForm (container, option, submitSuccessCallBack) {
-        var $errorMsg = container.find('.delegateRentFormError')
-        var delegateRentAgreeWrap = $('.delegateRentAgreeWrap')
-        if (window.user) {
-            delegateRentAgreeWrap.hide()
-        } else {
-            container.find('[name=requirementRentAgree]').prop('checked', true)
-        }
-
-
         function checkForm(element) {
             var validate = true
             var errorMsg = ''
@@ -261,43 +184,324 @@
             return validate
         }
 
+        function initContactInfo (container) {
+            var $errorMsg = container.find('.delegateRentFormError')
 
+
+            function onPhoneNumberChange () {
+                function checkPhoneValid () {
+                    if (theParams.phone) {
+                        //enableSubmitButton(false)
+                        $.betterPost('/api/1/user/phone_test', theParams)
+                            .done(function () {
+                                $errorMsg.hide()
+                                $input.css('border', '')
+                                //enableSubmitButton(true)
+                                checkExist()
+                            })
+                            .fail(function () {
+                                $errorMsg.text(window.getErrorMessage('phone', 'number'))
+                                $errorMsg.show()
+                                $input.css('border', '2px solid red')
+                            })
+                    }
+                    else {
+                        $errorMsg.hide()
+                        $input.css('border', '')
+                        //enableSubmitButton(true)
+                    }
+                }
+
+                function checkExist () {
+                    var params = {
+                        phone : getPhone()
+                    }
+                    if (params.phone) {
+                        $.betterPost('/api/1/user/check_exist', params)
+                            .done(function (val) {
+                                if(val === true) {
+                                    if(!window.user) {
+                                        $passwordWrap.show()
+                                        $errorMsg.text(i18n('您填写的手机号已注册，请输入密码登录后继续')).show()
+                                        container.find('.login').on('click', function () {
+                                            $errorMsg.hide()
+                                            var password = $passwordWrap.find('input').val()
+                                            if(password && password.length) {
+                                                var params = {
+                                                    phone: getPhone(),
+                                                    password: Base64.encode(password)
+                                                }
+                                                $.betterPost('/api/1/user/login', params)
+                                                    .done(function (val) {
+                                                        window.user = val
+                                                        $errorMsg.hide()
+                                                        $passwordWrap.hide()
+                                                        checkVerified()
+                                                    })
+                                                    .fail(function (ret) {
+                                                        $errorMsg.empty().append(window.getErrorMessageFromErrorCode(ret)).show()
+                                                    })
+                                            } else {
+                                                $errorMsg.text(i18n('密码不能为空'))
+                                            }
+                                        })
+                                    } else {
+                                        checkVerified()
+                                    }
+                                } else {
+                                    //快速注册流程
+                                    $codeWrap.show()
+                                    $emailWrap.show().find('input').attr('data-validator', 'required,trim,email')
+                                    fastRegister()
+
+                                }
+                            }).fail(function (ret) {
+                                $errorMsg.empty().append(window.getErrorMessageFromErrorCode(ret)).show()
+                            })
+                    }
+                }
+
+                function checkVerified () {
+                    if (window.user.phone_verified) {
+                        $errorMsg.hide()
+                        enableSubmitButton(true)
+                        initSubmit(container)
+                    } else {
+                        $errorMsg.text(i18n('您的手机号码尚未验证过，请先获取短信验证码后再继续')).show()
+                        $codeWrap.show()
+                        initSubmit(container, {
+                            needVerified: true
+                        })
+                    }
+                }
+                function fastRegister () {
+                    $requestSMSCodeBtn.off('click').on('click', function (e) {
+                        e.preventDefault()
+                        $errorMsg.empty().hide()
+                        var $btn = $(this)
+                        if (!checkForm(container.find('form'))) {return}
+
+                        var params = {
+                            country: window.team.getCountryFromPhoneCode(container.find('[name=country_code]').val()),
+                            phone: getPhone(),
+                            nickname: container.find('[name=delegateRentName]').val(),
+                            email: container.find('[name=delegateRentEmail]').val()
+                        }
+
+                        //倒计时60s后再将获取验证码按钮变为可用状态
+                        function countDown () {
+                            var text = i18n('{time}s后可用')
+                            var time = 60
+                            function update() {
+                                if(time === 0) {
+                                    $btn.prop('disabled', false).text(i18n('重新获取验证码'))
+                                } else{
+                                    $btn.prop('disabled', true).text(text.replace('{time}', time--))
+                                    setTimeout(update, 1000)
+                                }
+                            }
+                            update()
+                        }
+                        // Fast register user
+                        function requestSMSCode () {
+                            $btn.prop('disabled', true)
+
+                            $.betterPost('/api/1/user/sms_verification/send', {
+                                phone: getPhone()
+                            }).done(function () {
+                                $errorMsg.text(i18n('验证码已成功发送到您的手机，请注意查收')).show()
+                            }).fail(function (ret) {
+                                $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
+                            }).always(function () {
+                                $('.buttonLoading').trigger('end')
+                                countDown()
+                            })
+                        }
+                        if (!$btn.data('register')) {
+                            $btn.prop('disabled', true).text(window.i18n('发送中...'))
+                            $.betterPost('/api/1/user/fast-register', params)
+                                .done(function (val) {
+                                    $btn.data('register', true)
+                                    window.user = val
+                                    container.find('[name=delegateRentPhone]').prop('readonly', true)
+
+                                    $btn.prop('disabled', true)
+                                    $('.buttonLoading').trigger('end')
+                                    countDown()
+                                    initSubmit(container, {
+                                        needVerified: true
+                                    })
+                                })
+                                .fail(function (ret) {
+                                    $('.buttonLoading').trigger('end')
+                                    $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
+                                    $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
+                                })
+                        } else {
+                            requestSMSCode()
+                            initSubmit(container, {
+                                needVerified: true
+                            })
+                        }
+                    })
+                }
+
+                var $input = container.find('form input[name=delegateRentPhone]')
+                var $codeWrap = container.find('.codeWrap')
+                var $passwordWrap = container.find('.passwordWrap')
+                var $emailWrap = container.find('.emailWrap')
+                var $requestSMSCodeBtn = $codeWrap.find('button')
+
+                $passwordWrap.hide()
+                $codeWrap.hide()
+                enableSubmitButton(false)
+                var theParams = {}
+                theParams.phone = getPhone()
+                $errorMsg.hide()
+                checkPhoneValid()
+            }
+            container.find('form select[name=country_code]').on('change', onPhoneNumberChange)
+            container.find('form input[name=delegateRentPhone]').on('change', onPhoneNumberChange)
+            if (!container.data('initContactInfo')) {
+                container.data('initContactInfo', true)
+                if (window.user) {
+                    if (window.user.nickname) {
+                        container.find('[name=delegateRentName]').val(window.user.nickname)
+                    }
+                    if (window.user.country && window.user.country.code) {
+                        container.find('[name=country_code]').val(window.user.country_code).prop('readonly',true).trigger('chosen:updated')
+                    }
+                    if (window.user.phone) {
+                        container.find('[name=delegateRentPhone]').val(window.user.phone).trigger('change').prop('readonly',true)
+                    }
+                }
+            }
+        }
+        function getSerializeObject (form) {
+            var data = {}
+            form.find('[data-serialize]').each(function () {
+                var serialize = $(this).attr('data-serialize').split('|')
+                var key = serialize[0].trim()
+                var option = serialize[1] ? serialize[1].trim() : undefined
+                var val
+                if ($(this).is('[type=checkbox]')) {
+                    val = $(this).is(':checked')
+                } else {
+                    val = $(this).val()
+                }
+                if(val === undefined || val === '' || val === null) {
+                    return
+                }
+                if (!option) {
+                    data[key] = val
+                    return
+                }
+                if (option === 'time') {
+                    data[key] = new Date(val).getTime() / 1000
+                    return
+                }
+                if (option === 'reverse') {
+                    data[key] = !val
+                    return
+                }
+            })
+            data.phone = getPhone()
+            return data
+        }
+        function initRequestVerifyBtn () {
+            var $codeWrap = container.find('.codeWrap')
+            var $requestSMSCodeBtn = $codeWrap.find('button')
+            $requestSMSCodeBtn.off('click').on('click', function (e) {
+                e.preventDefault()
+                $errorMsg.empty().hide()
+                var $btn = $(this)
+                requestSMSCode()
+
+                //倒计时60s后再将获取验证码按钮变为可用状态
+                function countDown () {
+                    var text = i18n('{time}s后可用')
+                    var time = 60
+                    function update() {
+                        if(time === 0) {
+                            $btn.prop('disabled', false).text(i18n('重新获取验证码'))
+                        } else{
+                            $btn.prop('disabled', true).text(text.replace('{time}', time--))
+                            setTimeout(update, 1000)
+                        }
+                    }
+                    update()
+                }
+                // Fast register user
+                function requestSMSCode () {
+                    $btn.prop('disabled', true).text(i18n('发送中...'))
+
+                    $.betterPost('/api/1/user/sms_verification/send', {
+                        phone: getPhone()
+                    }).done(function () {
+                        $errorMsg.text(i18n('验证码已成功发送到您的手机，请注意查收')).show()
+                    }).fail(function (ret) {
+                        $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
+                    }).always(function () {
+                        $('.buttonLoading').trigger('end')
+                        countDown()
+                    })
+                }
+            })
+        }
         function initSubmit (container, option) {
+            var $codeWrap = container.find('.codeWrap')
+            enableSubmitButton(true)
+            function submitForm (form) {
+                var successArea = container.find('.requirement .successWrap')
+                var params = getSerializeObject(form)
+                var delegate_rent_ticket_id = (location.href.match(/delegate\-rent\/([0-9a-fA-F]{24})\/edit/) || [])[1]
+                var api = delegate_rent_ticket_id ?  '/api/1/rent_request_ticket/' + delegate_rent_ticket_id + '/edit' : '/api/1/rent_request_ticket/add'
+                $.betterPost(api, params)
+                    .done(function (val) {
+                        successArea.show().siblings().hide()
+                        submitSuccessCallBack()
+                    })
+                    .fail(function (ret) {
+                        $errorMsg.empty()
+                        $errorMsg.append(window.getErrorMessageFromErrorCode(ret))
+                        $errorMsg.show()
+                    })
+            }
             if(!container.data('initSubmit')) {
+                if(option && option.needVerified) {
+                    initRequestVerifyBtn()
+                }
                 container.data('initSubmit', true)
                 container.find('button[type=submit]').on('click', function () {
-                    container.find('form.requirement_rent_form').trigger('submit')
+                    container.find('form.delegate_rent_form').trigger('submit')
                 })
-                container.find('form.requirement_rent_form').submit(function (e) {
-                    window.team.setUserType('tenant')
+                container.find('form.delegate_rent_form').submit(function (e) {
+                    var $form = $(this)
+                    window.team.setUserType('landlord')
                     e.preventDefault()
                     $errorMsg.hide()
-                    var successArea = container.find('.successWrap')
                     container.find('form input, form textarea').each(function (index) {
                         $(this).css('border', '')
                     })
 
                     if (!checkForm($(this))) {return}
-
-                    var params = getSerializeObject($(this))
-                    params.locales = window.lang
-                    var rent_intention_ticket_id = (location.href.match(/rent\-intention\/([0-9a-fA-F]{24})\/edit/) || [])[1]
-                    var api = rent_intention_ticket_id ?  '/api/1/rent_intention_ticket/' + rent_intention_ticket_id + '/edit' : '/api/1/rent_intention_ticket/add'
-                    $.betterPost(api, params)
-                        .done(function (val) {
-                            successArea.show().siblings().hide()
-                            successArea.find('.qrcode').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.protocol + '//' + location.host + '/app-download'))
-                            submitSuccessCallBack()
-                            ga('send', 'event', 'rentRequirementPopup', 'result', 'submit-success');
-                        })
-                        .fail(function (ret) {
-                            $errorMsg.empty()
-                            $errorMsg.append(window.getErrorMessageFromErrorCode(ret))
-                            $errorMsg.show()
-
-                            ga('send', 'event', 'rentRequirementPopup', 'click', 'submit-failed',window.getErrorMessageFromErrorCode(ret));
-                        })
-
+                    if(option && option.needVerified) {
+                        var code = $codeWrap.find('input').val()
+                        if(code && code.length) {
+                            $.betterPost('/api/1/user/' + window.user.id + '/sms_verification/verify', {code: code})
+                                .done(function (val) {
+                                    window.user.phone_verified = true
+                                    submitForm($form)
+                                })
+                                .fail(function (ret) {
+                                    $errorMsg.empty().append(window.getErrorMessageFromErrorCode(ret)).show()
+                                })
+                        } else {
+                            $errorMsg.text(i18n('请输入手机验证码')).show()
+                        }
+                    } else if(!option) {
+                        submitForm($form)
+                    }
                 })
             }
         }
@@ -320,9 +524,6 @@
         })
         initLocation(container)
         initContactInfo(container)
-        initSubmit(container, option)
-
-
 
         //Only bind click once
         container.find('button[name=cancel]').off('click').on('click', function () {
