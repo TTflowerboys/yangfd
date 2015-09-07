@@ -138,12 +138,18 @@ def order_search_anonymous(user, params):
 
 @f_api('/order/search_view_rent_ticket_contact_info', params=dict(
     per_page=int,
+    user_id=ObjectId,
 ))
 @f_app.user.login.check(force=True)
 def order_search_view_rent_ticket_contact_info(user, params):
+    user_id = user["id"]
+    if "user_id" in params:
+        assert set(user["role"]) & set(["admin", "jr_admin", "sales"]), abort(40300, "no permission to touch other user")
+        user_id = params.pop("user_id")
+
     per_page = params.pop("per_page", 0)
     orders = f_app.order.output(f_app.order.custom_search({
-        "user.id": user["id"],
+        "user.id": user_id,
         "items.id": f_app.common.view_rent_ticket_contact_info_id
     }, per_page=per_page))
 
