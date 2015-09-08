@@ -240,12 +240,23 @@
                 width: 75%;
                 float: left;
                 .clearfix;
+                body[lang=en] & {
+                    width: 95%;
+                }
                 >div{
                     margin-right: 4%;
                     float: left;
                     border-right: 1px solid #ccc;
+                    body[lang=en] & {
+                        margin-right: 2%;
+                    }
                     &:nth-last-child(1){
                         border-right: 0;
+                    }
+                    .title{
+                        body[lang=en] & {
+                            font-size: 12px;
+                        }
                     }
                     .content{
                         min-height: 0;
