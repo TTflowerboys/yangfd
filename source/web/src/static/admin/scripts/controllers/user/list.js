@@ -15,7 +15,7 @@
 
         var params = $scope.selected
         $scope.$watch(function () {
-            return [$scope.selected.country, $scope.selected.user_type].join(',')
+            return [$scope.selected.country, $scope.selected.user_type, $scope.selected.occupation].join(',')
         }, function () {
             $scope.refreshList()
         })
