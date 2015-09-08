@@ -10,6 +10,7 @@
 
 @interface CUTEViewController : UIViewController
 
+ //TODO refine the url 
 @property (strong, nonatomic) NSURL *url;
 
 @end

@@ -19,6 +19,8 @@
 #import "CUTENotificationKey.h"
 #import "CUTETracker.h"
 #import "MasonryMake.h"
+#import <currant-Swift.h>
+
 
 @interface CUTERentTypeListViewController ()
 {
@@ -37,6 +39,42 @@
     if (self) {
     }
     return self;
+}
+
+- (BFTask *)setupRoute {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            [tcs setError:task.error];
+        }
+        else if (task.exception) {
+            [tcs setException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [tcs cancel];
+        }
+        else {
+            CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
+            [form setRentTypeList:task.result];
+            self.formController.form = form;
+            [tcs setResult:task.result];
+        }
+        return task;
+    }];
+    return tcs.task;
+}
+
+- (void)seupRouteWithCompletion:(dispatch_block_t)completion {
+    [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+        if (task.result) {
+            CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
+            [form setRentTypeList:task.result];
+            self.formController.form = form;
+            completion();
+        }
+        return nil;
+    }];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {

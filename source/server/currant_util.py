@@ -9,6 +9,8 @@ from libfelix.f_interface import template, request, redirect, template_gettext a
 import currant_data_helper
 import lxml
 import urllib
+import re
+from distutils.version import StrictVersion
 
 logger = logging.getLogger(__name__)
 BASE_KEYWORDS_ARRAY = ['洋房东', '海外置业', '楼盘', '公寓', '别墅', '学区房', '英国房产', '海外投资', '海外房产', '海外买房', '海外房地产', '海外房产投资', '英国房价', 'Youngfunding', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
@@ -58,6 +60,30 @@ def is_mobile_client():
     return b"currant" in request.headers.get('User-Agent').lower()
 
 
+def compare_version(version_a, version_b):
+    cmp = lambda x, y: StrictVersion(x).__cmp__(y)
+    return cmp(version_a, version_b)
+
+
+def is_mobile_client_version(condition, version):
+    ua = request.headers.get('User-Agent').lower()
+    match = re.search(r'currant\/([0-9\.]*)', ua)
+    if match and match.group(1):
+        ver = match.group(1)
+        if condition == '>=':
+            return compare_version(ver, version) >= 0
+        elif condition == '>':
+            return compare_version(ver, version) > 0
+        elif condition == '<=':
+            return compare_version(ver, version) <= 0
+        elif condition == '<':
+            return compare_version(ver, version) < 0
+        elif condition == '==':
+            return compare_version(ver, version) == 0
+
+    return False
+
+
 def check_ip_and_redirect_domain(func):
     @wraps(func)
     def __check_ip_and_redirect_domain_replace_func(*args, **kwargs):
@@ -85,7 +111,7 @@ def check_ip_and_redirect_domain(func):
     return __check_ip_and_redirect_domain_replace_func
 
 
-#检验登陆用户的手机号没有验证过则跳转到验证手机号的页面，这个函数目前没有使用，用的是写在master.html模板中的跳转
+# 检验登陆用户的手机号没有验证过则跳转到验证手机号的页面，这个函数目前没有使用，用的是写在master.html模板中的跳转
 def check_phone_verified_and_redirect_domain(func):
     @wraps(func)
     def __check_phone_verified_and_redirect_domain_replace_func(*args, **kwargs):
@@ -115,8 +141,10 @@ def get_sorted_enums(type):
 def get_country_list():
     return map(lambda country: {"_country": True, "code": country}, f_app.common.country_list)
 
+
 def get_country_list_for_intention():
     return map(lambda country: {"_country": True, "code": country, "name": get_country_name_by_code(country)}, f_app.common.country_list_for_intention)
+
 
 def get_country_name_by_code(code):
     countryMap = {
@@ -140,6 +168,7 @@ def get_country_name_by_code(code):
         return countryMap[code]
     else:
         return ""
+
 
 def get_phone_code_by_country(code):
     phone_code_map = {
@@ -226,6 +255,7 @@ def common_template(path, **kwargs):
     kwargs.setdefault("fetch_image", fetch_image)
     kwargs.setdefault("totimestamp", totimestamp)
     kwargs.setdefault("is_mobile_client", is_mobile_client)
+    kwargs.setdefault("is_mobile_client_version", is_mobile_client_version)
     kwargs.setdefault("get_country_name_by_code", get_country_name_by_code)
     kwargs.setdefault("get_phone_code_by_country", get_phone_code_by_country)
     kwargs.setdefault("get_phone_numbers", get_phone_numbers)
