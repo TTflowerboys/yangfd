@@ -216,6 +216,9 @@
                     padding:15px 0;
                     color:#999;
                     height:100%;
+                    body[lang=en] & {
+                        padding: 15px 0;
+                    }
                 }
                 &:hover {
                     color:white;
@@ -247,6 +250,10 @@
                     @media @phone {
                         font-size:18px;
                         margin-left: 10px;
+                        body[lang=en] & {
+                            font-size: 15px;
+                            margin-left: 8px;
+                        }
                     }
                 }
 
@@ -260,6 +267,9 @@
                     }
                     @media @phone {
                         margin-left:10px;
+                        body[lang=en] & {
+                            margin-left: 8px;
+                        }
                     }
 
                     .title {
@@ -269,10 +279,13 @@
                         cursor:pointer;
 
                         @media @phone {
- 	                    margin-bottom: 0px;
-	                    font-size: 14px;
-	                    vertical-align: middle;
-	                    line-height: 18px;
+                            margin-bottom: 0px;
+                            font-size: 14px;
+                            vertical-align: middle;
+                            line-height: 18px;
+                            body[lang=en] & {
+                                font-size: 12px;
+                            }
                         }
                     }
 
