@@ -68,8 +68,14 @@
             color:#666;
             width:220px;
             margin:0 auto;
+            body[lang=en] & {
+                width: 300px;
+            }
             @media @phone {
                 width:100%;
+                body[lang=en] & {
+                    width: 100%;
+                }
             }
         }
 
@@ -105,12 +111,19 @@
             vertical-align:middle;
             margin-left:8px;
             overflow:hidden;
-
+            body[lang=en] & {
+                margin-left: 12px;
+                width: 254px;
+            }
             @media @phone {
                 border-bottom:1px solid #ccc;
                 width:~"calc(100% - 38px)";
                 height:100%;
                 margin-left:0px;
+                body[lang=en] & {
+                    margin-left: 0;
+                    width:~"calc(100% - 38px)";
+                }
             }
 
             &.last {
@@ -121,6 +134,9 @@
             .question {
                 font-size:17px;
                 line-height:1em;
+                body[lang=en] & {
+                    font-size:14px;
+                }
                 @media @phone {
                     float:left;
                     margin-top:0px;
@@ -138,7 +154,9 @@
                 color:#999;
                 font-size:14px;
                 line-height:18px;
-                
+                body[lang=en] & {
+                    font-size:12px;
+                }
                 @media @phone {
                     float:right;
                     padding-right:10px;
