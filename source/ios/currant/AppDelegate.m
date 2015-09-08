@@ -61,6 +61,7 @@
 #import "CUTEWebArchiveManager.h"
 #import "CUTEWebConfiguration.h"
 #import "CUTECDVViewController.h"
+#import <GGLContext.h>
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
