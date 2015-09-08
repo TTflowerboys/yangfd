@@ -453,6 +453,10 @@
     if (!window.user) {
         updatePropertyCardMouseEnter()
     }
+    $('.publishInClient .scrollDown').on('click', function (e) {
+        var top = $('.delegationRent .title').offset().top
+        $('body,html').stop(true,true).animate({scrollTop: top}, 300);
+    })
 
     $('#delegateRentButton').on('click', function () {
         window.currantModule.openDelegateRent()
