@@ -410,6 +410,8 @@ def sitemap():
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property_list?country=541d334d6b80992a1f209046" % domain
     for property in f_app.property.search({"status": {"$in": ["selling", "sold out"]}}, per_page=0):
         etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property/%s" % (domain, property)
+    for ticket in f_app.ticket.search({"status": {"$in": ["to rent"]}, "status": "rent"}, per_page=0):
+        etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/property-to-rent/%s" % (domain, property)
 
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/news_list" % domain
     etree.SubElement(etree.SubElement(root, "url"), "loc").text = "http://%s/news_list?category=5417ecd46b80992d07638187" % domain

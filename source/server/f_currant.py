@@ -803,7 +803,7 @@ class f_currant_plugins(f_app.plugin_base):
 
     task = ["assign_property_short_id", "render_pdf", "crawler_example", "crawler_london_home", "fortis_developments", "crawler_knightknox",
             "crawler_abacusinvestor", "crawler_knightknox_agents", "update_landregistry", "crawler_selectproperty", "rent_ticket_reminder",
-            "rent_ticket_generate_digest_image", "rent_ticket_check_intention", "rent_intention_ticket_check_rent"]
+            "rent_ticket_generate_digest_image", "rent_ticket_check_intention", "rent_intention_ticket_check_rent", "ping_sitemap"]
 
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
@@ -830,6 +830,9 @@ class f_currant_plugins(f_app.plugin_base):
             f_app.task.add(dict(
                 type="rent_ticket_check_intention",
                 ticket_id=ticket_id,
+            ))
+            f_app.task.put(dict(
+                type="ping_sitemap",
             ))
             import currant_util
             ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id]), _i18n=["zh_Hans_CN"])[0]
@@ -1143,6 +1146,10 @@ class f_currant_plugins(f_app.plugin_base):
         logger.debug(message)
         message["status"] = message.pop("state", "deleted")
         return message
+
+    def task_on_ping_sitemap(self, task):
+        f_app.request("http://www.google.com/webmasters/sitemaps/ping?sitemap=http://yangfd.com/sitemap_location.xml")
+        f_app.request("http://www.bing.com/webmaster/ping.aspx?siteMap=http://yangfd.com/sitemap_location.xml")
 
     def task_on_rent_ticket_generate_digest_image(self, task):
         try:
@@ -2013,6 +2020,11 @@ class f_property(f_app.module_base):
                     property_field="brochure",
                 ))
 
+        if params["status"] in ("selling", "sold out"):
+            f_app.task.put(dict(
+                type="ping_sitemap",
+            ))
+
         return str(property_id)
 
     def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, check_permission=True, location_only=False):
@@ -2206,6 +2218,11 @@ class f_property(f_app.module_base):
                             property_id=str(property_id),
                             property_field="brochure",
                         ))
+
+            if property["status"] in ("selling", "sold out") and "params" in params.get("$set", {}):
+                f_app.task.put(dict(
+                    type="ping_sitemap",
+                ))
 
         return property
 
