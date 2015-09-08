@@ -5,16 +5,20 @@
 
     function ctrlUserList($scope, fctModal, api) {
         $scope.list = []
-        $scope.perPage = 12
+        $scope.selected = {}
+
+        $scope.selected.per_page = 12
         $scope.currentPageNumber = 1
         $scope.pages = []
         $scope.api = api
         $scope.fetched = false
 
-        var params = {
-            per_page: $scope.perPage
-        }
-
+        var params = $scope.selected
+        $scope.$watch(function () {
+            return [$scope.selected.country, $scope.selected.user_type].join(',')
+        }, function () {
+            $scope.refreshList()
+        })
         api.getAll({params: params}).success(onGetList)
 
         $scope.refreshList = function () {
@@ -104,7 +108,7 @@
             $scope.list = data.val
             $scope.pages[$scope.currentPageNumber] = $scope.list
 
-            if (!$scope.list || $scope.list.length < $scope.perPage) {
+            if (!$scope.list || $scope.list.length < $scope.selected.per_page) {
                 $scope.noNext = true
             } else {
                 $scope.noNext = false
