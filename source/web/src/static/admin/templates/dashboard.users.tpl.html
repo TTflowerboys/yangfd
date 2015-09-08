@@ -10,10 +10,9 @@
                 <div class="btn-group form-inline">
                     <div select-supported-country name="country" ng-model="selected.country" text="{%i18n('国家')%}"></div>
                 </div>
+
                 <div class="btn-group form-inline">
-                    <select class="form-control" ng-options="p.value as p.name for p in userType" ng-model="selected.user_type">
-                        <option value="">-- {%$root.i18n('用户类型')%} --</option>
-                    </select>
+                    <div select-enum name="user_type" ng-model="selected.user_type" text="{%i18n('用户类型')%}"></div>
                 </div>
                 <span class="btn-group pull-right">
                     <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
