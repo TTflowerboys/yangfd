@@ -954,7 +954,7 @@
             clearCity()
         }
         loadPropertyListByView()
-    })
+    }).trigger('change')
 
     var $citySelect = $('select[name=propertyCity]')
     $citySelect.change(function () {
