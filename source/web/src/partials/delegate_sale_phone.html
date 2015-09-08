@@ -24,10 +24,10 @@
                     </div>
                     <div class="row buttonWrap">
                         <input class="big" type="text" name="postcode" placeholder="{{_('Postcode')}}" data-validator="required" data-name="{{_('Postcode')}}" data-hint="{{_('Postcode')}}" data-serialize="postcode" value="{{delegate_rent_ticket.get('zipcode_index','')}}"/>
-                        <button class="ghostButton red ajaxButton addressLookupBtn">{{_('查询地址')}}</button>
+                        <button type="button" class="ghostButton red ajaxButton addressLookupBtn">{{_('查询地址')}}</button>
                     </div>
                     <div class="row">
-                        <select class="select-chosen house-name-select small" data-placeholder="{{_('请选择门牌号')}}" data-validator="" data-name="{{_('门牌号')}}" data-hint="{{_('门牌号(<i>须填写postcode</i>)')}}" data-value="">
+                        <select class="select-chosen house-name-select small" data-placeholder="{{_('请选择门牌号')}}" data-validator="" data-name="{{_('门牌号')}}" data-hint="{{_('按postcode查门牌号')}}" data-value="">
 
                         </select>
                     </div>
@@ -44,14 +44,14 @@
                     </div>
                     <div class="row passwordWrap buttonWrap" style="display: none;">
                         <input type="password" class="delegateRentPassword small" name="delegateRentPassword" placeholder="{{_('密码')}}" data-validator=""  data-name="{{_('密码')}}" data-hint="{{_('密码')}}"/>
-                        <button class="button red ajaxButton login">{{_('登录')}}</button>
+                        <button type="button" class="button red ajaxButton login">{{_('登录')}}</button>
                     </div>
                     <div class="row emailWrap" style="display: none;">
                         <input type="text" class="delegateRentEmail big" name="delegateRentEmail" placeholder="{{_('Email')}}" data-name="{{_('Email')}}" data-hint="{{_('Email')}}"/>
                     </div>
                     <div class="row codeWrap buttonWrap" style="display: none;">
                         <input type="text" class="delegateRentCode small" name="delegateRentCode" placeholder="{{_('验证码')}}" data-validator="trim "  data-name="{{_('验证码')}}" data-hint="{{_('验证码')}}" data-serialize=""/>
-                        <button class="ghostButton red ajaxButton">{{_('获取验证码')}}</button>
+                        <button type="button" class="ghostButton red ajaxButton">{{_('获取验证码')}}</button>
                     </div>
                     <!--<div class="row delegateRentAgreeWrap">
                         <input type="checkbox" class="delegateRentAgree currantCheckbox" name="delegateRentAgree" id="delegateRentAgree" data-serialize="noregister|reverse"/>

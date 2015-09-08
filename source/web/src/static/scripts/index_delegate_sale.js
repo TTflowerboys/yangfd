@@ -1,4 +1,5 @@
 (function (module) {
+    var addressArray
     module.openDelegateSale = function (option) {
         option = option || {}
         if(window.team.isPhone()) {
@@ -97,7 +98,6 @@
 
 
     module.setupDelegateSaleForm = function setupDelegateSaleForm (container, option, submitSuccessCallBack) {
-        var addressArray
         var $errorMsg = container.find('.delegateRentFormError')
         var delegateRentAgreeWrap = $('.delegateRentAgreeWrap')
         if (window.user) {
@@ -186,26 +186,30 @@
             return validate
         }
         function initAddressLookup (container) {
-            container.find('.addressLookupBtn').off('click').on('click', function (e) {
-                e.preventDefault()
-                var postcode = container.find('[name=postcode]').val()
-                if(postcode && postcode.length) {
-                    $.betterPost('/api/1/uk-address-lookup', {postcode: postcode})
-                        .done(function (val) {
-                            addressArray = val
-                            container.find('.house-name-select').html(
-                                _.reduce(val, function(pre, val, key) {
-                                    return pre + '<option value="' + key + '">' + val.summaryline + '</option>'
-                                }, '<option value="">' + i18n('请选择门牌号') + '</option>')
-                            ).trigger('chosen:updated')
-                        })
-                        .fail(function (ret) {
-                            $errorMsg.empty().append(window.getErrorMessageFromErrorCode(ret)).show()
-                        })
-                } else {
-                    $errorMsg.text(i18n('请先填写postcode')).show()
-                }
-            })
+            var $addressLookupBtn = container.find('.addressLookupBtn')
+            if(!$addressLookupBtn.data('initAddressLookup')) {
+                $addressLookupBtn.data('initAddressLookup', true)
+                $addressLookupBtn.on('click', function (e) {
+                    var postcode = container.find('[name=postcode]').val()
+                    if(postcode && postcode.length) {
+                        $.betterPost('/api/1/uk-address-lookup', {postcode: postcode})
+                            .done(function (val) {
+                                addressArray = val
+                                container.find('.house-name-select').html(
+                                    _.reduce(val, function(pre, val, key) {
+                                        return pre + '<option value="' + key + '">' + val.summaryline + '</option>'
+                                    }, '<option value="">' + i18n('请选择门牌号') + '</option>')
+                                ).trigger('chosen:updated').trigger('chosen:open')
+                            })
+                            .fail(function (ret) {
+                                $errorMsg.empty().append(window.getErrorMessageFromErrorCode(ret)).show()
+                            })
+                    } else {
+                        $errorMsg.text(i18n('请先填写postcode')).show()
+                    }
+                })
+            }
+
         }
         function initContactInfo (container) {
             var $errorMsg = container.find('.delegateRentFormError')
@@ -298,75 +302,78 @@
                     }
                 }
                 function fastRegister () {
-                    $requestSMSCodeBtn.off('click').on('click', function (e) {
-                        e.preventDefault()
-                        $errorMsg.empty().hide()
-                        var $btn = $(this)
-                        if (!checkForm(container.find('form'))) {return}
+                    if(!$requestSMSCodeBtn.data('fastRegister')){
+                        $requestSMSCodeBtn.data('fastRegister', true)
+                        $requestSMSCodeBtn.on('click', function (e) {
+                            $errorMsg.empty().hide()
+                            var $btn = $(this)
+                            if (!checkForm(container.find('form'))) {return}
 
-                        var params = {
-                            country: window.team.getCountryFromPhoneCode(container.find('[name=country_code]').val()),
-                            phone: getPhone(),
-                            nickname: container.find('[name=delegateRentName]').val(),
-                            email: container.find('[name=delegateRentEmail]').val()
-                        }
-
-                        //倒计时60s后再将获取验证码按钮变为可用状态
-                        function countDown () {
-                            var text = i18n('{time}s后可用')
-                            var time = 60
-                            function update() {
-                                if(time === 0) {
-                                    $btn.prop('disabled', false).text(i18n('重新获取验证码'))
-                                } else{
-                                    $btn.prop('disabled', true).text(text.replace('{time}', time--))
-                                    setTimeout(update, 1000)
-                                }
+                            var params = {
+                                country: window.team.getCountryFromPhoneCode(container.find('[name=country_code]').val()),
+                                phone: getPhone(),
+                                nickname: container.find('[name=delegateRentName]').val(),
+                                email: container.find('[name=delegateRentEmail]').val()
                             }
-                            update()
-                        }
-                        // Fast register user
-                        function requestSMSCode () {
-                            $btn.prop('disabled', true)
 
-                            $.betterPost('/api/1/user/sms_verification/send', {
-                                phone: getPhone()
-                            }).done(function () {
-                                $errorMsg.text(i18n('验证码已成功发送到您的手机，请注意查收')).show()
-                            }).fail(function (ret) {
-                                $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
-                            }).always(function () {
-                                $('.buttonLoading').trigger('end')
-                                countDown()
-                            })
-                        }
-                        if (!$btn.data('register')) {
-                            $btn.prop('disabled', true).text(window.i18n('发送中...'))
-                            $.betterPost('/api/1/user/fast-register', params)
-                                .done(function (val) {
-                                    $btn.data('register', true)
-                                    window.user = val
-                                    container.find('[name=delegateRentPhone]').prop('readonly', true)
+                            //倒计时60s后再将获取验证码按钮变为可用状态
+                            function countDown () {
+                                var text = i18n('{time}s后可用')
+                                var time = 60
+                                function update() {
+                                    if(time === 0) {
+                                        $btn.prop('disabled', false).text(i18n('重新获取验证码'))
+                                    } else{
+                                        $btn.prop('disabled', true).text(text.replace('{time}', time--))
+                                        setTimeout(update, 1000)
+                                    }
+                                }
+                                update()
+                            }
+                            // Fast register user
+                            function requestSMSCode () {
+                                $btn.prop('disabled', true)
 
-                                    $btn.prop('disabled', true)
+                                $.betterPost('/api/1/user/sms_verification/send', {
+                                    phone: getPhone()
+                                }).done(function () {
+                                    $errorMsg.text(i18n('验证码已成功发送到您的手机，请注意查收')).show()
+                                }).fail(function (ret) {
+                                    $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
+                                }).always(function () {
                                     $('.buttonLoading').trigger('end')
                                     countDown()
-                                    initSubmit(container, {
-                                        needVerified: true
+                                })
+                            }
+                            if (!$btn.data('register')) {
+                                $btn.prop('disabled', true).text(window.i18n('发送中...'))
+                                $.betterPost('/api/1/user/fast-register', params)
+                                    .done(function (val) {
+                                        $btn.data('register', true)
+                                        window.user = val
+                                        container.find('[name=delegateRentPhone]').prop('readonly', true)
+
+                                        $btn.prop('disabled', true)
+                                        $('.buttonLoading').trigger('end')
+                                        countDown()
+                                        initSubmit(container, {
+                                            needVerified: true
+                                        })
                                     })
+                                    .fail(function (ret) {
+                                        $('.buttonLoading').trigger('end')
+                                        $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
+                                        $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
+                                    })
+                            } else {
+                                requestSMSCode()
+                                initSubmit(container, {
+                                    needVerified: true
                                 })
-                                .fail(function (ret) {
-                                    $('.buttonLoading').trigger('end')
-                                    $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
-                                    $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
-                                })
-                        } else {
-                            requestSMSCode()
-                            initSubmit(container, {
-                                needVerified: true
-                            })
-                        }
-                    })
+                            }
+                        })
+
+                    }
                 }
 
                 var $input = container.find('form input[name=delegateRentPhone]')
@@ -434,42 +441,45 @@
         function initRequestVerifyBtn () {
             var $codeWrap = container.find('.codeWrap')
             var $requestSMSCodeBtn = $codeWrap.find('button')
-            $requestSMSCodeBtn.off('click').on('click', function (e) {
-                e.preventDefault()
-                $errorMsg.empty().hide()
-                var $btn = $(this)
-                requestSMSCode()
+            if(!$requestSMSCodeBtn.data('initRequestVerifyBtn')) {
+                $requestSMSCodeBtn.data('initRequestVerifyBtn', true)
+                $requestSMSCodeBtn.on('click', function (e) {
+                    $errorMsg.empty().hide()
+                    var $btn = $(this)
+                    requestSMSCode()
 
-                //倒计时60s后再将获取验证码按钮变为可用状态
-                function countDown () {
-                    var text = i18n('{time}s后可用')
-                    var time = 60
-                    function update() {
-                        if(time === 0) {
-                            $btn.prop('disabled', false).text(i18n('重新获取验证码'))
-                        } else{
-                            $btn.prop('disabled', true).text(text.replace('{time}', time--))
-                            setTimeout(update, 1000)
+                    //倒计时60s后再将获取验证码按钮变为可用状态
+                    function countDown () {
+                        var text = i18n('{time}s后可用')
+                        var time = 60
+                        function update() {
+                            if(time === 0) {
+                                $btn.prop('disabled', false).text(i18n('重新获取验证码'))
+                            } else{
+                                $btn.prop('disabled', true).text(text.replace('{time}', time--))
+                                setTimeout(update, 1000)
+                            }
                         }
+                        update()
                     }
-                    update()
-                }
-                // Fast register user
-                function requestSMSCode () {
-                    $btn.prop('disabled', true).text(i18n('发送中...'))
+                    // Fast register user
+                    function requestSMSCode () {
+                        $btn.prop('disabled', true).text(i18n('发送中...'))
 
-                    $.betterPost('/api/1/user/sms_verification/send', {
-                        phone: getPhone()
-                    }).done(function () {
-                        $errorMsg.text(i18n('验证码已成功发送到您的手机，请注意查收')).show()
-                    }).fail(function (ret) {
-                        $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
-                    }).always(function () {
-                        $('.buttonLoading').trigger('end')
-                        countDown()
-                    })
-                }
-            })
+                        $.betterPost('/api/1/user/sms_verification/send', {
+                            phone: getPhone()
+                        }).done(function () {
+                            $errorMsg.text(i18n('验证码已成功发送到您的手机，请注意查收')).show()
+                        }).fail(function (ret) {
+                            $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
+                        }).always(function () {
+                            $('.buttonLoading').trigger('end')
+                            countDown()
+                        })
+                    }
+                })
+
+            }
         }
         function initSubmit (container, option) {
             var $codeWrap = container.find('.codeWrap')
@@ -477,9 +487,12 @@
             function submitForm (form) {
                 var successArea = container.find('.requirement .successWrap')
                 var params = getSerializeObject(form)
-                params.premise = addressArray[container.find('.house-name-select').val()].premise
-                params.street = addressArray[container.find('.house-name-select').val()].street
-                params.posttown = addressArray[container.find('.house-name-select').val()].posttown
+                var index = container.find('.house-name-select').val()
+                if(addressArray && addressArray.length && index.length) {
+                    params.premise = addressArray[index].premise
+                    params.street = addressArray[index].street
+                    params.posttown = addressArray[index].posttown
+                }
                 var delegate_sale_ticket_id = (location.href.match(/delegate\-sale\/([0-9a-fA-F]{24})\/edit/) || [])[1]
                 var api = delegate_sale_ticket_id ?  '/api/1/sell_request_ticket/' + delegate_sale_ticket_id + '/edit' : '/api/1/sell_request_ticket/add'
                 $.betterPost(api, params)
