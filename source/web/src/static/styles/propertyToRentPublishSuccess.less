@@ -18,17 +18,28 @@ main{
             font-size: 44px;
             color: @red;
             margin-bottom: 26px;
+            body[lang=en] & {
+                font-size: 32px;
+            }
         }
         h2{
             padding: 42px 0;
             font-size: 24px;
             color: @gray-dark;
+            body[lang=en] & {
+                padding: 30px 0;
+                font-size: 18px;
+            }
         }
         p.info{
             margin:0 auto 64px;
             font-size: 18px;
             font-family: @font-mono;
             color: @gray-dark;
+            body[lang=en] & {
+                margin:0 auto 48px;
+                font-size: 14px;
+            }
             a{
                 color: @red;
             }
@@ -37,9 +48,15 @@ main{
             width: 300px;
             height: 190px;
             margin: 28px auto;
+            body[lang=en] & {
+                width: 480px;
+            }
             .leftWrap{
                 width: 110px;
                 float: left;
+                body[lang=en] & {
+                    width: 128px;
+                }
                 .flatButton{
                     text-align: left;
                     padding: 0 0 0 10px;
@@ -47,6 +64,9 @@ main{
                     width: 110px;
                     font-size: 12px;
                     line-height: 40px;
+                    body[lang=en] & {
+                        width: 128px;
+                    }
                     img{
                         vertical-align: text-top;
                         margin-right: 5px;
@@ -56,8 +76,14 @@ main{
             .qrcodeBox{
                 float: left;
                 margin-left: 32px;
+                body[lang=en] & {
+                    width: 210px;
+                }
                 p{
                     margin: 0;
+                    body[lang=en] & {
+                        font-size: 12px;
+                    }
                 }
             }
         }

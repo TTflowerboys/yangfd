@@ -106,6 +106,9 @@ main {
                         div {
                             font-size: 16px;
                             color: #e60012;
+                            body[lang=en] & {
+                                font-size: 14px;
+                            }
                         }
                     }
                 }
@@ -119,6 +122,9 @@ main {
                         div {
                             font-size: 16px;
                             color: #999999;
+                            body[lang=en] & {
+                                font-size: 14px;
+                            }
                         }
                     }
                 }
@@ -161,6 +167,41 @@ main {
                 .content {
                     background-color: #f6f6f6;
                     margin-bottom: 140px;
+                    #load_more{
+                        padding-left: 200px;
+                        height: 90px;
+                        padding-top: 20px;
+                        .clearfix;
+                        .load_more {
+                            float: left;
+                            padding: 11px 16px;
+                            background: transparent;
+                            color: #e60012;
+                            border: 2px solid #e60012;
+                            font-size: 16px;
+                            border-radius: 4px;
+                            -moz-border-radius: 4px;
+                            -webkit-border-radius: 4px;
+                            cursor: pointer;
+                            body[lang=en] & {
+                                font-size: 14px;
+                            }
+                        }
+                        .more_info {
+                            float: left;
+                            margin-left: 28px;
+                            padding: 15px 18px;
+                            background: url('/static/images/customer/bg_load_more.png') no-repeat;
+                            font-size: 16px;
+                            color: #ffffff;
+                            body[lang=en] & {
+                                font-size: 12px;
+                                width: 187px;
+                                vertical-align: middle;
+                                line-height: 1.2;
+                            }
+                        }
+                    }
                 }
                 .detail {
                     //overflow: hidden;
@@ -172,8 +213,9 @@ main {
                 td {
                     font-size: 16px;
                     padding: 20px 0;
-
-
+                    body[lang=en] &{
+                        font-size: 12px;
+                    }
                 }
                 .text {
                     width: 160px;
@@ -181,9 +223,20 @@ main {
                     text-align: right;
                     color: #999999;
                     padding: 0 40px;
+                    body[lang=en] &{
+                        width: 200px;
+                        font-size: 14px;
+                        padding: 0 30px;
+                    }
                 }
                 .tip {
                     padding: 0 35px;
+                    body[lang=en] &{
+                        text-align: right;
+                        width: 200px;
+                        font-size: 14px;
+                        padding: 0 30px;
+                    }
                 }
                 .property_type {
                     cursor: pointer;
@@ -202,6 +255,9 @@ main {
                     font-size: 16px;
                     float: left;
                     padding: 6px 10px;
+                    body[lang=en] &{
+                        font-size: 14px;
+                    }
                 }
                 .postcode {
                     position: relative;
@@ -302,10 +358,12 @@ main {
                 }
                 .room_count {
                     //overflow: hidden;
-                    div {
+                    > div {
                         float: left;
-                        //height: 50px;
                         line-height: 50px;
+                        body[lang=en] & {
+                            margin-bottom: 14px;
+                        }
                         select {
                             vertical-align: middle;
                             color: #555555;
@@ -336,11 +394,6 @@ main {
                     }
                     .chosen-container{
                         margin-left: 8px;
-                    }
-                }
-                #load_more{
-                    .load_more{
-                        cursor: pointer;
                     }
                 }
                 .sales_price {
@@ -416,6 +469,9 @@ main {
                             input {
                                 margin-left: 0;
                                 width: 180px;
+                                body[lang=en] & {
+                                    width: 160px;
+                                }
                             }
                             .calendarIcon{
                                 position: absolute;
@@ -447,6 +503,9 @@ main {
                 .image_panel {
                     margin: auto 40px;
                     .ajax-file-upload{
+                        body[lang=en] & {
+                            font-size: 16px;
+                        }
                         &:hover{
                             color: #fff;
                         }
@@ -598,6 +657,9 @@ main {
                             color: #999999;
                             font-size: 16px;
                             vertical-align: middle;
+                            body[lang=en] & {
+                                font-size: 12px;
+                            }
                         }
                     }
                 }
@@ -663,25 +725,6 @@ main {
                         }
                     }
                 }
-                .load_more {
-                    float: left;
-                    padding: 11px 16px;
-                    background: transparent;
-                    color: #e60012;
-                    border: 2px solid #e60012;
-                    font-size: 16px;
-                    border-radius: 4px;
-                    -moz-border-radius: 4px;
-                    -webkit-border-radius: 4px;
-                }
-                .more_info {
-                    float: left;
-                    margin-left: 28px;
-                    padding: 15px 18px;
-                    background: url('/static/images/customer/bg_load_more.png') no-repeat;
-                    font-size: 16px;
-                    color: #ffffff;
-                }
             }
             &.publishRoute{
                 hr{
@@ -692,11 +735,17 @@ main {
                         font-size: 40px;
                         margin-bottom: 40px;
                         color: #666;
+                        body[lang=en] &{
+                            font-size: 32px;
+                        }
                     }
                     h3{
                         font-size: 22px;
                         margin-bottom: 30px;
                         color: #666;
+                        body[lang=en] &{
+                            font-size: 18px;
+                        }
                     }
                 }
                 .wrap{
@@ -709,12 +758,15 @@ main {
                     form{
                         .formGroup{
                             margin: 32px auto;
-                            label{
+                            > label{
                                 margin-right: 50px;
                                 font-size: 16px;
                                 display: inline-block;
                                 width: 70px;
                                 text-align: right;
+                                body[lang=en] &{
+                                    font-size: 14px;
+                                }
                                 &.addContactLabel{
                                     width: auto;
                                 }
@@ -734,6 +786,9 @@ main {
                                 &#phone{
                                     width: 160px;
                                 }
+                                body[lang=en] &{
+                                    font-size: 13px;
+                                }
                             }
                             button{
                                 width: 125px;
@@ -748,8 +803,14 @@ main {
                                 width: 280px;
                                 line-height: 1.5em;
                                 font-size: 16px;
+                                body[lang=en] &{
+                                    font-size: 13px;
+                                }
                             }
                             p{
+                                body[lang=en] & {
+                                    font-size: 13px;
+                                }
                                 a{
                                     color: #e61919;
                                     cursor: pointer;
@@ -764,6 +825,9 @@ main {
                                 margin: 8px 130px 0;
                                 label{
                                     font-size: 14px;
+                                    body[lang=en] &{
+                                        font-size: 12px;
+                                    }
                                 }
                             }
                         }
@@ -789,6 +853,9 @@ main {
                         dl{
                             position: relative;
                             font-size: 14px;
+                            body[lang=en] & {
+                                font-size: 12px;
+                            }
                             &:before{
                                 position: absolute;
                                 content: '';
@@ -802,6 +869,9 @@ main {
                                 position: relative;
                                 font-size: 16px;
                                 cursor: pointer;
+                                body[lang=en] & {
+                                    font-size: 14px;
+                                }
                                 &:before{
                                     position: absolute;
                                     content: '';
@@ -868,6 +938,9 @@ main {
     }
     .chosen-container{
         font-size: 16px;
+        body[lang=en] &{
+            font-size: 14px;
+        }
         .chosen-single{
             padding: 0 12px;
             height: 50px;

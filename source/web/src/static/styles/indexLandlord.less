@@ -37,6 +37,10 @@
             font-size:24px;
             line-height:1em;
             color:#b5b5b5;
+            body[lang=en] & {
+                font-size: 21px;
+                line-height: 1.3em;
+            }
         }
 
         .button {
@@ -45,7 +49,11 @@
             margin-top:65px;
             padding:10px 14px;
             width:220px;
-
+            body[lang=en] & {
+                width: auto;
+                display: inline-block;
+                padding: 14px 21px;
+            }
             i {
                 font-size:34px;
                 vertical-align: middle;
