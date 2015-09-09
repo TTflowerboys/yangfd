@@ -81,7 +81,9 @@
                 font-size: @root-font-size;
                 padding:0 12px;
                 margin-top: 20px;
-
+                body[lang=en] & {
+                    font-size: 12px;
+                }
                 &.property-type {
                     background:#333;
                 }
@@ -240,11 +242,17 @@
                     display: inline-block;
                     border-right: 1px solid @border-color;
                     padding-right:30px;
+                    body[lang=en] & {
+                        width: 50%;
+                    }
                 }
 
                 .size{
                     display: inline-block;
                     padding-left:10px;
+                    body[lang=en] & {
+                        width: 40%;
+                    }
                 }
             }
 
