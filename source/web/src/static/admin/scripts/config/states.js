@@ -44,6 +44,17 @@ angular.module('app')
             }
         }
 
+        var requestRentResolve = {
+            api: function (requestRentApi) {
+                return requestRentApi
+            }
+        }
+
+        var requestSellResolve = {
+            api: function (requestSellApi) {
+                return requestSellApi
+            }
+        }
         var newsResolve = {
             api: function (newsApi) {
                 return newsApi
@@ -366,6 +377,24 @@ angular.module('app')
                 controller: 'ctrlrentIntentionDetail',
                 resolve: rentIntentionResolve
             })*/
+        /**
+         * 委托出租单管理
+         */
+            .state('dashboard.request_rent', {
+                url: '/request_rent',
+                templateUrl: '/static/admin/templates/dashboard.request_rent.tpl.html',
+                controller: 'ctrlList',
+                resolve: requestRentResolve
+            })
+        /**
+         * 委托出售单管理
+         */
+            .state('dashboard.request_sell', {
+                url: '/request_rent',
+                templateUrl: '/static/admin/templates/dashboard.request_sell.tpl.html',
+                controller: 'ctrlList',
+                resolve: requestSellResolve
+            })
         /**
          * operation 运营管理
          */

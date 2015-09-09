@@ -149,6 +149,16 @@
                                 <a href ui-sref="dashboard.intention" ui-sref-active="active"><i
                                     class="fa fa-files-o"></i><span class="hidden-sm text">{%$root.i18n('投资意向单管理')%}</span></a>
                             </li>
+                            <li has-permission="admin,jr_admin,sales,jr_sales"
+                                ng-class="{active:$state.includes('dashboard.request_rent')}">
+                                <a href ui-sref="dashboard.request_rent" ui-sref-active="active"><i
+                                    class="fa fa-files-o"></i><span class="hidden-sm text">{%$root.i18n('委托出租单管理')%}</span></a>
+                            </li>
+                            <li has-permission="admin,jr_admin,sales,jr_sales"
+                                ng-class="{active:$state.includes('dashboard.request_sell')}">
+                                <a href ui-sref="dashboard.request_sell" ui-sref-active="active"><i
+                                    class="fa fa-files-o"></i><span class="hidden-sm text">{%$root.i18n('委托出售单管理')%}</span></a>
+                            </li>
                             <li has-permission="admin,jr_admin,operation,jr_operation"
                                 ng-class="{active:$state.includes('dashboard.report')}">
                                 <a href ui-sref="dashboard.report" ui-sref-active="active"><i
