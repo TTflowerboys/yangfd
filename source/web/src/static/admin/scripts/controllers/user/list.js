@@ -22,6 +22,11 @@
         api.getAll({params: params}).success(onGetList)
 
         $scope.refreshList = function () {
+            _.each(params, function (val, key) {
+                if(val === '') {
+                    delete params[key]
+                }
+            })
             api.getAll({params: params}).success(onGetList)
         }
 
