@@ -38,6 +38,8 @@
     CUTEWebHandler *_webHandler;
 
     NSURL *_needReloadURL;
+
+    BOOL _reappear;
 }
 
 
@@ -79,7 +81,33 @@
     _webHandler.bridge = [WebViewJavascriptBridge bridgeForWebView:_webView webViewDelegate:_progressProxy handler:^(id data, WVJBResponseCallback responseCallback) {
     }];
     [_webHandler setupWithWebView:_webView viewController:self];
-    
+}
+
+#pragma -mark JS Method
+
+- (BOOL)jsHasObject:(NSString *)jsObjectString {
+    return [self jsHasType:jsObjectString type:@"object"];
+}
+
+- (BOOL)jsHasFunction:(NSString *)jsFunctionString {
+    return [self jsHasType:jsFunctionString type:@"function"];
+}
+
+- (BOOL)jsHasType:(NSString *)jsTypeString type:(NSString *)typeString {
+    NSString *jsString = [NSString stringWithFormat:@"typeof %@", jsTypeString];
+    NSString *result = [self.webView stringByEvaluatingJavaScriptFromString:jsString];
+    if ([result caseInsensitiveCompare:typeString] == NSOrderedSame) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)bridgeJSLoaded {
+    return [self jsHasObject:@"window.WebViewJavascriptBridge"];
+}
+
+- (void)fireDocumentEvent:(NSString *)event {
+    [_webHandler.bridge send:@{@"type":@"event", @"content":event}];
 }
 
 //TODO move permission check out of the controller, export a delegate
@@ -175,6 +203,18 @@
     if (_needReloadURL) {
         [self updateWithURL:_needReloadURL];
     }
+
+    if (_reappear) {
+        if ([self bridgeJSLoaded]) {
+            [self fireDocumentEvent:@"viewreappear"];
+        }
+        else {
+            //TODO log error;
+        }
+    }
+    else {
+        _reappear = YES;
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -184,6 +224,13 @@
     // Remove progress view
     // because UINavigationBar is shared with other ViewControllers
     [_progressView removeFromSuperview];
+
+    if ([self bridgeJSLoaded]) {
+        [self fireDocumentEvent:@"viewdisappear"];
+    }
+    else {
+        //TODO log error;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

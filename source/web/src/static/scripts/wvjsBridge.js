@@ -21,12 +21,27 @@ function connectWebViewJavascriptBridge(callback) {
 }
 
 connectWebViewJavascriptBridge(function(bridge) {
+
+    function fireDocumentEvent(type) {
+        var doc = document
+        var event = doc.createEvent('Events')
+        event.initEvent(type)
+        doc.dispatchEvent(event)
+    }
+
     bridge.init(function(message, responseCallback) {
         //alert('Received message: ' + message)
+
+        if (message && message.type === 'event') {
+            fireDocumentEvent(message.content)
+        }
+
         if (responseCallback) {
             responseCallback('Right back atcha')
         }
     })
+
     window.bridge = bridge
     window.bridge.callHandler('handshake', window.location)
+    fireDocumentEvent('bridgeready')
 })
