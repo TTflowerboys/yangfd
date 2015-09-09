@@ -81,7 +81,9 @@
                 font-size: @root-font-size;
                 padding:0 12px;
                 margin-top: 20px;
-
+                body[lang=en] & {
+                    font-size: 12px;
+                }
                 &.property-type {
                     background:#333;
                 }
@@ -153,6 +155,9 @@
                     color: @red;
                     font-size: 14px;
                     display: block;
+                    body[lang=en] & {
+                        font-size: 12px;
+                    }
                     >strong {
                         font-size: @normal-font-size;
                     }
@@ -161,6 +166,9 @@
 
                 >.price_reference {
                     color: @grey;
+                    body[lang=en] & {
+                        font-size: 12px;
+                    }
                 }
 
                 @media @phone {
@@ -192,7 +200,11 @@
                 color: @light-blue;
                 border:1px solid @light-blue;
                 float: right;
-
+                body[lang=en] & {
+                    width: 130px;
+                    font-size: 12px;
+                    line-height: 1.2em;
+                }
                 @media @phone {
                     display:inherit;
                     float: inherit;
@@ -237,8 +249,14 @@
                     font-size: @normal-font-size;
                     font-weight: bold;
                     color: @red;
+                    body[lang=en] & {
+                        font-size:@normal-font-size * 0.8;
+                    }
                     span{
                         font-size: @root-font-size * 1.4;
+                        body[lang=en] & {
+                            font-size:@root-font-size * 1.1;
+                        }
                     }
                 }
 
@@ -246,11 +264,17 @@
                     display: inline-block;
                     border-right: 1px solid @border-color;
                     padding-right:30px;
+                    body[lang=en] & {
+                        width: 50%;
+                    }
                 }
 
                 .size{
                     display: inline-block;
                     padding-left:10px;
+                    body[lang=en] & {
+                        width: 40%;
+                    }
                 }
             }
 

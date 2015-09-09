@@ -177,7 +177,11 @@
                 padding: 1px;
                 display: inline-block;
                 float: right;
-
+                font-size: 12px;
+                line-height: 1.2em;
+                body[lang=en] & {
+                    width: 130px;
+                }
                 @media @phone {
 
                 }
@@ -244,6 +248,9 @@
                     font-size: @base-font-size-mobile;
                     height: 100%;
                     padding-left: 0px;
+                    body[lang=en] & {
+                        font-size: 12px;
+                    }
                 }
 
                 &:last-child {

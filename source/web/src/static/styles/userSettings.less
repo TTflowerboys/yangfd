@@ -9,8 +9,8 @@
 @red: #e60012;
 @bg-grey: #eeeeee;
 @white: #fff;
-@small-phone: ~"(max-width:319px)";
-@medium-phone: ~"(max-width:390px) and (min-width:320px)";
+@small-phone: ~"(max-width:344px)";
+@medium-phone: ~"(max-width:390px) and (min-width:345px)";
 .shadow(@color: #f1f1f1){
     box-shadow: 0 1px 0 0 @color;
 }
@@ -166,6 +166,21 @@
         .bottomStyle;
     }
 }
+.setting .table_wrapper_info{
+    table tr td{
+        &:nth-child(1){
+            width: 36%;
+            padding-right: 2%;
+        }
+        &:nth-child(2){
+            width: 36%;
+            font-size: 20px;
+            body[lang=en] &{
+                font-size: 16px;
+            }
+        }
+    }
+}
 @media @phone {
     .header{
         padding: 32px 20px 10px;
@@ -230,13 +245,6 @@
                 }
                 &:last-child{
                     text-align: right;
-                    line-height: 72px;
-                    @media @small-phone{
-                        line-height:60px;
-                    }
-                    @media @medium-phone{
-                        line-height:60px;
-                    }
                     a{
                         display: inline-block;
                         text-decoration: none;

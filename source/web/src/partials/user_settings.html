@@ -1,5 +1,5 @@
 <h1 class="caption">{{_('账户信息')}}</h1>
-<div class="table_wrapper">
+<div class="table_wrapper table_wrapper_info">
     <table>
         <colgroup>
             <col class="name">
@@ -13,7 +13,7 @@
                     <strong>{{_('手机号')}}</strong>
                     <p> {{_('手机号是您在洋房东的登录和')}} <br/>{{_('找回密码凭证')}}</p>
                 </td>
-                <td style="font-size: 20px;">
+                <td>
                     %if user.get('phone'):
                     {{user.get('phone')}}
                     %end
@@ -42,7 +42,7 @@
                     <strong>{{_('电子邮箱')}}</strong>
                     <p>{{_('获取最新的投资讯息和账户信息')}} <br/> {{_('变动通知')}}</p>
                 </td>
-                <td style="font-size: 20px;">
+                <td>
                     %if user.get('email'):
                     {{user.get('email')}}
                     %end
@@ -91,7 +91,7 @@
                     <strong>{{_('微信号设置')}}</strong>
                     <p>{{_('设置后将会默认展示给其他注册用户')}}</p>
                 </td>
-                <td style="font-size:20px;">
+                <td>
                     <label name="userWechat">
                     %if 'wechat' in user and user.get('wechat','') != 'NONE':
                     {{user.get('wechat','')}}
@@ -119,7 +119,7 @@
                     <strong>{{_('语言设置')}}</strong>
                     <p>{{_('网站及各类通知邮件默认语言')}}</p>
                 </td>
-                <td style="font-size:20px;">
+                <td>
                     %if user.get('locales') and len(user.get('locales')):
                     <label name="userLanguage">
                         %if user.get('locales')[0] == 'en_GB':
@@ -153,7 +153,7 @@
                     <strong>{{_('货币偏好设置')}}</strong>
                     <p>{{_('设置网站上价格展示的货币类型')}}</p>
                 </td>
-                <td style="font-size:20px;">
+                <td>
                     %if user.get('currencies') and len(user.get('currencies')):
                     <label name="userCurrency">
                         %if user.get('currencies')[0] == 'CNY':
@@ -195,7 +195,7 @@
                     <strong>{{_('剩余获取房东联系方式')}}<br>{{_('的机会')}}</strong>
                     <p>{{_('作为租客，每次获取一个房源的房东')}}<br>{{_('联系方式会用掉一次机会')}}</p>
                 </td>
-                <td style="font-size:20px;">
+                <td>
                     <label>
                         {{_('本月剩余')}}<span class="residueDegree"></span>{{_('次')}}
                     </label>
