@@ -14,10 +14,10 @@ window.changeLanguage = function (language) {
             'locales': language
         }).done(function (data) {
             window.user = data
-            location.reload()
+            location.href = window.team.setQuery('_i18n', language)
         })
     }else{
-        location.reload()
+        location.href = window.team.setQuery('_i18n', language)
     }
 }
 

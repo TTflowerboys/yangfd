@@ -140,7 +140,7 @@
         }
     });
 
-    if(window.team.getQuery('lang') === 'en') {
+    if(window.team.getQuery('_i18n') === 'en_GB') {
         selectRoleChooserTab('landlord')
         initRoleChooserContent('landlord')
     } else {

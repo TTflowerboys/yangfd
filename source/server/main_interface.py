@@ -23,7 +23,7 @@ f_app.dependency_register("qrcode", race="python")
 
 
 @f_get('/', params=dict(
-    lang=str
+    _i18n=str
 ))
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check()
@@ -64,8 +64,7 @@ def default(user, params):
     if lang == "en_GB":
         homepage_ad_list = f_app.ad.get_all_by_channel("homepage_uk")
         homepage_ad_list = f_app.i18n.process_i18n(homepage_ad_list)
-        if params.get("lang") == "en":
-            print 'lang=en'
+        if params.get("_i18n") == "en_GB":
             return currant_util.common_template(
                 "index_en",
                 title=title,
@@ -80,9 +79,9 @@ def default(user, params):
                 icon_map=currant_util.icon_map
             )
         else:
-            redirect("/?lang=en")
+            redirect("/?_i18n=en_GB")
     else:
-        if params.get("lang") == "en":
+        if params.get("_i18n") == "en_GB":
             redirect("/")
         else:
             return currant_util.common_template(
