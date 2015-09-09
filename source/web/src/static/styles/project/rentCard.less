@@ -155,6 +155,9 @@
                     color: @red;
                     font-size: 14px;
                     display: block;
+                    body[lang=en] & {
+                        font-size: 12px;
+                    }
                     >strong {
                         font-size: @normal-font-size;
                     }
@@ -163,6 +166,9 @@
 
                 >.price_reference {
                     color: @grey;
+                    body[lang=en] & {
+                        font-size: 12px;
+                    }
                 }
 
                 @media @phone {
@@ -190,6 +196,11 @@
                 color: @light-blue;
                 border:1px solid @light-blue;
                 float: right;
+                body[lang=en] & {
+                    width: 130px;
+                    font-size: 12px;
+                    line-height: 1.2em;
+                }
 
                 @media @phone {
                     display:inherit;
@@ -275,6 +286,11 @@
                     color: @light-blue;
                     border:1px solid @light-blue;
                     float: right;
+                    body[lang=en] & {
+                        width: 130px;
+                        font-size: 12px;
+                        line-height: 1.2em;
+                    }
                 }
 
             }
