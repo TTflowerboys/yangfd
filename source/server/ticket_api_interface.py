@@ -770,6 +770,36 @@ def rent_intention_ticket_search(user, params):
     return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=enable_custom_fields)
 
 
+@f_api('/rent_request_ticket/search', params=dict(
+    status=(list, None, str),
+    per_page=int,
+    time=datetime,
+    sort=(list, ["time", 'desc'], str),
+    phone=str,
+    country="country",
+    posttown=str,
+    premise=str,
+    street=str,
+    county=str,
+    user_id=ObjectId,
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'support', 'jr_support'])
+def rent_request_ticket_search(user, params):
+    """
+    ``status`` must be one of these values: ``new``, ``assigned``, ``in_progress``, ``solved``, ``unsolved``
+    """
+    params.setdefault("type", "rent_request")
+    if "phone" in params:
+        params["phone"] = f_app.util.parse_phone(params)
+
+    per_page = params.pop("per_page", 0)
+    sort = params.pop("sort")
+    if "status" in params:
+        params["status"] = {"$in": params["status"]}
+
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort))
+
+
 @f_api('/rent_request_ticket/add', params=dict(
     nickname=(str, True),
     phone=(str, True),
@@ -857,6 +887,36 @@ def rent_request_ticket_edit(user, ticket_id, params):
 
     f_app.ticket.update_set(ticket_id, params)
     return f_app.ticket.output([ticket_id])[0]
+
+
+@f_api('/sell_request_ticket/search', params=dict(
+    status=(list, None, str),
+    per_page=int,
+    time=datetime,
+    sort=(list, ["time", 'desc'], str),
+    phone=str,
+    country="country",
+    posttown=str,
+    premise=str,
+    street=str,
+    county=str,
+    user_id=ObjectId,
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'support', 'jr_support'])
+def sell_request_ticket_search(user, params):
+    """
+    ``status`` must be one of these values: ``new``, ``assigned``, ``in_progress``, ``solved``, ``unsolved``
+    """
+    params.setdefault("type", "sell_request")
+    if "phone" in params:
+        params["phone"] = f_app.util.parse_phone(params)
+
+    per_page = params.pop("per_page", 0)
+    sort = params.pop("sort")
+    if "status" in params:
+        params["status"] = {"$in": params["status"]}
+
+    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort))
 
 
 @f_api('/sell_request_ticket/add', params=dict(
