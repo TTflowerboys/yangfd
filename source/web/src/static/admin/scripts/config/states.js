@@ -639,6 +639,16 @@ angular.module('app')
                     }
                 }
             })
+            .state('dashboard.users.detail.view_contact_info_properties', {
+                url: '/view_contact_info_properties',
+                templateUrl: '/static/admin/templates/dashboard.users.detail.view_contact_info_properties.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api:function (userViewContactInfoPropertyApi) {
+                        return userViewContactInfoPropertyApi
+                    }
+                }
+            })
         /**
          * 系统消息
          * */

@@ -1,0 +1,65 @@
+<div style="min-height: 600px;">
+    <table class="table table-bordered table-striped table-condensed">
+
+        <thead>
+            <tr>
+                <th style="width: 16%;">{%$root.i18n('标题')%}</th>
+                <th style="width: 9%;">{%$root.i18n('出租类型')%}</th>
+                <th style="width: 9%;">{%$root.i18n('postcode')%}</th>
+                <th style="width: 16%;">{%$root.i18n('地址')%}</th>
+                <th style="width: 9%;">{%$root.i18n('租金')%}</th>
+                <th style="width: 9%;">{%$root.i18n('发布人')%}</th>
+                <th style="width: 16%;">{%$root.i18n('发布时间')%}</th>
+                <th style="width: 7%;">{%$root.i18n('发布状态')%}</th>
+                <th style="width: 7%;">{%$root.i18n('备注')%}</th>
+                <th style="width: 9%;">{%$root.i18n('管理')%}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in list">
+                <td>
+                    <a ng-bind="item.title" ng-href="/property-to-rent/{%item.id%}"></a>
+                </td>
+                <td>
+                    <div show-i18n="item.rent_type.value"></div>
+                </td>
+                <td>
+                    <div ng-bind="item.property.zipcode"></div>
+                </td>
+                <td>
+                    <div ng-bind="item.property | propertyAddress"></div>
+                </td>
+                <td>
+                    <div ng-bind="item.price.value | currency : currencyTypes[item.price.unit] : 2"></div>
+                </td>
+                <td>
+                    <a ui-sref="dashboard.users.detail({ id: item.creator_user.id })" ng-bind="item.creator_user.nickname"></a>
+                </td>
+                <td>
+                    <div ng-bind="item.time * 1000 | date : 'yyyy-MM-dd H:mm'"></div>
+                </td>
+                <td>
+                    <div ng-bind="item.status | keyName:rentStatus"></div>
+                </td>
+                <td>
+                    <div edit-custom-fields ng-model="item.custom_fields" update="updateItem(data)" item-id="item.id"></div>
+                </td>
+                <td style="text-align:center;">
+                    <a class="btn btn-success" ui-sref="dashboard.rent.detail({id:item.id})" title="View">
+                        <i class="fa fa-search-plus "></i>
+                    </a>
+                    <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">
+                        <i class="fa fa-trash-o"></i>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+    <div class="buttons">
+        <span class="btn-group pull-right">
+            <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+            <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+        </span>
+    </div>
+</div>
