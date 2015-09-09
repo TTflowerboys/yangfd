@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "CUTECDVViewController.h"
+#import "CUTEWebViewController.h"
 
-@interface CUTEListViewController : CUTECDVViewController
+@interface CUTEListViewController : CUTEWebViewController
 
 @property (nonatomic, readonly) UIButton *mapButton;
 

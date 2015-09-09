@@ -12,9 +12,9 @@
 #import <ATConnect.h>
 #import <ATEngagementBackend.h>
 #import "CUTEConfiguration.h"
+#import "CUTEWebViewController.h"
 #import <BBTAppUpdater.h>
 #import "CUTEAPIManager.h"
-#import "CUTECDVViewController.h"
 
 @interface CUTESettingViewController ()
 
@@ -45,10 +45,11 @@
 }
 
 - (void)onHelpPressed:(id)sender {
-    CUTECDVViewController *newWebViewController = [[CUTECDVViewController alloc] init];
-    newWebViewController.startPage = [NSURL URLWithString:@"/qa-app" relativeToURL:[CUTEConfiguration hostURL]].absoluteString;
+    CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
+    newWebViewController.url = [NSURL URLWithString:@"/qa-app" relativeToURL:[CUTEConfiguration hostURL]];
     newWebViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:newWebViewController animated:YES];
+    [newWebViewController loadRequest:[NSURLRequest requestWithURL:newWebViewController.url]];
 }
 
 - (void)onCheckUpdatePressed:(id)sender {

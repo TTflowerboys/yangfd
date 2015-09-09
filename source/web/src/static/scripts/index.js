@@ -1,5 +1,29 @@
 (function () {
 
+    /*
+     Bridge Life Cycle Sample Code
+     window.onunload = function() {
+
+     }
+
+     document.addEventListener('bridgeready', onBridgeReady, false);
+     function onBridgeReady() {
+     window.alert('view bridgeready')
+     }
+
+     document.addEventListener('viewreappear', onViewReappear, false);
+
+     function onViewReappear() {
+     window.alert('view reappear')
+     }
+
+     document.addEventListener('viewdisappear', onViewDisappear, false);
+
+     function onViewDisappear() {
+     window.alert('view disappear')
+     }
+     */
+
     $.propertyGet = function (url, params) {
         var deferred = $.Deferred()
         var cacheResult = getPropertyXhrCache(url, params)
