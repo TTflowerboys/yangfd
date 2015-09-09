@@ -390,7 +390,7 @@ angular.module('app')
          * 委托出售单管理
          */
             .state('dashboard.request_sell', {
-                url: '/request_rent',
+                url: '/request_sell',
                 templateUrl: '/static/admin/templates/dashboard.request_sell.tpl.html',
                 controller: 'ctrlList',
                 resolve: requestSellResolve
