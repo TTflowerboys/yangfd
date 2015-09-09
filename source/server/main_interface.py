@@ -15,15 +15,19 @@ from libfelix.f_interface import f_get, f_post, static_file, template, request, 
 import currant_util
 import currant_data_helper
 from urllib import quote
+from libfelix.f_interface import f_experiment
+f_experiment()
 
 logger = logging.getLogger(__name__)
 f_app.dependency_register("qrcode", race="python")
 
 
-@f_get('/')
+@f_get('/', params=dict(
+    lang=str
+))
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check()
-def default(user):
+def default(user, params):
     property_list = []
     homepage_ad_list = []
 
@@ -56,19 +60,44 @@ def default(user):
     property_city_list = f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(geonames_params, per_page=-1))
 
     title = _('洋房东')
-    return currant_util.common_template(
-        "index",
-        title=title,
-        property_list=property_list,
-        homepage_ad_list=homepage_ad_list,
-        news_list=news_list,
-        intention_list=intention_list,
-        property_country_list=property_country_list,
-        property_city_list=property_city_list,
-        rent_type_list=rent_type_list,
-        property_type_list=property_type_list,
-        icon_map=currant_util.icon_map
-    )
+    lang = getattr(f_app.i18n, "get_gettext")("web").lang
+    if lang == "en_GB":
+        homepage_ad_list = f_app.ad.get_all_by_channel("homepage_uk")
+        homepage_ad_list = f_app.i18n.process_i18n(homepage_ad_list)
+        if params.get("lang") == "en":
+            print 'lang=en'
+            return currant_util.common_template(
+                "index_en",
+                title=title,
+                property_list=property_list,
+                homepage_ad_list=homepage_ad_list,
+                news_list=news_list,
+                intention_list=intention_list,
+                property_country_list=property_country_list,
+                property_city_list=property_city_list,
+                rent_type_list=rent_type_list,
+                property_type_list=property_type_list,
+                icon_map=currant_util.icon_map
+            )
+        else:
+            redirect("/?lang=en")
+    else:
+        if params.get("lang") == "en":
+            redirect("/")
+        else:
+            return currant_util.common_template(
+                "index",
+                title=title,
+                property_list=property_list,
+                homepage_ad_list=homepage_ad_list,
+                news_list=news_list,
+                intention_list=intention_list,
+                property_country_list=property_country_list,
+                property_city_list=property_city_list,
+                rent_type_list=rent_type_list,
+                property_type_list=property_type_list,
+                icon_map=currant_util.icon_map
+            )
 
 
 @f_get('/signup')

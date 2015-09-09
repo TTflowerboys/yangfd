@@ -116,24 +116,29 @@
         }
     });
 
-    if (window.user && window.user.user_type) {
-        if (window.user.user_type[0].slug === 'investor') {
+    if(window.team.getQuery('lang') === 'en') {
+        selectRoleChooserTab('landlord')
+        initRoleChooserContent('landlord')
+    } else {
+        if (window.user && window.user.user_type) {
+            if (window.user.user_type[0].slug === 'investor') {
+                selectRoleChooserTab('buyer')
+                initRoleChooserContent('buyer')
+            }
+            else if (window.user.user_type[0].slug === 'landlord') {
+                selectRoleChooserTab('landlord')
+                initRoleChooserContent('landlord')
+
+            }
+            else if (window.user.user_type[0].slug === 'tenant') {
+                selectRoleChooserTab('renter')
+                initRoleChooserContent('renter')
+            }
+        }
+        else {
             selectRoleChooserTab('buyer')
             initRoleChooserContent('buyer')
         }
-        else if (window.user.user_type[0].slug === 'landlord') {
-            selectRoleChooserTab('landlord')
-            initRoleChooserContent('landlord')
-
-        }
-        else if (window.user.user_type[0].slug === 'tenant') {
-            selectRoleChooserTab('renter')
-            initRoleChooserContent('renter')
-        }
-    }
-    else {
-        selectRoleChooserTab('buyer')
-        initRoleChooserContent('buyer')
     }
 
 

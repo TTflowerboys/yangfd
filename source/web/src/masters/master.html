@@ -108,6 +108,7 @@
             <div id="header" class="siteHeader_wrapper hiddenInClient">
                 <header class="siteHeader">
                     <a href="/"><img class="logo" src="/static/images/logo/logo-header.png" alt=""/></a>
+                    % if _.lang != "en_GB":
                     <ul class="navbar">
                         <li><a href="/">{{_('首页')}}</a></li>
                         <li><a href="/property-list">{{_('海外房产')}}</a></li>
@@ -117,6 +118,7 @@
                         <li><a href="/property-to-rent-list">{{_('海外租房')}}</a></li>
                         <li><a href="/news-list">{{_('投资资讯')}}</a></li>
                     </ul>
+                    %end
                     <div class="callus">
                         <i class="icon-phone_icon" id="icon-message"></i>
                         <div class="contact">
@@ -140,7 +142,9 @@
                                 <i class="icon-user_header"></i>
                             </div>
                         </div>
+                        % if _.lang != "en_GB":
                         <!-- @@include = ../partials/menu_items_mobile.html -->
+                        % end
                     </div>
                 </div>
                 <!-- @@placeholder = custom_header -->
