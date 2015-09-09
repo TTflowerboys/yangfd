@@ -14,11 +14,11 @@
 #import "CUTETicket.h"
 #import "NSURL+CUTE.h"
 #import "CUTETracker.h"
+#import "CUTEWebViewController.h"
 #import <MKMapView+BBT.h>
 #import <NSObject+Attachment.h>
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTEUsageRecorder.h"
-#import "CUTECDVViewController.h"
 
 @implementation CUTERentMapListViewController
 
@@ -148,11 +148,12 @@
     [[self navigationController] setNavigationBarHidden:NO animated:NO];
     [[CUTEUsageRecorder sharedInstance] saveVisitedTicketWithId:ticekt.identifier];
     TrackEvent(GetScreenName(self.url), kEventActionPress, GetScreenName(url), nil);
-    CUTECDVViewController *newWebViewController = [[CUTECDVViewController alloc] init];
-    newWebViewController.startPage = url.absoluteString;
+    CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
+    newWebViewController.url = url;
     newWebViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:newWebViewController animated:YES];
     //the progress bar need navigationBar
+    [newWebViewController loadRequest:[NSURLRequest requestWithURL:newWebViewController.url]];
 }
 
 
