@@ -16,7 +16,7 @@ glob(pattern, null, function (error, filePaths) {
     filePaths.forEach(function (filePath) {
         var file = fs.readFileSync(filePath)
         var content = file.toString('utf8')
-        var regex = /i18n\(('|")(.+?)\1\)/g
+        var regex = /i18n\(('|")(.+?)\1(,|\))/g
         var match = regex.exec(content)
         while (match) {
             result[match[2]] = true
@@ -33,13 +33,18 @@ glob(pattern, null, function (error, filePaths) {
 
     i18nTemplate += [
         '<script>',
-        'if(!window.i18n){',
-        '   window.i18n = function (name) {',
-        '       var input = document.getElementById(\'i18n-str-\' + name)',
-        '       if (!input) { return name }',
-        '       return input.value',
-        '   }',
-        '}',
+            'if(!window.i18n){',
+                'window.i18n = function (name) {',
+                    'var input = document.getElementById(\'i18n-str-\' + name)',
+                    'if (!input) { return name }',
+                    'var value = input.value',
+                    'var i = 0',
+                    'while(value.indexOf(\'%s\') >= 0) {',
+                        'value = value.replace(\'%s\', arguments[++i])',
+                    '}',
+                    'return value',
+                '}',
+            '}',
         '</script>'
     ].join('\n')
 

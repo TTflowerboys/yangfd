@@ -6,10 +6,8 @@
             {_minPrice = type.total_price_min_}
         {_}_}
     {_})_}
-
-    {=window.i18n('约')=}
-    {=minPrice.localized_unit_symbol=}
-    {!team.formatCurrency(parseInt(minPrice.localized_value))!}{=window.i18n('起')=}
+    {_var string = minPrice.localized_unit_symbol + team.formatCurrency(parseInt(minPrice.localized_value))_}
+    {!window.i18n('约%s起',string)!}
 
 {_} else {_}
 
