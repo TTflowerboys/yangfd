@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = STR(@"面积");
+    self.navigationItem.title = STR(@"RentArea/面积");
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

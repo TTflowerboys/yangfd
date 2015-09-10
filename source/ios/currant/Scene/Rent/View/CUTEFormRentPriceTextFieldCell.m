@@ -33,7 +33,7 @@
     _currencySymbol = currencySymbol;
     NSRange slashRange = [self.textField.text rangeOfString:@"/"];
     if (slashRange.location == NSNotFound) {
-        self.textField.text = CONCAT(self.currencySymbol, self.textField.text, @"/", STR(@"周"));
+        self.textField.text = CONCAT(self.currencySymbol, self.textField.text, @"/", STR(@"RentPriceTextFieldCell/周"));
     }
 }
 
@@ -52,14 +52,14 @@
     [super textFieldDidEndEditing:textField];
 
     if (IsNilNullOrEmpty(textField.text)) {
-        [SVProgressHUD showErrorWithStatus:STR(@"租金不能为空")];
-         textField.text = CONCAT(self.currencySymbol, @"0", @"/", STR(@"周"));
+        [SVProgressHUD showErrorWithStatus:STR(@"RentPriceTextFieldCell/租金不能为空")];
+         textField.text = CONCAT(self.currencySymbol, @"0", @"/", STR(@"RentPriceTextFieldCell/周"));
     }
     else {
 
         NSRange slashRange = [textField.text rangeOfString:@"/"];
         if (slashRange.location == NSNotFound) {
-            textField.text = CONCAT(self.currencySymbol, textField.text, @"/", STR(@"周"));
+            textField.text = CONCAT(self.currencySymbol, textField.text, @"/", STR(@"RentPriceTextFieldCell/周"));
         }
     }
 }

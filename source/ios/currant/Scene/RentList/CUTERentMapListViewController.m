@@ -50,7 +50,7 @@
             }];
 
             if (IsArrayNilOrEmpty(ticketList)) {
-                [SVProgressHUD showErrorWithStatus:STR(@"暂无结果")];
+                [SVProgressHUD showErrorWithStatus:STR(@"RentMapList/暂无结果")];
             }
             else {
                 NSMutableArray *locations = [NSMutableArray arrayWithCapacity:ticketList.count];

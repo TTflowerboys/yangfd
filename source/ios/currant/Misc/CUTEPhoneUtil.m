@@ -19,7 +19,7 @@
 
     if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
 
-        [UIAlertView showWithTitle:STR(@"联系洋房东") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[CONCAT(STR(@"英国"), @" ", [CUTEConfiguration ukServicePhone]), CONCAT(STR(@"中国"), @" ", [CUTEConfiguration servicePhone])] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        [UIAlertView showWithTitle:STR(@"PhoneUtil/联系洋房东") message:nil cancelButtonTitle:STR(@"PhoneUtil/取消") otherButtonTitles:@[CONCAT(STR(@"PhoneUtil/英国"), @" ", [CUTEConfiguration ukServicePhone]), CONCAT(STR(@"PhoneUtil/中国"), @" ", [CUTEConfiguration servicePhone])] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == 1) {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString  stringWithFormat:@"tel:%@",[CUTEConfiguration ukServicePhone]]]];
             }
@@ -30,7 +30,7 @@
 
     } else
     {
-        UIAlertView *calert = [[UIAlertView alloc]initWithTitle:STR(@"电话不可用") message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil, nil];
+        UIAlertView *calert = [[UIAlertView alloc]initWithTitle:STR(@"PhoneUtil/电话不可用") message:nil delegate:nil cancelButtonTitle:STR(@"PhoneUtil/OK") otherButtonTitles:nil, nil];
         [calert show];
     }
 

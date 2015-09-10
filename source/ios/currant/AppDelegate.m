@@ -96,7 +96,7 @@
 
     UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kHomeTabBarIndex];
     CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
-    controller.navigationItem.title = STR(@"洋房东");
+    controller.navigationItem.title = STR(@"AppDelegate/洋房东");
     controller.url = [NSURL WebURLWithString:urlPath];
     controller.webArchiveRequired = YES;
     [nav setViewControllers:@[controller]];
@@ -108,7 +108,7 @@
     UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kPropertyListTabBarIndex];
     CUTEPropertyListViewController *controller = [[CUTEPropertyListViewController alloc] init];
     controller.url = [NSURL WebURLWithString:urlPath];
-    controller.navigationItem.title = STR(@"洋房东");
+    controller.navigationItem.title = STR(@"AppDelegate/洋房东");
     controller.webArchiveRequired = YES;
     [nav setViewControllers:@[controller]];
     return nav;
@@ -119,7 +119,7 @@
     UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kRentTicketListTabBarIndex];
     CUTERentListViewController *controller = [[CUTERentListViewController alloc] init];
     controller.url = [NSURL WebURLWithString:urlPath];
-    controller.navigationItem.title = STR(@"洋房东");
+    controller.navigationItem.title = STR(@"AppDelegate/洋房东");
     controller.webArchiveRequired = YES;
     [nav setViewControllers:@[controller]];
     return nav;
@@ -131,7 +131,7 @@
     UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kUserTabBarIndex];
     CUTEUserViewController *controller = [[CUTEUserViewController alloc] init];
     controller.url = [NSURL WebURLWithString:urlPath];
-    controller.navigationItem.title = STR(@"洋房东");
+    controller.navigationItem.title = STR(@"AppDelegate/洋房东");
     controller.webArchiveRequired = YES;
     [nav setViewControllers:@[controller]];
     return nav;
@@ -147,7 +147,7 @@
 
     [nav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]} forState:UIControlStateNormal];
     [nav.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]} forState:UIControlStateSelected];
-    nav.title = STR(@"出租发布");
+    nav.title = STR(@"AppDelegate/出租发布");
     nav.tabBarItem.accessibilityLabel = nav.title;
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     return nav;
@@ -190,12 +190,12 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
-    UINavigationController *homeViewController = [self makeIndexViewControllerWithTitle:STR(@"主页") icon:@"tab-home" urlPath:@"/"];
+    UINavigationController *homeViewController = [self makeIndexViewControllerWithTitle:STR(@"AppDelegate/主页") icon:@"tab-home" urlPath:@"/"];
 
-    UINavigationController *editViewController = [self makeEditViewControllerWithTitle:STR(@"发布") icon:@"tab-edit" urlPath:@"/rent_new"];
-    UINavigationController *propertyListViewController = [self makePropertyListViewControllerWithTitle:STR(@"新房") icon:@"tab-property" urlPath:@"/property-list"];
-    UINavigationController *rentTicketListViewController = [self makeRentListViewControllerWithTitle:STR(@"租房") icon:@"tab-rent" urlPath:@"/property-to-rent-list"];
-    UINavigationController *userViewController = [self makeUserViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user"];
+    UINavigationController *editViewController = [self makeEditViewControllerWithTitle:STR(@"AppDelegate/发布") icon:@"tab-edit" urlPath:@"/rent_new"];
+    UINavigationController *propertyListViewController = [self makePropertyListViewControllerWithTitle:STR(@"AppDelegate/新房") icon:@"tab-property" urlPath:@"/property-list"];
+    UINavigationController *rentTicketListViewController = [self makeRentListViewControllerWithTitle:STR(@"AppDelegate/租房") icon:@"tab-rent" urlPath:@"/property-to-rent-list"];
+    UINavigationController *userViewController = [self makeUserViewControllerWithTitle:STR(@"AppDelegate/我") icon:@"tab-user" urlPath:@"/user"];
     [rootViewController setViewControllers:@[homeViewController,
                                              propertyListViewController,
                                              editViewController,
@@ -334,7 +334,7 @@
 - (void)checkShowPublishRentTicketTooltip {
 
     if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED]) {
-        CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:90];
+        CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"AppDelegate/发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:90];
         [toolTips show];
 
         UINavigationController *nav = (UINavigationController *)[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex];
@@ -517,7 +517,7 @@
 }
 - (UIBarButtonItem *)getRentTicketLeftBarButtonItemWithViewController:(UIViewController *)viewController {
     __weak typeof(self)weakSelf = self;
-    return [[UIBarButtonItem alloc] initWithTitle:STR(@"已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+    return [[UIBarButtonItem alloc] initWithTitle:STR(@"AppDelegate/已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
         [weakSelf showUserPageSection:@"/user-properties#rentOnly?status=to%20rent%2Crent" fromViewController:viewController];
     }];
 
@@ -775,7 +775,7 @@
     }];
 
     if (!IsArrayNilOrEmpty(unbindedTicket)) {
-        [SVProgressHUD showWithStatus:STR(@"同步中...")];
+        [SVProgressHUD showWithStatus:STR(@"AppDelegate/同步中...")];
         [[[CUTERentTicketPublisher sharedInstance] bindTickets:unbindedTicket] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
@@ -877,7 +877,7 @@
         return;
     }
 
-    [SVProgressHUD showWithStatus:STR(@"获取验证中...")];
+    [SVProgressHUD showWithStatus:STR(@"AppDelegate/获取验证中...")];
     [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];

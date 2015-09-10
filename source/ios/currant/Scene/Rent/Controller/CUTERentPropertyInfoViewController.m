@@ -62,12 +62,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = STR(@"房产信息");
+    self.navigationItem.title = STR(@"RentPropertyInfo/房产信息");
 
     self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:self action:@selector(onPreviewButtonPressed:)];
-    self.tableView.accessibilityLabel = STR(@"房产信息表单");
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"RentPropertyInfo/预览") style:UIBarButtonItemStylePlain target:self action:@selector(onPreviewButtonPressed:)];
+    self.tableView.accessibilityLabel = STR(@"RentPropertyInfo/房产信息表单");
     self.tableView.accessibilityIdentifier = self.tableView.accessibilityLabel;
 }
 
@@ -86,19 +86,19 @@
     }
     else if ([field.key isEqualToString:@"rentPrice"]) {
         if (self.form.ticket.price) {
-            cell.detailTextLabel.text = CONCAT([CUTECurrency symbolOfCurrencyUnit:self.form.ticket.price.unit], [NSString stringWithFormat:@"%.2lf", self.form.ticket.price.value], @"/", STR(@"周"));
+            cell.detailTextLabel.text = CONCAT([CUTECurrency symbolOfCurrencyUnit:self.form.ticket.price.unit], [NSString stringWithFormat:@"%.2lf", self.form.ticket.price.value], @"/", STR(@"RentPropertyInfo/周"));
         }
     }
     else if ([field.key isEqualToString:@"rentPeriod"]) {
         if ((IsNilOrNull(self.form.ticket.rentAvailableTime) && IsNilOrNull(self.form.ticket.rentDeadlineTime) && IsNilOrNull(self.form.ticket.minimumRentPeriod))) {
-            cell.detailTextLabel.text = STR(@"不限");
+            cell.detailTextLabel.text = STR(@"RentPropertyInfo/不限");
         }
         else if (!IsNilOrNull(self.form.ticket.rentAvailableTime) && !IsNilOrNull(self.form.ticket.minimumRentPeriod)) {
             NSDateFormatter *formatter = [NSDateFormatter new];
             formatter.dateStyle = NSDateFormatterMediumStyle;
             formatter.timeStyle = NSDateFormatterNoStyle;
 
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@%@%d%@", [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.form.ticket.rentAvailableTime.doubleValue]], STR(@"起"), STR(@"至少租"), self.form.ticket.minimumRentPeriod.value, self.form.ticket.minimumRentPeriod.unitForDisplay];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@%@%d%@", [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.form.ticket.rentAvailableTime.doubleValue]], STR(@"RentPropertyInfo/起"), STR(@"RentPropertyInfo/至少租"), self.form.ticket.minimumRentPeriod.value, self.form.ticket.minimumRentPeriod.unitForDisplay];
         }
     }
     else if ([field.key isEqualToString:@"rentType"]) {
@@ -116,7 +116,7 @@
 - (void)onLeftButtonPressed:(id)sender {
 
     if ([self.form.ticket.status isEqual:kTicketStatusDraft]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"您确定放弃发布吗？放弃后系统将会将您已填写的信息保存为草稿") message:nil delegate:nil cancelButtonTitle:STR(@"放弃") otherButtonTitles:STR(@"取消"), nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"RentPropertyInfo/您确定放弃发布吗？放弃后系统将会将您已填写的信息保存为草稿") message:nil delegate:nil cancelButtonTitle:STR(@"RentPropertyInfo/放弃") otherButtonTitles:STR(@"RentPropertyInfo/取消"), nil];
         alertView.cancelButtonIndex = 1;
         alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex)  {
             if (buttonIndex != alertView.cancelButtonIndex) {
@@ -175,7 +175,7 @@
     form.deposit = ticket.deposit? @(ticket.deposit.value): nil;
     form.billCovered = ticket.billCovered? ticket.billCovered.boolValue: NO;
     controller.formController.form = form;
-    controller.navigationItem.title = STR(@"租金");
+    controller.navigationItem.title = STR(@"RentPropertyInfo/租金");
 
 
     __weak typeof(self)weakSelf = self;
@@ -207,7 +207,7 @@
     form.minimumRentPeriod = IsNilOrNull(ticket.minimumRentPeriod)? nil: ticket.minimumRentPeriod;
 
     controller.formController.form = form;
-    controller.navigationItem.title = STR(@"租期");
+    controller.navigationItem.title = STR(@"RentPropertyInfo/租期");
 
 
     __weak typeof(self)weakSelf = self;
@@ -249,7 +249,7 @@
                 [[weakSelf tableView] reloadRowsAtIndexPaths:updateIndexes withRowAnimation:UITableViewRowAnimationNone];
 
                 if (self.form.ticket.property.space) {
-                    [SVProgressHUD showWithStatus:STR(@"请更新面积")];
+                    [SVProgressHUD showWithStatus:STR(@"RentPropertyInfo/请更新面积")];
                 }
             };
 
@@ -282,7 +282,7 @@
         else {
             [SVProgressHUD dismiss];
             controller.formController.form = form;
-            controller.navigationItem.title = STR(@"房产地址");
+            controller.navigationItem.title = STR(@"RentPropertyInfo/房产地址");
 
             __weak typeof(self)weakSelf = self;
             controller.updateAddressCompletion = ^ {
@@ -316,11 +316,11 @@
 
 - (BOOL)validate {
     if (!self.form.ticket.price) {
-        [SVProgressHUD showErrorWithStatus:STR(@"请编辑租金")];
+        [SVProgressHUD showErrorWithStatus:STR(@"RentPropertyInfo/请编辑租金")];
         return NO;
     }
     if (fequalzero(self.form.ticket.price.value)) {
-        [SVProgressHUD showErrorWithStatus:STR(@"租金不能为0")];
+        [SVProgressHUD showErrorWithStatus:STR(@"RentPropertyInfo/租金不能为0")];
         return NO;
     }
     return YES;

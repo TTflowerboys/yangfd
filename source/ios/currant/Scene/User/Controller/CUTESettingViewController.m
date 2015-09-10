@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = STR(@"设置");
+    self.navigationItem.title = STR(@"Setting/设置");
     self.formController.form = [CUTESettingForm new];
 }
 

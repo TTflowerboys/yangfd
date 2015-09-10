@@ -121,7 +121,7 @@
                     [tcs setResult:imageData];
                 }
                 else {
-                    [tcs setError:[NSError errorWithDomain:@"CUTE" code:-1 userInfo:@{NSLocalizedDescriptionKey: STR(@"图片读取失败")}]];
+                    [tcs setError:[NSError errorWithDomain:@"CUTE" code:-1 userInfo:@{NSLocalizedDescriptionKey: STR(@"ImageUploader/图片读取失败")}]];
                 }
             });
         } failureBlock:^(NSError *error) {

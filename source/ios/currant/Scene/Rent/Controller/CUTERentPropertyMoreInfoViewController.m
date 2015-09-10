@@ -32,10 +32,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = STR(@"更多详情");
+    self.navigationItem.title = STR(@"RentPropertyMoreInfo/更多详情");
 
     self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
-    self.tableView.accessibilityLabel = STR(@"更多房产信息表单");
+    self.tableView.accessibilityLabel = STR(@"RentPropertyMoreInfo/更多房产信息表单");
     self.tableView.accessibilityIdentifier = self.tableView.accessibilityLabel;
 }
 
@@ -97,10 +97,10 @@
     else if ([field.key isEqualToString:@"area"]) {
         if (self.form.ticket.rentType) {
             if ([self.form.ticket.rentType.slug hasSuffix:@":whole"]) {
-                cell.textLabel.text = STR(@"房屋面积");
+                cell.textLabel.text = STR(@"RentPropertyMoreInfo/房屋面积");
             }
             else {
-                cell.textLabel.text = STR(@"房间面积");
+                cell.textLabel.text = STR(@"RentPropertyMoreInfo/房间面积");
             }
         }
 
@@ -160,7 +160,7 @@
 }
 
 - (void)delete {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"删除") message:nil delegate:nil cancelButtonTitle:STR(@"确定") otherButtonTitles:STR(@"取消"), nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"RentPropertyMoreInfo/删除") message:nil delegate:nil cancelButtonTitle:STR(@"RentPropertyMoreInfo/确定") otherButtonTitles:STR(@"RentPropertyMoreInfo/取消"), nil];
     alertView.cancelButtonIndex = 1;
     alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex)  {
         if (buttonIndex != alertView.cancelButtonIndex) {
@@ -230,11 +230,11 @@
 
 - (BOOL)checkShowTitleLengthWarningAlert:(NSString *)title {
     if (title.length < kTicketTitleMinCharacterCount) {
-        [UIAlertView showWithTitle:[NSString stringWithFormat:STR(@"标题过短，请至少填写%d个字"), kTicketTitleMinCharacterCount]  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+        [UIAlertView showWithTitle:[NSString stringWithFormat:STR(@"RentPropertyMoreInfo/标题过短，请至少填写%d个字"), kTicketTitleMinCharacterCount]  message:nil cancelButtonTitle:STR(@"RentPropertyMoreInfo/OK") otherButtonTitles:nil tapBlock:nil];
         return YES;
     }
     else if (title.length > kTicketTitleMaxCharacterCount) {
-        [UIAlertView showWithTitle:[NSString stringWithFormat:STR(@"标题超长，请最多填写%d个字") , kTicketTitleMaxCharacterCount] message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+        [UIAlertView showWithTitle:[NSString stringWithFormat:STR(@"RentPropertyMoreInfo/标题超长，请最多填写%d个字") , kTicketTitleMaxCharacterCount] message:nil cancelButtonTitle:STR(@"RentPropertyMoreInfo/OK") otherButtonTitles:nil tapBlock:nil];
         return YES;
     }
     return NO;
@@ -249,7 +249,7 @@
         NSTextCheckingResult *result = [detector firstMatchInString:content options:0 range:NSMakeRange(0, content.length)];
         if (result && result.range.location != NSNotFound) {
             NSString *phone = [content substringWithRange:result.range];
-            [UIAlertView showWithTitle:CONCAT(STR(@"平台将提供房东联系方式选择，请删除“电话"), phone, STR(@"”，违规发布将会予以处理")) message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+            [UIAlertView showWithTitle:CONCAT(STR(@"RentPropertyMoreInfo/平台将提供房东联系方式选择，请删除“电话"), phone, STR(@"RentPropertyMoreInfo/”，违规发布将会予以处理")) message:nil cancelButtonTitle:STR(@"RentPropertyMoreInfo/OK") otherButtonTitles:nil tapBlock:nil];
             return YES;
         }
 
@@ -258,7 +258,7 @@
         NSArray *emailMatches = [content matches:RX(emailRegex)];
         if (emailMatches.count > 0) {
             NSString *result = [emailMatches objectAtIndex:0];
-            [UIAlertView showWithTitle:CONCAT(STR(@"平台将提供房东联系方式选择，请删除“邮箱"), result, STR(@"”，违规发布将会予以处理") ) message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+            [UIAlertView showWithTitle:CONCAT(STR(@"RentPropertyMoreInfo/平台将提供房东联系方式选择，请删除“邮箱"), result, STR(@"RentPropertyMoreInfo/”，违规发布将会予以处理") ) message:nil cancelButtonTitle:STR(@"RentPropertyMoreInfo/OK") otherButtonTitles:nil tapBlock:nil];
             return YES;
         }
 
@@ -273,14 +273,14 @@
         }];
 
         if (blackItem) {
-            [UIAlertView showWithTitle:CONCAT(STR(@"平台将提供房东联系方式选择，请删除“"), blackItem, STR(@"”相关信息，违规发布将会予以处理"))  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+            [UIAlertView showWithTitle:CONCAT(STR(@"RentPropertyMoreInfo/平台将提供房东联系方式选择，请删除“"), blackItem, STR(@"RentPropertyMoreInfo/”相关信息，违规发布将会予以处理"))  message:nil cancelButtonTitle:STR(@"RentPropertyMoreInfo/OK") otherButtonTitles:nil tapBlock:nil];
             return YES;
         }
 
         //html tag check
         NSString *htmlTagRegext = @"<[^>]*>";
         if ([content isMatch:RX(htmlTagRegext)]) {
-            [UIAlertView showWithTitle:STR(@"请删除HTML相关字符")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+            [UIAlertView showWithTitle:STR(@"RentPropertyMoreInfo/请删除HTML相关字符")  message:nil cancelButtonTitle:STR(@"RentPropertyMoreInfo/OK") otherButtonTitles:nil tapBlock:nil];
             return YES;
         }
     }

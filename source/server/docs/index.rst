@@ -52,3 +52,5 @@ API Reference
    order_api
    credit_api
    app_version_api
+   venue_api
+   deal_api

@@ -36,14 +36,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"创建") style:UIBarButtonItemStylePlain target:self action:@selector(onAddButtonPressed:)];
-    self.navigationItem.title = STR(@"出租房草稿");
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"UnfinishedRentTicketList/创建") style:UIBarButtonItemStylePlain target:self action:@selector(onAddButtonPressed:)];
+    self.navigationItem.title = STR(@"UnfinishedRentTicketList/出租房草稿");
     self.tableView.backgroundColor = CUTE_BACKGROUND_COLOR;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
 //    [self refreshTable];
-    self.tableView.accessibilityLabel = STR(@"出租房草稿列表");
+    self.tableView.accessibilityLabel = STR(@"UnfinishedRentTicketList/出租房草稿列表");
     self.tableView.accessibilityIdentifier = self.tableView.accessibilityLabel;
 }
 

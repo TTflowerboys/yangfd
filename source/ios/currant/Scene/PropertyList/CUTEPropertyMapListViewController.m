@@ -49,7 +49,7 @@
             NSArray *propertyList = task.result;
 
             if (IsArrayNilOrEmpty(propertyList)) {
-                [SVProgressHUD showErrorWithStatus:STR(@"暂无结果")];
+                [SVProgressHUD showErrorWithStatus:STR(@"PropertyMapList/暂无结果")];
             }
             else {
                 NSMutableArray *locations = [NSMutableArray arrayWithCapacity:propertyList.count];
@@ -77,11 +77,11 @@
     NSString *suffix = @"";
     if  (price > 100000000) {
         price = price / 100000000;
-        suffix = STR(@"亿");
+        suffix = STR(@"PropertyMapList/亿");
     }
     else if (price > 10000) {
         price = price / 10000;
-        suffix = STR(@"万");
+        suffix = STR(@"PropertyMapList/万");
     }
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
@@ -94,7 +94,7 @@
 - (NSString *)getPriceFromProperty:(CUTEProperty *)property {
     if (property.propertyType && [@[@"new_property", @"student_housing"] containsObject:property.propertyType.slug]) {
         CUTEHouseType *houseType = [[property.mainHouseTypes  sortBy:@"totalPriceMin.value"] firstObject];
-        return CONCAT([self formatPrice:houseType.totalPriceMin.value symbol:houseType.totalPriceMin.symbol], STR(@"起"));
+        return CONCAT([self formatPrice:houseType.totalPriceMin.value symbol:houseType.totalPriceMin.symbol], STR(@"PropertyMapList/起"));
     }
     return @"";
 }

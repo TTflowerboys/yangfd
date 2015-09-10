@@ -15,7 +15,7 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
     if (newString && newString.length > self.limitCount && newString.length > textField.text.length) {
-        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ %ld", STR(@"超过长度限制"), (long)self.limitCount]];
+        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ %ld", STR(@"LimitCharacterCountTextFieldCell/超过长度限制"), (long)self.limitCount]];
         return NO;
     }
     // for all other cases, proceed with replacement

@@ -31,8 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.title = STR(@"租金");
-    self.tableView.accessibilityIdentifier = STR(@"租金表单");
+    self.navigationItem.title = STR(@"RentPrice/租金");
+    self.tableView.accessibilityIdentifier = STR(@"RentPrice/租金表单");
     self.tableView.accessibilityLabel = self.tableView.accessibilityIdentifier;
 }
 

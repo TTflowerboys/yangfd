@@ -23,12 +23,12 @@
 
 - (NSArray *)fields {
     return @[
-             @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTEEnum *)[_allCountries firstObject], FXFormFieldAction: @"optionBack"},
-             @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
-             @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class]},
-             @{FXFormFieldKey: @"password", FXFormFieldTitle: STR(@"新密码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
-             @{FXFormFieldKey: @"confirmPassword", FXFormFieldTitle: STR(@"确认新密码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
-             @{FXFormFieldKey: @"reset", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"重置"), FXFormFieldHeader: @"", FXFormFieldAction: @"reset"},
+             @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"RentPassword/国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTEEnum *)[_allCountries firstObject], FXFormFieldAction: @"optionBack"},
+             @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"RentPassword/手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+             @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"RentPassword/手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class]},
+             @{FXFormFieldKey: @"password", FXFormFieldTitle: STR(@"RentPassword/新密码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+             @{FXFormFieldKey: @"confirmPassword", FXFormFieldTitle: STR(@"RentPassword/确认新密码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+             @{FXFormFieldKey: @"reset", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"RentPassword/重置"), FXFormFieldHeader: @"", FXFormFieldAction: @"reset"},
              ];
 }
 

@@ -18,18 +18,18 @@
 }
 
 + (NSString *)nameOfISOcountryCode:(NSString *)code {
-    return @{@"GB": STR(@"英国"),
-             @"CN": STR(@"中国"),
-             @"US": STR(@"美国"),
-             @"HK": STR(@"香港"),
+    return @{@"GB": STR(@"Country/英国"),
+             @"CN": STR(@"Country/中国"),
+             @"US": STR(@"Country/美国"),
+             @"HK": STR(@"Country/香港"),
              }[code];
 }
 
 + (NSString *)countryCodeAndNameOfISOcountryCode:(NSString *)code {
-    return @{@"GB": STR(@"（+44）英国"),
-             @"CN": STR(@"（+86）中国"),
-             @"US": STR(@"（+1）美国"),
-             @"HK": STR(@"（+851）香港"),
+    return @{@"GB": STR(@"Country/（+44）英国"),
+             @"CN": STR(@"Country/（+86）中国"),
+             @"US": STR(@"Country/（+1）美国"),
+             @"HK": STR(@"Country/（+851）香港"),
              }[code];
 }
 

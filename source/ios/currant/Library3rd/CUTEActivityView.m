@@ -54,7 +54,7 @@
         [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"ShareItemCell"];
 
         _dismissButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_dismissButton setTitle:STR(@"取消分享") forState:UIControlStateNormal];
+        [_dismissButton setTitle:STR(@"Activity/取消分享") forState:UIControlStateNormal];
         [_dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_dismissButton setBackgroundColor:CUTE_MAIN_COLOR];
         [self addSubview:_dismissButton];

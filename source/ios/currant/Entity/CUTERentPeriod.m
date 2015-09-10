@@ -15,7 +15,7 @@
     CUTERentPeriod *rentPeriod = [CUTERentPeriod new];
     //no id, only value
     rentPeriod.type = @"rent_period";
-    rentPeriod.value = STR(@"面议");
+    rentPeriod.value = STR(@"RentPeriod/面议");
     return rentPeriod;
 }
 

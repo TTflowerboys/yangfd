@@ -30,7 +30,7 @@
         // Initialization code
         self.backgroundColor = BACKGROUD_COLOR;
         _doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_doneButton setTitle:STR(@"确认") forState:UIControlStateNormal];
+        [_doneButton setTitle:STR(@"InputAccessory/确认") forState:UIControlStateNormal];
         [_doneButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_doneButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
         [self addSubview:_doneButton];

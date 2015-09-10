@@ -36,38 +36,38 @@
 - (NSArray *)fields {
     NSMutableArray *array = [NSMutableArray
                              arrayWithArray:@[
-                                              @{FXFormFieldKey: @"postcode", FXFormFieldTitle: STR(@"Postcode"), FXFormFieldDefaultValue: _postcode? _postcode: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onPostcodeEdit:"},
-                                              @{FXFormFieldKey: @"street", FXFormFieldTitle: STR(@"街道（选填）"), FXFormFieldDefaultValue: _street? _street: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onStreetEdit:"},
-                                              @{FXFormFieldKey: @"community", FXFormFieldTitle: STR(@"小区（选填）"), FXFormFieldDefaultValue: _community? _community: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onCommunityEdit:"},
-                                              @{FXFormFieldKey: @"floor", FXFormFieldTitle: STR(@"楼层（选填）"), FXFormFieldDefaultValue: _floor? _floor: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onFloorEdit:"},
-                                              @{FXFormFieldKey: @"houseName", FXFormFieldTitle: STR(@"房间号（选填）"), FXFormFieldDefaultValue: _houseName? _houseName: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onHouseNameEdit:"},
+                                              @{FXFormFieldKey: @"postcode", FXFormFieldTitle: STR(@"RentAddressEdit/Postcode"), FXFormFieldDefaultValue: _postcode? _postcode: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onPostcodeEdit:"},
+                                              @{FXFormFieldKey: @"street", FXFormFieldTitle: STR(@"RentAddressEdit/街道（选填）"), FXFormFieldDefaultValue: _street? _street: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onStreetEdit:"},
+                                              @{FXFormFieldKey: @"community", FXFormFieldTitle: STR(@"RentAddressEdit/小区（选填）"), FXFormFieldDefaultValue: _community? _community: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onCommunityEdit:"},
+                                              @{FXFormFieldKey: @"floor", FXFormFieldTitle: STR(@"RentAddressEdit/楼层（选填）"), FXFormFieldDefaultValue: _floor? _floor: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onFloorEdit:"},
+                                              @{FXFormFieldKey: @"houseName", FXFormFieldTitle: STR(@"RentAddressEdit/房间号（选填）"), FXFormFieldDefaultValue: _houseName? _houseName: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onHouseNameEdit:"},
                                               ]];
     if (_country) {
-        [array insertObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country, FXFormFieldAction: @"onCountryEdit:", FXFormFieldHeader:STR(@"地址")} atIndex:0];
+        [array insertObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"RentAddressEdit/国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country, FXFormFieldAction: @"onCountryEdit:", FXFormFieldHeader:STR(@"RentAddressEdit/地址")} atIndex:0];
     }
     else {
-        [array insertObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldAction: @"onCountryEdit:", FXFormFieldHeader:STR(@"位置"), FXFormFieldHeader:STR(@"地址")} atIndex:0];
+        [array insertObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"RentAddressEdit/国家"), FXFormFieldOptions: _allCountries, FXFormFieldAction: @"onCountryEdit:", FXFormFieldHeader:STR(@"RentAddressEdit/位置"), FXFormFieldHeader:STR(@"RentAddressEdit/地址")} atIndex:0];
     }
     if (_city) {
-        [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: _allCities, FXFormFieldDefaultValue: _city, FXFormFieldAction: @"onCityEdit:", FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:1];
+        [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"RentAddressEdit/城市"), FXFormFieldOptions: _allCities, FXFormFieldDefaultValue: _city, FXFormFieldAction: @"onCityEdit:", FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:1];
     }
     else {
         if (!IsArrayNilOrEmpty(_allCities)) {
-             [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions:_allCities, FXFormFieldAction: @"onCityEdit:",  FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:1];
+             [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"RentAddressEdit/城市"), FXFormFieldOptions:_allCities, FXFormFieldAction: @"onCityEdit:",  FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:1];
         }
     }
 
     if (_neighborhood) {
-        [array insertObject:@{FXFormFieldKey: @"neighborhood", FXFormFieldTitle: STR(@"街区"), FXFormFieldOptions: _allNeighborhoods, FXFormFieldDefaultValue: _neighborhood, FXFormFieldAction: @"onNeighborhoodEdit:", FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:3];
+        [array insertObject:@{FXFormFieldKey: @"neighborhood", FXFormFieldTitle: STR(@"RentAddressEdit/街区"), FXFormFieldOptions: _allNeighborhoods, FXFormFieldDefaultValue: _neighborhood, FXFormFieldAction: @"onNeighborhoodEdit:", FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:3];
     }
     else {
         if (!IsArrayNilOrEmpty(_allNeighborhoods)) {
-            [array insertObject:@{FXFormFieldKey: @"neighborhood", FXFormFieldTitle: STR(@"街区"), FXFormFieldOptions:_allNeighborhoods, FXFormFieldAction: @"onNeighborhoodEdit:",  FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:3];
+            [array insertObject:@{FXFormFieldKey: @"neighborhood", FXFormFieldTitle: STR(@"RentAddressEdit/街区"), FXFormFieldOptions:_allNeighborhoods, FXFormFieldAction: @"onNeighborhoodEdit:",  FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:3];
         }
     }
 
     if (self.singleUseForReedit) {
-        [array insertObject:@{FXFormFieldKey: @"location", FXFormFieldTitle:STR(@"房产位置"), FXFormFieldAction: @"onLocationEdit:", FXFormFieldCell: [CUTEFormTextCell class], FXFormFieldHeader:STR(@"地图")} atIndex:0];
+        [array insertObject:@{FXFormFieldKey: @"location", FXFormFieldTitle:STR(@"RentAddressEdit/房产位置"), FXFormFieldAction: @"onLocationEdit:", FXFormFieldCell: [CUTEFormTextCell class], FXFormFieldHeader:STR(@"RentAddressEdit/地图")} atIndex:0];
     }
 
     return array;

@@ -14,6 +14,7 @@ import libfelix.f_captcha.f_recaptcha
 import libfelix.f_captcha.f_captchasnet
 # import libfelix.f_captcha.f_touclick
 import libfelix.f_common
+import libfelix.f_coupon
 import libfelix.f_email
 import libfelix.f_email.f_aws_ses
 import libfelix.f_email.f_sendcloud

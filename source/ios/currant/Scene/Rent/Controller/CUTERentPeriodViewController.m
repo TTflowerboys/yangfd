@@ -25,8 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = STR(@"租期");
-    self.tableView.accessibilityIdentifier = STR(@"租期表单");
+    self.navigationItem.title = STR(@"RentPeriod/租期");
+    self.tableView.accessibilityIdentifier = STR(@"RentPeriod/租期表单");
     self.tableView.accessibilityLabel = self.tableView.accessibilityIdentifier;
 }
 
@@ -99,7 +99,7 @@
 
 - (void)onRentAvailableTimeEdit:(id)sender {
     if ([self.form.rentDeadlineTime isEarlierThanDate:self.form.rentAvailableTime]) {
-        [SVProgressHUD showErrorWithStatus:STR(@"结束日期不应早于开始日期")];
+        [SVProgressHUD showErrorWithStatus:STR(@"RentPeriod/结束日期不应早于开始日期")];
         return;
     }
 
@@ -111,7 +111,7 @@
 
 - (void)onRentDeadlineTimeEdit:(id)sender {
     if ([self.form.rentDeadlineTime isEarlierThanDate:self.form.rentAvailableTime]) {
-        [SVProgressHUD showErrorWithStatus:STR(@"结束日期不应早于开始日期")];
+        [SVProgressHUD showErrorWithStatus:STR(@"RentPeriod/结束日期不应早于开始日期")];
         return;
     }
 

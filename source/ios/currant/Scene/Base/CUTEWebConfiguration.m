@@ -168,20 +168,20 @@
 }
 
 - (NSString *)getTitleFormURL:(NSURL *)url {
-    NSDictionary *titleDictionary = @{@"/": STR(@"洋房东"),
-                                      @"/property-list": STR(@"房产列表-洋房东"),
-                                      @"/property-to-rent-list": STR(@"出租列表-洋房东"),
-                                      @"/property": STR(@"房产详情"),
-                                      @"/property-to-rent": STR(@"出租详情"),
-                                      @"/user": STR(@"用户中心"),
-                                      @"/signin": STR(@"登录"),
-                                      @"/signup": STR(@"注册")
+    NSDictionary *titleDictionary = @{@"/": STR(@"WebConfiguration/洋房东"),
+                                      @"/property-list": STR(@"WebConfiguration/房产列表-洋房东"),
+                                      @"/property-to-rent-list": STR(@"WebConfiguration/出租列表-洋房东"),
+                                      @"/property": STR(@"WebConfiguration/房产详情"),
+                                      @"/property-to-rent": STR(@"WebConfiguration/出租详情"),
+                                      @"/user": STR(@"WebConfiguration/用户中心"),
+                                      @"/signin": STR(@"WebConfiguration/登录"),
+                                      @"/signup": STR(@"WebConfiguration/注册")
                                       };
     NSArray *paths = [url.path componentsSeparatedByString:@"/"];
     if (paths.count >=2) {
         return titleDictionary[CONCAT(@"/", [paths[1] stringByReplacingOccurrencesOfString:@"_" withString:@"-"])];
     }
-    return STR(@"洋房东");
+    return STR(@"WebConfiguration/洋房东");
 }
 
 

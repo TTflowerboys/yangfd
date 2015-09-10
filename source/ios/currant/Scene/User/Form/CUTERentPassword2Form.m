@@ -16,8 +16,8 @@
 
 - (NSArray *)fields {
     return @[
-             @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"邮箱"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
-             @{FXFormFieldKey: @"reset", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"请求重置密码"), FXFormFieldHeader: @"", FXFormFieldAction: @"reset"},
+             @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"RentPassword2/邮箱"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+             @{FXFormFieldKey: @"reset", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"RentPassword2/请求重置密码"), FXFormFieldHeader: @"", FXFormFieldAction: @"reset"},
              ];
 }
 

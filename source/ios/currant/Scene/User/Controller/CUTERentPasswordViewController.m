@@ -70,7 +70,7 @@
     }
 
     [self makeVerficationCodeTextFieldBecomeFirstResponder];
-    [SVProgressHUD showWithStatus:STR(@"发送中...")];
+    [SVProgressHUD showWithStatus:STR(@"RentPassword/发送中...")];
     CUTECountry *country = [[self.formController fieldForKey:@"country"] value];
     NSString *phone = [[self.formController fieldForKey:@"phone"] value];
     [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone":CONCAT(@"+", NilNullToEmpty(country.countryCode.stringValue), NilNullToEmpty(phone))} resultClass:nil] continueWithBlock:^id(BFTask *task) {
@@ -86,7 +86,7 @@
         else {
             _userIdentifier = task.result;
             [self startVerficationCodeCountDown];
-            [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
+            [SVProgressHUD showSuccessWithStatus:STR(@"RentPassword/发送成功")];
         }
 
         return task;
@@ -99,7 +99,7 @@
         return;
     }
     if (!_userIdentifier) {
-        [SVProgressHUD showErrorWithStatus:STR(@"请获取验证码")];
+        [SVProgressHUD showErrorWithStatus:STR(@"RentPassword/请获取验证码")];
         return;
     }
 
@@ -108,7 +108,7 @@
     [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/user/", _userIdentifier, @"/sms_reset_password") parameters:params resultClass:nil] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             if ([task.error.domain isEqualToString:@"BBTAPIDomain"] && task.error.code == 40100) {
-                [SVProgressHUD showErrorWithStatus:STR(@"验证码不正确")];
+                [SVProgressHUD showErrorWithStatus:STR(@"RentPassword/验证码不正确")];
             }
             else {
                 [SVProgressHUD showErrorWithError:task.error];
@@ -121,7 +121,7 @@
             [SVProgressHUD showErrorWithCancellation];
         }
         else {
-            [SVProgressHUD showSuccessWithStatus:STR(@"修改成功")];
+            [SVProgressHUD showSuccessWithStatus:STR(@"RentPassword/修改成功")];
             [self.navigationController popViewControllerAnimated:YES];
         }
 

@@ -15,8 +15,8 @@
 
 - (NSArray *)fields {
     return @[
-             @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"邮箱"), FXFormFieldCell: [CUTEFormTextFieldCell class], FXFormFieldAction: @"onEmailEdited:"},
-             @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"申请"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
+             @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"ApplyBetaRenting/邮箱"), FXFormFieldCell: [CUTEFormTextFieldCell class], FXFormFieldAction: @"onEmailEdited:"},
+             @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"ApplyBetaRenting/申请"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
              ];
 }
 

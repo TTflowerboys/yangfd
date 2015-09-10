@@ -33,7 +33,7 @@
     [super viewDidLoad];
     CUTERentContactDisplaySettingForm *form = (CUTERentContactDisplaySettingForm *)self.formController.form;
     if (form.singleUseForReedit) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"发布") style:UIBarButtonItemStylePlain target:self action:@selector(onSubmitButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"RentContactDisplaySetting/发布") style:UIBarButtonItemStylePlain target:self action:@selector(onSubmitButtonPressed:)];
     }
    
 }
@@ -72,7 +72,7 @@
 
     
     Sequencer *sequencer = [Sequencer new];
-    [SVProgressHUD showWithStatus:STR(@"发布中...")];
+    [SVProgressHUD showWithStatus:STR(@"RentContactDisplaySetting/发布中...")];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         //user may update user info after create user in the send verification code process, like update private contact methods
         [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/edit" parameters:userParams resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
@@ -111,7 +111,7 @@
                 }];
                 //Notice: one only one ticket in publishing, so not calculate the duration base on different ticket
                 TrackScreensStayDuration(KEventCategoryPostRentTicket, screenNames);
-                [SVProgressHUD showSuccessWithStatus:STR(@"发布成功")];
+                [SVProgressHUD showSuccessWithStatus:STR(@"RentContactDisplaySetting/发布成功")];
                 [self.navigationController popToRootViewControllerAnimated:NO];
 
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

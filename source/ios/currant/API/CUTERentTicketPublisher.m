@@ -187,7 +187,7 @@
     if (!IsArrayNilOrEmpty([ticket.property realityImages])) {
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             if (updateStatus) {
-                updateStatus([NSString stringWithFormat:STR(@"正在上传图片(%d/%d)..."), 0, ticket.property.realityImages.count]);
+                updateStatus([NSString stringWithFormat:STR(@"RentTicketPublisher/正在上传图片(%d/%d)..."), 0, ticket.property.realityImages.count]);
             }
             [[self uploadImages:ticket.property.realityImages updateStatus:^(NSString *status) {
                 updateStatus(status);
@@ -209,7 +209,7 @@
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         if (updateStatus) {
-            updateStatus(STR(@"正在发布房产..."));
+            updateStatus(STR(@"RentTicketPublisher/正在发布房产..."));
         }
         [[self editProperty:ticket.property] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
@@ -232,7 +232,7 @@
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         if (updateStatus) {
-            updateStatus(STR(@"正在发布房产出租单..."));
+            updateStatus(STR(@"RentTicketPublisher/正在发布房产出租单..."));
         }
         ticket.status = kTicketStatusToRent;
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
@@ -276,7 +276,7 @@
                 NSArray *completeTasks = [tasks select:^BOOL(BFTask *task) {
                     return task.isCompleted;
                 }];
-                updateStatus([NSString stringWithFormat:STR(@"正在上传图片(%d/%d)..."), completeTasks.count, tasks.count]);
+                updateStatus([NSString stringWithFormat:STR(@"RentTicketPublisher/正在上传图片(%d/%d)..."), completeTasks.count, tasks.count]);
             }
             return task;
         }];
@@ -294,7 +294,7 @@
         if (!IsArrayNilOrEmpty([property realityImages])) {
             [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
                 if (updateStatus) {
-                    updateStatus([NSString stringWithFormat:STR(@"正在上传图片(%d/%d)..."), 0, ticket.property.realityImages.count]);
+                    updateStatus([NSString stringWithFormat:STR(@"RentTicketPublisher/正在上传图片(%d/%d)..."), 0, ticket.property.realityImages.count]);
                 }
                 [[self uploadImages:property.realityImages updateStatus:updateStatus] continueWithBlock:^id(BFTask *task) {
                     if (task.result) {
@@ -315,7 +315,7 @@
         if (property && property.identifier) {
             [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
                 if (updateStatus) {
-                    updateStatus(STR(@"正在更新房产..."));
+                    updateStatus(STR(@"RentTicketPublisher/正在更新房产..."));
                 }
                 NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toParams];
                 [params setObject:@"true" forKey:@"user_generated"];
@@ -342,7 +342,7 @@
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             if (updateStatus) {
-                updateStatus(STR(@"正在更新房产出租单..."));
+                updateStatus(STR(@"RentTicketPublisher/正在更新房产出租单..."));
             }
             NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
             [params setObject:@"true" forKey:@"user_generated"];

@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = STR(@"验证手机号");
+    self.navigationItem.title = STR(@"RentVerifyPhone/验证手机号");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -96,13 +96,13 @@
 
     [self makeVerficationCodeTextFieldBecomeFirstResponder];
     CUTERentVerifyPhoneForm *form = (CUTERentVerifyPhoneForm *)self.formController.form;
-    [SVProgressHUD showWithStatus:STR(@"发送中...")];
+    [SVProgressHUD showWithStatus:STR(@"RentVerifyPhone/发送中...")];
     [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(form.user.countryCode.stringValue), NilNullToEmpty(form.user.phone))} resultClass:nil] continueWithBlock:^id(BFTask *task) {
         if (task.error || task.exception || task.isCancelled) {
             [SVProgressHUD showErrorWithError:task.error];
         }
         else {
-            [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
+            [SVProgressHUD showSuccessWithStatus:STR(@"RentVerifyPhone/发送成功")];
             [self disableSubmitButton:NO];
             [self startVerficationCodeCountDownWithCompletion:^{
                 [self disableSubmitButton:YES];
@@ -117,12 +117,12 @@
     //after create can validate the code
     
     if (form.user) {
-        [SVProgressHUD showWithStatus:STR(@"验证中...")];
+        [SVProgressHUD showWithStatus:STR(@"RentVerifyPhone/验证中...")];
         [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/user/", form.user.identifier, @"/sms_verification/verify") parameters:@{@"code":form.code} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             //update verify status
             if (task.result) {
                 form.user.phoneVerified = @(YES);
-                [SVProgressHUD showSuccessWithStatus:STR(@"验证成功")];
+                [SVProgressHUD showSuccessWithStatus:STR(@"RentVerifyPhone/验证成功")];
                 [[CUTEDataManager sharedInstance] saveUser:form.user];
                 [[CUTEDataManager sharedInstance] persistAllCookies];
                 [self.navigationController dismissViewControllerAnimated:YES completion:^{
@@ -130,7 +130,7 @@
                 }];
             }
             else {
-                [SVProgressHUD showErrorWithStatus:STR(@"验证失败")];
+                [SVProgressHUD showErrorWithStatus:STR(@"RentVerifyPhone/验证失败")];
             }
             return nil;
         }];

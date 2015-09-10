@@ -41,12 +41,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = STR(@"发布成功");
+    self.navigationItem.title = STR(@"RentShare/发布成功");
 
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"完成") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"RentShare/完成") style:UIBarButtonItemStylePlain block:^(id weakSender) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"编辑") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"RentShare/编辑") style:UIBarButtonItemStylePlain block:^(id weakSender) {
         [SVProgressHUD show];
         [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", self.ticket.identifier) parameters:nil resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
@@ -64,7 +64,7 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_EDIT object:self userInfo:@{@"ticket": task.result}];
                 }
                 else {
-                    [SVProgressHUD showErrorWithStatus:STR(@"获取失败")];
+                    [SVProgressHUD showErrorWithStatus:STR(@"RentShare/获取失败")];
                 }
             }
 
@@ -73,7 +73,7 @@
     }];
 
     UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [shareButton setTitle:STR(@"分享") forState:UIControlStateNormal];
+    [shareButton setTitle:STR(@"RentShare/分享") forState:UIControlStateNormal];
     [shareButton addTarget:self action:@selector(shareRentTicket) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:shareButton];
     shareButton.backgroundColor = [UIColor whiteColor];
@@ -191,7 +191,7 @@
 //                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_EDIT object:self userInfo:@{@"ticket": task.result}];
 //                }
 //                else {
-//                    [SVProgressHUD showErrorWithStatus:STR(@"获取失败")];
+//                    [SVProgressHUD showErrorWithStatus:STR(@"RentShare/获取失败")];
 //                }
 //            }
 //
@@ -227,7 +227,7 @@
 
 
 - (void)updateTitleWithURL:(NSURL *)url {
-    self.navigationItem.title = STR(@"发布成功");
+    self.navigationItem.title = STR(@"RentShare/发布成功");
 }
 
 

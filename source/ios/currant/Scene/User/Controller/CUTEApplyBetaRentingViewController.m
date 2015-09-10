@@ -21,13 +21,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = STR(@"邀请码");
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"返回") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+    self.navigationItem.title = STR(@"ApplyBetaRenting/邀请码");
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"ApplyBetaRenting/返回") style:UIBarButtonItemStylePlain block:^(id weakSender) {
         [self.navigationController dismissViewControllerAnimated:NO completion:^{
             [NotificationCenter postNotificationName:KNOTIF_SHOW_SPLASH_VIEW object:nil];
         }];
     }];
-    self.tableView.accessibilityIdentifier = STR(@"申请邀请码");
+    self.tableView.accessibilityIdentifier = STR(@"ApplyBetaRenting/申请邀请码");
 }
 
 - (void)onEmailEdited:(id)sender {
@@ -50,7 +50,7 @@
         }
         else {
             [SVProgressHUD dismiss];
-            [UIAlertView showWithTitle:STR(@"申请成功") message:STR(@"我们会尽快处理，请定期检查您的邮件") cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            [UIAlertView showWithTitle:STR(@"ApplyBetaRenting/申请成功") message:STR(@"ApplyBetaRenting/我们会尽快处理，请定期检查您的邮件") cancelButtonTitle:STR(@"ApplyBetaRenting/OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                 [self.navigationController dismissViewControllerAnimated:NO completion:^{
                     [NotificationCenter postNotificationName:KNOTIF_SHOW_SPLASH_VIEW object:nil];
                 }];

@@ -31,7 +31,7 @@
         [self addSubview:_iconView];
 
         _label = [UILabel new];
-        _label.text = STR(@"暂未添加照片");
+        _label.text = STR(@"UnfinishedRentTicketPlaceholderImage/暂未添加照片");
         _label.textColor = CUTE_MAIN_COLOR;
         _label.font = [UIFont systemFontOfSize:16];
         [self addSubview:_label];

@@ -152,7 +152,7 @@
 - (UILabel *)getCoverLabel {
     UILabel *coverLabel = [UILabel new];
     coverLabel.frame = CGRectMake(0, 0, 40, 20);
-    coverLabel.text = STR(@"封面");
+    coverLabel.text = STR(@"ImagePickerCell/封面");
     coverLabel.font = [UIFont systemFontOfSize:12];
     coverLabel.textAlignment = NSTextAlignmentCenter;
     coverLabel.backgroundColor = CUTE_MAIN_COLOR;
@@ -238,10 +238,10 @@
         [tcs setResult:@(ALAuthorizationStatusAuthorized)];
     }
     else if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusDenied) {
-        [tcs setError:[NSError errorWithDomain:ALAssetsLibraryErrorDomain code:ALAssetsLibraryAccessUserDeniedError userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") }]];
+        [tcs setError:[NSError errorWithDomain:ALAssetsLibraryErrorDomain code:ALAssetsLibraryAccessUserDeniedError userInfo:@{NSLocalizedDescriptionKey: STR(@"ImagePickerCell/此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") }]];
     }
     else if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusRestricted) {
-        [tcs setError:[NSError errorWithDomain:ALAssetsLibraryErrorDomain code:ALAssetsLibraryAccessUserDeniedError userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") }]];
+        [tcs setError:[NSError errorWithDomain:ALAssetsLibraryErrorDomain code:ALAssetsLibraryAccessUserDeniedError userInfo:@{NSLocalizedDescriptionKey: STR(@"ImagePickerCell/此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") }]];
     }
     else if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusNotDetermined) {
         [[self assetsPickerController].assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
@@ -251,7 +251,7 @@
             }
         } failureBlock:^(NSError *error) {
             if (error.code == ALAssetsLibraryAccessUserDeniedError) {
-                [tcs setError:[NSError errorWithDomain:ALAssetsLibraryErrorDomain code:ALAssetsLibraryAccessUserDeniedError userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") }]];
+                [tcs setError:[NSError errorWithDomain:ALAssetsLibraryErrorDomain code:ALAssetsLibraryAccessUserDeniedError userInfo:@{NSLocalizedDescriptionKey: STR(@"ImagePickerCell/此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") }]];
             }else{
                 [tcs setError:error];
             }
@@ -270,10 +270,10 @@
         [tcs setResult:@(AVAuthorizationStatusAuthorized)];
     }
     else if(status == AVAuthorizationStatusDenied){ // denied
-        [tcs setError:[NSError errorWithDomain:AVFoundationErrorDomain code:AVErrorApplicationIsNotAuthorized userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。")}]];
+        [tcs setError:[NSError errorWithDomain:AVFoundationErrorDomain code:AVErrorApplicationIsNotAuthorized userInfo:@{NSLocalizedDescriptionKey: STR(@"ImagePickerCell/此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。")}]];
     }
     else if(status == AVAuthorizationStatusRestricted){ // restricted
-        [tcs setError:[NSError errorWithDomain:AVFoundationErrorDomain code:AVErrorApplicationIsNotAuthorized userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。")}]];
+        [tcs setError:[NSError errorWithDomain:AVFoundationErrorDomain code:AVErrorApplicationIsNotAuthorized userInfo:@{NSLocalizedDescriptionKey: STR(@"ImagePickerCell/此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。")}]];
     }
     else if(status == AVAuthorizationStatusNotDetermined){ // not determined
 
@@ -284,7 +284,7 @@
                 });
             } else { // Access denied ..do something
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    [tcs setError:[NSError errorWithDomain:AVFoundationErrorDomain code:AVErrorApplicationIsNotAuthorized userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。")}]];
+                    [tcs setError:[NSError errorWithDomain:AVFoundationErrorDomain code:AVErrorApplicationIsNotAuthorized userInfo:@{NSLocalizedDescriptionKey: STR(@"ImagePickerCell/此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。")}]];
                 });
             }
         }];
@@ -299,7 +299,7 @@
     [[self getAssetsLibraryAuthorizationStatus] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             if ([[task.error domain] isEqualToString:ALAssetsLibraryErrorDomain] && task.error.code == ALAssetsLibraryAccessUserDeniedError) {
-                [UIAlertView showWithTitle:task.error.userInfo[NSLocalizedDescriptionKey] message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                [UIAlertView showWithTitle:task.error.userInfo[NSLocalizedDescriptionKey] message:nil cancelButtonTitle:STR(@"ImagePickerCell/OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                 }];
             }
             else {
@@ -337,7 +337,7 @@
         [[self getAssetsLibraryAuthorizationStatus] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 if ([[task.error domain] isEqualToString:ALAssetsLibraryErrorDomain] && task.error.code == ALAssetsLibraryAccessUserDeniedError) {
-                    [UIAlertView showWithTitle:task.error.userInfo[NSLocalizedDescriptionKey] message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                    [UIAlertView showWithTitle:task.error.userInfo[NSLocalizedDescriptionKey] message:nil cancelButtonTitle:STR(@"ImagePickerCell/OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                     }];
                 }
                 else {
@@ -361,7 +361,7 @@
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         [[self getCameraAuthorizationStatus] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
-                [UIAlertView showWithTitle:task.error.userInfo[NSLocalizedDescriptionKey] message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                [UIAlertView showWithTitle:task.error.userInfo[NSLocalizedDescriptionKey] message:nil cancelButtonTitle:STR(@"ImagePickerCell/OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                 }];
             }
             else if (task.exception) {
@@ -390,7 +390,7 @@
 }
 
 - (void)showActionSheet {
-    [UIActionSheet showInView:[self tableViewController].view withTitle:STR(@"选择照片") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:@[STR(@"从手机选择"), STR(@"拍照")] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+    [UIActionSheet showInView:[self tableViewController].view withTitle:STR(@"ImagePickerCell/选择照片") cancelButtonTitle:STR(@"ImagePickerCell/取消") destructiveButtonTitle:nil otherButtonTitles:@[STR(@"ImagePickerCell/从手机选择"), STR(@"ImagePickerCell/拍照")] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
 
         if (buttonIndex == 0) {
             [self showImagePickerFrom:[self tableViewController]];
@@ -399,11 +399,11 @@
 
             if (self.form.ticket.property.realityImages.count >= kImageMaxCount) {
                 UIAlertView *alertView =
-                [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:STR(@"您好，最多只能上传%d张图片"), kImageMaxCount]
+                [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:STR(@"ImagePickerCell/您好，最多只能上传%d张图片"), kImageMaxCount]
                                            message:nil
                                           delegate:nil
                                  cancelButtonTitle:nil
-                                 otherButtonTitles:STR(@"OK"), nil];
+                                 otherButtonTitles:STR(@"ImagePickerCell/OK"), nil];
 
                 [alertView show];
             }
@@ -487,11 +487,11 @@
     if (picker.selectedAssets.count >= kImageMaxCount)
     {
         UIAlertView *alertView =
-        [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:STR(@"您好，最多只能上传%d张图片"), kImageMaxCount]
+        [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:STR(@"ImagePickerCell/您好，最多只能上传%d张图片"), kImageMaxCount]
                                    message:nil
                                   delegate:nil
                          cancelButtonTitle:nil
-                         otherButtonTitles:STR(@"OK"), nil];
+                         otherButtonTitles:STR(@"ImagePickerCell/OK"), nil];
 
         [alertView show];
     }
@@ -499,11 +499,11 @@
     if (!asset.defaultRepresentation)
     {
         UIAlertView *alertView =
-        [[UIAlertView alloc] initWithTitle:STR(@"您的图片没有下载到设备上，或者已经被删除")
+        [[UIAlertView alloc] initWithTitle:STR(@"ImagePickerCell/您的图片没有下载到设备上，或者已经被删除")
                                    message:nil
                                   delegate:nil
                          cancelButtonTitle:nil
-                         otherButtonTitles:STR(@"OK"), nil];
+                         otherButtonTitles:STR(@"ImagePickerCell/OK"), nil];
 
         [alertView show];
     }
@@ -526,12 +526,12 @@
     NSString *asset = [self.form.ticket.property.realityImages objectAtIndex:index];
 
     if ([self isCoverURLString:asset atIndex:index]) {
-        UIBarButtonItem *setCoverItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"已是封面") style:UIBarButtonItemStylePlain target:nil action:nil];
+        UIBarButtonItem *setCoverItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"ImagePickerCell/已是封面") style:UIBarButtonItemStylePlain target:nil action:nil];
         setCoverItem.enabled = NO;
         return setCoverItem;
     }
     else {
-        UIBarButtonItem *setCoverItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"设为封面") style:UIBarButtonItemStylePlain target:photoBrowser action:NSSelectorFromString(@"actionButtonPressed:")];
+        UIBarButtonItem *setCoverItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"ImagePickerCell/设为封面") style:UIBarButtonItemStylePlain target:photoBrowser action:NSSelectorFromString(@"actionButtonPressed:")];
         return setCoverItem;
     }
 }
@@ -575,7 +575,7 @@
     self.form.ticket.property.cover = asset;
     [[CUTEDataManager sharedInstance] saveRentTicket:self.form.ticket];
 
-    [SVProgressHUD showWithStatus:STR(@"设置中...")];
+    [SVProgressHUD showWithStatus:STR(@"ImagePickerCell/设置中...")];
     [[[CUTERentTicketPublisher sharedInstance] uploadImages:@[self.form.ticket.property.cover] updateStatus:^(NSString *status) {
 
     }] continueWithBlock:^id(BFTask *task) {
@@ -610,13 +610,13 @@
                         self.form.ticket.property.realityImages = realityImages;
                         
                         [[CUTEDataManager sharedInstance] saveRentTicket:self.form.ticket];
-                        [SVProgressHUD showSuccessWithStatus:STR(@"设置成功")];
+                        [SVProgressHUD showSuccessWithStatus:STR(@"ImagePickerCell/设置成功")];
 
                         UIToolbar *toolbar = [self getToolbarFromPhotoBrowser:photoBrowser];
                         [toolbar setItems:@[[self getActionButtonForPhotoBrowser:photoBrowser atIndex:index]]];
                     }
                     else {
-                        [SVProgressHUD showErrorWithStatus:STR(@"设置失败")];
+                        [SVProgressHUD showErrorWithStatus:STR(@"ImagePickerCell/设置失败")];
                     }
                 }
 
@@ -654,7 +654,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
     }
 
-    [SVProgressHUD showWithStatus:STR(@"保存到本地...")];
+    [SVProgressHUD showWithStatus:STR(@"ImagePickerCell/保存到本地...")];
     ALAssetsLibrary *library = [self assetsPickerController].assetsLibrary;
     [library writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
         if (error) {
