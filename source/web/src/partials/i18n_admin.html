@@ -201,6 +201,9 @@
 <input type="hidden" id="i18n-str-法国" value="{{_('法国')}}">
 <input type="hidden" id="i18n-str-意大利" value="{{_('意大利')}}">
 <input type="hidden" id="i18n-str-西班牙" value="{{_('西班牙')}}">
+<input type="hidden" id="i18n-str-租客" value="{{_('租客')}}">
+<input type="hidden" id="i18n-str-房东" value="{{_('房东')}}">
+<input type="hidden" id="i18n-str-投资人" value="{{_('投资人')}}">
 <input type="hidden" id="i18n-str-提交" value="{{_('提交')}}">
 <input type="hidden" id="i18n-str-输入姓名，手机或邮箱" value="{{_('输入姓名，手机或邮箱')}}">
 <input type="hidden" id="i18n-str-搜索" value="{{_('搜索')}}">
@@ -487,6 +490,8 @@
 <input type="hidden" id="i18n-str-出租房数据管理" value="{{_('出租房数据管理')}}">
 <input type="hidden" id="i18n-str-求租意向单管理" value="{{_('求租意向单管理')}}">
 <input type="hidden" id="i18n-str-投资意向单管理" value="{{_('投资意向单管理')}}">
+<input type="hidden" id="i18n-str-委托出租单管理" value="{{_('委托出租单管理')}}">
+<input type="hidden" id="i18n-str-委托出售单管理" value="{{_('委托出售单管理')}}">
 <input type="hidden" id="i18n-str-房产资讯编辑" value="{{_('房产资讯编辑')}}">
 <input type="hidden" id="i18n-str-网站内容管理" value="{{_('网站内容管理')}}">
 <input type="hidden" id="i18n-str-房产销售管理" value="{{_('房产销售管理')}}">
@@ -520,6 +525,7 @@
 <input type="hidden" id="i18n-str-众筹订单" value="{{_('众筹订单')}}">
 <input type="hidden" id="i18n-str-发布的房产" value="{{_('发布的房产')}}">
 <input type="hidden" id="i18n-str-求租意向单" value="{{_('求租意向单')}}">
+<input type="hidden" id="i18n-str-查看过联系方式的房产" value="{{_('查看过联系方式的房产')}}">
 <input type="hidden" id="i18n-str-用户手机" value="{{_('用户手机')}}">
 <input type="hidden" id="i18n-str-用户邮箱" value="{{_('用户邮箱')}}">
 <input type="hidden" id="i18n-str-注册时间" value="{{_('注册时间')}}">
@@ -577,10 +583,15 @@
 <input type="hidden" id="i18n-str-服务声明" value="{{_('服务声明')}}">
 <script>
 if(!window.i18n){
-   window.i18n = function (name) {
-       var input = document.getElementById('i18n-str-' + name)
-       if (!input) { return name }
-       return input.value
-   }
+window.i18n = function (name) {
+var input = document.getElementById('i18n-str-' + name)
+if (!input) { return name }
+var value = input.value
+var i = 0
+while(value.indexOf('%s') >= 0) {
+value = value.replace('%s', arguments[++i])
+}
+return value
+}
 }
 </script>
