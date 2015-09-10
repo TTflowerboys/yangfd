@@ -65,7 +65,8 @@
                     <div class="right">
                         <span class=price>
                             {_if (house.funding_min) {_}
-                            {!team.formatCurrency(parseInt(house.funding_min)) + window.i18n('元起')!}
+                            {_ var string = team.formatCurrency(parseInt(house.funding_min))_}
+                            {!window.i18n('%s元起',string)!}
                             {_}_}
                             {_if (house.term) {_}
                             <br/>

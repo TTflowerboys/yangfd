@@ -33,13 +33,17 @@
                     <label for="">
                         {_if (ticket.rent_available_time && ticket.rent_deadline_time) { _}
                         <i class="icon-time"></i>
-                        {=project.formatDate(ticket.rent_available_time)=} {=window.i18n('到')=} {=project.formatDate(ticket.rent_deadline_time)=}
+                        {_ var string1 = project.formatDate(ticket.rent_available_time) _}
+                        {_ var string2 = project.formatDate(ticket.rent_deadline_time) _}
+                        {!window.i18n('%s到%s',string1,string2)!}
                         {_ } else if (ticket.rent_available_time && !ticket.rent_deadline_time) {_}
                         <i class="icon-time"></i>
-                        {=project.formatDate(ticket.rent_available_time)=} {=window.i18n('起')=}
+                        {_ var string = project.formatDate(ticket.rent_available_time)_}
+                        {!window.i18n('%s起',string)!}
                         {_ } else if (!ticket.rent_available_time && ticket.rent_deadline_time) {_}
                         <i class="icon-time"></i>
-                        {=project.formatDate(ticket.rent_deadline_time)=} {=window.i18n('止')=}
+                        {_ var string = project.formatDate(ticket.rent_deadline_time)_}
+                        {!window.i18n('%s止',string)!}
                         {_}_}
                     </label>
                 </li>

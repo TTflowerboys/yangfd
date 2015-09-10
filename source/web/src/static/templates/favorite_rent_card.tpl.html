@@ -43,9 +43,15 @@
                         <p class="partner">{=window.i18n('平台合作房源')=}</p>
                     {_}else { _}
                         {_if(fav.ticket.last_modified_time - fav.ticket.time > 1000) {_}
-                            <p class="date">{!team.parsePublishDate(parseInt(fav.ticket.last_modified_time))!}{=window.i18n('更新过')=}</p>
+                            <p class="date">
+                                {_var string = team.parsePublishDate(parseInt(fav.ticket.last_modified_time))_}
+                                {!window.i18n('%s更新过',string)!}
+                            </p>
                         {_}else{_}
-                            <p class="date">{!team.parsePublishDate(parseInt(fav.ticket.time))!}{=window.i18n('发布')=}</p>
+                            <p class="date">
+                                {_var string = team.parsePublishDate(parseInt(fav.ticket.time))_}
+                                {!window.i18n('%s发布',string)!}
+                            </p>
                         {_}_}
                     {_ } _}
                 </div>
@@ -98,8 +104,14 @@
                         {_if(fav.ticket.rent_available_time || fav.ticket.minimum_rent_period) {_}
                         <div class="size">
                             <p class="label">
-                                {_if(fav.ticket.rent_available_time) {_}
-                                {=window.moment(parseInt(fav.ticket.rent_available_time)*1000) > window.moment().add(1,'days').hours(0).minutes(0).seconds(0) ? window.moment(parseInt(fav.ticket.rent_available_time)*1000).format('YYYY{{_('年')}}MM{{_('月')}}DD{{_('日')}}') + '{{_('起')}}' : '{{_('可立即入住')}}'=}
+                                {_if(fav.ticket.rent_available_time && window.moment(parseInt(fav.ticket.rent_available_time)*1000) > window.moment().add(1,'days').hours(0).minutes(0).seconds(0)) {_}
+                                {_if(window.lang==='en_GB') {_}
+                                available from window.moment(parseInt(fav.ticket.rent_available_time)*1000).format('MMMM Do YYYY')
+                                {_} else {_}
+                                {= window.moment(parseInt(fav.ticket.rent_available_time)*1000).format('YYYY{{_('年')}}MM{{_('月')}}DD{{_('日')}}') + '{{_('起')}}' =}
+                                {_}_}
+                                {_} else if(fav.ticket.rent_available_time){_}
+                                {=window.i18n('可立即入住')=}
                                 {_}_}
                             </p>
                             <p class="value">

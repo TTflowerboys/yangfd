@@ -29,9 +29,15 @@
                         {_}_}
                     </a>
                     {_if(rent.last_modified_time > rent.time ) {_}
-                    <p class="date">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('更新过')=}</p>
+                    <p class="date">
+                        {_ var string = team.parsePublishDate(parseInt(rent.last_modified_time))_}
+                        {!window.i18n('%s更新过',string)!}
+                    </p>
                     {_}else{_}
-                    <p class="date">{!team.parsePublishDate(parseInt(rent.time))!}{=window.i18n('发布')=}</p>
+                    <p class="date">
+                        {_ var string = team.parsePublishDate(parseInt(rent.time))_}
+                        {!window.i18n('%s发布',string)!}
+                    </p>
                     {_}_}
                 </div>
                 <ul class="properties">

@@ -197,7 +197,9 @@
                 </td>
                 <td>
                     <label>
-                        {{_('本月剩余')}}<span class="residueDegree"></span>{{_('次')}}
+                        % string = """<span class="residueDegree"></span>
+                        """
+                        {{!_('本月剩余%s次') %string}}
                     </label>
 
                 </td>
