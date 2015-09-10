@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2015-09-10 16:10+0800\n"
+"POT-Creation-Date: 2015-09-10 17:13+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgstr ""
 
 #: ../web/src/coming_soon.html:30
 #: ../web/src/partials/app_download_content.html:51
-#: ../web/src/partials/i18n.html:19
+#: ../web/src/partials/i18n.html:20
 msgid "订阅"
 msgstr ""
 
@@ -106,8 +106,8 @@ msgstr ""
 #: ../web/src/partials/delegate_rent_popup.html:101
 #: ../web/src/partials/delegate_sale_phone.html:64
 #: ../web/src/partials/delegate_sale_popup.html:101
-#: ../web/src/partials/host_contact_request.html:92
-#: ../web/src/partials/i18n_admin.html:204
+#: ../web/src/partials/host_contact_request.html:99
+#: ../web/src/partials/i18n_admin.html:207
 #: ../web/src/partials/order_popup.html:42
 #: ../web/src/partials/requirement_form.html:53
 #: ../web/src/partials/requirement_rent_phone.html:155
@@ -124,7 +124,7 @@ msgstr ""
 #: ../web/src/coming_soon.html:94 ../web/src/news.html:79
 #: ../web/src/masters/big_picture_bg_master.html:47
 #: ../web/src/masters/email.html:51 ../web/src/masters/master.html:134
-#: ../web/src/partials/i18n.html:263 ../server/currant_util.py:189
+#: ../web/src/partials/i18n.html:265 ../server/currant_util.py:189
 #: ../server/main_interface.py:62
 msgid "洋房东"
 msgstr ""
@@ -134,7 +134,7 @@ msgid "鄂ICP备14015315号-1"
 msgstr ""
 
 #: ../web/src/coming_soon.html:100 ../web/src/masters/master.html:202
-#: ../web/src/partials/i18n.html:265 ../web/src/partials/user_settings.html:128
+#: ../web/src/partials/i18n.html:267 ../web/src/partials/user_settings.html:128
 #: ../web/src/partials/user_settings.html:135
 #: ../web/src/partials/user_settings_phone.html:129
 #: ../web/src/partials/user_settings_phone.html:136
@@ -143,7 +143,7 @@ msgstr ""
 
 #: ../web/src/coming_soon.html:101
 #: ../web/src/masters/big_picture_bg_master.html:60
-#: ../web/src/masters/master.html:203 ../web/src/partials/i18n.html:266
+#: ../web/src/masters/master.html:203 ../web/src/partials/i18n.html:268
 #: ../web/src/partials/user_settings.html:126
 #: ../web/src/partials/user_settings.html:136
 #: ../web/src/partials/user_settings_phone.html:127
@@ -155,7 +155,7 @@ msgstr ""
 #: ../web/src/masters/big_picture_bg_master.html:66
 #: ../web/src/masters/master.html:208 ../web/src/masters/master.html:220
 #: ../web/src/partials/current_currency.html:2
-#: ../web/src/partials/i18n.html:267
+#: ../web/src/partials/i18n.html:269
 #: ../web/src/partials/property_to_rent_edit.html:179
 #: ../web/src/partials/property_to_rent_edit.html:201
 #: ../web/src/partials/user_settings.html:160
@@ -169,7 +169,7 @@ msgstr ""
 #: ../web/src/masters/big_picture_bg_master.html:67
 #: ../web/src/masters/master.html:209 ../web/src/masters/master.html:221
 #: ../web/src/partials/current_currency.html:4
-#: ../web/src/partials/i18n.html:268
+#: ../web/src/partials/i18n.html:270
 #: ../web/src/partials/property_to_rent_edit.html:184
 #: ../web/src/partials/property_to_rent_edit.html:202
 #: ../web/src/partials/user_settings.html:162
@@ -183,7 +183,7 @@ msgstr ""
 #: ../web/src/masters/big_picture_bg_master.html:68
 #: ../web/src/masters/master.html:210 ../web/src/masters/master.html:222
 #: ../web/src/partials/current_currency.html:6
-#: ../web/src/partials/i18n.html:269
+#: ../web/src/partials/i18n.html:271
 #: ../web/src/partials/property_to_rent_edit.html:189
 #: ../web/src/partials/property_to_rent_edit.html:203
 #: ../web/src/partials/user_settings.html:164
@@ -197,7 +197,7 @@ msgstr ""
 #: ../web/src/masters/big_picture_bg_master.html:69
 #: ../web/src/masters/master.html:211 ../web/src/masters/master.html:223
 #: ../web/src/partials/current_currency.html:8
-#: ../web/src/partials/i18n.html:270
+#: ../web/src/partials/i18n.html:272
 #: ../web/src/partials/property_to_rent_edit.html:194
 #: ../web/src/partials/property_to_rent_edit.html:204
 #: ../web/src/partials/user_settings.html:166
@@ -211,7 +211,7 @@ msgstr ""
 #: ../web/src/masters/big_picture_bg_master.html:70
 #: ../web/src/masters/master.html:212 ../web/src/masters/master.html:224
 #: ../web/src/partials/current_currency.html:10
-#: ../web/src/partials/i18n.html:271
+#: ../web/src/partials/i18n.html:273
 #: ../web/src/partials/property_to_rent_edit.html:199
 #: ../web/src/partials/property_to_rent_edit.html:205
 #: ../web/src/partials/user_settings.html:168
@@ -233,14 +233,13 @@ msgstr ""
 
 #: ../web/src/crowdfunding.html:87
 #: ../web/src/host_contact_request-phone.html:69
-#: ../web/src/partials/host_contact_request.html:53
-#: ../web/src/partials/i18n.html:412
+#: ../web/src/partials/i18n.html:436
 msgid "剩余"
 msgstr ""
 
 #: ../web/src/crowdfunding.html:87
 #: ../web/src/partials/get_rent_min_period.html:4
-#: ../web/src/partials/i18n.html:362
+#: ../web/src/partials/i18n.html:386
 #: ../web/src/partials/property_to_rent_edit.html:386
 #: ../web/src/static/emails/rent_intention_digest.html:118
 #: ../web/src/static/emails/rent_intention_matched_1.html:119
@@ -266,7 +265,7 @@ msgstr ""
 
 #: ../web/src/crowdfunding.html:173 ../web/src/crowdfunding.html:176
 #: ../web/src/crowdfunding.html:667 ../web/src/crowdfunding.html:670
-#: ../web/src/partials/i18n.html:416
+#: ../web/src/partials/i18n.html:440
 msgid "年锁定"
 msgstr ""
 
@@ -288,7 +287,7 @@ msgid "我要投资"
 msgstr ""
 
 #: ../web/src/crowdfunding.html:216 ../web/src/property.html:296
-#: ../web/src/partials/i18n.html:418 ../web/src/partials/i18n_admin.html:150
+#: ../web/src/partials/i18n.html:442 ../web/src/partials/i18n_admin.html:150
 #: ../web/src/static/templates/featured_house_card.html:123
 #: ../web/src/static/templates/featured_house_card.html:190
 #: ../web/src/static/templates/featured_house_card.html:345
@@ -296,7 +295,7 @@ msgid "预计年总回报率"
 msgstr ""
 
 #: ../web/src/crowdfunding.html:225 ../web/src/property.html:302
-#: ../web/src/partials/i18n.html:419
+#: ../web/src/partials/i18n.html:443
 #: ../web/src/static/templates/featured_house_card.html:126
 #: ../web/src/static/templates/featured_house_card.html:200
 #: ../web/src/static/templates/featured_house_card.html:355
@@ -323,12 +322,12 @@ msgstr ""
 
 #: ../web/src/crowdfunding.html:274 ../web/src/property.html:355
 #: ../web/src/property.html:545 ../web/src/property_to_rent.html:271
-#: ../web/src/partials/i18n.html:436
+#: ../web/src/partials/i18n.html:460
 msgid "客厅"
 msgstr ""
 
 #: ../web/src/crowdfunding.html:281 ../web/src/property.html:362
-#: ../web/src/property.html:557 ../web/src/partials/i18n.html:437
+#: ../web/src/property.html:557 ../web/src/partials/i18n.html:461
 msgid "厨房"
 msgstr ""
 
@@ -352,7 +351,7 @@ msgid " (查看详细街区报告)"
 msgstr ""
 
 #: ../web/src/crowdfunding.html:340 ../web/src/property.html:487
-#: ../web/src/property_to_rent.html:319 ../web/src/partials/i18n.html:280
+#: ../web/src/property_to_rent.html:319 ../web/src/partials/i18n.html:296
 #: ../web/src/static/templates/message_cell.tpl.html:20
 msgid "展开"
 msgstr ""
@@ -384,7 +383,7 @@ msgid "周期"
 msgstr ""
 
 #: ../web/src/crowdfunding.html:381 ../web/src/user_finish_investment.html:150
-#: ../web/src/partials/i18n.html:365 ../web/src/partials/i18n_admin.html:373
+#: ../web/src/partials/i18n.html:389 ../web/src/partials/i18n_admin.html:376
 #: ../web/src/static/templates/favorite_rent_card.tpl.html:102
 #: ../web/src/static/templates/rent_card.tpl.html:123
 msgid "年"
@@ -445,11 +444,11 @@ msgstr ""
 msgid "投资金额（人民币，元）"
 msgstr ""
 
-#: ../web/src/crowdfunding.html:556 ../web/src/partials/i18n_admin.html:367
+#: ../web/src/crowdfunding.html:556 ../web/src/partials/i18n_admin.html:370
 msgid "投资时间"
 msgstr ""
 
-#: ../web/src/crowdfunding.html:557 ../web/src/partials/i18n_admin.html:270
+#: ../web/src/crowdfunding.html:557 ../web/src/partials/i18n_admin.html:273
 msgid "状态"
 msgstr ""
 
@@ -495,14 +494,14 @@ msgid "收藏"
 msgstr ""
 
 #: ../web/src/crowdfunding.html:740 ../web/src/property.html:992
-#: ../web/src/property_to_rent.html:543 ../web/src/partials/i18n.html:420
+#: ../web/src/property_to_rent.html:543 ../web/src/partials/i18n.html:444
 msgid "取消收藏"
 msgstr ""
 
 #: ../web/src/crowdfunding.html:746 ../web/src/property.html:998
 #: ../web/src/property_to_rent.html:549
 #: ../web/src/property_to_rent_publish_success.html:19
-#: ../web/src/partials/i18n.html:454
+#: ../web/src/partials/i18n.html:478
 msgid "分享到微信"
 msgstr ""
 
@@ -571,7 +570,7 @@ msgid "拨打400-0926-433咨询"
 msgstr ""
 
 #: ../web/src/crowdfunding_list.html:97 ../web/src/property_list.html:173
-#: ../web/src/property_to_rent_list.html:163 ../web/src/partials/i18n.html:47
+#: ../web/src/property_to_rent_list.html:163 ../web/src/partials/i18n.html:49
 msgid "更多选择"
 msgstr ""
 
@@ -857,19 +856,17 @@ msgstr ""
 
 #: ../web/src/host_contact_request-phone.html:69
 #: ../web/src/wechat_poster.html:318
-#: ../web/src/partials/host_contact_request.html:53
+#: ../web/src/partials/host_contact_request.html:54
 msgid "获取房东联系方式"
 msgstr ""
 
 #: ../web/src/host_contact_request-phone.html:69
-#: ../web/src/partials/host_contact_request.html:53
 #: ../web/src/partials/user_settings.html:200
 #: ../web/src/partials/user_settings_phone.html:194
 msgid "次"
 msgstr ""
 
 #: ../web/src/host_contact_request-phone.html:69
-#: ../web/src/partials/host_contact_request.html:53
 msgid "，为了确保我们的服务质量请您提交求租需求继续获取"
 msgstr ""
 
@@ -878,56 +875,56 @@ msgstr ""
 #: ../web/src/partials/delegate_rent_popup.html:105
 #: ../web/src/partials/delegate_sale_phone.html:68
 #: ../web/src/partials/delegate_sale_popup.html:105
-#: ../web/src/partials/host_contact_request.html:55
+#: ../web/src/partials/host_contact_request.html:62
 #: ../web/src/partials/requirement_rent_phone.html:160
 #: ../web/src/partials/requirement_rent_popup.html:154
 msgid "提交成功"
 msgstr ""
 
 #: ../web/src/host_contact_request-phone.html:72 ../web/src/property.html:1014
-#: ../web/src/partials/host_contact_request.html:56
+#: ../web/src/partials/host_contact_request.html:63
 msgid "你填写的手机或邮箱的格式不正确"
 msgstr ""
 
 #: ../web/src/host_contact_request-phone.html:73 ../web/src/property.html:1015
-#: ../web/src/partials/host_contact_request.html:57
+#: ../web/src/partials/host_contact_request.html:64
 msgid "服务器忙，请稍后"
 msgstr ""
 
 #: ../web/src/host_contact_request-phone.html:76
-#: ../web/src/partials/host_contact_request.html:60
+#: ../web/src/partials/host_contact_request.html:67
 msgid "为保证租客真实性，请先点击此处"
 msgstr ""
 
 #: ../web/src/host_contact_request-phone.html:76
-#: ../web/src/partials/host_contact_request.html:60
+#: ../web/src/partials/host_contact_request.html:67
 msgid "登陆"
 msgstr ""
 
 #: ../web/src/host_contact_request-phone.html:76
-#: ../web/src/partials/host_contact_request.html:60
+#: ../web/src/partials/host_contact_request.html:67
 msgid "，或注册个人资料再获取房东联系方式"
 msgstr ""
 
 #: ../web/src/host_contact_request-phone.html:80 ../web/src/property.html:1019
-#: ../web/src/partials/host_contact_request.html:64
+#: ../web/src/partials/host_contact_request.html:71
 msgid "您的姓名(必填)"
 msgstr ""
 
 #: ../web/src/host_contact_request-phone.html:96 ../web/src/property.html:1028
-#: ../web/src/partials/host_contact_request.html:80
+#: ../web/src/partials/host_contact_request.html:87
 msgid "您的邮箱(必填)"
 msgstr ""
 
 #: ../web/src/host_contact_request-phone.html:100 ../web/src/property.html:1024
-#: ../web/src/partials/host_contact_request.html:84
+#: ../web/src/partials/host_contact_request.html:91
 msgid "您的电话(必填)"
 msgstr ""
 
 #: ../web/src/host_contact_request-phone.html:103
 #: ../web/src/verify_phone.html:31
-#: ../web/src/partials/host_contact_request.html:87
-#: ../web/src/partials/i18n.html:35
+#: ../web/src/partials/host_contact_request.html:94
+#: ../web/src/partials/i18n.html:37
 msgid "手机验证码"
 msgstr ""
 
@@ -939,7 +936,7 @@ msgstr ""
 #: ../web/src/partials/delegate_rent_popup.html:88
 #: ../web/src/partials/delegate_sale_phone.html:54
 #: ../web/src/partials/delegate_sale_popup.html:88
-#: ../web/src/partials/host_contact_request.html:88
+#: ../web/src/partials/host_contact_request.html:95
 #: ../web/src/partials/property_to_rent_publish.html:59
 msgid "获取验证码"
 msgstr ""
@@ -1012,7 +1009,7 @@ msgstr ""
 
 #: ../web/src/intention.html:18 ../web/src/intention.html:62
 #: ../web/src/intention.html:65 ../web/src/intention.html:93
-#: ../web/src/intention.html:114 ../web/src/partials/i18n.html:283
+#: ../web/src/intention.html:114 ../web/src/partials/i18n.html:299
 msgid "跳过"
 msgstr ""
 
@@ -1054,8 +1051,8 @@ msgid "上一步"
 msgstr ""
 
 #: ../web/src/intention.html:63 ../web/src/intention.html:83
-#: ../web/src/property_to_rent_list.html:131 ../web/src/partials/i18n.html:355
-#: ../web/src/partials/i18n_admin.html:296
+#: ../web/src/property_to_rent_list.html:131 ../web/src/partials/i18n.html:364
+#: ../web/src/partials/i18n_admin.html:299
 msgid "确定"
 msgstr ""
 
@@ -1089,7 +1086,7 @@ msgid "请选择租房条件"
 msgstr ""
 
 #: ../web/src/intention.html:120 ../web/src/property_list.html:49
-#: ../web/src/partials/i18n.html:40
+#: ../web/src/partials/i18n.html:42
 #: ../web/src/partials/property_to_rent_selectors.html:2
 msgid "我想在"
 msgstr ""
@@ -1101,7 +1098,7 @@ msgstr ""
 
 #: ../web/src/intention.html:133 ../web/src/intention.html:151
 #: ../web/src/property_list.html:58 ../web/src/property_list.html:69
-#: ../web/src/partials/i18n.html:41
+#: ../web/src/partials/i18n.html:43
 #: ../web/src/partials/property_to_rent_selectors.html:15
 #: ../web/src/partials/property_to_rent_selectors.html:26
 #: ../web/src/partials/property_to_rent_selectors.html:54
@@ -1109,7 +1106,7 @@ msgid "的"
 msgstr ""
 
 #: ../web/src/intention.html:136 ../web/src/property_list.html:62
-#: ../web/src/partials/i18n.html:278
+#: ../web/src/partials/i18n.html:294
 #: ../web/src/partials/property_to_rent_selectors.html:19
 msgid "任意城市"
 msgstr ""
@@ -1202,7 +1199,7 @@ msgstr ""
 
 #: ../web/src/property.html:93 ../web/src/property.html:879
 #: ../web/src/property.html:1180 ../web/src/property_to_rent.html:390
-#: ../web/src/partials/i18n_admin.html:371
+#: ../web/src/partials/i18n_admin.html:374
 #: ../web/src/partials/property_to_rent_publish.html:129
 msgid "街区报告"
 msgstr ""
@@ -1211,7 +1208,7 @@ msgstr ""
 msgid "拨打 "
 msgstr ""
 
-#: ../web/src/property.html:127 ../web/src/partials/i18n.html:410
+#: ../web/src/property.html:127 ../web/src/partials/i18n.html:434
 #: ../web/src/static/templates/featured_house_card.html:33
 #: ../web/src/static/templates/featured_house_card.html:243
 msgid "年包租"
@@ -1241,12 +1238,12 @@ msgid "规划图"
 msgstr ""
 
 #: ../web/src/property.html:269 ../web/src/property.html:936
-#: ../web/src/partials/i18n.html:7
+#: ../web/src/partials/i18n.html:8
 msgid "首付"
 msgstr ""
 
 #: ../web/src/property.html:335 ../web/src/property.html:533
-#: ../web/src/property_to_rent.html:251 ../web/src/partials/i18n.html:426
+#: ../web/src/property_to_rent.html:251 ../web/src/partials/i18n.html:450
 msgid "户型"
 msgstr ""
 
@@ -1264,7 +1261,7 @@ msgstr ""
 
 #: ../web/src/property.html:451 ../web/src/property_to_rent_digest.html:96
 #: ../web/src/property_wechat_poster.html:381 ../web/src/wechat_poster.html:101
-#: ../web/src/partials/i18n.html:428
+#: ../web/src/partials/i18n.html:452
 #: ../web/src/partials/property_to_rent_edit.html:266
 #: ../web/src/static/emails/rent_intention_digest.html:88
 #: ../web/src/static/emails/rent_intention_matched_1.html:89
@@ -1278,7 +1275,7 @@ msgstr ""
 
 #: ../web/src/property.html:454 ../web/src/property_to_rent_digest.html:96
 #: ../web/src/property_wechat_poster.html:381 ../web/src/wechat_poster.html:101
-#: ../web/src/partials/i18n.html:429
+#: ../web/src/partials/i18n.html:453
 #: ../web/src/partials/property_to_rent_edit.html:278
 #: ../server/property_interface.py:152
 msgid "厅"
@@ -1289,7 +1286,7 @@ msgid "查看房产周边设施"
 msgstr ""
 
 #: ../web/src/property.html:570 ../web/src/property_list.html:161
-#: ../web/src/property_to_rent_list.html:150 ../web/src/partials/i18n.html:438
+#: ../web/src/property_to_rent_list.html:150 ../web/src/partials/i18n.html:462
 #: ../web/src/partials/i18n_admin.html:166
 #: ../web/src/partials/property_to_rent_edit.html:314
 msgid "面积"
@@ -1299,9 +1296,7 @@ msgstr ""
 #: ../web/src/property_to_rent.html:498
 #: ../web/src/property_to_rent_digest.html:113
 #: ../web/src/property_wechat_poster.html:69 ../web/src/wechat_poster.html:155
-#: ../web/src/partials/get_reference_price.html:17
-#: ../web/src/partials/get_unit_price.html:14 ../web/src/partials/i18n.html:4
-#: ../web/src/partials/i18n_admin.html:441
+#: ../web/src/partials/i18n.html:24 ../web/src/partials/i18n_admin.html:444
 #: ../web/src/static/emails/rent_intention_digest.html:109
 #: ../web/src/static/emails/rent_intention_matched_1.html:110
 #: ../web/src/static/emails/rent_intention_matched_4.html:116
@@ -1311,7 +1306,7 @@ msgstr ""
 msgid "起"
 msgstr ""
 
-#: ../web/src/property.html:579 ../web/src/partials/i18n.html:439
+#: ../web/src/property.html:579 ../web/src/partials/i18n.html:463
 msgid "参考售价"
 msgstr ""
 
@@ -1385,7 +1380,7 @@ msgstr ""
 msgid "，或者 "
 msgstr ""
 
-#: ../web/src/property.html:946 ../web/src/partials/i18n.html:411
+#: ../web/src/property.html:946 ../web/src/partials/i18n.html:435
 #: ../web/src/static/templates/featured_house_card.html:46
 #: ../web/src/static/templates/featured_house_card.html:258
 msgid "售罄"
@@ -1430,12 +1425,12 @@ msgstr ""
 msgid "地铁"
 msgstr ""
 
-#: ../web/src/property_list.html:75 ../web/src/partials/i18n_admin.html:485
+#: ../web/src/property_list.html:75 ../web/src/partials/i18n_admin.html:488
 #: ../web/src/partials/property_to_rent_selectors.html:32
 msgid "学校"
 msgstr ""
 
-#: ../web/src/property_list.html:77 ../web/src/partials/i18n.html:298
+#: ../web/src/property_list.html:77 ../web/src/partials/i18n.html:313
 #: ../web/src/partials/property_to_rent_selectors.html:34
 msgid "街区列表加载中..."
 msgstr ""
@@ -1460,7 +1455,7 @@ msgstr ""
 msgid "附近"
 msgstr ""
 
-#: ../web/src/property_list.html:87 ../web/src/partials/i18n.html:42
+#: ../web/src/property_list.html:87 ../web/src/partials/i18n.html:44
 msgid "投资"
 msgstr ""
 
@@ -1474,7 +1469,7 @@ msgstr ""
 msgid "房产类型"
 msgstr ""
 
-#: ../web/src/property_list.html:118 ../web/src/partials/i18n_admin.html:464
+#: ../web/src/property_list.html:118 ../web/src/partials/i18n_admin.html:467
 msgid "价格"
 msgstr ""
 
@@ -1500,7 +1495,7 @@ msgstr ""
 msgid "套房产"
 msgstr ""
 
-#: ../web/src/property_list.html:181 ../web/src/partials/i18n.html:292
+#: ../web/src/property_list.html:181 ../web/src/partials/i18n.html:308
 msgid "共找到下列房产"
 msgstr ""
 
@@ -1522,17 +1517,17 @@ msgid "拨打 <strong>400-0926-433</strong>"
 msgstr ""
 
 #: ../web/src/property_to_rent.html:110 ../web/src/property_to_rent.html:472
-#: ../web/src/partials/i18n.html:397 ../web/src/partials/i18n_admin.html:189
+#: ../web/src/partials/i18n.html:421 ../web/src/partials/i18n_admin.html:189
 msgid "已租出"
 msgstr ""
 
 #: ../web/src/property_to_rent.html:139 ../web/src/property_to_rent.html:420
-#: ../web/src/partials/i18n.html:424
+#: ../web/src/partials/i18n.html:448
 msgid "更新过"
 msgstr ""
 
 #: ../web/src/property_to_rent.html:141 ../web/src/property_to_rent.html:422
-#: ../web/src/partials/i18n.html:425
+#: ../web/src/partials/i18n.html:449
 #: ../web/src/partials/property_to_rent_publish.html:140
 #: ../web/src/static/emails/rent_intention_digest.html:45
 #: ../web/src/static/emails/rent_intention_matched_1.html:46
@@ -1544,14 +1539,14 @@ msgid "发布"
 msgstr ""
 
 #: ../web/src/property_to_rent.html:145 ../web/src/property_to_rent.html:426
-#: ../web/src/partials/i18n.html:423
+#: ../web/src/partials/i18n.html:447
 msgid "平台合作房源"
 msgstr ""
 
 #: ../web/src/property_to_rent.html:156 ../web/src/property_to_rent.html:162
 #: ../web/src/property_to_rent.html:454 ../web/src/property_to_rent.html:467
 #: ../web/src/property_to_rent_digest.html:61 ../web/src/wechat_poster.html:59
-#: ../web/src/wechat_poster.html:72 ../web/src/partials/i18n.html:422
+#: ../web/src/wechat_poster.html:72 ../web/src/partials/i18n.html:446
 #: ../web/src/partials/property_to_rent_edit.html:211
 #: ../web/src/partials/property_to_rent_edit.html:213
 #: ../web/src/partials/requirement_rent_phone.html:88
@@ -1569,9 +1564,8 @@ msgstr ""
 #: ../web/src/property_to_rent.html:511
 #: ../web/src/property_wechat_poster.html:72
 #: ../web/src/property_wechat_poster.html:86 ../web/src/wechat_poster.html:69
-#: ../web/src/partials/get_reference_price.html:10
-#: ../web/src/partials/get_reference_price.html:23
-#: ../web/src/partials/i18n.html:3
+#: ../web/src/partials/get_reference_price.html:18
+#: ../web/src/partials/i18n.html:4
 msgid "约"
 msgstr ""
 
@@ -1614,16 +1608,16 @@ msgstr ""
 msgid "房间面积"
 msgstr ""
 
-#: ../web/src/property_to_rent.html:283 ../web/src/partials/i18n_admin.html:398
+#: ../web/src/property_to_rent.html:283 ../web/src/partials/i18n_admin.html:401
 #: ../web/src/partials/property_to_rent_edit.html:158
 msgid "街道"
 msgstr ""
 
-#: ../web/src/property_to_rent.html:292 ../web/src/partials/i18n_admin.html:409
+#: ../web/src/property_to_rent.html:292 ../web/src/partials/i18n_admin.html:412
 msgid "小区"
 msgstr ""
 
-#: ../web/src/property_to_rent.html:299 ../web/src/partials/i18n_admin.html:410
+#: ../web/src/property_to_rent.html:299 ../web/src/partials/i18n_admin.html:413
 msgid "楼层"
 msgstr ""
 
@@ -1707,7 +1701,7 @@ msgid "您就可以租到"
 msgstr ""
 
 #: ../web/src/property_to_rent_digest.html:96 ../web/src/wechat_poster.html:101
-#: ../web/src/partials/i18n.html:441
+#: ../web/src/partials/i18n.html:465
 #: ../web/src/partials/property_to_rent_edit.html:302
 #: ../web/src/static/emails/rent_intention_digest.html:92
 #: ../web/src/static/emails/rent_intention_matched_1.html:93
@@ -1719,8 +1713,8 @@ msgid "卫"
 msgstr ""
 
 #: ../web/src/property_to_rent_digest.html:158
-#: ../web/src/wechat_poster.html:224 ../web/src/partials/i18n.html:21
-#: ../web/src/partials/i18n_admin.html:434
+#: ../web/src/wechat_poster.html:224 ../web/src/partials/i18n.html:22
+#: ../web/src/partials/i18n_admin.html:437
 #: ../web/src/partials/requirement_rent_phone.html:47
 #: ../web/src/partials/requirement_rent_popup.html:52
 msgid "地址"
@@ -1738,7 +1732,7 @@ msgid "出租类型"
 msgstr ""
 
 #: ../web/src/property_to_rent_list.html:89
-#: ../web/src/partials/i18n_admin.html:432
+#: ../web/src/partials/i18n_admin.html:435
 #: ../web/src/partials/property_to_rent_edit.html:168
 #: ../web/src/partials/property_to_rent_edit.html:211
 #: ../web/src/partials/property_to_rent_edit.html:213
@@ -1750,7 +1744,7 @@ msgid "/ 周"
 msgstr ""
 
 #: ../web/src/property_to_rent_list.html:108
-#: ../web/src/partials/i18n_admin.html:431
+#: ../web/src/partials/i18n_admin.html:434
 #: ../web/src/partials/property_to_rent_edit.html:332
 #: ../web/src/partials/requirement_rent_popup.html:106
 msgid "租期"
@@ -1770,7 +1764,7 @@ msgid "清空日期"
 msgstr ""
 
 #: ../web/src/property_to_rent_list.html:126
-#: ../web/src/partials/i18n_admin.html:442
+#: ../web/src/partials/i18n_admin.html:445
 #: ../web/src/partials/requirement_rent_popup.html:108
 msgid "至"
 msgstr ""
@@ -1829,7 +1823,7 @@ msgid "扫码分享房产移动端主页"
 msgstr ""
 
 #: ../web/src/property_wechat_poster.html:55
-#: ../web/src/partials/i18n_admin.html:465
+#: ../web/src/partials/i18n_admin.html:468
 msgid "售价"
 msgstr ""
 
@@ -1911,7 +1905,7 @@ msgid "查看更多房产"
 msgstr ""
 
 #: ../web/src/property_wechat_poster.html:487 ../web/src/wechat_poster.html:364
-#: ../web/src/wechat_poster.html:388 ../web/src/partials/i18n.html:46
+#: ../web/src/wechat_poster.html:388 ../web/src/partials/i18n.html:48
 msgid "收起"
 msgstr ""
 
@@ -2489,7 +2483,7 @@ msgid "填写您绑定的邮箱"
 msgstr ""
 
 #: ../web/src/reset_password_email_1.html:23
-#: ../web/src/user_verify_email.html:23 ../web/src/partials/i18n_admin.html:334
+#: ../web/src/user_verify_email.html:23 ../web/src/partials/i18n_admin.html:337
 msgid "发送"
 msgstr ""
 
@@ -2598,7 +2592,7 @@ msgid "提交成功后请检查您的收件箱并点击邮件中的链接进行�
 msgstr ""
 
 #: ../web/src/user_change_email.html:18 ../web/src/user_verify_email.html:18
-#: ../web/src/partials/i18n.html:406 ../web/src/partials/i18n_admin.html:214
+#: ../web/src/partials/i18n.html:430 ../web/src/partials/i18n_admin.html:217
 #: ../web/src/partials/property_to_rent_publish.html:40
 #: ../web/src/partials/property_to_rent_publish.html:84
 #: ../web/src/partials/requirement_rent_phone.html:134
@@ -2609,7 +2603,7 @@ msgstr ""
 
 #: ../web/src/user_change_email.html:26 ../web/src/user_change_password.html:32
 #: ../web/src/user_verify_phone_1.html:21
-#: ../web/src/partials/i18n_admin.html:565
+#: ../web/src/partials/i18n_admin.html:571
 msgid "确认"
 msgstr ""
 
@@ -2618,16 +2612,16 @@ msgstr ""
 msgid "修改密码"
 msgstr ""
 
-#: ../web/src/user_change_password.html:15 ../web/src/partials/i18n.html:27
+#: ../web/src/user_change_password.html:15 ../web/src/partials/i18n.html:29
 msgid "当前密码"
 msgstr ""
 
-#: ../web/src/user_change_password.html:20 ../web/src/partials/i18n.html:28
+#: ../web/src/user_change_password.html:20 ../web/src/partials/i18n.html:30
 msgid "新密码"
 msgstr ""
 
-#: ../web/src/user_change_password.html:26 ../web/src/partials/i18n.html:29
-#: ../web/src/partials/i18n_admin.html:563
+#: ../web/src/user_change_password.html:26 ../web/src/partials/i18n.html:31
+#: ../web/src/partials/i18n_admin.html:569
 msgid "确认密码"
 msgstr ""
 
@@ -2639,11 +2633,11 @@ msgstr ""
 msgid "如果您绑定的手机因停机、注销、丢失等原因无法接收短信，请与洋房东客服联系"
 msgstr ""
 
-#: ../web/src/user_change_phone_1.html:21 ../web/src/partials/i18n.html:31
+#: ../web/src/user_change_phone_1.html:21 ../web/src/partials/i18n.html:33
 msgid "原手机号"
 msgstr ""
 
-#: ../web/src/user_change_phone_1.html:26 ../web/src/partials/i18n.html:32
+#: ../web/src/user_change_phone_1.html:26 ../web/src/partials/i18n.html:34
 msgid "新手机号"
 msgstr ""
 
@@ -2790,7 +2784,7 @@ msgstr ""
 #: ../web/src/partials/delegate_sale_phone.html:35
 #: ../web/src/partials/delegate_sale_popup.html:60
 #: ../web/src/partials/delegate_sale_popup.html:61
-#: ../web/src/partials/i18n_admin.html:213
+#: ../web/src/partials/i18n_admin.html:216
 #: ../web/src/partials/property_to_rent_publish.html:36
 #: ../web/src/partials/property_to_rent_publish.html:80
 #: ../web/src/partials/requirement_rent_phone.html:127
@@ -2822,7 +2816,7 @@ msgid "姓"
 msgstr ""
 
 #: ../web/src/user_finish_info.html:86 ../web/src/user_finish_info.html:250
-#: ../web/src/partials/i18n_admin.html:514
+#: ../web/src/partials/i18n_admin.html:519
 #: ../web/src/partials/user_info.html:18 ../web/src/partials/user_info.html:64
 msgid "性别"
 msgstr ""
@@ -2921,7 +2915,7 @@ msgstr ""
 #: ../web/src/partials/delegate_sale_phone.html:42
 #: ../web/src/partials/delegate_sale_popup.html:66
 #: ../web/src/partials/delegate_sale_popup.html:68
-#: ../web/src/partials/i18n.html:409 ../web/src/partials/i18n_admin.html:575
+#: ../web/src/partials/i18n.html:433 ../web/src/partials/i18n_admin.html:581
 #: ../web/src/partials/property_to_rent_publish.html:47
 #: ../web/src/partials/property_to_rent_publish.html:91
 #: ../web/src/partials/user_settings.html:13
@@ -2936,7 +2930,7 @@ msgstr ""
 #: ../web/src/partials/delegate_sale_phone.html:53
 #: ../web/src/partials/delegate_sale_popup.html:86
 #: ../web/src/partials/delegate_sale_popup.html:87
-#: ../web/src/partials/i18n_admin.html:561
+#: ../web/src/partials/i18n_admin.html:567
 #: ../web/src/partials/property_to_rent_publish.html:56
 msgid "验证码"
 msgstr ""
@@ -2958,7 +2952,7 @@ msgid "真实姓名"
 msgstr ""
 
 #: ../web/src/user_finish_investment.html:62
-#: ../web/src/partials/i18n_admin.html:559
+#: ../web/src/partials/i18n_admin.html:565
 msgid "电话号码"
 msgstr ""
 
@@ -2966,8 +2960,8 @@ msgstr ""
 msgid "优惠券"
 msgstr ""
 
-#: ../web/src/user_finish_investment.html:76 ../web/src/partials/i18n.html:356
-#: ../web/src/partials/i18n_admin.html:394
+#: ../web/src/user_finish_investment.html:76 ../web/src/partials/i18n.html:365
+#: ../web/src/partials/i18n_admin.html:397
 #: ../web/src/partials/user_settings.html:31
 #: ../web/src/partials/user_settings.html:62
 #: ../web/src/partials/user_settings.html:86
@@ -2985,7 +2979,7 @@ msgstr ""
 msgid "您的账户当余额仅剩"
 msgstr ""
 
-#: ../web/src/user_finish_investment.html:89 ../web/src/partials/i18n.html:366
+#: ../web/src/user_finish_investment.html:89 ../web/src/partials/i18n.html:390
 msgid "充值"
 msgstr ""
 
@@ -3023,7 +3017,7 @@ msgid "确认投资信息"
 msgstr ""
 
 #: ../web/src/user_intentions.html:15 ../web/src/user_intentions.html:22
-#: ../web/src/partials/i18n_admin.html:522
+#: ../web/src/partials/i18n_admin.html:527
 #: ../web/src/partials/requirement_rent_popup.html:13
 #: ../web/src/partials/requirement_rent_popup.html:159
 msgid "求租意向单"
@@ -3144,7 +3138,7 @@ msgstr ""
 msgid "更改"
 msgstr ""
 
-#: ../web/src/verify_phone.html:27 ../web/src/partials/i18n_admin.html:224
+#: ../web/src/verify_phone.html:27 ../web/src/partials/i18n_admin.html:227
 #: ../web/src/partials/phone_row.html:21
 msgid "手机"
 msgstr ""
@@ -3215,7 +3209,7 @@ msgstr ""
 
 #: ../web/src/masters/aboutus_master.html:27
 #: ../web/src/masters/big_picture_bg_master.html:54
-#: ../web/src/masters/master.html:192 ../web/src/partials/i18n_admin.html:577
+#: ../web/src/masters/master.html:192 ../web/src/partials/i18n_admin.html:583
 msgid "服务声明"
 msgstr ""
 
@@ -3267,7 +3261,7 @@ msgstr ""
 msgid "中国客服电话："
 msgstr ""
 
-#: ../web/src/masters/master.html:82 ../web/src/partials/i18n_admin.html:479
+#: ../web/src/masters/master.html:82 ../web/src/partials/i18n_admin.html:482
 msgid "登出"
 msgstr ""
 
@@ -3276,7 +3270,7 @@ msgstr ""
 #: ../web/src/partials/delegate_rent_popup.html:75
 #: ../web/src/partials/delegate_sale_phone.html:47
 #: ../web/src/partials/delegate_sale_popup.html:75
-#: ../web/src/partials/i18n_admin.html:573
+#: ../web/src/partials/i18n_admin.html:579
 #: ../web/src/partials/signin_form.html:16
 #: ../web/src/partials/signup_form.html:32
 #: ../web/src/static/emails/new_admin.html:4
@@ -3289,7 +3283,8 @@ msgstr ""
 msgid "下载应用"
 msgstr ""
 
-#: ../web/src/masters/master.html:97 ../web/src/partials/i18n_admin.html:193
+#: ../web/src/masters/master.html:97 ../web/src/partials/i18n.html:372
+#: ../web/src/partials/i18n_admin.html:193
 #: ../web/src/static/emails/receive_intention.html:23
 #: ../web/src/static/emails/receive_rent_intention.html:22
 #: ../web/src/static/emails/rent_intention_digest.html:150
@@ -3298,6 +3293,7 @@ msgstr ""
 #: ../web/src/static/emails/rent_intention_matched_4.html:152
 #: ../web/src/static/emails/rent_suspend_notice.html:82
 #: ../web/src/static/emails/reset_password_by_email.html:26
+#: ../server/currant_util.py:124
 msgid "英国"
 msgstr ""
 
@@ -3466,7 +3462,7 @@ msgstr ""
 #: ../web/src/partials/crowdfunding_earning_records.html:89
 #: ../web/src/partials/crowdfunding_investment_records.html:60
 #: ../web/src/partials/crowdfunding_transaction_records.html:61
-#: ../web/src/partials/i18n_admin.html:222 ../web/src/partials/pager.html:5
+#: ../web/src/partials/i18n_admin.html:225 ../web/src/partials/pager.html:5
 msgid "上一页"
 msgstr ""
 
@@ -3474,7 +3470,7 @@ msgstr ""
 #: ../web/src/partials/crowdfunding_earning_records.html:92
 #: ../web/src/partials/crowdfunding_investment_records.html:63
 #: ../web/src/partials/crowdfunding_transaction_records.html:64
-#: ../web/src/partials/i18n_admin.html:223 ../web/src/partials/pager.html:8
+#: ../web/src/partials/i18n_admin.html:226 ../web/src/partials/pager.html:8
 msgid "下一页"
 msgstr ""
 
@@ -3502,7 +3498,7 @@ msgstr ""
 #: ../web/src/partials/delegate_rent_popup.html:34
 #: ../web/src/partials/delegate_sale_phone.html:17
 #: ../web/src/partials/delegate_sale_popup.html:34
-#: ../web/src/partials/i18n.html:8
+#: ../web/src/partials/i18n.html:9
 #: ../web/src/partials/property_to_rent_edit.html:150
 #: ../web/src/partials/requirement_rent_phone.html:33
 #: ../web/src/partials/requirement_rent_popup.html:32
@@ -3513,7 +3509,7 @@ msgstr ""
 #: ../web/src/partials/delegate_rent_popup.html:37
 #: ../web/src/partials/delegate_sale_phone.html:21
 #: ../web/src/partials/delegate_sale_popup.html:37
-#: ../web/src/partials/i18n.html:297
+#: ../web/src/partials/i18n.html:280
 #: ../web/src/partials/property_to_rent_edit.html:153
 #: ../web/src/partials/property_to_rent_edit.html:154
 #: ../web/src/partials/requirement_rent_phone.html:38
@@ -3528,6 +3524,7 @@ msgstr ""
 
 #: ../web/src/partials/delegate_rent_phone.html:30
 #: ../web/src/partials/delegate_sale_phone.html:30
+#: ../web/src/partials/i18n.html:285
 msgid "请选择门牌号"
 msgstr ""
 
@@ -3537,7 +3534,7 @@ msgstr ""
 #: ../web/src/partials/delegate_sale_phone.html:30
 #: ../web/src/partials/delegate_sale_popup.html:51
 #: ../web/src/partials/delegate_sale_popup.html:52
-#: ../web/src/partials/i18n_admin.html:411
+#: ../web/src/partials/i18n_admin.html:414
 msgid "门牌号"
 msgstr ""
 
@@ -3554,7 +3551,7 @@ msgstr ""
 #: ../web/src/partials/delegate_sale_phone.html:46
 #: ../web/src/partials/delegate_sale_popup.html:73
 #: ../web/src/partials/delegate_sale_popup.html:74
-#: ../web/src/partials/i18n_admin.html:562
+#: ../web/src/partials/i18n_admin.html:568
 #: ../web/src/partials/signin_form.html:10
 #: ../web/src/partials/signup_form.html:16
 msgid "密码"
@@ -3655,8 +3652,14 @@ msgstr ""
 msgid "km<sup>2</sup>"
 msgstr ""
 
+#: ../web/src/partials/get_reference_price.html:12
+#: ../web/src/partials/i18n.html:3
+#, python-format
+msgid "约%s起"
+msgstr ""
+
 #: ../web/src/partials/get_rent_min_period.html:6
-#: ../web/src/partials/i18n.html:363
+#: ../web/src/partials/i18n.html:387
 #: ../web/src/partials/property_to_rent_edit.html:392
 #: ../web/src/static/emails/rent_intention_digest.html:120
 #: ../web/src/static/emails/rent_intention_matched_1.html:121
@@ -3666,7 +3669,7 @@ msgid "周"
 msgstr ""
 
 #: ../web/src/partials/get_rent_min_period.html:8
-#: ../web/src/partials/i18n.html:364
+#: ../web/src/partials/i18n.html:388
 #: ../web/src/static/emails/rent_intention_digest.html:122
 #: ../web/src/static/emails/rent_intention_matched_1.html:123
 #: ../web/src/static/emails/rent_intention_matched_4.html:129
@@ -3674,7 +3677,12 @@ msgstr ""
 msgid "个月"
 msgstr ""
 
-#: ../web/src/partials/get_unit_price.html:17
+#: ../web/src/partials/get_unit_price.html:10 ../web/src/partials/i18n.html:7
+#, python-format
+msgid "%s起"
+msgstr ""
+
+#: ../web/src/partials/get_unit_price.html:13
 msgid "参考价格"
 msgstr ""
 
@@ -3685,6 +3693,15 @@ msgstr ""
 #: ../web/src/partials/host_contact_partner.html:12
 #: ../web/src/partials/host_contact_partner.html:16
 msgid "："
+msgstr ""
+
+#: ../web/src/partials/host_contact_request.html:58
+#, python-format
+msgid "剩余%s次,"
+msgstr ""
+
+#: ../web/src/partials/host_contact_request.html:59
+msgid "为了确保我们的服务质量请您提交求租需求继续获取"
 msgstr ""
 
 #: ../web/src/partials/host_contact_request_amount_modal.html:3
@@ -3749,1496 +3766,1594 @@ msgstr ""
 msgid "发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:9
+#: ../web/src/partials/i18n.html:10
 msgid "该房产暂无定位信息"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:10
+#: ../web/src/partials/i18n.html:11
 msgid "发送中..."
 msgstr ""
 
-#: ../web/src/partials/i18n.html:11
+#: ../web/src/partials/i18n.html:12
 msgid "发送成功"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:12
+#: ../web/src/partials/i18n.html:13
 msgid "发送失败，请重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:13
+#: ../web/src/partials/i18n.html:14
 msgid "手机不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:14
+#: ../web/src/partials/i18n.html:15
 msgid "请点击“获取验证码”"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:15
+#: ../web/src/partials/i18n.html:16
 msgid "重置密码失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:16
+#: ../web/src/partials/i18n.html:17
 msgid "您访问的功能还在内测邀请阶段！请点击<a href=\"/app-download?from=signin\">“申请内测”</a>继续访问"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:17
+#: ../web/src/partials/i18n.html:18
 msgid "邮件格式不正确，请重新填写"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:18
+#: ../web/src/partials/i18n.html:19
 msgid "提交中..."
 msgstr ""
 
-#: ../web/src/partials/i18n.html:20
+#: ../web/src/partials/i18n.html:21
 msgid "距离"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:22 ../web/src/partials/i18n_admin.html:253
+#: ../web/src/partials/i18n.html:23 ../web/src/partials/i18n_admin.html:256
 msgid "类型"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:23
+#: ../web/src/partials/i18n.html:25
 msgid "请填入新邮箱"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:24
+#: ../web/src/partials/i18n.html:26
 msgid "修改邮箱成功"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:25
+#: ../web/src/partials/i18n.html:27
 msgid "修改成功"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:26
+#: ../web/src/partials/i18n.html:28
 msgid "修改失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:30
+#: ../web/src/partials/i18n.html:32
 msgid "原手机号不正确"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:33
+#: ../web/src/partials/i18n.html:35
 msgid "验证成功"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:34
+#: ../web/src/partials/i18n.html:36
 msgid "验证失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:36
+#: ../web/src/partials/i18n.html:38
 msgid "订阅失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:37
+#: ../web/src/partials/i18n.html:39
 msgid "提交需求失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:38
+#: ../web/src/partials/i18n.html:40
 msgid "服务器忙，请稍后重试。"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:39
+#: ../web/src/partials/i18n.html:41
 msgid "加载中"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:43
+#: ../web/src/partials/i18n.html:45
 msgid "，价值为"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:44
+#: ../web/src/partials/i18n.html:46
 msgid "的房产，投资意向为"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:45 ../web/src/partials/i18n_admin.html:43
+#: ../web/src/partials/i18n.html:47 ../web/src/partials/i18n_admin.html:43
 msgid "。"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:48
+#: ../web/src/partials/i18n.html:50
 msgid "更新失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:49
+#: ../web/src/partials/i18n.html:51
 #: ../web/src/partials/property_to_rent_edit.html:156
 msgid "请选择街区"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:50
+#: ../web/src/partials/i18n.html:52
 msgid "请选择学校"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:51
+#: ../web/src/partials/i18n.html:53
 msgid "姓名不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:52
+#: ../web/src/partials/i18n.html:54
 msgid "电话不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:53
+#: ../web/src/partials/i18n.html:55
 msgid "电话格式不正确"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:54
+#: ../web/src/partials/i18n.html:56
 msgid "邮箱不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:55
+#: ../web/src/partials/i18n.html:57
 msgid "邮箱格式不合法"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:56
+#: ../web/src/partials/i18n.html:58
 msgid "验证码不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:57
+#: ../web/src/partials/i18n.html:59
 msgid "密码不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:58
+#: ../web/src/partials/i18n.html:60
 msgid "原手机号不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:59
+#: ../web/src/partials/i18n.html:61
 msgid "原手机号格式不正确"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:60
+#: ../web/src/partials/i18n.html:62
 msgid "当前密码不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:61
+#: ../web/src/partials/i18n.html:63
 msgid "确认密码不能为空"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:62
+#: ../web/src/partials/i18n.html:64
 msgid "新密码和确认密码输入不一致"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:63
+#: ../web/src/partials/i18n.html:65
 msgid "注册请先同意会员服务须知"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:64
+#: ../web/src/partials/i18n.html:66
 msgid "输入错误，请检查后重试。"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:65
+#: ../web/src/partials/i18n.html:67
 msgid "已经在收藏里了。"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:66
+#: ../web/src/partials/i18n.html:68
 msgid "没有访问权限，请登陆后重试。"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:67
+#: ../web/src/partials/i18n.html:69
 msgid "频率达到上限，请稍后重试。"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:68
+#: ../web/src/partials/i18n.html:70
 msgid "账户或密码错误。"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:69
+#: ../web/src/partials/i18n.html:71
 msgid "对不起，您的权限不够。"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:70
+#: ../web/src/partials/i18n.html:72
 msgid "对不起，不能操作他人的订单。"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:71
+#: ../web/src/partials/i18n.html:73
 msgid "对不起，不能查看他人的订单。"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:72
+#: ../web/src/partials/i18n.html:74
 msgid "没有权限！"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:73 ../web/src/partials/i18n_admin.html:8
+#: ../web/src/partials/i18n.html:75 ../web/src/partials/i18n_admin.html:8
 msgid "帐号已被禁用，请致电联系平台工作人员"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:74
+#: ../web/src/partials/i18n.html:76
 msgid "账户不存在"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:75
+#: ../web/src/partials/i18n.html:77
 msgid "邮箱已被使用！"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:76
+#: ../web/src/partials/i18n.html:78
 msgid ""
 "电话已被使用！请<a href=\"#\" onclick=\"project.goToSignIn()\">“登陆”</a>或者<a "
 "href=\"#\" onclick=\"project.goToResetPassword()\">“找回密码”</a>"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:77
+#: ../web/src/partials/i18n.html:79
 msgid "电话已被使用！请<a href=\"#\" onclick=\"project.showSignInModal()\">“登陆”</a>"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:78
+#: ../web/src/partials/i18n.html:80
 msgid "请求太频繁，请稍后再试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:79
+#: ../web/src/partials/i18n.html:81
 msgid "错误的验证码，请检查后重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:80
+#: ../web/src/partials/i18n.html:82
 msgid "过期或已验证过的验证码，请重新验证"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:81
+#: ../web/src/partials/i18n.html:83
 msgid "错误的邀请码，请检查后重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:82
+#: ../web/src/partials/i18n.html:84
 msgid "过期或已验证过的邀请码，请重新申请"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:83
+#: ../web/src/partials/i18n.html:85
 msgid "权限错误。"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:84
+#: ../web/src/partials/i18n.html:86
 msgid "对不起，没有找到您要的资源"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:85
+#: ../web/src/partials/i18n.html:87
 msgid "服务暂时不可用，请稍后重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:86
+#: ../web/src/partials/i18n.html:88
 msgid "第三方服务暂时不可用，请稍后重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:87
+#: ../web/src/partials/i18n.html:89
 msgid "Winery"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:88
+#: ../web/src/partials/i18n.html:90
 msgid "ATM"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:89
+#: ../web/src/partials/i18n.html:91
 msgid "Train Station"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:90
+#: ../web/src/partials/i18n.html:92
 msgid "Commuter Rail Station"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:91
+#: ../web/src/partials/i18n.html:93
 msgid "Bus Station"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:92
+#: ../web/src/partials/i18n.html:94
 msgid "Named Place"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:93
+#: ../web/src/partials/i18n.html:95
 msgid "Ferry Terminal"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:94
+#: ../web/src/partials/i18n.html:96
 msgid "Marina"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:95
+#: ../web/src/partials/i18n.html:97
 msgid "Public Sports Airport"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:96
+#: ../web/src/partials/i18n.html:98
 msgid "Airport"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:97
+#: ../web/src/partials/i18n.html:99
 msgid "Business Facility"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:98
+#: ../web/src/partials/i18n.html:100
 msgid "Grocery Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:99
+#: ../web/src/partials/i18n.html:101
 msgid "Auto Dealerships"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:100
+#: ../web/src/partials/i18n.html:102
 msgid "Auto Dealership-Used Cars"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:101
+#: ../web/src/partials/i18n.html:103
 msgid "Petrol/Gasoline Station"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:102
+#: ../web/src/partials/i18n.html:104
 msgid "Motorcycle Dealership"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:103
+#: ../web/src/partials/i18n.html:105
 msgid "Restaurant"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:104
+#: ../web/src/partials/i18n.html:106
 msgid "Nightlife"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:105
+#: ../web/src/partials/i18n.html:107
 msgid "Historical Monument"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:106
+#: ../web/src/partials/i18n.html:108
 msgid "Bank"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:107
+#: ../web/src/partials/i18n.html:109
 msgid "Shopping"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:108
+#: ../web/src/partials/i18n.html:110
 msgid "Hotel"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:109
+#: ../web/src/partials/i18n.html:111
 msgid "Ski Resort"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:110
+#: ../web/src/partials/i18n.html:112
 msgid "Other Accommodation"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:111
+#: ../web/src/partials/i18n.html:113
 msgid "Ski Lift"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:112
+#: ../web/src/partials/i18n.html:114
 msgid "Tourist Information"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:113
+#: ../web/src/partials/i18n.html:115
 msgid "Rental Car Agency"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:114
+#: ../web/src/partials/i18n.html:116
 msgid "Parking Lot"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:115
+#: ../web/src/partials/i18n.html:117
 msgid "Parking Garage/House"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:116
+#: ../web/src/partials/i18n.html:118
 msgid "Park & Ride"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:117
+#: ../web/src/partials/i18n.html:119
 msgid "Auto Service & Maintenance"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:118
+#: ../web/src/partials/i18n.html:120
 msgid "Cinema"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:119
+#: ../web/src/partials/i18n.html:121
 msgid "Rest Area"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:120
+#: ../web/src/partials/i18n.html:122
 msgid "Performing Arts"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:121
+#: ../web/src/partials/i18n.html:123
 msgid "Bowling Centre"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:122
+#: ../web/src/partials/i18n.html:124
 msgid "Sports Complex"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:123
+#: ../web/src/partials/i18n.html:125
 msgid "Park/Recreation Area"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:124
+#: ../web/src/partials/i18n.html:126
 msgid "Casino"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:125
+#: ../web/src/partials/i18n.html:127
 msgid "Convention/Exhibition Centre"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:126
+#: ../web/src/partials/i18n.html:128
 msgid "Golf Course"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:127
+#: ../web/src/partials/i18n.html:129
 msgid "Civic/Community Centre"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:128
+#: ../web/src/partials/i18n.html:130
 msgid "Amusement Park"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:129
+#: ../web/src/partials/i18n.html:131
 msgid "Sports Centre"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:130
+#: ../web/src/partials/i18n.html:132
 msgid "Ice Skating Rink"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:131
+#: ../web/src/partials/i18n.html:133
 msgid "Tourist Attraction"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:132
+#: ../web/src/partials/i18n.html:134
 msgid "Hospital"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:133
+#: ../web/src/partials/i18n.html:135
 msgid "Higher Education"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:134
+#: ../web/src/partials/i18n.html:136
 msgid "School"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:135
+#: ../web/src/partials/i18n.html:137
 msgid "Library"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:136
+#: ../web/src/partials/i18n.html:138
 msgid "Museum"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:137
+#: ../web/src/partials/i18n.html:139
 msgid "Automobile Club"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:138
+#: ../web/src/partials/i18n.html:140
 msgid "City Hall"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:139
+#: ../web/src/partials/i18n.html:141
 msgid "Court House"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:140
+#: ../web/src/partials/i18n.html:142
 msgid "Police Station"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:141
+#: ../web/src/partials/i18n.html:143
 msgid "Business Service"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:142
+#: ../web/src/partials/i18n.html:144
 msgid "Other Communication"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:143
+#: ../web/src/partials/i18n.html:145
 msgid "Telephone Service"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:144
+#: ../web/src/partials/i18n.html:146
 msgid "Cleaning & Laundry"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:145
+#: ../web/src/partials/i18n.html:147
 msgid "Hair & Beauty"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:146
+#: ../web/src/partials/i18n.html:148
 msgid "Health Care Service"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:147
+#: ../web/src/partials/i18n.html:149
 msgid "Mover"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:148
+#: ../web/src/partials/i18n.html:150
 msgid "Photography"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:149
+#: ../web/src/partials/i18n.html:151
 msgid "Video & Game Rental"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:150
+#: ../web/src/partials/i18n.html:152
 msgid "Storage"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:151
+#: ../web/src/partials/i18n.html:153
 msgid "Tailor & Alteration"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:152
+#: ../web/src/partials/i18n.html:154
 msgid "Tax Service"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:153
+#: ../web/src/partials/i18n.html:155
 msgid "Repair Service"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:154
+#: ../web/src/partials/i18n.html:156
 msgid "Retirement/Nursing Home"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:155
+#: ../web/src/partials/i18n.html:157
 msgid "Social Service"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:156
+#: ../web/src/partials/i18n.html:158
 msgid "Utilities"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:157
+#: ../web/src/partials/i18n.html:159
 msgid "Waste & Sanitary"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:158
+#: ../web/src/partials/i18n.html:160
 msgid "Campground"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:159
+#: ../web/src/partials/i18n.html:161
 msgid "Auto Parts"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:160
+#: ../web/src/partials/i18n.html:162
 msgid "Car Wash/Detailing"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:161
+#: ../web/src/partials/i18n.html:163
 msgid "Local Transit"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:162
+#: ../web/src/partials/i18n.html:164
 msgid "Travel Agent & Ticketing"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:163
+#: ../web/src/partials/i18n.html:165
 msgid "Truck Stop/Plaza"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:164
+#: ../web/src/partials/i18n.html:166
 msgid "Church"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:165
+#: ../web/src/partials/i18n.html:167
 msgid "Synagogue"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:166
+#: ../web/src/partials/i18n.html:168
 msgid "Government Office"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:167
+#: ../web/src/partials/i18n.html:169
 msgid "Fire Department"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:168
+#: ../web/src/partials/i18n.html:170
 msgid "Road Assistance"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:169
+#: ../web/src/partials/i18n.html:171
 msgid "Funeral Director"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:170
+#: ../web/src/partials/i18n.html:172
 msgid "Post Office"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:171
+#: ../web/src/partials/i18n.html:173
 msgid "Banquet Hall"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:172
+#: ../web/src/partials/i18n.html:174
 msgid "Bar or Pub"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:173
+#: ../web/src/partials/i18n.html:175
 msgid "Cocktail Lounge"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:174
+#: ../web/src/partials/i18n.html:176
 msgid "Night Club"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:175
+#: ../web/src/partials/i18n.html:177
 msgid "Convenience Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:176
+#: ../web/src/partials/i18n.html:178
 msgid "Specialty Food Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:177
+#: ../web/src/partials/i18n.html:179
 msgid "Clothing Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:178
+#: ../web/src/partials/i18n.html:180
 msgid "Men\\'s Apparel"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:179
+#: ../web/src/partials/i18n.html:181
 msgid "Shoe Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:180
+#: ../web/src/partials/i18n.html:182
 msgid "Specialty Clothing Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:181
+#: ../web/src/partials/i18n.html:183
 msgid "Women\\'s Apparel"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:182
+#: ../web/src/partials/i18n.html:184
 msgid "Check Cashing Service"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:183
+#: ../web/src/partials/i18n.html:185
 msgid "Currency Exchange"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:184
+#: ../web/src/partials/i18n.html:186
 msgid "Money Transferring Service"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:185
+#: ../web/src/partials/i18n.html:187
 msgid "Department Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:186
+#: ../web/src/partials/i18n.html:188
 msgid "Discount Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:187
+#: ../web/src/partials/i18n.html:189
 msgid "Other General Merchandise"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:188
+#: ../web/src/partials/i18n.html:190
 msgid "Variety Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:189
+#: ../web/src/partials/i18n.html:191
 msgid "Garden Center"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:190
+#: ../web/src/partials/i18n.html:192
 msgid "Glass & Window"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:191
+#: ../web/src/partials/i18n.html:193
 msgid "Hardware Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:192
+#: ../web/src/partials/i18n.html:194
 msgid "Home Center"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:193
+#: ../web/src/partials/i18n.html:195
 msgid "Lumber"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:194
+#: ../web/src/partials/i18n.html:196
 msgid "Other House & Garden"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:195
+#: ../web/src/partials/i18n.html:197
 msgid "Paint"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:196
+#: ../web/src/partials/i18n.html:198
 msgid "Entertainment Electronics"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:197
+#: ../web/src/partials/i18n.html:199
 msgid "Floor & Carpet"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:198
+#: ../web/src/partials/i18n.html:200
 msgid "Furniture Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:199
+#: ../web/src/partials/i18n.html:201
 msgid "Major Appliance"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:200
+#: ../web/src/partials/i18n.html:202
 msgid "Home Specialty Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:201
+#: ../web/src/partials/i18n.html:203
 msgid "Computer & Software"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:202
+#: ../web/src/partials/i18n.html:204
 msgid "Flowers & Jewelry"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:203
+#: ../web/src/partials/i18n.html:205
 msgid "Gift, Antique, & Art"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:204
+#: ../web/src/partials/i18n.html:206
 msgid "Optical"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:205
+#: ../web/src/partials/i18n.html:207
 msgid "Pharmacy"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:206
+#: ../web/src/partials/i18n.html:208
 msgid "Record, CD, & Video"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:207
+#: ../web/src/partials/i18n.html:209
 msgid "Specialty Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:208
+#: ../web/src/partials/i18n.html:210
 msgid "Sporting Goods Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:209
+#: ../web/src/partials/i18n.html:211
 msgid "Wine & Liquor"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:210
+#: ../web/src/partials/i18n.html:212
 msgid "Boating"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:211
+#: ../web/src/partials/i18n.html:213
 msgid "Theater"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:212
+#: ../web/src/partials/i18n.html:214
 msgid "Race Track"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:213
+#: ../web/src/partials/i18n.html:215
 msgid "Golf Practice Range"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:214
+#: ../web/src/partials/i18n.html:216
 msgid "Health Club"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:215
+#: ../web/src/partials/i18n.html:217
 msgid "Bowling Alley"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:216
+#: ../web/src/partials/i18n.html:218
 msgid "Sports Activities"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:217
+#: ../web/src/partials/i18n.html:219
 msgid "Recreation Center"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:218
+#: ../web/src/partials/i18n.html:220
 msgid "Attorney"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:219
+#: ../web/src/partials/i18n.html:221
 msgid "Dentist"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:220
+#: ../web/src/partials/i18n.html:222
 msgid "Physician"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:221
+#: ../web/src/partials/i18n.html:223
 msgid "Realtor"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:222
+#: ../web/src/partials/i18n.html:224
 msgid "RV Park"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:223
+#: ../web/src/partials/i18n.html:225
 msgid "Medical Service"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:224
+#: ../web/src/partials/i18n.html:226
 msgid "Police Service"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:225
+#: ../web/src/partials/i18n.html:227
 msgid "Veterinarian Service"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:226
+#: ../web/src/partials/i18n.html:228
 msgid "Sporting & Instructional Camp"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:227
+#: ../web/src/partials/i18n.html:229
 msgid "Agricultural Product Market"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:228
+#: ../web/src/partials/i18n.html:230
 msgid "Public Restroom"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:229
+#: ../web/src/partials/i18n.html:231
 msgid "Residential Area/Building"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:230
+#: ../web/src/partials/i18n.html:232
 msgid "Cemetery"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:231
+#: ../web/src/partials/i18n.html:233
 msgid "Highway Exit"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:232
+#: ../web/src/partials/i18n.html:234
 msgid "Transportation Service"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:233
+#: ../web/src/partials/i18n.html:235
 msgid "Lottery Booth"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:234
+#: ../web/src/partials/i18n.html:236
 msgid "Public Transit Stop"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:235
+#: ../web/src/partials/i18n.html:237
 msgid "Public Transit Access"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:236
+#: ../web/src/partials/i18n.html:238
 msgid "Neighborhood"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:237
+#: ../web/src/partials/i18n.html:239
 msgid "Weigh Station"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:238
+#: ../web/src/partials/i18n.html:240
 msgid "Cargo Centre"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:239
+#: ../web/src/partials/i18n.html:241
 msgid "Military Base"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:240
+#: ../web/src/partials/i18n.html:242
 msgid "Tollbooth (China/Korea)"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:241
+#: ../web/src/partials/i18n.html:243
 msgid "Animal Park"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:242
+#: ../web/src/partials/i18n.html:244
 msgid "Truck Dealership"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:243
+#: ../web/src/partials/i18n.html:245
 msgid "Truck Parking"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:244
+#: ../web/src/partials/i18n.html:246
 msgid "Home Improvement & Hardware Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:245
+#: ../web/src/partials/i18n.html:247
 msgid "Consumer Electronics Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:246
+#: ../web/src/partials/i18n.html:248
 msgid "Office Supply & Services Store"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:247
+#: ../web/src/partials/i18n.html:249
 msgid "Taxi Stand"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:248
+#: ../web/src/partials/i18n.html:250
 msgid "Premium Default"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:249
+#: ../web/src/partials/i18n.html:251
 msgid "Industrial Zone"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:250
+#: ../web/src/partials/i18n.html:252
 msgid "Place of Worship"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:251
+#: ../web/src/partials/i18n.html:253
 msgid "Embassy"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:252
+#: ../web/src/partials/i18n.html:254
 msgid "County Council"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:253
+#: ../web/src/partials/i18n.html:255
 msgid "Bookstore"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:254
+#: ../web/src/partials/i18n.html:256
 msgid "Coffee Shop"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:255
+#: ../web/src/partials/i18n.html:257
 msgid "Hamlet"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:256
+#: ../web/src/partials/i18n.html:258
 msgid "Border Crossing"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:257
+#: ../web/src/partials/i18n.html:259
 msgid "发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！ http://yangfd.com/app-download"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:258
+#: ../web/src/partials/i18n.html:260
 msgid "[分享到朋友圈]才有效"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:259
+#: ../web/src/partials/i18n.html:261
 msgid "提交求租需求继续获取"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:260
+#: ../web/src/partials/i18n.html:262
 msgid "，分享洋房东App，给大家送福利，分享成功继续获取"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:261
+#: ../web/src/partials/i18n.html:263
 msgid "，下载洋房东App继续获取"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:262
+#: ../web/src/partials/i18n.html:264
 msgid "查看房东联系方式"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:264
+#: ../web/src/partials/i18n.html:266
 msgid "重新发送"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:272
+#: ../web/src/partials/i18n.html:274
 msgid "¥"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:273
+#: ../web/src/partials/i18n.html:275
 msgid "£"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:274
+#: ../web/src/partials/i18n.html:276
 msgid "$"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:275
+#: ../web/src/partials/i18n.html:277
 msgid "€"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:276
+#: ../web/src/partials/i18n.html:278
 msgid "HK$"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:277
+#: ../web/src/partials/i18n.html:279
+msgid "城市列表加载中"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:281
+msgid "不能为空"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:282
+msgid "格式不正确"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:283
+msgid "超出长度限制"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:284
+msgid "结束日期需要大于开始日期"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:286
+msgid "请先填写postcode"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:287
+msgid "您填写的手机号已注册，请输入密码登录后继续"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:288
+msgid "您的手机号码尚未验证过，请先获取短信验证码后再继续"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:289
+msgid "{time}s后可用"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:290
+msgid "重新获取验证码"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:291
+msgid "验证码已成功发送到您的手机，请注意查收"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:292
+msgid "请输入手机验证码"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:293
 msgid "城市列表加载中..."
 msgstr ""
 
-#: ../web/src/partials/i18n.html:279 ../web/src/partials/i18n_admin.html:219
+#: ../web/src/partials/i18n.html:295 ../web/src/partials/i18n_admin.html:222
 #: ../web/src/partials/order_popup.html:43
 #: ../web/src/partials/requirement_form.html:54
 #: ../web/src/partials/user_info.html:41
 msgid "取消"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:281
+#: ../web/src/partials/i18n.html:297
 msgid "点击此处可以收藏房产"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:282
+#: ../web/src/partials/i18n.html:298
 msgid "小提示：看到中意的房产，可以点击此处的收藏按钮来收藏，也可以点击分享按钮将房产分享给您的朋友"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:284
+#: ../web/src/partials/i18n.html:300
 msgid "关闭"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:285
+#: ../web/src/partials/i18n.html:301
 msgid "下一条"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:286
+#: ../web/src/partials/i18n.html:302
 msgid "上一条"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:287
+#: ../web/src/partials/i18n.html:303
 msgid "下拉刷新"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:288
+#: ../web/src/partials/i18n.html:304
 msgid "松开刷新"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:289
+#: ../web/src/partials/i18n.html:305
 msgid "加载中..."
 msgstr ""
 
-#: ../web/src/partials/i18n.html:290
+#: ../web/src/partials/i18n.html:306
 msgid "加载成功"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:291
+#: ../web/src/partials/i18n.html:307
 msgid "加载失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:293
+#: ../web/src/partials/i18n.html:309
 msgid "，居室数为"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:294
+#: ../web/src/partials/i18n.html:310
 msgid "，面积为"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:295
+#: ../web/src/partials/i18n.html:311
 msgid "地图加载失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:296
+#: ../web/src/partials/i18n.html:312
 msgid "暂无结果"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:299
+#: ../web/src/partials/i18n.html:314
 msgid "重新获取"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:300
+#: ../web/src/partials/i18n.html:315
 msgid "获取中..."
 msgstr ""
 
-#: ../web/src/partials/i18n.html:301
-msgid "不能为空"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:302
-msgid "格式不正确"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:303
+#: ../web/src/partials/i18n.html:316
 msgid "超出长度限制(最多"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:304
+#: ../web/src/partials/i18n.html:317
 msgid "个字符"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:305
+#: ../web/src/partials/i18n.html:318
 msgid "过短，请至少填写"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:306
+#: ../web/src/partials/i18n.html:319
 msgid "个字"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:307
+#: ../web/src/partials/i18n.html:320
 msgid "超长，请最多填写"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:308
+#: ../web/src/partials/i18n.html:321
 msgid "必须大于"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:309
+#: ../web/src/partials/i18n.html:322
 msgid "必须大于或等于"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:310
+#: ../web/src/partials/i18n.html:323
 msgid "必须小于"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:311
+#: ../web/src/partials/i18n.html:324
 msgid "必须小于或等于"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:312
+#: ../web/src/partials/i18n.html:325
 msgid "房间数最少为1"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:313
+#: ../web/src/partials/i18n.html:326
 msgid "平台将提供房东联系方式选择，请删除在此填写任何形式的联系方式，违规发布将会予以处理"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:314
+#: ../web/src/partials/i18n.html:327
 msgid "租期结束时间必须大于或等于租期开始时间"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:315
+#: ../web/src/partials/i18n.html:328
 msgid "请至少上传一张实景图"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:316
+#: ../web/src/partials/i18n.html:329
 msgid "图片正在上传中，请稍后再发布"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:317
+#: ../web/src/partials/i18n.html:330
 msgid "输入框中含有HTML标签，请重新编辑后再继续"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:318
+#: ../web/src/partials/i18n.html:331
 msgid "居室"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:319
+#: ../web/src/partials/i18n.html:332
 msgid "出租"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:320
+#: ../web/src/partials/i18n.html:333
 msgid "发布中..."
 msgstr ""
 
-#: ../web/src/partials/i18n.html:321
+#: ../web/src/partials/i18n.html:334
 #: ../web/src/partials/property_to_rent_edit.html:561
 #: ../web/src/partials/property_to_rent_edit.html:563
 msgid "预览并发布"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:322
+#: ../web/src/partials/i18n.html:335
 msgid "{time}s后可再次获取"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:323
-msgid "重新获取验证码"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:324
+#: ../web/src/partials/i18n.html:336
 #: ../web/src/partials/property_to_rent_publish.html:138
 msgid "重新发布"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:325
+#: ../web/src/partials/i18n.html:337
 msgid "请至少展示一种联系方式给租客"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:326
+#: ../web/src/partials/i18n.html:338
 msgid "请填写您收到的短信验证码后再发布房产"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:327
+#: ../web/src/partials/i18n.html:339
 msgid "不允许同时拖拽多个文件上传."
 msgstr ""
 
-#: ../web/src/partials/i18n.html:328
+#: ../web/src/partials/i18n.html:340
 msgid "不允许上传. 允许的文件扩展名: "
 msgstr ""
 
-#: ../web/src/partials/i18n.html:329
+#: ../web/src/partials/i18n.html:341
 msgid "不允许上传. 文件已存在."
 msgstr ""
 
-#: ../web/src/partials/i18n.html:330
+#: ../web/src/partials/i18n.html:342
 msgid "不允许上传. 允许的最大尺寸为: "
 msgstr ""
 
-#: ../web/src/partials/i18n.html:331
+#: ../web/src/partials/i18n.html:343
 msgid "不允许上传"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:332
+#: ../web/src/partials/i18n.html:344
 msgid " 不允许上传. 上传最大文件数为:"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:333
+#: ../web/src/partials/i18n.html:345
 msgid "停止"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:334 ../web/src/partials/i18n_admin.html:234
+#: ../web/src/partials/i18n.html:346 ../web/src/partials/i18n_admin.html:237
 msgid "删除"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:335
+#: ../web/src/partials/i18n.html:347
 msgid "上传错误：错误代码"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:336 ../web/src/partials/i18n_admin.html:79
+#: ../web/src/partials/i18n.html:348 ../web/src/partials/i18n_admin.html:79
 msgid "图片"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:337
+#: ../web/src/partials/i18n.html:349
 msgid "上传失败("
 msgstr ""
 
-#: ../web/src/partials/i18n.html:338
+#: ../web/src/partials/i18n.html:350
 msgid ")，请重新上传"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:339
+#: ../web/src/partials/i18n.html:351
 msgid "共找到下列出租房"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:340
+#: ../web/src/partials/i18n.html:352
 msgid "请选择日期"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:341
+#: ../web/src/partials/i18n.html:353
 msgid "复制成功:"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:342
+#: ../web/src/partials/i18n.html:354
 msgid "点击此处可以联系房东"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:343
+#: ../web/src/partials/i18n.html:355
 msgid "小提示：点击此处可以查看房东的完整联系方式"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:344
+#: ../web/src/partials/i18n.html:356
 msgid "我想投资价值为"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:345
-msgid "城市列表加载中"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:346
+#: ../web/src/partials/i18n.html:357
 msgid "街区列表加载中...(选填)"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:347
+#: ../web/src/partials/i18n.html:358
 #: ../web/src/partials/requirement_rent_phone.html:44
 #: ../web/src/partials/requirement_rent_popup.html:42
 msgid "请选择街区(选填)"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:348
+#: ../web/src/partials/i18n.html:359
 msgid "求租"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:349
+#: ../web/src/partials/i18n.html:360
 msgid "/周的"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:350
+#: ../web/src/partials/i18n.html:361
 msgid "出租房"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:351
-msgid "超出长度限制"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:352
-msgid "结束日期需要大于开始日期"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:353
+#: ../web/src/partials/i18n.html:362
 msgid "重置密码邮件已经成功发送到您的邮箱，请登陆您的邮箱查收邮件"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:354
+#: ../web/src/partials/i18n.html:363
 msgid "密码重置成功，5s后自动返回首页"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:357
+#: ../web/src/partials/i18n.html:366
 msgid "获取失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:358
+#: ../web/src/partials/i18n.html:367
 msgid "今天"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:359
+#: ../web/src/partials/i18n.html:368
 msgid "昨天"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:360
+#: ../web/src/partials/i18n.html:369
 msgid "天前"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:361
+#: ../web/src/partials/i18n.html:370
 msgid "上周"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:367
-msgid "收益"
+#: ../web/src/partials/i18n.html:371 ../web/src/partials/i18n_admin.html:194
+#: ../web/src/static/emails/receive_intention.html:25
+#: ../web/src/static/emails/receive_rent_intention.html:24
+#: ../web/src/static/emails/rent_intention_digest.html:152
+#: ../web/src/static/emails/rent_intention_matched_1.html:147
+#: ../web/src/static/emails/rent_intention_matched_2_3.html:28
+#: ../web/src/static/emails/rent_intention_matched_4.html:154
+#: ../web/src/static/emails/rent_suspend_notice.html:84
+#: ../web/src/static/emails/reset_password_by_email.html:28
+#: ../server/currant_util.py:123
+msgid "中国"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:368
-msgid "提现"
+#: ../web/src/partials/i18n.html:373 ../web/src/partials/i18n_admin.html:196
+#: ../server/currant_util.py:125
+msgid "美国"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:369
-msgid "回收本金"
+#: ../web/src/partials/i18n.html:374 ../web/src/partials/i18n_admin.html:197
+#: ../server/currant_util.py:126
+msgid "印度"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:370
-msgid "性别不能为空"
+#: ../web/src/partials/i18n.html:375 ../web/src/partials/i18n_admin.html:198
+#: ../server/currant_util.py:127
+msgid "俄罗斯"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:371
-msgid "国家不能为空"
+#: ../web/src/partials/i18n.html:376 ../web/src/partials/i18n_admin.html:199
+#: ../server/currant_util.py:128
+msgid "日本"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:372
-msgid "更新成功"
+#: ../web/src/partials/i18n.html:377 ../web/src/partials/i18n_admin.html:200
+#: ../server/currant_util.py:129
+msgid "德国"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:373
-msgid "取消收藏失败"
+#: ../web/src/partials/i18n.html:378 ../web/src/partials/i18n_admin.html:201
+#: ../server/currant_util.py:130
+msgid "法国"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:374
-msgid "撤销失败"
+#: ../web/src/partials/i18n.html:379 ../web/src/partials/i18n_admin.html:202
+#: ../server/currant_util.py:131
+msgid "意大利"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:375
-msgid "电话区号不能为空"
+#: ../web/src/partials/i18n.html:380 ../web/src/partials/i18n_admin.html:203
+#: ../server/currant_util.py:132
+msgid "西班牙"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:376
-msgid "生日不能为空"
+#: ../web/src/partials/i18n.html:381 ../web/src/partials/i18n_admin.html:195
+#: ../server/currant_util.py:133
+msgid "香港"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:377
-msgid "省份不能为空"
+#: ../web/src/partials/i18n.html:382 ../server/currant_util.py:134
+msgid "台湾"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:378
-msgid "城市不能为空"
+#: ../web/src/partials/i18n.html:383 ../server/currant_util.py:135
+msgid "新加坡"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:379
-msgid "地址不能为空"
+#: ../web/src/partials/i18n.html:384 ../server/currant_util.py:136
+msgid "马来西亚"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:380
-msgid "邮政编码不能为空"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:381 ../web/src/partials/i18n_admin.html:124
-msgid "已提交"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:382
-msgid "已指派销售人员"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:383 ../web/src/partials/i18n_admin.html:126
-msgid "受理中"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:384 ../web/src/partials/i18n_admin.html:127
-msgid "定金已支付"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:385 ../web/src/partials/i18n_admin.html:128
-msgid "未达成定金"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:386 ../web/src/partials/i18n_admin.html:129
-msgid "购房已成功"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:387 ../web/src/partials/i18n_admin.html:130
-msgid "未达成购房"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:388
-msgid "求租中"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:389
-msgid "已租到"
-msgstr ""
-
-#: ../web/src/partials/i18n.html:390 ../web/src/partials/i18n_admin.html:136
-msgid "已取消"
+#: ../web/src/partials/i18n.html:385 ../server/currant_util.py:137
+msgid "爱尔兰"
 msgstr ""
 
 #: ../web/src/partials/i18n.html:391
-msgid "无法执行该操作，请检查您的房产状态后重试"
+msgid "收益"
 msgstr ""
 
 #: ../web/src/partials/i18n.html:392
-msgid "您要找的房产不存在或者已被删除"
+msgid "提现"
 msgstr ""
 
 #: ../web/src/partials/i18n.html:393
-msgid "刚刚刷新过"
+msgid "回收本金"
 msgstr ""
 
 #: ../web/src/partials/i18n.html:394
-msgid "刷新失败"
+msgid "性别不能为空"
 msgstr ""
 
 #: ../web/src/partials/i18n.html:395
+msgid "国家不能为空"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:396
+msgid "更新成功"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:397
+msgid "取消收藏失败"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:398
+msgid "撤销失败"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:399
+msgid "电话区号不能为空"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:400
+msgid "生日不能为空"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:401
+msgid "省份不能为空"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:402
+msgid "城市不能为空"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:403
+msgid "地址不能为空"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:404
+msgid "邮政编码不能为空"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:405 ../web/src/partials/i18n_admin.html:124
+msgid "已提交"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:406
+msgid "已指派销售人员"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:407 ../web/src/partials/i18n_admin.html:126
+msgid "受理中"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:408 ../web/src/partials/i18n_admin.html:127
+msgid "定金已支付"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:409 ../web/src/partials/i18n_admin.html:128
+msgid "未达成定金"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:410 ../web/src/partials/i18n_admin.html:129
+msgid "购房已成功"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:411 ../web/src/partials/i18n_admin.html:130
+msgid "未达成购房"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:412
+msgid "求租中"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:413
+msgid "已租到"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:414 ../web/src/partials/i18n_admin.html:136
+msgid "已取消"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:415
+msgid "无法执行该操作，请检查您的房产状态后重试"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:416
+msgid "您要找的房产不存在或者已被删除"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:417
+msgid "刚刚刷新过"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:418
+msgid "刷新失败"
+msgstr ""
+
+#: ../web/src/partials/i18n.html:419
 msgid ""
 "确定\\\"'+_.first(_.where(window.rentArray, {id: ticketId})).title + "
 "'\\\"已经成功出租了吗？确定将不再接收系统刷新提醒"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:396
+#: ../web/src/partials/i18n.html:420
 msgid "今天更新过"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:398
+#: ../web/src/partials/i18n.html:422
 msgid "无法更新，请检查后重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:399
+#: ../web/src/partials/i18n.html:423
 msgid "确定删除该出租房吗？注意：此操作不可逆"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:400
+#: ../web/src/partials/i18n.html:424
 msgid "无法删除，请检查后重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:401
+#: ../web/src/partials/i18n.html:425
 msgid "确定删除该房产吗？"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:402
+#: ../web/src/partials/i18n.html:426
 msgid "移除失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:403
+#: ../web/src/partials/i18n.html:427
 msgid "邮件已发送，如果没有收到，请在60秒后重试"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:404
+#: ../web/src/partials/i18n.html:428
 msgid "发送验证邮件失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:405
+#: ../web/src/partials/i18n.html:429
 msgid "修改邮箱失败"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:407
+#: ../web/src/partials/i18n.html:431
 msgid "验证码为6位数字，请填写正确后再验证"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:408
+#: ../web/src/partials/i18n.html:432
 msgid "验证码已成功发送到您填写的手机号"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:413
+#: ../web/src/partials/i18n.html:437
 msgid "结束"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:414
+#: ../web/src/partials/i18n.html:438
 msgid "已完成"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:415
+#: ../web/src/partials/i18n.html:439
 msgid "元起"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:417
+#: ../web/src/partials/i18n.html:441
 msgid "可募集"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:421
+#: ../web/src/partials/i18n.html:445
 msgid "撤销"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:427
+#: ../web/src/partials/i18n.html:451
 #: ../web/src/static/emails/rent_intention_digest.html:81
 #: ../web/src/static/emails/rent_intention_matched_1.html:82
 #: ../web/src/static/emails/rent_intention_matched_4.html:88
@@ -5246,7 +5361,7 @@ msgstr ""
 msgid "房间"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:430 ../web/src/partials/i18n_admin.html:313
+#: ../web/src/partials/i18n.html:454 ../web/src/partials/i18n_admin.html:316
 #: ../web/src/partials/requirement_rent_phone.html:86
 #: ../web/src/partials/requirement_rent_phone.html:90
 #: ../web/src/partials/requirement_rent_phone.html:94
@@ -5255,81 +5370,81 @@ msgstr ""
 msgid "预算"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:431
+#: ../web/src/partials/i18n.html:455
 msgid "提交日期："
 msgstr ""
 
-#: ../web/src/partials/i18n.html:432 ../web/src/partials/i18n_admin.html:512
+#: ../web/src/partials/i18n.html:456 ../web/src/partials/i18n_admin.html:517
 msgid "预算:"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:433
+#: ../web/src/partials/i18n.html:457
 msgid "无预算数据"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:434
+#: ../web/src/partials/i18n.html:458
 msgid "拨打电话"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:435 ../web/src/partials/i18n_admin.html:515
+#: ../web/src/partials/i18n.html:459 ../web/src/partials/i18n_admin.html:520
 msgid "微信"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:440
+#: ../web/src/partials/i18n.html:464
 msgid "户型解析"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:442 ../web/src/partials/i18n_admin.html:91
+#: ../web/src/partials/i18n.html:466 ../web/src/partials/i18n_admin.html:91
 msgid "草稿"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:443 ../web/src/partials/i18n_admin.html:188
+#: ../web/src/partials/i18n.html:467 ../web/src/partials/i18n_admin.html:188
 msgid "发布中"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:444 ../server/main_interface_phone.py:45
+#: ../web/src/partials/i18n.html:468 ../server/main_interface_phone.py:45
 msgid "微信分享"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:445
+#: ../web/src/partials/i18n.html:469
 msgid "已刷新过"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:446
+#: ../web/src/partials/i18n.html:470
 msgid "刷新"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:447
+#: ../web/src/partials/i18n.html:471
 msgid "每24小时只能刷新一次"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:448
+#: ../web/src/partials/i18n.html:472
 msgid "确认已租出"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:449 ../web/src/partials/i18n_admin.html:260
+#: ../web/src/partials/i18n.html:473 ../web/src/partials/i18n_admin.html:263
 #: ../web/src/partials/user_info.html:4
 msgid "编辑"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:450
+#: ../web/src/partials/i18n.html:474
 #: ../web/src/partials/property_to_rent_edit.html:345
 msgid "到"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:451
+#: ../web/src/partials/i18n.html:475
 msgid "止"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:452
+#: ../web/src/partials/i18n.html:476
 msgid "修改意向"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:453
+#: ../web/src/partials/i18n.html:477
 msgid "我已租到"
 msgstr ""
 
-#: ../web/src/partials/i18n.html:455 ../web/src/partials/i18n_admin.html:235
+#: ../web/src/partials/i18n.html:479 ../web/src/partials/i18n_admin.html:238
 msgid "移除"
 msgstr ""
 
@@ -5907,104 +6022,68 @@ msgstr ""
 msgid "未解决"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:194
-#: ../web/src/static/emails/receive_intention.html:25
-#: ../web/src/static/emails/receive_rent_intention.html:24
-#: ../web/src/static/emails/rent_intention_digest.html:152
-#: ../web/src/static/emails/rent_intention_matched_1.html:147
-#: ../web/src/static/emails/rent_intention_matched_2_3.html:28
-#: ../web/src/static/emails/rent_intention_matched_4.html:154
-#: ../web/src/static/emails/rent_suspend_notice.html:84
-#: ../web/src/static/emails/reset_password_by_email.html:28
-msgid "中国"
-msgstr ""
-
-#: ../web/src/partials/i18n_admin.html:195
-msgid "香港"
-msgstr ""
-
-#: ../web/src/partials/i18n_admin.html:196
-msgid "美国"
-msgstr ""
-
-#: ../web/src/partials/i18n_admin.html:197
-msgid "印度"
-msgstr ""
-
-#: ../web/src/partials/i18n_admin.html:198
-msgid "俄罗斯"
-msgstr ""
-
-#: ../web/src/partials/i18n_admin.html:199
-msgid "日本"
-msgstr ""
-
-#: ../web/src/partials/i18n_admin.html:200
-msgid "德国"
-msgstr ""
-
-#: ../web/src/partials/i18n_admin.html:201
-msgid "法国"
-msgstr ""
-
-#: ../web/src/partials/i18n_admin.html:202
-msgid "意大利"
-msgstr ""
-
-#: ../web/src/partials/i18n_admin.html:203
-msgid "西班牙"
+#: ../web/src/partials/i18n_admin.html:204
+msgid "租客"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:205
-msgid "输入姓名，手机或邮箱"
+msgid "房东"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:206
+msgid "投资人"
+msgstr ""
+
+#: ../web/src/partials/i18n_admin.html:208
+msgid "输入姓名，手机或邮箱"
+msgstr ""
+
+#: ../web/src/partials/i18n_admin.html:209
 #: ../web/src/partials/index_renter.html:6
 msgid "搜索"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:207
+#: ../web/src/partials/i18n_admin.html:210
 msgid "选择权限"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:208
+#: ../web/src/partials/i18n_admin.html:211
 msgid "确认号码"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:209
+#: ../web/src/partials/i18n_admin.html:212
 msgid "删除号码"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:210
+#: ../web/src/partials/i18n_admin.html:213
 msgid "返回"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:211
+#: ../web/src/partials/i18n_admin.html:214
 msgid "手机号码"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:212
+#: ../web/src/partials/i18n_admin.html:215
 msgid "正在查询"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:215
+#: ../web/src/partials/i18n_admin.html:218
 msgid "已有权限"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:216
+#: ../web/src/partials/i18n_admin.html:219
 msgid "权限"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:217
+#: ../web/src/partials/i18n_admin.html:220
 msgid "选择"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:218
+#: ../web/src/partials/i18n_admin.html:221
 msgid "更新"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:220
+#: ../web/src/partials/i18n_admin.html:223
 #: ../web/src/partials/mortgage_form.html:12
 #: ../web/src/partials/mortgage_form.html:19
 #: ../web/src/partials/mortgage_form.html:27
@@ -6015,1284 +6094,1296 @@ msgstr ""
 msgid "必填"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:221
+#: ../web/src/partials/i18n_admin.html:224
 msgid "添加人员"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:225
+#: ../web/src/partials/i18n_admin.html:228
 msgid "增加权限"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:226
+#: ../web/src/partials/i18n_admin.html:229
 msgid "取消权限"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:227
+#: ../web/src/partials/i18n_admin.html:230
 msgid "平台"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:228
+#: ../web/src/partials/i18n_admin.html:231
 msgid "请选择平台"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:229
+#: ../web/src/partials/i18n_admin.html:232
 msgid "channel"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:230
+#: ../web/src/partials/i18n_admin.html:233
 msgid "请选择channel"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:231
+#: ../web/src/partials/i18n_admin.html:234
 msgid "版本号"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:232
+#: ../web/src/partials/i18n_admin.html:235
 msgid "url"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:233
+#: ../web/src/partials/i18n_admin.html:236
 msgid "changelog"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:236
+#: ../web/src/partials/i18n_admin.html:239
 msgid "添加changelog"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:237
+#: ../web/src/partials/i18n_admin.html:240
 msgid "添加新版本"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:238
+#: ../web/src/partials/i18n_admin.html:241
 msgid "过滤条件"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:239
+#: ../web/src/partials/i18n_admin.html:242
 msgid "更新日志"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:240
+#: ../web/src/partials/i18n_admin.html:243
 msgid "管理"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:241
+#: ../web/src/partials/i18n_admin.html:244
 msgid "货币单位"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:242
+#: ../web/src/partials/i18n_admin.html:245
 msgid "通用信息"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:243
+#: ../web/src/partials/i18n_admin.html:246
 msgid "添加亮点"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:244
+#: ../web/src/partials/i18n_admin.html:247
 msgid "(最大宽度是1280px)"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:245
+#: ../web/src/partials/i18n_admin.html:248
 msgid "上传资料"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:246
+#: ../web/src/partials/i18n_admin.html:249
 msgid "头像"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:247
+#: ../web/src/partials/i18n_admin.html:250
 msgid "职位"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:248
+#: ../web/src/partials/i18n_admin.html:251
 msgid "介绍"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:249
+#: ../web/src/partials/i18n_admin.html:252
 msgid "领英"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:250
+#: ../web/src/partials/i18n_admin.html:253
 msgid "添加头像"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:251
+#: ../web/src/partials/i18n_admin.html:254
 #: ../web/src/partials/index_buyer.html:72
 msgid "添加"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:252
+#: ../web/src/partials/i18n_admin.html:255
 msgid "项目资产"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:254
+#: ../web/src/partials/i18n_admin.html:257
 msgid "来源"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:255
+#: ../web/src/partials/i18n_admin.html:258
 msgid "费用"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:256
+#: ../web/src/partials/i18n_admin.html:259
 msgid "审核单"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:257
+#: ../web/src/partials/i18n_admin.html:260
 msgid "上传附件"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:258
+#: ../web/src/partials/i18n_admin.html:261
 msgid "创建草稿"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:259
+#: ../web/src/partials/i18n_admin.html:262
 msgid "提交审核"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:261
+#: ../web/src/partials/i18n_admin.html:264
 msgid "房产审核单"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:262
+#: ../web/src/partials/i18n_admin.html:265
 msgid "批准审核"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:263
+#: ../web/src/partials/i18n_admin.html:266
 msgid "拒绝审核"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:264
+#: ../web/src/partials/i18n_admin.html:267
 msgid "此项目处于待审核状态，请先将状态改为草稿再编辑此项目。"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:265
+#: ../web/src/partials/i18n_admin.html:268
 msgid "提交草稿"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:266
+#: ../web/src/partials/i18n_admin.html:269
 msgid "提交到:"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:267
+#: ../web/src/partials/i18n_admin.html:270
 msgid "拖动至此删除内容"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:268
+#: ../web/src/partials/i18n_admin.html:271
 msgid "拖动至此还原内容"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:269
+#: ../web/src/partials/i18n_admin.html:272
 msgid "添加项目信息"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:271
+#: ../web/src/partials/i18n_admin.html:274
 msgid "新闻类型"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:272
+#: ../web/src/partials/i18n_admin.html:275
 msgid "添加SHOP"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:273
+#: ../web/src/partials/i18n_admin.html:276
 msgid "SHOP名称"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:274
+#: ../web/src/partials/i18n_admin.html:277
 msgid "货币下限"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:275
+#: ../web/src/partials/i18n_admin.html:278
 msgid "货币上限"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:276
+#: ../web/src/partials/i18n_admin.html:279
 msgid "sort_value"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:277
+#: ../web/src/partials/i18n_admin.html:280
 msgid "内容"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:278
+#: ../web/src/partials/i18n_admin.html:281
 msgid "语言"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:279
+#: ../web/src/partials/i18n_admin.html:282
 msgid "选择语言"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:280
+#: ../web/src/partials/i18n_admin.html:283
 msgid "添加预算"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:281
+#: ../web/src/partials/i18n_admin.html:284
 msgid "正常"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:282
+#: ../web/src/partials/i18n_admin.html:285
 msgid "已弃用"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:283
+#: ../web/src/partials/i18n_admin.html:286
 #: ../web/src/partials/property_to_rent_edit.html:461
 #: ../web/src/partials/property_to_rent_edit.html:465
 msgid "描述"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:284
+#: ../web/src/partials/i18n_admin.html:287
 msgid "操作"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:285
+#: ../web/src/partials/i18n_admin.html:288
 msgid "弃用"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:286
+#: ../web/src/partials/i18n_admin.html:289
 msgid "面积单位"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:287
+#: ../web/src/partials/i18n_admin.html:290
 msgid "最小面积"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:288
+#: ../web/src/partials/i18n_admin.html:291
 msgid "最大面积"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:289
+#: ../web/src/partials/i18n_admin.html:292
 msgid "添加面积"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:290
+#: ../web/src/partials/i18n_admin.html:293
 msgid "添加城市"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:291
+#: ../web/src/partials/i18n_admin.html:294
 msgid "所属国家"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:292
+#: ../web/src/partials/i18n_admin.html:295
 msgid "国家标识"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:293
+#: ../web/src/partials/i18n_admin.html:296
 msgid "添加国家"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:294
+#: ../web/src/partials/i18n_admin.html:297
 msgid "校名"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:295
+#: ../web/src/partials/i18n_admin.html:298
 msgid "编辑城市"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:297
+#: ../web/src/partials/i18n_admin.html:300
 msgid "投资特征"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:298
+#: ../web/src/partials/i18n_admin.html:301
 msgid "标识"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:299
+#: ../web/src/partials/i18n_admin.html:302
 msgid "添加投资意向"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:300 ../server/main_interface.py:136
+#: ../web/src/partials/i18n_admin.html:303 ../server/main_interface.py:136
 msgid "投资意向"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:301
+#: ../web/src/partials/i18n_admin.html:304
 msgid "类别"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:302
+#: ../web/src/partials/i18n_admin.html:305
 msgid "添加枚举"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:303
+#: ../web/src/partials/i18n_admin.html:306
 msgid "房间类型"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:304
+#: ../web/src/partials/i18n_admin.html:307
 msgid "最低房间数"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:305
+#: ../web/src/partials/i18n_admin.html:308
 msgid "最高房间数"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:306
+#: ../web/src/partials/i18n_admin.html:309
 msgid "添加房间数"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:307
+#: ../web/src/partials/i18n_admin.html:310
 msgid "添加省"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:308
+#: ../web/src/partials/i18n_admin.html:311
 msgid "省"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:309
+#: ../web/src/partials/i18n_admin.html:312
 #: ../web/src/partials/requirement_rent_phone.html:131
 #: ../web/src/partials/requirement_rent_popup.html:125
 msgid "电话"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:310
+#: ../web/src/partials/i18n_admin.html:313
 msgid "是否愿意注册会员"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:311
+#: ../web/src/partials/i18n_admin.html:314
 msgid "愿意"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:312
+#: ../web/src/partials/i18n_admin.html:315
 msgid "不愿意"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:314
+#: ../web/src/partials/i18n_admin.html:317
 msgid "文字描述"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:315
+#: ../web/src/partials/i18n_admin.html:318
 msgid "投资意向标签"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:316
+#: ../web/src/partials/i18n_admin.html:319
 msgid "销售自定义描述"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:317
+#: ../web/src/partials/i18n_admin.html:320
 msgid "自定义项"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:318
+#: ../web/src/partials/i18n_admin.html:321
 msgid "自定义项内容"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:319
+#: ../web/src/partials/i18n_admin.html:322
 msgid "提交时间"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:320
+#: ../web/src/partials/i18n_admin.html:323
 msgid "受理时间"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:321
+#: ../web/src/partials/i18n_admin.html:324
 msgid "指派"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:322
+#: ../web/src/partials/i18n_admin.html:325
 msgid "变更描述"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:323
+#: ../web/src/partials/i18n_admin.html:326
 msgid "变更描述内容"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:324
+#: ../web/src/partials/i18n_admin.html:327
 msgid "添加投资意向单"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:325
+#: ../web/src/partials/i18n_admin.html:328
 msgid "客户姓名"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:326
+#: ../web/src/partials/i18n_admin.html:329
 msgid "客户手机"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:327
+#: ../web/src/partials/i18n_admin.html:330
 msgid "客户邮箱"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:328
+#: ../web/src/partials/i18n_admin.html:331
 msgid "备注"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:329
+#: ../web/src/partials/i18n_admin.html:332
 msgid "创建邀请码"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:330
+#: ../web/src/partials/i18n_admin.html:333
 msgid "时间"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:331
+#: ../web/src/partials/i18n_admin.html:334
 msgid "IP"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:332
+#: ../web/src/partials/i18n_admin.html:335
 msgid "发送邀请码"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:333
+#: ../web/src/partials/i18n_admin.html:336
 msgid "邮箱注册情况"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:335
+#: ../web/src/partials/i18n_admin.html:338
 #: ../web/src/partials/property_to_rent_edit.html:451
 #: ../web/src/partials/property_to_rent_edit.html:455
 msgid "标题"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:336
+#: ../web/src/partials/i18n_admin.html:339
 msgid "目标"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:337
+#: ../web/src/partials/i18n_admin.html:340
 msgid "添加消息"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:338
+#: ../web/src/partials/i18n_admin.html:341
 msgid "未接收数"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:339
+#: ../web/src/partials/i18n_admin.html:342
 msgid "送达数"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:340
+#: ../web/src/partials/i18n_admin.html:343
 msgid "已读数"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:341
+#: ../web/src/partials/i18n_admin.html:344
 msgid "总消息数"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:342
+#: ../web/src/partials/i18n_admin.html:345
 msgid "频道名"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:343
+#: ../web/src/partials/i18n_admin.html:346
 msgid "链接"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:344
+#: ../web/src/partials/i18n_admin.html:347
 msgid "(最大宽度是1920px)"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:345
+#: ../web/src/partials/i18n_admin.html:348
 msgid "添加图片"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:346
+#: ../web/src/partials/i18n_admin.html:349
 msgid "图片缺失时的内容(homepage下为banner按钮文字)"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:347
+#: ../web/src/partials/i18n_admin.html:350
 msgid "文本内容"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:348
+#: ../web/src/partials/i18n_admin.html:351
 msgid "文本条目内容"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:349
+#: ../web/src/partials/i18n_admin.html:352
 msgid "图片缺失时的内容"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:350
+#: ../web/src/partials/i18n_admin.html:353
 msgid "添加内容"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:351
+#: ../web/src/partials/i18n_admin.html:354
 msgid "封面图片"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:352
+#: ../web/src/partials/i18n_admin.html:355
 msgid "摘要"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:353
+#: ../web/src/partials/i18n_admin.html:356
 msgid "地域"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:354
+#: ../web/src/partials/i18n_admin.html:357
 msgid "添加资讯"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:355
+#: ../web/src/partials/i18n_admin.html:358
 msgid "同步至微信"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:356
+#: ../web/src/partials/i18n_admin.html:359
 msgid "同步"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:357
+#: ../web/src/partials/i18n_admin.html:360
 msgid "作者"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:358
+#: ../web/src/partials/i18n_admin.html:361
 msgid "创建时间"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:359
+#: ../web/src/partials/i18n_admin.html:362
 msgid "品牌运营管理"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:360
+#: ../web/src/partials/i18n_admin.html:363
 msgid "开始时间"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:361
+#: ../web/src/partials/i18n_admin.html:364
 msgid "结束时间"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:362
+#: ../web/src/partials/i18n_admin.html:365
 msgid "订单状态"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:363
+#: ../web/src/partials/i18n_admin.html:366
 #: ../web/src/partials/user_info.html:83
 msgid "请选择"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:364
+#: ../web/src/partials/i18n_admin.html:367
 msgid "用户姓名"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:365
+#: ../web/src/partials/i18n_admin.html:368
 msgid "项目名称"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:366
+#: ../web/src/partials/i18n_admin.html:369
 msgid "在投资金"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:368
+#: ../web/src/partials/i18n_admin.html:371
 msgid "到期时间"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:369
+#: ../web/src/partials/i18n_admin.html:372
 msgid "房产通用信息"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:370
+#: ../web/src/partials/i18n_admin.html:373
 msgid "Postal Area"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:372
+#: ../web/src/partials/i18n_admin.html:375
 msgid "%开发商保证最低收益率"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:374
+#: ../web/src/partials/i18n_admin.html:377
 msgid "eg: 0.1 为10%"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:375
+#: ../web/src/partials/i18n_admin.html:378
 msgid "成交时间"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:376
+#: ../web/src/partials/i18n_admin.html:379
 msgid "成交价格"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:377
+#: ../web/src/partials/i18n_admin.html:380
 msgid "添加历史成交价格"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:378
+#: ../web/src/partials/i18n_admin.html:381
 msgid "(最多4项)"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:379
+#: ../web/src/partials/i18n_admin.html:382
 msgid "支出名称"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:380
+#: ../web/src/partials/i18n_admin.html:383
 msgid "支出费用"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:381
+#: ../web/src/partials/i18n_admin.html:384
 msgid "上传推广资料"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:382
+#: ../web/src/partials/i18n_admin.html:385
 msgid "非楼盘特有信息"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:383
+#: ../web/src/partials/i18n_admin.html:386
 msgid "居室数,填0表示studio"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:384
+#: ../web/src/partials/i18n_admin.html:387
 msgid "户型名"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:385
+#: ../web/src/partials/i18n_admin.html:388
 msgid "户型结构"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:386
+#: ../web/src/partials/i18n_admin.html:389
 msgid "面积与价格"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:387
+#: ../web/src/partials/i18n_admin.html:390
 msgid "户型描述"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:388
+#: ../web/src/partials/i18n_admin.html:391
 msgid "最低总价"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:389
+#: ../web/src/partials/i18n_admin.html:392
 msgid "最高总价"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:390
+#: ../web/src/partials/i18n_admin.html:393
 msgid "上传户型图"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:391
+#: ../web/src/partials/i18n_admin.html:394
 msgid "添加户型"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:392
+#: ../web/src/partials/i18n_admin.html:395
 msgid "生活配设施图"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:393
+#: ../web/src/partials/i18n_admin.html:396
 msgid "销售备注"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:395
+#: ../web/src/partials/i18n_admin.html:398
 msgid "撤销并返回"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:396
+#: ../web/src/partials/i18n_admin.html:399
 msgid "此房产处于待审核状态，请先将状态改为草稿再编辑此房产。"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:397
+#: ../web/src/partials/i18n_admin.html:400
 msgid "拖动删除"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:399
+#: ../web/src/partials/i18n_admin.html:402
 msgid "街区名称"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:400
+#: ../web/src/partials/i18n_admin.html:403
 msgid "单位面积，一般为1"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:401
+#: ../web/src/partials/i18n_admin.html:404
 msgid "单位面积对应的售价"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:402
+#: ../web/src/partials/i18n_admin.html:405
 msgid "保存并预览"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:403
+#: ../web/src/partials/i18n_admin.html:406
 msgid "添加房产信息"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:404
+#: ../web/src/partials/i18n_admin.html:407
 msgid "房产信息"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:405
+#: ../web/src/partials/i18n_admin.html:408
 msgid "概览"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:406
+#: ../web/src/partials/i18n_admin.html:409
 #: ../web/src/partials/property_to_rent_publish.html:27
 msgid "房东信息"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:407
+#: ../web/src/partials/i18n_admin.html:410
 msgid "房屋信息"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:408
+#: ../web/src/partials/i18n_admin.html:411
 msgid "位置信息"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:412
+#: ../web/src/partials/i18n_admin.html:415
 msgid "维度:"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:413
+#: ../web/src/partials/i18n_admin.html:416
 msgid "经度:"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:414
+#: ../web/src/partials/i18n_admin.html:417
 msgid "[查看Bing地图]"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:415
+#: ../web/src/partials/i18n_admin.html:418
 msgid "设施"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:416
+#: ../web/src/partials/i18n_admin.html:419
 msgid "居家设施："
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:417
+#: ../web/src/partials/i18n_admin.html:420
 msgid "社区设施："
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:418
+#: ../web/src/partials/i18n_admin.html:421
 msgid "出租信息"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:419
+#: ../web/src/partials/i18n_admin.html:422
 msgid "出租类型:"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:420
+#: ../web/src/partials/i18n_admin.html:423
 msgid "面积:"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:421
+#: ../web/src/partials/i18n_admin.html:424
 msgid "租金(每周):"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:422
+#: ../web/src/partials/i18n_admin.html:425
 msgid "(包Bill)"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:423
+#: ../web/src/partials/i18n_admin.html:426
 msgid "押金:"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:424
+#: ../web/src/partials/i18n_admin.html:427
 msgid "最短租期:"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:425
+#: ../web/src/partials/i18n_admin.html:428
 msgid "开始时间:"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:426
+#: ../web/src/partials/i18n_admin.html:429
 msgid "结束时间:"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:427
+#: ../web/src/partials/i18n_admin.html:430
 msgid "选择生成类型"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:428
+#: ../web/src/partials/i18n_admin.html:431
 msgid "是否需要image标签"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:429
+#: ../web/src/partials/i18n_admin.html:432
 msgid "生成"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:430
+#: ../web/src/partials/i18n_admin.html:433
 msgid "详细描述"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:433
+#: ../web/src/partials/i18n_admin.html:436
 msgid "postcode"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:435
+#: ../web/src/partials/i18n_admin.html:438
 msgid "发布时间"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:436
+#: ../web/src/partials/i18n_admin.html:439
 msgid "发布人"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:437
+#: ../web/src/partials/i18n_admin.html:440
 msgid "汇总图"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:438
+#: ../web/src/partials/i18n_admin.html:441
 msgid "生成图床"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:439
+#: ../web/src/partials/i18n_admin.html:442
 msgid "居室:"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:440
+#: ../web/src/partials/i18n_admin.html:443
 msgid "租期："
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:443
+#: ../web/src/partials/i18n_admin.html:446
 msgid "至少租住："
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:444
+#: ../web/src/partials/i18n_admin.html:447
 msgid "生成digest图片"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:445
+#: ../web/src/partials/i18n_admin.html:448
 msgid "查看digest图片"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:446
+#: ../web/src/partials/i18n_admin.html:449
 msgid "生成图床的链接"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:447
+#: ../web/src/partials/i18n_admin.html:450
 msgid "下架并通知"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:448
+#: ../web/src/partials/i18n_admin.html:451
 msgid "添加求租意向单"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:449
+#: ../web/src/partials/i18n_admin.html:452
 msgid "出租需求"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:450
+#: ../web/src/partials/i18n_admin.html:453
 msgid "客户"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:451
+#: ../web/src/partials/i18n_admin.html:454
 msgid "长度单位"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:452
+#: ../web/src/partials/i18n_admin.html:455
 msgid "街区介绍"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:453
+#: ../web/src/partials/i18n_admin.html:456
 msgid "街区图片"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:454
+#: ../web/src/partials/i18n_admin.html:457
 msgid "背景图"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:455
+#: ../web/src/partials/i18n_admin.html:458
 msgid "街区房屋供给资讯"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:456
+#: ../web/src/partials/i18n_admin.html:459
 msgid "新闻标题"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:457
+#: ../web/src/partials/i18n_admin.html:460
 msgid "新闻摘要"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:458
+#: ../web/src/partials/i18n_admin.html:461
 msgid "街区就业机会资讯"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:459
+#: ../web/src/partials/i18n_admin.html:462
 msgid "请选择新闻类别"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:460
+#: ../web/src/partials/i18n_admin.html:463
 msgid "街区规划资讯"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:461
+#: ../web/src/partials/i18n_admin.html:464
 msgid "添加街区报告"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:462
+#: ../web/src/partials/i18n_admin.html:465
 msgid "最小金额"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:463
+#: ../web/src/partials/i18n_admin.html:466
 msgid "最大金额"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:466
+#: ../web/src/partials/i18n_admin.html:469
 msgid "标签"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:467
+#: ../web/src/partials/i18n_admin.html:470
 msgid "卧室数,填0表示studio"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:468
+#: ../web/src/partials/i18n_admin.html:471
 msgid "浴室数"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:469
+#: ../web/src/partials/i18n_admin.html:472
 msgid "创建"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:470
+#: ../web/src/partials/i18n_admin.html:473
 msgid "添加物业销售状态"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:471
+#: ../web/src/partials/i18n_admin.html:474
 msgid "物业销售状态"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:472
+#: ../web/src/partials/i18n_admin.html:475
 msgid "房源信息"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:473
+#: ../web/src/partials/i18n_admin.html:476
 msgid "邀请码管理"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:474
+#: ../web/src/partials/i18n_admin.html:477
 msgid "Android订阅管理"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:475
+#: ../web/src/partials/i18n_admin.html:478
 msgid "自定义描述"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:476
+#: ../web/src/partials/i18n_admin.html:479
 msgid "修改内容"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:477
+#: ../web/src/partials/i18n_admin.html:480
 msgid "添加客服单"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:478
+#: ../web/src/partials/i18n_admin.html:481
 #: ../web/src/partials/user_settings.html:70
 #: ../web/src/partials/user_settings_phone.html:71
 msgid "设置"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:480
+#: ../web/src/partials/i18n_admin.html:483
 msgid "人员管理"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:481
+#: ../web/src/partials/i18n_admin.html:484
 msgid "枚举数据管理"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:482
+#: ../web/src/partials/i18n_admin.html:485
 msgid "常用类型"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:483
+#: ../web/src/partials/i18n_admin.html:486
 msgid "房间数"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:484
+#: ../web/src/partials/i18n_admin.html:487
 msgid "租房预算"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:486
+#: ../web/src/partials/i18n_admin.html:489
 msgid "房产数据管理"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:487
+#: ../web/src/partials/i18n_admin.html:490
 msgid "出租房数据管理"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:488
+#: ../web/src/partials/i18n_admin.html:491
 msgid "求租意向单管理"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:489
+#: ../web/src/partials/i18n_admin.html:492
 msgid "投资意向单管理"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:490
-msgid "房产资讯编辑"
-msgstr ""
-
-#: ../web/src/partials/i18n_admin.html:491
-msgid "网站内容管理"
-msgstr ""
-
-#: ../web/src/partials/i18n_admin.html:492
-msgid "房产销售管理"
-msgstr ""
-
 #: ../web/src/partials/i18n_admin.html:493
-msgid "客服单管理"
+msgid "委托出租单管理"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:494
-msgid "投资人管理"
+msgid "委托出售单管理"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:495
-msgid "消息管理"
+msgid "房产资讯编辑"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:496
-msgid "微信公共号管理"
+msgid "网站内容管理"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:497
-msgid "菜单管理"
+msgid "房产销售管理"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:498
-msgid "众筹管理"
+msgid "客服单管理"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:499
-msgid "订单管理"
+msgid "投资人管理"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:500
-msgid "用户申请管理"
+msgid "消息管理"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:501
-msgid "App版本管理"
+msgid "微信公共号管理"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:502
-msgid "房产名称"
+msgid "菜单管理"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:503
-msgid "购买时间"
+msgid "众筹管理"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:504
-msgid "收藏类型"
+msgid "订单管理"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:505
-msgid "房产名"
+msgid "用户申请管理"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:506
-msgid "HOST"
+msgid "App版本管理"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:507
-msgid "引用"
+msgid "房产名称"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:508
-msgid "浏览时间"
+msgid "购买时间"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:509
-msgid "用户代理"
+msgid "收藏类型"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:510
-msgid "发布状态"
+msgid "房产名"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:511
-msgid "出租位置"
+msgid "HOST"
+msgstr ""
+
+#: ../web/src/partials/i18n_admin.html:512
+msgid "引用"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:513
-msgid "租期:"
+msgid "浏览时间"
+msgstr ""
+
+#: ../web/src/partials/i18n_admin.html:514
+msgid "用户代理"
+msgstr ""
+
+#: ../web/src/partials/i18n_admin.html:515
+msgid "发布状态"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:516
-msgid "收藏房产"
-msgstr ""
-
-#: ../web/src/partials/i18n_admin.html:517
-msgid "已购房产"
+msgid "出租位置"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:518
-msgid "客服单"
-msgstr ""
-
-#: ../web/src/partials/i18n_admin.html:519
-msgid "浏览记录"
-msgstr ""
-
-#: ../web/src/partials/i18n_admin.html:520
-msgid "众筹订单"
+msgid "租期:"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:521
-msgid "发布的房产"
+msgid "收藏房产"
+msgstr ""
+
+#: ../web/src/partials/i18n_admin.html:522
+msgid "已购房产"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:523
-msgid "用户手机"
+msgid "客服单"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:524
-msgid "用户邮箱"
+msgid "浏览记录"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:525
-msgid "注册时间"
+msgid "众筹订单"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:526
-msgid "未验证"
-msgstr ""
-
-#: ../web/src/partials/i18n_admin.html:527
-msgid "已验证"
+msgid "发布的房产"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:528
-msgid "禁用"
+msgid "查看过联系方式的房产"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:529
-msgid "恢复"
+msgid "用户手机"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:530
-msgid "菜单"
+msgid "用户邮箱"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:531
-msgid "删除菜单全部内容"
+msgid "注册时间"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:532
-msgid "按键名称"
+msgid "未验证"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:533
-msgid "交互方式"
+msgid "已验证"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:534
-msgid "添加子菜单"
+msgid "禁用"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:535
-msgid "添加菜单"
+msgid "恢复"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:536
-msgid "正在上传..."
+msgid "菜单"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:537
-msgid "已上传,将在提交草稿后生成预览（在此之前不能提交审核)"
+msgid "删除菜单全部内容"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:538
-msgid "正在生成预览图...（在此之前不能提交审核)"
+msgid "按键名称"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:539
-msgid "点击预览当前文档"
+msgid "交互方式"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:540
-msgid "上传失败，请稍后重试"
+msgid "添加子菜单"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:541
-msgid "未知错误，请重新上传"
+msgid "添加菜单"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:542
-msgid "暂无备注"
+msgid "正在上传..."
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:543
-msgid "请在此输入备注内容"
+msgid "已上传,将在提交草稿后生成预览（在此之前不能提交审核)"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:544
-msgid "复制图片至其他语言"
+msgid "正在生成预览图...（在此之前不能提交审核)"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:545
-msgid "上传本站"
+msgid "点击预览当前文档"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:546
-msgid "设为封面"
+msgid "上传失败，请稍后重试"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:547
-msgid "清空"
+msgid "未知错误，请重新上传"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:548
+msgid "暂无备注"
+msgstr ""
+
+#: ../web/src/partials/i18n_admin.html:549
+msgid "请在此输入备注内容"
+msgstr ""
+
+#: ../web/src/partials/i18n_admin.html:550
+msgid "复制图片至其他语言"
+msgstr ""
+
+#: ../web/src/partials/i18n_admin.html:551
+msgid "上传本站"
+msgstr ""
+
+#: ../web/src/partials/i18n_admin.html:552
+msgid "设为封面"
+msgstr ""
+
+#: ../web/src/partials/i18n_admin.html:553
+msgid "清空"
+msgstr ""
+
+#: ../web/src/partials/i18n_admin.html:554
 #: ../web/src/partials/property_to_rent_edit.html:407
 msgid "上传图片"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:549
+#: ../web/src/partials/i18n_admin.html:555
 msgid "已上传，点击重新上传"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:550
+#: ../web/src/partials/i18n_admin.html:556
 msgid "拖到此处上传或点击上传至AWS"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:551
+#: ../web/src/partials/i18n_admin.html:557
 msgid "拖到此处上传或点击上传至七牛"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:552
+#: ../web/src/partials/i18n_admin.html:558
 msgid "上传封面"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:553
+#: ../web/src/partials/i18n_admin.html:559
 msgid "上传iOS适配的MP4至七牛"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:554
+#: ../web/src/partials/i18n_admin.html:560
 msgid "上传Web页面的MP4至七牛"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:555
+#: ../web/src/partials/i18n_admin.html:561
 msgid "上传iOS适配的至AWS"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:556
+#: ../web/src/partials/i18n_admin.html:562
 msgid "上传Web页面的MP4至AWS"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:557
+#: ../web/src/partials/i18n_admin.html:563
 msgid "添加视频"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:558
+#: ../web/src/partials/i18n_admin.html:564
 #: ../web/src/partials/signin_form.html:12
 msgid "忘记密码"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:560
+#: ../web/src/partials/i18n_admin.html:566
 msgid "请输入数字"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:564
+#: ../web/src/partials/i18n_admin.html:570
 msgid "两次输入的密码不一致"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:566
+#: ../web/src/partials/i18n_admin.html:572
 msgid "返回登录"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:567
+#: ../web/src/partials/i18n_admin.html:573
 msgid "没有权限。"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:568
+#: ../web/src/partials/i18n_admin.html:574
 msgid "变更记录"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:569
+#: ../web/src/partials/i18n_admin.html:575
 msgid "修改时间"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:570
+#: ../web/src/partials/i18n_admin.html:576
 msgid "变更内容"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:571
+#: ../web/src/partials/i18n_admin.html:577
 msgid "字段"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:572
+#: ../web/src/partials/i18n_admin.html:578
 msgid "管理员登录"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:574
+#: ../web/src/partials/i18n_admin.html:580
 msgid "注册帐号"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:576
+#: ../web/src/partials/i18n_admin.html:582
 msgid "已阅读并同意"
 msgstr ""
 
