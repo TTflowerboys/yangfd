@@ -402,13 +402,6 @@
 <!--endbuild-->
 
 <script>
-    if(!window.i18n){
-        window.i18n = function (name) {
-            var input = document.getElementById('i18n-str-' + name)
-            if (!input) { return name }
-            return input.value
-        }
-    }
     function initMapSrc(config){
         config.height = parseInt(config.width * $(window).height() / $(window).width())
         var baseSrc = 'http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/{centerPoint}/{zoomLevel}?mapSize={width},{height}&mapLayer=TrafficFlow&format=jpeg&key={key}'

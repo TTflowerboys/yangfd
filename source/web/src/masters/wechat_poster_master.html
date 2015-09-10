@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
     <head>
         <title>{{title}}</title>
         <meta name="Description" content="{{description}}">
@@ -20,7 +20,7 @@
 
         <!-- @@include = ../partials/favicon.html -->
     </head>
-    <body marginwidth="0" marginheight="0" class="loading">
+    <body marginwidth="0" marginheight="0" class="loading" lang="{{_.lang}}">
         <div class="loadingCover">
             <div class="proBox">
                 <canvas id="procanvas" class="procanvas" value="0%"></canvas>
@@ -154,7 +154,7 @@
         </div>
 
         <!--@@placeholder=main-->
-
+        <!--@@include ../partials/i18n.html-->
         <!--build:js /static/scripts/wechat_poster_master.html.js-->
         <script type="text/javascript" src="/static/scripts/track_ga.js"></script>
         <script type="text/javascript" src="/static/scripts/track.js"></script>
