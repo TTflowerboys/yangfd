@@ -5,13 +5,9 @@
         %   minPrice = type.get('total_price_min')
         %end
     %end
-    <span>
-        {{minPrice.get('unit_symbol')}}
-    </span>
-    <span data-type="formatted_currency">
-        {{int(float(minPrice.get('value')))}}
-    </span>
-    <span class="mute">{{_('起')}}</span>
+    % string = """<span>""" + minPrice.get('unit_symbol') + """</span><span data-type="formatted_currency">""" + minPrice.get('value') + """</span><span class="mute">
+    """
+        {{!_('%s起') %string}}</span>
 % else :
     %if 'total_price' in property and property.get('total_price'):
         <span class="mute">{{_('参考价格')}}</span>

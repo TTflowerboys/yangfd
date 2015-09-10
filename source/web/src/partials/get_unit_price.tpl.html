@@ -7,8 +7,8 @@
         {_}_}
     {_})_}
 
-    {=minPrice.unit_symbol=}
-    {!team.formatCurrency(parseInt(minPrice.value))!}{=window.i18n('起')=}
+    {_ var string = minPrice.unit_symbol + team.formatCurrency(parseInt(minPrice.value)) _}
+    {!window.i18n('%s起', string)!}
 
     {_if (house.minimum_down_payment_rate) {_}
     <label class='price_reference'>

@@ -50,7 +50,14 @@
             %if rent.get('landlord_type',{}).get('slug') == 'live_out_landlord':
             data-protectedHost="true"
             %end
-            ><p>{{_('获取房东联系方式')}}</p><p style="display: none" class="hint">({{_('剩余')}}<span class="residueDegree"></span>{{_('次')}}<span style="display: none" class="exhaustSubmitTip">{{_('，为了确保我们的服务质量请您提交求租需求继续获取')}}</span>)</p></button>
+            >
+            <p>{{_('获取房东联系方式')}}</p>
+            <p style="display: none" class="hint">
+                % string = """<span class="residueDegree"></span>
+                """
+                ({{!_('剩余%s次,') %string}}
+            <span style="display: none" class="exhaustSubmitTip">{{_('为了确保我们的服务质量请您提交求租需求继续获取')}}</span>)</p>
+        </button>
         <form class="contactRequestForm" name="contactRequestForm"
             data-message-success="{{_('提交成功')}}"
             data-message-40000="{{_('你填写的手机或邮箱的格式不正确')}}"
