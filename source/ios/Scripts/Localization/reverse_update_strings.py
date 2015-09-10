@@ -2,6 +2,7 @@
 import sys
 
 strings_file = sys.argv[1]
+src_path_root = sys.argv[2]
 src_file_path = ''
 src_file_content = ''
 
@@ -13,12 +14,12 @@ for line in open(strings_file):
     if line.startswith('//Filepath:'):
         if src_file_path != '':
             # write back
-            file = open(src_file_path, 'w')
+            file = open(src_path_root + '/' +src_file_path, 'w')
             file.write(src_file_content)
             file.close()
 
         src_file_path = line.split(': ')[1].replace('\n', '')
-        with open(src_file_path) as file:
+        with open(src_path_root + '/' + src_file_path) as file:
             src_file_content = file.read()
 
     elif line.startswith('"'):
