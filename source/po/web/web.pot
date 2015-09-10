@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2015-09-10 16:10+0800\n"
+"POT-Creation-Date: 2015-09-10 17:04+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3298,6 +3298,7 @@ msgstr ""
 #: ../web/src/static/emails/rent_intention_matched_4.html:152
 #: ../web/src/static/emails/rent_suspend_notice.html:82
 #: ../web/src/static/emails/reset_password_by_email.html:26
+#: ../server/currant_util.py:124
 msgid "英国"
 msgstr ""
 
@@ -5916,42 +5917,43 @@ msgstr ""
 #: ../web/src/static/emails/rent_intention_matched_4.html:154
 #: ../web/src/static/emails/rent_suspend_notice.html:84
 #: ../web/src/static/emails/reset_password_by_email.html:28
+#: ../server/currant_util.py:123
 msgid "中国"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:195
+#: ../web/src/partials/i18n_admin.html:195 ../server/currant_util.py:133
 msgid "香港"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:196
+#: ../web/src/partials/i18n_admin.html:196 ../server/currant_util.py:125
 msgid "美国"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:197
+#: ../web/src/partials/i18n_admin.html:197 ../server/currant_util.py:126
 msgid "印度"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:198
+#: ../web/src/partials/i18n_admin.html:198 ../server/currant_util.py:127
 msgid "俄罗斯"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:199
+#: ../web/src/partials/i18n_admin.html:199 ../server/currant_util.py:128
 msgid "日本"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:200
+#: ../web/src/partials/i18n_admin.html:200 ../server/currant_util.py:129
 msgid "德国"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:201
+#: ../web/src/partials/i18n_admin.html:201 ../server/currant_util.py:130
 msgid "法国"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:202
+#: ../web/src/partials/i18n_admin.html:202 ../server/currant_util.py:131
 msgid "意大利"
 msgstr ""
 
-#: ../web/src/partials/i18n_admin.html:203
+#: ../web/src/partials/i18n_admin.html:203 ../server/currant_util.py:132
 msgid "西班牙"
 msgstr ""
 
@@ -9021,6 +9023,22 @@ msgstr ""
 
 #: ../server/crowdfunding_interface.py:112
 msgid "众筹模式介绍页面"
+msgstr ""
+
+#: ../server/currant_util.py:134
+msgid "台湾"
+msgstr ""
+
+#: ../server/currant_util.py:135
+msgid "新加坡"
+msgstr ""
+
+#: ../server/currant_util.py:136
+msgid "马来西亚"
+msgstr ""
+
+#: ../server/currant_util.py:137
+msgid "爱尔兰"
 msgstr ""
 
 #: ../server/main_interface.py:161

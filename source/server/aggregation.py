@@ -202,8 +202,8 @@ with f_app.mongo() as m:
         [
             {'$match': {'property_id': {'$exists': 'true'}}},
             {'$group': {'_id': "$id", 'count': {'$sum': 1}}},
-            {'$limit': 10}
-            # {'$sort': {'count': -1}}
+            # {'$limit': 10}
+            {'$sort': {'count': -1}}
         ]
     )
     user_property_view_count_dic = {}
