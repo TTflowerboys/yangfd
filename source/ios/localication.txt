@@ -1,0 +1,487 @@
+currant/API/CUTEGeoManager.m:67:                    [tcs setError:[NSError errorWithDomain:@"Google" code:response.statusCode userInfo:@{NSLocalizedDescriptionKey: STR(@"请求失败")}]];
+currant/API/CUTEGeoManager.m:276:                [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置超时")}]];
+currant/API/CUTEGeoManager.m:279:                [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置失败")}]];
+currant/API/CUTEImageUploader.m:124:                    [tcs setError:[NSError errorWithDomain:@"CUTE" code:-1 userInfo:@{NSLocalizedDescriptionKey: STR(@"图片读取失败")}]];
+currant/API/CUTERentTicketPublisher.m:190:                updateStatus([NSString stringWithFormat:STR(@"正在上传图片(%d/%d)..."), 0, ticket.property.realityImages.count]);
+currant/API/CUTERentTicketPublisher.m:212:            updateStatus(STR(@"正在发布房产..."));
+currant/API/CUTERentTicketPublisher.m:235:            updateStatus(STR(@"正在发布房产出租单..."));
+currant/API/CUTERentTicketPublisher.m:279:                updateStatus([NSString stringWithFormat:STR(@"正在上传图片(%d/%d)..."), completeTasks.count, tasks.count]);
+currant/API/CUTERentTicketPublisher.m:297:                    updateStatus([NSString stringWithFormat:STR(@"正在上传图片(%d/%d)..."), 0, ticket.property.realityImages.count]);
+currant/API/CUTERentTicketPublisher.m:318:                    updateStatus(STR(@"正在更新房产..."));
+currant/API/CUTERentTicketPublisher.m:345:                updateStatus(STR(@"正在更新房产出租单..."));
+currant/API/SVProgressHUD+CUTEAPI.m:20:                             @(40000): STR(@"输入错误，请检查后重试。"),
+currant/API/SVProgressHUD+CUTEAPI.m:21:                             @(40090): STR(@"已经在收藏里了。"),
+currant/API/SVProgressHUD+CUTEAPI.m:22:                             @(40100): STR(@"没有访问权限，请登陆后重试。"),
+currant/API/SVProgressHUD+CUTEAPI.m:23:                             @(40101): STR(@"频率达到上限，请稍后重试。"),
+currant/API/SVProgressHUD+CUTEAPI.m:24:                             @(40103): STR(@"账户或密码错误。"),
+currant/API/SVProgressHUD+CUTEAPI.m:25:                             @(40105): STR(@"对不起，您的权限不够。"),
+currant/API/SVProgressHUD+CUTEAPI.m:26:                             @(40106): STR(@"对不起，不能操作他人的订单。"),
+currant/API/SVProgressHUD+CUTEAPI.m:27:                             @(40107): STR(@"对不起，不能查看他人的订单。"),
+currant/API/SVProgressHUD+CUTEAPI.m:28:                             @(40109): STR(@"没有权限！"),
+currant/API/SVProgressHUD+CUTEAPI.m:29:                             @(40324): STR(@"账户不存在！"),
+currant/API/SVProgressHUD+CUTEAPI.m:30:                             @(40325): STR(@"邮箱已被使用！"),
+currant/API/SVProgressHUD+CUTEAPI.m:31:                             @(40351): STR(@"电话已被使用！"),
+currant/API/SVProgressHUD+CUTEAPI.m:32:                             @(40352): STR(@"请求太频繁！"),
+currant/API/SVProgressHUD+CUTEAPI.m:33:                             @(40357): STR(@"验证失败。"),
+currant/API/SVProgressHUD+CUTEAPI.m:34:                             @(40358): STR(@"验证码无效。"),
+currant/API/SVProgressHUD+CUTEAPI.m:35:                             @(40359): STR(@"验证码失效，已经使用过？"),
+currant/API/SVProgressHUD+CUTEAPI.m:36:                             @(40360): STR(@"邀请码无效。"),
+currant/API/SVProgressHUD+CUTEAPI.m:37:                             @(40361): STR(@"邀请码已被使用。"),
+currant/API/SVProgressHUD+CUTEAPI.m:38:                             @(40399): STR(@"权限错误。"),
+currant/API/SVProgressHUD+CUTEAPI.m:39:                             @(40400): STR(@"对不起，没有找到您要的资源！"),
+currant/API/SVProgressHUD+CUTEAPI.m:40:                             @(50000): STR(@"服务暂时不可用，请稍后重试。"),
+currant/API/SVProgressHUD+CUTEAPI.m:41:                             @(50200): STR(@"服务暂时不可用，请稍后重试。"),
+currant/API/SVProgressHUD+CUTEAPI.m:42:                             @(50300): STR(@"第三方服务暂时不可用，请稍后重试。"),
+currant/API/SVProgressHUD+CUTEAPI.m:43:                             @(50400): STR(@"服务暂时不可用，请稍后重试。")
+currant/API/SVProgressHUD+CUTEAPI.m:49:        ret = STR(@"请求失败");
+currant/API/SVProgressHUD+CUTEAPI.m:59:        [SVProgressHUD showErrorWithStatus:STR(error.localizedDescription)];
+currant/API/SVProgressHUD+CUTEAPI.m:80:    [SVProgressHUD showErrorWithStatus:STR(@"请求被取消")];
+currant/API/CUTEShareManager.m:113:        [SVProgressHUD showErrorWithStatus:STR(@"请安装微信")];
+currant/API/CUTEShareManager.m:153:        [SVProgressHUD showWithStatus:STR(@"获取房产中...")];
+currant/API/CUTEShareManager.m:170:                    [SVProgressHUD showErrorWithStatus:STR(@"图片读取失败")];
+currant/API/CUTEShareManager.m:191:        [SVProgressHUD showWithStatus:STR(@"获取房产中...")];
+currant/API/CUTEShareManager.m:228:        return STR(object);
+currant/API/CUTEShareManager.m:234:    wechatFriendActivity.activityTitle = STR(CUTEShareServiceWechatFriend);
+currant/API/CUTEShareManager.m:250:    wechatCircleActivity.activityTitle = STR(CUTEShareServiceWechatCircle);
+currant/API/CUTEShareManager.m:266:    weiboActivity.activityTitle = STR(CUTEShareServiceSinaWeibo);
+currant/API/CUTEShareManager.m:345:    copyLinkActivity.activityTitle = STR(@"复制链接");
+currant/API/CUTEShareManager.m:350:        [SVProgressHUD showSuccessWithStatus:STR(@"已复制至粘贴版")];
+currant/API/CUTEShareManager.m:420:            return STR(object);
+currant/API/CUTEShareManager.m:428:    if ([activityKeys containsObject:STR(CUTEShareServiceWechatFriend)]) {
+currant/API/CUTEShareManager.m:436:    if ([activityKeys containsObject:STR(CUTEShareServiceWechatCircle)]) {
+currant/API/CUTEShareManager.m:444:    if ([activityKeys containsObject:STR(CUTEShareServiceSinaWeibo)]) {
+currant/API/CUTEShareManager.m:487:            NSError *error = [NSError errorWithDomain:STR(@"微博分享") code:response.responseCode userInfo:@{NSLocalizedDescriptionKey: response.description}];
+currant/API/CUTEShareManager.m:527:            NSError *error = [NSError errorWithDomain:STR(@"微博分享") code:response.statusCode userInfo:response.userInfo];
+currant/AppDelegate.m:99:    controller.navigationItem.title = STR(@"洋房东");
+currant/AppDelegate.m:111:    controller.navigationItem.title = STR(@"洋房东");
+currant/AppDelegate.m:122:    controller.navigationItem.title = STR(@"洋房东");
+currant/AppDelegate.m:134:    controller.navigationItem.title = STR(@"洋房东");
+currant/AppDelegate.m:150:    nav.title = STR(@"出租发布");
+currant/AppDelegate.m:193:    UINavigationController *homeViewController = [self makeIndexViewControllerWithTitle:STR(@"主页") icon:@"tab-home" urlPath:@"/"];
+currant/AppDelegate.m:195:    UINavigationController *editViewController = [self makeEditViewControllerWithTitle:STR(@"发布") icon:@"tab-edit" urlPath:@"/rent_new"];
+currant/AppDelegate.m:196:    UINavigationController *propertyListViewController = [self makePropertyListViewControllerWithTitle:STR(@"新房") icon:@"tab-property" urlPath:@"/property-list"];
+currant/AppDelegate.m:197:    UINavigationController *rentTicketListViewController = [self makeRentListViewControllerWithTitle:STR(@"租房") icon:@"tab-rent" urlPath:@"/property-to-rent-list"];
+currant/AppDelegate.m:198:    UINavigationController *userViewController = [self makeUserViewControllerWithTitle:STR(@"我") icon:@"tab-user" urlPath:@"/user"];
+currant/AppDelegate.m:337:        CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:90];
+currant/AppDelegate.m:520:    return [[UIBarButtonItem alloc] initWithTitle:STR(@"已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+currant/AppDelegate.m:778:        [SVProgressHUD showWithStatus:STR(@"同步中...")];
+currant/AppDelegate.m:880:    [SVProgressHUD showWithStatus:STR(@"获取验证中...")];
+currant/Entity/CUTECountry.m:21:    return @{@"GB": STR(@"英国"),
+currant/Entity/CUTECountry.m:22:             @"CN": STR(@"中国"),
+currant/Entity/CUTECountry.m:23:             @"US": STR(@"美国"),
+currant/Entity/CUTECountry.m:24:             @"HK": STR(@"香港"),
+currant/Entity/CUTECountry.m:29:    return @{@"GB": STR(@"（+44）英国"),
+currant/Entity/CUTECountry.m:30:             @"CN": STR(@"（+86）中国"),
+currant/Entity/CUTECountry.m:31:             @"US": STR(@"（+1）美国"),
+currant/Entity/CUTECountry.m:32:             @"HK": STR(@"（+851）香港"),
+currant/Entity/CUTERentPeriod.m:18:    rentPeriod.value = STR(@"面议");
+currant/Entity/CUTETicket.m:20:    return STR(title);
+currant/Entity/CUTETimePeriod.m:29:    return @{@"day": STR(@"天"), @"week": STR(@"周"), @"month": STR(@"月")}[unit];
+currant/Library3rd/BBTInputAccessoryView.m:33:        [_doneButton setTitle:STR(@"确认") forState:UIControlStateNormal];
+currant/Library3rd/BBTPickerView.m:40:        [_doneButton setTitle:STR(@"Done") forState:UIControlStateNormal];
+currant/Library3rd/CUTEActivityView.m:57:        [_dismissButton setTitle:STR(@"取消分享") forState:UIControlStateNormal];
+currant/Misc/Category/NSString+Encoding.m:32:                                                                                                 CFSTR(""),
+currant/Misc/CUTENavigationUtil.m:22:    [label setText:STR(@"返回")];
+currant/Misc/CUTEPhoneUtil.m:22:        [UIAlertView showWithTitle:STR(@"联系洋房东") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[CONCAT(STR(@"英国"), @" ", [CUTEConfiguration ukServicePhone]), CONCAT(STR(@"中国"), @" ", [CUTEConfiguration servicePhone])] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Misc/CUTEPhoneUtil.m:33:        UIAlertView *calert = [[UIAlertView alloc]initWithTitle:STR(@"电话不可用") message:nil delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil, nil];
+currant/Scene/Base/CUTEWebConfiguration.m:171:    NSDictionary *titleDictionary = @{@"/": STR(@"洋房东"),
+currant/Scene/Base/CUTEWebConfiguration.m:172:                                      @"/property-list": STR(@"房产列表-洋房东"),
+currant/Scene/Base/CUTEWebConfiguration.m:173:                                      @"/property-to-rent-list": STR(@"出租列表-洋房东"),
+currant/Scene/Base/CUTEWebConfiguration.m:174:                                      @"/property": STR(@"房产详情"),
+currant/Scene/Base/CUTEWebConfiguration.m:175:                                      @"/property-to-rent": STR(@"出租详情"),
+currant/Scene/Base/CUTEWebConfiguration.m:176:                                      @"/user": STR(@"用户中心"),
+currant/Scene/Base/CUTEWebConfiguration.m:177:                                      @"/signin": STR(@"登录"),
+currant/Scene/Base/CUTEWebConfiguration.m:178:                                      @"/signup": STR(@"注册")
+currant/Scene/Base/CUTEWebConfiguration.m:184:    return STR(@"洋房东");
+currant/Scene/PropertyList/CUTEPropertyListViewController.m:25:            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetBarButtonItem:self.navigationItem.leftBarButtonItem hostView:self.navigationController.view tooltipText:STR(@"查看收藏的房产") arrowDirection:JDFTooltipViewArrowDirectionUp width:150];
+currant/Scene/PropertyList/CUTEPropertyMapListViewController.m:52:                [SVProgressHUD showErrorWithStatus:STR(@"暂无结果")];
+currant/Scene/PropertyList/CUTEPropertyMapListViewController.m:80:        suffix = STR(@"亿");
+currant/Scene/PropertyList/CUTEPropertyMapListViewController.m:84:        suffix = STR(@"万");
+currant/Scene/PropertyList/CUTEPropertyMapListViewController.m:97:        return CONCAT([self formatPrice:houseType.totalPriceMin.value symbol:houseType.totalPriceMin.symbol], STR(@"起"));
+currant/Scene/Rent/Controller/CUTERentAddressEditViewController.m:51:        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
+currant/Scene/Rent/Controller/CUTERentAddressEditViewController.m:53:    self.tableView.accessibilityIdentifier = STR(@"地址编辑表单");
+currant/Scene/Rent/Controller/CUTERentAddressEditViewController.m:72:        [UIAlertView showWithTitle:STR(@"请填写Postcode") message:nil cancelButtonTitle:nil otherButtonTitles:@[STR(@"OK")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Scene/Rent/Controller/CUTERentAddressEditViewController.m:78:        [UIAlertView showWithTitle:STR(@"新Postcode定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置") message:nil cancelButtonTitle:STR(@"返回") otherButtonTitles:@[STR(@"前往地图")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Scene/Rent/Controller/CUTERentAddressEditViewController.m:94:        [UIAlertView showWithTitle:STR(@"请前往地图手动修改房产位置，返回房产信息则不添加房产位置") message:nil cancelButtonTitle:STR(@"返回") otherButtonTitles:@[STR(@"前往地图")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Scene/Rent/Controller/CUTERentAddressEditViewController.m:106:        [UIAlertView showWithTitle:STR(@"定位不到房产位置，请返回地图更新房产位置") message:nil cancelButtonTitle:nil otherButtonTitles:@[STR(@"返回")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Scene/Rent/Controller/CUTERentAddressEditViewController.m:211:        [SVProgressHUD showWithStatus:STR(@"搜索中...")];
+currant/Scene/Rent/Controller/CUTERentAddressEditViewController.m:248:                    [SVProgressHUD showErrorWithStatus:STR(@"新Postcode定位失败")];
+currant/Scene/Rent/Controller/CUTERentAddressEditViewController.m:426:        [SVProgressHUD showErrorWithStatus:STR(@"请填写国家")];
+currant/Scene/Rent/Controller/CUTERentAddressEditViewController.m:430:        [SVProgressHUD showErrorWithStatus:STR(@"请填写城市")];
+currant/Scene/Rent/Controller/CUTERentAddressEditViewController.m:434:        [SVProgressHUD showErrorWithStatus:STR(@"请填写Postcode")];
+currant/Scene/Rent/Controller/CUTERentAddressEditViewController.m:525:        [UIAlertView showWithTitle:STR(@"新Postcode定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"返回") otherButtonTitles:@[STR(@"下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Scene/Rent/Controller/CUTERentAddressEditViewController.m:539:        [UIAlertView showWithTitle:STR(@"请返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"返回") otherButtonTitles:@[STR(@"下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Scene/Rent/Controller/CUTERentAreaViewController.m:27:    self.navigationItem.title = STR(@"面积");
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:81:    self.navigationItem.title = STR(@"房产位置");
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:84:        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:181:            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_textField hostView:self.view tooltipText:STR(@"点击填写详细地址") arrowDirection:JDFTooltipViewArrowDirectionUp width:150 showCompletionBlock:^{
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:187:                    CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_textField.rightView hostView:self.view tooltipText:STR(@"按地址定位") arrowDirection:JDFTooltipViewArrowDirectionUp width:120];
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:208:        [UIAlertView showWithTitle:STR(@"此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:236:                [UIAlertView showWithTitle:STR(@"此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:255:        controller.navigationItem.title = STR(@"房产地址");
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:356:        [SVProgressHUD showErrorWithStatus:STR(@"地址不能为空，请编辑地址")];
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:390:                [SVProgressHUD showErrorWithStatus:STR(@"重新定位失败")];
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:407:            [SVProgressHUD showErrorWithStatus:STR(@"请编辑地址")];
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:410:            [SVProgressHUD showErrorWithStatus:STR(@"请填写国家")];
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:416:            [SVProgressHUD showErrorWithStatus:STR(@"请编辑地址")];
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:419:            [SVProgressHUD showErrorWithStatus:STR(@"请填写城市")];
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:425:            [SVProgressHUD showErrorWithStatus:STR(@"请编辑地址")];
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:428:            [SVProgressHUD showErrorWithStatus:STR(@"请填写Postcode")];
+currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m:563:            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_annotationView hostView:self.view tooltipText:STR(@"拖动地图可以修改房产位置") arrowDirection:JDFTooltipViewArrowDirectionUp width:150];
+currant/Scene/Rent/Controller/CUTERentPeriodViewController.m:28:    self.navigationItem.title = STR(@"租期");
+currant/Scene/Rent/Controller/CUTERentPeriodViewController.m:29:    self.tableView.accessibilityIdentifier = STR(@"租期表单");
+currant/Scene/Rent/Controller/CUTERentPeriodViewController.m:102:        [SVProgressHUD showErrorWithStatus:STR(@"结束日期不应早于开始日期")];
+currant/Scene/Rent/Controller/CUTERentPeriodViewController.m:114:        [SVProgressHUD showErrorWithStatus:STR(@"结束日期不应早于开始日期")];
+currant/Scene/Rent/Controller/CUTERentPriceViewController.m:34:    self.navigationItem.title = STR(@"租金");
+currant/Scene/Rent/Controller/CUTERentPriceViewController.m:35:    self.tableView.accessibilityIdentifier = STR(@"租金表单");
+currant/Scene/Rent/Controller/CUTERentPropertyFacilityViewController.m:22:    self.navigationItem.title = STR(@"设施");
+currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m:65:    self.navigationItem.title = STR(@"房产信息");
+currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m:69:    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"预览") style:UIBarButtonItemStylePlain target:self action:@selector(onPreviewButtonPressed:)];
+currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m:70:    self.tableView.accessibilityLabel = STR(@"房产信息表单");
+currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m:89:            cell.detailTextLabel.text = CONCAT([CUTECurrency symbolOfCurrencyUnit:self.form.ticket.price.unit], [NSString stringWithFormat:@"%.2lf", self.form.ticket.price.value], @"/", STR(@"周"));
+currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m:94:            cell.detailTextLabel.text = STR(@"不限");
+currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m:101:            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@%@%d%@", [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.form.ticket.rentAvailableTime.doubleValue]], STR(@"起"), STR(@"至少租"), self.form.ticket.minimumRentPeriod.value, self.form.ticket.minimumRentPeriod.unitForDisplay];
+currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m:119:        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"您确定放弃发布吗？放弃后系统将会将您已填写的信息保存为草稿") message:nil delegate:nil cancelButtonTitle:STR(@"放弃") otherButtonTitles:STR(@"取消"), nil];
+currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m:178:    controller.navigationItem.title = STR(@"租金");
+currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m:210:    controller.navigationItem.title = STR(@"租期");
+currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m:252:                    [SVProgressHUD showWithStatus:STR(@"请更新面积")];
+currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m:285:            controller.navigationItem.title = STR(@"房产地址");
+currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m:319:        [SVProgressHUD showErrorWithStatus:STR(@"请编辑租金")];
+currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m:323:        [SVProgressHUD showErrorWithStatus:STR(@"租金不能为0")];
+currant/Scene/Rent/Controller/CUTERentPropertyMoreInfoViewController.m:35:    self.navigationItem.title = STR(@"更多详情");
+currant/Scene/Rent/Controller/CUTERentPropertyMoreInfoViewController.m:38:    self.tableView.accessibilityLabel = STR(@"更多房产信息表单");
+currant/Scene/Rent/Controller/CUTERentPropertyMoreInfoViewController.m:100:                cell.textLabel.text = STR(@"房屋面积");
+currant/Scene/Rent/Controller/CUTERentPropertyMoreInfoViewController.m:103:                cell.textLabel.text = STR(@"房间面积");
+currant/Scene/Rent/Controller/CUTERentPropertyMoreInfoViewController.m:163:    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"删除") message:nil delegate:nil cancelButtonTitle:STR(@"确定") otherButtonTitles:STR(@"取消"), nil];
+currant/Scene/Rent/Controller/CUTERentPropertyMoreInfoViewController.m:233:        [UIAlertView showWithTitle:[NSString stringWithFormat:STR(@"标题过短，请至少填写%d个字"), kTicketTitleMinCharacterCount]  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+currant/Scene/Rent/Controller/CUTERentPropertyMoreInfoViewController.m:237:        [UIAlertView showWithTitle:[NSString stringWithFormat:STR(@"标题超长，请最多填写%d个字") , kTicketTitleMaxCharacterCount] message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+currant/Scene/Rent/Controller/CUTERentPropertyMoreInfoViewController.m:252:            [UIAlertView showWithTitle:CONCAT(STR(@"平台将提供房东联系方式选择，请删除“电话"), phone, STR(@"”，违规发布将会予以处理")) message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+currant/Scene/Rent/Controller/CUTERentPropertyMoreInfoViewController.m:261:            [UIAlertView showWithTitle:CONCAT(STR(@"平台将提供房东联系方式选择，请删除“邮箱"), result, STR(@"”，违规发布将会予以处理") ) message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+currant/Scene/Rent/Controller/CUTERentPropertyMoreInfoViewController.m:276:            [UIAlertView showWithTitle:CONCAT(STR(@"平台将提供房东联系方式选择，请删除“"), blackItem, STR(@"”相关信息，违规发布将会予以处理"))  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+currant/Scene/Rent/Controller/CUTERentPropertyMoreInfoViewController.m:283:            [UIAlertView showWithTitle:STR(@"请删除HTML相关字符")  message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:nil];
+currant/Scene/Rent/Controller/CUTERentShareViewController.m:44:    self.navigationItem.title = STR(@"发布成功");
+currant/Scene/Rent/Controller/CUTERentShareViewController.m:46:    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"完成") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+currant/Scene/Rent/Controller/CUTERentShareViewController.m:49:    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"编辑") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+currant/Scene/Rent/Controller/CUTERentShareViewController.m:67:                    [SVProgressHUD showErrorWithStatus:STR(@"获取失败")];
+currant/Scene/Rent/Controller/CUTERentShareViewController.m:76:    [shareButton setTitle:STR(@"分享") forState:UIControlStateNormal];
+currant/Scene/Rent/Controller/CUTERentShareViewController.m:194://                    [SVProgressHUD showErrorWithStatus:STR(@"获取失败")];
+currant/Scene/Rent/Controller/CUTERentShareViewController.m:203://        [SVProgressHUD showSuccessWithStatus:STR(@"已复制至粘贴版")];
+currant/Scene/Rent/Controller/CUTERentShareViewController.m:230:    self.navigationItem.title = STR(@"发布成功");
+currant/Scene/Rent/Controller/CUTERentTicketPreviewViewController.m:36:        self.navigationItem.title = STR(@"预览房源移动主页");
+currant/Scene/Rent/Controller/CUTERentTicketPreviewViewController.m:48:        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
+currant/Scene/Rent/Controller/CUTERentTicketPreviewViewController.m:71:        controller.navigationItem.title = STR(@"确认联系方式展示");
+currant/Scene/Rent/Controller/CUTERentTypeListViewController.m:64:        self.navigationItem.title = STR(@"出租发布");
+currant/Scene/Rent/Controller/CUTERentTypeListViewController.m:67:        self.navigationItem.title = STR(@"出租类型");
+currant/Scene/Rent/Controller/CUTERentTypeListViewController.m:69:    self.tableView.accessibilityLabel = STR(@"出租类型列表");
+currant/Scene/Rent/Controller/CUTERentTypeListViewController.m:70:    self.tableView.accessibilityIdentifier = STR(@"出租类型列表");
+currant/Scene/Rent/Controller/CUTERentTypeListViewController.m:78:    hintLabel.text = STR(@"您有整套或单间房源要出租？\n从这里开始免费发布！");
+currant/Scene/Rent/Controller/CUTEUnfinishedRentTicketListViewController.m:39:    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"创建") style:UIBarButtonItemStylePlain target:self action:@selector(onAddButtonPressed:)];
+currant/Scene/Rent/Controller/CUTEUnfinishedRentTicketListViewController.m:40:    self.navigationItem.title = STR(@"出租房草稿");
+currant/Scene/Rent/Controller/CUTEUnfinishedRentTicketListViewController.m:46:    self.tableView.accessibilityLabel = STR(@"出租房草稿列表");
+currant/Scene/Rent/Form/CUTEAreaForm.m:19:                               @{FXFormFieldKey: @"unitPresentation", FXFormFieldTitle:STR(@"单位"), FXFormFieldOptions: @[STR(@"平方米"), STR(@"平方英尺")], FXFormFieldDefaultValue: STR(@"平方米"), FXFormFieldAction: @"optionBack"},
+currant/Scene/Rent/Form/CUTEAreaForm.m:20:                               @{FXFormFieldKey: @"area", FXFormFieldTitle:STR(@"面积"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldDefaultValue:@(_area), @"textField.keyboardType": @(UIKeyboardTypeDecimalPad),FXFormFieldAction: @"onAreaEdit:", FXFormFieldCell: [CUTEFormTextFieldCell class]}
+currant/Scene/Rent/Form/CUTEAreaForm.m:26:    return @{STR(@"平方米"): @"meter ** 2",
+currant/Scene/Rent/Form/CUTEAreaForm.m:27:             STR(@"平方英尺"): @"foot ** 2"
+currant/Scene/Rent/Form/CUTEPropertyFacilityForm.m:50:                [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value,FXFormFieldHeader: STR(@"常用设施"), FXFormFieldType: FXFormFieldTypeBoolean, FXFormFieldDefaultValue: @([_selectedIndoorFacilities containsObject:facility]), FXFormFieldAction: @"switchChanged:", FXFormFieldCell: [CUTEFormSwitchCell class]}];
+currant/Scene/Rent/Form/CUTEPropertyFacilityForm.m:63:                [array addObject:@{FXFormFieldKey:facility.identifier, FXFormFieldTitle:facility.value,FXFormFieldHeader: STR(@"小区设施"), FXFormFieldType: FXFormFieldTypeBoolean, FXFormFieldDefaultValue: @([_selectedCommunityFacilities containsObject:facility]), FXFormFieldAction: @"switchChanged:", FXFormFieldCell: [CUTEFormSwitchCell class]}];
+currant/Scene/Rent/Form/CUTEPropertyInfoForm.m:33:             @{FXFormFieldKey: @"photos", FXFormFieldTitle:STR(@"添加照片"), FXFormFieldHeader: STR(@"房间照片"), FXFormFieldCell: [CUTEFormImagePickerCell class], FXFormFieldType:FXFormFieldTypeImage},
+currant/Scene/Rent/Form/CUTEPropertyInfoForm.m:34:             @{FXFormFieldKey: @"landlordType", FXFormFieldTitle:STR(@"房东类型"),FXFormFieldOptions: _allLandlordTypes, FXFormFieldDefaultValue: [self defaultLandloardType], FXFormFieldAction: @"editLandlordType", FXFormFieldHeader: STR(@"基本信息")},
+currant/Scene/Rent/Form/CUTEPropertyInfoForm.m:35:             @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldAction: @"editRentPrice"},
+currant/Scene/Rent/Form/CUTEPropertyInfoForm.m:36:             @{FXFormFieldKey: @"rentPeriod", FXFormFieldTitle:STR(@"租期"), FXFormFieldAction: @"editRentPeriod"},
+currant/Scene/Rent/Form/CUTEPropertyInfoForm.m:37:                @{FXFormFieldKey: @"propertyType", FXFormFieldTitle:STR(@"房产类型"),FXFormFieldOptions: _allPropertyTypes, FXFormFieldDefaultValue: [self defaultPropertyType], FXFormFieldAction: @"editPropertyType"},
+currant/Scene/Rent/Form/CUTEPropertyInfoForm.m:38:             @{FXFormFieldKey: @"rooms", FXFormFieldTitle:STR(@"房屋户型（可选Studio）"), FXFormFieldCell: [CUTEFormRoomsPickerCell class], @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"editRooms:"},
+currant/Scene/Rent/Form/CUTEPropertyInfoForm.m:39:             @{FXFormFieldKey: @"rentType", FXFormFieldTitle:STR(@"出租类型"), FXFormFieldAction: @"editRentType"},
+currant/Scene/Rent/Form/CUTEPropertyInfoForm.m:40:             @{FXFormFieldKey: @"rentAddress", FXFormFieldTitle:STR(@"房产地址"), FXFormFieldAction: @"editAddress"},
+currant/Scene/Rent/Form/CUTEPropertyInfoForm.m:41:             @{FXFormFieldKey: @"moreInfo", FXFormFieldTitle:STR(@"更多详情和配套设施描述（选填）"), FXFormFieldAction: @"editMoreInfo"},
+currant/Scene/Rent/Form/CUTEPropertyInfoForm.m:42:             @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"预览并发布"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
+currant/Scene/Rent/Form/CUTEPropertyMoreInfoForm.m:22:             @{FXFormFieldKey: @"ticketTitle", FXFormFieldTitle:STR(@"标题"), FXFormFieldHeader:STR(@"其他"), FXFormFieldDefaultValue:_ticketTitle? :@"", FXFormFieldCell: [CUTEFormLimitCharacterCountTextFieldCell class], FXFormFieldAction:@"onTicketTitleEdit:"},
+currant/Scene/Rent/Form/CUTEPropertyMoreInfoForm.m:23:             @{FXFormFieldKey: @"ticketDescription", FXFormFieldTitle:STR(@"详细描述"),FXFormFieldType:FXFormFieldTypeLongText, FXFormFieldDefaultValue:_ticketDescription? : @"", FXFormFieldAction:@"onTicketDescriptionEdit:", FXFormFieldCell: [CUTEFormTextViewCell class], FXFormFieldPlaceholder: STR(@"补充您对租客的要求和对房屋特点的描述。平台将提供房东联系方式选择，请勿在此填写任何形式的联系方式，违规发布将会予以处理。")},
+currant/Scene/Rent/Form/CUTEPropertyMoreInfoForm.m:24:             @{FXFormFieldKey: @"area", FXFormFieldTitle:STR(@"面积"), FXFormFieldAction: @"editArea"},
+currant/Scene/Rent/Form/CUTEPropertyMoreInfoForm.m:25:             @{FXFormFieldKey: @"facility", FXFormFieldTitle:STR(@"配套设施"), FXFormFieldAction:@"editFacilities"},
+currant/Scene/Rent/Form/CUTEPropertyMoreInfoForm.m:26://                @{FXFormFieldKey: @"feature", FXFormFieldTitle:STR(@"街区亮点")},
+currant/Scene/Rent/Form/CUTEPropertyMoreInfoForm.m:27:             @{FXFormFieldKey: @"delete", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"删除"), FXFormFieldHeader: @"", FXFormFieldAction: @"delete"},
+currant/Scene/Rent/Form/CUTERentAddressEditForm.m:39:                                              @{FXFormFieldKey: @"postcode", FXFormFieldTitle: STR(@"Postcode"), FXFormFieldDefaultValue: _postcode? _postcode: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onPostcodeEdit:"},
+currant/Scene/Rent/Form/CUTERentAddressEditForm.m:40:                                              @{FXFormFieldKey: @"street", FXFormFieldTitle: STR(@"街道（选填）"), FXFormFieldDefaultValue: _street? _street: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onStreetEdit:"},
+currant/Scene/Rent/Form/CUTERentAddressEditForm.m:41:                                              @{FXFormFieldKey: @"community", FXFormFieldTitle: STR(@"小区（选填）"), FXFormFieldDefaultValue: _community? _community: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onCommunityEdit:"},
+currant/Scene/Rent/Form/CUTERentAddressEditForm.m:42:                                              @{FXFormFieldKey: @"floor", FXFormFieldTitle: STR(@"楼层（选填）"), FXFormFieldDefaultValue: _floor? _floor: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onFloorEdit:"},
+currant/Scene/Rent/Form/CUTERentAddressEditForm.m:43:                                              @{FXFormFieldKey: @"houseName", FXFormFieldTitle: STR(@"房间号（选填）"), FXFormFieldDefaultValue: _houseName? _houseName: @"", FXFormFieldCell: [CUTEFormFixNonBreakingSpaceTextFieldCell class], FXFormFieldAction: @"onHouseNameEdit:"},
+currant/Scene/Rent/Form/CUTERentAddressEditForm.m:46:        [array insertObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country, FXFormFieldAction: @"onCountryEdit:", FXFormFieldHeader:STR(@"地址")} atIndex:0];
+currant/Scene/Rent/Form/CUTERentAddressEditForm.m:49:        [array insertObject:@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldAction: @"onCountryEdit:", FXFormFieldHeader:STR(@"位置"), FXFormFieldHeader:STR(@"地址")} atIndex:0];
+currant/Scene/Rent/Form/CUTERentAddressEditForm.m:52:        [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions: _allCities, FXFormFieldDefaultValue: _city, FXFormFieldAction: @"onCityEdit:", FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:1];
+currant/Scene/Rent/Form/CUTERentAddressEditForm.m:56:             [array insertObject:@{FXFormFieldKey: @"city", FXFormFieldTitle: STR(@"城市"), FXFormFieldOptions:_allCities, FXFormFieldAction: @"onCityEdit:",  FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:1];
+currant/Scene/Rent/Form/CUTERentAddressEditForm.m:61:        [array insertObject:@{FXFormFieldKey: @"neighborhood", FXFormFieldTitle: STR(@"街区"), FXFormFieldOptions: _allNeighborhoods, FXFormFieldDefaultValue: _neighborhood, FXFormFieldAction: @"onNeighborhoodEdit:", FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:3];
+currant/Scene/Rent/Form/CUTERentAddressEditForm.m:65:            [array insertObject:@{FXFormFieldKey: @"neighborhood", FXFormFieldTitle: STR(@"街区"), FXFormFieldOptions:_allNeighborhoods, FXFormFieldAction: @"onNeighborhoodEdit:",  FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:3];
+currant/Scene/Rent/Form/CUTERentAddressEditForm.m:70:        [array insertObject:@{FXFormFieldKey: @"location", FXFormFieldTitle:STR(@"房产位置"), FXFormFieldAction: @"onLocationEdit:", FXFormFieldCell: [CUTEFormTextCell class], FXFormFieldHeader:STR(@"地图")} atIndex:0];
+currant/Scene/Rent/Form/CUTERentPeriodForm.m:20:                               @{FXFormFieldKey: @"needSetPeriod", FXFormFieldTitle:STR(@"设置租期"), FXFormFieldHeader: STR(@"租期"), FXFormFieldDefaultValue: @(_needSetPeriod), FXFormFieldAction: @"onRentPeriodSwitch:", FXFormFieldCell: [CUTEFormSwitchCell class]},
+currant/Scene/Rent/Form/CUTERentPeriodForm.m:23:        [array addObject:@{FXFormFieldKey: @"rentAvailableTime", FXFormFieldTitle:STR(@"开始日期"), FXFormFieldDefaultValue: _rentAvailableTime? : [NSDate new], FXFormFieldAction: @"onRentAvailableTimeEdit:", FXFormFieldCell: [CUTEFormDatePickerCell class]}];
+currant/Scene/Rent/Form/CUTERentPeriodForm.m:24:        [array addObject:@{FXFormFieldKey: @"rentDeadlineTime", FXFormFieldTitle:STR(@"结束日期"), FXFormFieldAction: @"onRentDeadlineTimeEdit:", FXFormFieldCell: [CUTEFormDatePickerCell class]}];
+currant/Scene/Rent/Form/CUTERentPriceForm.m:32:                               @{FXFormFieldKey: @"currency", FXFormFieldTitle:STR(@"货币"), FXFormFieldOptions: [CUTECurrency currencyUnitArray], FXFormFieldDefaultValue: _currency ? : [CUTECurrency defaultCurrencyUnit], FXFormFieldHeader: STR(@"租金"), FXFormFieldAction: @"onCurrencyEdit:"},
+currant/Scene/Rent/Form/CUTERentPriceForm.m:33:                               @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"租金"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldCell: [CUTEFormRentPriceTextFieldCell class], FXFormFieldDefaultValue: @(_rentPrice), @"textField.keyboardType": @(UIKeyboardTypeDecimalPad), FXFormFieldAction: @"onRentPriceEdit:"},
+currant/Scene/Rent/Form/CUTERentPriceForm.m:34:                               @{FXFormFieldKey: @"deposit", FXFormFieldTitle:STR(@"押金"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldCell: [CUTEFormCurrencyTextFieldCell class], @"textField.keyboardType": @(UIKeyboardTypeDecimalPad),FXFormFieldHeader: @"", FXFormFieldPlaceholder: STR(@"填写金额，不填则为面议"), FXFormFieldAction: @"onDepositEdit:"},
+currant/Scene/Rent/Form/CUTERentPriceForm.m:35:                               @{FXFormFieldKey: @"billCovered", FXFormFieldTitle:STR(@"包Bill"), FXFormFieldHeader: STR(@"其他"), FXFormFieldDefaultValue: @(_billCovered), FXFormFieldAction: @"onBillCoveredSwitch:", FXFormFieldCell: [CUTEFormSwitchCell class]},
+currant/Scene/Rent/Form/CUTERentShareForm.m:20:    return @[@{FXFormFieldKey: @"view", FXFormFieldTitle: STR(@"查看我的房源移动主页"), FXFormFieldCell: [CUTEFormTextCell class]},
+currant/Scene/Rent/Form/CUTERentShareForm.m:21:             @{FXFormFieldKey: @"edit", FXFormFieldTitle: STR(@"编辑我的房产"), FXFormFieldCell: [CUTEFormTextCell class]},
+currant/Scene/Rent/Form/CUTERentShareForm.m:22:             @{FXFormFieldKey: @"copyLink", FXFormFieldTitle: STR(@"复制房源移动主页链接"), FXFormFieldHeader: @"", FXFormFieldCell: [CUTEFormCenterTextCell class]},
+currant/Scene/Rent/Form/CUTERentShareForm.m:23://             @{FXFormFieldKey: @"qrcode", FXFormFieldTitle: STR(@"二维码"), FXFormFieldCell: [CUTEQrcodeCell class]},
+currant/Scene/Rent/Form/CUTERentShareForm.m:24:             @{FXFormFieldKey: @"wechat", FXFormFieldTitle: STR(@"分享我的房源移动主页"), FXFormFieldCell: [CUTEFormShareButtonCell class],FXFormFieldHeader:@""}];
+currant/Scene/Rent/Form/CUTERentTypeListForm.m:38:        [array[0] setObject:STR(@"出租类型") forKey:FXFormFieldHeader];
+currant/Scene/Rent/View/CUTEFormImagePickerPlaceholderView.m:35:        _label.text = STR(@"添加照片");
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:155:    coverLabel.text = STR(@"封面");
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:241:        [tcs setError:[NSError errorWithDomain:ALAssetsLibraryErrorDomain code:ALAssetsLibraryAccessUserDeniedError userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") }]];
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:244:        [tcs setError:[NSError errorWithDomain:ALAssetsLibraryErrorDomain code:ALAssetsLibraryAccessUserDeniedError userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") }]];
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:254:                [tcs setError:[NSError errorWithDomain:ALAssetsLibraryErrorDomain code:ALAssetsLibraryAccessUserDeniedError userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。") }]];
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:273:        [tcs setError:[NSError errorWithDomain:AVFoundationErrorDomain code:AVErrorApplicationIsNotAuthorized userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。")}]];
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:276:        [tcs setError:[NSError errorWithDomain:AVFoundationErrorDomain code:AVErrorApplicationIsNotAuthorized userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。")}]];
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:287:                    [tcs setError:[NSError errorWithDomain:AVFoundationErrorDomain code:AVErrorApplicationIsNotAuthorized userInfo:@{NSLocalizedDescriptionKey: STR(@"此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。")}]];
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:302:                [UIAlertView showWithTitle:task.error.userInfo[NSLocalizedDescriptionKey] message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:340:                    [UIAlertView showWithTitle:task.error.userInfo[NSLocalizedDescriptionKey] message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:364:                [UIAlertView showWithTitle:task.error.userInfo[NSLocalizedDescriptionKey] message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:393:    [UIActionSheet showInView:[self tableViewController].view withTitle:STR(@"选择照片") cancelButtonTitle:STR(@"取消") destructiveButtonTitle:nil otherButtonTitles:@[STR(@"从手机选择"), STR(@"拍照")] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:402:                [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:STR(@"您好，最多只能上传%d张图片"), kImageMaxCount]
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:406:                                 otherButtonTitles:STR(@"OK"), nil];
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:490:        [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:STR(@"您好，最多只能上传%d张图片"), kImageMaxCount]
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:494:                         otherButtonTitles:STR(@"OK"), nil];
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:502:        [[UIAlertView alloc] initWithTitle:STR(@"您的图片没有下载到设备上，或者已经被删除")
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:506:                         otherButtonTitles:STR(@"OK"), nil];
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:529:        UIBarButtonItem *setCoverItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"已是封面") style:UIBarButtonItemStylePlain target:nil action:nil];
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:534:        UIBarButtonItem *setCoverItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"设为封面") style:UIBarButtonItemStylePlain target:photoBrowser action:NSSelectorFromString(@"actionButtonPressed:")];
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:578:    [SVProgressHUD showWithStatus:STR(@"设置中...")];
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:613:                        [SVProgressHUD showSuccessWithStatus:STR(@"设置成功")];
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:619:                        [SVProgressHUD showErrorWithStatus:STR(@"设置失败")];
+currant/Scene/Rent/View/CUTEFormImagePickerCell.m:657:    [SVProgressHUD showWithStatus:STR(@"保存到本地...")];
+currant/Scene/Rent/View/CUTEFormLimitCharacterCountTextFieldCell.m:18:        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ %ld", STR(@"超过长度限制"), (long)self.limitCount]];
+currant/Scene/Rent/View/CUTEFormRentPriceTextFieldCell.m:36:        self.textField.text = CONCAT(self.currencySymbol, self.textField.text, @"/", STR(@"周"));
+currant/Scene/Rent/View/CUTEFormRentPriceTextFieldCell.m:55:        [SVProgressHUD showErrorWithStatus:STR(@"租金不能为空")];
+currant/Scene/Rent/View/CUTEFormRentPriceTextFieldCell.m:56:         textField.text = CONCAT(self.currencySymbol, @"0", @"/", STR(@"周"));
+currant/Scene/Rent/View/CUTEFormRentPriceTextFieldCell.m:62:            textField.text = CONCAT(self.currencySymbol, textField.text, @"/", STR(@"周"));
+currant/Scene/Rent/View/CUTEFormShareButtonCell.m:23:    self.textLabel.text = STR(@"分享");
+currant/Scene/Rent/View/CUTEFormVerificationCodeCell.m:39:    [self.verificationButton setTitle:STR(@"获取") forState:UIControlStateNormal];
+currant/Scene/Rent/View/CUTEFormVerificationCodeCell.m:65:    [weakSelf updateButtonTitle:[NSString stringWithFormat:@"%@%d%@", STR(@"剩余"), count, STR(@"秒")]];
+currant/Scene/Rent/View/CUTEFormVerificationCodeCell.m:71:            [weakSelf updateButtonTitle:STR(@"重新发送")];
+currant/Scene/Rent/View/CUTEFormVerificationCodeCell.m:80:            [weakSelf updateButtonTitle:[NSString stringWithFormat:@"%@%d%@", STR(@"剩余"), count, STR(@"秒")]];
+currant/Scene/Rent/View/CUTEUnfinishedRentTicketPlaceholderImageView.m:34:        _label.text = STR(@"暂未添加照片");
+currant/Scene/RentList/CUTERentListViewController.m:40:            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetBarButtonItem:self.navigationItem.leftBarButtonItem hostView:self.navigationController.view tooltipText:STR(@"查看收藏的出租房") arrowDirection:JDFTooltipViewArrowDirectionUp width:150];
+currant/Scene/RentList/CUTERentMapListViewController.m:53:                [SVProgressHUD showErrorWithStatus:STR(@"暂无结果")];
+currant/Scene/Splash/CUTESplashViewController.m:54:    _pagingView.accessibilityLabel = STR(@"引导页面");
+currant/Scene/Splash/CUTESplashViewController.m:66:    [_enterButton setTitle:STR(@"进入应用") forState:UIControlStateNormal];
+currant/Scene/Splash/CUTESplashViewController.m:117:    label.text = @[STR(@"房东直租工具"),
+currant/Scene/Splash/CUTESplashViewController.m:118:                   STR(@"杂志般的房产展示"),
+currant/Scene/Splash/CUTESplashViewController.m:119:                   STR(@"一次发布，传遍全英")][index];
+currant/Scene/Splash/CUTESplashViewController.m:127:    detailLabel.text = @[STR(@"三步发布出租房，不用费力思考"),
+currant/Scene/Splash/CUTESplashViewController.m:128:                         STR(@"分享至朋友圈，高大上的阅读体验"),
+currant/Scene/Splash/CUTESplashViewController.m:129:                         STR(@"全国各大平台均可看到你的房产信息")][index];
+currant/Scene/User/Controller/CUTEApplyBetaRentingViewController.m:24:    self.navigationItem.title = STR(@"邀请码");
+currant/Scene/User/Controller/CUTEApplyBetaRentingViewController.m:25:    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"返回") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+currant/Scene/User/Controller/CUTEApplyBetaRentingViewController.m:30:    self.tableView.accessibilityIdentifier = STR(@"申请邀请码");
+currant/Scene/User/Controller/CUTEApplyBetaRentingViewController.m:53:            [UIAlertView showWithTitle:STR(@"申请成功") message:STR(@"我们会尽快处理，请定期检查您的邮件") cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Scene/User/Controller/CUTERentConfirmPhoneViewController.m:31:    self.navigationItem.title = STR(@"确认手机号");
+currant/Scene/User/Controller/CUTERentConfirmPhoneViewController.m:33:    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"取消") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+currant/Scene/User/Controller/CUTERentConfirmPhoneViewController.m:61:        [SVProgressHUD showWithStatus:STR(@"更新号码中...")];
+currant/Scene/User/Controller/CUTERentContactDisplaySettingViewController.m:36:        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"发布") style:UIBarButtonItemStylePlain target:self action:@selector(onSubmitButtonPressed:)];
+currant/Scene/User/Controller/CUTERentContactDisplaySettingViewController.m:75:    [SVProgressHUD showWithStatus:STR(@"发布中...")];
+currant/Scene/User/Controller/CUTERentContactDisplaySettingViewController.m:114:                [SVProgressHUD showSuccessWithStatus:STR(@"发布成功")];
+currant/Scene/User/Controller/CUTERentContactViewController.m:63:    self.navigationItem.title = STR(@"联系方式");
+currant/Scene/User/Controller/CUTERentContactViewController.m:64:    self.tableView.accessibilityIdentifier = STR(@"用户信息");
+currant/Scene/User/Controller/CUTERentContactViewController.m:163:    controller.navigationItem.title = STR(@"设置联系方式展示");
+currant/Scene/User/Controller/CUTERentContactViewController.m:213:    [SVProgressHUD showWithStatus:STR(@"获取中...")];
+currant/Scene/User/Controller/CUTERentContactViewController.m:225:                    [UIAlertView showWithTitle:CONCAT(STR(@"电话已被使用！请登录或者重置密码，如该用户不是您，请联系客服")) message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"登录"), STR(@"重置密码"), STR(@"联系客服")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Scene/User/Controller/CUTERentContactViewController.m:227:                        if ([buttonTitle isEqualToString:STR(@"登录")]) {
+currant/Scene/User/Controller/CUTERentContactViewController.m:230:                        else if ([buttonTitle isEqualToString:STR(@"重置密码")]) {
+currant/Scene/User/Controller/CUTERentContactViewController.m:231:                            [UIAlertView showWithTitle:STR(@"重置密码") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"通过短信"), STR(@"通过邮箱")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Scene/User/Controller/CUTERentContactViewController.m:240:                        else if ([buttonTitle isEqualToString:STR(@"联系客服")]) {
+currant/Scene/User/Controller/CUTERentContactViewController.m:256:            [SVProgressHUD showWithStatus:STR(@"发送中...")];
+currant/Scene/User/Controller/CUTERentContactViewController.m:262:                    [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
+currant/Scene/User/Controller/CUTERentContactViewController.m:270:            [SVProgressHUD showWithStatus:STR(@"发送中...")];
+currant/Scene/User/Controller/CUTERentContactViewController.m:280:                    [UIAlertView showWithTitle:STR(@"已成功为您创建帐号，密码已发至您的邮箱。验证码发送成功，请验证手机号") message:nil cancelButtonTitle:STR(@"确定") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+currant/Scene/User/Controller/CUTERentContactViewController.m:297:        [SVProgressHUD showWithStatus:STR(@"验证中...")];
+currant/Scene/User/Controller/CUTERentContactViewController.m:302:                [SVProgressHUD showSuccessWithStatus:STR(@"验证成功")];
+currant/Scene/User/Controller/CUTERentContactViewController.m:305:                [SVProgressHUD showErrorWithStatus:STR(@"验证失败")];
+currant/Scene/User/Controller/CUTERentContactViewController.m:327:        [SVProgressHUD showErrorWithStatus:STR(@"手机未验证成功，请重发验证码")];
+currant/Scene/User/Controller/CUTERentContactViewController.m:348:    [SVProgressHUD showWithStatus:STR(@"更新中...")];
+currant/Scene/User/Controller/CUTERentLoginViewController.m:49:    self.navigationItem.title = STR(@"登录");
+currant/Scene/User/Controller/CUTERentLoginViewController.m:80:            controller.navigationItem.title = STR(@"重置密码");
+currant/Scene/User/Controller/CUTERentLoginViewController.m:94:    controller.navigationItem.title = STR(@"重置密码");
+currant/Scene/User/Controller/CUTERentLoginViewController.m:112:        [SVProgressHUD showWithStatus:STR(@"登录中...")];
+currant/Scene/User/Controller/CUTERentLoginViewController.m:133:        [SVProgressHUD showWithStatus:STR(@"登录中...")];
+currant/Scene/User/Controller/CUTERentLoginViewController.m:164:            controller.navigationItem.title = STR(@"确认联系方式展示");
+currant/Scene/User/Controller/CUTERentPassword2ViewController.m:58:            [SVProgressHUD showSuccessWithStatus:STR(@"重置密码请求已发送，请前往邮箱查看重置密码邮件")];
+currant/Scene/User/Controller/CUTERentPasswordViewController.m:73:    [SVProgressHUD showWithStatus:STR(@"发送中...")];
+currant/Scene/User/Controller/CUTERentPasswordViewController.m:89:            [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
+currant/Scene/User/Controller/CUTERentPasswordViewController.m:102:        [SVProgressHUD showErrorWithStatus:STR(@"请获取验证码")];
+currant/Scene/User/Controller/CUTERentPasswordViewController.m:111:                [SVProgressHUD showErrorWithStatus:STR(@"验证码不正确")];
+currant/Scene/User/Controller/CUTERentPasswordViewController.m:124:            [SVProgressHUD showSuccessWithStatus:STR(@"修改成功")];
+currant/Scene/User/Controller/CUTERentVerifyPhoneViewController.m:31:    self.navigationItem.title = STR(@"验证手机号");
+currant/Scene/User/Controller/CUTERentVerifyPhoneViewController.m:99:    [SVProgressHUD showWithStatus:STR(@"发送中...")];
+currant/Scene/User/Controller/CUTERentVerifyPhoneViewController.m:105:            [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
+currant/Scene/User/Controller/CUTERentVerifyPhoneViewController.m:120:        [SVProgressHUD showWithStatus:STR(@"验证中...")];
+currant/Scene/User/Controller/CUTERentVerifyPhoneViewController.m:125:                [SVProgressHUD showSuccessWithStatus:STR(@"验证成功")];
+currant/Scene/User/Controller/CUTERentVerifyPhoneViewController.m:133:                [SVProgressHUD showErrorWithStatus:STR(@"验证失败")];
+currant/Scene/User/Controller/CUTESettingViewController.m:28:    self.navigationItem.title = STR(@"设置");
+currant/Scene/User/Controller/CUTEUserViewController.m:37:        UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"设置") style:UIBarButtonItemStylePlain target:self action:@selector(onSettingButtonPressed:)];
+currant/Scene/User/Form/CUTEApplyBetaRentingForm.m:18:             @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"邮箱"), FXFormFieldCell: [CUTEFormTextFieldCell class], FXFormFieldAction: @"onEmailEdited:"},
+currant/Scene/User/Form/CUTEApplyBetaRentingForm.m:19:             @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"申请"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
+currant/Scene/User/Form/CUTERentConfirmPhoneForm.m:28:    NSMutableArray *fields = [NSMutableArray arrayWithArray:@[@{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTECountry *)[_allCountries firstObject], FXFormFieldAction: @"optionBack"},
+currant/Scene/User/Form/CUTERentConfirmPhoneForm.m:29:                                                              @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class], FXFormFieldAction: @"onPhoneEdit:"},
+currant/Scene/User/Form/CUTERentConfirmPhoneForm.m:30:                                                              @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"确认"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
+currant/Scene/User/Form/CUTERentContactDisplaySettingForm.m:18:             @{FXFormFieldKey: @"displayPhone", FXFormFieldTitle: STR(@"展示电话"), FXFormFieldCell: [CUTEFormSwitchCell class]},
+currant/Scene/User/Form/CUTERentContactDisplaySettingForm.m:19:             @{FXFormFieldKey: @"displayEmail", FXFormFieldTitle: STR(@"展示邮箱"), FXFormFieldCell: [CUTEFormSwitchCell class]},
+currant/Scene/User/Form/CUTERentContactDisplaySettingForm.m:20:             @{FXFormFieldKey: @"wechat", FXFormFieldTitle: STR(@"微信号"), FXFormFieldPlaceholder:STR(@"点击填写微信号"), FXFormFieldCell: [CUTEFormTextFieldCell class], FXFormFieldFooter:STR(@"您选择的联系方式仅展示给平台注册的租客")}
+currant/Scene/User/Form/CUTERentContactDisplaySettingForm.m:26:        return [NSError errorWithDomain:@"CUTE" code:-1 userInfo:@{NSLocalizedDescriptionKey: STR(@"至少需要展示一种联系方式")}];
+currant/Scene/User/Form/CUTERentContactForm.m:31:    NSMutableArray *fields = [NSMutableArray arrayWithArray:@[@{FXFormFieldKey: @"login", FXFormFieldTitle: STR(@"登录"), FXFormFieldHeader: STR(@"已有帐号"), FXFormFieldCell: [CUTEFormCenterTextCell class], @"textLabel.textColor": CUTE_MAIN_COLOR, FXFormFieldAction: @"login"},
+currant/Scene/User/Form/CUTERentContactForm.m:32:                                                              @{FXFormFieldKey: @"name", FXFormFieldTitle: STR(@"姓名"), FXFormFieldHeader: STR(@"还没有帐号？10秒创建"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+currant/Scene/User/Form/CUTERentContactForm.m:33:                                                              @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"邮箱"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+currant/Scene/User/Form/CUTERentContactForm.m:34://                                                              @{FXFormFieldKey: @"invitationCode", FXFormFieldTitle: STR(@"邀请码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+currant/Scene/User/Form/CUTERentContactForm.m:35:                                                              @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTECountry *)[_allCountries firstObject], FXFormFieldAction: @"optionBack"},
+currant/Scene/User/Form/CUTERentContactForm.m:36:                                                              @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+currant/Scene/User/Form/CUTERentContactForm.m:37:                                                              @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class],FXFormFieldAction: @"codeFieldEndEdit"},
+currant/Scene/User/Form/CUTERentContactForm.m:38:                                                              @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:_isOnlyRegister ? STR(@"完成注册"): STR(@"发布并分享到微信"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
+currant/Scene/User/Form/CUTERentContactForm.m:42:        [fields insertObject:@{FXFormFieldKey: @"displaySetting", FXFormFieldTitle: STR(@"联系方式展示"), FXFormFieldCell: [CUTEFormTextCell class], FXFormFieldAction: @"onDisplaySettingPressed:"} atIndex:[fields count] - 1];
+currant/Scene/User/Form/CUTERentLoginForm.m:30:             @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTEEnum *)[_allCountries firstObject], FXFormFieldAction: @"optionBack", FXFormFieldViewController:[CUTEFormViewController class]},
+currant/Scene/User/Form/CUTERentLoginForm.m:31:             @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+currant/Scene/User/Form/CUTERentLoginForm.m:32:             @{FXFormFieldKey: @"password", FXFormFieldTitle: STR(@"密码"), FXFormFieldCell: [CUTEFormTextFieldCell class],  FXFormFieldAction: @"onPasswordEdit:"},
+currant/Scene/User/Form/CUTERentLoginForm.m:33:             @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"登录"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
+currant/Scene/User/Form/CUTERentLoginForm.m:34:             @{FXFormFieldKey: @"resetPassword", FXFormFieldTitle: STR(@"通过短信重置密码"), FXFormFieldHeader: STR(@"忘记密码？"), FXFormFieldCell: [CUTEFormCenterTextCell class], FXFormFieldAction: @"resetPassword"},
+currant/Scene/User/Form/CUTERentLoginForm.m:35:             @{FXFormFieldKey: @"resetPasswordWithEmail", FXFormFieldTitle: STR(@"通过邮箱重置密码"), FXFormFieldCell: [CUTEFormCenterTextCell class], FXFormFieldAction: @"resetPasswordWithEmail"},
+currant/Scene/User/Form/CUTERentPassword2Form.m:19:             @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"邮箱"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+currant/Scene/User/Form/CUTERentPassword2Form.m:20:             @{FXFormFieldKey: @"reset", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"请求重置密码"), FXFormFieldHeader: @"", FXFormFieldAction: @"reset"},
+currant/Scene/User/Form/CUTERentPasswordForm.m:26:             @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTEEnum *)[_allCountries firstObject], FXFormFieldAction: @"optionBack"},
+currant/Scene/User/Form/CUTERentPasswordForm.m:27:             @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+currant/Scene/User/Form/CUTERentPasswordForm.m:28:             @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class]},
+currant/Scene/User/Form/CUTERentPasswordForm.m:29:             @{FXFormFieldKey: @"password", FXFormFieldTitle: STR(@"新密码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+currant/Scene/User/Form/CUTERentPasswordForm.m:30:             @{FXFormFieldKey: @"confirmPassword", FXFormFieldTitle: STR(@"确认新密码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+currant/Scene/User/Form/CUTERentPasswordForm.m:31:             @{FXFormFieldKey: @"reset", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"重置"), FXFormFieldHeader: @"", FXFormFieldAction: @"reset"},
+currant/Scene/User/Form/CUTERentVerifyPhoneForm.m:18:    NSMutableArray *fields = [NSMutableArray arrayWithArray:@[@{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class],FXFormFieldAction: @"onCodeEdit:"},  @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"验证"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"}]];
+currant/Scene/User/Form/CUTESettingForm.m:18:                               @{FXFormFieldKey: @"version", FXFormFieldTitle:STR(@"版本"), @"style": @(UITableViewCellStyleValue1), FXFormFieldHeader: @""},
+currant/Scene/User/Form/CUTESettingForm.m:19:                               @{FXFormFieldKey: @"feedback", FXFormFieldTitle:STR(@"意见反馈"), FXFormFieldAction: @"onFeedBackPressed:", @"style": @(UITableViewCellStyleValue1)},
+currant/Scene/User/Form/CUTESettingForm.m:20:                               @{FXFormFieldKey: @"help", FXFormFieldTitle:STR(@"帮助中心"), FXFormFieldAction: @"onHelpPressed:", @"style": @(UITableViewCellStyleValue1)},
+currant/Scene/User/Form/CUTESettingForm.m:21:                               @{FXFormFieldKey: @"rate", FXFormFieldTitle:STR(@"觉得不错？去App Store评价"), @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"onRatePressed:"},
+currant/Scene/User/Form/CUTESettingForm.m:22://                               @{FXFormFieldKey: @"update", FXFormFieldTitle:STR(@"检查更新"), FXFormFieldAction: @"onCheckUpdatePressed:", @"style": @(UITableViewCellStyleValue1)},
+currant/Scene/User/Form/CUTESettingForm.m:23://                               @{FXFormFieldKey: @"survey", FXFormFieldTitle:STR(@"用户调查"), @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"onSurveyPressed:"},
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:25:        [tester tapViewWithAccessibilityLabel:STR(@"出租发布")];
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:45:        [tester tapViewWithAccessibilityLabel:STR(@"确认")];
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:46:        [tester waitForViewWithAccessibilityLabel:STR(@"是否按新postcode重新定位再继续？")];
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:48:        [tester tapViewWithAccessibilityLabel:STR(@"好的")];
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:49:        [tester waitForAbsenceOfViewWithAccessibilityLabel:STR(@"搜索中...")];
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:52:        [tester tapViewWithAccessibilityLabel:STR(@"OK")];
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:58:        if ([tester tryFindingViewWithAccessibilityLabel:STR(@"允许") error:nil]) {
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:59:            [tester tapViewWithAccessibilityLabel:STR(@"允许")];
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:66:        [tester tapViewWithAccessibilityLabel:STR(@"继续")];
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:68:        [tester waitForViewWithAccessibilityLabel:STR(@"房产信息表单")];
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:70:        [tester tryFindingAccessibilityElement:nil view:&tableView withIdentifier:STR(@"房产信息表单") tappable:YES error:nil];
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:75:        [tester tapRowAtIndexPath:indexPath inTableViewWithAccessibilityIdentifier:STR(@"房产信息表单")];
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:77:        [tester tryFindingAccessibilityElement:nil view:&tableView withIdentifier:STR(@"地址编辑表单") tappable:YES error:nil];
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:85:        [tester tapViewWithAccessibilityLabel:STR(@"确认")];
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:86:        [tester waitForViewWithAccessibilityLabel:STR(@"是否按新postcode重新定位再继续？")];
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:88:        [tester tapViewWithAccessibilityLabel:STR(@"好的")];
+currantUITest/Scene/Rent/CUTEAddressEditUITest.m:91:        [tester tapViewWithAccessibilityLabel:STR(@"OK")];
+currantUITest/Scene/Rent/CUTEAddressMapUITest.m:36:        [tester swipeViewWithAccessibilityLabel:STR(@"地图") inDirection:KIFSwipeDirectionRight];
+currantUITest/Scene/Rent/CUTEAddressMapUITest.m:45:        if ([tester tryFindingViewWithAccessibilityLabel:STR(@"允许") error:nil]) {
+currantUITest/Scene/Rent/CUTEAddressMapUITest.m:46:            [tester tapViewWithAccessibilityLabel:STR(@"允许")];
+currantUITest/Scene/Rent/CUTEAddressMapUITest.m:53:        [tester tapViewWithAccessibilityLabel:STR(@"继续")];
+currantUITest/Scene/Rent/CUTEAddressMapUITest.m:55:        [tester waitForViewWithAccessibilityLabel:STR(@"房产信息表单")];
+currantUITest/Scene/Rent/CUTEAddressMapUITest.m:57:        [tester tryFindingAccessibilityElement:nil view:&tableView withIdentifier:STR(@"房产信息表单") tappable:YES error:nil];
+currantUITest/Scene/Rent/CUTEAddressMapUITest.m:62:        [tester tapRowAtIndexPath:indexPath inTableViewWithAccessibilityIdentifier:STR(@"房产信息表单")];
+currantUITest/Scene/Rent/CUTEAddressMapUITest.m:64:        [tester tryFindingAccessibilityElement:nil view:&tableView withIdentifier:STR(@"地址编辑表单") tappable:YES error:nil];
+currantUITest/Scene/Rent/CUTEAddressMapUITest.m:66:        [tester tapRowAtIndexPath:indexPath inTableViewWithAccessibilityIdentifier:STR(@"地址编辑表单")];
+currantUITest/Scene/Rent/CUTEAddressMapUITest.m:70:        [tester swipeViewWithAccessibilityLabel:STR(@"地图") inDirection:KIFSwipeDirectionRight];
+currantUITest/Scene/Rent/CUTEAddressMapUITest.m:75:        [tester tapViewWithAccessibilityLabel:STR(@"返回")];
+currantUITest/Scene/Rent/CUTEAddressMapUITest.m:77:        [tester tapViewWithAccessibilityLabel:STR(@"返回")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:28:        [tester tapViewWithAccessibilityLabel:STR(@"继续")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:32:        [tester waitForViewWithAccessibilityLabel:STR(@"房产信息表单")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:34:        [tester tryFindingAccessibilityElement:nil view:&tableView withIdentifier:STR(@"房产信息表单") tappable:YES error:nil];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:53:        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] inTableViewWithAccessibilityIdentifier:STR(@"出租房草稿列表")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:57:        [tester waitForViewWithAccessibilityLabel:STR(@"房产信息")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:58:         [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"房产信息表单")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:60:        [tester waitForViewWithAccessibilityLabel:STR(@"房东类型")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:61:        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0] inTableViewWithAccessibilityIdentifier:STR(@"Form")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:63:        UITableView *tableView =(UITableView *)[tester waitForViewWithAccessibilityLabel:STR(@"房产信息表单")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:72:        [tester waitForViewWithAccessibilityLabel:STR(@"房产信息")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:73:         [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"房产信息表单")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:75:        [tester waitForViewWithAccessibilityLabel:STR(@"租金")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:76:        UITableView *tableView = (UITableView *)[tester waitForViewWithAccessibilityLabel:STR(@"租金表单")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:78:        element.accessibilityIdentifier = STR(@"租金");
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:81:        [tester tapViewWithAccessibilityLabel:STR(@"确定")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:83:        [tester tapViewWithAccessibilityLabel:STR(@"房产信息")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:85:        tableView = (UITableView *)[tester waitForViewWithAccessibilityLabel:STR(@"房产信息表单")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:91:        [tester waitForViewWithAccessibilityLabel:STR(@"房产信息")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:92:        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"房产信息表单")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:95:        UITableView *tableView =(UITableView *)[tester waitForViewWithAccessibilityLabel:STR(@"房产信息表单")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:104:        [tester waitForViewWithAccessibilityLabel:STR(@"房产信息")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:105:        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"房产信息表单")];
+currantUITest/Scene/Rent/CUTEPropertyInfoUITest.m:108:        UITableView *tableView =(UITableView *)[tester waitForViewWithAccessibilityLabel:STR(@"房产信息表单")];
+currantUITest/Scene/Rent/CUTEUnfinishedRentTicketUITest.m:48:        [tester swipeViewWithAccessibilityLabel:STR(@"出租房草稿列表") inDirection:KIFSwipeDirectionDown];
+currantUITest/Scene/Rent/CUTEUnfinishedRentTicketUITest.m:50:        [tester swipeViewWithAccessibilityLabel:STR(@"出租房草稿列表") inDirection:KIFSwipeDirectionUp];
+currantUITest/Scene/Rent/CUTEUnfinishedRentTicketUITest.m:56:        [tester swipeViewWithAccessibilityLabel:STR(@"出租房草稿列表") inDirection:KIFSwipeDirectionDown];
+currantUITest/Scene/Rent/CUTEUnfinishedRentTicketUITest.m:58:        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] inTableViewWithAccessibilityIdentifier:STR(@"出租房草稿列表")];
+currantUITest/Scene/Rent/CUTEUnfinishedRentTicketUITest.m:59:        [tester waitForViewWithAccessibilityLabel:STR(@"房产信息")];
+currantUITest/Scene/Rent/CUTEUnfinishedRentTicketUITest.m:70:        [tester tapViewWithAccessibilityLabel:STR(@"已发布")];
+currantUITest/Scene/Rent/CUTEUnfinishedRentTicketUITest.m:72:        [tester waitForViewWithAccessibilityLabel:STR(@"我的房产")];
+currantUITest/Scene/Rent/KIFUITestActor+PropertyInfo.m:15:    [self waitForViewWithAccessibilityLabel:STR(@"房产信息表单")];
+currantUITest/Scene/Rent/KIFUITestActor+PropertyInfo.m:16:    [self tapRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"房产信息表单")];
+currantUITest/Scene/Rent/KIFUITestActor+PropertyInfo.m:18:    [self tapViewWithAccessibilityLabel:STR(@"确认")];
+currantUITest/Scene/Rent/KIFUITestActor+RentType.m:18:    if ([tester tryFindingViewWithAccessibilityLabel:STR(@"创建") error:nil]) {
+currantUITest/Scene/Rent/KIFUITestActor+RentType.m:19:        [tester tapViewWithAccessibilityLabel:STR(@"创建")];
+currantUITest/Scene/Rent/KIFUITestActor+RentType.m:21:    [tester waitForViewWithAccessibilityLabel:STR(@"出租类型列表")];
+currantUITest/Scene/Rent/KIFUITestActor+RentType.m:24:    [tester tryFindingAccessibilityElement:nil view:&tableView withIdentifier:STR(@"出租类型列表") tappable:NO error:nil];
+currantUITest/Scene/Rent/KIFUITestActor+RentType.m:32:    [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] inTableViewWithAccessibilityIdentifier:STR(@"出租类型列表")];
+currantUITest/Scene/Rent/KIFUITestActor+RentType.m:36:    if ([tester tryFindingViewWithAccessibilityLabel:STR(@"创建") error:nil]) {
+currantUITest/Scene/Rent/KIFUITestActor+RentType.m:37:        [tester tapViewWithAccessibilityLabel:STR(@"创建")];
+currantUITest/Scene/Rent/KIFUITestActor+RentType.m:39:    [tester waitForViewWithAccessibilityLabel:STR(@"出租类型列表")];
+currantUITest/Scene/Rent/KIFUITestActor+RentType.m:42:    [tester tryFindingAccessibilityElement:nil view:&tableView withIdentifier:STR(@"出租类型列表") tappable:NO error:nil];
+currantUITest/Scene/Rent/KIFUITestActor+RentType.m:50:    [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] inTableViewWithAccessibilityIdentifier:STR(@"出租类型列表")];
+currantUITest/Scene/Splash/KIFUITestActor+SplashUI.m:15:    [tester swipeViewWithAccessibilityLabel:STR(@"引导页面") inDirection:KIFSwipeDirectionLeft];
+currantUITest/Scene/Splash/KIFUITestActor+SplashUI.m:17:    [tester swipeViewWithAccessibilityLabel:STR(@"引导页面") inDirection:KIFSwipeDirectionLeft];
+currantUITest/Scene/User/CUTEApplyBetaUITest.m:29://        [tester tapViewWithAccessibilityLabel:STR(@"申请内测，获取邀请码")];
+currantUITest/Scene/User/CUTEApplyBetaUITest.m:33://        [tester enterText:CONCAT(emailId, @"@gmail.com") intoViewWithAccessibilityLabel:STR(@"邮箱")];
+currantUITest/Scene/User/CUTEApplyBetaUITest.m:34://        [tester tapViewWithAccessibilityLabel:STR(@"确认")];
+currantUITest/Scene/User/CUTEApplyBetaUITest.m:36://        [[tester usingTimeout:20] waitForViewWithAccessibilityLabel:STR(@"申请成功")];
+currantUITest/Scene/User/CUTEApplyBetaUITest.m:38://        [tester tapViewWithAccessibilityLabel:STR(@"OK")];
+currantUITest/Scene/User/CUTEApplyBetaUITest.m:43://        [tester tapViewWithAccessibilityLabel:STR(@"申请内测，获取邀请码")];
+currantUITest/Scene/User/CUTEApplyBetaUITest.m:47://        [tester enterText:CONCAT(emailId, @"@gmail.com") intoViewWithAccessibilityLabel:STR(@"邮箱")];
+currantUITest/Scene/User/CUTEApplyBetaUITest.m:49://        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"申请邀请码")];
+currantUITest/Scene/User/CUTEApplyBetaUITest.m:51://        [[tester usingTimeout:20] waitForViewWithAccessibilityLabel:STR(@"申请成功")];
+currantUITest/Scene/User/CUTEApplyBetaUITest.m:53://        [tester tapViewWithAccessibilityLabel:STR(@"OK")];
+currantUITest/Scene/User/CUTEApplyBetaUITest.m:61:        if ([tester tryFindingTappableViewWithAccessibilityLabel:STR(@"返回") error:nil]) {
+currantUITest/Scene/User/CUTEApplyBetaUITest.m:62:            [tester tapViewWithAccessibilityLabel:STR(@"返回")];
+currantUITest/Scene/User/KIFUITestActor+Login.m:25:    [self tapViewWithAccessibilityLabel:STR(@"有邀请码？进入应用")];
+currantUITest/Scene/User/KIFUITestActor+Login.m:27:    [self tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] inTableViewWithAccessibilityIdentifier:STR(@"用户信息")];
+currantUITest/Scene/User/KIFUITestActor+Login.m:29:    [self tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] inTableViewWithAccessibilityIdentifier:STR(@"Form")];
+currantUITest/Scene/User/KIFUITestActor+Login.m:33:    [self enterText:@"15872411146" intoViewWithAccessibilityLabel:STR(@"手机号")];
+currantUITest/Scene/User/KIFUITestActor+Login.m:35:    [self enterText:@"abc123" intoViewWithAccessibilityLabel:STR(@"密码")];
+currantUITest/Scene/User/KIFUITestActor+Login.m:37://    [self waitForViewWithAccessibilityLabel:STR(@"登录中...")];
+currantUITest/Scene/User/KIFUITestActor+Login.m:38:    [[self usingTimeout:20] waitForAbsenceOfViewWithAccessibilityLabel:STR(@"登录中...")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:29:        [tester waitForViewWithAccessibilityLabel:STR(@"房产位置")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:32:        [tester tapViewWithAccessibilityLabel:STR(@"继续")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:38:        [tester tapViewWithAccessibilityLabel:STR(@"预览")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:40:        [tester tapViewWithAccessibilityLabel:STR(@"继续")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:42:        [tester tapViewWithAccessibilityLabel:STR(@"发布")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:44:        [tester waitForViewWithAccessibilityLabel:STR(@"发布成功")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:46:        [tester waitForViewWithAccessibilityLabel:STR(@"分享")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:50:            [tester tapViewWithAccessibilityLabel:STR(@"微信好友")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:53:        [tester tapViewWithAccessibilityLabel:STR(@"完成")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:57:        [tester tapViewWithAccessibilityLabel:STR(@"添加照片")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:58:        [tester swipeViewWithAccessibilityLabel:STR(@"房产信息列表") inDirection:KIFSwipeDirectionDown];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:59:        [tester waitForViewWithAccessibilityLabel:STR(@"选择照片")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:60:        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] inTableViewWithAccessibilityIdentifier:STR(@"房产信息表单")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:61:        [tester choosePhotoInAlbum:STR(@"相机胶卷") atRow:0 column:0];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:62:        [tester tapViewWithAccessibilityLabel:STR(@"预览")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:64:        [tester tapViewWithAccessibilityLabel:STR(@"继续")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:66:        [tester tapViewWithAccessibilityLabel:STR(@"发布")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:68:        [tester waitForViewWithAccessibilityLabel:STR(@"发布成功")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:70:        [tester waitForViewWithAccessibilityLabel:STR(@"分享")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:85:        UITableView *tableView = (UITableView *)[tester waitForViewWithAccessibilityLabel:STR(@"出租房草稿列表")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:88:        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] inTableViewWithAccessibilityIdentifier:STR(@"出租房草稿列表")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:90:        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:7 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"房产信息表单")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:92:        [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] inTableViewWithAccessibilityIdentifier:STR(@"更多房产信息表单")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:94:        [tester tapViewWithAccessibilityLabel:STR(@"确定")];
+currantUITest/UserStory/CUTEPublishRentTicketUSTest.m:96:        tableView = (UITableView *)[tester waitForViewWithAccessibilityLabel:STR(@"出租房草稿列表")];
+currantUITest/UserStory/CUTEShareUSTest.m:28:        [tester waitForViewWithAccessibilityLabel:STR(@"分享")];
+currantUITest/UserStory/CUTEShareUSTest.m:30:            [tester tapViewWithAccessibilityLabel:STR(@"微信好友")];
+currantUITest/UserStory/CUTEShareUSTest.m:41:        [tester waitForViewWithAccessibilityLabel:STR(@"分享")];
+currantUITest/UserStory/CUTEShareUSTest.m:43:            [tester tapViewWithAccessibilityLabel:STR(@"微信好友")];
+currantUITest/UserStory/CUTEWebHandlerUSTest.m:31:        [tester tapViewWithAccessibilityLabel:STR(@"主页")];
+currantUITest/UserStory/CUTEWebHandlerUSTest.m:41:        [tester waitForViewWithAccessibilityLabel:STR(@"分享")];
+currantUITest/UserStory/CUTEWebHandlerUSTest.m:44:            [tester tapViewWithAccessibilityLabel:STR(@"微信好友")];
+currantUITest/UserStory/CUTEWebHandlerUSTest.m:57:        [tester waitForViewWithAccessibilityLabel:STR(@"出租发布")];
+currantUITest/UserStory/CUTEWebHandlerUSTest.m:77:        [tester waitForViewWithAccessibilityLabel:STR(@"出租列表-洋房东")];
+currantUITest/UserStory/CUTEWebHandlerUSTest.m:87:        [tester waitForViewWithAccessibilityLabel:STR(@"房产列表-洋房东")];
