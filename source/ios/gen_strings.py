@@ -20,7 +20,8 @@ def get_file_key(file_path):
     key = key.replace("ViewController", "")
     key = key.replace("View", "")
     key = key.replace("Form", "")
-    key = key.replace("+", ".")
+    key = key.replace("SVProgressHUD", "")
+    key = key.replace("+", "")
     return key
 
 
@@ -47,7 +48,8 @@ for line in open(search_result_file_name):
         if check_file_need_gen(file_path) and localization_key_array:
             if previous_file_key != file_key:
                 previous_localization_key_set = Set([])
-                print '\n'
+                print '\n\n'
+                print "//Group: " + file_key
                 print "//Filepath: " + file_path
             previous_file_key = file_key
 

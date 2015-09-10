@@ -1,21 +1,15 @@
 
 
-
-//Group: GeoManager
 //Filepath: currant/API/CUTEGeoManager.m
 "GeoManager/请求失败" = "请求失败";
 "GeoManager/获取当前位置超时" = "获取当前位置超时";
 "GeoManager/获取当前位置失败" = "获取当前位置失败";
 
 
-
-//Group: ImageUploader
 //Filepath: currant/API/CUTEImageUploader.m
 "ImageUploader/图片读取失败" = "图片读取失败";
 
 
-
-//Group: RentTicketPublisher
 //Filepath: currant/API/CUTERentTicketPublisher.m
 "RentTicketPublisher/正在上传图片(%d/%d)..." = "正在上传图片(%d/%d)...";
 "RentTicketPublisher/正在发布房产..." = "正在发布房产...";
@@ -24,37 +18,33 @@
 "RentTicketPublisher/正在更新房产出租单..." = "正在更新房产出租单...";
 
 
-
-//Group: API
 //Filepath: currant/API/SVProgressHUD+CUTEAPI.m
-"API/输入错误，请检查后重试。" = "输入错误，请检查后重试。";
-"API/已经在收藏里了。" = "已经在收藏里了。";
-"API/没有访问权限，请登陆后重试。" = "没有访问权限，请登陆后重试。";
-"API/频率达到上限，请稍后重试。" = "频率达到上限，请稍后重试。";
-"API/账户或密码错误。" = "账户或密码错误。";
-"API/对不起，您的权限不够。" = "对不起，您的权限不够。";
-"API/对不起，不能操作他人的订单。" = "对不起，不能操作他人的订单。";
-"API/对不起，不能查看他人的订单。" = "对不起，不能查看他人的订单。";
-"API/没有权限！" = "没有权限！";
-"API/账户不存在！" = "账户不存在！";
-"API/邮箱已被使用！" = "邮箱已被使用！";
-"API/电话已被使用！" = "电话已被使用！";
-"API/请求太频繁！" = "请求太频繁！";
-"API/验证失败。" = "验证失败。";
-"API/验证码无效。" = "验证码无效。";
-"API/验证码失效，已经使用过？" = "验证码失效，已经使用过？";
-"API/邀请码无效。" = "邀请码无效。";
-"API/邀请码已被使用。" = "邀请码已被使用。";
-"API/权限错误。" = "权限错误。";
-"API/对不起，没有找到您要的资源！" = "对不起，没有找到您要的资源！";
-"API/服务暂时不可用，请稍后重试。" = "服务暂时不可用，请稍后重试。";
-"API/第三方服务暂时不可用，请稍后重试。" = "第三方服务暂时不可用，请稍后重试。";
-"API/请求失败" = "请求失败";
-"API/请求被取消" = "请求被取消";
+"SVProgressHUD.API/输入错误，请检查后重试。" = "输入错误，请检查后重试。";
+"SVProgressHUD.API/已经在收藏里了。" = "已经在收藏里了。";
+"SVProgressHUD.API/没有访问权限，请登陆后重试。" = "没有访问权限，请登陆后重试。";
+"SVProgressHUD.API/频率达到上限，请稍后重试。" = "频率达到上限，请稍后重试。";
+"SVProgressHUD.API/账户或密码错误。" = "账户或密码错误。";
+"SVProgressHUD.API/对不起，您的权限不够。" = "对不起，您的权限不够。";
+"SVProgressHUD.API/对不起，不能操作他人的订单。" = "对不起，不能操作他人的订单。";
+"SVProgressHUD.API/对不起，不能查看他人的订单。" = "对不起，不能查看他人的订单。";
+"SVProgressHUD.API/没有权限！" = "没有权限！";
+"SVProgressHUD.API/账户不存在！" = "账户不存在！";
+"SVProgressHUD.API/邮箱已被使用！" = "邮箱已被使用！";
+"SVProgressHUD.API/电话已被使用！" = "电话已被使用！";
+"SVProgressHUD.API/请求太频繁！" = "请求太频繁！";
+"SVProgressHUD.API/验证失败。" = "验证失败。";
+"SVProgressHUD.API/验证码无效。" = "验证码无效。";
+"SVProgressHUD.API/验证码失效，已经使用过？" = "验证码失效，已经使用过？";
+"SVProgressHUD.API/邀请码无效。" = "邀请码无效。";
+"SVProgressHUD.API/邀请码已被使用。" = "邀请码已被使用。";
+"SVProgressHUD.API/权限错误。" = "权限错误。";
+"SVProgressHUD.API/对不起，没有找到您要的资源！" = "对不起，没有找到您要的资源！";
+"SVProgressHUD.API/服务暂时不可用，请稍后重试。" = "服务暂时不可用，请稍后重试。";
+"SVProgressHUD.API/第三方服务暂时不可用，请稍后重试。" = "第三方服务暂时不可用，请稍后重试。";
+"SVProgressHUD.API/请求失败" = "请求失败";
+"SVProgressHUD.API/请求被取消" = "请求被取消";
 
 
-
-//Group: ShareManager
 //Filepath: currant/API/CUTEShareManager.m
 "ShareManager/请安装微信" = "请安装微信";
 "ShareManager/获取房产中..." = "获取房产中...";
@@ -64,8 +54,6 @@
 "ShareManager/微博分享" = "微博分享";
 
 
-
-//Group: AppDelegate
 //Filepath: currant/AppDelegate.m
 "AppDelegate/洋房东" = "洋房东";
 "AppDelegate/出租发布" = "出租发布";
@@ -80,8 +68,6 @@
 "AppDelegate/获取验证中..." = "获取验证中...";
 
 
-
-//Group: Country
 //Filepath: currant/Entity/CUTECountry.m
 "Country/英国" = "英国";
 "Country/中国" = "中国";
@@ -93,46 +79,32 @@
 "Country/（+851）香港" = "（+851）香港";
 
 
-
-//Group: RentPeriod
 //Filepath: currant/Entity/CUTERentPeriod.m
 "RentPeriod/面议" = "面议";
 
 
-
-//Group: TimePeriod
 //Filepath: currant/Entity/CUTETimePeriod.m
 "TimePeriod/天" = "天";
 "TimePeriod/周" = "周";
 "TimePeriod/月" = "月";
 
 
-
-//Group: InputAccessory
 //Filepath: currant/Library3rd/BBTInputAccessoryView.m
 "InputAccessory/确认" = "确认";
 
 
-
-//Group: Picker
 //Filepath: currant/Library3rd/BBTPickerView.m
 "Picker/Done" = "Done";
 
 
-
-//Group: Activity
 //Filepath: currant/Library3rd/CUTEActivityView.m
 "Activity/取消分享" = "取消分享";
 
 
-
-//Group: NavigationUtil
 //Filepath: currant/Misc/CUTENavigationUtil.m
 "NavigationUtil/返回" = "返回";
 
 
-
-//Group: PhoneUtil
 //Filepath: currant/Misc/CUTEPhoneUtil.m
 "PhoneUtil/联系洋房东" = "联系洋房东";
 "PhoneUtil/取消" = "取消";
@@ -142,8 +114,6 @@
 "PhoneUtil/OK" = "OK";
 
 
-
-//Group: WebConfiguration
 //Filepath: currant/Scene/Base/CUTEWebConfiguration.m
 "WebConfiguration/洋房东" = "洋房东";
 "WebConfiguration/房产列表-洋房东" = "房产列表-洋房东";
@@ -155,14 +125,10 @@
 "WebConfiguration/注册" = "注册";
 
 
-
-//Group: PropertyList
 //Filepath: currant/Scene/PropertyList/CUTEPropertyListViewController.m
 "PropertyList/查看收藏的房产" = "查看收藏的房产";
 
 
-
-//Group: PropertyMapList
 //Filepath: currant/Scene/PropertyList/CUTEPropertyMapListViewController.m
 "PropertyMapList/暂无结果" = "暂无结果";
 "PropertyMapList/亿" = "亿";
@@ -170,8 +136,6 @@
 "PropertyMapList/起" = "起";
 
 
-
-//Group: RentAddressEdit
 //Filepath: currant/Scene/Rent/Controller/CUTERentAddressEditViewController.m
 "RentAddressEdit/继续" = "继续";
 "RentAddressEdit/地址编辑表单" = "地址编辑表单";
@@ -191,14 +155,10 @@
 "RentAddressEdit/请返回地图手动修改房产位置，继续下一步则不添加房产位置" = "请返回地图手动修改房产位置，继续下一步则不添加房产位置";
 
 
-
-//Group: RentArea
 //Filepath: currant/Scene/Rent/Controller/CUTERentAreaViewController.m
 "RentArea/面积" = "面积";
 
 
-
-//Group: RentAddressMap
 //Filepath: currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m
 "RentAddressMap/房产位置" = "房产位置";
 "RentAddressMap/继续" = "继续";
@@ -216,29 +176,21 @@
 "RentAddressMap/拖动地图可以修改房产位置" = "拖动地图可以修改房产位置";
 
 
-
-//Group: RentPeriod
 //Filepath: currant/Scene/Rent/Controller/CUTERentPeriodViewController.m
 "RentPeriod/租期" = "租期";
 "RentPeriod/租期表单" = "租期表单";
 "RentPeriod/结束日期不应早于开始日期" = "结束日期不应早于开始日期";
 
 
-
-//Group: RentPrice
 //Filepath: currant/Scene/Rent/Controller/CUTERentPriceViewController.m
 "RentPrice/租金" = "租金";
 "RentPrice/租金表单" = "租金表单";
 
 
-
-//Group: RentPropertyFacility
 //Filepath: currant/Scene/Rent/Controller/CUTERentPropertyFacilityViewController.m
 "RentPropertyFacility/设施" = "设施";
 
 
-
-//Group: RentPropertyInfo
 //Filepath: currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m
 "RentPropertyInfo/房产信息" = "房产信息";
 "RentPropertyInfo/预览" = "预览";
@@ -258,8 +210,6 @@
 "RentPropertyInfo/租金不能为0" = "租金不能为0";
 
 
-
-//Group: RentPropertyMoreInfo
 //Filepath: currant/Scene/Rent/Controller/CUTERentPropertyMoreInfoViewController.m
 "RentPropertyMoreInfo/更多详情" = "更多详情";
 "RentPropertyMoreInfo/更多房产信息表单" = "更多房产信息表单";
@@ -279,8 +229,6 @@
 "RentPropertyMoreInfo/请删除HTML相关字符" = "请删除HTML相关字符";
 
 
-
-//Group: RentShare
 //Filepath: currant/Scene/Rent/Controller/CUTERentShareViewController.m
 "RentShare/发布成功" = "发布成功";
 "RentShare/完成" = "完成";
@@ -289,16 +237,12 @@
 "RentShare/分享" = "分享";
 
 
-
-//Group: RentTicketPreview
 //Filepath: currant/Scene/Rent/Controller/CUTERentTicketPreviewViewController.m
 "RentTicketPreview/预览房源移动主页" = "预览房源移动主页";
 "RentTicketPreview/继续" = "继续";
 "RentTicketPreview/确认联系方式展示" = "确认联系方式展示";
 
 
-
-//Group: RentTypeList
 //Filepath: currant/Scene/Rent/Controller/CUTERentTypeListViewController.m
 "RentTypeList/出租发布" = "出租发布";
 "RentTypeList/出租类型" = "出租类型";
@@ -306,16 +250,12 @@
 "RentTypeList/您有整套或单间房源要出租？\n从这里开始免费发布！" = "您有整套或单间房源要出租？\n从这里开始免费发布！";
 
 
-
-//Group: UnfinishedRentTicketList
 //Filepath: currant/Scene/Rent/Controller/CUTEUnfinishedRentTicketListViewController.m
 "UnfinishedRentTicketList/创建" = "创建";
 "UnfinishedRentTicketList/出租房草稿" = "出租房草稿";
 "UnfinishedRentTicketList/出租房草稿列表" = "出租房草稿列表";
 
 
-
-//Group: Area
 //Filepath: currant/Scene/Rent/Form/CUTEAreaForm.m
 "Area/单位" = "单位";
 "Area/平方米" = "平方米";
@@ -323,15 +263,11 @@
 "Area/面积" = "面积";
 
 
-
-//Group: PropertyFacility
 //Filepath: currant/Scene/Rent/Form/CUTEPropertyFacilityForm.m
 "PropertyFacility/常用设施" = "常用设施";
 "PropertyFacility/小区设施" = "小区设施";
 
 
-
-//Group: PropertyInfo
 //Filepath: currant/Scene/Rent/Form/CUTEPropertyInfoForm.m
 "PropertyInfo/添加照片" = "添加照片";
 "PropertyInfo/房间照片" = "房间照片";
@@ -347,8 +283,6 @@
 "PropertyInfo/预览并发布" = "预览并发布";
 
 
-
-//Group: PropertyMoreInfo
 //Filepath: currant/Scene/Rent/Form/CUTEPropertyMoreInfoForm.m
 "PropertyMoreInfo/标题" = "标题";
 "PropertyMoreInfo/其他" = "其他";
@@ -359,8 +293,6 @@
 "PropertyMoreInfo/删除" = "删除";
 
 
-
-//Group: RentAddressEdit
 //Filepath: currant/Scene/Rent/Form/CUTERentAddressEditForm.m
 "RentAddressEdit/Postcode" = "Postcode";
 "RentAddressEdit/街道（选填）" = "街道（选填）";
@@ -376,8 +308,6 @@
 "RentAddressEdit/地图" = "地图";
 
 
-
-//Group: RentPeriod
 //Filepath: currant/Scene/Rent/Form/CUTERentPeriodForm.m
 "RentPeriod/设置租期" = "设置租期";
 "RentPeriod/租期" = "租期";
@@ -385,8 +315,6 @@
 "RentPeriod/结束日期" = "结束日期";
 
 
-
-//Group: RentPrice
 //Filepath: currant/Scene/Rent/Form/CUTERentPriceForm.m
 "RentPrice/货币" = "货币";
 "RentPrice/租金" = "租金";
@@ -396,8 +324,6 @@
 "RentPrice/其他" = "其他";
 
 
-
-//Group: RentShare
 //Filepath: currant/Scene/Rent/Form/CUTERentShareForm.m
 "RentShare/查看我的房源移动主页" = "查看我的房源移动主页";
 "RentShare/编辑我的房产" = "编辑我的房产";
@@ -405,20 +331,14 @@
 "RentShare/分享我的房源移动主页" = "分享我的房源移动主页";
 
 
-
-//Group: RentTypeList
 //Filepath: currant/Scene/Rent/Form/CUTERentTypeListForm.m
 "RentTypeList/出租类型" = "出租类型";
 
 
-
-//Group: ImagePickerPlaceholder
 //Filepath: currant/Scene/Rent/View/CUTEFormImagePickerPlaceholderView.m
 "ImagePickerPlaceholder/添加照片" = "添加照片";
 
 
-
-//Group: ImagePickerCell
 //Filepath: currant/Scene/Rent/View/CUTEFormImagePickerCell.m
 "ImagePickerCell/封面" = "封面";
 "ImagePickerCell/此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。" = "此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。";
@@ -438,27 +358,19 @@
 "ImagePickerCell/保存到本地..." = "保存到本地...";
 
 
-
-//Group: LimitCharacterCountTextFieldCell
 //Filepath: currant/Scene/Rent/View/CUTEFormLimitCharacterCountTextFieldCell.m
 "LimitCharacterCountTextFieldCell/超过长度限制" = "超过长度限制";
 
 
-
-//Group: RentPriceTextFieldCell
 //Filepath: currant/Scene/Rent/View/CUTEFormRentPriceTextFieldCell.m
 "RentPriceTextFieldCell/周" = "周";
 "RentPriceTextFieldCell/租金不能为空" = "租金不能为空";
 
 
-
-//Group: ShareButtonCell
 //Filepath: currant/Scene/Rent/View/CUTEFormShareButtonCell.m
 "ShareButtonCell/分享" = "分享";
 
 
-
-//Group: VerificationCodeCell
 //Filepath: currant/Scene/Rent/View/CUTEFormVerificationCodeCell.m
 "VerificationCodeCell/获取" = "获取";
 "VerificationCodeCell/剩余" = "剩余";
@@ -466,26 +378,18 @@
 "VerificationCodeCell/重新发送" = "重新发送";
 
 
-
-//Group: UnfinishedRentTicketPlaceholderImage
 //Filepath: currant/Scene/Rent/View/CUTEUnfinishedRentTicketPlaceholderImageView.m
 "UnfinishedRentTicketPlaceholderImage/暂未添加照片" = "暂未添加照片";
 
 
-
-//Group: RentList
 //Filepath: currant/Scene/RentList/CUTERentListViewController.m
 "RentList/查看收藏的出租房" = "查看收藏的出租房";
 
 
-
-//Group: RentMapList
 //Filepath: currant/Scene/RentList/CUTERentMapListViewController.m
 "RentMapList/暂无结果" = "暂无结果";
 
 
-
-//Group: Splash
 //Filepath: currant/Scene/Splash/CUTESplashViewController.m
 "Splash/引导页面" = "引导页面";
 "Splash/进入应用" = "进入应用";
@@ -497,8 +401,6 @@
 "Splash/全国各大平台均可看到你的房产信息" = "全国各大平台均可看到你的房产信息";
 
 
-
-//Group: ApplyBetaRenting
 //Filepath: currant/Scene/User/Controller/CUTEApplyBetaRentingViewController.m
 "ApplyBetaRenting/邀请码" = "邀请码";
 "ApplyBetaRenting/返回" = "返回";
@@ -508,24 +410,18 @@
 "ApplyBetaRenting/OK" = "OK";
 
 
-
-//Group: RentConfirmPhone
 //Filepath: currant/Scene/User/Controller/CUTERentConfirmPhoneViewController.m
 "RentConfirmPhone/确认手机号" = "确认手机号";
 "RentConfirmPhone/取消" = "取消";
 "RentConfirmPhone/更新号码中..." = "更新号码中...";
 
 
-
-//Group: RentContactDisplaySetting
 //Filepath: currant/Scene/User/Controller/CUTERentContactDisplaySettingViewController.m
 "RentContactDisplaySetting/发布" = "发布";
 "RentContactDisplaySetting/发布中..." = "发布中...";
 "RentContactDisplaySetting/发布成功" = "发布成功";
 
 
-
-//Group: RentContact
 //Filepath: currant/Scene/User/Controller/CUTERentContactViewController.m
 "RentContact/联系方式" = "联系方式";
 "RentContact/用户信息" = "用户信息";
@@ -549,8 +445,6 @@
 "RentContact/更新中..." = "更新中...";
 
 
-
-//Group: RentLogin
 //Filepath: currant/Scene/User/Controller/CUTERentLoginViewController.m
 "RentLogin/登录" = "登录";
 "RentLogin/重置密码" = "重置密码";
@@ -558,14 +452,10 @@
 "RentLogin/确认联系方式展示" = "确认联系方式展示";
 
 
-
-//Group: RentPassword2
 //Filepath: currant/Scene/User/Controller/CUTERentPassword2ViewController.m
 "RentPassword2/重置密码请求已发送，请前往邮箱查看重置密码邮件" = "重置密码请求已发送，请前往邮箱查看重置密码邮件";
 
 
-
-//Group: RentPassword
 //Filepath: currant/Scene/User/Controller/CUTERentPasswordViewController.m
 "RentPassword/发送中..." = "发送中...";
 "RentPassword/发送成功" = "发送成功";
@@ -574,8 +464,6 @@
 "RentPassword/修改成功" = "修改成功";
 
 
-
-//Group: RentVerifyPhone
 //Filepath: currant/Scene/User/Controller/CUTERentVerifyPhoneViewController.m
 "RentVerifyPhone/验证手机号" = "验证手机号";
 "RentVerifyPhone/发送中..." = "发送中...";
@@ -585,35 +473,25 @@
 "RentVerifyPhone/验证失败" = "验证失败";
 
 
-
-//Group: Setting
 //Filepath: currant/Scene/User/Controller/CUTESettingViewController.m
 "Setting/设置" = "设置";
 
 
-
-//Group: User
 //Filepath: currant/Scene/User/Controller/CUTEUserViewController.m
 "User/设置" = "设置";
 
 
-
-//Group: ApplyBetaRenting
 //Filepath: currant/Scene/User/Form/CUTEApplyBetaRentingForm.m
 "ApplyBetaRenting/邮箱" = "邮箱";
 "ApplyBetaRenting/申请" = "申请";
 
 
-
-//Group: RentConfirmPhone
 //Filepath: currant/Scene/User/Form/CUTERentConfirmPhoneForm.m
 "RentConfirmPhone/国家" = "国家";
 "RentConfirmPhone/手机号" = "手机号";
 "RentConfirmPhone/确认" = "确认";
 
 
-
-//Group: RentContactDisplaySetting
 //Filepath: currant/Scene/User/Form/CUTERentContactDisplaySettingForm.m
 "RentContactDisplaySetting/展示电话" = "展示电话";
 "RentContactDisplaySetting/展示邮箱" = "展示邮箱";
@@ -623,8 +501,6 @@
 "RentContactDisplaySetting/至少需要展示一种联系方式" = "至少需要展示一种联系方式";
 
 
-
-//Group: RentContact
 //Filepath: currant/Scene/User/Form/CUTERentContactForm.m
 "RentContact/登录" = "登录";
 "RentContact/已有帐号" = "已有帐号";
@@ -639,8 +515,6 @@
 "RentContact/联系方式展示" = "联系方式展示";
 
 
-
-//Group: RentLogin
 //Filepath: currant/Scene/User/Form/CUTERentLoginForm.m
 "RentLogin/国家" = "国家";
 "RentLogin/手机号" = "手机号";
@@ -651,15 +525,11 @@
 "RentLogin/通过邮箱重置密码" = "通过邮箱重置密码";
 
 
-
-//Group: RentPassword2
 //Filepath: currant/Scene/User/Form/CUTERentPassword2Form.m
 "RentPassword2/邮箱" = "邮箱";
 "RentPassword2/请求重置密码" = "请求重置密码";
 
 
-
-//Group: RentPassword
 //Filepath: currant/Scene/User/Form/CUTERentPasswordForm.m
 "RentPassword/国家" = "国家";
 "RentPassword/手机号" = "手机号";
@@ -669,15 +539,11 @@
 "RentPassword/重置" = "重置";
 
 
-
-//Group: RentVerifyPhone
 //Filepath: currant/Scene/User/Form/CUTERentVerifyPhoneForm.m
 "RentVerifyPhone/手机验证码" = "手机验证码";
 "RentVerifyPhone/验证" = "验证";
 
 
-
-//Group: Setting
 //Filepath: currant/Scene/User/Form/CUTESettingForm.m
 "Setting/版本" = "版本";
 "Setting/意见反馈" = "意见反馈";
