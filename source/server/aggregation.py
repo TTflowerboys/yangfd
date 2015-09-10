@@ -8,6 +8,9 @@ from collections import OrderedDict
 
 with f_app.mongo() as m:
 
+    # Configure global filter params here
+    # TODO
+
     # 用户总数
     print('用户总数:')
     print(m.users.count())
@@ -192,3 +195,24 @@ with f_app.mongo() as m:
     target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_ticket_dic.keys(), fuzzy_user_info=True))
     for ticket in target_tickets:
         print(ticket['title'] + ", " + str(ticket['id']) + ": " + str(target_ticket_dic.get(ticket['id'])))
+
+    # 查看过海外房产数量的用户排名
+    print('\n查看过海外房产数量的用户排名:')
+    cursor = m.log.aggregate(
+        [
+            {'$match': {'property_id': {'$exists': 'true'}}},
+            {'$group': {'_id': "$id", 'count': {'$sum': 1}}},
+            {'$limit': 10}
+            # {'$sort': {'count': -1}}
+        ]
+    )
+    user_property_view_count_dic = {}
+    for document in cursor:
+        user_property_view_count_dic[str(document['_id'])] = document['count']
+
+    user_property_view_count_dic = OrderedDict(sorted(user_property_view_count_dic.items(), key=lambda t: t[1], reverse=True))
+
+    target_users = f_app.user.output(user_property_view_count_dic.keys(), custom_fields=f_app.common.user_custom_fields)
+
+    for user in target_users:
+        print(user['nickname'] + ':' + str(user_property_view_count_dic[str(user['id'])]))
