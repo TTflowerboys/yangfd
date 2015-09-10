@@ -60,8 +60,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = STR(@"联系方式");
-    self.tableView.accessibilityIdentifier = STR(@"用户信息");
+    self.navigationItem.title = STR(@"RentContact/联系方式");
+    self.tableView.accessibilityIdentifier = STR(@"RentContact/用户信息");
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -160,7 +160,7 @@
     }
     CUTERentContactDisplaySettingViewController *controller = [CUTERentContactDisplaySettingViewController new];
     controller.formController.form = _displaySettingForm;
-    controller.navigationItem.title = STR(@"设置联系方式展示");
+    controller.navigationItem.title = STR(@"RentContact/设置联系方式展示");
     [self.navigationController pushViewController:controller animated:YES];
 }
 
@@ -210,7 +210,7 @@
 
     CUTEUser *user = [CUTEUser new];
     [self updateUserWithFormInfo:user];
-    [SVProgressHUD showWithStatus:STR(@"获取中...")];
+    [SVProgressHUD showWithStatus:STR(@"RentContact/获取中...")];
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/check_exist" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(user.countryCode.stringValue), NilNullToEmpty(user.phone))} resultClass:nil] continueWithBlock:^id(BFTask *task) {
@@ -222,13 +222,13 @@
                     [SVProgressHUD dismiss];
                     //remove keyboard overlay
 //                    [self makeVerficationCodeTextFieldResignFirstResponder];
-                    [UIAlertView showWithTitle:CONCAT(STR(@"电话已被使用！请登录或者重置密码，如该用户不是您，请联系客服")) message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"登录"), STR(@"重置密码"), STR(@"联系客服")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                    [UIAlertView showWithTitle:CONCAT(STR(@"RentContact/电话已被使用！请登录或者重置密码，如该用户不是您，请联系客服")) message:nil cancelButtonTitle:STR(@"RentContact/取消") otherButtonTitles:@[STR(@"RentContact/登录"), STR(@"RentContact/重置密码"), STR(@"RentContact/联系客服")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                         NSString *buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
-                        if ([buttonTitle isEqualToString:STR(@"登录")]) {
+                        if ([buttonTitle isEqualToString:STR(@"RentContact/登录")]) {
                             [self login];
                         }
-                        else if ([buttonTitle isEqualToString:STR(@"重置密码")]) {
-                            [UIAlertView showWithTitle:STR(@"重置密码") message:nil cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"通过短信"), STR(@"通过邮箱")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                        else if ([buttonTitle isEqualToString:STR(@"RentContact/重置密码")]) {
+                            [UIAlertView showWithTitle:STR(@"RentContact/重置密码") message:nil cancelButtonTitle:STR(@"RentContact/取消") otherButtonTitles:@[STR(@"RentContact/通过短信"), STR(@"RentContact/通过邮箱")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                                 if (buttonIndex == 1) {
                                     [self resetPasswordWithType:@"phone"];
                                 }
@@ -237,7 +237,7 @@
                                 }
                             }];
                         }
-                        else if ([buttonTitle isEqualToString:STR(@"联系客服")]) {
+                        else if ([buttonTitle isEqualToString:STR(@"RentContact/联系客服")]) {
                             [CUTEPhoneUtil showServicePhoneAlert];
                         }
                     }];
@@ -253,13 +253,13 @@
     }];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         if (_retUser) {
-            [SVProgressHUD showWithStatus:STR(@"发送中...")];
+            [SVProgressHUD showWithStatus:STR(@"RentContact/发送中...")];
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(user.countryCode.stringValue), NilNullToEmpty(user.phone))} resultClass:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
                 else {
-                    [SVProgressHUD showSuccessWithStatus:STR(@"发送成功")];
+                    [SVProgressHUD showSuccessWithStatus:STR(@"RentContact/发送成功")];
                     [self startVerficationCodeCountDown];
                 }
                 return nil;
@@ -267,7 +267,7 @@
         }
         else {
             //no user just creat one
-            [SVProgressHUD showWithStatus:STR(@"发送中...")];
+            [SVProgressHUD showWithStatus:STR(@"RentContact/发送中...")];
             NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:user.toParams];
             
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/fast-register" parameters:params resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
@@ -277,7 +277,7 @@
                 } else {
                     _retUser = task.result;
                     [SVProgressHUD dismiss];
-                    [UIAlertView showWithTitle:STR(@"已成功为您创建帐号，密码已发至您的邮箱。验证码发送成功，请验证手机号") message:nil cancelButtonTitle:STR(@"确定") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                    [UIAlertView showWithTitle:STR(@"RentContact/已成功为您创建帐号，密码已发至您的邮箱。验证码发送成功，请验证手机号") message:nil cancelButtonTitle:STR(@"RentContact/确定") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 
                     }];
                     return nil;
@@ -294,15 +294,15 @@
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
     //after create can validate the code
     if (_retUser) {
-        [SVProgressHUD showWithStatus:STR(@"验证中...")];
+        [SVProgressHUD showWithStatus:STR(@"RentContact/验证中...")];
         [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/user/", _retUser.identifier, @"/sms_verification/verify") parameters:@{@"code":form.code} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             //update verify status
             if (task.result) {
                 _retUser.phoneVerified = @(YES);
-                [SVProgressHUD showSuccessWithStatus:STR(@"验证成功")];
+                [SVProgressHUD showSuccessWithStatus:STR(@"RentContact/验证成功")];
             }
             else {
-                [SVProgressHUD showErrorWithStatus:STR(@"验证失败")];
+                [SVProgressHUD showErrorWithStatus:STR(@"RentContact/验证失败")];
             }
             return nil;
         }];
@@ -324,7 +324,7 @@
     }
 
     if (!_retUser || !_retUser.phoneVerified.boolValue) {
-        [SVProgressHUD showErrorWithStatus:STR(@"手机未验证成功，请重发验证码")];
+        [SVProgressHUD showErrorWithStatus:STR(@"RentContact/手机未验证成功，请重发验证码")];
         return NO;
     }
 
@@ -345,7 +345,7 @@
     [userListener stopListenMark];
 
     Sequencer *sequencer = [Sequencer new];
-    [SVProgressHUD showWithStatus:STR(@"更新中...")];
+    [SVProgressHUD showWithStatus:STR(@"RentContact/更新中...")];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         //user may update user info after create user in the send verification code process, like update private contact methods
         [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/edit" parameters:userListener.getEditedParams resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {

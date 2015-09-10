@@ -33,7 +33,7 @@
 
 - (void)updateTitleWithURL:(NSURL *)url {
     if (!self.navigationItem.title) {
-        self.navigationItem.title = STR(@"预览房源移动主页");
+        self.navigationItem.title = STR(@"RentTicketPreview/预览房源移动主页");
     }
 }
 
@@ -45,7 +45,7 @@
 
 - (void)updateRightButtonWithURL:(NSURL *)url {
     if (!self.navigationItem.rightBarButtonItem) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"RentTicketPreview/继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
     }
 }
 
@@ -68,7 +68,7 @@
         form.singleUseForReedit = YES;
         controller.formController.form = form;
         controller.ticket = self.ticket;
-        controller.navigationItem.title = STR(@"确认联系方式展示");
+        controller.navigationItem.title = STR(@"RentTicketPreview/确认联系方式展示");
         [self.navigationController pushViewController:controller animated:YES];
     }
     else {

@@ -48,9 +48,9 @@
     self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
 
     if (!form.singleUseForReedit) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"RentAddressEdit/继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
     }
-    self.tableView.accessibilityIdentifier = STR(@"地址编辑表单");
+    self.tableView.accessibilityIdentifier = STR(@"RentAddressEdit/地址编辑表单");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,13 +69,13 @@
 
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     if (IsNilNullOrEmpty(self.form.ticket.property.zipcode)) {
-        [UIAlertView showWithTitle:STR(@"请填写Postcode") message:nil cancelButtonTitle:nil otherButtonTitles:@[STR(@"OK")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        [UIAlertView showWithTitle:STR(@"RentAddressEdit/请填写Postcode") message:nil cancelButtonTitle:nil otherButtonTitles:@[STR(@"RentAddressEdit/OK")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
         }];
         return;
     }
     else if (form.singleUseForReedit && _updateLocationFromAddressFailed) {
 
-        [UIAlertView showWithTitle:STR(@"新Postcode定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置") message:nil cancelButtonTitle:STR(@"返回") otherButtonTitles:@[STR(@"前往地图")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        [UIAlertView showWithTitle:STR(@"RentAddressEdit/新Postcode定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置") message:nil cancelButtonTitle:STR(@"RentAddressEdit/返回") otherButtonTitles:@[STR(@"RentAddressEdit/前往地图")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 
             if (buttonIndex == alertView.cancelButtonIndex) {
                 [self clearTicketLocation];
@@ -91,7 +91,7 @@
     }
     else if (form.singleUseForReedit && (IsNilOrNull(self.form.ticket.property.latitude) || IsNilOrNull(self.form.ticket.property.longitude))) {
 
-        [UIAlertView showWithTitle:STR(@"请前往地图手动修改房产位置，返回房产信息则不添加房产位置") message:nil cancelButtonTitle:STR(@"返回") otherButtonTitles:@[STR(@"前往地图")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        [UIAlertView showWithTitle:STR(@"RentAddressEdit/请前往地图手动修改房产位置，返回房产信息则不添加房产位置") message:nil cancelButtonTitle:STR(@"RentAddressEdit/返回") otherButtonTitles:@[STR(@"RentAddressEdit/前往地图")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 
             if (buttonIndex == alertView.cancelButtonIndex) {
                 [self.navigationController popViewControllerAnimated:YES];
@@ -103,7 +103,7 @@
         return;
     }
     else if (!form.singleUseForReedit && (IsNilOrNull(self.form.ticket.property.latitude) || IsNilOrNull(self.form.ticket.property.longitude))) {
-        [UIAlertView showWithTitle:STR(@"定位不到房产位置，请返回地图更新房产位置") message:nil cancelButtonTitle:nil otherButtonTitles:@[STR(@"返回")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        [UIAlertView showWithTitle:STR(@"RentAddressEdit/定位不到房产位置，请返回地图更新房产位置") message:nil cancelButtonTitle:nil otherButtonTitles:@[STR(@"RentAddressEdit/返回")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
             [self.navigationController popViewControllerAnimated:YES];
         }];
         return;
@@ -208,7 +208,7 @@
 - (void)updateAddressWhenPostcodeChange:(NSString *)newPostcode {
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [SVProgressHUD showWithStatus:STR(@"搜索中...")];
+        [SVProgressHUD showWithStatus:STR(@"RentAddressEdit/搜索中...")];
         [[self updateLocationWhenPostcodeChange:newPostcode] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
@@ -245,7 +245,7 @@
                         ticket.property.neighborhood = nil;
                     }];
 
-                    [SVProgressHUD showErrorWithStatus:STR(@"新Postcode定位失败")];
+                    [SVProgressHUD showErrorWithStatus:STR(@"RentAddressEdit/新Postcode定位失败")];
                     _updateLocationFromAddressFailed = YES;
                 }
             }
@@ -423,15 +423,15 @@
     CUTEProperty *property = [form.ticket property];
 
     if (!property.country) {
-        [SVProgressHUD showErrorWithStatus:STR(@"请填写国家")];
+        [SVProgressHUD showErrorWithStatus:STR(@"RentAddressEdit/请填写国家")];
         return NO;
     }
     if (!property.city) {
-        [SVProgressHUD showErrorWithStatus:STR(@"请填写城市")];
+        [SVProgressHUD showErrorWithStatus:STR(@"RentAddressEdit/请填写城市")];
         return NO;
     }
     if (!property.zipcode) {
-        [SVProgressHUD showErrorWithStatus:STR(@"请填写Postcode")];
+        [SVProgressHUD showErrorWithStatus:STR(@"RentAddressEdit/请填写Postcode")];
         return NO;
     }
 
@@ -522,7 +522,7 @@
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
 
     if (!form.singleUseForReedit && _updateLocationFromAddressFailed) {
-        [UIAlertView showWithTitle:STR(@"新Postcode定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"返回") otherButtonTitles:@[STR(@"下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        [UIAlertView showWithTitle:STR(@"RentAddressEdit/新Postcode定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"RentAddressEdit/返回") otherButtonTitles:@[STR(@"RentAddressEdit/下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == alertView.cancelButtonIndex) {
                 [self.navigationController popViewControllerAnimated:YES];
             }
@@ -536,7 +536,7 @@
         return;
     }
     else if (IsNilOrNull(form.ticket.property.latitude) || IsNilOrNull(form.ticket.property.longitude)) {
-        [UIAlertView showWithTitle:STR(@"请返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"返回") otherButtonTitles:@[STR(@"下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        [UIAlertView showWithTitle:STR(@"RentAddressEdit/请返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"RentAddressEdit/返回") otherButtonTitles:@[STR(@"RentAddressEdit/下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == alertView.cancelButtonIndex) {
                 [self.navigationController popViewControllerAnimated:YES];
             }

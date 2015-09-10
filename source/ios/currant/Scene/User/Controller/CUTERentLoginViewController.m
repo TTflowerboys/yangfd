@@ -46,7 +46,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = STR(@"登录");
+    self.navigationItem.title = STR(@"RentLogin/登录");
 }
 
 
@@ -77,7 +77,7 @@
                 }];
             }
             controller.formController.form = form;
-            controller.navigationItem.title = STR(@"重置密码");
+            controller.navigationItem.title = STR(@"RentLogin/重置密码");
             [self.navigationController pushViewController:controller animated:YES];
 
         }
@@ -91,7 +91,7 @@
     CUTERentPassword2ViewController *controller = [CUTERentPassword2ViewController new];
     CUTERentPassword2Form *form = [CUTERentPassword2Form new];
     controller.formController.form = form;
-    controller.navigationItem.title = STR(@"重置密码");
+    controller.navigationItem.title = STR(@"RentLogin/重置密码");
     [self.navigationController pushViewController:controller animated:YES];
 }
 
@@ -109,7 +109,7 @@
 
     CUTERentLoginForm *form = (CUTERentLoginForm *)self.formController.form;
     if (form.isOnlyRegister) {
-        [SVProgressHUD showWithStatus:STR(@"登录中...")];
+        [SVProgressHUD showWithStatus:STR(@"RentLogin/登录中...")];
         [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/login" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(form.country.countryCode.stringValue), NilNullToEmpty(form.phone)), @"password": [form.password base64EncodedString]} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             if (task.error || task.exception || task.isCancelled) {
                 [SVProgressHUD showErrorWithError:task.error];
@@ -130,7 +130,7 @@
 
     }
     else {
-        [SVProgressHUD showWithStatus:STR(@"登录中...")];
+        [SVProgressHUD showWithStatus:STR(@"RentLogin/登录中...")];
 
         Sequencer *sequencer = [Sequencer new];
 
@@ -161,7 +161,7 @@
             form.singleUseForReedit = YES;
             controller.formController.form = form;
             controller.ticket = self.ticket;
-            controller.navigationItem.title = STR(@"确认联系方式展示");
+            controller.navigationItem.title = STR(@"RentLogin/确认联系方式展示");
             [self.navigationController pushViewController:controller animated:YES];
 
         }];

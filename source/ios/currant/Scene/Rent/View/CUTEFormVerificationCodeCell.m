@@ -36,7 +36,7 @@
     self.textLabel.font = [UIFont systemFontOfSize:16];
 
     self.verificationButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.verificationButton setTitle:STR(@"获取") forState:UIControlStateNormal];
+    [self.verificationButton setTitle:STR(@"VerificationCodeCell/获取") forState:UIControlStateNormal];
     self.verificationButton.backgroundColor = CUTE_MAIN_COLOR;
     [self.contentView addSubview:self.verificationButton];
 }
@@ -62,13 +62,13 @@
     
     __block int count = 60;
     __weak typeof(self)weakSelf = self;
-    [weakSelf updateButtonTitle:[NSString stringWithFormat:@"%@%d%@", STR(@"剩余"), count, STR(@"秒")]];
+    [weakSelf updateButtonTitle:[NSString stringWithFormat:@"%@%d%@", STR(@"VerificationCodeCell/剩余"), count, STR(@"VerificationCodeCell/秒")]];
     _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 block:^{
         count = count - 1;
         if (count == 0) {
             [_timer invalidate];
             _timer = nil;
-            [weakSelf updateButtonTitle:STR(@"重新发送")];
+            [weakSelf updateButtonTitle:STR(@"VerificationCodeCell/重新发送")];
             [weakSelf.verificationButton setEnabled:YES];
             weakSelf.verificationButton.backgroundColor = CUTE_MAIN_COLOR;
             
@@ -77,7 +77,7 @@
             }
         }
         else {
-            [weakSelf updateButtonTitle:[NSString stringWithFormat:@"%@%d%@", STR(@"剩余"), count, STR(@"秒")]];
+            [weakSelf updateButtonTitle:[NSString stringWithFormat:@"%@%d%@", STR(@"VerificationCodeCell/剩余"), count, STR(@"VerificationCodeCell/秒")]];
         }
     } repeats:YES];
 

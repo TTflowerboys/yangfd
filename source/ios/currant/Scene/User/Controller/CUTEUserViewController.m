@@ -34,7 +34,7 @@
     }
     else {
         [self clearBackButton];
-        UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"设置") style:UIBarButtonItemStylePlain target:self action:@selector(onSettingButtonPressed:)];
+        UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"User/设置") style:UIBarButtonItemStylePlain target:self action:@selector(onSettingButtonPressed:)];
         self.navigationItem.leftBarButtonItem = leftBarButtonItem;
     }
 }

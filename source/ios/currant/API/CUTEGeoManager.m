@@ -64,7 +64,7 @@
             }
             else {
                 if (response.statusCode == 500) {
-                    [tcs setError:[NSError errorWithDomain:@"Google" code:response.statusCode userInfo:@{NSLocalizedDescriptionKey: STR(@"请求失败")}]];
+                    [tcs setError:[NSError errorWithDomain:@"Google" code:response.statusCode userInfo:@{NSLocalizedDescriptionKey: STR(@"GeoManager/请求失败")}]];
                 }
                 else {
                     [tcs setError:[NSError errorWithDomain:@"Google" code:response.statusCode userInfo:@{NSLocalizedDescriptionKey: [NSHTTPURLResponse localizedStringForStatusCode:response.statusCode]}]];
@@ -273,10 +273,10 @@
         }
         else {
             if (status == INTULocationStatusTimedOut) {
-                [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置超时")}]];
+                [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"GeoManager/获取当前位置超时")}]];
             }
             else if (status == INTULocationStatusError) {
-                [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"获取当前位置失败")}]];
+                [tcs setError:[NSError errorWithDomain:@"INTULocationManager" code:0 userInfo:@{NSLocalizedDescriptionKey: STR(@"GeoManager/获取当前位置失败")}]];
             }
             else if (status == INTULocationStatusServicesDenied) {
                 [tcs cancel];

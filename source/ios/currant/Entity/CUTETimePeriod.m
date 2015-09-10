@@ -26,7 +26,7 @@
 
 + (NSString *)getDisplayUnitWithUnit:(NSString *)unit
 {
-    return @{@"day": STR(@"天"), @"week": STR(@"周"), @"month": STR(@"月")}[unit];
+    return @{@"day": STR(@"TimePeriod/天"), @"week": STR(@"TimePeriod/周"), @"month": STR(@"TimePeriod/月")}[unit];
 }
 
 - (BOOL)isEqual:(id)object {

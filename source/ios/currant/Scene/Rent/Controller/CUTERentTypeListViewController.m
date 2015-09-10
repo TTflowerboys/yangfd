@@ -61,13 +61,13 @@
         ticket.minimumRentPeriod =  [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
 
         form.ticket = ticket;
-        self.navigationItem.title = STR(@"出租发布");
+        self.navigationItem.title = STR(@"RentTypeList/出租发布");
     }
     else {
-        self.navigationItem.title = STR(@"出租类型");
+        self.navigationItem.title = STR(@"RentTypeList/出租类型");
     }
-    self.tableView.accessibilityLabel = STR(@"出租类型列表");
-    self.tableView.accessibilityIdentifier = STR(@"出租类型列表");
+    self.tableView.accessibilityLabel = STR(@"RentTypeList/出租类型列表");
+    self.tableView.accessibilityIdentifier = STR(@"RentTypeList/出租类型列表");
 
     self.tableView.backgroundView = [UIView new];
     UILabel *hintLabel = [UILabel new];
@@ -75,7 +75,7 @@
     hintLabel.textAlignment = NSTextAlignmentCenter;
     hintLabel.numberOfLines = 0;
     hintLabel.font = [UIFont systemFontOfSize:16];
-    hintLabel.text = STR(@"您有整套或单间房源要出租？\n从这里开始免费发布！");
+    hintLabel.text = STR(@"RentTypeList/您有整套或单间房源要出租？\n从这里开始免费发布！");
     [self.tableView.backgroundView addSubview:hintLabel];
     MakeBegin(hintLabel)
     MakeBottomEqualTo(hintLabel.superview.bottom).offset(-135);

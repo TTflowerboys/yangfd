@@ -37,7 +37,7 @@
         [self addSubview:_topBorder];
 
         _doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_doneButton setTitle:STR(@"Done") forState:UIControlStateNormal];
+        [_doneButton setTitle:STR(@"Picker/Done") forState:UIControlStateNormal];
         [_doneButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self addSubview:_doneButton];
 

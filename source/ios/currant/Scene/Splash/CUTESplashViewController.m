@@ -51,7 +51,7 @@
     _pagingView.dateSource = self;
     [self.view addSubview:_pagingView];
 
-    _pagingView.accessibilityLabel = STR(@"引导页面");
+    _pagingView.accessibilityLabel = STR(@"Splash/引导页面");
 
     _pageIndicator = [[UIPageControl alloc] init];
     _pageIndicator.frame = CGRectMake(0, RectHeightExclude(self.view.bounds, kButtonAreaHeight), RectWidth(self.view.bounds), kPageIndicatorHeight);
@@ -63,7 +63,7 @@
     _enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _enterButton.frame = CGRectMake(kButtonHorizontalMargin, RectHeightExclude(self.view.bounds, (kButtonHeight + kButtonBottomMargin)), RectWidthExclude(self.view.bounds, kButtonHorizontalMargin * 2), kButtonHeight);
     [_enterButton setTitleColor:CUTE_MAIN_COLOR forState:UIControlStateNormal];
-    [_enterButton setTitle:STR(@"进入应用") forState:UIControlStateNormal];
+    [_enterButton setTitle:STR(@"Splash/进入应用") forState:UIControlStateNormal];
     _enterButton.titleLabel.font = [UIFont systemFontOfSize:14];
     _enterButton.layer.borderColor = CUTE_MAIN_COLOR.CGColor;
     _enterButton.layer.borderWidth = 1;
@@ -114,9 +114,9 @@
     label.textAlignment = NSTextAlignmentCenter;
     [view addSubview:label];
     label.frame = CGRectMake(10, imageView.frame.origin.y + imageView.frame.size.height + 14, RectWidthExclude(_pagingView.bounds, 20), 20);
-    label.text = @[STR(@"房东直租工具"),
-                   STR(@"杂志般的房产展示"),
-                   STR(@"一次发布，传遍全英")][index];
+    label.text = @[STR(@"Splash/房东直租工具"),
+                   STR(@"Splash/杂志般的房产展示"),
+                   STR(@"Splash/一次发布，传遍全英")][index];
 
     UILabel *detailLabel = [UILabel new];
     detailLabel.textColor = HEXCOLOR(0x666666, 1);
@@ -124,9 +124,9 @@
     detailLabel.textAlignment = NSTextAlignmentCenter;
     [view addSubview:detailLabel];
     detailLabel.frame = CGRectMake(10, label.frame.origin.y + label.frame.size.height + 10, RectWidthExclude(_pagingView.bounds, 20), 20);
-    detailLabel.text = @[STR(@"三步发布出租房，不用费力思考"),
-                         STR(@"分享至朋友圈，高大上的阅读体验"),
-                         STR(@"全国各大平台均可看到你的房产信息")][index];
+    detailLabel.text = @[STR(@"Splash/三步发布出租房，不用费力思考"),
+                         STR(@"Splash/分享至朋友圈，高大上的阅读体验"),
+                         STR(@"Splash/全国各大平台均可看到你的房产信息")][index];
 
     return view;
 }

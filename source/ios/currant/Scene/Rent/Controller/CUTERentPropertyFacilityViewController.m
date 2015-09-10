@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = STR(@"设施");
+    self.navigationItem.title = STR(@"RentPropertyFacility/设施");
 }
 
 - (CUTEPropertyFacilityForm *)form {

@@ -32,7 +32,7 @@
         [self addSubview:_imageView];
 
         _label = [UILabel new];
-        _label.text = STR(@"添加照片");
+        _label.text = STR(@"ImagePickerPlaceholder/添加照片");
         _label.textColor = CUTE_MAIN_COLOR;
         _label.font = [UIFont systemFontOfSize:12];
         [self addSubview:_label];

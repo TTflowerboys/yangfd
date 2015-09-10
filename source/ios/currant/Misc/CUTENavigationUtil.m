@@ -19,7 +19,7 @@
     [button setFrame:CGRectMake(0, 0, 53, 31)];
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 5, 40, 20)];
     [label setFont:[UIFont systemFontOfSize:17]];
-    [label setText:STR(@"返回")];
+    [label setText:STR(@"NavigationUtil/返回")];
     label.textAlignment = NSTextAlignmentCenter;
     [label setTextColor:HEXCOLOR(0xe62e3c, 1)];
     [label setBackgroundColor:[UIColor clearColor]];

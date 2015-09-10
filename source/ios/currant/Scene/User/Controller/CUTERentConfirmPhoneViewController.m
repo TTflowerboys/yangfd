@@ -28,9 +28,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = STR(@"确认手机号");
+    self.navigationItem.title = STR(@"RentConfirmPhone/确认手机号");
 
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"取消") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"RentConfirmPhone/取消") style:UIBarButtonItemStylePlain block:^(id weakSender) {
         [self.navigationController dismissViewControllerAnimated:NO completion:^{
 
             CUTERentConfirmPhoneForm *form = (CUTERentConfirmPhoneForm *)self.formController.form;
@@ -58,7 +58,7 @@
     CUTERentConfirmPhoneForm *form = (CUTERentConfirmPhoneForm *)self.formController.form;
 
     if (![form.phone isEqualToString:form.user.phone] || ![form.country isEqual:form.user.country]) {
-        [SVProgressHUD showWithStatus:STR(@"更新号码中...")];
+        [SVProgressHUD showWithStatus:STR(@"RentConfirmPhone/更新号码中...")];
         [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/edit" parameters:@{@"phone":CONCAT(@"+", NilNullToEmpty(form.country.countryCode.stringValue), NilNullToEmpty(form.phone))} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];

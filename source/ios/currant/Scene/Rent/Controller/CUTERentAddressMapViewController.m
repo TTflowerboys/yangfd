@@ -78,10 +78,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = STR(@"房产位置");
+    self.navigationItem.title = STR(@"RentAddressMap/房产位置");
 
     if (!self.singleUseForReedit) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"RentAddressMap/继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
     }
 
     _mapView = [[MKMapView alloc] init];
@@ -178,13 +178,13 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_MAP_INPUT_DISPLAYED])
         {
-            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_textField hostView:self.view tooltipText:STR(@"点击填写详细地址") arrowDirection:JDFTooltipViewArrowDirectionUp width:150 showCompletionBlock:^{
+            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_textField hostView:self.view tooltipText:STR(@"RentAddressMap/点击填写详细地址") arrowDirection:JDFTooltipViewArrowDirectionUp width:150 showCompletionBlock:^{
 
             } hideCompletionBlock:^{
 
                 if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_MAP_ADDRESS_BUTTON_DISPLAYED])
                 {
-                    CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_textField.rightView hostView:self.view tooltipText:STR(@"按地址定位") arrowDirection:JDFTooltipViewArrowDirectionUp width:120];
+                    CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_textField.rightView hostView:self.view tooltipText:STR(@"RentAddressMap/按地址定位") arrowDirection:JDFTooltipViewArrowDirectionUp width:120];
                     toolTips.viewForTouchToDismiss = _textField.rightView;
                     [toolTips show];
 
@@ -205,7 +205,7 @@
 - (void)startUpdateLocation {
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     if (status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted) {
-        [UIAlertView showWithTitle:STR(@"此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        [UIAlertView showWithTitle:STR(@"RentAddressMap/此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址") message:nil cancelButtonTitle:STR(@"RentAddressMap/OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
         }];
     }
     else {
@@ -233,7 +233,7 @@
             }
             else if (task.isCancelled) {
                 [SVProgressHUD dismiss];
-                [UIAlertView showWithTitle:STR(@"此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                [UIAlertView showWithTitle:STR(@"RentAddressMap/此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址") message:nil cancelButtonTitle:STR(@"RentAddressMap/OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                 }];
             }
             else {
@@ -252,7 +252,7 @@
 
     if (!_rentAddressEditViewController) {
         CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
-        controller.navigationItem.title = STR(@"房产地址");
+        controller.navigationItem.title = STR(@"RentAddressMap/房产地址");
         controller.updateAddressCompletion = ^ {
             _isAddressUpdated = YES;
         };
@@ -353,7 +353,7 @@
     TrackEvent(GetScreenName(self), kEventActionPress, @"look-up-address", nil);
 
     if (IsNilNullOrEmpty(_textField.text)) {
-        [SVProgressHUD showErrorWithStatus:STR(@"地址不能为空，请编辑地址")];
+        [SVProgressHUD showErrorWithStatus:STR(@"RentAddressMap/地址不能为空，请编辑地址")];
         return;
     }
 
@@ -387,7 +387,7 @@
                 [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
             }
             else {
-                [SVProgressHUD showErrorWithStatus:STR(@"重新定位失败")];
+                [SVProgressHUD showErrorWithStatus:STR(@"RentAddressMap/重新定位失败")];
             }
         }
 
@@ -404,28 +404,28 @@
 
     if (!property.country) {
         if (!_rentAddressEditViewController) {
-            [SVProgressHUD showErrorWithStatus:STR(@"请编辑地址")];
+            [SVProgressHUD showErrorWithStatus:STR(@"RentAddressMap/请编辑地址")];
         }
         else {
-            [SVProgressHUD showErrorWithStatus:STR(@"请填写国家")];
+            [SVProgressHUD showErrorWithStatus:STR(@"RentAddressMap/请填写国家")];
         }
         return NO;
     }
     if (!property.city) {
         if (!_rentAddressEditViewController) {
-            [SVProgressHUD showErrorWithStatus:STR(@"请编辑地址")];
+            [SVProgressHUD showErrorWithStatus:STR(@"RentAddressMap/请编辑地址")];
         }
         else {
-            [SVProgressHUD showErrorWithStatus:STR(@"请填写城市")];
+            [SVProgressHUD showErrorWithStatus:STR(@"RentAddressMap/请填写城市")];
         }
         return NO;
     }
     if (!property.zipcode) {
         if (!_rentAddressEditViewController) {
-            [SVProgressHUD showErrorWithStatus:STR(@"请编辑地址")];
+            [SVProgressHUD showErrorWithStatus:STR(@"RentAddressMap/请编辑地址")];
         }
         else {
-            [SVProgressHUD showErrorWithStatus:STR(@"请填写Postcode")];
+            [SVProgressHUD showErrorWithStatus:STR(@"RentAddressMap/请填写Postcode")];
         }
         return NO;
     }
@@ -560,7 +560,7 @@
 
         if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_MAP_DRAG_DISPLAYED])
         {
-            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_annotationView hostView:self.view tooltipText:STR(@"拖动地图可以修改房产位置") arrowDirection:JDFTooltipViewArrowDirectionUp width:150];
+            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_annotationView hostView:self.view tooltipText:STR(@"RentAddressMap/拖动地图可以修改房产位置") arrowDirection:JDFTooltipViewArrowDirectionUp width:150];
             [toolTips show];
             _mapTipView = toolTips;
 

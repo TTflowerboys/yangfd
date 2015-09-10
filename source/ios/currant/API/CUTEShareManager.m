@@ -110,7 +110,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
         }];
     }
     else {
-        [SVProgressHUD showErrorWithStatus:STR(@"请安装微信")];
+        [SVProgressHUD showErrorWithStatus:STR(@"ShareManager/请安装微信")];
     }
 
 }
@@ -150,7 +150,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
     }
 
     if (assetURL) {
-        [SVProgressHUD showWithStatus:STR(@"获取房产中...")];
+        [SVProgressHUD showWithStatus:STR(@"ShareManager/获取房产中...")];
         [[[CUTEImageUploader sharedInstance] getAssetOrNullFromURLString:assetURL.absoluteString] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [tcs setError:task.error];
@@ -167,7 +167,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
             else {
                 if (IsNilOrNull(task.result)) {
                     [tcs setResult:nil];
-                    [SVProgressHUD showErrorWithStatus:STR(@"图片读取失败")];
+                    [SVProgressHUD showErrorWithStatus:STR(@"ShareManager/图片读取失败")];
                 }
                 else {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
@@ -188,7 +188,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
     }
     else if (imageURLString && [NSURL URLWithString:imageURLString].isHttpOrHttpsURL) {
-        [SVProgressHUD showWithStatus:STR(@"获取房产中...")];
+        [SVProgressHUD showWithStatus:STR(@"ShareManager/获取房产中...")];
 
         [[[CUTEAPIManager sharedInstance] downloadImage:imageURLString] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
@@ -342,12 +342,12 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
     }];
 
     CUTEActivity *copyLinkActivity = [CUTEActivity new];
-    copyLinkActivity.activityTitle = STR(@"复制链接");
+    copyLinkActivity.activityTitle = STR(@"ShareManager/复制链接");
     copyLinkActivity.activityType = CUTEShareServiceCopyLink;
     copyLinkActivity.activityImage = IMAGE(@"icon-share-copy-link");
     copyLinkActivity.performActivityBlock = ^ {
         [UIPasteboard generalPasteboard].string = urlString;
-        [SVProgressHUD showSuccessWithStatus:STR(@"已复制至粘贴版")];
+        [SVProgressHUD showSuccessWithStatus:STR(@"ShareManager/已复制至粘贴版")];
         if (pressBlock) {
             pressBlock(CUTEShareServiceCopyLink);
         }
@@ -484,7 +484,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
             [self.taskCompletionSource cancel];
         }
         else {
-            NSError *error = [NSError errorWithDomain:STR(@"微博分享") code:response.responseCode userInfo:@{NSLocalizedDescriptionKey: response.description}];
+            NSError *error = [NSError errorWithDomain:STR(@"ShareManager/微博分享") code:response.responseCode userInfo:@{NSLocalizedDescriptionKey: response.description}];
             [self.taskCompletionSource setError:error];
         }
     }
@@ -524,7 +524,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
             [self.taskCompletionSource cancel];
         }
         else {
-            NSError *error = [NSError errorWithDomain:STR(@"微博分享") code:response.statusCode userInfo:response.userInfo];
+            NSError *error = [NSError errorWithDomain:STR(@"ShareManager/微博分享") code:response.statusCode userInfo:response.userInfo];
             [self.taskCompletionSource setError:error];
         }
     }
