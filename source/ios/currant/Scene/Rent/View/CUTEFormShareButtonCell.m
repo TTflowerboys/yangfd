@@ -20,7 +20,7 @@
 - (void)setUp {
     [super setUp];
     self.backgroundColor = HEXCOLOR(0x8acd24, 1);
-    self.textLabel.text = STR(@"ShareButtonCell/分享");
+    self.textLabel.text = STR(@"RentShare/分享");
     self.textLabel.textColor = [UIColor whiteColor];
 }
 

@@ -524,6 +524,10 @@
 "ShareManager/复制链接" = "复制链接";
 "ShareManager/已复制至粘贴版" = "已复制至粘贴版";
 "ShareManager/微博分享" = "微博分享";
+"ShareManager/Wechat Friend" = "微信好友";
+"ShareManager/Wechat Circle" = "微信朋友圈";
+"ShareManager/Sina Weibo" = "新浪微博";
+
 
 
 //
@@ -695,13 +699,6 @@
 
 
 //
-//Group: ShareButtonCell
-//
-//Filepath: currant/Scene/Rent/View/CUTEFormShareButtonCell.m
-"ShareButtonCell/分享" = "分享";
-
-
-//
 //Group: ngrvalidator
 //
 //edit address
@@ -733,14 +730,6 @@
 //
 "Done" = "完成";
 
-
-//Share
-
-"Wechat Friend" = "微信好友";
-
-"Wechat Circle" = "微信朋友圈";
-
-"Sina Weibo" = "新浪微博";
 
 
 //

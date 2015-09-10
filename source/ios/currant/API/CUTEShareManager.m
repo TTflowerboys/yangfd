@@ -223,15 +223,14 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
     return tcs.task;
 }
 
-- (NSArray *)defaultShareTitles {
-    return [@[CUTEShareServiceWechatFriend, CUTEShareServiceWechatCircle, CUTEShareServiceSinaWeibo] map:^id(id object) {
-        return STR(object);
-    }];
+- (NSString *)getLocalizedActivityTitle:(NSString *)titleKey {
+    NSString *localizedkey = CONCAT(@"ShareManager/", titleKey);
+    return STR(localizedkey);
 }
 
 - (CUTEActivity *)getWechatFriendActivityWithTitle:(NSString *)title description:(NSString *)description url:(NSString *)url image:(UIImage *)image buttonPressedBlock:(dispatch_block_t)callback {
     CUTEActivity *wechatFriendActivity = [CUTEActivity new];
-    wechatFriendActivity.activityTitle = STR(CUTEShareServiceWechatFriend);
+    wechatFriendActivity.activityTitle = [self getLocalizedActivityTitle:CUTEShareServiceWechatFriend];
     wechatFriendActivity.activityType = CUTEShareServiceWechatFriend;
     wechatFriendActivity.activityImage = IMAGE(@"icon-share-wechat-friend");
     wechatFriendActivity.performActivityBlock = ^ {
@@ -247,7 +246,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
 - (CUTEActivity *)getWechatCircleActivityWithTitle:(NSString *)title description:(NSString *)description url:(NSString *)url image:(UIImage *)imageData buttonPressedBlock:(dispatch_block_t)callback {
     CUTEActivity *wechatCircleActivity = [CUTEActivity new];
-    wechatCircleActivity.activityTitle = STR(CUTEShareServiceWechatCircle);
+    wechatCircleActivity.activityTitle = [self getLocalizedActivityTitle:CUTEShareServiceWechatCircle];
     wechatCircleActivity.activityType = CUTEShareServiceWechatCircle;
     wechatCircleActivity.activityImage = IMAGE(@"icon-share-wechat-circle");
     wechatCircleActivity.performActivityBlock = ^ {
@@ -263,7 +262,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
 - (CUTEActivity *)getSinaWeiboActivityWithTitle:(NSString *)title description:(NSString *)description url:(NSString *)url image:(UIImage *)imageData viewController:(UIViewController *)viewController buttonPressedBlock:(dispatch_block_t)callback {
     CUTEActivity *weiboActivity = [CUTEActivity new];
-    weiboActivity.activityTitle = STR(CUTEShareServiceSinaWeibo);
+    weiboActivity.activityTitle = [self getLocalizedActivityTitle:CUTEShareServiceSinaWeibo];
     weiboActivity.activityType = CUTEShareServiceSinaWeibo;
     weiboActivity.activityImage = IMAGE(@"icon-share-sina-weibo");
     weiboActivity.performActivityBlock = ^ {
@@ -413,19 +412,17 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
     NSArray *activityKeys = nil;
     if (IsArrayNilOrEmpty(services)) {
-        activityKeys = [self defaultShareTitles];
+        activityKeys = @[CUTEShareServiceWechatFriend, CUTEShareServiceWechatCircle, CUTEShareServiceSinaWeibo];
     }
     else {
-        activityKeys = [services map:^id(NSString *object) {
-            return STR(object);
-        }];
+        activityKeys = services;
     }
     NSString *title = text;
     UIImage *imageData = [UIImage appIcon];
 
     NSMutableArray *activities = [NSMutableArray array];
 
-    if ([activityKeys containsObject:STR(CUTEShareServiceWechatFriend)]) {
+    if ([activityKeys containsObject:CUTEShareServiceWechatFriend]) {
         [activities addObject:[self getWechatFriendActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
             if (pressBlock) {
                 pressBlock(CUTEShareServiceWechatFriend);
@@ -433,7 +430,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
         }]];
     }
 
-    if ([activityKeys containsObject:STR(CUTEShareServiceWechatCircle)]) {
+    if ([activityKeys containsObject:CUTEShareServiceWechatCircle]) {
         [activities addObject:[self getWechatCircleActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
             if (pressBlock) {
                 pressBlock(CUTEShareServiceWechatCircle);
@@ -441,7 +438,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
         }]];
     }
 
-    if ([activityKeys containsObject:STR(CUTEShareServiceSinaWeibo)]) {
+    if ([activityKeys containsObject:CUTEShareServiceSinaWeibo]) {
         [activities addObject:[self getSinaWeiboActivityWithTitle:title description:nil url:urlString image:imageData viewController:viewController buttonPressedBlock:^{
             if (pressBlock) {
                 pressBlock(CUTEShareServiceSinaWeibo);
