@@ -77,7 +77,7 @@ def venue_edit(venue_id, user, params):
     venue = f_app.shop.get(venue_id)
 
     if "phone" in params and "country" not in params:
-        f_app.util.parse_phone({"phone": params["phone"], "country": venue["country"]}, retain_country=True)
+        f_app.util.parse_phone({"phone": params["phone"], "country": venue.get("country")}, retain_country=True)
     elif "phone" in params and "country" in params:
         f_app.util.parse_phone(params, retain_country=True)
     return f_app.shop.update_set(venue_id, params)
