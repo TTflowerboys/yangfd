@@ -260,3 +260,20 @@ def get_intention_ticket_list(user):
 
 def get_bought_intention_ticket_list(user):
     return f_app.ticket.output(f_app.ticket.search({"type": "intention", "status": "bought", "$or": [{"creator_user_id": ObjectId(user["id"])}, {"user_id": ObjectId(user["id"])}]}), ignore_nonexist=True)
+
+
+def get_venues():
+    params = dict()
+    params.setdefault("type", {"$ne": "vip"})
+
+    params.setdefault("status", "show")
+
+    sort = params.pop("sort", None)
+    venues = f_app.i18n.process_i18n(f_app.shop.output(f_app.shop.search(params, sort=sort)))
+
+    for venue in venues:
+        venue.pop("minimal_price", None)
+        venue.pop("quantity", None)
+        venue["deals"] = f_app.i18n.process_i18n(f_app.shop.item_output(f_app.shop.item_get_all(venue.get('id'))))
+
+    return venues

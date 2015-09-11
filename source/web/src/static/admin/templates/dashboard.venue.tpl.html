@@ -1,5 +1,5 @@
 <div ui-view>
-    <div>
+    <div ng-controller="ctrlVenueItems">
 
         <div class="buttons">
             <div class="btn-group">
@@ -55,7 +55,7 @@
                         <div show-i18n="item.address"></div>
                     </td>
                     <td>
-                        <select class="form-control" ng-options="p.value as p.name for p in venueStatus" ng-model="item.status" ng-change="updateItem(item)">
+                        <select class="form-control" ng-options="p.value as p.name for p in venueStatus" ng-model="item.status" ng-change="updateStatus(item)">
                         </select>
                     </td>
                     <td>

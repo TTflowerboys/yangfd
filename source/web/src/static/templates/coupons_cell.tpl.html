@@ -1,7 +1,7 @@
 <script id="couponsCell_template" type="text/template">
-    <a href="/user-coupons-detail" class="cell" style="background-image:url('{=coupons.banner=}');">
+    <a href="/user-coupons-detail/{=deal.venue.id=}/{=deal.id=}" class="cell" style="background-image:url('{=deal.pictures[0]=}');">
         <p class="content verticalMiddleWrap">
-            <span>{=coupons.title=}-{=coupons.description=}</span>
+            <span>{=deal.venue.name=}-{=deal.name=}</span>
         </p>
     </a>
 </script>

@@ -187,25 +187,17 @@ def user_messages(user):
 
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
 
-    #mock data start
-    coupons = {
-        'title': 'HAPPY LEMON',
-        'description': _('洋房东会员九折大优惠'),
-        'banner': 'https://photos-1.dropbox.com/t/2/AAAA79nRPcHWrfMiKPvjOX7jrj6hA3J17W0nqgcSuTY6Ng/12/408631042/jpeg/32x32/1/_/1/2/coupons_banner.jpg/ENPk_aIDGEIgAigC/EdXAjW_28HcevxDACpNMx6XdPdx699hCVACiITi6w-Q?size=2048x1536&size_mode=2'
-    }
-    coupons_list = []
-    for x in range(0, 15):
-        coupons_list.append(coupons)
-    #mock data end
+    venue_list = currant_data_helper.get_venues()
+    print(venue_list)
 
     title = _('会员专享')
-    return currant_util.common_template("user_coupons", user=user, coupons_list=coupons_list, title=title)
+    return currant_util.common_template("user_coupons", user=user, venue_list=venue_list, title=title)
 
 
-@f_get('/user-coupons-detail')
+@f_get('/user-coupons-detail/<venue_id:re:[0-9a-fA-F]{24}>/<deal_id:re:[0-9a-fA-F]{24}>')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
-def user_messages(user):
+def user_messages(venue_id, deal_id, user):
     #if not currant_util.is_mobile_client():
         #redirect('/user')
 
@@ -220,5 +212,8 @@ def user_messages(user):
     title = _('HAPPY LEMON')
 
     #mock data end
+    venue = f_app.i18n.process_i18n(f_app.shop.output([venue_id])[0])
+    deal = f_app.i18n.process_i18n(f_app.shop.item_output([deal_id])[0])
+    deal["venue"] = venue
 
-    return currant_util.common_template("user_coupons_detail", user=user, coupons=coupons, title=title)
+    return currant_util.common_template("user_coupons_detail", user=user, deal=deal, title=title)
