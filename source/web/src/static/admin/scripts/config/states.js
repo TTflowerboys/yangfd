@@ -887,6 +887,80 @@ angular.module('app')
                 }
             })
         /**
+         * 优惠券管理
+         * */
+            .state('dashboard.venue', {
+                url: '/venue',
+                templateUrl: '/static/admin/templates/dashboard.venue.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api: function (venueApi) {
+                        return venueApi
+                    }
+                }
+            })
+            .state('dashboard.venue.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.venue.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: {
+                    api: function (venueApi) {
+                        return venueApi
+                    }
+                }
+            })
+            .state('dashboard.venue.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.venue.edit.tpl.html',
+                controller: 'ctrlVenueEdit',
+                resolve: {
+                    api: function (venueApi) {
+                        return venueApi
+                    }
+                }
+            })
+            .state('dashboard.venue.detail', {
+                url: '/:id',
+                templateUrl: '/static/admin/templates/dashboard.venue.detail.tpl.html',
+                controller: 'ctrlVenueProfile',
+                resolve: {
+                    api: function (venueApi) {
+                        return venueApi
+                    }
+                }
+            })
+            .state('dashboard.venue.detail.deals', {
+                url: '/deals',
+                templateUrl: '/static/admin/templates/dashboard.venue.detail.deals.tpl.html',
+                controller: 'ctrlDealList',
+                resolve: {
+                    api: function (dealApi) {
+                        return dealApi
+                    }
+                }
+            })
+            .state('dashboard.venue.detail.deals.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.venue.detail.deals.create.tpl.html',
+                controller: 'ctrlDealCreate',
+                resolve: {
+                    api: function (dealApi) {
+                        return dealApi
+                    }
+                }
+            })
+            .state('dashboard.venue.detail.deals.edit', {
+                url: '/:dealId/edit',
+                templateUrl: '/static/admin/templates/dashboard.venue.detail.deals.edit.tpl.html',
+                controller: 'ctrlDealEdit',
+                resolve: {
+                    api: function (dealApi) {
+                        return dealApi
+                    }
+                }
+            })
+
+        /**
          * Android订阅申请
          * */
             .state('dashboard.subscribe.android', {

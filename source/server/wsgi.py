@@ -58,6 +58,8 @@ import order_api_interface
 import log_api_interface
 import credit_api_interface
 import app_version_api_interface
+import venue_api_interface
+import deal_api_interface
 
 
 application = f_app(__name__)

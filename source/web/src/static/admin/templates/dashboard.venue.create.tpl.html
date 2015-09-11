@@ -1,0 +1,100 @@
+<div class="buttons">
+    <span class="btn-group">
+        <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
+    </span>
+</div>
+<form name="venueCreateForm" class="form-horizontal"
+    style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,shopCreateForm)"
+    novalidate >
+    <div class="row">
+        <div class="form-group col-sm-6 ">
+            <label class="control-label">{%$root.i18n('店铺名称')%} *</label>
+
+            <div class="controls">
+                <input class="form-control" ng-model="item.name[userLanguage.value]" type="text" type-i18n="item.name"/>
+            </div>
+        </div>
+        <div class="form-group col-sm-6 ">
+            <label class="control-label">{%$root.i18n('店铺电话')%} *</label>
+
+            <div class="controls">
+                <input class="form-control" ng-model="item.phone" type="text"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12 ">
+            <label class="control-label">{%$root.i18n('详细描述')%} *</label>
+
+            <div class="controls">
+                <textarea cols="80" rows="3" type="text" ng-model="item.description[userLanguage.value]" type-i18n="item.description"></textarea>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="form-group  col-sm-3">
+            <label class="control-label">{%$root.i18n('国家')%}</label>
+
+            <div class="controls">
+                <div select-supported-country name="country" ng-model="item.country"></div>
+
+            </div>
+        </div>
+        <div class="form-group  col-sm-3">
+            <label class="control-label">{%$root.i18n('城市')%}</label>
+
+            <div class="controls">
+                <div select-city-by-country country="item.country" ng-model="item.city" city-name="item.cityName"></div>
+
+            </div>
+        </div>
+        <div class="form-group col-sm-3" ng-if="item.cityName.toLowerCase() === 'london'">
+            <label class="control-label">{%$root.i18n('街区')%}</label>
+            <div class="controls">
+                <div select-neighborhood-by-city city="item.city" city-name="item.cityName" ng-model="item.maponics_neighborhood"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6 ">
+            <label class="control-label">{%$root.i18n('店铺地址')%} *</label>
+
+            <div class="controls">
+                <input class="form-control" ng-model="item.address[userLanguage.value]" type="text" type-i18n="item.address"/>
+            </div>
+        </div>
+        <div class="form-group col-sm-6 ">
+            <label class="control-label">{%$root.i18n('zipcode')%} *</label>
+
+            <div class="controls">
+                <input class="form-control" ng-model="item.zipcode" type="text"/>
+            </div>
+        </div>
+        <div class="form-group  col-sm-6">
+            <label class="control-label">{%$root.i18n('地图位置')%}</label>
+
+            <div class="form-inline">
+                <input type="text" class="form-control  col-sm-3" ng-model="item.latitude"
+                    placeholder="Latitude"/>
+                <input type="text" class="form-control  col-sm-3" ng-model="item.longitude"
+                    placeholder="Longitude"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group  col-sm-12">
+            <div edit-i18n-images="item.pictures" width-limit="1280" watermark="false" thumbnail-size="320,213" text="{%$root.i18n('店铺背景图片')%}{%$root.i18n('(显示在优惠券详情页上方的图片，最大宽度是1280px)')%}"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group  col-sm-12">
+            <div edit-i18n-single-image="item.logo" width-limit="160" watermark="false" thumbnail-size="160,160" text="{%$root.i18n('店铺LOGO')%}{%$root.i18n('(显示在优惠券详情页上方的LOGO，宽高都是160px)')%}"></div>
+        </div>
+    </div>
+    <div class="form-actions" style="margin-bottom: 80px;">
+        <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
+        <input type="button" class="btn btnGoBack" ng-click="onBackClick()" value="{%$root.i18n('取消')%}">
+    </div>
+    <div class="help-block">* {%$root.i18n('必填')%}</div>
+</form>

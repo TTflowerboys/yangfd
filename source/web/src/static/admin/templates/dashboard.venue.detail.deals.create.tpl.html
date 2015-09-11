@@ -1,0 +1,89 @@
+
+<form name="venueCreateForm" class="form-horizontal"
+    style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,shopCreateForm)"
+    novalidate >
+    <div class="row">
+        <div class="form-group col-sm-6 ">
+            <label class="control-label">{%$root.i18n('优惠券名称')%} *</label>
+
+            <div class="controls">
+                <input class="form-control" ng-model="item.name[userLanguage.value]" type="text" type-i18n="item.name"/>
+            </div>
+        </div>
+        <div class="form-group col-sm-3 ">
+            <label class="control-label">{%$root.i18n('优惠类型')%} *</label>
+
+            <div class="controls">
+                <select class="form-control" ng-options="p.value as p.name for p in dealTypes"
+                    ng-model="item.deal_type">
+                    <option value="">-- {%$root.i18n('请选择优惠类型')%} --</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-sm-3">
+            <label class="control-label">{%$root.i18n('是否展示该优惠券')%} *</label>
+
+            <div class="controls">
+                <select class="form-control" ng-options="p.value as p.name for p in displayTypes" ng-model="item.display">
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="item.deal_type !== 'free'">
+        <div class="form-group col-sm-6">
+            <label class="control-label" ng-if="item.deal_type === 'percentage'">{%$root.i18n('分享前折扣（如果是9折请填写数字9）')%} *</label>
+            <label class="control-label" ng-if="item.deal_type === 'amount'">{%$root.i18n('分享前减免金额')%} *</label>
+            <div class="controls">
+                <input class="form-control" ng-model="item.deal_off" type="text"/>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label" ng-if="item.deal_type === 'percentage'">{%$root.i18n('分享后折扣（如果是9折请填写数字9）')%} *</label>
+            <label class="control-label" ng-if="item.deal_type === 'amount'">{%$root.i18n('分享后减免金额')%} *</label>
+            <div class="controls">
+                <input class="form-control" ng-model="item.deal_off_shared" type="text"/>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="item.deal_type === 'free'">
+        <div class="form-group col-sm-12">
+            <label class="control-label">{%$root.i18n('分享前的优惠描述文字')%} *</label>
+            <div class="controls">
+                <textarea cols="80" rows="3" type="text" ng-model="item.free_text[userLanguage.value]" type-i18n="item.free_text"></textarea>
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="control-label">{%$root.i18n('分享后的优惠描述文字')%} *</label>
+            <div class="controls">
+                <textarea cols="80" rows="3" type="text" ng-model="item.free_text_shared[userLanguage.value]" type-i18n="item.free_text_shared"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12 ">
+            <label class="control-label">{%$root.i18n('详细描述')%} *</label>
+
+            <div class="controls">
+                <textarea cols="80" rows="3" type="text" ng-model="item.description[userLanguage.value]" type-i18n="item.description"></textarea>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+
+    </div>
+
+    <div class="row">
+        <div class="form-group  col-sm-12">
+            <div edit-i18n-images="item.pictures" width-limit="1280" watermark="false" thumbnail-size="320,213" text="{%$root.i18n('优惠券图片')%}{%$root.i18n('(显示在优惠券列表页，最大宽度是1280px)')%}"></div>
+        </div>
+    </div>
+    <div class="row">
+
+    </div>
+    <div class="form-actions" style="margin-bottom: 80px;">
+        <input type="submit" class="btn btn-primary" value="{%$root.i18n('提交')%}">
+        <input type="button" class="btn btnGoBack" ng-click="onBackClick()" value="{%$root.i18n('取消')%}">
+    </div>
+    <div class="help-block">* {%$root.i18n('必填')%}</div>
+</form>

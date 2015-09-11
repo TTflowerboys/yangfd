@@ -1,0 +1,88 @@
+<div ui-view>
+    <div>
+
+        <div class="buttons">
+            <div class="btn-group">
+                <button class="btn" ui-sref=".create">
+                    <span class="fa fa-plus-circle"></span> {%$root.i18n('添加店铺')%}
+                </button>
+            </div>
+
+
+            <span class="btn-group pull-right">
+                <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+            </span>
+        </div>
+
+        <table class="table table-bordered table-striped table-condensed">
+
+            <thead>
+                <tr>
+                    <th>{%$root.i18n('名称')%}</th>
+                    <th>{%$root.i18n('详情')%}</th>
+                    <th>{%$root.i18n('电话')%}</th>
+                    <th>{%$root.i18n('国家')%}</th>
+                    <th>{%$root.i18n('城市')%}</th>
+                    <th>{%$root.i18n('zipcode')%}</th>
+                    <th>{%$root.i18n('地址')%}</th>
+                    <th style="width:70px">{%$root.i18n('是否展示')%}</th>
+                    <th>{%$root.i18n('管理')%}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list">
+
+                    <td>
+                        <div show-i18n="item.name"></div>
+                    </td>
+                    <td>
+                        <div show-i18n="item.description"></div>
+                    </td>
+                    <td>
+                        {%item.phone%}
+                    </td>
+                    <td>
+                        {%item.country | countryName%}
+                    </td>
+                    <td>
+                        {%item.city.name%}
+                    </td>
+                    <td>
+                        {%item.zipcode%}
+                    </td>
+                    <td>
+                        <div show-i18n="item.address"></div>
+                    </td>
+                    <td>
+                        <select class="form-control" ng-options="p.value as p.name for p in venueStatus" ng-model="item.status" ng-change="updateItem(item)">
+                        </select>
+                    </td>
+                    <td>
+                        <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
+                            <i class="fa fa-search-plus"></i>
+                        </a>
+                        <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
+                            <i class="fa fa-edit "></i>
+                        </a>
+                        </a>
+                        <span class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">
+                            <i class="fa fa-trash-o"></i>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+        <div class="buttons">
+
+            <span class="btn-group pull-right">
+                <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+            </span>
+
+        </div>
+
+        <!--/container-->
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="buttons">
+    <span class="btn-group">
+        <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
+    </span>
+</div>
+<div class="row">
+    <div class="col-sm-3">
+        <div class="row">
+            <div class="form-group col-sm-12 ">
+                <label class="control-label">{%$root.i18n('店铺名称')%} *</label>
+
+                <div ng-bind="item.name[userLanguage.value]"></div>
+            </div>
+            <div class="form-group col-sm-12 ">
+                <label class="control-label">{%$root.i18n('店铺电话')%} *</label>
+
+                <div class="controls">
+                    <div ng-bind="item.phone"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12 ">
+                <label class="control-label">{%$root.i18n('详细描述')%} *</label>
+
+                <div class="controls">
+                    <div ng-bind="item.description[userLanguage.value]"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group  col-sm-12">
+                <label class="control-label">{%$root.i18n('国家')%}</label>
+                <div class="controls">
+                    <div ng-bind="item.country | countryName"></div>
+                </div>
+            </div>
+            <div class="form-group  col-sm-12">
+                <label class="control-label">{%$root.i18n('城市')%}</label>
+                <div class="controls">
+                    <div ng-bind="item.city.name"></div>
+                </div>
+            </div>
+            <div class="form-group col-sm-12" ng-if="item.cityName.toLowerCase() === 'london'">
+                <label class="control-label">{%$root.i18n('街区')%}</label>
+                <div class="controls">
+                    <div select-neighborhood-by-city city="item.city" city-name="item.cityName" ng-model="item.maponics_neighborhood"></div>
+                    <div ng-bind="item.maponics_neighborhood.name"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                <label class="control-label">{%$root.i18n('店铺地址')%} *</label>
+
+                <div class="controls">
+                    <div ng-bind="item.address[userLanguage.value]"></div>
+                </div>
+            </div>
+            <div class="form-group col-sm-12 ">
+                <label class="control-label">{%$root.i18n('zipcode')%} *</label>
+
+                <div class="controls">
+                    <div ng-bind="item.zipcode"></div>
+                </div>
+            </div>
+            <div class="form-group  col-sm-12">
+                <label class="control-label">{%$root.i18n('地图位置')%}</label>
+                <div class="form-inline">
+                    <div ng-bind="item.latitude"></div>
+                    <div ng-bind="item.longitude"></div>
+                </div>
+            </div>
+            <div class="form-group  col-sm-12">
+                <label class="control-label">{%$root.i18n('店铺背景图片')%}</label>
+                <img class="img-thumbnail" ng-repeat="img in item.pictures[userLanguage.value]"
+                    ng-src="{%img%} ">
+            </div>
+            <div class="form-group  col-sm-12">
+                <label class="control-label">{%$root.i18n('店铺LOGO')%}</label>
+                <img class="img-thumbnail" ng-src="{%item.logo[userLanguage.value]%} ">
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-sm-9">
+        <div class="row" ng-if="$state.current.url=='/deals'">
+            <div class="form-inline">
+                <h2>{%$root.i18n('店铺优惠券')%}</h2>
+            </div>
+            <a class="btn btn-success" href ui-sref=".deals.create" title="View">
+                {%$root.i18n('添加优惠券')%}
+            </a>
+        </div>
+        <div style="min-height: 600px;" ui-view></div>
+    </div>
+</div>
