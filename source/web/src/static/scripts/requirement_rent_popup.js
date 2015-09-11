@@ -335,6 +335,7 @@
             $formWrap.find('[data-show-step]').each(function (index, elem) {
                 $(elem)[$(elem).attr('data-show-step') === num.toString() ? 'show' : 'hide']()
             })
+            ga('send', 'pageview', '/submit-rent-requirement/step-' + num)
         }
         function checkInputOfCurrentStep($formWrap, currentStep) {
             return checkForm($formWrap.find('.requirement_rent_form .step' + currentStep))
@@ -435,6 +436,7 @@
                             getHostContact(container, option)
                             submitSuccessCallBack()
                             ga('send', 'event', 'rentRequirementPopup', 'result', 'submit-success');
+                            ga('send', 'pageview', '/submit-rent-requirement/submit-success')
                         })
                         .fail(function (ret) {
                             $errorMsg.empty()
