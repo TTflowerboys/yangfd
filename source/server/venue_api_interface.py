@@ -47,7 +47,6 @@ def venue_add(user, params):
     if params["status"] not in ["show", "hide"]:
         abort(40000, "status must be show or hide in venue creating")
     f_app.util.parse_phone(params, retain_country=True)
-    params['category'] = params['category'].lower()
     return f_app.shop.add(params)
 
 
