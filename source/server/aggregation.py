@@ -5,6 +5,8 @@ from app import f_app
 from bson.objectid import ObjectId
 from collections import OrderedDict
 
+f_app.common.memcache_server = ["172.20.101.98:11211"]
+f_app.common.mongo_server = "172.20.101.98"
 
 with f_app.mongo() as m:
 
@@ -140,7 +142,7 @@ with f_app.mongo() as m:
         [
             {'$unwind': "$items"},
             {'$group': {'_id': "$user.nickname", 'count': {'$sum': 1}}},
-            {'$group': {'_id': 'null', 'totalUsersCount': {'$sum': 1}, 'totalRequestCount': {'$sum': "$count"}}}
+            {'$group': {'_id': None, 'totalUsersCount': {'$sum': 1}, 'totalRequestCount': {'$sum': "$count"}}}
         ]
     )
 
@@ -162,12 +164,13 @@ with f_app.mongo() as m:
         print(document['_id'] + ':' + str(document['count']))
 
     # 被查看过联系方式的房源数量和被查看总次数的统计
+    # TODO
     print('\n被查看过联系方式的房源数量和被查看总次数的统计:')
     cursor = m.orders.aggregate(
         [
             {'$unwind': "$items"},
             {'$group': {'_id': "$ticket_id", 'count': {'$sum': 1}}},
-            {'$group': {'_id': 'null', 'totalUsersCount': {'$sum': 1}, 'totalRequestCount': {'$sum': "$count"}}}
+            {'$group': {'_id': None, 'totalUsersCount': {'$sum': 1}, 'totalRequestCount': {'$sum': "$count"}}}
         ]
     )
 
@@ -176,7 +179,7 @@ with f_app.mongo() as m:
         print('查看过联系方式的总数量' + ':' + str(document['totalRequestCount']))
 
     # 房源被查看联系方式的个数
-    print('\n房源被查看联系方式的次数排名:')
+    print('\n出租房源被查看联系方式的次数排名:')
     cursor = m.orders.aggregate(
         [
             {'$unwind': "$items"},
@@ -196,8 +199,21 @@ with f_app.mongo() as m:
     for ticket in target_tickets:
         print(ticket['title'] + ", " + str(ticket['id']) + ": " + str(target_ticket_dic.get(ticket['id'])))
 
-    # 查看过海外房产数量的用户排名
-    print('\n查看过海外房产数量的用户排名:')
+    # 浏览过海外房产总数量
+    total_property_views_count = m.log.find({'property_id': {'$exists': 'true'}}).count()
+    print('\n浏览过海外房产总数量: ' + str(total_property_views_count))
+    cursor = m.log.aggregate(
+        [
+            {'$match': {'property_id': {'$exists': 'true'}, 'id': None}},
+            {'$group': {'_id': "$id", 'count': {'$sum': 1}}},
+        ]
+    )
+    for document in cursor:
+        print('未注册用户浏览量: ' + str(document['count']))
+    print('注册用户浏览量: ' + str(total_property_views_count - document['count']))
+
+    # 浏览过海外房产数量的用户排名
+    print('\n浏览过海外房产数量的用户排名:')
     cursor = m.log.aggregate(
         [
             {'$match': {'property_id': {'$exists': 'true'}}},
@@ -208,7 +224,8 @@ with f_app.mongo() as m:
     )
     user_property_view_count_dic = {}
     for document in cursor:
-        user_property_view_count_dic[str(document['_id'])] = document['count']
+        if(document['_id']):
+            user_property_view_count_dic[str(document['_id'])] = document['count']
 
     user_property_view_count_dic = OrderedDict(sorted(user_property_view_count_dic.items(), key=lambda t: t[1], reverse=True))
 
@@ -216,3 +233,24 @@ with f_app.mongo() as m:
 
     for user in target_users:
         print(user['nickname'] + ':' + str(user_property_view_count_dic[str(user['id'])]))
+
+    # 被浏览最多的海外房产排名
+    print('\n被浏览最多的海外房产排名:')
+    cursor = m.log.aggregate(
+        [
+            {'$match': {'property_id': {'$exists': 'true'}}},
+            {'$group': {'_id': "$property_id", 'count': {'$sum': 1}}},
+            # {'$limit': 10}
+            {'$sort': {'count': -1}}
+        ]
+    )
+    property_viewed_count_dic = {}
+    for document in cursor:
+        property_viewed_count_dic[str(document['_id'])] = document['count']
+
+    property_viewed_count_dic = OrderedDict(sorted(property_viewed_count_dic.items(), key=lambda t: t[1], reverse=True))
+
+    target_properties = f_app.i18n.process_i18n(f_app.property.output(property_viewed_count_dic.keys(), ignore_nonexist=True))
+
+    for target_property in target_properties:
+        print(target_property['name'] + ':' + str(property_viewed_count_dic[str(target_property['id'])]))
