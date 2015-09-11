@@ -140,7 +140,7 @@ def order_search_anonymous(user, params):
     per_page=int,
     user_id=ObjectId,
 ))
-@f_app.user.login.check(force=True)
+@f_app.user.login.check(force=True, check_role=True)
 def order_search_view_rent_ticket_contact_info(user, params):
     user_id = user["id"]
     if "user_id" in params:

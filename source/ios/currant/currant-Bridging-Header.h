@@ -14,5 +14,6 @@
 #import <UIBarButtonItem+ALActionBlocks.h>
 #import <BFTask.h>
 #import "SVProgressHUD+CUTEAPI.h"
+#import "CUTEWebConfiguration.h"
 
 #endif /* currant_Bridging_Header_h */
