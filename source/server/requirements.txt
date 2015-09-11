@@ -16,7 +16,7 @@ pydns
 pytest
 scipy
 pymongo
-uWSGI
+mock
 pint
 PyYAML
 py-bcrypt
@@ -32,7 +32,9 @@ phonenumbers
 gevent-websocket
 boto
 sh
+uWSGI
 bottle
 python-memcached
 requests
+raven
 pillow
