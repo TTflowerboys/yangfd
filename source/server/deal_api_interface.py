@@ -26,7 +26,10 @@ def get_venue_deals(venue_id):
     description=("i18n", None, str),
     deal_type=(str, True),
     deal_off=(float, 0.0),
+    deal_off_shared=(float, 0.0),
     free_text=("i18n", None, str),
+    free_text_shared=("i18n", None, str),
+    pictures=("i18n", None, list, None, str, None, "replaces"),
     display=(bool, True),
 ))
 @f_app.user.login.check(role=["admin", "jr_admin"])
@@ -54,7 +57,10 @@ def venue_deal_add(venue_id, user, params):
     description=("i18n", None, str),
     deal_type=str,
     deal_off=float,
+    deal_off_shared=float,
     free_text=("i18n", None, str),
+    free_text_shared=("i18n", None, str),
+    pictures=("i18n", None, list, None, str, None, "replaces"),
     display=bool,
 ))
 @f_app.user.login.check(role=["admin", "jr_admin"])
