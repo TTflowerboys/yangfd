@@ -35,4 +35,5 @@ sh
 bottle
 python-memcached
 requests
+raven
 pillow
