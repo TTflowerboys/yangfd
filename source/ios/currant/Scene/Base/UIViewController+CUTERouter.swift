@@ -28,12 +28,12 @@ extension UIViewController {
 
     //TODO this mapping file should md5 check update
     func getCUTEViewControllerClassFromHost(host:String, path: String) -> String? {
-        let mappings: Dictionary<String, String> = [
-            "property-to-rent/create": "CUTERentTypeListViewController",
-            "property-to-rent/edit": "CUTERentPropertyInfoViewController"]
+        let mappings: Dictionary<String, String>? = CUTEWebConfiguration.sharedInstance().getRoutes()
         let key = host + path
-        if (mappings[key] != nil)  {
-            return mappings[key]!
+        if  let m = mappings  {
+            if m[key] != nil {
+                return m[key]!
+            }
         }
 
         return nil

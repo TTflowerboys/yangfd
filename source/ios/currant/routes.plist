@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>property-to-rent/create</key>
+	<string>CUTERentTypeListViewController</string>
+	<key>property-to-rent/edit</key>
+	<string>CUTERentPropertyInfoViewController</string>
+</dict>
+</plist>

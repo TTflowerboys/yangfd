@@ -21,6 +21,16 @@
 #import "CUTEPhoneUtil.h"
 #import "NSString+Encoding.h"
 
+@interface CUTEWebConfiguration () {
+
+    NSDictionary<NSString *, NSString *> * _routes;
+
+}
+
+@property NSDictionary<NSString *, NSString *> *routes;
+
+@end
+
 @implementation CUTEWebConfiguration
 
 + (instancetype)sharedInstance
@@ -30,10 +40,13 @@
 
     dispatch_once(&pred, ^{
         sharedInstance = [[[self class] alloc] init];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"routes" ofType:@"plist"];
+        ((CUTEWebConfiguration *)sharedInstance).routes = [NSDictionary dictionaryWithContentsOfFile:path];
     });
 
     return sharedInstance;
 }
+
 
 - (NSArray *)loginRequiredURLPathArray {
     return @[@"/user", @"/user-favorites", @"/user-properties"];
@@ -182,6 +195,11 @@
         return titleDictionary[CONCAT(@"/", [paths[1] stringByReplacingOccurrencesOfString:@"_" withString:@"-"])];
     }
     return STR(@"WebConfiguration/洋房东");
+}
+
+
+- (NSDictionary<NSString *, NSString *> *)getRoutes {
+    return self.routes;
 }
 
 

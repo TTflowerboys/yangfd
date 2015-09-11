@@ -419,6 +419,10 @@
 		2CAA1D431BA2B31700662BFC /* UIViewController+CUTERouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA1D3D1BA2B30C00662BFC /* UIViewController+CUTERouter.swift */; };
 		2CAA1D441BA2B31800662BFC /* UIViewController+CUTERouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA1D3D1BA2B30C00662BFC /* UIViewController+CUTERouter.swift */; };
 		2CAA1D451BA2B31900662BFC /* UIViewController+CUTERouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA1D3D1BA2B30C00662BFC /* UIViewController+CUTERouter.swift */; };
+		2CAA1D471BA2D1C100662BFC /* routes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CAA1D461BA2D1C100662BFC /* routes.plist */; };
+		2CAA1D481BA2D1C100662BFC /* routes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CAA1D461BA2D1C100662BFC /* routes.plist */; };
+		2CAA1D491BA2D1C100662BFC /* routes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CAA1D461BA2D1C100662BFC /* routes.plist */; };
+		2CAA1D4A1BA2D1C100662BFC /* routes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CAA1D461BA2D1C100662BFC /* routes.plist */; };
 		2CAA85201AEA65CC00432BF1 /* NSString+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA851F1AEA65CC00432BF1 /* NSString+Encoding.m */; };
 		2CAA85211AEA65CC00432BF1 /* NSString+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA851F1AEA65CC00432BF1 /* NSString+Encoding.m */; };
 		2CAA85221AEA65CC00432BF1 /* NSString+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA851F1AEA65CC00432BF1 /* NSString+Encoding.m */; };
@@ -965,6 +969,7 @@
 		2CAA1D3B1BA2B29B00662BFC /* currant-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "currant-Bridging-Header.h"; sourceTree = "<group>"; };
 		2CAA1D3C1BA2B30C00662BFC /* CUTERoutableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTERoutableProtocol.swift; sourceTree = "<group>"; };
 		2CAA1D3D1BA2B30C00662BFC /* UIViewController+CUTERouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+CUTERouter.swift"; sourceTree = "<group>"; };
+		2CAA1D461BA2D1C100662BFC /* routes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = routes.plist; sourceTree = "<group>"; };
 		2CAA851E1AEA65CC00432BF1 /* NSString+Encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encoding.h"; sourceTree = "<group>"; };
 		2CAA851F1AEA65CC00432BF1 /* NSString+Encoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encoding.m"; sourceTree = "<group>"; };
 		2CB43DA91ABC1372004DF663 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1636,6 +1641,7 @@
 				2CB43DEA1ABD5CE3004DF663 /* Localizable.strings */,
 				2CB66C231AFB66F200C3CDED /* Manchester.gpx */,
 				2CB66C291AFB687200C3CDED /* London.gpx */,
+				2CAA1D461BA2D1C100662BFC /* routes.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2173,6 +2179,7 @@
 				2CF234851B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C261AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4161AE242F300E61BBA /* Localizable.strings in Resources */,
+				2CAA1D491BA2D1C100662BFC /* routes.plist in Resources */,
 				2CE2A99A1B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2186,6 +2193,7 @@
 				2CF234861B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C271AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4171AE242F400E61BBA /* Localizable.strings in Resources */,
+				2CAA1D4A1BA2D1C100662BFC /* routes.plist in Resources */,
 				2CE2A99B1B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2199,6 +2207,7 @@
 				2CF234841B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C251AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4151AE242F200E61BBA /* Localizable.strings in Resources */,
+				2CAA1D481BA2D1C100662BFC /* routes.plist in Resources */,
 				2CE2A9991B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2212,6 +2221,7 @@
 				2CF234831B55198500B516E6 /* GoogleService-Info.plist in Resources */,
 				2CB66C241AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4141AE242EE00E61BBA /* Localizable.strings in Resources */,
+				2CAA1D471BA2D1C100662BFC /* routes.plist in Resources */,
 				2CE2A9981B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

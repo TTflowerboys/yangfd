@@ -26,4 +26,6 @@
 
 - (NSString *)getTitleFormURL:(NSURL *)url;
 
+- (NSDictionary<NSString *, NSString *> *)getRoutes;
+
 @end
