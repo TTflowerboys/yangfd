@@ -42,6 +42,8 @@
 #import "Sequencer.h"
 #import <NSDate-Extensions/NSDate-Utilities.h>
 #import "CUTERentPeriodViewController.h"
+#import "CUTEAPIManager.h"
+#import "currant-Swift.h"
 
 @interface CUTERentPropertyInfoViewController () {
 
@@ -58,6 +60,80 @@
     if (self) {
     }
     return self;
+}
+
+//TODO move all controller preparation to setupRoute, let Controller self-manangement
+- (BFTask *)setupRoute {
+
+    NSString *ticketId = self.CUTEParams[@"ticketId"];
+
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+
+    if (IsNilNullOrEmpty(ticketId)) {
+        [tcs setError:[NSError errorWithDomain:CUTE_ERROR_DOMAIN code:-1 userInfo:@{NSLocalizedDescriptionKey: STR(@"Ticket Id 不应为空")}]];
+    }
+    else {
+        Sequencer *sequencer = [Sequencer new];
+
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
+                return [[CUTEAPICacheManager sharedInstance] getEnumsByType:object];
+            }]] continueWithBlock:^id(BFTask *task) {
+
+                if (task.error) {
+                    [tcs setError:task.error];
+                }
+                else if (task.exception) {
+                    [tcs setException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [tcs cancel];
+                }
+                else {
+                    completion(task.result);
+                }
+                return task;
+            }];
+        }];
+        
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticketId) parameters:nil resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    [tcs setError:task.error];
+                }
+                else if (task.exception) {
+                    [tcs setException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [tcs cancel];
+                }
+                else {
+                    CUTETicket *ticket = task.result;
+                    NSArray *landloardTypes = result[0];
+                    NSArray *propertyTypes = result[1];
+
+                    CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
+                    form.ticket = ticket;
+                    form.propertyType = ticket.property.propertyType;
+                    form.bedroomCount = ticket.property.bedroomCount? ticket.property.bedroomCount.integerValue: 0;
+                    form.livingroomCount = ticket.property.livingroomCount? ticket.property.livingroomCount.integerValue: 0;
+                    form.bathroomCount = ticket.property.bathroomCount? ticket.property.bathroomCount.integerValue: 0;
+                    [form setAllPropertyTypes:propertyTypes];
+                    [form setAllLandlordTypes:landloardTypes];
+                    self.formController.form = form;
+                    [tcs setResult:nil];
+
+                }
+                return task;
+            }];
+
+        }];
+
+        [sequencer run];
+    }
+
+
+    return tcs.task;
 }
 
 - (void)viewDidLoad {

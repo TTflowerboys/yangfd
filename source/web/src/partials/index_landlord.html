@@ -21,10 +21,18 @@
         <label class="hint">
             {{!_('使用洋房东平台为您带来极速租房发布体验，独有的专业街区报告，杂志般的房源移动主页！')}}
         </label>
-        <a class="button red" href="#" onclick="window.bridge.callHandler(&quot;createRentTicket&quot;);return false;" data-need-bridge>
-            <i class="icon-cellphone"></i>
-            {{_('出租发布')}}</a>
-        <a class="scrollDown">
+        %if is_mobile_client_version('>=', '1.1.1'):
+            <a class="button red" href="yangfd://property-to-rent/create" data-need-bridge>
+                <i class="icon-cellphone"></i>
+                {{_('出租发布')}}
+            </a>
+        %else:
+            <a class="button red" href="#" onclick="window.bridge.callHandler(&quot;createRentTicket&quot;);return false;" data-need-bridge>
+                <i class="icon-cellphone"></i>
+                {{_('出租发布')}}
+            </a>
+        %end
+		<a class="scrollDown">
             <p>{{_('懒得自己发布？委托平台出租/出售我的房产')}}</p>
             <i class="icon-down_arrow1"></i>
         </a>

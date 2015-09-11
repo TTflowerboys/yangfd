@@ -411,6 +411,14 @@
 		2CA94AA11ACA42CD00DF7497 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2CA94AA21ACA42CD00DF7497 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
 		2CA94AA91ACA42CD00DF7497 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DD81ABC26B2004DF663 /* Images.xcassets */; };
+		2CAA1D3E1BA2B30C00662BFC /* CUTERoutableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA1D3C1BA2B30C00662BFC /* CUTERoutableProtocol.swift */; };
+		2CAA1D3F1BA2B30C00662BFC /* UIViewController+CUTERouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA1D3D1BA2B30C00662BFC /* UIViewController+CUTERouter.swift */; };
+		2CAA1D401BA2B31300662BFC /* CUTERoutableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA1D3C1BA2B30C00662BFC /* CUTERoutableProtocol.swift */; };
+		2CAA1D411BA2B31400662BFC /* CUTERoutableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA1D3C1BA2B30C00662BFC /* CUTERoutableProtocol.swift */; };
+		2CAA1D421BA2B31400662BFC /* CUTERoutableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA1D3C1BA2B30C00662BFC /* CUTERoutableProtocol.swift */; };
+		2CAA1D431BA2B31700662BFC /* UIViewController+CUTERouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA1D3D1BA2B30C00662BFC /* UIViewController+CUTERouter.swift */; };
+		2CAA1D441BA2B31800662BFC /* UIViewController+CUTERouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA1D3D1BA2B30C00662BFC /* UIViewController+CUTERouter.swift */; };
+		2CAA1D451BA2B31900662BFC /* UIViewController+CUTERouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA1D3D1BA2B30C00662BFC /* UIViewController+CUTERouter.swift */; };
 		2CAA85201AEA65CC00432BF1 /* NSString+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA851F1AEA65CC00432BF1 /* NSString+Encoding.m */; };
 		2CAA85211AEA65CC00432BF1 /* NSString+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA851F1AEA65CC00432BF1 /* NSString+Encoding.m */; };
 		2CAA85221AEA65CC00432BF1 /* NSString+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA851F1AEA65CC00432BF1 /* NSString+Encoding.m */; };
@@ -954,6 +962,9 @@
 		2CA81FCA1B15CA50006E993C /* CUTEMapBackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEMapBackView.m; sourceTree = "<group>"; };
 		2CA94AAE1ACA42CD00DF7497 /* currant-dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "currant-dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-dev-Info.plist"; sourceTree = "<group>"; };
+		2CAA1D3B1BA2B29B00662BFC /* currant-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "currant-Bridging-Header.h"; sourceTree = "<group>"; };
+		2CAA1D3C1BA2B30C00662BFC /* CUTERoutableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTERoutableProtocol.swift; sourceTree = "<group>"; };
+		2CAA1D3D1BA2B30C00662BFC /* UIViewController+CUTERouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+CUTERouter.swift"; sourceTree = "<group>"; };
 		2CAA851E1AEA65CC00432BF1 /* NSString+Encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encoding.h"; sourceTree = "<group>"; };
 		2CAA851F1AEA65CC00432BF1 /* NSString+Encoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encoding.m"; sourceTree = "<group>"; };
 		2CB43DA91ABC1372004DF663 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1614,6 +1625,7 @@
 		2CB43DAC1ABC1372004DF663 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2CAA1D3B1BA2B29B00662BFC /* currant-Bridging-Header.h */,
 				2CF234821B55198500B516E6 /* GoogleService-Info.plist */,
 				2CE2A9971B6F1C000089ED20 /* contact-blacklist.csv */,
 				2CB43DAD1ABC1372004DF663 /* Info.plist */,
@@ -1686,6 +1698,8 @@
 				2C6D07CE1B3E4A53001EBB90 /* CUTEWebHandler.m */,
 				2C9AFF751AF2335900E5F0BC /* CUTEWebConfiguration.h */,
 				2C9AFF761AF2335900E5F0BC /* CUTEWebConfiguration.m */,
+				2CAA1D3C1BA2B30C00662BFC /* CUTERoutableProtocol.swift */,
+				2CAA1D3D1BA2B30C00662BFC /* UIViewController+CUTERouter.swift */,
 				2C7520411ACA775C0008B42A /* CUTEViewController.h */,
 				2C7520421ACA775C0008B42A /* CUTEViewController.m */,
 				2C1EA7701AC3EED100B0FC22 /* CUTEMapView.h */,
@@ -2618,6 +2632,7 @@
 				2C056D8D1B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
 				2CF8A6A21AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CEA1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
+				2CAA1D441BA2B31800662BFC /* UIViewController+CUTERouter.swift in Sources */,
 				2CF2348C1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
 				2CE2A9711B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
 				2CD15D491B62141700C870C0 /* CUTEActivity.m in Sources */,
@@ -2631,6 +2646,7 @@
 				2CB66C201AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2C07AB8C1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2C056D7B1B423ABD0075037A /* CUTERentContactDisplaySettingForm.m in Sources */,
+				2CAA1D411BA2B31400662BFC /* CUTERoutableProtocol.swift in Sources */,
 				2CF8A60B1AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
 				2C427EA41AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6471AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
@@ -2773,6 +2789,7 @@
 				2C056D8E1B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
 				2CF8A6A31AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CEB1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
+				2CAA1D451BA2B31900662BFC /* UIViewController+CUTERouter.swift in Sources */,
 				2CF2348D1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
 				2CE2A9721B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
 				2CD15D4A1B62141700C870C0 /* CUTEActivity.m in Sources */,
@@ -2786,6 +2803,7 @@
 				2CB66C211AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2C07AB8D1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2C056D7C1B423ABD0075037A /* CUTERentContactDisplaySettingForm.m in Sources */,
+				2CAA1D421BA2B31400662BFC /* CUTERoutableProtocol.swift in Sources */,
 				2CF8A60C1AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
 				2C427EA51AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6481AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
@@ -2928,6 +2946,7 @@
 				2C056D8C1B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
 				2CF8A6A11AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CE91B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
+				2CAA1D431BA2B31700662BFC /* UIViewController+CUTERouter.swift in Sources */,
 				2CF2348B1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
 				2CE2A9701B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
 				2CD15D481B62141700C870C0 /* CUTEActivity.m in Sources */,
@@ -2941,6 +2960,7 @@
 				2CB66C1F1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2C07AB8B1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2C056D7A1B423ABD0075037A /* CUTERentContactDisplaySettingForm.m in Sources */,
+				2CAA1D401BA2B31300662BFC /* CUTERoutableProtocol.swift in Sources */,
 				2CF8A60A1AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
 				2C427EA31AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6461AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
@@ -3083,6 +3103,7 @@
 				2C056D8B1B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
 				2CF8A6A01AF0B65C0080DF10 /* CUTERentTypeListForm.m in Sources */,
 				2C9F1CE81B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
+				2CAA1D3F1BA2B30C00662BFC /* UIViewController+CUTERouter.swift in Sources */,
 				2CF2348A1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
 				2CE2A96F1B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
 				2CD15D471B62141700C870C0 /* CUTEActivity.m in Sources */,
@@ -3096,6 +3117,7 @@
 				2CB66C1E1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2C07AB8A1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2C056D791B423ABD0075037A /* CUTERentContactDisplaySettingForm.m in Sources */,
+				2CAA1D3E1BA2B30C00662BFC /* CUTERoutableProtocol.swift in Sources */,
 				2CF8A6091AF0B40E0080DF10 /* CUTERentTypeListViewController.m in Sources */,
 				2C427EA21AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6451AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
@@ -3261,7 +3283,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
 				PRODUCT_NAME = "currant-test";
 				PROVISIONING_PROFILE = "4c822f02-feca-4b03-babe-9cddf70f5d80";
-				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-test-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/currant-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "currant-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -3288,7 +3311,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
 				PRODUCT_NAME = "currant-test";
 				PROVISIONING_PROFILE = "fdc92589-40ba-4658-98a1-4d35c4f53faf";
-				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-test-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/currant-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "currant-Swift.h";
 			};
 			name = Release;
 		};
@@ -3314,7 +3338,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
 				PRODUCT_NAME = "currant-production";
 				PROVISIONING_PROFILE = "4c822f02-feca-4b03-babe-9cddf70f5d80";
-				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-production-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/currant-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "currant-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -3341,7 +3366,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
 				PRODUCT_NAME = "currant-production";
 				PROVISIONING_PROFILE = "0a1f9a34-1cb1-4b28-9f35-0648a3e9bca8";
-				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-production-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/currant-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "currant-Swift.h";
 			};
 			name = Release;
 		};
@@ -3368,7 +3394,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
 				PRODUCT_NAME = "currant-dev";
 				PROVISIONING_PROFILE = "4c822f02-feca-4b03-babe-9cddf70f5d80";
-				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-dev-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/currant-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "currant-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -3396,7 +3423,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
 				PRODUCT_NAME = "currant-dev";
 				PROVISIONING_PROFILE = "fdc92589-40ba-4658-98a1-4d35c4f53faf";
-				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-dev-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/currant-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "currant-Swift.h";
 			};
 			name = Release;
 		};
@@ -3505,7 +3533,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4c822f02-feca-4b03-babe-9cddf70f5d80";
-				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/currant-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "currant-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -3532,7 +3561,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fdc92589-40ba-4658-98a1-4d35c4f53faf";
-				SWIFT_OBJC_BRIDGING_HEADER = "currant/Persistence/currant-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "currant/currant-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "currant-Swift.h";
 			};
 			name = Release;
 		};

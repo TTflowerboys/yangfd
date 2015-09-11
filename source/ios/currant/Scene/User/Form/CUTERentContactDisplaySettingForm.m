@@ -23,7 +23,7 @@
 
 - (NSError *)validateFormWithScenario:(NSString *)scenario {
     if (!self.displayPhone && !self.displayEmail && IsNilNullOrEmpty(self.wechat)) {
-        return [NSError errorWithDomain:@"CUTE" code:-1 userInfo:@{NSLocalizedDescriptionKey: STR(@"RentContactDisplaySetting/至少需要展示一种联系方式")}];
+        return [NSError errorWithDomain:CUTE_ERROR_DOMAIN code:-1 userInfo:@{NSLocalizedDescriptionKey: STR(@"RentContactDisplaySetting/至少需要展示一种联系方式")}];
     }
     return nil;
 }

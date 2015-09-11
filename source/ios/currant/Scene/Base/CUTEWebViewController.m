@@ -26,6 +26,7 @@
 #import "Aspects.h"
 #import "NSURL+CUTE.h"
 #import "CUTEWebHandler.h"
+#import <currant-Swift.h>
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
@@ -316,6 +317,9 @@
     if (navigationType == UIWebViewNavigationTypeLinkClicked && [request.URL isHttpOrHttpsURL] && ![webView.request.URL isEquivalent:request.URL]) {
         [self loadRequesetInNewController:request];
         return NO;
+    }
+    else if ([request.URL isYangfdURL]) {
+        [self openYangfdURL:request.URL];
     }
 
     return YES;
