@@ -311,15 +311,17 @@ $(function () {
             var ticketId = $(this).attr('data-id')
 
             if (window.bridge !== undefined) {
-                window.bridge.callHandler('shareRentTicket', _.first(_.where(window.rentArray, {id: ticketId})));
+                window.bridge.callHandler('shareRentTicket', _.first(_.where(window.rentArray, {id: ticketId})))
+                ga('send', 'event', 'user_properties', 'share', 'open-wechat-native')
             } else {
                 $('#popupShareToWeChat')
                     .find('img').prop('src',
                         '/qrcode/generate?content=' + encodeURIComponent(location.origin + '/wechat-poster/' + ticketId)).end()
                     .modal({zIndex:15})
+                ga('send', 'event', 'user_properties', 'share', 'open-wechat-web')
             }
 
-            //ga('send', 'event', 'property_detail', 'share', 'open-wechat-web')
+
         })
     }
 
@@ -330,15 +332,20 @@ $(function () {
                 var params = {
                     'status': 'to rent'
                 }
+                ga('send', 'pageview', '/property-to-rent/' + ticketId + '/rent-refresh')
                 $.betterPost('/api/1/rent_ticket/' + ticketId + '/edit', params)
                     .done(function (data) {
                         $(e.target).unbind('click')
                         $(e.target).text(window.i18n('刚刚刷新过'))
                         $(e.target).parent().parent().parent().find('.imgAction_wrapper .date').text(window.i18n('刚刚刷新过'))
                         $(e.target).addClass('disabled')
+
+                        ga('send', 'event', 'user_properties', 'action', 'rent-refresh-success')
+                        ga('send', 'pageview', '/property-to-rent/' + ticketId + '/rent-refresh-success')
                     })
                     .fail(function (ret) {
                         window.alert(window.i18n('刷新失败'))
+                        ga('send', 'event', 'user_properties', 'action', 'rent-refresh-failed')
                     })
             }
         })
@@ -353,6 +360,7 @@ $(function () {
                     var params = {
                         'status': 'rent'
                     }
+                    ga('send', 'pageview', '/property-to-rent/' + ticketId + '/rent-out-confirm')
                     $.betterPost('/api/1/rent_ticket/' + ticketId + '/edit', params)
                         .done(function (data) {
                             window.rentArray[_.indexOf(window.rentArray,_.first(_.where(window.rentArray, {id: ticketId})))] = data
@@ -367,9 +375,13 @@ $(function () {
                             if (window.bridge !== undefined) {
                                 window.bridge.callHandler('notifyRentTicketIsRented', _.first(_.where(window.rentArray, {id: ticketId})))
                             }
+
+                            ga('send', 'event', 'user_properties', 'action', 'rent-out-confirm-success')
+                            ga('send', 'pageview', '/property-to-rent/' + ticketId + '/rent-out-confirm-success')
                         })
                         .fail(function (ret) {
                             window.alert(window.i18n('无法更新，请检查后重试'))
+                            ga('send', 'event', 'user_properties', 'action', 'rent-out-confirm-failed')
                         })
                 }
             } else {
@@ -398,6 +410,7 @@ $(function () {
     function bindRentItemRemoveClick() {
         $('.imgAction_wrapper #remove').on('click', function (e) {
 
+            ga('send', 'event', 'user_properties', 'action', 'rent-delete')
             if (window.confirm(window.i18n('确定删除该出租房吗？注意：此操作不可逆')) === true) {
                 var ticketId = $(e.target).attr('data-id')
                 var params = {
@@ -409,9 +422,11 @@ $(function () {
                             window.bridge.callHandler('notifyRentTicketIsDeleted', _.first(_.where(window.rentArray, {id: ticketId})))
                         }
                         location.reload()
+                        ga('send', 'event', 'user_properties', 'action', 'rent-delete-success')
                     })
                     .fail(function (ret) {
                         window.alert(window.i18n('无法删除，请检查后重试'))
+                        ga('send', 'event', 'user_properties', 'action', 'rent-delete-failed')
                     })
             }
         })
