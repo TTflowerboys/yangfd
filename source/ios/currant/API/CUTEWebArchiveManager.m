@@ -100,4 +100,8 @@
     return (CUTEWebArchive *)[_cache objectForKey:url.absoluteString];
 }
 
+- (void)clear {
+    [_cache clearCache];
+}
+
 @end

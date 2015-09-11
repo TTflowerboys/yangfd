@@ -157,6 +157,7 @@
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     [CUTEUserAgentUtil setupWebViewUserAgent];
+    [self checkSetupLanguageCookie];
     [[CUTEShareManager sharedInstance] setUpShareSDK];
     [ATConnect sharedConnection].appID = [CUTEConfiguration appStoreId];
     [ATConnect sharedConnection].apiKey = @"870539ce7c8666f4ba6440cae368b8aea448aa2220dc3af73bc254f0ab2f0a0b";
@@ -235,6 +236,7 @@
 
     }
 
+    _lastSelectedTabIndex = -1; // default a invalid value
     //defautl open home page
     [self.tabBarController setSelectedIndex:kHomeTabBarIndex];
     [self updateWebViewControllerTabAtIndex:kHomeTabBarIndex];
@@ -349,6 +351,42 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+}
+
+- (void)checkSetupLanguageCookie {
+    NSURL *url = [CUTEConfiguration hostURL];
+    NSHTTPCookie *oldCookie = [[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url] find:^BOOL(NSHTTPCookie* object) {
+        return [object.name isEqualToString:@"currant_lang"];
+    }];
+
+    typedef NSString* (^Mapping)(NSString*);
+
+    Mapping mappingBlock = ^(NSString * lang) {
+        if ([lang hasPrefix:@"en"]) {
+            return @"en_GB";
+        }
+        return @"zh_Hans_CN";
+    };
+
+    //Available Country Code name can see here: http://www.ibabbleon.com/iOS-Language-Codes-ISO-639.html
+    //Chinese(Simplified): zh-hans
+    NSString *currantLang = mappingBlock([[[NSBundle mainBundle] preferredLocalizations] firstObject]);
+
+    if (oldCookie) {
+        if (![oldCookie.value isEqualToString:currantLang]) {
+            //clear web cache
+            [[CUTEWebArchiveManager sharedInstance] clear];
+            //set cookie to currant lang
+             [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:[NSHTTPCookie cookieWithProperties:@{@"name":@"currant_lang", @"value": currantLang}]];
+        }
+    }
+    else {
+        //clear web cache
+        [[CUTEWebArchiveManager sharedInstance] clear];
+        //set cookie to currant lang
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:[NSHTTPCookie cookieWithProperties:@{@"name":@"currant_lang", @"value": currantLang}]];
+    }
+
 }
 
 
