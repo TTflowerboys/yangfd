@@ -1922,6 +1922,9 @@ class f_currant_plugins(f_app.plugin_base):
             property_id = re.findall(r"^/property/([0-9a-fA-F]{24})", kwargs["route"])
             if property_id:
                 kwargs["property_id"] = property_id[0]
+            rent_ticket_id = re.findall(r"^/property-to-rent/([0-9a-fA-F]{24})", kwargs["route"])
+            if rent_ticket_id:
+                kwargs["rent_ticket_id"] = rent_ticket_id[0]
 
         return kwargs
 
