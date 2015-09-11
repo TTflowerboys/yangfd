@@ -1,0 +1,71 @@
+@import "/project/_imports";
+div.content {
+    min-height: 800px;
+    @media @phone {
+        min-height: 0;
+    }
+
+    .list {
+        padding: 0 15px;
+        margin-top: 15px;
+        margin-bottom: 40px;
+
+        .cell {
+            display: block;
+            width: 100%;
+            height: 120px;
+            height: 37.5vw;
+            margin-bottom: 15px;
+            background-size: cover;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            text-decoration: none;
+            .content{
+                margin: 0;
+                padding-left: 8px;
+                width: 100%;
+                height: 24px;
+                height: 7vw;
+                background: #ff9600;
+                color: #333333;
+                font-weight: bold;
+                font-size: 18px;
+                font-size: 3.75vw;
+                span{
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    width: 95%;
+                }
+            }
+        }
+    }
+
+    .emptyPlaceHolder {
+        text-align: center;
+        margin: 150px auto 0 auto;
+        overflow: hidden;
+        @media @phone {
+            margin: 150px auto;
+        }
+        img, i {
+            display: inline-block;
+            vertical-align: top;
+            font-size: 40px;
+            color: #ccc;
+        }
+
+        .holderText {
+            display: inline-block;
+            vertical-align: top;
+            line-height: 52px;
+            margin-left: 20px;
+
+            h2 {
+                margin: 0;
+                font-size: 24px;
+                color: #999;
+            }
+        }
+    }
+}

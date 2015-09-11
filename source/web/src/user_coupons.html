@@ -1,0 +1,33 @@
+<!--@@master = masters/user_master.html-->
+<!--@@block =head -->
+<!--build:css(dist) /static/styles/project/user_coupons.html.css-->
+<link rel="stylesheet" href="/static/styles/userCoupons.css"/>
+<link rel="stylesheet" href="/static/styles/pager.css"/>
+<!--endbuild-->
+
+<!--@@close-->
+<!--@@block = main -->
+
+<span class="couponsData" style="display:none">
+    {{json_dumps(coupons_list)}}
+</span>
+<div class="content">
+
+    <div class="list_wrapper">
+        <div class="list">
+        </div>
+        <!--@@include=/partials/pager.html -->
+        <!--@@include=/partials/coupons_holder.html {"hint":"{{_('暂无优惠券')}}"}-->
+    </div>
+
+    <!-- @@include=/static/templates/coupons_cell.tpl.html-->
+
+</div>
+<!--@@close-->
+
+<!--@@block=scripts-->
+<!--build:js /static/scripts/user_coupons.html.js-->
+<script src="/static/scripts/pager.js"></script>
+<script src="/static/scripts/user_coupons.js"></script>
+<!--endbuild-->
+<!--@@close-->
