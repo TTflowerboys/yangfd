@@ -76,9 +76,6 @@ def venue_edit(venue_id, user, params):
         abort(40000)
     venue = f_app.shop.get(venue_id)
 
-    if venue["status"] != "show" and (not user["admin"] or user["admin"] < 30):
-        abort(40390)
-
     if "phone" in params and "country" not in params:
         f_app.util.parse_phone({"phone": params["phone"], "country": venue["country"]}, retain_country=True)
     elif "phone" in params and "country" in params:
