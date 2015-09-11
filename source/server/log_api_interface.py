@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
     per_page=int,
     time=datetime,
     has_property=bool,
+    has_rent_ticket=bool,
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def log_search(user, params):
@@ -22,6 +23,9 @@ def log_search(user, params):
     if "has_property" in params:
         has_property = params.pop("has_property")
         params["property_id"] = {"$exists": has_property}
+    if "has_rent_ticket" in params:
+        has_rent_ticket = params.pop("has_rent_ticket")
+        params["rent_ticket_id"] = {"$exists": has_rent_ticket}
     log_list = f_app.log.output(f_app.log.search(params, per_page=per_page))
     return log_list
 
