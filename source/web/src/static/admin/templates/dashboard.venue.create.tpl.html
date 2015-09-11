@@ -1,10 +1,10 @@
 <div class="buttons">
     <span class="btn-group">
-        <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
+        <button class="btn btnGoBack" ng-click="$state.go('dashboard.venue')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
     </span>
 </div>
 <form name="venueCreateForm" class="form-horizontal"
-    style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,shopCreateForm)"
+    style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,venueCreateForm)"
     novalidate >
     <div class="row">
         <div class="form-group col-sm-6 ">

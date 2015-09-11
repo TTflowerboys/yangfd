@@ -1,7 +1,10 @@
 <div class="buttons">
     <span class="btn-group">
-        <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
+        <button class="btn btnGoBack" ng-click="$state.go('^')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
     </span>
+    <div class="btn-group form-inline pull-right">
+        <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+    </div>
 </div>
 <div class="row">
     <div class="col-sm-3">
