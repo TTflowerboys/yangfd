@@ -145,9 +145,9 @@
             return text
         }
         function getRequirementRentTitle(container) {
-            return i18n('我想在') + getText(container.find('.city-select')) +
+            return i18n('我想找') + getText(container.find('.city-select')) +
                 (container.find('.neighborhood-select').val() ? (i18n('的') + getText(container.find('.neighborhood-select'))) : '') +
-                i18n('求租') + getText(container.find('.rentBudget')) + window.getCurrencyPresentation(window.currency) + i18n('/周的') +
+                i18n('附近的') + getText(container.find('.rentBudget')) + window.getCurrencyPresentation(window.currency) + i18n('/周的') +
                 getText(container.find('.rentType')) + i18n('出租房')
         }
         if (!container.data('initRequirementRentTitle')) {

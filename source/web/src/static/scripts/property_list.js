@@ -890,11 +890,10 @@
                 selectedIntention = selectedIntention.substring(0, selectedIntention.length - 1)
             }
 
-            var description = window.i18n('我想在') + ' ' +
+            var description = window.i18n('我想投资在') + ' ' +
                 selectedCountry + ' ' +
                 window.i18n('的') + ' ' +
                 selectedCity + ' ' +
-                window.i18n('投资') + ' ' +
                 selectedType
 
             if (selectedBudget) {
