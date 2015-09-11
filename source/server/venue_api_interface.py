@@ -18,7 +18,6 @@ def venue(venue_id):
         if not user_admin_level:
             abort(40390)
     venue["deals"] = f_app.shop.item_output(f_app.shop.item_get_all(venue_id))
-    venue["rating"] = f_app.venue_rate.get_venue_rate_average(venue_id)
     venue.pop("minimal_price", None)
     venue.pop("quantity", None)
     return venue
