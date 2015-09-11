@@ -39,7 +39,7 @@ def venue(venue_id):
     country="country",
     status=(str, "hide"),
 ))
-@f_app.user.login.check(force=30)
+@f_app.user.login.check(role=["admin", "jr_admin"])
 def venue_add(user, params):
     """
     Add venue
