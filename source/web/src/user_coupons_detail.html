@@ -14,7 +14,15 @@
         <p>{{deal.get('venue',{}).get('name')}}<br>{{_('洋房东会员专享福利')}}</p>
     </div>
     <div class="info">
-        <h2 class="title">{{_('9折优惠')}}</h2>
+        <h2 class="title">
+            % if deal.get('deal_type') == 'percentage':
+            {{deal.get('deal_off')}}{{_('折优惠')}}
+            % elif deal.get('deal_type') == 'amount':
+            {{_('立减')}}{{deal.get('deal_off')}}
+            % elif deal.get('deal_type') == 'free':
+            {{deal.get('deal_free_text')}}
+            %end
+        </h2>
         <p class="hint">
             {{deal.get('description')}}
         </p>
