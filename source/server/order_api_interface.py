@@ -138,7 +138,7 @@ def order_search_anonymous(user, params):
 
 @f_api('/order/search_view_rent_ticket_contact_info', params=dict(
     per_page=int,
-    user_id=ObjectId,
+    user_id=(ObjectId, None, "str"),
 ))
 @f_app.user.login.check(force=True, check_role=True)
 def order_search_view_rent_ticket_contact_info(user, params):
