@@ -1,10 +1,10 @@
 /*
-  Localizable.string.strings
-  currant
+ Localizable.string.strings
+ currant
 
-  Created by Foster Yin on 3/21/15.
-  Copyright (c) 2015 Foster Yin. All rights reserved.
-*/
+ Created by Foster Yin on 3/21/15.
+ Copyright (c) 2015 Foster Yin. All rights reserved.
+ */
 
 
 
@@ -13,334 +13,334 @@
 //Group: RentMapList
 //
 //Filepath: currant/Scene/RentList/CUTERentMapListViewController.m
-"RentMapList/暂无结果" = "暂无结果";
+"RentMapList/暂无结果" = "No results for now";
 
 
 //
 //Group: RentPeriod
 //
 //Filepath: currant/Entity/CUTERentPeriod.m
-"RentPeriod/面议" = "面议";
+"RentPeriod/面议" = "Negotiation in person";
 
 //Filepath: currant/Scene/Rent/Controller/CUTERentPeriodViewController.m
-"RentPeriod/租期" = "租期";
-"RentPeriod/租期表单" = "租期表单";
-"RentPeriod/结束日期不应早于开始日期" = "结束日期不应早于开始日期";
+"RentPeriod/租期" = "tenancy term";
+"RentPeriod/租期表单" = "Lease form";
+"RentPeriod/结束日期不应早于开始日期" = "End date should not be earlier than start date";
 
 //Filepath: currant/Scene/Rent/Form/CUTERentPeriodForm.m
-"RentPeriod/设置租期" = "设置租期";
-"RentPeriod/租期" = "租期";
-"RentPeriod/开始日期" = "开始日期";
-"RentPeriod/结束日期" = "结束日期";
+"RentPeriod/设置租期" = "Set up the lease";
+"RentPeriod/租期" = "tenancy term";
+"RentPeriod/开始日期" = "start date";
+"RentPeriod/结束日期" = "End date";
 
 
 //
 //Group: RentPropertyInfo
 //
 //Filepath: currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m
-"RentPropertyInfo/房产信息" = "房产信息";
-"RentPropertyInfo/预览" = "预览";
-"RentPropertyInfo/房产信息表单" = "房产信息表单";
-"RentPropertyInfo/周" = "周";
-"RentPropertyInfo/不限" = "不限";
-"RentPropertyInfo/起" = "起";
-"RentPropertyInfo/至少租" = "至少租";
-"RentPropertyInfo/您确定放弃发布吗？放弃后系统将会将您已填写的信息保存为草稿" = "您确定放弃发布吗？放弃后系统将会将您已填写的信息保存为草稿";
-"RentPropertyInfo/放弃" = "放弃";
-"RentPropertyInfo/取消" = "取消";
-"RentPropertyInfo/租金" = "租金";
-"RentPropertyInfo/租期" = "租期";
-"RentPropertyInfo/请更新面积" = "请更新面积";
-"RentPropertyInfo/房产地址" = "房产地址";
-"RentPropertyInfo/请编辑租金" = "请编辑租金";
-"RentPropertyInfo/租金不能为0" = "租金不能为0";
+"RentPropertyInfo/房产信息" = "real estate information";
+"RentPropertyInfo/预览" = "preview";
+"RentPropertyInfo/房产信息表单" = "Real estate information form";
+"RentPropertyInfo/周" = "week";
+"RentPropertyInfo/不限" = "Unlimited";
+"RentPropertyInfo/起" = "at least";
+"RentPropertyInfo/至少租" = "Minimun rental of";
+"RentPropertyInfo/您确定放弃发布吗？放弃后系统将会将您已填写的信息保存为草稿" = "Are you sure you want to give up ? Your info will be saved as draft";
+"RentPropertyInfo/放弃" = "Give up";
+"RentPropertyInfo/取消" = "Cancel";
+"RentPropertyInfo/租金" = "Rental";
+"RentPropertyInfo/租期" = "Tenancy term";
+"RentPropertyInfo/请更新面积" = "Please update area";
+"RentPropertyInfo/房产地址" = "Propery address";
+"RentPropertyInfo/请编辑租金" = "Please edit rent";
+"RentPropertyInfo/租金不能为0" = "The rent can't be 0";
 
 
 //
 //Group: Area
 //
 //Filepath: currant/Scene/Rent/Form/CUTEAreaForm.m
-"Area/单位" = "单位";
-"Area/平方米" = "平方米";
-"Area/平方英尺" = "平方英尺";
-"Area/面积" = "面积";
+"Area/单位" = "Unit";
+"Area/平方米" = "Square metre";
+"Area/平方英尺" = "Square foot";
+"Area/面积" = "Area";
 
 
 //
 //Group: RentAddressEdit
 //
 //Filepath: currant/Scene/Rent/Controller/CUTERentAddressEditViewController.m
-"RentAddressEdit/继续" = "继续";
-"RentAddressEdit/地址编辑表单" = "地址编辑表单";
-"RentAddressEdit/请填写Postcode" = "请填写Postcode";
+"RentAddressEdit/继续" = "Continue";
+"RentAddressEdit/地址编辑表单" = "Address edit form";
+"RentAddressEdit/请填写Postcode" = "Please fill in Postcode";
 "RentAddressEdit/OK" = "OK";
-"RentAddressEdit/新Postcode定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置" = "新Postcode定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置";
-"RentAddressEdit/返回" = "返回";
-"RentAddressEdit/前往地图" = "前往地图";
-"RentAddressEdit/请前往地图手动修改房产位置，返回房产信息则不添加房产位置" = "请前往地图手动修改房产位置，返回房产信息则不添加房产位置";
-"RentAddressEdit/定位不到房产位置，请返回地图更新房产位置" = "定位不到房产位置，请返回地图更新房产位置";
-"RentAddressEdit/搜索中..." = "搜索中...";
-"RentAddressEdit/新Postcode定位失败" = "新Postcode定位失败";
-"RentAddressEdit/请填写国家" = "请填写国家";
-"RentAddressEdit/请填写城市" = "请填写城市";
-"RentAddressEdit/新Postcode定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置" = "新Postcode定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置";
-"RentAddressEdit/下一步" = "下一步";
-"RentAddressEdit/请返回地图手动修改房产位置，继续下一步则不添加房产位置" = "请返回地图手动修改房产位置，继续下一步则不添加房产位置";
+"RentAddressEdit/新Postcode定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置" = "New Postcode positioning failure ,modify location manually ,doesn't add location if you return";
+"RentAddressEdit/返回" = "Return";
+"RentAddressEdit/前往地图" = "Go to the map";
+"RentAddressEdit/请前往地图手动修改房产位置，返回房产信息则不添加房产位置" = "Please go to the map to change location manually";
+"RentAddressEdit/定位不到房产位置，请返回地图更新房产位置" = "Can't get location of property ,please go back to update location";
+"RentAddressEdit/搜索中..." = "Searching...";
+"RentAddressEdit/新Postcode定位失败" = "New Postcode positioning failure";
+"RentAddressEdit/请填写国家" = "Please fill in country";
+"RentAddressEdit/请填写城市" = "Please fill in city";
+"RentAddressEdit/新Postcode定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置" = "New Postcode positioning failure ,go back to map to change location manually ,proceeding will not add up";
+"RentAddressEdit/下一步" = "Next step";
+"RentAddressEdit/请返回地图手动修改房产位置，继续下一步则不添加房产位置" = "Please go back to map to change location manually ,proceeding will not add up";
 
 //Filepath: currant/Scene/Rent/Form/CUTERentAddressEditForm.m
 "RentAddressEdit/Postcode" = "Postcode";
-"RentAddressEdit/街道（选填）" = "街道（选填）";
-"RentAddressEdit/小区（选填）" = "小区（选填）";
-"RentAddressEdit/楼层（选填）" = "楼层（选填）";
-"RentAddressEdit/房间号（选填）" = "房间号（选填）";
-"RentAddressEdit/国家" = "国家";
-"RentAddressEdit/地址" = "地址";
-"RentAddressEdit/位置" = "位置";
-"RentAddressEdit/城市" = "城市";
-"RentAddressEdit/街区" = "街区";
-"RentAddressEdit/房产位置" = "房产位置";
-"RentAddressEdit/地图" = "地图";
+"RentAddressEdit/街道（选填）" = "Streets(optional)";
+"RentAddressEdit/小区（选填）" = "Communities(optional)";
+"RentAddressEdit/楼层（选填）" = "Floors(optional)";
+"RentAddressEdit/房间号（选填）" = "Rooms(optional)";
+"RentAddressEdit/国家" = "Country";
+"RentAddressEdit/地址" = "Address";
+"RentAddressEdit/位置" = "location";
+"RentAddressEdit/城市" = "City";
+"RentAddressEdit/街区" = "Blocks";
+"RentAddressEdit/房产位置" = "Property location";
+"RentAddressEdit/地图" = "Map";
 
 
 //
 //Group: RentPropertyFacility
 //
 //Filepath: currant/Scene/Rent/Controller/CUTERentPropertyFacilityViewController.m
-"RentPropertyFacility/设施" = "设施";
+"RentPropertyFacility/设施" = "Facility";
 
 
 //
 //Group: RentPassword
 //
 //Filepath: currant/Scene/User/Controller/CUTERentPasswordViewController.m
-"RentPassword/发送中..." = "发送中...";
-"RentPassword/发送成功" = "发送成功";
-"RentPassword/请获取验证码" = "请获取验证码";
-"RentPassword/验证码不正确" = "验证码不正确";
-"RentPassword/修改成功" = "修改成功";
+"RentPassword/发送中..." = "Sending...";
+"RentPassword/发送成功" = "Sending successful";
+"RentPassword/请获取验证码" = "Please receive verification code";
+"RentPassword/验证码不正确" = "Verification code is not correct";
+"RentPassword/修改成功" = "Modify success";
 
 //Filepath: currant/Scene/User/Form/CUTERentPasswordForm.m
-"RentPassword/国家" = "国家";
-"RentPassword/手机号" = "手机号";
-"RentPassword/手机验证码" = "手机验证码";
-"RentPassword/新密码" = "新密码";
-"RentPassword/确认新密码" = "确认新密码";
-"RentPassword/重置" = "重置";
+"RentPassword/国家" = "Country";
+"RentPassword/手机号" = "Cellphone number";
+"RentPassword/手机验证码" = "Cellphone verification code";
+"RentPassword/新密码" = "New password";
+"RentPassword/确认新密码" = "Confirm new password";
+"RentPassword/重置" = "Reset";
 
 
 //
 //Group: PropertyList
 //
 //Filepath: currant/Scene/PropertyList/CUTEPropertyListViewController.m
-"PropertyList/查看收藏的房产" = "查看收藏的房产";
+"PropertyList/查看收藏的房产" = "Check property in favorites";
 
 
 //
 //Group: ImageUploader
 //
 //Filepath: currant/API/CUTEImageUploader.m
-"ImageUploader/图片读取失败" = "图片读取失败";
+"ImageUploader/图片读取失败" = "Picture loading failed";
 
 
 //
 //Group: RentPassword2
 //
 //Filepath: currant/Scene/User/Controller/CUTERentPassword2ViewController.m
-"RentPassword2/重置密码请求已发送，请前往邮箱查看重置密码邮件" = "重置密码请求已发送，请前往邮箱查看重置密码邮件";
+"RentPassword2/重置密码请求已发送，请前往邮箱查看重置密码邮件" = "Request for resetting password has been sent, please go to the mailbox to check E-mails";
 
 //Filepath: currant/Scene/User/Form/CUTERentPassword2Form.m
-"RentPassword2/邮箱" = "邮箱";
-"RentPassword2/请求重置密码" = "请求重置密码";
+"RentPassword2/邮箱" = "Mailbox";
+"RentPassword2/请求重置密码" = "Request resetting password";
 
 
 //
 //Group: PropertyMoreInfo
 //
 //Filepath: currant/Scene/Rent/Form/CUTEPropertyMoreInfoForm.m
-"PropertyMoreInfo/标题" = "标题";
-"PropertyMoreInfo/其他" = "其他";
-"PropertyMoreInfo/详细描述" = "详细描述";
-"PropertyMoreInfo/补充您对租客的要求和对房屋特点的描述。平台将提供房东联系方式选择，请勿在此填写任何形式的联系方式，违规发布将会予以处理。" = "补充您对租客的要求和对房屋特点的描述。平台将提供房东联系方式选择，请勿在此填写任何形式的联系方式，违规发布将会予以处理。";
-"PropertyMoreInfo/面积" = "面积";
-"PropertyMoreInfo/配套设施" = "配套设施";
-"PropertyMoreInfo/删除" = "删除";
+"PropertyMoreInfo/标题" = "Title";
+"PropertyMoreInfo/其他" = "Other";
+"PropertyMoreInfo/详细描述" = "Detailed description";
+"PropertyMoreInfo/补充您对租客的要求和对房屋特点的描述。平台将提供房东联系方式选择，请勿在此填写任何形式的联系方式，违规发布将会予以处理。" = "Add description of your requirements to the tenants and home features. Our platform will offer choices of landlord's contact, please do not fill in any form of contact, disobeying will be punished.";
+"PropertyMoreInfo/面积" = "Area";
+"PropertyMoreInfo/配套设施" = "Facilities";
+"PropertyMoreInfo/删除" = "Delete";
 
 
 //
 //Group: RentArea
 //
 //Filepath: currant/Scene/Rent/Controller/CUTERentAreaViewController.m
-"RentArea/面积" = "面积";
+"RentArea/面积" = "Area";
 
 
 //
 //Group: Splash
 //
 //Filepath: currant/Scene/Splash/CUTESplashViewController.m
-"Splash/引导页面" = "引导页面";
-"Splash/进入应用" = "进入应用";
-"Splash/房东直租工具" = "房东直租工具";
-"Splash/杂志般的房产展示" = "杂志般的房产展示";
-"Splash/一次发布，传遍全英" = "一次发布，传遍全英";
-"Splash/三步发布出租房，不用费力思考" = "三步发布出租房，不用费力思考";
-"Splash/分享至朋友圈，高大上的阅读体验" = "分享至朋友圈，高大上的阅读体验";
-"Splash/全国各大平台均可看到你的房产信息" = "全国各大平台均可看到你的房产信息";
+"Splash/引导页面" = "Insruction page";
+"Splash/进入应用" = "Launch application";
+"Splash/房东直租工具" = "Landlord rent tools";
+"Splash/杂志般的房产展示" = "Magazine-like property demostration";
+"Splash/一次发布，传遍全英" = "Once published, spread across the entire UK";
+"Splash/三步发布出租房，不用费力思考" = "Three steps of publishing, without hard thinking";
+"Splash/分享至朋友圈，高大上的阅读体验" = "Share to the wechat friend circle, excellent reading experience";
+"Splash/全国各大平台均可看到你的房产信息" = "Your property info will be accessbile on every platform";
 
 
 //
 //Group: RentContact
 //
 //Filepath: currant/Scene/User/Controller/CUTERentContactViewController.m
-"RentContact/联系方式" = "联系方式";
-"RentContact/用户信息" = "用户信息";
-"RentContact/设置联系方式展示" = "设置联系方式展示";
-"RentContact/获取中..." = "获取中...";
-"RentContact/电话已被使用！请登录或者重置密码，如该用户不是您，请联系客服" = "电话已被使用！请登录或者重置密码，如该用户不是您，请联系客服";
-"RentContact/取消" = "取消";
-"RentContact/登录" = "登录";
-"RentContact/重置密码" = "重置密码";
-"RentContact/联系客服" = "联系客服";
-"RentContact/通过短信" = "通过短信";
-"RentContact/通过邮箱" = "通过邮箱";
-"RentContact/发送中..." = "发送中...";
-"RentContact/发送成功" = "发送成功";
-"RentContact/已成功为您创建帐号，密码已发至您的邮箱。验证码发送成功，请验证手机号" = "已成功为您创建帐号，密码已发至您的邮箱。验证码发送成功，请验证手机号";
-"RentContact/确定" = "确定";
-"RentContact/验证中..." = "验证中...";
-"RentContact/验证成功" = "验证成功";
-"RentContact/验证失败" = "验证失败";
-"RentContact/手机未验证成功，请重发验证码" = "手机未验证成功，请重发验证码";
-"RentContact/更新中..." = "更新中...";
+"RentContact/联系方式" = "Contact";
+"RentContact/用户信息" = "User info";
+"RentContact/设置联系方式展示" = "Set how contact info will be displayed";
+"RentContact/获取中..." = "Loading...";
+"RentContact/电话已被使用！请登录或者重置密码，如该用户不是您，请联系客服" = "Telephone number has been occupied ! please log in or reset password, If you are not owner, please contact customer service";
+"RentContact/取消" = "Cancel";
+"RentContact/登录" = "Login";
+"RentContact/重置密码" = "Reset password";
+"RentContact/联系客服" = "Contact customer service";
+"RentContact/通过短信" = "Via text message";
+"RentContact/通过邮箱" = "Via mailbox";
+"RentContact/发送中..." = "Sending...";
+"RentContact/发送成功" = "Sending success";
+"RentContact/已成功为您创建帐号，密码已发至您的邮箱。验证码发送成功，请验证手机号" = "Creating account success, password has been sent to your mailbox.Verification code successfully sent, please verify cellphone number";
+"RentContact/确定" = "Confirm";
+"RentContact/验证中..." = "Verifing...";
+"RentContact/验证成功" = "Verification success";
+"RentContact/验证失败" = "Verification failure";
+"RentContact/手机未验证成功，请重发验证码" = "Verification failed, please resend verification code";
+"RentContact/更新中..." = "updating...";
 
 //Filepath: currant/Scene/User/Form/CUTERentContactForm.m
-"RentContact/登录" = "登录";
-"RentContact/已有帐号" = "已有帐号";
-"RentContact/姓名" = "姓名";
-"RentContact/还没有帐号？10秒创建" = "还没有帐号？10秒创建";
-"RentContact/邮箱" = "邮箱";
-"RentContact/国家" = "国家";
-"RentContact/手机号" = "手机号";
-"RentContact/手机验证码" = "手机验证码";
-"RentContact/完成注册" = "完成注册";
-"RentContact/发布并分享到微信" = "发布并分享到微信";
-"RentContact/联系方式展示" = "联系方式展示";
+"RentContact/登录" = "login";
+"RentContact/已有帐号" = "Existing account";
+"RentContact/姓名" = "Name";
+"RentContact/还没有帐号？10秒创建" = "No accounts ? create in 10 seconds";
+"RentContact/邮箱" = "Mailbox";
+"RentContact/国家" = "Country";
+"RentContact/手机号" = "Cellphone number";
+"RentContact/手机验证码" = "Cellphone verification code";
+"RentContact/完成注册" = "Registration complete";
+"RentContact/发布并分享到微信" = "Post and share to wechat";
+"RentContact/联系方式展示" = "Contact demostration";
 
 
 //
 //Group: RentConfirmPhone
 //
 //Filepath: currant/Scene/User/Controller/CUTERentConfirmPhoneViewController.m
-"RentConfirmPhone/确认手机号" = "确认手机号";
-"RentConfirmPhone/取消" = "取消";
-"RentConfirmPhone/更新号码中..." = "更新号码中...";
+"RentConfirmPhone/确认手机号" = "Confirm cellphone number";
+"RentConfirmPhone/取消" = "Cancel";
+"RentConfirmPhone/更新号码中..." = "Updating number...";
 
 //Filepath: currant/Scene/User/Form/CUTERentConfirmPhoneForm.m
-"RentConfirmPhone/国家" = "国家";
-"RentConfirmPhone/手机号" = "手机号";
-"RentConfirmPhone/确认" = "确认";
+"RentConfirmPhone/国家" = "Country";
+"RentConfirmPhone/手机号" = "Cellphone number";
+"RentConfirmPhone/确认" = "Confirm";
 
 
 //
 //Group: PropertyFacility
 //
 //Filepath: currant/Scene/Rent/Form/CUTEPropertyFacilityForm.m
-"PropertyFacility/常用设施" = "常用设施";
-"PropertyFacility/小区设施" = "小区设施";
+"PropertyFacility/常用设施" = "Daily facilities";
+"PropertyFacility/小区设施" = "Communties facilities";
 
 
 //
 //Group: RentPriceTextFieldCell
 //
 //Filepath: currant/Scene/Rent/View/CUTEFormRentPriceTextFieldCell.m
-"RentPriceTextFieldCell/周" = "周";
-"RentPriceTextFieldCell/租金不能为空" = "租金不能为空";
+"RentPriceTextFieldCell/周" = "Week";
+"RentPriceTextFieldCell/租金不能为空" = "Rental money can't be empt";
 
 
 //
 //Group: Country
 //
 //Filepath: currant/Entity/CUTECountry.m
-"Country/英国" = "英国";
-"Country/中国" = "中国";
-"Country/美国" = "美国";
-"Country/香港" = "香港";
-"Country/（+44）英国" = "（+44）英国";
-"Country/（+86）中国" = "（+86）中国";
-"Country/（+1）美国" = "（+1）美国";
-"Country/（+851）香港" = "（+851）香港";
+"Country/英国" = "UK";
+"Country/中国" = "China";
+"Country/美国" = "United states";
+"Country/香港" = "Hong kong";
+"Country/（+44）英国" = "(+44)UK";
+"Country/（+86）中国" = "(+86)China";
+"Country/（+1）美国" = "(+1)United states";
+"Country/（+851）香港" = "(+851)Hong kong";
 
 
 //
 //Group: RentLogin
 //
 //Filepath: currant/Scene/User/Controller/CUTERentLoginViewController.m
-"RentLogin/登录" = "登录";
-"RentLogin/重置密码" = "重置密码";
-"RentLogin/登录中..." = "登录中...";
-"RentLogin/确认联系方式展示" = "确认联系方式展示";
+"RentLogin/登录" = "Login";
+"RentLogin/重置密码" = "Reset password";
+"RentLogin/登录中..." = "Logging in...";
+"RentLogin/确认联系方式展示" = "Confirm demostration of contact";
 
 //Filepath: currant/Scene/User/Form/CUTERentLoginForm.m
-"RentLogin/国家" = "国家";
-"RentLogin/手机号" = "手机号";
-"RentLogin/密码" = "密码";
-"RentLogin/登录" = "登录";
-"RentLogin/通过短信重置密码" = "通过短信重置密码";
-"RentLogin/忘记密码？" = "忘记密码？";
-"RentLogin/通过邮箱重置密码" = "通过邮箱重置密码";
+"RentLogin/国家" = "Country";
+"RentLogin/手机号" = "Cellphne number";
+"RentLogin/密码" = "Password";
+"RentLogin/登录" = "Login";
+"RentLogin/通过短信重置密码" = "Reset password via text message";
+"RentLogin/忘记密码？" = "Forget password ?";
+"RentLogin/通过邮箱重置密码" = "Reset password via mailbox";
 
 
 //
 //Group: LimitCharacterCountTextFieldCell
 //
 //Filepath: currant/Scene/Rent/View/CUTEFormLimitCharacterCountTextFieldCell.m
-"LimitCharacterCountTextFieldCell/超过长度限制" = "超过长度限制";
+"LimitCharacterCountTextFieldCell/超过长度限制" = "Exceed length limit";
 
 
 //
 //Group: RentTicketPreview
 //
 //Filepath: currant/Scene/Rent/Controller/CUTERentTicketPreviewViewController.m
-"RentTicketPreview/预览房源移动主页" = "预览房源移动主页";
+"RentTicketPreview/预览房源移动主页" = "Preview source mobile homepage";
 "RentTicketPreview/继续" = "继续";
-"RentTicketPreview/确认联系方式展示" = "确认联系方式展示";
+"RentTicketPreview/确认联系方式展示" = "Confirm contact demostration";
 
 
 //
 //Group: RentAddressMap
 //
 //Filepath: currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m
-"RentAddressMap/房产位置" = "房产位置";
-"RentAddressMap/继续" = "继续";
-"RentAddressMap/点击填写详细地址" = "点击填写详细地址";
-"RentAddressMap/按地址定位" = "按地址定位";
-"RentAddressMap/此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址" = "此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址";
+"RentAddressMap/房产位置" = "Property location";
+"RentAddressMap/继续" = "Continue";
+"RentAddressMap/点击填写详细地址" = "Click to fill in detailed address";
+"RentAddressMap/按地址定位" = "Positioning according to location";
+"RentAddressMap/此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址" = "This application has no access to your location, you can enable it in privacy settings or fill in manually";
 "RentAddressMap/OK" = "OK";
-"RentAddressMap/房产地址" = "房产地址";
-"RentAddressMap/地址不能为空，请编辑地址" = "地址不能为空，请编辑地址";
-"RentAddressMap/重新定位失败" = "重新定位失败";
-"RentAddressMap/请编辑地址" = "请编辑地址";
-"RentAddressMap/请填写国家" = "请填写国家";
-"RentAddressMap/请填写城市" = "请填写城市";
-"RentAddressMap/请填写Postcode" = "请填写Postcode";
-"RentAddressMap/拖动地图可以修改房产位置" = "拖动地图可以修改房产位置";
+"RentAddressMap/房产地址" = "Property location";
+"RentAddressMap/地址不能为空，请编辑地址" = "Location can not be empty, please edit";
+"RentAddressMap/重新定位失败" = "Relocating failed";
+"RentAddressMap/请编辑地址" = "Please edit address";
+"RentAddressMap/请填写国家" = "Please fill in country";
+"RentAddressMap/请填写城市" = "Please fill in city";
+"RentAddressMap/请填写Postcode" = "Please fill in Postcode";
+"RentAddressMap/拖动地图可以修改房产位置" = "Dragging map can change property location";
 
 
 //
 //Group: User
 //
 //Filepath: currant/Scene/User/Controller/CUTEUserViewController.m
-"User/设置" = "设置";
+"User/设置" = "Setting";
 
 
 //
 //Group: PhoneUtil
 //
 //Filepath: currant/Misc/CUTEPhoneUtil.m
-"PhoneUtil/联系洋房东" = "联系洋房东";
-"PhoneUtil/取消" = "取消";
-"PhoneUtil/英国" = "英国";
-"PhoneUtil/中国" = "中国";
-"PhoneUtil/电话不可用" = "电话不可用";
+"PhoneUtil/联系洋房东" = "Contact Youngfunding";
+"PhoneUtil/取消" = "Cancel";
+"PhoneUtil/英国" = "UK";
+"PhoneUtil/中国" = "China";
+"PhoneUtil/电话不可用" = "Telephone unavaliable";
 "PhoneUtil/OK" = "OK";
 
 
@@ -348,146 +348,146 @@
 //Group: TimePeriod
 //
 //Filepath: currant/Entity/CUTETimePeriod.m
-"TimePeriod/天" = "天";
-"TimePeriod/周" = "周";
-"TimePeriod/月" = "月";
+"TimePeriod/天" = "Day";
+"TimePeriod/周" = "Week";
+"TimePeriod/月" = "Month";
 
 
 //
 //Group: PropertyMapList
 //
 //Filepath: currant/Scene/PropertyList/CUTEPropertyMapListViewController.m
-"PropertyMapList/暂无结果" = "暂无结果";
-"PropertyMapList/亿" = "亿";
-"PropertyMapList/万" = "万";
-"PropertyMapList/起" = "起";
+"PropertyMapList/暂无结果" = "No results for now";
+"PropertyMapList/亿" = "A hundred million";
+"PropertyMapList/万" = "ten thousand";
+"PropertyMapList/起" = "Starting from";
 
 
 //
 //Group: RentVerifyPhone
 //
 //Filepath: currant/Scene/User/Controller/CUTERentVerifyPhoneViewController.m
-"RentVerifyPhone/验证手机号" = "验证手机号";
-"RentVerifyPhone/发送中..." = "发送中...";
-"RentVerifyPhone/发送成功" = "发送成功";
-"RentVerifyPhone/验证中..." = "验证中...";
-"RentVerifyPhone/验证成功" = "验证成功";
-"RentVerifyPhone/验证失败" = "验证失败";
+"RentVerifyPhone/验证手机号" = "Cellphone number verification";
+"RentVerifyPhone/发送中..." = "Sending...";
+"RentVerifyPhone/发送成功" = "Sending successful";
+"RentVerifyPhone/验证中..." = "Verifing....";
+"RentVerifyPhone/验证成功" = "Verification successful";
+"RentVerifyPhone/验证失败" = "Verification failed";
 
 //Filepath: currant/Scene/User/Form/CUTERentVerifyPhoneForm.m
-"RentVerifyPhone/手机验证码" = "手机验证码";
-"RentVerifyPhone/验证" = "验证";
+"RentVerifyPhone/手机验证码" = "Cellphone number verification code";
+"RentVerifyPhone/验证" = "Verify";
 
 
 //
 //Group: RentShare
 //
 //Filepath: currant/Scene/Rent/Controller/CUTERentShareViewController.m
-"RentShare/发布成功" = "发布成功";
-"RentShare/完成" = "完成";
-"RentShare/编辑" = "编辑";
-"RentShare/获取失败" = "获取失败";
-"RentShare/分享" = "分享";
+"RentShare/发布成功" = "Posting success";
+"RentShare/完成" = "Complete";
+"RentShare/编辑" = "Edit";
+"RentShare/获取失败" = "Loading failed";
+"RentShare/分享" = "Share";
 
 //Filepath: currant/Scene/Rent/Form/CUTERentShareForm.m
-"RentShare/查看我的房源移动主页" = "查看我的房源移动主页";
-"RentShare/编辑我的房产" = "编辑我的房产";
-"RentShare/复制房源移动主页链接" = "复制房源移动主页链接";
-"RentShare/分享我的房源移动主页" = "分享我的房源移动主页";
+"RentShare/查看我的房源移动主页" = "Check my mobile source homepage";
+"RentShare/编辑我的房产" = "Edit my property";
+"RentShare/复制房源移动主页链接" = "Copy mobile source homepage link";
+"RentShare/分享我的房源移动主页" = "Share my mobile source homepage";
 
 
 //
 //Group: RentTicketPublisher
 //
 //Filepath: currant/API/CUTERentTicketPublisher.m
-"RentTicketPublisher/正在上传图片(%d/%d)..." = "正在上传图片(%d/%d)...";
-"RentTicketPublisher/正在发布房产..." = "正在发布房产...";
-"RentTicketPublisher/正在发布房产出租单..." = "正在发布房产出租单...";
-"RentTicketPublisher/正在更新房产..." = "正在更新房产...";
-"RentTicketPublisher/正在更新房产出租单..." = "正在更新房产出租单...";
+"RentTicketPublisher/正在上传图片(%d/%d)..." = "Uploading pictures(%d/%d)...";
+"RentTicketPublisher/正在发布房产..." = "Posting property...";
+"RentTicketPublisher/正在发布房产出租单..." = "Publishing property rental form...";
+"RentTicketPublisher/正在更新房产..." = "Updating property...";
+"RentTicketPublisher/正在更新房产出租单..." = "Updating property rental form...";
 
 
 //
 //Group: NavigationUtil
 //
 //Filepath: currant/Misc/CUTENavigationUtil.m
-"NavigationUtil/返回" = "返回";
+"NavigationUtil/返回" = "Return";
 
 
 //
 //Group: RentTypeList
 //
 //Filepath: currant/Scene/Rent/Controller/CUTERentTypeListViewController.m
-"RentTypeList/出租发布" = "出租发布";
-"RentTypeList/出租类型" = "出租类型";
-"RentTypeList/出租类型列表" = "出租类型列表";
-"RentTypeList/您有整套或单间房源要出租？\n从这里开始免费发布！" = "您有整套或单间房源要出租？\n从这里开始免费发布！";
+"RentTypeList/出租发布" = "Rental publishing";
+"RentTypeList/出租类型" = "Rental type";
+"RentTypeList/出租类型列表" = "Lists of rental type";
+"RentTypeList/您有整套或单间房源要出租？\n从这里开始免费发布！" = "You have a whole house or a single room and you want to have them rented ? Start posting from here !";
 
 //Filepath: currant/Scene/Rent/Form/CUTERentTypeListForm.m
-"RentTypeList/出租类型" = "出租类型";
+"RentTypeList/出租类型" = "Rental type";
 
 
 //
 //Group: UnfinishedRentTicketList
 //
 //Filepath: currant/Scene/Rent/Controller/CUTEUnfinishedRentTicketListViewController.m
-"UnfinishedRentTicketList/创建" = "创建";
-"UnfinishedRentTicketList/出租房草稿" = "出租房草稿";
-"UnfinishedRentTicketList/出租房草稿列表" = "出租房草稿列表";
+"UnfinishedRentTicketList/创建" = "Create";
+"UnfinishedRentTicketList/出租房草稿" = "Rental house draft";
+"UnfinishedRentTicketList/出租房草稿列表" = "Lists of rental house draft";
 
 
 //
 //Group: AppDelegate
 //
 //Filepath: currant/AppDelegate.m
-"AppDelegate/洋房东" = "洋房东";
-"AppDelegate/出租发布" = "出租发布";
-"AppDelegate/主页" = "主页";
-"AppDelegate/发布" = "发布";
-"AppDelegate/新房" = "新房";
-"AppDelegate/租房" = "租房";
-"AppDelegate/我" = "我";
-"AppDelegate/发布租房" = "发布租房";
-"AppDelegate/已发布" = "已发布";
-"AppDelegate/同步中..." = "同步中...";
-"AppDelegate/获取验证中..." = "获取验证中...";
+"AppDelegate/洋房东" = "Youngfunding";
+"AppDelegate/出租发布" = "Publish to rent";
+"AppDelegate/主页" = "Homepage";
+"AppDelegate/发布" = "Post";
+"AppDelegate/新房" = "New property";
+"AppDelegate/租房" = "Rent house";
+"AppDelegate/我" = "Me";
+"AppDelegate/发布租房" = "Post property";
+"AppDelegate/已发布" = "Posted";
+"AppDelegate/同步中..." = "Syncing...";
+"AppDelegate/获取验证中..." = "Acquiring verification...";
 
 
 //
 //Group: VerificationCodeCell
 //
 //Filepath: currant/Scene/Rent/View/CUTEFormVerificationCodeCell.m
-"VerificationCodeCell/获取" = "获取";
-"VerificationCodeCell/剩余" = "剩余";
-"VerificationCodeCell/秒" = "秒";
-"VerificationCodeCell/重新发送" = "重新发送";
+"VerificationCodeCell/获取" = "Acquire";
+"VerificationCodeCell/剩余" = "Remaining";
+"VerificationCodeCell/秒" = "Seconds";
+"VerificationCodeCell/重新发送" = "Resend";
 
 
 //
 //Group: Setting
 //
 //Filepath: currant/Scene/User/Controller/CUTESettingViewController.m
-"Setting/设置" = "设置";
+"Setting/设置" = "Setting";
 
 //Filepath: currant/Scene/User/Form/CUTESettingForm.m
-"Setting/版本" = "版本";
-"Setting/意见反馈" = "意见反馈";
-"Setting/帮助中心" = "帮助中心";
-"Setting/觉得不错？去App Store评价" = "觉得不错？去App Store评价";
+"Setting/版本" = "Version";
+"Setting/意见反馈" = "Advice feedback";
+"Setting/帮助中心" = "Help center";
+"Setting/觉得不错？去App Store评价" = "Like this ? go to rate in APP Store";
 
 
 //
 //Group: Activity
 //
 //Filepath: currant/Library3rd/CUTEActivityView.m
-"Activity/取消分享" = "取消分享";
+"Activity/取消分享" = "Cancel sharing";
 
 
 //
 //Group: UnfinishedRentTicketPlaceholderImage
 //
 //Filepath: currant/Scene/Rent/View/CUTEUnfinishedRentTicketPlaceholderImageView.m
-"UnfinishedRentTicketPlaceholderImage/暂未添加照片" = "暂未添加照片";
+"UnfinishedRentTicketPlaceholderImage/暂未添加照片" = "Haven't added pictrure yet";
 
 
 //
@@ -501,32 +501,32 @@
 //Group: RentContactDisplaySetting
 //
 //Filepath: currant/Scene/User/Controller/CUTERentContactDisplaySettingViewController.m
-"RentContactDisplaySetting/发布" = "发布";
-"RentContactDisplaySetting/发布中..." = "发布中...";
-"RentContactDisplaySetting/发布成功" = "发布成功";
+"RentContactDisplaySetting/发布" = "Post";
+"RentContactDisplaySetting/发布中..." = "Posting...";
+"RentContactDisplaySetting/发布成功" = "Post success";
 
 //Filepath: currant/Scene/User/Form/CUTERentContactDisplaySettingForm.m
-"RentContactDisplaySetting/展示电话" = "展示电话";
-"RentContactDisplaySetting/展示邮箱" = "展示邮箱";
-"RentContactDisplaySetting/微信号" = "微信号";
-"RentContactDisplaySetting/点击填写微信号" = "点击填写微信号";
-"RentContactDisplaySetting/您选择的联系方式仅展示给平台注册的租客" = "您选择的联系方式仅展示给平台注册的租客";
-"RentContactDisplaySetting/至少需要展示一种联系方式" = "至少需要展示一种联系方式";
+"RentContactDisplaySetting/展示电话" = "Show telephone number";
+"RentContactDisplaySetting/展示邮箱" = "Show mailbox";
+"RentContactDisplaySetting/微信号" = "Wechat number";
+"RentContactDisplaySetting/点击填写微信号" = "Click to fill in wechat number";
+"RentContactDisplaySetting/您选择的联系方式仅展示给平台注册的租客" = "The contact you choose will only be shown to registered tenants";
+"RentContactDisplaySetting/至少需要展示一种联系方式" = "At least one contact";
 
 
 //
 //Group: ShareManager
 //
 //Filepath: currant/API/CUTEShareManager.m
-"ShareManager/请安装微信" = "请安装微信";
-"ShareManager/获取房产中..." = "获取房产中...";
-"ShareManager/图片读取失败" = "图片读取失败";
-"ShareManager/复制链接" = "复制链接";
-"ShareManager/已复制至粘贴版" = "已复制至粘贴版";
-"ShareManager/微博分享" = "微博分享";
-"ShareManager/Wechat Friend" = "微信好友";
-"ShareManager/Wechat Circle" = "微信朋友圈";
-"ShareManager/Sina Weibo" = "新浪微博";
+"ShareManager/请安装微信" = "Please install wechat";
+"ShareManager/获取房产中..." = "Acquiring property...";
+"ShareManager/图片读取失败" = "Picture loading failed";
+"ShareManager/复制链接" = "Copy link";
+"ShareManager/已复制至粘贴版" = "Copied to clipboard";
+"ShareManager/微博分享" = "Weibo share";
+"ShareManager/Wechat Friend" = "Wechat Friend";
+"ShareManager/Wechat Circle" = "Wechat Circle";
+"ShareManager/Sina Weibo" = "Sina Weibo";
 
 
 
@@ -534,210 +534,210 @@
 //Group: WebConfiguration
 //
 //Filepath: currant/Scene/Base/CUTEWebConfiguration.m
-"WebConfiguration/洋房东" = "洋房东";
-"WebConfiguration/房产列表-洋房东" = "房产列表-洋房东";
-"WebConfiguration/出租列表-洋房东" = "出租列表-洋房东";
-"WebConfiguration/房产详情" = "房产详情";
-"WebConfiguration/出租详情" = "出租详情";
-"WebConfiguration/用户中心" = "用户中心";
-"WebConfiguration/登录" = "登录";
-"WebConfiguration/注册" = "注册";
+"WebConfiguration/洋房东" = "Youngfunding";
+"WebConfiguration/房产列表-洋房东" = "Property list-Youngfunding";
+"WebConfiguration/出租列表-洋房东" = "Rent list-Youngfunding";
+"WebConfiguration/房产详情" = "Property detail";
+"WebConfiguration/出租详情" = "Rent detail";
+"WebConfiguration/用户中心" = "User center";
+"WebConfiguration/登录" = "Login";
+"WebConfiguration/注册" = "Register";
 
 
 //
 //Group: ApplyBetaRenting
 //
 //Filepath: currant/Scene/User/Controller/CUTEApplyBetaRentingViewController.m
-"ApplyBetaRenting/邀请码" = "邀请码";
-"ApplyBetaRenting/返回" = "返回";
-"ApplyBetaRenting/申请邀请码" = "申请邀请码";
-"ApplyBetaRenting/申请成功" = "申请成功";
-"ApplyBetaRenting/我们会尽快处理，请定期检查您的邮件" = "我们会尽快处理，请定期检查您的邮件";
+"ApplyBetaRenting/邀请码" = "Invitation code";
+"ApplyBetaRenting/返回" = "Return";
+"ApplyBetaRenting/申请邀请码" = "Requesting invitation code";
+"ApplyBetaRenting/申请成功" = "Application successful";
+"ApplyBetaRenting/我们会尽快处理，请定期检查您的邮件" = "We will deal with it as soon as possbile, please check your e-mail regularly";
 "ApplyBetaRenting/OK" = "OK";
 
 //Filepath: currant/Scene/User/Form/CUTEApplyBetaRentingForm.m
-"ApplyBetaRenting/邮箱" = "邮箱";
-"ApplyBetaRenting/申请" = "申请";
+"ApplyBetaRenting/邮箱" = "Mailbox";
+"ApplyBetaRenting/申请" = "Apply for";
 
 
 //
 //Group: GeoManager
 //
 //Filepath: currant/API/CUTEGeoManager.m
-"GeoManager/请求失败" = "请求失败";
-"GeoManager/获取当前位置超时" = "获取当前位置超时";
-"GeoManager/获取当前位置失败" = "获取当前位置失败";
+"GeoManager/请求失败" = "Application failed";
+"GeoManager/获取当前位置超时" = "Aquiring location overtime";
+"GeoManager/获取当前位置失败" = "Acquiring location failed";
 
 
 //
 //Group: RentPropertyMoreInfo
 //
 //Filepath: currant/Scene/Rent/Controller/CUTERentPropertyMoreInfoViewController.m
-"RentPropertyMoreInfo/更多详情" = "更多详情";
-"RentPropertyMoreInfo/更多房产信息表单" = "更多房产信息表单";
-"RentPropertyMoreInfo/房屋面积" = "房屋面积";
-"RentPropertyMoreInfo/房间面积" = "房间面积";
-"RentPropertyMoreInfo/删除" = "删除";
-"RentPropertyMoreInfo/确定" = "确定";
-"RentPropertyMoreInfo/取消" = "取消";
-"RentPropertyMoreInfo/标题过短，请至少填写%d个字" = "标题过短，请至少填写%d个字";
+"RentPropertyMoreInfo/更多详情" = "More detail";
+"RentPropertyMoreInfo/更多房产信息表单" = "More property info list";
+"RentPropertyMoreInfo/房屋面积" = "Property area";
+"RentPropertyMoreInfo/房间面积" = "Room area";
+"RentPropertyMoreInfo/删除" = "Delete";
+"RentPropertyMoreInfo/确定" = "Confirm";
+"RentPropertyMoreInfo/取消" = "Cancel";
+"RentPropertyMoreInfo/标题过短，请至少填写%d个字" = "Title is too short, no less than %d";
 "RentPropertyMoreInfo/OK" = "OK";
-"RentPropertyMoreInfo/标题超长，请最多填写%d个字" = "标题超长，请最多填写%d个字";
-"RentPropertyMoreInfo/平台将提供房东联系方式选择，请删除“电话" = "平台将提供房东联系方式选择，请删除“电话";
-"RentPropertyMoreInfo/”，违规发布将会予以处理" = "”，违规发布将会予以处理";
-"RentPropertyMoreInfo/平台将提供房东联系方式选择，请删除“邮箱" = "平台将提供房东联系方式选择，请删除“邮箱";
-"RentPropertyMoreInfo/平台将提供房东联系方式选择，请删除“" = "平台将提供房东联系方式选择，请删除“";
-"RentPropertyMoreInfo/”相关信息，违规发布将会予以处理" = "”相关信息，违规发布将会予以处理";
-"RentPropertyMoreInfo/请删除HTML相关字符" = "请删除HTML相关字符";
+"RentPropertyMoreInfo/标题超长，请最多填写%d个字" = "Title is too long, no more than %d";
+"RentPropertyMoreInfo/平台将提供房东联系方式选择，请删除“电话" = "Platform will offer contact info to choose from, please delete \"telephone";
+"RentPropertyMoreInfo/”，违规发布将会予以处理" = ", Violation of publishing info illegally will be seriously dealt with";
+"RentPropertyMoreInfo/平台将提供房东联系方式选择，请删除“邮箱" = "Platform will offer contact info to choose from, please delete \"mailbox";
+"RentPropertyMoreInfo/平台将提供房东联系方式选择，请删除“" = "Platform will offer contact info to choose from, please delete\"";
+"RentPropertyMoreInfo/”相关信息，违规发布将会予以处理" = "\"Related info, Violation of publishing info illegally will be seriously dealt with";
+"RentPropertyMoreInfo/请删除HTML相关字符" = "Please delete bytes related to HTML";
 
 
 //
 //Group: RentPrice
 //
 //Filepath: currant/Scene/Rent/Controller/CUTERentPriceViewController.m
-"RentPrice/租金" = "租金";
-"RentPrice/租金表单" = "租金表单";
+"RentPrice/租金" = "Rent";
+"RentPrice/租金表单" = "Rental form";
 
 //Filepath: currant/Scene/Rent/Form/CUTERentPriceForm.m
-"RentPrice/货币" = "货币";
-"RentPrice/租金" = "租金";
-"RentPrice/押金" = "押金";
-"RentPrice/填写金额，不填则为面议" = "填写金额，不填则为面议";
-"RentPrice/包Bill" = "包Bill";
-"RentPrice/其他" = "其他";
+"RentPrice/货币" = "Currency";
+"RentPrice/租金" = "Rent";
+"RentPrice/押金" = "Deposit";
+"RentPrice/填写金额，不填则为面议" = "Fill in amount, blank means negotiation";
+"RentPrice/包Bill" = "Including Bill";
+"RentPrice/其他" = "Other";
 
 
 //
 //Group: RentList
 //
 //Filepath: currant/Scene/RentList/CUTERentListViewController.m
-"RentList/查看收藏的出租房" = "查看收藏的出租房";
+"RentList/查看收藏的出租房" = "Check rent in favorites";
 
 
 //
 //Group: ImagePickerPlaceholder
 //
 //Filepath: currant/Scene/Rent/View/CUTEFormImagePickerPlaceholderView.m
-"ImagePickerPlaceholder/添加照片" = "添加照片";
+"ImagePickerPlaceholder/添加照片" = "Add picture";
 
 
 //
 //Group: API
 //
 //Filepath: currant/API/SVProgressHUD+CUTEAPI.m
-"API/输入错误，请检查后重试。" = "输入错误，请检查后重试。";
-"API/已经在收藏里了。" = "已经在收藏里了。";
-"API/没有访问权限，请登陆后重试。" = "没有访问权限，请登陆后重试。";
-"API/频率达到上限，请稍后重试。" = "频率达到上限，请稍后重试。";
-"API/账户或密码错误。" = "账户或密码错误。";
-"API/对不起，您的权限不够。" = "对不起，您的权限不够。";
-"API/对不起，不能操作他人的订单。" = "对不起，不能操作他人的订单。";
-"API/对不起，不能查看他人的订单。" = "对不起，不能查看他人的订单。";
-"API/没有权限！" = "没有权限！";
-"API/账户不存在！" = "账户不存在！";
-"API/邮箱已被使用！" = "邮箱已被使用！";
-"API/电话已被使用！" = "电话已被使用！";
-"API/请求太频繁！" = "请求太频繁！";
-"API/验证失败。" = "验证失败。";
-"API/验证码无效。" = "验证码无效。";
-"API/验证码失效，已经使用过？" = "验证码失效，已经使用过？";
-"API/邀请码无效。" = "邀请码无效。";
-"API/邀请码已被使用。" = "邀请码已被使用。";
-"API/权限错误。" = "权限错误。";
-"API/对不起，没有找到您要的资源！" = "对不起，没有找到您要的资源！";
-"API/服务暂时不可用，请稍后重试。" = "服务暂时不可用，请稍后重试。";
-"API/第三方服务暂时不可用，请稍后重试。" = "第三方服务暂时不可用，请稍后重试。";
-"API/请求失败" = "请求失败";
-"API/请求被取消" = "请求被取消";
+"API/输入错误，请检查后重试。" = "Ipnput error, please retry after checking";
+"API/已经在收藏里了。" = "It's already in favorites";
+"API/没有访问权限，请登陆后重试。" = "No access permission, please retry after login";
+"API/频率达到上限，请稍后重试。" = "Frequency is up to limits, please retry later";
+"API/账户或密码错误。" = "Wrong user or password.";
+"API/对不起，您的权限不够。" = "Sorry, you don't have authority to access that";
+"API/对不起，不能操作他人的订单。" = "Sorry, you don't have authority to operate";
+"API/对不起，不能查看他人的订单。" = "Sorry, you don't have authority to see";
+"API/没有权限！" = "No authorization!";
+"API/账户不存在！" = "Account do not exist!";
+"API/邮箱已被使用！" = "E-mail has already been taken!";
+"API/电话已被使用！" = "Telephone has already been taken!";
+"API/请求太频繁！" = "Request is too frequent!";
+"API/验证失败。" = "Verification failed.";
+"API/验证码无效。" = "Verification code is invalid";
+"API/验证码失效，已经使用过？" = "Verification code invalid, already been used ?";
+"API/邀请码无效。" = "Invitation code is invalid.";
+"API/邀请码已被使用。" = "Invitation code has been used";
+"API/权限错误。" = "Permission wrong";
+"API/对不起，没有找到您要的资源！" = "Sorry, the resources you're looking for can't be found!";
+"API/服务暂时不可用，请稍后重试。" = "Service temporarily unavailable, please retry later";
+"API/第三方服务暂时不可用，请稍后重试。" = "Third-party service temporarily unavailable, please retry later";
+"API/请求失败" = "Request failed";
+"API/请求被取消" = "Request canceled";
 
 
 //
 //Group: InputAccessory
 //
 //Filepath: currant/Library3rd/BBTInputAccessoryView.m
-"InputAccessory/确认" = "确认";
+"InputAccessory/确认" = "Confirm";
 
 
 //
 //Group: ImagePickerCell
 //
 //Filepath: currant/Scene/Rent/View/CUTEFormImagePickerCell.m
-"ImagePickerCell/封面" = "封面";
-"ImagePickerCell/此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。" = "此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。";
-"ImagePickerCell/此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。" = "此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。";
+"ImagePickerCell/封面" = "Cover";
+"ImagePickerCell/此应用程序对您的照片没有访问权，您可以在隐私设置中启用访问权。" = "This application has access to your photo, you can enable it in privacy setting";
+"ImagePickerCell/此应用程序对您的相机没有访问权，您可以在隐私设置中启用访问权。" = "This application has access to your camera, you can enable it in privacy setting";
 "ImagePickerCell/OK" = "OK";
-"ImagePickerCell/选择照片" = "选择照片";
-"ImagePickerCell/取消" = "取消";
-"ImagePickerCell/从手机选择" = "从手机选择";
-"ImagePickerCell/拍照" = "拍照";
-"ImagePickerCell/您好，最多只能上传%d张图片" = "您好，最多只能上传%d张图片";
-"ImagePickerCell/您的图片没有下载到设备上，或者已经被删除" = "您的图片没有下载到设备上，或者已经被删除";
-"ImagePickerCell/已是封面" = "已是封面";
-"ImagePickerCell/设为封面" = "设为封面";
-"ImagePickerCell/设置中..." = "设置中...";
-"ImagePickerCell/设置成功" = "设置成功";
-"ImagePickerCell/设置失败" = "设置失败";
-"ImagePickerCell/保存到本地..." = "保存到本地...";
+"ImagePickerCell/选择照片" = "Choose photo";
+"ImagePickerCell/取消" = "Cancel";
+"ImagePickerCell/从手机选择" = "Choose from phone";
+"ImagePickerCell/拍照" = "Taking photo";
+"ImagePickerCell/您好，最多只能上传%d张图片" = "Hello, you can only upload pictures no more than %d";
+"ImagePickerCell/您的图片没有下载到设备上，或者已经被删除" = "Your photo haven't download to the device, or have been deleted";
+"ImagePickerCell/已是封面" = "Already been set as cover";
+"ImagePickerCell/设为封面" = "Set as cover";
+"ImagePickerCell/设置中..." = "Setting...";
+"ImagePickerCell/设置成功" = "Setting success";
+"ImagePickerCell/设置失败" = "Setting failed";
+"ImagePickerCell/保存到本地..." = "Save...";
 
 
 //
 //Group: PropertyInfo
 //
 //Filepath: currant/Scene/Rent/Form/CUTEPropertyInfoForm.m
-"PropertyInfo/添加照片" = "添加照片";
-"PropertyInfo/房间照片" = "房间照片";
-"PropertyInfo/房东类型" = "房东类型";
-"PropertyInfo/基本信息" = "基本信息";
-"PropertyInfo/租金" = "租金";
-"PropertyInfo/租期" = "租期";
-"PropertyInfo/房产类型" = "房产类型";
-"PropertyInfo/房屋户型（可选Studio）" = "房屋户型（可选Studio）";
-"PropertyInfo/出租类型" = "出租类型";
-"PropertyInfo/房产地址" = "房产地址";
-"PropertyInfo/更多详情和配套设施描述（选填）" = "更多详情和配套设施描述（选填）";
-"PropertyInfo/预览并发布" = "预览并发布";
+"PropertyInfo/添加照片" = "Add photo";
+"PropertyInfo/房间照片" = "Room photo";
+"PropertyInfo/房东类型" = "Landlord typ";
+"PropertyInfo/基本信息" = "Basic info";
+"PropertyInfo/租金" = "Rent";
+"PropertyInfo/租期" = "Lease term";
+"PropertyInfo/房产类型" = "Property type";
+"PropertyInfo/房屋户型（可选Studio）" = "Property type(optional Studio)";
+"PropertyInfo/出租类型" = "Rent type";
+"PropertyInfo/房产地址" = "Property address";
+"PropertyInfo/更多详情和配套设施描述（选填）" = "More details and facility description(optional)";
+"PropertyInfo/预览并发布" = "Preview and post";
 
 
 //
 //Group: ngrvalidator
 //
 //edit address
-"City is required." = "城市不能为空";
-"Country is required" = "国家不能为空";
-"Postcode is required." = "Postcode不能为空";
+"City is required." = "City is required";
+"Country is required" = "Country is required";
+"Postcode is required." = "Postcode is required";
 
 //register
-"Name is required." = "姓名不能为空";
-"Email is required." = "邮箱不能为空";
-"Phone is required." = "手机号不能为空";
-"Code is required." = "验证码不能为空";
-"Password is required." = "密码不能为空";
-"Email has invalid syntax." = "邮箱格式不正确";
+"Name is required." = "Name is required";
+"Email is required." = "Email is required";
+"Phone is required." = "Phone is required";
+"Code is required." = "Code is required";
+"Password is required." = "Password is required";
+"Email has invalid syntax." = "Email has invalid syntax";
 
 //Reset Password
 
-"ConfirmPassword is is not repeatly exactly." = "确认新密码和新密码不一致";
+"ConfirmPassword is is not repeatly exactly." = "Confirm Password is is not repeatly exactly";
 
 //edit area
-"Area is too small." = "面积不能为0";
+"Area is too small." = "Area is too small";
 
 //rent price
-"RentPrice is too small." = "租金不能为0";
+"RentPrice is too small." = "RentPrice is too small";
 
 
 //
 //Group: MWPhotoBrowser
 //
-"Done" = "完成";
+"Done" = "Done";
 
 
 
 //
 //Group: AppUpdate
 //
-"What's New:" = "更新：";
-"You already have the lastest version" = "已是最新版";
-"App Update:" = "更新：";
-"New Version Available" = "新版本可用";
-"Later" = "下次";
-"Update" = "更新";
+"What's New:" = "What's New: ";
+"You already have the lastest version" = "You already have the lastest version";
+"App Update:" = "App Update: ";
+"New Version Available" = "New Version Available";
+"Later" = "Later";
+"Update" = "Update";
