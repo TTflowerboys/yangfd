@@ -25,8 +25,10 @@ $(function () {
     _.each(venuesData, function (venue, index) {
         if(venue.deals && venue.deals.length) {
             _.each(venue.deals, function (deal) {
-                deal.venue = venue
-                window.allData.push(deal)
+                if(deal.display === true) {
+                    deal.venue = venue
+                    window.allData.push(deal)
+                }
             })
         }
     })
