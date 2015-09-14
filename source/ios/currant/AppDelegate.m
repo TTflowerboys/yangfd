@@ -185,8 +185,6 @@
     [NotificationCenter addObserver:self selector:@selector(onReceiveMarkUserAsLandlord:) name:KNOTIF_MARK_USER_AS_LANDLORD object:nil];
 
     [NotificationCenter addObserver:self selector:@selector(onReceiveShowHomeTab:) name:KNOTIF_SHOW_HOME_TAB object:nil];
-    [NotificationCenter addObserver:self selector:@selector(onReceiveShowRentTicketListTab:) name:KNOTIF_SHOW_RENT_TICKET_LIST_TAB object:nil];
-    [NotificationCenter addObserver:self selector:@selector(onReceiveShowPropertyListTab:) name:KNOTIF_SHOW_PROPERTY_LIST_TAB object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveShowSplashView:) name:KNOTIF_SHOW_SPLASH_VIEW object:nil];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -780,26 +778,6 @@
     [self.tabBarController setSelectedIndex:kHomeTabBarIndex];
     [self updateWebViewControllerTabAtIndex:kHomeTabBarIndex];
     _lastSelectedTabIndex = kHomeTabBarIndex;
-}
-
-- (void)onReceiveShowRentTicketListTab:(NSNotification *)notif {
-    UINavigationController *nav = [[self.tabBarController viewControllers] objectAtIndex:kRentTicketListTabBarIndex];
-    if (nav == [(UIViewController *)notif.object navigationController]) {
-        [nav popToRootViewControllerAnimated:YES];
-    }
-    [self.tabBarController setSelectedIndex:kRentTicketListTabBarIndex];
-    [self updateWebViewControllerTabAtIndex:kRentTicketListTabBarIndex];
-    _lastSelectedTabIndex = kRentTicketListTabBarIndex;
-}
-
-- (void)onReceiveShowPropertyListTab:(NSNotification *)notif {
-    UINavigationController *nav = [[self.tabBarController viewControllers] objectAtIndex:kPropertyListTabBarIndex];
-    if (nav == [(UIViewController *)notif.object navigationController]) {
-        [nav popToRootViewControllerAnimated:YES];
-    }
-    [self.tabBarController setSelectedIndex:kPropertyListTabBarIndex];
-    [self updateWebViewControllerTabAtIndex:kPropertyListTabBarIndex];
-    _lastSelectedTabIndex = kPropertyListTabBarIndex;
 }
 
 - (void)onReceiveUserDidLogin:(NSNotification *)notif {
