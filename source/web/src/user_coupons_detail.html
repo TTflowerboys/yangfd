@@ -14,18 +14,37 @@
         <p>{{deal.get('venue',{}).get('name')}}<br>{{_('洋房东会员专享福利')}}</p>
     </div>
     <div class="info">
-        <h2 class="title">
+        <h2 class="title" data-shared="false">
             % if deal.get('deal_type') == 'percentage':
             {{deal.get('deal_off')}}{{_('折优惠')}}
             % elif deal.get('deal_type') == 'amount':
             {{_('立减')}}{{deal.get('deal_off')}}
             % elif deal.get('deal_type') == 'free':
-            {{deal.get('deal_free_text')}}
+            {{deal.get('free_text')}}
             %end
         </h2>
+        %if deal.get('deal_off_shared') or deal.get('free_text_shared'):
+        <h2 class="title" data-shared="true" style="display: none">
+            % if deal.get('deal_type') == 'percentage':
+            {{deal.get('deal_off_shared')}}{{_('折优惠')}}
+            % elif deal.get('deal_type') == 'amount':
+            {{_('立减')}}{{deal.get('deal_off_shared')}}
+            % elif deal.get('deal_type') == 'free':
+            {{deal.get('free_text_shared')}}
+            %end
+        </h2>
+        %end
         <p class="hint">
             {{deal.get('description')}}
         </p>
+        %if deal.get('deal_off_shared') or deal.get('free_text_shared'):
+        <div class="share" data-shared="false">
+            <button class="shareBtn"><i class="icon-circle"></i>{{_('分享到朋友圈')}}</button>
+        </div>
+        <p class="shareSuccess" data-shared="true" style="display: none">
+            {{_('您已成功分享到朋友圈！')}}
+        </p>
+        %end
         <hr/>
         <p class="description">
             {{deal.get('venue', {}).get('description')}}
