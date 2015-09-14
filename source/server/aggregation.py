@@ -15,7 +15,8 @@ with f_app.mongo() as m:
 
     # 用户总数
     print('用户总数:')
-    print(m.users.count())
+    total_user_count = m.users.count()
+    print(total_user_count)
 
     # 按角色统计用户
     print('\n按角色统计用户:')
@@ -136,7 +137,7 @@ with f_app.mongo() as m:
     for user in target_users:
         print(user['nickname'] + ':' + str(user_fav_count_dic[str(user['id'])]))
 
-    # 查看过联系方式的总用户数和查看总量
+    # 查看过联系方式的总用户数和比例和查看总次数
     print('\n查看过联系方式的总用户数和查看总量:')
     cursor = m.orders.aggregate(
         [
@@ -147,8 +148,25 @@ with f_app.mongo() as m:
     )
 
     for document in cursor:
-        print('查看过联系方式的总用户数量' + ':' + str(document['totalUsersCount']))
-        print('查看过联系方式的总数量' + ':' + str(document['totalRequestCount']))
+        total_requested_contact_user_count = document['totalUsersCount']
+        print('查看过联系方式的总用户数量' + ':' + str(document['totalUsersCount']) + ', ' + '占总用户数的比例为' + format(document['totalUsersCount']*1.0/total_user_count, '.2%'))
+        print('所有查看过联系方式的总次数' + ':' + str(document['totalRequestCount']))
+
+    # 查看N次联系方式的用户数分布：
+    print('\n查看N次联系方式的用户数分布:')
+    for i in range(5):
+        cursor = m.orders.aggregate(
+            [
+                {'$unwind': "$items"},
+                {'$group': {'_id': "$user.nickname", 'count': {'$sum': 1}}},
+                {'$match': {'count': i}},
+                {'$group': {'_id': 'null', 'totalUsersCount': {'$sum': 1}, 'totalRequestCount': {'$sum': "$count"}}}
+            ]
+        )
+
+        for document in cursor:
+            print('查看过' + str(i) + '次联系方式的总用户数量' + ':' + str(document['totalUsersCount'])+ ', ' + '占总查看过联系方式用户数的比例为' + format(document['totalUsersCount']*1.0/total_requested_contact_user_count, '.2%'))
+            print('查看过' + str(i) + '次联系方式的用户总共查看数量' + ':' + str(document['totalRequestCount']))
 
     # 用户查看联系方式的使用个数
     print('\n用户查看联系方式的使用个数:')
