@@ -125,7 +125,7 @@
 "RentPassword/手机验证码" = "手机验证码";
 "RentPassword/新密码" = "新密码";
 "RentPassword/确认新密码" = "确认新密码";
-"RentPassword/重置" = "重置";
+"RentPassword/重置" = "重置";
 
 
 //
@@ -150,7 +150,7 @@
 
 //Filepath: currant/Scene/User/Form/CUTERentPassword2Form.m
 "RentPassword2/邮箱" = "邮箱";
-"RentPassword2/请求重置密码" = "请求重置密码";
+"RentPassword2/请求重置密码" = "请求重置密码";
 
 
 //
@@ -221,8 +221,8 @@
 "RentContact/国家" = "国家";
 "RentContact/手机号" = "手机号";
 "RentContact/手机验证码" = "手机验证码";
-"RentContact/完成注册" = "完成注册";
-"RentContact/发布并分享到微信" = "发布并分享到微信";
+"RentContact/完成注册" = "完成注册";
+"RentContact/发布并分享到微信" = "发布并分享到微信";
 "RentContact/联系方式展示" = "联系方式展示";
 
 
@@ -237,7 +237,7 @@
 //Filepath: currant/Scene/User/Form/CUTERentConfirmPhoneForm.m
 "RentConfirmPhone/国家" = "国家";
 "RentConfirmPhone/手机号" = "手机号";
-"RentConfirmPhone/确认" = "确认";
+"RentConfirmPhone/确认" = "确认";
 
 
 //
@@ -283,7 +283,7 @@
 "RentLogin/国家" = "国家";
 "RentLogin/手机号" = "手机号";
 "RentLogin/密码" = "密码";
-"RentLogin/登录" = "登录";
+"RentLogin/登录" = "登录";
 "RentLogin/通过短信重置密码" = "通过短信重置密码";
 "RentLogin/忘记密码？" = "忘记密码？";
 "RentLogin/通过邮箱重置密码" = "通过邮箱重置密码";
@@ -360,7 +360,7 @@
 "PropertyMapList/暂无结果" = "暂无结果";
 "PropertyMapList/亿" = "亿";
 "PropertyMapList/万" = "万";
-"PropertyMapList/起" = "起";
+"PropertyMapList/起" = "起";
 
 
 //
@@ -376,7 +376,7 @@
 
 //Filepath: currant/Scene/User/Form/CUTERentVerifyPhoneForm.m
 "RentVerifyPhone/手机验证码" = "手机验证码";
-"RentVerifyPhone/验证" = "验证";
+"RentVerifyPhone/验证" = "验证";
 
 
 //
@@ -508,7 +508,7 @@
 //Filepath: currant/Scene/User/Form/CUTERentContactDisplaySettingForm.m
 "RentContactDisplaySetting/展示电话" = "展示电话";
 "RentContactDisplaySetting/展示邮箱" = "展示邮箱";
-"RentContactDisplaySetting/微信号" = "微信号";
+"RentContactDisplaySetting/微信号" = "微信号";
 "RentContactDisplaySetting/点击填写微信号" = "点击填写微信号";
 "RentContactDisplaySetting/您选择的联系方式仅展示给平台注册的租客" = "您选择的联系方式仅展示给平台注册的租客";
 "RentContactDisplaySetting/至少需要展示一种联系方式" = "至少需要展示一种联系方式";
@@ -557,7 +557,7 @@
 
 //Filepath: currant/Scene/User/Form/CUTEApplyBetaRentingForm.m
 "ApplyBetaRenting/邮箱" = "邮箱";
-"ApplyBetaRenting/申请" = "申请";
+"ApplyBetaRenting/申请" = "申请";
 
 
 //
@@ -695,7 +695,7 @@
 "PropertyInfo/出租类型" = "出租类型";
 "PropertyInfo/房产地址" = "房产地址";
 "PropertyInfo/更多详情和配套设施描述（选填）" = "更多详情和配套设施描述（选填）";
-"PropertyInfo/预览并发布" = "预览并发布";
+"PropertyInfo/预览并发布" = "预览并发布";
 
 
 //
