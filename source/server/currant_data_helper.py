@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
+import random
 from app import f_app
 from bson.objectid import ObjectId
 
@@ -69,22 +70,9 @@ def get_related_property_list(property):
             "country.code": property.get('country').get('code'),
             "status": {"$in": ["selling", "sold out"]},
         }, per_page=20, time_field="mtime"))
-
-        related_property_list = []
-        if len(raw_related_property_list) > 3:
-            import random
-            i = 6
-            while i > 0 and len(related_property_list) < 3:
-                item = random.choice(raw_related_property_list)
-                if item.get('id') != property.get('id'):
-                    raw_related_property_list.remove(item)
-                    related_property_list.insert(-1, item)
-                    i = i - 1
-
-        else:
-            for item in raw_related_property_list:
-                if item.get('id') != property.get('id'):
-                    related_property_list.insert(-1, item)
+        raw_related_property_list = filter(lambda ticket: ticket["id"] != property["id"], raw_related_property_list)
+        random.shuffle(raw_related_property_list)
+        related_property_list = raw_related_property_list[:3]
         return related_property_list
     else:
         return []
@@ -120,25 +108,10 @@ def get_related_rent_ticket_list(rent_ticket):
         property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
         params["property_id"] = {"$in": property_id_list}
 
-
     raw_related_rent_ticket_list = f_app.ticket.output(f_app.ticket.search(params, per_page=20))
-
-
-    related_rent_ticket_list = []
-    if len(raw_related_rent_ticket_list) > 3:
-        import random
-        i = 6
-        while i > 0 and len(related_rent_ticket_list) < 3:
-            item = random.choice(raw_related_rent_ticket_list)
-            if item.get('id') != rent_ticket.get('id'):
-                raw_related_rent_ticket_list.remove(item)
-                related_rent_ticket_list.insert(-1, item)
-                i = i - 1
-
-    else:
-        for item in raw_related_rent_ticket_list:
-            if item.get('id') != rent_ticket.get('id'):
-                related_rent_ticket_list.insert(-1, item)
+    raw_related_rent_ticket_list = filter(lambda ticket: ticket["id"] != rent_ticket["id"], raw_related_rent_ticket_list)
+    random.shuffle(raw_related_rent_ticket_list)
+    related_rent_ticket_list = raw_related_rent_ticket_list[:3]
     return related_rent_ticket_list
 
 
