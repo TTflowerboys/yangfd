@@ -25,4 +25,4 @@ Localization Usage
 	python reverse_update_strings.py ../../group_gen.strings ../..
 	```
 
-
+5. Remove Invalid Char like Control Char 0x13(^S) Control + S, XCode open strings file crash, because the file contain the invalid char ,the control char(^S), may input in the Emacs editor by mistake.
