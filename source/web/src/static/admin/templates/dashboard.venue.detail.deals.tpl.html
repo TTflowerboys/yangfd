@@ -5,6 +5,7 @@
                 <th>{%$root.i18n('名称')%}</th>
                 <th>{%$root.i18n('详细描述')%}</th>
                 <th>{%$root.i18n('优惠类型')%}</th>
+                <th>{%$root.i18n('分享文案')%}</th>
                 <th>{%$root.i18n('分享前')%}</th>
                 <th>{%$root.i18n('分享后')%}</th>
                 <th>{%$root.i18n('是否展示')%}</th>
@@ -23,12 +24,15 @@
                     <div ng-bind="item.deal_type | keyName : dealTypes"></div>
                 </td>
                 <td>
+                    <div show-i18n="item.share_text"></div>
+                </td>
+                <td>
                     <div ng-if="item.deal_type !== 'free'" ng-bind="item.deal_off"></div>
-                    <div ng-if="item.deal_type === 'free'" ng-bind="item.free_text"></div>
+                    <div ng-if="item.deal_type === 'free'" show-i18n="item.free_text"></div>
                 </td>
                 <td>
                     <div ng-if="item.deal_type !== 'free'" ng-bind="item.deal_off_shared"></div>
-                    <div ng-if="item.deal_type === 'free'" ng-bind="item.free_text_shared"></div>
+                    <div ng-if="item.deal_type === 'free'" show-i18n="item.free_text_shared"></div>
                 </td>
                 <td>
                     <select class="form-control" ng-options="p.value as p.name for p in displayTypes" ng-model="item.display" ng-change="updateDisplay(item)"></select>

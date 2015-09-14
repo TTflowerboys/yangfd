@@ -39,7 +39,7 @@
         </p>
         %if deal.get('deal_off_shared') or deal.get('free_text_shared'):
         <div class="share" data-shared="false">
-            <button class="shareBtn"><i class="icon-circle"></i>{{_('分享到朋友圈')}}</button>
+            <button class="shareBtn" data-shareText="{{deal.get('share_text')}}"><i class="icon-circle"></i>{{_('分享到朋友圈')}}</button>
         </div>
         <p class="shareSuccess" data-shared="true" style="display: none">
             {{_('您已成功分享到朋友圈！')}}

@@ -70,7 +70,13 @@
 
     </div>
     <div class="row">
+        <div class="form-group col-sm-12 ">
+            <label class="control-label">{%$root.i18n('分享到朋友圈的文案')%} *</label>
 
+            <div class="controls">
+                <textarea cols="80" rows="3" type="text" ng-model="item.share_text[userLanguage.value]" type-i18n="item.share_text"></textarea>
+            </div>
+        </div>
     </div>
 
     <div class="row">
