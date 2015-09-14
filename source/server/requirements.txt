@@ -19,7 +19,6 @@ pymongo
 mock
 pint
 PyYAML
-py-bcrypt
 matplotlib
 PlanOut
 M2Crypto
@@ -31,6 +30,7 @@ pygeoip
 phonenumbers
 gevent-websocket
 boto
+bcrypt
 sh
 uWSGI
 bottle

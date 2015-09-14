@@ -1,1 +1,1 @@
-brew install freetype libyaml libjpeg swig libtiff webp libpng little-cms
+brew install freetype libyaml libjpeg swig libtiff libffi webp libpng little-cms
