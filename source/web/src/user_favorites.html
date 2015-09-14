@@ -40,11 +40,7 @@
         <div class="holderText">
             <h2>{{_('没有收藏的房产')}}</h2>
             <p>
-                 %if is_mobile_client():
-                     {{!_('去<a href="#" onclick="window.bridge.callHandler(&quot;openPropertyListTab&quot;);return false;" data-need-bridge>房产列表</a>看看吧')}}
-                 %else:
-                     {{!_('去<a href="/property-list">房产列表</a>看看吧')}}
-                 %end
+                 {{!_('去<a href="/property-list">房产列表</a>看看吧')}}
             </p>
         </div>
     </div>
@@ -54,11 +50,7 @@
         <div class="holderText">
             <h2>{{_('没有收藏的出租房产')}}</h2>
             <p>
-                %if is_mobile_client():
-                    {{!_('去<a href="#" onclick="window.bridge.callHandler(&quot;openRentListTab&quot;);return false;" data-need-bridge>出租房产列表</a>看看吧')}}
-                %else:
-                    {{!_('去<a href="/property-to-rent-list">出租房产列表</a>看看吧')}}
-                %end
+                {{!_('去<a href="/property-to-rent-list">出租房产列表</a>看看吧')}}
             </p>
         </div>
     </div>
