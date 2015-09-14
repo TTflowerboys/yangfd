@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in list">
+            <tr ng-repeat="item in list | keys : 'ticket'">
                 <td>
                     <a ng-bind="item.title" ng-href="/property-to-rent/{%item.id%}"></a>
                 </td>
