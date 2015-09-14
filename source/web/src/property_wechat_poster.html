@@ -62,11 +62,9 @@
                             %   minPrice = type.get('total_price_min')
                             %end
                         %end
-                    <span class="price_original" data-formatPrice>
-                        {{minPrice.get('unit_symbol')}}
-                        {{int(float(minPrice.get('value')))}}
-                    </span>
-                    <span class="sub">{{_('起')}}</span>
+                    %string = """<span class="price_original" data-formatPrice>""" + minPrice.get('unit_symbol') + str(int(float(minPrice.get('value')))) + """</span><span class="sub">
+                    """
+                    {{!_('%s起') %string}}</span>
                         %if minPrice.get('localized_value',''):
                     <span class="price_reference" data-formatPrice>
                         {{_('约')}}

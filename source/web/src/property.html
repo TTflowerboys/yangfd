@@ -569,23 +569,17 @@
                                                             <td class="space">
                                                                 <span class="name">{{_('面积')}}</span>
                                                                 <span class="value">
-                                                                    <strong >
-                                                                        {{float("{0:.2f}".format(float(str(item.get('building_area_min',{}).get('value')))))}}
-                                                                        {{!format_unit(item.get('building_area_min',{}).get('unit',''))}}
-                                                                    </strong><span>{{_('起')}}</span>
+                                                                    % string = """<strong >""" + str(float("{0:.2f}".format(float(str(item.get('building_area_min',{}).get('value')))))) + format_unit(item.get('building_area_min',{}).get('unit','')) + """</strong><span>
+                                                                        """
+                                                                    {{!_('%s起') %string}}</span>
                                                                 </span>
                                                             </td>
                                                             <td class="price">
                                                                 <span class="name">{{_('参考售价')}}</span>
                                                                 <span class="value">
                                                                     %if item.get('total_price_min'):
-                                                                        <strong>
-                                                                            {{item.get('total_price_min',{}).get('unit_symbol')}}
-                                                                        </strong>
-                                                                        <span data-type="formatted_currency">
-                                                                            {{int(float(item.get('total_price_min',{}).get('value')))}}
-                                                                        </span><span>{{_('起')}}</span>
-
+                                                                        % string = """<strong>""" + item.get('total_price_min',{}).get('unit_symbol') + """</strong><span data-type="formatted_currency">""" + str(int(float(item.get('total_price_min',{}).get('value')))) + """</span><span>"""
+                                                                        {{!_('%s起') %string}}</span>
                                                                     %end
                                                                 </span>
                                                             </td>

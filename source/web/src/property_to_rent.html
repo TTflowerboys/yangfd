@@ -136,9 +136,11 @@
                     %if not rent.get('property',{}).get('partner'):
                     <label class="publishDate">
                         % if last_modified_time - publish_time > 1000 :
-                        <span>{{last_modified_time}}</span>{{_('更新过')}}
+                        %string = """<span>""" + str(last_modified_time) + """</span>"""
+                        {{!_('%s更新过' %string)}}
                         % else:
-                        <span>{{publish_time}}</span>{{_('发布')}}
+                        %string = """<span>""" + str(publish_time) + """</span>"""
+                        {{!_('%s发布') %string}}
                         % end
                     </label>
                     %else:
@@ -417,9 +419,11 @@
                 %if not rent.get('property',{}).get('partner'):
                 <label class="publishDate">
                     % if last_modified_time - publish_time > 1000 :
-                    <span>{{last_modified_time}}</span>{{_('更新过')}}
+                    %string = """<span>""" + str(last_modified_time) + """</span>"""
+                    {{!_('%s更新过' %string)}}
                     % else:
-                    <span>{{publish_time}}</span>{{_('发布')}}
+                    %string = """<span>""" + str(publish_time) + """</span>"""
+                    {{!_('%s发布') %string}}
                     % end
                 </label>
                 %else:

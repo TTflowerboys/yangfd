@@ -170,10 +170,15 @@
                                 <td>
                                     <label class="limit" for="">
                                         %if property.get('funding_min'):
-                                            {{! str(property.get('funding_min')) + _('起投<br/>') + str(property.get('term')) +  _('年锁定')}}
+                                            % string = str(property.get('funding_min'))
+                                            {{!_('%s起投') %string}}
+                                            <br/>
+                                            % string = str(property.get('term'))
+                                            {{!_('%s年锁定') %string}}
                                         %else :
                                             %if property.get('term'):
-                                                {{str(property.get('term')) +  _('年锁定')}}
+                                                % string = str(property.get('term'))
+                                                {{!_('%s年锁定') %string}}
                                             %end
                                         %end
                                     </label>
@@ -664,11 +669,16 @@
                     <div class="info">
                         <label class="limit" for="">
                             %if property.get('funding_min'):
-                            {{ str(property.get('funding_min')) + _('起投，') + str(property.get('term')) +  _('年锁定')}}
+                            % string = str(property.get('funding_min'))
+                            {{!_('%s起投') %string}}
+                            <br/>
+                            % string = str(property.get('term'))
+                            {{!_('%s年锁定') %string}}
                             %else :
-                                %if property.get('term'):
-                                    {{str(property.get('term')) +  _('年锁定')}}
-                                %end
+                            %if property.get('term'):
+                            % string = str(property.get('term'))
+                            {{!_('%s年锁定') %string}}
+                            %end
                             %end
                         </label>
                         <label class="target" for="">
