@@ -742,3 +742,14 @@
 "New Version Available" = "New Version Available";
 "Later" = "Later";
 "Update" = "Update";
+
+
+
+//
+//Group: Common
+//
+"%d室" = "%d bedroom";
+"%d厅" = "%d livingroom";
+"%d卫" = "%d bathroom";
+
+"%d居室" = "%d bedroom";

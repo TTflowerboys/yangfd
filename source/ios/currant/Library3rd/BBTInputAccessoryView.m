@@ -48,7 +48,7 @@
         MakeRighEqualTo(@(-BUTTON_MARGIN));
         MakeTopEqualTo(@(0));
         MakeHeightEqualTo(_doneButton.superview);
-        MakeWidthEqualTo(@(TextSizeOfLabel(_doneButton.titleLabel).width));
+        MakeWidthEqualTo(@(TextSizeOfLabel(_doneButton.titleLabel).width + 20));
     }];
 }
 

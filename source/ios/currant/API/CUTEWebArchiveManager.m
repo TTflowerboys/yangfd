@@ -14,7 +14,7 @@
 
 @implementation CUTEWebArchive
 
-- (id)initWithCoder:(nonnull NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
         self.data = [aDecoder decodeObjectForKey:@keypath(self.data)];
@@ -25,7 +25,7 @@
     return self;
 }
 
-- (void)encodeWithCoder:(nonnull NSCoder *)aCoder {
+- (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.data forKey:@keypath(self.data)];
     [aCoder encodeObject:self.textEncodingName forKey:@keypath(self.textEncodingName)];
     [aCoder encodeObject:self.MIMEType forKey:@keypath(self.MIMEType)];
@@ -75,7 +75,7 @@
 }
 
 - (void)archiveURL:(NSURL *)url {
-    [[_downloadSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    [[_downloadSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *  error) {
         if (data && data.length && response.URL) {
             if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;

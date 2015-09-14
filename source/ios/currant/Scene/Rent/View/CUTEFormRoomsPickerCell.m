@@ -70,12 +70,12 @@
 
 - (void)setDisplayTitleWithForm:(CUTEPropertyInfoForm *)form {
     if (form.bedroomCount == 0) {
-        self.detailTextLabel.text = LocalizedRoomTitle([NSString stringWithFormat:@"%d%@", form.bedroomCount, @"室"]);
+        self.detailTextLabel.text = LocalizedLivingRoomTitle([NSString stringWithFormat:STR(@"%d室"), form.bedroomCount], form.bedroomCount);
     }
     else {
-        self.detailTextLabel.text = CONCAT(LocalizedRoomTitle([NSString stringWithFormat:@"%d%@", form.bedroomCount, @"室"]),
-                                           LocalizedRoomTitle([NSString stringWithFormat:@"%d%@", form.livingroomCount, @"厅"]),
-                                           LocalizedRoomTitle([NSString stringWithFormat:@"%d%@", form.bathroomCount, @"卫"]));
+        self.detailTextLabel.text = CONCAT(LocalizedLivingRoomTitle([NSString stringWithFormat:STR(@"%d室"), form.bedroomCount], form.bedroomCount), @" ",
+                                           [NSString stringWithFormat:STR(@"%d厅"), form.livingroomCount], @" ",
+                                           [NSString stringWithFormat:STR(@"%d卫"), form.bathroomCount]);
     }
 }
 
@@ -92,7 +92,17 @@
 
 - (NSString *)pickerView:(__unused UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(__unused NSInteger)component
 {
-    return LocalizedRoomTitle([NSString stringWithFormat:@"%d%@", row, @[@"室", @"厅", @"卫"][component]]);
+    if (component == 0) {
+        return LocalizedLivingRoomTitle([NSString stringWithFormat:STR(@"%d室"), row], row);
+    }
+    else if (component == 1) {
+        return [NSString stringWithFormat:STR(@"%d厅"), row];
+    }
+    else if (component == 2) {
+        return [NSString stringWithFormat:STR(@"%d卫"), row];
+    }
+    
+    return nil;
 }
 
 - (void)pickerView:(__unused UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(__unused NSInteger)component

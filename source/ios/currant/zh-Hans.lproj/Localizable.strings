@@ -741,3 +741,14 @@
 "New Version Available" = "新版本可用";
 "Later" = "下次";
 "Update" = "更新";
+
+
+
+//
+//Group: Common
+//
+"%d室" = "%d室";
+"%d厅" = "%d厅";
+"%d卫" = "%d卫";
+
+"%d居室" = "%d居室";
