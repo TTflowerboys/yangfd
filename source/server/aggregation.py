@@ -250,7 +250,7 @@ with f_app.mongo() as m:
 
     property_viewed_count_dic = OrderedDict(sorted(property_viewed_count_dic.items(), key=lambda t: t[1], reverse=True))
 
-    target_properties = f_app.i18n.process_i18n(f_app.property.output(property_viewed_count_dic.keys(), ignore_nonexist=True))
+    target_properties = f_app.i18n.process_i18n(f_app.property.output(property_viewed_count_dic.keys(), ignore_nonexist=True, check_permission=False))
 
     for target_property in target_properties:
         print(target_property['name'] + ':' + str(property_viewed_count_dic[str(target_property['id'])]))

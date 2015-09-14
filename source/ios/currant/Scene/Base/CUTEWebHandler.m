@@ -125,7 +125,7 @@
     [self.bridge registerHandler:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dic = data;
         if (dic && [dic isKindOfClass:[NSDictionary class]]) {
-            [[[CUTEShareManager sharedInstance] shareText:dic[@"text"] urlString:dic[@"url"] inServices:dic[@"services"] viewController:webViewController onButtonPressBlock:^(NSString *buttonName) {
+            [[[CUTEShareManager sharedInstance] shareText:dic[@"text"] urlString:dic[@"url"] imageUrl:dic[@"image"] inServices:dic[@"services"] viewController:webViewController onButtonPressBlock:^(NSString *buttonName) {
                 if ([buttonName isEqualToString:CUTEShareServiceWechatFriend]) {
                     TrackEvent(KEventCategoryShare, kEventActionPress, @"wechat-friend", @(1));
                 }
