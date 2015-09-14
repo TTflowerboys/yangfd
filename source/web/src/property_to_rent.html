@@ -413,171 +413,207 @@
         %end
     </div>
 
-        <div class="aside">
-            <div class="propertyCard">
-                <h1>{{rent.get('title','')}}</h1>
-                %if not rent.get('property',{}).get('partner'):
-                <label class="publishDate">
-                    % if last_modified_time - publish_time > 1000 :
-                    %string = """<span>""" + str(last_modified_time) + """</span>"""
-                    {{!_('%s更新过' %string)}}
-                    % else:
-                    %string = """<span>""" + str(publish_time) + """</span>"""
-                    {{!_('%s发布') %string}}
-                    % end
-                </label>
-                %else:
-                <label class="partner">{{_('平台合作房源')}}</label>
-                %end
-                % if 'community' in rent['property'] or rent['property'].get('street') or ('zipcode' in rent['property'] and not rent.get('property',{}).get('partner')):
-                <div class="tag">
-                    <i class="icon-location_fill"></i>
-                    <label>
-                        % display_location=[]
-                        % if rent['property'].get('community',''):
-                        % display_location.append(rent['property'].get('community',''))
-                        % end
-                        % if rent['property'].get('street',''):
-                        % display_location.append(rent['property'].get('street',''))
-                        % end
-                        %if not rent.get('property',{}).get('partner'):
-                        % display_location.append(rent['property'].get('zipcode',''))
-                        %end
-                        {{','.join(display_location)}}
-                    </label>
-                </div>
+    <div class="aside">
+        <div class="propertyCard">
+            <h1>{{rent.get('title','')}}</h1>
+            %if not rent.get('property',{}).get('partner'):
+            <label class="publishDate">
+                % if last_modified_time - publish_time > 1000 :
+                %string = """<span>""" + str(last_modified_time) + """</span>"""
+                {{!_('%s更新过' %string)}}
+                % else:
+                %string = """<span>""" + str(publish_time) + """</span>"""
+                {{!_('%s发布') %string}}
                 % end
-                % if 'price' in rent and rent.get('price'):
-                <div class="rentPrice">
-                    <div class="priceBox">
-                        <div class="price_inner">
-                            <span>{{rent.get('price',{}).get('unit_symbol','')}}</span>
-                            <span data-type="formatted_currency">
-                                {{f_app.re.filter_zero(rent.get('price',{}).get('value',''))}}
-                            </span>
-                            {{_('/周')}}
-                            % if 'bill_covered' in rent and rent.get('bill_covered'):
-                            <span>
-                                {{_('，包Bill')}}
-                            </span>
-                            % end
-
-                        </div>
-                        % if 'localized_unit_symbol' in rent.get('price',{}) and rent.get('price',{}).get('localized_unit_symbol','') != rent.get('price',{}).get('unit_symbol',''):
-                        <div class="price_reference">
-                            {{_('约')}}
-                            {{rent.get('price',{}).get('localized_unit_symbol','')}}
-                            {{int(float(rent.get('price',{}).get('localized_value','')))}}
-                            {{_('/周')}}
-                        </div>
-                        % end
-                        % if rent.get('status') == 'rent':
-                        <div class="rentOut verticalMiddleWrap">
-                            {{_('已租出')}}
-                        </div>
-                        % end
-                    </div>
-                    <div class="seperator"></div>
-                    <ul class="priceItems">
-                        <li>
-                            {{_('最短租期')}}
-                            % if 'minimum_rent_period' in rent:
-                            <strong>
-                                <!--@@include=partials/get_rent_min_period.html  -->
-                            </strong>
-                            % else :
-                            <strong>
-                                {{_('不限')}}
-                            </strong>
-                            % end
-                            % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
-                            <span data-utc-time="{{rent.get('rent_available_time')}}"></span>
-                            % end
-                            % if 'rent_deadline_time' in rent and rent.get('rent_deadline_time',''):
-                            <span data-utc-time="{{rent.get('rent_deadline_time')}}">
-                                {{_('至 ')}}
-                            </span>
-                            % elif 'rent_available_time' in rent:
-                            <span>
-                                {{_('起')}}
-                            </span>
-                            % end
-                        </li>
-
-                        <li>
-                            {{_('押金')}}
-                            % if 'deposit' in rent and rent.get('deposit',{}).get('value'):
-                            <strong>
-                                {{rent.get('deposit',{}).get('unit_symbol','')}}{{f_app.re.filter_zero(rent.get('deposit',{}).get('value'))}}
-                            </strong>
-                            % if 'deposit' in rent and rent.get('deposit',{}).get('localized_value'):
-                            <span>
-                                {{_('约')}}{{rent.get('deposit',{}).get('localized_unit_symbol')}}{{int(float(rent.get('deposit',{}).get('localized_value', 0)))}}
-                            </span>
-                            % end
-                            % else :
-                            <strong>
-                                {{_('面议')}}
-                            </strong>
-                            % end
-                        </li>
-                    </ul>
-                </div>
-                %end
-
-                <div class="seperator"></div>
-                    <table class="actions">
-                        <tr>
-                            <td style="text-align:left;">
-                                <button data-fn="addFav" data-rent-id="{{rent.get('id','')}}"
-                                    class="flatButton ajaxButton"
-                                    style="{{ 'display:none' if is_favorited else ''}}"
-                                    data-message-40090="{{_('已经收藏过了')}}">
-                                    <i class="icon-faver"></i>
-                                    <span class="text"> {{_('收藏')}} </span>
-                                </button>
-                                <button data-fn="removeFav"
-                                    class="flatButton ajaxButton"
-                                    style="{{ 'display:none' if not is_favorited else ''}}"
-                                    % if is_favorited:
-                                        data-rent-id="{{rent.get('id','')}}"
-                                    % end
-                                    >
-                                    <i class="icon-faveractive"></i>
-                                <span class="text"> {{_('取消收藏') }} </span>
-                                </button>
-                            </td>
-                            <td style="text-align:center;">
-                                <button data-fn="shareToWeChat" class="flatButton green" data-id="{{rent.get('id','')}}">
-                                    <i class="icon-wechat"></i>
-                                    {{_('分享到微信')}}
-                                </button>
-                            </td>
-                            <td style="text-align:right;">
-                                % title = rent.get('title',u'')
-                                <button class="flatButton orange" onclick="team.shareToWeibo({
-                                    title:'{{_(u'房东急租，快来围观') + title}}'
-                                    % if rent['property'].get('reality_images'):
-                                    ,pic:'{{rent['property'].get('reality_images')[0]}}'
-                                    % end
-                                    }) ">
-                                    <i class="icon-weibo"></i>
-                                    {{_('分享到微博')}}
-                                </button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-
-                %if 'creator_user' in rent and not rent.get('property',{}).get('partner'):
-                <!--@@include=./partials/host_contact_request.html -->
-                %elif 'creator_user' in rent and rent.get('property',{}).get('partner'):
-                <!--@@include=./partials/host_contact_partner.html -->
-                %end
-
+            </label>
+            %else:
+            <label class="partner">{{_('平台合作房源')}}</label>
+            %end
+            % if 'community' in rent['property'] or rent['property'].get('street') or ('zipcode' in rent['property'] and not rent.get('property',{}).get('partner')):
+            <div class="tag">
+                <i class="icon-location_fill"></i>
+                <label>
+                    % display_location=[]
+                    % if rent['property'].get('community',''):
+                    % display_location.append(rent['property'].get('community',''))
+                    % end
+                    % if rent['property'].get('street',''):
+                    % display_location.append(rent['property'].get('street',''))
+                    % end
+                    %if not rent.get('property',{}).get('partner'):
+                    % display_location.append(rent['property'].get('zipcode',''))
+                    %end
+                    {{','.join(display_location)}}
+                </label>
             </div>
+            % end
+            % if 'price' in rent and rent.get('price'):
+            <div class="rentPrice">
+                <div class="priceBox">
+                    <div class="price_inner">
+                        <span>{{rent.get('price',{}).get('unit_symbol','')}}</span>
+                        <span data-type="formatted_currency">
+                            {{f_app.re.filter_zero(rent.get('price',{}).get('value',''))}}
+                        </span>
+                        {{_('/周')}}
+                        % if 'bill_covered' in rent and rent.get('bill_covered'):
+                        <span>
+                            {{_('，包Bill')}}
+                        </span>
+                        % end
+
+                    </div>
+                    % if 'localized_unit_symbol' in rent.get('price',{}) and rent.get('price',{}).get('localized_unit_symbol','') != rent.get('price',{}).get('unit_symbol',''):
+                    <div class="price_reference">
+                        {{_('约')}}
+                        {{rent.get('price',{}).get('localized_unit_symbol','')}}
+                        {{int(float(rent.get('price',{}).get('localized_value','')))}}
+                        {{_('/周')}}
+                    </div>
+                    % end
+                    % if rent.get('status') == 'rent':
+                    <div class="rentOut verticalMiddleWrap">
+                        {{_('已租出')}}
+                    </div>
+                    % end
+                </div>
+                <div class="seperator"></div>
+                <ul class="priceItems">
+                    <li>
+                        {{_('最短租期')}}
+                        % if 'minimum_rent_period' in rent:
+                        <strong>
+                            <!--@@include=partials/get_rent_min_period.html  -->
+                        </strong>
+                        % else :
+                        <strong>
+                            {{_('不限')}}
+                        </strong>
+                        % end
+                        % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
+                        <span data-utc-time="{{rent.get('rent_available_time')}}"></span>
+                        % end
+                        % if 'rent_deadline_time' in rent and rent.get('rent_deadline_time',''):
+                        <span data-utc-time="{{rent.get('rent_deadline_time')}}">
+                            {{_('至 ')}}
+                        </span>
+                        % elif 'rent_available_time' in rent:
+                        <span>
+                            {{_('起')}}
+                        </span>
+                        % end
+                    </li>
+
+                    <li>
+                        {{_('押金')}}
+                        % if 'deposit' in rent and rent.get('deposit',{}).get('value'):
+                        <strong>
+                            {{rent.get('deposit',{}).get('unit_symbol','')}}{{f_app.re.filter_zero(rent.get('deposit',{}).get('value'))}}
+                        </strong>
+                        % if 'deposit' in rent and rent.get('deposit',{}).get('localized_value'):
+                        <span>
+                            {{_('约')}}{{rent.get('deposit',{}).get('localized_unit_symbol')}}{{int(float(rent.get('deposit',{}).get('localized_value', 0)))}}
+                        </span>
+                        % end
+                        % else :
+                        <strong>
+                            {{_('面议')}}
+                        </strong>
+                        % end
+                    </li>
+                </ul>
+            </div>
+            %end
+
+            <div class="seperator"></div>
+            <table class="actions">
+                    <tr>
+                        <td style="text-align:left;">
+                            <button data-fn="addFav" data-rent-id="{{rent.get('id','')}}"
+                                class="flatButton ajaxButton"
+                                style="{{ 'display:none' if is_favorited else ''}}"
+                                data-message-40090="{{_('已经收藏过了')}}">
+                                <i class="icon-faver"></i>
+                                <span class="text"> {{_('收藏')}} </span>
+                            </button>
+                            <button data-fn="removeFav"
+                                class="flatButton ajaxButton"
+                                style="{{ 'display:none' if not is_favorited else ''}}"
+                                % if is_favorited:
+                                    data-rent-id="{{rent.get('id','')}}"
+                                % end
+                                >
+                                <i class="icon-faveractive"></i>
+                            <span class="text"> {{_('取消收藏') }} </span>
+                            </button>
+                        </td>
+                        <td style="text-align:center;">
+                            <button data-fn="shareToWeChat" class="flatButton green" data-id="{{rent.get('id','')}}">
+                                <i class="icon-wechat"></i>
+                                {{_('分享到微信')}}
+                            </button>
+                        </td>
+                        <td style="text-align:right;">
+                            % title = rent.get('title',u'')
+                            <button class="flatButton orange" onclick="team.shareToWeibo({
+                                title:'{{_(u'房东急租，快来围观') + title}}'
+                                % if rent['property'].get('reality_images'):
+                                ,pic:'{{rent['property'].get('reality_images')[0]}}'
+                                % end
+                                }) ">
+                                <i class="icon-weibo"></i>
+                                {{_('分享到微博')}}
+                            </button>
+                        </td>
+                    </tr>
+                </table>
         </div>
 
+        %if 'creator_user' in rent and not rent.get('property',{}).get('partner'):
+        <!--@@include=./partials/host_contact_request.html -->
+        %elif 'creator_user' in rent and rent.get('property',{}).get('partner'):
+        <!--@@include=./partials/host_contact_partner.html -->
+        %end
+        <div class="seperator"></div>
+        %if len(related_rent_ticket_list):
+        <div class="relatedProperties">
+            <h2 class="title">{{_('相关出租房产')}}</h2>
+            <ul>
+                % for ticket in related_rent_ticket_list:
+                <li class="propertyItem">
+                    <a href="/property-to-rent/{{ticket.get('id')}}">
+                        %if ticket.get('property',{}).get('cover'):
+                        <img src="{{!fetch_image(ticket.get('property').get('cover'), thumbnail=True, property_id=ticket.get('property',{}).get('id'))}}" onerror="window.onImgError(this);" width="360" height="240"/>
+                        %elif (ticket.get('property',{}).get('reality_images') and len(ticket.get('property',{}).get('reality_images'))):
+                        <img src="{{!fetch_image(ticket.get('property',{}).get('reality_images')[0], thumbnail=True, property_id=ticket.get('property',{}).get('id'))}}" onerror="window.onImgError(this);" width="360" height="240"/>
+                        %else :
+                        <img class="withPlaceholder" width="360" height="240"/>
+                        %end
+                        <div class="img_shadow"></div>
+                        <div class="text">
+                            <h3 class="title">
+                                {{ticket.get('title')}}
+                            </h3>
+                            <label class="price">
+                                <span>{{rent.get('price',{}).get('unit_symbol','')}}</span>
+                                <span data-type="formatted_currency">
+                                    {{f_app.re.filter_zero(rent.get('price',{}).get('value',''))}}
+                                </span>
+                                {{_('/周')}}
+                                % if 'bill_covered' in rent and rent.get('bill_covered'):
+                                <span>
+                                    {{_('，包Bill')}}
+                                </span>
+                                % end
+                            </label>
+                        </div>
+                    </a>
+                </li>
+                % end
+            </ul>
+        </div>
+        %end
+    </div>
 </div>
 
 <ul class="floatBar_phone">

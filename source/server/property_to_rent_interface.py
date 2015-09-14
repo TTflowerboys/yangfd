@@ -84,8 +84,7 @@ def rent_ticket_get(rent_ticket_id, user):
     if rent_ticket["status"] not in ["draft", "to rent", "rent"]:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")
 
-    # related_rent_ticket_list = f_app.i18n.process_i18n(currant_data_helper.get_related_rent_ticket_list(rent_ticket))
-
+    related_rent_ticket_list = f_app.i18n.process_i18n(currant_data_helper.get_related_rent_ticket_list(rent_ticket))
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     rent_budget_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_budget'))
 
@@ -117,7 +116,7 @@ def rent_ticket_get(rent_ticket_id, user):
         "user.id": user["id"],
     })) > 0 if user else False
 
-    return currant_util.common_template("property_to_rent", rent=rent_ticket, rent_type_list=rent_type_list, rent_budget_list=rent_budget_list, report=report, is_favorited=is_favorited, publish_time=publish_time, last_modified_time=last_modified_time, title=title, description=description, keywords=keywords, weixin=weixin, contact_info_already_fetched=contact_info_already_fetched)
+    return currant_util.common_template("property_to_rent", rent=rent_ticket, rent_type_list=rent_type_list, rent_budget_list=rent_budget_list, report=report, is_favorited=is_favorited, publish_time=publish_time, last_modified_time=last_modified_time, title=title, description=description, keywords=keywords, weixin=weixin, contact_info_already_fetched=contact_info_already_fetched, related_rent_ticket_list=related_rent_ticket_list)
 
 
 @f_get('/property-to-rent-digest/<rent_ticket_id:re:[0-9a-fA-F]{24}>')
