@@ -406,52 +406,89 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
     return tcs.task;
 }
 
-- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString inServices:(NSArray *)services viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock {
+- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString imageUrl:(NSString *)imageUrl inServices:(NSArray *)services viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     self.taskCompletionSource = tcs;
 
-    NSArray *activityKeys = nil;
-    if (IsArrayNilOrEmpty(services)) {
-        activityKeys = @[CUTEShareServiceWechatFriend, CUTEShareServiceWechatCircle, CUTEShareServiceSinaWeibo];
-    }
-    else {
-        activityKeys = services;
-    }
-    NSString *title = text;
-    UIImage *imageData = [UIImage appIcon];
+    Sequencer *sequencer = [Sequencer new];
 
-    NSMutableArray *activities = [NSMutableArray array];
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        if (imageUrl && [NSURL URLWithString:imageUrl].isHttpOrHttpsURL) {
 
-    if ([activityKeys containsObject:CUTEShareServiceWechatFriend]) {
-        [activities addObject:[self getWechatFriendActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
-            if (pressBlock) {
-                pressBlock(CUTEShareServiceWechatFriend);
-            }
-        }]];
-    }
+            [[[CUTEAPIManager sharedInstance] downloadImage:imageUrl] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    [tcs setError:task.error];
+                }
+                else if (task.exception) {
+                    [tcs setException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [tcs cancel];
+                }
+                else {
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
+                        UIImage *image = task.result;
+                        dispatch_async(dispatch_get_main_queue(), ^(void) {
+                            completion(image);
+                        });
+                    });
+                }
+                return task;
+            }];
+        }
+        else {
+            UIImage *image = [UIImage appIcon];
+            completion(image);
+        }
 
-    if ([activityKeys containsObject:CUTEShareServiceWechatCircle]) {
-        [activities addObject:[self getWechatCircleActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
-            if (pressBlock) {
-                pressBlock(CUTEShareServiceWechatCircle);
-            }
-        }]];
-    }
+    }];
 
-    if ([activityKeys containsObject:CUTEShareServiceSinaWeibo]) {
-        [activities addObject:[self getSinaWeiboActivityWithTitle:title description:nil url:urlString image:imageData viewController:viewController buttonPressedBlock:^{
-            if (pressBlock) {
-                pressBlock(CUTEShareServiceSinaWeibo);
-            }
-        }]];
-    }
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        NSArray *activityKeys = nil;
+        if (IsArrayNilOrEmpty(services)) {
+            activityKeys = @[CUTEShareServiceWechatFriend, CUTEShareServiceWechatCircle, CUTEShareServiceSinaWeibo];
+        }
+        else {
+            activityKeys = services;
+        }
+        NSString *title = text;
+        UIImage *imageData = result;
 
-    CUTEActivityView *activityView = [[CUTEActivityView alloc] initWithAcitities:activities];
-    activityView.onDismissButtonPressedBlock = ^ {
-        [self.taskCompletionSource cancel];
-    };
+        NSMutableArray *activities = [NSMutableArray array];
 
-    [activityView show:YES];
+        if ([activityKeys containsObject:CUTEShareServiceWechatFriend]) {
+            [activities addObject:[self getWechatFriendActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
+                if (pressBlock) {
+                    pressBlock(CUTEShareServiceWechatFriend);
+                }
+            }]];
+        }
+
+        if ([activityKeys containsObject:CUTEShareServiceWechatCircle]) {
+            [activities addObject:[self getWechatCircleActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
+                if (pressBlock) {
+                    pressBlock(CUTEShareServiceWechatCircle);
+                }
+            }]];
+        }
+
+        if ([activityKeys containsObject:CUTEShareServiceSinaWeibo]) {
+            [activities addObject:[self getSinaWeiboActivityWithTitle:title description:nil url:urlString image:imageData viewController:viewController buttonPressedBlock:^{
+                if (pressBlock) {
+                    pressBlock(CUTEShareServiceSinaWeibo);
+                }
+            }]];
+        }
+
+        CUTEActivityView *activityView = [[CUTEActivityView alloc] initWithAcitities:activities];
+        activityView.onDismissButtonPressedBlock = ^ {
+            [self.taskCompletionSource cancel];
+        };
+        
+        [activityView show:YES];
+    }];
+    
+    [sequencer run];
 
     return tcs.task;
 }
