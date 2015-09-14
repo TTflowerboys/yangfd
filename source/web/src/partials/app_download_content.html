@@ -3,6 +3,11 @@
         <!-- Swiper -->
         <div class="swiper-container appDownloadSwiper">
             <div class="swiper-wrapper">
+                %if request.params and request.params['from'] == 'user-coupons':
+                <div class="swiper-slide"><img src="/static/images/app_download/user-coupons_1.jpg" alt=""></div>
+                <div class="swiper-slide"><img src="/static/images/app_download/user-coupons_3.jpg" alt=""></div>
+                <div class="swiper-slide"><img src="/static/images/app_download/user-coupons_4.jpg" alt=""></div>
+                %else:
                 <div class="swiper-slide"><img src="/static/images/wechat_poster/page_1.jpg" alt=""></div>
                 <div class="swiper-slide"><img src="/static/images/wechat_poster/page_2.jpg" alt=""></div>
                 <div class="swiper-slide"><img src="/static/images/wechat_poster/page_3.jpg" alt=""></div>
@@ -10,6 +15,7 @@
                 <div class="swiper-slide"><img src="/static/images/wechat_poster/page_5.jpg" alt=""></div>
                 <div class="swiper-slide"><img src="/static/images/wechat_poster/page_6.jpg" alt=""></div>
                 <div class="swiper-slide"><img src="/static/images/wechat_poster/page_7.jpg" alt=""></div>
+                %end
             </div>
             <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
@@ -63,6 +69,15 @@
 <div class="wrap wrapLeft">
     <div class="content">
         <img class="logo" src="/static/images/logo/logo_app_download.png">
+        %if request.params and request.params['from'] == 'user-coupons':
+        <p class="title">{{_('洋房东致力于为伦敦房东和租客带来更多专属会员优惠，Keep calm and 用起来：')}}</p>
+        <ul class="text">
+            <li>{{_('/ 下载洋房东App，免费注册为会员 /')}}</li>
+            <li>{{_('/ 在个人中心查看您的会员专享优惠 /')}}</li>
+            <li>{{_('/ 向商家出示优惠劵享受优惠 /')}}</li>
+            <li>{{_('/ 分享优惠券获取更大优惠 /')}}</li>
+        </ul>
+        %else:
         <p class="title">{{_('我们致力于搭建房东和租客之间自由交流的桥梁：')}}</p>
         <ul class="text">
             <li>{{_('/ 房东轻松三步发布房源，您的房产您作主 /')}}</li>
@@ -70,9 +85,7 @@
             <li>{{_('/ 线上时刻为您服务，快捷满足您出租和求租的需求 /')}}</li>
             <li>{{_('/ 全程免费，让您不再为高昂的中介费而烦恼 /')}}</li>
         </ul>
-
-
-
+        %end
     </div>
 
 </div>
