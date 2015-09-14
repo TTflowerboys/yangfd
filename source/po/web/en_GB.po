@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2015-09-11 17:49+0800\n"
-"PO-Revision-Date: 2015-09-11 20:13+0800\n"
+"PO-Revision-Date: 2015-09-14 19:42+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1598,7 +1598,7 @@ msgstr "Deposit"
 
 #: ../web/src/property_to_rent.html:226 ../web/src/property_to_rent.html:516
 msgid "面议"
-msgstr "Talk face-to-face"
+msgstr "Negotiable"
 
 #: ../web/src/property_to_rent.html:239
 #: ../web/src/partials/property_to_rent_edit.html:308
@@ -3737,7 +3737,7 @@ msgstr "/ Professional report to save you from explaining neighbourhood /"
 #: ../web/src/partials/host_contact_request_amount_modal.html:36
 #: ../web/src/partials/host_contact_request_amount_modal.html:63
 msgid "/ 一次发布，全国尽知，刷新即置顶 /"
-msgstr "/ Publish to whole UK once you list your space /"
+msgstr "/ Publish to entire UK once you list your space /"
 
 #: ../web/src/partials/host_contact_request_amount_modal.html:42
 #: ../web/src/partials/host_contact_request_amount_modal.html:55
@@ -4916,7 +4916,7 @@ msgstr "minimum room count is 1"
 
 #: ../web/src/partials/i18n.html:327
 msgid "平台将提供房东联系方式选择，请删除在此填写任何形式的联系方式，违规发布将会予以处理"
-msgstr "Platform will provide ways for you to display contact info, please any contact info here, illegal post is forbidden"
+msgstr "Platform will provide ways for you to display contact info, please delete any contact info here, illegal post is forbidden"
 
 #: ../web/src/partials/i18n.html:328
 msgid "租期结束时间必须大于或等于租期开始时间"
