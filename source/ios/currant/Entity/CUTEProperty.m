@@ -87,7 +87,10 @@
             return nil;
         }
     } reverseBlock:^id(CUTENeighborhood *neighbood) {
-        return [neighbood dictionaryValue];
+        if (neighbood && [neighbood isKindOfClass:[CUTENeighborhood class]]) {
+            return [[[MTLJSONAdapter alloc] initWithModel:neighbood] JSONDictionary];
+        }
+        return nil;
     }];
 }
 
