@@ -3,7 +3,7 @@
         <!-- Swiper -->
         <div class="swiper-container appDownloadSwiper">
             <div class="swiper-wrapper">
-                %if request.params and request.params['target'] == 'user-coupons':
+                %if request.params and request.params.get('target','') == 'user-coupons':
                 <div class="swiper-slide"><img src="/static/images/app_download/user-coupons_1.jpg" alt=""></div>
                 <div class="swiper-slide"><img src="/static/images/app_download/user-coupons_3.jpg" alt=""></div>
                 <div class="swiper-slide"><img src="/static/images/app_download/user-coupons_4.jpg" alt=""></div>
@@ -69,7 +69,7 @@
 <div class="wrap wrapLeft">
     <div class="content">
         <img class="logo" src="/static/images/logo/logo_app_download.png">
-        %if request.params and request.params['target'] == 'user-coupons':
+        %if request.params and request.params.get('target','') == 'user-coupons':
         <p class="title">{{_('洋房东致力于为伦敦房东和租客带来更多专属会员优惠，Keep calm and 用起来：')}}</p>
         <ul class="text">
             <li>{{_('/ 下载洋房东App，免费注册为会员 /')}}</li>
