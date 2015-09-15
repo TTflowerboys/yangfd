@@ -268,8 +268,10 @@ def ip_country(params, user):
     country="country",
     city='geonames_gazetteer:city',
     name=str,
+    include_parent=(bool, False),
 ))
 def maponics_neighborhood_search(params):
+    include_parent = params.pop("include_parent", False)
     if "city" in params:
         params["geonames_city_id"] = ObjectId(params.pop("city")["_id"])
     if "country" in params:
@@ -278,7 +280,7 @@ def maponics_neighborhood_search(params):
     neighborhood_dict = {neighborhood["nid"]: neighborhood for neighborhood in neighborhoods}
     for neighborhood in neighborhoods:
         neighborhood.pop("wkt", None)
-        if "parentnid" in neighborhood and neighborhood["parentnid"]:
+        if include_parent and "parentnid" in neighborhood and neighborhood["parentnid"]:
             if neighborhood["parentnid"] in neighborhood_dict:
                 neighborhood["parent"] = neighborhood_dict[neighborhood["parentnid"]]
             else:
