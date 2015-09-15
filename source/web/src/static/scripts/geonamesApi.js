@@ -28,6 +28,9 @@ function GeonamesApi () {
         }, callback, reject)
     }
     this.getNeighborhood = function (config, callback, reject) {
+        config = _.extend({
+            include_parent: true
+        }, config)
         if(!cache.neighborhood[$.param(config)]) {
             $.betterPost('/api/1/maponics_neighborhood/search', config)
                 .done(function (val) {

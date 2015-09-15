@@ -15,6 +15,9 @@
             getNeighborhood: function (config) {
                 config = config || {}
                 config.params = config.params || {}
+                config.params = _.extend({
+                    include_parent: true
+                }, config.params)
                 return $http.get('/api/1/maponics_neighborhood/search', config)
             }
 
