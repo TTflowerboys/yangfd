@@ -151,7 +151,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
 
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
 
-    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/maponics_neighborhood/search" parameters:@{@"city": city.identifier} resultClass:[CUTENeighborhood class]] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/maponics_neighborhood/search" parameters:@{@"city": city.identifier, @"include_parent": @"True"} resultClass:[CUTENeighborhood class]] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [tcs setError:task.error];
         }

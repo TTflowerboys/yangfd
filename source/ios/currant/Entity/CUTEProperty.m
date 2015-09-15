@@ -87,7 +87,7 @@
             return nil;
         }
     } reverseBlock:^id(CUTENeighborhood *neighbood) {
-        return [neighbood dictionaryValue];
+        return [[[MTLJSONAdapter alloc] initWithModel:neighbood] JSONDictionary];
     }];
 }
 
