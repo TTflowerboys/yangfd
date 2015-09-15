@@ -375,14 +375,18 @@
             //clear web cache
             [[CUTEWebArchiveManager sharedInstance] clear];
             //set cookie to currant lang
-             [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:[NSHTTPCookie cookieWithProperties:@{@"name":@"currant_lang", @"value": currantLang}]];
+            NSDictionary *properties = @{NSHTTPCookieName: @"currant_lang", NSHTTPCookieValue: currantLang, NSHTTPCookieDomain: [CUTEConfiguration host], NSHTTPCookiePath: @"/"};
+            NSHTTPCookie *cookie = [[NSHTTPCookie alloc] initWithProperties:properties];
+            [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
         }
     }
     else {
         //clear web cache
         [[CUTEWebArchiveManager sharedInstance] clear];
         //set cookie to currant lang
-        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:[NSHTTPCookie cookieWithProperties:@{@"name":@"currant_lang", @"value": currantLang}]];
+        NSDictionary *properties = @{NSHTTPCookieName: @"currant_lang", NSHTTPCookieValue: currantLang, NSHTTPCookieDomain: [CUTEConfiguration host], NSHTTPCookiePath: @"/"};
+        NSHTTPCookie *cookie = [[NSHTTPCookie alloc] initWithProperties:properties];
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
     }
 
 }

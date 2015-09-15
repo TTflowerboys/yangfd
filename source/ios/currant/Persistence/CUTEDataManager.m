@@ -115,9 +115,13 @@
     NSString *cookieValue = (NSString *)[_store getStringById:KSETTING_AUTH_COOKIE fromTable:KTABLE_SETTINGS];
     if (cookieValue) {
         NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-        NSHTTPCookie *cookie = [[NSHTTPCookie alloc] initWithProperties:@{@"name":KSETTING_AUTH_COOKIE,
-                                                                          @"value":cookieValue
+        NSHTTPCookie *cookie = [[NSHTTPCookie alloc] initWithProperties:@{NSHTTPCookieName:KSETTING_AUTH_COOKIE,
+                                                                          NSHTTPCookieValue:cookieValue,
+                                                                          NSHTTPCookieDomain: [CUTEConfiguration host],
+                                                                          NSHTTPCookiePath: @"/"
                                                                           }];
+
+        NSAssert(cookie != nil, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
 
         [cookieStorage setCookie:cookie];
     }
