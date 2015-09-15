@@ -32,7 +32,7 @@
 "RentPeriod/租期" = "租期";
 "RentPeriod/开始日期" = "开始日期";
 "RentPeriod/结束日期" = "结束日期";
-
+"RentPeriod/最短接受租期" = "最短接受租期";
 
 //
 //Group: RentPropertyInfo

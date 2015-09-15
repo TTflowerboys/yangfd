@@ -30,8 +30,9 @@
 //Filepath: currant/Scene/Rent/Form/CUTERentPeriodForm.m
 "RentPeriod/设置租期" = "Set Up Tenancy";
 "RentPeriod/租期" = "Tenancy Term";
-"RentPeriod/开始日期" = "Start date";
-"RentPeriod/结束日期" = "End date";
+"RentPeriod/开始日期" = "Start Date";
+"RentPeriod/结束日期" = "End Date";
+"RentPeriod/最短接受租期" = "Minimum Term";
 
 
 //
@@ -89,10 +90,10 @@
 
 //Filepath: currant/Scene/Rent/Form/CUTERentAddressEditForm.m
 "RentAddressEdit/Postcode" = "Postcode";
-"RentAddressEdit/街道（选填）" = "Streets(optional)";
-"RentAddressEdit/小区（选填）" = "Communities(optional)";
-"RentAddressEdit/楼层（选填）" = "Floors(optional)";
-"RentAddressEdit/房间号（选填）" = "Rooms(optional)";
+"RentAddressEdit/街道（选填）" = "Streets(Optional)";
+"RentAddressEdit/小区（选填）" = "Communities(Optional)";
+"RentAddressEdit/楼层（选填）" = "Floors(Optional)";
+"RentAddressEdit/房间号（选填）" = "Rooms(Optional)";
 "RentAddressEdit/国家" = "Country";
 "RentAddressEdit/地址" = "Address";
 "RentAddressEdit/位置" = "Location";
@@ -183,7 +184,7 @@
 "Splash/杂志般的房产展示" = "Magazine-like property demostration";
 "Splash/一次发布，传遍全英" = "Publish to entire UK once you list your space";
 "Splash/三步发布出租房，不用费力思考" = "Three steps to list your space, no extra thinking";
-"Splash/分享至朋友圈，高大上的阅读体验" = "Share to wechat friend circle, excellent reading experience";
+"Splash/分享至朋友圈，高大上的阅读体验" = "Share to Wechat Moments, excellent reading experience";
 "Splash/全国各大平台均可看到你的房产信息" = "List your space on major UK rental markets";
 
 
@@ -487,7 +488,7 @@
 //Group: UnfinishedRentTicketPlaceholderImage
 //
 //Filepath: currant/Scene/Rent/View/CUTEUnfinishedRentTicketPlaceholderImageView.m
-"UnfinishedRentTicketPlaceholderImage/暂未添加照片" = "No pictrures yet";
+"UnfinishedRentTicketPlaceholderImage/暂未添加照片" = "No Pictures";
 
 
 //
@@ -525,7 +526,7 @@
 "ShareManager/已复制至粘贴版" = "Copied to clipboard";
 "ShareManager/微博分享" = "Weibo Share";
 "ShareManager/Wechat Friend" = "Wechat Friend";
-"ShareManager/Wechat Circle" = "Wechat Friends Circle";
+"ShareManager/Wechat Circle" = "Wechat Moments";
 "ShareManager/Sina Weibo" = "Sina Weibo";
 
 
@@ -573,7 +574,7 @@
 //Group: RentPropertyMoreInfo
 //
 //Filepath: currant/Scene/Rent/Controller/CUTERentPropertyMoreInfoViewController.m
-"RentPropertyMoreInfo/更多详情" = "More detail";
+"RentPropertyMoreInfo/更多详情" = "More Detail";
 "RentPropertyMoreInfo/更多房产信息表单" = "More";
 "RentPropertyMoreInfo/房屋面积" = "Property Area";
 "RentPropertyMoreInfo/房间面积" = "Room Area";
@@ -603,7 +604,7 @@
 "RentPrice/租金" = "Rent";
 "RentPrice/押金" = "Deposit";
 "RentPrice/填写金额，不填则为面议" = "Enter amount, blank means negotiable";
-"RentPrice/包Bill" = "Bill Included";
+"RentPrice/包Bill" = "Bills Included";
 "RentPrice/其他" = "Other";
 
 
@@ -618,7 +619,7 @@
 //Group: ImagePickerPlaceholder
 //
 //Filepath: currant/Scene/Rent/View/CUTEFormImagePickerPlaceholderView.m
-"ImagePickerPlaceholder/添加照片" = "Add picture";
+"ImagePickerPlaceholder/添加照片" = "Add Picture";
 
 
 //
@@ -655,7 +656,7 @@
 //Group: InputAccessory
 //
 //Filepath: currant/Library3rd/BBTInputAccessoryView.m
-"InputAccessory/确认" = "Confirm";
+"InputAccessory/确认" = "Done";
 
 
 //
@@ -684,17 +685,17 @@
 //Group: PropertyInfo
 //
 //Filepath: currant/Scene/Rent/Form/CUTEPropertyInfoForm.m
-"PropertyInfo/添加照片" = "Add [hoto";
+"PropertyInfo/添加照片" = "Add Photo";
 "PropertyInfo/房间照片" = "Room Photo";
 "PropertyInfo/房东类型" = "Landlord Type";
 "PropertyInfo/基本信息" = "Basic Info";
 "PropertyInfo/租金" = "Rental";
-"PropertyInfo/租期" = "Tenancy term";
+"PropertyInfo/租期" = "Tenancy Term";
 "PropertyInfo/房产类型" = "Property Type";
-"PropertyInfo/房屋户型（可选Studio）" = "House Type(Studio allowed)";
+"PropertyInfo/房屋户型（可选Studio）" = "House Type(Studio Allowed)";
 "PropertyInfo/出租类型" = "Rent Type";
 "PropertyInfo/房产地址" = "Address";
-"PropertyInfo/更多详情和配套设施描述（选填）" = "More details and facility description(optional)";
+"PropertyInfo/更多详情和配套设施描述（选填）" = "More Details and Facility Description(Optional)";
 "PropertyInfo/预览并发布" = "Preview and Publish";
 
 
