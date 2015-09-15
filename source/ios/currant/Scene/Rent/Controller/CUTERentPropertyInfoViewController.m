@@ -174,7 +174,7 @@
             formatter.dateStyle = NSDateFormatterMediumStyle;
             formatter.timeStyle = NSDateFormatterNoStyle;
 
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@%@%d%@", [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.form.ticket.rentAvailableTime.doubleValue]], STR(@"RentPropertyInfo/起"), STR(@"RentPropertyInfo/至少租"), self.form.ticket.minimumRentPeriod.value, self.form.ticket.minimumRentPeriod.unitForDisplay];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@%@ %d%@", [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:self.form.ticket.rentAvailableTime.doubleValue]], STR(@"RentPropertyInfo/起"), STR(@"RentPropertyInfo/至少租"), self.form.ticket.minimumRentPeriod.value, self.form.ticket.minimumRentPeriod.unitForDisplay];
         }
     }
     else if ([field.key isEqualToString:@"rentType"]) {
