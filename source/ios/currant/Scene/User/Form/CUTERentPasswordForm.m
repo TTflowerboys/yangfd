@@ -28,7 +28,7 @@
              @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"RentPassword/手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class]},
              @{FXFormFieldKey: @"password", FXFormFieldTitle: STR(@"RentPassword/新密码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
              @{FXFormFieldKey: @"confirmPassword", FXFormFieldTitle: STR(@"RentPassword/确认新密码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
-             @{FXFormFieldKey: @"reset", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"RentPassword/重置"), FXFormFieldHeader: @"", FXFormFieldAction: @"reset"},
+             @{FXFormFieldKey: @"reset", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"RentPassword/重置"), FXFormFieldHeader: @"", FXFormFieldAction: @"reset"},
              ];
 }
 
