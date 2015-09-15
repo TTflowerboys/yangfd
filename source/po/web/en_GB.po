@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2015-09-11 17:49+0800\n"
-"PO-Revision-Date: 2015-09-14 19:42+0800\n"
+"PO-Revision-Date: 2015-09-15 15:30+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -2436,7 +2436,7 @@ msgstr "Download App From App Store"
 
 #: ../web/src/rental_available.html:158
 msgid "AVAILABLE ON THE"
-msgstr "在  可下载"
+msgstr ""
 
 #: ../web/src/rental_available.html:164
 msgid "如有疑问，请扫描二维码联系我们"
@@ -3140,11 +3140,11 @@ msgstr "Can't verify now , log out"
 
 #: ../web/src/wechat_poster.html:41
 msgid "抱歉，房屋已租出"
-msgstr "Sorry , property has already been rented"
+msgstr "Sorry , property already rent out"
 
 #: ../web/src/wechat_poster.html:191
 msgid "统计表明填写更多房产的描述和配套设施能缩短出租用时"
-msgstr "Statistics show that more fill in the description of the property and facilities can shorten the lease available"
+msgstr "Our statistics show that detail description of your listing and its facilities can increase your views significantly"
 
 #: ../web/src/wechat_poster.html:207
 msgid "更多设施"
@@ -3173,7 +3173,7 @@ msgstr "I have space to list"
 #: ../web/src/wechat_poster.html:369
 #: ../web/src/partials/property_to_rent_edit.html:471
 msgid "居家设施"
-msgstr "Home facilities"
+msgstr "House facilities"
 
 #: ../web/src/wechat_poster.html:382
 #: ../web/src/partials/property_to_rent_edit.html:492
@@ -7149,23 +7149,20 @@ msgid "微信公共号管理"
 msgstr "Wechat public number"
 
 #: ../web/src/partials/i18n_admin.html:502
-#, fuzzy
 msgid "菜单管理"
-msgstr "Support Tickets"
+msgstr "Menu"
 
 #: ../web/src/partials/i18n_admin.html:503
 msgid "众筹管理"
-msgstr "Raise public management"
+msgstr "Crowdfunding Projects"
 
 #: ../web/src/partials/i18n_admin.html:504
-#, fuzzy
 msgid "订单管理"
-msgstr "Support Tickets"
+msgstr "Crowdfunding Orders"
 
 #: ../web/src/partials/i18n_admin.html:505
-#, fuzzy
 msgid "用户申请管理"
-msgstr "Account"
+msgstr "User Applications"
 
 #: ../web/src/partials/i18n_admin.html:506
 msgid "App版本管理"
@@ -7180,9 +7177,8 @@ msgid "购买时间"
 msgstr "Purchase time"
 
 #: ../web/src/partials/i18n_admin.html:509
-#, fuzzy
 msgid "收藏类型"
-msgstr "Type"
+msgstr "Fav Type"
 
 #: ../web/src/partials/i18n_admin.html:510
 msgid "房产名"
@@ -7205,7 +7201,6 @@ msgid "用户代理"
 msgstr "User agent"
 
 #: ../web/src/partials/i18n_admin.html:515
-#, fuzzy
 msgid "发布状态"
 msgstr "Status"
 
@@ -7330,9 +7325,8 @@ msgid "未知错误，请重新上传"
 msgstr "Unknown error, please re-upload"
 
 #: ../web/src/partials/i18n_admin.html:548
-#, fuzzy
 msgid "暂无备注"
-msgstr "Notes"
+msgstr "No notes"
 
 #: ../web/src/partials/i18n_admin.html:549
 msgid "请在此输入备注内容"
@@ -7392,9 +7386,8 @@ msgid "上传Web页面的MP4至AWS"
 msgstr "Upload Mp4 of Web to AWS"
 
 #: ../web/src/partials/i18n_admin.html:563
-#, fuzzy
 msgid "添加视频"
-msgstr "Add"
+msgstr "Add Video"
 
 #: ../web/src/partials/i18n_admin.html:564
 #: ../web/src/partials/signin_form.html:12
@@ -7466,9 +7459,8 @@ msgid "请使用更新的浏览器！"
 msgstr "Please use the updated browser!"
 
 #: ../web/src/partials/ie6_shield.html:7
-#, fuzzy
 msgid "推荐"
-msgstr "Recommend for you"
+msgstr "Recommend"
 
 #: ../web/src/partials/ie6_shield.html:10
 msgid "点击下载Google Chrome浏览器"
@@ -7476,7 +7468,7 @@ msgstr "Download Google Chrome Browser"
 
 #: ../web/src/partials/ie6_shield.html:18
 msgid "点击下载Microsoft Internet Explorer 11"
-msgstr "Click here to download Microsoft Internet Explorer 11"
+msgstr "Download Microsoft Internet Explorer 11"
 
 #: ../web/src/partials/index_buyer.html:8
 msgid "首次海外置业？"
@@ -8833,9 +8825,8 @@ msgid "登录并修改您的密码"
 msgstr "Login and change your password"
 
 #: ../web/src/static/emails/register_notice_with_default_password.html:18
-#, fuzzy
 msgid "或者"
-msgstr ", or"
+msgstr "or"
 
 #: ../web/src/static/emails/rent_intention_digest.html:4
 #: ../web/src/static/emails/rent_intention_matched_1.html:5
