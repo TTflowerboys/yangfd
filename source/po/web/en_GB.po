@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2015-09-11 17:49+0800\n"
-"PO-Revision-Date: 2015-09-15 15:30+0800\n"
+"PO-Revision-Date: 2015-09-15 18:19+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -249,7 +249,7 @@ msgstr "Remainning"
 #: ../web/src/static/emails/rent_intention_matched_4.html:125
 #: ../web/src/static/emails/rent_ticket_publish_success.html:115
 msgid "天"
-msgstr "Days"
+msgstr "days"
 
 #: ../web/src/crowdfunding.html:127 ../web/src/property.html:174
 #: ../web/src/property_wechat_poster.html:276
@@ -528,7 +528,7 @@ msgstr "Intention"
 #: ../web/src/crowdfunding.html:794 ../web/src/crowdfunding_list.html:26
 #: ../web/src/crowdfunding_list.html:57
 msgid "众筹热门问答"
-msgstr "Public raise Q&A"
+msgstr "Crowdfunding Q&A"
 
 #: ../web/src/crowdfunding.html:830 ../web/src/property.html:1102
 msgid "相关房产"
@@ -537,7 +537,7 @@ msgstr "Related real estate"
 #: ../web/src/crowdfunding.html:864 ../web/src/news.html:135
 #: ../web/src/property.html:1143
 msgid "打开微信，使用 “扫一扫” 即可将网页分享到朋友圈"
-msgstr "Open WeChat, Use \"Scan QR Code\" to share this page to friends"
+msgstr "Open WeChat, Use \"Scan QR Code\" to share to Wechat Moments"
 
 #: ../web/src/crowdfunding.html:868 ../web/src/news.html:124
 #: ../web/src/property.html:1147 ../web/src/property_to_rent.html:616
@@ -598,7 +598,7 @@ msgstr "Submit Your Investment Requirement"
 #: ../web/src/crowfunding_introduce.html:25
 #: ../web/src/crowfunding_introduce.html:31
 msgid "英国地产众筹"
-msgstr "UK Real Estate public raise"
+msgstr "UK Real Estate Crowdfunding"
 
 #: ../web/src/crowfunding_introduce.html:25
 #: ../web/src/crowfunding_introduce.html:32
@@ -612,7 +612,7 @@ msgstr "Safety, rich, flexible new way of low threshold property investment"
 #: ../web/src/crowfunding_introduce.html:27
 #: ../web/src/crowfunding_introduce.html:37
 msgid "参与众筹投资"
-msgstr "Participate in public raise"
+msgstr "Participate in Crowdfunding"
 
 #: ../web/src/crowfunding_introduce.html:34
 msgid "安全，丰富，灵活的"
@@ -666,15 +666,15 @@ msgstr "At the same time, in 2011-2013, the average rents rose are also very obv
 
 #: ../web/src/crowfunding_introduce.html:83
 msgid "什么是众筹投资？"
-msgstr "What is the public raise investment?"
+msgstr "What is the crowdfunding investment?"
 
 #: ../web/src/crowfunding_introduce.html:85
 msgid "众筹投资是为投资者提供一个平台，共同投资地产，进入买即租市场或者投资房地产开发项目。"
-msgstr "The raise is to provide a platform for investors to investment, joint investment real estate, to buy or rent market or investment in real estate development projects."
+msgstr "Crowdfunding is to provide a platform for investors to investment, joint investment real estate, to buy or rent market or investment in real estate development projects."
 
 #: ../web/src/crowfunding_introduce.html:86
 msgid "在投资期间，我们的合作伙伴出租并管理房产。当房产出租后，投资者每月享有租金收入。"
-msgstr "During the period of investment, our partner is going to rent and manage property . A month after the property rental, investors enjoy rental income."
+msgstr "During the period of investment, our partner is going to rent and manage property. A month after the property rental, investors enjoy rental income."
 
 #: ../web/src/crowfunding_introduce.html:87
 msgid "当房产出售后，投资者共享房产增值。"
@@ -686,7 +686,7 @@ msgstr "Youngfunding's running pattern"
 
 #: ../web/src/crowfunding_introduce.html:100
 msgid "投资者在洋房东平台注册账号并验证身份，认购众筹项目份额，支付至洋房东受英国金融服务管理局（FCA）的银行监管账号，众筹成功则建立房产购置公司购入众筹项目的房产，房产项目到期返还业主收益，投资者可在洋房东平台随时管理项目进度及收益。"
-msgstr "Investors register account and verify identity on Youngfunding , subscribe the raise project share, pay to Youngfunding's Britain financial services authority (FCA) account in bank's supervision, the raise project success is to talk real estate company to buy the purchase of real estate, real estate projects pay back owner earnings when it's due, investors can manage project progress and benefits at any time on Youngfunding."
+msgstr "Investors register account and verify identity on Youngfunding, buy the share of crowdfunding project, pay to Youngfunding’s Britain financial services authority (FCA) account in bank’s supervision, the crowdfunding project success is to talk real estate company to buy the purchase of real estate, real estate projects pay back owner earnings when it’s due, investors can manage project progress and benefits at any time on Youngfunding."
 
 #: ../web/src/crowfunding_introduce.html:108
 msgid "低门槛高透明"
@@ -762,11 +762,11 @@ msgstr "Starting from £100, five times leverage, 80% expected earnings, the dev
 
 #: ../web/src/crowfunding_introduce.html:154
 msgid "高风险高回报, 针对积极型投资者用户通过众筹社区转卖自己的份额, 赚取差价"
-msgstr "High-risk, high return to active investor users who sell his share through the raise community, make the difference"
+msgstr "High-risk, high return to active investor users who sell his share through the crowdfunding community, make the difference"
 
 #: ../web/src/crowfunding_introduce.html:155
 msgid "众筹首付的20%购买此期房, 给出5倍投资杠杆, 交房前6个月,以低于市场价10%出售预计总收益80%"
-msgstr "The down payment of 20% raise purchase this period room, give 5 times leverage, submitted before 6 months, is expected to make a  total revenue of 80% selling at 10% below the market price."
+msgstr "The down payment of 20% crowdfunding purchase this property, give 5 times leverage, submitted before 6 months, is expected to make a  total revenue of 80% selling at 10% below the market price."
 
 #: ../web/src/crowfunding_introduce.html:157
 #: ../web/src/crowfunding_introduce.html:171
@@ -787,11 +787,11 @@ msgstr "Starting from £100, annual net rental returns 7%, developer package"
 
 #: ../web/src/crowfunding_introduce.html:168
 msgid "低风险, 众筹成功后每月有实际现金流入账, 针对稳健型投资,有周期性现金流需求的投资者实际房产份额所有权, 到期退出或者在众筹社区转卖份额"
-msgstr "Low risk, and  after the raise  success we have actual monthly cash flow into account, in view of the steady investment, with periodic cash flow needs of the real estate investors share ownership, quit or resold share in the raise community when it's due."
+msgstr "Low risk, and  after crowdfunding success, we have actual monthly cash flow into account, in view of the steady investment, with periodic cash flow needs of the real estate investors share ownership, quit or resold share in the crowdfunding community when it’s due."
 
 #: ../web/src/crowfunding_introduce.html:169
 msgid "众筹者根据自身需求, 共同购买10年以上的开发商包租型学生公寓, 净租金回报7%（资本增值另算）"
-msgstr "The raisers buy more than 10 years of developers-charter type student apartments according to their own needs, with net rental returns of 7% (capital appreciation not included)"
+msgstr "The crowdfunding investors purchase more than 10 years of developers-charter type student apartments according to their own needs, with net rental returns of 7% (capital appreciation not included)"
 
 #: ../web/src/email_unsubscribe.html:10 ../server/user_setting_interface.py:177
 msgid "取消订阅"
@@ -874,7 +874,7 @@ msgstr "Times"
 
 #: ../web/src/host_contact_request-phone.html:69
 msgid "，为了确保我们的服务质量请您提交求租需求继续获取"
-msgstr ", in order to ensure the quality of our service , please submit rent requirement ticket to continue"
+msgstr ", in order to ensure the quality of our service, please submit rent requirement ticket to continue"
 
 #: ../web/src/host_contact_request-phone.html:71 ../web/src/property.html:1013
 #: ../web/src/partials/delegate_rent_phone.html:68
@@ -1154,7 +1154,7 @@ msgstr "Link"
 
 #: ../web/src/news.html:91
 msgid "了解了?开始选房!"
-msgstr "Got it ? Start choosing !"
+msgstr "Got it? Start choosing!"
 
 #: ../web/src/news.html:101
 msgid "相关新闻"
@@ -1283,7 +1283,7 @@ msgstr "Living Room"
 
 #: ../web/src/property.html:500 ../web/src/property_to_rent.html:376
 msgid "查看房产周边设施"
-msgstr "View the property surrounding facilities"
+msgstr "View Surroundings"
 
 #: ../web/src/property.html:570 ../web/src/property_list.html:160
 #: ../web/src/property_to_rent_list.html:150 ../web/src/partials/i18n.html:466
@@ -1374,7 +1374,7 @@ msgstr "Click for complete info"
 
 #: ../web/src/property.html:860
 msgid "如需获取更多资料，请 "
-msgstr "For more info , please"
+msgstr "For more information, please"
 
 #: ../web/src/property.html:860
 msgid "，或者 "
@@ -1568,13 +1568,13 @@ msgstr "About "
 
 #: ../web/src/property_to_rent.html:167
 msgid "包Bill"
-msgstr "Bill Included"
+msgstr "Bills included"
 
 #: ../web/src/property_to_rent.html:201 ../web/src/property_to_rent.html:479
 #: ../web/src/property_to_rent_digest.html:122
 #: ../web/src/wechat_poster.html:164
 msgid "最短租期"
-msgstr "Shortest term"
+msgstr "Minimum term"
 
 #: ../web/src/property_to_rent.html:206
 #: ../web/src/static/templates/favorite_rent_card.tpl.html:121
@@ -1636,7 +1636,7 @@ msgstr "Community facilities"
 #: ../web/src/static/emails/rent_intention_matched_4.html:41
 #: ../web/src/static/emails/rent_ticket_publish_success.html:31
 msgid "，包Bill"
-msgstr ", Bill Included"
+msgstr ", Bills included"
 
 #: ../web/src/property_to_rent.html:486 ../web/src/partials/i18n_admin.html:58
 #: ../web/src/partials/property_to_rent_edit.html:368
@@ -1645,7 +1645,7 @@ msgstr "No limit"
 
 #: ../web/src/property_to_rent.html:584
 msgid "联系房东"
-msgstr "Contact lanlord"
+msgstr "Contact Landlord"
 
 #: ../web/src/property_to_rent.html:588
 msgid "联系平台"
@@ -1663,7 +1663,7 @@ msgstr "What is Young Funding ?"
 #: ../web/src/property_to_rent_digest.html:38
 #: ../web/src/property_to_rent_digest.html:46
 msgid "我们是一个专门为房东和租客打造的线上出租和求租平台。我们能在为您免费提供传统房屋中介提供的服务的同时，以最经济便捷的方式，让您对您的出租和求租需求拥有最大限度的掌控，您的房子您作主。"
-msgstr "We are a specialized online rental platform for the landlord and tenant . We can provide  you with the traditional housing intermediary services.  At the same time, let you have maximum control over your rental needs in the most economical and convenient way, You're in charge of your house."
+msgstr "We are a specialized online rental platform for the landlord and tenant. We can provide  you with the traditional housing intermediary services.  At the same time, let you have maximum control over your rental needs in the most economical and convenient way, You're in charge of your house."
 
 #: ../web/src/property_to_rent_digest.html:41
 msgid "为什么要用洋房东?"
@@ -1671,7 +1671,7 @@ msgstr "Why choose Youngfunding ?"
 
 #: ../web/src/property_to_rent_digest.html:42
 msgid "作为房东，我们的平台免费为您线上和线下推广出租信息，源源不断的租客让您的房子秒租出去。作为租客，我们的平台将完全免费，全天候24小时为您提供经过我们审核的优质房源，让您快速便捷得直接联系房东，免去了传统中介繁琐的预约流程，让您足不出户在家联系房东。"
-msgstr "As a landlord, our platform makes free online and offline promotion for your rental information, a steady stream of tenant to rent your house within seconds . As tenants, our platform will be completely free, provide you with the good properties we checked 24 hours , let you contact the landlord directly and quickly, revoke the tedious process of traditional appointment  , let you contact the landlord without leaving home."
+msgstr "As a landlord, our platform makes free online and offline promotion for your rental information, a steady stream of tenant to rent your house within seconds. As tenants, our platform will be completely free, provide you with the good properties we checked 24 hours, let you contact the landlord directly and quickly, revoke the tedious process of traditional appointment , let you contact the landlord without leaving home."
 
 #: ../web/src/property_to_rent_digest.html:45
 msgid "使用洋房东有任何隐形费用吗?"
@@ -1683,7 +1683,7 @@ msgstr "Are my info placed on Youngfunding secure ？"
 
 #: ../web/src/property_to_rent_digest.html:50
 msgid "您在洋房东所有的个人信息采取加密储存方式，未经授权不向任何机构和个人披露。"
-msgstr "All personal information about you in Youngfunding takes encryption storage , can't not be disclosed to any organizations and individuals without authorization."
+msgstr "All personal information about you in Youngfunding takes encryption storage, can't not be disclosed to any organizations and individuals without authorization."
 
 #: ../web/src/property_to_rent_digest.html:55 ../web/src/wechat_poster.html:53
 msgid "仅需"
@@ -1691,7 +1691,7 @@ msgstr "Only"
 
 #: ../web/src/property_to_rent_digest.html:64 ../web/src/wechat_poster.html:62
 msgid ", 包Bill"
-msgstr ", Bill included"
+msgstr ", Bills included"
 
 #: ../web/src/property_to_rent_digest.html:71 ../web/src/wechat_poster.html:76
 msgid "您就可以租到"
@@ -1780,7 +1780,7 @@ msgstr "No such property to rent"
 
 #: ../web/src/property_to_rent_list.html:213
 msgid "试试其他筛选条件吧... 您也可以"
-msgstr "Try other conditions , You can also"
+msgstr "Try other conditions, You can also"
 
 #: ../web/src/property_to_rent_list.html:213
 msgid "提交求租需求单"
@@ -1916,7 +1916,7 @@ msgstr "Youngfunding APP help center"
 
 #: ../web/src/qa_app.html:17 ../web/src/qa_rent.html:18
 msgid "洋房东致力于为英国华人房东和租客提供专业简单的租房找房工具。为房东带来极速租房发布体验，独有的伦敦街区生活、房价报告，杂志般的房源移动主页。为租客带来个性化的找房体验，优质房源，长租短租，地图找房，让海外租房变得简单、便利。"
-msgstr "Youngfunding is dedicated to provide professional and simple experience for the Chinese landlord and tenant in UK . Bring fast experience for the landlord to rent publishing , unique London street life, house prices report, magazine-like housing mobile home page. To find room for tenants with personalized experience, good properties, long and short rent , find room on map, make overseas rental simple and convenient."
+msgstr "Youngfunding is dedicated to provide professional and simple experience for the Chinese landlord and tenant in UK. Bring fast experience for the landlord to rent publishing, unique London street life, house prices report, magazine-like housing mobile home page. To find room for tenants with personalized experience, good properties, long and short lets, find room on map, make overseas rental simple and convenient."
 
 #: ../web/src/qa_app.html:23
 msgid "App安装遇到问题?"
@@ -1928,11 +1928,11 @@ msgstr "How to install Youngfunding APP ?"
 
 #: ../web/src/qa_app.html:31
 msgid "洋房东APP暂时只支持iOS７以上系统版本，您可以在苹果App Store直接搜索下载，也可以进入‘"
-msgstr "Youngfunding APP only supports  IOS 7 and above for now , You can search and download in apple's App Store ,You can also  enter the '"
+msgstr "Youngfunding APP only supports  IOS 7 and above for now, You can search and download in apple's App Store ,You can also  enter the '"
 
 #: ../web/src/qa_app.html:31
 msgid "’下载安装。再次感谢您对洋房东团队的支持！"
-msgstr "Download and install . Thanks again for supporting Youngfunding team !"
+msgstr "Download and install. Thanks again for supporting Youngfunding team!"
 
 #: ../web/src/qa_app.html:37
 msgid "APP安装失败怎么办？"
@@ -1940,7 +1940,7 @@ msgstr "How to do when APP install fails ?"
 
 #: ../web/src/qa_app.html:40
 msgid "如果您遇到洋房东App安装失败，请先检查您的系统版本是否为iOS7以上版本；如果自行解决不了的问题，可以24小时随时邮件给我们，洋房东团队会尽快为您解决问题！"
-msgstr "If you experience APP install failure , Please check if your system is IOS7 above or not ; If you can't handle on your own , Please e-mail us anytime . Youngfunding will help you solve the problem as fast as possible !"
+msgstr "If you experience APP install failure, Please check if your system is IOS7 above or not ; If you can't handle on your own, Please e-mail us anytime. Youngfunding will help you solve the problem as fast as possible!"
 
 #: ../web/src/qa_app.html:46 ../web/src/qa_rent.html:24
 msgid "发布房产遇到问题?"
@@ -1952,7 +1952,7 @@ msgstr "How to post properties ?"
 
 #: ../web/src/qa_app.html:54
 msgid "房产发布流程：登陆应用，在首页点击下方【+出租发布】，即可按照系统提示快速发布您的房产信息！发布过程超级省力！"
-msgstr "Property release process: launch application, click below on the front page  [+ rental release] to prompt  your housing information rapidlly according to the system tips ! Super effort-saving !"
+msgstr "Property release process: launch application, click below on the front page  [+ rental release] to prompt  your housing information rapidlly according to the system tips! Super effort-saving!"
 
 #: ../web/src/qa_app.html:60 ../web/src/qa_rent.html:39
 msgid "如何查看自己已经发布的房产？"
@@ -1960,7 +1960,7 @@ msgstr "How to view property already been poseted ?"
 
 #: ../web/src/qa_app.html:63
 msgid "点击【+出租发布】，点击左上角【已发布】，即可查看到自己的房产。"
-msgstr "Click on the \"+ rental publishing\", click  \"published\" on the upper left corner , you can see your own homes."
+msgstr "Click on the \"+ rental publishing\", click  \"published\" on the upper left corner, you can see your own homes."
 
 #: ../web/src/qa_app.html:69 ../web/src/qa_rent.html:48
 msgid "刷新已经发布的房产的规则和作用是什么？"
@@ -2004,11 +2004,11 @@ msgstr "Experience problem sharing properties ?"
 
 #: ../web/src/qa_app.html:113 ../web/src/qa_rent.html:93
 msgid "发布房源信息，如何分享微信好友，朋友圈或者新浪微博？"
-msgstr "How to share to wechat friends , friends circle or sina weibo ?"
+msgstr "How to share to wechat friends, friends circle or sina weibo ?"
 
 #: ../web/src/qa_app.html:116
 msgid "发布成功后分享：在您出租信息发布成功后，直接在弹出的分享选择中选择“微信好友”，微信朋友圈”或者“新浪微博”。"
-msgstr "Share after posting: After you successfully post properties , just select wechat friend ,friends circle or sina weibo in the popping share options . "
+msgstr "Share after posting: After you successfully post properties, just select wechat friend ,friends circle or sina weibo in the popping share options. "
 
 #: ../web/src/qa_app.html:120
 msgid "分享自己已发布的房源：点击【+出租发布】，点击左上角【已发布】，打开已发布的房产列表，直接点击“微信分享”，在弹出的分享选择中可以选择“微信好友”，微信朋友圈”或者“新浪微博”。"
@@ -2028,15 +2028,15 @@ msgstr "Are Youngfunding services and app free ?"
 
 #: ../web/src/qa_app.html:138 ../web/src/qa_rent.html:121
 msgid "洋房东专业租房团队为您免费服务，不会以任何形式收取您任何费用，请您安心使用！"
-msgstr "YoungFunding team offers free and professional rental service , We will not charge you any fees in any form, please enjoy !"
+msgstr "YoungFunding team offers free and professional rental service, We will not charge you any fees in any form, please enjoy!"
 
 #: ../web/src/qa_app.html:144 ../web/src/qa_rent.html:127
 msgid "房东怎样收取租金？"
-msgstr "How will lanlord charge rent ?"
+msgstr "How will landlord charge rent ?"
 
 #: ../web/src/qa_app.html:147 ../web/src/qa_rent.html:130
 msgid "洋房东专业租房团队只为您提供专业全面的租房信息平台。在房东和房客自行联系后，线下可自行交易，洋房东租房团队将不会以任何形式收取任何费用！请您安心使用！"
-msgstr "Youngfunding team will provide you with professional rental information platform. After the landlord and tenant's offline contact , transactions is on their own, Youngfunding team will not charge any fees in any form ! Please enjoy !"
+msgstr "Youngfunding team will provide you with professional rental information platform. After the landlord and tenant's offline contact, transactions is on their own, Youngfunding team will not charge any fees in any form! Please enjoy!"
 
 #: ../web/src/qa_app.html:153 ../web/src/qa_rent.html:136
 msgid "如何更快将房源出租出去?"
@@ -2048,7 +2048,7 @@ msgstr "Improve quantity and quality of photos"
 
 #: ../web/src/qa_app.html:161 ../web/src/qa_rent.html:144
 msgid "大量的房屋照片和较好的质量会让租客直观的看到您的房源，甚至有可能让您不用带租客去看房！"
-msgstr "A large number of houses photos and better quality make tenant see your sources directly, even you might do not have to bring a tenant to pay a actual visit !"
+msgstr "A large number of houses photos and better quality make tenant see your sources directly, even you might do not have to bring a tenant to pay a actual visit!"
 
 #: ../web/src/qa_app.html:167 ../web/src/qa_rent.html:150
 msgid "房产的标题要传达正确信息"
@@ -2056,7 +2056,7 @@ msgstr "Title of real estate should convey the correct information"
 
 #: ../web/src/qa_app.html:170 ../web/src/qa_rent.html:153
 msgid "经洋房东后台统计，每位租客大概只用2秒来游览一套房屋的标题。您的标题可以简短显示出：房屋特色/大概地址/几室几厅，这样会加速合适租客找到您。"
-msgstr "Youngfunding background statistics show that each tenant takes about 2 seconds to check a house title. Your title can show : House features /address/layout , This could accelerate the process of  the right tenant to find you."
+msgstr "Youngfunding background statistics show that each tenant takes about 2 seconds to check a house title. Your title can show : House features /address/layout, This could accelerate the process of  the right tenant to find you."
 
 #: ../web/src/qa_app.html:176 ../web/src/qa_rent.html:159
 msgid "详细的房产详情"
@@ -2080,7 +2080,7 @@ msgstr "House features"
 
 #: ../web/src/qa_app.html:197 ../web/src/qa_rent.html:180
 msgid "请尽可能把您房屋的特色写在房产详情里面，这样可以吸引更多的租客！"
-msgstr "Please attach more house features into your house introductions , Which could attract more tenants !"
+msgstr "Please attach more house features into your house introductions, Which could attract more tenants!"
 
 #: ../web/src/qa_app.html:203 ../web/src/qa_rent.html:186
 msgid "定期刷新您的房产"
@@ -2088,11 +2088,11 @@ msgstr "Refresh your property periodically"
 
 #: ../web/src/qa_app.html:206 ../web/src/qa_rent.html:189
 msgid "刷新可以使您的房产被顶到第一的位置！让租客第一眼就看到您的房源！"
-msgstr "Refreshing can make your property jump to the top spot! Tenants will see your lists at first glance !"
+msgstr "Refreshing can make your property jump to the top spot! Tenants will see your lists at first glance!"
 
 #: ../web/src/qa_app.html:212 ../web/src/qa_rent.html:195
 msgid "如何获取房东联系方式?"
-msgstr "How to obtail lanlord's contact info ?"
+msgstr "How to request landlord's contact info ?"
 
 #: ../web/src/qa_app.html:217 ../web/src/qa_rent.html:200
 msgid "什么是联系房东机会?"
@@ -2100,19 +2100,19 @@ msgstr "What is chances to contact landlord ?"
 
 #: ../web/src/qa_app.html:220 ../web/src/qa_rent.html:203
 msgid "作为洋房东平台的租客，每次选择获取一个房源的房东联系方式会用掉一次联系房东机会，重复获取同一个房源的房东联系方式不会重复消耗。此举是为了保护平台上的房东的隐私，防止房东联系方式被随意泄露给无关人员。"
-msgstr "As tenants of the houses on the Youngfunding platform, each time you choose to get a housing landlord contact information will use an opportunity to contact the landlord, Repeatedly getting a housing landlord contact information will not consume repeatly . This is to protect the privacy of landlords on the platform, preventing the landlord's contact information from leaking to others casually ."
+msgstr "As tenants of the houses on the Youngfunding platform, each time you choose to get a housing landlord contact information will use an opportunity to contact the landlord, Repeatedly getting a housing landlord contact information will not consume repeatly. This is to protect the privacy of landlords on the platform, preventing the landlord's contact information from leaking to others casually."
 
 #: ../web/src/qa_app.html:226 ../web/src/qa_rent.html:209
 msgid "作为租客，我有多少联系房东的机会?"
-msgstr "As tenants , How many opportunites do I have to contact landlord ?"
+msgstr "As tenants, How many opportunites do I have to contact landlord ?"
 
 #: ../web/src/qa_app.html:229 ../web/src/qa_rent.html:212
 msgid "当您注册成为洋房东平台用户时，会获得"
-msgstr "When you regeister as user of Youngfunding , you'll get"
+msgstr "When you regeister as user of Youngfunding, you'll get"
 
 #: ../web/src/qa_app.html:229 ../web/src/qa_rent.html:212
 msgid "次联系房东的机会。同时自注册时间起，每个月将获得"
-msgstr "... chances to contact landlord , You'll get ........ every month since regeistration time ."
+msgstr "... chances to contact landlord, You'll get........ every month since regeistration time."
 
 #: ../web/src/qa_app.html:229 ../web/src/qa_rent.html:212
 msgid "次联系房东的机会，但不会累加。此外，您还可以使用下面介绍的其他方法增加自己联系房东的机会。"
@@ -2124,13 +2124,13 @@ msgstr "How to obtail extra chances of contacting landlord by submitting rent re
 
 #: ../web/src/qa_app.html:238
 msgid "当您查看心仪房源时，如果没有剩余联系房东机会，可以填写点击‘获取联系方式’后弹出的求租需求单来获取"
-msgstr "When you're checking ideal sources , if there's no remaining chances to contact landlord , you can fill in the rent requirement ticket check popping out after clicking on get contact info to acquire ."
+msgstr "When you're checking ideal sources, if there's no remaining chances to contact landlord, you can fill in the rent requirement ticket check popping out after clicking on get contact info to acquire."
 
 #: ../web/src/qa_app.html:238 ../web/src/qa_app.html:247
 #: ../web/src/qa_app.html:256 ../web/src/qa_rent.html:221
 #: ../web/src/qa_rent.html:230 ../web/src/qa_rent.html:239
 msgid "次额外的联系房东的机会，提交成功后您将可以看到房东的联系方式，但是多次提交求租需求但不能叠加获取联系房东机会。"
-msgstr "Extea chances to contact landlord , After submitting  you'll get to view landlord's contact info , please note that multiple submissions still don't increase the chance of obtaining landlord's contact info ."
+msgstr "Extea chances to contact landlord, After submitting  you'll get to view landlord's contact info, please note that multiple submissions still don't increase the chance of obtaining landlord's contact info."
 
 #: ../web/src/qa_app.html:244 ../web/src/qa_rent.html:227
 msgid "如何通过分享洋房东APP获取额外联系房东的机会?"
@@ -2138,7 +2138,7 @@ msgstr "How to get extra chances of obtaining landlord's contact info by sharing
 
 #: ../web/src/qa_app.html:247 ../web/src/qa_rent.html:230
 msgid "当您查看心仪房源时，如果没有剩余联系房东机会，可以点击‘获取联系方式’后，根据弹出的分享说明将洋房东APP分享到新浪微博或微信朋友圈来获取"
-msgstr "When you're checking ideal sources , if there's no remaining chances to contact landlord ,You can click \"get contact info\" and share Youngfunding APP to sina weibo or wechat circle of friends according to the popping share tips to acquire ."
+msgstr "When you're checking ideal sources, if there's no remaining chances to contact landlord ,You can click \"get contact info\" and share Youngfunding APP to sina weibo or wechat circle of friends according to the popping share tips to acquire."
 
 #: ../web/src/qa_app.html:253 ../web/src/qa_rent.html:236
 msgid "如何通过下载洋房东APP获取额外联系房东的机会?"
@@ -2146,7 +2146,7 @@ msgstr "How to obtain extra chances of obtaining landlord's contact by downloadi
 
 #: ../web/src/qa_app.html:256 ../web/src/qa_rent.html:239
 msgid "当您查看心仪房源时，如果没有剩余联系房东机会，可以点击‘获取联系方式’后，根据弹出的下载APP说明下载APP，并且登录您的帐号来获取"
-msgstr "When you're checking ideal sources , if there's no remaining chances to contact landlord , You can click \"get contact info\" and download app to log in to acquire ."
+msgstr "When you're checking ideal sources, if there's no remaining chances to contact landlord, You can click \"get contact info\" and download app to log in to acquire."
 
 #: ../web/src/qa_app.html:262 ../web/src/qa_rent.html:245
 msgid "如何查看所有我获取过联系方式的房源?"
@@ -2209,12 +2209,12 @@ msgstr "Property release process:  choose \"Overseas rent\" at the top of site n
 
 #: ../web/src/qa_rent.html:33
 msgid "”，即可按照系统提示快速发布您的房产信息！发布过程超级省力！"
-msgstr "Then you can post your property fast according to stytem  tips ! That is super effort -saving !"
+msgstr "Then you can post your property fast according to stytem  tips! That is super effort -saving!"
 
 #: ../web/src/qa_rent.html:42 ../web/src/qa_rent.html:55
 #: ../web/src/qa_rent.html:64 ../web/src/qa_rent.html:82
 msgid "点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“"
-msgstr "Click your username on the top of the page to enter personal center , in \"my property\""
+msgstr "Click your username on the top of the page to enter personal center, in \"my property\""
 
 #: ../web/src/qa_rent.html:42 ../web/src/qa_rent.html:55
 #: ../web/src/qa_rent.html:64 ../web/src/qa_rent.html:82
@@ -2227,11 +2227,11 @@ msgstr "Property to rent"
 
 #: ../web/src/qa_rent.html:96
 msgid "发布成功后分享：在您出租信息发布成功后，直接在发布成功页用微信扫描二维码后，自行分享给“微信好友”，微信朋友圈”或者点击“分享到新浪微博”。"
-msgstr "Share after posting : after successfully posting your info , scan the QR code using your wechat on the success page directly , then share it to your wechat friends , wechat friends circle or sina weibo ."
+msgstr "Share after posting : after successfully posting your info, scan the QR code using your wechat on the success page directly, then share it to your wechat friends, wechat friends circle or sina weibo."
 
 #: ../web/src/qa_rent.html:101
 msgid "分享自己已发布的房源：点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“"
-msgstr "Share property already been posted : click personal center on the top of page , in \"my property \""
+msgstr "Share property already been posted : click personal center on the top of page, in \"my property \""
 
 #: ../web/src/qa_rent.html:106
 msgid "分享平台的房源：在房源详情页面右侧的分享栏，找到“微信分享”和“微博分享”，点击进行分享。"
@@ -2239,7 +2239,7 @@ msgstr "Share sources on platform : find weichat share and weibo share on the ri
 
 #: ../web/src/qa_rent.html:221
 msgid "当您查看心仪房源时，如果没有剩余联系房东机会，可以根据提示，填写点击‘获取联系方式’后弹出的求租需求单来获取"
-msgstr "When you're checking ideal sources , if there's no remaining chances to contact landlord , you can fill in the rent requirement ticket check popping out after clicking on get contact info to acquire ."
+msgstr "When you're checking ideal sources, if there's no remaining chances to contact landlord, you can fill in the rent requirement ticket check popping out after clicking on get contact info to acquire."
 
 #: ../web/src/region_report.html:26
 msgid "街区投资分析报告"
@@ -2423,11 +2423,11 @@ msgstr "Landlord in England"
 
 #: ../web/src/rental_available.html:141
 msgid "需要短期出租英国房产的业主"
-msgstr "Short-term rental of United Kingdom real estate owners"
+msgstr "Short-term rental of United Kingdom real estate landlords"
 
 #: ../web/src/rental_available.html:146
 msgid "需要长期出租英国房产的业主"
-msgstr "Long-term rental of United Kingdom real estate owners"
+msgstr "Long-term rental of United Kingdom real estate landlords"
 
 #: ../web/src/rental_available.html:155
 #: ../web/src/partials/app_download_content.html:23
@@ -2555,7 +2555,7 @@ msgstr "Favourites"
 #: ../web/src/partials/menu_items_mobile.html:5
 #: ../server/user_setting_interface.py:106
 msgid "海外众筹"
-msgstr "Overseas public raise"
+msgstr "Overseas Crowdfunding"
 
 #: ../web/src/user-phone.html:103 ../web/src/user_intentions.html:13
 #: ../web/src/masters/user_master.html:32
@@ -2703,7 +2703,7 @@ msgstr "Please checkout <a href=\"/property_list\">property list</a>"
 
 #: ../web/src/user_finish_auth.html:12 ../web/src/user_finish_info.html:12
 msgid "为了您的投资安全和满足相关监管机构要求，在您确认投资前，我们需要验证您的身份，请务必填写准确。"
-msgstr "For your safety and to meet regulatory agency requirements, before you confirm your investment , we need to verify your identity, please be sure to fill in accurate."
+msgstr "For your safety and to meet regulatory agency requirements, before you confirm your investment, we need to verify your identity, please be sure to fill in accurate."
 
 #: ../web/src/user_finish_auth.html:17
 msgid "上传身份证"
@@ -2711,7 +2711,7 @@ msgstr "Upload ID Card"
 
 #: ../web/src/user_finish_auth.html:28
 msgid "将图片拖拽至此，或点击此区域"
-msgstr "Drag picture here , or click this"
+msgstr "Drag picture here, or click this"
 
 #: ../web/src/user_finish_auth.html:33
 msgid "上传中..."
@@ -2723,7 +2723,7 @@ msgstr "Submit for review"
 
 #: ../web/src/user_finish_declare.html:11
 msgid "在您参与洋房东海外房产众筹之前，您需要通过申明您符合<strong>英国Financial Conduct Authority发布的众筹投资者要求</strong>，或者回答几个简单的问题。请阅读下面<br/>FCA定义的众筹投资者类型的描述，选择您的类型并确认完成声明。"
-msgstr "Before you join in Youngfunding overseas property public raise , you need to make a declaration taht you meet the requirements of british financial conduct authority or just answer some simple questions . please read the following description about public raise investors and choose your type to confirm declaration ."
+msgstr "Before you join in Youngfunding overseas property crowdfunding, you need to make a declaration that you meet the requirements of british financial conduct authority or just answer some simple questions. please read the following description about Crowdfunding investors and choose your type to confirm declaration."
 
 #: ../web/src/user_finish_declare.html:19
 msgid "富有经验的投资者"
@@ -3038,7 +3038,7 @@ msgstr "No investment requirement tickets"
 
 #: ../web/src/user_intentions.html:69 ../web/src/user_properties.html:87
 msgid "打开微信，使用 “扫一扫” 即可将移动端主页分享到朋友圈"
-msgstr "Open WeChat, Use \"Scan QR Code\" to share this page to friends"
+msgstr "Open WeChat, Use \"Scan QR Code\" to share to Wechat Moments"
 
 #: ../web/src/user_messages.html:20 ../web/src/user_messages.html:28
 msgid "全部"
@@ -3136,11 +3136,11 @@ msgstr "Phone number is your login credential, please enter real phone number"
 
 #: ../web/src/verify_phone.html:45
 msgid "暂不验证，退出账号"
-msgstr "Can't verify now , log out"
+msgstr "Can't verify now, log out"
 
 #: ../web/src/wechat_poster.html:41
 msgid "抱歉，房屋已租出"
-msgstr "Sorry , property already rent out"
+msgstr "Sorry, property already rent out"
 
 #: ../web/src/wechat_poster.html:191
 msgid "统计表明填写更多房产的描述和配套设施能缩短出租用时"
@@ -3305,7 +3305,7 @@ msgstr "Contact for free"
 
 #: ../web/src/masters/master.html:155
 msgid "朋友圈里的极速出租发布APP"
-msgstr "Fastest APP"
+msgstr "Best tool to list your space in Wechat Moments"
 
 #: ../web/src/masters/master.html:157
 msgid "立即下载"
@@ -3570,7 +3570,7 @@ msgstr "Help To Let"
 #: ../web/src/partials/delegate_sale_popup.html:13
 #: ../web/src/partials/index_landlord.html:59
 msgid "提交您的联系方式和房源位置，由平台通过landregistry核实房源归属"
-msgstr "Submit your contact info and property address, platform will verify owner through landregistry"
+msgstr "Submit your contact info and property address, platform will verify landlord through land registry"
 
 #: ../web/src/partials/delegate_rent_popup.html:16
 #: ../web/src/partials/delegate_sale_popup.html:16
@@ -3663,7 +3663,7 @@ msgstr "Week"
 #: ../web/src/static/emails/rent_intention_matched_4.html:129
 #: ../web/src/static/emails/rent_ticket_publish_success.html:119
 msgid "个月"
-msgstr "Month"
+msgstr "months"
 
 #: ../web/src/partials/get_unit_price.html:10 ../web/src/partials/i18n.html:7
 #, python-format
@@ -3690,7 +3690,7 @@ msgstr "%s left,"
 
 #: ../web/src/partials/host_contact_request.html:59
 msgid "为了确保我们的服务质量请您提交求租需求继续获取"
-msgstr "To ensure the quality of our service , please submit rent requirement ticket to continue"
+msgstr "To ensure the quality of our service, please submit rent requirement ticket to continue"
 
 #: ../web/src/partials/host_contact_request_amount_modal.html:3
 msgid "分享洋房東APP"
@@ -3713,7 +3713,7 @@ msgstr "洋房東"
 
 #: ../web/src/partials/host_contact_request_amount_modal.html:22
 msgid "分享到朋友圈"
-msgstr "WeChat circle of friends"
+msgstr "Wechat Moments"
 
 #: ../web/src/partials/host_contact_request_amount_modal.html:28
 msgid "分享洋房东App"
@@ -3784,11 +3784,11 @@ msgstr "Reset password failed"
 
 #: ../web/src/partials/i18n.html:17
 msgid "您访问的功能还在内测邀请阶段！请点击<a href=\"/app-download?from=signin\">“申请内测”</a>继续访问"
-msgstr "Features you're accessing is still in inner testing ! 请点击<a href=\"/app-download?from=signin\">“申请内测”</a>继续访问"
+msgstr "Features you're accessing is still in inner testing! 请点击<a href=\"/app-download?from=signin\">“申请内测”</a>继续访问"
 
 #: ../web/src/partials/i18n.html:18
 msgid "邮件格式不正确，请重新填写"
-msgstr "E-mail in wrong format , please try again"
+msgstr "E-mail in wrong format, please try again"
 
 #: ../web/src/partials/i18n.html:19
 msgid "提交中..."
@@ -4709,7 +4709,7 @@ msgstr "Found a great overseas rentals, for rent stuff, friends welcome! Real go
 
 #: ../web/src/partials/i18n.html:260
 msgid "[分享到朋友圈]才有效"
-msgstr "Only works when [Share to friends cycle]"
+msgstr "Only works when [Share to Wechat Moments]"
 
 #: ../web/src/partials/i18n.html:261
 msgid "提交求租需求继续获取"
@@ -4832,23 +4832,23 @@ msgstr "Prev"
 
 #: ../web/src/partials/i18n.html:303
 msgid "下拉刷新"
-msgstr "Slip to refresh"
+msgstr "Slide to refresh"
 
 #: ../web/src/partials/i18n.html:304
 msgid "松开刷新"
-msgstr "Slip to refresh"
+msgstr "Release to refresh"
 
 #: ../web/src/partials/i18n.html:305
 msgid "加载中..."
-msgstr "Loading"
+msgstr "Loading…"
 
 #: ../web/src/partials/i18n.html:306
 msgid "加载成功"
-msgstr "Loading success"
+msgstr "Loaded Successfully"
 
 #: ../web/src/partials/i18n.html:307
 msgid "加载失败"
-msgstr "Loading failed"
+msgstr "Loaded Failed"
 
 #: ../web/src/partials/i18n.html:310
 msgid "，居室数为"
@@ -5031,7 +5031,7 @@ msgstr "Copy Success:"
 
 #: ../web/src/partials/i18n.html:355
 msgid "点击此处可以联系房东"
-msgstr "Click here to contact owner"
+msgstr "Click here to contact landlord"
 
 #: ../web/src/partials/i18n.html:356
 msgid "小提示：点击此处可以查看房东的完整联系方式"
@@ -5043,7 +5043,7 @@ msgstr "I want to invest "
 
 #: ../web/src/partials/i18n.html:358
 msgid "街区列表加载中...(选填)"
-msgstr "Block list Loading ... (optional)"
+msgstr "Block list Loading... (optional)"
 
 #: ../web/src/partials/i18n.html:359
 #: ../web/src/partials/requirement_rent_phone.html:44
@@ -5319,7 +5319,7 @@ msgstr "Change email failed"
 
 #: ../web/src/partials/i18n.html:433
 msgid "验证码为6位数字，请填写正确后再验证"
-msgstr "Verfication code are 6 numbers , please try again"
+msgstr "Verfication code are 6 numbers, please try again"
 
 #: ../web/src/partials/i18n.html:434
 msgid "验证码已成功发送到您填写的手机号"
@@ -5590,7 +5590,7 @@ msgstr "The raw data does not exist:"
 
 #: ../web/src/partials/i18n_admin.html:34
 msgid "众筹"
-msgstr "Public raise"
+msgstr "Crowdfunding"
 
 #: ../web/src/partials/i18n_admin.html:35
 msgid "条"
@@ -5853,7 +5853,7 @@ msgstr "User Type"
 
 #: ../web/src/partials/i18n_admin.html:121
 msgid "众筹房产"
-msgstr "The British real estate raise"
+msgstr "The British Real Estate Crowdfunding"
 
 #: ../web/src/partials/i18n_admin.html:123
 msgid "出售房产"
@@ -6860,7 +6860,7 @@ msgstr "Rent (per week):"
 
 #: ../web/src/partials/i18n_admin.html:425
 msgid "(包Bill)"
-msgstr "(Bill Included)"
+msgstr "(Bills Included)"
 
 #: ../web/src/partials/i18n_admin.html:426
 msgid "押金:"
@@ -6868,16 +6868,15 @@ msgstr "Deposit"
 
 #: ../web/src/partials/i18n_admin.html:427
 msgid "最短租期:"
-msgstr "Shortest term:"
+msgstr "Minimum term: "
 
 #: ../web/src/partials/i18n_admin.html:428
-#, fuzzy
 msgid "开始时间:"
-msgstr "Opening time"
+msgstr "Start date: "
 
 #: ../web/src/partials/i18n_admin.html:429
 msgid "结束时间:"
-msgstr "End time:"
+msgstr "End date: "
 
 #: ../web/src/partials/i18n_admin.html:430
 msgid "选择生成类型"
@@ -7302,7 +7301,7 @@ msgstr "Add Support Ticket"
 
 #: ../web/src/partials/i18n_admin.html:542
 msgid "正在上传..."
-msgstr "Uploading ..."
+msgstr "Uploading..."
 
 #: ../web/src/partials/i18n_admin.html:543
 msgid "已上传,将在提交草稿后生成预览（在此之前不能提交审核)"
@@ -7310,7 +7309,7 @@ msgstr "Uploaded, generating a preview after submitting (can't be submitted for 
 
 #: ../web/src/partials/i18n_admin.html:544
 msgid "正在生成预览图...（在此之前不能提交审核)"
-msgstr "Generating preview image ... (Before this can not be submitted for review)"
+msgstr "Generating preview image... (Before this can not be submitted for review)"
 
 #: ../web/src/partials/i18n_admin.html:545
 msgid "点击预览当前文档"
@@ -7769,7 +7768,7 @@ msgstr "Room number"
 
 #: ../web/src/partials/property_to_rent_edit.html:225
 msgid "是否包Bill"
-msgstr "Bill Included?"
+msgstr "Bills Included?"
 
 #: ../web/src/partials/property_to_rent_edit.html:228
 msgid "请填写租金"
@@ -8115,7 +8114,7 @@ msgstr "Rent requirement tickets"
 #: ../web/src/partials/requirement_rent_phone.html:191
 #: ../web/src/partials/requirement_rent_popup.html:159
 msgid "，便捷地查看已联系过房东的联系方式，当您已经租到房子时可以修改求租单状态，平台将停止向您推荐"
-msgstr "Check contacts of landlord already contacted , When you've made your rental possible , you can modify status and our platform will stop recommending"
+msgstr "Check contacts of landlord already contacted, When you've made your rental possible, you can modify status and our platform will stop recommending"
 
 #: ../web/src/partials/requirement_rent_phone.html:193
 msgid "分享洋房东App得到转发就获取 1个 额外的联系房东机会"
@@ -8132,7 +8131,7 @@ msgstr "Youngfunding is committed to providing the best service to every custome
 #: ../web/src/partials/requirement_rent_popup.html:14
 #: ../web/src/partials/requirement_rent_popup.html:15
 msgid "同时当平台有满足您需求的房源出现时，可以第一时间通知您。"
-msgstr "When sources which meet your needs appear on our platform , you will be the first to know ."
+msgstr "When sources which meet your needs appear on our platform, you will be the first to know."
 
 #: ../web/src/partials/requirement_rent_popup.html:15
 msgid "洋房东致力于提供最精准最优质的服务给我们每一位客户，请您填写求租需求后继续联系此房东，"
@@ -8384,7 +8383,7 @@ msgstr "Update notifications"
 
 #: ../web/src/partials/wechatShareSDK.html:36
 msgid "点击后在弹出的菜单中选择 [分享到朋友圈]"
-msgstr "Click on the pop-up menu, select [share to circle of friends]"
+msgstr "Click on the pop-up menu, select [Share to Wechat Moments]"
 
 #: ../web/src/static/emails/crowdfunding_notification.html:4
 #: ../web/src/static/emails/crowdfunding_notification_canceled.html:4
@@ -8440,11 +8439,11 @@ msgstr "For this inconvenience, we deeply regret."
 
 #: ../web/src/static/emails/crowdfunding_notification_title.html:1
 msgid "您已投资了众筹项目"
-msgstr "You've invested in the raise project"
+msgstr "Invested Successfully"
 
 #: ../web/src/static/emails/crowdfunding_notification_title_canceled.html:1
 msgid "您的众筹项目投资订单已被取消"
-msgstr "Your raise project investment order have been cancelled"
+msgstr "Your crowdfunding order have been cancelled"
 
 #: ../web/src/static/emails/draft_not_publish_day_3.html:4
 #: ../web/src/static/emails/draft_not_publish_day_7.html:4
@@ -8474,7 +8473,7 @@ msgstr "Youngfunding tips remind you that your rental information \""
 
 #: ../web/src/static/emails/draft_not_publish_day_3.html:8
 msgid "”在草稿箱中已经躺了3天了呢！为了尽快出租您的房源，请您尽快将该草稿发布出去，点击下面的按钮继续发布："
-msgstr "It had been lying in the drafts for 3 days ! Please post the draft as soon as possible to make sure the rental business goes smoothly . Click buttons below to post"
+msgstr "It had been lying in the drafts for 3 days! Please post the draft as soon as possible to make sure the rental business goes smoothly. Click buttons below to post"
 
 #: ../web/src/static/emails/draft_not_publish_day_3.html:10
 #: ../web/src/static/emails/draft_not_publish_day_7.html:10
@@ -8484,7 +8483,7 @@ msgstr "Continue to edit & publish"
 #: ../web/src/static/emails/draft_not_publish_day_3.html:12
 #: ../web/src/static/emails/draft_not_publish_day_7.html:12
 msgid "如果您在发布过程中遇到了什么困难或者有更好的建议，您可以24小时随时联系我们，我们将会第一时间响应并为您解决问题。"
-msgstr "If you encouter any problems in the process of publishing , you can feel free to contact us 24 hours, we will make fast responses and solve the problems for you."
+msgstr "If you encouter any problems in the process of publishing, you can feel free to contact us 24 hours, we will make fast responses and solve the problems for you."
 
 #: ../web/src/static/emails/draft_not_publish_day_3.html:13
 #: ../web/src/static/emails/draft_not_publish_day_7.html:13
@@ -8498,7 +8497,7 @@ msgstr "Thank you for reading, and I wish you a happy life!"
 
 #: ../web/src/static/emails/draft_not_publish_day_7.html:8
 msgid "”在草稿箱中已经躺了7天了呢！为了尽快出租您的房源，请您尽快将该草稿发布出去，点击下面的按钮继续发布："
-msgstr "It had been lying in the drafts for 7 days ! Please post the draft as soon as possible to make sure the rental business goes smoothly . Click buttons below to post"
+msgstr "It had been lying in the drafts for 7 days! Please post the draft as soon as possible to make sure the rental business goes smoothly. Click buttons below to post"
 
 #: ../web/src/static/emails/invitation.html:3
 #: ../web/src/static/emails/rent_suspend_notice.html:13
@@ -8507,7 +8506,7 @@ msgstr "Hello, Dear users :"
 
 #: ../web/src/static/emails/invitation.html:5
 msgid "十分感谢您对我们的关注！"
-msgstr "Thank you very much for your attention !"
+msgstr "Thank you very much for your attention!"
 
 #: ../web/src/static/emails/invitation.html:7
 msgid "您的注册邀请码为："
@@ -8515,7 +8514,7 @@ msgstr "Your registration invitation code are as follows :"
 
 #: ../web/src/static/emails/invitation.html:9
 msgid "如果您使用App申请的邀请码，可以复制上方的邀请码后，切换回洋房东app内按提示完成注册流程。"
-msgstr "If you use the App to apply for invitation code, you can copy the invitation code above , then switch back to the Youngfunding app and follow the prompts to complete the registration process ."
+msgstr "If you use the App to apply for invitation code, you can copy the invitation code above, then switch back to the Youngfunding app and follow the prompts to complete the registration process."
 
 #: ../web/src/static/emails/invitation.html:10
 msgid "如果您通过网站申请的邀请码，可以点击"
@@ -8552,11 +8551,11 @@ msgstr "Are your house still on rent ?"
 
 #: ../web/src/static/emails/landlord_recruit.html:6
 msgid "还没租出去的话可以试试我们的app（洋房东）"
-msgstr "If yes , You can try our app(Youngfunding)"
+msgstr "If yes, You can try our app(Youngfunding)"
 
 #: ../web/src/static/emails/landlord_recruit.html:7
 msgid "我们的app是一个线上出租/求租平台，拥有大量客户资源，并且全部免费。同时您发布的房源也会被自动转发到各大论坛微博，帮助您快速租出房子。还有自动生成的房屋展示页面，微信朋友圈都可以分享的。"
-msgstr "Our app is an online rental platform, with a large number of customer resources and all free of charge . Your sources will be automatically forwarded to the Forum & Twitter which can help you have house rented quickly. There are display pages of house which is generated automatically and can be shared to wechat circle of friends . "
+msgstr "Our app is an online rental platform, with a large number of customer resources and all free of charge. Your sources will be automatically forwarded to the Forum & Twitter which can help you have house rented quickly. There are display pages of house which is generated automatically and can be shared to Wechat Moments."
 
 #: ../web/src/static/emails/landlord_recruit.html:8
 msgid "下面是下载链接："
@@ -8568,7 +8567,7 @@ msgstr "Click here to download Youngfunding App"
 
 #: ../web/src/static/emails/landlord_recruit.html:12
 msgid "您也可以在Apple Store里搜索‘洋房东’进行下载。快来试试吧！"
-msgstr "You can also search  ' Youngfunding ' in the Apple Store to download. Come and try it !"
+msgstr "You can also search  ' Youngfunding ' in the Apple Store to download. Come and try it!"
 
 #: ../web/src/static/emails/new_admin.html:4
 #: ../web/src/static/emails/set_as_admin.html:4
@@ -8733,7 +8732,7 @@ msgstr "You already registered as Youngfunding member!"
 
 #: ../web/src/static/emails/receive_intention.html:8
 msgid "感谢您对洋房东的支持，我们已经收到您的投资意向单"
-msgstr "Thank you for your support for Youngfunding , we have received your investment intention"
+msgstr "Thank you for your support for Youngfunding, we have received your investment intention"
 
 #: ../web/src/static/emails/receive_intention.html:9
 msgid "我们将在未来的几天不断推送给您符合您需求的房源"
@@ -8766,7 +8765,7 @@ msgstr "If you have any questions or suggestions, please contact us directly:"
 #: ../web/src/static/emails/rent_intention_matched_4.html:158
 #: ../web/src/static/emails/rent_suspend_notice.html:88
 msgid "祝您在洋房东的旅程愉快"
-msgstr "Happy enjoying youngfunding ! "
+msgstr "Happy enjoying youngfunding! "
 
 #: ../web/src/static/emails/receive_rent_intention.html:8
 msgid "感谢您对洋房东的支持，我们已经收到您的求租意向单。我们将在未来的几天不断推送给您符合您需求的房源。"
@@ -8779,12 +8778,12 @@ msgstr "View rental housing on platform"
 #: ../web/src/static/emails/register_notice.html:8
 #: ../web/src/static/emails/register_notice_with_default_password.html:8
 msgid "不同于传统房屋中介，洋房东是一个依靠互联网帮助房东房客进行租赁及交易的平台。"
-msgstr "Different from the traditional estate agents , Youngfunding is a platform which relies on internet to help landlords and tenants exchange ."
+msgstr "Different from the traditional estate agents, Youngfunding is a platform which relies on internet to help landlords and tenants exchange."
 
 #: ../web/src/static/emails/register_notice.html:9
 #: ../web/src/static/emails/register_notice_with_default_password.html:9
 msgid "感谢您对洋房东的支持，您在洋房东的注册已经成功！"
-msgstr "Thank you for your support for Youngfunding , Your registration is successful in Youngfunding !"
+msgstr "Thank you for your support for Youngfunding, Your registration is successful in Youngfunding!"
 
 #: ../web/src/static/emails/register_notice.html:10
 #: ../web/src/static/emails/register_notice_with_default_password.html:13
@@ -8810,7 +8809,7 @@ msgstr "Investment directly"
 #: ../web/src/static/emails/register_notice_with_default_password.html:27
 #: ../web/src/static/emails/reset_password_by_email.html:32
 msgid "祝您在洋房东的旅程愉快!"
-msgstr "Happy enjoying youngfunding ! "
+msgstr "Happy enjoying youngfunding! "
 
 #: ../web/src/static/emails/register_notice_with_default_password.html:10
 msgid "您的初始密码为："
@@ -8838,7 +8837,7 @@ msgstr "Dear"
 
 #: ../web/src/static/emails/rent_intention_digest.html:8
 msgid "感谢您对洋房东的支持，我们为您甄选下列符合您需求的房产："
-msgstr "Thank you for your support for Youngfunding , we offer you a selection of the following property to meet your needs:"
+msgstr "Thank you for your support for Youngfunding, we offer you a selection of the following property to meet your needs:"
 
 #: ../web/src/static/emails/rent_intention_digest.html:56
 #: ../web/src/static/emails/rent_intention_matched_1.html:57
@@ -8852,11 +8851,11 @@ msgstr "Address:"
 #: ../web/src/static/emails/rent_intention_matched_4.html:122
 #: ../web/src/static/emails/rent_ticket_publish_success.html:112
 msgid "最少租住"
-msgstr "A minimum lease of"
+msgstr "Minimum term: "
 
 #: ../web/src/static/emails/rent_intention_digest.html:137
 msgid "如果以上没有您的意向房产，您也可以："
-msgstr "If your intention is not in the list , you can also:"
+msgstr "If your intention is not in the list, you can also:"
 
 #: ../web/src/static/emails/rent_intention_digest.html:139
 msgid "查看现有出租房源"
@@ -8864,7 +8863,7 @@ msgstr "View existing rental housing"
 
 #: ../web/src/static/emails/rent_intention_matched_1.html:9
 msgid "基于您在我们平台上填写的求租申请单，我们已经成功为您匹配到了合适的房源！"
-msgstr "We've managed to match suitable property based on your rent requirement !"
+msgstr "We've managed to match suitable property based on your rent requirement!"
 
 #: ../web/src/static/emails/rent_intention_matched_1.html:10
 #: ../web/src/static/emails/rent_intention_matched_2_3.html:14
@@ -8873,7 +8872,7 @@ msgstr "click on the links below to view details and the landlord contact inform
 
 #: ../web/src/static/emails/rent_intention_matched_2_3.html:8
 msgid "基于您在我们平台上填写的求租申请单，我们已经成功为您匹配到了一些房源："
-msgstr "We've managed to match some property based on part of your rent requirement !"
+msgstr "We've managed to match some property based on part of your rent requirement!"
 
 #: ../web/src/static/emails/rent_intention_matched_2_3.html:11
 msgid "房产图片"
@@ -8905,7 +8904,7 @@ msgstr "Rental housing published on the Youngfunding "
 
 #: ../web/src/static/emails/rent_notice.html:37
 msgid "已经在洋房东平台上收到了不少的关注。如果该房产已经成功出租，为避免您收到其他租客的询问，您可以点击下面的“我已成功出租”，则您的房源将不再在平台展示。"
-msgstr "We've received a lot of attention on the Youngfunding platform. If the property has been leased, in order to avoid inquiries you receive from any other tenant, you can click on the following \"I've successfully have my property rented\", then your resources will no longer be displayed on the platform ."
+msgstr "We've received a lot of attention on the Youngfunding platform. If the property has been leased, in order to avoid inquiries you receive from any other tenant, you can click on the following \"I've successfully have my property rented\", then your resources will no longer be displayed on the platform."
 
 #: ../web/src/static/emails/rent_notice.html:38
 msgid "我已成功租出"
@@ -8913,7 +8912,7 @@ msgstr "I've successfully have my property rented"
 
 #: ../web/src/static/emails/rent_notice.html:41
 msgid "如果您还未出租出去，我们建议您尝试下面的方法，帮您尽快将房产租出去："
-msgstr "If you still can't have your house rented , we suggest you to take the following measures to have your house rented as quick as possible :"
+msgstr "If you still can't have your house rented, we suggest you to take the following measures to have your house rented as quick as possible :"
 
 #: ../web/src/static/emails/rent_notice.html:53
 msgid "去平台上刷新您的房源"
@@ -8921,7 +8920,7 @@ msgstr "Refresh your resources on platform"
 
 #: ../web/src/static/emails/rent_notice.html:55
 msgid "洋房东每天都有大量新房源出租，刷新将为您赢得排名提升，让平台的租客更容易找到您的房产。同时，洋房东会将当天的新房源和刷新的房源同步到全英各大媒体和论坛，刷新可以尽可能多的曝光您的房源。"
-msgstr "A large number of new houses comes for rent on Youngfunding every day, refreshing will help you win ranking promotion, make it easier for tenants of the platform to find your property. Meanwhile, Youngfounding will have new resources  synchronized to the UK media and forums, refreshing can help you expose your resources as much as possible ."
+msgstr "A large number of new houses comes for rent on Youngfunding every day, refreshing will help you win ranking promotion, make it easier for tenants of the platform to find your property. Meanwhile, Youngfounding will have new resources  synchronized to the UK media and forums, refreshing can help you expose your resources as much as possible."
 
 #: ../web/src/static/emails/rent_notice.html:56
 msgid "现在就去"
@@ -8945,7 +8944,7 @@ msgstr "Share your resources information"
 
 #: ../web/src/static/emails/rent_notice.html:81
 msgid "洋房东为您的房源制作了高大上的移动主页，扫描下方二维码，将移动主页分享到您的朋友圈，发动您的好友们帮您找靠谱租客吧。"
-msgstr "Youngfunding makes a great home page for your resources , scaning the QR code below will share mobile home page to your friends, start your friends to help you find reliable tenants ."
+msgstr "Youngfunding makes a great home page for your resources, scaning the QR code below will share mobile home page to your Wechat Moments, start your friends to help you find reliable tenants."
 
 #: ../web/src/static/emails/rent_notice.html:88
 msgid "扫描二维码分享房源信息"
@@ -8953,7 +8952,7 @@ msgstr "Scan the QR code to share housing information"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:16
 msgid "首先感谢您对洋房东的支持! "
-msgstr "First of all, thank you for your support for Youngfunding !"
+msgstr "First of all, thank you for your support for Youngfunding!"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:19
 msgid "您的出租房产可能存在以下问题，已经被下架，请进行修改后重新上架："
@@ -8981,7 +8980,7 @@ msgstr "3. Authenticity of sources :"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:40
 msgid "您的房源真实性存在问题，如需申诉请联系"
-msgstr "There are some problems with your authenticity of sources , please contact if you want to complaint"
+msgstr "There are some problems with your authenticity of sources, please contact if you want to complaint"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:47
 msgid "4.信息填写不符："
@@ -8989,7 +8988,7 @@ msgstr "4. The information does not match:"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:48
 msgid "经洋房东系统检测，您所选择的‘房东类型’有错误，如果您是中介，请如实填写，屡次不改者将进行封号处理。"
-msgstr "Youngfunding detects that you choose the wrong type of  ' landlord type '  , if you are an intermediary, please fill out according to the facts , those who won't change will be processed."
+msgstr "Youngfunding detects that you choose the wrong type of  ' landlord type ' , if you are an intermediary, please fill out according to the facts, those who won't change will be processed."
 
 #: ../web/src/static/emails/rent_suspend_notice.html:54
 msgid "5.收取额外费用："
@@ -8997,7 +8996,7 @@ msgstr "5. Additional charges :"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:55
 msgid "您的出租房产已经被一次或多次被举报收取额外费用，如需申诉请联系"
-msgstr "Your property has been reported that one or multiple extra fees have been charged , please contact if you want to complaint"
+msgstr "Your property has been reported that one or multiple extra fees have been charged, please contact if you want to complaint"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:62
 msgid "6.其他："
@@ -9021,11 +9020,11 @@ msgstr "My Properties"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:76
 msgid "如果您有任何宝贵意见，请直接联系我们"
-msgstr "If you have any suggestions , please contact us directly"
+msgstr "If you have any suggestions, please contact us directly"
 
 #: ../web/src/static/emails/rent_ticket_publish_success.html:8
 msgid "感谢您对洋房东的支持，您在本平台发布的『"
-msgstr "Thank you for your support for Youngfunding , the property you posted on our platform "
+msgstr "Thank you for your support for Youngfunding, the property you posted on our platform "
 
 #: ../web/src/static/emails/rent_ticket_publish_success.html:8
 msgid "』已经成功发布！"
@@ -9033,7 +9032,7 @@ msgstr "』Successfully posted"
 
 #: ../web/src/static/emails/rent_ticket_publish_success.html:133
 msgid "您可以将上述房产页面通过微信，微博，朋友圈等方式分享给您的好友，同时我们将自动同步您的房产到全英80个出租渠道。"
-msgstr "You can use these property pages through micro, micro-blogging, friends, share it with your friends and we will automatically sync your property to the UK 80 rental channel."
+msgstr "You can share your listings through Wechat friends, Sina Weibo and Wechat Moments, we will automatically sync your property to the UK 80 rental channel."
 
 #: ../web/src/static/emails/rent_ticket_publish_success.html:139
 msgid "祝您的房产早日出租！"
@@ -9041,7 +9040,7 @@ msgstr "I wish your property could be rented early!"
 
 #: ../web/src/static/emails/reset_password_by_email.html:7
 msgid "感谢您对洋房东的支持，我们已经收到您重设密码的请求。"
-msgstr "Thank you for your support for Youngfunding , we have received your request to reset the password."
+msgstr "Thank you for your support for Youngfunding, we have received your request to reset the password."
 
 #: ../web/src/static/emails/reset_password_by_email.html:8
 msgid "请点击下面的按钮，根据提示重设您的密码："
@@ -9087,7 +9086,7 @@ msgstr "YoungFunding is open for registering now!"
 #: ../web/src/static/templates/favorite_rent_card.tpl.html:111
 #: ../web/src/static/templates/rent_card.tpl.html:132
 msgid "日"
-msgstr "Days"
+msgstr "days"
 
 #: ../web/src/static/templates/favorite_rent_card.tpl.html:119
 #: ../web/src/static/templates/rent_card.tpl.html:140
@@ -9145,7 +9144,7 @@ msgstr ", or"
 
 #: ../server/crowdfunding_interface.py:66
 msgid "众筹列表-洋房东"
-msgstr "Public raise list - Youngfunding"
+msgstr "Crowdfunding List - Youngfunding"
 
 #: ../server/crowdfunding_interface.py:78
 msgid "用户声明"
@@ -9157,7 +9156,7 @@ msgstr "Personal information supplement"
 
 #: ../server/crowdfunding_interface.py:112
 msgid "众筹模式介绍页面"
-msgstr "Public raise pattern introduction page"
+msgstr "Crowdfunding Introduction"
 
 #: ../server/main_interface.py:161
 msgid "使用短信验证码重置密码"

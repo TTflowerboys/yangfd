@@ -39,7 +39,7 @@
              @{FXFormFieldKey: @"rentType", FXFormFieldTitle:STR(@"PropertyInfo/出租类型"), FXFormFieldAction: @"editRentType"},
              @{FXFormFieldKey: @"rentAddress", FXFormFieldTitle:STR(@"PropertyInfo/房产地址"), FXFormFieldAction: @"editAddress"},
              @{FXFormFieldKey: @"moreInfo", FXFormFieldTitle:STR(@"PropertyInfo/更多详情和配套设施描述（选填）"), FXFormFieldAction: @"editMoreInfo"},
-             @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"PropertyInfo/预览并发布"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
+             @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"PropertyInfo/预览并发布"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
              ];
 }
 

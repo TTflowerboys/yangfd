@@ -94,7 +94,7 @@
 - (NSString *)getPriceFromProperty:(CUTEProperty *)property {
     if (property.propertyType && [@[@"new_property", @"student_housing"] containsObject:property.propertyType.slug]) {
         CUTEHouseType *houseType = [[property.mainHouseTypes  sortBy:@"totalPriceMin.value"] firstObject];
-        return CONCAT([self formatPrice:houseType.totalPriceMin.value symbol:houseType.totalPriceMin.symbol], STR(@"PropertyMapList/起"));
+        return CONCAT([self formatPrice:houseType.totalPriceMin.value symbol:houseType.totalPriceMin.symbol], STR(@"PropertyMapList/起"));
     }
     return @"";
 }
