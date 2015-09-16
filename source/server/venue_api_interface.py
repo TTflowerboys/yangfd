@@ -107,7 +107,7 @@ def _check_email(email):
 ))
 @f_app.user.login.check(check_role=True, check_admin=True)
 def venue_search(user, params):
-    params.setdefault("type", {"$ne": "vip"})
+    params.setdefault("type", {"$nin": ["vip", "virtual"]})
     if "status" in params:
         if not (user and set(user["role"]) & set(["admin", "jr_admin"])):
             abort(40105)

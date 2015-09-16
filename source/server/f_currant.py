@@ -359,6 +359,17 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "start": datetime.utcnow(),
         })
 
+    def v21(self, m):
+        virtual_shop = {
+            "admin_user": [],
+            "_id": ObjectId(f_app.common.virtual_shop_id),
+            "name": "virtual_shop",
+            "status": "new",
+            "time": datetime.utcnow(),
+            "type": "virtual",
+        }
+        f_app.shop.get_database(m).update({"_id": virtual_shop["_id"]}, {"$set": virtual_shop}, upsert=True)
+
 currant_mongo_upgrade()
 
 
@@ -681,7 +692,7 @@ class f_currant_ticket(f_ticket):
         Ticket
         ==================================================================
     """
-    def output(self, ticket_id_list, enable_custom_fields=True, ignore_nonexist=False, fuzzy_user_info=False, multi_return=list, location_only=False, check_permission=True):
+    def output(self, ticket_id_list, enable_custom_fields=True, ignore_nonexist=False, fuzzy_user_info=False, multi_return=list, location_only=False, permission_check=True):
         ticket_list = f_app.ticket.get(ticket_id_list, ignore_nonexist=ignore_nonexist)
         user_id_set = set()
         enum_id_set = set()
@@ -699,11 +710,11 @@ class f_currant_ticket(f_ticket):
                     if t.get("budget"):
                         enum_id_set.add(t["budget"]["id"])
 
-        property_dict = f_app.property.output(list(property_id_set), multi_return=dict, ignore_nonexist=ignore_nonexist, check_permission=check_permission)
+        property_dict = f_app.property.output(list(property_id_set), multi_return=dict, ignore_nonexist=ignore_nonexist, permission_check=permission_check)
 
         if not location_only:
             user_id_set = filter(None, user_id_set)
-            user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields, permission_check=check_permission)
+            user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields, permission_check=permission_check)
             user_dict = {}
             enum_dict = f_app.enum.get(enum_id_set, multi_return=dict)
 
@@ -854,7 +865,7 @@ class f_currant_plugins(f_app.plugin_base):
 
     def task_on_rent_ticket_check_intention(self, task):
         ticket_id = task["ticket_id"]
-        ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id], check_permission=False)[0], _i18n=["zh_Hans_CN"])
+        ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id], permission_check=False)[0], _i18n=["zh_Hans_CN"])
 
         # Scan existing rent intention ticket
         params = {
@@ -863,7 +874,7 @@ class f_currant_plugins(f_app.plugin_base):
             "country.code": ticket["property"]["country"]["code"],
             "city._id": ObjectId(ticket["property"]["city"]["id"]),
         }
-        rent_intention_tickets = f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), check_permission=False)
+        rent_intention_tickets = f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), permission_check=False)
 
         for intention_ticket in rent_intention_tickets:
             if "email" not in intention_ticket["creator_user"]:
@@ -956,7 +967,7 @@ class f_currant_plugins(f_app.plugin_base):
             "type": "rent",
             "status": "to rent",
         }
-        rent_tickets = f_app.i18n.process_i18n(f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), check_permission=False), _i18n=["zh_Hans_CN"])
+        rent_tickets = f_app.i18n.process_i18n(f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), permission_check=False), _i18n=["zh_Hans_CN"])
 
         bedroom_count = f_app.util.parse_bedroom_count(intention_ticket["bedroom_count"])
         rent_budget = f_app.util.parse_budget(intention_ticket["rent_budget"])
@@ -1153,7 +1164,7 @@ class f_currant_plugins(f_app.plugin_base):
 
     def task_on_rent_ticket_generate_digest_image(self, task):
         try:
-            rent_ticket = f_app.ticket.output([task["ticket_id"]], check_permission=False)[0]
+            rent_ticket = f_app.ticket.output([task["ticket_id"]], permission_check=False)[0]
         except:
             self.logger.warning("Failed to load ticket", task["ticket_id"], ", skipping digest generation...")
             return
@@ -1171,7 +1182,7 @@ class f_currant_plugins(f_app.plugin_base):
             f_app.ticket.update_set(task["ticket_id"], {"digest_image": b.get_public_url(filename), "digest_image_generate_time": datetime.utcnow()})
 
     def task_on_rent_ticket_reminder(self, task):
-        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "to rent"}, per_page=0), check_permission=False)
+        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "to rent"}, per_page=0), permission_check=False)
 
         for rent_ticket in tickets:
             if "creator_user" not in rent_ticket or "email" not in rent_ticket["creator_user"]:
@@ -1215,7 +1226,7 @@ class f_currant_plugins(f_app.plugin_base):
                 ticket_id=rent_ticket["id"],
             )
 
-        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=7)}}, per_page=0, notime=True), check_permission=False)
+        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=7)}}, per_page=0, notime=True), permission_check=False)
 
         for rent_ticket in tickets:
             if "creator_user" not in rent_ticket or "email" not in rent_ticket["creator_user"]:
@@ -1254,7 +1265,7 @@ class f_currant_plugins(f_app.plugin_base):
                 ticket_id=rent_ticket["id"],
             )
 
-        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=3)}}, per_page=0, notime=True), check_permission=False)
+        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=3)}}, per_page=0, notime=True), permission_check=False)
 
         for rent_ticket in tickets:
             if "creator_user" not in rent_ticket or "email" not in rent_ticket["creator_user"]:
@@ -2030,10 +2041,10 @@ class f_property(f_app.module_base):
 
         return str(property_id)
 
-    def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, check_permission=True, location_only=False):
+    def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, permission_check=True, location_only=False):
         ignore_sales_comment = True
         propertys = self.get(property_id_list, ignore_nonexist=ignore_nonexist, force_reload=force_reload)
-        if check_permission:
+        if permission_check:
             user = f_app.user.login.get()
             if user:
                 user_roles = f_app.user.get_role(user["id"])
@@ -2044,16 +2055,16 @@ class f_property(f_app.module_base):
         for property in propertys:
             if isinstance(property, dict):
                 if not location_only:
-                    if check_permission and not user:
+                    if permission_check and not user:
                         if "brochure" in property:
                             for item in property["brochure"]:
                                 item.pop("url", None)
                                 item["rendered"] = item.get("rendered", [])[:5]
-                    if check_permission and (not user or not len(user_roles)):
+                    if permission_check and (not user or not len(user_roles)):
                         property.pop("real_address", None)
                     if ignore_sales_comment:
                         property.pop("sales_comment", None)
-                if property["status"] not in ["selling", "sold out", "restricted"] and check_permission:
+                if property["status"] not in ["selling", "sold out", "restricted"] and permission_check:
                     assert property.get("user_generated") or user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
 
         if location_only:
