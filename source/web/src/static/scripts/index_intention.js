@@ -8,6 +8,7 @@
 
         var initBudgetId = ''
         var initIntentionList = ''
+        clearIntentionTags()
         if (window.user.budget && $budgetTag.find('.toggleTag[data-id=' + window.user.budget.id + ']').length) {
             $budgetTag.find('.toggleTag[data-id=' + window.user.budget.id + ']').addClass('selected')
             initBudgetId = window.user.budget.id
@@ -75,7 +76,9 @@
                                                '<img alt="" src="/static/images/intention/close.png"/></li>'
                                               )
         }
-
+        function clearIntentionTags () {
+            $('#tags #intentionTag').find('#list').empty()
+        }
         function removeIntentionTag(id) {
             var $intentionTag = $('#tags #intentionTag')
             $intentionTag.find('#list li[data-id=' + id + ']').remove()
@@ -103,66 +106,71 @@
                 $('.tags_wrapper #intentionTag #suggestionTip').hide()
             }
         }
+        if(!module.setupUserPropertyChooserInit) {
+            module.setupUserPropertyChooserInit = true
+            bindEvent()
+        }
+        function bindEvent() {
+            $budgetTag.on('click', '.toggleTag', function (event) {
 
-        $budgetTag.on('click', '.toggleTag', function (event) {
+                var $item = $(event.target)
+                var alreadySelected = $item.hasClass('selected')
+                var $parent = $(event.target.parentNode)
+                $parent.find('.toggleTag').removeClass('selected')
 
-            var $item = $(event.target)
-            var alreadySelected = $item.hasClass('selected')
-            var $parent = $(event.target.parentNode)
-            $parent.find('.toggleTag').removeClass('selected')
+                if (!alreadySelected) {
+                    $item.addClass('selected')
+                }
 
-            if (!alreadySelected) {
-                $item.addClass('selected')
-            }
+                loadPropertyList(getSelectedBudgetTypeId(), getSelectedIntentionIds())
 
-            loadPropertyList(getSelectedBudgetTypeId(), getSelectedIntentionIds())
+                ga('send', 'event', 'index', 'change', 'change-budget',$item.text())
+            })
 
-            ga('send', 'event', 'index', 'change', 'change-budget',$item.text())
-        })
+            $intentionTag.on('click', '.toggleTag img', function (event) {
 
-        $intentionTag.on('click', '.toggleTag img', function (event) {
+                var $li = $(event.target).parent()
+                var id = $li.attr('data-id')
+                $intentionDetails.find('li[data-id=' + id + ']').removeClass('selected')
+                $intentionDetails.find('input[value=' + id + ']').prop('checked', false)
+                $li.remove()
+                updateSuggestionTip(getSelectedIntentionIds())
+                loadPropertyList(getSelectedBudgetTypeId(), getSelectedIntentionIds())
 
-            var $li = $(event.target).parent()
-            var id = $li.attr('data-id')
-            $intentionDetails.find('li[data-id=' + id + ']').removeClass('selected')
-            $intentionDetails.find('input[value=' + id + ']').prop('checked', false)
-            $li.remove()
-            updateSuggestionTip(getSelectedIntentionIds())
-            loadPropertyList(getSelectedBudgetTypeId(), getSelectedIntentionIds())
+                ga('send', 'event', 'index', 'change', 'remove-intention-on-tag',$li.text())
+            })
 
-            ga('send', 'event', 'index', 'change', 'remove-intention-on-tag',$li.text())
-        })
+            $intentionDetails.find('[name=intention]').on('change', function (event) {
+                var $li = $(this).closest('li')
 
-        $intentionDetails.find('[name=intention]').on('change', function (event) {
-            var $li = $(this).closest('li')
+                $li.toggleClass('selected', this.checked)
 
-            $li.toggleClass('selected', this.checked)
+                if (this.checked) {
+                    addIntetionTag($li.attr('data-id'), $li.attr('data-value'))
+                    ga('send', 'event', 'index', 'change', 'add-intention',$li.text())
+                }
+                else {
+                    removeIntentionTag($li.attr('data-id'))
+                    ga('send', 'event', 'index', 'change', 'remove-intention-on-icon',$li.text())
+                }
+                updateSuggestionTip(getSelectedIntentionIds())
+                loadPropertyList(getSelectedBudgetTypeId(), getSelectedIntentionIds())
+            })
 
-            if (this.checked) {
-                addIntetionTag($li.attr('data-id'), $li.attr('data-value'))
-                ga('send', 'event', 'index', 'change', 'add-intention',$li.text())
-            }
-            else {
-                removeIntentionTag($li.attr('data-id'))
-                ga('send', 'event', 'index', 'change', 'remove-intention-on-icon',$li.text())
-            }
-            updateSuggestionTip(getSelectedIntentionIds())
-            loadPropertyList(getSelectedBudgetTypeId(), getSelectedIntentionIds())
-        })
+            $intentionTag.find('#add').click(function () {
+                $('html, body').animate({scrollTop: $('.intentionTabs_wrapper').offset().top - 60 }, 'fast')
+                $('.intentionTabs_wrapper').animate({height: getIntentionTabsHeight() + 'px'}, 400, 'swing')
+                updateSuggestionTip(getSelectedIntentionIds())
 
-        $intentionTag.find('#add').click(function () {
-            $('html, body').animate({scrollTop: $('.intentionTabs_wrapper').offset().top - 60 }, 'fast')
-            $('.intentionTabs_wrapper').animate({height: getIntentionTabsHeight() + 'px'}, 400, 'swing')
-            updateSuggestionTip(getSelectedIntentionIds())
+                ga('send', 'event', 'index', 'click', 'extend-intention-selection')
+            })
 
-            ga('send', 'event', 'index', 'click', 'extend-intention-selection')
-        })
+            $('.intentionTabs_wrapper').find('#collapseButton').click(function () {
+                $('.intentionTabs_wrapper').animate({height: '0'}, 400, 'swing')
 
-        $('.intentionTabs_wrapper').find('#collapseButton').click(function () {
-            $('.intentionTabs_wrapper').animate({height: '0'}, 400, 'swing')
-
-            ga('send', 'event', 'index', 'click', 'collapse-intention-selection')
-        })
+                ga('send', 'event', 'index', 'click', 'collapse-intention-selection')
+            })
+        }
     }
 
 })(window.currantModule = window.currantModule || {})
