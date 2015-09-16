@@ -359,6 +359,17 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "start": datetime.utcnow(),
         })
 
+    def v21(self, m):
+        virtual_shop = {
+            "admin_user": [],
+            "_id": ObjectId(f_app.common.virtual_shop_id),
+            "name": "virtual_shop",
+            "status": "new",
+            "time": datetime.utcnow(),
+            "type": "virtual",
+        }
+        f_app.shop.get_database(m).update({"_id": virtual_shop["_id"]}, {"$set": virtual_shop}, upsert=True)
+
 currant_mongo_upgrade()
 
 
