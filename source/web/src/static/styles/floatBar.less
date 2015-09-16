@@ -5,7 +5,7 @@
 .floatBar {
     position:fixed;
     left:95%;
-    bottom:30px;
+    bottom:50px;
     width:60px;
     z-index:@float_bar-z-index;
 
@@ -85,8 +85,7 @@
             &#requirement {
                  cursor:pointer;
             }
-
-            &:hover{
+            &:hover, &.hover{
                 .hint{display:block;}
             }
             &:first-child{
@@ -143,6 +142,10 @@
                 margin-top:-15px;
                 height:90px;
                 width:90px;
+            }
+
+            .baiduBridge{
+                margin-top: -26px;
             }
         }
     }
