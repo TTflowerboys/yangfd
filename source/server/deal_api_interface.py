@@ -33,7 +33,7 @@ def get_venue_deals(venue_id):
     share_text=("i18n", None, str),
     display=(bool, True),
 ))
-@f_app.user.login.check(role=["admin", "jr_admin"])
+@f_app.user.login.check(role=["admin", "jr_admin", "operation", "jr_operation"])
 def venue_deal_add(venue_id, user, params):
     """
     Add deal of certain venue
@@ -65,7 +65,7 @@ def venue_deal_add(venue_id, user, params):
     share_text=("i18n", None, str),
     display=bool,
 ))
-@f_app.user.login.check(role=["admin", "jr_admin"])
+@f_app.user.login.check(role=["admin", "jr_admin", "operation", "jr_operation"])
 def venue_deal_edit(venue_id, deal_id, user, params):
     """
     Edit deal of certain venue
@@ -89,7 +89,7 @@ def venue_deal_edit(venue_id, deal_id, user, params):
 
 
 @f_api('/venue/<venue_id>/deal/<deal_id>/remove')
-@f_app.user.login.check(role=["admin", "jr_admin"])
+@f_app.user.login.check(role=["admin", "jr_admin", "operation", "jr_operation"])
 def venue_deal_remove(venue_id, deal_id, user):
     """
     Delete deal of certain venue

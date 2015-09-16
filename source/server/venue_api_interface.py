@@ -38,7 +38,7 @@ def venue(venue_id):
     country="country",
     status=(str, "hide"),
 ))
-@f_app.user.login.check(role=["admin", "jr_admin"])
+@f_app.user.login.check(role=["admin", "jr_admin", "operation", "jr_operation"])
 def venue_add(user, params):
     """
     Add venue
@@ -64,7 +64,7 @@ def venue_add(user, params):
     country="country",
     status=str,
 ))
-@f_app.user.login.check(role=["admin", "jr_admin"])
+@f_app.user.login.check(role=["admin", "jr_admin", "operation", "jr_operation"])
 def venue_edit(venue_id, user, params):
     """
     Edit venue information
@@ -109,7 +109,7 @@ def _check_email(email):
 def venue_search(user, params):
     params.setdefault("type", {"$nin": ["vip", "virtual"]})
     if "status" in params:
-        if not (user and set(user["role"]) & set(["admin", "jr_admin"])):
+        if not (user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"])):
             abort(40105)
 
         params["status"] = {"$in": params["status"]}
