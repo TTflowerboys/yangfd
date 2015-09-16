@@ -6,7 +6,7 @@
 
         $scope.item = {}
         $scope.item.display = false
-        $scope.item.deal_type = 'percentage'
+        $scope.item.deal_type = 'free'
         $scope.submit = function ($event) {
             $event.preventDefault()
             $scope.submitted = true

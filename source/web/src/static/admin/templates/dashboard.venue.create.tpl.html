@@ -2,6 +2,9 @@
     <span class="btn-group">
         <button class="btn btnGoBack" ng-click="$state.go('dashboard.venue')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
     </span>
+    <div class="btn-group form-inline pull-right">
+        <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+    </div>
 </div>
 <form name="venueCreateForm" class="form-horizontal"
     style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,venueCreateForm)"
