@@ -309,6 +309,9 @@
         }
 
         if (!_.isEmpty(params)) {
+            if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/user/edit'] && window.betterAjaxXhr['/api/1/user/edit'].readyState !== 4) {
+                window.betterAjaxXhr['/api/1/user/edit'].abort()
+            }
             $.betterPost('/api/1/user/edit', params)
                 .done(function (data) {
                     window.user = data
