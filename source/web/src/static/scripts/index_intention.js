@@ -8,7 +8,7 @@
 
         var initBudgetId = ''
         var initIntentionList = ''
-        if (window.user.budget) {
+        if (window.user.budget && $budgetTag.find('.toggleTag[data-id=' + window.user.budget.id + ']').length) {
             $budgetTag.find('.toggleTag[data-id=' + window.user.budget.id + ']').addClass('selected')
             initBudgetId = window.user.budget.id
         }
