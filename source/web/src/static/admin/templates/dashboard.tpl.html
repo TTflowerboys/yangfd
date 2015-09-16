@@ -278,7 +278,7 @@
                                 <a href ui-sref="dashboard.appversion" ui-sref-active="active">
                                     <i class="fa fa-mobile-phone"></i><span class="hidden-sm text">{%$root.i18n('App版本管理')%}</span></a>
                             </li>
-                            <li has-permission="admin"
+                            <li has-permission="admin,jr_admin,operation,jr_operation"
                                 ng-class="{active:$state.includes('dashboard.venue')}">
                                 <a href ui-sref="dashboard.venue" ui-sref-active="active">
                                     <i class="fa fa-ticket"></i><span class="hidden-sm text">{%$root.i18n('优惠券管理')%}</span></a>
