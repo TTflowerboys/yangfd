@@ -4,6 +4,22 @@
         $('[data-shared=false]').hide()
         $('[data-shared=true]').show()
     }
+    if(!window.bridge) {
+        var wechatShareData = {
+            title: $('.shareBtn').attr('data-sharetextv2') ? $('.shareBtn').attr('data-sharetextv2') : $('.shareBtn').attr('data-sharetext'),
+            link: location.protocol + '//' + location.host + '/app-download?target=user-coupons&venue=' + $('.shareBtn').attr('data-venueid') + '&deal=' + $('.shareBtn').attr('data-dealid'),
+            imgUrl: $('.shareBtn').attr('data-shareimage'),
+            desc: $('.shareBtn').attr('data-sharedesc'),
+            success:function(){
+                ga('send', 'event', 'offer', 'share', 'share-to-wechat-success-in-wechat')
+                return shareSuccessCallback()
+            },
+            cancel:function(){
+                ga('send', 'event', 'offer', 'share', 'share-to-wechat-cancel-in-wechat')
+            }
+        }
+        window.wechatShareSDK.init(wechatShareData)
+    }
     $('.shareBtn').on('click', function () {
         if(window.bridge) {
             ga('send', 'event', 'offer', 'click', 'share-to-wechat-in-app')
@@ -23,20 +39,7 @@
             })
         } else {
             ga('send', 'event', 'offer', 'click', 'share-to-wechat-in-wechat')
-            var wechatShareData = {
-                title: $(this).attr('data-sharetextv2') ? $(this).attr('data-sharetextv2') : $(this).attr('data-sharetext'),
-                link: location.protocol + '//' + location.host + '/app-download?target=user-coupons&venue=' + $(this).attr('data-venueid') + '&deal=' + $(this).attr('data-dealid'),
-                imgUrl: $(this).attr('data-shareimage'),
-                desc: $(this).attr('data-sharedesc'),
-                success:function(){
-                    ga('send', 'event', 'offer', 'share', 'share-to-wechat-success-in-wechat')
-                    return shareSuccessCallback()
-                },
-                cancel:function(){
-                    ga('send', 'event', 'offer', 'share', 'share-to-wechat-cancel-in-wechat')
-                }
-            }
-            window.wechatShareSDK.setUp(wechatShareData)
+            window.wechatShareSDK.showGuideLine()
         }
     })
 })()
