@@ -91,9 +91,9 @@
                         }
                     }
                     var wechatShareData = _.extend(_.clone(defaultWechatShareData), option)
-                    var timelineWechatShareData = _.extend(_.clone(wechatShareData), callbackObj.timeline)
-                    var appMessageWechatShareData = _.extend(_.clone(wechatShareData), callbackObj.appMessage)
-                    var qqWechatShareData = _.extend(_.clone(wechatShareData), callbackObj.qq)
+                    var timelineWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.timeline : {}))
+                    var appMessageWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.appMessage : {}))
+                    var qqWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.qq : {}))
 
                     window.wx.onMenuShareTimeline(timelineWechatShareData);
                     window.wx.onMenuShareAppMessage(appMessageWechatShareData);
