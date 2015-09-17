@@ -60,26 +60,22 @@ def is_mobile_client():
     return b"currant" in request.headers.get('User-Agent').lower()
 
 
-def compare_version(version_a, version_b):
-    cmp = lambda x, y: StrictVersion(x).__cmp__(y)
-    return cmp(version_a, version_b)
-
-
 def is_mobile_client_version(condition, version):
     ua = request.headers.get('User-Agent').lower()
     match = re.search(r'currant\/([0-9\.]*)', ua)
+    version = StrictVersion(version)
     if match and match.group(1):
-        ver = match.group(1)
+        ver = StrictVersion(match.group(1))
         if condition == '>=':
-            return compare_version(ver, version) >= 0
+            return ver >= version
         elif condition == '>':
-            return compare_version(ver, version) > 0
+            return ver > version
         elif condition == '<=':
-            return compare_version(ver, version) <= 0
+            return ver <= version
         elif condition == '<':
-            return compare_version(ver, version) < 0
+            return ver < version
         elif condition == '==':
-            return compare_version(ver, version) == 0
+            return ver == version
 
     return False
 
