@@ -223,16 +223,16 @@
                 var match = /currant\/([0-9\.]*)/.exec(ua)
                 if (match && match.length >= 2) {
                     var version = match[1]
-                    if (versionStr.startsWith('>=')) {
+                    if (versionStr.substr(0, 2) === '>=') {
                         return team.compareVersion(version, versionStr.substr(2)) >= 0
                     }
-                    else if (versionStr.startsWith('>')) {
+                    else if (versionStr.substr(0, 1) === '>') {
                         return team.compareVersion(version, versionStr.substr(1)) > 0
                     }
-                    else if (versionStr.startsWith('<=')) {
+                    else if (versionStr.substr(0, 2) === '<=') {
                         return team.compareVersion(version, versionStr.substr(2)) <= 0
                     }
-                    else if (versionStr.startsWith('<')) {
+                    else if (versionStr.substr(0, 1) === '<') {
                         return team.compareVersion(version, versionStr.substr(1)) < 0
                     }
                     else {
