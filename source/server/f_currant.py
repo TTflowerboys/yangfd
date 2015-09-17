@@ -821,7 +821,7 @@ class f_currant_plugins(f_app.plugin_base):
             phonenumber = phonenumbers.parse(raw_row["phone"])
             result_row["phone"] = phonenumbers.format_number(phonenumber, phonenumbers.PhoneNumberFormat.NATIONAL).replace(" ", "")
             result_row["country_code"] = phonenumber.country_code
-        if "custom_fields" in raw_row and set(f_app.user.get_role(user["id"])) & set(f_app.common.advanced_admin_roles):
+        if "custom_fields" in raw_row and user and set(f_app.user.get_role(user["id"])) & set(f_app.common.advanced_admin_roles):
             result_row["custom_fields"] = raw_row["custom_fields"]
         return result_row
 
