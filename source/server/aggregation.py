@@ -10,6 +10,27 @@ f_app.common.mongo_server = "172.20.101.98"
 
 with f_app.mongo() as m:
 
+    # 填写了门牌号的
+    # print('填写了门牌号的:')
+    # cursor = m.tickets.aggregate(
+    #     [
+    #         {'$match': {'type': "rent"}}
+    #     ]
+    # )
+
+    # target_tickets_id_list = []
+    # for document in cursor:
+    #     if(document['_id']):
+    #         target_tickets_id_list.append(str(document['_id']))
+    # print(target_tickets_id_list)
+    # target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_tickets_id_list, ignore_nonexist=True, permission_check=False))
+    # total_tickets_count_with_house_name = 0
+    # for ticket in target_tickets:
+    #     if ticket and 'property' in ticket and 'house_name' in ticket['property']:
+    #         total_tickets_count_with_house_name = total_tickets_count_with_house_name + 1
+    #         print(ticket['title'] + ", " + str(ticket['id']) + ': ' + ticket['property']['house_name'])
+    # print('Total tickets with house name count: ' + str(total_tickets_count_with_house_name))
+
     # Configure global filter params here
     # TODO
 
@@ -87,15 +108,15 @@ with f_app.mongo() as m:
             print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'] + ":" + str(document['count']))
 
     # 按收藏类型统计
-    print('\n按收藏类型统计:')
+    print('\n按收藏类型统计被收藏过的次数:')
     cursor = m.favorites.aggregate(
         [
             {'$group': {'_id': "$type", 'count': {'$sum': 1}}}
         ]
     )
     fav_type_dic = {
-        'rent_ticket': '已出租',
-        'property': '发布中',
+        'rent_ticket': '出租房源',
+        'property': '海外房产',
         'item': '众筹'
     }
 
@@ -213,7 +234,7 @@ with f_app.mongo() as m:
             target_ticket_dic[str(document['_id'])] = document['count']
 
     target_ticket_dic = OrderedDict(sorted(target_ticket_dic.items(), key=lambda t: t[1], reverse=True))
-    target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_ticket_dic.keys(), fuzzy_user_info=True))
+    target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_ticket_dic.keys(), ignore_nonexist=True, permission_check=False))
     for ticket in target_tickets:
         print(ticket['title'] + ", " + str(ticket['id']) + ": " + str(target_ticket_dic.get(ticket['id'])))
 
