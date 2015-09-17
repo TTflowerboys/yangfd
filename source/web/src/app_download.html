@@ -19,66 +19,15 @@
     <i class="arrow"></i>
 </div>
 
-<!--微信签名 start-->
-<textarea id="pythonWeixin" style="display: none;">
-    {{json_dumps(weixin)}}
-</textarea>
-<!--微信签名 end-->
+
 <!--@@close-->
 
 <!--@@block=scripts -->
-
+<!-- @@include = partials/wechatShareSDK.html -->
 <!--build:js /static/scripts/app_download.html.js-->
 <script src="/static/bower_components/swiper/dist/js/swiper.jquery.js"></script>
 <script src="/static/scripts/app_download.js"></script>
 <!--endbuild-->
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script>
-    /*
-     * Weixin share sdk
-     * */
-    $(function () {
-        var weixin = $('#pythonWeixin').text()
-        if(weixin && weixin !== 'null' && weixin !== 'none' && weixin !== ''){
-            weixin = JSON.parse(weixin)
-        }
-
-        if (typeof window.wx !== 'undefined' && typeof weixin === 'object') {
-            window.wx.config({
-                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                appId: 'wx123992a4d173037b', // 必填，公众号的唯一标识
-                timestamp: weixin.timestamp, // 必填，生成签名的时间戳
-                nonceStr: weixin.noncestr, // 必填，生成签名的随机串
-                signature: weixin.signature,// 必填，签名，见附录1
-                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-            })
-
-            window.wx.ready(function(){
-                var wechatShareData = {
-                        title: window.i18n('发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'),
-                        link: window.location.href,
-                        imgUrl: 'http://upload.yangfd.com/app_icon_x120_150427.png',
-                        desc: window.i18n('发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'),
-                        success:function(){
-                            ga('send', 'event', 'app_download', 'share', 'share-to-wechat-success')
-                        },
-                        cancel:function(){
-                            ga('send', 'event', 'app_download', 'share', 'share-to-wechat-cancel')
-                        }
-                    }
-
-                window.wx.onMenuShareTimeline(wechatShareData);
-                window.wx.onMenuShareAppMessage(wechatShareData);
-                window.wx.onMenuShareQQ(wechatShareData);
-            })
-
-            window.wx.error(function(res){
-//                ga('send', 'event', 'wechat_poster', 'share', 'share-to-wechat-config-error', res.errMsg)
-            })
-        }
-    })
-</script>
-
 <!--@@close-->
 
 

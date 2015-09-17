@@ -7,7 +7,7 @@
         if(window.bridge) {
             window.bridge.callHandler('share', {
                 'text': $(this).attr('data-shareText'),
-                'url': location.protocol + '//' + location.host + '/app-download?target=user-coupons',
+                'url': location.protocol + '//' + location.host + '/app-download?target=user-coupons&venue=' + $(this).attr('data-venueId') + '&deal=' + $(this).attr('data-dealId'),
                 'image': $(this).attr('data-shareImage'),
                 'services': ['Wechat Circle']
             }, function(response) {

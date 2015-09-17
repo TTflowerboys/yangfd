@@ -116,7 +116,7 @@
                     </a>
                     {{_('消息')}}
                 </li>
-                <li class="hiddenOnPCWeb">
+                <li data-show-client="app,wechat" style="display: none;">
                     <a href="/user-coupons">
                         <i class="icon-gift"></i>
                     </a>
@@ -132,6 +132,8 @@
 <!--build:js /static/scripts/user.html.js-->
 <script src="/static/scripts/resize_main.js"></script>
 <!--endbuild-->
-
+<script>
+    window.team.initDisplayOfElement()
+</script>
 <!--@@placeholder=scripts-->
 <!--@@close-->

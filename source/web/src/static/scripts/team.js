@@ -469,9 +469,10 @@
                 var $this = $(this)
                 var clients = window.team.getClients()
                 var showClient = $this.attr('data-show-client')
-                $this.css('display','')
                 if(!(_.intersection(showClient.split(','), clients).length)) {
                     $this.hide()
+                } else {
+                    $this.css('display','')
                 }
             })
         },

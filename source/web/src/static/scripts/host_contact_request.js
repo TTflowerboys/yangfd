@@ -42,7 +42,7 @@ $(function () {
     }
     function shareAppToCircle() {
         $('#shareAppToCircle').off('click').on('click', function () {
-            window.wechatShareSDK.init({
+            window.wechatShareSDK.setUp({
                 title: window.i18n('发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'),
                 link: 'http://yangfd.com/app-download',
                 imgUrl: 'http://upload.yangfd.com/app_icon_x120_150427.png',

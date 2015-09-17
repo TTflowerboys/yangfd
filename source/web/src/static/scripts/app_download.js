@@ -56,4 +56,39 @@
     }
 
     window.team.initDisplayOfElement()
+    var wechatShareData = {
+        title: window.i18n('发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'),
+        link: window.location.href,
+        imgUrl: 'http://upload.yangfd.com/app_icon_x120_150427.png',
+        desc: window.i18n('发现一个很不错的海外出租，求租的东东，小伙伴们不用谢！大家好才是真的好！'),
+        success:function(){
+            ga('send', 'event', 'app_download', 'share', 'share-to-wechat-success')
+        },
+        cancel:function(){
+            ga('send', 'event', 'app_download', 'share', 'share-to-wechat-cancel')
+        }
+    }
+    if(window.team.getQuery('target', location.href) === 'user-coupons') {
+        var venueId = window.team.getQuery('venue', location.href)
+        var dealId = window.team.getQuery('deal', location.href)
+        if(venueId && dealId) {
+            $.betterPost('/api/1/venue/' + venueId)
+                .done(function (venue) {
+                    var deal = _.find(venue.deals, function (item) {
+                        return item.id === dealId
+                    })
+                    wechatShareData = _.extend(wechatShareData, {
+                        title: deal.share_text,
+                        link: window.location.href,
+                        imgUrl: venue.logo,
+                        desc: venue.name + '-' + deal.name
+                    })
+                    window.wechatShareSDK.init(wechatShareData)
+                })
+        } else {
+            window.wechatShareSDK.init(wechatShareData)
+        }
+    } else {
+        window.wechatShareSDK.init(wechatShareData)
+    }
 })(window.Swiper)

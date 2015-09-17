@@ -207,4 +207,4 @@ def user_messages(venue_id, deal_id, user):
     deal["venue"] = venue
     title = deal.get('name') + '-' + venue.get('name')
 
-    return currant_util.common_template("user_coupons_detail", user=user, deal=deal, title=title)
+    return currant_util.common_template("user_coupons_detail", user=user, deal=deal, title=title, venue_id=venue_id, deal_id=deal_id)

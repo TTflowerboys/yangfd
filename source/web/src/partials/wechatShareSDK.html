@@ -47,9 +47,23 @@
         if(weixin && weixin !== 'null' && weixin !== 'none' && weixin !== ''){
             weixin = JSON.parse(weixin)
         }
-        function showGuideLine () {
+        window.wechatShareSDK.showGuideLine = function showGuideLine () {
             $('.guideLine').fadeIn(300).click(function () {
                 $(this).fadeOut(300)
+            })
+        }
+        window.wechatShareSDK.init = window.wechatShareSDK.init || function (option, callbackObj) {
+            window.wechatShareSDK.initQuene = window.wechatShareSDK.initQuene || []
+            window.wechatShareSDK.initQuene.push({
+                option: option,
+                callbackObj: callbackObj
+            })
+        }
+        window.wechatShareSDK.setUp = window.wechatShareSDK.setUp || function (option, callbackObj) {
+            window.wechatShareSDK.setUpQuene = window.wechatShareSDK.setUpQuene || []
+            window.wechatShareSDK.setUpQuene.push({
+                option: option,
+                callbackObj: callbackObj
             })
         }
         if (typeof window.wx !== 'undefined' && typeof weixin === 'object') {
@@ -84,7 +98,18 @@
                     window.wx.onMenuShareTimeline(timelineWechatShareData);
                     window.wx.onMenuShareAppMessage(appMessageWechatShareData);
                     window.wx.onMenuShareQQ(qqWechatShareData);
-                    showGuideLine()
+                }
+                window.wechatShareSDK.setUp = function (option, callbackObj) {
+                    window.wechatShareSDK.init(option, callbackObj)
+                    window.wechatShareSDK.showGuideLine()
+                }
+                while(window.wechatShareSDK.initQuene && window.wechatShareSDK.initQuene.length) {
+                    window.wechatShareSDK.init(window.wechatShareSDK.initQuene[0].option, window.wechatShareSDK.initQuene[0].callbackObj)
+                    window.wechatShareSDK.initQuene.shift()
+                }
+                while(window.wechatShareSDK.setUpQuene && window.wechatShareSDK.setUpQuene.length) {
+                    window.wechatShareSDK.setUp(window.wechatShareSDK.setUpQuene[0].option, window.wechatShareSDK.setUpQuene[0].callbackObj)
+                    window.wechatShareSDK.setUpQuene.shift()
                 }
             })
 
