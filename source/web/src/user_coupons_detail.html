@@ -10,7 +10,7 @@
 
 <div class="content">
     <div class="banner" style="background-image: url('{{deal.get('venue', {}).get('pictures',[])[0]}}')">
-        <img class="logo" src="{{deal.get('venue', {}).get('logo')}}" alt=""/>
+        <div class="logo" style="background-image: url({{deal.get('venue', {}).get('logo')}})" alt=""></div>
         <p>{{deal.get('venue',{}).get('name')}}<br>{{_('洋房东会员专享福利')}}</p>
     </div>
     <div class="info">
