@@ -865,7 +865,10 @@ class f_currant_plugins(f_app.plugin_base):
 
     def task_on_rent_ticket_check_intention(self, task):
         ticket_id = task["ticket_id"]
-        ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id], permission_check=False)[0], _i18n=["zh_Hans_CN"])
+        ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id], permission_check=False, ignore_nonexist=True)[0], _i18n=["zh_Hans_CN"])
+
+        if "property" not in ticket or "country" not in ticket["property"] or "city" not in ticket["property"]:
+            return
 
         # Scan existing rent intention ticket
         params = {
@@ -1189,7 +1192,7 @@ class f_currant_plugins(f_app.plugin_base):
                 self.logger.warning("Ticket doesn't have a valid creator user:", rent_ticket["id"], ", ignoring reminder...", exc_info=False)
                 continue
 
-            if "rent_ticket_reminder" not in rent_ticket["creator_user"]["email_message_type"]:
+            if "rent_ticket_reminder" not in rent_ticket["creator_user"].get("email_message_type", []):
                 continue
 
             last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "rent_ticket_reminder": "is_rent_success", "ticket_id": rent_ticket["id"], "start": {"$gte": datetime.utcnow() - timedelta(days=7)}})
@@ -1233,7 +1236,7 @@ class f_currant_plugins(f_app.plugin_base):
                 self.logger.warning("Ticket doesn't have a valid creator user:", rent_ticket["id"], ", ignoring reminder...", exc_info=False)
                 continue
 
-            if "rent_ticket_reminder" not in rent_ticket["creator_user"]["email_message_type"]:
+            if "rent_ticket_reminder" not in rent_ticket["creator_user"].get("email_message_type", []):
                 continue
 
             last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "ticket_id": rent_ticket["id"], "rent_ticket_reminder": "draft_7day"})
@@ -1272,7 +1275,7 @@ class f_currant_plugins(f_app.plugin_base):
                 self.logger.warning("Ticket doesn't have a valid creator user:", rent_ticket["id"], ", ignoring reminder...", exc_info=False)
                 continue
 
-            if "rent_ticket_reminder" not in rent_ticket["creator_user"]["email_message_type"]:
+            if "rent_ticket_reminder" not in rent_ticket["creator_user"].get("email_message_type", []):
                 continue
 
             last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "ticket_id": rent_ticket["id"], "rent_ticket_reminder": {"$in": ["draft_3day", "draft_7day"]}})
