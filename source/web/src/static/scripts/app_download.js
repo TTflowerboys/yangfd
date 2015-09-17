@@ -71,6 +71,14 @@
     if(window.team.getQuery('target', location.href) === 'user-coupons') {
         var venueId = window.team.getQuery('venue', location.href)
         var dealId = window.team.getQuery('deal', location.href)
+        wechatShareData = _.extend(wechatShareData, {
+            success:function(){
+                ga('send', 'event', 'offer', 'share', 'share-to-wechat-success')
+            },
+            cancel:function(){
+                ga('send', 'event', 'offer', 'share', 'share-to-wechat-cancel')
+            }
+        })
         if(venueId && dealId) {
             $.betterPost('/api/1/venue/' + venueId)
                 .done(function (venue) {
