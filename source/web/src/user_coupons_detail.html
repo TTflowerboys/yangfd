@@ -39,7 +39,10 @@
         </p>
         %if deal.get('deal_off_shared') or deal.get('free_text_shared'):
         <div class="share" data-shared="false" data-show-client="app,wechat" style="display: none;">
-            <button class="shareBtn" data-shareText="{{deal.get('share_text')}}" data-shareImage="{{deal.get('venue',{}).get('logo')}}" data-venueId="{{venue_id}}" data-dealId="{{deal_id}}" data-shareDesc="{{deal.get('venue',{}).get('name','')}}-{{deal.get('name','')}}"><i class="icon-circle"></i>{{_('分享到朋友圈')}}</button>
+            <button class="shareBtn verticalMiddleWrap" data-sharetext="{{deal.get('share_text')}}" data-sharetextv2="{{deal.get('share_text_v2','')}}" data-shareimage="{{deal.get('venue',{}).get('logo')}}" data-venueid="{{venue_id}}" data-dealid="{{deal_id}}" data-sharedesc="{{deal.get('venue',{}).get('name','')}}-{{deal.get('name','')}}">
+                <i class="icon-circle"></i>
+                <span>{{deal.get('share_button_text',_('分享到朋友圈'))}}</span>
+            </button>
         </div>
         <p class="shareSuccess" data-shared="true" style="display: none">
             {{_('您已成功分享到朋友圈！')}}

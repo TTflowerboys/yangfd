@@ -78,7 +78,7 @@
                         return item.id === dealId
                     })
                     wechatShareData = _.extend(wechatShareData, {
-                        title: deal.share_text,
+                        title: deal.share_text_v2 ? deal.share_text_v2 : deal.share_text,
                         link: window.location.href,
                         imgUrl: venue.logo,
                         desc: venue.name + '-' + deal.name
