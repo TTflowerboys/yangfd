@@ -28,6 +28,15 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="form-group col-sm-6 ">
+            <label class="control-label">{%$root.i18n('分享按钮文字')%} *</label>
+
+            <div class="controls">
+                <input class="form-control" ng-model="item.share_button_text[userLanguage.value]" type="text" type-i18n="item.share_button_text"/>
+            </div>
+        </div>
+    </div>
     <div class="row" ng-if="item.deal_type !== 'free'">
         <div class="form-group col-sm-6">
             <label class="control-label" ng-if="item.deal_type === 'percentage'">{%$root.i18n('分享前折扣（如果是9折请填写数字9）')%} *</label>
@@ -69,11 +78,18 @@
 
     </div>
     <div class="row">
-        <div class="form-group col-sm-12 ">
-            <label class="control-label">{%$root.i18n('分享到朋友圈的文案')%} *</label>
+        <div class="form-group col-sm-6 ">
+            <label class="control-label">{%$root.i18n('分享到朋友圈的文案(旧版App)')%} *</label>
 
             <div class="controls">
-                <textarea cols="80" rows="3" type="text" ng-model="item.share_text[userLanguage.value]" type-i18n="item.share_text"></textarea>
+                <textarea style="width: 100%" rows="3" type="text" ng-model="item.share_text[userLanguage.value]" type-i18n="item.share_text"></textarea>
+            </div>
+        </div>
+        <div class="form-group col-sm-6 ">
+            <label class="control-label">{%$root.i18n('分享到朋友圈的文案(新版App)')%} *</label>
+
+            <div class="controls">
+                <textarea style="width: 100%" rows="3" type="text" ng-model="item.share_text_v2[userLanguage.value]" type-i18n="item.share_text_v2"></textarea>
             </div>
         </div>
     </div>
