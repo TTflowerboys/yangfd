@@ -41,78 +41,76 @@
     /*
      * Weixin share sdk
      * */
-    $(function(){
-        window.wechatShareSDK = window.wechatShareSDK || {}
-        var weixin = $('#pythonWeixin').text()
-        if(weixin && weixin !== 'null' && weixin !== 'none' && weixin !== ''){
-            weixin = JSON.parse(weixin)
-        }
-        window.wechatShareSDK.showGuideLine = function showGuideLine () {
-            $('.guideLine').fadeIn(300).click(function () {
-                $(this).fadeOut(300)
-            })
-        }
-        window.wechatShareSDK.init = window.wechatShareSDK.init || function (option, callbackObj) {
-            window.wechatShareSDK.initQuene = window.wechatShareSDK.initQuene || []
-            window.wechatShareSDK.initQuene.push({
-                option: option,
-                callbackObj: callbackObj
-            })
-        }
-        window.wechatShareSDK.setUp = window.wechatShareSDK.setUp || function (option, callbackObj) {
-            window.wechatShareSDK.setUpQuene = window.wechatShareSDK.setUpQuene || []
-            window.wechatShareSDK.setUpQuene.push({
-                option: option,
-                callbackObj: callbackObj
-            })
-        }
-        if (typeof window.wx !== 'undefined' && typeof weixin === 'object') {
-            window.wx.config({
-                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                appId: 'wx123992a4d173037b', // 必填，公众号的唯一标识
-                timestamp: weixin.timestamp, // 必填，生成签名的时间戳
-                nonceStr: weixin.noncestr, // 必填，生成签名的随机串
-                signature: weixin.signature,// 必填，签名，见附录1
-                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-            })
-            window.wx.ready(function(){
-                window.wechatShareSDK.init = function (option, callbackObj) {
-                    callbackObj = callbackObj || {}
-                    var defaultWechatShareData = {
-                        title: '{{title}}',
-                        link: window.location.href,
-                        imgUrl: 'http://upload.yangfd.com/app_icon_x120_150427.png',
-    //                        desc: '',
-                        success:function(){
+    window.wechatShareSDK = window.wechatShareSDK || {}
+    var weixin = $('#pythonWeixin').text()
+    if(weixin && weixin !== 'null' && weixin !== 'none' && weixin !== ''){
+        weixin = JSON.parse(weixin)
+    }
+    window.wechatShareSDK.showGuideLine = function showGuideLine () {
+        $('.guideLine').fadeIn(300).click(function () {
+            $(this).fadeOut(300)
+        })
+    }
+    window.wechatShareSDK.init = window.wechatShareSDK.init || function (option, callbackObj) {
+        window.wechatShareSDK.initQuene = window.wechatShareSDK.initQuene || []
+        window.wechatShareSDK.initQuene.push({
+            option: option,
+            callbackObj: callbackObj
+        })
+    }
+    window.wechatShareSDK.setUp = window.wechatShareSDK.setUp || function (option, callbackObj) {
+        window.wechatShareSDK.setUpQuene = window.wechatShareSDK.setUpQuene || []
+        window.wechatShareSDK.setUpQuene.push({
+            option: option,
+            callbackObj: callbackObj
+        })
+    }
+    if (typeof window.wx !== 'undefined' && typeof weixin === 'object') {
+        window.wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: 'wx123992a4d173037b', // 必填，公众号的唯一标识
+            timestamp: weixin.timestamp, // 必填，生成签名的时间戳
+            nonceStr: weixin.noncestr, // 必填，生成签名的随机串
+            signature: weixin.signature,// 必填，签名，见附录1
+            jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        })
+        window.wx.ready(function(){
+            window.wechatShareSDK.init = function (option, callbackObj) {
+                callbackObj = callbackObj || {}
+                var defaultWechatShareData = {
+                    title: '{{title}}',
+                    link: window.location.href,
+                    imgUrl: 'http://upload.yangfd.com/app_icon_x120_150427.png',
+//                        desc: '',
+                    success:function(){
 
-                        },
-                        cancel:function(){
+                    },
+                    cancel:function(){
 
-                        }
                     }
-                    var wechatShareData = _.extend(_.clone(defaultWechatShareData), option)
-                    var timelineWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.timeline : {}))
-                    var appMessageWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.appMessage : {}))
-                    var qqWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.qq : {}))
+                }
+                var wechatShareData = _.extend(_.clone(defaultWechatShareData), option)
+                var timelineWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.timeline : {}))
+                var appMessageWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.appMessage : {}))
+                var qqWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.qq : {}))
 
-                    window.wx.onMenuShareTimeline(timelineWechatShareData);
-                    window.wx.onMenuShareAppMessage(appMessageWechatShareData);
-                    window.wx.onMenuShareQQ(qqWechatShareData);
-                }
-                window.wechatShareSDK.setUp = function (option, callbackObj) {
-                    window.wechatShareSDK.init(option, callbackObj)
-                    window.wechatShareSDK.showGuideLine()
-                }
-                while(window.wechatShareSDK.initQuene && window.wechatShareSDK.initQuene.length) {
-                    window.wechatShareSDK.init(window.wechatShareSDK.initQuene[0].option, window.wechatShareSDK.initQuene[0].callbackObj)
-                    window.wechatShareSDK.initQuene.shift()
-                }
-                while(window.wechatShareSDK.setUpQuene && window.wechatShareSDK.setUpQuene.length) {
-                    window.wechatShareSDK.setUp(window.wechatShareSDK.setUpQuene[0].option, window.wechatShareSDK.setUpQuene[0].callbackObj)
-                    window.wechatShareSDK.setUpQuene.shift()
-                }
-            })
+                window.wx.onMenuShareTimeline(timelineWechatShareData);
+                window.wx.onMenuShareAppMessage(appMessageWechatShareData);
+                window.wx.onMenuShareQQ(qqWechatShareData);
+            }
+            window.wechatShareSDK.setUp = function (option, callbackObj) {
+                window.wechatShareSDK.init(option, callbackObj)
+                window.wechatShareSDK.showGuideLine()
+            }
+            while(window.wechatShareSDK.initQuene && window.wechatShareSDK.initQuene.length) {
+                window.wechatShareSDK.init(window.wechatShareSDK.initQuene[0].option, window.wechatShareSDK.initQuene[0].callbackObj)
+                window.wechatShareSDK.initQuene.shift()
+            }
+            while(window.wechatShareSDK.setUpQuene && window.wechatShareSDK.setUpQuene.length) {
+                window.wechatShareSDK.setUp(window.wechatShareSDK.setUpQuene[0].option, window.wechatShareSDK.setUpQuene[0].callbackObj)
+                window.wechatShareSDK.setUpQuene.shift()
+            }
+        })
 
-        }
-    })
+    }
 </script>
