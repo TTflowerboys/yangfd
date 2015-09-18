@@ -10,18 +10,25 @@
     style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,venueCreateForm)"
     novalidate >
     <div class="row">
-        <div class="form-group col-sm-6 ">
+        <div class="form-group col-sm-4 ">
             <label class="control-label">{%$root.i18n('店铺名称')%} *</label>
 
             <div class="controls">
                 <input class="form-control" ng-model="item.name[userLanguage.value]" type="text" type-i18n="item.name"/>
             </div>
         </div>
-        <div class="form-group col-sm-6 ">
+        <div class="form-group col-sm-4 ">
             <label class="control-label">{%$root.i18n('店铺电话')%} *</label>
 
             <div class="controls">
                 <input class="form-control" ng-model="item.phone" type="text"/>
+            </div>
+        </div>
+        <div class="form-group col-sm-4">
+            <label class="control-label">{%$root.i18n('sort_value')%}</label>
+
+            <div class="controls">
+                <input class="form-control" type="text" ng-model="item.sort_value"/>
             </div>
         </div>
     </div>

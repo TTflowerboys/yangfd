@@ -188,7 +188,6 @@ def user_messages(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
 
     venue_list = currant_data_helper.get_venues()
-    print(venue_list)
 
     title = _('会员专享')
     return currant_util.common_template("user_coupons", user=user, venue_list=venue_list, title=title)
