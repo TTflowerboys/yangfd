@@ -46,14 +46,10 @@
     $('a.appStore').click(function (e) {
         if (window.team.isWeChat()) {
             e.preventDefault()
-            showGuideLine()
+            window.wechatShareSDK.showGuideLine(i18n('点击后在弹出的菜单中选择 [在Safari中打开]'))
         }
     })
-    function showGuideLine () {
-        $('.guideLine').fadeIn(300).click(function () {
-            $(this).fadeOut(300)
-        })
-    }
+
 
     window.team.initDisplayOfElement()
     var wechatShareData = {

@@ -46,8 +46,10 @@
     if(weixin && weixin !== 'null' && weixin !== 'none' && weixin !== ''){
         weixin = JSON.parse(weixin)
     }
-    window.wechatShareSDK.showGuideLine = function showGuideLine () {
-        $('.guideLine').fadeIn(300).click(function () {
+    window.wechatShareSDK.showGuideLine = function showGuideLine (text) {
+        text = text || i18n('点击后在弹出的菜单中选择 [分享到朋友圈]')
+        $('.guideLine p').text(text)
+        $('.guideLine').fadeIn(300).off('click').on('click', function () {
             $(this).fadeOut(300)
         })
     }

@@ -106,7 +106,7 @@
                 var publishHeight = $('.publishInClient').height()
                 $('.publishInClient').css('margin-top', ((windowHeight - tabbarHeight - publishHeight) / 2) + 'px')
             }
-            else if (window.team.isPhone()) {
+            else if (window.team.isPhone() && !window.team.isWeChat()) {
                 window.team.initDisplayOfElement()
             }
             else  {
