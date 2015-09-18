@@ -71,17 +71,17 @@
 
         function addIntetionTag(id, value) {
             var $intentionTag = $('#tags #intentionTag')
-            $intentionTag.find('#list').append('<li class="toggleTag selected" data-id="' + id + '">' +
+            $intentionTag.find('.list').append('<li class="toggleTag selected" data-id="' + id + '">' +
                                                value +
                                                '<img alt="" src="/static/images/intention/close.png"/></li>'
                                               )
         }
         function clearIntentionTags () {
-            $('#tags #intentionTag').find('#list').empty()
+            $('#tags #intentionTag').find('.list').empty()
         }
         function removeIntentionTag(id) {
             var $intentionTag = $('#tags #intentionTag')
-            $intentionTag.find('#list li[data-id=' + id + ']').remove()
+            $intentionTag.find('.list li[data-id=' + id + ']').remove()
         }
 
         function getIntentionTabsHeight() {

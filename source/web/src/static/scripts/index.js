@@ -239,19 +239,19 @@
             var houseResult = {}
             if (house.isEmpty) {
                 houseResult = _.template($('#empty_houseCard_template').html())({house: house})
-                $('#suggestionHouses #list').append(houseResult)
+                $('#suggestionHouses .list').append(houseResult)
 
             }
             else {
                 houseResult = _.template($('#suggestion_houseCard_template').html())({house: house})
-                $('#suggestionHouses #list').append(houseResult)
+                $('#suggestionHouses .list').append(houseResult)
             }
         })
         updatePropertyCardMouseEnter()
     }
 
     // function removePropertyCard(id) {
-    //     $('#suggestionHouses #list .houseCard_wrapper[data-category-intention-id=' + id + ']').remove()
+    //     $('#suggestionHouses .list .houseCard_wrapper[data-category-intention-id=' + id + ']').remove()
     // }
 
     function updatePropertyCardMouseEnter() {
@@ -475,7 +475,7 @@
 
     function loadPropertyList(budgetType, intention) {
         cancelLoadPropertyList()
-        $('#suggestionHouses #list').empty()
+        $('#suggestionHouses .list').empty()
         loadPropertyListWithBudgetAndIntention(budgetType, commaStringToArray(intention))
         window.project.currentBudgetId = budgetType
         window.project.currentIntentionIds = intention
