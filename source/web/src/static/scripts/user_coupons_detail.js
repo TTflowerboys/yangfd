@@ -4,7 +4,7 @@
         $('[data-shared=false]').hide()
         $('[data-shared=true]').show()
     }
-    if(!window.bridge) {
+    if(window.team.isWeChat()) {
         var wechatShareData = {
             title: $('.shareBtn').attr('data-sharetextv2') ? $('.shareBtn').attr('data-sharetextv2') : $('.shareBtn').attr('data-sharetext'),
             link: location.protocol + '//' + location.host + '/app-download?target=user-coupons&venue=' + $('.shareBtn').attr('data-venueid') + '&deal=' + $('.shareBtn').attr('data-dealid'),
@@ -37,7 +37,7 @@
                 }
                 //todo App中取消分享或者分享失败
             })
-        } else {
+        } else if(window.team.isWeChat()){
             ga('send', 'event', 'offer', 'click', 'share-to-wechat-in-wechat')
             window.wechatShareSDK.showGuideLine()
         }
