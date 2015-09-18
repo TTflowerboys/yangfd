@@ -44,6 +44,11 @@
         }
     })
     $('a.appStore').click(function (e) {
+        if(window.team.getQuery('target', location.href) === 'user-coupons') {
+            ga('send', 'event', 'offer', 'click', 'app-download')
+        } else {
+            ga('send', 'event', 'app-download', 'click', 'app-download')
+        }
         if (window.team.isWeChat()) {
             e.preventDefault()
             window.wechatShareSDK.showGuideLine(i18n('点击后在弹出的菜单中选择 [在Safari中打开]'))

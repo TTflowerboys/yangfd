@@ -15,6 +15,7 @@ window.setupDownload = function (Swiper) {
     });
 
     $('a.appStore').click(function (e) {
+        ga('send', 'event', 'index', 'click', 'app-download')
         if (window.team.isWeChat()) {
             e.preventDefault()
             window.wechatShareSDK.showGuideLine(i18n('点击后在弹出的菜单中选择 [在Safari中打开]'))
