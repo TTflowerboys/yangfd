@@ -521,4 +521,25 @@
         //Send pure property title to GA
         ga('send', 'event', 'index', 'click', 'open-recommended-requirementpopup',$(e.currentTarget).parent().parent().find('.name a').text().replace(/ /g,'').replace(/(\r\n|\n|\r)/gm,''))
     })
+    function initDownloadWrap () {
+        var $downloadWrap = $('.landlordService>.appDownload')
+        if(!$downloadWrap.length) {
+            return
+        }
+        if(window.team.isPhone()) {
+            if($downloadWrap.data('status') !== 'phone') {
+                $downloadWrap.data('status', 'phone')
+                $downloadWrap.find('.wrapCenter').appendTo($downloadWrap)
+            }
+        } else {
+            if($downloadWrap.data('status') !== 'pc') {
+                $downloadWrap.data('status', 'pc')
+                $downloadWrap.find('.wrapCenter').insertBefore($downloadWrap.find('.wrapLeft'))
+            }
+        }
+    }
+    initDownloadWrap()
+    $(window).resize(function () {
+        initDownloadWrap()
+    })
 })()
