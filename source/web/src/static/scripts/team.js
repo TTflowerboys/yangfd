@@ -245,6 +245,10 @@
                 return (/currant/.test(ua)) ? true : false
             }
         },
+        /**
+         * Compare Version use nature ordering, like 1 2 3 4 5 6 7 10 11 12 20 21
+         * Unit Test http://jsfiddle.net/pCX3V/
+         */
         //http://stackoverflow.com/questions/6832596/how-to-compare-software-version-number-using-js-only-number
         compareVersion: function (v1, v2, options) {
             var lexicographical = options && options.lexicographical,

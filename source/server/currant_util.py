@@ -61,6 +61,12 @@ def is_mobile_client():
 
 
 def is_mobile_client_version(condition, version):
+    """
+     A version number consists of two or three dot-separated numeric components, with an optional "pre-release" tag on the end.  The pre-release tag consists of the letter 'a' or 'b' followed by a number.  If the numeric components of two version numbers are equal, then one with a pre-release tag will always be deemed earlier (lesser) than one without.
+    https://www.python.org/dev/peps/pep-0386/#distutils
+    Note: 由点分开的每一部分是一个数组，也是按照nature order 排序的
+    ``So  StrictVersion("2.3.1") < StrictVersion("10.1.2") is True``
+    """
     ua = request.headers.get('User-Agent').lower()
     match = re.search(r'currant\/([0-9\.]*)', ua)
     version = StrictVersion(version)
@@ -240,7 +246,7 @@ def common_template(path, **kwargs):
     if 'request_uri' not in kwargs:
         kwargs['request_uri'] = urllib.quote(request.url.encode("utf-8"))
     if 'request' not in kwargs:
-            kwargs['request'] = request
+        kwargs['request'] = request
     if 'user_type_list' not in kwargs:
         kwargs['user_type_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('user_type'))
     if 'f_app' not in kwargs:
