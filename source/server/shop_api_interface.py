@@ -81,6 +81,7 @@ item_params = dict(
 ))
 @f_app.user.login.check(force=True, role=['admin'])
 def shop_add(user, params):
+    params.setdefault("type", "crowdfunding")
     return f_app.shop.add(params)
 
 
@@ -91,6 +92,7 @@ def shop_add(user, params):
 ))
 @f_app.user.login.check(force=True)
 def shop_search(user, params):
+    params.setdefault("type", "crowdfunding")
     per_page = params.pop("per_page", 0)
     return f_app.shop.output(f_app.shop.custom_search(params, per_page=per_page))
 
@@ -124,6 +126,7 @@ def shop_remove(user, shop_id):
 def shop_item_add(user, shop_id, params):
     params.setdefault("quantity", True)
     params.setdefault("price", 0)
+    params.setdefault("tag", "crowdfunding")
     return f_app.shop.item_add(shop_id, params)
 
 
@@ -143,6 +146,7 @@ def shop_item_search(user, shop_id, params):
     use ``time_field`` to change sort field.
     default is ``mtime``
     """
+    params.setdefault("tag", "crowdfunding")
     time_field = params.pop("time_field")
     if params["status"] != ["new", "sold out"] or "target_item_id" in params:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_item_id")

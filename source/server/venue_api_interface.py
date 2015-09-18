@@ -36,6 +36,7 @@ def venue(venue_id):
     longitude=float,
     latitude=float,
     country="country",
+    sort_value=int,
     status=(str, "hide"),
 ))
 @f_app.user.login.check(role=["admin", "jr_admin", "operation", "jr_operation"])
@@ -43,6 +44,7 @@ def venue_add(user, params):
     """
     Add venue
     """
+    params.setdefault("type", "coupon")
     if params["status"] not in ["show", "hide"]:
         abort(40000, "status must be show or hide in venue creating")
     f_app.util.parse_phone(params, retain_country=True)
@@ -62,6 +64,7 @@ def venue_add(user, params):
     longitude=float,
     latitude=float,
     country="country",
+    sort_value=int,
     status=str,
 ))
 @f_app.user.login.check(role=["admin", "jr_admin", "operation", "jr_operation"])
@@ -107,7 +110,7 @@ def _check_email(email):
 ))
 @f_app.user.login.check(check_role=True, check_admin=True)
 def venue_search(user, params):
-    params.setdefault("type", {"$nin": ["vip", "virtual"]})
+    params.setdefault("type", "coupon")
     if "status" in params:
         if not (user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"])):
             abort(40105)

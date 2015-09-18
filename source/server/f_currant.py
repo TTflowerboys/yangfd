@@ -370,6 +370,24 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         }
         f_app.shop.get_database(m).update({"_id": virtual_shop["_id"]}, {"$set": virtual_shop}, upsert=True)
 
+    def v22(self, m):
+        view_rent_ticket_contact_info_item = {
+            "status": "new",
+            "_id": ObjectId(f_app.common.view_rent_ticket_contact_info_id),
+            "shop_id": ObjectId(f_app.common.virtual_shop_id),
+            "type": "normal",
+            "tag": "virtual",
+            "quantity": True,
+            "price_credits": [{"type": "view_rent_ticket_contact_info", "amount": 1}],
+            "price": 100,
+            "status": "new",
+            "time": datetime.utcnow()
+        }
+        f_app.shop.item.get_database(m).update({"_id": view_rent_ticket_contact_info_item["_id"]}, {"$set": view_rent_ticket_contact_info_item}, upsert=True)
+
+        f_app.shop.get_database(m).update({"type": {"$exists": False}}, {"$set": {"type": "coupon"}}, multi=True)
+        f_app.shop.item.get_database(m).update({"tag": {"$exists": False}}, {"$set": {"tag": "coupon"}}, multi=True)
+
 currant_mongo_upgrade()
 
 

@@ -237,12 +237,9 @@ def get_bought_intention_ticket_list(user):
 
 def get_venues():
     params = dict()
-    params.setdefault("type", {"$ne": "vip"})
-
+    params.setdefault("type", "coupon")
     params.setdefault("status", "show")
-
-    sort = params.pop("sort", None)
-    venues = f_app.i18n.process_i18n(f_app.shop.output(f_app.shop.search(params, sort=sort)))
+    venues = f_app.i18n.process_i18n(f_app.shop.output(f_app.shop.search(params, sort=("sort_value", "desc"))))
 
     for venue in venues:
         venue.pop("minimal_price", None)

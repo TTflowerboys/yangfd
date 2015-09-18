@@ -4,6 +4,11 @@ from app import f_app
 from libfelix.f_interface import f_api
 
 
+@f_api('/deal/search')
+def deal_search():
+    return f_app.shop.item_output([f_app.shop.item.search({"tag": "coupon", "display": True}, sort=("sort_value", "desc"))])[0]
+
+
 @f_api('/deal/<deal_id>')
 def get_deal(deal_id):
     """
@@ -33,6 +38,7 @@ def get_venue_deals(venue_id):
     share_text=("i18n", None, str),
     share_text_v2=("i18n", None, str),
     share_button_text=("i18n", None, str),
+    sort_value=int,
     display=(bool, True),
 ))
 @f_app.user.login.check(role=["admin", "jr_admin", "operation", "jr_operation"])
@@ -42,6 +48,7 @@ def venue_deal_add(venue_id, user, params):
     if ``display`` is True, the deal will be shown in the venue list
     deal_type must be ``percentage``,``amount`` or ``free``
     """
+    params.setdefault("tag", "coupon")
     params['price'] = 0
     params['quantity'] = 1
     item_ids = f_app.shop.item_get_all(venue_id)
@@ -67,6 +74,7 @@ def venue_deal_add(venue_id, user, params):
     share_text=("i18n", None, str),
     share_text_v2=("i18n", None, str),
     share_button_text=("i18n", None, str),
+    sort_value=int,
     display=bool,
 ))
 @f_app.user.login.check(role=["admin", "jr_admin", "operation", "jr_operation"])
