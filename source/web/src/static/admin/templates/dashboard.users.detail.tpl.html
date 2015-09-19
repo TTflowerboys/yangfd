@@ -78,8 +78,11 @@
             <li ng-class="{active:$state.includes('dashboard.users.detail.supports')}">
                 <a style="cursor: pointer;" ui-sref=".supports"><span>{%$root.i18n('客服单')%}</span>{%item.counter.support+1 === 1? '':'('+item.counter.support+')'%}</a>
             </li>
-            <li ng-class="{active:$state.includes('dashboard.users.detail.logs')}">
-                <a style="cursor: pointer;" ui-sref=".logs">{%$root.i18n('浏览记录')%}</a>
+            <li ng-class="{active:$state.includes('dashboard.users.detail.logs_property')}">
+                <a style="cursor: pointer;" ui-sref=".logs_property">{%$root.i18n('售房浏览记录')%}</a>
+            </li>
+            <li ng-class="{active:$state.includes('dashboard.users.detail.logs_rent')}">
+                <a style="cursor: pointer;" ui-sref=".logs_rent">{%$root.i18n('租房浏览记录')%}</a>
             </li>
             <li ng-class="{active:$state.includes('dashboard.users.detail.orders')}">
                 <a style="cursor: pointer;" ui-sref=".orders">{%$root.i18n('众筹订单')%}</a>

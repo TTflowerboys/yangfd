@@ -1,0 +1,51 @@
+<div style="min-height: 600px;" ui-view>
+    <table class="table table-bordered table-striped table-condensed">
+        <colgroup>
+            <col class="status">
+            <col class="phone">
+            <col class="nickname">
+            <col class="nickname">
+            <col class="nickname">
+            <col class="changeTime">
+        </colgroup>
+        <thead>
+            <tr>
+                <!--<th>{%$root.i18n('房产名')%}</th>-->
+                <th>{%$root.i18n('IP')%}</th>
+                <th>{%$root.i18n('HOST')%}</th>
+                <th>{%$root.i18n('引用')%}</th>
+                <th>{%$root.i18n('浏览时间')%}</th>
+                <th>{%$root.i18n('用户代理')%}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in list">
+                <!--<td>-->
+                    <!--<div show-i18n="item.property.name"></div>-->
+                <!--</td>-->
+                <td>
+                    <span ng-repeat="i in item.ip">{%i%}</span>
+                </td>
+                <td>
+                    {%item.host%}
+                </td>
+                <td>
+                    {%item.referer%}
+                </td>
+                <td>
+                    {%item.time * 1000 | date : 'short'%}
+                </td>
+                <td>
+                    {%item.useragent%}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+    <div class="buttons">
+        <span class="btn-group pull-right">
+            <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+            <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+        </span>
+    </div>
+</div>

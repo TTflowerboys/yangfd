@@ -609,13 +609,23 @@ angular.module('app')
                     }
                 }
             })
-            .state('dashboard.users.detail.logs', {
-                url: '/logs',
-                templateUrl: '/static/admin/templates/dashboard.users.detail.logs.tpl.html',
+            .state('dashboard.users.detail.logs_property', {
+                url: '/logs_property',
+                templateUrl: '/static/admin/templates/dashboard.users.detail.logs_property.tpl.html',
                 controller: 'ctrlList',
                 resolve: {
-                    api:function (userLogApi) {
-                        return userLogApi
+                    api:function (userLogPropertyApi) {
+                        return userLogPropertyApi
+                    }
+                }
+            })
+            .state('dashboard.users.detail.logs_rent', {
+                url: '/logs_rent',
+                templateUrl: '/static/admin/templates/dashboard.users.detail.logs_rent.tpl.html',
+                controller: 'ctrlList',
+                resolve: {
+                    api:function (userLogRentApi) {
+                        return userLogRentApi
                     }
                 }
             })
