@@ -13,9 +13,14 @@ angular.module('app')
                 if (!scope.model) {
                     scope.model = {}
                 }
-                for (var i = 0, length = i18nLanguages.length; i < length; i += 1) {
-                    scope.model[i18nLanguages[i].value] = scope.model[i18nLanguages[i].value] || ''
+                function updateI18n () {
+                    for (var i = 0, length = i18nLanguages.length; i < length; i += 1) {
+                        if(scope.model[i18nLanguages[i].value] === '') {
+                            delete scope.model[i18nLanguages[i].value]
+                        }
+                    }
                 }
+                updateI18n()
                 scope.$watch('model', function (newValue) {
                     if (newValue) {
                         return
@@ -23,9 +28,7 @@ angular.module('app')
                     if (!scope.model) {
                         scope.model = {}
                     }
-                    for (var i = 0, length = i18nLanguages.length; i < length; i += 1) {
-                        scope.model[i18nLanguages[i].value] = scope.model[i18nLanguages[i].value] || ''
-                    }
+                    updateI18n()
                 })
             }
         }
