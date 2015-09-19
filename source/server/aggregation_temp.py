@@ -53,4 +53,5 @@ with f_app.mongo() as m:
             else:
                 neighborhood_count_dic[target_property['maponics_neighborhood']['name']] = 1
 
-    print(target_property['maponics_neighborhood']['name'] + ", " + str(neighborhood_count_dic[target_property['maponics_neighborhood']['name']]))
+    for k, v in neighborhood_count_dic.items():
+        print(k, v)
