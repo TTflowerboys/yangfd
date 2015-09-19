@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  currant
+
+  Created by Foster Yin on 9/17/15.
+  Copyright © 2015 Foster Yin. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "Youngfunding";
+"CFBundleName" = "Youngfunding";

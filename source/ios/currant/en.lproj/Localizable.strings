@@ -452,6 +452,7 @@
 "AppDelegate/已发布" = "My Listings";
 "AppDelegate/同步中..." = "Syncing...";
 "AppDelegate/获取验证中..." = "Loading...";
+"AppDelegate/您的语言偏好与当前系统语言不一致，您可以在“我” -> “设置” 中设置语言" = "Your language preference is not the system language you are using, you can change your language setting in \"Profile\" -> \"Setting\"";
 
 
 //
@@ -475,6 +476,7 @@
 "Setting/意见反馈" = "Feedback";
 "Setting/帮助中心" = "Help Center";
 "Setting/觉得不错？去App Store评价" = "Like this? Rate in AppStore";
+"Setting/语言" = "Language";
 
 
 //
@@ -753,3 +755,7 @@
 "%d卫" = "%d bathroom";
 
 "%d居室" = "%d bedroom";
+
+//Language
+"en_GB" = "English";
+"zh_Hans_CN" = "Chinese，Simplified";

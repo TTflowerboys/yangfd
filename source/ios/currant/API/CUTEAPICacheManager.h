@@ -29,6 +29,8 @@
 
 - (BFTask *)refresh;
 
+- (void)clear;
+
 @property (nonatomic, readonly) NSArray *uploadCDNDomains;
 
 

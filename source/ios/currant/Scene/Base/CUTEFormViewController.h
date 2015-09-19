@@ -28,4 +28,7 @@
 
 - (BOOL)validateFormWithScenario:(NSString *)scenario;
 
+//override
+- (void)onReceiveLocalizationDidUpdate:(NSNotification *)notif;
+
 @end

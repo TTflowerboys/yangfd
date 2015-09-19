@@ -40,6 +40,9 @@
 
 @property (strong, nonatomic) NSArray *userTypes;
 
+@property (strong, nonatomic) NSArray *locales;
+
+
 - (BOOL)hasRole:(NSString *)role;
 
 - (NSDictionary *)toParams;

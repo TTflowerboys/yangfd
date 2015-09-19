@@ -61,6 +61,9 @@
 #import "CUTEWebArchiveManager.h"
 #import "CUTEWebConfiguration.h"
 #import <GGLContext.h>
+#import <UIAlertView+Blocks.h>
+#import "CUTELocalizationSwitcher.h"
+#import <NSArray+ObjectiveSugar.h>
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
@@ -153,11 +156,20 @@
     return nav;
 }
 
+- (NSArray *)tabbarTitles {
+    return @[STR(@"AppDelegate/主页"),
+             STR(@"AppDelegate/新房"),
+             STR(@"AppDelegate/发布"),
+             STR(@"AppDelegate/租房"),
+             STR(@"AppDelegate/我")
+             ];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     [CUTEUserAgentUtil setupWebViewUserAgent];
-    [self checkSetupLanguageCookie];
+    [self checkSetupLanguageNeedShowAlert:NO];
     [[CUTEShareManager sharedInstance] setUpShareSDK];
     [ATConnect sharedConnection].appID = [CUTEConfiguration appStoreId];
     [ATConnect sharedConnection].apiKey = @"870539ce7c8666f4ba6440cae368b8aea448aa2220dc3af73bc254f0ab2f0a0b";
@@ -186,15 +198,16 @@
 
     [NotificationCenter addObserver:self selector:@selector(onReceiveShowHomeTab:) name:KNOTIF_SHOW_HOME_TAB object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveShowSplashView:) name:KNOTIF_SHOW_SPLASH_VIEW object:nil];
+    [NotificationCenter addObserver:self selector:@selector(onReceiveLocalizationDidUpdate:) name:CUTELocalizationDidUpdateNotification object:nil];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
-    UINavigationController *homeViewController = [self makeIndexViewControllerWithTitle:STR(@"AppDelegate/主页") icon:@"tab-home" urlPath:@"/"];
+    UINavigationController *homeViewController = [self makeIndexViewControllerWithTitle:[self tabbarTitles][kHomeTabBarIndex] icon:@"tab-home" urlPath:@"/"];
 
-    UINavigationController *editViewController = [self makeEditViewControllerWithTitle:STR(@"AppDelegate/发布") icon:@"tab-edit" urlPath:@"/rent_new"];
-    UINavigationController *propertyListViewController = [self makePropertyListViewControllerWithTitle:STR(@"AppDelegate/新房") icon:@"tab-property" urlPath:@"/property-list"];
-    UINavigationController *rentTicketListViewController = [self makeRentListViewControllerWithTitle:STR(@"AppDelegate/租房") icon:@"tab-rent" urlPath:@"/property-to-rent-list"];
-    UINavigationController *userViewController = [self makeUserViewControllerWithTitle:STR(@"AppDelegate/我") icon:@"tab-user" urlPath:@"/user"];
+    UINavigationController *editViewController = [self makeEditViewControllerWithTitle:[self tabbarTitles][kEditTabBarIndex]  icon:@"tab-edit" urlPath:@"/rent_new"];
+    UINavigationController *propertyListViewController = [self makePropertyListViewControllerWithTitle:[self tabbarTitles][kPropertyListTabBarIndex]  icon:@"tab-property" urlPath:@"/property-list"];
+    UINavigationController *rentTicketListViewController = [self makeRentListViewControllerWithTitle:[self tabbarTitles][kRentTicketListTabBarIndex]  icon:@"tab-rent" urlPath:@"/property-to-rent-list"];
+    UINavigationController *userViewController = [self makeUserViewControllerWithTitle:[self tabbarTitles][kUserTabBarIndex]  icon:@"tab-user" urlPath:@"/user"];
     [rootViewController setViewControllers:@[homeViewController,
                                              propertyListViewController,
                                              editViewController,
@@ -351,44 +364,49 @@
     }
 }
 
-- (void)checkSetupLanguageCookie {
-    NSURL *url = [CUTEConfiguration hostURL];
-    NSHTTPCookie *oldCookie = [[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url] find:^BOOL(NSHTTPCookie* object) {
-        return [object.name isEqualToString:@"currant_lang"];
+- (void)showAlertChooseLanguage {
+    [UIAlertView showWithTitle:STR(@"AppDelegate/您的语言偏好与当前系统语言不一致，您可以在“我” -> “设置” 中设置语言") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+
     }];
+}
 
-    typedef NSString* (^Mapping)(NSString*);
+- (void)checkSetupLanguageNeedShowAlert:(BOOL)show {
+    
+    CUTEUser *user = [CUTEDataManager sharedInstance].user;
+    NSString *currentCookieLang = [[CUTELocalizationSwitcher sharedInstance] currentCookieLocalization];
+    NSString *currentSystemLang = [[CUTELocalizationSwitcher sharedInstance] currentSystemLocalization];
 
-    Mapping mappingBlock = ^(NSString * lang) {
-        if ([lang hasPrefix:@"en"]) {
-            return @"en_GB";
-        }
-        return @"zh_Hans_CN";
+
+    typedef void(^UpdateLocalizationBlock)(NSString *localization);
+
+    UpdateLocalizationBlock updateBlock = ^ (NSString *localizatoin) {
+        [[CUTEWebArchiveManager sharedInstance] clear];
+        [[CUTELocalizationSwitcher sharedInstance] setCurrentLocalization:localizatoin];
     };
 
-    //Available Country Code name can see here: http://www.ibabbleon.com/iOS-Language-Codes-ISO-639.html
-    //Chinese(Simplified): zh-hans
-    NSString *currantLang = mappingBlock([[[NSBundle mainBundle] preferredLocalizations] firstObject]);
-
-    if (oldCookie) {
-        if (![oldCookie.value isEqualToString:currantLang]) {
-            //clear web cache
-            [[CUTEWebArchiveManager sharedInstance] clear];
-            //set cookie to currant lang
-            NSDictionary *properties = @{NSHTTPCookieName: @"currant_lang", NSHTTPCookieValue: currantLang, NSHTTPCookieDomain: [CUTEConfiguration host], NSHTTPCookiePath: @"/"};
-            NSHTTPCookie *cookie = [[NSHTTPCookie alloc] initWithProperties:properties];
-            [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+    if (user) {
+        NSString *currentUserLang = IsArrayNilOrEmpty(user.locales)? nil: [user.locales firstObject];
+        if (currentCookieLang) {
+            if (!IsNilNullOrEmpty(currentUserLang) && ![currentCookieLang isEqualToString:currentUserLang]) {
+                if (show) {
+                    [self showAlertChooseLanguage];
+                }
+            }
+        }
+        else {
+            updateBlock(currentSystemLang);
+            if (!IsNilNullOrEmpty(currentUserLang) && ![currentSystemLang isEqualToString:currentUserLang]) {
+                if (show) {
+                    [self showAlertChooseLanguage];
+                }
+            }
         }
     }
     else {
-        //clear web cache
-        [[CUTEWebArchiveManager sharedInstance] clear];
-        //set cookie to currant lang
-        NSDictionary *properties = @{NSHTTPCookieName: @"currant_lang", NSHTTPCookieValue: currantLang, NSHTTPCookieDomain: [CUTEConfiguration host], NSHTTPCookiePath: @"/"};
-        NSHTTPCookie *cookie = [[NSHTTPCookie alloc] initWithProperties:properties];
-        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+        if (!currentCookieLang) {
+            updateBlock(currentSystemLang);
+        }
     }
-
 }
 
 
@@ -789,6 +807,7 @@
 
     [[CUTEDataManager sharedInstance] saveUser:user];
     [[CUTEDataManager sharedInstance] persistAllCookies];
+    [self checkSetupLanguageNeedShowAlert:YES];
 
     NSArray *unbindedTicket = [[[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets] select:^BOOL(CUTETicket *object) {
         return object.creatorUser == nil;
@@ -936,6 +955,23 @@
 
 - (void)onReceiveShowSplashView:(NSNotification *)notif {
 
+}
+
+- (void)onReceiveLocalizationDidUpdate:(NSNotification *)notif {
+
+    //refresh all tabs
+    NSArray *titles = [self tabbarTitles];
+    [self.tabBarController.tabBar.items eachWithIndex:^(UITabBarItem *item, NSUInteger index) {
+        item.title = titles[index];
+    }];
+
+    //clear web cache
+    [[CUTEWebArchiveManager sharedInstance] clear];
+
+    //clear api cache
+    //TODO refresh api cache related page
+    [[CUTEAPICacheManager sharedInstance] clear];
+    [[CUTEAPICacheManager sharedInstance] refresh];
 }
 
 @end

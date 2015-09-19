@@ -10,4 +10,9 @@
 
 @interface CUTESettingForm : CUTEForm
 
+@property (nonatomic, copy) NSString *localization;
+
+
+- (void)setLocalizations:(NSArray *)localizations;
+
 @end

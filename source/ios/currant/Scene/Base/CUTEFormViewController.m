@@ -14,6 +14,7 @@
 #import "MasonryMake.h"
 #import "CUTETracker.h"
 #import <NSString+SLRESTfulCoreData.h>
+#import "CUTELocalizationSwitcher.h"
 
 
 
@@ -51,6 +52,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.accessibilityIdentifier = @"Form";
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveLocalizationDidUpdate:) name:CUTELocalizationDidUpdateNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -99,6 +102,10 @@
 {
     NSString *header = [[[self.formController sectionAtIndex:index] valueForKey:@"header"] description];
     return IsNilNullOrEmpty(header)? 0: 51;
+}
+
+- (void)onReceiveLocalizationDidUpdate:(NSNotification *)notif {
+    [self.tableView reloadData];
 }
 
 
