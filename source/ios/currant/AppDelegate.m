@@ -544,7 +544,6 @@
                     CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
                     controller.formController.form = form;
                     controller.hidesBottomBarWhenPushed = NO;
-                    controller.navigationItem.leftBarButtonItem = [self getRentTicketLeftBarButtonItemWithViewController:controller];
                     [viewController setViewControllers:@[controller] animated:NO];
                     if (!silent) {
                         [SVProgressHUD dismiss];
@@ -563,7 +562,6 @@
             CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
             unfinishedRentTicketController.form = [CUTEUnfinishedRentTicketListForm new];
             unfinishedRentTicketController.hidesBottomBarWhenPushed = NO;
-            unfinishedRentTicketController.navigationItem.leftBarButtonItem = [self getRentTicketLeftBarButtonItemWithViewController:unfinishedRentTicketController];
 
             [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
             unfinishedRentTicketController.form.unfinishedRentTickets = unfinishedRentTickets;
@@ -572,13 +570,6 @@
     }];
 
     [sequencer run];
-}
-- (UIBarButtonItem *)getRentTicketLeftBarButtonItemWithViewController:(UIViewController *)viewController {
-    __weak typeof(self)weakSelf = self;
-    return [[UIBarButtonItem alloc] initWithTitle:STR(@"AppDelegate/已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-        [weakSelf showUserPageSection:@"/user-properties#rentOnly?status=to%20rent%2Crent" fromViewController:viewController];
-    }];
-
 }
 
 - (void)showUserPageSection:(NSString *)urlString fromViewController:(UIViewController *)viewController {
@@ -602,6 +593,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         NSString *checkUrl = @"/api/1/app/currant/check_update";
         NSDictionary *appInfo = [[NSBundle mainBundle] infoDictionary];
+        //Notice: here the version is the build number, and the build number base on the git commit change
         NSDictionary *checkParams = @{@"version":[appInfo objectForKey:(NSString *)kCFBundleVersionKey], @"platform":@"ios", @"channel":[appInfo objectForKey:@"CurrantChannel"]};
         NSURLRequest *request = [[[[CUTEAPIManager sharedInstance] backingManager] requestSerializer] requestWithMethod:@"GET" URLString:[NSURL URLWithString:checkUrl relativeToURL:[CUTEConfiguration hostURL]].absoluteString parameters:checkParams error:nil];
         [[BBTAppUpdater sharedInstance] checkUpdateWithRequeset:request];
@@ -733,7 +725,6 @@
         else {
             CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
             unfinishedRentTicketController.form = [CUTEUnfinishedRentTicketListForm new];
-            unfinishedRentTicketController.navigationItem.leftBarButtonItem = [self getRentTicketLeftBarButtonItemWithViewController:unfinishedRentTicketController];
 
             if (fromController.navigationController == navController) {
                 NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];
@@ -757,7 +748,6 @@
                 [form setRentTypeList:task.result];
                 CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
                 controller.formController.form = form;
-                controller.navigationItem.leftBarButtonItem = [self getRentTicketLeftBarButtonItemWithViewController:controller];
 
                 if (fromController.navigationController == navController) {
                     NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:navController.viewControllers];

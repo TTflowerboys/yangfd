@@ -30,6 +30,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self resetContent];
+}
+
+- (void)resetContent {
     self.navigationItem.title = STR(@"Setting/设置");
     CUTESettingForm *form = [CUTESettingForm new];
     form.localization = STR([[CUTELocalizationSwitcher sharedInstance] currentLocalization]);
@@ -37,6 +41,7 @@
         return STR(object);
     }]];
     self.formController.form = form;
+    self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onBackButtonPressed:)];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath  {
@@ -91,14 +96,7 @@
 }
 
 - (void)onReceiveLocalizationDidUpdate:(NSNotification *)notif {
-    self.navigationItem.title = STR(@"Setting/设置");
-    CUTESettingForm *form = [CUTESettingForm new];
-    form.localization = STR([[CUTELocalizationSwitcher sharedInstance] currentLocalization]);
-    [form setLocalizations:[[CUTELocalizationSwitcher sharedInstance].localizations map:^id(id object) {
-        return STR(object);
-    }]];
-    self.formController.form = form;
-    self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onBackButtonPressed:)];
+    [self resetContent];
     [self.tableView reloadData];
 }
 

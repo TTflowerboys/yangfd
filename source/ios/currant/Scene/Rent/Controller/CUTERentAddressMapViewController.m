@@ -250,6 +250,11 @@
         return;
     }
 
+    //in case of push twice time
+    if (self.navigationController.topViewController == _rentAddressEditViewController) {
+        return;
+    }
+
     if (!_rentAddressEditViewController) {
         CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
         controller.navigationItem.title = STR(@"RentAddressMap/房产地址");

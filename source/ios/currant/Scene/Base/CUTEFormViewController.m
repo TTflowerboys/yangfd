@@ -105,7 +105,7 @@
 }
 
 - (void)onReceiveLocalizationDidUpdate:(NSNotification *)notif {
-    [self.tableView reloadData];
+
 }
 
 

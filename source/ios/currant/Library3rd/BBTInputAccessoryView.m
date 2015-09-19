@@ -59,6 +59,7 @@
 }
 - (void)onDoneButtonPressed:(id)sender
 {
+    //TODO fix trigger resign responder twice bug
     [self.inputView resignFirstResponder];
 }
 

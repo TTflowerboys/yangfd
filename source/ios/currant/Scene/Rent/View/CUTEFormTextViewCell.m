@@ -23,11 +23,13 @@
         textView.font = [UIFont systemFontOfSize:17];
     });
 
-    textView.text = [field fieldDescription] ?: @" ";
-    CGSize textViewSize = [textView sizeThatFits:CGSizeMake(width - 10 - 10, FLT_MAX)];
+    CGFloat margin = 12;
+    NSString *placehoder = field.placeholder && [field.placeholder isKindOfClass:[NSString class]]? field.placeholder: nil;
+    textView.text = !IsNilNullOrEmpty([field fieldDescription]) ? [field fieldDescription]: placehoder;
+    CGSize textViewSize = !IsNilNullOrEmpty(textView.text)? [textView sizeThatFits:CGSizeMake(width - 10 - 10, FLT_MAX)]: CGSizeZero;
 
-    CGFloat height = [field.title length]? 82: 0; // label height
-    height += 12 + ceilf(textViewSize.height) + 12;
+    CGFloat height = [field.title length]? 20: 0; // label height
+    height += textViewSize.height + margin * 2;
     return height;
 }
 

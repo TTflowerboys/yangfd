@@ -8,3 +8,6 @@
 
 "CFBundleDisplayName" = "洋房东";
 "CFBundleName" = "洋房东";
+
+"NSLocationAlwaysUsageDescription" = "洋房东需要使用您的位置";
+"NSLocationUsageDescription" = "洋房东需要使用您的位置";
