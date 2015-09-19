@@ -122,7 +122,12 @@
         height: @appDownloadHeight;
         background: url("/static/images/background/index_app_bg.jpg") 50% 50% no-repeat;
         background-size: cover;
-
+        body[lang=en_GB] &{
+            margin-bottom: 140px;
+            @media @phone{
+                margin-bottom: 0;
+            }
+        }
         @media @phone {
 //            height:300px;
             height: auto;
