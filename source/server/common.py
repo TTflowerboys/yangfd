@@ -35,7 +35,7 @@ class common(f_common):
     mongo_dbname = "currant"
     mongo_server = "172.20.1.22"
     mongo_auth = False
-    mongo_dbversion = 22
+    mongo_dbversion = 23
 
     memcache_server = ["172.20.1.22:11211"]
     memcache_lib = "memcache"
@@ -49,7 +49,8 @@ class common(f_common):
     user_intention = ["cash_flow_protection", "forex", "study_abroad", "immigration_investment", "excess_returns", "fixed_income", "asset_preservation", "immigration_only", "holiday_travel"]
     admin_roles = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "support", "jr_support", "developer", "agency"]
     advanced_admin_roles = ["admin", "jr_admin", "sales", "operation", "support"]
-    message_type = ["system", "rent_ticket_reminder", "rent_intention_ticket_check_rent"]
+    message_type = ["system"]
+    email_message_type = ["system", "rent_ticket_reminder", "rent_intention_ticket_check_rent"]
     currency = ["CNY", "USD", "GBP", "EUR", "HKD"]
 
     intention_ticket_statuses = ["new", "assigned", "in_progress", "deposit", "suspended", "bought", "canceled"]
