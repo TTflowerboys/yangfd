@@ -219,8 +219,6 @@ def user_register(params):
     if "private_contact_methods" in params and not set(params["private_contact_methods"]) <= {"email", "phone", "wechat"}:
         abort(40000)
 
-    params["email_message_type"] = ["rent_ticket_reminder"]
-    params["system_message_type"] = ["system"]
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
     if "email" in params and f_app.user.get_id_by_email(params["email"]):
@@ -265,8 +263,6 @@ def user_fast_register(params):
     if "@" not in params["email"]:
         abort(40099, logger.warning("No '@' in email address supplied:", params["email"], exc_info=False))
 
-    params["email_message_type"] = ["rent_ticket_reminder"]
-    params["system_message_type"] = ["system"]
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
     if f_app.user.get_id_by_email(params["email"]):
@@ -423,7 +419,7 @@ def current_user_edit(user, params):
             abort(40000, logger.warning("Invalid params: system_message_type", params["system_message_type"], exc_info=False))
 
     if "email_message_type" in params:
-        if not set(params["email_message_type"]) <= set(f_app.common.message_type):
+        if not set(params["email_message_type"]) <= set(f_app.common.email_message_type):
             abort(40000, logger.warning("Invalid params: email_message_type", params["email_message_type"], exc_info=False))
 
     f_app.user.update_set(user_id, params)

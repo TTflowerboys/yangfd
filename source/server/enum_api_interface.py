@@ -65,9 +65,6 @@ def enum_add(user, params):
             "state": ObjectId(<enum:state>)
         }
     """
-    if "message_type" in params:
-        if "message_type" not in f_app.common.message_type:
-            abort(40000, logger.warning("Invalid params: message_type", params["message_type"], exc_info=False))
 
     return f_app.enum.add(params)
 
@@ -85,10 +82,6 @@ def enum_add(user, params):
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def enum_edit(user, enum_id, params):
-    if "message_type" in params:
-        if "message_type" not in f_app.common.message_type:
-            abort(40000, logger.warning("Invalid params: message_type", params["message_type"], exc_info=False))
-
     return f_app.enum.update_set(enum_id, params)
 
 

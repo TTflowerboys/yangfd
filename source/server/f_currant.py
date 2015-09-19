@@ -388,6 +388,14 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         f_app.shop.get_database(m).update({"type": {"$exists": False}}, {"$set": {"type": "coupon"}}, multi=True)
         f_app.shop.item.get_database(m).update({"tag": {"$exists": False}}, {"$set": {"tag": "coupon"}}, multi=True)
 
+    def v23(self, m):
+        for user in f_app.user.get_database(m).find({"status": {"$ne": "deleted"}}):
+            self.logger.debug("Resetting message types for user", str(user["_id"]))
+            f_app.user.get_database(m).update({"_id": user["_id"]}, {"$set": {
+                "email_message_type": f_app.common.email_message_type,
+                "system_message_type": f_app.common.message_type,
+            }})
+
 currant_mongo_upgrade()
 
 
@@ -1083,6 +1091,8 @@ class f_currant_plugins(f_app.plugin_base):
             )
 
     def user_add(self, params, noregister):
+        params.setdefault("email_message_type", f_app.common.email_message_type)
+        params.setdefault("system_message_type", f_app.common.message_type)
         params.setdefault("private_contact_methods", [])
         return params
 
