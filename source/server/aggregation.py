@@ -28,7 +28,7 @@ with f_app.mongo() as m:
     )
 
     for document in cursor:
-        print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'] + ":" + str(document['count']))
+        print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'] + u":" + unicode(str(document['count'])))
 
     # 出租房数量
     print('\n出租房数量:')
