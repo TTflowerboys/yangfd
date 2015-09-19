@@ -32,7 +32,7 @@
             <li><a href="/user-intentions">{{_('意向单')}}</a></li>
             <li><a href="/user-properties">{{_('我的房产')}}</a></li>
             <li><a href="/user-messages">{{_('消息')}}</a></li>
-            <li><a href="/user-coupons">{{_('会员专享')}}</a></li>
+            <li data-show-client="app,wechat"><a href="/user-coupons">{{_('会员专享')}}</a></li>
         </ul>
     </div>
 </div>
@@ -176,6 +176,8 @@
 <script src="/static/scripts/resize_main.js"></script>
 <script src="/static/scripts/user_edit.js"></script>
 <!--endbuild-->
-
+<script>
+    window.team.initDisplayOfElement()
+</script>
 <!--@@placeholder=scripts-->
 <!--@@close-->
