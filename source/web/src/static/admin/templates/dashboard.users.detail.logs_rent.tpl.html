@@ -13,7 +13,8 @@
                 <!--<th>{%$root.i18n('房产名')%}</th>-->
                 <th>{%$root.i18n('IP')%}</th>
                 <th>{%$root.i18n('HOST')%}</th>
-                <th>{%$root.i18n('引用')%}</th>
+                <th>{%$root.i18n('Link')%}</th>
+                <th>{%$root.i18n('来源页')%}</th>
                 <th>{%$root.i18n('浏览时间')%}</th>
                 <th>{%$root.i18n('用户代理')%}</th>
             </tr>
@@ -28,6 +29,9 @@
                 </td>
                 <td>
                     {%item.host%}
+                </td>
+                <td>
+                    http://{%item.host%}{%item.route%}
                 </td>
                 <td>
                     {%item.referer%}
