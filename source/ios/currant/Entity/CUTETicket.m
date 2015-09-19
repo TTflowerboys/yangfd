@@ -10,14 +10,11 @@
 #import "CUTECommonMacro.h"
 #import <EXTKeyPathCoding.h>
 
-NSString *LocalizedRoomTitle(NSString *title) {
-    if ([title isEqualToString:@"0室"]) {
+NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
+    if (roomCount == 0) {
         return @"Studio";
     }
-    else if ([title isEqualToString:@"0居室"]) {
-        return @"Studio";
-    }
-    return STR(title);
+    return title;
 }
 
 @implementation CUTETicket
@@ -108,11 +105,11 @@ NSString *LocalizedRoomTitle(NSString *title) {
         [self appendPart:self.property.street forString:altTitle];
     }
 
-    [self appendPart:(self.property && self.property.bedroomCount)? LocalizedRoomTitle([NSString stringWithFormat:@"%d居室", self.property.bedroomCount.intValue]) : nil forString:altTitle];
+    [self appendPart:(self.property && self.property.bedroomCount)? LocalizedLivingRoomTitle([NSString stringWithFormat:STR(@"%d居室"), self.property.bedroomCount.intValue], self.property.bedroomCount.intValue) : nil forString:altTitle];
     [self appendPart:self.rentType.value? [NSString stringWithFormat:@"%@出租", self.rentType.value]: nil forString:altTitle];
 
     if (altTitle.length > kTicketTitleMaxCharacterCount) {
-        return CONCAT(LocalizedRoomTitle([NSString stringWithFormat:@"%d居室", self.property.bedroomCount.intValue]), [NSString stringWithFormat:@"%@出租", self.rentType.value]);
+        return CONCAT(LocalizedLivingRoomTitle([NSString stringWithFormat:STR(@"%d居室"), self.property.bedroomCount.intValue], self.property.bedroomCount.intValue), [NSString stringWithFormat:@"%@出租", self.rentType.value]);
     }
     else if (altTitle.length == 0) {
         return nil;

@@ -27,6 +27,7 @@
 #import "NSURL+CUTE.h"
 #import "CUTEWebHandler.h"
 #import <currant-Swift.h>
+#import "CUTELocalizationSwitcher.h"
 
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
@@ -186,6 +187,7 @@
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidUpdate:) name:KNOTIF_USER_DID_UPDATE object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveClearAllCookies:) name:KNOTIF_CLEAR_ALL_COOKIES object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveTicketListReload:) name:KNOTIF_TICKET_LIST_RELOAD object:nil];
+    [NotificationCenter addObserver:self selector:@selector(onReceiveLocalizationDidUpdate:) name:CUTELocalizationDidUpdateNotification object:nil];
 }
 
 - (void)dealloc {
@@ -427,6 +429,15 @@
             }
         }
     }
+}
+
+- (void)onReceiveLocalizationDidUpdate:(NSNotification *)notif {
+    //alway reload all resource
+    [self.webView reload];
+
+    [self updateBackButton];
+    [self updateRightButtonWithURL:self.webView.request.URL];
+    [self updateTitleWithURL:self.webView.request.URL];
 }
 
 - (NSDate *)getHTTPDateWithString:(NSString *)string {

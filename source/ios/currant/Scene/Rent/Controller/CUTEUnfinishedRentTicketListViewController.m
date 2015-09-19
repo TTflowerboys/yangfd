@@ -20,9 +20,12 @@
 #import "CUTENotificationKey.h"
 #import "CUTEAPIManager.h"
 #import "NSArray+ObjectiveSugar.h"
+#import <UIBarButtonItem+ALActionBlocks.h>
 #import "CUTERentTicketPublisher.h"
 #import "CUTEUIMacro.h"
 #import "CUTETracker.h"
+#import "CUTEConfiguration.h"
+#import "CUTEWebViewController.h"
 
 @interface CUTEUnfinishedRentTicketListViewController ()
 
@@ -36,13 +39,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"UnfinishedRentTicketList/创建") style:UIBarButtonItemStylePlain target:self action:@selector(onAddButtonPressed:)];
-    self.navigationItem.title = STR(@"UnfinishedRentTicketList/出租房草稿");
     self.tableView.backgroundColor = CUTE_BACKGROUND_COLOR;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
-//    [self refreshTable];
+    [self resetContent];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveLocalizationDidUpdate:) name:CUTELocalizationDidUpdateNotification object:nil];
+}
+
+- (void)resetContent {
+
+    __weak typeof(self)weakSelf = self;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"AppDelegate/已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+
+        NSURL *url = [NSURL URLWithString:@"/user-properties#rentOnly?status=to%20rent%2Crent"  relativeToURL:[CUTEConfiguration hostURL]];
+        TrackEvent(GetScreenName(self), kEventActionPress, GetScreenName(url), nil);
+        CUTEWebViewController *webViewController = [CUTEWebViewController new];
+        webViewController.url = url;
+        webViewController.hidesBottomBarWhenPushed = YES;
+        [weakSelf.navigationController pushViewController:webViewController animated:YES];
+        [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
+    }];
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"UnfinishedRentTicketList/创建") style:UIBarButtonItemStylePlain target:self action:@selector(onAddButtonPressed:)];
+    self.navigationItem.title = STR(@"UnfinishedRentTicketList/出租房草稿");
+
     self.tableView.accessibilityLabel = STR(@"UnfinishedRentTicketList/出租房草稿列表");
     self.tableView.accessibilityIdentifier = self.tableView.accessibilityLabel;
 }
@@ -154,6 +175,11 @@
             return nil;
         }];
     }
+}
+
+- (void)onReceiveLocalizationDidUpdate:(NSNotification *)notif {
+    [self resetContent];
+    [self refreshTable];
 }
 
 

@@ -10,6 +10,15 @@
 #import "CUTECommonMacro.h"
 #import "CUTEFormTextCell.h"
 
+@interface CUTESettingForm () {
+
+    NSArray *_localizations;
+
+}
+
+@end
+
+
 @implementation CUTESettingForm
 
 - (NSArray *)fields {
@@ -19,10 +28,13 @@
                                @{FXFormFieldKey: @"feedback", FXFormFieldTitle:STR(@"Setting/意见反馈"), FXFormFieldAction: @"onFeedBackPressed:", @"style": @(UITableViewCellStyleValue1)},
                                @{FXFormFieldKey: @"help", FXFormFieldTitle:STR(@"Setting/帮助中心"), FXFormFieldAction: @"onHelpPressed:", @"style": @(UITableViewCellStyleValue1)},
                                @{FXFormFieldKey: @"rate", FXFormFieldTitle:STR(@"Setting/觉得不错？去App Store评价"), @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"onRatePressed:"},
-//                               @{FXFormFieldKey: @"update", FXFormFieldTitle:STR(@"检查更新"), FXFormFieldAction: @"onCheckUpdatePressed:", @"style": @(UITableViewCellStyleValue1)},
-//                               @{FXFormFieldKey: @"survey", FXFormFieldTitle:STR(@"用户调查"), @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"onSurveyPressed:"},
+                               @{FXFormFieldKey: @"localization", FXFormFieldTitle:STR(@"Setting/语言"), FXFormFieldOptions:_localizations, FXFormFieldAction: @"onLocalizationSelected:", FXFormFieldHeader: @""},
                                ]];
     return array;
+}
+
+- (void)setLocalizations:(NSArray *)localizations {
+    _localizations = localizations;
 }
 
 @end

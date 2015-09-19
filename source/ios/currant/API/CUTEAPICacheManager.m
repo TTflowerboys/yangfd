@@ -249,4 +249,8 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
     return [BFTask taskForCompletionOfAllTasks:@[enumTask, cityTask, [self getUploadCDNDomainsIgnoringCache]]];
 }
 
+- (void)clear {
+    [_cache clearCache];
+}
+
 @end

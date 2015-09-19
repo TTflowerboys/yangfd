@@ -20,6 +20,9 @@
 #import "CUTETracker.h"
 #import "MasonryMake.h"
 #import <currant-Swift.h>
+#import <UIBarButtonItem+ALActionBlocks.h>
+#import "CUTEConfiguration.h"
+#import "CUTEWebViewController.h"
 
 
 @interface CUTERentTypeListViewController ()
@@ -99,27 +102,46 @@
         ticket.minimumRentPeriod =  [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];
 
         form.ticket = ticket;
-        self.navigationItem.title = STR(@"RentTypeList/出租发布");
     }
-    else {
-        self.navigationItem.title = STR(@"RentTypeList/出租类型");
-    }
+
+    [self resetContent];
+}
+
+- (void)resetContent {
+
+    NSInteger index = [self.navigationController.viewControllers indexOfObject:self];
+    self.navigationItem.title = index == 0? STR(@"RentTypeList/出租发布"): STR(@"RentTypeList/出租类型");
     self.tableView.accessibilityLabel = STR(@"RentTypeList/出租类型列表");
     self.tableView.accessibilityIdentifier = STR(@"RentTypeList/出租类型列表");
 
-    self.tableView.backgroundView = [UIView new];
-    UILabel *hintLabel = [UILabel new];
-    hintLabel.textColor = HEXCOLOR(0x999999, 1);
-    hintLabel.textAlignment = NSTextAlignmentCenter;
-    hintLabel.numberOfLines = 0;
-    hintLabel.font = [UIFont systemFontOfSize:16];
-    hintLabel.text = STR(@"RentTypeList/您有整套或单间房源要出租？\n从这里开始免费发布！");
-    [self.tableView.backgroundView addSubview:hintLabel];
-    MakeBegin(hintLabel)
-    MakeBottomEqualTo(hintLabel.superview.bottom).offset(-135);
-    MakeLeftEqualTo(hintLabel.superview);
-    MakeRighEqualTo(hintLabel.superview);
-    MakeEnd
+    if (index == 0) {
+        __weak typeof(self)weakSelf = self;
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"AppDelegate/已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+
+            NSURL *url = [NSURL URLWithString:@"/user-properties#rentOnly?status=to%20rent%2Crent"  relativeToURL:[CUTEConfiguration hostURL]];
+            TrackEvent(GetScreenName(self), kEventActionPress, GetScreenName(url), nil);
+            CUTEWebViewController *webViewController = [CUTEWebViewController new];
+            webViewController.url = url;
+            webViewController.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:webViewController animated:YES];
+            [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
+        }];
+
+
+        self.tableView.backgroundView = [UIView new];
+        UILabel *hintLabel = [UILabel new];
+        hintLabel.textColor = HEXCOLOR(0x999999, 1);
+        hintLabel.textAlignment = NSTextAlignmentCenter;
+        hintLabel.numberOfLines = 0;
+        hintLabel.font = [UIFont systemFontOfSize:16];
+        hintLabel.text = STR(@"RentTypeList/您有整套或单间房源要出租？\n从这里开始免费发布！");
+        [self.tableView.backgroundView addSubview:hintLabel];
+        MakeBegin(hintLabel)
+        MakeBottomEqualTo(hintLabel.superview.bottom).offset(-135);
+        MakeLeftEqualTo(hintLabel.superview);
+        MakeRighEqualTo(hintLabel.superview);
+        MakeEnd
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -159,6 +181,19 @@
         mapController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:mapController animated:YES];
     }
+}
+
+- (void)onReceiveLocalizationDidUpdate:(NSNotification *)notif {
+    CUTERentTypeListForm *form = (CUTERentTypeListForm *)self.formController.form;
+    [self resetContent];
+    [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+        if (task.result) {
+            [form setRentTypeList:task.result];
+            [self.formController updateSections];
+            [self.tableView reloadData];
+        }
+        return nil;
+    }];
 }
 
 

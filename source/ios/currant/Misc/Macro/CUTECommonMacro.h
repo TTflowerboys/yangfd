@@ -11,6 +11,9 @@
 
 #import <BBTCommonMacro.h>
 #import <BBTUIMacro.h>
+#import "CUTELocalizationSwitcher.h"
+#undef NSLocalizedString
+#define NSLocalizedString(key, comment) [[CUTELocalizationSwitcher sharedInstance] localizedStringForKey:key]
 
 #define TabBarHeight                     49
 #define TabBarControllerViewFrame CGRectMake(0, 0, ScreenWidth, ScreenHeight - TabBarHeight - TouchHeightDefault - StatusBarHeight)
@@ -28,5 +31,7 @@
 //	NSString *gstr = [NSString stringWithFormat:@"%g", 0.01]; print 0.01
 //  NSString *gstrLong = [NSString stringWithFormat:@"%g", 0.00001]; print 1e-05
 #define FloatToString(x) [[NSNumber numberWithFloat:x] stringValue]
+
+
 
 #endif

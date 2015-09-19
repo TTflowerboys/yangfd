@@ -102,7 +102,7 @@
     UIView *view = [[UIView alloc] initWithFrame:_pagingView.bounds];
     view.backgroundColor = HEXCOLOR(0xf0e8d4, 1);
     UIImageView *imageView = [[UIImageView alloc] init];
-    NSString *imageName = [NSString stringWithFormat:@"img-splash-%d", (index + 1)];
+    NSString *imageName = [NSString stringWithFormat:@"img-splash-%d", ((int)index + 1)];
     imageView.image = IMAGE(imageName);
     [view addSubview:imageView];
     CGSize imageSize = imageView.image.size;
@@ -112,21 +112,27 @@
     label.textColor = CUTE_MAIN_COLOR;
     label.font = [UIFont boldSystemFontOfSize:20];
     label.textAlignment = NSTextAlignmentCenter;
+    label.numberOfLines = 0;
     [view addSubview:label];
-    label.frame = CGRectMake(10, imageView.frame.origin.y + imageView.frame.size.height + 14, RectWidthExclude(_pagingView.bounds, 20), 20);
-    label.text = @[STR(@"Splash/房东直租工具"),
-                   STR(@"Splash/杂志般的房产展示"),
-                   STR(@"Splash/一次发布，传遍全英")][index];
+    NSString *text = @[STR(@"Splash/房东直租工具"),
+                       STR(@"Splash/杂志般的房产展示"),
+                       STR(@"Splash/一次发布，传遍全英")][index];
+    label.text = text;
+    CGSize requiredTextSize = [label sizeThatFits:CGSizeMake(RectWidthExclude(_pagingView.bounds, 20), CGFLOAT_MAX)];
+    label.frame = CGRectMake(10, imageView.frame.origin.y + imageView.frame.size.height + 14, RectWidthExclude(_pagingView.bounds, 20), requiredTextSize.height);
 
     UILabel *detailLabel = [UILabel new];
     detailLabel.textColor = HEXCOLOR(0x666666, 1);
     detailLabel.font = [UIFont systemFontOfSize:14];
     detailLabel.textAlignment = NSTextAlignmentCenter;
+    detailLabel.numberOfLines = 0;
     [view addSubview:detailLabel];
-    detailLabel.frame = CGRectMake(10, label.frame.origin.y + label.frame.size.height + 10, RectWidthExclude(_pagingView.bounds, 20), 20);
-    detailLabel.text = @[STR(@"Splash/三步发布出租房，不用费力思考"),
-                         STR(@"Splash/分享至朋友圈，高大上的阅读体验"),
-                         STR(@"Splash/全国各大平台均可看到你的房产信息")][index];
+    NSString *detailText = @[STR(@"Splash/三步发布出租房，不用费力思考"),
+                             STR(@"Splash/分享至朋友圈，高大上的阅读体验"),
+                             STR(@"Splash/全国各大平台均可看到你的房产信息")][index];
+    detailLabel.text = detailText;
+    CGSize requiredDetailTextSize = [detailLabel sizeThatFits:CGSizeMake(RectWidthExclude(_pagingView.bounds, 20), CGFLOAT_MAX)];
+    detailLabel.frame = CGRectMake(10, label.frame.origin.y + label.frame.size.height + 10, RectWidthExclude(_pagingView.bounds, 20), requiredDetailTextSize.height);
 
     return view;
 }

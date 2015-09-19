@@ -75,8 +75,8 @@
 "RentAddressEdit/地址编辑表单" = "Address";
 "RentAddressEdit/请填写Postcode" = "Please enter Postcode";
 "RentAddressEdit/OK" = "OK";
-"RentAddressEdit/新Postcode定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置" = "We can't locate New Postcode, please update location manually, we will ignore location if you return without update it";
-"RentAddressEdit/返回" = "Return";
+"RentAddressEdit/新Postcode定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置" = "We can't locate new Postcode, please update location manually, we will ignore location if you return without update it";
+"RentAddressEdit/返回" = "Back";
 "RentAddressEdit/前往地图" = "Go To Map";
 "RentAddressEdit/请前往地图手动修改房产位置，返回房产信息则不添加房产位置" = "Please go to the map to update location manually";
 "RentAddressEdit/定位不到房产位置，请返回地图更新房产位置" = "We can't location your property ,please go back to update location";
@@ -214,7 +214,7 @@
 "RentContact/更新中..." = "Updating...";
 
 //Filepath: currant/Scene/User/Form/CUTERentContactForm.m
-"RentContact/登录" = "login";
+"RentContact/登录" = "Login";
 "RentContact/已有帐号" = "Already have Account";
 "RentContact/姓名" = "Name";
 "RentContact/还没有帐号？10秒创建" = "No accounts? Create in 10 seconds";
@@ -302,7 +302,7 @@
 //
 //Filepath: currant/Scene/Rent/Controller/CUTERentTicketPreviewViewController.m
 "RentTicketPreview/预览房源移动主页" = "Preview";
-"RentTicketPreview/继续" = "继续";
+"RentTicketPreview/继续" = "Continue";
 "RentTicketPreview/确认联系方式展示" = "Confirm Contact Display";
 
 
@@ -412,7 +412,7 @@
 //Group: NavigationUtil
 //
 //Filepath: currant/Misc/CUTENavigationUtil.m
-"NavigationUtil/返回" = "Return";
+"NavigationUtil/返回" = "Back";
 
 
 //
@@ -444,7 +444,7 @@
 "AppDelegate/洋房东" = "Youngfunding";
 "AppDelegate/出租发布" = "List Your Space";
 "AppDelegate/主页" = "Homepage";
-"AppDelegate/发布" = "Publish";
+"AppDelegate/发布" = "List Your Space";
 "AppDelegate/新房" = "New Property";
 "AppDelegate/租房" = "Property To Rent";
 "AppDelegate/我" = "Profile";
@@ -452,6 +452,7 @@
 "AppDelegate/已发布" = "My Listings";
 "AppDelegate/同步中..." = "Syncing...";
 "AppDelegate/获取验证中..." = "Loading...";
+"AppDelegate/您的语言偏好与当前系统语言不一致，您可以在“我” -> “设置” 中设置语言" = "Your language preference is not the system language you are using, you can change your language setting in \"Profile\" -> \"Setting\"";
 
 
 //
@@ -475,6 +476,7 @@
 "Setting/意见反馈" = "Feedback";
 "Setting/帮助中心" = "Help Center";
 "Setting/觉得不错？去App Store评价" = "Like this? Rate in AppStore";
+"Setting/语言" = "Language";
 
 
 //
@@ -510,7 +512,7 @@
 "RentContactDisplaySetting/展示电话" = "Show Phone Number";
 "RentContactDisplaySetting/展示邮箱" = "Show Email";
 "RentContactDisplaySetting/微信号" = "Wechat";
-"RentContactDisplaySetting/点击填写微信号" = "Click to enter Wechat";
+"RentContactDisplaySetting/点击填写微信号" = "Enter Wechat";
 "RentContactDisplaySetting/您选择的联系方式仅展示给平台注册的租客" = "The contact you choose will only be shown to registered tenants";
 "RentContactDisplaySetting/至少需要展示一种联系方式" = "At least select one contact";
 
@@ -550,7 +552,7 @@
 //
 //Filepath: currant/Scene/User/Controller/CUTEApplyBetaRentingViewController.m
 "ApplyBetaRenting/邀请码" = "Invitation code";
-"ApplyBetaRenting/返回" = "Return";
+"ApplyBetaRenting/返回" = "Back";
 "ApplyBetaRenting/申请邀请码" = "Apply";
 "ApplyBetaRenting/申请成功" = "Apply successfully";
 "ApplyBetaRenting/我们会尽快处理，请定期检查您的邮件" = "We will handle it as soon as possbile, please check your email later";
@@ -742,3 +744,18 @@
 "New Version Available" = "New Version Available";
 "Later" = "Later";
 "Update" = "Update";
+
+
+
+//
+//Group: Common
+//
+"%d室" = "%d bedroom";
+"%d厅" = "%d livingroom";
+"%d卫" = "%d bathroom";
+
+"%d居室" = "%d bedroom";
+
+//Language
+"en_GB" = "English";
+"zh_Hans_CN" = "Chinese, Simplified";

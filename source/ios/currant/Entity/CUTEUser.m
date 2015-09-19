@@ -24,6 +24,7 @@
              @"privateContactMethods": @"private_contact_methods",
              @"roles": @"role",
              @"userTypes": @"user_type",
+             @"locales": @"locales",
              @"phoneVerified": @"phone_verified"
              };
 }
@@ -62,6 +63,9 @@
     else if ([key isEqualToString:@keypath(self.privateContactMethods)] && [value isKindOfClass:[NSArray class]] && !IsArrayNilOrEmpty(value)) {
         return [(NSArray *)value componentsJoinedByString:@","];
     }
+    else if ([key isEqualToString:@keypath(self.locales)] && [value isKindOfClass:[NSArray class]] && !IsArrayNilOrEmpty(value)) {
+        return [(NSArray *)value componentsJoinedByString:@","];
+    }
     
     NSAssert(nil, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,key);
     return nil;
@@ -74,6 +78,10 @@
                                                                                   @"phone": CONCAT(@"+", NilNullToEmpty(self.countryCode.stringValue), NilNullToEmpty(self.phone)),
                                                                                   @"email":self.email,
                                                                                   }];
+
+    if (!IsArrayNilOrEmpty(self.locales)) {
+        [params setObject:[self.locales componentsJoinedByString:@","] forKey:@"locales"];
+    }
 
     if (!IsNilNullOrEmpty(self.wechat)) {
         [params setObject:self.wechat forKey:@"wechat"];

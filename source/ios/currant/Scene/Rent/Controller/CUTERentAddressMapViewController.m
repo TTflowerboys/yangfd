@@ -250,6 +250,11 @@
         return;
     }
 
+    //in case of push twice time
+    if (self.navigationController.topViewController == _rentAddressEditViewController) {
+        return;
+    }
+
     if (!_rentAddressEditViewController) {
         CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
         controller.navigationItem.title = STR(@"RentAddressMap/房产地址");
@@ -293,23 +298,31 @@
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
 
         NSArray *countries = (NSArray *)result;
-        NSInteger countryIndex = [countries indexOfObject:self.form.ticket.property.country];
-        if (countryIndex != NSNotFound) {
-            [form setCountry:[countries objectAtIndex:countryIndex]];
 
-            CUTECountry *country = [countries objectAtIndex:countryIndex];
-            [[[CUTEAPICacheManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
-                NSArray *cities = task.result;
-                if (!IsArrayNilOrEmpty(cities)) {
-                    [form setAllCities:cities];
-                    completion(cities);
-                }
-                else {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-                return task;
+        //if not existed country, set a default one, if location service not work, the case will occur
+        if (self.form.ticket.property.country == nil) {
+            self.form.ticket.property.country = [countries find:^BOOL(CUTECountry *object) {
+                return [object.ISOcountryCode isEqualToString:@"GB"];
             }];
         }
+
+        NSInteger countryIndex = [countries indexOfObject:self.form.ticket.property.country];
+
+        [form setCountry:[countries objectAtIndex:countryIndex]];
+
+        CUTECountry *country = [countries objectAtIndex:countryIndex];
+        [[[CUTEAPICacheManager sharedInstance] getCitiesByCountry:country] continueWithBlock:^id(BFTask *task) {
+            NSArray *cities = task.result;
+            if (!IsArrayNilOrEmpty(cities)) {
+                [form setAllCities:cities];
+                completion(cities);
+            }
+            else {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            return task;
+        }];
+
     }];
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
@@ -335,6 +348,9 @@
                 return task;
             }];
 
+        }
+        else {
+            completion(nil);
         }
     }];
 

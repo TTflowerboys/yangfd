@@ -1,0 +1,13 @@
+/* 
+  InfoPlist.strings
+  currant
+
+  Created by Foster Yin on 9/17/15.
+  Copyright © 2015 Foster Yin. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "洋房东";
+"CFBundleName" = "洋房东";
+
+"NSLocationAlwaysUsageDescription" = "App needs to use your location";
+"NSLocationUsageDescription" = "App needs to use your location";

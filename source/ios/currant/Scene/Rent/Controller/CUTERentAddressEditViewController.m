@@ -112,6 +112,46 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
+- (void)onContinueButtonPressed:(id)sender {
+    if (![self validateForm]) {
+        return;
+    }
+
+
+    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
+
+    if (!form.singleUseForReedit && _updateLocationFromAddressFailed) {
+        [UIAlertView showWithTitle:STR(@"RentAddressEdit/新Postcode定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"RentAddressEdit/返回") otherButtonTitles:@[STR(@"RentAddressEdit/下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex == alertView.cancelButtonIndex) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else {
+                [self clearTicketLocation];
+                [self createTicket];
+            }
+        }];
+
+        _updateLocationFromAddressFailed = NO;
+        return;
+    }
+    else if (IsNilOrNull(form.ticket.property.latitude) || IsNilOrNull(form.ticket.property.longitude)) {
+        [UIAlertView showWithTitle:STR(@"RentAddressEdit/请返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"RentAddressEdit/返回") otherButtonTitles:@[STR(@"RentAddressEdit/下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex == alertView.cancelButtonIndex) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else {
+                [self createTicket];
+            }
+        }];
+
+        return;
+    }
+    
+    [self createTicket];
+}
+
+
 - (void)updateAddressWhenCountryChange:(CUTECountry *)newCountry {
     [SVProgressHUD show];
     [[[CUTEAPICacheManager sharedInstance] getCitiesByCountry:newCountry] continueWithBlock:^id(BFTask *task) {
@@ -330,7 +370,12 @@
 
 - (void)onPostcodeEdit:(id)sender {
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    if (![form.postcode isEqualToString:form.ticket.property.zipcode]) {
+    if (IsNilNullOrEmpty(form.postcode)) {
+        [form syncTicketWithBlock:^(CUTETicket *ticket) {
+            ticket.property.zipcode = nil;
+        }];
+    }
+    else if (!IsNilNullOrEmpty(form.postcode) && ![form.postcode isEqualToString:form.ticket.property.zipcode]) {
         [self updateAddressWhenPostcodeChange:form.postcode];
     }
 }
@@ -511,44 +556,6 @@
         [sequencer run];
     }
 
-}
-
-- (void)onContinueButtonPressed:(id)sender {
-    if (![self validateForm]) {
-        return;
-    }
-
-
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-
-    if (!form.singleUseForReedit && _updateLocationFromAddressFailed) {
-        [UIAlertView showWithTitle:STR(@"RentAddressEdit/新Postcode定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"RentAddressEdit/返回") otherButtonTitles:@[STR(@"RentAddressEdit/下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            if (buttonIndex == alertView.cancelButtonIndex) {
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-            else {
-                [self clearTicketLocation];
-                [self createTicket];
-            }
-        }];
-
-        _updateLocationFromAddressFailed = NO;
-        return;
-    }
-    else if (IsNilOrNull(form.ticket.property.latitude) || IsNilOrNull(form.ticket.property.longitude)) {
-        [UIAlertView showWithTitle:STR(@"RentAddressEdit/请返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"RentAddressEdit/返回") otherButtonTitles:@[STR(@"RentAddressEdit/下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            if (buttonIndex == alertView.cancelButtonIndex) {
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-            else {
-                [self createTicket];
-            }
-        }];
-
-        return;
-    }
-
-    [self createTicket];
 }
 
 
