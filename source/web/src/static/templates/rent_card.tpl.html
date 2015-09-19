@@ -127,9 +127,9 @@
                                 <p class="label">
                                     {_if(rent.rent_available_time && window.moment(parseInt(rent.rent_available_time)*1000) > window.moment().add(1,'days').hours(0).minutes(0).seconds(0)) {_}
                                         {_if(window.lang==='en_GB') {_}
-                                            available from window.moment(parseInt(rent.rent_available_time)*1000).format('MMMM Do YYYY')
+                                            available from {=window.moment(parseInt(rent.rent_available_time)*1000).format('MMMM Do YYYY')=}
                                         {_} else {_}
-                                            {= window.moment(parseInt(rent.rent_available_time)*1000).format('YYYY{{_('年')}}MM{{_('月')}}DD{{_('日')}}') + '{{_('起')}}' =}
+                                            {= window.moment(parseInt(rent.rent_available_time)*1000).format('YYYY年MM月DD日') + window.i18n('起') =}
                                         {_}_}
                                     {_} else if(rent.rent_available_time){_}
                                         {=window.i18n('可立即入住')=}
@@ -137,9 +137,9 @@
                                 </p>
                                 <p class="value">
                                     {_if(rent.minimum_rent_period) {_}
-                                    {{_('至少租住')}}<span>{=rent.minimum_rent_period.value=}</span>{=team.parsePeriodUnit(rent.minimum_rent_period.unit)=}
+                                    {=window.i18n('至少租住')=}<span>{=rent.minimum_rent_period.value=}</span>{=team.parsePeriodUnit(rent.minimum_rent_period.unit)=}
                                     {_}else{_}
-                                    {{_('租期不限')}}
+                                    {=window.i18n('租期不限')=}
                                     {_}_}
                                 </p>
                             </div>

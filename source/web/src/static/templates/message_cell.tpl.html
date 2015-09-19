@@ -17,7 +17,7 @@
                 {_if (message.time) {_}
                 <label class="date" >{=project.formatDate(message.time)=}</label>
                 {_}_}
-                <button id="showHide" class="showHide" data-state="close" data-status="{=message.status=}" data-id="{=message.id=}">{{_('展开')}}</button>
+                <button id="showHide" class="showHide" data-state="close" data-status="{=message.status=}" data-id="{=message.id=}">{=window.i18n('展开')=}</button>
             </div>
             <p class="content" style="display:none">
                 {=message.text=}

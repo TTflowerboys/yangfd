@@ -19,17 +19,17 @@
             <div id="emptyPlaceHolder" class="emptyPlaceHolder">
                 <img src="/static/images/icon/notice.png" alt="" />
                 <div class="holderText">
-                    <h2>{{_('不好意思，平台暂时没有')}}
+                    <h2>{=window.i18n('不好意思，平台暂时没有')=}
                         <span id="budget">{=budgetName=}</span>
-                        {{_('合适')}}
+                        {=window.i18n('合适')=}
                         <span id="intention">{=house.category_intention.value=}</span>
-                        {{_('的投资机会')}}
+                        {=window.i18n('的投资机会')=}
                     </h2>
                     <p>
-                        {{_('您可以先')}}
-                        <a href="/property-list">{{_('看看其他房产')}}</a>
-                        {{_('，或者')}}
-                        <a style="cursor:pointer;" onclick="javascript:window.project.openRequirement(null, '{=budgetId=}', '{=house.category_intention.id=}')">{{_('提交您的置业需求')}}</a>
+                        {=window.i18n('您可以先')=}
+                        <a href="/property-list">{=window.i18n('看看其他房产')=}</a>
+                        {=window.i18n('，或者')=}
+                        <a style="cursor:pointer;" onclick="javascript:window.project.openRequirement(null, '{=budgetId=}', '{=house.category_intention.id=}')">{=window.i18n('提交您的置业需求')=}</a>
                     </p>
                 </div>
             </div>
