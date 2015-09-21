@@ -48,5 +48,9 @@ $(function () {
         var format = $(this).attr('data-utc-format') || 'YYYY-MM-DD'
         $(this).append(window.moment.utc($(this).attr('data-utc-time')).format(format))
     })
+
+    if(window.team.isWeChat()) {
+        $('body').attr('data-client', 'wechat')
+    }
 })
 
