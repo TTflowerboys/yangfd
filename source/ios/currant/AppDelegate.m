@@ -355,9 +355,10 @@
             [toolTips hideAnimated:YES];
         } error:nil];
 
-        [self.tabBarController aspect_hookSelector:@selector(setSelectedIndex:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^ (id<AspectInfo> info) {
+        [self aspect_hookSelector:@selector(tabBarController:didSelectViewController:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^ (id<AspectInfo> info) {
             [toolTips hideAnimated:YES];
         } error:nil];
+
 
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED];
         [[NSUserDefaults standardUserDefaults] synchronize];
