@@ -2,9 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>property-to-rent/edit/:ticketId</key>
+	<string>CUTERentPropertyInfoViewController</string>
+	<key>setting/</key>
+	<string>CUTESettingViewController</string>
+	<key>property-to-rent-list/?status=draft</key>
+	<string>CUTEUnfinishedRentTicketListViewController</string>
 	<key>property-to-rent/create</key>
 	<string>CUTERentTypeListViewController</string>
-	<key>property-to-rent/edit</key>
-	<string>CUTERentPropertyInfoViewController</string>
+	<key>property-to-rent/create?_clear_stack=true</key>
+	<string>CUTERentTypeListViewController</string>
+	<key>signin/</key>
+	<string>CUTERentLoginViewController</string>
+	<key>signup/</key>
+	<string>CUTERentContactViewController</string>
 </dict>
 </plist>

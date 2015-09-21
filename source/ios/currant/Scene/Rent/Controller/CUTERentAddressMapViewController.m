@@ -14,7 +14,6 @@
 #import "CUTEMapTextField.h"
 #import "CUTERentAddressEditForm.h"
 #import "CUTERentAddressEditViewController.h"
-#import "CUTERentPropertyInfoViewController.h"
 #import "CUTEAPICacheManager.h"
 #import "CUTEEnum.h"
 #import <NSArray+ObjectiveSugar.h>
@@ -38,6 +37,7 @@
 #import "CUTEUserDefaultKey.h"
 #import "JDFTooltipManager.h"
 #import "CUTEAddressUtil.h"
+#import "currant-Swift.h"
 
 #define kRegionDistance 800
 
@@ -480,41 +480,10 @@
         }
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
-                return [[CUTEAPICacheManager sharedInstance] getEnumsByType:object];
-            }]] continueWithBlock:^id(BFTask *task) {
-                NSArray *landloardTypes = nil;
-                NSArray *propertyTypes = nil;
-                if (!IsArrayNilOrEmpty(task.result) && [task.result count] == 2) {
-                    landloardTypes = task.result[0];
-                    propertyTypes = task.result[1];
-                }
-
-                if (!IsArrayNilOrEmpty(landloardTypes) && !IsArrayNilOrEmpty(propertyTypes)) {
-                    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
-
-                    self.form.ticket.landlordType = [CUTEPropertyInfoForm getDefaultLandloardType:landloardTypes];
-                    self.form.ticket.property.propertyType = [CUTEPropertyInfoForm getDefaultPropertyType:propertyTypes];
-                    CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
-                    CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
-                    form.ticket = self.form.ticket;
-                    form.propertyType = currentTicket.property.propertyType;
-                    form.bedroomCount = currentTicket.property.bedroomCount? currentTicket.property.bedroomCount.integerValue: 0;
-                    form.livingroomCount = currentTicket.property.livingroomCount? currentTicket.property.livingroomCount.integerValue: 0;
-                    form.bathroomCount = currentTicket.property.bathroomCount? currentTicket.property.bathroomCount.integerValue: 0;
-                    [form setAllPropertyTypes:propertyTypes];
-                    [form setAllLandlordTypes:landloardTypes];
-                    controller.formController.form = form;
-
-                    [self.navigationController pushViewController:controller animated:YES];
-                    [SVProgressHUD dismiss];
-                }
-                else {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-
-                return nil;
-            }];
+            CUTETicket *ticket = result;
+            [SVProgressHUD dismiss];
+            TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+            [self.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
         }];
 
         [sequencer run];

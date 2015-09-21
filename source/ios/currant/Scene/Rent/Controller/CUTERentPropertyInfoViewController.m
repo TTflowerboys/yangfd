@@ -44,6 +44,7 @@
 #import "CUTERentPeriodViewController.h"
 #import "CUTEAPIManager.h"
 #import "currant-Swift.h"
+#import <HHRouter.h>
 
 @interface CUTERentPropertyInfoViewController () {
 
@@ -65,7 +66,7 @@
 //TODO move all controller preparation to setupRoute, let Controller self-manangement
 - (BFTask *)setupRoute {
 
-    NSString *ticketId = self.CUTEParams[@"ticketId"];
+    NSString *ticketId = self.params[@"ticketId"];
 
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
 
@@ -97,35 +98,69 @@
         }];
         
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticketId) parameters:nil resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
-                if (task.error) {
-                    [tcs setError:task.error];
-                }
-                else if (task.exception) {
-                    [tcs setException:task.exception];
-                }
-                else if (task.isCancelled) {
-                    [tcs cancel];
-                }
-                else {
-                    CUTETicket *ticket = task.result;
-                    NSArray *landloardTypes = result[0];
-                    NSArray *propertyTypes = result[1];
 
-                    CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
-                    form.ticket = ticket;
-                    form.propertyType = ticket.property.propertyType;
-                    form.bedroomCount = ticket.property.bedroomCount? ticket.property.bedroomCount.integerValue: 0;
-                    form.livingroomCount = ticket.property.livingroomCount? ticket.property.livingroomCount.integerValue: 0;
-                    form.bathroomCount = ticket.property.bathroomCount? ticket.property.bathroomCount.integerValue: 0;
-                    [form setAllPropertyTypes:propertyTypes];
-                    [form setAllLandlordTypes:landloardTypes];
-                    self.formController.form = form;
-                    [tcs setResult:nil];
+            CUTETicket *ticket = [[CUTEDataManager sharedInstance] getRentTicketById:ticketId];
+            if (ticket) {
+                NSArray *landloardTypes = result[0];
+                NSArray *propertyTypes = result[1];
 
+                if (ticket.landlordType == nil) {
+                    ticket.landlordType = [CUTEPropertyInfoForm getDefaultLandloardType:landloardTypes];
                 }
-                return task;
-            }];
+                if (ticket.property.propertyType == nil) {
+                    ticket.property.propertyType = [CUTEPropertyInfoForm getDefaultPropertyType:propertyTypes];
+                }
+
+                CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
+                form.ticket = ticket;
+                form.propertyType = ticket.property.propertyType;
+                form.bedroomCount = ticket.property.bedroomCount? ticket.property.bedroomCount.integerValue: 0;
+                form.livingroomCount = ticket.property.livingroomCount? ticket.property.livingroomCount.integerValue: 0;
+                form.bathroomCount = ticket.property.bathroomCount? ticket.property.bathroomCount.integerValue: 0;
+                [form setAllPropertyTypes:propertyTypes];
+                [form setAllLandlordTypes:landloardTypes];
+                self.formController.form = form;
+                [tcs setResult:nil];
+
+            }
+            else {
+                [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticketId) parameters:nil resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
+                    if (task.error) {
+                        [tcs setError:task.error];
+                    }
+                    else if (task.exception) {
+                        [tcs setException:task.exception];
+                    }
+                    else if (task.isCancelled) {
+                        [tcs cancel];
+                    }
+                    else {
+                        CUTETicket *ticket = task.result;
+                        NSArray *landloardTypes = result[0];
+                        NSArray *propertyTypes = result[1];
+
+                        if (ticket.landlordType == nil) {
+                            ticket.landlordType = [CUTEPropertyInfoForm getDefaultLandloardType:landloardTypes];
+                        }
+                        if (ticket.property.propertyType == nil) {
+                            ticket.property.propertyType = [CUTEPropertyInfoForm getDefaultPropertyType:propertyTypes];
+                        }
+
+                        CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
+                        form.ticket = ticket;
+                        form.propertyType = ticket.property.propertyType;
+                        form.bedroomCount = ticket.property.bedroomCount? ticket.property.bedroomCount.integerValue: 0;
+                        form.livingroomCount = ticket.property.livingroomCount? ticket.property.livingroomCount.integerValue: 0;
+                        form.bathroomCount = ticket.property.bathroomCount? ticket.property.bathroomCount.integerValue: 0;
+                        [form setAllPropertyTypes:propertyTypes];
+                        [form setAllLandlordTypes:landloardTypes];
+                        self.formController.form = form;
+                        [tcs setResult:nil];
+                        
+                    }
+                    return task;
+                }];
+            }
 
         }];
 

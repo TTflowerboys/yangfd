@@ -15,16 +15,16 @@
     return [NSURL URLWithString:URLString relativeToURL:[CUTEConfiguration hostURL]];
 }
 
-+ (instancetype)YangfdURLWithString:(NSString *)URLString {
-    return [[NSURL alloc] initWithScheme:[CUTEConfiguration yangfdScheme] host:@"page" path:URLString];
-}
-
 - (BOOL)isYangfdURL {
     return [[self scheme] isEqualToString:[CUTEConfiguration yangfdScheme]];
 }
 
 - (BOOL)isHttpOrHttpsURL {
     return [[self scheme] isEqualToString:@"http"] || [[self scheme] isEqualToString:@"https"];
+}
+
+- (BOOL)isWebArchiveURL {
+    return [[self scheme] isEqualToString:@"webarchive"];
 }
 
 - (BOOL)isEquivalent:(NSURL *)aURL {

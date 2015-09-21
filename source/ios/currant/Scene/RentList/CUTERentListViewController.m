@@ -52,18 +52,6 @@
     });
 }
 
-- (void)loadRequesetInNewController:(NSURLRequest *)urlRequest {
-    [super loadRequesetInNewController:urlRequest];
-    NSURL *url = urlRequest.URL;
-    if ([url.path hasPrefix:@"/property-to-rent"]) {
-        NSArray *components = [url.path componentsSeparatedByString:@"/"];
-        if (components.count >= 3) {
-            [[CUTEUsageRecorder sharedInstance] saveVisitedTicketWithId:components[2]];
-        }
-    }
-}
-
-
 - (void)onMapButtonPressed:(id)sender {
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_HIDE_ROOT_TAB_BAR object:nil];

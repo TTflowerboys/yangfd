@@ -25,8 +25,6 @@
 
 @property (strong, nonatomic) CUTERentContactDisplaySettingForm *displaySetting;
 
-@property (nonatomic) BOOL isOnlyRegister;
-
 @property (nonatomic) BOOL isInvitationCodeRequired;
 
 - (void)setAllCountries:(NSArray *)allCountries;

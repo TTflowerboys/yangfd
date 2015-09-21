@@ -21,6 +21,7 @@
 #import "CUTEApptentiveEvent.h"
 #import "ATConnect.h"
 #import "CUTEShareManager.h"
+#import "currant-Swift.h"
 
 @implementation CUTEWebHandler
 
@@ -95,6 +96,7 @@
         }
     }];
 
+    //Deprecated: Move to custom scheme action
     [self.bridge registerHandler:@"editRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
 
         NSDictionary *dic = data;
@@ -102,13 +104,15 @@
             NSError *error = nil;
             CUTETicket *ticket = (CUTETicket *)[MTLJSONAdapter modelOfClass:[CUTETicket class] fromJSONDictionary:dic error:&error];
             if (!error && ticket) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_EDIT object:webViewController userInfo:@{@"ticket": ticket}];
+                [[CUTEDataManager sharedInstance] saveRentTicket:ticket];
+                [webViewController.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
             }
         }
     }];
-
+    
+    //Deprecated: Move to custom scheme action
     [self.bridge registerHandler:@"createRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_CREATE object:webViewController userInfo:nil];
+        [webViewController.navigationController openRouteWithURL:[NSURL URLWithString:@"yangfd://property-to-rent/create" ]];
     }];
 
     [self.bridge registerHandler:@"shareRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
@@ -156,21 +160,14 @@
 
     //TODO remove this action in html files, this has been updated by the delegate hook
     [self.bridge registerHandler:@"openURLInNewController" handler:^(id data, WVJBResponseCallback responseCallback) {
-        [webViewController loadRequesetInNewController:[NSURLRequest requestWithURL:[NSURL URLWithString:data relativeToURL:[CUTEConfiguration hostURL]]]];
+
+        [webViewController.navigationController openRouteWithURL:[NSURL URLWithString:data relativeToURL:[CUTEConfiguration hostURL]]];
     }];
 
     //Depercated: Remove all tab actions for app
     [self.bridge registerHandler:@"openHomeTab" handler:^(id data, WVJBResponseCallback responseCallback) {
         [NotificationCenter postNotificationName:KNOTIF_SHOW_HOME_TAB object:webViewController];
     }];
-
-//    [self.bridge registerHandler:@"openRentListTab" handler:^(id data, WVJBResponseCallback responseCallback) {
-//        [NotificationCenter postNotificationName:KNOTIF_SHOW_RENT_TICKET_LIST_TAB object:webViewController];
-//    }];
-//
-//    [self.bridge registerHandler:@"openPropertyListTab" handler:^(id data, WVJBResponseCallback responseCallback) {
-//        [NotificationCenter postNotificationName:KNOTIF_SHOW_PROPERTY_LIST_TAB object:webViewController];
-//    }];
 
     //TODO: Move the notify action to Push Message API
     [self.bridge registerHandler:@"notifyRentTicketIsRented" handler:^(id data, WVJBResponseCallback responseCallback) {

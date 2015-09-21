@@ -35,12 +35,10 @@
                                                               @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"RentContact/国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTECountry *)[_allCountries firstObject], FXFormFieldAction: @"optionBack"},
                                                               @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"RentContact/手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
                                                               @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"RentContact/手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class],FXFormFieldAction: @"codeFieldEndEdit"},
-                                                              @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:_isOnlyRegister ? STR(@"RentContact/完成注册"): STR(@"RentContact/发布并分享到微信"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
+                                                              @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle: STR(@"RentContact/发布并分享到微信"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
                                                               ]];
 
-    if (!_isOnlyRegister) {
-        [fields insertObject:@{FXFormFieldKey: @"displaySetting", FXFormFieldTitle: STR(@"RentContact/联系方式展示"), FXFormFieldCell: [CUTEFormTextCell class], FXFormFieldAction: @"onDisplaySettingPressed:"} atIndex:[fields count] - 1];
-    }
+     [fields insertObject:@{FXFormFieldKey: @"displaySetting", FXFormFieldTitle: STR(@"RentContact/联系方式展示"), FXFormFieldCell: [CUTEFormTextCell class], FXFormFieldAction: @"onDisplaySettingPressed:"} atIndex:[fields count] - 1];
 
     return fields;
 }

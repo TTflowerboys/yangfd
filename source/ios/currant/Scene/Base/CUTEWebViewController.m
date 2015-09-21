@@ -29,6 +29,13 @@
 #import <currant-Swift.h>
 #import "CUTELocalizationSwitcher.h"
 
+@interface UINavigationController (Private)
+
+- (void)openRouteWithWebRequest:(NSURLRequest *)URLRequest;
+
+@end
+
+
 @interface CUTEWebViewController () <NJKWebViewProgressDelegate>
 {
     UIWebView *_webView;
@@ -146,19 +153,6 @@
     [self updateRightButtonWithURL:archive.URL];
     [self updateTitleWithURL:archive.URL];
 }
-
-- (void)loadRequesetInNewController:(NSURLRequest *)urlRequest {
-    NSURL *url = urlRequest.URL;
-    TrackEvent(GetScreenName(self.url), kEventActionPress, GetScreenName(url), nil);
-    CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
-    newWebViewController.url = url;
-    newWebViewController.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:newWebViewController animated:YES];
-
-    //the progress bar need navigationBar
-    [newWebViewController loadRequest:urlRequest];
-}
-
 
 - (void)updateWithURL:(NSURL *)url {
     [self createOrUpdateWebView:nil];
@@ -317,11 +311,12 @@
 {
 
     if (navigationType == UIWebViewNavigationTypeLinkClicked && [request.URL isHttpOrHttpsURL] && ![webView.request.URL isEquivalent:request.URL]) {
-        [self loadRequesetInNewController:request];
+        [self.navigationController openRouteWithWebRequest:request];
         return NO;
     }
     else if ([request.URL isYangfdURL]) {
-        [self openYangfdURL:request.URL];
+        [self.navigationController openRouteWithURL:request.URL];
+        return NO;
     }
 
     return YES;

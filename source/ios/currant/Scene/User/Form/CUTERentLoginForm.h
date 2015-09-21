@@ -18,8 +18,6 @@
 
 @property (strong, nonatomic) NSString *password;
 
-@property (nonatomic) BOOL isOnlyRegister;
-
 - (void)setAllCountries:(NSArray *)allCountries;
 
 - (NSError *)validateFormWithScenario:(NSString *)scenario;

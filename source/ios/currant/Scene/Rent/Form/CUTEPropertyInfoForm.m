@@ -11,8 +11,6 @@
 #import "CUTEFormImagePickerCell.h"
 #import "CUTEFormButtonCell.h"
 #import "CUTEFormRoomsPickerCell.h"
-//#import "CUTEFormDefaultCell.h"
-#import "CUTERentContactViewController.h"
 #import "CUTERentPropertyMoreInfoViewController.h"
 #import <NSArray+ObjectiveSugar.h>
 

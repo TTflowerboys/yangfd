@@ -12,12 +12,11 @@
 
 + (instancetype)WebURLWithString:(NSString *)URLString;
 
-+ (instancetype)YangfdURLWithString:(NSString *)URLString;
-
 - (BOOL)isYangfdURL;
 
 - (BOOL)isHttpOrHttpsURL;
 
+- (BOOL)isWebArchiveURL;
 
 //don't care query, fragment and user etc
 - (BOOL)isEquivalent:(NSURL *)aURL;

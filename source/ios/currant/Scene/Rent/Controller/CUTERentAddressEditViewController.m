@@ -17,7 +17,6 @@
 #import "CUTEAPIManager.h"
 #import "CUTEAPICacheManager.h"
 #import <Sequencer.h>
-#import "CUTERentPropertyInfoViewController.h"
 #import "CUTETracker.h"
 #import "CUTEAPIManager.h"
 #import <UIAlertView+Blocks.h>
@@ -29,6 +28,7 @@
 #import "CUTEAddressUtil.h"
 #import "CUTENavigationUtil.h"
 #import "Aspects.h"
+#import "currant-Swift.h"
 
 @interface CUTERentAddressEditViewController () {
 
@@ -483,21 +483,6 @@
     return YES;
 }
 
-- (CUTERentPropertyInfoViewController *)createInfoViewControllerWithTicket:(CUTETicket *)currentTicket propertyTypes:(NSArray *)propertyTypes landlordTypes:(NSArray *)landlordTypes {
-    CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
-
-    CUTEPropertyInfoForm *infoForm = [CUTEPropertyInfoForm new];
-    infoForm.ticket  = currentTicket;
-    infoForm.propertyType = currentTicket.property.propertyType;
-    infoForm.bedroomCount = currentTicket.property.bedroomCount? currentTicket.property.bedroomCount.integerValue: 0;
-    infoForm.livingroomCount = currentTicket.property.livingroomCount? currentTicket.property.livingroomCount.integerValue: 0;
-    infoForm.bathroomCount = currentTicket.property.bathroomCount? currentTicket.property.bathroomCount.integerValue: 0;
-    [infoForm setAllPropertyTypes:propertyTypes];
-    [infoForm setAllLandlordTypes:landlordTypes];
-    controller.formController.form = infoForm;
-    return controller;
-}
-
 - (void)createTicket {
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     CUTETicket *currentTicket = form.ticket;
@@ -526,31 +511,10 @@
         }
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
-                return [[CUTEAPICacheManager sharedInstance] getEnumsByType:object];
-            }]] continueWithBlock:^id(BFTask *task) {
-                NSArray *landlordTypes = nil;
-                NSArray *propertyTypes = nil;
-                if (!IsArrayNilOrEmpty(task.result) && [task.result count] == 2) {
-                    landlordTypes = task.result[0];
-                    propertyTypes = task.result[1];
-                }
-
-                if (!IsArrayNilOrEmpty(landlordTypes) && !IsArrayNilOrEmpty(propertyTypes)) {
-                    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
-
-                    form.ticket.landlordType = [CUTEPropertyInfoForm getDefaultLandloardType:landlordTypes];
-                    form.ticket.property.propertyType = [CUTEPropertyInfoForm getDefaultPropertyType:propertyTypes];
-                    CUTERentPropertyInfoViewController *controller = [self createInfoViewControllerWithTicket:currentTicket propertyTypes:propertyTypes landlordTypes:landlordTypes];
-                    [self.navigationController pushViewController:controller animated:YES];
-                    [SVProgressHUD dismiss];
-                }
-                else {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-
-                return nil;
-            }];
+            CUTETicket *ticket = result;
+            [SVProgressHUD dismiss];
+            TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+            [self.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
         }];
 
         [sequencer run];

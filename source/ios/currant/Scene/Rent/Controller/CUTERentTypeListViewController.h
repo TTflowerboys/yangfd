@@ -11,9 +11,7 @@
 #import "CUTETicket.h"
 #import "CUTEFormViewController.h"
 
-@protocol CUTERoutable;
-
-@interface CUTERentTypeListViewController : CUTEFormViewController <CUTERoutable>
+@interface CUTERentTypeListViewController : CUTEFormViewController
 
 
 @property (nonatomic, copy) dispatch_block_t updateRentTypeCompletion;

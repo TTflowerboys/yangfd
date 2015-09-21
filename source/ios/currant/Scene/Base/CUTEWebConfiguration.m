@@ -20,6 +20,7 @@
 #import "CUTENotificationKey.h"
 #import "CUTEPhoneUtil.h"
 #import "NSString+Encoding.h"
+#import "currant-Swift.h"
 
 @interface CUTEWebConfiguration () {
 
@@ -69,7 +70,7 @@
 
 - (NSURL *)getRedirectToLoginURLFromURL:(NSURL *)url {
     NSURL *originalURL = url;
-    return [NSURL WebURLWithString:CONCAT(@"/signin?from=", [originalURL.absoluteString URLEncode])];
+    return [NSURL URLWithString:CONCAT(@"/signin?from=", [originalURL.absoluteString URLEncode]) relativeToURL:[CUTEConfiguration hostURL]];
 
     return url;
 }
@@ -85,13 +86,24 @@
         return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController)
         {
             TrackEvent(@"property-to-rent-list", kEventActionPress, @"open-fav-list", nil);
-            [NotificationCenter postNotificationName:KNOTIF_SHOW_FAVORITE_RENT_TICKET_LIST object:viewController];
+            NSURL *originalURL = [NSURL WebURLWithString:@"/user-favorites#rent"];
+            NSURL *redirectedURL = originalURL;
+            if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:originalURL] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
+                redirectedURL = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:originalURL];
+            }
+
+            [viewController.navigationController openRouteWithURL:redirectedURL];
         }];
     }
     else if ([self isURL:url matchPath:@"\\/property-list"]) {
         return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController) {
             TrackEvent(@"property-list", kEventActionPress, @"open-fav-list", nil);
-            [NotificationCenter postNotificationName:KNOTIF_SHOW_FAVORITE_PROPERTY_LIST object:viewController];
+            NSURL *originalURL = [NSURL WebURLWithString:@"/user-favorites#own"];
+            NSURL *redirectedURL = originalURL;
+            if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:originalURL] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
+                redirectedURL = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:originalURL];
+            }
+            [viewController.navigationController openRouteWithURL:redirectedURL];
         }];
     }
 

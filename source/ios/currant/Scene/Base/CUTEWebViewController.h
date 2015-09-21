@@ -18,8 +18,6 @@
 
 - (void)loadRequest:(NSURLRequest *)urlRequest;
 
-- (void)loadRequesetInNewController:(NSURLRequest*)urlRequest;
-
 - (void)loadWebArchive:(CUTEWebArchive *)archive;
 
 - (void)updateWithURL:(NSURL *)url;

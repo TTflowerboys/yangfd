@@ -14,7 +14,6 @@
 #import "CUTEAPICacheManager.h"
 #import "CUTETicket.h"
 #import "CUTEDataManager.h"
-#import "CUTERentPropertyInfoViewController.h"
 #import "CUTEPropertyInfoForm.h"
 #import "CUTEUnfinishedRentTicketCell.h"
 #import "CUTENotificationKey.h"
@@ -26,6 +25,8 @@
 #import "CUTETracker.h"
 #import "CUTEConfiguration.h"
 #import "CUTEWebViewController.h"
+#import "currant-Swift.h"
+#import <HHRouter.h>
 
 @interface CUTEUnfinishedRentTicketListViewController ()
 
@@ -35,6 +36,35 @@
 
 
 @implementation CUTEUnfinishedRentTicketListViewController
+
+- (BFTask *)setupRoute {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    if (self.params && [self.params[@"status"] isEqualToString:@"draft"]) {
+        CUTEUnfinishedRentTicketListForm *form = [CUTEUnfinishedRentTicketListForm new];
+        self.form = form;
+        [[self.form reload] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [tcs setError:task.error];
+            }
+            else if (task.exception) {
+                [tcs setException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [tcs cancel];
+            }
+            else {
+                [tcs setResult:nil];
+                [self.tableView reloadData];
+            }
+
+            return task;
+        }];
+    }
+    else {
+        [tcs setError:[NSError errorWithDomain:CUTE_ERROR_DOMAIN code:-1 userInfo:@{NSLocalizedDescriptionKey: @"Unsupported Status"}]];
+    }
+    return tcs.task;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,19 +78,6 @@
 }
 
 - (void)resetContent {
-
-    __weak typeof(self)weakSelf = self;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"AppDelegate/已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-
-        NSURL *url = [NSURL URLWithString:@"/user-properties#rentOnly?status=to%20rent%2Crent"  relativeToURL:[CUTEConfiguration hostURL]];
-        TrackEvent(GetScreenName(self), kEventActionPress, GetScreenName(url), nil);
-        CUTEWebViewController *webViewController = [CUTEWebViewController new];
-        webViewController.url = url;
-        webViewController.hidesBottomBarWhenPushed = YES;
-        [weakSelf.navigationController pushViewController:webViewController animated:YES];
-        [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
-    }];
-
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"UnfinishedRentTicketList/创建") style:UIBarButtonItemStylePlain target:self action:@selector(onAddButtonPressed:)];
     self.navigationItem.title = STR(@"UnfinishedRentTicketList/出租房草稿");
 
@@ -145,35 +162,7 @@
 
     CUTETicket *ticket = [self.form.unfinishedRentTickets objectAtIndex:indexPath.row];
     if (ticket) {
-        [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
-            return [[CUTEAPICacheManager sharedInstance] getEnumsByType:object];
-        }]] continueWithBlock:^id(BFTask *task) {
-            NSArray *landloardTypes = nil;
-            NSArray *propertyTypes = nil;
-            if (!IsArrayNilOrEmpty(task.result) && [task.result count] == 2) {
-                landloardTypes = task.result[0];
-                propertyTypes = task.result[1];
-            }
-            if (!IsArrayNilOrEmpty(landloardTypes) && !IsArrayNilOrEmpty(propertyTypes)) {
-                CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
-                CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
-                form.ticket = ticket;
-                form.propertyType = ticket.property.propertyType;
-                form.bedroomCount = ticket.property.bedroomCount? ticket.property.bedroomCount.integerValue: 0;
-                form.livingroomCount = ticket.property.livingroomCount? ticket.property.livingroomCount.integerValue: 0;
-                form.bathroomCount = ticket.property.bathroomCount? ticket.property.bathroomCount.integerValue: 0;
-                [form setAllPropertyTypes:propertyTypes];
-                [form setAllLandlordTypes:landloardTypes];
-                controller.formController.form = form;
-                controller.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:controller animated:YES];
-            }
-            else {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-
-            return nil;
-        }];
+        [self.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
     }
 }
 

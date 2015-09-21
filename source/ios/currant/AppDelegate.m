@@ -29,7 +29,6 @@
 #import "CUTEUnfinishedRentTicketListViewController.h"
 #import "CUTERentTicketPublisher.h"
 #import "CUTEPropertyInfoForm.h"
-#import "CUTERentPropertyInfoViewController.h"
 #import "CUTEImageUploader.h"
 #import "CUTETracker.h"
 #import <Fabric/Fabric.h>
@@ -45,8 +44,6 @@
 #import "MemoryReporter.h"
 #import "UITabBarController+HideTabBar.h"
 #import "Sequencer.h"
-#import "CUTERentContactViewController.h"
-#import "CUTEUserViewController.h"
 #import "CUTETooltipView.h"
 #import "NSArray+ObjectiveSugar.h"
 #import "Aspects.h"
@@ -60,10 +57,13 @@
 #import <BBTAppUpdater.h>
 #import "CUTEWebArchiveManager.h"
 #import "CUTEWebConfiguration.h"
+#import "CUTESettingViewController.h"
 #import <GGLContext.h>
 #import <UIAlertView+Blocks.h>
 #import "CUTELocalizationSwitcher.h"
 #import <NSArray+ObjectiveSugar.h>
+#import "currant-Swift.h"
+#import <Base64.h>
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
@@ -98,33 +98,21 @@
 - (UINavigationController *)makeIndexViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
 
     UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kHomeTabBarIndex];
-    CUTEWebViewController *controller = [[CUTEWebViewController alloc] init];
-    controller.navigationItem.title = STR(@"AppDelegate/洋房东");
-    controller.url = [NSURL WebURLWithString:urlPath];
-    controller.webArchiveRequired = YES;
-    [nav setViewControllers:@[controller]];
+    nav.navigationItem.title = STR(@"AppDelegate/洋房东");
     return nav;
 }
 
 - (UINavigationController *)makePropertyListViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
 
     UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kPropertyListTabBarIndex];
-    CUTEPropertyListViewController *controller = [[CUTEPropertyListViewController alloc] init];
-    controller.url = [NSURL WebURLWithString:urlPath];
-    controller.navigationItem.title = STR(@"AppDelegate/洋房东");
-    controller.webArchiveRequired = YES;
-    [nav setViewControllers:@[controller]];
+    nav.navigationItem.title = STR(@"AppDelegate/洋房东");
     return nav;
 }
 
 - (UINavigationController *)makeRentListViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
 
     UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kRentTicketListTabBarIndex];
-    CUTERentListViewController *controller = [[CUTERentListViewController alloc] init];
-    controller.url = [NSURL WebURLWithString:urlPath];
-    controller.navigationItem.title = STR(@"AppDelegate/洋房东");
-    controller.webArchiveRequired = YES;
-    [nav setViewControllers:@[controller]];
+    nav.navigationItem.title = STR(@"AppDelegate/洋房东");
     return nav;
 }
 
@@ -132,11 +120,7 @@
 - (UINavigationController *)makeUserViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
 
     UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kUserTabBarIndex];
-    CUTEUserViewController *controller = [[CUTEUserViewController alloc] init];
-    controller.url = [NSURL WebURLWithString:urlPath];
-    controller.navigationItem.title = STR(@"AppDelegate/洋房东");
-    controller.webArchiveRequired = YES;
-    [nav setViewControllers:@[controller]];
+    nav.navigationItem.title = STR(@"AppDelegate/洋房东");
     return nav;
 }
 
@@ -165,6 +149,22 @@
              ];
 }
 
+- (NSURL *)tabbarURLWithIndex:(NSUInteger)index {
+
+    NSArray *array = @[@"/",
+                       @"/property-list",
+                       @"/property-to-rent/create",
+                       @"/property-to-rent-list",
+                       @"/user"];
+    NSURL *originalURL = [NSURL URLWithString:array[index] relativeToURL:[CUTEConfiguration hostURL]];
+    NSURL *redirectedURL = originalURL;
+    if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:originalURL] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
+        redirectedURL = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:originalURL];
+    }
+
+    return redirectedURL;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
@@ -182,15 +182,11 @@
 
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketPublish:) name:KNOTIF_TICKET_PUBLISH object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketEdit:) name:KNOTIF_TICKET_EDIT object:nil];
-    [NotificationCenter addObserver:self selector:@selector(onReceiveTicketCreate:) name:KNOTIF_TICKET_CREATE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketWechatShare:) name:KNOTIF_TICKET_WECHAT_SHARE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveTicketListReload:) name:KNOTIF_TICKET_LIST_RELOAD object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceivePropertyShare:) name:KNOTIF_PROPERTY_SHARE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveHideRootTabBar:) name:KNOTIF_HIDE_ROOT_TAB_BAR object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowRootTabBar:) name:KNOTIF_SHOW_ROOT_TAB_BAR object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowFavoriteRentTicketList:) name:KNOTIF_SHOW_FAVORITE_RENT_TICKET_LIST object:nil];
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowFavoritePropertyList:) name:KNOTIF_SHOW_FAVORITE_PROPERTY_LIST object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogin:) name:KNOTIF_USER_DID_LOGIN object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogout:) name:KNOTIF_USER_DID_LOGOUT object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserVerifyPhone:) name:KNOTIF_USER_VERIFY_PHONE object:nil];
@@ -421,8 +417,19 @@
     }
     //when show unfinished list controller, show type list page to add new one
     else if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController != nil) {
-        if (_lastSelectedTabIndex == tabBarController.selectedIndex && [viewController.topViewController isKindOfClass:[CUTEUnfinishedRentTicketListViewController class]]) {
-            [self pushRentTypeViewControllerInNavigationController:viewController animated:YES];
+        if (_lastSelectedTabIndex == tabBarController.selectedIndex) {
+            if ([viewController.topViewController isKindOfClass:[CUTEUnfinishedRentTicketListViewController class]]) {
+                [self pushRentTypeViewControllerInNavigationController:viewController animated:YES];
+            }
+        }
+        else  {
+            if (!viewController.topViewController.navigationItem.leftBarButtonItem) {
+                viewController.topViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"AppDelegate/已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+
+                    NSURL *url = [NSURL URLWithString:@"/user-properties#rentOnly?status=to%20rent%2Crent"  relativeToURL:[CUTEConfiguration hostURL]];
+                    [viewController openRouteWithURL:url];
+                }];
+            }
         }
     }
     else {
@@ -431,6 +438,25 @@
         }
 
         [self updateWebViewControllerTabAtIndex:tabBarController.selectedIndex];
+
+        if (viewController.tabBarItem.tag == kUserTabBarIndex) {
+            if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
+
+                CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
+                [webViewController aspect_hookSelector:@selector(updateBackButton) withOptions:AspectPositionAfter usingBlock:^ (id<AspectInfo> info) {
+                    if (![webViewController webViewCanGoBack]) {
+                        webViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"User/设置") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+                            [webViewController.navigationController openRouteWithURL:[NSURL URLWithString:@"yangfd://setting/"]];
+                        }];
+                    }
+                } error:nil];
+            }
+            else if ([viewController.topViewController isKindOfClass:[UIViewController class]]) {
+                viewController.topViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"User/设置") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+                    [viewController openRouteWithURL:[NSURL URLWithString:@"yangfd://setting/"]];
+                }];
+            }
+        }
     }
 
     _lastSelectedTabIndex = tabBarController.selectedIndex;
@@ -455,46 +481,39 @@
 
 - (void)updateWebViewControllerTabAtIndex:(NSInteger)index {
     UINavigationController *viewController = [[self.tabBarController viewControllers] objectAtIndex:index];
-    if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
-        CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
 
-        NSURL *originalURL = webViewController.url;
-        NSURL *redirectedURL = originalURL;
-        if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:originalURL] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
-            redirectedURL = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:originalURL];
-        }
-        dispatch_block_t loadBlock = ^ {
-            CUTEWebArchive *archive = [[CUTEWebArchiveManager sharedInstance] getWebArchiveWithURL:redirectedURL];
-            if (archive) {
-                [webViewController loadWebArchive:archive];
-            }
-            else {
-                [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
-                if (webViewController.webArchiveRequired) {
-                    [[CUTEWebArchiveManager sharedInstance]  archiveURL:redirectedURL];
-                }
-            }
-        };
-
-        dispatch_block_t reloadBlock = ^ {
-            [webViewController reload];
-            if (webViewController.webArchiveRequired) {
-                [[CUTEWebArchiveManager sharedInstance]  archiveURL:redirectedURL];
-            }
-        };
-
-        if (_lastSelectedTabIndex == self.tabBarController.selectedIndex) {
-            //在网络情况不好时，可能加载没有正常开始，比如在飞行模式，这个时候 request.URL.absoluteString 长度为0，那么就需要重新开始加载，而不是reload
-            if (IsNilOrNull(webViewController.webView.request) || IsNilOrNull(webViewController.webView.request.URL) || IsNilNullOrEmpty(webViewController.webView.request.URL.absoluteString)) {
-                loadBlock();
-            }
-            else {
-                reloadBlock();
-            }
+    if (IsArrayNilOrEmpty(viewController.viewControllers)) {
+        NSURL *URL = [self tabbarURLWithIndex:index];
+        if ([[CUTEWebArchiveManager sharedInstance] hasWebArchiveForURL:URL]) {
+            [viewController openRouteWithURL:[NSURL URLWithString:CONCAT(@"webarchive://", URL.absoluteString.base64EncodedString)]];
         }
         else {
-            if (!webViewController.webView.request) {// web page not load, so load it
-                loadBlock();
+            [viewController openRouteWithURL:URL];
+            if (URL.isHttpOrHttpsURL) {
+                [[CUTEWebArchiveManager sharedInstance]  archiveURL:URL];
+            }
+        }
+    }
+    else {
+        if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
+            CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
+            if (_lastSelectedTabIndex == self.tabBarController.selectedIndex) {
+                //在网络情况不好时，可能加载没有正常开始，比如在飞行模式，这个时候 request.URL.absoluteString 长度为0，那么就需要重新开始加载，而不是reload
+                if (IsNilOrNull(webViewController.webView.request) || IsNilOrNull(webViewController.webView.request.URL) || IsNilNullOrEmpty(webViewController.webView.request.URL.absoluteString)) {
+                    [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
+                }
+                else {
+                    [webViewController reload];
+                }
+
+                NSURL *originalURL = webViewController.url;
+                NSURL *redirectedURL = originalURL;
+                if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:originalURL] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
+                    redirectedURL = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:originalURL];
+                }
+                if (redirectedURL.isHttpOrHttpsURL) {
+                    [[CUTEWebArchiveManager sharedInstance]  archiveURL:redirectedURL];
+                }
             }
         }
     }
@@ -533,60 +552,26 @@
     }
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [SVProgressHUD dismiss];
         NSArray *unfinishedRentTickets = result;
         if (unfinishedRentTickets.count == 0) {
-            if (!silent) {
-                [SVProgressHUD show];
-            }
-            [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
-                if (task.result) {
-                    CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
-                    [form setRentTypeList:task.result];
-                    CUTERentTypeListViewController *controller = [CUTERentTypeListViewController new];
-                    controller.formController.form = form;
-                    controller.hidesBottomBarWhenPushed = NO;
-                    [viewController setViewControllers:@[controller] animated:NO];
-                    if (!silent) {
-                        [SVProgressHUD dismiss];
-                    }
-                }
-                else {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-                return nil;
-            }];
+            //TODO handle silent， Redesign the HUD for specific controller
+            [viewController openRouteWithURL:[NSURL URLWithString:@"yangfd://property-to-rent/create?_clear_stack=true"]];
         }
         else if (unfinishedRentTickets.count > 0) {
-            if (!silent) {
-                [SVProgressHUD dismiss];
-            }
-            CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
-            unfinishedRentTicketController.form = [CUTEUnfinishedRentTicketListForm new];
-            unfinishedRentTicketController.hidesBottomBarWhenPushed = NO;
+            [viewController openRouteWithURL:[NSURL URLWithString:@"yangfd://property-to-rent-list/?status=draft&_clear_stack=true"]];
+        }
 
-            [viewController setViewControllers:@[unfinishedRentTicketController] animated:NO];
-            unfinishedRentTicketController.form.unfinishedRentTickets = unfinishedRentTickets;
-            [unfinishedRentTicketController.tableView reloadData];
+        if (!viewController.topViewController.navigationItem.leftBarButtonItem) {
+            viewController.topViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"AppDelegate/已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+
+                NSURL *url = [NSURL URLWithString:@"/user-properties#rentOnly?status=to%20rent%2Crent"  relativeToURL:[CUTEConfiguration hostURL]];
+                [viewController openRouteWithURL:url];
+            }];
         }
     }];
 
     [sequencer run];
-}
-
-- (void)showUserPageSection:(NSString *)urlString fromViewController:(UIViewController *)viewController {
-     if ([viewController isKindOfClass:[CUTEWebViewController class]]) {
-        CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController;
-        [webViewController loadRequesetInNewController:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString relativeToURL:[CUTEConfiguration hostURL]]]];
-    }
-    else if ([viewController isKindOfClass:[UIViewController class]]) {
-        NSURL *url = [NSURL URLWithString:urlString relativeToURL:[CUTEConfiguration hostURL]];
-        TrackEvent(GetScreenName(viewController), kEventActionPress, GetScreenName(url), nil);
-        CUTEWebViewController *webViewController = [CUTEWebViewController new];
-        webViewController.url = url;
-        webViewController.hidesBottomBarWhenPushed = YES;
-        [viewController.navigationController pushViewController:webViewController animated:YES];
-        [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
-    }
 }
 
 - (void)checkAppUpdate
@@ -621,62 +606,6 @@
         [self.tabBarController presentViewController:nc animated:NO completion:nil];
     });
 }
-
-- (void)onReceiveTicketEdit:(NSNotification *)notif {
-    NSDictionary *userInfo = notif.userInfo;
-    CUTETicket *ticket = userInfo[@"ticket"];
-    UIViewController *viewController = (UIViewController *)notif.object;
-
-    if (ticket && viewController && [viewController isKindOfClass:[UIViewController class]] && viewController.navigationController) {
-
-        [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
-            return [[CUTEAPICacheManager sharedInstance] getEnumsByType:object];
-        }]] continueWithBlock:^id(BFTask *task) {
-            NSArray *landloardTypes = nil;
-            NSArray *propertyTypes = nil;
-            if (!IsArrayNilOrEmpty(task.result) && [task.result count] == 2) {
-                landloardTypes = task.result[0];
-                propertyTypes = task.result[1];
-            }
-
-            if (!IsArrayNilOrEmpty(landloardTypes) && !IsArrayNilOrEmpty(propertyTypes)) {
-                CUTERentPropertyInfoViewController *controller = [[CUTERentPropertyInfoViewController alloc] init];
-                CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
-                form.ticket = ticket;
-                form.propertyType = ticket.property.propertyType;
-                form.bedroomCount = ticket.property.bedroomCount? ticket.property.bedroomCount.integerValue: 0;
-                form.livingroomCount = ticket.property.livingroomCount? ticket.property.livingroomCount.integerValue: 0;
-                form.bathroomCount = ticket.property.bathroomCount? ticket.property.bathroomCount.integerValue: 0;
-                [form setAllPropertyTypes:propertyTypes];
-                [form setAllLandlordTypes:landloardTypes];
-                controller.formController.form = form;
-                [viewController.navigationController pushViewController:controller animated:YES];
-            }
-            else {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-
-            return nil;
-        }];
-    }
-}
-
-- (void)onReceiveTicketCreate:(NSNotification *)notif {
-    [self.tabBarController setSelectedIndex:kEditTabBarIndex];
-    _lastSelectedTabIndex = kEditTabBarIndex;
-    UINavigationController *viewController = [[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex];
-    UIViewController *fromController = notif.object;
-
-    if (fromController && fromController.navigationController == viewController) {
-        [self pushRentTypeViewControllerInNavigationController:viewController animated:YES];
-    }
-    else {
-        if ([viewController.topViewController isKindOfClass:[CUTEUnfinishedRentTicketListViewController class]]) {
-            [self pushRentTypeViewControllerInNavigationController:viewController animated:NO];
-        }
-    }
-}
-
 
 - (void)onReceiveTicketWechatShare:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
@@ -772,15 +701,6 @@
 
 - (void)onReceiveShowRootTabBar:(NSNotification *)notif {
     [self.tabBarController setTabBarHidden:NO animated:YES];
-}
-
-
-- (void)onReceiveShowFavoriteRentTicketList:(NSNotification *)notif {
-    [self showUserPageSection:@"/user-favorites#rent" fromViewController:notif.object];
-}
-
-- (void)onReceiveShowFavoritePropertyList:(NSNotification *)notif {
-    [self showUserPageSection:@"/user-favorites#own" fromViewController:notif.object];
 }
 
 - (void)onReceiveShowHomeTab:(NSNotification *)notif {
@@ -954,6 +874,14 @@
     NSArray *titles = [self tabbarTitles];
     [self.tabBarController.tabBar.items eachWithIndex:^(UITabBarItem *item, NSUInteger index) {
         item.title = titles[index];
+    }];
+
+    UINavigationController *publishNavigationController = self.tabBarController.viewControllers[kEditTabBarIndex];
+
+    publishNavigationController.topViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"AppDelegate/已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+
+        NSURL *url = [NSURL URLWithString:@"/user-properties#rentOnly?status=to%20rent%2Crent"  relativeToURL:[CUTEConfiguration hostURL]];
+        [publishNavigationController openRouteWithURL:url];
     }];
 
     //clear web cache

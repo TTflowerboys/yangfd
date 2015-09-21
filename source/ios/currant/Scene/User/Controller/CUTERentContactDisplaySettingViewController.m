@@ -15,7 +15,6 @@
 #import "CUTENotificationKey.h"
 #import "CUTERentTypeListViewController.h"
 #import "CUTERentAddressMapViewController.h"
-#import "CUTERentPropertyInfoViewController.h"
 #import "CUTERentTicketPreviewViewController.h"
 #import "CUTERentContactDisplaySettingForm.h"
 #import "Sequencer.h"

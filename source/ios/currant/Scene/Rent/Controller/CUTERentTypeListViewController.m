@@ -67,19 +67,6 @@
     return tcs.task;
 }
 
-- (void)seupRouteWithCompletion:(dispatch_block_t)completion {
-    [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
-        if (task.result) {
-            CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
-            [form setRentTypeList:task.result];
-            self.formController.form = form;
-            completion();
-        }
-        return nil;
-    }];
-
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
@@ -115,20 +102,7 @@
     self.tableView.accessibilityIdentifier = STR(@"RentTypeList/出租类型列表");
 
     if (index == 0) {
-        __weak typeof(self)weakSelf = self;
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"AppDelegate/已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-
-            NSURL *url = [NSURL URLWithString:@"/user-properties#rentOnly?status=to%20rent%2Crent"  relativeToURL:[CUTEConfiguration hostURL]];
-            TrackEvent(GetScreenName(self), kEventActionPress, GetScreenName(url), nil);
-            CUTEWebViewController *webViewController = [CUTEWebViewController new];
-            webViewController.url = url;
-            webViewController.hidesBottomBarWhenPushed = YES;
-            [weakSelf.navigationController pushViewController:webViewController animated:YES];
-            [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
-        }];
-
-
-        self.tableView.backgroundView = [UIView new];
+         self.tableView.backgroundView = [UIView new];
         UILabel *hintLabel = [UILabel new];
         hintLabel.textColor = HEXCOLOR(0x999999, 1);
         hintLabel.textAlignment = NSTextAlignmentCenter;

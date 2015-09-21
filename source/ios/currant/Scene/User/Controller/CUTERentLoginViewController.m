@@ -23,7 +23,6 @@
 #import "CUTETracker.h"
 #import "CUTERentTypeListViewController.h"
 #import "CUTERentAddressMapViewController.h"
-#import "CUTERentPropertyInfoViewController.h"
 #import "CUTERentContactViewController.h"
 #import "CUTERentTicketPreviewViewController.h"
 #import "CUTERentPasswordViewController.h"
@@ -41,8 +40,34 @@
 #import "CUTERentContactDisplaySettingForm.h"
 #import "CUTERentPassword2ViewController.h"
 #import "CUTERentPassword2Form.h"
+#import "currant-Swift.h"
 
 @implementation CUTERentLoginViewController
+
+- (BFTask *)setupRoute {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            [tcs setError:task.error];
+        }
+        else if (task.exception) {
+            [tcs setException:task.exception];
+        }
+        else if (task.isCancelled) {
+            [tcs cancel];
+        }
+        else {
+            CUTERentLoginForm *form = [CUTERentLoginForm new];
+            [form setAllCountries:task.result];
+            self.formController.form = form;
+            [tcs setResult:nil];
+
+        }
+
+        return task;
+    }];
+    return tcs.task;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -108,28 +133,29 @@
     }
 
     CUTERentLoginForm *form = (CUTERentLoginForm *)self.formController.form;
-    if (form.isOnlyRegister) {
-        [SVProgressHUD showWithStatus:STR(@"RentLogin/登录中...")];
-        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/login" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(form.country.countryCode.stringValue), NilNullToEmpty(form.phone)), @"password": [form.password base64EncodedString]} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-            else {
-                CUTEUser *user = task.result;
-                [SVProgressHUD dismiss];
-
-
-                [self dismissViewControllerAnimated:YES completion:^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": user}];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_VERIFY_PHONE object:self userInfo:@{@"user": user}];
-
-                }];
-            }
-            return nil;
-        }];
-
-    }
-    else {
+//    if (form.isOnlyRegister) {
+//        [SVProgressHUD showWithStatus:STR(@"RentLogin/登录中...")];
+//        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/login" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(form.country.countryCode.stringValue), NilNullToEmpty(form.phone)), @"password": [form.password base64EncodedString]} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
+//            if (task.error || task.exception || task.isCancelled) {
+//                [SVProgressHUD showErrorWithError:task.error];
+//            }
+//            else {
+//                CUTEUser *user = task.result;
+//                [SVProgressHUD dismiss];
+//
+//
+//                [self dismissViewControllerAnimated:YES completion:^{
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": user}];
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_VERIFY_PHONE object:self userInfo:@{@"user": user}];
+//
+//                }];
+//            }
+//            return nil;
+//        }];
+//
+//    }
+//    else
+    {
         [SVProgressHUD showWithStatus:STR(@"RentLogin/登录中...")];
 
         Sequencer *sequencer = [Sequencer new];

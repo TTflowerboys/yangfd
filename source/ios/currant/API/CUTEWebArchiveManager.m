@@ -100,6 +100,10 @@
     return (CUTEWebArchive *)[_cache objectForKey:url.absoluteString];
 }
 
+- (BOOL)hasWebArchiveForURL:(NSURL *)url {
+    return [_cache hasCacheForKey:url.absoluteString];
+}
+
 - (void)clear {
     [_cache clearCache];
 }

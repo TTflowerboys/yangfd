@@ -10,9 +10,8 @@
 #import "CUTETicket.h"
 #import "CUTEFormViewController.h"
 
-@protocol CUTERoutable;
 
-@interface CUTERentPropertyInfoViewController : CUTEFormViewController <CUTERoutable>
+@interface CUTERentPropertyInfoViewController : CUTEFormViewController
 
 
 @end

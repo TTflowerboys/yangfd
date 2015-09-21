@@ -28,6 +28,8 @@
 
 - (CUTEWebArchive *)getWebArchiveWithURL:(NSURL *)url;
 
+- (BOOL)hasWebArchiveForURL:(NSURL *)url;
+
 - (void)clear;
 
 @end

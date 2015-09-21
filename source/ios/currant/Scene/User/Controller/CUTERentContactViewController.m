@@ -35,7 +35,6 @@
 #import "CUTETracker.h"
 #import "CUTERentTypeListViewController.h"
 #import "CUTERentAddressMapViewController.h"
-#import "CUTERentPropertyInfoViewController.h"
 #import "CUTERentTicketPreviewViewController.h"
 #import "CUTEUserDefaultKey.h"
 #import "CUTEApplyBetaRentingForm.h"
@@ -45,6 +44,8 @@
 #import "Sequencer.h"
 #import "CUTEUserEditingListener.h"
 #import "CUTEPhoneUtil.h"
+#import "currant-Swift.h"
+#import <HHRouter.h>
 
 @interface CUTERentContactViewController () <TTTAttributedLabelDelegate> {
 
@@ -57,6 +58,43 @@
 
 
 @implementation CUTERentContactViewController
+
+-(BFTask *)setupRoute {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+
+    if (self.params && [self.params[@"from_edit_ticket"] isEqualToString:@"true"]) {
+        CUTETicket *ticket = [[CUTEDataManager sharedInstance] getRentTicketById:self.params[@"ticket_id"]];
+        CUTEProperty *property = ticket.property;
+        [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [tcs setError:task.error];
+            }
+            else if (task.exception) {
+                [tcs setException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [tcs cancel];
+            }
+            else {
+                CUTERentContactForm *form = [CUTERentContactForm new];
+                [form setAllCountries:task.result];
+                //set default country same with the property
+                if (property.country) {
+                    form.country = [task.result find:^BOOL(CUTECountry *object) {
+                        return [object.ISOcountryCode isEqualToString:property.country.ISOcountryCode];
+                    }];
+                }
+                self.formController.form = form;
+                self.ticket = ticket;
+                [tcs setResult:nil];
+            }
+
+            return task;
+        }];
+    }
+
+    return tcs.task;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -370,20 +408,14 @@
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         CUTEUser *retUser = result;
-        if (form.isOnlyRegister) {
-            [SVProgressHUD dismiss];
-            [self dismissViewControllerAnimated:YES completion:^{
-                [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": retUser}];
-                [NotificationCenter postNotificationName:KNOTIF_USER_VERIFY_PHONE object:self userInfo:@{@"user": retUser}];
-                [NotificationCenter postNotificationName:KNOTIF_MARK_USER_AS_LANDLORD object:self userInfo:@{@"user": retUser}];
-            }];
-        }
-        else {
-            [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": retUser}];
-            [NotificationCenter postNotificationName:KNOTIF_USER_VERIFY_PHONE object:self userInfo:@{@"user": retUser}];
-            [NotificationCenter postNotificationName:KNOTIF_MARK_USER_AS_LANDLORD object:self userInfo:@{@"user": retUser}];
+
+        [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": retUser}];
+        [NotificationCenter postNotificationName:KNOTIF_USER_VERIFY_PHONE object:self userInfo:@{@"user": retUser}];
+        [NotificationCenter postNotificationName:KNOTIF_MARK_USER_AS_LANDLORD object:self userInfo:@{@"user": retUser}];
+
+        if (self.params && [self.params[@"from_edit_ticket"] isEqualToString:@"true"]) {
             CUTETicket *ticket = self.ticket;
-            
+
             [[[CUTERentTicketPublisher sharedInstance] publishTicket:ticket updateStatus:^(NSString *status) {
                 [SVProgressHUD showWithStatus:status];
             }] continueWithBlock:^id(BFTask *task) {
@@ -410,7 +442,7 @@
             }];
         }
     }];
-    
+
     [sequencer run];
 }
 
@@ -431,7 +463,7 @@
             CUTERentLoginViewController *loginViewController = [CUTERentLoginViewController new];
             loginViewController.ticket = self.ticket;
             CUTERentLoginForm *form = [CUTERentLoginForm new];
-            form.isOnlyRegister = ((CUTERentContactForm *)self.formController.form).isOnlyRegister;
+
             [form setAllCountries:task.result];
             //set default country same with the property
             if (self.ticket.property.country) {
@@ -466,7 +498,6 @@
             CUTERentLoginViewController *loginViewController = [CUTERentLoginViewController new];
             loginViewController.ticket = self.ticket;
             CUTERentLoginForm *form = [CUTERentLoginForm new];
-            form.isOnlyRegister = ((CUTERentContactForm *)self.formController.form).isOnlyRegister;
             [form setAllCountries:task.result];
             //set default country same with the property
             if (self.ticket.property.country) {

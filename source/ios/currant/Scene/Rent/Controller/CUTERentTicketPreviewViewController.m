@@ -20,9 +20,9 @@
 #import "CUTETracker.h"
 #import "CUTERentTypeListViewController.h"
 #import "CUTERentAddressMapViewController.h"
-#import "CUTERentPropertyInfoViewController.h"
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTERentContactDisplaySettingViewController.h"
+#import "currant-Swift.h"
 
 @implementation CUTERentTicketPreviewViewController
 
@@ -73,36 +73,7 @@
     }
     else {
         CUTETicket *ticket = self.ticket;
-        CUTEProperty *property = ticket.property;
-        [SVProgressHUD show];
-        [[[CUTEAPICacheManager sharedInstance] getCountriesWithCountryCode:YES] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-            else if (task.exception) {
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [SVProgressHUD showErrorWithCancellation];
-            }
-            else {
-                CUTERentContactViewController *contactViewController = [CUTERentContactViewController new];
-                contactViewController.ticket = self.ticket;
-                CUTERentContactForm *form = [CUTERentContactForm new];
-                [form setAllCountries:task.result];
-                //set default country same with the property
-                if (property.country) {
-                    form.country = [task.result find:^BOOL(CUTECountry *object) {
-                        return [object.ISOcountryCode isEqualToString:property.country.ISOcountryCode];
-                    }];
-                }
-                contactViewController.formController.form = form;
-                [self.navigationController pushViewController:contactViewController animated:YES];
-                [SVProgressHUD dismiss];
-            }
-
-            return task;
-        }];
+        [self.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://signup/?", @"from_edit_ticket=true", @"&ticket_id=", ticket.identifier)]];
     }
 }
 
