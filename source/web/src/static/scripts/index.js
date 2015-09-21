@@ -140,7 +140,7 @@
         }
     });
 
-    if(window.lang === 'en_GB') {
+    if($.cookie('currant_lang') === 'en_GB') {
         selectRoleChooserTab('landlord')
         initRoleChooserContent('landlord')
     } else {
