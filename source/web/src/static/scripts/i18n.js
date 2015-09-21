@@ -8,16 +8,22 @@ $(function () {
 
 window.changeLanguage = function (language) {
     $.cookie('currant_lang', language,{ path: '/' })
-
+    function reset () {
+        if(window.team.getQuery('_i18n')) {
+            location.href = window.team.setQuery('_i18n', language)
+        } else {
+            location.reload()
+        }
+    }
     if(window.user && language !== _.first(window.user.locales)){
         $.betterPost('/api/1/user/edit', {
             'locales': language
         }).done(function (data) {
             window.user = data
-            location.href = window.team.setQuery('_i18n', language)
+            reset()
         })
     }else{
-        location.href = window.team.setQuery('_i18n', language)
+        reset()
     }
 }
 

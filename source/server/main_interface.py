@@ -64,39 +64,34 @@ def default(user, params):
     if lang == "en_GB":
         homepage_ad_list = f_app.ad.get_all_by_channel("homepage_uk")
         homepage_ad_list = f_app.i18n.process_i18n(homepage_ad_list)
-        if params.get("_i18n") == "en_GB":
-            return currant_util.common_template(
-                "index_en",
-                title=title,
-                property_list=property_list,
-                homepage_ad_list=homepage_ad_list,
-                news_list=news_list,
-                intention_list=intention_list,
-                property_country_list=property_country_list,
-                property_city_list=property_city_list,
-                rent_type_list=rent_type_list,
-                property_type_list=property_type_list,
-                icon_map=currant_util.icon_map
-            )
-        else:
-            redirect("/?_i18n=en_GB")
+        return currant_util.common_template(
+                        "index_en",
+                        title=title,
+                        property_list=property_list,
+                        homepage_ad_list=homepage_ad_list,
+                        news_list=news_list,
+                        intention_list=intention_list,
+                        property_country_list=property_country_list,
+                        property_city_list=property_city_list,
+                        rent_type_list=rent_type_list,
+                        property_type_list=property_type_list,
+                        icon_map=currant_util.icon_map
+                    )
     else:
-        if params.get("_i18n") == "en_GB":
-            redirect("/")
-        else:
-            return currant_util.common_template(
-                "index",
-                title=title,
-                property_list=property_list,
-                homepage_ad_list=homepage_ad_list,
-                news_list=news_list,
-                intention_list=intention_list,
-                property_country_list=property_country_list,
-                property_city_list=property_city_list,
-                rent_type_list=rent_type_list,
-                property_type_list=property_type_list,
-                icon_map=currant_util.icon_map
-            )
+        return currant_util.common_template(
+                        "index",
+                        title=title,
+                        property_list=property_list,
+                        homepage_ad_list=homepage_ad_list,
+                        news_list=news_list,
+                        intention_list=intention_list,
+                        property_country_list=property_country_list,
+                        property_city_list=property_city_list,
+                        rent_type_list=rent_type_list,
+                        property_type_list=property_type_list,
+                        icon_map=currant_util.icon_map
+                    )
+
 
 
 @f_get('/signup')
