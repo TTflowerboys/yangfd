@@ -8,7 +8,7 @@
         background: @sup-header-bg;
         position: relative;
         height: @sup-header-height;
-        z-index: @header-z-index;
+        //z-index: @header-z-index;
         width: 100%;
         min-width:@min-page-width;
 
@@ -70,6 +70,45 @@
         white-space: nowrap;
         height:100%;
         float: right;
+        .menuItem {
+            position: relative;
+            margin: 0 10px;
+            padding: 0 20px;
+            .dropDownMenu{
+                width: 140px;
+                padding: 6px 10px;
+                display: none;
+                position: absolute;
+                left: 0;
+                top: 30px;
+                background: #444444;
+                z-index: @drop-down-menu-z-index;
+                li{
+                    height: 24px;
+                    line-height: 24px;
+                    margin: 6px 0;
+                    a{
+                        display: block;
+                        width: 100%;
+                        text-decoration:none;
+                        color: @mute-color;
+                        &:hover {
+                            color:@light-color;
+                        }
+                    }
+                }
+                hr{
+                    margin: 0;
+                    border-top-color: #222;
+                }
+            }
+            &:hover {
+                background: #444444;
+                .dropDownMenu{
+                    display: block;
+                }
+            }
+        }
 
         .login{
             cursor: pointer;
@@ -100,31 +139,32 @@
             }
         }
 
-        .nickname  {
+        .account  {
             height:@sup-header-height;
             line-height:@sup-header-height;
-            color: @mute-color;
             .clipped(10em);
             display:inline-block;
-            overflow:hidden;
+            overflow:visible;
             text-align:center;
             vertical-align:middle;
-            text-decoration:none;
-            padding-right:20px;
 
-            &:hover {
-                color:@light-color;
-            }
+            a {
+                text-decoration:none;
+                color: @mute-color;
+                &:hover {
+                    color:@light-color;
+                }
 
-            img,i {
-                margin-right:5px;
-                vertical-align: text-bottom;
-                max-width:none; //not use the reset.css config
-                font-size: 16px;
-                color: #888;
-            }
-            span{
-                vertical-align: middle;
+                img,i {
+                    margin-right:5px;
+                    vertical-align: text-bottom;
+                    max-width:none; //not use the reset.css config
+                    font-size: 16px;
+                    color: #888;
+                }
+                span{
+                    vertical-align: middle;
+                }
             }
         }
 
@@ -139,7 +179,7 @@
             vertical-align:middle;
             text-decoration:none;
             padding-right:20px;
-
+            margin: 0 10px;
             &:hover {
                 color:@light-color;
             }

@@ -68,19 +68,28 @@
                 <div class="supHeader">
                     <div class="user">
                         %if user:
-                        <a class="nickname" href="/user-settings">
-                            <i class="icon-user_header"></i>
-                            <span>{{user.get('nickname')}}</span>
-                        </a>
+                        <div class="account menuItem">
+                            <a href="/user-settings">
+                                <i class="icon-user_header"></i>
+                                <span>{{_('我的账户')}}</span>
+                            </a>
+                            <ul class="dropDownMenu">
+                                <li><a href="/user-favorites">{{_('我的收藏')}}</a></li>
+                                <li><a href="/user-intentions">{{_('我的意向单')}}</a></li>
+                                <li><a href="/user-properties">{{_('我的房产')}}</a></li>
+                                <hr/>
+                                <li><a id="logout" class="logout" href="#" onclick="project.logout()" data-need-bridge>{{_('退出')}}</a></li>
+                            </ul>
+                        </div>
                         <a class="message" id="message" href="/user-messages">
                             <img id="icon-message" alt="" src="/static/images/common/header/message.png" />
                             <img id="icon-message-notif" style="display:none" alt="" src="/static/images/common/header/message-notif.png" />
                             <span>{{_('消息')}}</span>
                         </a>
-                        <a id="logout" class="logout" href="/logout" data-need-bridge>
+                        <!--<a id="logout" class="logout" href="/logout" data-need-bridge>
                             <i class="icon-log_out"></i>
                             <span>{{_('登出')}}</span>
-                        </a>
+                        </a>-->
                         %else:
                         <a id="login" class="login">{{_('登录')}}</a>
                         <a id="register" class="register" onclick="project.goToSignUp()">{{_('注册')}}</a>
