@@ -285,9 +285,9 @@
 "RentLogin/手机号" = "Phone Number";
 "RentLogin/密码" = "Password";
 "RentLogin/登录" = "Login";
-"RentLogin/通过短信重置密码" = "Reset password via sms";
-"RentLogin/忘记密码？" = "Forget password ?";
-"RentLogin/通过邮箱重置密码" = "Reset password via email";
+"RentLogin/通过短信重置密码" = "Reset Password via SMS";
+"RentLogin/忘记密码？" = "Forgot Password ?";
+"RentLogin/通过邮箱重置密码" = "Reset Password via Email";
 
 
 //
