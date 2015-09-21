@@ -37,6 +37,9 @@ $(function () {
                 ga('send', 'event', 'email-unsubscribe', 'click', 'update ' + $(event.currentTarget).attr('data-type') + ' successfully')
             }).fail(function (ret) {
                 //window.alert(window.i18n('更新失败'))
+                if(ret !== 0) {
+                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)});
+                }
                 ga('send', 'event', 'email-unsubscribe', 'click', 'update ' + $(event.currentTarget).attr('data-type') + ' failed')
             })
         }
