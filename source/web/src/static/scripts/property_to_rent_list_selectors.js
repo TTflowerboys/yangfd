@@ -83,5 +83,30 @@
         initChosen($('[name=propertyType]'))
         initChosen($('[name=rentType]'))
     }
+    module.updateCityByCountry = function updateCityByCountry(countryCode, $citySelect){
+        var params = {
+            'country': countryCode,
+            'feature_code': 'city'
+        }
+        if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/geonames/search'] && window.betterAjaxXhr['/api/1/geonames/search'].readyState !== 4) {
+            window.betterAjaxXhr['/api/1/geonames/search'].abort()
+        }
+        //Empty city select
+        $citySelect.html('<option value="">' + i18n('城市列表加载中...') + '</option>').trigger('chosen:updated')
 
+        //Load city data
+        $.betterPost('/api/1/geonames/search', params)
+            .done(function (val) {
+                $citySelect.html(
+                    _.reduce(val, function(pre, val, key) {
+                        return pre + '<option value="' + val.id + '">' + val.name + (countryCode === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
+                    }, '<option value="">' + i18n('任意城市') + '</option>')
+                ).trigger('chosen:updated')
+            })
+            .fail(function(){
+            })
+    }
+    module.clearCity = function clearCity($citySelect) {
+        $citySelect.html('<option value="">' + i18n('任意城市') + '</option>').trigger('chosen:updated')
+    }
 })(window.currantModule = window.currantModule || {})

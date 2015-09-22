@@ -9,7 +9,18 @@
 
     })
 
+    var $countrySelect = $('select[name=propertyCountry]')
+    $countrySelect.change(function () {
+        var countryCode = $('select[name=propertyCountry]').children('option:selected').val()
 
+        ga('send', 'event', 'index', 'change', 'select-country',
+            $('select[name=propertyCountry]').children('option:selected').text())
+        if(countryCode) {
+            window.currantModule.updateCityByCountry(countryCode, $('select[name=propertyCity]'))
+        } else {
+            window.currantModule.clearCity($('select[name=propertyCity]'))
+        }
+    })
 
     function openRentListWithViewMode(viewMode) {
         var country = $('select[name=propertyCountry]').children('option:selected').val()

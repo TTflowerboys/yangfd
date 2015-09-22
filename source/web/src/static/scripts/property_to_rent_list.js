@@ -276,32 +276,7 @@
         return $('#result_list').children('.rentCard').length
     }
 
-    function updateCityByCountry(countryCode){
-        var params = {
-            'country': countryCode,
-            'feature_code': 'city'
-        }
-        if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/geonames/search'] && window.betterAjaxXhr['/api/1/geonames/search'].readyState !== 4) {
-            window.betterAjaxXhr['/api/1/geonames/search'].abort()
-        }
-        //Empty city select
-        $('select[name=propertyCity]').html('<option value="">' + i18n('城市列表加载中...') + '</option>').trigger('chosen:updated')
 
-        //Load city data
-        $.betterPost('/api/1/geonames/search', params)
-            .done(function (val) {
-                $('select[name=propertyCity]').html(
-                    _.reduce(val, function(pre, val, key) {
-                        return pre + '<option value="' + val.id + '">' + val.name + (countryCode === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
-                    }, '<option value="">' + i18n('任意城市') + '</option>')
-                ).trigger('chosen:updated')
-            })
-            .fail(function(){
-            })
-    }
-    function clearCity() {
-        $('select[name=propertyCity]').html('<option value="">' + i18n('任意城市') + '</option>').trigger('chosen:updated')
-    }
 
     function loadRentList(reload) {
         if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/rent_ticket/search'] && window.betterAjaxXhr['/api/1/rent_ticket/search'].readyState !== 4) {
@@ -431,9 +406,9 @@
         ga('send', 'event', 'rent_list', 'change', 'select-country',
             $('select[name=propertyCountry]').children('option:selected').text())
         if(countryCode) {
-            updateCityByCountry(countryCode)
+            window.currantModule.updateCityByCountry(countryCode, $('select[name=propertyCity]'))
         } else {
-            clearCity()
+            window.currantModule.clearCity($('select[name=propertyCity]'))
         }
         loadRentListByView()
         updateURLQuery('country', countryCode)
