@@ -114,6 +114,9 @@
                 position:relative;
                 padding: 10px;
             }
+            body[lang=en_GB] &{
+                padding-top: 10px;
+            }
         }
 
         @media @phone {
@@ -220,6 +223,9 @@
             @media @phone {
                 display: block;
             }
+            body[lang=en_GB] &{
+                font-size: 12px;
+            }
         }
 
         >.details {
@@ -237,6 +243,9 @@
                 .label{
                     font-family: @font-normal;
                     margin-bottom: 10px;
+                    body[lang=en_GB] & {
+                        line-height: 1.2;
+                    }
                 }
 
                 .value{
