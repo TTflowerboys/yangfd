@@ -116,12 +116,14 @@
                     </a>
                     {{_('消息')}}
                 </li>
+                %if _.lang == 'zh_Hans_CN':
                 <li data-show-client="app,wechat" style="display: none;">
                     <a href="/user-coupons">
                         <i class="icon-gift"></i>
                     </a>
                     {{_('会员专享')}}
                 </li>
+                %end
             </ul>
         </div>
     </div>

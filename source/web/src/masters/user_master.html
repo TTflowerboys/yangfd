@@ -32,7 +32,9 @@
             <li><a href="/user-intentions">{{_('意向单')}}</a></li>
             <li><a href="/user-properties">{{_('我的房产')}}</a></li>
             <li><a href="/user-messages">{{_('消息')}}</a></li>
+            %if _.lang == 'zh_Hans_CN':
             <li data-show-client="app,wechat"><a href="/user-coupons">{{_('会员专享')}}</a></li>
+            %end
         </ul>
     </div>
 </div>
