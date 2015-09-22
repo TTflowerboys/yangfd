@@ -1,7 +1,23 @@
 @import "_imports";
-.dhtmlx-error {
-    color: red;
-    background: #eee;
-    border: 1px solid #999;
-    box-shadow: none;
+.dhtmlx_message_area{
+    width: 220px;
+    top: 0 !important;
+    right: 0 !important;
+    .dhtmlx-info{
+        color: #fff;
+        width: 220px;
+        padding: 10px 20px;
+        margin: 0 0 1px;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+        background: #5ab020;
+        color: #fff;
+        &.hidden{
+            padding: 0 20px;
+        }
+    }
+    .dhtmlx-error {
+        background: #ff7200;
+    }
 }
