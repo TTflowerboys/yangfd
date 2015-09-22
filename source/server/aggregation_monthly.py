@@ -45,7 +45,7 @@ with f_app.mongo() as m:
     )
 
     for document in cursor:
-        print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'] + u":" + unicode(str(document['count'])))
+        print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
 
     # 出租房数量
     print('\n出租房数量:')
@@ -106,7 +106,7 @@ with f_app.mongo() as m:
 
     for document in cursor:
         if(document['_id']):
-            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'] + ":" + str(document['count']))
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
 
     # 出租房出租类型统计
     print('\n已经出租的房源里的出租类型统计:')
@@ -126,4 +126,4 @@ with f_app.mongo() as m:
 
     for document in cursor:
         if(document['_id']):
-            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'] + ":" + str(document['count']))
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))

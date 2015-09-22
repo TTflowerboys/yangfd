@@ -28,7 +28,7 @@ with f_app.mongo() as m:
     )
 
     for document in cursor:
-        print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'] + u":" + unicode(str(document['count'])))
+        print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
 
     # 出租房数量
     print('\n出租房数量:')
@@ -71,7 +71,7 @@ with f_app.mongo() as m:
 
     for document in cursor:
         if(document['_id']):
-            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'] + ":" + str(document['count']))
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
 
     # 出租房出租类型统计
     print('\n已经出租的房源里的出租类型统计:')
@@ -84,7 +84,7 @@ with f_app.mongo() as m:
 
     for document in cursor:
         if(document['_id']):
-            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'] + ":" + str(document['count']))
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
 
     # 按收藏类型统计
     print('\n按收藏类型统计被收藏过的次数:')
@@ -115,7 +115,7 @@ with f_app.mongo() as m:
     )
 
     for document in cursor:
-        print(f_app.user.output([document['_id']], custom_fields=f_app.common.user_custom_fields)[0]['nickname'] + ':' + str(document['count']))
+        print(f_app.user.output([document['_id']], custom_fields=f_app.common.user_custom_fields)[0]['nickname'].encode('utf-8') + ':' + str(document['count']))
 
     # 按用户统计的收藏海外房产的数量排名
     print('\n按用户统计的收藏海外房产的数量排名:')
@@ -135,7 +135,7 @@ with f_app.mongo() as m:
     user_fav_count_dic = OrderedDict(sorted(user_fav_count_dic.items(), key=lambda t: t[1], reverse=True))
     target_users = f_app.user.output(user_fav_count_dic.keys(), custom_fields=f_app.common.user_custom_fields)
     for user in target_users:
-        print(user['nickname'] + ':' + str(user_fav_count_dic[str(user['id'])]))
+        print(user['nickname'].encode('utf-8') + ':' + str(user_fav_count_dic[str(user['id'])]))
 
     # 查看过联系方式的总用户数和比例和查看总次数
     print('\n查看过联系方式的总用户数和查看总量:')
@@ -179,7 +179,7 @@ with f_app.mongo() as m:
     )
 
     for document in cursor:
-        print(document['_id'] + ':' + str(document['count']))
+        print(document['_id'].encode('utf-8') + ':' + str(document['count']))
 
     # 被查看过联系方式的房源数量和被查看总次数的统计
     # TODO
@@ -215,7 +215,7 @@ with f_app.mongo() as m:
     target_ticket_dic = OrderedDict(sorted(target_ticket_dic.items(), key=lambda t: t[1], reverse=True))
     target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_ticket_dic.keys(), ignore_nonexist=True, permission_check=False))
     for ticket in target_tickets:
-        print(ticket['title'] + ", " + str(ticket['id']) + ": " + str(target_ticket_dic.get(ticket['id'])))
+        print(ticket['title'].encode('utf-8') + ", " + str(ticket['id']) + ": " + str(target_ticket_dic.get(ticket['id'])))
 
     # 浏览过海外房产总数量
     total_property_views_count = m.log.find({'property_id': {'$exists': 'true'}}).count()
@@ -250,7 +250,7 @@ with f_app.mongo() as m:
     target_users = f_app.user.output(user_property_view_count_dic.keys(), custom_fields=f_app.common.user_custom_fields)
 
     for user in target_users:
-        print(user['nickname'] + ':' + str(user_property_view_count_dic[str(user['id'])]))
+        print(user['nickname'].encode('utf-8') + ':' + str(user_property_view_count_dic[str(user['id'])]))
 
     # 被浏览最多的海外房产排名
     print('\n被浏览最多的海外房产排名:')
@@ -272,4 +272,4 @@ with f_app.mongo() as m:
 
     for target_property in target_properties:
         if target_property and 'name' in target_property:
-            print(target_property['name'] + ", " + str(target_property['id']) + ':' + str(property_viewed_count_dic[str(target_property['id'])]))
+            print(target_property['name'].encode('utf-8') + ", " + str(target_property['id']) + ':' + str(property_viewed_count_dic[str(target_property['id'])]))
