@@ -116,7 +116,16 @@ main {
                 .rentalCreate{
                     width: 100%;
                     margin-bottom: 40px;
-
+                    i{
+                        display: inline-block;
+                        font-size: 24px;
+                        margin-right: 6px;
+                        vertical-align: middle;
+                    }
+                    span{
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
                     @media @phone {
                         display:none;
                     }
@@ -219,8 +228,12 @@ main {
                     vertical-align: middle;
                     .toggleTag {
                         float: left;
-                        margin-right:12px;
-                        margin-bottom:12px;
+                        margin-right:15px;
+                        margin-bottom:10px;
+                        @media @phone {
+                            margin-right:12px;
+                            margin-bottom:12px;
+                        }
                     }
 
                     @media @phone {
@@ -233,18 +246,23 @@ main {
                         margin-bottom: 12px;
                         vertical-align: middle;
                         input{
-                            width:124px;
+                            width:100px;
                             height:30px;
                             line-height:30px;
-                            border: 2px solid #aaa;
+                            border: 1px solid #aaa;
                             margin:0 4px 12px 0;
-                            padding-left: 8px;
+                            padding-left: 6px;
                             color: #999;
                             font-size: 12px;
+                            font-weight: lighter;
                             text-align: left;
                             background: none;
                             vertical-align: middle;
                             display: inline-block;
+                            @media @phone {
+                                width:124px;
+                                border: 2px solid #aaa;
+                            }
                         }
                         i{
                             position: absolute;

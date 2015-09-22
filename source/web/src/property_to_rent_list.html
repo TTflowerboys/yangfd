@@ -54,7 +54,10 @@
 <div id="result" class="result">
     <div id="tags" class="tags">
         <div class="tags_inner">
-            <a href="/property-to-rent/create" class="rentalCreate button red"><span class=big>{{_('发布租房信息')}}</span></a>
+            <a href="/property-to-rent/create" class="rentalCreate button red">
+                <i class="icon-edit"></i>
+                <span class=big>{{_('发布租房信息')}}</span>
+            </a>
 
             <h3 class="title">{{_('从搜索结果中筛选')}}</h3>
             %if rent_type_list:
@@ -63,7 +66,7 @@
                 <h4 class="rentType_title">{{_('出租类型')}}</h4>
                 <div id="rentTypeTag" class="inner">
                     %for index, rent_type in enumerate(rent_type_list):
-                    <div class="toggleTag" data-id="{{rent_type.get('id')}}">{{rent_type.get('value')}}
+                    <div class="toggleTag noBorder" data-id="{{rent_type.get('id')}}">{{rent_type.get('value')}}
                     </div>
                     %end
                 </div>
@@ -76,7 +79,7 @@
                     <h4 class="propertyType_title">{{_('房产类型')}}</h4>
                     <div id="propertyTypeTag" class="inner">
                         %for index, property_type in enumerate(property_type_list):
-                        <div class="toggleTag" data-id="{{property_type.get('id')}}">{{property_type.get('value')}}
+                        <div class="toggleTag noBorder" data-id="{{property_type.get('id')}}">{{property_type.get('value')}}
                         </div>
                         %end
                     </div>
@@ -94,7 +97,7 @@
                     <div id="rentBudgetTag" class="inner">
                         %for index, rent_budget in enumerate(rent_budget_list):
                         %if rent_budget.get('currency') == _.currency:
-                        <div class="toggleTag" data-id="{{rent_budget.get('id')}}" data-index="{{index}}">{{rent_budget.get('value')}}</div>
+                        <div class="toggleTag noBorder" data-id="{{rent_budget.get('id')}}" data-index="{{index}}">{{rent_budget.get('value')}}</div>
                         %end
                         %end
                     </div>
@@ -108,7 +111,7 @@
                     <h4 class="rentPeriod_title">{{_('租期')}}</h4>
                     <div id="rentPeriodTag" class="inner">
                         %for index, rent_period in enumerate(rent_period_list):
-                            <div class="toggleTag" data-id="{{rent_period.get('id')}}">{{rent_period.get('value')}}
+                            <div class="toggleTag noBorder" data-id="{{rent_period.get('id')}}">{{rent_period.get('value')}}
                             </div>
                         %end
                     </div>
@@ -138,7 +141,7 @@
                     <h4 class="bedroomCount_title">{{_('居室数')}}</h4>
                     <div id="bedroomCountTag" class="inner">
                         % for bedroom_count in bedroom_count_list:
-                            <div class="toggleTag" data-id="{{bedroom_count.get('id')}}">{{bedroom_count.get('value')}}</div>
+                            <div class="toggleTag noBorder" data-id="{{bedroom_count.get('id')}}">{{bedroom_count.get('value')}}</div>
                         % end
                     </div>
                 </div>
@@ -150,7 +153,7 @@
                     <h4 class="space_title">{{_('面积')}}</h4>
                     <div id="spaceTag" class="inner">
                         % for building_area in building_area_list:
-                            <div class="toggleTag" data-id="{{building_area.get('id')}}">{{building_area.get('value')}}</div>
+                            <div class="toggleTag noBorder" data-id="{{building_area.get('id')}}">{{building_area.get('value')}}</div>
                         % end
                     </div>
                 </div>
