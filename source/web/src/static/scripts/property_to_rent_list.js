@@ -337,10 +337,13 @@
                     isAllItemsLoaded = true
                     //$('.isAllLoadedInfo').show()
                 }
-
-            }).fail(function () {
-        }).always(function () {
                 updateResultCount(totalResultCount)
+
+            }).fail(function (ret) {
+                if(ret !== 0) {
+                    updateResultCount(totalResultCount)
+                }
+        }).always(function () {
                 $('#loadIndicator').hide()
                 isLoading = false
                 if (!window.team.isCurrantClient()) {
@@ -668,6 +671,7 @@
 
     $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
         mode = tabName
+        updateURLQuery('mode', mode)
         loadRentListByView()
     })
 
@@ -700,6 +704,7 @@
 
 
     function loadRentMapList() {
+        $('.emptyPlaceHolder').hide();
         if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/rent_ticket/search'] && window.betterAjaxXhr['/api/1/rent_ticket/search'].readyState !== 4) {
             window.betterAjaxXhr['/api/1/rent_ticket/search'].abort()
         }
