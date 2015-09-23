@@ -3,43 +3,64 @@
         <input class="name ghostInput" name="nickname" type="text" placeholder="{{_('姓名(必填)')}}" data-validator="required, trim"/>
     </div>
     <div class="form_row">
-        <!-- @@include =country_code_select.html -->
-        <span class=vr></span>
-        <input class="phone ghostInput" name="phone" type="text" placeholder="{{_('电话(必填)')}}" data-validator="required, trim"/>
+        <div class="col">
+            <!-- @@include =country_code_select.html -->
+            <span class=vr></span>
+            <input class="phone ghostInput" name="phone" type="text" placeholder="{{_('电话(必填)')}}" data-validator="required, trim"/>
+        </div>
+        <div class="col">
+            <input class="email ghostInput" name="email" type="text" placeholder="{{_('邮箱(必填)')}}" data-validator="required, trim email"/>
+        </div>
     </div>
-    <div class="form_row">
-        <input class="email ghostInput" name="email" type="text" placeholder="{{_('邮箱(必填)')}}" data-validator="required, trim email"/>
-    </div>
-    <div class="form_row">
-        <p class="hint">{{_('您想置业的国家')}}</p>
-        <select name="countrySelect" class="countrySelect ghostSelect" style="color:#4d4d4d;">
 
-            %for index, country  in enumerate(country_list_for_intention):
-            <option value="{{country.get('code')}}"
-                %if country.get('code') == 'GB' :
-            selected
-            %end
-            >
-
-            {{country.get('name')}}
-            </option>
-            %end
-        </select>
-    </div>
     <div class="form_row">
-        <p class="hint">{{_('您的预算')}}
-            (
-            <!--@@include=current_currency.html -->
-            )
-        </p>
-        <select class="budget ghostSelect" name="budget" style="color:#4d4d4d;">
-            %for index, budget in enumerate(budget_list):
-                %if budget.get('currency') == _.currency:
-                    <option value="{{budget.get('id')}}">{{budget.get('value')}}</option>
+        <div class="col">
+            <p class="hint">{{_('您想置业的国家')}}</p>
+            <select name="countrySelect" class="countrySelect ghostSelect" style="color:#4d4d4d;">
+
+                %for index, country  in enumerate(country_list_for_intention):
+                <option value="{{country.get('code')}}"
+                    %if country.get('code') == 'GB' :
+                selected
                 %end
-            %end
-        </select>
+                >
+
+                {{country.get('name')}}
+                </option>
+                %end
+            </select>
+        </div>
+        <div class="col">
+            <p class="hint">{{_('您的预算')}}
+                (
+                <!--@@include=current_currency.html -->
+                )
+            </p>
+            <select class="budget ghostSelect" name="budget" style="color:#4d4d4d;">
+                %for index, budget in enumerate(budget_list):
+                %if budget.get('currency') == _.currency:
+                <option value="{{budget.get('id')}}">{{budget.get('value')}}</option>
+                %end
+                %end
+            </select>
+        </div>
     </div>
+    <div class="form_row">
+        <div class="col">
+            <p class="hint">
+                {{_('您是从哪里听说洋房东的')}}
+            </p>
+            <select class="referrer ghostSelect" name="referrer" style="color:#4d4d4d;">
+                %for index, referrer in enumerate(referrer_list):
+                <option value="{{referrer.get('id')}}" data-slug="{{referrer.get('slug')}}">{{referrer.get('value')}}</option>
+                %end
+            </select>
+        </div>
+        <div class="col" style="display: none">
+            <input class="referrer ghostInput" name="referrer_text" type="text" placeholder="{{_('请填写您是从哪里听说洋房东的')}}"/>
+        </div>
+    </div>
+
     <div class="form_row">
         <textarea class="detail ghostTextArea" name="description" placeholder="{{_('请在这里写下您的其他需求和购房疑问，我们的置业顾问将与您取得联系，竭诚为您服务')}}({{ _('可选') }})"></textarea>
     </div>

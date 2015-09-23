@@ -83,6 +83,15 @@
         } else {
             container.find('[name=requirementAgree]').prop('checked', true)
         }
+        container.find('[name=referrer]').off('change').on('change', function () {
+            var $freeCol = $(this).parent('.col').next('.col')
+            if($(this).find('option:checked').attr('data-slug') === 'other') {
+                $freeCol.show()
+            } else {
+                $freeCol.hide()
+            }
+
+        })
         //remove bind event first Bug #5515
         container.find('form[name=requirement]').off('submit').submit(function (e) {
             window.team.setUserType('investor')
@@ -111,6 +120,11 @@
             params.phone = '+' + params.country_code + params.phone
             params.country = params.countrySelect
             params.locales = window.lang
+
+            if(container.find('[name=referrer]').find('option:checked').attr('data-slug') === 'other') {
+                params.referrer = params.referrer_text
+            }
+            delete params.referrer_text
             var phoneReg = /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/
             if(!phoneReg.test(params.phone)) {
                 errorArea.text(window.i18n('电话格式不正确'))

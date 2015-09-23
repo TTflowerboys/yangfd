@@ -235,6 +235,8 @@ def common_template(path, **kwargs):
         kwargs['country_list_for_intention'] = country_list_for_intention
     if 'budget_list' not in kwargs:
         kwargs['budget_list'] = sorted(f_app.i18n.process_i18n(f_app.enum.get_all('budget')), key=lambda budget: budget.get('sort_value', 0))
+    if 'referrer_list' not in kwargs:
+        kwargs['referrer_list'] = sorted(f_app.i18n.process_i18n(f_app.enum.get_all('user_referrer')), key=lambda user_referrer: user_referrer.get('sort_value', 0))
     if 'occupation_list' not in kwargs:
         kwargs['occupation_list'] = f_app.i18n.process_i18n(f_app.enum.get_all('occupation'))
     if 'rent_type_list' not in kwargs:
