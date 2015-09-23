@@ -9,32 +9,7 @@ from libfelix.f_interface import f_api, abort, template, request
 logger = logging.getLogger(__name__)
 
 
-@f_api('/intention_ticket/add', params=dict(
-    nickname=(str, True),
-    phone=(str, True),
-    email=(str, True),
-    budget="enum:budget",
-    country=("country", True),
-    description=str,
-    city="geonames_gazetteer:city",
-    block=str,
-    equity_type='enum:equity_type',
-    intention=(list, None, 'enum:intention'),
-    noregister=bool,
-    custom_fields=(list, None, dict(
-        key=(str, True),
-        value=(str, True),
-    )),
-    locales=(list, None, str),
-    referrer=str,
-    property_id=ObjectId,
-))
-def intention_ticket_add(params):
-    """
-    ``noregister`` is default to **True**, which means if ``noregister`` is not given, the visitor will *not be registered*.
-    ``creator_user_id`` is the ticket creator, while ``user_id`` stands for the customer of this ticket.
-    """
-    params.setdefault("type", "intention")
+def _find_or_register(params):
     noregister = params.pop("noregister", True)
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
@@ -168,6 +143,37 @@ def intention_ticket_add(params):
 
     params["creator_user_id"] = ObjectId(creator_user_id)
     params["user_id"] = ObjectId(user_id)
+    return shadow_user_id
+
+
+@f_api('/intention_ticket/add', params=dict(
+    nickname=(str, True),
+    phone=(str, True),
+    email=(str, True),
+    budget="enum:budget",
+    country=("country", True),
+    description=str,
+    city="geonames_gazetteer:city",
+    block=str,
+    equity_type='enum:equity_type',
+    intention=(list, None, 'enum:intention'),
+    noregister=bool,
+    custom_fields=(list, None, dict(
+        key=(str, True),
+        value=(str, True),
+    )),
+    locales=(list, None, str),
+    referrer=str,
+    property_id=ObjectId,
+))
+def intention_ticket_add(params):
+    """
+    ``noregister`` is default to **True**, which means if ``noregister`` is not given, the visitor will *not be registered*.
+    ``creator_user_id`` is the ticket creator, while ``user_id`` stands for the customer of this ticket.
+    """
+    params.setdefault("type", "intention")
+
+    shadow_user_id = _find_or_register(params)
 
     # ticket_admin_url = "http://" + request.urlparts[1] + "/admin#/ticket/"
     # Send mail to every senior sales
@@ -408,148 +414,7 @@ def rent_intention_ticket_add(params, user):
     ``creator_user_id`` is the ticket creator, while ``user_id`` stands for the customer of this ticket.
     """
     params.setdefault("type", "rent_intention")
-    noregister = params.pop("noregister", True)
-    params["phone"] = f_app.util.parse_phone(params, retain_country=True)
-
-    user_id = None
-    user_id_by_phone = f_app.user.get_id_by_phone(params["phone"], force_registered=True)
-    shadow_user_id = f_app.user.get_id_by_phone(params["phone"])
-    if not user:
-        # For guest, trying to use existing phone number
-        if user_id_by_phone:
-            abort(40351)
-        else:
-            # Non-register user can use his / her phone number again
-            if shadow_user_id:
-                user_id = ObjectId(shadow_user_id)
-                f_app.user.update_set(user_id, {"nickname": params["nickname"], "locales": params.get("locales", [])})
-            else:
-                # Add shadow account for noregister user
-                user_params = {
-                    "nickname": params["nickname"],
-                    "phone": params["phone"],
-                    "email": params["email"],
-                    "locales": params.get("locales", [])
-                }
-                if "country" in params:
-                    user_params["country"] = params["country"]
-                if noregister:
-                    user_params.pop("email")
-
-                user_id = f_app.user.add(user_params, noregister=noregister, retain_country=True)
-                f_app.log.add("add", user_id=user_id)
-                # Log in and send password for newly registered user
-                if not noregister:
-                    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
-                    f_app.user.update_set(user_id, {"password": password})
-                    user_params["password"] = password
-                    locale = user_params["locales"][0] if user_params["locales"] else f_app.common.i18n_default_locale
-                    request._requested_i18n_locales_list = [locale]
-                    if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
-                        template_invoke_name = "new_user_cn"
-                        sendgrid_template_id = "1c4c392c-2c8d-4b8f-a6ca-556d757ac482"
-                    else:
-                        template_invoke_name = "new_user_en"
-                        sendgrid_template_id = "f69da86f-ba73-4196-840d-7696aa36f3ec"
-                    substitution_vars = {
-                        "to": [params["email"]],
-                        "sub": {
-                            "%nickname%": [user_params["nickname"]],
-                            "%phone%": [user_params["phone"]],
-                            "%password%": [user_params["password"]],
-                            "%logo_url%": [f_app.common.email_template_logo_url]
-                        }
-                    }
-                    xsmtpapi = substitution_vars
-                    xsmtpapi["category"] = ["new_user"]
-                    xsmtpapi["template_id"] = sendgrid_template_id
-                    f_app.email.schedule(
-                        target=params["email"],
-                        subject=f_app.util.get_format_email_subject(template("static/emails/new_user_title")),
-                        text=template("static/emails/new_user", password=user_params["password"], nickname=user_params["nickname"], phone=user_params["phone"]),
-                        display="html",
-                        substitution_vars=substitution_vars,
-                        template_invoke_name=template_invoke_name,
-                        xsmtpapi=xsmtpapi,
-                    )
-                    f_app.user.login.success(user_id)
-            creator_user_id = user_id
-    else:
-        creator_user_id = ObjectId(user["id"])
-        if not set(user["role"]) & set(f_app.common.admin_roles) or user["id"] == user_id_by_phone:
-            # This ticket is created by user on his own
-            user_id = user["id"]
-
-            credits = f_app.user.credit.get("view_rent_ticket_contact_info", tag="rent_intention_ticket")
-            if not len(credits["credits"]):
-                credit = {
-                    "type": "view_rent_ticket_contact_info",
-                    "amount": 1,
-                    "expire_time": datetime.utcnow() + timedelta(days=30),
-                    "tag": "rent_intention_ticket",
-                    "user_id": user_id,
-                }
-                f_app.user.credit.add(credit)
-
-        else:
-            # This ticket is created by sales
-            if shadow_user_id:
-                # The target user exists
-                user_id = shadow_user_id
-                f_app.user.update_set(user_id, {"nickname": params["nickname"], "locales": params.get("locales", [])})
-            else:
-                # Add shadow account for noregister user
-                user_params = {
-                    "nickname": params["nickname"],
-                    "phone": params["phone"],
-                    "email": params["email"],
-                    "locales": params.get("locales", [])
-                }
-                if "country" in params:
-                    user_params["country"] = params["country"]
-                if noregister:
-                    user_params.pop("email")
-
-                user_id = f_app.user.add(user_params, noregister=noregister, retain_country=True)
-                f_app.log.add("add", user_id=user_id)
-                # Log in and send password for newly registered user
-                if not noregister:
-                    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
-                    f_app.user.update_set(user_id, {"password": password})
-                    user_params["password"] = password
-
-                    locale = user_params["locales"][0] if user_params["locales"] else f_app.common.i18n_default_locale
-                    request._requested_i18n_locales_list = [locale]
-                    if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
-                        template_invoke_name = "new_user_cn"
-                        sendgrid_template_id = "1c4c392c-2c8d-4b8f-a6ca-556d757ac482"
-                    else:
-                        template_invoke_name = "new_user_en"
-                        sendgrid_template_id = "f69da86f-ba73-4196-840d-7696aa36f3ec"
-                    substitution_vars = {
-                        "to": [params["email"]],
-                        "sub": {
-                            "%nickname%": [user_params["nickname"]],
-                            "%phone%": [user_params["phone"]],
-                            "%password%": [user_params["password"]],
-                            "%logo_url%": [f_app.common.email_template_logo_url]
-                        }
-                    }
-                    xsmtpapi = substitution_vars
-                    xsmtpapi["category"] = ["new_user"]
-                    xsmtpapi["template_id"] = sendgrid_template_id
-                    f_app.email.schedule(
-                        target=params["email"],
-                        subject=f_app.util.get_format_email_subject(template("static/emails/new_user_title")),
-                        text=template("static/emails/new_user", password=user_params["password"], nickname=user_params["nickname"], phone=user_params["phone"]),
-                        display="html",
-                        substitution_vars=substitution_vars,
-                        template_invoke_name=template_invoke_name,
-                        xsmtpapi=xsmtpapi,
-                    )
-
-    params["creator_user_id"] = ObjectId(creator_user_id)
-    params["user_id"] = ObjectId(user_id)
+    shadow_user_id = _find_or_register(params)
 
     # ticket_admin_url = "http://" + request.urlparts[1] + "/admin#/ticket/"
     # Send mail to every senior sales
@@ -819,14 +684,8 @@ def rent_request_ticket_add(params):
     If no id is found, **40324 non-exist user** error will occur.
     """
     params.setdefault("type", "rent_request")
-    params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
-    user_id = f_app.user.get_id_by_phone(params["phone"])
-    if user_id is not None:
-        params["creator_user_id"] = ObjectId(user_id)
-        params["user_id"] = ObjectId(user_id)
-    else:
-        abort(40324)
+    _find_or_register(params)
 
     ticket_id = f_app.ticket.add(params)
     return ticket_id
@@ -938,14 +797,7 @@ def sell_request_ticket_add(params):
     If no id is found, **40324 non-exist user** error will occur.
     """
     params.setdefault("type", "sell_request")
-    params["phone"] = f_app.util.parse_phone(params, retain_country=True)
-
-    user_id = f_app.user.get_id_by_phone(params["phone"])
-    if user_id is not None:
-        params["creator_user_id"] = ObjectId(user_id)
-        params["user_id"] = ObjectId(user_id)
-    else:
-        abort(40324)
+    _find_or_register(params)
 
     ticket_id = f_app.ticket.add(params)
     return ticket_id
@@ -1010,46 +862,6 @@ def sell_request_ticket_edit(user, ticket_id, params):
     return f_app.ticket.output([ticket_id])[0]
 
 
-@f_api('/support_ticket/search', params=dict(
-    assignee=ObjectId,
-    status=(list, None, str),
-    per_page=int,
-    time=datetime,
-    sort=(list, ["time", 'desc'], str),
-    phone=str,
-    country="country",
-    user_id=ObjectId,
-))
-@f_app.user.login.check(force=True)
-def support_ticket_search(user, params):
-    """
-    ``status`` must be one of these values: ``new``, ``assigned``, ``in_progress``, ``solved``, ``unsolved``
-    """
-    params.setdefault("type", "support")
-    if "phone" in params:
-        params["phone"] = f_app.util.parse_phone(params)
-
-    enable_custom_fields = True
-    user_roles = f_app.user.get_role(user["id"])
-    if set(user_roles) & set(["admin", "jr_admin", "support"]):
-        pass
-    if "jr_support" in user_roles and len(set(["admin", "jr_admin", "support"]) & set(user_roles)) == 0:
-        params["assignee"] = ObjectId(user["id"])
-    elif len(user_roles) == 0:
-        # General users
-        params["user_id"] = ObjectId(user["id"])
-        enable_custom_fields = False
-    per_page = params.pop("per_page", 0)
-    sort = params.pop("sort")
-    if "status" in params:
-        if set(params["status"]) <= set(f_app.common.support_ticket_statuses):
-            params["status"] = {"$in": params["status"]}
-        else:
-            abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
-
-    return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=enable_custom_fields)
-
-
 @f_api('/support_ticket/add', params=dict(
     nickname=(str, True),
     phone=(str, True),
@@ -1069,14 +881,7 @@ def support_ticket_add(params):
     If no id is found, **40324 non-exist user** error will occur.
     """
     params.setdefault("type", "support")
-    params["phone"] = f_app.util.parse_phone(params, retain_country=True)
-
-    user_id = f_app.user.get_id_by_phone(params["phone"])
-    if user_id is not None:
-        params["creator_user_id"] = ObjectId(user_id)
-        params["user_id"] = ObjectId(user_id)
-    else:
-        abort(40324)
+    shadow_user_id = _find_or_register(params)
 
     ticket_id = f_app.ticket.add(params)
     # ticket_admin_url = "http://" + request.urlparts[1] + "/admin#/ticket/"
@@ -1091,7 +896,8 @@ def support_ticket_add(params):
                 display="html",
             )
 
-    f_app.user.counter_update(user_id, "support")
+    if shadow_user_id:
+        f_app.user.counter_update(shadow_user_id, "support")
 
     return ticket_id
 
@@ -1268,9 +1074,7 @@ def rent_ticket_add(user, params):
     params.setdefault("type", "rent")
     params.setdefault("rent_available_time", datetime.utcnow())
 
-    if user:
-        params.setdefault("user_id", ObjectId(user["id"]))
-        params.setdefault("creator_user_id", ObjectId(user["id"]))
+    _find_or_register(params)
 
     ticket_id = f_app.ticket.add(params)
     return ticket_id
@@ -1708,9 +1512,7 @@ def sale_ticket_add(user, params):
 
     params.setdefault("type", "sale")
 
-    if user:
-        params.setdefault("user_id", ObjectId(user["id"]))
-        params.setdefault("creator_user_id", ObjectId(user["id"]))
+    _find_or_register(params)
 
     return f_app.ticket.add(params)
 
