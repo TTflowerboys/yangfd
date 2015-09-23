@@ -75,7 +75,7 @@ def _find_or_register(params):
                         substitution_vars=substitution_vars,
                         template_invoke_name=template_invoke_name,
                         xsmtpapi=xsmtpapi,
-                        sendgrid_args={"category": "new_user"},
+                        tag="new_user",
                     )
                     f_app.user.login.success(user_id)
             creator_user_id = user_id
@@ -140,7 +140,7 @@ def _find_or_register(params):
                         substitution_vars=substitution_vars,
                         template_invoke_name=template_invoke_name,
                         xsmtpapi=xsmtpapi,
-                        sendgrid_args={"category": "new_user"},
+                        tag="new_user",
                     )
 
     params["creator_user_id"] = ObjectId(creator_user_id)
@@ -219,7 +219,7 @@ def intention_ticket_add(params):
                 template_invoke_name=template_invoke_name,
                 substitution_vars=substitution_vars,
                 xsmtpapi=xsmtpapi,
-                sendgrid_args={"category": "new_intention_ticket"},
+                tag="new_intention_ticket",
             )
 
     title = "恭喜，洋房东已经收到您的投资意向单！"
@@ -229,7 +229,7 @@ def intention_ticket_add(params):
         # TODO
         text=template("static/emails/receive_intention", date="", nickname=params["nickname"], title=title),
         display="html",
-        sendgrid_args={"category": "receive_intention"},
+        tag="receive_intention",
     )
 
     return ticket_id
@@ -442,7 +442,7 @@ def rent_intention_ticket_add(params, user):
                 subject=f_app.util.get_format_email_subject(template("static/emails/new_rent_intention_ticket_title")),
                 text=template("static/emails/new_rent_intention_ticket", params=params, admin_console_url=admin_console_url),
                 display="html",
-                sendgrid_args={"category": "new_rent_intention_ticket"},
+                tag="new_rent_intention_ticket",
             )
             if False:
                 # Old routine
@@ -477,7 +477,7 @@ def rent_intention_ticket_add(params, user):
                     template_invoke_name=template_invoke_name,
                     substitution_vars=substitution_vars,
                     xsmtpapi=xsmtpapi,
-                    sendgrid_args={"category": "new_rent_ticket"},
+                    tag="new_rent_ticket",
                 )
 
     return ticket_id
@@ -900,7 +900,7 @@ def support_ticket_add(params):
                 subject=template("static/emails/new_intention_ticket_title"),
                 text=template("static/emails/new_intention_ticket", params=params),
                 display="html",
-                sendgrid_args={"category": "new_intention_ticket"},
+                tag="new_intention_ticket",
             )
 
     if shadow_user_id:
@@ -1480,7 +1480,7 @@ def rent_ticket_suspend(ticket_id, user):
                 rent_url="http://yangfd.com/property-to-rent/" + ticket_id,
                 rent_edit_url="http://yangfd.com/property-to-rent/" + ticket_id + "/edit",
                 title=title,
-                sendgrid_args={"category": "rent_suspend_notice"},
+                tag="rent_suspend_notice",
             ),
             display="html",
         )

@@ -304,7 +304,7 @@ def user_fast_register(params):
         substitution_vars=substitution_vars,
         template_invoke_name=template_invoke_name,
         xsmtpapi=xsmtpapi,
-        sendgrid_args={"category": "new_user"},
+        tag="new_user",
     )
     f_app.user.login.success(user_id)
     f_app.user.sms.request(user_id)
@@ -580,7 +580,7 @@ def admin_user_add(user, params):
         template_invoke_name=template_invoke_name,
         substitution_vars=substitution_vars,
         xsmtpapi=xsmtpapi,
-        sendgrid_args={"category": "new_admin"},
+        tag="new_admin",
     )
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
@@ -639,7 +639,7 @@ def admin_user_add_role(user, user_id, params):
                 template_invoke_name=template_invoke_name,
                 substitution_vars=substitution_vars,
                 xsmtpapi=xsmtpapi,
-                sendgrid_args={"category": "set_as_admin"},
+                tag="set_as_admin",
             )
         else:
             abort(40094, logger.warning('Invalid admin: email not provided.', exc_info=False))
@@ -713,7 +713,7 @@ def user_admin_invite(user, params):
             code=code
         ),
         display="html",
-        sendgrid_args={"category": "invitation"},
+        tag="invitation",
     )
 
 
@@ -877,7 +877,7 @@ def email_send(user_id):
         template_invoke_name=template_invoke_name,
         substitution_vars=substitution_vars,
         xsmtpapi=xsmtpapi,
-        sendgrid_args={"category": "verify_email"},
+        tag="verify_email",
     )
 
 
@@ -912,7 +912,7 @@ def user_email_recovery_send(params):
         subject=title,
         text=template("static/emails/reset_password_by_email", reset_password_url=url, title=title),
         display="html",
-        sendgrid_args={"category": "reset_password_by_email"},
+        tag="reset_password_by_email",
     )
 
 
