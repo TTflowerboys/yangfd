@@ -12,6 +12,7 @@ f_app.dependency_register("wand", race="python")
 @f_api('/upload_image', params=dict(
     nolog=("data"),
     data=("file", True),
+    data_thumbnail=("file", True),
     thumbnail_size=(list, [600, 300], int),
     width_limit=(int, 1280),
     ratio=float,
@@ -28,7 +29,7 @@ def upload_image(params):
     try:
         im = f_app.storage.image_open(params["data"].file)
     except:
-        abort(40074, logger.warning("Invalid params: Unknown image type.", exc_info=False))
+        abort(40074, logger.warning("Invalid params: data Unknown image type.", exc_info=False))
 
     im = f_app.storage.image_opacification(im)
     im = f_app.storage.image_limit(im, params.get("ratio"), params.get("width_limit"))
@@ -42,9 +43,20 @@ def upload_image(params):
 
     if params["thumbnail_size"][0] > 0:
         params["data"].file.seek(0)
-        im = f_app.storage.image_open(params["data"].file)
-        im = f_app.storage.image_opacification(im)
-        im = f_app.storage.image_thumbnail(im, params["thumbnail_size"])
+        if "data_thumbnail" not in params:
+            im = f_app.storage.image_open(params["data"].file)
+            im = f_app.storage.image_opacification(im)
+            im = f_app.storage.image_thumbnail(im, params["thumbnail_size"])
+        else:
+            try:
+                im = f_app.storage.image_open(params["data_thumbnail"].file)
+            except:
+                abort(40074, logger.warning("Invalid params: data_thumbnail Unknown image type.", exc_info=False))
+            im = f_app.storage.image_opacification(im)
+            # Not Implemented
+            # im = f_app.storage.image_limit(im, params.get("ratio"), params.get("width_limit"))
+            # if params.get("watermark"):
+            #     im = f_app.storage.image_watermark(im, "../web/src/static/images/logo/logo-watermark.png")
         f_thumbnail = StringIO()
         im.save(f_thumbnail, "JPEG", quality=95, optimize=True, progressive=True)
         f_thumbnail.seek(0)
