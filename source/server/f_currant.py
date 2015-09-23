@@ -828,6 +828,13 @@ class f_currant_ticket(f_ticket):
 
         return ticket_history_list
 
+    def ensure_tag(self, ticket_id, tag):
+        ticket = f_app.ticket.get(ticket_id)
+        tags = ticket.get("tags", [])
+        if tag in tags:
+            return
+        f_app.ticket.update_set(ticket_id, {"$push": {"tags": tag}})
+
 f_currant_ticket()
 
 
@@ -964,6 +971,7 @@ class f_currant_plugins(f_app.plugin_base):
                     display="html",
                     ticket_match_user_id=intention_ticket["creator_user"]["id"],
                 )
+                f_app.ticket.ensure_tag(intention_ticket["id"], "perfect_match")
             elif score >= 4:
                 title = "洋房东给您匹配到了一些房源，快来看看吧！"
                 sent_in_a_day = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "ticket_match_user_id": intention_ticket["creator_user"]["id"], "start": {"$gte": datetime.utcnow() - timedelta(days=1)}})
@@ -978,6 +986,7 @@ class f_currant_plugins(f_app.plugin_base):
                         display="html",
                         ticket_match_user_id=intention_ticket["creator_user"]["id"],
                     )
+                f_app.ticket.ensure_tag(intention_ticket["id"], "partial_match")
 
     def task_on_rent_intention_ticket_check_rent(self, task):
         ticket_id = task["ticket_id"]
@@ -1070,6 +1079,7 @@ class f_currant_plugins(f_app.plugin_base):
                 display="html",
                 ticket_match_user_id=ticket_creator_user["id"],
             )
+            f_app.ticket.ensure_tag(intention_ticket["id"], "perfect_match")
         elif len(good_matches):
             title = "洋房东给您匹配到了一些房源，快来看看吧！"
             f_app.email.schedule(
@@ -1080,6 +1090,7 @@ class f_currant_plugins(f_app.plugin_base):
                 display="html",
                 ticket_match_user_id=ticket_creator_user["id"],
             )
+            f_app.ticket.ensure_tag(intention_ticket["id"], "partial_match")
         else:
             title = "恭喜，洋房东已经收到您的求租意向单！"
             f_app.email.schedule(
