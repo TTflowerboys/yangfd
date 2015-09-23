@@ -34,7 +34,7 @@
 
 <!--@@block=main -->
 %if news:
-    <textarea id="newsData" style="display:none;">{{json_dumps(news)}}</textarea>
+    <textarea id="newsData" style="display:none;">{{json_dumps(news_clean)}}</textarea>
     <textarea id="pythonWeixin" style="display: none;">
         {{json_dumps(weixin)}}
     </textarea>

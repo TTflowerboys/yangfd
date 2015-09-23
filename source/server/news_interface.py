@@ -5,6 +5,7 @@ from app import f_app
 from libfelix.f_interface import f_get, template_gettext as _
 import currant_util
 import currant_data_helper
+import copy
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +22,8 @@ def news_list():
 def news(news_id):
     news = f_app.blog.post.output([news_id])[0]
     news = f_app.i18n.process_i18n(news)
+    news_clean = copy.deepcopy(news)
+    news_clean.pop('user', None)
     related_news_list = f_app.i18n.process_i18n(currant_data_helper.get_related_news_list(news))
     title = news.get('title')
     keywords = "new,UK news" + ",".join(currant_util.BASE_KEYWORDS_ARRAY)
@@ -28,9 +31,9 @@ def news(news_id):
 
     if news.get('summary'):
         description = news.get('summary')
-        return currant_util.common_template("news", news=news, related_news_list=related_news_list, title=title, description=description, keywords=keywords, weixin=weixin)
+        return currant_util.common_template("news", news=news, news_clean=news_clean, related_news_list=related_news_list, title=title, description=description, keywords=keywords, weixin=weixin)
     else:
-        return currant_util.common_template("news", news=news, related_news_list=related_news_list, title=title, keywords=keywords, weixin=weixin)
+        return currant_util.common_template("news", news=news, news_clean=news_clean, related_news_list=related_news_list, title=title, keywords=keywords, weixin=weixin)
 
 
 @f_get('/notice_list', '/notice-list')
