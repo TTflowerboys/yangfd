@@ -26,6 +26,7 @@ logger = logging.getLogger(__name__)
         value=(str, True),
     )),
     locales=(list, None, str),
+    referrer=str,
     property_id=ObjectId,
 ))
 def intention_ticket_add(params):
@@ -305,6 +306,7 @@ def intention_ticket_assign(user, ticket_id, user_id):
         index=int,
     )),
     status=(str, None),
+    referrer=str,
     property_id=(ObjectId, None),
     updated_comment=(str, None),
 ))
