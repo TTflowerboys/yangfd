@@ -24,6 +24,7 @@ def subscription_add(params):
                     subject=f_app.util.get_format_email_subject(template("static/emails/new_invitation_title")),
                     text=template("static/emails/new_invitation", params=params),
                     display="html",
+                    sendgrid_args={"category": "new_invitation"},
                 )
 
     return f_app.feedback.add(params)
@@ -110,4 +111,5 @@ def subscription_notification_ready(user, params):
             substitution_vars=substitution_vars,
             template_invoke_name=template_invoke_name,
             xsmtpapi=xsmtpapi,
+            sendgrid_args={"category": "we_are_ready"},
         )

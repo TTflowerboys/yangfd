@@ -888,6 +888,7 @@ class f_currant_plugins(f_app.plugin_base):
                 text=template("static/emails/rent_ticket_publish_success", title=title, nickname=ticket["creator_user"]["nickname"], rent=ticket, date="", get_country_name_by_code=currant_util.get_country_name_by_code),
                 display="html",
                 ticket_match_user_id=ticket["creator_user"]["id"],
+                sendgrid_args={"category": "rent_ticket_publish_success"},
             )
 
         elif ticket["type"] == "rent_intention" and "status" in params and params["status"] == "new":
@@ -970,6 +971,7 @@ class f_currant_plugins(f_app.plugin_base):
                     text=template("static/emails/rent_intention_matched_1", title=title, nickname=intention_ticket["creator_user"]["nickname"], date="", rent_ticket=ticket, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                     display="html",
                     ticket_match_user_id=intention_ticket["creator_user"]["id"],
+                    sendgrid_args={"category": "rent_intention_matched_1"},
                 )
                 f_app.ticket.ensure_tag(intention_ticket["id"], "perfect_match")
             elif score >= 4:
@@ -985,6 +987,7 @@ class f_currant_plugins(f_app.plugin_base):
                         text=template("static/emails/rent_intention_matched_4", title=title, nickname=intention_ticket["creator_user"]["nickname"], date="", rent_ticket=ticket, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                         display="html",
                         ticket_match_user_id=intention_ticket["creator_user"]["id"],
+                        sendgrid_args={"category": "rent_intention_matched_4"},
                     )
                 f_app.ticket.ensure_tag(intention_ticket["id"], "partial_match")
 
@@ -1078,6 +1081,7 @@ class f_currant_plugins(f_app.plugin_base):
                 text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=best_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                 display="html",
                 ticket_match_user_id=ticket_creator_user["id"],
+                sendgrid_args={"category": "rent_intention_digest"},
             )
             f_app.ticket.ensure_tag(intention_ticket["id"], "perfect_match")
         elif len(good_matches):
@@ -1089,6 +1093,7 @@ class f_currant_plugins(f_app.plugin_base):
                 text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=good_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                 display="html",
                 ticket_match_user_id=ticket_creator_user["id"],
+                sendgrid_args={"category": "rent_intention_digest"},
             )
             f_app.ticket.ensure_tag(intention_ticket["id"], "partial_match")
         else:
@@ -1099,6 +1104,7 @@ class f_currant_plugins(f_app.plugin_base):
                 # TODO
                 text=template("static/emails/receive_rent_intention", date="", nickname=ticket_creator_user["nickname"], title=title, unsubscribe_url=unsubscribe_url),
                 display="html",
+                sendgrid_args={"category": "receive_rent_intention"},
             )
 
     def user_add(self, params, noregister):
@@ -1132,6 +1138,7 @@ class f_currant_plugins(f_app.plugin_base):
                         subject=f_app.util.get_format_email_subject(template("static/emails/new_user_admin_title")),
                         text=template("static/emails/new_user_admin", params=params),
                         display="html",
+                        sendgrid_args={"category": "new_user_admin"},
                     )
 
         return user_id
@@ -1266,6 +1273,7 @@ class f_currant_plugins(f_app.plugin_base):
                 display="html",
                 rent_ticket_reminder="is_rent_success",
                 ticket_id=rent_ticket["id"],
+                sendgrid_args={"category": "rent_notice"},
             )
 
         tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=7)}}, per_page=0, notime=True), permission_check=False)
@@ -1305,6 +1313,7 @@ class f_currant_plugins(f_app.plugin_base):
                 display="html",
                 rent_ticket_reminder="draft_7day",
                 ticket_id=rent_ticket["id"],
+                sendgrid_args={"category": "draft_not_publish_day_7"},
             )
 
         tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=3)}}, per_page=0, notime=True), permission_check=False)
@@ -1344,6 +1353,7 @@ class f_currant_plugins(f_app.plugin_base):
                 display="html",
                 rent_ticket_reminder="draft_3day",
                 ticket_id=rent_ticket["id"],
+                sendgrid_args={"category": "draft_not_publish_day_3"},
             )
 
         f_app.task.put(dict(
@@ -1954,6 +1964,7 @@ class f_currant_plugins(f_app.plugin_base):
                                 order_link="http://%s/crowdfunding/%s" % (request.urlparts[1], order["items"][0]["id"]),
                             ),
                             display="html",
+                            sendgrid_args={"category": "crowdfunding_notification"},
                         )
             elif order.get("status") == "canceled":
                 if order.get("type") == "investment":
@@ -1968,6 +1979,7 @@ class f_currant_plugins(f_app.plugin_base):
                                 order_canceled_reason=order.get("canceled_reason"),
                             ),
                             display="html",
+                            sendgrid_args={"category": "crowdfunding_notification"},
                         )
 
     def route_log_kwargs(self, kwargs):
