@@ -6,20 +6,18 @@
     width:100%;
     background:#f6f6f6;
     border-bottom: 1px solid #ccc;
-
+    text-align: center;
     @media @phone {
         height:auto;
 //        border-bottom:0px;
     }
 
     .category {
-        float: left;
-        width: 100%;
-        margin-top:96px;
+        display: inline-block;
+        margin-top:48px;
         text-align:center;
         &_wrapper {
-            width:1200px;
-            height:100%;
+            width:1300px;
             margin:0 auto;
             @media @phone {
                 height:auto;
@@ -80,10 +78,9 @@
     }
 
     .buttons {
-        width:100%;
-        float:left;
+        display: inline-block;
         text-align:center;
-        padding-top:40px;
+        margin:48px 0 0 20px;
         button.search {
             margin-right: 10px;
             padding: 6px 38px;
@@ -101,6 +98,42 @@
         }
     }
 
+    .entrance{
+        width: 1200px;
+        margin: 50px auto auto;
+        padding-top: 40px;
+        border-top: 1px solid #ccc;
+        text-align: center;
+        @media @phone{
+            display: none;
+        }
+        li{
+            display: inline-block;
+            margin: 0 88px;
+            a{
+                text-decoration: none;
+                i{
+                    margin-right: 12px;
+                    font-size: 36px;
+                    color: #666;
+                    vertical-align: middle;
+                }
+                span{
+                    font-size: 21px;
+                    color: #333;
+                    vertical-align: middle;
+                }
+                &:hover {
+                    i{
+                        color: @red;
+                    }
+                    span {
+                        color: @red;
+                    }
+                }
+            }
+        }
+    }
 
     .questionChooser {
         overflow:hidden;
