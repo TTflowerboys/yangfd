@@ -9,7 +9,10 @@ from libfelix.f_interface import f_api, abort, template, request
 logger = logging.getLogger(__name__)
 
 
-def _find_or_register(params):
+def _find_or_register(params, allow_draft=False):
+    if "phone" not in params and allow_draft:
+        return
+
     noregister = params.pop("noregister", True)
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
@@ -1080,7 +1083,7 @@ def rent_ticket_add(user, params):
     params.setdefault("type", "rent")
     params.setdefault("rent_available_time", datetime.utcnow())
 
-    _find_or_register(params)
+    _find_or_register(params, allow_draft=True)
 
     ticket_id = f_app.ticket.add(params)
     return ticket_id
