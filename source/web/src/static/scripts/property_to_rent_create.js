@@ -1028,7 +1028,14 @@
         $publishForm.find('[data-show]').hide()
             .end().find('[data-show=' + val + ']').show()
     }).trigger('change')
-
+    function isDelegate () { //是否是为用户代发
+        return $publishForm.find('[name=delegate]').val() === 'user'
+    }
+    function clearEmptyProperty(obj) {
+        return _.omit(obj, function (val, key) {
+            return val === undefined || val === ''
+        })
+    }
     $('#publish').on('click', function(e) {
         $errorMsg2.empty().hide()
         var $btn = $(this)
@@ -1038,9 +1045,13 @@
             function publish() {
                 var deferred = $.Deferred()
                 var params = {'status': 'to rent'}
-                if($publishForm.find('[name=delegate]').val() === 'user') {
-                    params.phone = '+' + $publishForm.find('[name=country_code]').val() + $publishForm.find('[name=phone]').val()
+                if(isDelegate()) {
+                    params.phone = '+' + $publishForm.find('[name=country_code]').val() + $publishForm.find('[name=userPhone]').val()
+                    params.country = $publishForm.find('[name=userCountry]').val()
+                    params.nickname = $publishForm.find('[name=userNickname]').val()
+                    params.email = $publishForm.find('[name=userEmail]').val()
                 }
+                params = clearEmptyProperty(params)
                 $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', params)
                     .done(function(val) {
                         deferred.resolve(val)
@@ -1081,7 +1092,7 @@
                     })
                 return deferred.promise()
             }
-            if($publishForm.find('[name=delegate]').val() === 'user') {
+            if(isDelegate()) {
                 deferredArr = [setPropertyPartner(), publish()]
             } else {
                 deferredArr = [editUser(), publish()]
@@ -1095,7 +1106,12 @@
                     $btn.text(window.i18n('重新发布')).prop('disabled', false)
                 })
         }
-
+        if(isDelegate()) {
+            var valid = validateForm($('#form2'))
+            if(!valid) {
+                return
+            }
+        }
         if(window.user){
             if(!needSMSCode) {
                 if(!window.user.phone_verified) {
