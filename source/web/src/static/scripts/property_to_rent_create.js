@@ -1022,37 +1022,75 @@
         }
     })
 
+    var $publishForm = $('#form2')
+    $publishForm.find('[name=delegate]').change(function () {
+        var val = $(this).val()
+        $publishForm.find('[data-show]').hide()
+            .end().find('[data-show=' + val + ']').show()
+    }).trigger('change')
+
     $('#publish').on('click', function(e) {
         $errorMsg2.empty().hide()
         var $btn = $(this)
         function publishRentTicket (){
+            var deferredArr = []
+            $btn.prop('disabled', true).text(window.i18n('发布中...'))
             function publish() {
-                $btn.prop('disabled', true).text(window.i18n('发布中...'))
-                $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', {'status': 'to rent'})
+                var deferred = $.Deferred()
+                var params = {'status': 'to rent'}
+                if($publishForm.find('[name=delegate]').val() === 'user') {
+                    params.phone = '+' + $publishForm.find('[name=country_code]').val() + $publishForm.find('[name=phone]').val()
+                }
+                $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', params)
                     .done(function(val) {
-                        location.href = '/property-to-rent/' + window.ticketId + '/publish-success?createStartTime=' + createStartTime.getTime()
+                        deferred.resolve(val)
                     })
                     .fail(function (ret) {
-                        $errorMsg2.empty()
-                        $errorMsg2.append(window.getErrorMessageFromErrorCode(ret))
-                        $errorMsg2.show()
-                        $btn.text(window.i18n('重新发布')).prop('disabled', false)
+                        deferred.reject(ret)
                     })
+                return deferred.promise()
             }
-            var privateContactMethods = getPrivateContactMethods()
-            if(privateContactMethods.length === 3) {
-                $errorMsg2.html(i18n('请至少展示一种联系方式给租客')).show()
-                $btn.text(window.i18n('重新发布')).prop('disabled', false)
-                return
+            function setPropertyPartner () {
+                var deferred = $.Deferred()
+                $.betterPost('/api/1/property/' + window.propertyId + '/edit', {partner: true})
+                    .done(function(val) {
+                        deferred.resolve(val)
+                    })
+                    .fail(function (ret) {
+                        deferred.reject(ret)
+                    })
+                return deferred.promise()
             }
-            var params = {private_contact_methods: JSON.stringify(privateContactMethods)}
-            if($('#wechat').val()) {
-                params.wechat = $('#wechat').val()
+            function editUser () {
+                var deferred = $.Deferred()
+                var privateContactMethods = getPrivateContactMethods()
+                if(privateContactMethods.length === 3) {
+                    $errorMsg2.html(i18n('请至少展示一种联系方式给租客')).show()
+                    $btn.text(window.i18n('重新发布')).prop('disabled', false)
+                    return deferred.reject()
+                }
+                var params = {private_contact_methods: JSON.stringify(privateContactMethods)}
+                if($('#wechat').val()) {
+                    params.wechat = $('#wechat').val()
+                }
+                $.betterPost('/api/1/user/edit', params)
+                    .done(function (val) {
+                        deferred.resolve(val)
+                    }).fail(function (ret) {
+                        deferred.reject(ret)
+                    })
+                return deferred.promise()
             }
-            $.betterPost('/api/1/user/edit', params)
+            if($publishForm.find('[name=delegate]').val() === 'user') {
+                deferredArr = [setPropertyPartner(), publish()]
+            } else {
+                deferredArr = [editUser(), publish()]
+            }
+            $.when.apply(null, deferredArr)
                 .done(function () {
-                    publish()
-                }).fail(function (ret) {
+                    location.href = '/property-to-rent/' + window.ticketId + '/publish-success?createStartTime=' + createStartTime.getTime()
+                })
+                .fail(function (ret) {
                     $errorMsg2.html(window.getErrorMessageFromErrorCode(ret)).show()
                     $btn.text(window.i18n('重新发布')).prop('disabled', false)
                 })

@@ -70,6 +70,53 @@
                     <span>{{_('确认代表您同意创建一个洋房东账号供以后查看租客请求使用')}}</span>
                 </div>
             </form>
+            %elif user and set(user.get('role')) & set(['jr_admin','admin','jr_operation','operation']):
+            <!--管理员账号登陆，可以代发的流程-->
+            <form id="form2" data-admin="true">
+                <div class="formGroup">
+                    <p>{{_('为了方便租客联系您，请先完善您的联系方式，再完成房源的发布')}}</p>
+                </div>
+                <div class="formGroup">
+                    <label>{{_('是否代发')}}</label>
+                    <select name="delegate" class="ghostSelect" >
+                        <option value="user">{{_('为用户代发房源')}}</option>
+                        <option value="own" selected>{{_('为自己发房源')}}</option>
+                    </select>
+                </div>
+
+                <div class="formGroup" data-show="user" style="display: none">
+                    <label for="phone">{{_('手机号')}}</label>
+                    <!-- @@include=country_code_select.html -->
+                    <input type="text" name="phone" data-validator="required trim number"/>
+                </div>
+                <div class="formGroup" data-show="own">
+                    <label>{{_('姓名')}}</label>
+                    <span>{{user.get('nickname','')}}</span>
+                </div>
+                <div class="formGroup" data-show="own">
+                    <label for="email">{{_('邮箱')}}</label>
+                    <span>{{user.get('email','')}}</span>
+                    <p class="addContactWrap">
+                        <input type="checkbox" id="addContact-email" checked="checked" data-addContact="email"/><label class="addContactLabel" for="addContact-email">{{_('展示邮箱给注册租客')}}</label>
+                    </p>
+                </div>
+                <div class="formGroup" data-show="own">
+                    <label for="phone">{{_('手机号')}}</label>
+                    <span>{{user.get('phone','')}}</span>
+                    <p class="addContactWrap">
+                        <input type="checkbox" id="addContact-phone" checked="checked" data-addContact="phone"/><label class="addContactLabel" for="addContact-phone">{{_('展示电话给注册租客')}}</label>
+                    </p>
+                </div>
+                <div class="formGroup" data-show="own">
+                    <label for="email">{{_('微信号')}}</label>
+                    <input type="text" id="wechat" name="wechat" data-validator="trim" data-addContact="wechat" value="{{user.get('wechat','')}}"/>
+                </div>
+
+                <div class="formGroup" data-show="own">
+                    <label></label>
+                    <span>{{_('您选择的联系方式仅展示给平台注册的租客')}}</span>
+                </div>
+            </form>
             %else:
             <!--已登录需要增加选择联系方式流程-->
             <form id="form2">
