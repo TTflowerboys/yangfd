@@ -254,7 +254,7 @@
                         <td class="room_count">
                             <div>
                                 <select id="bedroom_count" data-trigger="updateTitle">
-                                    %for index,value in enumerate(['studio',1,2,3,4,5,6,7,8,9,10]):
+                                    %for index,value in enumerate(['studio',1,2,3,4,5,6,7,8,9,10,11,12]):
                                     %if rent.get('property',{}).get('bedroom_count',1) == index:
                                     <option value="{{index}}" selected>{{value}}</option>
                                     %else:
@@ -266,7 +266,7 @@
                             <div><span>{{_('室')}}</span></div>
                             <div>
                                 <select id="living_room_count">
-                                    %for index,value in enumerate([0,1,2,3,4,5,6,7,8,9,10]):
+                                    %for index,value in enumerate([0,1,2,3,4,5,6,7,8,9,10,11,12]):
                                     %if rent.get('property',{}).get('living_room_count',1) == value:
                                     <option value="{{value}}" selected>{{value}}</option>
                                     %else:
@@ -290,7 +290,7 @@
                             <div><span>{{_('厨')}}</span></div>-->
                             <div>
                                 <select id="bathroom_count">
-                                    %for index,value in enumerate([0,1,2,3,4,5,6,7,8,9,10]):
+                                    %for index,value in enumerate([0,1,2,3,4,5,6,7,8,9,10,11,12]):
                                     %if rent.get('property',{}).get('bathroom_count',1) == value:
                                     <option value="{{value}}" selected>{{value}}</option>
                                     %else:
