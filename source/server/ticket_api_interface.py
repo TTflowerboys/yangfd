@@ -402,6 +402,7 @@ def intention_ticket_search(user, params):
     title=str,
     city="geonames_gazetteer:city",
     maponics_neighborhood="maponics_neighborhood",
+    hesa_university=ObjectId,
     address=str,
     zipcode_index=str,
     noregister=bool,
@@ -521,6 +522,7 @@ def rent_intention_ticket_remove(user, ticket_id):
 @f_api('/rent_intention_ticket/<ticket_id>/edit', params=dict(
     country="country",
     maponics_neighborhood="maponics_neighborhood",
+    hesa_university=ObjectId,
     title=str,
     description=str,
     city="geonames_gazetteer:city",
@@ -575,6 +577,7 @@ def rent_intention_ticket_edit(user, ticket_id, params):
     phone=str,
     country="country",
     maponics_neighborhood="maponics_neighborhood",
+    hesa_university=ObjectId,
     zipcode=str,
     city="geonames_gazetteer:city",
     rent_type="enum:rent_type",
