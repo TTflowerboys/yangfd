@@ -833,7 +833,7 @@ class f_currant_ticket(f_ticket):
         tags = ticket.get("tags", [])
         if tag in tags:
             return
-        f_app.ticket.update_set(ticket_id, {"$push": {"tags": tag}})
+        f_app.ticket.update(ticket_id, {"$push": {"tags": tag}})
 
 f_currant_ticket()
 
