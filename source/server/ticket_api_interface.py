@@ -1052,6 +1052,9 @@ def support_ticket_search(user, params):
 
 @f_api('/rent_ticket/add', params=dict(
     status=(str, "draft"),
+    phone=str,
+    email=str,
+    country="country",
     title=str,
     description=str,
     rent_type="enum:rent_type",
@@ -1091,6 +1094,9 @@ def rent_ticket_add(user, params):
 
 @f_api('/rent_ticket/<ticket_id>/edit', params=dict(
     status=str,
+    phone=str,
+    email=str,
+    country="country",
     title=str,
     description=str,
     rent_type="enum:rent_type",
