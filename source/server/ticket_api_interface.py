@@ -65,7 +65,6 @@ def _find_or_register(params):
                         }
                     }
                     xsmtpapi = substitution_vars
-                    xsmtpapi["category"] = ["new_user"]
                     xsmtpapi["template_id"] = sendgrid_template_id
                     f_app.email.schedule(
                         target=params["email"],
@@ -130,7 +129,6 @@ def _find_or_register(params):
                         }
                     }
                     xsmtpapi = substitution_vars
-                    xsmtpapi["category"] = ["new_user"]
                     xsmtpapi["template_id"] = sendgrid_template_id
                     f_app.email.schedule(
                         target=params["email"],
@@ -209,7 +207,6 @@ def intention_ticket_add(params):
                 }
             }
             xsmtpapi = substitution_vars
-            xsmtpapi["category"] = ["new_ticket"]
             xsmtpapi["template_id"] = sendgrid_template_id
             f_app.email.schedule(
                 target=sales["email"],
@@ -468,7 +465,6 @@ def rent_intention_ticket_add(params, user):
                     }
                 }
                 xsmtpapi = substitution_vars
-                xsmtpapi["category"] = ["new_ticket"]
                 xsmtpapi["template_id"] = sendgrid_template_id
                 f_app.email.schedule(
                     target=sales["email"],

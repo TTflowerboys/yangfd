@@ -101,7 +101,6 @@ def subscription_notification_ready(user, params):
             sendgrid_template_id = "9fc8e78b-a093-4de1-b466-013230b5c03f"
         substitution_vars = {"to": [subscription["email"]], "sub": {"%logo_url%": [f_app.common.email_template_logo_url]}}
         xsmtpapi = substitution_vars
-        xsmtpapi["category"] = ["subscription_notification_ready"]
         xsmtpapi["template_id"] = sendgrid_template_id
         f_app.email.schedule(
             target=subscription["email"],

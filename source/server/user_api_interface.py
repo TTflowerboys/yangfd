@@ -294,7 +294,6 @@ def user_fast_register(params):
         }
     }
     xsmtpapi = substitution_vars
-    xsmtpapi["category"] = ["new_user"]
     xsmtpapi["template_id"] = sendgrid_template_id
     f_app.email.schedule(
         target=params["email"],
@@ -568,7 +567,6 @@ def admin_user_add(user, params):
         }
     }
     xsmtpapi = substitution_vars
-    xsmtpapi["category"] = ["new_admin"]
     xsmtpapi["template_id"] = sendgrid_template_id
 
     f_app.email.schedule(
@@ -629,7 +627,6 @@ def admin_user_add_role(user, user_id, params):
                 }
             }
             xsmtpapi = substitution_vars
-            xsmtpapi["category"] = ["set_as_admin"]
             xsmtpapi["template_id"] = sendgrid_template_id
             f_app.email.schedule(
                 target=user_info.get("email"),
@@ -866,7 +863,6 @@ def email_send(user_id):
         }
     }
     xsmtpapi = substitution_vars
-    xsmtpapi["category"] = ["email_verification_send"]
     xsmtpapi["template_id"] = sendgrid_template_id
 
     f_app.email.schedule(
