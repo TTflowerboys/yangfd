@@ -119,7 +119,7 @@
                 currencyType = window.currency
             }
 
-            if (currencyType === 'CNY') {
+            if (currencyType === 'CNY' && window.lang === 'zh_Hans_CN') {
                 if (parseInt(number) > 100000000) {
                     return '<strong>' + team.encodeCurrency(parseInt(number) / 100000000, fixedBit) + '</strong>' + '亿'
                 }
@@ -131,7 +131,10 @@
                 }
             }
             else {
-                if (parseInt(number) > 1000) {
+                if (parseInt(number) > 1000000) {
+                    return '<strong>' + team.encodeCurrency(parseInt(number) / 1000000, fixedBit) + 'm' + '</strong>'
+                }
+                else if (parseInt(number) > 1000) {
                     return '<strong>' + team.encodeCurrency(parseInt(number) / 1000, fixedBit) + 'k' + '</strong>'
                 }
                 else {
