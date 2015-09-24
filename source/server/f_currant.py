@@ -833,7 +833,7 @@ class f_currant_ticket(f_ticket):
         tags = ticket.get("tags", [])
         if tag in tags:
             return
-        f_app.ticket.update_set(ticket_id, {"$push": {"tags": tag}})
+        f_app.ticket.update(ticket_id, {"$push": {"tags": tag}})
 
 f_currant_ticket()
 
@@ -951,6 +951,9 @@ class f_currant_plugins(f_app.plugin_base):
 
             if "maponics_neighborhood" in ticket and "maponics_neighborhood" in intention_ticket:
                 E = ticket["maponics_neighborhood"]["id"] == intention_ticket["maponics_neighborhood"]["id"]
+            # TODO: Not matchable
+            # elif "hesa_university" in ticket and "hesa_university" in intention_ticket:
+            #     E = ticket["hesa_university"]["id"] == intention_ticket["hesa_university"]["id"]
             elif "zipcode_index" in ticket["property"] and "zipcode_index" in intention_ticket:
                 E = ticket["property"]["zipcode_index"] == intention_ticket["zipcode_index"]
             else:
