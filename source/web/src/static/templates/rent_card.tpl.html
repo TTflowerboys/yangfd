@@ -127,7 +127,7 @@
                                 <p class="label">
                                     {_if(rent.rent_available_time && window.moment(parseInt(rent.rent_available_time)*1000) > window.moment().add(1,'days').hours(0).minutes(0).seconds(0)) {_}
                                         {_if(window.lang==='en_GB') {_}
-                                            available from {=window.moment(parseInt(rent.rent_available_time)*1000).format('MMMM Do YYYY')=}
+                                        Start from {=window.moment(parseInt(rent.rent_available_time)*1000).format('MMMM Do YYYY')=}
                                         {_} else {_}
                                             {= window.moment(parseInt(rent.rent_available_time)*1000).format('YYYY年MM月DD日') + window.i18n('起') =}
                                         {_}_}

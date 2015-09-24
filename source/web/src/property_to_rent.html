@@ -209,12 +209,13 @@
                     </strong>
                     % end
                     % if 'rent_available_time' in rent and rent.get('rent_available_time',''):
-                    <span data-utc-time="{{rent.get('rent_available_time')}}"></span>
+                    % string1 = """<span data-utc-time='""" + str(rent.get('rent_available_time','')) + """'></span>"""
                     % end
                     % if 'rent_deadline_time' in rent and rent.get('rent_deadline_time',''):
-                    <span data-utc-time="{{rent.get('rent_deadline_time')}}">
-                        {{_('至 ')}}
-                    </span>
+                    % string2 = string1 + """ <span data-utc-time='""" + str(rent.get('rent_deadline_time')) + """'> """
+                    {{!_('%s至 ') %string2}}</span>
+                    % elif 'rent_available_time' in rent and rent.get('rent_available_time',''):
+                    {{!_('%s起 ') %string1}}
                     % end
                 </li>
                 <li>
