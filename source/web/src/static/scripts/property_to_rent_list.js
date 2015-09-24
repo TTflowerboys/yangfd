@@ -789,57 +789,85 @@
 
             })
     }
+    /*
+     * Resize height of top category filter for different screen size
+     *
+     * */
+    window.resizeCategory = function () {
+        var $categoryWrapper = $('.category_wrapper')
+        var $category = $categoryWrapper.find('.category')
+
+        if (window.team.isPhone()) {
+            $categoryWrapper.css({'height': 'auto'});
+            $category.css('margin-top', '0')
+            $categoryWrapper.show()
+        }
+        else {
+            var availHeight = window.screen.availHeight
+            var wrapperHeight = availHeight / 8.0 > 100 ? availHeight / 8.0 : 100
+            var categoryHeight = 40
+            $categoryWrapper.css({'height': wrapperHeight + 'px'});
+            $category.css('margin-top', (wrapperHeight - categoryHeight) / 2 + 'px')
+            $categoryWrapper.show()
+        }
+    };
+
+    $(window.resizeCategory);
+    $(window).on('resize', window.resizeCategory);
+
+    /*
+     * Make List/Map tab fixed to screen
+     *
+     * */
+    window.updateTabSelectorFixed = function () {
+        if (!window.team.isPhone()) {
+            var scrollOffset = $(window).scrollTop()
+            var $list = $('.tabContent').width() > 0 ? $('#result_list') : $('#emptyPlaceHolder')
+            var listTop = $list.offset().top
+            var listHeight = $list.height()
+            var $tabSelector = $('.tabSelector')
+            var tabLeft = $list.offset().left - 60
+            if (scrollOffset > listTop + listHeight - 20) {
+                $tabSelector.css({'position': 'static', 'top': '0', left: '0', 'margin-top': '0x'})
+            }
+            else if (scrollOffset > listTop - 20) {
+                $tabSelector.css({'position': 'fixed', 'top': '20px', left: tabLeft, 'margin-top': '0'})
+            }
+            else {
+                $tabSelector.css({'position': 'static', 'top': '0', left: '0', 'margin-top': '0x'})
+            }
+        }
+    }
+    function updateFilterPosition () {
+        var timer, filterTop
+        function update () {
+            clearTimeout(timer)
+            timer = setTimeout(function () {
+                if (!window.team.isPhone()) {
+                    var scrollOffset = $(window).scrollTop()
+                    var $filter = $('#result .tags')
+                    filterTop = filterTop || $filter.offset().top
+                    $filter.css({
+                        'position': 'relative'
+                    })
+                    if (scrollOffset >= filterTop) {
+                        $filter.stop().animate({
+                            'top': (scrollOffset - filterTop) + 'px'
+                        })
+                    } else {
+                        $filter.stop().animate({
+                            'top': '0px'
+                        })
+                    }
+                }
+            },50)
+        }
+        $(window).scroll(update);
+    }
+    updateFilterPosition()
+    $(window).scroll(window.updateTabSelectorFixed);
+    $(window).resize(window.updateTabSelectorFixed);
  })()
 
 
-/*
- * Resize height of top category filter for different screen size
- *
- * */
-window.resizeCategory = function () {
-    var $categoryWrapper = $('.category_wrapper')
-    var $category = $categoryWrapper.find('.category')
 
-    if (window.team.isPhone()) {
-        $categoryWrapper.css({'height': 'auto'});
-        $category.css('margin-top', '0')
-        $categoryWrapper.show()
-    }
-    else {
-        var availHeight = window.screen.availHeight
-        var wrapperHeight = availHeight / 8.0 > 100 ? availHeight / 8.0 : 100
-        var categoryHeight = 40
-        $categoryWrapper.css({'height': wrapperHeight + 'px'});
-        $category.css('margin-top', (wrapperHeight - categoryHeight) / 2 + 'px')
-        $categoryWrapper.show()
-    }
-};
-
-$(window.resizeCategory);
-$(window).on('resize', window.resizeCategory);
-
-/*
- * Make List/Map tab fixed to screen
- *
- * */
-window.updateTabSelectorFixed = function () {
-    if (!window.team.isPhone()) {
-        var scrollOffset = $(window).scrollTop()
-        var $list = $('.tabContent').width() > 0 ? $('#result_list') : $('#emptyPlaceHolder')
-        var listTop = $list.offset().top
-        var listHeight = $list.height()
-        var $tabSelector = $('.tabSelector')
-        var tabLeft = $list.offset().left - 60
-        if (scrollOffset > listTop + listHeight - 20) {
-            $tabSelector.css({'position': 'static', 'top': '0', left: '0', 'margin-top': '0x'})
-        }
-        else if (scrollOffset > listTop - 20) {
-            $tabSelector.css({'position': 'fixed', 'top': '20px', left: tabLeft, 'margin-top': '0'})
-        }
-        else {
-            $tabSelector.css({'position': 'static', 'top': '0', left: '0', 'margin-top': '0x'})
-        }
-    }
-}
-$(window).scroll(window.updateTabSelectorFixed);
-$(window).resize(window.updateTabSelectorFixed);
