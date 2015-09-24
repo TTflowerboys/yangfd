@@ -18,14 +18,17 @@ $(function () {
         ga('send', 'event', 'floatBar', 'mouseEnter', e.currentTarget.id);
     })
 
-    $('#floatBar .section').hover(function () {
+    var timer
+    $('#floatBar .section').on('mouseover', function (e) {
         $(this).addClass('hover').siblings().removeClass('hover')
-    }, function () {
-        var $this = $(this)
-        setTimeout(function () {
-            $this.removeClass('hover')
-        }, 500)
+        clearTimeout(timer)
     })
+        .on('mouseout', function (e) {
+            var $this = $(this)
+            timer = setTimeout(function () {
+                $this.removeClass('hover')
+            }, 500)
+        })
     //Display float app download bar based on cookie
     if(typeof $.cookie === 'function' && $.cookie('show-app-floatbar') === 'false'){
         $('.app-floatbar').hide()

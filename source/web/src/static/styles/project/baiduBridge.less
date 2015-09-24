@@ -57,8 +57,13 @@ a[href^='http://tongji.baidu.com']{
 }
 #qiao-wrap, #qiao-wrap ins, #qiao-wrap input, #qiao-wrap textarea, #qiao-wrap a, #qiao-fixed-wrap, #qiao-fixed-wrap ins, #qiao-fixed-wrap a, #BDBridgeFixedWrap, #BDBridgeFixedWrap ins, #BDBridgeFixedWrap a, #BD_QIAO_WEBIM_LITE_WRAP a{
     box-sizing: border-box;
+    font-family: @font-normal;
 }
 #qiao-wrap{
+    font-family: @font-normal;
+    @media @phone{
+        display: none !important;
+    }
     #qiao-mess-wrap{
         &.qiao-mess-wrap-center{
             left: auto;
@@ -77,6 +82,7 @@ a[href^='http://tongji.baidu.com']{
                 border-radius: 0;
                 background-color: #333;
                 h2{
+                    font-family: @font-normal;
                     font-size: 14px;
                     color: #fff;
                     line-height: 44px;
@@ -271,6 +277,10 @@ a[href^='http://tongji.baidu.com']{
 }
 
 #BD_QIAO_WEBIM_LITE_WRAP {
+    font-family: @font-normal;
+    @media @phone{
+        display: none !important;
+    }
     .m-lite-title{
         position: relative;
         height: 44px;
