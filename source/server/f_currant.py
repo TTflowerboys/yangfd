@@ -406,7 +406,7 @@ class f_currant_message(f_message):
             try:
                 sort_field, sort_orientation = sort
             except:
-                abort(40000, logger.warning("sort param not well in format:", sort))
+                abort(40000, self.logger.warning("sort param not well in format:", sort))
 
         else:
             sort_field = sort_orientation = None
@@ -431,20 +431,17 @@ class f_currant_log(f_log):
             return f_app.util.process_objectid(log)
 
         if isinstance(log_id_or_list, (tuple, list, set)):
-            result = {}
-
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": [ObjectId(log_id) for log_id in log_id_or_list]}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, log_id_or_list)}, "status": {"$ne": "deleted"}}))
 
-            if not force_reload and len(result_list) < len(log_id_or_list) and not ignore_nonexist:
+            if len(result_list) < len(log_id_or_list):
                 found_list = map(lambda log: str(log["_id"]), result_list)
-                abort(40400, logger.warning("Non-exist log:", filter(lambda log_id: log_id not in found_list, log_id_or_list), exc_info=False))
-            elif ignore_nonexist:
-                logger.warning("Non-exist log:", filter(lambda log_id: log_id not in found_list, log_id_or_list), exc_info=False)
+                if not force_reload and not ignore_nonexist:
+                    abort(40400, self.logger.warning("Non-exist log:", filter(lambda log_id: log_id not in found_list, log_id_or_list), exc_info=False))
+                elif ignore_nonexist:
+                    self.logger.warning("Non-exist log:", filter(lambda log_id: log_id not in found_list, log_id_or_list), exc_info=False)
 
-            for log in result_list:
-                result[log["id"]] = _format_each(log)
-
+            result = {log["id"]: _format_each(log) for log in result_list}
             return result
 
         else:
@@ -453,9 +450,9 @@ class f_currant_log(f_log):
 
                 if result is None:
                     if not force_reload and not ignore_nonexist:
-                        abort(40400, logger.warning("Non-exist log:", log_id_or_list, exc_info=False))
+                        abort(40400, self.logger.warning("Non-exist log:", log_id_or_list, exc_info=False))
                     elif ignore_nonexist:
-                        logger.warning("Non-exist log:", log_id_or_list, exc_info=False)
+                        self.logger.warning("Non-exist log:", log_id_or_list, exc_info=False)
                     return None
 
             return _format_each(result)
@@ -485,7 +482,7 @@ class f_currant_log(f_log):
             try:
                 sort_field, sort_orientation = sort
             except:
-                abort(40000, logger.warning("sort param not well in format:", sort))
+                abort(40000, self.logger.warning("sort param not well in format:", sort))
 
         else:
             sort_field = sort_orientation = None
@@ -513,7 +510,7 @@ class f_currant_user(f_user):
             try:
                 sort_field, sort_orientation = sort
             except:
-                abort(40000, logger.warning("sort param not well in format:", sort, exc_info=False))
+                abort(40000, self.logger.warning("sort param not well in format:", sort, exc_info=False))
             result = f_app.mongo_index.search(
                 f_app.user.get_database,
                 params,
@@ -586,20 +583,17 @@ class f_currant_user(f_user):
             return f_app.util.process_objectid(favorite)
 
         if isinstance(favorite_id_or_list, (tuple, list, set)):
-            result = {}
-
             with f_app.mongo() as m:
-                result_list = list(self.favorite_get_database(m).find({"_id": {"$in": [ObjectId(favorite_id) for favorite_id in favorite_id_or_list]}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, favorite_id_or_list)}, "status": {"$ne": "deleted"}}))
 
-            if not force_reload and len(result_list) < len(favorite_id_or_list) and not ignore_nonexist:
+            if len(result_list) < len(favorite_id_or_list):
                 found_list = map(lambda favorite: str(favorite["_id"]), result_list)
-                abort(40400, logger.warning("Non-exist favorite:", filter(lambda favorite_id: favorite_id not in found_list, favorite_id_or_list), exc_info=False))
-            elif ignore_nonexist:
-                logger.warning("Non-exist favorite:", filter(lambda favorite_id: favorite_id not in found_list, favorite_id_or_list), exc_info=False)
+                if not force_reload and not ignore_nonexist:
+                    abort(40400, self.logger.warning("Non-exist favorite:", filter(lambda favorite_id: favorite_id not in found_list, favorite_id_or_list), exc_info=False))
+                elif ignore_nonexist:
+                    self.logger.warning("Non-exist favorite:", filter(lambda favorite_id: favorite_id not in found_list, favorite_id_or_list), exc_info=False)
 
-            for favorite in result_list:
-                result[favorite["id"]] = _format_each(favorite)
-
+            result = {favorite["id"]: _format_each(favorite) for favorite in result_list}
             return result
 
         else:
@@ -608,9 +602,9 @@ class f_currant_user(f_user):
 
                 if result is None:
                     if not force_reload and not ignore_nonexist:
-                        abort(40400, logger.warning("Non-exist favorite:", favorite_id_or_list, exc_info=False))
+                        abort(40400, self.logger.warning("Non-exist favorite:", favorite_id_or_list, exc_info=False))
                     elif ignore_nonexist:
-                        logger.warning("Non-exist favorite:", favorite_id_or_list, exc_info=False)
+                        self.logger.warning("Non-exist favorite:", favorite_id_or_list, exc_info=False)
                     return None
 
             return _format_each(result)
@@ -621,7 +615,7 @@ class f_currant_user(f_user):
             if user:
                 params["user_id"] = user['id']
             else:
-                abort(40000, logger.warning("favorite must be added with user_id.", exc_info=False))
+                abort(40000, self.logger.warning("favorite must be added with user_id.", exc_info=False))
 
         params["user_id"] = ObjectId(params["user_id"])
         params.setdefault("status", "new")
@@ -685,7 +679,7 @@ class f_currant_user(f_user):
             try:
                 sort_field, sort_orientation = sort
             except:
-                abort(40000, logger.warning("sort param not well in format:", sort))
+                abort(40000, self.logger.warning("sort param not well in format:", sort))
 
         else:
             sort_field = sort_orientation = None
@@ -1169,11 +1163,11 @@ class f_currant_plugins(f_app.plugin_base):
             # Favorite
             related_property_list = f_app.property.search({"news_category": {"$in": params["category"]}, "status": {"$in": ["selling", "sold out"]}})
             related_property_list = [ObjectId(property) for property in related_property_list]
-            logger.debug(related_property_list)
+            self.logger.debug(related_property_list)
             favorite_user_id_list = [fav["user_id"] for fav in f_app.user.favorite.get(f_app.user.favorite.search({"property_id": {"$in": related_property_list}}, per_page=0))]
             favorite_user_list = f_app.user.get(favorite_user_id_list, multi_return=dict)
             favorite_user_list = [_id for _id in favorite_user_list if "favorited_property_news" in favorite_user_list.get(_id).get("system_message_type", [])]
-            logger.debug(favorite_user_list)
+            self.logger.debug(favorite_user_list)
             message = {
                 "type": "favorited_property_news",
                 "title": params["title"],
@@ -1184,7 +1178,7 @@ class f_currant_plugins(f_app.plugin_base):
             intention_ticket_list = f_app.ticket.search({"property_id": {"$in": related_property_list}, "status": {"$in": ["new", "assigned", "in_progress", "deposit"]}}, per_page=0)
             intention_user_id_list = [t.get("user_id") for t in f_app.ticket.get(intention_ticket_list)]
             intention_user_list = f_app.user.get(intention_user_id_list, multi_return=dict)
-            intention_user_list = [_id for _id in intention_user_list if "intention_property_news" in intention_user_list.get(_id).get("system_message_type", [])]
+            inten3tion_user_list = [_id for _id in intention_user_list if "intention_property_news" in intention_user_list.get(_id).get("system_message_type", [])]
             message = {
                 "type": "intention_property_news",
                 "title": params["title"],
@@ -1206,7 +1200,7 @@ class f_currant_plugins(f_app.plugin_base):
         return params
 
     def message_output_each(self, message):
-        logger.debug(message)
+        self.logger.debug(message)
         message["status"] = message.pop("state", "deleted")
         return message
 
@@ -1471,7 +1465,7 @@ class f_currant_plugins(f_app.plugin_base):
                     }
                     property_url = "%s%s" % (search_url_prefix, link.attrib['href'])
                     property_site_id = urllib.parse.urlparse(link.attrib['href']).path.split('/')[-1]
-                    logger.debug(property_url)
+                    self.logger.debug(property_url)
                     property_page = f_app.request.get(property_url)
                     if property_page.status_code == 200:
                         params["property_crawler_id"] = property_url
@@ -1589,7 +1583,7 @@ class f_currant_plugins(f_app.plugin_base):
                         "country": "GB"
                     }
                     property_url = "%s%s" % (search_url_prefix, link.attrib['href'])
-                    logger.debug("property_url", property_url)
+                    self.logger.debug("property_url", property_url)
                     property_page = f_app.request.get(property_url, retry=3)
                     if property_page.status_code == 200:
                         params["property_crawler_id"] = property_url
@@ -1719,15 +1713,15 @@ class f_currant_plugins(f_app.plugin_base):
             #         if "Liverpool" in property_params["name"]:
             #             property_params["city"] = ObjectId(f_app.enum.get_by_slug("liverpool")['id'])
             #     else:
-            #         logger.warning("Invalid knightknox agents plot name, this may be a bug!")
+            #         self.logger.warning("Invalid knightknox agents plot name, this may be a bug!")
 
             #     property_params["status"] = "draft"
-            #     logger.debug(property_params)
+            #     self.logger.debug(property_params)
             #     property_id = f_app.property.add(property_params)
 
             property_plot_page = f_app.request.get(property_crawler_id, headers=headers, cookies=cookies)
             if property_plot_page.status_code == 200:
-                logger.debug("Start crawling page %s" % property_crawler_id)
+                self.logger.debug("Start crawling page %s" % property_crawler_id)
                 property_plot_page_dom_root = q(property_plot_page.content)
                 data_rows = property_plot_page_dom_root('#myTable>tbody>tr')
                 for row in data_rows:
@@ -1748,7 +1742,7 @@ class f_currant_plugins(f_app.plugin_base):
                     elif "Double Room" in investment_type:
                         plot_params["investment_type"] = ObjectId(f_app.enum.get_by_slug("investment_type:double_room")["id"])
                     else:
-                        logger.warning("Unknown investment_type %s, this may be a bug!" % investment_type)
+                        self.logger.warning("Unknown investment_type %s, this may be a bug!" % investment_type)
                     plot_params["bedroom_count"] = int(row[3].text)
                     plot_params["bathroom_count"] = int(row[4].text)
                     plot_params["space"] = {"type": "area", "unit": "meter ** 2", "value": row[5].text}
@@ -1873,7 +1867,7 @@ class f_currant_plugins(f_app.plugin_base):
                 pass
             else:
                 is_end = True
-            logger.debug("start crawling page %d" % page_count)
+            self.logger.debug("start crawling page %d" % page_count)
             table = list_page_dom_root('div#contenttabbox table tr:not([style])')
             for row in table:
                 plot_params = {}
@@ -1887,7 +1881,7 @@ class f_currant_plugins(f_app.plugin_base):
                 elif property_name == "Vita Student Telephone House":
                     plot_params["property_id"] = ObjectId("544fc68d6a57070031e5eb47")
                 else:
-                    logger.debug("Unknown property_name:", property_name, " (skipping)")
+                    self.logger.debug("Unknown property_name:", property_name, " (skipping)")
                     continue
 
                 # property_crawler_id = "%s/%s" % (search_url, property_name)
@@ -1919,7 +1913,7 @@ class f_currant_plugins(f_app.plugin_base):
                 plot_params["status"] = "selling"
 
                 plot_id = f_app.plot.crawler_insert_update(plot_params)
-                logger.debug("plot inserted:", plot_id)
+                self.logger.debug("plot inserted:", plot_id)
 
             next_page_params = {
                 "ctl00$Main$btnNext": "NEXT PAGE >>",
@@ -2026,20 +2020,17 @@ class f_property(f_app.module_base):
             return f_app.util.process_objectid(property)
 
         if isinstance(property_id_or_list, (tuple, list, set)):
-            result = {}
-
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": [ObjectId(property_id) for property_id in property_id_or_list]}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, property_id_or_list)}, "status": {"$ne": "deleted"}}))
 
-            if not force_reload and len(result_list) < len(property_id_or_list) and not ignore_nonexist:
+            if len(result_list) < len(property_id_or_list):
                 found_list = map(lambda property: str(property["_id"]), result_list)
-                abort(40400, logger.warning("Non-exist property:", filter(lambda property_id: property_id not in found_list, property_id_or_list), exc_info=False))
-            elif ignore_nonexist:
-                logger.warning("Non-exist property:", filter(lambda property_id: property_id not in found_list, property_id_or_list), exc_info=False)
+                if not force_reload and not ignore_nonexist:
+                    abort(40400, self.logger.warning("Non-exist property:", filter(lambda property_id: property_id not in found_list, property_id_or_list), exc_info=False))
+                elif ignore_nonexist:
+                    self.logger.warning("Non-exist property:", filter(lambda property_id: property_id not in found_list, property_id_or_list), exc_info=False)
 
-            for property in result_list:
-                result[property["id"]] = _format_each(property)
-
+            result = {property["id"]: _format_each(property) for property in result_list}
             return result
 
         else:
@@ -2048,9 +2039,9 @@ class f_property(f_app.module_base):
 
                 if result is None:
                     if not force_reload and not ignore_nonexist:
-                        abort(40400, logger.warning("Non-exist property:", property_id_or_list, exc_info=False))
+                        abort(40400, self.logger.warning("Non-exist property:", property_id_or_list, exc_info=False))
                     elif ignore_nonexist:
-                        logger.warning("Non-exist property:", property_id_or_list, exc_info=False)
+                        self.logger.warning("Non-exist property:", property_id_or_list, exc_info=False)
                     return None
 
             return _format_each(result)
@@ -2149,7 +2140,7 @@ class f_property(f_app.module_base):
             try:
                 sort_field, sort_orientation = sort
             except:
-                abort(40000, logger.warning("sort param not well in format:", sort))
+                abort(40000, self.logger.warning("sort param not well in format:", sort))
 
         else:
             sort_field = sort_orientation = None
@@ -2336,20 +2327,17 @@ class f_plot(f_app.module_base):
             return f_app.util.process_objectid(plot)
 
         if isinstance(plot_id_or_list, (tuple, list, set)):
-            result = {}
-
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": [ObjectId(plot_id) for plot_id in plot_id_or_list]}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, plot_id_or_list)}, "status": {"$ne": "deleted"}}))
 
-            if not force_reload and len(result_list) < len(plot_id_or_list) and not ignore_nonexist:
+            if len(result_list) < len(plot_id_or_list):
                 found_list = map(lambda plot: str(plot["_id"]), result_list)
-                abort(40400, logger.warning("Non-exist plot:", filter(lambda plot_id: plot_id not in found_list, plot_id_or_list), exc_info=False))
-            elif ignore_nonexist:
-                logger.warning("Non-exist plot:", filter(lambda plot_id: plot_id not in found_list, plot_id_or_list), exc_info=False)
+                if not force_reload and not ignore_nonexist:
+                    abort(40400, self.logger.warning("Non-exist plot:", filter(lambda plot_id: plot_id not in found_list, plot_id_or_list), exc_info=False))
+                elif ignore_nonexist:
+                    self.logger.warning("Non-exist plot:", filter(lambda plot_id: plot_id not in found_list, plot_id_or_list), exc_info=False)
 
-            for plot in result_list:
-                result[plot["id"]] = _format_each(plot)
-
+            result = {plot["id"]: _format_each(plot) for plot in result_list}
             return result
 
         else:
@@ -2358,9 +2346,9 @@ class f_plot(f_app.module_base):
 
                 if result is None:
                     if not force_reload and not ignore_nonexist:
-                        abort(40400, logger.warning("Non-exist plot:", plot_id_or_list, exc_info=False))
+                        abort(40400, self.logger.warning("Non-exist plot:", plot_id_or_list, exc_info=False))
                     elif ignore_nonexist:
-                        logger.warning("Non-exist plot:", plot_id_or_list, exc_info=False)
+                        self.logger.warning("Non-exist plot:", plot_id_or_list, exc_info=False)
                     return None
 
             return _format_each(result)
@@ -2369,7 +2357,7 @@ class f_plot(f_app.module_base):
         if "property_id" in params:
             f_app.property.get(params["property_id"])
         else:
-            abort(40000, logger.warning("Invalid params: property_id not present"))
+            abort(40000, self.logger.warning("Invalid params: property_id not present"))
         params.setdefault("status", "new")
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
@@ -2387,7 +2375,7 @@ class f_plot(f_app.module_base):
             try:
                 sort_field, sort_orientation = sort
             except:
-                abort(40000, logger.warning("sort param not well in format:", sort))
+                abort(40000, self.logger.warning("sort param not well in format:", sort))
 
         else:
             sort_field = sort_orientation = None
@@ -2459,20 +2447,17 @@ class f_report(f_app.module_base):
             return f_app.util.process_objectid(report)
 
         if isinstance(report_id_or_list, (tuple, list, set)):
-            result = {}
-
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": [ObjectId(report_id) for report_id in report_id_or_list]}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, report_id_or_list)}, "status": {"$ne": "deleted"}}))
 
-            if not force_reload and len(result_list) < len(report_id_or_list) and not ignore_nonexist:
+            if len(result_list) < len(report_id_or_list):
                 found_list = map(lambda report: str(report["_id"]), result_list)
-                abort(40400, logger.warning("Non-exist report:", filter(lambda report_id: report_id not in found_list, report_id_or_list), exc_info=False))
-            elif ignore_nonexist:
-                logger.warning("Non-exist report:", filter(lambda report_id: report_id not in found_list, report_id_or_list), exc_info=False)
+                if not force_reload and not ignore_nonexist:
+                    abort(40400, self.logger.warning("Non-exist report:", filter(lambda report_id: report_id not in found_list, report_id_or_list), exc_info=False))
+                elif ignore_nonexist:
+                    self.logger.warning("Non-exist report:", filter(lambda report_id: report_id not in found_list, report_id_or_list), exc_info=False)
 
-            for report in result_list:
-                result[report["id"]] = _format_each(report)
-
+            result = {report["id"]: _format_each(report) for report in result_list}
             return result
 
         else:
@@ -2481,9 +2466,9 @@ class f_report(f_app.module_base):
 
                 if result is None:
                     if not force_reload and not ignore_nonexist:
-                        abort(40400, logger.warning("Non-exist report:", report_id_or_list, exc_info=False))
+                        abort(40400, self.logger.warning("Non-exist report:", report_id_or_list, exc_info=False))
                     elif ignore_nonexist:
-                        logger.warning("Non-exist report:", report_id_or_list, exc_info=False)
+                        self.logger.warning("Non-exist report:", report_id_or_list, exc_info=False)
                     return None
 
             return _format_each(result)
@@ -2506,7 +2491,7 @@ class f_report(f_app.module_base):
             try:
                 sort_field, sort_orientation = sort
             except:
-                abort(40000, logger.warning("sort param not well in format:", sort))
+                abort(40000, self.logger.warning("sort param not well in format:", sort))
 
         else:
             sort_field = sort_orientation = None
@@ -2549,20 +2534,17 @@ class f_zipcode(f_app.module_base):
             return f_app.util.process_objectid(zipcode)
 
         if isinstance(zipcode_id_or_list, (tuple, list, set)):
-            result = {}
-
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": [ObjectId(zipcode_id) for zipcode_id in zipcode_id_or_list]}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, zipcode_id_or_list)}, "status": {"$ne": "deleted"}}))
 
-            if not force_reload and len(result_list) < len(zipcode_id_or_list) and not ignore_nonexist:
+            if len(result_list) < len(zipcode_id_or_list):
                 found_list = map(lambda zipcode: str(zipcode["_id"]), result_list)
-                abort(40400, logger.warning("Non-exist zipcode:", filter(lambda zipcode_id: zipcode_id not in found_list, zipcode_id_or_list), exc_info=False))
-            elif ignore_nonexist:
-                logger.warning("Non-exist zipcode:", filter(lambda zipcode_id: zipcode_id not in found_list, zipcode_id_or_list), exc_info=False)
+                if not force_reload and not ignore_nonexist:
+                    abort(40400, self.logger.warning("Non-exist zipcode:", filter(lambda zipcode_id: zipcode_id not in found_list, zipcode_id_or_list), exc_info=False))
+                elif ignore_nonexist:
+                    self.logger.warning("Non-exist zipcode:", filter(lambda zipcode_id: zipcode_id not in found_list, zipcode_id_or_list), exc_info=False)
 
-            for zipcode in result_list:
-                result[zipcode["id"]] = _format_each(zipcode)
-
+            result = {zipcode["id"]: _format_each(zipcode) for zipcode in result_list}
             return result
 
         else:
@@ -2571,9 +2553,9 @@ class f_zipcode(f_app.module_base):
 
                 if result is None:
                     if not force_reload and not ignore_nonexist:
-                        abort(40400, logger.warning("Non-exist zipcode:", zipcode_id_or_list, exc_info=False))
+                        abort(40400, self.logger.warning("Non-exist zipcode:", zipcode_id_or_list, exc_info=False))
                     elif ignore_nonexist:
-                        logger.warning("Non-exist zipcode:", zipcode_id_or_list, exc_info=False)
+                        self.logger.warning("Non-exist zipcode:", zipcode_id_or_list, exc_info=False)
                     return None
 
             return _format_each(result)
@@ -2600,7 +2582,7 @@ class f_zipcode(f_app.module_base):
             try:
                 sort_field, sort_orientation = sort
             except:
-                abort(40000, logger.warning("sort param not well in format:", sort))
+                abort(40000, self.logger.warning("sort param not well in format:", sort))
 
         else:
             sort_field = sort_orientation = None
@@ -2863,7 +2845,7 @@ class f_doogal(f_app.module_base):
                     }, {"$set": params}, upsert=True)
                     count += 1
                     if count % 100 == 1:
-                        logger.debug("doogal postcode imported", count, "records...")
+                        self.logger.debug("doogal postcode imported", count, "records...")
 
 f_doogal()
 
@@ -2918,7 +2900,7 @@ class f_landregistry(f_app.module_base):
                         self.logger.debug("landregistry data is already up-to-date.")
                     else:
                         # Has new version
-                        logger.debug("start downloading csv...")
+                        self.logger.debug("start downloading csv...")
                         csv_request = f_app.request.get(csv_url, retry=5)
                         if csv_request.status_code == 200:
                             csv_file = StringIO(csv_request.content)
@@ -2944,13 +2926,13 @@ class f_landregistry(f_app.module_base):
                                 }
 
                                 if self.get_database(m).find_one({"tid": r[0], "status": r[14]}):
-                                    logger.warning("Already added %s" % r[0])
+                                    self.logger.warning("Already added %s" % r[0])
                                 elif r[14] != "A":
                                     if r[14] == "D":
                                         self.get_database(m).remove({"tid": r[0]})
                                     else:
                                         params.pop("status")
-                                        logger.debug(params)
+                                        self.logger.debug(params)
                                         self.get_database(m).update({"tid": r[0]}, params)
                                 else:
                                     self.get_database(m).insert(params)
@@ -3343,7 +3325,7 @@ class f_currant_shop(f_shop):
             try:
                 sort_field, sort_orientation = sort
             except:
-                abort(40000, logger.warning("sort param not well in format:", sort))
+                abort(40000, self.logger.warning("sort param not well in format:", sort))
 
         else:
             sort_field = sort_orientation = None
@@ -3359,7 +3341,7 @@ class f_currant_shop(f_shop):
             try:
                 sort_field, sort_orientation = sort
             except:
-                abort(40000, logger.warning("sort param not well in format:", sort))
+                abort(40000, self.logger.warning("sort param not well in format:", sort))
 
         else:
             sort_field = sort_orientation = None
@@ -3420,9 +3402,9 @@ class f_comment(f_app.module_base):
 
             if not force_reload and len(result_list) < len(comment_id_or_list) and not ignore_nonexist:
                 found_list = map(lambda comment: str(comment["_id"]), result_list)
-                abort(40495, logger.warning("Non-exist comment:", filter(lambda comment_id: comment_id not in found_list, comment_id_or_list), exc_info=False))
+                abort(40495, self.logger.warning("Non-exist comment:", filter(lambda comment_id: comment_id not in found_list, comment_id_or_list), exc_info=False))
             elif ignore_nonexist:
-                logger.warning("Non-exist comment:", filter(lambda comment_id: comment_id not in found_list, comment_id_or_list), exc_info=False)
+                self.logger.warning("Non-exist comment:", filter(lambda comment_id: comment_id not in found_list, comment_id_or_list), exc_info=False)
 
             for comment in result_list:
                 result[comment["id"]] = _format_each(comment)
@@ -3435,9 +3417,9 @@ class f_comment(f_app.module_base):
 
                 if result is None:
                     if not force_reload and not ignore_nonexist:
-                        abort(40495, logger.warning("Non-exist comment:", comment_id_or_list, exc_info=False))
+                        abort(40495, self.logger.warning("Non-exist comment:", comment_id_or_list, exc_info=False))
                     elif ignore_nonexist:
-                        logger.warning("Non-exist comment:", comment_id_or_list, exc_info=False)
+                        self.logger.warning("Non-exist comment:", comment_id_or_list, exc_info=False)
                     return None
 
             return _format_each(result)
@@ -3476,7 +3458,7 @@ class f_comment(f_app.module_base):
             try:
                 sort_field, sort_orientation = sort
             except:
-                abort(40000, logger.warning("sort param not well in format:", sort))
+                abort(40000, self.logger.warning("sort param not well in format:", sort))
 
         else:
             sort_field = sort_orientation = None
@@ -3507,7 +3489,7 @@ class f_currant_order(f_order):
             try:
                 sort_field, sort_orientation = sort
             except:
-                abort(40000, logger.warning("sort param not well in format:", sort))
+                abort(40000, self.logger.warning("sort param not well in format:", sort))
 
         else:
             sort_field = sort_orientation = None
@@ -3530,24 +3512,23 @@ class f_maponics(f_app.plugin_base):
         return getattr(m, self.maponics_neighborhood_database)
 
     @f_cache("maponicsneighborhood", support_multi=True)
-    def neighborhood_get(self, neighborhood_id_or_list, force_reload=False):
+    def neighborhood_get(self, neighborhood_id_or_list, force_reload=False, ignore_nonexist=False):
         def _format_each(neighborhood):
             neighborhood.pop("wkt", None)
             return f_app.util.process_objectid(neighborhood)
 
         if f_app.util.batch_iterable(neighborhood_id_or_list):
-            result = {}
-
             with f_app.mongo() as m:
-                result_list = list(self.neighborhood.get_database(m).find({"_id": {"$in": [ObjectId(user_id) for user_id in neighborhood_id_or_list]}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, neighborhood_id_or_list)}, "status": {"$ne": "deleted"}}))
 
-            if not force_reload and len(result_list) < len(neighborhood_id_or_list):
+            if len(result_list) < len(neighborhood_id_or_list):
                 found_list = map(lambda neighborhood: str(neighborhood["_id"]), result_list)
-                abort(40400, self.logger.warning("Non-exist neighborhood:", filter(lambda neighborhood_id: neighborhood_id not in found_list, neighborhood_id_or_list), exc_info=False))
+                if not force_reload and not ignore_nonexist:
+                    abort(40400, self.logger.warning("Non-exist neighborhood:", filter(lambda neighborhood_id: neighborhood_id not in found_list, neighborhood_id_or_list), exc_info=False))
+                elif ignore_nonexist:
+                    self.logger.warning("Non-exist neighborhood:", filter(lambda neighborhood_id: neighborhood_id not in found_list, neighborhood_id_or_list), exc_info=False)
 
-            for neighborhood in result_list:
-                result[neighborhood["id"]] = _format_each(neighborhood)
-
+            result = {neighborhood["id"]: _format_each(neighborhood) for neighborhood in result_list}
             return result
 
         else:
@@ -3555,8 +3536,10 @@ class f_maponics(f_app.plugin_base):
                 result = self.neighborhood.get_database(m).find_one({"_id": ObjectId(neighborhood_id_or_list), "status": {"$ne": "deleted"}})
 
                 if result is None:
-                    if not force_reload:
+                    if not force_reload and not ignore_nonexist:
                         abort(40400, self.logger.warning("Non-exist neighborhood:", neighborhood_id_or_list, exc_info=False))
+                    elif ignore_nonexist:
+                        self.logger.warning("Non-exist neighborhood:", neighborhood_id_or_list, exc_info=False)
 
                     return None
 
@@ -3667,23 +3650,22 @@ class f_hesa(f_app.plugin_base):
         return getattr(m, self.hesa_university_database)
 
     @f_cache("hesauniversity", support_multi=True)
-    def university_get(self, university_id_or_list, force_reload=False):
+    def university_get(self, university_id_or_list, force_reload=False, ignore_nonexist=False):
         def _format_each(university):
             return f_app.util.process_objectid(university)
 
         if f_app.util.batch_iterable(university_id_or_list):
-            result = {}
-
             with f_app.mongo() as m:
-                result_list = list(self.university.get_database(m).find({"_id": {"$in": [ObjectId(user_id) for user_id in university_id_or_list]}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, university_id_or_list)}, "status": {"$ne": "deleted"}}))
 
-            if not force_reload and len(result_list) < len(university_id_or_list):
+            if len(result_list) < len(university_id_or_list):
                 found_list = map(lambda university: str(university["_id"]), result_list)
-                abort(40400, self.logger.warning("Non-exist university:", filter(lambda university_id: university_id not in found_list, university_id_or_list), exc_info=False))
+                if not force_reload and not ignore_nonexist:
+                    abort(40400, self.logger.warning("Non-exist university:", filter(lambda university_id: university_id not in found_list, university_id_or_list), exc_info=False))
+                elif ignore_nonexist:
+                    self.logger.warning("Non-exist university:", filter(lambda university_id: university_id not in found_list, university_id_or_list), exc_info=False)
 
-            for university in result_list:
-                result[university["id"]] = _format_each(university)
-
+            result = {university["id"]: _format_each(university) for university in result_list}
             return result
 
         else:
@@ -3691,8 +3673,10 @@ class f_hesa(f_app.plugin_base):
                 result = self.university.get_database(m).find_one({"_id": ObjectId(university_id_or_list), "status": {"$ne": "deleted"}})
 
                 if result is None:
-                    if not force_reload:
+                    if not force_reload and not ignore_nonexist:
                         abort(40400, self.logger.warning("Non-exist university:", university_id_or_list, exc_info=False))
+                    elif ignore_nonexist:
+                        self.logger.warning("Non-exist university:", university_id_or_list, exc_info=False)
 
                     return None
 
