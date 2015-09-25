@@ -96,10 +96,24 @@ def property_get(property_id, user):
     if 'intention' in property and property.get('intention'):
         tags = [item['value'] for item in property['intention'] if 'value' in item]
 
+    tagString = ', '.join(tags)
+
+    brochure_link = ''
+    if property.get('brochure') and len(property.get('brochure')) > 0:
+        from six.moves.urllib.parse import quote_plus
+        brochure_link = property.get('brochure')[0].get('url')
+        brochure_link = quote_plus(brochure_link.encode('utf-8'))
+
+    city_string = ''
+    if 'country' in property or 'city' in property:
+        country = currant_util.get_country_name_by_code(property.get('country',{}).get('code'))
+        city = property.get('city',{}).get('name')
+        city_string = ', '.join([x for x in [country,city] if x])
+
     keywords = property.get('name', _('房产详情')) + ',' + currant_util.get_country_name_by_code(property.get('country', {}).get('code', '')) + ',' + property.get('city', {}).get('name', '') + ',' + ','.join(tags + currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
-    return currant_util.common_template("property", property=property, is_favorited=is_favorited, related_property_list=related_property_list, report=report, title=title, description=description, keywords=keywords, weixin=weixin)
+    return currant_util.common_template("property", property=property, is_favorited=is_favorited, related_property_list=related_property_list, tagString=tagString, city_string=city_string, brochure_link=brochure_link, report=report, title=title, description=description, keywords=keywords, weixin=weixin)
 
 
 @f_get('/pdf_viewer/property/<property_id:re:[0-9a-fA-F]{24}>', params=dict(

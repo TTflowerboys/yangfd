@@ -175,23 +175,7 @@
             <div class="tag row">
                 <i class="icon-location_fill"></i>
                 <label>
-                    % display_location=[]
-                    % if rent['property'].get('community',''):
-                    % display_location.append(rent['property'].get('community',''))
-                    % end
-                    % if rent['property'].get('street',''):
-                    % display_location.append(rent['property'].get('street',''))
-                    % end
-                    %if rent.get('property',{}).get('city'):
-                    % display_location.append(rent['property'].get('city',{}).get('name'))
-                    %end
-                    %if rent.get('property',{}).get('country'):
-                    % display_location.append(get_country_name_by_code(rent['property'].get('country',{}).get('code')))
-                    %end
-                    %if not rent.get('property',{}).get('partner'):
-                    % display_location.append(rent['property'].get('zipcode',''))
-                    %end
-                    {{','.join(display_location)}}
+                    {{display_location_mobile}}
                 </label>
             </div>
             % end
@@ -434,17 +418,7 @@
             <div class="tag">
                 <i class="icon-location_fill"></i>
                 <label>
-                    % display_location=[]
-                    % if rent['property'].get('community',''):
-                    % display_location.append(rent['property'].get('community',''))
-                    % end
-                    % if rent['property'].get('street',''):
-                    % display_location.append(rent['property'].get('street',''))
-                    % end
-                    %if not rent.get('property',{}).get('partner'):
-                    % display_location.append(rent['property'].get('zipcode',''))
-                    %end
-                    {{','.join(display_location)}}
+                    {{display_location_pc}}
                 </label>
             </div>
             % end

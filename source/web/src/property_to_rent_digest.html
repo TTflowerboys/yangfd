@@ -134,19 +134,8 @@
                     {{rent.get('description','')}}
                 </p>
                 <ul class="facilities clearfix">
-                    % total = 10
-                    % current = 0
-                    % for item in rent['property'].get('indoor_facility',[]):
-                    %if current < total:
-                    % current+=1
+                    % for item in (rent['property'].get('indoor_facility',[]) + rent['property'].get('community_facility',[]))[0:10]:
                     <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
-                    %end
-                    % end
-                    % for item in rent['property'].get('community_facility',[]):
-                    %if current < total:
-                    % current+=1
-                    <li class="animate"><i class="icon-{{item.get('slug','')}}"></i><span>{{item.get('value','')}}</span></li>
-                    %end
                     %end
                 </ul>
             </section>

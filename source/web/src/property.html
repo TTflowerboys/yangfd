@@ -54,13 +54,6 @@
 %if property:
 % property_type_slug = property.get('property_type',{}).get('slug')
 
-% tags = []
-% if 'intention' in property and property.get('intention'):
-% tags = [item['value'] for item in property['intention'] if 'value' in item]
-% end
-% tagString = ', '.join(tags)
-
-% from bottle import request
 
 
 
@@ -244,10 +237,7 @@
                                 </label>
                             </div>
                         % end
-                        % if 'country' in property or 'city' in property:
-                            % country = get_country_name_by_code(property.get('country',{}).get('code'))
-                            % city = property.get('city',{}).get('name')
-                            % city_string = ', '.join([x for x in [country,city] if x])
+                        % if len(city_string):
                             <div class="tag">
                                 <i class="icon-location_fill"></i>
                                 <label>
@@ -828,10 +818,8 @@
                     % if user:
                         <div class="brochures_entry">
                             <div class="brochures_entry_wrapper">
-                                % from six.moves.urllib.parse import quote_plus
-                                % link = property.get('brochure')[0].get('url')
-                                % link = quote_plus(link.encode('utf-8'))
-                                <a href="/pdf_viewer/property/{{property.get('id')}}?link={{link}}" target="_blank" class="ghostButton red" >{{_('点击查看完整资料')}}</a>
+
+                                <a href="/pdf_viewer/property/{{property.get('id')}}?link={{brochure_link}}" target="_blank" class="ghostButton red" >{{_('点击查看完整资料')}}</a>
                             </div>
                             <img class="guide_img" src="/static/images/property_details/img_brochure_cover.png" alt="">
                         </div>
@@ -904,10 +892,7 @@
                         </label>
                     </div>
                 % end
-                % if 'country' in property or 'city' in property:
-                    % country = get_country_name_by_code(property.get('country',{}).get('code'))
-                    % city = property.get('city',{}).get('name')
-                    % city_string = ', '.join([x for x in [country,city] if x])
+                % if len(city_string):
                     <div class="tag">
                         <i class="icon-location_fill"></i>
                         <label>

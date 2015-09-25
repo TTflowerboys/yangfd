@@ -208,7 +208,10 @@ def rent_ticket_get(rent_ticket_id, user):
         "ticket_id": rent_ticket_id,
         "user.id": user["id"],
     })) > 0 if user else False
-    return currant_util.common_template("host_contact_request-phone", rent=rent_ticket, title=title, contact_info_already_fetched=contact_info_already_fetched)
+
+    private_contact_methods = rent_ticket.get('creator_user',{}).get('private_contact_methods',[])
+    private_contact_methods = [] if private_contact_methods is None else private_contact_methods
+    return currant_util.common_template("host_contact_request-phone", rent=rent_ticket, title=title, contact_info_already_fetched=contact_info_already_fetched, private_contact_methods=private_contact_methods)
 
 
 @f_get('/wechat-poster/<rent_ticket_id:re:[0-9a-fA-F]{24}>')
