@@ -1129,12 +1129,14 @@ def rent_ticket_edit(ticket_id, user, params):
     ticket = f_app.ticket.get(ticket_id)
     assert ticket["type"] == "rent", abort(40000, "Invalid rent ticket")
 
-    if ticket.get("creator_user_id"):
-        if not user or ticket.get("creator_user_id") != user["id"] and not (set(user["role"]) & set(["admin", "jr_admin", "support"])):
+    if ticket.get("creator_user_id") or ticket.get("user_id"):
+        if not user or user["id"] not in (ticket.get("user_id"), ticket.get("creator_user_id")) and not (set(user["role"]) & set(["admin", "jr_admin", "support"])):
             abort(40399, logger.warning("Permission denied", exc_info=False))
-    elif user:
-        params["user_id"] = ObjectId(user["id"])
-        params["creator_user_id"] = ObjectId(user["id"])
+    if user:
+        if "creator_user_id" not in params:
+            params["creator_user_id"] = ObjectId(user["id"])
+        if "user_id" not in params:
+            params["user_id"] = ObjectId(user["id"])
 
     unset_fields = params.get("unset_fields", [])
     result = f_app.ticket.update_set(ticket_id, params)
@@ -1554,13 +1556,14 @@ def sale_ticket_edit(ticket_id, user, params):
     ticket = f_app.ticket.get(ticket_id)
     assert ticket["type"] == "sale", abort(40000, "Invalid sale ticket")
 
-    if user and set(user["role"]) & set(["admin", "jr_admin", "support"]):
-        pass
-    elif ticket.get("creator_user_id"):
-        if ticket.get("creator_user_id") != user["id"]:
+    if ticket.get("creator_user_id") or ticket.get("user_id"):
+        if not user or user["id"] not in (ticket.get("user_id"), ticket.get("creator_user_id")) and not (set(user["role"]) & set(["admin", "jr_admin", "support"])):
             abort(40399, logger.warning("Permission denied", exc_info=False))
-    elif user:
-        params["user_id"] = user["id"]
+    if user:
+        if "creator_user_id" not in params:
+            params["creator_user_id"] = ObjectId(user["id"])
+        if "user_id" not in params:
+            params["user_id"] = ObjectId(user["id"])
 
     unset_fields = params.get("unset_fields", [])
     result = f_app.ticket.update_set(ticket_id, params)
