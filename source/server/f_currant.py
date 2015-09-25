@@ -1178,7 +1178,7 @@ class f_currant_plugins(f_app.plugin_base):
             intention_ticket_list = f_app.ticket.search({"property_id": {"$in": related_property_list}, "status": {"$in": ["new", "assigned", "in_progress", "deposit"]}}, per_page=0)
             intention_user_id_list = [t.get("user_id") for t in f_app.ticket.get(intention_ticket_list)]
             intention_user_list = f_app.user.get(intention_user_id_list, multi_return=dict)
-            inten3tion_user_list = [_id for _id in intention_user_list if "intention_property_news" in intention_user_list.get(_id).get("system_message_type", [])]
+            intention_user_list = [_id for _id in intention_user_list if "intention_property_news" in intention_user_list.get(_id).get("system_message_type", [])]
             message = {
                 "type": "intention_property_news",
                 "title": params["title"],
@@ -1200,7 +1200,6 @@ class f_currant_plugins(f_app.plugin_base):
         return params
 
     def message_output_each(self, message):
-        self.logger.debug(message)
         message["status"] = message.pop("state", "deleted")
         return message
 
@@ -2218,7 +2217,6 @@ class f_property(f_app.module_base):
         with f_app.mongo() as m:
             tmp_result = m.command(search_command)["results"]
 
-        self.logger.debug(tmp_result)
         result = []
         property_id_list = map(lambda item: str(item["obj"]["_id"]), tmp_result)
 
@@ -2932,7 +2930,6 @@ class f_landregistry(f_app.module_base):
                                         self.get_database(m).remove({"tid": r[0]})
                                     else:
                                         params.pop("status")
-                                        self.logger.debug(params)
                                         self.get_database(m).update({"tid": r[0]}, params)
                                 else:
                                     self.get_database(m).insert(params)
