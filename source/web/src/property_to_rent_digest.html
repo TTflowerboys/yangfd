@@ -199,5 +199,30 @@
         <script type="text/javascript" src="/static/scripts/master.js"></script>
         <!--<script type="text/javascript" src="/static/scripts/propertyToRentDigest.js"></script>-->
         <!--endbuild-->
+        <script>
+            function initMapSrc(config){
+                var baseSrc = 'http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/{centerPoint}/{zoomLevel}?mapSize={width},{height}&mapLayer=TrafficFlow&format=jpeg&key={key}'
+                if(config.centerPoint !== ',') {
+                    for(var k in config) {
+                        baseSrc = baseSrc.replace('{' + k + '}', config[k])
+                    }
+                    $('.mapImage').css({
+                        'background-image': 'url(' + baseSrc + ')'
+                    })
+                } else {
+                    $('.mapImage').css({
+                        'background-image': 'url("/static/images/placeholder/img_map_holder_wechat_poster_digest.png")'
+                    }).find('.pushpin').addClass('noLocation').text(window.i18n('该房产暂无定位信息'))
+
+                }
+            }
+            initMapSrc({
+                key: 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43',
+                width: 460,
+                height: 440,
+                centerPoint: '{{rent["property"].get("latitude","")}},{{rent["property"].get("longitude","")}}',
+                zoomLevel: 14
+            })
+        </script>
     </body>
 </html>
