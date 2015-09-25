@@ -14,13 +14,16 @@
 #import "NSURL+CUTE.h"
 #import <UIBarButtonItem+ALActionBlocks.h>
 #import <BFTask.h>
+#import <BFTaskCompletionSource.h>
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEWebConfiguration.h"
 #import "CUTETracker.h"
 #import "CUTEUsageRecorder.h"
 #import "CUTEWebViewController.h"
 #import "CUTEWebArchiveManager.h"
+#import "CUTEConfiguration.h"
 #import <HHRouter.h>
 #import <Base64.h>
+#import <JPEngine.h>
 
 #endif /* currant_Bridging_Header_h */

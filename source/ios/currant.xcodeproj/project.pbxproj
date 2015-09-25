@@ -268,6 +268,10 @@
 		2C4AEC821AD6466A004DEE23 /* CUTEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */; };
 		2C554F8A1AC2BC3700F51D33 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */; };
+		2C5597EC1BB501C600430984 /* CUTEPatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5597EB1BB501C600430984 /* CUTEPatcher.swift */; settings = {ASSET_TAGS = (); }; };
+		2C5597ED1BB501C600430984 /* CUTEPatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5597EB1BB501C600430984 /* CUTEPatcher.swift */; settings = {ASSET_TAGS = (); }; };
+		2C5597EE1BB501C600430984 /* CUTEPatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5597EB1BB501C600430984 /* CUTEPatcher.swift */; settings = {ASSET_TAGS = (); }; };
+		2C5597EF1BB501C600430984 /* CUTEPatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5597EB1BB501C600430984 /* CUTEPatcher.swift */; settings = {ASSET_TAGS = (); }; };
 		2C5ECC511AD525AC00163E9E /* CUTEAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */; };
 		2C5ECC521AD525AC00163E9E /* CUTEAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */; };
 		2C5ECC531AD525AC00163E9E /* CUTEAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */; };
@@ -902,6 +906,7 @@
 		2C554F891AC2BC3700F51D33 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2C554F8C1AC2BCEE00F51D33 /* CUTEPropertyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyListViewController.h; sourceTree = "<group>"; };
 		2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyListViewController.m; sourceTree = "<group>"; };
+		2C5597EB1BB501C600430984 /* CUTEPatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEPatcher.swift; sourceTree = "<group>"; };
 		2C5ECC4F1AD525AC00163E9E /* CUTEAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEAPIManager.h; sourceTree = "<group>"; };
 		2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAPIManager.m; sourceTree = "<group>"; };
 		2C63CAD21B230DEE0055687A /* CUTETooltipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETooltipView.h; sourceTree = "<group>"; };
@@ -1518,6 +1523,7 @@
 				2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */,
 				2C4A13AE1B5E5CF600FA9F99 /* CUTEStringMatcher.h */,
 				2C4A13AF1B5E5CF600FA9F99 /* CUTEStringMatcher.m */,
+				2C5597EB1BB501C600430984 /* CUTEPatcher.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -2694,6 +2700,7 @@
 				2C056D811B423ABD0075037A /* CUTERentContactForm.m in Sources */,
 				2CE2A96B1B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m in Sources */,
 				2CE2A98F1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
+				2C5597EE1BB501C600430984 /* CUTEPatcher.swift in Sources */,
 				2C1251941B53909A0037F5B6 /* CUTECredit.m in Sources */,
 				2CC3A0931AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D531B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
@@ -2852,6 +2859,7 @@
 				2C056D821B423ABD0075037A /* CUTERentContactForm.m in Sources */,
 				2CE2A96C1B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m in Sources */,
 				2CE2A9901B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
+				2C5597EF1BB501C600430984 /* CUTEPatcher.swift in Sources */,
 				2C1251951B53909A0037F5B6 /* CUTECredit.m in Sources */,
 				2CC3A0941AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D541B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
@@ -3010,6 +3018,7 @@
 				2C056D801B423ABD0075037A /* CUTERentContactForm.m in Sources */,
 				2CE2A96A1B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m in Sources */,
 				2CE2A98E1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
+				2C5597ED1BB501C600430984 /* CUTEPatcher.swift in Sources */,
 				2C1251931B53909A0037F5B6 /* CUTECredit.m in Sources */,
 				2CC3A0921AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D521B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
@@ -3168,6 +3177,7 @@
 				2C056D7F1B423ABD0075037A /* CUTERentContactForm.m in Sources */,
 				2CE2A9691B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m in Sources */,
 				2CE2A98D1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
+				2C5597EC1BB501C600430984 /* CUTEPatcher.swift in Sources */,
 				2C1251921B53909A0037F5B6 /* CUTECredit.m in Sources */,
 				2CC3A0911AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D511B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,

@@ -36,6 +36,7 @@
                 baseURL:(NSURL *)anURL
         completionBlock:(void (^)(NSData *))completion {
 
+    //TODO Fix encoding convert http://iamthewalr.us/blog/2008/03/kinda-sorta-not-really-shocked/
     NSString *htmlContent = [[NSString alloc] initWithData:aData encoding:CFStringConvertIANACharSetNameToEncoding((CFStringRef)anEncoding)];
     NSArray *pathsForImagesAndScripts = [self extractResourcesWithHTML:htmlContent regex:@"<(?:script|img).*src=[\"']((?!data:).*?)[\"']"];
     NSArray *backgroundImages = [self extractResourcesWithHTML:htmlContent regex:@"url\\([\"']((?!data:).*?)['\"]\\)"];
