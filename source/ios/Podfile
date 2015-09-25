@@ -41,6 +41,7 @@ pod 'KVOController', '1.0.3'
 pod 'libextobjc', '0.4.1'
 pod 'EGOCache', '~> 2.1.3'
 pod 'HHRouter', '~> 0.1.5'
+pod 'JSPatch', '~> 0.1.3'
 
 target 'currantUnitTest', :exclusive => true do
     pod 'Specta'
@@ -52,5 +53,5 @@ target 'currantUITest', :exclusive => true do
     pod 'Specta'
     pod 'OCHamcrest'
     pod 'OHHTTPStubs'
-	pod 'KIF'
+    pod 'KIF'
 end

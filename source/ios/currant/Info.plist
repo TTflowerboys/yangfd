@@ -39,6 +39,8 @@
 	<string>dev</string>
 	<key>CurrantHost</key>
 	<string>localhost:8181</string>
+	<key>CurrantiOSResourcesPath</key>
+	<string>http://localhost:8181/static/ios_resources/</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -53,13 +55,13 @@
 			</dict>
 		</array>
 	</dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>weixin</string>
+		<string>wechat</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>weixin</string>
-        <string>wechat</string>
-    </array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
