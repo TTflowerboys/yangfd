@@ -40,7 +40,7 @@
 #import "CUTERentContactDisplaySettingForm.h"
 #import "CUTERentPassword2ViewController.h"
 #import "CUTERentPassword2Form.h"
-#import "currant-Swift.h"
+//#import "currant-Swift.h"
 
 @implementation CUTERentLoginViewController
 

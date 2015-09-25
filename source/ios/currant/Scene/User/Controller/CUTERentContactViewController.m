@@ -44,7 +44,7 @@
 #import "Sequencer.h"
 #import "CUTEUserEditingListener.h"
 #import "CUTEPhoneUtil.h"
-#import "currant-Swift.h"
+//#import "currant-Swift.h"
 #import <HHRouter.h>
 
 @interface CUTERentContactViewController () <TTTAttributedLabelDelegate> {
