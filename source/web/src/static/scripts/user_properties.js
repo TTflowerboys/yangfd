@@ -384,17 +384,14 @@ $(function () {
             } else {
                 //Bind to it's edit button
                 if (team.isCurrantClient()){
-                    // if (team.isCurrantClient('>=1.1.1')) {
-                    //     location.href = 'yangfd://property-to-rent/edit?ticketId=' + ticketId
-                    // }
-                    // else {
-                    //     //deprecated: Remove in the future
-                    //     if (window.bridge !== undefined) {
-                    //         window.bridge.callHandler('editRentTicket', _.first(_.where(window.rentArray, {id: ticketId})))
-                    //     }
-                    // }
-                    if (window.bridge !== undefined) {
-                        window.bridge.callHandler('editRentTicket', _.first(_.where(window.rentArray, {id: ticketId})))
+                    if (team.isCurrantClient('>=1.1.2')) {
+                        location.href = 'yangfd://property-to-rent/edit/' + ticketId
+                    }
+                    else {
+                        //deprecated: Remove in the future
+                        if (window.bridge !== undefined) {
+                            window.bridge.callHandler('editRentTicket', _.first(_.where(window.rentArray, {id: ticketId})))
+                        }
                     }
                 } else {
                     location.href = '/property-to-rent/' + ticketId + '/edit'
@@ -407,17 +404,14 @@ $(function () {
         $('.imgAction_wrapper #edit').on('click', function (e) {
             var ticketId = $(e.target).attr('data-id')
             if (team.isCurrantClient()){
-                // if (team.isCurrantClient('>=1.1.1')) {
-                //     location.href = 'yangfd://property-to-rent/edit?ticketId=' + ticketId
-                // }
-                // else {
-                //     //deprecated: Remove in the future
-                //     if (window.bridge !== undefined) {
-                //         window.bridge.callHandler('editRentTicket', _.first(_.where(window.rentArray, {id: ticketId})))
-                //     }
-                // }
-                if (window.bridge !== undefined) {
-                    window.bridge.callHandler('editRentTicket', _.first(_.where(window.rentArray, {id: ticketId})))
+                if (team.isCurrantClient('>=1.1.2')) {
+                    location.href = 'yangfd://property-to-rent/edit/' + ticketId
+                }
+                else {
+                    //deprecated: Remove in the future
+                    if (window.bridge !== undefined) {
+                        window.bridge.callHandler('editRentTicket', _.first(_.where(window.rentArray, {id: ticketId})))
+                    }
                 }
             } else {
                 location.href = '/property-to-rent/' + ticketId + '/edit'

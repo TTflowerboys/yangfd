@@ -97,23 +97,23 @@
     }];
 
     //Deprecated: Move to custom scheme action
-    [self.bridge registerHandler:@"editRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
+//    [self.bridge registerHandler:@"editRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
+//
+//        NSDictionary *dic = data;
+//        if (dic && [dic isKindOfClass:[NSDictionary class]]) {
+//            NSError *error = nil;
+//            CUTETicket *ticket = (CUTETicket *)[MTLJSONAdapter modelOfClass:[CUTETicket class] fromJSONDictionary:dic error:&error];
+//            if (!error && ticket) {
+//                [[CUTEDataManager sharedInstance] saveRentTicket:ticket];
+//                [webViewController.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
+//            }
+//        }
+//    }];
 
-        NSDictionary *dic = data;
-        if (dic && [dic isKindOfClass:[NSDictionary class]]) {
-            NSError *error = nil;
-            CUTETicket *ticket = (CUTETicket *)[MTLJSONAdapter modelOfClass:[CUTETicket class] fromJSONDictionary:dic error:&error];
-            if (!error && ticket) {
-                [[CUTEDataManager sharedInstance] saveRentTicket:ticket];
-                [webViewController.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
-            }
-        }
-    }];
-    
     //Deprecated: Move to custom scheme action
-    [self.bridge registerHandler:@"createRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
-        [webViewController.navigationController openRouteWithURL:[NSURL URLWithString:@"yangfd://property-to-rent/create" ]];
-    }];
+//    [self.bridge registerHandler:@"createRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
+//        [webViewController.navigationController openRouteWithURL:[NSURL URLWithString:@"yangfd://property-to-rent/create" ]];
+//    }];
 
     [self.bridge registerHandler:@"shareRentTicket" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dic = data;

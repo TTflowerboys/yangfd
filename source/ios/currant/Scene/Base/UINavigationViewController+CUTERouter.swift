@@ -80,7 +80,7 @@ extension UINavigationController {
         }
     }
 
-    private func openRouteWithWebRequest(URLRequest:NSURLRequest) {
+    func openRouteWithWebRequest(URLRequest:NSURLRequest) {
         trackOpenURL(URLRequest.URL!);
 
         let viewController = CUTERouter.globalRouter.matchController(URLRequest.URL!)
