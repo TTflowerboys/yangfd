@@ -392,23 +392,26 @@
 - (void)showActionSheet {
     [UIActionSheet showInView:[self tableViewController].view withTitle:STR(@"ImagePickerCell/选择照片") cancelButtonTitle:STR(@"ImagePickerCell/取消") destructiveButtonTitle:nil otherButtonTitles:@[STR(@"ImagePickerCell/从手机选择"), STR(@"ImagePickerCell/拍照")] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
 
-        if (buttonIndex == 0) {
-            [self showImagePickerFrom:[self tableViewController]];
-        }
-        else if (buttonIndex == 1) {
-
-            if (self.form.ticket.property.realityImages.count >= kImageMaxCount) {
-                UIAlertView *alertView =
-                [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:STR(@"ImagePickerCell/您好，最多只能上传%d张图片"), kImageMaxCount]
-                                           message:nil
-                                          delegate:nil
-                                 cancelButtonTitle:nil
-                                 otherButtonTitles:STR(@"ImagePickerCell/OK"), nil];
-
-                [alertView show];
+        if (buttonIndex != actionSheet.cancelButtonIndex) {
+            NSString *buttonText = [actionSheet buttonTitleAtIndex:buttonIndex];
+            if ([buttonText isEqualToString:STR(@"ImagePickerCell/从手机选择")]) {
+                [self showImagePickerFrom:[self tableViewController]];
+                //don't check image max count, to make user can delete
             }
-            else {
-                [self showCameraFrom:[self tableViewController]];
+            else if ([buttonText isEqualToString:STR(@"ImagePickerCell/拍照")]) {
+                if (self.form.ticket.property.realityImages.count >= kImageMaxCount) {
+                    UIAlertView *alertView =
+                    [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:STR(@"ImagePickerCell/您好，最多只能上传%d张图片"), kImageMaxCount]
+                                               message:nil
+                                              delegate:nil
+                                     cancelButtonTitle:nil
+                                     otherButtonTitles:STR(@"ImagePickerCell/OK"), nil];
+
+                    [alertView show];
+                }
+                else {
+                    [self showCameraFrom:[self tableViewController]];
+                }
             }
         }
     }];

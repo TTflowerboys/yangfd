@@ -652,6 +652,7 @@
 "API/第三方服务暂时不可用，请稍后重试。" = "Third-party service temporarily unavailable, please retry later";
 "API/请求失败" = "Request failed";
 "API/请求被取消" = "Request canceled";
+"API/返回格式不正确" = "Invalid Result";
 
 
 //
