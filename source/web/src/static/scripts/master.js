@@ -80,6 +80,10 @@ $(function () {
         return deferred.promise()
     }
     if($('link[href*=baiduBridge]').length) {
+        checkDomExist('#BDBridgeFixedWrap')
+            .then(function () {
+                $('#floatBar .contact>.baiduBridge').show()
+            })
         checkDomExist('.qiao-mess-wrap')
             .then(function (elem) {
                 elem.find('.qiao-mess-head')
