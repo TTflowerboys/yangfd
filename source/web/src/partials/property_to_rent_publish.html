@@ -89,7 +89,7 @@
                     <!-- @@include=country_code_select.html -->
                     <input type="text" id="userPhone" name="userPhone" placeholder="{{_('代发用户手机')}}" data-validator="required,trim,number"/>
                 </div>
-                <div class="formGroup" data-show="user" style="display: none;">
+                <!--<div class="formGroup" data-show="user" style="display: none;">
                     <label>{{_('用户国家')}}</label>
                     <select name="userCountry" class="countrySelect ghostSelect">
                         <option value="">{{_('请选择代发用户国家')}}</option>
@@ -99,12 +99,12 @@
                         </option>
                         %end
                     </select>
-                </div>
-                <div class="formGroup" data-show="user" style="display: none;">
+                </div>-->
+                <div class="formGroup" data-user-input style="display: none;">
                     <label for="userNickname">{{_('用户昵称')}}</label>
                     <input type="text" id="userNickname" name="userNickname" placeholder="{{_('代发用户昵称')}}" data-validator="required,trim"/>
                 </div>
-                <div class="formGroup" data-show="user" style="display: none;">
+                <div class="formGroup" data-user-input style="display: none;">
                     <label for="userEmail">{{_('用户邮箱')}}</label>
                     <input type="text" id="userEmail" name="userEmail" placeholder="{{_('代发用户邮箱')}}" data-validator="required,trim,email"/>
                 </div>

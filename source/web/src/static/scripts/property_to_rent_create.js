@@ -1023,11 +1023,32 @@
     })
 
     var $publishForm = $('#form2')
+    var $otherUserInput = $publishForm.find('[data-user-input]')
     $publishForm.find('[name=delegate]').change(function () {
         var val = $(this).val()
         $publishForm.find('[data-show]').hide()
             .end().find('[data-show=' + val + ']').show()
     }).trigger('change')
+    $publishForm.find('[name=userPhone],[name=country_code]').change(function(){
+        if(isDelegate()) {
+            $.betterPost('/api/1/user/admin/search',{phone: '+' + $publishForm.find('[name=country_code]').val() + $publishForm.find('[name=userPhone]').val()})
+            .done(function (val) {
+                $otherUserInput.attr('data-show', 'user').show()
+                if(val && val.length) {
+                    $otherUserInput.find('[name=userNickname]').val(val[0].nickname).prop('readonly', true)
+                    $otherUserInput.find('[name=userEmail]').val(val[0].email).prop('readonly', true)
+                } else {
+                    $otherUserInput.find('[name=userNickname]').val('').prop('readonly', false)
+                    $otherUserInput.find('[name=userEmail]').val('').prop('readonly', false)
+                }
+            })
+            .fail(function (ret) {
+                $otherUserInput.attr('data-show', '').hide()
+                $errorMsg2.html(window.getErrorMessageFromErrorCode(ret)).show()
+            })
+        }
+
+    })
     function isDelegate () { //是否是为用户代发
         return $publishForm.find('[name=delegate]').val() === 'user'
     }
@@ -1047,7 +1068,7 @@
                 var params = {'status': 'to rent'}
                 if(isDelegate()) {
                     params.phone = '+' + $publishForm.find('[name=country_code]').val() + $publishForm.find('[name=userPhone]').val()
-                    params.country = $publishForm.find('[name=userCountry]').val()
+                    //params.country = $publishForm.find('[name=userCountry]').val()
                     params.nickname = $publishForm.find('[name=userNickname]').val()
                     params.email = $publishForm.find('[name=userEmail]').val()
                 }
