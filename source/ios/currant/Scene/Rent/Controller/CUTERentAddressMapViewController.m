@@ -37,6 +37,7 @@
 #import "CUTEUserDefaultKey.h"
 #import "JDFTooltipManager.h"
 #import "CUTEAddressUtil.h"
+#import "CUTEPostcodePlace.h"
 #import "currant-Swift.h"
 
 #define kRegionDistance 800
@@ -515,12 +516,28 @@
                     ticket.property.community = nil;
                     ticket.property.floor = nil;
                     ticket.property.houseName = nil;
-
                 }];
 
-                _textField.text = property.address;
-                [_textField setNeedsDisplay];
-                [tcs setResult:_textField.text];
+                if (!IsNilNullOrEmpty(self.form.ticket.property.zipcode)) {
+                    [[self updateNeighborhoodWithPostcodeChange:self.form.ticket.property.zipcode countryCode:self.form.ticket.property.country.ISOcountryCode] continueWithBlock:^id(BFTask *task) {
+                        if (task.result) {
+                            [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+                                ticket.property.neighborhood = task.result;
+                            }];
+                        }
+
+                        _textField.text = property.address;
+                        [_textField setNeedsDisplay];
+                        [tcs setResult:_textField.text];
+                        return task;
+                    }];
+                }
+                else {
+
+                    _textField.text = property.address;
+                    [_textField setNeedsDisplay];
+                    [tcs setResult:_textField.text];
+                }
             }
             else {
                 TrackEvent(GetScreenName(self), kEventActionRequestReturn, @"non-geocoding-result", nil);
@@ -534,6 +551,33 @@
     }
     return tcs.task;
 }
+
+- (BFTask *)updateNeighborhoodWithPostcodeChange:(NSString *)newPostcode countryCode:(NSString *)countryCode {
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    NSString *postCodeIndex = [newPostcode stringByReplacingOccurrencesOfString:@" " withString:@""];
+
+    [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:countryCode] continueWithBlock:^id(BFTask *task) {
+        NSArray *places = (NSArray *)task.result;
+        if (!IsArrayNilOrEmpty(places)) {
+            CUTEPostcodePlace *place = places.firstObject;
+            if (place && [place isKindOfClass:[CUTEPostcodePlace class]]) {
+                CUTENeighborhood *neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
+                [tcs setResult:neighborhood];
+            }
+            else {
+                [tcs setError:[NSError errorWithDomain:CUTE_ERROR_DOMAIN code:-1 userInfo:@{NSLocalizedDescriptionKey: STR(@"API/返回格式不正确")}]];
+            }
+        }
+        else {
+            [tcs setError:task.error];
+        }
+        return task;
+    }];
+
+
+    return tcs.task;
+}
+
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(__unused BOOL)animated
 {
