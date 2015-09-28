@@ -425,13 +425,7 @@
             }
         }
         else  {
-            if (!viewController.topViewController.navigationItem.leftBarButtonItem) {
-                viewController.topViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"AppDelegate/已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-
-                    NSURL *url = [NSURL URLWithString:@"/user-properties#rentOnly?status=to%20rent%2Crent"  relativeToURL:[CUTEConfiguration hostURL]];
-                    [viewController openRouteWithURL:url];
-                }];
-            }
+            [self updateUserPropertiesLeftBarButtonItemWithViewController:viewController.topViewController];
         }
     }
     else {
@@ -564,16 +558,18 @@
             [viewController openRouteWithURL:[NSURL URLWithString:@"yangfd://property-to-rent-list/?status=draft&_clear_stack=true"]];
         }
 
-        if (!viewController.topViewController.navigationItem.leftBarButtonItem) {
-            viewController.topViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"AppDelegate/已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-
-                NSURL *url = [NSURL URLWithString:@"/user-properties#rentOnly?status=to%20rent%2Crent"  relativeToURL:[CUTEConfiguration hostURL]];
-                [viewController openRouteWithURL:url];
-            }];
-        }
+        [self updateUserPropertiesLeftBarButtonItemWithViewController:viewController.topViewController];
     }];
 
     [sequencer run];
+}
+
+- (void)updateUserPropertiesLeftBarButtonItemWithViewController:(UIViewController *)controller {
+    controller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"AppDelegate/已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+
+        NSURL *url = [NSURL URLWithString:@"/user-properties#rentOnly?status=to%20rent%2Crent"  relativeToURL:[CUTEConfiguration hostURL]];
+        [controller.navigationController openRouteWithURL:url];
+    }];
 }
 
 - (void)checkAppUpdate
@@ -653,6 +649,8 @@
             CUTEUnfinishedRentTicketListViewController *unfinishedController = (CUTEUnfinishedRentTicketListViewController *)bottomViewController;
             unfinishedController.form.unfinishedRentTickets = unfinishedRentTickets;
             [unfinishedController.tableView reloadData];
+
+            [self updateUserPropertiesLeftBarButtonItemWithViewController:unfinishedController];
         }
         else {
             CUTEUnfinishedRentTicketListViewController *unfinishedRentTicketController = [CUTEUnfinishedRentTicketListViewController new];
@@ -671,7 +669,10 @@
 
             unfinishedRentTicketController.form.unfinishedRentTickets = unfinishedRentTickets;
             [unfinishedRentTicketController.tableView reloadData];
+
+            [self updateUserPropertiesLeftBarButtonItemWithViewController:unfinishedRentTicketController];
         }
+
     }
     else {
         [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
@@ -691,10 +692,13 @@
                     [viewControllers insertObject:controller atIndex:0];
                     [navController setViewControllers:viewControllers animated:NO];
                 }
+
+                [self updateUserPropertiesLeftBarButtonItemWithViewController:controller];
             }
             return nil;
         }];
     }
+
 }
 
 - (void)onReceiveHideRootTabBar:(NSNotification *)notif {
@@ -879,12 +883,7 @@
     }];
 
     UINavigationController *publishNavigationController = self.tabBarController.viewControllers[kEditTabBarIndex];
-
-    publishNavigationController.topViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"AppDelegate/已发布") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-
-        NSURL *url = [NSURL URLWithString:@"/user-properties#rentOnly?status=to%20rent%2Crent"  relativeToURL:[CUTEConfiguration hostURL]];
-        [publishNavigationController openRouteWithURL:url];
-    }];
+    [self updateUserPropertiesLeftBarButtonItemWithViewController:publishNavigationController.topViewController];
 
     //clear web cache
     [[CUTEWebArchiveManager sharedInstance] clear];
