@@ -80,7 +80,7 @@ $(function () {
         return deferred.promise()
     }
     if($('link[href*=baiduBridge]').length) {
-        checkDomExist('#BDBridgeFixedWrap')
+        checkDomExist('#qiao-icon-wrap')
             .then(function () {
                 $('#floatBar .contact>.baiduBridge').show()
             })
