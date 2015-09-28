@@ -106,7 +106,7 @@
                     <h4 class="propertyType_title">{{_('房产类型')}}</h4>
                     <div id="propertyTypeTag" class="inner">
                         %for index, property_type in enumerate(property_type_list):
-                        <div class="toggleTag" data-id="{{property_type.get('id')}}">{{property_type.get('value')}}
+                        <div class="toggleTag noBorder" data-id="{{property_type.get('id')}}">{{property_type.get('value')}}
                         </div>
                         %end
                     </div>
@@ -124,7 +124,7 @@
                     <div id="budgetTag" class="inner">
                         %for index, budget in enumerate(budget_list):
                             %if budget.get('currency') == _.currency:
-                                <div class="toggleTag" data-id="{{budget.get('id')}}" data-index="{{index}}">{{budget.get('value')}}</div>
+                                <div class="toggleTag noBorder" data-id="{{budget.get('id')}}" data-index="{{index}}">{{budget.get('value')}}</div>
                             %end
                         %end
                     </div>
@@ -138,7 +138,7 @@
 
                     <div id="intentionTag" class="inner">
                         %for index, intention in enumerate(intention_list):
-                            <div class="toggleTag" data-id="{{intention.get('id')}}">{{intention.get('value')}}
+                            <div class="toggleTag noBorder" data-id="{{intention.get('id')}}">{{intention.get('value')}}
                             </div>
                         %end
                     </div>
@@ -150,7 +150,7 @@
                 <h4 class="bedroomCount_title">{{_('居室数')}}</h4>
                 <div id="bedroomCountTag" class="inner">
                     % for bedroom_count in bedroom_count_list:
-                        <div class="toggleTag" data-id="{{bedroom_count.get('id')}}">{{bedroom_count.get('value')}}</div>
+                        <div class="toggleTag noBorder" data-id="{{bedroom_count.get('id')}}">{{bedroom_count.get('value')}}</div>
                     % end
                 </div>
             </div>
@@ -160,7 +160,7 @@
                  <h4 class="buildingArea_title">{{_('面积')}}</h4>
                  <div id="buildingAreaTag" class="inner">
                     % for building_area in building_area_list:
-                        <div class="toggleTag" data-id="{{building_area.get('id')}}">{{building_area.get('value')}}</div>
+                        <div class="toggleTag noBorder" data-id="{{building_area.get('id')}}">{{building_area.get('value')}}</div>
                     % end
                  </div>
             </div>
