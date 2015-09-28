@@ -66,7 +66,7 @@
 //TODO move all controller preparation to setupRoute, let Controller self-manangement
 - (BFTask *)setupRoute {
 
-    NSString *ticketId = self.params[@"ticketId"];
+    NSString *ticketId = self.params[@"ticket_id"];
 
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
 

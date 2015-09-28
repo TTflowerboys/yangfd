@@ -8,5 +8,6 @@ HTTP_STATUS=$(curl -w "%{http_code}" -s --output /dev/null  -F "file=@$file" -F 
 if [ "${HTTP_STATUS}" = "200" ] ; then
     echo "Upload OK"
 	curl -X POST --data-urlencode 'payload={"channel": "#publish", "username": "pgyer.com", "text": "New Build Update. Download http://www.pgyer.com/BVzn", "icon_emoji": ":u6709:"}' https://hooks.slack.com/services/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
+	echo "\n"
 	echo "Post Message OK"
 fi

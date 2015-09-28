@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>property-to-rent/edit/:ticketId</key>
+	<key>property-to-rent/edit/:ticket_id</key>
 	<string>CUTERentPropertyInfoViewController</string>
 	<key>setting/</key>
 	<string>CUTESettingViewController</string>
