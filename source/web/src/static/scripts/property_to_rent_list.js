@@ -838,7 +838,7 @@
             }
         }
     }
-    function updateFilterPosition () {
+    /*function updateFilterPosition () {
         var timer, filterTop
         function update () {
             clearTimeout(timer)
@@ -864,7 +864,7 @@
         }
         $(window).scroll(update);
     }
-    updateFilterPosition()
+    updateFilterPosition()*/
     $(window).scroll(window.updateTabSelectorFixed);
     $(window).resize(window.updateTabSelectorFixed);
  })()
