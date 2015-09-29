@@ -3,7 +3,7 @@ angular.module('app')
         return function (tags) {
             if(tags) {
                 return _.map(tags, function (val) {
-                    return misc.findBy(rentIntentionTags, 'value', val)['name']
+                    return misc.findBy(rentIntentionTags, 'value', val).name
                 }).join(',')
             } else {
                 return ''
