@@ -1269,13 +1269,14 @@ def rent_ticket_search(user, params):
 
     params["status"] = {"$in": params["status"]}
 
-    if "user_id" in params:
-        params["creator_user_id"] = params.pop("user_id")
-
     params["$and"] = []
     property_params = {"$and": []}
     non_project_params = {"$and": []}
     main_house_types_elem_params = {"$and": []}
+
+    if "user_id" in params:
+        params["$and"].append({"$or": [{"user_id": params["user_id"]}, {"creator_user_id": params["user_id"]}]})
+        params.pop("user_id")
 
     if "hesa_university" in params:
         assert "latitude" not in params, abort(40000)
