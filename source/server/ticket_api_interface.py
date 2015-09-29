@@ -105,7 +105,8 @@ def _find_or_register(params, allow_draft=False):
             if shadow_user_id:
                 # The target user exists
                 user_id = shadow_user_id
-                f_app.user.update_set(user_id, {"nickname": params["nickname"], "intention": params.get("intention", []), "locales": params.get("locales", [])})
+                if "nickname" in params:
+                    f_app.user.update_set(user_id, {"nickname": params["nickname"], "intention": params.get("intention", []), "locales": params.get("locales", [])})
             else:
                 # Add shadow account for noregister user
                 user_params = {
