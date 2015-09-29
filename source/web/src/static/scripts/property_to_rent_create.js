@@ -936,6 +936,8 @@
         })
     }
     var needSMSCode
+    var userExist = false
+
     $requestSMSCodeBtn.on('click', function (e) {
         e.preventDefault()
         $errorMsgOfGetCode.empty().hide()
@@ -1035,9 +1037,11 @@
             .done(function (val) {
                 $otherUserInput.attr('data-show', 'user').show()
                 if(val && val.length) {
+                    userExist = true
                     $otherUserInput.find('[name=userNickname]').val(val[0].nickname || 'nickname').prop('readonly', true)
                     $otherUserInput.find('[name=userEmail]').val(val[0].email || 'services@youngfunding.co.uk').prop('readonly', true)
                 } else {
+                    userExist = false
                     $otherUserInput.find('[name=userNickname]').val('').prop('readonly', false)
                     $otherUserInput.find('[name=userEmail]').val('').prop('readonly', false)
                 }
@@ -1049,6 +1053,9 @@
         }
 
     })
+    if(isDelegate() && $publishForm.find('[name=userPhone]').attr('data-country-code')) {
+        $publishForm.find('[name=country_code]').val($publishForm.find('[name=userPhone]').attr('data-country-code')).trigger('change')
+    }
     function isDelegate () { //是否是为用户代发
         return $publishForm.find('[name=delegate]').val() === 'user'
     }
@@ -1068,9 +1075,11 @@
                 var params = {'status': 'to rent'}
                 if(isDelegate()) {
                     params.phone = '+' + $publishForm.find('[name=country_code]').val() + $publishForm.find('[name=userPhone]').val()
-                    //params.country = $publishForm.find('[name=userCountry]').val()
-                    params.nickname = $publishForm.find('[name=userNickname]').val()
-                    params.email = $publishForm.find('[name=userEmail]').val()
+                    if(!userExist) {
+                        //params.country = $publishForm.find('[name=userCountry]').val()
+                        params.nickname = $publishForm.find('[name=userNickname]').val()
+                        params.email = $publishForm.find('[name=userEmail]').val()
+                    }
                 }
                 params = clearEmptyProperty(params)
                 $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', params)

@@ -79,7 +79,11 @@
                 <div class="formGroup">
                     <label>{{_('是否代发')}}</label>
                     <select name="delegate" class="ghostSelect" >
-                        <option value="user">{{_('为用户代发房源')}}</option>
+                        <option value="user"
+                            %if rent.get('user'):
+                            selected
+                            %end
+                            >{{_('为用户代发房源')}}</option>
                         <option value="own" selected>{{_('为自己发房源')}}</option>
                     </select>
                 </div>
@@ -87,7 +91,12 @@
                 <div class="formGroup" data-show="user" style="display: none;">
                     <label for="userPhone">{{_('用户手机')}}</label>
                     <!-- @@include=country_code_select.html -->
-                    <input type="text" id="userPhone" name="userPhone" placeholder="{{_('代发用户手机')}}" data-validator="required,trim,number"/>
+                    <input type="text" id="userPhone" name="userPhone" placeholder="{{_('代发用户手机')}}" data-validator="required,trim,number"
+                        %if rent.get('user',{}).get('phone'):
+                        value="{{rent.get('user',{}).get('phone')}}"
+                        data-country-code="{{rent.get('user',{}).get('country_code')}}"
+                        %end
+                        />
                 </div>
                 <!--<div class="formGroup" data-show="user" style="display: none;">
                     <label>{{_('用户国家')}}</label>
