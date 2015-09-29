@@ -52,28 +52,21 @@ class CUTEPatcher : NSObject {
         if data != nil {
             if let response = resp as? NSHTTPURLResponse {
                 if response.statusCode == 200 {
-                    var textEncodingName:String? = response.textEncodingName
-                    if textEncodingName == nil {
-                        textEncodingName = "utf-8"
-                    }
-                    let encoding = CFStringConvertEncodingToNSStringEncoding(CFStringConvertIANACharSetNameToEncoding(textEncodingName))
-                    let patchContent = NSString(data:data!, encoding:encoding) as! String
                     //save to file
-                    try patchContent.writeToFile(filePath, atomically: true, encoding:encoding)
+                    try data?.writeToFile(filePath, options: NSDataWritingOptions.DataWritingAtomic)
                     if let newLastModified:String = response.allHeaderFields["Last-Modified"] as? String {
                         let date = dateFormatter.dateFromString(newLastModified)
                         let attr:Dictionary<String, AnyObject> = [NSFileModificationDate:date!]
                         try NSFileManager.defaultManager().setAttributes(attr, ofItemAtPath: filePath)
                     }
 
-                    tcs.setResult(patchContent)
+                    tcs.setResult(data)
                 }
                 else if response.statusCode == 304 {
                     //read local file
                     if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
-                        let encoding = CFStringConvertEncodingToNSStringEncoding(CFStringConvertIANACharSetNameToEncoding("utf-8"))
-                        let patchContent = try NSString(contentsOfFile: filePath, encoding: encoding)
-                        tcs.setResult(patchContent)
+                        let localData = NSData(contentsOfFile: filePath)
+                        tcs.setResult(localData)
                     }
                 }
             }
@@ -85,10 +78,20 @@ class CUTEPatcher : NSObject {
     }
 
     static func patch() throws -> BFTask {
-        return try downloadPatch().continueWithBlock({ (task:BFTask!) -> AnyObject! in
+        return try downloadPatch().continueWithBlock({ (task:BFTask!) -> BFTask! in
             if task.result != nil {
-                JPEngine.startEngine()
-                JPEngine.evaluateScript(task.result as! String)
+                do {
+                    JPEngine.startEngine()
+                    let data = task.result as! NSData
+                    let pass = "OG> t[*['sL;[^R%/" + "1$K!yMLuDc$ou"
+                    let decryptedData = try RNDecryptor.decryptData(data, withPassword:pass)
+                    if let content = NSString(data: decryptedData, encoding: NSUTF8StringEncoding) {
+                        JPEngine.evaluateScript(content as String)
+                    }
+                }
+                catch {
+
+                }
             }
             return task
         })

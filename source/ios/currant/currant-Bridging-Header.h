@@ -25,5 +25,6 @@
 #import <HHRouter.h>
 #import <Base64.h>
 #import <JPEngine.h>
+#import <RNDecryptor.h>
 
 #endif /* currant_Bridging_Header_h */
