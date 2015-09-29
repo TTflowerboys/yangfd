@@ -10,13 +10,26 @@ logger = logging.getLogger(__name__)
 
 
 def _find_or_register(params, allow_draft=False):
-    if "phone" not in params and allow_draft:
-        return
-
     noregister = params.pop("noregister", True)
+    user = f_app.user.login_get()
+
+    if "phone" not in params:
+        if user:
+            user_details = f_app.user.get(user["id"])
+            params["phone"] = user_details.get("phone")
+            if params["phone"] is None:
+                if allow_draft:
+                    return
+                else:
+                    abort(40000)
+        else:
+            if allow_draft:
+                return
+            else:
+                abort(40000)
+
     params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
-    user = f_app.user.login_get()
     user_id = None
     user_id_by_phone = f_app.user.get_id_by_phone(params["phone"], force_registered=True)
     shadow_user_id = f_app.user.get_id_by_phone(params["phone"])
@@ -1052,9 +1065,6 @@ def support_ticket_search(user, params):
 
 @f_api('/rent_ticket/add', params=dict(
     status=(str, "draft"),
-    phone=str,
-    email=str,
-    country="country",
     title=str,
     description=str,
     rent_type="enum:rent_type",
@@ -1096,7 +1106,6 @@ def rent_ticket_add(user, params):
     status=str,
     phone=str,
     email=str,
-    country="country",
     title=str,
     description=str,
     rent_type="enum:rent_type",
@@ -1133,11 +1142,16 @@ def rent_ticket_edit(ticket_id, user, params):
         if not user or user["id"] not in (ticket.get("user_id"), ticket.get("creator_user_id")) and not (set(user["role"]) & set(["admin", "jr_admin", "support"])):
             abort(40399, logger.warning("Permission denied", exc_info=False))
     if user:
-        if "creator_user_id" not in params:
-            params["creator_user_id"] = ObjectId(user["id"])
-        if "user_id" not in params:
-            params["user_id"] = ObjectId(user["id"])
+        if "phone" in params:
+            _find_or_register(params)
+        else:
+            if "creator_user_id" not in params:
+                params["creator_user_id"] = ObjectId(user["id"])
+            if "user_id" not in params:
+                params["user_id"] = ObjectId(user["id"])
 
+    params.pop("phone", None)
+    params.pop("email", None)
     unset_fields = params.get("unset_fields", [])
     result = f_app.ticket.update_set(ticket_id, params)
     if unset_fields:
