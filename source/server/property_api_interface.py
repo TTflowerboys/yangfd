@@ -67,7 +67,7 @@ def property_search(user, params):
     if "target_property_id" in params:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]), abort(40300, "No access to specify status or target_property_id")
     if params["status"] != ["selling", "sold out"]:
-        if not set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]):
+        if not user or set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]):
             params["user_generated"] = True
     if "property_type" in params:
         params["property_type"] = {"$in": params["property_type"]}
