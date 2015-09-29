@@ -41,7 +41,8 @@ def _find_or_register(params, allow_draft=False):
             # Non-register user can use his / her phone number again
             if shadow_user_id:
                 user_id = ObjectId(shadow_user_id)
-                f_app.user.update_set(user_id, {"nickname": params["nickname"], "intention": params.get("intention", []), "locales": params.get("locales", [])})
+                if "nickname" in params:
+                    f_app.user.update_set(user_id, {"nickname": params["nickname"], "intention": params.get("intention", []), "locales": params.get("locales", [])})
             else:
                 # Add shadow account for noregister user
                 user_params = {
@@ -1106,6 +1107,7 @@ def rent_ticket_add(user, params):
     status=str,
     phone=str,
     email=str,
+    nickname=str,
     title=str,
     description=str,
     rent_type="enum:rent_type",
