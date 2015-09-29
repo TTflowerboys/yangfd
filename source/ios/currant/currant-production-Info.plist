@@ -59,6 +59,10 @@
 	<array>
 		<string>weixin</string>
 		<string>wechat</string>
+        <string>sinaweibohd</string>
+        <string>sinaweibo</string>
+        <string>weibosdk</string>
+        <string>weibosdk2.5</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

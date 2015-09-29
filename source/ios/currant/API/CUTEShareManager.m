@@ -74,6 +74,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
     [UMSocialData setAppKey:[CUTEConfiguration umengAppKey]];
     [WXApi registerApp:[CUTEConfiguration weixinAPPId]];
+
 #ifdef DEBUG
     [WeiboSDK enableDebugMode:YES];
 #endif
