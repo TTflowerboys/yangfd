@@ -55,6 +55,7 @@ class CUTEPatcher : NSObject {
                     //save to file
                     try data?.writeToFile(filePath, options: NSDataWritingOptions.DataWritingAtomic)
                     if let newLastModified:String = response.allHeaderFields["Last-Modified"] as? String {
+                        //TODO handle ios 9 format issues
                         if  let date = dateFormatter.dateFromString(newLastModified) {
                             let attr:Dictionary<String, AnyObject> = [NSFileModificationDate:date]
                             try NSFileManager.defaultManager().setAttributes(attr, ofItemAtPath: filePath)
