@@ -1035,8 +1035,8 @@
             .done(function (val) {
                 $otherUserInput.attr('data-show', 'user').show()
                 if(val && val.length) {
-                    $otherUserInput.find('[name=userNickname]').val(val[0].nickname).prop('readonly', true)
-                    $otherUserInput.find('[name=userEmail]').val(val[0].email).prop('readonly', true)
+                    $otherUserInput.find('[name=userNickname]').val(val[0].nickname || 'nickname').prop('readonly', true)
+                    $otherUserInput.find('[name=userEmail]').val(val[0].email || 'services@youngfunding.co.uk').prop('readonly', true)
                 } else {
                     $otherUserInput.find('[name=userNickname]').val('').prop('readonly', false)
                     $otherUserInput.find('[name=userEmail]').val('').prop('readonly', false)
