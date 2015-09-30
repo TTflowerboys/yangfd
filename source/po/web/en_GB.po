@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2015-09-11 17:49+0800\n"
-"PO-Revision-Date: 2015-09-30 15:28+0800\n"
+"PO-Revision-Date: 2015-09-30 15:31+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -3901,7 +3901,7 @@ msgstr "Email is invalid"
 
 #: ../web/src/partials/i18n.html:58
 msgid "验证码不能为空"
-msgstr "Captcha should not be empty"
+msgstr "Captcha code should not be empty"
 
 #: ../web/src/partials/i18n.html:59
 msgid "密码不能为空"
@@ -4954,7 +4954,7 @@ msgstr "Preview & Publish"
 
 #: ../web/src/partials/i18n.html:336
 msgid "{time}s后可再次获取"
-msgstr "{Time}s"
+msgstr "{time}s"
 
 #: ../web/src/partials/i18n.html:337
 #: ../web/src/partials/property_to_rent_publish.html:138
