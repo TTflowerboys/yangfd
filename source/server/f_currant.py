@@ -736,7 +736,7 @@ class f_currant_ticket(f_ticket):
         if not location_only:
             user_id_set = filter(None, user_id_set)
             user_list = f_app.user.output(user_id_set, custom_fields=f_app.common.user_custom_fields, permission_check=permission_check)
-            user_dict = {}
+            user_dict = {None: None}
             enum_dict = f_app.enum.get(enum_id_set, multi_return=dict)
 
             for u in user_list:
@@ -744,7 +744,7 @@ class f_currant_ticket(f_ticket):
 
             for t in ticket_list:
                 if t is not None:
-                    creator_user = user_dict.get(t.pop("creator_user_id"))
+                    creator_user = user_dict.get(t.pop("creator_user_id", None))
                     if creator_user:
                         t["creator_user"] = creator_user
 
@@ -764,7 +764,7 @@ class f_currant_ticket(f_ticket):
                             if "wechat" in t["creator_user"] and t["creator_user"]["wechat"] is not None:
                                 t["creator_user"]["wechat"] = t["creator_user"]["wechat"][:3] + "***"
 
-                    actual_user = user_dict.get(t.pop("user_id"))
+                    actual_user = user_dict.get(t.pop("user_id", None))
                     if actual_user:
                         t["user"] = actual_user
 
