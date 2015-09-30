@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2015-09-11 17:49+0800\n"
-"PO-Revision-Date: 2015-09-15 18:19+0800\n"
+"PO-Revision-Date: 2015-09-30 15:16+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -808,7 +808,7 @@ msgstr "Email Notification"
 #: ../web/src/partials/user_settings.html:337
 #: ../web/src/partials/user_settings_phone.html:230
 msgid "接收出租提醒邮件"
-msgstr "Receive landlord remind email"
+msgstr "Receive landlord reminder email"
 
 #: ../web/src/email_unsubscribe.html:30
 #: ../web/src/partials/user_settings.html:338
@@ -820,7 +820,7 @@ msgstr "Remind you of updateing your property rent status every week"
 #: ../web/src/partials/user_settings.html:352
 #: ../web/src/partials/user_settings_phone.html:245
 msgid "草稿未发布的提醒邮件"
-msgstr "Remind email for unpublished draft property"
+msgstr "Reminder email for unpublished draft property"
 
 #: ../web/src/email_unsubscribe.html:45
 #: ../web/src/partials/user_settings.html:353
@@ -1190,7 +1190,7 @@ msgstr "Introduction"
 #: ../web/src/property.html:84 ../web/src/property.html:705
 #: ../web/src/property.html:1171
 msgid "价格趋势"
-msgstr "Values History"
+msgstr "Prices Trends"
 
 #: ../web/src/property.html:87 ../web/src/property.html:716
 #: ../web/src/property.html:1174
@@ -2243,7 +2243,7 @@ msgstr "When you're checking ideal sources, if there's no remaining chances to c
 
 #: ../web/src/region_report.html:26
 msgid "街区投资分析报告"
-msgstr "Block investment analysis report"
+msgstr "Neighbourhood investment analysis report"
 
 #: ../web/src/region_report.html:38
 msgid "房屋供给信息"
@@ -2335,7 +2335,7 @@ msgstr "Existing Problems of rental market"
 
 #: ../web/src/rental_available.html:39
 msgid "租房市场的总体概况"
-msgstr "The rental market overview"
+msgstr "Overview of Rental Market"
 
 #: ../web/src/rental_available.html:47
 msgid "租房市场的市场缺失"
@@ -2371,7 +2371,7 @@ msgstr "A simple process to complete a professional demostration"
 
 #: ../web/src/rental_available.html:86
 msgid "专业，所以更懂你的需求"
-msgstr "Professional, so understand your needs"
+msgstr "Professional, so understand your needs better"
 
 #: ../web/src/rental_available.html:90
 msgid "专业的团队打造线上线下全方位租房体系"
@@ -2395,7 +2395,7 @@ msgstr "Online & offline group consolidated efficient locks for rent"
 
 #: ../web/src/rental_available.html:113
 msgid "全程免费无中介费省钱省心完成房出租"
-msgstr "Full free no agency fee money-saving free of worries complete House for rent"
+msgstr "Completely free to rent out your lists"
 
 #: ../web/src/rental_available.html:117
 msgid "简易操作直观方便省时省力发布好房源"
@@ -2629,7 +2629,7 @@ msgstr "Change Phone Number (1/2)"
 
 #: ../web/src/user_change_phone_1.html:16
 msgid "如果您绑定的手机因停机、注销、丢失等原因无法接收短信，请与洋房东客服联系"
-msgstr "If you can get sms message because your phone is down, cancel or lost, please contact our supports."
+msgstr "If you can't get sms because your phone is down, cancelled or lost, please contact us."
 
 #: ../web/src/user_change_phone_1.html:21 ../web/src/partials/i18n.html:33
 msgid "原手机号"
@@ -3222,7 +3222,7 @@ msgstr "Simplified chinese （China）"
 
 #: ../web/src/masters/email_new.html:77
 msgid "该邮件为自动发送，请勿直接回复。"
-msgstr "The message to be sent automatically, please do not reply."
+msgstr "This email is sent automatically, please do not reply."
 
 #: ../web/src/masters/email_new.html:80
 msgid "如有任何问题，欢迎您与我们联系，我们将竭诚为您服务。"
@@ -3230,7 +3230,7 @@ msgstr "If you have any questions, please feel free to contact us and we will be
 
 #: ../web/src/masters/email_new.html:84
 msgid "不想收到此类邮件？"
-msgstr "Don't want to receive E-mail ?"
+msgstr "Don't want to receive our Email ?"
 
 #: ../web/src/masters/email_new.html:84
 msgid "点击退订"
@@ -3268,7 +3268,7 @@ msgstr "Log In"
 
 #: ../web/src/masters/master.html:92
 msgid "下载应用"
-msgstr "App  Download"
+msgstr "App Download"
 
 #: ../web/src/masters/master.html:97 ../web/src/partials/i18n.html:374
 #: ../web/src/partials/i18n_admin.html:193
@@ -3764,7 +3764,7 @@ msgstr "Message sending"
 
 #: ../web/src/partials/i18n.html:12
 msgid "发送成功"
-msgstr "Send"
+msgstr "Send successfully"
 
 #: ../web/src/partials/i18n.html:13
 msgid "发送失败，请重试"
@@ -3792,7 +3792,7 @@ msgstr "E-mail in wrong format, please try again"
 
 #: ../web/src/partials/i18n.html:19
 msgid "提交中..."
-msgstr "Submit"
+msgstr "Submitting…"
 
 #: ../web/src/partials/i18n.html:21
 msgid "距离"
@@ -3808,7 +3808,7 @@ msgstr "Please input new E-mail address"
 
 #: ../web/src/partials/i18n.html:26
 msgid "修改邮箱成功"
-msgstr "Change email success"
+msgstr "Change email successfully"
 
 #: ../web/src/partials/i18n.html:27
 msgid "修改成功"
@@ -3889,7 +3889,7 @@ msgstr "Phone should not be empty"
 
 #: ../web/src/partials/i18n.html:55
 msgid "电话格式不正确"
-msgstr "Phone is bad format"
+msgstr "Phone number is invaild"
 
 #: ../web/src/partials/i18n.html:56
 msgid "邮箱不能为空"
@@ -3897,7 +3897,7 @@ msgstr "Phone should not be empty"
 
 #: ../web/src/partials/i18n.html:57
 msgid "邮箱格式不合法"
-msgstr "Email is invalid format"
+msgstr "Email is invalid"
 
 #: ../web/src/partials/i18n.html:58
 msgid "验证码不能为空"
@@ -3913,7 +3913,7 @@ msgstr "Phone number should not be empty"
 
 #: ../web/src/partials/i18n.html:61
 msgid "原手机号格式不正确"
-msgstr "Phone is bad format"
+msgstr "Phone number is invaild"
 
 #: ../web/src/partials/i18n.html:62
 msgid "当前密码不能为空"
@@ -3925,7 +3925,7 @@ msgstr "Password should not be empty"
 
 #: ../web/src/partials/i18n.html:64
 msgid "新密码和确认密码输入不一致"
-msgstr "Please make sure new passoword are same with confirm password"
+msgstr "Please make sure new password is same as confirmed password"
 
 #: ../web/src/partials/i18n.html:65
 msgid "注册请先同意会员服务须知"
@@ -3945,7 +3945,7 @@ msgstr "Do not have access, please log in and try again."
 
 #: ../web/src/partials/i18n.html:69
 msgid "频率达到上限，请稍后重试。"
-msgstr "Frequency is reached, please try again later."
+msgstr "Request frequency exceeded the limit, please try again later."
 
 #: ../web/src/partials/i18n.html:70
 msgid "账户或密码错误。"
@@ -4777,11 +4777,11 @@ msgstr "Enter postcode first"
 
 #: ../web/src/partials/i18n.html:287
 msgid "您填写的手机号已注册，请输入密码登录后继续"
-msgstr ""
+msgstr "The phone number you entered has been registered, please enter password and continue"
 
 #: ../web/src/partials/i18n.html:288
 msgid "您的手机号码尚未验证过，请先获取短信验证码后再继续"
-msgstr ""
+msgstr "Your mobile number has not been verified yet, please apply for verification code and continue"
 
 #: ../web/src/partials/i18n.html:289
 msgid "{time}s后可用"
@@ -4801,7 +4801,7 @@ msgstr "Enter Phone Verification Code"
 
 #: ../web/src/partials/i18n.html:293
 msgid "城市列表加载中..."
-msgstr "City list is Loading…"
+msgstr "City list is loading…"
 
 #: ../web/src/partials/i18n.html:295 ../web/src/partials/i18n_admin.html:222
 #: ../web/src/partials/order_popup.html:43
@@ -5043,13 +5043,13 @@ msgstr "I want to invest "
 
 #: ../web/src/partials/i18n.html:358
 msgid "街区列表加载中...(选填)"
-msgstr "Block list Loading... (optional)"
+msgstr "Neighbourhood list Loading… (optional)"
 
 #: ../web/src/partials/i18n.html:359
 #: ../web/src/partials/requirement_rent_phone.html:44
 #: ../web/src/partials/requirement_rent_popup.html:42
 msgid "请选择街区(选填)"
-msgstr "Please select blocks (optional)"
+msgstr "Please select neighbourhood (optional)"
 
 #: ../web/src/partials/i18n.html:360
 msgid "我想找"
@@ -5634,7 +5634,7 @@ msgstr "Sync success."
 
 #: ../web/src/partials/i18n_admin.html:49
 msgid "暂无此街区"
-msgstr "No this block"
+msgstr "Do not have this neighbourhood"
 
 #: ../web/src/partials/i18n_admin.html:50
 msgid "学生公寓信息"
@@ -6964,12 +6964,11 @@ msgstr "Unit of length"
 #: ../web/src/partials/i18n_admin.html:455
 #, fuzzy
 msgid "街区介绍"
-msgstr "Block"
+msgstr "Neighbourhood"
 
 #: ../web/src/partials/i18n_admin.html:456
-#, fuzzy
 msgid "街区图片"
-msgstr "Block"
+msgstr "Neighbourhood Pictures"
 
 #: ../web/src/partials/i18n_admin.html:457
 #, fuzzy
@@ -6978,7 +6977,7 @@ msgstr "Photos"
 
 #: ../web/src/partials/i18n_admin.html:458
 msgid "街区房屋供给资讯"
-msgstr "Block housing supply Information"
+msgstr "Neighbourhood housing supply Information"
 
 #: ../web/src/partials/i18n_admin.html:459
 #, fuzzy
@@ -6992,7 +6991,7 @@ msgstr "Summary"
 
 #: ../web/src/partials/i18n_admin.html:461
 msgid "街区就业机会资讯"
-msgstr "Block jobs Information"
+msgstr "Neighbourhood jobs Information"
 
 #: ../web/src/partials/i18n_admin.html:462
 #, fuzzy
@@ -7054,7 +7053,7 @@ msgstr "Android Subscription Management"
 
 #: ../web/src/partials/i18n_admin.html:478
 msgid "自定义描述"
-msgstr "Custom description"
+msgstr "Customize description"
 
 #: ../web/src/partials/i18n_admin.html:479
 msgid "修改内容"
@@ -7232,14 +7231,12 @@ msgid "众筹订单"
 msgstr "Raise public order"
 
 #: ../web/src/partials/i18n_admin.html:526
-#, fuzzy
 msgid "发布的房产"
-msgstr "My Properties"
+msgstr "My Listings"
 
 #: ../web/src/partials/i18n_admin.html:528
-#, fuzzy
 msgid "查看过联系方式的房产"
-msgstr "No contact viewed properties"
+msgstr "Contact Viewed Listings"
 
 #: ../web/src/partials/i18n_admin.html:529
 msgid "用户手机"
@@ -7250,19 +7247,16 @@ msgid "用户邮箱"
 msgstr "Email"
 
 #: ../web/src/partials/i18n_admin.html:531
-#, fuzzy
 msgid "注册时间"
-msgstr "Sign Up"
+msgstr "Sign Up Time"
 
 #: ../web/src/partials/i18n_admin.html:532
-#, fuzzy
 msgid "未验证"
-msgstr "Verify"
+msgstr "Not verified"
 
 #: ../web/src/partials/i18n_admin.html:533
-#, fuzzy
 msgid "已验证"
-msgstr "Verify"
+msgstr "Verified"
 
 #: ../web/src/partials/i18n_admin.html:534
 msgid "禁用"
@@ -7281,23 +7275,20 @@ msgid "删除菜单全部内容"
 msgstr "Delete the entire contents of the menu"
 
 #: ../web/src/partials/i18n_admin.html:538
-#, fuzzy
 msgid "按键名称"
-msgstr "Name"
+msgstr "Key Name"
 
 #: ../web/src/partials/i18n_admin.html:539
 msgid "交互方式"
 msgstr "Interactive mode"
 
 #: ../web/src/partials/i18n_admin.html:540
-#, fuzzy
 msgid "添加子菜单"
-msgstr "Add Support Ticket"
+msgstr "Add sub menu item"
 
 #: ../web/src/partials/i18n_admin.html:541
-#, fuzzy
 msgid "添加菜单"
-msgstr "Add Support Ticket"
+msgstr "Add menu item"
 
 #: ../web/src/partials/i18n_admin.html:542
 msgid "正在上传..."
@@ -8131,7 +8122,7 @@ msgstr "Youngfunding is committed to providing the best service to every custome
 #: ../web/src/partials/requirement_rent_popup.html:14
 #: ../web/src/partials/requirement_rent_popup.html:15
 msgid "同时当平台有满足您需求的房源出现时，可以第一时间通知您。"
-msgstr "When sources which meet your needs appear on our platform, you will be the first to know."
+msgstr "When new listings which meet your needs appear on our platform, you will be notified by email."
 
 #: ../web/src/partials/requirement_rent_popup.html:15
 msgid "洋房东致力于提供最精准最优质的服务给我们每一位客户，请您填写求租需求后继续联系此房东，"
@@ -8342,7 +8333,7 @@ msgstr "Receive my property related news"
 
 #: ../web/src/partials/user_settings.html:239
 msgid "当房产有新的资讯或更新时发送至您的账户邮箱中"
-msgstr "Email you when property have news or updates"
+msgstr "Email you when property get new info or updates"
 
 #: ../web/src/partials/user_settings.html:259
 msgid "接收已提交意向单的房产资讯"
@@ -8350,7 +8341,7 @@ msgstr "Receive news and updates related to properties that I sent requests to"
 
 #: ../web/src/partials/user_settings.html:260
 msgid "当意向有新的资讯或更新时发送至您的账户邮箱中"
-msgstr "Email me when news and updates"
+msgstr "Email me when intentions get new info and updates"
 
 #: ../web/src/partials/user_settings.html:279
 msgid "接收收藏房产的资讯"
@@ -8359,11 +8350,11 @@ msgstr "Receive my favourite properties related news and updates"
 #: ../web/src/partials/user_settings.html:280
 #: ../web/src/partials/user_settings.html:300
 msgid "当收藏有新的资讯或更新时发送至您的账户邮箱中"
-msgstr "Email me when news and updates"
+msgstr "Email me when favourites get new infos and updates"
 
 #: ../web/src/partials/user_settings.html:299
 msgid "接收平台通知"
-msgstr "System Message"
+msgstr "Receive platform notifications"
 
 #: ../web/src/partials/user_settings_phone.html:16
 msgid "手机号是您在洋房东的登录和"
@@ -8375,7 +8366,7 @@ msgstr "forgot password credential"
 
 #: ../web/src/partials/user_settings_phone.html:44
 msgid "获取最新的投资讯息和账户信息"
-msgstr "Get newest investment news and account information"
+msgstr "Get latest investment news and account information"
 
 #: ../web/src/partials/user_settings_phone.html:44
 msgid "变动通知"
@@ -8793,12 +8784,12 @@ msgstr "Now you can:"
 #: ../web/src/static/emails/register_notice.html:12
 #: ../web/src/static/emails/register_notice_with_default_password.html:15
 msgid "查看出售房源"
-msgstr "Check properties on sale"
+msgstr "View properties on sale"
 
 #: ../web/src/static/emails/register_notice.html:15
 #: ../web/src/static/emails/register_notice_with_default_password.html:20
 msgid "查看出租房源"
-msgstr "Check properties in rental"
+msgstr "View properties in rental"
 
 #: ../web/src/static/emails/register_notice.html:18
 #: ../web/src/static/emails/rent_intention_matched_4.html:14
@@ -9208,7 +9199,7 @@ msgstr "Submit Requirement"
 
 #: ../server/main_interface_phone.py:73
 msgid "房贷计算器"
-msgstr "Mortgage Payment Calculator"
+msgstr "Mortgage Calculator"
 
 #: ../server/property_interface.py:57
 msgid "房产列表-洋房东"
@@ -9220,11 +9211,11 @@ msgstr "Rental List - Youngfunding"
 
 #: ../server/property_to_rent_interface.py:153
 msgid "出租房源发布"
-msgstr "Rental listings Post"
+msgstr "List Your Space"
 
 #: ../server/property_to_rent_interface.py:161
 msgid "出租房源编辑"
-msgstr "Rental listings edit"
+msgstr "Edit Your Listings"
 
 #: ../server/property_to_rent_interface.py:178
 msgid "房源发布成功"
