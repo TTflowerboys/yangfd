@@ -873,14 +873,6 @@ class f_currant_plugins(f_app.plugin_base):
             result_row["custom_fields"] = raw_row["custom_fields"]
         return result_row
 
-    def ticket_get(self, ticket):
-        if "assignee" in ticket:
-            ticket["assignee"] = [str(i) for i in ticket.pop("assignee", [])]
-        if "user_id" in ticket:
-            ticket["user_id"] = str(ticket["user_id"])
-
-        return ticket
-
     def ticket_update_after(self, ticket_id, params, ignore_error=True):
         ticket = f_app.ticket.get(ticket_id)
         if "$set" in params:

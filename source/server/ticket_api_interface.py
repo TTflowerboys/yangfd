@@ -1148,9 +1148,9 @@ def rent_ticket_edit(ticket_id, user, params):
         if "phone" in params:
             _find_or_register(params)
         else:
-            if "creator_user_id" not in ticket:
+            if not ticket.get("creator_user_id"):
                 params["creator_user_id"] = ObjectId(user["id"])
-            if "user_id" not in ticket:
+            if not ticket.get("user_id"):
                 params["user_id"] = ObjectId(user["id"])
 
     params.pop("phone", None)
