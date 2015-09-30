@@ -1136,7 +1136,9 @@ class f_currant_plugins(f_app.plugin_base):
         if index_params:
             if "phone" in index_params:
                 index_params["phone_national_number"] = str(phonenumbers.parse(index_params["phone"]).national_number)
-            f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
+
+            nickname = index_params.pop("nickname", None)
+            f_app.mongo_index.update(f_app.user.get_database, user_id, [nickname] if nickname else [], index_params.values())
 
         if not noregister:
             credit = {
@@ -1168,7 +1170,9 @@ class f_currant_plugins(f_app.plugin_base):
                 if index_params:
                     if "phone" in index_params:
                         index_params["phone_national_number"] = str(phonenumbers.parse(index_params["phone"]).national_number)
-                    f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
+
+                    nickname = index_params.pop("nickname", None)
+                    f_app.mongo_index.update(f_app.user.get_database, user_id, [nickname] if nickname else [], index_params.values())
 
     def post_add(self, params, post_id):
         if {'_id': ObjectId(f_app.enum.get_by_slug('announcement')['id']), 'type': 'news_category', '_enum': 'news_category'} in params["category"]:
