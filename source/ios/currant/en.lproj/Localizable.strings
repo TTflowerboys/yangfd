@@ -385,7 +385,7 @@
 //
 //Filepath: currant/Scene/Rent/Controller/CUTERentShareViewController.m
 "RentShare/发布成功" = "Publish successfully";
-"RentShare/完成" = "Complete";
+"RentShare/完成" = "Done";
 "RentShare/编辑" = "Edit";
 "RentShare/获取失败" = "Loading failed";
 "RentShare/分享" = "Share";
