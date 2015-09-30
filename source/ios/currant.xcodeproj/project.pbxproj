@@ -595,6 +595,10 @@
 		2CE2A9991B6F1C000089ED20 /* contact-blacklist.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2A9971B6F1C000089ED20 /* contact-blacklist.csv */; };
 		2CE2A99A1B6F1C000089ED20 /* contact-blacklist.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2A9971B6F1C000089ED20 /* contact-blacklist.csv */; };
 		2CE2A99B1B6F1C000089ED20 /* contact-blacklist.csv in Resources */ = {isa = PBXBuildFile; fileRef = 2CE2A9971B6F1C000089ED20 /* contact-blacklist.csv */; };
+		2CED65AE1BBB83E90031ECB2 /* NSDate+RFC1123.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CED65AD1BBB83E90031ECB2 /* NSDate+RFC1123.swift */; settings = {ASSET_TAGS = (); }; };
+		2CED65AF1BBB83EA0031ECB2 /* NSDate+RFC1123.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CED65AD1BBB83E90031ECB2 /* NSDate+RFC1123.swift */; settings = {ASSET_TAGS = (); }; };
+		2CED65B01BBB83EA0031ECB2 /* NSDate+RFC1123.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CED65AD1BBB83E90031ECB2 /* NSDate+RFC1123.swift */; settings = {ASSET_TAGS = (); }; };
+		2CED65B11BBB83EA0031ECB2 /* NSDate+RFC1123.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CED65AD1BBB83E90031ECB2 /* NSDate+RFC1123.swift */; settings = {ASSET_TAGS = (); }; };
 		2CF2347E1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
 		2CF2347F1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
 		2CF234801B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
@@ -1084,6 +1088,7 @@
 		2CE2A9911B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentVerifyPhoneViewController.h; sourceTree = "<group>"; };
 		2CE2A9921B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentVerifyPhoneViewController.m; sourceTree = "<group>"; };
 		2CE2A9971B6F1C000089ED20 /* contact-blacklist.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "contact-blacklist.csv"; sourceTree = "<group>"; };
+		2CED65AD1BBB83E90031ECB2 /* NSDate+RFC1123.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+RFC1123.swift"; sourceTree = "<group>"; };
 		2CF2347C1B54F2E500B516E6 /* CUTEKeyboardStateListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEKeyboardStateListener.h; sourceTree = "<group>"; };
 		2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEKeyboardStateListener.m; sourceTree = "<group>"; };
 		2CF234821B55198500B516E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1555,6 +1560,7 @@
 				2C9F1CE71B3907AF0034487F /* NSString+OccurrenceCount.m */,
 				2CDBA8CD1B8D752600C9D58F /* NSString+Truncate.h */,
 				2CDBA8CE1B8D752600C9D58F /* NSString+Truncate.m */,
+				2CED65AD1BBB83E90031ECB2 /* NSDate+RFC1123.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2681,6 +2687,7 @@
 				2C9436901BA956D500644E68 /* CUTELocalizationSwitcher.m in Sources */,
 				2C427EA41AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6471AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
+				2CED65B01BBB83EA0031ECB2 /* NSDate+RFC1123.swift in Sources */,
 				2C2FCDC61AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
 				2C2FCDCD1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6011AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
@@ -2840,6 +2847,7 @@
 				2C9436911BA956D600644E68 /* CUTELocalizationSwitcher.m in Sources */,
 				2C427EA51AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6481AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
+				2CED65B11BBB83EA0031ECB2 /* NSDate+RFC1123.swift in Sources */,
 				2C2FCDC71AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
 				2C2FCDCE1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6021AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
@@ -2999,6 +3007,7 @@
 				2C94368F1BA956D400644E68 /* CUTELocalizationSwitcher.m in Sources */,
 				2C427EA31AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6461AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
+				2CED65AF1BBB83EA0031ECB2 /* NSDate+RFC1123.swift in Sources */,
 				2C2FCDC51AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
 				2C2FCDCC1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6001AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
@@ -3158,6 +3167,7 @@
 				2C94368E1BA941C000644E68 /* CUTELocalizationSwitcher.m in Sources */,
 				2C427EA21AD3802A000378A9 /* CUTEArea.m in Sources */,
 				2CF8A6451AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m in Sources */,
+				2CED65AE1BBB83E90031ECB2 /* NSDate+RFC1123.swift in Sources */,
 				2C2FCDC41AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
 				2C2FCDCB1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A5FF1AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
