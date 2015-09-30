@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2015-09-11 17:49+0800\n"
-"PO-Revision-Date: 2015-09-30 15:16+0800\n"
+"PO-Revision-Date: 2015-09-30 15:28+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -3893,7 +3893,7 @@ msgstr "Phone number is invaild"
 
 #: ../web/src/partials/i18n.html:56
 msgid "邮箱不能为空"
-msgstr "Phone should not be empty"
+msgstr "Email should not be empty"
 
 #: ../web/src/partials/i18n.html:57
 msgid "邮箱格式不合法"
