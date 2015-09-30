@@ -113,13 +113,29 @@
                         %end
                     </select>
                 </div>-->
-                <div class="formGroup" data-user-input style="display: none;">
+                <div class="formGroup" data-user-input
+                    %if not rent.get('user',{}).get('nickname'):
+                    style="display: none;"
+                    %end
+                >
                     <label for="userNickname">{{_('用户昵称')}}</label>
-                    <input type="text" id="userNickname" name="userNickname" placeholder="{{_('代发用户昵称')}}" data-validator="required,trim"/>
+                    <input type="text" id="userNickname" name="userNickname" placeholder="{{_('代发用户昵称')}}" data-validator="required,trim"
+                        %if rent.get('user',{}).get('nickname'):
+                        value="{{rent.get('user',{}).get('nickname')}}" readonly
+                        %end
+                        />
                 </div>
-                <div class="formGroup" data-user-input style="display: none;">
+                <div class="formGroup" data-user-input
+                    %if not rent.get('user',{}).get('email'):
+                    style="display: none;"
+                    %end
+                    >
                     <label for="userEmail">{{_('用户邮箱')}}</label>
-                    <input type="text" id="userEmail" name="userEmail" placeholder="{{_('代发用户邮箱')}}" data-validator="required,trim,email"/>
+                    <input type="text" id="userEmail" name="userEmail" placeholder="{{_('代发用户邮箱')}}" data-validator="required,trim,email"
+                        %if rent.get('user',{}).get('email'):
+                        value="{{rent.get('user',{}).get('email')}}" readonly
+                        %end
+                        />
                 </div>
                 <div class="formGroup" data-show="own">
                     <label>{{_('姓名')}}</label>

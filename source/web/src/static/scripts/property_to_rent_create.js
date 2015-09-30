@@ -1055,7 +1055,7 @@
 
     })
     if(isDelegate() && $publishForm.find('[name=userPhone]').attr('data-country-code')) {
-        $publishForm.find('[name=country_code]').val($publishForm.find('[name=userPhone]').attr('data-country-code')).trigger('change')
+        $publishForm.find('[name=country_code]').val($publishForm.find('[name=userPhone]').attr('data-country-code'))
     }
     function isDelegate () { //是否是为用户代发
         return $publishForm.find('[name=delegate]').val() === 'user'
