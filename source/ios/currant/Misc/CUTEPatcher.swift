@@ -24,18 +24,13 @@ class CUTEPatcher : NSObject {
         let request = NSMutableURLRequest(URL: NSURL(string: URLString)!)
         request.timeoutInterval = 10 //10 seconds
 
-        //http://stackoverflow.com/questions/8636754/nsdate-to-rfc-2822-date-format
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss Z"
-        dateFormatter.timeZone = NSTimeZone(name: "GMT")
-
         var lastModifiedDate:String?
 
         let filePath = libraryPath! + "/" + version + ".jspatch"
         if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
             let attributes:NSDictionary = try NSFileManager.defaultManager().attributesOfItemAtPath(filePath)
             if let date = attributes.fileModificationDate() {
-                lastModifiedDate = dateFormatter.stringFromDate(date)
+                lastModifiedDate = date.rfc1123String()
             }
         }
 
@@ -55,8 +50,7 @@ class CUTEPatcher : NSObject {
                     //save to file
                     try data?.writeToFile(filePath, options: NSDataWritingOptions.DataWritingAtomic)
                     if let newLastModified:String = response.allHeaderFields["Last-Modified"] as? String {
-                        //TODO handle ios 9 format issues
-                        if  let date = dateFormatter.dateFromString(newLastModified) {
+                        if  let date = NSDate.dateFromRFC1123(newLastModified) {
                             let attr:Dictionary<String, AnyObject> = [NSFileModificationDate:date]
                             try NSFileManager.defaultManager().setAttributes(attr, ofItemAtPath: filePath)
                         }
