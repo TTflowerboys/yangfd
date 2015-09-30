@@ -7,7 +7,7 @@ angular.module('app')
             replace: true,
             link: function ($scope, elm, attrs) {
                 $scope.onSearch = function (searchText) {
-                    var param = {}
+                    var param = {per_page: 12}
                     param.query = searchText || undefined
 
                     $scope.api.search({params: param, errorMessage: true}).success($scope.onGetList)
