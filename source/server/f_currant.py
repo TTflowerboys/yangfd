@@ -726,6 +726,7 @@ class f_currant_ticket(f_ticket):
                     if not enable_custom_fields:
                         t.pop("custom_fields", None)
                     user_id_set.add(t.get("creator_user_id"))
+                    user_id_set.add(t.get("user_id"))
                     user_id_set |= set(t.get("assignee", []))
                     if t.get("budget"):
                         enum_id_set.add(t["budget"]["id"])
@@ -762,6 +763,26 @@ class f_currant_ticket(f_ticket):
 
                             if "wechat" in t["creator_user"] and t["creator_user"]["wechat"] is not None:
                                 t["creator_user"]["wechat"] = t["creator_user"]["wechat"][:3] + "***"
+
+                    actual_user = user_dict.get(t.pop("user_id"))
+                    if actual_user:
+                        t["user"] = actual_user
+
+                        if fuzzy_user_info:
+                            if "nickname" in t["user"] and t["user"]["nickname"] is not None:
+                                t["user"]["nickname"] = t["user"]["nickname"][:1] + "**"
+
+                            if "email" in t["user"] and t["user"]["email"] is not None:
+                                t["user"]["email"] = t["user"]["email"][:3] + "**@**"
+
+                            if "phone" in t["user"] and t["user"]["phone"] is not None:
+                                if len(t["user"]["phone"]) > 6:
+                                    t["user"]["phone"] = t["user"]["phone"][:3] + "*" * (len(t["user"]["phone"]) - 6) + t["user"]["phone"][-3:]
+                                else:
+                                    t["user"]["phone"] = t["user"]["phone"][:3] + "***"
+
+                            if "wechat" in t["user"] and t["user"]["wechat"] is not None:
+                                t["user"]["wechat"] = t["user"]["wechat"][:3] + "***"
 
                     if isinstance(t.get("assignee"), list):
                         t["assignee"] = map(lambda x: user_dict.get(x), t["assignee"])
