@@ -396,6 +396,10 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                 "system_message_type": f_app.common.message_type,
             }})
 
+    def v24(self, m):
+        for ticket in f_app.ticket.get_database(m).find({"creator_user_id": None, "user_id": {"$exists": True}}):
+            f_app.ticket.get_database(m).update({"_id": ticket["_id"]}, {"$set": {"creator_user_id": ticket["user_id"]}})
+
 currant_mongo_upgrade()
 
 
