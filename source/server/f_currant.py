@@ -2724,6 +2724,16 @@ class f_currant_util(f_util):
             return "<currant-localhost>" + subject
         return subject
 
+    def reindex_user(self):
+        for user_id in f_app.user.get_active():
+            index_params = f_app.util.try_get_value(f_app.user.get(user_id), ["nickname", "phone", "email"])
+            if index_params:
+                if "phone" in index_params:
+                    index_params["phone_national_number"] = str(phonenumbers.parse(index_params["phone"]).national_number)
+
+                nickname = index_params.pop("nickname", None)
+                f_app.mongo_index.update(f_app.user.get_database, user_id, [nickname] if nickname else [], index_params.values())
+
     # TODO: now we only consider UK
     def find_region_report(self, zipcode, maponics_neighborhood_id=None):
         # Try to find neighborhood first
