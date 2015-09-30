@@ -3,7 +3,7 @@ from __future__ import unicode_literals, absolute_import
 import logging
 import six
 from app import f_app
-from libfelix.f_interface import f_get, abort, template_gettext as _
+from libfelix.f_interface import f_get, redirect, abort, template_gettext as _
 import currant_util
 import currant_data_helper
 
@@ -178,9 +178,18 @@ def property_to_rent_create():
 
 @f_get('/property-to-rent/<rent_ticket_id:re:[0-9a-fA-F]{24}>/edit')
 @currant_util.check_ip_and_redirect_domain
-def property_to_rent_edit(rent_ticket_id):
+@f_app.user.login.check(check_role=True)
+def property_to_rent_edit(rent_ticket_id, user):
     title = _('出租房源编辑')
-    rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
+    fuzzy_user_info = True
+    if user and set(user["role"]) & set(["admin", "jr_admin", "support"]):
+        fuzzy_user_info = False
+    rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=fuzzy_user_info)[0])
+
+    #如果没有登录或者登录用户既不是房产的user也不是creator_user则跳转到首页
+    if not (user and (user.get('id') == rent_ticket.get('user',{}).get('id') or user.get('id') == rent_ticket.get('creator_user',{}).get('id'))):
+        redirect('/')
+
     keywords = title + ',' + currant_util.get_country_name_by_code(rent_ticket["property"].get('country', {}).get('code', '')) + ',' + rent_ticket["property"].get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
     region_highlight_list = f_app.i18n.process_i18n(f_app.enum.get_all('region_highlight'))
     indoor_facility_list = f_app.i18n.process_i18n(f_app.enum.get_all('indoor_facility'))
