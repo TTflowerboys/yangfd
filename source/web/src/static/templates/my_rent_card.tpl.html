@@ -34,11 +34,7 @@
                             {_}_}
                         </a>
                         <div class="imgAction_wrapper">
-                            {_if(window.team.isCurrantClient()) {_}
-                            <i id='edit' data-id="{=rent.id=}" class="imgAction icon-edit" data-need-bridge></i>
-                            {_}else {_}
-                            <i id='edit' data-id="{=rent.id=}" class="imgAction hiddenOnMobile icon-edit" data-need-bridge></i>
-                            {_}_}
+                            <a class="wechatShare imgAction" data-id="{=rent.id=}" data-need-bridge><i class="icon-wechat"></i></a>
                             <i id='remove' data-id="{=rent.id=}" class="imgAction icon-delete" data-need-bridge></i>
 
                         </div>
@@ -81,7 +77,11 @@
                         {_if(rent.status === 'to rent') {_}
                         <ul class="actions">
                             <li>
-                                <a id="wechatShare" class="action" data-id="{=rent.id=}" data-need-bridge>{=window.i18n('微信分享')=}</a>
+                                {_if(window.team.isCurrantClient()) {_}
+                                <a data-id="{=rent.id=}" class="action edit" data-need-bridge>{{_('编辑房产')}}</a>
+                                {_}else {_}
+                                <a data-id="{=rent.id=}" class="action hiddenOnMobile edit" data-need-bridge>{{_('编辑房产')}}</a>
+                                {_}_}
                             </li>
                             <li>
                                 {_if(team.isToday(parseInt(rent.last_modified_time))){_}

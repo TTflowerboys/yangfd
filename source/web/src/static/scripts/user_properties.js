@@ -307,7 +307,7 @@ $(function () {
      * */
 
     function bindRentItemWechatShareClick() {
-        $('.actions #wechatShare').click(function (e) {
+        $('.imgAction_wrapper .wechatShare').click(function (e) {
             var ticketId = $(this).attr('data-id')
 
             if (window.bridge !== undefined) {
@@ -401,7 +401,7 @@ $(function () {
     }
 
     function bindRentItemEditClick() {
-        $('.imgAction_wrapper #edit').on('click', function (e) {
+        $('.actions .edit').on('click', function (e) {
             var ticketId = $(e.target).attr('data-id')
             if (team.isCurrantClient()){
                 if (team.isCurrantClient('>=1.1.2')) {
