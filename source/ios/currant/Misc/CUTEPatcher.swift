@@ -30,7 +30,7 @@ class CUTEPatcher : NSObject {
         if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
             let attributes:NSDictionary = try NSFileManager.defaultManager().attributesOfItemAtPath(filePath)
             if let date = attributes.fileModificationDate() {
-                lastModifiedDate = date.rfc1123String()
+                lastModifiedDate = date.RFC1123String()
             }
         }
 
