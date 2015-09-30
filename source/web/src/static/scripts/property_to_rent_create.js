@@ -892,6 +892,7 @@
         .bind('datepicker-change', function (event, obj) {
             $(elem).val($.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
         })
+            .dateRangePickerCustom()
     })
 
 
