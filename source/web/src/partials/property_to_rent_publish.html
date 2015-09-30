@@ -80,11 +80,15 @@
                     <label>{{_('是否代发')}}</label>
                     <select name="delegate" class="ghostSelect" >
                         <option value="user"
-                            %if rent.get('user'):
+                            %if rent.get('user',{}).get('id') != rent.get('creator_user',{}).get('id'):
                             selected
                             %end
                             >{{_('为用户代发房源')}}</option>
-                        <option value="own" selected>{{_('为自己发房源')}}</option>
+                        <option value="own"
+                            %if rent.get('user',{}).get('id') == rent.get('creator_user',{}).get('id'):
+                            selected
+                            %end
+                            >{{_('为自己发房源')}}</option>
                     </select>
                 </div>
 
