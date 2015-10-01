@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2015-09-11 17:49+0800\n"
-"PO-Revision-Date: 2015-10-01 10:30+0800\n"
+"PO-Revision-Date: 2015-10-01 14:41+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1283,7 +1283,7 @@ msgstr "Living Room"
 
 #: ../web/src/property.html:500 ../web/src/property_to_rent.html:376
 msgid "查看房产周边设施"
-msgstr "View Surroundings"
+msgstr "View Nearby"
 
 #: ../web/src/property.html:570 ../web/src/property_list.html:160
 #: ../web/src/property_to_rent_list.html:150 ../web/src/partials/i18n.html:466
@@ -1538,7 +1538,7 @@ msgstr " Posted"
 #: ../web/src/property_to_rent.html:145 ../web/src/property_to_rent.html:426
 #: ../web/src/partials/i18n.html:450
 msgid "平台合作房源"
-msgstr "Platform cooperative property to rent"
+msgstr "Partner Property"
 
 #: ../web/src/property_to_rent.html:156 ../web/src/property_to_rent.html:162
 #: ../web/src/property_to_rent.html:454 ../web/src/property_to_rent.html:467
@@ -3977,7 +3977,7 @@ msgstr "Account not exists"
 
 #: ../web/src/partials/i18n.html:77
 msgid "邮箱已被使用！"
-msgstr "Email is taken"
+msgstr "Email is taken !"
 
 #: ../web/src/partials/i18n.html:78
 msgid "电话已被使用！请<a href=\"#\" onclick=\"project.goToSignIn()\">“登陆”</a>或者<a href=\"#\" onclick=\"project.goToResetPassword()\">“找回密码”</a>"
@@ -6922,11 +6922,11 @@ msgstr "Bedrooms"
 
 #: ../web/src/partials/i18n_admin.html:443
 msgid "租期："
-msgstr "Tenancy Term:"
+msgstr "Tenancy Term: "
 
 #: ../web/src/partials/i18n_admin.html:446
 msgid "至少租住："
-msgstr "At least Rental:"
+msgstr "Minimum Lease: "
 
 #: ../web/src/partials/i18n_admin.html:447
 msgid "生成digest图片"
@@ -9082,7 +9082,7 @@ msgstr "days"
 #: ../web/src/static/templates/favorite_rent_card.tpl.html:119
 #: ../web/src/static/templates/rent_card.tpl.html:140
 msgid "至少租住"
-msgstr "A minimum lease of"
+msgstr "Minimum lease is "
 
 #: ../web/src/static/templates/featured_house_card.html:216
 #: ../web/src/static/templates/featured_house_card.html:379
