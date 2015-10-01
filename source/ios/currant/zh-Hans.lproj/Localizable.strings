@@ -233,6 +233,7 @@
 "RentConfirmPhone/确认手机号" = "确认手机号";
 "RentConfirmPhone/取消" = "取消";
 "RentConfirmPhone/更新号码中..." = "更新号码中...";
+"RentConfirmPhone/如需继续编辑, 请先重新登录并验证手机号" = "如需继续编辑, 请先重新登录并验证手机号";
 
 //Filepath: currant/Scene/User/Form/CUTERentConfirmPhoneForm.m
 "RentConfirmPhone/国家" = "国家";

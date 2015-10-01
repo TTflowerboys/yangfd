@@ -410,7 +410,7 @@
         CUTEUser *retUser = result;
 
         [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": retUser}];
-        [NotificationCenter postNotificationName:KNOTIF_USER_VERIFY_PHONE object:self userInfo:@{@"user": retUser}];
+        [NotificationCenter postNotificationName:KNOTIF_USER_VERIFY_PHONE object:self userInfo:@{@"user": retUser, @"whileEditingTicket": self.ticket? @(YES): @(NO)}];
         [NotificationCenter postNotificationName:KNOTIF_MARK_USER_AS_LANDLORD object:self userInfo:@{@"user": retUser}];
 
         if (self.params && [self.params[@"from_edit_ticket"] isEqualToString:@"true"]) {

@@ -10,4 +10,7 @@
 
 @interface CUTERentConfirmPhoneViewController : CUTEFormViewController
 
+@property (nonatomic) BOOL whileEditingTicket;
+
+
 @end

@@ -17,7 +17,9 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEKeyboardStateListener.h"
 #import "UIBarButtonItem+ALActionBlocks.h"
+#import <UIAlertView+Blocks.h>
 #import "CUTENotificationKey.h"
+
 
 @interface CUTERentConfirmPhoneViewController ()
 
@@ -39,6 +41,11 @@
                 [[CUTEDataManager sharedInstance] clearUser];
                 [[CUTEDataManager sharedInstance] clearAllCookies];
                 [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGOUT object:self];
+
+                if (self.whileEditingTicket) {
+                    [UIAlertView showWithTitle:STR(@"RentConfirmPhone/如需继续编辑, 请先重新登录并验证手机号") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                    }];
+                }
             }
         }];
     }];

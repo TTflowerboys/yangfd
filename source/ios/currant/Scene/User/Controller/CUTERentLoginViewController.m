@@ -133,67 +133,43 @@
     }
 
     CUTERentLoginForm *form = (CUTERentLoginForm *)self.formController.form;
-//    if (form.isOnlyRegister) {
-//        [SVProgressHUD showWithStatus:STR(@"RentLogin/登录中...")];
-//        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/login" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(form.country.countryCode.stringValue), NilNullToEmpty(form.phone)), @"password": [form.password base64EncodedString]} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
-//            if (task.error || task.exception || task.isCancelled) {
-//                [SVProgressHUD showErrorWithError:task.error];
-//            }
-//            else {
-//                CUTEUser *user = task.result;
-//                [SVProgressHUD dismiss];
-//
-//
-//                [self dismissViewControllerAnimated:YES completion:^{
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": user}];
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_VERIFY_PHONE object:self userInfo:@{@"user": user}];
-//
-//                }];
-//            }
-//            return nil;
-//        }];
-//
-//    }
-//    else
-    {
-        [SVProgressHUD showWithStatus:STR(@"RentLogin/登录中...")];
+    [SVProgressHUD showWithStatus:STR(@"RentLogin/登录中...")];
 
-        Sequencer *sequencer = [Sequencer new];
+    Sequencer *sequencer = [Sequencer new];
 
-        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/login" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(form.country.countryCode.stringValue), NilNullToEmpty(form.phone)), @"password": [form.password base64EncodedString]} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
-                if (task.error || task.exception || task.isCancelled) {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-                else {
-                    CUTEUser *user = task.result;
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": user}];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_VERIFY_PHONE object:self userInfo:@{@"user": user}];
-                    completion(task.result);
-                }
-                return nil;
-            }];
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/login" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(form.country.countryCode.stringValue), NilNullToEmpty(form.phone)), @"password": [form.password base64EncodedString]} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
+            if (task.error || task.exception || task.isCancelled) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else {
+                CUTEUser *user = task.result;
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": user}];
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_USER_VERIFY_PHONE object:self userInfo:@{@"user": user, @"whileEditingTicket": self.ticket? @(YES): @(NO)}];
+                completion(task.result);
+            }
+            return nil;
         }];
+    }];
 
-        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            [SVProgressHUD dismiss];
-            
-            CUTEUser *user = (CUTEUser *)result;
-            CUTERentContactDisplaySettingViewController *controller = [CUTERentContactDisplaySettingViewController new];
-            CUTERentContactDisplaySettingForm *form = [CUTERentContactDisplaySettingForm new];
-            form.displayPhone = ![user.privateContactMethods containsObject:@"phone"];
-            form.displayEmail = ![user.privateContactMethods containsObject:@"email"];
-            form.wechat = user.wechat;
-            form.singleUseForReedit = YES;
-            controller.formController.form = form;
-            controller.ticket = self.ticket;
-            controller.navigationItem.title = STR(@"RentLogin/确认联系方式展示");
-            [self.navigationController pushViewController:controller animated:YES];
+    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+        [SVProgressHUD dismiss];
 
-        }];
-        
-        [sequencer run];
-    }
+        CUTEUser *user = (CUTEUser *)result;
+        CUTERentContactDisplaySettingViewController *controller = [CUTERentContactDisplaySettingViewController new];
+        CUTERentContactDisplaySettingForm *form = [CUTERentContactDisplaySettingForm new];
+        form.displayPhone = ![user.privateContactMethods containsObject:@"phone"];
+        form.displayEmail = ![user.privateContactMethods containsObject:@"email"];
+        form.wechat = user.wechat;
+        form.singleUseForReedit = YES;
+        controller.formController.form = form;
+        controller.ticket = self.ticket;
+        controller.navigationItem.title = STR(@"RentLogin/确认联系方式展示");
+        [self.navigationController pushViewController:controller animated:YES];
+
+    }];
+
+    [sequencer run];
 }
 
 - (void)submit {

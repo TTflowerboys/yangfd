@@ -809,6 +809,8 @@
 
 - (void)onReceiveUserVerifyPhone:(NSNotification *)notif {
     CUTEUser *user = notif.userInfo[@"user"];
+    NSNumber *whileEditingTicket = notif.userInfo[@"whileEditingTicket"];
+
     if (user.phoneVerified) {
         return;
     }
@@ -826,6 +828,7 @@
         }
         else {
             CUTERentConfirmPhoneViewController *controller = [[CUTERentConfirmPhoneViewController alloc] init];
+            controller.whileEditingTicket = whileEditingTicket.boolValue;
             CUTERentConfirmPhoneForm *form = [CUTERentConfirmPhoneForm new];
             [form setAllCountries:task.result];
             //set default country same with the property

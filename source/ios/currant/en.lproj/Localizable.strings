@@ -234,6 +234,7 @@
 "RentConfirmPhone/确认手机号" = "Confirm phone number";
 "RentConfirmPhone/取消" = "Cancel";
 "RentConfirmPhone/更新号码中..." = "Updating number...";
+"RentConfirmPhone/如需继续编辑, 请先重新登录并验证手机号" = "Please login and verify your phone to continue editing";
 
 //Filepath: currant/Scene/User/Form/CUTERentConfirmPhoneForm.m
 "RentConfirmPhone/国家" = "Country";
