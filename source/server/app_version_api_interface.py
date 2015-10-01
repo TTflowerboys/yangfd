@@ -5,7 +5,7 @@ from libfelix.f_interface import f_api
 
 
 @f_api("/app/<app>/check_update", params=dict(
-    version=(str, True),
+    version=(int, True),
     channel=(str, "dev"),
     platform=(str, True),
 ))
@@ -15,7 +15,8 @@ def app_version_check_update(app, params):
 
 
 @f_api("/app/<app>/version/add", params=dict(
-    version=(str, True),
+    version=(int, True),
+    version_name=str,
     changelog=(list, None, str),
     channel=(str, "dev"),
     url=str,
@@ -40,6 +41,7 @@ def app_version_get(app, user, version_id):
 
 @f_api("/app/<app>/version/<version_id>/update", params=dict(
     changelog=(list, None, str),
+    version_name=str,
     channel=str,
     status=str,
     url=str,
