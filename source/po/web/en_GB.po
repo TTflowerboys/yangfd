@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2015-09-11 17:49+0800\n"
-"PO-Revision-Date: 2015-09-30 15:31+0800\n"
+"PO-Revision-Date: 2015-10-01 10:30+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -814,7 +814,7 @@ msgstr "Receive landlord reminder email"
 #: ../web/src/partials/user_settings.html:338
 #: ../web/src/partials/user_settings_phone.html:231
 msgid "每周将会发送至您的账户邮箱中，方便您更新出租状态"
-msgstr "Remind you of updateing your property rent status every week"
+msgstr "Remind you of updating your property rent status every week"
 
 #: ../web/src/email_unsubscribe.html:44
 #: ../web/src/partials/user_settings.html:352
@@ -1555,7 +1555,7 @@ msgstr "Platform cooperative property to rent"
 #: ../web/src/static/emails/rent_intention_matched_4.html:38
 #: ../web/src/static/emails/rent_ticket_publish_success.html:28
 msgid "/周"
-msgstr "/ Week"
+msgstr "/ week"
 
 #: ../web/src/property_to_rent.html:159 ../web/src/property_to_rent.html:464
 #: ../web/src/property_to_rent.html:511
@@ -3654,7 +3654,7 @@ msgstr "From about %s"
 #: ../web/src/static/emails/rent_intention_matched_4.html:127
 #: ../web/src/static/emails/rent_ticket_publish_success.html:117
 msgid "周"
-msgstr "Week"
+msgstr " week"
 
 #: ../web/src/partials/get_rent_min_period.html:8
 #: ../web/src/partials/i18n.html:390
@@ -5057,7 +5057,7 @@ msgstr "I want to find "
 
 #: ../web/src/partials/i18n.html:362
 msgid "/周的"
-msgstr "/ Week"
+msgstr "/ week"
 
 #: ../web/src/partials/i18n.html:363
 msgid "出租房"
@@ -5366,7 +5366,7 @@ msgstr "published %s"
 #: ../web/src/static/emails/rent_intention_matched_4.html:88
 #: ../web/src/static/emails/rent_ticket_publish_success.html:78
 msgid "房间"
-msgstr "Bathrooms"
+msgstr "Rooms"
 
 #: ../web/src/partials/i18n.html:457
 msgid "可立即入住"
@@ -6856,7 +6856,7 @@ msgstr "Area: "
 
 #: ../web/src/partials/i18n_admin.html:424
 msgid "租金(每周):"
-msgstr "Rent (per week):"
+msgstr "Rental (per week):"
 
 #: ../web/src/partials/i18n_admin.html:425
 msgid "(包Bill)"
