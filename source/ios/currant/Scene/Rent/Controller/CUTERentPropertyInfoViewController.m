@@ -461,9 +461,9 @@
 
             TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
             CUTERentTicketPreviewViewController *controller = [[CUTERentTicketPreviewViewController alloc] init];
-            controller.url = [CUTEPermissionChecker URLWithPath:CONCAT(@"/wechat-poster/", self.form.ticket.identifier)];
+            controller.URL = [CUTEPermissionChecker URLWithPath:CONCAT(@"/wechat-poster/", self.form.ticket.identifier)];
             controller.ticket = self.form.ticket;
-            [controller loadRequest:[NSURLRequest requestWithURL:controller.url]];
+            [controller loadRequest:[NSURLRequest requestWithURL:controller.URL]];
             [self.navigationController pushViewController:controller animated:YES];
         }
         return task;

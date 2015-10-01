@@ -163,11 +163,11 @@
     [[self navigationController] setNavigationBarHidden:NO animated:NO];
     TrackEvent(GetScreenName(self), kEventActionPress, GetScreenName(url), nil);
     CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
-    newWebViewController.url = url;
+    newWebViewController.URL = url;
     newWebViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:newWebViewController animated:YES];
     //the progress bar need navigationBar
-    [newWebViewController loadRequest:[NSURLRequest requestWithURL:newWebViewController.url]];
+    [newWebViewController loadRequest:[NSURLRequest requestWithURL:newWebViewController.URL]];
 }
 
 

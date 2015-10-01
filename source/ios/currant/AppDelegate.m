@@ -492,13 +492,13 @@
             if (_lastSelectedTabIndex == self.tabBarController.selectedIndex) {
                 //在网络情况不好时，可能加载没有正常开始，比如在飞行模式，这个时候 request.URL.absoluteString 长度为0，那么就需要重新开始加载，而不是reload
                 if (IsNilOrNull(webViewController.webView.request) || IsNilOrNull(webViewController.webView.request.URL) || IsNilNullOrEmpty(webViewController.webView.request.URL.absoluteString)) {
-                    [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
+                    [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.URL]];
                 }
                 else {
                     [webViewController reload];
                 }
 
-                NSURL *URL = webViewController.url;
+                NSURL *URL = webViewController.URL;
                 if (URL.isHttpOrHttpsURL) {
                     [[CUTEWebArchiveManager sharedInstance] archiveURL:URL];
                 }

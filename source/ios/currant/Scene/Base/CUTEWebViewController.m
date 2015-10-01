@@ -59,11 +59,11 @@
 
 
 - (NSURL *)originalURL {
-    NSDictionary *queryDictionary = [self.url queryDictionary];
+    NSDictionary *queryDictionary = [self.URL queryDictionary];
     if (queryDictionary && queryDictionary[@"from"]) {
         return [NSURL URLWithString:[queryDictionary[@"from"] URLDecode]];
     }
-    return self.url;
+    return self.URL;
 }
 
 - (id) init {
@@ -196,8 +196,8 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar addSubview:_progressView];
 
-    if (self.url) {
-        TrackScreen(GetScreenName(self.url));
+    if (self.URL) {
+        TrackScreen(GetScreenName(self.URL));
     }
     
     if (_needReloadURL) {
@@ -279,7 +279,7 @@
     }
     else {
         [self clearBackButton];
-        BBTWebBarButtonItem *leftBarButtonItem = [[CUTEWebConfiguration sharedInstance] getLeftBarItemFromURL:self.url];
+        BBTWebBarButtonItem *leftBarButtonItem = [[CUTEWebConfiguration sharedInstance] getLeftBarItemFromURL:self.URL];
         leftBarButtonItem.viewController = self;
         self.navigationItem.leftBarButtonItem = leftBarButtonItem;
     }
@@ -381,10 +381,10 @@
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
     if (notif.object != self) {
         if ([CUTEPermissionChecker isURLNeedRefreshContentWhenUserUpdate:_webView.request.URL]) {
-            _needReloadURL = self.url; //user click into a url need user update, just back to top
+            _needReloadURL = self.URL; //user click into a url need user update, just back to top
         }
         else if ([CUTEPermissionChecker isURLLoginRequired:self.originalURL]) {
-            _needReloadURL = self.url;
+            _needReloadURL = self.URL;
         }
     }
 }
@@ -407,10 +407,10 @@
 
             NSURLComponents *urlComponents = [NSURLComponents componentsWithString:_webView.request.URL.absoluteString];
             if ([[urlComponents path] hasPrefix:@"/user-properties"]) {
-                _needReloadURL = self.url;
+                _needReloadURL = self.URL;
             }
             else if ([[urlComponents path] hasPrefix:@"/user-favorites"]) {
-                _needReloadURL = self.url;
+                _needReloadURL = self.URL;
             }
         }
     }

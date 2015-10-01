@@ -15,7 +15,7 @@ extension UINavigationController {
         if viewController != nil {
             if viewController is CUTEWebViewController {
                 let webviewController  = viewController as! CUTEWebViewController
-                return CUTETracker.sharedInstance().getScreenNameFromObject(webviewController.url)
+                return CUTETracker.sharedInstance().getScreenNameFromObject(webviewController.URL)
             }
             else {
                 return CUTETracker.sharedInstance().getScreenNameFromObject(viewController)
@@ -95,7 +95,7 @@ extension UINavigationController {
             webViewController = CUTEWebViewController()
         }
 
-        webViewController!.url = URLRequest.URL;
+        webViewController!.URL = URLRequest.URL;
 
         self.checkPreExecuteInternalCommand(URLRequest.URL!)
         if self.viewControllers.count > 0 {
@@ -124,7 +124,7 @@ extension UINavigationController {
             webViewController = CUTEWebViewController()
         }
 
-        webViewController!.url = archive.URL;
+        webViewController!.URL = archive.URL;
         self.checkPreExecuteInternalCommand(archive.URL)
         if self.viewControllers.count > 0 {
             webViewController!.hidesBottomBarWhenPushed = true

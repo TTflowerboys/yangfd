@@ -62,10 +62,10 @@
 
 - (void)onHelpPressed:(id)sender {
     CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
-    newWebViewController.url = [CUTEPermissionChecker URLWithPath:@"/qa-app"];
+    newWebViewController.URL = [CUTEPermissionChecker URLWithPath:@"/qa-app"];
     newWebViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:newWebViewController animated:YES];
-    [newWebViewController loadRequest:[NSURLRequest requestWithURL:newWebViewController.url]];
+    [newWebViewController loadRequest:[NSURLRequest requestWithURL:newWebViewController.URL]];
 }
 
 - (void)onLocalizationSelected:(id)sender {

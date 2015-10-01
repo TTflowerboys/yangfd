@@ -67,7 +67,7 @@
 
 
 - (void)updateMapButtonWithURL:(NSURL *)url {
-    if ([url.path hasPrefix:self.url.path]) {
+    if ([url.path hasPrefix:self.URL.path]) {
 
         if (!_mapButton) {
             _mapButton = [UIButton buttonWithType:UIButtonTypeCustom];
