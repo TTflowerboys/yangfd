@@ -57,6 +57,15 @@
 @implementation CUTEWebViewController
 @synthesize webView = _webView;
 
+
+- (NSURL *)originalURL {
+    NSDictionary *queryDictionary = [self.url queryDictionary];
+    if (queryDictionary && queryDictionary[@"from"]) {
+        return [NSURL URLWithString:[queryDictionary[@"from"] URLDecode]];
+    }
+    return self.url;
+}
+
 - (id) init {
     self = [super init];
     if (self) {

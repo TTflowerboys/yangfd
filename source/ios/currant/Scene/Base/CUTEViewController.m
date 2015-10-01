@@ -12,12 +12,5 @@
 
 @implementation CUTEViewController
 
-- (NSURL *)originalURL {
-    NSDictionary *queryDictionary = [self.url queryDictionary];
-    if (queryDictionary && queryDictionary[@"from"]) {
-        return [NSURL URLWithString:[queryDictionary[@"from"] URLDecode]];
-    }
-    return self.url;
-}
 
 @end

@@ -161,7 +161,7 @@
     NSURL *url = [CUTEPermissionChecker URLWithPath:CONCAT(@"/property/", property.identifier)];
 
     [[self navigationController] setNavigationBarHidden:NO animated:NO];
-    TrackEvent(GetScreenName(self.url), kEventActionPress, GetScreenName(url), nil);
+    TrackEvent(GetScreenName(self), kEventActionPress, GetScreenName(url), nil);
     CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
     newWebViewController.url = url;
     newWebViewController.hidesBottomBarWhenPushed = YES;
