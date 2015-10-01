@@ -69,7 +69,7 @@
             NSURL *url = [NSURL URLWithString:data relativeToURL:[CUTEConfiguration hostURL]];
             NSDictionary *queryDictionary = [url queryDictionary];
             if (queryDictionary && queryDictionary[@"return_url"]) {
-                [webViewController updateWithURL:[NSURL URLWithString:CONCAT([queryDictionary[@"return_url"] URLDecode], @"?from=", [webViewController.url.absoluteString URLEncode]? : @"/") relativeToURL:[CUTEConfiguration hostURL]]];
+                [webViewController updateWithURL:[NSURL URLWithString:CONCAT([queryDictionary[@"return_url"] URLDecode], @"?from=", [webViewController.originalURL.absoluteString URLEncode]? : @"/") relativeToURL:[CUTEConfiguration hostURL]]];
                 [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGOUT object:webViewController];
             }
         }

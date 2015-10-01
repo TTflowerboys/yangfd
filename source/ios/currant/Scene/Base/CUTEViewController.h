@@ -13,4 +13,8 @@
  //TODO refine the url 
 @property (strong, nonatomic) NSURL *url;
 
+//If user need login the url is the redirected url, the originalURL is the origianl url, else is the url
+@property (nonatomic, readonly) NSURL *originalURL;
+
+
 @end
