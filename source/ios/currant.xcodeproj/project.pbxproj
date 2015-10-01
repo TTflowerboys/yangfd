@@ -2037,7 +2037,6 @@
 				2CA2E6D21AC5496700053965 /* Resources */,
 				2CA2E6D71AC5496700053965 /* Copy Pods Resources */,
 				2C3DE2471B05CEFC006FF191 /* ShellScript */,
-				2C9B687E1ACE93160081E68B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2337,19 +2336,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./currant/Library3rd/Fabric.framework/run 9ecb350494322a70f91f3ad1df714df4ac8e93c5 11ab511856ab2c3b06087c4f0cf6d3194350106fd95f93dfb1583bd057815029";
-		};
-		2C9B687E1ACE93160081E68B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "currentBranch=$(git branch | awk '/^\\*/{print $2}')\nbranch=${1:-\"$currentBranch\"}\nbuildNumber=$(expr $(git rev-list $branch --count) - $(git rev-list HEAD..$branch --count))\necho \"Updating build number to $buildNumber using branch '$branch'.\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist\"";
 		};
 		2CA2E6AC1AC5487800053965 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
