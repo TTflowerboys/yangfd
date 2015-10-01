@@ -106,8 +106,8 @@
 
         NSMutableArray *deletedImages = [NSMutableArray array];
         if (!IsArrayNilOrEmpty(self.form.ticket.property.realityImages) && urlHasAssetOrNullArrray.count == self.form.ticket.property.realityImages.count) {
-            int count = urlHasAssetOrNullArrray.count;
-            for (int i = 0; i < count; i++)
+            NSUInteger count = urlHasAssetOrNullArrray.count;
+            for (NSUInteger i = 0; i < count; i++)
             {
                 NSString *object = [urlHasAssetOrNullArrray objectAtIndex:i];
                 if (!IsNilOrNull(object) && ![assetURLs containsObject:object]) {

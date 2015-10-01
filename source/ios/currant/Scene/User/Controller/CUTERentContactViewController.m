@@ -376,7 +376,7 @@
         return;
     }
 
-    CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
+    //CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
     CUTEUser *user = _retUser;
     CUTEUserEditingListener *userListener = [CUTEUserEditingListener createListenerAndStartListenMarkWithSayer:user];
     [self updateUserWithFormInfo:user];
