@@ -49,32 +49,32 @@
 }
 
 
-- (NSArray *)loginRequiredURLPathArray {
-    return @[@"/user", @"/user-favorites", @"/user-properties"];
-}
+//- (NSArray *)loginRequiredURLPathArray {
+//    return @[@"/user", @"/user-favorites", @"/user-properties"];
+//}
+//
+//- (NSArray *)needRefreshContentWhenUserChangeURLPathArray {
+//    return @[@"/requirement"];
+//}
 
-- (NSArray *)needRefreshContentWhenUserChangeURLPathArray {
-    return @[@"/requirement"];
-}
-
-- (BOOL)isURLLoginRequired:(NSURL *)url {
-    NSString *urlPath = [[url path] stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
-    return [[self loginRequiredURLPathArray] containsObject:urlPath];
-}
-
-- (BOOL)isURLNeedRefreshContentWhenUserChange:(NSURL *)url {
-    //like http://currant-dev.bbtechgroup.com/requirement?budget=&intention=&property=
-    NSString *urlPath = [[url path] stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
-    return [[self needRefreshContentWhenUserChangeURLPathArray] containsObject:urlPath];
-}
-
-- (NSURL *)getRedirectToLoginURLFromURL:(NSURL *)url {
-    NSURL *originalURL = url;
-    return [NSURL URLWithString:CONCAT(@"/signin?from=", [originalURL.absoluteString URLEncode]) relativeToURL:[CUTEConfiguration hostURL]];
-
-    return url;
-}
-
+//- (BOOL)isURLLoginRequired:(NSURL *)url {
+//    NSString *urlPath = [[url path] stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+//    return [[self loginRequiredURLPathArray] containsObject:urlPath];
+//}
+//
+//- (BOOL)isURLNeedRefreshContentWhenUserChange:(NSURL *)url {
+//    //like http://currant-dev.bbtechgroup.com/requirement?budget=&intention=&property=
+//    NSString *urlPath = [[url path] stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+//    return [[self needRefreshContentWhenUserChangeURLPathArray] containsObject:urlPath];
+//}
+//
+//- (NSURL *)getRedirectToLoginURLFromURL:(NSURL *)url {
+//    NSURL *originalURL = url;
+//    return [NSURL URLWithString:CONCAT(@"/signin?from=", [originalURL.absoluteString URLEncode]) relativeToURL:[CUTEConfiguration hostURL]];
+//
+//    return url;
+//}
+//
 - (BOOL)isURL:(NSURL *)url matchPath:(NSString *)path {
     NSString *urlPath = [[url path] stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
 //    path = [path stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
@@ -86,24 +86,15 @@
         return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController)
         {
             TrackEvent(@"property-to-rent-list", kEventActionPress, @"open-fav-list", nil);
-            NSURL *originalURL = [NSURL WebURLWithString:@"/user-favorites#rent"];
-            NSURL *redirectedURL = originalURL;
-            if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:originalURL] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
-                redirectedURL = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:originalURL];
-            }
-
-            [viewController.navigationController openRouteWithURL:redirectedURL];
+            NSURL *itemURL = [CUTEPermissionChecker URLWithPath:@"/user-favorites#rent"];
+            [viewController.navigationController openRouteWithURL:itemURL];
         }];
     }
     else if ([self isURL:url matchPath:@"\\/property-list"]) {
         return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController) {
             TrackEvent(@"property-list", kEventActionPress, @"open-fav-list", nil);
-            NSURL *originalURL = [NSURL WebURLWithString:@"/user-favorites#own"];
-            NSURL *redirectedURL = originalURL;
-            if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:originalURL] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
-                redirectedURL = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:originalURL];
-            }
-            [viewController.navigationController openRouteWithURL:redirectedURL];
+            NSURL *itemURL = [CUTEPermissionChecker URLWithPath:@"/user-favorites#own"];
+            [viewController.navigationController openRouteWithURL:itemURL];
         }];
     }
 

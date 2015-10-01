@@ -22,8 +22,10 @@
 #import "CUTEWebViewController.h"
 #import "CUTEWebArchiveManager.h"
 #import "CUTEConfiguration.h"
+#import "CUTEDataManager.h"
 #import <HHRouter.h>
 #import <Base64.h>
+#import "NSString+Encoding.h"
 #import <JPEngine.h>
 #import <RNDecryptor.h>
 

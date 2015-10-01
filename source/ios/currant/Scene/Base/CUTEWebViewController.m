@@ -120,15 +120,10 @@
 }
 
 //TODO move permission check out of the controller, export a delegate
-- (NSURL *)getURLAfterUserPermissionCheck:(NSURL *)url {
-    if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:url] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
-        url =  [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:url];
-    }
-    return url;
-}
+
 
 - (void)loadRequest:(NSURLRequest *)originalRequest {
-    NSURL *url = [self getURLAfterUserPermissionCheck:originalRequest.URL];
+    NSURL *url = [CUTEPermissionChecker URLWithURL:originalRequest.URL];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.allHTTPHeaderFields = originalRequest.allHTTPHeaderFields;
 
@@ -179,7 +174,6 @@
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogin:) name:KNOTIF_USER_DID_LOGIN object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogout:) name:KNOTIF_USER_DID_LOGOUT object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidUpdate:) name:KNOTIF_USER_DID_UPDATE object:nil];
-    [NotificationCenter addObserver:self selector:@selector(onReceiveClearAllCookies:) name:KNOTIF_CLEAR_ALL_COOKIES object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveTicketListReload:) name:KNOTIF_TICKET_LIST_RELOAD object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveLocalizationDidUpdate:) name:CUTELocalizationDidUpdateNotification object:nil];
 }
@@ -199,6 +193,7 @@
     
     if (_needReloadURL) {
         [self updateWithURL:_needReloadURL];
+        _needReloadURL = nil;
     }
 
     if (_reappear) {
@@ -353,15 +348,12 @@
 - (void)onReceiveUserDidLogin:(NSNotification *)notif {
 
     if (notif.object != self) {
-        if ([[CUTEWebConfiguration sharedInstance] isURLNeedRefreshContentWhenUserChange:_webView.request.URL]) {
-            _needReloadURL = self.url; //user click into a url need user update, just back to top
+        if ([CUTEPermissionChecker isURLNeedRefreshContentWhenUserUpdate:_webView.request.URL]) {
+            _needReloadURL = self.originalURL; //user click into a url need user update, just back to top
         }
-        else if (notif.object != self && [[CUTEWebConfiguration sharedInstance] isURLLoginRequired:self.url]) {
+        else if (notif.object != self && [CUTEPermissionChecker isURLLoginRequired:self.originalURL]) {
             NSURLComponents *urlComponents = [NSURLComponents componentsWithString:_webView.request.URL.absoluteString];
-            if (urlComponents && [urlComponents.URL.absoluteString isEqualToString:[[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:self.url].absoluteString]) {
-                _needReloadURL = self.url;
-            }
-            else if (urlComponents && [urlComponents.path hasPrefix:@"/signin"]) {
+            if (urlComponents && [urlComponents.path hasPrefix:@"/signin"]) {
                 NSURLQueryItem *queryItem = [[urlComponents queryItems] find:^BOOL(NSURLQueryItem *object) {
                     return [[object name] isEqualToString:@"from"];
                 }];
@@ -370,7 +362,7 @@
                 }
             }
             else {
-                _needReloadURL = self.url;
+                _needReloadURL = self.originalURL;
             }
         }
     }
@@ -379,10 +371,10 @@
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
     if (notif.object != self) {
-        if ([[CUTEWebConfiguration sharedInstance] isURLNeedRefreshContentWhenUserChange:_webView.request.URL]) {
+        if ([CUTEPermissionChecker isURLNeedRefreshContentWhenUserUpdate:_webView.request.URL]) {
             _needReloadURL = self.url; //user click into a url need user update, just back to top
         }
-        else if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:self.url]) {
+        else if ([CUTEPermissionChecker isURLLoginRequired:self.originalURL]) {
             _needReloadURL = self.url;
         }
     }
@@ -390,22 +382,11 @@
 
 - (void)onReceiveUserDidUpdate:(NSNotification *)notif {
     if (notif.object != self) {
-        if ([[CUTEWebConfiguration sharedInstance] isURLNeedRefreshContentWhenUserChange:_webView.request.URL]) {
-            _needReloadURL = self.url; //user click into a url need user update, just back to top
+        if ([CUTEPermissionChecker isURLNeedRefreshContentWhenUserUpdate:_webView.request.URL]) {
+            _needReloadURL = self.originalURL; //user click into a url need user update, just back to top
         }
-        else if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:self.url]) {
-            _needReloadURL = self.url;
-        }
-    }
-}
-
-- (void)onReceiveClearAllCookies:(NSNotification *)notif {
-    if (notif.object != self) {
-        if ([[CUTEWebConfiguration sharedInstance] isURLNeedRefreshContentWhenUserChange:_webView.request.URL]) {
-            _needReloadURL = self.url; //user click into a url need user update, just back to top
-        }
-        else if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:self.url]) {
-            _needReloadURL = self.url;
+        else if ([CUTEPermissionChecker isURLLoginRequired:self.originalURL]) {
+            _needReloadURL = self.originalURL;
         }
     }
 }

@@ -156,13 +156,9 @@
                        @"/property-to-rent/create",
                        @"/property-to-rent-list",
                        @"/user"];
-    NSURL *originalURL = [NSURL URLWithString:array[index] relativeToURL:[CUTEConfiguration hostURL]];
-    NSURL *redirectedURL = originalURL;
-    if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:originalURL] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
-        redirectedURL = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:originalURL];
-    }
 
-    return redirectedURL;
+    NSURL *URL = [CUTEPermissionChecker URLWithPath:array[index]];
+    return URL;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -502,13 +498,9 @@
                     [webViewController reload];
                 }
 
-                NSURL *originalURL = webViewController.url;
-                NSURL *redirectedURL = originalURL;
-                if ([[CUTEWebConfiguration sharedInstance] isURLLoginRequired:originalURL] && ![[CUTEDataManager sharedInstance] isUserLoggedIn]) {
-                    redirectedURL = [[CUTEWebConfiguration sharedInstance] getRedirectToLoginURLFromURL:originalURL];
-                }
-                if (redirectedURL.isHttpOrHttpsURL) {
-                    [[CUTEWebArchiveManager sharedInstance]  archiveURL:redirectedURL];
+                NSURL *URL = webViewController.url;
+                if (URL.isHttpOrHttpsURL) {
+                    [[CUTEWebArchiveManager sharedInstance] archiveURL:URL];
                 }
             }
         }
@@ -765,18 +757,6 @@
             [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
         }
     }
-
-
-    NSArray *tabItemControllers = self.tabBarController.viewControllers;
-
-    [tabItemControllers each:^(UINavigationController *nav) {
-        if ([nav isKindOfClass:[UINavigationController class]]) {
-            if ([nav.topViewController isKindOfClass:[CUTEWebViewController class]]) {
-                CUTEWebViewController *webViewController = (CUTEWebViewController *)nav.topViewController;
-                [webViewController loadRequest:[NSURLRequest requestWithURL:webViewController.url]];
-            }
-        }
-    }];
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {

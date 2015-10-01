@@ -288,6 +288,10 @@
 		2C6D07D51B3E77AF001EBB90 /* CUTEUsageManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D07D41B3E77AF001EBB90 /* CUTEUsageManagerTest.m */; };
 		2C6D7B181B428E49007853FD /* CUTEApplyBetaUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D7B171B428E49007853FD /* CUTEApplyBetaUITest.m */; };
 		2C6D7B1E1B428F25007853FD /* KIFUITestActor+SplashUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D7B1D1B428F25007853FD /* KIFUITestActor+SplashUI.m */; };
+		2C744C6E1BBCCA25000198F1 /* CUTEPermissionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C744C6D1BBCCA25000198F1 /* CUTEPermissionChecker.swift */; settings = {ASSET_TAGS = (); }; };
+		2C744C6F1BBCCA25000198F1 /* CUTEPermissionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C744C6D1BBCCA25000198F1 /* CUTEPermissionChecker.swift */; settings = {ASSET_TAGS = (); }; };
+		2C744C701BBCCA25000198F1 /* CUTEPermissionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C744C6D1BBCCA25000198F1 /* CUTEPermissionChecker.swift */; settings = {ASSET_TAGS = (); }; };
+		2C744C711BBCCA25000198F1 /* CUTEPermissionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C744C6D1BBCCA25000198F1 /* CUTEPermissionChecker.swift */; settings = {ASSET_TAGS = (); }; };
 		2C7520431ACA775C0008B42A /* CUTEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7520421ACA775C0008B42A /* CUTEViewController.m */; };
 		2C7520441ACA775C0008B42A /* CUTEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7520421ACA775C0008B42A /* CUTEViewController.m */; };
 		2C7520451ACA775C0008B42A /* CUTEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7520421ACA775C0008B42A /* CUTEViewController.m */; };
@@ -922,6 +926,7 @@
 		2C6D7B171B428E49007853FD /* CUTEApplyBetaUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEApplyBetaUITest.m; sourceTree = "<group>"; };
 		2C6D7B1C1B428F25007853FD /* KIFUITestActor+SplashUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFUITestActor+SplashUI.h"; sourceTree = "<group>"; };
 		2C6D7B1D1B428F25007853FD /* KIFUITestActor+SplashUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+SplashUI.m"; sourceTree = "<group>"; };
+		2C744C6D1BBCCA25000198F1 /* CUTEPermissionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEPermissionChecker.swift; sourceTree = "<group>"; };
 		2C7520411ACA775C0008B42A /* CUTEViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEViewController.h; sourceTree = "<group>"; };
 		2C7520421ACA775C0008B42A /* CUTEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEViewController.m; sourceTree = "<group>"; };
 		2C79C2B61ACA5725000E7F67 /* NSURL+CUTE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+CUTE.h"; sourceTree = "<group>"; };
@@ -1524,6 +1529,7 @@
 				2CC4525C1B2711770004AE54 /* CUTEAddressUtil.m */,
 				2C86D4201B7307DD00A4DD1D /* CUTEPhoneUtil.h */,
 				2C86D4211B7307DD00A4DD1D /* CUTEPhoneUtil.m */,
+				2C744C6D1BBCCA25000198F1 /* CUTEPermissionChecker.swift */,
 				2C9F1CFA1B3961400034487F /* CUTEUserAgentUtil.h */,
 				2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */,
 				2C4A13AE1B5E5CF600FA9F99 /* CUTEStringMatcher.h */,
@@ -2680,6 +2686,7 @@
 				2CA81F791B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */,
 				2C79C2BA1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2CC3A07E1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
+				2C744C701BBCCA25000198F1 /* CUTEPermissionChecker.swift in Sources */,
 				2CB66C201AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2C07AB8C1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2C056D7B1B423ABD0075037A /* CUTERentContactDisplaySettingForm.m in Sources */,
@@ -2840,6 +2847,7 @@
 				2CA81F7A1B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */,
 				2C79C2BB1ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2CC3A07F1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
+				2C744C711BBCCA25000198F1 /* CUTEPermissionChecker.swift in Sources */,
 				2CB66C211AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2C07AB8D1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2C056D7C1B423ABD0075037A /* CUTERentContactDisplaySettingForm.m in Sources */,
@@ -3000,6 +3008,7 @@
 				2CA81F781B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */,
 				2C79C2B91ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2CC3A07D1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
+				2C744C6F1BBCCA25000198F1 /* CUTEPermissionChecker.swift in Sources */,
 				2CB66C1F1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2C07AB8B1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2C056D7A1B423ABD0075037A /* CUTERentContactDisplaySettingForm.m in Sources */,
@@ -3160,6 +3169,7 @@
 				2CA81F771B0C73EB006E993C /* UITabBarController+HideTabBar.m in Sources */,
 				2C79C2B81ACA5725000E7F67 /* NSURL+CUTE.m in Sources */,
 				2CC3A07C1AF8D90E008C9AC8 /* NSURL+QueryParser.m in Sources */,
+				2C744C6E1BBCCA25000198F1 /* CUTEPermissionChecker.swift in Sources */,
 				2CB66C1E1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */,
 				2C07AB8A1AE8FF6600907075 /* UIView+Border.m in Sources */,
 				2C056D791B423ABD0075037A /* CUTERentContactDisplaySettingForm.m in Sources */,

@@ -14,11 +14,11 @@
 
 + (instancetype)sharedInstance;
 
-- (BOOL)isURLLoginRequired:(NSURL *)url;
-
-- (BOOL)isURLNeedRefreshContentWhenUserChange:(NSURL *)url;
-
-- (NSURL *)getRedirectToLoginURLFromURL:(NSURL *)url;
+//- (BOOL)isURLLoginRequired:(NSURL *)url;
+//
+//- (BOOL)isURLNeedRefreshContentWhenUserChange:(NSURL *)url;
+//
+//- (NSURL *)getRedirectToLoginURLFromURL:(NSURL *)url;
 
 - (BBTWebBarButtonItem *)getRightBarItemFromURL:(NSURL *)url;
 

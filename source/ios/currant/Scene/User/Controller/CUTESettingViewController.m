@@ -19,6 +19,7 @@
 #import "CUTEWebArchiveManager.h"
 #import "CUTELocalizationSwitcher.h"
 #import "CUTENavigationUtil.h"
+#import "currant-Swift.h"
 
 
 @interface CUTESettingViewController ()
@@ -61,7 +62,7 @@
 
 - (void)onHelpPressed:(id)sender {
     CUTEWebViewController *newWebViewController = [[CUTEWebViewController alloc] init];
-    newWebViewController.url = [NSURL URLWithString:@"/qa-app" relativeToURL:[CUTEConfiguration hostURL]];
+    newWebViewController.url = [CUTEPermissionChecker URLWithPath:@"/qa-app"];
     newWebViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:newWebViewController animated:YES];
     [newWebViewController loadRequest:[NSURLRequest requestWithURL:newWebViewController.url]];

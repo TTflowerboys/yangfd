@@ -19,6 +19,7 @@
 #import <NSObject+Attachment.h>
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTEUsageRecorder.h"
+#import "currant-Swift.h"
 
 @implementation CUTERentMapListViewController
 
@@ -143,7 +144,7 @@
 
 - (void)calloutViewClicked:(SMCalloutView *)calloutView {
     CUTETicket *ticekt = calloutView.attachment;
-    NSURL *url = [NSURL WebURLWithString:CONCAT(@"/property-to-rent/", ticekt.identifier)];
+    NSURL *url = [CUTEPermissionChecker URLWithPath:CONCAT(@"/property-to-rent/", ticekt.identifier)];
 
     [[self navigationController] setNavigationBarHidden:NO animated:NO];
     [[CUTEUsageRecorder sharedInstance] saveVisitedTicketWithId:ticekt.identifier];

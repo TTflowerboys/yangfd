@@ -26,6 +26,7 @@
 #import "NSArray+ObjectiveSugar.h"
 #import "CUTEHouseType.h"
 #import "UIAlertView+Blocks.h"
+#import "currant-Swift.h"
 
 @implementation CUTEPropertyMapListViewController
 
@@ -157,7 +158,7 @@
 
 - (void)calloutViewClicked:(SMCalloutView *)calloutView {
     CUTEProperty *property = calloutView.attachment;
-    NSURL *url = [NSURL WebURLWithString:CONCAT(@"/property/", property.identifier)];
+    NSURL *url = [CUTEPermissionChecker URLWithPath:CONCAT(@"/property/", property.identifier)];
 
     [[self navigationController] setNavigationBarHidden:NO animated:NO];
     TrackEvent(GetScreenName(self.url), kEventActionPress, GetScreenName(url), nil);
