@@ -8,7 +8,7 @@
 
 import Foundation
 
-
+//Knwon Issues: Everty time the web resource build will trigger the jspatch file moved, so the may the file content not really change only the file copy to path again
 class CUTEPatcher : NSObject {
 
     static let sharedInstance = CUTEPatcher.init()
@@ -21,8 +21,9 @@ class CUTEPatcher : NSObject {
         let resPrefix = NSBundle.mainBundle().objectForInfoDictionaryKey("CurrantiOSResourcesPath") as! String
         let version = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
         let URLString = resPrefix + version + ".jspatch"
-        let request = NSMutableURLRequest(URL: NSURL(string: URLString)!)
-        request.timeoutInterval = 10 //10 seconds
+
+        //http://stackoverflow.com/questions/27048162/ios-send-if-modified-since-header-with-request
+        let request = NSMutableURLRequest(URL: NSURL(string: URLString)!, cachePolicy:NSURLRequestCachePolicy.ReloadIgnoringCacheData, timeoutInterval:60.0)
 
         var lastModifiedDate:String?
 
