@@ -888,7 +888,7 @@ angular.module('app')
             })
             .state('dashboard.appversion.edit', {
                 url: '/:id/edit',
-                templateUrl: '/static/admin/templates/dashboard.appversion.create.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.appversion.edit.tpl.html',
                 controller: 'ctrlEdit',
                 resolve: {
                     api: function (appversionApi) {
