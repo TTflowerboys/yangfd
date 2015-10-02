@@ -65,39 +65,44 @@
 
     <div class="col-sm-10">
 
-        <ul class="nav nav-tabs" id="userInfoTab">
-            <li ng-class="{active:$state.includes('dashboard.users.detail.favs')}">
-                <a style="cursor: pointer;" ui-sref=".favs">{%$root.i18n('收藏房产')%}</a>
-            </li>
-            <li ng-class="{active:$state.includes('dashboard.users.detail.intentions')}">
-                <a style="cursor: pointer;" ui-sref=".intentions"><span>{%$root.i18n('投资意向单')%}</span>{%item.counter.intention+1 === 1? '':'('+item.counter.intention+')'%}</a>
-            </li>
-            <li ng-class="{active:$state.includes('dashboard.users.detail.boughts')}">
-                <a style="cursor: pointer;" ui-sref=".boughts">{%$root.i18n('已购房产')%}</a>
-            </li>
-            <li ng-class="{active:$state.includes('dashboard.users.detail.supports')}">
-                <a style="cursor: pointer;" ui-sref=".supports"><span>{%$root.i18n('客服单')%}</span>{%item.counter.support+1 === 1? '':'('+item.counter.support+')'%}</a>
-            </li>
-            <li ng-class="{active:$state.includes('dashboard.users.detail.logs_property')}">
-                <a style="cursor: pointer;" ui-sref=".logs_property">{%$root.i18n('售房浏览记录')%}</a>
-            </li>
-            <li ng-class="{active:$state.includes('dashboard.users.detail.logs_rent')}">
-                <a style="cursor: pointer;" ui-sref=".logs_rent">{%$root.i18n('租房浏览记录')%}</a>
-            </li>
-            <li ng-class="{active:$state.includes('dashboard.users.detail.orders')}">
-                <a style="cursor: pointer;" ui-sref=".orders">{%$root.i18n('众筹订单')%}</a>
-            </li>
-            <li ng-class="{active:$state.includes('dashboard.users.detail.properties')}">
-                <a style="cursor: pointer;" ui-sref=".properties">{%$root.i18n('发布的房产')%}</a>
-            </li>
-            <li ng-class="{active:$state.includes('dashboard.users.detail.rent_intentions')}">
-                <a style="cursor: pointer;" ui-sref=".rent_intentions">{%$root.i18n('求租意向单')%}</a>
-            </li>
-            <li ng-class="{active:$state.includes('dashboard.users.detail.view_contact_info_properties')}">
-                <a style="cursor: pointer;" ui-sref=".view_contact_info_properties">{%$root.i18n('查看过联系方式的房产')%}</a>
-            </li>
-        </ul>
+        <div scrolling-tabs-wrapper>
+            <ul class="nav nav-tabs" id="userInfoTab">
+                <li ng-class="{active:$state.includes('dashboard.users.detail.logs_rent')}">
+                    <a style="cursor: pointer;" ui-sref=".logs_rent">{%$root.i18n('租房浏览记录')%}</a>
+                </li>
+                <li ng-class="{active:$state.includes('dashboard.users.detail.favs')}">
+                    <a style="cursor: pointer;" ui-sref=".favs">{%$root.i18n('收藏房产')%}</a>
+                </li>
+                <li ng-class="{active:$state.includes('dashboard.users.detail.rent_intentions')}">
+                    <a style="cursor: pointer;" ui-sref=".rent_intentions">{%$root.i18n('求租意向单')%}</a>
+                </li>
+                <li ng-class="{active:$state.includes('dashboard.users.detail.view_contact_info_properties')}">
+                    <a style="cursor: pointer;" ui-sref=".view_contact_info_properties">{%$root.i18n('查看过联系方式的房产')%}</a>
+                </li>
+                <li ng-class="{active:$state.includes('dashboard.users.detail.properties')}">
+                    <a style="cursor: pointer;" ui-sref=".properties">{%$root.i18n('发布的房产')%}</a>
+                </li>
 
+                <li ng-class="{active:$state.includes('dashboard.users.detail.logs_property')}">
+                    <a style="cursor: pointer;" ui-sref=".logs_property">{%$root.i18n('售房浏览记录')%}</a>
+                </li>
+                <li ng-class="{active:$state.includes('dashboard.users.detail.intentions')}">
+                    <a style="cursor: pointer;" ui-sref=".intentions"><span>{%$root.i18n('投资意向单')%}</span>{%item.counter.intention+1 === 1? '':'('+item.counter.intention+')'%}</a>
+                </li>
+                <li ng-class="{active:$state.includes('dashboard.users.detail.boughts')}">
+                    <a style="cursor: pointer;" ui-sref=".boughts">{%$root.i18n('已购房产')%}</a>
+                </li>
+                <li ng-class="{active:$state.includes('dashboard.users.detail.supports')}">
+                    <a style="cursor: pointer;" ui-sref=".supports"><span>{%$root.i18n('客服单')%}</span>{%item.counter.support+1 === 1? '':'('+item.counter.support+')'%}</a>
+                </li>
+                <li ng-class="{active:$state.includes('dashboard.users.detail.orders')}">
+                    <a style="cursor: pointer;" ui-sref=".orders">{%$root.i18n('众筹订单')%}</a>
+                </li>
+
+
+
+            </ul>
+        </div>
         <div style="min-height: 600px;" ui-view></div>
     </div>
     <!--/col-->
