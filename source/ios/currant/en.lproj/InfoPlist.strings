@@ -6,8 +6,8 @@
   Copyright © 2015 Foster Yin. All rights reserved.
 */
 
-"CFBundleDisplayName" = "洋房东";
-"CFBundleName" = "洋房东";
+"CFBundleDisplayName" = "YoungFunding Property";
+"CFBundleName" = "YoungFunding Property";
 
 "NSLocationAlwaysUsageDescription" = "App needs to use your location";
 "NSLocationUsageDescription" = "App needs to use your location";
