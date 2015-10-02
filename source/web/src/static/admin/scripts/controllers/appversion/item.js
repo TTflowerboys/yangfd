@@ -18,16 +18,16 @@
         }
 
         function updateReleaseList (parentList) {
-            $scope.releaseList = _.map(_.filter(parentList, function (val) {
-                return val.platform === 'ios'
+            $scope.releaseList = _.uniq(_.map(_.filter(parentList, function (val) {
+                return val.release && val.release.length
             }), function (val) {
-                return val.version_name
-            })
+                return val.release
+            }))
         }
 
         appversionApi.getAll({
             params:{
-                'platform': 'ios'
+                'platform': 'ios_jspatch'
             }
         })
             .success(function (data) {
