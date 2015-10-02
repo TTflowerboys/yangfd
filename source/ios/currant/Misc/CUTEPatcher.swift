@@ -130,8 +130,10 @@ class CUTEPatcher : NSObject {
                     let pass = "OG> t[*['sL;[^R%/" + "1$K!yMLuDc$ou"
                     let decryptedData = try RNDecryptor.decryptData(data, withPassword:pass)
                     if let content = NSString(data: decryptedData, encoding: NSUTF8StringEncoding) {
-                        JPEngine.startEngine()
-                        JPEngine.evaluateScript(content as String)
+                        dispatch_async(dispatch_get_main_queue(), {
+                            JPEngine.startEngine()
+                            JPEngine.evaluateScript(content as String)
+                        })
                     }
                 }
                 catch let error as NSError {
