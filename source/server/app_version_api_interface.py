@@ -8,6 +8,7 @@ from libfelix.f_interface import f_api
     version=(int, True),
     channel=(str, "dev"),
     platform=(str, True),
+    release=str,
 ))
 def app_version_check_update(app, params):
     params["app"] = app
@@ -21,6 +22,7 @@ def app_version_check_update(app, params):
     channel=(str, "dev"),
     url=str,
     platform=(str, True),
+    release=str,
 ))
 @f_app.user.login.check(role=['admin'])
 def app_version_add(app, user, params):
@@ -46,6 +48,7 @@ def app_version_get(app, user, version_id):
     status=str,
     url=str,
     platform=str,
+    release=str,
 ))
 @f_app.user.login.check(role=['admin'])
 def app_version_update(app, version_id, user, params):
@@ -58,6 +61,7 @@ def app_version_update(app, version_id, user, params):
 @f_api("/app/<app>/version", params=dict(
     platform=str,
     channel=str,
+    release=str,
 ))
 @f_app.user.login.check(role=['admin'])
 def app_version_search(app, params, user):
