@@ -137,7 +137,7 @@
                     <label class="publishDate">
                         % if last_modified_time - publish_time > 1000 :
                         %string = """<span>""" + str(last_modified_time) + """</span>"""
-                        {{!_('%s更新过' %string)}}
+                        {{!_('%s更新过') %string}}
                         % else:
                         %string = """<span>""" + str(publish_time) + """</span>"""
                         {{!_('%s发布') %string}}
@@ -405,7 +405,7 @@
             <label class="publishDate">
                 % if last_modified_time - publish_time > 1000 :
                 %string = """<span>""" + str(last_modified_time) + """</span>"""
-                {{!_('%s更新过' %string)}}
+                {{!_('%s更新过') %string}}
                 % else:
                 %string = """<span>""" + str(publish_time) + """</span>"""
                 {{!_('%s发布') %string}}

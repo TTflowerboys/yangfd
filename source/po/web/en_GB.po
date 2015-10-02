@@ -5353,7 +5353,7 @@ msgstr "Revert"
 #: ../web/src/partials/i18n.html:451
 #, python-format
 msgid "%s更新过"
-msgstr "updated %s ago"
+msgstr "updated %s"
 
 #: ../web/src/partials/i18n.html:452
 #, python-format
