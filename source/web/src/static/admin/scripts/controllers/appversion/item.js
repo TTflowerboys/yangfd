@@ -24,18 +24,24 @@
                 return val.version_name
             })
         }
-        if($scope.$parent.list && $scope.$parent.list.length) {
-            updateReleaseList($scope.$parent.list)
-        } else {
-            appversionApi.getAll({
-                params:{
-                    'platform': 'ios'
-                }
+
+        appversionApi.getAll({
+            params:{
+                'platform': 'ios'
+            }
+        })
+            .success(function (data) {
+                updateReleaseList(data.val)
             })
-                .success(function (data) {
-                    updateReleaseList(data.val)
-                })
-        }
+
+        $scope.selected = {}
+        $scope.selected.per_page = 12
+
+        $scope.$watch(function () {
+            return [$scope.selected.platform, $scope.selected.release].join(',')
+        }, function () {
+            $scope.$parent.refreshListByPrams($scope.selected)
+        })
 
     }
 

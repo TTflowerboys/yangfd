@@ -21,6 +21,10 @@
             api.getAll({params: params}).success(onGetList)
         }
 
+        $scope.refreshListByPrams = function (outerParams) {
+            params = _.extend({}, outerParams)
+            api.getAll({params: params}).success(onGetList)
+        }
         $scope.onRemove = function (item) {
             fctModal.show('Do you want to remove it?', undefined, function () {
                 api.remove(item.id).success(function () {
