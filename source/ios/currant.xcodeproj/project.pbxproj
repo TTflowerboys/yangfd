@@ -318,6 +318,10 @@
 		2C96E28C1AE89D9B00F3590C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C96E2881AE89D7E00F3590C /* JavaScriptCore.framework */; };
 		2C974CB11B4FC81200E6739D /* KIFTestActor+OHHttpStubs.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C974CB01B4FC81200E6739D /* KIFTestActor+OHHttpStubs.m */; };
 		2C974CB41B4FC94B00E6739D /* login.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C974CB31B4FC94B00E6739D /* login.json */; };
+		2C97A8541BBE8381006F6F6D /* NSString+QueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C97A8531BBE8381006F6F6D /* NSString+QueryParser.m */; settings = {ASSET_TAGS = (); }; };
+		2C97A8551BBE8381006F6F6D /* NSString+QueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C97A8531BBE8381006F6F6D /* NSString+QueryParser.m */; settings = {ASSET_TAGS = (); }; };
+		2C97A8561BBE8381006F6F6D /* NSString+QueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C97A8531BBE8381006F6F6D /* NSString+QueryParser.m */; settings = {ASSET_TAGS = (); }; };
+		2C97A8571BBE8381006F6F6D /* NSString+QueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C97A8531BBE8381006F6F6D /* NSString+QueryParser.m */; settings = {ASSET_TAGS = (); }; };
 		2C9AFF701AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
 		2C9AFF711AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
 		2C9AFF721AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
@@ -942,6 +946,8 @@
 		2C974CAF1B4FC81200E6739D /* KIFTestActor+OHHttpStubs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFTestActor+OHHttpStubs.h"; sourceTree = "<group>"; };
 		2C974CB01B4FC81200E6739D /* KIFTestActor+OHHttpStubs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFTestActor+OHHttpStubs.m"; sourceTree = "<group>"; };
 		2C974CB31B4FC94B00E6739D /* login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login.json; sourceTree = "<group>"; };
+		2C97A8521BBE8381006F6F6D /* NSString+QueryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+QueryParser.h"; sourceTree = "<group>"; };
+		2C97A8531BBE8381006F6F6D /* NSString+QueryParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+QueryParser.m"; sourceTree = "<group>"; };
 		2C9AFF6E1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormFixNonBreakingSpaceTextFieldCell.h; sourceTree = "<group>"; };
 		2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormFixNonBreakingSpaceTextFieldCell.m; sourceTree = "<group>"; };
 		2C9AFF751AF2335900E5F0BC /* CUTEWebConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEWebConfiguration.h; sourceTree = "<group>"; };
@@ -1548,6 +1554,8 @@
 				2CC6C1DC1AEE255A002758A7 /* NSURL+Assets.m */,
 				2CC3A07A1AF8D90E008C9AC8 /* NSURL+QueryParser.h */,
 				2CC3A07B1AF8D90E008C9AC8 /* NSURL+QueryParser.m */,
+				2C97A8521BBE8381006F6F6D /* NSString+QueryParser.h */,
+				2C97A8531BBE8381006F6F6D /* NSString+QueryParser.m */,
 				2CAA851E1AEA65CC00432BF1 /* NSString+Encoding.h */,
 				2CAA851F1AEA65CC00432BF1 /* NSString+Encoding.m */,
 				2CC6C1CD1AEE03D7002758A7 /* UIImageView+Assets.h */,
@@ -2603,6 +2611,7 @@
 				2CA81F801B0CA543006E993C /* CUTEHouseType.m in Sources */,
 				2CA81F711B0B5621006E993C /* MemoryReporter.m in Sources */,
 				2C3DE25B1B07448F006FF191 /* BBTPagingView.m in Sources */,
+				2C97A8561BBE8381006F6F6D /* NSString+QueryParser.m in Sources */,
 				2CF8A67F1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9D1AD37D34000378A9 /* CUTETicket.m in Sources */,
@@ -2764,6 +2773,7 @@
 				2CA81F811B0CA543006E993C /* CUTEHouseType.m in Sources */,
 				2CA81F721B0B5621006E993C /* MemoryReporter.m in Sources */,
 				2C3DE25C1B07448F006FF191 /* BBTPagingView.m in Sources */,
+				2C97A8571BBE8381006F6F6D /* NSString+QueryParser.m in Sources */,
 				2CF8A6801AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E2A1ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9E1AD37D34000378A9 /* CUTETicket.m in Sources */,
@@ -2925,6 +2935,7 @@
 				2CA81F7F1B0CA543006E993C /* CUTEHouseType.m in Sources */,
 				2CA81F701B0B5621006E993C /* MemoryReporter.m in Sources */,
 				2C3DE25A1B07448F006FF191 /* BBTPagingView.m in Sources */,
+				2C97A8551BBE8381006F6F6D /* NSString+QueryParser.m in Sources */,
 				2CF8A67E1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */,
 				2C427E9C1AD37D34000378A9 /* CUTETicket.m in Sources */,
@@ -3086,6 +3097,7 @@
 				2C3DE2591B07448F006FF191 /* BBTPagingView.m in Sources */,
 				2CF8A67D1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
 				2C401E271ACB9CE100613093 /* ObjectUtil.c in Sources */,
+				2C97A8541BBE8381006F6F6D /* NSString+QueryParser.m in Sources */,
 				2C427E9B1AD37D34000378A9 /* CUTETicket.m in Sources */,
 				2C1A95E11B75A73200483A74 /* CUTERentPassword2Form.m in Sources */,
 				2CCE67FB1B1C397E00351DED /* CUTEListViewController.m in Sources */,

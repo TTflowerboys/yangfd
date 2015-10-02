@@ -13,71 +13,107 @@ class CUTEPatcher : NSObject {
 
     static let sharedInstance = CUTEPatcher.init()
 
-    private static func downloadPatch() -> BFTask {
-//        let startDate = NSDate()
+    private static func checkUpdate() -> BFTask {
         let tcs = BFTaskCompletionSource()
-        let libraryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true).first
 
-        let resPrefix = NSBundle.mainBundle().objectForInfoDictionaryKey("CurrantiOSResourcesPath") as! String
-        let version = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
-        let URLString = resPrefix + version + ".jspatch"
+        let appInfo:[String:AnyObject] = NSBundle.mainBundle().infoDictionary!
+        let buildNumber = appInfo["CFBundleVersion"] as! String
+        let channel = appInfo["CurrantChannel"] as! String
+        let releaseVersion = appInfo["CFBundleShortVersionString"] as! String
 
-        //http://stackoverflow.com/questions/27048162/ios-send-if-modified-since-header-with-request
-        let request = NSMutableURLRequest(URL: NSURL(string: URLString)!, cachePolicy:NSURLRequestCachePolicy.ReloadIgnoringCacheData, timeoutInterval:60.0)
+        let URLString = "/api/1/app/currant/check_update".stringByAppendingQueryDictionary(["version":buildNumber,
+            "platform": "ios_jspatch",
+            "channel": channel,
+            "release": releaseVersion,
+            ])
 
-        var lastModifiedDate:String?
-
-        let filePath = libraryPath! + "/" + version + ".jspatch"
-        do {
-
-            if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
-                let attributes:NSDictionary = try NSFileManager.defaultManager().attributesOfItemAtPath(filePath)
-                if let date = attributes.fileModificationDate() {
-                    lastModifiedDate = date.RFC1123String()
-                }
-            }
-        }
-        catch let error as NSError{
-            print(error.localizedDescription)
-        }
-
-        if lastModifiedDate != nil {
-            request.setValue(lastModifiedDate, forHTTPHeaderField: "If-Modified-Since")
-        }
-
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {(let data, let resp, let error) in
-            if data != nil {
+        let URL = NSURL(string: URLString, relativeToURL: CUTEConfiguration.hostURL())
+        let task = NSURLSession.sharedSession().dataTaskWithURL(URL!) { (data, resp, error) -> Void in
+            if let jsonData = data {
                 if let response = resp as? NSHTTPURLResponse {
                     if response.statusCode == 200 {
-                        //save to file
                         do {
-                            try data?.writeToFile(filePath, options: NSDataWritingOptions.DataWritingAtomic)
-                            if let newLastModified:String = response.allHeaderFields["Last-Modified"] as? String {
-                                if  let date = NSDate.dateFromRFC1123(newLastModified) {
-                                    let attr:Dictionary<String, AnyObject> = [NSFileModificationDate:date]
-                                    try NSFileManager.defaultManager().setAttributes(attr, ofItemAtPath: filePath)
+                            let result = try NSJSONSerialization .JSONObjectWithData(jsonData, options: NSJSONReadingOptions(rawValue: 0))
+                            if let dic = result as? Dictionary<String, AnyObject> {
+                                if dic["ret"] != nil {
+                                    if let retNum = dic["ret"] as? NSNumber  {
+                                        if retNum.intValue == 0 {
+                                            if let val = dic["val"] {
+                                                if let hasUpdate = val["update"] as? NSNumber {
+                                                    if hasUpdate.intValue > 0 {
+                                                        if let lastestVersion = val["latest_version"] as? Dictionary<String, AnyObject> {
+                                                            if let release = lastestVersion["release"] as? String {
+                                                                if releaseVersion == release {
+                                                                    if let url = lastestVersion["url"] as? String {
+                                                                        tcs.setResult(url)
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
-                        catch let error as NSError{
+                        catch let error as NSError {
                             print(error.localizedDescription)
-                        }
-
-                        tcs.setResult(data)
-                    }
-                    else if response.statusCode == 304 {
-                        //read local file
-                        if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
-                            let localData = NSData(contentsOfFile: filePath)
-                            tcs.setResult(localData)
                         }
                     }
                 }
             }
-        })
 
-
+        }
         task.resume()
+
+        return tcs.task
+    }
+
+    private static func downloadPatch() -> BFTask {
+//        let startDate = NSDate()
+        let tcs = BFTaskCompletionSource()
+
+        checkUpdate().continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
+            if let URLString = task.result as? String {
+                if let fileName = URLString.componentsSeparatedByString("/").last {
+                    let libraryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true).first
+
+                    let filePath = libraryPath! + "/" + fileName
+                    if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
+                        let localData = NSData(contentsOfFile: filePath)
+                        tcs.setResult(localData)
+                    }
+                    else {
+                        let request = NSMutableURLRequest(URL: NSURL(string: URLString)!)
+
+                        let URLTask = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {(let data, let resp, let error) in
+                            if data != nil {
+                                if let response = resp as? NSHTTPURLResponse {
+                                    if response.statusCode == 200 {
+                                        //save to file
+                                        do {
+                                            try data?.writeToFile(filePath, options: NSDataWritingOptions.DataWritingAtomic)
+                                        }
+                                        catch let error as NSError{
+                                            print(error.localizedDescription)
+                                        }
+
+                                        tcs.setResult(data)
+                                    }
+                                }
+                            }
+                        })
+
+                        URLTask.resume()
+
+                    }
+                }
+            }
+            return task
+        }
+
 
 //        let endDate = NSDate()
 //        let duration = endDate.timeIntervalSinceDate(startDate)
@@ -90,11 +126,11 @@ class CUTEPatcher : NSObject {
         return downloadPatch().continueWithBlock({ (task:BFTask!) -> BFTask! in
             if task.result != nil {
                 do {
-                    JPEngine.startEngine()
                     let data = task.result as! NSData
                     let pass = "OG> t[*['sL;[^R%/" + "1$K!yMLuDc$ou"
                     let decryptedData = try RNDecryptor.decryptData(data, withPassword:pass)
                     if let content = NSString(data: decryptedData, encoding: NSUTF8StringEncoding) {
+                        JPEngine.startEngine()
                         JPEngine.evaluateScript(content as String)
                     }
                 }

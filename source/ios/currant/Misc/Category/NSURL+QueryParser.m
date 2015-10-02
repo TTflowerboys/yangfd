@@ -7,6 +7,7 @@
 //
 
 #import "NSURL+QueryParser.h"
+#import "NSString+Encoding.h"
 
 @implementation NSURL (QueryParser)
 

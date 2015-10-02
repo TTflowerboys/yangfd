@@ -26,6 +26,7 @@
 #import <HHRouter.h>
 #import <Base64.h>
 #import "NSString+Encoding.h"
+#import "NSString+QueryParser.h"
 #import <JPEngine.h>
 #import <RNDecryptor.h>
 
