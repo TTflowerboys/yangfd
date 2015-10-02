@@ -64,7 +64,7 @@
 #import <NSArray+ObjectiveSugar.h>
 #import "currant-Swift.h"
 #import <Base64.h>
-#import <JPEngine.h>
+//#import <JPEngine.h>
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
