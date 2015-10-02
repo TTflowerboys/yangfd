@@ -34,7 +34,7 @@
                             {_}_}
                         </a>
                         <div class="imgAction_wrapper">
-                            {_if(!window.team.isCurrantClient()) {_}
+                            {_if(!window.team.isCurrantClient() && rent.status !== 'draft') {_}
                             <a class="wechatShare imgAction" data-id="{=rent.id=}" data-need-bridge><i class="icon-wechat"></i></a>
                             {_}_}
                             <i id='remove' data-id="{=rent.id=}" class="imgAction icon-delete" data-need-bridge></i>
