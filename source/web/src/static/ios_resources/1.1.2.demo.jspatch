@@ -3,3 +3,14 @@ defineClass("AppDelegate", {
 }, {
 
 })
+
+var alertView = require('UIAlertView')
+      .alloc()
+      .initWithTitle_message_delegate_cancelButtonTitle_otherButtonTitles(
+        "Alert Test",
+        "JSPatch work!", 
+        null, 
+        "OK", 
+        null
+      )
+     alertView.show()

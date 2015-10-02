@@ -322,6 +322,10 @@
 		2C97A8551BBE8381006F6F6D /* NSString+QueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C97A8531BBE8381006F6F6D /* NSString+QueryParser.m */; settings = {ASSET_TAGS = (); }; };
 		2C97A8561BBE8381006F6F6D /* NSString+QueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C97A8531BBE8381006F6F6D /* NSString+QueryParser.m */; settings = {ASSET_TAGS = (); }; };
 		2C97A8571BBE8381006F6F6D /* NSString+QueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C97A8531BBE8381006F6F6D /* NSString+QueryParser.m */; settings = {ASSET_TAGS = (); }; };
+		2C97A8591BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */ = {isa = PBXBuildFile; fileRef = 2C97A8581BBE9995006F6F6D /* JSPatchTest.jspatch */; settings = {ASSET_TAGS = (); }; };
+		2C97A85A1BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */ = {isa = PBXBuildFile; fileRef = 2C97A8581BBE9995006F6F6D /* JSPatchTest.jspatch */; settings = {ASSET_TAGS = (); }; };
+		2C97A85B1BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */ = {isa = PBXBuildFile; fileRef = 2C97A8581BBE9995006F6F6D /* JSPatchTest.jspatch */; settings = {ASSET_TAGS = (); }; };
+		2C97A85C1BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */ = {isa = PBXBuildFile; fileRef = 2C97A8581BBE9995006F6F6D /* JSPatchTest.jspatch */; settings = {ASSET_TAGS = (); }; };
 		2C9AFF701AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
 		2C9AFF711AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
 		2C9AFF721AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
@@ -948,6 +952,7 @@
 		2C974CB31B4FC94B00E6739D /* login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login.json; sourceTree = "<group>"; };
 		2C97A8521BBE8381006F6F6D /* NSString+QueryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+QueryParser.h"; sourceTree = "<group>"; };
 		2C97A8531BBE8381006F6F6D /* NSString+QueryParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+QueryParser.m"; sourceTree = "<group>"; };
+		2C97A8581BBE9995006F6F6D /* JSPatchTest.jspatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JSPatchTest.jspatch; sourceTree = "<group>"; };
 		2C9AFF6E1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormFixNonBreakingSpaceTextFieldCell.h; sourceTree = "<group>"; };
 		2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormFixNonBreakingSpaceTextFieldCell.m; sourceTree = "<group>"; };
 		2C9AFF751AF2335900E5F0BC /* CUTEWebConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEWebConfiguration.h; sourceTree = "<group>"; };
@@ -1665,6 +1670,7 @@
 			children = (
 				2CAA1D3B1BA2B29B00662BFC /* currant-Bridging-Header.h */,
 				2CF234821B55198500B516E6 /* GoogleService-Info.plist */,
+				2C97A8581BBE9995006F6F6D /* JSPatchTest.jspatch */,
 				2CE2A9971B6F1C000089ED20 /* contact-blacklist.csv */,
 				2CB43DAD1ABC1372004DF663 /* Info.plist */,
 				2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */,
@@ -2217,6 +2223,7 @@
 				2CB66C261AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4161AE242F300E61BBA /* Localizable.strings in Resources */,
 				2CAA1D491BA2D1C100662BFC /* routes.plist in Resources */,
+				2C97A85B1BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */,
 				2CE2A99A1B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2232,6 +2239,7 @@
 				2CB66C271AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4171AE242F400E61BBA /* Localizable.strings in Resources */,
 				2CAA1D4A1BA2D1C100662BFC /* routes.plist in Resources */,
+				2C97A85C1BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */,
 				2CE2A99B1B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2247,6 +2255,7 @@
 				2CB66C251AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4151AE242F200E61BBA /* Localizable.strings in Resources */,
 				2CAA1D481BA2D1C100662BFC /* routes.plist in Resources */,
+				2C97A85A1BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */,
 				2CE2A9991B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2262,6 +2271,7 @@
 				2CB66C241AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4141AE242EE00E61BBA /* Localizable.strings in Resources */,
 				2CAA1D471BA2D1C100662BFC /* routes.plist in Resources */,
+				2C97A8591BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */,
 				2CE2A9981B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

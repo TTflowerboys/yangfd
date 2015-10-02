@@ -64,6 +64,7 @@
 #import <NSArray+ObjectiveSugar.h>
 #import "currant-Swift.h"
 #import <Base64.h>
+#import <JPEngine.h>
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
@@ -162,6 +163,10 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+//    [JPEngine startEngine];
+//    [JPEngine evaluateScriptWithPath:[[NSBundle mainBundle] pathForResource:@"JSPatchTest" ofType:@"jspatch"]];
+
     [CUTEPatcher patch];
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
