@@ -16,12 +16,24 @@
                 </select>
             </div>
         </div>
-        <div class="form-group col-sm-6 ">
+        <div class="form-group  " ng-class="{
+            'col-sm-3': item.platform === 'ios_jspatch',
+            'col-sm-6': item.platform !== 'ios_jspatch',
+        }">
             <label class="control-label">{%$root.i18n('channel')%} *</label>
 
             <div class="controls">
                 <select class="form-control" ng-options="p for p in ['dev', 'test', 'production']" ng-model="item.channel">
                     <option value="">-- {%$root.i18n('请选择channel')%} --</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-sm-3" ng-if="item.platform==='ios_jspatch'">
+            <label class="control-label">{%$root.i18n('release')%} *</label>
+
+            <div class="controls">
+                <select class="form-control" ng-options="p for p in releaseList" ng-model="item.release">
+                    <option value="">-- {%$root.i18n('请选择release')%} --</option>
                 </select>
             </div>
         </div>
