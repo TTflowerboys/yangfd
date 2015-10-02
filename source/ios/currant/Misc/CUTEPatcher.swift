@@ -13,7 +13,7 @@ class CUTEPatcher : NSObject {
 
     static let sharedInstance = CUTEPatcher.init()
 
-    private static func downloadPatch() throws -> BFTask {
+    private static func downloadPatch() -> BFTask {
 //        let startDate = NSDate()
         let tcs = BFTaskCompletionSource()
         let libraryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true).first
@@ -28,54 +28,66 @@ class CUTEPatcher : NSObject {
         var lastModifiedDate:String?
 
         let filePath = libraryPath! + "/" + version + ".jspatch"
-        if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
-            let attributes:NSDictionary = try NSFileManager.defaultManager().attributesOfItemAtPath(filePath)
-            if let date = attributes.fileModificationDate() {
-                lastModifiedDate = date.RFC1123String()
+        do {
+
+            if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
+                let attributes:NSDictionary = try NSFileManager.defaultManager().attributesOfItemAtPath(filePath)
+                if let date = attributes.fileModificationDate() {
+                    lastModifiedDate = date.RFC1123String()
+                }
             }
+        }
+        catch let error as NSError{
+            print(error.localizedDescription)
         }
 
         if lastModifiedDate != nil {
             request.setValue(lastModifiedDate, forHTTPHeaderField: "If-Modified-Since")
         }
 
-        var resp:NSURLResponse?
-
-        var data:NSData? = nil
-
-        try data = NSURLConnection.sendSynchronousRequest(request, returningResponse: &resp)
-
-        if data != nil {
-            if let response = resp as? NSHTTPURLResponse {
-                if response.statusCode == 200 {
-                    //save to file
-                    try data?.writeToFile(filePath, options: NSDataWritingOptions.DataWritingAtomic)
-                    if let newLastModified:String = response.allHeaderFields["Last-Modified"] as? String {
-                        if  let date = NSDate.dateFromRFC1123(newLastModified) {
-                            let attr:Dictionary<String, AnyObject> = [NSFileModificationDate:date]
-                            try NSFileManager.defaultManager().setAttributes(attr, ofItemAtPath: filePath)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {(let data, let resp, let error) in
+            if data != nil {
+                if let response = resp as? NSHTTPURLResponse {
+                    if response.statusCode == 200 {
+                        //save to file
+                        do {
+                            try data?.writeToFile(filePath, options: NSDataWritingOptions.DataWritingAtomic)
+                            if let newLastModified:String = response.allHeaderFields["Last-Modified"] as? String {
+                                if  let date = NSDate.dateFromRFC1123(newLastModified) {
+                                    let attr:Dictionary<String, AnyObject> = [NSFileModificationDate:date]
+                                    try NSFileManager.defaultManager().setAttributes(attr, ofItemAtPath: filePath)
+                                }
+                            }
                         }
-                    }
+                        catch let error as NSError{
+                            print(error.localizedDescription)
+                        }
 
-                    tcs.setResult(data)
-                }
-                else if response.statusCode == 304 {
-                    //read local file
-                    if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
-                        let localData = NSData(contentsOfFile: filePath)
-                        tcs.setResult(localData)
+                        tcs.setResult(data)
+                    }
+                    else if response.statusCode == 304 {
+                        //read local file
+                        if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
+                            let localData = NSData(contentsOfFile: filePath)
+                            tcs.setResult(localData)
+                        }
                     }
                 }
             }
-        }
+        })
+
+
+        task.resume()
 
 //        let endDate = NSDate()
+//        let duration = endDate.timeIntervalSinceDate(startDate)
+//        print(duration)
 
         return tcs.task
     }
 
-    static func patch() throws -> BFTask {
-        return try downloadPatch().continueWithBlock({ (task:BFTask!) -> BFTask! in
+    static func patch() -> BFTask {
+        return downloadPatch().continueWithBlock({ (task:BFTask!) -> BFTask! in
             if task.result != nil {
                 do {
                     JPEngine.startEngine()
@@ -86,8 +98,8 @@ class CUTEPatcher : NSObject {
                         JPEngine.evaluateScript(content as String)
                     }
                 }
-                catch {
-
+                catch let error as NSError {
+                    print(error.localizedDescription)
                 }
             }
             return task

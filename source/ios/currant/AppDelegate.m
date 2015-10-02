@@ -162,8 +162,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSError *patchError = nil;
-    [CUTEPatcher patchAndReturnError:&patchError];
+    [CUTEPatcher patch];
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     [CUTEUserAgentUtil setupWebViewUserAgent];
