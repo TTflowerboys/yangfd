@@ -442,7 +442,7 @@
 //Group: AppDelegate
 //
 //Filepath: currant/AppDelegate.m
-"AppDelegate/洋房东" = "Youngfunding";
+"AppDelegate/洋房东" = "YoungFunding";
 "AppDelegate/出租发布" = "List Your Space";
 "AppDelegate/主页" = "Homepage";
 "AppDelegate/发布" = "List Your Space";
@@ -538,7 +538,7 @@
 //Group: WebConfiguration
 //
 //Filepath: currant/Scene/Base/CUTEWebConfiguration.m
-"WebConfiguration/洋房东" = "Youngfunding";
+"WebConfiguration/洋房东" = "YoungFunding";
 "WebConfiguration/房产列表-洋房东" = "Property List";
 "WebConfiguration/出租列表-洋房东" = "Property To Rent List";
 "WebConfiguration/房产详情" = "Property Detail";
