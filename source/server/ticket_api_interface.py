@@ -54,8 +54,10 @@ def _find_or_register(params, allow_draft=False):
                 }
                 if "country" in params:
                     user_params["country"] = params["country"]
-                if noregister:
-                    user_params.pop("email")
+                if "email" in params:
+                    user_id_by_email = f_app.user.get_id_by_email(params["email"], force_registered=True)
+                    if user_id_by_email:
+                        abort(40325)
 
                 user_id = f_app.user.add(user_params, noregister=noregister, retain_country=True)
                 f_app.log.add("add", user_id=user_id)
@@ -118,8 +120,10 @@ def _find_or_register(params, allow_draft=False):
                 }
                 if "country" in params:
                     user_params["country"] = params["country"]
-                if noregister:
-                    user_params.pop("email")
+                if "email" in params:
+                    user_id_by_email = f_app.user.get_id_by_email(params["email"], force_registered=True)
+                    if user_id_by_email:
+                        abort(40325)
 
                 user_id = f_app.user.add(user_params, noregister=noregister, retain_country=True)
                 f_app.log.add("add", user_id=user_id)
