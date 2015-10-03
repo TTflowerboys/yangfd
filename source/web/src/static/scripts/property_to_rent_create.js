@@ -1027,6 +1027,9 @@
 
     var $publishForm = $('#form2')
     var $otherUserInput = $publishForm.find('[data-user-input]')
+    if(!$publishForm.find('[name=userPhone]').val()) {
+        $otherUserInput.attr('data-show', '')
+    }
     $publishForm.find('[name=delegate]').change(function () {
         var val = $(this).val()
         $publishForm.find('[data-show]').hide()
