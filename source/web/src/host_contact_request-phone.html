@@ -7,7 +7,7 @@
 <!--@@close-->
 
 <!--@@block = main-->
-%if not rent.get('property',{}).get('partner'):
+%if not (rent.get('property',{}).get('partner') or (rent.get('user') and rent.get('user',{}).get('id') != rent.get('creator_user',{}).get('id'))):
 <div class="host_wrapper fullHeightInClient
     %if contact_info_already_fetched:
     contact_info_already_fetched

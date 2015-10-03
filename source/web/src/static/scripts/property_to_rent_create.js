@@ -1092,7 +1092,7 @@
                     })
                 return deferred.promise()
             }
-            function setPropertyPartner () {
+           /* function setPropertyPartner () {
                 var deferred = $.Deferred()
                 $.betterPost('/api/1/property/' + window.propertyId + '/edit', {partner: true})
                     .done(function(val) {
@@ -1102,7 +1102,7 @@
                         deferred.reject(ret)
                     })
                 return deferred.promise()
-            }
+            }*/
             function editUser () {
                 var deferred = $.Deferred()
                 var privateContactMethods = getPrivateContactMethods()
@@ -1124,7 +1124,7 @@
                 return deferred.promise()
             }
             if(isDelegate()) {
-                deferredArr = [setPropertyPartner(), publish()]
+                deferredArr = [publish()]
             } else {
                 deferredArr = [editUser(), publish()]
             }

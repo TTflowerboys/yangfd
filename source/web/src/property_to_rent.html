@@ -542,9 +542,9 @@
                 </table>
         </div>
 
-        %if 'creator_user' in rent and not rent.get('property',{}).get('partner'):
+        %if 'creator_user' in rent and not (rent.get('property',{}).get('partner') or (rent.get('user') and rent.get('user',{}).get('id') != rent.get('creator_user',{}).get('id'))):
         <!--@@include=./partials/host_contact_request.html -->
-        %elif 'creator_user' in rent and rent.get('property',{}).get('partner'):
+        %elif 'creator_user' in rent:
         <!--@@include=./partials/host_contact_partner.html -->
         %end
         <div class="seperator"></div>
@@ -593,7 +593,7 @@
     <li class="phone">
         %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
         <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" >
-            % if not rent.get('property',{}).get('partner'):
+            %if not (rent.get('property',{}).get('partner') or (rent.get('user') and rent.get('user',{}).get('id') != rent.get('creator_user',{}).get('id'))):
             {{_('联系房东')+':'}}
             <span>+{{rent.get('creator_user',{}).get('country_code','') }}</span>
             <span>{{rent.get('creator_user',{}).get('phone','')}}</span>
