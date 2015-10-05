@@ -79,6 +79,12 @@
                     $scope.rent_budget = data.val
                 })
         }
+        $scope.getRentBudgetItem = function (status) {
+            api.getEnumsByType('rent_budget_item', status)
+                .success(function (data) {
+                    $scope.rent_budget_item = data.val
+                })
+        }
         $scope.getState = function (status) {
             api.getEnumsByType('state', status)
                 .success(function (data) {
@@ -553,6 +559,39 @@
 
             $scope.item.value = _.object($scope.item.tempValues)
             api.editRentBudget($stateParams.id, $scope.item.limit, $scope.item.ceiling, $scope.item.currency,
+                $scope.item.value, $scope.item.sort_value)
+                .success(function () {
+                    $state.go('^',{},{reload:true})
+                    //location.reload()
+                })
+        }
+        $scope.getEditRentBudgetItem = function () {
+            api.getI18nEnumsById($stateParams.id)
+                .success(function (data) {
+                    $scope.item = data.val || {}
+                    $scope.item.tempValues = _.pairs($scope.item.value)
+                    for (var i = $scope.item.tempValues.length - 1; i >= 0; i -= 1) {
+                        if ($scope.item.tempValues[i][0] === '_i18n') {
+                            $scope.item.tempValues.splice(i, 1)
+                        } else {
+                            $scope.onAddLanguage($scope.item.tempValues[i][0])
+                        }
+                    }
+                    $scope.item.slug = parseInt($scope.item.slug)
+                })
+        }
+        $scope.addRentBudgetItem = function ($event, form) {
+            $scope.item.value = _.object($scope.item.tempValues)
+            api.addRentBudgetItem($scope.item.slug.toString(), $scope.item.currency, $scope.item.value, $scope.item.sort_value)
+                .success(function () {
+                    $scope.item.value = undefined
+                    $scope.item.tempValues = undefined
+                })
+        }
+        $scope.editRentBudgetItem = function ($event, form) {
+
+            $scope.item.value = _.object($scope.item.tempValues)
+            api.editRentBudgetItem($stateParams.id, $scope.item.slug.toString(), $scope.item.currency,
                 $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $state.go('^',{},{reload:true})

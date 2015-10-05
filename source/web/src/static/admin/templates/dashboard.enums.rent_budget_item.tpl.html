@@ -1,7 +1,7 @@
 <div ui-view>
     <span class="btn-group">
         <button class="btn" ui-sref=".create">
-            <span class="fa fa-plus-circle"></span>{%$root.i18n('添加预算区间')%}
+            <span class="fa fa-plus-circle"></span>{%$root.i18n('添加预算')%}
         </button>
     </span>
     <div class="btn-group form-inline">
@@ -11,7 +11,7 @@
         <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
     </div>
 
-    <table class="table table-bordered table-striped table-condensed" ng-init="getRentBudget(status)"
+    <table class="table table-bordered table-striped table-condensed" ng-init="getRentBudgetItem(status)"
         style="margin-bottom:30px">
         <colgroup>
             <col/>
@@ -23,16 +23,14 @@
         <tbody>
             <tr>
                 <th>{%$root.i18n('描述')%}</th>
-                <th>{%$root.i18n('货币下限')%}</th>
-                <th>{%$root.i18n('货币上限')%}</th>
+                <th>{%$root.i18n('货币数目')%}</th>
                 <th>{%$root.i18n('货币单位')%}</th>
                 <th>{%$root.i18n('sort_value')%}</th>
                 <th>{%$root.i18n('操作')%}</th>
             </tr>
-            <tr ng-repeat="item in rent_budget" >
+            <tr ng-repeat="item in rent_budget_item" >
                 <td><div show-i18n="item.value"></div></td>
-                <td>{%item.slug.substring((item.slug.indexOf(':')+1), item.slug.indexOf(','))%}</td>
-                <td>{%item.slug.substring((item.slug.indexOf(',')+1),item.slug.lastIndexOf(','))%}</td>
+                <td>{%item.slug%}</td>
                 <td>{%item.currency%}</td>
                 <td>{%item.sort_value%}</td>
                 <td style="text-align:center;">
