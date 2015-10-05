@@ -870,9 +870,9 @@ def email_send(user_id):
         subject=f_app.util.get_format_email_subject(template("static/emails/verify_email_title")),
         text=template("static/emails/verify_email", verification_url=verification_url, nickname=user.get("nickname")),
         display="html",
-        template_invoke_name=template_invoke_name,
-        substitution_vars=substitution_vars,
-        xsmtpapi=xsmtpapi,
+        # template_invoke_name=template_invoke_name,
+        # substitution_vars=substitution_vars,
+        # xsmtpapi=xsmtpapi,
         tag="verify_email",
     )
 
