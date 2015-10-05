@@ -14,9 +14,16 @@ with f_app.mongo() as m:
     # TODO
 
     # 用户总数
-    print('用户总数:')
     total_user_count = m.users.count()
-    print(total_user_count)
+    cursor = m.users.aggregate(
+        [
+            {'$match': {'register_time': {'$exists': 'true'}}},
+            {'$group': {'_id': None, 'totalUsersCount': {'$sum': 1}}}
+        ]
+    )
+    print('用户总数:' + str(total_user_count))
+    for document in cursor:
+        print('注册用户总数:' + str(document['totalUsersCount']))
 
     # 按角色统计用户
     print('\n按角色统计用户:')

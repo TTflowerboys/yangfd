@@ -11,7 +11,7 @@ f_app.common.mongo_server = "172.20.101.98"
 with f_app.mongo() as m:
 
     # 本月用户总数
-    selected_month = 9
+    selected_month = 10
     print(str(selected_month) + '月至今用户数据统计:')
 
     print('\n用户总数:')
@@ -23,7 +23,7 @@ with f_app.mongo() as m:
                         '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
                     }
                 }},
-            {"$group": {"_id": "null", "count": {"$sum": 1}}}
+            {"$group": {"_id": None, "count": {"$sum": 1}}}
         ]
     )
     for document in cursor:
