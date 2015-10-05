@@ -71,7 +71,7 @@
                         <div>{%item.address%}</div>
                     </td>
                     <td>
-                        <div>{%item.nickname%}</div>
+                        <a ui-sref="dashboard.users.detail.rent_intentions({ id: item.user.id })" ng-bind="item.nickname"></a>
                         <div>{%item.phone%}</div>
                         <div>{%item.email%}</div>
                     </td>

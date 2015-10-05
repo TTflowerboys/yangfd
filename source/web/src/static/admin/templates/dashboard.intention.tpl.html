@@ -50,7 +50,7 @@
                         {%item.status | intentionTicketStatusName %}
                     </td>
                     <td>
-                        {%item.nickname%}
+                        <a ui-sref="dashboard.users.detail.intentions({ id: item.user.id })" ng-bind="item.nickname"></a>
                     </td>
                     <td>
                         {%item.phone%}
