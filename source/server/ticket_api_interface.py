@@ -90,9 +90,9 @@ def _find_or_register(params, allow_draft=False):
                         subject=f_app.util.get_format_email_subject(template("static/emails/new_user_title")),
                         text=template("static/emails/new_user", password=user_params["password"], nickname=user_params["nickname"], phone=user_params["phone"]),
                         display="html",
-                        substitution_vars=substitution_vars,
-                        template_invoke_name=template_invoke_name,
-                        xsmtpapi=xsmtpapi,
+                        # substitution_vars=substitution_vars,
+                        # template_invoke_name=template_invoke_name,
+                        # xsmtpapi=xsmtpapi,
                         tag="new_user",
                     )
                     f_app.user.login.success(user_id)
@@ -157,9 +157,9 @@ def _find_or_register(params, allow_draft=False):
                         subject=f_app.util.get_format_email_subject(template("static/emails/new_user_title")),
                         text=template("static/emails/new_user", password=user_params["password"], nickname=user_params["nickname"], phone=user_params["phone"]),
                         display="html",
-                        substitution_vars=substitution_vars,
-                        template_invoke_name=template_invoke_name,
-                        xsmtpapi=xsmtpapi,
+                        # substitution_vars=substitution_vars,
+                        # template_invoke_name=template_invoke_name,
+                        # xsmtpapi=xsmtpapi,
                         tag="new_user",
                     )
 
