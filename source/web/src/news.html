@@ -35,9 +35,6 @@
 <!--@@block=main -->
 %if news:
     <textarea id="newsData" style="display:none;">{{json_dumps(news_clean)}}</textarea>
-    <textarea id="pythonWeixin" style="display: none;">
-        {{json_dumps(weixin)}}
-    </textarea>
     <div class="container">
         %if 'title' in news:
             <h1 class="title">{{news.get('title')}}</h1>
@@ -139,15 +136,9 @@
 
 <!--@@block=scripts -->
 <!--build:js /static/scripts/news.html.js-->
-<script src="/static/vendors/jweixin-1.0.0.js"></script>
 <!--endbuild-->
 <script>
     (function () {
-        var news = JSON.parse($('#newsData').text())
-        var weixin = $('#pythonWeixin').text()
-        if(weixin && weixin !== 'null' && weixin !== 'none' && weixin !== ''){
-            weixin = JSON.parse(weixin)
-        }
 
         $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
             window.openNewsWeChatShare('{{news.get('id')}}')
@@ -167,48 +158,6 @@
             }
         }
 
-        if (typeof window.wx !== 'undefined' && typeof weixin === 'object') {
-            window.wx.config({
-                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                appId: 'wx123992a4d173037b', // 必填，公众号的唯一标识
-                timestamp: weixin.timestamp, // 必填，生成签名的时间戳
-                nonceStr: weixin.noncestr, // 必填，生成签名的随机串
-                signature: weixin.signature,// 必填，签名，见附录1
-                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-            })
-
-            window.wx.ready(function(){
-                var newsImage = null
-                if (news.images && news.images.length>0) {
-                    newsImage = news.images[0]
-                }else {
-                    //Set logo as default
-                    newsImage = '/static/images/logo/logo_wechat.jpg'
-                }
-                var wechatShareData = {
-                    title:news.title,
-                    link: window.location.href,
-                    imgUrl:newsImage,
-                    success:function(){
-                        ga('send', 'event', 'news', 'share', 'share-to-wechat-success')
-                    },
-                    cancel:function(){
-                        ga('send', 'event', 'news', 'share', 'share-to-wechat-cancel')
-                    }
-                }
-
-                if (news.summary) {
-                    wechatShareData.desc = news.summary.replace(/(\r\n|\n|\r)/gm,'').slice(0, 100)
-                }
-                window.wx.onMenuShareTimeline(wechatShareData);
-                window.wx.onMenuShareAppMessage(wechatShareData);
-                window.wx.onMenuShareQQ(wechatShareData);
-            })
-
-            window.wx.error(function(res){
-                ga('send', 'event', 'news', 'share', 'share-to-wechat-config-error', res.errMsg)
-            })
-        }
 
         $('[data-fn=shareToWeChat]').on('click', function () {
             $('#popupShareToWeChat')
@@ -226,10 +175,34 @@
             team.shareToWeibo(params)
             ga('send', 'event', 'news', 'share', 'open-weibo')
         })
+
+
+        var news = JSON.parse($('#newsData').text())
+
+        var newsImage = null
+        if (news.images && news.images.length>0) {
+            newsImage = news.images[0]
+        }else {
+            //Set logo as default
+            newsImage = '/static/images/logo/logo_wechat.jpg'
+        }
+        var wechatShareData = {
+            title:news.title,
+            link: window.location.href,
+            imgUrl:newsImage,
+            success:function(){
+                ga('send', 'event', 'news', 'share', 'share-to-wechat-success')
+            },
+            cancel:function(){
+                ga('send', 'event', 'news', 'share', 'share-to-wechat-cancel')
+            }
+        }
+
+        if (news.summary) {
+            wechatShareData.desc = news.summary.replace(/(\r\n|\n|\r)/gm,'').slice(0, 100)
+        }
+        window.wechatShareSDK.init(wechatShareData)
     })()
-
-
-
 
 
 </script>

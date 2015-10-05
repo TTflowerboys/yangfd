@@ -637,9 +637,6 @@
 
 <!--@@include=./partials/host_contact_request_amount_modal.html  -->
 
-<textarea id="pythonWeixin" style="display: none;">
-    {{json_dumps(weixin)}}
-</textarea>
 
         <!-- @@include=/static/templates/place_item.tpl.html-->
 
@@ -684,7 +681,6 @@
         <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
         <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
         <script src="/static/bower_components/jquery.dotdotdot/src/js/jquery.dotdotdot.js"></script>
-        <script src="/static/vendors/jweixin-1.0.0.js"></script>
         <script src="/static/scripts/host_contact_request.js"></script>
         <script src="/static/scripts/property_to_rent_actions.js"></script>
         <!--endbuild-->
@@ -760,13 +756,6 @@
                 }
                 %end
 
-            /*
-             * Weixin share sdk
-             * */
-                var weixin = $('#pythonWeixin').text()
-                if(weixin && weixin !== 'null' && weixin !== 'none' && weixin !== ''){
-                    weixin = JSON.parse(weixin)
-                }
 
                 window.openWeChatShare = function (rentId) {
                     ga('send', 'event', 'property_to_rent_detail', 'click', 'open-wechat-share')
@@ -786,48 +775,32 @@
                     window.openWeChatShare('{{rent.get('id','')}}')
                     ga('send', 'event', 'property_to_rent_detail', 'share', 'open-wechat-mobile')
                 });
+            });
 
 
-                if (typeof window.wx !== 'undefined' && typeof weixin === 'object') {
-                    window.wx.config({
-                        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                        appId: 'wx123992a4d173037b', // 必填，公众号的唯一标识
-                        timestamp: weixin.timestamp, // 必填，生成签名的时间戳
-                        nonceStr: weixin.noncestr, // 必填，生成签名的随机串
-                        signature: weixin.signature,// 必填，签名，见附录1
-                        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-                    })
-
-                    window.wx.ready(function(){
-                        var wechatShareData = {
-                            title: '{{rent.get('title','')}}',
-                            link: window.location.host + '/wechat-poster/' + '{{rent.get('id','')}}',
-                            imgUrl: '/static/images/logo/logo_wechat.jpg',
-                            success:function(){
-                                ga('send', 'event', 'property_to_rent_detail', 'share', 'share-to-wechat-success')
-                            },
-                            cancel:function(){
-                                ga('send', 'event', 'property_to_rent_detail', 'share', 'share-to-wechat-cancel')
-                            }
+            /*
+             * Weixin share sdk
+             * */
+            (function () {
+                var wechatShareData = {
+                        title: '{{rent.get('title','')}}',
+                        link: window.location.host + '/wechat-poster/' + '{{rent.get('id','')}}',
+                        imgUrl: '/static/images/logo/logo_wechat.jpg',
+                        success:function(){
+                            ga('send', 'event', 'property_to_rent_detail', 'share', 'share-to-wechat-success')
+                        },
+                        cancel:function(){
+                            ga('send', 'event', 'property_to_rent_detail', 'share', 'share-to-wechat-cancel')
                         }
-                        % if rent['property'].get('reality_images'):
-                            wechatShareData.imgUrl = '{{rent['property'].get('reality_images')[0]}}'
-                        %end
-                        %if rent.get('description'):
-                            wechatShareData.desc = '{{clear_html_tags(rent.get('description')).replace('\n','\\n').replace('\r\n','\\r\\n')}}'.replace(/(\r\n|\n|\r)/gm,'').slice(0, 100)
-                        %end
-
-
-                        window.wx.onMenuShareTimeline(wechatShareData);
-                        window.wx.onMenuShareAppMessage(wechatShareData);
-                        window.wx.onMenuShareQQ(wechatShareData);
-                    })
-
-                    window.wx.error(function(res){
-                        ga('send', 'event', 'property_to_rent_detail', 'share', 'share-to-wechat-config-error', res.errMsg)
-                    })
-                }
-            })
+                    }
+                    % if rent['property'].get('reality_images'):
+                wechatShareData.imgUrl = '{{rent['property'].get('reality_images')[0]}}'
+                %end
+                %if rent.get('description'):
+                wechatShareData.desc = '{{clear_html_tags(rent.get('description')).replace('\n','\\n').replace('\r\n','\\r\\n')}}'.replace(/(\r\n|\n|\r)/gm,'').slice(0, 100)
+                %end
+                window.wechatShareSDK.init(wechatShareData)
+            })()
         </script>
 
         <!--@@close-->
