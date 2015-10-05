@@ -1234,7 +1234,7 @@ def rent_ticket_contact_info(user, ticket_id):
     sort=(list, ["last_modified_time", 'desc'], str),
     rent_type="enum:rent_type",
     user_id=ObjectId,
-    rent_budget="enum:rent_budget",
+    rent_budget=("fallback", None, "enum:rent_budget", str),
     bedroom_count="enum:bedroom_count",
     building_area="enum:building_area",
     rent_available_time=datetime,

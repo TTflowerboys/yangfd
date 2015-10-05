@@ -2633,8 +2633,16 @@ f_zipcode()
 
 class f_currant_util(f_util):
     def parse_budget(self, budget):
-        if isinstance(budget, six.string_types) or isinstance(budget, ObjectId):
+        if isinstance(budget, six.string_types) and "," not in budget or isinstance(budget, ObjectId):
             budget = f_app.enum.get(budget)
+        elif isinstance(budget, six.string_types) and "," in budget:
+            _type = budget.split(":")[0]
+            _currency = budget.split(",")[-1]
+            budget = {
+                "slug": budget,
+                "type": _type,
+                "currency": _currency,
+            }
         elif isinstance(budget, dict):
             if "_id" in budget:
                 budget = f_app.enum.get(budget["_id"])
