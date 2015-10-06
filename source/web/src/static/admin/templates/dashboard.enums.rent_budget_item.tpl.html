@@ -30,7 +30,7 @@
             </tr>
             <tr ng-repeat="item in rent_budget_item" >
                 <td><div show-i18n="item.value"></div></td>
-                <td>{%item.slug%}</td>
+                <td>{%item.slug.split(':')[0]%}</td>
                 <td>{%item.currency%}</td>
                 <td>{%item.sort_value%}</td>
                 <td style="text-align:center;">

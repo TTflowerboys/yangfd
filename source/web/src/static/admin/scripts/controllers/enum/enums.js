@@ -577,12 +577,12 @@
                             $scope.onAddLanguage($scope.item.tempValues[i][0])
                         }
                     }
-                    $scope.item.slug = parseInt($scope.item.slug)
+                    $scope.item.number = parseInt($scope.item.slug.split(':')[0])
                 })
         }
         $scope.addRentBudgetItem = function ($event, form) {
             $scope.item.value = _.object($scope.item.tempValues)
-            api.addRentBudgetItem($scope.item.slug.toString(), $scope.item.currency, $scope.item.value, $scope.item.sort_value)
+            api.addRentBudgetItem($scope.item.number.toString() + ':' + $scope.item.currency, $scope.item.currency, $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $scope.item.value = undefined
                     $scope.item.tempValues = undefined
@@ -591,7 +591,7 @@
         $scope.editRentBudgetItem = function ($event, form) {
 
             $scope.item.value = _.object($scope.item.tempValues)
-            api.editRentBudgetItem($stateParams.id, $scope.item.slug.toString(), $scope.item.currency,
+            api.editRentBudgetItem($stateParams.id, $scope.item.number.toString() + ':' + $scope.item.currency, $scope.item.currency,
                 $scope.item.value, $scope.item.sort_value)
                 .success(function () {
                     $state.go('^',{},{reload:true})

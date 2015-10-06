@@ -464,7 +464,7 @@
             window.dhtmlx.message({ type:'error', text: i18n('租金下限必须小于租金上限')});
             return ''
         }
-        return 'rent_budget:' + min + ',' + max + ',' + window.currency
+        return 'rent_budget:' + min.split(':')[0] + ',' + max.split(':')[0] + ',' + window.currency
     }
     $('#tags #propertyTypeTag').on('click', '.toggleTag', function (event) {
         event.stopPropagation()
