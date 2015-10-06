@@ -154,12 +154,15 @@
                     </li>
                     %end
 
-                    % if property.get('living_room_count') or property.get('bathroom_count') or property.get('space') :
+                    % if property.get('bedroom_count') or property.get('living_room_count') or property.get('bathroom_count') or property.get('space') :
                     <li>
                         <i class="icon-room_category"></i>
                         <label>
+                            % if property.get('bedroom_count'):
+                            <span class="bold">{{property.get('bedroom_count')}}</span>{{_('室')}}
+                            % end
                             % if property.get('living_room_count'):
-                            <span class="bold">{{property.get('living_room_count')}}</span>{{_('室')}}
+                            <span class="bold">{{property.get('living_room_count')}}</span>{{_('厅')}}
                             % end
                             % if property.get('bathroom_count'):
                             <span class="bold">{{property.get('bathroom_count')}}</span>{{_('卫')}}
@@ -307,12 +310,12 @@
                             </label>
                         </li>
                         %end
-                        % if property.get('living_room_count') or property.get('bathroom_count') or property.get('space') :
+                        % if property.get('bedroom_count') or property.get('bathroom_count') or property.get('space') :
                         <li>
                             <i class="icon-room_category"></i>
                             <label>
-                                % if property.get('living_room_count'):
-                                <span class="bold">{{property.get('living_room_count')}}</span>{{_('室')}}
+                                % if property.get('bedroom_count'):
+                                <span class="bold">{{property.get('bedroom_count')}}</span>{{_('室')}}
                                 % end
                                 % if property.get('bathroom_count'):
                                 <span class="bold">{{property.get('bathroom_count')}}</span>{{_('卫')}}

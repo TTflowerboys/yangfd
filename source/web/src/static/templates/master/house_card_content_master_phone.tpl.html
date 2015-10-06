@@ -93,12 +93,15 @@
             </li>
 
             % if 'show_rooms' in vars() or 'show_rooms' in globals():
-            {_if(house.living_room_count || house.bathroom_count || house.space) {_}
+            {_if(house.bedroom_count || house.living_room_count || house.bathroom_count || house.space) {_}
             <li>
                 <i class="icon-room_category"></i>
                 <label>
+                    {_if(house.bedroom_count) {_}
+                    <span class="bold">{=house.bedroom_count=}</span>{=window.i18n('室')=}
+                    {_}_}
                     {_if(house.living_room_count) {_}
-                    <span class="bold">{=house.living_room_count=}</span>{=window.i18n('室')=}
+                    <span class="bold">{=house.living_room_count=}</span>{=window.i18n('厅')=}
                     {_}_}
                     {_if(house.bathroom_count) {_}
                     <span class="bold">{=house.bathroom_count=}</span>{=window.i18n('卫')=}
