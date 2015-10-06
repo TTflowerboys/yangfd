@@ -106,6 +106,7 @@ $(function () {
                     .delegate('.btn-close', 'click', function () {
                         elem.hide()
                     }).end()
+                    .find('.btn-send').text(i18n('发送'))
 
             })
         checkDomExist('.qiao-invite-wrap')
