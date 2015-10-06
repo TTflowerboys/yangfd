@@ -82,7 +82,9 @@ $(function () {
     if($('link[href*=baiduBridge]').length) {
         checkDomExist('#qiao-icon-wrap')
             .then(function () {
-                $('#floatBar .contact>.baiduBridge').show()
+                var $section = $('#floatBar .contact>.baiduBridge')
+                $section.show()
+                $section.find('.baiduBridge').css('top', '-' + ($section.find('.baiduBridge').height() - $('#floatBar .icon-bubbles').height())/2 + 'px')
             })
         checkDomExist('.qiao-mess-wrap')
             .then(function (elem) {
