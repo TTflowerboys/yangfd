@@ -94,12 +94,29 @@
                         <!--@@include=partials/current_currency.html -->
                         {{_('/ 周')}})
                     </h4>
-                    <div id="rentBudgetTag" class="inner">
-                        %for index, rent_budget in enumerate(rent_budget_list):
-                        %if rent_budget.get('currency') == _.currency:
-                        <div class="toggleTag noBorder" data-id="{{rent_budget.get('id')}}" data-index="{{index}}">{{rent_budget.get('value')}}</div>
-                        %end
-                        %end
+                    <div class="inner">
+                        <div class="inputWrapper">
+                            <select name="rentBudgetMin">
+                                <option value="">{{_('无下限')}}</option>
+                                %for index, rent_budget in enumerate(rent_budget_item_list):
+                                %if rent_budget.get('currency') == _.currency:
+                                <option value="{{rent_budget.get('slug')}}">{{rent_budget.get('value')}}</option>
+                                %end
+                                %end
+                            </select>
+                        </div>
+                        <span>{{_('至')}}</span>
+                        <div class="inputWrapper">
+                            <select name="rentBudgetMax">
+                                <option value="">{{_('无上限')}}</option>
+                                %for index, rent_budget in enumerate(rent_budget_item_list):
+                                %if rent_budget.get('currency') == _.currency:
+                                <option value="{{rent_budget.get('slug')}}">{{rent_budget.get('value')}}</option>
+                                %end
+                                %end
+                            </select>
+                        </div>
+                        <button class="button red confirmFilter">{{_('确定')}}</button>
                     </div>
                 </div>
             %end
@@ -122,16 +139,16 @@
                 <i class="calendar_icon icon-calender_filter"></i>
                 <h4 class="calendar_title">{{_('租期起止日期')}}</h4>
                 <div class="inner">
-                    <div class="date">
+                    <div class="date inputWrapper">
                         <input type="text" class="" id="rentPeriodStartDate" name="rentPeriodStartDate" value="" placeholder="{{_('请选择起租日期')}}" autocomplete="off"/>
                         <i class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
                     </div>
                     <span>{{_('至')}}</span>
-                    <div class="date">
+                    <div class="date inputWrapper">
                         <input type="text" class="" id="rentPeriodEndDate" name="rentPeriodEndDate" value="" placeholder="{{_('请选择结束日期')}}" autocomplete="off"/>
                         <i class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
                     </div>
-                    <button class="button red confirmDate">{{_('确定')}}</button>
+                    <button class="button red confirmFilter">{{_('确定')}}</button>
                 </div>
             </div>
 
