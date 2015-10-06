@@ -96,7 +96,7 @@
                     </h4>
                     <div class="inner">
                         <div class="inputWrapper">
-                            <select name="rentBudgetMin">
+                            <select data-filter name="rentBudgetMin">
                                 <option value="">{{_('无下限')}}</option>
                                 %for index, rent_budget in enumerate(rent_budget_item_list):
                                 %if rent_budget.get('currency') == _.currency:
@@ -107,7 +107,7 @@
                         </div>
                         <span>{{_('至')}}</span>
                         <div class="inputWrapper">
-                            <select name="rentBudgetMax">
+                            <select data-filter name="rentBudgetMax">
                                 <option value="">{{_('无上限')}}</option>
                                 %for index, rent_budget in enumerate(rent_budget_item_list):
                                 %if rent_budget.get('currency') == _.currency:
@@ -116,7 +116,7 @@
                                 %end
                             </select>
                         </div>
-                        <button class="button red confirmFilter">{{_('确定')}}</button>
+                        <!--<button class="button red confirmFilter">{{_('确定')}}</button>-->
                     </div>
                 </div>
             %end
@@ -140,15 +140,15 @@
                 <h4 class="calendar_title">{{_('租期起止日期')}}</h4>
                 <div class="inner">
                     <div class="date inputWrapper">
-                        <input type="text" class="" id="rentPeriodStartDate" name="rentPeriodStartDate" value="" placeholder="{{_('请选择起租日期')}}" autocomplete="off"/>
+                        <input data-filter type="text" class="" id="rentPeriodStartDate" name="rentPeriodStartDate" value="" placeholder="{{_('请选择起租日期')}}" autocomplete="off"/>
                         <i class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
                     </div>
                     <span>{{_('至')}}</span>
                     <div class="date inputWrapper">
-                        <input type="text" class="" id="rentPeriodEndDate" name="rentPeriodEndDate" value="" placeholder="{{_('请选择结束日期')}}" autocomplete="off"/>
+                        <input data-filter type="text" class="" id="rentPeriodEndDate" name="rentPeriodEndDate" value="" placeholder="{{_('请选择结束日期')}}" autocomplete="off"/>
                         <i class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
                     </div>
-                    <button class="button red confirmFilter">{{_('确定')}}</button>
+                    <!--<button class="button red confirmFilter">{{_('确定')}}</button>-->
                 </div>
             </div>
 

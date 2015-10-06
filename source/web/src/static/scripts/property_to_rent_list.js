@@ -40,6 +40,9 @@
             if(isLoading){
                 return me.resetload();
             }
+            if(!checkValidOfRequestParams()) {
+                return me.resetload();
+            }
             var params = window.getBaseRequestParams()
             params.per_page = itemsPerPage
 
@@ -121,6 +124,22 @@
         })
     })
 
+    function checkValidOfRequestParams () {
+        var rentBudgetMin = $('[name=rentBudgetMin]').val()
+        var rentBudgetMax = $('[name=rentBudgetMax]').val()
+        var rentPeriodStartDate = $('#rentPeriodStartDate').val()
+        var rentPeriodEndDate = $('#rentPeriodEndDate').val()
+        if (rentBudgetMin.length && rentBudgetMax.length && parseInt(rentBudgetMin) >= parseInt(rentBudgetMax)) {
+            window.dhtmlx.message({ type:'error', text: i18n('租金下限必须小于租金上限')});
+            return false
+        }
+        if (rentPeriodStartDate.length && rentPeriodEndDate.length && window.moment(rentPeriodStartDate) >= window.moment(rentPeriodEndDate)) {
+            window.dhtmlx.message({ type:'error', text: i18n('租期开始日期必须早于租期结束日期')});
+            return false
+        }
+        return true
+
+    }
     window.getBaseRequestParams = function () {
         var params = {}
         var country = $('select[name=propertyCountry]').children('option:selected').val()
@@ -279,6 +298,9 @@
 
 
     function loadRentList(reload) {
+        if(!checkValidOfRequestParams()) {
+            return
+        }
         if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/rent_ticket/search'] && window.betterAjaxXhr['/api/1/rent_ticket/search'].readyState !== 4) {
             window.betterAjaxXhr['/api/1/rent_ticket/search'].abort()
         }
@@ -595,6 +617,9 @@
 
         loadRentListByView()
     })
+    $('[data-filter]').change(function () {
+        loadRentListByView()
+    })
     // Show or Hide tag filters on mobile
     function showTagsOnMobile() {
         var $button = $('#showTags')
@@ -701,6 +726,9 @@
 
     function loadRentMapList() {
         $('.emptyPlaceHolder').hide();
+        if(!checkValidOfRequestParams()) {
+            return
+        }
         if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/rent_ticket/search'] && window.betterAjaxXhr['/api/1/rent_ticket/search'].readyState !== 4) {
             window.betterAjaxXhr['/api/1/rent_ticket/search'].abort()
         }

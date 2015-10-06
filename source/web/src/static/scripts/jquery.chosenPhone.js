@@ -55,7 +55,7 @@
             return [text.toLowerCase().indexOf(this.input.toLowerCase()), text.toLowerCase().indexOf(this.input.toLowerCase()) + this.input.length]
         }
         this.update = function (data) {
-            if (option.disable_search_threshold && option.disable_search_threshold >= this.data.length) {
+            if (option.disable_search || (option.disable_search_threshold && option.disable_search_threshold >= this.data.length)) {
                 this.chosen.addClass('chosen-container-single-nosearch')
             } else {
                 this.chosen.removeClass('chosen-container-single-nosearch')
