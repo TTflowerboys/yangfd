@@ -82,8 +82,8 @@
         //initChosen($('[name=school]'))
         initChosen($('[name=propertyType]'))
         initChosen($('[name=rentType]'))
-        initChosen($('[name=rentBudgetMin]'))
-        initChosen($('[name=rentBudgetMax]'))
+        initChosen($('[name=rentBudgetMin]'),{disable_search: true})
+        initChosen($('[name=rentBudgetMax]'),{disable_search: true})
     }
     module.updateCityByCountry = function updateCityByCountry(countryCode, $citySelect){
         var params = {
