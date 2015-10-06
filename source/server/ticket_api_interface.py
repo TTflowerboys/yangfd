@@ -1498,15 +1498,15 @@ def rent_ticket_suspend(ticket_id, user):
     ticket = f_app.ticket.update_set(ticket_id, {"status": "draft"})
 
     ticket = f_app.ticket.output([ticket_id])[0]
-    user = f_app.user.get(ticket["creator_user"]["id"])
-    if "email" in user:
+    ticket_email_user = f_app.util.ticket_determine_email_user(ticket)
+    if ticket_email_user:
         title = "您发布的房源已被认定为违规发布，请修改后重新发布"
         f_app.email.schedule(
-            target=user["email"],
+            target=ticket_email_user["email"],
             subject=title,
             text=template(
                 "static/emails/rent_suspend_notice",
-                nickname=user.get("nickname"),
+                nickname=ticket_email_user.get("nickname"),
                 date='',  # TODO
                 rent_title=ticket["title"],
                 rent_url="http://yangfd.com/property-to-rent/" + ticket_id,

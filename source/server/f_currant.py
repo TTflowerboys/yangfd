@@ -891,16 +891,18 @@ class f_currant_plugins(f_app.plugin_base):
             ))
             import currant_util
             ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id]), _i18n=["zh_Hans_CN"])[0]
-            title = "恭喜，您的房源已经发布成功！"
-            f_app.email.schedule(
-                target=ticket["creator_user"]["email"],
-                subject=title,
-                # TODO
-                text=template("static/emails/rent_ticket_publish_success", title=title, nickname=ticket["creator_user"]["nickname"], rent=ticket, date="", get_country_name_by_code=currant_util.get_country_name_by_code),
-                display="html",
-                ticket_match_user_id=ticket["creator_user"]["id"],
-                tag="rent_ticket_publish_success",
-            )
+            ticket_email_user = f_app.util.ticket_determine_email_user(ticket)
+            if ticket_email_user:
+                title = "恭喜，您的房源已经发布成功！"
+                f_app.email.schedule(
+                    target=ticket_email_user["email"],
+                    subject=title,
+                    # TODO
+                    text=template("static/emails/rent_ticket_publish_success", title=title, nickname=ticket_email_user["nickname"], rent=ticket, date="", get_country_name_by_code=currant_util.get_country_name_by_code),
+                    display="html",
+                    ticket_match_user_id=ticket_email_user["id"],
+                    tag="rent_ticket_publish_success",
+                )
 
         elif ticket["type"] == "rent_intention" and "status" in params and params["status"] == "new":
             f_app.task.add(dict(
@@ -925,10 +927,11 @@ class f_currant_plugins(f_app.plugin_base):
         rent_intention_tickets = f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), permission_check=False)
 
         for intention_ticket in rent_intention_tickets:
-            if "email" not in intention_ticket["creator_user"]:
+            ticket_email_user = f_app.util.ticket_determine_email_user(intention_ticket)
+            if ticket_email_user is None:
                 continue
 
-            if "rent_intention_ticket_check_rent" not in intention_ticket["creator_user"].get("email_message_type", []):
+            if "rent_intention_ticket_check_rent" not in ticket_email_user.get("email_message_type", []):
                 continue
 
             if "rent_budget" not in intention_ticket or "bedroom_count" not in intention_ticket or "rent_type" not in intention_ticket:
@@ -979,42 +982,42 @@ class f_currant_plugins(f_app.plugin_base):
             if score == 6:
                 title = "洋房东给您匹配到了合适的房源，快来看看吧！"
                 f_app.email.schedule(
-                    target=intention_ticket["creator_user"]["email"],
+                    target=ticket_email_user["email"],
                     subject=title,
                     # TODO
-                    text=template("static/emails/rent_intention_matched_1", title=title, nickname=intention_ticket["creator_user"]["nickname"], date="", rent_ticket=ticket, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
+                    text=template("static/emails/rent_intention_matched_1", title=title, nickname=ticket_email_user["nickname"], date="", rent_ticket=ticket, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                     display="html",
-                    ticket_match_user_id=intention_ticket["creator_user"]["id"],
+                    ticket_match_user_id=ticket_email_user["id"],
                     tag="rent_intention_matched_1",
                 )
                 f_app.ticket.ensure_tag(intention_ticket["id"], "perfect_match")
             elif score >= 4:
                 title = "洋房东给您匹配到了一些房源，快来看看吧！"
-                sent_in_a_day = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "ticket_match_user_id": intention_ticket["creator_user"]["id"], "start": {"$gte": datetime.utcnow() - timedelta(days=1)}})
+                sent_in_a_day = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "ticket_match_user_id": ticket_email_user["id"], "start": {"$gte": datetime.utcnow() - timedelta(days=1)}})
                 if len(sent_in_a_day):
                     pass
                 else:
                     f_app.email.schedule(
-                        target=intention_ticket["creator_user"]["email"],
+                        target=ticket_email_user["email"],
                         subject=title,
                         # TODO
-                        text=template("static/emails/rent_intention_matched_4", title=title, nickname=intention_ticket["creator_user"]["nickname"], date="", rent_ticket=ticket, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
+                        text=template("static/emails/rent_intention_matched_4", title=title, nickname=ticket_email_user["nickname"], date="", rent_ticket=ticket, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                         display="html",
-                        ticket_match_user_id=intention_ticket["creator_user"]["id"],
+                        ticket_match_user_id=ticket_email_user["id"],
                         tag="rent_intention_matched_4",
                     )
                 f_app.ticket.ensure_tag(intention_ticket["id"], "partial_match")
 
     def task_on_rent_intention_ticket_check_rent(self, task):
         ticket_id = task["ticket_id"]
-        intention_ticket = f_app.ticket.get(ticket_id)
-        ticket_creator_user = f_app.user.get(intention_ticket["creator_user_id"])
+        intention_ticket = f_app.ticket.output([ticket_id], permission_check=False)[0]
+        ticket_email_user = f_app.util.ticket_determine_email_user(intention_ticket)
 
-        if "email" not in ticket_creator_user:
+        if ticket_email_user is None:
             self.logger.debug("Ignoring rent_intention_ticket_check_rent for ticket", ticket_id, "as the creator user doesn't have email filled.")
             return
 
-        if "rent_intention_ticket_check_rent" not in ticket_creator_user.get("email_message_type", []):
+        if "rent_intention_ticket_check_rent" not in ticket_email_user.get("email_message_type", []):
             return
 
         # Scan existing rent intention ticket
@@ -1089,34 +1092,34 @@ class f_currant_plugins(f_app.plugin_base):
         if len(best_matches):
             title = "洋房东给您匹配到了合适的房源，快来看看吧！"
             f_app.email.schedule(
-                target=ticket_creator_user["email"],
+                target=ticket_email_user["email"],
                 subject=title,
                 # TODO
-                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=best_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
+                text=template("static/emails/rent_intention_digest", nickname=ticket_email_user["nickname"], matched_rent_ticket_list=best_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                 display="html",
-                ticket_match_user_id=ticket_creator_user["id"],
+                ticket_match_user_id=ticket_email_user["id"],
                 tag="rent_intention_digest",
             )
             f_app.ticket.ensure_tag(intention_ticket["id"], "perfect_match")
         elif len(good_matches):
             title = "洋房东给您匹配到了一些房源，快来看看吧！"
             f_app.email.schedule(
-                target=ticket_creator_user["email"],
+                target=ticket_email_user["email"],
                 subject=title,
                 # TODO
-                text=template("static/emails/rent_intention_digest", nickname=ticket_creator_user["nickname"], matched_rent_ticket_list=good_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
+                text=template("static/emails/rent_intention_digest", nickname=ticket_email_user["nickname"], matched_rent_ticket_list=good_matches, date="", title=title, get_country_name_by_code=currant_util.get_country_name_by_code, unsubscribe_url=unsubscribe_url),
                 display="html",
-                ticket_match_user_id=ticket_creator_user["id"],
+                ticket_match_user_id=ticket_email_user["id"],
                 tag="rent_intention_digest",
             )
             f_app.ticket.ensure_tag(intention_ticket["id"], "partial_match")
         else:
             title = "恭喜，洋房东已经收到您的求租意向单！"
             f_app.email.schedule(
-                target=ticket_creator_user["email"],
+                target=ticket_email_user["email"],
                 subject=title,
                 # TODO
-                text=template("static/emails/receive_rent_intention", date="", nickname=ticket_creator_user["nickname"], title=title, unsubscribe_url=unsubscribe_url),
+                text=template("static/emails/receive_rent_intention", date="", nickname=ticket_email_user["nickname"], title=title, unsubscribe_url=unsubscribe_url),
                 display="html",
                 tag="receive_rent_intention",
             )
@@ -1247,11 +1250,11 @@ class f_currant_plugins(f_app.plugin_base):
         tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "to rent"}, per_page=0), permission_check=False)
 
         for rent_ticket in tickets:
-            if "creator_user" not in rent_ticket or "email" not in rent_ticket["creator_user"]:
-                self.logger.warning("Ticket doesn't have a valid creator user:", rent_ticket["id"], ", ignoring reminder...", exc_info=False)
+            ticket_email_user = f_app.util.ticket_determine_email_user(rent_ticket)
+            if ticket_email_user is None:
                 continue
 
-            if "rent_ticket_reminder" not in rent_ticket["creator_user"].get("email_message_type", []):
+            if "rent_ticket_reminder" not in ticket_email_user.get("email_message_type", []):
                 continue
 
             last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "rent_ticket_reminder": "is_rent_success", "ticket_id": rent_ticket["id"], "start": {"$gte": datetime.utcnow() - timedelta(days=7)}})
@@ -1266,7 +1269,7 @@ class f_currant_plugins(f_app.plugin_base):
                 body = template(
                     "views/static/emails/rent_notice.html",
                     title=title,
-                    nickname=rent_ticket["creator_user"]["nickname"],
+                    nickname=ticket_email_user["nickname"],
                     formated_date='之前',  # TODO
                     rent_url=url,
                     rent_title=rent_ticket["title"],
@@ -1280,7 +1283,7 @@ class f_currant_plugins(f_app.plugin_base):
                 continue
 
             f_app.email.schedule(
-                target=rent_ticket["creator_user"]["email"],
+                target=ticket_email_user["email"],
                 subject=title,
                 text=body,
                 display="html",
@@ -1292,11 +1295,11 @@ class f_currant_plugins(f_app.plugin_base):
         tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=7)}}, per_page=0, notime=True), permission_check=False)
 
         for rent_ticket in tickets:
-            if "creator_user" not in rent_ticket or "email" not in rent_ticket["creator_user"]:
-                self.logger.warning("Ticket doesn't have a valid creator user:", rent_ticket["id"], ", ignoring reminder...", exc_info=False)
+            ticket_email_user = f_app.util.ticket_determine_email_user(rent_ticket)
+            if ticket_email_user is None:
                 continue
 
-            if "rent_ticket_reminder" not in rent_ticket["creator_user"].get("email_message_type", []):
+            if "rent_ticket_reminder" not in ticket_email_user.get("email_message_type", []):
                 continue
 
             last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "ticket_id": rent_ticket["id"], "rent_ticket_reminder": "draft_7day"})
@@ -1309,7 +1312,7 @@ class f_currant_plugins(f_app.plugin_base):
             try:
                 body = template(
                     "views/static/emails/draft_not_publish_day_7",
-                    nickname=rent_ticket["creator_user"]["nickname"],
+                    nickname=ticket_email_user["nickname"],
                     date="",
                     title=title,
                     rent_ticket_title=rent_ticket["title"],
@@ -1320,7 +1323,7 @@ class f_currant_plugins(f_app.plugin_base):
                 continue
 
             f_app.email.schedule(
-                target=rent_ticket["creator_user"]["email"],
+                target=ticket_email_user["email"],
                 subject=title,
                 text=body,
                 display="html",
@@ -1332,11 +1335,11 @@ class f_currant_plugins(f_app.plugin_base):
         tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=3)}}, per_page=0, notime=True), permission_check=False)
 
         for rent_ticket in tickets:
-            if "creator_user" not in rent_ticket or "email" not in rent_ticket["creator_user"]:
-                self.logger.warning("Ticket doesn't have a valid creator user:", rent_ticket["id"], ", ignoring reminder...", exc_info=False)
+            ticket_email_user = f_app.util.ticket_determine_email_user(rent_ticket)
+            if ticket_email_user is None:
                 continue
 
-            if "rent_ticket_reminder" not in rent_ticket["creator_user"].get("email_message_type", []):
+            if "rent_ticket_reminder" not in ticket_email_user.get("email_message_type", []):
                 continue
 
             last_email = f_app.task.search({"status": {"$exists": True}, "type": "email_send", "ticket_id": rent_ticket["id"], "rent_ticket_reminder": {"$in": ["draft_3day", "draft_7day"]}})
@@ -1349,7 +1352,7 @@ class f_currant_plugins(f_app.plugin_base):
             try:
                 body = template(
                     "views/static/emails/draft_not_publish_day_3",
-                    nickname=rent_ticket["creator_user"]["nickname"],
+                    nickname=ticket_email_user["nickname"],
                     date="",
                     title=title,
                     rent_ticket_title=rent_ticket["title"],
@@ -1360,7 +1363,7 @@ class f_currant_plugins(f_app.plugin_base):
                 continue
 
             f_app.email.schedule(
-                target=rent_ticket["creator_user"]["email"],
+                target=ticket_email_user["email"],
                 subject=title,
                 text=body,
                 display="html",
@@ -2732,6 +2735,16 @@ class f_currant_util(f_util):
                     index_params["phone_national_number"] = phonenumbers.format_number(phonenumbers.parse(index_params["phone"]), phonenumbers.PhoneNumberFormat.NATIONAL).replace(" ", "")
 
                 f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
+
+    def ticket_determine_email_user(self, ticket):
+        if not ticket:
+            return None
+        if "user" in ticket and ticket["user"] and "email" in ticket["user"] and ticket["user"]["email"]:
+            return ticket["user"]
+        # # Now we only send to "user"
+        # elif "creator_user" in ticket and ticket["creator_user"] and "email" in ticket["creator_user"] and ticket["creator_user"]["email"]:
+        #     return ticket["creator_user"]
+        return None
 
     # TODO: now we only consider UK
     def find_region_report(self, zipcode, maponics_neighborhood_id=None):
