@@ -1,0 +1,80 @@
+<div class="buttons">
+    <span class="btn-group">
+        <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
+    </span>
+</div>
+<form name="budgetCreateForm" class="form-horizontal"
+    style="max-width: 800px; padding-bottom: 100px;" ng-submit="addRentBudgetItem($event,budgetCreateForm)"
+    novalidate>
+    <div class="form-group">
+        <select class="form-control" ng-options="item for item in i18nCurrency" ng-model="item.currency" required>
+            <option value="">-- {%$root.i18n('货币单位')%} --</option>
+        </select>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-3 ">
+            <label class="control-label">{%$root.i18n('货币数目')%} *</label>
+
+            <div class="controls">
+                <input class="form-control" type="number" min="0" ng-model="item.slug"/>
+            </div>
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label class="control-label">{%$root.i18n('内容')%} *</label>
+
+        <div class="controls">
+            <table class="table table-bordered table-striped table-condensed "
+                style="margin-bottom:30px">
+                <colgroup>
+                    <col class="item">
+                    <col class="price">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>{%$root.i18n('语言')%}</th>
+                        <th>{%$root.i18n('内容')%}</th>
+                        <th>{%$root.i18n('删除')%}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tempValue in item.tempValues">
+                        <td>{%tempValue[0]%}</td>
+                        <td><input class="form-control" type="text" ng-model="tempValue[1]"/></td>
+                        <td>
+                            <span class="btn btn-danger" ng-click="onRestoreLanguage(tempValue[0]);removeI18nValue($index)"
+                                title="{%$root.i18n('移除')%}">
+                                <i class="fa fa-trash-o"></i>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div select-language></div>
+        <div class="controls form-inline">
+
+            <select class="form-control" ng-model="item.tempI18n" style="width: 185px;"
+                ng-options="p.value as p.name for p in availableLanguages">
+                <option value="">-- {%$root.i18n('选择语言')%} --</option>
+            </select>
+            <input class="form-control" type="text" ng-model="item.tempValue" placeholder="{%$root.i18n('内容')%}"/>
+            <!--onAddLanguage(item.tempI18n) must be called before addI18nValue(),because addI18nValue makes item.tempI18n null-->
+            <input type="button" ng-click="onAddLanguage(item.tempI18n); addI18nValue()" class="btn btn-primary"
+                value="添加">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">{%$root.i18n('sort_value')%}</label>
+
+        <div class="controls">
+            <input class="form-control" type="text" ng-model="item.sort_value"/>
+        </div>
+    </div>
+    <div class="form-actions" style="margin-bottom: 80px;">
+        <input type="submit" class="btn btn-primary" ng-click="onResetLanguage()" value="{%$root.i18n('提交')%}" ng-disabled="budgetCreateForm.$invalid || !item.tempValues.length">
+        <input type="button" class="btn btnGoBack" ng-click="onBackClick()" value="{%$root.i18n('取消')%}">
+    </div>
+    <div class="help-block">* {%$root.i18n('必填')%}</div>
+</form>

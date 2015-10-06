@@ -251,6 +251,26 @@
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
             },
+            addRentBudgetItem: function (slug, currency, value, sort_value) {
+                var data = {
+                    type: 'rent_budget_item',
+                    slug: slug,
+                    currency: currency,
+                    value: value,
+                    sort_value: sort_value || 0
+                }
+                return $http.post('/api/1/enum/add', data, {errorMessage: true})
+            },
+            editRentBudgetItem: function (id, slug, currency, value, sort_value) {
+                var data = {
+                    type: 'rent_budget_item',
+                    slug: slug,
+                    currency: currency,
+                    value: value,
+                    sort_value: sort_value || 0
+                }
+                return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
+            },
             remove: function (id, config) {
                 return $http.post('/api/1/enum/' + id + '/remove', {mode: 'clean'}, config)
             },

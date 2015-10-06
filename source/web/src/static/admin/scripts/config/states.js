@@ -300,6 +300,24 @@ angular.module('app')
                 controller: 'ctrlEnums',
                 resolve: enumResolve
             })
+            .state('dashboard.enums.rent_budget_item', {
+                url: '/rent_budget_item',
+                templateUrl: '/static/admin/templates/dashboard.enums.rent_budget_item.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.rent_budget_item.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.enums.rent_budget_item.create.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
+            .state('dashboard.enums.rent_budget_item.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.enums.rent_budget_item.edit.tpl.html',
+                controller: 'ctrlEnums',
+                resolve: enumResolve
+            })
             .state('dashboard.enums.hesa_university', {
                 url: '/hesa_university',
                 templateUrl: '/static/admin/templates/dashboard.enums.hesa_university.tpl.html',

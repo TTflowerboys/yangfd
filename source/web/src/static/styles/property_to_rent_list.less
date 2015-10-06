@@ -221,8 +221,7 @@ main {
                 margin: 0;
                 border-top: 1px solid #ccc;
                 display:block;
-                overflow:hidden;
-
+                .clearfix;
                 @media @phone {
                     min-height:0;
                     border-top: 0;
@@ -254,8 +253,9 @@ main {
                 }
 
                 .inner {
-                    overflow:hidden;
-                    margin-top:48px;
+                    width: 100%;
+                    float: left;
+                    margin-top:18px;
                     margin-bottom:5px;
                     vertical-align: middle;
                     .toggleTag {
@@ -269,14 +269,18 @@ main {
                     }
 
                     @media @phone {
-                        margin-top:46px;
+                        margin-top:16px;
                     }
-                    .date{
+                    .inputWrapper{
                         position: relative;
                         display: inline-block;
+                        width:100px;
                         height: 30px;
                         margin-bottom: 12px;
                         vertical-align: middle;
+                        @media @phone {
+                            width:124px;
+                        }
                         input{
                             width:100px;
                             height:30px;
@@ -308,6 +312,23 @@ main {
                                 opacity: 0.8;
                             }
                         }
+                        .chosen-container {
+                            .chosen-single{
+                                height: 30px;
+                                line-height: 30px;
+                                border: 1px solid #aaa;
+                                border-radius: 0;
+                                div b {
+                                    background-position: 0 5px;
+                                }
+                            }
+                            .chosen-drop{
+                                border: 1px solid #aaa;
+                                border-top: none;
+                                border-radius: 0;
+                            }
+                        }
+
                     }
                     .button{
                         border-radius: 0;

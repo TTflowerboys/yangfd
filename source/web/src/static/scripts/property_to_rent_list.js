@@ -140,8 +140,8 @@
             params.rent_type = rentType
         }
 
-        var rentBudgetType = getSelectedTagFilterDataId('#rentBudgetTag')
-        if (rentBudgetType) {
+        var rentBudgetType = getRentBudget()
+        if (rentBudgetType.length) {
             params.rent_budget = rentBudgetType
         }
 
@@ -454,7 +454,18 @@
         }
         return ''
     }
-
+    function getRentBudget() {
+        var min = $('[name=rentBudgetMin]').val()
+        var max = $('[name=rentBudgetMax]').val()
+        if (!min.length && !max.length) {
+            return ''
+        }
+        if (min.length && max.length && parseInt(min) >= parseInt(max)) {
+            window.dhtmlx.message({ type:'error', text: i18n('租金下限必须小于租金上限')});
+            return ''
+        }
+        return 'rent_budget:' + min + ',' + max + ',' + window.currency
+    }
     $('#tags #propertyTypeTag').on('click', '.toggleTag', function (event) {
         event.stopPropagation()
 
@@ -487,21 +498,6 @@
         loadRentListByView()
     })
 
-    $('#tags #rentBudgetTag').on('click', '.toggleTag', function (event) {
-        event.stopPropagation()
-
-        var $item = $(event.target)
-        var alreadySelected = $item.hasClass('selected')
-        var $parent = $(event.target.parentNode)
-        $parent.find('.toggleTag').removeClass('selected')
-
-        if (!alreadySelected) {
-            $item.addClass('selected')
-        }
-
-        ga('send', 'event', 'rent_list', 'change', 'change-rent-budget', $item.text())
-        loadRentListByView()
-    })
 
     $('#tags #rentPeriodTag').on('click', '.toggleTag', function (event) {
         event.stopPropagation()
@@ -595,7 +591,7 @@
     $('.calendar .clear').bind('click', function(event){
         $(this).siblings('input').val('').trigger('change').attr('placeholder', i18n('请选择日期'))
     })
-    $('.confirmDate').click(function () {
+    $('.confirmFilter').click(function () {
 
         loadRentListByView()
     })
@@ -726,8 +722,8 @@
             params.rent_type = rentType
         }
 
-        var rentBudgetType = getSelectedTagFilterDataId('#rentBudgetTag')
-        if (rentBudgetType) {
+        var rentBudgetType = getRentBudget()
+        if (rentBudgetType.length) {
             params.rent_budget = rentBudgetType
         }
 
