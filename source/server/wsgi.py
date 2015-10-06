@@ -60,6 +60,7 @@ import credit_api_interface
 import app_version_api_interface
 import venue_api_interface
 import deal_api_interface
+import index_rule_api_interface
 
 
 application = f_app(__name__)

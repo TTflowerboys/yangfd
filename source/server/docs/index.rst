@@ -54,3 +54,4 @@ API Reference
    app_version_api
    venue_api
    deal_api
+   index_rule_api
