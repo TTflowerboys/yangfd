@@ -584,7 +584,7 @@
     resetDateInputType()
     $(window).resize(resetDateInputType)
     //$rentPeriodStartDate.attr('placeholder',$.format.date(new Date(), 'yyyy-MM-dd'))
-    $('#rentPeriodStartDate').attr('value', window.moment.utc(new Date()).format('YYYY-MM-DD'))
+    //$('#rentPeriodStartDate').attr('value', window.moment.utc(new Date()).format('YYYY-MM-DD'))
     $dateInput.each(function (index, elem) {
         $(elem).dateRangePicker({
             //startDate: new Date(new Date().getTime() + 3600 * 24 * 30 * 1000),
@@ -610,7 +610,7 @@
                 ga('send', 'event', 'rent_list', 'change', 'change-space', val)
             })
     })
-    $('#rentPeriodStartDate').trigger('change')
+    //$('#rentPeriodStartDate').trigger('change')
     
     $('.calendar .clear').bind('click', function(event){
         $(this).siblings('input').val('').trigger('change').attr('placeholder', i18n('请选择日期'))
