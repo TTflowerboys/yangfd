@@ -308,54 +308,56 @@
                 <div class="seperator"></div>
                 <h3 class="propertyDetails_title">{{_('房产详情')}}</h3>
                 % if property_type_slug != 'new_property' and property_type_slug != 'student_housing':
-                    <ul class="numbers">
-                        <li>
-                            {{_('房屋面积')}}
-                            % if property.get('space'):
-                                <strong>
-                                    {{float("{0:.2f}".format(float(property.get('space',{}).get('value',0))))}}
-                                    <span class="unit">
-                                        {{!format_unit(property.get('space',{}).get('unit',''))}}
-                                    </span>
-                                </strong>
-                            % end
-                        </li>
-                        % if 'bedroom_count' in property and property.get('bedroom_count') == 0:
-                        <li>
-                            {{_('户型')}}
-                            <strong>studio</strong>
-                        </li>
-                        % else:
-                        % if property.get('bedroom_count','') :
-                            <li>
-                                {{_('卧室')}}
-                                <strong>{{ property.get('bedroom_count','') }}</strong>
-                            </li>
-                        % end
+                % if property.get('space') or property.get('bedroom_count') or property.get('bathroom_count') or property.get('living_room_count','') or property.get('kitchen_count',''):
+                <ul class="numbers">
+                    % if property.get('space'):
+                    <li>
+                        {{_('房屋面积')}}
+                        <strong>
+                            {{float("{0:.2f}".format(float(property.get('space',{}).get('value',0))))}}
+                            <span class="unit">
+                                {{!format_unit(property.get('space',{}).get('unit',''))}}
+                            </span>
+                        </strong>
+                    </li>
+                    % end
+                    % if 'bedroom_count' in property and property.get('bedroom_count') == 0:
+                    <li>
+                        {{_('户型')}}
+                        <strong>studio</strong>
+                    </li>
+                    % else:
+                    % if property.get('bedroom_count','') :
+                    <li>
+                        {{_('卧室')}}
+                        <strong>{{ property.get('bedroom_count','') }}</strong>
+                    </li>
+                    % end
 
-                        % if property.get('bathroom_count') :
-                            <li>
-                                {{_('卫生间')}}
-                                <strong>{{ property.get('bathroom_count') }}</strong>
-                            </li>
-                        % end
+                    % if property.get('bathroom_count') :
+                    <li>
+                        {{_('卫生间')}}
+                        <strong>{{ property.get('bathroom_count') }}</strong>
+                    </li>
+                    % end
 
-                        % if property.get('living_room_count',''):
-                            <li>
-                                {{_('客厅')}}
-                                <strong>{{ property.get('living_room_count','') }}</strong>
-                            </li>
-                        % end
+                    % if property.get('living_room_count',''):
+                    <li>
+                        {{_('客厅')}}
+                        <strong>{{ property.get('living_room_count','') }}</strong>
+                    </li>
+                    % end
 
-                        % if property.get('kitchen_count','') :
-                            <li>
-                                {{_('厨房')}}
-                                <strong>{{ property.get('kitchen_count','') }}</strong>
-                            </li>
-                        % end
-                        % end
-                    </ul>
-                    <div class="seperator"></div>
+                    % if property.get('kitchen_count','') :
+                    <li>
+                        {{_('厨房')}}
+                        <strong>{{ property.get('kitchen_count','') }}</strong>
+                    </li>
+                    % end
+                    % end
+                </ul>
+                <div class="seperator"></div>
+                % end
                 %end
                 <table class="other">
                     <colgroup>
