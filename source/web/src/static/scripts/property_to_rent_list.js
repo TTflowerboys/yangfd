@@ -584,6 +584,7 @@
     resetDateInputType()
     $(window).resize(resetDateInputType)
     //$rentPeriodStartDate.attr('placeholder',$.format.date(new Date(), 'yyyy-MM-dd'))
+    $('#rentPeriodStartDate').attr('value', window.moment.utc(new Date()).format('YYYY-MM-DD'))
     $dateInput.each(function (index, elem) {
         $(elem).dateRangePicker({
             //startDate: new Date(new Date().getTime() + 3600 * 24 * 30 * 1000),
