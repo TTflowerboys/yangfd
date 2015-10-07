@@ -610,7 +610,8 @@
                 ga('send', 'event', 'rent_list', 'change', 'change-space', val)
             })
     })
-
+    $('#rentPeriodStartDate').trigger('change')
+    
     $('.calendar .clear').bind('click', function(event){
         $(this).siblings('input').val('').trigger('change').attr('placeholder', i18n('请选择日期'))
     })
