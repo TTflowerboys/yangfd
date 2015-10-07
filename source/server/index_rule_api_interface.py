@@ -30,7 +30,7 @@ def index_rule_add(user, params):
     It works in a way that the "positive" part will be matched and the "negative" part will be filtered out upon match.
     The notation of the parts is to prefix "positive" words with nothing, while giving "negative" ones a "-" prefix.
 
-    For example, "apple -orange" will cause indexes to filter out "orange" when "apple" exists, so "i love apple and orange" will be cut as "i/love/apple/and".
+    For example, ``apple -orange`` will cause indexes to filter out "orange" when "apple" exists, so ``i love apple and orange`` will be cut as ``i/love/apple/and``.
 
     Multiple "positive" words support will be added later, but for now, only one "positive" word is supported and it must be the first word in the rule.
 
