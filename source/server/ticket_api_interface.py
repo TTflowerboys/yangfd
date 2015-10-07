@@ -628,6 +628,8 @@ def rent_intention_ticket_search(user, params):
         # params["minimum_rent_period"] = {"type": ""}
         pass
 
+    params.pop("rent_deadline_time", None)
+
     if "minimum_rent_period" in params:
         rent_period_filter = []
         for time_period_unit in f_app.common.i18n_unit_time_period:
@@ -1330,6 +1332,8 @@ def rent_ticket_search(user, params):
         # TODO: override minimum_rent_period only if necessary
         # params["minimum_rent_period"] = {"type": ""}
         pass
+
+    params.pop("rent_deadline_time", None)
 
     if "minimum_rent_period" in params:
         rent_period_filter = []
