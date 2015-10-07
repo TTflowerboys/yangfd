@@ -21,7 +21,7 @@ pint
 PyYAML
 matplotlib
 PlanOut
-M2Crypto
+retrying
 pytz
 python-dateutil
 msgpack-python
@@ -31,6 +31,7 @@ phonenumbers
 gevent-websocket
 boto
 bcrypt
+M2Crypto
 sh
 uWSGI
 bottle
