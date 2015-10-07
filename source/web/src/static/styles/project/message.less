@@ -3,6 +3,12 @@
     width: 220px;
     top: 0 !important;
     right: 0 !important;
+    @media @phone{
+        width: 100%;
+        top: initial !important;
+        bottom: 0px !important;
+        right: 0px !important;
+    }
     .dhtmlx-info{
         color: #fff;
         width: 220px;
@@ -12,7 +18,11 @@
         border: none;
         box-shadow: none;
         background: #5ab020;
-        color: #fff;
+        right: 0 !important;
+        @media @phone{
+            width: 100%;
+            text-align: center;
+        }
         &.hidden{
             padding: 0 20px;
         }
