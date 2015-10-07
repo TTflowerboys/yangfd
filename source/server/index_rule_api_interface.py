@@ -21,7 +21,21 @@ def index_rule_channel_rules(channel, user):
 @f_app.user.login.check(role=['admin'])
 def index_rule_add(user, params):
     """
-    Possible channels: ``synonyms``, ``index_filter``, ``user_dict``
+    Possible channels: ``synonyms``, ``index_filter``, ``user_dict``.
+
+    ``synonyms`` is a half-width space separated string, while all parts of the rule means the same thing.
+
+    ``index_filter`` is also a half-width space separated string and acts as a filter during indexing.
+    It has two kind of words, one part is "positive" while the other is "negative".
+    It works in a way that the "positive" part will be matched and the "negative" part will be filtered out upon match.
+    The notation of the parts is to prefix "positive" words with nothing, while giving "negative" ones a "-" prefix.
+
+    For example, "apple -orange" will cause indexes to filter out "orange" when "apple" exists, so "i love apple and orange" will be cut as "i/love/apple/and".
+
+    Multiple "positive" words support will be added later, but for now, only one "positive" word is supported and it must be the first word in the rule.
+
+    ``user_dict`` affects the cut process. Adding as one word per rule, it will cause the entered word to be cut as a whole word.
+    Note that it supports only jieba for now, so it doesn't work yet at the moment.
     """
     return f_app.match.rule.add(params["channel"], params["rule"])
 
