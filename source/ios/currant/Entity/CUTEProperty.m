@@ -215,6 +215,8 @@
     //special for lat and lng
     [keysMapping removeObjectForKey:@keypath(self.latitude)];
     [keysMapping removeObjectForKey:@keypath(self.longitude)];
+    //space without value means need remove
+    [keysMapping removeObjectForKey:@keypath(self.space)];
 
 
     [keysMapping enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
@@ -238,6 +240,13 @@
     else {
         [unsetFields addObject:@"latitude"];
         [unsetFields addObject:@"longitude"];
+    }
+
+    if (self.space) {
+        [params setObject:self.space.toParams forKey:@"space"];
+    }
+    else {
+        [unsetFields addObject:@"space"];
     }
 
     if (!IsArrayNilOrEmpty(unsetFields)) {

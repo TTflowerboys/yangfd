@@ -593,6 +593,7 @@
 - (void)onReceiveTicketPublish:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
+    //TODO fix edit deleted ticket bug
     [[CUTEDataManager sharedInstance] markRentTicketDeleted:ticket];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 

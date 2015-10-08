@@ -12,11 +12,11 @@
 
 @property (strong, nonatomic) NSString *unit;
 
-@property (nonatomic) float value;
+@property (strong, nonatomic) NSString *value;
 
-+ (CUTEArea *)areaWithValue:(float)value unit:(NSString *)unit;
++ (CUTEArea *)areaWithValue:(NSString *)value unit:(NSString *)unit;
 
-- (NSString *)unitSymbol;
+- (NSString *)unitPresentation;
 
 - (NSDictionary *)toParams;
 

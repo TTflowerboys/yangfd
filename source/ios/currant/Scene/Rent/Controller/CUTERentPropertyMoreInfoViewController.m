@@ -105,7 +105,7 @@
         }
 
         if (self.form.ticket.space) {
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f %@", self.form.ticket.space.value, self.form.ticket.space.unitSymbol];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", self.form.ticket.space.value, self.form.ticket.space.unitPresentation];
         }
     }
 
@@ -117,6 +117,7 @@
     CUTEAreaForm *form = [CUTEAreaForm new];
     form.ticket = self.form.ticket;
     form.area = self.form.ticket.space.value;
+    form.unitPresentation = self.form.ticket.space.unitPresentation;
     controller.formController.form = form;
 
     __weak typeof(self)weakSelf = self;

@@ -14,7 +14,7 @@
 
 @property (strong, nonatomic) NSString *unitPresentation;
 
-@property (nonatomic) CGFloat area;
+@property (nonatomic) NSString *area;
 
 - (NSString *)unit;
 

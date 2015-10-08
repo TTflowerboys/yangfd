@@ -16,6 +16,7 @@
 #import "CUTEFormSwitchCell.h"
 #import "CUTEFormRentPeriodPickerCell.h"
 #import "CUTEFormCurrencyTextFieldCell.h"
+#import "currant-Swift.h"
 
 @interface CUTERentPriceForm () {
 
@@ -30,8 +31,8 @@
     NSMutableArray *array = [NSMutableArray arrayWithArray:
                              @[
                                @{FXFormFieldKey: @"currency", FXFormFieldTitle:STR(@"RentPrice/货币"), FXFormFieldOptions: [CUTECurrency currencyUnitArray], FXFormFieldDefaultValue: _currency ? : [CUTECurrency defaultCurrencyUnit], FXFormFieldHeader: STR(@"RentPrice/租金"), FXFormFieldAction: @"onCurrencyEdit:"},
-                               @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"RentPrice/租金"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldCell: [CUTEFormRentPriceTextFieldCell class], FXFormFieldDefaultValue: @(_rentPrice), @"textField.keyboardType": @(UIKeyboardTypeDecimalPad), FXFormFieldAction: @"onRentPriceEdit:"},
-                               @{FXFormFieldKey: @"deposit", FXFormFieldTitle:STR(@"RentPrice/押金"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldCell: [CUTEFormCurrencyTextFieldCell class], @"textField.keyboardType": @(UIKeyboardTypeDecimalPad),FXFormFieldHeader: @"", FXFormFieldPlaceholder: STR(@"RentPrice/填写金额，不填则为面议"), FXFormFieldAction: @"onDepositEdit:"},
+                               @{FXFormFieldKey: @"rentPrice", FXFormFieldTitle:STR(@"RentPrice/租金"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldCell: [CUTEFormRentPriceTextFieldCell class], FXFormFieldDefaultValue: _rentPrice?: @"", @"textField.keyboardType": @(UIKeyboardTypeDecimalPad), FXFormFieldAction: @"onRentPriceEdit:", FXFormFieldValueTransformer: [CUTEPlainTextNumberTransformer class]},
+                               @{FXFormFieldKey: @"deposit", FXFormFieldTitle:STR(@"RentPrice/押金"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldCell: [CUTEFormCurrencyTextFieldCell class], @"textField.keyboardType": @(UIKeyboardTypeDecimalPad),FXFormFieldHeader: @"", FXFormFieldPlaceholder: STR(@"RentPrice/填写金额，不填则为面议"), FXFormFieldAction: @"onDepositEdit:", FXFormFieldValueTransformer: [CUTEPlainTextNumberTransformer class]},
                                @{FXFormFieldKey: @"billCovered", FXFormFieldTitle:STR(@"RentPrice/包Bill"), FXFormFieldHeader: STR(@"RentPrice/其他"), FXFormFieldDefaultValue: @(_billCovered), FXFormFieldAction: @"onBillCoveredSwitch:", FXFormFieldCell: [CUTEFormSwitchCell class]},
                                ]];
     return array;

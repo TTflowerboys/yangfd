@@ -83,7 +83,7 @@
 
 - (void)onDepositEdit:(id)sender {
     [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
-        ticket.deposit = [CUTECurrency currencyWithValue:self.form.deposit.floatValue unit:self.form.currency];
+        ticket.deposit = [CUTECurrency currencyWithValue:self.form.deposit unit:self.form.currency];
     }];
 }
 

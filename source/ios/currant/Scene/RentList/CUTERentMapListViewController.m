@@ -76,14 +76,15 @@
     }];
 }
 
-- (NSString *)formatPrice:(CGFloat)price symbol:(NSString *)symbol {
+- (NSString *)formatPrice:(NSString *)price symbol:(NSString *)symbol {
     NSString *suffix = @"/周";
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
     [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [numberFormatter setCurrencySymbol:symbol];
     [numberFormatter setMaximumFractionDigits:2];
-    return CONCAT(FloatToString(price), suffix);
+
+    return CONCAT(FloatToString(price.floatValue), suffix);
 }
 
 - (void)showCalloutViewWithObject:(id)object inView:(UIView *)view {

@@ -288,6 +288,14 @@
 		2C6D07D51B3E77AF001EBB90 /* CUTEUsageManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D07D41B3E77AF001EBB90 /* CUTEUsageManagerTest.m */; };
 		2C6D7B181B428E49007853FD /* CUTEApplyBetaUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D7B171B428E49007853FD /* CUTEApplyBetaUITest.m */; };
 		2C6D7B1E1B428F25007853FD /* KIFUITestActor+SplashUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D7B1D1B428F25007853FD /* KIFUITestActor+SplashUI.m */; };
+		2C73BAC61BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */; settings = {ASSET_TAGS = (); }; };
+		2C73BAC71BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */; settings = {ASSET_TAGS = (); }; };
+		2C73BAC81BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */; settings = {ASSET_TAGS = (); }; };
+		2C73BAC91BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */; settings = {ASSET_TAGS = (); }; };
+		2C73BACB1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BACA1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift */; settings = {ASSET_TAGS = (); }; };
+		2C73BACC1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BACA1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift */; settings = {ASSET_TAGS = (); }; };
+		2C73BACD1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BACA1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift */; settings = {ASSET_TAGS = (); }; };
+		2C73BACE1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BACA1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift */; settings = {ASSET_TAGS = (); }; };
 		2C744C6E1BBCCA25000198F1 /* CUTEPermissionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C744C6D1BBCCA25000198F1 /* CUTEPermissionChecker.swift */; settings = {ASSET_TAGS = (); }; };
 		2C744C6F1BBCCA25000198F1 /* CUTEPermissionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C744C6D1BBCCA25000198F1 /* CUTEPermissionChecker.swift */; settings = {ASSET_TAGS = (); }; };
 		2C744C701BBCCA25000198F1 /* CUTEPermissionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C744C6D1BBCCA25000198F1 /* CUTEPermissionChecker.swift */; settings = {ASSET_TAGS = (); }; };
@@ -934,6 +942,8 @@
 		2C6D7B171B428E49007853FD /* CUTEApplyBetaUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEApplyBetaUITest.m; sourceTree = "<group>"; };
 		2C6D7B1C1B428F25007853FD /* KIFUITestActor+SplashUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFUITestActor+SplashUI.h"; sourceTree = "<group>"; };
 		2C6D7B1D1B428F25007853FD /* KIFUITestActor+SplashUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+SplashUI.m"; sourceTree = "<group>"; };
+		2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEFormAreaTextFieldCell.swift; sourceTree = "<group>"; };
+		2C73BACA1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEPlainTextNumberTransformer.swift; sourceTree = "<group>"; };
 		2C744C6D1BBCCA25000198F1 /* CUTEPermissionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEPermissionChecker.swift; sourceTree = "<group>"; };
 		2C7520411ACA775C0008B42A /* CUTEViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEViewController.h; sourceTree = "<group>"; };
 		2C7520421ACA775C0008B42A /* CUTEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEViewController.m; sourceTree = "<group>"; };
@@ -1904,6 +1914,7 @@
 				2CE2A9681B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m */,
 				2CF8A5CA1AF0B40E0080DF10 /* CUTEFormRentTypeCell.h */,
 				2CF8A5CB1AF0B40E0080DF10 /* CUTEFormRentTypeCell.m */,
+				2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */,
 				2CF8A5D01AF0B40E0080DF10 /* CUTEFormTextCell.h */,
 				2CF8A5D11AF0B40E0080DF10 /* CUTEFormTextCell.m */,
 				2CC3A08F1AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.h */,
@@ -1959,6 +1970,7 @@
 				2CF8A6721AF0B65C0080DF10 /* CUTERentTypeListForm.m */,
 				2C1251D01B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.h */,
 				2C1251D11B54AB100037F5B6 /* CUTEUnfinishedRentTicketListForm.m */,
+				2C73BACA1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift */,
 			);
 			path = Form;
 			sourceTree = "<group>";
@@ -2589,6 +2601,7 @@
 				2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */,
 				2CC6C1D81AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
 				2CB86ACB1B5E1C170065EE56 /* CUTENeighborhood.m in Sources */,
+				2C73BAC81BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */,
 				2CF8A6751AF0B65C0080DF10 /* CUTEAreaForm.m in Sources */,
 				2CCE67F61B1C0F9F00351DED /* CUTERentListViewController.m in Sources */,
 				2C9AFF791AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
@@ -2721,6 +2734,7 @@
 				2CE2A98F1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C5597EE1BB501C600430984 /* CUTEPatcher.swift in Sources */,
 				2C1251941B53909A0037F5B6 /* CUTECredit.m in Sources */,
+				2C73BACD1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift in Sources */,
 				2CC3A0931AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D531B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
 			);
@@ -2751,6 +2765,7 @@
 				2CA2E6C71AC5496700053965 /* AppDelegate.m in Sources */,
 				2CC6C1D91AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
 				2CB86ACC1B5E1C170065EE56 /* CUTENeighborhood.m in Sources */,
+				2C73BAC91BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */,
 				2CF8A6761AF0B65C0080DF10 /* CUTEAreaForm.m in Sources */,
 				2CCE67F71B1C0F9F00351DED /* CUTERentListViewController.m in Sources */,
 				2C9AFF7A1AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
@@ -2883,6 +2898,7 @@
 				2CE2A9901B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C5597EF1BB501C600430984 /* CUTEPatcher.swift in Sources */,
 				2C1251951B53909A0037F5B6 /* CUTECredit.m in Sources */,
+				2C73BACE1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift in Sources */,
 				2CC3A0941AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D541B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
 			);
@@ -2913,6 +2929,7 @@
 				2CA94A981ACA42CD00DF7497 /* AppDelegate.m in Sources */,
 				2CC6C1D71AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
 				2CB86ACA1B5E1C170065EE56 /* CUTENeighborhood.m in Sources */,
+				2C73BAC71BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */,
 				2CF8A6741AF0B65C0080DF10 /* CUTEAreaForm.m in Sources */,
 				2CCE67F51B1C0F9F00351DED /* CUTERentListViewController.m in Sources */,
 				2C9AFF781AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
@@ -3045,6 +3062,7 @@
 				2CE2A98E1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C5597ED1BB501C600430984 /* CUTEPatcher.swift in Sources */,
 				2C1251931B53909A0037F5B6 /* CUTECredit.m in Sources */,
+				2C73BACC1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift in Sources */,
 				2CC3A0921AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D521B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
 			);
@@ -3075,6 +3093,7 @@
 				2CC6C1D61AEE2400002758A7 /* AssetsLibraryProvider.m in Sources */,
 				2CB86AC91B5E1C170065EE56 /* CUTENeighborhood.m in Sources */,
 				2CF8A6731AF0B65C0080DF10 /* CUTEAreaForm.m in Sources */,
+				2C73BAC61BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */,
 				2CCE67F41B1C0F9F00351DED /* CUTERentListViewController.m in Sources */,
 				2C9AFF771AF2335900E5F0BC /* CUTEWebConfiguration.m in Sources */,
 				2C5ECC511AD525AC00163E9E /* CUTEAPIManager.m in Sources */,
@@ -3207,6 +3226,7 @@
 				2CE2A98D1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C5597EC1BB501C600430984 /* CUTEPatcher.swift in Sources */,
 				2C1251921B53909A0037F5B6 /* CUTECredit.m in Sources */,
+				2C73BACB1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift in Sources */,
 				2CC3A0911AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D511B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
 			);

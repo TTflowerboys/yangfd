@@ -175,6 +175,11 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
     [keysMapping removeObjectForKey:@keypath(self.title)];
     [keysMapping removeObjectForKey:@keypath(self.property)];
     [keysMapping removeObjectForKey:@keypath(self.creatorUser)];
+    //space without value means need remove
+    [keysMapping removeObjectForKey:@keypath(self.space)];
+    //price and deposit without value means need remove
+    [keysMapping removeObjectForKey:@keypath(self.price)];
+    [keysMapping removeObjectForKey:@keypath(self.deposit)];
 
     [keysMapping enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
         NSString *paramKey = obj;
@@ -194,6 +199,27 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
 
     if (self.property && self.property.identifier) {
         [params setObject:self.property.identifier forKey:@"property_id"];
+    }
+
+    if (self.space) {
+        [params setObject:self.space.toParams forKey:@"space"];
+    }
+    else {
+        [unsetFields addObject:@"space"];
+    }
+
+    if (self.price) {
+        [params setObject:self.price.toParams forKey:@"price"];
+    }
+    else {
+        [unsetFields addObject:@"price"];
+    }
+
+    if (self.deposit) {
+        [params setObject:self.deposit.toParams forKey:@"deposit"];
+    }
+    else {
+        [unsetFields addObject:@"deposit"];
     }
 
     //like createTicket, not set title, will set a default title

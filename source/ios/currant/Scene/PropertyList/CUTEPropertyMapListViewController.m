@@ -74,14 +74,15 @@
     }];
 }
 
-- (NSString *)formatPrice:(CGFloat)price symbol:(NSString *)symbol {
+- (NSString *)formatPrice:(NSString *)price symbol:(NSString *)symbol {
     NSString *suffix = @"";
-    if  (price > 100000000) {
-        price = price / 100000000;
+    CGFloat floatPrice = price.floatValue;
+    if  (floatPrice > 100000000) {
+        floatPrice = floatPrice / 100000000;
         suffix = STR(@"PropertyMapList/亿");
     }
-    else if (price > 10000) {
-        price = price / 10000;
+    else if (floatPrice > 10000) {
+        floatPrice = floatPrice / 10000;
         suffix = STR(@"PropertyMapList/万");
     }
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
@@ -89,7 +90,7 @@
     [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [numberFormatter setCurrencySymbol:symbol];
     [numberFormatter setMaximumFractionDigits:2];
-    return CONCAT(FloatToString(price), suffix);
+    return CONCAT(FloatToString(floatPrice), suffix);
 }
 
 - (NSString *)getPriceFromProperty:(CUTEProperty *)property {

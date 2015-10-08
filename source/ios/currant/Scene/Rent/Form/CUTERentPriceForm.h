@@ -15,8 +15,8 @@
 @interface CUTERentPriceForm : CUTETicketForm
 
 @property (strong, nonatomic) NSString *currency;
-@property (nonatomic) float rentPrice;
-@property (nonatomic) NSNumber *deposit;
+@property (nonatomic) NSString *rentPrice;
+@property (nonatomic) NSString *deposit;
 
 @property (nonatomic) BOOL billCovered;
 

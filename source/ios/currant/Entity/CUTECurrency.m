@@ -8,6 +8,7 @@
 
 #import "CUTECurrency.h"
 #import "CUTECommonMacro.h"
+#import <MTLValueTransformer.h>
 
 @implementation CUTECurrency
 
@@ -17,7 +18,32 @@
              @"value": @"value"};
 }
 
-+ (CUTECurrency *)currencyWithValue:(float)value unit:(NSString *)unit {
+//Be compatible with old data with value type as NSNumber
++ (NSValueTransformer *)valueJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSString *(id value) {
+        if ([value isKindOfClass:[NSNumber class]]) {
+            return [(NSNumber *)value stringValue];
+        }
+        else if ([value isKindOfClass:[NSString class]]) {
+            return value;
+        }
+        else {
+            return nil;
+        }
+    } reverseBlock:^NSString *(id value) {
+        if ([value isKindOfClass:[NSNumber class]]) {
+            return [(NSNumber *)value stringValue];
+        }
+        else if ([value isKindOfClass:[NSString class]]) {
+            return value;
+        }
+        else {
+            return nil;
+        }
+    }];
+}
+
++ (CUTECurrency *)currencyWithValue:(NSString *)value unit:(NSString *)unit {
     CUTECurrency *currency = [CUTECurrency new];
     currency.unit = unit;
     currency.value = value;
@@ -26,7 +52,12 @@
 
 - (BOOL)isEqual:(id)object {
     if ([object isKindOfClass:[self class]]) {
-        return [self.unit isEqualToString:[object unit]] && fequal(self.value, [(CUTECurrency *)object value]);
+        //self.value
+        NSNumberFormatter *formatter = [NSNumberFormatter new];
+        formatter.numberStyle = NSNumberFormatterDecimalStyle;
+        NSNumber *aValue = self.value? [formatter numberFromString:self.value]: nil;
+        NSNumber *bVlaue = [(CUTECurrency *)object value]? [formatter numberFromString:[(CUTECurrency *)object value]]: nil;
+        return [self.unit isEqualToString:[object unit]] && [aValue isEqualToNumber: bVlaue];
     }
     else {
         return NO;
@@ -34,10 +65,13 @@
 }
 
 - (NSDictionary *)toParams {
-    return @{
-             @"unit":self.unit,
-             @"value":FloatToString(self.value)
-             };
+    if (!IsNilNullOrEmpty(self.value)) {
+        return @{
+                 @"unit":self.unit,
+                 @"value":self.value
+                 };
+    }
+    return nil;
 }
 
 - (NSString *)symbol {

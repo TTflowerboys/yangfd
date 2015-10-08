@@ -197,7 +197,7 @@
     }
     else if ([field.key isEqualToString:@"rentPrice"]) {
         if (self.form.ticket.price) {
-            cell.detailTextLabel.text = CONCAT([CUTECurrency symbolOfCurrencyUnit:self.form.ticket.price.unit], [NSString stringWithFormat:@"%.2lf", self.form.ticket.price.value], @"/", STR(@"RentPropertyInfo/周"));
+            cell.detailTextLabel.text = CONCAT([CUTECurrency symbolOfCurrencyUnit:self.form.ticket.price.unit], [NSString stringWithFormat:@"%@", self.form.ticket.price.value], @"/", STR(@"RentPropertyInfo/周"));
         }
     }
     else if ([field.key isEqualToString:@"rentPeriod"]) {
@@ -283,7 +283,7 @@
     form.ticket = self.form.ticket;
     form.currency = ticket.price.unit;
     form.rentPrice = ticket.price.value;
-    form.deposit = ticket.deposit? @(ticket.deposit.value): nil;
+    form.deposit = ticket.deposit.value;
     form.billCovered = ticket.billCovered? ticket.billCovered.boolValue: NO;
     controller.formController.form = form;
     controller.navigationItem.title = STR(@"RentPropertyInfo/租金");
@@ -424,13 +424,13 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-
+//TODO move to price edit page
 - (BOOL)validate {
     if (!self.form.ticket.price) {
         [SVProgressHUD showErrorWithStatus:STR(@"RentPropertyInfo/请编辑租金")];
         return NO;
     }
-    if (fequalzero(self.form.ticket.price.value)) {
+    if (fequalzero(self.form.ticket.price.value.floatValue)) {
         [SVProgressHUD showErrorWithStatus:STR(@"RentPropertyInfo/租金不能为0")];
         return NO;
     }

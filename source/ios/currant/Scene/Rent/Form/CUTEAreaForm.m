@@ -10,14 +10,15 @@
 #import "CUTECommonMacro.h"
 #import "CUTEFormTextFieldCell.h"
 #import "CUTEFormDefaultCell.h"
+#import "currant-Swift.h"
 
 @implementation CUTEAreaForm
 
 - (NSArray *)fields {
     NSMutableArray *array = [NSMutableArray arrayWithArray:
                              @[
-                               @{FXFormFieldKey: @"unitPresentation", FXFormFieldTitle:STR(@"Area/单位"), FXFormFieldOptions: @[STR(@"Area/平方米"), STR(@"Area/平方英尺")], FXFormFieldDefaultValue: STR(@"Area/平方米"), FXFormFieldAction: @"optionBack"},
-                               @{FXFormFieldKey: @"area", FXFormFieldTitle:STR(@"Area/面积"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldDefaultValue:@(_area), @"textField.keyboardType": @(UIKeyboardTypeDecimalPad),FXFormFieldAction: @"onAreaEdit:", FXFormFieldCell: [CUTEFormTextFieldCell class]}
+                               @{FXFormFieldKey: @"unitPresentation", FXFormFieldTitle:STR(@"Area/单位"), FXFormFieldOptions: @[STR(@"Area/平方米"), STR(@"Area/平方英尺")], FXFormFieldDefaultValue: _unitPresentation?:STR(@"Area/平方米"), FXFormFieldAction: @"optionBack"},
+                               @{FXFormFieldKey: @"area", FXFormFieldTitle:STR(@"Area/面积"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldDefaultValue:_area ? : @"", @"textField.keyboardType": @(UIKeyboardTypeDecimalPad),FXFormFieldAction: @"onAreaEdit:", FXFormFieldCell: [CUTEFormAreaTextFieldCell class], FXFormFieldValueTransformer: [CUTEPlainTextNumberTransformer class]}
                                ]];
     return array;
 }

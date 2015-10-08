@@ -83,7 +83,7 @@
         property.livingroomCount = @(1);
         property.bathroomCount = @(1);
         ticket.status = kTicketStatusDraft;
-        ticket.price = [CUTECurrency currencyWithValue:100.0 unit:[CUTECurrency defaultCurrencyUnit]];//default price
+        ticket.price = [CUTECurrency currencyWithValue:@"100.0" unit:[CUTECurrency defaultCurrencyUnit]];//default price
         ticket.property = property;
         ticket.rentAvailableTime = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
         ticket.minimumRentPeriod =  [CUTETimePeriod timePeriodWithValue:1 unit:@"day"];

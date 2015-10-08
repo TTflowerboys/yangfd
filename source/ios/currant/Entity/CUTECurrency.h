@@ -13,11 +13,11 @@
 
 @property (strong, nonatomic) NSString *unit;
 
-@property (nonatomic) float value;
+@property (nonatomic) NSString *value;
 
 @property (nonatomic, readonly) NSString *symbol;
 
-+ (CUTECurrency *)currencyWithValue:(float)value unit:(NSString *)unit;
++ (CUTECurrency *)currencyWithValue:(NSString *)value unit:(NSString *)unit;
 
 - (NSDictionary *)toParams;
 

@@ -29,5 +29,6 @@
 #import "NSString+QueryParser.h"
 #import <JPEngine.h>
 #import <RNDecryptor.h>
+#import "CUTEFormTextFieldCell.h"
 
 #endif /* currant_Bridging_Header_h */

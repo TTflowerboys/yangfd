@@ -17,22 +17,52 @@
              @"value": @"value"};
 }
 
-+ (CUTEArea *)areaWithValue:(float)value unit :(NSString *)unit {
+//Be compatible with old data with value type as NSNumber
++ (NSValueTransformer *)valueJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSString *(id value) {
+        if ([value isKindOfClass:[NSNumber class]]) {
+            return [(NSNumber *)value stringValue];
+        }
+        else if ([value isKindOfClass:[NSString class]]) {
+            return value;
+        }
+        else {
+            return nil;
+        }
+    } reverseBlock:^NSString *(id value) {
+        if ([value isKindOfClass:[NSNumber class]]) {
+            return [(NSNumber *)value stringValue];
+        }
+        else if ([value isKindOfClass:[NSString class]]) {
+            return value;
+        }
+        else {
+            return nil;
+        }
+    }];
+}
+
++ (CUTEArea *)areaWithValue:(NSString *)value unit :(NSString *)unit {
     CUTEArea *area = [CUTEArea new];
     area.value = value;
     area.unit = unit;
     return area;
 }
 
-- (NSString *)unitSymbol {
-    return @{@"meter ** 2": @"m²",
-             @"foot ** 2": @"sq ft"
+- (NSString *)unitPresentation {
+    return @{@"meter ** 2": STR(@"Area/平方米"),
+             @"foot ** 2": STR(@"Area/平方英尺")
              }[self.unit];
 }
 
 - (BOOL)isEqual:(id)object {
     if ([object isKindOfClass:[self class]]) {
-        return [self.unit isEqualToString:[object unit]] && fequal(self.value, [(CUTEArea *)object value]);
+        //self.value
+        NSNumberFormatter *formatter = [NSNumberFormatter new];
+        formatter.numberStyle = NSNumberFormatterDecimalStyle;
+        NSNumber *aValue = self.value? [formatter numberFromString:self.value]: nil;
+        NSNumber *bVlaue = [(CUTEArea *)object value]? [formatter numberFromString:[(CUTEArea *)object value]]: nil;
+        return [self.unit isEqualToString:[object unit]] && [aValue isEqualToNumber: bVlaue];
     }
     else {
         return NO;
@@ -40,10 +70,13 @@
 }
 
 - (NSDictionary *)toParams {
-    return @{
-             @"unit":self.unit,
-             @"value":FloatToString(self.value)
-             };
+    if (!IsNilNullOrEmpty(self.value)) {
+        return @{
+                 @"unit":self.unit,
+                 @"value":self.value
+                 };
+    }
+    return nil;
 }
 
 @end
