@@ -311,7 +311,7 @@
                         </td>
                         <td class="room_size">
                             <div>
-                                <input type="text" id="roomSize" name="roomSize" data-validator="trim, decimalNumber" data-name="{{_('面积')}}" value="{{rent.get('space',{}).get('value','')}}"/>
+                                <input type="text" id="roomSize" name="roomSize" data-validator="trim, decimalNumber, maxLength(10)" data-name="{{_('面积')}}" value="{{rent.get('space',{}).get('value','')}}"/>
                                 <select id="spaceUnit">
                                     <option value="meter ** 2"
                                         %if rent.get('space',{}).get('unit','meter ** 2')=="meter ** 2":

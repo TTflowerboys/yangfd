@@ -226,7 +226,7 @@
                     {{_('房间面积')}}
                     % end
                     <strong>
-                        {{float("{0:.2f}".format(float(rent.get('space',{}).get('value',0))))}}
+                        {{rent.get('space',{}).get('value','')}}
                         <span class="unit">
                             {{!format_unit(rent.get('space',{}).get('unit',''))}}
                         </span>
