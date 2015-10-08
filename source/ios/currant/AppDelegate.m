@@ -575,7 +575,7 @@
         NSDictionary *appInfo = [[NSBundle mainBundle] infoDictionary];
         //Notice: here the version is the build number, and the build number base on the git commit change
         NSDictionary *checkParams = @{@"version":[appInfo objectForKey:(NSString *)kCFBundleVersionKey], @"platform":@"ios", @"channel":[appInfo objectForKey:@"CurrantChannel"]};
-        NSURLRequest *request = [[[[CUTEAPIManager sharedInstance] backingManager] requestSerializer] requestWithMethod:@"GET" URLString:[NSURL URLWithString:checkUrl relativeToURL:[CUTEConfiguration hostURL]].absoluteString parameters:checkParams error:nil];
+        NSURLRequest *request = [[[[CUTEAPIManager sharedInstance] backingManager] requestSerializer] requestWithMethod:@"GET" URLString:[NSURL URLWithString:checkUrl relativeToURL:[NSURL URLWithString:[CUTEConfiguration apiEndpoint]]].absoluteString parameters:checkParams error:nil];
         [[BBTAppUpdater sharedInstance] checkUpdateWithRequeset:request];
     });
 }

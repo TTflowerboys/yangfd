@@ -27,7 +27,7 @@ class CUTEPatcher : NSObject {
             "release": releaseVersion,
             ])
 
-        let URL = NSURL(string: URLString, relativeToURL: CUTEConfiguration.hostURL())
+        let URL = NSURL(string: URLString, relativeToURL: NSURL(string: CUTEConfiguration.apiEndpoint()))
         let task = NSURLSession.sharedSession().dataTaskWithURL(URL!) { (data, resp, error) -> Void in
             if let jsonData = data {
                 if let response = resp as? NSHTTPURLResponse {

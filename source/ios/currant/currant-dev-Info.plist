@@ -39,8 +39,8 @@
 	<string>dev</string>
 	<key>CurrantHost</key>
 	<string>currant-dev.bbtechgroup.com</string>
-	<key>CurrantiOSResourcesPath</key>
-	<string>https://currant-dev.bbtechgroup.com/static/ios_resources/</string>
+	<key>CurrantSecureHost</key>
+	<string>currant-dev.bbtechgroup.com</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -59,10 +59,10 @@
 	<array>
 		<string>weixin</string>
 		<string>wechat</string>
-        <string>sinaweibohd</string>
-        <string>sinaweibo</string>
-        <string>weibosdk</string>
-        <string>weibosdk2.5</string>
+		<string>sinaweibohd</string>
+		<string>sinaweibo</string>
+		<string>weibosdk</string>
+		<string>weibosdk2.5</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

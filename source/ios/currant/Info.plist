@@ -39,8 +39,6 @@
 	<string>dev</string>
 	<key>CurrantHost</key>
 	<string>localhost:8181</string>
-	<key>CurrantiOSResourcesPath</key>
-	<string>http://localhost:8181/static/ios_resources/</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -59,10 +57,10 @@
 	<array>
 		<string>weixin</string>
 		<string>wechat</string>
-        <string>sinaweibohd</string>
-        <string>sinaweibo</string>
-        <string>weibosdk</string>
-        <string>weibosdk2.5</string>
+		<string>sinaweibohd</string>
+		<string>sinaweibo</string>
+		<string>weibosdk</string>
+		<string>weibosdk2.5</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

@@ -12,6 +12,8 @@
 
 + (NSString *)host;
 
++ (NSString *)secureHost;
+
 + (NSURL *)hostURL;
 
 + (NSURL *)uploadHostURL;

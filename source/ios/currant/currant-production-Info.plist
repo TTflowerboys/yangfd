@@ -39,8 +39,8 @@
 	<string>production</string>
 	<key>CurrantHost</key>
 	<string>yangfd.com</string>
-	<key>CurrantiOSResourcesPath</key>
-	<string>https://currant.bbtechgroup.com/static/ios_resources/</string>
+	<key>CurrantSecureHost</key>
+	<string>currant.bbtechgroup.com</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>

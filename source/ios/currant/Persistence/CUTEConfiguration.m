@@ -19,6 +19,14 @@ static NSString *host = nil;
     return host;
 }
 
+static NSString *secureHost = nil;
++ (NSString *)secureHost {
+    if (!secureHost) {
+        secureHost = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CurrantSecureHost"] copy];
+    }
+    return secureHost;
+}
+
 + (void)setHost:(NSString *)theHost {
     host = theHost;
 }
@@ -44,6 +52,11 @@ static NSString *host = nil;
 }
 
 + (NSString *)apiEndpoint {
+    NSString *secureHost = [self secureHost];
+    if (secureHost) {
+        return CONCAT(@"https://", secureHost, @"/api/1/");
+    }
+
     return CONCAT(@"http://", [self host], @"/api/1/");
 }
 
