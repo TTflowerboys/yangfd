@@ -593,8 +593,7 @@
 - (void)onReceiveTicketPublish:(NSNotification *)notif {
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
-    //TODO fix edit deleted ticket bug
-    [[CUTEDataManager sharedInstance] markRentTicketDeleted:ticket];
+    [[CUTEDataManager sharedInstance] deleteTicket:ticket];
     [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
 
     //wait the bottom bar show animation, then present new controller

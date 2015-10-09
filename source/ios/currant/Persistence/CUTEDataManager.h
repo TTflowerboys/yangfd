@@ -38,9 +38,7 @@
 
 - (CUTETicket *)getRentTicketById:(NSString *)ticketId;
 
-- (void)markRentTicketDeleted:(CUTETicket *)ticket;
-
-- (BOOL)isRentTicketDeleted:(NSString *)ticketId;
+- (void)deleteTicket:(CUTETicket *)ticket;
 
 - (void)clearAllRentTickets;
 

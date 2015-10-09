@@ -180,7 +180,7 @@
             NSError *error = nil;
             CUTETicket *ticket = (CUTETicket *)[MTLJSONAdapter modelOfClass:[CUTETicket class] fromJSONDictionary:dic error:&error];
             if (!error && ticket) {
-                [[CUTEDataManager sharedInstance] markRentTicketDeleted:ticket];
+                [[CUTEDataManager sharedInstance] deleteTicket:ticket];
                 [NotificationCenter postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:webViewController];
             }
         }

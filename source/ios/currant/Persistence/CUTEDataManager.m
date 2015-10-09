@@ -181,19 +181,17 @@
     }];
 }
 
-- (void)markRentTicketDeleted:(CUTETicket *)ticket
+- (void)deleteTicket:(CUTETicket *)ticket
 {
-    //just mark delegete
-    ticket.status = kTicketStatusDeleted;
-    [self saveRentTicket:ticket];
+    [_store deleteObjectById:ticket.identifier fromTable:KTABLE_RENT_TICKETS];
 }
 
-- (BOOL)isRentTicketDeleted:(NSString *)ticketId
-{
-    NSDictionary *json = [_store getObjectById:ticketId fromTable:KTABLE_RENT_TICKETS];
-    CUTETicket *ticket = (CUTETicket *)[[[MTLJSONAdapter alloc] initWithJSONDictionary:json modelClass:[CUTETicket class] error:nil] model];
-    return ticket && [ticket.status isEqualToString:kTicketStatusDeleted];
-}
+//- (BOOL)isRentTicketDeleted:(NSString *)ticketId
+//{
+//    NSDictionary *json = [_store getObjectById:ticketId fromTable:KTABLE_RENT_TICKETS];
+//    CUTETicket *ticket = (CUTETicket *)[[[MTLJSONAdapter alloc] initWithJSONDictionary:json modelClass:[CUTETicket class] error:nil] model];
+//    return ticket && [ticket.status isEqualToString:kTicketStatusDeleted];
+//}
 
 - (void)clearAllRentTickets
 {

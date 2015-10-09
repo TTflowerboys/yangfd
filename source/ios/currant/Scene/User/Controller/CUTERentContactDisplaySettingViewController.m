@@ -105,6 +105,7 @@
                 [[CUTEUsageRecorder sharedInstance] savePublishedTicketWithId:self.ticket.identifier];
                 TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
 
+                //TODO for CUTEWebViewController here cannot get duration for screen name is web
                 NSArray *screenNames = [[self.navigationController viewControllers] map:^id(UIViewController *object) {
                     return GetScreenName(object);
                 }];

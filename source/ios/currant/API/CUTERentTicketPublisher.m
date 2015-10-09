@@ -435,7 +435,7 @@
 
                 [localTickets  each:^(CUTETicket *object) {
                     if (![ticketIds containsObject:object.identifier]) {
-                        [[CUTEDataManager sharedInstance] markRentTicketDeleted:object];
+                        [[CUTEDataManager sharedInstance] deleteTicket:object];
                     }
                 }];
 

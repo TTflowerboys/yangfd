@@ -29,7 +29,8 @@
     NSDictionary *propertyParams = [ticketListener.propertyListener getEditedParams];
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
 
-    if (self.ticket && self.ticket.identifier && ![[CUTEDataManager sharedInstance] isRentTicketDeleted:self.ticket.identifier]) {
+    //only work when edit "to rent" ticket
+    if (self.ticket && self.ticket.identifier && [[CUTEDataManager sharedInstance] getRentTicketById:self.ticket.identifier]) {
         [[CUTEDataManager sharedInstance] saveRentTicket:self.ticket];
         [[[CUTERentTicketPublisher sharedInstance] editTicketWithTicket:self.ticket ticketParams:ticketParams propertyParams:propertyParams] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
