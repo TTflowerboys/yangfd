@@ -73,29 +73,22 @@ main {
                     color: @dark-text-color;
                     text-decoration: none;
                 }
+                > a{
+                    display: block;
+                }
                 .ico{
-                    display: inline-block;
+                    display: table-cell;
                     height: 32px;
                     width: 32px;
-                    vertical-align: text-bottom;
+                    vertical-align: middle;
                     float: left;
                     margin-right: 16px;
                     font-size: 32px;
                     color: #666666;
-                    @media @phone {
-                        float: none;
-                    }
                 }
-                span{
-                    &.email{
-                        width: 255px;
-                        word-break: break-all;
-                        float: left;
-                        @media @phone{
-                            width:auto;
-                            float: none;
-                        }
-                    }
+                >span, >div, >a>span{
+                    display: table-cell !important;
+                    word-break: break-all;
                 }
             }
             .hint{
