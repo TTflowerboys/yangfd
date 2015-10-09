@@ -247,7 +247,8 @@ with f_app.mongo() as m:
     target_ticket_dic = OrderedDict(sorted(target_ticket_dic.items(), key=lambda t: t[1], reverse=True))
     target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_ticket_dic.keys(), ignore_nonexist=True, permission_check=False))
     for ticket in target_tickets:
-        print(ticket['title'].encode('utf-8') + ", " + str(ticket['id']) + ": " + str(target_ticket_dic.get(ticket['id'])))
+        if ticket is not None:
+            print(ticket['title'].encode('utf-8') + ", " + str(ticket['id']) + ": " + str(target_ticket_dic.get(ticket['id'])))
 
     # 浏览过海外房产总数量
     total_property_views_count = m.log.find({'property_id': {'$exists': 'true'}}).count()
