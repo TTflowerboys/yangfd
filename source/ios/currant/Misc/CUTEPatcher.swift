@@ -8,7 +8,6 @@
 
 import Foundation
 
-//Knwon Issues: Everty time the web resource build will trigger the jspatch file moved, so the may the file content not really change only the file copy to path again
 class CUTEPatcher : NSObject {
 
     static let sharedInstance = CUTEPatcher.init()
