@@ -30,10 +30,14 @@
                         <div class="imageText_table">
                             <div class="imageText_wrapper">
                                 <div class="imageText">
+                                    %if ad.get('text'):
                                     %for index, text in enumerate(ad.get('text')):
-                                        <h1 class="slogan">{{text}}</h1>
+                                    <h1 class="slogan">{{text}}</h1>
                                     %end
+                                    %end
+                                    %if ad.get('image_alt'):
                                     <a class="button red" href="{{ad.get('link')}}">{{ad.get('image_alt','')}}</a>
+                                    %end
                                 </div>
                             </div>
                         </div>
