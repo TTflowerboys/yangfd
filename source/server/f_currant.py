@@ -1141,7 +1141,6 @@ class f_currant_plugins(f_app.plugin_base):
             credit = {
                 "type": "view_rent_ticket_contact_info",
                 "amount": 1,
-                "expire_time": datetime.utcnow() + timedelta(days=30),
                 "tag": "initial",
                 "user_id": user_id,
             }
