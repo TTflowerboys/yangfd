@@ -1679,7 +1679,7 @@ msgstr "All personal information about you in Youngfunding takes encryption stor
 
 #: ../web/src/property_to_rent_digest.html:55 ../web/src/wechat_poster.html:53
 msgid "仅需"
-msgstr "Only"
+msgstr "For Only"
 
 #: ../web/src/property_to_rent_digest.html:64 ../web/src/wechat_poster.html:62
 msgid ", 包Bill"
@@ -1687,7 +1687,7 @@ msgstr ", Bills included"
 
 #: ../web/src/property_to_rent_digest.html:71 ../web/src/wechat_poster.html:76
 msgid "您就可以租到"
-msgstr "You can"
+msgstr "You can get"
 
 #: ../web/src/property_to_rent_digest.html:96 ../web/src/wechat_poster.html:101
 #: ../web/src/partials/i18n.html:483
@@ -3184,7 +3184,7 @@ msgstr "Deposit"
 
 #: ../web/src/wechat_poster.html:192
 msgid "统计表明填写更多房产的描述和配套设施能缩短出租用时"
-msgstr "Our statistics show that detail description of your listing and its facilities can increase your views significantly"
+msgstr "Our statistics show that a detailed description of your listing and its features will increase views significantly."
 
 #: ../web/src/wechat_poster.html:208
 msgid "更多设施"
@@ -3192,7 +3192,7 @@ msgstr "More"
 
 #: ../web/src/wechat_poster.html:284
 msgid "暂无图片，上传您的房屋实景图片能极大增加租客联系您的几率"
-msgstr "No pictures right now, upload pictures can increase your views significantly"
+msgstr "Oops! There are currently no pictures. By uploading pictures you can increase the number of views for your property."
 
 #: ../web/src/wechat_poster.html:321
 msgid "查看平台联系方式"
@@ -7870,7 +7870,7 @@ msgstr "Want to list your space?"
 #: ../web/src/partials/index_landlord.html:7
 #: ../web/src/partials/index_landlord.html:22
 msgid "使用洋房东平台为您带来极速租房发布体验，独有的专业街区报告，杂志般的房源移动主页！"
-msgstr "Use Youngfunding platform for lightning speed space listing experience, unique professional neighbourhood reports, magazine-like property mobile showcase!"
+msgstr "Use YoungFunding Property to quickly find your ideal tenant with 3 simple steps. With standardized, professional and high-quality display it will make sure your property is not get left empty."
 
 #: ../web/src/partials/index_landlord.html:28
 #: ../web/src/partials/index_landlord.html:33
