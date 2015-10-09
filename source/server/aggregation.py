@@ -4,6 +4,7 @@ from datetime import datetime
 from app import f_app
 from bson.objectid import ObjectId
 from collections import OrderedDict
+from bson.objectid import ObjectId
 
 f_app.common.memcache_server = ["172.20.101.98:11211"]
 f_app.common.mongo_server = "172.20.101.98"
@@ -98,6 +99,45 @@ with f_app.mongo() as m:
         [
             {'$match': {'type': "rent"}},
             {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
+        ]
+    )
+
+    for document in cursor:
+        if(document['_id']):
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
+
+    # 出租房出租类型统计
+    print('\n正在发布中的房源里的出租类型统计:')
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {'type': "rent", 'status': "to rent"}},
+            {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
+        ]
+    )
+
+    for document in cursor:
+        if(document['_id']):
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
+
+    # 正在发布中的房源里的房东类型统计
+    print('\n正在发布中的房源里的房东类型统计:')
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {'type': "rent", 'status': "to rent"}},
+            {'$group': {'_id': "$landlord_type", 'count': {'$sum': 1}}}
+        ]
+    )
+
+    for document in cursor:
+        if(document['_id']):
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
+
+    # 正在发布中的整套房源里的房东类型统计
+    print('\n正在发布中的整套房源里的房东类型统计:')
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {'type': "rent", 'status': "to rent", 'rent_type._id': ObjectId('55645cf5666e3d0f57d6e284')}},
+            {'$group': {'_id': "$landlord_type", 'count': {'$sum': 1}}}
         ]
     )
 

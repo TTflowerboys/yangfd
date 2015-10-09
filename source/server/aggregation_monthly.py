@@ -14,7 +14,7 @@ with f_app.mongo() as m:
     total_user_count = m.users.count()
 
     # 本月用户总数
-    selected_month = 10
+    selected_month = 9
     print(str(selected_month) + '月至今用户数据统计:')
 
     print('\n用户总数:')
@@ -23,7 +23,7 @@ with f_app.mongo() as m:
             {"$match": {
                 "register_time":
                     {
-                        '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                        '$gte': datetime(2015, selected_month, 20, 0, 0, 0)
                     }
                 }},
             {"$group": {"_id": None, "count": {"$sum": 1}}}
@@ -40,7 +40,7 @@ with f_app.mongo() as m:
             {"$match": {
                 "register_time":
                     {
-                        '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                        '$gte': datetime(2015, selected_month, 20, 0, 0, 0)
                     }
                 }},
             {"$group": {"_id": "$user_type", "count": {"$sum": 1}}}
@@ -58,7 +58,7 @@ with f_app.mongo() as m:
                 'type': "rent",
                 "time":
                     {
-                        '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                        '$gte': datetime(2015, selected_month, 20, 0, 0, 0)
                     }
                 }},
             {'$group': {'_id': "$type", 'count': {'$sum': 1}}}
@@ -76,7 +76,7 @@ with f_app.mongo() as m:
                 'type': "rent",
                 "time":
                     {
-                        '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                        '$gte': datetime(2015, selected_month, 20, 0, 0, 0)
                     }
                 }},
             {'$group': {'_id': "$status", 'count': {'$sum': 1}}}
@@ -100,7 +100,7 @@ with f_app.mongo() as m:
                 'type': "rent",
                 "time":
                     {
-                        '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                        '$gte': datetime(2015, selected_month, 20, 0, 0, 0)
                     }
                 }},
             {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
@@ -120,7 +120,7 @@ with f_app.mongo() as m:
                 'status': "rent",
                 "time":
                     {
-                        '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                        '$gte': datetime(2015, selected_month, 20, 0, 0, 0)
                     }
                 }},
             {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
@@ -138,7 +138,7 @@ with f_app.mongo() as m:
             {'$match': {
                 "time":
                     {
-                        '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                        '$gte': datetime(2015, selected_month, 20, 0, 0, 0)
                     }
                 }},
             {'$group': {'_id': "$type", 'count': {'$sum': 1}}}
@@ -163,7 +163,7 @@ with f_app.mongo() as m:
                     'type': "rent_ticket",
                     "time":
                         {
-                            '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                            '$gte': datetime(2015, selected_month, 20, 0, 0, 0)
                         }
                 }},
             {'$group': {'_id': "$user_id", 'count': {'$sum': 1}}},
@@ -183,7 +183,7 @@ with f_app.mongo() as m:
             {'$match': {
                 "time":
                     {
-                        '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                        '$gte': datetime(2015, selected_month, 20, 0, 0, 0)
                     }
                 }},
             {'$group': {'_id': "$user.nickname", 'count': {'$sum': 1}}},
@@ -205,7 +205,7 @@ with f_app.mongo() as m:
             {'$match': {
                 "time":
                     {
-                        '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                        '$gte': datetime(2015, selected_month, 20, 0, 0, 0)
                     }
                 }},
             {'$group': {'_id': "$ticket_id", 'count': {'$sum': 1}}},
@@ -225,7 +225,7 @@ with f_app.mongo() as m:
             {'$match': {
                 "time":
                     {
-                        '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                        '$gte': datetime(2015, selected_month, 20, 0, 0, 0)
                     }
                 }},
             {'$group': {'_id': "$ticket_id", 'count': {'$sum': 1}}},
