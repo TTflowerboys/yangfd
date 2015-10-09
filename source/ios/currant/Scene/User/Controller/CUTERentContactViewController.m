@@ -426,6 +426,9 @@
                     TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
 
                     NSArray *screenNames = [[self.navigationController viewControllers] map:^id(UIViewController *object) {
+                        if ([object isKindOfClass:[CUTEWebViewController class]]) {
+                            return GetScreenName([(CUTEWebViewController *)object URL]);
+                        }
                         return GetScreenName(object);
                     }];
                     //Notice: one only one ticket in publishing, so not calculate the duration base on different ticket
