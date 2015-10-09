@@ -13,6 +13,9 @@
             update: function (data, config) {
                 return $http.post('/api/1/rent_intention_ticket/' + data.id + '/edit', data, config)
             },
+            remove: function (id, config) {
+                return $http.post('/api/1/rent_intention_ticket/' + id + '/remove')
+            }
         }
 
     }
