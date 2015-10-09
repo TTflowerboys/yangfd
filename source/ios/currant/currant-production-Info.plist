@@ -71,7 +71,7 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>NSLocationAlwaysUsageDescription</key>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>洋房东需要使用您的位置</string>
 	<key>NSLocationUsageDescription</key>
 	<string>洋房东需要使用您的位置</string>

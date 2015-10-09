@@ -23,16 +23,16 @@
 "RentPeriod/面议" = "Negotiable";
 
 //Filepath: currant/Scene/Rent/Controller/CUTERentPeriodViewController.m
-"RentPeriod/租期" = "Tenancy Term";
+"RentPeriod/租期" = "Tenancy Period";
 "RentPeriod/租期表单" = "Tenancy Form";
 "RentPeriod/结束日期不应早于开始日期" = "End date should not be earlier than start date";
 
 //Filepath: currant/Scene/Rent/Form/CUTERentPeriodForm.m
-"RentPeriod/设置租期" = "Set Up Tenancy";
-"RentPeriod/租期" = "Tenancy Term";
+"RentPeriod/设置租期" = "Set Tenancy Period";
+"RentPeriod/租期" = "Tenancy Period";
 "RentPeriod/开始日期" = "Start Date";
 "RentPeriod/结束日期" = "End Date";
-"RentPeriod/最短接受租期" = "Minimum Term";
+"RentPeriod/最短接受租期" = "Minimum Tenancy Period";
 
 
 //
@@ -50,7 +50,7 @@
 "RentPropertyInfo/放弃" = "Give Up";
 "RentPropertyInfo/取消" = "Cancel";
 "RentPropertyInfo/租金" = "Rental";
-"RentPropertyInfo/租期" = "Tenancy Term";
+"RentPropertyInfo/租期" = "Tenancy Period";
 "RentPropertyInfo/请更新面积" = "Please enter area";
 "RentPropertyInfo/房产地址" = "Address";
 "RentPropertyInfo/请编辑租金" = "Please enter rental";
@@ -90,10 +90,10 @@
 
 //Filepath: currant/Scene/Rent/Form/CUTERentAddressEditForm.m
 "RentAddressEdit/Postcode" = "Postcode";
-"RentAddressEdit/街道（选填）" = "Streets(Optional)";
-"RentAddressEdit/小区（选填）" = "Communities(Optional)";
-"RentAddressEdit/楼层（选填）" = "Floors(Optional)";
-"RentAddressEdit/房间号（选填）" = "Rooms(Optional)";
+"RentAddressEdit/街道（选填）" = "Street (Optional)";
+"RentAddressEdit/小区（选填）" = "Community (Optional)";
+"RentAddressEdit/楼层（选填）" = "Floor (Optional)";
+"RentAddressEdit/房间号（选填）" = "No. (Optional)";
 "RentAddressEdit/国家" = "Country";
 "RentAddressEdit/地址" = "Address";
 "RentAddressEdit/位置" = "Location";
@@ -107,7 +107,7 @@
 //Group: RentPropertyFacility
 //
 //Filepath: currant/Scene/Rent/Controller/CUTERentPropertyFacilityViewController.m
-"RentPropertyFacility/设施" = "Facilities";
+"RentPropertyFacility/设施" = "Amenities";
 
 
 //
@@ -163,7 +163,7 @@
 "PropertyMoreInfo/详细描述" = "Detail";
 "PropertyMoreInfo/补充您对租客的要求和对房屋特点的描述。平台将提供房东联系方式选择，请勿在此填写任何形式的联系方式，违规发布将会予以处理。" = "Add description of your requirements to the tenants and your property highlights. Platform will provide the landlord contact choices, please do not fill out any form of contact, illegal post is forbidden.";
 "PropertyMoreInfo/面积" = "Area";
-"PropertyMoreInfo/配套设施" = "Facilities";
+"PropertyMoreInfo/配套设施" = "Amenities";
 "PropertyMoreInfo/删除" = "Delete";
 
 
@@ -180,10 +180,10 @@
 //Filepath: currant/Scene/Splash/CUTESplashViewController.m
 "Splash/引导页面" = "Guideline";
 "Splash/进入应用" = "Launch Application";
-"Splash/房东直租工具" = "Excellent tool for List Your Space";
+"Splash/房东直租工具" = "List your space with YoungFunding Property";
 "Splash/杂志般的房产展示" = "Magazine-like property demostration";
 "Splash/一次发布，传遍全英" = "Publish to entire UK once you list your space";
-"Splash/三步发布出租房，不用费力思考" = "Three steps to list your space, no extra thinking";
+"Splash/三步发布出租房，不用费力思考" = "3 simple steps, hassle free";
 "Splash/分享至朋友圈，高大上的阅读体验" = "Share to Wechat Moments, excellent reading experience";
 "Splash/全国各大平台均可看到你的房产信息" = "List your space on major UK rental markets";
 
@@ -217,7 +217,7 @@
 "RentContact/登录" = "Login";
 "RentContact/已有帐号" = "Already have Account";
 "RentContact/姓名" = "Name";
-"RentContact/还没有帐号？10秒创建" = "No accounts? Create in 10 seconds";
+"RentContact/还没有帐号？10秒创建" = "Not registered? Create an account in 10 seconds";
 "RentContact/邮箱" = "Email";
 "RentContact/国家" = "Country";
 "RentContact/手机号" = "Phone";
@@ -247,7 +247,7 @@
 //
 //Filepath: currant/Scene/Rent/Form/CUTEPropertyFacilityForm.m
 "PropertyFacility/常用设施" = "Facilities";
-"PropertyFacility/小区设施" = "Communties facilities";
+"PropertyFacility/小区设施" = "Amenities";
 
 
 //
@@ -324,7 +324,7 @@
 "RentAddressMap/请填写国家" = "Please enter country";
 "RentAddressMap/请填写城市" = "Please enter city";
 "RentAddressMap/请填写Postcode" = "Please enter Postcode";
-"RentAddressMap/拖动地图可以修改房产位置" = "Dragging map can update property location";
+"RentAddressMap/拖动地图可以修改房产位置" = "Drag the map to update the property location";
 
 
 //
@@ -423,7 +423,7 @@
 "RentTypeList/出租发布" = "List Your Space";
 "RentTypeList/出租类型" = "Rent Type";
 "RentTypeList/出租类型列表" = "List of rent type";
-"RentTypeList/您有整套或单间房源要出租？\n从这里开始免费发布！" = "You have a entire place or a single room want to list? Start list it from here!";
+"RentTypeList/您有整套或单间房源要出租？\n从这里开始免费发布！" = "Whether you wish to rent out your entire place or simply a single room, start your listing here!";
 
 //Filepath: currant/Scene/Rent/Form/CUTERentTypeListForm.m
 "RentTypeList/出租类型" = "Rent Type";
@@ -693,13 +693,13 @@
 "PropertyInfo/房间照片" = "Room Photo";
 "PropertyInfo/房东类型" = "Landlord Type";
 "PropertyInfo/基本信息" = "Basic Info";
-"PropertyInfo/租金" = "Rental";
-"PropertyInfo/租期" = "Tenancy Term";
+"PropertyInfo/租金" = "Rent";
+"PropertyInfo/租期" = "Tenancy Period";
 "PropertyInfo/房产类型" = "Property Type";
-"PropertyInfo/房屋户型（可选Studio）" = "House Type(Studio Allowed)";
+"PropertyInfo/房屋户型（可选Studio）" = "Rooms (Studio Allowed)";
 "PropertyInfo/出租类型" = "Rent Type";
 "PropertyInfo/房产地址" = "Address";
-"PropertyInfo/更多详情和配套设施描述（选填）" = "More Details and Facility Description(Optional)";
+"PropertyInfo/更多详情和配套设施描述（选填）" = "More Details and Amenities (Optional)";
 "PropertyInfo/预览并发布" = "Preview and Publish";
 
 
