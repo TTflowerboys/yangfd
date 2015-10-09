@@ -278,13 +278,12 @@ gulp.task('setupCDN', ['build:html-extend', 'fingerprint', 'revAll', 'revAgain',
 var livereload = require('gulp-livereload')
 gulp.task('watch', ['symlink', 'less2css', 'html-extend'], function () {
     livereload.listen();
-    gulp.watch(myPaths.less, ['less2css'])
-    gulp.watch(myPaths.html, ['html-extend'])
-    gulp.watch(myPaths.js, ['debug:lint'])
-
-    gulp.watch(myPaths.src + '**/*.*').on('change', function (event) {
+    gulp.watch(myPaths.less, ['less2css']).on('change', changeHanddler)
+    gulp.watch(myPaths.html, ['html-extend']).on('change', changeHanddler)
+    gulp.watch(myPaths.js, ['debug:lint']).on('change', changeHanddler)
+    function changeHanddler(event) {
         console.log(event.type)
         console.log(event.path)
         livereload.changed(event.path)
-    })
+    }
 })
