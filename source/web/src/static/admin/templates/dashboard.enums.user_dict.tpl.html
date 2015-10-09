@@ -1,0 +1,46 @@
+<div ui-view ng-init="getUserDictList()">
+
+    <!--<div class="btn-group form-inline">
+        <button class="btn btn-primary" ng-click="getHesaUniversityList(selected.country)">{%$root.i18n('搜索')%}</button>
+    </div>-->
+    <div class="btn-group form-inline">
+        <button class="btn btn-primary" ng-click="edit=true">{%$root.i18n('添加自定义词')%}</button>
+    </div>
+
+    <div class="btn-group form-inline pull-right">
+        <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
+    </div>
+
+    <div ng-show="edit===true">
+        <div class="btn-group form-inline">
+            <textarea name="" id="" cols="30" ng-model="words"></textarea>
+        </div>
+        <div class="btn-group form-inline">
+            <button class="btn btn-success" ng-click="addUserDict(words)">{%$root.i18n('添加')%}</button>
+        </div>
+        <div class="btn-group form-inline">
+            <button class="btn btn-default" ng-click="edit=false">{%$root.i18n('取消')%}</button>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped table-condensed"
+        style="margin-bottom:30px">
+        <tbody>
+            <tr>
+                <th>{%$root.i18n('自定义词')%}</th>
+                <th>{%$root.i18n('管理')%}</th>
+            </tr>
+            <tr ng-repeat="item in userDictList">
+                <td><div edit-user-dict ng-model="item" edit="item.edit" submit="submitUserDictItem(item, $index)"></div></td>
+                <td>
+                    <a class="btn btn-info btn-group form-inline" ng-click="editUserDictItem(item)" title="Edit">
+                        <i class="fa fa-edit "></i>
+                    </a>
+                    <a class="btn btn-danger btn-group form-inline" ng-click="removeUserDictItem(item, $index)" title="Delete">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-show="cities.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+</div>

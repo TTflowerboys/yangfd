@@ -14,6 +14,12 @@ angular.module('app')
             }
         }
 
+        var indexRuleResolve = {
+            api: function (indexRuleApi) {
+                return indexRuleApi
+            }
+        }
+
         var propertyResolve = {
             api: function (propertyApi) {
                 return propertyApi
@@ -323,6 +329,18 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/dashboard.enums.hesa_university.tpl.html',
                 controller: 'ctrlEnums',
                 resolve: enumResolve
+            })
+            .state('dashboard.enums.synonyms', {
+                url: '/synonyms',
+                templateUrl: '/static/admin/templates/dashboard.enums.synonyms.tpl.html',
+                controller: 'ctrlIndexRule',
+                resolve: indexRuleResolve
+            })
+            .state('dashboard.enums.user_dict', {
+                url: '/user_dict',
+                templateUrl: '/static/admin/templates/dashboard.enums.user_dict.tpl.html',
+                controller: 'ctrlIndexRule',
+                resolve: indexRuleResolve
             })
         /**
          * 房产
