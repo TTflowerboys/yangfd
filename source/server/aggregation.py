@@ -49,6 +49,31 @@ with f_app.mongo() as m:
     for document in cursor:
         print(document['count'])
 
+    # 出租房源创建设备统计
+    print('\n出租房源创建请求总数量:')
+    cursor = m.log.aggregate(
+        [
+            {'$match': {'route': '/api/1/rent_ticket/add'}},
+            {'$group': {'_id': None, 'count': {'$sum': 1}}}
+        ]
+    )
+    for document in cursor:
+        totalRentTicketCount = document['count']
+        print(totalRentTicketCount)
+
+    print('\n手机创建请求数量:')
+    cursor = m.log.aggregate(
+        [
+            {'$match': {'route': '/api/1/rent_ticket/add', 'useragent': {'$regex': '.*currant.*'}}},
+            {'$group': {'_id': 'None', 'count': {'$sum': 1}}}
+        ]
+    )
+    for document in cursor:
+        totalAppRentTicketCount = document['count']
+        print(totalAppRentTicketCount)
+
+    print('\n手机创建请求比例' + ': ' + format(totalAppRentTicketCount*1.0/totalRentTicketCount, '.2%'))
+
     # 出租房状态统计
     print('\n出租房状态统计:')
     cursor = m.tickets.aggregate(
