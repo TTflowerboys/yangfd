@@ -446,8 +446,8 @@
 "AppDelegate/出租发布" = "List Your Space";
 "AppDelegate/主页" = "Homepage";
 "AppDelegate/发布" = "List Your Space";
-"AppDelegate/新房" = "New Property";
-"AppDelegate/租房" = "Property To Rent";
+"AppDelegate/新房" = "For Sale";
+"AppDelegate/租房" = "For Rent";
 "AppDelegate/我" = "Profile";
 "AppDelegate/发布租房" = "List Your Space";
 "AppDelegate/已发布" = "My Listings";
