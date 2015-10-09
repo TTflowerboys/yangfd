@@ -439,11 +439,18 @@
             if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
 
                 CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
+                dispatch_block_t setupLeftBarButtonItem = ^ {
+
+                    webViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"User/设置") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+                        [webViewController.navigationController openRouteWithURL:[NSURL URLWithString:@"yangfd://setting/"]];
+                    }];
+                };
+                setupLeftBarButtonItem();
+
                 [webViewController aspect_hookSelector:@selector(updateBackButton) withOptions:AspectPositionAfter usingBlock:^ (id<AspectInfo> info) {
                     if (![webViewController webViewCanGoBack]) {
-                        webViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"User/设置") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-                            [webViewController.navigationController openRouteWithURL:[NSURL URLWithString:@"yangfd://setting/"]];
-                        }];
+                        setupLeftBarButtonItem();
+
                     }
                 } error:nil];
             }
