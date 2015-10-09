@@ -440,6 +440,18 @@ def rent_intention_ticket_add(params, user):
     params.setdefault("type", "rent_intention")
     shadow_user_id = _find_or_register(params)
 
+    if "user_id" in params and "creator_user_id" in params and params["user_id"] is not None and params["user_id"] == params["creator_user_id"]:
+        credits = f_app.user.credit.get("view_rent_ticket_contact_info", tag="rent_intention_ticket")
+        if not len(credits["credits"]):
+            credit = {
+                "type": "view_rent_ticket_contact_info",
+                "amount": 1,
+                "expire_time": datetime.utcnow() + timedelta(days=30),
+                "tag": "rent_intention_ticket",
+                "user_id": params["user_id"],
+            }
+            f_app.user.credit.add(credit)
+
     # ticket_admin_url = "http://" + request.urlparts[1] + "/admin#/ticket/"
     # Send mail to every senior sales
     ticket_id = f_app.ticket.add(params)
