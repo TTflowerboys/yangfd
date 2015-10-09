@@ -242,7 +242,7 @@
         [unsetFields addObject:@"longitude"];
     }
 
-    if (self.space) {
+    if (self.space && !IsNilNullOrEmpty(self.space.value)) {
         [params setObject:self.space.toParams forKey:@"space"];
     }
     else {

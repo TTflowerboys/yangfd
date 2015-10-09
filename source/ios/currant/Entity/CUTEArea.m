@@ -70,13 +70,11 @@
 }
 
 - (NSDictionary *)toParams {
-    if (!IsNilNullOrEmpty(self.value)) {
-        return @{
-                 @"unit":self.unit,
-                 @"value":self.value
-                 };
-    }
-    return nil;
+
+    return @{
+             @"unit":self.unit,
+             @"value":self.value?: @""
+             };
 }
 
 @end
