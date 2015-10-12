@@ -25,21 +25,18 @@
 
             layer.push(pin)
             Microsoft.Maps.Events.addHandler(pin, 'click', function () { showInfoBox(map, mapId, result) });
-            if  (!window.mapPinCache[mapId]) {
-                window.mapPinCache[mapId] = []
-            }
-            window.mapPinCache[mapId].push(pin)
+            window.mapPinCache[result.id] = pin
         }
     }
 
 
     function showInfoBox(map, mapId, result) {
-        window.infoBoxLayerCache = window.infoBoxLayerCache || {}
-        if (window.mapInfoBoxLayerCache[mapId]) {
-            map.entities.remove(window.mapInfoBoxLayerCache[mapId]);
+        if (window.mapInfoBoxLayerCache[result.id]) {
+            return window.mapInfoBoxLayerCache[result.id].setOptions({visible: true})
         }
         var location = new Microsoft.Maps.Location(result.latitude, result.longitude);
         var layer = new Microsoft.Maps.EntityCollection()
+        window.mapInfoBoxLayerCache[result.id] = layer
         var infoboxOptions = null
         if (window.team.isPhone()) {
             infoboxOptions = {offset:new Microsoft.Maps.Point(-90,50) };
@@ -52,15 +49,13 @@
             infobox.setHtmlContent(html)
             layer.push(infobox)
             layer.setOptions({ visible: true });
-            window.infoBoxLayerCache[result.id] = layer
             map.entities.push(layer);
             ajustMapPosition(map, layer.get(0), location)
-            window.mapInfoBoxLayerCache[mapId] = layer
         })
     }
     window.hideInfoBox = function hideInfoBox(id) {
-        if (!_.isEmpty(window.infoBoxLayerCache[id])) {
-            window.infoBoxLayerCache[id].setOptions({visible: false})
+        if (!_.isEmpty(window.mapInfoBoxLayerCache[id])) {
+            window.mapInfoBoxLayerCache[id].setOptions({visible: false})
         }
     }
 
