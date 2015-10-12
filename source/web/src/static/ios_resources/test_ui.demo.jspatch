@@ -1,0 +1,13 @@
+require('UIBarButtonItem,NSURL,CUTEConfiguration');
+
+defineClass('AppDelegate', {
+updateUserPropertiesLeftBarButtonItemWithViewController: function(controller) {
+controller.navigationItem().setLeftBarButtonItem(UIBarButtonItem.alloc().initWithTitle_style_target_action("真已发布", 0, self, NSSelectorFromString("onPublieshedLeftBarButtonPressed:")));
+},
+onPublieshedLeftBarButtonPressed: function (sender) {
+var url = NSURL.URLWithString_relativeToURL("/user-properties#rentOnly?status=to%20rent%2Crent", CUTEConfiguration.hostURL()) ;
+controller.navigationController().openRouteWithURL(url) ;
+}
+}, {
+
+})
