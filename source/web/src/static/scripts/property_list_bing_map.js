@@ -34,6 +34,7 @@
 
 
     function showInfoBox(map, mapId, result) {
+        window.infoBoxLayerCache = window.infoBoxLayerCache || {}
         if (window.mapInfoBoxLayerCache[mapId]) {
             map.entities.remove(window.mapInfoBoxLayerCache[mapId]);
         }
@@ -51,10 +52,16 @@
             infobox.setHtmlContent(html)
             layer.push(infobox)
             layer.setOptions({ visible: true });
+            window.infoBoxLayerCache[result.id] = layer
             map.entities.push(layer);
             ajustMapPosition(map, layer.get(0), location)
             window.mapInfoBoxLayerCache[mapId] = layer
         })
+    }
+    window.hideInfoBox = function hideInfoBox(id) {
+        if (!_.isEmpty(window.infoBoxLayerCache[id])) {
+            window.infoBoxLayerCache[id].setOptions({visible: false})
+        }
     }
 
     //http://stackoverflow.com/questions/11148042/bing-maps-invoke-click-event-on-pushpin

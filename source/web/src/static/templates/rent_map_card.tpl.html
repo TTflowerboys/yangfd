@@ -1,10 +1,13 @@
 <script id="houseInfobox_template" type="text/template">
     <div class="houseInfobox_wrapper infobox">
         <div class="houseInfobox arrow_box">
+            <i class="icon-delete hideMapInfoBoxBtn" onclick="window.hideInfoBox('{=rent.id=}')"></i>
             <a href="/property-to-rent/{=rent.id=}" target="_blank">
                 <div class="imagePart">
-                    {_if(rent.property.reality_images && rent.property.reality_images.length) {_}
-                    <img src="{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
+                    {_if(rent.property.cover) {_}
+                    <div class="img" style="background-image: url('{=team.convertToHttps({'link':rent.property.cover, 'property_id':rent.property.id, 'thumbnail':true})=}')"></div>
+                    {_} else if(rent.property.reality_images && rent.property.reality_images.length) {_}
+                    <div class="img" style="background-image: url('{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}')"></div>
                     {_ }else { _}
                     <img class="withPlaceholder" width=120 height=80/>
                     {_ } _}
