@@ -145,6 +145,22 @@ with f_app.mongo() as m:
         if(document['_id']):
             print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
 
+    # 正在发布中的房源里按最短接受租期的统计
+    print('\n正在发布中的房源里按最短接受租期的统计:')
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {
+                'type': "rent", 
+                'status': "to rent"
+                }},
+            {'$group': {'_id': "$minimum_rent_period", 'count': {'$sum': 1}}}
+        ]
+    )
+
+    for document in cursor:
+        if(document['_id']):
+            print(str(document['_id']['value']) + str(document['_id']['unit']) + ":" + str(document['count']))
+
     # 出租房出租类型统计
     print('\n已经出租的房源里的出租类型统计:')
     cursor = m.tickets.aggregate(

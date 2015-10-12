@@ -14,7 +14,7 @@ with f_app.mongo() as m:
     total_user_count = m.users.count()
 
     # 本月用户总数
-    selected_month = 10
+    selected_month = 8
     print(str(selected_month) + '月至今用户数据统计:')
 
     print('\n用户总数:')

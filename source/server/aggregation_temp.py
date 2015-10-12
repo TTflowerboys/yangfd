@@ -56,3 +56,33 @@ with f_app.mongo() as m:
 
     # for k, v in neighborhood_count_dic.items():
     #     print(k, v)
+
+    # 查看过海外房产的用户及用户类型
+    print('\n查看过海外房产的用户及用户类型:')
+    cursor = m.log.aggregate(
+        [
+            {'$match': {
+                'property_id': {'$exists': 'true'},
+                "time":
+                    {
+                        '$gte': datetime(2015, 8, 1, 0, 0, 0)
+                    }}},
+            {'$group': {'_id': "$id", 'count': {'$sum': 1}}},
+            # {'$limit': 10}
+            {'$sort': {'count': -1}}
+        ]
+    )
+    user_property_view_count_dic = {}
+    for document in cursor:
+        if(document['_id']):
+            user_property_view_count_dic[str(document['_id'])] = document['count']
+
+    user_property_view_count_dic = OrderedDict(sorted(user_property_view_count_dic.items(), key=lambda t: t[1], reverse=True))
+
+    target_users = f_app.user.output(user_property_view_count_dic.keys(), custom_fields=f_app.common.user_custom_fields)
+
+    for user in target_users:
+        if 'user_type' in user:
+            print(user['nickname'].encode('utf-8') + ':' + " ".join(f_app.enum.get(x['id'])['value']['zh_Hans_CN'].encode('utf-8') for x in user['user_type']) + ', ' + str(user_property_view_count_dic[str(user['id'])]))
+        else:
+            print(user['nickname'].encode('utf-8') + ':' + str(user_property_view_count_dic[str(user['id'])]))
