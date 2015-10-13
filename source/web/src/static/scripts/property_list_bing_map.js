@@ -18,13 +18,29 @@
         return window.mapCache[mapId]
     }
 
+    module.activatePinAndInfoBox = function (id) {
+        $('.customPushPin[data-id=' + id + ']').addClass('active')
+        $('.houseInfobox[data-id=' + id + ']').addClass('active')
+    }
+
+    module.deactivatePinAndInfoBox = function (id) {
+        $('.customPushPin[data-id=' + id + ']').removeClass('active')
+        $('.houseInfobox[data-id=' + id + ']').removeClass('active')
+    }
+
     function createMapPin(map, layer, mapId, result) {
         if (result && result.latitude && result.longitude) {
             var location = new Microsoft.Maps.Location(result.latitude, result.longitude);
-            var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-building.png', width: 30, height: 45});
+            var pin = new Microsoft.Maps.Pushpin(location, {htmlContent: '<div class="customPushPin"  data-id="' + result.id + '"></div>', width: 30, height: 45});
 
             layer.push(pin)
             Microsoft.Maps.Events.addHandler(pin, 'click', function () { showInfoBox(map, mapId, result) });
+            Microsoft.Maps.Events.addHandler(pin, 'mouseover', function () {
+                module.activatePinAndInfoBox(result.id)
+            });
+            Microsoft.Maps.Events.addHandler(pin, 'mouseout', function () {
+                module.deactivatePinAndInfoBox(result.id)
+            });
             window.mapPinCache[result.id] = pin
         }
     }

@@ -1,6 +1,6 @@
 <script id="houseInfobox_template" type="text/template">
-    <div class="houseInfobox_wrapper infobox">
-        <div class="houseInfobox arrow_box">
+    <div class="houseInfobox_wrapper infobox" onmouseenter="window.currantModule.activatePinAndInfoBox('{=rent.id=}')" onmouseleave="window.currantModule.deactivatePinAndInfoBox('{=rent.id=}')">
+        <div class="houseInfobox arrow_box" data-id="{=rent.id=}">
             <i class="icon-delete hideMapInfoBoxBtn" onclick="window.hideInfoBox('{=rent.id=}')"></i>
             <a href="/property-to-rent/{=rent.id=}" target="_blank">
                 <div class="imagePart">

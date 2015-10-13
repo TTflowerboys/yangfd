@@ -15,6 +15,12 @@
         background: #fff;
         border: 1px solid #ccc;
         z-index: @house-info-arrow-box-z-index;
+        &.active{
+            //border-color: @red;
+            &:before{
+                //border-top-color: @red;
+            }
+        }
         //border-radius:8px;
     }
     .arrow_box:after, .arrow_box:before {
@@ -45,7 +51,12 @@
 .houseInfobox {
     width:320px;
     height:82px;
-
+    &.active{
+        z-index: 100;
+        .description .name{
+            color: @red;
+        }
+    }
     @media @phone {
         width:180px;
         height:70px;
