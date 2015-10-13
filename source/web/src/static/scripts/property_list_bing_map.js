@@ -23,6 +23,13 @@
         $('.houseInfobox[data-id=' + id + ']').addClass('active')
     }
 
+    module.clickPinAndInfoBox = function (id) {
+        $('.customPushPin').removeClass('clicked')
+        $('.houseInfobox').removeClass('clicked')
+        $('.customPushPin[data-id=' + id + ']').addClass('clicked')
+        $('.houseInfobox[data-id=' + id + ']').addClass('clicked')
+    }
+
     module.deactivatePinAndInfoBox = function (id) {
         $('.customPushPin[data-id=' + id + ']').removeClass('active')
         $('.houseInfobox[data-id=' + id + ']').removeClass('active')
@@ -34,7 +41,10 @@
             var pin = new Microsoft.Maps.Pushpin(location, {htmlContent: '<div class="customPushPin"  data-id="' + result.id + '"></div>', width: 30, height: 45});
 
             layer.push(pin)
-            Microsoft.Maps.Events.addHandler(pin, 'click', function () { showInfoBox(map, mapId, result) });
+            Microsoft.Maps.Events.addHandler(pin, 'click', function () {
+                showInfoBox(map, mapId, result)
+                module.clickPinAndInfoBox(result.id)
+            });
             Microsoft.Maps.Events.addHandler(pin, 'mouseover', function () {
                 module.activatePinAndInfoBox(result.id)
             });
