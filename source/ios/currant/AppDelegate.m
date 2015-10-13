@@ -84,7 +84,9 @@
 #define kRentTicketListTabBarIndex 3
 #define kUserTabBarIndex 4
 
-- (UINavigationController *)getTabBarNavigationControllerWithTitle:(NSString *)title icon:(NSString *)icon index:(NSInteger)index {
+- (UINavigationController *)getTabBarNavigationControllerWithIndex:(NSInteger)index {
+    NSString *title = [self tabbarTitles][index];
+    NSString *icon = [self tabbarIcons][index];
     UINavigationController *nav = [[UINavigationController alloc] init];
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:CONCAT(icon, @"-active")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     nav.tabBarItem = tabItem;
@@ -92,44 +94,19 @@
     nav.tabBarItem.accessibilityLabel = title;
     nav.view.backgroundColor = CUTE_BACKGROUND_COLOR;
     [[nav navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
-    return nav;
-
-}
-
-- (UINavigationController *)makeIndexViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
-
-    UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kHomeTabBarIndex];
     nav.navigationItem.title = STR(@"AppDelegate/洋房东");
     return nav;
+
 }
 
-- (UINavigationController *)makePropertyListViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
-
-    UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kPropertyListTabBarIndex];
-    nav.navigationItem.title = STR(@"AppDelegate/洋房东");
-    return nav;
-}
-
-- (UINavigationController *)makeRentListViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
-
-    UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kRentTicketListTabBarIndex];
-    nav.navigationItem.title = STR(@"AppDelegate/洋房东");
-    return nav;
-}
-
-
-- (UINavigationController *)makeUserViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
-
-    UINavigationController *nav = [self getTabBarNavigationControllerWithTitle:title icon:icon index:kUserTabBarIndex];
-    nav.navigationItem.title = STR(@"AppDelegate/洋房东");
-    return nav;
-}
-
-- (UINavigationController *)makeEditViewControllerWithTitle:(NSString *)title icon:(NSString *)icon urlPath:(NSString *)urlPath {
+- (UINavigationController *)makeEditViewController{
+    NSInteger index = kEditTabBarIndex;
+    NSString *title = [self tabbarTitles][index];
+    NSString *icon = [self tabbarIcons][index];
     UINavigationController *nav = [[UINavigationController alloc] init];
     nav.view.backgroundColor = CUTE_BACKGROUND_COLOR;
     UITabBarItem *tabItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:icon] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:nil];
-    tabItem.tag = kEditTabBarIndex;
+    tabItem.tag = index;
     nav.tabBarItem = tabItem;
     nav.tabBarItem.accessibilityLabel = title;
 
@@ -147,6 +124,15 @@
              STR(@"AppDelegate/发布"),
              STR(@"AppDelegate/租房"),
              STR(@"AppDelegate/我")
+             ];
+}
+
+- (NSArray *)tabbarIcons {
+    return @[@"tab-home",
+             @"tab-property",
+             @"tab-edit",
+             @"tab-rent",
+             @"tab-user"
              ];
 }
 
@@ -200,12 +186,13 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
-    UINavigationController *homeViewController = [self makeIndexViewControllerWithTitle:[self tabbarTitles][kHomeTabBarIndex] icon:@"tab-home" urlPath:@"/"];
+    UINavigationController *homeViewController = [self getTabBarNavigationControllerWithIndex:kHomeTabBarIndex];
 
-    UINavigationController *editViewController = [self makeEditViewControllerWithTitle:[self tabbarTitles][kEditTabBarIndex]  icon:@"tab-edit" urlPath:@"/rent_new"];
-    UINavigationController *propertyListViewController = [self makePropertyListViewControllerWithTitle:[self tabbarTitles][kPropertyListTabBarIndex]  icon:@"tab-property" urlPath:@"/property-list"];
-    UINavigationController *rentTicketListViewController = [self makeRentListViewControllerWithTitle:[self tabbarTitles][kRentTicketListTabBarIndex]  icon:@"tab-rent" urlPath:@"/property-to-rent-list"];
-    UINavigationController *userViewController = [self makeUserViewControllerWithTitle:[self tabbarTitles][kUserTabBarIndex]  icon:@"tab-user" urlPath:@"/user"];
+    UINavigationController *editViewController =  [self makeEditViewController];
+    UINavigationController *propertyListViewController = [self getTabBarNavigationControllerWithIndex:kPropertyListTabBarIndex];
+    UINavigationController *rentTicketListViewController = [self getTabBarNavigationControllerWithIndex:kRentTicketListTabBarIndex];
+    UINavigationController *userViewController = [self getTabBarNavigationControllerWithIndex:kUserTabBarIndex];
+
     [rootViewController setViewControllers:@[homeViewController,
                                              propertyListViewController,
                                              editViewController,
@@ -488,7 +475,7 @@
     if (IsArrayNilOrEmpty(viewController.viewControllers)) {
         NSURL *URL = [self tabbarURLWithIndex:index];
         if ([[CUTEWebArchiveManager sharedInstance] hasWebArchiveForURL:URL]) {
-            [viewController openRouteWithURL:[NSURL URLWithString:CONCAT(@"webarchive://", URL.absoluteString.base64EncodedString)]];
+            [viewController openRouteWithURL:[NSURL URLWithString:CONCAT(@"webarchive://localhost/?from=", URL.absoluteString.URLEncode)]];
         }
         else {
             [viewController openRouteWithURL:URL];

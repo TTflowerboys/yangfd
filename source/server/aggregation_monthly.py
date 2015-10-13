@@ -14,7 +14,7 @@ with f_app.mongo() as m:
     total_user_count = m.users.count()
 
     # 本月用户总数
-    selected_month = 8
+    selected_month = 10
     print(str(selected_month) + '月至今用户数据统计:')
 
     print('\n用户总数:')
@@ -244,3 +244,111 @@ with f_app.mongo() as m:
     for ticket in target_tickets:
         if ticket is not None:
             print(ticket['title'].encode('utf-8') + ", " + str(ticket['id']) + ": " + str(target_ticket_dic.get(ticket['id'])))
+
+    # 求租意向单数量
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {
+                'type': "rent_intention",
+                "time":
+                    {
+                        '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                    }}},
+            {'$group': {'_id': 'null', 'count': {'$sum': 1}}}
+        ]
+    )
+    for document in cursor:
+        print('\n求租意向单总数：' + str(document['count']))
+
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {
+                'type': "rent_intention",
+                "time":
+                    {
+                        '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                    }}},
+            {'$group': {'_id': '$city', 'count': {'$sum': 1}}},
+            {'$sort': {'count': -1}}
+        ]
+    )
+    for document in cursor:
+        print(f_app.geonames.gazetteer.get(document['_id']['_id'])['name'] + ': ' + str(document['count']))
+
+    # 按出租类型统计伦敦求租意向单
+    print('\n按单间整租统计伦敦求租意向单:')
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {
+                'type': "rent_intention",
+                'city._id': ObjectId('555966cd666e3d0f578ad2cf'),
+                "time":
+                    {
+                        '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                    }}},
+            {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
+        ]
+    )
+
+    for document in cursor:
+        if(document['_id']):
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
+
+    # 按预算统计伦敦求租意向单
+    print('\n按预算统计伦敦求租意向单:')
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {
+                'type': "rent_intention",
+                'city._id': ObjectId('555966cd666e3d0f578ad2cf'),
+                "time":
+                    {
+                        '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                    }}},
+            {'$group': {'_id': "$rent_budget", 'count': {'$sum': 1}}},
+            {'$sort': {'count': -1}}
+        ]
+    )
+
+    for document in cursor:
+        if(document['_id']):
+            print(f_app.enum.get(document['_id']['_id'])['currency'].encode('utf-8') + f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
+
+    # 按街区统计伦敦求租意向单
+    print('\n伦敦填写了街区的求租意向单:')
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {
+                'type': "rent_intention",
+                'city._id': ObjectId('555966cd666e3d0f578ad2cf'),
+                'maponics_neighborhood': {'$exists': 'true'},
+                "time":
+                    {
+                        '$gte': datetime(2015, selected_month, 1, 0, 0, 0)
+                    }}},
+            {'$group': {'_id': 'null', 'count': {'$sum': 1}}},
+        ]
+    )
+    for document in cursor:
+        print('总数:' + str(document['count']))
+
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {'type': "rent_intention", 'city._id': ObjectId('555966cd666e3d0f578ad2cf'), 'maponics_neighborhood': {'$exists': 'true'}}},
+            {'$group': {'_id': '$maponics_neighborhood', 'count': {'$sum': 1}}},
+            {'$sort': {'count': -1}}
+        ]
+    )
+    region_rent_intention_count_dic = {}
+    for document in cursor:
+        region_rent_intention_count_dic[str(document['_id']['_id'])] = document['count']
+
+    region_rent_intention_count_dic = OrderedDict(sorted(region_rent_intention_count_dic.items(), key=lambda t: t[1], reverse=True))
+
+    target_regions = f_app.maponics.neighborhood.get(region_rent_intention_count_dic.keys())
+
+    for target_region in target_regions:
+        if 'parent_name' in target_region:
+            print(target_region['name'].encode('utf-8') + ',' + target_region['parent_name'].encode('utf-8') + ':' + str(region_rent_intention_count_dic[str(target_region['id'])]))
+        else:
+            print(target_region['name'].encode('utf-8') + ':' + str(region_rent_intention_count_dic[str(target_region['id'])]))

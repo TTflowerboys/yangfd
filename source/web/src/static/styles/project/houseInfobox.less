@@ -14,6 +14,13 @@
         position: relative;
         background: #fff;
         border: 1px solid #ccc;
+        z-index: @house-info-arrow-box-z-index;
+        &.active{
+            //border-color: @red;
+            &:before{
+                //border-top-color: @red;
+            }
+        }
         //border-radius:8px;
     }
     .arrow_box:after, .arrow_box:before {
@@ -44,11 +51,34 @@
 .houseInfobox {
     width:320px;
     height:82px;
-
+    &.active{
+        z-index: 100;
+        .description .name{
+            color: @red;
+        }
+    }
+    &.clicked{
+        z-index: 99;
+        .description .name{
+            color: @red;
+        }
+    }
     @media @phone {
         width:180px;
         height:70px;
         padding:10px;
+    }
+    .hideMapInfoBoxBtn{
+        position: absolute;
+        z-index: @house-info-arrow-box-z-index;
+        right: 0px;
+        top: 0px;
+        padding: 4px;
+        font-size: 14px;
+        color: #aaa;
+        &:hover{
+            color: #888;
+        }
     }
 
     .imagePart {
@@ -61,6 +91,12 @@
             display:none;
         }
 
+        .img{
+            width: 100%;
+            height: 100%;
+            background-position: 50% 50%;
+            background-size: cover;
+        }
         .labels {
             position: absolute;
             right: 0;

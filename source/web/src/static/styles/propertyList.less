@@ -368,6 +368,26 @@ main {
             @media @phone {
                 height:300px;
             }
+            .customPushPin{
+                position: absolute;
+                cursor: inherit;
+                overflow: hidden;
+                pointer-events: all;
+                width: 30px;
+                height: 45px;
+                line-height: 0px;
+                background-image: url("/static/images/property_details/icon-location-building.png");
+                background-position: 50% 50%;
+                background-size: contain;
+                &.active {
+                    z-index: 100;
+                    background-image: url("/static/images/property_details/icon-location-building-active.png");
+                }
+                &.clicked {
+                    z-index: 99;
+                    background-image: url("/static/images/property_details/icon-location-building-active.png");
+                }
+            }
         }
 
         .result_list {

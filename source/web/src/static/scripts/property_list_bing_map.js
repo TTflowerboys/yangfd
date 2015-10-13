@@ -18,27 +18,51 @@
         return window.mapCache[mapId]
     }
 
+    module.activatePinAndInfoBox = function (id) {
+        $('.customPushPin[data-id=' + id + ']').addClass('active')
+        $('.houseInfobox[data-id=' + id + ']').addClass('active')
+    }
+
+    module.clickPinAndInfoBox = function (id) {
+        $('.customPushPin').removeClass('clicked')
+        $('.houseInfobox').removeClass('clicked')
+        $('.customPushPin[data-id=' + id + ']').addClass('clicked')
+        $('.houseInfobox[data-id=' + id + ']').addClass('clicked')
+    }
+
+    module.deactivatePinAndInfoBox = function (id) {
+        $('.customPushPin[data-id=' + id + ']').removeClass('active')
+        $('.houseInfobox[data-id=' + id + ']').removeClass('active')
+    }
+
     function createMapPin(map, layer, mapId, result) {
         if (result && result.latitude && result.longitude) {
             var location = new Microsoft.Maps.Location(result.latitude, result.longitude);
-            var pin = new Microsoft.Maps.Pushpin(location, {icon: '/static/images/property_details/icon-location-building.png', width: 30, height: 45});
+            var pin = new Microsoft.Maps.Pushpin(location, {htmlContent: '<div class="customPushPin"  data-id="' + result.id + '"></div>', width: 30, height: 45});
 
             layer.push(pin)
-            Microsoft.Maps.Events.addHandler(pin, 'click', function () { showInfoBox(map, mapId, result) });
-            if  (!window.mapPinCache[mapId]) {
-                window.mapPinCache[mapId] = []
-            }
-            window.mapPinCache[mapId].push(pin)
+            Microsoft.Maps.Events.addHandler(pin, 'click', function () {
+                showInfoBox(map, mapId, result)
+                module.clickPinAndInfoBox(result.id)
+            });
+            Microsoft.Maps.Events.addHandler(pin, 'mouseover', function () {
+                module.activatePinAndInfoBox(result.id)
+            });
+            Microsoft.Maps.Events.addHandler(pin, 'mouseout', function () {
+                module.deactivatePinAndInfoBox(result.id)
+            });
+            window.mapPinCache[result.id] = pin
         }
     }
 
 
     function showInfoBox(map, mapId, result) {
-        if (window.mapInfoBoxLayerCache[mapId]) {
-            map.entities.remove(window.mapInfoBoxLayerCache[mapId]);
+        if (window.mapInfoBoxLayerCache[result.id]) {
+            return window.mapInfoBoxLayerCache[result.id].setOptions({visible: true})
         }
         var location = new Microsoft.Maps.Location(result.latitude, result.longitude);
         var layer = new Microsoft.Maps.EntityCollection()
+        window.mapInfoBoxLayerCache[result.id] = layer
         var infoboxOptions = null
         if (window.team.isPhone()) {
             infoboxOptions = {offset:new Microsoft.Maps.Point(-90,50) };
@@ -53,8 +77,12 @@
             layer.setOptions({ visible: true });
             map.entities.push(layer);
             ajustMapPosition(map, layer.get(0), location)
-            window.mapInfoBoxLayerCache[mapId] = layer
         })
+    }
+    window.hideInfoBox = function hideInfoBox(id) {
+        if (!_.isEmpty(window.mapInfoBoxLayerCache[id])) {
+            window.mapInfoBoxLayerCache[id].setOptions({visible: false})
+        }
     }
 
     //http://stackoverflow.com/questions/11148042/bing-maps-invoke-click-event-on-pushpin
