@@ -66,8 +66,9 @@ extension UINavigationController {
         }
         else if URL.isWebArchiveURL() {
 
-            if let host:NSString = URL.host! as NSString {
-                if let archiveURL = host.base64DecodedString() {
+
+            if let URLString:NSString = URL.queryDictionary()["from"] as? NSString {
+                if let archiveURL = URLString.URLDecode() {
                     if let archive: CUTEWebArchive = CUTEWebArchiveManager.sharedInstance().getWebArchiveWithURL(NSURL(string: archiveURL)) {
                         openRouteWithWebArchive(archive)
                     }

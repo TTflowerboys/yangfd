@@ -475,7 +475,7 @@
     if (IsArrayNilOrEmpty(viewController.viewControllers)) {
         NSURL *URL = [self tabbarURLWithIndex:index];
         if ([[CUTEWebArchiveManager sharedInstance] hasWebArchiveForURL:URL]) {
-            [viewController openRouteWithURL:[NSURL URLWithString:CONCAT(@"webarchive://", URL.absoluteString.base64EncodedString)]];
+            [viewController openRouteWithURL:[NSURL URLWithString:CONCAT(@"webarchive://localhost/?from=", URL.absoluteString.URLEncode)]];
         }
         else {
             [viewController openRouteWithURL:URL];
