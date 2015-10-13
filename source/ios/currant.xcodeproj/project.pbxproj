@@ -266,6 +266,7 @@
 		2C4AEC801AD6466A004DEE23 /* CUTEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */; };
 		2C4AEC811AD6466A004DEE23 /* CUTEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */; };
 		2C4AEC821AD6466A004DEE23 /* CUTEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */; };
+		2C4E0D7C1BCCD55E000EF707 /* RentTicketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4E0D7B1BCCD55E000EF707 /* RentTicketUITests.swift */; settings = {ASSET_TAGS = (); }; };
 		2C554F8A1AC2BC3700F51D33 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */; };
 		2C5597EC1BB501C600430984 /* CUTEPatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5597EB1BB501C600430984 /* CUTEPatcher.swift */; settings = {ASSET_TAGS = (); }; };
@@ -935,6 +936,7 @@
 		2C4A13AF1B5E5CF600FA9F99 /* CUTEStringMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEStringMatcher.m; sourceTree = "<group>"; };
 		2C4AEC7D1AD6466A004DEE23 /* CUTEUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUser.h; sourceTree = "<group>"; };
 		2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUser.m; sourceTree = "<group>"; };
+		2C4E0D7B1BCCD55E000EF707 /* RentTicketUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RentTicketUITests.swift; sourceTree = "<group>"; };
 		2C554F891AC2BC3700F51D33 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2C554F8C1AC2BCEE00F51D33 /* CUTEPropertyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyListViewController.h; sourceTree = "<group>"; };
 		2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyListViewController.m; sourceTree = "<group>"; };
@@ -1543,6 +1545,7 @@
 			isa = PBXGroup;
 			children = (
 				2C6C58291BCCAE5200E52B77 /* currantUITests.swift */,
+				2C4E0D7B1BCCD55E000EF707 /* RentTicketUITests.swift */,
 				2C6C582B1BCCAE5200E52B77 /* Info.plist */,
 			);
 			path = currantUITests;
@@ -2639,6 +2642,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C4E0D7C1BCCD55E000EF707 /* RentTicketUITests.swift in Sources */,
 				2C6C582A1BCCAE5200E52B77 /* currantUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3847,6 +3851,7 @@
 				2C6C582F1BCCAE5200E52B77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2CA2E6BF1AC5487800053965 /* Build configuration list for PBXNativeTarget "currant-test" */ = {
 			isa = XCConfigurationList;

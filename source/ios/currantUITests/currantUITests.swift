@@ -60,9 +60,26 @@ class currantUITests: XCTestCase {
     }
 
     func testLogin() {
-
-  
         
+        let app = XCUIApplication()
+        app.alerts["Alert Test"].collectionViews.buttons["OK"].tap()
+        app.tabBars.buttons["Profile"].tap()
+        app.otherElements["+44 UK"].tap()
+        app.pickerWheels["+44 UK"].tap()
+        //http://stackoverflow.com/questions/31257409/how-to-select-a-picker-view-item-in-an-ios-ui-test-in-xcode
+        app.pickerWheels.element.adjustToPickerWheelValue("+86 China")
+        app.toolbars.buttons["Done"].tap()
+        app.alerts["New Version Available"].collectionViews.buttons["Later"].tap()
+        
+        let phoneNumberTextField = app.textFields["Phone Number"]
+        phoneNumberTextField.tap()
+        phoneNumberTextField.typeText("15872411146")
+        
+        let passwordSecureTextField = app.secureTextFields["Password"]
+        passwordSecureTextField.tap()
+        passwordSecureTextField.typeText("abc123")
+        app.buttons["Log In"].tap()
+        app.alerts["Your language preference is not the system language you are using, you can change your language setting in \"Profile\" -> \"Setting\""].collectionViews.buttons["OK"].tap()
     }
     
 }
