@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlUserList($scope, fctModal, api) {
+    function ctrlUserList($scope, fctModal, api, $q) {
         $scope.list = []
         $scope.selected = {}
 
@@ -32,7 +32,7 @@
 
         $scope.onSuspend = function (item) {
             fctModal.show('Do you want to suspend it?', undefined, function () {
-                api.suspend(item.id).success(function () {
+                $q.all(api.suspend(item.id), api.update(item.id, {email_message_type: []})).then(function () {
                     $scope.refreshList()
                 })
             })
@@ -40,7 +40,7 @@
 
         $scope.onActivate = function (item) {
             fctModal.show('Do you want to activate it?', undefined, function () {
-                api.activate(item.id).success(function () {
+                $q.all(api.activate(item.id), api.update(item.id, {email_message_type: ['system', 'rent_ticket_reminder', 'rent_intention_ticket_check_rent']})).then(function () {
                     $scope.refreshList()
                 })
             })
