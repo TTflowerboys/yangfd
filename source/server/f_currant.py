@@ -400,6 +400,13 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         for ticket in f_app.ticket.get_database(m).find({"creator_user_id": None, "user_id": {"$exists": True}}):
             f_app.ticket.get_database(m).update({"_id": ticket["_id"]}, {"$set": {"creator_user_id": ticket["user_id"]}})
 
+    def v25(self, m):
+        for user in f_app.user.get_database(m).find({"status": "suspended"}):
+            f_app.user.get_database(m).update({"_id": user["_id"]}, {"$set": {
+                "email_message_type": [],
+            }})
+            self.logger.debug("Cleared email message type for user", str(user["_id"]))
+
 currant_mongo_upgrade()
 
 
