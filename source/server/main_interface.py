@@ -7,14 +7,16 @@ from hashlib import sha1
 from lxml import etree
 from six.moves import cStringIO as StringIO
 from six.moves import urllib
-import qrcode
+try:
+    import qrcode
+except ImportError:
+    pass
 import bottle
 from bson.objectid import ObjectId
 from app import f_app
 from libfelix.f_interface import f_get, f_post, static_file, template, request, response, redirect, html_redirect, error, abort, template_gettext as _
 import currant_util
 import currant_data_helper
-from urllib import quote
 from libfelix.f_interface import f_experiment
 f_experiment()
 
@@ -65,33 +67,32 @@ def default(user, params):
         homepage_ad_list = f_app.ad.get_all_by_channel("homepage_uk")
         homepage_ad_list = f_app.i18n.process_i18n(homepage_ad_list)
         return currant_util.common_template(
-                        "index_en",
-                        title=title,
-                        property_list=property_list,
-                        homepage_ad_list=homepage_ad_list,
-                        news_list=news_list,
-                        intention_list=intention_list,
-                        property_country_list=property_country_list,
-                        property_city_list=property_city_list,
-                        rent_type_list=rent_type_list,
-                        property_type_list=property_type_list,
-                        icon_map=currant_util.icon_map
-                    )
+            "index_en",
+            title=title,
+            property_list=property_list,
+            homepage_ad_list=homepage_ad_list,
+            news_list=news_list,
+            intention_list=intention_list,
+            property_country_list=property_country_list,
+            property_city_list=property_city_list,
+            rent_type_list=rent_type_list,
+            property_type_list=property_type_list,
+            icon_map=currant_util.icon_map
+        )
     else:
         return currant_util.common_template(
-                        "index",
-                        title=title,
-                        property_list=property_list,
-                        homepage_ad_list=homepage_ad_list,
-                        news_list=news_list,
-                        intention_list=intention_list,
-                        property_country_list=property_country_list,
-                        property_city_list=property_city_list,
-                        rent_type_list=rent_type_list,
-                        property_type_list=property_type_list,
-                        icon_map=currant_util.icon_map
-                    )
-
+            "index",
+            title=title,
+            property_list=property_list,
+            homepage_ad_list=homepage_ad_list,
+            news_list=news_list,
+            intention_list=intention_list,
+            property_country_list=property_country_list,
+            property_city_list=property_city_list,
+            rent_type_list=rent_type_list,
+            property_type_list=property_type_list,
+            icon_map=currant_util.icon_map
+        )
 
 
 @f_get('/signup')
@@ -126,7 +127,7 @@ def signin():
 @f_get('/intention')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
-#@currant_util.check_phone_verified_and_redirect_domain
+# @currant_util.check_phone_verified_and_redirect_domain
 def intention(user):
     title = _('投资意向')
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
@@ -209,7 +210,7 @@ def rent_ticket_get(rent_ticket_id, user):
         "user.id": user["id"],
     })) > 0 if user else False
 
-    private_contact_methods = rent_ticket.get('creator_user',{}).get('private_contact_methods',[])
+    private_contact_methods = rent_ticket.get('creator_user', {}).get('private_contact_methods', [])
     private_contact_methods = [] if private_contact_methods is None else private_contact_methods
     return currant_util.common_template("host_contact_request-phone", rent=rent_ticket, title=title, contact_info_already_fetched=contact_info_already_fetched, private_contact_methods=private_contact_methods)
 
@@ -239,7 +240,7 @@ def wechat_poster(rent_ticket_id):
     if rent_ticket['status'] not in ['to rent', 'rent'] and rent_ticket.get('creator_user'):
         if not user:
             redirect('/401')
-        elif user['id'] not in (rent_ticket.get('user',{}).get('id'), rent_ticket.get('creator_user',{}).get('id')) and not (set(user['role']) & set(['admin', 'jr_admin', 'support'])):
+        elif user['id'] not in (rent_ticket.get('user', {}).get('id'), rent_ticket.get('creator_user', {}).get('id')) and not (set(user['role']) & set(['admin', 'jr_admin', 'support'])):
             redirect('/403')
 
     return currant_util.common_template("wechat_poster", rent=rent_ticket, title=title, description=description, keywords=keywords, weixin=weixin, report=report)
@@ -261,7 +262,7 @@ def admin():
 @error(401)
 @f_app.user.login.check()
 def error401_redirect(error, user):
-    return html_redirect("/signin?error_code=40100&from=" + quote(request.url))
+    return html_redirect("/signin?error_code=40100&from=" + urllib.parse.quote(request.url))
 
 
 @f_get('/401')
@@ -690,7 +691,7 @@ def rent_intention_edit(rent_intention_ticket_id):
     title = _('求租意向单编辑')
     rent_intention_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_intention_ticket_id], fuzzy_user_info=True)[0])
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields())
-    if user.get('id') != rent_intention_ticket.get('creator_user',{}).get('id'):
+    if user.get('id') != rent_intention_ticket.get('creator_user', {}).get('id'):
         redirect('/')
 
     return currant_util.common_template("rent_intention_edit", title=title, rent_intention_ticket=rent_intention_ticket)

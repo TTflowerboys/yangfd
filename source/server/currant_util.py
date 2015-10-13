@@ -8,7 +8,7 @@ from app import f_app
 from libfelix.f_interface import template, request, redirect, template_gettext as _
 import currant_data_helper
 import lxml
-import urllib
+from six.moves import urllib
 import re
 from distutils.version import StrictVersion
 
@@ -118,7 +118,7 @@ def check_phone_verified_and_redirect_domain(func):
     @wraps(func)
     def __check_phone_verified_and_redirect_domain_replace_func(*args, **kwargs):
         if f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields()) and not f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields()).get('phone_verified'):
-            redirect('/verify-phone?from=' + urllib.quote(request.url.encode("utf-8")))
+            redirect('/verify-phone?from=' + urllib.parse.quote(request.url.encode("utf-8")))
         else:
             return func(*args, **kwargs)
 
@@ -246,7 +246,7 @@ def common_template(path, **kwargs):
     if 'weixin' not in kwargs:
         kwargs['weixin'] = f_app.wechat.get_jsapi_signature()
     if 'request_uri' not in kwargs:
-        kwargs['request_uri'] = urllib.quote(request.url.encode("utf-8"))
+        kwargs['request_uri'] = urllib.parse.quote(request.url.encode("utf-8"))
     if 'request' not in kwargs:
         kwargs['request'] = request
     if 'user_type_list' not in kwargs:

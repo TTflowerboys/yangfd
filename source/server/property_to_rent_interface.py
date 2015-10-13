@@ -86,7 +86,7 @@ def rent_ticket_get(rent_ticket_id, user):
     if rent_ticket['status'] not in ['to rent', 'rent'] and rent_ticket.get('creator_user'):
         if not user:
             redirect('/401')
-        elif user['id'] not in (rent_ticket.get('user',{}).get('id'), rent_ticket.get('creator_user',{}).get('id')) and not (set(user['role']) & set(['admin', 'jr_admin', 'support'])):
+        elif user['id'] not in (rent_ticket.get('user', {}).get('id'), rent_ticket.get('creator_user', {}).get('id')) and not (set(user['role']) & set(['admin', 'jr_admin', 'support'])):
             redirect('/403')
 
     if rent_ticket["status"] not in ["draft", "to rent", "rent"]:
@@ -124,29 +124,28 @@ def rent_ticket_get(rent_ticket_id, user):
         "user.id": user["id"],
     })) > 0 if user else False
 
-    display_location_mobile=[]
-    display_location_pc=[]
-    if rent_ticket['property'].get('community',''):
-        display_location_mobile.append(rent_ticket['property'].get('community',''))
-        display_location_pc.append(rent_ticket['property'].get('community',''))
+    display_location_mobile = []
+    display_location_pc = []
+    if rent_ticket['property'].get('community', ''):
+        display_location_mobile.append(rent_ticket['property'].get('community', ''))
+        display_location_pc.append(rent_ticket['property'].get('community', ''))
 
-    if rent_ticket['property'].get('street',''):
-        display_location_mobile.append(rent_ticket['property'].get('street',''))
-        display_location_pc.append(rent_ticket['property'].get('street',''))
+    if rent_ticket['property'].get('street', ''):
+        display_location_mobile.append(rent_ticket['property'].get('street', ''))
+        display_location_pc.append(rent_ticket['property'].get('street', ''))
 
-    if rent_ticket.get('property',{}).get('city'):
-        display_location_mobile.append(rent_ticket['property'].get('city',{}).get('name'))
+    if rent_ticket.get('property', {}).get('city'):
+        display_location_mobile.append(rent_ticket['property'].get('city', {}).get('name'))
 
-    if rent_ticket.get('property',{}).get('country'):
-        display_location_mobile.append(currant_util.get_country_name_by_code(rent_ticket['property'].get('country',{}).get('code')))
+    if rent_ticket.get('property', {}).get('country'):
+        display_location_mobile.append(currant_util.get_country_name_by_code(rent_ticket['property'].get('country', {}).get('code')))
 
-    if not rent_ticket.get('property',{}).get('partner'):
-        display_location_mobile.append(rent_ticket['property'].get('zipcode',''))
-        display_location_pc.append(rent_ticket['property'].get('zipcode',''))
+    if not rent_ticket.get('property', {}).get('partner'):
+        display_location_mobile.append(rent_ticket['property'].get('zipcode', ''))
+        display_location_pc.append(rent_ticket['property'].get('zipcode', ''))
     display_location_mobile = ','.join(display_location_mobile)
     display_location_pc = ','.join(display_location_pc)
-    print ','.join([])
-    return currant_util.common_template("property_to_rent", rent=rent_ticket, rent_type_list=rent_type_list, rent_budget_list=rent_budget_list, report=report, is_favorited=is_favorited, publish_time=publish_time, last_modified_time=last_modified_time, title=title, description=description, keywords=keywords, weixin=weixin, contact_info_already_fetched=contact_info_already_fetched, related_rent_ticket_list=related_rent_ticket_list, display_location_mobile=display_location_mobile,display_location_pc=display_location_pc)
+    return currant_util.common_template("property_to_rent", rent=rent_ticket, rent_type_list=rent_type_list, rent_budget_list=rent_budget_list, report=report, is_favorited=is_favorited, publish_time=publish_time, last_modified_time=last_modified_time, title=title, description=description, keywords=keywords, weixin=weixin, contact_info_already_fetched=contact_info_already_fetched, related_rent_ticket_list=related_rent_ticket_list, display_location_mobile=display_location_mobile, display_location_pc=display_location_pc)
 
 
 @f_get('/property-to-rent-digest/<rent_ticket_id:re:[0-9a-fA-F]{24}>')
@@ -194,8 +193,8 @@ def property_to_rent_edit(rent_ticket_id, user):
         fuzzy_user_info = False
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=fuzzy_user_info)[0])
 
-    #如果没有登录或者登录用户既不是房产的user也不是creator_user则跳转到首页
-    if not (user and (user.get('id') == rent_ticket.get('user',{}).get('id') or user.get('id') == rent_ticket.get('creator_user',{}).get('id'))):
+    # 如果没有登录或者登录用户既不是房产的user也不是creator_user则跳转到首页
+    if not (user and (user.get('id') == rent_ticket.get('user', {}).get('id') or user.get('id') == rent_ticket.get('creator_user', {}).get('id'))):
         redirect('/')
 
     keywords = title + ',' + currant_util.get_country_name_by_code(rent_ticket["property"].get('country', {}).get('code', '')) + ',' + rent_ticket["property"].get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)
