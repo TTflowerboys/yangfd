@@ -57,32 +57,74 @@ with f_app.mongo() as m:
     # for k, v in neighborhood_count_dic.items():
     #     print(k, v)
 
-    # 查看过海外房产的用户及用户类型
-    print('\n查看过海外房产的用户及用户类型:')
-    cursor = m.log.aggregate(
+    # 正在发布的海外房产的街区汇总
+    print('\n正在发布的海外房产的街区汇总:')
+    cursor = m.propertys.aggregate(
         [
-            {'$match': {
-                'property_id': {'$exists': 'true'},
-                "time":
-                    {
-                        '$gte': datetime(2015, 8, 1, 0, 0, 0)
-                    }}},
-            {'$group': {'_id': "$id", 'count': {'$sum': 1}}},
-            # {'$limit': 10}
-            {'$sort': {'count': -1}}
+            {'$match': {'status': 'selling'}},
+            {'$group': {'_id': "$_id"}}
         ]
     )
-    user_property_view_count_dic = {}
+
+    target_property_id_list = []
     for document in cursor:
         if(document['_id']):
-            user_property_view_count_dic[str(document['_id'])] = document['count']
+            target_property_id_list.append(str(document['_id']))
 
-    user_property_view_count_dic = OrderedDict(sorted(user_property_view_count_dic.items(), key=lambda t: t[1], reverse=True))
+    target_properties = f_app.i18n.process_i18n(f_app.property.output(target_property_id_list, ignore_nonexist=True, permission_check=False))
+    neighborhood_count_dic = {}
+    for target_property in target_properties:
+        if target_property and 'maponics_neighborhood' in target_property and 'name' in target_property['maponics_neighborhood']:
+            if(target_property['maponics_neighborhood']['name'] in neighborhood_count_dic):
+                neighborhood_count_dic[target_property['maponics_neighborhood']['name']] += 1
+            else:
+                neighborhood_count_dic[target_property['maponics_neighborhood']['name']] = 1
 
-    target_users = f_app.user.output(user_property_view_count_dic.keys(), custom_fields=f_app.common.user_custom_fields)
+    for k, v in neighborhood_count_dic.items():
+        print(k, v)
 
-    for user in target_users:
-        if 'user_type' in user:
-            print(user['nickname'].encode('utf-8') + ':' + " ".join(f_app.enum.get(x['id'])['value']['zh_Hans_CN'].encode('utf-8') for x in user['user_type']) + ', ' + str(user_property_view_count_dic[str(user['id'])]))
-        else:
-            print(user['nickname'].encode('utf-8') + ':' + str(user_property_view_count_dic[str(user['id'])]))
+    # 查看过海外房产的用户及用户类型
+    # print('\n查看过海外房产的用户及用户类型:')
+    # cursor = m.log.aggregate(
+    #     [
+    #         {'$match': {
+    #             'property_id': {'$exists': 'true'},
+    #             "time":
+    #                 {
+    #                     '$gte': datetime(2015, 8, 1, 0, 0, 0)
+    #                 }}},
+    #         {'$group': {'_id': "$id", 'count': {'$sum': 1}}},
+    #         # {'$limit': 10}
+    #         {'$sort': {'count': -1}}
+    #     ]
+    # )
+    # user_property_view_count_dic = {}
+    # for document in cursor:
+    #     if(document['_id']):
+    #         user_property_view_count_dic[str(document['_id'])] = document['count']
+
+    # user_property_view_count_dic = OrderedDict(sorted(user_property_view_count_dic.items(), key=lambda t: t[1], reverse=True))
+
+    # target_users = f_app.user.output(user_property_view_count_dic.keys(), custom_fields=f_app.common.user_custom_fields)
+
+    # for user in target_users:
+    #     if 'user_type' in user:
+    #         print(user['nickname'].encode('utf-8') + ':' + " ".join(f_app.enum.get(x['id'])['value']['zh_Hans_CN'].encode('utf-8') for x in user['user_type']) + ', ' + str(user_property_view_count_dic[str(user['id'])]))
+    #     else:
+    #         print(user['nickname'].encode('utf-8') + ':' + str(user_property_view_count_dic[str(user['id'])]))
+
+    # 租客的国家比例
+    # print('\n租客的国家比例:')
+    # cursor = m.users.aggregate(
+    #     [
+    #         {"$unwind": "$user_type"},
+    #         {'$match': {'user_type._id': ObjectId('55b6538b8c829eeb6fe0ac69')}},
+    #         {"$group": {"_id": "$country", "count": {"$sum": 1}}}
+    #     ]
+    # )
+
+    # for document in cursor:
+    #     if document['_id'] is None:
+    #         print("None: " + str(document['count']))
+    #     else:
+    #         print(document['_id']['code'] + ": " + str(document['count']))
