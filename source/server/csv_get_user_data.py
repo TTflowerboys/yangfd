@@ -79,7 +79,7 @@ with open('userData.csv', 'wb') as csvfile:
         rent_count = 0
         single_all_info = ''
         landlord_flag = [0, 0, 0, 0, 0]
-        landlord_info = ''
+        landlord_info = []
         for rt in rent_tickets:
             #单个用户的每份出租信息
             '''if rt.get('landlord_type') is not None:
@@ -107,16 +107,16 @@ with open('userData.csv', 'wb') as csvfile:
                     else:
                         all_flag = 1
         if landlord_flag[0] == 1:
-            landlord_info += "我是房东，但不住在这/"
+            landlord_info.append("我是房东，但不住在这")
         if landlord_flag[1] == 1:
-            landlord_info += "我是房东，也住在这里/"
+            landlord_info.append("我是房东，也住在这里")
         if landlord_flag[2] == 1:
-            landlord_info += "我是目前租住的租客/"
+            landlord_info.append("我是目前租住的租客")
         if landlord_flag[3] == 1:
-            landlord_info += "我是经过房东授权的中介/"
+            landlord_info.append("我是经过房东授权的中介")
         if landlord_flag[4] == 1:
-            landlord_info += "我是准备搬出去的前租客/"
-        landlord_info2 = landlord_info[0:-1]
+            landlord_info.append("我是准备搬出去的前租客")
+        landlord_info2 = "/".join(landlord_info)
         if single_flag == 1 and all_flag == 1:
             single_all_info = '单间/整套'
         elif single_flag == 1:
