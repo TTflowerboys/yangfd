@@ -102,14 +102,10 @@
         }
         else if (tabName === 'landlord') {
             window.console.log('landlord')
-            if (window.team.isCurrantClient()) {
-                var publishHeight = $('.publishInClient').height()
-                $('.publishInClient').css('margin-top', ((windowHeight - tabbarHeight - publishHeight) / 2) + 'px')
-            }
-            else if (window.team.isPhone() && !window.team.isWeChat()) {
+            if (window.team.isPhone() && !window.team.isWeChat()) {
                 window.team.initDisplayOfElement()
             }
-            else  {
+            else if(!window.team.isCurrantClient())  {
                 window.team.initDisplayOfElement()
                 $('.downloadWrap a.web').hide()
                 if (typeof window.indexAppDownloadSwiper === 'undefined') {
