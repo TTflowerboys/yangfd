@@ -59,7 +59,7 @@ def get_related_data(u, s):
         raise NotImplementedError
 
     filters.update({"$or": [{"user_id": ObjectId(u["id"])}, {"creator_user_id": ObjectId(u["id"])}]})
-    return module.get(module.search(filters))
+    return module.get(module.search(filters, per_page=-1))
 
 with open('userData.csv', 'wb') as csvfile:
     spamwriter = csv.writer(csvfile,
