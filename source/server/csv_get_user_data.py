@@ -1,11 +1,5 @@
-#coding:utf-8
-from pymongo import MongoClient
-#from datetime import datetime
+# -*- coding:utf-8 -*-
 from app import f_app
-from bson.objectid import ObjectId
-from collections import OrderedDict
-from bson.objectid import ObjectId
-#import json
 
 import csv
 
@@ -15,7 +9,11 @@ header = ['用户', '邮箱', '性别', '国家', '城市', '用户类型', '职
 
 
 def get_all_enum_list(s):
-    return f_app.i18n.process_i18n(f_app.enum.get_all(s))
+    list_set = f_app.i18n.process_i18n(f_app.enum.get_all(s))
+    dic = dict()
+    for e in list_set:
+        dic[e.get('id')] = e.get('value')
+    return dic
 
 
 def get_data(u, s):
@@ -30,6 +28,7 @@ def get_data(u, s):
 
 
 def get_enum_data(u, s):
+    list_dic = get_all_enum_list(s)
     if s is 'landlord_type':
         return ''
     t = ''
@@ -38,9 +37,10 @@ def get_enum_data(u, s):
     v = u.get(s)
     if isinstance(v, list):
         for single_type in v:
-            for comp_type in get_all_enum_list(s):
-                if comp_type.get('id') == single_type.get('id'):
-                    t += comp_type.get('value')+' '
+            if single_type == v[-1]:
+                t += list_dic[single_type.get('id')]
+            else:
+                t += list_dic[single_type.get('id')] + '/'
     return t.encode('utf-8')
 
 
@@ -61,4 +61,4 @@ with open('userData.csv', 'wb') as csvfile:
             '',
             get_data(user, 'landlord_type'),
             get_data(user, 'register_time')
-            ])
+        ])
