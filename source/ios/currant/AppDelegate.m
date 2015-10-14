@@ -33,6 +33,7 @@
 #import "CUTETracker.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import <Bugtags/Bugtags.h>
 #import <ATConnect.h>
 #import <JDFTooltips.h>
 #import <ALActionBlocks.h>
@@ -247,7 +248,14 @@
     [[AFNetworkActivityLogger sharedLogger] startLogging];
 #endif
 
-    [Fabric with:@[CrashlyticsKit]];
+    NSDictionary *appInfo = [[NSBundle mainBundle] infoDictionary];
+    if ([[appInfo objectForKey:@"CurrantChannel"] isEqualToString:@"production"]) {
+        [Fabric with:@[CrashlyticsKit]];
+    }
+    else {
+        //TODO check production need this feature and this lib?
+        [Bugtags startWithAppKey:@"fb5ae938402722929e9bd6bc21239141" invocationEvent:BTGInvocationEventBubble];
+    }
 
     [[CUTETracker sharedInstance] trackEnterForeground];
 
