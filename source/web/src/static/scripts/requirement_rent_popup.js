@@ -130,6 +130,16 @@
         }
     }
 
+    function checkValidateOfBudget (container) {
+        var min = (container.find('[name=rentBudgetMin]').val() || '').split(':')[0]
+        var max = (container.find('[name=rentBudgetMax]').val() || '').split(':')[0]
+        if(min.length && max.length && parseInt(min) >= parseInt(max)) {
+            window.dhtmlx.message({ type:'error', text: i18n('预算下限必须小于预算上限')});
+            return false
+        }
+        return true
+    }
+
     function initRequirementRentTitle (container) {
         function getText (elem) {
             var text
@@ -145,10 +155,20 @@
             return text
         }
         function getRequirementRentTitle(container) {
-            return i18n('我想找') + getText(container.find('.city-select')) +
-                (container.find('.neighborhood-select').val() ? (i18n('的') + getText(container.find('.neighborhood-select'))) : '') +
-                i18n('附近的') + getText(container.find('.rentBudget')) + window.getCurrencyPresentation(window.currency) + i18n('/周的') +
-                getText(container.find('.rentType')) + i18n('出租房')
+            var budgetString
+            if (container.find('[name=rentBudgetMin]').val() && container.find('[name=rentBudgetMax]').val()) {
+                budgetString = i18n('%s至%s/周的', getText(container.find('[name=rentBudgetMin]')), getText(container.find('[name=rentBudgetMax]')) + window.getCurrencyPresentation(window.currency))
+            } else if (container.find('[name=rentBudgetMin]').val()) {
+                budgetString = i18n('%s/周以上的', getText(container.find('[name=rentBudgetMin]')) + window.getCurrencyPresentation(window.currency))
+            } else if (container.find('[name=rentBudgetMax]').val()) {
+                budgetString = i18n('%s/周以下的', getText(container.find('[name=rentBudgetMax]')) + window.getCurrencyPresentation(window.currency))
+            } else {
+                budgetString = ''
+            }
+            return i18n('我想找%s附近的%s出租房',
+                getText(container.find('.city-select')) + (container.find('.neighborhood-select').val() ? (i18n('的%s', getText(container.find('.neighborhood-select')))) : ''),
+                budgetString + getText(container.find('.rentType'))
+            )
         }
         if (!container.data('initRequirementRentTitle')) {
             container.data('initRequirementRentTitle', true)
@@ -156,7 +176,9 @@
                 container.find('.requirementRentTitle').val(container.find('.requirementRentTitle').attr('data-value'))
             } else {
                 container.find('[data-change-title]').on('change', function () {
-                    container.find('.requirementRentTitle').val(getRequirementRentTitle(container))
+                    if (checkValidateOfBudget(container)) {
+                        container.find('.requirementRentTitle').val(getRequirementRentTitle(container))
+                    }
                 })
             }
         }
@@ -251,6 +273,7 @@
             }
         })
         data.phone = '+' + form.find('[name=country_code]').val() + form.find('[name=requirementRentPhone]').val()
+        data.rent_budget = 'rent_budget:' + form.find('[name=rentBudgetMin]').val().split(':')[0] + ',' + form.find('[name=rentBudgetMax]').val().split(':')[0] + ',' + window.currency
         return data
     }
 
@@ -401,6 +424,10 @@
                 errorMsg = i18n('结束日期需要大于开始日期')
                 highlightErrorElem(element.find('.endDate'))
             }
+            if(!checkValidateOfBudget(element)) {
+                validate = false
+                errorMsg = i18n('预算下限必须小于预算上限')
+            }
             if(!validate){
                 $errorMsg.text(errorMsg).show()
             }
@@ -455,10 +482,14 @@
         container.find('.select-chosen').add(container.find('[name=country_code]')).each(function (index, elem) {
             if(!$(elem).data('chosen')) {
                 if(!window.team.isPhone()) {
-                    $(elem).data('chosen', true).chosen({ disable_search_threshold: 8 }) //调用chosen插件
+                    $(elem).data('chosen', true).chosen({
+                        disable_search_threshold: 8,
+                        disable_search: $(elem).attr('data-disable-chosen-search') === 'true'
+                    }) //调用chosen插件
                 } else {
                     $(elem).data('chosen', true).chosenPhone({
                         disable_search_threshold: 8,
+                        disable_search: $(elem).attr('data-disable-chosen-search') === 'true',
                         callback: function () {
                             this.chosenSingle.prepend('<p class="hint">' + $(elem).attr('data-hint') + '</p>')
                         }

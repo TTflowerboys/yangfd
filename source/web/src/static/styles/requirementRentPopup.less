@@ -188,6 +188,7 @@
                             width: 265px;
                             float: left;
                             margin-right: 20px;
+                            .clearfix;
                         }
                         .title{
                             margin: 0 0 8px;
@@ -199,11 +200,24 @@
                             width: 110px;
                         }
                         .bridge{
+                            vertical-align: middle;
                             padding: 0 10px;
+                        }
+                        .selectWrapper{
+                            display: inline-block;
+                            width: 110px;
+                            vertical-align: middle;
+                            .clearfix;
+                            select{
+                                width: 100%;
+                            }
                         }
                         > input, > textarea{
                             width: 550px;
                         }
+                    }
+                    .chosen-container-single .chosen-single span{
+                        margin-right: 12px;
                     }
                 }
                 .step3{

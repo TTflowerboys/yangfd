@@ -159,9 +159,9 @@
                             position: relative;
                             width: 100%;
                             float: none;
-                            margin: 0 0 24px;
-                            &:nth-last-child(1){
-                                margin: 0;
+                            margin-top: -1px;
+                            &:nth-child(1) {
+                                margin-top: 0;
                             }
                         }
 
@@ -204,12 +204,6 @@
                                 width: 100%;
                             }
                         }
-                        &.startDateRow{
-                            width: 100%;
-                            margin-bottom: -1px;
-                            position: relative;
-
-                        }
                         .dateInput{
                             -webkit-appearance: none;
                             -moz-appearance: none;
@@ -224,7 +218,12 @@
                                 border-radius: 0 0 5px 5px;
                             }
                         }
-
+                        .rentBudgetMin .chosen-container .chosen-single {
+                            border-radius: 5px 5px 0 0;
+                        }
+                        .rentBudgetMax .chosen-container .chosen-single {
+                            border-radius: 0 0 5px 5px;
+                        }
 
                         > input, > textarea{
                             width: 550px;
@@ -566,6 +565,9 @@
     .requirement_wrapper{
         position: static;
         border-top: none;
+        .cancel{
+            display: none !important;
+        }
         .formWrap .stepWrap {
             position: relative;
             z-index: 0;

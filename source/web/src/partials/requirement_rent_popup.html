@@ -90,7 +90,7 @@
                                     <!--@@include=./current_currency.html -->
                                     {{_('/周')}}
                                     )</p>
-                                <select class="select-chosen rentBudget" data-change-title data-validator="required" data-name="{{_('预算')}}" data-serialize="rent_budget">
+                                <!--<select class="select-chosen rentBudget" data-change-title data-validator="required" data-name="{{_('预算')}}" data-serialize="rent_budget">
                                     %for index, rent_budget in enumerate(rent_budget_list):
                                     %if rent_budget.get('currency') == _.currency:
                                     <option value="{{rent_budget.get('id')}}" data-index="{{index}}"
@@ -100,7 +100,36 @@
                                         >{{rent_budget.get('value')}}</option>
                                     %end
                                     %end
-                                </select>
+                                </select>-->
+                                <div class="selectWrapper">
+                                    <select class="select-chosen rentBudget" name="rentBudgetMin" data-change-title data-name="{{_('预算下限')}}" data-disable-chosen-search="true">
+                                        <option value="">{{_('无下限')}}</option>
+                                        %for index, rent_budget in enumerate(rent_budget_item_list):
+                                        %if rent_budget.get('currency') == _.currency:
+                                        <option value="{{rent_budget.get('slug')}}"
+                                            %if len(rent_intention_ticket.get('rent_budget',{}).get('slug','').split(':')) >= 2 and rent_intention_ticket.get('rent_budget',{}).get('slug','').split(':')[1].split(',')[0] == rent_budget.get('slug').split(':')[0]:
+                                            selected
+                                            %end
+                                            >{{rent_budget.get('value')}}</option>
+                                        %end
+                                        %end
+                                    </select>
+                                </div>
+                                <span class="bridge">{{_('至')}}</span>
+                                <div class="selectWrapper">
+                                    <select class="select-chosen rentBudget" name="rentBudgetMax" data-change-title data-name="{{_('预算上限')}}" data-disable-chosen-search="true">
+                                        <option value="">{{_('无上限')}}</option>
+                                        %for index, rent_budget in enumerate(rent_budget_item_list):
+                                        %if rent_budget.get('currency') == _.currency:
+                                        <option value="{{rent_budget.get('slug')}}"
+                                            %if len(rent_intention_ticket.get('rent_budget',{}).get('slug','').split(':')) >= 2 and rent_intention_ticket.get('rent_budget',{}).get('slug','').split(':')[1].split(',')[1] == rent_budget.get('slug').split(':')[0]:
+                                        selected
+                                        %end
+                                        >{{rent_budget.get('value')}}</option>
+                                        %end
+                                        %end
+                                    </select>
+                                </div>
                             </div>
                             <div class="col">
                                 <p class="title">{{_('租期')}}</p>
