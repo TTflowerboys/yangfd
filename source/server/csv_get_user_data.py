@@ -71,6 +71,7 @@ with open('userData.csv', 'wb') as csvfile:
     # print f_app.util.json_dumps(land_enum,ensure_ascii = False)
     rent_type_enum = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     landlord_type_enum = f_app.i18n.process_i18n(f_app.enum.get_all('landlord_type'))
+    landlord_type_enum_map = {enum["id"]: enum for enum in landlord_type_enum}
     for user in f_app.user.get(f_app.user.get_active()):
         rent_tickets = get_related_data(user, 'rent_ticket')
         single_flag = 0
