@@ -410,6 +410,11 @@
     }];
 }
 
+- (void)editSurrounding {
+    CUTESurroundingListViewController *controller = [CUTESurroundingListViewController new];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 - (void)editMoreInfo {
 
     TrackEvent(GetScreenName(self), kEventActionPress, @"enter-more", nil);

@@ -17,6 +17,7 @@
 #import "CUTERentTypeListForm.h"
 #import "CUTETicketForm.h"
 #import "CUTERentPeriodForm.h"
+#import "currant-Swift.h"
 
 
 @class CUTERentAddressEditForm;
@@ -33,6 +34,7 @@
 @property (nonatomic, assign) NSUInteger bathroomCount;
 @property (strong, nonatomic) CUTERentTypeListForm *rentType;
 @property (strong, nonatomic) CUTERentAddressEditForm *rentAddress;
+@property (strong, nonatomic) CUTESurrounding *surrounding;
 @property (nonatomic, strong) CUTEPropertyMoreInfoForm *moreInfo;
 @property (strong, nonatomic) CUTERentContactForm *submit;
 

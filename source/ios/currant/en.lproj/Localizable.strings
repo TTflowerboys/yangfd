@@ -699,6 +699,7 @@
 "PropertyInfo/房屋户型（可选Studio）" = "Rooms (Studio Allowed)";
 "PropertyInfo/出租类型" = "Rent Type";
 "PropertyInfo/房产地址" = "Address";
+"PropertyInfo/周边" = "Around The Place";
 "PropertyInfo/更多详情和配套设施描述（选填）" = "More Details and Amenities (Optional)";
 "PropertyInfo/预览并发布" = "Preview and Publish";
 

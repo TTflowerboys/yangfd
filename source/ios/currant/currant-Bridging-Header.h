@@ -29,6 +29,9 @@
 #import "NSString+QueryParser.h"
 #import <JPEngine.h>
 #import <RNDecryptor.h>
+#import "CUTEForm.h"
 #import "CUTEFormTextFieldCell.h"
+#import <MTLModel.h>
+#import <MTLJSONAdapter.h>
 
 #endif /* currant_Bridging_Header_h */
