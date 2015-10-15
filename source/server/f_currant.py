@@ -2004,7 +2004,7 @@ class f_currant_plugins(f_app.plugin_base):
                             tag="crowdfunding_notification",
                         )
 
-    def route_log_kwargs(self, kwargs):
+    def route_log_kwargs(self, kwargs, params):
         if kwargs.get("route"):
             property_id = re.findall(r"^/property/([0-9a-fA-F]{24})", kwargs["route"])
             if property_id:
@@ -2012,6 +2012,10 @@ class f_currant_plugins(f_app.plugin_base):
             rent_ticket_id = re.findall(r"^/property-to-rent/([0-9a-fA-F]{24})", kwargs["route"])
             if rent_ticket_id:
                 kwargs["rent_ticket_id"] = rent_ticket_id[0]
+
+        if params:
+            if "status" in params:
+                kwargs["param_status"] = params["status"]
 
         return kwargs
 
