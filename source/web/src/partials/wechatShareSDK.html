@@ -92,6 +92,7 @@
                     }
                 }
                 var wechatShareData = _.extend(_.clone(defaultWechatShareData), option)
+
                 var timelineWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.timeline : {}))
                 var appMessageWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.appMessage : {}))
                 var qqWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.qq : {}))
@@ -99,6 +100,33 @@
                 window.wx.onMenuShareTimeline(timelineWechatShareData);
                 window.wx.onMenuShareAppMessage(appMessageWechatShareData);
                 window.wx.onMenuShareQQ(qqWechatShareData);
+
+                /*function convertImgToBase64(url, callback, outputFormat){
+                    var canvas = document.createElement('CANVAS');
+                    var ctx = canvas.getContext('2d');
+                    var img = new Image;
+                    img.crossOrigin = 'Anonymous';
+                    img.onload = function(){
+                        canvas.height = img.height;
+                        canvas.width = img.width;
+                        ctx.drawImage(img,0,0);
+                        var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+                        callback.call(this, dataURL);
+                        // Clean up
+                        canvas = null;
+                    };
+                    img.src = url;
+                }
+                convertImgToBase64(wechatShareData.imgUrl, function (base64ImaUrl) {
+                    wechatShareData.imgUrl = base64ImaUrl
+                    var timelineWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.timeline : {}))
+                    var appMessageWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.appMessage : {}))
+                    var qqWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.qq : {}))
+
+                    window.wx.onMenuShareTimeline(timelineWechatShareData);
+                    window.wx.onMenuShareAppMessage(appMessageWechatShareData);
+                    window.wx.onMenuShareQQ(qqWechatShareData);
+                })*/
             }
             window.wechatShareSDK.setUp = function (option, callbackObj) {
                 window.wechatShareSDK.init(option, callbackObj)
