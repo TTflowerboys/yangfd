@@ -1335,9 +1335,9 @@
 
             var propertyImage = null
             if (property.cover) {
-                propertyImage = property.cover
+                propertyImage = property.cover + '_thumbnail'
             }else if (property.reality_images && property.reality_images.length) {
-                propertyImage = property.reality_images[0]
+                propertyImage = property.reality_images[0] + '_thumbnail'
             }else {
                 propertyImage = '/static/images/logo/logo_wechat.jpg'
             }

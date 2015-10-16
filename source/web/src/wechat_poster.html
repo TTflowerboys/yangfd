@@ -437,7 +437,7 @@
                 }
             }
         % if rent['property'].get('reality_images'):
-        wechatShareData.imgUrl = '{{rent['property'].get('reality_images')[0]}}'
+        wechatShareData.imgUrl = '{{rent['property'].get('reality_images')[0]}}' + '_thumbnail'
         %end
 
 
