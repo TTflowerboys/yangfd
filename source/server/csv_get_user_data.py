@@ -84,27 +84,27 @@ for user in user_whole:
     single_all_info = ''
     landlord_flag = [0, 0, 0, 0, 0]
     landlord_info = []
-    for rt in rent_tickets:
+    for rent_ticket in rent_tickets:
         #单个用户的每份出租信息
-        if rt.get('status') == "rent":
+        if rent_ticket.get('status') == "rent":
             rent_count += 1
-        if rt.get('status') == "draft":
+        if rent_ticket.get('status') == "draft":
             draft_flag = 1
-        for lte in landlord_type_enum:
-            if rt.get('landlord_type') is not None and rt.get('landlord_type').get('id') == lte.get('id'):
-                if lte.get('slug') == "live_out_landlord":
+        for landlord_type in landlord_type_enum:
+            if rent_ticket.get('landlord_type') is not None and rent_ticket.get('landlord_type').get('id') == landlord_type.get('id'):
+                if landlord_type.get('slug') == "live_out_landlord":
                     landlord_flag[0] = 1
-                elif lte.get('slug') == "live_in_landlord":
+                elif landlord_type.get('slug') == "live_in_landlord":
                     landlord_flag[1] = 1
-                elif lte.get('slug') == "flatmate":
+                elif landlord_type.get('slug') == "flatmate":
                     landlord_flag[2] = 1
-                elif lte.get('slug') == "agent":
+                elif landlord_type.get('slug') == "agent":
                     landlord_flag[3] = 1
-                elif lte.get('slug') == "former_flatmate":
+                elif landlord_type.get('slug') == "former_flatmate":
                     landlord_flag[4] = 1
-        for rte in rent_type_enum:
-            if rt.get('rent_type').get('id') == rte.get('id'):
-                if rte.get('slug') == "rent_type:single":
+        for rent_type in rent_type_enum:
+            if rt.get('rent_type').get('id') == rent_type.get('id'):
+                if rent_type.get('slug') == "rent_type:single":
                     single_flag = 1
                 else:
                     all_flag = 1
@@ -118,7 +118,6 @@ for user in user_whole:
         landlord_info.append("我是经过房东授权的中介")
     if landlord_flag[4] == 1:
         landlord_info.append("我是准备搬出去的前租客")
-    landlord_info2 = "/".join(landlord_info)
     if single_flag == 1 and all_flag == 1:
         single_all_info = '单间/整套'
     elif single_flag == 1:
@@ -135,7 +134,7 @@ for user in user_whole:
                '',
                get_enum_data(user, 'user_type'),
                '',
-               landlord_info2,
+               '/'.join(landlord_info),
                get_data(user, 'register_time'),
                "Y" if rent_tickets else "N",
                len(rent_tickets),
@@ -147,26 +146,24 @@ for user in user_whole:
                "Y" if intention_tickets else "N",
                "Y" if favorite_properties else "N",
                ])
-row = ws.rows
-for c in row[0]:
-    c.font = Font(name="SimSun")
-    c.fill = PatternFill(fill_type='solid', start_color='00dddddd', end_color='00dddddd')
-    c.alignment = Alignment(shrink_to_fit=True)
+simsun_font = Font(name="SimSun")
+header_fill = PatternFill(fill_type='solid', start_color='00dddddd', end_color='00dddddd')
+alignment_fit = Alignment(shrink_to_fit=True)
+for c in ws.rows[0]:
+    c.fill = header_fill
 for row in ws.rows:
     for c in row:
-        c.font = Font(name="SimSun", size=14)
-        c.alignment = Alignment(shrink_to_fit=True)
-i = 65
-for col in ws.columns:
+        c.font = simsun_font
+        c.alignment = alignment_fit
+for i, col in enumerate(ws.columns):
     lenmax = 0
     for c in col:
         lencur = 0
-        if not isinstance(c.value, int) and c.value is not None:
-            lencur = len(c.value)
-        elif c.value is not None:
+        if isinstance(c.value, int):
             lencur = len(str(c.value))
+        elif c.value is not None:
+            lencur = len(c.value)
         if lencur > lenmax:
             lenmax = lencur
-    ws.column_dimensions[chr(i)].width = lenmax*1.2+3
-    i += 1
+    ws.column_dimensions[chr(i+65)].width = lenmax*1.2+3
 wb.save("userData.xlsx")
