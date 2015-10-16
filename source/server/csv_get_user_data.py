@@ -149,12 +149,12 @@ for user in user_whole:
                ])
 row = ws.rows
 for c in row[0]:
-    c.font = Font(name="Arial")
+    c.font = Font(name="SimSun")
     c.fill = PatternFill(fill_type='solid', start_color='00dddddd', end_color='00dddddd')
     c.alignment = Alignment(shrink_to_fit=True)
 for row in ws.rows:
     for c in row:
-        c.font = Font(name="Arial", size=14)
+        c.font = Font(name="SimSun", size=14)
         c.alignment = Alignment(shrink_to_fit=True)
 i = 65
 for col in ws.columns:
