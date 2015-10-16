@@ -550,7 +550,7 @@
             }
 
         % if property.get('reality_images'):
-        wechatShareData.imgUrl = '{{property.get('reality_images')[0]}}'
+        wechatShareData.imgUrl = '{{property.get('reality_images')[0]}}' + '_thumbnail'
         %end
 
         % if description:

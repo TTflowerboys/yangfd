@@ -181,7 +181,7 @@
 
         var newsImage = null
         if (news.images && news.images.length>0) {
-            newsImage = news.images[0]
+            newsImage = news.images[0] + '_thumbnail'
         }else {
             //Set logo as default
             newsImage = '/static/images/logo/logo_wechat.jpg'

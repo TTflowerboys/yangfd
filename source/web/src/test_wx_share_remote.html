@@ -124,8 +124,30 @@
         }
 
         wechatShareData.desc = '我是自定义的分享内容！！'
-
-        window.wechatShareSDK.init(wechatShareData)
+        if (window.team.getQuery('base64') === 'false' || window.team.isAndroid()) {
+            window.wechatShareSDK.init(wechatShareData)
+        } else {
+            convertImgToBase64(wechatShareData.imgUrl, function (base64ImaUrl) {
+                wechatShareData.imgUrl = base64ImaUrl
+                window.wechatShareSDK.init(wechatShareData)
+            })
+        }
+        function convertImgToBase64(url, callback, outputFormat){
+            var canvas = document.createElement('CANVAS');
+            var ctx = canvas.getContext('2d');
+            var img = new Image;
+            img.crossOrigin = 'Anonymous';
+            img.onload = function(){
+                canvas.height = img.height;
+                canvas.width = img.width;
+                ctx.drawImage(img,0,0);
+                var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+                callback.call(this, dataURL);
+                // Clean up
+                canvas = null;
+            };
+            img.src = url;
+        }
     })()
 
 
