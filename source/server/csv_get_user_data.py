@@ -81,8 +81,7 @@ for user in user_whole:
     all_flag = 0
     draft_flag = 0
     rent_count = 0
-    single_all_info = ''
-    landlord_flag = [0, 0, 0, 0, 0]
+    single_all_info = []
     landlord_info = []
     for rent_ticket in rent_tickets:
         #单个用户的每份出租信息
@@ -90,40 +89,18 @@ for user in user_whole:
             rent_count += 1
         if rent_ticket.get('status') == "draft":
             draft_flag = 1
+        ticket_landlord_type = rent_ticket.get('landlord_type')
+        ticket_single_all_type = rent_ticket.get('rent_type')
         for landlord_type in landlord_type_enum:
-            if rent_ticket.get('landlord_type') is not None and rent_ticket.get('landlord_type').get('id') == landlord_type.get('id'):
-                if landlord_type.get('slug') == "live_out_landlord":
-                    landlord_flag[0] = 1
-                elif landlord_type.get('slug') == "live_in_landlord":
-                    landlord_flag[1] = 1
-                elif landlord_type.get('slug') == "flatmate":
-                    landlord_flag[2] = 1
-                elif landlord_type.get('slug') == "agent":
-                    landlord_flag[3] = 1
-                elif landlord_type.get('slug') == "former_flatmate":
-                    landlord_flag[4] = 1
+            if ticket_landlord_type is not None and ticket_landlord_type.get('id') == landlord_type.get('id'):
+                info = landlord_type.get('value')
+                if not info in landlord_info:
+                    landlord_info.append(info)
         for rent_type in rent_type_enum:
-            if rt.get('rent_type').get('id') == rent_type.get('id'):
-                if rent_type.get('slug') == "rent_type:single":
-                    single_flag = 1
-                else:
-                    all_flag = 1
-    if landlord_flag[0] == 1:
-        landlord_info.append("我是房东，但不住在这")
-    if landlord_flag[1] == 1:
-        landlord_info.append("我是房东，也住在这里")
-    if landlord_flag[2] == 1:
-        landlord_info.append("我是目前租住的租客")
-    if landlord_flag[3] == 1:
-        landlord_info.append("我是经过房东授权的中介")
-    if landlord_flag[4] == 1:
-        landlord_info.append("我是准备搬出去的前租客")
-    if single_flag == 1 and all_flag == 1:
-        single_all_info = '单间/整套'
-    elif single_flag == 1:
-        single_all_info = '单间'
-    elif all_flag == 1:
-        single_all_info = '整套'
+            if ticket_single_all_type is not None and ticket_single_all_type.get('id') == rent_type.get('id'):
+                info = rent_type.get('value')
+                if not info in single_all_info:
+                    single_all_info.append(info)
     rent_intention_tickets = get_related_data(user, 'rent_intention_ticket')
     intention_tickets = get_related_data(user, 'intention_ticket')
     favorite_properties = get_related_data(user, 'favorite_property')
@@ -138,7 +115,7 @@ for user in user_whole:
                get_data(user, 'register_time'),
                "Y" if rent_tickets else "N",
                len(rent_tickets),
-               single_all_info,
+               '/'.join(single_all_info),
                rent_count,
                '',
                "Y" if draft_flag else "N",
@@ -160,10 +137,10 @@ for i, col in enumerate(ws.columns):
     for c in col:
         lencur = 0
         if isinstance(c.value, int):
-            lencur = len(str(c.value))
+            lencur = len(str(c.value).encode("GBK"))
         elif c.value is not None:
-            lencur = len(c.value)
+            lencur = len(c.value.encode("GBK"))
         if lencur > lenmax:
             lenmax = lencur
-    ws.column_dimensions[chr(i+65)].width = lenmax*1.2+3
+    ws.column_dimensions[chr(i+65)].width = lenmax*0.86
 wb.save("userData.xlsx")
