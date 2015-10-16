@@ -1,0 +1,59 @@
+<!--@@master = masters/master.html-->
+
+<!--@@block = main-->
+<script>
+    window.wxSDKDebug = true
+</script>
+<!--@@close-->
+
+
+<!--@@block=scripts -->
+<!--build:js /static/scripts/news.html.js-->
+<!--endbuild-->
+<script>
+    (function () {
+
+
+        var wechatShareData = {
+            title: '我是自定义的分享标题',
+            link: window.location.href,
+            imgUrl: window.team.getQuery('img') || 'http://upload.yangfd.com/dd5a3cd2b3c546b6807a0678571f6e5d',
+            success:function(){
+                ga('send', 'event', 'news', 'share', 'share-to-wechat-success')
+            },
+            cancel:function(){
+                ga('send', 'event', 'news', 'share', 'share-to-wechat-cancel')
+            }
+        }
+
+        wechatShareData.desc = '我是自定义的分享内容！！'
+        if (window.team.getQuery('base64') === 'false') {
+            window.wechatShareSDK.init(wechatShareData)
+        } else {
+            convertImgToBase64(wechatShareData.imgUrl, function (base64ImaUrl) {
+                wechatShareData.imgUrl = base64ImaUrl
+                window.wechatShareSDK.init(wechatShareData)
+            })
+        }
+        function convertImgToBase64(url, callback, outputFormat){
+             var canvas = document.createElement('CANVAS');
+             var ctx = canvas.getContext('2d');
+             var img = new Image;
+             img.crossOrigin = 'Anonymous';
+             img.onload = function(){
+             canvas.height = img.height;
+             canvas.width = img.width;
+             ctx.drawImage(img,0,0);
+             var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+             callback.call(this, dataURL);
+             // Clean up
+             canvas = null;
+             };
+             img.src = url;
+         }
+    })()
+
+
+</script>
+
+<!--@@close-->

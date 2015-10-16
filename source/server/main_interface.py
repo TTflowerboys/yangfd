@@ -695,3 +695,10 @@ def rent_intention_edit(rent_intention_ticket_id):
         redirect('/')
 
     return currant_util.common_template("rent_intention_edit", title=title, rent_intention_ticket=rent_intention_ticket)
+
+
+@f_get('/test-wx-share')
+@currant_util.check_ip_and_redirect_domain
+def test_wx_share():
+    title = _('测试微信分享功能')
+    return currant_util.common_template("test_wx_share", title=title)
