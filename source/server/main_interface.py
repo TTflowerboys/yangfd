@@ -702,3 +702,10 @@ def rent_intention_edit(rent_intention_ticket_id):
 def test_wx_share():
     title = _('测试微信分享功能')
     return currant_util.common_template("test_wx_share", title=title)
+
+
+@f_get('/test-wx-share-remote')
+@currant_util.check_ip_and_redirect_domain
+def test_wx_share_remote():
+    title = _('测试微信分享功能(js-sdk在远程)')
+    return currant_util.common_template("test_wx_share_remote", title=title)
