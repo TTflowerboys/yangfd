@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
 from bson.objectid import ObjectId
 from app import f_app
-import csv
+from openpyxl import Workbook
+
 
 header = ['用户', '邮箱', '性别', '国家', '城市', '用户类型', '职业', '房东类型', '注册时间', '有没有发房产',
           '发布房产量', '单间整套', '已租出', '确认已租出了', '有没有草稿', '有没有提交求租单', '提交投资意向单',
@@ -58,21 +59,23 @@ def get_related_data(u, s):
     else:
         raise NotImplementedError
 
-    filters.update({"$or": [{"user_id": ObjectId(u["id"])}, {"creator_user_id": ObjectId(u["id"])}]})
+    filters.update({"$or": [{"user_id": ObjectId(u["id"])},
+                            {"creator_user_id": ObjectId(u["id"])}]})
     return module.get(module.search(filters, per_page=-1))
 
 with open('userData.csv', 'wb') as csvfile:
-    spamwriter = csv.writer(csvfile,
-                            delimiter=',',
-                            quotechar='|',
-                            quoting=csv.QUOTE_MINIMAL)
-    spamwriter.writerow(header)
+    wb = Workbook()
+    ws = wb.active
+    ws.append(header)
     # land_enum = f_app.i18n.process_i18n(f_app.enum.get_all('landlord_type'))
     # print f_app.util.json_dumps(land_enum,ensure_ascii = False)
     rent_type_enum = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     landlord_type_enum = f_app.i18n.process_i18n(f_app.enum.get_all('landlord_type'))
     landlord_type_enum_map = {enum["id"]: enum for enum in landlord_type_enum}
-    for user in f_app.user.get(f_app.user.get_active()):
+    user_whole = f_app.user.get(f_app.user.get_active())
+    '''for user in user_whole:
+        pass'''
+    for user in user_whole:
         rent_tickets = get_related_data(user, 'rent_ticket')
         single_flag = 0
         all_flag = 0
@@ -83,8 +86,6 @@ with open('userData.csv', 'wb') as csvfile:
         landlord_info = []
         for rt in rent_tickets:
             #单个用户的每份出租信息
-            '''if rt.get('landlord_type') is not None:
-                print f_app.util.json_dumps(rt.get('landlord_type'),ensure_ascii = False)'''
             if rt.get('status') == "rent":
                 rent_count += 1
             if rt.get('status') == "draft":
@@ -127,23 +128,23 @@ with open('userData.csv', 'wb') as csvfile:
         rent_intention_tickets = get_related_data(user, 'rent_intention_ticket')
         intention_tickets = get_related_data(user, 'intention_ticket')
         favorite_properties = get_related_data(user, 'favorite_property')
-        spamwriter.writerow([
-            get_data(user, 'nickname'),
-            get_data(user, 'email'),
-            '',
-            get_data(user.get('country'), 'code'),
-            '',
-            get_enum_data(user, 'user_type'),
-            '',
-            landlord_info2,
-            get_data(user, 'register_time'),
-            "Y" if rent_tickets else "N",
-            len(rent_tickets),
-            single_all_info,
-            rent_count,
-            '',
-            "Y" if draft_flag else "N",
-            "Y" if rent_intention_tickets else "N",
-            "Y" if intention_tickets else "N",
-            "Y" if favorite_properties else "N",
-        ])
+        ws.append([get_data(user, 'nickname'),
+                   get_data(user, 'email'),
+                   '',
+                   get_data(user.get('country'), 'code'),
+                   '',
+                   get_enum_data(user, 'user_type'),
+                   '',
+                   landlord_info2,
+                   get_data(user, 'register_time'),
+                   "Y" if rent_tickets else "N",
+                   len(rent_tickets),
+                   single_all_info,
+                   rent_count,
+                   '',
+                   "Y" if draft_flag else "N",
+                   "Y" if rent_intention_tickets else "N",
+                   "Y" if intention_tickets else "N",
+                   "Y" if favorite_properties else "N",
+                   ])
+    wb.save("userData.xlsx")
