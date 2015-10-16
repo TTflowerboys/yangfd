@@ -2,6 +2,7 @@
 from bson.objectid import ObjectId
 from app import f_app
 from openpyxl import Workbook
+from openpyxl.styles import Font, PatternFill, Alignment
 
 
 header = ['用户', '邮箱', '性别', '国家', '城市', '用户类型', '职业', '房东类型', '注册时间', '有没有发房产',
@@ -146,4 +147,26 @@ for user in user_whole:
                "Y" if intention_tickets else "N",
                "Y" if favorite_properties else "N",
                ])
+row = ws.rows
+for c in row[0]:
+    c.font = Font(name="Arial")
+    c.fill = PatternFill(fill_type='solid', start_color='00dddddd', end_color='00dddddd')
+    c.alignment = Alignment(shrink_to_fit=True)
+for row in ws.rows:
+    for c in row:
+        c.font = Font(name="Arial", size=14)
+        c.alignment = Alignment(shrink_to_fit=True)
+i = 65
+for col in ws.columns:
+    lenmax = 0
+    for c in col:
+        lencur = 0
+        if not isinstance(c.value, int) and c.value is not None:
+            lencur = len(c.value)
+        elif c.value is not None:
+            lencur = len(str(c.value))
+        if lencur > lenmax:
+            lenmax = lencur
+    ws.column_dimensions[chr(i)].width = lenmax*1.2+3
+    i += 1
 wb.save("userData.xlsx")
