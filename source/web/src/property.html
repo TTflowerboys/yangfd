@@ -1254,6 +1254,8 @@
     <!--endbuild-->
     <script>
         $(function () {
+            var property = JSON.parse($('#pythonProperty').text())
+
             $('.stickyNavbar').stickyNavbar({
                 activeClass: "active",
                 sectionSelector: "scrollto",
