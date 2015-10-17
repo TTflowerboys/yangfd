@@ -672,7 +672,7 @@ def admin_user_get_favorites(user, user_id, params):
     per_page = params.pop("per_page", 0)
     params["user_id"] = ObjectId(user_id)
 
-    return f_app.user.favorite.output(f_app.user.favorite.search(params, per_page=per_page))
+    return f_app.user.favorite.output(f_app.user.favorite.search(params, per_page=per_page), ignore_nonexist=True)
 
 
 @f_api("/user/admin/<user_id>/statistics", params=dict(
