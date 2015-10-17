@@ -40,6 +40,8 @@ class common(f_common):
     memcache_server = ["172.20.1.22:11211"]
     memcache_lib = "memcache"
 
+    mongo_index_term_extractor = "jieba"
+
     route_log = True
     use_ssl = False
 
