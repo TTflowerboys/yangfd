@@ -1,3 +1,6 @@
+if(window.wechatShareSDK) {
+    window.wechatShareSDK.init()
+}
 $(function () {
     window.project.updateMenuTitle($('title').text());
 

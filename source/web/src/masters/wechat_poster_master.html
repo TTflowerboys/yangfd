@@ -157,7 +157,7 @@
         <!--endbuild-->
         <!--@@placeholder=main-->
         <!--@@include ../partials/i18n.html-->
-        <!--build:js /static/scripts/wechat_poster_master.html.js-->
+        <!--build:js /static/scripts/wechat_poster_master_lib.html.js-->
         <script type="text/javascript" src="/static/scripts/track_ga.js"></script>
         <script type="text/javascript" src="/static/scripts/track.js"></script>
         <script type="text/javascript" src="/static/bower_components/jquery/dist/jquery.min.js"></script>
@@ -165,12 +165,14 @@
         <script type="text/javascript" src="/static/bower_components/swiper/dist/js/swiper.jquery.min.js"></script>
         <script type="text/javascript" src="/static/scripts/better_ajax.js"></script>
         <script type="text/javascript" src="/static/bower_components/underscore/underscore-min.js"></script>
+        <!--endbuild-->
+        <!-- @@include =../partials/wechatShareSDK.html -->
+        <!--build:js /static/scripts/wechat_poster_master.html.js-->
         <script src="/static/scripts/underscore_settings.js"></script>
         <script type="text/javascript" src="/static/scripts/team.js"></script>
         <script type="text/javascript" src="/static/scripts/project.js"></script>
         <script src="/static/scripts/master.js"></script>
         <!--endbuild-->
-        <!-- @@include =../partials/wechatShareSDK.html -->
         <!--@@placeholder=scripts-->
     </body>
 </html>
