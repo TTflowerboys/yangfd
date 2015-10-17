@@ -94,7 +94,7 @@
                     }
                     var wechatShareData = _.extend(_.clone(defaultWechatShareData), option)
                     if(window.team.isWeChat()) {
-                        wechatShareData.imgUrl = wechatShareData.imgUrl.replace("upload.yangfd.com/", "yangfd.cn/s3_raw/")
+                        wechatShareData.imgUrl = wechatShareData.imgUrl.replace("upload.yangfd.com/", "yangfd.com/s3_raw/").replace("bbt-currant.s3.amazonaws.com/", "yangfd.com/s3_raw/")
                     }
 
                     var timelineWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.timeline : {}))
