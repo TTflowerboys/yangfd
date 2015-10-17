@@ -50,8 +50,8 @@ def fetch_image(image, **kwargs):
     # if request.ssl:
     #     image.replace("http://", "https://")
 
-    if b"MicroMessenger" in request.get_header('User-Agent'):
-        image = image.replace("bbt-currant.s3.amazonaws.com/", "yangfd.com/s3_raw/")
+    # if b"MicroMessenger" in request.get_header('User-Agent'):
+    #     image = image.replace("bbt-currant.s3.amazonaws.com/", "yangfd.com/s3_raw/")
 
     return image
 
