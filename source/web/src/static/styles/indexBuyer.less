@@ -71,6 +71,7 @@
             color:#666;
             width:220px;
             margin:0 auto;
+            .clearfix;
             &:hover{
                 color: @red;
             }
@@ -111,14 +112,13 @@
                     width: 254px;
                 }
                 @media @phone {
+                    display: block;
+                    float: none;
+                    overflow: hidden;
                     border-bottom:1px solid #ccc;
-                    width:~"calc(100% - 38px)";
+                    //width:~"calc(100% - 38px)";
                     height:100%;
                     margin-left:0px;
-                    body[lang=en_GB] & {
-                        margin-left: 0;
-                        width:~"calc(100% - 38px)";
-                    }
                 }
 
                 &.last {
