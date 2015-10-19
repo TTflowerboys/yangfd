@@ -6,6 +6,9 @@
 
     window.report = getData('dataReport')
 
+    window.wechatShareSDK.init({
+        imgUrl: window.report.image
+    })
     function setBannerHeight () {
         var textHeight = $('.info .text').height()
         $('.info >.img').height(textHeight + 120)
