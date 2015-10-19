@@ -1,0 +1,17 @@
+<div class="editSynonymsWrap">
+    <div class="wordsWrap" ng-if="!edit">
+        <span ng-bind="item.rule" class="label label-default"></span>
+    </div>
+    <div class="wordsWrap" ng-if="edit">
+        <div class="btn-group form-inline">
+            <input type="text" ng-model="item.rule"/>
+        </div>
+        <div class="btn-group form-inline">
+            <button class="btn btn-primary" ng-click="submit()">{%$root.i18n('保存更改')%}</button>
+        </div>
+        <div class="btn-group form-inline">
+            <button class="btn btn-default" ng-click="item.edit=false">{%$root.i18n('取消')%}</button>
+        </div>
+    </div>
+
+</div>

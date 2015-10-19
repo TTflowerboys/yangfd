@@ -61,7 +61,7 @@
                             </li>
                             <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums')}">
                                 <a href ui-sref="dashboard.enums.normal" ui-sref-active="active">
-                                    <i class="fa fa-book"></i><span class="hidden-sm text">{%$root.i18n('枚举数据管理')%}</span>
+                                    <i class="fa fa-book"></i><span class="hidden-sm text">{%$root.i18n('元数据管理')%}</span>
                                     <span class="chevron"
                                         ng-class="{closed:!$state.includes('dashboard.enums'),opened:$state.includes('dashboard.enums')}"></span></a>
                                 <ul ng-style="{display:$state.includes('dashboard.enums')?'block':'none'}">
@@ -130,6 +130,18 @@
                                         <a class="submenu" href ui-sref="dashboard.enums.hesa_university">
                                             <i class="fa fa-angle-right"></i>
                                             <span class="hidden-sm text">{%$root.i18n('学校')%}</span>
+                                        </a>
+                                    </li>
+                                    <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.synonyms')}">
+                                        <a class="submenu" href ui-sref="dashboard.enums.synonyms">
+                                            <i class="fa fa-angle-right"></i>
+                                            <span class="hidden-sm text">{%$root.i18n('同义词管理')%}</span>
+                                        </a>
+                                    </li>
+                                    <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.user_dict')}">
+                                        <a class="submenu" href ui-sref="dashboard.enums.user_dict">
+                                            <i class="fa fa-angle-right"></i>
+                                            <span class="hidden-sm text">{%$root.i18n('自定义词管理')%}</span>
                                         </a>
                                     </li>
                                 </ul>
