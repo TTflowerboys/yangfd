@@ -3,7 +3,7 @@
     IntroLite.prototype = {
         init: function (options) {
             options = $.extend({duration: 300, arrow: 'top', arrowSize: {width: 10, height: 10}}, options)
-            this.elem = $('<div class="intro-lite" style="display:none;"><div class="text"></div><div class="intro-lite-arrow"></div></div>')
+            this.elem = $('<div class="intro-lite" style="display:none;"><div class="text"></div><div class="intro-lite-arrow"></div><div class="close"><i class="icon-delete"></i></div></div>')
             if(options.style) {
                 this.elem.css(options.style)
             }
