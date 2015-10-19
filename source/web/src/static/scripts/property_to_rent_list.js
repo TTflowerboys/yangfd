@@ -334,6 +334,7 @@
 
         $.betterPost('/api/1/rent_ticket/search', params)
             .done(function (val) {
+                initIntro()
                 var array = val
                 if (!_.isEmpty(array)) {
                     lastItemTime = _.last(array).last_modified_time
@@ -696,6 +697,7 @@
         mode = tabName
         updateURLQuery('mode', mode)
         loadRentListByView()
+        ga('send', 'event', 'rent_list', 'click', mode + '-view', 'pc')
     })
 
 
@@ -723,6 +725,7 @@
             openTabContent(mode)
             $(this).attr('data-tab', mode)
         }
+        ga('send', 'event', 'rent_list', 'click', mode + '-view', 'mobile')
     })
 
 
@@ -893,6 +896,30 @@
     updateFilterPosition()*/
     $(window).scroll(window.updateTabSelectorFixed);
     $(window).resize(window.updateTabSelectorFixed);
+
+
+    function initIntro() {
+        if($.cookie('introjs_rent_list') !== 'hasShow') {
+            $.cookie('introjs_rent_list', 'hasShow', {
+                path: '/',
+                expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 365)
+            })
+            var options = {
+                targetElem: window.team.isPhone() ? $('.tabSelector_phone .icon-map_view') : $('.tabSelector .map'),
+                text: i18n('点击在地图里查看这些房源'),
+                arrow: 'left',
+                closeTrigger: {
+                    elem: '.icon-map_view',
+                    event: 'click'
+                }
+            }
+            if($(window).width() < 1690 && !window.team.isPhone()) {
+                options.arrow = 'right'
+            }
+            new window.currantModule.IntroLite().init(options)
+        }
+    }
+
  })()
 
 
