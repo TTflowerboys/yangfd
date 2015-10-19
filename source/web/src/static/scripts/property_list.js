@@ -457,6 +457,7 @@
 
         $.betterPost('/api/1/property/search', params)
             .done(function (val) {
+                initIntro()
                 var array = val.content
                 totalResultCount = val.count
                 array = filterPropertyHouseTypes(array, params.budget, params.bedroom_count, params.building_area)
@@ -1156,6 +1157,7 @@
             viewMode = 'list'
             loadPropertyList(true)
         }
+        ga('send', 'event', 'property_list', 'click', viewMode + '-view', 'pc')
     })
 
     $('.tabSelector_phone').click(function (e) {
@@ -1184,6 +1186,7 @@
             $tabContainer.trigger('openTab', [$('.tabSelector [tab-name=' + tabName + ']'), tabName])
             $(this).attr('data-tab', 'list')
         }
+        ga('send', 'event', 'property_list', 'click', viewMode + '-view', 'mobile')
     })
 
     function loadPropertyMapList() {
@@ -1221,6 +1224,28 @@
             })
             .always(function () {
             })
+    }
+
+    function initIntro() {
+        if($.cookie('introjs_property_list') !== 'hasShow') {
+            $.cookie('introjs_property_list', 'hasShow', {
+                path: '/',
+                expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 365)
+            })
+            var options = {
+                targetElem: window.team.isPhone() ? $('.tabSelector_phone .icon-map_view') : $('.tabSelector .map'),
+                text: i18n('点击在地图里查看这些房源'),
+                arrow: 'left',
+                closeTrigger: {
+                    elem: '.icon-map_view',
+                    event: 'click'
+                }
+            }
+            if($(window).width() < 1690 && !window.team.isPhone()) {
+                options.arrow = 'right'
+            }
+            new window.currantModule.IntroLite().init(options)
+        }
     }
  })()
 
