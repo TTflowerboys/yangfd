@@ -38,9 +38,8 @@
         $scope.submitSynonymsItem = function (item, index) {
             function successHanddler(data) {
                 item.edit = false
-                //todo 需要create的api传回id
-                item.id = item.id || 'id'
-                $scope.synonymsList[index] = _.isEmpty(data.val) ? item : data.val
+                item.id = data.val
+                $scope.synonymsList[index] = item
             }
             if (item.id) {
                 api.update(item, {
@@ -109,9 +108,8 @@
         $scope.submitUserDictItem = function (item, index) {
             function successHanddler(data) {
                 item.edit = false
-                //todo 需要create的api传回id
-                item.id = item.id || 'id'
-                $scope.userDictList[index] = _.isEmpty(data.val) ? item : data.val
+                item.id = data.val
+                $scope.userDictList[index] = item
             }
             if (item.id) {
                 api.update(item, {
