@@ -28,8 +28,10 @@
                                @{FXFormFieldKey: @"feedback", FXFormFieldTitle:STR(@"Setting/意见反馈"), FXFormFieldAction: @"onFeedBackPressed:", @"style": @(UITableViewCellStyleValue1)},
                                @{FXFormFieldKey: @"help", FXFormFieldTitle:STR(@"Setting/帮助中心"), FXFormFieldAction: @"onHelpPressed:", @"style": @(UITableViewCellStyleValue1)},
                                @{FXFormFieldKey: @"rate", FXFormFieldTitle:STR(@"Setting/觉得不错？去App Store评价"), @"style": @(UITableViewCellStyleValue1), FXFormFieldAction: @"onRatePressed:"},
-                               @{FXFormFieldKey: @"localization", FXFormFieldTitle:STR(@"Setting/语言"), FXFormFieldOptions:_localizations, FXFormFieldAction: @"onLocalizationSelected:", FXFormFieldHeader: @""},
                                ]];
+    if (_localization) {
+        [array addObject:@{FXFormFieldKey: @"localization", FXFormFieldTitle:STR(@"Setting/语言"), FXFormFieldOptions:_localizations, FXFormFieldAction: @"onLocalizationSelected:", FXFormFieldHeader: @""}];
+    }
     return array;
 }
 

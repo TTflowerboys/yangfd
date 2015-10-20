@@ -358,17 +358,11 @@
     }
 }
 
-- (void)showAlertChooseLanguage {
-    [UIAlertView showWithTitle:STR(@"AppDelegate/您的语言偏好与当前系统语言不一致，您可以在“我” -> “设置” 中设置语言") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-
-    }];
-}
-
 - (void)checkSetupLanguageNeedShowAlert:(BOOL)show {
-    
+
     CUTEUser *user = [CUTEDataManager sharedInstance].user;
     NSString *currentCookieLang = [[CUTELocalizationSwitcher sharedInstance] currentCookieLocalization];
-    NSString *currentSystemLang = [[CUTELocalizationSwitcher sharedInstance] currentSystemLocalization];
+    NSString *currentSystemLang = [CUTEConfiguration enableMultipleLanguage]? [[CUTELocalizationSwitcher sharedInstance] currentSystemLocalization]: @"zh_Hans_CN";
 
 
     typedef void(^UpdateLocalizationBlock)(NSString *localization);
@@ -378,20 +372,26 @@
         [[CUTELocalizationSwitcher sharedInstance] setCurrentLocalization:localizatoin];
     };
 
+    dispatch_block_t showAlert = ^ {
+        [UIAlertView showWithTitle:STR(@"AppDelegate/您的语言偏好与当前系统语言不一致，您可以在“我” -> “设置” 中设置语言") message:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+
+        }];
+    };
+
     if (user) {
         NSString *currentUserLang = IsArrayNilOrEmpty(user.locales)? nil: [user.locales firstObject];
         if (currentCookieLang) {
             if (!IsNilNullOrEmpty(currentUserLang) && ![currentCookieLang isEqualToString:currentUserLang]) {
-                if (show) {
-                    [self showAlertChooseLanguage];
+                if (show && [CUTEConfiguration enableMultipleLanguage]) {
+                    showAlert();
                 }
             }
         }
         else {
             updateBlock(currentSystemLang);
             if (!IsNilNullOrEmpty(currentUserLang) && ![currentSystemLang isEqualToString:currentUserLang]) {
-                if (show) {
-                    [self showAlertChooseLanguage];
+                if (show && [CUTEConfiguration enableMultipleLanguage]) {
+                    showAlert();
                 }
             }
         }

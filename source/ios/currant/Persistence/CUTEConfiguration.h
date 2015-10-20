@@ -42,4 +42,6 @@
 
 + (NSString *) versionBuild;
 
++ (BOOL)enableMultipleLanguage;
+
 @end

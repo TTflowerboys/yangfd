@@ -110,4 +110,8 @@ static NSString *secureHost = nil;
     return versionBuild;
 }
 
++ (BOOL)enableMultipleLanguage {
+    return NO;
+}
+
 @end

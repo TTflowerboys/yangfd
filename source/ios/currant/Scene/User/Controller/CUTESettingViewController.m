@@ -37,10 +37,12 @@
 - (void)resetContent {
     self.navigationItem.title = STR(@"Setting/设置");
     CUTESettingForm *form = [CUTESettingForm new];
-    form.localization = STR([[CUTELocalizationSwitcher sharedInstance] currentLocalization]);
-    [form setLocalizations:[[CUTELocalizationSwitcher sharedInstance].localizations map:^id(id object) {
-        return STR(object);
-    }]];
+    if ([CUTEConfiguration enableMultipleLanguage]) {
+        form.localization = STR([[CUTELocalizationSwitcher sharedInstance] currentLocalization]);
+        [form setLocalizations:[[CUTELocalizationSwitcher sharedInstance].localizations map:^id(id object) {
+            return STR(object);
+        }]];
+    }
     self.formController.form = form;
     self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onBackButtonPressed:)];
 }
