@@ -46,7 +46,7 @@ def index_rule_add(user, params):
 ))
 @f_app.user.login.check(role=['admin'])
 def index_rule_edit(rule_id, user, params):
-    return f_app.match.rule.update(rule_id, params)
+    return f_app.match.rule.update_set(rule_id, params)
 
 
 @f_api('/index_rule/<rule_id>/delete')
