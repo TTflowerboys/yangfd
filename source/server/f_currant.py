@@ -958,11 +958,11 @@ class f_currant_plugins(f_app.plugin_base):
             else:
                 rent_budget_currency = intention_ticket["rent_budget_max"]["type"]
             if ticket["price"]["unit"] != rent_budget_currency:
-                price = float(f_app.i18n.convert_currency({"unit": ticket["price"]["unit"], "value": ticket["price"]["value"]}, rent_budget_currency))
+                price = float(f_app.i18n.convert_currency({"unit": ticket["price"]["unit"], "value_float": ticket["price"]["value_float"]}, rent_budget_currency))
             if "rent_budget_min" in intention_ticket:
-                B = B and float(intention_ticket["rent_budget_min"]["value"]) <= price
+                B = B and intention_ticket["rent_budget_min"]["value_float"] <= price
             if "rent_budget_max" in intention_ticket:
-                B = B and float(intention_ticket["rent_budget_max"]["value"]) >= price
+                B = B and intention_ticket["rent_budget_max"]["value_float"] >= price
 
             C = ticket["rent_available_time"].year == intention_ticket["rent_available_time"].year and ticket["rent_available_time"].month == intention_ticket["rent_available_time"].month
             if "rent_deadline_time" in ticket and "rent_deadline_time" in intention_ticket:

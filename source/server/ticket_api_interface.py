@@ -1374,15 +1374,15 @@ def rent_ticket_search(user, params):
             if currency == rent_budget_currency:
                 condition["price.value_float"] = {}
                 if "rent_budget_min" in params:
-                    condition["price.value_float"]["$gte"] = float(params["rent_budget_min"]["value"])
+                    condition["price.value_float"]["$gte"] = params["rent_budget_min"]["value_float"]
                 if "rent_budget_max" in params:
-                    condition["price.value_float"]["$lte"] = float(params["rent_budget_max"]["value"])
+                    condition["price.value_float"]["$lte"] = params["rent_budget_max"]["value_float"]
             else:
                 condition["price.value_float"] = {}
                 if "rent_budget_min" in params:
-                    condition["price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": rent_budget_currency, "value": params["rent_budget_min"]["value"]}, currency))
+                    condition["price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": rent_budget_currency, "value_float": params["rent_budget_min"]["value_float"]}, currency))
                 if "rent_budget_max" in params:
-                    condition["price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": rent_budget_currency, "value": params["rent_budget_max"]["value"]}, currency))
+                    condition["price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": rent_budget_currency, "value_float": params["rent_budget_max"]["value_float"]}, currency))
             price_filter.append(condition)
         params["$and"].append({"$or": price_filter})
 
