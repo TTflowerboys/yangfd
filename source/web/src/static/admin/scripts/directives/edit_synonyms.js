@@ -22,7 +22,7 @@ angular.module('app')
                 }
                 scope.$watch('wordList', function () {
                     scope.item.rule = scope.wordList.join(' ')
-                })
+                }, true)
 
             }
         }

@@ -38,7 +38,7 @@
         $scope.submitSynonymsItem = function (item, index) {
             function successHanddler(data) {
                 item.edit = false
-                item.id = data.val
+                item.id = _.isEmpty(data.val) ? item.id : data.val
                 $scope.synonymsList[index] = item
             }
             if (item.id) {
@@ -108,7 +108,7 @@
         $scope.submitUserDictItem = function (item, index) {
             function successHanddler(data) {
                 item.edit = false
-                item.id = data.val
+                item.id = _.isEmpty(data.val) ? item.id : data.val
                 $scope.userDictList[index] = item
             }
             if (item.id) {
