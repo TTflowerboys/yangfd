@@ -411,7 +411,8 @@ def intention_ticket_search(user, params):
     phone=(str, True),
     email=(str, True),
     rent_type="enum:rent_type",
-    rent_budget=("enum:rent_budget", True),
+    rent_budget_min="i18n:currency",
+    rent_budget_max="i18n:currency",
     rent_available_time=datetime,
     rent_deadline_time=datetime,
     minimum_rent_period="i18n:time_period",
@@ -466,7 +467,7 @@ def rent_intention_ticket_add(params, user):
     admin_console_url = "%s%s/admin#" % (schema, request.urlparts[1])
 
     sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["operation", "jr_operation"]}}))
-    budget_enum = f_app.enum.get(params["rent_budget"]["_id"]) if "budget" in params else None
+    # budget_enum = f_app.enum.get(params["rent_budget"]["_id"]) if "budget" in params else None
     for sales in sales_list:
         if "email" in sales:
             f_app.email.schedule(
@@ -486,7 +487,7 @@ def rent_intention_ticket_add(params, user):
                 else:
                     template_invoke_name = "new_ticket_en"
                     sendgrid_template_id = "b59446de-5d8b-45b6-8fe1-f8bf64c8a99c"
-                budget = f_app.i18n.match_i18n(budget_enum["value"], _i18n=[locale]) if budget_enum else ""
+                # budget = f_app.i18n.match_i18n(budget_enum["value"], _i18n=[locale]) if budget_enum else ""
                 substitution_vars = {
                     "to": [sales["email"]],
                     "sub": {
@@ -494,7 +495,7 @@ def rent_intention_ticket_add(params, user):
                         "%phone%": [params["phone"]],
                         "%email%": [params["email"]],
                         "%description%": [params.get("description", "")],
-                        "%budget%": [budget],
+                        # "%budget%": [budget],
                         "%logo_url%": [f_app.common.email_template_logo_url]
                     }
                 }
@@ -558,7 +559,8 @@ def rent_intention_ticket_remove(user, ticket_id):
     city="geonames_gazetteer:city",
     bedroom_count="enum:bedroom_count",
     rent_type="enum:rent_type",
-    rent_budget="enum:rent_budget",
+    rent_budget_min="i18n:currency",
+    rent_budget_max="i18n:currency",
     rent_available_time=datetime,
     rent_deadline_time=datetime,
     address=str,
@@ -611,7 +613,8 @@ def rent_intention_ticket_edit(user, ticket_id, params):
     zipcode=str,
     city="geonames_gazetteer:city",
     rent_type="enum:rent_type",
-    rent_budget="enum:rent_budget",
+    rent_budget_min="i18n:currency",
+    rent_budget_max="i18n:currency",
     rent_available_time=datetime,
     rent_deadline_time=datetime,
     minimum_rent_period="i18n:time_period",
@@ -1248,7 +1251,8 @@ def rent_ticket_contact_info(user, ticket_id):
     sort=(list, ["last_modified_time", 'desc'], str),
     rent_type="enum:rent_type",
     user_id=ObjectId,
-    rent_budget=("fallback", None, "enum:rent_budget", str),
+    rent_budget_min="i18n:currency",
+    rent_budget_max="i18n:currency",
     bedroom_count="enum:bedroom_count",
     building_area="enum:building_area",
     rent_available_time=datetime,
@@ -1358,24 +1362,27 @@ def rent_ticket_search(user, params):
             rent_period_filter.append(condition)
         params["$and"].append({"$or": rent_period_filter})
 
-    if "rent_budget" in params:
-        budget = f_app.util.parse_budget(params.pop("rent_budget"))
-        assert len(budget) == 3 and budget[2] in f_app.common.currency, abort(40000, logger.warning("Invalid rent_budget", exc_info=False))
+    if "rent_budget_min" in params or "rent_budget_max" in params:
+        # TODO: Currently assuming to be same currency
         price_filter = []
+        if "rent_budget_min" in params:
+            rent_budget_currency = params["rent_budget_min"]["type"]
+        else:
+            rent_budget_currency = params["rent_budget_max"]["type"]
         for currency in f_app.common.currency:
             condition = {"price.unit": currency}
-            if currency == budget[2]:
+            if currency == rent_budget_currency:
                 condition["price.value_float"] = {}
-                if budget[0]:
-                    condition["price.value_float"]["$gte"] = float(budget[0])
-                if budget[1]:
-                    condition["price.value_float"]["$lte"] = float(budget[1])
+                if "rent_budget_min" in params:
+                    condition["price.value_float"]["$gte"] = float(params["rent_budget_min"]["value"])
+                if "rent_budget_max" in params:
+                    condition["price.value_float"]["$lte"] = float(params["rent_budget_max"]["value"])
             else:
                 condition["price.value_float"] = {}
-                if budget[0]:
-                    condition["price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[0]}, currency))
-                if budget[1]:
-                    condition["price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": budget[2], "value": budget[1]}, currency))
+                if "rent_budget_min" in params:
+                    condition["price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": rent_budget_currency, "value": params["rent_budget_min"]["value"]}, currency))
+                if "rent_budget_max" in params:
+                    condition["price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": rent_budget_currency, "value": params["rent_budget_max"]["value"]}, currency))
             price_filter.append(condition)
         params["$and"].append({"$or": price_filter})
 

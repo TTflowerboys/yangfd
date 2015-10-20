@@ -941,7 +941,7 @@ class f_currant_plugins(f_app.plugin_base):
             if "rent_intention_ticket_check_rent" not in ticket_email_user.get("email_message_type", []):
                 continue
 
-            if "rent_budget" not in intention_ticket or "bedroom_count" not in intention_ticket or "rent_type" not in intention_ticket:
+            if "rent_budget_min" not in intention_ticket and "rent_budget_max" not in intention_ticket or "bedroom_count" not in intention_ticket or "rent_type" not in intention_ticket:
                 continue
 
             bedroom_count = f_app.util.parse_bedroom_count(intention_ticket["bedroom_count"])
@@ -951,15 +951,18 @@ class f_currant_plugins(f_app.plugin_base):
             if bedroom_count[1] is not None:
                 A = A and bedroom_count[1] >= ticket["property"]["bedroom_count"]
 
-            rent_budget = f_app.util.parse_budget(intention_ticket["rent_budget"])
             B = True
             price = ticket["price"]["value_float"]
-            if ticket["price"]["unit"] != rent_budget[2]:
-                price = float(f_app.i18n.convert_currency({"unit": ticket["price"]["unit"], "value": ticket["price"]["value"]}, rent_budget[2]))
-            if rent_budget[0]:
-                B = B and float(rent_budget[0]) <= price
-            if rent_budget[1]:
-                B = B and float(rent_budget[1]) >= price
+            if "rent_budget_min" in intention_ticket:
+                rent_budget_currency = intention_ticket["rent_budget_min"]["type"]
+            else:
+                rent_budget_currency = intention_ticket["rent_budget_max"]["type"]
+            if ticket["price"]["unit"] != rent_budget_currency:
+                price = float(f_app.i18n.convert_currency({"unit": ticket["price"]["unit"], "value": ticket["price"]["value"]}, rent_budget_currency))
+            if "rent_budget_min" in intention_ticket:
+                B = B and float(intention_ticket["rent_budget_min"]["value"]) <= price
+            if "rent_budget_max" in intention_ticket:
+                B = B and float(intention_ticket["rent_budget_max"]["value"]) >= price
 
             C = ticket["rent_available_time"].year == intention_ticket["rent_available_time"].year and ticket["rent_available_time"].month == intention_ticket["rent_available_time"].month
             if "rent_deadline_time" in ticket and "rent_deadline_time" in intention_ticket:
@@ -1034,8 +1037,12 @@ class f_currant_plugins(f_app.plugin_base):
         }
         rent_tickets = f_app.i18n.process_i18n(f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), permission_check=False), _i18n=["zh_Hans_CN"])
 
+        if "rent_budget_min" in intention_ticket:
+            rent_budget_currency = intention_ticket["rent_budget_min"]["type"]
+        else:
+            rent_budget_currency = intention_ticket["rent_budget_max"]["type"]
+
         bedroom_count = f_app.util.parse_bedroom_count(intention_ticket["bedroom_count"])
-        rent_budget = f_app.util.parse_budget(intention_ticket["rent_budget"])
 
         best_matches = []
         good_matches = []
@@ -1059,12 +1066,12 @@ class f_currant_plugins(f_app.plugin_base):
 
                 B = True
                 price = ticket["price"]["value_float"]
-                if ticket["price"]["unit"] != rent_budget[2]:
-                    price = float(f_app.i18n.convert_currency({"unit": ticket["price"]["unit"], "value": ticket["price"]["value"]}, rent_budget[2]))
-                if rent_budget[0]:
-                    B = B and float(rent_budget[0]) <= price
-                if rent_budget[1]:
-                    B = B and float(rent_budget[1]) >= price
+                if ticket["price"]["unit"] != rent_budget_currency:
+                    price = float(f_app.i18n.convert_currency({"unit": ticket["price"]["unit"], "value_float": ticket["price"]["value_float"]}, rent_budget_currency))
+                if "rent_budget_min" in intention_ticket:
+                    B = B and intention_ticket["rent_budget_min"]["value_float"] <= price
+                if "rent_budget_max" in intention_ticket:
+                    B = B and intention_ticket["rent_budget_max"]["value_float"] >= price
 
                 C = ticket["rent_available_time"].year == intention_ticket["rent_available_time"].year and ticket["rent_available_time"].month == intention_ticket["rent_available_time"].month
                 if "rent_deadline_time" in ticket and "rent_deadline_time" in intention_ticket:
