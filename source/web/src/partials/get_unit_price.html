@@ -1,4 +1,4 @@
-% if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
+% if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing' or property.get('property_type').get('slug') == 'house') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
     % minPrice = property.get('main_house_types')[0].get('total_price_min')
     %for index, type  in enumerate(property.get('main_house_types')):
         %if int(float(minPrice.get('value'))) > int(float(type.get('total_price_min').get('value'))):

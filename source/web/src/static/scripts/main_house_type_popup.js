@@ -10,6 +10,13 @@
             if(houseTypes.length > 0){
                 for(var i = 0;i<houseTypes.length;i++){
                     var houseTypeTpl = _.template($('#main_house_type_popup_template').html())({houseType: houseTypes[i],index:i})
+
+                    //Show slide when total length > 1
+                    if(houseTypes[i].floor_plan.length > 1){
+                        $('.main_house_type_wrapper.item' + i).find('a.rslides_nav').show()
+                    } else {
+                        $('.main_house_type_wrapper.item' + i).find('a.rslides_nav').hide()
+                    }
                     $('#main_house_type_popup').append(houseTypeTpl)
 
                     $('#main_house_type_popup').find('#floorplanSlider'+i).responsiveSlides({
@@ -52,12 +59,6 @@
                 })
             }
 
-            //Show slide when total length > 1
-            if(houseTypes.length > 1){
-                $('#main_house_type_popup').find('#main_house_type a').show()
-            } else {
-                $('#main_house_type_popup').find('#main_house_type a').hide()
-            }
 
             // Update popup position
             var wrapper = $('#main_house_type_popup').find('.main_house_type_wrapper')

@@ -1,4 +1,4 @@
-{_if(house.property_type && (house.property_type.slug === 'new_property' || house.property_type.slug === 'student_housing') && house.main_house_types && house.main_house_types.length){_}
+{_if(house.property_type && (house.property_type.slug === 'new_property' || house.property_type.slug === 'student_housing' || house.property_type.slug === 'house') && house.main_house_types && house.main_house_types.length){_}
 
     {_var minPrice = house.main_house_types[0].total_price_min_}
     {_ _.each(house.main_house_types, function (type) {_}
