@@ -67,10 +67,10 @@
             %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('code') in ['US', 'GB']:
             <li><a href="#propertyDetails_aroundMap">{{_('周边配套')}}</a></li>
             %end
-            % if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
+            % if property.get('property_type') and (property_type_slug == 'new_property' or property_type_slug == 'student_housing' or property_type_slug == 'house') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
             <li class="menuItem"><a href="#propertyDetails_houseTypes">{{_('楼盘户型')}}</a></li>
             % end
-            % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
+            % if property_type_slug == 'new_property' or property_type_slug == 'student_housing' or property_type_slug == 'house':
             <li class="menuItem"><a href="#propertyDetails_project">{{_('楼盘介绍')}}</a></li>
             %end
             % if property.get('historical_price') :
@@ -307,7 +307,7 @@
             <div id="propertyDetails_description" class="meta scrollto">
                 <div class="seperator"></div>
                 <h3 class="propertyDetails_title">{{_('房产详情')}}</h3>
-                % if property_type_slug != 'new_property' and property_type_slug != 'student_housing':
+                % if property_type_slug != 'new_property' and property_type_slug != 'student_housing' and property_type_slug != 'house':
                 % if property.get('space') or property.get('bedroom_count') or property.get('bathroom_count') or property.get('living_room_count','') or property.get('kitchen_count',''):
                 <ul class="numbers">
                     % if property.get('space'):
@@ -423,7 +423,7 @@
                                 </td>
                             </tr>
                         % end
-                        % if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
+                        % if property.get('property_type') and (property_type_slug == 'new_property' or property_type_slug == 'student_housing' or property_type_slug == 'house') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
                             <tr>
                                 <td colspan="1" class="name">
                                     <i class="icon-room_category"></i>
@@ -499,7 +499,7 @@
                     <img src="/static/images/common/ajax-loader.gif" id="mapLoadIndicator" class="mapLoadIndicator" style="display:none;"/>
                 </div>
             %end
-            % if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
+            % if property.get('property_type') and (property_type_slug == 'new_property' or property_type_slug == 'student_housing' or property_type_slug == 'house') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
                 <div id="propertyDetails_houseTypes" class="houseTypes scrollto">
                     <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('楼盘户型')}}</h3>
@@ -595,7 +595,7 @@
                 </div>
 
             %end
-            % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
+            % if property_type_slug == 'new_property' or property_type_slug == 'student_housing' or property_type_slug == 'house':
                 <div id="propertyDetails_project" class="brief scrollto">
                     <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('楼盘介绍')}}</h3>
@@ -1146,10 +1146,10 @@
                 %if (property.get('latitude') and property.get('longitude')) and property.get('country').get('code') in ['US', 'GB']:
                     <li><a href="#propertyDetails_aroundMap">{{_('周边配套')}}</a></li>
                 %end
-                % if property.get('property_type') and (property.get('property_type').get('slug') == 'new_property' or property.get('property_type').get('slug') == 'student_housing') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
+                % if property.get('property_type') and (property_type_slug == 'new_property' or property_type_slug == 'student_housing' or property_type_slug == 'house') and 'main_house_types' in property and property.get('main_house_types') and len(property.get('main_house_types')):
                     <li class="menuItem"><a href="#propertyDetails_houseTypes">{{_('楼盘户型')}}</a></li>
                 % end
-                % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
+                % if property_type_slug == 'new_property' or property_type_slug == 'student_housing' or property_type_slug == 'house':
                     <li class="menuItem"><a href="#propertyDetails_project">{{_('楼盘介绍')}}</a></li>
                 %end
                 % if property.get('historical_price') :
@@ -1188,7 +1188,7 @@
         <li class="requirement"><a href="/requirement?property={{property.get('id')}}"><i class="icon-requirement_bottom"></i></a></li>
     </ul>
 
-    % if property_type_slug == 'new_property' or property_type_slug == 'student_housing':
+    % if property_type_slug == 'new_property' or property_type_slug == 'student_housing' or property_type_slug == 'house':
     <!--@@include=/static/templates/main_house_type_popup.tpl.html-->
     %end
 
