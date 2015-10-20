@@ -12,7 +12,7 @@
                     var houseTypeTpl = _.template($('#main_house_type_popup_template').html())({houseType: houseTypes[i],index:i})
 
                     //Show slide when total length > 1
-                    if(houseTypes[i].floor_plan.length > 1){
+                    if(houseTypes[i].floor_plan && houseTypes[i].floor_plan.length > 1){
                         $('.main_house_type_wrapper.item' + i).find('a.rslides_nav').show()
                     } else {
                         $('.main_house_type_wrapper.item' + i).find('a.rslides_nav').hide()
