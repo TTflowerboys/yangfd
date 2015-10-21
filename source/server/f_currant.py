@@ -2822,6 +2822,11 @@ class f_currant_util(f_util):
 
         return None
 
+    def test_parse_budget(self):
+        assert f_app.util.parse_budget("budget:100,200,CNY") == [100, 200, "CNY"]
+        assert f_app.util.parse_budget("budget:,200,CNY") == [None, 200, "CNY"]
+        assert f_app.util.parse_budget("budget:200,,CNY") == [200, None, "CNY"]
+
 f_currant_util()
 
 
