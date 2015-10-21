@@ -7,7 +7,8 @@
     <li>{{_('用户姓名：')}}{{params.get("nickname")}}</li>
     <li>{{_('用户手机：')}}{{params.get("phone")}}</li>
     <li>{{_('用户邮箱：')}}{{params.get("email")}}</li>
-    <li>{{_('用户预算：')}}{{params["rent_budget"].get("value")}}</li>
+    <li>{{_('用户预算下限：')}}{{params.get('rent_budget_min',{}).get('value',_('无'))}}{{params.get('rent_budget_min',{}).get('unit','')}}</li>
+    <li>{{_('用户预算上限：')}}{{params.get('rent_budget_max',{}).get('value',_('无'))}}{{params.get('rent_budget_max',{}).get('unit','')}}</li>
     <li>{{_('需求描述：')}}{{params.get("description")}}</li>
 </ul>
 
