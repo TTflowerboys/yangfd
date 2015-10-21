@@ -407,6 +407,38 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             }})
             self.logger.debug("Cleared email message type for user", str(user["_id"]))
 
+    def v26(self, m):
+        ticket_database = f_app.ticket.get_database(m)
+        for ticket in ticket_database.find({"type": {"$in": ["rent", "rent_intention"]}, "rent_budget": {"$exists": True}}):
+            try:
+                enum = f_app.enum.get_database(m).find_one({"_id": ticket["rent_budget"]["_id"]})
+                assert enum is not None
+                assert "slug" in enum
+            except:
+                self.logger.warning("Invalid enum", ticket["rent_budget"], "found, ignoring ticket", ticket["_id"])
+                continue
+
+            rent_budget = f_app.util.parse_budget(enum["slug"])
+            new_params = {}
+
+            if rent_budget[0]:
+                new_params["rent_budget_min"] = dict(
+                    unit=rent_budget[2],
+                    value=str(rent_budget[0]),
+                    type="currency",
+                    _i18n_unit=True,
+                    value_float=rent_budget[0]
+                )
+            if rent_budget[1]:
+                new_params["rent_budget_max"] = dict(
+                    unit=rent_budget[2],
+                    value=str(rent_budget[0]),
+                    type="currency",
+                    _i18n_unit=True,
+                    value_float=rent_budget[0]
+                )
+            ticket_database.update({"_id": ticket["_id"]}, {"$set": new_params, "$unset": {"rent_budget": ""}})
+
 currant_mongo_upgrade()
 
 

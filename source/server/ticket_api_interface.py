@@ -656,6 +656,32 @@ def rent_intention_ticket_search(user, params):
             rent_period_filter.append(condition)
         params["$and"].append({"$or": rent_period_filter})
 
+    if "rent_budget_min" in params or "rent_budget_max" in params:
+        # TODO: Currently assuming to be same currency
+        price_filter = []
+        if "rent_budget_min" in params:
+            rent_budget_currency = params["rent_budget_min"]["type"]
+        else:
+            rent_budget_currency = params["rent_budget_max"]["type"]
+        for currency in f_app.common.currency:
+            condition = {"price.unit": currency}
+            if currency == rent_budget_currency:
+                condition["price.value_float"] = {}
+                if "rent_budget_min" in params:
+                    condition["price.value_float"]["$gte"] = params["rent_budget_min"]["value_float"]
+                if "rent_budget_max" in params:
+                    condition["price.value_float"]["$lte"] = params["rent_budget_max"]["value_float"]
+            else:
+                condition["price.value_float"] = {}
+                if "rent_budget_min" in params:
+                    condition["price.value_float"]["$gte"] = float(f_app.i18n.convert_currency({"unit": rent_budget_currency, "value_float": params["rent_budget_min"]["value_float"]}, currency))
+                if "rent_budget_max" in params:
+                    condition["price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": rent_budget_currency, "value_float": params["rent_budget_max"]["value_float"]}, currency))
+            price_filter.append(condition)
+        params.pop("rent_budget_min", None)
+        params.pop("rent_budget_max", None)
+        params["$and"].append({"$or": price_filter})
+
     user_roles = f_app.user.get_role(user["id"])
     enable_custom_fields = True
     if set(user_roles) & set(["admin", "jr_admin", "sales"]):
@@ -1384,6 +1410,8 @@ def rent_ticket_search(user, params):
                 if "rent_budget_max" in params:
                     condition["price.value_float"]["$lte"] = float(f_app.i18n.convert_currency({"unit": rent_budget_currency, "value_float": params["rent_budget_max"]["value_float"]}, currency))
             price_filter.append(condition)
+        params.pop("rent_budget_min", None)
+        params.pop("rent_budget_max", None)
         params["$and"].append({"$or": price_filter})
 
     if "bedroom_count" in params:
