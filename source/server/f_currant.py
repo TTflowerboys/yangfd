@@ -438,6 +438,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                     value_float=rent_budget[0]
                 )
             ticket_database.update({"_id": ticket["_id"]}, {"$set": new_params, "$unset": {"rent_budget": ""}})
+            self.logger.debug("Migrated ticket", ticket["_id"], "to new rent_budget format.")
 
 currant_mongo_upgrade()
 
