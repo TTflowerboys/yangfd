@@ -207,18 +207,18 @@ with f_app.mongo() as m:
             print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
 
     # 按预算统计伦敦求租意向单
-    print('\n按预算统计伦敦求租意向单:')
-    cursor = m.tickets.aggregate(
-        [
-            {'$match': {'type': "rent_intention", 'city._id': ObjectId('555966cd666e3d0f578ad2cf')}},
-            {'$group': {'_id': "$rent_budget", 'count': {'$sum': 1}}},
-            {'$sort': {'count': -1}}
-        ]
-    )
+    # print('\n按预算统计伦敦求租意向单:')
+    # cursor = m.tickets.aggregate(
+    #     [
+    #         {'$match': {'type': "rent_intention", 'city._id': ObjectId('555966cd666e3d0f578ad2cf')}},
+    #         {'$group': {'_id': "$rent_budget", 'count': {'$sum': 1}}},
+    #         {'$sort': {'count': -1}}
+    #     ]
+    # )
 
-    for document in cursor:
-        if(document['_id']):
-            print(f_app.enum.get(document['_id']['_id'])['currency'].encode('utf-8') + f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
+    # for document in cursor:
+    #     if(document['_id']):
+    #         print(f_app.enum.get(document['_id']['_id'])['currency'].encode('utf-8') + f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
 
     # 按街区统计伦敦求租意向单
     print('\n伦敦填写了街区的求租意向单:')
