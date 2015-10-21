@@ -89,7 +89,7 @@
                                     %for index, rent_budget in enumerate(rent_budget_item_list):
                                     %if rent_budget.get('currency') == _.currency:
                                     <option value="{{rent_budget.get('slug')}}"
-                                        %if len(rent_intention_ticket.get('rent_budget',{}).get('slug','').split(':')) >= 2 and rent_intention_ticket.get('rent_budget',{}).get('slug','').split(':')[1].split(',')[0] == rent_budget.get('slug').split(':')[0]:
+                                    %if rent_intention_ticket.get('rent_budget_min',{}).get('value','') == rent_budget.get('slug').split(':')[0] and rent_intention_ticket.get('rent_budget_min',{}).get('unit','') == rent_budget.get('slug').split(':')[1]:
                                     selected
                                     %end
                                     >{{rent_budget.get('value')}}</option>
@@ -106,7 +106,7 @@
                                     %for index, rent_budget in enumerate(rent_budget_item_list):
                                     %if rent_budget.get('currency') == _.currency:
                                     <option value="{{rent_budget.get('slug')}}"
-                                        %if len(rent_intention_ticket.get('rent_budget',{}).get('slug','').split(':')) >= 2 and rent_intention_ticket.get('rent_budget',{}).get('slug','').split(':')[1].split(',')[1] == rent_budget.get('slug').split(':')[0]:
+                                        %if rent_intention_ticket.get('rent_budget_max',{}).get('value','') == rent_budget.get('slug').split(':')[0] and rent_intention_ticket.get('rent_budget_max',{}).get('unit','') == rent_budget.get('slug').split(':')[1]:
                                     selected
                                     %end
                                     >{{rent_budget.get('value')}}</option>

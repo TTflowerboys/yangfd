@@ -159,10 +159,7 @@
             params.rent_type = rentType
         }
 
-        var rentBudgetType = getRentBudget()
-        if (rentBudgetType.length) {
-            params.rent_budget = rentBudgetType
-        }
+        _.extend(params, getRentBudget())
 
         var rentPeriod = getSelectedTagFilterDataId('#rentPeriodTag')
         if (rentPeriod) {
@@ -265,7 +262,7 @@
 
     //check showTags at first time in mobile
     if (window.team.isPhone()) {
-        var tagQueries = ['property_type', 'rent_type', 'rent_budget', 'rent_period', 'bedroom_count', 'space']
+        var tagQueries = ['property_type', 'rent_type', 'rent_period', 'bedroom_count', 'space']
         var tagQuery = _.find(tagQueries, function(key){ return window.team.getQuery(key, location.href) !== ''})
         if (tagQuery) {
             showTagsOnMobile()
@@ -478,8 +475,9 @@
         return ''
     }
     function getRentBudget() {
-        var min = $('[name=rentBudgetMin]').val()
-        var max = $('[name=rentBudgetMax]').val()
+        var rentBudget = {}
+        var min = $('[name=rentBudgetMin]').val().split(':')[0]
+        var max = $('[name=rentBudgetMax]').val().split(':')[0]
         if (!min.length && !max.length) {
             return ''
         }
@@ -487,7 +485,19 @@
             window.dhtmlx.message({ type:'error', text: i18n('租金下限必须小于租金上限')});
             return ''
         }
-        return 'rent_budget:' + min.split(':')[0] + ',' + max.split(':')[0] + ',' + window.currency
+        if (min.length) {
+            rentBudget.rent_budget_min = JSON.stringify({
+                "unit": window.currency,
+                "value": min
+            })
+        }
+        if (max.length) {
+            rentBudget.rent_budget_max = JSON.stringify({
+                "unit": window.currency,
+                "value": max
+            })
+        }
+        return rentBudget
     }
     $('#tags #propertyTypeTag').on('click', '.toggleTag', function (event) {
         event.stopPropagation()
@@ -755,10 +765,7 @@
             params.rent_type = rentType
         }
 
-        var rentBudgetType = getRentBudget()
-        if (rentBudgetType.length) {
-            params.rent_budget = rentBudgetType
-        }
+        _.extend(params, getRentBudget())
 
         var rentPeriod = getSelectedTagFilterDataId('#rentPeriodTag')
         if (rentPeriod) {

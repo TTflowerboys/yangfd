@@ -25,10 +25,10 @@
         }
 
         // Init side tag filters value from URL
-        var rentBudgetFromURL = window.team.getQuery('rent_budget', url)
+        /*var rentBudgetFromURL = window.team.getQuery('rent_budget', url)
         if (rentBudgetFromURL) {
             selectTagFilter('#rentBudgetTag', rentBudgetFromURL)
-        }
+        }*/
 
         var rentPeriodFromURL = window.team.getQuery('rent_period', url)
         if (rentPeriodFromURL) {

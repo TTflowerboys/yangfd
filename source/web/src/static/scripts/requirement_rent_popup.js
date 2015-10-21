@@ -245,7 +245,9 @@
         }
     }
     function getSerializeObject (form) {
-        var data = {}
+        var data = {},
+            rentBudgetMin = form.find('[name=rentBudgetMin]').val().split(':')[0],
+            rentBudgetMax = form.find('[name=rentBudgetMax]').val().split(':')[0]
         form.find('[data-serialize]').each(function () {
             var serialize = $(this).attr('data-serialize').split('|')
             var key = serialize[0].trim()
@@ -273,7 +275,18 @@
             }
         })
         data.phone = '+' + form.find('[name=country_code]').val() + form.find('[name=requirementRentPhone]').val()
-        data.rent_budget = 'rent_budget:' + form.find('[name=rentBudgetMin]').val().split(':')[0] + ',' + form.find('[name=rentBudgetMax]').val().split(':')[0] + ',' + window.currency
+        if(rentBudgetMin.length) {
+            data.rent_budget_min = JSON.stringify({
+                "unit": window.currency,
+                "value": rentBudgetMin
+            })
+        }
+        if(rentBudgetMax.length) {
+            data.rent_budget_min = JSON.stringify({
+                "unit": window.currency,
+                "value": rentBudgetMax
+            })
+        }
         return data
     }
 
