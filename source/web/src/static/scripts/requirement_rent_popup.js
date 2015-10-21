@@ -282,7 +282,7 @@
             })
         }
         if(rentBudgetMax.length) {
-            data.rent_budget_min = JSON.stringify({
+            data.rent_budget_max = JSON.stringify({
                 unit: window.currency,
                 value: rentBudgetMax
             })
