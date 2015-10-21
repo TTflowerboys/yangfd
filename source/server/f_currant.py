@@ -432,10 +432,10 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             if rent_budget[1]:
                 new_params["rent_budget_max"] = dict(
                     unit=rent_budget[2],
-                    value=str(rent_budget[0]),
+                    value=str(rent_budget[1]),
                     type="currency",
                     _i18n_unit=True,
-                    value_float=rent_budget[0]
+                    value_float=rent_budget[1]
                 )
             ticket_database.update({"_id": ticket["_id"]}, {"$set": new_params, "$unset": {"rent_budget": ""}})
             self.logger.debug("Migrated ticket", ticket["_id"], "to new rent_budget format.")
