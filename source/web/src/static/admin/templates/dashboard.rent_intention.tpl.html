@@ -37,7 +37,8 @@
             <thead>
                 <tr>
                     <th>{%$root.i18n('提交时间')%}</th>
-                    <th>{%$root.i18n('预算')%}</th>
+                    <th>{%$root.i18n('预算下限')%}</th>
+                    <th>{%$root.i18n('预算上限')%}</th>
                     <th>{%$root.i18n('租期')%}</th>
                     <th>{%$root.i18n('出租需求')%}</th>
                     <th>{%$root.i18n('地址')%}</th>
@@ -55,7 +56,10 @@
                         {%(item.time?(item.time * 1000 | date : 'short'):'')%}
                     </td>
                     <td>
-                        <div>{%item.rent_budget.currency%}{%item.rent_budget.value%}</div>
+                        <div>{%item.rent_budget_min.unit%}{%item.rent_budget_min.value%}</div>
+                    </td>
+                    <td>
+                        <div>{%item.rent_budget_max.unit%}{%item.rent_budget_max.value%}</div>
                     </td>
                     <td>
                         <div>{%(item.rent_available_time?(item.rent_available_time * 1000 | date : 'shortDate'):'') + $root.i18n('起') + (item.rent_deadline_time?  $root.i18n('至') + (item.rent_deadline_time * 1000 | date : 'shortDate'):'') %}</div>
