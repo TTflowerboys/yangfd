@@ -277,14 +277,14 @@
         data.phone = '+' + form.find('[name=country_code]').val() + form.find('[name=requirementRentPhone]').val()
         if(rentBudgetMin.length) {
             data.rent_budget_min = JSON.stringify({
-                "unit": window.currency,
-                "value": rentBudgetMin
+                unit: window.currency,
+                value: rentBudgetMin
             })
         }
         if(rentBudgetMax.length) {
             data.rent_budget_min = JSON.stringify({
-                "unit": window.currency,
-                "value": rentBudgetMax
+                unit: window.currency,
+                value: rentBudgetMax
             })
         }
         return data
