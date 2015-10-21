@@ -322,6 +322,10 @@
 <input type="hidden" id="i18n-str-添加房间数" value="{{_('添加房间数')}}">
 <input type="hidden" id="i18n-str-添加省" value="{{_('添加省')}}">
 <input type="hidden" id="i18n-str-省" value="{{_('省')}}">
+<input type="hidden" id="i18n-str-添加同义词" value="{{_('添加同义词')}}">
+<input type="hidden" id="i18n-str-同义词" value="{{_('同义词')}}">
+<input type="hidden" id="i18n-str-添加自定义词" value="{{_('添加自定义词')}}">
+<input type="hidden" id="i18n-str-自定义词" value="{{_('自定义词')}}">
 <input type="hidden" id="i18n-str-电话" value="{{_('电话')}}">
 <input type="hidden" id="i18n-str-是否愿意注册会员" value="{{_('是否愿意注册会员')}}">
 <input type="hidden" id="i18n-str-愿意" value="{{_('愿意')}}">
@@ -495,12 +499,14 @@
 <input type="hidden" id="i18n-str-设置" value="{{_('设置')}}">
 <input type="hidden" id="i18n-str-登出" value="{{_('登出')}}">
 <input type="hidden" id="i18n-str-人员管理" value="{{_('人员管理')}}">
-<input type="hidden" id="i18n-str-枚举数据管理" value="{{_('枚举数据管理')}}">
+<input type="hidden" id="i18n-str-元数据管理" value="{{_('元数据管理')}}">
 <input type="hidden" id="i18n-str-常用类型" value="{{_('常用类型')}}">
 <input type="hidden" id="i18n-str-房间数" value="{{_('房间数')}}">
 <input type="hidden" id="i18n-str-租房预算区间" value="{{_('租房预算区间')}}">
 <input type="hidden" id="i18n-str-租房预算" value="{{_('租房预算')}}">
 <input type="hidden" id="i18n-str-学校" value="{{_('学校')}}">
+<input type="hidden" id="i18n-str-同义词管理" value="{{_('同义词管理')}}">
+<input type="hidden" id="i18n-str-自定义词管理" value="{{_('自定义词管理')}}">
 <input type="hidden" id="i18n-str-房产数据管理" value="{{_('房产数据管理')}}">
 <input type="hidden" id="i18n-str-出租房数据管理" value="{{_('出租房数据管理')}}">
 <input type="hidden" id="i18n-str-求租意向单管理" value="{{_('求租意向单管理')}}">
@@ -605,6 +611,8 @@
 <input type="hidden" id="i18n-str-设为封面" value="{{_('设为封面')}}">
 <input type="hidden" id="i18n-str-清空" value="{{_('清空')}}">
 <input type="hidden" id="i18n-str-上传图片" value="{{_('上传图片')}}">
+<input type="hidden" id="i18n-str-替换" value="{{_('替换')}}">
+<input type="hidden" id="i18n-str-保存更改" value="{{_('保存更改')}}">
 <input type="hidden" id="i18n-str-已上传，点击重新上传" value="{{_('已上传，点击重新上传')}}">
 <input type="hidden" id="i18n-str-拖到此处上传或点击上传至AWS" value="{{_('拖到此处上传或点击上传至AWS')}}">
 <input type="hidden" id="i18n-str-拖到此处上传或点击上传至七牛" value="{{_('拖到此处上传或点击上传至七牛')}}">
@@ -636,15 +644,18 @@
 <input type="hidden" id="i18n-str-服务声明" value="{{_('服务声明')}}">
 <script>
 if(!window.i18n){
-window.i18n = function (name) {
-var input = document.getElementById('i18n-str-' + name)
-if (!input) { return name }
-var value = input.value
-var i = 0
-while(value.indexOf('%s') >= 0) {
-value = value.replace('%s', arguments[++i])
-}
-return value
-}
+   window.i18n = function (name) {
+       var input = document.getElementById('i18n-str-' + name)
+       if (!input) { return replaceString(name, arguments) }
+       var value = input.value
+       function replaceString(text, array) {
+           var i = 0
+           while(text.indexOf('%s') >= 0) {
+               text = text.replace('%s', array[++i])
+           }
+           return text
+       }
+       return replaceString(value, arguments)
+   }
 }
 </script>

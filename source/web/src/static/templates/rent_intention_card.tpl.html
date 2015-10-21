@@ -7,7 +7,16 @@
             </h2>
             <label class="status" data-status={=ticket.status=}>{=ticket.status_presentation=}</label>
              <label class="price_phone" for="">
-                 {=window.getCurrencySymbol(ticket.rent_budget.currency)=} <strong> {=ticket.rent_budget.value=}</strong> /{=window.i18n('周')=}
+                 {_if (ticket.rent_budget_min && ticket.rent_budget_max) { _}
+                 {=window.getCurrencySymbol(ticket.rent_budget_min.unit)=} <strong> {!window.i18n('%s至%s', ticket.rent_budget_min.value, ticket.rent_budget_max.value)!}</strong> /{=window.i18n('周')=}
+                 {_ } else if (ticket.rent_budget_min) { _}
+                 {=window.getCurrencySymbol(ticket.rent_budget_min.unit)=} <strong> {!window.i18n('%s以上', ticket.rent_budget_min.value)!}</strong> /{=window.i18n('周')=}
+                 {_ } else if (ticket.rent_budget_max) { _}
+                 {=window.getCurrencySymbol(ticket.rent_budget_max.unit)=} <strong> {!window.i18n('%s以下', ticket.rent_budget_max.value)!}</strong> /{=window.i18n('周')=}
+                 {_ } else { _}
+                 {=window.i18n('预算不限')=}
+                 {_ } _}
+
             </label>
             <label class="date">
                 {=project.formatTime(ticket.time)=}
@@ -49,7 +58,15 @@
                 </li>
             </ul>
             <label class="price" for="">
-                 {=window.getCurrencySymbol(ticket.rent_budget.currency)=} {=ticket.rent_budget.value=} /{=window.i18n('周')=}
+                {_if (ticket.rent_budget_min && ticket.rent_budget_max) { _}
+                {=window.getCurrencySymbol(ticket.rent_budget_min.unit)=} {!window.i18n('%s至%s', ticket.rent_budget_min.value, ticket.rent_budget_max.value)!} /{=window.i18n('周')=}
+                {_ } else if (ticket.rent_budget_min) { _}
+                {=window.getCurrencySymbol(ticket.rent_budget_min.unit)=} {!window.i18n('%s以上', ticket.rent_budget_min.value)!} /{=window.i18n('周')=}
+                {_ } else if (ticket.rent_budget_max) { _}
+                {=window.getCurrencySymbol(ticket.rent_budget_max.unit)=} {!window.i18n('%s以下', ticket.rent_budget_max.value)!} /{=window.i18n('周')=}
+                {_ } else { _}
+                {=window.i18n('预算不限')=}
+                {_ } _}
             </label>
         </div>
         <div class="bottom">

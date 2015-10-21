@@ -322,6 +322,7 @@
 <input type="hidden" id="i18n-str-，面积为" value="{{_('，面积为')}}">
 <input type="hidden" id="i18n-str-地图加载失败" value="{{_('地图加载失败')}}">
 <input type="hidden" id="i18n-str-暂无结果" value="{{_('暂无结果')}}">
+<input type="hidden" id="i18n-str-点击在地图里查看这些房源" value="{{_('点击在地图里查看这些房源')}}">
 <input type="hidden" id="i18n-str-街区列表加载中..." value="{{_('街区列表加载中...')}}">
 <input type="hidden" id="i18n-str-重新获取" value="{{_('重新获取')}}">
 <input type="hidden" id="i18n-str-获取中..." value="{{_('获取中...')}}">
@@ -370,10 +371,12 @@
 <input type="hidden" id="i18n-str-我想投资价值为" value="{{_('我想投资价值为')}}">
 <input type="hidden" id="i18n-str-街区列表加载中...(选填)" value="{{_('街区列表加载中...(选填)')}}">
 <input type="hidden" id="i18n-str-请选择街区(选填)" value="{{_('请选择街区(选填)')}}">
-<input type="hidden" id="i18n-str-我想找" value="{{_('我想找')}}">
-<input type="hidden" id="i18n-str-附近的" value="{{_('附近的')}}">
-<input type="hidden" id="i18n-str-/周的" value="{{_('/周的')}}">
-<input type="hidden" id="i18n-str-出租房" value="{{_('出租房')}}">
+<input type="hidden" id="i18n-str-预算下限必须小于预算上限" value="{{_('预算下限必须小于预算上限')}}">
+<input type="hidden" id="i18n-str-%s至%s/周的" value="{{_('%s至%s/周的')}}">
+<input type="hidden" id="i18n-str-%s/周以上的" value="{{_('%s/周以上的')}}">
+<input type="hidden" id="i18n-str-%s/周以下的" value="{{_('%s/周以下的')}}">
+<input type="hidden" id="i18n-str-我想找%s附近的%s出租房" value="{{_('我想找%s附近的%s出租房')}}">
+<input type="hidden" id="i18n-str-的%s" value="{{_('的%s')}}">
 <input type="hidden" id="i18n-str-重置密码邮件已经成功发送到您的邮箱，请登陆您的邮箱查收邮件" value="{{_('重置密码邮件已经成功发送到您的邮箱，请登陆您的邮箱查收邮件')}}">
 <input type="hidden" id="i18n-str-密码重置成功，5s后自动返回首页" value="{{_('密码重置成功，5s后自动返回首页')}}">
 <input type="hidden" id="i18n-str-确定" value="{{_('确定')}}">
@@ -492,6 +495,10 @@
 <input type="hidden" id="i18n-str-每24小时只能刷新一次" value="{{_('每24小时只能刷新一次')}}">
 <input type="hidden" id="i18n-str-确认已租出" value="{{_('确认已租出')}}">
 <input type="hidden" id="i18n-str-编辑" value="{{_('编辑')}}">
+<input type="hidden" id="i18n-str-%s至%s" value="{{_('%s至%s')}}">
+<input type="hidden" id="i18n-str-%s以上" value="{{_('%s以上')}}">
+<input type="hidden" id="i18n-str-%s以下" value="{{_('%s以下')}}">
+<input type="hidden" id="i18n-str-预算不限" value="{{_('预算不限')}}">
 <input type="hidden" id="i18n-str-%s到%s" value="{{_('%s到%s')}}">
 <input type="hidden" id="i18n-str-%s止" value="{{_('%s止')}}">
 <input type="hidden" id="i18n-str-修改意向" value="{{_('修改意向')}}">
@@ -508,15 +515,18 @@
 <input type="hidden" id="i18n-str-移除" value="{{_('移除')}}">
 <script>
 if(!window.i18n){
-window.i18n = function (name) {
-var input = document.getElementById('i18n-str-' + name)
-if (!input) { return name }
-var value = input.value
-var i = 0
-while(value.indexOf('%s') >= 0) {
-value = value.replace('%s', arguments[++i])
-}
-return value
-}
+   window.i18n = function (name) {
+       var input = document.getElementById('i18n-str-' + name)
+       if (!input) { return replaceString(name, arguments) }
+       var value = input.value
+       function replaceString(text, array) {
+           var i = 0
+           while(text.indexOf('%s') >= 0) {
+               text = text.replace('%s', array[++i])
+           }
+           return text
+       }
+       return replaceString(value, arguments)
+   }
 }
 </script>
