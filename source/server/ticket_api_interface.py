@@ -660,9 +660,9 @@ def rent_intention_ticket_search(user, params):
         # TODO: Currently assuming to be same currency
         price_filter = []
         if "rent_budget_min" in params:
-            rent_budget_currency = params["rent_budget_min"]["type"]
+            rent_budget_currency = params["rent_budget_min"]["unit"]
         else:
-            rent_budget_currency = params["rent_budget_max"]["type"]
+            rent_budget_currency = params["rent_budget_max"]["unit"]
         for currency in f_app.common.currency:
             condition = {"price.unit": currency}
             if currency == rent_budget_currency:
@@ -1392,9 +1392,9 @@ def rent_ticket_search(user, params):
         # TODO: Currently assuming to be same currency
         price_filter = []
         if "rent_budget_min" in params:
-            rent_budget_currency = params["rent_budget_min"]["type"]
+            rent_budget_currency = params["rent_budget_min"]["unit"]
         else:
-            rent_budget_currency = params["rent_budget_max"]["type"]
+            rent_budget_currency = params["rent_budget_max"]["unit"]
         for currency in f_app.common.currency:
             condition = {"price.unit": currency}
             if currency == rent_budget_currency:

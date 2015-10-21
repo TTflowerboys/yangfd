@@ -986,9 +986,9 @@ class f_currant_plugins(f_app.plugin_base):
             B = True
             price = ticket["price"]["value_float"]
             if "rent_budget_min" in intention_ticket:
-                rent_budget_currency = intention_ticket["rent_budget_min"]["type"]
+                rent_budget_currency = intention_ticket["rent_budget_min"]["unit"]
             else:
-                rent_budget_currency = intention_ticket["rent_budget_max"]["type"]
+                rent_budget_currency = intention_ticket["rent_budget_max"]["unit"]
             if ticket["price"]["unit"] != rent_budget_currency:
                 price = float(f_app.i18n.convert_currency({"unit": ticket["price"]["unit"], "value_float": ticket["price"]["value_float"]}, rent_budget_currency))
             if "rent_budget_min" in intention_ticket:
@@ -1070,9 +1070,9 @@ class f_currant_plugins(f_app.plugin_base):
         rent_tickets = f_app.i18n.process_i18n(f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), permission_check=False), _i18n=["zh_Hans_CN"])
 
         if "rent_budget_min" in intention_ticket:
-            rent_budget_currency = intention_ticket["rent_budget_min"]["type"]
+            rent_budget_currency = intention_ticket["rent_budget_min"]["unit"]
         else:
-            rent_budget_currency = intention_ticket["rent_budget_max"]["type"]
+            rent_budget_currency = intention_ticket["rent_budget_max"]["unit"]
 
         bedroom_count = f_app.util.parse_bedroom_count(intention_ticket["bedroom_count"])
 
