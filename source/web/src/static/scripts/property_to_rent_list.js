@@ -487,14 +487,14 @@
         }
         if (min.length) {
             rentBudget.rent_budget_min = JSON.stringify({
-                "unit": window.currency,
-                "value": min
+                unit: window.currency,
+                value: min
             })
         }
         if (max.length) {
             rentBudget.rent_budget_max = JSON.stringify({
-                "unit": window.currency,
-                "value": max
+                unit: window.currency,
+                value: max
             })
         }
         return rentBudget
