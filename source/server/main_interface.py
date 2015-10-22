@@ -494,6 +494,12 @@ def s3_raw_reverse_proxy(filename):
     return result.content
 
 
+@f_post("/sendgrid_get_event_endpoint")
+def sendgrid_get_event():
+    email_event = request.json
+    print email_event
+
+
 @f_get("/wechat_endpoint", params=dict(
     signature=str,
     timestamp=str,
