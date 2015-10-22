@@ -9,6 +9,7 @@ stages:
 server_prepare:
   stage: prepare
   script:
+    - "git config submodule.'source/server/libfelix'.url 'https://git.bbtechgroup.com/felixonmars/libfelix.git'"
     - git submodule update --init
 
 server_test:
