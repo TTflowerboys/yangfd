@@ -15,6 +15,8 @@
                 this.isFixed = isFixed(options.targetElem)
                 if(this.isFixed) {
                     this.elem.css({position: 'fixed'})
+                } else {
+                    this.elem.css({position: 'absolute'})
                 }
                 this.elem.find('.text').text(options.text).end().find('.intro-lite-arrow').addClass(options.arrow)
                 this.show(options)
@@ -37,27 +39,32 @@
                 targetElemHeight = options.targetElem.outerHeight()
                 elemWidth = this.elem.outerWidth()
                 elemHeight = this.elem.outerHeight()
-
+                var cssOption = {}
                 switch(options.arrow) {
                     case 'top':
-                        this.elem.css({
+                        cssOption = {
                             top: (targetElemTop - options.arrowSize.height - elemHeight) + 'px',
                             left: (targetElemLeft + (targetElemWidth - elemWidth) / 2) + 'px'
-                        })
+                        }
                         break;
                     case 'left':
-                        this.elem.css({
+                        cssOption = {
                             top: (targetElemTop + (targetElemHeight - elemHeight) / 2) + 'px',
                             left: (targetElemLeft - options.arrowSize.width - elemWidth) + 'px'
-                        })
+                        }
                         break;
                     case 'right':
-                        this.elem.css({
+                        cssOption = {
                             top: (targetElemTop + (targetElemHeight - elemHeight) / 2) + 'px',
                             left:  (targetElemLeft + options.arrowSize.width + targetElemWidth) + 'px'
-                        })
+                        }
                         break;
                 }
+                if(this.isFixed) {
+                    cssOption.bottom = $(window).height() - parseInt(cssOption.top) - elemHeight + 'px'
+                    delete cssOption.top
+                }
+                this.elem.css(cssOption)
             }
         },
         bindEvent : function (options) {
@@ -71,16 +78,18 @@
             if(options.closeTrigger) {
                 $(options.closeTrigger.elem).bind(options.closeTrigger.event, this.close.bind(this))
             }
-            $(window).scroll(function () {
-                _this.initPos(options)
-            })
-            $(window).resize(function () {
-                _this.initPos(options)
-            })
-            document.body.addEventListener('touchstart', touchHanddler)
-            document.body.addEventListener('touchend', function () {
-                window.cancelAnimationFrame(raf)
-            })
+            if (!this.isFixed) {
+                $(window).resize(function () {
+                    _this.initPos(options)
+                })
+                $(window).scroll(function () {
+                    _this.initPos(options)
+                })
+                document.body.addEventListener('touchstart', touchHanddler)
+                document.body.addEventListener('touchend', function () {
+                    window.cancelAnimationFrame(raf)
+                })
+            }
         },
         show: function (options) {
             this.elem.appendTo($('body')).fadeIn(options.duration)
