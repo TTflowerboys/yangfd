@@ -1,4 +1,4 @@
-image: felixonmars:archlinux
+image: felixonmars/archlinux
 
 stages:
   - test
