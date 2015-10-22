@@ -1,0 +1,29 @@
+image: felixonmars:archlinux
+
+stages:
+  - test
+  - doc
+  - deploy
+
+server_test:
+  stage: test
+  script:
+    - cd source/server
+    - python2 wsgi.py --test
+  tags:
+    - docker
+
+server_doc:
+  stage: doc
+  script:
+    - cd source/server/docs
+    - make SPHINXBUILD=sphinx-build2 clean html
+  tags:
+    - docker
+
+server_deploy:
+  stage: deploy
+  script:
+    - echo "fixme: server_deploy stub"
+  tags:
+    - docker
