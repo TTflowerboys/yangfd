@@ -1,30 +1,18 @@
 image: felixonmars/archlinux
 
 stages:
-  - prepare
   - test
-  - doc
   - deploy
 
-server_prepare:
-  stage: prepare
-  script:
-    - "git config submodule.'source/server/libfelix'.url 'https://git.bbtechgroup.com/felixonmars/libfelix.git'"
-    - git submodule update --init
+before_script:
+  - "git config submodule.'source/server/libfelix'.url 'https://git.bbtechgroup.com/felixonmars/libfelix.git'"
+  - git submodule update --init
 
 server_test:
   stage: test
   script:
     - cd source/server
     - python2 wsgi.py --test
-  tags:
-    - docker
-
-server_doc:
-  stage: doc
-  script:
-    - cd source/server/docs
-    - make SPHINXBUILD=sphinx-build2 clean html
   tags:
     - docker
 
