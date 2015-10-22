@@ -37,7 +37,6 @@
 
         $scope.submitSynonymsItem = function (item, index) {
             function successHanddler(data) {
-                item.edit = false
                 item.id = _.isEmpty(data.val) ? item.id : data.val
                 $scope.synonymsList[index] = item
             }
