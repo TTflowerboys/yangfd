@@ -136,6 +136,7 @@
         }
     });
 
+    //todo 这里判断当前语言的规则需要与server端一致
     if($.cookie('currant_lang') === 'en_GB') {
         selectRoleChooserTab('landlord')
         initRoleChooserContent('landlord')
