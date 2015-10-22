@@ -62,6 +62,7 @@
                 })
         }
         $scope.addUserDict = function (words) {
+            $scope.words = ''
             var wordList = words ? words.split(/[\s,\|]+/) : []
             $q.all(_.map(wordList, function (word) {
                 var defer = $q.defer()
@@ -73,7 +74,7 @@
                     errorMessage: 'Update failed'
                 })
                     .success(function (data) {
-                        $scope.userDictList.unshift({channel: 'user_dict', rule: word, id: data.val && data.val.id ? data.val.id : 'id'})
+                        $scope.userDictList.unshift({channel: 'user_dict', rule: word, id: data.val})
                         defer.resolve(data.val)
                     })
                     .error(function (data) {

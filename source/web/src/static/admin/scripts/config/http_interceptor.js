@@ -43,7 +43,7 @@ angular.module('app')
                 },
 
                 'responseError': function (response, b, c) {
-                    if (response.data.ret !== undefined) {
+                    if (response.data && response.data.ret !== undefined) {
                         var errorMessage = getErrorMessage(response)
 
                         if (errorMessage) {

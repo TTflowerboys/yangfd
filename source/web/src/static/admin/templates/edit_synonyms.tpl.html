@@ -10,13 +10,13 @@
             </span>
         </div>
         <div class="btn-group form-inline">
-            <textarea name="" id="" cols="30" ng-model="words"></textarea>
+            <textarea name="" id="" cols="50" ng-model="$parent.words" placeholder="{%$root.i18n('批量添加同义词以空格分隔，比如: 英国 腐国 UK 大不列颠联合王国')%}"></textarea>
         </div>
         <div class="btn-group form-inline">
-            <button class="btn btn-success" ng-click="addWords(words)">{%$root.i18n('添加')%}</button>
+            <button class="btn btn-success" ng-click="addWords($parent.words)">{%$root.i18n('添加')%}</button>
         </div>
         <div class="btn-group form-inline">
-            <button class="btn btn-primary" ng-click="updateWords(words)">{%$root.i18n('替换')%}</button>
+            <button class="btn btn-primary" ng-click="updateWords($parent.words)">{%$root.i18n('替换')%}</button>
         </div>
         <div class="btn-group form-inline">
             <button class="btn btn-primary" ng-click="submit()">{%$root.i18n('保存更改')%}</button>

@@ -9,21 +9,27 @@ angular.module('app')
                 edit: '=edit',
                 submit: '&',
             },
-            link: function (scope, elm, attrs) {
-                scope.wordList = scope.item.rule ? scope.item.rule.split(' ') : []
-                scope.addWords = function(words) {
-                    scope.wordList = scope.wordList.concat(words ? words.split(/[\s,\|]+/) : [])
+            controller: function($scope, $element, $attrs, $transclude) {
+                $scope.words = ''
+                $scope.wordList = $scope.item.rule ? $scope.item.rule.split(' ') : []
+                $scope.addWords = function(words) {
+                    $scope.wordList = $scope.wordList.concat(words ? words.split(/[\s,\|]+/) : [])
+                    $scope.words = ''
                 }
-                scope.updateWords = function(words) {
-                    scope.wordList = words ? words.split(/[\s,\|]+/) : []
+                $scope.updateWords = function(words) {
+                    $scope.wordList = words ? words.split(/[\s,\|]+/) : []
+                    $scope.words = ''
                 }
-                scope.removeWord = function(index) {
-                    scope.wordList.splice(index, 1)
+                $scope.removeWord = function(index) {
+                    $scope.wordList.splice(index, 1)
                 }
-                scope.$watch('wordList', function () {
-                    scope.item.rule = scope.wordList.join(' ')
+                $scope.$watch('wordList', function () {
+                    $scope.item.rule = $scope.wordList.join(' ')
+                    if ($scope.edit === true) {
+                        $scope.submit()
+                    }
                 }, true)
-
-            }
+            },
+            bindToController: true
         }
     })
