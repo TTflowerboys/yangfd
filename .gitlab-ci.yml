@@ -1,9 +1,15 @@
 image: felixonmars/archlinux
 
 stages:
+  - prepare
   - test
   - doc
   - deploy
+
+server_prepare:
+  stage: prepare
+  script:
+    - git submodule update --init
 
 server_test:
   stage: test
