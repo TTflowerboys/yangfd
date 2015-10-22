@@ -24,6 +24,6 @@ server_doc:
 server_deploy:
   stage: deploy
   script:
-    - echo "fixme: server_deploy stub"
+    - "echo 'fixme: server_deploy stub'"
   tags:
     - docker
