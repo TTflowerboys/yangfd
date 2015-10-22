@@ -1,6 +1,8 @@
 if(window.wechatShareSDK) {
     window.wechatShareSDK.init()
 }
+window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
+window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame
 $(function () {
     window.project.updateMenuTitle($('title').text());
 
