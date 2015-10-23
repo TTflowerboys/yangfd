@@ -890,9 +890,9 @@
             }
         })
         .bind('datepicker-change', function (event, obj) {
-            $(elem).val($.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
-        })
-            .dateRangePickerCustom()
+                $(elem).attr('value', $.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
+                $(elem).val($.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
+        }).dateRangePickerCustom($(elem))
     })
 
 

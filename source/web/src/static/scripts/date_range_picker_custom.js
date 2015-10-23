@@ -1,4 +1,4 @@
-$.fn.dateRangePickerCustom = function () {
+$.fn.dateRangePickerCustom = function (inputObj) {
     //利用jquery.daterangepicker.js暴露的API进行一些定制,目前仅增加上一年、下一年的功能
     var exposeApi = this.data('dateRangePicker')
     if(!exposeApi) {
@@ -12,19 +12,24 @@ $.fn.dateRangePickerCustom = function () {
             box.find('.caption').append('<th style="width:27px;cursor: pointer;"><span class="nextYear">&gt;&gt;</span></th>')
             box.find('.month-name').attr('colspan', '3')
         }
-        function getCurrentYear () {
-            return window.moment(parseInt(box.find('[time]').eq(10).attr('time'))).year()
-        }
         function bindEvents () {
             box.find('.prevYear').on('click', function () {
-                setDate(getCurrentYear() - 1)
+                if(inputObj.val()){
+                    setDate(window.moment(inputObj.val()).subtract(1, 'years').format('YYYY-MM-DD'))
+                }else{
+                    setDate(window.moment().subtract(1, 'years').format('YYYY-MM-DD'))
+                }
+
             })
             box.find('.nextYear').on('click', function () {
-                setDate(getCurrentYear() + 1)
+                if(inputObj.val()){
+                    setDate(window.moment(inputObj.val()).add(1, 'years').format('YYYY-MM-DD'))
+                }else{
+                    setDate(window.moment().add(1, 'years').format('YYYY-MM-DD'))
+                }
             })
         }
-        function setDate (year) {
-            var date = year + '-1-1'
+        function setDate (date) {
             exposeApi.setDateRange(date, date)
             exposeApi.open(0)
         }

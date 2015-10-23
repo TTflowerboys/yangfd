@@ -608,8 +608,8 @@
             }
         })
             .bind('datepicker-change', function (event, obj) {
+                $(elem).attr('value', $.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
                 $(elem).val($.format.date(new Date(obj.date1), 'yyyy-MM-dd')).trigger('change')
-
             })
             .bind('change', function () {
                 var val = $(this).val()
@@ -620,6 +620,7 @@
                 }
                 ga('send', 'event', 'rent_list', 'change', 'change-space', val)
             })
+            .dateRangePickerCustom($(elem))
     })
     //$('#rentPeriodStartDate').trigger('change')
     

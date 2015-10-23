@@ -121,11 +121,11 @@
                         //return this.value || $.format.date(new Date(), 'yyyy-MM-dd');
                         return $(this).val()
                     }
-                })
-                    .bind('datepicker-change', function (event, obj) {
+                }).bind('datepicker-change', function (event, obj) {
+                        $(elem).attr('value', $.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
                         $(elem).val($.format.date(new Date(obj.date1), 'yyyy-MM-dd')).trigger('change')
 
-                    })
+                }).dateRangePickerCustom($(elem))
             })
         }
     }
