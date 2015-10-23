@@ -71,7 +71,7 @@
                     </td>
                 </tr>
                 <tr class="mailFooter">
-                    <td class="mailFooterWrap" style="padding: 70px 20px; margin: -1px 20px 0; color: #9d9d9d;line-height: 1.8em;font-size: 18px">
+                    <td class="mailFooterWrap" style="padding: 70px 20px; margin: -1px 20px 0; color: #9d9d9d;line-height: 1.8em;font-size: 16px">
                         <table class="smallFontSize" width="100%">
                             <tr>
                                 <td>{{_('该邮件为自动发送，请勿直接回复。')}}</td>
@@ -81,7 +81,7 @@
                             </tr>
                             %if 'unsubscribe_url' in vars() or 'unsubscribe_url' in globals():
                             <tr>
-                                <td>{{_('不想收到此类邮件？')}}<a href="{{unsubscribe_url}}" style="color: #e60012;text-decoration: none;font-weight: bold;">{{_('点击退订')}}></a></td>
+                                <td>{{_('不想收到此类邮件？')}}<a href="{{unsubscribe_url}}" style="text-decoration: none;">{{_('点击退订')}}></a></td>
                             </tr>
                             %end
                             <tr>
