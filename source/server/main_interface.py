@@ -498,7 +498,7 @@ def s3_raw_reverse_proxy(filename):
 def sendgrid_get_event():
     email_event = request.json
     for single_event in email_event:
-        logger.debug(json.dumps(single_event))
+        # logger.debug(json.dumps(single_event))
         f_app.email.status.email_status_append(single_event)
 
 
