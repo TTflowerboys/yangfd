@@ -498,12 +498,20 @@ def s3_raw_reverse_proxy(filename):
 def sendgrid_get_event():
     email_event = request.json
     for single_event in email_event:
+        detail = []
+        detail.append(single_event)
         params_status = {"email_status": single_event.get("event", None),
-                         "email_status_detail": single_event
+                         "email_status_detail": detail
                          }
         target = single_event.get("email", None)
         email_id = single_event.get("email_id", None)
         email_status_id = f_app.email.status.get_email_status_id(email_id, target)
+        event_history = f_app.email.status.get(email_status_id).get("email_status_detail", None)
+        if isinstance(event_history, list):
+            for old_message in event_history:
+                params_status["email_status_detail"].append(old_message)
+        else:
+            params_status["email_status_detail"].append(event_history)
         f_app.email.status.update_set(email_status_id, params_status)
     print email_event
 
