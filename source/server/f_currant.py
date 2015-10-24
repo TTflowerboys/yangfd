@@ -954,7 +954,7 @@ class f_currant_plugins(f_app.plugin_base):
         ticket_id = task["ticket_id"]
         ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id], permission_check=False, ignore_nonexist=True)[0], _i18n=["zh_Hans_CN"])
 
-        if "property" not in ticket or "country" not in ticket["property"] or "city" not in ticket["property"]:
+        if "property" not in ticket or "country" not in ticket["property"] or "city" not in ticket["property"] or "rent_available_time" not in ticket:
             return
 
         # Scan existing rent intention ticket
@@ -1063,17 +1063,19 @@ class f_currant_plugins(f_app.plugin_base):
         if "rent_intention_ticket_check_rent" not in ticket_email_user.get("email_message_type", []):
             return
 
+        if "rent_budget_min" in intention_ticket:
+            rent_budget_currency = intention_ticket["rent_budget_min"]["unit"]
+        elif "rent_budget_max" in intention_ticket:
+            rent_budget_currency = intention_ticket["rent_budget_max"]["unit"]
+        else:
+            return
+
         # Scan existing rent intention ticket
         params = {
             "type": "rent",
             "status": "to rent",
         }
         rent_tickets = f_app.i18n.process_i18n(f_app.ticket.output(f_app.ticket.search(params=params, per_page=-1), permission_check=False), _i18n=["zh_Hans_CN"])
-
-        if "rent_budget_min" in intention_ticket:
-            rent_budget_currency = intention_ticket["rent_budget_min"]["unit"]
-        else:
-            rent_budget_currency = intention_ticket["rent_budget_max"]["unit"]
 
         bedroom_count = f_app.util.parse_bedroom_count(intention_ticket["bedroom_count"])
 
