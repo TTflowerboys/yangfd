@@ -974,7 +974,7 @@ class f_currant_plugins(f_app.plugin_base):
             if "rent_intention_ticket_check_rent" not in ticket_email_user.get("email_message_type", []):
                 continue
 
-            if "rent_budget_min" not in intention_ticket and "rent_budget_max" not in intention_ticket or "bedroom_count" not in intention_ticket or "rent_type" not in intention_ticket:
+            if "rent_budget_min" not in intention_ticket and "rent_budget_max" not in intention_ticket or "bedroom_count" not in intention_ticket or "rent_type" not in intention_ticket or "rent_available_time" not in intention_ticket:
                 continue
 
             bedroom_count = f_app.util.parse_bedroom_count(intention_ticket["bedroom_count"])
