@@ -57,7 +57,7 @@ def fetch_image(image, **kwargs):
 
 
 def is_mobile_client():
-    return b"currant" in request.headers.get('User-Agent').lower()
+    return b"currant" in request.headers.get('User-Agent', '').lower()
 
 
 def is_mobile_client_version(condition, version):
