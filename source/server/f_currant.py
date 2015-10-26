@@ -1589,6 +1589,7 @@ class f_currant_plugins(f_app.plugin_base):
         f_app.task.put(dict(
             type="crawler_london_home",
             start=datetime.utcnow() + timedelta(days=1),
+            timeout=1800,
         ))
 
     def task_on_fortis_developments(self, task):
@@ -1622,6 +1623,7 @@ class f_currant_plugins(f_app.plugin_base):
         f_app.task.put(dict(
             type="fortis_developments",
             start=datetime.utcnow() + timedelta(days=1),
+            timeout=1800,
         ))
 
     def task_on_crawler_knightknox(self, task):
@@ -1720,6 +1722,7 @@ class f_currant_plugins(f_app.plugin_base):
         f_app.task.put(dict(
             type="crawler_knightknox",
             start=datetime.utcnow() + timedelta(days=1),
+            timeout=1800,
         ))
 
     def task_on_crawler_knightknox_agents(self, task):
@@ -1825,6 +1828,7 @@ class f_currant_plugins(f_app.plugin_base):
         f_app.task.put(dict(
             type="crawler_knightknox_agents",
             start=datetime.utcnow() + timedelta(days=1),
+            timeout=1800,
         ))
 
     def task_on_crawler_abacusinvestor(self, task):
@@ -1903,6 +1907,7 @@ class f_currant_plugins(f_app.plugin_base):
         f_app.task.put(dict(
             type="crawler_abacusinvestor",
             start=datetime.utcnow() + timedelta(days=1),
+            timeout=1800,
         ))
 
     def task_on_crawler_selectproperty(self, task):
@@ -1995,6 +2000,7 @@ class f_currant_plugins(f_app.plugin_base):
         f_app.task.put(dict(
             type="crawler_selectproperty",
             start=datetime.utcnow() + timedelta(days=1),
+            timeout=1800,
         ))
 
     def task_on_update_landregistry(self, taks):
