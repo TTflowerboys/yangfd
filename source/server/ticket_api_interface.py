@@ -1253,6 +1253,7 @@ def rent_ticket_contact_info(user, ticket_id):
         "items.id": f_app.common.view_rent_ticket_contact_info_id,
         "ticket_id": ticket_id,
         "user.id": user["id"],
+        "status": "paid",
     })
     if not len(order_id_list):
         # BUY BUY BUY
