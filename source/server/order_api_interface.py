@@ -154,7 +154,7 @@ def order_search_view_rent_ticket_contact_info(user, params):
     }, per_page=per_page), permission_check=False)
 
     for order in orders:
-        order["ticket"] = f_app.ticket.output([order.pop("ticket_id")], ignore_nonexist=True)[0]
+        order["ticket"] = f_app.ticket.output([order.pop("ticket_id")], ignore_nonexist=True, fuzzy_user_info=True)[0]
 
     return orders
 
