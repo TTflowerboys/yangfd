@@ -207,18 +207,50 @@ with f_app.mongo() as m:
             print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
 
     # 按预算统计伦敦求租意向单
-    # print('\n按预算统计伦敦求租意向单:')
-    # cursor = m.tickets.aggregate(
-    #     [
-    #         {'$match': {'type': "rent_intention", 'city._id': ObjectId('555966cd666e3d0f578ad2cf')}},
-    #         {'$group': {'_id': "$rent_budget", 'count': {'$sum': 1}}},
-    #         {'$sort': {'count': -1}}
-    #     ]
-    # )
+    print('\n统计200镑以上的伦敦求租意向单:')
+    # 要统计的范围，比如200镑到300镑的表示方法为{'min': 200.0, 'max': 300.0}
+    target_budget_currency = 'GBP'
+    target_budget = {'min': 200.0}
+    budget_filter = []
 
-    # for document in cursor:
-    #     if(document['_id']):
-    #         print(f_app.enum.get(document['_id']['_id'])['currency'].encode('utf-8') + f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
+    for currency in f_app.common.currency:
+        condition = {}
+        conditions = {}
+        if currency == target_budget_currency:
+            if 'min' in target_budget:
+                condition['rent_budget_min.unit'] = currency
+                condition['rent_budget_min.value_float'] = {}
+                condition['rent_budget_min.value_float']['$gte'] = target_budget['min']
+            if 'max' in target_budget:
+                condition['rent_budget_max.unit'] = currency
+                condition['rent_budget_max.value_float'] = {}
+                condition['rent_budget_max.value_float']['$lte'] = target_budget['max']
+        else:
+            if 'min' in target_budget:
+                condition['rent_budget_min.unit'] = currency
+                condition['rent_budget_min.value_float'] = {}
+                condition['rent_budget_min.value_float']['$gte'] = float(f_app.i18n.convert_currency({"unit": target_budget_currency, "value_float": target_budget['min']}, currency))
+            if 'max' in target_budget:
+                condition['rent_budget_max.unit'] = currency
+                condition['rent_budget_max.value_float'] = {}
+                condition['rent_budget_max.value_float']['$lte'] = float(f_app.i18n.convert_currency({"unit": target_budget_currency, "value_float": target_budget['max']}, currency))
+        conditions['$and'] = []
+        conditions['$and'].append(condition)
+        budget_filter.append(conditions)
+
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {
+                'type': "rent_intention",
+                'city._id': ObjectId('555966cd666e3d0f578ad2cf'),
+                '$or': budget_filter
+                }},
+            {'$group': {'_id': "null", 'count': {'$sum': 1}}}
+        ]
+    )
+
+    for document in cursor:
+        print('总数:' + str(document['count']))
 
     # 按街区统计伦敦求租意向单
     print('\n伦敦填写了街区的求租意向单:')

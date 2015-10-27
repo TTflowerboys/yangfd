@@ -6,13 +6,14 @@ from bson.objectid import ObjectId
 from collections import OrderedDict
 import sys
 
-if sys.argv[1] == '-s':
-    if sys.argv[2] == 'dev':
-        f_app.common.memcache_server = ["172.20.1.22:11211"]
-        f_app.common.mongo_server = "172.20.1.22"
-    if sys.argv[2] == 'test':
-        f_app.common.memcache_server = ["172.20.101.102:11211"]
-        f_app.common.mongo_server = "172.20.101.102"
+if len(sys.argv) > 1:
+    if sys.argv[1] == '-s':
+        if sys.argv[2] == 'dev':
+            f_app.common.memcache_server = ["172.20.1.22:11211"]
+            f_app.common.mongo_server = "172.20.1.22"
+        if sys.argv[2] == 'test':
+            f_app.common.memcache_server = ["172.20.101.102:11211"]
+            f_app.common.mongo_server = "172.20.101.102"
 else:
     f_app.common.memcache_server = ["172.20.101.98:11211"]
     f_app.common.mongo_server = "172.20.101.98"
@@ -22,22 +23,49 @@ print f_app.common.mongo_server
 with f_app.mongo() as m:
 
     # 按预算统计伦敦求租意向单
-    print('\n按预算统计伦敦求租意向单:')
+    print('\n统计200镑以上的伦敦求租意向单:')
+    # 要统计的范围，比如200镑到300镑的表示方法为{'min': 200.0, 'max': 300.0}
+    target_budget_currency = 'GBP'
+    target_budget = {'min': 200.0}
+ 
+    budget_filter = []
+    for currency in f_app.common.currency:
+        condition = {}
+        conditions = {}
+        if currency == target_budget_currency:
+            if 'min' in target_budget:
+                condition['rent_budget_min.unit'] = currency
+                condition['rent_budget_min.value_float'] = {}
+                condition['rent_budget_min.value_float']['$gte'] = target_budget['min']
+            if 'max' in target_budget:
+                condition['rent_budget_max.unit'] = currency
+                condition['rent_budget_max.value_float'] = {}
+                condition['rent_budget_max.value_float']['$lte'] = target_budget['max']
+        else:
+            if 'min' in target_budget:
+                condition['rent_budget_min.unit'] = currency
+                condition['rent_budget_min.value_float'] = {}
+                condition['rent_budget_min.value_float']['$gte'] = float(f_app.i18n.convert_currency({"unit": target_budget_currency, "value_float": target_budget['min']}, currency))
+            if 'max' in target_budget:
+                condition['rent_budget_max.unit'] = currency
+                condition['rent_budget_max.value_float'] = {}
+                condition['rent_budget_max.value_float']['$lte'] = float(f_app.i18n.convert_currency({"unit": target_budget_currency, "value_float": target_budget['max']}, currency))
+        conditions['$and'] = []
+        conditions['$and'].append(condition)
+        budget_filter.append(conditions)
     cursor = m.tickets.aggregate(
         [
             {'$match': {
-                'type': "rent_intention"
+                'type': "rent_intention",
+                '$or': budget_filter
+                # '$or': [{'$and': [{'rent_budget_min.unit': 'GBP', 'rent_budget_min.value_float': {'$gte': 200.0}}]}, {'$and': [{'rent_budget_min.unit': 'CNY', 'rent_budget_min.value_float': {'$gte': 2000.0}}]}]
                 }},
-            {'$project': {
-                '_id': 1,
-                'rent_budget_min': 1,
-                'rent_budget_max': 1}}
+            {'$group': {'_id': "null", 'count': {'$sum': 1}}}
         ]
     )
 
     for document in cursor:
-        if(document['_id']):
-            print document
+        print('总数:' + str(document['count']))
 
     # 学生和已工作比例
     # 用户总数
