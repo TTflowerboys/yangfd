@@ -1258,6 +1258,7 @@
                 var index = imageArr.indexOf(url)
                 if(index >= 0){
                     imageArr.splice(index, 1)
+                    uploadObj.existingFileNames.splice(index, 1)
                 }
             },
             onSuccess:function(files, data, xhr, pd){
