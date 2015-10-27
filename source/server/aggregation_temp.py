@@ -18,54 +18,103 @@ else:
     f_app.common.memcache_server = ["172.20.101.98:11211"]
     f_app.common.mongo_server = "172.20.101.98"
 
-print f_app.common.mongo_server
-
 with f_app.mongo() as m:
 
-    # 按预算统计伦敦求租意向单
-    print('\n统计200镑以上的伦敦求租意向单:')
-    # 要统计的范围，比如200镑到300镑的表示方法为{'min': 200.0, 'max': 300.0}
-    target_budget_currency = 'GBP'
-    target_budget = {'min': 200.0}
- 
-    budget_filter = []
-    for currency in f_app.common.currency:
-        condition = {}
-        conditions = {}
-        if currency == target_budget_currency:
-            if 'min' in target_budget:
-                condition['rent_budget_min.unit'] = currency
-                condition['rent_budget_min.value_float'] = {}
-                condition['rent_budget_min.value_float']['$gte'] = target_budget['min']
-            if 'max' in target_budget:
-                condition['rent_budget_max.unit'] = currency
-                condition['rent_budget_max.value_float'] = {}
-                condition['rent_budget_max.value_float']['$lte'] = target_budget['max']
-        else:
-            if 'min' in target_budget:
-                condition['rent_budget_min.unit'] = currency
-                condition['rent_budget_min.value_float'] = {}
-                condition['rent_budget_min.value_float']['$gte'] = float(f_app.i18n.convert_currency({"unit": target_budget_currency, "value_float": target_budget['min']}, currency))
-            if 'max' in target_budget:
-                condition['rent_budget_max.unit'] = currency
-                condition['rent_budget_max.value_float'] = {}
-                condition['rent_budget_max.value_float']['$lte'] = float(f_app.i18n.convert_currency({"unit": target_budget_currency, "value_float": target_budget['max']}, currency))
-        conditions['$and'] = []
-        conditions['$and'].append(condition)
-        budget_filter.append(conditions)
+    # 正在发布中的房源里按最短接受租期的统计:
+    # 日租<1month 1month<=中短<3month <=3month中长<6month >=6month长租
+    print('\n正在发布中的房源里按最短接受租期的统计:')
     cursor = m.tickets.aggregate(
         [
             {'$match': {
-                'type': "rent_intention",
-                '$or': budget_filter
-                # '$or': [{'$and': [{'rent_budget_min.unit': 'GBP', 'rent_budget_min.value_float': {'$gte': 200.0}}]}, {'$and': [{'rent_budget_min.unit': 'CNY', 'rent_budget_min.value_float': {'$gte': 2000.0}}]}]
+                'type': "rent",
+                'status': "to rent"
                 }},
-            {'$group': {'_id': "null", 'count': {'$sum': 1}}}
+            {'$group': {'_id': "$minimum_rent_period", 'count': {'$sum': 1}}}
         ]
     )
 
+    period_count = {
+        'short': 0,
+        'short_middle': 0,
+        'middle_long': 0,
+        'long': 0,
+        'extra_long': 0
+    }
+
+    def covert_to_month(period):
+        if(period['unit'] == 'week'):
+            period['value'] = float(period['value'])/4
+        if(period['unit'] == 'day'):
+            period['value'] = float(period['value'])/31
+        if(period['unit'] == 'year'):
+            period['value'] = float(period['value'])*12
+        else:
+            period['value'] = float(period['value'])
+        return period
+
     for document in cursor:
-        print('总数:' + str(document['count']))
+        if(document['_id']):
+            period = covert_to_month(document['_id'])
+            if(period['value'] < 1.0):
+                period_count['short'] += document['count']
+            if(period['value'] >= 1.0 and period['value'] < 3.0):
+                period_count['short_middle'] += document['count']
+            if(period['value'] >= 3.0 and period['value'] < 6.0):
+                period_count['middle_long'] += document['count']
+            if(period['value'] >= 6.0 and period['value'] < 12.0):
+                period_count['long'] += document['count']
+            if(period['value'] >= 12.0):
+                period_count['extra_long'] += document['count']
+
+    print('日租<1month:' + str(period_count['short']))
+    print('1month<=中短<3month:' + str(period_count['short_middle']))
+    print('>=3month中长<6month:' + str(period_count['middle_long']))
+    print('>=6month长租<12month:' + str(period_count['long']))
+    print('>=12month:' + str(period_count['extra_long']))
+
+    # 按预算统计伦敦求租意向单
+    # print('\n统计200镑以上的伦敦求租意向单:')
+    # # 要统计的范围，比如200镑到300镑的表示方法为{'min': 200.0, 'max': 300.0}
+    # target_budget_currency = 'GBP'
+    # target_budget = {'min': 200.0}
+ 
+    # budget_filter = []
+    # for currency in f_app.common.currency:
+    #     condition = {}
+    #     conditions = {}
+    #     if currency == target_budget_currency:
+    #         if 'min' in target_budget:
+    #             condition['rent_budget_min.unit'] = currency
+    #             condition['rent_budget_min.value_float'] = {}
+    #             condition['rent_budget_min.value_float']['$gte'] = target_budget['min']
+    #         if 'max' in target_budget:
+    #             condition['rent_budget_max.unit'] = currency
+    #             condition['rent_budget_max.value_float'] = {}
+    #             condition['rent_budget_max.value_float']['$lte'] = target_budget['max']
+    #     else:
+    #         if 'min' in target_budget:
+    #             condition['rent_budget_min.unit'] = currency
+    #             condition['rent_budget_min.value_float'] = {}
+    #             condition['rent_budget_min.value_float']['$gte'] = float(f_app.i18n.convert_currency({"unit": target_budget_currency, "value_float": target_budget['min']}, currency))
+    #         if 'max' in target_budget:
+    #             condition['rent_budget_max.unit'] = currency
+    #             condition['rent_budget_max.value_float'] = {}
+    #             condition['rent_budget_max.value_float']['$lte'] = float(f_app.i18n.convert_currency({"unit": target_budget_currency, "value_float": target_budget['max']}, currency))
+    #     conditions['$and'] = []
+    #     conditions['$and'].append(condition)
+    #     budget_filter.append(conditions)
+    # cursor = m.tickets.aggregate(
+    #     [
+    #         {'$match': {
+    #             'type': "rent_intention",
+    #             '$or': budget_filter
+    #             }},
+    #         {'$group': {'_id': "null", 'count': {'$sum': 1}}}
+    #     ]
+    # )
+
+    # for document in cursor:
+    #     print('总数:' + str(document['count']))
 
     # 学生和已工作比例
     # 用户总数
