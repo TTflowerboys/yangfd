@@ -150,7 +150,8 @@ def order_search_view_rent_ticket_contact_info(user, params):
     per_page = params.pop("per_page", 0)
     orders = f_app.order.output(f_app.order.custom_search({
         "user.id": user_id,
-        "items.id": f_app.common.view_rent_ticket_contact_info_id
+        "items.id": f_app.common.view_rent_ticket_contact_info_id,
+        "status": "paid",
     }, per_page=per_page), permission_check=False)
 
     for order in orders:
