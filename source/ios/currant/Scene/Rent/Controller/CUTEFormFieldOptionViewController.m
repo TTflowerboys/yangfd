@@ -45,7 +45,7 @@
     _searchDisplayController.searchResultsDataSource = self;
     _searchDisplayController.searchResultsDelegate = self;
 
-    
+
     NSInteger count = self.field.optionCount;
     if (count > 0) {
         [SVProgressHUD show];

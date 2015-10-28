@@ -326,6 +326,10 @@
 		2C86DA5F1BCF8AD000B82941 /* CUTESurroundingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C86DA5D1BCF8AD000B82941 /* CUTESurroundingForm.swift */; settings = {ASSET_TAGS = (); }; };
 		2C86DA601BCF8AD000B82941 /* CUTESurroundingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C86DA5D1BCF8AD000B82941 /* CUTESurroundingForm.swift */; settings = {ASSET_TAGS = (); }; };
 		2C86DA611BCF8AD000B82941 /* CUTESurroundingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C86DA5D1BCF8AD000B82941 /* CUTESurroundingForm.swift */; settings = {ASSET_TAGS = (); }; };
+		2C91E58E1BE0C987005F6B5B /* CUTESurroundingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E58D1BE0C987005F6B5B /* CUTESurroundingCell.swift */; settings = {ASSET_TAGS = (); }; };
+		2C91E58F1BE0C987005F6B5B /* CUTESurroundingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E58D1BE0C987005F6B5B /* CUTESurroundingCell.swift */; settings = {ASSET_TAGS = (); }; };
+		2C91E5901BE0C988005F6B5B /* CUTESurroundingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E58D1BE0C987005F6B5B /* CUTESurroundingCell.swift */; settings = {ASSET_TAGS = (); }; };
+		2C91E5911BE0C988005F6B5B /* CUTESurroundingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E58D1BE0C987005F6B5B /* CUTESurroundingCell.swift */; settings = {ASSET_TAGS = (); }; };
 		2C94368E1BA941C000644E68 /* CUTELocalizationSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94368D1BA941C000644E68 /* CUTELocalizationSwitcher.m */; };
 		2C94368F1BA956D400644E68 /* CUTELocalizationSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94368D1BA941C000644E68 /* CUTELocalizationSwitcher.m */; };
 		2C9436901BA956D500644E68 /* CUTELocalizationSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94368D1BA941C000644E68 /* CUTELocalizationSwitcher.m */; };
@@ -979,6 +983,7 @@
 		2C86DA531BCF865200B82941 /* CUTESurroundingListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESurroundingListViewController.swift; sourceTree = "<group>"; };
 		2C86DA581BCF867800B82941 /* CUTESurrounding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESurrounding.swift; sourceTree = "<group>"; };
 		2C86DA5D1BCF8AD000B82941 /* CUTESurroundingForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESurroundingForm.swift; sourceTree = "<group>"; };
+		2C91E58D1BE0C987005F6B5B /* CUTESurroundingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESurroundingCell.swift; sourceTree = "<group>"; };
 		2C94368C1BA941C000644E68 /* CUTELocalizationSwitcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTELocalizationSwitcher.h; sourceTree = "<group>"; };
 		2C94368D1BA941C000644E68 /* CUTELocalizationSwitcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTELocalizationSwitcher.m; sourceTree = "<group>"; };
 		2C96E2721AE6566300F3590C /* CUTEShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEShareManager.h; sourceTree = "<group>"; };
@@ -1990,6 +1995,7 @@
 				2CF8A5D91AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m */,
 				2CF8A5DA1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.h */,
 				2CF8A5DB1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.m */,
+				2C91E58D1BE0C987005F6B5B /* CUTESurroundingCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2773,6 +2779,7 @@
 				2CF8A6841AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
 				2CF8A63D1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m in Sources */,
 				2CF8A6381AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
+				2C91E5901BE0C988005F6B5B /* CUTESurroundingCell.swift in Sources */,
 				2CDBA8D11B8D87B500C9D58F /* NSString+Truncate.m in Sources */,
 				2C056D871B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
 				2CF8A5F21AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
@@ -2940,6 +2947,7 @@
 				2CF8A6851AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
 				2CF8A63E1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m in Sources */,
 				2CF8A6391AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
+				2C91E5911BE0C988005F6B5B /* CUTESurroundingCell.swift in Sources */,
 				2CDBA8D21B8D87B500C9D58F /* NSString+Truncate.m in Sources */,
 				2C056D881B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
 				2CF8A5F31AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
@@ -3107,6 +3115,7 @@
 				2CF8A6831AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
 				2CF8A63C1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m in Sources */,
 				2CF8A6371AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
+				2C91E58F1BE0C987005F6B5B /* CUTESurroundingCell.swift in Sources */,
 				2CDBA8D01B8D87B300C9D58F /* NSString+Truncate.m in Sources */,
 				2C056D861B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
 				2CF8A5F11AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
@@ -3274,6 +3283,7 @@
 				2CF8A6821AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
 				2CF8A63B1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m in Sources */,
 				2CF8A6361AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
+				2C91E58E1BE0C987005F6B5B /* CUTESurroundingCell.swift in Sources */,
 				2CDBA8CF1B8D752600C9D58F /* NSString+Truncate.m in Sources */,
 				2C056D851B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
 				2CF8A5F01AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,

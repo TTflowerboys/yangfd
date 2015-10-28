@@ -10,6 +10,9 @@ import UIKit
 
 class CUTESurrounding: MTLModel, MTLJSONSerializing {
 
+    var name:String?
+    var type:String?
+
     static func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
         return ["name":"name", "type":"type"]
     }
