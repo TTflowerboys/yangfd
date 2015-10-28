@@ -403,6 +403,10 @@ property_params = dict(
     investment_type=(list, None, 'enum:investment_type'),
     indoor_facility=(list, None, 'enum:indoor_facility'),
     community_facility=(list, None, 'enum:community_facility'),
+    featured_facility=(list, None, dict(
+        type=("enum:featured_facility_type", True),
+        hesa_university=ObjectId,
+    )),
     slug=str,
     user_generated=bool,
     partner=bool,
@@ -563,6 +567,11 @@ def property_edit(property_id, user, params):
 
     if "status" in params:
         assert params["status"] in ("draft", "not translated", "translating", "rejected", "not reviewed", "selling", "hidden", "sold out", "deleted", "restricted"), abort(40000, "Invalid status")
+
+    if "featured_facility" in params:
+        for featured_facility in params["featured_facility"]:
+            # TODO: verify corresponding field
+            pass
 
     if "maponics_neighborhood" in params:
         neighborhood = f_app.maponics.neighborhood.get(params["maponics_neighborhood"]["_id"])
