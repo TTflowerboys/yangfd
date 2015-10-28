@@ -52,7 +52,13 @@
             background: lighten(@green, 5%);
         }
     }
-    
+
+    &[disabled] {
+        background-color: #bbb;
+        &:hover{
+            background-color: #bbb;
+        }
+    }
 
     > span { display: block;
         &.big { font-size: 24px; }

@@ -16,7 +16,7 @@
             <div class="code row">
                 <label>{{_('短信验证码')}}</label>
                 <input name="code" data-validator="required number"/>
-                <button name="code" type="button" class="button green ajaxButton">{{_('获取验证码')}}</button>
+                <button name="code" type="button" class="button green ajaxButton manualTriggerLoadingEnd">{{_('获取验证码')}}</button>
             </div>
             <p class="resultMessage" style="display:none"></p>
             <button class="button red ajaxButton" type="submit">{{_('验证')}}</button>

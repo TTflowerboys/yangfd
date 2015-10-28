@@ -1,7 +1,7 @@
 
 
 $('button[name=code]').click(function (e) {
-
+    var $getCodeBtn = $(this)
     var resultArea = $('form[name=changePhone2]').find('.resultMessage')
     resultArea.text(window.i18n('发送中...'))
     resultArea.show()
@@ -16,8 +16,22 @@ $('button[name=code]').click(function (e) {
             resultArea.text(window.i18n('发送失败，请重试'))
         })
         .always(function () {
+            $('.buttonLoading').trigger('end')
+            countDown ()
         })
-
+    function countDown () {
+        var text = i18n('{time}s后可用')
+        var time = 60
+        function update() {
+            if(time === 0) {
+                $getCodeBtn.prop('disabled', false).text(i18n('重新获取验证码'))
+            } else{
+                $getCodeBtn.prop('disabled', true).text(text.replace('{time}', time--))
+                setTimeout(update, 1000)
+            }
+        }
+        update()
+    }
 })
 
 
