@@ -13,6 +13,7 @@ class CUTESurroundingListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //TODO 显示默认的的surrounding list
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -20,7 +21,10 @@ class CUTESurroundingListViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, block: { (sender) -> Void in
 
-        })
+                                                                     //TODO open a search surrounding item view controller, add item from the search result
+                                                                 })
+        //TODO the surrounding item can be deleted, so the table need be editable and
+        //TODO the surrounding item's vehicle can be editable
     }
 
     override func didReceiveMemoryWarning() {
