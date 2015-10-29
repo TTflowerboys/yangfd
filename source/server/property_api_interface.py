@@ -409,6 +409,7 @@ property_params = dict(
         traffic_time=(list, True, dict(
             type=("enum:featured_facility_traffic_type", True),
             time=("i18n:time_period", True),
+            default=bool,
         )),
     )),
     slug=str,
