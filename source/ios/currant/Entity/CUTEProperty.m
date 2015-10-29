@@ -18,6 +18,7 @@
 #import "EXTKeyPathCoding.h"
 #import <MTLValueTransformer.h>
 #import <NSValueTransformer+MTLInversionAdditions.h>
+#import "currant-Swift.h"
 
 @implementation CUTEProperty
 
@@ -46,7 +47,8 @@
              @"status": @"status",
              @"mainHouseTypes": @"main_house_types",
              @"indoorFacilities": @"indoor_facility",
-             @"communityFacilities": @"community_facility"
+             @"communityFacilities": @"community_facility",
+             @"surrroundings": @"featured_facility",
              };
 }
 
@@ -76,6 +78,10 @@
 
 + (NSValueTransformer *)communityFacilitiesJSONTransformer {
     return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTEEnum class]];
+}
+
++ (NSValueTransformer *)surroundingsJSONTransformer {
+    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTESurrounding class]];
 }
 
 + (NSValueTransformer *)neighborhoodJSONTransformer {

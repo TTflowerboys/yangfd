@@ -33,5 +33,6 @@
 #import "CUTEFormTextFieldCell.h"
 #import <MTLModel.h>
 #import <MTLJSONAdapter.h>
+#import "CUTETimePeriod.h"
 
 #endif /* currant_Bridging_Header_h */

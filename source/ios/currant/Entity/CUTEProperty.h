@@ -73,6 +73,8 @@
 
 @property (strong, nonatomic) NSArray *communityFacilities;
 
+@property (strong, nonatomic) NSArray *surroundings;
+
 - (NSDictionary *)toParams;
 
 @end
