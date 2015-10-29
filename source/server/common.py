@@ -149,7 +149,7 @@ class common(f_common):
     sendgrid_sender_name = "YangFd"
 
     email_provider_sender_smart = {
-        "CN":
+        "CN-disabled":
         {
             "method": "sendcloud",
             "sender": "noreply@yangfd.com"
