@@ -502,6 +502,13 @@ def sendgrid_get_event():
         f_app.email.status.email_status_append(single_event)
 
 
+@f_post("/sendcloud_get_event_endpoint")
+def sendcloud_get_event():
+    email_event = request.json
+    for single_event in email_event:
+        f_app.email.status.email_status_append(single_event)
+
+
 @f_get("/wechat_endpoint", params=dict(
     signature=str,
     timestamp=str,
