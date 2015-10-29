@@ -330,6 +330,10 @@
 		2C91E58F1BE0C987005F6B5B /* CUTESurroundingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E58D1BE0C987005F6B5B /* CUTESurroundingCell.swift */; settings = {ASSET_TAGS = (); }; };
 		2C91E5901BE0C988005F6B5B /* CUTESurroundingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E58D1BE0C987005F6B5B /* CUTESurroundingCell.swift */; settings = {ASSET_TAGS = (); }; };
 		2C91E5911BE0C988005F6B5B /* CUTESurroundingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E58D1BE0C987005F6B5B /* CUTESurroundingCell.swift */; settings = {ASSET_TAGS = (); }; };
+		2C91E5C61BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */; settings = {ASSET_TAGS = (); }; };
+		2C91E5C71BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */; settings = {ASSET_TAGS = (); }; };
+		2C91E5C81BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */; settings = {ASSET_TAGS = (); }; };
+		2C91E5C91BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */; settings = {ASSET_TAGS = (); }; };
 		2C94368E1BA941C000644E68 /* CUTELocalizationSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94368D1BA941C000644E68 /* CUTELocalizationSwitcher.m */; };
 		2C94368F1BA956D400644E68 /* CUTELocalizationSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94368D1BA941C000644E68 /* CUTELocalizationSwitcher.m */; };
 		2C9436901BA956D500644E68 /* CUTELocalizationSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94368D1BA941C000644E68 /* CUTELocalizationSwitcher.m */; };
@@ -984,6 +988,7 @@
 		2C86DA581BCF867800B82941 /* CUTESurrounding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESurrounding.swift; sourceTree = "<group>"; };
 		2C86DA5D1BCF8AD000B82941 /* CUTESurroundingForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESurroundingForm.swift; sourceTree = "<group>"; };
 		2C91E58D1BE0C987005F6B5B /* CUTESurroundingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESurroundingCell.swift; sourceTree = "<group>"; };
+		2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTETrafficTime.swift; sourceTree = "<group>"; };
 		2C94368C1BA941C000644E68 /* CUTELocalizationSwitcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTELocalizationSwitcher.h; sourceTree = "<group>"; };
 		2C94368D1BA941C000644E68 /* CUTELocalizationSwitcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTELocalizationSwitcher.m; sourceTree = "<group>"; };
 		2C96E2721AE6566300F3590C /* CUTEShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEShareManager.h; sourceTree = "<group>"; };
@@ -1535,6 +1540,7 @@
 				2C1251901B53909A0037F5B6 /* CUTECredit.h */,
 				2C1251911B53909A0037F5B6 /* CUTECredit.m */,
 				2C86DA581BCF867800B82941 /* CUTESurrounding.swift */,
+				2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -2686,6 +2692,7 @@
 				2CF8A6981AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FAA1B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C0C0A011B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
+				2C91E5C81BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */,
 				2CE2A9831B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */,
 				2C2FCDBF1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2C86DA5B1BCF867800B82941 /* CUTESurrounding.swift in Sources */,
@@ -2854,6 +2861,7 @@
 				2CF8A6991AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FAB1B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C0C0A021B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
+				2C91E5C91BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */,
 				2CE2A9841B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */,
 				2C2FCDC01AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2C86DA5C1BCF867800B82941 /* CUTESurrounding.swift in Sources */,
@@ -3022,6 +3030,7 @@
 				2CF8A6971AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FA91B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C0C0A001B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
+				2C91E5C71BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */,
 				2CE2A9821B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */,
 				2C2FCDBE1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2C86DA5A1BCF867800B82941 /* CUTESurrounding.swift in Sources */,
@@ -3190,6 +3199,7 @@
 				2CF8A6961AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FA81B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C0C09FF1B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
+				2C91E5C61BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */,
 				2CE2A9811B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */,
 				2C2FCDBD1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
 				2C86DA591BCF867800B82941 /* CUTESurrounding.swift in Sources */,
