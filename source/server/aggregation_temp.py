@@ -20,64 +20,60 @@ else:
 
 with f_app.mongo() as m:
 
-    # 正在发布中的房源里按最短接受租期的统计:
-    # 日租<1month 1month<=中短<3month <=3month中长<6month >=6month长租
-    print('\n正在发布中的房源里按最短接受租期的统计:')
-    cursor = m.tickets.aggregate(
+    # 分邮件类型来统计邮件发送和打开的状态
+    print('\n分邮件类型来统计邮件发送成功,打开和点击的百分比:')
+    # 计算每类邮件的总数
+    tasks_count_by_tag = {}
+    cursor = m.tasks.aggregate(
         [
-            {'$match': {
-                'type': "rent",
-                'status': "to rent"
-                }},
-            {'$group': {'_id': "$minimum_rent_period", 'count': {'$sum': 1}}}
+            {'$match': {'type': "email_send"}},
+            {'$group': {'_id': "$tag", 'count': {'$sum': 1}}}
         ]
     )
 
-    period_count = {
-        'short': 0,
-        'short_middle': 0,
-        'middle_long': 0,
-        'long': 0,
-        'extra_long': 0
-    }
-
-    def covert_to_month(period):
-        if(period['unit'] == 'week'):
-            period['value'] = float(period['value'])/4
-        if(period['unit'] == 'day'):
-            period['value'] = float(period['value'])/31
-        if(period['unit'] == 'year'):
-            period['value'] = float(period['value'])*12
-        else:
-            period['value'] = float(period['value'])
-        return period
-
     for document in cursor:
-        if(document['_id']):
-            period = covert_to_month(document['_id'])
-            if(period['value'] < 1.0):
-                period_count['short'] += document['count']
-            if(period['value'] >= 1.0 and period['value'] < 3.0):
-                period_count['short_middle'] += document['count']
-            if(period['value'] >= 3.0 and period['value'] < 6.0):
-                period_count['middle_long'] += document['count']
-            if(period['value'] >= 6.0 and period['value'] < 12.0):
-                period_count['long'] += document['count']
-            if(period['value'] >= 12.0):
-                period_count['extra_long'] += document['count']
+        if (document['_id']):
+            tasks_count_by_tag[document['_id']] = document['count']
 
-    print('日租<1month:' + str(period_count['short']))
-    print('1month<=中短<3month:' + str(period_count['short_middle']))
-    print('>=3month中长<6month:' + str(period_count['middle_long']))
-    print('>=6month长租<12month:' + str(period_count['long']))
-    print('>=12month:' + str(period_count['extra_long']))
-
+    # 统计每类邮件发送成功率，打开率和点击率
+    for email_tag in tasks_count_by_tag.keys():
+        # print(email_tag + '邮件总数: ' + str(tasks_count_by_tag[email_tag]))
+        cursor = m.tasks.find({'tag': email_tag})
+        total_count = 0
+        target_status_rate = {
+            'delivered': 0,
+            'open': 0,
+            'click': 0
+        }
+        for task in cursor:
+            if ('email_id' in task and 'target' in task):
+                emails_status_id = f_app.email.status.get_email_status_id(task['email_id'], task['target'])
+                if(isinstance(emails_status_id, list)):
+                    for email_status_id in emails_status_id:
+                        email = f_app.email.status.get(email_status_id)
+                        if 'email_status_set' in email:
+                            total_count += 1
+                            for status in target_status_rate.keys():
+                                if status in email['email_status_set']:
+                                    target_status_rate[status] += 1
+                else:
+                    email = f_app.email.status.get(emails_status_id)
+                    if 'email_status_set' in email:
+                            total_count += 1
+                            for status in target_status_rate.keys():
+                                if status in email['email_status_set']:
+                                    target_status_rate[status] += 1
+        print('\n' + email_tag.encode('utf-8') + '邮件总数: ' + str(total_count) + ', 其中:')
+        if(total_count != 0):
+            for key in target_status_rate.keys():
+                print(key.encode('utf-8') + ': ' + str(float(target_status_rate[key])/total_count))
+    # print('\n统计200镑以上的伦敦求租意向单:')
     # 按预算统计伦敦求租意向单
     # print('\n统计200镑以上的伦敦求租意向单:')
     # # 要统计的范围，比如200镑到300镑的表示方法为{'min': 200.0, 'max': 300.0}
     # target_budget_currency = 'GBP'
     # target_budget = {'min': 200.0}
- 
+
     # budget_filter = []
     # for currency in f_app.common.currency:
     #     condition = {}
