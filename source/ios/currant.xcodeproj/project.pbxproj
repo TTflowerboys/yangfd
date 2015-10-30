@@ -111,10 +111,6 @@
 		2C07AB8B1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
 		2C07AB8C1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
 		2C07AB8D1AE8FF6600907075 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07AB891AE8FF6600907075 /* UIView+Border.m */; };
-		2C0AE10E1B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */; };
-		2C0AE10F1B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */; };
-		2C0AE1101B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */; };
-		2C0AE1111B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */; };
 		2C0AE1151B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1141B1EC72B00A73BE6 /* CUTETimePeriod.m */; };
 		2C0AE1161B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1141B1EC72B00A73BE6 /* CUTETimePeriod.m */; };
 		2C0AE1171B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0AE1141B1EC72B00A73BE6 /* CUTETimePeriod.m */; };
@@ -334,6 +330,10 @@
 		2C91E5C71BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */; settings = {ASSET_TAGS = (); }; };
 		2C91E5C81BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */; settings = {ASSET_TAGS = (); }; };
 		2C91E5C91BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */; settings = {ASSET_TAGS = (); }; };
+		2C91E5CB1BE313FA005F6B5B /* CUTEGeoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5CA1BE313FA005F6B5B /* CUTEGeoManager.swift */; settings = {ASSET_TAGS = (); }; };
+		2C91E5CC1BE313FA005F6B5B /* CUTEGeoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5CA1BE313FA005F6B5B /* CUTEGeoManager.swift */; settings = {ASSET_TAGS = (); }; };
+		2C91E5CD1BE313FA005F6B5B /* CUTEGeoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5CA1BE313FA005F6B5B /* CUTEGeoManager.swift */; settings = {ASSET_TAGS = (); }; };
+		2C91E5CE1BE313FA005F6B5B /* CUTEGeoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5CA1BE313FA005F6B5B /* CUTEGeoManager.swift */; settings = {ASSET_TAGS = (); }; };
 		2C94368E1BA941C000644E68 /* CUTELocalizationSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94368D1BA941C000644E68 /* CUTELocalizationSwitcher.m */; };
 		2C94368F1BA956D400644E68 /* CUTELocalizationSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94368D1BA941C000644E68 /* CUTELocalizationSwitcher.m */; };
 		2C9436901BA956D500644E68 /* CUTELocalizationSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C94368D1BA941C000644E68 /* CUTELocalizationSwitcher.m */; };
@@ -861,8 +861,6 @@
 		2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEModelEditingListener.m; sourceTree = "<group>"; };
 		2C07AB881AE8FF6600907075 /* UIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
 		2C07AB891AE8FF6600907075 /* UIView+Border.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Border.m"; sourceTree = "<group>"; };
-		2C0AE10C1B1DAFB100A73BE6 /* CUTEGeoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEGeoManager.h; sourceTree = "<group>"; };
-		2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEGeoManager.m; sourceTree = "<group>"; };
 		2C0AE1131B1EC72B00A73BE6 /* CUTETimePeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETimePeriod.h; sourceTree = "<group>"; };
 		2C0AE1141B1EC72B00A73BE6 /* CUTETimePeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETimePeriod.m; sourceTree = "<group>"; };
 		2C0AE11A1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormRentPeriodPickerCell.h; sourceTree = "<group>"; };
@@ -989,6 +987,7 @@
 		2C86DA5D1BCF8AD000B82941 /* CUTESurroundingForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESurroundingForm.swift; sourceTree = "<group>"; };
 		2C91E58D1BE0C987005F6B5B /* CUTESurroundingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESurroundingCell.swift; sourceTree = "<group>"; };
 		2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTETrafficTime.swift; sourceTree = "<group>"; };
+		2C91E5CA1BE313FA005F6B5B /* CUTEGeoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEGeoManager.swift; sourceTree = "<group>"; };
 		2C94368C1BA941C000644E68 /* CUTELocalizationSwitcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTELocalizationSwitcher.h; sourceTree = "<group>"; };
 		2C94368D1BA941C000644E68 /* CUTELocalizationSwitcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTELocalizationSwitcher.m; sourceTree = "<group>"; };
 		2C96E2721AE6566300F3590C /* CUTEShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEShareManager.h; sourceTree = "<group>"; };
@@ -1785,8 +1784,7 @@
 				2C427E4B1AD2414D000378A9 /* CUTEAPICacheManager.m */,
 				2C5ECC4F1AD525AC00163E9E /* CUTEAPIManager.h */,
 				2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */,
-				2C0AE10C1B1DAFB100A73BE6 /* CUTEGeoManager.h */,
-				2C0AE10D1B1DAFB100A73BE6 /* CUTEGeoManager.m */,
+				2C91E5CA1BE313FA005F6B5B /* CUTEGeoManager.swift */,
 				2CA5F76E1AE10382001132E0 /* CUTEImageUploader.h */,
 				2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */,
 				2CC6C1E91AEE2E59002758A7 /* CUTERentTicketPublisher.h */,
@@ -2747,7 +2745,6 @@
 				2C056D961B423B4D0075037A /* CUTESplashViewController.m in Sources */,
 				2C3DE2351B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67EE1B1C085300351DED /* CUTEMapListViewController.m in Sources */,
-				2C0AE1101B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */,
 				2C2FCDDB1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62E1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
@@ -2777,6 +2774,7 @@
 				2C03AB4A1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,
 				2CF8A65B1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */,
 				2CF8A5E31AF0B40E0080DF10 /* CUTERentPropertyInfoViewController.m in Sources */,
+				2C91E5CD1BE313FA005F6B5B /* CUTEGeoManager.swift in Sources */,
 				2CA2E6B21AC5487800053965 /* CUTEDataManager.m in Sources */,
 				2CF8A61A1AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2621B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
@@ -2916,7 +2914,6 @@
 				2C056D971B423B4D0075037A /* CUTESplashViewController.m in Sources */,
 				2C3DE2361B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67EF1B1C085400351DED /* CUTEMapListViewController.m in Sources */,
-				2C0AE1111B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */,
 				2C2FCDDC1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F51AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62F1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
@@ -2946,6 +2943,7 @@
 				2C03AB4B1B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,
 				2CF8A65C1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */,
 				2CF8A5E41AF0B40E0080DF10 /* CUTERentPropertyInfoViewController.m in Sources */,
+				2C91E5CE1BE313FA005F6B5B /* CUTEGeoManager.swift in Sources */,
 				2CA2E6CB1AC5496700053965 /* CUTEDataManager.m in Sources */,
 				2CF8A61B1AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2631B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
@@ -3085,7 +3083,6 @@
 				2C056D951B423B4D0075037A /* CUTESplashViewController.m in Sources */,
 				2C3DE2341B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67ED1B1C085300351DED /* CUTEMapListViewController.m in Sources */,
-				2C0AE10F1B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */,
 				2C2FCDDA1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62D1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
@@ -3115,6 +3112,7 @@
 				2C03AB491B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,
 				2CF8A65A1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */,
 				2CF8A5E21AF0B40E0080DF10 /* CUTERentPropertyInfoViewController.m in Sources */,
+				2C91E5CC1BE313FA005F6B5B /* CUTEGeoManager.swift in Sources */,
 				2CA94A9C1ACA42CD00DF7497 /* CUTEDataManager.m in Sources */,
 				2CF8A6191AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2611B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
@@ -3253,7 +3251,6 @@
 				2C056D941B423B4D0075037A /* CUTESplashViewController.m in Sources */,
 				2C3DE2331B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67EC1B1C084A00351DED /* CUTEMapListViewController.m in Sources */,
-				2C0AE10E1B1DAFB100A73BE6 /* CUTEGeoManager.m in Sources */,
 				2C2FCDD91B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62C1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
@@ -3284,6 +3281,7 @@
 				2C03AB481B02057E000F8F2F /* CUTEFormLimitCharacterCountTextFieldCell.m in Sources */,
 				2CF8A6591AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.m in Sources */,
 				2CF8A5E11AF0B40E0080DF10 /* CUTERentPropertyInfoViewController.m in Sources */,
+				2C91E5CB1BE313FA005F6B5B /* CUTEGeoManager.swift in Sources */,
 				2CDBB2FA1AC146790024E225 /* CUTEDataManager.m in Sources */,
 				2CF8A6181AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2601B074FA5006FF191 /* BBTCenterImageView.m in Sources */,

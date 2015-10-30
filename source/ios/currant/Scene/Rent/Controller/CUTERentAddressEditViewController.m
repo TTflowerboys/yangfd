@@ -20,7 +20,6 @@
 #import "CUTETracker.h"
 #import "CUTEAPIManager.h"
 #import <UIAlertView+Blocks.h>
-#import "CUTEGeoManager.h"
 #import "CUTEPlacemark.h"
 #import "CUTERentAddressMapViewController.h"
 #import "NSArray+ObjectiveSugar.h"

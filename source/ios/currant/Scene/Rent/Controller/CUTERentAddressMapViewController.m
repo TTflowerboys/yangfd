@@ -31,7 +31,6 @@
 #import "CUTECity.h"
 #import "CUTEAPIManager.h"
 #import "CUTEPlacemark.h"
-#import "CUTEGeoManager.h"
 #import "CUTENotificationKey.h"
 #import "CUTETooltipView.h"
 #import "CUTEUserDefaultKey.h"
