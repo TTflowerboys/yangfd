@@ -2,7 +2,7 @@
 <html xmlns:wb="http://open.weibo.com/wb">
     <head>
         <title>{{title}}</title>
-        <meta name="Description" content="{{clear_html_tags(description)}}">
+        <meta name="Description" content="{{clear_html_tags(description).replace('\n','\\n').replace('\r\n','\\r\\n')}}">
         <meta name="Keywords" content="{{keywords}}">
         <!--Disable phone dtection on safari-->
         <meta name="format-detection" content="telephone=no">
