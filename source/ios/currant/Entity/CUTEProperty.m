@@ -48,7 +48,7 @@
              @"mainHouseTypes": @"main_house_types",
              @"indoorFacilities": @"indoor_facility",
              @"communityFacilities": @"community_facility",
-             @"surrroundings": @"featured_facility",
+             @"surroundings": @"featured_facility",
              };
 }
 
@@ -128,7 +128,7 @@
         return value;
     }
     else if ([key isEqualToString:@keypath(self.zipcode)]) {
-        return value;
+        return value;\
     }
     else if ([key isEqualToString:@keypath(self.status)]) {
         return value;
@@ -171,6 +171,11 @@
     else if ([key isEqualToString:@keypath(self.communityFacilities)] && [value isKindOfClass:[NSArray class]]) {
         return [[(NSArray *)value map:^id(CUTEEnum *object) {
             return object.identifier;
+        }] componentsJoinedByString:@","];
+    }
+    else if ([key isEqualToString:@keypath(self.surroundings)] && [value isKindOfClass:[NSArray class]]) {
+        return [[(NSArray *)value map:^id(CUTESurrounding *object) {
+            return [object toParams];
         }] componentsJoinedByString:@","];
     }
     else if ([key isEqualToString:@keypath(self.neighborhood)] && [value isKindOfClass:[CUTENeighborhood class]]) {

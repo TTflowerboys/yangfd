@@ -46,4 +46,9 @@ class CUTESurrounding: MTLModel, MTLJSONSerializing {
     static func trafficTimesJSONTransformer() -> NSValueTransformer {
         return NSValueTransformer.mtl_JSONArrayTransformerWithModelClass(CUTETrafficTime)
     }
+
+    func toParams() -> [String:AnyObject]? {
+        return nil;
+//        return @[self.surroudingKey:self.surroungingIndentifier];
+    }
 }

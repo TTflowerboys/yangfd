@@ -277,4 +277,51 @@ class CUTEGeoManager: NSObject {
         
         return tcs.task
     }
+
+    func searchDistanceMatrixWithOrigins(origins:[String], destinations:[String], mode:String = "driving") -> BFTask {
+        let tcs = BFTaskCompletionSource()
+
+        let originsParam = origins.joinWithSeparator("|").URLEncode()
+        let destinationsParam = destinations.joinWithSeparator("|").URLEncode()
+        let URLString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=\(originsParam)&destinations=\(destinationsParam)&mode=\(mode)&language=en-GB&key=\(CUTEConfiguration.googleAPIKey())"
+
+        reverseProxyWithLink(URLString).continueWithBlock { (task:BFTask!) -> AnyObject! in
+            if let dic = task.result as? [String:AnyObject] {
+
+                do {
+                    guard let rows = dic["rows"] as? [[String: AnyObject]] else {
+                        throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + dic.description])
+                    }
+
+                    let timePeriods = try rows.map({ (dic: [String: AnyObject]) -> [CUTETimePeriod] in
+                        guard let elements = dic["elements"] as? [[String: AnyObject]] else {
+                            throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + dic.description])
+                        }
+
+                        let timePeriods = try elements.map({ (element: [String: AnyObject]) -> CUTETimePeriod in
+                            guard let durationDic = element["duration"] as? [String: AnyObject] else {
+                                throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + element.description])
+                            }
+                            guard let duration = durationDic["value"] as? Float else {
+                                throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + durationDic.description])
+                            }
+                            let timePeriod = CUTETimePeriod(value: duration, unit: "second")
+                            return timePeriod
+                        })
+                        return timePeriods
+                    })
+                    tcs.setResult(timePeriods)
+                }
+                catch let error as NSError {
+                    tcs.setError(error)
+                }
+            }
+            else {
+                tcs.setError(task.error)
+            }
+            return task
+        }
+
+        return tcs.task
+    }
 }
