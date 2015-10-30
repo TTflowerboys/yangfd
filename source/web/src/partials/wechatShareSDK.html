@@ -82,7 +82,7 @@
                     callbackObj = callbackObj || {}
                     var defaultWechatShareData = {
                         title: '{{title}}',
-                        desc: '{{clear_html_tags(description).replace('\n','\\n').replace('\r\n','\\r\\n')}}'.replace(/(\r\n|\n|\r)/gm,'').slice(0, 100),
+                        desc: '{{clear_line_break(clear_html_tags(description))}}'.slice(0, 100),
                         link: window.location.href,
                         imgUrl: 'http://upload.yangfd.com/app_icon_x120_150427.png',
 //                        desc: '',

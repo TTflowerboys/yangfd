@@ -214,6 +214,9 @@ def get_phone_numbers(use="display"):
 def clear_html_tags(content):
     return lxml.html.fromstring(content).text_content()
 
+def clear_line_break(content):
+    return content.replace('\n','').replace('\r\n','')
+
 
 def common_template(path, **kwargs):
     if 'title' not in kwargs:
@@ -268,5 +271,6 @@ def common_template(path, **kwargs):
     kwargs.setdefault("get_phone_code_by_country", get_phone_code_by_country)
     kwargs.setdefault("get_phone_numbers", get_phone_numbers)
     kwargs.setdefault("clear_html_tags", clear_html_tags)
+    kwargs.setdefault("clear_line_break", clear_line_break)
     kwargs.setdefault("redirect", redirect)
     return template(path, **kwargs)
