@@ -50,15 +50,21 @@ with f_app.mongo() as m:
                 emails_status_id = f_app.email.status.get_email_status_id(task['email_id'], task['target'])
                 if(isinstance(emails_status_id, list)):
                     for email_status_id in emails_status_id:
-                        email = f_app.email.status.get(email_status_id)
+                        try:
+                            email = f_app.email.status.get(email_status_id)
+                        except AttributeError:
+                            email = None
                         if 'email_status_set' in email:
                             total_count += 1
                             for status in target_status_rate.keys():
                                 if status in email['email_status_set']:
                                     target_status_rate[status] += 1
                 else:
-                    email = f_app.email.status.get(emails_status_id)
-                    if 'email_status_set' in email:
+                    try:
+                        email = f_app.email.status.get(emails_status_id)
+                    except AttributeError:
+                        email = None
+                    if email and 'email_status_set' in email:
                             total_count += 1
                             for status in target_status_rate.keys():
                                 if status in email['email_status_set']:
