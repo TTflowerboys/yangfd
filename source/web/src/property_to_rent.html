@@ -359,6 +359,51 @@
         </div>
         % end
 
+        <!--mock data start-->
+        % rent['property']['surrounding'] = [{
+        %    "name": "The University of Cambridge",
+        %    "travel": [
+        %        {"type": "walk", "value": "50", "unit": "minute"},
+        %        {"type": "bike", "value": "20", "unit": "minute"},
+        %        {"type": "bus", "value": "14", "unit": "minute"},
+        %        {"type": "drive", "value": "8", "unit": "minute"}
+        %    ]
+        %},{
+        %    "name": "Buckinghamshire New University",
+        %    "travel": [
+        %        {"type": "walk", "value": "40", "unit": "minute"},
+        %        {"type": "bike", "value": "16", "unit": "minute"},
+        %        {"type": "bus", "value": "12", "unit": "minute"},
+        %        {"type": "drive", "value": "6", "unit": "minute"}
+        %    ]
+        %},{
+        %    "name": "Canterbury Christ Church University",
+        %    "travel": [
+        %        {"type": "walk", "value": "45", "unit": "minute"},
+        %        {"type": "bike", "value": "18", "unit": "minute"},
+        %        {"type": "bus", "value": "13", "unit": "minute"},
+        %        {"type": "drive", "value": "9", "unit": "minute"}
+        %    ]
+        %}]
+        <!--mock data end-->
+        % if 'surrounding' in rent['property']:
+        <!-- @@include=/static/templates/show_travel_time.tpl.html-->
+        <textarea id="surroundingData" style="display: none;">{{json_dumps(rent['property']['surrounding'])}}</textarea>
+        <div class="surrounding_section">
+            <div class="seperator"></div>
+            <div class="surrounding_wrapper">
+                <h3 class="surrounding_title">{{_('周边')}}</h3>
+                <ul class="surrounding" data-bind="foreach: surrouding">
+                    <li>
+                        <i class="icon-category_b"></i>
+                        <span class="name" data-bind="text: name"></span>
+                        <show-travel-time params="travel: travel"></show-travel-time>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        % end
+
         %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country'):
         <div id="propertyDetails_aroundMap" class="maps_wrapper scrollto">
             <div class="seperator"></div>
@@ -674,6 +719,7 @@
         <!--weibo SDK-->
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2806233261" type="text/javascript" charset="utf-8"></script>
         <!--build:js /static/scripts/property-to-rent.html.js-->
+        <script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
         <script type="text/javascript" src="/static/bower_components/intro.js/minified/intro.min.js"></script>
         <script type="text/javascript" src="/static/scripts/rent_introjs_init.js"></script>
         <script type="text/javascript" src="/static/bower_components/swiper/dist/js/swiper.jquery.min.js"></script>
@@ -689,6 +735,7 @@
         <script src="/static/bower_components/jquery.dotdotdot/src/js/jquery.dotdotdot.js"></script>
         <script src="/static/scripts/host_contact_request.js"></script>
         <script src="/static/scripts/property_to_rent_actions.js"></script>
+        <script src="/static/scripts/property_to_rent_surrouding.js"></script>
         <!--endbuild-->
         <script>
             $(function () {

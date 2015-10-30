@@ -978,6 +978,98 @@ body {
         }
     }
 
+    .surrounding {
+        &_section {
+            @media @phone {
+                padding: @standard-margin;
+            }
+        }
+
+        &_wrapper {
+            @media @phone {
+                padding: @standard-margin * 2 @standard-margin;
+            }
+
+            .surrounding_title {
+                font-size: @large-font-size;
+                font-weight: bold;
+                display: inline;
+
+                @media @phone {
+                    font-size: @root-font-size-mobile;
+                    font-weight: normal;
+                }
+            }
+
+            .more {
+                margin-left: @standard-margin;
+
+                @media @phone {
+                    display: none;
+                }
+            }
+
+            .ghostButton {
+                display: none;
+                float: right;
+
+                @media @phone {
+                    display: inline;
+                }
+            }
+        }
+
+        margin-top: @standard-margin * 2;
+        margin-bottom: @standard-margin * 3;
+        margin-left: @standard-margin * 2;
+
+        .clearfix();
+
+        @media @phone {
+            display: block;
+            margin: @standard-margin * 2 0 0px 0;
+        }
+
+        > li {
+            display: block;
+            font-size: 16px;
+            @media @phone{
+                font-size: 14px;
+                margin-bottom: 6px;
+            }
+            i{
+                vertical-align: middle;
+                font-size: 18px;
+            }
+            .name{
+                display: inline-block;
+                margin-left: 6px;
+                width: 570px;
+                color: #666;
+                vertical-align: middle;
+                @media @phone{
+                    width: 40vw;
+                    line-height: 1.2em;
+                }
+            }
+            show-travel-time{
+                display: inline-block;
+                vertical-align: middle;
+                select{
+                    width: 90px;
+                    @media @phone{
+                        width: 65px;
+                    }
+                }
+                .time{
+                    margin-left: 6px;
+                    color: @red;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+
     .maps_wrapper {
         overflow: hidden;
         height: 480px;

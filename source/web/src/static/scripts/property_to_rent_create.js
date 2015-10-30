@@ -1,4 +1,4 @@
-(function(){
+(function(ko){
     var imageArr
     if($('#fileuploader').data('files') !== undefined) {
         imageArr = $('#fileuploader').data('files').split(',')
@@ -135,42 +135,48 @@
     }).when('/1', function() {
         ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-cover')
 
-        showRoute1()
-        $('#load_more .load_more').trigger('click')
-        $('body,html').stop(true,true).animate({scrollTop: 1870}, 500)
-    }).when('/2', function() {
-        ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-property-detail')
 
-        showRoute1()
-        $('body,html').stop(true,true).animate({scrollTop: 657}, 500)
-    }).when('/3', function() {
-        ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-description-facilities')
+            showRoute1()
+            $('#load_more .load_more').trigger('click')
+            $('body,html').stop(true,true).animate({scrollTop: 1870}, 500)
+        })
+        .when('/2', function() {
+            ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-property-detail')
 
-        showRoute1()
-        $('#load_more .load_more').trigger('click')
-        $('#description').trigger('focus')
-        $('body,html').stop(true,true).animate({scrollTop: 1870}, 500)
-    }).when('/4', function() {
-        ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-address')
+            showRoute1()
+            $('body,html').stop(true,true).animate({scrollTop: 657}, 500)
+        })
+        .when('/3', function() {
+            ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-description-facilities')
 
-        showRoute1()
-        $('#postcode').trigger('focus')
-        $('body,html').stop(true,true).animate({scrollTop: 763}, 500)
+            showRoute1()
+            $('#load_more .load_more').trigger('click')
+            $('#description').trigger('focus')
+            $('body,html').stop(true,true).animate({scrollTop: 1870}, 500)
+        })
+        .when('/4', function() {
+            ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-address')
 
-    }).when('/5', function() {
-        ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-pics')
+            showRoute1()
+            $('#postcode').trigger('focus')
+            $('body,html').stop(true,true).animate({scrollTop: 763}, 500)
 
-        showRoute1()
-        $('#fileuploader').trigger('hover')
-        $('body,html').stop(true,true).animate({scrollTop: 478}, 500)
-    }).when('/6', function() {
-        ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-region')
+        })
+        .when('/5', function() {
+            ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-pics')
 
-        showRoute1()
-        $('#inputAddress').trigger('click')
-        $('#block').trigger('focus')
-        $('body,html').stop(true,true).animate({scrollTop: 763}, 500)
-    })
+            showRoute1()
+            $('#fileuploader').trigger('hover')
+            $('body,html').stop(true,true).animate({scrollTop: 478}, 500)
+        })
+        .when('/6', function() {
+            ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-region')
+
+            showRoute1()
+            $('#inputAddress').trigger('click')
+            $('#block').trigger('focus')
+            $('body,html').stop(true,true).animate({scrollTop: 763}, 500)
+        })
 
     //根据用户选择的单间或者整租类型来决定显示房间面积还是房屋面积
     function showRoomOrHouse(index){
@@ -303,8 +309,8 @@
         clearData('neighborhood')
         clearData('city')
         clearData('country')
-        $('#latitude').val('')
-        $('#longitude').val('')
+        $('#latitude').val('').trigger('change')
+        $('#longitude').val('').trigger('change')
     }
 
     $('#findAddress').click(function () {
@@ -326,8 +332,8 @@
             if (val.neighborhoods && val.neighborhoods.length) {
                 $('#neighborhood').val(val.neighborhoods[0].id)
             }
-            $('#latitude').val(val.latitude)
-            $('#longitude').val(val.longitude)
+            propertyViewModel.latitude(val.latitude)
+            propertyViewModel.longitude(val.longitude)
             var geocodeApiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + $('#latitude').val() + ',' + $('#longitude').val() + '&result_type=street_address&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
             window.geonamesApi.getCityByLocation(val.country, val.latitude, val.longitude, function (val) {
                 $.betterGet('/reverse_proxy?link=' + encodeURIComponent(geocodeApiUrl))
@@ -1311,4 +1317,15 @@
             $(this).toggleClass('cover').siblings('.ajax-file-upload-statusbar').removeClass('cover')
         })
     })
-})()
+
+    function PropertyViewModel() {
+        this.latitude = ko.observable($('#latitude').attr('data-value'))
+        this.longitude = ko.observable($('#longitude').attr('data-value'))
+        this.city = ko.observable()
+        this.show = ko.computed(function () {
+            return !_.isEmpty(this.latitude()) && !_.isEmpty(this.longitude())
+        }, this)
+    }
+    var propertyViewModel = new PropertyViewModel()
+    ko.applyBindings(propertyViewModel)
+})(window.ko)

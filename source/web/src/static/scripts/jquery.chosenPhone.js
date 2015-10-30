@@ -30,7 +30,7 @@
         }
         this.create = function () {
             this.body = this.elem.parents('body,html')
-            this.chosen = $('<div class="chosen-container chosen-container-single' + ((option.disable_search_threshold && option.disable_search_threshold >= this.data.length) ? ' chosen-container-single-nosearch' : '') + '"><a class="chosen-single" tabindex="-1"><span></span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off" spellcheck="false"><i class="icon-search"></i></div><ul class="chosen-results"></ul><div class="close-chosen-drop"><span>' + i18n('取消') + '</span></div></div></div>')
+            this.chosen = $('<div class="chosen-container chosen-container-single' + (option.inherit_select_classes ? ' ' + this.elem.attr('class') : '') + ((option.disable_search_threshold && option.disable_search_threshold >= this.data.length) ? ' chosen-container-single-nosearch' : '') + '"><a class="chosen-single" tabindex="-1"><span></span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off" spellcheck="false"><i class="icon-search"></i></div><ul class="chosen-results"></ul><div class="close-chosen-drop"><span>' + i18n('取消') + '</span></div></div></div>')
             this.chosenSingle = this.chosen.find('.chosen-single')
             this.chosenSingleSpan = this.chosenSingle.find('span')
             this.chosenSearch = this.chosen.find('.chosen-search input')
@@ -82,17 +82,18 @@
             this.chosenResults.html(dropHtml)
         }
         this.hideDrop = function () {
-            this.chosenDrop.fadeOut(option.duration, function () {
-                _this.body.css({
-                    'overflow-y': '',
-                    'height': ''
-                })
+            _this.body.css({
+                'overflow-y': '',
+                'height': ''
             })
+            document.body.scrollTop = _this.originScrollTop
+            this.chosenDrop.fadeOut(option.duration)
             this.input = ''
             this.chosenSearch.val('')
             this.update(this.data)
         }
         this.showDrop = function () {
+            this.originScrollTop = $('body').scrollTop()
             document.body.scrollTop = 1
             document.body.scrollTop = 0
             this.body.css({
@@ -134,7 +135,7 @@
                 setTimeout(function () {
                     _this.hideDrop()
                     if(hasChanged && _this.data[index]) {
-                        _this.elem.val(_this.data[index].value).trigger('chosen:updated').trigger('change')
+                        _this.elem.find('option').eq(parseInt(index)).prop('selected', true).trigger('chosen:updated').trigger('change')
                     }
                 },100)
             })
