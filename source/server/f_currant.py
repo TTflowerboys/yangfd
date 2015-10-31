@@ -2189,20 +2189,6 @@ class f_property(f_app.module_base):
                         property.pop("real_address", None)
                     if ignore_sales_comment:
                         property.pop("sales_comment", None)
-                    if "featured_facility" in property:
-                        for featured_facility in property["featured_facility"]:
-                            if "hesa_university" in featured_facility:
-                                hesa_university = f_app.hesa.university.get(featured_facility["hesa_university"])
-                                featured_facility["name"] = hesa_university["name"]
-                                postcode = hesa_university["postcode"]
-                                try:
-                                    params = {"postcode_index": postcode.replace(" ", ""), "country": "GB"}
-                                    postcode = f_app.geonames.postcode.get(f_app.geonames.postcode.search(params, per_page=-1))
-                                    if len(postcode) == 1:
-                                        featured_facility["latitude"] = postcode[0]["latitude"]
-                                        featured_facility["longitude"] = postcode[0]["longitude"]
-                                except:
-                                    self.logger.warning("Failed to fetch postcode", postcode, "for university", hesa_university["id"])
                 if property["status"] not in ["selling", "sold out", "restricted"] and permission_check:
                     assert property.get("user_generated") or user and set(user_roles) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_property_id")
 

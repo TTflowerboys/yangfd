@@ -7,7 +7,7 @@ import bottle
 from app import f_app
 from libfelix.f_interface import template, request, redirect, template_gettext as _
 import currant_data_helper
-import lxml
+from bs4 import BeautifulSoap
 from six.moves import urllib
 import re
 from distutils.version import StrictVersion
@@ -212,9 +212,8 @@ def get_phone_numbers(use="display"):
 
 
 def clear_html_tags(content):
-    if not content:
-        return ''
-    return lxml.html.fromstring(content).text_content()
+    return " ".join(BeautifulSoap(content).findAll(text=True))
+
 
 def clear_line_break(content):
     return content.replace('\n','').replace('\r\n','')
