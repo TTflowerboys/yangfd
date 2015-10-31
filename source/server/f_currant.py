@@ -46,6 +46,7 @@ fontprop = fm.FontProperties(fname="data/wqy-microhei.ttc")
 logger = logging.getLogger(__name__)
 f_app.dependency_register('pyquery', race="python")
 f_app.dependency_register('matplotlib', race="python")
+f_app.dependency_register('beautifulsoup4', race="python")
 f_app.dependency_register('scipy', race="python")
 
 

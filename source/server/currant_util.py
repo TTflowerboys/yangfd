@@ -7,7 +7,7 @@ import bottle
 from app import f_app
 from libfelix.f_interface import template, request, redirect, template_gettext as _
 import currant_data_helper
-from bs4 import BeautifulSoap
+from bs4 import BeautifulSoup
 from six.moves import urllib
 import re
 from distutils.version import StrictVersion
@@ -212,7 +212,7 @@ def get_phone_numbers(use="display"):
 
 
 def clear_html_tags(content):
-    return " ".join(BeautifulSoap(content).findAll(text=True))
+    return " ".join(BeautifulSoup(content).findAll(text=True))
 
 
 def clear_line_break(content):

@@ -8,7 +8,7 @@ Twisted
 gevent>0.99
 newrelic
 qrcode
-topia.termextract
+beautifulsoup4
 pyquery
 passlib
 six
@@ -19,6 +19,7 @@ pymongo
 mock
 pint
 PyYAML
+jieba
 matplotlib
 PlanOut
 retrying
