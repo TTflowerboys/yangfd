@@ -14,7 +14,7 @@ def get_data_directly(user, part, deep=None):
     return user_part
 
 
-def get_data_enum_complex(user, target, condition, element):
+def get_data_complex(user, target, condition, element):
 
     '''this func make dict provide get_data_enum to use'''
 
@@ -28,7 +28,7 @@ def get_data_enum_complex(user, target, condition, element):
     for ticket in select_item:
         element_list.append(ticket.get(element, None))
     dic.update({element: element_list})
-    return get_data_enum(dic, element)
+    return dic
 
 
 def get_data_enum(user, enum_name):
@@ -39,16 +39,28 @@ def get_data_enum(user, enum_name):
     if f_app.util.batch_iterable(single):
         for true_single in single:
             enum_id = true_single.get("id", None)
-            if enum_id is not None:
-                value = enum_type_list[enum_name].get(enum_id, None)
-                if value is not None:
-                    value_list.append(value)
+            value = enum_type_list[enum_name].get(enum_id, None)
+            value_list.append(value)
     elif single is not None:
         if single.get("id", None):
             value = enum_type_list[enum_name].get(enum_id, None)
             if value is not None:
                 value_list.append(value)
+    if not f_app.util.batch_iterable(value_list):
+        value_list = [value_list]
+    value_set = set(value_list)
+    value_list = list(value_set)
     return '/'.join(value_list)
+
+
+def get_count(user, target, condition, element, comp):
+    dic = get_data_complex(user, target, condition, element)
+    return dic.get(element, None).count(comp)
+
+
+def get_has_flag(user, target, condition, element, comp):
+    dic = get_data_complex(user, target, condition, element)
+    return comp in dic.get(element, None)
 
 
 enum_type = ["user_type", "landlord_type"]
@@ -81,7 +93,13 @@ for user in f_app.user.get(f_app.user.get_active()):
                "",
                "",
                "",
-               get_data_enum_complex(user, "ticket", {"type": "rent"}, "landlord_type")
+               get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "landlord_type"), "landlord_type"),
+               get_has_flag(user, "ticket", {"type": "rent"}, "status", "draft"),
+               "",
+               "",
+               "",
+               get_count(user, "ticket", {"type": "rent"}, "status", "rent"),
+               get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "rent_type"), "rent_type"),
                ])
 
 wb.save("user_detail.xlsx")
