@@ -112,6 +112,11 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
+    /// ![](https://www.gstatic.com/images/branding/product/1x/maps_64dp.png)
+    ///
+    /// 获取[Google Map Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro)的结果
+    /// - parameter location: 经纬度
+    /// - returns: BFTask
     func reverseGeocodeLocation(location:CLLocation) -> BFTask {
         let tcs = BFTaskCompletionSource()
 
@@ -195,6 +200,12 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
+    /// ![](https://www.gstatic.com/images/branding/product/1x/maps_64dp.png)
+    ///
+    /// 获取[Google Map Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro)的结果
+    /// - parameter address: 街区地址
+    /// - parameter components: route | locality | administrative_area | postal_code | country
+    /// - returns: BFTask
     func geocodeWithAddress(address:String?, components:String) -> BFTask {
         let tcs = BFTaskCompletionSource()
 
@@ -278,6 +289,13 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
+    /// ![](https://www.gstatic.com/images/branding/product/1x/maps_64dp.png)
+    ///
+    /// 获取[Google Distance Matrix API](https://developers.google.com/maps/documentation/distance-matrix/intro)的结果
+    /// - parameter origins: 源地点地址的列表
+    /// - parameter destinations: 目的地址的列表
+    /// - parameter mode: 交通工具的模式，有bicyling, driving, walking, transit, 默认driving
+    /// - returns: BFTask
     func searchDistanceMatrixWithOrigins(origins:[String], destinations:[String], mode:String = "driving") -> BFTask {
         let tcs = BFTaskCompletionSource()
 
