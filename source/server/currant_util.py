@@ -216,7 +216,7 @@ def clear_html_tags(content):
 
 
 def clear_line_break(content):
-    return content.replace('\n','').replace('\r\n','')
+    return content.replace('\n',' ').replace('\\n',' ').replace('\r',' ').replace('\\r',' ')
 
 
 def common_template(path, **kwargs):
