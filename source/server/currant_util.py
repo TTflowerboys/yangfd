@@ -212,6 +212,8 @@ def get_phone_numbers(use="display"):
 
 
 def clear_html_tags(content):
+    if not content:
+        return ''
     return lxml.html.fromstring(content).text_content()
 
 def clear_line_break(content):
