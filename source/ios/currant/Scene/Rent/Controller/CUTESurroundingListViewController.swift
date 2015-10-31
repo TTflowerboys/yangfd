@@ -8,7 +8,23 @@
 
 import UIKit
 
+
 class CUTESurroundingListViewController: UITableViewController {
+
+    private var surroundings:[CUTESurrounding]
+
+    var delegate:CUTESurroundingUpdateDelegate?
+
+
+    init(surroundings:[CUTESurrounding]) {
+        self.surroundings = surroundings
+        super.init(style: UITableViewStyle.Plain)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()

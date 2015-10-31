@@ -46,7 +46,9 @@
 #import "currant-Swift.h"
 #import <HHRouter.h>
 
-@interface CUTERentPropertyInfoViewController () {
+@protocol CUTESurroundingUpdateDelegate;
+
+@interface CUTERentPropertyInfoViewController () <CUTESurroundingUpdateDelegate> {
 
 }
 
@@ -59,6 +61,7 @@
 {
     self = [super init];
     if (self) {
+
     }
     return self;
 }
@@ -67,6 +70,8 @@
 - (BFTask *)setupRoute {
 
     NSString *ticketId = self.params[@"ticket_id"];
+
+
 
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
 
@@ -180,6 +185,18 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"RentPropertyInfo/预览") style:UIBarButtonItemStylePlain target:self action:@selector(onPreviewButtonPressed:)];
     self.tableView.accessibilityLabel = STR(@"RentPropertyInfo/房产信息表单");
     self.tableView.accessibilityIdentifier = self.tableView.accessibilityLabel;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    CUTEProperty *property = self.form.ticket.property;
+    if (IsArrayNilOrEmpty(self.form.ticket.property.surroundings) && property.latitude && property.longitude) {
+        [[[CUTEGeoManager sharedInstance] searchSurroundingsWithLatitude:property.latitude.floatValue longitude:property.longitude.floatValue] continueWithBlock:^id(BFTask *task) {
+            //TODO update surroundings cell
+            return task;
+        }];
+    }
 }
 
 - (CUTEPropertyInfoForm *)form {
@@ -411,8 +428,24 @@
 }
 
 - (void)editSurrounding {
-    CUTESurroundingListViewController *controller = [CUTESurroundingListViewController new];
-    [self.navigationController pushViewController:controller animated:YES];
+
+    CUTEProperty *property = self.form.ticket.property;
+    if (!IsArrayNilOrEmpty(property.surroundings)) {
+        CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithSurroundings:property.surroundings];
+        controller.delegate = self;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+    else {
+
+        [[[CUTEGeoManager sharedInstance] searchSurroundingsWithLatitude:property.latitude.floatValue longitude:property.longitude.floatValue] continueWithBlock:^id(BFTask *task) {
+            //TODO update property 
+
+            CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithSurroundings:property.surroundings];
+            controller.delegate = self;
+            [self.navigationController pushViewController:controller animated:YES];
+            return task;
+        }];
+    }
 }
 
 - (void)editMoreInfo {
@@ -481,8 +514,18 @@
     [self submitEditingTicket];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+#pragma Mark - Surrouding Update Delegate 
+
+- (void)onDidAddSurrounding:(CUTESurrounding *)surrounding atIndex:(NSUInteger)index {
+
+}
+
+- (void)onDidModifySurrouding:(CUTESurrounding *)surrouding atIndex:(NSUInteger)index {
+
+}
+
+- (void)onDidRemoveSurrouding:(CUTESurrounding *)surrouding atIndex:(NSUInteger)index {
+
 }
 
 @end

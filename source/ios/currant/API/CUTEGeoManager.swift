@@ -324,4 +324,10 @@ class CUTEGeoManager: NSObject {
 
         return tcs.task
     }
+
+    func searchSurroundingsWithLatitude(latitude:Float, longitude:Float) -> BFTask {
+        let tcs = BFTaskCompletionSource()
+
+        return tcs.task
+    }
 }
