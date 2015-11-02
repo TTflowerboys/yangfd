@@ -194,6 +194,7 @@
     if (IsArrayNilOrEmpty(self.form.ticket.property.surroundings) && property.latitude && property.longitude) {
         [[[CUTEGeoManager sharedInstance] searchSurroundingsWithLatitude:property.latitude.floatValue longitude:property.longitude.floatValue] continueWithBlock:^id(BFTask *task) {
             //TODO update surroundings cell
+            property.surroundings = task.result;
             return task;
         }];
     }

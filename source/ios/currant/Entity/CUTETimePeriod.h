@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Foster Yin. All rights reserved.
 //
 
-#import "MTLModel.h"
-#import "MTLJSONAdapter.h"
+#import <MTLModel.h>
+#import <MTLJSONAdapter.h>
 
 @interface CUTETimePeriod : MTLModel <MTLJSONSerializing>
 

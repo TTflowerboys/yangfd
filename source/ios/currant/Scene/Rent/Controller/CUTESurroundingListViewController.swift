@@ -28,6 +28,7 @@ class CUTESurroundingListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        super.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
 
         //TODO 显示默认的的surrounding list
         // Uncomment the following line to preserve selection between presentations
@@ -41,6 +42,8 @@ class CUTESurroundingListViewController: UITableViewController {
                                                                  })
         //TODO the surrounding item can be deleted, so the table need be editable and
         //TODO the surrounding item's vehicle can be editable
+
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,23 +55,34 @@ class CUTESurroundingListViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.surroundings.count
     }
 
-    /*
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
+        var surroudingCell:CUTESurroundingCell
 
-        // Configure the cell...
+        if cell is CUTESurroundingCell {
+            surroudingCell = cell as! CUTESurroundingCell
+        }
+        else {
+            surroudingCell = CUTESurroundingCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
+        }
+        let surrounding = self.surroundings[indexPath.row]
+        surroudingCell.nameLabel.text = surrounding.surroundingName
 
-        return cell
+        return surroudingCell
     }
-    */
+
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 80;
+    }
 
     /*
     // Override to support conditional editing of the table view.

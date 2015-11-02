@@ -346,6 +346,19 @@ class CUTEGeoManager: NSObject {
     func searchSurroundingsWithLatitude(latitude:Float, longitude:Float) -> BFTask {
         let tcs = BFTaskCompletionSource()
 
+        let surrounding1 = try MTLJSONAdapter.modelOfClass(CUTESurrounding.self, fromJSONDictionary: ["type":["type":"featured_facility", "slug":
+            "hesa_university"],"hesa_university":["name": "London University"]] ) as! CUTESurrounding
+        surrounding1.surroundingKey = "hesa_university"
+        surrounding1.surroundingName = "Londong University"
+        let surrounding2 = try MTLJSONAdapter.modelOfClass(CUTESurrounding.self, fromJSONDictionary: ["type":["type":"featured_facility", "slug":
+            "hesa_university"],"hesa_university":["name": "Lulu station"]] ) as! CUTESurrounding
+        surrounding2.surroundingKey = "station"
+        surrounding2.surroundingName = "Lulu station"
+
+        let result = [surrounding1,surrounding2]
+        tcs.setResult(result)
+
+
         return tcs.task
     }
 }

@@ -31,6 +31,10 @@ class CUTESurrounding: MTLModel, MTLJSONSerializing {
         try super.init(dictionary: dictionaryValue, error: error)
     }
 
+    override init!() {
+        super.init()
+    }
+
     required init!(coder: NSCoder!) {
         fatalError("init(coder:) has not been implemented")
     }

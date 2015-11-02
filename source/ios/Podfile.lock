@@ -2,25 +2,25 @@ PODS:
   - AFNetworkActivityLogger (2.0.4):
     - AFNetworking/NSURLConnection (~> 2.0)
     - AFNetworking/NSURLSession (~> 2.0)
-  - AFNetworking (2.6.0):
-    - AFNetworking/NSURLConnection (= 2.6.0)
-    - AFNetworking/NSURLSession (= 2.6.0)
-    - AFNetworking/Reachability (= 2.6.0)
-    - AFNetworking/Security (= 2.6.0)
-    - AFNetworking/Serialization (= 2.6.0)
-    - AFNetworking/UIKit (= 2.6.0)
-  - AFNetworking/NSURLConnection (2.6.0):
+  - AFNetworking (2.6.1):
+    - AFNetworking/NSURLConnection (= 2.6.1)
+    - AFNetworking/NSURLSession (= 2.6.1)
+    - AFNetworking/Reachability (= 2.6.1)
+    - AFNetworking/Security (= 2.6.1)
+    - AFNetworking/Serialization (= 2.6.1)
+    - AFNetworking/UIKit (= 2.6.1)
+  - AFNetworking/NSURLConnection (2.6.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.0):
+  - AFNetworking/NSURLSession (2.6.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.0)
-  - AFNetworking/Security (2.6.0)
-  - AFNetworking/Serialization (2.6.0)
-  - AFNetworking/UIKit (2.6.0):
+  - AFNetworking/Reachability (2.6.1)
+  - AFNetworking/Security (2.6.1)
+  - AFNetworking/Serialization (2.6.1)
+  - AFNetworking/UIKit (2.6.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - ALActionBlocks (1.0.3)
@@ -40,7 +40,7 @@ PODS:
   - Bolts/AppLinks (1.1.5):
     - Bolts/Tasks
   - Bolts/Tasks (1.1.5)
-  - Bugtags (1.1.0)
+  - Bugtags (1.1.2)
   - CTAssetsPickerController (2.9.4)
   - DACircularProgress (2.3.1)
   - EGOCache (2.1.3)
@@ -108,9 +108,9 @@ PODS:
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.4.1)
   - libextobjc/UmbrellaHeader (0.4.1)
-  - Mantle (1.5.5):
-    - Mantle/extobjc (= 1.5.5)
-  - Mantle/extobjc (1.5.5)
+  - Mantle (1.5.6):
+    - Mantle/extobjc (= 1.5.6)
+  - Mantle/extobjc (1.5.6)
   - Masonry (0.6.1)
   - MBProgressHUD (0.9.1)
   - MWPhotoBrowser (1.4.1):
@@ -127,20 +127,20 @@ PODS:
   - NSDate-Extensions (0.0.1)
   - NSTimer-Blocks (0.0.1)
   - ObjectiveSugar (1.1.0)
-  - OCHamcrest (4.2.0)
-  - OHHTTPStubs (4.3.0):
-    - OHHTTPStubs/Default (= 4.3.0)
-  - OHHTTPStubs/Core (4.3.0)
-  - OHHTTPStubs/Default (4.3.0):
+  - OCHamcrest (4.3.0)
+  - OHHTTPStubs (4.5.0):
+    - OHHTTPStubs/Default (= 4.5.0)
+  - OHHTTPStubs/Core (4.5.0)
+  - OHHTTPStubs/Default (4.5.0):
     - OHHTTPStubs/Core
     - OHHTTPStubs/JSON
     - OHHTTPStubs/NSURLSession
     - OHHTTPStubs/OHPathHelpers
-  - OHHTTPStubs/JSON (4.3.0):
+  - OHHTTPStubs/JSON (4.5.0):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/NSURLSession (4.3.0):
+  - OHHTTPStubs/NSURLSession (4.5.0):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/OHPathHelpers (4.3.0)
+  - OHHTTPStubs/OHPathHelpers (4.5.0)
   - Overcoat (1.2.1):
     - AFNetworking (~> 2.0)
     - Mantle (~> 1.3)
@@ -227,12 +227,12 @@ CHECKOUT OPTIONS:
     :commit: f5f295b562ceb5097e2a224bf4332f39c2e2779f
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
   WeiboSDK:
-    :commit: 4b228c28402e7cf34363e59f05856249f4421ca4
+    :commit: 2ae2945fff7844abc0ba809a15bd638474a0ed69
     :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
 
 SPEC CHECKSUMS:
   AFNetworkActivityLogger: 121486778117d53b3ab1c61d264b88081d0c3eee
-  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
+  AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
   ALActionBlocks: ac91b1a37b60a8004fb687ddade0600446f3d3fa
   apptentive-ios: be0b8dbc17b443eb624b3a015017f521b096f003
   Aspects: 7595ba96a6727a58ebcbfc954497fc5d2fdde546
@@ -240,7 +240,7 @@ SPEC CHECKSUMS:
   BBTRestClient: d3205d65ebc0851c0f8c4c69e2fedf9ace0b6134
   BBTUtility: 55ffd4489f190073d4a889839b6a67cc2f76fc5f
   Bolts: aac24961496d504aa56fc267cde95162a71bac39
-  Bugtags: 95f51571aac4038097e7d47f85c905542a705304
+  Bugtags: 0a6b51a1298d32859b640a8901cdbdf822dac3e0
   CTAssetsPickerController: 3030dc60f5d1a3c4e5b1c0aa9f069220d5bf7008
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   EGOCache: f0295dbe041156acabd39021354ad1045ee49e72
@@ -258,7 +258,7 @@ SPEC CHECKSUMS:
   KIF: 0a82046d06f3648799cac522d2d0f7934214caac
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
-  Mantle: 1b29072a707453975b200a173cf77ec1e2810b75
+  Mantle: a197db93e0f1e36194b1fdbc078219a8492eaef2
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MWPhotoBrowser: 2531e682860d62b8a7ba8659de02eb9040e431e5
@@ -267,8 +267,8 @@ SPEC CHECKSUMS:
   NSDate-Extensions: cbd68ecf5cf8a150644e184b4521d7734fea5ace
   NSTimer-Blocks: 88faf9aef5f250ead087f3f67ae642517083bf36
   ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
-  OCHamcrest: c14c0b3f4c4e99363e5b87d97bae38c4438b6d5d
-  OHHTTPStubs: 0aec5755528693a165bd616cb79f69387de306a8
+  OCHamcrest: cd63d27f48a266d4412c0b295b01b8f0940efa81
+  OHHTTPStubs: e573e76dd8bcd7ee5fcc6c3d86251551f4261e0c
   Overcoat: 45e4d20eafc02c8d7fcde3cb89d35f0630a9fa80
   PSTCollectionView: 6749df92885353521f55279a7ce2b293762e2be4
   RegExCategories: e68befacacd5bda853c88f70ec745cb2d0cfb89c

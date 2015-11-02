@@ -263,6 +263,7 @@
 		2C4AEC811AD6466A004DEE23 /* CUTEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */; };
 		2C4AEC821AD6466A004DEE23 /* CUTEUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */; };
 		2C4E0D7C1BCCD55E000EF707 /* RentTicketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4E0D7B1BCCD55E000EF707 /* RentTicketUITests.swift */; settings = {ASSET_TAGS = (); }; };
+		2C51F1AD1BE755B8007F13FF /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C51F1AC1BE755B8007F13FF /* UIColorExtension.swift */; settings = {ASSET_TAGS = (); }; };
 		2C554F8A1AC2BC3700F51D33 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */; };
 		2C5597EC1BB501C600430984 /* CUTEPatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5597EB1BB501C600430984 /* CUTEPatcher.swift */; settings = {ASSET_TAGS = (); }; };
@@ -645,6 +646,9 @@
 		2CED65AF1BBB83EA0031ECB2 /* NSDate+RFC1123.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CED65AD1BBB83E90031ECB2 /* NSDate+RFC1123.swift */; settings = {ASSET_TAGS = (); }; };
 		2CED65B01BBB83EA0031ECB2 /* NSDate+RFC1123.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CED65AD1BBB83E90031ECB2 /* NSDate+RFC1123.swift */; settings = {ASSET_TAGS = (); }; };
 		2CED65B11BBB83EA0031ECB2 /* NSDate+RFC1123.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CED65AD1BBB83E90031ECB2 /* NSDate+RFC1123.swift */; settings = {ASSET_TAGS = (); }; };
+		2CEFCCB11BE7765F00A0F93B /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C51F1AC1BE755B8007F13FF /* UIColorExtension.swift */; settings = {ASSET_TAGS = (); }; };
+		2CEFCCB21BE7766000A0F93B /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C51F1AC1BE755B8007F13FF /* UIColorExtension.swift */; settings = {ASSET_TAGS = (); }; };
+		2CEFCCB31BE7766100A0F93B /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C51F1AC1BE755B8007F13FF /* UIColorExtension.swift */; settings = {ASSET_TAGS = (); }; };
 		2CF2347E1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
 		2CF2347F1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
 		2CF234801B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */; };
@@ -959,6 +963,7 @@
 		2C4AEC7D1AD6466A004DEE23 /* CUTEUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUser.h; sourceTree = "<group>"; };
 		2C4AEC7E1AD6466A004DEE23 /* CUTEUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUser.m; sourceTree = "<group>"; };
 		2C4E0D7B1BCCD55E000EF707 /* RentTicketUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RentTicketUITests.swift; sourceTree = "<group>"; };
+		2C51F1AC1BE755B8007F13FF /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		2C554F891AC2BC3700F51D33 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2C554F8C1AC2BCEE00F51D33 /* CUTEPropertyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyListViewController.h; sourceTree = "<group>"; };
 		2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyListViewController.m; sourceTree = "<group>"; };
@@ -1053,7 +1058,6 @@
 		2CA81FCA1B15CA50006E993C /* CUTEMapBackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEMapBackView.m; sourceTree = "<group>"; };
 		2CA94AAE1ACA42CD00DF7497 /* currant-dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "currant-dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA94AB01ACA434600DF7497 /* currant-dev-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-dev-Info.plist"; sourceTree = "<group>"; };
-		2CAA1D3B1BA2B29B00662BFC /* currant-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "currant-Bridging-Header.h"; sourceTree = "<group>"; };
 		2CAA1D3D1BA2B30C00662BFC /* UIViewController+CUTERouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+CUTERouter.swift"; sourceTree = "<group>"; };
 		2CAA1D461BA2D1C100662BFC /* routes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = routes.plist; sourceTree = "<group>"; };
 		2CAA851E1AEA65CC00432BF1 /* NSString+Encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encoding.h"; sourceTree = "<group>"; };
@@ -1156,6 +1160,7 @@
 		2CE2A9911B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentVerifyPhoneViewController.h; sourceTree = "<group>"; };
 		2CE2A9921B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentVerifyPhoneViewController.m; sourceTree = "<group>"; };
 		2CE2A9971B6F1C000089ED20 /* contact-blacklist.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "contact-blacklist.csv"; sourceTree = "<group>"; };
+		2CE882911BE76BDC00A0827E /* currant-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "currant-Bridging-Header.h"; sourceTree = "<group>"; };
 		2CED65AD1BBB83E90031ECB2 /* NSDate+RFC1123.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+RFC1123.swift"; sourceTree = "<group>"; };
 		2CF2347C1B54F2E500B516E6 /* CUTEKeyboardStateListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEKeyboardStateListener.h; sourceTree = "<group>"; };
 		2CF2347D1B54F2E500B516E6 /* CUTEKeyboardStateListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEKeyboardStateListener.m; sourceTree = "<group>"; };
@@ -1466,6 +1471,7 @@
 		2C27F1E81ACCEA6C002BECCF /* Library3rd */ = {
 			isa = PBXGroup;
 			children = (
+				2C51F1AC1BE755B8007F13FF /* UIColorExtension.swift */,
 				2CBF30AF1B9459D000EB2D51 /* STWebArchiver.h */,
 				2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */,
 				2C3DE2391B05CCDC006FF191 /* Fabric.framework */,
@@ -1741,7 +1747,7 @@
 		2CB43DAC1ABC1372004DF663 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				2CAA1D3B1BA2B29B00662BFC /* currant-Bridging-Header.h */,
+				2CE882911BE76BDC00A0827E /* currant-Bridging-Header.h */,
 				2CF234821B55198500B516E6 /* GoogleService-Info.plist */,
 				2C97A8581BBE9995006F6F6D /* JSPatchTest.jspatch */,
 				2CE2A9971B6F1C000089ED20 /* contact-blacklist.csv */,
@@ -2422,7 +2428,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./currant/Library3rd/Fabric.framework/run 9ecb350494322a70f91f3ad1df714df4ac8e93c5 11ab511856ab2c3b06087c4f0cf6d3194350106fd95f93dfb1583bd057815029";
+			shellScript = "#./currant/Library3rd/Fabric.framework/run 9ecb350494322a70f91f3ad1df714df4ac8e93c5 11ab511856ab2c3b06087c4f0cf6d3194350106fd95f93dfb1583bd057815029";
 		};
 		2C3DE2451B05CEC8006FF191 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2792,6 +2798,7 @@
 				2CF8A6381AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
 				2C91E5901BE0C988005F6B5B /* CUTESurroundingCell.swift in Sources */,
 				2CDBA8D11B8D87B500C9D58F /* NSString+Truncate.m in Sources */,
+				2CEFCCB21BE7766000A0F93B /* UIColorExtension.swift in Sources */,
 				2C056D871B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
 				2CF8A5F21AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
 				2C96E2761AE6566300F3590C /* CUTEShareManager.m in Sources */,
@@ -2962,6 +2969,7 @@
 				2CF8A6391AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
 				2C91E5911BE0C988005F6B5B /* CUTESurroundingCell.swift in Sources */,
 				2CDBA8D21B8D87B500C9D58F /* NSString+Truncate.m in Sources */,
+				2CEFCCB31BE7766100A0F93B /* UIColorExtension.swift in Sources */,
 				2C056D881B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
 				2CF8A5F31AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
 				2C96E2771AE6566300F3590C /* CUTEShareManager.m in Sources */,
@@ -3132,6 +3140,7 @@
 				2CF8A6371AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
 				2C91E58F1BE0C987005F6B5B /* CUTESurroundingCell.swift in Sources */,
 				2CDBA8D01B8D87B300C9D58F /* NSString+Truncate.m in Sources */,
+				2CEFCCB11BE7765F00A0F93B /* UIColorExtension.swift in Sources */,
 				2C056D861B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
 				2CF8A5F11AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
 				2C96E2751AE6566300F3590C /* CUTEShareManager.m in Sources */,
@@ -3302,6 +3311,7 @@
 				2CF8A6361AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m in Sources */,
 				2C91E58E1BE0C987005F6B5B /* CUTESurroundingCell.swift in Sources */,
 				2CDBA8CF1B8D752600C9D58F /* NSString+Truncate.m in Sources */,
+				2C51F1AD1BE755B8007F13FF /* UIColorExtension.swift in Sources */,
 				2C056D851B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
 				2CF8A5F01AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
 				2C96E2741AE6566300F3590C /* CUTEShareManager.m in Sources */,
