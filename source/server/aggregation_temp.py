@@ -54,7 +54,7 @@ with f_app.mongo() as m:
                             email = f_app.email.status.get(email_status_id)
                         except AttributeError:
                             email = None
-                        if 'email_status_set' in email:
+                        if 'email_status_set' in email and 'processed' in email['email_status_set']:
                             total_count += 1
                             for status in target_status_rate.keys():
                                 if status in email['email_status_set']:
@@ -64,7 +64,7 @@ with f_app.mongo() as m:
                         email = f_app.email.status.get(emails_status_id)
                     except AttributeError:
                         email = None
-                    if email and 'email_status_set' in email:
+                    if email and 'email_status_set' in email and 'processed' in email['email_status_set']:
                             total_count += 1
                             for status in target_status_rate.keys():
                                 if status in email['email_status_set']:
