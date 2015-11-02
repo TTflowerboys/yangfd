@@ -84,7 +84,7 @@ def format_fit(sheet):
             if isinstance(cell.value, int) or isinstance(cell.value, datetime):
                 lencur = len(str(cell.value).encode("GBK"))
             elif cell.value is not None:
-                lencur = len(cell.value.encode("GBK"))
+                lencur = len(cell.value.encode("GBK", "replace"))
             if lencur > lenmax:
                 lenmax = lencur
         if num > 90:
