@@ -2886,7 +2886,9 @@ f_policeuk()
 
 
 class f_doogal(f_app.module_base):
+    nested_attr = ("station",)
     doogal_database = "doogal"
+    doogal_station_database = "doogal_stations"
 
     def __init__(self):
         f_app.module_install("doogal", self)
@@ -2955,6 +2957,82 @@ class f_doogal(f_app.module_base):
                     count += 1
                     if count % 100 == 1:
                         self.logger.debug("doogal postcode imported", count, "records...")
+
+    def station_get_database(self, m):
+        return getattr(m, self.doogal_station_database)
+
+    @f_cache("doogalstation", support_multi=True)
+    def station_get(self, station_id_or_list, force_reload=False):
+        def _format_each(station):
+            station.pop("loc", None)
+            return f_app.util.process_objectid(station)
+
+        if f_app.util.batch_iterable(station_id_or_list):
+            result = {}
+
+            with f_app.mongo() as m:
+                result_list = list(self.station.get_database(m).find({"_id": {"$in": [ObjectId(user_id) for user_id in station_id_or_list]}, "status": {"$ne": "deleted"}}))
+
+            if not force_reload and len(result_list) < len(station_id_or_list):
+                found_list = map(lambda station: str(station["_id"]), result_list)
+                abort(40400, self.logger.warning("Non-exist station:", filter(lambda station_id: station_id not in found_list, station_id_or_list), exc_info=False))
+
+            for station in result_list:
+                result[station["id"]] = _format_each(station)
+
+            return result
+
+        else:
+            with f_app.mongo() as m:
+                result = self.station.get_database(m).find_one({"_id": ObjectId(station_id_or_list), "status": {"$ne": "deleted"}})
+
+                if result is None:
+                    if not force_reload:
+                        abort(40400, self.logger.warning("Non-exist station:", station_id_or_list, exc_info=False))
+
+                    return None
+
+            return _format_each(result)
+
+    def station_search(self, params, per_page=0):
+        return f_app.mongo_index.search(self.station.get_database, params, notime=True, sort_field="name", count=False, per_page=per_page)["content"]
+
+    def station_import_new(self, path, geonames_city_id):
+        with f_app.mongo() as m:
+            self.station.get_database(m).ensure_index([("currant_country", ASCENDING)])
+            self.station.get_database(m).ensure_index([("zipcode", ASCENDING)])
+            self.station.get_database(m).ensure_index([("geonames_city_id", ASCENDING)])
+            with open(path, 'rw+') as f:
+                rows = csv.reader(f)
+
+                first = True
+                count = 0
+                for r in rows:
+                    # Ignore first line
+                    if first:
+                        first = False
+                        continue
+
+                    params = {
+                        "currant_country": "GB",  # Hardcoded
+                        "name": r[0],
+                        "latitude": float(r[3]),
+                        "longitude": float(r[4]),
+                        "loc": [float(r[4]), float(r[3])],
+                        "easting": r[1],
+                        "northing": r[2],
+                        "zone": r[5],
+                        "zipcode": r[6],
+                        "zipcode_index": r[6].replace(" ", ""),
+                        "geonames_city_id": ObjectId(geonames_city_id),
+                    }
+                    self.station.get_database(m).update({
+                        "currant_country": params["currant_country"],
+                        "name": params["name"],
+                    }, {"$set": params}, upsert=True)
+                    count += 1
+                    if count % 20 == 1:
+                        self.logger.debug("doogal station imported", count, "records...")
 
 f_doogal()
 

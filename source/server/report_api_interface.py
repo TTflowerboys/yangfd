@@ -317,6 +317,20 @@ def hesa_university_search(params):
     return universities
 
 
+@f_api('/doogal_station/search', params=dict(
+    country="country",
+    city='geonames_gazetteer:city',
+    postcode=str,
+    postcode_index=str,
+    name=str,
+))
+def doogal_station_search(params):
+    if "country" in params:
+        params["country"] = params["country"]["code"]
+    stations = f_app.doogal.station.get(f_app.doogal.station.search(params, per_page=-1))
+    return stations
+
+
 @f_api('/geonames/<_id>')
 def geonames_get(_id):
     return f_app.geonames.gazetteer.get(_id)
