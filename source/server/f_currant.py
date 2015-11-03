@@ -344,7 +344,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                 ticket_database.update({"_id": ticket["_id"]}, {"$set": {"deposit": ticket["price"]}})
 
     def v18(self, m):
-        f_app.enum.get_database(m).ensure_index([("type", ASCENDING), ("sort_value", ASCENDING)])
+        f_app.enum.get_database(m).create_index([("type", ASCENDING), ("sort_value", ASCENDING)])
 
     def v19(self, m):
         for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
@@ -2143,7 +2143,7 @@ class f_property(f_app.module_base):
 
         with f_app.mongo() as m:
             property_id = self.get_database(m).insert(params)
-            self.get_database(m).ensure_index([("loc", GEO2D)])
+            self.get_database(m).create_index([("loc", GEO2D)])
 
         if params["status"] in ("selling", "hidden", "sold out"):
             f_app.task.put(dict(
@@ -2907,9 +2907,9 @@ class f_doogal(f_app.module_base):
 
     def import_new(self, path):
         with f_app.mongo() as m:
-            self.get_database(m).ensure_index([("currant_country", ASCENDING)])
-            self.get_database(m).ensure_index([("zipcode", ASCENDING)])
-            self.get_database(m).ensure_index([("currant_region", ASCENDING)])
+            self.get_database(m).create_index([("currant_country", ASCENDING)])
+            self.get_database(m).create_index([("zipcode", ASCENDING)])
+            self.get_database(m).create_index([("currant_region", ASCENDING)])
             with open(path, 'rw+') as f:
                 rows = csv.reader(f)
 
@@ -2999,9 +2999,9 @@ class f_doogal(f_app.module_base):
 
     def station_import_new(self, path, geonames_city_id):
         with f_app.mongo() as m:
-            self.station.get_database(m).ensure_index([("currant_country", ASCENDING)])
-            self.station.get_database(m).ensure_index([("zipcode", ASCENDING)])
-            self.station.get_database(m).ensure_index([("geonames_city_id", ASCENDING)])
+            self.station.get_database(m).create_index([("currant_country", ASCENDING)])
+            self.station.get_database(m).create_index([("zipcode", ASCENDING)])
+            self.station.get_database(m).create_index([("geonames_city_id", ASCENDING)])
             with open(path, 'rw+') as f:
                 rows = csv.reader(f)
 
@@ -3570,8 +3570,8 @@ class f_comment(f_app.module_base):
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
             comment_id = self.get_database(m).insert(params)
-            self.get_database(m).ensure_index([("status", ASCENDING)])
-            self.get_database(m).ensure_index([("time", ASCENDING)])
+            self.get_database(m).create_index([("status", ASCENDING)])
+            self.get_database(m).create_index([("time", ASCENDING)])
 
         return str(comment_id)
 
@@ -3741,9 +3741,9 @@ class f_maponics(f_app.plugin_base):
             first = True
 
             with f_app.mongo() as m:
-                self.neighborhood.get_database(m).ensure_index([("nid", ASCENDING)])
-                self.neighborhood.get_database(m).ensure_index([("loc", GEO2D)])
-                self.neighborhood.get_database(m).ensure_index([("country", ASCENDING)])
+                self.neighborhood.get_database(m).create_index([("nid", ASCENDING)])
+                self.neighborhood.get_database(m).create_index([("loc", GEO2D)])
+                self.neighborhood.get_database(m).create_index([("country", ASCENDING)])
 
                 for r in rows:
                     if first:
@@ -3888,9 +3888,9 @@ class f_hesa(f_app.plugin_base):
             rows = csv.reader(f.readlines())
             count = 0
             with f_app.mongo() as m:
-                self.university.get_database(m).ensure_index([("hesa_id", ASCENDING)])
-                self.university.get_database(m).ensure_index([("postcode", ASCENDING)])
-                self.university.get_database(m).ensure_index([("country", ASCENDING)])
+                self.university.get_database(m).create_index([("hesa_id", ASCENDING)])
+                self.university.get_database(m).create_index([("postcode", ASCENDING)])
+                self.university.get_database(m).create_index([("country", ASCENDING)])
 
                 for r in rows:
                     params = {
