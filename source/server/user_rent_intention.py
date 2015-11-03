@@ -1,6 +1,7 @@
 # coding: utf-8
 from bson.objectid import ObjectId
 from datetime import datetime
+from datetime import timedelta
 from app import f_app
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment
@@ -32,6 +33,7 @@ def get_data_complex(user, target, condition, element):
     target_database = getattr(f_app, target)
     condition.update({"$or": [{"user_id": ObjectId(user_id)},
                               {"creator_user_id": ObjectId(user_id)}]})
+    # select_item = target_database.get(target_database.search(condition, per_page=10))
     select_item = target_database.get(target_database.search(condition, per_page=-1))
     element_list = []
     for ticket in select_item:
@@ -67,6 +69,17 @@ def get_data_enum(user, enum_name):
     return '/'.join(value_list)
 
 
+def get_diff_color(fill, total):
+    base_color = 0x999999
+    color = 0x0
+    for index in range(total):
+        s = 0x222222
+        color = base_color + s*index
+        if total <= 4:
+            color_t = '00'+"%x" % color
+            fill.append(PatternFill(fill_type='solid', start_color=color_t, end_color=color_t))
+
+
 def format_fit(sheet):
     simsun_font = Font(name="SimSun")
     header_fill = PatternFill(fill_type='solid', start_color='00dddddd', end_color='00dddddd')
@@ -79,7 +92,10 @@ def format_fit(sheet):
             cell.alignment = alignment_fit
     for num, col in enumerate(sheet.columns):
         lenmax = 0
-        for cell in col:
+        col_set = set()
+        for line, cell in enumerate(col):
+            if line != 0:
+                col_set.add(cell.value)
             lencur = 0
             if isinstance(cell.value, int) or isinstance(cell.value, datetime):
                 lencur = len(str(cell.value).encode("GBK"))
@@ -93,11 +109,39 @@ def format_fit(sheet):
         else:
             sheet.column_dimensions[chr(num+65)].width = lenmax*0.86
             print "col "+chr(num+65)+" fit."
+        cell_fill = []
+        if 1 < len(col_set) <= 4:
+            get_diff_color(cell_fill, len(col_set))
+            for color_index, fill_index in enumerate(list(col_set)):
+                for line, cell in enumerate(col):
+                    if line == 0:
+                        continue
+                    if fill_index == cell.value and len(cell.value):
+                        cell.fill = cell_fill[color_index]
 
 
 def get_all_rent_intention():
     params = {"type": "rent_intention"}
-    return f_app.i18n.process_i18n(f_app.ticket.output(f_app.ticket.search(params, per_page=-1)))
+    return f_app.ticket.output(f_app.ticket.search(params, per_page=-1))
+    # return f_app.i18n.process_i18n(f_app.ticket.output(f_app.ticket.search(params, per_page=-1)))
+
+
+def get_referer(time):
+    diff_time = timedelta(milliseconds=100)
+    flag = 0
+    record = referer_result[0]
+    for num, single in enumerate(referer_result):
+        rst_time = single.get("time", None)
+        if rst_time is None:
+            continue
+        if rst_time - diff_time < time < rst_time + diff_time:
+            if flag:
+                print "bingo. "+str(rst_time)
+            flag = 1
+            record = single
+    if flag:
+        return record.get("referer", '')
+    return '找不到'
 
 
 enum_type = ["rent_type"]
@@ -110,8 +154,9 @@ for enum_singlt_type in enum_type:
     enum_type_list.update({enum_singlt_type: enum_list_subdic})
     print "enum type " + enum_singlt_type + " done."
 
-header = ["状态", "标题", "客户", "提交时间", "出租需求", "period", "出租位置", "备注",
-          "样房东有无匹配搭配", "打电话了？", "有接到？", "房子租到了么？", "通过样房东",
+referer_result = f_app.log.output(f_app.log.search({"route": "/api/1/rent_intention_ticket/add"}, per_page=-1))
+header = ["状态", "标题", "客户", "联系方式", "提交时间", "起始日期", "出租需求", "预算上限", "预算下限", "period", "出租位置", "备注",
+          "样房东有无匹配搭配", "referer", "打电话了？", "有接到？", "房子租到了么？", "通过样房东",
           "如果不是通过样房东，那么是通过哪里什么样的房源？有没有交中介费", "对平台体验的想法及反馈",
           "在找房子中用户最疼的点有哪些？", "备注"]
 
@@ -120,16 +165,21 @@ wb = Workbook()
 ws = wb.active
 
 ws.append(header)
-
+print "loading..."
 for number, ticket in enumerate(get_all_rent_intention()):
+    print 'ticket.' + str(number) + ' loading.'
+    ticket = f_app.i18n.process_i18n(ticket)
+    print 'ticket.' + str(number) + ' i18n process complete.'
     period_start = get_data_directly(ticket, "rent_available_time")
     period_end = get_data_directly(ticket, "rent_deadline_time")
     if period_end is None or period_start is None:
         time = "不明"
     else:
         period = period_end - period_start
-        if period.days > 180:
-            time = "6 months"
+        if period.days >= 365:
+            time = "longer than 12 months"
+        elif 365 > period.days >= 180:
+            time = "6 - 12 months"
         elif 180 >= period.days > 90:
             time = "3 - 6 months"
         elif period.days <= 30:
@@ -142,23 +192,25 @@ for number, ticket in enumerate(get_all_rent_intention()):
         match.append("部分满足")
     if "perfect_match" in ticket.get("tags", []):
         match.append("完全满足")
-    print country
-    print maponics_neighborhood
-    print ticket.get("tags", '')
 
     ws.append(["已提交" if (get_data_directly(ticket, "status") == "new") else "已出租",
                get_data_directly(ticket, "title"),
                get_data_directly(ticket, "nickname"),
+               get_data_directly(ticket, "phone"),
                get_data_directly(ticket, "time"),
+               get_data_directly(ticket, "rent_available_time"),
                get_data_enum(ticket, "rent_type"),
+               get_data_directly(ticket, "rent_budget_max", "value"),
+               get_data_directly(ticket, "rent_budget_min", "value"),
                time,
                ' '.join([country.get("code", ''),
                          city.get("name", ''),
                          maponics_neighborhood.get("name", ''),
                          ticket.get("address", ''),
                          ticket.get("zipcode_index", '')]),
-               '',
-               '/'.join(match)
+               get_data_directly(ticket, "description"),
+               '/'.join(match),
+               get_referer(get_data_directly(ticket, "time"))
                ])
     print 'ticket.' + str(number) + ' done.'
 format_fit(ws)
