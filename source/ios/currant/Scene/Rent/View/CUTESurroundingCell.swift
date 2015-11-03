@@ -30,12 +30,17 @@ class CUTESurroundingCell: UITableViewCell {
         typeButton.setTitle("步行", forState: UIControlState.Normal)
         typeButton.setTitleColor(UIColor(hex6: 0x999999), forState: UIControlState.Normal)
         typeButton.titleLabel?.font = UIFont.systemFontOfSize(12)
+//        typeButton.backgroundColor = UIColor.redColor()
+
 
         durationButton = UIButton()
         durationButton.setImage(UIImage(named: "icon-down-arrow"), forState: UIControlState.Normal)
         durationButton.setTitle("15分钟", forState: UIControlState.Normal)
         durationButton.setTitleColor(UIColor(hex6: 0x999999), forState: UIControlState.Normal)
         durationButton.titleLabel?.font = UIFont.systemFontOfSize(12)
+//        durationButton.backgroundColor = UIColor.blueColor()
+//        durationButton.titleLabel?.backgroundColor = UIColor.greenColor()
+
 
         removeButton = UIButton()
         removeButton.setImage(UIImage(named: "button-remove"), forState: UIControlState.Normal)
@@ -56,6 +61,10 @@ class CUTESurroundingCell: UITableViewCell {
         self.backgroundColor = UIColor.clearColor()
         self.contentView.backgroundColor = UIColor.clearColor()
         self.innerView.backgroundColor = UIColor(hex6:0xffffff)
+
+        typeButton.addTarget(self, action: "onTypeButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        durationButton.addTarget(self, action: "onDurationButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        removeButton.addTarget(self, action: "onRemoveButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
     }
 
 
@@ -74,6 +83,42 @@ class CUTESurroundingCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    private func getTypeButtonSize(button:UIButton) -> CGSize {
+        let textSize = ((button.titleLabel?.text)! as NSString).boundingRectWithSize(CGSizeMake(1000, 1000), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: button.titleLabel!.font], context: nil)
+        let imageSize = CGSizeMake(8, 8)
+        let spacing:CGFloat = 13
+        let contentMargin:CGFloat = 13
+        return CGSizeMake(textSize.width + imageSize.width + spacing + contentMargin, 20)
+    }
+
+    private func layoutTypeButtonContent(button:UIButton) {
+        let textSize = button.titleLabel?.sizeThatFits(CGSizeMake(100, 20))
+        let imageSize = CGSizeMake(8, 8)
+        let spacing:CGFloat = 13
+        let contentMargin:CGFloat = 13
+
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, -imageSize.width - spacing, 0, imageSize.width)
+        button.imageEdgeInsets = UIEdgeInsetsMake(0, textSize!.width + spacing, 0, -textSize!.width)
+        button.contentEdgeInsets = UIEdgeInsetsMake(0, -contentMargin, 0, 0);
+    }
+
+    private func getDurationButtonSize(button:UIButton) -> CGSize {
+        let textSize = ((button.titleLabel?.text)! as NSString).boundingRectWithSize(CGSizeMake(1000, 1000), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: button.titleLabel!.font], context: nil)
+        let imageSize = CGSizeMake(8, 8)
+        let spacing:CGFloat = 13
+        let contentMargin:CGFloat = 13
+        return CGSizeMake(textSize.width + imageSize.width + spacing + contentMargin * 2, 20)
+    }
+
+    private func layoutDurationButtonContent(button:UIButton) {
+        let textSize = button.titleLabel?.sizeThatFits(CGSizeMake(100, 20))
+        let imageSize = CGSizeMake(8, 8)
+        let spacing:CGFloat = 13
+
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, -imageSize.width - spacing, 0, imageSize.width)
+        button.imageEdgeInsets = UIEdgeInsetsMake(0, textSize!.width + spacing, 0, -textSize!.width)
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
 
@@ -89,16 +134,14 @@ class CUTESurroundingCell: UITableViewCell {
         let nameLabelLeftMargin = (leftMargin + imageSideLength + 5)
         let nameLabelHeight:CGFloat = 20.0
         self.nameLabel.frame = CGRectMake(nameLabelLeftMargin, topMargin, self.innerView.frame.size.width - nameLabelLeftMargin * 2, nameLabelHeight)
-        self.removeButton.frame = CGRectMake(self.innerView.frame.size.width - nameLabelLeftMargin, topMargin, imageSideLength, imageSideLength)
+        self.removeButton.frame = CGRectMake(self.innerView.frame.size.width - leftMargin - imageSideLength, topMargin, imageSideLength, imageSideLength)
 
-        let buttonHeight:CGFloat = 18.0
-        let buttonWidth:CGFloat = 68.0
-        self.typeButton.frame = CGRectMake(leftMargin, self.innerView.frame.size.height - (buttonHeight + topMargin), buttonWidth, buttonHeight)
-        self.typeButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 34)
-        self.typeButton.imageEdgeInsets = UIEdgeInsetsMake(0, 34, 0, 11)
-        self.durationButton.frame = CGRectMake((leftMargin + buttonWidth), self.innerView.frame.size.height - (buttonHeight + topMargin), 80, buttonHeight)
-        self.durationButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 34)
-        self.durationButton.imageEdgeInsets = UIEdgeInsetsMake(0, 34, 0, 11)
+        let typeButtonSize  = getTypeButtonSize(self.typeButton)
+        self.typeButton.frame = CGRectMake(leftMargin, self.innerView.frame.size.height - (typeButtonSize.height + topMargin), typeButtonSize.width, typeButtonSize.height)
+        layoutTypeButtonContent(self.typeButton)
+        let durationButtonSize = getDurationButtonSize(self.durationButton)
+        self.durationButton.frame = CGRectMake((leftMargin + typeButtonSize.width), self.innerView.frame.size.height - (durationButtonSize.height + topMargin), durationButtonSize.width, durationButtonSize.height)
+        layoutDurationButtonContent(self.durationButton)
         //TODO UIEdgeInsets what?
         if (!isBorderAdded) {
             self.innerView.addTopBorderWithColor(UIColor(hex6: 0xe0e0e0), andWidth: 1)
@@ -106,6 +149,18 @@ class CUTESurroundingCell: UITableViewCell {
             self.durationButton.addLeftBorderWithColor(UIColor(hex6: 0xcccccc), andWidth: 1)
             self.isBorderAdded = true
         }
+    }
+
+    func onTypeButtonPressed(sender:UIButton) {
+
+    }
+
+    func onDurationButtonPressed(sender:UIButton) {
+
+    }
+
+    func onRemoveButtonPressed(sender:UIButton) {
+
     }
 
 }
