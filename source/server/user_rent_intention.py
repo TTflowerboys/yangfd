@@ -12,7 +12,7 @@ f_app.common.mongo_server = "172.20.101.98"
 
 def get_data_directly(user, part, deep=None):
     if user is None:
-        return
+        return ''
     user_part = user.get(part, None)
     if (user_part is not None) and (deep is not None):
         return user.get(part).get(deep, None)
@@ -96,9 +96,11 @@ def format_fit(sheet):
         for line, cell in enumerate(col):
             if num == 16:
                 link = get_id_in_url(cell.value)
-                print link
                 if link is not None:
                     cell.hyperlink = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + str(link)
+                    cell.value = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + str(link)
+                else:
+                    cell.value = ''
             if line != 0:
                 col_set.add(cell.value)
             lencur = 0
@@ -117,11 +119,12 @@ def format_fit(sheet):
                 for line, cell in enumerate(col):
                     if line == 0:
                         continue
-                    if fill_index == cell.value and len(cell.value):
-                        cell.fill = cell_fill[color_index]
-        if num > 90:
-            sheet.column_dimensions['A'+chr(num-26)]
-            print "col "+'A'+chr(num-26)+" fit."
+                    if not isinstance(cell.value, datetime):
+                        if fill_index == cell.value and len(cell.value):
+                            cell.fill = cell_fill[color_index]
+        if num >= 26:
+            sheet.column_dimensions['A'+chr(num-26+65)].width = lenmax*0.86
+            print "col "+'A'+chr(num-26+65)+" fit."
         else:
             sheet.column_dimensions[chr(num+65)].width = lenmax*0.86
             print "col "+chr(num+65)+" fit."
@@ -153,22 +156,20 @@ def get_referer(time):
 
 
 def get_email(ticket):
-    user_id = ticket.get("user_id", None)
-    if user_id is None:
+    user = ticket.get("user", None)
+    if user is None:
         return ''
-    user_target = f_app.user.get(user_id)
-    return user_target.get("email", '')
+    return user.get("email", '')
 
 
 def get_wechat(ticket):
-    user_id = ticket.get("user_id", None)
-    if user_id is None:
+    user = ticket.get("user", None)
+    if user is None:
         return ''
-    user_target = f_app.user.get(user_id)
-    return user_target.get("wechat", '')
+    return user.get("wechat", '')
 
 
-enum_type = ["rent_type"]
+enum_type = ["rent_type", "landlord_type"]
 enum_type_list = {}
 for enum_singlt_type in enum_type:
     print "enum type " + enum_singlt_type + " loading."
@@ -179,8 +180,9 @@ for enum_singlt_type in enum_type:
     print "enum type " + enum_singlt_type + " done."
 
 referer_result = f_app.log.output(f_app.log.search({"route": "/api/1/rent_intention_ticket/add"}, per_page=-1))
-header = ["状态", "标题", "客户", "联系方式", "邮箱", "微信", "提交时间", "起始日期", "终止日期", "出租需求", "预算上限", "预算下限", "period", "出租位置", "备注",
-          "样房东有无匹配搭配", "目标房源", "打电话了？", "有接到？", "房子租到了么？", "通过样房东",
+header = ["状态", "标题", "客户", "联系方式", "邮箱", "微信", "提交时间", "起始日期",
+          "终止日期", "出租需求", "预算上限", "预算下限", "period", "出租位置", "备注",
+          "样房东有无匹配搭配", "目标房源", "房东类型", "房东姓名", "房东电话", "房东邮箱", "打电话了？", "有接到？", "房子租到了么？", "通过样房东",
           "如果不是通过样房东，那么是通过哪里什么样的房源？有没有交中介费", "对平台体验的想法及反馈",
           "在找房子中用户最疼的点有哪些？", "备注"]
 
@@ -232,6 +234,18 @@ for number, ticket in enumerate(get_all_rent_intention()):
     city = ticket.get("city", {})
     country = ticket.get("country", {})
     maponics_neighborhood = ticket.get("maponics_neighborhood", {})
+    referer = get_referer(get_data_directly(ticket, "time"))
+    landlord_id = get_id_in_url(referer)
+    landlord_boss = None
+    landlord_result = None
+    if landlord_id is not None:
+        try:
+            landlord_result = f_app.ticket.get(landlord_id)
+        except:
+            pass
+        else:
+            landlord_boss_id = landlord_result.get("user_id")
+            landlord_boss = f_app.user.get(landlord_boss_id)
     match = []
     if "partial_match" in ticket.get("tags", []):
         match.append("部分满足")
@@ -258,7 +272,11 @@ for number, ticket in enumerate(get_all_rent_intention()):
                          ticket.get("zipcode_index", '')]),
                get_data_directly(ticket, "description"),
                '/'.join(match),
-               get_referer(get_data_directly(ticket, "time"))
+               referer,
+               get_data_enum(landlord_result, "landlord_type"),  # 房东类型
+               get_data_directly(landlord_boss, "nickname"),
+               get_data_directly(landlord_boss, "phone"),
+               get_data_directly(landlord_boss, "email"),
                ])
     print 'ticket.' + str(number) + ' done.'
 format_fit(ws)
