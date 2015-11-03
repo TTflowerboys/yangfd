@@ -33,6 +33,7 @@
 #import "NSString+Encoding.h"
 #import "NSString+QueryParser.h"
 #import "SVProgressHUD+CUTEAPI.h"
+#import "UIView+Border.h"
 
 //controller
 #import "CUTEWebViewController.h"
