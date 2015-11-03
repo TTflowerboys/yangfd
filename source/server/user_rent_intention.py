@@ -94,21 +94,22 @@ def format_fit(sheet):
         lenmax = 0
         col_set = set()
         for line, cell in enumerate(col):
+            if num == 16:
+                link = get_id_in_url(cell.value)
+                print link
+                if link is not None:
+                    cell.hyperlink = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + str(link)
             if line != 0:
                 col_set.add(cell.value)
             lencur = 0
+            if cell.value is None:
+                cell.value = ''
             if isinstance(cell.value, int) or isinstance(cell.value, datetime):
                 lencur = len(str(cell.value).encode("GBK"))
             elif cell.value is not None:
                 lencur = len(cell.value.encode("GBK", "replace"))
             if lencur > lenmax:
                 lenmax = lencur
-        if num > 90:
-            sheet.column_dimensions['A'+chr(num-26)]
-            print "col "+'A'+chr(num-26)+" fit."
-        else:
-            sheet.column_dimensions[chr(num+65)].width = lenmax*0.86
-            print "col "+chr(num+65)+" fit."
         cell_fill = []
         if 1 < len(col_set) <= 4:
             get_diff_color(cell_fill, len(col_set))
@@ -118,6 +119,12 @@ def format_fit(sheet):
                         continue
                     if fill_index == cell.value and len(cell.value):
                         cell.fill = cell_fill[color_index]
+        if num > 90:
+            sheet.column_dimensions['A'+chr(num-26)]
+            print "col "+'A'+chr(num-26)+" fit."
+        else:
+            sheet.column_dimensions[chr(num+65)].width = lenmax*0.86
+            print "col "+chr(num+65)+" fit."
 
 
 def get_all_rent_intention():
@@ -127,7 +134,7 @@ def get_all_rent_intention():
 
 
 def get_referer(time):
-    diff_time = timedelta(milliseconds=100)
+    diff_time = timedelta(milliseconds=500)
     flag = 0
     record = referer_result[0]
     for num, single in enumerate(referer_result):
@@ -141,7 +148,24 @@ def get_referer(time):
             record = single
     if flag:
         return record.get("referer", '')
+    print "cant find when "+str(time)
     return '找不到'
+
+
+def get_email(ticket):
+    user_id = ticket.get("user_id", None)
+    if user_id is None:
+        return ''
+    user_target = f_app.user.get(user_id)
+    return user_target.get("email", '')
+
+
+def get_wechat(ticket):
+    user_id = ticket.get("user_id", None)
+    if user_id is None:
+        return ''
+    user_target = f_app.user.get(user_id)
+    return user_target.get("wechat", '')
 
 
 enum_type = ["rent_type"]
@@ -155,10 +179,31 @@ for enum_singlt_type in enum_type:
     print "enum type " + enum_singlt_type + " done."
 
 referer_result = f_app.log.output(f_app.log.search({"route": "/api/1/rent_intention_ticket/add"}, per_page=-1))
-header = ["状态", "标题", "客户", "联系方式", "提交时间", "起始日期", "出租需求", "预算上限", "预算下限", "period", "出租位置", "备注",
-          "样房东有无匹配搭配", "referer", "打电话了？", "有接到？", "房子租到了么？", "通过样房东",
+header = ["状态", "标题", "客户", "联系方式", "邮箱", "微信", "提交时间", "起始日期", "终止日期", "出租需求", "预算上限", "预算下限", "period", "出租位置", "备注",
+          "样房东有无匹配搭配", "目标房源", "打电话了？", "有接到？", "房子租到了么？", "通过样房东",
           "如果不是通过样房东，那么是通过哪里什么样的房源？有没有交中介费", "对平台体验的想法及反馈",
           "在找房子中用户最疼的点有哪些？", "备注"]
+
+
+'''
+http://beta.yangfd.com/property-to-rent/5591632ee5a910191c7226f9
+http://yangfd.com/property-to-rent/5572e182842238321b04d2f8
+http://yangfd.com/property-to-rent/55731cc484223832e76635af?utm_source=1&utm_medium=digest&utm_campaign=A4
+http://yangfd.com/requirement-rent?requestContact=true&ticketId=5575eec28422383689817d01
+http://youngfunding.co.uk/property-to-rent/55e87950bd773211e2df56b1
+'''
+
+
+def get_id_in_url(url):
+    if "property-to-rent/" in url:
+        segment = url.split("property-to-rent/")[1]
+        if "?" in segment:
+            return segment.split("?")[0]
+        return segment
+    elif "ticketId=" in url:
+        return url.split("ticketId=")[1]
+    else:
+        return None
 
 
 wb = Workbook()
@@ -197,8 +242,11 @@ for number, ticket in enumerate(get_all_rent_intention()):
                get_data_directly(ticket, "title"),
                get_data_directly(ticket, "nickname"),
                get_data_directly(ticket, "phone"),
+               get_email(ticket),
+               get_wechat(ticket),
                get_data_directly(ticket, "time"),
-               get_data_directly(ticket, "rent_available_time"),
+               period_start,
+               period_end,
                get_data_enum(ticket, "rent_type"),
                get_data_directly(ticket, "rent_budget_max", "value"),
                get_data_directly(ticket, "rent_budget_min", "value"),
