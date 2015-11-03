@@ -2068,6 +2068,11 @@ class f_currant_plugins(f_app.plugin_base):
 
         return kwargs
 
+    def ticket_add_log_params(self, params, ticket_id, ticket, user):
+        if "type" in params:
+            params["ticket_type"] = ticket["type"]
+        return params
+
     def shop_item_add_pre(self, params):
         params["mtime"] = datetime.utcnow()
         return params
