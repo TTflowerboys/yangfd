@@ -154,6 +154,7 @@
 
                                             <div class="controls">
                                                 <span ng-bind="item.property.maponics_neighborhood.name"></span>
+                                                <span ng-if="item.property.maponics_parent_neighborhood">, </span>
                                                 <span ng-if="item.property.maponics_parent_neighborhood" ng-repeat="p in item.property.maponics_parent_neighborhood" ng-bind="p.name"></span>
                                             </div>
                                         </div>
