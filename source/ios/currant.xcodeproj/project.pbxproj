@@ -484,6 +484,10 @@
 		2CAA85211AEA65CC00432BF1 /* NSString+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA851F1AEA65CC00432BF1 /* NSString+Encoding.m */; };
 		2CAA85221AEA65CC00432BF1 /* NSString+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA851F1AEA65CC00432BF1 /* NSString+Encoding.m */; };
 		2CAA85231AEA65CC00432BF1 /* NSString+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA851F1AEA65CC00432BF1 /* NSString+Encoding.m */; };
+		2CB11CDE1BE9FF5C006B0931 /* SwiftSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB11CDD1BE9FF5C006B0931 /* SwiftSequencer.swift */; settings = {ASSET_TAGS = (); }; };
+		2CB11CDF1BE9FF5C006B0931 /* SwiftSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB11CDD1BE9FF5C006B0931 /* SwiftSequencer.swift */; settings = {ASSET_TAGS = (); }; };
+		2CB11CE01BE9FF5C006B0931 /* SwiftSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB11CDD1BE9FF5C006B0931 /* SwiftSequencer.swift */; settings = {ASSET_TAGS = (); }; };
+		2CB11CE11BE9FF5C006B0931 /* SwiftSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB11CDD1BE9FF5C006B0931 /* SwiftSequencer.swift */; settings = {ASSET_TAGS = (); }; };
 		2CB43DAF1ABC1372004DF663 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DAE1ABC1372004DF663 /* main.m */; };
 		2CB43DB21ABC1372004DF663 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CB43DD91ABC26B2004DF663 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CB43DD81ABC26B2004DF663 /* Images.xcassets */; };
@@ -1016,6 +1020,7 @@
 		2C9AFF761AF2335900E5F0BC /* CUTEWebConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEWebConfiguration.m; sourceTree = "<group>"; };
 		2C9AFF7C1AF2355500E5F0BC /* BBTWebBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTWebBarButtonItem.h; sourceTree = "<group>"; };
 		2C9AFF7D1AF2355500E5F0BC /* BBTWebBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTWebBarButtonItem.m; sourceTree = "<group>"; };
+		2C9D32121BEA0FB200424CAC /* Notes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Notes.md; sourceTree = "<group>"; };
 		2C9F1CC81B34300A0034487F /* CUTEPropertyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyTest.m; sourceTree = "<group>"; };
 		2C9F1CCD1B37E4CF0034487F /* CUTEURLTest+CUTE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CUTEURLTest+CUTE.m"; sourceTree = "<group>"; };
 		2C9F1CD31B37F1BC0034487F /* CUTEURLTest+Assets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CUTEURLTest+Assets.m"; sourceTree = "<group>"; };
@@ -1062,6 +1067,8 @@
 		2CAA1D461BA2D1C100662BFC /* routes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = routes.plist; sourceTree = "<group>"; };
 		2CAA851E1AEA65CC00432BF1 /* NSString+Encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encoding.h"; sourceTree = "<group>"; };
 		2CAA851F1AEA65CC00432BF1 /* NSString+Encoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encoding.m"; sourceTree = "<group>"; };
+		2CB11CD81BE9F83C006B0931 /* Playground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playground.swift; sourceTree = "<group>"; };
+		2CB11CDD1BE9FF5C006B0931 /* SwiftSequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSequencer.swift; sourceTree = "<group>"; };
 		2CB43DA91ABC1372004DF663 /* currant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = currant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB43DAD1ABC1372004DF663 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CB43DAE1ABC1372004DF663 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1472,6 +1479,7 @@
 			isa = PBXGroup;
 			children = (
 				2C51F1AC1BE755B8007F13FF /* UIColorExtension.swift */,
+				2CB11CDD1BE9FF5C006B0931 /* SwiftSequencer.swift */,
 				2CBF30AF1B9459D000EB2D51 /* STWebArchiver.h */,
 				2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */,
 				2C3DE2391B05CCDC006FF191 /* Fabric.framework */,
@@ -1738,6 +1746,7 @@
 				2CB43DD61ABC2662004DF663 /* Scene */,
 				2CB43DB01ABC1372004DF663 /* AppDelegate.h */,
 				2CB43DB11ABC1372004DF663 /* AppDelegate.m */,
+				2CB11CD81BE9F83C006B0931 /* Playground.swift */,
 				2CB43DBE1ABC1373004DF663 /* LaunchScreen.xib */,
 				2CB43DAC1ABC1372004DF663 /* Supporting Files */,
 			);
@@ -1761,6 +1770,7 @@
 				2CB66C231AFB66F200C3CDED /* Manchester.gpx */,
 				2CB66C291AFB687200C3CDED /* London.gpx */,
 				2CAA1D461BA2D1C100662BFC /* routes.plist */,
+				2C9D32121BEA0FB200424CAC /* Notes.md */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2774,6 +2784,7 @@
 				2CA81F9C1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */,
 				2C427E561AD25110000378A9 /* CUTEEnum.m in Sources */,
+				2CB11CE01BE9FF5C006B0931 /* SwiftSequencer.swift in Sources */,
 				2CF8A6A91AF0C2620080DF10 /* BBTPickerView.m in Sources */,
 				2CA81FCD1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
 				2C7520451ACA775C0008B42A /* CUTEViewController.m in Sources */,
@@ -2945,6 +2956,7 @@
 				2CA81F9D1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2CA2E6C91AC5496700053965 /* CUTEWebViewController.m in Sources */,
 				2C427E571AD25110000378A9 /* CUTEEnum.m in Sources */,
+				2CB11CE11BE9FF5C006B0931 /* SwiftSequencer.swift in Sources */,
 				2CF8A6AA1AF0C2620080DF10 /* BBTPickerView.m in Sources */,
 				2CA81FCE1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
 				2C7520461ACA775C0008B42A /* CUTEViewController.m in Sources */,
@@ -3116,6 +3128,7 @@
 				2CA81F9B1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2CA94A9A1ACA42CD00DF7497 /* CUTEWebViewController.m in Sources */,
 				2C427E551AD25110000378A9 /* CUTEEnum.m in Sources */,
+				2CB11CDF1BE9FF5C006B0931 /* SwiftSequencer.swift in Sources */,
 				2CF8A6A81AF0C2620080DF10 /* BBTPickerView.m in Sources */,
 				2CA81FCC1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
 				2C7520441ACA775C0008B42A /* CUTEViewController.m in Sources */,
@@ -3287,6 +3300,7 @@
 				2CB43DDD1ABD4AB4004DF663 /* CUTEWebViewController.m in Sources */,
 				2C427E541AD25110000378A9 /* CUTEEnum.m in Sources */,
 				2CF8A6A71AF0C2620080DF10 /* BBTPickerView.m in Sources */,
+				2CB11CDE1BE9FF5C006B0931 /* SwiftSequencer.swift in Sources */,
 				2CA81FCB1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
 				2C1A95E41B75A79400483A74 /* CUTERentPassword2ViewController.m in Sources */,
 				2C7520431ACA775C0008B42A /* CUTEViewController.m in Sources */,

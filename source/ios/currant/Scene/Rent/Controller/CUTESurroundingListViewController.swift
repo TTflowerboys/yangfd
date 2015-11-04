@@ -31,8 +31,7 @@ class CUTESurroundingListViewController: UITableViewController {
         super.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
         super.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         super.tableView.allowsSelection = false
-        
-        //TODO 显示默认的的surrounding list
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

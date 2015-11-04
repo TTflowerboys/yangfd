@@ -122,9 +122,9 @@ class CUTEGeoManager: NSObject {
 
         //retry 3 times
 
-        let sequencer = Sequencer()
+        let sequencer = SwiftSequencer()
 
-        sequencer.enqueueStep { (result:AnyObject!, completion:(AnyObject -> Void)!
+        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
             requsetReverseGeocodeLocation(location).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                 if task.result != nil {
@@ -138,7 +138,7 @@ class CUTEGeoManager: NSObject {
             })
         }
 
-        sequencer.enqueueStep { (result:AnyObject!, completion:(AnyObject -> Void)!
+        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
             requsetReverseGeocodeLocation(location).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                 if task.result != nil {
@@ -152,7 +152,7 @@ class CUTEGeoManager: NSObject {
             })
         }
 
-        sequencer.enqueueStep { (result:AnyObject!, completion:(AnyObject -> Void)!
+        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
             requsetReverseGeocodeLocation(location).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                 if task.result != nil {
@@ -211,10 +211,10 @@ class CUTEGeoManager: NSObject {
 
         //retry 3 times
 
-        //TODO fix sequencer completion will crash in swift call back
-        let sequencer = Sequencer()
 
-        sequencer.enqueueStep { (result:AnyObject!, completion:(AnyObject -> Void)!
+        let sequencer = SwiftSequencer()
+
+        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
             requestGeocodeWithAddress(address, components: components).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                 if task.result != nil {
@@ -228,7 +228,7 @@ class CUTEGeoManager: NSObject {
             })
         }
 
-        sequencer.enqueueStep { (result:AnyObject!, completion:(AnyObject -> Void)!
+        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
             requestGeocodeWithAddress(address, components: components).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                 if task.result != nil {
@@ -242,7 +242,7 @@ class CUTEGeoManager: NSObject {
             })
         }
 
-        sequencer.enqueueStep { (result:AnyObject!, completion:(AnyObject -> Void)!
+        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
             requestGeocodeWithAddress(address, components: components).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                 if task.result != nil {
@@ -351,15 +351,14 @@ class CUTEGeoManager: NSObject {
 
     func searchSurroundingsWithPostcodeIndex(postcodeIndex:String, city:CUTECity, country:CUTECountry) -> BFTask {
         let tcs = BFTaskCompletionSource()
-        let sequencer = Sequencer()
-        sequencer.enqueueStep { (result:AnyObject!, completion:(AnyObject -> Void)!
+        let sequencer = SwiftSequencer()
+        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-
             let universityTask = CUTEAPIManager.sharedInstance().POST("/api/1/hesa_university/search", parameters: ["postcode_index":postcodeIndex, "country":country.ISOcountryCode], resultClass: CUTESurrounding.self)
             let stationTask = CUTEAPIManager.sharedInstance().POST("/api/1/doogal_station/search", parameters: ["postcode_index":postcodeIndex, "country":country.ISOcountryCode], resultClass: CUTESurrounding.self)
 
 
-            BFTask(forCompletionOfAllTasksWithResults: [universityTask, stationTask]).continueWithBlock {[unowned completion](task:BFTask!) -> AnyObject! in
+            BFTask(forCompletionOfAllTasksWithResults: [universityTask, stationTask]).continueWithBlock {(task:BFTask!) -> AnyObject! in
                 if let resultArray = task.result as? [[AnyObject]] {
                     let result = Array(resultArray.flatten())
                     completion(result)
@@ -368,7 +367,7 @@ class CUTEGeoManager: NSObject {
             }
         }
 
-        sequencer.enqueueStep { (result:AnyObject!, completion:(AnyObject -> Void)!
+        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
             if let surroudings:[CUTESurrounding] = result as? [CUTESurrounding] {
                 let destinations = surroudings.map({ (surrouding:CUTESurrounding) -> String in
