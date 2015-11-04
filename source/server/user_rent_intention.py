@@ -1,16 +1,17 @@
 # coding: utf-8
-from bson.objectid import ObjectId
+from __future__ import unicode_literals
+# from bson.objectid import ObjectId
 from datetime import datetime
 from datetime import timedelta
 from app import f_app
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment
 
-f_app.common.memcache_server = ["172.20.101.98:11211"]
-f_app.common.mongo_server = "172.20.101.98"
+f_app.common.memcache_server = ["172.20.101.102:11211"]
+f_app.common.mongo_server = "172.20.101.102"
 
 
-def get_data_directly(user, part, deep=None):
+def get_data_directly_as_str(user, part, deep=None):
     if user is None:
         return ''
     user_part = user.get(part, None)
@@ -18,33 +19,16 @@ def get_data_directly(user, part, deep=None):
         return user.get(part).get(deep, None)
     if f_app.util.batch_iterable(user_part):
         user_part = '/'.join(user_part)
-    return user_part
-
-
-def get_data_complex(user, target, condition, element):
-
-    '''this func make dict provide get_data_enum to use.
-    with user's id and 'condition' to search in the database 'target'
-    then gether element in search result, make a new dict return
-    '''
-
-    dic = {}
-    user_id = user.get("id", None)
-    target_database = getattr(f_app, target)
-    condition.update({"$or": [{"user_id": ObjectId(user_id)},
-                              {"creator_user_id": ObjectId(user_id)}]})
-    # select_item = target_database.get(target_database.search(condition, per_page=10))
-    select_item = target_database.get(target_database.search(condition, per_page=-1))
-    element_list = []
-    for ticket in select_item:
-        element_list.append(ticket.get(element, None))
-    dic.update({element: element_list})
-    return dic
+    if user_part is None:
+        return ''
+    return unicode(user_part)
 
 
 def get_data_enum(user, enum_name):
     if user is None:
         return
+    if enum_name not in enum_type_list:
+        get_all_enum_value(enum_name)
     single = user.get(enum_name, None)
     value_list = []
     if f_app.util.batch_iterable(single):
@@ -69,40 +53,83 @@ def get_data_enum(user, enum_name):
     return '/'.join(value_list)
 
 
-def get_diff_color(fill, total):
+def get_correct_col_index(num):
+    if num > 26*26:
+        return "ZZ"
+    if num >= 26:
+        return get_correct_col_index(num/26-1)+chr(num-26+65)
+    else:
+        return chr(num+65)
+
+
+def add_link(sheet, target, link=None):
+    if target is None:
+        return
+    if f_app.util.batch_iterable(target):
+        pass
+    else:
+        for index in range(2, len(sheet.rows)+1):
+            cell = sheet[target + unicode(index)]
+            if len(cell.value):
+                if link is None:
+                    cell.hyperlink = cell.value
+                else:
+                    cell.hyperlink = unicode(link)
+
+
+def get_diff_color(total):
+    fill = []
     base_color = 0x999999
     color = 0x0
-    for index in range(total):
+    if 4 <= total <= 6:
+        s = 0x111111
+    elif total == 3:
         s = 0x222222
+    elif total == 2:
+        s = 0x333333
+    else:
+        return
+    for index in range(total):
         color = base_color + s*index
-        if total <= 4:
-            color_t = '00'+"%x" % color
-            fill.append(PatternFill(fill_type='solid', start_color=color_t, end_color=color_t))
+        color_t = '00'+"%x" % color
+        fill.append(PatternFill(fill_type='solid', start_color=color_t, end_color=color_t))
+    return fill
+
+
+def be_colorful(sheet, max_segment):
+    header_fill = PatternFill(fill_type='solid', start_color='00dddddd', end_color='00dddddd')
+    for cell in sheet.rows[0]:
+        cell.fill = header_fill
+    for col in sheet.columns:
+        col_set = set()
+        cell_fill = []
+        col_list = []
+        for num, cell in enumerate(col):
+            if num and len(cell.value):
+                col_set.add(cell.value)
+            if len(col_set) > max_segment:
+                break
+        if max_segment >= len(col_set) > 1:
+            cell_fill = get_diff_color(len(col_set))
+            col_list = list(col_set)
+            for number, cell in enumerate(col):
+                if not number:
+                    continue
+                for index, value in enumerate(col_list):
+                    if cell.value == value:
+                        cell.fill = cell_fill[index]
 
 
 def format_fit(sheet):
     simsun_font = Font(name="SimSun")
-    header_fill = PatternFill(fill_type='solid', start_color='00dddddd', end_color='00dddddd')
     alignment_fit = Alignment(shrink_to_fit=True)
-    for cell in sheet.rows[0]:
-        cell.fill = header_fill
     for row in sheet.rows:
         for cell in row:
             cell.font = simsun_font
             cell.alignment = alignment_fit
     for num, col in enumerate(sheet.columns):
         lenmax = 0
-        col_set = set()
-        for line, cell in enumerate(col):
-            if num == 16:
-                link = get_id_in_url(cell.value)
-                if link is not None:
-                    cell.hyperlink = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + str(link)
-                    cell.value = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + str(link)
-                else:
-                    cell.value = ''
-            if line != 0:
-                col_set.add(cell.value)
+        for cell in col:
             lencur = 0
             if cell.value is None:
                 cell.value = ''
@@ -112,34 +139,16 @@ def format_fit(sheet):
                 lencur = len(cell.value.encode("GBK", "replace"))
             if lencur > lenmax:
                 lenmax = lencur
-        cell_fill = []
-        if 1 < len(col_set) <= 4:
-            get_diff_color(cell_fill, len(col_set))
-            for color_index, fill_index in enumerate(list(col_set)):
-                for line, cell in enumerate(col):
-                    if line == 0:
-                        continue
-                    if not isinstance(cell.value, datetime):
-                        if fill_index == cell.value and len(cell.value):
-                            cell.fill = cell_fill[color_index]
-        if num >= 26:
-            sheet.column_dimensions['A'+chr(num-26+65)].width = lenmax*0.86
-            print "col "+'A'+chr(num-26+65)+" fit."
-        else:
-            sheet.column_dimensions[chr(num+65)].width = lenmax*0.86
-            print "col "+chr(num+65)+" fit."
+        sheet.column_dimensions[get_correct_col_index(num)].width = lenmax*0.86
+        print "col "+get_correct_col_index(num)+" fit."
 
 
-def get_all_rent_intention():
-    params = {"type": "rent_intention"}
-    return f_app.ticket.output(f_app.ticket.search(params, per_page=-1))
-    # return f_app.i18n.process_i18n(f_app.ticket.output(f_app.ticket.search(params, per_page=-1)))
-
-
-def get_referer(time):
+def get_referer_id(ticket):
+    time = ticket.get("time", None)
     diff_time = timedelta(milliseconds=500)
     flag = 0
-    record = referer_result[0]
+    if time is None:
+        return ''
     for num, single in enumerate(referer_result):
         rst_time = single.get("time", None)
         if rst_time is None:
@@ -150,9 +159,9 @@ def get_referer(time):
             flag = 1
             record = single
     if flag:
-        return record.get("referer", '')
+        return get_id_in_url(record.get("referer", ''))
     print "cant find when "+str(time)
-    return '找不到'
+    return ''
 
 
 def get_email(ticket):
@@ -169,31 +178,37 @@ def get_wechat(ticket):
     return user.get("wechat", '')
 
 
-enum_type = ["rent_type", "landlord_type"]
-enum_type_list = {}
-for enum_singlt_type in enum_type:
-    print "enum type " + enum_singlt_type + " loading."
-    enum_list_subdic = {}
-    for enumitem in f_app.i18n.process_i18n(f_app.enum.get_all(enum_singlt_type)):
-        enum_list_subdic.update({enumitem["id"]: enumitem["value"]})
-    enum_type_list.update({enum_singlt_type: enum_list_subdic})
-    print "enum type " + enum_singlt_type + " done."
+def time_period_label(ticket):
+    time = ""
+    period_start = ticket.get("rent_available_time", None)
+    period_end = ticket.get("rent_deadline_time", None)
+    if period_end is None or period_start is None:
+        time = "不明"
+    else:
+        period = period_end - period_start
+        if period.days >= 365:
+            time = "longer than 12 months"
+        elif 365 > period.days >= 180:
+            time = "6 - 12 months"
+        elif 180 >= period.days > 90:
+            time = "3 - 6 months"
+        elif period.days <= 30:
+            time = "less than 1 month"
+    return time
 
-referer_result = f_app.log.output(f_app.log.search({"route": "/api/1/rent_intention_ticket/add"}, per_page=-1))
-header = ["状态", "标题", "客户", "联系方式", "邮箱", "微信", "提交时间", "起始日期",
-          "终止日期", "出租需求", "预算上限", "预算下限", "period", "出租位置", "备注",
-          "样房东有无匹配搭配", "目标房源", "房东类型", "房东姓名", "房东电话", "房东邮箱", "打电话了？", "有接到？", "房子租到了么？", "通过样房东",
-          "如果不是通过样房东，那么是通过哪里什么样的房源？有没有交中介费", "对平台体验的想法及反馈",
-          "在找房子中用户最疼的点有哪些？", "备注"]
 
-
-'''
-http://beta.yangfd.com/property-to-rent/5591632ee5a910191c7226f9
-http://yangfd.com/property-to-rent/5572e182842238321b04d2f8
-http://yangfd.com/property-to-rent/55731cc484223832e76635af?utm_source=1&utm_medium=digest&utm_campaign=A4
-http://yangfd.com/requirement-rent?requestContact=true&ticketId=5575eec28422383689817d01
-http://youngfunding.co.uk/property-to-rent/55e87950bd773211e2df56b1
-'''
+def get_landlord_boss_with_ticket_id(landlord_ticket_id):
+    if landlord_ticket_id is None:
+        return None, None
+    try:
+        landlord_house = f_app.ticket.get(landlord_ticket_id)
+    except:
+        return None, None
+    else:
+        landlord_boss_id = landlord_house.get("user_id", None)
+        if landlord_boss_id is None:
+            return landlord_house, None
+        return landlord_house, f_app.user.get(landlord_boss_id)
 
 
 def get_id_in_url(url):
@@ -208,76 +223,87 @@ def get_id_in_url(url):
         return None
 
 
-wb = Workbook()
-ws = wb.active
-
-ws.append(header)
-print "loading..."
-for number, ticket in enumerate(get_all_rent_intention()):
-    print 'ticket.' + str(number) + ' loading.'
-    ticket = f_app.i18n.process_i18n(ticket)
-    print 'ticket.' + str(number) + ' i18n process complete.'
-    period_start = get_data_directly(ticket, "rent_available_time")
-    period_end = get_data_directly(ticket, "rent_deadline_time")
-    if period_end is None or period_start is None:
-        time = "不明"
-    else:
-        period = period_end - period_start
-        if period.days >= 365:
-            time = "longer than 12 months"
-        elif 365 > period.days >= 180:
-            time = "6 - 12 months"
-        elif 180 >= period.days > 90:
-            time = "3 - 6 months"
-        elif period.days <= 30:
-            time = "less than 1 month"
-    city = ticket.get("city", {})
-    country = ticket.get("country", {})
-    maponics_neighborhood = ticket.get("maponics_neighborhood", {})
-    referer = get_referer(get_data_directly(ticket, "time"))
-    landlord_id = get_id_in_url(referer)
-    landlord_boss = None
-    landlord_result = None
-    if landlord_id is not None:
-        try:
-            landlord_result = f_app.ticket.get(landlord_id)
-        except:
-            pass
-        else:
-            landlord_boss_id = landlord_result.get("user_id")
-            landlord_boss = f_app.user.get(landlord_boss_id)
+def get_match(ticket):
     match = []
     if "partial_match" in ticket.get("tags", []):
         match.append("部分满足")
     if "perfect_match" in ticket.get("tags", []):
         match.append("完全满足")
+    return '/'.join(match)
 
-    ws.append(["已提交" if (get_data_directly(ticket, "status") == "new") else "已出租",
-               get_data_directly(ticket, "title"),
-               get_data_directly(ticket, "nickname"),
-               get_data_directly(ticket, "phone"),
+
+def get_detail_address(ticket):
+    return ' '.join([ticket.get("country", {}).get("code", ''),
+                     ticket.get("city", {}).get("name", ''),
+                     ticket.get("maponics_neighborhood", {}).get("name", ''),
+                     ticket.get("address", ''),
+                     ticket.get("zipcode_index", '')])
+
+
+def get_all_rent_intention():
+    params = {"type": "rent_intention"}
+    return f_app.ticket.output(f_app.ticket.search(params, per_page=20))
+
+
+def get_all_enum_value(enum_singlt_type):
+    print "enum type " + enum_singlt_type + " loading."
+    enum_list_subdic = {}
+    for enumitem in f_app.i18n.process_i18n(f_app.enum.get_all(enum_singlt_type)):
+        enum_list_subdic.update({enumitem["id"]: enumitem["value"]})
+    enum_type_list.update({enum_singlt_type: enum_list_subdic})
+
+
+def get_referer_url(referer_id):
+    if referer_id is None:
+        return ''
+    return "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/"+unicode(referer_id)
+
+# enum_type = ["rent_type", "landlord_type"]
+
+print "find all referer..."
+referer_result = f_app.log.output(f_app.log.search({"route": "/api/1/rent_intention_ticket/add"}, per_page=-1))
+enum_type_list = {}
+
+wb = Workbook()
+ws = wb.active
+header = ["状态", "标题", "客户", "联系方式", "邮箱", "微信", "提交时间", "起始日期",
+          "终止日期", "出租需求", "预算上限", "预算下限", "period", "出租位置", "备注",
+          "样房东有无匹配搭配", "目标房源", "房东类型", "房东姓名", "房东电话", "房东邮箱", "打电话了？", "有接到？", "房子租到了么？", "通过样房东",
+          "如果不是通过样房东，那么是通过哪里什么样的房源？有没有交中介费", "对平台体验的想法及反馈",
+          "在找房子中用户最疼的点有哪些？", "备注"]
+ws.append(header)
+
+print "loading all rent intension ticket..."
+for number, ticket in enumerate(get_all_rent_intention()):
+    print 'ticket.' + str(number) + ' loading.'
+    ticket = f_app.i18n.process_i18n(ticket)
+    print 'ticket.' + str(number) + ' i18n process complete.'
+    referer_id = get_referer_id(ticket)
+    landlord_result, landlord_boss = get_landlord_boss_with_ticket_id(referer_id)
+    ws.append(["已提交" if (get_data_directly_as_str(ticket, "status") == "new") else "已出租",
+               get_data_directly_as_str(ticket, "title"),
+               get_data_directly_as_str(ticket, "nickname"),
+               get_data_directly_as_str(ticket, "phone"),
                get_email(ticket),
                get_wechat(ticket),
-               get_data_directly(ticket, "time"),
-               period_start,
-               period_end,
+               get_data_directly_as_str(ticket, "time"),
+               get_data_directly_as_str(ticket, "rent_available_time"),
+               get_data_directly_as_str(ticket, "rent_deadline_time"),
                get_data_enum(ticket, "rent_type"),
-               get_data_directly(ticket, "rent_budget_max", "value"),
-               get_data_directly(ticket, "rent_budget_min", "value"),
-               time,
-               ' '.join([country.get("code", ''),
-                         city.get("name", ''),
-                         maponics_neighborhood.get("name", ''),
-                         ticket.get("address", ''),
-                         ticket.get("zipcode_index", '')]),
-               get_data_directly(ticket, "description"),
-               '/'.join(match),
-               referer,
+               get_data_directly_as_str(ticket, "rent_budget_max", "value"),
+               get_data_directly_as_str(ticket, "rent_budget_min", "value"),
+               time_period_label(ticket),
+               get_detail_address(ticket),
+               get_data_directly_as_str(ticket, "description"),
+               get_match(ticket),
+               get_referer_url(referer_id),
                get_data_enum(landlord_result, "landlord_type"),  # 房东类型
-               get_data_directly(landlord_boss, "nickname"),
-               get_data_directly(landlord_boss, "phone"),
-               get_data_directly(landlord_boss, "email"),
+               get_data_directly_as_str(landlord_boss, "nickname"),
+               get_data_directly_as_str(landlord_boss, "phone"),
+               get_data_directly_as_str(landlord_boss, "email"),
                ])
-    print 'ticket.' + str(number) + ' done.'
+
 format_fit(ws)
+add_link(ws, 'Q')
+be_colorful(ws, 6)
 wb.save("user_rent_intention.xlsx")
