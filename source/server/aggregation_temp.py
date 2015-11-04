@@ -47,7 +47,7 @@ with f_app.mongo() as m:
     print('Total tickets: ' + str(total_tickets_count))
     print('Total tickets without location: ' + str(total_tickets_count_without_location))
     print('Total tickets without report: ' + str(total_tickets_count_without_report))
-    print('Total tickets without both: ' + str(total_tickets_count_with_report))
+    print('Total tickets without both: ' + str(total_tickets_count_without_both))
 
 
     # 统计多少房源没有街区
