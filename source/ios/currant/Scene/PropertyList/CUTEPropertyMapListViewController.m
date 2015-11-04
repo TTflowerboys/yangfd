@@ -74,6 +74,7 @@
     }];
 }
 
+//TODO must format base on locale
 - (NSString *)formatPrice:(NSString *)price symbol:(NSString *)symbol {
     NSString *suffix = @"";
     CGFloat floatPrice = price.floatValue;
