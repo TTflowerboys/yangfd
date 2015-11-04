@@ -30,7 +30,8 @@ class CUTESurroundingListViewController: UITableViewController {
         super.viewDidLoad()
         super.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
         super.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-
+        super.tableView.allowsSelection = false
+        
         //TODO 显示默认的的surrounding list
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -74,9 +75,15 @@ class CUTESurroundingListViewController: UITableViewController {
         }
         else {
             surroudingCell = CUTESurroundingCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
+            surroudingCell.typeButton.addTarget(self, action: "onTypeButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            surroudingCell.durationButton.addTarget(self, action: "onDurationButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            surroudingCell.removeButton.addTarget(self, action: "onRemoveButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         }
         let surrounding = self.surroundings[indexPath.row]
-        surroudingCell.nameLabel.text = surrounding.surroundingName
+        surroudingCell.nameLabel.text = surrounding.name
+        surroudingCell.typeButton.tag = indexPath.row
+        surroudingCell.durationButton.tag = indexPath.row
+        surroudingCell.removeButton.tag = indexPath.row
 
         return surroudingCell
     }
@@ -129,5 +136,20 @@ class CUTESurroundingListViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
+    func onTypeButtonPressed(sender:UIButton) {
+        let index = sender.tag
+
+    }
+
+    func onDurationButtonPressed(sender:UIButton) {
+        let index = sender.tag
+
+    }
+
+    func onRemoveButtonPressed(sender:UIButton) {
+        let index = sender.tag
+
+    }
 
 }

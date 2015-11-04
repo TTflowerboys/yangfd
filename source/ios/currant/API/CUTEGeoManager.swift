@@ -211,6 +211,7 @@ class CUTEGeoManager: NSObject {
 
         //retry 3 times
 
+        //TODO fix sequencer completion will crash in swift call back
         let sequencer = Sequencer()
 
         sequencer.enqueueStep { (result:AnyObject!, completion:(AnyObject -> Void)!
@@ -311,12 +312,12 @@ class CUTEGeoManager: NSObject {
                         throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + dic.description])
                     }
 
-                    let timePeriods = try rows.map({ (dic: [String: AnyObject]) -> [CUTETimePeriod] in
+                    let trafficTimes = try rows.map({ (dic: [String: AnyObject]) -> [CUTETrafficTime] in
                         guard let elements = dic["elements"] as? [[String: AnyObject]] else {
                             throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + dic.description])
                         }
 
-                        let timePeriods = try elements.map({ (element: [String: AnyObject]) -> CUTETimePeriod in
+                        let trafficTimes = try elements.map({ (element: [String: AnyObject]) -> CUTETrafficTime in
                             guard let durationDic = element["duration"] as? [String: AnyObject] else {
                                 throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + element.description])
                             }
@@ -324,11 +325,16 @@ class CUTEGeoManager: NSObject {
                                 throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + durationDic.description])
                             }
                             let timePeriod = CUTETimePeriod(value: duration, unit: "second")
-                            return timePeriod
+                            let trifficTime = CUTETrafficTime()
+                            trifficTime.time = timePeriod
+                            let type = CUTEEnum()
+                            type.type = mode
+                            trifficTime.type = type
+                            return trifficTime
                         })
-                        return timePeriods
+                        return trafficTimes
                     })
-                    tcs.setResult(timePeriods)
+                    tcs.setResult(trafficTimes)
                 }
                 catch let error as NSError {
                     tcs.setError(error)
@@ -343,21 +349,64 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
-    func searchSurroundingsWithLatitude(latitude:Float, longitude:Float) -> BFTask {
+    func searchSurroundingsWithPostcodeIndex(postcodeIndex:String, city:CUTECity, country:CUTECountry) -> BFTask {
         let tcs = BFTaskCompletionSource()
+        let sequencer = Sequencer()
+        sequencer.enqueueStep { (result:AnyObject!, completion:(AnyObject -> Void)!
+            ) -> Void in
 
-        let surrounding1 = try MTLJSONAdapter.modelOfClass(CUTESurrounding.self, fromJSONDictionary: ["type":["type":"featured_facility", "slug":
-            "hesa_university"],"hesa_university":["name": "London University"]] ) as! CUTESurrounding
-        surrounding1.surroundingKey = "hesa_university"
-        surrounding1.surroundingName = "Londong University"
-        let surrounding2 = try MTLJSONAdapter.modelOfClass(CUTESurrounding.self, fromJSONDictionary: ["type":["type":"featured_facility", "slug":
-            "hesa_university"],"hesa_university":["name": "Lulu station"]] ) as! CUTESurrounding
-        surrounding2.surroundingKey = "station"
-        surrounding2.surroundingName = "Lulu station"
+            let universityTask = CUTEAPIManager.sharedInstance().POST("/api/1/hesa_university/search", parameters: ["postcode_index":postcodeIndex, "country":country.ISOcountryCode], resultClass: CUTESurrounding.self)
+            let stationTask = CUTEAPIManager.sharedInstance().POST("/api/1/doogal_station/search", parameters: ["postcode_index":postcodeIndex, "country":country.ISOcountryCode], resultClass: CUTESurrounding.self)
 
-        let result = [surrounding1,surrounding2]
-        tcs.setResult(result)
 
+            BFTask(forCompletionOfAllTasksWithResults: [universityTask, stationTask]).continueWithBlock {[unowned completion](task:BFTask!) -> AnyObject! in
+                if let resultArray = task.result as? [[AnyObject]] {
+                    let result = Array(resultArray.flatten())
+                    completion(result)
+                }
+                return task;
+            }
+        }
+
+        sequencer.enqueueStep { (result:AnyObject!, completion:(AnyObject -> Void)!
+            ) -> Void in
+            if let surroudings:[CUTESurrounding] = result as? [CUTESurrounding] {
+                let destinations = surroudings.map({ (surrouding:CUTESurrounding) -> String in
+                    return (surrouding.zipcode != nil ? surrouding.zipcode: surrouding.postcode)!
+                })
+                let byclingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations, mode:"bycling")
+                let drivingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations)
+                let walkingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations, mode:"walking")
+
+                BFTask(forCompletionOfAllTasksWithResults: [byclingTask, drivingTask, walkingTask]).continueWithBlock { (task:BFTask!) -> AnyObject! in
+
+                    if let taskArray = task.result as? [[CUTETrafficTime]] {
+                        if taskArray.count == 3 {
+                            let byclingArray = taskArray[0]
+                            let drivingArray = taskArray[1]
+                            let walkingArray = taskArray[2]
+
+                            guard surroudings.count == byclingArray.count && byclingArray.count == drivingArray.count && byclingArray.count == walkingArray.count else {
+                                tcs.setError(NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Result Error"]))
+                                return task
+                            }
+
+                            for index in Range(start: 0, end: surroudings.count) {
+                                let surrouding = surroudings[index]
+                                surrouding.trafficTimes = [byclingArray[index], drivingArray[index], walkingArray[index]]
+                            }
+
+                            tcs.setResult(surroudings)
+                        }
+                    }
+
+                    return task;
+                }
+            }
+
+        }
+
+        sequencer.run()
 
         return tcs.task
     }

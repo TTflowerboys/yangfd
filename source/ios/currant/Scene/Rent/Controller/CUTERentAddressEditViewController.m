@@ -330,7 +330,7 @@
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
 
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    NSString *postCodeIndex = [newPostcode stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *postCodeIndex = [[newPostcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
     if (form.ticket.property.country && !IsNilNullOrEmpty(postCodeIndex)) {
         [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:form.ticket.property.country.ISOcountryCode] continueWithBlock:^id(BFTask *task) {
             NSArray *places = (NSArray *)task.result;

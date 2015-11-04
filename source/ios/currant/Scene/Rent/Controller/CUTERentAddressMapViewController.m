@@ -558,7 +558,7 @@
 
 - (BFTask *)updateNeighborhoodWithPostcodeChange:(NSString *)newPostcode countryCode:(NSString *)countryCode {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    NSString *postCodeIndex = [newPostcode stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *postCodeIndex = [[newPostcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
 
     [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:countryCode] continueWithBlock:^id(BFTask *task) {
         NSArray *places = (NSArray *)task.result;

@@ -192,7 +192,8 @@
 
     CUTEProperty *property = self.form.ticket.property;
     if (IsArrayNilOrEmpty(self.form.ticket.property.surroundings) && property.latitude && property.longitude) {
-        [[[CUTEGeoManager sharedInstance] searchSurroundingsWithLatitude:property.latitude.floatValue longitude:property.longitude.floatValue] continueWithBlock:^id(BFTask *task) {
+        NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
+        [[[CUTEGeoManager sharedInstance] searchSurroundingsWithPostcodeIndex:postCodeIndex city:property.city country:property.country] continueWithBlock:^id(BFTask *task) {
             //TODO update surroundings cell
             property.surroundings = task.result;
             return task;
@@ -438,8 +439,10 @@
     }
     else {
 
-        [[[CUTEGeoManager sharedInstance] searchSurroundingsWithLatitude:property.latitude.floatValue longitude:property.longitude.floatValue] continueWithBlock:^id(BFTask *task) {
-            //TODO update property 
+        NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
+        [[[CUTEGeoManager sharedInstance] searchSurroundingsWithPostcodeIndex:postCodeIndex city:property.city country:property.country] continueWithBlock:^id(BFTask *task) {
+            //TODO update surroundings cell
+            property.surroundings = task.result;
 
             CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithSurroundings:property.surroundings];
             controller.delegate = self;

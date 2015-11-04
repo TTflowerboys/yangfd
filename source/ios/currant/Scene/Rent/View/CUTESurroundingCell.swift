@@ -57,14 +57,9 @@ class CUTESurroundingCell: UITableViewCell {
         innerView.addSubview(removeButton)
         self.contentView.addSubview(innerView)
 
-
         self.backgroundColor = UIColor.clearColor()
         self.contentView.backgroundColor = UIColor.clearColor()
         self.innerView.backgroundColor = UIColor(hex6:0xffffff)
-
-        typeButton.addTarget(self, action: "onTypeButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-        durationButton.addTarget(self, action: "onDurationButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-        removeButton.addTarget(self, action: "onRemoveButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
     }
 
 
@@ -150,17 +145,4 @@ class CUTESurroundingCell: UITableViewCell {
             self.isBorderAdded = true
         }
     }
-
-    func onTypeButtonPressed(sender:UIButton) {
-
-    }
-
-    func onDurationButtonPressed(sender:UIButton) {
-
-    }
-
-    func onRemoveButtonPressed(sender:UIButton) {
-
-    }
-
 }
