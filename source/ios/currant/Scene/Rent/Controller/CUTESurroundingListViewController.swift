@@ -67,24 +67,31 @@ class CUTESurroundingListViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
-        var surroudingCell:CUTESurroundingCell
+        var surroundingCell:CUTESurroundingCell
 
         if cell is CUTESurroundingCell {
-            surroudingCell = cell as! CUTESurroundingCell
+            surroundingCell = cell as! CUTESurroundingCell
         }
         else {
-            surroudingCell = CUTESurroundingCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
-            surroudingCell.typeButton.addTarget(self, action: "onTypeButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-            surroudingCell.durationButton.addTarget(self, action: "onDurationButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-            surroudingCell.removeButton.addTarget(self, action: "onRemoveButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            surroundingCell = CUTESurroundingCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
+            surroundingCell.typeButton.addTarget(self, action: "onTypeButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            surroundingCell.durationButton.addTarget(self, action: "onDurationButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            surroundingCell.removeButton.addTarget(self, action: "onRemoveButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         }
         let surrounding = self.surroundings[indexPath.row]
-        surroudingCell.nameLabel.text = surrounding.name
-        surroudingCell.typeButton.tag = indexPath.row
-        surroudingCell.durationButton.tag = indexPath.row
-        surroudingCell.removeButton.tag = indexPath.row
+        surroundingCell.nameLabel.text = surrounding.name
+        surroundingCell.typeButton.tag = indexPath.row
+        surroundingCell.durationButton.tag = indexPath.row
+        surroundingCell.removeButton.tag = indexPath.row
 
-        return surroudingCell
+
+        if let trafficTime = surrounding.trafficTimes?[0] {
+            surroundingCell.typeButton.titleLabel?.text = trafficTime.type?.type
+            surroundingCell.durationButton.titleLabel?.text =  "\(trafficTime.time?.value)"
+            surroundingCell.setNeedsLayout()
+        }
+
+        return surroundingCell
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

@@ -312,12 +312,12 @@ class CUTEGeoManager: NSObject {
                         throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + dic.description])
                     }
 
-                    let trafficTimes = try rows.map({ (dic: [String: AnyObject]) -> [CUTETrafficTime] in
+                    let trafficTimesMatrix = try rows.map({ (dic: [String: AnyObject]) -> [CUTETrafficTime] in
                         guard let elements = dic["elements"] as? [[String: AnyObject]] else {
                             throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + dic.description])
                         }
 
-                        let trafficTimes = try elements.map({ (element: [String: AnyObject]) -> CUTETrafficTime in
+                        let trafficTimesArray = try elements.map({ (element: [String: AnyObject]) -> CUTETrafficTime in
                             guard let durationDic = element["duration"] as? [String: AnyObject] else {
                                 throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + element.description])
                             }
@@ -332,9 +332,9 @@ class CUTEGeoManager: NSObject {
                             trifficTime.type = type
                             return trifficTime
                         })
-                        return trafficTimes
+                        return trafficTimesArray
                     })
-                    tcs.setResult(trafficTimes)
+                    tcs.setResult(trafficTimesMatrix)
                 }
                 catch let error as NSError {
                     tcs.setError(error)
@@ -379,11 +379,11 @@ class CUTEGeoManager: NSObject {
 
                 BFTask(forCompletionOfAllTasksWithResults: [byclingTask, drivingTask, walkingTask]).continueWithBlock { (task:BFTask!) -> AnyObject! in
 
-                    if let taskArray = task.result as? [[CUTETrafficTime]] {
+                    if let taskArray = task.result as? [[[CUTETrafficTime]]] {
                         if taskArray.count == 3 {
-                            let byclingArray = taskArray[0]
-                            let drivingArray = taskArray[1]
-                            let walkingArray = taskArray[2]
+                            let byclingArray = taskArray[0][0]
+                            let drivingArray = taskArray[1][0]
+                            let walkingArray = taskArray[2][0]
 
                             guard surroudings.count == byclingArray.count && byclingArray.count == drivingArray.count && byclingArray.count == walkingArray.count else {
                                 tcs.setError(NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Result Error"]))

@@ -27,7 +27,6 @@ class CUTESurroundingCell: UITableViewCell {
 
         typeButton = UIButton()
         typeButton.setImage(UIImage(named: "icon-down-arrow"), forState: UIControlState.Normal)
-        typeButton.setTitle("步行", forState: UIControlState.Normal)
         typeButton.setTitleColor(UIColor(hex6: 0x999999), forState: UIControlState.Normal)
         typeButton.titleLabel?.font = UIFont.systemFontOfSize(12)
 //        typeButton.backgroundColor = UIColor.redColor()
@@ -35,7 +34,6 @@ class CUTESurroundingCell: UITableViewCell {
 
         durationButton = UIButton()
         durationButton.setImage(UIImage(named: "icon-down-arrow"), forState: UIControlState.Normal)
-        durationButton.setTitle("15分钟", forState: UIControlState.Normal)
         durationButton.setTitleColor(UIColor(hex6: 0x999999), forState: UIControlState.Normal)
         durationButton.titleLabel?.font = UIFont.systemFontOfSize(12)
 //        durationButton.backgroundColor = UIColor.blueColor()
