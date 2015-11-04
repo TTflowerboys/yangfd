@@ -20,59 +20,30 @@ else:
 
 with f_app.mongo() as m:
 
-    # 分邮件类型来统计邮件发送和打开的状态
-    print('\n分邮件类型来统计邮件发送成功,打开和点击的百分比:')
-    # 计算每类邮件的总数
-    tasks_count_by_tag = {}
-    cursor = m.tasks.aggregate(
+    # 统计多少房源没有填写地理位置
+    print('\n统计多少房源没有填写地理位置:')
+    cursor = m.tickets.aggregate(
         [
-            {'$match': {'type': "email_send"}},
-            {'$group': {'_id': "$tag", 'count': {'$sum': 1}}}
+            {'$match': {'type': 'rent', 'status': 'to rent'}}
         ]
     )
 
+    target_tickets_id_list = []
     for document in cursor:
-        if (document['_id']):
-            tasks_count_by_tag[document['_id']] = document['count']
+        if(document['_id']):
+            target_tickets_id_list.append(str(document['_id']))
+    target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_tickets_id_list, ignore_nonexist=True, permission_check=False))
+    total_tickets_count = len(target_tickets)
+    total_tickets_count_with_location = 0
+    for ticket in target_tickets:
+        if ticket and 'property' in ticket and 'latitude' in ticket['property']:
+            total_tickets_count_with_location += 1
+    print('Total tickets without location: ' + str(total_tickets_count - total_tickets_count_with_location))
 
-    # 统计每类邮件发送成功率，打开率和点击率
-    for email_tag in tasks_count_by_tag.keys():
-        # print(email_tag + '邮件总数: ' + str(tasks_count_by_tag[email_tag]))
-        cursor = m.tasks.find({'tag': email_tag})
-        total_count = 0
-        target_status_rate = {
-            'delivered': 0,
-            'open': 0,
-            'click': 0
-        }
-        for task in cursor:
-            if ('email_id' in task and 'target' in task):
-                emails_status_id = f_app.email.status.get_email_status_id(task['email_id'], task['target'])
-                if(isinstance(emails_status_id, list)):
-                    for email_status_id in emails_status_id:
-                        try:
-                            email = f_app.email.status.get(email_status_id)
-                        except AttributeError:
-                            email = None
-                        if 'email_status_set' in email and 'processed' in email['email_status_set']:
-                            total_count += 1
-                            for status in target_status_rate.keys():
-                                if status in email['email_status_set']:
-                                    target_status_rate[status] += 1
-                else:
-                    try:
-                        email = f_app.email.status.get(emails_status_id)
-                    except AttributeError:
-                        email = None
-                    if email and 'email_status_set' in email and 'processed' in email['email_status_set']:
-                            total_count += 1
-                            for status in target_status_rate.keys():
-                                if status in email['email_status_set']:
-                                    target_status_rate[status] += 1
-        print('\n' + email_tag.encode('utf-8') + '邮件总数: ' + str(total_count) + ', 其中:')
-        if(total_count != 0):
-            for key in target_status_rate.keys():
-                print(key.encode('utf-8') + ': ' + str(float(target_status_rate[key])/total_count))
+
+    # 统计多少房源没有街区
+
+
     # print('\n统计200镑以上的伦敦求租意向单:')
     # 按预算统计伦敦求租意向单
     # print('\n统计200镑以上的伦敦求租意向单:')

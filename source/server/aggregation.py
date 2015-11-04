@@ -508,3 +508,57 @@ with f_app.mongo() as m:
     for target_property in target_properties:
         if target_property and 'name' in target_property:
             print(target_property['name'].encode('utf-8') + ", " + str(target_property['id']) + ':' + str(property_viewed_count_dic[str(target_property['id'])]))
+
+    # 分邮件类型来统计邮件发送和打开的状态
+    print('\n分邮件类型来统计邮件发送成功,打开和点击的百分比:')
+    # 计算每类邮件的总数
+    tasks_count_by_tag = {}
+    cursor = m.tasks.aggregate(
+        [
+            {'$match': {'type': "email_send"}},
+            {'$group': {'_id': "$tag", 'count': {'$sum': 1}}}
+        ]
+    )
+
+    for document in cursor:
+        if (document['_id']):
+            tasks_count_by_tag[document['_id']] = document['count']
+
+    # 统计每类邮件发送成功率，打开率和点击率
+    for email_tag in tasks_count_by_tag.keys():
+        # print(email_tag + '邮件总数: ' + str(tasks_count_by_tag[email_tag]))
+        cursor = m.tasks.find({'tag': email_tag})
+        total_count = 0
+        target_status_rate = {
+            'delivered': 0,
+            'open': 0,
+            'click': 0
+        }
+        for task in cursor:
+            if ('email_id' in task and 'target' in task):
+                emails_status_id = f_app.email.status.get_email_status_id(task['email_id'], task['target'])
+                if(isinstance(emails_status_id, list)):
+                    for email_status_id in emails_status_id:
+                        try:
+                            email = f_app.email.status.get(email_status_id)
+                        except AttributeError:
+                            email = None
+                        if 'email_status_set' in email and 'processed' in email['email_status_set']:
+                            total_count += 1
+                            for status in target_status_rate.keys():
+                                if status in email['email_status_set']:
+                                    target_status_rate[status] += 1
+                else:
+                    try:
+                        email = f_app.email.status.get(emails_status_id)
+                    except AttributeError:
+                        email = None
+                    if email and 'email_status_set' in email and 'processed' in email['email_status_set']:
+                            total_count += 1
+                            for status in target_status_rate.keys():
+                                if status in email['email_status_set']:
+                                    target_status_rate[status] += 1
+        print('\n' + email_tag.encode('utf-8') + '邮件总数: ' + str(total_count) + ', 其中:')
+        if(total_count != 0):
+            for key in target_status_rate.keys():
+                print(key.encode('utf-8') + ': ' + str(float(target_status_rate[key])/total_count))
