@@ -2,16 +2,11 @@
     <div ng-controller="ctrlIntention">
 
         <div class="buttons">
-            <!--<div class="btn-group">
-                <button class="btn" ui-sref=".create">
-                    <span class="fa fa-plus-circle"></span> {%$root.i18n('添加求租意向单')%}
-                </button>
-            </div>-->
-<!--            <div class="btn-group form-inline">
-                <select class="form-control" ng-options="p.value as p.name for p in intentionTicketStatus" ng-model="selected.status">
-                    <option value="">-- {%$root.i18n('过滤条件')%} --</option>
-                </select>
-            </div>-->
+            <div class="btn-group">
+                <a class="btn" href="/export-excel/user-rent-intention.xlsx" target="_blank">
+                    <span class="fa fa-plus-circle"></span> {%$root.i18n('导出到Excel')%}
+                </a>
+            </div>
 
             <span class="btn-group pull-right">
                 <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
