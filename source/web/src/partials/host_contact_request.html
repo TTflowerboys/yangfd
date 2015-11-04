@@ -47,7 +47,7 @@
     %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
     <div class="contactRequest" id="contactRequest">
         <button id="contactRequestBtn" class="ajaxButton ghostButton red" disabled
-            %if rent.get('landlord_type',{}).get('slug') == 'live_out_landlord':
+            %if rent.get('landlord_type',{}).get('slug') == 'live_out_landlord' or rent.get('landlord_type',{}).get('slug') == 'live_in_landlord':
             data-protectedHost="true"
             %end
             >
