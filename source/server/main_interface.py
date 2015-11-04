@@ -731,6 +731,7 @@ def test_wx_share_remote():
 
 
 @f_get('/export-excel/user-rent-intention.xlsx')
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
 def user_rent_intention():
 
     def get_data_directly_as_str(user, part, deep=None):
