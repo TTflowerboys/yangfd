@@ -730,7 +730,7 @@ def test_wx_share_remote():
     return currant_util.common_template("test_wx_share_remote", title=title)
 
 
-@f_get('/export-excel/user-rent-intention')
+@f_get('/export-excel/user-rent-intention.xlsx')
 def user_rent_intention():
 
     def get_data_directly_as_str(user, part, deep=None):
@@ -763,8 +763,6 @@ def user_rent_intention():
             if single.get("id", None):
                 enum_id = str(single.get("id", None))
                 value = enum_type_list[enum_name].get(enum_id, None)
-                #print enum_id
-                #print enum_type_list[enum_name]
                 if value is not None:
                     value_list.append(value)
         if not f_app.util.batch_iterable(value_list):
@@ -856,7 +854,6 @@ def user_rent_intention():
                 if lencur > lenmax:
                     lenmax = lencur
             sheet.column_dimensions[get_correct_col_index(num)].width = lenmax*0.86
-            print "col "+get_correct_col_index(num)+" fit."
 
     def get_referer_id(ticket):
         time = ticket.get("time", None)
@@ -869,13 +866,10 @@ def user_rent_intention():
             if rst_time is None:
                 continue
             if rst_time - diff_time < time < rst_time + diff_time:
-                if flag:
-                    print "bingo. "+str(rst_time)
                 flag = 1
                 record = single
         if flag:
             return get_id_in_url(record.get("referer", ''))
-        print "cant find when "+str(time)
         return ''
 
     def get_email(ticket):
@@ -952,7 +946,6 @@ def user_rent_intention():
         return f_app.ticket.output(f_app.ticket.search(params, per_page=-1))
 
     def get_all_enum_value(enum_singlt_type):
-        print "enum type " + enum_singlt_type + " loading."
         enum_list_subdic = {}
         for enumitem in f_app.i18n.process_i18n(f_app.enum.get_all(enum_singlt_type)):
             enum_list_subdic.update({enumitem["id"]: enumitem["value"]})
@@ -965,7 +958,6 @@ def user_rent_intention():
 
     # enum_type = ["rent_type", "landlord_type"]
 
-    print "find all referer..."
     referer_result = f_app.log.output(f_app.log.search({"route": "/api/1/rent_intention_ticket/add"}, per_page=-1))
     enum_type_list = {}
 
@@ -978,11 +970,8 @@ def user_rent_intention():
               "在找房子中用户最疼的点有哪些？", "备注"]
     ws.append(header)
 
-    print "loading all rent intension ticket..."
     for number, ticket in enumerate(get_all_rent_intention()):
-        print 'ticket.' + str(number) + ' loading.'
         ticket = f_app.i18n.process_i18n(ticket)
-        print 'ticket.' + str(number) + ' i18n process complete.'
         referer_id = get_referer_id(ticket)
         landlord_result, landlord_boss = get_landlord_boss_with_ticket_id(referer_id)
         ws.append(["已提交" if (get_data_directly_as_str(ticket, "status") == "new") else "已出租",
