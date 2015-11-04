@@ -730,9 +730,11 @@ def test_wx_share_remote():
     return currant_util.common_template("test_wx_share_remote", title=title)
 
 
-@f_get('/export-excel/user-rent-intention.xlsx')
+@f_get('/export-excel/user-rent-intention.xlsx', params=dict(
+    days=(int, -1)
+))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
-def user_rent_intention():
+def user_rent_intention(user, params):
 
     def get_data_directly_as_str(user, part, deep=None):
         if user is None:
@@ -942,8 +944,13 @@ def user_rent_intention():
                          ticket.get("address", ''),
                          ticket.get("zipcode_index", '')])
 
-    def get_all_rent_intention():
+    def get_all_rent_intention(days):
         params = {"type": "rent_intention"}
+        if days > 0:
+            time_now = datetime.utcnow()
+            time_diff = timedelta(days=days)
+            condition = {"time": {"$gt": time_now - time_diff}}
+            params.update(condition)
         return f_app.ticket.output(f_app.ticket.search(params, per_page=-1))
 
     def get_all_enum_value(enum_singlt_type):
@@ -971,7 +978,7 @@ def user_rent_intention():
               "在找房子中用户最疼的点有哪些？", "备注"]
     ws.append(header)
 
-    for number, ticket in enumerate(get_all_rent_intention()):
+    for number, ticket in enumerate(get_all_rent_intention(params.get("days", -1))):
         ticket = f_app.i18n.process_i18n(ticket)
         referer_id = get_referer_id(ticket)
         landlord_result, landlord_boss = get_landlord_boss_with_ticket_id(referer_id)
