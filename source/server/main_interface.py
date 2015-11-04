@@ -1013,4 +1013,5 @@ def user_rent_intention():
     be_colorful(ws, 6)
     out = StringIO(save_virtual_workbook(wb))
     #wb.save(out)
+    response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
