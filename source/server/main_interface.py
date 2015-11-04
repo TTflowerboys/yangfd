@@ -951,7 +951,7 @@ def user_rent_intention(user, params):
             time_diff = timedelta(days=days)
             condition = {"time": {"$gt": time_now - time_diff}}
             params.update(condition)
-        return f_app.ticket.output(f_app.ticket.search(params, per_page=-1))
+        return f_app.ticket.output(f_app.ticket.search(params, per_page=-1, notime=True))
 
     def get_all_enum_value(enum_singlt_type):
         enum_list_subdic = {}
