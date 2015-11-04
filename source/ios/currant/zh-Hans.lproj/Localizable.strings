@@ -352,6 +352,9 @@
 "TimePeriod/天" = "天";
 "TimePeriod/周" = "周";
 "TimePeriod/月" = "月";
+"TimePeriod/秒" = "秒";
+"TimePeriod/分" = "分";
+"TimePeriod/小时" = "小时";
 
 
 //

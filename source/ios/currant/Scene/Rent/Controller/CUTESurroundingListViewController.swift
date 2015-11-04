@@ -86,8 +86,8 @@ class CUTESurroundingListViewController: UITableViewController {
 
 
         if let trafficTime = surrounding.trafficTimes?[0] {
-            surroundingCell.typeButton.titleLabel?.text = trafficTime.type?.type
-            surroundingCell.durationButton.titleLabel?.text =  "\(trafficTime.time?.value)"
+            surroundingCell.typeButton.setTitle(trafficTime.type?.type, forState: UIControlState.Normal)
+            surroundingCell.durationButton.setTitle("\(trafficTime.time?.value) " + (trafficTime.time?.unitForDisplay)!, forState: UIControlState.Normal)
             surroundingCell.setNeedsLayout()
         }
 
