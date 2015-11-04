@@ -949,7 +949,7 @@ def user_rent_intention():
 
     def get_all_rent_intention():
         params = {"type": "rent_intention"}
-        return f_app.ticket.output(f_app.ticket.search(params, per_page=20))
+        return f_app.ticket.output(f_app.ticket.search(params, per_page=-1))
 
     def get_all_enum_value(enum_singlt_type):
         print "enum type " + enum_singlt_type + " loading."
