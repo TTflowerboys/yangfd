@@ -1011,6 +1011,6 @@ def user_rent_intention():
     format_fit(ws)
     add_link(ws, 'Q')
     be_colorful(ws, 6)
-    out = StringIO.StringIO(save_virtual_workbook(wb))
+    out = StringIO(save_virtual_workbook(wb))
     #wb.save(out)
     return out
