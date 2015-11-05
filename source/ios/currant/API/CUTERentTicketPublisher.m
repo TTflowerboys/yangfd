@@ -174,6 +174,13 @@
             }];
         }];
     }
+    else {
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            CUTETicket *retTicket = [ticket copy];
+            retTicket.property = result;
+            [tcs setResult:retTicket];
+        }];
+    }
 
     [sequencer run];
     return tcs.task;

@@ -49,11 +49,25 @@ zone: "4"
 class CUTESurrounding: MTLModel, MTLJSONSerializing {
 
     var identifier:String?
+//    var identifier:String? {
+//        get {
+//            var iden = self.identifier
+//            if iden == nil {
+//                iden = self.hesaUniversity
+//            }
+//            if iden == nil {
+//                iden == self.doogalStation
+//            }
+//            return iden
+//        }
+//    }
     var name:String?
     var zipcode:String?
     var postcode:String? //TODO tmp use , need remove
     var type:CUTEEnum?
     var trafficTimes:[CUTETrafficTime]?
+    var hesaUniversity:String?
+    var doogalStation:String?
     
     //different type surrounding have different type key and identifier
 //    var surroundingKey:String?
@@ -82,7 +96,7 @@ class CUTESurrounding: MTLModel, MTLJSONSerializing {
 //    }
 
     static func JSONKeyPathsByPropertyKey() -> [NSObject : AnyObject]! {
-        return ["identifier":"id", "name":"name", "zipcode":"zipcode", "postcode": "postcode", "type":"type", "trafficTimes":"traffic_time"]
+        return ["identifier":"id", "name":"name", "zipcode":"zipcode", "postcode": "postcode", "type":"type", "trafficTimes":"traffic_time", "hesaUniversity":"hesa_university", "doogalStation":"doogal_station"]
     }
 
     static func typeJSONTransformer() -> NSValueTransformer {
