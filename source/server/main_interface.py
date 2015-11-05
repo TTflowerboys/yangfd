@@ -22,6 +22,8 @@ from libfelix.f_interface import f_experiment
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.writer.excel import save_virtual_workbook
+from pytz import timezone
+import pytz
 f_experiment()
 
 logger = logging.getLogger(__name__)
@@ -746,6 +748,10 @@ def user_rent_intention(user, params):
             user_part = '/'.join(user_part)
         if user_part is None:
             return ''
+        if isinstance(user_part, datetime):
+            loc_t = timezone('Europe/London')
+            loc_dt = loc_t.localize(user_part)
+            return unicode(loc_dt.strftime('%Y-%m-%d %H:%M:%S %Z%z'))
         return unicode(user_part)
 
     def get_data_enum(user, enum_name):
