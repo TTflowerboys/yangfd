@@ -9,11 +9,12 @@
 import UIKit
 
 
-class CUTESurroundingListViewController: UITableViewController {
+class CUTESurroundingListViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
 
     private var surroundings:[CUTESurrounding]
-
     var delegate:CUTESurroundingUpdateDelegate?
+    internal var searchController:UISearchDisplayController?
+
 
 
     init(surroundings:[CUTESurrounding]) {
@@ -31,6 +32,8 @@ class CUTESurroundingListViewController: UITableViewController {
         super.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
         super.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         super.tableView.allowsSelection = false
+        //TODO issues http://stackoverflow.com/questions/18925900/ios-7-uisearchdisplaycontroller-search-bar-overlaps-status-bar-while-searching
+        self.edgesForExtendedLayout = UIRectEdge.None
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -38,6 +41,17 @@ class CUTESurroundingListViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, block: { (sender) -> Void in
+
+            if self.searchController == nil {
+                let searchBar = UISearchBar(frame: CGRectMake(0, 0, self.view.frame.size.width, 44))
+                searchBar.delegate = self
+                self.searchController = UISearchDisplayController(searchBar: searchBar, contentsController: self)
+                self.searchController?.delegate = self
+                self.searchController?.searchResultsDelegate = self
+                self.searchController?.searchResultsDataSource = self
+
+            }
+            self.searchController?.setActive(true, animated: true)
 
                                                                      //TODO open a search surrounding item view controller, add item from the search result
                                                                  })
