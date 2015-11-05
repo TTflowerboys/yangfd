@@ -125,7 +125,7 @@
                 [form setAllPropertyTypes:propertyTypes];
                 [form setAllLandlordTypes:landloardTypes];
                 self.formController.form = form;
-                [tcs setResult:nil];
+                completion(ticket);
 
             }
             else {
@@ -160,13 +160,34 @@
                         [form setAllPropertyTypes:propertyTypes];
                         [form setAllLandlordTypes:landloardTypes];
                         self.formController.form = form;
-                        [tcs setResult:nil];
+                        completion(ticket);
                         
                     }
                     return task;
                 }];
             }
 
+        }];
+
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+
+            CUTEProperty *property = self.form.ticket.property;
+            if (IsArrayNilOrEmpty(self.form.ticket.property.surroundings) && property.latitude && property.longitude) {
+                NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
+                [[[CUTEGeoManager sharedInstance] searchSurroundingsWithPostcodeIndex:postCodeIndex city:property.city country:property.country] continueWithBlock:^id(BFTask *task) {
+                    //TODO update surroundings cell
+
+                    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+                        ticket.property.surroundings  = task.result;
+                    }];
+
+                    [tcs setResult:nil];
+                    return task;
+                }];
+            }
+            else {
+                [tcs setResult:nil];
+            }
         }];
 
         [sequencer run];
@@ -189,16 +210,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
-    CUTEProperty *property = self.form.ticket.property;
-    if (IsArrayNilOrEmpty(self.form.ticket.property.surroundings) && property.latitude && property.longitude) {
-        NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
-        [[[CUTEGeoManager sharedInstance] searchSurroundingsWithPostcodeIndex:postCodeIndex city:property.city country:property.country] continueWithBlock:^id(BFTask *task) {
-            //TODO update surroundings cell
-            property.surroundings = task.result;
-            return task;
-        }];
-    }
 }
 
 - (CUTEPropertyInfoForm *)form {

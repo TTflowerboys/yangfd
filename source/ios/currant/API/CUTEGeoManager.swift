@@ -370,6 +370,17 @@ class CUTEGeoManager: NSObject {
     func searchSurroundingsWithPostcodeIndex(postcodeIndex:String, city:CUTECity, country:CUTECountry) -> BFTask {
         let tcs = BFTaskCompletionSource()
         let sequencer = SwiftSequencer()
+
+        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)) -> Void in
+            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type").continueWithBlock({ (
+                task:BFTask!) -> AnyObject! in
+                if let enums = task.result as? [CUTEEnum] {
+                    completion(enums)
+                }
+                return task
+            })
+        }
+
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
             let universityTask = CUTEAPIManager.sharedInstance().POST("/api/1/hesa_university/search", parameters: ["postcode_index":postcodeIndex, "country":country.ISOcountryCode], resultClass: CUTESurrounding.self)
@@ -377,8 +388,24 @@ class CUTEGeoManager: NSObject {
 
 
             BFTask(forCompletionOfAllTasksWithResults: [universityTask, stationTask]).continueWithBlock {(task:BFTask!) -> AnyObject! in
-                if let resultArray = task.result as? [[AnyObject]] {
-                    let result = Array(resultArray.flatten())
+                let types = result as! [CUTEEnum]
+                if let resultArray = task.result as? [[CUTESurrounding]] {
+                    let universityArray = resultArray[0] .map({ (surrounding:CUTESurrounding) -> CUTESurrounding in
+                        surrounding.type = types.filter({ (type:CUTEEnum) -> Bool in
+                            return type.slug == "hesa_university"
+                        }).first
+                        return surrounding
+                    })
+                    let stationArray = resultArray[1] .map({ (surrounding:CUTESurrounding) -> CUTESurrounding in
+                        surrounding.type = types.filter({ (type:CUTEEnum) -> Bool in
+                            return type.slug == "doogal_station"
+                        }).first
+                        return surrounding
+                    })
+
+                    let bindedArray = [universityArray, stationArray]
+
+                    let result = Array(bindedArray.flatten())
                     completion(result)
                 }
                 return task;

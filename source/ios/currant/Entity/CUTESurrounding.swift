@@ -94,7 +94,25 @@ class CUTESurrounding: MTLModel, MTLJSONSerializing {
     }
 
     func toParams() -> [String:AnyObject]? {
-        return nil;
-//        return @[self.surroudingKey:self.surroungingIndentifier];
+
+        guard self.identifier != nil else {
+            return nil
+        }
+
+        guard self.type != nil else {
+            return nil
+        }
+
+        guard self.trafficTimes?.count > 0 else {
+            return nil
+        }
+
+        guard let trafficTimesParams = self.trafficTimes?.map({ (trafficTime:CUTETrafficTime) -> [String:AnyObject] in
+            return trafficTime.toParams()!
+        }) else {
+            return nil
+        }
+
+        return [self.type!.slug:self.identifier!, "type":self.type!.identifier, "traffic_time":trafficTimesParams]
     }
 }

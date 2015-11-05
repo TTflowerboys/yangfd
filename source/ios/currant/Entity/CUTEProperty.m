@@ -174,9 +174,10 @@
         }] componentsJoinedByString:@","];
     }
     else if ([key isEqualToString:@keypath(self.surroundings)] && [value isKindOfClass:[NSArray class]]) {
-        return [[(NSArray *)value map:^id(CUTESurrounding *object) {
+        NSObject* result = [(NSArray *)value map:^id(CUTESurrounding *object) {
             return [object toParams];
-        }] componentsJoinedByString:@","];
+        }];
+        return result;
     }
     else if ([key isEqualToString:@keypath(self.neighborhood)] && [value isKindOfClass:[CUTENeighborhood class]]) {
         return [(CUTENeighborhood *)value identifier];
