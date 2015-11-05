@@ -75,7 +75,29 @@
 
         function onGetList(data) {
             $scope.fetched = true
-            $scope.list = data.val
+            $scope.list = _.map(data.val, function (item, index) {
+                item.refer = {
+                    text: window.i18n('载入中...'),
+                    link: ''
+                }
+                api.getRefer(item.id)
+                    .then(function (data) {
+                        if(data.data.val && data.data.val.length && data.data.val[0].referer) {
+                            var refer = data.data.val[0].referer
+                            var id = (refer.match(/(?!rent\/|ticketId=)([a-z0-9]{24})/) || [])[1]
+                            $scope.list[index].refer = {
+                                id: id,
+                                link: refer,
+                                text: id ? window.i18n('查看来源房产') : refer
+                            }
+                        } else {
+                            $scope.list[index].refer = {
+                                text: window.i18n('无结果')
+                            }
+                        }
+                    })
+                return item
+            })
             $scope.pages[$scope.currentPageNumber] = $scope.list
 
             if (!$scope.list || $scope.list.length < $scope.perPage) {

@@ -21,6 +21,9 @@
             },
             getHistory: function (id, config) {
                 return $http.get('/api/1/rent_intention_ticket/' + id + '/history', config)
+            },
+            getRefer: function (id, config) {
+                return $http.post('/api/1/log/search', {ticket_id: id, type: 'ticket_add'}, config)
             }
         }
 
