@@ -177,7 +177,7 @@
                                     hint: '',
                                     traffic_time: _.map(matrixData, function (data, innerIndex) {
                                         var elements = JSON.parse(data).rows[0].elements
-                                        var time = elements[0].duration ? Math.round(elements[0].duration.value / 60).toString() : ''
+                                        var time = elements[0].duration ? Math.round(elements[0].duration.value / 60).toString() : '0'
                                         return {
                                             default: innerIndex === 0 ? true : false, //表示UI界面选中的交通方式
                                             isRaw: true, //表示是从Google Distance Matrix API取的时间没有更改过
