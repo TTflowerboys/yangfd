@@ -183,7 +183,7 @@ $(function () {
         //#7548 需要发个请求便于统计
         $.betterPost('/api/1/rent_ticket/' + rentId + '/contact_info')
         window.team.setUserType('tenant')
-        var contactInfo = { 'country': {'code': 'GB', '_country': true},'country_code': 44, 'private_contact_methods': ['phone'], 'wechat': 'yangfd1', 'nickname': i18n('洋房东'), 'email': 'services@youngfunding.co.uk'}
+        var contactInfo = { 'country': {'code': 'GB', '_country': true},'country_code': 44, 'private_contact_methods': ['phone'], 'wechat': 'yangfd9', 'nickname': i18n('洋房东'), 'email': 'services@youngfunding.co.uk'}
         updateContactInfo(contactInfo, true)
     }
     function updateContactInfo(host, isPlatform) {
