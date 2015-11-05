@@ -439,6 +439,7 @@
     }
     else {
 
+        [SVProgressHUD show];
         NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
         [[[CUTEGeoManager sharedInstance] searchSurroundingsWithPostcodeIndex:postCodeIndex city:property.city country:property.country] continueWithBlock:^id(BFTask *task) {
             //TODO update surroundings cell
@@ -447,6 +448,7 @@
             CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithSurroundings:property.surroundings];
             controller.delegate = self;
             [self.navigationController pushViewController:controller animated:YES];
+            [SVProgressHUD dismiss];
             return task;
         }];
     }

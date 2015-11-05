@@ -295,56 +295,74 @@ class CUTEGeoManager: NSObject {
     /// 获取[Google Distance Matrix API](https://developers.google.com/maps/documentation/distance-matrix/intro)的结果
     /// - parameter origins: 源地点地址的列表
     /// - parameter destinations: 目的地址的列表
-    /// - parameter mode: 交通工具的模式，有bicyling, driving, walking, transit, 默认driving
+    /// - parameter mode: 交通工具的模式，有bicycling, driving, walking, transit, 默认driving
     /// - returns: BFTask
     func searchDistanceMatrixWithOrigins(origins:[String], destinations:[String], mode:String = "driving") -> BFTask {
         let tcs = BFTaskCompletionSource()
 
-        let originsParam = origins.joinWithSeparator("|").URLEncode()
-        let destinationsParam = destinations.joinWithSeparator("|").URLEncode()
-        let URLString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=\(originsParam)&destinations=\(destinationsParam)&mode=\(mode)&language=en-GB&key=\(CUTEConfiguration.googleAPIKey())"
+        let sequencer = SwiftSequencer()
 
-        reverseProxyWithLink(URLString).continueWithBlock { (task:BFTask!) -> AnyObject! in
-            if let dic = task.result as? [String:AnyObject] {
+        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject?->Void)) -> Void in
+            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_traffic_type").continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                if let enums = task.result as? [CUTEEnum] {
+                    completion(enums)
+                }
+                return task
+            })
+        }
 
-                do {
-                    guard let rows = dic["rows"] as? [[String: AnyObject]] else {
-                        throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + dic.description])
-                    }
+        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject?->Void)) -> Void in
+            let types = result as! [CUTEEnum]
+            let originsParam = origins.joinWithSeparator("|").URLEncode()
+            let destinationsParam = destinations.joinWithSeparator("|").URLEncode()
+            let URLString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=\(originsParam)&destinations=\(destinationsParam)&mode=\(mode)&language=en-GB&key=\(CUTEConfiguration.googleAPIKey())"
 
-                    let trafficTimesMatrix = try rows.map({ (dic: [String: AnyObject]) -> [CUTETrafficTime] in
-                        guard let elements = dic["elements"] as? [[String: AnyObject]] else {
+            self.reverseProxyWithLink(URLString).continueWithBlock { (task:BFTask!) -> AnyObject! in
+                if let dic = task.result as? [String:AnyObject] {
+
+                    do {
+                        guard let rows = dic["rows"] as? [[String: AnyObject]] else {
                             throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + dic.description])
                         }
 
-                        let trafficTimesArray = try elements.map({ (element: [String: AnyObject]) -> CUTETrafficTime in
-                            guard let durationDic = element["duration"] as? [String: AnyObject] else {
-                                throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + element.description])
+                        let trafficTimesMatrix = try rows.map({ (dic: [String: AnyObject]) -> [CUTETrafficTime] in
+                            guard let elements = dic["elements"] as? [[String: AnyObject]] else {
+                                throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + dic.description])
                             }
-                            guard let duration = durationDic["value"] as? Float else {
-                                throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + durationDic.description])
-                            }
-                            let timePeriod = CUTETimePeriod(value: duration, unit: "second")
-                            let trifficTime = CUTETrafficTime()
-                            trifficTime.time = timePeriod
-                            let type = CUTEEnum()
-                            type.type = mode
-                            trifficTime.type = type
-                            return trifficTime
+
+                            let trafficTimesArray = try elements.map({ (element: [String: AnyObject]) -> CUTETrafficTime in
+                                guard let durationDic = element["duration"] as? [String: AnyObject] else {
+                                    throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + element.description])
+                                }
+                                guard let duration = durationDic["value"] as? Float else {
+                                    throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + durationDic.description])
+                                }
+                                let mins = ceil(duration / 60.0)
+                                let timePeriod = CUTETimePeriod(value: mins, unit: "minute")
+                                let trifficTime = CUTETrafficTime()
+                                trifficTime.time = timePeriod
+                                trifficTime.type = types.filter({ (type:CUTEEnum) -> Bool in
+                                    return type.slug == mode
+                                }).first
+
+                                return trifficTime
+                            })
+                            return trafficTimesArray
                         })
-                        return trafficTimesArray
-                    })
-                    tcs.setResult(trafficTimesMatrix)
+                        tcs.setResult(trafficTimesMatrix)
+                    }
+                    catch let error as NSError {
+                        tcs.setError(error)
+                    }
                 }
-                catch let error as NSError {
-                    tcs.setError(error)
+                else {
+                    tcs.setError(task.error)
                 }
+                return task
             }
-            else {
-                tcs.setError(task.error)
-            }
-            return task
         }
+
+        sequencer.run()
 
         return tcs.task
     }
@@ -373,7 +391,7 @@ class CUTEGeoManager: NSObject {
                 let destinations = surroudings.map({ (surrouding:CUTESurrounding) -> String in
                     return (surrouding.zipcode != nil ? surrouding.zipcode: surrouding.postcode)!
                 })
-                let byclingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations, mode:"bycling")
+                let byclingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations, mode:"bicycling")
                 let drivingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations)
                 let walkingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations, mode:"walking")
 
