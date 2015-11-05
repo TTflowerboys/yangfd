@@ -23,4 +23,6 @@
 
 @property (strong, nonatomic) NSString *value;
 
+@property (nonatomic) NSInteger sortValue;
+
 @end
