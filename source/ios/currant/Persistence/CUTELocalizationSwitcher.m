@@ -13,6 +13,7 @@
 
 NSString *const CUTELocalizationDidUpdateNotification = @"CUTELocalizationDidUpdateNotification";
 
+//NOTE https://github.com/ChenYilong/iOS9AdaptationTips#10ios国际化问题当前设备语言字符串返回有变化
 NSString * CurrantLocalizationFromSystem(NSString *systemLocalization){
     if ([systemLocalization hasPrefix:@"en"]) {
         return @"en_GB";

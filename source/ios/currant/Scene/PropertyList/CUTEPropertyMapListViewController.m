@@ -74,7 +74,7 @@
     }];
 }
 
-//TODO must format base on locale
+//TODO must format base on locale , like use billion or million, thousand
 - (NSString *)formatPrice:(NSString *)price symbol:(NSString *)symbol {
     NSString *suffix = @"";
     CGFloat floatPrice = price.floatValue;
