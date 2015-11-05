@@ -12,12 +12,13 @@
                 <div class="stepWrap ">
                     <div class="step step1">
                         <i>1</i><p class="info">{{_('选择求租地址')}}</p>
-                        <p class="hint" data-hide="requestContact">{{_('洋房东致力于提供最精准最优质的服务给我们每一位客户，提交您的求租需求订阅心仪房源。')}}</p>
-                        <p class="hint" data-show="requestContact">{{_('洋房东致力于提供最精准最优质的服务给我们每一位客户，请您填写求租需求后继续联系此房东')}}</p>
+                        <p class="hint" data-show="normal" style="display: none">{{_('洋房东致力于提供最精准最优质的服务给我们每一位客户，提交您的求租需求订阅心仪房源。')}}</p>
+                        <p class="hint" data-show="requestContact" data-hide="delegateRent" style="display: none">{{_('洋房东致力于提供最精准最优质的服务给我们每一位客户，请您填写求租需求后继续联系此房东，')}}</p>
+                        <p class="hint" data-show="delegateRent" data-hide="requestContact" style="display: none">{{_('洋房东致力于提供最精准最优质的服务给我们每一位客户，请您填写求租需求后等待平台租房顾问与您取得联系，')}}</p>
                     </div>
                     <div class="step step2">
                         <i>2</i><p class="info">{{_('填写求租详情')}}</p>
-                        <p class="hint">{{_('平台有满足您需求的新房源出现时，')}}<br>{{_('可以第一时间通知您')}}</p>
+                        <p class="hint">{{_('平台有满足您需求的新房源出现时，可以第一时间通知您')}}</p>
                     </div>
                     <div class="step step3">
                         <i>3</i><p class="info">{{_('求租者联系方式')}}</p>
@@ -169,7 +170,7 @@
             <div class="successWrap" style="display: none;">
                 <h2>{{_('提交成功')}}</h2>
 
-                <div data-show="requestContact" class="hostContactWrap">
+                <div data-show="requestContact"  data-hide="delegateRent" class="hostContactWrap">
                     <p class="hint">{{_('正在为您加载您要查看的房东联系方式...')}}</p>
                     <div class="host" style="display: none">
                         <img class="avatar" src="/static/images/property_details/ico_phoneowner.png"></img>
@@ -195,9 +196,9 @@
                 </div>
 
                 <p class="hint">{{_('您的求租意向单已经提交成功，您可以：')}}</p>
-                <!--<p class="item" data-hide="requestContact">{{_('获取 1个 额外的联系房东机会')}}</p>-->
-                <p class="item" data-show="requestContact">{{_('已获取到当前房东的联系方式')}}</p>
-                <p class="item">{{_('当平台有满足您需求的房源出现时，')}}<br>{{_('会第一时间通知您')}}</p>
+                <p class="item" data-show="delegateRent" data-hide="requestContact">{{_('负责该房源的租房顾问会在24小时内与您取得联系')}}</p>
+                <p class="item" data-show="requestContact" data-hide="delegateRent">{{_('已获取到当前房东的联系方式')}}</p>
+                <p class="item">{{_('当平台有满足您需求的房源出现时，会第一时间通知您')}}</p>
                 <p class="item">{{_('在个人中心在中查看自己的')}}<a href="/user-intentions#rent">{{_('求租意向单 ')}}</a> {{_('，便捷地查看已联系过房东的联系方式，当您已经租到房子时可以修改求租单状态，平台将停止向您推荐')}}</p>
                 <p class="item">{{_('还想订阅其他合适的出租房源？')}}<a href="/requirement-rent">{{_('提交新的求租意向单 ')}}</a></p>
 

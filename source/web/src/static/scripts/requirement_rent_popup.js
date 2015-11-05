@@ -294,9 +294,13 @@
         if(option && option.requestContact === 'true') {
             container.find('[data-show=requestContact]').show()
             container.find('[data-hide=requestContact]').hide()
+        } else if(option && option.delegate_rent === 'true') {
+            container.find('[data-show=delegateRent]').show()
+            container.find('[data-hide=delegateRent]').hide()
         } else {
+            container.find('[data-show=normal]').show()
             container.find('[data-show=requestContact]').hide()
-            container.find('[data-hide=requestContact]').show()
+            container.find('[data-show=delegateRent]').hide()
         }
     }
     function getHostContact(container, option) {

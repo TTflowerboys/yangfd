@@ -114,6 +114,8 @@ $(function () {
     function getResidueDegree() {
         if($requestContactBtn.attr('data-protectedHost')) {
             $requestContactBtn.prop('disabled', false)
+
+            $hint.html('<span class="exhaustSubmitTip">(' + window.i18n('提交求租需求查看是否可租') + ')</span>').css('display', 'block')
         } else if ($residueDegree.length > 0 && window.user) {
             if(!$requestContactBtn.parents('.host_wrapper').hasClass('contact_info_already_fetched')){
                 $.betterPost('/api/1/credit/view_rent_ticket_contact_info/amount')
@@ -183,9 +185,9 @@ $(function () {
         $.betterPost('/api/1/rent_ticket/' + rentId + '/contact_info')
         window.team.setUserType('tenant')
         var contactInfo = { 'country': {'code': 'GB', '_country': true},'country_code': 44, 'private_contact_methods': ['phone'], 'wechat': 'yangfd1', 'nickname': i18n('洋房东'), 'email': 'services@youngfunding.co.uk'}
-        updateContactInfo(contactInfo)
+        updateContactInfo(contactInfo, true)
     }
-    function updateContactInfo(host) {
+    function updateContactInfo(host, isPlatform) {
         host.private_contact_methods = host.private_contact_methods || []
         if(host.private_contact_methods.indexOf('phone') < 0 && host.phone) {
             $('.hostPhone').addClass('show').find('span').eq(0).text('+' + host.country_code)
@@ -208,6 +210,10 @@ $(function () {
         $('.host .hint').fadeOut()
 
         $('.hostName').text(host.nickname)
+
+        if(isPlatform){
+            $('.hostType').hide()
+        }
 
         $('.contactRequest').hide()
         $('body,html').animate({scrollTop: $('#host').offset().top}, 300)
@@ -235,16 +241,24 @@ $(function () {
      * Control request contact button based on user login or not
      * */
     $requestContactBtn.on('click', function (e) {
-        if(!window.user){
+        if($requestContactBtn.attr('data-protectedHost')){
+            getPlatformContactInfo()
+
+            // Submit request for sales to contact tenant
+            window.openRequirementRentForm({
+                delegate_rent: 'true',
+                ticketId: rentId
+            })
+            ga('send', 'pageview', '/host-contact-request/'+ rentId)
+            ga('send', 'event', 'request_host_contact', 'click', 'open-requirement-rent-form-to-contact')
+        } else if(!window.user){
             $('#contactRequestBtn').hide().next('.knownMore').hide()
             $('.contactRequestForm').show()
 
             ga('send', 'pageview', '/host-contact-request/'+ rentId)
         } else if(window.user && !window.user.phone_verified) {
             window.project.goToVerifyPhone()
-        } else if($requestContactBtn.attr('data-protectedHost')){
-            getPlatformContactInfo()
-        } else if (rentId && !$(this).attr('disabled')) {
+        } else if(rentId && !$(this).attr('disabled')) {
             getContactInfo()
         }
     })
