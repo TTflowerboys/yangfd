@@ -14,6 +14,9 @@ logger = logging.getLogger(__name__)
     time=datetime,
     has_property=bool,
     has_rent_ticket=bool,
+    type=(str, "route"),
+    ticket_id=(ObjectId, None, "str"),
+    ticket_type=str,
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def log_search(user, params):
