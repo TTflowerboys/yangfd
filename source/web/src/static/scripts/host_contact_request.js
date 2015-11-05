@@ -114,8 +114,7 @@ $(function () {
     function getResidueDegree() {
         if($requestContactBtn.attr('data-protectedHost')) {
             $requestContactBtn.prop('disabled', false)
-
-            $hint.html('<span class="exhaustSubmitTip">(' + window.i18n('提交求租需求查看是否可租') + ')</span>').css('display', 'block')
+            $requestContactBtn.text(window.i18n('提交求租单查看是否可租'))
         } else if ($residueDegree.length > 0 && window.user) {
             if(!$requestContactBtn.parents('.host_wrapper').hasClass('contact_info_already_fetched')){
                 $.betterPost('/api/1/credit/view_rent_ticket_contact_info/amount')
