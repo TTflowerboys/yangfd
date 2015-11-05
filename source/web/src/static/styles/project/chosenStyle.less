@@ -36,16 +36,16 @@
         }
     }
     &.chosen-without-border .chosen-single {
-        border: 2px solid transparent;
+        border: 1px solid transparent;
         box-shadow: none;
         color: #999;
         font-size: 16px;
+        background: transparent;
+        height: 40px;
+        line-height: 38px;
         @media @phone{
             padding: 0;
             font-size: 14px;
-        }
-        @media @phone{
-            border: none;
         }
         span{
             margin-right: 16px;
@@ -61,17 +61,11 @@
                 vertical-align: middle;
                 display: inline-block;
                 background-image: none !important;
-                font-size: 12px;
+                font-size: 14px;
+                line-height: 36px;
                 &:before{
                     content: "\e64f";
                 }
-            }
-        }
-    }
-    &.chosen-without-border.chosen-with-drop .chosen-single{
-        div b{
-            &:before{
-                content: "\e657";
             }
         }
     }
@@ -85,6 +79,15 @@
         }
         div b{
             background-position: -17px 10px;
+        }
+    }
+    &.chosen-without-border.chosen-with-drop .chosen-single{
+        border: 1px solid #cccccc;
+
+        div b{
+            &:before{
+                content: "\e657";
+            }
         }
     }
     .chosen-drop-shadow{
@@ -247,6 +250,7 @@
         }
     }
     &.chosen-without-border .chosen-drop{
+        border: 1px solid #ccc;
         text-align: right;
         @media @phone{
             text-align: left;

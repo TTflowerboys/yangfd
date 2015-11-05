@@ -3,6 +3,7 @@
 (function () {
 
     window.project = {
+        cache: {},
         goToSignIn: function () {
             var from = team.getQuery('from', location.href)
             location.href = '/signin?from=' + encodeURIComponent(from ? from : location.href)
@@ -147,6 +148,19 @@
             var includePhoneReg = /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/
             var includeEmailReg = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i
             return includePhoneReg.test(text) || includeEmailReg.test(text)
+        },
+        getEnum: function (type) {
+            var defer = $.Deferred()
+            if(this.cache[type]) {
+                defer.resolve(this.cache[type])
+            } else {
+                $.get('/api/1/enum/search', {type: type, sort: true})
+                .then(function (data) {
+                        window.project.cache[type] = data.val
+                        defer.resolve(data.val)
+                    })
+            }
+            return defer.promise()
         }
     }
 })();

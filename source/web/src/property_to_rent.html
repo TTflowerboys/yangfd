@@ -314,7 +314,7 @@
             %end
         </div>
 
-        % if 'indoor_facility' in rent['property'] or 'community_facility' in rent['property']:
+        % if rent['property'].get('indoor_facility') or rent['property'].get('community_facility'):
         <div class="facilities_section scrollto">
             <div class="seperator"></div>
             % if rent['property'].get('indoor_facility'):
@@ -388,16 +388,18 @@
         <!--mock data end-->
         % if 'surrounding' in rent['property']:
         <!-- @@include=/static/templates/show_travel_time.tpl.html-->
-        <textarea id="surroundingData" style="display: none;">{{json_dumps(rent['property']['surrounding'])}}</textarea>
+        <textarea id="featuredFacilityData" style="display: none">
+            {{json_dumps(rent.get('property',{}).get('featured_facility',[]))}}
+        </textarea>
         <div class="surrounding_section">
             <div class="seperator"></div>
             <div class="surrounding_wrapper">
                 <h3 class="surrounding_title">{{_('周边')}}</h3>
                 <ul class="surrounding" data-bind="foreach: surrouding">
                     <li>
-                        <i class="icon-category_b"></i>
+                        <i data-bind="css: type.currency"></i>
                         <span class="name" data-bind="text: name"></span>
-                        <show-travel-time params="travel: travel"></show-travel-time>
+                        <show-travel-time params="travel: traffic_time"></show-travel-time>
                     </li>
                 </ul>
             </div>
@@ -735,7 +737,7 @@
         <script src="/static/bower_components/jquery.dotdotdot/src/js/jquery.dotdotdot.js"></script>
         <script src="/static/scripts/host_contact_request.js"></script>
         <script src="/static/scripts/property_to_rent_actions.js"></script>
-        <script src="/static/scripts/property_to_rent_surrouding.js"></script>
+        <script src="/static/scripts/property_to_rent_ko.js"></script>
         <!--endbuild-->
         <script>
             $(function () {

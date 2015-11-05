@@ -1,6 +1,6 @@
 <template id='show-travel-time'>
     <select class="chosen-without-border" data-bind="chosen: travel,
-                       optionsText: 'type',
+                       optionsText: function(item){return item.type.value},
                        value: selectedType"></select>
     <span class="time" data-bind="text: selectedType().formatTime"></span>
 </template>

@@ -54,26 +54,8 @@
                         <td class="title">
                             <div class="text">{{_('房产类型')}}</div>
                         </td>
-                        <td id="propertyType">
-                            %for index, property_type in enumerate(property_type_list):
-                                %if (property_type.get('slug')!='new_property'):
-                                    %if rent.get('property',{}) and rent.get('property',{}).get('property_type',{}).get('id',''):
-                                        %if (rent.get('property',{}).get('property_type',{}).get('id','')==property_type.get('id')):
-                                        <div class="property_type selected" data-id="{{property_type.get('id')}}">
-                                            {{property_type.get('value')}}
-                                        </div>
-                                        %else:
-                                        <div class="property_type" data-id="{{property_type.get('id')}}">
-                                            {{property_type.get('value')}}
-                                        </div>
-                                        %end
-                                    %else:
-                                        <div class="property_type" data-id="{{property_type.get('id')}}">
-                                            {{property_type.get('value')}}
-                                        </div>
-                                    %end
-                                %end
-                            %end
+                        <td id="propertyType" data-list="{{json_dumps(property_type_list)}}">
+                            <tags params="list: propertyTypeList, key: 'propertyType'" data-bind="value: propertyType" value="{{rent.get('property',{}).get('property_type',{}).get('id','')}}"></tags>
                         </td>
                     </tr>
                     <tr>
@@ -139,8 +121,8 @@
                         </td>
                         <td>
                             <div class="address">
-                                <input type="hidden" id="latitude" data-bind="value: latitude" data-value="{{rent.get('property',{}).get('latitude','')}}"/>
-                                <input type="hidden" id="longitude" data-bind="value: longitude" data-value="{{rent.get('property',{}).get('longitude','')}}"/>
+                                <input type="hidden" id="latitude" data-bind="initializeValue: latitude, value: latitude" value="{{rent.get('property',{}).get('latitude','')}}"/>
+                                <input type="hidden" id="longitude" data-bind="initializeValue: longitude, value: longitude" value="{{rent.get('property',{}).get('longitude','')}}"/>
                                 <!--<input type="hidden" id="country" name="country" data-validator="required, trim" data-name="{{_('国家')}}" value="{{rent.get('property',{}).get('country',{}).get('value','')}}"/>-->
                                 <!--todo 这两个字段暂时去掉 required -->
                                 <!--todo data-text在编辑页中需要填充用户已经填写过的国家或者城市名称-->
@@ -507,14 +489,33 @@
                             </ul>
                         </td>
                     </tr>
-                    <tr data-bind="visible: show">
+                    <!-- @@include=../static/templates/edit_travel_time.tpl.html-->
+                    <!-- @@include=../static/templates/surrouding_search_input.tpl.html-->
+                    <textarea id="featuredFacilityData" style="display: none">
+                        {{json_dumps(rent.get('property',{}).get('featured_facility',[]))}}
+                    </textarea>
+                    <!-- todo 暂时注释掉方便调试-->
+                    <!--<tr data-bind="visible: showSurrouding">-->
+                    <tr>
                         <td class="title">
                             <div class="text">
                                 {{_('周边')}}
                             </div>
                         </td>
                         <td class="content">
-                            <span data-bind="text: show"></span>
+                            <ul class="surrounding" data-bind="foreach: { data: surrouding, as: 'item' }">
+                                <li>
+                                    <i data-bind="css: type.currency"></i>
+                                    <span class="name" data-bind="text: name"></span>
+                                    <edit-travel-time params="item: item, timeToChoose: $root.timeToChoose"></edit-travel-time>
+                                    <i class="icon-delete" data-bind="click: $parent.removeSurrouding" title="{{_('删除')}}"></i>
+                                </li>
+                            </ul>
+                            <div class="addWrap">
+                                <surrouding-search-input params="surroudingToAdd: surroudingToAdd"></surrouding-search-input>
+                                <edit-travel-time params="item: surroudingToAdd, timeToChoose: timeToChoose"></edit-travel-time>
+                                <span class="addBtn" data-bind="visible: surroudingToAdd().traffic_time && surroudingToAdd().traffic_time.length, click: addSurrouding">{{_('添加')}}</span>
+                            </div>
                         </td>
                     </tr>
 

@@ -2,25 +2,29 @@
 
 (function () {
 
-    function enumApi($http) {
+    function enumApi($http, misc) {
         return {
-            addEnum: function (type, value, slug, sort_value) {
+            addEnum: function (type, value, slug, sort_value, image, currency) {
                 var data = {
                     type: type,
                     slug: slug,
                     value: value,
-                    sort_value: sort_value || 0
+                    sort_value: sort_value || 0,
+                    image: image,
+                    currency: currency
                 }
-                return $http.post('/api/1/enum/add', data, {errorMessage: true})
+                return $http.post('/api/1/enum/add', misc.cleanEmptyData(data), {errorMessage: true})
             },
-            editEnum: function (id, type, value, slug, sort_value) {
+            editEnum: function (id, type, value, slug, sort_value, image, currency) {
                 var data = {
                     type: type,
                     slug: slug,
                     value: value,
-                    sort_value: sort_value || 0
+                    sort_value: sort_value || 0,
+                    image: image,
+                    currency: currency
                 }
-                return $http.post('/api/1/enum/' + id + '/edit', data, {errorMessage: true})
+                return $http.post('/api/1/enum/' + id + '/edit', misc.cleanEmptyData(data), {errorMessage: true})
             },
             addCity: function (countryId, value, sort_value) {
                 var data = {

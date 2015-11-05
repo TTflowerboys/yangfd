@@ -218,6 +218,13 @@ angular.module('app')
                 }
                 return object
             },
+
+            cleanEmptyData: function (object) {
+                return _.omit(object, function (val) {
+                    return val === undefined || val === ''
+                })
+            },
+
             getPropByString: function (object, propString) {
                 if (!propString) {
                     return object;

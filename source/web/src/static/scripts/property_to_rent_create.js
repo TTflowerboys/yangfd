@@ -1,10 +1,5 @@
-(function(ko){
-    var imageArr
-    if($('#fileuploader').data('files') !== undefined) {
-        imageArr = $('#fileuploader').data('files').split(',')
-    }else{
-        imageArr = []
-    }
+(function(ko, module){
+
     var $errorMsg = $('.errorMsg')
     var $errorMsg2 = $('.errorMsg2')
     var $errorMsgOfGetCode = $('.errorMsgOfGetCode')
@@ -20,28 +15,6 @@
     }
     redirectOnPhone()
 
-    function initSelect(selector) {
-        $(selector + ' div').click(function () {
-            var text = $(this).text()
-            $.each($(selector + ' div'), function (i, val) {
-                if ($(this).text() === text) {
-                    if ($(this).hasClass('selected')) {
-                        return
-                    } else {
-                        $(this).addClass('selected')
-                    }
-                } else {
-                    if ($(this).hasClass('selected')) {
-                        $(this).removeClass('selected')
-                    }
-                }
-            })
-        })
-        if($(selector + ' .selected').length === 0) {
-            $(selector + ' div').eq(0).addClass('selected')
-        }
-    }
-    initSelect('#propertyType')
     if(!$('#landlordType').val()) {
         $('#landlordType').find('option[data-slug=live_out_landlord]').prop('selected', 'selected').end().trigger('chosen:updated')
     }
@@ -309,11 +282,12 @@
         clearData('neighborhood')
         clearData('city')
         clearData('country')
-        $('#latitude').val('').trigger('change')
-        $('#longitude').val('').trigger('change')
+        propertyViewModel.latitude('')
+        propertyViewModel.longitude('')
     }
 
     $('#findAddress').click(function () {
+        initSurrouding()
         var $btn = $(this)
         function showPostcodeNoResultMsg () {
             $btn.siblings('.postcodeNoResultMsg').show()
@@ -334,7 +308,7 @@
             }
             propertyViewModel.latitude(val.latitude)
             propertyViewModel.longitude(val.longitude)
-            var geocodeApiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + $('#latitude').val() + ',' + $('#longitude').val() + '&result_type=street_address&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
+            var geocodeApiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + propertyViewModel.latitude() + ',' + propertyViewModel.longitude() + '&result_type=street_address&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
             window.geonamesApi.getCityByLocation(val.country, val.latitude, val.longitude, function (val) {
                 $.betterGet('/reverse_proxy?link=' + encodeURIComponent(geocodeApiUrl))
                     .done(function (data) {
@@ -716,13 +690,13 @@
         }))
         var propertyData = $.extend(options, {
             'name': wrapData(address),
-            'property_type': $('#propertyType .selected').data('id'),
+            'property_type': propertyViewModel.propertyType(),
             'country': $('#country').val(), //todo
             'city': $('#city').val(), //todo
             'street': wrapData($('#street').val()), //todo
             'address': wrapData(address),
             'highlight': wrapData([]), //todo?
-            'reality_images': wrapData(imageArr),
+            'reality_images': wrapData(propertyViewModel.imageArr()),
             'region_highlight': JSON.stringify(regionHighlight),
             //'kitchen_count': $('#kitchen_count').children('option:selected').val(),
             'bathroom_count': $('#bathroom_count').children('option:selected').val(),
@@ -735,6 +709,21 @@
             'zipcode': $('#postcode').val().trim().toUpperCase(),
             'user_generated': true
         })
+        if(propertyViewModel.surrouding().length) {
+            propertyData.featured_facility = JSON.stringify(_.map(_.clone(propertyViewModel.surrouding()), function (item) {
+                var obj = {}
+                obj[item.type.slug] = item.id
+                obj.type = item.type.id
+                obj.traffic_time = _.map(item.traffic_time, function (innerItem) {
+                    return {
+                        default : innerItem.default,
+                        type: innerItem.type.id,
+                        time: {unit:'minute',value:innerItem.time.value.toString()}
+                    }
+                })
+                return obj
+            }))
+        }
         if($('#neighborhood').val() !== ''){
             propertyData.maponics_neighborhood = $('#neighborhood').val()
         }
@@ -750,11 +739,11 @@
         if($('#rentalType .selected').index() === 1 && getSpace() !== false){
             propertyData.space = getSpace()
         }
-        if($('#latitude').val() !== '') {
-            propertyData.latitude = $('#latitude').val()
+        if(propertyViewModel.latitude() !== '') {
+            propertyData.latitude = propertyViewModel.latitude()
         }
-        if($('#longitude').val() !== '') {
-            propertyData.longitude = $('#longitude').val()
+        if(propertyViewModel.longitude() !== '') {
+            propertyData.longitude = propertyViewModel.longitude()
         }
         if($('.ajax-file-upload-statusbar.cover').length) {
             propertyData.cover = wrapData($('.ajax-file-upload-statusbar.cover').attr('data-url'))
@@ -1263,9 +1252,9 @@
                 }else{
                     url = data.val.url
                 }
-                var index = imageArr.indexOf(url)
+                var index = propertyViewModel.imageArr.indexOf(url)
                 if(index >= 0){
-                    imageArr.splice(index, 1)
+                    propertyViewModel.imageArr.splice(index, 1)
                     uploadObj.existingFileNames.splice(index, 1)
                 }
             },
@@ -1281,11 +1270,11 @@
                     pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').remove()
                     return window.alert(window.i18n('上传错误：错误代码') + '(' + data.ret + '),' + data.debug_msg)
                 }
-                imageArr.push(data.val.url)
+                propertyViewModel.imageArr.push(data.val.url)
                 pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').attr('data-url', data.val.url)
             },
             onLoad:function(obj) {
-                $.each(imageArr, function(i, v){
+                $.each(propertyViewModel.imageArr(), function(i, v){
                     var cover = $('.image_panel').attr('data-cover')
                     obj.createProgress(v)
                     var previewElem = $('#uploadProgress').find('.ajax-file-upload-statusbar').eq(i)
@@ -1319,13 +1308,145 @@
     })
 
     function PropertyViewModel() {
-        this.latitude = ko.observable($('#latitude').attr('data-value'))
-        this.longitude = ko.observable($('#longitude').attr('data-value'))
+        var self = this
+        if($('#fileuploader').data('files') !== undefined) {
+            this.imageArr = ko.observableArray($('#fileuploader').data('files').split(','))
+        }else{
+            this.imageArr = ko.observableArray([])
+        }
+        this.propertyTypeList = ko.observableArray(_.reject(JSON.parse($('#propertyType').attr('data-list')), {slug: 'new_property'}))
+        this.propertyType = ko.observable($('#propertyType tags').attr('value') || this.propertyTypeList()[0].id)
+        this.latitude = ko.observable()
+        this.longitude = ko.observable()
         this.city = ko.observable()
-        this.show = ko.computed(function () {
+
+        this.showSurrouding = ko.computed(function () {
             return !_.isEmpty(this.latitude()) && !_.isEmpty(this.longitude())
         }, this)
+
+        this.timeToChoose = generateTimeConfig(12, 5)
+        this.surrouding = ko.observableArray(_.map(JSON.parse($('#featuredFacilityData').text()), function (item) {
+            //todo 目前featured_facility中的学校的数据没有展开，所以加上这一段来mock展开后的数据
+            if (typeof item[item.type.slug] === 'string' || typeof item[item.type.slug] === 'undefined') {
+                item[item.type.slug] = {
+                    id: item[item.type.slug],
+                    name: 'Mock Data'
+                }
+            }
+
+            item.id = item[item.type.slug].id
+            item.name = item[item.type.slug].name
+
+            item.traffic_time = _.map(item.traffic_time, function (innerItem) {
+                innerItem.isRaw = (_.find(self.timeToChoose, {value: innerItem.time.value}) === undefined)
+                return innerItem
+            })
+            return item
+        }))
+        this.removeSurrouding = function (item) {
+            self.surrouding.remove(item)
+        }
+
+        this.surroudingToAdd = ko.observable({hint: ''})
+        this.addSurrouding = function () {
+            this.surrouding.push(this.surroudingToAdd())
+            this.surroudingToAdd({hint: ''})
+        }
     }
     var propertyViewModel = new PropertyViewModel()
+    window.propertyViewModel = propertyViewModel
     ko.applyBindings(propertyViewModel)
-})(window.ko)
+
+    function generateTimeConfig(length, interval) {
+        return new Array(length + 1).join('0').split('').map(function (val, index) {
+            return {value:((index + 1) * interval).toString(), unit: window.i18n('分钟')}
+        })
+    }
+    function getUniversities() {
+        return $.get('/api/1/hesa_university/search')
+            .then(function (data) {
+                return data.val
+            })
+            .then(function (list) {
+                return _.shuffle(list).slice(0,2)
+            })
+    }
+    function getStations() {
+        return $.get('/api/1/doogal_station/search')
+            .then(function (data) {
+                return data.val
+            })
+            .then(function (list) {
+                return _.shuffle(list).slice(0,2)
+            })
+    }
+
+
+
+    function getSurrouding() {
+        //mock搜索周边地点的数据
+        //var idList = ['55c4697cd4a21929795ad5fa', '55c4697cd4a21929795ad5fb'] //dev
+        /*var idList = ['55c4b36e5c71bcc625bd437d', '55c4b36e5c71bcc625bd43bb', '55c4b36e5c71bcc625bd43bc', '55c4b36e5c71bcc625bd43bd'] //test
+        function generateOneSurrouding(id) {
+            return $.get('/api/1/hesa_university/' + id)
+        }
+        return $.when.apply(null, _.map(idList, generateOneSurrouding)).then(function () {
+            return Array.prototype.slice.call(arguments).map(function (arr) {
+                var item = arr[0].val
+                item.type = { //featured_facility_type
+                    id: '56387be6571cd90621016821',
+                    slug: 'hesa_university'
+                }
+                return item
+            })
+        })*/
+
+        return $.when(getUniversities(), getStations(), window.project.getEnum('featured_facility_type'))
+            .then(function (resultsOfUniversities, resultsOfStations, types) {
+                function typeMapFactory(slug) {
+                    return function (item) {
+                        item.type = _.find(types, {slug: slug})
+                        return item
+                    }
+                }
+                return (_.map(resultsOfUniversities, typeMapFactory('hesa_university'))).concat(_.map(resultsOfStations, typeMapFactory('doogal_station')))
+
+            })
+    }
+
+    function getModes() {
+        return window.project.getEnum('featured_facility_traffic_type')
+    }
+    function initSurrouding() {
+        var originPostcode = $('#postcode').val().replace(/\s/g, '').toUpperCase()
+        if(!originPostcode.length) {
+            return
+        }
+        $.when(getSurrouding(), getModes())
+            .then(function(originSurrouding, modes){
+                var destinations = originSurrouding.map(function (item) {
+                    return item.postcode_index || item.zipcode_index
+                })
+                module.distanceMatrix(originPostcode, destinations, modes)
+                    .then(function (matrixData) {
+                        var surrouding = _.map(originSurrouding, function (item, index) {
+                            item.traffic_time = _.map(matrixData, function (data, innerIndex) {
+                                var time = Math.round(JSON.parse(data).rows[0].elements[index].duration.value / 60).toString()
+                                return {
+                                    default: innerIndex === 0 ? true : false, //表示UI界面选中的交通方式
+                                    isRaw: true, //表示是从Google Distance Matrix API取的时间没有更改过
+                                    type: modes[innerIndex],
+                                    time: {
+                                        value: time,
+                                        unit: window.i18n('分钟')
+                                    }
+                                }
+                            })
+                            return item
+                        })
+
+                        propertyViewModel.surrouding(surrouding)
+                    })
+            })
+    }
+})(window.ko, window.currantModule = window.currantModule || {})
