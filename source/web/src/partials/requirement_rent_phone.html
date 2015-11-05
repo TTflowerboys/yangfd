@@ -168,7 +168,8 @@
                 </div>
             </div>
             <div class="successWrap" style="display: none;">
-                <h2>{{_('提交成功')}}</h2>
+                <h2 data-show="normal" style="display: none">{{_('提交成功')}}</h2>
+                <h2 data-show="delegateRent" data-hide="requestContact" style="display: none">{{_('提交成功，我们会在24小时内与您联系')}}</h2>
 
                 <div data-show="requestContact"  data-hide="delegateRent" class="hostContactWrap">
                     <p class="hint">{{_('正在为您加载您要查看的房东联系方式...')}}</p>
