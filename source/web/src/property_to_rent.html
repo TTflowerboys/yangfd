@@ -261,7 +261,7 @@
                 % end
                 %end
             </ul>
-            % if ('street' in rent['property'] and rent.get('property',{}).get('street','')) or ('community' in rent['property'] and rent.get('property',{}).get('community','')) or ('floor' in rent['property'] and rent.get('property',{}).get('floor','')) or ('house_name' in rent['property']):
+            % if ('street' in rent['property'] and rent.get('property',{}).get('street','')) or ('community' in rent['property'] and rent.get('property',{}).get('community','')) or ('floor' in rent['property'] and rent.get('property',{}).get('floor','')):
             % count = sum([bool(x in rent['property'] and rent["property"][x]) for x in ["street", "community", "floor"]])
             <div class="seperator"></div>
             <ul class="numbersWithoutSeperator">
