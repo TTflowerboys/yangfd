@@ -8,6 +8,7 @@
 
 import UIKit
 
+@objc(CUTEFormAreaTextFieldCell)
 class CUTEFormAreaTextFieldCell: CUTEFormTextFieldCell {
 
     /*

@@ -8,7 +8,7 @@
 
 import UIKit
 
-
+@objc(CUTESurroundingListViewController)
 class CUTESurroundingListViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
 
     private var surroundings:[CUTESurrounding]

@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc protocol CUTESurroundingUpdateDelegate : NSObjectProtocol {
+@objc(CUTESurroundingUpdateDelegate) protocol CUTESurroundingUpdateDelegate : NSObjectProtocol {
 
     func onDidAddSurrounding(surrounding:CUTESurrounding, atIndex index:UInt)
 

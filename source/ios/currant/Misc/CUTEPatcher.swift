@@ -8,6 +8,7 @@
 
 import Foundation
 
+@objc(CUTEPatcher)
 class CUTEPatcher : NSObject {
 
     static let sharedInstance = CUTEPatcher.init()

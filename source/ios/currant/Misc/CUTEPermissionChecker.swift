@@ -8,6 +8,7 @@
 
 import Foundation
 
+@objc(CUTEPermissionChecker)
 class CUTEPermissionChecker: NSObject {
 
     private static let loginRequiredURLs = ["/user", "/user-favorites", "/user-properties"]

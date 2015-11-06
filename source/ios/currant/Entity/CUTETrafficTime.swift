@@ -8,7 +8,7 @@
 
 import UIKit
 
-
+@objc(CUTETrafficTime)
 class CUTETrafficTime: MTLModel, MTLJSONSerializing {
 
     var type:CUTEEnum?

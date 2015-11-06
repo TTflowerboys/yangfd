@@ -8,6 +8,7 @@
 
 import UIKit
 
+@objc(CUTESurroundingForm)
 class CUTESurroundingForm: CUTEForm {
 
 }

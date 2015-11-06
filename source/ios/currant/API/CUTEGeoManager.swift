@@ -8,6 +8,7 @@
 
 import UIKit
 
+@objc(CUTEGeoManager)
 class CUTEGeoManager: NSObject {
 
     static let sharedInstance = CUTEGeoManager()

@@ -8,6 +8,7 @@
 
 import UIKit
 
+@objc(CUTESurroundingCell)
 class CUTESurroundingCell: UITableViewCell {
 
     let nameLabel:UILabel!

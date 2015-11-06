@@ -45,7 +45,7 @@ zone: "4"
 
 */
 
-
+@objc(CUTESurrounding)
 class CUTESurrounding: MTLModel, MTLJSONSerializing {
 
     var identifier:String?

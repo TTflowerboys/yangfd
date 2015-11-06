@@ -8,6 +8,7 @@
 
 import Foundation
 
+@objc(CUTERouter)
 class CUTERouter : NSObject {
 
     static let globalRouter = CUTERouter()

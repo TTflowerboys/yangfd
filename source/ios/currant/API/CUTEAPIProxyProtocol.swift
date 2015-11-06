@@ -10,7 +10,8 @@ import Foundation
 
 //Same with CUTEAPIManager export API
 
-@objc protocol CUTEAPIProxyProtocol : NSObjectProtocol {
+@objc(CUTEAPIProxyProtocol)
+protocol CUTEAPIProxyProtocol : NSObjectProtocol {
 
     func setRestClient(restClient:BBTRestClient) -> Void
 

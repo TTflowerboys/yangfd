@@ -8,6 +8,7 @@
 
 import UIKit
 
+@objc(CUTEPlainTextNumberTransformer)
 class CUTEPlainTextNumberTransformer: NSValueTransformer {
 
     override class func transformedValueClass() -> AnyClass {
