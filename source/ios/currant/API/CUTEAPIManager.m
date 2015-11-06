@@ -9,9 +9,12 @@
 #import "CUTEAPIManager.h"
 #import <BBTRestClient.h>
 #import <UIImageView+AFNetworking.h>
+#import <NSArray+ObjectiveSugar.h>
+#import <RegExCategories.h>
 #import "CUTEConfiguration.h"
 #import "CUTECommonMacro.h"
 #import "CUTEUserAgentUtil.h"
+#import <currant-Swift.h>
 
 
 @interface CUTEAPIManager () {
@@ -19,6 +22,8 @@
     BBTRestClient *_backingManager;
 
     UIImageView *_imageDownloader;
+
+    NSMutableDictionary *_adapterURLRuleMappings;
 }
 
 @property (nonatomic, readonly) BBTRestClient *backingManager;
@@ -34,6 +39,11 @@
 
     dispatch_once(&pred, ^{
         sharedInstance = [[[self class] alloc] init];
+
+        // 1. /api/1/property/<property_id>
+        // 2. /api/1/property/search
+        // 3. /api/1/property/<property_id>/edit
+        [sharedInstance registerAPIProxyClassName:@"CUTEPropertyAPIProxy" withURLRule:@"/api/1/property/*+"];
     });
 
     return sharedInstance;
@@ -51,6 +61,8 @@
         [_backingManager.requestSerializer setValue:[CUTEUserAgentUtil userAgent] forHTTPHeaderField:@"User-Agent"];
 
         _imageDownloader = [UIImageView new];
+
+        _adapterURLRuleMappings = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -59,8 +71,35 @@
     return _backingManager;
 }
 
+- (void)registerAPIProxyClassName:(NSString *)className withURLRule:(NSString *)rule {
+    NSAssert([NSClassFromString(className) conformsToProtocol:@protocol(CUTEAPIProxyProtocol)], @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
+
+    [_adapterURLRuleMappings setObject:className forKey:rule];
+}
+
+- (id<CUTEAPIProxyProtocol>)getAPIProxyWithURLString:(NSString *)URLString {
+    NSString* rule = [_adapterURLRuleMappings.allKeys find:^BOOL(NSString* key) {
+        return [RX(key) isMatch:URLString];
+    }];
+    if (rule) {
+        NSString  *className = [_adapterURLRuleMappings objectForKey:rule];
+        id<CUTEAPIProxyProtocol> adapter = [[NSClassFromString(className) alloc] init];
+        [adapter setRestClient:_backingManager];
+        return adapter;
+
+    }
+
+    return nil;
+}
+
 - (BFTask *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass  {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    id<CUTEAPIProxyProtocol> apiProxy = [self getAPIProxyWithURLString:URLString];
+    if (apiProxy != nil) {
+        return [apiProxy GET:URLString parameters:parameters resultClass:resultClass];
+    }
+
+
     [_backingManager GET:URLString parameters:parameters resultClass:resultClass completion:
      ^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
          if (error) {
@@ -75,6 +114,12 @@
 
 - (BFTask *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    id<CUTEAPIProxyProtocol> apiProxy = [self getAPIProxyWithURLString:URLString];
+    if (apiProxy != nil) {
+        return [apiProxy GET:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath];
+    }
+
+
     [_backingManager GET:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath completion:
      ^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
          if (error) {
@@ -89,6 +134,11 @@
 
 - (BFTask *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass  {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    id<CUTEAPIProxyProtocol> apiProxy = [self getAPIProxyWithURLString:URLString];
+    if (apiProxy != nil) {
+        return [apiProxy POST:URLString parameters:parameters resultClass:resultClass];
+    }
+
     [_backingManager POST:URLString parameters:parameters resultClass:resultClass completion:
      ^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
          if (error) {
@@ -103,6 +153,11 @@
 
 - (BFTask *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    id<CUTEAPIProxyProtocol> apiProxy = [self getAPIProxyWithURLString:URLString];
+    if (apiProxy != nil) {
+        return [apiProxy POST:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath];
+    }
+
     [_backingManager POST:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath completion:
      ^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
          if (error) {
