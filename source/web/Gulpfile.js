@@ -50,6 +50,7 @@ var myPaths = {
     js: './src/static/{,admin/}scripts/**/*.js',
     sprite: './sprite/',
     sprite_html: './sprite/{,*/,static/emails/,static/templates/,static/templates/master/}{*.tpl.html,*.html}',
+    sprite_html_without_emails: './sprite/{,*/,static/templates/,static/templates/master/}{*.tpl.html,*.html}',
     sprite_dist: './dist/static/sprite/',
     sprite_static: './sprite/static/**/*.*',
     sprite_less: ['./sprite/static/styles/**/*.less', '!**/flycheck_*.*'],
@@ -140,7 +141,7 @@ gulp.task('fingerprint', ['revAll'], function () {
         mode: 'replace'
     };
 
-    return gulp.src([myPaths.dist + '*.html',myPaths.dist + 'static/templates/**/*.html', myPaths.dist + 'static/themes/genius_dashboard/css/*.css', myPaths.dist + 'static/admin/*.js', myPaths.dist + 'static/scripts/**/*.js', myPaths.dist + 'static/styles/**/*.css'], {base: 'dist'})
+    return gulp.src([myPaths.dist + '*.html',myPaths.dist + 'static/templates/**/*.html', myPaths.dist + 'static/emails/*.html', myPaths.dist + 'static/themes/genius_dashboard/css/*.css', myPaths.dist + 'static/admin/*.js', myPaths.dist + 'static/scripts/**/*.js', myPaths.dist + 'static/styles/**/*.css'], {base: 'dist'})
         .pipe(fingerprint(manifest, options))
         .pipe(gulp.dest(myPaths.dist));
 });
@@ -228,7 +229,7 @@ gulp.task('build:less2css', ['build:copy-sprite-static'], function (done) {
 
 
 gulp.task('sprite', ['clean', 'build:clean-sprite', 'build:copy-src-to-sprite'], function () {
-    return gulp.src(myPaths.sprite_html, {base: './sprite/'})
+    return gulp.src(myPaths.sprite_html_without_emails, {base: './sprite/'})
         .pipe(pageSprite({image_src:'./sprite', image_dist:myPaths.sprite_dist, css_dist:myPaths.sprite_dist + 'css'  +'/'}))
         .pipe(gulp.dest(myPaths.sprite))
 })
@@ -251,7 +252,7 @@ gulp.task('setupCDN', ['build:html-extend', 'fingerprint', 'revAll', 'revAgain',
     if (argv.cdn) {
         var relaceRev =  function () {
             //html should only in root folder
-            gulp.src(myPaths.dist + '*.html')
+            gulp.src([myPaths.dist + '*.html', myPaths.dist + 'static/emails/*.html'], {base: 'dist'})
                 .pipe(replace(/\/static\/images\//g, argv.cdn + '/images/'))
                 .pipe(replace(/\/static\/sprite\//g, argv.cdn + '/sprite/'))
                 .pipe(replace(/\/static\/styles\//g, argv.cdn + '/styles/'))
