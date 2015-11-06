@@ -174,7 +174,7 @@
             CUTEProperty *property = self.form.ticket.property;
             if (IsArrayNilOrEmpty(self.form.ticket.property.surroundings) && property.latitude && property.longitude) {
                 NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
-                [[[CUTEGeoManager sharedInstance] searchSurroundingsWithPostcodeIndex:postCodeIndex city:property.city country:property.country] continueWithBlock:^id(BFTask *task) {
+                [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil postcodeIndex:postCodeIndex city:property.city country:property.country] continueWithBlock:^id(BFTask *task) {
                     //TODO update surroundings cell
 
                     [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
@@ -445,6 +445,8 @@
     CUTEProperty *property = self.form.ticket.property;
     if (!IsArrayNilOrEmpty(property.surroundings)) {
         CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithSurroundings:property.surroundings];
+         NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
+        controller.postcodeIndex = postCodeIndex;
         controller.delegate = self;
         [self.navigationController pushViewController:controller animated:YES];
     }
@@ -452,12 +454,14 @@
 
         [SVProgressHUD show];
         NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
-        [[[CUTEGeoManager sharedInstance] searchSurroundingsWithPostcodeIndex:postCodeIndex city:property.city country:property.country] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil postcodeIndex:postCodeIndex city:property.city country:property.country] continueWithBlock:^id(BFTask *task) {
             //TODO update surroundings cell
             property.surroundings = task.result;
 
-            CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithSurroundings:property.surroundings];
+
+            CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithSurroundings:property.surroundings ];
             controller.delegate = self;
+            controller.postcodeIndex = postCodeIndex;
             [self.navigationController pushViewController:controller animated:YES];
             [SVProgressHUD dismiss];
             return task;

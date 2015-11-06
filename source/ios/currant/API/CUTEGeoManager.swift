@@ -368,7 +368,7 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
-    func searchSurroundingsWithPostcodeIndex(postcodeIndex:String, city:CUTECity, country:CUTECountry) -> BFTask {
+    func searchSurroundingsWithName(name:String?, postcodeIndex:String, city:CUTECity?, country:CUTECountry?) -> BFTask {
         let tcs = BFTaskCompletionSource()
         let sequencer = SwiftSequencer()
 
@@ -384,8 +384,16 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-            let universityTask = CUTEAPIManager.sharedInstance().POST("/api/1/hesa_university/search", parameters: ["postcode_index":postcodeIndex, "country":country.ISOcountryCode], resultClass: CUTESurrounding.self)
-            let stationTask = CUTEAPIManager.sharedInstance().POST("/api/1/doogal_station/search", parameters: ["postcode_index":postcodeIndex, "country":country.ISOcountryCode], resultClass: CUTESurrounding.self)
+            var parameters = ["postcode_index":postcodeIndex]
+            if name != nil {
+                parameters["name"] = name
+            }
+            if country != nil {
+                parameters["country"] = country?.ISOcountryCode
+            }
+
+            let universityTask = CUTEAPIManager.sharedInstance().POST("/api/1/hesa_university/search", parameters: parameters, resultClass: CUTESurrounding.self)
+            let stationTask = CUTEAPIManager.sharedInstance().POST("/api/1/doogal_station/search", parameters: parameters, resultClass: CUTESurrounding.self)
 
 
             BFTask(forCompletionOfAllTasksWithResults: [universityTask, stationTask]).continueWithBlock {(task:BFTask!) -> AnyObject! in
@@ -416,37 +424,44 @@ class CUTEGeoManager: NSObject {
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
             if let surroudings:[CUTESurrounding] = result as? [CUTESurrounding] {
-                let destinations = surroudings.map({ (surrouding:CUTESurrounding) -> String in
-                    return (surrouding.zipcode != nil ? surrouding.zipcode: surrouding.postcode)!
-                })
-                let byclingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations, mode:"bicycling")
-                let drivingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations)
-                let walkingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations, mode:"walking")
+                if surroudings.count > 0 {
+                    let destinations = surroudings.map({ (surrouding:CUTESurrounding) -> String in
+                        return (surrouding.zipcode != nil ? surrouding.zipcode: surrouding.postcode)!
+                    })
+                    let byclingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations, mode:"bicycling")
+                    let drivingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations)
+                    let walkingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations, mode:"walking")
 
-                BFTask(forCompletionOfAllTasksWithResults: [byclingTask, drivingTask, walkingTask]).continueWithBlock { (task:BFTask!) -> AnyObject! in
+                    BFTask(forCompletionOfAllTasksWithResults: [byclingTask, drivingTask, walkingTask]).continueWithBlock { (task:BFTask!) -> AnyObject! in
 
-                    if let taskArray = task.result as? [[[CUTETrafficTime]]] {
-                        if taskArray.count == 3 {
-                            let byclingArray = taskArray[0][0]
-                            let drivingArray = taskArray[1][0]
-                            let walkingArray = taskArray[2][0]
+                        if let taskArray = task.result as? [[[CUTETrafficTime]]] {
+                            if taskArray.count == 3 {
+                                let byclingArray = taskArray[0][0]
+                                let drivingArray = taskArray[1][0]
+                                let walkingArray = taskArray[2][0]
 
-                            guard surroudings.count == byclingArray.count && byclingArray.count == drivingArray.count && byclingArray.count == walkingArray.count else {
-                                tcs.setError(NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Result Error"]))
-                                return task
+                                guard surroudings.count == byclingArray.count && byclingArray.count == drivingArray.count && byclingArray.count == walkingArray.count else {
+                                    tcs.setError(NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Result Error"]))
+                                    return task
+                                }
+
+                                for index in Range(start: 0, end: surroudings.count) {
+                                    let surrouding = surroudings[index]
+                                    surrouding.trafficTimes = [byclingArray[index], drivingArray[index], walkingArray[index]]
+                                }
+                                
+                                tcs.setResult(surroudings)
                             }
-
-                            for index in Range(start: 0, end: surroudings.count) {
-                                let surrouding = surroudings[index]
-                                surrouding.trafficTimes = [byclingArray[index], drivingArray[index], walkingArray[index]]
-                            }
-
-                            tcs.setResult(surroudings)
                         }
+                        return task;
                     }
-
-                    return task;
                 }
+                else {
+                    tcs.setResult(surroudings)
+                }
+            }
+            else {
+                tcs.setResult([])
             }
 
         }

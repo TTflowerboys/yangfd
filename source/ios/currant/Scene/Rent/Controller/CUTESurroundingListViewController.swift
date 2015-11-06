@@ -12,6 +12,8 @@ import UIKit
 class CUTESurroundingListViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
 
     private var surroundings:[CUTESurrounding]
+    private var searchResultSurroundings:[CUTESurrounding] = []
+    var postcodeIndex:String?
     var delegate:CUTESurroundingUpdateDelegate?
     internal var searchController:UISearchDisplayController?
 
@@ -44,6 +46,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
             if self.searchController == nil {
                 let searchBar = UISearchBar(frame: CGRectMake(0, 20, self.view.frame.size.width, 44))
+                searchBar.delegate = self
                 self.searchController = UISearchDisplayController(searchBar: searchBar, contentsController: self)
                 self.searchController?.delegate = self
                 self.searchController?.searchResultsDelegate = self
@@ -82,13 +85,26 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        // #warning Incomplete implementation, return the number of row
+        if self.searchController?.searchResultsTableView == tableView {
+            return self.searchResultSurroundings.count
+        }
         return self.surroundings.count
     }
 
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if self.searchController?.searchResultsTableView == tableView {
+            var cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
+            if cell == nil {
+                cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
+            }
+            cell?.textLabel?.text = self.searchResultSurroundings[indexPath.row].name
+            return cell!
+        }
+
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
+
         var surroundingCell:CUTESurroundingCell
 
         if cell is CUTESurroundingCell {
@@ -117,6 +133,9 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if self.searchController?.searchResultsTableView == tableView {
+            return 40
+        }
         return 80;
     }
 
@@ -165,8 +184,21 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     }
     */
 
+
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
 
+    }
+
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        CUTEGeoManager.sharedInstance.searchSurroundingsWithName(searchBar.text, postcodeIndex: self.postcodeIndex!, city: nil, country: nil).continueWithBlock { (task:BFTask!) -> AnyObject! in
+            self.searchResultSurroundings = task.result as! [CUTESurrounding]
+            self.searchController?.searchResultsTableView.reloadData()
+            return task
+        }
+    }
+
+    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String?) -> Bool {
+        return true
     }
 
     func searchDisplayControllerDidBeginSearch(controller: UISearchDisplayController) {
