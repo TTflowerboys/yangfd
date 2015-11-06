@@ -217,13 +217,13 @@
             </ul>
         </div>
         <div id="propertyDetails_description" class="meta scrollto">
-            % if ('space' in rent['property'] and rent.get('property',{}).get('space','')) or ('bedroom_count' in rent['property'] and rent.get('property',{}).get('bedroom_count','')) or ('bathroom_count' in rent['property'] and rent.get('property',{}).get('bathroom_count','')) or ('living_room_count' in rent['property'] and rent.get('property',{}).get('living_room_count','')):
-            % count = sum([bool(x in rent['property'] and rent["property"][x]) for x in ["space", "bedroom_count", "bathroom_count", "living_room_count"]])
+            % if ('space' in rent and rent.get('space','')) or ('bedroom_count' in rent['property'] and rent.get('property',{}).get('bedroom_count','')) or ('bathroom_count' in rent['property'] and rent.get('property',{}).get('bathroom_count','')) or ('living_room_count' in rent['property'] and rent.get('property',{}).get('living_room_count','')):
+            % count = sum([bool(x in rent['property']) for x in ["bedroom_count", "bathroom_count", "living_room_count"]]) + (1 if 'space' in rent else 0)
             <ul class="numbers">
-                % if rent.get('space'):
+                % if 'space' in rent:
                 <li style="width: {{100/count}}%">
                     % if rent.get('rent_type',{}).get('slug','') == 'rent_type:whole':
-                    {{_('房屋面积')}}
+                    {{ _('房屋面积')}}
                     % else:
                     {{_('房间面积')}}
                     % end
