@@ -287,13 +287,6 @@
                     <strong>{{ rent['property'].get('floor','') }}</strong>
                 </li>
                 % end
-
-                % if 'house_name' in rent['property'] and rent.get('property',{}).get('house_name',''):
-                <li style="width: {{100/count}}%">
-                    {{_('房间名')}}
-                    <strong>{{ rent['property'].get('house_name','') }}</strong>
-                </li>
-                % end
             </ul>
             % end
 
