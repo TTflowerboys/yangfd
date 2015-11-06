@@ -1,40 +1,128 @@
-<!--@@master = ../../masters/email_new.html-->
-<!--@@block=content-->
-<style>
-    @media only screen and (max-width: 600px) {
-        div[class=propertyAdWrap] {
-            margin: 0 -20px !important;
-        }
-        a[class=requirementButton] {
-            height: 16vw !important;
-            line-height: 16vw !important;
-            font-size: 4vw !important;
-        }
-        a[class=requirementButton] img {
-            width: 5vw !important;
-        }
-    }
-    a[class=requirementButton]:hover {
-        background: #0cb2d0 !important;
-    }
-</style>
-<!--@@close-->
-<!--@@block=content-->
-<div class="propertyAdWrap" style="margin:0 -10px;padding-bottom:30px;">
-    <div>
-        <img src="/static/images/email/Email_7575_151023_01.jpg" alt="" style="width: 100%;height: auto;"/>
-    </div>
-    <a class="requirementButton" href="http://yangfd.com/requirement" style="display:block; width: 100%; height: 100px; line-height: 100px; vertical-align: middle; text-align: center; background: #0dc1e1; color: #fff; font-size: 24px; font-weight: bold; text-decoration: none">
-        <span style="vertical-align: middle;margin-right: 12px;">{{_('预约房产顾问')}}</span><img style="vertical-align: middle;" src="/static/images/email/right_arrow_with_circle.png" alt=""/>
-    </a>
-    <div>
-        <img src="/static/images/email/Email_7575_151023_02.jpg" alt="" style="width: 100%;height: auto;"/>
-    </div>
-    <p style="margin: 24px; text-align: left; line-height: 1.4em; font-size: 18px; text-indent: 36px;">
-        {{_('伦敦城市畔岛毗邻12公顷‘伦敦小曼哈顿’，临河而建，风景优美。入住即可享受24小时礼宾服务，私人健身设施，室内外泳池，SPA水疗，以及私人酒吧。')}}
-    </p>
-    <p style="margin: 24px; text-align: left; line-height: 1.4em; font-size: 18px; text-indent: 36px;">
-        {{_('邻近坎宁(Canning Town)地铁和轻轨站，4分钟抵达金丝雀码头（Canary Wharf），6分钟抵达引领伦敦东区新时尚生活的欧洲最大购物中心韦斯特菲尔德购物中心（Westfield Stratford City）。这里拥有各类潮店等300户商铺，70个酒吧及餐厅，以及电影院、豪华赌场等娱乐会所。')}}
-    </p>
-</div>
-<!--@@close-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>{{title}}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style type="text/css">
+            img { outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
+            a img { border: none; }
+            @media only screen and (max-width: 600px) {
+                img[class=logoEmailHeader]{
+                    width: 210px !important;
+                }
+                [class=noHorizolPaddingOnMobile]{
+                    padding-left: 0 !important;
+                    padding-right: 0 !important;
+                }
+                [class=extraSmallFontSize]{
+                    font-size: 14px !important;
+                    line-height: 1.6em;
+                }
+                [class=smallFontSize]{
+                    font-size: 16px !important;
+                }
+                [class=middleFontSize]{
+                    font-size: 18px !important;
+                }
+                [class=largeFontSize]{
+                    font-size: 21px !important;
+                }
+                table { max-width: 100%; width: 100% !important; }
+                td[class=mailFooterWrap]{
+                    padding: 35px 20px !important;
+                }
+            }
+        </style>
+        <style>
+            @media only screen and (max-width: 600px) {
+                a[class=requirementButton] {
+                    height: 16vw !important;
+                    line-height: 16vw !important;
+                    font-size: 4vw !important;
+                }
+                a[class=requirementButton] img {
+                    width: 5vw !important;
+                }
+            }
+            a[class=requirementButton]:hover {
+                background: #0cb2d0 !important;
+            }
+        </style>
+    </head>
+    <body bgcolor="#eee" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" style="height: auto; padding:0; margin:0; -webkit-text-size-adjust:none; -ms-text-size-adjust: 100%;background-color: #eee;">
+        <table cellspacing="0" cellpadding="0" border="0" align="center" width="100%" class="tableContent" style="max-width: 640px;background-color: #fff;margin: 0 auto; padding: 0;font-size: 16px; font-family: Helvetica, Arial, sans-serif; line-height: 1.5; color:#999; background:#fff;text-align: center;">
+            <tbody>
+                <tr class="mailHeader">
+                    <td style="background: #333; padding-left: 10px; padding-right: 10px;">
+                        <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                            <tr>
+                                <td style="font-size: 22px; color: #FFFFFF; letter-spacing: 3px;">
+                                    <div style="padding: 20px 0 20px 10px;text-align: left;">
+                                        <img class="logoEmailHeader" src="http://upload.yangfd.com/logo_email_header.png" alt="" style="vertical-align: middle; width: 250px;height: auto;"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="mailMain">
+                    <td class="contentWrap">
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" style="border-bottom: 1px solid #ccc;width:100%;">
+                            <tr>
+                                <td style="">
+                                    % import random
+                                    % currant_name_list = ['Steve', 'John', 'Amanda', 'James', 'Jane', 'Ben']
+                                    % currant_name = random.choice(currant_name_list)
+                                    <div class="propertyAdWrap" style="padding-bottom:30px;">
+                                        <div>
+                                            <img src="/static/images/email/Email_7575_151023_01.jpg" alt="" style="width: 100%;height: auto;"/>
+                                        </div>
+                                        <a class="requirementButton" href="http://yangfd.com/requirement" style="display:block; width: 100%; height: 100px; line-height: 100px; vertical-align: middle; text-align: center; background: #0dc1e1; color: #fff; font-size: 24px; font-weight: bold; text-decoration: none">
+                                            <span style="vertical-align: middle;margin-right: 12px;">{{_('预约房产顾问')}}</span><img style="vertical-align: middle;" src="/static/images/email/right_arrow_with_circle.png" alt=""/>
+                                        </a>
+                                        <div>
+                                            <img src="/static/images/email/Email_7575_151023_02.jpg" alt="" style="width: 100%;height: auto;"/>
+                                        </div>
+                                        <p style="margin: 24px; text-align: left; line-height: 1.4em; font-size: 18px; text-indent: 36px;">
+                                            {{_('伦敦城市畔岛毗邻12公顷‘伦敦小曼哈顿’，临河而建，风景优美。入住即可享受24小时礼宾服务，私人健身设施，室内外泳池，SPA水疗，以及私人酒吧。')}}
+                                        </p>
+                                        <p style="margin: 24px; text-align: left; line-height: 1.4em; font-size: 18px; text-indent: 36px;">
+                                            {{_('邻近坎宁(Canning Town)地铁和轻轨站，4分钟抵达金丝雀码头（Canary Wharf），6分钟抵达引领伦敦东区新时尚生活的欧洲最大购物中心韦斯特菲尔德购物中心（Westfield Stratford City）。这里拥有各类潮店等300户商铺，70个酒吧及餐厅，以及电影院、豪华赌场等娱乐会所。')}}
+                                        </p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="mailFooter">
+                    <td class="mailFooterWrap" style="padding: 70px 20px; margin: -1px 20px 0; color: #9d9d9d;line-height: 1.8em;font-size: 16px">
+                        <table class="smallFontSize" width="100%">
+                            <tr>
+                                <td>{{_('该邮件为自动发送，请勿直接回复。')}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{_('如有任何问题，欢迎您与我们联系，我们将竭诚为您服务。')}}</td>
+                            </tr>
+                            %if 'unsubscribe_url' in vars() or 'unsubscribe_url' in globals():
+                            <tr>
+                                <td>{{_('不想收到此类邮件？')}}<a href="{{unsubscribe_url}}" style="text-decoration: none;">{{_('点击退订')}}></a></td>
+                            </tr>
+                            %end
+                            <tr>
+                                <td>{{_('Email：')}}<a href="mailto:services@youngfunding.co.uk" style="color: #9d9d9d; text-decoration: none;word-break: break-all;">services@youngfunding.co.uk</a></td>
+                            </tr>
+                            <tr>
+                                <td>{{_('英国客服电话：')}}<a href="tel:02030402258" style="color: #9d9d9d; text-decoration: none;">(0)2030402258</a></td>
+                            </tr>
+                            <tr>
+                                <td>{{_('中国客服电话：')}}<a href="tel:4000926433" style="color: #9d9d9d; text-decoration: none;">400-0926-433</a></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
