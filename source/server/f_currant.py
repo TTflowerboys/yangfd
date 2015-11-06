@@ -2191,6 +2191,10 @@ class f_property(f_app.module_base):
                             for item in property["brochure"]:
                                 item.pop("url", None)
                                 item["rendered"] = item.get("rendered", [])[:5]
+                    if "hesa_university" in property:
+                        property["hesa_university"] = f_app.hesa.university.get(property["hesa_university"])
+                    if "doogal_station" in property:
+                        property["doogal_station"] = f_app.doogal.station.get(property["doogal_station"])
                     if permission_check and (not user or not len(user_roles)):
                         property.pop("real_address", None)
                     if ignore_sales_comment:

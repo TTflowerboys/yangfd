@@ -406,6 +406,7 @@ property_params = dict(
     featured_facility=(list, None, dict(
         type=("enum:featured_facility_type", True),
         hesa_university=ObjectId,
+        doogal_station=ObjectId,
         traffic_time=(list, True, dict(
             type=("enum:featured_facility_traffic_type", True),
             time=("i18n:time_period", True),
