@@ -43,15 +43,23 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, block: { (sender) -> Void in
 
             if self.searchController == nil {
-                let searchBar = UISearchBar(frame: CGRectMake(0, 0, self.view.frame.size.width, 44))
-                searchBar.delegate = self
+                let searchBar = UISearchBar(frame: CGRectMake(0, 20, self.view.frame.size.width, 44))
                 self.searchController = UISearchDisplayController(searchBar: searchBar, contentsController: self)
                 self.searchController?.delegate = self
                 self.searchController?.searchResultsDelegate = self
                 self.searchController?.searchResultsDataSource = self
-
             }
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
             self.searchController?.setActive(true, animated: true)
+            self.navigationController?.view?.addSubview(self.searchController!.searchBar)
+
+            var  frame = self.searchController?.searchResultsTableView.frame;
+            frame?.origin.y = CGRectGetHeight((self.searchController?.searchContentsController.navigationController?.navigationBar.frame)!)
+
+            frame?.size.height = CGRectGetHeight(frame!) - CGRectGetMinY(frame!);
+
+            self.searchController?.searchResultsTableView.frame = frame!;
+
 
                                                                      //TODO open a search surrounding item view controller, add item from the search result
                                                                  })
@@ -156,6 +164,26 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         // Pass the selected object to the new view controller.
     }
     */
+
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+
+    }
+
+    func searchDisplayControllerDidBeginSearch(controller: UISearchDisplayController) {
+
+    }
+
+    func searchDisplayControllerDidEndSearch(controller: UISearchDisplayController) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC / 4)), dispatch_get_main_queue()) { () -> Void in
+
+            self.searchController!.searchBar.removeFromSuperview()
+            self.searchController?.searchResultsTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        }
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
+    func searchDisplayController(controller: UISearchDisplayController, didHideSearchResultsTableView tableView: UITableView) {
+    }
 
     func onTypeButtonPressed(sender:UIButton) {
         let index = sender.tag
