@@ -69,6 +69,21 @@
                         <label for="rent_intention_ticket_check_rent"></label>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <strong data-type="system">{{_('接收平台通知')}}</strong>
+                        <p>{{_('当收藏有新的资讯或更新时发送至您的账户邮箱中')}}</p>
+                    </td>
+                    <td class="textCenter">
+                        <input type="checkbox" class="currantCheckbox" id="system"
+                            %if isinstance(user.get('email_message_type'), list) and ('system' in user.get('email_message_type', [])):
+                        checked
+                        %end
+                        data-type="system"
+                        />
+                        <label for="system"></label>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
