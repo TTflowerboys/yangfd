@@ -127,11 +127,6 @@
                 if((obj.country.indexOf(country) < 0 && obj.country.indexOf('*') < 0) || (obj.city.indexOf(cityName) < 0 && obj.city.indexOf('*') < 0)) {
                     selectMap.parent.find('[value=' + key + ']').prop('disabled', true)
                 } else {
-                    if(key === 'school') { //学校数据无法根据城市来搜索，目前直接搜全国的
-                        getListAction[key].call(null, {
-                            country: country
-                        })
-                    }
                     selectMap.parent.find('[value=' + key + ']').prop('disabled', false)
                 }
             })
