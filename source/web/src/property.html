@@ -86,7 +86,15 @@
             <li class="menuItem"><a href="#regionReport">{{_('街区报告')}}</a></li>
             % end
         </ul>
-        <a class="contact" href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{ _('拨打 ')}}<strong>{{get_phone_numbers('display')[0]}}</strong></a>
+        <div class="contact">
+            <a class="phoneNumber" href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{ _('拨打 ')}}<strong>{{get_phone_numbers('display')[0]}}</strong></a>
+            % if 'short_id' in property and property.get('short_id'):
+                <span class="shortId">
+                    {{_('编号:')}}{{property.get('short_id')}}
+                </span>
+            %end
+        </div>
+
     </nav>
 </div>
 <!--@@close-->
@@ -1043,8 +1051,15 @@
                 <div class="row" data-role="serverFeedback" style="display: none; color: red;"></div>
                 <div class="seperator"></div>
                 <div class="contact">
-                    {{_('或拨打')}}<a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>{{_('咨询 ')}}
+                    <span>{{_('或拨打')}}<a href="tel:{{get_phone_numbers('link')[0]}}"><i></i>{{get_phone_numbers('display')[0]}}</a>{{_('咨询 ')}}
+                    </span>
+                    % if 'short_id' in property and property.get('short_id'):
+                    <span>
+                        {{_('编号:')}}{{property.get('short_id')}}
+                    </span>
+                    %end
                 </div>
+
             </form>
             <div class="seperator"></div>
 

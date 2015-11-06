@@ -111,19 +111,25 @@ body{
 
         .contact {
             float:right;
-            text-align:left;
             background:@red;
-            padding:30px 30px 0px;
+            padding:20px 30px 0px;
             color:white;
-            text-decoration:none;
             font-size:16px;
-            cursor:pointer;
-            line-height:24px;
             height:80px;
             strong {
                 font-size:24px;
                 font-weight:normal;
                 line-height:24px;
+            }
+
+            .phoneNumber {
+                color:white;
+                cursor:pointer;
+                text-decoration:none;
+            }
+            .shortId {
+                text-align: right;
+                display: block;
             }
         }
     }
@@ -1605,6 +1611,9 @@ body{
         button { width: 100%; margin: 16px 0; padding: 16px 0; line-height: 1; font-size: 16px; }
         hr { margin: 8px 0; }
         .contact {
+            span {
+                display: block;
+            }
             color: @red; font-size: 24px; text-align: center; padding: 16px 0;
             a{
                 text-decoration: none;
