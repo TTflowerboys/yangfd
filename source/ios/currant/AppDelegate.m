@@ -70,6 +70,8 @@
 @interface AppDelegate () <UITabBarControllerDelegate>
 {
     NSInteger _lastSelectedTabIndex;
+
+    BFTask *_reloadPublishRentTicketTabTask;
 }
 
 @property (nonatomic, strong) UITabBarController *tabBarController;
@@ -226,11 +228,10 @@
     [[CUTEAPICacheManager sharedInstance] refresh];
 
     if ([self checkShowSplashViewController]) {
-        [self updatePublishRentTicketTabWithController:editViewController silent:YES];
+        _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:YES];
     }
     else {
-        [self updatePublishRentTicketTabWithController:editViewController silent:NO];
-
+        _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:NO];
     }
 
     _lastSelectedTabIndex = -1; // default a invalid value
@@ -411,7 +412,9 @@
     //only update when first create, not care the controller push and pop
     if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController == nil) {
 //        [CrashlyticsKit crash];
-        [self updatePublishRentTicketTabWithController:viewController silent:NO];
+        if (!_reloadPublishRentTicketTabTask || _reloadPublishRentTicketTabTask.isCompleted) {
+            _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:NO];
+        }
     }
     //when show unfinished list controller, show type list page to add new one
     else if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController != nil) {
@@ -514,7 +517,9 @@
     }
 }
 
-- (void)updatePublishRentTicketTabWithController:(UINavigationController *)viewController silent:(BOOL)silent{
+- (BFTask *)reloadPublishRentTicketTabSilent:(BOOL)silent{
+
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
 
     Sequencer *sequencer = [Sequencer new];
 
@@ -526,12 +531,15 @@
             [[[CUTERentTicketPublisher sharedInstance] syncTickets] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
+                    [tcs setResult:nil];
                 }
                 else if (task.exception) {
                     [SVProgressHUD showErrorWithException:task.exception];
+                    [tcs setResult:nil];
                 }
                 else if (task.isCancelled) {
                     [SVProgressHUD showErrorWithCancellation];
+                    [tcs setResult:nil];
                 }
                 else {
                     completion(task.result);
@@ -548,6 +556,7 @@
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         [SVProgressHUD dismiss];
+        UINavigationController *viewController = [[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex];
         NSArray *unfinishedRentTickets = result;
         if (unfinishedRentTickets.count == 0) {
             //TODO handle silent， Redesign the HUD for specific controller
@@ -558,9 +567,13 @@
         }
 
         [self updateUserPropertiesLeftBarButtonItemWithViewController:viewController.topViewController];
+
+        [tcs setResult:unfinishedRentTickets];
     }];
 
     [sequencer run];
+
+    return tcs.task;
 }
 
 - (void)updateUserPropertiesLeftBarButtonItemWithViewController:(UIViewController *)controller {
@@ -590,7 +603,9 @@
     NSDictionary *userInfo = notif.userInfo;
     CUTETicket *ticket = userInfo[@"ticket"];
     [[CUTEDataManager sharedInstance] deleteTicket:ticket];
-    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+    if (!_reloadPublishRentTicketTabTask || _reloadPublishRentTicketTabTask.isCompleted) {
+        _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:YES];
+    }
 
     //wait the bottom bar show animation, then present new controller
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -747,8 +762,9 @@
                     //login in the create process, not reload the list
                 }
                 else {
-
-                    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+                    if (!_reloadPublishRentTicketTabTask || _reloadPublishRentTicketTabTask.isCompleted) {
+                        _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:YES];
+                    }
                 }
             }
             return task;
@@ -760,15 +776,16 @@
             //login in the create process, not reload the list
         }
         else {
-
-            [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+            if (!_reloadPublishRentTicketTabTask || _reloadPublishRentTicketTabTask.isCompleted) {
+                _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:YES];
+            }
         }
     }
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
     [[CUTEDataManager sharedInstance] clearAllRentTickets];
-    [self updatePublishRentTicketTabWithController:[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex] silent:YES];
+    _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:YES];
 }
 
 - (void)onReceiveMarkUserAsLandlord:(NSNotification *)notif {
