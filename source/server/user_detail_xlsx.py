@@ -341,7 +341,7 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                unicode(len(get_log_with_id(user, {"type": "rent_ticket_view_contact_info"})))
                ])
     print 'user.' + unicode(number) + ' done.'
-    if number >= 20:
+    if number >= 999:
         break
 format_fit(ws)
 be_colorful(ws, 6)
