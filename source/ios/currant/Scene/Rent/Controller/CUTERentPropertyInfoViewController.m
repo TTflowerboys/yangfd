@@ -174,7 +174,7 @@
             CUTEProperty *property = self.form.ticket.property;
             if (IsArrayNilOrEmpty(self.form.ticket.property.surroundings) && property.latitude && property.longitude) {
                 NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
-                [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil postcodeIndex:postCodeIndex city:property.city country:property.country] continueWithBlock:^id(BFTask *task) {
+                [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil postcodeIndex:postCodeIndex city:property.city country:property.country propertyPostcodeIndex:postCodeIndex] continueWithBlock:^id(BFTask *task) {
                     //TODO update surroundings cell
 
                     [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
@@ -454,7 +454,7 @@
 
         [SVProgressHUD show];
         NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
-        [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil postcodeIndex:postCodeIndex city:property.city country:property.country] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil postcodeIndex:postCodeIndex city:property.city country:property.country propertyPostcodeIndex:postCodeIndex] continueWithBlock:^id(BFTask *task) {
             //TODO update surroundings cell
             property.surroundings = task.result;
 

@@ -368,7 +368,7 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
-    func searchSurroundingsWithName(name:String?, postcodeIndex:String, city:CUTECity?, country:CUTECountry?) -> BFTask {
+    func searchSurroundingsWithName(name:String?, postcodeIndex:String?, city:CUTECity?, country:CUTECountry?, propertyPostcodeIndex:String!) -> BFTask {
         let tcs = BFTaskCompletionSource()
         let sequencer = SwiftSequencer()
 
@@ -384,9 +384,12 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-            var parameters = ["postcode_index":postcodeIndex]
+            var parameters = [String:AnyObject]()
             if name != nil {
                 parameters["name"] = name
+            }
+            if postcodeIndex != nil {
+                parameters["postcode_index"] = postcodeIndex
             }
             if country != nil {
                 parameters["country"] = country?.ISOcountryCode
@@ -428,9 +431,9 @@ class CUTEGeoManager: NSObject {
                     let destinations = surroudings.map({ (surrouding:CUTESurrounding) -> String in
                         return (surrouding.zipcode != nil ? surrouding.zipcode: surrouding.postcode)!
                     })
-                    let byclingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations, mode:"bicycling")
-                    let drivingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations)
-                    let walkingTask = self.searchDistanceMatrixWithOrigins([postcodeIndex], destinations: destinations, mode:"walking")
+                    let byclingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode:"bicycling")
+                    let drivingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations)
+                    let walkingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode:"walking")
 
                     BFTask(forCompletionOfAllTasksWithResults: [byclingTask, drivingTask, walkingTask]).continueWithBlock { (task:BFTask!) -> AnyObject! in
 

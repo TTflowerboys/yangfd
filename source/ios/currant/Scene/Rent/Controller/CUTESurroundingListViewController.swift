@@ -35,7 +35,8 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         super.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         super.tableView.allowsSelection = false
         //TODO issues http://stackoverflow.com/questions/18925900/ios-7-uisearchdisplaycontroller-search-bar-overlaps-status-bar-while-searching
-        self.edgesForExtendedLayout = UIRectEdge.None
+//        self.edgesForExtendedLayout = UIRectEdge.None
+        self.definesPresentationContext = true
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -46,22 +47,26 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
             if self.searchController == nil {
                 let searchBar = UISearchBar(frame: CGRectMake(0, 20, self.view.frame.size.width, 44))
+//                searchBar.barTintColor = UIColor(hex6: 0x333333)
                 searchBar.delegate = self
                 self.searchController = UISearchDisplayController(searchBar: searchBar, contentsController: self)
                 self.searchController?.delegate = self
                 self.searchController?.searchResultsDelegate = self
                 self.searchController?.searchResultsDataSource = self
+                self.tableView.tableHeaderView = searchBar
             }
             self.navigationController?.setNavigationBarHidden(true, animated: true)
             self.searchController?.setActive(true, animated: true)
-            self.navigationController?.view?.addSubview(self.searchController!.searchBar)
-
-            var  frame = self.searchController?.searchResultsTableView.frame;
-            frame?.origin.y = CGRectGetHeight((self.searchController?.searchContentsController.navigationController?.navigationBar.frame)!)
-
-            frame?.size.height = CGRectGetHeight(frame!) - CGRectGetMinY(frame!);
-
-            self.searchController?.searchResultsTableView.frame = frame!;
+            self.searchController?.searchBar.becomeFirstResponder()
+            self.searchController?.searchContentsController.navigationController?.navigationBar.backgroundColor = self.searchController?.searchBar.backgroundColor
+//            self.navigationController?.view?.addSubview(self.searchController!.searchBar)
+//
+//            var  frame = self.searchController?.searchResultsTableView.frame;
+//            frame?.origin.y = CGRectGetHeight((self.searchController?.searchContentsController.navigationController?.navigationBar.frame)!)
+//
+//            frame?.size.height = CGRectGetHeight(frame!) - CGRectGetMinY(frame!);
+//
+//            self.searchController?.searchResultsTableView.frame = frame!;
 
 
                                                                      //TODO open a search surrounding item view controller, add item from the search result
@@ -190,7 +195,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        CUTEGeoManager.sharedInstance.searchSurroundingsWithName(searchBar.text, postcodeIndex: self.postcodeIndex!, city: nil, country: nil).continueWithBlock { (task:BFTask!) -> AnyObject! in
+        CUTEGeoManager.sharedInstance.searchSurroundingsWithName(searchBar.text, postcodeIndex: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex!).continueWithBlock { (task:BFTask!) -> AnyObject! in
             self.searchResultSurroundings = task.result as! [CUTESurrounding]
             self.searchController?.searchResultsTableView.reloadData()
             return task
@@ -206,11 +211,11 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     }
 
     func searchDisplayControllerDidEndSearch(controller: UISearchDisplayController) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC / 4)), dispatch_get_main_queue()) { () -> Void in
-
-            self.searchController!.searchBar.removeFromSuperview()
-            self.searchController?.searchResultsTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
-        }
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC / 4)), dispatch_get_main_queue()) { () -> Void in
+//
+//            self.searchController!.searchBar.removeFromSuperview()
+//            self.searchController?.searchResultsTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+//        }
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
