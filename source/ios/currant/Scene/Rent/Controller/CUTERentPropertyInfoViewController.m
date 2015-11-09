@@ -172,7 +172,7 @@
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
 
             CUTEProperty *property = self.form.ticket.property;
-            if (IsArrayNilOrEmpty(self.form.ticket.property.surroundings) && property.latitude && property.longitude) {
+            if (IsArrayNilOrEmpty(self.form.ticket.property.surroundings) && property.latitude && property.longitude && !IsNilNullOrEmpty(property.zipcode)) {
                 NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
                 [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil postcodeIndex:postCodeIndex city:property.city country:property.country propertyPostcodeIndex:postCodeIndex] continueWithBlock:^id(BFTask *task) {
                     //TODO update surroundings cell
@@ -443,29 +443,34 @@
 - (void)editSurrounding {
 
     CUTEProperty *property = self.form.ticket.property;
-    if (!IsArrayNilOrEmpty(property.surroundings)) {
-        CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithSurroundings:property.surroundings];
-         NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
-        controller.postcodeIndex = postCodeIndex;
-        controller.delegate = self;
-        [self.navigationController pushViewController:controller animated:YES];
+    if (!IsNilNullOrEmpty(property.zipcode)) {
+
+        if (!IsArrayNilOrEmpty(property.surroundings)) {
+            CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithSurroundings:property.surroundings];
+            NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
+            controller.postcodeIndex = postCodeIndex;
+            controller.delegate = self;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+        else {
+            [SVProgressHUD show];
+            NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
+            [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil postcodeIndex:postCodeIndex city:property.city country:property.country propertyPostcodeIndex:postCodeIndex] continueWithBlock:^id(BFTask *task) {
+                //TODO update surroundings cell
+                property.surroundings = task.result;
+
+
+                CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithSurroundings:property.surroundings ];
+                controller.delegate = self;
+                controller.postcodeIndex = postCodeIndex;
+                [self.navigationController pushViewController:controller animated:YES];
+                [SVProgressHUD dismiss];
+                return task;
+            }];
+        }
     }
     else {
-
-        [SVProgressHUD show];
-        NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
-        [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil postcodeIndex:postCodeIndex city:property.city country:property.country propertyPostcodeIndex:postCodeIndex] continueWithBlock:^id(BFTask *task) {
-            //TODO update surroundings cell
-            property.surroundings = task.result;
-
-
-            CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithSurroundings:property.surroundings ];
-            controller.delegate = self;
-            controller.postcodeIndex = postCodeIndex;
-            [self.navigationController pushViewController:controller animated:YES];
-            [SVProgressHUD dismiss];
-            return task;
-        }];
+        [SVProgressHUD showErrorWithStatus:STR(@"RentPropertyInfo/请添加房产的Postcode")];
     }
 }
 
@@ -537,16 +542,25 @@
 
 #pragma Mark - Surrouding Update Delegate 
 
-- (void)onDidAddSurrounding:(CUTESurrounding *)surrounding atIndex:(NSUInteger)index {
+- (void)onDidAddSurrounding:(CUTESurrounding *)surrounding atIndex:(NSInteger)index {
+
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        NSMutableArray *surroundings = [NSMutableArray arrayWithArray:ticket.property.surroundings];
+        [surroundings addObject:surrounding];
+        ticket.property.surroundings = surroundings;
+    }];
+}
+
+- (void)onDidModifySurrouding:(CUTESurrounding *)surrounding atIndex:(NSInteger)index {
 
 }
 
-- (void)onDidModifySurrouding:(CUTESurrounding *)surrouding atIndex:(NSUInteger)index {
-
-}
-
-- (void)onDidRemoveSurrouding:(CUTESurrounding *)surrouding atIndex:(NSUInteger)index {
-
+- (void)onDidRemoveSurrouding:(CUTESurrounding *)surrounding atIndex:(NSInteger)index {
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        NSMutableArray *surroundings = [NSMutableArray arrayWithArray:ticket.property.surroundings];
+        [surroundings removeObject:surrounding];
+        ticket.property.surroundings = surroundings;
+    }];
 }
 
 @end

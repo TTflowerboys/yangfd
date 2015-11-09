@@ -10,9 +10,9 @@ import Foundation
 
 @objc(CUTESurroundingUpdateDelegate) protocol CUTESurroundingUpdateDelegate : NSObjectProtocol {
 
-    func onDidAddSurrounding(surrounding:CUTESurrounding, atIndex index:UInt)
+    func onDidAddSurrounding(surrounding:CUTESurrounding, atIndex index:Int)
 
-    func onDidRemoveSurrouding(surrouding:CUTESurrounding, atIndex index:UInt)
+    func onDidRemoveSurrouding(surrounding:CUTESurrounding, atIndex index:Int)
 
-    func onDidModifySurrouding(surrouding:CUTESurrounding, atIndex index:UInt)
+    func onDidModifySurrouding(surrounding:CUTESurrounding, atIndex index:Int)
 }

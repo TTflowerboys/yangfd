@@ -144,6 +144,25 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         return 80;
     }
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if self.searchController?.searchResultsTableView == tableView {
+            let surrounding = self.searchResultSurroundings[indexPath.row]
+            if  self.surroundings.filter({ (surr:CUTESurrounding) -> Bool in
+                return surr.identifier == surrounding.identifier
+            }).count == 0 {
+                var surrs = Array(self.surroundings)
+                surrs.append(surrounding)
+                self.surroundings = surrs
+                self.tableView.reloadData()
+
+                self.searchController?.setActive(false, animated: true)
+
+                let index = self.surroundings.count
+                self.delegate?.onDidAddSurrounding(surrounding, atIndex: index)
+            }
+        }
+    }
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -195,7 +214,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        CUTEGeoManager.sharedInstance.searchSurroundingsWithName(searchBar.text, postcodeIndex: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex!).continueWithBlock { (task:BFTask!) -> AnyObject! in
+        CUTEGeoManager.sharedInstance.searchSurroundingsWithName(searchBar.text, postcodeIndex: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex).continueWithBlock { (task:BFTask!) -> AnyObject! in
             self.searchResultSurroundings = task.result as! [CUTESurrounding]
             self.searchController?.searchResultsTableView.reloadData()
             return task
@@ -211,11 +230,6 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     }
 
     func searchDisplayControllerDidEndSearch(controller: UISearchDisplayController) {
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC / 4)), dispatch_get_main_queue()) { () -> Void in
-//
-//            self.searchController!.searchBar.removeFromSuperview()
-//            self.searchController?.searchResultsTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
-//        }
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
@@ -234,6 +248,13 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
     func onRemoveButtonPressed(sender:UIButton) {
         let index = sender.tag
+        let surrounding = self.surroundings[index]
+        var surrs = Array(self.surroundings)
+        surrs.removeAtIndex(index)
+        self.surroundings = surrs
+        self.tableView.reloadData()
+        self.delegate?.onDidRemoveSurrouding(surrounding, atIndex: index)
+
 
     }
 
