@@ -247,10 +247,13 @@ def check_download(user):
 
 def get_detail_address(ticket):
     ticket = f_app.i18n.process_i18n(ticket)
-    print ticket.get("maponics_neighborhood", {})
+    if f_app.util.batch_iterable(ticket.get("maponics_neighborhood", {})):
+        maponics_neighborhood = ticket.get("maponics_neighborhood", {})[0]
+    else:
+        maponics_neighborhood = ticket.get("maponics_neighborhood", {})
     return ' '.join([ticket.get("country", {}).get("code", ''),
                      ticket.get("city", {}).get("name", ''),
-                     ticket.get("maponics_neighborhood", {}).get("name", ''),
+                     maponics_neighborhood.get("name", ''),
                      ticket.get("address", ''),
                      ticket.get("zipcode_index", '')])
 
