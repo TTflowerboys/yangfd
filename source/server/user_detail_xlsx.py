@@ -280,7 +280,7 @@ def get_log_with_id(user, params={}):
     params.update({"id": ObjectId(user_id)})
     select_log = f_app.log.output(f_app.log.search(params, per_page=2))
     print "==="
-    print f_app.util.json_dumps(select_log, ensure_ascii=False)
+    print f_app.util.json_dumps(select_log)
     if select_log is None:
         return []
     return select_log
