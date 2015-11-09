@@ -142,7 +142,7 @@ def time_period_label(ticket):
 def get_count(user, target, condition, element, comp):
     dic = get_data_complex(user, target, condition, element)
     if dic.get(element, []) is None:
-        return 'a'
+        return '0'
     return dic.get(element, []).count(comp)
 
 
@@ -288,6 +288,13 @@ def get_log_with_id(user, params={}):
     return select_log
 
 
+def get_log_without_id(user, params={}):
+    user_id = user.get("id", None)
+    if user_id is None:
+        return ''
+    return ''
+
+
 def get_active_days(logs):
     if logs is None:
         return "0"
@@ -301,6 +308,44 @@ def get_active_days(logs):
     return unicode(len(set_list))
 
 
+def get_budget(ticket):
+    budget_min = ticket.get("rent_budget_min", {}).get("value", '')
+    budget_max = ticket.get("rent_budget_max", {}).get("value", '')
+    if budget_max is None or budget_min is None:
+        return ''
+    else:
+        return budget_min+'~~'+budget_max
+
+
+def get_investment_type(ticket):
+    prop_id = ticket.get("propoerty_id", None)
+    invest_type = None
+    if prop_id is None:
+        return ''
+    try:
+        invest_type = f_app.property.get(prop_id)
+    except:
+        pass
+    else:
+        print invest_type.get("investment_type", "")
+    if invest_type is None:
+        return ''
+
+
+def get_room_detail(ticket):
+    prop_id = ticket.get("propoerty_id", None)
+    room_detail = None
+    if prop_id is None:
+        return ''
+    try:
+        room_detail = f_app.property.get(prop_id)
+    except:
+        pass
+    else:
+        print room_detail.get("bedroom_count", "")
+    if room_detail is None:
+        return ''
+    pass
 enum_type_list = {}
 
 header = ['用户名', '注册时间', '国家', '用户类型', '单独访问次数', '活跃天数',
@@ -321,28 +366,35 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                get_data_directly_as_str(user, "register_time"),
                get_data_directly_as_str(user, "country", "code"),
                get_data_enum(user, "user_type"),
-               "",
+               "",  # cant
                get_active_days(get_log_with_id(user)),
                "已下载" if check_download(user) else "未下载",
                get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "landlord_type"), "landlord_type"),
                "有" if get_has_flag(user, "ticket", {"type": "rent"}, "status", "draft") else "无",
-               unicode(get_max(user, "ticket", {"type": "rent"}, "time")),
+               get_data_directly_as_str(get_ticket_newest(user, {"type": "rent"}), "time"),
                get_address(user),
-               "",
+               get_log_without_id(user, {}),  # TO DO
                unicode(get_count(user, "ticket", {"type": "rent"}, "type", "rent")),
                get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "rent_type"), "rent_type"),
                time_period_label(get_ticket_newest(user)),
                unicode(get_ticket_newest(user).get("price", {}).get("value", "")),
-               "",
+               "",  # cant
                get_data_directly_as_str(get_ticket_newest(user, {"type": "rent", "status": "rent"}), "time"),
                get_data_directly_as_str(get_ticket_newest(user, {"type": "rent_intention", "status": "new"}), "time"),
+               get_budget(get_ticket_newest(user, {"type": "rent_intention"})),
                get_address(get_ticket_newest(user, {"type": "rent_intention", "status": "new"})),
                get_match(get_ticket_newest(user, {"type": "rent_intention", "status": "new"})),
                unicode(len(get_log_with_id(user, {"type": "route",
                                                   "property_id": {"$exists": True}
                                                   }))),
-               "",
-               unicode(len(get_log_with_id(user, {"type": "rent_ticket_view_contact_info"})))
+               unicode(get_count(user, "user.favorite", {"type": "property"}, "tyoe", "property")),
+               unicode(len(get_log_with_id(user, {"type": "rent_ticket_view_contact_info"}))),
+               "",  # cant
+               "",  # cant
+               get_data_directly_as_str(get_ticket_newest(user, {"type": "intention"}), "time"),
+               get_budget(get_ticket_newest(user, {"type": "intention"})),
+               get_investment_type(get_ticket_newest(user, {"type": "intention"})),
+               get_room_detail(get_ticket_newest(user, {"type": "intention"})),
                ])
     print 'user.' + unicode(number) + ' done.'
     if number >= 999:
