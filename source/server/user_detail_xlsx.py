@@ -278,7 +278,7 @@ def get_log_with_id(user, params={}):
     if user_id is None:
         return None
     params.update({"id": ObjectId(user_id)})
-    select_log = f_app.log.output(f_app.log.search(params, per_page=10))
+    select_log = f_app.log.output(f_app.log.search(params, per_page=-1))
     if select_log is None:
         return []
     return select_log
@@ -328,7 +328,7 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                unicode(get_count(user, "ticket", {"type": "rent"}, "type", "rent")),
                get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "rent_type"), "rent_type"),
                time_period_label(get_ticket_newest(user)),
-               "",  #get_ticket_newest(user).get("price", ''),
+               unicode(get_ticket_newest(user).get("price", {}).get("value", "")),
                "",
                get_data_directly_as_str(get_ticket_newest(user, {"type": "rent", "status": "rent"}), "time"),
                get_data_directly_as_str(get_ticket_newest(user, {"type": "rent_intention", "status": "new"}), "time"),
