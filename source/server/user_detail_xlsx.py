@@ -247,6 +247,7 @@ def check_download(user):
 
 def get_detail_address(ticket):
     ticket = f_app.i18n.process_i18n(ticket)
+    print ticket.get("maponics_neighborhood", {})
     return ' '.join([ticket.get("country", {}).get("code", ''),
                      ticket.get("city", {}).get("name", ''),
                      ticket.get("maponics_neighborhood", {}).get("name", ''),
