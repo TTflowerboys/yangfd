@@ -334,11 +334,11 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                get_data_directly_as_str(get_ticket_newest(user, {"type": "rent_intention", "status": "new"}), "time"),
                get_address(get_ticket_newest(user, {"type": "rent_intention", "status": "new"})),
                get_match(get_ticket_newest(user, {"type": "rent_intention", "status": "new"})),
-               len(get_log_with_id(user, {"type": "route",
-                                          "property_id": {"$exists": True}
-                                          })),
+               unicode(len(get_log_with_id(user, {"type": "route",
+                                                  "property_id": {"$exists": True}
+                                                  }))),
                "",
-               len(get_log_with_id(user, {"type": "rent_ticket_view_contact_info"})),
+               unicode(len(get_log_with_id(user, {"type": "rent_ticket_view_contact_info"}))),
                ])
     print 'user.' + unicode(number) + ' done.'
     if number >= 20:
