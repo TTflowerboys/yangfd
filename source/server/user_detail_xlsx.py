@@ -340,7 +340,7 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                                                   "property_id": {"$exists": True}
                                                   }))),
                "",
-               unicode(len(get_log_with_id(user, {"type": "rent_ticket_view_contact_info"}))),
+               #unicode(len(get_log_with_id(user, {"type": "rent_ticket_view_contact_info"}))),
                ])
     print 'user.' + unicode(number) + ' done.'
     if number >= 20:
