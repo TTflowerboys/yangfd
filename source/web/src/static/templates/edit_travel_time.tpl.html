@@ -5,7 +5,7 @@
             chosen: travel,
             value: selectedType,
             event: { change: changeMode.bind($data) },
-            optionsText: function(item){return item.type.slug}
+            optionsText: function(item){return item.type.value}
         "></select>
         <select class="chosen-without-border time" data-bind="
             chosen: timeToChoose,
