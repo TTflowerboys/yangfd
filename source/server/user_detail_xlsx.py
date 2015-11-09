@@ -8,8 +8,8 @@ from openpyxl.styles import Font, PatternFill, Alignment
 from pytz import timezone
 import pytz
 
-f_app.common.memcache_server = ["172.20.101.102:11211"]
-f_app.common.mongo_server = "172.20.101.102"
+f_app.common.memcache_server = ["172.20.101.98:11211"]
+f_app.common.mongo_server = "172.20.101.98"
 
 
 def get_data_directly(user, part, deep=None):
