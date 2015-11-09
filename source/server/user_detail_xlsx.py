@@ -83,7 +83,7 @@ def get_data_complex(user, target, condition, element):
     user_id = user.get("id", None)
     if '.' in target:
         t_target = target.split('.')
-        target = getattr(getattr(f_app, t_target[0]), t_target[1])
+        target_database = getattr(getattr(f_app, t_target[0]), t_target[1])
     else:
         target_database = getattr(f_app, target)
     condition.update({"$or": [{"user_id": ObjectId(user_id)},
