@@ -9,8 +9,8 @@
     var $errorMsg2 = $('.errorMsg2')
     var $errorMsgOfGetCode = $('.errorMsgOfGetCode')
     var $requestSMSCodeBtn = $('#requestSMSCodeBtn')
-    window.propertyId = $('#submit').data('propertyid') || 'none'
-    window.ticketId = $('#publish').data('ticketid') || location.hash.split('#/publish/')[1]
+    window.propertyId = $('#submit').data('propertyid') || location.hash.split('/')[3] || 'none'
+    window.ticketId = $('#publish').data('ticketid') || location.hash.split('/')[2]
     var createStartTime = new Date()
     var smsSendTime
     function redirectOnPhone () {
@@ -116,11 +116,11 @@
     }
     hashRoute.when('/', function(){
         showRoute1()
-    }).when('/publish/:ticketid', function(ticketid){
-        ga('send', 'pageview', '/property-to-rent/publish/'+ticketid)
+    }).when('/publish/:ticketid/:propertyid', function(ticketId, propertyId){
+        ga('send', 'pageview', '/property-to-rent/publish/'+ticketId)
         window.previewIframe.window.isInit = false
         window.previewMoveTo(0)
-        $('#previewIframe').attr('src', location.protocol + '//' + location.host + '/wechat-poster/' + ticketid)
+        $('#previewIframe').attr('src', location.protocol + '//' + location.host + '/wechat-poster/' + ticketId)
         $('[data-route=step1]').hide()
         $('[data-route=step2]').show()
         initInfoHeight()
@@ -834,11 +834,11 @@
                     $.betterPost(ticketApi, ticketData)
                         .done(function(val){
                             if(!window.ticketId) {
-                                hashRoute.locationHashTo('/publish/' + val)
+                                hashRoute.locationHashTo('/publish/' + val + '/' + window.propertyId)
                                 window.ticketId = val
                             }
                             else{
-                                hashRoute.locationHashTo('/publish/' + window.ticketId)
+                                hashRoute.locationHashTo('/publish/' + window.ticketId + '/' + window.propertyId)
                             }
                             $('.buttonLoading').trigger('end')
                             $btn.prop('disabled', false).text(window.i18n('预览并发布'))
@@ -1074,8 +1074,7 @@
         function publishRentTicket (){
             var deferredArr = []
             $btn.prop('disabled', true).text(window.i18n('发布中...'))
-            function publish() {
-                var deferred = $.Deferred()
+            function publishTicket() {
                 var params = {'status': 'to rent'}
                 if(isDelegate()) {
                     params.phone = '+' + $publishForm.find('[name=country_code]').val() + $publishForm.find('[name=userPhone]').val()
@@ -1086,14 +1085,13 @@
                     }
                 }
                 params = clearEmptyProperty(params)
-                $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', params)
-                    .done(function(val) {
-                        deferred.resolve(val)
-                    })
-                    .fail(function (ret) {
-                        deferred.reject(ret)
-                    })
-                return deferred.promise()
+                return $.betterPost('/api/1/rent_ticket/' + window.ticketId + '/edit', params)
+            }
+            function publishProperty() {
+                return $.betterPost('/api/1/property/' + window.propertyId + '/edit', {status: 'selling'})
+            }
+            function publish() {
+                return $.when(publishTicket(), publishProperty())
             }
            /* function setPropertyPartner () {
                 var deferred = $.Deferred()
