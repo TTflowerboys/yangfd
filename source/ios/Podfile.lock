@@ -1,4 +1,5 @@
 PODS:
+  - ActionSheetPicker-3.0 (2.0.3)
   - AFNetworkActivityLogger (2.0.4):
     - AFNetworking/NSURLConnection (~> 2.0)
     - AFNetworking/NSURLSession (~> 2.0)
@@ -164,6 +165,7 @@ PODS:
     - FMDB (~> 2.0)
 
 DEPENDENCIES:
+  - ActionSheetPicker-3.0 (~> 2.0.3)
   - AFNetworkActivityLogger (= 2.0.4)
   - ALActionBlocks (= 1.0.3)
   - apptentive-ios (= 1.7.3)
@@ -231,6 +233,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
 
 SPEC CHECKSUMS:
+  ActionSheetPicker-3.0: 11f2053085d3088dc1ef9d38a9f11c18b528dd9e
   AFNetworkActivityLogger: 121486778117d53b3ab1c61d264b88081d0c3eee
   AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
   ALActionBlocks: ac91b1a37b60a8004fb687ddade0600446f3d3fa

@@ -32,6 +32,7 @@ pod 'NSDate-Extensions', '0.0.1'
 pod 'Google/Analytics', '~> 1.0.0'
 pod 'apptentive-ios', '1.7.3'
 pod 'JDFTooltips', '1.0'
+pod 'ActionSheetPicker-3.0', '~> 2.0.3'
 pod 'NSTimer-Blocks'
 pod 'UMengSocial', '4.2.3'
 pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git" 

@@ -24,6 +24,7 @@
 #import <RNDecryptor.h>
 #import <Sequencer.h>
 #import <INTULocationManager.h>
+#import <ActionSheetPicker.h>
 //#import <Masonry.h>
 
 
