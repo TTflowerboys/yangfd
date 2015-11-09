@@ -534,6 +534,8 @@ with f_app.mongo() as m:
             'open': 0,
             'click': 0
         }
+        click_repeat = 0
+        open_repeat = 0
         for task in cursor:
             if ('email_id' in task and 'target' in task):
                 emails_status_id = f_app.email.status.get_email_status_id(task['email_id'], task['target'])
@@ -548,6 +550,14 @@ with f_app.mongo() as m:
                             for status in target_status_rate.keys():
                                 if status in email['email_status_set']:
                                     target_status_rate[status] += 1
+                                    if status == 'click':
+                                        for single_event in email.get("email_status_detail", []):
+                                            if single_event.get("event", '') == status:
+                                                click_repeat += 1
+                                    elif status == 'open':
+                                        for single_event in email.get("email_status_detail", []):
+                                            if single_event.get("event", '') == status:
+                                                open_repeat += 1
                 else:
                     try:
                         email = f_app.email.status.get(emails_status_id)
@@ -558,7 +568,21 @@ with f_app.mongo() as m:
                             for status in target_status_rate.keys():
                                 if status in email['email_status_set']:
                                     target_status_rate[status] += 1
+                                    if status == 'click':
+                                        for single_event in email.get("email_status_detail", []):
+                                            if single_event.get("event", '') == status:
+                                                click_repeat += 1
+                                    elif status == 'open':
+                                        for single_event in email.get("email_status_detail", []):
+                                            if single_event.get("event", '') == status:
+                                                open_repeat += 1
+
         print('\n' + email_tag.encode('utf-8') + '邮件总数: ' + str(total_count) + ', 其中:')
         if(total_count != 0):
             for key in target_status_rate.keys():
-                print(key.encode('utf-8') + ': ' + str(float(target_status_rate[key])/total_count))
+                if key == 'click':
+                    print key.encode('utf-8') + "事件量(repeat)" + ': ' + str(click_repeat)
+                elif key == 'open':
+                    print key.encode('utf-8') + "事件量(repeat)" + ': ' + str(open_repeat)
+                print key.encode('utf-8') + "事件量(unique)" + ': ' + str(target_status_rate[key])
+                print(key.encode('utf-8') + "事件占比(unique)" + ': ' + str(float(target_status_rate[key])/total_count))
