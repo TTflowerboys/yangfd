@@ -79,10 +79,13 @@ def get_data_complex(user, target, condition, element):
     with user's id and 'condition' to search in the database 'target'
     then gether element in search result, make a new dict return
     '''
-
     dic = {}
     user_id = user.get("id", None)
-    target_database = getattr(f_app, target)
+    if '.' in target:
+        t_target = target.split('.')
+        target = getattr(getattr(f_app, t_target[0]), t_target[1])
+    else:
+        target_database = getattr(f_app, target)
     condition.update({"$or": [{"user_id": ObjectId(user_id)},
                               {"creator_user_id": ObjectId(user_id)}]})
     select_item = target_database.get(target_database.search(condition, per_page=-1))
