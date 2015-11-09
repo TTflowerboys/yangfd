@@ -316,7 +316,7 @@ def get_budget(ticket):
     budget_max = ticket.get("rent_budget_max", {}).get("value", '')
     if budget_max is None or budget_min is None:
         return ''
-    else:
+    elif budget_max != '' or budget_min != '':
         return budget_min+'~~'+budget_max
 
 
@@ -348,7 +348,8 @@ def get_room_detail(ticket):
         print room_detail.get("bedroom_count", "")
     if room_detail is None:
         return ''
-    pass
+
+
 enum_type_list = {}
 
 header = ['用户名', '注册时间', '国家', '用户类型', '单独访问次数', '活跃天数',
