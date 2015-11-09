@@ -281,6 +281,7 @@ def get_log_with_id(user, params={}):
     select_log = f_app.log.output(f_app.log.search(params, per_page=2))
     print "==="
     print f_app.util.json_dumps(select_log)
+    print len(select_log)
     if select_log is None:
         return []
     return select_log
@@ -336,9 +337,9 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                get_data_directly_as_str(get_ticket_newest(user, {"type": "rent_intention", "status": "new"}), "time"),
                get_address(get_ticket_newest(user, {"type": "rent_intention", "status": "new"})),
                get_match(get_ticket_newest(user, {"type": "rent_intention", "status": "new"})),
-               unicode(len(get_log_with_id(user, {"type": "route",
+               "", '''unicode(len(get_log_with_id(user, {"type": "route",
                                                   "property_id": {"$exists": True}
-                                                  }))),
+                                                  }))),'''
                "",
                #unicode(len(get_log_with_id(user, {"type": "rent_ticket_view_contact_info"}))),
                ])
