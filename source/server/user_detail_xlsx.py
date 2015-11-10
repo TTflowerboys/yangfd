@@ -401,7 +401,7 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                get_room_detail(get_ticket_newest(user, {"type": "intention"})),
                ])
     print 'user.' + unicode(number) + ' done.'
-    if number >= 999:
+    if number >= 2:
         break
 format_fit(ws)
 be_colorful(ws, 6)
