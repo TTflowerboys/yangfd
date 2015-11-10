@@ -22,6 +22,7 @@ logger = logging.getLogger(__name__)
     country='country',
     city='geonames_gazetteer:city',
     street=('i18n', None, str),
+    short_id=str,
     report_id=ObjectId,
     maponics_neighborhood="maponics_neighborhood",
     hesa_university=ObjectId,
