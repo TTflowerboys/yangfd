@@ -296,34 +296,14 @@ def get_log_without_id(user, params={}):
     if user_id is None:
         return ''
     count = 0
-    params.update({"type": "route"})
+    params.update({"type": "route",
+                   "id": ObjectId(user_id)})
     select_log = f_app.log.output(f_app.log.search(params, per_page=-1), permission_check=False)
-    if "rent_ticket_id" in params:
-        for single_log in select_log:
-            rent_ticket_id = single_log.get("rent_ticket_id", None)
-            if rent_ticket_id is None:
-                continue
-            try:
-                ticket = f_app.ticket.get(rent_ticket_id)
-            except:
-                pass
-            else:
-                ticket_user_id = ticket.get("user_id", None)
-                if user_id == ticket_user_id:
-                    count += 1
-    elif "property_id" in params:
-        for single_log in select_log:
-            property_id = single_log.get("property_id", None)
-            if property_id is None:
-                continue
-            try:
-                house = f_app.property.get(property_id)
-            except:
-                pass
-            else:
-                property_user_id = house.get("user_id", None)
-                if user_id == property_user_id:
-                    count += 1
+    if select_log is None:
+        return '0'
+    if not f_app.util.batch_iterable(select_log):
+        select_log = [select_log]
+    count = len(select_log)
     return unicode(count)
 
 
@@ -406,7 +386,8 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                "有" if get_has_flag(user, "ticket", {"type": "rent"}, "status", "draft") else "无",
                get_data_directly_as_str(get_ticket_newest(user, {"type": "rent"}), "time"),
                get_address(user),
-               get_log_without_id(user, {"rent_ticket_id": {"$exists": True}}),
+               unicode(len(get_log_with_id(user, {"type": "route",
+                                                  "rent_ticket_id": {"$exists": True, "$ne": None}}))),
                unicode(get_count(user, "ticket", {"type": "rent"}, "type", "rent")),
                get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "rent_type"), "rent_type"),
                time_period_label(get_ticket_newest(user)),
@@ -428,7 +409,8 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                get_budget(get_ticket_newest(user, {"type": "intention"})),
                get_investment_type(get_ticket_newest(user, {"type": "intention"})),
                get_room_detail(get_ticket_newest(user, {"type": "intention"})),
-               get_log_without_id(user, {"property_id": {"$exists": True}})
+               unicode(len(get_log_with_id(user, {"type": "route",
+                                                  "property_id": {"$exists": True, "$ne": None}})))
                ])
     print 'user.' + unicode(number) + ' done.'
     if number >= 9999:
