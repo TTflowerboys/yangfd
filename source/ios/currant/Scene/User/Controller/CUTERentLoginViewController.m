@@ -24,7 +24,6 @@
 #import "CUTERentTypeListViewController.h"
 #import "CUTERentAddressMapViewController.h"
 #import "CUTERentContactViewController.h"
-#import "CUTERentTicketPreviewViewController.h"
 #import "CUTERentPasswordViewController.h"
 #import "CUTERentPasswordForm.h"
 #import "CUTEAPICacheManager.h"

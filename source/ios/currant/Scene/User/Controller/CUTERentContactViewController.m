@@ -35,7 +35,6 @@
 #import "CUTETracker.h"
 #import "CUTERentTypeListViewController.h"
 #import "CUTERentAddressMapViewController.h"
-#import "CUTERentTicketPreviewViewController.h"
 #import "CUTEUserDefaultKey.h"
 #import "CUTEApplyBetaRentingForm.h"
 #import <ALActionBlocks.h>

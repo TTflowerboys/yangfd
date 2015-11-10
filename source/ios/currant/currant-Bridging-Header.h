@@ -38,6 +38,8 @@
 
 //controller
 #import "CUTEWebViewController.h"
+#import "CUTEPropertyListViewController.h"
+#import "CUTERentListViewController.h"
 
 //model
 #import "CUTEEnum.h"

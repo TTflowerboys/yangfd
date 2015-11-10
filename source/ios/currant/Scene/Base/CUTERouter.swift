@@ -21,7 +21,7 @@ class CUTERouter : NSObject {
         }
     }
 
-    //TODO this mapping file should md5 check update
+
     func matchController(URL:NSURL) -> UIViewController? {
 
         if URL.isYangfdURL() {
@@ -29,6 +29,16 @@ class CUTERouter : NSObject {
             return HHRouter.shared().matchController("/" + key)
         }
         else if URL.isHttpOrHttpsURL() {
+            if let path = URL.path {
+                if path.hasPrefix("/property-list") {
+                    return CUTEPropertyListViewController()
+                }
+                else if path.hasPrefix("/property-to-rent-list") {
+                    return CUTERentListViewController()
+                }
+            }
+
+            
             return CUTEWebViewController()
         }
 

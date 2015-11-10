@@ -22,43 +22,49 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
     }
 
     //, "hesaUniversity":"hesa_university", "doogalStation":"doogal_station"
-    func getAdaptedParamters(parameters: [String: AnyObject]!) -> BFTask! {
-        return CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type").continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
-            let types = task.result as! [CUTEEnum]
+    func getAdaptedParamters(parameters: [String: AnyObject]?) -> BFTask! {
+        if parameters != nil {
+            return CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type").continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
+                let types = task.result as! [CUTEEnum]
 
-            var params = [String: AnyObject]()
-            for (paramKey, paramValue) in parameters {
-                if paramKey == "featured_facility" {
-                    if let featuredFacility = paramValue as? [[String:AnyObject]] {
-                        params[paramKey] = featuredFacility.map({ (facilityDictionary:[String:AnyObject]) -> [String:AnyObject] in
+                var params = [String: AnyObject]()
+                for (paramKey, paramValue) in parameters! {
+                    if paramKey == "featured_facility" {
+                        if let featuredFacility = paramValue as? [[String:AnyObject]] {
+                            params[paramKey] = featuredFacility.map({ (facilityDictionary:[String:AnyObject]) -> [String:AnyObject] in
 
-                            let typeId = facilityDictionary["type"] as! String
-                            let typeKey = types.filter({ (type:CUTEEnum) -> Bool in
-                                return type.identifier == typeId
-                            }).first?.slug
-                            var dic = [String:AnyObject]()
-                            for (key, value) in facilityDictionary {
-                                if key == "id" {
-                                    if typeKey != nil {
-                                        dic[typeKey!] = value
+                                let typeId = facilityDictionary["type"] as! String
+                                let typeKey = types.filter({ (type:CUTEEnum) -> Bool in
+                                    return type.identifier == typeId
+                                }).first?.slug
+                                var dic = [String:AnyObject]()
+                                for (key, value) in facilityDictionary {
+                                    if key == "id" {
+                                        if typeKey != nil {
+                                            dic[typeKey!] = value
+                                        }
+                                    }
+                                    else {
+                                        dic[key] = value
                                     }
                                 }
-                                else {
-                                    dic[key] = value
-                                }
-                            }
 
-                            return dic
-                        })
+                                return dic
+                            })
+                        }
+                    }
+                    else {
+                        params[paramKey] = paramValue
                     }
                 }
-                else {
-                    params[paramKey] = paramValue
-                }
+                
+                return BFTask(result: params)
             }
-            
-            return BFTask(result: params)
         }
+        else {
+            return BFTask(result: nil)
+        }
+
     }
 
     func getModifiedJsonDictionary(jsonDic:[String:AnyObject] ,types:[CUTEEnum]) -> [String:AnyObject] {
@@ -140,7 +146,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
     func GET(URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!) -> BFTask! {
         let tcs = BFTaskCompletionSource()
         self.getAdaptedParamters(parameters).continueWithSuccessBlock() { (task:BFTask!) -> AnyObject! in
-            let modifiedParamters  = task.result as! [String : AnyObject]
+            let modifiedParamters  = task.result as? [String : AnyObject]
             self.getRestClient().GET(URLString, parameters: modifiedParamters, resultClass: resultClass, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
 
                 if error != nil {
@@ -161,7 +167,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
     func GET(URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!) -> BFTask! {
         let tcs = BFTaskCompletionSource()
         self.getAdaptedParamters(parameters).continueWithSuccessBlock() { (task:BFTask!) -> AnyObject! in
-            let modifiedParamters  = task.result as! [String : AnyObject]
+            let modifiedParamters  = task.result as? [String : AnyObject]
             self.getRestClient().GET(URLString, parameters: modifiedParamters, resultClass: resultClass, resultKeyPath:keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
 
                 if error != nil {
@@ -182,7 +188,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
     func POST(URLString: String!, parameters: [String : AnyObject], resultClass: AnyClass!) -> BFTask! {
         let tcs = BFTaskCompletionSource()
         self.getAdaptedParamters(parameters).continueWithSuccessBlock() { (task:BFTask!) -> AnyObject! in
-            let modifiedParamters  = task.result as! [String : AnyObject]
+            let modifiedParamters  = task.result as? [String : AnyObject]
             self.getRestClient().POST(URLString, parameters: modifiedParamters, resultClass: resultClass, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
 
                 if error != nil {
@@ -203,7 +209,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
     func POST(URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!) -> BFTask! {
         let tcs = BFTaskCompletionSource()
         self.getAdaptedParamters(parameters).continueWithSuccessBlock() { (task:BFTask!) -> AnyObject! in
-            let modifiedParamters  = task.result as! [String : AnyObject]
+            let modifiedParamters  = task.result as? [String : AnyObject]
             self.getRestClient().POST(URLString, parameters: modifiedParamters, resultClass: resultClass, resultKeyPath:keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
 
                 if error != nil {

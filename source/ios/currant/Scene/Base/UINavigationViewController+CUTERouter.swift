@@ -115,10 +115,7 @@ extension UINavigationController {
         var webViewController:CUTEWebViewController?
 
         if (viewController != nil) {
-
-            if viewController is CUTEWebViewController {
-                webViewController = viewController as? CUTEWebViewController
-            }
+            webViewController = viewController as? CUTEWebViewController
         }
 
         if webViewController == nil {
