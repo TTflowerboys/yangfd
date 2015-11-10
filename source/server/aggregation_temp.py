@@ -20,47 +20,45 @@ else:
 
 with f_app.mongo() as m:
 
+    # 统计多少房源没有填写地理位置
+    print('\n统计多少房源没有填写地理位置:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {'type': 'rent', 'status': 'to rent', 'minimum_rent_period': {'$exists': 'true'}}},
-            {'$group': {'_id': None, 'totalUsersCount': {'$sum': 1}}}
+            {'$match': {'type': 'rent', 'status': 'to rent'}}
         ]
     )
+
+    target_tickets_id_list = []
     for document in cursor:
-        print('有房东类型的总数:' + str(document['totalUsersCount']))
+        if(document['_id']):
+            target_tickets_id_list.append(str(document['_id']))
+    target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_tickets_id_list, ignore_nonexist=True, permission_check=False))
+    total_tickets_count = len(target_tickets)
 
-    # 统计多少房源没有填写地理位置
-    # print('\n统计多少房源没有填写地理位置:')
-    # cursor = m.tickets.aggregate(
-    #     [
-    #         {'$match': {'type': 'rent', 'status': 'to rent'}}
-    #     ]
-    # )
+    tickets_count_without_location = []
+    tickets_count_without_report = []
+    tickets_count_without_both = []
 
-    # target_tickets_id_list = []
-    # for document in cursor:
-    #     if(document['_id']):
-    #         target_tickets_id_list.append(str(document['_id']))
-    # target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_tickets_id_list, ignore_nonexist=True, permission_check=False))
-    # total_tickets_count = len(target_tickets)
-    # total_tickets_count_without_location = 0
-    # total_tickets_count_without_report = 0
-    # total_tickets_count_without_both = 0
-    # for ticket in target_tickets:
-    #     if ticket and 'property' in ticket and 'latitude' not in ticket['property']:
-    #         total_tickets_count_without_location += 1
-    #     if ticket and 'property' in ticket and 'report_id' not in ticket['property']:
-    #         total_tickets_count_without_report += 1
-    #     if ticket and 'property' in ticket and 'report_id' not in ticket['property'] and 'latitude' not in ticket['property']:
-    #         total_tickets_count_without_both += 1
-    # print('Total tickets: ' + str(total_tickets_count))
-    # print('Total tickets without location: ' + str(total_tickets_count_without_location))
-    # print('Total tickets without report: ' + str(total_tickets_count_without_report))
-    # print('Total tickets without both: ' + str(total_tickets_count_without_both))
-
-
-    # 统计多少房源没有街区
-
+    for ticket in target_tickets:
+        if ticket and 'property' in ticket and 'latitude' not in ticket['property']:
+            tickets_count_without_location.append(ticket)
+        if ticket and 'property' in ticket and 'report_id' not in ticket['property']:
+            tickets_count_without_report.append(ticket)
+        if ticket and 'property' in ticket and 'report_id' not in ticket['property'] and 'latitude' not in ticket['property']:
+            tickets_count_without_both.append(ticket)
+    print('Total tickets: ' + str(total_tickets_count))
+    print('Total tickets without both: ' + str(len(tickets_count_without_both)))
+    for ticket in tickets_count_without_both:
+        if ticket is not None:
+            print(ticket['title'].encode('utf-8') + ", http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/" + str(ticket['id']))
+    print('\nTotal tickets without location: ' + str(len(tickets_count_without_location)))
+    for ticket in tickets_count_without_location:
+        if ticket is not None:
+            print(ticket['title'].encode('utf-8') + ", http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/" + str(ticket['id']))
+    print('\nTotal tickets without report: ' + str(len(tickets_count_without_report)))
+    for ticket in tickets_count_without_report:
+        if ticket is not None:
+            print(ticket['title'].encode('utf-8') + ", http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/" + str(ticket['id']))
 
     # print('\n统计200镑以上的伦敦求租意向单:')
     # 按预算统计伦敦求租意向单
