@@ -1,17 +1,4 @@
 (function (ko) {
-    ko.bindingHandlers.chosen = {
-        init: function(element)  {
-            ko.bindingHandlers.options.init.call(this, element)
-            $(element)[window.team.isPhone() ? 'chosenPhone' : 'chosen']({disable_search_threshold: 10, inherit_select_classes: true, disable_search: true, width: $(element).outerWidth() + 'px'})
-        },
-        update: function(element, valueAccessor, allBindings) {
-            ko.bindingHandlers.options.update.call(this, element, valueAccessor, allBindings)
-            //如果直接触发chosen:updated，在更改time后再更改mode，chosen的更新有问题
-            setTimeout(function () {
-                $(element).trigger('chosen:updated')
-            }, 100)
-        }
-    }
 
     ko.components.register('show-travel-time', {
         viewModel: function(params) {
