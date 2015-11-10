@@ -252,12 +252,10 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
             ActionSheetStringPicker.showPickerWithTitle("", rows: aroundValues, initialSelection:timetValueIndex!, doneBlock: { (picker:ActionSheetStringPicker!, selectedIndex:Int, selectedValue:AnyObject!) -> Void in
                 if let value = Int32(selectedValue as! String) {
-                    defaultTime.time?.value = value
-                    self.tableView.reloadData()
-
+                    
                     self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
                         var array = Array(ticket.property.surroundings as! [CUTESurrounding])
-                        array[sender.tag] = surr
+                        array[sender.tag].trafficTimes![defaultTimeIndex].time!.value = value
                         ticket.property.surroundings = array
                         self.tableView.reloadData()
                     })

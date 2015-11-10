@@ -150,6 +150,11 @@
             }];
         }];
     }
+    else {
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            completion(ticket.property);
+        }];
+    }
 
     if (ticketParams && ticketParams.count > 0) {
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {

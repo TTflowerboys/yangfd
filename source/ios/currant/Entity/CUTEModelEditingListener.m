@@ -64,7 +64,7 @@ typedef void (^ KeyValueChangeBlock) (NSString*, id, id);
         [self markPropertyKeyDeleted:key];
     }
     else if (!IsNilOrNull(oldValue) && !IsNilOrNull(value)) {
-        if (![oldValue isEqual:value]) {
+        if (oldValue != value) {
             [self markPropertyKeyUpdated:key withValue:value];
         }
     }
