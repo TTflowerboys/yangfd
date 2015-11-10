@@ -303,23 +303,28 @@ def get_log_without_id(user, params={}):
             rent_ticket_id = single_log.get("rent_ticket_id", None)
             if rent_ticket_id is None:
                 continue
-            ticket = f_app.ticket.get(rent_ticket_id)
-            ticket_user_id = ticket.get("user_id", None)
-            if user_id == ticket_user_id:
-                count += 1
+            try:
+                ticket = f_app.ticket.get(rent_ticket_id)
+            except:
+                pass
+            else:
+                ticket_user_id = ticket.get("user_id", None)
+                if user_id == ticket_user_id:
+                    count += 1
     elif "property_id" in params:
         for single_log in select_log:
             property_id = single_log.get("property_id", None)
             if property_id is None:
                 continue
-            house = f_app.property.get(property_id)
-            property_user_id = house.get("user_id", None)
-            if user_id == property_user_id:
-                count += 1
-    if count:
-        return unicode(count)
-    else:
-        return ''
+            try:
+                house = f_app.property.get(property_id)
+            except:
+                pass
+            else:
+                property_user_id = house.get("user_id", None)
+                if user_id == property_user_id:
+                    count += 1
+    return unicode(count)
 
 
 def get_active_days(logs):
