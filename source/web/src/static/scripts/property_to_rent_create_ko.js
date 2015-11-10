@@ -57,12 +57,16 @@
             }, this)
             this.selectedType = ko.observable(_.find(this.travel(), {default: true}))
             this.timeToChoose = ko.computed(function () {
+                var timeToChoose
                 this.lastTimeStamp = (new Date()).getTime() //因为knockout的options的bind每次初始化都会默认选择第一个，而且完全无法取消，所以需要一个时间戳来判断是否真的是用户操作在修改time
                 if(this.selectedType() && this.selectedType().isRaw) {
-                    return [{value: this.selectedType().time.value, unit: window.i18n('分钟')}].concat(params.timeToChoose)
+                    timeToChoose = [{value: this.selectedType().time.value, unit: window.i18n('分钟')}].concat(generateTimeConfig(12, 5, parseInt(this.selectedType().time.value)))
                 } else {
-                    return params.timeToChoose
+                    timeToChoose = generateTimeConfig(12, 5, this.selectedType() ? parseInt(this.selectedType().time.value) : 0)
                 }
+                return _.sortBy(timeToChoose, function (item) {
+                    return parseInt(item.value)
+                })
                 //return [this.selectedType()].concat(params.timeToChoose)
             }, this)
             this.selectedTime = ko.observable(_.find(self.timeToChoose(), {value: self.selectedType() ? self.selectedType().time.value : ''}))
@@ -97,6 +101,19 @@
             function chooseTime() {
                 var time = _.find(self.timeToChoose(), {value: self.selectedType().time.value})
                 self.selectedTime(time)
+            }
+
+            function generateTimeConfig(length, interval, arroud) {
+                var start
+                if(arroud && arroud > length * interval / 2) {
+                    arroud = Math.floor(arroud / interval) * interval
+                    start = arroud - length * interval / 2
+                } else {
+                    start = 0
+                }
+                return new Array(length + 1).join('0').split('').map(function (val, index) {
+                    return {value:((index + 1) * interval + (start || 0)).toString(), unit: window.i18n('分钟')}
+                })
             }
         },
         template: { element: 'edit-travel-time' }
@@ -180,7 +197,7 @@
                                         var time = elements[0].duration ? Math.round(elements[0].duration.value / 60).toString() : '0'
                                         return {
                                             default: innerIndex === 0 ? true : false, //表示UI界面选中的交通方式
-                                            isRaw: true, //表示是从Google Distance Matrix API取的时间没有更改过
+                                            isRaw: parseInt(time) % 5 !== 0, //表示是从Google Distance Matrix API取的时间没有更改过
                                             type: modes[innerIndex],
                                             time: {
                                                 value: time,

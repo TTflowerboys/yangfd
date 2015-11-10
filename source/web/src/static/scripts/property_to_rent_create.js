@@ -1324,7 +1324,6 @@
             return !_.isEmpty(this.latitude()) && !_.isEmpty(this.longitude())
         }, this)
 
-        this.timeToChoose = generateTimeConfig(12, 5)
         this.surrouding = ko.observableArray(_.map(JSON.parse($('#featuredFacilityData').text()), function (item) {
             //todo 目前featured_facility中的学校的数据没有展开，所以加上这一段来mock展开后的数据
             if (typeof item[item.type.slug] === 'string' || typeof item[item.type.slug] === 'undefined') {
@@ -1338,7 +1337,7 @@
             item.name = item[item.type.slug].name
 
             item.traffic_time = _.map(item.traffic_time, function (innerItem) {
-                innerItem.isRaw = (_.find(self.timeToChoose, {value: innerItem.time.value}) === undefined)
+                innerItem.isRaw = parseInt(innerItem.time.value) % 5 === 0
                 return innerItem
             })
             return item
@@ -1357,11 +1356,6 @@
     window.propertyViewModel = propertyViewModel
     ko.applyBindings(propertyViewModel)
 
-    function generateTimeConfig(length, interval) {
-        return new Array(length + 1).join('0').split('').map(function (val, index) {
-            return {value:((index + 1) * interval).toString(), unit: window.i18n('分钟')}
-        })
-    }
     function getUniversities() {
         return $.get('/api/1/hesa_university/search')
             .then(function (data) {
@@ -1435,7 +1429,7 @@
                                 var time = (elements[index].duration ? Math.round(elements[index].duration.value / 60).toString() : '0')
                                 return {
                                     default: innerIndex === 0 ? true : false, //表示UI界面选中的交通方式
-                                    isRaw: true, //表示是从Google Distance Matrix API取的时间没有更改过
+                                    isRaw: parseInt(time) % 5 !== 0, //表示是从Google Distance Matrix API取的时间没有更改过
                                     type: modes[innerIndex],
                                     time: {
                                         value: time,

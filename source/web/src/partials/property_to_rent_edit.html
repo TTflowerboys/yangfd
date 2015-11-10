@@ -508,13 +508,13 @@
                                 <li>
                                     <i data-bind="css: type.currency"></i>
                                     <span class="name" data-bind="text: name"></span>
-                                    <edit-travel-time params="item: item, timeToChoose: $root.timeToChoose"></edit-travel-time>
+                                    <edit-travel-time params="item: item"></edit-travel-time>
                                     <i class="icon-delete" data-bind="click: $parent.removeSurrouding" title="{{_('删除')}}"></i>
                                 </li>
                             </ul>
                             <div class="addWrap">
                                 <surrouding-search-input params="surroudingToAdd: surroudingToAdd"></surrouding-search-input>
-                                <edit-travel-time params="item: surroudingToAdd, timeToChoose: timeToChoose"></edit-travel-time>
+                                <edit-travel-time params="item: surroudingToAdd"></edit-travel-time>
                                 <span class="addBtn" data-bind="visible: surroudingToAdd().traffic_time && surroudingToAdd().traffic_time.length, click: addSurrouding">{{_('添加')}}</span>
                             </div>
                         </td>
