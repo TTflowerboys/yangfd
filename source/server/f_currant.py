@@ -473,6 +473,7 @@ class f_currant_log(f_log):
     def get(self, log_id_or_list, force_reload=False, ignore_nonexist=False):
         def _format_each(log):
             log.pop("cookie", None)
+            log["user_id"] = log.get("id")
             return f_app.util.process_objectid(log)
 
         if isinstance(log_id_or_list, (tuple, list, set)):
