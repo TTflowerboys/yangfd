@@ -292,12 +292,15 @@ def get_log_with_id(user, params={}):
 
 
 def get_log_condition(logs, params):
+    print "get ", len(logs), "logs"
+    print "remove log condition ", params
     log_list = []
     if len(params) == 1:
         log_list = logs.copy()
         for log in logs:
             if log.get(params.keys()[0], None) != params.values()[0]:
                 log_list.remove(log)
+        print len(log_list), " logs left."
         return log_list
     else:
         for condition, condition_value in params.iteritems():
@@ -374,6 +377,7 @@ ws.append(header)
 
 for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
     logs = get_log_with_id(user)
+    print "get ", len(logs), " logs"
     logs_content_view = get_log_condition(logs, {"type": "rent_ticket_view_contact_info"})
     logs_type_route = get_log_condition(logs, {"type": "route"})
     logs_property = get_log_condition(logs_type_route, {"property_id": {"$exists": True}})
