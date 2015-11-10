@@ -412,7 +412,7 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                unicode(len(logs_property))
                ])
     print 'user.' + unicode(number) + ' done.'
-    if number >= 999:
+    if number >= 9:
         break
 format_fit(ws)
 be_colorful(ws, 6)
