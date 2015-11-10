@@ -8,8 +8,8 @@ from openpyxl.styles import Font, PatternFill, Alignment
 from pytz import timezone
 import pytz
 
-f_app.common.memcache_server = ["172.20.101.102:11211"]
-f_app.common.mongo_server = "172.20.101.102"
+f_app.common.memcache_server = ["172.20.101.98:11211"]
+f_app.common.mongo_server = "172.20.101.98"
 
 
 def get_data_directly(user, part, deep=None):
@@ -93,8 +93,6 @@ def get_data_complex(user, target, condition, element):
     for ticket in select_item:
         element_list.append(ticket.get(element, None))
     dic.update({element: element_list})
-    if target == "user.favorite":
-        print target_database, " ", dic
     return dic
 
 
@@ -415,7 +413,7 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                                                   "property_id": {"$exists": True, "$ne": None}})))
                ])
     print 'user.' + unicode(number) + ' done.'
-    if number >= 555:
+    if number >= 999:
         break
 format_fit(ws)
 be_colorful(ws, 6)
