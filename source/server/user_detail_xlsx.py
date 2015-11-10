@@ -291,20 +291,17 @@ def get_log_with_id(user, params={}):
     return select_log
 
 
-def get_log_without_id(user, params={}):
-    user_id = user.get("id", None)
-    if user_id is None:
-        return ''
-    count = 0
-    params.update({"type": "route",
-                   "id": ObjectId(user_id)})
-    select_log = f_app.log.output(f_app.log.search(params, per_page=-1), permission_check=False)
-    if select_log is None:
-        return '0'
-    if not f_app.util.batch_iterable(select_log):
-        select_log = [select_log]
-    count = len(select_log)
-    return unicode(count)
+def get_log_condition(logs, params):
+    log_list = []
+    if len(params) == 1:
+        log_list = logs.copy()
+        for log in logs:
+            if log.get(params.keys()[0], None) != params.values()[0]:
+                log_list.remove(log)
+        return log_list
+    else:
+        for condition, condition_value in params.iteritems():
+            log_list = get_log_condition(log_list, {condition: condition_value})
 
 
 def get_active_days(logs):
@@ -374,20 +371,25 @@ ws = wb.active
 
 ws.append(header)
 
+
 for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
+    logs = get_log_with_id(user)
+    logs_content_view = get_log_condition(logs, {"type": "rent_ticket_view_contact_info"})
+    logs_type_route = get_log_condition(logs, {"type": "route"})
+    logs_property = get_log_condition(logs_type_route, {"property_id": {"$exists": True}})
+    logs_rent_ticket = get_log_condition(logs_type_route, {"rent_ticket_id": {"$exists": True}})
     ws.append([get_data_directly_as_str(user, "nickname"),
                get_data_directly_as_str(user, "register_time"),
                get_data_directly_as_str(user, "country", "code"),
                get_data_enum(user, "user_type"),
                "",  # cant
-               get_active_days(get_log_with_id(user)),
+               get_active_days(logs),
                "已下载" if check_download(user) else "未下载",
                get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "landlord_type"), "landlord_type"),
                "有" if get_has_flag(user, "ticket", {"type": "rent"}, "status", "draft") else "无",
                get_data_directly_as_str(get_ticket_newest(user, {"type": "rent"}), "time"),
                get_address(user),
-               unicode(len(get_log_with_id(user, {"type": "route",
-                                                  "rent_ticket_id": {"$exists": True, "$ne": None}}))),
+               unicode(len(logs_rent_ticket)),
                unicode(get_count(user, "ticket", {"type": "rent"}, "type", "rent")),
                get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "rent_type"), "rent_type"),
                time_period_label(get_ticket_newest(user)),
@@ -398,19 +400,16 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                get_budget(get_ticket_newest(user, {"type": "rent_intention"})),
                get_address(get_ticket_newest(user, {"type": "rent_intention", "status": "new"})),
                get_match(get_ticket_newest(user, {"type": "rent_intention", "status": "new"})),
-               unicode(len(get_log_with_id(user, {"type": "route",
-                                                  "property_id": {"$exists": True}
-                                                  }))),
+               unicode(len(logs_rent_ticket)),
                unicode(get_count(user, "user.favorite", {"type": "property"}, "type", "property")),
-               unicode(len(get_log_with_id(user, {"type": "rent_ticket_view_contact_info"}))),
+               unicode(len(logs_content_view)),
                "",  # cant
                "",  # cant
                get_data_directly_as_str(get_ticket_newest(user, {"type": "intention"}), "time"),
                get_budget(get_ticket_newest(user, {"type": "intention"})),
                get_investment_type(get_ticket_newest(user, {"type": "intention"})),
                get_room_detail(get_ticket_newest(user, {"type": "intention"})),
-               unicode(len(get_log_with_id(user, {"type": "route",
-                                                  "property_id": {"$exists": True, "$ne": None}})))
+               unicode(len(logs_property))
                ])
     print 'user.' + unicode(number) + ' done.'
     if number >= 999:
