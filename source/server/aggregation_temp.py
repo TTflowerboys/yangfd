@@ -24,7 +24,13 @@ with f_app.mongo() as m:
     print('\n统计多少房源没有填写地理位置:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {'type': 'rent', 'status': 'to rent'}}
+            {'$match': {
+                'type': 'rent',
+                'status': 'to rent',
+                "time": {
+                            '$gte': datetime(2015, 10, 10, 0, 0, 0),
+                            '$lte': datetime(2015, 11, 10, 0, 0, 0)
+                        }}}  
         ]
     )
 
