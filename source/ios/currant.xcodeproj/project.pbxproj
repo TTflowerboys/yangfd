@@ -266,6 +266,14 @@
 		2C51F1AD1BE755B8007F13FF /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C51F1AC1BE755B8007F13FF /* UIColorExtension.swift */; settings = {ASSET_TAGS = (); }; };
 		2C554F8A1AC2BC3700F51D33 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C554F891AC2BC3700F51D33 /* MapKit.framework */; };
 		2C554F8E1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */; };
+		2C5575F11BF1E64A00A6875E /* CUTETrafficTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5575F01BF1E64A00A6875E /* CUTETrafficTime.m */; settings = {ASSET_TAGS = (); }; };
+		2C5575F21BF1E64A00A6875E /* CUTETrafficTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5575F01BF1E64A00A6875E /* CUTETrafficTime.m */; settings = {ASSET_TAGS = (); }; };
+		2C5575F31BF1E64A00A6875E /* CUTETrafficTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5575F01BF1E64A00A6875E /* CUTETrafficTime.m */; settings = {ASSET_TAGS = (); }; };
+		2C5575F41BF1E64A00A6875E /* CUTETrafficTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5575F01BF1E64A00A6875E /* CUTETrafficTime.m */; settings = {ASSET_TAGS = (); }; };
+		2C5575F71BF1E8F700A6875E /* CUTESurrounding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5575F61BF1E8F700A6875E /* CUTESurrounding.m */; settings = {ASSET_TAGS = (); }; };
+		2C5575F81BF1E8F700A6875E /* CUTESurrounding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5575F61BF1E8F700A6875E /* CUTESurrounding.m */; settings = {ASSET_TAGS = (); }; };
+		2C5575F91BF1E8F700A6875E /* CUTESurrounding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5575F61BF1E8F700A6875E /* CUTESurrounding.m */; settings = {ASSET_TAGS = (); }; };
+		2C5575FA1BF1E8F700A6875E /* CUTESurrounding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5575F61BF1E8F700A6875E /* CUTESurrounding.m */; settings = {ASSET_TAGS = (); }; };
 		2C5597EC1BB501C600430984 /* CUTEPatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5597EB1BB501C600430984 /* CUTEPatcher.swift */; settings = {ASSET_TAGS = (); }; };
 		2C5597ED1BB501C600430984 /* CUTEPatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5597EB1BB501C600430984 /* CUTEPatcher.swift */; settings = {ASSET_TAGS = (); }; };
 		2C5597EE1BB501C600430984 /* CUTEPatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5597EB1BB501C600430984 /* CUTEPatcher.swift */; settings = {ASSET_TAGS = (); }; };
@@ -315,10 +323,6 @@
 		2C86DA551BCF865200B82941 /* CUTESurroundingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C86DA531BCF865200B82941 /* CUTESurroundingListViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2C86DA561BCF865200B82941 /* CUTESurroundingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C86DA531BCF865200B82941 /* CUTESurroundingListViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2C86DA571BCF865200B82941 /* CUTESurroundingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C86DA531BCF865200B82941 /* CUTESurroundingListViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		2C86DA591BCF867800B82941 /* CUTESurrounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C86DA581BCF867800B82941 /* CUTESurrounding.swift */; settings = {ASSET_TAGS = (); }; };
-		2C86DA5A1BCF867800B82941 /* CUTESurrounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C86DA581BCF867800B82941 /* CUTESurrounding.swift */; settings = {ASSET_TAGS = (); }; };
-		2C86DA5B1BCF867800B82941 /* CUTESurrounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C86DA581BCF867800B82941 /* CUTESurrounding.swift */; settings = {ASSET_TAGS = (); }; };
-		2C86DA5C1BCF867800B82941 /* CUTESurrounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C86DA581BCF867800B82941 /* CUTESurrounding.swift */; settings = {ASSET_TAGS = (); }; };
 		2C86DA5E1BCF8AD000B82941 /* CUTESurroundingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C86DA5D1BCF8AD000B82941 /* CUTESurroundingForm.swift */; settings = {ASSET_TAGS = (); }; };
 		2C86DA5F1BCF8AD000B82941 /* CUTESurroundingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C86DA5D1BCF8AD000B82941 /* CUTESurroundingForm.swift */; settings = {ASSET_TAGS = (); }; };
 		2C86DA601BCF8AD000B82941 /* CUTESurroundingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C86DA5D1BCF8AD000B82941 /* CUTESurroundingForm.swift */; settings = {ASSET_TAGS = (); }; };
@@ -327,10 +331,6 @@
 		2C91E58F1BE0C987005F6B5B /* CUTESurroundingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E58D1BE0C987005F6B5B /* CUTESurroundingCell.swift */; settings = {ASSET_TAGS = (); }; };
 		2C91E5901BE0C988005F6B5B /* CUTESurroundingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E58D1BE0C987005F6B5B /* CUTESurroundingCell.swift */; settings = {ASSET_TAGS = (); }; };
 		2C91E5911BE0C988005F6B5B /* CUTESurroundingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E58D1BE0C987005F6B5B /* CUTESurroundingCell.swift */; settings = {ASSET_TAGS = (); }; };
-		2C91E5C61BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */; settings = {ASSET_TAGS = (); }; };
-		2C91E5C71BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */; settings = {ASSET_TAGS = (); }; };
-		2C91E5C81BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */; settings = {ASSET_TAGS = (); }; };
-		2C91E5C91BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */; settings = {ASSET_TAGS = (); }; };
 		2C91E5CB1BE313FA005F6B5B /* CUTEGeoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5CA1BE313FA005F6B5B /* CUTEGeoManager.swift */; settings = {ASSET_TAGS = (); }; };
 		2C91E5CC1BE313FA005F6B5B /* CUTEGeoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5CA1BE313FA005F6B5B /* CUTEGeoManager.swift */; settings = {ASSET_TAGS = (); }; };
 		2C91E5CD1BE313FA005F6B5B /* CUTEGeoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C91E5CA1BE313FA005F6B5B /* CUTEGeoManager.swift */; settings = {ASSET_TAGS = (); }; };
@@ -975,6 +975,10 @@
 		2C554F891AC2BC3700F51D33 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2C554F8C1AC2BCEE00F51D33 /* CUTEPropertyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyListViewController.h; sourceTree = "<group>"; };
 		2C554F8D1AC2BCEE00F51D33 /* CUTEPropertyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyListViewController.m; sourceTree = "<group>"; };
+		2C5575EF1BF1E64A00A6875E /* CUTETrafficTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETrafficTime.h; sourceTree = "<group>"; };
+		2C5575F01BF1E64A00A6875E /* CUTETrafficTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETrafficTime.m; sourceTree = "<group>"; };
+		2C5575F51BF1E8F700A6875E /* CUTESurrounding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTESurrounding.h; sourceTree = "<group>"; };
+		2C5575F61BF1E8F700A6875E /* CUTESurrounding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTESurrounding.m; sourceTree = "<group>"; };
 		2C5597EB1BB501C600430984 /* CUTEPatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEPatcher.swift; sourceTree = "<group>"; };
 		2C5ECC4F1AD525AC00163E9E /* CUTEAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEAPIManager.h; sourceTree = "<group>"; };
 		2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAPIManager.m; sourceTree = "<group>"; };
@@ -1000,10 +1004,8 @@
 		2C86D4201B7307DD00A4DD1D /* CUTEPhoneUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPhoneUtil.h; sourceTree = "<group>"; };
 		2C86D4211B7307DD00A4DD1D /* CUTEPhoneUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPhoneUtil.m; sourceTree = "<group>"; };
 		2C86DA531BCF865200B82941 /* CUTESurroundingListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESurroundingListViewController.swift; sourceTree = "<group>"; };
-		2C86DA581BCF867800B82941 /* CUTESurrounding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESurrounding.swift; sourceTree = "<group>"; };
 		2C86DA5D1BCF8AD000B82941 /* CUTESurroundingForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESurroundingForm.swift; sourceTree = "<group>"; };
 		2C91E58D1BE0C987005F6B5B /* CUTESurroundingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESurroundingCell.swift; sourceTree = "<group>"; };
-		2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTETrafficTime.swift; sourceTree = "<group>"; };
 		2C91E5CA1BE313FA005F6B5B /* CUTEGeoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEGeoManager.swift; sourceTree = "<group>"; };
 		2C94368C1BA941C000644E68 /* CUTELocalizationSwitcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTELocalizationSwitcher.h; sourceTree = "<group>"; };
 		2C94368D1BA941C000644E68 /* CUTELocalizationSwitcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTELocalizationSwitcher.m; sourceTree = "<group>"; };
@@ -1562,8 +1564,10 @@
 				2C0C0A141B2AD02E001F2583 /* CUTEUserEditingListener.m */,
 				2C1251901B53909A0037F5B6 /* CUTECredit.h */,
 				2C1251911B53909A0037F5B6 /* CUTECredit.m */,
-				2C86DA581BCF867800B82941 /* CUTESurrounding.swift */,
-				2C91E5C51BE1C8EA005F6B5B /* CUTETrafficTime.swift */,
+				2C5575EF1BF1E64A00A6875E /* CUTETrafficTime.h */,
+				2C5575F01BF1E64A00A6875E /* CUTETrafficTime.m */,
+				2C5575F51BF1E8F700A6875E /* CUTESurrounding.h */,
+				2C5575F61BF1E8F700A6875E /* CUTESurrounding.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -2718,10 +2722,8 @@
 				2CF8A6981AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FAA1B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C0C0A011B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
-				2C91E5C81BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */,
 				2CE2A9831B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */,
 				2C2FCDBF1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
-				2C86DA5B1BCF867800B82941 /* CUTESurrounding.swift in Sources */,
 				2CF8A6421AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6061AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CF234801B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */,
@@ -2760,6 +2762,7 @@
 				2C056D591B423AB20075037A /* CUTERentContactViewController.m in Sources */,
 				2C427E4E1AD2414D000378A9 /* CUTEAPICacheManager.m in Sources */,
 				2C2D2E2D1BAFFA8E008CFFE6 /* CUTERouter.swift in Sources */,
+				2C5575F31BF1E64A00A6875E /* CUTETrafficTime.m in Sources */,
 				2CAA85221AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F801B0CA543006E993C /* CUTEHouseType.m in Sources */,
 				2CA81F711B0B5621006E993C /* MemoryReporter.m in Sources */,
@@ -2820,6 +2823,7 @@
 				2CEFCCB21BE7766000A0F93B /* UIColorExtension.swift in Sources */,
 				2C056D871B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
 				2CF8A5F21AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
+				2C5575F91BF1E8F700A6875E /* CUTESurrounding.m in Sources */,
 				2C96E2761AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2C2D2E281BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift in Sources */,
 				2C056D5F1B423AB20075037A /* CUTERentLoginViewController.m in Sources */,
@@ -2891,10 +2895,8 @@
 				2CF8A6991AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FAB1B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C0C0A021B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
-				2C91E5C91BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */,
 				2CE2A9841B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */,
 				2C2FCDC01AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
-				2C86DA5C1BCF867800B82941 /* CUTESurrounding.swift in Sources */,
 				2CF8A6431AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6071AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CF234811B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */,
@@ -2933,6 +2935,7 @@
 				2C056D5A1B423AB20075037A /* CUTERentContactViewController.m in Sources */,
 				2C427E4F1AD2414D000378A9 /* CUTEAPICacheManager.m in Sources */,
 				2C2D2E2E1BAFFA8E008CFFE6 /* CUTERouter.swift in Sources */,
+				2C5575F41BF1E64A00A6875E /* CUTETrafficTime.m in Sources */,
 				2CAA85231AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F811B0CA543006E993C /* CUTEHouseType.m in Sources */,
 				2CA81F721B0B5621006E993C /* MemoryReporter.m in Sources */,
@@ -2993,6 +2996,7 @@
 				2CEFCCB31BE7766100A0F93B /* UIColorExtension.swift in Sources */,
 				2C056D881B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
 				2CF8A5F31AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
+				2C5575FA1BF1E8F700A6875E /* CUTESurrounding.m in Sources */,
 				2C96E2771AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2C2D2E291BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift in Sources */,
 				2C056D601B423AB20075037A /* CUTERentLoginViewController.m in Sources */,
@@ -3064,10 +3068,8 @@
 				2CF8A6971AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FA91B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C0C0A001B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
-				2C91E5C71BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */,
 				2CE2A9821B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */,
 				2C2FCDBE1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
-				2C86DA5A1BCF867800B82941 /* CUTESurrounding.swift in Sources */,
 				2CF8A6411AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6051AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CF2347F1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */,
@@ -3106,6 +3108,7 @@
 				2C056D581B423AB20075037A /* CUTERentContactViewController.m in Sources */,
 				2C427E4D1AD2414D000378A9 /* CUTEAPICacheManager.m in Sources */,
 				2C2D2E2C1BAFFA8E008CFFE6 /* CUTERouter.swift in Sources */,
+				2C5575F21BF1E64A00A6875E /* CUTETrafficTime.m in Sources */,
 				2CAA85211AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F7F1B0CA543006E993C /* CUTEHouseType.m in Sources */,
 				2CA81F701B0B5621006E993C /* MemoryReporter.m in Sources */,
@@ -3166,6 +3169,7 @@
 				2CEFCCB11BE7765F00A0F93B /* UIColorExtension.swift in Sources */,
 				2C056D861B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
 				2CF8A5F11AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
+				2C5575F81BF1E8F700A6875E /* CUTESurrounding.m in Sources */,
 				2C96E2751AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2C2D2E271BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift in Sources */,
 				2C056D5E1B423AB20075037A /* CUTERentLoginViewController.m in Sources */,
@@ -3237,10 +3241,8 @@
 				2CF8A6961AF0B65C0080DF10 /* CUTERentPriceForm.m in Sources */,
 				2CA81FA81B12CDF0006E993C /* CUTECountry.m in Sources */,
 				2C0C09FF1B29697F001F2583 /* CUTETicketEditingListener.m in Sources */,
-				2C91E5C61BE1C8EA005F6B5B /* CUTETrafficTime.swift in Sources */,
 				2CE2A9811B68E1680089ED20 /* CUTERentConfirmPhoneForm.m in Sources */,
 				2C2FCDBD1AFCC689002594D7 /* BBTInputAccessoryView.m in Sources */,
-				2C86DA591BCF867800B82941 /* CUTESurrounding.swift in Sources */,
 				2CF8A6401AF0B40E0080DF10 /* CUTEFormTextCell.m in Sources */,
 				2CF8A6041AF0B40E0080DF10 /* CUTERentShareViewController.m in Sources */,
 				2CF2347E1B54F2E500B516E6 /* CUTEKeyboardStateListener.m in Sources */,
@@ -3279,6 +3281,7 @@
 				2CAA85201AEA65CC00432BF1 /* NSString+Encoding.m in Sources */,
 				2CA81F7E1B0CA543006E993C /* CUTEHouseType.m in Sources */,
 				2C2D2E2B1BAFFA8E008CFFE6 /* CUTERouter.swift in Sources */,
+				2C5575F11BF1E64A00A6875E /* CUTETrafficTime.m in Sources */,
 				2CA81F6F1B0B5621006E993C /* MemoryReporter.m in Sources */,
 				2C3DE2591B07448F006FF191 /* BBTPagingView.m in Sources */,
 				2CF8A67D1AF0B65C0080DF10 /* CUTEPropertyFacilityForm.m in Sources */,
@@ -3339,6 +3342,7 @@
 				2C51F1AD1BE755B8007F13FF /* UIColorExtension.swift in Sources */,
 				2C056D851B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
 				2CF8A5F01AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
+				2C5575F71BF1E8F700A6875E /* CUTESurrounding.m in Sources */,
 				2C96E2741AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2C2D2E261BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift in Sources */,
 				2C056D5D1B423AB20075037A /* CUTERentLoginViewController.m in Sources */,

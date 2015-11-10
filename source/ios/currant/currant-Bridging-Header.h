@@ -46,6 +46,8 @@
 #import "CUTETimePeriod.h"
 #import "CUTEPlacemark.h"
 #import "CUTEPostcodePlace.h"
+#import "CUTETrafficTime.h"
+#import "CUTESurrounding.h"
 
 
 //view
