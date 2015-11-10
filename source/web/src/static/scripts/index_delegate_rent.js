@@ -119,7 +119,7 @@
             var validate = true
             var errorMsg = ''
             var regex = {
-                'email': /.+@.+\..+/,
+                'email': window.project.emailReg,
                 'nonDecimal': /[^0-9.\s,]/,
                 'number': /^[0-9]+$/,
                 'decimalNumber': /^\d+(\.(\d)+)?$/,

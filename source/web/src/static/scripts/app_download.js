@@ -19,7 +19,7 @@
     });
     $('#subscribeBtn').bind('click', function (e) {
         var email = $('[name=email]').val()
-        if(!/.+@.+\..+/.test(email)) {
+        if(!window.project.emailReg.test(email)) {
             window.alert(i18n('邮件格式不正确，请重新填写'))
             return false
         }
