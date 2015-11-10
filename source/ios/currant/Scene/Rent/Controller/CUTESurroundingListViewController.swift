@@ -11,15 +11,14 @@ import UIKit
 @objc(CUTESurroundingListViewController)
 class CUTESurroundingListViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
 
-    private var surroundings:[CUTESurrounding]
+    private var form:CUTESurroundingForm
     private var searchResultSurroundings:[CUTESurrounding] = []
     var postcodeIndex:String?
-    var delegate:CUTESurroundingUpdateDelegate?
     internal var searchController:UISearchDisplayController?
 
 
-    init(surroundings:[CUTESurrounding]) {
-        self.surroundings = surroundings
+    init(form:CUTESurroundingForm) {
+        self.form = form
         super.init(style: UITableViewStyle.Plain)
     }
 
@@ -93,7 +92,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         if self.searchController?.searchResultsTableView == tableView {
             return self.searchResultSurroundings.count
         }
-        return self.surroundings.count
+        return (form.ticket.property.surroundings as! [CUTESurrounding]).count
     }
 
 
@@ -120,17 +119,26 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
             surroundingCell.durationButton.addTarget(self, action: "onDurationButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
             surroundingCell.removeButton.addTarget(self, action: "onRemoveButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         }
-        let surrounding = self.surroundings[indexPath.row]
+        let surroundings = form.ticket.property.surroundings as! [CUTESurrounding]
+        let surrounding = surroundings[indexPath.row]
         surroundingCell.nameLabel.text = surrounding.name
         surroundingCell.typeButton.tag = indexPath.row
         surroundingCell.durationButton.tag = indexPath.row
         surroundingCell.removeButton.tag = indexPath.row
 
 
-        if let trafficTime = surrounding.trafficTimes?[0] {
-            if trafficTime.time != nil {
-                surroundingCell.typeButton.setTitle(trafficTime.type!.value, forState: UIControlState.Normal)
-                surroundingCell.durationButton.setTitle("\(trafficTime.time!.value) " + (trafficTime.time!.unitForDisplay)!, forState: UIControlState.Normal)
+        var trafficTime = surrounding.trafficTimes?.filter({ (time:CUTETrafficTime) -> Bool in
+            return time.isDefault
+        }).first
+
+        if trafficTime == nil {
+            trafficTime = surrounding.trafficTimes?[0]
+        }
+
+        if (trafficTime != nil) {
+            if trafficTime!.time != nil {
+                surroundingCell.typeButton.setTitle(trafficTime!.type!.value, forState: UIControlState.Normal)
+                surroundingCell.durationButton.setTitle("\(trafficTime!.time!.value) " + (trafficTime!.time!.unitForDisplay)!, forState: UIControlState.Normal)
             }
             surroundingCell.setNeedsLayout()
         }
@@ -148,18 +156,17 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if self.searchController?.searchResultsTableView == tableView {
             let surrounding = self.searchResultSurroundings[indexPath.row]
-            if  self.surroundings.filter({ (surr:CUTESurrounding) -> Bool in
+            let surroundings = form.ticket.property.surroundings as! [CUTESurrounding]
+            if  surroundings.filter({ (surr:CUTESurrounding) -> Bool in
                 return surr.identifier == surrounding.identifier
             }).count == 0 {
-                var surrs = Array(self.surroundings)
-                surrs.append(surrounding)
-                self.surroundings = surrs
-                self.tableView.reloadData()
-
-                self.searchController?.setActive(false, animated: true)
-
-                let index = self.surroundings.count
-                self.delegate?.onDidAddSurrounding(surrounding, atIndex: index)
+                self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
+                    var array = Array(ticket.property.surroundings as! [CUTESurrounding])
+                    array.append(surrounding)
+                    ticket.property.surroundings = array
+                    self.tableView.reloadData()
+                    self.searchController?.setActive(false, animated: true)
+                })
             }
         }
     }
@@ -192,26 +199,8 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     }
 
     func onTypeButtonPressed(sender:UIButton) {
-        self.showTrafficModePicker(sender);
-    }
-
-    func onDurationButtonPressed(sender:UIButton) {
-        let index = sender.tag
-
-    }
-
-    func onRemoveButtonPressed(sender:UIButton) {
-        let index = sender.tag
-        let surrounding = self.surroundings[index]
-        var surrs = Array(self.surroundings)
-        surrs.removeAtIndex(index)
-        self.surroundings = surrs
-        self.tableView.reloadData()
-        self.delegate?.onDidRemoveSurrouding(surrounding, atIndex: index)
-    }
-
-    func showTrafficModePicker(sender:UIButton) {
-        let surr = self.surroundings[sender.tag]
+        var surroundings = Array(form.ticket.property.surroundings as! [CUTESurrounding])
+        let surr = surroundings[sender.tag]
         if (surr.trafficTimes != nil) {
 
             let modes = surr.trafficTimes!.map({ (time:CUTETrafficTime) -> String in
@@ -227,12 +216,85 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                 }
             }
 
-            ActionSheetStringPicker.showPickerWithTitle("", rows: modes, initialSelection: defaultTimeIndex, doneBlock: { (picker:ActionSheetStringPicker!, selecctedIndex:Int, selectedValue:AnyObject!) -> Void in
+            ActionSheetStringPicker.showPickerWithTitle("", rows: modes, initialSelection: defaultTimeIndex, doneBlock: { (picker:ActionSheetStringPicker!, selectedIndex:Int, selectedValue:AnyObject!) -> Void in
+
+                for time in surr.trafficTimes! {
+                    time.isDefault = false
+                }
+                let time = surr.trafficTimes![selectedIndex]
+                time.isDefault = true
+                self.tableView.reloadData()
                 }, cancelBlock: { (picker:ActionSheetStringPicker!) -> Void in
-
+                    
                 }, origin: sender)
-
         }
     }
 
+    func onDurationButtonPressed(sender:UIButton) {
+        var surroundings = Array(form.ticket.property.surroundings as! [CUTESurrounding])
+        let surr = surroundings[sender.tag]
+        if (surr.trafficTimes != nil) {
+            var defaultTimeIndex = 0
+
+            for (index, time) in surr.trafficTimes!.enumerate() {
+                if time.isDefault {
+                    defaultTimeIndex = index
+                    break
+                }
+            }
+
+            let defaultTime = surr.trafficTimes![defaultTimeIndex]
+            let timeValue = defaultTime.time!.value
+            let aroundValues = getAroundTime(timeValue).map({ (intValue:Int32) -> String in
+                return "\(intValue)"
+            })
+            let timetValueIndex = aroundValues.indexOf("\(timeValue)")
+
+            ActionSheetStringPicker.showPickerWithTitle("", rows: aroundValues, initialSelection:timetValueIndex!, doneBlock: { (picker:ActionSheetStringPicker!, selectedIndex:Int, selectedValue:AnyObject!) -> Void in
+                if let value = Int32(selectedValue as! String) {
+                    defaultTime.time?.value = value
+                    self.tableView.reloadData()
+
+                    self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
+                        var array = Array(ticket.property.surroundings as! [CUTESurrounding])
+                        array[sender.tag] = surr
+                        ticket.property.surroundings = array
+                        self.tableView.reloadData()
+                    })
+                }
+                }, cancelBlock: { (picker:ActionSheetStringPicker!) -> Void in
+                    
+                }, origin: sender)
+        }
+
+    }
+
+    func onRemoveButtonPressed(sender:UIButton) {
+        let index = sender.tag
+        self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
+            var array = Array(ticket.property.surroundings as! [CUTESurrounding])
+            array.removeAtIndex(index)
+            ticket.property.surroundings = array
+            self.tableView.reloadData()
+        })
+    }
+
+    private func getAroundTime(timeValue:Int32) -> [Int32] {
+        return [timeValue - 30,
+            timeValue - 25,
+            timeValue - 20,
+            timeValue - 15,
+            timeValue - 10,
+            timeValue - 5,
+            timeValue,
+            timeValue + 5,
+            timeValue + 10,
+            timeValue + 15,
+            timeValue + 20,
+            timeValue + 25,
+            timeValue + 30
+            ].filter { (value:Int32) -> Bool in
+            return value >= 0
+        }
+    }
 }

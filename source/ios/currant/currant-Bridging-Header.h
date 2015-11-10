@@ -51,6 +51,7 @@
 
 //view model
 #import "CUTEForm.h"
+#import "CUTETicketForm.h"
 
 
 //storage

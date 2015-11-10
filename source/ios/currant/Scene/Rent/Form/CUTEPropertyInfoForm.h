@@ -34,7 +34,7 @@
 @property (nonatomic, assign) NSUInteger bathroomCount;
 @property (strong, nonatomic) CUTERentTypeListForm *rentType;
 @property (strong, nonatomic) CUTERentAddressEditForm *rentAddress;
-@property (strong, nonatomic) CUTESurrounding *surrounding;
+@property (strong, nonatomic) CUTESurroundingForm *surrounding;
 @property (nonatomic, strong) CUTEPropertyMoreInfoForm *moreInfo;
 @property (strong, nonatomic) CUTERentContactForm *submit;
 

@@ -46,9 +46,8 @@
 #import "currant-Swift.h"
 #import <HHRouter.h>
 
-@protocol CUTESurroundingUpdateDelegate;
 
-@interface CUTERentPropertyInfoViewController () <CUTESurroundingUpdateDelegate> {
+@interface CUTERentPropertyInfoViewController () {
 
 }
 
@@ -252,6 +251,9 @@
             cell.detailTextLabel.text = self.form.ticket.property.address;
         }
     }
+    else if ([field.key isEqualToString:@"surrounding"]) {
+        cell.detailTextLabel.text = STR(@"RentPropertyInfo/学校，地铁");
+    }
 }
 
 - (void)onLeftButtonPressed:(id)sender {
@@ -446,25 +448,28 @@
     if (!IsNilNullOrEmpty(property.zipcode)) {
 
         if (!IsArrayNilOrEmpty(property.surroundings)) {
-            CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithSurroundings:property.surroundings];
+            CUTESurroundingForm *form = [CUTESurroundingForm new];
+            form.ticket = self.form.ticket;
+            CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithForm:form];
             NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
             controller.postcodeIndex = postCodeIndex;
-            controller.delegate = self;
             [self.navigationController pushViewController:controller animated:YES];
         }
         else {
             [SVProgressHUD show];
             NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
             [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil postcodeIndex:postCodeIndex city:property.city country:property.country propertyPostcodeIndex:postCodeIndex] continueWithBlock:^id(BFTask *task) {
-                //TODO update surroundings cell
-                property.surroundings = task.result;
 
+                [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+                    ticket.property.surroundings = task.result;
+                    CUTESurroundingForm *form = [CUTESurroundingForm new];
+                    form.ticket = self.form.ticket;
+                    CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithForm:form];
+                    controller.postcodeIndex = postCodeIndex;
+                    [self.navigationController pushViewController:controller animated:YES];
+                    [SVProgressHUD dismiss];
+                }];
 
-                CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithSurroundings:property.surroundings ];
-                controller.delegate = self;
-                controller.postcodeIndex = postCodeIndex;
-                [self.navigationController pushViewController:controller animated:YES];
-                [SVProgressHUD dismiss];
                 return task;
             }];
         }
@@ -538,29 +543,6 @@
 {
     TrackEvent(GetScreenName(self), kEventActionPress, @"preview-and-publish", nil);
     [self submitEditingTicket];
-}
-
-#pragma Mark - Surrouding Update Delegate 
-
-- (void)onDidAddSurrounding:(CUTESurrounding *)surrounding atIndex:(NSInteger)index {
-
-    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
-        NSMutableArray *surroundings = [NSMutableArray arrayWithArray:ticket.property.surroundings];
-        [surroundings addObject:surrounding];
-        ticket.property.surroundings = surroundings;
-    }];
-}
-
-- (void)onDidModifySurrouding:(CUTESurrounding *)surrounding atIndex:(NSInteger)index {
-
-}
-
-- (void)onDidRemoveSurrouding:(CUTESurrounding *)surrounding atIndex:(NSInteger)index {
-    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
-        NSMutableArray *surroundings = [NSMutableArray arrayWithArray:ticket.property.surroundings];
-        [surroundings removeObject:surrounding];
-        ticket.property.surroundings = surroundings;
-    }];
 }
 
 @end

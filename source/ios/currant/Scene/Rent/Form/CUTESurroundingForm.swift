@@ -9,6 +9,6 @@
 import UIKit
 
 @objc(CUTESurroundingForm)
-class CUTESurroundingForm: CUTEForm {
+class CUTESurroundingForm: CUTETicketForm {
 
 }
