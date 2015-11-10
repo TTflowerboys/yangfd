@@ -502,14 +502,14 @@ class f_currant_log(f_log):
 
             return _format_each(result)
 
-    def output(self, log_id_list, ignore_nonexist=False, multi_return=list, force_reload=False):
+    def output(self, log_id_list, ignore_nonexist=True, multi_return=list, force_reload=False, permission_check=True):
         logs = self.get(log_id_list, ignore_nonexist=ignore_nonexist, force_reload=force_reload)
         property_id_set = set()
         for log in logs:
             if log.get("property_id"):
                 property_id_set.add(log["property_id"])
 
-        property_dict = f_app.property.output(list(property_id_set), multi_return=dict, ignore_nonexist=True)
+        property_dict = f_app.property.output(list(property_id_set), multi_return=dict, ignore_nonexist=ignore_nonexist, permission_check=permission_check)
 
         for log in logs:
             if log.get("property_id"):
