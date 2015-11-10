@@ -43,7 +43,7 @@
             throw 'Need onError'
         }
         var exclude = options.exclude || []
-        var emailRegex = options.emailRegex || /.+@.+\..+/
+        var emailRegex = options.emailRegex || /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i
         var nonDecimalRegex = /[^0-9.\s,]/
         var numberRegex = /^[0-9]+$/
 
