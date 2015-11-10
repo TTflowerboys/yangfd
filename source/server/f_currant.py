@@ -952,6 +952,8 @@ class f_currant_plugins(f_app.plugin_base):
                 ticket_id=ticket_id,
             ))
 
+        return ticket_id
+
     def task_on_rent_ticket_check_intention(self, task):
         ticket_id = task["ticket_id"]
         ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id], permission_check=False, ignore_nonexist=True)[0], _i18n=["zh_Hans_CN"])
