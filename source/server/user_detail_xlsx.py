@@ -93,6 +93,8 @@ def get_data_complex(user, target, condition, element):
     for ticket in select_item:
         element_list.append(ticket.get(element, None))
     dic.update({element: element_list})
+    if target == "user.favorite":
+        print target_database, " ", dic
     return dic
 
 
@@ -413,7 +415,7 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                                                   "property_id": {"$exists": True, "$ne": None}})))
                ])
     print 'user.' + unicode(number) + ' done.'
-    if number >= 9999:
+    if number >= 5:
         break
 format_fit(ws)
 be_colorful(ws, 6)
