@@ -403,7 +403,7 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                unicode(len(get_log_with_id(user, {"type": "route",
                                                   "property_id": {"$exists": True}
                                                   }))),
-               unicode(get_count(user, "user.favorite", {"type": "property"}, "tyoe", "property")),
+               unicode(get_count(user, "user.favorite", {"type": "property"}, "type", "property")),
                unicode(len(get_log_with_id(user, {"type": "rent_ticket_view_contact_info"}))),
                "",  # cant
                "",  # cant
@@ -415,7 +415,7 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                                                   "property_id": {"$exists": True, "$ne": None}})))
                ])
     print 'user.' + unicode(number) + ' done.'
-    if number >= 5:
+    if number >= 555:
         break
 format_fit(ws)
 be_colorful(ws, 6)
