@@ -24,7 +24,7 @@
         }
 
         function updateParams() {
-            params.developer = $scope.selected.developer
+            params.short_id = $scope.selected.short_id
             params.status = $scope.selected.status
             params.country = $scope.selected.country
             params.city = $scope.selected.city
