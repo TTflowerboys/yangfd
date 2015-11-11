@@ -32,8 +32,6 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         super.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
         super.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         super.tableView.allowsSelection = false
-        //TODO issues http://stackoverflow.com/questions/18925900/ios-7-uisearchdisplaycontroller-search-bar-overlaps-status-bar-while-searching
-//        self.edgesForExtendedLayout = UIRectEdge.None
         self.definesPresentationContext = true
 
         // Uncomment the following line to preserve selection between presentations
