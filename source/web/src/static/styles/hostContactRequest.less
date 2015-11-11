@@ -147,7 +147,10 @@ main {
 
 .contactRequestForm {
     display: none;
-    padding: @standard-margin 24px @standard-margin; margin-top: 16px; background: #f6f6f6; overflow: hidden; margin-bottom: 16px;
+    margin-top: @standard-margin * 2;
+    padding: @standard-margin 24px @standard-margin;
+    background: #f6f6f6;
+    overflow: hidden;
     .row { .clearfix(); }
     @input-height: 44px;
     @input-color: #333;
@@ -208,6 +211,20 @@ main {
             padding: 14px 0px;
             width: 35%; float: right;
         }
+    }
+}
+
+.shortid {
+    margin-bottom: @standard-margin * 2;
+    font-size: 1rem;
+    text-align: center;
+
+    .label {
+        color: @light-text-color;
+    }
+
+    .id {
+        color: @red;
     }
 }
 

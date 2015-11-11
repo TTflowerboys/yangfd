@@ -109,6 +109,12 @@
         </form>
     </div>
     % end
+
+    % if 'short_id' in rent['property'] and rent.get('property',{}).get('short_id',''):
+    <div class="shortid">
+        <span class="label">{{_('房源编号: ')}}</span><span class="id">{{rent.get('property',{}).get('short_id','')}}</span>
+    </div>
+    %end
 </div>
 <!--@@include=partials/host_contact_request_amount_modal.html  -->
 % else:

@@ -696,7 +696,7 @@ body {
 
         @media @phone {
             margin:0px;
-            padding: @standard-margin * 2 @standard-margin;
+            padding: @standard-margin * 2 @standard-margin 0 @standard-margin;
             width: 100%
         }
 
@@ -1335,72 +1335,6 @@ body {
                         padding: 6px 10px;
                     }
                 }
-            }
-        }
-    }
-
-    .contactRequestForm {
-        display: none;
-        padding: @standard-margin 24px @standard-margin; margin-top: 16px; background: #f6f6f6; overflow: hidden; margin-bottom: 16px;
-        .row { .clearfix(); }
-        @input-height: 44px;
-        @input-color: #333;
-        input[type=text], textarea { border: 1px solid @border-color; border-radius: 4px; display: block; width: 100%;
-            height: @input-height; padding: 4px 16px; margin: @standard-margin 0; font-size: @base-font-size;
-            color: @input-color; vertical-align: middle;
-        }
-        input[type=text][readonly] { background: #f6f6f6; }
-        .label {
-            margin: 16px 0 0;
-            display: block;
-        }
-        .link {
-            cursor: pointer;
-            color: @red; 
-            text-decoration: none; 
-        }
-        textarea { height: 200px; margin-top: 16px; font-size: 14px; }
-        select { vertical-align: middle; font-size: @base-font-size; width: 100%; color: @input-color; }
-        button { width: 100%; margin: 16px 0; padding: 16px 0; line-height: 1; font-size: 16px; }
-        hr { margin: @standard-margin 0; }
-        .contact {
-            color: @red; font-size: 24px; text-align: center; padding: 16px 0;
-            a {
-                text-decoration: none;
-                color: @red;
-            }
-        }
-        .inputAddOn { position: relative;
-            input { padding-right: 32px; }
-            .addOn { position: absolute; right: 0; top: 0; font-size: @base-font-size; line-height: @input-height;
-                display: inline-block; width: 32px; text-align: center;
-            }
-        }
-
-        .phone {
-            > select {
-                height: @input-height; border: 1px solid @border-color; vertical-align: middle; margin: @standard-margin 0;
-                font-size: @base-font-size; background: white;
-                &[name=country] {
-                    width: 35%; float: left;
-                }
-            }
-
-            > input[name=phone] {
-                width: 63%; float: right;
-            }
-        }
-
-        .code {
-            > input[name=code] {
-                width: 63%; float: left;
-            }
-
-            > button[name=getCodeBtn] {
-                margin-bottom: 0px;
-                margin-top: @standard-margin;
-                padding: 14px 0px;
-                width: 35%; float: right;
             }
         }
     }

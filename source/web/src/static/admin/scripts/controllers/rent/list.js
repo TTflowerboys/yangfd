@@ -9,7 +9,7 @@
         $scope.api = api
 
         $scope.selected = {}
-        $scope.selected.status = 'draft'
+        $scope.selected.status = 'to rent'
 
         var params = {
             status: $scope.selected.status,
@@ -25,6 +25,7 @@
             params.country = $scope.selected.country
             params.city = $scope.selected.city
             params.rent_type = $scope.selected.rent_type
+            params.short_id = $scope.selected.short_id
             params.time = undefined
             for(var key in params) {
                 if(params[key] === undefined || params[key] === '') {
