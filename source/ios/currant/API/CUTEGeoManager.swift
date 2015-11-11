@@ -127,7 +127,7 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-            requsetReverseGeocodeLocation(location).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+            self.requsetReverseGeocodeLocation(location).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                 if task.result != nil {
                     tcs.setResult(task.result)
                 }
@@ -141,7 +141,7 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-            requsetReverseGeocodeLocation(location).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+            self.requsetReverseGeocodeLocation(location).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                 if task.result != nil {
                     tcs.setResult(task.result)
                 }
@@ -155,7 +155,7 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-            requsetReverseGeocodeLocation(location).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+            self.requsetReverseGeocodeLocation(location).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                 if task.result != nil {
                     tcs.setResult(task.result)
                 }
@@ -217,7 +217,7 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-            requestGeocodeWithAddress(address, components: components).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+            self.requestGeocodeWithAddress(address, components: components).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                 if task.result != nil {
                     tcs.setResult(task.result)
                 }
@@ -231,7 +231,7 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-            requestGeocodeWithAddress(address, components: components).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+       self.requestGeocodeWithAddress(address, components: components).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                 if task.result != nil {
                     tcs.setResult(task.result)
                 }
@@ -245,7 +245,7 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-            requestGeocodeWithAddress(address, components: components).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+            self.requestGeocodeWithAddress(address, components: components).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                 if task.result != nil {
                     tcs.setResult(task.result)
                 }
