@@ -350,7 +350,7 @@ def get_active_days(user):
     ''')
     user_id = user.get("id", None)
     if user_id is None:
-        continue
+        return ''
     with f_app.mongo() as m:
         f_app.log.get_database(m).map_reduce(func_map, func_reduce, "log_result", query={"id": ObjectId(user_id)})
         active_days = m.log_result.find().count()
@@ -447,7 +447,7 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                logs_property(user)
                ])
     print 'user.' + unicode(number) + ' done.'
-    if number >= 20:
+    if number >= 999:
         break
 format_fit(ws)
 be_colorful(ws, 6)
