@@ -18,6 +18,9 @@
             <div select-enum name="rent_type" ng-model="selected.rent_type" text="{%i18n('出租类型')%}"></div>
         </div>
         <div class="btn-group form-inline">
+            <input type="text" class="form-control" ng-model="selected.short_id" placeholder="{%i18n('编号')%}"/>
+        </div>
+        <div class="btn-group form-inline">
             <button class="btn btn-primary" ng-click="searchRent()">{%$root.i18n('搜索')%}</button>
         </div>
         <span class="btn-group pull-right" style="margin-left: 10px">

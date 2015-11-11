@@ -292,6 +292,16 @@
             </ul>
             % end
 
+            % if 'short_id' in rent['property'] and rent.get('property',{}).get('short_id',''):
+            <div class="seperator hiddenOnPCWeb"></div>
+            <ul class="numbersWithoutSeperator hiddenOnPCWeb">
+                <li class="hiddenOnPCWeb" style="100%">
+                    {{_('房源编号')}}
+                    <strong>{{ rent['property'].get('short_id','') }}</strong>
+                </li>
+            </ul>
+            % end
+
             %if rent.get('description'):
             <div class="seperator"></div>
             <div class="description" data-ui="description">
