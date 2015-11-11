@@ -293,8 +293,6 @@ def get_log_with_id(user, params={}):
 
 
 def get_log_condition(logs, params):
-    print "get ", len(logs), "logs"
-    print "remove log condition ", params
     log_list = []
     if len(params) == 1:
         log_list = logs.copy()
@@ -308,17 +306,55 @@ def get_log_condition(logs, params):
             log_list = get_log_condition(log_list, {condition: condition_value})
 
 
-def get_active_days(logs):
-    if logs is None:
-        return "0"
-    set_list = set()
-    for log in logs:
-        single_time = log.get("time", None)
-        if single_time is None:
-            continue
-        curtime = datetime(single_time.year, single_time.month, single_time.day)
-        set_list.add(curtime)
-    return unicode(len(set_list))
+def logs_content_view(user):
+    user_id = user.get("id", None)
+    if user_id is None:
+        return ''
+    with f_app.mongo() as m:
+        return unicode(f_app.log.get_database(m).find({"id": ObjectId(user_id), "type": "rent_ticket_view_contact_info"}).count())
+
+
+def logs_rent_ticket(user):
+    user_id = user.get("id", None)
+    if user_id is None:
+        return ''
+    with f_app.mongo() as m:
+        return unicode(f_app.log.get_database(m).find({"id": ObjectId(user_id),
+                                                       "type": "route",
+                                                       "rent_ticket_id": {"$exists": True}
+                                                       }).count())
+
+
+def logs_property(user):
+    user_id = user.get("id", None)
+    if user_id is None:
+        return ''
+    with f_app.mongo() as m:
+        return unicode(f_app.log.get_database(m).find({"id": ObjectId(user_id),
+                                                       "type": "route",
+                                                       "property_id": {"$exists": True}
+                                                       }).count())
+
+
+def get_active_days(user):
+    func_map = Code('''
+        function() {
+            key = new Date(this.time.getFullYear(), this.time.getMonth(), this.time.getDate());
+            emit(key, 1);
+        }
+    ''')
+    func_reduce = Code('''
+        function(key, value) {
+            return Array.sum(value);
+        }
+    ''')
+    user_id = user.get("id", None)
+    if user_id is None:
+        continue
+    with f_app.mongo() as m:
+        f_app.log.get_database(m).map_reduce(func_map, func_reduce, "log_result", query={"id": ObjectId(user_id)})
+        active_days = m.log_result.find().count()
+    return active_days
 
 
 def get_budget(ticket):
@@ -377,43 +413,18 @@ ws.append(header)
 
 
 for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
-    func_map = Code('''
-        function() {
-            key = new Date(this.time.getFullYear(), this.time.getMonth(), this.time.getDate());
-            emit(key, 1);
-        }
-    ''')
-    func_reduce = Code('''
-        function(key, value) {
-            return Array.sum(value);
-        }
-    ''')
-    user_id = user.get("id", None)
-    if user_id is None:
-        continue
-    with f_app.mongo() as m:
-        f_app.log.get_database(m).map_reduce(func_map, func_reduce, "log_result", query={"id": ObjectId(user_id)})
-        active_days = m.log_result.find().count()
-        print m.log_result.find()
-        print active_days
-    #logs = get_log_with_id(user)
-    # print "get ", len(logs), " logs"
-    '''logs_content_view = get_log_condition(logs, {"type": "rent_ticket_view_contact_info"})
-    logs_type_route = get_log_condition(logs, {"type": "route"})
-    logs_property = get_log_condition(logs_type_route, {"property_id": {"$exists": True}})
-    logs_rent_ticket = get_log_condition(logs_type_route, {"rent_ticket_id": {"$exists": True}})
     ws.append([get_data_directly_as_str(user, "nickname"),
                get_data_directly_as_str(user, "register_time"),
                get_data_directly_as_str(user, "country", "code"),
                get_data_enum(user, "user_type"),
                "",  # cant
-               unicode(active_days),
+               get_active_days(user),
                "已下载" if check_download(user) else "未下载",
                get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "landlord_type"), "landlord_type"),
                "有" if get_has_flag(user, "ticket", {"type": "rent"}, "status", "draft") else "无",
                get_data_directly_as_str(get_ticket_newest(user, {"type": "rent"}), "time"),
                get_address(user),
-               unicode(len(logs_rent_ticket)),
+               logs_rent_ticket,
                unicode(get_count(user, "ticket", {"type": "rent"}, "type", "rent")),
                get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "rent_type"), "rent_type"),
                time_period_label(get_ticket_newest(user)),
@@ -424,17 +435,17 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                get_budget(get_ticket_newest(user, {"type": "rent_intention"})),
                get_address(get_ticket_newest(user, {"type": "rent_intention", "status": "new"})),
                get_match(get_ticket_newest(user, {"type": "rent_intention", "status": "new"})),
-               unicode(len(logs_rent_ticket)),
+               logs_rent_ticket,
                unicode(get_count(user, "user.favorite", {"type": "property"}, "type", "property")),
-               unicode(len(logs_content_view)),
+               logs_content_view(user),
                "",  # cant
                "",  # cant
                get_data_directly_as_str(get_ticket_newest(user, {"type": "intention"}), "time"),
                get_budget(get_ticket_newest(user, {"type": "intention"})),
                get_investment_type(get_ticket_newest(user, {"type": "intention"})),
                get_room_detail(get_ticket_newest(user, {"type": "intention"})),
-               unicode(len(logs_property))
-               ])'''
+               logs_property(user)
+               ])
     print 'user.' + unicode(number) + ' done.'
     if number >= 20:
         break
