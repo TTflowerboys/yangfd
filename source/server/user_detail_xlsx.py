@@ -7,6 +7,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment
 from pytz import timezone
 import pytz
+from bson.code import Code
 
 f_app.common.memcache_server = ["172.20.101.98:11211"]
 f_app.common.mongo_server = "172.20.101.98"
@@ -376,9 +377,26 @@ ws.append(header)
 
 
 for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
-    logs = get_log_with_id(user)
-    print "get ", len(logs), " logs"
-    logs_content_view = get_log_condition(logs, {"type": "rent_ticket_view_contact_info"})
+    func_map = Code('''
+        function() = {
+            key = new Date(this.time.getFullYear(), this.time.getMonth(), this.time.getDate());
+            emit(key, 1);
+        }
+    ''')
+    func_reduce = Code('''
+        function(key, value) = {
+            return Array.sum(value);
+        }
+    ''')
+    user_id = user.get("id", None)
+    with f_app.mongo() as m:
+        f_app.log.get_database(m).map_reduce(func_map, func_reduce, "log_result", query={"id": ObjectId(user_id)})
+        active_days = m.log_result.find().count()
+        print m.log_result.find()
+        print active_days
+    #logs = get_log_with_id(user)
+    # print "get ", len(logs), " logs"
+    '''logs_content_view = get_log_condition(logs, {"type": "rent_ticket_view_contact_info"})
     logs_type_route = get_log_condition(logs, {"type": "route"})
     logs_property = get_log_condition(logs_type_route, {"property_id": {"$exists": True}})
     logs_rent_ticket = get_log_condition(logs_type_route, {"rent_ticket_id": {"$exists": True}})
@@ -387,7 +405,7 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                get_data_directly_as_str(user, "country", "code"),
                get_data_enum(user, "user_type"),
                "",  # cant
-               get_active_days(logs),
+               unicode(active_days),
                "已下载" if check_download(user) else "未下载",
                get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "landlord_type"), "landlord_type"),
                "有" if get_has_flag(user, "ticket", {"type": "rent"}, "status", "draft") else "无",
@@ -414,9 +432,9 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                get_investment_type(get_ticket_newest(user, {"type": "intention"})),
                get_room_detail(get_ticket_newest(user, {"type": "intention"})),
                unicode(len(logs_property))
-               ])
+               ])'''
     print 'user.' + unicode(number) + ' done.'
-    if number >= 9:
+    if number >= 20:
         break
 format_fit(ws)
 be_colorful(ws, 6)
