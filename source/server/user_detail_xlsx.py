@@ -378,17 +378,19 @@ ws.append(header)
 
 for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
     func_map = Code('''
-        function() = {
+        function() {
             key = new Date(this.time.getFullYear(), this.time.getMonth(), this.time.getDate());
             emit(key, 1);
         }
     ''')
     func_reduce = Code('''
-        function(key, value) = {
+        function(key, value) {
             return Array.sum(value);
         }
     ''')
     user_id = user.get("id", None)
+    if user_id is None:
+        continue
     with f_app.mongo() as m:
         f_app.log.get_database(m).map_reduce(func_map, func_reduce, "log_result", query={"id": ObjectId(user_id)})
         active_days = m.log_result.find().count()
