@@ -354,7 +354,7 @@ def get_active_days(user):
     with f_app.mongo() as m:
         f_app.log.get_database(m).map_reduce(func_map, func_reduce, "log_result", query={"id": ObjectId(user_id)})
         active_days = m.log_result.find().count()
-    return active_days
+    return unicode(active_days)
 
 
 def get_budget(ticket):
