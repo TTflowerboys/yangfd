@@ -30,15 +30,11 @@ class CUTESurroundingCell: UITableViewCell {
         typeButton.setImage(UIImage(named: "icon-down-arrow"), forState: UIControlState.Normal)
         typeButton.setTitleColor(UIColor(hex6: 0x999999), forState: UIControlState.Normal)
         typeButton.titleLabel?.font = UIFont.systemFontOfSize(12)
-//        typeButton.backgroundColor = UIColor.redColor()
-
 
         durationButton = UIButton()
         durationButton.setImage(UIImage(named: "icon-down-arrow"), forState: UIControlState.Normal)
         durationButton.setTitleColor(UIColor(hex6: 0x999999), forState: UIControlState.Normal)
         durationButton.titleLabel?.font = UIFont.systemFontOfSize(12)
-//        durationButton.backgroundColor = UIColor.blueColor()
-//        durationButton.titleLabel?.backgroundColor = UIColor.greenColor()
 
 
         removeButton = UIButton()
@@ -117,6 +113,7 @@ class CUTESurroundingCell: UITableViewCell {
         super.layoutSubviews()
 
         let contentViewTopMargin:CGFloat = 13.0
+        let imageOffset:CGFloat = 2.0
         let leftMargin:CGFloat = 10.0
         let topMargin:CGFloat = 8.0
         let imageSideLength:CGFloat = 20;
@@ -124,7 +121,8 @@ class CUTESurroundingCell: UITableViewCell {
 
         self.selectedBackgroundView?.frame = self.innerView.frame
 
-        self.typeImageView.frame = CGRectMake(leftMargin, topMargin, imageSideLength, imageSideLength)
+
+        self.typeImageView.frame = CGRectMake(leftMargin - imageOffset, topMargin, imageSideLength, imageSideLength)
         let nameLabelLeftMargin = (leftMargin + imageSideLength + 5)
         let nameLabelHeight:CGFloat = 20.0
         self.nameLabel.frame = CGRectMake(nameLabelLeftMargin, topMargin, self.innerView.frame.size.width - nameLabelLeftMargin * 2, nameLabelHeight)

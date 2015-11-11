@@ -27,6 +27,7 @@
 #import "CUTEHouseType.h"
 #import "UIAlertView+Blocks.h"
 #import "currant-Swift.h"
+#import "CUTELocalizationSwitcher.h"
 
 @implementation CUTEPropertyMapListViewController
 
@@ -78,13 +79,26 @@
 - (NSString *)formatPrice:(NSString *)price symbol:(NSString *)symbol {
     NSString *suffix = @"";
     CGFloat floatPrice = price.floatValue;
-    if  (floatPrice > 100000000) {
-        floatPrice = floatPrice / 100000000;
-        suffix = STR(@"PropertyMapList/亿");
+
+    if ([[CUTELocalizationSwitcher sharedInstance].currentLocalization isEqualToString:@"zh_Hans_CN"]) {
+        if  (floatPrice > 100000000) {
+            floatPrice = floatPrice / 100000000;
+            suffix = STR(@"PropertyMapList/亿");
+        }
+        else if (floatPrice > 10000) {
+            floatPrice = floatPrice / 10000;
+            suffix = STR(@"PropertyMapList/万");
+        }
     }
-    else if (floatPrice > 10000) {
-        floatPrice = floatPrice / 10000;
-        suffix = STR(@"PropertyMapList/万");
+    else {
+        if  (floatPrice > 1000000) {
+            floatPrice = floatPrice / 1000000;
+            suffix = @"m";
+        }
+        else if (floatPrice > 1000) {
+            floatPrice = floatPrice / 1000;
+            suffix = @"k";
+        }
     }
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];

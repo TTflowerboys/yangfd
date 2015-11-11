@@ -10,5 +10,4 @@
 
 @interface CUTEPropertyListViewController : CUTEListViewController
 
-//TODO add the map button back
 @end

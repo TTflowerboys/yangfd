@@ -32,8 +32,6 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         super.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
         super.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         super.tableView.allowsSelection = false
-        //TODO issues http://stackoverflow.com/questions/18925900/ios-7-uisearchdisplaycontroller-search-bar-overlaps-status-bar-while-searching
-//        self.edgesForExtendedLayout = UIRectEdge.None
         self.definesPresentationContext = true
 
         // Uncomment the following line to preserve selection between presentations
@@ -43,36 +41,18 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, block: { (sender) -> Void in
 
-            if self.searchController == nil {
+            if self.view.window != nil {
                 let searchBar = UISearchBar(frame: CGRectMake(0, 20, self.view.frame.size.width, 44))
-//                searchBar.barTintColor = UIColor(hex6: 0x333333)
                 searchBar.delegate = self
                 self.searchController = UISearchDisplayController(searchBar: searchBar, contentsController: self)
                 self.searchController?.delegate = self
                 self.searchController?.searchResultsDelegate = self
                 self.searchController?.searchResultsDataSource = self
-                self.tableView.tableHeaderView = searchBar
+                self.view.window!.addSubview(self.searchController!.searchBar)
+                self.searchController?.setActive(true, animated: true)
+                self.searchController?.searchBar.becomeFirstResponder()
             }
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
-            self.searchController?.setActive(true, animated: true)
-            self.searchController?.searchBar.becomeFirstResponder()
-            self.searchController?.searchContentsController.navigationController?.navigationBar.backgroundColor = self.searchController?.searchBar.backgroundColor
-//            self.navigationController?.view?.addSubview(self.searchController!.searchBar)
-//
-//            var  frame = self.searchController?.searchResultsTableView.frame;
-//            frame?.origin.y = CGRectGetHeight((self.searchController?.searchContentsController.navigationController?.navigationBar.frame)!)
-//
-//            frame?.size.height = CGRectGetHeight(frame!) - CGRectGetMinY(frame!);
-//
-//            self.searchController?.searchResultsTableView.frame = frame!;
-
-
-                                                                     //TODO open a search surrounding item view controller, add item from the search result
-                                                                 })
-        //TODO the surrounding item can be deleted, so the table need be editable and
-        //TODO the surrounding item's vehicle can be editable
-
-
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -164,8 +144,10 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                     var array = Array(ticket.property.surroundings as! [CUTESurrounding])
                     array.append(surrounding)
                     ticket.property.surroundings = array
-                    self.tableView.reloadData()
+
                     self.searchController?.setActive(false, animated: true)
+                    self.searchController?.searchBar.removeFromSuperview()
+                    self.tableView.reloadData()
                 })
             }
         }
@@ -173,6 +155,11 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
 
+    }
+
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        self.searchController?.setActive(false, animated: true)
+        self.searchController?.searchBar.removeFromSuperview()
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -192,7 +179,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     }
 
     func searchDisplayControllerDidEndSearch(controller: UISearchDisplayController) {
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+
     }
 
     func searchDisplayController(controller: UISearchDisplayController, didHideSearchResultsTableView tableView: UITableView) {
