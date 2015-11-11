@@ -424,7 +424,7 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                "有" if get_has_flag(user, "ticket", {"type": "rent"}, "status", "draft") else "无",
                get_data_directly_as_str(get_ticket_newest(user, {"type": "rent"}), "time"),
                get_address(user),
-               logs_rent_ticket,
+               logs_rent_ticket(user),
                unicode(get_count(user, "ticket", {"type": "rent"}, "type", "rent")),
                get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "rent_type"), "rent_type"),
                time_period_label(get_ticket_newest(user)),
@@ -435,7 +435,7 @@ for number, user in enumerate(f_app.user.get(f_app.user.get_active())):
                get_budget(get_ticket_newest(user, {"type": "rent_intention"})),
                get_address(get_ticket_newest(user, {"type": "rent_intention", "status": "new"})),
                get_match(get_ticket_newest(user, {"type": "rent_intention", "status": "new"})),
-               logs_rent_ticket,
+               logs_rent_ticket(user),
                unicode(get_count(user, "user.favorite", {"type": "property"}, "type", "property")),
                logs_content_view(user),
                "",  # cant
