@@ -273,11 +273,6 @@
 
     [self checkAppUpdate];
 
-    [CUTEWebViewController aspect_hookSelector:@selector(webViewDidStartLoad:) withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> info, UIWebView *webView) {
-
-    } error:nil];
-
-
     return YES;
 }
 

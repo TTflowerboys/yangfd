@@ -64,6 +64,7 @@ typedef void (^ KeyValueChangeBlock) (NSString*, id, id);
         [self markPropertyKeyDeleted:key];
     }
     else if (!IsNilOrNull(oldValue) && !IsNilOrNull(value)) {
+        //在objc中isEqualTo 比较的是value, 这里比较reference即可，reference不同，即认为值更新了
         if (oldValue != value) {
             [self markPropertyKeyUpdated:key withValue:value];
         }
