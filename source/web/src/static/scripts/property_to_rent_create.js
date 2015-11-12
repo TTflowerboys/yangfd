@@ -334,7 +334,7 @@
                     .done(function (data) {
                         data = JSON.parse(data)
                         var streetArr = [],
-                            filter = ['street_number', 'route', 'neighborhood']
+                            filter = ['route', 'neighborhood']
                         if(data && data.results && data.results.length > 0 && data.results[0] && data.results[0].address_components) {
                             _.each(data.results[0].address_components, function (v, i) {
                                 if(_.intersection(filter, v.types).length > 0) {
