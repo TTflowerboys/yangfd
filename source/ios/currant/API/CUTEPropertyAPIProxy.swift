@@ -144,7 +144,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
     }
 
 
-    func method(method: String!, URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!, cancellationToken: BFCancellationToken!) -> BFTask! {
+    func method(method: String!, URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!, cancellationToken: BFCancellationToken?) -> BFTask! {
         let tcs = BFTaskCompletionSource()
         self.getAdaptedParamters(parameters).continueWithSuccessBlock() { (task:BFTask!) -> AnyObject! in
             let modifiedParamters  = task.result as? [String : AnyObject]
@@ -168,10 +168,12 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
                 }
             })
 
-            cancellationToken.registerCancellationObserverWithBlock({ () -> Void in
-                operation.cancel()
-                tcs.trySetCancelled()
-            })
+            if cancellationToken != nil {
+                cancellationToken!.registerCancellationObserverWithBlock({ () -> Void in
+                    operation.cancel()
+                    tcs.trySetCancelled()
+                })
+            }
             self.getRestClient().operationQueue.addOperation(operation)
             
             return task

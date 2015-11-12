@@ -17,5 +17,5 @@ protocol CUTEAPIProxyProtocol : NSObjectProtocol {
 
     func getRestClient() -> BBTRestClient
 
-    func method(method: String!, URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!, cancellationToken: BFCancellationToken!) -> BFTask!
+    func method(method: String!, URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!, cancellationToken: BFCancellationToken?) -> BFTask!
 }
