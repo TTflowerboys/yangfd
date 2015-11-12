@@ -1288,6 +1288,7 @@ def rent_ticket_contact_info(user, ticket_id):
     space=("enum:building_area"),
     property_type=(list, None, "enum:property_type"),
     intention=(list, None, "enum:intention"),
+    landlord_type=(list, None, "enum:landlord_type"),
     country='country',
     city='geonames_gazetteer:city',
     maponics_neighborhood="maponics_neighborhood",
@@ -1350,6 +1351,9 @@ def rent_ticket_search(user, params):
         abort(40000)
     else:
         params.pop("search_range")
+
+    if "landlord_type" in params:
+        params["landlord_type"] = {"$in": params["landlord_type"]}
 
     if "property_type" in params:
         property_params["property_type"] = {"$in": params.pop("property_type")}
