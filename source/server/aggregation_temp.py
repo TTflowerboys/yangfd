@@ -20,51 +20,76 @@ else:
 
 with f_app.mongo() as m:
 
-    # 统计多少房源没有填写地理位置
-    print('\n统计多少房源没有填写地理位置:')
-    cursor = m.tickets.aggregate(
+    # 刷新房产的房源排名
+    # db.log.aggregate([{'$match':{'route':{'$regex': '/api/1/rent_ticket/[a-zA-Z0-9]{24}/edit'},'param_status':'to rent'}},{'$group':{'_id':'$route','count':{'$sum':1}}},{'$match':{'count':{'$gte':2}}},{'$sort':{'time':-1}}])
+
+    # 用户登录次数统计
+    print('\n用户登录次数统计:')
+    cursor = m.log.aggregate(
         [
-            {'$match': {
-                'type': 'rent',
-                'status': 'to rent',
-                "time": {
-                            '$gte': datetime(2015, 10, 10, 0, 0, 0),
-                            '$lte': datetime(2015, 11, 10, 0, 0, 0)
-                        }}}  
+            {'$match': {'type': 'login'}},
+            {'$group': {'_id': "$id", 'count': {'$sum': 1}}},
+            {'$match': {'count': {'$gte': 2}}},
+            {'$sort': {'count': -1}}
         ]
     )
-
-    target_tickets_id_list = []
+    user_login_count_dic = {}
     for document in cursor:
         if(document['_id']):
-            target_tickets_id_list.append(str(document['_id']))
-    target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_tickets_id_list, ignore_nonexist=True, permission_check=False))
-    total_tickets_count = len(target_tickets)
+            user_login_count_dic[str(document['_id'])] = document['count']
 
-    tickets_count_without_location = []
-    tickets_count_without_report = []
-    tickets_count_without_both = []
+    user_login_count_dic = OrderedDict(sorted(user_login_count_dic.items(), key=lambda t: t[1], reverse=True))
 
-    for ticket in target_tickets:
-        if ticket and 'property' in ticket and 'latitude' not in ticket['property']:
-            tickets_count_without_location.append(ticket)
-        if ticket and 'property' in ticket and 'report_id' not in ticket['property']:
-            tickets_count_without_report.append(ticket)
-        if ticket and 'property' in ticket and 'report_id' not in ticket['property'] and 'latitude' not in ticket['property']:
-            tickets_count_without_both.append(ticket)
-    print('Total tickets: ' + str(total_tickets_count))
-    print('Total tickets without both: ' + str(len(tickets_count_without_both)))
-    for ticket in tickets_count_without_both:
-        if ticket is not None:
-            print(ticket['title'].encode('utf-8') + ", http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/" + str(ticket['id']))
-    print('\nTotal tickets without location: ' + str(len(tickets_count_without_location)))
-    for ticket in tickets_count_without_location:
-        if ticket is not None:
-            print(ticket['title'].encode('utf-8') + ", http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/" + str(ticket['id']))
-    print('\nTotal tickets without report: ' + str(len(tickets_count_without_report)))
-    for ticket in tickets_count_without_report:
-        if ticket is not None:
-            print(ticket['title'].encode('utf-8') + ", http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/" + str(ticket['id']))
+    target_users = f_app.user.output(user_login_count_dic.keys(), custom_fields=f_app.common.user_custom_fields)
+
+    for user in target_users:
+        print(user['nickname'].encode('utf-8') + ':' + str(user_login_count_dic[str(user['id'])]))
+
+    # 统计多少房源没有填写地理位置
+    # print('\n统计多少房源没有填写地理位置:')
+    # cursor = m.tickets.aggregate(
+    #     [
+    #         {'$match': {
+    #             'type': 'rent',
+    #             'status': 'to rent',
+    #             "time": {
+    #                         '$gte': datetime(2015, 10, 10, 0, 0, 0),
+    #                         '$lte': datetime(2015, 11, 10, 0, 0, 0)
+    #                     }}}  
+    #     ]
+    # )
+
+    # target_tickets_id_list = []
+    # for document in cursor:
+    #     if(document['_id']):
+    #         target_tickets_id_list.append(str(document['_id']))
+    # target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_tickets_id_list, ignore_nonexist=True, permission_check=False))
+    # total_tickets_count = len(target_tickets)
+
+    # tickets_count_without_location = []
+    # tickets_count_without_report = []
+    # tickets_count_without_both = []
+
+    # for ticket in target_tickets:
+    #     if ticket and 'property' in ticket and 'latitude' not in ticket['property']:
+    #         tickets_count_without_location.append(ticket)
+    #     if ticket and 'property' in ticket and 'report_id' not in ticket['property']:
+    #         tickets_count_without_report.append(ticket)
+    #     if ticket and 'property' in ticket and 'report_id' not in ticket['property'] and 'latitude' not in ticket['property']:
+    #         tickets_count_without_both.append(ticket)
+    # print('Total tickets: ' + str(total_tickets_count))
+    # print('Total tickets without both: ' + str(len(tickets_count_without_both)))
+    # for ticket in tickets_count_without_both:
+    #     if ticket is not None:
+    #         print(ticket['title'].encode('utf-8') + ", http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + str(ticket['id']))
+    # print('\nTotal tickets without location: ' + str(len(tickets_count_without_location)))
+    # for ticket in tickets_count_without_location:
+    #     if ticket is not None:
+    #         print(ticket['title'].encode('utf-8') + ", http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + str(ticket['id']))
+    # print('\nTotal tickets without report: ' + str(len(tickets_count_without_report)))
+    # for ticket in tickets_count_without_report:
+    #     if ticket is not None:
+    #         print(ticket['title'].encode('utf-8') + ", http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + str(ticket['id']))
 
     # print('\n统计200镑以上的伦敦求租意向单:')
     # 按预算统计伦敦求租意向单
@@ -223,20 +248,20 @@ with f_app.mongo() as m:
     #         {'$sort': {'count': -1}}
     #     ]
     # )
-    # user_property_view_count_dic = {}
+    # user_login_count_dic = {}
     # for document in cursor:
     #     if(document['_id']):
-    #         user_property_view_count_dic[str(document['_id'])] = document['count']
+    #         user_login_count_dic[str(document['_id'])] = document['count']
 
-    # user_property_view_count_dic = OrderedDict(sorted(user_property_view_count_dic.items(), key=lambda t: t[1], reverse=True))
+    # user_login_count_dic = OrderedDict(sorted(user_login_count_dic.items(), key=lambda t: t[1], reverse=True))
 
-    # target_users = f_app.user.output(user_property_view_count_dic.keys(), custom_fields=f_app.common.user_custom_fields)
+    # target_users = f_app.user.output(user_login_count_dic.keys(), custom_fields=f_app.common.user_custom_fields)
 
     # for user in target_users:
     #     if 'user_type' in user:
-    #         print(user['nickname'].encode('utf-8') + ':' + " ".join(f_app.enum.get(x['id'])['value']['zh_Hans_CN'].encode('utf-8') for x in user['user_type']) + ', ' + str(user_property_view_count_dic[str(user['id'])]))
+    #         print(user['nickname'].encode('utf-8') + ':' + " ".join(f_app.enum.get(x['id'])['value']['zh_Hans_CN'].encode('utf-8') for x in user['user_type']) + ', ' + str(user_login_count_dic[str(user['id'])]))
     #     else:
-    #         print(user['nickname'].encode('utf-8') + ':' + str(user_property_view_count_dic[str(user['id'])]))
+    #         print(user['nickname'].encode('utf-8') + ':' + str(user_login_count_dic[str(user['id'])]))
 
     # 租客的国家比例
     # print('\n租客的国家比例:')
