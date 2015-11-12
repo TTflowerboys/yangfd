@@ -1,12 +1,8 @@
 <div ui-view>
 
-    <div get-news-category-list></div>
-
-    <div class="buttons">
-
-
-        <div class="btn-group form-inline" ng-controller="ctrlHasPermission">
-            <select class="form-control" ng-if="hasPermission('admin,jr_admin,operation,jr_operation')" ng-options="p.value as p.name for p in rentStatus" ng-model="selected.status"></select>
+    <div class="buttons col-md-8 pull-left">
+        <div class="btn-group form-inline">
+            <select class="form-control" ng-options="p.value as p.name for p in rentStatus" ng-model="selected.status"></select>
         </div>
         <div class="btn-group form-inline">
             <div select-supported-country name="country" ng-model="selected.country" text="{%i18n('国家')%}"></div>
@@ -18,18 +14,28 @@
             <div select-enum name="rent_type" ng-model="selected.rent_type" text="{%i18n('出租类型')%}"></div>
         </div>
         <div class="btn-group form-inline">
+            <div select-enum name="landlord_type" ng-model="selected.landlord_type" text="{%i18n('房东类型')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
             <input type="text" class="form-control" ng-model="selected.short_id" placeholder="{%i18n('编号')%}"/>
         </div>
         <div class="btn-group form-inline">
             <button class="btn btn-primary" ng-click="searchRent()">{%$root.i18n('搜索')%}</button>
         </div>
+    </div>
+
+    <div class="col-md-4">
         <span class="btn-group pull-right" style="margin-left: 10px">
-            <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
-            <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+            <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}
+            </button>
+            <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →
+            </button>
         </span>
         <div class="btn-group form-inline pull-right">
             <select class="form-control" ng-options="p.value as p.name for p in i18nLanguages" ng-model="userLanguage.value"></select>
         </div>
+
+
     </div>
 
     <table class="table table-bordered table-striped table-condensed">
