@@ -3867,7 +3867,7 @@ class f_hesa(f_app.plugin_base):
 
         if f_app.util.batch_iterable(university_id_or_list):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, university_id_or_list)}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.university.get_database(m).find({"_id": {"$in": map(ObjectId, university_id_or_list)}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(university_id_or_list):
                 found_list = map(lambda university: str(university["_id"]), result_list)
@@ -3942,3 +3942,85 @@ class f_hesa(f_app.plugin_base):
         return f_app.mongo_index.search(self.university.get_database, params, notime=True, sort_field="population", count=False, per_page=per_page)["content"]
 
 f_hesa()
+
+
+class f_main_mixed_index(f_app.plugin_base):
+    main_mixed_index_database = "main_mixed_index"
+
+    def __init__(self, *args, **kwargs):
+        f_app.module_install("main_mixed_index", self)
+
+    def get_database(self, m):
+        return getattr(m, self.main_mixed_index_database)
+
+    @f_cache("main_mixed_index", support_multi=True)
+    def get(self, main_mixed_index_id_or_list, force_reload=False, ignore_nonexist=False):
+        def _format_each(main_mixed_index):
+            return f_app.util.process_objectid(main_mixed_index)
+
+        if f_app.util.batch_iterable(main_mixed_index_id_or_list):
+            with f_app.mongo() as m:
+                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, main_mixed_index_id_or_list)}, "status": {"$ne": "deleted"}}))
+
+            if len(result_list) < len(main_mixed_index_id_or_list):
+                found_list = map(lambda main_mixed_index: str(main_mixed_index["_id"]), result_list)
+                if not force_reload and not ignore_nonexist:
+                    abort(40400, self.logger.warning("Non-exist main_mixed_index:", filter(lambda main_mixed_index_id: main_mixed_index_id not in found_list, main_mixed_index_id_or_list), exc_info=False))
+                elif ignore_nonexist:
+                    self.logger.warning("Non-exist main_mixed_index:", filter(lambda main_mixed_index_id: main_mixed_index_id not in found_list, main_mixed_index_id_or_list), exc_info=False)
+
+            result = {main_mixed_index["id"]: _format_each(main_mixed_index) for main_mixed_index in result_list}
+            return result
+
+        else:
+            with f_app.mongo() as m:
+                result = self.get_database(m).find_one({"_id": ObjectId(main_mixed_index_id_or_list), "status": {"$ne": "deleted"}})
+
+                if result is None:
+                    if not force_reload and not ignore_nonexist:
+                        abort(40400, self.logger.warning("Non-exist main_mixed_index:", main_mixed_index_id_or_list, exc_info=False))
+                    elif ignore_nonexist:
+                        self.logger.warning("Non-exist main_mixed_index:", main_mixed_index_id_or_list, exc_info=False)
+
+                    return None
+
+            return _format_each(result)
+
+    def build_maponics_neighborhood(self):
+        processed = 0
+        with f_app.mongo() as m:
+            for neighborhood in f_app.maponics.neighborhood.get_database(m).find({"status": {"$ne": "deleted"}}):
+                self.get_database(m).update({"maponics_neighborhood": neighborhood["_id"]}, {
+                    "maponics_neighborhood": neighborhood["_id"],
+                    "name": neighborhood["name"],
+                    "latitude": neighborhood["latitude"],
+                    "longitude": neighborhood["longitude"],
+                }, upsert=True)
+                index_id = self.get_database(m).find_one({"maponics_neighborhood": neighborhood["_id"]})["_id"]
+                f_app.mongo_index.update(self.get_database, str(index_id), neighborhood["name"])
+                processed += 1
+
+                if processed % 100 == 0:
+                    self.logger.info("neighborhood", processed, "processed.")
+
+    def build_doogal_station(self):
+        processed = 0
+        with f_app.mongo() as m:
+            for station in f_app.doogal.station.get_database(m).find({"status": {"$ne": "deleted"}}):
+                self.get_database(m).update({"doogal_station": station["_id"]}, {
+                    "doogal_station": station["_id"],
+                    "name": station["name"],
+                    "latitude": station["latitude"],
+                    "longitude": station["longitude"],
+                }, upsert=True)
+                index_id = self.get_database(m).find_one({"doogal_station": station["_id"]})["_id"]
+                f_app.mongo_index.update(self.get_database, str(index_id), station["name"])
+                processed += 1
+
+                if processed % 100 == 0:
+                    self.logger.info("station", processed, "processed.")
+
+    def search(self, params, per_page=0):
+        return f_app.mongo_index.search(self.get_database, params, notime=True, count=False, per_page=per_page)["content"]
+
+f_main_mixed_index()

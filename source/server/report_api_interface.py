@@ -331,6 +331,14 @@ def doogal_station_search(params):
     return stations
 
 
+@f_api('/main_mixed_index/search', params=dict(
+    query=str,
+))
+def main_mixed_index_search(params):
+    indexes = f_app.main_mixed_index.get(f_app.main_mixed_index.search(params, per_page=-1))
+    return indexes
+
+
 @f_api('/geonames/<_id>')
 def geonames_get(_id):
     return f_app.geonames.gazetteer.get(_id)
