@@ -12,6 +12,7 @@
 #import <BBTCommonMacro.h>
 #import <BBTUIMacro.h>
 #import "CUTELocalizationSwitcher.h"
+#import "NSURLRequest+Debug.h"
 #undef NSLocalizedString
 #define NSLocalizedString(key, comment) [[CUTELocalizationSwitcher sharedInstance] localizedStringForKey:key]
 

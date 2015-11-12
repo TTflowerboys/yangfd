@@ -149,7 +149,13 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
         self.getAdaptedParamters(parameters).continueWithSuccessBlock() { (task:BFTask!) -> AnyObject! in
             let modifiedParamters  = task.result as? [String : AnyObject]
 
-            let request = self.getRestClient().requestSerializer.requestWithMethod(method, URLString: URLString, parameters: modifiedParamters, error: nil)
+            let URL = NSURL(string: URLString, relativeToURL:self.getRestClient().baseURL)
+            var absURLString = URLString
+            if URL != nil {
+                absURLString = URL!.absoluteString
+            }
+
+            let request = self.getRestClient().requestSerializer.requestWithMethod(method, URLString: absURLString, parameters: modifiedParamters, error: nil)
             let operation = self.getRestClient().HTTPRequestOperationWithRequest(request, resultClass: resultClass, resultKeyPath: keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
                 if error != nil {
                     tcs.setError(error)

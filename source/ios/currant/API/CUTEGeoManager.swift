@@ -395,6 +395,17 @@ class CUTEGeoManager: NSObject {
                 parameters["country"] = country?.ISOcountryCode
             }
 
+//            if name != nil && postcodeIndex == nil {
+//                CUTEAPIManager.sharedInstance().POST("/api/1/main_mixed_index/search", parameters: parameters, resultClass: CUTESurrounding.self, cancellationToken: nil).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+//                    let result = task.result
+//                    completion(result)
+//                    return task
+//                })
+//            }
+//            else {
+//
+//            }
+
             let universityTask = CUTEAPIManager.sharedInstance().POST("/api/1/hesa_university/search", parameters: parameters, resultClass: CUTESurrounding.self)
             let stationTask = CUTEAPIManager.sharedInstance().POST("/api/1/doogal_station/search", parameters: parameters, resultClass: CUTESurrounding.self)
 

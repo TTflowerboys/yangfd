@@ -134,7 +134,7 @@
 
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
 
-    NSURLRequest *request = [_backingManager.requestSerializer requestWithMethod:method URLString:URLString parameters:parameters error:nil];
+    NSURLRequest *request = [_backingManager.requestSerializer requestWithMethod:method URLString:[NSURL URLWithString:URLString relativeToURL:_backingManager.baseURL].absoluteString parameters:parameters error:nil];
     AFHTTPRequestOperation *operation = [_backingManager HTTPRequestOperationWithRequest:request resultClass:resultClass resultKeyPath:keyPath completion:^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
         if (error) {
             [tcs setError:error];
