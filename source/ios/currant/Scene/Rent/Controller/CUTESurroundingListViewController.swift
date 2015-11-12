@@ -159,7 +159,11 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         self.searchController?.setActive(false, animated: true)
-        self.searchController?.searchBar.removeFromSuperview()
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            self.searchController?.searchBar.alpha = 0
+            }, completion: { (stop:Bool) -> Void in
+                self.searchController?.searchBar.removeFromSuperview()
+        })
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -174,11 +178,24 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         return true
     }
 
+    func searchDisplayController(controller: UISearchDisplayController, willUnloadSearchResultsTableView tableView: UITableView) {
+
+    }
+
     func searchDisplayControllerDidBeginSearch(controller: UISearchDisplayController) {
 
     }
 
     func searchDisplayControllerDidEndSearch(controller: UISearchDisplayController) {
+
+        if (self.searchController?.searchBar.superview != nil) {
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
+                self.searchController?.searchBar.alpha = 0
+                }, completion: { (stop:Bool) -> Void in
+                    self.searchController?.searchBar.removeFromSuperview()
+            })
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        }
 
     }
 
