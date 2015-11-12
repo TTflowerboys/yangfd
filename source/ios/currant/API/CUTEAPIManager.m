@@ -93,80 +93,64 @@
 }
 
 - (BFTask *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass  {
-    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    id<CUTEAPIProxyProtocol> apiProxy = [self getAPIProxyWithURLString:URLString];
-    if (apiProxy != nil) {
-        return [apiProxy GET:URLString parameters:parameters resultClass:resultClass];
-    }
-
-
-    [_backingManager GET:URLString parameters:parameters resultClass:resultClass completion:
-     ^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
-         if (error) {
-             [tcs setError:error];
-         }
-         else {
-             [tcs setResult:responseObject];
-         }
-     }];
-    return tcs.task;
+    return [self method:@"GET" URLString:URLString parameters:parameters resultClass:resultClass resultKeyPath:@"val" cancellationToken:nil];
 }
 
 - (BFTask *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath {
-    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    id<CUTEAPIProxyProtocol> apiProxy = [self getAPIProxyWithURLString:URLString];
-    if (apiProxy != nil) {
-        return [apiProxy GET:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath];
-    }
-
-
-    [_backingManager GET:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath completion:
-     ^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
-         if (error) {
-             [tcs setError:error];
-         }
-         else {
-             [tcs setResult:responseObject];
-         }
-     }];
-    return tcs.task;
+    return [self method:@"GET" URLString:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath cancellationToken:nil];
 }
 
 - (BFTask *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass  {
-    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    id<CUTEAPIProxyProtocol> apiProxy = [self getAPIProxyWithURLString:URLString];
-    if (apiProxy != nil) {
-        return [apiProxy POST:URLString parameters:parameters resultClass:resultClass];
-    }
-
-    [_backingManager POST:URLString parameters:parameters resultClass:resultClass completion:
-     ^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
-         if (error) {
-             [tcs setError:error];
-         }
-         else {
-             [tcs setResult:responseObject];
-         }
-     }];
-    return tcs.task;
+    return [self method:@"POST" URLString:URLString parameters:parameters resultClass:resultClass resultKeyPath:@"val" cancellationToken:nil];
 }
 
 - (BFTask *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath {
-    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+    return [self method:@"POST" URLString:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath cancellationToken:nil];
+}
+
+- (BFTask *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass cancellationToken:(BFCancellationToken *)cancellationToken {
+    return [self method:@"GET" URLString:URLString parameters:parameters resultClass:resultClass resultKeyPath:@"val" cancellationToken:cancellationToken];
+}
+
+- (BFTask *)GET:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath  cancellationToken:(BFCancellationToken *)cancellationToken{
+    return [self method:@"GET" URLString:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath cancellationToken:cancellationToken];
+}
+
+- (BFTask *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass cancellationToken:(BFCancellationToken *)cancellationToken {
+    return [self method:@"POST" URLString:URLString parameters:parameters resultClass:resultClass resultKeyPath:@"val" cancellationToken:cancellationToken];
+}
+
+- (BFTask *)POST:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath cancellationToken:(BFCancellationToken *)cancellationToken {
+    return [self method:@"POST" URLString:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath cancellationToken:cancellationToken];
+}
+
+- (BFTask *)method:(NSString *)method URLString:(NSString *)URLString parameters:(NSDictionary *)parameters resultClass:(Class)resultClass resultKeyPath:(NSString *)keyPath cancellationToken:(BFCancellationToken *)cancellationToken {
+
     id<CUTEAPIProxyProtocol> apiProxy = [self getAPIProxyWithURLString:URLString];
     if (apiProxy != nil) {
-        return [apiProxy POST:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath];
+        return [apiProxy method:method URLString:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath cancellationToken:cancellationToken];
     }
 
-    [_backingManager POST:URLString parameters:parameters resultClass:resultClass resultKeyPath:keyPath completion:
-     ^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
-         if (error) {
-             [tcs setError:error];
-         }
-         else {
-             [tcs setResult:responseObject];
-         }
-     }];
+
+    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
+
+    NSURLRequest *request = [_backingManager.requestSerializer requestWithMethod:method URLString:URLString parameters:parameters error:nil];
+    AFHTTPRequestOperation *operation = [_backingManager HTTPRequestOperationWithRequest:request resultClass:resultClass resultKeyPath:keyPath completion:^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
+        if (error) {
+            [tcs setError:error];
+        }
+        else {
+            [tcs setResult:responseObject];
+        }
+    }];
+
+    [cancellationToken registerCancellationObserverWithBlock:^{
+        [operation cancel];
+        [tcs trySetCancelled];
+    }];
+
+    [_backingManager.operationQueue addOperation:operation];
+
     return tcs.task;
 }
 

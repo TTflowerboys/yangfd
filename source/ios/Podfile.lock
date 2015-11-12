@@ -35,12 +35,12 @@ PODS:
     - Overcoat (~> 1.2)
   - BBTUtility (0.0.1):
     - ObjectiveSugar
-  - Bolts (1.1.5):
-    - Bolts/AppLinks (= 1.1.5)
-    - Bolts/Tasks (= 1.1.5)
-  - Bolts/AppLinks (1.1.5):
+  - Bolts (1.4.0):
+    - Bolts/AppLinks (= 1.4.0)
+    - Bolts/Tasks (= 1.4.0)
+  - Bolts/AppLinks (1.4.0):
     - Bolts/Tasks
-  - Bolts/Tasks (1.1.5)
+  - Bolts/Tasks (1.4.0)
   - Bugtags (1.1.2)
   - CTAssetsPickerController (2.9.4)
   - DACircularProgress (2.3.1)
@@ -173,7 +173,7 @@ DEPENDENCIES:
   - BBTAppUpdater (from `git@git.bbtechgroup.com:bbt/ios-bbtappupdater.git`)
   - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`)
   - BBTUtility (from `git@git.bbtechgroup.com:bbt/ios-bbtutility.git`)
-  - Bolts (= 1.1.5)
+  - Bolts (~> 1.4.0)
   - Bugtags (~> 1.1.0)
   - CTAssetsPickerController (= 2.9.4)
   - EGOCache (~> 2.1.3)
@@ -242,7 +242,7 @@ SPEC CHECKSUMS:
   BBTAppUpdater: 2aba37021612f15bf1cb9f3a34c5c147c5a9f4fe
   BBTRestClient: d3205d65ebc0851c0f8c4c69e2fedf9ace0b6134
   BBTUtility: 55ffd4489f190073d4a889839b6a67cc2f76fc5f
-  Bolts: aac24961496d504aa56fc267cde95162a71bac39
+  Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
   Bugtags: 0a6b51a1298d32859b640a8901cdbdf822dac3e0
   CTAssetsPickerController: 3030dc60f5d1a3c4e5b1c0aa9f069220d5bf7008
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71

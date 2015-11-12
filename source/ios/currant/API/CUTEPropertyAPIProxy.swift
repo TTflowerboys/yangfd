@@ -143,33 +143,14 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
         return tcs.task
     }
 
-    func GET(URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!) -> BFTask! {
+
+    func method(method: String!, URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!, cancellationToken: BFCancellationToken!) -> BFTask! {
         let tcs = BFTaskCompletionSource()
         self.getAdaptedParamters(parameters).continueWithSuccessBlock() { (task:BFTask!) -> AnyObject! in
             let modifiedParamters  = task.result as? [String : AnyObject]
-            self.getRestClient().GET(URLString, parameters: modifiedParamters, resultClass: resultClass, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
 
-                if error != nil {
-                    tcs.setError(error)
-                }
-                else {
-                    self.getAdaptedResponseObject(responseObject, jsonData: operation.responseData, resultClass: resultClass, keyPath:"val").continueWithSuccessBlock({ (task:BFTask!) -> AnyObject! in
-                        tcs.setResult(task.result)
-                        return task
-                    })
-                }
-            })
-            return task
-        }
-        return tcs.task
-    }
-
-    func GET(URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!) -> BFTask! {
-        let tcs = BFTaskCompletionSource()
-        self.getAdaptedParamters(parameters).continueWithSuccessBlock() { (task:BFTask!) -> AnyObject! in
-            let modifiedParamters  = task.result as? [String : AnyObject]
-            self.getRestClient().GET(URLString, parameters: modifiedParamters, resultClass: resultClass, resultKeyPath:keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
-
+            let request = self.getRestClient().requestSerializer.requestWithMethod(method, URLString: URLString, parameters: modifiedParamters, error: nil)
+            let operation = self.getRestClient().HTTPRequestOperationWithRequest(request, resultClass: resultClass, resultKeyPath: keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
                 if error != nil {
                     tcs.setError(error)
                 }
@@ -180,48 +161,13 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
                     })
                 }
             })
-            return task
-        }
-        return tcs.task
-    }
 
-    func POST(URLString: String!, parameters: [String : AnyObject], resultClass: AnyClass!) -> BFTask! {
-        let tcs = BFTaskCompletionSource()
-        self.getAdaptedParamters(parameters).continueWithSuccessBlock() { (task:BFTask!) -> AnyObject! in
-            let modifiedParamters  = task.result as? [String : AnyObject]
-            self.getRestClient().POST(URLString, parameters: modifiedParamters, resultClass: resultClass, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
-
-                if error != nil {
-                    tcs.setError(error)
-                }
-                else {
-                    self.getAdaptedResponseObject(responseObject, jsonData: operation.responseData, resultClass: resultClass, keyPath:"val").continueWithSuccessBlock({ (task:BFTask!) -> AnyObject! in
-                        tcs.setResult(task.result)
-                        return task
-                    })
-                }
+            cancellationToken.registerCancellationObserverWithBlock({ () -> Void in
+                operation.cancel()
+                tcs.trySetCancelled()
             })
-            return task
-        }
-        return tcs.task
-    }
-
-    func POST(URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!) -> BFTask! {
-        let tcs = BFTaskCompletionSource()
-        self.getAdaptedParamters(parameters).continueWithSuccessBlock() { (task:BFTask!) -> AnyObject! in
-            let modifiedParamters  = task.result as? [String : AnyObject]
-            self.getRestClient().POST(URLString, parameters: modifiedParamters, resultClass: resultClass, resultKeyPath:keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
-
-                if error != nil {
-                    tcs.setError(error)
-                }
-                else {
-                    self.getAdaptedResponseObject(responseObject, jsonData: operation.responseData, resultClass: resultClass, keyPath:keyPath).continueWithSuccessBlock({ (task:BFTask!) -> AnyObject! in
-                        tcs.setResult(task.result)
-                        return task
-                    })
-                }
-            })
+            self.getRestClient().operationQueue.addOperation(operation)
+            
             return task
         }
         return tcs.task
