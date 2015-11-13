@@ -4061,4 +4061,39 @@ class f_main_mixed_index(f_app.plugin_base):
     def search(self, params, per_page=0):
         return f_app.mongo_index.search(self.get_database, params, notime=True, count=False, per_page=per_page)["content"]
 
+    def get_nearby(self, params, output=True):
+        latitude = params.pop("latitude")
+        longitude = params.pop("longitude")
+        search_range = params.pop("search_range")
+
+        search_command = SON([
+            ('geoNear', self.main_mixed_index_database),
+            ('near', [float(longitude), float(latitude)]),
+            ('maxDistance', search_range * 1.0 / f_app.common.earth_radius),
+            ('spherical', True),
+            ('query', params),
+            ('num', 20),
+        ])
+
+        with f_app.mongo() as m:
+            tmp_result = m.command(search_command)["results"]
+
+        result = []
+        index_id_list = map(lambda item: str(item["obj"]["_id"]), tmp_result)
+
+        if not output:
+            return index_id_list
+
+        index_dict = self.output(index_id_list, multi_return=dict)
+
+        for tmp_index in tmp_result:
+
+            distance = tmp_index["dis"] * f_app.common.earth_radius
+            index = index_dict.get(str(tmp_index["obj"].pop("_id")))
+            index["distance"] = distance
+
+            result.append(index)
+
+        return result
+
 f_main_mixed_index()

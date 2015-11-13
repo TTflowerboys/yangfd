@@ -333,10 +333,19 @@ def doogal_station_search(params):
 
 @f_api('/main_mixed_index/search', params=dict(
     query=str,
+    latitude=float,
+    longitude=float,
+    search_range=(int, 5000),
 ))
 def main_mixed_index_search(params):
-    indexes = f_app.main_mixed_index.get(f_app.main_mixed_index.search(params, per_page=-1))
-    return indexes
+    if "latitude" in params:
+        assert "longitude" in params, abort(40000)
+        return f_app.main_mixed_index.get_nearby(params)
+    elif "longitude" in params:
+        abort(40000)
+    else:
+        params.pop("search_range")
+        return f_app.main_mixed_index.get(f_app.main_mixed_index.search(params, per_page=-1))
 
 
 @f_api('/geonames/<_id>')
