@@ -336,8 +336,11 @@ def doogal_station_search(params):
     latitude=float,
     longitude=float,
     search_range=(int, 5000),
+    type=(list, None, "enum:featured_facility_type"),
 ))
 def main_mixed_index_search(params):
+    if "type" in params:
+        params["type"] = {"$in": params["type"]}
     if "latitude" in params:
         assert "longitude" in params, abort(40000)
         return f_app.main_mixed_index.get_nearby(params)
