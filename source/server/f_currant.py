@@ -4085,7 +4085,7 @@ class f_main_mixed_index(f_app.plugin_base):
         if not output:
             return index_id_list
 
-        index_dict = self.output(index_id_list, multi_return=dict)
+        index_dict = self.get(index_id_list, multi_return=dict)
 
         for tmp_index in tmp_result:
 
