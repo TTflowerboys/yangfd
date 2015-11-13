@@ -329,10 +329,7 @@ $(function () {
         $('.actions #refresh').click(function (e) {
             var ticketId = $(e.target).attr('data-id')
             if(!team.isToday(parseInt(_.first(_.where(window.rentArray, {id: ticketId})).last_modified_time))){
-                var params = {
-                    'status': 'to rent'
-                }
-                $.betterPost('/api/1/rent_ticket/' + ticketId + '/edit', params)
+                $.betterPost('/api/1/rent_ticket/' + ticketId + '/refresh')
                     .done(function (data) {
                         $(e.target).unbind('click')
                         $(e.target).text(window.i18n('刚刚刷新过'))
