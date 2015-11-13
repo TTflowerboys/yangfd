@@ -458,7 +458,7 @@
         [[CUTEDataManager sharedInstance] saveRentTicket:self.form.ticket];
         //TODO why here slow down the performance
 
-        [[[CUTERentTicketPublisher sharedInstance] uploadImages:self.form.ticket.property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
+        [[[CUTERentTicketPublisher sharedInstance] uploadImages:self.form.ticket.property.realityImages updateStatus:nil cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
@@ -581,7 +581,7 @@
     [SVProgressHUD showWithStatus:STR(@"ImagePickerCell/设置中...")];
     [[[CUTERentTicketPublisher sharedInstance] uploadImages:@[self.form.ticket.property.cover] updateStatus:^(NSString *status) {
 
-    }] continueWithBlock:^id(BFTask *task) {
+    } cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
@@ -669,7 +669,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             [SVProgressHUD dismiss];
 
             [[CUTEDataManager sharedInstance] saveRentTicket:self.form.ticket];
-            [[[CUTERentTicketPublisher sharedInstance] uploadImages:self.form.ticket.property.realityImages updateStatus:nil] continueWithBlock:^id(BFTask *task) {
+            [[[CUTERentTicketPublisher sharedInstance] uploadImages:self.form.ticket.property.realityImages updateStatus:nil cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }

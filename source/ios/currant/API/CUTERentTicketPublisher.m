@@ -203,7 +203,7 @@
             }
             [[self uploadImages:ticket.property.realityImages updateStatus:^(NSString *status) {
                 updateStatus(status);
-            }] continueWithBlock:^id(BFTask *task) {
+            } cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.result) {
                     ticket.property.realityImages = task.result;
                     if (IsNilNullOrEmpty(ticket.property.cover)) {
@@ -272,10 +272,10 @@
     return tcs.task;
 }
 
-- (BFTask *)uploadImages:(NSArray *)images updateStatus:(void (^) (NSString *status))updateStatus {
+- (BFTask *)uploadImages:(NSArray *)images updateStatus:(void (^) (NSString *status))updateStatus cancellationToken:(BFCancellationToken *)cancellationToken {
     NSArray *tasks = [images map:^id(NSString *object) {
         if ([[NSURL URLWithString:object] isAssetURL]) {
-            return [[CUTEImageUploader sharedInstance] uploadImageWithAssetURLString:object];
+            return [[CUTEImageUploader sharedInstance] uploadImageWithAssetURLString:object cancellationToken:cancellationToken];
         }
         else {
             return [BFTask taskWithResult:object];
@@ -297,7 +297,7 @@
     return [BFTask taskForCompletionOfAllTasksWithResults:tasks];
 }
 
-- (BFTask *)editTicket:(CUTETicket *)ticket updateStatus:(void (^)(NSString *))updateStatus {
+- (BFTask *)editTicket:(CUTETicket *)ticket updateStatus:(void (^)(NSString *))updateStatus cancellationToken:(BFCancellationToken *)cancellationToken {
 
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     CUTEProperty *property = ticket.property;
@@ -308,7 +308,7 @@
                 if (updateStatus) {
                     updateStatus([NSString stringWithFormat:STR(@"RentTicketPublisher/正在上传图片(%d/%d)..."), 0, ticket.property.realityImages.count]);
                 }
-                [[self uploadImages:property.realityImages updateStatus:updateStatus] continueWithBlock:^id(BFTask *task) {
+                [[self uploadImages:property.realityImages updateStatus:updateStatus cancellationToken:cancellationToken] continueWithBlock:^id(BFTask *task) {
                     if (task.result) {
                         property.realityImages = task.result;
                         if (IsNilNullOrEmpty(ticket.property.cover)) {
@@ -316,8 +316,14 @@
                         }
                         completion(task.result);
                     }
-                    else {
+                    else if (task.isCancelled) {
+                        [tcs cancel];
+                    }
+                    else if (task.error) {
                         [tcs setError:task.error];
+                    }
+                    else if (task.exception) {
+                        [tcs setException:task.exception];
                     }
                     return nil;
                 }];
@@ -332,7 +338,7 @@
                 NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toParams];
                 [params setObject:@"true" forKey:@"user_generated"];
                 NSAssert(property.identifier, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
-                [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:[CUTEProperty class]]  continueWithBlock:^id(BFTask *task) {
+                [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:[CUTEProperty class] cancellationToken:cancellationToken]  continueWithBlock:^id(BFTask *task) {
                     if (task.error) {
                         [tcs setError:task.error];
                     }
@@ -359,7 +365,7 @@
             NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
             [params setObject:@"true" forKey:@"user_generated"];
             NSAssert(ticket.identifier, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
-            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:[CUTETicket class] cancellationToken:cancellationToken] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [tcs setError:task.error];
                 }
@@ -424,9 +430,9 @@
     return [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:[CUTEProperty class]];
 }
 
-- (BFTask *)syncTickets {
+- (BFTask *)syncTicketsWithCancellationToken:(BFCancellationToken *)cancellationToken {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/rent_ticket/search" parameters:@{@"status": kTicketStatusDraft, @"sort": @"last_modified_time,desc", @"user_id":[CUTEDataManager sharedInstance].user.identifier} resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/rent_ticket/search" parameters:@{@"status": kTicketStatusDraft, @"sort": @"last_modified_time,desc", @"user_id":[CUTEDataManager sharedInstance].user.identifier} resultClass:[CUTETicket class] cancellationToken:cancellationToken] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [tcs setError:task.error];
         }

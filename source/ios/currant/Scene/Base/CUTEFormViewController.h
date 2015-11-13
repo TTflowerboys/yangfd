@@ -7,6 +7,7 @@
 //
 
 #import "FXForms.h"
+#import "currant-Swift.h"
 
 @interface FXFormController (CUTE)
 
@@ -25,6 +26,9 @@
 @end
 
 @interface CUTEFormViewController : FXFormViewController
+
+@property (nonatomic, readonly) BFCancellationTokenSourceCollector *asyncTaskCollector;
+
 
 - (BOOL)validateFormWithScenario:(NSString *)scenario;
 

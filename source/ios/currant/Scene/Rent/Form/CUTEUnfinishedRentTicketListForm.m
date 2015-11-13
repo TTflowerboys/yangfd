@@ -12,10 +12,10 @@
 
 @implementation CUTEUnfinishedRentTicketListForm
 
-- (BFTask *)reload {
+- (BFTask *)reloadWithCancellationToken:(BFCancellationToken *)cancellationToken {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
-        [[[CUTERentTicketPublisher sharedInstance] syncTickets] continueWithBlock:^id(BFTask *task) {
+        [[[CUTERentTicketPublisher sharedInstance] syncTicketsWithCancellationToken:cancellationToken] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [tcs setError:task.error];
             }

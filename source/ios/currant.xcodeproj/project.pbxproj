@@ -523,6 +523,14 @@
 		2CBA9CA61B4D4023004B2BE3 /* openRentListTab.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CBA9CA51B4D4023004B2BE3 /* openRentListTab.js.txt */; };
 		2CBA9CA81B4D4078004B2BE3 /* openPropertyListTab.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CBA9CA71B4D4078004B2BE3 /* openPropertyListTab.js.txt */; };
 		2CBA9CAA1B4E5E49004B2BE3 /* CUTEShareUSTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBA9CA91B4E5E49004B2BE3 /* CUTEShareUSTest.m */; };
+		2CBE98F11BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE98F01BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift */; };
+		2CBE98F21BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE98F01BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift */; };
+		2CBE98F31BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE98F01BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift */; };
+		2CBE98F41BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE98F01BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift */; };
+		2CBE98FD1BF5D50E00A683EE /* CUTETableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE98FC1BF5D50E00A683EE /* CUTETableViewController.m */; };
+		2CBE98FE1BF5D50E00A683EE /* CUTETableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE98FC1BF5D50E00A683EE /* CUTETableViewController.m */; };
+		2CBE98FF1BF5D50E00A683EE /* CUTETableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE98FC1BF5D50E00A683EE /* CUTETableViewController.m */; };
+		2CBE99001BF5D50E00A683EE /* CUTETableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE98FC1BF5D50E00A683EE /* CUTETableViewController.m */; };
 		2CBF30B11B9459D000EB2D51 /* STWebArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */; };
 		2CBF30B21B9459D500EB2D51 /* STWebArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */; };
 		2CBF30B31B9459D600EB2D51 /* STWebArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */; };
@@ -1105,6 +1113,9 @@
 		2CBA9CA51B4D4023004B2BE3 /* openRentListTab.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openRentListTab.js.txt; sourceTree = "<group>"; };
 		2CBA9CA71B4D4078004B2BE3 /* openPropertyListTab.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = openPropertyListTab.js.txt; sourceTree = "<group>"; };
 		2CBA9CA91B4E5E49004B2BE3 /* CUTEShareUSTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEShareUSTest.m; sourceTree = "<group>"; };
+		2CBE98F01BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BFCancellationTokenSourceCollector.swift; sourceTree = "<group>"; };
+		2CBE98FB1BF5D50E00A683EE /* CUTETableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETableViewController.h; sourceTree = "<group>"; };
+		2CBE98FC1BF5D50E00A683EE /* CUTETableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETableViewController.m; sourceTree = "<group>"; };
 		2CBF30AF1B9459D000EB2D51 /* STWebArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STWebArchiver.h; path = STWebArchiver/STWebArchiver.h; sourceTree = "<group>"; };
 		2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STWebArchiver.m; path = STWebArchiver/STWebArchiver.m; sourceTree = "<group>"; };
 		2CBF30B51B945A2E00EB2D51 /* CUTEWebArchiveManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEWebArchiveManager.h; sourceTree = "<group>"; };
@@ -1838,6 +1849,7 @@
 				2C3DE2481B05F219006FF191 /* CUTETrackParams.h */,
 				2C9F1D1B1B3A8E610034487F /* CUTESurveyHelper.h */,
 				2C9F1D1C1B3A8E610034487F /* CUTESurveyHelper.m */,
+				2CBE98F01BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1868,6 +1880,8 @@
 				2C056D9D1B423BBA0075037A /* CUTEFormViewController.m */,
 				2CF2348E1B57614C00B516E6 /* CUTETicketForm.h */,
 				2CF2348F1B57614C00B516E6 /* CUTETicketForm.m */,
+				2CBE98FB1BF5D50E00A683EE /* CUTETableViewController.h */,
+				2CBE98FC1BF5D50E00A683EE /* CUTETableViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -2883,7 +2897,9 @@
 				2CE2A98F1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C5597EE1BB501C600430984 /* CUTEPatcher.swift in Sources */,
 				2C1251941B53909A0037F5B6 /* CUTECredit.m in Sources */,
+				2CBE98FF1BF5D50E00A683EE /* CUTETableViewController.m in Sources */,
 				2C73BACD1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift in Sources */,
+				2CBE98F31BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift in Sources */,
 				2CC3A0931AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D531B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
 			);
@@ -3057,7 +3073,9 @@
 				2CE2A9901B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C5597EF1BB501C600430984 /* CUTEPatcher.swift in Sources */,
 				2C1251951B53909A0037F5B6 /* CUTECredit.m in Sources */,
+				2CBE99001BF5D50E00A683EE /* CUTETableViewController.m in Sources */,
 				2C73BACE1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift in Sources */,
+				2CBE98F41BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift in Sources */,
 				2CC3A0941AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D541B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
 			);
@@ -3231,7 +3249,9 @@
 				2CE2A98E1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C5597ED1BB501C600430984 /* CUTEPatcher.swift in Sources */,
 				2C1251931B53909A0037F5B6 /* CUTECredit.m in Sources */,
+				2CBE98FE1BF5D50E00A683EE /* CUTETableViewController.m in Sources */,
 				2C73BACC1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift in Sources */,
+				2CBE98F21BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift in Sources */,
 				2CC3A0921AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D521B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
 			);
@@ -3405,7 +3425,9 @@
 				2CE2A98D1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C5597EC1BB501C600430984 /* CUTEPatcher.swift in Sources */,
 				2C1251921B53909A0037F5B6 /* CUTECredit.m in Sources */,
+				2CBE98FD1BF5D50E00A683EE /* CUTETableViewController.m in Sources */,
 				2C73BACB1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift in Sources */,
+				2CBE98F11BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift in Sources */,
 				2CC3A0911AFA0D9D008C9AC8 /* CUTEFormCenterTextCell.m in Sources */,
 				2C056D511B423AB20075037A /* CUTERentContactDisplaySettingViewController.m in Sources */,
 			);

@@ -67,6 +67,11 @@ static NSDictionary *messageDicionary = nil;
             [SVProgressHUD showErrorWithStatus:error.userInfo[NSLocalizedDescriptionKey]];
         }
     }
+    else if (error && [error.domain isEqualToString:NSURLErrorDomain]) {
+        if (error.code == NSURLErrorCancelled) {
+            [SVProgressHUD showErrorWithStatus:STR(@"API/请求被取消")];
+        }
+    }
     else {
         [SVProgressHUD showErrorWithStatus:error.userInfo[NSLocalizedDescriptionKey]];
     }

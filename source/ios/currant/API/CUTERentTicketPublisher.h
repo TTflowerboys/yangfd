@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Bolts.h>
 #import "CUTETicket.h"
-
+#import <BFCancellationTokenSource.h>
 
 @interface CUTERentTicketPublisher : NSObject
 
@@ -19,15 +19,15 @@
 
 - (BFTask *)editTicketWithTicket:(CUTETicket *)ticket ticketParams:(NSDictionary *)ticketParams propertyParams:(NSDictionary *)propertyParams;
 
-- (BFTask *)uploadImages:(NSArray *)images updateStatus:(void (^) (NSString *status))updateStatus;
+- (BFTask *)uploadImages:(NSArray *)images updateStatus:(void (^) (NSString *status))updateStatus cancellationToken:(BFCancellationToken *)cancellationToken;
 
-- (BFTask *)editTicket:(CUTETicket *)ticket updateStatus:(void (^)(NSString *))updateStatus;
+- (BFTask *)editTicket:(CUTETicket *)ticket updateStatus:(void (^)(NSString *))updateStatus cancellationToken:(BFCancellationToken *)cancellationToken;
 
 - (BFTask *)publishTicket:(CUTETicket *)ticket updateStatus:(void (^) (NSString *status))updateStatus;
 
 - (BFTask *)deleteTicket:(CUTETicket *)ticket;
 
-- (BFTask *)syncTickets;
+- (BFTask *)syncTicketsWithCancellationToken:(BFCancellationToken *)cancellationToken;
 
 - (BFTask *)bindTickets:(NSArray *)unbindedTicket;
 

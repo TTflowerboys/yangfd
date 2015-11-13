@@ -13,6 +13,6 @@
 
 @property (strong, nonatomic) NSArray *unfinishedRentTickets;
 
-- (BFTask *)reload;
+- (BFTask *)reloadWithCancellationToken:(BFCancellationToken *)cancellationToken;
 
 @end

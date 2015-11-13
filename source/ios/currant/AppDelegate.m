@@ -523,7 +523,7 @@
             if (!silent) {
                 [SVProgressHUD show];
             }
-            [[[CUTERentTicketPublisher sharedInstance] syncTickets] continueWithBlock:^id(BFTask *task) {
+            [[[CUTERentTicketPublisher sharedInstance] syncTicketsWithCancellationToken:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                     [tcs setResult:nil];

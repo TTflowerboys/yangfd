@@ -512,9 +512,12 @@
     }
 
     [SVProgressHUD show];
+    BFCancellationTokenSource *cts = [self.asyncTaskCollector generateCancellationTokenSource];
     [[[CUTERentTicketPublisher sharedInstance] editTicket:self.form.ticket updateStatus:^(NSString *status) {
         [SVProgressHUD showWithStatus:status];
-    }] continueWithBlock:^id(BFTask *task) {
+    } cancellationToken:cts.token] continueWithBlock:^id(BFTask *task) {
+        [self.asyncTaskCollector dropCancellationTokenSource:cts];
+        
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }

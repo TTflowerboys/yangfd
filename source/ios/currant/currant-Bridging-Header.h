@@ -15,6 +15,8 @@
 #import <UIBarButtonItem+ALActionBlocks.h>
 #import <BFTask.h>
 #import <BFTaskCompletionSource.h>
+#import <BFCancellationToken.h>
+#import <BFCancellationTokenSource.h>
 #import <MTLModel.h>
 #import <MTLJSONAdapter.h>
 #import <BBTJSON.h>

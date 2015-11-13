@@ -133,7 +133,7 @@
     return tcs.task;
 }
 
-- (BFTask *)uploadImageWithAssetURLString:(NSString*)assetURLStr {
+- (BFTask *)uploadImageWithAssetURLString:(NSString*)assetURLStr cancellationToken:(BFCancellationToken *)cancellationToken {
     if (_requestTaskDictionary[assetURLStr]) {
         return [_requestTaskDictionary objectForKey:assetURLStr];
     }
@@ -158,28 +158,45 @@
                         [[CUTEDataManager sharedInstance] saveImageURLString:urlStr forAssetURLString:assetURLStr];
                         [[CUTEDataManager sharedInstance] saveAssetURLString:assetURLStr forImageURLString:urlStr];
                         [_requestTaskDictionary removeObjectForKey:assetURLStr];
-                        [tcs setResult:urlStr];
+
+                        if (!tcs.task.isCancelled) {
+                            [tcs setResult:urlStr];
+                        }
                     }
                     else {
                         [_requestTaskDictionary removeObjectForKey:assetURLStr];
-                        [tcs setError:[NSError errorWithDomain:responseDic[@"msg"] code:[[responseDic objectForKey:@"ret"] integerValue] userInfo:responseDic]];
+                        if (!tcs.task.isCancelled) {
+                            [tcs setError:[NSError errorWithDomain:responseDic[@"msg"] code:[[responseDic objectForKey:@"ret"] integerValue] userInfo:responseDic]];
+                        }
                     }
 
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [_requestTaskDictionary removeObjectForKey:assetURLStr];
-                    [tcs setError:error];
+                    if (!tcs.task.isCancelled) {
+                        [tcs setError:error];
+                    }
                 }] ;
                 tcs.task.attachment = operation;
                 [operation start];
             }
             else {
                 [_requestTaskDictionary removeObjectForKey:assetURLStr];
-                [tcs setError:task.error];
+                if (!tcs.task.isCancelled) {
+                    [tcs setError:task.error];
+                }
             }
             
             return nil;
         }];
     }];
+
+
+    //如果取消，就只是取消反馈给UI，但是图片接着传
+    if (cancellationToken) {
+        [cancellationToken registerCancellationObserverWithBlock:^{
+            [tcs trySetCancelled];
+        }];
+    }
 
     [_requestTaskDictionary setObject:tcs.task forKey:assetURLStr];
     return tcs.task;

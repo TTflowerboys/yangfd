@@ -136,6 +136,12 @@
 
     NSURLRequest *request = [_backingManager.requestSerializer requestWithMethod:method URLString:[NSURL URLWithString:URLString relativeToURL:_backingManager.baseURL].absoluteString parameters:parameters error:nil];
     AFHTTPRequestOperation *operation = [_backingManager HTTPRequestOperationWithRequest:request resultClass:resultClass resultKeyPath:keyPath completion:^(AFHTTPRequestOperation *operation, id responseObject, NSError *error) {
+
+        //trySetCancelled will cancel this request
+        if (tcs.task.isCancelled) {
+            return;
+        }
+        
         if (error) {
             [tcs setError:error];
         }
@@ -144,10 +150,12 @@
         }
     }];
 
-    [cancellationToken registerCancellationObserverWithBlock:^{
-        [operation cancel];
-        [tcs trySetCancelled];
-    }];
+    if (cancellationToken) {
+        [cancellationToken registerCancellationObserverWithBlock:^{
+            [operation cancel];
+            [tcs trySetCancelled];
+        }];
+    }
 
     [_backingManager.operationQueue addOperation:operation];
 

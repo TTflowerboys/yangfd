@@ -28,16 +28,12 @@
 #import "currant-Swift.h"
 #import <HHRouter.h>
 
-@interface CUTEUnfinishedRentTicketListViewController ()
-
-
-@end
-
 
 
 @implementation CUTEUnfinishedRentTicketListViewController
 
 - (BFTask *)setupRoute {
+    
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     if (self.params && [self.params[@"status"] isEqualToString:@"draft"]) {
 
@@ -52,7 +48,9 @@
         else {
             CUTEUnfinishedRentTicketListForm *form = [CUTEUnfinishedRentTicketListForm new];
             self.form = form;
-            [[self.form reload] continueWithBlock:^id(BFTask *task) {
+            BFCancellationTokenSource *cts = [self.asyncTaskCollector generateCancellationTokenSource];
+            [[self.form reloadWithCancellationToken:cts.token] continueWithBlock:^id(BFTask *task) {
+                [self.asyncTaskCollector dropCancellationTokenSource:cts];
                 if (task.error) {
                     [tcs setError:task.error];
                 }
@@ -103,8 +101,10 @@
 
 - (void)refreshTable {
     [self.refreshControl beginRefreshing];
-    [[self.form reload] continueWithBlock:^id(BFTask *task) {
+    BFCancellationTokenSource *cts = [self.asyncTaskCollector generateCancellationTokenSource];
+    [[self.form reloadWithCancellationToken:cts.token] continueWithBlock:^id(BFTask *task) {
         [self.refreshControl endRefreshing];
+        [self.asyncTaskCollector dropCancellationTokenSource:cts];
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
