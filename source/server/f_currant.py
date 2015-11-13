@@ -3956,6 +3956,7 @@ class f_main_mixed_index(f_app.plugin_base):
     @f_cache("main_mixed_index", support_multi=True)
     def get(self, main_mixed_index_id_or_list, force_reload=False, ignore_nonexist=False):
         def _format_each(main_mixed_index):
+            main_mixed_index.pop("loc", None)
             return f_app.util.process_objectid(main_mixed_index)
 
         if f_app.util.batch_iterable(main_mixed_index_id_or_list):
