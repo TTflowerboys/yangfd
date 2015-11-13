@@ -49,6 +49,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                 self.searchController?.searchResultsDelegate = self
                 self.searchController?.searchResultsDataSource = self
                 self.view.window!.addSubview(self.searchController!.searchBar)
+                self.searchController?.searchResultsTableView.contentInset = UIEdgeInsetsMake(searchBar.frame.size.height, 0, 0, 0);
                 self.searchController?.setActive(true, animated: true)
                 self.searchController?.searchBar.becomeFirstResponder()
             }
@@ -167,23 +168,17 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        SVProgressHUD.show()
         CUTEGeoManager.sharedInstance.searchSurroundingsWithName(searchBar.text, postcodeIndex: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex).continueWithBlock { (task:BFTask!) -> AnyObject! in
             self.searchResultSurroundings = task.result as! [CUTESurrounding]
             self.searchController?.searchResultsTableView.reloadData()
+            SVProgressHUD.dismiss()
             return task
         }
     }
 
-    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String?) -> Bool {
-        return true
-    }
-
-    func searchDisplayController(controller: UISearchDisplayController, willUnloadSearchResultsTableView tableView: UITableView) {
-
-    }
-
     func searchDisplayControllerDidBeginSearch(controller: UISearchDisplayController) {
-
+        self.searchResultSurroundings = [] //clear last result
     }
 
     func searchDisplayControllerDidEndSearch(controller: UISearchDisplayController) {

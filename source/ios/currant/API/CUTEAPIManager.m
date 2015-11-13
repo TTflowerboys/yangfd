@@ -44,6 +44,9 @@
         // 2. /api/1/property/search
         // 3. /api/1/property/<property_id>/edit
         [sharedInstance registerAPIProxyClassName:@"CUTEPropertyAPIProxy" withURLRule:@"/api/1/property/*+"];
+        
+        //main_mixed_index api
+        [sharedInstance registerAPIProxyClassName:@"CUTEMainMixedIndexAPIProxy" withURLRule:@"/api/1/main_mixed_index/search"];
     });
 
     return sharedInstance;

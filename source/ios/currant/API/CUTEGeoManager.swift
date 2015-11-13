@@ -384,64 +384,40 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
+            let types = result as! [CUTEEnum]
+            let typeIds = types.map({ (type:CUTEEnum) -> String in
+                return type.identifier
+            })
+
             var parameters = [String:AnyObject]()
             if name != nil {
-                parameters["name"] = name
-            }
-            if postcodeIndex != nil {
-                parameters["postcode_index"] = postcodeIndex
-            }
-            if country != nil {
-                parameters["country"] = country?.ISOcountryCode
+                parameters["query"] = name
             }
 
-//            if name != nil && postcodeIndex == nil {
-//                CUTEAPIManager.sharedInstance().POST("/api/1/main_mixed_index/search", parameters: parameters, resultClass: CUTESurrounding.self, cancellationToken: nil).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-//                    let result = task.result
-//                    completion(result)
-//                    return task
-//                })
-//            }
-//            else {
-//
-//            }
+            parameters["type"] = typeIds.joinWithSeparator(",")
 
-            let universityTask = CUTEAPIManager.sharedInstance().POST("/api/1/hesa_university/search", parameters: parameters, resultClass: CUTESurrounding.self)
-            let stationTask = CUTEAPIManager.sharedInstance().POST("/api/1/doogal_station/search", parameters: parameters, resultClass: CUTESurrounding.self)
+            CUTEAPIManager.sharedInstance().POST("/api/1/main_mixed_index/search", parameters: parameters, resultClass: CUTESurrounding.self, cancellationToken: nil).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                let result = task.result
+                completion(result)
+                return task
+            })
 
-
-            BFTask(forCompletionOfAllTasksWithResults: [universityTask, stationTask]).continueWithBlock {(task:BFTask!) -> AnyObject! in
-                let types = result as! [CUTEEnum]
-                if let resultArray = task.result as? [[CUTESurrounding]] {
-                    let universityArray = resultArray[0] .map({ (surrounding:CUTESurrounding) -> CUTESurrounding in
-                        surrounding.type = types.filter({ (type:CUTEEnum) -> Bool in
-                            return type.slug == "hesa_university"
-                        }).first
-                        return surrounding
-                    })
-                    let stationArray = resultArray[1] .map({ (surrounding:CUTESurrounding) -> CUTESurrounding in
-                        surrounding.type = types.filter({ (type:CUTEEnum) -> Bool in
-                            return type.slug == "doogal_station"
-                        }).first
-                        return surrounding
-                    })
-
-                    let bindedArray = [universityArray, stationArray]
-
-                    let result = Array(bindedArray.flatten())
-                    completion(result)
-                }
-                return task;
-            }
         }
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
             if let surroudings:[CUTESurrounding] = result as? [CUTESurrounding] {
                 if surroudings.count > 0 {
-                    let destinations = surroudings.map({ (surrouding:CUTESurrounding) -> String in
-                        return (surrouding.zipcode != nil ? surrouding.zipcode: surrouding.postcode)!
-                    })
+                    
+                    var destinations = [String]()
+
+                    //TODO check here has performance issues for like hundred of results
+                    for surrrounding in surroudings {
+                        if let address = surrrounding.address {
+                            destinations.append(address)
+                        }
+                    }
+
                     let byclingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode:"bicycling")
                     let drivingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations)
                     let walkingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode:"walking")

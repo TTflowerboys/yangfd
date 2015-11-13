@@ -21,6 +21,12 @@
 
 @property (strong, nonatomic) NSString *postcode; //TODO tmp use , need remove
 
+@property (nonatomic, strong) NSNumber *latitude;
+
+@property (nonatomic, strong) NSNumber *longitude;
+
+@property (nonatomic, readonly) NSString *address;
+
 @property (strong, nonatomic) CUTEEnum *type;
 
 @property (strong, nonatomic) NSArray<CUTETrafficTime *> *trafficTimes;

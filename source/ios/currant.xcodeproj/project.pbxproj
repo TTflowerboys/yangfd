@@ -531,6 +531,10 @@
 		2CBE98FE1BF5D50E00A683EE /* CUTETableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE98FC1BF5D50E00A683EE /* CUTETableViewController.m */; };
 		2CBE98FF1BF5D50E00A683EE /* CUTETableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE98FC1BF5D50E00A683EE /* CUTETableViewController.m */; };
 		2CBE99001BF5D50E00A683EE /* CUTETableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE98FC1BF5D50E00A683EE /* CUTETableViewController.m */; };
+		2CBE99021BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE99011BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift */; };
+		2CBE99031BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE99011BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift */; };
+		2CBE99041BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE99011BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift */; };
+		2CBE99051BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE99011BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift */; };
 		2CBF30B11B9459D000EB2D51 /* STWebArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */; };
 		2CBF30B21B9459D500EB2D51 /* STWebArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */; };
 		2CBF30B31B9459D600EB2D51 /* STWebArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */; };
@@ -1116,6 +1120,7 @@
 		2CBE98F01BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BFCancellationTokenSourceCollector.swift; sourceTree = "<group>"; };
 		2CBE98FB1BF5D50E00A683EE /* CUTETableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETableViewController.h; sourceTree = "<group>"; };
 		2CBE98FC1BF5D50E00A683EE /* CUTETableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETableViewController.m; sourceTree = "<group>"; };
+		2CBE99011BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEMainMixedIndexAPIProxy.swift; sourceTree = "<group>"; };
 		2CBF30AF1B9459D000EB2D51 /* STWebArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = STWebArchiver.h; path = STWebArchiver/STWebArchiver.h; sourceTree = "<group>"; };
 		2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = STWebArchiver.m; path = STWebArchiver/STWebArchiver.m; sourceTree = "<group>"; };
 		2CBF30B51B945A2E00EB2D51 /* CUTEWebArchiveManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEWebArchiveManager.h; sourceTree = "<group>"; };
@@ -1835,6 +1840,7 @@
 				2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */,
 				2C9D321E1BEC5C6200424CAC /* CUTEAPIProxyProtocol.swift */,
 				2C9D321F1BEC5C6200424CAC /* CUTEPropertyAPIProxy.swift */,
+				2CBE99011BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift */,
 				2C91E5CA1BE313FA005F6B5B /* CUTEGeoManager.swift */,
 				2CA5F76E1AE10382001132E0 /* CUTEImageUploader.h */,
 				2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */,
@@ -2879,6 +2885,7 @@
 				2C2FCDC61AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
 				2C2FCDCD1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6011AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
+				2CBE99041BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift in Sources */,
 				2C427E961AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2C056DA01B423BBA0075037A /* CUTEForm.m in Sources */,
 				2CF8A5ED1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
@@ -3055,6 +3062,7 @@
 				2C2FCDC71AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
 				2C2FCDCE1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6021AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
+				2CBE99051BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift in Sources */,
 				2C427E971AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2C056DA11B423BBA0075037A /* CUTEForm.m in Sources */,
 				2CF8A5EE1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
@@ -3231,6 +3239,7 @@
 				2C2FCDC51AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
 				2C2FCDCC1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A6001AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
+				2CBE99031BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift in Sources */,
 				2C427E951AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2C056D9F1B423BBA0075037A /* CUTEForm.m in Sources */,
 				2CF8A5EC1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
@@ -3407,6 +3416,7 @@
 				2C2FCDC41AFCC7B1002594D7 /* CUTEFormTextFieldCell.m in Sources */,
 				2C2FCDCB1AFCCD4C002594D7 /* CUTEFormDatePickerCell.m in Sources */,
 				2CF8A5FF1AF0B40E0080DF10 /* CUTERentPriceViewController.m in Sources */,
+				2CBE99021BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift in Sources */,
 				2C427E941AD37D20000378A9 /* CUTEProperty.m in Sources */,
 				2C056D9E1B423BBA0075037A /* CUTEForm.m in Sources */,
 				2CF8A5EB1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
