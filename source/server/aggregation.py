@@ -553,7 +553,6 @@ with f_app.mongo() as m:
     print "共有", unicode(tag_total), "类tag"
     print "%4s%30s%4s%7s%7s%6s%7s%6s%7s%7s%5s" % ("序号", "tag", "总数", "到达量", "到达率", "打开数量", "打开率", "重复打开量", "点击量", "点击率", "重复点击量")
     for index, tag in enumerate(result.find()):
-        # print f_app.util.json_dumps(tag)
         func_status_map = Code('''
             function() {
                 var event = this.email_status_set;
@@ -583,8 +582,6 @@ with f_app.mongo() as m:
             or_param.append(single_param)
         query_param.update({"$or": or_param})
         tag_result = f_app.email.status.get_database(m).map_reduce(func_status_map, func_status_reduce, "aggregation_tag_event", query=query_param)
-        #for thing in tag_result.find():
-        #    print thing["_id"], thing["value"]
         final_result = {}
         for thing in tag_result.find():
             final_result.update({thing["_id"]: thing["value"]})
@@ -594,4 +591,4 @@ with f_app.mongo() as m:
         click_times = final_result.get("click (repeat)", 0)
         delivered_times = final_result.get("delivered", 0)
         total_email = len(tag["value"]["a"])
-        print "%6d%30s%6d%10d%9.2f%%%10d%9.2f%%%10d%10d%9.2f%%%10d" % (index, tag["_id"], total_email, delivered_times, 100*delivered_times/total_email, open_unique, 100*open_unique/total_email, open_times, click_unique, click_unique/total_email, click_times)
+        print "%6d%30s%6d%10d%9.2f%%%10d%9.2f%%%10d%10d%9.2f%%%10d" % (index, tag["_id"], total_email, delivered_times, 100*delivered_times/total_email, open_unique, 100*open_unique/total_email, open_times, click_unique, 100*click_unique/total_email, click_times)
