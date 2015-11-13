@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 from pymongo import MongoClient
 from datetime import datetime
 from app import f_app
 from bson.objectid import ObjectId
 from collections import OrderedDict
+from bson.code import Code
 
 f_app.common.memcache_server = ["172.20.101.98:11211"]
 f_app.common.mongo_server = "172.20.101.98"
 
 with f_app.mongo() as m:
-
     # Configure global filter params here
     # TODO
 
@@ -512,77 +513,85 @@ with f_app.mongo() as m:
     # 分邮件类型来统计邮件发送和打开的状态
     print('\n分邮件类型来统计邮件发送成功,打开和点击的百分比:')
     # 计算每类邮件的总数
-    tasks_count_by_tag = {}
-    cursor = m.tasks.aggregate(
-        [
-            {'$match': {'type': "email_send"}},
-            {'$group': {'_id': "$tag", 'count': {'$sum': 1}}}
-        ]
-    )
 
-    for document in cursor:
-        if (document['_id']):
-            tasks_count_by_tag[document['_id']] = document['count']
-
-    # 统计每类邮件发送成功率，打开率和点击率
-    for email_tag in tasks_count_by_tag.keys():
-        # print(email_tag + '邮件总数: ' + str(tasks_count_by_tag[email_tag]))
-        cursor = m.tasks.find({'tag': email_tag})
-        total_count = 0
-        target_status_rate = {
-            'delivered': 0,
-            'open': 0,
-            'click': 0
+    func_map = Code('''
+        function() {
+        var list = []
+            if (this.tag && this.email_id) {
+                if (Array.isArray(this.target)) {
+                    for (var index = 0; index < this.target.length; index ++) {
+                        list = []
+                        list.push({target: this.target[index],
+                                   email_id: this.email_id});
+                        emit(this.tag, {a:list});
+                    }
+                }
+                else {
+                    list.push({target: this.target,
+                               email_id: this.email_id});
+                    emit(this.tag, {a:list});
+                }
+            }
         }
-        click_repeat = 0
-        open_repeat = 0
-        for task in cursor:
-            if ('email_id' in task and 'target' in task):
-                emails_status_id = f_app.email.status.get_email_status_id(task['email_id'], task['target'])
-                if(isinstance(emails_status_id, list)):
-                    for email_status_id in emails_status_id:
-                        try:
-                            email = f_app.email.status.get(email_status_id)
-                        except AttributeError:
-                            email = None
-                        if 'email_status_set' in email and 'processed' in email['email_status_set']:
-                            total_count += 1
-                            for status in target_status_rate.keys():
-                                if status in email['email_status_set']:
-                                    target_status_rate[status] += 1
-                                    if status == 'click':
-                                        for single_event in email.get("email_status_detail", []):
-                                            if single_event.get("event", '') == status:
-                                                click_repeat += 1
-                                    elif status == 'open':
-                                        for single_event in email.get("email_status_detail", []):
-                                            if single_event.get("event", '') == status:
-                                                open_repeat += 1
-                else:
-                    try:
-                        email = f_app.email.status.get(emails_status_id)
-                    except AttributeError:
-                        email = None
-                    if email and 'email_status_set' in email and 'processed' in email['email_status_set']:
-                            total_count += 1
-                            for status in target_status_rate.keys():
-                                if status in email['email_status_set']:
-                                    target_status_rate[status] += 1
-                                    if status == 'click':
-                                        for single_event in email.get("email_status_detail", []):
-                                            if single_event.get("event", '') == status:
-                                                click_repeat += 1
-                                    elif status == 'open':
-                                        for single_event in email.get("email_status_detail", []):
-                                            if single_event.get("event", '') == status:
-                                                open_repeat += 1
-
-        print('\n' + email_tag.encode('utf-8') + '邮件总数: ' + str(total_count) + ', 其中:')
-        if(total_count != 0):
-            for key in target_status_rate.keys():
-                if key == 'click':
-                    print key.encode('utf-8') + "事件量(repeat)" + ': ' + str(click_repeat)
-                elif key == 'open':
-                    print key.encode('utf-8') + "事件量(repeat)" + ': ' + str(open_repeat)
-                print key.encode('utf-8') + "事件量(unique)" + ': ' + str(target_status_rate[key])
-                print(key.encode('utf-8') + "事件占比(unique)" + ': ' + str(float(target_status_rate[key])/total_count))
+    ''')
+    func_reduce = Code('''
+        function(key, values) {
+            var list = []
+            values.forEach(function(e) {
+                if (e.a) {
+                    list = list.concat(e.a)
+                }
+                else {
+                    list = list.concat(e)
+                }
+            });
+            return {a:list}
+        }
+    ''')
+    result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send"})
+    tag_total = result.find().count()
+    print "共有", unicode(tag_total), "类tag"
+    print "%4s%30s%4s%7s%7s%6s%7s%6s%7s%7s%5s" % ("序号", "tag", "总数", "到达量", "到达率", "打开数量", "打开率", "重复打开量", "点击量", "点击率", "重复点击量")
+    for index, tag in enumerate(result.find()):
+        # print f_app.util.json_dumps(tag)
+        func_status_map = Code('''
+            function() {
+                var event = this.email_status_set;
+                var event_detail = this.email_status_detail;
+                if (event) {
+                    event.forEach(function(e) {
+                        emit(e, 1);
+                        if (event_detail) {
+                            event_detail.forEach(function(c) {
+                                if (c.event == e) {
+                                    emit(e+" (repeat)", 1)
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        ''')
+        func_status_reduce = Code('''
+            function(key, value) {
+                return Array.sum(value)
+            }
+        ''')
+        query_param = {}
+        or_param = []
+        for single_param in tag["value"]["a"]:
+            or_param.append(single_param)
+        query_param.update({"$or": or_param})
+        tag_result = f_app.email.status.get_database(m).map_reduce(func_status_map, func_status_reduce, "aggregation_tag_event", query=query_param)
+        #for thing in tag_result.find():
+        #    print thing["_id"], thing["value"]
+        final_result = {}
+        for thing in tag_result.find():
+            final_result.update({thing["_id"]: thing["value"]})
+        open_unique = final_result.get("open", 0)
+        open_times = final_result.get("open (repeat)", 0)
+        click_unique = final_result.get("click", 0)
+        click_times = final_result.get("click (repeat)", 0)
+        delivered_times = final_result.get("delivered", 0)
+        total_email = len(tag["value"]["a"])
+        print "%6d%30s%6d%10d%9.2f%%%10d%9.2f%%%10d%10d%9.2f%%%10d" % (index, tag["_id"], total_email, delivered_times, 100*delivered_times/total_email, open_unique, 100*open_unique/total_email, open_times, click_unique, click_unique/total_email, click_times)
