@@ -141,6 +141,7 @@ extension UINavigationController {
             
             let screenname = CUTETracker.sharedInstance().getScreenNameFromObject(controller)
             trackOpenScreen(screenname)
+            SVProgressHUD.show()
             controller.setupRoute().continueWithBlock({ (task: BFTask!) -> AnyObject! in
                 if (task.error != nil) {
                     SVProgressHUD.showErrorWithError(task.error)
@@ -176,6 +177,8 @@ extension UINavigationController {
                             self.viewControllers = [controller]
                         }
                     }
+
+                    SVProgressHUD.dismiss()
                 }
 
                 return task;
