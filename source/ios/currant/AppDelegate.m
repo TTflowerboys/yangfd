@@ -558,7 +558,7 @@
             [viewController openRouteWithURL:[NSURL URLWithString:@"yangfd://property-to-rent/create?_clear_stack=true"]];
         }
         else if (unfinishedRentTickets.count > 0) {
-            [viewController openRouteWithURL:[NSURL URLWithString:@"yangfd://property-to-rent-list/?status=draft&_clear_stack=true"]];
+            [viewController openRouteWithURL:[NSURL URLWithString:@"yangfd://property-to-rent-list/?status=draft&_clear_stack=true&_reload=false"]];
         }
 
         [self updateUserPropertiesLeftBarButtonItemWithViewController:viewController.topViewController];

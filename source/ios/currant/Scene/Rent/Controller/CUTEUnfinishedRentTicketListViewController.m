@@ -40,25 +40,36 @@
 - (BFTask *)setupRoute {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     if (self.params && [self.params[@"status"] isEqualToString:@"draft"]) {
-        CUTEUnfinishedRentTicketListForm *form = [CUTEUnfinishedRentTicketListForm new];
-        self.form = form;
-        [[self.form reload] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [tcs setError:task.error];
-            }
-            else if (task.exception) {
-                [tcs setException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [tcs cancel];
-            }
-            else {
-                [tcs setResult:nil];
-                [self.tableView reloadData];
-            }
 
-            return task;
-        }];
+        if ([self.params[@"_reload"] isEqualToString:@"false"]) {
+            NSArray *result = [[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets];
+            CUTEUnfinishedRentTicketListForm *form = [CUTEUnfinishedRentTicketListForm new];
+            self.form = form;
+            self.form.unfinishedRentTickets = result;
+            [tcs setResult:result];
+            [self.tableView reloadData];
+        }
+        else {
+            CUTEUnfinishedRentTicketListForm *form = [CUTEUnfinishedRentTicketListForm new];
+            self.form = form;
+            [[self.form reload] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    [tcs setError:task.error];
+                }
+                else if (task.exception) {
+                    [tcs setException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [tcs cancel];
+                }
+                else {
+                    [tcs setResult:nil];
+                    [self.tableView reloadData];
+                }
+                
+                return task;
+            }];
+        }
     }
     else {
         [tcs setError:[NSError errorWithDomain:CUTE_ERROR_DOMAIN code:-1 userInfo:@{NSLocalizedDescriptionKey: @"Unsupported Status"}]];
