@@ -93,7 +93,7 @@
                                             <label class="control-label">{%$root.i18n('姓名')%}</label>
 
                                             <div class="controls">
-                                                <span class="input-xlarge uneditable-input">{%item.user.nickname%}</span>
+                                                <a ui-sref="dashboard.users.detail.properties({ id: item.user.id })" ng-bind="item.user.nickname"></a>
                                             </div>
                                         </div>
 
