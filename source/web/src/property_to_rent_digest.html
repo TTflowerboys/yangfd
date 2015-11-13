@@ -27,7 +27,15 @@
                 %end
             </p>
             <div class="clearfix">
-                <h1 class="title">{{rent.get('title','')}}</h1>
+                <h1 class="title">
+                    {{rent.get('title','')}}
+                    % if 'short_id' in rent['property'] and rent.get('property',{}).get('short_id',''):
+                    <p class="shortid">
+                        <span class="label">{{_('房源编号: ')}}</span><span class="id">{{rent.get('property',{}).get('short_id','')}}</span>
+                    </p>
+                    %end
+                </h1>
+
             </div>
         </header>
         <main class="clearfix">

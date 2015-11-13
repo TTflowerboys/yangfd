@@ -326,7 +326,13 @@
                         <a href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('code','')}}&city={{rent['property'].get('city',{}).get('id','')}}" class="btn siteLink">{{_('此房源已租出，查看其他房源')}}</a>
                     </p>
                     % end
+                    % if 'short_id' in rent['property'] and rent.get('property',{}).get('short_id',''):
+                    <p class="shortid animate">
+                        <span class="label">{{_('房源编号: ')}}</span><span class="id">{{rent.get('property',{}).get('short_id','')}}</span>
+                    </p>
+                    %end
                 </div>
+
             </div>
             <div class="bottomBox coverBackBottom animate">
 
