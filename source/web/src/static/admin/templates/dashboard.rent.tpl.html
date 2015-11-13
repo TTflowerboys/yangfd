@@ -17,6 +17,12 @@
             <div select-enum name="landlord_type" ng-model="selected.landlord_type" text="{%i18n('房东类型')%}"></div>
         </div>
         <div class="btn-group form-inline">
+            <div edit-date ng-model="selected.rent_available_time" placeholder="{%i18n('起租时间')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+            <div edit-date ng-model="selected.rent_deadline_time" placeholder="{%i18n('结束时间')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
             <input type="text" class="form-control" ng-model="selected.short_id" placeholder="{%i18n('编号')%}"/>
         </div>
         <div class="btn-group form-inline">

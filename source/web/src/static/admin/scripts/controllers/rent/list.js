@@ -26,6 +26,7 @@
             params.city = $scope.selected.city
             params.rent_type = $scope.selected.rent_type
             params.landlord_type = $scope.selected.landlord_type
+            params.rent_available_time = $scope.selected.rent_available_time
             params.short_id = $scope.selected.short_id
             params.time = undefined
             for(var key in params) {

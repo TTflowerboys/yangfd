@@ -6,7 +6,8 @@ angular.module('app')
             templateUrl: '/static/admin/templates/edit_date.tpl.html',
             replace: true,
             scope: {
-                model: '=ngModel'
+                model: '=ngModel',
+                placeholder: '@placeholder'
             },
             link: function (scope) {
                 scope.display = scope.model ? new Date(scope.model * 1000) : null
