@@ -1151,6 +1151,20 @@ def rent_ticket_add(user, params):
     return ticket_id
 
 
+@f_api('/rent_ticket/<ticket_id>/refresh')
+@f_app.user.login.check(check_role=True)
+def rent_ticket_refresh(ticket_id, user):
+    ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "rent", abort(40000, "Invalid rent ticket")
+    if ticket.get("creator_user_id") or ticket.get("user_id"):
+        if not user or user["id"] not in (ticket.get("user_id"), ticket.get("creator_user_id")) and not (set(user["role"]) & set(["admin", "jr_admin", "support"])):
+            abort(40399, logger.warning("Permission denied", exc_info=False))
+    result = f_app.ticket.update_set(ticket_id, {})
+    log_params = f_app.plugin_invoke("ticket.add.log_params", {}, ticket_id, ticket, user)
+    f_app.log.add("ticket_refresh", ticket_id=ticket_id, **log_params)
+    return result
+
+
 @f_api('/rent_ticket/<ticket_id>/edit', params=dict(
     status=str,
     phone=str,
