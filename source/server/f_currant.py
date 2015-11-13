@@ -3989,12 +3989,14 @@ class f_main_mixed_index(f_app.plugin_base):
     def build_maponics_neighborhood(self):
         processed = 0
         with f_app.mongo() as m:
+            self.get_database(m).create_index([("loc", GEO2D)])
             for neighborhood in f_app.maponics.neighborhood.get_database(m).find({"status": {"$ne": "deleted"}}):
                 self.get_database(m).update({"maponics_neighborhood": neighborhood["_id"]}, {
                     "maponics_neighborhood": neighborhood["_id"],
                     "name": neighborhood["name"],
                     "latitude": neighborhood["latitude"],
                     "longitude": neighborhood["longitude"],
+                    "loc": neighborhood["loc"],
                 }, upsert=True)
                 index_id = self.get_database(m).find_one({"maponics_neighborhood": neighborhood["_id"]})["_id"]
                 f_app.mongo_index.update(self.get_database, str(index_id), neighborhood["name"])
@@ -4003,15 +4005,51 @@ class f_main_mixed_index(f_app.plugin_base):
                 if processed % 100 == 0:
                     self.logger.info("neighborhood", processed, "processed.")
 
-    def build_doogal_station(self):
+    def build_hesa_university(self, type_enum):
         processed = 0
         with f_app.mongo() as m:
+            self.get_database(m).create_index([("loc", GEO2D)])
+            for university in f_app.hesa.university.get_database(m).find({"status": {"$ne": "deleted"}}):
+                try:
+                    postcode = f_app.geonames.postcode.get(f_app.geonames.postcode.search({"postcode": university["postcode"]}, per_page=-1))[0]
+                except:
+                    self.logger.warning("cannot lookup postcode for university", str(university["_id"]), ":", university["postcode"])
+                    continue
+                self.get_database(m).update({"hesa_university": university["_id"]}, {
+                    "hesa_university": university["_id"],
+                    "name": university["name"],
+                    "latitude": postcode["latitude"],
+                    "longitude": postcode["longitude"],
+                    "loc": [float(postcode["longitude"]), float(postcode["latitude"])],
+                    "type": {
+                        "_id": ObjectId(type_enum),
+                        "type": "featured_facility_type",
+                        "_enum": "featured_facility_type",
+                    },
+                }, upsert=True)
+                index_id = self.get_database(m).find_one({"hesa_university": university["_id"]})["_id"]
+                f_app.mongo_index.update(self.get_database, str(index_id), university["name"])
+                processed += 1
+
+                if processed % 100 == 0:
+                    self.logger.info("university", processed, "processed.")
+
+    def build_doogal_station(self, type_enum):
+        processed = 0
+        with f_app.mongo() as m:
+            self.get_database(m).create_index([("loc", GEO2D)])
             for station in f_app.doogal.station.get_database(m).find({"status": {"$ne": "deleted"}}):
                 self.get_database(m).update({"doogal_station": station["_id"]}, {
                     "doogal_station": station["_id"],
                     "name": station["name"],
                     "latitude": station["latitude"],
                     "longitude": station["longitude"],
+                    "loc": station["loc"],
+                    "type": {
+                        "_id": ObjectId(type_enum),
+                        "type": "featured_facility_type",
+                        "_enum": "featured_facility_type",
+                    },
                 }, upsert=True)
                 index_id = self.get_database(m).find_one({"doogal_station": station["_id"]})["_id"]
                 f_app.mongo_index.update(self.get_database, str(index_id), station["name"])
