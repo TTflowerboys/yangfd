@@ -29,15 +29,17 @@
             params.short_id = $scope.selected.short_id
             params.time = undefined
 
-            if ($scope.selected.rent_available_time)
+            if ($scope.selected.rent_available_time) {
                 params.rent_available_time = $scope.selected.rent_available_time
-            else
+            }else {
                 params.rent_available_time = undefined
+            }
 
-            if ($scope.selected.rent_deadline_time)
+            if ($scope.selected.rent_deadline_time){
                 params.rent_deadline_time = $scope.selected.rent_deadline_time
-            else
+            }else {
                 params.rent_deadline_time = undefined
+            }
 
             for(var key in params) {
                 if(params[key] === undefined || params[key] === '') {
