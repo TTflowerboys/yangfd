@@ -1,6 +1,6 @@
 (function () {
 
-    function ctrlRentList($scope, fctModal, api, $state, $timeout) {
+    function ctrlRentList($scope, fctModal, api, $state, $timeout, userApi) {
 
         $scope.list = []
         $scope.perPage = 12
@@ -187,6 +187,13 @@
 
         $scope.updateItem = function (item) {
             api.update(item.id, item)
+                .success(function () {
+                    $scope.refreshList()
+                })
+        }
+
+        $scope.updateUserItem = function (item) {
+            userApi.update(item.id, item)
                 .success(function () {
                     $scope.refreshList()
                 })
