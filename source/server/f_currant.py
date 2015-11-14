@@ -441,6 +441,12 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             ticket_database.update({"_id": ticket["_id"]}, {"$set": new_params, "$unset": {"rent_budget": ""}})
             self.logger.debug("Migrated ticket", ticket["_id"], "to new rent_budget format.")
 
+    def v27(self, m):
+        ticket_database = f_app.ticket.get_database(m)
+        for ticket in ticket_database.find({"type": "rent", "sort_time": {"$exists": False}}):
+            ticket_database.update({"_id": ticket["_id"]}, {"$set": {"sort_time": ticket["last_modified_time"]}})
+            self.logger.debug("Set sort_time for ticket", ticket["_id"])
+
 currant_mongo_upgrade()
 
 
