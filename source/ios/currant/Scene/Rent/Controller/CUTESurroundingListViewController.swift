@@ -95,6 +95,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, block: { (sender) -> Void in
 
             if self.view.window != nil {
+                //TODO update searchbar style by more stable way, not this tricky way
                 let searchBar = UISearchBar(frame: CGRectMake(0, 20, self.view.frame.size.width, 44))
                 searchBar.backgroundImage = UIImage()
                 searchBar.tintColor = UIColor(hex6: 0xdd3f3d)
