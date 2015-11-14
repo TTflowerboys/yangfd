@@ -1353,11 +1353,20 @@
         }
 
         this.isShowAll = ko.observable(false)
+        this.animate = ko.observable(false)
+        this.addAnimate = function () {
+            this.animate(true)
+            setTimeout(_.bind(function () {
+                this.animate(false)
+            }, this), 400)
+        }
         this.showAll = function () {
             this.isShowAll(true)
+            this.addAnimate()
         }
         this.hideAll = function () {
             this.isShowAll(false)
+            this.addAnimate()
         }
     }
     var propertyViewModel = new PropertyViewModel()
