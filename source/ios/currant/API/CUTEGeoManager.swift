@@ -368,7 +368,7 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
-    func searchSurroundingsWithName(name:String?, postcodeIndex:String?, city:CUTECity?, country:CUTECountry?, propertyPostcodeIndex:String!) -> BFTask {
+    func searchSurroundingsWithName(name:String?, latitude:NSNumber?, longitude:NSNumber?, city:CUTECity?, country:CUTECountry?, propertyPostcodeIndex:String!) -> BFTask {
         let tcs = BFTaskCompletionSource()
         let sequencer = SwiftSequencer()
 
@@ -392,6 +392,10 @@ class CUTEGeoManager: NSObject {
             var parameters = [String:AnyObject]()
             if name != nil {
                 parameters["query"] = name
+            }
+            if latitude != nil && longitude != nil {
+                parameters["latitude"] = latitude!.stringValue
+                parameters["longitude"] = longitude!.stringValue
             }
 
             parameters["type"] = typeIds.joinWithSeparator(",")

@@ -208,6 +208,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
             if  surroundings.filter({ (surr:CUTESurrounding) -> Bool in
                 return surr.identifier == surrounding.identifier
             }).count == 0 {
+                SVProgressHUD.show()
                 self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
                     var array = Array(ticket.property.surroundings as! [CUTESurrounding])
                     array.append(surrounding)
@@ -217,6 +218,8 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                     self.navigationController?.setNavigationBarHidden(false, animated: false)
                     self.searchController?.searchBar.removeFromSuperview()
                     self.tableView.reloadData()
+
+                    SVProgressHUD.dismiss()
                 })
             }
         }
@@ -246,7 +249,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         SVProgressHUD.show()
-        CUTEGeoManager.sharedInstance.searchSurroundingsWithName(searchBar.text, postcodeIndex: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex).continueWithBlock { (task:BFTask!) -> AnyObject! in
+        CUTEGeoManager.sharedInstance.searchSurroundingsWithName(searchBar.text, latitude: nil, longitude: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex).continueWithBlock { (task:BFTask!) -> AnyObject! in
             self.searchResultSurroundings = task.result as! [CUTESurrounding]
             self.searchController?.searchResultsTableView.reloadData()
             SVProgressHUD.dismiss()
@@ -323,12 +326,14 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
             ActionSheetStringPicker.showPickerWithTitle("", rows: aroundValues, initialSelection:timetValueIndex!, doneBlock: { (picker:ActionSheetStringPicker!, selectedIndex:Int, selectedValue:AnyObject!) -> Void in
                 if let value = Int32(selectedValue as! String) {
-                    
+
+                    SVProgressHUD.show()
                     self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
                         var array = Array(ticket.property.surroundings as! [CUTESurrounding])
                         array[sender.tag].trafficTimes![defaultTimeIndex].time!.value = value
                         ticket.property.surroundings = array
                         self.tableView.reloadData()
+                        SVProgressHUD.dismiss()
                     })
                 }
                 }, cancelBlock: { (picker:ActionSheetStringPicker!) -> Void in
@@ -340,11 +345,13 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
     func onRemoveButtonPressed(sender:UIButton) {
         let index = sender.tag
+        SVProgressHUD.show()
         self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
             var array = Array(ticket.property.surroundings as! [CUTESurrounding])
             array.removeAtIndex(index)
             ticket.property.surroundings = array
             self.tableView.reloadData()
+            SVProgressHUD.dismiss()
         })
     }
 
