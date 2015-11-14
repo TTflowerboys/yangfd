@@ -645,7 +645,7 @@ def property_edit(property_id, user, params):
 
         if user_generated:
             # Workaround an iOS bug :/
-            params.pop("status")
+            params.pop("status", None)
         else:
             # Status-only updates
             if len(params) == 1 and "status" in params:
