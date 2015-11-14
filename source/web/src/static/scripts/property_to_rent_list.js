@@ -53,7 +53,7 @@
                     var array = val
                     var resultHtml = ''
                     if (!_.isEmpty(array)) {
-                        lastItemTime = _.last(array).last_modified_time
+                        lastItemTime = _.last(array).sort_time
                         window.rentList = array
                         _.each(array, function (rent) {
                             if(rent && rent.property){
@@ -61,8 +61,8 @@
                                 var houseResult = _.template($('#rentCard_template').html())({rent: rent})
                                 resultHtml += houseResult
 
-                                if (lastItemTime > rent.last_modified_time) {
-                                    lastItemTime = rent.last_modified_time
+                                if (lastItemTime > rent.sort_time) {
+                                    lastItemTime = rent.sort_time
                                 }
                             }
                         })
@@ -305,7 +305,7 @@
         params.per_page = itemsPerPage
         $('.isAllLoadedInfo').hide()
         if (lastItemTime) {
-            params.last_modified_time = lastItemTime
+            params.sort_time = lastItemTime
             //Load more triggered
             ga('send', 'event', 'rent_list', 'trigger', 'load-more')
         }
@@ -313,7 +313,7 @@
         if(reload){
             $('#result_list').empty()
             lastItemTime = null
-            delete params.last_modified_time
+            delete params.sort_time
         }
         $('#result_list_container').show()
         $('.emptyPlaceHolder').hide();
@@ -334,7 +334,7 @@
                 initIntro()
                 var array = val
                 if (!_.isEmpty(array)) {
-                    lastItemTime = _.last(array).last_modified_time
+                    lastItemTime = _.last(array).sort_time
 
                     if (!window.rentList) {
                         window.rentList = []
@@ -346,8 +346,8 @@
                         var houseResult = _.template($('#rentCard_template').html())({rent: rent})
                         $('#result_list').append(houseResult)
 
-                        if (lastItemTime > rent.last_modified_time) {
-                            lastItemTime = rent.last_modified_time
+                        if (lastItemTime > rent.sort_time) {
+                            lastItemTime = rent.sort_time
                         }
                     })
                     totalResultCount = getCurrentTotalCount()
