@@ -8,6 +8,52 @@
 
 import UIKit
 
+//http://stackoverflow.com/questions/25770119/ios-8-uitableview-separator-inset-0-not-working
+
+extension UITableViewCell {
+    func removeMargins() {
+
+        if self.respondsToSelector("setSeparatorInset:") {
+            self.separatorInset = UIEdgeInsetsZero
+        }
+
+        if self.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
+            if #available(iOS 8.0, *) {
+                self.preservesSuperviewLayoutMargins = false
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+
+        if self.respondsToSelector("setLayoutMargins:") {
+            if #available(iOS 8.0, *) {
+                self.layoutMargins = UIEdgeInsetsZero
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+    }
+}
+
+extension UITableView {
+    func removeMargins() {
+        self.separatorInset = UIEdgeInsetsZero
+
+        if #available(iOS 8.0, *) {
+            self.layoutMargins = UIEdgeInsetsZero
+            self.preservesSuperviewLayoutMargins = false
+        } else {
+            // Fallback on earlier versions
+        }
+        if #available(iOS 9.0, *) {
+            self.cellLayoutMarginsFollowReadableWidth = false
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+}
+
+
 @objc(CUTESurroundingListViewController)
 class CUTESurroundingListViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
 
@@ -15,6 +61,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     private var searchResultSurroundings:[CUTESurrounding] = []
     var postcodeIndex:String?
     internal var searchController:UISearchDisplayController?
+    internal var searchBarHeader:UIView?
 
 
     init(form:CUTESurroundingForm) {
@@ -39,17 +86,34 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+
+        self.showBarButtonItems()
+
+    }
+
+    func showBarButtonItems() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, block: { (sender) -> Void in
 
             if self.view.window != nil {
                 let searchBar = UISearchBar(frame: CGRectMake(0, 20, self.view.frame.size.width, 44))
+                searchBar.backgroundImage = UIImage()
+                searchBar.tintColor = UIColor(hex6: 0xdd3f3d)
+                searchBar.barTintColor = UIColor(hex6: 0x505050)
+                searchBar.backgroundColor = UIColor(hex6: 0x505050)
                 searchBar.delegate = self
                 self.searchController = UISearchDisplayController(searchBar: searchBar, contentsController: self)
                 self.searchController?.delegate = self
                 self.searchController?.searchResultsDelegate = self
                 self.searchController?.searchResultsDataSource = self
-                self.view.window!.addSubview(self.searchController!.searchBar)
+                self.navigationController?.view.addSubview(self.searchController!.searchBar)
                 self.searchController?.searchResultsTableView.contentInset = UIEdgeInsetsMake(searchBar.frame.size.height, 0, 0, 0);
+                self.searchController?.searchResultsTableView.removeMargins()
+
+                self.navigationController?.view.addSubview(searchBar)
+                self.searchBarHeader = UIView(frame:CGRectMake(0, 0, self.view.frame.size.width, 20))
+                self.searchBarHeader?.backgroundColor = UIColor(hex6: 0x505050)
+                self.navigationController?.view.addSubview(self.searchBarHeader!)
+                self.navigationController?.setNavigationBarHidden(true, animated: false)
                 self.searchController?.setActive(true, animated: true)
                 self.searchController?.searchBar.becomeFirstResponder()
             }
@@ -82,6 +146,9 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
             var cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
             if cell == nil {
                 cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
+                cell?.textLabel?.font = UIFont.systemFontOfSize(15)
+                cell?.textLabel?.textColor = UIColor(hex6: 0x666666)
+                cell?.removeMargins()
             }
             cell?.textLabel?.text = self.searchResultSurroundings[indexPath.row].name
             return cell!
@@ -129,7 +196,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if self.searchController?.searchResultsTableView == tableView {
-            return 40
+            return 45
         }
         return 80;
     }
@@ -147,6 +214,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                     ticket.property.surroundings = array
 
                     self.searchController?.setActive(false, animated: true)
+                    self.navigationController?.setNavigationBarHidden(false, animated: false)
                     self.searchController?.searchBar.removeFromSuperview()
                     self.tableView.reloadData()
                 })
@@ -154,17 +222,26 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         }
     }
 
+    func hideSearchBar() {
+        self.searchController?.setActive(false, animated: true)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+
+        UIView.animateWithDuration(0.4, animations: { () -> Void in
+            self.searchController?.searchBar.alpha = 0
+            self.searchBarHeader?.alpha = 0
+            }, completion: { (stop:Bool) -> Void in
+                self.searchController?.searchBar.removeFromSuperview()
+                self.searchBarHeader?.removeFromSuperview()
+        })
+    }
+
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+
 
     }
 
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        self.searchController?.setActive(false, animated: true)
-        UIView.animateWithDuration(0.2, animations: { () -> Void in
-            self.searchController?.searchBar.alpha = 0
-            }, completion: { (stop:Bool) -> Void in
-                self.searchController?.searchBar.removeFromSuperview()
-        })
+        self.hideSearchBar()
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -184,12 +261,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     func searchDisplayControllerDidEndSearch(controller: UISearchDisplayController) {
 
         if (self.searchController?.searchBar.superview != nil) {
-            UIView.animateWithDuration(0.2, animations: { () -> Void in
-                self.searchController?.searchBar.alpha = 0
-                }, completion: { (stop:Bool) -> Void in
-                    self.searchController?.searchBar.removeFromSuperview()
-            })
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            self.hideSearchBar()
         }
 
     }
