@@ -27,8 +27,6 @@
 
 @interface CUTEFormViewController : FXFormViewController
 
-@property (nonatomic, readonly) BFCancellationTokenSourceCollector *asyncTaskCollector;
-
 
 - (BOOL)validateFormWithScenario:(NSString *)scenario;
 

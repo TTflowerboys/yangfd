@@ -13,6 +13,7 @@
 #import "CUTECommonMacro.h"
 #import "MasonryMake.h"
 #import "CUTETracker.h"
+#import <Aspects.h>
 #import <NSString+SLRESTfulCoreData.h>
 #import "CUTELocalizationSwitcher.h"
 
@@ -45,23 +46,7 @@
 
 @end
 
-
-@interface CUTEFormViewController ()
-{
-    BFCancellationTokenSourceCollector *_asyncTaskCollector;
-}
-
-@end
-
-
 @implementation CUTEFormViewController
-
-- (BFCancellationTokenSourceCollector *)asyncTaskCollector {
-    if (_asyncTaskCollector == nil) {
-        _asyncTaskCollector = [BFCancellationTokenSourceCollector collector];
-    }
-    return _asyncTaskCollector;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -74,13 +59,6 @@
     [super viewWillAppear:animated];
 
     TrackScreen(GetScreenName(self));
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-
-    //TODO: fix 显示选择图片，这里仍然会调到，所以一个didPop 类似的controller callback更合适
-//    [_asyncTaskCollector cancelAllCancellationTokenSource];
 }
 
 - (void)setTableView:(UITableView *)tableView

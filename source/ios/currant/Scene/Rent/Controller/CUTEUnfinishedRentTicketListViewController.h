@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CUTEUnfinishedRentTicketListForm.h"
-#import "CUTETableViewController.h"
 
-@interface CUTEUnfinishedRentTicketListViewController : CUTETableViewController
+@interface CUTEUnfinishedRentTicketListViewController : UITableViewController
 
 @property (strong, nonatomic) CUTEUnfinishedRentTicketListForm *form;
 

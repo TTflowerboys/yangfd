@@ -29,6 +29,14 @@
 #import <HHRouter.h>
 
 
+@interface CUTEUnfinishedRentTicketListViewController () {
+
+    BFCancellationTokenSource *_cts;
+}
+
+@end
+
+
 
 @implementation CUTEUnfinishedRentTicketListViewController
 
@@ -48,9 +56,9 @@
         else {
             CUTEUnfinishedRentTicketListForm *form = [CUTEUnfinishedRentTicketListForm new];
             self.form = form;
-            BFCancellationTokenSource *cts = [self.asyncTaskCollector generateCancellationTokenSource];
-            [[self.form reloadWithCancellationToken:cts.token] continueWithBlock:^id(BFTask *task) {
-                [self.asyncTaskCollector dropCancellationTokenSource:cts];
+            _cts = [BFCancellationTokenSource cancellationTokenSource];
+            [[self.form reloadWithCancellationToken:_cts.token] continueWithBlock:^id(BFTask *task) {
+                _cts = nil;
                 if (task.error) {
                     [tcs setError:task.error];
                 }
@@ -99,12 +107,21 @@
     TrackScreen(GetScreenName(self));
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+    //cancel current request if switch page
+    if (_cts) {
+        [_cts cancel];
+    }
+}
+
 - (void)refreshTable {
     [self.refreshControl beginRefreshing];
-    BFCancellationTokenSource *cts = [self.asyncTaskCollector generateCancellationTokenSource];
-    [[self.form reloadWithCancellationToken:cts.token] continueWithBlock:^id(BFTask *task) {
+    _cts = [BFCancellationTokenSource cancellationTokenSource];
+    [[self.form reloadWithCancellationToken:_cts.token] continueWithBlock:^id(BFTask *task) {
         [self.refreshControl endRefreshing];
-        [self.asyncTaskCollector dropCancellationTokenSource:cts];
+        _cts = nil;
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }

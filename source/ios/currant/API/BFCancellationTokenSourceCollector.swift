@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// 由于cancellable 设置和，和触发都跟界面跳转有关，不一定这里的逻辑不是统一的，不能只是都简单的放到viewWillDisappear里面去cancel所有request
 @objc(BFCancellationTokenSourceCollector) class BFCancellationTokenSourceCollector: NSObject {
 
     private var tokenSources = [BFCancellationTokenSource]()
