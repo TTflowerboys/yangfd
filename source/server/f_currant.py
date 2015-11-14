@@ -444,7 +444,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
     def v27(self, m):
         ticket_database = f_app.ticket.get_database(m)
         for ticket in ticket_database.find({"type": "rent", "sort_time": {"$exists": False}}):
-            ticket_database.update({"_id": ticket["_id"]}, {"$set": {"sort_time": ticket["last_modified_time"]}})
+            ticket_database.update({"_id": ticket["_id"]}, {"$set": {"sort_time": ticket["time"]}})
             self.logger.debug("Set sort_time for ticket", ticket["_id"])
 
 currant_mongo_upgrade()
