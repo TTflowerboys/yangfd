@@ -98,17 +98,8 @@
 
     ko.components.register('surrouding-search-input', {
         viewModel: function(params) {
-            function getUniversities(name) {
-                return $.get('/api/1/hesa_university/search', {name: name})
-                    .then(function (data) {
-                        return data.val
-                    })
-            }
-            function getStations(name) {
-                return $.get('/api/1/doogal_station/search', {name: name})
-                    .then(function (data) {
-                        return data.val
-                    })
+            function mixedSearch(name) {
+                return $.betterPost('/api/1/main_mixed_index/search', {query: name})
             }
             this.surroudingToAdd = params.surroudingToAdd
             this.active = ko.observable() //输入框是否为激活状态，激活状态
@@ -124,22 +115,26 @@
                     this.hint(window.i18n('请输入内容后再进行搜索'))
                 } else {
                     this.hint(window.i18n('载入中...'))
-                    $.when(getUniversities(name), getStations(name), window.project.getEnum('featured_facility_type'))
-                    .then(_.bind(function (resultsOfUniversities, resultsOfStations, types) {
-                            function typeMapFactory(slug) {
-                                return function (item) {
-                                    item.type = _.find(types, {slug: slug})
-                                    return item
-                                }
-                            }
-                            var suggestions = (_.map(resultsOfUniversities, typeMapFactory('hesa_university'))).concat(_.map(resultsOfStations, typeMapFactory('doogal_station')))
-                            suggestions = suggestions.concat(suggestions).concat(suggestions)
-                            this.suggestions(suggestions)
-                            if(suggestions.length) {
-                                this.hint('')
-                            } else {
-                                this.hint(window.i18n('无结果'))
-                            }
+                    window.project.getEnum('featured_facility_type')
+                        .then(_.bind(function (types) {
+                            mixedSearch(name).
+                                then(_.bind(function (resultsOfMixedSearch) {
+                                    var suggestions = _.filter((_.map(resultsOfMixedSearch, function (item) {
+                                        var intersection = _.intersection(_.map(types, function (type) { return type.slug }), _.keys(item))
+                                        if(intersection.length) {
+                                            item.type = _.find(types, {slug: intersection[0]})
+                                        }
+                                        return item
+                                    })), function (item) {
+                                        return item.type
+                                    })
+                                    this.suggestions(suggestions)
+                                    if(suggestions.length) {
+                                        this.hint('')
+                                    } else {
+                                        this.hint(window.i18n('无结果'))
+                                    }
+                                }, this))
                         }, this))
                 }
             }, this)
@@ -150,7 +145,7 @@
                 this.surroudingToAdd(_.extend(item, {traffic_time: [], hint: window.i18n('载入中...')}))
                 window.project.getEnum('featured_facility_traffic_type')
                     .then(_.bind(function (modes) {
-                        module.distanceMatrix($('#postcode').val().replace(/\s/g, '').toUpperCase(), item.postcode_index || item.zipcode_index, modes)
+                        module.distanceMatrix($('#postcode').val().replace(/\s/g, '').toUpperCase(), item.postcode_index || item.zipcode_index || (item.latitude + ',' + item.longitude), modes)
                             .then(_.bind(function (matrixData) {
                                 _.extend(item, {
                                     hint: '',

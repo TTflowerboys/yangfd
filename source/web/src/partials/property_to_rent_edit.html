@@ -504,18 +504,30 @@
                             </div>
                         </td>
                         <td class="content">
-                            <ul class="surrounding" data-bind="foreach: { data: surrouding, as: 'item' }">
-                                <li>
-                                    <i data-bind="css: type.currency"></i>
-                                    <span class="name" data-bind="text: name"></span>
-                                    <edit-travel-time params="item: item"></edit-travel-time>
-                                    <i class="icon-delete" data-bind="click: $parent.removeSurrouding" title="{{_('删除')}}"></i>
-                                </li>
-                            </ul>
                             <div class="addWrap">
                                 <surrouding-search-input params="surroudingToAdd: surroudingToAdd"></surrouding-search-input>
                                 <edit-travel-time params="item: surroudingToAdd"></edit-travel-time>
                                 <span class="addBtn" data-bind="visible: surroudingToAdd().traffic_time && surroudingToAdd().traffic_time.length, click: addSurrouding">{{_('添加')}}</span>
+                            </div>
+                            <div>
+                                <ul class="surrounding" data-bind="foreach: { data: surrouding, as: 'item' }, css: {shrink: !isShowAll()}, style: {maxHeight: surrouding().length * 40 + 'px'}">
+                                    <li>
+                                        <i data-bind="css: type.currency"></i>
+                                        <span class="name" data-bind="text: name"></span>
+                                        <edit-travel-time params="item: item"></edit-travel-time>
+                                        <i class="icon-delete" data-bind="click: $parent.removeSurrouding" title="{{_('删除')}}"></i>
+                                    </li>
+                                </ul>
+                                <div data-bind="visible: surrouding().length > 10">
+                                    <a class="showAll" href="" data-bind="visible: !isShowAll(), click: showAll">
+                                        <span>{{_('显示全部')}}</span>
+                                        <i class="icon-down_arrow"></i>
+                                    </a>
+                                    <a class="showAll" href="" data-bind="visible: isShowAll(), click: hideAll">
+                                        <span>{{_('收起')}}</span>
+                                        <i class="icon-up_arrow2"></i>
+                                    </a>
+                                </div>
                             </div>
                         </td>
                     </tr>

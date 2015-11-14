@@ -287,7 +287,6 @@
     }
 
     $('#findAddress').click(function () {
-        initSurrouding()
         var $btn = $(this)
         function showPostcodeNoResultMsg () {
             $btn.siblings('.postcodeNoResultMsg').show()
@@ -308,6 +307,7 @@
             }
             propertyViewModel.latitude(val.latitude)
             propertyViewModel.longitude(val.longitude)
+            initSurrouding()
             var geocodeApiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + propertyViewModel.latitude() + ',' + propertyViewModel.longitude() + '&result_type=street_address&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
             window.geonamesApi.getCityByLocation(val.country, val.latitude, val.longitude, function (val) {
                 $.betterGet('/reverse_proxy?link=' + encodeURIComponent(geocodeApiUrl))
@@ -1348,64 +1348,51 @@
 
         this.surroudingToAdd = ko.observable({hint: ''})
         this.addSurrouding = function () {
-            this.surrouding.push(this.surroudingToAdd())
+            this.surrouding.unshift(this.surroudingToAdd())
             this.surroudingToAdd({hint: ''})
+        }
+
+        this.isShowAll = ko.observable(false)
+        this.showAll = function () {
+            this.isShowAll(true)
+        }
+        this.hideAll = function () {
+            this.isShowAll(false)
         }
     }
     var propertyViewModel = new PropertyViewModel()
-    window.propertyViewModel = propertyViewModel
+    module.propertyViewModel = propertyViewModel
     ko.applyBindings(propertyViewModel)
 
-    function getUniversities() {
-        return $.get('/api/1/hesa_university/search')
-            .then(function (data) {
-                return data.val
-            })
-            .then(function (list) {
-                return _.shuffle(list).slice(0,2)
-            })
+    function mixedSearch(params) {
+        return $.betterPost('/api/1/main_mixed_index/search', {
+            type: JSON.stringify(_.map(params.types, function (type) {
+                return type.id
+            })),
+            latitude: params.latitude,
+            longitude: params.longitude,
+            search_range: 5000
+        })
     }
-    function getStations() {
-        return $.get('/api/1/doogal_station/search')
-            .then(function (data) {
-                return data.val
-            })
-            .then(function (list) {
-                return _.shuffle(list).slice(0,2)
-            })
-    }
-
-
 
     function getSurrouding() {
-        //mock搜索周边地点的数据
-        //var idList = ['55c4697cd4a21929795ad5fa', '55c4697cd4a21929795ad5fb'] //dev
-        /*var idList = ['55c4b36e5c71bcc625bd437d', '55c4b36e5c71bcc625bd43bb', '55c4b36e5c71bcc625bd43bc', '55c4b36e5c71bcc625bd43bd'] //test
-        function generateOneSurrouding(id) {
-            return $.get('/api/1/hesa_university/' + id)
-        }
-        return $.when.apply(null, _.map(idList, generateOneSurrouding)).then(function () {
-            return Array.prototype.slice.call(arguments).map(function (arr) {
-                var item = arr[0].val
-                item.type = { //featured_facility_type
-                    id: '56387be6571cd90621016821',
-                    slug: 'hesa_university'
-                }
-                return item
-            })
-        })*/
-
-        return $.when(getUniversities(), getStations(), window.project.getEnum('featured_facility_type'))
-            .then(function (resultsOfUniversities, resultsOfStations, types) {
-                function typeMapFactory(slug) {
-                    return function (item) {
-                        item.type = _.find(types, {slug: slug})
-                        return item
-                    }
-                }
-                return (_.map(resultsOfUniversities, typeMapFactory('hesa_university'))).concat(_.map(resultsOfStations, typeMapFactory('doogal_station')))
-
-            })
+        return $.Deferred(function (defer) {
+            window.project.getEnum('featured_facility_type')
+                .then(function (types) {
+                    return mixedSearch({types: types, latitude: module.propertyViewModel.latitude(), longitude: module.propertyViewModel.longitude()}).
+                        then(_.bind(function (resultsOfMixedSearch) {
+                            defer.resolve(_.filter((_.map(resultsOfMixedSearch, function (item) {
+                                var intersection = _.intersection(_.map(types, function (type) { return type.slug }), _.keys(item))
+                                if(intersection.length) {
+                                    item.type = _.find(types, {slug: intersection[0]})
+                                }
+                                return item
+                            })), function (item) {
+                                return item.type
+                            }))
+                        }, this))
+                })
+        })
     }
 
     function getModes() {
@@ -1419,7 +1406,7 @@
         $.when(getSurrouding(), getModes())
             .then(function(originSurrouding, modes){
                 var destinations = originSurrouding.map(function (item) {
-                    return item.postcode_index || item.zipcode_index
+                    return item.postcode_index || item.zipcode_index || (item.latitude + ',' + item.longitude)
                 })
                 module.distanceMatrix(originPostcode, destinations, modes)
                     .then(function (matrixData) {

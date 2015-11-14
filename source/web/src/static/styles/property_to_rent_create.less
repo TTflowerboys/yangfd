@@ -706,6 +706,13 @@ main {
                             }
                         }
                         .surrounding {
+                            margin: 10px 0;
+                            transition: all ease 0.4s 0s;
+                            &.shrink {
+                                max-height: 400px !important;
+                                overflow: hidden;
+                                transition: all ease 0.4s 0s;
+                            }
                             > li {
                                 display: block;
                                 font-size: 16px;
@@ -743,9 +750,19 @@ main {
                                 }
                             }
                         }
-
+                        
+                        a.showAll {
+                            text-decoration: none;
+                            color: #aaa;
+                            &:hover {
+                                color: @red;
+                            }
+                            > *{
+                                vertical-align: middle;
+                            }
+                        }
+                        
                         div.addWrap{
-                            margin-top: 10px;
                             surrouding-search-input{
                                 display: inline-block;
                                 position: relative;
@@ -785,6 +802,8 @@ main {
                                     z-index: 10;
                                     top: 49px;
                                     width: 100%;
+                                    max-height: 300px;
+                                    overflow-y: auto;
                                     background: #fff;
                                     border: 1px solid #cccccc;
                                     border-radius: 0 0 4px 4px;
@@ -793,16 +812,18 @@ main {
                                     }
                                     ul{
                                         li{
+                                            width: 100%;
                                             padding: 8px;
                                             cursor: pointer;
                                             span{
                                                 font-size: 14px;
                                                 &.name{
                                                     display: inline-block;
-                                                    width: 410px;
+                                                    width: 390px;
                                                 }
                                                 &.type {
-                                                    width: 45px;
+                                                    float: right;
+                                                    width: 48px;
                                                     display: inline-block;
                                                     text-align: center;
                                                     color: #ccc;
