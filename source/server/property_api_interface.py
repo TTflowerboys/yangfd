@@ -643,7 +643,10 @@ def property_edit(property_id, user, params):
 
         action = _action
 
-        if not user_generated:
+        if user_generated:
+            # Workaround an iOS bug :/
+            params.pop("status")
+        else:
             # Status-only updates
             if len(params) == 1 and "status" in params:
                 # Approved properties
