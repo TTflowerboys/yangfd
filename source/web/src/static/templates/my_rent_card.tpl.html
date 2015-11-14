@@ -86,8 +86,8 @@
                                 {_}_}
                             </li>
                             <li>
-                                {_if(team.isToday(parseInt(rent.last_modified_time))){_}
-                                <p class="action">{!team.parsePublishDate(parseInt(rent.last_modified_time))!}{=window.i18n('已刷新过')=}</p>
+                                {_if(team.isToday(parseInt(rent.sort_time))){_}
+                                <p class="action">{!team.parsePublishDate(parseInt(rent.sort_time))!}{=window.i18n('已刷新过')=}</p>
                                 {_}else{_}
                                 <a id="refresh" class="action" data-id="{=rent.id=}">{=window.i18n('刷新')=}</a>
                                 {_}_}

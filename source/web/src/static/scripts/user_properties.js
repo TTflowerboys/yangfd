@@ -328,7 +328,7 @@ $(function () {
     function bindRentItemRefreshClick() {
         $('.actions #refresh').click(function (e) {
             var ticketId = $(e.target).attr('data-id')
-            if(!team.isToday(parseInt(_.first(_.where(window.rentArray, {id: ticketId})).last_modified_time))){
+            if(!team.isToday(parseInt(_.first(_.where(window.rentArray, {id: ticketId})).sort_time))){
                 $.betterPost('/api/1/rent_ticket/' + ticketId + '/refresh')
                     .done(function (data) {
                         $(e.target).unbind('click')
