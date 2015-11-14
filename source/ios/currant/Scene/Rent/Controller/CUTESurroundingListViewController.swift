@@ -166,6 +166,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
             surroundingCell.typeButton.addTarget(self, action: "onTypeButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
             surroundingCell.durationButton.addTarget(self, action: "onDurationButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
             surroundingCell.removeButton.addTarget(self, action: "onRemoveButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            surroundingCell.removeButton.hitTestEdgeInsets = UIEdgeInsetsMake(-10, -10, -10, -10)
         }
         let surroundings = form.ticket.property.surroundings as! [CUTESurrounding]
         let surrounding = surroundings[indexPath.row]
