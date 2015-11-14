@@ -510,7 +510,7 @@
                                 <span class="addBtn" data-bind="visible: surroudingToAdd().traffic_time && surroudingToAdd().traffic_time.length, click: addSurrouding">{{_('添加')}}</span>
                             </div>
                             <div>
-                                <ul class="surrounding" data-bind="foreach: { data: surrouding, as: 'item' }, css: {shrink: !isShowAll()}, style: {maxHeight: surrouding().length * 40 + 'px'}">
+                                <ul class="surrounding" data-bind="foreach: { data: !isShowAll() ? surrouding.slice(0,10) : surrouding, as: 'item' }, css: {shrink: !isShowAll()}, style: {maxHeight: surrouding().length * 40 + 'px'}">
                                     <li>
                                         <i data-bind="css: type.currency"></i>
                                         <span class="name" data-bind="text: name"></span>
