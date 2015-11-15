@@ -1450,9 +1450,11 @@ class f_currant_plugins(f_app.plugin_base):
         try:
             property = f_app.property.get(task["property_id"])
         except:
+            self.logger.warning("Invalid property to assign short id:", task["property_id"])
             return
 
         if "short_id" in property:
+            self.logger.debug("Short id already exist for property", task["property_id"], ", ignoring assignment.")
             return
 
         self.logger.debug("Looking for a free short id for property", task["property_id"])
