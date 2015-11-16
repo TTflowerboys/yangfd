@@ -14,6 +14,12 @@
                 data = misc.formatUnsetField(data)
                 return $http.post('/api/1/rent_ticket/' + id + '/edit', data, config)
             },
+            refresh: function (id, config) {
+                return $http.post('/api/1/rent_ticket/' + id + '/refresh', config)
+            },
+            rentOut: function (id, config) {
+                return $http.post('/api/1/rent_ticket/' + id + '/edit', {status: 'rent'}, config)
+            },
             suspend: function (id, config) {
                 return $http.post('/api/1/rent_ticket/' + id + '/suspend', config)
             },

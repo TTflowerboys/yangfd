@@ -1,6 +1,6 @@
 (function () {
 
-    function ctrlRentList($scope, fctModal, api, $state, $timeout, userApi) {
+    function ctrlRentList($scope, fctModal, api, $state, $rootScope, growl, $timeout, userApi) {
 
         $scope.list = []
         $scope.perPage = 12
@@ -62,15 +62,32 @@
         }
 
         $scope.onRemove = function (item) {
-            fctModal.show(i18n('Do you want to remove it?'), undefined, function () {
+            fctModal.show(i18n('确认删除该房源?'), undefined, function () {
                 api.remove(item.id, {errorMessage: true}).success(function () {
                     $scope.list.splice($scope.list.indexOf(item), 1)
                 })
             })
         }
 
+        $scope.onRefresh = function (item) {
+            fctModal.show(i18n('确认刷新该房源?'), undefined, function () {
+                api.refresh(item.id, {errorMessage: true}).success(function () {
+                    growl.addSuccessMessage($rootScope.renderHtml(i18n('已刷新')),
+                        {enableHtml: true})
+                })
+            })
+        }
+
         $scope.onSuspend = function (item) {
-            fctModal.show(i18n('Do you want to suspend it and send email to notify owner?'), undefined, function () {
+            fctModal.show(i18n('确认该房源已租出?'), undefined, function () {
+                api.rentOut(item.id, {errorMessage: true}).success(function () {
+                    location.reload()
+                })
+            })
+        }
+
+        $scope.onSuspend = function (item) {
+            fctModal.show(i18n('确认下架该房源并通知房东?'), undefined, function () {
                 api.suspend(item.id, {errorMessage: true}).success(function () {
                     location.reload()
                 })
