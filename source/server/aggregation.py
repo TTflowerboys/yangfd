@@ -14,7 +14,7 @@ with f_app.mongo() as m:
     # Configure global filter params here
     # TODO
 
-    # 用户总数
+    '''# 用户总数
     total_user_count = m.users.count()
     cursor = m.users.aggregate(
         [
@@ -510,7 +510,7 @@ with f_app.mongo() as m:
         if target_property and 'name' in target_property:
             print(target_property['name'].encode('utf-8'), ", ", target_property['id'], ':', property_viewed_count_dic[str(target_property['id'])])
 
-    # 分邮件类型来统计邮件发送和打开的状态
+    '''# 分邮件类型来统计邮件发送和打开的状态
     print('\n分邮件类型来统计邮件发送成功,打开和点击的百分比:')
     # 计算每类邮件的总数
 
@@ -558,6 +558,9 @@ with f_app.mongo() as m:
                 var event = this.email_status_set;
                 var event_detail = this.email_status_detail;
                 if (event) {
+                    if (event_detail.length > 0) {
+                        emit("total_email", 1)
+                    }
                     event.forEach(function(e) {
                         emit(e, 1);
                         if (event_detail) {
@@ -590,5 +593,5 @@ with f_app.mongo() as m:
         click_unique = final_result.get("click", 0)
         click_times = final_result.get("click (repeat)", 0)
         delivered_times = final_result.get("delivered", 0)
-        total_email = len(tag["value"]["a"])
+        total_email = final_result.get("total_email", 0)
         print ("%6d%30s%6d%10d%9.2f%%%10d%9.2f%%%10d%10d%9.2f%%%10d" % (index, tag["_id"], total_email, delivered_times, 100*delivered_times/total_email, open_unique, 100*open_unique/total_email, open_times, click_unique, 100*click_unique/total_email, click_times))
