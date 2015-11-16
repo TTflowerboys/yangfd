@@ -951,15 +951,8 @@ class f_currant_plugins(f_app.plugin_base):
                     tag="rent_ticket_publish_success",
                 )
 
-            if "property_id" in ticket:
-                # Well, there really should be.
-                property = f_app.property.get(ticket["property_id"])
-                user = f_app.user.get(f_app.user.login.get())
-                assert property.get("user_generated") == True, abort(40000, "Invalid property for ticket")
-                if not set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation", "developer", "agency"]):
-                    assert property["user_id"] == user["id"], abort(40300, "Non-admin could only edit his own generated properties")
-
-                f_app.property.update_set(ticket["property_id"], {"status": "selling"})
+            assert ticket["property"].get("user_generated") == True, abort(40000, "Invalid property for ticket")
+            f_app.property.update_set(ticket["property"]["id"], {"status": "selling"})
 
         elif ticket["type"] == "rent_intention" and "status" in params and params["status"] == "new":
             f_app.task.add(dict(
