@@ -13,15 +13,6 @@ f_app.common.memcache_server = ["172.20.101.98:11211"]
 f_app.common.mongo_server = "172.20.101.98"
 
 
-def get_data_directly(user, part, deep=None):
-    if user is None:
-        return
-    user_part = user.get(part, None)
-    if (user_part is not None) and (deep is not None):
-        return user.get(part).get(deep, None)
-    return user_part
-
-
 def get_data_directly_as_str(user, part, deep=None):
     if user is None:
         return ''
@@ -156,15 +147,6 @@ def get_has_flag(user, target, condition, comp_element, want_value):
     return want_value in dic.get(comp_element, None)
 
 
-def get_max(user, target, condition, comp_element):
-    dic = get_data_complex(user, target, condition, comp_element)
-    element_list = dic.get(comp_element, None)
-    element_list.sort()
-    if element_list is not None and len(element_list):
-        return element_list[0]
-    return ''
-
-
 def get_correct_col_index(num):
     if num > 26*26:
         return "ZZ"
@@ -279,31 +261,6 @@ def get_match(ticket):
     if "perfect_match" in ticket.get("tags", []):
         match.append("完全满足")
     return '/'.join(match)
-
-
-def get_log_with_id(user, params={}):
-    user_id = user.get("id", None)
-    if user_id is None:
-        return None
-    params.update({"id": ObjectId(user_id)})
-    select_log = f_app.log.output(f_app.log.search(params, per_page=-1), permission_check=False)
-    if select_log is None:
-        return []
-    return select_log
-
-
-def get_log_condition(logs, params):
-    log_list = []
-    if len(params) == 1:
-        log_list = logs.copy()
-        for log in logs:
-            if log.get(params.keys()[0], None) != params.values()[0]:
-                log_list.remove(log)
-        print len(log_list), " logs left."
-        return log_list
-    else:
-        for condition, condition_value in params.iteritems():
-            log_list = get_log_condition(log_list, {condition: condition_value})
 
 
 def logs_content_view(user):
