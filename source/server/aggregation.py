@@ -414,7 +414,7 @@ with f_app.mongo() as m:
     )
 
     for document in cursor:
-        print(document['_id'].encode('utf-8') + ':' + document['count'])
+        print(document['_id'].encode('utf-8'), ':', document['count'])
 
     # 被查看过联系方式的房源数量和被查看总次数的统计
     # TODO
