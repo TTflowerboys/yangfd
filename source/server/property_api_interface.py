@@ -564,6 +564,8 @@ def property_edit(property_id, user, params):
     9. Submit another edit while an existing one still in its life cycle will cause an error.
 
     All statuses, for reference: ``draft``, ``not translated``, ``translating``, ``rejected``, ``not reviewed``, ``selling``, ``hidden``, ``sold out``, ``deleted``, ``restricted``.
+
+    ``user_generated`` needs to be set upon creation of the property if it's for a rent ticket.
     """
 
     if "partner" in params:
