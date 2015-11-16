@@ -71,6 +71,42 @@
                 </div>
             </form>
             %elif user and set(user.get('role')) & set(['jr_admin','admin','jr_operation','operation']):
+            <!--管理员从Dashboard过来编辑用户房产-->
+                %if request.params.get('editor','') == 'admin':
+            <form id="form2">
+                <div class="formGroup">
+                    <p>{{_('您正在编辑用户房产，请点击下面的发布按钮完成编辑')}}</p>
+                </div>
+                <div class="formGroup">
+                    <label>{{_('姓名')}}</label>
+                    <span>{{rent.get('user',{}).get('nickname','')}}</span>
+                </div>
+                <div class="formGroup">
+                    <label for="email">{{_('邮箱')}}</label>
+                    <span>{{rent.get('user',{}).get('email','')}}</span>
+                    <!--<p class="addContactWrap">
+                        <input type="checkbox" id="addContact-email" checked="checked" data-addContact="email"/><label class="addContactLabel" for="addContact-email">{{_('展示邮箱给注册租客')}}</label>
+                    </p>-->
+                </div>
+                <div class="formGroup">
+                    <label for="phone">{{_('手机号')}}</label>
+                    <span>{{rent.get('user',{}).get('phone','')}}</span>
+                    <!--<p class="addContactWrap">
+                        <input type="checkbox" id="addContact-phone" checked="checked" data-addContact="phone"/><label class="addContactLabel" for="addContact-phone">{{_('展示电话给注册租客')}}</label>
+                    </p>-->
+                </div>
+                <!--<div class="formGroup">
+                    <label for="email">{{_('微信号')}}</label>
+                    <input type="text" id="wechat" name="wechat" data-validator="trim" data-addContact="wechat" value="{{user.get('wechat','')}}"/>
+                </div>
+
+                <div class="formGroup">
+                    <label></label>
+                    <span>{{_('您选择的联系方式仅展示给平台注册的租客')}}</span>
+                </div>-->
+            </form>
+
+                %else:
             <!--管理员账号登陆，可以代发的流程-->
             <form id="form2" data-admin="true">
                 <div class="formGroup">
@@ -165,6 +201,7 @@
                     <span>{{_('您选择的联系方式仅展示给平台注册的租客')}}</span>
                 </div>
             </form>
+                %end
             %else:
             <!--已登录需要增加选择联系方式流程-->
             <form id="form2">

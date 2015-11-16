@@ -123,7 +123,9 @@
                     <a class="btn btn-info" href ui-sref=".edit({id:item.id})" title="Edit">
                         <i class="fa fa-edit "></i>
                     </a>
-
+                    <a class="btn btn-info" target="_blank" ng-href="/property-to-rent/{% item.id %}/edit?editor=admin" title="{% $root.i18n('去用户端房源页面编辑该房产') %}">
+                        <i class="fa fa-pencil"></i>
+                    </a>
                     <span has-permission="admin,jr_admin" class="btn btn-warning" ng-click="onSuspend(item,$index)" title="{%$root.i18n('下架并通知')%}">
                         <i class="fa fa-minus-circle"></i>
                     </span>

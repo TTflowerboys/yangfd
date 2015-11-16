@@ -194,7 +194,7 @@ def property_to_rent_edit(rent_ticket_id, user):
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=fuzzy_user_info)[0])
 
     # 如果没有登录或者登录用户既不是房产的user也不是creator_user则跳转到首页
-    if not (user and (user.get('id') == rent_ticket.get('user', {}).get('id') or user.get('id') == rent_ticket.get('creator_user', {}).get('id'))):
+    if not (user and (user.get('id') == rent_ticket.get('user', {}).get('id') or user.get('id') == rent_ticket.get('creator_user', {}).get('id') or (set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"])))):
         redirect('/')
 
     keywords = title + ',' + currant_util.get_country_name_by_code(rent_ticket["property"].get('country', {}).get('code', '')) + ',' + rent_ticket["property"].get('city', {}).get('name', '') + ','.join(currant_util.BASE_KEYWORDS_ARRAY)

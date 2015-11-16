@@ -1105,23 +1105,29 @@
                 return deferred.promise()
             }*/
             function editUser () {
-                var deferred = $.Deferred()
-                var privateContactMethods = getPrivateContactMethods()
-                if(privateContactMethods.length === 3) {
-                    $errorMsg2.html(i18n('请至少展示一种联系方式给租客')).show()
-                    $btn.text(window.i18n('重新发布')).prop('disabled', false)
-                    return deferred.reject()
+                var deferred = $.Deferred(),
+                    privateContactMethods,
+                    params
+                if(window.team.getQuery('editor') !== 'admin') {
+                    privateContactMethods = getPrivateContactMethods()
+                    if(privateContactMethods.length === 3) {
+                        $errorMsg2.html(i18n('请至少展示一种联系方式给租客')).show()
+                        $btn.text(window.i18n('重新发布')).prop('disabled', false)
+                        return deferred.reject()
+                    }
+                    params = {private_contact_methods: JSON.stringify(privateContactMethods)}
+                    if($('#wechat').val()) {
+                        params.wechat = $('#wechat').val()
+                    }
+                    $.betterPost('/api/1/user/edit', params)
+                        .done(function (val) {
+                            deferred.resolve(val)
+                        }).fail(function (ret) {
+                            deferred.reject(ret)
+                        })
+                } else {
+                    deferred.resolve()
                 }
-                var params = {private_contact_methods: JSON.stringify(privateContactMethods)}
-                if($('#wechat').val()) {
-                    params.wechat = $('#wechat').val()
-                }
-                $.betterPost('/api/1/user/edit', params)
-                    .done(function (val) {
-                        deferred.resolve(val)
-                    }).fail(function (ret) {
-                        deferred.reject(ret)
-                    })
                 return deferred.promise()
             }
             if(isDelegate()) {
