@@ -755,6 +755,264 @@ class f_currant_user(f_user):
     def favorite_update_set(self, favorite_id, params):
         return self.favorite_update(favorite_id, {"$set": params})
 
+    """
+    ==================================================================
+    User Data Analyze Module
+    ==================================================================
+    """
+
+    def analyze_data_get(self, user_id, realtime=False):
+        if realtime is False:
+            result = self.get(user_id)
+            if result is None:
+                return {}
+            return result.get("analyze_data", {})
+        else:
+            result_analyze = self.analyze_data_generate(user_id)
+            return {"analyze_data": result_analyze}
+
+    def analyze_data_update(self, user_id):
+        self.update_set(user_id, self.analyze_data_get(user_id, realtime=True))
+
+    def analyze_data_generate(self, user_id):
+
+        def get_all_enum_value(enum_singlt_type):
+            enum_list_subdic = {}
+            for enumitem in f_app.i18n.process_i18n(f_app.enum.get_all(enum_singlt_type)):
+                enum_list_subdic.update({enumitem["id"]: enumitem["value"]})
+            enum_type_list.update({enum_singlt_type: enum_list_subdic})
+
+        def get_data_enum(user, enum_name):
+            if user is None:
+                return
+            if enum_name not in enum_type_list:
+                get_all_enum_value(enum_name)
+            single = user.get(enum_name, None)
+            value_list = []
+            if f_app.util.batch_iterable(single):
+                for true_single in single:
+                    if true_single is None:
+                        continue
+                    enum_id = true_single.get("id", None)
+                    value = enum_type_list[enum_name].get(enum_id, None)
+                    value_list.append(value)
+            elif single is not None:
+                if single.get("id", None):
+                    enum_id = unicode(single.get("id", None))
+                    value = enum_type_list[enum_name].get(enum_id, None)
+                    if value is not None:
+                        value_list.append(value)
+            if not f_app.util.batch_iterable(value_list):
+                value_list = [value_list]
+            value_set = set(value_list)
+            value_list = list(value_set)
+            return unicode('/'.join(value_list))
+
+        def get_active_days(user):
+            func_map = Code('''
+                function() {
+                    key = new Date(this.time.getFullYear(), this.time.getMonth(), this.time.getDate());
+                    emit(key, 1);
+                }
+            ''')
+            func_reduce = Code('''
+                function(key, value) {
+                    return Array.sum(value);
+                }
+            ''')
+            user_id = user.get("id", None)
+            if user_id is None:
+                return ''
+            with f_app.mongo() as m:
+                f_app.log.get_database(m).map_reduce(func_map, func_reduce, "log_result", query={"id": ObjectId(user_id)})
+                active_days = m.log_result.find().count()
+            return active_days
+
+        def check_download(user):
+            user_id = user.get('id', None)
+            credit = f_app.user.credit.get("view_rent_ticket_contact_info", user_id).get("credits", [])
+            for single in credit:
+                if single.get("tag", None) == "download_ios_app":
+                    return True
+            return False
+
+        def get_data_complex(user, target, condition, element):
+
+            '''this func make dict provide get_data_enum to use.
+            with user's id and 'condition' to search in the database 'target'
+            then gether element in search result, make a new dict return
+            '''
+            dic = {}
+            user_id = user.get("id", None)
+            if '.' in target:
+                t_target = target.split('.')
+                target_database = getattr(getattr(f_app, t_target[0]), t_target[1])
+            else:
+                target_database = getattr(f_app, target)
+            condition.update({"$or": [{"user_id": ObjectId(user_id)},
+                                      {"creator_user_id": ObjectId(user_id)}]})
+            select_item = target_database.get(target_database.search(condition, per_page=-1))
+            element_list = []
+            for ticket in select_item:
+                element_list.append(ticket.get(element, None))
+            dic.update({element: element_list})
+            return dic
+
+        def get_has_flag(user, target, condition, comp_element, want_value):
+            dic = get_data_complex(user, target, condition, comp_element)
+            return want_value in dic.get(comp_element, None)
+
+        def get_ticket_newest(user, add_condition={}):
+            user_id = user.get("id", None)
+            if user_id is None:
+                return {}
+            condition = ({"type": "rent",
+                          "$or": [{"user_id": ObjectId(user_id)},
+                                  {"creator_user_id": ObjectId(user_id)}]})
+            condition.update(add_condition)
+            time_list = []
+            select_item = f_app.ticket.get(f_app.ticket.search(condition, per_page=-1))
+            if select_item is None:
+                return {}
+            for single in select_item:
+                curtime = single.get("time", None)
+                time_list.append(curtime)
+            if len(time_list) < 1:
+                return {}
+            time_list.sort()
+            for single in select_item:
+                curtime = single.get("time", None)
+                if curtime == time_list[0]:
+                    return single
+            return {}
+
+        def get_detail_address(ticket):
+            ticket = f_app.i18n.process_i18n(ticket)
+            if f_app.util.batch_iterable(ticket.get("maponics_neighborhood", {})):
+                maponics_neighborhood = ticket.get("maponics_neighborhood", {})[0]
+            else:
+                maponics_neighborhood = ticket.get("maponics_neighborhood", {})
+            return ' '.join([ticket.get("country", {}).get("code", ''),
+                             ticket.get("city", {}).get("name", ''),
+                             maponics_neighborhood.get("name", ''),
+                             ticket.get("address", ''),
+                             ticket.get("zipcode_index", '')])
+
+        def get_address(user):
+            property_id = get_data_complex(user, "ticket", {"type": "rent"}, "property_id").get("property_id", [])
+            if len(property_id) < 1:
+                return ''
+            elif len(property_id) > 1:
+                return 'M'
+            else:
+                return get_detail_address(f_app.property.get(property_id[0]))
+
+        def logs_rent_ticket(user):
+            user_id = user.get("id", None)
+            if user_id is None:
+                return ''
+            with f_app.mongo() as m:
+                return unicode(f_app.log.get_database(m).find({"id": ObjectId(user_id),
+                                                               "type": "route",
+                                                               "rent_ticket_id": {"$exists": True}
+                                                               }).count())
+
+        def get_count(user, target, condition, element, comp):
+            dic = get_data_complex(user, target, condition, element)
+            if dic.get(element, []) is None:
+                return '0'
+            return dic.get(element, []).count(comp)
+
+        def time_period_label(ticket):
+            if ticket is None:
+                return ''
+            time = ""
+            period_start = ticket.get("rent_available_time", None)
+            period_end = ticket.get("rent_deadline_time", None)
+            if period_end is None or period_start is None:
+                time = "不明"
+            else:
+                period = period_end - period_start
+                if period.days >= 365:
+                    time = "longer than 12 months"
+                elif 365 > period.days >= 180:
+                    time = "6 - 12 months"
+                elif 180 >= period.days > 90:
+                    time = "3 - 6 months"
+                elif period.days <= 30:
+                    time = "less than 1 month"
+            return time
+
+        def get_budget(ticket):
+            if ticket is None:
+                return ''
+            budget_min = unicode(ticket.get("rent_budget_min", {}).get("value", '不限'))
+            budget_max = unicode(ticket.get("rent_budget_max", {}).get("value", '不限'))
+            if budget_max is None or budget_min is None:
+                return ''
+            elif not budget_max == '不限' and budget_min == '不限':
+                return budget_min+'~~'+budget_max
+
+        def get_match(ticket):
+            match = []
+            if "partial_match" in ticket.get("tags", []):
+                match.append("部分满足")
+            if "perfect_match" in ticket.get("tags", []):
+                match.append("完全满足")
+            return '/'.join(match)
+
+        def logs_content_view(user):
+            user_id = user.get("id", None)
+            if user_id is None:
+                return ''
+            with f_app.mongo() as m:
+                return unicode(f_app.log.get_database(m).find({"id": ObjectId(user_id), "type": "rent_ticket_view_contact_info"}).count())
+
+        def logs_property(user):
+            user_id = user.get("id", None)
+            if user_id is None:
+                return ''
+            with f_app.mongo() as m:
+                return unicode(f_app.log.get_database(m).find({"id": ObjectId(user_id),
+                                                               "type": "route",
+                                                               "property_id": {"$exists": True}
+                                                               }).count())
+
+        enum_type_list = {}
+        user = self.get(user_id)
+        if user is None:
+            user = {}
+        result = {}
+        result.update({"nickname": user.get("nickname", '')})
+        result.update({"register_time": user.get("register_time")})
+        result.update({"county": user.get("country", {}).get("code", '')})
+        result.update({"user_type": get_data_enum(user, "user_type")})
+        result.update({"active_days": get_active_days(user)})
+        result.update({"downloaded": "已下载" if check_download(user) else "未下载"})
+        result.update({"rent_landlord_type": get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "landlord_type"), "landlord_type")})
+        result.update({"rent_has_draft": "有" if get_has_flag(user, "ticket", {"type": "rent"}, "status", "draft") else "无"})
+        result.update({"rent_commit_time": get_ticket_newest(user, {"type": "rent"}).get("time", '')})
+        result.update({"rent_local": get_address(user)})
+        result.update({"rent_estate_views_times": logs_rent_ticket(user)})
+        result.update({"rent_estate_total": get_count(user, "ticket", {"type": "rent"}, "type", "rent")})
+        result.update({"rent_single_or_whole": get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "rent_type"), "rent_type")})
+        result.update({"rent_period_range": time_period_label(get_ticket_newest(user))})
+        result.update({"rent_price": get_ticket_newest(user).get("price", {}).get("value", "")})
+        result.update({"rent_time": get_ticket_newest(user, {"type": "rent", "status": "rent"}).get("time", '')})
+        result.update({"rent_intention_time": get_ticket_newest(user, {"type": "rent_intention", "status": "new"}).get("time", '')})
+        result.update({"rent_intention_budget": get_budget(get_ticket_newest(user, {"type": "rent_intention"}))})
+        result.update({"rent_intention_local": get_address(get_ticket_newest(user, {"type": "rent_intention", "status": "new"}))})
+        result.update({"rent_intention_match_level": get_match(get_ticket_newest(user, {"type": "rent_intention", "status": "new"}))})
+        result.update({"rent_intention_views_times": logs_rent_ticket(user)})
+        result.update({"rent_intention_favorite_times": get_count(user, "user.favorite", {"type": "property"}, "type", "property")})
+        result.update({"rent_intention_view_contact_times": logs_content_view(user)})
+        result.update({"intention_time": get_ticket_newest(user, {"type": "intention"}).get("time", '')})
+        result.update({"intention_budget": get_budget(get_ticket_newest(user, {"type": "intention"}))})
+        result.update({"intention_views_times": logs_property(user)})
+
+        return {"analyze_data": result}
+
+
 f_currant_user()
 
 
