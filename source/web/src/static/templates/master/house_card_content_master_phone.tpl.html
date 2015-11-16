@@ -3,7 +3,7 @@
     %if is_mobile_client():
     href="#" onclick="window.bridge.callHandler(&quot;openURLInNewController&quot;, '/property/{=house.id=}');return false;"
     %else:
-    href="/property/{=house.id=}"
+    href="/property/{=house.id=}" target="_blank"
     %end
     data-need-bridge
     >

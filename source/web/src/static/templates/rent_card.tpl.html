@@ -4,7 +4,7 @@
             %if is_mobile_client():
                 href="#" onclick="window.bridge.callHandler(&quot;openURLInNewController&quot;, '/property-to-rent/{=rent.id=}');return false;"
             %else:
-            href="/property-to-rent/{=rent.id=}"
+                href="/property-to-rent/{=rent.id=}" target="_blank"
             %end
             data-need-bridge
             >

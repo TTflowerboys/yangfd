@@ -1,15 +1,15 @@
 <!--@@placeholder=var -->
 <div class="imagePart">
     {_if (house.cover){_}
-    <a href="/property/{=house.id=}">
+    <a href="/property/{=house.id=}" target="_blank">
         <img src="{=team.convertToHttps({'link':house.cover, 'property_id':house.id, 'thumbnail':true})=}" width=320 height=213 onerror="window.onImgError(this);"/>
     </a>
     {_ } else if(house.reality_images && house.reality_images.length) {_}
-    <a href="/property/{=house.id=}">
+    <a href="/property/{=house.id=}" target="_blank">
         <img src="{=team.convertToHttps({'link':house.reality_images[0], 'property_id':house.id, 'thumbnail':true})=}" width=320 height=213 onerror="window.onImgError(this);"/>
     </a>
     {_ }else { _}
-    <a href="/property/{=house.id=}">
+    <a href="/property/{=house.id=}" target="_blank">
         <img class="withPlaceholder" width="320" height="213"/>
     </a>
     {_}_}
@@ -35,13 +35,13 @@
 
 <div class="description_wrapper">
     % if not ('no_link' in vars() or 'no_link' in globals()):
-    <a class="description" href="/property/{=house.id=}">
+    <a class="description" href="/property/{=house.id=}" target="_blank">
     % else:
     <div class="description">
     % end
         <h1 class=name>
         % if ('no_link' in vars() or 'no_link' in globals()):
-        <a class="description" href="/property/{=house.id=}">
+        <a class="description" href="/property/{=house.id=}" target="_blank">
         % end
             {_if (house.country){_}
             {=window.team.countryMap[house.country.code]=}
