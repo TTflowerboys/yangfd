@@ -8,51 +8,6 @@
 
 import UIKit
 
-//http://stackoverflow.com/questions/25770119/ios-8-uitableview-separator-inset-0-not-working
-
-extension UITableViewCell {
-    func removeMargins() {
-
-        if self.respondsToSelector("setSeparatorInset:") {
-            self.separatorInset = UIEdgeInsetsZero
-        }
-
-        if self.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
-            if #available(iOS 8.0, *) {
-                self.preservesSuperviewLayoutMargins = false
-            } else {
-                // Fallback on earlier versions
-            }
-        }
-
-        if self.respondsToSelector("setLayoutMargins:") {
-            if #available(iOS 8.0, *) {
-                self.layoutMargins = UIEdgeInsetsZero
-            } else {
-                // Fallback on earlier versions
-            }
-        }
-    }
-}
-
-extension UITableView {
-    func removeMargins() {
-        self.separatorInset = UIEdgeInsetsZero
-
-        if #available(iOS 8.0, *) {
-            self.layoutMargins = UIEdgeInsetsZero
-            self.preservesSuperviewLayoutMargins = false
-        } else {
-            // Fallback on earlier versions
-        }
-        if #available(iOS 9.0, *) {
-            self.cellLayoutMarginsFollowReadableWidth = false
-        } else {
-            // Fallback on earlier versions
-        }
-    }
-}
-
 
 @objc(CUTESurroundingListViewController)
 class CUTESurroundingListViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
@@ -61,7 +16,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     private var searchResultSurroundings:[CUTESurrounding] = []
     var postcodeIndex:String?
     internal var searchController:UISearchDisplayController?
-    internal var searchBarHeader:UIView?
+    internal var searchBarBackground:UIView?
 
 
     init(form:CUTESurroundingForm) {
@@ -95,12 +50,11 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, block: { (sender) -> Void in
 
             if self.view.window != nil {
-                //TODO update searchbar style by more stable way, not this tricky way
                 let searchBar = UISearchBar(frame: CGRectMake(0, 20, self.view.frame.size.width, 44))
                 searchBar.backgroundImage = UIImage()
                 searchBar.tintColor = UIColor(hex6: 0xdd3f3d)
-                searchBar.barTintColor = UIColor(hex6: 0x505050)
-                searchBar.backgroundColor = UIColor(hex6: 0x505050)
+                searchBar.barTintColor = UIColor.clearColor()
+                searchBar.backgroundColor = UIColor.clearColor()
                 searchBar.delegate = self
                 self.searchController = UISearchDisplayController(searchBar: searchBar, contentsController: self)
                 self.searchController?.delegate = self
@@ -110,10 +64,21 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                 self.searchController?.searchResultsTableView.contentInset = UIEdgeInsetsMake(searchBar.frame.size.height, 0, 0, 0);
                 self.searchController?.searchResultsTableView.removeMargins()
 
+
+                self.searchBarBackground = UIView(frame:CGRectMake(0, 0, self.view.frame.size.width, 64))
+                self.searchBarBackground?.backgroundColor = UIColor(hex6: 0x333333)
+
+                //Notice，模仿 UINavigationBar 加了两个辅助的view 实现背景色，
+                let blurView = UIView(frame:self.searchBarBackground!.bounds)
+                blurView.backgroundColor = UIColor(hex8:0xF7F7F780)
+                let frontGroundView = UIView(frame: self.searchBarBackground!.frame)
+                frontGroundView.backgroundColor = UIColor(hex6: 0x333333)
+                frontGroundView.alpha = 0.85
+                self.searchBarBackground?.addSubview(blurView)
+                self.searchBarBackground?.addSubview(frontGroundView)
+
+                self.navigationController?.view.addSubview(self.searchBarBackground!)
                 self.navigationController?.view.addSubview(searchBar)
-                self.searchBarHeader = UIView(frame:CGRectMake(0, 0, self.view.frame.size.width, 20))
-                self.searchBarHeader?.backgroundColor = UIColor(hex6: 0x505050)
-                self.navigationController?.view.addSubview(self.searchBarHeader!)
                 self.navigationController?.setNavigationBarHidden(true, animated: false)
                 self.searchController?.setActive(true, animated: true)
                 self.searchController?.searchBar.becomeFirstResponder()
@@ -233,10 +198,10 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
         UIView.animateWithDuration(0.4, animations: { () -> Void in
             self.searchController?.searchBar.alpha = 0
-            self.searchBarHeader?.alpha = 0
+            self.searchBarBackground?.alpha = 0
             }, completion: { (stop:Bool) -> Void in
                 self.searchController?.searchBar.removeFromSuperview()
-                self.searchBarHeader?.removeFromSuperview()
+                self.searchBarBackground?.removeFromSuperview()
         })
     }
 
