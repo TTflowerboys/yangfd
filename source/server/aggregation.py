@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+from __future__ import unicode_literals, print_function
 from pymongo import MongoClient
 from datetime import datetime
 from app import f_app
@@ -22,9 +22,9 @@ with f_app.mongo() as m:
             {'$group': {'_id': None, 'totalUsersCount': {'$sum': 1}}}
         ]
     )
-    print('用户总数:' + str(total_user_count))
+    print('用户总数:', total_user_count)
     for document in cursor:
-        print('注册用户总数:' + str(document['totalUsersCount']))
+        print('注册用户总数:', document['totalUsersCount'])
 
     # 按角色统计用户
     print('\n按角色统计用户:')
@@ -36,7 +36,7 @@ with f_app.mongo() as m:
     )
 
     for document in cursor:
-        print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
+        print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
 
     # 出租房数量
     print('\n出租房数量:')
@@ -91,7 +91,7 @@ with f_app.mongo() as m:
     }
 
     for document in cursor:
-        print(status_dic[document['_id']] + ':' + str(document['count']))
+        print(status_dic[document['_id']], ':', document['count'])
 
     # 出租房出租类型统计
     print('\n出租房出租类型统计:')
@@ -104,7 +104,7 @@ with f_app.mongo() as m:
 
     for document in cursor:
         if(document['_id']):
-            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
 
     # 出租房出租类型统计
     print('\n正在发布中的房源里的出租类型统计:')
@@ -117,7 +117,7 @@ with f_app.mongo() as m:
 
     for document in cursor:
         if(document['_id']):
-            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
 
     # 正在发布中的房源里的房东类型统计
     print('\n正在发布中的房源里的房东类型统计:')
@@ -130,7 +130,7 @@ with f_app.mongo() as m:
 
     for document in cursor:
         if(document['_id']):
-            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
 
     # 正在发布中的整套房源里的房东类型统计
     print('\n正在发布中的整套房源里的房东类型统计:')
@@ -143,7 +143,7 @@ with f_app.mongo() as m:
 
     for document in cursor:
         if(document['_id']):
-            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
 
     # 正在发布中的房源里按最短接受租期的统计:
     # 日租<1month 1month<=中短<3month <=3month中长<6month >=6month长租
@@ -191,11 +191,11 @@ with f_app.mongo() as m:
             if(period['value'] >= 12.0):
                 period_count['extra_long'] += document['count']
 
-    print('日租<1month:' + str(period_count['short']))
-    print('1month<=中短<3month:' + str(period_count['short_middle']))
-    print('>=3month中长<6month:' + str(period_count['middle_long']))
-    print('>=6month长租<12month:' + str(period_count['long']))
-    print('>=12month:' + str(period_count['extra_long']))
+    print('日租<1month:', period_count['short'])
+    print('1month<=中短<3month:', period_count['short_middle'])
+    print('>=3month中长<6month:', period_count['middle_long'])
+    print('>=6month长租<12month:', period_count['long'])
+    print('>=12month:', period_count['extra_long'])
 
     # 出租房出租类型统计
     print('\n已经出租的房源里的出租类型统计:')
@@ -208,7 +208,7 @@ with f_app.mongo() as m:
 
     for document in cursor:
         if(document['_id']):
-            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + document['count'])
 
     # 求租意向单数量
     cursor = m.tickets.aggregate(
@@ -218,7 +218,7 @@ with f_app.mongo() as m:
         ]
     )
     for document in cursor:
-        print('\n求租意向单总数：' + str(document['count']))
+        print('\n求租意向单总数：' + document['count'])
 
     cursor = m.tickets.aggregate(
         [
@@ -228,7 +228,7 @@ with f_app.mongo() as m:
         ]
     )
     for document in cursor:
-        print(f_app.geonames.gazetteer.get(document['_id']['_id'])['name'] + ': ' + str(document['count']))
+        print(f_app.geonames.gazetteer.get(document['_id']['_id'])['name'] + ': ' + document['count'])
 
     # 按出租类型统计伦敦求租意向单
     print('\n按单间整租统计伦敦求租意向单:')
@@ -241,7 +241,7 @@ with f_app.mongo() as m:
 
     for document in cursor:
         if(document['_id']):
-            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + str(document['count']))
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + document['count'])
 
     # 按预算统计伦敦求租意向单
     print('\n统计200镑以上的伦敦求租意向单:')
@@ -287,7 +287,7 @@ with f_app.mongo() as m:
     )
 
     for document in cursor:
-        print('总数:' + str(document['count']))
+        print('总数:' + document['count'])
 
     # 按街区统计伦敦求租意向单
     print('\n伦敦填写了街区的求租意向单:')
@@ -298,7 +298,7 @@ with f_app.mongo() as m:
         ]
     )
     for document in cursor:
-        print('总数:' + str(document['count']))
+        print('总数:' + document['count'])
 
     cursor = m.tickets.aggregate(
         [
@@ -317,9 +317,9 @@ with f_app.mongo() as m:
 
     for target_region in target_regions:
         if 'parent_name' in target_region:
-            print(target_region['name'].encode('utf-8') + ',' + target_region['parent_name'].encode('utf-8') + ':' + str(region_rent_intention_count_dic[str(target_region['id'])]))
+            print(target_region['name'].encode('utf-8'), ',', target_region['parent_name'].encode('utf-8'), ':', region_rent_intention_count_dic[str(target_region['id'])])
         else:
-            print(target_region['name'].encode('utf-8') + ':' + str(region_rent_intention_count_dic[str(target_region['id'])]))
+            print(target_region['name'].encode('utf-8'), ':', region_rent_intention_count_dic[str(target_region['id'])])
 
     # 按收藏类型统计
     print('\n按收藏类型统计被收藏过的次数:')
@@ -336,7 +336,7 @@ with f_app.mongo() as m:
 
     for document in cursor:
         if(document['_id']):
-            print(fav_type_dic[document['_id']] + ':' + str(document['count']))
+            print(fav_type_dic[document['_id']], ':', document['count'])
 
     # 按用户统计的收藏出租房的数量排名
     print('\n按用户统计的收藏出租房的数量排名:')
@@ -350,7 +350,7 @@ with f_app.mongo() as m:
     )
 
     for document in cursor:
-        print(f_app.user.output([document['_id']], custom_fields=f_app.common.user_custom_fields)[0]['nickname'].encode('utf-8') + ':' + str(document['count']))
+        print(f_app.user.output([document['_id']], custom_fields=f_app.common.user_custom_fields)[0]['nickname'].encode('utf-8'), ':', document['count'])
 
     # 按用户统计的收藏海外房产的数量排名
     print('\n按用户统计的收藏海外房产的数量排名:')
@@ -370,7 +370,7 @@ with f_app.mongo() as m:
     user_fav_count_dic = OrderedDict(sorted(user_fav_count_dic.items(), key=lambda t: t[1], reverse=True))
     target_users = f_app.user.output(user_fav_count_dic.keys(), custom_fields=f_app.common.user_custom_fields)
     for user in target_users:
-        print(user['nickname'].encode('utf-8') + ':' + str(user_fav_count_dic[str(user['id'])]))
+        print(user['nickname'].encode('utf-8'), ':', user_fav_count_dic[str(user['id'])])
 
     # 查看过联系方式的总用户数和比例和查看总次数
     print('\n查看过联系方式的总用户数和查看总量:')
@@ -384,8 +384,8 @@ with f_app.mongo() as m:
 
     for document in cursor:
         total_requested_contact_user_count = document['totalUsersCount']
-        print('查看过联系方式的总用户数量' + ':' + str(document['totalUsersCount']) + ', ' + '占总用户数的比例为' + format(document['totalUsersCount']*1.0/total_user_count, '.2%'))
-        print('所有查看过联系方式的总次数' + ':' + str(document['totalRequestCount']))
+        print('查看过联系方式的总用户数量', ':', document['totalUsersCount'], ', ', '占总用户数的比例为', format(document['totalUsersCount']*1.0/total_user_count, '.2%'))
+        print('所有查看过联系方式的总次数', ':', document['totalRequestCount'])
 
     # 查看N次联系方式的用户数分布：
     print('\n查看N次联系方式的用户数分布:')
@@ -400,8 +400,8 @@ with f_app.mongo() as m:
         )
 
         for document in cursor:
-            print('查看过' + str(i) + '次联系方式的总用户数量' + ':' + str(document['totalUsersCount'])+ ', ' + '占总查看过联系方式用户数的比例为' + format(document['totalUsersCount']*1.0/total_requested_contact_user_count, '.2%'))
-            print('查看过' + str(i) + '次联系方式的用户总共查看数量' + ':' + str(document['totalRequestCount']))
+            print('查看过', i, '次联系方式的总用户数量', ':', document['totalUsersCount'], ', ', '占总查看过联系方式用户数的比例为', format(document['totalUsersCount']*1.0/total_requested_contact_user_count, '.2%'))
+            print('查看过', i, '次联系方式的用户总共查看数量', ':', document['totalRequestCount'])
 
     # 用户查看联系方式的使用个数
     print('\n用户查看联系方式的使用个数:')
@@ -414,7 +414,7 @@ with f_app.mongo() as m:
     )
 
     for document in cursor:
-        print(document['_id'].encode('utf-8') + ':' + str(document['count']))
+        print(document['_id'].encode('utf-8') + ':' + document['count'])
 
     # 被查看过联系方式的房源数量和被查看总次数的统计
     # TODO
@@ -428,8 +428,8 @@ with f_app.mongo() as m:
     )
 
     for document in cursor:
-        print('被查看过联系方式的房源数量' + ':' + str(document['totalUsersCount']))
-        print('查看过联系方式的总数量' + ':' + str(document['totalRequestCount']))
+        print('被查看过联系方式的房源数量', ':', document['totalUsersCount'])
+        print('查看过联系方式的总数量', ':', document['totalRequestCount'])
 
     # 房源被查看联系方式的个数
     print('\n出租房源被查看联系方式的次数排名:')
@@ -451,11 +451,11 @@ with f_app.mongo() as m:
     target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_ticket_dic.keys(), ignore_nonexist=True, permission_check=False))
     for ticket in target_tickets:
         if ticket is not None:
-            print(ticket['title'].encode('utf-8') + ", " + str(ticket['id']) + ": " + str(target_ticket_dic.get(ticket['id'])))
+            print(ticket['title'].encode('utf-8'), ", ", ticket['id'], ": ", target_ticket_dic.get(ticket['id']))
 
     # 浏览过海外房产总数量
     total_property_views_count = m.log.find({'property_id': {'$exists': 'true'}}).count()
-    print('\n浏览过海外房产总数量: ' + str(total_property_views_count))
+    print('\n浏览过海外房产总数量: ', total_property_views_count)
     cursor = m.log.aggregate(
         [
             {'$match': {'property_id': {'$exists': 'true'}, 'id': None}},
@@ -463,8 +463,8 @@ with f_app.mongo() as m:
         ]
     )
     for document in cursor:
-        print('未注册用户浏览量: ' + str(document['count']))
-    print('注册用户浏览量: ' + str(total_property_views_count - document['count']))
+        print('未注册用户浏览量: ', document['count'])
+    print('注册用户浏览量: ', total_property_views_count - document['count'])
 
     # 浏览过海外房产数量的用户排名
     print('\n浏览过海外房产数量的用户排名:')
@@ -486,7 +486,7 @@ with f_app.mongo() as m:
     target_users = f_app.user.output(user_property_view_count_dic.keys(), custom_fields=f_app.common.user_custom_fields)
 
     for user in target_users:
-        print(user['nickname'].encode('utf-8') + ':' + str(user_property_view_count_dic[str(user['id'])]))
+        print(user['nickname'].encode('utf-8'), ':', user_property_view_count_dic[str(user['id'])])
 
     # 被浏览最多的海外房产排名
     print('\n被浏览最多的海外房产排名:')
@@ -508,7 +508,7 @@ with f_app.mongo() as m:
 
     for target_property in target_properties:
         if target_property and 'name' in target_property:
-            print(target_property['name'].encode('utf-8') + ", " + str(target_property['id']) + ':' + str(property_viewed_count_dic[str(target_property['id'])]))
+            print(target_property['name'].encode('utf-8'), ", ", target_property['id'], ':', property_viewed_count_dic[str(target_property['id'])])
 
     # 分邮件类型来统计邮件发送和打开的状态
     print('\n分邮件类型来统计邮件发送成功,打开和点击的百分比:')
@@ -550,8 +550,8 @@ with f_app.mongo() as m:
     ''')
     result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send"})
     tag_total = result.find().count()
-    print "共有", unicode(tag_total), "类tag"
-    print "%4s%30s%4s%7s%7s%6s%7s%6s%7s%7s%5s" % ("序号", "tag", "总数", "到达量", "到达率", "打开数量", "打开率", "重复打开量", "点击量", "点击率", "重复点击量")
+    print ("共有", tag_total, "类tag")
+    print ("%4s%30s%4s%7s%7s%6s%7s%6s%7s%7s%5s" % ("序号", "tag", "总数", "到达量", "到达率", "打开数量", "打开率", "重复打开量", "点击量", "点击率", "重复点击量"))
     for index, tag in enumerate(result.find()):
         func_status_map = Code('''
             function() {
@@ -591,4 +591,4 @@ with f_app.mongo() as m:
         click_times = final_result.get("click (repeat)", 0)
         delivered_times = final_result.get("delivered", 0)
         total_email = len(tag["value"]["a"])
-        print "%6d%30s%6d%10d%9.2f%%%10d%9.2f%%%10d%10d%9.2f%%%10d" % (index, tag["_id"], total_email, delivered_times, 100*delivered_times/total_email, open_unique, 100*open_unique/total_email, open_times, click_unique, 100*click_unique/total_email, click_times)
+        print ("%6d%30s%6d%10d%9.2f%%%10d%9.2f%%%10d%10d%9.2f%%%10d" % (index, tag["_id"], total_email, delivered_times, 100*delivered_times/total_email, open_unique, 100*open_unique/total_email, open_times, click_unique, 100*click_unique/total_email, click_times))
