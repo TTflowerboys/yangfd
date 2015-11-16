@@ -24,6 +24,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
     //, "hesaUniversity":"hesa_university", "doogalStation":"doogal_station"
     func getAdaptedParamters(parameters: [String: AnyObject]?) -> BFTask! {
         if parameters != nil {
+
             return CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type").continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
                 let types = task.result as! [CUTEEnum]
 

@@ -510,7 +510,7 @@
     }
 
     [SVProgressHUD show];
-    [[[CUTERentTicketPublisher sharedInstance] editTicket:self.form.ticket updateStatus:^(NSString *status) {
+    [[[CUTERentTicketPublisher sharedInstance] previewTicket:self.form.ticket updateStatus:^(NSString *status) {
         [SVProgressHUD showWithStatus:status];
     } cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
         

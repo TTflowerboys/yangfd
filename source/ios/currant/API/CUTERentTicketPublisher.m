@@ -194,81 +194,27 @@
 - (BFTask*)publishTicket:(CUTETicket *)ticket updateStatus:(void (^)(NSString *status))updateStatus
 {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    Sequencer *sequencer = [Sequencer new];
-
-    if (!IsArrayNilOrEmpty([ticket.property realityImages])) {
-        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            if (updateStatus) {
-                updateStatus([NSString stringWithFormat:STR(@"RentTicketPublisher/正在上传图片(%d/%d)..."), 0, ticket.property.realityImages.count]);
-            }
-            [[self uploadImages:ticket.property.realityImages updateStatus:^(NSString *status) {
-                updateStatus(status);
-            } cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
-                if (task.result) {
-                    ticket.property.realityImages = task.result;
-                    if (IsNilNullOrEmpty(ticket.property.cover)) {
-                        ticket.property.cover = [ticket.property.realityImages firstObject];
-                    }
-                    completion(task.result);
-                }
-                else {
-                    [tcs setError:task.error];
-                }
-                return nil;
-            }];
-        }];
+    if (updateStatus) {
+        updateStatus(STR(@"RentTicketPublisher/正在发布房产出租单..."));
     }
 
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        if (updateStatus) {
-            updateStatus(STR(@"RentTicketPublisher/正在发布房产..."));
+    [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:@{@"status":kTicketStatusToRent} resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            [tcs setError:task.error];
         }
-        [[self editProperty:ticket.property] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [tcs setError:task.error];
-            }
-            else if (task.exception) {
-                [tcs setException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [tcs cancel];
-            }
-            else {
-                CUTEProperty *property = task.result;
-                ticket.property.identifier = property.identifier;
-                completion(property);
-            }
-            return nil;
-        }];
-    }];
-
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        if (updateStatus) {
-            updateStatus(STR(@"RentTicketPublisher/正在发布房产出租单..."));
+        else if (task.exception) {
+            [tcs setException:task.exception];
         }
-        ticket.status = kTicketStatusToRent;
-        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
-        [params setObject:@"true" forKey:@"user_generated"];
-        [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [tcs setError:task.error];
-            }
-            else if (task.exception) {
-                [tcs setException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [tcs cancel];
-            }
-            else {
-                CUTETicket *ticket = task.result;
-                ticket.property = result;
-                [tcs setResult:ticket];
-            }
-            return nil;
-        }];
+        else if (task.isCancelled) {
+            [tcs cancel];
+        }
+        else {
+            CUTETicket *retTicket = task.result;
+            retTicket.property = ticket.property;
+            [tcs setResult:retTicket];
+        }
+        return nil;
     }];
-
-    [sequencer run];
     return tcs.task;
 }
 
@@ -297,7 +243,8 @@
     return [BFTask taskForCompletionOfAllTasksWithResults:tasks];
 }
 
-- (BFTask *)editTicket:(CUTETicket *)ticket updateStatus:(void (^)(NSString *))updateStatus cancellationToken:(BFCancellationToken *)cancellationToken {
+//TODO here better remove edit call, 可以考虑让编辑一个字段时有重试，或者这里检查下服务器结果，只传输服务器上没有同步的字段
+- (BFTask *)previewTicket:(CUTETicket *)ticket updateStatus:(void (^)(NSString *))updateStatus cancellationToken:(BFCancellationToken *)cancellationToken {
 
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     CUTEProperty *property = ticket.property;
@@ -330,40 +277,42 @@
             }];
         }
 
-        if (property && property.identifier) {
-            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                if (updateStatus) {
-                    updateStatus(STR(@"RentTicketPublisher/正在更新房产..."));
+        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            if (updateStatus) {
+                updateStatus(STR(@"RentTicketPublisher/正在更新房产..."));
+            }
+            NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toParams];
+            [params setObject:@"true" forKey:@"user_generated"];
+            [params removeObjectForKey:@"status"];
+            NSAssert(property.identifier, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
+            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:[CUTEProperty class] cancellationToken:cancellationToken]  continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    [tcs setError:task.error];
                 }
-                NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toParams];
-                [params setObject:@"true" forKey:@"user_generated"];
-                NSAssert(property.identifier, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
-                [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:[CUTEProperty class] cancellationToken:cancellationToken]  continueWithBlock:^id(BFTask *task) {
-                    if (task.error) {
-                        [tcs setError:task.error];
-                    }
-                    else if (task.exception) {
-                        [tcs setException:task.exception];
-                    }
-                    else if (task.isCancelled) {
-                        [tcs cancel];
-                    }
-                    else {
-                        CUTEProperty *property = task.result;
-                        ticket.property.identifier = property.identifier;
-                        completion(property);
-                    }
-                      return nil;
-                }];
+                else if (task.exception) {
+                    [tcs setException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [tcs cancel];
+                }
+                else {
+                    CUTEProperty *property = task.result;
+                    ticket.property.identifier = property.identifier;
+                    completion(property);
+                }
+                return nil;
             }];
-        }
+        }];
+
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             if (updateStatus) {
                 updateStatus(STR(@"RentTicketPublisher/正在更新房产出租单..."));
             }
+
             NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:ticket.toParams];
             [params setObject:@"true" forKey:@"user_generated"];
+            [params removeObjectForKey:@"status"];
             NSAssert(ticket.identifier, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
             [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:params resultClass:[CUTETicket class] cancellationToken:cancellationToken] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
@@ -382,6 +331,7 @@
                 }
                 return nil;
             }];
+
         }];
 
         [sequencer run];
@@ -421,13 +371,6 @@
             return task;
         }
     }];
-}
-
-- (BFTask *)editProperty:(CUTEProperty *)property {
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:property.toParams];
-    [params setObject:@"true" forKey:@"user_generated"];
-    NSAssert(property.identifier, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
-    return [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", property.identifier, @"/edit") parameters:params resultClass:[CUTEProperty class]];
 }
 
 - (BFTask *)syncTicketsWithCancellationToken:(BFCancellationToken *)cancellationToken {
