@@ -78,7 +78,7 @@
             })
         }
 
-        $scope.onSuspend = function (item) {
+        $scope.onRentOut = function (item) {
             fctModal.show(i18n('确认该房源已租出?'), undefined, function () {
                 api.rentOut(item.id, {errorMessage: true}).success(function () {
                     location.reload()
