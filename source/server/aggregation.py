@@ -14,7 +14,7 @@ with f_app.mongo() as m:
     # Configure global filter params here
     # TODO
 
-    '''# 用户总数
+    # 用户总数
     total_user_count = m.users.count()
     cursor = m.users.aggregate(
         [
@@ -510,7 +510,7 @@ with f_app.mongo() as m:
         if target_property and 'name' in target_property:
             print(target_property['name'].encode('utf-8'), ", ", target_property['id'], ':', property_viewed_count_dic[str(target_property['id'])])
 
-    '''# 分邮件类型来统计邮件发送和打开的状态
+    # 分邮件类型来统计邮件发送和打开的状态
     print('\n分邮件类型来统计邮件发送成功,打开和点击的百分比:')
     # 计算每类邮件的总数
 
