@@ -299,6 +299,10 @@
 		2C6D07D51B3E77AF001EBB90 /* CUTEUsageManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D07D41B3E77AF001EBB90 /* CUTEUsageManagerTest.m */; };
 		2C6D7B181B428E49007853FD /* CUTEApplyBetaUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D7B171B428E49007853FD /* CUTEApplyBetaUITest.m */; };
 		2C6D7B1E1B428F25007853FD /* KIFUITestActor+SplashUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D7B1D1B428F25007853FD /* KIFUITestActor+SplashUI.m */; };
+		2C71D3761BF9BD3D000CAC71 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3751BF9BD3D000CAC71 /* UITableViewExtension.swift */; };
+		2C71D3771BF9BD3D000CAC71 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3751BF9BD3D000CAC71 /* UITableViewExtension.swift */; };
+		2C71D3781BF9BD3E000CAC71 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3751BF9BD3D000CAC71 /* UITableViewExtension.swift */; };
+		2C71D3791BF9BD3E000CAC71 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3751BF9BD3D000CAC71 /* UITableViewExtension.swift */; };
 		2C73BAC61BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */; };
 		2C73BAC71BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */; };
 		2C73BAC81BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */; };
@@ -1008,6 +1012,7 @@
 		2C6D7B171B428E49007853FD /* CUTEApplyBetaUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEApplyBetaUITest.m; sourceTree = "<group>"; };
 		2C6D7B1C1B428F25007853FD /* KIFUITestActor+SplashUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFUITestActor+SplashUI.h"; sourceTree = "<group>"; };
 		2C6D7B1D1B428F25007853FD /* KIFUITestActor+SplashUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+SplashUI.m"; sourceTree = "<group>"; };
+		2C71D3751BF9BD3D000CAC71 /* UITableViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
 		2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEFormAreaTextFieldCell.swift; sourceTree = "<group>"; };
 		2C73BACA1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEPlainTextNumberTransformer.swift; sourceTree = "<group>"; };
 		2C744C6D1BBCCA25000198F1 /* CUTEPermissionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEPermissionChecker.swift; sourceTree = "<group>"; };
@@ -1503,6 +1508,7 @@
 			children = (
 				2C51F1AC1BE755B8007F13FF /* UIColorExtension.swift */,
 				2CB11CDD1BE9FF5C006B0931 /* SwiftSequencer.swift */,
+				2C71D3751BF9BD3D000CAC71 /* UITableViewExtension.swift */,
 				2CBF30AF1B9459D000EB2D51 /* STWebArchiver.h */,
 				2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */,
 				2C3DE2391B05CCDC006FF191 /* Fabric.framework */,
@@ -2892,6 +2898,7 @@
 				2C427EAB1AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6241AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
 				2C056D811B423ABD0075037A /* CUTERentContactForm.m in Sources */,
+				2C71D3781BF9BD3E000CAC71 /* UITableViewExtension.swift in Sources */,
 				2CE2A96B1B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m in Sources */,
 				2CE2A98F1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C5597EE1BB501C600430984 /* CUTEPatcher.swift in Sources */,
@@ -3068,6 +3075,7 @@
 				2C427EAC1AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6251AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
 				2C056D821B423ABD0075037A /* CUTERentContactForm.m in Sources */,
+				2C71D3791BF9BD3E000CAC71 /* UITableViewExtension.swift in Sources */,
 				2CE2A96C1B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m in Sources */,
 				2CE2A9901B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C5597EF1BB501C600430984 /* CUTEPatcher.swift in Sources */,
@@ -3244,6 +3252,7 @@
 				2C427EAA1AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6231AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
 				2C056D801B423ABD0075037A /* CUTERentContactForm.m in Sources */,
+				2C71D3771BF9BD3D000CAC71 /* UITableViewExtension.swift in Sources */,
 				2CE2A96A1B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m in Sources */,
 				2CE2A98E1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C5597ED1BB501C600430984 /* CUTEPatcher.swift in Sources */,
@@ -3420,6 +3429,7 @@
 				2C427EA91AD3803B000378A9 /* CUTECurrency.m in Sources */,
 				2CF8A6221AF0B40E0080DF10 /* CUTEFormImagePickerCell.m in Sources */,
 				2C056D7F1B423ABD0075037A /* CUTERentContactForm.m in Sources */,
+				2C71D3761BF9BD3D000CAC71 /* UITableViewExtension.swift in Sources */,
 				2CE2A9691B63353A0089ED20 /* CUTEFormCurrencyTextFieldCell.m in Sources */,
 				2CE2A98D1B68E2D60089ED20 /* CUTERentConfirmPhoneViewController.m in Sources */,
 				2C5597EC1BB501C600430984 /* CUTEPatcher.swift in Sources */,
