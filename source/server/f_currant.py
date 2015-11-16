@@ -912,10 +912,10 @@ class f_currant_user(f_user):
             if user_id is None:
                 return ''
             with f_app.mongo() as m:
-                return unicode(f_app.log.get_database(m).find({"id": ObjectId(user_id),
-                                                               "type": "route",
-                                                               "rent_ticket_id": {"$exists": True}
-                                                               }).count())
+                return f_app.log.get_database(m).find({"id": ObjectId(user_id),
+                                                       "type": "route",
+                                                       "rent_ticket_id": {"$exists": True}
+                                                       }).count()
 
         def get_count(user, target, condition, element, comp):
             dic = get_data_complex(user, target, condition, element)
@@ -966,29 +966,29 @@ class f_currant_user(f_user):
             if user_id is None:
                 return ''
             with f_app.mongo() as m:
-                return unicode(f_app.log.get_database(m).find({"id": ObjectId(user_id), "type": "rent_ticket_view_contact_info"}).count())
+                return f_app.log.get_database(m).find({"id": ObjectId(user_id), "type": "rent_ticket_view_contact_info"}).count()
 
         def logs_property(user):
             user_id = user.get("id", None)
             if user_id is None:
                 return ''
             with f_app.mongo() as m:
-                return unicode(f_app.log.get_database(m).find({"id": ObjectId(user_id),
-                                                               "type": "route",
-                                                               "property_id": {"$exists": True}
-                                                               }).count())
+                return f_app.log.get_database(m).find({"id": ObjectId(user_id),
+                                                       "type": "route",
+                                                       "property_id": {"$exists": True}
+                                                       }).count()
 
         enum_type_list = {}
         user = self.get(user_id)
         if user is None:
             user = {}
         result = {}
-        result.update({"nickname": user.get("nickname", '')})
-        result.update({"register_time": user.get("register_time")})
-        result.update({"county": user.get("country", {}).get("code", '')})
-        result.update({"user_type": get_data_enum(user, "user_type")})
-        result.update({"active_days": get_active_days(user)})
-        result.update({"downloaded": "已下载" if check_download(user) else "未下载"})
+        result.update({"guest_nickname": user.get("nickname", '')})
+        result.update({"guest_register_time": user.get("register_time")})
+        result.update({"guest_county": user.get("country", {}).get("code", '')})
+        result.update({"guest_user_type": get_data_enum(user, "user_type")})
+        result.update({"guest_active_days": get_active_days(user)})
+        result.update({"guest_downloaded": "已下载" if check_download(user) else "未下载"})
         result.update({"rent_landlord_type": get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "landlord_type"), "landlord_type")})
         result.update({"rent_has_draft": "有" if get_has_flag(user, "ticket", {"type": "rent"}, "status", "draft") else "无"})
         result.update({"rent_commit_time": get_ticket_newest(user, {"type": "rent"}).get("time", '')})
@@ -1010,7 +1010,7 @@ class f_currant_user(f_user):
         result.update({"intention_budget": get_budget(get_ticket_newest(user, {"type": "intention"}))})
         result.update({"intention_views_times": logs_property(user)})
 
-        return {"analyze_data": result}
+        return result
 
 
 f_currant_user()
