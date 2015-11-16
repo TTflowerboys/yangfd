@@ -15,9 +15,9 @@ with f_app.mongo() as m:
 
     # 本月用户总数
     selected_start_month = 11
-    selected_start_date = 1
+    selected_start_date = 9
     selected_end_month = 11
-    selected_end_date = 9
+    selected_end_date = 16
     print(str(selected_start_month) + '至' + str(selected_end_month) + '月用户数据统计:')
 
     print('\n用户总数:')

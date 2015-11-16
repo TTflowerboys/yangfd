@@ -208,7 +208,7 @@ with f_app.mongo() as m:
 
     for document in cursor:
         if(document['_id']):
-            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + document['count'])
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
 
     # 求租意向单数量
     cursor = m.tickets.aggregate(
@@ -218,7 +218,7 @@ with f_app.mongo() as m:
         ]
     )
     for document in cursor:
-        print('\n求租意向单总数：' + document['count'])
+        print('\n求租意向单总数：', document['count'])
 
     cursor = m.tickets.aggregate(
         [
@@ -228,7 +228,7 @@ with f_app.mongo() as m:
         ]
     )
     for document in cursor:
-        print(f_app.geonames.gazetteer.get(document['_id']['_id'])['name'] + ': ' + document['count'])
+        print(f_app.geonames.gazetteer.get(document['_id']['_id'])['name'], ': ', document['count'])
 
     # 按出租类型统计伦敦求租意向单
     print('\n按单间整租统计伦敦求租意向单:')
@@ -241,7 +241,7 @@ with f_app.mongo() as m:
 
     for document in cursor:
         if(document['_id']):
-            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8') + ":" + document['count'])
+            print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
 
     # 按预算统计伦敦求租意向单
     print('\n统计200镑以上的伦敦求租意向单:')
@@ -287,7 +287,7 @@ with f_app.mongo() as m:
     )
 
     for document in cursor:
-        print('总数:' + document['count'])
+        print('总数:', document['count'])
 
     # 按街区统计伦敦求租意向单
     print('\n伦敦填写了街区的求租意向单:')
@@ -298,7 +298,7 @@ with f_app.mongo() as m:
         ]
     )
     for document in cursor:
-        print('总数:' + document['count'])
+        print('总数:', document['count'])
 
     cursor = m.tickets.aggregate(
         [
