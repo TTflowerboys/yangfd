@@ -925,8 +925,7 @@ class f_currant_plugins(f_app.plugin_base):
             result_row["custom_fields"] = raw_row["custom_fields"]
         return result_row
 
-    def ticket_update_after(self, ticket_id, params, ignore_error=True):
-        ticket = f_app.ticket.get(ticket_id)
+    def ticket_update_after(self, ticket_id, params, ticket, ignore_error=True):
         if "$set" in params:
             params = params["$set"]
         if ticket["type"] == "rent" and "status" in params and params["status"] == "to rent":
