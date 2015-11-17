@@ -732,6 +732,155 @@ def test_wx_share_remote():
     return currant_util.common_template("test_wx_share_remote", title=title)
 
 
+@f_get('/update-user-analyze')
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def user_analyze_update():
+    for user_id in f_app.user.get_active():
+        f_app.user.analyze_data_update(user_id)
+
+
+@f_get('/export-excel/user-analyze.xlsx')
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def user_analyze(user, params):
+    def prepare_data(value):
+        if f_app.util.batch_iterable(value):
+            value_list = []
+            for single_value in value:
+                value_list.append(user_analyze(single_value))
+            return value_list
+        elif isinstance(value, datetime):
+            loc_t = timezone('Europe/London')
+            loc_dt = loc_t.localize(value)
+            return unicode(loc_dt.strftime('%Y-%m-%d %H:%M:%S %Z%z'))
+        else:
+            return unicode(value)
+
+    def get_correct_col_index(num):
+        if num > 26*26:
+            return "ZZ"
+        if num >= 26:
+            return get_correct_col_index(num/26-1)+chr(num-26+65)
+        else:
+            return chr(num+65)
+
+    def format_fit(sheet):
+        simsun_font = Font(name="SimSun")
+        alignment_fit = Alignment(shrink_to_fit=True)
+        for row in sheet.rows:
+            for cell in row:
+                cell.font = simsun_font
+                cell.alignment = alignment_fit
+        for num, col in enumerate(sheet.columns):
+            lenmax = 0
+            for cell in col:
+                lencur = 0
+                if cell.value is None:
+                    cell.value = ''
+                if isinstance(cell.value, int) or isinstance(cell.value, datetime):
+                    lencur = len(unicode(cell.value).encode("GBK"))
+                elif cell.value is not None:
+                    lencur = len(cell.value.encode("GBK", "replace"))
+                if lencur > lenmax:
+                    lenmax = lencur
+            sheet.column_dimensions[get_correct_col_index(num)].width = lenmax*0.86
+            print "col "+get_correct_col_index(num)+" fit."
+
+    def get_diff_color(total):
+        fill = []
+        base_color = 0x999999
+        color = 0x0
+        if 4 <= total <= 6:
+            s = 0x111111
+        elif total == 3:
+            s = 0x222222
+        elif total == 2:
+            s = 0x333333
+        else:
+            return
+        for index in range(total):
+            color = base_color + s*index
+            color_t = '00'+"%x" % color
+            fill.append(PatternFill(fill_type='solid', start_color=color_t, end_color=color_t))
+        return fill
+
+    def be_colorful(sheet, max_segment):
+        header_fill = PatternFill(fill_type='solid', start_color='00dddddd', end_color='00dddddd')
+        for cell in sheet.rows[0]:
+            cell.fill = header_fill
+        for col in sheet.columns:
+            col_set = set()
+            cell_fill = []
+            col_list = []
+            for num, cell in enumerate(col):
+                if num and len(cell.value):
+                    col_set.add(cell.value)
+                if len(col_set) > max_segment:
+                    break
+            if max_segment >= len(col_set) > 1:
+                cell_fill = get_diff_color(len(col_set))
+                col_list = list(col_set)
+                for number, cell in enumerate(col):
+                    if not number:
+                        continue
+                    for index, value in enumerate(col_list):
+                        if cell.value == value:
+                            cell.fill = cell_fill[index]
+
+    header = ['用户名', '注册时间', '国家', '用户类型', '单独访问次数', '活跃天数',
+              'app下载', '房东类型', '有没有草稿', '发布时间', '地区', '房产查看数',
+              '房产量', '单间还是整套', '短租长租', '租金', '分享房产', '已出租时间',
+              '求租时间', '预算', '地区', '匹配级别', '查看房产次数', '收藏房产次数',
+              '查看房东联系方式的次数', '分享房产', '停留时间最多的页面或rental房产',
+              '投资意向时间', '投资预算', '期房还是现房', '几居室', '浏览数量',
+              '停留时间最多的页面或sales房产', '跳出的页面', '数据更新时间']
+
+    wb = Workbook()
+    ws = wb.active
+
+    ws.append(header)
+
+    for index, user in enumerate(f_app.user.get(f_app.user.get_active())):
+        ws.append(prepare_data([user.get("nickname", ''),
+                                user.get("register_time", ''),
+                                user.get("analyze_guest_county", ''),
+                                user.get("analyze_guest_user_type", ''),
+                                '',
+                                user.get("analyze_guest_active_days", ''),
+                                user.get("analyze_guest_downloaded", ''),
+                                user.get("analyze_rent_landlord_type", ''),
+                                user.get("analyze_rent_has_draft", ''),
+                                user.get("analyze_rent_commit_time", ''),
+                                user.get("analyze_rent_local", ''),
+                                user.get("analyze_rent_estate_views_times", ''),
+                                user.get("analyze_rent_estate_total", ''),
+                                user.get("analyze_rent_single_or_whole", ''),
+                                user.get("analyze_rent_period_range", ''),
+                                user.get("analyze_rent_price", ''),
+                                '',
+                                user.get("analyze_rent_time", ''),
+                                user.get("analyze_rent_intention_time", ''),
+                                user.get("analyze_rent_intention_budget", ''),
+                                user.get("analyze_rent_intention_local", ''),
+                                user.get("analyze_rent_intention_match_level", ''),
+                                user.get("analyze_rent_intention_views_times", ''),
+                                user.get("analyze_rent_intention_favorite_times", ''),
+                                user.get("analyze_rent_intention_view_contact_times", ''),
+                                '',
+                                '',
+                                user.get("analyze_intention_time", ''),
+                                user.get("analyze_intention_budget", ''),
+                                '',
+                                '',
+                                user.get("analyze_intention_views_times", ''),
+                                user.get("analyze_value_modifier_time", '')
+                                ]))
+    format_fit(ws)
+    be_colorful(ws, 6)
+    out = StringIO(save_virtual_workbook(wb))
+    response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    return out
+
+
 @f_get('/export-excel/user-rent-intention.xlsx', params=dict(
     days=(int, -1)
 ))
