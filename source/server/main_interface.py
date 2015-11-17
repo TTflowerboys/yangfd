@@ -752,7 +752,7 @@ def user_analyze(user):
             loc_t = timezone('Europe/London')
             loc_dt = loc_t.localize(value)
             return unicode(loc_dt.strftime('%Y-%m-%d %H:%M:%S %Z%z'))
-        elif value:
+        elif value is not None:
             return unicode(value)
         else:
             return ''
