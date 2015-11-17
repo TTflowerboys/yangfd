@@ -752,8 +752,10 @@ def user_analyze(user):
             loc_t = timezone('Europe/London')
             loc_dt = loc_t.localize(value)
             return unicode(loc_dt.strftime('%Y-%m-%d %H:%M:%S %Z%z'))
-        else:
+        elif value:
             return unicode(value)
+        else:
+            return ''
 
     def get_correct_col_index(num):
         if num > 26*26:
@@ -872,6 +874,8 @@ def user_analyze(user):
                                 '',
                                 '',
                                 user.get("analyze_intention_views_times", ''),
+                                '',
+                                '',
                                 user.get("analyze_value_modifier_time", '')
                                 ]))
     format_fit(ws)
