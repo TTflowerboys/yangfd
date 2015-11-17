@@ -15,7 +15,7 @@ except ImportError:
 import bottle
 from bson.objectid import ObjectId
 from app import f_app
-from libfelix.f_interface import f_get, f_post, static_file, template, request, response, redirect, html_redirect, error, abort, template_gettext as _
+from libfelix.f_interface import f_api, f_get, f_post, static_file, template, request, response, redirect, html_redirect, error, abort, template_gettext as _
 import currant_util
 import currant_data_helper
 from libfelix.f_interface import f_experiment
@@ -732,16 +732,16 @@ def test_wx_share_remote():
     return currant_util.common_template("test_wx_share_remote", title=title)
 
 
-@f_get('/update-user-analyze')
+@f_api('/update-user-analyze')
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
-def user_analyze_update():
+def user_analyze_update(user):
     for user_id in f_app.user.get_active():
         f_app.user.analyze_data_update(user_id)
 
 
 @f_get('/export-excel/user-analyze.xlsx')
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
-def user_analyze(user, params):
+def user_analyze(user):
     def prepare_data(value):
         if f_app.util.batch_iterable(value):
             value_list = []
