@@ -973,8 +973,8 @@ class f_currant_user(f_user):
         if user is None:
             user = {}
         result = {}
-        result.update({"analyze_guest_nickname": user.get("nickname", '')})
-        result.update({"analyze_guest_register_time": user.get("register_time")})
+        # result.update({"analyze_guest_nickname": user.get("nickname", '')})
+        # result.update({"analyze_guest_register_time": user.get("register_time")})
         result.update({"analyze_guest_county": user.get("country", {}).get("code", '')})
         result.update({"analyze_guest_user_type": get_data_enum(user, "user_type")})
         result.update({"analyze_guest_active_days": get_active_days(user)})
