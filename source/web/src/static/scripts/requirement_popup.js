@@ -221,6 +221,10 @@
 
     window.openRequirementForm = function (event, budgetId, intentionId, propertyId) {
         var popup = $('#requirement_popup')
+        if(window.team.isPhone()) {
+            location.href = '/requirement' + (propertyId ? ('?property=' + propertyId) : '')
+            return
+        }
         window.resetRequirementForm(popup)
         window.setRequirementFormContent(popup, budgetId, intentionId, propertyId)
         popup.find('.requirement_title').show()
