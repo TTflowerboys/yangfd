@@ -512,7 +512,7 @@
                             <div>
                                 <ul class="surrounding" data-bind="foreach: { data: !isShowAll() && !animate() ? surrouding.slice(0,10) : surrouding, as: 'item' }, css: {animate: animate(), shrink: !isShowAll()}, style: {maxHeight: surrouding().length * 40 + 'px'}">
                                     <li>
-                                        <i data-bind="css: type.currency"></i>
+                                        <i data-bind="css: type.iconfont"></i>
                                         <span class="name" data-bind="text: name"></span>
                                         <edit-travel-time params="item: item"></edit-travel-time>
                                         <i class="icon-delete" data-bind="click: $parent.removeSurrouding" title="{{_('删除')}}"></i>

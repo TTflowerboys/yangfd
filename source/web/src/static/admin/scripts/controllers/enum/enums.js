@@ -108,7 +108,7 @@
             }
 
             $scope.item.value = _.object($scope.item.tempValues)
-            api.addEnum($scope.item.type, $scope.item.value, $scope.item.slug, $scope.item.sort_value, $scope.item.image, $scope.item.currency)
+            api.addEnum($scope.item.type, $scope.item.value, $scope.item.slug, $scope.item.sort_value, $scope.item.image, $scope.item.iconfont)
                 .success(function () {
                     $scope.item.value = undefined
                     $scope.item.tempValues = undefined
@@ -117,7 +117,7 @@
         $scope.editI18nEnum = function ($event, form) {
 
             $scope.item.value = _.object($scope.item.tempValues)
-            api.editEnum($stateParams.id, $scope.item.type, $scope.item.value, $scope.item.slug, $scope.item.sort_value, $scope.item.image, $scope.item.currency)
+            api.editEnum($stateParams.id, $scope.item.type, $scope.item.value, $scope.item.slug, $scope.item.sort_value, $scope.item.image, $scope.item.iconfont)
                 .success(function () {
                     $state.go('^',{},{reload:true})
                     //location.reload()

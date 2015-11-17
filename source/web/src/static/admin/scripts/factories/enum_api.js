@@ -4,25 +4,25 @@
 
     function enumApi($http, misc) {
         return {
-            addEnum: function (type, value, slug, sort_value, image, currency) {
+            addEnum: function (type, value, slug, sort_value, image, iconfont) {
                 var data = {
                     type: type,
                     slug: slug,
                     value: value,
                     sort_value: sort_value || 0,
                     image: image,
-                    currency: currency
+                    iconfont: iconfont
                 }
                 return $http.post('/api/1/enum/add', misc.cleanEmptyData(data), {errorMessage: true})
             },
-            editEnum: function (id, type, value, slug, sort_value, image, currency) {
+            editEnum: function (id, type, value, slug, sort_value, image, iconfont) {
                 var data = {
                     type: type,
                     slug: slug,
                     value: value,
                     sort_value: sort_value || 0,
                     image: image,
-                    currency: currency
+                    iconfont: iconfont
                 }
                 return $http.post('/api/1/enum/' + id + '/edit', misc.cleanEmptyData(data), {errorMessage: true})
             },
