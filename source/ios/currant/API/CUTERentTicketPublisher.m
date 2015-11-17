@@ -246,8 +246,6 @@
 - (NSDictionary *)getModifiedParamsWithServerParams:(NSDictionary *)serverParams localParams:(NSDictionary *)localParams {
     //只返回，本地添加和修改的，不管server是否有其他本地没有的字段
 
-    //TODO here has bug cannot compare correctly the field like featured_facility
-
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
 
     [localParams enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull key, NSObject*  _Nonnull obj, BOOL * _Nonnull stop) {

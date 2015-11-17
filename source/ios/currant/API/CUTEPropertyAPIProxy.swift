@@ -79,8 +79,14 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
 
                         var dic = [String:AnyObject]()
                         for (key, value) in facilityDictionary {
+                            //TODO, property edit and get api result not the same
                             if key == typeKey {
-                                dic["id"] = value
+                                if value is String {
+                                    dic["id"] = value
+                                }
+                                else if let valueDic = value as? [String:AnyObject] {
+                                    dic["id"] = valueDic["id"]
+                                }
                             }
                             else {
                                 dic[key] = value
