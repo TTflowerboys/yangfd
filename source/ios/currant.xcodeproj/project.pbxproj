@@ -307,6 +307,10 @@
 		2C71D3831BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3811BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m */; };
 		2C71D3841BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3811BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m */; };
 		2C71D3851BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3811BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m */; };
+		2C71D3871BFB2FEE000CAC71 /* SwiftGlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3861BFB2FEE000CAC71 /* SwiftGlobalFunctions.swift */; };
+		2C71D3881BFB2FEF000CAC71 /* SwiftGlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3861BFB2FEE000CAC71 /* SwiftGlobalFunctions.swift */; };
+		2C71D3891BFB2FEF000CAC71 /* SwiftGlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3861BFB2FEE000CAC71 /* SwiftGlobalFunctions.swift */; };
+		2C71D38A1BFB2FEF000CAC71 /* SwiftGlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3861BFB2FEE000CAC71 /* SwiftGlobalFunctions.swift */; };
 		2C73BAC61BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */; };
 		2C73BAC71BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */; };
 		2C73BAC81BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */; };
@@ -1019,6 +1023,7 @@
 		2C71D3751BF9BD3D000CAC71 /* UITableViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
 		2C71D3801BFB0AE9000CAC71 /* CUTEPropertyEditingListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyEditingListener.h; sourceTree = "<group>"; };
 		2C71D3811BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyEditingListener.m; sourceTree = "<group>"; };
+		2C71D3861BFB2FEE000CAC71 /* SwiftGlobalFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftGlobalFunctions.swift; sourceTree = "<group>"; };
 		2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEFormAreaTextFieldCell.swift; sourceTree = "<group>"; };
 		2C73BACA1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEPlainTextNumberTransformer.swift; sourceTree = "<group>"; };
 		2C744C6D1BBCCA25000198F1 /* CUTEPermissionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEPermissionChecker.swift; sourceTree = "<group>"; };
@@ -1670,6 +1675,7 @@
 				2C4A13AE1B5E5CF600FA9F99 /* CUTEStringMatcher.h */,
 				2C4A13AF1B5E5CF600FA9F99 /* CUTEStringMatcher.m */,
 				2C5597EB1BB501C600430984 /* CUTEPatcher.swift */,
+				2C71D3861BFB2FEE000CAC71 /* SwiftGlobalFunctions.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -2849,6 +2855,7 @@
 				2CF8A61A1AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2621B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
 				2CE2A9891B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */,
+				2C71D3891BFB2FEF000CAC71 /* SwiftGlobalFunctions.swift in Sources */,
 				2C0AE1171B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */,
 				2CF8A5F71AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6841AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
@@ -3027,6 +3034,7 @@
 				2CF8A61B1AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2631B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
 				2CE2A98A1B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */,
+				2C71D38A1BFB2FEF000CAC71 /* SwiftGlobalFunctions.swift in Sources */,
 				2C0AE1181B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */,
 				2CF8A5F81AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6851AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
@@ -3205,6 +3213,7 @@
 				2CF8A6191AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2611B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
 				2CE2A9881B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */,
+				2C71D3881BFB2FEF000CAC71 /* SwiftGlobalFunctions.swift in Sources */,
 				2C0AE1161B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */,
 				2CF8A5F61AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6831AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,
@@ -3383,6 +3392,7 @@
 				2CF8A6181AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
 				2C3DE2601B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
 				2CE2A9871B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */,
+				2C71D3871BFB2FEE000CAC71 /* SwiftGlobalFunctions.swift in Sources */,
 				2C0AE1151B1EC72B00A73BE6 /* CUTETimePeriod.m in Sources */,
 				2CF8A5F51AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */,
 				2CF8A6821AF0B65C0080DF10 /* CUTEPropertyInfoForm.m in Sources */,

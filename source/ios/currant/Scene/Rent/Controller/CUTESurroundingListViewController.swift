@@ -42,6 +42,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
+        self.title = STR("SurroundingList/周边")
         self.showBarButtonItems()
 
     }

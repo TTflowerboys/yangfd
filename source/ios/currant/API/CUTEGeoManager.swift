@@ -46,7 +46,7 @@ class CUTEGeoManager: NSObject {
                 else {
                     if let httpResponse = response as? NSHTTPURLResponse {
                         if httpResponse.statusCode == 500 {
-                            tcs.setError(NSError(domain: "Google", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey:NSLocalizedString("GeoManager/请求失败", comment: "")]))
+                            tcs.setError(NSError(domain: "Google", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
                         }
                         else {
                             tcs.setError(NSError(domain: "Google", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey:NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode)]))
@@ -86,7 +86,7 @@ class CUTEGeoManager: NSObject {
                                                 tcs.setResult(placemark)
                                             }
                                             else {
-                                                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:NSLocalizedString("GeoManager/请求失败", comment: "")]))
+                                                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
                                             }
                                         }
                                         else {
@@ -97,7 +97,7 @@ class CUTEGeoManager: NSObject {
                                     })
                                 }
                                 else {
-                                    tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:NSLocalizedString("GeoManager/请求失败", comment: "")]))
+                                    tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
                                 }
                             }
                             else {
@@ -188,7 +188,7 @@ class CUTEGeoManager: NSObject {
                         tcs.setResult(placemark)
                     }
                     else {
-                        tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:NSLocalizedString("GeoManager/请求失败", comment: "")]))
+                        tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
                     }
                 }
                 else {
@@ -274,10 +274,10 @@ class CUTEGeoManager: NSObject {
             }
             else {
                 if status == INTULocationStatus.TimedOut {
-                    tcs.setError(NSError(domain: "INTULocationManager", code: 0, userInfo: [NSLocalizedDescriptionKey:NSLocalizedString("GeoManager/获取当前位置超时", comment: "")]))
+                    tcs.setError(NSError(domain: "INTULocationManager", code: 0, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/获取当前位置超时")]))
                 }
                 else if status == INTULocationStatus.Error {
-                    tcs.setError(NSError(domain: "INTULocationManager", code: 0, userInfo: [NSLocalizedDescriptionKey:NSLocalizedString("GeoManager/获取当前位置失败", comment: "")]))
+                    tcs.setError(NSError(domain: "INTULocationManager", code: 0, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/获取当前位置失败")]))
                 }
                 else if status == INTULocationStatus.ServicesDenied {
                     tcs.cancel()

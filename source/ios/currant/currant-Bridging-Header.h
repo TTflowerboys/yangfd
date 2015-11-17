@@ -74,6 +74,7 @@
 //misc
 #import "CUTETracker.h"
 #import "CUTEUsageRecorder.h"
+#import "CUTELocalizationSwitcher.h"
 
 
 

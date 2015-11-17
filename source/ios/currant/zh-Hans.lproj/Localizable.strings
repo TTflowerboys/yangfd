@@ -709,6 +709,13 @@
 
 
 //
+//Group: Surrounding
+//
+//Filepath: currant/Scene/Rent/Controller/CUTESurroundingListViewController.swift
+"SurroundingList/周边" = "周边";
+
+
+//
 //Group: ngrvalidator
 //
 //edit address
