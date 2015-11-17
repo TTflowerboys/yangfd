@@ -55,6 +55,8 @@
              }[self.unit];
 }
 
+//TODO all isEqual: compare aslo need override hash function, http://nshipster.com/equality/
+
 - (BOOL)isEqual:(id)object {
     if ([object isKindOfClass:[self class]]) {
         //self.value
