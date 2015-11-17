@@ -761,18 +761,8 @@ class f_currant_user(f_user):
     ==================================================================
     """
 
-    def analyze_data_get(self, user_id, realtime=False):
-        if realtime is False:
-            result = self.get(user_id)
-            if result is None:
-                return {}
-            return result.get("analyze_data", {})
-        else:
-            result_analyze = self.analyze_data_generate(user_id)
-            return {"analyze_data": result_analyze}
-
     def analyze_data_update(self, user_id):
-        self.update_set(user_id, self.analyze_data_get(user_id, realtime=True))
+        self.update_set(user_id, self.analyze_data_generate(user_id))
 
     def analyze_data_generate(self, user_id):
 
