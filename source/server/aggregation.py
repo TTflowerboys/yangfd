@@ -550,6 +550,8 @@ with f_app.mongo() as m:
     ''')
     result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send"})
     tag_total = result.find().count()
+    total_email_not_only_new = 0
+    total_email_contain_new_only = 0
     print ("共有", tag_total, "类tag")
     print ("%4s%30s%4s%7s%7s%6s%7s%6s%7s%7s%5s" % ("序号", "tag", "总数", "到达量", "到达率", "打开数量", "打开率", "重复打开量", "点击量", "点击率", "重复点击量"))
     for index, tag in enumerate(result.find()):
@@ -557,16 +559,22 @@ with f_app.mongo() as m:
             function() {
                 var event = this.email_status_set;
                 var event_detail = this.email_status_detail;
-                if (event) {
-                    if (event_detail.length > 0) {
-                        emit("total_email", 1)
+                if (event_detail && event) {
+                    if (event.indexOf("processed") != -1) {
+                        emit("total_email", 1);
+                    }
+                    if (event.length > 1 && event.indexOf("new") != -1 && event.indexOf("processed") == -1) {
+                        emit("total_email_not_only_new", 1);
+                    }
+                    if (event.length == 1 && event.indexOf("new") != -1) {
+                        emit("total_email_contain_new_only", 1);
                     }
                     event.forEach(function(e) {
                         emit(e, 1);
                         if (event_detail) {
                             event_detail.forEach(function(c) {
                                 if (c.event == e) {
-                                    emit(e+" (repeat)", 1)
+                                    emit(e+" (repeat)", 1);
                                 }
                             });
                         }
@@ -594,4 +602,8 @@ with f_app.mongo() as m:
         click_times = final_result.get("click (repeat)", 0)
         delivered_times = final_result.get("delivered", 0)
         total_email = final_result.get("total_email", 0)
+        total_email_not_only_new += final_result.get("total_email_not_only_new", 0)
+        total_email_contain_new_only += final_result.get("total_email_contain_new_only", 0)
         print ("%6d%30s%6d%10d%9.2f%%%10d%9.2f%%%10d%10d%9.2f%%%10d" % (index, tag["_id"], total_email, delivered_times, 100*delivered_times/total_email, open_unique, 100*open_unique/total_email, open_times, click_unique, 100*click_unique/total_email, click_times))
+    print ("total_email_contain_new_only", total_email_contain_new_only)
+    print ("total_email_not_only_new", total_email_not_only_new)
