@@ -303,6 +303,10 @@
 		2C71D3771BF9BD3D000CAC71 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3751BF9BD3D000CAC71 /* UITableViewExtension.swift */; };
 		2C71D3781BF9BD3E000CAC71 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3751BF9BD3D000CAC71 /* UITableViewExtension.swift */; };
 		2C71D3791BF9BD3E000CAC71 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3751BF9BD3D000CAC71 /* UITableViewExtension.swift */; };
+		2C71D3821BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3811BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m */; };
+		2C71D3831BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3811BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m */; };
+		2C71D3841BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3811BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m */; };
+		2C71D3851BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3811BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m */; };
 		2C73BAC61BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */; };
 		2C73BAC71BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */; };
 		2C73BAC81BC6482100EF0520 /* CUTEFormAreaTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */; };
@@ -1013,6 +1017,8 @@
 		2C6D7B1C1B428F25007853FD /* KIFUITestActor+SplashUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFUITestActor+SplashUI.h"; sourceTree = "<group>"; };
 		2C6D7B1D1B428F25007853FD /* KIFUITestActor+SplashUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+SplashUI.m"; sourceTree = "<group>"; };
 		2C71D3751BF9BD3D000CAC71 /* UITableViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
+		2C71D3801BFB0AE9000CAC71 /* CUTEPropertyEditingListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEPropertyEditingListener.h; sourceTree = "<group>"; };
+		2C71D3811BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEPropertyEditingListener.m; sourceTree = "<group>"; };
 		2C73BAC51BC6482000EF0520 /* CUTEFormAreaTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEFormAreaTextFieldCell.swift; sourceTree = "<group>"; };
 		2C73BACA1BC652E900EF0520 /* CUTEPlainTextNumberTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEPlainTextNumberTransformer.swift; sourceTree = "<group>"; };
 		2C744C6D1BBCCA25000198F1 /* CUTEPermissionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEPermissionChecker.swift; sourceTree = "<group>"; };
@@ -1582,6 +1588,8 @@
 				2C06D3A21B29465800C147DE /* CUTEModelEditingListener.m */,
 				2C0C09FD1B29697F001F2583 /* CUTETicketEditingListener.h */,
 				2C0C09FE1B29697F001F2583 /* CUTETicketEditingListener.m */,
+				2C71D3801BFB0AE9000CAC71 /* CUTEPropertyEditingListener.h */,
+				2C71D3811BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m */,
 				2C0C0A131B2AD02E001F2583 /* CUTEUserEditingListener.h */,
 				2C0C0A141B2AD02E001F2583 /* CUTEUserEditingListener.m */,
 				2C1251901B53909A0037F5B6 /* CUTECredit.h */,
@@ -2801,6 +2809,7 @@
 				2C427E9D1AD37D34000378A9 /* CUTETicket.m in Sources */,
 				2CCE67FD1B1C397E00351DED /* CUTEListViewController.m in Sources */,
 				2C056D3D1B423A110075037A /* CUTESettingForm.m in Sources */,
+				2C71D3841BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m in Sources */,
 				2C056D961B423B4D0075037A /* CUTESplashViewController.m in Sources */,
 				2C3DE2351B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67EE1B1C085300351DED /* CUTEMapListViewController.m in Sources */,
@@ -2978,6 +2987,7 @@
 				2C427E9E1AD37D34000378A9 /* CUTETicket.m in Sources */,
 				2CCE67FE1B1C397E00351DED /* CUTEListViewController.m in Sources */,
 				2C056D3E1B423A110075037A /* CUTESettingForm.m in Sources */,
+				2C71D3851BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m in Sources */,
 				2C056D971B423B4D0075037A /* CUTESplashViewController.m in Sources */,
 				2C3DE2361B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67EF1B1C085400351DED /* CUTEMapListViewController.m in Sources */,
@@ -3155,6 +3165,7 @@
 				2C427E9C1AD37D34000378A9 /* CUTETicket.m in Sources */,
 				2CCE67FC1B1C397E00351DED /* CUTEListViewController.m in Sources */,
 				2C056D3C1B423A110075037A /* CUTESettingForm.m in Sources */,
+				2C71D3831BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m in Sources */,
 				2C056D951B423B4D0075037A /* CUTESplashViewController.m in Sources */,
 				2C3DE2341B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67ED1B1C085300351DED /* CUTEMapListViewController.m in Sources */,
@@ -3332,6 +3343,7 @@
 				2CCE67FB1B1C397E00351DED /* CUTEListViewController.m in Sources */,
 				2C056D3B1B423A110075037A /* CUTESettingForm.m in Sources */,
 				2C056D941B423B4D0075037A /* CUTESplashViewController.m in Sources */,
+				2C71D3821BFB0AE9000CAC71 /* CUTEPropertyEditingListener.m in Sources */,
 				2C3DE2331B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67EC1B1C084A00351DED /* CUTEMapListViewController.m in Sources */,
 				2C2FCDD91B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,

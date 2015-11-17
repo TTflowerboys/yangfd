@@ -10,8 +10,9 @@
 #import <MTLJSONAdapter.h>
 #import "CUTEEnum.h"
 #import "CUTETrafficTime.h"
+#import "CUTEModelEditingListener.h"
 
-@interface CUTESurrounding : MTLModel <MTLJSONSerializing>
+@interface CUTESurrounding : MTLModel <MTLJSONSerializing, CUTEModelEditingListenerDelegate>
 
 @property (strong, nonatomic) NSString *identifier;
 

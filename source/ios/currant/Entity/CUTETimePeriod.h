@@ -21,7 +21,7 @@
 /// - parameter value: time value
 /// - parameter unit: time unit, available in year, month, week, day, hour, minute, second
 /// - returns: CUTETimePeriod
-+ (CUTETimePeriod *)timePeriodWithValue:(float)value unit:(NSString *)unit;
++ (CUTETimePeriod *)timePeriodWithValue:(int)value unit:(NSString *)unit;
 
 + (NSString *)getDisplayUnitWithUnit:(NSString *)unit;
 

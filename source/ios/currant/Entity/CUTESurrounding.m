@@ -8,6 +8,7 @@
 
 #import "CUTESurrounding.h"
 #import <NSArray+ObjectiveSugar.h>
+#import <EXTKeyPathCoding.h>
 #import "CUTECommonMacro.h"
 
 @implementation CUTESurrounding
@@ -71,6 +72,54 @@
     }
     return nil;
 }
+
+#pragma -mark CUTEModelEditingListenerDelegate
+
+- (id)paramValueForKey:(NSString *)key withValue:(id)value {
+    if ([key isEqualToString:@keypath(self.name)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.zipcode)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.postcode)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.latitude)]) {
+        if ([value isKindOfClass:[NSNumber class]]) {
+            return value;
+        }
+        else if ([value isKindOfClass:[NSString class]]) {
+            return [NSNumber numberWithDouble:[(NSString *)value doubleValue]];
+        }
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.longitude)]) {
+        if ([value isKindOfClass:[NSNumber class]]) {
+            return value;
+        }
+        else if ([value isKindOfClass:[NSString class]]) {
+            return [NSNumber numberWithDouble:[(NSString *)value doubleValue]];
+        }
+    }
+    else if ([key isEqualToString:@keypath(self.type)] && [value isKindOfClass:[CUTEEnum class]]) {
+        return [(CUTEEnum *)value identifier];
+    }
+    else if ([key isEqualToString:@keypath(self.trafficTimes)] && [value isKindOfClass:[NSArray class]]) {
+        NSObject* result = [(NSArray *)value map:^id(CUTETrafficTime *object) {
+            return [object toParams];
+        }];
+        return result;
+    }
+
+    NSAssert(nil, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,key);
+    return nil;
+}
+
+- (BOOL)isAttributeEqualForKey:(NSString *)key oldValue:(id)oldValue newValue:(id)newValue {
+    return [oldValue isEqual:newValue];
+}
+
 
 - (NSDictionary *)toParams {
     if (self.identifier == nil) {

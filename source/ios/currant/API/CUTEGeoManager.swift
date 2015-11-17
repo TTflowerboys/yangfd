@@ -338,7 +338,7 @@ class CUTEGeoManager: NSObject {
                                 guard let duration = durationDic["value"] as? Float else {
                                     throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + durationDic.description])
                                 }
-                                let mins = ceil(duration / 60.0)
+                                let mins = Int32(ceil(duration / 60.0))
                                 let timePeriod = CUTETimePeriod(value: mins, unit: "minute")
                                 let trifficTime = CUTETrafficTime()
                                 trifficTime.time = timePeriod

@@ -14,6 +14,10 @@
 
 - (id)paramValueForKey:(NSString *)key withValue:(id)value;
 
+- (BOOL)isAttributeEqualForKey:(NSString *)key oldValue:(id)oldValue newValue:(id)newValue;
+
+- (NSDictionary *)toParams;
+
 @end
 
 @interface CUTEModelEditingListener : NSObject

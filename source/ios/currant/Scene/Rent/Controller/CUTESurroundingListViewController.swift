@@ -181,12 +181,14 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                     array.append(surrounding)
                     ticket.property.surroundings = array
 
+                }).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                     self.searchController?.setActive(false, animated: true)
                     self.navigationController?.setNavigationBarHidden(false, animated: false)
                     self.searchController?.searchBar.removeFromSuperview()
                     self.tableView.reloadData()
 
                     SVProgressHUD.dismiss()
+                    return task
                 })
             }
         }
@@ -296,11 +298,24 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
                     SVProgressHUD.show()
                     self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                        var array = Array(ticket.property.surroundings as! [CUTESurrounding])
-                        array[sender.tag].trafficTimes![defaultTimeIndex].time!.value = value
-                        ticket.property.surroundings = array
+                        let surr = (ticket.property.surroundings[sender.tag] as! CUTESurrounding)
+                        var array = Array(surr.trafficTimes)
+
+                        let oldTrafficTime = array[defaultTimeIndex]
+                        let time = CUTETimePeriod(value: value, unit: "minute")
+                        let newTrafficTime = CUTETrafficTime()
+                        newTrafficTime.type = oldTrafficTime.type
+                        newTrafficTime.isDefault = oldTrafficTime.isDefault
+                        newTrafficTime.time = time
+                        array[defaultTimeIndex] = newTrafficTime
+
+                        //update traffic time just by assign a new array, because the listener listen the trafficTims attribute
+                        surr.trafficTimes = array
+
+                    }).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                         self.tableView.reloadData()
                         SVProgressHUD.dismiss()
+                        return task
                     })
                 }
                 }, cancelBlock: { (picker:ActionSheetStringPicker!) -> Void in
@@ -317,9 +332,11 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
             var array = Array(ticket.property.surroundings as! [CUTESurrounding])
             array.removeAtIndex(index)
             ticket.property.surroundings = array
+        }).continueWithBlock { (task:BFTask!) -> AnyObject! in
             self.tableView.reloadData()
             SVProgressHUD.dismiss()
-        })
+            return task
+        }
     }
 
     private func getAroundTime(timeValue:Int32) -> [Int32] {
