@@ -999,6 +999,7 @@ class f_currant_user(f_user):
         result.update({"analyze_intention_time": get_ticket_newest(user, {"type": "intention"}).get("time", '')})
         result.update({"analyze_intention_budget": get_budget(get_ticket_newest(user, {"type": "intention"}))})
         result.update({"analyze_intention_views_times": logs_property(user)})
+        result.update({"analyze_value_modifier_time": datetime.utcnow()})
 
         return result
 
