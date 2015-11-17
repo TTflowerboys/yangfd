@@ -1325,13 +1325,6 @@
         }, this)
 
         this.surrouding = ko.observableArray(_.map(JSON.parse($('#featuredFacilityData').text()), function (item) {
-            //todo 目前featured_facility中的学校的数据没有展开，所以加上这一段来mock展开后的数据
-            if (typeof item[item.type.slug] === 'string' || typeof item[item.type.slug] === 'undefined') {
-                item[item.type.slug] = {
-                    id: item[item.type.slug],
-                    name: 'Mock Data'
-                }
-            }
 
             item.id = item[item.type.slug].id
             item.name = item[item.type.slug].name
@@ -1395,6 +1388,7 @@
                                 if(intersection.length) {
                                     item.type = _.find(types, {slug: intersection[0]})
                                 }
+                                item.id = item[item.type.slug]
                                 return item
                             })), function (item) {
                                 return item.type

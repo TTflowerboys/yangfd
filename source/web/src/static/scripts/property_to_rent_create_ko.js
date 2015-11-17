@@ -124,6 +124,10 @@
                                         if(intersection.length) {
                                             item.type = _.find(types, {slug: intersection[0]})
                                         }
+                                        delete item.id
+                                        if(item.type) {
+                                            item.id = item[item.type.slug]
+                                        }
                                         return item
                                     })), function (item) {
                                         return item.type
