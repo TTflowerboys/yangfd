@@ -7,11 +7,13 @@
 //
 
 #import "CUTEModelEditingListener.h"
+#import "CUTEPropertyEditingListener.h"
 
 @interface CUTETicketEditingListener : CUTEModelEditingListener
 
 + (CUTETicketEditingListener *)createListenerAndStartListenMarkWithSayer:(MTLModel<MTLJSONSerializing, CUTEModelEditingListenerDelegate> *)sayer;
 
-@property (nonatomic, readonly) CUTEModelEditingListener *propertyListener;
+@property (nonatomic, readonly) CUTEPropertyEditingListener *propertyListener;
+
 
 @end

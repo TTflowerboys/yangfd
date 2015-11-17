@@ -117,6 +117,8 @@
     return !IsNilOrNull(string)? @{DEFAULT_I18N_LOCALE: string}: nil;
 }
 
+#pragma -mark CUTEModelEditingListenerDelegate
+
 - (id)paramValueForKey:(NSString *)key withValue:(id)value {
     if ([key isEqualToString:@keypath(self.bedroomCount)]) {
         return value;
@@ -214,6 +216,10 @@
     }
     NSAssert(nil, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,key);
     return nil;
+}
+
+- (BOOL)isAttributeEqualForKey:(NSString *)key oldValue:(id)oldValue newValue:(id)newValue {
+    return [oldValue isEqual:newValue];
 }
 
 - (NSDictionary *)toParams {

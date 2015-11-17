@@ -17,7 +17,7 @@
              @"value": @"value"};
 }
 
-+ (CUTETimePeriod *)timePeriodWithValue:(float)value unit:(NSString *)unit {
++ (CUTETimePeriod *)timePeriodWithValue:(int)value unit:(NSString *)unit {
     CUTETimePeriod *period = [CUTETimePeriod new];
     period.unit = unit;
     period.value = value;

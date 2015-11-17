@@ -29,7 +29,7 @@
 {
     self = [super init];
     if (self) {
-        _propertyListener = [CUTEModelEditingListener new];
+        _propertyListener = [CUTEPropertyEditingListener new];
     }
     return self;
 }

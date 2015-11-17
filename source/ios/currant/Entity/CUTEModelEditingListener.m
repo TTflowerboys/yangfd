@@ -45,7 +45,7 @@ typedef void (^ KeyValueChangeBlock) (NSString*, id, id);
 
     [[[sayer class] propertyKeys] enumerateObjectsUsingBlock:^(NSString *obj, BOOL *stop) {
         [_listenController observe:sayer keyPath:obj options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld block:^(id observer, id object, NSDictionary *change) {
-            [weakSelf markPropertyWithKey:obj oldValue:change[NSKeyValueChangeOldKey] newValue:change[NSKeyValueChangeNewKey]];
+            [weakSelf markAttributeWithKey:obj oldValue:change[NSKeyValueChangeOldKey] newValue:change[NSKeyValueChangeNewKey]];
         }];
     }];
 }
@@ -55,23 +55,22 @@ typedef void (^ KeyValueChangeBlock) (NSString*, id, id);
     _listenController = nil;
 }
 
-- (void)markPropertyWithKey:(NSString *)key oldValue:(id)oldValue newValue:(id)value {
+- (void)markAttributeWithKey:(NSString *)key oldValue:(id)oldValue newValue:(id)value {
 
     if (IsNilOrNull(oldValue) && !IsNilOrNull(value)) {
-        [self markPropertyKeyUpdated:key withValue:value];
+        [self markAttributeKeyUpdated:key withValue:value];
     }
     else if (!IsNilOrNull(oldValue) && IsNilOrNull(value)) {
-        [self markPropertyKeyDeleted:key];
+        [self markAttributeKeyDeleted:key];
     }
     else if (!IsNilOrNull(oldValue) && !IsNilOrNull(value)) {
-        //在objc中isEqualTo 比较的是value, 这里比较reference即可，reference不同，即认为值更新了
-        if (oldValue != value) {
-            [self markPropertyKeyUpdated:key withValue:value];
+        if (![self.sayer isAttributeEqualForKey:key oldValue:oldValue newValue:value]) {
+            [self markAttributeKeyUpdated:key withValue:value];
         }
     }
 }
 
-- (void)markPropertyKeyUpdated:(NSString *)propertyKey withValue:(id)value {
+- (void)markAttributeKeyUpdated:(NSString *)propertyKey withValue:(id)value {
     id retValue = [self.sayer paramValueForKey:propertyKey withValue:value];
     id retKey = [[[self.sayer class] JSONKeyPathsByPropertyKey] objectForKey:propertyKey];
     NSAssert(retValue, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
@@ -79,7 +78,7 @@ typedef void (^ KeyValueChangeBlock) (NSString*, id, id);
     [_updateMarkDictionary setObject:retValue forKey:retKey];
 }
 
-- (void)markPropertyKeyDeleted:(NSString *)propertyKey {
+- (void)markAttributeKeyDeleted:(NSString *)propertyKey {
     id retKey = [[[self.sayer class] JSONKeyPathsByPropertyKey] objectForKey:propertyKey];
     NSAssert(retKey, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
     [_deleteMarkSet addObject:retKey];

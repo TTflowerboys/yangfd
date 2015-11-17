@@ -156,7 +156,7 @@ extension UINavigationController {
                     self.checkPreExecuteInternalCommand(URL)
                     if (queryDic["modal"] != nil && queryDic["modal"] == "true") {
 
-                        let title = NSLocalizedString("取消", comment:"")
+                        let title = STR("取消")
                         controller.navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, block: { (sender: AnyObject!) -> Void in
 
                             controller.dismissViewControllerAnimated(true, completion: { () -> Void in

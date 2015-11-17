@@ -46,7 +46,7 @@ class CUTEGeoManager: NSObject {
                 else {
                     if let httpResponse = response as? NSHTTPURLResponse {
                         if httpResponse.statusCode == 500 {
-                            tcs.setError(NSError(domain: "Google", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey:NSLocalizedString("GeoManager/请求失败", comment: "")]))
+                            tcs.setError(NSError(domain: "Google", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
                         }
                         else {
                             tcs.setError(NSError(domain: "Google", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey:NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode)]))
@@ -86,7 +86,7 @@ class CUTEGeoManager: NSObject {
                                                 tcs.setResult(placemark)
                                             }
                                             else {
-                                                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:NSLocalizedString("GeoManager/请求失败", comment: "")]))
+                                                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
                                             }
                                         }
                                         else {
@@ -97,7 +97,7 @@ class CUTEGeoManager: NSObject {
                                     })
                                 }
                                 else {
-                                    tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:NSLocalizedString("GeoManager/请求失败", comment: "")]))
+                                    tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
                                 }
                             }
                             else {
@@ -188,7 +188,7 @@ class CUTEGeoManager: NSObject {
                         tcs.setResult(placemark)
                     }
                     else {
-                        tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:NSLocalizedString("GeoManager/请求失败", comment: "")]))
+                        tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
                     }
                 }
                 else {
@@ -274,10 +274,10 @@ class CUTEGeoManager: NSObject {
             }
             else {
                 if status == INTULocationStatus.TimedOut {
-                    tcs.setError(NSError(domain: "INTULocationManager", code: 0, userInfo: [NSLocalizedDescriptionKey:NSLocalizedString("GeoManager/获取当前位置超时", comment: "")]))
+                    tcs.setError(NSError(domain: "INTULocationManager", code: 0, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/获取当前位置超时")]))
                 }
                 else if status == INTULocationStatus.Error {
-                    tcs.setError(NSError(domain: "INTULocationManager", code: 0, userInfo: [NSLocalizedDescriptionKey:NSLocalizedString("GeoManager/获取当前位置失败", comment: "")]))
+                    tcs.setError(NSError(domain: "INTULocationManager", code: 0, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/获取当前位置失败")]))
                 }
                 else if status == INTULocationStatus.ServicesDenied {
                     tcs.cancel()
@@ -338,7 +338,7 @@ class CUTEGeoManager: NSObject {
                                 guard let duration = durationDic["value"] as? Float else {
                                     throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + durationDic.description])
                                 }
-                                let mins = ceil(duration / 60.0)
+                                let mins = Int32(ceil(duration / 60.0))
                                 let timePeriod = CUTETimePeriod(value: mins, unit: "minute")
                                 let trifficTime = CUTETrafficTime()
                                 trifficTime.time = timePeriod
@@ -422,11 +422,12 @@ class CUTEGeoManager: NSObject {
                         }
                     }
 
+                    let walkingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode:"walking")
                     let byclingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode:"bicycling")
                     let drivingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations)
-                    let walkingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode:"walking")
 
-                    BFTask(forCompletionOfAllTasksWithResults: [byclingTask, drivingTask, walkingTask]).continueWithBlock { (task:BFTask!) -> AnyObject! in
+                    //default walking as the first mode
+                    BFTask(forCompletionOfAllTasksWithResults: [walkingTask, byclingTask, drivingTask]).continueWithBlock { (task:BFTask!) -> AnyObject! in
 
                         if let taskArray = task.result as? [[[CUTETrafficTime]]] {
                             if taskArray.count == 3 {

@@ -119,6 +119,8 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
     }
 }
 
+#pragma -mark CUTEModelEditingListenerDelegate
+
 - (id)paramValueForKey:(NSString *)key withValue:(id)value {
     if ([key isEqualToString:@keypath(self.billCovered)]) {
         return value;
@@ -163,6 +165,12 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
     NSAssert(nil, @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,key);
     return nil;
 }
+
+- (BOOL)isAttributeEqualForKey:(NSString *)key oldValue:(id)oldValue newValue:(id)newValue {
+
+    return [oldValue isEqual:newValue];
+}
+
 
 - (NSDictionary *)toParams {
     NSMutableArray *unsetFields = [NSMutableArray array];

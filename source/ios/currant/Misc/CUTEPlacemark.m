@@ -70,7 +70,6 @@
     CUTEPlacemark *placemark = [CUTEPlacemark new];
     NSArray *components = [result objectForKey:@"address_components"];
     NSDictionary *location = [result objectForKey:@"geometry"][@"location"];
-    placemark.subThoroughfare = [CUTEPlacemark getComponentByType:@"street_number" fromCompnents:components];
     placemark.thoroughfare = [CUTEPlacemark getComponentByType:@"route" fromCompnents:components];
     placemark.subLocality = [CUTEPlacemark getComponentByType:@"sublocality" fromCompnents:components];
     CUTECountry *country = [CUTECountry new];
@@ -81,7 +80,7 @@
     placemark.administrativeArea = [CUTEPlacemark getComponentByType:@"administrative_area_level_1" fromCompnents:components];
     placemark.country = country;
     placemark.neighborhood = NilNullToEmpty([CUTEPlacemark getComponentByType:@"neighborhood" fromCompnents:components]);
-    placemark.street = [CUTEAddressUtil buildAddress:@[NilNullToEmpty([CUTEPlacemark getComponentByType:@"street_number" fromCompnents:components]), NilNullToEmpty([CUTEPlacemark getComponentByType:@"route" fromCompnents:components])]];
+    placemark.street = NilNullToEmpty([CUTEPlacemark getComponentByType:@"route" fromCompnents:components]);
     placemark.postalCode = [CUTEPlacemark getComponentByType:@"postal_code" fromCompnents:components];
     if (location) {
         placemark.location = [[CLLocation alloc] initWithLatitude:[location[@"lat"] doubleValue] longitude:[location[@"lng"] doubleValue]];
