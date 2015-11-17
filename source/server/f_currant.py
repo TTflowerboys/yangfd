@@ -1217,7 +1217,7 @@ class f_currant_plugins(f_app.plugin_base):
         ticket_id = task["ticket_id"]
         ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id], permission_check=False, ignore_nonexist=True)[0], _i18n=["zh_Hans_CN"])
 
-        if "property" not in ticket or ticket["property"] is None or "country" not in ticket["property"] or "city" not in ticket["property"] or "rent_available_time" not in ticket:
+        if ticket is None or "property" not in ticket or ticket["property"] is None or "country" not in ticket["property"] or "city" not in ticket["property"] or "rent_available_time" not in ticket:
             return
 
         # Scan existing rent intention ticket
