@@ -54,6 +54,13 @@ $(function () {
         }
 
         var params = $(this).serializeObject()
+
+        if(window.project.includePhoneOrEmail(params.nickname)) {
+            errorArea.text(window.i18n('用户名不得包含电话号码或邮箱'))
+            errorArea.show()
+            return
+        }
+
         params.phone = '+' + params.country_code +params.phone
         params.country = window.team.getCountryFromPhoneCode(params.country_code)
         delete params.country_code

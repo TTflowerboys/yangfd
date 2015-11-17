@@ -44,6 +44,13 @@
 
         if (!valid) {return}
         var params = $(this).serializeObject()
+
+        if(window.project.includePhoneOrEmail(params.nickname)) {
+            errorArea.text(window.i18n('用户名不得包含电话号码或邮箱'))
+            errorArea.show()
+            return
+        }
+
         if (!params.gender) {
             errorArea.text(window.i18n('性别不能为空'))
             errorArea.show()

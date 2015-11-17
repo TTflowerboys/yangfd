@@ -595,11 +595,9 @@
             })
         }*/
         function checkContaction (elem) {
-            var includePhoneReg = /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/
-            var includeEmailReg = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i
             var wordBlacklist = ['微信', '微博', 'QQ', '电话', 'weixin', 'wechat', 'whatsapp', 'facebook', 'weibo']
             var val = elem.val()
-            if (includePhoneReg.test(val) || includeEmailReg.test(val) || _.some(wordBlacklist, function (v) {
+            if (window.project.includePhoneOrEmail(val) || _.some(wordBlacklist, function (v) {
                     return val.toLowerCase().indexOf(v.toLowerCase()) !== -1
                 })) {
                 validate = false
