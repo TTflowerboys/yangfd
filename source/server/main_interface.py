@@ -741,7 +741,7 @@ def user_analyze_update(user):
 
 @f_get('/export-excel/user-analyze.xlsx')
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
-def user_analyze(user, params):
+def user_analyze(user):
     def prepare_data(value):
         if f_app.util.batch_iterable(value):
             value_list = []
