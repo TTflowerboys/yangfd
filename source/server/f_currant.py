@@ -936,11 +936,13 @@ class f_currant_user(f_user):
         def get_budget(ticket):
             if ticket is None:
                 return ''
-            budget_min = unicode(ticket.get("rent_budget_min", {}).get("value", '不限'))
+            budget_min = unicode(ticket.get("rent_budget_min", {}).get("value", '零'))
             budget_max = unicode(ticket.get("rent_budget_max", {}).get("value", '不限'))
             if budget_max is None or budget_min is None:
                 return ''
-            elif not budget_max == '不限' and budget_min == '不限':
+            elif not budget_max == '不限' and budget_min == '零':
+                if budget_min == '零':
+                    budget_min = '0'
                 return budget_min+'~~'+budget_max
 
         def get_match(ticket):
