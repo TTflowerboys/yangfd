@@ -221,6 +221,10 @@
 
     window.openRequirementForm = function (event, budgetId, intentionId, propertyId) {
         var popup = $('#requirement_popup')
+        if(window.team.isCurrantClient() && window.bridge) {
+            window.bridge.callHandler('openURLInNewController', '/requirement' + (propertyId ? ('?property=' + propertyId) : ''))
+            return
+        }
         if(window.team.isPhone()) {
             location.href = '/requirement' + (propertyId ? ('?property=' + propertyId) : '')
             return
