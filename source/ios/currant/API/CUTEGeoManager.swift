@@ -422,11 +422,12 @@ class CUTEGeoManager: NSObject {
                         }
                     }
 
+                    let walkingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode:"walking")
                     let byclingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode:"bicycling")
                     let drivingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations)
-                    let walkingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode:"walking")
 
-                    BFTask(forCompletionOfAllTasksWithResults: [byclingTask, drivingTask, walkingTask]).continueWithBlock { (task:BFTask!) -> AnyObject! in
+                    //default walking as the first mode
+                    BFTask(forCompletionOfAllTasksWithResults: [walkingTask, byclingTask, drivingTask]).continueWithBlock { (task:BFTask!) -> AnyObject! in
 
                         if let taskArray = task.result as? [[[CUTETrafficTime]]] {
                             if taskArray.count == 3 {
