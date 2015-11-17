@@ -746,7 +746,7 @@ def user_analyze(user, params):
         if f_app.util.batch_iterable(value):
             value_list = []
             for single_value in value:
-                value_list.append(user_analyze(single_value))
+                value_list.append(prepare_data(single_value))
             return value_list
         elif isinstance(value, datetime):
             loc_t = timezone('Europe/London')
