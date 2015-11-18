@@ -1330,7 +1330,7 @@
             item.name = item[item.type.slug].name
 
             item.traffic_time = _.map(item.traffic_time, function (innerItem) {
-                innerItem.isRaw = parseInt(innerItem.time.value) % 5 === 0
+                innerItem.isRaw = parseInt(innerItem.time.value) % 5 !== 0
                 return innerItem
             })
             return item
