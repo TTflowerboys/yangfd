@@ -732,7 +732,7 @@ def test_wx_share_remote():
     return currant_util.common_template("test_wx_share_remote", title=title)
 
 
-@f_get('/aggregation_general')
+@f_api('/aggregation_general')
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
 def aggregation_general(user):
     value = {}
@@ -748,7 +748,7 @@ def aggregation_general(user):
             value.update({"aggregation_register_user_total": cursor.next()['totalUsersCount']})
         else:
             value.update({"aggregation_register_user_total": 0})
-
+        cursor.close()
         cursor = m.users.aggregate(
             [
                 {"$unwind": "$user_type"},
@@ -759,7 +759,129 @@ def aggregation_general(user):
         for document in cursor:
             user_type.append({"type": f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'],
                               "total": document['count']})
+        cursor.close()
         value.update({"aggregation_user_type": user_type})
+    return value
+
+
+@f_api('/aggregation_rent_ticket')
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def aggregation_rent_ticket(user):
+    value = {}
+    with f_app.mongo() as m:
+        cursor = m.tickets.aggregate(
+            [
+                {'$match': {'type': "rent"}},
+                {'$group': {'_id': "$type", 'count': {'$sum': 1}}}
+            ]
+        )
+        value.update({"aggregation_rent_ticket_total": cursor.next()['count']})
+        cursor.close()
+        cursor = m.log.aggregate(
+            [
+                {'$match': {'route': '/api/1/rent_ticket/add'}},
+                {'$group': {'_id': None, 'count': {'$sum': 1}}}
+            ]
+        )
+        value.update({"aggregation_rent_ticket_create_total": cursor.next()['count']})
+        cursor.close()
+        cursor = m.log.aggregate(
+            [
+                {'$match': {'route': '/api/1/rent_ticket/add', 'useragent': {'$regex': '.*currant.*'}}},
+                {'$group': {'_id': None, 'count': {'$sum': 1}}}
+            ]
+        )
+        value.update({"aggregation_rent_ticket_create_total_from_mobile": cursor.next()['count']})
+        value.update({"aggregation_rent_ticket_create_total_from_mobile_ratio": value['aggregation_rent_ticket_create_total_from_mobile']*1.0/value['aggregation_rent_ticket_create_total']})
+        cursor.close()
+        cursor = m.tickets.aggregate(
+            [
+                {'$match': {'type': "rent"}},
+                {'$group': {'_id': "$status", 'count': {'$sum': 1}}}
+            ]
+        )
+        status_dic = {
+            'rent': '已出租',
+            'to rent': '发布中',
+            'draft': '草稿',
+            'deleted': '已删除'
+        }
+        aggregation_rent_ticket_status = []
+        for document in cursor:
+            aggregation_rent_ticket_status.append({"status": status_dic[document['_id']],
+                                                   "total": document['count']})
+        cursor.close()
+        value.update({"aggregation_rent_ticket_status": aggregation_rent_ticket_status})
+
+        cursor = m.tickets.aggregate(
+            [
+                {'$match': {'type': "rent"}},
+                {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
+            ]
+        )
+        aggregation_rent_ticket_type = []
+        for document in cursor:
+            if(document['_id']):
+                aggregation_rent_ticket_type.append({"type": f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'],
+                                                     "total": document['count']})
+        value.update({"aggregation_rent_ticket_type": aggregation_rent_ticket_type})
+        cursor.close()
+        cursor = m.tickets.aggregate(
+            [
+                {'$match': {'type': "rent", 'status': "to rent"}},
+                {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
+            ]
+        )
+        aggregation_rent_ticket_type_available = []
+        for document in cursor:
+            if(document['_id']):
+                aggregation_rent_ticket_type_available.append({"type": f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'],
+                                                               "total": document['count']})
+        value.update({"aggregation_rent_ticket_type_available": aggregation_rent_ticket_type_available})
+        cursor.close()
+        cursor = m.tickets.aggregate(
+            [
+                {'$match': {'type': "rent", 'status': "rent"}},
+                {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
+            ]
+        )
+        aggregation_rent_ticket_type_rent = []
+        for document in cursor:
+            if(document['_id']):
+                aggregation_rent_ticket_type_rent.append({"type": f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'],
+                                                          "total": document['count']})
+        cursor.close()
+        value.update({"aggregation_rent_ticket_type_rent": aggregation_rent_ticket_type_rent})
+        cursor = m.tickets.aggregate(
+            [
+                {'$match': {'type': "rent", 'status': "to rent"}},
+                {'$group': {'_id': "$landlord_type", 'count': {'$sum': 1}}}
+            ]
+        )
+        aggregation_landlord_type_has_available_rent_ticket = []
+        for document in cursor:
+            if(document['_id']):
+                aggregation_landlord_type_has_available_rent_ticket.append({"type": f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'],
+                                                                            "total": document['count']})
+        cursor.close()
+        value.update({"aggregation_landlord_type_has_available_rent_ticket": aggregation_landlord_type_has_available_rent_ticket})
+        cursor = m.tickets.aggregate(
+            [
+                {'$match': {'type': "rent", 'status': "to rent", 'rent_type._id': ObjectId('55645cf5666e3d0f57d6e284')}},
+                {'$group': {'_id': "$landlord_type", 'count': {'$sum': 1}}}
+            ]
+        )
+        aggregation_landlord_type_has_available_whole = []
+
+        for document in cursor:
+            if(document['_id']):
+                aggregation_landlord_type_has_available_whole.append({"type": f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'],
+                                                                      "total": document['count']})
+        cursor.close()
+        value.update({"aggregation_landlord_type_has_available_whole": aggregation_landlord_type_has_available_whole})
+
+        # aggregation_rent_ticket_shortest_rent_period TODO
+
     return value
 
 
