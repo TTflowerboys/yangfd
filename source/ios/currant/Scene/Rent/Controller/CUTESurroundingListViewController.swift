@@ -142,15 +142,21 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                     cell?.textLabel?.textColor = UIColor(hex6: 0x666666)
                     cell?.removeMargins()
                 }
+                let surrounding = self.searchResultSurroundings[indexPath.row]
+                let imageView = UIImageView()
+                imageView.frame = CGRectMake(0, 0, 20, 20)
+                imageView.contentMode = UIViewContentMode.Center
+                imageView.setImageWithURL(NSURL(string: surrounding.type.image)!)
 
+                cell?.accessoryView = imageView
                 cell?.textLabel?.numberOfLines = 2
                 cell?.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
-                cell?.textLabel?.text = self.searchResultSurroundings[indexPath.row].name
+                cell?.textLabel?.text = surrounding.name
                 return cell!
             }
         }
 
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
+        let cell = tableView.dequeueReusableCellWithIdentifier("surroundingReuseIdentifier")
 
         var surroundingCell:CUTESurroundingCell
 
@@ -158,7 +164,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
             surroundingCell = cell as! CUTESurroundingCell
         }
         else {
-            surroundingCell = CUTESurroundingCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
+            surroundingCell = CUTESurroundingCell(style: UITableViewCellStyle.Default, reuseIdentifier: "surroundingReuseIdentifier")
             surroundingCell.typeButton.addTarget(self, action: "onTypeButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
             surroundingCell.durationButton.addTarget(self, action: "onDurationButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
             surroundingCell.removeButton.addTarget(self, action: "onRemoveButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
