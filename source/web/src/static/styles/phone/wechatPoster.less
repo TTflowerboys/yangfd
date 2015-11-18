@@ -39,6 +39,21 @@
         background: linear-gradient(to right, fade(@bg, 0%) 0%, @bg 80%);
     }
 }
+.hardwareAcceleration() {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    -webkit-perspective: 1000;
+    -moz-perspective: 1000;
+    -ms-perspective: 1000;
+    perspective: 1000;
+}
 
 html {
     height: 100%;
@@ -61,6 +76,7 @@ p{
 }
 .swiper-container {
     /*height: 1036px;*/
+    .hardwareAcceleration;
     width: 100%;
     .swiper-slide {
         width: 100%;
@@ -172,8 +188,8 @@ p{
         bottom: -3vh;
         background: url("/static/images/wechat_poster/up_button_background.png") 50% 0%;
         background-size: cover;
+        background-repeat: no-repeat;
         .animation(bounceUp 0.6s linear 0.6s 1);
-        opacity: 0;
         text-align: center;
         .scrollUp{
             display: inline-block;
@@ -199,123 +215,128 @@ p{
                 background-size: contain;
             }
         }
-    }
-    .mapBottom{
-        height: 40vh;
-        bottom: -4vh;
-        background-image: url("/static/images/wechat_poster/map_bottom_bg.png");
-        h2{
-            margin: 4vh auto 3vh;
-            font-size: 3.5vh;
-            font-weight: 400;
-            color: #b6d11e;
-        }
-        p{
-            font-size: 4vh;
-            line-height: 1.5em;
-            font-weight: lighter;
-            padding: 0 4vw;
-        }
-    }
-    .photoBottom{
-        z-index: 100;
-        height: 35vh;
-        bottom: -4vh;
-        background-image: url("/static/images/wechat_poster/map_bottom_bg.png");
-        animation-delay: 0s;
-        .photoThumbsBox{
-            position: relative;
-            width: 44vh;
-            height: 14vh;
-            margin: 6vh auto;
-            .arrowButton{
-                width: 3vh;
-                height: 6vh;
-                position: absolute;
-                z-index: 100;
-                top: 4vh;
-                background-position: 50% 50%;
-                background-size: contain;
-                background-repeat: no-repeat;
+        &.mapBottom{
+            height: 40vh;
+            bottom: -4vh;
+            background-image: url("/static/images/wechat_poster/map_bottom_bg.png");
+            h2{
+                margin: 4vh auto 3vh;
+                font-size: 3.5vh;
+                font-weight: 400;
+                color: #b6d11e;
             }
-            .prevButton{
-                background-image: url("/static/images/wechat_poster/left_arrow.png");
-                left: -5vh;
-            }
-            .nextButton{
-                background-image: url("/static/images/wechat_poster/right_arrow.png");
-                right: -5vh;
-            }
-            .swiper-wrapper{
-                margin: 0;
-                .swiper-slide{
-                    width: 14vh;
-                    height: 14vh;
-                    .coverCenter;
-                    background-repeat: no-repeat;
-                }
-                .swiper-slide-active{
-                    border: 3px solid #afc327;
-                }
+            p{
+                font-size: 4vh;
+                line-height: 1.5em;
+                font-weight: lighter;
+                padding: 0 4vw;
             }
         }
-
-    }
-    .coverBackBottom{
-        height: 26vh;
-        bottom: -4vh;
-        background-image: url("/static/images/wechat_poster/copyright_background.png");
-        .linkWrap{
-            margin: 4.2vh 5vw;
-            .siteLink{
-                display: inline-block;
-                padding: 1.4vh 7vw;
-                border-radius: 5px;
-                border: 1px solid #fff;
-                cursor: pointer;
-                font-size: 2.5vh;
-                line-height: 1em;
-                text-decoration: none;
-                color: #fff;
-            }
-            .siteLinkBox{
-                float: left;
-                width: 50%;
-                text-align: center;
-            }
-            .rentOut{
-                display: inline-block;
-                text-align: center;
-            }
-        }
-        .copyright{
-            margin: 3.8vh 3vw;
-            border-top: 1px solid #535353;
-            padding: 2vh 0;
-            .poweredBy{
-                width: 40%;
-                float: left;
-                height: 4.5vh;
-                line-height: 4vh;
-                font-size: 2.2vh;
-                color: #afc327;
-                font-weight: bold;
-            }
-            .logoBox{
-                float: left;
-                width: 60%;
-                .logo{
-                    height: 4.5vh;
-                    background-image: url("/static/images/wechat_poster/logo_cover_back.png");
-                    background-repeat: no-repeat;
-                    background-size: contain;
+        &.photoBottom{
+            z-index: 100;
+            height: 35vh;
+            bottom: -4vh;
+            background-image: url("/static/images/wechat_poster/map_bottom_bg.png");
+            animation-delay: 0s;
+            .photoThumbsBox{
+                position: relative;
+                width: 44vh;
+                height: 14vh;
+                margin: 6vh auto;
+                .arrowButton{
+                    width: 3vh;
+                    height: 6vh;
+                    position: absolute;
+                    z-index: 100;
+                    top: 4vh;
                     background-position: 50% 50%;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                }
+                .prevButton{
+                    background-image: url("/static/images/wechat_poster/left_arrow.png");
+                    left: -5vh;
+                }
+                .nextButton{
+                    background-image: url("/static/images/wechat_poster/right_arrow.png");
+                    right: -5vh;
+                }
+                .swiper-wrapper{
+                    margin: 0;
+                    .swiper-slide{
+                        width: 14vh;
+                        height: 14vh;
+                        .coverCenter;
+                        background-repeat: no-repeat;
+                    }
+                    .swiper-slide-active{
+                        border: 3px solid #afc327;
+                    }
                 }
             }
         }
+        &.coverBackBottom{
+            height: 26vh;
+            bottom: -4vh;
+            background: url("/static/images/wechat_poster/copyright_background.png") 50% 0%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            .scrollUp{
+                visibility: hidden; //避免在iOS微信中最后一页动画结束后上半部分消失的bug
+            }
+            .linkWrap{
+                margin: 4.2vh 5vw;
+                .siteLink{
+                    display: inline-block;
+                    padding: 1.4vh 7vw;
+                    border-radius: 5px;
+                    border: 1px solid #fff;
+                    cursor: pointer;
+                    font-size: 2.5vh;
+                    line-height: 1em;
+                    text-decoration: none;
+                    color: #fff;
+                }
+                .siteLinkBox{
+                    float: left;
+                    width: 50%;
+                    text-align: center;
+                }
+                .rentOut{
+                    display: inline-block;
+                    text-align: center;
+                }
+            }
+            .copyright{
+                margin: 3.8vh 3vw;
+                border-top: 1px solid #535353;
+                padding: 2vh 0;
+                .poweredBy{
+                    width: 40%;
+                    float: left;
+                    height: 4.5vh;
+                    line-height: 4vh;
+                    font-size: 2.2vh;
+                    color: #afc327;
+                    font-weight: bold;
+                }
+                .logoBox{
+                    float: left;
+                    width: 60%;
+                    .logo{
+                        height: 4.5vh;
+                        background-image: url("/static/images/wechat_poster/logo_cover_back.png");
+                        background-repeat: no-repeat;
+                        background-size: contain;
+                        background-position: 50% 50%;
+                    }
+                }
+            }
 
 
+        }
     }
+
 }
 .page{
     width: 100%;
@@ -331,7 +352,7 @@ p{
     .topTitleNav {
         p{
             display: inline-block;
-            opacity: 0;
+            //opacity: 0;
             .animation(tada2 0.4s linear 0.6s 1);
             &.animation:nth-child(1){
                 animation-delay: 0.6s;
