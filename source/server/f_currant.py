@@ -4208,6 +4208,8 @@ class f_main_mixed_index(f_app.plugin_base):
     def get(self, main_mixed_index_id_or_list, force_reload=False, ignore_nonexist=False):
         def _format_each(main_mixed_index):
             main_mixed_index.pop("loc", None)
+            main_mixed_index.pop("_id")
+            main_mixed_index.pop("index", None)
             return f_app.util.process_objectid(main_mixed_index)
 
         if f_app.util.batch_iterable(main_mixed_index_id_or_list):
