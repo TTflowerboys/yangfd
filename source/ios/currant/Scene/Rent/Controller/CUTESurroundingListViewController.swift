@@ -239,6 +239,20 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
     }
 
+    func searchDisplayController(controller: UISearchDisplayController, willShowSearchResultsTableView tableView: UITableView) {
+        for view in tableView.subviews {
+            if view is UILabel {
+                if let label = view as? UILabel {
+                    //here label is from UIKit setup, so just use the NSLocalizedString get current text
+                    if label.text == NSLocalizedString("No Results", comment: "") {
+                        label.hidden = true
+                    }
+                }
+            }
+        }
+
+    }
+
     func searchDisplayController(controller: UISearchDisplayController, didHideSearchResultsTableView tableView: UITableView) {
     }
 
