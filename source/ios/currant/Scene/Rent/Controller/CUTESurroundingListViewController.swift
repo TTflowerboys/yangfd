@@ -251,7 +251,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         CUTEGeoManager.sharedInstance.searchSurroundingsWithName(searchBar.text, latitude: nil, longitude: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex).continueWithBlock { (task:BFTask!) -> AnyObject! in
             self.searchResultSurroundings = task.result as! [CUTESurrounding]
             self.searchController?.searchResultsTableView.reloadData()
-//            self.searchController?.searchResultsTableView.contentSize
+//            self.searchController?.searchResultsTableView.contentSize = CGSizeMake(CGRectGetWidth(self.searchController!.searchResultsTableView.bounds), CGFloat(self.searchResultSurroundings.count) * 65.0)
             SVProgressHUD.dismiss()
             return task
         }
@@ -273,22 +273,8 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         //clear the old tableview
         self.searchResultSurroundings = [] //clear last result
         tableView.reloadData()
-
-
-        //Bug from ios 7 when the keyboard hide, system will change the contentInset of tableView, so need listen this message to restore the contentInset
-        //http://stackoverflow.com/questions/19069503/uisearchdisplaycontrollers-searchresultstableviews-contentsize-is-incorrect-b
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onKeyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
     }
 
-    func searchDisplayController(controller: UISearchDisplayController, didHideSearchResultsTableView tableView: UITableView) {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-    }
-
-    func onKeyboardWillHide(notif:NSNotification) {
-        let tableView = self.searchController?.searchResultsTableView
-        tableView?.contentInset = UIEdgeInsetsMake((self.searchController?.searchBar.frame.size.height)!, 0, 0, 0)
-        tableView?.scrollIndicatorInsets = UIEdgeInsetsZero
-    }
 
     func onTypeButtonPressed(sender:UIButton) {
         var surroundings = Array(form.ticket.property.surroundings as! [CUTESurrounding])
