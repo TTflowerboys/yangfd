@@ -215,7 +215,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                 SVProgressHUD.show()
                 self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
                     var array = Array(ticket.property.surroundings as! [CUTESurrounding])
-                    array.append(surrounding)
+                    array.insert(surrounding, atIndex: 0)
                     ticket.property.surroundings = array
 
                 }).continueWithBlock({ (task:BFTask!) -> AnyObject! in
