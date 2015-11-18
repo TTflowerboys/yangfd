@@ -62,7 +62,7 @@
         }
         $scope.addUserDict = function (words) {
             $scope.words = ''
-            var wordList = words ? words.split(/[\s,\|]+/) : []
+            var wordList = words ? words.split(/[,，]+/).map(String.prototype.trim) : []
             $q.all(_.map(wordList, function (word) {
                 var defer = $q.defer()
                 api.create({

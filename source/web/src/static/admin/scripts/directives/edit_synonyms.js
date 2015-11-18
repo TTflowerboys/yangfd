@@ -11,20 +11,20 @@ angular.module('app')
             },
             controller: function($scope, $element, $attrs, $transclude) {
                 $scope.words = ''
-                $scope.wordList = $scope.item.rule ? $scope.item.rule.split(' ') : []
+                $scope.wordList = $scope.item.rule ? $scope.item.rule.split(',').map(String.prototype.trim) : []
                 $scope.addWords = function(words) {
-                    $scope.wordList = $scope.wordList.concat(words ? words.split(/[\s,\|]+/) : [])
+                    $scope.wordList = $scope.wordList.concat(words ? words.split(/[,，]+/).map(String.prototype.trim) : [])
                     $scope.words = ''
                 }
                 $scope.updateWords = function(words) {
-                    $scope.wordList = words ? words.split(/[\s,\|]+/) : []
+                    $scope.wordList = words ? words.split(/[,，]+/).map(String.prototype.trim) : []
                     $scope.words = ''
                 }
                 $scope.removeWord = function(index) {
                     $scope.wordList.splice(index, 1)
                 }
                 $scope.$watch('wordList', function () {
-                    $scope.item.rule = $scope.wordList.join(' ')
+                    $scope.item.rule = $scope.wordList.join(',')
                     if ($scope.edit === true) {
                         $scope.submit()
                     }
