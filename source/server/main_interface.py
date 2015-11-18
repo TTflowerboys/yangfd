@@ -882,6 +882,62 @@ def aggregation_rent_ticket(user):
 
         # aggregation_rent_ticket_shortest_rent_period TODO
 
+        cursor = m.tickets.aggregate(
+            [
+                {'$match': {
+                    'type': "rent",
+                    'status': "to rent"
+                    }},
+                {'$group': {'_id': "$minimum_rent_period", 'count': {'$sum': 1}}}
+            ]
+        )
+
+        period_count = {
+            'short': 0,
+            'short_middle': 0,
+            'middle_long': 0,
+            'long': 0,
+            'extra_long': 0
+        }
+
+        def covert_to_month(period):
+            if(period['unit'] == 'week'):
+                period['value'] = float(period['value'])/4
+            if(period['unit'] == 'day'):
+                period['value'] = float(period['value'])/31
+            if(period['unit'] == 'year'):
+                period['value'] = float(period['value'])*12
+            else:
+                period['value'] = float(period['value'])
+            return period
+
+        for document in cursor:
+            if(document['_id']):
+                period = covert_to_month(document['_id'])
+                if(period['value'] < 1.0):
+                    period_count['short'] += document['count']
+                if(period['value'] >= 1.0 and period['value'] < 3.0):
+                    period_count['short_middle'] += document['count']
+                if(period['value'] >= 3.0 and period['value'] < 6.0):
+                    period_count['middle_long'] += document['count']
+                if(period['value'] >= 6.0 and period['value'] < 12.0):
+                    period_count['long'] += document['count']
+                if(period['value'] >= 12.0):
+                    period_count['extra_long'] += document['count']
+        sample_text = {
+            'short': 'less than 1 month',
+            'short_middle': '1 month ~ 3 month',
+            'middle_long': '3 month ~ 6 month',
+            'long': '6 month ~ 12 month',
+            'extra_long': 'longer than 12 month'
+        }
+        aggregation_rent_ticket_shortest_rent_period = []
+        for rang in period_count:
+            aggregation_rent_ticket_shortest_rent_period.append({"period": sample_text[rang],
+                                                                 "total": period_count[rang]})
+        value.update({"aggregation_rent_ticket_shortest_rent_period": aggregation_rent_ticket_shortest_rent_period})
+        cursor.close()
+
     return value
 
 
