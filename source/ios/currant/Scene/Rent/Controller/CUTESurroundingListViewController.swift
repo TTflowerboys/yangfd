@@ -18,6 +18,11 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     internal var searchController:UISearchDisplayController?
     internal var searchBarBackground:UIView?
 
+    // 实现隐藏“No Results” label 用的flag
+    //http://stackoverflow.com/questions/11639257/how-do-i-cover-the-no-results-text-in-uisearchdisplaycontrollers-searchresult
+    //http://stackoverflow.com/questions/22888016/uisearchdisplaycontroller-configure-no-results-view-not-to-overlap-tablefooter
+    private var noSearchResult:Bool = true
+
 
     init(form:CUTESurroundingForm) {
         self.form = form
@@ -102,7 +107,14 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of row
         if self.searchController?.searchResultsTableView == tableView {
-            return self.searchResultSurroundings.count
+            if self.searchResultSurroundings.count == 0 {
+                noSearchResult = true
+                return 1
+            }
+            else {
+                noSearchResult = false
+                return self.searchResultSurroundings.count
+            }
         }
         return (form.ticket.property.surroundings as! [CUTESurrounding]).count
     }
@@ -110,15 +122,29 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if self.searchController?.searchResultsTableView == tableView {
-            var cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
-            if cell == nil {
-                cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
-                cell?.textLabel?.font = UIFont.systemFontOfSize(15)
-                cell?.textLabel?.textColor = UIColor(hex6: 0x666666)
-                cell?.removeMargins()
+
+            if noSearchResult == true {
+                var cell = tableView.dequeueReusableCellWithIdentifier("cleanCell")
+                if cell == nil {
+                    cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
+                    cell?.textLabel?.font = UIFont.systemFontOfSize(15)
+                    cell?.textLabel?.textColor = UIColor(hex6: 0x666666)
+                    cell?.removeMargins()
+                }
+                return cell!
             }
-            cell?.textLabel?.text = self.searchResultSurroundings[indexPath.row].name
-            return cell!
+            else {
+                var cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
+                if cell == nil {
+                    cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
+                    cell?.textLabel?.font = UIFont.systemFontOfSize(15)
+                    cell?.textLabel?.textColor = UIColor(hex6: 0x666666)
+                    cell?.removeMargins()
+                }
+
+                cell?.textLabel?.text = self.searchResultSurroundings[indexPath.row].name
+                return cell!
+            }
         }
 
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
@@ -236,21 +262,9 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         if (self.searchController?.searchBar.superview != nil) {
             self.hideSearchBar()
         }
-
     }
 
     func searchDisplayController(controller: UISearchDisplayController, willShowSearchResultsTableView tableView: UITableView) {
-        for view in tableView.subviews {
-            if view is UILabel {
-                if let label = view as? UILabel {
-                    //here label is from UIKit setup, so just use the NSLocalizedString get current text
-                    if label.text == NSLocalizedString("No Results", comment: "") {
-                        label.hidden = true
-                    }
-                }
-            }
-        }
-
     }
 
     func searchDisplayController(controller: UISearchDisplayController, didHideSearchResultsTableView tableView: UITableView) {
