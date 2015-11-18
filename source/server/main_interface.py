@@ -732,6 +732,37 @@ def test_wx_share_remote():
     return currant_util.common_template("test_wx_share_remote", title=title)
 
 
+@f_get('/aggregation_general')
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def aggregation_general(user):
+    value = {}
+    with f_app.mongo() as m:
+        value.update({"aggregation_user_total": m.users.count()})
+        cursor = m.users.aggregate(
+            [
+                {'$match': {'register_time': {'$exists': 'true'}}},
+                {'$group': {'_id': None, 'totalUsersCount': {'$sum': 1}}}
+            ]
+        )
+        if cursor.alive:
+            value.update({"aggregation_register_user_total": cursor.next()['totalUsersCount']})
+        else:
+            value.update({"aggregation_register_user_total": 0})
+
+        cursor = m.users.aggregate(
+            [
+                {"$unwind": "$user_type"},
+                {"$group": {"_id": "$user_type", "count": {"$sum": 1}}}
+            ]
+        )
+        user_type = []
+        for document in cursor:
+            user_type.append({"type": f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'],
+                              "total": document['count']})
+        value.update({"aggregation_user_type": user_type})
+    return value
+
+
 @f_api('/update-user-analyze')
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
 def user_analyze_update(user):
