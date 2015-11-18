@@ -25,4 +25,7 @@
 
 @property (nonatomic) NSInteger sortValue;
 
+@property (strong, nonatomic) NSString *image;
+
+
 @end

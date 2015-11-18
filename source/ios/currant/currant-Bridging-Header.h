@@ -29,6 +29,7 @@
 #import <ActionSheetPicker.h>
 //#import <Masonry.h>
 #import <UIButton+BBT.h>
+#import <UIImageView+AFNetworking.h>
 
 
 //category class

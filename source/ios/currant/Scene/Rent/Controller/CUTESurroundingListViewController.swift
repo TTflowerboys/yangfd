@@ -167,6 +167,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         let surroundings = form.ticket.property.surroundings as! [CUTESurrounding]
         let surrounding = surroundings[indexPath.row]
         surroundingCell.nameLabel.text = surrounding.name
+        surroundingCell.typeImageView.setImageWithURL(NSURL(string: surrounding.type.image)!)
         surroundingCell.typeButton.tag = indexPath.row
         surroundingCell.durationButton.tag = indexPath.row
         surroundingCell.removeButton.tag = indexPath.row

@@ -84,6 +84,30 @@
     return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTESurrounding class]];
 }
 
++ (NSValueTransformer *)latitudeJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSNumber *(id value) {
+        if ([value isKindOfClass:[NSString class]]) {
+            return [NSNumber numberWithDouble:[(NSString *)value doubleValue]];
+        }
+        return value;
+
+    } reverseBlock:^NSString *(NSNumber *number) {
+        return number.stringValue;
+    }];
+}
+
++ (NSValueTransformer *)longitudeJSONTransformer {
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSNumber *(id value) {
+        if ([value isKindOfClass:[NSString class]]) {
+            return [NSNumber numberWithDouble:[(NSString *)value doubleValue]];
+        }
+        return value;
+
+    } reverseBlock:^NSString *(NSNumber *number) {
+        return number.stringValue;
+    }];
+}
+
 + (NSValueTransformer *)neighborhoodJSONTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^CUTENeighborhood *(id dic) {
         if ([dic isKindOfClass:[NSDictionary class]]) {

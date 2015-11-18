@@ -19,7 +19,9 @@
              @"type": @"type",
              @"time": @"time",
              @"value": @"value",
-             @"sortValue": @"sort_value"};
+             @"sortValue": @"sort_value",
+             @"image": @"image"
+             };
 }
 
 + (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary
