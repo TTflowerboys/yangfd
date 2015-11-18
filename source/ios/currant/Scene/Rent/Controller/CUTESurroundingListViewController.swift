@@ -39,7 +39,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         super.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
         super.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         super.tableView.allowsSelection = false
-        self.definesPresentationContext = true
+//        self.definesPresentationContext = true
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -67,6 +67,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                 self.searchController?.searchResultsDelegate = self
                 self.searchController?.searchResultsDataSource = self
                 self.navigationController?.view.addSubview(self.searchController!.searchBar)
+                self.searchController?.searchContentsController.extendedLayoutIncludesOpaqueBars = true
                 self.searchController?.searchResultsTableView.contentInset = UIEdgeInsetsMake(searchBar.frame.size.height, 0, 0, 0);
                 self.searchController?.searchResultsTableView.removeMargins()
 
@@ -142,6 +143,8 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                     cell?.removeMargins()
                 }
 
+                cell?.textLabel?.numberOfLines = 2
+                cell?.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
                 cell?.textLabel?.text = self.searchResultSurroundings[indexPath.row].name
                 return cell!
             }
@@ -190,7 +193,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if self.searchController?.searchResultsTableView == tableView {
-            return 45
+            return 65
         }
         return 80;
     }
@@ -248,13 +251,14 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         CUTEGeoManager.sharedInstance.searchSurroundingsWithName(searchBar.text, latitude: nil, longitude: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex).continueWithBlock { (task:BFTask!) -> AnyObject! in
             self.searchResultSurroundings = task.result as! [CUTESurrounding]
             self.searchController?.searchResultsTableView.reloadData()
+//            self.searchController?.searchResultsTableView.contentSize
             SVProgressHUD.dismiss()
             return task
         }
     }
 
     func searchDisplayControllerDidBeginSearch(controller: UISearchDisplayController) {
-        self.searchResultSurroundings = [] //clear last result
+
     }
 
     func searchDisplayControllerDidEndSearch(controller: UISearchDisplayController) {
@@ -262,12 +266,28 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         if (self.searchController?.searchBar.superview != nil) {
             self.hideSearchBar()
         }
+
     }
 
     func searchDisplayController(controller: UISearchDisplayController, willShowSearchResultsTableView tableView: UITableView) {
+        //clear the old tableview
+        self.searchResultSurroundings = [] //clear last result
+        tableView.reloadData()
+
+
+        //Bug from ios 7 when the keyboard hide, system will change the contentInset of tableView, so need listen this message to restore the contentInset
+        //http://stackoverflow.com/questions/19069503/uisearchdisplaycontrollers-searchresultstableviews-contentsize-is-incorrect-b
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onKeyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
     }
 
     func searchDisplayController(controller: UISearchDisplayController, didHideSearchResultsTableView tableView: UITableView) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+
+    func onKeyboardWillHide(notif:NSNotification) {
+        let tableView = self.searchController?.searchResultsTableView
+        tableView?.contentInset = UIEdgeInsetsMake((self.searchController?.searchBar.frame.size.height)!, 0, 0, 0)
+        tableView?.scrollIndicatorInsets = UIEdgeInsetsZero
     }
 
     func onTypeButtonPressed(sender:UIButton) {
