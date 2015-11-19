@@ -43,4 +43,11 @@
     }
 }
 
+- (NSUInteger)hash {
+    if (self.identifier) {
+        return self.identifier.hash;
+    }
+    return [super hash];
+}
+
 @end

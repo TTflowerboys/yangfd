@@ -28,5 +28,12 @@
     }
 }
 
+- (NSUInteger)hash {
+    if (self.value) {
+        return self.value.hash;
+    }
+    return [super hash];
+}
+
 
 @end

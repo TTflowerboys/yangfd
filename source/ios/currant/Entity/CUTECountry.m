@@ -63,7 +63,13 @@
         return [self.ISOcountryCode isEqualToString:((CUTECountry *)object).ISOcountryCode];
     }
     return NO;
+}
 
+- (NSUInteger)hash {
+    if (self.ISOcountryCode) {
+        return self.ISOcountryCode.hash;
+    }
+    return [super hash];
 }
 
 @end

@@ -38,6 +38,13 @@
     }
 }
 
+- (NSUInteger)hash {
+    if (self.unit) {
+        return self.unit.hash ^ self.value;
+    }
+    return [super hash];
+}
+
 - (NSString *)unitForDisplay {
     return [CUTETimePeriod getDisplayUnitWithUnit:self.unit];
 }

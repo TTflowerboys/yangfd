@@ -42,6 +42,13 @@
     }
 }
 
+- (NSUInteger)hash {
+    if (self.identifier) {
+        return self.identifier.hash;
+    }
+    return [super hash];
+}
+
 - (NSString *)localizedTitle {
     //http://stackoverflow.com/questions/16860108/how-to-determine-if-the-first-character-of-a-nsstring-is-a-letter
     NSRange first = [self.name rangeOfComposedCharacterSequenceAtIndex:0];

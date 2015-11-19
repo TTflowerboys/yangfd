@@ -55,8 +55,6 @@
              }[self.unit];
 }
 
-//TODO all isEqual: compare aslo need override hash function, http://nshipster.com/equality/
-
 - (BOOL)isEqual:(id)object {
     if ([object isKindOfClass:[self class]]) {
         //self.value
@@ -69,6 +67,13 @@
     else {
         return NO;
     }
+}
+
+- (NSUInteger)hash {
+    if (self.unit && self.value) {
+        return self.unit.hash ^ self.value.hash;
+    }
+    return [super hash];
 }
 
 - (NSDictionary *)toParams {

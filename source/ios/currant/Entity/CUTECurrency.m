@@ -64,6 +64,13 @@
     }
 }
 
+- (NSUInteger)hash {
+    if (self.unit && self.value) {
+        return self.unit.hash ^ self.value.hash;
+    }
+    return [super hash];
+}
+
 - (NSDictionary *)toParams {
     return @{
       @"unit":self.unit,
