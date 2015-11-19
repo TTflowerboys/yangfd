@@ -106,96 +106,116 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of row
-        if self.searchController?.searchResultsTableView == tableView {
-            if self.searchResultSurroundings.count == 0 {
-                noSearchResult = true
-                return 1
+
+        if self.searchController != nil {
+            if self.searchController?.searchResultsTableView == tableView {
+                if self.searchResultSurroundings.count == 0 {
+                    noSearchResult = true
+                    return 1
+                }
+                else {
+                    noSearchResult = false
+                    return self.searchResultSurroundings.count
+                }
             }
             else {
-                noSearchResult = false
-                return self.searchResultSurroundings.count
+                //TODO Strange searchController 
+                return 0
             }
         }
-        return (form.ticket.property.surroundings as! [CUTESurrounding]).count
+        else {
+
+            return (form.ticket.property.surroundings as! [CUTESurrounding]).count
+        }
     }
 
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.searchController?.searchResultsTableView == tableView {
+        if self.searchController != nil {
+            if self.searchController?.searchResultsTableView == tableView {
 
-            if noSearchResult == true {
-                var cell = tableView.dequeueReusableCellWithIdentifier("cleanCell")
-                if cell == nil {
-                    cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
-                    cell?.textLabel?.font = UIFont.systemFontOfSize(15)
-                    cell?.textLabel?.textColor = UIColor(hex6: 0x666666)
-                    cell?.removeMargins()
+                if noSearchResult == true {
+                    var cell = tableView.dequeueReusableCellWithIdentifier("cleanCell")
+                    if cell == nil {
+                        cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
+                        cell?.textLabel?.font = UIFont.systemFontOfSize(15)
+                        cell?.textLabel?.textColor = UIColor(hex6: 0x666666)
+                        cell?.removeMargins()
+                    }
+                    return cell!
                 }
-                return cell!
+                else {
+                    var cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
+                    if cell == nil {
+                        cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
+                        cell?.textLabel?.font = UIFont.systemFontOfSize(15)
+                        cell?.textLabel?.textColor = UIColor(hex6: 0x666666)
+                        cell?.removeMargins()
+                    }
+                    let surrounding = self.searchResultSurroundings[indexPath.row]
+                    let imageView = UIImageView()
+                    imageView.frame = CGRectMake(0, 0, 20, 20)
+                    imageView.contentMode = UIViewContentMode.Center
+                    imageView.setImageWithURL(NSURL(string: surrounding.type.image)!)
+
+                    cell?.accessoryView = imageView
+                    cell?.textLabel?.numberOfLines = 2
+                    cell?.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
+                    cell?.textLabel?.text = surrounding.name
+                    return cell!
+                }
             }
             else {
-                var cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
-                if cell == nil {
-                    cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
-                    cell?.textLabel?.font = UIFont.systemFontOfSize(15)
-                    cell?.textLabel?.textColor = UIColor(hex6: 0x666666)
-                    cell?.removeMargins()
-                }
-                let surrounding = self.searchResultSurroundings[indexPath.row]
-                let imageView = UIImageView()
-                imageView.frame = CGRectMake(0, 0, 20, 20)
-                imageView.contentMode = UIViewContentMode.Center
-                imageView.setImageWithURL(NSURL(string: surrounding.type.image)!)
-
-                cell?.accessoryView = imageView
-                cell?.textLabel?.numberOfLines = 2
-                cell?.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
-                cell?.textLabel?.text = surrounding.name
-                return cell!
+                let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "madCell")
+                cell.textLabel?.font = UIFont.systemFontOfSize(15)
+                cell.textLabel?.textColor = UIColor(hex6: 0x666666)
+                cell.removeMargins()
+                return cell
             }
-        }
-
-        let cell = tableView.dequeueReusableCellWithIdentifier("surroundingReuseIdentifier")
-
-        var surroundingCell:CUTESurroundingCell
-
-        if cell is CUTESurroundingCell {
-            surroundingCell = cell as! CUTESurroundingCell
         }
         else {
-            surroundingCell = CUTESurroundingCell(style: UITableViewCellStyle.Default, reuseIdentifier: "surroundingReuseIdentifier")
-            surroundingCell.typeButton.addTarget(self, action: "onTypeButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-            surroundingCell.durationButton.addTarget(self, action: "onDurationButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-            surroundingCell.removeButton.addTarget(self, action: "onRemoveButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-            surroundingCell.removeButton.hitTestEdgeInsets = UIEdgeInsetsMake(-10, -10, -10, -10)
-        }
-        let surroundings = form.ticket.property.surroundings as! [CUTESurrounding]
-        let surrounding = surroundings[indexPath.row]
-        surroundingCell.nameLabel.text = surrounding.name
-        surroundingCell.typeImageView.setImageWithURL(NSURL(string: surrounding.type.image)!)
-        surroundingCell.typeButton.tag = indexPath.row
-        surroundingCell.durationButton.tag = indexPath.row
-        surroundingCell.removeButton.tag = indexPath.row
 
+            let cell = tableView.dequeueReusableCellWithIdentifier("surroundingReuseIdentifier")
 
-        var trafficTime = surrounding.trafficTimes?.filter({ (time:CUTETrafficTime) -> Bool in
-            return time.isDefault
-        }).first
+            var surroundingCell:CUTESurroundingCell
 
-        if trafficTime == nil {
-            trafficTime = surrounding.trafficTimes?[0]
-        }
-
-        if (trafficTime != nil) {
-            if trafficTime!.time != nil {
-                surroundingCell.typeButton.setTitle(trafficTime!.type!.value, forState: UIControlState.Normal)
-                surroundingCell.durationButton.setTitle("\(trafficTime!.time!.value) " + (trafficTime!.time!.unitForDisplay)!, forState: UIControlState.Normal)
+            if cell is CUTESurroundingCell {
+                surroundingCell = cell as! CUTESurroundingCell
             }
-            surroundingCell.setNeedsLayout()
-        }
+            else {
+                surroundingCell = CUTESurroundingCell(style: UITableViewCellStyle.Default, reuseIdentifier: "surroundingReuseIdentifier")
+                surroundingCell.typeButton.addTarget(self, action: "onTypeButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+                surroundingCell.durationButton.addTarget(self, action: "onDurationButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+                surroundingCell.removeButton.addTarget(self, action: "onRemoveButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+                surroundingCell.removeButton.hitTestEdgeInsets = UIEdgeInsetsMake(-10, -10, -10, -10)
+            }
+            let surroundings = form.ticket.property.surroundings as! [CUTESurrounding]
+            let surrounding = surroundings[indexPath.row]
+            surroundingCell.nameLabel.text = surrounding.name
+            surroundingCell.typeImageView.setImageWithURL(NSURL(string: surrounding.type.image)!)
+            surroundingCell.typeButton.tag = indexPath.row
+            surroundingCell.durationButton.tag = indexPath.row
+            surroundingCell.removeButton.tag = indexPath.row
 
-        return surroundingCell
+
+            var trafficTime = surrounding.trafficTimes?.filter({ (time:CUTETrafficTime) -> Bool in
+                return time.isDefault
+            }).first
+
+            if trafficTime == nil {
+                trafficTime = surrounding.trafficTimes?[0]
+            }
+
+            if (trafficTime != nil) {
+                if trafficTime!.time != nil {
+                    surroundingCell.typeButton.setTitle(trafficTime!.type!.value, forState: UIControlState.Normal)
+                    surroundingCell.durationButton.setTitle("\(trafficTime!.time!.value) " + (trafficTime!.time!.unitForDisplay)!, forState: UIControlState.Normal)
+                }
+                surroundingCell.setNeedsLayout()
+            }
+            
+            return surroundingCell
+        }
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -241,6 +261,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
             }, completion: { (stop:Bool) -> Void in
                 self.searchController?.searchBar.removeFromSuperview()
                 self.searchBarBackground?.removeFromSuperview()
+                self.searchController = nil
         })
     }
 
