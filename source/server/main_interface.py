@@ -943,7 +943,7 @@ def aggregation_rent_ticket(user):
 
 
 @f_api('/aggregation_email_detail', params=dict(
-    specify_date=(datetime, None)
+    time=(datetime, None)
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
 def aggregation_email_detail(user, params):
@@ -984,8 +984,8 @@ def aggregation_email_detail(user, params):
             }
         ''')
         # specify_date = datetime(2015, 11, 18)
-        if params['specify_date']:
-            result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send", "start": {"$gte": params['specify_date']}})
+        if 'time' in params:
+            result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send", "start": {"$gte": params['time']}})
         else:
             result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send"})
         value.update({"aggregation_email_tag_total": result.find().count()})
@@ -1065,12 +1065,12 @@ def aggregation_email_detail(user, params):
                             "click": click_unique,
                             "click_ratio": click_unique/total_email,
                             "click_repeat": click_times}
-            if params['specify_date']:
+            if 'time' in params:
                 single_value.update({"total_email_drop_id": total_email_drop_id,
                                      "total_email_contain_new_only_id": total_email_contain_new_only_id})
             aggregation_email_tag_detail.append(single_value)
         value.update({"aggregation_email_tag_detail": aggregation_email_tag_detail})
-        if params['specify_date']:
+        if 'time' in params:
             value.update({"aggregation_email_contain_new_only": total_email_contain_new_only})
             value.update({"aggregation_email_drop": total_email_drop})
 
