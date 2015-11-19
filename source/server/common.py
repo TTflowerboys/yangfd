@@ -33,11 +33,11 @@ class common(f_common):
     cookie_name = "currant_auth"
 
     mongo_dbname = "currant"
-    mongo_server = "172.20.1.22"
+    mongo_server = "172.20.1.1"
     mongo_auth = False
     mongo_dbversion = 27
 
-    memcache_server = ["172.20.1.22:11211"]
+    memcache_server = ["172.20.1.1:11211"]
     memcache_lib = "memcache"
 
     mongo_index_term_extractor = "jieba"
