@@ -10,6 +10,7 @@
 #import <NSArray+ObjectiveSugar.h>
 #import <EXTKeyPathCoding.h>
 #import "CUTECommonMacro.h"
+#import "MTLValueTransformer+NumberString.h"
 
 @implementation CUTESurrounding
 
@@ -34,29 +35,12 @@
     return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[CUTETrafficTime class]];
 }
 
-//TODO research on the double string parse
 + (NSValueTransformer *)latitudeJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSNumber *(id value) {
-        if ([value isKindOfClass:[NSString class]]) {
-            return [NSNumber numberWithDouble:[(NSString *)value doubleValue]];
-        }
-        return value;
-
-    } reverseBlock:^NSString *(NSNumber *number) {
-        return number.stringValue;
-    }];
+    return [MTLValueTransformer numberStringTransformer];
 }
 
 + (NSValueTransformer *)longitudeJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSNumber *(id value) {
-        if ([value isKindOfClass:[NSString class]]) {
-            return [NSNumber numberWithDouble:[(NSString *)value doubleValue]];
-        }
-        return value;
-
-    } reverseBlock:^NSString *(NSNumber *number) {
-        return number.stringValue;
-    }];
+    return [MTLValueTransformer numberStringTransformer];
 }
 
 - (NSString *)address {

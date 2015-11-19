@@ -10,6 +10,7 @@
 #import "CUTENeighborhood.h"
 #import "MTLValueTransformer.h"
 #import <NSValueTransformer+MTLPredefinedTransformerAdditions.h>
+#import "MTLValueTransformer+NumberString.h"
 
 @implementation CUTEPostcodePlace
 
@@ -26,27 +27,11 @@
 }
 
 + (NSValueTransformer *)latitudeJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSNumber *(id value) {
-        if ([value isKindOfClass:[NSString class]]) {
-            return [NSNumber numberWithDouble:[(NSString *)value doubleValue]];
-        }
-        return value;
-
-    } reverseBlock:^NSString *(NSNumber *number) {
-        return number.stringValue;
-    }];
+    return [MTLValueTransformer numberStringTransformer];
 }
 
 + (NSValueTransformer *)longitudeJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSNumber *(id value) {
-        if ([value isKindOfClass:[NSString class]]) {
-            return [NSNumber numberWithDouble:[(NSString *)value doubleValue]];
-        }
-        return value;
-
-    } reverseBlock:^NSString *(NSNumber *number) {
-        return number.stringValue;
-    }];
+    return [MTLValueTransformer numberStringTransformer];
 }
 
 + (NSValueTransformer *)neighborhoodsJSONTransformer {
