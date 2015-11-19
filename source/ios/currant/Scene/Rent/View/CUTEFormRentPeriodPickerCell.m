@@ -108,7 +108,7 @@
 
     NSInteger rentPeriodValue = [self.pickerView selectedRowInComponent:0];
     if (rentPeriodValue > 0) {
-        form.minimumRentPeriod = [CUTETimePeriod timePeriodWithValue:[self.pickerView selectedRowInComponent:0] unit:[[self rentPeriodUnitArray] objectAtIndex:[self.pickerView selectedRowInComponent:1]]];
+        form.minimumRentPeriod = [CUTETimePeriod timePeriodWithValue:(int)[self.pickerView selectedRowInComponent:0] unit:[[self rentPeriodUnitArray] objectAtIndex:[self.pickerView selectedRowInComponent:1]]];
     }
     else {
         form.minimumRentPeriod = nil;

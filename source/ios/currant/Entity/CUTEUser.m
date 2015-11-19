@@ -71,6 +71,10 @@
     return nil;
 }
 
+- (BOOL)isAttributeEqualForKey:(NSString *)key oldValue:(id)oldValue newValue:(id)newValue {
+    return [oldValue isEqual:newValue];
+}
+
 - (NSDictionary *)toParams {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                   @"nickname":self.nickname,
