@@ -24,6 +24,7 @@ from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.writer.excel import save_virtual_workbook
 from pytz import timezone
 import pytz
+from bson.code import Code
 f_experiment()
 
 logger = logging.getLogger(__name__)
@@ -937,6 +938,138 @@ def aggregation_rent_ticket(user):
                                                                  "total": period_count[rang]})
         value.update({"aggregation_rent_ticket_shortest_rent_period": aggregation_rent_ticket_shortest_rent_period})
         cursor.close()
+
+    return value
+
+
+@f_api('/aggregation_email_detail', params=dict(
+    specify_date=(datetime, None)
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def aggregation_email_detail(user, params):
+    value = {}
+    with f_app.mongo() as m:
+        func_map = Code('''
+            function() {
+            var list = []
+                if (this.tag && this.email_id) {
+                    if (Array.isArray(this.target)) {
+                        for (var index = 0; index < this.target.length; index ++) {
+                            list = []
+                            list.push({target: this.target[index],
+                                       email_id: this.email_id});
+                            emit(this.tag, {a:list});
+                        }
+                    }
+                    else {
+                        list.push({target: this.target,
+                                   email_id: this.email_id});
+                        emit(this.tag, {a:list});
+                    }
+                }
+            }
+        ''')
+        func_reduce = Code('''
+            function(key, values) {
+                var list = []
+                values.forEach(function(e) {
+                    if (e.a) {
+                        list = list.concat(e.a)
+                    }
+                    else {
+                        list = list.concat(e)
+                    }
+                });
+                return {a:list}
+            }
+        ''')
+        # specify_date = datetime(2015, 11, 18)
+        result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send", "start": {"$gte": params['specify_date']}})
+        value.update({"aggregation_email_tag_total": result.find().count()})
+        total_email_drop = 0
+        total_email_contain_new_only = 0
+        aggregation_email_tag_detail = []
+        for tag in result.find():
+            func_status_map = Code('''
+                function() {
+                    var event = this.email_status_set;
+                    var event_detail = this.email_status_detail;
+                    if (event_detail && event) {
+                        if (event.indexOf("processed") != -1 || event.indexOf("dropped") != -1) {
+                            emit("total_email", 1);
+                        }
+                        if (event.indexOf("dropped") != -1) {
+                            emit("total_email_drop", 1);
+                            emit("total_email_drop_id", {email_id:[this.email_id]});
+                        }
+                        if (event.length == 1 && event.indexOf("new") != -1) {
+                            emit("total_email_contain_new_only", 1);
+                            emit("total_email_contain_new_only_id", {email_id:[this.email_id]});
+                        }
+                        event.forEach(function(e) {
+                            emit(e, 1);
+                            if (event_detail) {
+                                event_detail.forEach(function(c) {
+                                    if (c.event == e) {
+                                        emit(e+" (repeat)", 1);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            ''')
+            func_status_reduce = Code('''
+                function(key, value) {
+                    if (key == 'total_email_drop_id' || key == 'total_email_contain_new_only_id') {
+                        value_list = [];
+                        value.forEach(function(e) {
+                            value_list = value_list.concat(e.email_id);
+                        });
+                        return {email_id:value_list}
+                    }
+                    else {
+                        return Array.sum(value)
+                    }
+                }
+            ''')
+            query_param = {}
+            or_param = []
+            for single_param in tag["value"]["a"]:
+                or_param.append(single_param)
+            query_param.update({"$or": or_param})
+            tag_result = f_app.email.status.get_database(m).map_reduce(func_status_map, func_status_reduce, "aggregation_tag_event", query=query_param)
+            final_result = {}
+            for thing in tag_result.find():
+                final_result.update({thing["_id"]: thing["value"]})
+            open_unique = final_result.get("open", 0)
+            open_times = final_result.get("open (repeat)", 0)
+            click_unique = final_result.get("click", 0)
+            click_times = final_result.get("click (repeat)", 0)
+            delivered_times = final_result.get("delivered", 0)
+            total_email = final_result.get("total_email", -1)
+            total_email_drop += final_result.get("total_email_drop", 0)
+            total_email_contain_new_only += final_result.get("total_email_contain_new_only", 0)
+            total_email_drop_id = final_result.get("total_email_drop_id", {}).get("email_id", [])
+            total_email_contain_new_only_id = final_result.get("total_email_contain_new_only_id", {}).get("email_id", [])
+            single_value = {"tag": tag['_id'],
+                            "total": total_email,
+                            "delivered": delivered_times,
+                            "delivered_ratio": delivered_times/total_email,
+                            "open": open_unique,
+                            "open_ratio": open_unique/total_email,
+                            "open_repeat": open_times,
+                            "click": click_unique,
+                            "click_ratio": click_unique/total_email,
+                            "click_repeat": click_times}
+            if params['specify_date']:
+                single_value.update({"total_email_drop_id": total_email_drop_id,
+                                     "total_email_contain_new_only_id": total_email_contain_new_only_id})
+            aggregation_email_tag_detail.append(single_value)
+        value.update({"aggregation_email_tag_detail": aggregation_email_tag_detail})
+        if params['specify_date']:
+            value.update({"aggregation_email_contain_new_only": total_email_contain_new_only})
+            value.update({"aggregation_email_drop": total_email_drop})
 
     return value
 
