@@ -41,7 +41,7 @@
 #import "CUTERentContactDisplaySettingForm.h"
 #import "CUTERentContactDisplaySettingViewController.h"
 #import "Sequencer.h"
-#import "CUTEUserEditingListener.h"
+#import "CUTEModelEditingListener.h"
 #import "CUTEPhoneUtil.h"
 //#import "currant-Swift.h"
 #import <HHRouter.h>
@@ -377,7 +377,8 @@
 
     //CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
     CUTEUser *user = _retUser;
-    CUTEUserEditingListener *userListener = [CUTEUserEditingListener createListenerAndStartListenMarkWithSayer:user];
+    CUTEModelEditingListener *userListener = [CUTEModelEditingListener new];
+    [userListener startListenMarkWithSayer:user];
     [self updateUserWithFormInfo:user];
     [userListener stopListenMark];
 

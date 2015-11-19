@@ -11,8 +11,6 @@
 
 @interface CUTETicketEditingListener : CUTEModelEditingListener
 
-+ (CUTETicketEditingListener *)createListenerAndStartListenMarkWithSayer:(MTLModel<MTLJSONSerializing, CUTEModelEditingListenerDelegate> *)sayer;
-
 @property (nonatomic, readonly) CUTEPropertyEditingListener *propertyListener;
 
 

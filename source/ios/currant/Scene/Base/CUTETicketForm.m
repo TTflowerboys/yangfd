@@ -21,7 +21,8 @@
 - (BFTask *)syncTicketWithBlock:(UpdateTicketBlock)block {
     NSAssert(!IsNilOrNull(block), @"[%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,@"");
     
-    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener createListenerAndStartListenMarkWithSayer:self.ticket];
+    CUTETicketEditingListener *ticketListener = [CUTETicketEditingListener new];
+    [ticketListener startListenMarkWithSayer:self.ticket];
     block(self.ticket);
     [ticketListener stopListenMark];
 

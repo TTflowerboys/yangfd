@@ -22,8 +22,6 @@
 
 @interface CUTEModelEditingListener : NSObject
 
-+ (CUTEModelEditingListener *)createListenerAndStartListenMarkWithSayer:(MTLModel<MTLJSONSerializing, CUTEModelEditingListenerDelegate> *)sayer;
-
 - (void)startListenMarkWithSayer:(MTLModel<MTLJSONSerializing, CUTEModelEditingListenerDelegate> *)sayer;
 
 - (void)stopListenMark;

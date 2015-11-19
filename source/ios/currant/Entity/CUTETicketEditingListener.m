@@ -19,12 +19,6 @@
 
 @implementation CUTETicketEditingListener
 
-+ (CUTETicketEditingListener *)createListenerAndStartListenMarkWithSayer:(MTLModel<MTLJSONSerializing, CUTEModelEditingListenerDelegate> *)sayer {
-    CUTETicketEditingListener *listener = [CUTETicketEditingListener new];
-    [listener startListenMarkWithSayer:sayer];
-    return listener;
-}
-
 - (instancetype)init
 {
     self = [super init];

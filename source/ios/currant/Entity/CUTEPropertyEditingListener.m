@@ -20,13 +20,6 @@
 
 @implementation CUTEPropertyEditingListener
 
-//TODO refine the method structure
-+ (CUTEPropertyEditingListener *)createListenerAndStartListenMarkWithSayer:(MTLModel<MTLJSONSerializing, CUTEModelEditingListenerDelegate> *)sayer {
-    CUTEPropertyEditingListener *listener = [CUTEPropertyEditingListener new];
-    [listener startListenMarkWithSayer:sayer];
-    return listener;
-}
-
 - (instancetype)init
 {
     self = [super init];

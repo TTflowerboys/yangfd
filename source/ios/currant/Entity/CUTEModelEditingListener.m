@@ -28,12 +28,6 @@ typedef void (^ KeyValueChangeBlock) (NSString*, id, id);
 
 @implementation CUTEModelEditingListener
 
-+ (CUTEModelEditingListener *)createListenerAndStartListenMarkWithSayer:(MTLModel<MTLJSONSerializing, CUTEModelEditingListenerDelegate> *)sayer {
-    CUTEModelEditingListener *listener = [CUTEModelEditingListener new];
-    [listener startListenMarkWithSayer:sayer];
-    return listener;
-}
-
 - (void)startListenMarkWithSayer:(MTLModel<MTLJSONSerializing, CUTEModelEditingListenerDelegate> *)sayer {
 
     _updateMarkDictionary = [NSMutableDictionary dictionary];
