@@ -69,6 +69,7 @@ def get_related_property_list(property):
         raw_related_property_list = f_app.property.output(f_app.property.search({
             "country.code": property.get('country').get('code'),
             "status": {"$in": ["selling", "sold out"]},
+            "user_generated": {"$ne": True},
         }, per_page=20, time_field="mtime"))
         raw_related_property_list = filter(lambda ticket: ticket["id"] != property["id"], raw_related_property_list)
         random.shuffle(raw_related_property_list)
