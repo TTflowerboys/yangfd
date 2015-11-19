@@ -984,7 +984,10 @@ def aggregation_email_detail(user, params):
             }
         ''')
         # specify_date = datetime(2015, 11, 18)
-        result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send", "start": {"$gte": params['specify_date']}})
+        if params['specify_date']:
+            result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send", "start": {"$gte": params['specify_date']}})
+        else:
+            result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send"})
         value.update({"aggregation_email_tag_total": result.find().count()})
         total_email_drop = 0
         total_email_contain_new_only = 0
