@@ -348,7 +348,10 @@ def main_mixed_index_search(params):
         abort(40000)
     else:
         params.pop("search_range")
-        return f_app.main_mixed_index.get(f_app.main_mixed_index.search(params, per_page=-1))
+        indexes = f_app.main_mixed_index.get(f_app.main_mixed_index.search(params, per_page=-1))
+        for index in indexes:
+            index.pop("id")
+        return indexes
 
 
 @f_api('/geonames/<_id>')
