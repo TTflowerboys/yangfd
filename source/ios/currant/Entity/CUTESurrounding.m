@@ -18,8 +18,7 @@
 {
     return @{@"identifier": @"id",
              @"name": @"name",
-             @"zipcode": @"zipcode",
-             @"postcode": @"postcode",
+//             @"zipcode": @"zipcode",
              @"latitude": @"latitude",
              @"longitude": @"longitude",
              @"type": @"type",
@@ -61,13 +60,11 @@
 }
 
 - (NSString *)address {
-    if (!IsNilNullOrEmpty(self.zipcode)) {
-        return self.zipcode;
-    }
-    else if (!IsNilNullOrEmpty(self.postcode)) {
-        return self.postcode;
-    }
-    else if (self.latitude.stringValue && self.longitude.stringValue) {
+//    if (!IsNilNullOrEmpty(self.zipcode)) {
+//        return self.zipcode;
+//    }
+//    else
+    if (self.latitude.stringValue && self.longitude.stringValue) {
         return [@[self.latitude.stringValue, self.longitude.stringValue] componentsJoinedByString:@","];
     }
     return nil;
@@ -79,12 +76,9 @@
     if ([key isEqualToString:@keypath(self.name)]) {
         return value;
     }
-    else if ([key isEqualToString:@keypath(self.zipcode)]) {
-        return value;
-    }
-    else if ([key isEqualToString:@keypath(self.postcode)]) {
-        return value;
-    }
+//    else if ([key isEqualToString:@keypath(self.zipcode)]) {
+//        return value;
+//    }
     else if ([key isEqualToString:@keypath(self.latitude)]) {
         if ([value isKindOfClass:[NSNumber class]]) {
             return value;
@@ -119,7 +113,6 @@
 - (BOOL)isAttributeEqualForKey:(NSString *)key oldValue:(id)oldValue newValue:(id)newValue {
     return [oldValue isEqual:newValue];
 }
-
 
 - (NSDictionary *)toParams {
     if (self.identifier == nil) {

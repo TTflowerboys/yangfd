@@ -18,9 +18,7 @@
 
 @property (strong, nonatomic) NSString *name;
 
-@property (strong, nonatomic) NSString *zipcode;
-
-@property (strong, nonatomic) NSString *postcode; //TODO tmp use , need remove
+//@property (strong, nonatomic) NSString *zipcode;
 
 @property (nonatomic, strong) NSNumber *latitude;
 
