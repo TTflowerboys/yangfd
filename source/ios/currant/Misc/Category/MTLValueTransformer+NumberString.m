@@ -10,7 +10,7 @@
 
 @implementation MTLValueTransformer (NumberString)
 
-+ (NSValueTransformer *)numberStringTransformer {
++ (instancetype)numberStringTransformer {
     return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSNumber *(id value) {
         if ([value isKindOfClass:[NSString class]]) {
             return [NSNumber numberWithDouble:[(NSString *)value doubleValue]];

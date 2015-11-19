@@ -12,6 +12,6 @@
 
 //like our server will turn the float number to sring in json for precision concern, so in client we should decode the type to NSNumber
 //but json rft also support direct pass number http://rfc7159.net/rfc7159#examples
-+ (NSValueTransformer *)numberStringTransformer;
++ (instancetype)numberStringTransformer;
 
 @end
