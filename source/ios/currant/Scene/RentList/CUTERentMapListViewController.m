@@ -77,14 +77,14 @@
 }
 
 - (NSString *)formatPrice:(NSString *)price symbol:(NSString *)symbol {
-    NSString *suffix = @"/周";
+    NSString *suffix = ([[CUTELocalizationSwitcher sharedInstance].currentLocalization isEqualToString:@"zh_Hans_CN"])? @"/周": @"/week";
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
     [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [numberFormatter setCurrencySymbol:symbol];
     [numberFormatter setMaximumFractionDigits:2];
 
-    return CONCAT(FloatToString(price.floatValue), suffix);
+    return CONCAT(symbol, FloatToString(price.floatValue), suffix);
 }
 
 - (void)showCalloutViewWithObject:(id)object inView:(UIView *)view {
