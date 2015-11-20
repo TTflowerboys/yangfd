@@ -945,7 +945,6 @@ def aggregation_rent_ticket(user):
 @f_api('/aggregation-property-view')
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
 def aggregation_property_view(user):
-    # 浏览过海外房产总数量
     value = {}
     with f_app.mongo() as m:
         value.update({"aggregation_property_view_total": m.log.find({'property_id': {'$exists': True}}).count()})
@@ -973,14 +972,14 @@ def aggregation_property_view(user):
         ''')
         result = m.log.map_reduce(func_map, func_reduce, "aggregation_property_view_by_user", query={'property_id': {'$exists': True}})
         aggregation_property_view_times_by_property_sort = []
-
         for single in result.find().sort('value', -1):
             property_id = single["_id"]
-            try:
-                name = f_app.i18n.process_i18n(f_app.property.output(property_id, permission_check=False)['name'])
-            except:
-                property_id = None
-                pass
+            property_domain = f_app.property.output([property_id], permission_check=False, ignore_nonexist=True)
+            name = ''
+            if property_domain is None:
+                continue
+            if property_domain[0]:
+                name = f_app.i18n.process_i18n(property_domain[0].get("name"))
             if property_id:
                 aggregation_property_view_times_by_property_sort.append({
                     "title": name,
