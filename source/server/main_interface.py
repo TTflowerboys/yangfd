@@ -942,6 +942,228 @@ def aggregation_rent_ticket(user):
     return value
 
 
+@f_api('/aggregation-rent-intention-ticket')
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def aggregation_rent_intention_ticket(user):
+    value = {}
+    with f_app.mongo() as m:
+        value.update({"aggregation_rent_intention_total": m.tickets.find({'type': "rent_intention"}).count()})
+        cursor = m.tickets.aggregate(
+            [
+                {'$match': {'type': "rent_intention"}},
+                {'$group': {'_id': '$city', 'count': {'$sum': 1}}},
+                {'$sort': {'count': -1}}
+            ]
+        )
+        aggregation_rent_intention_total_city = []
+        for document in cursor:
+            aggregation_rent_intention_total_city.append({
+                "city": f_app.geonames.gazetteer.get(document['_id']['_id'])['name'],
+                "total": document['count']
+            })
+        cursor.close()
+        value.update({"aggregation_rent_intention_total_city": aggregation_rent_intention_total_city})
+        cursor = m.tickets.aggregate(
+            [
+                {'$match': {'type': "rent_intention", 'city._id': ObjectId('555966cd666e3d0f578ad2cf')}},
+                {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
+            ]
+        )
+        aggregation_rent_intention_type_london = []
+        for document in cursor:
+            if(document['_id']):
+                aggregation_rent_intention_type_london.append({
+                    "type": f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'],
+                    "total": document['count']
+                })
+        cursor.close()
+        value.update({"aggregation_rent_intention_type_london": aggregation_rent_intention_type_london})
+
+        target_budget_currency = 'GBP'
+        target_budget = {'min': 200.0}
+        budget_filter = []
+
+        for currency in f_app.common.currency:
+            condition = {}
+            conditions = {}
+            if currency == target_budget_currency:
+                if 'min' in target_budget:
+                    condition['rent_budget_min.unit'] = currency
+                    condition['rent_budget_min.value_float'] = {}
+                    condition['rent_budget_min.value_float']['$gte'] = target_budget['min']
+                if 'max' in target_budget:
+                    condition['rent_budget_max.unit'] = currency
+                    condition['rent_budget_max.value_float'] = {}
+                    condition['rent_budget_max.value_float']['$lte'] = target_budget['max']
+            else:
+                if 'min' in target_budget:
+                    condition['rent_budget_min.unit'] = currency
+                    condition['rent_budget_min.value_float'] = {}
+                    condition['rent_budget_min.value_float']['$gte'] = float(f_app.i18n.convert_currency({"unit": target_budget_currency, "value_float": target_budget['min']}, currency))
+                if 'max' in target_budget:
+                    condition['rent_budget_max.unit'] = currency
+                    condition['rent_budget_max.value_float'] = {}
+                    condition['rent_budget_max.value_float']['$lte'] = float(f_app.i18n.convert_currency({"unit": target_budget_currency, "value_float": target_budget['max']}, currency))
+            conditions['$and'] = []
+            conditions['$and'].append(condition)
+            budget_filter.append(conditions)
+
+        value.update({"aggregation_rent_intention_total_above_200": m.tickets.find({
+            'type': "rent_intention",
+            'city._id': ObjectId('555966cd666e3d0f578ad2cf'),
+            '$or': budget_filter}).count()
+        })
+
+        value.update({"aggregation_rent_intentionl_has_neighborhood_total": m.tickets.find({'type': "rent_intention", 'city._id': ObjectId('555966cd666e3d0f578ad2cf'), 'maponics_neighborhood': {'$exists': 'true'}}).count()})
+        cursor = m.tickets.aggregate(
+            [
+                {'$match': {'type': "rent_intention", 'city._id': ObjectId('555966cd666e3d0f578ad2cf'), 'maponics_neighborhood': {'$exists': 'true'}}},
+                {'$group': {'_id': '$maponics_neighborhood._id', 'count': {'$sum': 1}}},
+                {'$sort': {'count': -1}}
+            ]
+        )
+        aggregation_rent_intentionl_has_neighborhood = []
+        for document in cursor:
+            target_regions = f_app.maponics.neighborhood.get(document['_id'])
+            aggregation_rent_intentionl_has_neighborhood.append({
+                "neighborhood": target_regions.get("name", "") + "," + target_regions.get("parent_name", ""),
+                "total": document['count']
+            })
+        value.update({"aggregation_rent_intentionl_has_neighborhood": aggregation_rent_intentionl_has_neighborhood})
+        cursor = m.favorites.aggregate(
+            [
+                {'$group': {'_id': "$type", 'count': {'$sum': 1}}}
+            ]
+        )
+        fav_type_dic = {
+            'rent_ticket': '出租房源',
+            'property': '海外房产',
+            'item': '众筹'
+        }
+        aggregation_ticket_favorite_times_by_type = []
+        for document in cursor:
+            if(document['_id']):
+                aggregation_ticket_favorite_times_by_type.append({
+                    "type": fav_type_dic[document['_id']],
+                    "total": document['count']
+                })
+        cursor.close()
+        value.update({"aggregation_ticket_favorite_times_by_type": aggregation_ticket_favorite_times_by_type})
+        cursor = m.favorites.aggregate(
+            [
+                {'$match': {'type': "rent_ticket"}},
+                {'$group': {'_id': "$user_id", 'count': {'$sum': 1}}},
+                {'$sort': {'count': -1}},
+                {'$limit': 10}
+            ]
+        )
+        aggregation_rent_ticket_favorite_times_by_user = []
+        for document in cursor:
+            aggregation_rent_ticket_favorite_times_by_user.append({
+                "user": f_app.user.output([document['_id']], custom_fields=f_app.common.user_custom_fields)[0]['nickname'],
+                "total": document['count']
+            })
+        cursor.close()
+        value.update({"aggregation_rent_ticket_favorite_times_by_user": aggregation_rent_ticket_favorite_times_by_user})
+
+        cursor = m.favorites.aggregate(
+            [
+                {'$match': {'type': "property"}},
+                {'$group': {'_id': "$user_id", 'count': {'$sum': 1}}},
+                {'$sort': {'count': -1}},
+                {'$limit': 10}
+            ]
+        )
+        aggregation_property_favorite_times_by_user = []
+        for document in cursor:
+            aggregation_property_favorite_times_by_user.append({
+                "user": f_app.user.output([document['_id']], custom_fields=f_app.common.user_custom_fields)[0]['nickname'],
+                "total": document['count']
+            })
+        value.update({"aggregation_property_favorite_times_by_user": aggregation_property_favorite_times_by_user})
+        cursor = m.orders.aggregate(
+            [
+                {'$unwind': "$items"},
+                {'$group': {'_id': "$user.nickname", 'count': {'$sum': 1}}},
+                {'$group': {'_id': None, 'totalUsersCount': {'$sum': 1}, 'totalRequestCount': {'$sum': "$count"}}}
+            ]
+        )
+        document = cursor.next()
+        value.update({"aggregation_view_contact_user_total": document['totalUsersCount']})
+        value.update({"aggregation_view_contact_times": document['totalRequestCount']})
+        aggregation_view_contact_detail = []
+        for i in range(5):
+            cursor = m.orders.aggregate(
+                [
+                    {'$unwind': "$items"},
+                    {'$group': {'_id': "$user.nickname", 'count': {'$sum': 1}}},
+                    {'$match': {'count': i}},
+                    {'$group': {'_id': 'null', 'totalUsersCount': {'$sum': 1}, 'totalRequestCount': {'$sum': "$count"}}}
+                ]
+            )
+            if cursor.alive:
+                document = cursor.next()
+                aggregation_view_contact_detail.append({
+                    "times": i,
+                    "user_total": document['totalUsersCount'],
+                    "view_times": document['totalRequestCount'],
+                    "ratio": document['totalUsersCount']*1.0/value['aggregation_view_contact_user_total']
+                })
+        value.update({"aggregation_view_contact_detail": aggregation_view_contact_detail})
+        cursor.close()
+        cursor = m.orders.aggregate(
+            [
+                {'$unwind': "$items"},
+                {'$group': {'_id': "$user.nickname", 'count': {'$sum': 1}}},
+                {'$sort': {'count': -1}}
+            ]
+        )
+        aggregation_view_contact_by_user = []
+        for document in cursor:
+            aggregation_view_contact_by_user.append({
+                "user": document['_id'],
+                "total": document['count']
+            })
+        value.update({"aggregation_view_contact_by_user": aggregation_view_contact_by_user})
+        cursor.close()
+        cursor = m.orders.aggregate(
+            [
+                {'$unwind': "$items"},
+                {'$group': {'_id': "$ticket_id", 'count': {'$sum': 1}}},
+                {'$group': {'_id': None, 'totalUsersCount': {'$sum': 1}, 'totalRequestCount': {'$sum': "$count"}}}
+            ]
+        )
+        document = cursor.next()
+        value.update({
+            "aggregation_view_contact_ticket_total": document['totalUsersCount'],
+            "aggregation_view_contact_total": document['totalRequestCount']
+        })
+        cursor.close()
+        cursor = m.orders.aggregate(
+            [
+                {'$unwind': "$items"},
+                {'$group': {'_id': "$ticket_id", 'count': {'$sum': 1}}},
+                {'$sort': {'count': -1}},
+                {'$limit': 10}
+            ]
+        )
+        aggregation_view_contact_times_sort = []
+        for document in cursor:
+            try:
+                ticket = f_app.ticket.get(document['_id'])
+            except:
+                ticket = None
+            if ticket is None:
+                continue
+            aggregation_view_contact_times_sort.append({
+                "name": ticket.get("title", ''),
+                "url_id": document['_id'],
+                "total": document['count']
+            })
+        value.update({"aggregation_view_contact_times_sort": aggregation_view_contact_times_sort})
+    return value
+
+
 @f_api('/aggregation-property-view')
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
 def aggregation_property_view(user):
