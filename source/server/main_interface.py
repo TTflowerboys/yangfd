@@ -733,7 +733,7 @@ def test_wx_share_remote():
     return currant_util.common_template("test_wx_share_remote", title=title)
 
 
-@f_api('/aggregation_general')
+@f_api('/aggregation-general')
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
 def aggregation_general(user):
     value = {}
@@ -765,7 +765,7 @@ def aggregation_general(user):
     return value
 
 
-@f_api('/aggregation_rent_ticket')
+@f_api('/aggregation-rent-ticket')
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
 def aggregation_rent_ticket(user):
     value = {}
@@ -942,7 +942,56 @@ def aggregation_rent_ticket(user):
     return value
 
 
-@f_api('/aggregation_email_detail', params=dict(
+@f_api('/aggregation-property-view')
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def aggregation_property_view(user):
+    # 浏览过海外房产总数量
+    value = {}
+    with f_app.mongo() as m:
+        value.update({"aggregation_property_view_total": m.log.find({'property_id': {'$exists': True}}).count()})
+        value.update({"aggregation_property_view_register_user": m.log.find({'property_id': {'$exists': True}, 'id': {'$ne': None}}).count()})
+
+        func_map = Code('''
+            function() {
+                emit(this.id, 1);
+            }
+        ''')
+        func_reduce = Code('''
+            function(key, value) {
+                return Array.sum(value)
+            }
+        ''')
+        result = m.log.map_reduce(func_map, func_reduce, "aggregation_property_view_by_user", query={'property_id': {'$exists': True}, 'id': {'$ne': None}})
+        aggregation_property_view_times_by_user_sort = []
+        for single in result.find().sort('value', -1):
+            aggregation_property_view_times_by_user_sort.append({"user": f_app.user.get(single['_id'])['nickname'], "total": single['value']})
+        value.update({"aggregation_property_view_times_by_user_sort": aggregation_property_view_times_by_user_sort})
+        func_map = Code('''
+            function() {
+                emit(this.property_id, 1);
+            }
+        ''')
+        result = m.log.map_reduce(func_map, func_reduce, "aggregation_property_view_by_user", query={'property_id': {'$exists': True}})
+        aggregation_property_view_times_by_property_sort = []
+
+        for single in result.find().sort('value', -1):
+            property_id = single["_id"]
+            try:
+                name = f_app.i18n.process_i18n(f_app.property.output(property_id, permission_check=False)['name'])
+            except:
+                property_id = None
+                pass
+            if property_id:
+                aggregation_property_view_times_by_property_sort.append({
+                    "title": name,
+                    "url_id": property_id,
+                    "total": single['value']
+                })
+        value.update({"aggregation_property_view_times_by_property_sort": aggregation_property_view_times_by_property_sort})
+    return value
+
+
+@f_api('/aggregation-email-detail', params=dict(
     time=(datetime, None)
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
