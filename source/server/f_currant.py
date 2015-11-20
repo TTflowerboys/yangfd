@@ -1016,7 +1016,7 @@ class f_currant_ticket(f_ticket):
         ==================================================================
     """
     def output(self, ticket_id_list, enable_custom_fields=True, ignore_nonexist=False, fuzzy_user_info=False, multi_return=list, location_only=False, permission_check=True):
-        ticket_list = f_app.ticket.get(ticket_id_list, ignore_nonexist=ignore_nonexist)
+        ticket_list = f_app.util.extract_obj(ticket_id_list, self, ignore_nonexist=ignore_nonexist)
         user_id_set = set()
         enum_id_set = set()
         property_id_set = set()

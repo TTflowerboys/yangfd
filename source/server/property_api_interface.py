@@ -519,8 +519,6 @@ property_params = dict(
 )
 
 
-@f_api('/property/<property_id>/edit', params=property_params)
-@f_app.user.login.check(check_role=True)
 def property_edit(property_id, user, params):
     """
     This API will act based on the ``property_id``. To add a new property, use "none" for ``property_id``.
@@ -726,6 +724,20 @@ def property_edit(property_id, user, params):
         return f_app.property.output([result])[0]
     else:
         return result
+
+
+@f_api('/property/<property_id>/edit', params=property_params, api=2)
+@f_app.user.login.check(check_role=True)
+def property_edit_v2(property_id, user, params):
+    return property_edit(property_id, user, params)
+
+
+@f_api('/property/<property_id>/edit', params=property_params, api=1)
+@f_app.user.login.check(check_role=True)
+def property_edit_v1(property_id, user, params):
+    if property_id == "none":
+        return property_edit(property_id, user, params)["id"]
+    return property_edit(property_id, user, params)
 
 
 @f_api('/property/<property_id>')
