@@ -721,7 +721,11 @@ def property_edit(property_id, user, params):
                 elif property["status"] == "not reviewed":
                     abort(40000, "Not reviewed property could not be changed. Reverting the status is required before any modification")
 
-    return action(params)
+    result = action(params)
+    if result:
+        return f_app.property.output([result])[0]
+    else:
+        return result
 
 
 @f_api('/property/<property_id>')

@@ -2438,7 +2438,7 @@ class f_property(f_app.module_base):
 
     def output(self, property_id_list, ignore_nonexist=False, multi_return=list, force_reload=False, permission_check=True, location_only=False):
         ignore_sales_comment = True
-        propertys = self.get(property_id_list, ignore_nonexist=ignore_nonexist, force_reload=force_reload)
+        propertys = f_app.util.extract_obj(property_id_list, self, ignore_nonexist=ignore_nonexist, force_reload=force_reload)
         if permission_check:
             user = f_app.user.login.get()
             if user:
