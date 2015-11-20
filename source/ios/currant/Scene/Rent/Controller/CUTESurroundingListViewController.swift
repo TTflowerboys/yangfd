@@ -242,6 +242,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                     self.searchController?.setActive(false, animated: true)
                     self.navigationController?.setNavigationBarHidden(false, animated: false)
                     self.searchController?.searchBar.removeFromSuperview()
+                    self.searchController = nil
                     self.tableView.reloadData()
 
                     SVProgressHUD.dismiss()
