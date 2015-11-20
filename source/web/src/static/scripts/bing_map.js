@@ -517,4 +517,8 @@
             })
         }
     })
+
+    $('#transitMapCanvas,#schoolMapCanvas,#facilityMapCanvas,#securityMapCanvas').on('contextmenu', function (e) {
+        e.preventDefault()
+    })
 })()

@@ -225,4 +225,7 @@
         var map = window.getMap(mapId)
         map.entities.clear();
     }
+    $('#mapCanvas').on('contextmenu', function (e) {
+        e.preventDefault()
+    })
 })(window.currantModule = window.currantModule || {})
