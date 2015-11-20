@@ -141,7 +141,8 @@
             var modal = $('[data-trigger=' + triggerId + ']')
             modal.find('.animate').removeClass('hide').addClass('animation')
             modal.removeClass('hide').addClass('animation')
-
+            $('.needHideWhenModalShow').addClass('hide').removeClass('animation')
+            $('.needblurWhenModalShow').addClass('blur')
             //Record when user view more
             if(triggerId === 'viewMoreBtn'){
                 ga('send', 'event', 'wechat_poster', 'click', 'view-description')
@@ -152,8 +153,10 @@
         $('.btnCloseModal').on('click', function(){
             var modal = $(this).parents('.modal')
             modal.addClass('hideAnimation')
+            $('.needblurWhenModalShow').removeClass('blur')
             setTimeout(function(){
                 modal.addClass('hide').removeClass('hideAnimation','animation')
+                $('.needHideWhenModalShow').removeClass('hide').addClass('animation')
             },400)
         })
     }

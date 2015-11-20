@@ -214,36 +214,68 @@
             </div>
         </div>
         <div class="swiper-slide swiper-slide-bg commen" style="">
-            <div class="page pageMap">
+            <div class="page pageMap needblurWhenModalShow">
                 <!--<img id="mapImage" src="" alt=""/>-->
                 <div class="mapImage" id="mapImage">
-                    <div class="pushpin animate"></div>
+                    <div class="pushpin animate needHideWhenModalShow"></div>
                 </div>
             </div>
-            <div class="bottomBox mapBottom animate">
+            <div class="bottomBox mapBottom animate needHideWhenModalShow
+            % if rent['property'].get('featured_facility'):
+                % if len(rent['property'].get('featured_facility')) > 3:
+                large
+                % else:
+                medium
+                % end
+            % end
+            ">
                 <div class="location">
-                    <h2>{{_('地址')}}</h2>
                     <p>
-                        {{rent['property'].get('floor','')}}
-                        % if rent.get('property',{}).get('house_name') and rent.get('property',{}).get('floor'):
-                        -
-                        % end
-                        {{rent['property'].get('house_name','')}}
-                        % if rent.get('property',{}).get('house_name') or rent.get('property',{}).get('floor'):
-                        ,
-                        %end
-                        % if rent['property'].get('community',''):
-                        {{rent['property'].get('community','')}},
-                        % end
-                        % if rent['property'].get('street',''):
-                        {{rent['property'].get('street','')}},
-                        % end
-                        {{rent['property'].get('city',{}).get('name','')}},
-                        {{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}},
-                        {{rent['property'].get('zipcode','')}}
+                        <i class="icon-location"></i>
+                        <span>
+                            {{rent['property'].get('floor','')}}
+                            % if rent.get('property',{}).get('house_name') and rent.get('property',{}).get('floor'):
+                            -
+                            % end
+                            {{rent['property'].get('house_name','')}}
+                            % if rent.get('property',{}).get('house_name') or rent.get('property',{}).get('floor'):
+                            ,
+                            %end
+                            % if rent['property'].get('community',''):
+                            {{rent['property'].get('community','')}},
+                            % end
+                            % if rent['property'].get('street',''):
+                            {{rent['property'].get('street','')}},
+                            % end
+                            {{rent['property'].get('city',{}).get('name','')}},
+                            {{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}},
+                            {{rent['property'].get('zipcode','')}}
+                        </span>
                     </p>
-                    <!--<p>湖北省武汉市光谷大道<br>国际企业中心</p>-->
                 </div>
+                % if rent['property'].get('featured_facility'):
+                <div class="surrouding">
+                    <ul class="content clearfix">
+                        % for item in rent['property'].get('featured_facility')[:3] :
+                        <li>
+                            <p class="title">{{item.get(item.get('type',{}).get('slug')).get('name')}}</p>
+                            <p class="facilityType">{{item.get('type',{}).get('value')}}</p>
+                            % for time_item in item.get('traffic_time'):
+                                % if time_item.get('default') == True:
+                            <p class="time">
+                                <i class="{{time_item.get('type',{}).get('iconfont')}}"></i>
+                                <span>{{time_item.get('time',{}).get('value')}}min</span>
+                            </p>
+                                % end
+                            % end
+                        </li>
+                        % end
+                    </ul>
+                    % if len(rent['property'].get('featured_facility')) > 3:
+                    <a class="btn btnModal animate viewMoreBtn" id="moreFeaturedFacilitiesBtn">{{_('查看更多周边设施')}}</a>
+                    % end
+                </div>
+                % end
                 <div class="scrollUp">{{_('继续')}}</div>
             </div>
         </div>
@@ -398,6 +430,58 @@
     <a class="btn btnCloseModal" id="closeFacilitiesMoreBtn">{{_('收起')}}</a>
 </div>
 <!--更多设施弹出层 end-->
+<!--更多周边弹出层 start-->
+% if rent['property'].get('featured_facility') and len(rent['property'].get('featured_facility')) > 3:
+<div class="featuredFacilitiesMore hide modal" data-trigger="moreFeaturedFacilitiesBtn">
+    <div class="location">
+        <p>
+            <i class="icon-location"></i>
+            <br/>
+            <span>
+                {{rent['property'].get('floor','')}}
+                % if rent.get('property',{}).get('house_name') and rent.get('property',{}).get('floor'):
+                -
+                % end
+                {{rent['property'].get('house_name','')}}
+                % if rent.get('property',{}).get('house_name') or rent.get('property',{}).get('floor'):
+                ,
+                %end
+                % if rent['property'].get('community',''):
+                {{rent['property'].get('community','')}},
+                % end
+                % if rent['property'].get('street',''):
+                {{rent['property'].get('street','')}},
+                % end
+                {{rent['property'].get('city',{}).get('name','')}},
+                {{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}},
+                {{rent['property'].get('zipcode','')}}
+            </span>
+        </p>
+    </div>
+
+    <div class="surrouding">
+        <ul class="content clearfix">
+            % for item in rent['property'].get('featured_facility'):
+            <li>
+                <p class="title">{{item.get(item.get('type',{}).get('slug')).get('name')}}</p>
+                <p class="facilityType">{{item.get('type',{}).get('value')}}</p>
+                % for time_item in item.get('traffic_time'):
+                % if time_item.get('default') == True:
+                <p class="time">
+                    <i class="{{time_item.get('type',{}).get('iconfont')}}"></i>
+                    <span>{{time_item.get('time',{}).get('value')}}min</span>
+                </p>
+                % end
+                % end
+            </li>
+            % end
+        </ul>
+    </div>
+    <a class="btn btnCloseModal">{{_('收起')}}</a>
+</div>
+% end
+
+<!--更多周边弹出层 end-->
 
 <!--@@close-->
 
