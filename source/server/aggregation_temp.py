@@ -20,30 +20,82 @@ else:
 
 with f_app.mongo() as m:
 
+    # 正在发布中的房源里按最短接受租期的统计:
+    # 日租<1month 1month<=中短<3month <=3month中长<6month >=6month长租
+    print('\n正在发布中的房源里按最短接受租期的统计:')
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {
+                'type': "rent",
+                'status': "to rent"
+                }},
+            {'$group': {'_id': "$minimum_rent_period", 'count': {'$sum': 1}}}
+        ]
+    )
+
+    period_count = {
+        'short': 0,
+        'short_middle': 0,
+        'middle_long': 0,
+        'long': 0,
+        'extra_long': 0
+    }
+
+    def covert_to_month(period):
+        if(period['unit'] == 'week'):
+            period['value'] = float(period['value'])/4
+        if(period['unit'] == 'day'):
+            period['value'] = float(period['value'])/31
+        if(period['unit'] == 'year'):
+            period['value'] = float(period['value'])*12
+        else:
+            period['value'] = float(period['value'])
+        return period
+
+    for document in cursor:
+        if(document['_id']):
+            period = covert_to_month(document['_id'])
+            if(period['value'] < 1.0):
+                period_count['short'] += document['count']
+            if(period['value'] >= 1.0 and period['value'] < 3.0):
+                period_count['short_middle'] += document['count']
+            if(period['value'] >= 3.0 and period['value'] < 6.0):
+                period_count['middle_long'] += document['count']
+            if(period['value'] >= 6.0 and period['value'] < 12.0):
+                period_count['long'] += document['count']
+            if(period['value'] >= 12.0):
+                period_count['extra_long'] += document['count']
+
+    print('日租<1month:', period_count['short'])
+    print('1month<=中短<3month:', period_count['short_middle'])
+    print('>=3month中长<6month:', period_count['middle_long'])
+    print('>=6month长租<12month:', period_count['long'])
+    print('>=12month:', period_count['extra_long'])
+
     # 刷新房产的房源排名
     # db.log.aggregate([{'$match':{'route':{'$regex': '/api/1/rent_ticket/[a-zA-Z0-9]{24}/edit'},'param_status':'to rent'}},{'$group':{'_id':'$route','count':{'$sum':1}}},{'$match':{'count':{'$gte':2}}},{'$sort':{'time':-1}}])
 
     # 用户登录次数统计
-    print('\n用户登录次数统计:')
-    cursor = m.log.aggregate(
-        [
-            {'$match': {'type': 'login'}},
-            {'$group': {'_id': "$id", 'count': {'$sum': 1}}},
-            {'$match': {'count': {'$gte': 2}}},
-            {'$sort': {'count': -1}}
-        ]
-    )
-    user_login_count_dic = {}
-    for document in cursor:
-        if(document['_id']):
-            user_login_count_dic[str(document['_id'])] = document['count']
+    # print('\n用户登录次数统计:')
+    # cursor = m.log.aggregate(
+    #     [
+    #         {'$match': {'type': 'login'}},
+    #         {'$group': {'_id': "$id", 'count': {'$sum': 1}}},
+    #         {'$match': {'count': {'$gte': 2}}},
+    #         {'$sort': {'count': -1}}
+    #     ]
+    # )
+    # user_login_count_dic = {}
+    # for document in cursor:
+    #     if(document['_id']):
+    #         user_login_count_dic[str(document['_id'])] = document['count']
 
-    user_login_count_dic = OrderedDict(sorted(user_login_count_dic.items(), key=lambda t: t[1], reverse=True))
+    # user_login_count_dic = OrderedDict(sorted(user_login_count_dic.items(), key=lambda t: t[1], reverse=True))
 
-    target_users = f_app.user.output(user_login_count_dic.keys(), custom_fields=f_app.common.user_custom_fields)
+    # target_users = f_app.user.output(user_login_count_dic.keys(), custom_fields=f_app.common.user_custom_fields)
 
-    for user in target_users:
-        print(user['nickname'].encode('utf-8') + ':' + str(user_login_count_dic[str(user['id'])]))
+    # for user in target_users:
+    #     print(user['nickname'].encode('utf-8') + ':' + str(user_login_count_dic[str(user['id'])]))
 
     # 统计多少房源没有填写地理位置
     # print('\n统计多少房源没有填写地理位置:')

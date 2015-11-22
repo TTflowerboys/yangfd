@@ -81,8 +81,8 @@ class common(f_common):
         "en": "en_GB",
     }
     i18n_sitemap_enable_locales = False
-    country_list = ["GB", "CN", "HK", "US"]
-    country_list_for_intention = ["CN", "TW", "HK", "US", "GB", "FR", "SG", "MY", "IE"]
+    country_list = ["GB", "CN", "US", "HK", "TW", "IE", "DE", "FR", "IT", "ES", "NL", "IN", "RU", "JP", "SG", "MY"]
+    country_list_for_intention = ["GB", "CN", "US", "HK", "TW", "IE", "DE", "FR", "IT", "ES", "NL", "IN", "RU", "JP", "SG", "MY"]
     sitemap_domain = "www.yangfd.com"
 
     params_replaces_list = {

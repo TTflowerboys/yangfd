@@ -160,11 +160,12 @@ def get_country_name_by_code(code):
         "FR": _("法国"),
         "IT": _("意大利"),
         "ES": _("西班牙"),
+        "NL": _("荷兰"),
         "HK": _("香港"),
         "TW": _("台湾"),
         "SG": _("新加坡"),
         "MY": _("马来西亚"),
-        "IE": _("爱尔兰"),
+        "IE": _("爱尔兰")
     }
     if code:
         return countryMap[code]
@@ -177,7 +178,19 @@ def get_phone_code_by_country(code):
         "CN": "86",
         "GB": "44",
         "US": "1",
-        "HK": "852"
+        'DE': '49',
+        'FR': '33',
+        'IT': '39',
+        'ES': '34',
+        'NL': '31',
+        'HK': '852',
+        'TW': '886',
+        'IN': '91',
+        'RU': '7',
+        'JP': '81',
+        'SG': '65',
+        'MY': '60',
+        'IE': '353'
     }
     if code:
         return phone_code_map[code]

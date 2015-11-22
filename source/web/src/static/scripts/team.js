@@ -436,17 +436,30 @@
             'FR': i18n('法国'),
             'IT': i18n('意大利'),
             'ES': i18n('西班牙'),
+            'NL': i18n('荷兰'),
             'HK': i18n('香港'),
             'TW': i18n('台湾'),
             'SG': i18n('新加坡'),
             'MY': i18n('马来西亚'),
-            'IE': i18n('爱尔兰'),
+            'IE': i18n('爱尔兰')
         },
         countryCodeMap: {
             'CN': '86',
             'GB': '44',
             'US': '1',
-            'HK': '852'
+            'IN': '91',
+            'RU': '7',
+            'JP': '81',
+            'DE': '49',
+            'FR': '33',
+            'IT': '39',
+            'ES': '34',
+            'NL': '31',
+            'HK': '852',
+            'TW': '886',
+            'SG': '65',
+            'MY': '60',
+            'IE': '353'
         },
         getPhoneCodeOfCountry: function (countryCode) {
             return this.countryCodeMap[countryCode]
