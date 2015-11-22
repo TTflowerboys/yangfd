@@ -136,7 +136,7 @@ def signin():
 @f_app.user.login.check(force=True)
 # @currant_util.check_phone_verified_and_redirect_domain
 def intention(user):
-    title = _('投资意向')
+    title = _('选择服务需求')
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
