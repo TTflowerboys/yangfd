@@ -93,15 +93,22 @@
     module.distanceMatrix = function distanceMatrix(origins, destinations, modes) {
         origins = _.isArray(origins) ? origins.join('|') : origins
         destinations = _.isArray(destinations) ? destinations.join('|') : destinations
-        return $.when.apply(null, _.map(modes, function (mode) {
+        return window.Q.when.apply(null, _.map(modes, function (mode) {
             var apiUri = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + origins + '&destinations=' + destinations + '&mode=' + mode.slug + '&language=en-GB&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
-            return $.get('/reverse_proxy?link=' + encodeURIComponent(apiUri))
+            return window.Q($.get('/reverse_proxy?link=' + encodeURIComponent(apiUri)))
         }))
             .then(function () {
                 return Array.prototype.slice.call(arguments).map(function (arr) {
                     var item = arr[0]
-                    return item
+                    if(item.status === 'OK' && item.rows) {
+                        return item
+                    } else {
+                        throw new Error(item.msg || window.i18n('googleapis发生了一个错误，请输入正确的postcode后重试'))
+                    }
                 })
+            })
+            .fail(function (e) {
+                throw new Error(e.message || window.i18n('googleapis发生了一个未知错误，请检查您的网络连接，然后刷新页面后重试'))
             })
     }
 
@@ -221,6 +228,10 @@
                                 })
                                 this.surroudingToAdd(item)
                             },this))
+                            .fail(_.bind(function (e) {
+                                window.dhtmlx.message({ type:'error', text: window.i18n('从Google Api获取交通信息失败:') + e.message});
+                                this.surroudingToAdd({hint: window.i18n('从Google Api获取交通信息失败')})
+                            }, this))
                     }, this))
             }, this)
         },

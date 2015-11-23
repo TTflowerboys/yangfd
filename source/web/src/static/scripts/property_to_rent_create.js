@@ -1271,12 +1271,12 @@
     }
 
     function getSurrouding() {
-        return $.Deferred(function (defer) {
+        return window.Q.Promise(function(resolve, reject, notify) {
             window.project.getEnum('featured_facility_type')
                 .then(function (types) {
                     return mixedSearch({types: types, latitude: module.propertyViewModel.latitude(), longitude: module.propertyViewModel.longitude()}).
                         then(_.bind(function (resultsOfMixedSearch) {
-                            defer.resolve(_.filter((_.map(resultsOfMixedSearch, function (item) {
+                            resolve(_.filter((_.map(resultsOfMixedSearch, function (item) {
                                 var intersection = _.intersection(_.map(types, function (type) { return type.slug }), _.keys(item))
                                 if(intersection.length) {
                                     item.type = _.find(types, {slug: intersection[0]})
@@ -1299,7 +1299,7 @@
         if(!originPostcode.length) {
             return
         }
-        $.when(getSurrouding(), getModes())
+        window.Q.when(getSurrouding(), getModes())
             .then(function(originSurrouding, modes){
                 var destinations = originSurrouding.map(function (item) {
                     return item.postcode_index || item.zipcode_index || (item.latitude + ',' + item.longitude)
@@ -1324,6 +1324,9 @@
                         })
 
                         propertyViewModel.surrouding(surrouding)
+                    })
+                    .fail(function (e) {
+                        window.dhtmlx.message({ type:'error', text: window.i18n('从Google Api获取交通信息失败:') + e.message});
                     })
             })
     }

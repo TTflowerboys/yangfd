@@ -150,17 +150,17 @@
             return includePhoneReg.test(text) || includeEmailReg.test(text)
         },
         getEnum: function (type) {
-            var defer = $.Deferred()
-            if(this.cache[type]) {
-                defer.resolve(this.cache[type])
-            } else {
-                $.get('/api/1/enum/search', {type: type, sort: true})
-                .then(function (data) {
-                        window.project.cache[type] = data.val
-                        defer.resolve(data.val)
-                    })
-            }
-            return defer.promise()
+            return window.Q.Promise(_.bind(function (resolve, reject, notify) {
+                if(this.cache[type]) {
+                    resolve(this.cache[type])
+                } else {
+                    $.get('/api/1/enum/search', {type: type, sort: true})
+                        .then(function (data) {
+                            window.project.cache[type] = data.val
+                            resolve(data.val)
+                        })
+                }
+            }, this))
         }
     }
 })();

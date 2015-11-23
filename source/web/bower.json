@@ -56,6 +56,7 @@
     "underscore": "1.8.3",
     "fancyBox": "fancyapps/fancyBox#2.1.5",
     "photoswipe": "4.0.7",
+    "q": "q#1.4.1",
     "dropload": "0.3.0",
     "intro.js": "1.0.0",
     "airbrake-js-client": "~0.5.0",
