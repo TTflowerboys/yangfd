@@ -48,7 +48,7 @@
     // Optional: set Logger to VERBOSE for debug information.
 
 #ifdef DEBUG
-    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+//    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
 #endif
 
     // Initialize tracker. Replace with your tracking ID.
