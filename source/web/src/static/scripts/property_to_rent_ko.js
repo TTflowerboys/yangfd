@@ -6,7 +6,7 @@
                 val.formatTime = val.time.value + {minute: 'min', hour: 'hour', second: 'sec'}[val.time.unit]
                 return val
             }))
-            this.selectedType = ko.observable(_.find(this.travel(), {default: true}))
+            this.selectedType = ko.observable(_.find(this.travel(), {default: true}) || this.travel()[0])
         },
         template: { element: 'show-travel-time' }
     })

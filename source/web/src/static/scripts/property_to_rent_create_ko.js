@@ -17,7 +17,7 @@
                     this.item().traffic_time = value
                 }
             }, this)
-            this.selectedType = ko.observable(_.find(this.travel(), {default: true}))
+            this.selectedType = ko.observable(_.find(this.travel(), {default: true}) || this.travel()[0])
             this.timeToChoose = ko.computed(function () {
                 var timeToChoose
                 this.lastTimeStamp = (new Date()).getTime() //因为knockout的options的bind每次初始化都会默认选择第一个，而且完全无法取消，所以需要一个时间戳来判断是否真的是用户操作在修改time
@@ -157,7 +157,7 @@
                                         var elements = JSON.parse(data).rows[0].elements
                                         var time = elements[0].duration ? Math.round(elements[0].duration.value / 60).toString() : '0'
                                         return {
-                                            default: innerIndex === 0 ? true : false, //表示UI界面选中的交通方式
+                                            default: false, //表示UI界面选中的交通方式
                                             isRaw: parseInt(time) % 5 !== 0, //表示是从Google Distance Matrix API取的时间没有更改过
                                             type: modes[innerIndex],
                                             time: {

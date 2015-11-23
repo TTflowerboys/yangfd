@@ -1199,113 +1199,6 @@
     function initInfoHeight(){
         $('.infoBox .info').css('height', $('.infoBox .info dd').last().offset().top - $('.infoBox .info dt').first().offset().top -20 + 'px') //设置说明文案左边的竖线的高度
     }
-    $(document).ready(function () {
-        $('.route').each(function (index, elem) {
-            if($(elem).css('display') === 'none') {//防止display:none时chosen插件获取不到select的尺寸
-                $(elem).css({
-                    'visibility': 'hidden',
-                    'display': 'block'
-                })
-                $(elem).find('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
-                $(elem).css({
-                    'visibility': 'visiable',
-                    'display': 'none'
-                })
-            }else {
-                $(elem).find('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
-            }
-        })
-
-        showRoomOrHouse($('#rentalType .property_type.selected').index())
-        initInfoHeight()
-        var uploadFileConfig = {
-            url: '/api/1/upload_image',
-            fileName: 'data',
-            formData: {watermark: true},
-            //showProgress: true,
-            showPreview: true,
-            showDelete: true,
-            showDone: false,
-            previewWidth: '100%',
-            previewHeight: '100%',
-            showQueueDiv: 'uploadProgress',
-            statusBarWidth: '140px',
-            maxFileCount: 12, //最多上传12张图片
-            maxFileSize: 2 * 1024 * 1024, //允许单张图片文件的最大占用空间为2M
-            uploadFolder: '',
-            allowedTypes: 'jpg,jpeg,png,gif',
-            acceptFiles: 'image/',
-            allowDuplicates: false,
-            multiDragErrorStr: window.i18n('不允许同时拖拽多个文件上传.'),
-            extErrorStr: window.i18n('不允许上传. 允许的文件扩展名: '),
-            duplicateErrorStr: window.i18n('不允许上传. 文件已存在.'),
-            sizeErrorStr: window.i18n('不允许上传. 允许的最大尺寸为: '),
-            uploadErrorStr: window.i18n('不允许上传'),
-            maxFileCountErrorStr: window.i18n(' 不允许上传. 上传最大文件数为:'),
-            abortStr: window.i18n('停止'),
-            cancelStr: window.i18n('取消'),
-            deletelStr: window.i18n('删除'),
-            deleteCallback: function(data, pd){
-                var url
-                if($.isArray(data)){
-                    url = data[0]
-                }else{
-                    url = data.val.url
-                }
-                var index = propertyViewModel.imageArr.indexOf(url)
-                if(index >= 0){
-                    propertyViewModel.imageArr.splice(index, 1)
-                    uploadObj.existingFileNames.splice(index, 1)
-                }
-            },
-            onSuccess:function(files, data, xhr, pd){
-                if(typeof data === 'string') { //This will happen in IE
-                    try {
-                        data = JSON.parse(data.match(/<pre>((.|\n)+)<\/pre>/m)[1])
-                    } catch(e){
-                        throw('Unexpected response data of uploading file!')
-                    }
-                }
-                if(data.ret) {
-                    pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').remove()
-                    return window.alert(window.i18n('上传错误：错误代码') + '(' + data.ret + '),' + data.debug_msg)
-                }
-                propertyViewModel.imageArr.push(data.val.url)
-                pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').attr('data-url', data.val.url)
-            },
-            onLoad:function(obj) {
-                $.each(propertyViewModel.imageArr(), function(i, v){
-                    var cover = $('.image_panel').attr('data-cover')
-                    obj.createProgress(v)
-                    var previewElem = $('#uploadProgress').find('.ajax-file-upload-statusbar').eq(i)
-                    previewElem.attr('data-url', v).find('.ajax-file-upload-progress').hide()
-                    if(previewElem.attr('data-url') === cover) {
-                        previewElem.addClass('cover')
-                    }
-                })
-            },
-            onSubmit: function () {
-                if(!$('.ajax-file-upload-statusbar.cover').length) {
-                    $('.ajax-file-upload-statusbar').eq(0).addClass('cover')
-                }
-            },
-            onError: function (files,status,errMsg,pd) {
-                //files: list of files
-                //status: error status
-                //errMsg: error message
-                window.alert(i18n('图片') + files.toString() + i18n('上传失败(') + status + ':' + errMsg + i18n(')，请重新上传'))
-                uploadObj.existingFileNames = _.difference(uploadObj.existingFileNames, files)
-                pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').remove()
-            }
-        }
-        if(window.team.getClients().indexOf('ipad') >= 0) {
-            uploadFileConfig.allowDuplicates = true
-        }
-        var uploadObj = $('#fileuploader').uploadFile(uploadFileConfig)
-        $('.image_panel').delegate('.ajax-file-upload-statusbar', 'click', function () {
-            $(this).toggleClass('cover').siblings('.ajax-file-upload-statusbar').removeClass('cover')
-        })
-    })
 
     function PropertyViewModel() {
         var self = this
@@ -1418,7 +1311,7 @@
                                 var elements = JSON.parse(data).rows[0].elements
                                 var time = (elements[index].duration ? Math.round(elements[index].duration.value / 60).toString() : '0')
                                 return {
-                                    default: innerIndex === 0 ? true : false, //表示UI界面选中的交通方式
+                                    default: false, //表示UI界面选中的交通方式
                                     isRaw: parseInt(time) % 5 !== 0, //表示是从Google Distance Matrix API取的时间没有更改过
                                     type: modes[innerIndex],
                                     time: {
@@ -1434,4 +1327,112 @@
                     })
             })
     }
+
+    $(document).ready(function () {
+        $('.route').each(function (index, elem) {
+            if($(elem).css('display') === 'none') {//防止display:none时chosen插件获取不到select的尺寸
+                $(elem).css({
+                    'visibility': 'hidden',
+                    'display': 'block'
+                })
+                $(elem).find('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
+                $(elem).css({
+                    'visibility': 'visiable',
+                    'display': 'none'
+                })
+            }else {
+                $(elem).find('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
+            }
+        })
+
+        showRoomOrHouse($('#rentalType .property_type.selected').index())
+        initInfoHeight()
+        var uploadFileConfig = {
+            url: '/api/1/upload_image',
+            fileName: 'data',
+            formData: {watermark: true},
+            //showProgress: true,
+            showPreview: true,
+            showDelete: true,
+            showDone: false,
+            previewWidth: '100%',
+            previewHeight: '100%',
+            showQueueDiv: 'uploadProgress',
+            statusBarWidth: '140px',
+            maxFileCount: 12, //最多上传12张图片
+            maxFileSize: 2 * 1024 * 1024, //允许单张图片文件的最大占用空间为2M
+            uploadFolder: '',
+            allowedTypes: 'jpg,jpeg,png,gif',
+            acceptFiles: 'image/',
+            allowDuplicates: false,
+            multiDragErrorStr: window.i18n('不允许同时拖拽多个文件上传.'),
+            extErrorStr: window.i18n('不允许上传. 允许的文件扩展名: '),
+            duplicateErrorStr: window.i18n('不允许上传. 文件已存在.'),
+            sizeErrorStr: window.i18n('不允许上传. 允许的最大尺寸为: '),
+            uploadErrorStr: window.i18n('不允许上传'),
+            maxFileCountErrorStr: window.i18n(' 不允许上传. 上传最大文件数为:'),
+            abortStr: window.i18n('停止'),
+            cancelStr: window.i18n('取消'),
+            deletelStr: window.i18n('删除'),
+            deleteCallback: function(data, pd){
+                var url
+                if($.isArray(data)){
+                    url = data[0]
+                }else{
+                    url = data.val.url
+                }
+                var index = propertyViewModel.imageArr.indexOf(url)
+                if(index >= 0){
+                    propertyViewModel.imageArr.splice(index, 1)
+                    uploadObj.existingFileNames.splice(index, 1)
+                }
+            },
+            onSuccess:function(files, data, xhr, pd){
+                if(typeof data === 'string') { //This will happen in IE
+                    try {
+                        data = JSON.parse(data.match(/<pre>((.|\n)+)<\/pre>/m)[1])
+                    } catch(e){
+                        throw('Unexpected response data of uploading file!')
+                    }
+                }
+                if(data.ret) {
+                    pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').remove()
+                    return window.alert(window.i18n('上传错误：错误代码') + '(' + data.ret + '),' + data.debug_msg)
+                }
+                propertyViewModel.imageArr.push(data.val.url)
+                pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').attr('data-url', data.val.url)
+            },
+            onLoad:function(obj) {
+                $.each(propertyViewModel.imageArr(), function(i, v){
+                    var cover = $('.image_panel').attr('data-cover')
+                    obj.createProgress(v)
+                    var previewElem = $('#uploadProgress').find('.ajax-file-upload-statusbar').eq(i)
+                    previewElem.attr('data-url', v).find('.ajax-file-upload-progress').hide()
+                    if(previewElem.attr('data-url') === cover) {
+                        previewElem.addClass('cover')
+                    }
+                })
+            },
+            onSubmit: function () {
+                if(!$('.ajax-file-upload-statusbar.cover').length) {
+                    $('.ajax-file-upload-statusbar').eq(0).addClass('cover')
+                }
+            },
+            onError: function (files,status,errMsg,pd) {
+                //files: list of files
+                //status: error status
+                //errMsg: error message
+                window.alert(i18n('图片') + files.toString() + i18n('上传失败(') + status + ':' + errMsg + i18n(')，请重新上传'))
+                uploadObj.existingFileNames = _.difference(uploadObj.existingFileNames, files)
+                pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').remove()
+            }
+        }
+        if(window.team.getClients().indexOf('ipad') >= 0) {
+            uploadFileConfig.allowDuplicates = true
+        }
+        var uploadObj = $('#fileuploader').uploadFile(uploadFileConfig)
+        $('.image_panel').delegate('.ajax-file-upload-statusbar', 'click', function () {
+            $(this).toggleClass('cover').siblings('.ajax-file-upload-statusbar').removeClass('cover')
+        })
+    })
 })(window.ko, window.currantModule = window.currantModule || {})
