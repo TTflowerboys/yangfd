@@ -24,11 +24,12 @@ def get_weibo_search_result(keywords_list):
 
     def format_fit(sheet):
         simsun_font = Font(name="SimSun")
-        alignment_fit = Alignment(shrink_to_fit=True)
+        alignment_fit_shrink = Alignment(shrink_to_fit=True)
+        alignment_fit_wrap = Alignment(wrap_text=True)
         for row in sheet.rows:
             for cell in row:
                 cell.font = simsun_font
-                cell.alignment = alignment_fit
+                cell.alignment = alignment_fit_shrink
         for num, col in enumerate(sheet.columns):
             lenmax = 0
             for cell in col:
@@ -39,8 +40,12 @@ def get_weibo_search_result(keywords_list):
                     lencur = len(unicode(cell.value).encode("GBK"))
                 elif cell.value is not None:
                     lencur = len(cell.value.encode("GBK", "replace"))
+                if lencur > 150:
+                    cell.alignment = alignment_fit_wrap
+                    lencur = 150
                 if lencur > lenmax:
                     lenmax = lencur
+
             sheet.column_dimensions[get_correct_col_index(num)].width = lenmax*0.86
             print "col "+get_correct_col_index(num)+" fit."
 
