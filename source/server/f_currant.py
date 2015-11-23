@@ -1220,6 +1220,8 @@ class f_currant_plugins(f_app.plugin_base):
         if ticket is None or "property" not in ticket or ticket["property"] is None or "country" not in ticket["property"] or "city" not in ticket["property"] or "rent_available_time" not in ticket:
             return
 
+        f_app.util.check_and_override_minimum_rent_period(ticket)
+
         # Scan existing rent intention ticket
         params = {
             "type": "rent_intention",
@@ -1264,6 +1266,7 @@ class f_currant_plugins(f_app.plugin_base):
             if "rent_deadline_time" in ticket and "rent_deadline_time" in intention_ticket:
                 C = C and ticket["rent_deadline_time"].year == intention_ticket["rent_deadline_time"].year and ticket["rent_deadline_time"].month == intention_ticket["rent_deadline_time"].month
 
+            f_app.util.check_and_override_minimum_rent_period(intention_ticket)
             if "minimum_rent_period" in ticket and "minimum_rent_period" in intention_ticket:
                 D = ticket["minimum_rent_period"]["value_float"] >= intention_ticket["minimum_rent_period"]["value_float"]
             else:
@@ -1333,6 +1336,8 @@ class f_currant_plugins(f_app.plugin_base):
         else:
             return
 
+        f_app.util.check_and_override_minimum_rent_period(intention_ticket)
+
         # Scan existing rent intention ticket
         params = {
             "type": "rent",
@@ -1375,6 +1380,7 @@ class f_currant_plugins(f_app.plugin_base):
                 if "rent_deadline_time" in ticket and "rent_deadline_time" in intention_ticket:
                     C = C and ticket["rent_deadline_time"].year == intention_ticket["rent_deadline_time"].year and ticket["rent_deadline_time"].month == intention_ticket["rent_deadline_time"].month
 
+                f_app.util.check_and_override_minimum_rent_period(ticket)
                 if "minimum_rent_period" in ticket and "minimum_rent_period" in intention_ticket:
                     D = ticket["minimum_rent_period"]["value_float"] >= intention_ticket["minimum_rent_period"]["value_float"]
                 else:
@@ -3106,6 +3112,27 @@ class f_currant_util(f_util):
             self.logger.warning("Multiple or no zipcode record found for zipcode", zipcode, ", ignoring region report assignment.")
 
         return None
+
+    def check_and_override_minimum_rent_period(self, params):
+        if "rent_available_time" in params and "rent_deadline_time" in params:
+            rent_time_delta = params["rent_deadline_time"] - params["rent_available_time"]
+            rent_time_delta_seconds = rent_time_delta.days * 86400 + rent_time_delta.seconds
+
+            rent_period = dict(
+                unit="seconds",
+                value=str(rent_time_delta_seconds),
+                value_float=rent_time_delta_seconds,
+                type="time_period",
+                _i18n_unit=True,
+            )
+
+            if "minimum_rent_period" in params:
+                converted_minimum_rent_period = float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value": params["minimum_rent_period"]["value"]}, "seconds"))["value_float"]
+                if converted_minimum_rent_period > rent_time_delta_seconds:
+                    params["minimum_rent_period"] = rent_period
+
+            else:
+                params["minimum_rent_period"] = rent_period
 
     def test_parse_budget(self):
         assert f_app.util.parse_budget("budget:100,200,CNY") == [100, 200, "CNY"]
