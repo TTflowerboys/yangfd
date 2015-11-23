@@ -573,6 +573,7 @@ def wechat_endpoint():
         properties = f_app.i18n.process_i18n(f_app.property.output(f_app.property.search({
             "country.code": country,
             "status": {"$in": ["selling", "sold out"]},
+            "user_generated": {"$ne": True},
         }, per_page=9, time_field="mtime")))
 
         etree.SubElement(root, "MsgType").text = "news"
