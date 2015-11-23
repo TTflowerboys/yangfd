@@ -649,7 +649,7 @@ def rent_intention_ticket_search(user, params):
             if time_period_unit == params["minimum_rent_period"]["unit"]:
                 condition["minimum_rent_period.value_float"] = {"$gte": params["minimum_rent_period"]["value_float"]}
             else:
-                condition["minimum_rent_period.value_float"] = {"$gte": float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value": params["minimum_rent_period"]["value"]}, time_period_unit))}
+                condition["minimum_rent_period.value_float"] = {"$gte": float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value_float": params["minimum_rent_period"]["value_float"]}, time_period_unit))}
             rent_period_filter.append(condition)
         params["$and"].append({"$or": rent_period_filter})
 
@@ -1403,7 +1403,7 @@ def rent_ticket_search(user, params):
             if time_period_unit == params["minimum_rent_period"]["unit"]:
                 condition["minimum_rent_period.value_float"] = {"$gte": params["minimum_rent_period"]["value_float"]}
             else:
-                condition["minimum_rent_period.value_float"] = {"$gte": float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value": params["minimum_rent_period"]["value"]}, time_period_unit))}
+                condition["minimum_rent_period.value_float"] = {"$gte": float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value_float": params["minimum_rent_period"]["value_float"]}, time_period_unit))}
             rent_period_filter.append(condition)
         params["$and"].append({"$or": rent_period_filter})
 
