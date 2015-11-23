@@ -2,11 +2,28 @@
 from app import f_app
 from datetime import datetime
 from openpyxl import Workbook
+from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment
 
 username = "13545078924"
 password = "bbt12345678"
 keywords_list = [u"英国房产出租", u"英国房屋出租"]
+
+
+def generate_keyword_list(filename):
+    wb = load_workbook(filename=filename)
+    ws = wb.active
+    temp = []
+    result = []
+    for row in ws.rows:
+        for cell in row:
+            if cell.value is None:
+                if len(temp):
+                    result.append(' '.join(temp))
+                temp = []
+            else:
+                temp.append(cell.value)
+    return result
 
 
 def get_weibo_search_result(keywords_list):
@@ -112,4 +129,4 @@ def get_weibo_search_result(keywords_list):
     format_fit(ws)
     wb.save('weibo_search.xlsx')
 
-get_weibo_search_result(keywords_list)
+get_weibo_search_result(generate_keyword_list("key words for Arnold (1).xlsx"))
