@@ -6,6 +6,7 @@ angular.module('app')
             scope: {
                 customFields: '=ngModel',
                 itemId: '=itemId',
+                placement: '=placement',
                 update: '&',
             },
             controller: function ($scope, $element, $rootScope, $compile) {
