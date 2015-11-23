@@ -632,13 +632,13 @@ def rent_intention_ticket_search(user, params):
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params)
 
+    f_app.util.check_and_override_minimum_rent_period(params)
+
     if "rent_available_time" in params:
         params["rent_available_time"] = {"$gte": params["rent_available_time"] - timedelta(days=7), "$lte": params["rent_available_time"] + timedelta(days=1)}
 
     if "rent_deadline_time" in params:
         params["$and"].append({"$or": [{"rent_deadline_time": {"$gte": params["rent_deadline_time"] - timedelta(days=1)}}, {"rent_deadline_time": {"$exists": False}}]})
-
-    f_app.util.check_and_override_minimum_rent_period(params)
 
     params.pop("rent_deadline_time", None)
 
@@ -1386,13 +1386,13 @@ def rent_ticket_search(user, params):
     if "short_id" in params:
         property_params["short_id"] = params.pop("short_id")
 
+    f_app.util.check_and_override_minimum_rent_period(params)
+
     if "rent_available_time" in params:
         params["rent_available_time"] = {"$gte": params["rent_available_time"] - timedelta(days=7), "$lte": params["rent_available_time"] + timedelta(days=1)}
 
     if "rent_deadline_time" in params:
         params["$and"].append({"$or": [{"rent_deadline_time": {"$gte": params["rent_deadline_time"] - timedelta(days=1)}}, {"rent_deadline_time": {"$exists": False}}]})
-
-    f_app.util.check_and_override_minimum_rent_period(params)
 
     params.pop("rent_deadline_time", None)
 
