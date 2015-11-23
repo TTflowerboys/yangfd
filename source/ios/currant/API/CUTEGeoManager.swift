@@ -393,6 +393,10 @@ class CUTEGeoManager: NSObject {
             if name != nil {
                 parameters["query"] = name
             }
+            if city != nil {
+                parameters["city"] = city!.identifier
+            }
+
             if latitude != nil && longitude != nil {
                 parameters["latitude"] = latitude!.stringValue
                 parameters["longitude"] = longitude!.stringValue

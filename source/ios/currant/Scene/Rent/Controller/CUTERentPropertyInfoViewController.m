@@ -173,7 +173,7 @@
             CUTEProperty *property = self.form.ticket.property;
             if (IsArrayNilOrEmpty(self.form.ticket.property.surroundings) && property.latitude && property.longitude && !IsNilNullOrEmpty(property.zipcode)) {
                 NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
-                [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil latitude:property.latitude longitude:property.longitude city:nil country:nil propertyPostcodeIndex:postCodeIndex] continueWithBlock:^id(BFTask *task) {
+                [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil latitude:property.latitude longitude:property.longitude city:property.city country:property.country propertyPostcodeIndex:postCodeIndex] continueWithBlock:^id(BFTask *task) {
                     [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
                         ticket.property.surroundings  = task.result;
                     }];
