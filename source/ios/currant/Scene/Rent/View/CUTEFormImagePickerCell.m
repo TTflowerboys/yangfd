@@ -592,7 +592,7 @@
             [SVProgressHUD showErrorWithCancellation];
         }
         else {
-            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/property/", self.form.ticket.property.identifier, @"/edit") parameters:@{@"cover": @{DEFAULT_I18N_LOCALE: [task.result firstObject]}} resultClass:[CUTEProperty class]] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/2/property/", self.form.ticket.property.identifier, @"/edit") parameters:@{@"cover": @{DEFAULT_I18N_LOCALE: [task.result firstObject]}} resultClass:[CUTEProperty class]] continueWithBlock:^id(BFTask *task) {
                 if (task.error) {
                     [SVProgressHUD showErrorWithError:task.error];
                 }
