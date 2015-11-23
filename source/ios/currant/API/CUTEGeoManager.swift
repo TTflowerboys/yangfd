@@ -410,55 +410,73 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-            if let surroudings:[CUTESurrounding] = result as? [CUTESurrounding] {
-                if surroudings.count > 0 {
-                    
-                    var destinations = [String]()
 
-                    //TODO check here has performance issues for like hundred of results
-                    for surrrounding in surroudings {
-                        if let address = surrrounding.address {
-                            destinations.append(address)
-                        }
-                    }
+            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_traffic_type").continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                if let enums = task.result as? [CUTEEnum] {
+                    let trafficEnums = enums.sort({ (e1:CUTEEnum, e2:CUTEEnum) -> Bool in
+                        return e1.sortValue < e2.sortValue
+                    })
 
-                    let walkingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode:"walking")
-                    let byclingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode:"bicycling")
-                    let drivingTask = self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations)
+                    if let surroudings:[CUTESurrounding] = result as? [CUTESurrounding] {
+                        if surroudings.count > 0 {
 
-                    //default walking as the first mode
-                    BFTask(forCompletionOfAllTasksWithResults: [walkingTask, byclingTask, drivingTask]).continueWithBlock { (task:BFTask!) -> AnyObject! in
+                            var destinations = [String]()
 
-                        if let taskArray = task.result as? [[[CUTETrafficTime]]] {
-                            if taskArray.count == 3 {
-                                let byclingArray = taskArray[0][0]
-                                let drivingArray = taskArray[1][0]
-                                let walkingArray = taskArray[2][0]
-
-                                guard surroudings.count == byclingArray.count && byclingArray.count == drivingArray.count && byclingArray.count == walkingArray.count else {
-                                    tcs.setError(NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Result Error"]))
-                                    return task
+                            //TODO check here has performance issues for like hundred of results
+                            for surrrounding in surroudings {
+                                if let address = surrrounding.address {
+                                    destinations.append(address)
                                 }
+                            }
 
-                                for index in Range(start: 0, end: surroudings.count) {
-                                    let surrouding = surroudings[index]
-                                    surrouding.trafficTimes = [byclingArray[index], drivingArray[index], walkingArray[index]]
+                            var requestTaskArray = [BFTask!]()
+                            for type in trafficEnums {
+                                requestTaskArray.append(self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode: type.slug))
+                            }
+
+                            //default walking as the first mode
+                            BFTask(forCompletionOfAllTasksWithResults: requestTaskArray).continueWithBlock { (task:BFTask!) -> AnyObject! in
+
+                                if let taskArray = task.result as? [[[CUTETrafficTime]]] {
+                                    if taskArray.count == requestTaskArray.count {
+
+                                        for timeMatix in taskArray {
+                                            let timeArray = timeMatix[0]
+                                            if timeArray.count == surroudings.count {
+
+                                                for index in Range(start: 0, end: surroudings.count) {
+                                                    let surrouding = surroudings[index]
+                                                    if surrouding.trafficTimes != nil && surrouding.trafficTimes.count > 0 {
+                                                        var array = surrouding.trafficTimes
+                                                        array.append(timeArray[index])
+                                                        surrouding.trafficTimes = array
+                                                    }
+                                                    else {
+                                                        var array = [CUTETrafficTime]()
+                                                        array.append(timeArray[index])
+                                                        surrouding.trafficTimes = array
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        
+                                        tcs.setResult(surroudings)
+                                    }
                                 }
-                                
-                                tcs.setResult(surroudings)
+                                return task;
                             }
                         }
-                        return task;
+                        else {
+                            tcs.setResult(surroudings)
+                        }
                     }
-                }
-                else {
-                    tcs.setResult(surroudings)
-                }
-            }
-            else {
-                tcs.setResult([])
-            }
+                    else {
+                        tcs.setResult([])
+                    }
 
+                }
+                return task
+            })
         }
 
         sequencer.run()
