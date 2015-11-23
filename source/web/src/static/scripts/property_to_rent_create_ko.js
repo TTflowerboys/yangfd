@@ -1,5 +1,14 @@
 (function (ko, module) {
 
+    ko.bindingHandlers.scrollTop = {
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor())
+            if (value) {
+                $(element).scrollTop(value)
+            }
+        }
+    }
+
     ko.components.register('edit-travel-time', {
         viewModel: function(params) {
             var self = this
@@ -105,9 +114,15 @@
             this.active = ko.observable() //输入框是否为激活状态，激活状态
             this.result = ko.observable() //输入框的结果
             this.suggestions = ko.observableArray() //搜索结果列表
+            this.activeSuggestionIndex = ko.observable(-1) //选中状态的结果的index
             this.hint = ko.observable() //提示文字
 
+            this.scrollTop = ko.computed(function () {
+                return 41 * (this.activeSuggestionIndex() + 1) - 298
+            }, this)
+
             this.search = _.bind(function () {
+                this.activeSuggestionIndex(-1)
                 var name = this.result()
                 this.active(true)
                 this.suggestions([])
@@ -143,7 +158,44 @@
                 }
             }, this)
 
+            this.downward = function () {
+                var len = this.suggestions().length
+                var originActiveSuggestionIndex = this.activeSuggestionIndex()
+                if(len && originActiveSuggestionIndex < len - 1) {
+                    this.activeSuggestionIndex(originActiveSuggestionIndex + 1)
+                }
+            }
+
+            this.upward = function () {
+                var len = this.suggestions().length
+                var originActiveSuggestionIndex = this.activeSuggestionIndex()
+                if(len && originActiveSuggestionIndex > 0) {
+                    this.activeSuggestionIndex(originActiveSuggestionIndex - 1)
+                }
+            }
+
+            this.keyUp = function (viewModel, e) {
+                switch(e.keyCode) {
+                    case 13: //enter
+                        if(this.activeSuggestionIndex() === -1) {
+                            this.search()
+                        } else {
+                            this.select(this.suggestions()[this.activeSuggestionIndex()])
+                        }
+                        break;
+                    case 40: //⬇️
+                        e.preventDefault()
+                        this.downward()
+                        break;
+                    case 38: //⬆️
+                        e.preventDefault()
+                        this.upward()
+                        break;
+                }
+            }
+
             this.select = _.bind(function (item) {
+                this.activeSuggestionIndex(-1)
                 this.result(item.name)
                 this.active(false)
                 this.surroudingToAdd(_.extend(item, {traffic_time: [], hint: window.i18n('载入中...')}))
