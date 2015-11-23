@@ -199,14 +199,6 @@
 		2C3DE2341B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
 		2C3DE2351B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
 		2C3DE2361B035719006FF191 /* CUTETracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2321B035719006FF191 /* CUTETracker.m */; };
-		2C3DE23B1B05CCDC006FF191 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE2391B05CCDC006FF191 /* Fabric.framework */; };
-		2C3DE23C1B05CCDC006FF191 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE2391B05CCDC006FF191 /* Fabric.framework */; };
-		2C3DE23D1B05CCDC006FF191 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE2391B05CCDC006FF191 /* Fabric.framework */; };
-		2C3DE23E1B05CCDC006FF191 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE2391B05CCDC006FF191 /* Fabric.framework */; };
-		2C3DE2401B05CCDD006FF191 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */; };
-		2C3DE2411B05CCDD006FF191 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */; };
-		2C3DE2421B05CCDD006FF191 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */; };
-		2C3DE2431B05CCDD006FF191 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */; };
 		2C3DE2591B07448F006FF191 /* BBTPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2581B07448F006FF191 /* BBTPagingView.m */; };
 		2C3DE25A1B07448F006FF191 /* BBTPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2581B07448F006FF191 /* BBTPagingView.m */; };
 		2C3DE25B1B07448F006FF191 /* BBTPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3DE2581B07448F006FF191 /* BBTPagingView.m */; };
@@ -961,8 +953,6 @@
 		2C317F711B4538C30041E05E /* KIFUITestActor+AddressMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+AddressMap.m"; sourceTree = "<group>"; };
 		2C3DE2311B035719006FF191 /* CUTETracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETracker.h; sourceTree = "<group>"; };
 		2C3DE2321B035719006FF191 /* CUTETracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETracker.m; sourceTree = "<group>"; };
-		2C3DE2391B05CCDC006FF191 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2C3DE2481B05F219006FF191 /* CUTETrackParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETrackParams.h; sourceTree = "<group>"; };
 		2C3DE2571B07448F006FF191 /* BBTPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTPagingView.h; sourceTree = "<group>"; };
 		2C3DE2581B07448F006FF191 /* BBTPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTPagingView.m; sourceTree = "<group>"; };
@@ -1315,8 +1305,6 @@
 				2CA2E6B61AC5487800053965 /* AddressBook.framework in Frameworks */,
 				2CA2E6B71AC5487800053965 /* MapKit.framework in Frameworks */,
 				2CA2E6B81AC5487800053965 /* libPods.a in Frameworks */,
-				2C3DE23D1B05CCDC006FF191 /* Fabric.framework in Frameworks */,
-				2C3DE2421B05CCDD006FF191 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1329,8 +1317,6 @@
 				2CA2E6CF1AC5496700053965 /* AddressBook.framework in Frameworks */,
 				2CA2E6D01AC5496700053965 /* MapKit.framework in Frameworks */,
 				2CA2E6D11AC5496700053965 /* libPods.a in Frameworks */,
-				2C3DE23E1B05CCDC006FF191 /* Fabric.framework in Frameworks */,
-				2C3DE2431B05CCDD006FF191 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1343,8 +1329,6 @@
 				2CA94AA01ACA42CD00DF7497 /* AddressBook.framework in Frameworks */,
 				2CA94AA11ACA42CD00DF7497 /* MapKit.framework in Frameworks */,
 				2CA94AA21ACA42CD00DF7497 /* libPods.a in Frameworks */,
-				2C3DE23C1B05CCDC006FF191 /* Fabric.framework in Frameworks */,
-				2C3DE2411B05CCDD006FF191 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1357,8 +1341,6 @@
 				2C1EA76F1AC3DA1900B0FC22 /* AddressBook.framework in Frameworks */,
 				2C554F8A1AC2BC3700F51D33 /* MapKit.framework in Frameworks */,
 				C4A0594E53CF2777C29B6FC8 /* libPods.a in Frameworks */,
-				2C3DE23B1B05CCDC006FF191 /* Fabric.framework in Frameworks */,
-				2C3DE2401B05CCDD006FF191 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1522,8 +1504,6 @@
 				2C71D3751BF9BD3D000CAC71 /* UITableViewExtension.swift */,
 				2CBF30AF1B9459D000EB2D51 /* STWebArchiver.h */,
 				2CBF30B01B9459D000EB2D51 /* STWebArchiver.m */,
-				2C3DE2391B05CCDC006FF191 /* Fabric.framework */,
-				2C3DE23A1B05CCDC006FF191 /* Crashlytics.framework */,
 				2CF8A6A51AF0C2620080DF10 /* BBTPickerView.h */,
 				2CF8A6A61AF0C2620080DF10 /* BBTPickerView.m */,
 				2C2FCDBB1AFCC689002594D7 /* BBTInputAccessoryView.h */,
@@ -2488,7 +2468,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#./currant/Library3rd/Fabric.framework/run 9ecb350494322a70f91f3ad1df714df4ac8e93c5 11ab511856ab2c3b06087c4f0cf6d3194350106fd95f93dfb1583bd057815029";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 9ecb350494322a70f91f3ad1df714df4ac8e93c5 11ab511856ab2c3b06087c4f0cf6d3194350106fd95f93dfb1583bd057815029";
 		};
 		2C3DE2451B05CEC8006FF191 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2501,7 +2481,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./currant/Library3rd/Fabric.framework/run 9ecb350494322a70f91f3ad1df714df4ac8e93c5 11ab511856ab2c3b06087c4f0cf6d3194350106fd95f93dfb1583bd057815029";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 9ecb350494322a70f91f3ad1df714df4ac8e93c5 11ab511856ab2c3b06087c4f0cf6d3194350106fd95f93dfb1583bd057815029";
 		};
 		2C3DE2461B05CEE1006FF191 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2514,7 +2494,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./currant/Library3rd/Fabric.framework/run 9ecb350494322a70f91f3ad1df714df4ac8e93c5 11ab511856ab2c3b06087c4f0cf6d3194350106fd95f93dfb1583bd057815029";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 9ecb350494322a70f91f3ad1df714df4ac8e93c5 11ab511856ab2c3b06087c4f0cf6d3194350106fd95f93dfb1583bd057815029";
 		};
 		2C3DE2471B05CEFC006FF191 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2527,7 +2507,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./currant/Library3rd/Fabric.framework/run 9ecb350494322a70f91f3ad1df714df4ac8e93c5 11ab511856ab2c3b06087c4f0cf6d3194350106fd95f93dfb1583bd057815029";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 9ecb350494322a70f91f3ad1df714df4ac8e93c5 11ab511856ab2c3b06087c4f0cf6d3194350106fd95f93dfb1583bd057815029";
 		};
 		2CA2E6AC1AC5487800053965 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
