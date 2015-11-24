@@ -115,7 +115,7 @@
     ko.components.register('surrouding-search-input', {
         viewModel: function(params) {
             function mixedSearch(name) {
-                return $.betterPost('/api/1/main_mixed_index/search', {query: name})
+                return window.Q($.betterPost('/api/1/main_mixed_index/search', {query: name}))
             }
             this.surroudingToAdd = params.surroudingToAdd
             this.active = ko.observable() //输入框是否为激活状态，激活状态

@@ -1260,14 +1260,14 @@
     ko.applyBindings(propertyViewModel)
 
     function mixedSearch(params) {
-        return $.betterPost('/api/1/main_mixed_index/search', {
+        return window.Q($.betterPost('/api/1/main_mixed_index/search', {
             type: JSON.stringify(_.map(params.types, function (type) {
                 return type.id
             })),
             latitude: params.latitude,
             longitude: params.longitude,
             search_range: 5000
-        })
+        }))
     }
 
     function getSurrouding() {
