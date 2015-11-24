@@ -25,6 +25,12 @@ var _mfq = _mfq || [];
 // Set up baidu analytics
 var _hmt = _hmt || [];
 (function() {
+    if(window.team.isPhone()) {
+        window.BDBridgeConfig = {
+            VERSION: "99.0.0",
+            BD_BRIDGE_OPEN: 0
+        }
+    }
     var hm = document.createElement("script");
     hm.src = "//hm.baidu.com/hm.js?090a8d3a2b9f705eae9f19cbf63550f6";
     document.getElementsByTagName("body")[0].appendChild(hm);
