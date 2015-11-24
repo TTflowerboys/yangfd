@@ -62,6 +62,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                 searchBar.barTintColor = UIColor.clearColor()
                 searchBar.backgroundColor = UIColor.clearColor()
                 searchBar.delegate = self
+                searchBar.placeholder = STR("SurroundingList/输入关键字搜索学校, 地铁...")
                 self.searchController = UISearchDisplayController(searchBar: searchBar, contentsController: self)
                 self.searchController?.delegate = self
                 self.searchController?.searchResultsDelegate = self
