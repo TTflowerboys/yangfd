@@ -27,7 +27,7 @@
 }
 
 .limitedLines(@lines:5; @line-height: 20px;@bg: white) {
-    height: @line-height * @lines; line-height: @line-height;
+    max-height: @line-height * @lines; line-height: @line-height;
     overflow: hidden; position: relative; background: @bg;
     &:after {
         content: ''; display: block; position: absolute;
