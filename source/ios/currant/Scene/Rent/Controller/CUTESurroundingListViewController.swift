@@ -250,6 +250,10 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                     return task
                 })
             }
+            else {
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                SVProgressHUD.showErrorWithStatus(STR("SurroundingList/已添加"))
+            }
         }
     }
 
