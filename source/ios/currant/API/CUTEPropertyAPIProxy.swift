@@ -86,6 +86,20 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
                                 else if let valueDic = value as? [String:AnyObject] {
                                     dic["id"] = valueDic["id"]
                                     dic["name"] = valueDic["name"]
+
+                                    //tricky, hesa_university has postcode but no zipcode
+                                    if valueDic["postcode"] != nil {
+                                        dic["zipcode"] = valueDic["postcode"]
+                                    }
+                                    else if valueDic["zipcode"] != nil {
+                                        dic["zipcode"] = valueDic["zipcode"]
+                                    }
+
+                                    
+                                    if valueDic["latitude"] != nil && valueDic["longitude"] != nil {
+                                        dic["latitude"] = valueDic["latitude"]
+                                        dic["longitude"] = valueDic["longitude"]
+                                    }
                                 }
                             }
                             else {

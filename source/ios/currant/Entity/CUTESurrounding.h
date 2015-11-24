@@ -18,7 +18,7 @@
 
 @property (strong, nonatomic) NSString *name;
 
-//@property (strong, nonatomic) NSString *zipcode;
+@property (strong, nonatomic) NSString *zipcode;
 
 @property (nonatomic, strong) NSNumber *latitude;
 
