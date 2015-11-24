@@ -685,7 +685,9 @@ p{
         padding: 5vh 0 10vh;
         background-image: none;
         background-color: rgba(0,0,0,0.6);
+        overflow-x: hidden;
         .location {
+            width: 100vw;
             p{
                 display: inline-block;;
                 margin: 0 auto 4vh;
@@ -712,6 +714,7 @@ p{
         }
         .surrouding {
             &:extend(.mainSwiper .bottomBox.mapBottom .surrouding all);
+            width: 100vw;
             padding: 3vh 0;
         }
     }
