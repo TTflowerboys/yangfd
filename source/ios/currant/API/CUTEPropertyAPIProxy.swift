@@ -68,7 +68,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
 
     }
 
-    func getModifiedJsonDictionary(jsonDic:[String:AnyObject] ,types:[CUTEEnum]) -> [String:AnyObject] {
+    static func getModifiedJsonDictionary(jsonDic:[String:AnyObject] ,types:[CUTEEnum]) -> [String:AnyObject] {
         var modifiedJsonDic = [String:AnyObject]()
         for (jsonKey, jsonValue) in jsonDic {
             if jsonKey == "featured_facility" {
@@ -128,7 +128,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
                 do {
                     let result = try NSJSONSerialization .JSONObjectWithData(jsonData!, options: NSJSONReadingOptions(rawValue: 0))
                     if let val = result.valueForKeyPath(keyPath) as? [String:AnyObject] {
-                        let model = MTLJSONAdapter.modelOfClass(resultClass, fromJSONDictionary:self.getModifiedJsonDictionary(val, types: types))
+                        let model = MTLJSONAdapter.modelOfClass(resultClass, fromJSONDictionary:CUTEPropertyAPIProxy.getModifiedJsonDictionary(val, types: types))
                         tcs.setResult(model)
                     }
                 }
@@ -146,7 +146,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
                     let result = try NSJSONSerialization .JSONObjectWithData(jsonData!, options: NSJSONReadingOptions(rawValue: 0))
                     let array = result.valueForKeyPath(keyPath) as! [[String:AnyObject]]
                     let models = array.map({ (dic:[String:AnyObject]) -> CUTEProperty in
-                        return  MTLJSONAdapter.modelOfClass(resultClass, fromJSONDictionary:self.getModifiedJsonDictionary(dic, types: types)) as! CUTEProperty
+                        return  MTLJSONAdapter.modelOfClass(resultClass, fromJSONDictionary:CUTEPropertyAPIProxy.getModifiedJsonDictionary(dic, types: types)) as! CUTEProperty
                     })
                     tcs.setResult(models)
                 }

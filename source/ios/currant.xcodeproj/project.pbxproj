@@ -215,6 +215,10 @@
 		2C401E281ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E291ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
 		2C401E2A1ACB9CE100613093 /* ObjectUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C401E251ACB9CE100613093 /* ObjectUtil.c */; };
+		2C41E28B1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C41E28A1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift */; };
+		2C41E28C1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C41E28A1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift */; };
+		2C41E28D1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C41E28A1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift */; };
+		2C41E28E1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C41E28A1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift */; };
 		2C427E4C1AD2414D000378A9 /* CUTEAPICacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E4B1AD2414D000378A9 /* CUTEAPICacheManager.m */; };
 		2C427E4D1AD2414D000378A9 /* CUTEAPICacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E4B1AD2414D000378A9 /* CUTEAPICacheManager.m */; };
 		2C427E4E1AD2414D000378A9 /* CUTEAPICacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C427E4B1AD2414D000378A9 /* CUTEAPICacheManager.m */; };
@@ -963,6 +967,7 @@
 		2C401E241ACB972D00613093 /* CUTEUIMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEUIMacro.h; sourceTree = "<group>"; };
 		2C401E251ACB9CE100613093 /* ObjectUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ObjectUtil.c; sourceTree = "<group>"; };
 		2C401E261ACB9CE100613093 /* ObjectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectUtil.h; sourceTree = "<group>"; };
+		2C41E28A1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTERentTicketAPIProxy.swift; sourceTree = "<group>"; };
 		2C427E4A1AD2414D000378A9 /* CUTEAPICacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEAPICacheManager.h; sourceTree = "<group>"; };
 		2C427E4B1AD2414D000378A9 /* CUTEAPICacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAPICacheManager.m; sourceTree = "<group>"; };
 		2C427E521AD25110000378A9 /* CUTEEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEEnum.h; sourceTree = "<group>"; };
@@ -1834,6 +1839,7 @@
 				2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */,
 				2C9D321E1BEC5C6200424CAC /* CUTEAPIProxyProtocol.swift */,
 				2C9D321F1BEC5C6200424CAC /* CUTEPropertyAPIProxy.swift */,
+				2C41E28A1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift */,
 				2CBE99011BF5E94C00A683EE /* CUTEMainMixedIndexAPIProxy.swift */,
 				2C91E5CA1BE313FA005F6B5B /* CUTEGeoManager.swift */,
 				2CA5F76E1AE10382001132E0 /* CUTEImageUploader.h */,
@@ -2885,6 +2891,7 @@
 				2CF8A5ED1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
 				2C056D751B423ABD0075037A /* CUTEApplyBetaRentingForm.m in Sources */,
 				2C6D07D11B3E4A54001EBB90 /* CUTEWebHandler.m in Sources */,
+				2C41E28D1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift in Sources */,
 				2CF8A69D1AF0B65C0080DF10 /* CUTERentShareForm.m in Sources */,
 				2CF8A68E1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
 				2CC6C1DF1AEE255A002758A7 /* NSURL+Assets.m in Sources */,
@@ -3064,6 +3071,7 @@
 				2CF8A5EE1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
 				2C056D761B423ABD0075037A /* CUTEApplyBetaRentingForm.m in Sources */,
 				2C6D07D21B3E4A54001EBB90 /* CUTEWebHandler.m in Sources */,
+				2C41E28E1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift in Sources */,
 				2CF8A69E1AF0B65C0080DF10 /* CUTERentShareForm.m in Sources */,
 				2CF8A68F1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
 				2CC6C1E01AEE255A002758A7 /* NSURL+Assets.m in Sources */,
@@ -3243,6 +3251,7 @@
 				2CF8A5EC1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
 				2C056D741B423ABD0075037A /* CUTEApplyBetaRentingForm.m in Sources */,
 				2C6D07D01B3E4A54001EBB90 /* CUTEWebHandler.m in Sources */,
+				2C41E28C1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift in Sources */,
 				2CF8A69C1AF0B65C0080DF10 /* CUTERentShareForm.m in Sources */,
 				2CF8A68D1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
 				2CC6C1DE1AEE255A002758A7 /* NSURL+Assets.m in Sources */,
@@ -3422,6 +3431,7 @@
 				2CF8A5EB1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */,
 				2C056D731B423ABD0075037A /* CUTEApplyBetaRentingForm.m in Sources */,
 				2C6D07CF1B3E4A53001EBB90 /* CUTEWebHandler.m in Sources */,
+				2C41E28B1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift in Sources */,
 				2CF8A69B1AF0B65C0080DF10 /* CUTERentShareForm.m in Sources */,
 				2CF8A68C1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
 				2CC6C1DD1AEE255A002758A7 /* NSURL+Assets.m in Sources */,
