@@ -71,12 +71,14 @@
 - (UIView *)inputAccessoryView {
     BBTInputAccessoryView *inputAccessoryView = [[BBTInputAccessoryView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 40)];
     inputAccessoryView.inputView = self;
+    [inputAccessoryView removeDoneButtonEventHandler];
     [inputAccessoryView.doneButton addTarget:self action:@selector(onDoneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     return inputAccessoryView;
 }
 
 - (void)onDoneButtonPressed:(id)sender {
-    if (self.field.action) self.field.action(self);
+//    if (self.field.action) self.field.action(self);
+    [self resignFirstResponder];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(__unused UIPickerView *)pickerView

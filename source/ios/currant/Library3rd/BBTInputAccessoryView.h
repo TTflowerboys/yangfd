@@ -14,4 +14,6 @@
 
 @property (nonatomic, weak) UIView *inputView;
 
+- (void)removeDoneButtonEventHandler;
+
 @end
