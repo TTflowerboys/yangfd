@@ -3114,6 +3114,8 @@ class f_currant_util(f_util):
         return None
 
     def check_and_override_minimum_rent_period(self, params):
+        # TODO: made it a no-op for now
+        return
         if "rent_available_time" in params and "rent_deadline_time" in params:
             rent_time_delta = params["rent_deadline_time"] - params["rent_available_time"]
             rent_time_delta_seconds = rent_time_delta.days * 86400 + rent_time_delta.seconds
