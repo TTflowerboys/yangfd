@@ -59,7 +59,7 @@ return self.ORIGrequestCurrentLocation()
 
 defineClass("CUTETicket", {
 title: function () {
-//TODO no cannot visit the _title field
+//TODO now cannot visit the _title field
 //var oldTitle = self.ORIGtitle()
 //if (oldTitle == null) {
 //    oldTitle = "i'm a empty title"
