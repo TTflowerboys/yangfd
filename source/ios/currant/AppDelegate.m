@@ -157,7 +157,6 @@
 //    [JPEngine evaluateScriptWithPath:[[NSBundle mainBundle] pathForResource:@"JSPatchTest" ofType:@"jspatch"]];
 
     [CUTEPatcher patch];
-    
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     [CUTEUserAgentUtil setupWebViewUserAgent];
     [self checkSetupLanguageNeedShowAlert:NO];

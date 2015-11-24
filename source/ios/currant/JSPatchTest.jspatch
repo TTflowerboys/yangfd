@@ -4,6 +4,8 @@ defineClass("AppDelegate", {
 
 })
 
+
+//Test UIView
 var alertView = require('UIAlertView')
 .alloc()
 .initWithTitle_message_delegate_cancelButtonTitle_otherButtonTitles(
@@ -14,3 +16,54 @@ null,
 null
 )
 alertView.show()
+
+
+//Test UIViewController
+
+defineClass("CUTEWebViewController", {
+webViewDidStartLoad: function(webView) {
+webView.stringByEvaluatingJavaScriptFromString("alert(\"js patched webview\")")
+}
+},{
+
+})
+
+
+//Test SharedInstance
+
+defineClass("CUTETracker", {
+trackScreen: function (screenName) {
+var hud = require('SVProgressHUD')
+hud.showSuccessWithStatus("js Patched: visit " + screenName.description)
+self.ORIGtrackScreen(screenName)
+}
+}, {
+
+})
+
+
+//Test Swift Class
+
+defineClass("CUTEGeoManager", {
+requestCurrentLocation: function () {
+var hud = require('SVProgressHUD')
+hud.showSuccessWithStatus("js Patched: haha i know you use user's location ")
+return self.ORIGrequestCurrentLocation()
+}
+}, {
+
+})
+
+
+//Test Mantle Model
+
+defineClass("CUTETicket", {
+title: function () {
+//var oldTitle = self.ORIGtitle()
+//if (oldTitle == null) {
+//    oldTitle = "i'm a empty title"
+//}
+return "js patched title"
+}
+
+})
