@@ -93,13 +93,13 @@
     module.distanceMatrix = function distanceMatrix(origins, destinations, modes) {
         origins = _.isArray(origins) ? origins.join('|') : origins
         destinations = _.isArray(destinations) ? destinations.join('|') : destinations
-        return window.Q.when.apply(null, _.map(modes, function (mode) {
+        return window.Q.all(_.map(modes, function (mode) {
             var apiUri = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + origins + '&destinations=' + destinations + '&mode=' + mode.slug + '&language=en-GB&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
             return window.Q($.get('/reverse_proxy?link=' + encodeURIComponent(apiUri)))
         }))
-            .then(function () {
-                return Array.prototype.slice.call(arguments).map(function (arr) {
-                    var item = arr[0]
+            .then(function (data) {
+                return _.map(data, function (item) {
+                    item = JSON.parse(item)
                     if(item.status === 'OK' && item.rows) {
                         return item
                     } else {
@@ -213,7 +213,7 @@
                                 _.extend(item, {
                                     hint: '',
                                     traffic_time: _.map(matrixData, function (data, innerIndex) {
-                                        var elements = JSON.parse(data).rows[0].elements
+                                        var elements = data.rows[0].elements
                                         var time = elements[0].duration ? Math.round(elements[0].duration.value / 60).toString() : '0'
                                         return {
                                             default: false, //表示UI界面选中的交通方式

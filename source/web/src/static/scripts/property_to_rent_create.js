@@ -1299,8 +1299,10 @@
         if(!originPostcode.length) {
             return
         }
-        window.Q.when(getSurrouding(), getModes())
-            .then(function(originSurrouding, modes){
+        window.Q.all([getSurrouding(), getModes()])
+            .then(function(data){
+                var originSurrouding = data[0]
+                var modes = data[1]
                 var destinations = originSurrouding.map(function (item) {
                     return item.postcode_index || item.zipcode_index || (item.latitude + ',' + item.longitude)
                 })
@@ -1308,7 +1310,7 @@
                     .then(function (matrixData) {
                         var surrouding = _.map(originSurrouding, function (item, index) {
                             item.traffic_time = _.map(matrixData, function (data, innerIndex) {
-                                var elements = JSON.parse(data).rows[0].elements
+                                var elements = data.rows[0].elements
                                 var time = (elements[index].duration ? Math.round(elements[index].duration.value / 60).toString() : '0')
                                 return {
                                     default: false, //表示UI界面选中的交通方式
