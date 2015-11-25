@@ -149,6 +149,11 @@
                                         delete item.id
                                         if(item.type) {
                                             item.id = item[item.type.slug]
+                                            if(_.find(module.propertyViewModel.surrouding(), function (surroudingItem) {
+                                                    return surroudingItem[item.type.slug] === item.id
+                                                })) {
+                                                item.exist = true
+                                            }
                                         }
                                         return item
                                     })), function (item) {
@@ -202,6 +207,10 @@
             }
 
             this.select = _.bind(function (item) {
+                if(item.exist) {
+                    window.dhtmlx.message({ type:'error', text: window.i18n('该地点已经添加到周边了，请不要重复添加')});
+                    return
+                }
                 this.activeSuggestionIndex(-1)
                 this.result(item.name)
                 this.active(false)
