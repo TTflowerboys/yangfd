@@ -168,7 +168,7 @@ main {
                     background-color: #f6f6f6;
                     margin-bottom: 140px;
                     #load_more{
-                        padding-left: 200px;
+                        padding-left: 160px;
                         height: 90px;
                         padding-top: 20px;
                         .clearfix;
@@ -188,12 +188,34 @@ main {
                             }
                         }
                         .more_info {
+                            position: relative;
                             float: left;
                             margin-left: 28px;
-                            padding: 15px 18px;
-                            background: url('/static/images/customer/bg_load_more.png') no-repeat;
+                            height: 50px;
+                            line-height: 50px;
+                            padding: 0 6px;
+                            background-color: #555;
                             font-size: 16px;
                             color: #ffffff;
+                            z-index: 1;
+                            &:before, &:after {
+                                position: absolute;
+                                content: '';
+                                display: block;
+                                width: 50%;
+                                height: 100%;
+                                top: 0;
+                                background: url('/static/images/customer/bg_load_more.png') no-repeat;
+                                z-index: -1;
+                            }
+                            &:before {
+                                left: -12px;
+                                background-position: left;
+                            }
+                            &:after {
+                                right: -12px;
+                                background-position: right;
+                            }
                             body[lang=en_GB] & {
                                 font-size: 12px;
                                 width: 187px;

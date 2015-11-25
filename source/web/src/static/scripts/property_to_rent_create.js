@@ -1231,6 +1231,7 @@
             })
             return item
         }))
+        this.surroudingHint = ko.observable()
         this.removeSurrouding = function (item) {
             self.surrouding.remove(item)
         }
@@ -1302,6 +1303,7 @@
         if(!originPostcode.length) {
             return
         }
+        propertyViewModel.surroudingHint(window.i18n('正在为您的房源搜索周边的学校和地铁....'))
         window.Q.all([getSurrouding(), getModes()])
             .then(function(data){
                 var originSurrouding = data[0]
@@ -1309,6 +1311,10 @@
                 var destinations = originSurrouding.map(function (item) {
                     return item.postcode_index || item.zipcode_index || (item.latitude + ',' + item.longitude)
                 })
+                if(originSurrouding.length === 0) {
+                    propertyViewModel.surroudingHint(window.i18n('没有在您的房源周边发现学校和地铁，您可以自行搜索添加'))
+                    return
+                }
                 module.distanceMatrix(originPostcode, destinations, modes)
                     .then(function (matrixData) {
                         var surrouding = _.map(originSurrouding, function (item, index) {
@@ -1327,12 +1333,17 @@
                             })
                             return item
                         })
-
+                        propertyViewModel.surroudingHint('')
                         propertyViewModel.surrouding(surrouding)
                     })
                     .fail(function (e) {
-                        window.dhtmlx.message({ type:'error', text: window.i18n('从Google Api获取交通信息失败:') + e.message});
+                        window.dhtmlx.message({ type:'error', text: window.i18n('从Google Api获取交通信息失败:') + e.message})
+                        propertyViewModel.surroudingHint(window.i18n('获取周边信息失败，您可以自行搜索添加'))
                     })
+            })
+            .fail(function (e) {
+                window.dhtmlx.message({ type:'error', text: window.i18n('获取周边信息失败:') + e.message})
+                propertyViewModel.surroudingHint(window.i18n('获取周边信息失败，您可以自行搜索添加'))
             })
     }
 

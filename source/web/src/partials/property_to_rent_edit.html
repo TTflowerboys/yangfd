@@ -418,10 +418,10 @@
             </div>
             <div id="load_more">
                 <div class="load_more">
-                    {{_('更多详情和配套设施描述')}}
+                    {{_('更多详细描述，配套设施及周边学校和地铁')}}
                 </div>
                 <div class="more_info">
-                    {{_('详细描述能增加浏览量')}}
+                    {{_('更详尽的房源及周边描述能增加租客的询问')}}
                 </div>
             </div>
             <div id="more_information" style="display: none">
@@ -510,6 +510,8 @@
                                 <span class="addBtn" data-bind="visible: surroudingToAdd().traffic_time && surroudingToAdd().traffic_time.length, click: addSurrouding">{{_('添加')}}</span>
                             </div>
                             <div>
+
+                                <p class="hint" data-bind="visible: surroudingHint() !== undefined && surroudingHint().length, text: surroudingHint"></p>
                                 <ul class="surrounding" data-bind="foreach: { data: !isShowAll() && !animate() ? surrouding.slice(0,10) : surrouding, as: 'item' }, css: {animate: animate(), shrink: !isShowAll()}, style: {maxHeight: surrouding().length * 40 + 'px'}">
                                     <li>
                                         <i data-bind="css: type.iconfont"></i>
