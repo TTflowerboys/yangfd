@@ -226,12 +226,7 @@
 
     [[CUTEAPICacheManager sharedInstance] refresh];
 
-    if ([self checkShowSplashViewController]) {
-        _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:YES];
-    }
-    else {
-        _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:NO];
-    }
+    _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:YES];
 
     _lastSelectedTabIndex = -1; // default a invalid value
     //defautl open home page
@@ -405,8 +400,11 @@
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UINavigationController *)viewController {
     //only update when first create, not care the controller push and pop
     if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController == nil) {
-//        [CrashlyticsKit crash];
-        if (!_reloadPublishRentTicketTabTask || _reloadPublishRentTicketTabTask.isCompleted) {
+
+        if (_reloadPublishRentTicketTabTask && !_reloadPublishRentTicketTabTask.isCompleted) {
+            [SVProgressHUD show];
+        }
+        else {
             _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:NO];
         }
     }
