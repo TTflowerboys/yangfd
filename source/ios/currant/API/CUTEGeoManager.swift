@@ -65,36 +65,39 @@ class CUTEGeoManager: NSObject {
         let tcs = BFTaskCompletionSource()
         let geocoderURLString = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(location.coordinate.latitude),\(location.coordinate.longitude)&key=\(CUTEConfiguration.googleAPIKey())&language=en"
         reverseProxyWithLink(geocoderURLString).continueWithBlock { (task:BFTask!) -> AnyObject! in
-            if let dic = task.result as? [String:AnyObject] {
-                if let results = dic["results"] as? [[String:AnyObject]]{
-                    if results.count > 0 {
-                        let result = results[0]
-                        let placemark = CUTEPlacemark.placeMarkWithGoogleResult(result)
 
-                        CUTEAPICacheManager.sharedInstance().getCountriesWithCountryCode(false).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-                            if let countries = task.result as? [CUTECountry] {
-                                if let country = countries.filter({ (country:CUTECountry) -> Bool in
-                                    return country.ISOcountryCode == placemark.country.ISOcountryCode
+            guard let dic = task.result as? [String:AnyObject] else {
+                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                return task
+            }
+
+            guard let results = dic["results"] as? [[String:AnyObject]] else {
+                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                return task
+            }
+
+
+            guard results.count > 0 else {
+                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                return task
+            }
+
+            let result = results[0]
+            let placemark = CUTEPlacemark.placeMarkWithGoogleResult(result)
+
+            CUTEAPICacheManager.sharedInstance().getCountriesWithCountryCode(false).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                if let countries = task.result as? [CUTECountry] {
+                    if let country = countries.filter({ (country:CUTECountry) -> Bool in
+                        return country.ISOcountryCode == placemark.country.ISOcountryCode
+                    }).first {
+                        CUTEAPICacheManager.sharedInstance().getCitiesByCountry(country).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                            if let cities = task.result as? [CUTECity] {
+                                if let city = cities.filter({ (city:CUTECity) -> Bool in
+                                    return placemark.city.name.lowercaseString.hasPrefix(city.name.lowercaseString)
                                 }).first {
-                                    CUTEAPICacheManager.sharedInstance().getCitiesByCountry(country).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-                                        if let cities = task.result as? [CUTECity] {
-                                            if let city = cities.filter({ (city:CUTECity) -> Bool in
-                                                return placemark.city.name.lowercaseString.hasPrefix(city.name.lowercaseString)
-                                            }).first {
-                                                placemark.country = country
-                                                placemark.city = city
-                                                tcs.setResult(placemark)
-                                            }
-                                            else {
-                                                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
-                                            }
-                                        }
-                                        else {
-                                            tcs.setError(task.error)
-                                        }
-
-                                        return task
-                                    })
+                                    placemark.country = country
+                                    placemark.city = city
+                                    tcs.setResult(placemark)
                                 }
                                 else {
                                     tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
@@ -103,11 +106,20 @@ class CUTEGeoManager: NSObject {
                             else {
                                 tcs.setError(task.error)
                             }
+
                             return task
                         })
                     }
+                    else {
+                        tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                    }
                 }
-            }
+                else {
+                    tcs.setError(task.error)
+                }
+                return task
+            })
+
             return task
         }
         return tcs.task
@@ -180,21 +192,26 @@ class CUTEGeoManager: NSObject {
         }
 
         reverseProxyWithLink(geocoderURLString).continueWithBlock { (task:BFTask!) -> AnyObject! in
-            if let dic = task.result as? [String:AnyObject] {
-                if let results = dic["results"] as? [[String:AnyObject]] {
-                    if results.count > 0 {
-                        let result = results[0]
-                        let placemark = CUTEPlacemark.placeMarkWithGoogleResult(result)
-                        tcs.setResult(placemark)
-                    }
-                    else {
-                        tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
-                    }
-                }
-                else {
-                    tcs.setError(task.error)
-                }
+
+            guard let dic = task.result as? [String:AnyObject] else {
+                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                return task
             }
+
+            guard let results = dic["results"] as? [[String:AnyObject]] else {
+                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                return task
+            }
+
+            guard results.count > 0 else {
+                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                return task
+            }
+
+            let result = results[0]
+            let placemark = CUTEPlacemark.placeMarkWithGoogleResult(result)
+            tcs.setResult(placemark)
+
             return task
         }
 

@@ -343,6 +343,9 @@
             return task;
         }];
     }
+    else {
+        [tcs setError:[NSError errorWithDomain:@"CUTE" code:-1 userInfo:nil]];
+    }
 
     return tcs.task;
 }
