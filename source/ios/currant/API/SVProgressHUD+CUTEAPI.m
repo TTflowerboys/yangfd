@@ -9,6 +9,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTECommonMacro.h"
 #import "Bolts.h"
+#import <AFURLResponseSerialization.h>
 
 @implementation SVProgressHUD (CUTEAPI)
 
@@ -71,6 +72,11 @@ static NSDictionary *messageDicionary = nil;
         if (error.code == NSURLErrorCancelled) {
             [SVProgressHUD showErrorWithStatus:STR(@"API/请求被取消")];
         }
+    }
+    else if (error && [error.domain isEqualToString:AFURLResponseSerializationErrorDomain]) {
+        NSHTTPURLResponse *response = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
+        NSUInteger errorCode = response.statusCode * 100;
+        [SVProgressHUD showErrorWithStatus:[SVProgressHUD apiErrorMessageFromCode:errorCode]];
     }
     else {
         [SVProgressHUD showErrorWithStatus:error.userInfo[NSLocalizedDescriptionKey]];
