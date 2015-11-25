@@ -9,6 +9,7 @@
 #import "CUTEAPIManager.h"
 #import <BBTRestClient.h>
 #import <UIImageView+AFNetworking.h>
+#import <AFgzipRequestSerializer.h>
 #import <NSArray+ObjectiveSugar.h>
 #import <RegExCategories.h>
 #import "CUTEConfiguration.h"
@@ -60,7 +61,7 @@
     self = [super init];
     if (self) {
         _backingManager = [BBTRestClient clientWithBaseURL:[NSURL URLWithString:[CUTEConfiguration apiEndpoint]] account:nil];
-        _backingManager.requestSerializer = [[AFJSONRequestSerializer alloc] init];
+        _backingManager.requestSerializer = [AFgzipRequestSerializer serializerWithSerializer:[[AFJSONRequestSerializer alloc] init]];
         [_backingManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [_backingManager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
         [_backingManager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];

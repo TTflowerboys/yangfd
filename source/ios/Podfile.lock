@@ -1,5 +1,8 @@
 PODS:
   - ActionSheetPicker-3.0 (2.0.3)
+  - AFgzipRequestSerializer (0.0.2):
+    - AFNetworking (~> 2.0)
+    - Godzippa (~> 1.0)
   - AFNetworkActivityLogger (2.0.4):
     - AFNetworking/NSURLConnection (~> 2.0)
     - AFNetworking/NSURLSession (~> 2.0)
@@ -54,6 +57,7 @@ PODS:
   - FMDB/standard (2.5):
     - FMDB/common
   - FXForms (1.2.12)
+  - Godzippa (1.1.0)
   - Google/Analytics (1.0.7):
     - Google/Core
     - GoogleAnalytics (~> 3.12)
@@ -170,6 +174,7 @@ PODS:
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0 (~> 2.0.3)
+  - AFgzipRequestSerializer (~> 0.0.2)
   - AFNetworkActivityLogger (= 2.0.4)
   - ALActionBlocks (= 1.0.3)
   - apptentive-ios (= 1.7.3)
@@ -241,6 +246,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 11f2053085d3088dc1ef9d38a9f11c18b528dd9e
+  AFgzipRequestSerializer: 329638fc8ed023a15188dc03dd2f1a930da30ea4
   AFNetworkActivityLogger: 121486778117d53b3ab1c61d264b88081d0c3eee
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   ALActionBlocks: ac91b1a37b60a8004fb687ddade0600446f3d3fa
@@ -258,6 +264,7 @@ SPEC CHECKSUMS:
   Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   FXForms: b6a78bac9f6b597ce704e34ac7c1ce9ff628b1d5
+  Godzippa: 21621e8ddc2f1521db473a72b48148c3f0e79d76
   Google: 875f5a8ade86dd02e36586e4a54814843938c7f6
   GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
   GoogleNetworkingUtilities: 292992ab31b7b4ba32809a0e8b40e324cdfb2c0c
