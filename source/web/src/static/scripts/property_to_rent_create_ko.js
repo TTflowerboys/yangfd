@@ -208,6 +208,7 @@
 
             this.select = _.bind(function (item) {
                 if(item.exist) {
+                    this.activeSuggestionIndex(-1)
                     window.dhtmlx.message({ type:'error', text: window.i18n('该地点已经添加到周边了，请不要重复添加')});
                     return
                 }
