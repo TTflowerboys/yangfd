@@ -483,9 +483,10 @@
         }
         else {
             [viewController openRouteWithURL:URL];
-            if (URL.isHttpOrHttpsURL) {
-                [[CUTEWebArchiveManager sharedInstance]  archiveURL:URL];
-            }
+        }
+
+        if (URL.isHttpOrHttpsURL) {
+            [[CUTEWebArchiveManager sharedInstance]  archiveURL:URL];
         }
     }
     else {

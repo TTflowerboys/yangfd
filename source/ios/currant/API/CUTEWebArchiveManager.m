@@ -42,6 +42,8 @@
 
     NSURLSession *_downloadSession;
 
+    NSMutableArray *_onGoingURLStrings;
+
 }
 
 @end
@@ -70,11 +72,18 @@
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         configuration.HTTPAdditionalHeaders = @{@"User-Agent":[CUTEUserAgentUtil userAgent]};
         _downloadSession = [NSURLSession sessionWithConfiguration:configuration];
+
+        _onGoingURLStrings = [NSMutableArray array];
     }
     return self;
 }
 
 - (void)archiveURL:(NSURL *)url {
+    if ([_onGoingURLStrings containsObject:url.absoluteString]) {
+        return;
+    }
+
+    [_onGoingURLStrings addObject:url.absoluteString];
     [[_downloadSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *  error) {
         if (data && data.length && response.URL) {
             if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
@@ -89,6 +98,8 @@
                         archive.MIMEType = @"application/x-webarchive";
                         archive.textEncodingName = encodingName;
                         [_cache setObject:archive forKey:response.URL.absoluteString];
+                        
+                        [_onGoingURLStrings removeObject:url.absoluteString];
                     }];
                 }
             }
