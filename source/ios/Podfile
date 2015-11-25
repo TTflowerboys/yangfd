@@ -10,7 +10,6 @@ inhibit_all_warnings!
 pod 'BBTUtility', :git => "git@git.bbtechgroup.com:bbt/ios-bbtutility.git"
 pod 'BBTRestClient', :git => "git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git"
 pod 'BBTAppUpdater', :git => "git@git.bbtechgroup.com:bbt/ios-bbtappupdater.git"
-pod 'AFgzipRequestSerializer', '~> 0.0.2'
 pod 'AFNetworkActivityLogger', '2.0.4'
 pod 'FXForms', '1.2.12'
 pod 'SMCalloutView', '2.1.2'

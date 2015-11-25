@@ -61,9 +61,9 @@
     self = [super init];
     if (self) {
         _backingManager = [BBTRestClient clientWithBaseURL:[NSURL URLWithString:[CUTEConfiguration apiEndpoint]] account:nil];
-        _backingManager.requestSerializer = [AFgzipRequestSerializer serializerWithSerializer:[[AFJSONRequestSerializer alloc] init]];
+        _backingManager.requestSerializer = [AFJSONRequestSerializer new];
         [_backingManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        [_backingManager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
+//        [_backingManager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
         [_backingManager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
         [_backingManager.requestSerializer setValue:[CUTEUserAgentUtil userAgent] forHTTPHeaderField:@"User-Agent"];
 
