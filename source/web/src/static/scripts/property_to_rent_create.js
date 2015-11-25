@@ -307,7 +307,6 @@
             }
             propertyViewModel.latitude(val.latitude)
             propertyViewModel.longitude(val.longitude)
-            initSurrouding()
             var geocodeApiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + propertyViewModel.latitude() + ',' + propertyViewModel.longitude() + '&result_type=street_address&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
             window.geonamesApi.getCityByLocation(val.country, val.latitude, val.longitude, function (val) {
                 $.betterGet('/reverse_proxy?link=' + encodeURIComponent(geocodeApiUrl))
@@ -334,9 +333,13 @@
                     })
                 $('#city-select').html(
                     _.reduce(val, function(pre, val, key) {
+                        if(key === 0) {
+                            propertyViewModel.city(val.id)
+                        }
                         return pre + '<option value="' + val.id + '"' + (key === 0 ? 'selected' : '') + '>' + val.name + (val.country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
                     }, '<option value="">' + i18n('请选择城市') + '</option>')
                 ).trigger('chosen:updated').trigger('change')
+                initSurrouding()
             }, function () {
                 $('.buttonLoading').trigger('end')
                 $btn.prop('disabled', false).text(window.i18n('重新获取'))
@@ -1266,7 +1269,7 @@
             })),
             latitude: params.latitude,
             longitude: params.longitude,
-            search_range: 5000
+            city: params.city
         }))
     }
 
@@ -1274,7 +1277,7 @@
         return window.Q.Promise(function(resolve, reject, notify) {
             window.project.getEnum('featured_facility_type')
                 .then(function (types) {
-                    return mixedSearch({types: types, latitude: module.propertyViewModel.latitude(), longitude: module.propertyViewModel.longitude()}).
+                    mixedSearch({types: types, latitude: module.propertyViewModel.latitude(), longitude: module.propertyViewModel.longitude(), city: module.propertyViewModel.city()}).
                         then(_.bind(function (resultsOfMixedSearch) {
                             resolve(_.filter((_.map(resultsOfMixedSearch, function (item) {
                                 var intersection = _.intersection(_.map(types, function (type) { return type.slug }), _.keys(item))
