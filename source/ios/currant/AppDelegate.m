@@ -764,7 +764,7 @@
                 }
                 else {
                     if (!_reloadPublishRentTicketTabTask || _reloadPublishRentTicketTabTask.isCompleted) {
-                        _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:NO];
+                        _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:YES];
                     }
                 }
             }
@@ -778,7 +778,7 @@
         }
         else {
             if (!_reloadPublishRentTicketTabTask || _reloadPublishRentTicketTabTask.isCompleted) {
-                _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:NO];
+                _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:YES];
             }
         }
     }
