@@ -9,7 +9,6 @@
 #import "CUTEAPIManager.h"
 #import <BBTRestClient.h>
 #import <UIImageView+AFNetworking.h>
-#import <AFgzipRequestSerializer.h>
 #import <NSArray+ObjectiveSugar.h>
 #import <RegExCategories.h>
 #import "CUTEConfiguration.h"
