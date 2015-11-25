@@ -402,7 +402,9 @@
     if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController == nil) {
 
         if (_reloadPublishRentTicketTabTask && !_reloadPublishRentTicketTabTask.isCompleted) {
-            [SVProgressHUD show];
+            if (![SVProgressHUD isVisible]) {
+                [SVProgressHUD show];
+            }
         }
         else {
             _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:NO];
@@ -417,6 +419,12 @@
         }
         else  {
             [self updateUserPropertiesLeftBarButtonItemWithViewController:viewController.topViewController];
+
+            if (_reloadPublishRentTicketTabTask && !_reloadPublishRentTicketTabTask.isCompleted) {
+                if (![SVProgressHUD isVisible]) {
+                    [SVProgressHUD show];
+                }
+            }
         }
     }
     else {
@@ -756,7 +764,7 @@
                 }
                 else {
                     if (!_reloadPublishRentTicketTabTask || _reloadPublishRentTicketTabTask.isCompleted) {
-                        _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:YES];
+                        _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:NO];
                     }
                 }
             }
@@ -770,7 +778,7 @@
         }
         else {
             if (!_reloadPublishRentTicketTabTask || _reloadPublishRentTicketTabTask.isCompleted) {
-                _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:YES];
+                _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:NO];
             }
         }
     }
