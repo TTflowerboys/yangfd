@@ -184,7 +184,7 @@ def get_weibo_search_result(keywords_list):
         format_fit(ws)
         wb.save('weibo_search.xlsx')
 
-list_keyw = generate_keyword_list("key words for Arnold (1).xlsx")
+list_keyw = generate_keyword_list("keywords_search_weibo.xlsx")
 # print f_app.util.json_dumps(list_keyw, ensure_ascii=False)
 # get_weibo_search_result([u"伯明翰 出租"])
 get_weibo_search_result(list_keyw)
