@@ -104,7 +104,7 @@ def enum_search(params):
 
     per_page = params.pop("per_page", 0)
     sort = params.pop("sort", False)
-    return f_app.enum.get(f_app.enum.search(params, per_page=per_page, sort=("sort_value", "desc") if sort else ("time", "desc")))
+    return f_app.enum.get(f_app.enum.search(params, per_page=per_page, sort=("sort_value", "asc") if sort else ("time", "desc")))
 
 
 @f_api('/enum/<enum_id>/check')
