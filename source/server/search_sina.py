@@ -234,7 +234,8 @@ def get_weibo_search_result(keywords_list):
         add_link(ws, 'C')
         format_fit(ws)
         # tag_similar(ws, 'D')
-        wb.save('weibo_search.xlsx')
+        today = date.today()
+        wb.save('weibo_search'+unicode(today)+'.xlsx')
 
 list_keyw = generate_keyword_list("keywords_search_weibo.xlsx")
 get_weibo_search_result(list_keyw)
