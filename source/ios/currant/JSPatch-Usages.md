@@ -10,8 +10,9 @@
 ###JSPatch更新机制
 1. 需不需要patch，通过/api/1/app/currant/check_update 指定platform为ios_jspatch, 来获取更新，有则更新，无则不需要执行代码, version 传build number，release传版本号，保证获取的是这个版本号下面的，
 2. 获取最新的patch，对于一个version，可以靠更改 url来，指定不同的patch，如果以前的patch有问题需要更新，则新建一个patch，然后把url填进去
-3. 如果想关闭patch，则删除这个version的package就好，这样能实现回退
-4. 本地可以缓存patch，如果缓存的patch的名字与服务器指定的相同，则使用本地patch，如果不同，则则用服务器指定的patch路径再下载一次
+3. 如果想关闭patch，则删除这个version的package就好，本地没有收到 update 信号就不会加载 patch，即使本地有 patch 缓存的情况下也不会。
+4. 本地可以缓存patch，如果缓存的patch的名字与服务器指定的相同，则使用本地patch，如果不同，则用服务器指定的patch路径再下载一次
+5. 如果本地在有 patch 的情况下先加载 patch 再去check update 的话，万一有 update 只能是下次用新 patch，或者马上再加载 patch 这样就需要考虑 patch 的覆盖的问题。
 
 ###安全加密
 ####https 保证来源，安全，和不被劫持篡改。

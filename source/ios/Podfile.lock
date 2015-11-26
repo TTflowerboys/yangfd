@@ -151,7 +151,6 @@ PODS:
   - PSTCollectionView (1.2.3)
   - RegExCategories (1.0)
   - Reveal-iOS-SDK (1.6.2)
-  - RNCryptor (3.0.1)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
@@ -202,7 +201,6 @@ DEPENDENCIES:
   - OHHTTPStubs
   - RegExCategories (= 1.0)
   - Reveal-iOS-SDK
-  - RNCryptor (~> 3.0.1)
   - Sequencer (= 1.0.1)
   - SMCalloutView (= 2.1.2)
   - Specta
@@ -285,7 +283,6 @@ SPEC CHECKSUMS:
   PSTCollectionView: 6749df92885353521f55279a7ce2b293762e2be4
   RegExCategories: e68befacacd5bda853c88f70ec745cb2d0cfb89c
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
-  RNCryptor: 761fc3ed94d1a0e409ba5b8e5dbef6a8f69352a7
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   Sequencer: 53040fea35ecde55ba9cdb3a505a00cfb0e797b2
   SMCalloutView: 4078d89b847731e514b1a919fed33b383a24a106

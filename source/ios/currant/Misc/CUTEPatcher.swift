@@ -127,9 +127,7 @@ class CUTEPatcher : NSObject {
             if task.result != nil {
                 do {
                     let data = task.result as! NSData
-                    let pass = "OG> t[*['sL;[^R%/" + "1$K!yMLuDc$ou"
-                    let decryptedData = try RNDecryptor.decryptData(data, withPassword:pass)
-                    if let content = NSString(data: decryptedData, encoding: NSUTF8StringEncoding) {
+                    if let content = NSString(data: data, encoding: NSUTF8StringEncoding) {
                         dispatch_async(dispatch_get_main_queue(), {
                             JPEngine.startEngine()
                             JPEngine.evaluateScript(content as String)
