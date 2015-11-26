@@ -1236,6 +1236,9 @@ class f_currant_plugins(f_app.plugin_base):
             if ticket_email_user is None:
                 continue
 
+            if intention_ticket.get("disable_matching") == True:
+                continue
+
             if "rent_intention_ticket_check_rent" not in ticket_email_user.get("email_message_type", []):
                 continue
 
@@ -1324,6 +1327,9 @@ class f_currant_plugins(f_app.plugin_base):
 
         if ticket_email_user is None:
             self.logger.debug("Ignoring rent_intention_ticket_check_rent for ticket", ticket_id, "as the creator user doesn't have email filled.")
+            return
+
+        if intention_ticket.get("disable_matching") == True:
             return
 
         if "rent_intention_ticket_check_rent" not in ticket_email_user.get("email_message_type", []):
