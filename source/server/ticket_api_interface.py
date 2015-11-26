@@ -427,7 +427,7 @@ def intention_ticket_search(user, params):
     rent_deadline_time=datetime,
     minimum_rent_period="i18n:time_period",
     bedroom_count="enum:bedroom_count",
-    country=("country", True),
+    country="country",
     description=str,
     title=str,
     city="geonames_gazetteer:city",
