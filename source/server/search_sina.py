@@ -176,11 +176,11 @@ def get_weibo_search_result(keywords_list):
                 user = single['user']['screen_name']
                 text = unicode(re.sub(cleanr, '', single['text']))
                 time = single['created_timestamp']
-                if time < time_today:
-                    continue
                 link = "http://weibo.com/" + unicode(single['user']['id']) + "/" + single['bid']
                 single['time'] = datetime.fromtimestamp(time)
                 time = datetime.fromtimestamp(time)
+                if time < time_today:
+                    continue
                 if user in dic:
                     if time > dic[user]['time']:
                         dic.update({
