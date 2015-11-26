@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from app import f_app
 from datetime import datetime
+from datetime import date
 # from datetime import timedelta
 from openpyxl import Workbook
 from openpyxl import load_workbook
@@ -168,11 +169,15 @@ def get_weibo_search_result(keywords_list):
 
         def reduce_weibo(weibo_list):
             dic = {}
+            today = date.today()
+            time_today = datetime(today.year, today.month, today.day)
             cleanr = re.compile('<.*?>')
             for single in weibo_list:
                 user = single['user']['screen_name']
                 text = unicode(re.sub(cleanr, '', single['text']))
                 time = single['created_timestamp']
+                if time < time_today:
+                    continue
                 link = "http://weibo.com/" + unicode(single['user']['id']) + "/" + single['bid']
                 single['time'] = datetime.fromtimestamp(time)
                 time = datetime.fromtimestamp(time)
