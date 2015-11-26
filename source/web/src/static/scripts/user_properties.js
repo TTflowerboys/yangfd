@@ -339,7 +339,11 @@ $(function () {
                         ga('send', 'event', 'user_properties', 'result', 'rent-refresh-success')
                     })
                     .fail(function (ret) {
-                        window.alert(window.i18n('刷新失败'))
+                        if(ret === 40397) {
+                            window.dhtmlx.message({ type:'error', text: window.i18n('不好意思，每天只能刷新一个房源')});
+                        }else if(ret !== 0){
+                            window.dhtmlx.message({ type:'error', text: window.i18n('刷新失败')});
+                        }
                         ga('send', 'event', 'user_properties', 'result', 'rent-refresh-failed')
                     })
             }
