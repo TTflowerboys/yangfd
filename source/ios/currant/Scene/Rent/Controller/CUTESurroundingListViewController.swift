@@ -49,6 +49,26 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
         self.title = STR("SurroundingList/周边")
         self.showBarButtonItems()
+    }
+
+    func checkShowSurroundingAddTooltip() {
+
+        let userDefaultKey = "com.bbtechgroup.currant.publish.displayed.tip.surrounding.add"
+
+        if !NSUserDefaults.standardUserDefaults().boolForKey(userDefaultKey) {
+//            let toolTips = CUTETooltipView(targetBarButtonItem: self.navigationItem.rightBarButtonItem, hostView: self.view, tooltipText: STR(""), arrowDirection: JDFTooltipViewArrowDirection.Up, width: 200)
+//            toolTips.show()
+
+//            self.aspect_hookSelector("viewWillDisappear:", withOptions: AspectOptions(rawValue: AspectOptions.PositionBefore.rawValue | AspectOptions.OptionAutomaticRemoval.rawValue), usingBlock: { (info:AnyObject!) -> Void in
+//
+//
+//            })
+
+            //TODO
+//            toolTips.show()
+
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: userDefaultKey)
+        }
 
     }
 
@@ -92,6 +112,8 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                 self.searchController?.searchBar.becomeFirstResponder()
             }
         })
+
+        checkShowSurroundingAddTooltip()
     }
 
     override func didReceiveMemoryWarning() {

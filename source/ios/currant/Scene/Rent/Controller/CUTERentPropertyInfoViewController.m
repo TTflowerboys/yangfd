@@ -45,6 +45,9 @@
 #import "CUTEAPIManager.h"
 #import "currant-Swift.h"
 #import <HHRouter.h>
+#import "CUTETooltipView.h"
+#import "CUTEUserDefaultKey.h"
+#import <Aspects.h>
 
 
 @interface CUTERentPropertyInfoViewController () {
@@ -251,6 +254,7 @@
     }
     else if ([field.key isEqualToString:@"surrounding"]) {
         cell.detailTextLabel.text = STR(@"RentPropertyInfo/学校，地铁");
+        [self checkShowSurroundingTooltipWhenSurroundingCellDisplay:cell];
     }
 }
 
@@ -279,6 +283,28 @@
     TrackEvent(GetScreenName(self), kEventActionPress, @"preview", nil);
     [self submitEditingTicket];
 }
+
+- (void)checkShowSurroundingTooltipWhenSurroundingCellDisplay:(UITableViewCell *)cell {
+
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_SURROUNDING_DISPLAYED])
+    {
+        CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:cell hostView:self.view tooltipText:STR(@"PropertyInfo/轻松描述到周边的地铁和学校有多近") arrowDirection:JDFTooltipViewArrowDirectionDown width:200];
+
+        [toolTips show];
+
+        [self aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^ (id<AspectInfo> info) {
+            [toolTips hideAnimated:YES];
+        } error:nil];
+
+        [self.tableView aspect_hookSelector:@selector(hitTest:withEvent:)withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^ (id<AspectInfo> info) {
+            [toolTips hideAnimated:YES];
+        } error:nil];
+
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_SURROUNDING_DISPLAYED];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
 
 - (void)editLandlordType {
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.formController.form;

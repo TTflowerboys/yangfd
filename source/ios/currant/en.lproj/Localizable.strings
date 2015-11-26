@@ -707,6 +707,7 @@
 "PropertyInfo/周边" = "Around The Place";
 "PropertyInfo/更多详情和配套设施描述（选填）" = "More Details and Amenities (Optional)";
 "PropertyInfo/预览并发布" = "Preview and Publish";
+"PropertyInfo/轻松描述到周边的地铁和学校有多近" = "轻松描述到周边的地铁和学校有多近";
 
 
 //
@@ -716,6 +717,7 @@
 "SurroundingList/周边" = "Surrounding";
 "SurroundingList/输入关键字搜索学校, 地铁..." = "Please input keywords...";
 "SurroundingList/已添加" = "Added";
+"SurroundingList/点此搜索添加学校或地铁" = "点此搜索添加学校或地铁";
 
 
 //
