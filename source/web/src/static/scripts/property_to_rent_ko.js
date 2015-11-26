@@ -12,20 +12,23 @@
     })
 
     function SurroudingViewModel() {
-        this.surrouding = ko.observableArray(_.map(JSON.parse($('#featuredFacilityData').text()), function (item) {
-            //todo 目前featured_facility中的学校的数据没有展开，所以加上这一段来mock展开后的数据
-            if (typeof item[item.type.slug] === 'string' || typeof item[item.type.slug] === 'undefined') {
-                item[item.type.slug] = {
-                    id: item[item.type.slug],
-                    name: 'Mock Data'
+        this.surrouding = ko.observableArray()
+        if($('#featuredFacilityData').text().length) {
+            this.surrouding(_.map(JSON.parse($('#featuredFacilityData').text()), function (item) {
+                //todo 目前featured_facility中的学校的数据没有展开，所以加上这一段来mock展开后的数据
+                if (typeof item[item.type.slug] === 'string' || typeof item[item.type.slug] === 'undefined') {
+                    item[item.type.slug] = {
+                        id: item[item.type.slug],
+                        name: 'Mock Data'
+                    }
                 }
-            }
 
-            item.id = item[item.type.slug].id
-            item.name = item[item.type.slug].name
+                item.id = item[item.type.slug].id
+                item.name = item[item.type.slug].name
 
-            return item
-        }))
+                return item
+            }))
+        }
     }
     ko.applyBindings(SurroudingViewModel)
 })(window.ko)
