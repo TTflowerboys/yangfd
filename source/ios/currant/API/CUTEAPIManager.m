@@ -40,6 +40,8 @@
     dispatch_once(&pred, ^{
         sharedInstance = [[[self class] alloc] init];
 
+        //TODO add  test case for all api proxy class
+
         // 1. /api/1/property/<property_id>
         // 2. /api/1/property/search
         // 3. /api/1/property/<property_id>/edit

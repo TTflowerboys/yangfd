@@ -128,7 +128,10 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
                 do {
                     let result = try NSJSONSerialization .JSONObjectWithData(jsonData!, options: NSJSONReadingOptions(rawValue: 0))
                     if let val = result.valueForKeyPath(keyPath) as? [String:AnyObject] {
+
+                        //TODO fix this warning
                         let model = MTLJSONAdapter.modelOfClass(resultClass, fromJSONDictionary:CUTEPropertyAPIProxy.getModifiedJsonDictionary(val, types: types))
+
                         tcs.setResult(model)
                     }
                 }

@@ -29,6 +29,8 @@ class CUTEPatcher : NSObject {
 
         let URL = NSURL(string: URLString, relativeToURL: NSURL(string: "https://" + CUTEConfiguration.secureHost()))
         let task = NSURLSession.sharedSession().dataTaskWithURL(URL!) { (data, resp, error) -> Void in
+
+            //TODO replace the if cycles to guard
             if let jsonData = data {
                 if let response = resp as? NSHTTPURLResponse {
                     if response.statusCode == 200 {
@@ -124,18 +126,12 @@ class CUTEPatcher : NSObject {
 
     static func patch() -> BFTask {
         return downloadPatch().continueWithBlock({ (task:BFTask!) -> BFTask! in
-            if task.result != nil {
-                do {
-                    let data = task.result as! NSData
-                    if let content = NSString(data: data, encoding: NSUTF8StringEncoding) {
-                        dispatch_async(dispatch_get_main_queue(), {
-                            JPEngine.startEngine()
-                            JPEngine.evaluateScript(content as String)
-                        })
-                    }
-                }
-                catch let error as NSError {
-                    print(error.localizedDescription)
+            if let data = task.result as? NSData {
+                if let content = NSString(data: data, encoding: NSUTF8StringEncoding) {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        JPEngine.startEngine()
+                        JPEngine.evaluateScript(content as String)
+                    })
                 }
             }
             return task
