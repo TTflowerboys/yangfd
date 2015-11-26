@@ -217,6 +217,7 @@ class common(f_common):
 
         40399: "Permission denied",
         40398: "Permission denied: not a valid property_id",
+        40397: "User already refreshed today",
     }
 
 common()
@@ -236,3 +237,4 @@ f_app.common.register_error_code(40088)
 f_app.common.register_error_code(40087)
 f_app.common.register_error_code(40399)
 f_app.common.register_error_code(40398)
+f_app.common.register_error_code(40397)
