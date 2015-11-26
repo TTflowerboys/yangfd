@@ -968,6 +968,7 @@
 		2C401E251ACB9CE100613093 /* ObjectUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ObjectUtil.c; sourceTree = "<group>"; };
 		2C401E261ACB9CE100613093 /* ObjectUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectUtil.h; sourceTree = "<group>"; };
 		2C41E28A1C045FF800F43FAC /* CUTERentTicketAPIProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTERentTicketAPIProxy.swift; sourceTree = "<group>"; };
+		2C41E28F1C06BA2600F43FAC /* JSPatch-Usages.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "JSPatch-Usages.md"; sourceTree = "<group>"; };
 		2C427E4A1AD2414D000378A9 /* CUTEAPICacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEAPICacheManager.h; sourceTree = "<group>"; };
 		2C427E4B1AD2414D000378A9 /* CUTEAPICacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAPICacheManager.m; sourceTree = "<group>"; };
 		2C427E521AD25110000378A9 /* CUTEEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEEnum.h; sourceTree = "<group>"; };
@@ -1803,6 +1804,7 @@
 				2CB66C291AFB687200C3CDED /* London.gpx */,
 				2CAA1D461BA2D1C100662BFC /* routes.plist */,
 				2C9D32121BEA0FB200424CAC /* Notes.md */,
+				2C41E28F1C06BA2600F43FAC /* JSPatch-Usages.md */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
