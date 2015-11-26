@@ -234,6 +234,8 @@
     [self updateWebViewControllerTabAtIndex:kHomeTabBarIndex];
     _lastSelectedTabIndex = kHomeTabBarIndex;
 
+    //TOOD 可以考虑第一次进来，加载 app 所有的 tab 需要的网页 archive 和 enums ，但是不去渲染 tab 里面的 view controller
+
 //#warning DEBUG_CODE
 #ifdef DEBUG
 
@@ -512,6 +514,7 @@
     }
 }
 
+
 - (BFTask *)reloadPublishRentTicketTabSilent:(BOOL)silent{
 
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
@@ -555,6 +558,7 @@
         NSArray *unfinishedRentTickets = result;
         if (unfinishedRentTickets.count == 0) {
             //TODO handle silent， Redesign the HUD for specific controller
+            //这里用户第一进入 app 时会 trigger load hud 不是很友好，可以考虑切到这个 tab 再 show, 这里面的 task，外界无法知道状态，所以不是很好, 所以第一次只在后台加载资源，不加载界面。
             [viewController openRouteWithURL:[NSURL URLWithString:@"yangfd://property-to-rent/create?_clear_stack=true"]];
         }
         else if (unfinishedRentTickets.count > 0) {
