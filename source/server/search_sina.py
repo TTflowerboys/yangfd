@@ -5,7 +5,10 @@ from datetime import datetime
 # from datetime import timedelta
 from openpyxl import Workbook
 from openpyxl import load_workbook
-from openpyxl.styles import Font, Alignment
+from openpyxl.styles import Font, Alignment, PatternFill
+import Levenshtein
+import re
+import random
 
 username = "13545078924"
 password = "bbt12345678"
@@ -89,6 +92,7 @@ def get_weibo_search_result(keywords_list):
         def simplify(keywords):
             result_list = []
             search_count = 0
+            search_times = 0
             for keyword in keywords:
                 print f_app.util.json_dumps(keyword, ensure_ascii=False)
                 result_search = {}
@@ -114,17 +118,18 @@ def get_weibo_search_result(keywords_list):
                         print f_app.util.json_dumps("fail" + unicode(page), ensure_ascii=False)
                         break
                     ok = result_search['ok']
-                    print ("page" + unicode(page) + "ok:" + unicode(ok))
+                    print ("page " + unicode(page) + "  ok:" + unicode(ok))
                     if ok == 1:
                         if result_search.get('mblogList', None):
-                            print "page" + unicode(page) + "count:" + unicode(len(result_search['mblogList']))
+                            print "page " + unicode(page) + "  count:" + unicode(len(result_search['mblogList']))
                         else:
                             print f_app.util.json_dumps(result_search, ensure_ascii=False)
                         result_list.extend(result_search['mblogList'])
                         count += len(result_search['mblogList'])
+                        search_times += count
                     else:
-                        print "end"
-                        print f_app.util.json_dumps(result_search, ensure_ascii=False)
+                        # print "end"
+                        # print f_app.util.json_dumps(result_search, ensure_ascii=False)
                         break
                     total = result_search['total_number']
                     max_page = result_search['maxPage']
@@ -134,14 +139,39 @@ def get_weibo_search_result(keywords_list):
                     if count >= total or page > max_page:
                         break
                 print f_app.util.json_dumps(["===", keyword, "count" + unicode(count), "total" + unicode(total)], ensure_ascii=False)
-                print "search_count " + unicode(search_count)
+                print "search_times " + unicode(search_count) + " search_count " + unicode(search_times)
             return result_list
+
+        def remove_overlap(weibo_dic):
+            dic = {}
+            for single_weibo in weibo_dic:
+                flag = 0
+                step = 0
+                for index in weibo_dic:
+                    step = Levenshtein.distance(weibo_dic[single_weibo]['text'], weibo_dic[index]['text'])
+                    if step*1.0/len(unicode(weibo_dic[single_weibo]['text'])) < 0.17 and step*1.0/len(unicode(weibo_dic[index]['text'])) < 0.17 and single_weibo != index:
+                        print step
+                        print f_app.util.json_dumps(weibo_dic[index]['text'], ensure_ascii=False)
+                        print f_app.util.json_dumps(weibo_dic[single_weibo]['text'], ensure_ascii=False)
+                        flag = 1
+                        break
+                if flag:
+                    continue
+                dic.update({
+                    single_weibo: {
+                        "text": weibo_dic[single_weibo]['text'],
+                        "time": weibo_dic[single_weibo]['time'],
+                        "link": weibo_dic[single_weibo]['link']
+                    }
+                })
+            return dic
 
         def reduce_weibo(weibo_list):
             dic = {}
+            cleanr = re.compile('<.*?>')
             for single in weibo_list:
                 user = single['user']['screen_name']
-                text = single['text']
+                text = unicode(re.sub(cleanr, '', single['text']))
                 time = single['created_timestamp']
                 link = "http://weibo.com/" + unicode(single['user']['id']) + "/" + single['bid']
                 single['time'] = datetime.fromtimestamp(time)
@@ -165,7 +195,23 @@ def get_weibo_search_result(keywords_list):
                     })
             return dic
 
-        result_weibo = reduce_weibo(simplify(keywords_list))
+        def tag_similar(sheet, target='A'):
+            mblog = {}
+            r = lambda: random.randint(192, 255)
+            rows = len(sheet.rows)+1
+            for index in range(2, rows):
+                cell = sheet[target + unicode(index)]
+                if len(cell.value):
+                    mblog.update({index: cell.value})
+            for index in mblog:
+                for another_index in mblog:
+                    if Levenshtein.distance(mblog[index], mblog[another_index]) < 12:
+                        color = ('00%02X%02X%02X' % (r(), r(), r()))
+                        color_fill = PatternFill(fill_type='solid', start_color=color, end_color=color)
+                        sheet[target + unicode(index)].fill = color_fill
+                        sheet[target + unicode(another_index)].fill = color_fill
+
+        result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
 
         wb = Workbook()
         ws = wb.active
@@ -182,10 +228,8 @@ def get_weibo_search_result(keywords_list):
 
         add_link(ws, 'C')
         format_fit(ws)
+        # tag_similar(ws, 'D')
         wb.save('weibo_search.xlsx')
 
 list_keyw = generate_keyword_list("keywords_search_weibo.xlsx")
-# print f_app.util.json_dumps(list_keyw, ensure_ascii=False)
-# get_weibo_search_result([u"伯明翰 出租"])
 get_weibo_search_result(list_keyw)
-# print f_app.util.json_dumps(generate_keyword_list("key words for Arnold (1).xlsx"), ensure_ascii=False)
