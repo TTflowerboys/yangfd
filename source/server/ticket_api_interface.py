@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime, timedelta
 import random
@@ -410,6 +410,16 @@ def intention_ticket_search(user, params):
     nickname=(str, True),
     phone=(str, True),
     email=(str, True),
+    tenant_count=int,
+    gender=str,
+    date_of_birth=datetime,
+    occupation="enum:occupation",
+    smoke=bool,
+    baby=bool,
+    pet=bool,
+    visa=(str, None, "replaces"),
+    disable_matching=(bool, False),
+    interested_rent_tickets=(list, None, ObjectId),
     rent_type="enum:rent_type",
     rent_budget_min="i18n:currency",
     rent_budget_max="i18n:currency",
@@ -431,6 +441,7 @@ def intention_ticket_search(user, params):
         value=(str, True),
     )),
     locales=(list, None, str),
+    status=str,
 ))
 @f_app.user.login.check(check_role=True)
 def rent_intention_ticket_add(params, user):
@@ -465,6 +476,10 @@ def rent_intention_ticket_add(params, user):
     else:
         schema = "http://"
     admin_console_url = "%s%s/admin#" % (schema, request.urlparts[1])
+
+    if "status" in params:
+        if params["status"] not in f_app.common.rent_intention_ticket_statuses:
+            abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
 
     sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["operation", "jr_operation"]}}))
     # budget_enum = f_app.enum.get(params["rent_budget"]["_id"]) if "budget" in params else None
@@ -551,7 +566,17 @@ def rent_intention_ticket_remove(user, ticket_id):
 
 
 @f_api('/rent_intention_ticket/<ticket_id>/edit', params=dict(
+    tenant_count=int,
+    gender=str,
+    date_of_birth=datetime,
+    occupation="enum:occupation",
+    smoke=bool,
+    baby=bool,
+    pet=bool,
+    visa=(str, None, "replaces"),
     country="country",
+    disable_matching=bool,
+    interested_rent_tickets=(list, None, ObjectId),
     maponics_neighborhood="maponics_neighborhood",
     hesa_university=ObjectId,
     title=str,
@@ -577,7 +602,7 @@ def rent_intention_ticket_remove(user, ticket_id):
 @f_app.user.login.check(force=True, check_role=True)
 def rent_intention_ticket_edit(user, ticket_id, params):
     """
-    ``status`` must be one of these values: "new", "rent", "canceled"
+    ``status`` must be one of these values: "new", "requested", "agreed", "rejected", "assigned", "examined", "rent", "canceled"
     """
     history_params = {"updated_time": datetime.utcnow()}
     user_roles = f_app.user.get_role(user["id"])
@@ -606,6 +631,11 @@ def rent_intention_ticket_edit(user, ticket_id, params):
     per_page=int,
     time=datetime,
     sort=(list, ["time", 'desc'], str),
+    smoke=bool,
+    baby=bool,
+    pet=bool,
+    disable_matching=bool,
+    interested_rent_tickets=(list, None, ObjectId),
     phone=str,
     country="country",
     maponics_neighborhood="maponics_neighborhood",
@@ -623,11 +653,14 @@ def rent_intention_ticket_edit(user, ticket_id, params):
 @f_app.user.login.check(force=True)
 def rent_intention_ticket_search(user, params):
     """
-    ``status`` must be one of these values: ``new``, ``rent``, ``canceled``.
+    ``status`` must be one of these values: "new", "requested", "agreed", "rejected", "assigned", "examined", "rent", "canceled".
     """
     params.setdefault("type", "rent_intention")
 
     params["$and"] = []
+
+    if "interested_rent_tickets" in params:
+        params["interested_rent_tickets"] = {"$in": params["interested_rent_tickets"]}
 
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params)

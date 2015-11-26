@@ -56,7 +56,7 @@ class common(f_common):
     currency = ["CNY", "USD", "GBP", "EUR", "HKD"]
 
     intention_ticket_statuses = ["new", "assigned", "in_progress", "deposit", "suspended", "bought", "canceled"]
-    rent_intention_ticket_statuses = ["new", "rent", "canceled"]
+    rent_intention_ticket_statuses = ["new", "requested", "agreed", "rejected", "assigned", "examined", "rent", "canceled"]
     support_ticket_statuses = ["new", "assigned", "in_progress", "solved", "unsolved"]
 
     user_action_types = ["click_page", "click_property", "submit_intention_ticket", "submit_intention_ticket_success", "click_registration", "submit_registration", "submit_registration_success", "submit_intention_tag", "submit_property_request", "submit_property_request_success"]
