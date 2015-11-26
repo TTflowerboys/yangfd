@@ -334,15 +334,9 @@
         CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetPoint:CGPointMake(ScreenWidth / 2, ScreenHeight - TabBarHeight - 5) hostView:self.tabBarController.view tooltipText:STR(@"AppDelegate/发布租房") arrowDirection:JDFTooltipViewArrowDirectionDown width:90];
         [toolTips show];
 
-        UINavigationController *nav = (UINavigationController *)[[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex];
-        [nav aspect_hookSelector:@selector(pushViewController:animated:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^ (id<AspectInfo> info) {
+        [self.window aspect_hookSelector:@selector(hitTest:withEvent:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^ (id<AspectInfo> info) {
             [toolTips hideAnimated:YES];
         } error:nil];
-
-        [self aspect_hookSelector:@selector(tabBarController:didSelectViewController:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^ (id<AspectInfo> info) {
-            [toolTips hideAnimated:YES];
-        } error:nil];
-
 
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_PUBLISH_RENT_DISPLAYED];
         [[NSUserDefaults standardUserDefaults] synchronize];
