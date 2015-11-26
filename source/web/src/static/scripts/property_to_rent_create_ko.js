@@ -134,7 +134,7 @@
                 this.active(true)
                 this.suggestions([])
                 if (name === undefined || !name.length) {
-                    this.hint(window.i18n('请输入内容后再进行搜索'))
+                    this.hint(window.i18n('请输入关键字后再进行搜索'))
                 } else {
                     this.hint(window.i18n('载入中...'))
                     window.project.getEnum('featured_facility_type')
@@ -215,7 +215,7 @@
                 this.activeSuggestionIndex(-1)
                 this.result(item.name)
                 this.active(false)
-                this.surroudingToAdd(_.extend(item, {traffic_time: [], hint: window.i18n('载入中...')}))
+                this.surroudingToAdd(_.extend(item, {traffic_time: [], hint: window.i18n('正在获取到该地点的交通信息...')}))
                 window.project.getEnum('featured_facility_traffic_type')
                     .then(_.bind(function (modes) {
                         module.distanceMatrix($('#postcode').val().replace(/\s/g, '').toUpperCase(), item.postcode_index || item.zipcode_index || (item.latitude + ',' + item.longitude), modes)
@@ -239,8 +239,8 @@
                                 this.surroudingToAdd(item)
                             },this))
                             .fail(_.bind(function (e) {
-                                window.dhtmlx.message({ type:'error', text: window.i18n('从Google Api获取交通信息失败:') + e.message});
-                                this.surroudingToAdd({hint: window.i18n('从Google Api获取交通信息失败')})
+                                window.dhtmlx.message({ type:'error', text: window.i18n('无法获取到该地点的交通信息:') + e.message});
+                                this.surroudingToAdd({hint: window.i18n('添加失败，无法获取到该地点的交通信息')})
                             }, this))
                     }, this))
             }, this)

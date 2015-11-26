@@ -1337,7 +1337,7 @@
                         propertyViewModel.surrouding(surrouding)
                     })
                     .fail(function (e) {
-                        window.dhtmlx.message({ type:'error', text: window.i18n('从Google Api获取交通信息失败:') + e.message})
+                        window.dhtmlx.message({ type:'error', text: window.i18n('无法获取到该地点的交通信息:') + e.message})
                         propertyViewModel.surroudingHint(window.i18n('获取周边信息失败，您可以自行搜索添加'))
                     })
             })
