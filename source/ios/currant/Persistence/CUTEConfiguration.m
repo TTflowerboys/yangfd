@@ -52,11 +52,6 @@ static NSString *secureHost = nil;
 }
 
 + (NSString *)apiEndpoint {
-    NSString *secureHost = [self secureHost];
-    if (secureHost) {
-        return CONCAT(@"https://", secureHost, @"/api/1/");
-    }
-
     return CONCAT(@"http://", [self host], @"/api/1/");
 }
 
