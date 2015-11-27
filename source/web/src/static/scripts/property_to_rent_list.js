@@ -706,7 +706,6 @@
 
     $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
         mode = tabName
-        updateURLQuery('mode', mode)
         loadRentListByView()
         ga('send', 'event', 'rent_list', 'click', mode + '-view', 'pc')
     })
