@@ -25,7 +25,7 @@ angular.module('app')
                 }
                 $scope.$watch('wordList', function () {
                     $scope.item.rule = $scope.wordList.join(',')
-                    if ($scope.edit === true) {
+                    if ($scope.edit === true && $scope.item.rule.length) {
                         $scope.submit()
                     }
                 }, true)
