@@ -485,7 +485,8 @@
             [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil latitude:property.latitude longitude:property.longitude  city:property.city country:property.country propertyPostcodeIndex:postCodeIndex] continueWithBlock:^id(BFTask *task) {
 
                 [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
-                    ticket.property.surroundings = task.result;
+                    NSArray *result = task.result != nil? task.result: @[];
+                    ticket.property.surroundings = result;
                     CUTESurroundingForm *form = [CUTESurroundingForm new];
                     form.ticket = self.form.ticket;
                     CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithForm:form];

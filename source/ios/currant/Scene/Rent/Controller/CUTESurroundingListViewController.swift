@@ -49,6 +49,13 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
         self.title = STR("SurroundingList/周边")
         self.showBarButtonItems()
+
+        //if default search don't add surrounding, user can add them
+        if self.form.ticket.property.surroundings.count == 0 {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+                SVProgressHUD.showInfoWithStatus(STR("SurroundingList/点击右上角“+”，添加周边的学校和地铁"))
+            })
+        }
     }
 
     func checkShowSurroundingAddTooltip() {
