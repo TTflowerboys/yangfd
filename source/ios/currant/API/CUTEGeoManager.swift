@@ -61,6 +61,9 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
+
+    /// - parameter location: 经纬度
+    /// - returns: BFTask , task.result 的 placemark，因为我们的数据和 google 不一致，可能没有国家和城市。
     private func requsetReverseGeocodeLocation(location:CLLocation) -> BFTask {
         let tcs = BFTaskCompletionSource()
         let geocoderURLString = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(location.coordinate.latitude),\(location.coordinate.longitude)&key=\(CUTEConfiguration.googleAPIKey())&language=en"
@@ -100,7 +103,8 @@ class CUTEGeoManager: NSObject {
                                     tcs.setResult(placemark)
                                 }
                                 else {
-                                    tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                                    placemark.country = country
+                                    tcs.setResult(placemark)
                                 }
                             }
                             else {
@@ -111,7 +115,7 @@ class CUTEGeoManager: NSObject {
                         })
                     }
                     else {
-                        tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                        tcs.setResult(placemark)
                     }
                 }
                 else {

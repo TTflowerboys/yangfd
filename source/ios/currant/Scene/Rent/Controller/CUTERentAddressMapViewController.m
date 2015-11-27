@@ -512,8 +512,14 @@
             if (task.result) {
                 CUTEPlacemark *placemark = task.result;
                 [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
-                    ticket.property.country = placemark.country;
-                    ticket.property.city = placemark.city;
+                    if (placemark.country) {
+                        ticket.property.country = placemark.country;
+                    }
+
+                    if (placemark.city) {
+                        ticket.property.city = placemark.city;
+                    }
+                    
                     ticket.property.zipcode = placemark.postalCode;
                     ticket.property.neighborhood = nil;
                     ticket.property.street = [CUTEAddressUtil buildAddress:@[NilNullToEmpty(placemark.street), NilNullToEmpty(placemark.neighborhood)]];
