@@ -23,7 +23,8 @@
 
 #define CUTE_USER_DEFAULT_TIP_FAVORITE_PROPERTY_DISPLAYED @"com.bbtechgroup.currant.publish.displayed.tip.favorite.property"
 
-
 #define CUTE_USER_DEFAULT_TIP_SURROUNDING_DISPLAYED @"com.bbtechgroup.currant.publish.displayed.tip.surrounding"
+
+#define CUTE_USER_DEFAULT_TIP_SURROUNDING_ADD_DISPLAYED @"com.bbtechgroup.currant.publish.displayed.tip.surrounding.add"
 
 #endif

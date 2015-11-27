@@ -32,6 +32,10 @@
 #import <Aspects.h>
 
 
+//Constant
+//#import "CUTECommonMacro.h"
+#import "CUTEUserDefaultKey.h"
+
 //category class
 #import "NSURL+QueryParser.h"
 #import "NSURL+CUTE.h"

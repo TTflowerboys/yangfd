@@ -53,19 +53,27 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
     func checkShowSurroundingAddTooltip() {
 
-        let userDefaultKey = "com.bbtechgroup.currant.publish.displayed.tip.surrounding.add"
+        let userDefaultKey = CUTE_USER_DEFAULT_TIP_SURROUNDING_ADD_DISPLAYED
+        if !NSUserDefaults.standardUserDefaults().boolForKey(userDefaultKey)
+        {
 
-        if !NSUserDefaults.standardUserDefaults().boolForKey(userDefaultKey) {
-//            let toolTips = CUTETooltipView(targetBarButtonItem: self.navigationItem.rightBarButtonItem, hostView: self.view, tooltipText: STR(""), arrowDirection: JDFTooltipViewArrowDirection.Up, width: 200)
-//            toolTips.show()
+            let toolTips = CUTETooltipView(targetPoint: CGPointMake(self.view.frame.size.width - 23, 54), hostView: self.navigationController?.view, tooltipText: STR("SurroundingList/点此搜索添加学校或地铁"), arrowDirection: JDFTooltipViewArrowDirection.Up, width: 200)
+            toolTips.show()
 
-//            self.aspect_hookSelector("viewWillDisappear:", withOptions: AspectOptions(rawValue: AspectOptions.PositionBefore.rawValue | AspectOptions.OptionAutomaticRemoval.rawValue), usingBlock: { (info:AnyObject!) -> Void in
-//
-//
-//            })
+            do {
+                //https://github.com/steipete/Aspects/issues/51
+                let closure:((Void)->Void) = {  toolTips.hideAnimated(true) }
+                let block: @convention(block) Void -> Void = closure
+                let objectBlock = unsafeBitCast(block, AnyObject.self)
 
-            //TODO
-//            toolTips.show()
+                try self.aspect_hookSelector("viewWillDisappear:", withOptions: AspectOptions(rawValue: AspectOptions.PositionBefore.rawValue | AspectOptions.OptionAutomaticRemoval.rawValue), usingBlock: objectBlock)
+                try self.view.aspect_hookSelector("hitTest:withEvent:", withOptions: AspectOptions(rawValue: AspectOptions.PositionBefore.rawValue | AspectOptions.OptionAutomaticRemoval.rawValue), usingBlock: objectBlock)
+            }
+            catch let error as NSError {
+                print(error)
+            }
+
+            toolTips.show()
 
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: userDefaultKey)
         }
