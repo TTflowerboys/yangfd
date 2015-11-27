@@ -78,6 +78,7 @@
 "RentAddressEdit/请填写Postcode" = "Please enter Postcode";
 "RentAddressEdit/OK" = "OK";
 "RentAddressEdit/新Postcode定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置" = "We can't locate new Postcode, please update location manually, we will ignore location if you return without update it";
+"RentAddressEdit/新Postcode定位失败，前往地图手动修改房产位置" = "We can't locate new Postcode, please update location manually";
 "RentAddressEdit/返回" = "Back";
 "RentAddressEdit/前往地图" = "Go To Map";
 "RentAddressEdit/请前往地图手动修改房产位置，返回房产信息则不添加房产位置" = "Please go to the map to update location manually";
