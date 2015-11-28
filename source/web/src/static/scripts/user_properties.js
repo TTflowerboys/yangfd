@@ -35,10 +35,10 @@ $(function () {
                 }else if(team.getQuery('action') === 'confirm_rent' && cRent.status === 'to rent'){
                     $('.rentCard[data-id=' + cRent.id + ']').find('.actions #editAction').click()
                 }else{
-                    window.alert(window.i18n('无法执行该操作，请检查您的房产状态后重试'))
+                    window.dhtmlx.message({ type:'error', text: window.i18n('无法执行该操作，请检查您的房产状态后重试')})
                 }
             }else{
-                window.alert(window.i18n('您要找的房产不存在或者已被删除'))
+                window.dhtmlx.message({ type:'error', text: window.i18n('您要找的房产不存在或者已被删除')})
             }
 
         })
@@ -341,8 +341,8 @@ $(function () {
                     .fail(function (ret) {
                         if(ret === 40397) {
                             window.dhtmlx.message({ type:'error', text: window.i18n('不好意思，每天只能刷新一个房源')});
-                        }else if(ret !== 0){
-                            window.dhtmlx.message({ type:'error', text: window.i18n('刷新失败')});
+                        }else {
+                            window.dhtmlx.message({ type:'error', text: window.i18n('刷新失败，请检查后重试')});
                         }
                         ga('send', 'event', 'user_properties', 'result', 'rent-refresh-failed')
                     })
@@ -378,7 +378,7 @@ $(function () {
                             ga('send', 'event', 'user_properties', 'result', 'rent-out-confirm-success')
                         })
                         .fail(function (ret) {
-                            window.alert(window.i18n('无法更新，请检查后重试'))
+                            window.dhtmlx.message({ type:'error', text: window.i18n('无法更新，请检查后重试')})
                             ga('send', 'event', 'user_properties', 'result', 'rent-out-confirm-failed')
                         })
                 }
@@ -437,7 +437,7 @@ $(function () {
                         ga('send', 'event', 'user_properties', 'result', 'rent-delete-success')
                     })
                     .fail(function (ret) {
-                        window.alert(window.i18n('无法删除，请检查后重试'))
+                        window.dhtmlx.message({ type:'error', text: window.i18n('无法删除，请检查后重试')})
                         ga('send', 'event', 'user_properties', 'result', 'rent-delete-failed')
                     })
             }
@@ -455,7 +455,7 @@ $(function () {
                     location.reload()
                 })
                 .fail(function (ret) {
-                    window.alert(window.i18n('移除失败'))
+                    window.dhtmlx.message({ type:'error', text: window.i18n('移除失败，请检查后重试')})
                 })
         }
 
@@ -470,7 +470,7 @@ $(function () {
                     location.reload()
                 })
                 .fail(function (ret) {
-                    window.alert(window.i18n('移除失败'))
+                    window.dhtmlx.message({ type:'error', text: window.i18n('移除失败，请检查后重试')})
                 })
         }
 
@@ -536,7 +536,7 @@ $(function () {
                         container.find('.actions').hide()
                     })
                     .fail(function (ret) {
-                        window.alert(window.getErrorMessageFromErrorCode(ret))
+                        window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                     })
             }
         })
