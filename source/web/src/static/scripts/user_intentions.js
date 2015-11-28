@@ -78,6 +78,7 @@ $(function () {
         $('#loadIndicator').show()
 
         var params = {
+            'status':'new',
             'user_id': window.user.id,
             'per_page': -1
         }

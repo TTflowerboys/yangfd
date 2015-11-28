@@ -9,7 +9,6 @@
         $scope.api = api
 
         var params = {
-            status:'requested',
             per_page: $scope.perPage,
             sort: 'time,desc'
         }

@@ -640,6 +640,16 @@ angular.module('app')
                     }
                 }
             })
+            .state('dashboard.users.detail.rent_request_intentions', {
+                url: '/rent-request-intentions',
+                templateUrl: '/static/admin/templates/dashboard.users.detail.rent_request_intentions.tpl.html',
+                controller: 'ctrlRentRequestIntentionList',
+                resolve: {
+                    api: function (userRentRequestIntentionApi) {
+                        return userRentRequestIntentionApi
+                    }
+                }
+            })
             .state('dashboard.users.detail.boughts', {
                 url: '/boughts',
                 templateUrl: '/static/admin/templates/dashboard.users.detail.boughts.tpl.html',

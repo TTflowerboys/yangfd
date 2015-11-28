@@ -8,7 +8,7 @@
                 config.params = angular.extend({}, config.params, {
                     user_id: $stateParams.id,
                 })
-                return $http.get('/api/1/rent_intention_ticket/search', config)
+                return $http.get('/api/1/rent_intention_ticket/search?status=new', config)
             },
             update: function (data, config) {
                 return $http.post('/api/1/rent_intention_ticket/' + data.id + '/edit', data, config)
