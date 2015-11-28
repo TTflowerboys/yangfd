@@ -633,7 +633,7 @@ angular.module('app')
             .state('dashboard.users.detail.rent_intentions', {
                 url: '/rent-intentions',
                 templateUrl: '/static/admin/templates/dashboard.users.detail.rent_intentions.tpl.html',
-                controller: 'ctrlList',
+                controller: 'ctrlRentIntentionList',
                 resolve: {
                     api: function (userRentIntentionApi) {
                         return userRentIntentionApi
