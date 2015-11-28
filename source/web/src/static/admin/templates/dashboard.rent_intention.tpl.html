@@ -71,7 +71,8 @@
                         <div>{%item.address%}</div>
                     </td>
                     <td>
-                        <a ui-sref="dashboard.users.detail.rent_intentions({ id: item.user.id })" ng-bind="item.nickname"></a>
+                        <a ui-sref="dashboard.users.detail.rent_intentions({ id: item.user.id })" ng-bind="item.nickname"  target="_blank"></a>
+                        <span edit-custom-fields ng-model="item.user.custom_fields" update="updateUserItem(data)" item-id="item.user.id"></span>
                         <div>{%item.phone%}</div>
                         <div>{%item.email%}</div>
                     </td>
@@ -82,8 +83,8 @@
                         {%item.tags | rentIntentionTags%}
                     </td>
                     <td>
-                        <a ng-if="item.refer.id" ui-sref="dashboard.rent.detail({ id: item.refer.id })">{% item.refer.text %}</a>
-                        <a ng-if="!item.refer.id" ng-href="{% item.refer.link %}">{% item.refer.text %}</a>
+                        <a ng-if="item.refer.id" ui-sref="dashboard.rent.detail({ id: item.refer.id })" target="_blank">{% item.refer.text %}</a>
+                        <a ng-if="!item.refer.id" ng-href="{% item.refer.link %}" target="_blank">{% item.refer.text %}</a>
                     </td>
                     <td>
                         {%item.status | intentionTicketStatusName %}

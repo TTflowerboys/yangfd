@@ -1,6 +1,6 @@
 (function () {
 
-    function ctrlRentIntentionList($scope, fctModal, api, $state, $timeout) {
+    function ctrlRentIntentionList($scope, fctModal, api, userApi, $state, $timeout) {
 
         $scope.list = []
         $scope.perPage = 12
@@ -9,6 +9,7 @@
         $scope.api = api
 
         var params = {
+            status:'new',
             per_page: $scope.perPage,
             sort: 'time,desc'
         }
@@ -122,6 +123,13 @@
 
         $scope.updateItem = function (item) {
             api.update(item)
+                .success(function () {
+                    $scope.refreshList()
+                })
+        }
+
+        $scope.updateUserItem = function (item) {
+            userApi.update(item.id, item)
                 .success(function () {
                     $scope.refreshList()
                 })
