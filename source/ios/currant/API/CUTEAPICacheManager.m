@@ -67,7 +67,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
 
 - (BFTask *)getEnumsByTypeIgnoringCache:(NSString *)type {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/enum/search" parameters:@{@"type": type, @"sort": @"1"} resultClass:[CUTEEnum class]] continueWithSuccessBlock:^id(BFTask *task) {
+    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/enum/search" parameters:@{@"type": type, @"sort": [NSNumber numberWithBool:YES]} resultClass:[CUTEEnum class]] continueWithSuccessBlock:^id(BFTask *task) {
         NSArray *result = task.result;
         if (result && !IsArrayNilOrEmpty(result)) {
             [_cache setObject:result forKey:CONCAT(CUTEAPICacheEnumKeyPrefix, type)];
