@@ -39,12 +39,23 @@
 
 - (void)updateCustomViewConstraints {
     if ([self.view isDescendantOfView:self.navigationController.view]) {
-        UpdateBegin(self.view)
-        MakeTopEqualTo(self.navigationController.view.top).offset(TouchHeightDefault + StatusBarHeight);
-        MakeLeftEqualTo(self.navigationController.view.left);
-        MakeRighEqualTo(self.navigationController.view.right);
-        MakeBottomEqualTo(self.navigationController.view.bottom).offset(- TabBarHeight);
-        UpdateEnd
+        if (self.hidesBottomBarWhenPushed) {
+            UpdateBegin(self.view)
+            MakeTopEqualTo(self.navigationController.view.top).offset(TouchHeightDefault + StatusBarHeight);
+            MakeLeftEqualTo(self.navigationController.view.left);
+            MakeRighEqualTo(self.navigationController.view.right);
+            MakeBottomEqualTo(self.navigationController.view.bottom);
+            UpdateEnd
+
+        }
+        else {
+            UpdateBegin(self.view)
+            MakeTopEqualTo(self.navigationController.view.top).offset(TouchHeightDefault + StatusBarHeight);
+            MakeLeftEqualTo(self.navigationController.view.left);
+            MakeRighEqualTo(self.navigationController.view.right);
+            MakeBottomEqualTo(self.navigationController.view.bottom).offset(- TabBarHeight);
+            UpdateEnd
+        }
     }
 
     if ([self.webView isDescendantOfView:self.view]) {
