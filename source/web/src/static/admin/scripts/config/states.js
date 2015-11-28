@@ -41,6 +41,12 @@ angular.module('app')
             }
         }
 
+        var rentRequestIntentionResolve = {
+            api: function (rentRequestIntentionApi) {
+                return rentRequestIntentionApi
+            }
+        }
+
         var intentionResolve = {
             api: function (intentionApi) {
                 return intentionApi
@@ -413,6 +419,15 @@ angular.module('app')
                 controller: 'ctrlrentIntentionDetail',
                 resolve: rentIntentionResolve
             })*/
+        /**
+         * 出租咨询申请单管理
+         */
+            .state('dashboard.rent_request_intention', {
+                url: '/rent_request_intention',
+                templateUrl: '/static/admin/templates/dashboard.rent_request_intention.tpl.html',
+                controller: 'ctrlRentRequestIntentionList',
+                resolve: rentRequestIntentionResolve
+            })
         /**
          * 委托出租单管理
          */
