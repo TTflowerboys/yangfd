@@ -259,7 +259,7 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
 
-    [self updateBackButton];
+    [self checkNeedRemoveBackButton];
 }
 
 - (void)reload {
@@ -269,6 +269,13 @@
     }
     else {
         [self.webView reload];
+    }
+}
+
+- (void)checkNeedRemoveBackButton {
+    BOOL show = [self webViewCanGoBack] || [self viewControllerCanGoBack];
+    if  (!show) {
+        self.navigationItem.leftBarButtonItem = nil;
     }
 }
 
