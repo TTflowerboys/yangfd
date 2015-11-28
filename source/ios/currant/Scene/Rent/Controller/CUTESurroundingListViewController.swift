@@ -15,8 +15,9 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     private var form:CUTESurroundingForm
     private var searchResultSurroundings:[CUTESurrounding] = []
     var postcodeIndex:String?
-    internal var searchController:UISearchDisplayController?
-    internal var searchBarBackground:UIView?
+    private var searchController:UISearchDisplayController?
+    private var searchBarBackground:UIView?
+    private var hintLabel:UILabel?
 
     // 实现隐藏“No Results” label 用的flag
     //http://stackoverflow.com/questions/11639257/how-do-i-cover-the-no-results-text-in-uisearchdisplaycontrollers-searchresult
@@ -39,6 +40,11 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         super.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
         super.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         super.tableView.allowsSelection = false
+
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor(hex6: 0xeeeeee)
+        super.tableView.backgroundView = backgroundView
+
 //        self.definesPresentationContext = true
 
         // Uncomment the following line to preserve selection between presentations
@@ -51,11 +57,25 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         self.showBarButtonItems()
 
         //if default search don't add surrounding, user can add them
-        if self.form.ticket.property.surroundings.count == 0 {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
-                SVProgressHUD.showInfoWithStatus(STR("SurroundingList/点击右上角“+”，添加周边的学校和地铁"))
-            })
+        self.showHintLabel(self.form.ticket.property.surroundings.count == 0)
+    }
+
+    private func showHintLabel(show:Bool) {
+        if (show) {
+            if self.hintLabel == nil {
+                let label = UILabel()
+                label.textColor = UIColor(hex6: 0x999999)
+                label.textAlignment = NSTextAlignment.Center
+                label.numberOfLines = 0
+                label.font = UIFont.systemFontOfSize(16)
+                label.text = STR("SurroundingList/点击右上角“+”，添加周边的学校和地铁")
+                super.tableView.backgroundView?.addSubview(label)
+                label.frame = CGRectMake(0, label.superview!.bounds.size.height - 135, label.superview!.bounds.size.width, 40)
+                self.hintLabel = label
+            }
         }
+
+        self.hintLabel?.hidden = !show
     }
 
     func checkShowSurroundingAddTooltip() {
@@ -282,6 +302,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                     self.searchController?.searchBar.removeFromSuperview()
                     self.searchController = nil
                     self.tableView.reloadData()
+                    self.showHintLabel(self.form.ticket.property.surroundings.count == 0)
 
                     SVProgressHUD.dismiss()
                     return task
@@ -440,6 +461,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
             ticket.property.surroundings = array
         }).continueWithBlock { (task:BFTask!) -> AnyObject! in
             self.tableView.reloadData()
+            self.showHintLabel(self.form.ticket.property.surroundings.count == 0)
             SVProgressHUD.dismiss()
             return task
         }
