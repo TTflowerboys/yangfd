@@ -327,6 +327,7 @@
 "RentAddressMap/请填写城市" = "请填写城市";
 "RentAddressMap/请填写Postcode" = "请填写Postcode";
 "RentAddressMap/拖动地图可以修改房产位置" = "拖动地图可以修改房产位置";
+"RentAddressMap/创建房产失败" = "创建房产失败";
 
 
 //

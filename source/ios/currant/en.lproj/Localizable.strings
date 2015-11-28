@@ -328,6 +328,7 @@
 "RentAddressMap/请填写城市" = "Please enter city";
 "RentAddressMap/请填写Postcode" = "Please enter Postcode";
 "RentAddressMap/拖动地图可以修改房产位置" = "Drag the map to update the property location";
+"RentAddressMap/创建房产失败" = "Create failed";
 
 
 //
