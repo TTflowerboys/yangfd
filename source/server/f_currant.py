@@ -4316,7 +4316,7 @@ class f_main_mixed_index(f_app.plugin_base):
                     },
                 }, upsert=True)
                 index_id = self.get_database(m).find_one({"hesa_university": university["_id"]})["_id"]
-                f_app.mongo_index.update(self.get_database, str(index_id), university["name"])
+                f_app.mongo_index.update(self.get_database, str(index_id), university["name"].replace(",", " "))
                 processed += 1
 
                 if processed % 100 == 0:
