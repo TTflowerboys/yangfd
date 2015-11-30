@@ -461,4 +461,4 @@
     })
 
 
-})(window.ko)
+})(window.ko);
