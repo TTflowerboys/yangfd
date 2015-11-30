@@ -61,7 +61,7 @@
     </div>
     %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
     <div class="contactRequest" id="contactRequest">
-        <a class="ghostButton red" href="/rent-request?ticketId={{rent.get('id')}}">{{_('提交求租申请')}}</a>
+        <a class="ghostButton red" href="/rent-request?ticketId={{rent.get('id')}}">{{_('我要咨询')}}</a>
         <form class="contactRequestForm" name="contactRequestForm"
             data-message-success="{{_('提交成功')}}"
             data-message-40000="{{_('你填写的手机或邮箱的格式不正确')}}"
