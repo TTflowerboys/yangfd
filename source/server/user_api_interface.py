@@ -186,7 +186,7 @@ def user_login(params):
 @f_api('/user/register', params=dict(
     nolog="password",
     nickname=(str, True),
-    password=(str, True, "notrim", "base64"),
+    password=(str, None, "notrim", "base64"),
     phone=(str, True),
     country=("country", True),
     occupation="enum:occupation",
@@ -228,11 +228,30 @@ def user_register(params):
 
     f_app.captcha.validate(params["solution"], params["challenge"])
 
+    if "password" in params:
+        send_password = False
+    else:
+        assert "email" in params, abort(40000, "email must present when no password given")
+        password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)]).lower()
+        params["password"] = password
+        send_password = True
+
     user_id = f_app.user.add(params, retain_country=True)
 
     f_app.user.login.success(user_id)
     f_app.log.add("login", user_id=user_id)
     f_app.user.counter_update(user_id)
+
+    if send_password:
+        locale = params["locales"][0] if "locales" in params and params["locales"] else f_app.common.i18n_default_locale
+        request._requested_i18n_locales_list = [locale]
+        f_app.email.schedule(
+            target=params["email"],
+            subject=f_app.util.get_format_email_subject(template("static/emails/new_user_title")),
+            text=template("static/emails/new_user", password=params["password"], nickname=params["nickname"], phone=params["phone"]),
+            display="html",
+            tag="new_user",
+        )
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
@@ -278,31 +297,11 @@ def user_fast_register(params):
 
     locale = params["locales"][0] if "locales" in params and params["locales"] else f_app.common.i18n_default_locale
     request._requested_i18n_locales_list = [locale]
-    if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
-        template_invoke_name = "new_user_cn"
-        sendgrid_template_id = "1c4c392c-2c8d-4b8f-a6ca-556d757ac482"
-    else:
-        template_invoke_name = "new_user_en"
-        sendgrid_template_id = "f69da86f-ba73-4196-840d-7696aa36f3ec"
-    substitution_vars = {
-        "to": [params["email"]],
-        "sub": {
-            "%nickname%": [params["nickname"]],
-            "%phone%": [params["phone"]],
-            "%password%": [params["password"]],
-            "%logo_url%": [f_app.common.email_template_logo_url]
-        }
-    }
-    xsmtpapi = substitution_vars
-    xsmtpapi["template_id"] = sendgrid_template_id
     f_app.email.schedule(
         target=params["email"],
         subject=f_app.util.get_format_email_subject(template("static/emails/new_user_title")),
         text=template("static/emails/new_user", password=params["password"], nickname=params["nickname"], phone=params["phone"]),
         display="html",
-        # substitution_vars=substitution_vars,
-        # template_invoke_name=template_invoke_name,
-        # xsmtpapi=xsmtpapi,
         tag="new_user",
     )
     f_app.user.login.success(user_id)
