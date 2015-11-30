@@ -142,6 +142,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
                 self.navigationController?.view.addSubview(self.searchBarBackground!)
                 self.navigationController?.view.addSubview(searchBar)
+//                self.tableView.tableHeaderView = searchBar
                 self.navigationController?.setNavigationBarHidden(true, animated: false)
                 self.searchController?.setActive(true, animated: true)
                 self.searchController?.searchBar.becomeFirstResponder()
@@ -315,6 +316,11 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         }
     }
 
+
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        print("\(scrollView.contentOffset.y)")
+    }
+
     func hideSearchBar() {
         self.searchController?.setActive(false, animated: true)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -341,10 +347,20 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         SVProgressHUD.show()
         CUTEGeoManager.sharedInstance.searchSurroundingsWithName(searchBar.text, latitude: nil, longitude: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex).continueWithBlock { (task:BFTask!) -> AnyObject! in
-            self.searchResultSurroundings = task.result as! [CUTESurrounding]
-            self.searchController?.searchResultsTableView.reloadData()
-//            self.searchController?.searchResultsTableView.contentSize = CGSizeMake(CGRectGetWidth(self.searchController!.searchResultsTableView.bounds), CGFloat(self.searchResultSurroundings.count) * 65.0)
-            SVProgressHUD.dismiss()
+            if task.error != nil {
+                SVProgressHUD.showErrorWithError(task.error)
+            }
+            else if task.cancelled {
+                SVProgressHUD.showErrorWithCancellation()
+            }
+            else if task.exception != nil {
+                SVProgressHUD.showErrorWithException(task.exception)
+            }
+            else if let surroundings = task.result as? [CUTESurrounding] {
+                self.searchResultSurroundings = surroundings
+                self.searchController?.searchResultsTableView.reloadData()
+                SVProgressHUD.dismiss()
+            }
             return task
         }
     }
