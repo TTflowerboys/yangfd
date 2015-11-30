@@ -70,7 +70,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                 label.font = UIFont.systemFontOfSize(16)
                 label.text = STR("SurroundingList/点击右上角“+”，添加周边的学校和地铁")
                 super.tableView.backgroundView?.addSubview(label)
-                label.frame = CGRectMake(0, label.superview!.bounds.size.height - 135, label.superview!.bounds.size.width, 40)
+                label.frame = CGRectMake(0, (self.view.frame.size.height - 40) / 2, label.superview!.bounds.size.width, 40)
                 self.hintLabel = label
             }
         }
