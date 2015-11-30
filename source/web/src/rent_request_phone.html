@@ -1,0 +1,30 @@
+<!--@@master = ./masters/master.html-->
+
+<!--@@block = head-->
+<!--build:css(dist) /static/styles/rent-request-phone.html.css-->
+<link rel="stylesheet" href="/static/styles/rentRequestPhone.css"/>
+<!--endbuild-->
+<!--@@close-->
+
+<!--@@block = main-->
+
+<!--出租申请单-->
+<!--@@include partials/rent_request_phone.html -->
+<rent-request></rent-request>
+
+<!--@@close-->
+
+<!--@@block = scripts -->
+<!--build:js /static/scripts/property-to-rent.html.js-->
+<script src="/static/bower_components/knockout/dist/knockout.js"></script>
+<script src="/static/vendors/jquery-upload-file/jquery-upload-file.js"></script>
+<script src="/static/scripts/common_ko.js"></script>
+<script src="/static/scripts/rent_request.js"></script>
+<!--endbuild-->
+<script>
+    ko.applyBindings()
+    $('body').on('rentRequestReady', function () {
+        window.openRentRequestForm(window.team.getQuery('ticketId'), false)
+    })
+</script>
+<!--@@close -->

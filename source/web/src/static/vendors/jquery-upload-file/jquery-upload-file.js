@@ -604,6 +604,7 @@
                             removeExistingFileName(obj, fileArray);
                             xhr.abort();
                             obj.selectedFiles -= fileArray.length; //reduce selected File count
+                            s.abortCallback && s.abortCallback.call(this)
                         });
                     }
                     if(!feature.formdata) //For iframe based push

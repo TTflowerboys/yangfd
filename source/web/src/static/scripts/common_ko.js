@@ -3,7 +3,7 @@
     ko.bindingHandlers.chosen = {
         init: function(element)  {
             ko.bindingHandlers.options.init.call(this, element)
-            $(element)[window.team.isPhone() ? 'chosenPhone' : 'chosen']({disable_search_threshold: 10, inherit_select_classes: true, disable_search: true, width: $(element).outerWidth() + 'px'})
+            $(element)[window.team.isPhone() ? 'chosenPhone' : 'chosen']({disable_search_threshold: 10, inherit_select_classes: true, disable_search: true, width: $(element).css('width')})
         },
         update: function(element, valueAccessor, allBindings) {
             ko.bindingHandlers.options.update.call(this, element, valueAccessor, allBindings)
@@ -38,4 +38,23 @@
         },
         template: '<div data-bind="foreach: list"><span class="property_type" data-bind="text: value, click: $parent.choose.bind($root), css: {selected: id === $root[$parent.key]()}"></span></div>'
     })
+
+    ko.bindingHandlers.dateRangePicker = {
+        init: function(element, valueAccessor)  {
+            $(element).find('input').dateRangePicker({
+                autoClose: true,
+                singleDate: true,
+                showShortcuts: false,
+                lookBehind: false,
+                getValue: function() {
+                    return valueAccessor()() ? valueAccessor()() : ''
+                }
+            })
+                .bind('datepicker-change', function (event, obj) {
+                    valueAccessor()($.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
+                    $(event.target).trigger('change')
+                })
+                .dateRangePickerCustom($(element).find('input'))
+        }
+    }
 })(window.ko, window.currantModule = window.currantModule || {})

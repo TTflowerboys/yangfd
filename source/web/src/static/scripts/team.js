@@ -512,7 +512,13 @@
                         })
                 }
             }
-        }
+        },
+        /*生成一个指定长度的从1开始递增的自然数数组*/
+        generateArray: function (length) {
+            return _.map(new Array(length + 1).join('0').split(''), function (val, index) {
+                return index + 1
+            })
+        },
     }
 })
 ();

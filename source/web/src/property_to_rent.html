@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/static/bower_components/photoswipe/dist/photoswipe.css"/>
 <link rel="stylesheet" href="/static/bower_components/jquery.stickynavbar/animate.min.css"/>
 <link rel="stylesheet" href="/static/vendors/iOSList/jquery.ioslist.css"/>
+<link rel="stylesheet" href="/static/styles/rentRequest.css"/>
 <link rel="stylesheet" href="/static/styles/rentDetails.css"/>
 <link rel="stylesheet" href="/static/styles/project/tabbar.css"/>
 <link rel="stylesheet" href="/static/styles/bingMap.css"/>
@@ -615,6 +616,10 @@
     </div>
 </div>
 
+<!--出租申请单-->
+<!--@@include partials/rent_request.html -->
+<rent-request></rent-request>
+
 <ul class="floatBar_phone">
     <li class="phone">
         %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
@@ -711,6 +716,8 @@
         <script src="/static/scripts/host_contact_request.js"></script>
         <script src="/static/scripts/property_to_rent_actions.js"></script>
         <script src="/static/scripts/common_ko.js"></script>
+        <script src="/static/vendors/jquery-upload-file/jquery-upload-file.js"></script>
+        <script src="/static/scripts/rent_request.js"></script>
         <script src="/static/scripts/property_to_rent_ko.js"></script>
         <!--endbuild-->
         <script>

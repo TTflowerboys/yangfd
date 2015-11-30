@@ -161,6 +161,26 @@
                         })
                 }
             }, this))
+        },
+        showRecaptcha: function (containerId) {
+            if($('#' + containerId).find('a img').length){
+                $('#' + containerId).find('a img').hide()
+            }
+            $.betterPost('/api/1/captcha/generate', {})
+                .done(function (data) {
+                    if (data) {
+                        var $data = $('<div></div>')
+                        $data.append(data)
+                        $('#' + containerId).empty()
+                        $data.find('[name=solution]').attr('placeholder', window.i18n('验证码'))
+                        $('#' + containerId).append($data.html())
+                    }
+                })
+                .fail(function (ret) {
+                })
+                .always(function () {
+
+                })
         }
     }
 })();

@@ -6,29 +6,10 @@ $(function () {
         $('form[name=register]').find('input[name=invitation_code]').val(invitationCode)
     }
 
-    function showRecaptcha(containerId) {
-        if($('#' + containerId).find('a img').length){
-            $('#' + containerId).find('a img').hide()
-        }
-        $.betterPost('/api/1/captcha/generate', {})
-            .done(function (data) {
-                if (data) {
-                    $('#' + containerId).empty()
-                    $('#' + containerId).append(data)
-                }
-            })
-            .fail(function (ret) {
-            })
-            .always(function () {
-
-            })
-
-    }
-
-    showRecaptcha('captcha_div')
+    window.project.showRecaptcha('captcha_div')
 
     window.refreshCaptcha = function () {
-        showRecaptcha('captcha_div')
+        window.project.showRecaptcha('captcha_div')
     }
 
     var errorArea = $('form[name=register]').find('.errorMessage')
@@ -82,7 +63,7 @@ $(function () {
                 //refresh it for may user submit fail, or submit again with another account
 
                 ga('send', 'event', 'signup', 'result', 'signup-failed',window.getErrorMessageFromErrorCode(ret))
-                showRecaptcha('captcha_div')
+                window.project.showRecaptcha('captcha_div')
             }).always(function () {
             })
     })

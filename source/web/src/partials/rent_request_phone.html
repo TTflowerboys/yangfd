@@ -1,0 +1,162 @@
+<template id='rent-request-tpl'>
+    <div id="rent_request_popup" class="rentRequestContainer" data-bind="visible: visible">
+        <div class="requirement_popup_shadow" data-bind="click: close"></div>
+        <div class="requirement_wrapper">
+            <div class="requirement">
+                <div class="formWrap" data-bind="css: 'inStep' + step(), visible: formWrapVisible">
+                    <div class="stepWrap ">
+                        <div class="step step1">
+                            <i>1</i><p class="info">{{_('求租申请')}}</p>
+                        </div>
+                        <div class="step step2">
+                            <i>2</i><p class="info">{{_('个人信息')}}</p>
+                        </div>
+                    </div>
+                    <form class="requirement_rent_form">
+                        <div class="step1" data-bind="visible: step() === 1">
+                            <div class="leftWrap">
+                                <div class="row">
+                                    <div class="col rentPeriod">
+                                        <p class="inputPlaceholder">{{_('租期开始日期')}}</p>
+                                        <div class="date inputWrapper">
+                                            <input data-bind="value: rentAvailableTimeFormated" type="date" dir="rtl" class="rentAvailableTime" placeholder="{{_('选择起租日期')}}" autocomplete="off"/>
+                                        </div>
+
+                                    </div>
+                                    <div class="col rentPeriod">
+                                        <p class="inputPlaceholder">{{_('租期结束日期')}}</p>
+                                        <div class="date inputWrapper">
+                                            <input data-bind="value: rentDeadlineTimeFormated" type="date" dir="rtl" class="rentDeadlineTime" placeholder="{{_('选择结束日期')}}" autocomplete="off"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row tenantCount">
+                                    <p class="inputPlaceholder">{{_('入住人数')}}</p>
+                                    <select data-bind="chosen: tenantCountList,
+                                            optionsText: function(item){return item + window.i18n('人入住')},
+                                            value: tenantCount
+                                        "></select>
+                                </div>
+                                <div class="wrap">
+                                    <template id="whetherRadio">
+                                        <div class="radioWrap">
+                                            <input type="radio" data-bind="checked: value, attr: {id: key()+'1', name: key}, checkedValue: true"/><label data-bind="attr: {for: key()+'1'}">{{_('是')}}</label>
+                                        </div><!--
+                                        --><div class="radioWrap">
+                                            <input type="radio" data-bind="checked: value, attr: {id: key()+'0', name: key}, checkedValue: false"/><label data-bind="attr: {for: key()+'0'}">{{_('否')}}</label>
+                                        </div>
+                                    </template>
+                                    <div class="row">
+                                        <span class="title">{{_('是否吸烟')}}</span><!--
+                                        --><whether-radio params="vm: $data, key: 'smoke'"></whether-radio>
+                                    </div>
+                                    <div class="row">
+                                        <span class="title">{{_('是否会带小孩一同入住')}}</span><!--
+                                        --><whether-radio params="vm: $data, key: 'baby'"></whether-radio>
+                                    </div>
+                                    <div class="row">
+                                        <span class="title">{{_('是否携宠物入住')}}</span><!--
+                                        --><whether-radio params="vm: $data, key: 'pet'"></whether-radio>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <textarea rows="3" data-bind="value: description" placeholder="{{_('写下您入住的原因和对房东的问题')}}"></textarea>
+                                </div>
+                            </div>
+                            <div class="rightWrap">
+                                <div class="row">
+                                    <div class="image_panel" data-bind="visible: !uploadProgressVisible()">
+                                        <div id="fileuploader" class="upload_image">
+                                            <p>{{_('上传护照及签证照片（可选）')}}</p>
+                                        </div>
+                                    </div>
+                                    <div id="uploadProgress" class="clearfix" data-bind="visible: uploadProgressVisible"></div>
+                                    <p class="hint">{{_('上传VISA可以提升房东对您的信任度')}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="step2" data-bind="visible: step() === 2">
+                            <div class="row">
+                                <input class="name" type="text" data-bind="value: nickname, attr: {readonly: !!user()}" placeholder="{{_('姓名')}}">
+                            </div>
+                            <div class="row">
+                                <p class="inputPlaceholder">{{_('性别')}}</p>
+                                <select class="gender" data-bind="chosen: genderList,
+                                    optionsText: 'text',
+                                    value: genderObj,
+                                    optionsCaption: '{{_('请选择性别')}}'">
+                                </select>
+                            </div>
+                            <div class="row">
+                                <p class="inputPlaceholder">{{_('职业')}}</p>
+                                <select class="occupation" data-bind="chosen: occupationList,
+                                    optionsText: 'value',
+                                    value: occupationObj,
+                                    optionsCaption: '{{_('请选择职业')}}'">
+                                </select>
+                            </div>
+                            <div class="row">
+                                <p class="inputPlaceholder">{{_('生日')}}</p>
+                                <div class="date inputWrapper">
+                                    <input data-bind="value: birthDay" type="date" dir="rtl" class="rentDeadlineTime" placeholder="{{_('')}}" autocomplete="off"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <input class="email" type="text" data-bind="value: email, attr: {readonly: !!user()}" placeholder="{{_('邮箱')}}"/>
+                            </div>
+                            <div class="row">
+                                <textarea id="countryData" style="display: none;">
+                                    {{json_dumps(country_list)}}
+                                </textarea>
+                                <div class="col">
+                                    <p class="inputPlaceholder">{{_('电话区号')}}</p>
+                                    <select class="countryCode" data-bind="chosen: countryCodeList,
+                                        optionsText: function(item){return item.name + '(+' + item.countryCode + ')'},
+                                        value: country">
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <input class="phone" type="text" data-bind="value: phone, attr: {readonly: !!user()}" placeholder="{{_('电话号码')}}">
+                                </div>
+
+                            </div>
+                            <div class="row" data-bind="visible: !user()">
+                                <p class="title"></p>
+                                <div id="captcha_div" class="captchaCode"></div>
+                            </div>
+                            <div class="row" data-bind="visible: !user()">
+                                <button class="registerUser button red ajaxButton" data-bind="click: registerUser, disable: registerUserDisabled">{{_('获取短信验证码')}}</button>
+                            </div>
+                            <div class="row" data-bind="visible: !phoneVerified() && user()">
+                                <p class="title"></p>
+                                <input type="text" class="smsCode" data-bind="value: smsCode" placeholder="{{_('短信验证码')}}"/>
+                            </div>
+                            <div class="row" data-bind="visible: !phoneVerified() && user()">
+                                <button class="getSmsCode button red ajaxButton" data-bind="click: getSmsCode, text: getSmsCodeText, disable: getSmsCodeDisabled"></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="actionWrap" data-bind="css: 'step' + step()">
+                        <div class="requirementRentFormError" data-bind="html: errorMsg, visible: errorMsg"></div>
+                        <p class="terms" data-bind="visible: step() === 2">{{_('提交后您将成为洋房东会员')}}<a href="/terms">{{_('查阅Terms of Service')}}</a></p>
+                        <div data-bind="visible: step() === 1">
+                            <button class="actionButton ghostButton red" data-bind="click: goNext">{{_('下一步')}}</button>
+                        </div>
+                        <div data-bind="visible: step() === 2">
+                            <button class="actionButton ghostButton red" data-bind="click: goPrev">{{_('上一步')}}</button>
+                            <button class="actionButton button red ajaxButton" data-bind="click: submit, disable: !user() ? true : submitDisabled()">{{_('提交')}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="successWrap" data-bind="visible: successWrapVisible">
+                    <h2 data-show="normal">{{_('提交成功')}}</h2>
+                    <p data-show="delegateRent">{{_('提交成功，我们会在24小时内与您联系')}}</p>
+                </div>
+            </div>
+            <button name="cancel" class="cancel" data-bind="click: close"><i class="icon-delete"></i></button>
+        </div>
+    </div>
+</template>
+

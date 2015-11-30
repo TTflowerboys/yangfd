@@ -25,6 +25,13 @@ def requirement_rent():
     return currant_util.common_template("requirement_rent_phone", title=title)
 
 
+@f_get('/rent-request')
+@currant_util.check_ip_and_redirect_domain
+def requirement_rent():
+    title = _('提交求租申请')
+    return currant_util.common_template("rent_request_phone", title=title)
+
+
 @f_get('/delegate-rent')
 @currant_util.check_ip_and_redirect_domain
 def delegate_rent():
