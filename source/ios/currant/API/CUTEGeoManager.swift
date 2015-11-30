@@ -427,7 +427,12 @@ class CUTEGeoManager: NSObject {
 
             CUTEAPIManager.sharedInstance().POST("/api/1/main_mixed_index/search", parameters: parameters, resultClass: CUTESurrounding.self, cancellationToken: nil).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                 let result = task.result
-                completion(result)
+                if result == nil || result.count == 0 {
+                    tcs.setResult([])
+                }
+                else {
+                    completion(result)
+                }
                 return task
             })
 
