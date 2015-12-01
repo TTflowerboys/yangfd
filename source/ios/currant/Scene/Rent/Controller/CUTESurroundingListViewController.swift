@@ -85,7 +85,7 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
         if !NSUserDefaults.standardUserDefaults().boolForKey(userDefaultKey)
         {
 
-            let toolTips = CUTETooltipView(targetPoint: CGPointMake(self.view.frame.size.width - 23, 54), hostView: self.navigationController?.view, tooltipText: STR("SurroundingList/点此搜索添加学校或地铁"), arrowDirection: JDFTooltipViewArrowDirection.Up, width: 200)
+            let toolTips = CUTETooltipView(targetPoint: CGPointMake(self.view.frame.size.width - 25, 54), hostView: self.navigationController?.view, tooltipText: STR("SurroundingList/点此搜索添加学校或地铁"), arrowDirection: JDFTooltipViewArrowDirection.Up, width: 200)
             toolTips.show()
 
             do {
@@ -117,8 +117,11 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
             nav.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
             self.navigationController?.presentViewController(nav, animated: true, completion: nil)
         })
+    }
 
-        checkShowSurroundingAddTooltip()
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.checkShowSurroundingAddTooltip()
     }
 
     override func didReceiveMemoryWarning() {
