@@ -246,9 +246,9 @@ def wechat_poster(rent_ticket_id):
 
     if rent_ticket['status'] not in ['to rent', 'rent'] and rent_ticket.get('creator_user'):
         if not user:
-            redirect('/401')
+            abort(401)
         elif user['id'] not in (rent_ticket.get('user', {}).get('id'), rent_ticket.get('creator_user', {}).get('id')) and not (set(user['role']) & set(['admin', 'jr_admin', 'support'])):
-            redirect('/403')
+            abort(403)
 
     return currant_util.common_template("wechat_poster", rent=rent_ticket, title=title, description=description, keywords=keywords, weixin=weixin, report=report)
 
@@ -272,11 +272,11 @@ def error401_redirect(error, user):
     return html_redirect("/signin?error_code=40100&from=" + urllib.parse.quote(request.url))
 
 
-@f_get('/401')
-@error(401)
-def error_401(error=None):
-    title = _('没有访问该页面的权限')
-    return currant_util.common_template("401", title=title)
+# @f_get('/401')
+# @error(401)
+# def error_401(error=None):
+#     title = _('没有访问该页面的权限')
+#     return currant_util.common_template("401", title=title)
 
 
 @f_get('/403')

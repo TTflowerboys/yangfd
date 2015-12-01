@@ -49,7 +49,7 @@ def crowdfunding_pdfviewer(user, crowdfunding_id, params):
             link = params["link"].encode('utf-8')
             return currant_util.common_template("pdf_viewer", link=link, title=title)
 
-    return redirect('/404')
+    return abort(404)
 
 
 @f_get('/crowdfunding_list', '/crowdfunding-list', params=dict(

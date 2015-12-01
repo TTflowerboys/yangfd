@@ -85,9 +85,9 @@ def rent_ticket_get(rent_ticket_id, user):
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_ticket_id], fuzzy_user_info=True)[0])
     if rent_ticket['status'] not in ['to rent', 'rent'] and rent_ticket.get('creator_user'):
         if not user:
-            redirect('/401')
+            abort(401)
         elif user['id'] not in (rent_ticket.get('user', {}).get('id'), rent_ticket.get('creator_user', {}).get('id')) and not (set(user['role']) & set(['admin', 'jr_admin', 'support'])):
-            redirect('/403')
+            abort(403)
 
     if rent_ticket["status"] not in ["draft", "to rent", "rent"]:
         assert user and set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]), abort(40300, "No access to specify status or target_rent_ticket_id")

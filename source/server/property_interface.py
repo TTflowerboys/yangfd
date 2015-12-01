@@ -131,7 +131,7 @@ def pdfviewer(user, property_id, params):
             link = params["link"].encode('utf-8')
             return currant_util.common_template("pdf_viewer", link=link, title=title)
 
-    return redirect('/404')
+    return abort(404)
 
 
 @f_get('/property-wechat-poster/<property_id:re:[0-9a-fA-F]{24}>')
