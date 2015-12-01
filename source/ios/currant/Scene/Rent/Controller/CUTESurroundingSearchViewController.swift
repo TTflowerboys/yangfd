@@ -155,6 +155,7 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
             }).count == 0 {
 
                 self.searchBar.resignFirstResponder()
+
                 self.navigationController?.dismissViewControllerAnimated(true, completion: { () -> Void in
                     if let delegate = self.delegate {
                         delegate.searchAddSurrounding(surrounding)
@@ -182,7 +183,7 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
         }
         SVProgressHUD.show()
         self.searchCancellationTokenSource = BFCancellationTokenSource()
-        CUTEGeoManager.sharedInstance.searchSurroundingsWithName(searchBar.text, latitude: nil, longitude: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex, cancellationToken:self.searchCancellationTokenSource!.token).continueWithBlock { (task:BFTask!) -> AnyObject! in
+        CUTEGeoManager.sharedInstance.searchSurroundingsMainInfoWithName(searchBar.text, latitude: nil, longitude: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex, cancellationToken:self.searchCancellationTokenSource!.token).continueWithBlock { (task:BFTask!) -> AnyObject! in
             if task.error != nil {
                 SVProgressHUD.showErrorWithError(task.error)
             }

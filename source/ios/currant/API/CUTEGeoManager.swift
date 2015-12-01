@@ -407,10 +407,87 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
-    func searchSurroundingsWithName(name:String?, latitude:NSNumber?, longitude:NSNumber?, city:CUTECity?, country:CUTECountry?, propertyPostcodeIndex:String!, cancellationToken:BFCancellationToken?) -> BFTask {
+    func searchSurroundingsTrafficInfoWithProperty(propertyPostcodeIndex:String!, surroundings:[CUTESurrounding]!, cancellationToken:BFCancellationToken?) -> BFTask {
+
+        let tcs = BFTaskCompletionSource()
+
+        CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_traffic_type", cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+            if task.cancelled {
+                if !tcs.task.completed {
+                    tcs.cancel()
+                }
+            }
+            else if let enums = task.result as? [CUTEEnum] {
+                let trafficEnums = enums.sort({ (e1:CUTEEnum, e2:CUTEEnum) -> Bool in
+                    return e1.sortValue < e2.sortValue
+                })
+
+                if surroundings.count > 0 {
+
+                    var destinations = [String]()
+
+                    //TODO check here has performance issues for like hundred of results
+                    for surrrounding in surroundings {
+                        if let address = surrrounding.address {
+                            destinations.append(address)
+                        }
+                    }
+
+                    var requestTaskArray = [BFTask!]()
+                    for type in trafficEnums {
+                        requestTaskArray.append(self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode: type.slug, cancellationToken: cancellationToken))
+                    }
+
+                    //default walking as the first mode
+                    BFTask(forCompletionOfAllTasksWithResults: requestTaskArray).continueWithBlock { (task:BFTask!) -> AnyObject! in
+                        if task.cancelled {
+                            if !tcs.task.completed {
+                                tcs.cancel()
+                            }
+                        }
+                        else if let taskArray = task.result as? [[[CUTETrafficTime]]] {
+                            if taskArray.count == requestTaskArray.count {
+
+                                for timeMatix in taskArray {
+                                    let timeArray = timeMatix[0]
+                                    if timeArray.count == surroundings.count {
+
+                                        for index in Range(start: 0, end: surroundings.count) {
+                                            let surrouding = surroundings[index]
+                                            if surrouding.trafficTimes != nil && surrouding.trafficTimes.count > 0 {
+                                                var array = surrouding.trafficTimes
+                                                array.append(timeArray[index])
+                                                surrouding.trafficTimes = array
+                                            }
+                                            else {
+                                                var array = [CUTETrafficTime]()
+                                                array.append(timeArray[index])
+                                                surrouding.trafficTimes = array
+                                            }
+                                        }
+                                    }
+                                }
+
+                                tcs.setResult(surroundings)
+                            }
+                        }
+                        return task;
+                    }
+                }
+                else {
+                    tcs.setResult(surroundings)
+                }
+
+            }
+            return task
+        })
+
+        return tcs.task
+    }
+
+    func searchSurroundingsMainInfoWithName(name:String?, latitude:NSNumber?, longitude:NSNumber?, city:CUTECity?, country:CUTECountry?, propertyPostcodeIndex:String!, cancellationToken:BFCancellationToken?) -> BFTask {
         let tcs = BFTaskCompletionSource()
         let sequencer = SwiftSequencer()
-
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)) -> Void in
             CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: cancellationToken).continueWithBlock({ (
@@ -456,7 +533,7 @@ class CUTEGeoManager: NSObject {
                     }
                 }
                 else if let result = task.result as? [CUTESurrounding] {
-                    completion(result)
+                    tcs.setResult(result)
                 }
                 else {
                     tcs.setResult([])
@@ -465,82 +542,48 @@ class CUTEGeoManager: NSObject {
             })
 
         }
+        
+        sequencer.run()
+        
+        return tcs.task
+    }
 
-        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
-            ) -> Void in
+    func searchSurroundingsWithName(name:String?, latitude:NSNumber?, longitude:NSNumber?, city:CUTECity?, country:CUTECountry?, propertyPostcodeIndex:String!, cancellationToken:BFCancellationToken?) -> BFTask {
+        let tcs = BFTaskCompletionSource()
+        let sequencer = SwiftSequencer()
 
-            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_traffic_type", cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)) -> Void in
+            self.searchSurroundingsMainInfoWithName(name, latitude: latitude, longitude: longitude, city: city, country: country, propertyPostcodeIndex: propertyPostcodeIndex, cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                 if task.cancelled {
                     if !tcs.task.completed {
                         tcs.cancel()
                     }
                 }
-                else if let enums = task.result as? [CUTEEnum] {
-                    let trafficEnums = enums.sort({ (e1:CUTEEnum, e2:CUTEEnum) -> Bool in
-                        return e1.sortValue < e2.sortValue
-                    })
+                else if let result = task.result as? [CUTESurrounding] {
+                    completion(result)
+                }
+                else {
+                    tcs.setResult([])
+                }
+                return task
+            })
+        }
 
-                    if let surroudings:[CUTESurrounding] = result as? [CUTESurrounding] {
-                        if surroudings.count > 0 {
+        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
+            ) -> Void in
 
-                            var destinations = [String]()
-
-                            //TODO check here has performance issues for like hundred of results
-                            for surrrounding in surroudings {
-                                if let address = surrrounding.address {
-                                    destinations.append(address)
-                                }
-                            }
-
-                            var requestTaskArray = [BFTask!]()
-                            for type in trafficEnums {
-                                requestTaskArray.append(self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode: type.slug, cancellationToken: cancellationToken))
-                            }
-
-                            //default walking as the first mode
-                            BFTask(forCompletionOfAllTasksWithResults: requestTaskArray).continueWithBlock { (task:BFTask!) -> AnyObject! in
-                                if task.cancelled {
-                                    if !tcs.task.completed {
-                                        tcs.cancel()
-                                    }
-                                }
-                                else if let taskArray = task.result as? [[[CUTETrafficTime]]] {
-                                    if taskArray.count == requestTaskArray.count {
-
-                                        for timeMatix in taskArray {
-                                            let timeArray = timeMatix[0]
-                                            if timeArray.count == surroudings.count {
-
-                                                for index in Range(start: 0, end: surroudings.count) {
-                                                    let surrouding = surroudings[index]
-                                                    if surrouding.trafficTimes != nil && surrouding.trafficTimes.count > 0 {
-                                                        var array = surrouding.trafficTimes
-                                                        array.append(timeArray[index])
-                                                        surrouding.trafficTimes = array
-                                                    }
-                                                    else {
-                                                        var array = [CUTETrafficTime]()
-                                                        array.append(timeArray[index])
-                                                        surrouding.trafficTimes = array
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        
-                                        tcs.setResult(surroudings)
-                                    }
-                                }
-                                return task;
-                            }
-                        }
-                        else {
-                            tcs.setResult(surroudings)
-                        }
+            let surroundings = result as! [CUTESurrounding]
+            self.searchSurroundingsTrafficInfoWithProperty(propertyPostcodeIndex, surroundings: surroundings, cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                if task.cancelled {
+                    if !tcs.task.completed {
+                        tcs.cancel()
                     }
-                    else {
-                        tcs.setResult([])
-                    }
-
+                }
+                else if let result = task.result as? [CUTESurrounding] {
+                    completion(result)
+                }
+                else {
+                    tcs.setResult([])
                 }
                 return task
             })
