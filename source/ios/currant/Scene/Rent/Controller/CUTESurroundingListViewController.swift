@@ -10,21 +10,13 @@ import UIKit
 
 
 @objc(CUTESurroundingListViewController)
-class CUTESurroundingListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,  UISearchBarDelegate, UISearchDisplayDelegate {
+class CUTESurroundingListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,  UISearchBarDelegate, UISearchDisplayDelegate, CUTESurroundingSearchDelegate {
 
     private var form:CUTESurroundingForm
-    private var searchResultSurroundings:[CUTESurrounding] = []
     var postcodeIndex:String?
 
     weak var tableView:UITableView!
-    private var searchController:UISearchDisplayController?
-    private var searchBarBackground:UIView?
     private var hintLabel:UILabel?
-
-    // 实现隐藏“No Results” label 用的flag
-    //http://stackoverflow.com/questions/11639257/how-do-i-cover-the-no-results-text-in-uisearchdisplaycontrollers-searchresult
-    //http://stackoverflow.com/questions/22888016/uisearchdisplaycontroller-configure-no-results-view-not-to-overlap-tablefooter
-    private var noSearchResult:Bool = true
 
 
     init(form:CUTESurroundingForm) {
@@ -119,43 +111,11 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
     func showBarButtonItems() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, block: { (sender) -> Void in
 
-            if self.view.window != nil {
-                let searchBar = UISearchBar(frame: CGRectMake(0, 20, self.view.frame.size.width, 44))
-                searchBar.backgroundImage = UIImage()
-                searchBar.tintColor = UIColor(hex6: 0xdd3f3d)
-                searchBar.barTintColor = UIColor.clearColor()
-                searchBar.backgroundColor = UIColor.clearColor()
-                searchBar.delegate = self
-                searchBar.placeholder = STR("SurroundingList/输入关键字搜索学校, 地铁...")
-                self.searchController = UISearchDisplayController(searchBar: searchBar, contentsController: self)
-                self.searchController?.delegate = self
-                self.searchController?.searchResultsDelegate = self
-                self.searchController?.searchResultsDataSource = self
-                self.navigationController?.view.addSubview(self.searchController!.searchBar)
-                self.searchController?.searchContentsController.extendedLayoutIncludesOpaqueBars = true
-                self.searchController?.searchResultsTableView.contentInset = UIEdgeInsetsMake(searchBar.frame.size.height, 0, 0, 0);
-                self.searchController?.searchResultsTableView.removeMargins()
-
-
-                self.searchBarBackground = UIView(frame:CGRectMake(0, 0, self.view.frame.size.width, 64))
-                self.searchBarBackground?.backgroundColor = UIColor(hex6: 0x333333)
-
-                //Notice，模仿 UINavigationBar 加了两个辅助的view 实现背景色，
-                let blurView = UIView(frame:self.searchBarBackground!.bounds)
-                blurView.backgroundColor = UIColor(hex8:0xF7F7F780)
-                let frontGroundView = UIView(frame: self.searchBarBackground!.frame)
-                frontGroundView.backgroundColor = UIColor(hex6: 0x333333)
-                frontGroundView.alpha = 0.85
-                self.searchBarBackground?.addSubview(blurView)
-                self.searchBarBackground?.addSubview(frontGroundView)
-
-                self.navigationController?.view.addSubview(self.searchBarBackground!)
-                self.navigationController?.view.addSubview(searchBar)
-//                self.tableView.tableHeaderView = searchBar
-                self.navigationController?.setNavigationBarHidden(true, animated: false)
-                self.searchController?.setActive(true, animated: true)
-                self.searchController?.searchBar.becomeFirstResponder()
-            }
+            let searchController = CUTESurroundingSearchViewController(form: self.form, postcodeIndex: self.postcodeIndex!)
+            searchController.delegate = self
+            let nav = UINavigationController(rootViewController: searchController)
+            nav.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+            self.navigationController?.presentViewController(nav, animated: true, completion: nil)
         })
 
         checkShowSurroundingAddTooltip()
@@ -174,227 +134,75 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        if self.searchController != nil {
-            if self.searchController?.searchResultsTableView == tableView {
-                if self.searchResultSurroundings.count == 0 {
-                    noSearchResult = true
-                    return 1
-                }
-                else {
-                    noSearchResult = false
-                    return self.searchResultSurroundings.count
-                }
-            }
-            else {
-                //TODO Strange searchController 
-                return 0
-            }
-        }
-        else {
-
-            return (form.ticket.property.surroundings as! [CUTESurrounding]).count
-        }
+        return (form.ticket.property.surroundings as! [CUTESurrounding]).count
     }
 
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.searchController != nil {
-            if self.searchController?.searchResultsTableView == tableView {
 
-                if noSearchResult == true {
-                    var cell = tableView.dequeueReusableCellWithIdentifier("cleanCell")
-                    if cell == nil {
-                        cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
-                        cell?.textLabel?.font = UIFont.systemFontOfSize(15)
-                        cell?.textLabel?.textColor = UIColor(hex6: 0x666666)
-                        cell?.removeMargins()
-                    }
-                    return cell!
-                }
-                else {
-                    var cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
-                    if cell == nil {
-                        cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "reuseIdentifier")
-                        cell?.textLabel?.font = UIFont.systemFontOfSize(15)
-                        cell?.textLabel?.textColor = UIColor(hex6: 0x666666)
-                        cell?.removeMargins()
-                    }
-                    let surrounding = self.searchResultSurroundings[indexPath.row]
-                    let imageView = UIImageView()
-                    imageView.frame = CGRectMake(0, 0, 20, 20)
-                    imageView.contentMode = UIViewContentMode.Center
-                    imageView.setImageWithURL(NSURL(string: surrounding.type.image)!)
 
-                    cell?.accessoryView = imageView
-                    cell?.textLabel?.numberOfLines = 2
-                    cell?.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
-                    cell?.textLabel?.text = surrounding.name
-                    return cell!
-                }
-            }
-            else {
-                let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "madCell")
-                cell.textLabel?.font = UIFont.systemFontOfSize(15)
-                cell.textLabel?.textColor = UIColor(hex6: 0x666666)
-                cell.removeMargins()
-                return cell
-            }
+        let cell = tableView.dequeueReusableCellWithIdentifier("surroundingReuseIdentifier")
+
+        var surroundingCell:CUTESurroundingCell
+
+        if cell is CUTESurroundingCell {
+            surroundingCell = cell as! CUTESurroundingCell
         }
         else {
-
-            let cell = tableView.dequeueReusableCellWithIdentifier("surroundingReuseIdentifier")
-
-            var surroundingCell:CUTESurroundingCell
-
-            if cell is CUTESurroundingCell {
-                surroundingCell = cell as! CUTESurroundingCell
-            }
-            else {
-                surroundingCell = CUTESurroundingCell(style: UITableViewCellStyle.Default, reuseIdentifier: "surroundingReuseIdentifier")
-                surroundingCell.typeButton.addTarget(self, action: "onTypeButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-                surroundingCell.durationButton.addTarget(self, action: "onDurationButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-                surroundingCell.removeButton.addTarget(self, action: "onRemoveButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-                surroundingCell.removeButton.hitTestEdgeInsets = UIEdgeInsetsMake(-10, -10, -10, -10)
-            }
-            let surroundings = form.ticket.property.surroundings as! [CUTESurrounding]
-            let surrounding = surroundings[indexPath.row]
-            surroundingCell.nameLabel.text = surrounding.name
-            surroundingCell.typeImageView.setImageWithURL(NSURL(string: surrounding.type.image)!)
-            surroundingCell.typeButton.tag = indexPath.row
-            surroundingCell.durationButton.tag = indexPath.row
-            surroundingCell.removeButton.tag = indexPath.row
-
-
-            var trafficTime = surrounding.trafficTimes?.filter({ (time:CUTETrafficTime) -> Bool in
-                return time.isDefault
-            }).first
-
-            if trafficTime == nil {
-                trafficTime = surrounding.trafficTimes?[0]
-            }
-
-            if (trafficTime != nil) {
-                if trafficTime!.time != nil {
-                    surroundingCell.typeButton.setTitle(trafficTime!.type!.value, forState: UIControlState.Normal)
-                    surroundingCell.durationButton.setTitle("\(trafficTime!.time!.value) " + (trafficTime!.time!.unitForDisplay)!, forState: UIControlState.Normal)
-                }
-                surroundingCell.setNeedsLayout()
-            }
-            
-            return surroundingCell
+            surroundingCell = CUTESurroundingCell(style: UITableViewCellStyle.Default, reuseIdentifier: "surroundingReuseIdentifier")
+            surroundingCell.typeButton.addTarget(self, action: "onTypeButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            surroundingCell.durationButton.addTarget(self, action: "onDurationButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            surroundingCell.removeButton.addTarget(self, action: "onRemoveButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            surroundingCell.removeButton.hitTestEdgeInsets = UIEdgeInsetsMake(-10, -10, -10, -10)
         }
+        let surroundings = form.ticket.property.surroundings as! [CUTESurrounding]
+        let surrounding = surroundings[indexPath.row]
+        surroundingCell.nameLabel.text = surrounding.name
+        surroundingCell.typeImageView.setImageWithURL(NSURL(string: surrounding.type.image)!)
+        surroundingCell.typeButton.tag = indexPath.row
+        surroundingCell.durationButton.tag = indexPath.row
+        surroundingCell.removeButton.tag = indexPath.row
+
+
+        var trafficTime = surrounding.trafficTimes?.filter({ (time:CUTETrafficTime) -> Bool in
+            return time.isDefault
+        }).first
+
+        if trafficTime == nil {
+            trafficTime = surrounding.trafficTimes?[0]
+        }
+
+        if (trafficTime != nil) {
+            if trafficTime!.time != nil {
+                surroundingCell.typeButton.setTitle(trafficTime!.type!.value, forState: UIControlState.Normal)
+                surroundingCell.durationButton.setTitle("\(trafficTime!.time!.value) " + (trafficTime!.time!.unitForDisplay)!, forState: UIControlState.Normal)
+            }
+            surroundingCell.setNeedsLayout()
+        }
+        return surroundingCell
+
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if self.searchController?.searchResultsTableView == tableView {
-            return 65
-        }
         return 80;
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if self.searchController?.searchResultsTableView == tableView && self.searchResultSurroundings.count > 0{
-            let surrounding = self.searchResultSurroundings[indexPath.row]
-            let surroundings = form.ticket.property.surroundings as! [CUTESurrounding]
-            if  surroundings.filter({ (surr:CUTESurrounding) -> Bool in
-                return surr.identifier == surrounding.identifier
-            }).count == 0 {
-                SVProgressHUD.show()
-                self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                    var array = Array(ticket.property.surroundings as! [CUTESurrounding])
-                    array.insert(surrounding, atIndex: 0)
-                    ticket.property.surroundings = array
-
-                }).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-                    self.searchController?.setActive(false, animated: true)
-                    self.navigationController?.setNavigationBarHidden(false, animated: false)
-                    self.searchController?.searchBar.removeFromSuperview()
-                    self.searchController = nil
-                    self.tableView.reloadData()
-                    self.showHintLabel(self.form.ticket.property.surroundings.count == 0)
-
-                    SVProgressHUD.dismiss()
-                    return task
-                })
-            }
-            else {
-                tableView.deselectRowAtIndexPath(indexPath, animated: true)
-                SVProgressHUD.showErrorWithStatus(STR("SurroundingList/已添加"))
-            }
-        }
-        else {
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        }
     }
 
+    func searchAddSurrounding(surrounding: CUTESurrounding) {
+        SVProgressHUD.show()
+        self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
+            var array = Array(ticket.property.surroundings as! [CUTESurrounding])
+            array.insert(surrounding, atIndex: 0)
+            ticket.property.surroundings = array
 
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        print("\(scrollView.contentOffset.y)")
-    }
-
-    func hideSearchBar() {
-        self.searchController?.setActive(false, animated: true)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-
-        UIView.animateWithDuration(0.4, animations: { () -> Void in
-            self.searchController?.searchBar.alpha = 0
-            self.searchBarBackground?.alpha = 0
-            }, completion: { (stop:Bool) -> Void in
-                self.searchController?.searchBar.removeFromSuperview()
-                self.searchBarBackground?.removeFromSuperview()
-                self.searchController = nil
+        }).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+            self.tableView.reloadData()
+            SVProgressHUD.dismiss()
+            return task
         })
     }
-
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-
-
-    }
-
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        self.hideSearchBar()
-    }
-
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        SVProgressHUD.show()
-        CUTEGeoManager.sharedInstance.searchSurroundingsWithName(searchBar.text, latitude: nil, longitude: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex).continueWithBlock { (task:BFTask!) -> AnyObject! in
-            if task.error != nil {
-                SVProgressHUD.showErrorWithError(task.error)
-            }
-            else if task.cancelled {
-                SVProgressHUD.showErrorWithCancellation()
-            }
-            else if task.exception != nil {
-                SVProgressHUD.showErrorWithException(task.exception)
-            }
-            else if let surroundings = task.result as? [CUTESurrounding] {
-                self.searchResultSurroundings = surroundings
-                self.searchController?.searchResultsTableView.reloadData()
-                SVProgressHUD.dismiss()
-            }
-            return task
-        }
-    }
-
-    func searchDisplayControllerDidBeginSearch(controller: UISearchDisplayController) {
-
-    }
-
-    func searchDisplayControllerDidEndSearch(controller: UISearchDisplayController) {
-
-        if (self.searchController?.searchBar.superview != nil) {
-            self.hideSearchBar()
-        }
-
-    }
-
-    func searchDisplayController(controller: UISearchDisplayController, willShowSearchResultsTableView tableView: UITableView) {
-        //clear the old tableview
-        self.searchResultSurroundings = [] //clear last result
-        tableView.reloadData()
-    }
-
 
     func onTypeButtonPressed(sender:UIButton) {
         var surroundings = Array(form.ticket.property.surroundings as! [CUTESurrounding])

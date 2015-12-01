@@ -158,6 +158,10 @@
 		2C1E66F51AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E66F11AE4EEA30014EEA6 /* CUTERentPeriod.m */; };
 		2C1EA76F1AC3DA1900B0FC22 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1EA76E1AC3DA1900B0FC22 /* AddressBook.framework */; };
 		2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
+		2C2895041C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2895031C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift */; };
+		2C2895051C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2895031C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift */; };
+		2C2895061C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2895031C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift */; };
+		2C2895071C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2895031C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift */; };
 		2C2D2E261BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D2E251BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift */; };
 		2C2D2E271BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D2E251BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift */; };
 		2C2D2E281BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D2E251BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift */; };
@@ -934,6 +938,7 @@
 		2C1EA7701AC3EED100B0FC22 /* CUTEMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEMapView.h; sourceTree = "<group>"; };
 		2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEMapView.m; sourceTree = "<group>"; };
 		2C226E691ACBCD9200658132 /* CUTECommonMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTECommonMacro.h; sourceTree = "<group>"; };
+		2C2895031C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESurroundingSearchViewController.swift; sourceTree = "<group>"; };
 		2C2D2E251BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationViewController+CUTERouter.swift"; sourceTree = "<group>"; };
 		2C2D2E2A1BAFFA8E008CFFE6 /* CUTERouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTERouter.swift; sourceTree = "<group>"; };
 		2C2FCDBB1AFCC689002594D7 /* BBTInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTInputAccessoryView.h; sourceTree = "<group>"; };
@@ -2003,6 +2008,7 @@
 				2CF8A5BB1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.h */,
 				2CF8A5BC1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m */,
 				2C86DA531BCF865200B82941 /* CUTESurroundingListViewController.swift */,
+				2C2895031C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2817,6 +2823,7 @@
 				2CCE680B1B1C3AB800351DED /* CUTEPropertyMapListViewController.m in Sources */,
 				2CDABB3E1B2C4DC30075D2E7 /* NSArray+CUTECDN.m in Sources */,
 				2CC6C1D11AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
+				2C2895061C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift in Sources */,
 				2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */,
 				2CC3A0851AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2CA81FB81B1303BC006E993C /* CUTEPlacemark.m in Sources */,
@@ -2997,6 +3004,7 @@
 				2CCE680C1B1C3AB800351DED /* CUTEPropertyMapListViewController.m in Sources */,
 				2CDABB3F1B2C4DC30075D2E7 /* NSArray+CUTECDN.m in Sources */,
 				2CC6C1D21AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
+				2C2895071C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift in Sources */,
 				2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */,
 				2CC3A0861AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2CA81FB91B1303BC006E993C /* CUTEPlacemark.m in Sources */,
@@ -3177,6 +3185,7 @@
 				2CCE680A1B1C3AB800351DED /* CUTEPropertyMapListViewController.m in Sources */,
 				2CDABB3D1B2C4DC30075D2E7 /* NSArray+CUTECDN.m in Sources */,
 				2CC6C1D01AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
+				2C2895051C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift in Sources */,
 				2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */,
 				2CC3A0841AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2CA81FB71B1303BC006E993C /* CUTEPlacemark.m in Sources */,
@@ -3357,6 +3366,7 @@
 				2CDABB3C1B2C4DC30075D2E7 /* NSArray+CUTECDN.m in Sources */,
 				2CC6C1CF1AEE03D7002758A7 /* UIImageView+Assets.m in Sources */,
 				2C1EA7721AC3EED100B0FC22 /* CUTEMapView.m in Sources */,
+				2C2895041C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift in Sources */,
 				2CC3A0831AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2CA81FB61B1303BC006E993C /* CUTEPlacemark.m in Sources */,
 				2C9AFF7E1AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
