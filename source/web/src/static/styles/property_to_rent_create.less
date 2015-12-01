@@ -524,12 +524,17 @@ main {
                 }
                 .image_panel {
                     margin: auto 40px;
-                    .ajax-file-upload{
-                        body[lang=en_GB] & {
-                            font-size: 16px;
-                        }
-                        &:hover{
-                            color: #fff;
+                    .ajax-upload-dragdrop {
+                        .ajax-file-upload{
+                            body[lang=en_GB] & {
+                                font-size: 16px;
+                            }
+                            &:hover{
+                                background-color: #fff;
+                                border-radius: 10px;
+                                border: 4px dashed #cccccc;
+                                box-shadow: none;
+                            }
                         }
                     }
                     .upload_image {
