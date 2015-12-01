@@ -71,6 +71,7 @@
 
             this.visa = ko.observable()
             this.uploadProgressVisible = ko.observable(false)
+            this.uploading = ko.observable()
             this.initUpload = function() {
                 var uploadFileConfig = {
                     url: '/api/1/upload_image',
@@ -101,10 +102,12 @@
                     cancelStr: window.i18n('取消'),
                     deletelStr: window.i18n('删除'),
                     abortCallback: _.bind(function () {
+                        this.uploading(false)
                         this.uploadProgressVisible(false)
                     }, this),
                     deleteCallback: _.bind(function(data, pd){
                         this.visa('')
+                        this.uploading(false)
                         this.uploadProgressVisible(false)
                     }, this),
                     onSuccess: _.bind(function(files, data, xhr, pd){
@@ -120,6 +123,7 @@
                             return window.alert(window.i18n('上传错误：错误代码') + '(' + data.ret + '),' + data.debug_msg)
                         }
                         pd.progressDiv.hide()
+                        this.uploading(false)
                         this.visa(data.val.url)
                     }, this),
                     onLoad: _.bind(function(obj) {
@@ -132,6 +136,7 @@
                         }
                     }, this),
                     onSubmit: _.bind(function () {
+                        this.uploading(true)
                         this.uploadProgressVisible(true)
                     }, this),
                     onError: _.bind(function (files,status,errMsg,pd) {
@@ -140,6 +145,7 @@
                         //errMsg: error message
                         window.alert(i18n('图片') + files.toString() + i18n('上传失败(') + status + ':' + errMsg + i18n(')，请重新上传'))
                         this.uploadProgressVisible(false)
+                        this.uploading(false)
                     }, this)
                 }
                 if(window.team.getClients().indexOf('ipad') >= 0) {
@@ -407,6 +413,11 @@
                     smsCode: function () {
                         if(!this.phoneVerified() && !this.smsCode()) {
                             return errorList.push(window.i18n('请填写短信验证码'))
+                        }
+                    },
+                    uploading: function () {
+                        if(this.uploading()) {
+                            return errorList.push(window.i18n('图片还在上传中，请稍后再提交'))
                         }
                     }
                 }
