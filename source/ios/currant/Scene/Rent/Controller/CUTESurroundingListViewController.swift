@@ -285,7 +285,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if self.searchController?.searchResultsTableView == tableView {
+        if self.searchController?.searchResultsTableView == tableView && self.searchResultSurroundings.count > 0{
             let surrounding = self.searchResultSurroundings[indexPath.row]
             let surroundings = form.ticket.property.surroundings as! [CUTESurrounding]
             if  surroundings.filter({ (surr:CUTESurrounding) -> Bool in
@@ -313,6 +313,9 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                 tableView.deselectRowAtIndexPath(indexPath, animated: true)
                 SVProgressHUD.showErrorWithStatus(STR("SurroundingList/已添加"))
             }
+        }
+        else {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
     }
 
