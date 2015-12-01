@@ -10,11 +10,13 @@ import UIKit
 
 
 @objc(CUTESurroundingListViewController)
-class CUTESurroundingListViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
+class CUTESurroundingListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,  UISearchBarDelegate, UISearchDisplayDelegate {
 
     private var form:CUTESurroundingForm
     private var searchResultSurroundings:[CUTESurrounding] = []
     var postcodeIndex:String?
+
+    weak var tableView:UITableView!
     private var searchController:UISearchDisplayController?
     private var searchBarBackground:UIView?
     private var hintLabel:UILabel?
@@ -27,23 +29,30 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
     init(form:CUTESurroundingForm) {
         self.form = form
-        super.init(style: UITableViewStyle.Plain)
+        super.init(nibName:nil, bundle:nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func loadView() {
+        self.view = UITableView(frame: CGRectZero, style: UITableViewStyle.Plain)
+        self.tableView = self.view as! UITableView
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        super.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
-        super.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        super.tableView.allowsSelection = false
+        self.tableView.backgroundColor = UIColor(hex6: 0xeeeeee)
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        self.tableView.allowsSelection = false
 
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor(hex6: 0xeeeeee)
-        super.tableView.backgroundView = backgroundView
+        self.tableView.backgroundView = backgroundView
 
 //        self.definesPresentationContext = true
 
@@ -69,7 +78,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
                 label.numberOfLines = 0
                 label.font = UIFont.systemFontOfSize(16)
                 label.text = STR("SurroundingList/点击右上角“+”，添加周边的学校和地铁")
-                super.tableView.backgroundView?.addSubview(label)
+                self.tableView.backgroundView?.addSubview(label)
                 label.frame = CGRectMake(0, (self.view.frame.size.height - 40) / 2, label.superview!.bounds.size.width, 40)
                 self.hintLabel = label
             }
@@ -159,12 +168,12 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if self.searchController != nil {
             if self.searchController?.searchResultsTableView == tableView {
@@ -189,7 +198,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     }
 
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if self.searchController != nil {
             if self.searchController?.searchResultsTableView == tableView {
 
@@ -277,14 +286,14 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
         }
     }
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if self.searchController?.searchResultsTableView == tableView {
             return 65
         }
         return 80;
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if self.searchController?.searchResultsTableView == tableView && self.searchResultSurroundings.count > 0{
             let surrounding = self.searchResultSurroundings[indexPath.row]
             let surroundings = form.ticket.property.surroundings as! [CUTESurrounding]
@@ -320,7 +329,7 @@ class CUTESurroundingListViewController: UITableViewController, UISearchBarDeleg
     }
 
 
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
         print("\(scrollView.contentOffset.y)")
     }
 
