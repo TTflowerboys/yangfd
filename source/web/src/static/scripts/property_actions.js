@@ -23,7 +23,7 @@
             })
             .fail(function (errorCode) {
                 if (errorCode !== 40100) {
-                    window.alert($button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。'))
+                    window.dhtmlx.message({ type:'error', text: $button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。') })
                 }
 
                 ga('send', 'event', 'property_detail', 'click', 'add-fav-failed',errorCode)
@@ -49,7 +49,7 @@
             })
             .fail(function (errorCode) {
                 if (errorCode !== 40100) {
-                    window.alert($button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。'))
+                    window.dhtmlx.message({ type:'error', text: $button.attr('data-message-' + errorCode) || i18n('服务器忙，请稍后重试。') })
                 }
                 ga('send', 'event', 'property_detail', 'click', 'remove-fav-failed',errorCode)
             })

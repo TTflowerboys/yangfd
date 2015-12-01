@@ -1416,7 +1416,7 @@
                 }
                 if(data.ret) {
                     pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').remove()
-                    return window.alert(window.i18n('上传错误：错误代码') + '(' + data.ret + '),' + data.debug_msg)
+                    return window.dhtmlx.message({ type:'error', text: window.i18n('上传错误：错误代码') + '(' + data.ret + '),' + data.debug_msg })
                 }
                 propertyViewModel.imageArr.push(data.val.url)
                 pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').attr('data-url', data.val.url)
@@ -1441,7 +1441,7 @@
                 //files: list of files
                 //status: error status
                 //errMsg: error message
-                window.alert(i18n('图片') + files.toString() + i18n('上传失败(') + status + ':' + errMsg + i18n(')，请重新上传'))
+                window.dhtmlx.message({ type:'error', text: i18n('图片') + files.toString() + i18n('上传失败(') + status + ':' + errMsg + i18n(')，请重新上传') })
                 uploadObj.existingFileNames = _.difference(uploadObj.existingFileNames, files)
                 pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').remove()
             }

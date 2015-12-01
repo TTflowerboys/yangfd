@@ -235,7 +235,7 @@ $(function () {
                     ga('send', 'event', 'user-fav', 'click', 'cancel-rent-fav-success')
                 })
                 .fail(function (ret) {
-                    window.alert(window.i18n('取消收藏失败'))
+                    window.dhtmlx.message({ type:'error', text: window.i18n('取消收藏失败') })
                     ga('send', 'event', 'user-fav', 'click', 'cancel-rent-fav-failed')
                 })
         })
@@ -253,7 +253,7 @@ $(function () {
                     ga('send', 'event', 'user-fav', 'click', 'cancel-rent-fav-success')
                 })
                 .fail(function (ret) {
-                    window.alert(window.i18n('取消收藏失败'))
+                    window.dhtmlx.message({ type:'error', text: window.i18n('取消收藏失败') })
                     ga('send', 'event', 'user-fav', 'click', 'cancel-rent-fav-failed')
                 })
         })
@@ -279,7 +279,7 @@ $(function () {
                     ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-success')
                 })
                 .fail(function (ret) {
-                    window.alert(window.i18n('撤销失败'))
+                    window.dhtmlx.message({ type:'error', text: window.i18n('撤销失败') })
                     ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-failed')
                 })
         })
@@ -303,7 +303,7 @@ $(function () {
                     ga('send', 'event', 'user-fav', 'click', 'cancel-fav-success')
                 })
                 .fail(function (ret) {
-                    window.alert(window.i18n('取消收藏失败'))
+                    window.dhtmlx.message({ type:'error', text: window.i18n('取消收藏失败') })
                     ga('send', 'event', 'user-fav', 'click', 'cancel-fav-failed')
                 })
         })
@@ -321,7 +321,7 @@ $(function () {
                     ga('send', 'event', 'user-fav', 'click', 'cancel-fav-success')
                 })
                 .fail(function (ret) {
-                    window.alert(window.i18n('取消收藏失败'))
+                    window.dhtmlx.message({ type:'error', text: window.i18n('取消收藏失败') })
                     ga('send', 'event', 'user-fav', 'click', 'cancel-fav-failed')
                 })
         })
@@ -347,7 +347,7 @@ $(function () {
                     ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-success')
                 })
                 .fail(function (ret) {
-                    window.alert(window.i18n('撤销失败'))
+                    window.dhtmlx.message({ type:'error', text: window.i18n('撤销失败') })
                     ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-failed')
                 })
         })
@@ -371,7 +371,7 @@ $(function () {
                     ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-success')
                 })
                 .fail(function (ret) {
-                    window.alert(window.i18n('撤销失败'))
+                    window.dhtmlx.message({ type:'error', text: window.i18n('撤销失败') })
                     ga('send', 'event', 'user-fav', 'click', 'undo-cancel-fav-failed')
                 })
         })

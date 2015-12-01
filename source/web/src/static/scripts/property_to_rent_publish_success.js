@@ -13,7 +13,7 @@
         var client = new window.ZeroClipboard( document.getElementById('copyBtn') )
         client.on('ready', function(readyEvent) {
             client.on('aftercopy', function(event) {
-                window.alert(window.i18n('复制成功:') + event.data['text/plain'] )
+                window.dhtmlx.message({ text: window.i18n('复制成功:') + event.data['text/plain']})
             } );
         } );
     })

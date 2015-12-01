@@ -401,7 +401,7 @@
                 var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'
                 window.onBingMapScriptLoad = function () {
                     if (typeof Microsoft === 'undefined') {
-                        window.alert(window.i18n('地图加载失败'))
+                        window.dhtmlx.message({ type:'error', text: window.i18n('地图加载失败') })
                     }else{
                         loadRentMapList()
                     }
@@ -817,7 +817,7 @@
                             })
                     })
                 }else{
-                    window.alert(window.i18n('暂无结果'))
+                    window.dhtmlx.message({ type:'error', text: window.i18n('暂无结果') })
                 }
             }).fail(function () {
 
