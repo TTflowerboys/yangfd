@@ -65,9 +65,9 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
     return nil;
 }
 
-- (BFTask *)getEnumsByTypeIgnoringCache:(NSString *)type {
+- (BFTask *)getEnumsByTypeIgnoringCache:(NSString *)type cancellationToken:(BFCancellationToken *)cancellationToken {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/enum/search" parameters:@{@"type": type, @"sort": [NSNumber numberWithBool:YES]} resultClass:[CUTEEnum class]] continueWithSuccessBlock:^id(BFTask *task) {
+    [[[CUTEAPIManager sharedInstance] GET:@"/api/1/enum/search" parameters:@{@"type": type, @"sort": [NSNumber numberWithBool:YES]} resultClass:[CUTEEnum class] cancellationToken:cancellationToken] continueWithSuccessBlock:^id(BFTask *task) {
         NSArray *result = task.result;
         if (result && !IsArrayNilOrEmpty(result)) {
             [_cache setObject:result forKey:CONCAT(CUTEAPICacheEnumKeyPrefix, type)];
@@ -81,14 +81,14 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
     return tcs.task;
 }
 
-- (BFTask *)getEnumsByType:(NSString *)type {
+- (BFTask *)getEnumsByType:(NSString *)type cancellationToken:(BFCancellationToken *)cancellationToken {
 
     id cacheObject = [_cache objectForKey:CONCAT(CUTEAPICacheEnumKeyPrefix, type)];
     if (cacheObject && [cacheObject isKindOfClass:[NSArray class]]) {
         return [BFTask taskWithResult:cacheObject];
     }
     else {
-        return [self getEnumsByTypeIgnoringCache:type];
+        return [self getEnumsByTypeIgnoringCache:type cancellationToken:cancellationToken];
     }
 }
 
@@ -239,7 +239,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
                @"featured_facility_type",
                @"featured_facility_traffic_type"]
              map:^id(id object) {
-                 return [self getEnumsByTypeIgnoringCache:object];
+                 return [self getEnumsByTypeIgnoringCache:object cancellationToken:nil];
              }]];
 
     BFTask *cityTask = [[self getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {

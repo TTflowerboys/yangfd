@@ -461,7 +461,7 @@
 }
 
 - (void)pushRentTypeViewControllerInNavigationController:(UINavigationController *)viewController animated:(BOOL)animated {
-    [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type" cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
         if (task.result) {
             CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
             [form setRentTypeList:task.result];
@@ -688,7 +688,7 @@
 
     }
     else {
-        [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type" cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
             if (task.result) {
                 CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
                 [form setRentTypeList:task.result];
@@ -794,7 +794,7 @@
     }] != nil;
 
     if (!userIsLandlord) {
-        [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"user_type"] continueWithSuccessBlock:^id(BFTask *task) {
+        [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"user_type" cancellationToken:nil] continueWithSuccessBlock:^id(BFTask *task) {
             if (!IsArrayNilOrEmpty(task.result)) {
                 CUTEEnum *landlordUserType = [task.result find:^BOOL(CUTEEnum *object) {
                     return [object.slug isEqualToString:@"landlord"];

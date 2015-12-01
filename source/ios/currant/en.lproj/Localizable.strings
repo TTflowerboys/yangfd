@@ -579,6 +579,7 @@
 "GeoManager/请求失败" = "Request failed";
 "GeoManager/获取当前位置超时" = "Request location timeout";
 "GeoManager/获取当前位置失败" = "Request failed";
+"GeoManager/请求取消" = "Request cancelled";
 
 
 //

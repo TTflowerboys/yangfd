@@ -139,7 +139,7 @@
 
     NSArray *requiredEnums = @[@"indoor_facility", @"community_facility"];
     [[BFTask taskForCompletionOfAllTasksWithResults:[requiredEnums map:^id(id object) {
-        return [[CUTEAPICacheManager sharedInstance] getEnumsByType:object];
+        return [[CUTEAPICacheManager sharedInstance] getEnumsByType:object cancellationToken:nil];
     }]] continueWithSuccessBlock:^id(BFTask *task) {
         if (!IsArrayNilOrEmpty(task.result) && [task.result count] == [requiredEnums count]) {
             CUTETicket *ticket = self.form.ticket;

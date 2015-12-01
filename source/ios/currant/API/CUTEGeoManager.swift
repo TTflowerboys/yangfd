@@ -27,15 +27,18 @@ class CUTEGeoManager: NSObject {
         return nil
     }
 
-    private func reverseProxyWithLink(link:String) -> BFTask {
+    private func reverseProxyWithLink(link:String, cancellationToken:BFCancellationToken?) -> BFTask {
         let tcs = BFTaskCompletionSource()
         let request = NSURLRequest(URL: NSURL(string:"/reverse_proxy?link=" + link.URLEncode(), relativeToURL: CUTEConfiguration.hostURL())!)
-
-
 
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
 
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
+
+                if tcs.task.cancelled {
+                    return
+                }
+
                 let dic = data?.JSONData()
                 if error != nil {
                     tcs.setError(error)
@@ -56,6 +59,11 @@ class CUTEGeoManager: NSObject {
             })
         }
 
+        cancellationToken?.registerCancellationObserverWithBlock({ () -> Void in
+            task.cancel()
+            tcs.trySetCancelled()
+        })
+
         task.resume()
 
         return tcs.task
@@ -67,7 +75,7 @@ class CUTEGeoManager: NSObject {
     private func requsetReverseGeocodeLocation(location:CLLocation) -> BFTask {
         let tcs = BFTaskCompletionSource()
         let geocoderURLString = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(location.coordinate.latitude),\(location.coordinate.longitude)&key=\(CUTEConfiguration.googleAPIKey())&language=en"
-        reverseProxyWithLink(geocoderURLString).continueWithBlock { (task:BFTask!) -> AnyObject! in
+        reverseProxyWithLink(geocoderURLString, cancellationToken: nil).continueWithBlock { (task:BFTask!) -> AnyObject! in
 
             guard let dic = task.result as? [String:AnyObject] else {
                 tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
@@ -195,7 +203,7 @@ class CUTEGeoManager: NSObject {
             geocoderURLString += "&addresss=" + address!.URLEncode()
         }
 
-        reverseProxyWithLink(geocoderURLString).continueWithBlock { (task:BFTask!) -> AnyObject! in
+        reverseProxyWithLink(geocoderURLString, cancellationToken:nil).continueWithBlock { (task:BFTask!) -> AnyObject! in
 
             guard let dic = task.result as? [String:AnyObject] else {
                 tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
@@ -319,14 +327,19 @@ class CUTEGeoManager: NSObject {
     /// - parameter destinations: 目的地址的列表
     /// - parameter mode: 交通工具的模式，有bicycling, driving, walking, transit, 默认driving
     /// - returns: BFTask
-    func searchDistanceMatrixWithOrigins(origins:[String], destinations:[String], mode:String = "driving") -> BFTask {
+    func searchDistanceMatrixWithOrigins(origins:[String], destinations:[String], mode:String = "driving", cancellationToken:BFCancellationToken?) -> BFTask {
         let tcs = BFTaskCompletionSource()
 
         let sequencer = SwiftSequencer()
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject?->Void)) -> Void in
-            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_traffic_type").continueWithBlock({ (task:BFTask!) -> AnyObject! in
-                if let enums = task.result as? [CUTEEnum] {
+            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_traffic_type", cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                if task.cancelled {
+                    if !tcs.task.completed {
+                        tcs.cancel()
+                    }
+                }
+                else if let enums = task.result as? [CUTEEnum] {
                     completion(enums)
                 }
                 return task
@@ -339,8 +352,13 @@ class CUTEGeoManager: NSObject {
             let destinationsParam = destinations.joinWithSeparator("|").URLEncode()
             let URLString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=\(originsParam)&destinations=\(destinationsParam)&mode=\(mode)&language=en-GB&key=\(CUTEConfiguration.googleAPIKey())"
 
-            self.reverseProxyWithLink(URLString).continueWithBlock { (task:BFTask!) -> AnyObject! in
-                if let dic = task.result as? [String:AnyObject] {
+            self.reverseProxyWithLink(URLString, cancellationToken: cancellationToken).continueWithBlock { (task:BFTask!) -> AnyObject! in
+                if task.cancelled {
+                    if !tcs.task.completed {
+                        tcs.cancel()
+                    }
+                }
+                else if let dic = task.result as? [String:AnyObject] {
 
                     do {
                         guard let rows = dic["rows"] as? [[String: AnyObject]] else {
@@ -389,14 +407,20 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
-    func searchSurroundingsWithName(name:String?, latitude:NSNumber?, longitude:NSNumber?, city:CUTECity?, country:CUTECountry?, propertyPostcodeIndex:String!) -> BFTask {
+    func searchSurroundingsWithName(name:String?, latitude:NSNumber?, longitude:NSNumber?, city:CUTECity?, country:CUTECountry?, propertyPostcodeIndex:String!, cancellationToken:BFCancellationToken?) -> BFTask {
         let tcs = BFTaskCompletionSource()
         let sequencer = SwiftSequencer()
 
+
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)) -> Void in
-            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type").continueWithBlock({ (
+            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: cancellationToken).continueWithBlock({ (
                 task:BFTask!) -> AnyObject! in
-                if let enums = task.result as? [CUTEEnum] {
+                if task.cancelled {
+                    if !tcs.task.completed {
+                        tcs.cancel()
+                    }
+                }
+                else if let enums = task.result as? [CUTEEnum] {
                     completion(enums)
                 }
                 return task
@@ -425,9 +449,11 @@ class CUTEGeoManager: NSObject {
 
             parameters["type"] = typeIds.joinWithSeparator(",")
 
-            CUTEAPIManager.sharedInstance().POST("/api/1/main_mixed_index/search", parameters: parameters, resultClass: CUTESurrounding.self, cancellationToken: nil).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-                if task.error != nil {
-                    tcs.setError(task.error)
+            CUTEAPIManager.sharedInstance().POST("/api/1/main_mixed_index/search", parameters: parameters, resultClass: CUTESurrounding.self, cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                if task.cancelled {
+                    if !tcs.task.completed {
+                        tcs.cancel()
+                    }
                 }
                 else if let result = task.result as? [CUTESurrounding] {
                     completion(result)
@@ -443,8 +469,13 @@ class CUTEGeoManager: NSObject {
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
 
-            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_traffic_type").continueWithBlock({ (task:BFTask!) -> AnyObject! in
-                if let enums = task.result as? [CUTEEnum] {
+            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_traffic_type", cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                if task.cancelled {
+                    if !tcs.task.completed {
+                        tcs.cancel()
+                    }
+                }
+                else if let enums = task.result as? [CUTEEnum] {
                     let trafficEnums = enums.sort({ (e1:CUTEEnum, e2:CUTEEnum) -> Bool in
                         return e1.sortValue < e2.sortValue
                     })
@@ -463,13 +494,17 @@ class CUTEGeoManager: NSObject {
 
                             var requestTaskArray = [BFTask!]()
                             for type in trafficEnums {
-                                requestTaskArray.append(self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode: type.slug))
+                                requestTaskArray.append(self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode: type.slug, cancellationToken: cancellationToken))
                             }
 
                             //default walking as the first mode
                             BFTask(forCompletionOfAllTasksWithResults: requestTaskArray).continueWithBlock { (task:BFTask!) -> AnyObject! in
-
-                                if let taskArray = task.result as? [[[CUTETrafficTime]]] {
+                                if task.cancelled {
+                                    if !tcs.task.completed {
+                                        tcs.cancel()
+                                    }
+                                }
+                                else if let taskArray = task.result as? [[[CUTETrafficTime]]] {
                                     if taskArray.count == requestTaskArray.count {
 
                                         for timeMatix in taskArray {
