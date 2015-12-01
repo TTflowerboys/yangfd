@@ -128,6 +128,17 @@
                 return 41 * (this.activeSuggestionIndex() + 1) - 298
             }, this)
 
+            this.blur = function () {
+                setTimeout(_.bind(function () {
+                    this.active(false)
+                }, this), 50)
+            }
+            this.focus = function () {
+                if(this.result()) {
+                    this.active(true)
+                }
+
+            }
             this.search = _.bind(function () {
                 this.activeSuggestionIndex(-1)
                 var name = this.result()
