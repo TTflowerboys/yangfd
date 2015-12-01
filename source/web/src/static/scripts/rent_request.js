@@ -72,7 +72,6 @@
             this.visa = ko.observable()
             this.uploadProgressVisible = ko.observable(false)
             this.initUpload = function() {
-                var self = this
                 var uploadFileConfig = {
                     url: '/api/1/upload_image',
                     fileName: 'data',
