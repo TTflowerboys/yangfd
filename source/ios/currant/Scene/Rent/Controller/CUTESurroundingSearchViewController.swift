@@ -23,6 +23,7 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
     private var form:CUTESurroundingForm
     private var searchResultSurroundings:[CUTESurrounding] = []
     private var postcodeIndex:String
+    private var searchCancellationTokenSource:BFCancellationTokenSource?
 
     // 实现隐藏“No Results” label 用的flag
     //http://stackoverflow.com/questions/11639257/how-do-i-cover-the-no-results-text-in-uisearchdisplaycontrollers-searchresult
@@ -66,6 +67,10 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
         super.viewDidLoad()
         self.navigationItem.titleView = self.searchBar
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: STR("取消"), style: UIBarButtonItemStyle.Plain, block: { (sender:AnyObject!) -> Void in
+
+            if self.searchCancellationTokenSource != nil {
+                self.searchCancellationTokenSource!.cancel()
+            }
 
             self.searchBar.resignFirstResponder()
             self.dismissViewControllerAnimated(true, completion: { () -> Void in
@@ -150,6 +155,7 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
             }).count == 0 {
 
                 self.searchBar.resignFirstResponder()
+
                 self.navigationController?.dismissViewControllerAnimated(true, completion: { () -> Void in
                     if let delegate = self.delegate {
                         delegate.searchAddSurrounding(surrounding)
@@ -172,8 +178,12 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        if self.searchCancellationTokenSource != nil {
+            self.searchCancellationTokenSource!.cancel()
+        }
         SVProgressHUD.show()
-        CUTEGeoManager.sharedInstance.searchSurroundingsWithName(searchBar.text, latitude: nil, longitude: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex).continueWithBlock { (task:BFTask!) -> AnyObject! in
+        self.searchCancellationTokenSource = BFCancellationTokenSource()
+        CUTEGeoManager.sharedInstance.searchSurroundingsMainInfoWithName(searchBar.text, latitude: nil, longitude: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex, cancellationToken:self.searchCancellationTokenSource!.token).continueWithBlock { (task:BFTask!) -> AnyObject! in
             if task.error != nil {
                 SVProgressHUD.showErrorWithError(task.error)
             }

@@ -25,7 +25,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
     func getAdaptedParamters(parameters: [String: AnyObject]?) -> BFTask! {
         if parameters != nil {
 
-            return CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type").continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
+            return CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: nil).continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
                 let types = task.result as! [CUTEEnum]
 
                 var params = [String: AnyObject]()
@@ -123,7 +123,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
 
         if responseObject is CUTEProperty {
 
-            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type").continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
+            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: nil).continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
                 let types = task.result as! [CUTEEnum]
                 do {
                     let result = try NSJSONSerialization .JSONObjectWithData(jsonData!, options: NSJSONReadingOptions(rawValue: 0))
@@ -143,7 +143,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
             }
         }
         else if responseObject is [CUTEProperty] {
-            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type").continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
+            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: nil).continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
                 let types = task.result as! [CUTEEnum]
                 do {
                     let result = try NSJSONSerialization .JSONObjectWithData(jsonData!, options: NSJSONReadingOptions(rawValue: 0))
@@ -181,6 +181,12 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
 
             let request = self.getRestClient().requestSerializer.requestWithMethod(method, URLString: absURLString, parameters: modifiedParamters, error: nil)
             let operation = self.getRestClient().HTTPRequestOperationWithRequest(request, resultClass: resultClass, resultKeyPath: keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
+
+                //trySetCancelled will cancel this request
+                if tcs.task.cancelled {
+                    return;
+                }
+
                 if error != nil {
                     tcs.setError(error)
                 }

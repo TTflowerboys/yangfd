@@ -194,17 +194,41 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
     }
 
     func searchAddSurrounding(surrounding: CUTESurrounding) {
-        SVProgressHUD.show()
-        self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-            var array = Array(ticket.property.surroundings as! [CUTESurrounding])
-            array.insert(surrounding, atIndex: 0)
-            ticket.property.surroundings = array
+        SVProgressHUD.showWithStatus(STR("SurroundingList/添加中..."))
+        CUTEGeoManager.sharedInstance.searchSurroundingsTrafficInfoWithProperty(self.postcodeIndex, surroundings: [surrounding], cancellationToken: nil).continueWithBlock { (task:BFTask!) -> AnyObject! in
+            if task.cancelled {
+                SVProgressHUD.showErrorWithCancellation()
+            }
+            else if task.error != nil {
+                SVProgressHUD.showErrorWithError(task.error)
+            }
+            else if task.exception != nil {
+                SVProgressHUD.showErrorWithException(task.exception)
+            }
+            else if let surroundings = task.result as? [CUTESurrounding] {
+                if surroundings.count > 0 {
+                    let completedSurrounding = surroundings[0]
 
-        }).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-            self.tableView.reloadData()
-            SVProgressHUD.dismiss()
+                    self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
+                        var array = Array(ticket.property.surroundings as! [CUTESurrounding])
+                        array.insert(completedSurrounding, atIndex: 0)
+                        ticket.property.surroundings = array
+
+                    }).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                        self.tableView.reloadData()
+                        SVProgressHUD.dismiss()
+                        return task
+                    })
+                }
+                else {
+                    SVProgressHUD.showErrorWithStatus(STR("SurroundingList/添加失败，无法获取到该地点的交通信息"))
+                }
+            }
+            else {
+                SVProgressHUD.showErrorWithStatus(STR("SurroundingList/添加失败，无法获取到该地点的交通信息"))
+            }
             return task
-        })
+        }
     }
 
     func onTypeButtonPressed(sender:UIButton) {

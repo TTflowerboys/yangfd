@@ -17,7 +17,7 @@
 
 + (instancetype)sharedInstance;
 
-- (BFTask *)getEnumsByType:( NSString *)type;
+- (BFTask *)getEnumsByType:( NSString *)type cancellationToken:(BFCancellationToken *)cancellationToken;
 
 - (BFTask *)getCountriesWithCountryCode:(BOOL)showCountryCode;
 

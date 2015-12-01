@@ -1,12 +1,12 @@
 <template id='surrouding-search-input'>
     <div class="inputWrapper">
-        <input data-bind="value: result,css: {active: active}, event: { keyup: keyUp }" type="text" placeholder="{{_('输入关键字搜索添加周边学校, 地铁...')}}"/>
+        <input data-bind="value: result,css: {active: active}, event: { keyup: keyUp, focus: focus, blur: blur }" type="text" placeholder="{{_('输入关键字搜索添加周边学校, 地铁...')}}"/>
         <i class="icon-search_icon" data-bind="click: search"></i>
     </div>
     <div class="suggestions" data-bind="visible: active, scrollTop: scrollTop">
         <div class="hint" data-bind="text: hint, visible: hint() !== undefined && hint().length"></div>
         <ul data-bind="foreach: suggestions,visible: suggestions().length">
-            <li data-bind="css: {active: $parent.activeSuggestionIndex() == $index()}, click: $parent.select">
+            <li data-bind="css: {active: $parent.activeSuggestionIndex() == $index()}, event: {mousedown: $parent.select}">
                 <span class="name" data-bind="text: name"></span>
                 <span class="type" data-bind="text: type.value"></span>
             </li>

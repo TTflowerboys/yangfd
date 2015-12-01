@@ -46,7 +46,7 @@
 
 - (BFTask *)setupRoute {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-    [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type" cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             [tcs setError:task.error];
         }
@@ -160,7 +160,7 @@
 - (void)onReceiveLocalizationDidUpdate:(NSNotification *)notif {
     CUTERentTypeListForm *form = (CUTERentTypeListForm *)self.formController.form;
     [self resetContent];
-    [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type" cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
         if (task.result) {
             [form setRentTypeList:task.result];
             [self.formController updateSections];

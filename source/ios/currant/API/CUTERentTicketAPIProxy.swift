@@ -45,7 +45,7 @@ class CUTERentTicketAPIProxy: NSObject, CUTEAPIProxyProtocol {
 
         if responseObject is CUTETicket {
 
-            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type").continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
+            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: nil).continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
                 let types = task.result as! [CUTEEnum]
                 do {
                     let result = try NSJSONSerialization .JSONObjectWithData(jsonData!, options: NSJSONReadingOptions(rawValue: 0))
@@ -62,7 +62,7 @@ class CUTERentTicketAPIProxy: NSObject, CUTEAPIProxyProtocol {
             }
         }
         else if responseObject is [CUTETicket] {
-            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type").continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
+            CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_type", cancellationToken: nil).continueWithSuccessBlock { (task:BFTask!) -> AnyObject! in
                 let types = task.result as! [CUTEEnum]
                 do {
                     let result = try NSJSONSerialization .JSONObjectWithData(jsonData!, options: NSJSONReadingOptions(rawValue: 0))
@@ -98,6 +98,12 @@ class CUTERentTicketAPIProxy: NSObject, CUTEAPIProxyProtocol {
 
         let request = self.getRestClient().requestSerializer.requestWithMethod(method, URLString: absURLString, parameters: parameters, error: nil)
         let operation = self.getRestClient().HTTPRequestOperationWithRequest(request, resultClass: resultClass, resultKeyPath: keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
+            
+            //trySetCancelled will cancel this request
+            if tcs.task.cancelled {
+                return;
+            }
+
             if error != nil {
                 tcs.setError(error)
             }

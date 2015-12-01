@@ -85,7 +85,7 @@
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
             [[BFTask taskForCompletionOfAllTasksWithResults:[@[@"landlord_type", @"property_type"] map:^id(id object) {
-                return [[CUTEAPICacheManager sharedInstance] getEnumsByType:object];
+                return [[CUTEAPICacheManager sharedInstance] getEnumsByType:object cancellationToken:nil];
             }]] continueWithBlock:^id(BFTask *task) {
 
                 if (task.error) {
@@ -176,7 +176,7 @@
             CUTEProperty *property = self.form.ticket.property;
             if (IsArrayNilOrEmpty(self.form.ticket.property.surroundings) && property.latitude && property.longitude && !IsNilNullOrEmpty(property.zipcode)) {
                 NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
-                [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil latitude:property.latitude longitude:property.longitude city:property.city country:property.country propertyPostcodeIndex:postCodeIndex] continueWithBlock:^id(BFTask *task) {
+                [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil latitude:property.latitude longitude:property.longitude city:property.city country:property.country propertyPostcodeIndex:postCodeIndex cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
                     [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
                         ticket.property.surroundings  = task.result;
                     }];
@@ -394,7 +394,7 @@
 }
 
 - (void)editRentType {
-    [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type"] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"rent_type" cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
         if (task.result) {
             CUTERentTypeListForm *form = [[CUTERentTypeListForm alloc] init];
             form.singleUseForReedit = YES;
@@ -482,7 +482,7 @@
         else {
             [SVProgressHUD show];
             NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
-            [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil latitude:property.latitude longitude:property.longitude  city:property.city country:property.country propertyPostcodeIndex:postCodeIndex] continueWithBlock:^id(BFTask *task) {
+            [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil latitude:property.latitude longitude:property.longitude  city:property.city country:property.country propertyPostcodeIndex:postCodeIndex cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
 
                 [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
                     NSArray *result = task.result != nil? task.result: @[];
