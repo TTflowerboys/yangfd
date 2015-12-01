@@ -3638,7 +3638,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
 				PRODUCT_NAME = "currant-test";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "fadc3185-24a9-4ecc-ac49-1575d99af599";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/currant-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "currant-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3666,7 +3666,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
 				PRODUCT_NAME = "currant-test";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "f836b3c2-c3cd-443f-b51d-1cfe1302f3b3";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/currant-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "currant-Swift.h";
 			};
@@ -3694,7 +3694,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
 				PRODUCT_NAME = "currant-production";
-				PROVISIONING_PROFILE = "d4c90884-3ca6-4331-9572-250b5dedd0d4";
+				PROVISIONING_PROFILE = "fadc3185-24a9-4ecc-ac49-1575d99af599";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/currant-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "currant-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3751,7 +3751,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
 				PRODUCT_NAME = "currant-dev";
-				PROVISIONING_PROFILE = "d4c90884-3ca6-4331-9572-250b5dedd0d4";
+				PROVISIONING_PROFILE = "fadc3185-24a9-4ecc-ac49-1575d99af599";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/currant-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "currant-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3780,7 +3780,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bbtechgroup.currant;
 				PRODUCT_NAME = "currant-dev";
-				PROVISIONING_PROFILE = "e95e7c17-c1bc-40e6-89f2-bf39e31b590c";
+				PROVISIONING_PROFILE = "f836b3c2-c3cd-443f-b51d-1cfe1302f3b3";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/currant-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "currant-Swift.h";
 			};
@@ -3893,7 +3893,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d4c90884-3ca6-4331-9572-250b5dedd0d4";
+				PROVISIONING_PROFILE = "fadc3185-24a9-4ecc-ac49-1575d99af599";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/currant-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "currant-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3921,7 +3921,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bbtechgroup.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e95e7c17-c1bc-40e6-89f2-bf39e31b590c";
+				PROVISIONING_PROFILE = "f836b3c2-c3cd-443f-b51d-1cfe1302f3b3";
 				SWIFT_OBJC_BRIDGING_HEADER = "currant/currant-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "currant-Swift.h";
 			};
