@@ -15,6 +15,8 @@
 
 - (CUTEActivityView *)initWithAcitities:(NSArray *)activities;
 
+@property (strong, nonatomic) NSString *activityTitle;
+
 - (void)show:(BOOL)animated;
 
 - (void)dismiss:(BOOL)animated;

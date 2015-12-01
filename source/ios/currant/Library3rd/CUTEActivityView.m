@@ -16,6 +16,7 @@
 #define ITEM_HEIGHT 80
 #define LINE_SPACING 35
 
+#define TITLE_HEIGHT 30
 #define BUTTON_HEIGHT 45
 
 @interface CUTEActivityView () <UICollectionViewDataSource, UICollectionViewDelegate>
@@ -27,6 +28,8 @@
     NSArray *_acitivities;
 
     UIView *_maskView;
+
+    UILabel *_titleLabel;
 }
 
 @end
@@ -66,6 +69,21 @@
     return self;
 }
 
+- (void)setActivityTitle:(NSString *)activityTitle {
+    _activityTitle = activityTitle;
+
+    if (!_titleLabel) {
+        _titleLabel = [UILabel new];
+        _titleLabel.numberOfLines = 1;
+        _titleLabel.font = [UIFont systemFontOfSize:12];
+        _titleLabel.textColor = HEXCOLOR(0x999999, 1);
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:_titleLabel];
+    }
+
+    _titleLabel.text = activityTitle;
+}
+
 - (void)onDismissButtonPressed:(id)button {
     [self dismiss:YES];
 
@@ -77,9 +95,19 @@
 - (void)show:(BOOL)animated {
     NSInteger lineCount = (int)ceil(_acitivities.count / 3.0);
     CGFloat collectionViewHeight = lineCount * (ITEM_HEIGHT + LINE_SPACING) + LINE_SPACING;
-    self.frame = CGRectMake(0, ScreenHeight, ScreenWidth, collectionViewHeight + BUTTON_HEIGHT);
-    _collectionView.frame = CGRectMake(0, 0, RectWidth(self.bounds), collectionViewHeight);
-    _dismissButton.frame = CGRectMake(0, collectionViewHeight, RectWidth(self.bounds), BUTTON_HEIGHT);
+
+    if (_titleLabel) {
+        CGFloat titleHeight = TITLE_HEIGHT;
+        self.frame = CGRectMake(0, ScreenHeight, ScreenWidth, collectionViewHeight + BUTTON_HEIGHT + titleHeight);
+        _titleLabel.frame = CGRectMake(0, 0, RectWidth(self.bounds), titleHeight);
+        _collectionView.frame = CGRectMake(0, titleHeight, RectWidth(self.bounds), collectionViewHeight);
+        _dismissButton.frame = CGRectMake(0, titleHeight + collectionViewHeight, RectWidth(self.bounds), BUTTON_HEIGHT);
+    }
+    else {
+        self.frame = CGRectMake(0, ScreenHeight, ScreenWidth, collectionViewHeight + BUTTON_HEIGHT);
+        _collectionView.frame = CGRectMake(0, 0, RectWidth(self.bounds), collectionViewHeight);
+        _dismissButton.frame = CGRectMake(0, collectionViewHeight, RectWidth(self.bounds), BUTTON_HEIGHT);
+    }
 
     _maskView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
     _maskView.alpha = 0;
@@ -90,7 +118,7 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         _maskView.alpha = 1;
-        self.frame = CGRectMake(0, ScreenHeight - (collectionViewHeight + BUTTON_HEIGHT), RectWidth(self.bounds), collectionViewHeight + BUTTON_HEIGHT);
+        self.frame = CGRectMake(0, ScreenHeight - self.frame.size.height, RectWidth(self.bounds), self.frame.size.height);
     }];
 }
 
