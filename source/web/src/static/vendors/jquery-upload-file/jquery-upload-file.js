@@ -111,26 +111,6 @@
         var uploadLabel = $('<div>' + $(this).html() + '</div>');
         $(uploadLabel).addClass(s.uploadButtonClass);
 
-        // wait form ajax Form plugin and initialize
-        (function checkAjaxFormLoaded() {
-            if($.fn.ajaxForm) {
-
-                if(s.dragDrop) {
-                    var dragDrop = $('<div class="' + s.dragDropContainerClass + '" style="vertical-align:top;"></div>').width(s.dragdropWidth);
-                    $(obj).before(dragDrop);
-                    $(dragDrop).append(uploadLabel);
-                    $(dragDrop).append($(s.dragDropStr));
-                    setDragDropHandlers(obj, s, dragDrop);
-
-                } else {
-                    $(obj).before(uploadLabel);
-                }
-                s.onLoad.call(this, obj);
-                createCutomInputFile(obj, formGroup, s, uploadLabel);
-
-            } else window.setTimeout(checkAjaxFormLoaded, 10);
-        })();
-
         this.startUpload = function () {
             $("." + this.formGroup).each(function (i, items) {
                 if($(this).is('form')) $(this).submit();
@@ -195,7 +175,30 @@
 
         this.getResponses = function () {
             return this.responses;
-        }
+        };
+
+        // wait form ajax Form plugin and initialize
+        (function checkAjaxFormLoaded() {
+            if($.fn.ajaxForm) {
+
+                if(s.dragDrop) {
+                    var dragDrop = $('<div class="' + s.dragDropContainerClass + '" style="vertical-align:top;"></div>').width(s.dragdropWidth);
+                    $(obj).before(dragDrop);
+                    $(dragDrop).append(uploadLabel);
+                    $(dragDrop).append($(s.dragDropStr));
+                    setDragDropHandlers(obj, s, dragDrop);
+
+                } else {
+                    $(obj).before(uploadLabel);
+                }
+                s.onLoad.call(this, obj);
+                createCutomInputFile(obj, formGroup, s, uploadLabel);
+
+            } else {
+                window.setTimeout(checkAjaxFormLoaded, 10);
+            }
+        })();
+
         var checking = false;
 
         function checkPendingUploads() {

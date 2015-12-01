@@ -84,14 +84,15 @@
                         <div class="step2" data-bind="visible: step() === 2">
                             <div class="row">
                                 <p class="title">{{_('姓名')}}</p>
-                                <input class="name" type="text" data-bind="value: nickname, attr: {readonly: !!user()}"/><!--
+                                <input class="name" type="text" data-bind="value: nickname"/><!--
                                 --><select class="gender" data-bind="chosen: genderList,
                                     optionsText: 'text',
                                     value: genderObj,
                                     optionsCaption: '{{_('性别')}}'"></select><!--
                                 --><select class="occupation" data-bind="chosen: occupationList,
                                     optionsText: 'value',
-                                    value: occupationObj,
+                                    optionsValue: 'id',
+                                    value: occupation,
                                     optionsCaption: '{{_('职业')}}'"></select>
                             </div>
                             <div class="row">
@@ -113,7 +114,8 @@
                                 </textarea>
                                 <select class="countryCode" data-bind="chosen: countryCodeList,
                                     optionsText: function(item){return item.name + '(+' + item.countryCode + ')'},
-                                    value: country"></select><!--
+                                    value: country,
+                                    css: {readonly: !!user()}"></select><!--
                                 --><input class="phone" type="text" data-bind="value: phone, attr: {readonly: !!user()}" placeholder="{{_('电话')}}"><!--
                                 --><input class="email" type="text" data-bind="value: email, attr: {readonly: !!user()}" placeholder="{{_('邮箱')}}"/>
                             </div>

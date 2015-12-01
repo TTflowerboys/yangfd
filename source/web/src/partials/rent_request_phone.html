@@ -79,7 +79,7 @@
                         </div>
                         <div class="step2" data-bind="visible: step() === 2">
                             <div class="row">
-                                <input class="name" type="text" data-bind="value: nickname, attr: {readonly: !!user()}" placeholder="{{_('姓名')}}">
+                                <input class="name" type="text" data-bind="value: nickname" placeholder="{{_('姓名')}}">
                             </div>
                             <div class="row">
                                 <p class="inputPlaceholder">{{_('性别')}}</p>
@@ -93,7 +93,8 @@
                                 <p class="inputPlaceholder">{{_('职业')}}</p>
                                 <select class="occupation" data-bind="chosen: occupationList,
                                     optionsText: 'value',
-                                    value: occupationObj,
+                                    optionsValue: 'id',
+                                    value: occupation,
                                     optionsCaption: '{{_('请选择职业')}}'">
                                 </select>
                             </div>
@@ -114,7 +115,8 @@
                                     <p class="inputPlaceholder">{{_('电话区号')}}</p>
                                     <select class="countryCode" data-bind="chosen: countryCodeList,
                                         optionsText: function(item){return item.name + '(+' + item.countryCode + ')'},
-                                        value: country">
+                                        value: country,
+                                        css: {readonly: !!user()}">
                                     </select>
                                 </div>
                                 <div class="col">

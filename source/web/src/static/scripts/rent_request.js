@@ -41,13 +41,23 @@
             this.ticketId = ko.observable()
 
             this.rentAvailableTimeFormated = ko.observable($.format.date(new Date(), 'yyyy-MM-dd'))
-            this.rentAvailableTime = ko.computed(function () {
-                return this.rentAvailableTimeFormated() ? new Date(this.rentAvailableTimeFormated()).getTime() / 1000 : ''
+            this.rentAvailableTime = ko.computed({
+                read: function () {
+                    return this.rentAvailableTimeFormated() ? new Date(this.rentAvailableTimeFormated()).getTime() / 1000 : ''
+                },
+                write: function (value) {
+                    this.rentAvailableTimeFormated($.format.date(new Date(value * 1000), 'yyyy-MM-dd'))
+                }
             }, this)
 
             this.rentDeadlineTimeFormated = ko.observable()
-            this.rentDeadlineTime = ko.computed(function () {
-                return this.rentDeadlineTimeFormated() ? new Date(this.rentDeadlineTimeFormated()).getTime() / 1000: ''
+            this.rentDeadlineTime = ko.computed({
+                read: function () {
+                    return this.rentDeadlineTimeFormated() ? new Date(this.rentDeadlineTimeFormated()).getTime() / 1000: ''
+                },
+                write: function (value) {
+                    this.rentDeadlineTimeFormated($.format.date(new Date(value * 1000), 'yyyy-MM-dd'))
+                }
             }, this)
 
             this.tenantCountList = ko.observableArray([1,2,3,4,5,6,7,8])
@@ -138,7 +148,6 @@
                 $('#fileuploader').uploadFile(uploadFileConfig)
 
             }
-            this.initUpload()
 
             this.user = ko.observable(window.user) //当前登录用户
 
@@ -158,7 +167,7 @@
                 .then(_.bind(function (arr) {
                     this.occupationList(arr)
                 }, this))
-            this.occupationObj = ko.observable(this.user() ? _.find(this.occupationList(), {id: this.user().occupation}) : undefined)
+            this.occupation = ko.observable()
 
             function generateYearList(total) {
                 total = total || 80
@@ -180,9 +189,18 @@
                 return generateDateList(this.birthYear(), this.birthMonth())
             }, this)
             this.birthDate = ko.observable(1)
-            this.birthDay = ko.observable()
-            this.birthTime = ko.computed(function () {
-                return window.team.isPhone() ? (new Date(this.birthDay()).getTime() / 1000) : (new Date(this.birthYear(), this.birthMonth(), this.birthDate()).getTime() / 1000)
+            this.birthDay = ko.observable() //for mobile
+            this.birthTime = ko.computed({
+                read: function () {
+                    return window.team.isPhone() ? (new Date(this.birthDay()).getTime() / 1000) : (new Date(this.birthYear(), this.birthMonth() - 1, this.birthDate()).getTime() / 1000)
+                },
+                write: function (value) {
+                    var formatedValue = $.format.date(new Date(value * 1000), 'yyyy-MM-dd')
+                    this.birthDay(formatedValue)
+                    this.birthYear(parseInt(formatedValue.split('-')[0]))
+                    this.birthMonth(parseInt(formatedValue.split('-')[1]))
+                    this.birthDate(parseInt(formatedValue.split('-')[2]))
+                }
             }, this)
 
             this.countryCodeList = ko.observableArray(_.map(JSON.parse($('#countryData').text()), function (country) {
@@ -236,7 +254,7 @@
                     this.phone(user.phone)
                     this.email(user.email)
                     if(user.occupation) {
-                        this.occupationObj(_.find(this.occupationList(), {id: user.occupation.id}))
+                        this.occupation()
                     }
                     if(user.gender) {
                         this.genderObj(_.find(this.genderList(), {value: user.gender}))
@@ -255,6 +273,43 @@
             }
             this.initCaptcha()
 
+            this.setParams = function (params) {
+                this.rentAvailableTime(params.rent_available_time)
+                this.rentDeadlineTime(params.rent_deadline_time)
+                this.tenantCount(params.tenant_count.toString())
+                this.smoke(params.smoke)
+                this.baby(params.baby)
+                this.pet(params.pet)
+                this.visa(params.visa)
+                this.description(params.description)
+                this.birthTime(params.date_of_birth)
+                this.genderObj(_.find(this.genderList(), {value: params.gender}))
+                this.occupation(params.occupation.id)
+            }
+            this.initParamsByLastSubmit = function () {
+                if(this.user()) {
+                    $.betterPost('/api/1/rent_intention_ticket/search', {
+                        status: 'requested',
+                        user_id: this.user().id,
+                        per_page: 1
+                    })
+                        .done(_.bind(function (val) {
+                            if(val.length) {
+                                var lastParams = val[0]
+                                this.setParams(lastParams)
+                            }
+                            this.initUpload()
+                        }, this))
+                        .fail(_.bind(function (ret) {
+                            window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
+                            this.initUpload()
+                        }, this))
+                } else {
+                    this.initUpload()
+                }
+            }
+            this.initParamsByLastSubmit()
+
             this.params = ko.computed(function () {
                 return {
                     nickname: this.nickname(),
@@ -263,7 +318,7 @@
                     tenant_count: this.tenantCount(),
                     gender: this.genderObj() ? this.genderObj().value : '',
                     date_of_birth: this.birthTime(),
-                    occupation: this.occupationObj() ? this.occupationObj().id : '',
+                    occupation: this.occupation(),
                     smoke: this.smoke(),
                     baby: this.baby(),
                     pet: this.pet(),
@@ -284,7 +339,7 @@
                     phone: '+' + (this.country() ? this.country().countryCode : '') + this.phone(),
                     email: this.email(),
                     gender: this.genderObj() ? this.genderObj().value : '',
-                    occupation: this.occupationObj() ? this.occupationObj().id : '',
+                    occupation: this.occupation(),
                 }
             }, this)
 
@@ -452,9 +507,13 @@
         viewModel: function (params) {
             this.key = ko.observable('whether-radio-' + params.key)
             this.parentVM = params.vm
-            this.value = ko.observable(this.parentVM[params.key]())
-            this.value.subscribe(function (value) {
-                this.parentVM[params.key](!!value)
+            this.value = ko.computed({
+                read: function () {
+                    return this.parentVM[params.key]()
+                },
+                write: function (value) {
+                    this.parentVM[params.key](!!value)
+                }
             }, this)
         },
         template: { element: 'whetherRadio'}

@@ -21,6 +21,7 @@ window.getErrorMessage = function (domName, validator) {
 
 window.getErrorMessageFromErrorCode = function (errorCode, api) {
     var stringMap = {
+        0: i18n('遇到了一个网络问题，请检查网络连接正常后重试。'),
         40000: i18n('输入错误，请检查后重试。'),
         40090: i18n('已经在收藏里了。'),
         40100: i18n('没有访问权限，请登陆后重试。'),

@@ -28,6 +28,7 @@
 #import "Aspects.h"
 #import "CUTEUIMacro.h"
 #import "currant-Swift.h"
+#import "CUTEUserDefaultKey.h"
 
 @interface CUTERentShareViewController () 
 
@@ -99,6 +100,7 @@
 }
 
 - (void)shareRentTicket {
+
     [[[CUTEShareManager sharedInstance] shareTicket:self.ticket viewController:self onButtonPressBlock:^(NSString * buttonName) {
         TrackScreen(@"press-to-share");
 
@@ -147,7 +149,7 @@
         }
 
         return task;
-    } ];
+    }];
 }
 
 //overrride with empty implementation, do not update barButtonItem

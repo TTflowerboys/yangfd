@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "WXApi.h"
 #import "CUTETicket.h"
+#import "CUTEActivityView.h"
 #import "BFTask.h"
 
 

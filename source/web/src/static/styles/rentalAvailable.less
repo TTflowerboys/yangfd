@@ -16,8 +16,14 @@
     max-width: 1200px;
     margin: 0 auto;
     font-weight: lighter;
+    @media @phone{
+        font-weight: normal;
+    }
     h1,h2,h3{
         font-weight: lighter;
+        @media @phone{
+            font-weight: normal;
+        }
     }
     .header{
         background: url("/static/images/rental_available/header_bg.jpg") center bottom no-repeat;
