@@ -123,5 +123,24 @@ $(function () {
 
             })
     }
+
+    function addEvent(elem, event, listener, capture) {
+        if(elem.addEventListener){
+            elem.addEventListener(event, listener, capture)
+        } else {
+            $(elem).bind(event, listener)
+        }
+    }
+    /* 让class为readonly的select使用chosen后不能被选择 */
+    function handdler(event) {
+        if($(event.target).parents('.chosen-container').length){
+            if($(event.target).parents('.chosen-container').prev('select').hasClass('readonly')) {
+                event.preventDefault()
+                event.stopImmediatePropagation()
+            }
+        }
+    }
+    addEvent(document.body, 'mousedown', handdler, true)
+    addEvent(document.body, 'click', handdler, true)
 })
 
