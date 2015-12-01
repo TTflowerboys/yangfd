@@ -68,7 +68,7 @@
                             </div>
                             <div class="rightWrap">
                                 <div class="row">
-                                    <p class="title">{{_('护照照片（可选）')}}</p>
+                                    <p class="title">{{_('护照（可选）')}}</p>
                                     <div class="image_panel" data-bind="visible: !uploadProgressVisible()">
                                         <div id="fileuploader" class="upload_image">
                                             <p>{{_('直接将照片文件拖拽至框中')}}</p>
@@ -76,7 +76,7 @@
                                         </div>
                                     </div>
                                     <div id="uploadProgress" class="clearfix" data-bind="visible: uploadProgressVisible"></div>
-                                    <p class="hint">{{_('上传VISA可以提升房东对您的信任度')}}</p>
+                                    <p class="hint">{{_('上传护照图片可以提升房东对您的信任度，请自行隐去关键信息')}}</p>
                                 </div>
                             </div>
 
@@ -131,7 +131,7 @@
                         <div class="requirementRentFormError" data-bind="html: errorMsg, visible: errorMsg"></div>
                     </form>
                     <div class="actionWrap">
-                        <p class="terms" data-bind="visible: step() === 2">{{_('提交后您将成为洋房东会员')}}<a href="/terms">{{_('查阅Terms of Service')}}</a></p>
+                        <p class="terms" data-bind="visible: step() === 2">{{_('提交成功后您将成为洋房东会员，请确认您已阅读并同意')}}<a href="/terms">{{_('洋房东会员服务条款')}}</a></p>
                         <div data-bind="visible: step() === 1">
                             <button class="actionButton ghostButton red" data-bind="click: goNext">{{_('下一步')}}</button>
                         </div>
@@ -143,7 +143,7 @@
                 </div>
                 <div class="successWrap" data-bind="visible: successWrapVisible">
                     <h2 data-show="normal" style="">{{_('提交成功')}}</h2>
-                    <p data-show="delegateRent" data-hide="requestContact" style="">{{_('提交成功，我们会在24小时内与您联系')}}</p>
+                    <p data-show="delegateRent" data-hide="requestContact" style="">{{_('您的咨询申请已发送给房东，我们会在24小时内与您取得联系')}}</p>
                     <!--<p class="hint">您的求租意向单已经提交成功，您可以：</p>
                     <p class="item" data-show="delegateRent" data-hide="requestContact">{{_('负责该房源的租房顾问会在24小时内与您取得联系')}}</p>
                     <p class="item" data-show="requestContact" data-hide="delegateRent">{{_('已获取到当前房东的联系方式')}}</p>

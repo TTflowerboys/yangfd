@@ -68,11 +68,11 @@
                                 <div class="row">
                                     <div class="image_panel" data-bind="visible: !uploadProgressVisible()">
                                         <div id="fileuploader" class="upload_image">
-                                            <p>{{_('上传护照及签证照片（可选）')}}</p>
+                                            <p>{{_('上传护照（可选）')}}</p>
                                         </div>
                                     </div>
                                     <div id="uploadProgress" class="clearfix" data-bind="visible: uploadProgressVisible"></div>
-                                    <p class="hint">{{_('上传VISA可以提升房东对您的信任度')}}</p>
+                                    <p class="hint">{{_('上传护照图片可以提升房东对您的信任度，请自行隐去关键信息')}}</p>
                                 </div>
                             </div>
 
@@ -140,7 +140,7 @@
                     </form>
                     <div class="actionWrap" data-bind="css: 'step' + step()">
                         <div class="requirementRentFormError" data-bind="html: errorMsg, visible: errorMsg"></div>
-                        <p class="terms" data-bind="visible: step() === 2">{{_('提交后您将成为洋房东会员')}}<a href="/terms">{{_('查阅Terms of Service')}}</a></p>
+                        <p class="terms" data-bind="visible: step() === 2">{{_('提交成功后您将成为洋房东会员，请确认您已阅读并同意')}}<a href="/terms">{{_('洋房东会员服务条款')}}</a></p>
                         <div data-bind="visible: step() === 1">
                             <button class="actionButton ghostButton red" data-bind="click: goNext">{{_('下一步')}}</button>
                         </div>
@@ -152,7 +152,7 @@
                 </div>
                 <div class="successWrap" data-bind="visible: successWrapVisible">
                     <h2 data-show="normal">{{_('提交成功')}}</h2>
-                    <p data-show="delegateRent">{{_('提交成功，我们会在24小时内与您联系')}}</p>
+                    <p data-show="delegateRent">{{_('提交成功，您的咨询申请已发送给房东，我们会在24小时内与您取得联系')}}</p>
                 </div>
             </div>
             <button name="cancel" class="cancel" data-bind="click: close"><i class="icon-delete"></i></button>
