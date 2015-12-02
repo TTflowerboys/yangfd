@@ -453,12 +453,7 @@
     if (![self validateForm]) {
         return;
     }
-
-//    NSString *origin = CONCAT(self.form.ticket.property.latitude.stringValue, @",", self.form.ticket.property.longitude.stringValue);
-//    [[[CUTEGeoManager sharedInstance] searchDistanceMatrixWithOrigins:@[origin] destinations:@[@"E149AQ", @"N16AT"] mode:@"bycling"] continueWithBlock:^id(BFTask *task) {
-//        return task;
-//    }];
-
+    
     CUTETicket *currentTicket = self.form.ticket;
     if (currentTicket) {
         [SVProgressHUD show];
@@ -487,16 +482,22 @@
                     return nil;
                 }];
             }];
-        }
 
-        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            CUTETicket *ticket = result;
+            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+                CUTETicket *ticket = result;
+                [SVProgressHUD dismiss];
+                TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+                [self.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
+            }];
+
+            [sequencer run];
+        }
+        else {
+            CUTETicket *ticket = currentTicket;
             [SVProgressHUD dismiss];
             TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
             [self.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
-        }];
-
-        [sequencer run];
+        }
     }
 }
 
