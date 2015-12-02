@@ -7,11 +7,16 @@
             if(allBindings().value) {
                 allBindings().value.subscribe(function (val) {
                     if(!_.isObject(val)) {
-                        $(element).val(val)
+                        setTimeout(function () {
+                            $(element).val(val)
+                            $(element).trigger('chosen:updated')
+                        }, 100)
+                    } else {
+                        setTimeout(function () {
+                            $(element).trigger('chosen:updated')
+                        }, 100)
                     }
-                    setTimeout(function () {
-                        $(element).trigger('chosen:updated')
-                    }, 100)
+
                 })
             }
         },
