@@ -14,11 +14,15 @@
             this.goNext = function () {
                 if(this.validateStep1()) {
                     this.step(this.step() + 1)
+                    ga('send', 'pageview', '/submit-rent-request-intention/step-' + this.step())
                 }
+                ga('send', 'event', 'rentRequestIntention', 'click', 'go-to-next-rent-request-intention')
             }
             this.goPrev = function () {
                 this.errorMsg('')
                 this.step(this.step() - 1)
+                ga('send', 'event', 'rentRequestIntention', 'click', 'go-to-prev-rent-request-intention')
+                ga('send', 'pageview', '/submit-rent-request-intention/step-' + this.step())
             }
 
             this.visible = ko.observable()
@@ -38,6 +42,7 @@
                             $(window).scrollTop() - headerHeight + ($(window).height() - (wrapper.outerHeight() - headerHeight)) / 2)
                     }
                 }
+                ga('send', 'event', 'rentRequestIntention', 'click', 'open-rent-request-intention')
             }
             this.close = function () {
                 this.visible(false)
@@ -475,6 +480,7 @@
 
             this.id = ko.observable()
             this.submit = function () {
+                ga('send', 'event', 'rentRequestIntention', 'click', 'submit-button')
                 if(!this.validate()) {
                     return
                 }
@@ -499,9 +505,12 @@
                 $.betterPost('/api/1/rent_intention_ticket/add', this.params())
                     .done(_.bind(function (val) {
                         this.showSuccessWrap()
+                        ga('send', 'event', 'rentRequestIntention', 'result', 'submit-success');
+                        ga('send', 'pageview', '/submit-rent-request-intention/submit-success')
                     }, this))
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))
+                        ga('send', 'event', 'rentRequestIntention', 'result', 'submit-failed',window.getErrorMessageFromErrorCode(ret))
                     }, this))
                     .always(_.bind(function () {
                         this.submitDisabled(false)
