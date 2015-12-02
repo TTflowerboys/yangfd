@@ -491,9 +491,9 @@
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     CUTETicket *currentTicket = form.ticket;
     if (currentTicket) {
-        [SVProgressHUD show];
-        Sequencer *sequencer = [Sequencer new];
         if (IsNilNullOrEmpty(currentTicket.identifier)) {
+            [SVProgressHUD show];
+            Sequencer *sequencer = [Sequencer new];
             [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
                 [[[CUTERentTicketPublisher sharedInstance] createTicket:currentTicket] continueWithBlock:^id(BFTask *task) {
                     if (task.error || task.exception || task.isCancelled) {
@@ -512,18 +512,22 @@
                     return nil;
                 }];
             }];
-        }
 
-        [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-            CUTETicket *ticket = result;
-            [SVProgressHUD dismiss];
+            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+                CUTETicket *ticket = result;
+                [SVProgressHUD dismiss];
+                TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+                [self.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
+            }];
+
+            [sequencer run];
+        }
+        else {
+            CUTETicket *ticket = currentTicket;
             TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
             [self.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
-        }];
-
-        [sequencer run];
+        }
     }
-
 }
 
 
