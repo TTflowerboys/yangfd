@@ -242,11 +242,10 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
                  return [self getEnumsByTypeIgnoringCache:object cancellationToken:nil];
              }]];
 
-    BFTask *cityTask = [[self getCountriesWithCountryCode:NO] continueWithBlock:^id(BFTask *task) {
-        return [BFTask taskForCompletionOfAllTasks:[task.result map:^id(CUTECountry *object) {
-            return [self getCitiesByCountryIgnoringCache:object];
-        }]];
-    }];
+    //for network speed concern, now default only load uk
+    CUTECountry *country = [CUTECountry new];
+    country.ISOcountryCode = @"GB";
+    BFTask *cityTask = [self getCitiesByCountryIgnoringCache:country];
 
     return [BFTask taskForCompletionOfAllTasks:@[enumTask, cityTask, [self getUploadCDNDomainsIgnoringCache]]];
 }
