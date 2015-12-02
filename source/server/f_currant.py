@@ -901,7 +901,7 @@ class f_currant_user(f_user):
             time_list.sort()
             for single in select_item:
                 curtime = single.get("time", None)
-                if curtime == time_list[0]:
+                if curtime == time_list[-1]:
                     return single
             return {}
 
