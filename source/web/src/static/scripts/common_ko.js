@@ -25,7 +25,7 @@
             //如果直接触发chosen:updated，在更改time后再更改mode，chosen的更新有问题
             setTimeout(function () {
                 $(element).trigger('chosen:updated')
-            }, 100)
+            }, 50)
         }
     }
 
