@@ -765,7 +765,7 @@ class f_currant_user(f_user):
     """
 
     def analyze_data_update(self, user_id, params={
-        "analyze_guest_county": True,
+        "analyze_guest_country": True,
         "analyze_guest_user_type": True,
         "analyze_guest_active_days": True,
         "analyze_guest_downloaded": True,
@@ -1011,9 +1011,9 @@ class f_currant_user(f_user):
         mod_time = user.get('analyze_value_modifier_time', {})
         # result.update({"analyze_guest_nickname": user.get("nickname", '')})
         # result.update({"analyze_guest_register_time": user.get("register_time")})
-        if params.get("analyze_guest_county", None) is True:
-            result.update({"analyze_guest_county": user.get("country", {}).get("code", '')})
-            mod_time.update({'analyze_guest_county': datetime.utcnow()})
+        if params.get("analyze_guest_country", None) is True:
+            result.update({"analyze_guest_country": user.get("country", {}).get("code", '')})
+            mod_time.update({'analyze_guest_country': datetime.utcnow()})
 
         if params.get("analyze_guest_user_type", None) is True:
             result.update({"analyze_guest_user_type": get_data_enum(user, "user_type")})
@@ -1627,7 +1627,7 @@ class f_currant_plugins(f_app.plugin_base):
     def user_update_after(self, user_id, params):
         if "$set" in params:
             if "country" in params.get('$set', {}):
-                f_app.user.analyze_data_update(user_id, {"analyze_guest_county": True})
+                f_app.user.analyze_data_update(user_id, {"analyze_guest_country": True})
             if "user_type" in params.get('$set', {}):
                 f_app.user.analyze_data_update(user_id, {"analyze_guest_user_type": True})
             if len(set(["nickname", "phone", "email"]) & set(params["$set"])) > 0:
