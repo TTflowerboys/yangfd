@@ -374,7 +374,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
                 [self.taskCompletionSource cancel];
             };
 
-            activityView.activityTitle = STR(@"RentShare/分享此移动房源主页");            
+            activityView.activityTitle = STR(@"RentShare/分享此房源移动主页");            
             [activityView show:YES];
 
         }
