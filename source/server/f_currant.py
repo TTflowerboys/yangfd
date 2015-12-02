@@ -843,7 +843,6 @@ class f_currant_user(f_user):
                 }
                 '''
             )
-            user_id = user.get("id", None)
             if user_id is None:
                 return ''
             with f_app.mongo() as m:
@@ -852,7 +851,6 @@ class f_currant_user(f_user):
             return active_days
 
         def check_download(user):
-            user_id = user.get('id', None)
             credit = f_app.user.credit.get("view_rent_ticket_contact_info", user_id).get("credits", [])
             for single in credit:
                 if single.get("tag", None) == "download_ios_app":
@@ -866,7 +864,6 @@ class f_currant_user(f_user):
             then gether element in search result, make a new dict return
             '''
             dic = {}
-            user_id = user.get("id", None)
             if '.' in target:
                 t_target = target.split('.')
                 target_database = getattr(getattr(f_app, t_target[0]), t_target[1])
@@ -886,7 +883,6 @@ class f_currant_user(f_user):
             return want_value in dic.get(comp_element, None)
 
         def get_ticket_newest(user, add_condition={}):
-            user_id = user.get("id", None)
             if user_id is None:
                 return {}
             condition = ({"type": "rent",
@@ -931,7 +927,6 @@ class f_currant_user(f_user):
                 return get_detail_address(f_app.property.get(property_id[0]))
 
         def logs_rent_ticket(user):
-            user_id = user.get("id", None)
             if user_id is None:
                 return ''
             with f_app.mongo() as m:
@@ -973,10 +968,12 @@ class f_currant_user(f_user):
             budget_max = unicode(ticket.get("rent_budget_max", {}).get("value", '不限'))
             if budget_max is None or budget_min is None:
                 return ''
-            elif not budget_max == '不限' and budget_min == '零':
+            elif not (budget_max == '不限' and budget_min == '零'):
                 if budget_min == '零':
                     budget_min = '0'
                 return budget_min+'~~'+budget_max
+            else:
+                return ''
 
         def get_match(ticket):
             match = []
@@ -987,7 +984,6 @@ class f_currant_user(f_user):
             return '/'.join(match)
 
         def logs_content_view(user):
-            user_id = user.get("id", None)
             if user_id is None:
                 return ''
             with f_app.mongo() as m:
@@ -997,7 +993,6 @@ class f_currant_user(f_user):
                 }).count()
 
         def logs_property(user):
-            user_id = user.get("id", None)
             if user_id is None:
                 return ''
             with f_app.mongo() as m:
