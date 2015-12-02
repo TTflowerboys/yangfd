@@ -7,16 +7,9 @@
             if(allBindings().value) {
                 allBindings().value.subscribe(function (val) {
                     if(!_.isObject(val)) {
-                        setTimeout(function () {
-                            $(element).val(val)
-                            $(element).trigger('chosen:updated')
-                        }, 200)
-                    } else {
-                        setTimeout(function () {
-                            $(element).trigger('chosen:updated')
-                        }, 200)
+                        $(element).val(val)
                     }
-
+                    $(element).trigger('chosen:updated')
                 })
             }
         },
@@ -25,7 +18,7 @@
             //如果直接触发chosen:updated，在更改time后再更改mode，chosen的更新有问题
             setTimeout(function () {
                 $(element).trigger('chosen:updated')
-            }, 50)
+            }, 100)
         }
     }
 

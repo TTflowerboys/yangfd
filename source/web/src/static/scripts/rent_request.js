@@ -172,6 +172,7 @@
             window.project.getEnum('occupation')
                 .then(_.bind(function (arr) {
                     this.occupationList(arr)
+                    this.initParamsByLastSubmit()
                 }, this))
             this.occupation = ko.observable()
 
@@ -311,7 +312,6 @@
                     this.initUpload()
                 }
             }
-            this.initParamsByLastSubmit()
 
             this.params = ko.computed(function () {
                 return {
