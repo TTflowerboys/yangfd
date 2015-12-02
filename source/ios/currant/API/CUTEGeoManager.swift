@@ -394,7 +394,6 @@ class CUTEGeoManager: NSObject {
                             }
 
                             trafficTimesMatrix.append(trafficTimesArray)
-                            return trafficTimesArray
                         }
 
                         tcs.setResult(trafficTimesMatrix)
@@ -589,7 +588,7 @@ class CUTEGeoManager: NSObject {
                         }
                     }
                     else if let result = task.result as? [CUTESurrounding] {
-                        completion(result)
+                        tcs.setResult(result)
                     }
                     else {
                         tcs.setResult([])
