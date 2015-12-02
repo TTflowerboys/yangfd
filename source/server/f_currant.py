@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import random
 import re
 import json
@@ -674,7 +674,10 @@ class f_currant_user(f_user):
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
             favorite_id = self.favorite_get_database(m).insert(params)
-
+        f_app.plugin_invoke(
+            "user.favorite.add.after",
+            params
+        )
         return str(favorite_id)
 
     def favorite_is_favorited(self, target_id, fav_type="property", user_id=None):
@@ -761,10 +764,36 @@ class f_currant_user(f_user):
     ==================================================================
     """
 
-    def analyze_data_update(self, user_id):
-        self.update_set(user_id, self.analyze_data_generate(user_id))
+    def analyze_data_update(self, user_id, params={
+        "analyze_guest_county": True,
+        "analyze_guest_user_type": True,
+        "analyze_guest_active_days": True,
+        "analyze_guest_downloaded": True,
+        "analyze_rent_landlord_type": True,
+        "analyze_rent_has_draft": True,
+        "analyze_rent_commit_time": True,
+        "analyze_rent_local": True,
+        "analyze_rent_estate_views_times": True,
+        "analyze_rent_estate_total": True,
+        "analyze_rent_single_or_whole": True,
+        "analyze_rent_period_range": True,
+        "analyze_rent_price": True,
+        "analyze_rent_time": True,
+        "analyze_rent_intention_time": True,
+        "analyze_rent_intention_budget": True,
+        "analyze_rent_intention_local": True,
+        "analyze_rent_intention_match_level": True,
+        "analyze_rent_intention_views_times": True,
+        "analyze_rent_intention_favorite_times": True,
+        "analyze_rent_intention_view_contact_times": True,
+        "analyze_intention_time": True,
+        "analyze_intention_budget": True,
+        "analyze_intention_views_times": True,
+        "analyze_value_modifier_time": True
+    }):
+        self.update_set(user_id, self.analyze_data_generate(user_id, params))
 
-    def analyze_data_generate(self, user_id):
+    def analyze_data_generate(self, user_id, params):
 
         def get_all_enum_value(enum_singlt_type):
             enum_list_subdic = {}
@@ -799,17 +828,21 @@ class f_currant_user(f_user):
             return unicode('/'.join(value_list))
 
         def get_active_days(user):
-            func_map = Code('''
+            func_map = Code(
+                '''
                 function() {
                     key = new Date(this.time.getFullYear(), this.time.getMonth(), this.time.getDate());
                     emit(key, 1);
                 }
-            ''')
-            func_reduce = Code('''
+                '''
+            )
+            func_reduce = Code(
+                '''
                 function(key, value) {
                     return Array.sum(value);
                 }
-            ''')
+                '''
+            )
             user_id = user.get("id", None)
             if user_id is None:
                 return ''
@@ -958,50 +991,123 @@ class f_currant_user(f_user):
             if user_id is None:
                 return ''
             with f_app.mongo() as m:
-                return f_app.log.get_database(m).find({"id": ObjectId(user_id), "type": "rent_ticket_view_contact_info"}).count()
+                return f_app.log.get_database(m).find({
+                    "id": ObjectId(user_id),
+                    "type": "rent_ticket_view_contact_info"
+                }).count()
 
         def logs_property(user):
             user_id = user.get("id", None)
             if user_id is None:
                 return ''
             with f_app.mongo() as m:
-                return f_app.log.get_database(m).find({"id": ObjectId(user_id),
-                                                       "type": "route",
-                                                       "property_id": {"$exists": True}
-                                                       }).count()
+                return f_app.log.get_database(m).find({"id": ObjectId(user_id), "type": "route", "property_id": {"$exists": True}}).count()
 
         enum_type_list = {}
         user = self.get(user_id)
         if user is None:
             user = {}
         result = {}
+        mod_time = user.get('analyze_value_modifier_time', {})
         # result.update({"analyze_guest_nickname": user.get("nickname", '')})
         # result.update({"analyze_guest_register_time": user.get("register_time")})
-        result.update({"analyze_guest_county": user.get("country", {}).get("code", '')})
-        result.update({"analyze_guest_user_type": get_data_enum(user, "user_type")})
-        result.update({"analyze_guest_active_days": get_active_days(user)})
-        result.update({"analyze_guest_downloaded": "已下载" if check_download(user) else "未下载"})
-        result.update({"analyze_rent_landlord_type": get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "landlord_type"), "landlord_type")})
-        result.update({"analyze_rent_has_draft": "有" if get_has_flag(user, "ticket", {"type": "rent"}, "status", "draft") else "无"})
-        result.update({"analyze_rent_commit_time": get_ticket_newest(user, {"type": "rent"}).get("time", '')})
-        result.update({"analyze_rent_local": get_address(user)})
-        result.update({"analyze_rent_estate_views_times": logs_rent_ticket(user)})
-        result.update({"analyze_rent_estate_total": get_count(user, "ticket", {"type": "rent"}, "type", "rent")})
-        result.update({"analyze_rent_single_or_whole": get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "rent_type"), "rent_type")})
-        result.update({"analyze_rent_period_range": time_period_label(get_ticket_newest(user))})
-        result.update({"analyze_rent_price": get_ticket_newest(user).get("price", {}).get("value", "")})
-        result.update({"analyze_rent_time": get_ticket_newest(user, {"type": "rent", "status": "rent"}).get("time", '')})
-        result.update({"analyze_rent_intention_time": get_ticket_newest(user, {"type": "rent_intention", "status": "new"}).get("time", '')})
-        result.update({"analyze_rent_intention_budget": get_budget(get_ticket_newest(user, {"type": "rent_intention"}))})
-        result.update({"analyze_rent_intention_local": get_address(get_ticket_newest(user, {"type": "rent_intention", "status": "new"}))})
-        result.update({"analyze_rent_intention_match_level": get_match(get_ticket_newest(user, {"type": "rent_intention", "status": "new"}))})
-        result.update({"analyze_rent_intention_views_times": logs_rent_ticket(user)})
-        result.update({"analyze_rent_intention_favorite_times": get_count(user, "user.favorite", {"type": "property"}, "type", "property")})
-        result.update({"analyze_rent_intention_view_contact_times": logs_content_view(user)})
-        result.update({"analyze_intention_time": get_ticket_newest(user, {"type": "intention"}).get("time", '')})
-        result.update({"analyze_intention_budget": get_budget(get_ticket_newest(user, {"type": "intention"}))})
-        result.update({"analyze_intention_views_times": logs_property(user)})
-        result.update({"analyze_value_modifier_time": datetime.utcnow()})
+        if params.get("analyze_guest_county", None) is True:
+            result.update({"analyze_guest_county": user.get("country", {}).get("code", '')})
+            mod_time.update({'analyze_guest_county': datetime.utcnow()})
+
+        if params.get("analyze_guest_user_type", None) is True:
+            result.update({"analyze_guest_user_type": get_data_enum(user, "user_type")})
+            mod_time.update({'analyze_guest_user_type': datetime.utcnow()})
+
+        if params.get("analyze_guest_active_days", None) is True:
+            result.update({"analyze_guest_active_days": get_active_days(user)})
+            mod_time.update({'analyze_guest_active_days': datetime.utcnow()})
+
+        if params.get("analyze_guest_downloaded", None) is True:
+            result.update({"analyze_guest_downloaded": "已下载" if check_download(user) else "未下载"})
+            mod_time.update({'analyze_guest_downloaded': datetime.utcnow()})
+
+        if params.get("analyze_rent_landlord_type", None) is True:
+            result.update({"analyze_rent_landlord_type": get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "landlord_type"), "landlord_type")})
+            mod_time.update({'analyze_rent_landlord_type': datetime.utcnow()})
+
+        if params.get("analyze_rent_has_draft", None) is True:
+            result.update({"analyze_rent_has_draft": "有" if get_has_flag(user, "ticket", {"type": "rent"}, "status", "draft") else "无"})
+            mod_time.update({'analyze_rent_has_draft': datetime.utcnow()})
+
+        if params.get("analyze_rent_commit_time", None) is True:
+            result.update({"analyze_rent_commit_time": get_ticket_newest(user, {"type": "rent"}).get("time", '')})
+            mod_time.update({'analyze_rent_commit_time': datetime.utcnow()})
+
+        if params.get("analyze_rent_local", None) is True:
+            result.update({"analyze_rent_local": get_address(user)})
+            mod_time.update({'analyze_rent_local': datetime.utcnow()})
+
+        if params.get("analyze_rent_estate_views_times", None) is True:
+            result.update({"analyze_rent_estate_views_times": logs_rent_ticket(user)})
+            mod_time.update({'analyze_rent_estate_views_times': datetime.utcnow()})
+
+        if params.get("analyze_rent_estate_total", None) is True:
+            result.update({"analyze_rent_estate_total": get_count(user, "ticket", {"type": "rent"}, "type", "rent")})
+            mod_time.update({'analyze_rent_estate_total': datetime.utcnow()})
+
+        if params.get("analyze_rent_single_or_whole", None) is True:
+            result.update({"analyze_rent_single_or_whole": get_data_enum(get_data_complex(user, "ticket", {"type": "rent"}, "rent_type"), "rent_type")})
+            mod_time.update({'analyze_rent_single_or_whole': datetime.utcnow()})
+
+        if params.get("analyze_rent_period_range", None) is True:
+            result.update({"analyze_rent_period_range": time_period_label(get_ticket_newest(user))})
+            mod_time.update({'analyze_rent_period_range': datetime.utcnow()})
+
+        if params.get("analyze_rent_price", None) is True:
+            result.update({"analyze_rent_price": get_ticket_newest(user).get("price", {}).get("value", "")})
+            mod_time.update({'analyze_rent_price': datetime.utcnow()})
+
+        if params.get("analyze_rent_time", None) is True:
+            result.update({"analyze_rent_time": get_ticket_newest(user, {"type": "rent", "status": "rent"}).get("time", '')})
+            mod_time.update({'analyze_rent_time': datetime.utcnow()})
+
+        if params.get("analyze_rent_intention_time", None) is True:
+            result.update({"analyze_rent_intention_time": get_ticket_newest(user, {"type": "rent_intention", "status": "new"}).get("time", '')})
+            mod_time.update({'analyze_rent_intention_time': datetime.utcnow()})
+
+        if params.get("analyze_rent_intention_budget", None) is True:
+            result.update({"analyze_rent_intention_budget": get_budget(get_ticket_newest(user, {"type": "rent_intention"}))})
+            mod_time.update({'analyze_rent_intention_budget': datetime.utcnow()})
+
+        if params.get("analyze_rent_intention_local", None) is True:
+            result.update({"analyze_rent_intention_local": get_address(get_ticket_newest(user, {"type": "rent_intention", "status": "new"}))})
+            mod_time.update({'analyze_rent_intention_local': datetime.utcnow()})
+
+        if params.get("analyze_rent_intention_match_level", None) is True:
+            result.update({"analyze_rent_intention_match_level": get_match(get_ticket_newest(user, {"type": "rent_intention", "status": "new"}))})
+            mod_time.update({'analyze_rent_intention_match_level': datetime.utcnow()})
+
+        if params.get("analyze_rent_intention_views_times", None) is True:
+            result.update({"analyze_rent_intention_views_times": logs_rent_ticket(user)})
+            mod_time.update({'analyze_rent_intention_views_times': datetime.utcnow()})
+
+        if params.get("analyze_rent_intention_favorite_times", None) is True:
+            result.update({"analyze_rent_intention_favorite_times": get_count(user, "user.favorite", {"type": "property"}, "type", "property")})
+            mod_time.update({'analyze_rent_intention_favorite_times': datetime.utcnow()})
+
+        if params.get("analyze_rent_intention_view_contact_times", None) is True:
+            result.update({"analyze_rent_intention_view_contact_times": logs_content_view(user)})
+            mod_time.update({'analyze_rent_intention_view_contact_times': datetime.utcnow()})
+
+        if params.get("analyze_intention_time", None) is True:
+            result.update({"analyze_intention_time": get_ticket_newest(user, {"type": "intention"}).get("time", '')})
+            mod_time.update({'analyze_intention_time': datetime.utcnow()})
+
+        if params.get("analyze_intention_budget", None) is True:
+            result.update({"analyze_intention_budget": get_budget(get_ticket_newest(user, {"type": "intention"}))})
+            mod_time.update({'analyze_intention_budget': datetime.utcnow()})
+
+        if params.get("analyze_intention_views_times", None) is True:
+            result.update({"analyze_intention_views_times": logs_property(user)})
+            mod_time.update({'analyze_intention_views_times': datetime.utcnow()})
+
+        result.update({"analyze_value_modifier_time": mod_time})
 
         return result
 
@@ -1202,7 +1308,7 @@ class f_currant_plugins(f_app.plugin_base):
                     tag="rent_ticket_publish_success",
                 )
 
-            assert ticket["property"].get("user_generated") == True, abort(40000, "Invalid property for ticket")
+            assert ticket["property"].get("user_generated") is True, abort(40000, "Invalid property for ticket")
             f_app.property.update_set(ticket["property"]["id"], {"status": "selling"})
 
         elif ticket["type"] == "rent_intention" and "status" in params and params["status"] == "new":
@@ -1210,6 +1316,41 @@ class f_currant_plugins(f_app.plugin_base):
                 type="rent_intention_ticket_check_rent",
                 ticket_id=ticket_id,
             ))
+
+        if ticket.get('type', None) == "rent":
+            if params.get('landlord_type', None) is not None:
+                f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_landlord_type': True})
+
+            if params.get('status', None) == "draft":
+                f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_has_draft': True})
+
+            if params.get('status', None) == "rent":
+                f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_time': True})
+
+            f_app.user.analyze_data_update(ticket.get('user_id', None), {
+                'analyze_rent_commit_time': True,
+                'analyze_rent_local': True,
+                'analyze_rent_estate_total': True,
+                'analyze_rent_single_or_whole': True,
+                'analyze_rent_period_range': True,
+                'analyze_rent_price': True
+
+            })
+
+        if ticket.get('type', None) == "rent_intention":
+            if params.get('status', None) == "new":
+                f_app.user.analyze_data_update(ticket.get('user_id', None), {
+                    'analyze_rent_intention_time': True,
+                    'analyze_rent_intention_local': True,
+                    'analyze_rent_intention_match_level': True
+                })
+            f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_intention_budget': True})
+
+        if ticket.get('type', None) == "intention":
+            f_app.user.analyze_data_update(ticket.get('user_id', None), {
+                'analyze_intention_time': True,
+                'analyze_intention_budget': True,
+                })
 
         return ticket_id
 
@@ -1236,7 +1377,7 @@ class f_currant_plugins(f_app.plugin_base):
             if ticket_email_user is None:
                 continue
 
-            if intention_ticket.get("disable_matching") == True:
+            if intention_ticket.get("disable_matching") is True:
                 continue
 
             if "rent_intention_ticket_check_rent" not in ticket_email_user.get("email_message_type", []):
@@ -1329,7 +1470,7 @@ class f_currant_plugins(f_app.plugin_base):
             self.logger.debug("Ignoring rent_intention_ticket_check_rent for ticket", ticket_id, "as the creator user doesn't have email filled.")
             return
 
-        if intention_ticket.get("disable_matching") == True:
+        if intention_ticket.get("disable_matching") is True:
             return
 
         if "rent_intention_ticket_check_rent" not in ticket_email_user.get("email_message_type", []):
@@ -1485,12 +1626,17 @@ class f_currant_plugins(f_app.plugin_base):
 
     def user_update_after(self, user_id, params):
         if "$set" in params:
+            if "country" in params.get('$set', {}):
+                f_app.user.analyze_data_update(user_id, {"analyze_guest_county": True})
+            if "user_type" in params.get('$set', {}):
+                f_app.user.analyze_data_update(user_id, {"analyze_guest_user_type": True})
             if len(set(["nickname", "phone", "email"]) & set(params["$set"])) > 0:
                 index_params = f_app.util.try_get_value(f_app.user.get(user_id), ["nickname", "phone", "email"])
                 if index_params:
                     if "phone" in index_params:
                         index_params["phone_national_number"] = phonenumbers.format_number(phonenumbers.parse(index_params["phone"]), phonenumbers.PhoneNumberFormat.NATIONAL).replace(" ", "")
                     f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
+        return user_id
 
     def post_add(self, params, post_id):
         if {'_id': ObjectId(f_app.enum.get_by_slug('announcement')['id']), 'type': 'news_category', '_enum': 'news_category'} in params["category"]:
@@ -2356,6 +2502,58 @@ class f_currant_plugins(f_app.plugin_base):
     def shop_item_update_pre(self, params, shop_id, item_id):
         if "$set" in params:
             params["$set"]["mtime"] = datetime.utcnow()
+        return params
+
+    def user_credit_add_after(self, params):
+        # know user downloaded or not
+        user_id = params.get('user_id', None)
+        downloaded = f_app.user.get(user_id).get('analyze_guest_downloaded', None)
+        if not downloaded:
+            f_app.user.analyze_data_update(user_id, {"analyze_guest_downloaded": True})
+        if params.get('type', None) == "view_rent_ticket_contact_info" and params.get('tag', None) == "download_ios_app" and "user_id" in params:
+            f_app.user.update_set(params.get('user_id', None), {'analyze_guest_downloaded': "已下载"})
+        return params
+
+    def log_add_after(self, user_id, log_type, **kwargs):
+        if not user_id:
+            return user_id
+        # know how many days the user was active
+        active_days = f_app.user.get(user_id).get('analyze_guest_active_days', None)
+        if active_days is None:
+            f_app.user.analyze_data_update(user_id, {'analyze_guest_active_days': True})
+        else:
+            today = date.today()
+            mod_day = f_app.user.get(user_id).get('analyze_value_modifier_time', {}).get('analyze_guest_active_days', None)
+            if not isinstance(mod_day, date):
+                if isinstance(mod_day, datetime):
+                    mod_day = mod_day.date()
+                elif isinstance(mod_day, float):
+                    mod_day = date.fromtimestamp(mod_day)
+                else:
+                    self.logger.warning('check user modify day !')
+                    return user_id
+            # make sure mod_day is date
+            if today > mod_day:
+                f_app.user.analyze_data_update(user_id, {'analyze_guest_active_days': True})
+            elif today < mod_day:
+                self.logger.warning('mod date in the future !')
+
+        if log_type == "route" and kwargs.get('rent_ticket_id', None) is not None:
+            f_app.user.analyze_data_update(user_id, {
+                'analyze_rent_estate_views_times': True,
+                'analyze_rent_intention_views_times': True
+            })
+
+        if log_type == "route" and kwargs.get('property_id', None) is not None:
+            f_app.user.analyze_data_update(user_id, {'analyze_intention_views_times': True})
+
+        if log_type == "rent_ticket_view_contact_info":
+            f_app.user.analyze_data_update(user_id, {'analyze_rent_intention_view_contact_times': True})
+        return user_id
+
+    def user_favorite_add_after(self, params):
+        if params.get('type', None) == "property":
+            f_app.user.analyze_data_update(params.get('user_id', None), {"analyze_rent_intention_favorite_times": True})
         return params
 
 f_currant_plugins()
