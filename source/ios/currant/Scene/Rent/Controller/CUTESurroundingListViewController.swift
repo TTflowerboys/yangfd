@@ -216,6 +216,7 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
 
                     }).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                         self.tableView.reloadData()
+                        self.showHintLabel(self.form.ticket.property.surroundings.count == 0)
                         SVProgressHUD.dismiss()
                         return task
                     })
