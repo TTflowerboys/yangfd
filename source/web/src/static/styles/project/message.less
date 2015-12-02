@@ -1,6 +1,7 @@
 @import "_imports";
 .dhtmlx_message_area{
-    width: 220px;
+    width: 100%;
+    text-align: center;
     top: 0 !important;
     right: 0 !important;
     @media @phone{
@@ -10,8 +11,8 @@
         right: 0px !important;
     }
     .dhtmlx-info{
+        width: 100%;
         color: #fff;
-        width: 220px;
         padding: 10px 20px;
         margin: 0;
         border-radius: 0;
@@ -25,6 +26,10 @@
         }
         &.hidden{
             padding: 0 20px;
+        }
+        >div{
+            display: inline-block;
+            max-width: 1200px;
         }
     }
     .dhtmlx-error {

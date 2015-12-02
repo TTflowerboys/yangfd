@@ -1,8 +1,17 @@
-if(window.wechatShareSDK) {
-    window.wechatShareSDK.init()
-}
-window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
-window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame
+(function () {
+    if(window.wechatShareSDK) {
+        window.wechatShareSDK.init()
+    }
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
+    window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame
+
+    //将window.dhtmlx.message的默认expire改为6000
+    var originDhtmlxMessage = window.dhtmlx.message
+    window.dhtmlx.message = function (options) {
+        options.expire = options.expire || 6000
+        originDhtmlxMessage.call(null, options)
+    }
+})()
 $(function () {
     window.project.updateMenuTitle($('title').text());
 
