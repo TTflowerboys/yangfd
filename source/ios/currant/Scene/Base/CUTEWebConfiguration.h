@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 #import "BBTWebBarButtonItem.h"
 
+#define FAVORITE_BAR_BUTTON_ITEM_TAG 10001
+
 @interface CUTEWebConfiguration : NSObject
 
 + (instancetype)sharedInstance;

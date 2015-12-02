@@ -83,19 +83,25 @@
 
 - (BBTWebBarButtonItem *)getLeftBarItemFromURL:(NSURL *)url {
     if ([self isURL:url matchPath:@"\\/property-to-rent-list"]) {
-        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController)
+        BBTWebBarButtonItem *barButtonItem = [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController)
         {
             TrackEvent(@"property-to-rent-list", kEventActionPress, @"open-fav-list", nil);
             NSURL *itemURL = [CUTEPermissionChecker URLWithPath:@"/user-favorites#rent"];
             [viewController.navigationController openRouteWithURL:itemURL];
         }];
+        barButtonItem.tag = FAVORITE_BAR_BUTTON_ITEM_TAG;
+
+        return barButtonItem;
     }
     else if ([self isURL:url matchPath:@"\\/property-list"]) {
-        return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController) {
+        BBTWebBarButtonItem *barButtonItem = [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-favor") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController) {
             TrackEvent(@"property-list", kEventActionPress, @"open-fav-list", nil);
             NSURL *itemURL = [CUTEPermissionChecker URLWithPath:@"/user-favorites#own"];
             [viewController.navigationController openRouteWithURL:itemURL];
         }];
+        barButtonItem.tag = FAVORITE_BAR_BUTTON_ITEM_TAG;
+
+        return barButtonItem;
     }
 
     return nil;

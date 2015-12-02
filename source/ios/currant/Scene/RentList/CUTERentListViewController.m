@@ -19,6 +19,7 @@
 #import <Aspects.h>
 #import "CUTEUsageRecorder.h"
 #import "CUTESurveyHelper.h"
+#import "CUTEWebConfiguration.h"
 
 @interface CUTERentListViewController ()
 {
@@ -34,22 +35,27 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    UIBarButtonItem *letItem = self.navigationItem.leftBarButtonItem;
 
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_FAVORITE_RENT_TICKET_DISPLAYED]) {
-            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetBarButtonItem:self.navigationItem.leftBarButtonItem hostView:self.navigationController.view tooltipText:STR(@"RentList/查看收藏的出租房") arrowDirection:JDFTooltipViewArrowDirectionUp width:150];
-            [toolTips show];
+    if (letItem && letItem.tag == FAVORITE_BAR_BUTTON_ITEM_TAG) {
 
-            [self aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^(id<AspectInfo> aspectInfo) {
-                [toolTips hideAnimated:NO];
-            } error:nil];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_FAVORITE_RENT_TICKET_DISPLAYED];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
+            if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_FAVORITE_RENT_TICKET_DISPLAYED]) {
+                CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetBarButtonItem:self.navigationItem.leftBarButtonItem hostView:self.navigationController.view tooltipText:STR(@"RentList/查看收藏的出租房") arrowDirection:JDFTooltipViewArrowDirectionUp width:150];
+                [toolTips show];
 
-        [CUTESurveyHelper checkShowUserVisitManyRentTicketSurveyWithViewController:self];
-    });
+                [self aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionBefore | AspectOptionAutomaticRemoval usingBlock:^(id<AspectInfo> aspectInfo) {
+                    [toolTips hideAnimated:NO];
+                } error:nil];
+
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:CUTE_USER_DEFAULT_TIP_FAVORITE_RENT_TICKET_DISPLAYED];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+
+            [CUTESurveyHelper checkShowUserVisitManyRentTicketSurveyWithViewController:self];
+        });
+    }
 }
 
 - (void)onMapButtonPressed:(id)sender {
