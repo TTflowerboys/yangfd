@@ -82,7 +82,12 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
     }
 
     override func viewWillAppear(animated: Bool) {
-        self.searchBar.becomeFirstResponder()
+        super.viewWillAppear(animated)
+
+        //http://stackoverflow.com/questions/9357026/super-slow-lag-delay-on-initial-keyboard-animation-of-uitextfield
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.searchBar.becomeFirstResponder()
+        }
     }
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
