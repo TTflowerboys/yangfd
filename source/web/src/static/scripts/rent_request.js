@@ -376,7 +376,7 @@
                         var wordBlacklist = ['微信', '微博', 'QQ', '电话', 'weixin', 'wechat', 'whatsapp', 'facebook', 'weibo']
                         var description = this.params().description
                         if(!description) {
-                            return errorList.push(window.i18n('请填写写下您入住的原因和对房东的问题'))
+                            return errorList.push(window.i18n('请填写您入住的原因和对房东的问题'))
                         }
                         if (window.project.includePhoneOrEmail(description) || _.some(wordBlacklist, function (v) {
                                 return description.toLowerCase().indexOf(v.toLowerCase()) !== -1
