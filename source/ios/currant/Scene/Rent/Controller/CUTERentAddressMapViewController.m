@@ -456,9 +456,9 @@
     
     CUTETicket *currentTicket = self.form.ticket;
     if (currentTicket) {
-        [SVProgressHUD show];
-        Sequencer *sequencer = [Sequencer new];
         if (IsNilNullOrEmpty(currentTicket.identifier)) {
+            [SVProgressHUD show];
+            Sequencer *sequencer = [Sequencer new];
             [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
                 [[[CUTERentTicketPublisher sharedInstance] createTicket:currentTicket] continueWithBlock:^id(BFTask *task) {
                     if (task.error || task.exception || task.isCancelled) {
