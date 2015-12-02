@@ -52,6 +52,7 @@
 
 @interface CUTERentPropertyInfoViewController () {
 
+    BFCancellationTokenSource *_surroundingSearchCancellationTokenSource;
 }
 
 @end
@@ -108,27 +109,7 @@
 
             CUTETicket *ticket = [[CUTEDataManager sharedInstance] getRentTicketById:ticketId];
             if (ticket) {
-                NSArray *landloardTypes = result[0];
-                NSArray *propertyTypes = result[1];
-
-                if (ticket.landlordType == nil) {
-                    ticket.landlordType = [CUTEPropertyInfoForm getDefaultLandloardType:landloardTypes];
-                }
-                if (ticket.property.propertyType == nil) {
-                    ticket.property.propertyType = [CUTEPropertyInfoForm getDefaultPropertyType:propertyTypes];
-                }
-
-                CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
-                form.ticket = ticket;
-                form.propertyType = ticket.property.propertyType;
-                form.bedroomCount = ticket.property.bedroomCount? ticket.property.bedroomCount.integerValue: 0;
-                form.livingroomCount = ticket.property.livingroomCount? ticket.property.livingroomCount.integerValue: 0;
-                form.bathroomCount = ticket.property.bathroomCount? ticket.property.bathroomCount.integerValue: 0;
-                [form setAllPropertyTypes:propertyTypes];
-                [form setAllLandlordTypes:landloardTypes];
-                self.formController.form = form;
-                completion(ticket);
-
+                completion( @{@"ticket":ticket, @"landloardTypes":result[0], @"propertyTypes":result[1]});
             }
             else {
                 [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticketId) parameters:nil resultClass:[CUTETicket class]] continueWithBlock:^id(BFTask *task) {
@@ -143,51 +124,39 @@
                     }
                     else {
                         CUTETicket *ticket = task.result;
-                        NSArray *landloardTypes = result[0];
-                        NSArray *propertyTypes = result[1];
-
-                        if (ticket.landlordType == nil) {
-                            ticket.landlordType = [CUTEPropertyInfoForm getDefaultLandloardType:landloardTypes];
-                        }
-                        if (ticket.property.propertyType == nil) {
-                            ticket.property.propertyType = [CUTEPropertyInfoForm getDefaultPropertyType:propertyTypes];
-                        }
-
-                        CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
-                        form.ticket = ticket;
-                        form.propertyType = ticket.property.propertyType;
-                        form.bedroomCount = ticket.property.bedroomCount? ticket.property.bedroomCount.integerValue: 0;
-                        form.livingroomCount = ticket.property.livingroomCount? ticket.property.livingroomCount.integerValue: 0;
-                        form.bathroomCount = ticket.property.bathroomCount? ticket.property.bathroomCount.integerValue: 0;
-                        [form setAllPropertyTypes:propertyTypes];
-                        [form setAllLandlordTypes:landloardTypes];
-                        self.formController.form = form;
-                        completion(ticket);
+                        completion( @{@"ticket":ticket, @"landloardTypes":result[0], @"propertyTypes":result[1]});
                         
                     }
                     return task;
                 }];
             }
-
         }];
 
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
+            NSDictionary *dic = (NSDictionary *)result;
+            CUTETicket *ticket = dic[@"ticket"];
+            NSArray *landloardTypes = dic[@"landloardTypes"];
+            NSArray *propertyTypes = dic[@"propertyTypes"];
 
-            CUTEProperty *property = self.form.ticket.property;
-            if (IsArrayNilOrEmpty(self.form.ticket.property.surroundings) && property.latitude && property.longitude && !IsNilNullOrEmpty(property.zipcode)) {
-                NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
-                [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil latitude:property.latitude longitude:property.longitude city:property.city country:property.country propertyPostcodeIndex:postCodeIndex cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
-                    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
-                        ticket.property.surroundings  = task.result;
-                    }];
+            if (ticket.landlordType == nil) {
+                ticket.landlordType = [CUTEPropertyInfoForm getDefaultLandloardType:landloardTypes];
+            }
+            if (ticket.property.propertyType == nil) {
+                ticket.property.propertyType = [CUTEPropertyInfoForm getDefaultPropertyType:propertyTypes];
+            }
 
-                    [tcs setResult:nil];
-                    return task;
-                }];
-            }
-            else {
-                [tcs setResult:nil];
-            }
+            CUTEPropertyInfoForm *form = [CUTEPropertyInfoForm new];
+            form.ticket = ticket;
+            form.propertyType = ticket.property.propertyType;
+            form.bedroomCount = ticket.property.bedroomCount? ticket.property.bedroomCount.integerValue: 0;
+            form.livingroomCount = ticket.property.livingroomCount? ticket.property.livingroomCount.integerValue: 0;
+            form.bathroomCount = ticket.property.bathroomCount? ticket.property.bathroomCount.integerValue: 0;
+            [form setAllPropertyTypes:propertyTypes];
+            [form setAllLandlordTypes:landloardTypes];
+            self.formController.form = form;
+
+            [self startLoadSurroundings];
+            [tcs setResult:ticket];
         }];
 
         [sequencer run];
@@ -195,6 +164,23 @@
 
 
     return tcs.task;
+}
+
+
+- (void)startLoadSurroundings {
+    CUTEProperty *property = self.form.ticket.property;
+    if (IsArrayNilOrEmpty(self.form.ticket.property.surroundings) && property.latitude && property.longitude && !IsNilNullOrEmpty(property.zipcode)) {
+        NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
+        _surroundingSearchCancellationTokenSource = [BFCancellationTokenSource cancellationTokenSource];
+        [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil latitude:property.latitude longitude:property.longitude city:property.city country:property.country propertyPostcodeIndex:postCodeIndex cancellationToken:_surroundingSearchCancellationTokenSource.token] continueWithBlock:^id(BFTask *task) {
+            _surroundingSearchCancellationTokenSource = nil;
+            [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+                ticket.property.surroundings  = task.result;
+            }];
+
+            return task;
+        }];
+    }
 }
 
 - (void)viewDidLoad {
@@ -482,18 +468,39 @@
         else {
             [SVProgressHUD show];
             NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
-            [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil latitude:property.latitude longitude:property.longitude  city:property.city country:property.country propertyPostcodeIndex:postCodeIndex cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
+            if (_surroundingSearchCancellationTokenSource) {
+                [_surroundingSearchCancellationTokenSource cancel];
+            }
+            _surroundingSearchCancellationTokenSource = [BFCancellationTokenSource cancellationTokenSource];
+            [[[CUTEGeoManager sharedInstance] searchSurroundingsWithName:nil latitude:property.latitude longitude:property.longitude  city:property.city country:property.country propertyPostcodeIndex:postCodeIndex cancellationToken:_surroundingSearchCancellationTokenSource.token] continueWithBlock:^id(BFTask *task) {
+                _surroundingSearchCancellationTokenSource = nil;
 
-                [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+                [[self.form syncTicketWithBlock:^(CUTETicket *ticket) {
                     NSArray *result = task.result != nil? task.result: @[];
                     ticket.property.surroundings = result;
-                    CUTESurroundingForm *form = [CUTESurroundingForm new];
-                    form.ticket = self.form.ticket;
-                    CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithForm:form];
-                    controller.postcodeIndex = postCodeIndex;
-                    [self.navigationController pushViewController:controller animated:YES];
-                    [SVProgressHUD dismiss];
+
+                }] continueWithBlock:^id(BFTask *task) {
+                    if (task.error) {
+                        [SVProgressHUD showErrorWithError:task.error];
+                    }
+                    else if (task.exception) {
+                        [SVProgressHUD showErrorWithException:task.exception];
+                    }
+                    else if (task.isCancelled) {
+                        [SVProgressHUD showErrorWithCancellation];
+                    }
+                    else {
+                        CUTESurroundingForm *form = [CUTESurroundingForm new];
+                        form.ticket = self.form.ticket;
+                        CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithForm:form];
+                        controller.postcodeIndex = postCodeIndex;
+                        [self.navigationController pushViewController:controller animated:YES];
+                        [SVProgressHUD dismiss];
+                    }
+
+                    return task;
                 }];
+
 
                 return task;
             }];

@@ -184,6 +184,8 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
         SVProgressHUD.show()
         self.searchCancellationTokenSource = BFCancellationTokenSource()
         CUTEGeoManager.sharedInstance.searchSurroundingsMainInfoWithName(searchBar.text, latitude: nil, longitude: nil, city: nil, country: nil, propertyPostcodeIndex:self.postcodeIndex, cancellationToken:self.searchCancellationTokenSource!.token).continueWithBlock { (task:BFTask!) -> AnyObject! in
+            self.searchCancellationTokenSource = nil
+
             if task.error != nil {
                 SVProgressHUD.showErrorWithError(task.error)
             }
