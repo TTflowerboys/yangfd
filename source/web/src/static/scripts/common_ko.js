@@ -10,11 +10,11 @@
                         setTimeout(function () {
                             $(element).val(val)
                             $(element).trigger('chosen:updated')
-                        }, 100)
+                        }, 200)
                     } else {
                         setTimeout(function () {
                             $(element).trigger('chosen:updated')
-                        }, 100)
+                        }, 200)
                     }
 
                 })
