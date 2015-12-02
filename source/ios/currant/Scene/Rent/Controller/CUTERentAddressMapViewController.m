@@ -494,7 +494,6 @@
         }
         else {
             CUTETicket *ticket = currentTicket;
-            [SVProgressHUD dismiss];
             TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
             [self.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
         }

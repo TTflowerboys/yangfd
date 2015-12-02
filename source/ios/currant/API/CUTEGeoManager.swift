@@ -112,6 +112,7 @@ class CUTEGeoManager: NSObject {
                                 }
                                 else {
                                     placemark.country = country
+                                    placemark.city = nil
                                     tcs.setResult(placemark)
                                 }
                             }
@@ -123,6 +124,8 @@ class CUTEGeoManager: NSObject {
                         })
                     }
                     else {
+                        placemark.country = nil
+                        placemark.city = nil
                         tcs.setResult(placemark)
                     }
                 }
@@ -365,12 +368,14 @@ class CUTEGeoManager: NSObject {
                             throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + dic.description])
                         }
 
-                        let trafficTimesMatrix = try rows.map({ (dic: [String: AnyObject]) -> [CUTETrafficTime] in
+                        var trafficTimesMatrix = [[CUTETrafficTime]]()
+                        for dic:[String:AnyObject] in rows {
                             guard let elements = dic["elements"] as? [[String: AnyObject]] else {
                                 throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + dic.description])
                             }
 
-                            let trafficTimesArray = try elements.map({ (element: [String: AnyObject]) -> CUTETrafficTime in
+                            var trafficTimesArray = [CUTETrafficTime]()
+                            for element:[String:AnyObject] in elements {
                                 guard let durationDic = element["duration"] as? [String: AnyObject] else {
                                     throw NSError(domain: "Google", code: -1, userInfo: [NSLocalizedDescriptionKey:"Parse Error" + " " + element.description])
                                 }
@@ -385,10 +390,13 @@ class CUTEGeoManager: NSObject {
                                     return type.slug == mode
                                 }).first
 
-                                return trifficTime
-                            })
+                               trafficTimesArray.append(trifficTime)
+                            }
+
+                            trafficTimesMatrix.append(trafficTimesArray)
                             return trafficTimesArray
-                        })
+                        }
+
                         tcs.setResult(trafficTimesMatrix)
                     }
                     catch let error as NSError {
@@ -573,20 +581,25 @@ class CUTEGeoManager: NSObject {
             ) -> Void in
 
             let surroundings = result as! [CUTESurrounding]
-            self.searchSurroundingsTrafficInfoWithProperty(propertyPostcodeIndex, surroundings: surroundings, cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-                if task.cancelled {
-                    if !tcs.task.completed {
-                        tcs.cancel()
+            if surroundings.count > 0 {
+                self.searchSurroundingsTrafficInfoWithProperty(propertyPostcodeIndex, surroundings: surroundings, cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                    if task.cancelled {
+                        if !tcs.task.completed {
+                            tcs.cancel()
+                        }
                     }
-                }
-                else if let result = task.result as? [CUTESurrounding] {
-                    completion(result)
-                }
-                else {
-                    tcs.setResult([])
-                }
-                return task
-            })
+                    else if let result = task.result as? [CUTESurrounding] {
+                        completion(result)
+                    }
+                    else {
+                        tcs.setResult([])
+                    }
+                    return task
+                })
+            }
+            else {
+                tcs.setResult([])
+            }
         }
 
         sequencer.run()
