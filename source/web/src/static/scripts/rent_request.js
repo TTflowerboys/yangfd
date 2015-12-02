@@ -4,6 +4,12 @@
     }
     ko.components.register('rent-request', {
         viewModel: function(params) {
+            this.openRentRequestForm = function (ticketId, isPopup) {
+                return function () {
+                    window.openRentRequestForm(ticketId, isPopup)
+                }
+            }
+
             this.step = ko.observable(1)
             this.goNext = function () {
                 if(this.validateStep1()) {
@@ -189,7 +195,7 @@
                 return window.team.generateArray(32 - new Date(year, month, 32).getDate());
             }
             this.birthYearList = ko.observableArray(generateYearList(80))
-            this.birthYear = ko.observable(new Date().getFullYear())
+            this.birthYear = ko.observable(1990)
             this.birthMonthList = ko.observableArray(window.team.generateArray(12))
             this.birthMonth = ko.observable(1)
             this.birthDateList = ko.computed(function () {
@@ -362,8 +368,15 @@
                         }
                     },
                     description: function () {
-                        if(!this.params().description) {
-                            errorList.push(window.i18n('请填写写下您入住的原因和对房东的问题'))
+                        var wordBlacklist = ['微信', '微博', 'QQ', '电话', 'weixin', 'wechat', 'whatsapp', 'facebook', 'weibo']
+                        var description = this.params().description
+                        if(!description) {
+                            return errorList.push(window.i18n('请填写写下您入住的原因和对房东的问题'))
+                        }
+                        if (window.project.includePhoneOrEmail(description) || _.some(wordBlacklist, function (v) {
+                                return description.toLowerCase().indexOf(v.toLowerCase()) !== -1
+                            })) {
+                            return errorList.push(window.i18n('请不要在描述中填写任何形式的联系方式'))
                         }
                     },
                     nickname: function () {

@@ -24,7 +24,7 @@ function PhoneIntroJs(options) {
 }
 function startIntroOnPhone() {
     new PhoneIntroJs({
-        text: i18n('点击此处可以联系房东'),
+        text: i18n('点击此处可以咨询房东'),
         arrow: 'bottom',
         style : {
             position: 'fixed',
@@ -57,7 +57,7 @@ function startIntroOnWeb() {
     var steps = [
         {
             element: $('#contactRequest')[0],
-            intro: i18n('小提示：点击此处可以查看房东的完整联系方式'),
+            intro: i18n('小提示：点击此处可以咨询房东'),
             position: 'bottom'
         },
         {

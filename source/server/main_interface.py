@@ -210,7 +210,7 @@ def rent_ticket_get(rent_ticket_id, user):
     # if rent_ticket.get('zipcode_index') and rent_ticket.get('country').get('code') == 'GB':
     #     report = f_app.i18n.process_i18n(currant_data_helper.get_report(rent_ticket.get('zipcode_index')))
 
-    title = _('房东联系方式')
+    title = _('咨询房东')
     contact_info_already_fetched = len(f_app.order.search({
         "items.id": f_app.common.view_rent_ticket_contact_info_id,
         "ticket_id": rent_ticket_id,

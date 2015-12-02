@@ -625,11 +625,11 @@
         %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
         <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" >
             %if not (rent.get('property',{}).get('partner') or (rent.get('user') and rent.get('user',{}).get('id') != rent.get('creator_user',{}).get('id'))):
-            {{_('联系房东')+':'}}
+            {{_('我要咨询')+':'}}
             <span>+{{rent.get('creator_user',{}).get('country_code','') }}</span>
             <span>{{rent.get('creator_user',{}).get('phone','')}}</span>
             % else:
-            {{_('联系平台')}}
+            {{_('我要咨询')}}
             %end
         </a>
         %end

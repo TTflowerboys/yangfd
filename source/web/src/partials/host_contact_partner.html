@@ -32,6 +32,12 @@
             </div>
         </div>
     </div>
+    %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
+    <div class="contactRequest">
+        <a class="ghostButton red hiddenOnPCWeb" href="/rent-request?ticketId={{rent.get('id')}}">{{_('我要咨询')}}</a>
+        <button class="ajaxButton ghostButton red hiddenOnMobile" data-bind="click: openRentRequestForm('{{rent.get('id')}}', true)">{{_('我要咨询')}}</button>
+    </div>
+    %end
     % if 'short_id' in rent['property'] and rent.get('property',{}).get('short_id',''):
     <div class="shortid">
         <span class="label">{{_('房源编号: ')}}</span><span class="id">{{rent.get('property',{}).get('short_id','')}}</span>
