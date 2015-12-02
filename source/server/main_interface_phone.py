@@ -28,7 +28,7 @@ def requirement_rent():
 @f_get('/rent-request')
 @currant_util.check_ip_and_redirect_domain
 def requirement_rent():
-    title = _('提交求租申请')
+    title = _('提交求租咨询')
     return currant_util.common_template("rent_request_phone", title=title)
 
 
