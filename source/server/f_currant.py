@@ -1194,6 +1194,16 @@ class f_currant_ticket(f_ticket):
                         t["budget"] = enum_dict.get(t["budget"]["id"])
                     if t.get("property_id"):
                         t["property"] = property_dict.get(t.pop("property_id"))
+                    if "interested_rent_tickets" in t:
+                        t["interested_rent_tickets"] = f_app.ticket.output(
+                            t["interested_rent_tickets"],
+                            enable_custom_fields=enable_custom_fields,
+                            ignore_nonexist=ignore_nonexist,
+                            fuzzy_user_info=fuzzy_user_info,
+                            multi_return=multi_return,
+                            location_only=location_only,
+                            permission_check=permission_check,
+                        )
 
         else:
             new_ticket_list = []
