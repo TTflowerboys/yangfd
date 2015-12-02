@@ -120,7 +120,7 @@
                         }
                         if(data.ret) {
                             this.uploadProgressVisible(false)
-                            return window.dhtmlx.message({ type:'error', text: window.i18n('上传错误：错误代码') + '(' + data.ret + '),' + data.debug_msg })
+                            return window.alert(window.i18n('上传错误：错误代码') + '(' + data.ret + '),' + data.debug_msg)
                         }
                         pd.progressDiv.hide()
                         this.uploading(false)
@@ -143,7 +143,7 @@
                         //files: list of files
                         //status: error status
                         //errMsg: error message
-                        window.dhtmlx.message({ type:'error', text: i18n('图片') + files.toString() + i18n('上传失败(') + status + ':' + errMsg + i18n(')，请重新上传') })
+                        window.alert(i18n('图片') + files.toString() + i18n('上传失败(') + status + ':' + errMsg + i18n(')，请重新上传'))
                         this.uploadProgressVisible(false)
                         this.uploading(false)
                     }, this)
@@ -259,9 +259,6 @@
                     this.country(_.find(this.countryCodeList(), {countryCode: user.country_code.toString()}))
                     this.phone(user.phone)
                     this.email(user.email)
-                    if(user.occupation) {
-                        this.occupation()
-                    }
                     if(user.gender) {
                         this.genderObj(_.find(this.genderList(), {value: user.gender}))
                     }

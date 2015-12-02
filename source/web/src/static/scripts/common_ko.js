@@ -9,7 +9,9 @@
                     if(!_.isObject(val)) {
                         $(element).val(val)
                     }
-                    $(element).trigger('chosen:updated')
+                    setTimeout(function () {
+                        $(element).trigger('chosen:updated')
+                    }, 100)
                 })
             }
         },
