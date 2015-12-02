@@ -56,6 +56,7 @@
 "RentPropertyInfo/租金不能为0" = "租金不能为0";
 "RentPropertyInfo/请添加房产的Postcode" = "请添加房产的Postcode";
 "RentPropertyInfo/学校，地铁" = "学校，地铁";
+"RentPropertyInfo/您的房产地址已经变更，请重新编辑房源的周边" = "您的房产地址已经变更，请重新编辑房源的周边";
 
 
 //
@@ -780,6 +781,8 @@
 "%d卫" = "%d卫";
 
 "%d居室" = "%d居室";
+
+"OK" = "OK";
 
 
 //Language

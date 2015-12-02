@@ -273,6 +273,10 @@
 
                     [self.tableView reloadData];
                     _updateLocationFromAddressFailed = NO;
+
+                    if (self.notifyPostcodeChangedBlock) {
+                        self.notifyPostcodeChangedBlock();
+                    }
                     completion(nil);
                 }
                 else {
@@ -287,8 +291,12 @@
                     //some postcode don't existed in our database, like n16az, so only let user to change location in the map
                     [SVProgressHUD showErrorWithStatus:STR(@"RentAddressEdit/新Postcode定位失败，前往地图手动修改房产位置")];
 
+                    if (self.notifyPostcodeChangedBlock) {
+                        self.notifyPostcodeChangedBlock();
+                    }
                     _updateLocationFromAddressFailed = YES;
                 }
+
             }
             return task;
         }];

@@ -15,6 +15,7 @@
 
 @property (nonatomic, copy) dispatch_block_t updateAddressCompletion;
 
+@property (nonatomic, copy) dispatch_block_t notifyPostcodeChangedBlock;
 
 
 @end

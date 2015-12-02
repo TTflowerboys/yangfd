@@ -53,6 +53,8 @@
 @interface CUTERentPropertyInfoViewController () {
 
     BFCancellationTokenSource *_surroundingSearchCancellationTokenSource;
+
+    BOOL _isReceivedPostcodeChangeWhenReedit;
 }
 
 @end
@@ -196,6 +198,14 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+
+    if (_isReceivedPostcodeChangeWhenReedit) {
+        [UIAlertView showWithTitle:STR(@"RentPropertyInfo/您的房产地址已经变更，请重新编辑房源的周边") message:nil cancelButtonTitle:nil otherButtonTitles:@[STR(@"OK")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            [self editSurrounding];
+        }];
+        
+        _isReceivedPostcodeChangeWhenReedit = NO;
+    }
 }
 
 - (CUTEPropertyInfoForm *)form {
@@ -445,6 +455,9 @@
                     }
                 }];
             };
+            controller.notifyPostcodeChangedBlock = ^ {
+                _isReceivedPostcodeChangeWhenReedit = YES;
+            };
             [self.navigationController pushViewController:controller animated:YES];
         }
 
@@ -452,22 +465,29 @@
     }];
 }
 
+- (void)openSurroundingEditControllerWithTicket:(CUTETicket *)ticket {
+
+    CUTESurroundingForm *form = [CUTESurroundingForm new];
+    form.ticket = ticket;
+    CUTEProperty *property = ticket.property;
+    CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithForm:form];
+    NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
+    controller.postcodeIndex = postCodeIndex;
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 - (void)editSurrounding {
 
     CUTEProperty *property = self.form.ticket.property;
-    if (!IsNilNullOrEmpty(property.zipcode)) {
+    NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
+
+    if (!IsNilNullOrEmpty(postCodeIndex)) {
 
         if (!IsArrayNilOrEmpty(property.surroundings)) {
-            CUTESurroundingForm *form = [CUTESurroundingForm new];
-            form.ticket = self.form.ticket;
-            CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithForm:form];
-            NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
-            controller.postcodeIndex = postCodeIndex;
-            [self.navigationController pushViewController:controller animated:YES];
+            [self openSurroundingEditControllerWithTicket:self.form.ticket];
         }
         else {
             [SVProgressHUD show];
-            NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
             if (_surroundingSearchCancellationTokenSource) {
                 [_surroundingSearchCancellationTokenSource cancel];
             }
@@ -490,11 +510,7 @@
                         [SVProgressHUD showErrorWithCancellation];
                     }
                     else {
-                        CUTESurroundingForm *form = [CUTESurroundingForm new];
-                        form.ticket = self.form.ticket;
-                        CUTESurroundingListViewController *controller = [[CUTESurroundingListViewController alloc] initWithForm:form];
-                        controller.postcodeIndex = postCodeIndex;
-                        [self.navigationController pushViewController:controller animated:YES];
+                        [self openSurroundingEditControllerWithTicket:self.form.ticket];
                         [SVProgressHUD dismiss];
                     }
 
