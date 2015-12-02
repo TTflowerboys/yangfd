@@ -62,7 +62,7 @@
                         <div>{%item.phone%}</div>
                         <div>{%item.email%}</div>
                         <div>{%$root.i18n('性别:')%}{%item.gender%}</div>
-                        <div show-i18n="item.occupation.value"></div>
+                        <div ng-if="item.occupation">{%item.occupation.value%}</div>
                         <div>{%$root.i18n('年龄:')%}{%item.age | number:0%}</div>
                     </td>
                     <td>
