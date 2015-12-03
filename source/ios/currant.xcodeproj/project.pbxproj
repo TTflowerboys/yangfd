@@ -369,10 +369,6 @@
 		2C97A8551BBE8381006F6F6D /* NSString+QueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C97A8531BBE8381006F6F6D /* NSString+QueryParser.m */; };
 		2C97A8561BBE8381006F6F6D /* NSString+QueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C97A8531BBE8381006F6F6D /* NSString+QueryParser.m */; };
 		2C97A8571BBE8381006F6F6D /* NSString+QueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C97A8531BBE8381006F6F6D /* NSString+QueryParser.m */; };
-		2C97A8591BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */ = {isa = PBXBuildFile; fileRef = 2C97A8581BBE9995006F6F6D /* JSPatchTest.jspatch */; };
-		2C97A85A1BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */ = {isa = PBXBuildFile; fileRef = 2C97A8581BBE9995006F6F6D /* JSPatchTest.jspatch */; };
-		2C97A85B1BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */ = {isa = PBXBuildFile; fileRef = 2C97A8581BBE9995006F6F6D /* JSPatchTest.jspatch */; };
-		2C97A85C1BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */ = {isa = PBXBuildFile; fileRef = 2C97A8581BBE9995006F6F6D /* JSPatchTest.jspatch */; };
 		2C9AFF701AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
 		2C9AFF711AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
 		2C9AFF721AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AFF6F1AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m */; };
@@ -516,14 +512,6 @@
 		2CB66C1F1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */; };
 		2CB66C201AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */; };
 		2CB66C211AFB373D00C3CDED /* UIImage+FixJPEGRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB66C1D1AFB373D00C3CDED /* UIImage+FixJPEGRotation.m */; };
-		2CB66C241AFB66F200C3CDED /* Manchester.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C231AFB66F200C3CDED /* Manchester.gpx */; };
-		2CB66C251AFB66F200C3CDED /* Manchester.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C231AFB66F200C3CDED /* Manchester.gpx */; };
-		2CB66C261AFB66F200C3CDED /* Manchester.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C231AFB66F200C3CDED /* Manchester.gpx */; };
-		2CB66C271AFB66F200C3CDED /* Manchester.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C231AFB66F200C3CDED /* Manchester.gpx */; };
-		2CB66C2A1AFB687200C3CDED /* London.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C291AFB687200C3CDED /* London.gpx */; };
-		2CB66C2B1AFB687200C3CDED /* London.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C291AFB687200C3CDED /* London.gpx */; };
-		2CB66C2C1AFB687200C3CDED /* London.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C291AFB687200C3CDED /* London.gpx */; };
-		2CB66C2D1AFB687200C3CDED /* London.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2CB66C291AFB687200C3CDED /* London.gpx */; };
 		2CB7490D1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
 		2CB7490E1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
 		2CB7490F1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7490C1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m */; };
@@ -2386,12 +2374,9 @@
 			files = (
 				2CA2E6BD1AC5487800053965 /* Images.xcassets in Resources */,
 				2C3EDADE1BAA58D0000CC821 /* InfoPlist.strings in Resources */,
-				2CB66C2C1AFB687200C3CDED /* London.gpx in Resources */,
 				2CF234851B55198500B516E6 /* GoogleService-Info.plist in Resources */,
-				2CB66C261AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4161AE242F300E61BBA /* Localizable.strings in Resources */,
 				2CAA1D491BA2D1C100662BFC /* routes.plist in Resources */,
-				2C97A85B1BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */,
 				2CE2A99A1B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2402,12 +2387,9 @@
 			files = (
 				2CA2E6D61AC5496700053965 /* Images.xcassets in Resources */,
 				2C3EDADF1BAA58D0000CC821 /* InfoPlist.strings in Resources */,
-				2CB66C2D1AFB687200C3CDED /* London.gpx in Resources */,
 				2CF234861B55198500B516E6 /* GoogleService-Info.plist in Resources */,
-				2CB66C271AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4171AE242F400E61BBA /* Localizable.strings in Resources */,
 				2CAA1D4A1BA2D1C100662BFC /* routes.plist in Resources */,
-				2C97A85C1BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */,
 				2CE2A99B1B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2418,12 +2400,9 @@
 			files = (
 				2CA94AA91ACA42CD00DF7497 /* Images.xcassets in Resources */,
 				2C3EDADD1BAA58D0000CC821 /* InfoPlist.strings in Resources */,
-				2CB66C2B1AFB687200C3CDED /* London.gpx in Resources */,
 				2CF234841B55198500B516E6 /* GoogleService-Info.plist in Resources */,
-				2CB66C251AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4151AE242F200E61BBA /* Localizable.strings in Resources */,
 				2CAA1D481BA2D1C100662BFC /* routes.plist in Resources */,
-				2C97A85A1BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */,
 				2CE2A9991B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2434,12 +2413,9 @@
 			files = (
 				2CB43DD91ABC26B2004DF663 /* Images.xcassets in Resources */,
 				2C3EDADC1BAA58D0000CC821 /* InfoPlist.strings in Resources */,
-				2CB66C2A1AFB687200C3CDED /* London.gpx in Resources */,
 				2CF234831B55198500B516E6 /* GoogleService-Info.plist in Resources */,
-				2CB66C241AFB66F200C3CDED /* Manchester.gpx in Resources */,
 				2C44E4141AE242EE00E61BBA /* Localizable.strings in Resources */,
 				2CAA1D471BA2D1C100662BFC /* routes.plist in Resources */,
-				2C97A8591BBE9995006F6F6D /* JSPatchTest.jspatch in Resources */,
 				2CE2A9981B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
