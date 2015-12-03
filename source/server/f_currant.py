@@ -1292,8 +1292,6 @@ class f_currant_plugins(f_app.plugin_base):
     def ticket_update_after(self, ticket_id, params, ticket, ignore_error=True):
         if "$set" in params:
             params = params["$set"]
-        if ticket is None:
-            return ticket_id
         if ticket["type"] == "rent" and "status" in params and params["status"] == "to rent":
             f_app.task.add(dict(
                 type="rent_ticket_check_intention",
@@ -1317,6 +1315,7 @@ class f_currant_plugins(f_app.plugin_base):
                     tag="rent_ticket_publish_success",
                 )
 
+            f_app.user.update_set(ticket.get('user_id', None), {'debug_message': datetime.utcnow()})
             if 'property' in this_ticket and this_ticket["property"].get("user_generated") is True:
                 f_app.property.update_set(this_ticket["property"]["id"], {"status": "selling"})
 
@@ -1326,6 +1325,7 @@ class f_currant_plugins(f_app.plugin_base):
                 ticket_id=ticket_id,
             ))
 
+        # f_app.user.update_set(ticket.get('user_id', None), {'debug_message': this_ticket.get('property', None)})
         if ticket.get('type', None) == "rent":
             f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_has_draft': True})
 
@@ -1342,6 +1342,7 @@ class f_currant_plugins(f_app.plugin_base):
                 'analyze_rent_single_or_whole': True,
                 'analyze_rent_period_range': True,
                 'analyze_rent_price': True
+
             })
 
         if ticket.get('type', None) == "rent_intention":
@@ -2531,13 +2532,14 @@ class f_currant_plugins(f_app.plugin_base):
         else:
             today = date.today()
             mod_day = f_app.user.get(user_id).get('analyze_value_modifier_time', {}).get('analyze_guest_active_days', None)
-            if isinstance(mod_day, datetime):
-                mod_day = mod_day.date()
-            if isinstance(mod_day, float):
-                mod_day = date.fromtimestamp(mod_day)
-            if (not isinstance(mod_day, date)) or (type(mod_day) != type(today)):
-                self.logger.waring(type(mod_day))
-                return user_id
+            if not isinstance(mod_day, date):
+                if isinstance(mod_day, datetime):
+                    mod_day = mod_day.date()
+                elif isinstance(mod_day, float):
+                    mod_day = date.fromtimestamp(mod_day)
+                else:
+                    self.logger.warning('check user modify day !')
+                    return user_id
             # make sure mod_day is date
             if today > mod_day:
                 f_app.user.analyze_data_update(user_id, {'analyze_guest_active_days': True})
