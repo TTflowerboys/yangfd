@@ -2531,7 +2531,8 @@ class f_currant_plugins(f_app.plugin_base):
         else:
             today = date.today()
             mod_day = f_app.user.get(user_id).get('analyze_value_modifier_time', {})
-            if 'analyze_guest_active_days' in mod_day:
+            # if 'analyze_guest_active_days' in mod_day:
+            if not isinstance(mod_day, datetime):
                 mod_day = mod_day.get('analyze_guest_active_days', None)
                 if isinstance(mod_day, datetime):
                     mod_day = mod_day.date()
