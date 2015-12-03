@@ -1300,7 +1300,7 @@ class f_currant_plugins(f_app.plugin_base):
             f_app.task.put(dict(
                 type="ping_sitemap",
             ))
-            f_app.user.update_set(ticket.get('user_id', None), {'debug_message': [ticket.get('status', None), ticket.get('type', None)]})
+            f_app.user.update_set(ticket.get('user_id', None), {'debug_message': datetime.utcnow()})
             import currant_util
             this_ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id]), _i18n=["zh_Hans_CN"])[0]
             ticket_email_user = f_app.util.ticket_determine_email_user(this_ticket)
