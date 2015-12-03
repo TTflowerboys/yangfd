@@ -1293,7 +1293,6 @@ class f_currant_plugins(f_app.plugin_base):
         if "$set" in params:
             params = params["$set"]
         if ticket["type"] == "rent" and "status" in params and params["status"] == "to rent":
-            f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_has_draft': True})
             f_app.task.add(dict(
                 type="rent_ticket_check_intention",
                 ticket_id=ticket_id,
@@ -1326,9 +1325,9 @@ class f_currant_plugins(f_app.plugin_base):
             ))
 
         if ticket.get('type', None) == "rent":
+            f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_has_draft': True})
             if params.get('landlord_type', None) is not None:
                 f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_landlord_type': True})
-
             #if params.get('status', None) == "draft":
 
             if params.get('status', None) == "rent":
