@@ -64,3 +64,39 @@ p, label {text-decoration:none;}
         background-position: 0 -16px;
     }
 }
+.currantRadio {
+    visibility: hidden;
+    visibility: visible\0;
+    width: 18px;
+    height: 18px;
+    &+label{
+        position: relative;
+    }
+    .common{
+        position: absolute;
+        visibility: visible;
+        visibility: hidden\0;
+        content:'';
+        z-index: 10;
+        top: 50%;
+        border-radius: 50%;
+    }
+    &+label:before{
+        .common;
+        width: 18px;
+        height: 18px;
+        margin-top: -9px;
+        left: -24px;
+        background: #fff;
+        border: 1px solid #ccc;
+
+    }
+    &:checked+label:after,&.checked+label:after{
+        .common;
+        width: 10px;
+        height: 10px;
+        margin-top: -5px;
+        left: -20px;
+        background: @red;
+    }
+}

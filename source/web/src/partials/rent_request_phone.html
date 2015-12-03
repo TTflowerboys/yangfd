@@ -42,7 +42,7 @@
                                     <template id="whetherRadio">
                                         <!-- ko foreach: radioItems -->
                                         <label class="radioWrap" data-bind="attr: {for: $parent.key() + $index()}">
-                                            <input type="radio" data-bind="checked: $parent.value, attr: {id: $parent.key() + $index(), name: $parent.key}, checkedValue: value"/><label data-bind="attr: {for: $parent.key() + $index()}, text: text"></label>
+                                            <input class="currantRadio" type="radio" data-bind="checked: $parent.value, attr: {id: $parent.key() + $index(), name: $parent.key}, checkedValue: value"/><label data-bind="attr: {for: $parent.key() + $index()}, text: text"></label>
                                         </label>
                                         <!-- /ko -->
                                     </template>
