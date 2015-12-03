@@ -25,9 +25,7 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - ALActionBlocks (1.0.3)
-  - apptentive-ios (1.7.3):
-    - apptentive-ios/arc-files (= 1.7.3)
-  - apptentive-ios/arc-files (1.7.3)
+  - apptentive-ios (2.0.5)
   - Aspects (1.4.1)
   - BBTAppUpdater (0.0.1):
     - SVProgressHUD
@@ -171,7 +169,7 @@ DEPENDENCIES:
   - ActionSheetPicker-3.0 (~> 2.0.3)
   - AFNetworkActivityLogger (= 2.0.4)
   - ALActionBlocks (= 1.0.3)
-  - apptentive-ios (= 1.7.3)
+  - apptentive-ios (~> 2.0.5)
   - Aspects (= 1.4.1)
   - BBTAppUpdater (from `git@git.bbtechgroup.com:bbt/ios-bbtappupdater.git`)
   - BBTRestClient (from `git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git`)
@@ -242,7 +240,7 @@ SPEC CHECKSUMS:
   AFNetworkActivityLogger: 121486778117d53b3ab1c61d264b88081d0c3eee
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   ALActionBlocks: ac91b1a37b60a8004fb687ddade0600446f3d3fa
-  apptentive-ios: be0b8dbc17b443eb624b3a015017f521b096f003
+  apptentive-ios: 2452dc0843647d545b318c1e1729370f43f63b0c
   Aspects: 7595ba96a6727a58ebcbfc954497fc5d2fdde546
   BBTAppUpdater: 2aba37021612f15bf1cb9f3a34c5c147c5a9f4fe
   BBTRestClient: d3205d65ebc0851c0f8c4c69e2fedf9ace0b6134
