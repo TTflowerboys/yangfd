@@ -1006,6 +1006,8 @@ class f_currant_user(f_user):
             user = {}
         result = {}
         mod_time = user.get('analyze_value_modifier_time', {})
+        if isinstance(mod_time, datetime):
+            mod_time = {}
         # result.update({"analyze_guest_nickname": user.get("nickname", '')})
         # result.update({"analyze_guest_register_time": user.get("register_time")})
         if params.get("analyze_guest_country", None) is True:
