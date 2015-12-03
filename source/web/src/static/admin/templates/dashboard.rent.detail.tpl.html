@@ -42,7 +42,13 @@
                                             <label class="control-label">{%$root.i18n('名称')%}</label>
 
                                             <div class="controls">
-                                                <div ng-bind="item.title"></div>
+                                                <a ng-bind="item.title" ng-href="/property-to-rent/{%item.id%}"></a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-sm-6" ng-if="item.property.short_id">
+                                            <label class="control-label">{%$root.i18n('编号')%}</label>
+                                            <div class="controls">
+                                                <a ng-bind="item.property.short_id" ng-href="/property-to-rent/{%item.id%}"></a>
                                             </div>
                                         </div>
                                         <div class="form-group  col-sm-6" ng-if="item.property.property_type">
