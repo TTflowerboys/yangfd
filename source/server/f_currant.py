@@ -1324,8 +1324,8 @@ class f_currant_plugins(f_app.plugin_base):
                 ticket_id=ticket_id,
             ))
 
+        f_app.user.update_set(ticket.get('user_id', None), {'debug_message': [ticket.get('status', None), ticket.get('type', None)]})
         if ticket.get('type', None) == "rent":
-            f_app.user.update_set(ticket.get('user_id', None), {'debug_message': ticket.get('status', None)})
             f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_has_draft': True})
             if params.get('landlord_type', None) is not None:
                 f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_landlord_type': True})
