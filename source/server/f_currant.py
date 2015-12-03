@@ -879,8 +879,9 @@ class f_currant_user(f_user):
             return dic
 
         def get_has_flag(user, target, condition, comp_element, want_value):
+            dic = {}
             dic = get_data_complex(user, target, condition, comp_element)
-            return (want_value in dic.get(comp_element, None))
+            return (want_value in dic.get(comp_element, []))
 
         def get_ticket_newest(user, add_condition={}):
             if user_id is None:
