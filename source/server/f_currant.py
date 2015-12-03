@@ -1303,7 +1303,7 @@ class f_currant_plugins(f_app.plugin_base):
             import currant_util
             this_ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id]), _i18n=["zh_Hans_CN"])[0]
             ticket_email_user = f_app.util.ticket_determine_email_user(this_ticket)
-            if ticket_email_user:
+            if 'property' in this_ticket and ticket_email_user:
                 title = "恭喜，您的房源已经发布成功！"
                 f_app.email.schedule(
                     target=ticket_email_user["email"],
@@ -1315,8 +1315,6 @@ class f_currant_plugins(f_app.plugin_base):
                     tag="rent_ticket_publish_success",
                 )
 
-            f_app.user.update_set(ticket.get('user_id', None), {'debug_message': datetime.utcnow()})
-            # f_app.user.update_set(ticket.get('user_id', None), {'debug_message': this_ticket.get('property', None)})
             if 'property' in this_ticket and this_ticket["property"].get("user_generated") is True:
                 f_app.property.update_set(this_ticket["property"]["id"], {"status": "selling"})
 
@@ -1331,7 +1329,6 @@ class f_currant_plugins(f_app.plugin_base):
 
             if params.get('landlord_type', None) is not None:
                 f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_landlord_type': True})
-            #if params.get('status', None) == "draft":
 
             if params.get('status', None) == "rent":
                 f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_time': True})
