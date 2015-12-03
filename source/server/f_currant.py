@@ -1315,8 +1315,8 @@ class f_currant_plugins(f_app.plugin_base):
                     tag="rent_ticket_publish_success",
                 )
 
-            assert this_ticket["property"].get("user_generated") is True, abort(40000, "Invalid property for ticket")
-            f_app.property.update_set(this_ticket["property"]["id"], {"status": "selling"})
+            if this_ticket["property"].get("user_generated") is True:
+                f_app.property.update_set(this_ticket["property"]["id"], {"status": "selling"})
 
         elif ticket["type"] == "rent_intention" and "status" in params and params["status"] == "new":
             f_app.task.add(dict(
@@ -1324,7 +1324,7 @@ class f_currant_plugins(f_app.plugin_base):
                 ticket_id=ticket_id,
             ))
 
-        f_app.user.update_set(ticket.get('user_id', None), {'debug_message': [ticket.get('status', None), ticket.get('type', None)]})
+        # f_app.user.update_set(ticket.get('user_id', None), {'debug_message': [ticket.get('status', None), ticket.get('type', None)]})
         if ticket.get('type', None) == "rent":
             f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_has_draft': True})
             if params.get('landlord_type', None) is not None:
