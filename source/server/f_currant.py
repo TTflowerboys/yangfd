@@ -1315,6 +1315,7 @@ class f_currant_plugins(f_app.plugin_base):
                     tag="rent_ticket_publish_success",
                 )
 
+            f_app.user.update_set(ticket.get('user_id', None), {'debug_message': datetime.utcnow()})
             if 'property' in this_ticket and this_ticket["property"].get("user_generated") is True:
                 f_app.property.update_set(this_ticket["property"]["id"], {"status": "selling"})
 
@@ -1324,6 +1325,7 @@ class f_currant_plugins(f_app.plugin_base):
                 ticket_id=ticket_id,
             ))
 
+        # f_app.user.update_set(ticket.get('user_id', None), {'debug_message': this_ticket.get('property', None)})
         if ticket.get('type', None) == "rent":
             f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_has_draft': True})
 
