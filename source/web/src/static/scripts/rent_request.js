@@ -548,7 +548,7 @@
                     return this.parentVM[params.key]()
                 },
                 write: function (value) {
-                    this.parentVM[params.key](!!value)
+                    this.parentVM[params.key](value)
                 }
             }, this)
         },
