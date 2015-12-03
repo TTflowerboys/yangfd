@@ -3,7 +3,8 @@ $(function () {
     var $placeholder = $('.emptyPlaceHolder')
     var $ownPlaceholder = $('#ownPlaceHolder')
     var $rentPlaceholder = $('#rentPlaceHolder')
-    var $contactPlaceholder = $('#rentPlaceHolder')
+    var $contactPlaceholder = $('#contactPlaceholder')
+    var $requestPlaceHolder = $('#requestPlaceHolder')
     var isLoading = false
     var xhr
     var ownPropertyArray
@@ -90,6 +91,12 @@ $(function () {
             }, function () {
                 defer.reject()
             })
+        } else if($('.buttons .button').hasClass('request')) {
+            loadRequest().then(function () {
+                defer.resolve()
+            }, function () {
+                defer.reject()
+            })
         }
         return defer.promise()
     }
@@ -167,7 +174,7 @@ $(function () {
                             }
                         })
 
-                        if($list.length > 0){
+                        if($list.children().length > 0){
                             bindRentItemWechatShareClick()
                             bindRentItemRefreshClick()
                             bindRentItemConfirmRentClick()
@@ -218,7 +225,7 @@ $(function () {
                             $list.append(houseResult)
                         }
                     })
-                    if($list.length === 0){
+                    if($list.children().length === 0){
                         $contactPlaceholder.show()
                     } else {
                         bindGetHostContactClick()
@@ -229,6 +236,50 @@ $(function () {
                 defer.resolve()
             }).fail(function () {
                 $contactPlaceholder.show()
+                defer.reject()
+            }).complete(function () {
+                $('#loadIndicator').hide()
+                isLoading = false
+            })
+        return defer.promise()
+    }
+
+    function loadRequest() {
+        var defer = $.Deferred()
+        if (xhr && xhr.readyState !== 4) {
+            xhr.abort()
+        }
+        $placeholder.hide()
+        $list.empty()
+        $('#loadIndicator').show()
+        isLoading = true
+
+        var params = {
+            'status': 'requested',
+            'user_id': window.user.id,
+            'per_page': -1,
+        }
+        function successCallback (data) {
+            if (data.val && data.val.length > 0) {
+                _.each(data.val, function (obj) {
+                    var houseResult
+                    if (!_.isEmpty(obj.interested_rent_tickets) && _.isObject(obj.interested_rent_tickets[0])) {
+                        houseResult = _.template($('#my_request_template').html())({rent: obj.interested_rent_tickets[0], ticket: obj})
+                        $list.append(houseResult)
+                    }
+                })
+                if($list.children().length === 0){
+                    $requestPlaceHolder.show()
+                }
+            } else {
+                $requestPlaceHolder.show()
+            }
+            defer.resolve()
+        }
+        xhr = $.post('/api/1/rent_intention_ticket/search', params)
+            .success(successCallback)
+            .fail(function () {
+                $requestPlaceHolder.show()
                 defer.reject()
             }).complete(function () {
                 $('#loadIndicator').hide()
@@ -284,6 +335,15 @@ $(function () {
                 switchTypeTab(state)
                 loadContactProperty()
                 break
+            case 'request': //出租申请单
+                switchTypeTab(state)
+                loadRequest()
+                break
+            case 'contactOnly':
+                $('.ui-tabs,.buttons').hide()
+                switchTypeTab(state)
+                loadRequest()
+                break
         }
 
     })
@@ -291,7 +351,7 @@ $(function () {
     /*
      * User interaction on page
      * */
-    _.each(['Rent', 'Own', 'Contact'], function (val) {
+    _.each(['Rent', 'Own', 'Contact', 'Request'], function (val) {
         $('button#show' + val + 'Btn').click(function () {
             switchTypeTab(val.toLowerCase())
         })

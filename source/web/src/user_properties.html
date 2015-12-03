@@ -16,8 +16,9 @@
         <h1>{{_('我的房产')}}</h1>
         <div class="buttons" style="display: none">
             <button id="showRentBtn" class="rent button red">{{_('出租房产')}}</button>
-            <button id="showOwnBtn" class="own ghostButton red">{{_('自有房产')}}</button>
+            <!--<button id="showOwnBtn" class="own ghostButton red">{{_('自有房产')}}</button>-->
             <button id="showContactBtn" class="contact ghostButton red">{{_('已联系')}}</button>
+            <button id="showRequestBtn" class="request ghostButton red">{{_('已咨询')}}</button>
         </div>
     </div>
     <div class="tabs ui-tabs ui-widget" style="display: none">
@@ -26,11 +27,14 @@
                 <a>{{_('出租房产')}}</a>
             </li>
 
-            <li id="showOwnTab" class="own">
+            <!--<li id="showOwnTab" class="own">
                 <a>{{_('自有房产')}}</a>
-            </li>
+            </li>-->
             <li id="showContactTab" class="contact">
                 <a>{{_('已联系')}}</a>
+            </li>
+            <li id="showRequestTab" class="request">
+                <a>{{_('已咨询')}}</a>
             </li>
         </ul>
     </div>
@@ -78,7 +82,15 @@
             </p>
         </div>
     </div>
-
+    <div id="requestPlaceHolder" class="emptyPlaceHolder" style="display:none;">
+        <img src="/static/images/icon/notice.png" alt=""/>
+        <div class="holderText">
+            <h2>{{_('没有已咨询过的房产')}}</h2>
+            <p>
+                {{!_('去<a href="/property-to-rent-list">出租房产列表</a>看看吧')}}
+            </p>
+        </div>
+    </div>
     <div id="popupShareToWeChat" style="display:none; text-align:center;font-size: 12px;">
         <img src="" alt="二维码" width="220" height="220"/>
         <p>{{_('打开微信，使用 “扫一扫” 即可将移动端主页分享到朋友圈')}}</p>
@@ -96,6 +108,7 @@
 
     <!-- @@include=static/templates/my_rent_card.tpl.html-->
     <!-- @@include=static/templates/my_contact_card.tpl.html-->
+    <!-- @@include=static/templates/my_request_card.tpl.html-->
     <!-- @@include=static/templates/ticket_house_card.tpl.html-->
 
 
