@@ -71,34 +71,6 @@
                         <span>{=window.i18n('提交时间：')=}</span>
                         <strong class="hostName">{!team.parsePublishDate(parseInt(ticket.time))!}</strong>
                     </div>
-                    <div class="hostPhone hostContact
-                    {_if(rent.creator_user.phone && private_contact_methods.indexOf('phone') < 0) {_}
-                    show
-                    {_}_}
-                    ">
-                        <a>
-                            <i class="ico icon-phone_icon"></i>
-                            <span>+{= rent.creator_user.country_code =}</span> <span>{= rent.creator_user.phone =}</span>
-                        </a>
-                    </div>
-                    <div class="hostEmail hostContact
-                    {_if(rent.creator_user.email && private_contact_methods.indexOf('email') < 0) {_}
-                    show
-                    {_}_}
-                    ">
-                        <a class="clearfix">
-                            <i class="ico icon-email"></i>
-                            <span class="email">{= rent.creator_user.email =}</span>
-                        </a>
-                    </div>
-                    <div class="hostWechat hostContact
-                    {_if(rent.creator_user.wechat && private_contact_methods.indexOf('wechat') < 0) {_}
-                    show
-                    {_}_}
-                    ">
-                        <i class="ico icon-wechat"></i>
-                        <span>{= rent.creator_user.wechat =}</span>
-                    </div>
                 </div>
 
                 {_}_}
