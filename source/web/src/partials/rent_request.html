@@ -42,12 +42,11 @@
                                 </div>
                                 <div class="wrap">
                                     <template id="whetherRadio">
-                                        <div class="radioWrap">
-                                            <input type="radio" data-bind="checked: value, attr: {id: key()+'1', name: key}, checkedValue: true"/><label data-bind="attr: {for: key()+'1'}">{{_('是')}}</label>
-                                        </div>
-                                        <div class="radioWrap">
-                                            <input type="radio" data-bind="checked: value, attr: {id: key()+'0', name: key}, checkedValue: false"/><label data-bind="attr: {for: key()+'0'}">{{_('否')}}</label>
-                                        </div>
+                                        <!-- ko foreach: radioItems -->
+                                        <label class="radioWrap" data-bind="attr: {for: $parent.key() + $index()}">
+                                            <input type="radio" data-bind="checked: $parent.value, attr: {id: $parent.key() + $index(), name: $parent.key}, checkedValue: value"/><label data-bind="attr: {for: $parent.key() + $index()}, text: text"></label>
+                                        </label>
+                                        <!-- /ko -->
                                     </template>
                                     <div class="row">
                                         <span class="title">{{_('是否吸烟')}}</span>
@@ -87,7 +86,8 @@
                                 <input class="name" type="text" data-bind="value: nickname"/><!--
                                 --><select class="gender" data-bind="chosen: genderList,
                                     optionsText: 'text',
-                                    value: genderObj,
+                                    optionsValue: 'value',
+                                    value: gender,
                                     optionsCaption: '{{_('性别')}}'"></select><!--
                                 --><select class="occupation" data-bind="chosen: occupationList,
                                     optionsText: 'value',
@@ -106,6 +106,7 @@
                                 --><select class="birthDate" data-bind="chosen: birthDateList,
                                     optionsText: function(item){return item + window.i18n('日')},
                                     value: birthDate"></select>
+                                <p class="hint">{{_('仅用作向房东展示年龄，不向任何人泄露生日信息')}}</p>
                             </div>
                             <div class="row">
                                 <p class="title"></p>
@@ -133,7 +134,6 @@
                         <div class="requirementRentFormError" data-bind="html: errorMsg, visible: errorMsg"></div>
                     </form>
                     <div class="actionWrap">
-                        <p class="terms" data-bind="visible: step() === 2">{{_('提交成功后您将成为洋房东会员，请确认您已阅读并同意')}}<a href="/terms">{{_('洋房东会员服务条款')}}</a></p>
                         <div data-bind="visible: step() === 1">
                             <button class="actionButton ghostButton red" data-bind="click: goNext">{{_('下一步')}}</button>
                         </div>
@@ -141,6 +141,7 @@
                             <button class="actionButton ghostButton red" data-bind="click: goPrev">{{_('上一步')}}</button>
                             <button class="actionButton button red ajaxButton" data-bind="click: submit, disable: !user() ? true : submitDisabled()">{{_('提交')}}</button>
                         </div>
+                        <p class="terms" data-bind="visible: step() === 2">{{_('提交成功后您将成为洋房东会员，请确认您已阅读并同意')}}<a href="/terms">{{_('洋房东会员服务条款')}}</a></p>
                     </div>
                 </div>
                 <div class="successWrap" data-bind="visible: successWrapVisible">

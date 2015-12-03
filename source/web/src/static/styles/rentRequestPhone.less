@@ -117,7 +117,7 @@
                 }
                 .row{
                     margin-bottom: 20px;
-
+                    .clearfix;
                     .inputPlaceholder{
                         display: none;
                         @media @phone{
@@ -149,6 +149,35 @@
                         margin-top: -1px;
                         &:nth-child(1) {
                             margin-top: 0;
+                        }
+                    }
+                    .hint{
+                        margin: 8px 0 0;
+                        color: #aaa;
+                    }
+                    span.title{
+                        font-size: 16px;
+                        display: inline-block;
+                        width: 160px;
+                        margin: 0 20px 0 0;
+                        height: 40px;
+                        line-height: 40px;
+                    }
+                    whether-radio{
+                        display: inline-block;
+                        height: 40px;
+                        line-height: 40px;
+                        float: right;
+                        .radioWrap{
+                            display: inline-block;
+                            padding-right: 20px;
+                            input{
+                                margin-right: 4px;
+                                vertical-align: middle;
+                            }
+                            label{
+                                vertical-align: middle;
+                            }
                         }
                     }
 
@@ -193,33 +222,7 @@
                             }
                         }
                     }
-                    .wrap{
-                        font-size: 16px;
-                        span.title{
-                            display: inline-block;
-                            width: 160px;
-                            margin: 0 20px 0 0;
-                            height: 40px;
-                            line-height: 40px;
-                        }
-                        whether-radio{
-                            display: inline-block;
-                            height: 40px;
-                            line-height: 40px;
-                            float: right;
-                            .radioWrap{
-                                display: inline-block;
-                                margin-right: 20px;
-                                input{
-                                    margin-right: 4px;
-                                    vertical-align: middle;
-                                }
-                                label{
-                                    vertical-align: middle;
-                                }
-                            }
-                        }
-                    }
+
                     .ajax-file-upload{
                         width: 100%;
                         height: 54px;
@@ -335,18 +338,6 @@
                 .step2{
                     .row{
                         width: 100%;
-                        .title{
-                            margin: 0 0 8px;
-                            @media @phone{
-                                display: none;
-                            }
-                        }
-                        .rentType,.rentBudget{
-                            width: 265px;
-                            @media @phone{
-                                width: 100%;
-                            }
-                        }
                         .dateInput{
                             -webkit-appearance: none;
                             -moz-appearance: none;

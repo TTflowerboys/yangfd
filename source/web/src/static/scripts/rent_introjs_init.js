@@ -23,7 +23,7 @@ function PhoneIntroJs(options) {
     }
 }
 function startIntroOnPhone() {
-    new PhoneIntroJs({
+    /*new PhoneIntroJs({
         text: i18n('点击此处可以咨询房东'),
         arrow: 'bottom',
         style : {
@@ -35,7 +35,7 @@ function startIntroOnPhone() {
             elem: '.floatBar_phone .phone a',
             event: 'click'
         }
-    }).init()
+    }).init()*/
 
     new PhoneIntroJs({
         text: i18n('点击此处可以收藏房产'),
@@ -55,11 +55,11 @@ function startIntroOnPhone() {
 function startIntroOnWeb() {
     var intro = window.introJs();
     var steps = [
-        {
+        /*{
             element: $('#contactRequest')[0],
             intro: i18n('小提示：点击此处可以咨询房东'),
             position: 'bottom'
-        },
+        },*/
         {
             element: $('.actions tr').eq(0)[0],
             intro: i18n('小提示：看到中意的房产，可以点击此处的收藏按钮来收藏，也可以点击分享按钮将房产分享给您的朋友'),

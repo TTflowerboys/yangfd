@@ -40,12 +40,11 @@
                                 </div>
                                 <div class="wrap">
                                     <template id="whetherRadio">
-                                        <div class="radioWrap">
-                                            <input type="radio" data-bind="checked: value, attr: {id: key()+'1', name: key}, checkedValue: true"/><label data-bind="attr: {for: key()+'1'}">{{_('是')}}</label>
-                                        </div><!--
-                                        --><div class="radioWrap">
-                                            <input type="radio" data-bind="checked: value, attr: {id: key()+'0', name: key}, checkedValue: false"/><label data-bind="attr: {for: key()+'0'}">{{_('否')}}</label>
-                                        </div>
+                                        <!-- ko foreach: radioItems -->
+                                        <label class="radioWrap" data-bind="attr: {for: $parent.key() + $index()}">
+                                            <input type="radio" data-bind="checked: $parent.value, attr: {id: $parent.key() + $index(), name: $parent.key}, checkedValue: value"/><label data-bind="attr: {for: $parent.key() + $index()}, text: text"></label>
+                                        </label>
+                                        <!-- /ko -->
                                     </template>
                                     <div class="row">
                                         <span class="title">{{_('是否吸烟')}}</span><!--
@@ -82,12 +81,8 @@
                                 <input class="name" type="text" data-bind="value: nickname" placeholder="{{_('姓名')}}">
                             </div>
                             <div class="row">
-                                <p class="inputPlaceholder">{{_('性别')}}</p>
-                                <select class="gender" data-bind="chosen: genderList,
-                                    optionsText: 'text',
-                                    value: genderObj,
-                                    optionsCaption: '{{_('请选择性别')}}'">
-                                </select>
+                                <span class="title">{{_('性别')}}</span><!--
+                                --><whether-radio params="vm: $data, key: 'gender', radioItems: genderList()"></whether-radio>
                             </div>
                             <div class="row">
                                 <p class="inputPlaceholder">{{_('职业')}}</p>
@@ -103,6 +98,7 @@
                                 <div class="date inputWrapper">
                                     <input data-bind="value: birthDay" type="date" dir="rtl" class="rentDeadlineTime" placeholder="{{_('')}}" autocomplete="off"/>
                                 </div>
+                                <p class="hint">{{_('仅用作向房东展示年龄，不向任何人泄露生日信息')}}</p>
                             </div>
                             <div class="row">
                                 <input class="email" type="text" data-bind="value: email, attr: {readonly: !!user()}" placeholder="{{_('邮箱')}}"/>
@@ -142,7 +138,6 @@
                     </form>
                     <div class="actionWrap" data-bind="css: 'step' + step()">
                         <div class="requirementRentFormError" data-bind="html: errorMsg, visible: errorMsg"></div>
-                        <p class="terms" data-bind="visible: step() === 2">{{_('提交成功后您将成为洋房东会员，请确认您已阅读并同意')}}<a href="/terms">{{_('洋房东会员服务条款')}}</a></p>
                         <div data-bind="visible: step() === 1">
                             <button class="actionButton ghostButton red" data-bind="click: goNext">{{_('下一步')}}</button>
                         </div>
@@ -150,6 +145,7 @@
                             <button class="actionButton ghostButton red" data-bind="click: goPrev">{{_('上一步')}}</button>
                             <button class="actionButton button red ajaxButton" data-bind="click: submit, disable: !user() ? true : submitDisabled()">{{_('提交')}}</button>
                         </div>
+                        <p class="terms" data-bind="visible: step() === 2">{{_('提交成功后您将成为洋房东会员，请确认您已阅读并同意')}}<a href="/terms">{{_('洋房东会员服务条款')}}</a></p>
                     </div>
                 </div>
                 <div class="successWrap" data-bind="visible: successWrapVisible">

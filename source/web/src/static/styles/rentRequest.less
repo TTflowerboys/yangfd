@@ -162,6 +162,10 @@
                     margin: 18px 0 8px;
                     font-size: 16px;
                 }
+                .row .hint {
+                    margin: 8px 0 0;
+                    color: #aaa;
+                }
                 .step1{
                     .clearfix;
                     .title{
@@ -221,9 +225,7 @@
                                 .clearfix;
                                 .radioWrap{
                                     float: left;
-                                    &:nth-child(1){
-                                        margin-right: 20px;
-                                    }
+                                    padding-right: 20px;
                                     input{
                                         margin-right: 4px;
                                         vertical-align: middle;
@@ -519,13 +521,6 @@
             }
 
             .actionWrap{
-                .terms{
-                    margin: 10px 0;
-                    color: #999;
-                    a{
-                        color: @red;
-                    }
-                }
                 .actionButton{
                     margin-right: 20px;
                     padding: 10px 40px;
@@ -534,6 +529,13 @@
                     &.ghostButton:hover{
                         color: darken(@red, 5%);
                         border-color: darken(@red, 5%);
+                    }
+                }
+                .terms{
+                    margin: 10px 0;
+                    color: #999;
+                    a{
+                        color: @red;
                     }
                 }
             }

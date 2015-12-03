@@ -177,7 +177,7 @@
                 text: window.i18n('女'),
                 value: 'female'
             }])
-            this.genderObj = ko.observable(this.user() ? _.find(this.genderList(), {value: this.user().gender}) : undefined)
+            this.gender = ko.observable(this.user() ? this.user().gender : 'male')
 
             this.occupationList = ko.observableArray([])
             window.project.getEnum('occupation')
@@ -272,7 +272,7 @@
                     this.phone(user.phone)
                     this.email(user.email)
                     if(user.gender) {
-                        this.genderObj(_.find(this.genderList(), {value: user.gender}))
+                        this.gender(user.gender)
                     }
                     this.phoneVerified(!!user.phone_verified)
                 }
@@ -298,7 +298,7 @@
                 this.visa(params.visa)
                 this.description(params.description)
                 this.birthTime(params.date_of_birth)
-                this.genderObj(_.find(this.genderList(), {value: params.gender}))
+                this.gender(params.gender)
                 this.occupation(params.occupation.id)
             }
             this.initParamsByLastSubmit = function () {
@@ -330,7 +330,7 @@
                     phone: '+' + (this.country() ? this.country().countryCode : '') + this.phone(),
                     email: this.email(),
                     tenant_count: this.tenantCount(),
-                    gender: this.genderObj() ? this.genderObj().value : '',
+                    gender: this.gender(),
                     date_of_birth: this.birthTime(),
                     occupation: this.occupation(),
                     smoke: this.smoke(),
@@ -352,12 +352,17 @@
                     nickname: this.nickname(),
                     phone: '+' + (this.country() ? this.country().countryCode : '') + this.phone(),
                     email: this.email(),
-                    gender: this.genderObj() ? this.genderObj().value : '',
+                    gender: this.gender(),
                     occupation: this.occupation(),
                 }
             }, this)
 
             this.errorMsg = ko.observable()
+            this.errorMsg.subscribe(function (msg) {
+                if(msg.length) {
+                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(msg)})
+                }
+            })
             this.validate = function () {
                 var errorList = []
                 var config = {
@@ -535,6 +540,7 @@
 
     ko.components.register('whether-radio', {
         viewModel: function (params) {
+            this.radioItems = ko.observableArray(params.radioItems ? params.radioItems() : [{value: true, text: i18n('是')}, {value: false, text: i18n('否')}])
             this.key = ko.observable('whether-radio-' + params.key)
             this.parentVM = params.vm
             this.value = ko.computed({
