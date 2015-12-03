@@ -1292,6 +1292,7 @@ class f_currant_plugins(f_app.plugin_base):
     def ticket_update_after(self, ticket_id, params, ticket, ignore_error=True):
         if "$set" in params:
             params = params["$set"]
+        f_app.user.update_set(ticket.get('user_id', None), {'debug_message': [ticket.get('status', None), ticket.get('type', None)]})
         if ticket["type"] == "rent" and "status" in params and params["status"] == "to rent":
             f_app.task.add(dict(
                 type="rent_ticket_check_intention",
@@ -1325,7 +1326,6 @@ class f_currant_plugins(f_app.plugin_base):
                 ticket_id=ticket_id,
             ))
 
-        f_app.user.update_set(ticket.get('user_id', None), {'debug_message': [ticket.get('status', None), ticket.get('type', None)]})
         if ticket.get('type', None) == "rent":
             f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_has_draft': True})
 
