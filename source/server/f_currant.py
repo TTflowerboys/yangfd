@@ -1315,7 +1315,7 @@ class f_currant_plugins(f_app.plugin_base):
                     tag="rent_ticket_publish_success",
                 )
 
-            if this_ticket["property"].get("user_generated") is True:
+            if 'property' in this_ticket and this_ticket["property"].get("user_generated") is True:
                 f_app.property.update_set(this_ticket["property"]["id"], {"status": "selling"})
 
         elif ticket["type"] == "rent_intention" and "status" in params and params["status"] == "new":
