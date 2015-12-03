@@ -2533,21 +2533,20 @@ class f_currant_plugins(f_app.plugin_base):
             mod_day = f_app.user.get(user_id).get('analyze_value_modifier_time', {})
             # if 'analyze_guest_active_days' in mod_day:
             if not isinstance(mod_day, datetime):
-                mod_day = mod_day.get('analyze_guest_active_days', None)
-                if isinstance(mod_day, datetime):
-                    mod_day = mod_day.date()
-                if isinstance(mod_day, float):
-                    mod_day = date.fromtimestamp(mod_day)
-                if (not isinstance(mod_day, date)) or (type(mod_day) != type(today)):
-                    self.logger.waring(type(mod_day))
-                    return user_id
-                # make sure mod_day is date
-                if today > mod_day:
-                    f_app.user.analyze_data_update(user_id, {'analyze_guest_active_days': True})
-                elif today < mod_day:
-                    self.logger.warning('mod date in the future !')
-            else:
+                mod_day = mod_day.get('analyze_guest_active_days', today)
+
+            if isinstance(mod_day, datetime):
+                mod_day = mod_day.date()
+            if isinstance(mod_day, float):
+                mod_day = date.fromtimestamp(mod_day)
+            if (not isinstance(mod_day, date)) or (type(mod_day) != type(today)):
+                self.logger.waring(type(mod_day))
+                return user_id
+            # make sure mod_day is date
+            if today > mod_day:
                 f_app.user.analyze_data_update(user_id, {'analyze_guest_active_days': True})
+            elif today < mod_day:
+                self.logger.warning('mod date in the future !')
 
         if log_type == "route" and kwargs.get('rent_ticket_id', None) is not None:
             f_app.user.analyze_data_update(user_id, {
