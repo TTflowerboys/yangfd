@@ -1303,7 +1303,6 @@ class f_currant_plugins(f_app.plugin_base):
             import currant_util
             this_ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id]), _i18n=["zh_Hans_CN"])[0]
             ticket_email_user = f_app.util.ticket_determine_email_user(this_ticket)
-            f_app.user.update_set(ticket.get('user_id', None), {'debug_message': datetime.utcnow()})
             if ticket_email_user:
                 title = "恭喜，您的房源已经发布成功！"
                 f_app.email.schedule(
@@ -1316,6 +1315,7 @@ class f_currant_plugins(f_app.plugin_base):
                     tag="rent_ticket_publish_success",
                 )
 
+            f_app.user.update_set(ticket.get('user_id', None), {'debug_message': datetime.utcnow()})
             # f_app.user.update_set(ticket.get('user_id', None), {'debug_message': this_ticket.get('property', None)})
             if 'property' in this_ticket and this_ticket["property"].get("user_generated") is True:
                 f_app.property.update_set(this_ticket["property"]["id"], {"status": "selling"})
