@@ -864,6 +864,7 @@ class f_currant_user(f_user):
             then gether element in search result, make a new dict return
             '''
             dic = {}
+            element_list = []
             if '.' in target:
                 t_target = target.split('.')
                 target_database = getattr(getattr(f_app, t_target[0]), t_target[1])
@@ -872,7 +873,6 @@ class f_currant_user(f_user):
             condition.update({"$or": [{"user_id": ObjectId(user_id)},
                                       {"creator_user_id": ObjectId(user_id)}]})
             select_item = target_database.get(target_database.search(condition, per_page=-1))
-            element_list = []
             for ticket in select_item:
                 element_list.append(ticket.get(element, None))
             dic.update({element: element_list})
@@ -1301,8 +1301,8 @@ class f_currant_plugins(f_app.plugin_base):
                 type="ping_sitemap",
             ))
             import currant_util
-            ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id]), _i18n=["zh_Hans_CN"])[0]
-            ticket_email_user = f_app.util.ticket_determine_email_user(ticket)
+            this_ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id]), _i18n=["zh_Hans_CN"])[0]
+            ticket_email_user = f_app.util.ticket_determine_email_user(this_ticket)
             if ticket_email_user:
                 title = "恭喜，您的房源已经发布成功！"
                 f_app.email.schedule(
@@ -1315,8 +1315,8 @@ class f_currant_plugins(f_app.plugin_base):
                     tag="rent_ticket_publish_success",
                 )
 
-            assert ticket["property"].get("user_generated") is True, abort(40000, "Invalid property for ticket")
-            f_app.property.update_set(ticket["property"]["id"], {"status": "selling"})
+            assert this_ticket["property"].get("user_generated") is True, abort(40000, "Invalid property for ticket")
+            f_app.property.update_set(this_ticket["property"]["id"], {"status": "selling"})
 
         elif ticket["type"] == "rent_intention" and "status" in params and params["status"] == "new":
             f_app.task.add(dict(
