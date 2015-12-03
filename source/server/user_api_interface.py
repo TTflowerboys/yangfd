@@ -780,17 +780,8 @@ def user_phone_test(params):
     return f_app.util.parse_phone(params)
 
 
-@f_api('/user/sms_verification/send', force_ssl=True, params=dict(
-    phone=(str, True),
-    country="country",
-))
 @rate_limit("sms_verification", ip=10)
-def user_sms_verification_send(params):
-    """
-    Verify for phone only.
-
-    Return value will always be the corresponding user id, save it for calling Verify API later!
-    """
+def _user_sms_verification_send(params):
     params["phone"] = f_app.util.parse_phone(params)
     user_id = f_app.user.get_id_by_phone(params['phone'])
 
@@ -799,6 +790,35 @@ def user_sms_verification_send(params):
 
     f_app.user.sms.request(user_id, allow_verified=True)
     return user_id
+
+
+@f_api('/user/sms_verification/send', force_ssl=True, params=dict(
+    phone=(str, True),
+    country="country",
+))
+def user_sms_verification_send(params):
+    """
+    Verify for phone only. (Deprecated, use v2 please!)
+
+    Return value will always be the corresponding user id, save it for calling Verify API later!
+    """
+    return _user_sms_verification_send(params)
+
+
+@f_api('/user/sms_verification/send', force_ssl=True, params=dict(
+    phone=(str, True),
+    country="country",
+    solution=(str, True),
+    challenge=(str, True),
+), api=2)
+def user_sms_verification_send_v2(params):
+    """
+    Verify for phone only.
+
+    Return value will always be the corresponding user id, save it for calling Verify API later!
+    """
+    f_app.captcha.validate(params["solution"], params["challenge"])
+    return _user_sms_verification_send(params)
 
 
 @f_api('/user/<user_id>/sms_verification/verify', force_ssl=True, params=dict(
