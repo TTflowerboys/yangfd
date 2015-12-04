@@ -93,10 +93,22 @@
     module.distanceMatrix = function distanceMatrix(origins, destinations, modes) {
         origins = _.isArray(origins) ? origins.join('|') : origins
         destinations = _.isArray(destinations) ? destinations.join('|') : destinations
-        return window.Q.all(_.map(modes, function (mode) {
-            var apiUri = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + origins + '&destinations=' + destinations + '&mode=' + mode.slug + '&language=en-GB&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
-            return window.Q($.get('/reverse_proxy?link=' + encodeURIComponent(apiUri)))
-        }))
+        return window.Q.Promise(function (resolve, reject) {
+            window.geonamesApi.getCountry(origins.split('|')[0])
+                .then(function (val) {
+                    if(val[0].country === 'GB') {
+                        resolve(window.moment(window.moment().day(8).format('YYYY-MM-DD') + ' 9:00 +0000').unix())
+                    } else {
+                        resolve(window.moment(window.moment().day(8).format('YYYY-MM-DD') + ' 9:00').unix())
+                    }
+                })
+        })
+            .then(function (departureTime) {
+                return window.Q.all(_.map(modes, function (mode) {
+                    var apiUri = 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + origins + '&destinations=' + destinations + '&mode=' + mode.slug + '&departure_time=' + departureTime + '&language=en-GB&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
+                    return window.Q($.get('/reverse_proxy?link=' + encodeURIComponent(apiUri)))
+                }))
+            })
             .then(function (data) {
                 return _.map(data, function (item) {
                     item = JSON.parse(item)

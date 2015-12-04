@@ -404,8 +404,8 @@
         }
         if(postcodeIndex !== '') {
             $btn.prop('disabled', true).text(window.i18n('获取中...'))
-            $.betterPost('/api/1/postcode/search', 'postcode_index=' + postcodeIndex)
-                .done(function(val) {
+            window.geonamesApi.getCountry(postcodeIndex)
+                .then(function(val) {
                     switch(val.length) {
                         case 0: //postcode没有搜索到结果则需要用户手动选择国家城市
                             clearLocationData()
@@ -854,7 +854,7 @@
                 })
         }
         function getLocation (property, callback) {
-            $.betterPost('/api/1/postcode/search', 'postcode_index=' + property.zipcode.replace(/\s/g, ''))
+            window.geonamesApi.getCountry(property.zipcode.replace(/\s/g, ''))
                 .done(function(val) {
                     if(val.length) {
                         property.latitude = val[0].latitude

@@ -2,7 +2,8 @@ function GeonamesApi () {
     var url = '/api/1/geonames/search'
     var cache = {
         neighborhood: {},
-        school: {}
+        school: {},
+        postcode: {}
     }
     this.getAdmin = function (config, callback, reject) {
         if(!cache[$.param(config)]) {
@@ -84,6 +85,22 @@ function GeonamesApi () {
             longitude: longitude,
             feature_code: 'city'
         }, callback, reject)
+    }
+    this.getCountry = function (postcode) {
+        return window.Q.promise(function (resolve, reject) {
+            if(!cache.postcode[postcode]) {
+                $.betterPost('/api/1/postcode/search', {postcode_index: postcode})
+                    .done(function (val) {
+                        cache.postcode[postcode] = val
+                        resolve(val)
+                    })
+                    .fail(function (ret) {
+                        reject(ret)
+                    })
+            } else {
+                resolve(cache.postcode[postcode])
+            }
+        })
     }
 }
 window.geonamesApi = new GeonamesApi()
