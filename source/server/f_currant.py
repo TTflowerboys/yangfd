@@ -1301,7 +1301,8 @@ class f_currant_plugins(f_app.plugin_base):
 
     task = ["assign_property_short_id", "render_pdf", "crawler_example", "crawler_london_home", "fortis_developments", "crawler_knightknox",
             "crawler_abacusinvestor", "crawler_knightknox_agents", "update_landregistry", "crawler_selectproperty", "rent_ticket_reminder",
-            "rent_ticket_generate_digest_image", "rent_ticket_check_intention", "rent_intention_ticket_check_rent", "ping_sitemap"]
+            "rent_ticket_generate_digest_image", "rent_ticket_check_intention", "rent_intention_ticket_check_rent", "ping_sitemap",
+            "fill_featured_facilities"]
 
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
@@ -2470,6 +2471,13 @@ class f_currant_plugins(f_app.plugin_base):
             start=datetime.utcnow() + timedelta(days=30),
         ))
 
+    def task_on_fill_featured_facilities(self, task):
+        ticket = f_app.ticket.output([task["ticket_id"]], permission_check=False)[0]
+        if ticket["status"] != "to rent":
+            return
+
+        f_app.property.update_set(ticket["property"]["id"], {"featured_facility": f_app.util.get_featured_facilities(ticket["property"]["zipcode"])})
+
     def order_update_after(self, order_id, params, order, ignore_error=True):
         if "status" in params.get("$set", {}):
             if order.get("status") == "paid":
@@ -3358,6 +3366,40 @@ class f_currant_util(f_util):
 
             else:
                 params["minimum_rent_period"] = rent_period
+
+    def get_featured_facilities(self, postcode):
+        postcode = f_app.geonames.postcode.get(f_app.geonames.postcode.search({"postcode_index": postcode.replace(" ", "")}, per_page=-1))[0]
+        all_modes = f_app.enum.get_all("featured_facility_traffic_type")
+
+        places = f_app.main_mixed_index.get_nearby({"latitude": postcode["latitude"], "longitude": postcode["longitude"], "search_range": 1000})
+        dest = "|".join([",".join((str(place["latitude"]), str(place["longitude"]))) for place in places if "type" in place])
+        url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=%(origin)s&destinations=%(dest)s&mode=%(mode)s&language=en-GB&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU"
+
+        featured_facilities = []
+
+        for place in places:
+            if "type" not in place:
+                continue
+            featured_facilities.append(dict(
+                type=place["type"],
+                traffic_time=[],
+            ))
+            if "hesa_university" in place:
+                featured_facilities[-1]["hesa_university"] = ObjectId(place["hesa_university"])
+            if "doogal_station" in place:
+                featured_facilities[-1]["doogal_station"] = ObjectId(place["doogal_station"])
+
+        for mode in all_modes:
+            result = f_app.request.get(url % {"origin": postcode["postcode_index"], "dest": dest, "mode": mode["slug"]}, format="json")
+            for n, result in enumerate(result["rows"][0]["elements"]):
+                if result["status"] != "OK":
+                    self.logger.error(result["status"])
+                featured_facilities[n]["traffic_time"].append({
+                    "type": {"_id": ObjectId(mode["id"]), "type": "featured_facility_traffic_type", "_enum": "featured_facility_traffic_type"},
+                    "time": {"value": str(result["duration"]["value"]), "value_float": result["duration"]["value"], "unit": "second", "_i18n_unit": True, "type": "time_period"},
+                })
+
+        return featured_facilities
 
     def test_parse_budget(self):
         assert f_app.util.parse_budget("budget:100,200,CNY") == [100, 200, "CNY"]
