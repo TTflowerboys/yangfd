@@ -118,27 +118,29 @@
             if (!currencyType) {
                 currencyType = window.currency
             }
-
+            if(isNaN(parseInt(number))) {
+                return number
+            }
             if (currencyType === 'CNY' && window.lang === 'zh_Hans_CN') {
                 if (parseInt(number) > 100000000) {
-                    return '<strong>' + team.encodeCurrency(parseInt(number) / 100000000, fixedBit) + '</strong>' + '亿'
+                    return team.encodeCurrency(parseInt(number) / 100000000, fixedBit) + '亿'
                 }
                 else if (parseInt(number) > 10000) {
-                    return '<strong>' + team.encodeCurrency(parseInt(number) / 10000) + '</strong>' + '万'
+                    return team.encodeCurrency(parseInt(number) / 10000) + '万'
                 }
                 else {
-                    return '<strong>' + team.encodeCurrency(number, fixedBit) + '</strong>'
+                    return team.encodeCurrency(number, fixedBit)
                 }
             }
             else {
                 if (parseInt(number) > 1000000) {
-                    return '<strong>' + team.encodeCurrency(parseInt(number) / 1000000, fixedBit) + 'm' + '</strong>'
+                    return team.encodeCurrency(parseInt(number) / 1000000, fixedBit) + 'm'
                 }
                 else if (parseInt(number) > 1000) {
-                    return '<strong>' + team.encodeCurrency(parseInt(number) / 1000, fixedBit) + 'k' + '</strong>'
+                    return team.encodeCurrency(parseInt(number) / 1000, fixedBit) + 'k'
                 }
                 else {
-                    return  '<strong>' + team.encodeCurrency(number, fixedBit) + '</strong>'
+                    return team.encodeCurrency(number, fixedBit)
                 }
             }
         },

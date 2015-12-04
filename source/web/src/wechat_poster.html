@@ -55,7 +55,7 @@
                     % if 'price' in rent and rent.get('price'):
                     <span class="price_original">
                         {{rent.get('price',{}).get('unit_symbol','')}}
-                        {{f_app.re.filter_zero(rent.get('price',{}).get('value',''))}}
+                        <span data-type="formatted_currency">{{f_app.re.filter_zero(rent.get('price',{}).get('value',''))}}</span>
                         {{_('/周')}}
                         % if 'bill_covered' in rent and rent.get('bill_covered'):
                         <span class="sub">
@@ -127,7 +127,8 @@
                         >
                         <div>
                             <i class="icon-coin_line"></i>
-                            {{_('押金:')}}{{rent.get('deposit',{}).get('unit_symbol','')}}{{f_app.re.filter_zero(rent.get('deposit',{}).get('value',_(u'面议')))}}
+                            {{_('押金:')}}{{rent.get('deposit',{}).get('unit_symbol','')}}
+                            <span data-type="formatted_currency">{{f_app.re.filter_zero(rent.get('deposit',{}).get('value',_(u'面议')))}}</span>
                         </div>
                     </li>
                     % if 'floor' in rent['property'] and rent['property'].get('floor',''):

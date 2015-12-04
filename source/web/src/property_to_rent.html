@@ -207,7 +207,7 @@
                     {{_('押金')}}
                     % if 'deposit' in rent and rent.get('deposit',{}).get('value'):
                     <strong>
-                        {{rent.get('deposit',{}).get('unit_symbol','')}}{{f_app.re.filter_zero(rent.get('deposit',{}).get('value'))}}
+                        {{rent.get('deposit',{}).get('unit_symbol','')}}<span data-type="formatted_currency">{{f_app.re.filter_zero(rent.get('deposit',{}).get('value'))}}</span>
                     </strong>
                     % else :
                     <strong>
@@ -508,7 +508,7 @@
                         {{_('押金')}}
                         % if 'deposit' in rent and rent.get('deposit',{}).get('value'):
                         <strong>
-                            {{rent.get('deposit',{}).get('unit_symbol','')}}{{f_app.re.filter_zero(rent.get('deposit',{}).get('value'))}}
+                            {{rent.get('deposit',{}).get('unit_symbol','')}}<span data-type="formatted_currency">{{f_app.re.filter_zero(rent.get('deposit',{}).get('value'))}}</span data-type="formatted_currency">
                         </strong>
                         % if 'deposit' in rent and rent.get('deposit',{}).get('localized_value'):
                         <span>
