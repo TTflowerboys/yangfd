@@ -966,6 +966,8 @@ class f_currant_user(f_user):
         def get_budget(ticket):
             if ticket is None:
                 return ''
+            if ticket.get('type', None) == "intention":
+                return f_app.enum.get(ticket['budget']['_id'])['value']['zh_Hans_CN']
             budget_min = unicode(ticket.get("rent_budget_min", {}).get("value", '零'))
             budget_max = unicode(ticket.get("rent_budget_max", {}).get("value", '不限'))
             if budget_max is None or budget_min is None:
