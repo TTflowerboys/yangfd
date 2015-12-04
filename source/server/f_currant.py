@@ -3384,7 +3384,7 @@ class f_currant_util(f_util):
 
         places = f_app.main_mixed_index.get_nearby({"latitude": postcode["latitude"], "longitude": postcode["longitude"], "search_range": 1000})
         dest = "|".join([",".join((str(place["latitude"]), str(place["longitude"]))) for place in places if "type" in place])
-        url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=%(origin)s&destinations=%(dest)s&mode=%(mode)s&language=en-GB&key=AIzaSyB4M6oYc9tBFAkj2q25oxxxaQo2a9kN6do"
+        url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=%(origin)s&destinations=%(dest)s&mode=%(mode)s&language=en-GB&key=AIzaSyAWMlZ92pxXbkjxdbgbWRI7O1XAFYtLA1Q"
 
         featured_facilities = []
 
