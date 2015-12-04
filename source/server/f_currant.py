@@ -3376,6 +3376,7 @@ class f_currant_util(f_util):
     def get_featured_facilities(self, postcode):
         try:
             postcode = f_app.geonames.postcode.get(f_app.geonames.postcode.search({"postcode_index": postcode.replace(" ", "")}, per_page=-1))[0]
+            assert "latitude" in postcode
         except:
             self.logger.warning("Invalid postcode", postcode)
             return
