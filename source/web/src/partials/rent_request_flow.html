@@ -1,0 +1,27 @@
+<!--租房流程-->
+<div class="host_wrapper fullHeightInClient">
+    <h2>{{_('租房流程')}}</h2>
+    <ol>
+        <li>
+            <span class="icon"><i>1</i></span>
+            <span class="text">{{_('提交您的个人信息和对房源的问题 ')}}</span></li>
+        <li>
+            <span class="icon"><i>2</i></span>
+            <span class="text">{{_('房东将会在24小时内回复您的求租申请 ')}}</span>
+        </li>
+        <li>
+            <span class="icon"><i>3</i></span>
+            <span class="text">{{_('房东回复后平台将会与您取得联系 ')}}</span>
+        </li>
+    </ol>
+    %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
+    <a class="button red hiddenOnPCWeb" href="/rent-request?ticketId={{rent.get('id')}}">{{_('我要咨询')}}</a>
+    <button class="button red hiddenOnMobile" data-bind="click: openRentRequestForm('{{rent.get('id')}}', true)">{{_('我要咨询')}}</button>
+    % end
+
+    % if 'short_id' in rent['property'] and rent.get('property',{}).get('short_id',''):
+    <div class="shortid">
+        <span class="label">{{_('房源编号: ')}}</span><span class="id">{{rent.get('property',{}).get('short_id','')}}</span>
+    </div>
+    %end
+</div>

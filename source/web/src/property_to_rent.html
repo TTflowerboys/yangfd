@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="/static/styles/bingMap.css"/>
 <link rel="stylesheet" href="/static/styles/phone/wechatSharePopup.css"/>
 <link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
-<link rel="stylesheet" href="/static/styles/hostContactRequest.css"/>
+<link rel="stylesheet" href="/static/styles/rentRequestFlow.css"/>
 <!--endbuild-->
 <link rel="stylesheet" href="/static/bower_components/photoswipe/dist/default-skin/default-skin.css"/>
 
@@ -568,14 +568,9 @@
                     </tr>
                 </table>
         </div>
-
-        %if 'creator_user' in rent and not (rent.get('property',{}).get('partner') or (rent.get('user') and rent.get('user',{}).get('id') != rent.get('creator_user',{}).get('id'))):
-        <!--@@include=./partials/host_contact_request.html -->
-        %elif 'creator_user' in rent:
-        <!--@@include=./partials/host_contact_partner.html -->
-        %end
-        <div class="seperator"></div>
+        <!--@@include=./partials/rent_request_flow.html -->
         %if len(related_rent_ticket_list):
+        <div class="seperator"></div>
         <div class="relatedProperties">
             <h2 class="title">{{_('相关出租房产')}}</h2>
             <ul>

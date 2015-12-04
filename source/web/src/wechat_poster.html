@@ -349,11 +349,7 @@
 
                     % if not rent.get('status')=='rent':
                     <p class="contact animate">
-                        %if not (rent.get('property',{}).get('partner') or (rent.get('user') and rent.get('user',{}).get('id') != rent.get('creator_user',{}).get('id'))):
-                        <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" class="btn">{{_('获取房东联系方式')}}</a>
-                        %else:
-                        <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" class="btn">{{_('查看平台联系方式')}}</a>
-                        %end
+                        <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" class="btn">{{_('我要咨询')}}</a>
                     </p>
                     % elif rent.get('status') == 'rent':
                     <p class="rentOut animate">
