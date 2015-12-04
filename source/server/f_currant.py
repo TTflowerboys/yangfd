@@ -763,6 +763,11 @@ class f_currant_user(f_user):
     User Data Analyze Module
     ==================================================================
     """
+    def analyze_data_get_modif_time(self, user_id):
+        mod_time = self.get(user_id).get('analyze_value_modifier_time', None)
+        if mod_time is None or isinstance(mod_time, datetime):
+            return {}
+        return mod_time
 
     def analyze_data_update(self, user_id, params={
         "analyze_guest_country": True,
@@ -828,6 +833,9 @@ class f_currant_user(f_user):
             return unicode('/'.join(value_list))
 
         def get_active_days(user):
+            mod_time = self.analyze_data_get_modif_time(user_id)
+            old_active_days = mod_time.get('analyze_guest_active_days', 0)
+            mod_time = mod_time.get('analyze_guest_active_days', None)
             func_map = Code(
                 '''
                 function() {
@@ -846,8 +854,18 @@ class f_currant_user(f_user):
             if user_id is None:
                 return ''
             with f_app.mongo() as m:
-                f_app.log.get_database(m).map_reduce(func_map, func_reduce, "log_result", query={"id": ObjectId(user_id)})
-                active_days = m.log_result.find().count()
+                if mod_time is None:
+                    f_app.log.get_database(m).map_reduce(func_map, func_reduce, "log_result", query={
+                        "id": ObjectId(user_id)
+                    })
+                else:
+                    start_time = datetime(mod_time.year, mod_time.month, mod_time.day) + timedelta(days=1)
+                    f_app.log.get_database(m).map_reduce(func_map, func_reduce, "log_result", query={
+                        "id": ObjectId(user_id),
+                        "time": {"$gt": start_time}
+                    })
+                # active_days = m.log_result.find().count()
+                active_days = m.log_result.find().count() + old_active_days
             return active_days
 
         def check_download(user):
@@ -2530,28 +2548,14 @@ class f_currant_plugins(f_app.plugin_base):
         if not user_id:
             return user_id
         # know how many days the user was active
-        active_days = f_app.user.get(user_id).get('analyze_guest_active_days', None)
-        if active_days is None:
+        mod_time = f_app.user.analyze_data_get_modif_time(user_id)
+        if 'analyze_guest_active_days' not in mod_time:
             f_app.user.analyze_data_update(user_id, {'analyze_guest_active_days': True})
         else:
             today = date.today()
-            mod_day = f_app.user.get(user_id).get('analyze_value_modifier_time', {})
-            # if 'analyze_guest_active_days' in mod_day:
-            if not isinstance(mod_day, datetime):
-                mod_day = mod_day.get('analyze_guest_active_days', today)
-
-            if isinstance(mod_day, datetime):
-                mod_day = mod_day.date()
-            if isinstance(mod_day, float):
-                mod_day = date.fromtimestamp(mod_day)
-            if (not isinstance(mod_day, date)) or (type(mod_day) != type(today)):
-                self.logger.waring(type(mod_day))
-                return user_id
-            # make sure mod_day is date
-            if today > mod_day:
+            # active_days = f_app.user.get(user_id).get('analyze_guest_active_days', None)
+            if mod_time['analyze_guest_active_days'].date() < today:
                 f_app.user.analyze_data_update(user_id, {'analyze_guest_active_days': True})
-            elif today < mod_day:
-                self.logger.warning('mod date in the future !')
 
         if log_type == "route" and kwargs.get('rent_ticket_id', None) is not None:
             f_app.user.analyze_data_update(user_id, {
