@@ -1051,7 +1051,9 @@ body {
                 color: #666;
                 vertical-align: middle;
                 @media @phone{
-                    width: 40vw;
+                    width: 118px;
+                    width: 38vw;
+                    width: calc(~'100% - 170px');
                     line-height: 1.2em;
                 }
             }
@@ -1059,9 +1061,17 @@ body {
                 display: inline-block;
                 vertical-align: middle;
                 select{
-                    width: 90px;
+                    width: 100px;
                     @media @phone{
-                        width: 65px;
+                        width: 80px;
+                    }
+                }
+                .chosen-container .chosen-single{
+                    padding: 0 10px 0 0;
+                    span {
+                        @media @phone{
+                            margin-right: 10px;
+                        }
                     }
                 }
                 .time{
