@@ -870,7 +870,7 @@ class f_currant_user(f_user):
 
         def check_download(user):
             downloaded = self.get(user_id).get('analyze_guest_downloaded', None)
-            if download == '已下载':
+            if downloaded == '已下载':
                 return True
             credit = f_app.user.credit.get("view_rent_ticket_contact_info", user_id).get("credits", [])
             for single in credit:
