@@ -620,6 +620,12 @@
         %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
         <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" >
             {{_('我要咨询')}}
+            % if 'short_id' in rent['property'] and rent.get('property',{}).get('short_id',''):
+            <span>
+                {{_('房产编号:')}}{{ rent['property'].get('short_id','') }}
+            </span>
+            % end
+
         </a>
         %end
     </li>

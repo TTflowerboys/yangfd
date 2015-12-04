@@ -43,7 +43,7 @@ function startIntroOnPhone() {
         style : {
             position: 'fixed',
             bottom: '50px',
-            right: '5%'
+            right: '1.3%'
         },
         closeTrigger: {
             elem: '.floatBar_phone .favorite',
