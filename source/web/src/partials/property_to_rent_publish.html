@@ -181,14 +181,14 @@
                     <label for="email">{{_('邮箱')}}</label>
                     <span>{{user.get('email','')}}</span>
                     <p class="addContactWrap">
-                        <input type="checkbox" id="addContact-email" checked="checked" data-addContact="email"/><label class="addContactLabel" for="addContact-email">{{_('展示邮箱给注册租客')}}</label>
+                        <input type="checkbox" id="addContact-email" checked="checked" data-addContact="email"/><label class="addContactLabel" for="addContact-email">{{_('展示邮箱给审核租客')}}</label>
                     </p>
                 </div>
                 <div class="formGroup" data-show="own">
                     <label for="phone">{{_('手机号')}}</label>
                     <span>{{user.get('phone','')}}</span>
                     <p class="addContactWrap">
-                        <input type="checkbox" id="addContact-phone" checked="checked" data-addContact="phone"/><label class="addContactLabel" for="addContact-phone">{{_('展示电话给注册租客')}}</label>
+                        <input type="checkbox" id="addContact-phone" checked="checked" data-addContact="phone"/><label class="addContactLabel" for="addContact-phone">{{_('展示电话给审核租客')}}</label>
                     </p>
                 </div>
                 <div class="formGroup" data-show="own">
@@ -198,7 +198,7 @@
 
                 <div class="formGroup" data-show="own">
                     <label></label>
-                    <span>{{_('您选择的联系方式仅展示给平台注册的租客')}}</span>
+                    <span>{{_('您选择的联系方式仅展示给平台审核的租客')}}</span>
                 </div>
             </form>
                 %end
