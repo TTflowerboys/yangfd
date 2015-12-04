@@ -1,0 +1,16 @@
+<!--@@master = ../../masters/email.html-->
+<!--@@block=content-->
+%   params = _i18n(params)
+<p>{{_('收到新的求租咨询信息如下：')}}</p>
+<ul>
+    <li>{{_('用户姓名：')}}{{params.get("nickname")}}</li>
+    <li>{{_('用户手机：')}}{{params.get("phone")}}</li>
+    <li>{{_('用户邮箱：')}}{{params.get("email")}}</li>
+    <li>{{_('入住人数：')}}{{params.get("tenant_count")}}</li>
+    <li>{{_('入住时间：')}}{{params.get('rent_available_time').strftime("%Y-%m-%d")}}</li>
+    <li>{{_('搬出时间：')}}{{params.get('rent_deadline_time').strftime("%Y-%m-%d")}}</li>
+    <li>{{_('目标房源：')}}<a href="{{target_property_to_rent_url}}">{{params.get("interested_rent_tickets")[0].get("title")}}</a></li>
+</ul>
+
+<p>{{_('登录入口为：')}}<a href="{{admin_console_url}}">{{admin_console_url}}</a></p>
+<!--@@close-->
