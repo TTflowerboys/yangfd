@@ -164,7 +164,7 @@
 "PropertyMoreInfo/标题" = "标题";
 "PropertyMoreInfo/其他" = "其他";
 "PropertyMoreInfo/详细描述" = "详细描述";
-"PropertyMoreInfo/补充您对租客的要求和对房屋特点的描述。平台将提供房东联系方式选择，请勿在此填写任何形式的联系方式，违规发布将会予以处理。" = "补充您对租客的要求和对房屋特点的描述。平台将提供房东联系方式选择，请勿在此填写任何形式的联系方式，违规发布将会予以处理。";
+"PropertyMoreInfo/请补充您对租客的要求和对房屋特点的描述，优质而独特的房源描述会得到平台的推荐，提升您的房源排名。（请勿在此填写任何形式的联系方式，违规发布将会予以处理）" = "请补充您对租客的要求和对房屋特点的描述，优质而独特的房源描述会得到平台的推荐，提升您的房源排名。（请勿在此填写任何形式的联系方式，违规发布将会予以处理）";
 "PropertyMoreInfo/面积" = "面积";
 "PropertyMoreInfo/配套设施" = "配套设施";
 "PropertyMoreInfo/删除" = "删除";
@@ -522,7 +522,7 @@
 "RentContactDisplaySetting/展示邮箱" = "展示邮箱";
 "RentContactDisplaySetting/微信号" = "微信号";
 "RentContactDisplaySetting/点击填写微信号" = "点击填写微信号";
-"RentContactDisplaySetting/您选择的联系方式仅展示给平台注册的租客" = "您选择的联系方式仅展示给平台注册的租客";
+"RentContactDisplaySetting/您选择的联系方式仅展示给平台审核过的租客" = "您选择的联系方式仅展示给平台审核过的租客";
 "RentContactDisplaySetting/至少需要展示一种联系方式" = "至少需要展示一种联系方式";
 
 

@@ -20,7 +20,7 @@
 - (NSArray *)fields {
     return @[
              @{FXFormFieldKey: @"ticketTitle", FXFormFieldTitle:STR(@"PropertyMoreInfo/标题"), FXFormFieldHeader:STR(@"PropertyMoreInfo/其他"), FXFormFieldDefaultValue:_ticketTitle? :@"", FXFormFieldCell: [CUTEFormLimitCharacterCountTextFieldCell class], FXFormFieldAction:@"onTicketTitleEdit:"},
-             @{FXFormFieldKey: @"ticketDescription", FXFormFieldTitle:STR(@"PropertyMoreInfo/详细描述"),FXFormFieldType:FXFormFieldTypeLongText, FXFormFieldDefaultValue:_ticketDescription? : @"", FXFormFieldAction:@"onTicketDescriptionEdit:", FXFormFieldCell: [CUTEFormTextViewCell class], FXFormFieldPlaceholder: STR(@"PropertyMoreInfo/补充您对租客的要求和对房屋特点的描述。平台将提供房东联系方式选择，请勿在此填写任何形式的联系方式，违规发布将会予以处理。")},
+             @{FXFormFieldKey: @"ticketDescription", FXFormFieldTitle:STR(@"PropertyMoreInfo/详细描述"),FXFormFieldType:FXFormFieldTypeLongText, FXFormFieldDefaultValue:_ticketDescription? : @"", FXFormFieldAction:@"onTicketDescriptionEdit:", FXFormFieldCell: [CUTEFormTextViewCell class], FXFormFieldPlaceholder: STR(@"PropertyMoreInfo/请补充您对租客的要求和对房屋特点的描述，优质而独特的房源描述会得到平台的推荐，提升您的房源排名。（请勿在此填写任何形式的联系方式，违规发布将会予以处理）")},
              @{FXFormFieldKey: @"area", FXFormFieldTitle:STR(@"PropertyMoreInfo/面积"), FXFormFieldAction: @"editArea"},
              @{FXFormFieldKey: @"facility", FXFormFieldTitle:STR(@"PropertyMoreInfo/配套设施"), FXFormFieldAction:@"editFacilities"},
 //                @{FXFormFieldKey: @"feature", FXFormFieldTitle:STR(@"街区亮点")},

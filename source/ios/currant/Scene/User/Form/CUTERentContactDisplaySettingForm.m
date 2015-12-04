@@ -17,7 +17,7 @@
     return @[
              @{FXFormFieldKey: @"displayPhone", FXFormFieldTitle: STR(@"RentContactDisplaySetting/展示电话"), FXFormFieldCell: [CUTEFormSwitchCell class]},
              @{FXFormFieldKey: @"displayEmail", FXFormFieldTitle: STR(@"RentContactDisplaySetting/展示邮箱"), FXFormFieldCell: [CUTEFormSwitchCell class]},
-             @{FXFormFieldKey: @"wechat", FXFormFieldTitle: STR(@"RentContactDisplaySetting/微信号"), FXFormFieldPlaceholder:STR(@"RentContactDisplaySetting/点击填写微信号"), FXFormFieldCell: [CUTEFormTextFieldCell class], FXFormFieldFooter:STR(@"RentContactDisplaySetting/您选择的联系方式仅展示给平台注册的租客")}
+             @{FXFormFieldKey: @"wechat", FXFormFieldTitle: STR(@"RentContactDisplaySetting/微信号"), FXFormFieldPlaceholder:STR(@"RentContactDisplaySetting/点击填写微信号"), FXFormFieldCell: [CUTEFormTextFieldCell class], FXFormFieldFooter:STR(@"RentContactDisplaySetting/您选择的联系方式仅展示给平台审核过的租客")}
              ];
 }
 
