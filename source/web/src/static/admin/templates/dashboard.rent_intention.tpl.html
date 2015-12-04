@@ -44,7 +44,7 @@
                         <div>{%item.rent_budget_max.unit%}{%item.rent_budget_max.value%}</div>
                     </td>
                     <td>
-                        <div>{%(item.rent_available_time?(item.rent_available_time * 1000 | date : 'shortDate'):'') + $root.i18n('起') + (item.rent_deadline_time?  $root.i18n('至') + (item.rent_deadline_time * 1000 | date : 'shortDate'):'') %}</div>
+                        <div>{%(item.rent_available_time?(item.rent_available_time * 1000 | date : 'yyyy-MM-d'):'') + $root.i18n('起') + (item.rent_deadline_time?  $root.i18n('至') + (item.rent_deadline_time * 1000 | date : 'yyyy-MM-d'):'') %}</div>
                     </td>
                     <td>
                         <div>{%$root.i18n('出租类型:')%}{%item.rent_type.value%}</div>

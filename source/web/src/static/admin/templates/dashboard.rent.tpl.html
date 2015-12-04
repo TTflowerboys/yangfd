@@ -76,7 +76,7 @@
                     </div>
                 </td>
                 <td>
-                    <div>{%$root.i18n('租期：')%}{%(item.rent_available_time?(item.rent_available_time * 1000 | date : 'shortDate'):'') + $root.i18n('起') + (item.rent_deadline_time?  $root.i18n('至') + (item.rent_deadline_time * 1000 | date : 'shortDate'):'') %}</div>
+                    <div>{%$root.i18n('租期：')%}{%(item.rent_available_time?(item.rent_available_time * 1000 | date : 'yyyy-MM-d'):'') + $root.i18n('起') + (item.rent_deadline_time?  $root.i18n('至') + (item.rent_deadline_time * 1000 | date : 'yyyy-MM-d'):'') %}</div>
                     <div>{%$root.i18n('至少租住：')%}{%item.minimum_rent_period.value + ' ' + item.minimum_rent_period.unit %}</div>
                 </td>
                 <td>
