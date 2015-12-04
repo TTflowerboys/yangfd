@@ -869,6 +869,9 @@ class f_currant_user(f_user):
             return active_days
 
         def check_download(user):
+            downloaded = self.get(user_id).get('analyze_guest_downloaded', None)
+            if download == '已下载':
+                return True
             credit = f_app.user.credit.get("view_rent_ticket_contact_info", user_id).get("credits", [])
             for single in credit:
                 if single.get("tag", None) == "download_ios_app":
@@ -2546,10 +2549,11 @@ class f_currant_plugins(f_app.plugin_base):
         # know user downloaded or not
         user_id = params.get('user_id', None)
         downloaded = f_app.user.get(user_id).get('analyze_guest_downloaded', None)
-        if not downloaded:
+        if downloaded is None:
             f_app.user.analyze_data_update(user_id, {"analyze_guest_downloaded": True})
-        if params.get('type', None) == "view_rent_ticket_contact_info" and params.get('tag', None) == "download_ios_app" and "user_id" in params:
-            f_app.user.update_set(params.get('user_id', None), {'analyze_guest_downloaded': "已下载"})
+        if params.get('type', None) == "view_rent_ticket_contact_info" and params.get('tag', None) == "download_ios_app":
+            f_app.user.update_set(user_id, {'analyze_guest_downloaded': "已下载"})
+            f_app.user.analyze_data_update(user_id, {"analyze_guest_downloaded": True})  # only for update modif time
         return params
 
     def log_add_after(self, user_id, log_type, **kwargs):
