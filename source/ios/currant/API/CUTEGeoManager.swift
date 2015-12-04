@@ -77,6 +77,11 @@ class CUTEGeoManager: NSObject {
         let geocoderURLString = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(location.coordinate.latitude),\(location.coordinate.longitude)&key=\(CUTEConfiguration.googleAPIKey())&language=en"
         reverseProxyWithLink(geocoderURLString, cancellationToken: nil).continueWithBlock { (task:BFTask!) -> AnyObject! in
 
+            if task.error != nil {
+                tcs.setError(task.error)
+                return task
+            }
+
             guard let dic = task.result as? [String:AnyObject] else {
                 tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
                 return task
@@ -208,6 +213,11 @@ class CUTEGeoManager: NSObject {
 
         reverseProxyWithLink(geocoderURLString, cancellationToken:nil).continueWithBlock { (task:BFTask!) -> AnyObject! in
 
+            if task.error != nil {
+                tcs.setError(task.error)
+                return task
+            }
+
             guard let dic = task.result as? [String:AnyObject] else {
                 tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
                 return task
@@ -323,6 +333,23 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
+    /// depature time just a given value, tranform current time to the timeZone time, then get the time's next week monday, 9'o clock
+    private func getDepatureTime(timeZone:NSTimeZone) -> NSTimeInterval {
+        let date = NSDate()
+        let calendar = NSCalendar(calendarIdentifier: NSGregorianCalendar)
+        calendar?.timeZone = timeZone
+
+        var startDate:NSDate?
+        //http://stackoverflow.com/questions/24084717/error-extra-argument-in-call-when-passing-argument-to-method
+        var timeInterval:NSTimeInterval = 0
+        calendar?.rangeOfUnit(NSCalendarUnit.WeekOfYear, startDate: &startDate, interval: &timeInterval, forDate: date)
+        if (startDate != nil ) {
+            return startDate!.dateByAddingDays(7).dateByAddingHours(9).timeIntervalSince1970
+        }
+        print("Error: should not go here for getDepatureTime")
+        return date.timeIntervalSince1970
+    }
+
     /// ![](https://www.gstatic.com/images/branding/product/1x/maps_64dp.png)
     ///
     /// 获取[Google Distance Matrix API](https://developers.google.com/maps/documentation/distance-matrix/intro)的结果
@@ -330,7 +357,7 @@ class CUTEGeoManager: NSObject {
     /// - parameter destinations: 目的地址的列表
     /// - parameter mode: 交通工具的模式，有bicycling, driving, walking, transit, 默认driving
     /// - returns: BFTask
-    func searchDistanceMatrixWithOrigins(origins:[String], destinations:[String], mode:String = "driving", cancellationToken:BFCancellationToken?) -> BFTask {
+    func searchDistanceMatrixWithOrigins(origins:[String], destinations:[String], mode:String = "driving", timeZone:NSTimeZone?, cancellationToken:BFCancellationToken?) -> BFTask {
         let tcs = BFTaskCompletionSource()
 
         let sequencer = SwiftSequencer()
@@ -353,13 +380,20 @@ class CUTEGeoManager: NSObject {
             let types = result as! [CUTEEnum]
             let originsParam = origins.joinWithSeparator("|").URLEncode()
             let destinationsParam = destinations.joinWithSeparator("|").URLEncode()
-            let URLString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=\(originsParam)&destinations=\(destinationsParam)&mode=\(mode)&language=en-GB&key=\(CUTEConfiguration.googleAPIKey())"
+            var URLString = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=\(originsParam)&destinations=\(destinationsParam)&mode=\(mode)&language=en-GB&key=\(CUTEConfiguration.googleAPIKey())"
+            if timeZone != nil {
+                let depatureTime = self.getDepatureTime(timeZone!)
+                URLString = URLString + "&departure_time=\(Int64(depatureTime))"
+            }
 
             self.reverseProxyWithLink(URLString, cancellationToken: cancellationToken).continueWithBlock { (task:BFTask!) -> AnyObject! in
                 if task.cancelled {
                     if !tcs.task.completed {
                         tcs.cancel()
                     }
+                }
+                else if task.error != nil {
+                    tcs.setError(task.error)
                 }
                 else if let dic = task.result as? [String:AnyObject] {
 
@@ -414,80 +448,125 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
-    func searchSurroundingsTrafficInfoWithProperty(propertyPostcodeIndex:String!, surroundings:[CUTESurrounding]!, cancellationToken:BFCancellationToken?) -> BFTask {
+    func searchSurroundingsTrafficInfoWithProperty(propertyPostcodeIndex:String!, surroundings:[CUTESurrounding]!, country:CUTECountry?, cancellationToken:BFCancellationToken?) -> BFTask {
 
         let tcs = BFTaskCompletionSource()
+        let sequencer = SwiftSequencer()
 
-        CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_traffic_type", cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-            if task.cancelled {
-                if !tcs.task.completed {
-                    tcs.cancel()
-                }
+
+        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)) -> Void in
+
+            let enumTask = CUTEAPICacheManager.sharedInstance().getEnumsByType("featured_facility_traffic_type", cancellationToken: cancellationToken);
+            var timeZoneTask:BFTask?
+            if (country != nil && country!.ISOcountryCode == "GB") {
+                // Greate Britain is GMT
+                let timeZone = NSTimeZone(forSecondsFromGMT: 0)
+                timeZoneTask = BFTask(result: timeZone)
             }
-            else if let enums = task.result as? [CUTEEnum] {
-                let trafficEnums = enums.sort({ (e1:CUTEEnum, e2:CUTEEnum) -> Bool in
-                    return e1.sortValue < e2.sortValue
-                })
+            else {
+                timeZoneTask = BFTask(result: NSNull())
+            }
 
-                if surroundings.count > 0 {
+            let task = BFTask(forCompletionOfAllTasksWithResults: [enumTask, timeZoneTask!])
+            task.continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                if task.cancelled {
+                    if !tcs.task.completed {
+                        tcs.cancel()
+                    }
+                }
 
-                    var destinations = [String]()
-
-                    //TODO check here has performance issues for like hundred of results
-                    for surrrounding in surroundings {
-                        if let address = surrrounding.address {
-                            destinations.append(address)
+                if task.result != nil {
+                    if let enums = task.result[0] as? [CUTEEnum] {
+                        if let timeZone = task.result[1] as? NSTimeZone {
+                            completion([enums, timeZone])
+                        }
+                        else {
+                            completion([enums, NSNull()])
                         }
                     }
-
-                    var requestTaskArray = [BFTask!]()
-                    for type in trafficEnums {
-                        requestTaskArray.append(self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode: type.slug, cancellationToken: cancellationToken))
+                    else {
+                        tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
                     }
+                }
+                else if task.error != nil {
+                    tcs.setError(task.error)
+                }
+                else if task.exception != nil {
+                    tcs.setException(task.exception)
+                }
+                else {
+                    tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                }
+                return task
+            })
+        }
 
-                    //default walking as the first mode
-                    BFTask(forCompletionOfAllTasksWithResults: requestTaskArray).continueWithBlock { (task:BFTask!) -> AnyObject! in
-                        if task.cancelled {
-                            if !tcs.task.completed {
-                                tcs.cancel()
-                            }
+        sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)) -> Void in
+            let enums = result![0] as! [CUTEEnum]
+            let timeZone = result![1] as? NSTimeZone
+
+            let trafficEnums = enums.sort({ (e1:CUTEEnum, e2:CUTEEnum) -> Bool in
+                return e1.sortValue < e2.sortValue
+            })
+
+            if surroundings.count > 0 {
+
+                var destinations = [String]()
+
+                //TODO check here has performance issues for like hundred of results
+                for surrrounding in surroundings {
+                    if let address = surrrounding.address {
+                        destinations.append(address)
+                    }
+                }
+
+                var requestTaskArray = [BFTask!]()
+                for type in trafficEnums {
+                    requestTaskArray.append(self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode: type.slug, timeZone: timeZone, cancellationToken: cancellationToken))
+                }
+
+                //default walking as the first mode
+                BFTask(forCompletionOfAllTasksWithResults: requestTaskArray).continueWithBlock { (task:BFTask!) -> AnyObject! in
+                    if task.cancelled {
+                        if !tcs.task.completed {
+                            tcs.cancel()
                         }
-                        else if let taskArray = task.result as? [[[CUTETrafficTime]]] {
-                            if taskArray.count == requestTaskArray.count {
+                    }
+                    else if let taskArray = task.result as? [[[CUTETrafficTime]]] {
+                        if taskArray.count == requestTaskArray.count {
 
-                                for timeMatix in taskArray {
-                                    let timeArray = timeMatix[0]
-                                    if timeArray.count == surroundings.count {
+                            for timeMatix in taskArray {
+                                let timeArray = timeMatix[0]
+                                if timeArray.count == surroundings.count {
 
-                                        for index in Range(start: 0, end: surroundings.count) {
-                                            let surrouding = surroundings[index]
-                                            if surrouding.trafficTimes != nil && surrouding.trafficTimes.count > 0 {
-                                                var array = surrouding.trafficTimes
-                                                array.append(timeArray[index])
-                                                surrouding.trafficTimes = array
-                                            }
-                                            else {
-                                                var array = [CUTETrafficTime]()
-                                                array.append(timeArray[index])
-                                                surrouding.trafficTimes = array
-                                            }
+                                    for index in Range(start: 0, end: surroundings.count) {
+                                        let surrouding = surroundings[index]
+                                        if surrouding.trafficTimes != nil && surrouding.trafficTimes.count > 0 {
+                                            var array = surrouding.trafficTimes
+                                            array.append(timeArray[index])
+                                            surrouding.trafficTimes = array
+                                        }
+                                        else {
+                                            var array = [CUTETrafficTime]()
+                                            array.append(timeArray[index])
+                                            surrouding.trafficTimes = array
                                         }
                                     }
                                 }
-
-                                tcs.setResult(surroundings)
                             }
-                        }
-                        return task;
-                    }
-                }
-                else {
-                    tcs.setResult(surroundings)
-                }
 
+                            tcs.setResult(surroundings)
+                        }
+                    }
+                    return task;
+                }
             }
-            return task
-        })
+            else {
+                tcs.setResult(surroundings)
+            }
+        }
+
+        sequencer.run()
 
         return tcs.task
     }
@@ -581,7 +660,7 @@ class CUTEGeoManager: NSObject {
 
             let surroundings = result as! [CUTESurrounding]
             if surroundings.count > 0 {
-                self.searchSurroundingsTrafficInfoWithProperty(propertyPostcodeIndex, surroundings: surroundings, cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                self.searchSurroundingsTrafficInfoWithProperty(propertyPostcodeIndex, surroundings: surroundings, country: country, cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                     if task.cancelled {
                         if !tcs.task.completed {
                             tcs.cancel()

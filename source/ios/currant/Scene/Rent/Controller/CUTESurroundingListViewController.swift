@@ -195,7 +195,7 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
 
     func searchAddSurrounding(surrounding: CUTESurrounding) {
         SVProgressHUD.showWithStatus(STR("SurroundingList/添加中..."))
-        CUTEGeoManager.sharedInstance.searchSurroundingsTrafficInfoWithProperty(self.postcodeIndex, surroundings: [surrounding], cancellationToken: nil).continueWithBlock { (task:BFTask!) -> AnyObject! in
+        CUTEGeoManager.sharedInstance.searchSurroundingsTrafficInfoWithProperty(self.postcodeIndex, surroundings: [surrounding], country:self.form.ticket.property.country, cancellationToken: nil).continueWithBlock { (task:BFTask!) -> AnyObject! in
             if task.cancelled {
                 SVProgressHUD.showErrorWithCancellation()
             }
