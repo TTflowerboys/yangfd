@@ -2479,7 +2479,9 @@ class f_currant_plugins(f_app.plugin_base):
         if ticket["status"] != "to rent":
             return
 
-        f_app.property.update_set(ticket["property"]["id"], {"featured_facility": f_app.util.get_featured_facilities(ticket["property"]["zipcode"])})
+        featured_facility = f_app.util.get_featured_facilities(ticket["property"]["zipcode"])
+        if featured_facility is not None:
+            f_app.property.update_set(ticket["property"]["id"], {"featured_facility": featured_facility})
 
     def order_update_after(self, order_id, params, order, ignore_error=True):
         if "status" in params.get("$set", {}):
@@ -3372,7 +3374,11 @@ class f_currant_util(f_util):
                 params["minimum_rent_period"] = rent_period
 
     def get_featured_facilities(self, postcode):
-        postcode = f_app.geonames.postcode.get(f_app.geonames.postcode.search({"postcode_index": postcode.replace(" ", "")}, per_page=-1))[0]
+        try:
+            postcode = f_app.geonames.postcode.get(f_app.geonames.postcode.search({"postcode_index": postcode.replace(" ", "")}, per_page=-1))[0]
+        except:
+            self.logger.warning("Invalid postcode", postcode)
+            return
         all_modes = f_app.enum.get_all("featured_facility_traffic_type")
 
         places = f_app.main_mixed_index.get_nearby({"latitude": postcode["latitude"], "longitude": postcode["longitude"], "search_range": 1000})
@@ -3395,13 +3401,20 @@ class f_currant_util(f_util):
 
         for mode in all_modes:
             result = f_app.request.get(url % {"origin": postcode["postcode_index"], "dest": dest, "mode": mode["slug"]}, format="json")
+            if result["status"] != "OK":
+                self.logger.error(result["status"])
             for n, result in enumerate(result["rows"][0]["elements"]):
                 if result["status"] != "OK":
-                    self.logger.error(result["status"])
-                featured_facilities[n]["traffic_time"].append({
-                    "type": {"_id": ObjectId(mode["id"]), "type": "featured_facility_traffic_type", "_enum": "featured_facility_traffic_type"},
-                    "time": {"value": str(result["duration"]["value"]), "value_float": result["duration"]["value"], "unit": "second", "_i18n_unit": True, "type": "time_period"},
-                })
+                    self.logger.warning(result["status"])
+                else:
+                    featured_facilities[n]["traffic_time"].append({
+                        "type": {"_id": ObjectId(mode["id"]), "type": "featured_facility_traffic_type", "_enum": "featured_facility_traffic_type"},
+                        "time": {"value": str(result["duration"]["value"]), "value_float": result["duration"]["value"], "unit": "second", "_i18n_unit": True, "type": "time_period"},
+                    })
+
+        for featured_facility in featured_facilities[:]:
+            if not len(featured_facility["traffic_time"]):
+                featured_facilities.remove(featured_facility)
 
         return featured_facilities
 
