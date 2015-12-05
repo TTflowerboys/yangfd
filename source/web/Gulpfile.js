@@ -242,7 +242,7 @@ gulp.task('build:html-extend', ['build:less2css'], function () {
         .pipe(publicHtmlFilter)
         .pipe(usemin({
             css: ['concat'],
-            js: [ footer(';;;'), 'concat', uglify({mangle: false})]
+            js: [ footer(';;;'), 'concat', uglify({mangle: false, outSourceMap: true})]
         }))
         .pipe(publicHtmlFilter.restore())
         .pipe(gulp.dest(myPaths.dist))
