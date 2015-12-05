@@ -833,9 +833,8 @@ class f_currant_user(f_user):
             return unicode('/'.join(value_list))
 
         def get_active_days(user):
-            mod_time = self.analyze_data_get_modif_time(user_id)
-            old_active_days = mod_time.get('analyze_guest_active_days', 0)
-            mod_time = mod_time.get('analyze_guest_active_days', None)
+            old_active_days = self.get(user_id).get('analyze_guest_active_days', 0)
+            mod_time = self.analyze_data_get_modif_time(user_id).get('analyze_guest_active_days', None)
             func_map = Code(
                 '''
                 function() {
