@@ -1,5 +1,6 @@
 # coding: utf-8
 from __future__ import unicode_literals
+import sys
 from app import f_app
 from datetime import datetime, timedelta
 from datetime import date
@@ -13,6 +14,8 @@ import random
 
 username = "13545078924"
 password = "bbt12345678"
+
+day_shift = int(sys.argv[1]) if len(sys.argv) > 1 else 0  # the date how many days before will be loaded
 
 
 def generate_keyword_list(filename):
@@ -170,7 +173,7 @@ def get_weibo_search_result(keywords_list):
         def reduce_weibo(weibo_list):
             dic = {}
             today = date.today()
-            time_start = datetime(today.year, today.month, today.day) - timedelta(hours=7)
+            time_start = datetime(today.year, today.month, today.day) - timedelta(days=day_shift, hours=7)
             cleanr = re.compile('<.*?>')
             for single in weibo_list:
                 user = single['user']['screen_name']
