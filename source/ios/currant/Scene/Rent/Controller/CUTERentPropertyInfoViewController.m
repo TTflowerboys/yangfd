@@ -48,9 +48,11 @@
 #import "CUTETooltipView.h"
 #import "CUTEUserDefaultKey.h"
 #import <Aspects.h>
+#import <TTTAttributedLabel.h>
+#import "MasonryMake.h"
 
 
-@interface CUTERentPropertyInfoViewController () {
+@interface CUTERentPropertyInfoViewController () <TTTAttributedLabelDelegate> {
 
     BFCancellationTokenSource *_surroundingSearchCancellationTokenSource;
 
@@ -253,6 +255,73 @@
         [self checkShowSurroundingTooltipWhenSurroundingCellDisplay:cell];
     }
 }
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    NSString *footer = [[[self.formController sectionAtIndex:section] valueForKey:@"footer"] description];
+    if (!IsNilNullOrEmpty(footer)) {
+        TTTAttributedLabel * label = [TTTAttributedLabel new];
+        NSString *str = footer;
+        NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString:str attributes:@{NSForegroundColorAttributeName: HEXCOLOR(0x999999, 1.0)}];
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        [style setLineSpacing:8];
+        [attrString addAttribute:NSParagraphStyleAttributeName
+                           value:style
+                           range:NSMakeRange(0, str.length)];
+        label.attributedText = attrString;
+        label.font = [UIFont systemFontOfSize:12];
+        label.numberOfLines = 0;
+        label.textAlignment = NSTextAlignmentCenter;
+
+        label.linkAttributes = @{NSForegroundColorAttributeName: HEXCOLOR(0xe60012, 1)};
+        label.activeLinkAttributes = @{NSForegroundColorAttributeName: HEXCOLOR(0xe60012, 1)};
+        label.delegate = self;
+
+        NSRange range = [label.text rangeOfString:STR(@"PropertyInfo/服务须知")];
+        [label addLinkToURL:[NSURL WebURLWithString:@"/terms"] withRange:range];
+
+        UIView *view = [UIView new];
+        [view addSubview:label];
+
+        MakeBegin(label)
+        MakeTopEqualTo(view.top).offset(15);
+        MakeLeftEqualTo(view.left).offset(40);
+        MakeRighEqualTo(view.right).offset(-40);
+        MakeBottomEqualTo(view.bottom).offset(-8);
+        MakeEnd
+
+        return view;
+
+    }
+    return nil;
+
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    NSString *footer = [[[self.formController sectionAtIndex:section] valueForKey:@"footer"] description];
+    return IsNilNullOrEmpty(footer)? 0 : 70;
+}
+
+#pragma TTTAttributedLabelDelegate
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    CUTEWebViewController *webViewController = [CUTEWebViewController new];
+    webViewController.URL = url;
+    webViewController.disableUpdateBackButton = YES;
+    webViewController.navigationItem.title = STR(@"PropertyInfo/服务须知");
+    webViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"关闭") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+        [webViewController dismissViewControllerAnimated:YES completion:^{
+
+        }];
+    }];
+
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:webViewController];
+    [self.navigationController presentViewController:nav animated:YES completion:^{
+    }];
+
+    [webViewController loadRequest:[NSURLRequest requestWithURL:url]];
+}
+
 
 - (void)onLeftButtonPressed:(id)sender {
 

@@ -273,28 +273,35 @@
 }
 
 - (void)checkNeedRemoveBackButton {
-    BOOL show = [self webViewCanGoBack] || [self viewControllerCanGoBack];
-    if  (!show) {
-        self.navigationItem.leftBarButtonItem = nil;
+    if (!self.disableUpdateBackButton) {
+        BOOL show = [self webViewCanGoBack] || [self viewControllerCanGoBack];
+        if  (!show) {
+            self.navigationItem.leftBarButtonItem = nil;
+        }
     }
 }
 
 - (void)updateBackButton {
-    BOOL show = [self webViewCanGoBack] || [self viewControllerCanGoBack];
-    if  (show) {
-        self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(goBack)];
-    }
-    else {
-        [self clearBackButton];
-        BBTWebBarButtonItem *leftBarButtonItem = [[CUTEWebConfiguration sharedInstance] getLeftBarItemFromURL:self.URL];
-        leftBarButtonItem.viewController = self;
-        self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+    if (!self.disableUpdateBackButton) {
+
+        BOOL show = [self webViewCanGoBack] || [self viewControllerCanGoBack];
+        if  (show) {
+            self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(goBack)];
+        }
+        else {
+            [self clearBackButton];
+            BBTWebBarButtonItem *leftBarButtonItem = [[CUTEWebConfiguration sharedInstance] getLeftBarItemFromURL:self.URL];
+            leftBarButtonItem.viewController = self;
+            self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+        }
     }
 }
 
 - (void)clearBackButton {
-    if (self.navigationItem.leftBarButtonItem) {
-        self.navigationItem.leftBarButtonItem = nil;
+    if (!self.disableUpdateBackButton) {
+        if (self.navigationItem.leftBarButtonItem) {
+            self.navigationItem.leftBarButtonItem = nil;
+        }
     }
 }
 

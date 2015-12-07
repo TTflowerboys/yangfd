@@ -713,6 +713,8 @@
 "PropertyInfo/更多详情和配套设施描述（选填）" = "More Details and Amenities (Optional)";
 "PropertyInfo/预览并发布" = "Preview and Publish";
 "PropertyInfo/轻松描述到周边的地铁和学校有多近" = "轻松描述到周边的地铁和学校有多近";
+"PropertyInfo/发布则表示您已经阅读并同意洋房东服务须知" = "发布则表示您已经阅读并同意洋房东服务须知";
+"PropertyInfo/服务须知" = "服务须知";
 
 
 //
@@ -784,6 +786,8 @@
 "%d居室" = "%d bedroom";
 
 "OK" = "OK";
+"关闭" = "关闭";
+
 
 //Language
 "en_GB" = "English";

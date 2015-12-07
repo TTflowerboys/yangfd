@@ -22,6 +22,8 @@
 
 @property (nonatomic) BOOL webArchiveRequired;
 
+@property (nonatomic) BOOL disableUpdateBackButton;
+
 - (void)loadRequest:(NSURLRequest *)urlRequest;
 
 - (void)loadWebArchive:(CUTEWebArchive *)archive;
