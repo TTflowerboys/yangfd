@@ -876,7 +876,7 @@ class f_currant_user(f_user):
             downloaded = self.get(user_id).get('analyze_guest_downloaded', None)
             if downloaded == '已下载':
                 return True
-            elif download is None:
+            elif downloaded is None:
                 credit = f_app.user.credit.get("view_rent_ticket_contact_info", user_id).get("credits", [])
                 for single in credit:
                     if single.get("tag", None) == "download_ios_app":
@@ -2594,25 +2594,38 @@ class f_currant_plugins(f_app.plugin_base):
         return params
 
     def log_add_after(self, user_id, log_type, **kwargs):
+        user = f_app.user.get(user_id)
         if not user_id:
             return user_id
-        # know how many days the user was active
         mod_time = f_app.user.analyze_data_get_modif_time(user_id)
         if 'analyze_guest_active_days' not in mod_time:
             f_app.user.analyze_data_update(user_id, {'analyze_guest_active_days': True})
         else:
             today = date.today()
-            # active_days = f_app.user.get(user_id).get('analyze_guest_active_days', None)
             if mod_time['analyze_guest_active_days'].date() < today:
                 f_app.user.analyze_data_update(user_id, {'analyze_guest_active_days': True})
 
-        if log_type == "route" and kwargs.get('rent_ticket_id', None) is not None:
-            f_app.user.analyze_data_update(user_id, {
-                'analyze_rent_estate_views_times': True,
-                'analyze_rent_intention_views_times': True
-            })
+        if log_type == "route" and 'rent_ticket_id' in kwargs:
 
-        if log_type == "route" and kwargs.get('property_id', None) is not None:
+            if 'analyze_rent_estate_views_times' not in mod_time:
+                f_app.user.analyze_data_update(user_id, {'analyze_rent_estate_views_times': True})
+            elif 'analyze_rent_estate_views_times' in user:
+                f_app.user.update_set(user_id, {
+                    'analyze_rent_estate_views_times': user['analyze_rent_estate_views_times'] + 1
+                })
+            else:
+                f_app.user.analyze_data_update(user_id, {'analyze_rent_estate_views_times': True})
+
+            if 'analyze_rent_intention_views_times' not in mod_time:
+                f_app.user.analyze_data_update(user_id, {'analyze_rent_intention_views_times': True})
+            elif 'analyze_rent_intention_views_times' in user:
+                f_app.user.update_set(user_id, {
+                    'analyze_rent_intention_views_times': user['analyze_rent_intention_views_times'] + 1
+                })
+            else:
+                f_app.user.analyze_data_update(user_id, {'analyze_rent_intention_views_times': True})
+
+        if log_type == "route" and 'property_id' in kwargs:
             f_app.user.analyze_data_update(user_id, {'analyze_intention_views_times': True})
 
         if log_type == "rent_ticket_view_contact_info":
@@ -2622,7 +2635,7 @@ class f_currant_plugins(f_app.plugin_base):
     def user_favorite_add_after(self, params):
         user_id = params.get('user_id', None)
         mod_time = f_app.user.analyze_data_get_modif_time(user_id)
-        if mod_time.get('analyze_rent_intention_favorite_times', None) is None:
+        if 'analyze_rent_intention_favorite_times' not in mod_time:
             f_app.user.analyze_data_update(user_id, {"analyze_rent_intention_favorite_times": True})
         elif params.get('type', None) == "property":
             old_value = f_app.user.get(user_id).get('analyze_rent_intention_favorite_times', 0)
