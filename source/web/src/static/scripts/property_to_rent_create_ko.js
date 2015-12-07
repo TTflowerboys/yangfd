@@ -31,16 +31,16 @@
                 var timeToChoose
                 this.lastTimeStamp = (new Date()).getTime() //因为knockout的options的bind每次初始化都会默认选择第一个，而且完全无法取消，所以需要一个时间戳来判断是否真的是用户操作在修改time
                 if(this.selectedType() && this.selectedType().isRaw) {
-                    timeToChoose = [{value: window.project.transferTime(this.selectedType().time, 'minute').value, unit: window.i18n('分钟')}].concat(generateTimeConfig(12, 5, parseInt(window.project.transferTime(this.selectedType().time, 'minute').value)))
+                    timeToChoose = [{value: this.selectedType().time.value, unit: window.i18n('分钟')}].concat(generateTimeConfig(12, 5, parseInt(this.selectedType().time.value)))
                 } else {
-                    timeToChoose = generateTimeConfig(12, 5, this.selectedType() ? parseInt(window.project.transferTime(this.selectedType().time, 'minute').value) : 0)
+                    timeToChoose = generateTimeConfig(12, 5, this.selectedType() ? parseInt(this.selectedType().time.value) : 0)
                 }
                 return _.sortBy(timeToChoose, function (item) {
                     return parseInt(item.value)
                 })
                 //return [this.selectedType()].concat(params.timeToChoose)
             }, this)
-            this.selectedTime = ko.observable(_.find(self.timeToChoose(), {value: self.selectedType() ? window.project.transferTime(this.selectedType().time, 'minute').value : ''}))
+            this.selectedTime = ko.observable(_.find(self.timeToChoose(), {value: self.selectedType() ? this.selectedType().time.value : ''}))
             this.lastTimeStamp = (new Date()).getTime()
 
             this.changeMode = function (data, event) {
