@@ -3,7 +3,8 @@
     ko.components.register('show-travel-time', {
         viewModel: function(params) {
             this.travel = ko.observableArray(params.travel.map(function (val) {
-                val.formatTime = val.time.value + {minute: 'min', hour: 'hour', second: 'sec'}[val.time.unit]
+                var time =  window.project.transferTime(val.time, 'minute')
+                val.formatTime = time.value + {minute: 'min', hour: 'hour', second: 'sec'}[time.unit]
                 return val
             }))
             this.selectedType = ko.observable(_.find(this.travel(), {default: true}) || this.travel()[0])

@@ -269,7 +269,11 @@
                             % end
                             <p class="time">
                                 <i class="{{time_item.get('type',{}).get('iconfont')}}"></i>
+                                %if time_item.get('time',{}).get('unit') == 'minute':
                                 <span>{{time_item.get('time',{}).get('value')}}min</span>
+                                %elif time_item.get('time',{}).get('unit') == 'second':
+                                <span>{{int(float(time_item.get('time',{}).get('value'))/60)}}min</span>
+                                %end
                             </p>
                         </li>
                         % end
@@ -472,7 +476,11 @@
                 % end
                 <p class="time">
                     <i class="{{time_item.get('type',{}).get('iconfont')}}"></i>
+                    %if time_item.get('time',{}).get('unit') == 'minute':
                     <span>{{time_item.get('time',{}).get('value')}}min</span>
+                    %elif time_item.get('time',{}).get('unit') == 'second':
+                    <span>{{int(float(time_item.get('time',{}).get('value'))/60)}}min</span>
+                    %end
                 </p>
             </li>
             % end

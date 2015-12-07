@@ -181,6 +181,25 @@
                 .always(function () {
 
                 })
+        },
+        transferTime: function (time, unit) {
+            var value = time.value_float || parseInt(time.value)
+            value = value * {
+                'second-second': 1,
+                'second-minute': 1/60,
+                'second-hour': 1/3600,
+                'minute-second': 60,
+                'minute-minute': 1,
+                'minute-hour': 1/60,
+                'hour-hour': 1,
+                'hour-minute': 60,
+                'hour-second': 3600
+            }[time.unit + '-' + unit]
+            return _.extend(time, {
+                unit: unit,
+                value: parseInt(value).toString(),
+                value_float: value
+            })
         }
     }
 })();
