@@ -871,10 +871,11 @@ class f_currant_user(f_user):
             downloaded = self.get(user_id).get('analyze_guest_downloaded', None)
             if downloaded == '已下载':
                 return True
-            credit = f_app.user.credit.get("view_rent_ticket_contact_info", user_id).get("credits", [])
-            for single in credit:
-                if single.get("tag", None) == "download_ios_app":
-                    return True
+            elif download is None:
+                credit = f_app.user.credit.get("view_rent_ticket_contact_info", user_id).get("credits", [])
+                for single in credit:
+                    if single.get("tag", None) == "download_ios_app":
+                        return True
             return False
 
         def get_data_complex(user, target, condition, element):
@@ -2568,11 +2569,12 @@ class f_currant_plugins(f_app.plugin_base):
         # know user downloaded or not
         user_id = params.get('user_id', None)
         downloaded = f_app.user.get(user_id).get('analyze_guest_downloaded', None)
-        if downloaded is None:
+        if downloaded is None:  # when there's no record,then search all the histroy
             f_app.user.analyze_data_update(user_id, {"analyze_guest_downloaded": True})
-        if params.get('type', None) == "view_rent_ticket_contact_info" and params.get('tag', None) == "download_ios_app":
-            f_app.user.update_set(user_id, {'analyze_guest_downloaded': "已下载"})
-            f_app.user.analyze_data_update(user_id, {"analyze_guest_downloaded": True})  # only for update modif time
+        elif downloaded == '未下载':  # once know there was updated already, then do jugement base on this record only
+            if params.get('type', None) == "view_rent_ticket_contact_info" and params.get('tag', None) == "download_ios_app":
+                f_app.user.update_set(user_id, {'analyze_guest_downloaded': "已下载"})
+                f_app.user.analyze_data_update(user_id, {"analyze_guest_downloaded": True})  # only for update modif time
         return params
 
     def log_add_after(self, user_id, log_type, **kwargs):
