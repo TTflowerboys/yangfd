@@ -237,6 +237,10 @@
                     window.dhtmlx.message({ type:'error', text: window.i18n('该地点已经添加到周边了，请不要重复添加')});
                     return
                 }
+                if(!module.propertyViewModel.latitude() && !$('#city').val()) {
+                    window.dhtmlx.message({ type:'error', text: window.i18n('请填写正确的postcode或城市信息后再添加周边地点')})
+                    return
+                }
                 this.activeSuggestionIndex(-1)
                 this.result(item.name)
                 this.active(false)
