@@ -49,8 +49,8 @@
                         {%(item.time?(item.time * 1000 | date : 'short'):'')%}
                     </td>
                     <td>
-                        <div ng-repeat="ticketid in item.interested_rent_tickets">
-                            <a ui-sref="dashboard.rent.detail({ id: ticketid })" target="_blank">{%$root.i18n('目标房源')%}</a>
+                        <div ng-repeat="ticket in item.interested_rent_tickets">
+                            <a ui-sref="dashboard.rent.detail({ id: ticket.id })" target="_blank">{%$root.i18n('目标房源')%}</a>
                         </div>
                     </td>
                     <td>
