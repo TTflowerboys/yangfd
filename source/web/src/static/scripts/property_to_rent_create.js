@@ -409,6 +409,11 @@
         if(postcodeIndex !== '') {
             $btn.prop('disabled', true).text(window.i18n('获取中...'))
             window.geonamesApi.getCountry(postcodeIndex)
+                .then(function (val) {
+                    return _.filter(val, function (item) {
+                        return item.latitude && item.longitude
+                    })
+                })
                 .then(function(val) {
                     switch(val.length) {
                         case 0: //postcode没有搜索到结果则需要用户手动选择国家城市
