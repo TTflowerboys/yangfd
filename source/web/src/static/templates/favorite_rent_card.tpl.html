@@ -2,7 +2,7 @@
     <div class="rentCard" data-id="{=fav.id=}">
         <div class="imagePart">
             <a href="/property-to-rent/{=fav.ticket.id=}">
-                {_if (fav.ticket.property.cover){_}
+                {_if (fav.ticket.property.cover && fav.ticket.property.cover.indexOf('http') === 0){_}
                 <img src="{=team.convertToHttps({'link':fav.ticket.property.cover, 'property_id':fav.ticket.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>
                 {_ } else if(fav.ticket.property.reality_images && fav.ticket.property.reality_images.length) {_}
                 <img src="{=team.convertToHttps({'link':fav.ticket.property.reality_images[0], 'property_id':fav.ticket.property.id, 'thumbnail':true})=}" onerror="window.onImgError(this);"/>

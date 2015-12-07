@@ -4,7 +4,7 @@
             <i class="icon-delete hideMapInfoBoxBtn" onclick="window.hideInfoBox('{=rent.id=}')"></i>
             <a href="/property-to-rent/{=rent.id=}" target="_blank">
                 <div class="imagePart">
-                    {_if(rent.property.cover) {_}
+                    {_if(rent.property.cover && rent.property.cover.indexOf('http') === 0) {_}
                     <div class="img" style="background-image: url('{=team.convertToHttps({'link':rent.property.cover, 'property_id':rent.property.id, 'thumbnail':true})=}')"></div>
                     {_} else if(rent.property.reality_images && rent.property.reality_images.length) {_}
                     <div class="img" style="background-image: url('{=team.convertToHttps({'link':rent.property.reality_images[0], 'property_id':rent.property.id, 'thumbnail':true})=}')"></div>

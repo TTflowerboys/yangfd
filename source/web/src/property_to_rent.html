@@ -577,7 +577,7 @@
                 % for ticket in related_rent_ticket_list:
                 <li class="propertyItem">
                     <a href="/property-to-rent/{{ticket.get('id')}}">
-                        %if ticket.get('property',{}).get('cover'):
+                        %if ticket.get('property',{}).get('cover') and ticket.get('property',{}).get('cover').find('http') == 0:
                         <img src="{{!fetch_image(ticket.get('property').get('cover'), thumbnail=True, property_id=ticket.get('property',{}).get('id'))}}" onerror="window.onImgError(this);" width="360" height="240"/>
                         %elif (ticket.get('property',{}).get('reality_images') and len(ticket.get('property',{}).get('reality_images'))):
                         <img src="{{!fetch_image(ticket.get('property',{}).get('reality_images')[0], thumbnail=True, property_id=ticket.get('property',{}).get('id'))}}" onerror="window.onImgError(this);" width="360" height="240"/>

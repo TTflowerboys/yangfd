@@ -183,7 +183,7 @@
                 </div>
             </section>
             % end
-            % if rent['property'].get('cover', ''):
+            % if rent['property'].get('cover', '') and rent.get('property',{}).get('cover').find('http') == 0:
             <section class="pagePhoto" style="background-image:url('{{rent['property'].get('cover', '')}}')">
 
             </section>
