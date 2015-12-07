@@ -2594,9 +2594,9 @@ class f_currant_plugins(f_app.plugin_base):
         return params
 
     def log_add_after(self, user_id, log_type, **kwargs):
-        user = f_app.user.get(user_id)
         if not user_id:
             return user_id
+        user = f_app.user.get(user_id)
         mod_time = f_app.user.analyze_data_get_modif_time(user_id)
         if 'analyze_guest_active_days' not in mod_time:
             f_app.user.analyze_data_update(user_id, {'analyze_guest_active_days': True})
