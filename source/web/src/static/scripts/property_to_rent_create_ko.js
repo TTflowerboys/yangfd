@@ -243,7 +243,7 @@
                 this.surroudingToAdd(_.extend(item, {traffic_time: [], hint: window.i18n('正在获取到该地点的交通信息...')}))
                 window.project.getEnum('featured_facility_traffic_type')
                     .then(_.bind(function (modes) {
-                        module.distanceMatrix($('#city-select').find('option:selected').text() + '+' + $('#postcode').val().replace(/\s/g, '').toUpperCase(), item.postcode_index || item.zipcode_index || (item.latitude + ',' + item.longitude), modes)
+                        module.distanceMatrix(($('#city').val() ? ($('#city-select').find('option:selected').text() + '+') : '') + $('#postcode').val().replace(/\s/g, '').toUpperCase(), item.postcode_index || item.zipcode_index || (item.latitude + ',' + item.longitude), modes)
                             .then(_.bind(function (matrixData) {
                                 _.extend(item, {
                                     hint: '',
