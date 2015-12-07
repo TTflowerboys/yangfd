@@ -769,6 +769,11 @@ class f_currant_user(f_user):
             return {}
         return mod_time
 
+    def analyze_data_set_modif_time(self, user_id, value):
+        mod_time = self.analyze_data_get_modif_time(user_id)
+        mod_time.update({value: datetime.utcnow()})
+        self.update_set(user_id, {'analyze_value_modifier_time': mod_time})
+
     def analyze_data_update(self, user_id, params={
         "analyze_guest_country": True,
         "analyze_guest_user_type": True,
@@ -2585,7 +2590,7 @@ class f_currant_plugins(f_app.plugin_base):
         elif downloaded == '未下载':  # once know there was updated already, then do jugement base on this record only
             if params.get('type', None) == "view_rent_ticket_contact_info" and params.get('tag', None) == "download_ios_app":
                 f_app.user.update_set(user_id, {'analyze_guest_downloaded': "已下载"})
-                f_app.user.analyze_data_update(user_id, {"analyze_guest_downloaded": True})  # only for update modif time
+                f_app.analyze_data_set_modif_time(user_id, 'analyze_guest_downloaded')  # only for update modif time
         return params
 
     def log_add_after(self, user_id, log_type, **kwargs):
@@ -2615,8 +2620,14 @@ class f_currant_plugins(f_app.plugin_base):
         return user_id
 
     def user_favorite_add_after(self, params):
-        if params.get('type', None) == "property":
-            f_app.user.analyze_data_update(params.get('user_id', None), {"analyze_rent_intention_favorite_times": True})
+        user_id = params.get('user_id', None)
+        mod_time = f_app.user.analyze_data_get_modif_time(user_id)
+        if mod_time.get('analyze_rent_intention_favorite_times', None) is None:
+            f_app.user.analyze_data_update(user_id, {"analyze_rent_intention_favorite_times": True})
+        elif params.get('type', None) == "property":
+            old_value = f_app.user.get(user_id).get('analyze_rent_intention_favorite_times', 0)
+            f_app.user.update(user_id, {'analyze_rent_intention_favorite_times': old_value + 1})
+            f_app.analyze_data_set_modif_time(user_id, 'analyze_rent_intention_favorite_times')
         return params
 
 f_currant_plugins()
