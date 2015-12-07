@@ -335,9 +335,9 @@
                                     </div>
                                     <ul class="list-group">
                                         <li class="list-group-item clearfix">
-                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                            <div class="col-sm-6 col-md-5 col-lg-4" ng-if="item.rent_type">
                                                 {%$root.i18n('出租类型:')%}
-                                                <span class="input-xlarge uneditable-input" show-i18n="item.rent_type.value"></span>
+                                                <div show-i18n="item.rent_type.value"></div>
                                             </div>
 
                                             <div class="col-sm-6 col-md-5 col-lg-4">
