@@ -43,6 +43,7 @@
                     }
                 }
                 ga('send', 'event', 'rentRequestIntention', 'click', 'open-rent-request-intention')
+                ga('send', 'pageview', '/submit-rent-request-intention/open')
             }
             this.close = function () {
                 this.visible(false)
