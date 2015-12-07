@@ -238,7 +238,7 @@
                     return
                 }
                 if(!module.propertyViewModel.latitude() && !$('#city').val()) {
-                    window.dhtmlx.message({ type:'error', text: window.i18n('请填写正确的postcode或城市信息后再添加周边地点')})
+                    window.dhtmlx.message({ type:'error', text: window.i18n('请填写正确的postcode或地址信息后再添加周边地点')})
                     return
                 }
                 this.activeSuggestionIndex(-1)
