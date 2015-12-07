@@ -121,6 +121,7 @@
     return retPropertyParams;
 }
 
+//TODO let ticket editing action in a queue, one only execute one task other task should wait the previous task
 - (BFTask *)editTicketWithTicket:(CUTETicket *)ticket ticketParams:(NSDictionary *)ticketParams propertyParams:(NSDictionary *)propertyParams {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     Sequencer *sequencer = [Sequencer new];

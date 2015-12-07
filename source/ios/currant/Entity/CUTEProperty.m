@@ -194,7 +194,14 @@
         return [(CUTENeighborhood *)value identifier];
     }
     else if ([key isEqualToString:@keypath(self.cover)]) {
-        return @{DEFAULT_I18N_LOCALE: value};
+        NSURL *url = [NSURL URLWithString:value];
+        if (url && url.isHttpOrHttpsURL) {
+            return @{DEFAULT_I18N_LOCALE: value};
+        }
+        else {
+            NSLog(@"Bad property cover value [%@|%@|%d] %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ ,value != nil? value: @"empty value");
+            return @{DEFAULT_I18N_LOCALE: @""};
+        }
     }
     else if ([key isEqualToString:@keypath(self.realityImages)] && [value isKindOfClass:[NSArray class]]) {
         NSArray *realityImages = [(NSArray *)value select:^BOOL(NSString *object) {
