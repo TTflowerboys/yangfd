@@ -307,30 +307,32 @@
             }
             propertyViewModel.latitude(val.latitude)
             propertyViewModel.longitude(val.longitude)
-            var geocodeApiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + propertyViewModel.latitude() + ',' + propertyViewModel.longitude() + '&result_type=street_address&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
             window.geonamesApi.getCityByLocation(val.country, val.latitude, val.longitude, function (val) {
-                $.betterGet('/reverse_proxy?link=' + encodeURIComponent(geocodeApiUrl))
-                    .done(function (data) {
-                        data = JSON.parse(data)
-                        var streetArr = [],
-                            filter = ['route', 'neighborhood']
-                        if(data && data.results && data.results.length > 0 && data.results[0] && data.results[0].address_components) {
-                            _.each(data.results[0].address_components, function (v, i) {
-                                if(_.intersection(filter, v.types).length > 0) {
-                                    streetArr.push(v.short_name)
-                                }
-                            })
-                        }
-                        $('#street').val(streetArr.join(','))
-                        if(val && val.length && val[0].name.toLowerCase() !== 'london') {
+                if(propertyViewModel.latitude() && propertyViewModel.longitude()) {
+                    var geocodeApiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + propertyViewModel.latitude() + ',' + propertyViewModel.longitude() + '&result_type=street_address&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
+                    $.betterGet('/reverse_proxy?link=' + encodeURIComponent(geocodeApiUrl))
+                        .done(function (data) {
+                            data = JSON.parse(data)
+                            var streetArr = [],
+                                filter = ['route', 'neighborhood']
+                            if(data && data.results && data.results.length > 0 && data.results[0] && data.results[0].address_components) {
+                                _.each(data.results[0].address_components, function (v, i) {
+                                    if(_.intersection(filter, v.types).length > 0) {
+                                        streetArr.push(v.short_name)
+                                    }
+                                })
+                            }
+                            $('#street').val(streetArr.join(','))
+                            if(val && val.length && val[0].name.toLowerCase() !== 'london') {
+                                $('.buttonLoading').trigger('end')
+                                $btn.prop('disabled', false).text(window.i18n('重新获取'))
+                                $('#address').show()
+                            }
+                        }).fail(function () {
                             $('.buttonLoading').trigger('end')
                             $btn.prop('disabled', false).text(window.i18n('重新获取'))
-                            $('#address').show()
-                        }
-                    }).fail(function () {
-                        $('.buttonLoading').trigger('end')
-                        $btn.prop('disabled', false).text(window.i18n('重新获取'))
-                    })
+                        })
+                }
                 $('#city-select').html(
                     _.reduce(val, function(pre, val, key) {
                         if(key === 0) {
@@ -339,7 +341,9 @@
                         return pre + '<option value="' + val.id + '"' + (key === 0 ? 'selected' : '') + '>' + val.name + (val.country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
                     }, '<option value="">' + i18n('请选择城市') + '</option>')
                 ).trigger('chosen:updated').trigger('change')
-                initSurrouding()
+                if(propertyViewModel.latitude() && propertyViewModel.longitude()) {
+                    initSurrouding()
+                }
             }, function () {
                 $('.buttonLoading').trigger('end')
                 $btn.prop('disabled', false).text(window.i18n('重新获取'))
