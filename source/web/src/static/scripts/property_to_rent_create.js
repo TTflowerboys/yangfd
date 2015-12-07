@@ -181,6 +181,9 @@
     })
 
     /*postcode 和地址部分*/
+    window.geonamesApi.getCity('GB', function (val) {
+        window.geonamesApi.getNeighborhood({city: val[0].id})
+    })
     $('.main_container').find('.select-chosen').chosen({width: '87%', disable_search_threshold: 8 }) //调用chosen插件
     $('#country-select').bind('change', function () {
         $('#city-select').html('').trigger('chosen:updated')

@@ -37,7 +37,9 @@ function GeonamesApi () {
                 .done(function (val) {
                     var valSorted = _.sortBy(val, 'name')
                     cache.neighborhood[$.param(config)] = valSorted
-                    callback.call(null, valSorted)
+                    if(callback && typeof callback === 'function') {
+                        callback.call(null, valSorted)
+                    }
                 })
                 .fail(function (ret) {
                     if(reject && typeof reject === 'function') {
