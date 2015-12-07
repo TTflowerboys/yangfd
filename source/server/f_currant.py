@@ -3444,6 +3444,8 @@ class f_currant_util(f_util):
         for mode in all_modes:
             result = f_app.request.get(url % {"origin": postcode["postcode_index"], "dest": dest, "mode": mode["slug"]}, format="json")
             if result["status"] != "OK":
+                if result["status"] == "INVALID_REQUEST":
+                    continue
                 self.logger.error(result["status"])
             for n, result in enumerate(result["rows"][0]["elements"]):
                 if result["status"] != "OK":
