@@ -40,7 +40,7 @@
                 })
                 //return [this.selectedType()].concat(params.timeToChoose)
             }, this)
-            this.selectedTime = ko.observable(_.find(self.timeToChoose(), {value: self.selectedType() ? self.selectedType().time.value : ''}))
+            this.selectedTime = ko.observable(_.find(self.timeToChoose(), {value: self.selectedType() ? window.project.transferTime(this.selectedType().time, 'minute').value : ''}))
             this.lastTimeStamp = (new Date()).getTime()
 
             this.changeMode = function (data, event) {

@@ -272,7 +272,7 @@
                                 %if time_item.get('time',{}).get('unit') == 'minute':
                                 <span>{{time_item.get('time',{}).get('value')}}min</span>
                                 %elif time_item.get('time',{}).get('unit') == 'second':
-                                <span>{{int(float(time_item.get('time',{}).get('value'))/60)}}min</span>
+                                <span>{{1 if int(float(time_item.get('time',{}).get('value'))/60) == 0 else int(float(time_item.get('time',{}).get('value'))/60)}}min</span>
                                 %end
                             </p>
                         </li>
@@ -479,7 +479,7 @@
                     %if time_item.get('time',{}).get('unit') == 'minute':
                     <span>{{time_item.get('time',{}).get('value')}}min</span>
                     %elif time_item.get('time',{}).get('unit') == 'second':
-                    <span>{{int(float(time_item.get('time',{}).get('value'))/60)}}min</span>
+                    <span>{{1 if int(float(time_item.get('time',{}).get('value'))/60) == 0 else int(float(time_item.get('time',{}).get('value'))/60)}}min</span>
                     %end
                 </p>
             </li>

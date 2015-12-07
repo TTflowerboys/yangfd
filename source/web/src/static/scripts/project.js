@@ -197,7 +197,7 @@
             }[time.unit + '-' + unit]
             return _.extend(time, {
                 unit: unit,
-                value: value < 1 ? 1 : parseInt(value).toString(),
+                value: value < 1 ? 1 : Math.round(value).toString(),
                 value_float: value
             })
         }
