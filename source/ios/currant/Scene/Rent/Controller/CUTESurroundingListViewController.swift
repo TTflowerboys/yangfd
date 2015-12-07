@@ -129,6 +129,8 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
         // Dispose of any resources that can be recreated.
     }
 
+
+
     // MARK: - Table view data source
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -177,8 +179,9 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
 
         if (trafficTime != nil) {
             if trafficTime!.time != nil {
+                let formattedTrafficTimePeriod = self.getFormattedMinuteTimePeriod(trafficTime!.time)
                 surroundingCell.typeButton.setTitle(trafficTime!.type!.value, forState: UIControlState.Normal)
-                surroundingCell.durationButton.setTitle("\(trafficTime!.time!.value) " + (trafficTime!.time!.unitForDisplay)!, forState: UIControlState.Normal)
+                surroundingCell.durationButton.setTitle("\(formattedTrafficTimePeriod.value) " + (formattedTrafficTimePeriod.unitForDisplay)!, forState: UIControlState.Normal)
             }
             surroundingCell.setNeedsLayout()
         }
@@ -238,7 +241,8 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
         if (surr.trafficTimes != nil) {
 
             let modes = surr.trafficTimes!.map({ (time:CUTETrafficTime) -> String in
-                return time.type!.value + " \(time.time!.value) " + time.time!.unitForDisplay
+                let timePeriod = self.getFormattedMinuteTimePeriod(time.time)
+                return time.type!.value + " \(timePeriod.value) " + timePeriod.unitForDisplay
             })
 
             var defaultTimeIndex = 0
@@ -277,12 +281,12 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
                 }
             }
 
-            let defaultTime = surr.trafficTimes![defaultTimeIndex]
-            let timeValue = defaultTime.time!.value
-            let aroundValues = getAroundTime(timeValue).map({ (intValue:Int32) -> String in
+            let baseTime = self.getFormattedMinuteTimePeriod(surr.trafficTimes![defaultTimeIndex].time)
+            let baseTimeValue = baseTime.value
+            let aroundValues = getAroundTime(baseTimeValue).map({ (intValue:Int32) -> String in
                 return "\(intValue)"
             })
-            let timetValueIndex = aroundValues.indexOf("\(timeValue)")
+            let timetValueIndex = aroundValues.indexOf("\(baseTimeValue)")
 
             ActionSheetStringPicker.showPickerWithTitle("", rows: aroundValues, initialSelection:timetValueIndex!, doneBlock: { (picker:ActionSheetStringPicker!, selectedIndex:Int, selectedValue:AnyObject!) -> Void in
                 if let value = Int32(selectedValue as! String) {
@@ -293,7 +297,7 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
                         var array = Array(surr.trafficTimes)
 
                         let oldTrafficTime = array[defaultTimeIndex]
-                        let time = CUTETimePeriod(value: value, unit: "minute")
+                        let time = CUTETimePeriod(value: value, unit: baseTime.unit)
                         let newTrafficTime = CUTETrafficTime()
                         newTrafficTime.type = oldTrafficTime.type
                         newTrafficTime.isDefault = oldTrafficTime.isDefault
@@ -330,6 +334,38 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
             return task
         }
     }
+
+    // MARK: - Util
+
+    private func getFormattedMinuteTimePeriod(timePeriod:CUTETimePeriod) -> CUTETimePeriod {
+
+        if (timePeriod.unit == "second") {
+            if (timePeriod.value < 60) {
+                return CUTETimePeriod(value: 1, unit: "minute")
+            }
+            else {
+                return CUTETimePeriod(value: timePeriod.value / 60, unit: "minute")
+            }
+        }
+        else if (timePeriod.unit == "minute") {
+            return timePeriod
+        }
+        else if (timePeriod.unit == "hour") {
+            return CUTETimePeriod(value: timePeriod.value * 60, unit: "minute")
+        }
+        else if (timePeriod.unit == "day") {
+            return CUTETimePeriod(value: timePeriod.value * 60 * 24, unit: "minute")
+        }
+        else if (timePeriod.unit == "week") {
+            return CUTETimePeriod(value: timePeriod.value * 60 * 24 * 7, unit: "minute")
+        }
+        else if (timePeriod.unit == "month") {
+            return CUTETimePeriod(value: timePeriod.value * 60 * 24 * 7 * 30, unit: "minute")
+        }
+
+        return timePeriod
+    }
+
 
     private func getAroundTime(timeValue:Int32) -> [Int32] {
         return [timeValue - 30,
