@@ -94,7 +94,9 @@
         origins = _.isArray(origins) ? origins.join('|') : origins
         destinations = _.isArray(destinations) ? destinations.join('|') : destinations
         return window.Q.Promise(function (resolve, reject) {
-            window.geonamesApi.getCountry(origins.split('|')[0])
+            var postcode = origins.split('|')[0]
+            postcode = postcode.indexOf('+') >= 0 ? postcode.split('+')[1] : postcode
+            window.geonamesApi.getCountry(postcode)
                 .then(function (val) {
                     if(val[0].country === 'GB') {
                         resolve(window.moment(window.moment().day(8).format('YYYY-MM-DD') + ' 9:00 +0000').unix())
@@ -241,7 +243,7 @@
                 this.surroudingToAdd(_.extend(item, {traffic_time: [], hint: window.i18n('正在获取到该地点的交通信息...')}))
                 window.project.getEnum('featured_facility_traffic_type')
                     .then(_.bind(function (modes) {
-                        module.distanceMatrix($('#postcode').val().replace(/\s/g, '').toUpperCase(), item.postcode_index || item.zipcode_index || (item.latitude + ',' + item.longitude), modes)
+                        module.distanceMatrix($('#city-select').find('option:selected').text() + '+' + $('#postcode').val().replace(/\s/g, '').toUpperCase(), item.postcode_index || item.zipcode_index || (item.latitude + ',' + item.longitude), modes)
                             .then(_.bind(function (matrixData) {
                                 _.extend(item, {
                                     hint: '',
