@@ -82,9 +82,12 @@ def terms():
             }, per_page=1
         )
     ))
-
-    title = news_list[0].get('title')
-    return currant_util.common_template("aboutus_content", news=news_list[0], title=title)
+    title = ''
+    news = {}
+    if len(news_list):
+        title = news_list[0].get('title')
+        news=news_list[0]
+    return currant_util.common_template("aboutus_content", news=news, title=title)
 
 
 @f_get('/about/marketing')

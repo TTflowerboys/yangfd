@@ -267,9 +267,13 @@
     <div class="errorMsg2" style="display: none;"></div>
     <div style="text-align: center">
         %if rent.get('status'):
-        <button class="submit_button ajaxButton" id="publish" data-ticketid="{{rent.get('id','')}}">{{_('重新发布')}}</button>
+        <button class="submit_button ajaxButton step2" id="publish" data-ticketid="{{rent.get('id','')}}">{{_('重新发布')}}</button>
         %else:
-        <button class="submit_button ajaxButton" id="publish" data-ticketid="{{rent.get('id','')}}">{{_('发布')}}</button>
+        <button class="submit_button ajaxButton step2" id="publish" data-ticketid="{{rent.get('id','')}}">{{_('发布')}}</button>
         %end
+        <p class="terms">
+            {{_('发布则表示您已经阅读并同意')}}
+            <a href="/terms" target="_blank">洋房东服务须知</a>
+        </p>
     </div>
 </div>
