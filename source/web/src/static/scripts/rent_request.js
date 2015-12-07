@@ -208,7 +208,7 @@
                 return generateDateList(this.birthYear(), this.birthMonth())
             }, this)
             this.birthDate = ko.observable(1)
-            this.birthDay = ko.observable() //for mobile
+            this.birthDay = ko.observable('1990-1-1') //for mobile
             this.birthTime = ko.computed({
                 read: function () {
                     return window.team.isPhone() ? (new Date(this.birthDay()).getTime() / 1000) : (new Date(this.birthYear(), this.birthMonth() - 1, this.birthDate()).getTime() / 1000)
@@ -458,7 +458,7 @@
                 return this.validate('rentTime', 'description')
             }
             this.validateRegister = function () {
-                return this.validate('nickname', 'gender', 'occupation', 'phone', 'email', 'captchaCode')
+                return this.validate('nickname', 'gender', 'occupation', 'birthday', 'phone', 'email', 'captchaCode')
             }
             this.registerUser = function () {
                 if(this.validateRegister()) {
