@@ -471,61 +471,9 @@ def rent_intention_ticket_add(params, user):
     if shadow_user_id is not None:
         f_app.user.counter_update(shadow_user_id)
 
-    if f_app.common.use_ssl:
-        schema = "https://"
-    else:
-        schema = "http://"
-    admin_console_url = "%s%s/admin#" % (schema, request.urlparts[1])
-
     if "status" in params:
         if params["status"] not in f_app.common.rent_intention_ticket_statuses:
             abort(40093, logger.warning("Invalid params: status", params["status"], exc_info=False))
-
-    sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["operation", "jr_operation"]}}))
-    # budget_enum = f_app.enum.get(params["rent_budget"]["_id"]) if "budget" in params else None
-    for sales in sales_list:
-        if "email" in sales:
-            f_app.email.schedule(
-                target=sales["email"],
-                subject=f_app.util.get_format_email_subject(template("static/emails/new_rent_intention_ticket_title")),
-                text=template("static/emails/new_rent_intention_ticket", params=params, admin_console_url=admin_console_url),
-                display="html",
-                tag="new_rent_intention_ticket",
-            )
-            if False:
-                # Old routine
-                locale = sales.get("locales", [f_app.common.i18n_default_locale])[0]
-                request._requested_i18n_locales_list = [locale]
-                if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
-                    template_invoke_name = "new_ticket_cn"
-                    sendgrid_template_id = "35489862-87a8-491b-be84-e20069c8495e"
-                else:
-                    template_invoke_name = "new_ticket_en"
-                    sendgrid_template_id = "b59446de-5d8b-45b6-8fe1-f8bf64c8a99c"
-                # budget = f_app.i18n.match_i18n(budget_enum["value"], _i18n=[locale]) if budget_enum else ""
-                substitution_vars = {
-                    "to": [sales["email"]],
-                    "sub": {
-                        "%nickname%": [params["nickname"]],
-                        "%phone%": [params["phone"]],
-                        "%email%": [params["email"]],
-                        "%description%": [params.get("description", "")],
-                        # "%budget%": [budget],
-                        "%logo_url%": [f_app.common.email_template_logo_url]
-                    }
-                }
-                xsmtpapi = substitution_vars
-                xsmtpapi["template_id"] = sendgrid_template_id
-                f_app.email.schedule(
-                    target=sales["email"],
-                    subject=f_app.util.get_format_email_subject(template("static/emails/new_rent_ticket_title")),
-                    text=template("static/emails/new_rent_ticket", params=params),
-                    display="html",
-                    template_invoke_name=template_invoke_name,
-                    substitution_vars=substitution_vars,
-                    xsmtpapi=xsmtpapi,
-                    tag="new_rent_ticket",
-                )
 
     return ticket_id
 

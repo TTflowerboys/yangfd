@@ -1352,7 +1352,18 @@ class f_currant_plugins(f_app.plugin_base):
                 type="rent_intention_ticket_check_rent",
                 ticket_id=ticket_id,
             ))
-        elif ticket["type"] == "rent_intention" and "status" in params and params["status"] == "requested" and "interested_rent_tickets" in ticket and len(ticket["interested_rent_tickets"]):
+            sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["operation", "jr_operation"]}}))
+            for sales in sales_list:
+                if "email" in sales:
+                    admin_url = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent_intention"
+                    f_app.email.schedule(
+                        target=sales["email"],
+                        subject=f_app.util.get_format_email_subject(template("static/emails/new_rent_intention_ticket_title")),
+                        text=template("static/emails/new_rent_intention_ticket", params=params, admin_console_url=admin_url),
+                        display="html",
+                        tag="new_rent_intention_ticket",
+                    )
+        elif ticket["type"] == "rent_intention" and "status" in params and params["status"] == "requested" and "interested_rent_tickets" in params and len(params["interested_rent_tickets"]):
             import currant_util
             this_ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id]), _i18n=["zh_Hans_CN"])[0]
             sales_list = f_app.user.get(f_app.user.search({"role": {"$in": ["operation", "jr_operation"]}}))
