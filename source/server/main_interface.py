@@ -960,7 +960,10 @@ def aggregation_rent_intention_ticket(user):
         for document in cursor:
             city_id = None
             if '_id' in document:
-                city_id = document.get('_id', {}).get('_id', None)
+                city_id = document.get('_id', {})
+                if city_id is None:
+                    city_id = {}
+                city_id = city_id.get('_id', None)
             city = f_app.geonames.gazetteer.get(city_id)
             if city is None:
                 city = {}
