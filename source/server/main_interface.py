@@ -964,7 +964,10 @@ def aggregation_rent_intention_ticket(user):
                 if city_id is None:
                     city_id = {}
                 city_id = city_id.get('_id', None)
-            city = f_app.geonames.gazetteer.get(city_id)
+            if city_id is None:
+                city = {}
+            else:
+                city = f_app.geonames.gazetteer.get(city_id)
             if city is None:
                 city = {}
             aggregation_rent_intention_total_city.append({
