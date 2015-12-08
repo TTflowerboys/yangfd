@@ -26,7 +26,9 @@
 #import <Sequencer.h>
 #import <INTULocationManager.h>
 #import <ActionSheetPicker.h>
-//#import <Masonry.h>
+//因为程序中使用Masonry 都是去掉了 mas_ prefix的形式
+//所以每一次导入 Masonary.h 是都要, 否则宏系统不能很好的工作
+//#define MAS_SHORTHAND
 #import "MasonryMake.h"
 #import <UIButton+BBT.h>
 #import <UIImageView+AFNetworking.h>
