@@ -959,7 +959,7 @@ def aggregation_rent_intention_ticket(user):
         aggregation_rent_intention_total_city = []
         for document in cursor:
             aggregation_rent_intention_total_city.append({
-                "city": f_app.geonames.gazetteer.get(document['_id']['_id'])['name'],
+                "city": f_app.geonames.gazetteer.get(document['_id']['_id']).get('name', ''),
                 "total": document['count']
             })
         cursor.close()
