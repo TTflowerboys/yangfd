@@ -1333,7 +1333,7 @@ def aggregation_email_detail(user, params):
             click_unique = final_result.get("click", 0)
             click_times = final_result.get("click (repeat)", 0)
             delivered_times = final_result.get("delivered", 0)
-            total_email = final_result.get("total_email", -1)
+            total_email = final_result.get("total_email", 0)
             total_email_drop += final_result.get("total_email_drop", 0)
             total_email_contain_new_only += final_result.get("total_email_contain_new_only", 0)
             total_email_drop_id = final_result.get("total_email_drop_id", {}).get("email_id", [])
@@ -1341,12 +1341,12 @@ def aggregation_email_detail(user, params):
             single_value = {"tag": tag['_id'],
                             "total": total_email,
                             "delivered": delivered_times,
-                            "delivered_ratio": delivered_times/total_email,
+                            "delivered_ratio": delivered_times/total_email if total_email else 0,
                             "open": open_unique,
-                            "open_ratio": open_unique/total_email,
+                            "open_ratio": open_unique/total_email if total_email else 0,
                             "open_repeat": open_times,
                             "click": click_unique,
-                            "click_ratio": click_unique/total_email,
+                            "click_ratio": click_unique/total_email if total_email else 0,
                             "click_repeat": click_times}
             if 'time' in params:
                 single_value.update({"total_email_drop_id": total_email_drop_id,
