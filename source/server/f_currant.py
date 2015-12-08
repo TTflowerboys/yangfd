@@ -676,7 +676,8 @@ class f_currant_user(f_user):
             favorite_id = self.favorite_get_database(m).insert(params)
         f_app.plugin_invoke(
             "user.favorite.add.after",
-            params
+            params,
+            ignore_error=True
         )
         return str(favorite_id)
 
@@ -1690,20 +1691,27 @@ class f_currant_plugins(f_app.plugin_base):
                         tag="new_user_admin",
                     )
 
+        if user_id is not None:
+            f_app.user.analyze_data_update(user_id, params={
+                "analyze_guest_country": True,
+                "analyze_guest_user_type": True,
+                "analyze_guest_active_days": True
+            })
         return user_id
 
     def user_update_after(self, user_id, params):
-        if "$set" in params:
-            if "country" in params.get('$set', {}):
-                f_app.user.analyze_data_update(user_id, {"analyze_guest_country": True})
-            if "user_type" in params.get('$set', {}):
-                f_app.user.analyze_data_update(user_id, {"analyze_guest_user_type": True})
+        if "$set" in params and user_id is not None:
             if len(set(["nickname", "phone", "email"]) & set(params["$set"])) > 0:
                 index_params = f_app.util.try_get_value(f_app.user.get(user_id), ["nickname", "phone", "email"])
                 if index_params:
                     if "phone" in index_params:
                         index_params["phone_national_number"] = phonenumbers.format_number(phonenumbers.parse(index_params["phone"]), phonenumbers.PhoneNumberFormat.NATIONAL).replace(" ", "")
                     f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
+            if params['$set'] is not None:
+                if "country" in params['$set']:
+                    f_app.user.analyze_data_update(user_id, {"analyze_guest_country": True})
+                if "user_type" in params['$set']:
+                    f_app.user.analyze_data_update(user_id, {"analyze_guest_user_type": True})
         return user_id
 
     def post_add(self, params, post_id):
@@ -2598,10 +2606,16 @@ class f_currant_plugins(f_app.plugin_base):
             return user_id
         user = f_app.user.get(user_id)
         mod_time = f_app.user.analyze_data_get_modif_time(user_id)
+        today = date.today()
         if 'analyze_guest_active_days' not in mod_time:
             f_app.user.analyze_data_update(user_id, {'analyze_guest_active_days': True})
+        elif 'analyze_guest_active_days' in user:
+            if mod_time['analyze_guest_active_days'].date() < today:
+                f_app.user.update_set(user_id, {
+                    'analyze_guest_active_days': int(user['analyze_guest_active_days']) + 1
+                })
+                f_app.user.analyze_data_set_modif_time(user_id, 'analyze_guest_active_days')
         else:
-            today = date.today()
             if mod_time['analyze_guest_active_days'].date() < today:
                 f_app.user.analyze_data_update(user_id, {'analyze_guest_active_days': True})
 
@@ -2611,8 +2625,9 @@ class f_currant_plugins(f_app.plugin_base):
                 f_app.user.analyze_data_update(user_id, {'analyze_rent_estate_views_times': True})
             elif 'analyze_rent_estate_views_times' in user:
                 f_app.user.update_set(user_id, {
-                    'analyze_rent_estate_views_times': user['analyze_rent_estate_views_times'] + 1
+                    'analyze_rent_estate_views_times': int(user['analyze_rent_estate_views_times']) + 1
                 })
+                f_app.user.analyze_data_set_modif_time(user_id, 'analyze_rent_estate_views_times')
             else:
                 f_app.user.analyze_data_update(user_id, {'analyze_rent_estate_views_times': True})
 
@@ -2620,16 +2635,33 @@ class f_currant_plugins(f_app.plugin_base):
                 f_app.user.analyze_data_update(user_id, {'analyze_rent_intention_views_times': True})
             elif 'analyze_rent_intention_views_times' in user:
                 f_app.user.update_set(user_id, {
-                    'analyze_rent_intention_views_times': user['analyze_rent_intention_views_times'] + 1
+                    'analyze_rent_intention_views_times': int(user['analyze_rent_intention_views_times']) + 1
                 })
+                f_app.user.analyze_data_set_modif_time(user_id, 'analyze_rent_intention_views_times')
             else:
                 f_app.user.analyze_data_update(user_id, {'analyze_rent_intention_views_times': True})
 
         if log_type == "route" and 'property_id' in kwargs:
-            f_app.user.analyze_data_update(user_id, {'analyze_intention_views_times': True})
+            if 'analyze_intention_views_times' not in mod_time:
+                f_app.user.analyze_data_update(user_id, {'analyze_intention_views_times': True})
+            elif 'analyze_intention_views_times' in user:
+                f_app.user.update_set(user_id, {
+                    'analyze_intention_views_times': int(user['analyze_intention_views_times']) + 1
+                })
+                f_app.user.analyze_data_set_modif_time(user_id, 'analyze_intention_views_times')
+            else:
+                f_app.user.analyze_data_update(user_id, {'analyze_intention_views_times': True})
 
         if log_type == "rent_ticket_view_contact_info":
-            f_app.user.analyze_data_update(user_id, {'analyze_rent_intention_view_contact_times': True})
+            if 'analyze_rent_intention_view_contact_times' not in mod_time:
+                f_app.user.analyze_data_update(user_id, {'analyze_rent_intention_view_contact_times': True})
+            elif 'analyze_rent_intention_view_contact_times' in user:
+                f_app.user.update_set(user_id, {
+                    'analyze_rent_intention_view_contact_times': int(user['analyze_rent_intention_view_contact_times']) + 1
+                })
+                f_app.user.analyze_data_set_modif_time(user_id, 'analyze_rent_intention_view_contact_times')
+            else:
+                f_app.user.analyze_data_update(user_id, {'analyze_rent_intention_view_contact_times': True})
         return user_id
 
     def user_favorite_add_after(self, params):
