@@ -1214,6 +1214,8 @@ def aggregation_property_view(user):
             if property_domain[0]:
                 name = f_app.i18n.process_i18n(property_domain[0].get("name"))
             if property_id:
+                if name is None:
+                    name = ''
                 aggregation_property_view_times_by_property_sort.append({
                     "title": name,
                     "url_id": property_id,
