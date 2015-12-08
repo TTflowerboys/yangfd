@@ -1276,6 +1276,7 @@ def aggregation_email_detail(user, params):
         total_email_contain_new_only = 0
         aggregation_email_tag_detail = []
         for tag in result.find():
+            # we only aggregation hava processed mark or dropped mark email into total_email
             func_status_map = Code('''
                 function() {
                     var event = this.email_status_set;
@@ -1338,19 +1339,23 @@ def aggregation_email_detail(user, params):
             total_email_contain_new_only += final_result.get("total_email_contain_new_only", 0)
             total_email_drop_id = final_result.get("total_email_drop_id", {}).get("email_id", [])
             total_email_contain_new_only_id = final_result.get("total_email_contain_new_only_id", {}).get("email_id", [])
-            single_value = {"tag": tag['_id'],
-                            "total": total_email,
-                            "delivered": delivered_times,
-                            "delivered_ratio": delivered_times/total_email if total_email else 0,
-                            "open": open_unique,
-                            "open_ratio": open_unique/total_email if total_email else 0,
-                            "open_repeat": open_times,
-                            "click": click_unique,
-                            "click_ratio": click_unique/total_email if total_email else 0,
-                            "click_repeat": click_times}
+            single_value = {
+                "tag": tag['_id'],
+                "total": total_email,
+                "delivered": delivered_times,
+                "delivered_ratio": delivered_times/total_email if total_email else 0,
+                "open": open_unique,
+                "open_ratio": open_unique/total_email if total_email else 0,
+                "open_repeat": open_times,
+                "click": click_unique,
+                "click_ratio": click_unique/total_email if total_email else 0,
+                "click_repeat": click_times
+            }
             if 'time' in params:
-                single_value.update({"total_email_drop_id": total_email_drop_id,
-                                     "total_email_contain_new_only_id": total_email_contain_new_only_id})
+                single_value.update({
+                    "total_email_drop_id": total_email_drop_id,
+                    "total_email_contain_new_only_id": total_email_contain_new_only_id
+                })
             aggregation_email_tag_detail.append(single_value)
         value.update({"aggregation_email_tag_detail": aggregation_email_tag_detail})
         if 'time' in params:
