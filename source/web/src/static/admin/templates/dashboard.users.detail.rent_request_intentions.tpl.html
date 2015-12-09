@@ -35,7 +35,7 @@
             </td>
             <td>
                 <div ng-repeat="ticketid in item.interested_rent_tickets">
-                    <a ui-sref="dashboard.rent.detail({ id: ticketid })" target="_blank">{%$root.i18n('目标房源')%}</a>
+                    <a ui-sref="dashboard.rent.detail({ id: ticket.id })" target="_blank">{%ticket.title%}</a>
                 </div>
             </td>
             <td>
