@@ -521,7 +521,7 @@ class f_currant_log(f_log):
 f_currant_log()
 
 
-class f_currant_user(f_user):
+class currant_user(f_user):
     """
         ==================================================================
         User
@@ -1116,7 +1116,7 @@ class f_currant_user(f_user):
         return result
 
 
-f_currant_user()
+currant_user()
 
 
 class currant_plugin(f_app.plugin_base):
