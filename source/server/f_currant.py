@@ -1774,9 +1774,10 @@ class f_currant_plugins(f_app.plugin_base):
         f_app.request("http://www.google.com/webmasters/sitemaps/ping?sitemap=http://yangfd.com/sitemap_location.xml")
         f_app.request("http://www.bing.com/webmaster/ping.aspx?siteMap=http://yangfd.com/sitemap_location.xml")
         baidu_zhanzhang_api = "http://data.zz.baidu.com/urls?site=www.yangfd.com&token=YYk0OqOnkEQvf1Eo&type=original"
-        result = f_app.request(baidu_zhanzhang_api, task['url'], "POST", format="json")
-        if 'success' not in result:
-            raise Exception("baidu_zhanzhang")
+        if 'url' in task:
+            result = f_app.request(baidu_zhanzhang_api, task['url'], "POST", format="json")
+            if 'success' not in result:
+                raise Exception("baidu_zhanzhang")
 
     def task_on_rent_ticket_generate_digest_image(self, task):
         try:
