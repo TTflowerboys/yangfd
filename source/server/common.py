@@ -220,6 +220,8 @@ class common(f_common):
         40397: "User already refreshed today",
     }
 
+    run_baidu_zhanzhang = False
+
 common()
 
 f_app.common.register_error_code(40099)

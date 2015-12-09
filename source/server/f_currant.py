@@ -1250,11 +1250,12 @@ class currant_plugin(f_app.plugin_base):
     def task_on_ping_sitemap(self, task):
         f_app.request("http://www.google.com/webmasters/sitemaps/ping?sitemap=http://yangfd.com/sitemap_location.xml")
         f_app.request("http://www.bing.com/webmaster/ping.aspx?siteMap=http://yangfd.com/sitemap_location.xml")
-        baidu_zhanzhang_api = "http://data.zz.baidu.com/urls?site=www.yangfd.com&token=YYk0OqOnkEQvf1Eo&type=original"
-        if 'url' in task:
-            result = f_app.request(baidu_zhanzhang_api, task['url'], "POST", format="json")
-            if 'success' not in result:
-                raise Exception("baidu_zhanzhang")
+        if f_app.common.run_baidu_zhanzhang:
+            baidu_zhanzhang_api = "http://data.zz.baidu.com/urls?site=www.yangfd.com&token=YYk0OqOnkEQvf1Eo&type=original"
+            if 'url' in task:
+                result = f_app.request(baidu_zhanzhang_api, task['url'], "POST", format="json")
+                if 'success' not in result:
+                    raise Exception("baidu_zhanzhang")
 
     def order_update_after(self, order_id, params, order, ignore_error=True):
         if "status" in params.get("$set", {}):
