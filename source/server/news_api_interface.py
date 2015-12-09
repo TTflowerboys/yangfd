@@ -58,8 +58,10 @@ def news_add(user, params):
     params["blog_id"] = ObjectId(f_app.blog.get_by_slug(f_app.common.blog_slug)['id'])
     post = f_app.blog.post_add(params)
 
+    new_url = "http://yangfd.com/news/" + post
     f_app.task.put(dict(
         type="ping_sitemap",
+        url=new_url
     ))
 
     return post
@@ -85,8 +87,10 @@ def news_get(news_id):
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'operation', 'jr_operation'])
 def news_edit(user, news_id, params):
     f_app.blog.post.update_set(news_id, params)
+    new_url = "http://yangfd.com/news/" + news_id
     f_app.task.put(dict(
         type="ping_sitemap",
+        url=new_url
     ))
     return f_app.blog.post_output([news_id])[0]
 

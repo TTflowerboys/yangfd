@@ -1332,8 +1332,10 @@ class f_currant_plugins(f_app.plugin_base):
                 type="rent_ticket_check_intention",
                 ticket_id=ticket_id,
             ))
+            new_url = "http://yangfd.com/property-to-rent/" + str(ticket_id)
             f_app.task.put(dict(
                 type="ping_sitemap",
+                url=new_url
             ))
             import currant_util
             this_ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id]), _i18n=["zh_Hans_CN"])[0]
@@ -1771,6 +1773,10 @@ class f_currant_plugins(f_app.plugin_base):
     def task_on_ping_sitemap(self, task):
         f_app.request("http://www.google.com/webmasters/sitemaps/ping?sitemap=http://yangfd.com/sitemap_location.xml")
         f_app.request("http://www.bing.com/webmaster/ping.aspx?siteMap=http://yangfd.com/sitemap_location.xml")
+        baidu_zhanzhang_api = "http://data.zz.baidu.com/urls?site=www.yangfd.com&token=YYk0OqOnkEQvf1Eo&type=original"
+        result = f_app.request(baidu_zhanzhang_api, task['url'], "POST", format="json")
+        if 'success' not in result:
+            raise Exception("baidu_zhanzhang")
 
     def task_on_rent_ticket_generate_digest_image(self, task):
         try:
@@ -2758,9 +2764,11 @@ class f_property(f_app.module_base):
                     property_field="brochure",
                 ))
 
+        new_url = "http://yangfd.com/property/" + str(property_id)
         if params["status"] in ("selling", "sold out"):
             f_app.task.put(dict(
                 type="ping_sitemap",
+                url=new_url
             ))
 
         return str(property_id)
@@ -2963,9 +2971,11 @@ class f_property(f_app.module_base):
                             property_field="brochure",
                         ))
 
+            new_url = "http://yangfd.com/property/" + str(property_id)
             if property["status"] in ("selling", "sold out") and "params" in params.get("$set", {}):
                 f_app.task.put(dict(
                     type="ping_sitemap",
+                    url=new_url
                 ))
 
         return property
