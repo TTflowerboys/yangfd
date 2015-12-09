@@ -511,6 +511,7 @@
                 $.betterPost('/api/1/rent_intention_ticket/add', this.params())
                     .done(_.bind(function (val) {
                         this.showSuccessWrap()
+                        window.team.setUserType('tenant')
                         ga('send', 'event', 'rentRequestIntention', 'result', 'submit-success');
                         ga('send', 'pageview', '/submit-rent-request-intention/submit-success')
                     }, this))
