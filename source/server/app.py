@@ -41,8 +41,13 @@ import libfelix.f_storage.f_qiniu
 import libfelix.f_ticket
 import libfelix.f_version
 import libfelix.f_wechat
-import f_currant
 
+import f_currant
+import crawler
+import main_mixed_index
+import property
+import report
+import ticket
 
 libfelix.f_message.f_message_push_plugin()
 
