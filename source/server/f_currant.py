@@ -803,7 +803,7 @@ class currant_user(f_user):
                     value_list.append(value)
             elif single is not None:
                 if single.get("id", None):
-                    enum_id = unicode(single.get("id", None))
+                    enum_id = six.text_type(single.get("id", None))
                     value = enum_type_list[enum_name].get(enum_id, None)
                     if value is not None:
                         value_list.append(value)
@@ -811,7 +811,7 @@ class currant_user(f_user):
                 value_list = [value_list]
             value_set = set(value_list)
             value_list = list(value_set)
-            return unicode('/'.join(value_list))
+            return six.text_type('/'.join(value_list))
 
         def get_active_days(user):
             old_active_days = self.get(user_id).get('analyze_guest_active_days', 0)
@@ -971,8 +971,8 @@ class currant_user(f_user):
             if ticket.get('type', None) == "intention":
                 f_app.user.update_set(user_id, {"debug_message": f_app.enum.get(ticket['budget']['id'])})
                 return f_app.enum.get(ticket['budget']['id'])['value']['zh_Hans_CN']
-            budget_min = unicode(ticket.get("rent_budget_min", {}).get("value", '零'))
-            budget_max = unicode(ticket.get("rent_budget_max", {}).get("value", '不限'))
+            budget_min = six.text_type(ticket.get("rent_budget_min", {}).get("value", '零'))
+            budget_max = six.text_type(ticket.get("rent_budget_max", {}).get("value", '不限'))
             if budget_max is None or budget_min is None:
                 return ''
             elif not (budget_max == '不限' and budget_min == '零'):
