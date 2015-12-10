@@ -389,6 +389,8 @@ class currant_property_plugin(f_app.plugin_base):
         self.logger.debug("Setting short id", new_short_id, "for property", task["property_id"])
         f_app.property.update_set(task["property_id"], {"short_id": new_short_id})
 
+currant_property_plugin()
+
 
 class currant_plot(f_app.module_base):
     plot_database = "plots"
