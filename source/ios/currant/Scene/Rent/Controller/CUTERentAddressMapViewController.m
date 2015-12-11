@@ -158,6 +158,9 @@
             }
         }
         else {
+            //TODO london e149aq 定位出来的地址，再去搜索latitude，错的太多了
+            // 创建ticket 时先进地图，然后编辑地址，然后回到地图，这个时候也会到这里，这里直接用location更合适。
+            
             if (_isAddressUpdated) {
                 [self onAddressLocationButtonTapped:nil];
                 _isAddressUpdated = NO;
