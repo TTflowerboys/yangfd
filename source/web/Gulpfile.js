@@ -15,7 +15,8 @@ var newer = require('gulp-newer')
 var ngAnnotate = require('gulp-ng-annotate')
 var notify = require('gulp-notify')
 var prefix = require('gulp-autoprefixer')
-var rimraf = require('gulp-rimraf')
+var del = require('del')
+var vinylPaths = require('vinyl-paths')
 var symlink = require('gulp-sym')
 var usemin = require('gulp-usemin')
 var footer = require('gulp-footer')
@@ -121,7 +122,7 @@ gulp.task('html-extend', function () {
 
 gulp.task('clean', function () {
     return gulp.src([myPaths.dist, myPaths.sprite], {read: false})
-        .pipe(rimraf({force: true, verbose: true}))
+        .pipe(vinylPaths(del))
 })
 
 gulp.task('revAll', ['build:html-extend'], function () {
@@ -203,7 +204,7 @@ gulp.task('build:ngAnnotate', ['build:copy-sprite-static'], function () {
 
 gulp.task('build:clean-sprite', function () {
     return gulp.src(myPaths.sprite, {read: false})
-        .pipe(rimraf({force: true, verbose: true}))
+        .pipe(vinylPaths(del))
 })
 
 
