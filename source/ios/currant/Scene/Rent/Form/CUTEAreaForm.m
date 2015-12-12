@@ -7,6 +7,7 @@
 //
 
 #import "CUTEAreaForm.h"
+#import <NGRValidator/NGRValidator.h>
 #import "CUTECommonMacro.h"
 #import "CUTEFormTextFieldCell.h"
 #import "CUTEFormDefaultCell.h"

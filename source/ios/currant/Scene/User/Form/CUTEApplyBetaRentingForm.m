@@ -8,6 +8,7 @@
 
 #import "CUTEApplyBetaRentingForm.h"
 #import "CUTECommonMacro.h"
+#import <NGRValidator/NGRValidator.h>
 #import "CUTEFormTextFieldCell.h"
 #import "CUTEFormButtonCell.h"
 

@@ -9,7 +9,7 @@
 #import "CUTERentContactForm.h"
 #import "CUTECommonMacro.h"
 #import "CUTEFormVerificationCodeCell.h"
-#import <NGRValidator.h>
+#import <ngrvalidator/NGRValidator.h>
 #import "CUTEFormButtonCell.h"
 #import "CUTEFormTextFieldCell.h"
 #import "CUTEFormCenterTextCell.h"

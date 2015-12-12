@@ -59,7 +59,7 @@
 #import "CUTEWebArchiveManager.h"
 #import "CUTEWebConfiguration.h"
 #import "CUTESettingViewController.h"
-#import <GGLContext.h>
+#import <Google/GGLContext.h>
 #import <UIAlertView+Blocks.h>
 #import "CUTELocalizationSwitcher.h"
 #import <NSArray+ObjectiveSugar.h>

@@ -8,6 +8,7 @@
 
 #import "CUTERentAddressEditForm.h"
 #import "CUTECommonMacro.h"
+#import <ngrvalidator/NGRValidator.h>
 #import "CUTEEnum.h"
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTEFormFixNonBreakingSpaceTextFieldCell.h"

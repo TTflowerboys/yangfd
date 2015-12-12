@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FXForms.h"
-#import <NGRValidator.h>
+//#import <NGRValidator.h>
 
 @interface CUTEForm : NSObject <FXForm>
 

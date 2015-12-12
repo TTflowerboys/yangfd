@@ -16,6 +16,7 @@
 #import "CUTEFormSwitchCell.h"
 #import "CUTEFormRentPeriodPickerCell.h"
 #import "CUTEFormCurrencyTextFieldCell.h"
+#import <NGRValidator/NGRValidator.h>
 #import "currant-Swift.h"
 
 @interface CUTERentPriceForm () {

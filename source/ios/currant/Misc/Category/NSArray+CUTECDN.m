@@ -8,7 +8,7 @@
 
 #import "NSArray+CUTECDN.h"
 #import "NSArray+ObjectiveSugar.h"
-#import "NSString+NGRValidator.h"
+#import <NGRValidator/NSString+NGRValidator.h>
 #import "NSString+CUTECDN.h"
 
 @implementation NSArray (CUTECDN)

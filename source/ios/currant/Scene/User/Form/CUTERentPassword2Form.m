@@ -11,6 +11,7 @@
 #import "CUTEFormTextFieldCell.h"
 #import "CUTEFormVerificationCodeCell.h"
 #import "CUTEFormButtonCell.h"
+#import <NGRValidator/NGRValidator.h>
 
 @implementation CUTERentPassword2Form
 

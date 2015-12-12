@@ -2136,6 +2136,7 @@
 				2C056D141B414F4B0075037A /* Frameworks */,
 				2C056D151B414F4B0075037A /* Resources */,
 				6E8D749CF6B1B67DD516E7AD /* Copy Pods Resources */,
+				BB1153A47F8CCE891D3C7CA2 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2235,6 +2236,7 @@
 				2CB43DA71ABC1372004DF663 /* Resources */,
 				A02E954989AD2505AB628CB7 /* Copy Pods Resources */,
 				2C3DE2451B05CEC8006FF191 /* ShellScript */,
+				97B31D1E89D524FF3747486A /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2254,6 +2256,7 @@
 				2CDC11641B33F8C100B6D3DD /* Frameworks */,
 				2CDC11651B33F8C100B6D3DD /* Resources */,
 				83D600DD1003B41D039AAE24 /* Copy Pods Resources */,
+				DFEB128FE16F0997AFD45769 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2634,6 +2637,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		97B31D1E89D524FF3747486A /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A02E954989AD2505AB628CB7 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2662,6 +2680,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BB1153A47F8CCE891D3C7CA2 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-currantUITest/Pods-currantUITest-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DFEB128FE16F0997AFD45769 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-currantUnitTest/Pods-currantUnitTest-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

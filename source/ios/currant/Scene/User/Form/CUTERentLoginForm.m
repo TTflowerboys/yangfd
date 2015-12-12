@@ -8,7 +8,7 @@
 
 #import "CUTERentLoginForm.h"
 #import "CUTECommonMacro.h"
-#import <NGRValidator.h>
+#import <NGRValidator/NGRValidator.h>
 #import "CUTEFormButtonCell.h"
 #import "CUTEFormTextFieldCell.h"
 #import "CUTEFormDefaultCell.h"

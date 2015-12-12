@@ -8,6 +8,7 @@
 
 #import "CUTERentPasswordForm.h"
 #import "CUTECommonMacro.h"
+#import <NGRValidator/NGRValidator.h>
 #import "CUTEFormTextFieldCell.h"
 #import "CUTEFormVerificationCodeCell.h"
 #import "CUTEFormButtonCell.h"
