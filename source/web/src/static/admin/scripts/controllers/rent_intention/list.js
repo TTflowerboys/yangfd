@@ -84,7 +84,12 @@
                     .then(function (data) {
                         if(data.data.val && data.data.val.length && data.data.val[0].referer) {
                             var refer = data.data.val[0].referer
-                            var id = (refer.match(/(?!rent\/|ticketId=)([a-z0-9]{24})/) || [])[1]
+                            // Check if have id in url path
+                            var id = (refer.split('?')[0].match(/(?!property\-to\-rent\/)([a-z0-9]{24})/) || [])[1]
+                            // If no rent id in path, check if in url param
+                            if(!id){
+                                id = team.getQuery('ticketId',refer)
+                            }
                             $scope.list[index].refer = {
                                 id: id,
                                 link: refer,

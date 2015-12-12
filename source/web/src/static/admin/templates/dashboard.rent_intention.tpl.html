@@ -15,6 +15,24 @@
         </div>
 
         <table class="table table-bordered table-striped table-condensed">
+            <colgroup>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col style="width: 300px!important;">
+                <col>
+                <col>
+                <col>
+            </colgroup>
             <thead>
                 <tr>
                     <th>{%$root.i18n('提交时间')%}</th>
@@ -69,8 +87,8 @@
                         {%item.tags | rentIntentionTags%}
                     </td>
                     <td>
-                        <a ng-if="item.refer.id" ui-sref="dashboard.rent.detail({ id: item.refer.id })" target="_blank">{% item.refer.text %}</a>
-                        <a ng-if="!item.refer.id" ng-href="{% item.refer.link %}" target="_blank">{% item.refer.text %}</a>
+                        <a style="display: block; max-width:300px;overflow: scroll;" ng-if="item.refer.id" ui-sref="dashboard.rent.detail({ id: item.refer.id })" target="_blank">{% item.refer.text %}</a>
+                        <a style="display: block; max-width:300px;overflow: scroll;" ng-if="!item.refer.id" ng-href="{% item.refer.link %}" target="_blank">{% item.refer.text %}</a>
                     </td>
                     <td>
                         {%item.status | intentionTicketStatusName %}
