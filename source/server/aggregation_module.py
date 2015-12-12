@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals, absolute_import
+from bson.objectid import ObjectId
+from bson.code import Code
+from datetime import datetime, timedelta, date
+from libfelix.f_common import f_app
+from libfelix.f_user import f_user
+
+
 class aggregation_module(f_user):
 
     def analyze_data_get_modif_time(self, user_id):

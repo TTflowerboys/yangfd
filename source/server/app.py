@@ -48,6 +48,7 @@ import main_mixed_index
 import property
 import report
 import ticket
+import aggregation_module
 
 libfelix.f_message.f_message_push_plugin()
 
