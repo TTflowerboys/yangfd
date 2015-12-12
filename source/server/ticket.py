@@ -238,6 +238,39 @@ class currant_ticket_plugin(f_app.plugin_base):
                         tag="new_rent_request_intention_ticket",
                     )
 
+        if ticket.get('type', None) == "rent":
+            f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_has_draft': True})
+
+            if params.get('landlord_type', None) is not None:
+                f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_landlord_type': True})
+
+            if params.get('status', None) == "rent":
+                f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_time': True})
+
+            f_app.user.analyze_data_update(ticket.get('user_id', None), {
+                'analyze_rent_commit_time': True,
+                'analyze_rent_local': True,
+                'analyze_rent_estate_total': True,
+                'analyze_rent_single_or_whole': True,
+                'analyze_rent_period_range': True,
+                'analyze_rent_price': True
+            })
+
+        if ticket.get('type', None) == "rent_intention":
+            if params.get('status', None) == "new":
+                f_app.user.analyze_data_update(ticket.get('user_id', None), {
+                    'analyze_rent_intention_time': True,
+                    'analyze_rent_intention_local': True,
+                    'analyze_rent_intention_match_level': True
+                })
+            f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_intention_budget': True})
+
+        if ticket.get('type', None) == "intention":
+            f_app.user.analyze_data_update(ticket.get('user_id', None), {
+                'analyze_intention_time': True,
+                'analyze_intention_budget': True,
+            })
+
         return ticket_id
 
     def task_on_rent_ticket_check_intention(self, task):
