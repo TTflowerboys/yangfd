@@ -10,11 +10,13 @@
 #import "CUTETicketEditingListener.h"
 #import "CUTECommonMacro.h"
 #import "BFTask.h"
+#import <BFTaskCompletionSource.h>
 #import "CUTENotificationKey.h"
 #import "NSDictionary+ObjectiveSugar.h"
 #import "CUTEDataManager.h"
-#import "CUTERentTicketPublisher.h"
+#import "CUTERentTicketEditor.h"
 #import "SVProgressHUD+CUTEAPI.h"
+
 
 @implementation CUTETicketForm
 
@@ -33,7 +35,7 @@
     //only work when edit "to rent" ticket
     if (self.ticket && self.ticket.identifier && [[CUTEDataManager sharedInstance] getRentTicketById:self.ticket.identifier]) {
         [[CUTEDataManager sharedInstance] saveRentTicket:self.ticket];
-        [[[CUTERentTicketPublisher sharedInstance] editTicketWithTicket:self.ticket ticketParams:ticketParams propertyParams:propertyParams] continueWithBlock:^id(BFTask *task) {
+        [[[CUTERentTicketEditor sharedInstance] editTicketWithTicket:self.ticket ticketParams:ticketParams propertyParams:propertyParams] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [tcs setError:task.error];
             }

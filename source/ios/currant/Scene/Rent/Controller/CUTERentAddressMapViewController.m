@@ -619,7 +619,6 @@
         CLLocation *location = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
                                                           longitude:mapView.centerCoordinate.longitude];
 
-
         [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
             ticket.property.latitude = @(location.coordinate.latitude);
             ticket.property.longitude = @(location.coordinate.longitude);

@@ -40,18 +40,6 @@
     dispatch_once(&pred, ^{
         sharedInstance = [[[self class] alloc] init];
 
-        //TODO add  test case for all api proxy class
-
-        // 1. /api/1/property/<property_id>
-        // 2. /api/1/property/search
-        // 3. /api/1/property/<property_id>/edit
-        // 4. /api/2/property/<property_id>/edit
-        [sharedInstance registerAPIProxyClassName:@"CUTEPropertyAPIProxy" withURLRule:@"/api/[1-9]+/property/*+"];
-        
-        // 1. /api/1/rent_ticket/<rent_id> result has property, so need hook
-        [sharedInstance registerAPIProxyClassName:@"CUTERentTicketAPIProxy" withURLRule:@"api/1/rent_ticket/*+"];
-        //main_mixed_index api
-        [sharedInstance registerAPIProxyClassName:@"CUTEMainMixedIndexAPIProxy" withURLRule:@"/api/1/main_mixed_index/search"];
     });
 
     return sharedInstance;
@@ -71,6 +59,20 @@
         _imageDownloader = [UIImageView new];
 
         _adapterURLRuleMappings = [NSMutableDictionary dictionary];
+
+
+        //TODO add  test case for all api proxy class
+        
+        // 1. /api/1/property/<property_id>
+        // 2. /api/1/property/search
+        // 3. /api/1/property/<property_id>/edit
+        // 4. /api/2/property/<property_id>/edit
+        [self registerAPIProxyClassName:@"CUTEPropertyAPIProxy" withURLRule:@"/api/[1-9]+/property/*+"];
+
+        // 1. /api/1/rent_ticket/<rent_id> result has property, so need hook
+        [self registerAPIProxyClassName:@"CUTERentTicketAPIProxy" withURLRule:@"api/1/rent_ticket/*+"];
+        //main_mixed_index api
+        [self registerAPIProxyClassName:@"CUTEMainMixedIndexAPIProxy" withURLRule:@"/api/1/main_mixed_index/search"];
     }
     return self;
 }
