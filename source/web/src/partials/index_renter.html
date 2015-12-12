@@ -1,4 +1,18 @@
 <div class="renterService">
+    <a class="hiddenOnPCWeb searchWrap" href="/property-to-rent-list">
+        <div class="img_wrapper">
+            <i class="icon-building"></i>
+        </div>
+        <div class="text">
+            <h3 class="question">
+                {{_('找优质英国租房房源？')}}
+            </h3>
+            <label class="hint" for="">
+                {{_('开始找租房')}}
+            </label>
+        </div>
+    </a>
+
     <div class="category_wrapper">
         <!-- @@include=property_to_rent_selectors.html -->
         <div class="buttons">
@@ -20,54 +34,41 @@
                 <i class="icon-faver"></i>
                 <span>{{_('我的收藏')}}</span>
             </a>
-        </li>
-        <li>
+        </li><!--
+        --><li>
             <a href="/user-properties#request">
                 <i class="icon-phone_line"></i>
                 <span>{{_('已咨询的房源')}}</span>
             </a>
-        </li>
-        <li>
+        </li><!--
+        --><li>
             <a data-action="requirementRent">
                 <i class="icon-requirement_line"></i>
                 <span>{{_('提交求租意向单')}}</span>
             </a>
         </li>
     </ul>
-    <div class="questionChooser_wrapper">
-        <ul class="questionChooser">
-            <li>
-                <a href="/property-to-rent-list">
-                    <div class="img_wrapper">
-                        <i class="icon-building"></i>
-                    </div>
-                    <div class="text">
-                        <h3 class="question">
-                            {{_('找优质英国租房房源？')}}
-                        </h3>
-                        <label class="hint" for="">
-                            {{_('开始找租房')}}
-                        </label>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="/requirement-rent">
-                    <div class="img_wrapper">
-                        <i class="icon-files_homepage"></i>
-                    </div>
-                    <div class="text last">
-                        <h3 class="question">
-                            {{_('提交求租需求？')}}
-                        </h3>
-                        <label class="hint" for="">
-                            {{_('订阅心仪房源')}}
-                        </label>
-
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div>
+    <section class="rentFlow hiddenOnMobile">
+        <div class="cell">
+            <i class="icon icon-renter_search"></i>
+            <h3>{{_('寻找心仪房源')}}</h3>
+        </div><!--
+        --><i class="arrow icon-renter_arrow_right"></i><!--
+        --><div class="cell">
+            <i class="icon icon-renter_faq"></i>
+            <h3>{{_('申请咨询')}}</h3>
+        </div><!--
+        --><i class="arrow icon-renter_arrow_right"></i><!--
+        --><div class="cell">
+            <i class="icon icon-renter_video_live"></i>
+            <h3>{{_('视频看房')}}<br>{{_('预定房源')}}</h3>
+        </div><!--
+        --><i class="arrow icon-renter_arrow_right"></i><!--
+        --><div class="cell">
+            <i class="icon icon-renter_check"></i>
+            <h3>{{_('入住确认')}}<br>{{_('支付订金')}}</h3>
+        </div>
+    </section>
+    <a class="flow" href="/how-it-works/tenant">{{_('查看详细流程')}} <span class="hiddenOnMobile">></span></a>
 
 </div>

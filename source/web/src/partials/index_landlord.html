@@ -6,12 +6,16 @@
         <label class="hint">
             {{_('使用洋房东平台为您带来极速租房发布体验，独有的专业街区报告，杂志般的房源移动主页！')}}
         </label>
+        <div>
+            <!--@@include index_landlord_value.html -->
+        </div>
         <a class="button red" href="/property-to-rent/create" target="_blank">
             <i class="icon-pc"></i>
             <label>
                 {{_('使用网站发布')}}
             </label>
         </a>
+        <a href="/how-it-works/landlord" class="flow">{{_('了解详细流程')}}</a>
     </div>
 
     <div class="publishInClient hiddenInNonClient">
@@ -21,7 +25,10 @@
         <label class="hint">
             {{!_('使用洋房东平台为您带来极速租房发布体验，独有的专业街区报告，杂志般的房源移动主页！')}}
         </label>
-
+        <div class="swiper-container indexValueWrapper">
+            <!--@@include index_landlord_value.html -->
+            <div class="swiper-pagination"></div>
+        </div>
         %if is_mobile_client_version('>=', '1.1.2'):
             <a class="button red" href="yangfd://property-to-rent/create">
                 <i class="icon-cellphone"></i>
@@ -33,6 +40,7 @@
                 {{_('出租发布')}}
             </a>
         %end
+        <a href="/how-it-works/landlord" class="flow">{{_('了解详细流程')}}</a>
         <!-- @if ENV=='dev' || ENV=='debug' -->
         <a class="scrollDown">
             <p>{{_('懒得自己发布？委托平台出租/出售我的房产')}}</p>

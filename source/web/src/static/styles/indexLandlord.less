@@ -74,12 +74,12 @@
     }
 
     >.publishInClient {
-        margin-top: 50px;
-        padding-bottom:20px;
+        margin-top: 14vw;
+        padding-bottom:3vw;
 
         .title {
             display:block;
-            font-size:30px;
+            font-size:6.25vw;
             line-height:1em;
             color:#333;
             text-align:center;
@@ -88,17 +88,17 @@
 
         .hint {
             display:block;
-            margin-top:37px;
+            margin-top:10vw;
             padding:0 20px;
-            font-size:15px;
-            line-height:20px;
+            font-size:4vw;
+            line-height:1.5;
             color:#999;
             text-align:center;
         }
 
         .button {
             display:block;
-            margin:65px auto 80px;
+            margin:18vw auto 3vw;
             text-align:center;
             width: 120px;
         }
@@ -119,6 +119,65 @@
         }
     }
 
+    .indexValue{
+        &Wrapper{
+            height: 65vw;
+            .swiper-pagination-bullet-active{
+                background: #666;
+            }
+        }
+        margin-top: 65px;
+        color: #666;
+        text-align: center;
+        @media @phone{
+            margin-top: 12.5vw;
+        }
+        li{
+            display: inline-block;
+            width: 33%;
+            @media @phone{
+                width: 100%;
+            }
+            .icon{
+                display: block;
+                margin-bottom: 12px;
+                font-size: 80px;
+                @media @phone{
+                    margin-bottom: 5vw;
+                    font-size: 15.6vw;
+                }
+            }
+            h3{
+                margin-bottom: 20px;
+                font-size: 24px;
+                line-height: 1;
+                @media @phone{
+                    margin-bottom: 6.25vw;
+                    font-size: 5vw;
+                }
+            }
+            p{
+                margin: 0;
+                font-size: 14px;
+                line-height: 1.4;
+                @media @phone{
+                    font-size: 3.75vw;
+                }
+            }
+        }
+    }
+    .flow{
+        display: block;
+        margin-top: 12px;
+        font-size: 14px;
+        text-decoration: none;
+        text-align: center;
+        color: @red;
+        @media @phone{
+            margin-bottom: 18vw;
+            font-size: 3.6vw;
+        }
+    }
     @appDownloadHeight: 450px;
     
     .appDownload {

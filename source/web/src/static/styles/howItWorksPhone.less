@@ -1,0 +1,155 @@
+@import "project/_imports";
+
+* {
+    box-sizing: border-box;
+}
+
+.siteHeader_wrapper {
+    @media @phone {
+        position:relative;
+    }
+
+}
+
+.siteHeader_phone {
+    @media @phone {
+        display: none;
+    }
+}
+
+.howItWorksHeader_phone {
+    @media @phone {
+        display: block;
+    }
+
+    #rmm-center-wrapper {
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        width: 170px;
+        text-align: center;
+
+        img {
+            height:5px;
+            margin-top: 8px;
+            vertical-align: top;
+        }
+    }
+}
+
+
+    .category {
+        text-align:center;
+        margin-top:30px;
+        overflow: hidden;
+        &_wrapper {
+            height: 100px;
+            width:100%;
+            background:#f6f6f6;
+            overflow: hidden;
+
+            @media @phone {
+
+                display:none;
+            }
+        }
+
+        span {
+            color:#333333;
+            @media @phone {
+                display:none;
+            }
+
+        }
+
+
+        select {
+            color:#333333;
+            @media @phone {
+                float:left;
+                display:inline-block;
+                width:33%;
+                margin-top:0;
+                font-size:12px;
+                font-weight:bold;
+                border:0;
+            }
+
+            &:after {
+                width:1px;
+                height:100%;
+                background:red;
+                content:"fsjdlk";
+            }
+        }
+
+    }
+
+
+.mainContainer {
+    max-width: @max-width;
+    margin: 0 auto;
+
+    .description {
+        margin: 30px 12px ;
+        color:#666;
+        font-size: 15px;
+        line-height: 2em;
+    }
+    .view_property {
+        width: 300px;
+        margin: 20px auto;
+        display: block;
+        cursor:pointer;
+
+        @media @phone {
+            margin: 0;
+            width: 100%;
+            position: fixed;
+            bottom:0;
+            z-index:@float_bar_phone-z-index;
+            padding: 13px 15px;
+            border-radius: 0;
+        }
+
+        img {
+            cursor:pointer;
+            vertical-align:middle;
+            height: 14px;
+        }
+        label {
+            cursor:pointer;
+            vertical-align:middle;
+        }
+    }
+
+    .view_guide {
+        display: block;
+        width: 50%;
+        margin: 0 auto;
+        color: #999;
+
+        &:active, &:visited {
+                      color: #999;
+                  }
+        &:hover {
+            color: lighten(#999, 10%);
+        }
+    }
+
+    .guide {
+        @media @phone {
+            width: 100%;
+            margin: 0;
+            padding:48px 16px;
+        }
+    }
+}
+
+.copyright {
+    @media @phone {
+        margin-bottom:40px;//left for float bar
+    }
+}

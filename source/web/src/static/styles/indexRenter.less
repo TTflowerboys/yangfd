@@ -2,15 +2,12 @@
 
 .renterService {
     width:100%;
-    height: 302px;
-    width:100%;
     background:#fff;
     text-align: center;
-    @media @phone {
-        height:auto;
-//        border-bottom:0px;
+    @media @phone{
+        overflow: hidden;
+        background: #eee;
     }
-
     .category {
         display: block;
         margin-top:48px;
@@ -100,15 +97,22 @@
     .entrance{
         width: 1200px;
         margin: 50px auto auto;
-        padding-top: 40px;
-        border-top: 1px solid #ccc;
+        padding: 40px 0 72px;
+        border-bottom: 1px solid #ccc;
         text-align: center;
         @media @phone{
-            display: none;
+            margin: 7.5vw auto;
+            padding: 0;
+            width: 100%;
+            border-bottom: none;
         }
         li{
             display: inline-block;
             margin: 0 88px;
+            @media @phone{
+                margin: 0;
+                width: 33%;
+            }
             a{
                 text-decoration: none;
                 i{
@@ -116,11 +120,20 @@
                     font-size: 26px;
                     color: #666;
                     vertical-align: middle;
+                    @media @phone{
+                        display: block;
+                        margin-right: 0;
+                        margin-bottom: 4vw;
+                        font-size: 7vw;
+                    }
                 }
                 span{
                     font-size: 18px;
                     color: #333;
                     vertical-align: middle;
+                    @media @phone{
+                        font-size: 3.75vw;
+                    }
                 }
                 &:hover {
                     i{
@@ -133,129 +146,129 @@
             }
         }
     }
-
-    .questionChooser {
+    .rentFlow{
+        padding: 80px 0 55px;
+        text-align: center;
+        .cell{
+            display: inline-block;
+            width: 180px;
+            padding: 0 16px;
+            vertical-align: top;
+            color: #666;
+            i.icon{
+                display: block;
+                margin-bottom: 20px;
+                font-size: 40px;
+            }
+            h3{
+                padding-bottom: 15px;
+                font-size: 18px;
+            }
+        }
+        .arrow{
+            display: inline-block;
+            margin: 10px 20px auto;
+            vertical-align: top;
+            font-size: 32px;
+            color: #cccccc;
+        }
+    }
+    a.searchWrap {
+        display: block;
         overflow:hidden;
-        display:none;
-
+        height:100%;
+        color:#666;
+        padding: 20.6vw 0;
         @media @phone {
-            width:100%;
-            margin:0px;
-            height:auto;
-            display:block;
-            margin-top:62px;
-            margin-bottom:62px;
+            text-decoration:none;
         }
+        .img_wrapper {
+            float:left;
+            @media @phone {
+                float:none;
+                margin:0px auto;
+                height: 77px;
+                width: 77px;
+                display:block;
+            }
 
-        &_wrapper {
-            width:100%;
-            margin:0px;
-            overflow:hidden;
-            background: #f6f6f6;
-            //border-bottom: 1px solid #ccc;
+            i {
+                text-align: center;
+                font-size: 34px;
+                line-height:1em;
+                vertical-align: middle;
+                @media @phone {
+                    color:#e60012;
+                    font-size:33px;
+                    border-radius:50%;
+                    border:2px solid #e60012;
+                    line-height: 73px;
+                    width: 77px;
+                    height:77px;
+                    display:block;
+                }
+            }
         }
-
-        li {
+        .text {
             display:inline-block;
-            width: 33%;
+            float:left;
+            vertical-align:middle;
+            margin-left:8px;
             overflow:hidden;
 
             @media @phone {
                 width:100%;
-                height:auto;
-                display:block;
-                margin-top:62px;
+                height:100%;
+                margin-left:0px;
+                margin-top:15px;
             }
-            &:first-child {
+
+            &.last {
+                @media @phone {
+                    border-bottom:0;
+                }
+            }
+            .question {
+                font-size:22px;
+                line-height:34px;
                 @media @phone {
                     margin-top:0px;
-                }
-            }
-
-            >a {
-                display: block;
-                overflow:hidden;
-                height:100%;
-                color:#666;
-
-                @media @phone {
-                    text-decoration:none;
-                }
-            }
-
-            .img_wrapper {
-                float:left;
-                @media @phone {
-                    float:none;
-                    margin:0px auto;
-                    height: 77px;
-                    width: 77px;
+                    font-size:17px;
+                    line-height:22px;
+                    color:#838383;
                     display:block;
-                }
-
-                i {
+                    width: 100%;
                     text-align: center;
-                    font-size: 34px;
-                    line-height:1em;
-                    vertical-align: middle;
-                    @media @phone {
-                        color:#e60012;
-                        font-size:33px;
-                        border-radius:50%;
-                        border:2px solid #e60012;
-                        line-height: 73px;
-                        width: 77px;
-                        height:77px;
-                        display:block;
-                    }
                 }
+
             }
-            .text {
-                display:inline-block;
-                float:left;
-                vertical-align:middle;
-                margin-left:8px;
-                overflow:hidden;
 
+            .hint  {
                 @media @phone {
-                    width:100%;
-                    height:100%;
-                    margin-left:0px;
-                    margin-top:15px;
-                }
-
-                &.last {
-                    @media @phone {
-                        border-bottom:0;
-                    }
-                }
-                .question {
-                    font-size:22px;
-                    line-height:34px;
-                    @media @phone {
-                        margin-top:0px;
-                        font-size:17px;
-                        line-height:22px;
-                        color:#838383;
-                        display:block;
-                        width: 100%;
-                        text-align: center;
-                    }
-
-                }
-
-                .hint  {
-                    @media @phone {
-                        padding-right:10px;
-                        font-size:13px;
-                        line-height:20px;
-                        color:#838383;
-                        display:block;
-                        width: 100%;
-                        text-align: center;
-                    }
+                    padding-right:10px;
+                    font-size:13px;
+                    line-height:20px;
+                    color:#838383;
+                    display:block;
+                    width: 100%;
+                    text-align: center;
                 }
             }
         }
     }
+    a.flow{
+        display: inline-block;
+        margin-bottom: 80px;
+        font-size: 16px;
+        color: @red;
+        text-decoration: none;
+        @media @phone{
+            padding: 2.8vw 4.2vw;
+            margin: 7vw auto 14vw;
+            border: 1px solid @red;
+            border-radius: 4px;
+            font-size: 4vw;
+        }
+    }
+
 }

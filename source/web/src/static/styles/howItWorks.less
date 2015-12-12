@@ -1,155 +1,223 @@
 @import "project/_imports";
 
-* {
-    box-sizing: border-box;
-}
-
-.siteHeader_wrapper {
-    @media @phone {
-        position:relative;
-    }
-
-}
-
-.siteHeader_phone {
-    @media @phone {
-        display: none;
+.lighter(){
+    font-weight: lighter;
+    @media @phone{
+        font-weight: normal;
     }
 }
-
-.howItWorksHeader_phone {
-    @media @phone {
-        display: block;
+.banner{
+    margin-bottom: 48px;
+    height: 440px;
+    background-image: url("/static/images/background/how_it_works_banner.jpg");
+    background-size: cover;
+    background-position: 50% 50%;
+    color: #fff;
+    .lighter;
+    @media @phone{
+        margin-bottom: 5vw;
+        height: 56.25vw;
+        background-image: url("/static/images/background/how_it_works_banner_mobile.jpg");
     }
-
-    #rmm-center-wrapper {
-        position: absolute;
-        margin-left: auto;
-        margin-right: auto;
-        left: 0;
-        right: 0;
-        width: 170px;
-        text-align: center;
-
-        img {
-            height:5px;
-            margin-top: 8px;
-            vertical-align: top;
+    .content{
+        h1{
+            margin: 110px 0 70px;
+            text-align: center;
+            font-size: 44px;
+            .lighter;
+            @media @phone{
+                margin: 11vw 0 0;
+                font-size: 5.625vw;
+            }
+        }
+        ul{
+            @media @phone{
+                height: 36vw;
+            }
+            &.three li{
+                width: 33%;
+            }
+            &.four li{
+                width: 25%;
+            }
+            li{
+                display: inline-block;
+                text-align: center;
+                line-height: 1.2;
+                @media @phone{
+                    width: 100%;
+                }
+                h3{
+                    margin: 0 0 20px;
+                    font-size: 22px;
+                    .lighter;
+                    @media @phone{
+                        margin: 7vw 0 3vw;
+                        font-size: 4.6vw;
+                    }
+                }
+                p{
+                    margin: 0;
+                    font-size: 16px;
+                    @media @phone{
+                        font-size: 3.4vw;
+                    }
+                }
+            }
+        }
+        .swiper-pagination-bullet-active{
+            background: #fff;
         }
     }
 }
-
-
-    .category {
-        text-align:center;
-        margin-top:30px;
-        overflow: hidden;
-        &_wrapper {
-            height: 100px;
-            width:100%;
-            background:#f6f6f6;
-            overflow: hidden;
-
-            @media @phone {
-
-                display:none;
-            }
-        }
-
-        span {
-            color:#333333;
-            @media @phone {
-                display:none;
-            }
-
-        }
-
-
-        select {
-            color:#333333;
-            @media @phone {
-                float:left;
-                display:inline-block;
-                width:33%;
-                margin-top:0;
-                font-size:12px;
-                font-weight:bold;
-                border:0;
-            }
-
-            &:after {
-                width:1px;
-                height:100%;
-                background:red;
-                content:"fsjdlk";
-            }
-        }
-
-    }
-
-
-.mainContainer {
-    max-width: @max-width;
+.content{
     margin: 0 auto;
-
-    .description {
-        margin: 30px 12px ;
-        color:#666;
-        font-size: 15px;
-        line-height: 2em;
+    width: 1200px;
+    overflow: hidden;
+    @media @phone{
+        width: 100%;
     }
-    .view_property {
-        width: 300px;
-        margin: 20px auto;
+    section{
+        padding: 60px 0;
+        border-bottom: 1px solid #ccc;
+        text-align: center;
+        &:last-of-type{
+            border-bottom: none;
+        }
+        @media @phone{
+            overflow: hidden;
+            max-height: 21vw;
+            padding: 6vw;
+            transition: all ease 0.4s 0s;
+            .icon-up_arrow2{
+                display: none !important;
+            }
+            .icon-down_arrow{
+                display: block !important;
+            }
+            &.active {
+                max-height: 220vw;
+                .icon-up_arrow2{
+                    display: block !important;
+                }
+                .icon-down_arrow{
+                    display: none !important;
+                }
+            }
+        }
+        h2{
+            margin: 36px 0 90px;
+            text-align: center;
+            color: #222;
+            font-size: 28px;
+            @media @phone{
+                margin: 0 0 10vw;
+                position: relative;
+                font-size: 4.7vw;
+                text-align: left;
+                i{
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    transform: translateY(-50%);
+                    font-size: 4.375vw;
+                    color: #e60315;
+                }
+            }
+        }
+        .cell{
+            display: inline-block;
+            width: 360px;
+            height: 160px;
+            padding: 0 70px;
+            vertical-align: top;
+            text-align: left;
+            @media @phone{
+                width: 100%;
+                height: auto;
+                padding: 0;
+                text-align: center;
+                margin-bottom: 9.375vw;
+            }
+            h3{
+                padding-bottom: 15px;
+                font-size: 26px;
+                color: #b1000e;
+                border-bottom: 1px solid #666;
+                @media @phone{
+                    padding-bottom: 3vw;
+                    font-size: 4.7vw
+                }
+            }
+            p{
+                margin: 18px 0;
+                font-size: 14px;
+                color: #999;
+                @media @phone{
+                    margin: 2.2vw 0;
+                    font-size: 3.5vw
+                }
+            }
+        }
+        &.tight .cell{
+            width: 240px;
+            padding: 0 16px;
+            @media @phone{
+                width: 100%;
+                padding: 0;
+            }
+        }
+        .arrow{
+            display: inline-block;
+            margin-top: 34px;
+            vertical-align: top;
+            font-size: 40px;
+            color: #cccccc;
+            @media @phone{
+                margin-top: 0;
+                margin-bottom: 9.375vw;
+                font-size: 9vw;
+                text-align: center;
+            }
+        }
+        &.tight .arrow{
+            font-size: 40px;
+            margin: 36px 10px auto;
+            @media @phone{
+                margin-top: 0;
+                margin-bottom: 9.375vw;
+                font-size: 9vw;
+                text-align: center;
+            }
+        }
+    }
+    .button{
         display: block;
-        cursor:pointer;
-
-        @media @phone {
-            margin: 0;
-            width: 100%;
-            position: fixed;
-            bottom:0;
-            z-index:@float_bar_phone-z-index;
-            padding: 13px 15px;
-            border-radius: 0;
-        }
-
-        img {
-            cursor:pointer;
-            vertical-align:middle;
-            height: 14px;
-        }
-        label {
-            cursor:pointer;
-            vertical-align:middle;
+        width: 220px;
+        height: 60px;
+        margin: 50px auto 40px;
+        line-height: 60px;
+        padding: 0;
+        font-size: 20px;
+        text-align: center;
+        @media @phone{
+            width: 37.5vw;
+            height: 12.5vw;
+            margin: 6.25vw auto 7.8vw;
+            line-height: 12.5vw;
+            font-size: 4vw;
         }
     }
-
-    .view_guide {
+    .faqLink{
         display: block;
-        width: 50%;
-        margin: 0 auto;
-        color: #999;
-
-        &:active, &:visited {
-                      color: #999;
-                  }
-        &:hover {
-            color: lighten(#999, 10%);
+        margin-bottom: 140px;
+        text-align: center;
+        font-size: 16px;
+        color: @red;
+        text-decoration: none;
+        @media @phone{
+            margin-bottom: 18.75vw;
+            font-size: 3.2vw;
         }
-    }
-
-    .guide {
-        @media @phone {
-            width: 100%;
-            margin: 0;
-            padding:48px 16px;
-        }
-    }
-}
-
-.copyright {
-    @media @phone {
-        margin-bottom:40px;//left for float bar
     }
 }

@@ -102,6 +102,7 @@
         }
         else if (tabName === 'landlord') {
             window.console.log('landlord')
+            initIndexValueSlide()
             if (window.team.isPhone() && !window.team.isWeChat()) {
                 window.team.initDisplayOfElement()
             }
@@ -538,4 +539,14 @@
     $(window).resize(function () {
         initDownloadWrap()
     })
+
+    function initIndexValueSlide() {
+        if(window.team.isPhone() && !window.indexValueSlide) {
+            window.indexValueSlide = new window.Swiper('.indexValueWrapper', {
+                autoplay: 3000,
+                pagination: '.swiper-pagination',
+                paginationClickable: true
+            })
+        }
+    }
 })()

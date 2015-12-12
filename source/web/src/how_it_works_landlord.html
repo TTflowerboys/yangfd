@@ -1,0 +1,121 @@
+<!--@@master = ./masters/how_it_works_master.html-->
+<!--@@block = head-->
+
+<!--@@close-->
+<!--@@block = main-->
+<div class="banner">
+    <div class="content">
+        <h1>{{_('洋房东房东服务')}}</h1>
+        <div class="hiddenOnMobile">
+            <!--@@include partials/how_it_works_landlord_value.html -->
+        </div>
+        <div class="hiddenOnPCWeb swiper-container">
+            <!--@@include partials/how_it_works_landlord_value.html -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <section class="active">
+        <h2>
+            {{_('STEP1: 出租发布')}}
+            <i class="icon-up_arrow2 hiddenOnPCWeb"></i>
+            <i class="icon-down_arrow hiddenOnPCWeb"></i>
+        </h2>
+        <div class="cell">
+            <h3>{{_('极速房源发布')}}</h3>
+            <p>{{_('自动房源定位，轻松设置租金租期')}}</p>
+        </div><!--
+        --><i class="arrow icon-renter_arrow_right hiddenOnMobile"></i><!--
+        --><i class="arrow icon-renter_arrow_bottom hiddenOnPCWeb"></i><!--
+        --><div class="cell">
+            <h3>{{_('自动完善周边介绍')}}</h3>
+            <p>{{_('根据房源位置自动添加周边学校，地铁和街区介绍，在不用费力介绍周边')}}</p>
+        </div><!--
+        --><i class="arrow icon-renter_arrow_right hiddenOnMobile"></i><!--
+        --><i class="arrow icon-renter_arrow_bottom hiddenOnPCWeb"></i><!--
+        --><div class="cell">
+            <h3>{{_('分享到朋友圈')}}</h3>
+            <p>{{_('自由分享高大上的房源移动主页到朋友圈，微博等各大社交平台')}}</p>
+        </div>
+    </section>
+    <section>
+        <h2>
+            {{_('STEP2: 房源求租管理')}}
+            <i class="icon-up_arrow2 hiddenOnPCWeb"></i>
+            <i class="icon-down_arrow hiddenOnPCWeb"></i>
+        </h2>
+        <div class="cell">
+            <h3>{{_('房源置顶推荐')}}</h3>
+            <p>{{_('在“我的房产”里刷新房源状态，获得置顶推荐')}}</p>
+        </div><!--
+        --><i class="arrow icon-renter_arrow_right hiddenOnMobile"></i><!--
+        --><i class="arrow icon-renter_arrow_bottom hiddenOnPCWeb"></i><!--
+        --><div class="cell">
+            <h3>{{_('处理租客申请')}}</h3>
+            <p>{{_('平台为您分配专属助手帮你审核筛选租客')}}</p>
+        </div>
+    </section>
+    <section>
+        <h2>
+            {{_('STEP3: 预约看房')}}
+            <i class="icon-up_arrow2 hiddenOnPCWeb"></i>
+            <i class="icon-down_arrow hiddenOnPCWeb"></i>
+        </h2>
+        <div class="cell">
+            <h3>{{_('看房时间')}}</h3>
+            <p>{{_('专属助手帮您确认看房时间')}}</p>
+        </div><!--
+        --><i class="arrow icon-renter_arrow_right hiddenOnMobile"></i><!--
+        --><i class="arrow icon-renter_arrow_bottom hiddenOnPCWeb"></i><!--
+        --><div class="cell">
+        <h3>{{_('房源视频直播')}}</h3>
+        <p>{{_('实时视频看房并对房源进行录像')}}</p>
+        </div><!--
+            --><i class="arrow icon-renter_arrow_right hiddenOnMobile"></i><!--
+            --><i class="arrow icon-renter_arrow_bottom hiddenOnPCWeb"></i><!--
+            --><div class="cell">
+            <h3>{{_('平台认证')}}</h3>
+            <p>{{_('房源变成‘洋房东认证房源’，从此出租再也不用看房')}}</p>
+        </div>
+    </section>
+    <section>
+        <h2>
+            {{_('STEP4: 收取订金')}}
+            <i class="icon-up_arrow2 hiddenOnPCWeb"></i>
+            <i class="icon-down_arrow hiddenOnPCWeb"></i>
+        </h2>
+        <div class="cell">
+            <h3>{{_('支付租金')}}</h3>
+            <p>{{_('租客支付订金到洋房东，由平台出具官方收据予以确认')}}</p>
+        </div><!--
+        --><i class="arrow icon-renter_arrow_right hiddenOnMobile"></i><!--
+        --><i class="arrow icon-renter_arrow_bottom hiddenOnPCWeb"></i><!--
+        --><div class="cell">
+        <h3>{{_('入住')}}</h3>
+        <p>{{_('租客与您直接联系协商安排入住事宜')}}</p>
+        </div><!--
+            --><i class="arrow icon-renter_arrow_right hiddenOnMobile"></i><!--
+            --><i class="arrow icon-renter_arrow_bottom hiddenOnPCWeb"></i><!--
+            --><div class="cell">
+            <h3>{{_('定金处理')}}</h3>
+            <p>{{_('租客入住24小时后平台将扣除一次性服务费£80并将剩余订金转给房东')}}</p>
+        </div>
+    </section>
+
+    %if is_mobile_client():
+        %if is_mobile_client_version('>=', '1.1.2'):
+    <a class="button red" href="yangfd://property-to-rent/create">{{_('发布房产')}}</a>
+        %else:
+    <a class="button red" href="#" onclick="window.bridge.callHandler(&quot;createRentTicket&quot;);return false;" data-need-bridge>{{_('发布房产')}}</a>
+        %end
+    %else:
+    <a class="button red" href="/property-to-rent/create">{{_('发布房产')}}</a>
+    %end
+    <a class="faqLink" href="/qa-rent">{{_('如需帮助信息，请查阅FAQ')}}</a>
+</div>
+<!--@@close-->
+
+<!--@@block = scripts -->
+
+<!--@@close -->
