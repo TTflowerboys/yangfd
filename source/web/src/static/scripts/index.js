@@ -101,7 +101,6 @@
             }
         }
         else if (tabName === 'landlord') {
-            window.console.log('landlord')
             initIndexValueSlide()
             if (window.team.isPhone() && !window.team.isWeChat()) {
                 window.team.initDisplayOfElement()
@@ -157,8 +156,8 @@
             }
         }
         else {
-            selectRoleChooserTab('buyer')
-            initRoleChooserContent('buyer')
+            selectRoleChooserTab('renter')
+            initRoleChooserContent('renter')
         }
     }
 
