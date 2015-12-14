@@ -1055,6 +1055,15 @@ def aggregation_rent_intention_ticket(user):
                 "total": document['count']
             })
         value.update({"aggregation_rent_intentionl_has_neighborhood": aggregation_rent_intentionl_has_neighborhood})
+
+    return value
+
+
+@f_api('/aggregation-favorite')
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def aggregation_favorite(user):
+    value = {}
+    with f_app.mongo() as m:
         cursor = m.favorites.aggregate(
             [
                 {'$group': {'_id': "$type", 'count': {'$sum': 1}}}
@@ -1106,6 +1115,14 @@ def aggregation_rent_intention_ticket(user):
                 "total": document['count']
             })
         value.update({"aggregation_property_favorite_times_by_user": aggregation_property_favorite_times_by_user})
+    return value
+
+
+@f_api('/aggregation-view-contact')
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def aggregation_view_contact(user):
+    value = {}
+    with f_app.mongo() as m:
         cursor = m.orders.aggregate(
             [
                 {'$unwind': "$items"},
