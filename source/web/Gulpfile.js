@@ -271,6 +271,10 @@ gulp.task('setupCDN', ['build:html-extend', 'fingerprint', 'revAll', 'revAgain',
             gulp.src(myPaths.dist + 'static/scripts/' + '**/*.js')
                 .pipe(replace(/\/static\/images\//g,  argv.cdn + '/images/'))
                 .pipe(gulp.dest(myPaths.dist + 'static/scripts/'))
+
+            gulp.src(myPaths.dist + 'static/sprite/' + 'css/*.css')
+                .pipe(replace(/\/static\/sprite\//g, argv.cdn + '/sprite/'))
+                .pipe(gulp.dest(myPaths.dist + 'static/sprite/'))
         }
         relaceRev()
 
