@@ -7,7 +7,7 @@
     "debug": "npm install && gulp clean && gulp debug",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build_dev_locally": "npm install --production && npm run i18n && gulp build --env dev",
-    "build_dev": "gulp clean && gulp build --env dev --cdn http:\\/\\/static.yangfd.com/static/dev",
+    "build_dev": "npm install --production && npm run i18n && gulp build --env dev --cdn http:\\/\\/static.yangfd.com/static/dev",
     "build_test": "npm install --production && npm run i18n && gulp build --env test --cdn http:\\/\\/static.yangfd.com/static/test",
     "build_production": "npm install --production && npm run i18n && gulp build --env production --cdn http:\\/\\/static.yangfd.com/static/production",
     "styleguideinit": "kss-node --init",
