@@ -61,7 +61,7 @@
     "gulp-newer": "~0.3.0",
     "gulp-ng-annotate": "~0.3.0",
     "gulp-notify": "~1.4.0",
-    "gulp-page-sprite": "https://github.com/lf2941270/gulp-page-sprite/archive/v1.0.5.tar.gz",
+    "gulp-page-sprite": "https://github.com/Fykec/gulp-page-sprite/archive/v1.1.0.tar.gz",
     "gulp-plumber": "~0.6.4",
     "gulp-preprocess": "^1.1.1",
     "gulp-remember": "~0.2.0",
