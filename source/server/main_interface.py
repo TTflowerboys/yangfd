@@ -1383,7 +1383,7 @@ def aggregation_email_detail(user, params):
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
 def user_analyze_update(user):
     for user_id in f_app.user.get_active():
-        f_app.user.analyze_data_update(user_id)
+        f_app.user.analyze.data_update(user_id)
 
 
 @f_get('/export-excel/user-analyze.xlsx')

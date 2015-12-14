@@ -4,23 +4,25 @@ from bson.objectid import ObjectId
 from bson.code import Code
 from datetime import datetime, timedelta, date
 from libfelix.f_common import f_app
-from libfelix.f_user import f_user
 
 
-class aggregation_module(f_user):
+class aggregation_module(f_app.module_base):
 
-    def analyze_data_get_modif_time(self, user_id):
-        mod_time = self.get(user_id).get('analyze_value_modifier_time', None)
+    def __init__(self):
+        f_app.user.module_install("analyze", self)
+
+    def data_get_modif_time(self, user_id):
+        mod_time = f_app.user.get(user_id).get('analyze_value_modifier_time', None)
         if mod_time is None or isinstance(mod_time, datetime):
             return {}
         return mod_time
 
-    def analyze_data_set_modif_time(self, user_id, value):
-        mod_time = self.analyze_data_get_modif_time(user_id)
+    def data_set_modif_time(self, user_id, value):
+        mod_time = self.data_get_modif_time(user_id)
         mod_time.update({value: datetime.utcnow()})
-        self.update_set(user_id, {'analyze_value_modifier_time': mod_time})
+        f_app.user.update_set(user_id, {'analyze_value_modifier_time': mod_time})
 
-    def analyze_data_update(self, user_id, params={
+    def data_update(self, user_id, params={
         "analyze_guest_country": True,
         "analyze_guest_user_type": True,
         "analyze_guest_active_days": True,
@@ -47,9 +49,9 @@ class aggregation_module(f_user):
         "analyze_intention_views_times": True,
         "analyze_value_modifier_time": True
     }):
-        self.update_set(user_id, self.analyze_data_generate(user_id, params))
+        f_app.user.update_set(user_id, self.data_generate(user_id, params))
 
-    def analyze_data_generate(self, user_id, params):
+    def data_generate(self, user_id, params):
 
         def get_all_enum_value(enum_singlt_type):
             enum_list_subdic = {}
@@ -84,8 +86,8 @@ class aggregation_module(f_user):
             return unicode('/'.join(value_list))
 
         def get_active_days(user):
-            old_active_days = self.get(user_id).get('analyze_guest_active_days', 0)
-            mod_time = self.analyze_data_get_modif_time(user_id).get('analyze_guest_active_days', None)
+            old_active_days = f_app.user.get(user_id).get('analyze_guest_active_days', 0)
+            mod_time = self.data_get_modif_time(user_id).get('analyze_guest_active_days', None)
             func_map = Code(
                 '''
                 function() {
@@ -119,7 +121,7 @@ class aggregation_module(f_user):
             return active_days
 
         def check_download(user):
-            downloaded = self.get(user_id).get('analyze_guest_downloaded', None)
+            downloaded = f_app.user.get(user_id).get('analyze_guest_downloaded', None)
             if downloaded == '已下载':
                 return True
             elif downloaded is None:
@@ -276,7 +278,7 @@ class aggregation_module(f_user):
                 return f_app.log.get_database(m).find({"id": ObjectId(user_id), "type": "route", "property_id": {"$exists": True}}).count()
 
         enum_type_list = {}
-        user = self.get(user_id)
+        user = f_app.user.get(user_id)
         if user is None:
             user = {}
         result = {}
@@ -396,98 +398,98 @@ class aggregation_plugin(f_app.plugin_base):
         user_id = params.get('user_id', None)
         downloaded = f_app.user.get(user_id).get('analyze_guest_downloaded', None)
         if downloaded is None:  # when there's no record,then search all the histroy
-            f_app.user.analyze_data_update(user_id, {"analyze_guest_downloaded": True})
+            f_app.user.analyze.data_update(user_id, {"analyze_guest_downloaded": True})
         elif downloaded == '未下载':  # once know there was updated already, then do jugement base on this record only
             if params.get('type', None) == "view_rent_ticket_contact_info" and params.get('tag', None) == "download_ios_app":
                 f_app.user.update_set(user_id, {'analyze_guest_downloaded': "已下载"})
-                f_app.analyze_data_set_modif_time(user_id, 'analyze_guest_downloaded')  # only for update modif time
+                f_app.analyze.data_set_modif_time(user_id, 'analyze_guest_downloaded')  # only for update modif time
         return params
 
     def user_favorite_add_after(self, params):
         user_id = params.get('user_id', None)
-        mod_time = f_app.user.analyze_data_get_modif_time(user_id)
+        mod_time = f_app.user.analyze.data_get_modif_time(user_id)
         if 'analyze_rent_intention_favorite_times' not in mod_time:
-            f_app.user.analyze_data_update(user_id, {"analyze_rent_intention_favorite_times": True})
+            f_app.user.analyze.data_update(user_id, {"analyze_rent_intention_favorite_times": True})
         elif params.get('type', None) == "property":
             old_value = f_app.user.get(user_id).get('analyze_rent_intention_favorite_times', 0)
             f_app.user.update(user_id, {'analyze_rent_intention_favorite_times': old_value + 1})
-            f_app.analyze_data_set_modif_time(user_id, 'analyze_rent_intention_favorite_times')
+            f_app.analyze.data_set_modif_time(user_id, 'analyze_rent_intention_favorite_times')
         return params
 
     def log_add_after(self, user_id, log_type, **kwargs):
         if not user_id:
             return user_id
         user = f_app.user.get(user_id)
-        mod_time = f_app.user.analyze_data_get_modif_time(user_id)
+        mod_time = f_app.user.analyze.data_get_modif_time(user_id)
         today = date.today()
         if 'analyze_guest_active_days' not in mod_time:
-            f_app.user.analyze_data_update(user_id, {'analyze_guest_active_days': True})
+            f_app.user.analyze.data_update(user_id, {'analyze_guest_active_days': True})
         elif 'analyze_guest_active_days' in user:
             if mod_time['analyze_guest_active_days'].date() < today:
                 f_app.user.update_set(user_id, {
                     'analyze_guest_active_days': int(user['analyze_guest_active_days']) + 1
                 })
-                f_app.user.analyze_data_set_modif_time(user_id, 'analyze_guest_active_days')
+                f_app.user.analyze.data_set_modif_time(user_id, 'analyze_guest_active_days')
         else:
             if mod_time['analyze_guest_active_days'].date() < today:
-                f_app.user.analyze_data_update(user_id, {'analyze_guest_active_days': True})
+                f_app.user.analyze.data_update(user_id, {'analyze_guest_active_days': True})
 
         if log_type == "route" and 'rent_ticket_id' in kwargs:
 
             if 'analyze_rent_estate_views_times' not in mod_time:
-                f_app.user.analyze_data_update(user_id, {'analyze_rent_estate_views_times': True})
+                f_app.user.analyze.data_update(user_id, {'analyze_rent_estate_views_times': True})
             elif 'analyze_rent_estate_views_times' in user:
                 f_app.user.update_set(user_id, {
                     'analyze_rent_estate_views_times': int(user['analyze_rent_estate_views_times']) + 1
                 })
-                f_app.user.analyze_data_set_modif_time(user_id, 'analyze_rent_estate_views_times')
+                f_app.user.analyze.data_set_modif_time(user_id, 'analyze_rent_estate_views_times')
             else:
-                f_app.user.analyze_data_update(user_id, {'analyze_rent_estate_views_times': True})
+                f_app.user.analyze.data_update(user_id, {'analyze_rent_estate_views_times': True})
 
             if 'analyze_rent_intention_views_times' not in mod_time:
-                f_app.user.analyze_data_update(user_id, {'analyze_rent_intention_views_times': True})
+                f_app.user.analyze.data_update(user_id, {'analyze_rent_intention_views_times': True})
             elif 'analyze_rent_intention_views_times' in user:
                 f_app.user.update_set(user_id, {
                     'analyze_rent_intention_views_times': int(user['analyze_rent_intention_views_times']) + 1
                 })
-                f_app.user.analyze_data_set_modif_time(user_id, 'analyze_rent_intention_views_times')
+                f_app.user.analyze.data_set_modif_time(user_id, 'analyze_rent_intention_views_times')
             else:
-                f_app.user.analyze_data_update(user_id, {'analyze_rent_intention_views_times': True})
+                f_app.user.analyze.data_update(user_id, {'analyze_rent_intention_views_times': True})
 
         if log_type == "route" and 'property_id' in kwargs:
             if 'analyze_intention_views_times' not in mod_time:
-                f_app.user.analyze_data_update(user_id, {'analyze_intention_views_times': True})
+                f_app.user.analyze.data_update(user_id, {'analyze_intention_views_times': True})
             elif 'analyze_intention_views_times' in user:
                 f_app.user.update_set(user_id, {
                     'analyze_intention_views_times': int(user['analyze_intention_views_times']) + 1
                 })
-                f_app.user.analyze_data_set_modif_time(user_id, 'analyze_intention_views_times')
+                f_app.user.analyze.data_set_modif_time(user_id, 'analyze_intention_views_times')
             else:
-                f_app.user.analyze_data_update(user_id, {'analyze_intention_views_times': True})
+                f_app.user.analyze.data_update(user_id, {'analyze_intention_views_times': True})
 
         if log_type == "rent_ticket_view_contact_info":
             if 'analyze_rent_intention_view_contact_times' not in mod_time:
-                f_app.user.analyze_data_update(user_id, {'analyze_rent_intention_view_contact_times': True})
+                f_app.user.analyze.data_update(user_id, {'analyze_rent_intention_view_contact_times': True})
             elif 'analyze_rent_intention_view_contact_times' in user:
                 f_app.user.update_set(user_id, {
                     'analyze_rent_intention_view_contact_times': int(user['analyze_rent_intention_view_contact_times']) + 1
                 })
-                f_app.user.analyze_data_set_modif_time(user_id, 'analyze_rent_intention_view_contact_times')
+                f_app.user.analyze.data_set_modif_time(user_id, 'analyze_rent_intention_view_contact_times')
             else:
-                f_app.user.analyze_data_update(user_id, {'analyze_rent_intention_view_contact_times': True})
+                f_app.user.analyze.data_update(user_id, {'analyze_rent_intention_view_contact_times': True})
         return user_id
 
     def user_update_after(self, user_id, params):
         if "$set" in params and user_id is not None and params['$set'] is not None:
             if "country" in params['$set']:
-                f_app.user.analyze_data_update(user_id, {"analyze_guest_country": True})
+                f_app.user.analyze.data_update(user_id, {"analyze_guest_country": True})
             if "user_type" in params['$set']:
-                f_app.user.analyze_data_update(user_id, {"analyze_guest_user_type": True})
+                f_app.user.analyze.data_update(user_id, {"analyze_guest_user_type": True})
         return user_id
 
     def user_add_after(self, user_id, params, noregister):
         if user_id is not None:
-            f_app.user.analyze_data_update(user_id, params={
+            f_app.user.analyze.data_update(user_id, params={
                 "analyze_guest_country": True,
                 "analyze_guest_user_type": True,
                 "analyze_guest_active_days": True
@@ -497,15 +499,15 @@ class aggregation_plugin(f_app.plugin_base):
     def ticket_update_after(self, ticket_id, params, ticket, ignore_error=True):
 
         if ticket.get('type', None) == "rent":
-            f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_has_draft': True})
+            f_app.user.analyze.data_update(ticket.get('user_id', None), {'analyze_rent_has_draft': True})
 
             if params.get('landlord_type', None) is not None:
-                f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_landlord_type': True})
+                f_app.user.analyze.data_update(ticket.get('user_id', None), {'analyze_rent_landlord_type': True})
 
             if params.get('status', None) == "rent":
-                f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_time': True})
+                f_app.user.analyze.data_update(ticket.get('user_id', None), {'analyze_rent_time': True})
 
-            f_app.user.analyze_data_update(ticket.get('user_id', None), {
+            f_app.user.analyze.data_update(ticket.get('user_id', None), {
                 'analyze_rent_commit_time': True,
                 'analyze_rent_local': True,
                 'analyze_rent_estate_total': True,
@@ -516,15 +518,15 @@ class aggregation_plugin(f_app.plugin_base):
 
         if ticket.get('type', None) == "rent_intention":
             if params.get('status', None) == "new":
-                f_app.user.analyze_data_update(ticket.get('user_id', None), {
+                f_app.user.analyze.data_update(ticket.get('user_id', None), {
                     'analyze_rent_intention_time': True,
                     'analyze_rent_intention_local': True,
                     'analyze_rent_intention_match_level': True
                 })
-            f_app.user.analyze_data_update(ticket.get('user_id', None), {'analyze_rent_intention_budget': True})
+            f_app.user.analyze.data_update(ticket.get('user_id', None), {'analyze_rent_intention_budget': True})
 
         if ticket.get('type', None) == "intention":
-            f_app.user.analyze_data_update(ticket.get('user_id', None), {
+            f_app.user.analyze.data_update(ticket.get('user_id', None), {
                 'analyze_intention_time': True,
                 'analyze_intention_budget': True,
             })
