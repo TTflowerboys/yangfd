@@ -1093,8 +1093,13 @@ def aggregation_favorite(user):
         )
         aggregation_rent_ticket_favorite_times_by_user = []
         for document in cursor:
+            user_name = f_app.user.output([document['_id']], custom_fields=f_app.common.user_custom_fields)
+            if user_name is None or 'nickname' not in user_name[0]:
+                user_name = unicode(document['_id'])
+            else:
+                user_name = user_name[0]['nickname']
             aggregation_rent_ticket_favorite_times_by_user.append({
-                "user": f_app.user.output([document['_id']], custom_fields=f_app.common.user_custom_fields)[0]['nickname'],
+                "user": user_name,
                 "total": document['count']
             })
         cursor.close()
@@ -1110,8 +1115,13 @@ def aggregation_favorite(user):
         )
         aggregation_property_favorite_times_by_user = []
         for document in cursor:
+            user_name = f_app.user.output([document['_id']], custom_fields=f_app.common.user_custom_fields)
+            if user_name is None or 'nickname' not in user_name[0]:
+                user_name = unicode(document['_id'])
+            else:
+                user_name = user_name[0]['nickname']
             aggregation_property_favorite_times_by_user.append({
-                "user": f_app.user.output([document['_id']], custom_fields=f_app.common.user_custom_fields)[0]['nickname'],
+                "user": user_name,
                 "total": document['count']
             })
         value.update({"aggregation_property_favorite_times_by_user": aggregation_property_favorite_times_by_user})
@@ -1227,7 +1237,11 @@ def aggregation_property_view(user):
         result = m.log.map_reduce(func_map, func_reduce, "aggregation_property_view_by_user", query={'property_id': {'$exists': True}, 'id': {'$ne': None}})
         aggregation_property_view_times_by_user_sort = []
         for single in result.find().sort('value', -1):
-            aggregation_property_view_times_by_user_sort.append({"user": f_app.user.get(single['_id'])['nickname'], "total": single['value']})
+            if 'nickname' in f_app.user.get(single['_id']):
+                user_name = f_app.user.get(single['_id'])['nickname']
+            else:
+                user_name = single['_id']
+            aggregation_property_view_times_by_user_sort.append({"user": user_name, "total": single['value']})
         value.update({"aggregation_property_view_times_by_user_sort": aggregation_property_view_times_by_user_sort})
         func_map = Code('''
             function() {
@@ -1254,6 +1268,18 @@ def aggregation_property_view(user):
                 })
         value.update({"aggregation_property_view_times_by_property_sort": aggregation_property_view_times_by_property_sort})
     return value
+
+
+@f_api('/aggregation-rent-request')
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def aggregation_rent_request(user):
+    with f_app.mongo() as m:
+        cursor = m.tickets.aggregate(
+            [
+                {'$match': {'status': 'requested'}}
+            ]
+        )
+        cursor.count()
 
 
 @f_api('/aggregation-email-detail', params=dict(
