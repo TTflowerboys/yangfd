@@ -186,7 +186,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_TIP_MAP_INPUT_DISPLAYED])
         {
-            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_textField hostView:self.view tooltipText:STR(@"RentAddressMap/点击填写详细地址") arrowDirection:JDFTooltipViewArrowDirectionUp width:150 showCompletionBlock:^{
+            CUTETooltipView *toolTips = [[CUTETooltipView alloc] initWithTargetView:_textField hostView:self.view tooltipText:STR(@"RentAddressMap/修改或编辑详细地址") arrowDirection:JDFTooltipViewArrowDirectionUp width:170 showCompletionBlock:^{
 
             } hideCompletionBlock:^{
 

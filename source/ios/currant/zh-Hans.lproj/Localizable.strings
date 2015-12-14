@@ -316,7 +316,7 @@
 //Filepath: currant/Scene/Rent/Controller/CUTERentAddressMapViewController.m
 "RentAddressMap/房产位置" = "房产位置";
 "RentAddressMap/继续" = "继续";
-"RentAddressMap/点击填写详细地址" = "点击填写详细地址";
+"RentAddressMap/修改或编辑详细地址" = "修改或编辑详细地址";
 "RentAddressMap/按地址定位" = "按地址定位";
 "RentAddressMap/此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址" = "此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址";
 "RentAddressMap/OK" = "OK";
