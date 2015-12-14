@@ -157,11 +157,17 @@
             }
         }
         else {
-            //TODO london e149aq 定位出来的地址，再去搜索latitude，错的太多了
-            // 创建ticket 时先进地图，然后编辑地址，然后回到地图，这个时候也会到这里，这里直接用location更合适。
-            
             if (_isAddressUpdated) {
-                [self onAddressLocationButtonTapped:nil];
+                if (!IsNilOrNull(self.form.ticket.property.latitude) && !IsNilOrNull(self.form.ticket.property.longitude)) {
+                    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.form.ticket.property.latitude.doubleValue longitude:self.form.ticket.property.longitude.doubleValue];
+                    if (location) {
+                        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
+                        [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+                    }
+                }
+                else {
+                    [self onAddressLocationButtonTapped:nil];
+                }
                 _isAddressUpdated = NO;
             }
             else {
@@ -636,26 +642,39 @@
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
 
-        //update field value
+
+
+
         CLLocation *location = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude
                                                           longitude:mapView.centerCoordinate.longitude];
 
-        [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
-            ticket.property.latitude = @(location.coordinate.latitude);
-            ticket.property.longitude = @(location.coordinate.longitude);
-        }];
+        CLLocation *oldLocation = nil;
+        if (self.form.ticket.property.latitude && self.form.ticket.property.longitude) {
+            oldLocation = [[CLLocation alloc] initWithLatitude:self.form.ticket.property.latitude.doubleValue longitude:self.form.ticket.property.longitude.doubleValue];
+        }
 
-        [_textField.indicatorView startAnimating];
-        [[self checkNeedUpdateAddressWithCancellationToken:nil] continueWithBlock:^id(BFTask *task) {
-            [_textField.indicatorView stopAnimating];
-            if (task.error || task.exception || task.isCancelled) {
-                [SVProgressHUD showErrorWithError:task.error];
-                return nil;
-            } else {
+        //这里检查location是否被改动过，改了，则去更新相关属性，因为是浮点数，用 2m 作为一个 threshold 来比较
+        //update field value
+        CLLocationDistance distanceThreshold = 2.0; // in meters
+        if (oldLocation == nil || ([oldLocation distanceFromLocation:location] > distanceThreshold)) {
 
-                return nil;
-            }
-        }];
+            [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+                ticket.property.latitude = @(location.coordinate.latitude);
+                ticket.property.longitude = @(location.coordinate.longitude);
+            }];
+
+            [_textField.indicatorView startAnimating];
+            [[self checkNeedUpdateAddressWithCancellationToken:nil] continueWithBlock:^id(BFTask *task) {
+                [_textField.indicatorView stopAnimating];
+                if (task.error || task.exception || task.isCancelled) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                    return nil;
+                } else {
+                    
+                    return nil;
+                }
+            }];
+        }
     }
     else {
         _mapShowCurrentRegion = YES;
