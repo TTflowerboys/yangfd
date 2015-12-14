@@ -303,7 +303,7 @@
     }];
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:self.form.ticket.property.latitude.doubleValue longitude:self.form.ticket.property.longitude.doubleValue]] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:self.form.ticket.property.latitude.doubleValue longitude:self.form.ticket.property.longitude.doubleValue] cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
             if (task.error) {
                 [SVProgressHUD showErrorWithError:task.error];
             }
@@ -342,7 +342,7 @@
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     NSString *postCodeIndex = [[newPostcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
     if (form.ticket.property.country && !IsNilNullOrEmpty(postCodeIndex)) {
-        [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:form.ticket.property.country.ISOcountryCode] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:form.ticket.property.country.ISOcountryCode cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
             NSArray *places = (NSArray *)task.result;
             if (!IsArrayNilOrEmpty(places)) {
                 [tcs setResult:places.firstObject];

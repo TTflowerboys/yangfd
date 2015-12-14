@@ -29,7 +29,6 @@
 #import "CUTETracker.h"
 #import "MasonryMake.h"
 #import "CUTECity.h"
-#import "CUTEAPIManager.h"
 #import "CUTEPlacemark.h"
 #import "CUTENotificationKey.h"
 #import "CUTETooltipView.h"
@@ -213,7 +212,7 @@
     }
     else {
         [SVProgressHUD show];
-        [[[CUTEGeoManager sharedInstance] requestCurrentLocation] continueWithBlock:^id(BFTask *task) {
+        [[[CUTEGeoManager sharedInstance] requestCurrentLocation:nil] continueWithBlock:^id(BFTask *task) {
             if (task.result) {
                 CLLocation *location = task.result;
                 CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:_mapView.centerCoordinate.latitude longitude:_mapView.centerCoordinate.longitude];
@@ -230,7 +229,7 @@
                 }];
 
 
-                [self checkNeedUpdateAddress];
+                [self checkNeedUpdateAddressWithCancellationToken:nil];
 
                 [SVProgressHUD dismiss];
             }
@@ -388,7 +387,7 @@
         [componmentsDictionary setObject:self.form.ticket.property.city.name forKey:@"locality"];
     }
     NSString *components = [CUTEGeoManager buildComponentsWithDictionary:componmentsDictionary];
-    [[[CUTEGeoManager sharedInstance] geocodeWithAddress:street components:components] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEGeoManager sharedInstance] geocodeWithAddress:street components:components cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
         [_textField.indicatorView stopAnimating];
         if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
@@ -503,21 +502,26 @@
     }
 }
 
-- (BFTask *)checkNeedUpdateAddress {
+- (BFTask *)checkNeedUpdateAddressWithCancellationToken:(BFCancellationToken * _Nullable)cancellationToken {
     if (!_updateAddressTask || _updateAddressTask.isCompleted) {
-        _updateAddressTask = [self updateAddress];
+        _updateAddressTask = [self updateAddressWithCancellationToken:cancellationToken];
     }
 
     return _updateAddressTask;
 }
 
-- (BFTask *)updateAddress {
+- (BFTask *)updateAddressWithCancellationToken:(BFCancellationToken * __nullable)cancellationToken {
     CUTEProperty *property = self.form.ticket.property;
     BFTaskCompletionSource *tcs  = [BFTaskCompletionSource taskCompletionSource];
     CLLocation *location = [[CLLocation alloc] initWithLatitude:property.latitude.doubleValue longitude:property.longitude.doubleValue];
     if (location) {
-        [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location] continueWithBlock:^id(BFTask *task) {
-            if (task.result) {
+        [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:location cancellationToken:cancellationToken] continueWithBlock:^id(BFTask *task) {
+            if (task.isCancelled) {
+                if (!tcs.task.isCompleted) {
+                    [tcs cancel];
+                }
+            }
+            else if (task.result) {
                 CUTEPlacemark *placemark = task.result;
                 [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
                     if (placemark.country) {
@@ -537,16 +541,27 @@
                 }];
 
                 if (!IsNilNullOrEmpty(self.form.ticket.property.zipcode)) {
-                    [[self updateNeighborhoodWithPostcodeChange:self.form.ticket.property.zipcode countryCode:self.form.ticket.property.country.ISOcountryCode] continueWithBlock:^id(BFTask *task) {
-                        if (task.result) {
+                    [[self updateNeighborhoodWithPostcodeChange:self.form.ticket.property.zipcode countryCode:self.form.ticket.property.country.ISOcountryCode cancellationToken:cancellationToken] continueWithBlock:^id(BFTask *task) {
+                        if (task.isCancelled) {
+                            if (!tcs.task.isCompleted) {
+                                [tcs cancel];
+                            }
+                        }
+                        else if (task.result) {
                             [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
                                 ticket.property.neighborhood = task.result;
                             }];
+
+                            _textField.text = property.address;
+                            [_textField setNeedsDisplay];
+                            [tcs setResult:_textField.text];
+                        }
+                        else {
+                            _textField.text = property.address;
+                            [_textField setNeedsDisplay];
+                            [tcs setResult:_textField.text];
                         }
 
-                        _textField.text = property.address;
-                        [_textField setNeedsDisplay];
-                        [tcs setResult:_textField.text];
                         return task;
                     }];
                 }
@@ -570,13 +585,19 @@
     return tcs.task;
 }
 
-- (BFTask *)updateNeighborhoodWithPostcodeChange:(NSString *)newPostcode countryCode:(NSString *)countryCode {
+- (BFTask *)updateNeighborhoodWithPostcodeChange:(NSString *)newPostcode countryCode:(NSString *)countryCode cancellationToken:(BFCancellationToken * __nullable)cancellationToken {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     NSString *postCodeIndex = [[newPostcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
 
-    [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:countryCode] continueWithBlock:^id(BFTask *task) {
+    [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:countryCode cancellationToken:cancellationToken] continueWithBlock:^id(BFTask *task) {
+
         NSArray *places = (NSArray *)task.result;
-        if (!IsArrayNilOrEmpty(places)) {
+        if (task.isCancelled) {
+            if (!tcs.task.isCompleted) {
+                [tcs cancel];
+            }
+        }
+        else if (!IsArrayNilOrEmpty(places)) {
             CUTEPostcodePlace *place = places.firstObject;
             if (place && [place isKindOfClass:[CUTEPostcodePlace class]]) {
                 CUTENeighborhood *neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
@@ -625,7 +646,7 @@
         }];
 
         [_textField.indicatorView startAnimating];
-        [[self checkNeedUpdateAddress] continueWithBlock:^id(BFTask *task) {
+        [[self checkNeedUpdateAddressWithCancellationToken:nil] continueWithBlock:^id(BFTask *task) {
             [_textField.indicatorView stopAnimating];
             if (task.error || task.exception || task.isCancelled) {
                 [SVProgressHUD showErrorWithError:task.error];

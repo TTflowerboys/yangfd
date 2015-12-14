@@ -72,12 +72,18 @@ class CUTEGeoManager: NSObject {
 
     /// - parameter location: 经纬度
     /// - returns: BFTask , task.result 的 placemark，因为我们的数据和 google 不一致，可能没有国家和城市。
-    private func requsetReverseGeocodeLocation(location:CLLocation) -> BFTask {
+    private func requsetReverseGeocodeLocation(location:CLLocation, cancellationToken:BFCancellationToken?) -> BFTask {
         let tcs = BFTaskCompletionSource()
         let geocoderURLString = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(location.coordinate.latitude),\(location.coordinate.longitude)&key=\(CUTEConfiguration.googleAPIKey())&language=en"
-        reverseProxyWithLink(geocoderURLString, cancellationToken: nil).continueWithBlock { (task:BFTask!) -> AnyObject! in
+        reverseProxyWithLink(geocoderURLString, cancellationToken: cancellationToken).continueWithBlock { (task:BFTask!) -> AnyObject! in
 
-            if task.error != nil {
+            if task.cancelled {
+                if !tcs.task.completed {
+                    tcs.cancel()
+                    return task
+                }
+            }
+            else if task.error != nil {
                 tcs.setError(task.error)
                 return task
             }
@@ -150,7 +156,7 @@ class CUTEGeoManager: NSObject {
     /// 获取[Google Map Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro)的结果
     /// - parameter location: 经纬度
     /// - returns: BFTask
-    func reverseGeocodeLocation(location:CLLocation) -> BFTask {
+    func reverseGeocodeLocation(location:CLLocation, cancellationToken:BFCancellationToken?) -> BFTask {
         let tcs = BFTaskCompletionSource()
 
         //retry 3 times
@@ -159,8 +165,13 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-            self.requsetReverseGeocodeLocation(location).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-                if task.result != nil {
+            self.requsetReverseGeocodeLocation(location, cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                if task.cancelled {
+                    if !tcs.task.completed {
+                        tcs.cancel()
+                    }
+                }
+                else if task.result != nil {
                     tcs.setResult(task.result)
                 }
                 else {
@@ -173,8 +184,13 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-            self.requsetReverseGeocodeLocation(location).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-                if task.result != nil {
+            self.requsetReverseGeocodeLocation(location, cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                if task.cancelled {
+                    if !tcs.task.completed {
+                        tcs.cancel()
+                    }
+                }
+                else if task.result != nil {
                     tcs.setResult(task.result)
                 }
                 else {
@@ -187,8 +203,13 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-            self.requsetReverseGeocodeLocation(location).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-                if task.result != nil {
+            self.requsetReverseGeocodeLocation(location, cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                if task.cancelled {
+                    if !tcs.task.completed {
+                        tcs.cancel()
+                    }
+                }
+                else if task.result != nil {
                     tcs.setResult(task.result)
                 }
                 else {
@@ -204,16 +225,22 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
-    private func requestGeocodeWithAddress(address:String?, components:String) -> BFTask {
+    private func requestGeocodeWithAddress(address:String?, components:String, cancellationToken:BFCancellationToken?) -> BFTask {
         let tcs = BFTaskCompletionSource()
         var geocoderURLString = "https://maps.googleapis.com/maps/api/geocode/json?key=\(CUTEConfiguration.googleAPIKey())&language=en&components=\(components.URLEncode())"
         if address != nil {
             geocoderURLString += "&addresss=" + address!.URLEncode()
         }
 
-        reverseProxyWithLink(geocoderURLString, cancellationToken:nil).continueWithBlock { (task:BFTask!) -> AnyObject! in
+        reverseProxyWithLink(geocoderURLString, cancellationToken:cancellationToken).continueWithBlock { (task:BFTask!) -> AnyObject! in
 
-            if task.error != nil {
+            if task.cancelled {
+                if !tcs.task.completed {
+                    tcs.cancel()
+                    return task
+                }
+            }
+            else if task.error != nil {
                 tcs.setError(task.error)
                 return task
             }
@@ -249,7 +276,7 @@ class CUTEGeoManager: NSObject {
     /// - parameter address: 街区地址
     /// - parameter components: route | locality | administrative_area | postal_code | country
     /// - returns: BFTask
-    func geocodeWithAddress(address:String?, components:String) -> BFTask {
+    func geocodeWithAddress(address:String?, components:String, cancellationToken:BFCancellationToken?) -> BFTask {
         let tcs = BFTaskCompletionSource()
 
         //retry 3 times
@@ -259,8 +286,13 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-            self.requestGeocodeWithAddress(address, components: components).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-                if task.result != nil {
+            self.requestGeocodeWithAddress(address, components: components, cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                if task.cancelled {
+                    if !tcs.task.completed {
+                        tcs.cancel()
+                    }
+                }
+                else if task.result != nil {
                     tcs.setResult(task.result)
                 }
                 else {
@@ -273,8 +305,13 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-       self.requestGeocodeWithAddress(address, components: components).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-                if task.result != nil {
+            self.requestGeocodeWithAddress(address, components: components, cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                if task.cancelled {
+                    if !tcs.task.completed {
+                        tcs.cancel()
+                    }
+                }
+                else if task.result != nil {
                     tcs.setResult(task.result)
                 }
                 else {
@@ -287,8 +324,13 @@ class CUTEGeoManager: NSObject {
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)
             ) -> Void in
-            self.requestGeocodeWithAddress(address, components: components).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-                if task.result != nil {
+            self.requestGeocodeWithAddress(address, components: components, cancellationToken: cancellationToken).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                if task.cancelled {
+                    if !tcs.task.completed {
+                        tcs.cancel()
+                    }
+                }
+                else if task.result != nil {
                     tcs.setResult(task.result)
                 }
                 else {
@@ -304,13 +346,14 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
-    func searchPostcodeIndex(postCodeIndex:String, countryCode:String) -> BFTask {
-        return CUTEAPIManager.sharedInstance().POST("/api/1/postcode/search", parameters: ["postcode_index":postCodeIndex, "country":countryCode], resultClass: CUTEPostcodePlace.self)
+    func searchPostcodeIndex(postCodeIndex:String, countryCode:String, cancellationToken:BFCancellationToken?) -> BFTask {
+        return CUTEAPIManager.sharedInstance().POST("/api/1/postcode/search", parameters: ["postcode_index":postCodeIndex, "country":countryCode], resultClass: CUTEPostcodePlace.self, cancellationToken:cancellationToken)
     }
 
-    func requestCurrentLocation() -> BFTask {
+    func requestCurrentLocation(cancellationToken:BFCancellationToken?) -> BFTask {
         let tcs = BFTaskCompletionSource()
         INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(INTULocationAccuracy.City, timeout: 30, delayUntilAuthorized: true) { (currentLocation:CLLocation!, achievedAccuracy:INTULocationAccuracy, status:INTULocationStatus) -> Void in
+
             if currentLocation != nil {
                 tcs.setResult(currentLocation)
             }
@@ -328,6 +371,13 @@ class CUTEGeoManager: NSObject {
                     tcs.setError(nil)
                 }
             }
+        }
+
+        if cancellationToken != nil {
+            cancellationToken!.registerCancellationObserverWithBlock({ () -> Void in
+                tcs.trySetCancelled()
+            })
+
         }
         
         return tcs.task
