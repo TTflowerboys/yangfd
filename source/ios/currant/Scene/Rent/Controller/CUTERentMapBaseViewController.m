@@ -253,8 +253,6 @@
 
     [self.textField.indicatorView startAnimating];
 
-
-    //TODO add post coder better?
     NSString *street = [CUTEAddressUtil buildAddress:@[NilNullToEmpty(self.form.ticket.property.community), NilNullToEmpty(self.form.ticket.property.street)]];
     NSMutableDictionary *componmentsDictionary = [NSMutableDictionary dictionary];
     if (self.form.ticket.property.country.ISOcountryCode) {
@@ -262,6 +260,9 @@
     }
     if (self.form.ticket.property.city.name) {
         [componmentsDictionary setObject:self.form.ticket.property.city.name forKey:@"locality"];
+    }
+    if (self.form.ticket.property.zipcode) {
+        [componmentsDictionary setObject:self.form.ticket.property.zipcode forKey:@"postal_code"];
     }
     NSString *components = [CUTEGeoManager buildComponentsWithDictionary:componmentsDictionary];
     _cancellationTokenSource = [BFCancellationTokenSource cancellationTokenSource];
