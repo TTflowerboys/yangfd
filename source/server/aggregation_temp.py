@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals, print_function
 from pymongo import MongoClient
 from datetime import datetime
 from app import f_app
 from bson.objectid import ObjectId
 from collections import OrderedDict
 import sys
+from bson.code import Code
 
 if len(sys.argv) > 1:
     if sys.argv[1] == '-s':
@@ -20,57 +22,155 @@ else:
 
 with f_app.mongo() as m:
 
+    # 分邮件类型来统计邮件发送和打开的状态
+    print('\n分邮件类型来统计邮件发送成功,打开和点击的百分比:')
+    # 计算每类邮件的总数
+
+    func_map = Code('''
+        function() {
+        var list = []
+            if (this.tag && this.email_id) {
+                if (Array.isArray(this.target)) {
+                    for (var index = 0; index < this.target.length; index ++) {
+                        list = []
+                        list.push({target: this.target[index],
+                                   email_id: this.email_id});
+                        emit(this.tag, {a:list});
+                    }
+                }
+                else {
+                    list.push({target: this.target,
+                               email_id: this.email_id});
+                    emit(this.tag, {a:list});
+                }
+            }
+        }
+    ''')
+    func_reduce = Code('''
+        function(key, values) {
+            var list = []
+            values.forEach(function(e) {
+                if (e.a) {
+                    list = list.concat(e.a)
+                }
+                else {
+                    list = list.concat(e)
+                }
+            });
+            return {a:list}
+        }
+    ''')
+    result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send"})
+    tag_total = result.find().count()
+    total_email_not_only_new = 0
+    total_email_contain_new_only = 0
+    print ("共有", tag_total, "类tag")
+    print ("%4s%30s%4s%7s%7s%6s%7s%6s%7s%7s%5s" % ("序号", "tag", "总数", "到达量", "到达率", "打开数量", "打开率", "重复打开量", "点击量", "点击率", "重复点击量"))
+    for index, tag in enumerate(result.find()):
+        func_status_map = Code('''
+            function() {
+                var event = this.email_status_set;
+                var event_detail = this.email_status_detail;
+                if (event_detail && event) {
+                    if (event.indexOf("processed") != -1) {
+                        emit("total_email", 1);
+                    }
+                    if (event.length > 1 && event.indexOf("new") != -1 && event.indexOf("processed") == -1) {
+                        emit("total_email_not_only_new", 1);
+                    }
+                    if (event.length == 1 && event.indexOf("new") != -1) {
+                        emit("total_email_contain_new_only", 1);
+                    }
+                    event.forEach(function(e) {
+                        emit(e, 1);
+                        if (event_detail) {
+                            event_detail.forEach(function(c) {
+                                if (c.event == e) {
+                                    emit(e+" (repeat)", 1);
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        ''')
+        func_status_reduce = Code('''
+            function(key, value) {
+                return Array.sum(value)
+            }
+        ''')
+        query_param = {}
+        or_param = []
+        for single_param in tag["value"]["a"]:
+            or_param.append(single_param)
+        query_param.update({"$or": or_param})
+        tag_result = f_app.email.status.get_database(m).map_reduce(func_status_map, func_status_reduce, "aggregation_tag_event", query=query_param)
+        final_result = {}
+        for thing in tag_result.find():
+            final_result.update({thing["_id"]: thing["value"]})
+        open_unique = final_result.get("open", 0)
+        open_times = final_result.get("open (repeat)", 0)
+        click_unique = final_result.get("click", 0)
+        click_times = final_result.get("click (repeat)", 0)
+        delivered_times = final_result.get("delivered", 0)
+        total_email = final_result.get("total_email", 0)
+        total_email_not_only_new += final_result.get("total_email_not_only_new", 0)
+        total_email_contain_new_only += final_result.get("total_email_contain_new_only", 0)
+        print ("%6d%30s%6d%10d%9.2f%%%10d%9.2f%%%10d%10d%9.2f%%%10d" % (index, tag["_id"], total_email, delivered_times, 100*delivered_times/total_email, open_unique, 100*open_unique/total_email, open_times, click_unique, 100*click_unique/total_email, click_times))
+    print ("total_email_contain_new_only", total_email_contain_new_only)
+    print ("total_email_not_only_new", total_email_not_only_new)
+
     # 正在发布中的房源里按最短接受租期的统计:
     # 日租<1month 1month<=中短<3month <=3month中长<6month >=6month长租
-    print('\n正在发布中的房源里按最短接受租期的统计:')
-    cursor = m.tickets.aggregate(
-        [
-            {'$match': {
-                'type': "rent",
-                'status': "to rent"
-                }},
-            {'$group': {'_id': "$minimum_rent_period", 'count': {'$sum': 1}}}
-        ]
-    )
+    # print('\n正在发布中的房源里按最短接受租期的统计:')
+    # cursor = m.tickets.aggregate(
+    #     [
+    #         {'$match': {
+    #             'type': "rent",
+    #             'status': "to rent"
+    #             }},
+    #         {'$group': {'_id': "$minimum_rent_period", 'count': {'$sum': 1}}}
+    #     ]
+    # )
 
-    period_count = {
-        'short': 0,
-        'short_middle': 0,
-        'middle_long': 0,
-        'long': 0,
-        'extra_long': 0
-    }
+    # period_count = {
+    #     'short': 0,
+    #     'short_middle': 0,
+    #     'middle_long': 0,
+    #     'long': 0,
+    #     'extra_long': 0
+    # }
 
-    def covert_to_month(period):
-        if(period['unit'] == 'week'):
-            period['value'] = float(period['value'])/4
-        if(period['unit'] == 'day'):
-            period['value'] = float(period['value'])/31
-        if(period['unit'] == 'year'):
-            period['value'] = float(period['value'])*12
-        else:
-            period['value'] = float(period['value'])
-        return period
+    # def covert_to_month(period):
+    #     if(period['unit'] == 'week'):
+    #         period['value'] = float(period['value'])/4
+    #     if(period['unit'] == 'day'):
+    #         period['value'] = float(period['value'])/31
+    #     if(period['unit'] == 'year'):
+    #         period['value'] = float(period['value'])*12
+    #     else:
+    #         period['value'] = float(period['value'])
+    #     return period
 
-    for document in cursor:
-        if(document['_id']):
-            period = covert_to_month(document['_id'])
-            if(period['value'] < 1.0):
-                period_count['short'] += document['count']
-            if(period['value'] >= 1.0 and period['value'] < 3.0):
-                period_count['short_middle'] += document['count']
-            if(period['value'] >= 3.0 and period['value'] < 6.0):
-                period_count['middle_long'] += document['count']
-            if(period['value'] >= 6.0 and period['value'] < 12.0):
-                period_count['long'] += document['count']
-            if(period['value'] >= 12.0):
-                period_count['extra_long'] += document['count']
+    # for document in cursor:
+    #     if(document['_id']):
+    #         period = covert_to_month(document['_id'])
+    #         if(period['value'] < 1.0):
+    #             period_count['short'] += document['count']
+    #         if(period['value'] >= 1.0 and period['value'] < 3.0):
+    #             period_count['short_middle'] += document['count']
+    #         if(period['value'] >= 3.0 and period['value'] < 6.0):
+    #             period_count['middle_long'] += document['count']
+    #         if(period['value'] >= 6.0 and period['value'] < 12.0):
+    #             period_count['long'] += document['count']
+    #         if(period['value'] >= 12.0):
+    #             period_count['extra_long'] += document['count']
 
-    print('日租<1month:', period_count['short'])
-    print('1month<=中短<3month:', period_count['short_middle'])
-    print('>=3month中长<6month:', period_count['middle_long'])
-    print('>=6month长租<12month:', period_count['long'])
-    print('>=12month:', period_count['extra_long'])
+    # print('日租<1month:', period_count['short'])
+    # print('1month<=中短<3month:', period_count['short_middle'])
+    # print('>=3month中长<6month:', period_count['middle_long'])
+    # print('>=6month长租<12month:', period_count['long'])
+    # print('>=12month:', period_count['extra_long'])
 
     # 刷新房产的房源排名
     # db.log.aggregate([{'$match':{'route':{'$regex': '/api/1/rent_ticket/[a-zA-Z0-9]{24}/edit'},'param_status':'to rent'}},{'$group':{'_id':'$route','count':{'$sum':1}}},{'$match':{'count':{'$gte':2}}},{'$sort':{'time':-1}}])
