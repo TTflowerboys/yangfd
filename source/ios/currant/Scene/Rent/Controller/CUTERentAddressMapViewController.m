@@ -61,6 +61,7 @@
 
     BOOL _isAddressUpdated;
 
+    BFCancellationTokenSource *_cancellationTokenSource;
 }
 @end
 
@@ -210,6 +211,19 @@
 
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+    //only cancel request when re edit location
+    if (self.singleUseForReedit) {
+        if (_cancellationTokenSource != nil) {
+            if (!_cancellationTokenSource.isCancellationRequested) {
+                [_cancellationTokenSource cancel];
+            }
+        }
+    }
+}
+
 - (void)startUpdateLocation {
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     if (status == kCLAuthorizationStatusDenied || status == kCLAuthorizationStatusRestricted) {
@@ -218,14 +232,21 @@
     }
     else {
         [SVProgressHUD show];
-        [[[CUTEGeoManager sharedInstance] requestCurrentLocation:nil] continueWithBlock:^id(BFTask *task) {
-            if (task.result) {
+        _cancellationTokenSource = [BFCancellationTokenSource cancellationTokenSource];
+
+        [[[CUTEGeoManager sharedInstance] requestCurrentLocation:_cancellationTokenSource.token] continueWithBlock:^id(BFTask *task) {
+            _cancellationTokenSource = nil;
+            if (task.isCancelled) {
+                [SVProgressHUD dismiss];
+                [UIAlertView showWithTitle:STR(@"RentAddressMap/此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址") message:nil cancelButtonTitle:STR(@"RentAddressMap/OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                }];
+            }
+            else if (task.result) {
                 CLLocation *location = task.result;
                 CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:_mapView.centerCoordinate.latitude longitude:_mapView.centerCoordinate.longitude];
                 if ([location distanceFromLocation:centerLocation] > 10) {
                     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, kRegionDistance, kRegionDistance);
                     [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
-//                    [_mapView addAnnotation:[[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil]];
                 }
                 CUTERentAddressMapForm *form = self.form;
 
@@ -234,15 +255,12 @@
                     ticket.property.longitude = @(location.coordinate.longitude);
                 }];
 
-
-                [self checkNeedUpdateAddressWithCancellationToken:nil];
-
-                [SVProgressHUD dismiss];
-            }
-            else if (task.isCancelled) {
-                [SVProgressHUD dismiss];
-                [UIAlertView showWithTitle:STR(@"RentAddressMap/此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址") message:nil cancelButtonTitle:STR(@"RentAddressMap/OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                _cancellationTokenSource = [BFCancellationTokenSource cancellationTokenSource];
+                [[self checkNeedUpdateAddressWithCancellationToken:_cancellationTokenSource.token] continueWithBlock:^id(BFTask *task) {
+                    _cancellationTokenSource = nil;
+                    return task;
                 }];
+                [SVProgressHUD dismiss];
             }
             else {
                 [SVProgressHUD showErrorWithError:task.error];
@@ -393,16 +411,19 @@
         [componmentsDictionary setObject:self.form.ticket.property.city.name forKey:@"locality"];
     }
     NSString *components = [CUTEGeoManager buildComponentsWithDictionary:componmentsDictionary];
-    [[[CUTEGeoManager sharedInstance] geocodeWithAddress:street components:components cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
+    _cancellationTokenSource = [BFCancellationTokenSource cancellationTokenSource];
+    [[[CUTEGeoManager sharedInstance] geocodeWithAddress:street components:components cancellationToken:_cancellationTokenSource.token] continueWithBlock:^id(BFTask *task) {
         [_textField.indicatorView stopAnimating];
-        if (task.error) {
+        _cancellationTokenSource = nil;
+
+        if (task.isCancelled) {
+            [SVProgressHUD showErrorWithCancellation];
+        }
+        else if (task.error) {
             [SVProgressHUD showErrorWithError:task.error];
         }
         else if (task.exception) {
             [SVProgressHUD showErrorWithException:task.exception];
-        }
-        else if (task.isCancelled) {
-            [SVProgressHUD showErrorWithCancellation];
         }
         else {
             if (task.result) {
@@ -664,8 +685,10 @@
             }];
 
             [_textField.indicatorView startAnimating];
-            [[self checkNeedUpdateAddressWithCancellationToken:nil] continueWithBlock:^id(BFTask *task) {
+            _cancellationTokenSource = [BFCancellationTokenSource cancellationTokenSource];
+            [[self checkNeedUpdateAddressWithCancellationToken:_cancellationTokenSource.token] continueWithBlock:^id(BFTask *task) {
                 [_textField.indicatorView stopAnimating];
+                _cancellationTokenSource = nil;
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
                     return nil;
