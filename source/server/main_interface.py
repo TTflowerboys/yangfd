@@ -1273,102 +1273,13 @@ def aggregation_property_view(user):
 @f_api('/aggregation-rent-request')
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
 def aggregation_rent_request(user):
-    value = {}
     with f_app.mongo() as m:
-
-        value.update({'aggregation_rent_request_total_count': m.tickets.find({
-            "type": "rent_intention",
-            "interested_rent_tickets": {"$exists": True},
-            "status": {
-                "$in": [
-                    "requested",
-                    "agreed",
-                    "rejected",
-                    "assigned",
-                    "examined",
-                    "rent"
-                ]
-            }
-        }).count()})
-
-        func_map = Code('''
-            function() {
-                this.interested_rent_tickets.forEach(
-                    function(e) {
-                        emit(e, 1)
-                    }
-                )
-            }
-        ''')
-        func_reduce = Code('''
-            function(key, value) {
-                return Array.sum(value)
-            }
-        ''')
-        result = m.tickets.map_reduce(func_map, func_reduce, "aggregation_rent_request", query={
-            "type": "rent_intention",
-            "interested_rent_tickets": {"$exists": True},
-            "status": {
-                "$in": [
-                    "requested",
-                    "agreed",
-                    "rejected",
-                    "assigned",
-                    "examined",
-                    "rent"
-                ]
-            }
-        })
-        aggregation_rent_request_count_sort = []
-        for single in result.find().sort('value', -1):
-            rent_ticket_id = single['_id']
-            count = single['value']
-            aggregation_rent_request_count_sort.append({
-                'ticket_id': rent_ticket_id,
-                'title': f_app.ticket.get(rent_ticket_id).get('title', ''),
-                'count': count
-            })
-        value.update({'aggregation_rent_request_count_sort': aggregation_rent_request_count_sort})
-
-        cursor = m.users.aggregate([
-            {"$unwind": "$user_type"},
-            {"$group": {"_id": "$user_type", "count": {"$sum": 1}}}
-        ])
-        user_type = []
-        for document in cursor:
-            user_type.append({"type": f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'],
-                              "total": document['count']})
-        cursor.close()
-        for single in user_type:
-            if single['type'] == '租客':
-                percent_base = single['total']
-        result = m.tickets.find({
-            "type": "rent_intention",
-            "interested_rent_tickets": {"$exists": True},
-            "status": {
-                "$in": [
-                    "requested",
-                    "agreed",
-                    "rejected",
-                    "assigned",
-                    "examined",
-                    "rent"
-                ]
-            }
-        })
-        user_set = set()
-        get_request_period = []
-        for single in result:
-            user_set.add(single['user_id'])
-            for ticket_id in single['interested_rent_tickets']:
-                time_end = single.get('time', None)
-                time_start = f_app.ticket.get(ticket_id).get('time', None)
-                if time_end is not None and time_start is not None:
-                    get_request_period.append(time_end - time_start)
-        value.update({'aggregation_rent_request_user_ratio': len(user_set)*1.0/percent_base})
-        average = sum(get_request_period, timedelta())/len(get_request_period)
-        value.update({'aggregation_rent_request_average_period': unicode(average)})
-    return value
+        cursor = m.tickets.aggregate(
+            [
+                {'$match': {'status': 'requested'}}
+            ]
+        )
+        cursor.count()
 
 
 @f_api('/aggregation-email-detail', params=dict(
