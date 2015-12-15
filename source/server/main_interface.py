@@ -1367,7 +1367,7 @@ def aggregation_rent_request(user):
                     get_request_period.append(time_end - time_start)
         value.update({'aggregation_rent_request_user_ratio': len(user_set)*1.0/percent_base})
         average = sum(get_request_period, timedelta())/len(get_request_period)
-        value.update({'aggregation_rent_request_average_period': unicode(average)})
+        value.update({'aggregation_rent_request_average_period': average})
 
         result = m.tickets.find({
             "type": "rent_intention",
