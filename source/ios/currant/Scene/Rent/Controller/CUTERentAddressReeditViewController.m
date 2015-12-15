@@ -75,6 +75,7 @@
     mapController.form = mapForm;
     mapController.hidesBottomBarWhenPushed = YES;
 
+    NSString *oldPostcode = form.postcode;
     [mapController aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionAfter | AspectOptionAutomaticRemoval usingBlock:^(id<AspectInfo> info) {
         [SVProgressHUD show];
         [[form updateWithTicket:form.ticket] continueWithBlock:^id(BFTask *task) {
@@ -91,6 +92,12 @@
                 [SVProgressHUD dismiss];
                 [self.formController updateSections];
                 [self.tableView reloadData];
+
+                if (![oldPostcode isEqualToString:form.postcode]) {
+                    if (self.notifyPostcodeChangedBlock) {
+                        self.notifyPostcodeChangedBlock();
+                    }
+                }
             }
 
             return task;
