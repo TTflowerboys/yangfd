@@ -75,8 +75,6 @@
     mapController.form = mapForm;
     mapController.hidesBottomBarWhenPushed = YES;
 
-
-    //TODO need?
     [mapController aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionAfter | AspectOptionAutomaticRemoval usingBlock:^(id<AspectInfo> info) {
         [SVProgressHUD show];
         [[form updateWithTicket:form.ticket] continueWithBlock:^id(BFTask *task) {
