@@ -1883,7 +1883,10 @@ def user_rent_intention(user, params):
                          ticket.get("zipcode_index", '')])
 
     def get_all_rent_intention(days):
-        params = {"type": "rent_intention"}
+        params = {
+            "type": "rent_intention",
+            "interested_rent_tickets": {"$exists": False}
+        }
         if days > 0:
             time_now = datetime.utcnow()
             time_diff = timedelta(days=days)
