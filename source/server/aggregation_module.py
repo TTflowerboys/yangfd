@@ -412,7 +412,7 @@ class aggregation_plugin(f_app.plugin_base):
             f_app.user.analyze.data_update(user_id, {"analyze_rent_intention_favorite_times": True})
         elif params.get('type', None) == "property":
             old_value = f_app.user.get(user_id).get('analyze_rent_intention_favorite_times', 0)
-            f_app.user.update(user_id, {'analyze_rent_intention_favorite_times': old_value + 1})
+            f_app.user.update_set(user_id, {'analyze_rent_intention_favorite_times': old_value + 1})
             f_app.analyze.data_set_modif_time(user_id, 'analyze_rent_intention_favorite_times')
         return params
 
