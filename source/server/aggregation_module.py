@@ -402,7 +402,7 @@ class aggregation_plugin(f_app.plugin_base):
         elif downloaded == '未下载':  # once know there was updated already, then do jugement base on this record only
             if params.get('type', None) == "view_rent_ticket_contact_info" and params.get('tag', None) == "download_ios_app":
                 f_app.user.update_set(user_id, {'analyze_guest_downloaded': "已下载"})
-                f_app.analyze.data_set_modif_time(user_id, 'analyze_guest_downloaded')  # only for update modif time
+                f_app.user.analyze.data_set_modif_time(user_id, 'analyze_guest_downloaded')  # only for update modif time
         return params
 
     def user_favorite_add_after(self, params):
@@ -413,7 +413,7 @@ class aggregation_plugin(f_app.plugin_base):
         elif params.get('type', None) == "property":
             old_value = f_app.user.get(user_id).get('analyze_rent_intention_favorite_times', 0)
             f_app.user.update_set(user_id, {'analyze_rent_intention_favorite_times': old_value + 1})
-            f_app.analyze.data_set_modif_time(user_id, 'analyze_rent_intention_favorite_times')
+            f_app.user.analyze.data_set_modif_time(user_id, 'analyze_rent_intention_favorite_times')
         return params
 
     def log_add_after(self, user_id, log_type, **kwargs):
