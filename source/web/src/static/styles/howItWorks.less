@@ -96,7 +96,7 @@
                 display: block !important;
             }
             &.active {
-                max-height: 220vw;
+                max-height: 250vw;
                 .icon-up_arrow2{
                     display: block !important;
                 }
@@ -140,21 +140,29 @@
                 margin-bottom: 9.375vw;
             }
             h3{
+                display: table-cell;
+                height: 88px;
+                line-height: 1.4;
+                vertical-align: bottom;
                 padding-bottom: 15px;
                 font-size: 26px;
                 color: #b1000e;
-                border-bottom: 1px solid #666;
+
                 @media @phone{
+                    display: block;
+                    height: auto;
                     padding-bottom: 3vw;
                     font-size: 4.7vw
                 }
             }
             p{
-                margin: 18px 0;
+                margin: 0;
+                padding: 18px 0;
                 font-size: 14px;
                 color: #999;
+                border-top: 1px solid #666;
                 @media @phone{
-                    margin: 2.2vw 0;
+                    padding: 2.2vw 0;
                     font-size: 3.5vw
                 }
             }
@@ -169,7 +177,7 @@
         }
         .arrow{
             display: inline-block;
-            margin-top: 34px;
+            margin: 68px 0px auto;
             vertical-align: top;
             font-size: 40px;
             color: #cccccc;
@@ -182,7 +190,7 @@
         }
         &.tight .arrow{
             font-size: 40px;
-            margin: 36px 10px auto;
+            margin: 68px 10px auto;
             @media @phone{
                 margin-top: 0;
                 margin-bottom: 9.375vw;
