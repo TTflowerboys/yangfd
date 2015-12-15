@@ -14,7 +14,7 @@
 #import "CUTERentTicketPublisher.h"
 #import "CUTENotificationKey.h"
 #import "CUTERentTypeListViewController.h"
-#import "CUTERentAddressMapViewController.h"
+#import "CUTERentMapEditViewController.h"
 #import "CUTEWebViewController.h"
 #import "CUTERentContactDisplaySettingForm.h"
 #import "Sequencer.h"

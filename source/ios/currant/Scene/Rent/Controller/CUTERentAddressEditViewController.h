@@ -9,13 +9,8 @@
 #import "FXForms.h"
 #import "CUTEEnum.h"
 #import "CUTETicket.h"
-#import "CUTEFormViewController.h"
+#import "CUTERentAddressBaseViewController.h"
 
-@interface CUTERentAddressEditViewController : CUTEFormViewController
-
-@property (nonatomic, copy) dispatch_block_t updateAddressCompletion;
-
-@property (nonatomic, copy) dispatch_block_t notifyPostcodeChangedBlock;
-
+@interface CUTERentAddressEditViewController : CUTERentAddressBaseViewController
 
 @end

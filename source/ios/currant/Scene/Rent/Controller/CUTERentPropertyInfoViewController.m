@@ -31,10 +31,10 @@
 #import "CUTEUnfinishedRentTicketListViewController.h"
 #import "CUTERentTypeListViewController.h"
 #import "CUTERentTypeListForm.h"
-#import "CUTERentAddressMapViewController.h"
+#import "CUTERentMapEditViewController.h"
 #import "CUTENotificationKey.h"
 #import "CUTERentTicketPublisher.h"
-#import "CUTERentAddressEditViewController.h"
+#import "CUTERentAddressReeditViewController.h"
 #import "CUTERentAddressEditForm.h"
 #import "CUTENavigationUtil.h"
 #import "CUTERentTicketPreviewViewController.h"
@@ -496,7 +496,7 @@
 }
 
 - (void)editAddress {
-    CUTERentAddressEditViewController *controller = [[CUTERentAddressEditViewController alloc] init];
+    CUTERentAddressReeditViewController *controller = [[CUTERentAddressReeditViewController alloc] init];
     CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
     form.ticket = self.form.ticket;
     form.singleUseForReedit = YES;

@@ -9,7 +9,7 @@
 #import "CUTERentTypeListForm.h"
 #import "CUTECommonMacro.h"
 #import "CUTEFormRentTypeCell.h"
-#import "CUTERentAddressMapViewController.h"
+#import "CUTERentMapEditViewController.h"
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTEEnum.h"
 

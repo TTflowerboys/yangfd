@@ -34,7 +34,7 @@
 #import "MasonryMake.h"
 #import "CUTETracker.h"
 #import "CUTERentTypeListViewController.h"
-#import "CUTERentAddressMapViewController.h"
+#import "CUTERentMapEditViewController.h"
 #import "CUTEUserDefaultKey.h"
 #import "CUTEApplyBetaRentingForm.h"
 #import <ALActionBlocks.h>

@@ -13,7 +13,7 @@
 #import "CUTEAPICacheManager.h"
 #import "CUTETicket.h"
 #import "CUTERentTypeListForm.h"
-#import "CUTERentAddressMapViewController.h"
+#import "CUTERentMapEditViewController.h"
 #import "CUTECommonMacro.h"
 #import "CUTEFormRentTypeCell.h"
 #import "CUTENotificationKey.h"
@@ -148,7 +148,7 @@
     }
     else  {
         form.ticket.rentType = form.rentType;
-        CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
+        CUTERentMapEditViewController *mapController = [CUTERentMapEditViewController new];
         CUTERentAddressMapForm *mapForm = [CUTERentAddressMapForm new];
         mapForm.ticket = form.ticket;
         mapController.form = mapForm;

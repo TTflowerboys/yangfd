@@ -22,7 +22,7 @@
 #import "CUTENotificationKey.h"
 #import "CUTETracker.h"
 #import "CUTERentTypeListViewController.h"
-#import "CUTERentAddressMapViewController.h"
+#import "CUTERentMapEditViewController.h"
 #import "CUTERentContactViewController.h"
 #import "CUTERentPasswordViewController.h"
 #import "CUTERentPasswordForm.h"

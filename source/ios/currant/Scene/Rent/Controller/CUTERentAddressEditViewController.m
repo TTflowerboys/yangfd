@@ -14,14 +14,8 @@
 #import "CUTEDataManager.h"
 #import "CUTERentTicketPublisher.h"
 #import "CUTENotificationKey.h"
-#import "CUTEAPIManager.h"
-#import "CUTEAPICacheManager.h"
-#import <Sequencer.h>
-#import "CUTETracker.h"
-#import "CUTEAPIManager.h"
 #import <UIAlertView+Blocks.h>
 #import "CUTEPlacemark.h"
-#import "CUTERentAddressMapViewController.h"
 #import "NSArray+ObjectiveSugar.h"
 #import "CUTEPostcodePlace.h"
 #import "CUTEAddressUtil.h"
@@ -30,9 +24,6 @@
 #import "currant-Swift.h"
 
 @interface CUTERentAddressEditViewController () {
-
-
-    BOOL _updateLocationFromAddressFailed;
 }
 
 @end
@@ -40,68 +31,24 @@
 
 @implementation CUTERentAddressEditViewController
 
+#pragma -mark Lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-
     self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
 
-    if (!form.singleUseForReedit) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"RentAddressEdit/继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
-    }
-    self.tableView.accessibilityIdentifier = STR(@"RentAddressEdit/地址编辑表单");
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"RentAddressEdit/继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-
-    if (self.updateAddressCompletion) {
-        self.updateAddressCompletion();
-    }
-}
+#pragma -mark Action
 
 - (void)onLeftButtonPressed:(id)sender {
-
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     if (IsNilNullOrEmpty(self.form.ticket.property.zipcode)) {
         [UIAlertView showWithTitle:STR(@"RentAddressEdit/请填写Postcode") message:nil cancelButtonTitle:nil otherButtonTitles:@[STR(@"RentAddressEdit/OK")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
         }];
         return;
     }
-    else if (form.singleUseForReedit && _updateLocationFromAddressFailed) {
-
-        [UIAlertView showWithTitle:STR(@"RentAddressEdit/新Postcode定位失败，前往地图手动修改房产位置，返回房产信息则不添加房产位置") message:nil cancelButtonTitle:STR(@"RentAddressEdit/返回") otherButtonTitles:@[STR(@"RentAddressEdit/前往地图")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-
-            if (buttonIndex == alertView.cancelButtonIndex) {
-                [self clearTicketLocation];
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-            else {
-                [self onLocationEdit:nil];
-            }
-        }];
-
-        _updateLocationFromAddressFailed = NO;
-        return;
-    }
-    else if (form.singleUseForReedit && (IsNilOrNull(self.form.ticket.property.latitude) || IsNilOrNull(self.form.ticket.property.longitude))) {
-
-        [UIAlertView showWithTitle:STR(@"RentAddressEdit/请前往地图手动修改房产位置，返回房产信息则不添加房产位置") message:nil cancelButtonTitle:STR(@"RentAddressEdit/返回") otherButtonTitles:@[STR(@"RentAddressEdit/前往地图")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-
-            if (buttonIndex == alertView.cancelButtonIndex) {
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-            else {
-                [self onLocationEdit:nil];
-            }
-        }];
-        return;
-    }
-    else if (!form.singleUseForReedit && (IsNilOrNull(self.form.ticket.property.latitude) || IsNilOrNull(self.form.ticket.property.longitude))) {
+    else if ((IsNilOrNull(self.form.ticket.property.latitude) || IsNilOrNull(self.form.ticket.property.longitude))) {
         [UIAlertView showWithTitle:STR(@"RentAddressEdit/定位不到房产位置，请返回地图更新房产位置") message:nil cancelButtonTitle:nil otherButtonTitles:@[STR(@"RentAddressEdit/返回")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
             [self.navigationController popViewControllerAnimated:YES];
         }];
@@ -119,8 +66,7 @@
 
 
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-
-    if (!form.singleUseForReedit && _updateLocationFromAddressFailed) {
+    if (self.updateLocationFromAddressFailed) {
         [UIAlertView showWithTitle:STR(@"RentAddressEdit/新Postcode定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"RentAddressEdit/返回") otherButtonTitles:@[STR(@"RentAddressEdit/下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == alertView.cancelButtonIndex) {
                 [self.navigationController popViewControllerAnimated:YES];
@@ -131,7 +77,7 @@
             }
         }];
 
-        _updateLocationFromAddressFailed = NO;
+        self.updateLocationFromAddressFailed = NO;
         return;
     }
     else if (IsNilOrNull(form.ticket.property.latitude) || IsNilOrNull(form.ticket.property.longitude)) {
@@ -149,394 +95,5 @@
     
     [self createTicket];
 }
-
-
-- (void)updateAddressWhenCountryChange:(CUTECountry *)newCountry {
-    [SVProgressHUD show];
-    [[[CUTEAPICacheManager sharedInstance] getCitiesByCountry:newCountry] continueWithBlock:^id(BFTask *task) {
-        if (task.error) {
-            [SVProgressHUD showErrorWithError:task.error];
-        }
-        else if (task.exception) {
-            [SVProgressHUD showErrorWithException:task.exception];
-        }
-        else if (task.isCancelled) {
-            [SVProgressHUD showErrorWithCancellation];
-        }
-        else {
-            [SVProgressHUD dismiss];
-
-            CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-            [form setCity:nil];
-            [form setAllCities:task.result];
-            form.postcode = nil;
-            [form setNeighborhood:nil];
-            [form setAllNeighborhoods:nil];
-            form.street = nil;
-            form.community = nil;
-            form.floor = nil;
-            form.houseName = nil;
-
-            [form syncTicketWithBlock:^(CUTETicket *ticket) {
-                ticket.property.country = newCountry;
-                ticket.property.city = nil;
-                ticket.property.zipcode = nil;
-                ticket.property.neighborhood = nil;
-                ticket.property.street = nil;
-                ticket.property.community = nil;
-                ticket.property.floor = nil;
-                ticket.property.houseName = nil;
-                ticket.property.latitude = nil;
-                ticket.property.longitude = nil;
-            }];
-            
-            [self.formController updateSections];
-            [self.tableView reloadData];
-        }
-
-        return task;
-    }];
-
-}
-
-- (void)updateAddressWhenCityChange:(CUTECity *)newCity {
-
-    [SVProgressHUD show];
-    [[[CUTEAPICacheManager sharedInstance] getNeighborhoodByCity:newCity] continueWithBlock:^id(BFTask *task) {
-        if (task.error) {
-            [SVProgressHUD showErrorWithError:task.error];
-        }
-        else if (task.exception) {
-            [SVProgressHUD showErrorWithException:task.exception];
-        }
-        else if (task.isCancelled) {
-            [SVProgressHUD showErrorWithCancellation];
-        }
-        else {
-            [SVProgressHUD dismiss];
-
-            CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-            [form setAllNeighborhoods:task.result];
-            form.postcode = nil;
-            form.neighborhood = nil;
-            form.street = nil;
-            form.community = nil;
-            form.floor = nil;
-            form.houseName = nil;
-
-            [form syncTicketWithBlock:^(CUTETicket *ticket) {
-                ticket.property.city = newCity;
-                ticket.property.zipcode = nil;
-                ticket.property.neighborhood = nil;
-                ticket.property.street = nil;
-                ticket.property.community = nil;
-                ticket.property.floor = nil;
-                ticket.property.houseName = nil;
-                ticket.property.latitude = nil;
-                ticket.property.longitude = nil;
-            }];
-            
-            [self.formController updateSections];
-            [self.tableView reloadData];
-        }
-
-        return task;
-    }];
-}
-
-- (void)updateAddressWhenPostcodeChange:(NSString *)newPostcode {
-    Sequencer *sequencer = [Sequencer new];
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [SVProgressHUD showWithStatus:STR(@"RentAddressEdit/搜索中...")];
-        [[self updateLocationWhenPostcodeChange:newPostcode] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-            else if (task.exception) {
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [SVProgressHUD showErrorWithCancellation];
-            }
-            else {
-                CUTEPostcodePlace *place = task.result;
-                CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-                if (place && [place isKindOfClass:[CUTEPostcodePlace class]]) {
-                    form.neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
-
-                    [form syncTicketWithBlock:^(CUTETicket *ticket) {
-                        ticket.property.zipcode = newPostcode;
-                        ticket.property.latitude = place.latitude;
-                        ticket.property.longitude = place.longitude;
-                        ticket.property.neighborhood = IsArrayNilOrEmpty(place.neighborhoods)? nil: [place.neighborhoods firstObject];
-                    }];
-
-                    [self.tableView reloadData];
-                    _updateLocationFromAddressFailed = NO;
-
-                    if (self.notifyPostcodeChangedBlock) {
-                        self.notifyPostcodeChangedBlock();
-                    }
-                    completion(nil);
-                }
-                else {
-
-                    [form syncTicketWithBlock:^(CUTETicket *ticket) {
-                        ticket.property.zipcode = newPostcode;
-                        ticket.property.latitude = nil;
-                        ticket.property.longitude = nil;
-                        ticket.property.neighborhood = nil;
-                    }];
-
-                    //some postcode don't existed in our database, like n16az, so only let user to change location in the map
-                    [SVProgressHUD showErrorWithStatus:STR(@"RentAddressEdit/新Postcode定位失败，前往地图手动修改房产位置")];
-
-                    if (self.notifyPostcodeChangedBlock) {
-                        self.notifyPostcodeChangedBlock();
-                    }
-                    _updateLocationFromAddressFailed = YES;
-                }
-
-            }
-            return task;
-        }];
-    }];
-
-    [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEGeoManager sharedInstance] reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:self.form.ticket.property.latitude.doubleValue longitude:self.form.ticket.property.longitude.doubleValue] cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-            else if (task.exception) {
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [SVProgressHUD showErrorWithCancellation];
-            }
-            else {
-                [SVProgressHUD dismiss];
-                
-                CUTEPlacemark *detailPlacemark = task.result;
-                CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-                CUTEProperty *property = form.ticket.property;
-                NSString *street = property.neighborhood == nil? [CUTEAddressUtil buildAddress:@[NilNullToEmpty(detailPlacemark.street), NilNullToEmpty(detailPlacemark.neighborhood)]]: [CUTEAddressUtil buildAddress:@[NilNullToEmpty(detailPlacemark.street), NilNullToEmpty([(CUTENeighborhood *)property.neighborhood name])]];
-                form.street = street;
-
-                [form syncTicketWithBlock:^(CUTETicket *ticket) {
-                    ticket.property.street = form.street;
-                }];
-
-                [self.tableView reloadData];
-            }
-
-            return task;
-        }];
-    }];
-    
-    [sequencer run];
-}
-
-- (BFTask *)updateLocationWhenPostcodeChange:(NSString *)newPostcode {
-    BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
-
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    NSString *postCodeIndex = [[newPostcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
-    if (form.ticket.property.country && !IsNilNullOrEmpty(postCodeIndex)) {
-        [[[CUTEGeoManager sharedInstance] searchPostcodeIndex:postCodeIndex countryCode:form.ticket.property.country.ISOcountryCode cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
-            NSArray *places = (NSArray *)task.result;
-            if (!IsArrayNilOrEmpty(places)) {
-                [tcs setResult:places.firstObject];
-            }
-            else {
-                [tcs setError:task.error];
-            }
-            return task;
-        }];
-    }
-    else {
-        [tcs setError:[NSError errorWithDomain:@"CUTE" code:-1 userInfo:nil]];
-    }
-
-    return tcs.task;
-}
-
-
-- (void)onCountryEdit:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-
-    if (![self.form.country isEqual:form.ticket.property.country]) {
-        [self updateAddressWhenCountryChange:self.form.country];
-    }
-}
-
-- (void)onCityEdit:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-
-    if (![form.city isEqual:form.ticket.property.city]) {
-        [self updateAddressWhenCityChange:form.city];
-    }
-}
-
-
-- (void)onPostcodeEdit:(id)sender {
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    if (IsNilNullOrEmpty(form.postcode)) {
-        [form syncTicketWithBlock:^(CUTETicket *ticket) {
-            ticket.property.zipcode = nil;
-        }];
-    }
-    else if (!IsNilNullOrEmpty(form.postcode) && ![form.postcode isEqualToString:form.ticket.property.zipcode]) {
-        [self updateAddressWhenPostcodeChange:form.postcode];
-    }
-}
-
-- (void)onNeighborhoodEdit:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    [form syncTicketWithBlock:^(CUTETicket *ticket) {
-        ticket.property.neighborhood = form.neighborhood;
-    }];
-}
-
-- (void)onStreetEdit:(id)sender {
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    [form syncTicketWithBlock:^(CUTETicket *ticket) {
-        ticket.property.street = form.street;
-    }];
-}
-
-- (void)onHouseNameEdit:(id)sender {
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    [form syncTicketWithBlock:^(CUTETicket *ticket) {
-        ticket.property.houseName = form.houseName;
-    }];
-}
-
-- (void)onCommunityEdit:(id)sender {
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    [form syncTicketWithBlock:^(CUTETicket *ticket) {
-        ticket.property.community = form.community;
-    }];
-}
-
-- (void)onFloorEdit:(id)sender {
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    [form syncTicketWithBlock:^(CUTETicket *ticket) {
-        ticket.property.floor = form.floor;
-    }];
-}
-
--  (void)clearTicketLocation {
-
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    [form syncTicketWithBlock:^(CUTETicket *ticket) {
-        ticket.property.latitude = nil;
-        ticket.property.longitude = nil;
-    }];
-}
-
-- (void)onLocationEdit:(id)sender {
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    CUTERentAddressMapViewController *mapController = [CUTERentAddressMapViewController new];
-    CUTERentAddressMapForm *mapForm = [CUTERentAddressMapForm new];
-    mapForm.ticket = form.ticket;
-    mapController.form = mapForm;
-    mapController.hidesBottomBarWhenPushed = YES;
-    mapController.singleUseForReedit = [(CUTERentAddressEditForm *)self.formController.form singleUseForReedit];
-
-    [mapController aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionAfter | AspectOptionAutomaticRemoval usingBlock:^(id<AspectInfo> info) {
-        [SVProgressHUD show];
-        [[form updateWithTicket:form.ticket] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-            else if (task.exception) {
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [SVProgressHUD showErrorWithCancellation];
-            }
-            else {
-                [SVProgressHUD dismiss];
-                [self.formController updateSections];
-                [self.tableView reloadData];
-            }
-
-            return task;
-        }];
-    } error:nil];
-
-    [self.navigationController pushViewController:mapController animated:YES];
-}
-
-- (CUTERentAddressEditForm *)form {
-    return (CUTERentAddressEditForm *)self.formController.form;
-}
-
-- (BOOL)validateForm {
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    CUTEProperty *property = [form.ticket property];
-
-    if (!property.country) {
-        [SVProgressHUD showErrorWithStatus:STR(@"RentAddressEdit/请填写国家")];
-        return NO;
-    }
-    if (!property.city) {
-        [SVProgressHUD showErrorWithStatus:STR(@"RentAddressEdit/请填写城市")];
-        return NO;
-    }
-    if (!property.zipcode) {
-        [SVProgressHUD showErrorWithStatus:STR(@"RentAddressEdit/请填写Postcode")];
-        return NO;
-    }
-
-    return YES;
-}
-
-- (void)createTicket {
-    CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
-    CUTETicket *currentTicket = form.ticket;
-    if (currentTicket) {
-        if (IsNilNullOrEmpty(currentTicket.identifier)) {
-            [SVProgressHUD show];
-            Sequencer *sequencer = [Sequencer new];
-            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                [[[CUTERentTicketPublisher sharedInstance] createTicket:currentTicket] continueWithBlock:^id(BFTask *task) {
-                    if (task.error || task.exception || task.isCancelled) {
-                        [SVProgressHUD showErrorWithError:task.error];
-                    }
-                    else {
-                        CUTETicket *newTicket = task.result;
-                        currentTicket.identifier = newTicket.identifier;
-                        currentTicket.property.identifier = newTicket.property.identifier;
-                        [[CUTEDataManager sharedInstance] saveRentTicket:newTicket];
-                        if ([CUTEDataManager sharedInstance].user) {
-                            [NotificationCenter postNotificationName:KNOTIF_MARK_USER_AS_LANDLORD object:self userInfo:@{@"user": [CUTEDataManager sharedInstance].user}];
-                        }
-                        completion(currentTicket);
-                    }
-                    return nil;
-                }];
-            }];
-
-            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                CUTETicket *ticket = result;
-                [SVProgressHUD dismiss];
-                TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
-                [self.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
-            }];
-
-            [sequencer run];
-        }
-        else {
-            CUTETicket *ticket = currentTicket;
-            TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
-            [self.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
-        }
-    }
-}
-
 
 @end

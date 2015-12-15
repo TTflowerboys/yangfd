@@ -19,7 +19,7 @@
 #import "CUTERentContactForm.h"
 #import "CUTETracker.h"
 #import "CUTERentTypeListViewController.h"
-#import "CUTERentAddressMapViewController.h"
+#import "CUTERentMapEditViewController.h"
 #import <NSArray+ObjectiveSugar.h>
 #import "CUTERentContactDisplaySettingViewController.h"
 #import "currant-Swift.h"

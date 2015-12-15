@@ -543,6 +543,22 @@
 		2CC1F3191C1C224A00611784 /* CUTERentTicketEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F3171C1C224A00611784 /* CUTERentTicketEditor.m */; };
 		2CC1F31A1C1C224A00611784 /* CUTERentTicketEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F3171C1C224A00611784 /* CUTERentTicketEditor.m */; };
 		2CC1F31B1C1C224A00611784 /* CUTERentTicketEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F3171C1C224A00611784 /* CUTERentTicketEditor.m */; };
+		2CC1F31E1C1FC56D00611784 /* CUTERentMapReeditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F31D1C1FC56D00611784 /* CUTERentMapReeditViewController.m */; };
+		2CC1F31F1C1FC56D00611784 /* CUTERentMapReeditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F31D1C1FC56D00611784 /* CUTERentMapReeditViewController.m */; };
+		2CC1F3201C1FC56D00611784 /* CUTERentMapReeditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F31D1C1FC56D00611784 /* CUTERentMapReeditViewController.m */; };
+		2CC1F3211C1FC56D00611784 /* CUTERentMapReeditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F31D1C1FC56D00611784 /* CUTERentMapReeditViewController.m */; };
+		2CC1F3241C1FC7B100611784 /* CUTERentMapBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F3231C1FC7B100611784 /* CUTERentMapBaseViewController.m */; };
+		2CC1F3251C1FC7B100611784 /* CUTERentMapBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F3231C1FC7B100611784 /* CUTERentMapBaseViewController.m */; };
+		2CC1F3261C1FC7B100611784 /* CUTERentMapBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F3231C1FC7B100611784 /* CUTERentMapBaseViewController.m */; };
+		2CC1F3271C1FC7B100611784 /* CUTERentMapBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F3231C1FC7B100611784 /* CUTERentMapBaseViewController.m */; };
+		2CC1F32A1C1FD26400611784 /* CUTERentAddressBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F3291C1FD26400611784 /* CUTERentAddressBaseViewController.m */; };
+		2CC1F32B1C1FD26400611784 /* CUTERentAddressBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F3291C1FD26400611784 /* CUTERentAddressBaseViewController.m */; };
+		2CC1F32C1C1FD26400611784 /* CUTERentAddressBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F3291C1FD26400611784 /* CUTERentAddressBaseViewController.m */; };
+		2CC1F32D1C1FD26400611784 /* CUTERentAddressBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F3291C1FD26400611784 /* CUTERentAddressBaseViewController.m */; };
+		2CC1F3301C1FD2F800611784 /* CUTERentAddressReeditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F32F1C1FD2F800611784 /* CUTERentAddressReeditViewController.m */; };
+		2CC1F3311C1FD2F800611784 /* CUTERentAddressReeditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F32F1C1FD2F800611784 /* CUTERentAddressReeditViewController.m */; };
+		2CC1F3321C1FD2F800611784 /* CUTERentAddressReeditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F32F1C1FD2F800611784 /* CUTERentAddressReeditViewController.m */; };
+		2CC1F3331C1FD2F800611784 /* CUTERentAddressReeditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1F32F1C1FD2F800611784 /* CUTERentAddressReeditViewController.m */; };
 		2CC3A06E1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
 		2CC3A06F1AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
 		2CC3A0701AF87D74008C9AC8 /* CUTENavigationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */; };
@@ -705,10 +721,10 @@
 		2CF8A5EC1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5AE1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m */; };
 		2CF8A5ED1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5AE1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m */; };
 		2CF8A5EE1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5AE1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m */; };
-		2CF8A5F01AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5B01AF0B40E0080DF10 /* CUTERentAddressMapViewController.m */; };
-		2CF8A5F11AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5B01AF0B40E0080DF10 /* CUTERentAddressMapViewController.m */; };
-		2CF8A5F21AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5B01AF0B40E0080DF10 /* CUTERentAddressMapViewController.m */; };
-		2CF8A5F31AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5B01AF0B40E0080DF10 /* CUTERentAddressMapViewController.m */; };
+		2CF8A5F01AF0B40E0080DF10 /* CUTERentMapEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5B01AF0B40E0080DF10 /* CUTERentMapEditViewController.m */; };
+		2CF8A5F11AF0B40E0080DF10 /* CUTERentMapEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5B01AF0B40E0080DF10 /* CUTERentMapEditViewController.m */; };
+		2CF8A5F21AF0B40E0080DF10 /* CUTERentMapEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5B01AF0B40E0080DF10 /* CUTERentMapEditViewController.m */; };
+		2CF8A5F31AF0B40E0080DF10 /* CUTERentMapEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5B01AF0B40E0080DF10 /* CUTERentMapEditViewController.m */; };
 		2CF8A5F51AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5B21AF0B40E0080DF10 /* CUTERentAreaViewController.m */; };
 		2CF8A5F61AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5B21AF0B40E0080DF10 /* CUTERentAreaViewController.m */; };
 		2CF8A5F71AF0B40E0080DF10 /* CUTERentAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A5B21AF0B40E0080DF10 /* CUTERentAreaViewController.m */; };
@@ -1130,6 +1146,14 @@
 		2CBF30B61B945A2E00EB2D51 /* CUTEWebArchiveManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEWebArchiveManager.m; sourceTree = "<group>"; };
 		2CC1F3161C1C224A00611784 /* CUTERentTicketEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentTicketEditor.h; sourceTree = "<group>"; };
 		2CC1F3171C1C224A00611784 /* CUTERentTicketEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentTicketEditor.m; sourceTree = "<group>"; };
+		2CC1F31C1C1FC56D00611784 /* CUTERentMapReeditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentMapReeditViewController.h; sourceTree = "<group>"; };
+		2CC1F31D1C1FC56D00611784 /* CUTERentMapReeditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentMapReeditViewController.m; sourceTree = "<group>"; };
+		2CC1F3221C1FC7B100611784 /* CUTERentMapBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentMapBaseViewController.h; sourceTree = "<group>"; };
+		2CC1F3231C1FC7B100611784 /* CUTERentMapBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentMapBaseViewController.m; sourceTree = "<group>"; };
+		2CC1F3281C1FD26400611784 /* CUTERentAddressBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentAddressBaseViewController.h; sourceTree = "<group>"; };
+		2CC1F3291C1FD26400611784 /* CUTERentAddressBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentAddressBaseViewController.m; sourceTree = "<group>"; };
+		2CC1F32E1C1FD2F800611784 /* CUTERentAddressReeditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentAddressReeditViewController.h; sourceTree = "<group>"; };
+		2CC1F32F1C1FD2F800611784 /* CUTERentAddressReeditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentAddressReeditViewController.m; sourceTree = "<group>"; };
 		2CC3A06C1AF87D74008C9AC8 /* CUTENavigationUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTENavigationUtil.h; sourceTree = "<group>"; };
 		2CC3A06D1AF87D74008C9AC8 /* CUTENavigationUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTENavigationUtil.m; sourceTree = "<group>"; };
 		2CC3A07A1AF8D90E008C9AC8 /* NSURL+QueryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+QueryParser.h"; sourceTree = "<group>"; };
@@ -1218,8 +1242,8 @@
 		2CF8A5AC1AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentPropertyMoreInfoViewController.m; sourceTree = "<group>"; };
 		2CF8A5AD1AF0B40E0080DF10 /* CUTERentAddressEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentAddressEditViewController.h; sourceTree = "<group>"; };
 		2CF8A5AE1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentAddressEditViewController.m; sourceTree = "<group>"; };
-		2CF8A5AF1AF0B40E0080DF10 /* CUTERentAddressMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentAddressMapViewController.h; sourceTree = "<group>"; };
-		2CF8A5B01AF0B40E0080DF10 /* CUTERentAddressMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentAddressMapViewController.m; sourceTree = "<group>"; };
+		2CF8A5AF1AF0B40E0080DF10 /* CUTERentMapEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentMapEditViewController.h; sourceTree = "<group>"; };
+		2CF8A5B01AF0B40E0080DF10 /* CUTERentMapEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentMapEditViewController.m; sourceTree = "<group>"; };
 		2CF8A5B11AF0B40E0080DF10 /* CUTERentAreaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentAreaViewController.h; sourceTree = "<group>"; };
 		2CF8A5B21AF0B40E0080DF10 /* CUTERentAreaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentAreaViewController.m; sourceTree = "<group>"; };
 		2CF8A5B51AF0B40E0080DF10 /* CUTERentPriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTERentPriceViewController.h; sourceTree = "<group>"; };
@@ -1987,10 +2011,18 @@
 				2CC3A0821AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m */,
 				2CF8A5AD1AF0B40E0080DF10 /* CUTERentAddressEditViewController.h */,
 				2CF8A5AE1AF0B40E0080DF10 /* CUTERentAddressEditViewController.m */,
+				2CC1F32E1C1FD2F800611784 /* CUTERentAddressReeditViewController.h */,
+				2CC1F32F1C1FD2F800611784 /* CUTERentAddressReeditViewController.m */,
+				2CC1F3281C1FD26400611784 /* CUTERentAddressBaseViewController.h */,
+				2CC1F3291C1FD26400611784 /* CUTERentAddressBaseViewController.m */,
 				2C0AE1211B1EF20D00A73BE6 /* CUTEFormFieldOptionViewController.h */,
 				2C0AE1221B1EF20D00A73BE6 /* CUTEFormFieldOptionViewController.m */,
-				2CF8A5AF1AF0B40E0080DF10 /* CUTERentAddressMapViewController.h */,
-				2CF8A5B01AF0B40E0080DF10 /* CUTERentAddressMapViewController.m */,
+				2CF8A5AF1AF0B40E0080DF10 /* CUTERentMapEditViewController.h */,
+				2CF8A5B01AF0B40E0080DF10 /* CUTERentMapEditViewController.m */,
+				2CC1F31C1C1FC56D00611784 /* CUTERentMapReeditViewController.h */,
+				2CC1F31D1C1FC56D00611784 /* CUTERentMapReeditViewController.m */,
+				2CC1F3221C1FC7B100611784 /* CUTERentMapBaseViewController.h */,
+				2CC1F3231C1FC7B100611784 /* CUTERentMapBaseViewController.m */,
 				2CF8A5B11AF0B40E0080DF10 /* CUTERentAreaViewController.h */,
 				2CF8A5B21AF0B40E0080DF10 /* CUTERentAreaViewController.m */,
 				2CF8A5B51AF0B40E0080DF10 /* CUTERentPriceViewController.h */,
@@ -2777,6 +2809,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CC1F3201C1FC56D00611784 /* CUTERentMapReeditViewController.m in Sources */,
 				2CF234921B57614C00B516E6 /* CUTETicketForm.m in Sources */,
 				2C9F1CFE1B3961410034487F /* CUTEUserAgentUtil.m in Sources */,
 				2C9AFF721AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
@@ -2846,6 +2879,7 @@
 				2C3DE2351B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67EE1B1C085300351DED /* CUTEMapListViewController.m in Sources */,
 				2C9D32241BEC5C6A00424CAC /* CUTEAPIProxyProtocol.swift in Sources */,
+				2CC1F3261C1FC7B100611784 /* CUTERentMapBaseViewController.m in Sources */,
 				2C2FCDDB1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F41AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62E1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
@@ -2858,6 +2892,7 @@
 				2C2895061C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift in Sources */,
 				2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */,
 				2CC3A0851AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
+				2CC1F3321C1FD2F800611784 /* CUTERentAddressReeditViewController.m in Sources */,
 				2CA81FB81B1303BC006E993C /* CUTEPlacemark.m in Sources */,
 				2C9AFF801AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA81F9C1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
@@ -2891,7 +2926,7 @@
 				2CDBA8D11B8D87B500C9D58F /* NSString+Truncate.m in Sources */,
 				2CEFCCB21BE7766000A0F93B /* UIColorExtension.swift in Sources */,
 				2C056D871B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
-				2CF8A5F21AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
+				2CF8A5F21AF0B40E0080DF10 /* CUTERentMapEditViewController.m in Sources */,
 				2C5575F91BF1E8F700A6875E /* CUTESurrounding.m in Sources */,
 				2C96E2761AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2C2D2E281BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift in Sources */,
@@ -2904,6 +2939,7 @@
 				2CAA1D441BA2B31800662BFC /* UIViewController+CUTERouter.swift in Sources */,
 				2CF2348C1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
 				2CE2A9711B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
+				2CC1F32C1C1FD26400611784 /* CUTERentAddressBaseViewController.m in Sources */,
 				2CD15D491B62141700C870C0 /* CUTEActivity.m in Sources */,
 				2CA2E6B41AC5487800053965 /* CUTEConfiguration.m in Sources */,
 				2C86DA561BCF865200B82941 /* CUTESurroundingListViewController.swift in Sources */,
@@ -2959,6 +2995,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CC1F3211C1FC56D00611784 /* CUTERentMapReeditViewController.m in Sources */,
 				2CF234931B57614C00B516E6 /* CUTETicketForm.m in Sources */,
 				2C9F1CFF1B3961410034487F /* CUTEUserAgentUtil.m in Sources */,
 				2C9AFF731AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
@@ -3028,6 +3065,7 @@
 				2C3DE2361B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67EF1B1C085400351DED /* CUTEMapListViewController.m in Sources */,
 				2C9D32261BEC5C6B00424CAC /* CUTEAPIProxyProtocol.swift in Sources */,
+				2CC1F3271C1FC7B100611784 /* CUTERentMapBaseViewController.m in Sources */,
 				2C2FCDDC1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F51AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62F1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
@@ -3040,6 +3078,7 @@
 				2C2895071C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift in Sources */,
 				2CA2E6C81AC5496700053965 /* CUTEMapView.m in Sources */,
 				2CC3A0861AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
+				2CC1F3331C1FD2F800611784 /* CUTERentAddressReeditViewController.m in Sources */,
 				2CA81FB91B1303BC006E993C /* CUTEPlacemark.m in Sources */,
 				2C9AFF811AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA81F9D1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
@@ -3073,7 +3112,7 @@
 				2CDBA8D21B8D87B500C9D58F /* NSString+Truncate.m in Sources */,
 				2CEFCCB31BE7766100A0F93B /* UIColorExtension.swift in Sources */,
 				2C056D881B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
-				2CF8A5F31AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
+				2CF8A5F31AF0B40E0080DF10 /* CUTERentMapEditViewController.m in Sources */,
 				2C5575FA1BF1E8F700A6875E /* CUTESurrounding.m in Sources */,
 				2C96E2771AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2C2D2E291BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift in Sources */,
@@ -3086,6 +3125,7 @@
 				2CAA1D451BA2B31900662BFC /* UIViewController+CUTERouter.swift in Sources */,
 				2CF2348D1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
 				2CE2A9721B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
+				2CC1F32D1C1FD26400611784 /* CUTERentAddressBaseViewController.m in Sources */,
 				2CD15D4A1B62141700C870C0 /* CUTEActivity.m in Sources */,
 				2CA2E6CD1AC5496700053965 /* CUTEConfiguration.m in Sources */,
 				2C86DA571BCF865200B82941 /* CUTESurroundingListViewController.swift in Sources */,
@@ -3141,6 +3181,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CC1F31F1C1FC56D00611784 /* CUTERentMapReeditViewController.m in Sources */,
 				2CF234911B57614C00B516E6 /* CUTETicketForm.m in Sources */,
 				2C9F1CFD1B3961400034487F /* CUTEUserAgentUtil.m in Sources */,
 				2C9AFF711AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
@@ -3210,6 +3251,7 @@
 				2C3DE2341B035719006FF191 /* CUTETracker.m in Sources */,
 				2CCE67ED1B1C085300351DED /* CUTEMapListViewController.m in Sources */,
 				2C9D32221BEC5C6A00424CAC /* CUTEAPIProxyProtocol.swift in Sources */,
+				2CC1F3251C1FC7B100611784 /* CUTERentMapBaseViewController.m in Sources */,
 				2C2FCDDA1B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C1E66F31AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62D1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
@@ -3222,6 +3264,7 @@
 				2C2895051C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift in Sources */,
 				2CA94A991ACA42CD00DF7497 /* CUTEMapView.m in Sources */,
 				2CC3A0841AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
+				2CC1F3311C1FD2F800611784 /* CUTERentAddressReeditViewController.m in Sources */,
 				2CA81FB71B1303BC006E993C /* CUTEPlacemark.m in Sources */,
 				2C9AFF7F1AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA81F9B1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
@@ -3255,7 +3298,7 @@
 				2CDBA8D01B8D87B300C9D58F /* NSString+Truncate.m in Sources */,
 				2CEFCCB11BE7765F00A0F93B /* UIColorExtension.swift in Sources */,
 				2C056D861B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
-				2CF8A5F11AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
+				2CF8A5F11AF0B40E0080DF10 /* CUTERentMapEditViewController.m in Sources */,
 				2C5575F81BF1E8F700A6875E /* CUTESurrounding.m in Sources */,
 				2C96E2751AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2C2D2E271BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift in Sources */,
@@ -3268,6 +3311,7 @@
 				2CAA1D431BA2B31700662BFC /* UIViewController+CUTERouter.swift in Sources */,
 				2CF2348B1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
 				2CE2A9701B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
+				2CC1F32B1C1FD26400611784 /* CUTERentAddressBaseViewController.m in Sources */,
 				2CD15D481B62141700C870C0 /* CUTEActivity.m in Sources */,
 				2CA94A9E1ACA42CD00DF7497 /* CUTEConfiguration.m in Sources */,
 				2C86DA551BCF865200B82941 /* CUTESurroundingListViewController.swift in Sources */,
@@ -3323,6 +3367,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CC1F31E1C1FC56D00611784 /* CUTERentMapReeditViewController.m in Sources */,
 				2CF234901B57614C00B516E6 /* CUTETicketForm.m in Sources */,
 				2C9F1CFC1B3961400034487F /* CUTEUserAgentUtil.m in Sources */,
 				2C9AFF701AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
@@ -3392,6 +3437,7 @@
 				2CCE67EC1B1C084A00351DED /* CUTEMapListViewController.m in Sources */,
 				2C2FCDD91B01B0DE002594D7 /* CUTEFormSwitchCell.m in Sources */,
 				2C9D32201BEC5C6200424CAC /* CUTEAPIProxyProtocol.swift in Sources */,
+				2CC1F3241C1FC7B100611784 /* CUTERentMapBaseViewController.m in Sources */,
 				2C1E66F21AE4EEA30014EEA6 /* CUTERentPeriod.m in Sources */,
 				2CF8A62C1AF0B40E0080DF10 /* CUTEFormRentPriceTextFieldCell.m in Sources */,
 				2C9F1D2E1B3BB9800034487F /* YTKKeyValueItem+CUTE.m in Sources */,
@@ -3404,6 +3450,7 @@
 				2C2895041C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift in Sources */,
 				2CC3A0831AFA0663008C9AC8 /* CUTERentTicketPreviewViewController.m in Sources */,
 				2CA81FB61B1303BC006E993C /* CUTEPlacemark.m in Sources */,
+				2CC1F3301C1FD2F800611784 /* CUTERentAddressReeditViewController.m in Sources */,
 				2C9AFF7E1AF2355500E5F0BC /* BBTWebBarButtonItem.m in Sources */,
 				2CA81F9A1B0F244F006E993C /* UIImage+CalculatedSize.m in Sources */,
 				2CB43DDD1ABD4AB4004DF663 /* CUTEWebViewController.m in Sources */,
@@ -3437,7 +3484,7 @@
 				2CDBA8CF1B8D752600C9D58F /* NSString+Truncate.m in Sources */,
 				2C51F1AD1BE755B8007F13FF /* UIColorExtension.swift in Sources */,
 				2C056D851B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
-				2CF8A5F01AF0B40E0080DF10 /* CUTERentAddressMapViewController.m in Sources */,
+				2CF8A5F01AF0B40E0080DF10 /* CUTERentMapEditViewController.m in Sources */,
 				2C5575F71BF1E8F700A6875E /* CUTESurrounding.m in Sources */,
 				2C96E2741AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2C2D2E261BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift in Sources */,
@@ -3450,6 +3497,7 @@
 				2CAA1D3F1BA2B30C00662BFC /* UIViewController+CUTERouter.swift in Sources */,
 				2CF2348A1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
 				2CE2A96F1B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
+				2CC1F32A1C1FD26400611784 /* CUTERentAddressBaseViewController.m in Sources */,
 				2CD15D471B62141700C870C0 /* CUTEActivity.m in Sources */,
 				2CDBB2FD1AC1472E0024E225 /* CUTEConfiguration.m in Sources */,
 				2C86DA541BCF865200B82941 /* CUTESurroundingListViewController.swift in Sources */,
