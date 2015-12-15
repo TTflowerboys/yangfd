@@ -1908,6 +1908,7 @@ def user_rent_intention(user, params):
     def get_all_rent_intention(days):
         params = {
             "type": "rent_intention",
+            "status": "new",
             "interested_rent_tickets": {"$exists": False}
         }
         if days > 0:
