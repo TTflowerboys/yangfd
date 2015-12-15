@@ -1368,6 +1368,29 @@ def aggregation_rent_request(user):
         value.update({'aggregation_rent_request_user_ratio': len(user_set)*1.0/percent_base})
         average = sum(get_request_period, timedelta())/len(get_request_period)
         value.update({'aggregation_rent_request_average_period': unicode(average)})
+
+        result = m.tickets.find({
+            "type": "rent_intention",
+            "interested_rent_tickets": {"$exists": True},
+            "status": {
+                "$in": [
+                    "requested",
+                    "agreed",
+                    "rejected",
+                    "assigned",
+                    "examined",
+                    "rent"
+                ]
+            }
+        })
+        request_count_before_rent_list = []
+        for ticket in result:
+            if ticket['status'] == 'rent':
+                for single in aggregation_rent_request_count_sort:
+                    if single['ticket_id'] in ticket['interested_rent_tickets']:
+                        request_count_before_rent_list.append(single['count'])
+        value.update({"aggregation_rent_request_average_count_before_rent": sum(request_count_before_rent_list)*1.0/len(request_count_before_rent_list) if len(request_count_before_rent_list) else 0})
+
     return value
 
 
