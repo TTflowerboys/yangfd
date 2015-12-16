@@ -50,7 +50,7 @@
     "gulp-html-extend": "https://github.com/Fykec/gulp-html-extend/archive/0.5.1.tar.gz",
     "gulp-if": "^1.2.4",
     "gulp-ignore": "~1.2.0",
-    "gulp-imagemin": "^1.2.1",
+    "gulp-imagemin": "^2.4.0",
     "gulp-img64": "0.0.6",
     "gulp-jshint": "~1.8.4",
     "gulp-less": "~1.3.3",
