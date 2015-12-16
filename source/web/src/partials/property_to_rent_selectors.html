@@ -46,7 +46,7 @@
     <div class="selectWrap hiddenOnMobile">
         <select class="ghostSelect" name="propertyType">
             <option value="" selected>{{_('任意类型房产')}}</option>
-            %for index, property_type in enumerate(property_type_list):
+            %for index, property_type in enumerate(property_type_list_without_new_property):
                 <option value="{{property_type.get('id')}}">{{property_type.get('value')}}</option>
             %end
         </select>

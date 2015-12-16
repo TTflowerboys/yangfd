@@ -27,6 +27,7 @@ def property_to_rent_list(params):
     rent_budget_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_budget'))
     rent_budget_item_list = f_app.i18n.process_i18n(currant_util.get_sorted_enums('rent_budget_item'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
+    property_type_list_without_new_property = filter(lambda item: item.get('slug') != 'new_property', property_type_list)
     country_list = currant_util.get_country_list()
     rent_period_list = f_app.i18n.process_i18n(f_app.enum.get_all("rent_period"))
     bedroom_count_list = f_app.i18n.process_i18n(currant_util.get_sorted_enums("bedroom_count"))
@@ -71,6 +72,7 @@ def property_to_rent_list(params):
                                         rent_budget_list=rent_budget_list,
                                         rent_budget_item_list=rent_budget_item_list,
                                         property_type_list=property_type_list,
+                                        property_type_list_without_new_property=property_type_list_without_new_property,
                                         rent_period_list=rent_period_list,
                                         bedroom_count_list=bedroom_count_list,
                                         building_area_list=building_area_list,
@@ -177,10 +179,11 @@ def property_to_rent_create():
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     landlord_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('landlord_type'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
+    property_type_list_without_new_property = filter(lambda item: item.get('slug') != 'new_property', property_type_list)
     rent = {}
     title = _('出租房源发布')
     return currant_util.common_template("property_to_rent_create", landlord_type_list=landlord_type_list, region_highlight_list=region_highlight_list, rent_period_list=rent_period_list, indoor_facility_list=indoor_facility_list, community_facility_list=community_facility_list, rent_type_list=rent_type_list,
-                                        property_type_list=property_type_list, title=title, rent=rent)
+                                        property_type_list=property_type_list, property_type_list_without_new_property=property_type_list_without_new_property, title=title, rent=rent)
 
 
 @f_get('/property-to-rent/<rent_ticket_id:re:[0-9a-fA-F]{24}>/edit')
@@ -205,8 +208,9 @@ def property_to_rent_edit(rent_ticket_id, user):
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     landlord_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('landlord_type'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
+    property_type_list_without_new_property = filter(lambda item: item.get('slug') != 'new_property', property_type_list)
     return currant_util.common_template("property_to_rent_create", landlord_type_list=landlord_type_list, title=title, keywords=keywords, rent=rent_ticket, region_highlight_list=region_highlight_list, rent_period_list=rent_period_list,
-                                        indoor_facility_list=indoor_facility_list, community_facility_list=community_facility_list, rent_type_list=rent_type_list, property_type_list=property_type_list)
+                                        indoor_facility_list=indoor_facility_list, community_facility_list=community_facility_list, rent_type_list=rent_type_list, property_type_list=property_type_list, property_type_list_without_new_property=property_type_list_without_new_property)
 
 
 @f_get('/property-to-rent/<rent_ticket_id:re:[0-9a-fA-F]{24}>/publish-success')
