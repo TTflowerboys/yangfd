@@ -405,9 +405,16 @@ body {
                 max-width: 100%;
                 display: block;
                 margin: 0 auto;
+                &.withPlaceholder{
+                    background-image: url('/static/images/placeholder/img_rent_detail_holder.png');
+                    background-size: cover;
+                }
                 @media @phone {
                     height: @big-image-height-phone;
                     width: 100%;
+                    &.withPlaceholder {
+                        background-image: url('/static/images/placeholder/img_list_rent_image_holder.png');
+                    }
                 }
 
             }
