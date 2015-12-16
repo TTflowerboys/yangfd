@@ -757,7 +757,7 @@
                             </button>
                         </td>
                         <td style="text-align:right;">
-                            % name = property.get('name','')
+                            % name = property.get('name','').replace("\'", "\\\'")
                             <button class="flatButton orange" onclick="team.shareToWeibo({title:'{{name}}'}) ">
                                 <img src="/static/images/property_details/icon-weibo.png" alt=""/>
                                 {{_('分享到微博')}}
