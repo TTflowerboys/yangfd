@@ -1136,12 +1136,13 @@ def rent_ticket_refresh(ticket_id, user):
     ticket = f_app.ticket.get(ticket_id)
     assert ticket["type"] == "rent", abort(40000, "Invalid rent ticket")
     if ticket.get("creator_user_id") or ticket.get("user_id"):
-        if not user or user["id"] not in (ticket.get("user_id"), ticket.get("creator_user_id")) and not (set(user["role"]) & set(["admin", "jr_admin", "support"])):
+        if not user or user["id"] not in (ticket.get("user_id"), ticket.get("creator_user_id")) and not (set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"])):
             abort(40399, logger.warning("Permission denied", exc_info=False))
 
-    refreshed_today = f_app.log.search({"type": "ticket_refresh", "id": ObjectId(user["id"]), "time": {"$gte": datetime.utcnow() - timedelta(days=1)}}, per_page=1, notime=True)
-    if refreshed_today:
-        abort(40397)
+    if not set(user["role"]) & set(["admin", "jr_admin", "operation", "jr_operation"]):
+        refreshed_today = f_app.log.search({"type": "ticket_refresh", "id": ObjectId(user["id"]), "time": {"$gte": datetime.utcnow() - timedelta(days=1)}}, per_page=1, notime=True)
+        if refreshed_today:
+            abort(40397)
 
     result = f_app.ticket.update_set(ticket_id, {"sort_time": datetime.utcnow()})
     log_params = f_app.plugin_invoke("ticket.add.log_params", {}, ticket_id, ticket, user)
