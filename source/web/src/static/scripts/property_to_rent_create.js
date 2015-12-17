@@ -815,7 +815,7 @@
         var propertyData = getPropertyData({
             'status': 'draft', //将property设置为草稿状态，第二步发布时再不需要设置成草稿状态
         })
-        $btn.prop('disabled', true).text(window.i18n('发布中...'))
+        $btn.prop('disabled', true).text(window.i18n('保存中...'))
         if (!propertyData.latitude || !propertyData.longitude) {
             getLocation(propertyData, submit)
         } else {
@@ -849,7 +849,7 @@
                                 hashRoute.locationHashTo('/publish/' + window.ticketId + '/' + window.propertyId)
                             }
                             $('.buttonLoading').trigger('end')
-                            $btn.prop('disabled', false).text(window.i18n('预览并发布'))
+                            $btn.prop('disabled', false).text(window.i18n('下一步'))
 
                             //
                             ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'first-step', (new Date() - createStartTime)/1000)
@@ -857,12 +857,12 @@
                         .fail(function (ret) {
                             $('.buttonLoading').trigger('end')
                             $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
-                            $btn.prop('disabled', false).text(window.i18n('预览并发布'))
+                            $btn.prop('disabled', false).text(window.i18n('下一步'))
                         })
                 }).fail(function (ret) {
                     $('.buttonLoading').trigger('end')
                     $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
-                    $btn.prop('disabled', false).text(window.i18n('预览并发布'))
+                    $btn.prop('disabled', false).text(window.i18n('下一步'))
                 })
         }
         function getLocation (property, callback) {
@@ -877,7 +877,7 @@
                 .fail(function(ret) {
                     $('.buttonLoading').trigger('end')
                     $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
-                    $btn.prop('disabled', false).text(window.i18n('预览并发布'))
+                    $btn.prop('disabled', false).text(window.i18n('下一步'))
                 })
         }
         return false
