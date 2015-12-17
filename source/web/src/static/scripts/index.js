@@ -517,7 +517,7 @@
         //Send pure property title to GA
         ga('send', 'event', 'index', 'click', 'open-recommended-requirementpopup',$(e.currentTarget).parent().parent().find('.name a').text().replace(/ /g,'').replace(/(\r\n|\n|\r)/gm,''))
     })
-    function initDownloadWrap () {
+    /*function initDownloadWrap () {
         var $downloadWrap = $('.landlordService>.appDownload')
         if(!$downloadWrap.length) {
             return
@@ -537,7 +537,7 @@
     initDownloadWrap()
     $(window).resize(function () {
         initDownloadWrap()
-    })
+    })*/
 
     function initIndexValueSlide() {
         if(window.team.isPhone() && !window.indexValueSlide) {

@@ -36,6 +36,9 @@
                 })
             }
         })
+        this.switch = function (tabName) {
+            $(this).find('[data-tab=' + tabName + ']').trigger(options.trigger)
+        }
         return this
     }
 })(jQuery)
