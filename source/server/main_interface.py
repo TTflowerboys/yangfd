@@ -4,6 +4,7 @@ import logging
 import calendar
 from datetime import datetime
 from datetime import timedelta
+from datetime import date
 from hashlib import sha1
 from lxml import etree
 from six.moves import cStringIO as StringIO
@@ -1765,6 +1766,16 @@ def user_rent_request(user, params):
                                  single_property.get("zipcode_index", '')])
         return ''
 
+    def get_short_id(ticket):
+        if 'property_id' in ticket:
+            try:
+                single_property = f_app.i18n.process_i18n(f_app.property.get(ticket['property_id']))
+            except:
+                return ''
+            else:
+                return single_property.get('short_id', '')
+        return ''
+
     def get_referer_id(ticket):
         ticket_id = ticket['id']
         result = f_app.log.get(f_app.log.search({"ticket_type": "rent_intention", "type": "ticket_add", "ticket_id": ticket_id}))
@@ -1798,6 +1809,22 @@ def user_rent_request(user, params):
             return url.split("ticketId=")[1]
         else:
             return None
+
+    def get_user_age(ticket):
+        if 'date_of_birth' in ticket:
+            birth_date = ticket['date_of_birth'].date()
+            today = date.today()
+            age = today.year - birth_date.year
+            today = today.replace(year=birth_date.year)
+            if today < birth_date and age:
+                age = age - 1
+            return unicode(age)
+        return ''
+
+    def get_user_occupation(ticket):
+        if 'occupation' in ticket:
+            return f_app.enum.get(ticket['occupation']['id'])['value']['zh_Hans_CN']
+        return ''
 
     def format_fit(sheet):
         simsun_font = Font(name="SimSun")
@@ -1844,9 +1871,9 @@ def user_rent_request(user, params):
 
     wb = Workbook()
     ws = wb.active
-    header = ["咨询单状态", "咨询单描述", "咨询人昵称", "咨询人联系方式", "咨询人邮箱", "微信", "提交时间", "起始日期",
+    header = ["咨询单状态", "咨询单描述", "咨询人昵称", "咨询人性别", "咨询人年龄", "咨询人职业", "咨询人联系方式", "咨询人邮箱", "微信", "提交时间", "起始日期",
               "终止日期", "period", "入住人数", "吸烟", "小孩", "宠物", "备注",
-              "房源标题", "房源地址", "房东姓名", "房东电话", "房东邮箱", "房源链接"]
+              "房源标题", "房源地址", "房源短id", "房东姓名", "房东电话", "房东邮箱", "房源链接"]
     ws.append(header)
 
     referer_result = f_app.log.output(f_app.log.search({"route": "/api/1/rent_intention_ticket/add"}, per_page=-1))
@@ -1873,6 +1900,9 @@ def user_rent_request(user, params):
                 get_request_status_translate(ticket_request),
                 ticket_request.get('description', ''),
                 ticket_request.get('nickname', ''),
+                "男" if ticket_request.get('gender', None) == 'male' else "女",
+                get_user_age(ticket_request),
+                get_user_occupation(ticket_request),
                 ticket_request.get('phone', ''),
                 ticket_request.get('email', ''),
                 guest_user.get('wechat', ''),
@@ -1887,6 +1917,7 @@ def user_rent_request(user, params):
                 '',
                 ticket.get('title', ''),
                 get_detail_address(ticket),
+                get_short_id(ticket),
                 landlord_boss.get("nickname", ""),
                 landlord_boss.get("phone", ""),
                 landlord_boss.get("email", ""),
@@ -1894,7 +1925,7 @@ def user_rent_request(user, params):
             ])
 
     format_fit(ws)
-    add_link(ws, 'U')
+    add_link(ws, 'Y')
     out = StringIO(save_virtual_workbook(wb))
     response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
