@@ -557,7 +557,7 @@
                             % title = rent.get('title',u'').replace("\'", "\\\'")
                             <button class="flatButton orange" onclick="team.shareToWeibo({
                                 title:'{{_(u'房东急租，快来围观') + title}}',
-                                url: location.protocol + '//' + location.host + '/wechat-poster/{{rent.get('id')}}',
+                                url: location.protocol + '//' + location.host + '/wechat-poster/{{rent.get('id')}}'
                                 % if rent['property'].get('reality_images'):
                                 ,pic:'{{rent['property'].get('reality_images')[0]}}'
                                 % end
