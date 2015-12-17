@@ -12,6 +12,24 @@
         $('.emailWrap').hide()
     }
 
+    function initSizeOfPhone() {
+        var $phone =$('.wrapRight .phone')
+        var $phoneScreen = $phone.find('.swiper-container')
+        $phone.css('height', '')
+        if($phone.width() / $phone.height() < 391 / 800) {
+            $phone.css('height', ($phone.width() * 800 / 391) + 'px')
+        }
+        $phoneScreen.css('width', ($phoneScreen.height() * 640 / 1136) + 'px')
+    }
+    initSizeOfPhone()
+    $(window).resize(initSizeOfPhone)
+
+    $('.tabWrapper').tabs({trigger: 'click', autoSelectFirst: false, className: 'active'}).on('openTab', function (event, target, tabName) {
+        if(history.pushState){
+            history.pushState({}, null, window.team.setQuery('tab', tabName))
+        }
+    }).switch(window.team.getQuery('tab'))
+
     window.swiper = new Swiper('.appDownloadSwiper', {
         pagination: '.swiper-pagination',
         paginationClickable: true,

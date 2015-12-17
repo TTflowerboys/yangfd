@@ -196,8 +196,8 @@
             overflow: hidden;
 //            height:300px;
             height: auto;
-            padding: 120px 0 50px;
-            background-image: url("/static/images/background/ad_app_bg_mobile.jpg");
+            padding: 90px 0 80px;
+            background-image: url("/static/images/app_download/app_download_page_bg_mobile.jpg");
         }
 
         &:after{
@@ -211,6 +211,18 @@
                 bottom: 0;
                 background-size: 100% 100%;
                 background-image: url("/static/images/background/index_app_quadrangle_mobile_bg.png");
+
+                position: absolute;
+                z-index: 1;
+                content: '';
+                width: 100%;
+                height: 60%;
+                top: 20%;
+                left: 0;
+                background: rgba(88,101,100,0.8);
+                height: auto;
+                top: 180px;
+                bottom: 90px;
             }
         }
 
@@ -235,7 +247,11 @@
                 @media @screen-md{
                     height:450px;
                 }
-
+                .tabWrapper{
+                    .tab{
+                        display: none;
+                    }
+                }
                 .logo {
                     height:88px;
                     width:325px;
@@ -247,9 +263,9 @@
                     }
 
                     @media @phone {
+                        padding: 0;
                         height:44px;
                         width:162px;
-                        margin-bottom:16px;
                     }
                 }
 
@@ -341,6 +357,9 @@
                             }
                         }
                     }
+                }
+                .googlePlay,.qrcode{
+                    display: none;
                 }
             }
         }

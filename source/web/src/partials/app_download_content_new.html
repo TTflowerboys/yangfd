@@ -1,0 +1,115 @@
+%if request.params and request.params.get('target','') == 'user-coupons':
+<div class="userCouponsTop">
+    <p>{{_('下载洋房东APP 立即享受会员专享福利')}}</p>
+    <img src="/static/images/app_download/logo_list.jpg" alt="">
+</div>
+%end
+<div class="wrap wrapLeft">
+    <div class="content">
+        <img class="logo hiddenOnMobile" src="/static/images/logo/logo_app_download.png">
+        <img class="logo hiddenOnPCWeb" src="/static/images/logo/logo_app_download_black.png">
+        <div class="tabWrapper">
+            %if request.params and request.params.get('target','') == 'user-coupons':
+            <p class="title">{{_('洋房东致力于为伦敦房东和租客带来更多专属会员优惠，Keep calm and 用起来：')}}</p>
+            <ul class="text">
+                <li>{{_('/ 下载洋房东App，免费注册为会员 /')}}</li>
+                <li>{{_('/ 在个人中心查看您的会员专享优惠 /')}}</li>
+                <li>{{_('/ 分享优惠券即可立刻使用 /')}}</li>
+                <li>{{_('/ 向商家展示优惠券即可使用 /')}}</li>
+            </ul>
+            %else:
+            <ul class="tab">
+                <li data-tab="tenant" class="active">{{_('我是租客')}}</li>
+                <li data-tab="landlord">{{_('我是房东')}}</li>
+            </ul>
+            <ul class="content">
+                <li data-tab-name="tenant" class="textWrap">
+                    <ul class="text">
+                        <li>/ <strong>{{_('省力')}}</strong> / {{_('实时视频看房带您看尽天下房源')}}</li>
+                        <li>/ <strong>{{_('省时')}}</strong> / {{_('多维度的筛选，帮您轻松锁定心仪房源')}}</li>
+                        <li>/ <strong>{{_('贴心')}}</strong> / {{_('详尽的周边介绍，让您租房无忧')}}</li>
+                        <li>/ <strong>{{_('安全')}}</strong> / {{_('第三方验证房源真实性，房源不一样？退款！')}}</li>
+                    </ul>
+                </li>
+                <li data-tab-name="landlord"  style="display: none" class="textWrap">
+                    <ul class="text">
+                        <li>/ <strong>{{_('高效')}}</strong> / {{_('3分钟极速发布，多渠道推广，一次看房解决出租问题')}}</li>
+                        <li>/ <strong>{{_('优质')}}</strong> / {{_('独有租客筛选系统保证您选到最心仪的租客')}}</li>
+                        <li>/ <strong>{{_('透明')}}</strong> / {{_('成功出租后一次性收取£80 服务费，无任何隐藏费用')}}</li>
+                    </ul>
+                </li>
+            </ul>
+            %end
+        </div>
+        <a class="web buttonWithLine" href="/property-to-rent/create" title="{{_('使用网站发布')}}" data-show-client="pc,ipad">
+            <div class="logo"><i class="icon-pc"></i></div>
+            <div class="downloadInfo">
+                <p>{{_('不便使用手机？')}}</p>
+                <p class="bold">{{_('使用网站发布')}}</p>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+<div class="wrap wrapCenter">
+    <div class="content">
+        <div class="downloadWrap clearfix">
+            <a class="appStore buttonWithLine" href="https://appsto.re/gb/QEmC6.i" title="{{_('进入App Store下载洋房东App')}}" data-show-client="ios,pc,ipad,mobile">
+                <div class="logo"><i class="icon-Apple_logo"></i></div>
+                <div class="downloadInfo">
+                    <p>{{_('点击进入')}}</p>
+                    <p class="bold">App Store</p>
+                </div>
+            </a>
+            <a class="googlePlay buttonWithLine" title="{{_('COMMING SOON ON Google Play')}}" data-show-client="pc">
+                <div class="logo"><i class="icon-android"></i></div>
+                <div class="downloadInfo">
+                    <p>{{_('COMMING SOON ON')}}</p>
+                    <p class="bold">Google Play</p>
+                </div>
+            </a>
+
+            <div class="qrcode" data-show-client="pc"></div>
+            <div class="subscribeAndroid clearfix" data-show-client="android">
+                <h3>{{_('安卓版即将发布，敬请期待！')}}</h3>
+                <input name="email" type="email" placeholder="{{_('留下您的邮箱，适配您的设备后将通知您')}}"/>
+                <button id="subscribeBtn">{{_('订阅')}}</button>
+            </div>
+            <div class="info clearfix" style="display: none;">
+                <div class="infoLeft">
+                    <h3>{{_('感谢您的订阅！')}}</h3>
+                    <p class="hiddenOnPCWeb">{{_('您也可以扫描下方的二维码关注公众号获取安卓应用发布信息')}}</p>
+                </div>
+                <div class="qrcode"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap wrapRight">
+    <div class="phone">
+        <!-- Swiper -->
+        <div class="swiper-container appDownloadSwiper">
+            <div class="swiper-wrapper">
+                %if request.params and request.params.get('target','') == 'user-coupons':
+                <!--<div class="swiper-slide"><img src="/static/images/app_download/user-coupons_1.jpg" alt=""></div>-->
+                <div class="swiper-slide"><img src="/static/images/app_download/user-coupons_2.jpg" alt=""></div>
+                <!--<div class="swiper-slide"><img src="/static/images/app_download/user-coupons_3.jpg" alt=""></div>-->
+                <!--<div class="swiper-slide"><img src="/static/images/app_download/user-coupons_4.jpg" alt=""></div>-->
+                %else:
+                <div class="swiper-slide"><img src="/static/images/wechat_poster/page_1.jpg" alt=""></div>
+                <div class="swiper-slide"><img src="/static/images/wechat_poster/page_2.jpg" alt=""></div>
+                <div class="swiper-slide"><img src="/static/images/wechat_poster/page_3.jpg" alt=""></div>
+                <div class="swiper-slide"><img src="/static/images/wechat_poster/page_4.jpg" alt=""></div>
+                <div class="swiper-slide"><img src="/static/images/wechat_poster/page_5.jpg" alt=""></div>
+                <div class="swiper-slide"><img src="/static/images/wechat_poster/page_6.jpg" alt=""></div>
+                <div class="swiper-slide"><img src="/static/images/wechat_poster/page_7.jpg" alt=""></div>
+                %end
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+    </div>
+</div>
