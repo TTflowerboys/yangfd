@@ -230,9 +230,11 @@ class aggregation_module(f_app.module_base):
                 if period.days >= 365:
                     time = "longer than 12 months"
                 elif 365 > period.days >= 180:
-                    time = "6 - 12 months"
-                elif 180 >= period.days > 90:
-                    time = "3 - 6 months"
+                    time = "6 ~ 12 months"
+                elif 180 > period.days >= 90:
+                    time = "3 ~ 6 months"
+                elif 90 > period.days >= 30:
+                    time = "1 ~ 3 months"
                 elif period.days <= 30:
                     time = "less than 1 month"
             return time
