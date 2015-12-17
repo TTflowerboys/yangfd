@@ -23,7 +23,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.writer.excel import save_virtual_workbook
 from pytz import timezone
-import pytz
+# import pytz
 from bson.code import Code
 f_experiment()
 
@@ -1691,6 +1691,215 @@ def user_analyze(user):
     return out
 
 
+@f_get('/export-excel/user-rent-request.xlsx', params=dict(days=(int, -1)))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def user_rent_request(user, params):
+
+    def get_all_rent_request(days):
+        params = {
+            "type": "rent_intention",
+            "interested_rent_tickets": {"$exists": True},
+            "status": {
+                "$in": [
+                    "requested",
+                    "agreed",
+                    "rejected",
+                    "assigned",
+                    "examined",
+                    "rent"
+                ]
+            }
+        }
+        if days > 0:
+            time_now = datetime.utcnow()
+            time_diff = timedelta(days=days)
+            condition = {"time": {"$gt": time_now - time_diff}}
+            params.update(condition)
+        return f_app.ticket.get(f_app.ticket.search(params, per_page=-1, notime=True))
+
+    def get_request_status_translate(ticket):
+        status = ticket.get('status', None)
+        status_dic = {
+            "requested": "已申请",
+            "agreed": "房东已同意",
+            "rejected": "房东拒绝",
+            "assigned": "已指派",
+            "examined": "已看房",
+            "rent": "已成交"
+        }
+        if status not in status_dic:
+            return '未知'
+        return status_dic[status]
+
+    def time_period_label(ticket):
+        time = ""
+        period_start = ticket.get("rent_available_time", None)
+        period_end = ticket.get("rent_deadline_time", None)
+        if period_end is None or period_start is None:
+            time = "不明"
+        else:
+            period = period_end - period_start
+            if period.days >= 365:
+                time = "longer than 12 months"
+            elif 365 > period.days >= 180:
+                time = "6 ~ 12 months"
+            elif 180 > period.days >= 90:
+                time = "3 ~ 6 months"
+            elif 90 > period.days >= 30:
+                time = "1 ~ 3 months"
+            elif period.days <= 30:
+                time = "less than 1 month"
+        return time
+
+    def get_detail_address(ticket):
+        if 'property_id' in ticket:
+            try:
+                single_property = f_app.i18n.process_i18n(f_app.property.get(ticket['property_id']))
+            except:
+                return ''
+            else:
+                return ' '.join([single_property.get("country", {}).get("code", ''),
+                                 single_property.get("city", {}).get("name", ''),
+                                 single_property.get("maponics_neighborhood", {}).get("name", ''),
+                                 single_property.get("address", ''),
+                                 single_property.get("zipcode_index", '')])
+        return ''
+
+    def get_referer_id(ticket):
+        ticket_id = ticket['id']
+        result = f_app.log.get(f_app.log.search({"ticket_type": "rent_intention", "type": "ticket_add", "ticket_id": ticket_id}))
+        if result is not None and len(result):
+            return get_id_in_url(result[0].get('referer', None))
+        time = ticket.get("time", None)
+        diff_time = timedelta(milliseconds=500)
+        flag = 0
+        if time is None:
+            return None
+        for num, single in enumerate(referer_result):
+            rst_time = single.get("time", None)
+            if rst_time is None:
+                continue
+            if rst_time - diff_time < time < rst_time + diff_time:
+                flag = 1
+                record = single
+        if flag:
+            return get_id_in_url(record.get("referer", None))
+        return None
+
+    def get_id_in_url(url):
+        if url is None:
+            return None
+        if "property-to-rent/" in url:
+            segment = url.split("property-to-rent/")[1]
+            if "?" in segment:
+                return segment.split("?")[0]
+            return segment
+        elif "ticketId=" in url:
+            return url.split("ticketId=")[1]
+        else:
+            return None
+
+    def format_fit(sheet):
+        simsun_font = Font(name="SimSun")
+        alignment_fit = Alignment(shrink_to_fit=True)
+        for row in sheet.rows:
+            for cell in row:
+                cell.font = simsun_font
+                cell.alignment = alignment_fit
+        for num, col in enumerate(sheet.columns):
+            lenmax = 0
+            for cell in col:
+                lencur = 0
+                if cell.value is None:
+                    cell.value = ''
+                if isinstance(cell.value, int) or isinstance(cell.value, datetime):
+                    lencur = len(str(cell.value).encode("GBK"))
+                elif cell.value is not None:
+                    lencur = len(cell.value.encode("GBK", "replace"))
+                if lencur > lenmax:
+                    lenmax = lencur
+            sheet.column_dimensions[get_correct_col_index(num)].width = lenmax*0.86
+
+    def get_correct_col_index(num):
+        if num > 26*26:
+            return "ZZ"
+        if num >= 26:
+            return get_correct_col_index(num/26-1)+chr(num-26+65)
+        else:
+            return chr(num+65)
+
+    def add_link(sheet, target, link=None):
+        if target is None:
+            return
+        if f_app.util.batch_iterable(target):
+            pass
+        else:
+            for index in range(2, len(sheet.rows)+1):
+                cell = sheet[target + unicode(index)]
+                if len(cell.value):
+                    if link is None:
+                        cell.hyperlink = cell.value
+                    else:
+                        cell.hyperlink = unicode(link)
+
+    wb = Workbook()
+    ws = wb.active
+    header = ["咨询单状态", "咨询单描述", "咨询人昵称", "咨询人联系方式", "咨询人邮箱", "微信", "提交时间", "起始日期",
+              "终止日期", "period", "入住人数", "吸烟", "小孩", "宠物", "备注",
+              "房源标题", "房源地址", "房东姓名", "房东电话", "房东邮箱", "房源链接"]
+    ws.append(header)
+
+    referer_result = f_app.log.output(f_app.log.search({"route": "/api/1/rent_intention_ticket/add"}, per_page=-1))
+
+    for ticket_request in get_all_rent_request(params.get('days', -1)):
+        for ticket_id in ticket_request['interested_rent_tickets']:
+            ticket = f_app.ticket.get(ticket_id)
+
+            boss_id = ticket.get('user_id', None)
+            if boss_id is None:
+                landlord_boss = {}
+            else:
+                landlord_boss = f_app.user.get(boss_id)
+
+            guest_id = ticket_request.get('user_id', None)
+            if guest_id is None:
+                guest_user = {}
+            else:
+                guest_user = f_app.user.get(guest_id)
+            url = get_referer_id(ticket_request)
+            if url is not None:
+                url = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + unicode(url)
+            ws.append([
+                get_request_status_translate(ticket_request),
+                ticket_request.get('description', ''),
+                ticket_request.get('nickname', ''),
+                ticket_request.get('phone', ''),
+                ticket_request.get('email', ''),
+                guest_user.get('wechat', ''),
+                unicode(timezone('Europe/London').localize(ticket_request['time'])),
+                unicode(timezone('Europe/London').localize(ticket_request['rent_available_time'])),
+                unicode(timezone('Europe/London').localize(ticket_request['rent_deadline_time'])),
+                time_period_label(ticket_request),
+                ticket_request.get('tenant_count', None),
+                "是" if ticket_request.get('smoke', False) is True else "否",
+                "是" if ticket_request.get('baby', False) is True else "否",
+                "是" if ticket_request.get('pet', False) is True else "否",
+                '',
+                ticket.get('title', ''),
+                get_detail_address(ticket),
+                landlord_boss.get("nickname", ""),
+                landlord_boss.get("phone", ""),
+                landlord_boss.get("email", ""),
+                url if url else ''
+            ])
+
+    format_fit(ws)
+    add_link(ws, 'U')
+    out = StringIO(save_virtual_workbook(wb))
+    response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    return out
+
+
 @f_get('/export-excel/user-rent-intention.xlsx', params=dict(
     days=(int, -1)
 ))
@@ -1863,9 +2072,11 @@ def user_rent_intention(user, params):
             if period.days >= 365:
                 time = "longer than 12 months"
             elif 365 > period.days >= 180:
-                time = "6 - 12 months"
-            elif 180 >= period.days > 90:
-                time = "3 - 6 months"
+                time = "6 ~ 12 months"
+            elif 180 > period.days >= 90:
+                time = "3 ~ 6 months"
+            elif 90 > period.days >= 30:
+                time = "1 ~ 3 months"
             elif period.days <= 30:
                 time = "less than 1 month"
         return time
