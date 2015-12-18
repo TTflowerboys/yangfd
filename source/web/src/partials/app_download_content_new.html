@@ -23,31 +23,41 @@
                 <li data-tab="landlord">{{_('我是房东')}}</li>
             </ul>
             <ul class="content">
-                <li data-tab-name="tenant" class="textWrap">
-                    <ul class="text">
+                <li data-tab-name="tenant">
+                    <ul class="textWrap">
                         <li>/ <strong>{{_('省力')}}</strong> / {{_('实时视频看房带您看尽天下房源')}}</li>
                         <li>/ <strong>{{_('省时')}}</strong> / {{_('多维度的筛选，帮您轻松锁定心仪房源')}}</li>
                         <li>/ <strong>{{_('贴心')}}</strong> / {{_('详尽的周边介绍，让您租房无忧')}}</li>
                         <li>/ <strong>{{_('安全')}}</strong> / {{_('第三方验证房源真实性，房源不一样？退款！')}}</li>
                     </ul>
+                    <a class="web buttonWithLine" href="/property-to-rent-list?from=download" title="{{_('使用网站发布')}}" data-show-client="pc,ipad">
+                        <div class="logo"><i class="icon-pc"></i></div>
+                        <div class="downloadInfo">
+                            <p>{{_('不便使用手机？')}}</p>
+                            <p class="bold">{{_('开始搜索房源')}}</p>
+                        </div>
+                    </a>
                 </li>
-                <li data-tab-name="landlord"  style="display: none" class="textWrap">
-                    <ul class="text">
+                <li data-tab-name="landlord"  style="display: none">
+                    <ul class="textWrap">
                         <li>/ <strong>{{_('高效')}}</strong> / {{_('3分钟极速发布，多渠道推广，一次看房解决出租问题')}}</li>
                         <li>/ <strong>{{_('优质')}}</strong> / {{_('独有租客筛选系统保证您选到最心仪的租客')}}</li>
                         <li>/ <strong>{{_('透明')}}</strong> / {{_('成功出租后一次性收取£80 服务费，无任何隐藏费用')}}</li>
                     </ul>
+                    <a class="web buttonWithLine" href="/property-to-rent/create?from=download" title="{{_('使用网站发布')}}" data-show-client="pc,ipad">
+                        <div class="logo"><i class="icon-pc"></i></div>
+                        <div class="downloadInfo">
+                            <p>{{_('不便使用手机？')}}</p>
+                            <p class="bold">{{_('使用网站发布')}}</p>
+                        </div>
+                    </a>
                 </li>
             </ul>
+
+
             %end
         </div>
-        <a class="web buttonWithLine" href="/property-to-rent/create" title="{{_('使用网站发布')}}" data-show-client="pc,ipad">
-            <div class="logo"><i class="icon-pc"></i></div>
-            <div class="downloadInfo">
-                <p>{{_('不便使用手机？')}}</p>
-                <p class="bold">{{_('使用网站发布')}}</p>
-            </div>
-        </a>
+
     </div>
 
 </div>
@@ -62,13 +72,13 @@
                     <p class="bold">App Store</p>
                 </div>
             </a>
-            <a class="googlePlay buttonWithLine" title="{{_('COMMING SOON ON Google Play')}}" data-show-client="pc">
+<!--            <a class="googlePlay buttonWithLine" title="{{_('COMMING SOON ON Google Play')}}" data-show-client="pc">
                 <div class="logo"><i class="icon-android"></i></div>
                 <div class="downloadInfo">
-                    <p>{{_('COMMING SOON ON')}}</p>
+                    <p>{{_('即将发布')}}</p>
                     <p class="bold">Google Play</p>
                 </div>
-            </a>
+            </a>-->
 
             <div class="qrcode" data-show-client="pc"></div>
             <div class="subscribeAndroid clearfix" data-show-client="android">
