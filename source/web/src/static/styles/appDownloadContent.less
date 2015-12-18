@@ -218,7 +218,7 @@
                 }
             }
             .qrcode{
-                background: url("/static/images/media/app_download_qrcode.png") 50% 50% no-repeat;
+                background: url("/static/images/app_download/app_download_page_qrcode.png") 50% 50% no-repeat;
                 background-size: 100% 100%;
                 margin: 0 auto;
                 @width:240px;
@@ -435,21 +435,18 @@
             > .logo{
                 background-size: contain;
                 @media @screen-lg{
-                    width: 325px;
-                    margin: @margin 0;
+                    width: 280px;
                 }
                 @media @screen-md{
                     width: 227px;
-                    margin: 0.7 * @margin 0;
                 }
                 @media @screen-sm{
-                    width: 162px;
-                    margin: 0.5 * @margin 0;
+                    width: 240px;
                 }
                 @media @phone{
-                    width: 162px;
-                    height: 44px;
-                    margin: 10px auto 60px auto;
+                    width: 240px;
+                    height: 65px;
+                    margin: 50px auto 50px auto;
                 }
             }
             .title{
@@ -467,13 +464,34 @@
                     font-size: 14px;
                 }
             }
-            .text{
-                color: #fff;
-                li{
-                    line-height: 1.8em;
+            .textWrap {
+                position: relative;
+                padding: 20px 0;
+                @media @screen-lg{
+                    height: 216px;
                 }
-                @media @phone {
-                    margin: 0px auto 280px;
+                @media @screen-md{
+                    height: 196px;
+                }
+                @media @screen-sm{
+                    height: 168px;
+                }
+                @media @phone{
+                    padding: 30px 16px;
+                }
+                .text{
+                    position: absolute;
+                    top: 50%;
+                    transform: translate(0, -50%);
+                    @media @phone{
+                        position: static;
+                        top: 0;
+                        transform: translate(0, 0);
+                    }
+                    li{
+                        padding: 4px;
+                        line-height: 1.8em;
+                    }
                 }
             }
 
