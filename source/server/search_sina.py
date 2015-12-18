@@ -7,10 +7,9 @@ from datetime import date
 # from datetime import timedelta
 from openpyxl import Workbook
 from openpyxl import load_workbook
-from openpyxl.styles import Font, Alignment, PatternFill
+from openpyxl.styles import Font, Alignment
 import Levenshtein
 import re
-import random
 
 username = "13545078924"
 password = "bbt12345678"
@@ -41,7 +40,7 @@ def get_weibo_search_result(keywords_list):
 
     with f_app.sina_search(username=username, password=password) as ss:
 
-        header = ['微薄帐号', '时间', '链接地址', '最新内容', '长期/短期', '名字', '电话', '微信', '邮箱', 'qq', '地址']
+        header = ['微薄帐号', '时间', '链接地址', '最新内容', '来源关键词', '长期/短期', '名字', '电话', '微信', '邮箱', 'qq', '地址']
         result_weibo = {}
 
         def get_correct_col_index(num):
@@ -91,91 +90,48 @@ def get_weibo_search_result(keywords_list):
                         lenmax = lencur
 
                 sheet.column_dimensions[get_correct_col_index(num)].width = lenmax*0.86
-                print "col "+get_correct_col_index(num)+" fit."
+                # print "col "+get_correct_col_index(num)+" fit."
 
         def simplify(keywords):
+            # get weibo into a list
             result_list = []
             search_count = 0
             search_times = 0
-            for keyword in keywords:
-                print f_app.util.json_dumps(keyword, ensure_ascii=False)
+            keyword_total = len(keywords)
+            for num, keyword in enumerate(keywords):
+                print unicode((num, keyword_total)) + " " + keyword
                 result_search = {}
-                ok = 1
-                page = 1
-                count = 0
-                total = 0
-                max_page = 0
-                while ok:
-                    # result_search = ss.search(keyword, page=page)
-                    '''time_now = datetime.utcnow()
-                    if search_count > 100:
-                        search_count = 0
-                        time_delta = timedelta(minutes=2)
-                        time_wait = time_now + time_delta
-                        print "wait"
-                        while time_now < time_wait:
-                            time_now = datetime.utcnow()'''
+                analyze_keyword_count_orign[keyword] = 0
+                for page in range(1, 3):
                     try:
                         result_search = ss.search(keyword, page=page)
-                        search_count += 1
+                        search_times += 1
                     except:
-                        print f_app.util.json_dumps("fail" + unicode(page), ensure_ascii=False)
-                        break
-                    ok = result_search['ok']
-                    print ("page " + unicode(page) + "  ok:" + unicode(ok))
-                    if ok == 1:
-                        if result_search.get('mblogList', None):
-                            print "page " + unicode(page) + "  count:" + unicode(len(result_search['mblogList']))
-                        else:
-                            print f_app.util.json_dumps(result_search, ensure_ascii=False)
-                        result_list.extend(result_search['mblogList'])
-                        count += len(result_search['mblogList'])
-                        search_times += count
+                        # print "page " + unicode(page) + " fail"
+                        continue
                     else:
-                        # print "end"
-                        # print f_app.util.json_dumps(result_search, ensure_ascii=False)
-                        break
-                    total = result_search['total_number']
-                    max_page = result_search['maxPage']
-                    page += 1
-
-                    max_page = 2
-                    if count >= total or page > max_page:
-                        break
-                print f_app.util.json_dumps(["===", keyword, "count" + unicode(count), "total" + unicode(total)], ensure_ascii=False)
-                print "search_times " + unicode(search_count) + " search_count " + unicode(search_times)
+                        if 'ok' not in result_search or result_search['ok'] != 1:
+                            # print "page " + unicode(page) + " ok " + unicode(result_search['ok'])
+                            continue
+                        count = len(result_search['mblogList'])
+                        for index in range(count):
+                            result_search['mblogList'][index].update({"keyword": keyword})
+                        result_list.extend(result_search['mblogList'])
+                        search_count += count
+                        analyze_keyword_count_orign[keyword] += count
+                        # print "page " + unicode(page) + " count " + unicode(count)
+                print "count " + unicode(search_count) + " times " + unicode(search_times)
             return result_list
 
-        def remove_overlap(weibo_dic):
-            dic = {}
-            for single_weibo in weibo_dic:
-                flag = 0
-                step = 0
-                for index in weibo_dic:
-                    step = Levenshtein.distance(weibo_dic[single_weibo]['text'], weibo_dic[index]['text'])
-                    if step*1.0/len(unicode(weibo_dic[single_weibo]['text'])) < 0.17 and step*1.0/len(unicode(weibo_dic[index]['text'])) < 0.17 and single_weibo != index:
-                        print step
-                        print f_app.util.json_dumps(weibo_dic[index]['text'], ensure_ascii=False)
-                        print f_app.util.json_dumps(weibo_dic[single_weibo]['text'], ensure_ascii=False)
-                        flag = 1
-                        break
-                if flag:
-                    continue
-                dic.update({
-                    single_weibo: {
-                        "text": weibo_dic[single_weibo]['text'],
-                        "time": weibo_dic[single_weibo]['time'],
-                        "link": weibo_dic[single_weibo]['link']
-                    }
-                })
-            return dic
-
         def reduce_weibo(weibo_list):
-            dic = {}
+            result = []
             today = date.today()
             time_start = datetime(today.year, today.month, today.day) - timedelta(days=day_shift, hours=7)
             cleanr = re.compile('<.*?>')
+            total = 0
+            count = 0
             for single in weibo_list:
+                total += 1
                 user = single['user']['screen_name']
                 text = unicode(re.sub(cleanr, '', single['text']))
                 time = single['created_timestamp']
@@ -184,40 +140,58 @@ def get_weibo_search_result(keywords_list):
                 time = datetime.fromtimestamp(time)
                 if time < time_start:
                     continue
-                if user in dic:
-                    if time > dic[user]['time']:
-                        dic.update({
-                            user: {
-                                "text": text,
-                                "time": time,
-                                "link": link
-                            }
-                        })
+                count += 1
+                if single['keyword'] in analyze_keyword_count_date:
+                    analyze_keyword_count_date[single['keyword']] += 1
                 else:
-                    dic.update({
-                        user: {
-                            "text": text,
-                            "time": time,
-                            "link": link
-                        }
-                    })
-            return dic
+                    analyze_keyword_count_date[single['keyword']] = 1
+                result.append({
+                    "name": user,
+                    "text": text,
+                    "time": time,
+                    "link": link,
+                    "keyword": single['keyword']
+                })
+            print "after date filter " + unicode(count) + '/' + unicode(total) + " left."
+            return result
 
-        def tag_similar(sheet, target='A'):
-            mblog = {}
-            r = lambda: random.randint(192, 255)
-            rows = len(sheet.rows)+1
-            for index in range(2, rows):
-                cell = sheet[target + unicode(index)]
-                if len(cell.value):
-                    mblog.update({index: cell.value})
-            for index in mblog:
-                for another_index in mblog:
-                    if Levenshtein.distance(mblog[index], mblog[another_index]) < 12:
-                        color = ('00%02X%02X%02X' % (r(), r(), r()))
-                        color_fill = PatternFill(fill_type='solid', start_color=color, end_color=color)
-                        sheet[target + unicode(index)].fill = color_fill
-                        sheet[target + unicode(another_index)].fill = color_fill
+        def remove_overlap(weibo_list):
+            result = []
+            result_extra = []
+            count = 0
+            total = len(weibo_list)
+            for single in weibo_list:
+                while weibo_list.count(single) > 1:
+                    weibo_list.remove(single)
+            for single_weibo in weibo_list:
+                step = 0
+                cur_keyword_list = [single_weibo['keyword']]
+                if single_weibo in result_extra:
+                    continue
+                for index in weibo_list:
+                    if index == single_weibo or index in result_extra:
+                        continue
+                    step = Levenshtein.distance(single_weibo['text'], index['text'])
+                    if step*1.0/len(unicode(single_weibo['text'])) < 0.17 and step*1.0/len(unicode(index['text'])) < 0.17:
+                        result_extra.append(index)
+                        cur_keyword_list.append(index['keyword'])
+                if single_weibo['keyword'] in analyze_keyword_count_final:
+                    analyze_keyword_count_final[single_weibo['keyword']] += 1
+                else:
+                    analyze_keyword_count_final[single_weibo['keyword']] = 1
+                count += 1
+                result.append({
+                    "name": single_weibo['name'],
+                    "text": single_weibo['text'],
+                    "time": single_weibo['time'],
+                    "link": single_weibo['link'],
+                    "keyword": cur_keyword_list
+                })
+            print "after remove overlaping " + unicode(count) + '/' + unicode(total) + " left."
+            for single in result_extra:
+                print single['time']
+                print single['text']
+            return result
 
         result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
 
@@ -228,17 +202,37 @@ def get_weibo_search_result(keywords_list):
 
         for single in result_weibo:
             ws.append([
-                single,
-                result_weibo[single]['time'],
-                result_weibo[single]['link'],
-                result_weibo[single]['text']
+                single['name'],
+                single['time'],
+                single['link'],
+                single['text'],
+                ' & '.join(single['keyword'])
             ])
 
         add_link(ws, 'C')
         format_fit(ws)
-        # tag_similar(ws, 'D')
         today = date.today()
         wb.save('weibo_search'+unicode(today)+'.xlsx')
 
+        wb = Workbook()
+        ws = wb.active
+
+        ws.append(["keyword", "源数据量", "按日期筛选后剩余", "去重以后剩余"])
+
+        for single in analyze_keyword_count_orign:
+            ws.append([
+                single,
+                unicode(analyze_keyword_count_orign[single]) if single in analyze_keyword_count_orign else unicode(0),
+                unicode(analyze_keyword_count_date[single]) if single in analyze_keyword_count_date else unicode(0),
+                unicode(analyze_keyword_count_final[single]) if single in analyze_keyword_count_final else unicode(0)
+            ])
+
+        format_fit(ws)
+        wb.save('weibo_search_keyword_analyze'+unicode(today)+'.xlsx')
+
+
+analyze_keyword_count_orign = {}
+analyze_keyword_count_date = {}
+analyze_keyword_count_final = {}
 list_keyw = generate_keyword_list("keywords_search_weibo.xlsx")
 get_weibo_search_result(list_keyw)
