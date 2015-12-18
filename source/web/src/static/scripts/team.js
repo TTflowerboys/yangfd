@@ -497,6 +497,15 @@
                     $this.css('display','')
                 }
             })
+
+            $('[data-hide-client]').each(function () {
+                var $this = $(this)
+                var clients = window.team.getClients()
+                var hideClient = $this.attr('data-hide-client')
+                if(_.intersection(hideClient.split(','), clients).length) {
+                    $this.hide()
+                }
+            })
         },
         setUserType: function (userType) {
             if (window.user) {
