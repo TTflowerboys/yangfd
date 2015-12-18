@@ -489,9 +489,19 @@
                     @media @phone{
                         padding: 30px 16px;
                     }
-                    li {
-                        padding: 4px;
-                        line-height: 1.8em;
+                    .text{
+                        position: absolute;
+                        top: 50%;
+                        transform: translate(0, -50%);
+                        @media @phone{
+                            position: static;
+                            top: 0;
+                            transform: translate(0, 0);
+                        }
+                        li{
+                            padding: 4px;
+                            line-height: 1.8em;
+                        }
                     }
                 }
                 .tab{
