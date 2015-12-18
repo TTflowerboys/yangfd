@@ -196,7 +196,7 @@
             overflow: hidden;
 //            height:300px;
             height: auto;
-            padding: 90px 0 80px;
+            //padding: 90px 0 80px;
             background-image: url("/static/images/app_download/app_download_page_bg_mobile.jpg");
         }
 
@@ -222,11 +222,12 @@
                 background: rgba(88,101,100,0.8);
                 height: auto;
                 top: 180px;
-                bottom: 90px;
+                bottom: 40px;
             }
         }
 
         .wrapLeft {
+            width: 45%;
             @media @phone {
                 width:100%;
 
@@ -235,11 +236,11 @@
                 height:@appDownloadHeight;
 
                 @media @phone {
-                    height:300px;
+                    height:360px;
                 }
 
                 @media @screen-lg{
-                    width:580px;
+                    width:600px;
                     height:450px;
                     font-size: 21px;
                 }
@@ -251,21 +252,24 @@
                     .tab{
                         display: none;
                     }
+
+                    .buttonWithLine {
+                        display: none;
+                    }
                 }
-                .logo {
-                    height:88px;
-                    width:325px;
+                >.logo {
+                    height:76px;
+                    width:280px;
 
                     @media @screen-lg{
-                        width: 325px;
-                        height: 88px;
-                        margin: 50px 0px;
+                        width: 280px;
+                        height: 76px;
+                        margin: 30px 0px;
                     }
 
                     @media @phone {
-                        padding: 0;
-                        height:44px;
-                        width:162px;
+                        width: 240px;
+                        height: 65px;
                     }
                 }
 
@@ -285,7 +289,7 @@
         }
 
         .wrapCenter {
-            width:20%;
+            width:23%;
             @media @phone {
                 width:100%;
                 margin-top:0px;
@@ -358,14 +362,14 @@
                         }
                     }
                 }
-                .googlePlay,.qrcode{
+                .googlePlay {
                     display: none;
                 }
             }
         }
 
         .wrapRight {
-            width:38%;
+            width:32%;
 
             @media @phone {
                 display:none;
