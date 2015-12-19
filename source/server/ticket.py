@@ -495,7 +495,7 @@ class currant_ticket_plugin(f_app.plugin_base):
             f_app.ticket.update_set(task["ticket_id"], {"digest_image": b.get_public_url(filename), "digest_image_generate_time": datetime.utcnow()})
 
     def task_on_rent_ticket_reminder(self, task):
-        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "to rent"}, per_page=0), permission_check=False)
+        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "to rent"}, per_page=0), permission_check=False, ignore_nonexist=True)
 
         for rent_ticket in tickets:
             ticket_email_user = f_app.util.ticket_determine_email_user(rent_ticket)
