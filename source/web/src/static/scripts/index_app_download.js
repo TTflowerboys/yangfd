@@ -25,7 +25,7 @@
     $('#subscribeBtn').bind('click', function (e) {
         var email = $('[name=email]').val()
         if(!window.project.emailReg.test(email)) {
-            window.alert(i18n('邮件格式不正确，请重新填写'))
+            window.dhtmlx.message({ type:'error', text: window.i18n('邮件格式不正确，请重新填写')})
             return false
         }
         if($(this).data('disabled') === true) {
@@ -38,7 +38,7 @@
         }).done(function (val) {
             $('.subscribeAndroid').hide().siblings('.info').show()
         }).fail(function (ret) {
-            window.alert(window.getErrorMessageFromErrorCode(ret))
+            window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
         }).always(function () {
             $('.subscribeAndroid').find('button').text(i18n('订阅')).data('disabled', false)
         })
