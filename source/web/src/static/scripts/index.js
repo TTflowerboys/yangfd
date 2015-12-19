@@ -108,9 +108,6 @@
             else if(!window.team.isCurrantClient())  {
                 window.team.initDisplayOfElement()
                 $('.downloadWrap a.web').hide()
-                if (typeof window.indexAppDownloadSwiper === 'undefined') {
-                    window.setupDownload(window.Swiper)
-                }
             }
         }
         else if (tabName === 'renter'){
