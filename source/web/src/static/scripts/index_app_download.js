@@ -1,4 +1,4 @@
-window.setupDownload = function (Swiper) {
+(function(Swiper){
     //Display ask invitation when from sign in page
 
     $('.downloadWrap').show()
@@ -43,4 +43,10 @@ window.setupDownload = function (Swiper) {
             $('.subscribeAndroid').find('button').text(i18n('订阅')).data('disabled', false)
         })
     })
-}
+
+    $('[name=email]').keyup(function (e) {
+        if(e.keyCode === 13) {
+            $('#submitBtn').trigger('click')
+        }
+    })
+})(window.Swiper)

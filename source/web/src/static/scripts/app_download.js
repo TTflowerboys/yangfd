@@ -2,15 +2,6 @@
  * Created by levy on 15-5-13.
  */
 (function(Swiper){
-    //Display ask invitation when from sign in page
-    var from = window.team.getQuery('from', location.href)
-    if(from === 'signin'){
-        $('.downloadWrap').hide()
-        $('.emailWrap').show()
-    }else{
-        $('.downloadWrap').show()
-        $('.emailWrap').hide()
-    }
 
     function initSizeOfPhone() {
         var $phone =$('.wrapRight .phone')
