@@ -540,7 +540,7 @@ class currant_ticket_plugin(f_app.plugin_base):
                 tag="rent_notice",
             )
 
-        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=7)}}, per_page=0, notime=True), permission_check=False)
+        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=7)}}, per_page=0, notime=True), permission_check=False, ignore_nonexist=True)
 
         for rent_ticket in tickets:
             ticket_email_user = f_app.util.ticket_determine_email_user(rent_ticket)
@@ -580,7 +580,7 @@ class currant_ticket_plugin(f_app.plugin_base):
                 tag="draft_not_publish_day_7",
             )
 
-        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=3)}}, per_page=0, notime=True), permission_check=False)
+        tickets = f_app.ticket.output(f_app.ticket.search({"type": "rent", "status": "draft", "time": {"$lte": datetime.utcnow() - timedelta(days=3)}}, per_page=0, notime=True), permission_check=False, ignore_nonexist=True)
 
         for rent_ticket in tickets:
             ticket_email_user = f_app.util.ticket_determine_email_user(rent_ticket)
