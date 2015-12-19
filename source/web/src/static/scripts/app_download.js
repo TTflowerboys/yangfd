@@ -2,6 +2,7 @@
  * Created by levy on 15-5-13.
  */
 (function(Swiper){
+    $('.downloadWrap').show()
 
     function initSizeOfPhone() {
         var $phone =$('.wrapRight .phone')
