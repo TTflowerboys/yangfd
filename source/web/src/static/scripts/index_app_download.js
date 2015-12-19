@@ -1,4 +1,4 @@
-(function(Swiper){
+window.setupDownload = function (Swiper) {
     //Display ask invitation when from sign in page
 
     $('.downloadWrap').show()
@@ -49,4 +49,4 @@
             $('#submitBtn').trigger('click')
         }
     })
-})(window.Swiper)
+}
