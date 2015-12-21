@@ -16,9 +16,9 @@ with f_app.mongo() as m:
 
     # 本月用户总数
     selected_start_month = 12
-    selected_start_date = 8
+    selected_start_date = 15
     selected_end_month = 12
-    selected_end_date = 14
+    selected_end_date = 21
     print(str(selected_start_month), '至', str(selected_end_month), '月用户数据统计:')
 
     print('\n用户总数:')
@@ -207,7 +207,7 @@ with f_app.mongo() as m:
     for document in cursor:
         print('\n咨询申请数量：', str(document['count']))
 
-    # 按用户统计的收藏海外房产的数量排名
+    # 按用户统计的咨询申请单排名
     print('\n按用户统计的咨询申请单排名:')
     cursor = m.tickets.aggregate(
         [
