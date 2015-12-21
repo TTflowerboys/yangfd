@@ -19,46 +19,16 @@
     </head>
     <body marginwidth="0" marginheight="0">
         <header>
-            <p class="location">
-                {{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}} ,
-                {{rent['property'].get('city',{}).get('name','')}}
-                %if rent['property'].get('street',''):
-                , {{rent['property'].get('street','')}}
-                %end
-            </p>
             <div class="clearfix">
                 <h1 class="title">
+                    {{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}} ,
+                    {{rent['property'].get('city',{}).get('name','')}} -
                     {{rent.get('title','')}}
-                    % if 'short_id' in rent['property'] and rent.get('property',{}).get('short_id',''):
-                    <p class="shortid">
-                        <span class="label">{{_('房源编号: ')}}</span><span class="id">{{rent.get('property',{}).get('short_id','')}}</span>
-                    </p>
-                    %end
                 </h1>
-
             </div>
+            <section class="banner"></section>
         </header>
         <main class="clearfix">
-            <div class="qa">
-                <ul>
-                    <li>
-                        <h3><i class="icon-QA"></i><span>{{_('洋房东(Young Funding)是什么?')}}</span></h3>
-                        <p>{{_('我们是一个专门为房东和租客打造的线上出租和求租平台。我们能在为您免费提供传统房屋中介提供的服务的同时，以最经济便捷的方式，让您对您的出租和求租需求拥有最大限度的掌控，您的房子您作主。')}}</p>
-                    </li>
-                    <li>
-                        <h3><i class="icon-QA"></i><span>{{_('为什么要用洋房东?')}}</span></h3>
-                        <p>{{_('作为房东，我们的平台免费为您线上和线下推广出租信息，源源不断的租客让您的房子秒租出去。作为租客，我们的平台将完全免费，全天候24小时为您提供经过我们审核的优质房源，让您快速便捷得直接联系房东，免去了传统中介繁琐的预约流程，让您足不出户在家联系房东。')}}</p>
-                    </li>
-                    <li>
-                        <h3><i class="icon-QA"></i><span>{{_('使用洋房东有任何隐形费用吗?')}}</span></h3>
-                        <p>{{_('我们是一个专门为房东和租客打造的线上出租和求租平台。我们能在为您免费提供传统房屋中介提供的服务的同时，以最经济便捷的方式，让您对您的出租和求租需求拥有最大限度的掌控，您的房子您作主。')}}</p>
-                    </li>
-                    <li>
-                        <h3><i class="icon-QA"></i><span>{{_('我在洋房东帐号的个人信息安全吗?')}}</span></h3>
-                        <p>{{_('您在洋房东所有的个人信息采取加密储存方式，未经授权不向任何机构和个人披露。')}}</p>
-                    </li>
-                </ul>
-            </div>
             <section class="pageRental">
                 <p class="line1 animate">{{_('仅需')}}</p>
                 <p class="line2 animate">
@@ -74,7 +44,6 @@
                         % end
                     </span>
                     % end
-
                 </p>
                 <p class="line3 animate">{{_('您就可以租到')}}</p>
                 <ul class="itemBox clearfix">
@@ -192,8 +161,6 @@
 
             </section>
             %end
-
-
         </main>
         <footer>Copyright 2015 <b>YOUNGFUNDING.CO.UK</b></footer>
         <!--build:css(dist) /static/styles/project/baiduBridge.html.css-->
@@ -225,7 +192,6 @@
                     $('.mapImage').css({
                         'background-image': 'url("/static/images/placeholder/img_map_holder_wechat_poster_digest.png")'
                     }).find('.pushpin').addClass('noLocation').text(window.i18n('该房产暂无定位信息'))
-
                 }
             }
             initMapSrc({

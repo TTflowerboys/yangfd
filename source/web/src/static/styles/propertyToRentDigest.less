@@ -18,36 +18,17 @@ body{
     font-weight: lighter;
     background-size: 1000px 100%;
     header{
-        margin: 30px 0;
+        margin: 30px 0 60px;
         p {
             margin: 0;
-        }
-        .location{
-            position: relative;
-            display: inline-block;
-            padding: 12px 22px;
-            background: @dark-gray;
-            font-size: 22px;
-            color: @green;
-            &:after{
-                position: absolute;
-                content: '';
-                top: 0;
-                right: -10px;
-                width: 20px;
-                height: 100%;
-                background: #333;
-                transform: skewX(25deg);
-            }
         }
         h1{
             position: relative;
             width: 640px;
             float: left;
             margin: 0;
-            padding: 24px 22px;
-            background: @green;
-            color: @dark-gray;
+            padding: 24px 40px;
+            color: #fff;
             font-size: 32px;
 
             .shortid {
@@ -62,9 +43,18 @@ body{
                 right: -360px;
                 width: 360px;
                 height: 100%;
-                background: url("/static/images/wechat_poster/logo_cover_back.png") 25px 50% no-repeat @dark-gray;
+                background: url("/static/images/logo/rent_digest_logo.png") 25px 50% no-repeat;
                 background-size: 80%;
             }
+        }
+        section.banner{
+            width: 1000px;
+            height: 501px;
+            margin:30px 0 0;
+            background-image: url("/static/images/background/rent_digest_banner.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
         }
     }
     main{
