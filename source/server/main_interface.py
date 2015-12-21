@@ -1328,11 +1328,16 @@ def aggregation_rent_request(user):
         for single in result.find().sort('value', -1):
             rent_ticket_id = single['_id']
             count = single['value']
-            aggregation_rent_request_count_sort.append({
-                'ticket_id': rent_ticket_id,
-                'title': f_app.ticket.get(rent_ticket_id).get('title', ''),
-                'count': count
-            })
+            try:
+                target_ticket = f_app.ticket.get(rent_ticket_id)
+            except:
+                pass
+            else:
+                aggregation_rent_request_count_sort.append({
+                    'ticket_id': rent_ticket_id,
+                    'title': target_ticket.get('title', ''),
+                    'count': count
+                })
         value.update({'aggregation_rent_request_count_sort': aggregation_rent_request_count_sort})
 
         cursor = m.users.aggregate([
@@ -1367,7 +1372,10 @@ def aggregation_rent_request(user):
             user_set.add(single['user_id'])
             for ticket_id in single['interested_rent_tickets']:
                 time_end = single.get('time', None)
-                time_start = f_app.ticket.get(ticket_id).get('time', None)
+                try:
+                    time_start = f_app.ticket.get(ticket_id).get('time', None)
+                except:
+                    time_start = None
                 if time_end is not None and time_start is not None:
                     get_request_period.append(time_end - time_start)
         value.update({'aggregation_rent_request_user_ratio': len(user_set)*1.0/percent_base})
