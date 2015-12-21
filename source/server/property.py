@@ -335,9 +335,6 @@ class currant_property(f_app.module_base):
         property = self.output([property_id], permission_check=False)[0]
         index_params = f_app.util.try_get_value(property, ["zipcode", "zipcode_index"]).values()
 
-        if "country" in property and property["country"]:
-            index_params.append(property["country"]["code"])
-
         if "city" in property and property["city"] and "name" in property["city"]:
             index_params.append(property["city"]["name"])
 
