@@ -360,32 +360,26 @@
                     }
                 }
                 .qrcode{
-                    background: url("/static/images/media/app_download_wechat_qrcode.png") 50% 50% no-repeat;
-                    background-size: 100% 100%;
-                    float: left;
-                    margin-left: 10%;
-                    overflow: hidden;
+                    margin: 0 auto;
                     @width:240px;
                     @height:240px;
                     @media @screen-lg {
-                        width: 0.65 * @width;
-                        height: 0.65 * @height;
+                        width: 0.6 * @width;
+                        height: 0.6 * @height;
                     }
                     @media @screen-md {
                         width: 0.52 * @width;
                         height: 0.52 * @height;
                     }
                     @media @screen-sm {
-                        width: 0.42 * @width;
-                        height: 0.42 * @height;
-                        float: right;
-                        margin-left: auto;
+                        width: 0.45 * @width;
+                        height: 0.45 * @height;
                     }
                     @media @phone {
-                        width: 0.75*@width;
-                        height: 0.75*@height;
+                        width: 0.5*@width;
+                        height: 0.5*@height;
                         float: none;
-                        margin: 0 auto 0px;
+                        margin: 0 auto 40px;
                     }
                 }
             }
