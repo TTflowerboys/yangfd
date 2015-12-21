@@ -215,30 +215,6 @@ class currant_property(f_app.module_base):
 
         return action(params)
 
-    def get_index_fields(self, property_id):
-        property = self.output([property_id], permission_check=False)[0]
-        index_params = f_app.util.try_get_value(property, ["zipcode", "zipcode_index"]).values()
-
-        if "country" in property and property["country"]:
-            index_params.append(property["country"]["code"])
-
-        if "city" in property and property["city"] and "name" in property["city"]:
-            index_params.append(property["city"]["name"])
-
-        if "maponics_neighborhood" in property and property["maponics_neighborhood"] and "name" in property["maponics_neighborhood"]:
-            index_params.append(property["maponics_neighborhood"]["name"])
-            if "parent_name" in property["maponics_neighborhood"]:
-                index_params.append(property["maponics_neighborhood"]["parent_name"])
-
-        if "featured_facility" in property and property["featured_facility"]:
-            for featured_facility in property["featured_facility"]:
-                if "doogal_station" in featured_facility and "name" in featured_facility["doogal_station"]:
-                    index_params.append(featured_facility["doogal_station"]["name"])
-                elif "hesa_university" in featured_facility and "name" in featured_facility["hesa_university"]:
-                    index_params.append(featured_facility["hesa_university"]["name"])
-
-        return index_params
-
     def remove(self, property_id):
         for child_property_id in self.search({'target_property_id': str(property_id)}, per_page=0):
             self.remove(child_property_id)
@@ -354,6 +330,34 @@ class currant_property(f_app.module_base):
                 assert property is not None, abort(40000)
 
         return f_app.util.process_objectid(property)
+
+    def get_index_fields(self, property_id):
+        property = self.output([property_id], permission_check=False)[0]
+        index_params = f_app.util.try_get_value(property, ["zipcode", "zipcode_index"]).values()
+
+        if "country" in property and property["country"]:
+            index_params.append(property["country"]["code"])
+
+        if "city" in property and property["city"] and "name" in property["city"]:
+            index_params.append(property["city"]["name"])
+
+        if "maponics_neighborhood" in property and property["maponics_neighborhood"] and "name" in property["maponics_neighborhood"]:
+            index_params.append(property["maponics_neighborhood"]["name"])
+            if "parent_name" in property["maponics_neighborhood"]:
+                index_params.append(property["maponics_neighborhood"]["parent_name"])
+
+        if "featured_facility" in property and property["featured_facility"]:
+            for featured_facility in property["featured_facility"]:
+                if "doogal_station" in featured_facility and "name" in featured_facility["doogal_station"]:
+                    index_params.append(featured_facility["doogal_station"]["name"])
+                elif "hesa_university" in featured_facility and "name" in featured_facility["hesa_university"]:
+                    index_params.append(featured_facility["hesa_university"]["name"])
+
+        return index_params
+
+    def reindex(self):
+        for property_id in f_app.property.search({"status": "selling"}, per_page=-1):
+            f_app.mongo_index.update(f_app.property.get_database, property_id, f_app.property.get_index_fields(property_id))
 
 currant_property()
 

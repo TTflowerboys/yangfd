@@ -1029,10 +1029,6 @@ class currant_util(f_util):
 
                 f_app.mongo_index.update(f_app.user.get_database, user_id, index_params.values())
 
-    def reindex_property(self):
-        for property_id in f_app.property.search({"status": "selling"}, per_page=-1):
-            f_app.mongo_index.update(f_app.property.get_database, property_id, f_app.property.get_index_fields(property_id))
-
     def ticket_determine_email_user(self, ticket):
         if not ticket:
             return None
