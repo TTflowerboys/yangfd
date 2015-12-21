@@ -212,7 +212,10 @@ def get_weibo_search_result(keywords_list):
         add_link(ws, 'C')
         format_fit(ws)
         today = date.today()
-        wb.save('weibo_search'+unicode(today)+'.xlsx')
+        if day_shift:
+            wb.save('weibo_search' + unicode(today - timedelta(days=day_shift)) + '~' + unicode(today) + '.xlsx')
+        else:
+            wb.save('weibo_search' + unicode(today) + '.xlsx')
 
         wb = Workbook()
         ws = wb.active
@@ -228,7 +231,10 @@ def get_weibo_search_result(keywords_list):
             ])
 
         format_fit(ws)
-        wb.save('weibo_search_keyword_analyze'+unicode(today)+'.xlsx')
+        if day_shift:
+            wb.save('weibo_search_keyword_analyze' + unicode(today - timedelta(days=day_shift)) + '~' + unicode(today)+'.xlsx')
+        else:
+            wb.save('weibo_search_keyword_analyze' + unicode(today)+'.xlsx')
 
 
 analyze_keyword_count_orign = {}
