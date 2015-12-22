@@ -38,23 +38,28 @@ def property_list(params):
         property_city_list = f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(geonames_params, per_page=-1))
 
     title = ''
+    keywords = ''
 
     if "country" in params and len(params['country']):
         for country in country_list:
             if country.get('code') == str(params['country']):
                 title += currant_util.get_country_name_by_code(country.get('code')) + '-'
+                keywords += currant_util.get_country_name_by_code(country.get('code')) + ','
 
     if "city" in params and len(params['city']):
         for city in property_city_list:
             if city.get('id') == str(params['city']):
                 title += city.get('name') + '-'
+                keywords += city.get('name') + ','
 
     if "property_type" in params and len(params['property_type']):
         for property_type in property_type_list:
             if property_type.get('id') == str(params['property_type']):
                 title += property_type.get('value') + '-'
+                keywords += property_type.get('value') + ','
 
     title += _('房产列表-洋房东')
+    keywords += ','.join(currant_util.BASE_PROPERTY_KEYWORDS_ARRAY)
 
     return currant_util.common_template("property_list",
                                         city_list=city_list,
@@ -110,7 +115,7 @@ def property_get(property_id, user):
         city = property.get('city',{}).get('name')
         city_string = ', '.join([x for x in [country,city] if x])
 
-    keywords = property.get('name', _('房产详情')) + ',' + currant_util.get_country_name_by_code(property.get('country', {}).get('code', '')) + ',' + property.get('city', {}).get('name', '') + ',' + ','.join(tags + currant_util.BASE_KEYWORDS_ARRAY)
+    keywords = property.get('name', _('房产详情')) + ',' + currant_util.get_country_name_by_code(property.get('country', {}).get('code', '')) + ',' + property.get('city', {}).get('name', '') + ',' + ','.join(tags + currant_util.BASE_PROPERTY_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
     return currant_util.common_template("property", property=property, is_favorited=is_favorited, related_property_list=related_property_list, tagString=tagString, city_string=city_string, brochure_link=brochure_link, report=report, title=title, description=description, keywords=keywords, weixin=weixin)
@@ -158,7 +163,7 @@ def property_wechat_poster(property_id):
     if 'intention' in property and property.get('intention'):
         tags = [item['value'] for item in property['intention'] if 'value' in item]
 
-    keywords = property.get('name', _('房产详情')) + ',' + currant_util.get_country_name_by_code(property.get('country', {}).get('code', '')) + ',' + property.get('city', {}).get('name', '') + ',' + ','.join(tags + currant_util.BASE_KEYWORDS_ARRAY)
+    keywords = property.get('name', _('房产详情')) + ',' + currant_util.get_country_name_by_code(property.get('country', {}).get('code', '')) + ',' + property.get('city', {}).get('name', '') + ',' + ','.join(tags + currant_util.BASE_PROPERTY_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
     def format_property(property):

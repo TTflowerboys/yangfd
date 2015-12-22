@@ -26,7 +26,7 @@ def news(news_id):
     news_clean.pop('user', None)
     related_news_list = f_app.i18n.process_i18n(currant_data_helper.get_related_news_list(news))
     title = news.get('title')
-    keywords = "new,UK news" + ",".join(currant_util.BASE_KEYWORDS_ARRAY)
+    keywords = title + ", news, UK news, " + ",".join(currant_util.BASE_KEYWORDS_ARRAY)
     weixin = f_app.wechat.get_jsapi_signature()
 
     if news.get('summary'):

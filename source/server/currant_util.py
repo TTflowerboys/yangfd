@@ -13,8 +13,9 @@ import re
 from distutils.version import StrictVersion
 
 logger = logging.getLogger(__name__)
-BASE_KEYWORDS_ARRAY = ['洋房东', '海外置业', '楼盘', '公寓', '别墅', '学区房', '英国房产', '海外投资', '海外房产', '海外买房', '海外房地产', '海外房产投资', '英国房价', 'Youngfunding', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
-
+BASE_KEYWORDS_ARRAY = ['洋房东', '租房', '买房', '出租','租房中介', '找房子', '短租', '长租', '租金','楼盘', '公寓', '别墅', '学区房', '英国置业', '留学生租房', '海外租房', '英国出租', '英国租房', '伦敦租房', '伦敦买房', '海外置业', '海外投资', '英国房价', 'Youngfunding', 'for rent', 'to let', 'room to rent', 'property to rent', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
+BASE_PROPERTY_KEYWORDS_ARRAY = ['洋房东', '买房', '置业中介', '找房子','楼盘', '公寓', '别墅', '学区房', '英国置业', '英国买房', '伦敦买房', '海外置业', '海外投资', '英国房价', 'Youngfunding', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
+BASE_RENT_KEYWORDS_ARRAY = ['洋房东', '租房', '出租','租房中介', '找房子', '短租', '长租', '租金','楼盘', '公寓', '别墅', '学区房', '留学生租房', '海外租房', '英国出租', '英国租房', '伦敦租房', 'Youngfunding', 'for rent', 'to let', 'room to rent', 'property to rent', 'investment', 'overseas ', 'property', 'apartment', 'house']
 
 icon_map = {
     'school_nearby_house': 'category_b',
@@ -237,7 +238,7 @@ def common_template(path, **kwargs):
     if 'title' not in kwargs:
         kwargs['title'] = _('洋房东')
     if 'description' not in kwargs:
-        kwargs['description'] = _("我们专注于为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。")
+        kwargs['description'] = _("洋房东致力于为英国华人房东和租客提供专业和靠谱的租房找房和海外置业体验。为房东带来极速租房发布体验，独有的伦敦街区生活、房价报告，杂志般的房源移动主页。为租客带来个性化的找房体验，优质房源，长租短租，地图找房，视频看房，让海外租房变得简单、便利。为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。")
     if 'keywords' not in kwargs:
         kwargs['keywords'] = ",".join(BASE_KEYWORDS_ARRAY)
     if 'user' not in kwargs:
