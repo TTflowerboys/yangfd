@@ -371,7 +371,9 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
             NSString *urlString = [[NSURL URLWithString:CONCAT(@"/wechat-poster/", ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]] absoluteString];
             CUTEActivityView *activityView = [self getActivityViewWithTitle:title description:description url:urlString image:imageData viewController:viewController onButtonPressBlock:pressBlock];
             activityView.onDismissButtonPressedBlock = ^ {
-                [self.taskCompletionSource cancel];
+                if (!self.taskCompletionSource.task.isCompleted) {
+                    [self.taskCompletionSource cancel];
+                }
             };
 
             activityView.activityTitle = STR(@"RentShare/分享此房源移动主页");            
@@ -398,7 +400,9 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
             CUTEActivityView *activityView = [self getActivityViewWithTitle:title description:description url:urlString image:imageData viewController:viewController onButtonPressBlock:pressBlock];
             activityView.onDismissButtonPressedBlock = ^ {
-                [self.taskCompletionSource cancel];
+                if (!self.taskCompletionSource.task.isCompleted) {
+                    [self.taskCompletionSource cancel];
+                }
             };
 
             [activityView show:YES];
@@ -485,7 +489,9 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
         CUTEActivityView *activityView = [[CUTEActivityView alloc] initWithAcitities:activities];
         activityView.onDismissButtonPressedBlock = ^ {
-            [self.taskCompletionSource cancel];
+            if (!self.taskCompletionSource.task.isCompleted) {
+                [self.taskCompletionSource cancel];
+            }
         };
         
         [activityView show:YES];
