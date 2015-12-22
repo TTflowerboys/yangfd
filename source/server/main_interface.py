@@ -753,29 +753,57 @@ def test_wx_share_remote():
     return currant_util.common_template("test_wx_share_remote", title=title)
 
 
-@f_api('/aggregation-general')
+@f_api('/aggregation-general', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None)
+))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
-def aggregation_general(user):
+def aggregation_general(user, params):
     value = {}
     with f_app.mongo() as m:
-        value.update({"aggregation_user_total": m.users.count()})
-        cursor = m.users.aggregate(
-            [
-                {'$match': {'register_time': {'$exists': 'true'}}},
-                {'$group': {'_id': None, 'totalUsersCount': {'$sum': 1}}}
-            ]
-        )
-        if cursor.alive:
-            value.update({"aggregation_register_user_total": cursor.next()['totalUsersCount']})
-        else:
-            value.update({"aggregation_register_user_total": 0})
-        cursor.close()
-        cursor = m.users.aggregate(
-            [
+        if params['date_from'] is not None and params['date_to'] is not None:
+            value.update({
+                "aggregation_user_total": m.users.find({
+                    "register_time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    }
+                }).count()
+            })
+            value.update({
+                "aggregation_register_user_total": m.users.find({
+                    "register_time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    },
+                    "status": {"$ne": "deleted"},
+                }).count()
+            })
+            aggregate_params = [
+                {"$match": {
+                    "register_time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    }
+                }},
                 {"$unwind": "$user_type"},
                 {"$group": {"_id": "$user_type", "count": {"$sum": 1}}}
             ]
-        )
+        else:
+            value.update({
+                "aggregation_user_total": m.users.find().count()
+            })
+            value.update({
+                "aggregation_register_user_total": m.users.find({
+                    "register_time": {"$exists": True},
+                    "status": {"$ne": "deleted"},
+                }).count()
+            })
+            aggregate_params = [
+                {"$unwind": "$user_type"},
+                {"$group": {"_id": "$user_type", "count": {"$sum": 1}}}
+            ]
+        cursor = m.users.aggregate(aggregate_params)
         user_type = []
         for document in cursor:
             user_type.append({"type": f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'],
