@@ -228,7 +228,7 @@ class currant_ticket_plugin(f_app.plugin_base):
                     locale = sales.get("locales", [f_app.common.i18n_default_locale])[0]
                     request._requested_i18n_locales_list = [locale]
                     title = f_app.util.get_format_email_subject(template("static/emails/new_rent_request_intention_ticket_title"))
-                    url = "http://yangfd.com/property-to-rent" + this_ticket["interested_rent_tickets"][0]["id"]
+                    url = "http://yangfd.com/property-to-rent/" + this_ticket["interested_rent_tickets"][0]["id"]
                     admin_url = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent_request_intention"
                     f_app.email.schedule(
                         target=sales["email"],
