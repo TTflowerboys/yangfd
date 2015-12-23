@@ -1,4 +1,4 @@
-<template id='edit-travel-time'>
+<script type="text/template" id='edit-travel-time'>
     <span class="hint" data-bind="visible: hint() !== undefined && hint().length, text: hint"></span>
     <div data-bind="visible: travel().length">
         <select class="chosen-without-border mode" data-bind="
@@ -14,4 +14,4 @@
             optionsText: function(item){return item.value + item.unit},
         "></select>
     </div>
-</template>
+</script>

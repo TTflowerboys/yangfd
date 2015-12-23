@@ -1,4 +1,5 @@
-<template id='rent-request-tpl'>
+<!--@@include whether_radio_tpl.html  -->
+<script type="text/template" id='rent-request-tpl'>
     <div id="rent_request_popup" class="requirement_popup rentRequestContainer" data-bind="visible: visible">
         <div class="requirement_popup_shadow" data-bind="click: close"></div>
         <div class="requirement_wrapper">
@@ -41,13 +42,7 @@
                                     </div>
                                 </div>
                                 <div class="wrap">
-                                    <template id="whetherRadio">
-                                        <!-- ko foreach: radioItems -->
-                                        <label class="radioWrap" data-bind="attr: {for: $parent.key() + $index()}">
-                                            <input class="currantRadio" type="radio" data-bind="checked: $parent.value, attr: {id: $parent.key() + $index(), name: $parent.key}, checkedValue: value"/><label data-bind="attr: {for: $parent.key() + $index()}, text: text"></label>
-                                        </label>
-                                        <!-- /ko -->
-                                    </template>
+
                                     <div class="row">
                                         <span class="title">{{_('是否吸烟')}}</span>
                                         <whether-radio params="vm: $data, key: 'smoke'"></whether-radio>
@@ -158,5 +153,5 @@
             <button name="cancel" class="cancel" data-bind="click: close"><i class="icon-delete"></i></button>
         </div>
     </div>
-</template>
+</script>
 
