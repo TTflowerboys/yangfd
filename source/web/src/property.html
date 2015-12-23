@@ -107,7 +107,7 @@
             % if get_country_name_by_code(property.get('country',{}).get('code')):
                 <a class="parent" href="/property_list?country={{property.get('country',{}).get('code')}}" target="_blank">{{get_country_name_by_code(property.get('country',{}).get('code'))}}</a> /
             % end
-            % if property.get('city').get('name'):
+            % if property.get('city',{}).get('name'):
                 <a class="parent" href="/property_list?country={{property.get('country',{}).get('code')}}&city={{property.get('city',{}).get('id')}}" target="_blank">{{property.get('city',{}).get('name','')}}</a> /
             % end
             % if property.get('property_type') and property.get('property_type').get('value'):
