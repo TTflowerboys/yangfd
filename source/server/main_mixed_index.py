@@ -451,7 +451,7 @@ class f_main_mixed_index(f_app.plugin_base):
                     "loc": neighborhood["loc"],
                 }, upsert=True)
                 index_id = self.get_database(m).find_one({"maponics_neighborhood": neighborhood["_id"]})["_id"]
-                f_app.mongo_index.update(self.get_database, str(index_id), neighborhood["name"])
+                f_app.mongo_index.update(self.get_database, str(index_id), neighborhood["name"], enable_suggestion=True)
                 processed += 1
 
                 if processed % 100 == 0:
@@ -480,7 +480,7 @@ class f_main_mixed_index(f_app.plugin_base):
                     },
                 }, upsert=True)
                 index_id = self.get_database(m).find_one({"hesa_university": university["_id"]})["_id"]
-                f_app.mongo_index.update(self.get_database, str(index_id), university["name"].replace(",", " "))
+                f_app.mongo_index.update(self.get_database, str(index_id), university["name"].replace(",", " "), enable_suggestion=True)
                 processed += 1
 
                 if processed % 100 == 0:
@@ -504,7 +504,7 @@ class f_main_mixed_index(f_app.plugin_base):
                     },
                 }, upsert=True)
                 index_id = self.get_database(m).find_one({"doogal_station": station["_id"]})["_id"]
-                f_app.mongo_index.update(self.get_database, str(index_id), station["name"])
+                f_app.mongo_index.update(self.get_database, str(index_id), station["name"], enable_suggestion=True)
                 processed += 1
 
                 if processed % 100 == 0:
