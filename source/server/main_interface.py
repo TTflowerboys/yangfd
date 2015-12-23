@@ -825,7 +825,7 @@ def aggregation_rent_ticket(user, params):
         if params['date_from'] is not None and params['date_to'] is not None:
             result = [{
                 "$match": {
-                    "register_time": {
+                    "time": {
                         "$gte": params['date_from'],
                         "$lt": params['date_to']
                     }
