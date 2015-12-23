@@ -1008,18 +1008,51 @@ def aggregation_rent_ticket(user, params):
     return value
 
 
-@f_api('/aggregation-rent-intention-ticket')
+@f_api('/aggregation-rent-intention-ticket', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None)
+))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
-def aggregation_rent_intention_ticket(user):
+def aggregation_rent_intention_ticket(user, params):
+
+    def get_aggregation_params(params_list):
+        result = []
+        if params['date_from'] is not None and params['date_to'] is not None:
+            result = [{
+                "$match": {
+                    "time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    }
+                }
+            }]
+        result.extend(params_list)
+        return result
+
+    def get_find_params(params_dic):
+        params_dic.update({
+            "time": {
+                "$gte": params['date_from'],
+                "$lt": params['date_to']
+            }
+        })
+        return params_dic
+
     value = {}
     with f_app.mongo() as m:
-        value.update({"aggregation_rent_intention_total": m.tickets.find({'type': "rent_intention"}).count()})
+        value.update({
+            "aggregation_rent_intention_total": m.tickets.find(
+                get_find_params({
+                    'type': "rent_intention"
+                })
+            ).count()
+        })
         cursor = m.tickets.aggregate(
-            [
+            get_aggregation_params([
                 {'$match': {'type': "rent_intention"}},
                 {'$group': {'_id': '$city', 'count': {'$sum': 1}}},
                 {'$sort': {'count': -1}}
-            ]
+            ])
         )
         aggregation_rent_intention_total_city = []
         for document in cursor:
@@ -1040,10 +1073,12 @@ def aggregation_rent_intention_ticket(user):
         cursor.close()
         value.update({"aggregation_rent_intention_total_city": aggregation_rent_intention_total_city})
         cursor = m.tickets.aggregate(
-            [
-                {'$match': {'type': "rent_intention", 'city._id': ObjectId('555966cd666e3d0f578ad2cf')}},
-                {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
-            ]
+            get_aggregation_params(
+                [
+                    {'$match': {'type': "rent_intention", 'city._id': ObjectId('555966cd666e3d0f578ad2cf')}},
+                    {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
+                ]
+            )
         )
         aggregation_rent_intention_type_london = []
         for document in cursor:
@@ -1084,19 +1119,33 @@ def aggregation_rent_intention_ticket(user):
             conditions['$and'].append(condition)
             budget_filter.append(conditions)
 
-        value.update({"aggregation_rent_intention_total_above_200": m.tickets.find({
-            'type': "rent_intention",
-            'city._id': ObjectId('555966cd666e3d0f578ad2cf'),
-            '$or': budget_filter}).count()
+        value.update({
+            "aggregation_rent_intention_total_above_200": m.tickets.find(
+                get_find_params({
+                    'type': "rent_intention",
+                    'city._id': ObjectId('555966cd666e3d0f578ad2cf'),
+                    '$or': budget_filter
+                })
+            ).count()
         })
 
-        value.update({"aggregation_rent_intentionl_has_neighborhood_total": m.tickets.find({'type': "rent_intention", 'city._id': ObjectId('555966cd666e3d0f578ad2cf'), 'maponics_neighborhood': {'$exists': 'true'}}).count()})
+        value.update({
+            "aggregation_rent_intentionl_has_neighborhood_total": m.tickets.find(
+                get_find_params({
+                    'type': "rent_intention",
+                    'city._id': ObjectId('555966cd666e3d0f578ad2cf'),
+                    'maponics_neighborhood': {'$exists': 'true'}
+                })
+            ).count()
+        })
         cursor = m.tickets.aggregate(
-            [
-                {'$match': {'type': "rent_intention", 'city._id': ObjectId('555966cd666e3d0f578ad2cf'), 'maponics_neighborhood': {'$exists': 'true'}}},
-                {'$group': {'_id': '$maponics_neighborhood._id', 'count': {'$sum': 1}}},
-                {'$sort': {'count': -1}}
-            ]
+            get_aggregation_params(
+                [
+                    {'$match': {'type': "rent_intention", 'city._id': ObjectId('555966cd666e3d0f578ad2cf'), 'maponics_neighborhood': {'$exists': 'true'}}},
+                    {'$group': {'_id': '$maponics_neighborhood._id', 'count': {'$sum': 1}}},
+                    {'$sort': {'count': -1}}
+                ]
+            )
         )
         aggregation_rent_intentionl_has_neighborhood = []
         for document in cursor:
@@ -1110,15 +1159,33 @@ def aggregation_rent_intention_ticket(user):
     return value
 
 
-@f_api('/aggregation-favorite')
+@f_api('/aggregation-favorite', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None)
+))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
-def aggregation_favorite(user):
+def aggregation_favorite(user, params):
+
+    def get_aggregation_params(params_list):
+        result = []
+        if params['date_from'] is not None and params['date_to'] is not None:
+            result = [{
+                "$match": {
+                    "time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    }
+                }
+            }]
+        result.extend(params_list)
+        return result
+
     value = {}
     with f_app.mongo() as m:
         cursor = m.favorites.aggregate(
-            [
+            get_aggregation_params([
                 {'$group': {'_id': "$type", 'count': {'$sum': 1}}}
-            ]
+            ])
         )
         fav_type_dic = {
             'rent_ticket': '出租房源',
@@ -1135,12 +1202,12 @@ def aggregation_favorite(user):
         cursor.close()
         value.update({"aggregation_ticket_favorite_times_by_type": aggregation_ticket_favorite_times_by_type})
         cursor = m.favorites.aggregate(
-            [
+            get_aggregation_params([
                 {'$match': {'type': "rent_ticket"}},
                 {'$group': {'_id': "$user_id", 'count': {'$sum': 1}}},
                 {'$sort': {'count': -1}},
                 {'$limit': 10}
-            ]
+            ])
         )
         aggregation_rent_ticket_favorite_times_by_user = []
         for document in cursor:
@@ -1157,12 +1224,12 @@ def aggregation_favorite(user):
         value.update({"aggregation_rent_ticket_favorite_times_by_user": aggregation_rent_ticket_favorite_times_by_user})
 
         cursor = m.favorites.aggregate(
-            [
+            get_aggregation_params([
                 {'$match': {'type': "property"}},
                 {'$group': {'_id': "$user_id", 'count': {'$sum': 1}}},
                 {'$sort': {'count': -1}},
                 {'$limit': 10}
-            ]
+            ])
         )
         aggregation_property_favorite_times_by_user = []
         for document in cursor:
@@ -1179,17 +1246,35 @@ def aggregation_favorite(user):
     return value
 
 
-@f_api('/aggregation-view-contact')
+@f_api('/aggregation-view-contact', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None)
+))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
-def aggregation_view_contact(user):
+def aggregation_view_contact(user, params):
+
+    def get_aggregation_params(params_list):
+        result = []
+        if params['date_from'] is not None and params['date_to'] is not None:
+            result = [{
+                "$match": {
+                    "time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    }
+                }
+            }]
+        result.extend(params_list)
+        return result
+
     value = {}
     with f_app.mongo() as m:
         cursor = m.orders.aggregate(
-            [
+            get_aggregation_params([
                 {'$unwind': "$items"},
                 {'$group': {'_id': "$user.nickname", 'count': {'$sum': 1}}},
                 {'$group': {'_id': None, 'totalUsersCount': {'$sum': 1}, 'totalRequestCount': {'$sum': "$count"}}}
-            ]
+            ])
         )
         document = cursor.next()
         value.update({"aggregation_view_contact_user_total": document['totalUsersCount']})
@@ -1197,12 +1282,12 @@ def aggregation_view_contact(user):
         aggregation_view_contact_detail = []
         for i in range(5):
             cursor = m.orders.aggregate(
-                [
+                get_aggregation_params([
                     {'$unwind': "$items"},
                     {'$group': {'_id': "$user.nickname", 'count': {'$sum': 1}}},
                     {'$match': {'count': i}},
                     {'$group': {'_id': 'null', 'totalUsersCount': {'$sum': 1}, 'totalRequestCount': {'$sum': "$count"}}}
-                ]
+                ])
             )
             if cursor.alive:
                 document = cursor.next()
@@ -1215,11 +1300,11 @@ def aggregation_view_contact(user):
         value.update({"aggregation_view_contact_detail": aggregation_view_contact_detail})
         cursor.close()
         cursor = m.orders.aggregate(
-            [
+            get_aggregation_params([
                 {'$unwind': "$items"},
                 {'$group': {'_id': "$user.nickname", 'count': {'$sum': 1}}},
                 {'$sort': {'count': -1}}
-            ]
+            ])
         )
         aggregation_view_contact_by_user = []
         for document in cursor:
@@ -1230,11 +1315,11 @@ def aggregation_view_contact(user):
         value.update({"aggregation_view_contact_by_user": aggregation_view_contact_by_user})
         cursor.close()
         cursor = m.orders.aggregate(
-            [
+            get_aggregation_params([
                 {'$unwind': "$items"},
                 {'$group': {'_id': "$ticket_id", 'count': {'$sum': 1}}},
                 {'$group': {'_id': None, 'totalUsersCount': {'$sum': 1}, 'totalRequestCount': {'$sum': "$count"}}}
-            ]
+            ])
         )
         document = cursor.next()
         value.update({
@@ -1243,12 +1328,12 @@ def aggregation_view_contact(user):
         })
         cursor.close()
         cursor = m.orders.aggregate(
-            [
+            get_aggregation_params([
                 {'$unwind': "$items"},
                 {'$group': {'_id': "$ticket_id", 'count': {'$sum': 1}}},
                 {'$sort': {'count': -1}},
                 {'$limit': 10}
-            ]
+            ])
         )
         aggregation_view_contact_times_sort = []
         for document in cursor:
@@ -1267,13 +1352,57 @@ def aggregation_view_contact(user):
     return value
 
 
-@f_api('/aggregation-property-view')
+@f_api('/aggregation-property-view', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None)
+))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
-def aggregation_property_view(user):
+def aggregation_property_view(user, params):
+
+    def get_aggregation_params(params_list):
+        result = []
+        if params['date_from'] is not None and params['date_to'] is not None:
+            result = [{
+                "$match": {
+                    "time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    }
+                }
+            }]
+        result.extend(params_list)
+        return result
+
+    def get_find_params(params_dic):
+        params_dic.update({
+            "time": {
+                "$gte": params['date_from'],
+                "$lt": params['date_to']
+            }
+        })
+        return params_dic
+
     value = {}
     with f_app.mongo() as m:
-        value.update({"aggregation_property_view_total": m.log.find({'property_id': {'$exists': True}}).count()})
-        value.update({"aggregation_property_view_register_user": m.log.find({'property_id': {'$exists': True}, 'id': {'$ne': None}}).count()})
+        value.update({
+            "aggregation_property_view_total": m.log.find(
+                get_find_params({
+                    'property_id': {
+                        '$exists': True
+                    }
+                })
+            ).count()
+        })
+        value.update({
+            "aggregation_property_view_register_user": m.log.find(
+                get_find_params({
+                    'property_id': {
+                        '$exists': True
+                    },
+                    'id': {'$ne': None}
+                })
+            ).count()
+        })
 
         func_map = Code('''
             function() {
@@ -1285,7 +1414,19 @@ def aggregation_property_view(user):
                 return Array.sum(value)
             }
         ''')
-        result = m.log.map_reduce(func_map, func_reduce, "aggregation_property_view_by_user", query={'property_id': {'$exists': True}, 'id': {'$ne': None}})
+        result = m.log.map_reduce(
+            func_map,
+            func_reduce,
+            "aggregation_property_view_by_user",
+            query=get_find_params({
+                'property_id': {
+                    '$exists': True
+                },
+                'id': {
+                    '$ne': None
+                }
+            })
+        )
         aggregation_property_view_times_by_user_sort = []
         for single in result.find().sort('value', -1):
             if 'nickname' in f_app.user.get(single['_id']):
@@ -1299,7 +1440,16 @@ def aggregation_property_view(user):
                 emit(this.property_id, 1);
             }
         ''')
-        result = m.log.map_reduce(func_map, func_reduce, "aggregation_property_view_by_user", query={'property_id': {'$exists': True}})
+        result = m.log.map_reduce(
+            func_map,
+            func_reduce,
+            "aggregation_property_view_by_user",
+            query=get_find_params({
+                'property_id': {
+                    '$exists': True
+                }
+            })
+        )
         aggregation_property_view_times_by_property_sort = []
         for single in result.find().sort('value', -1):
             property_id = single["_id"]
@@ -1321,26 +1471,57 @@ def aggregation_property_view(user):
     return value
 
 
-@f_api('/aggregation-rent-request')
+@f_api('/aggregation-rent-request', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None)
+))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
-def aggregation_rent_request(user):
+def aggregation_rent_request(user, params):
+
+    def get_aggregation_params(params_list):
+        result = []
+        if params['date_from'] is not None and params['date_to'] is not None:
+            result = [{
+                "$match": {
+                    "time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    }
+                }
+            }]
+        result.extend(params_list)
+        return result
+
+    def get_find_params(params_dic):
+        params_dic.update({
+            "time": {
+                "$gte": params['date_from'],
+                "$lt": params['date_to']
+            }
+        })
+        return params_dic
+
     value = {}
     with f_app.mongo() as m:
 
-        value.update({'aggregation_rent_request_total_count': m.tickets.find({
-            "type": "rent_intention",
-            "interested_rent_tickets": {"$exists": True},
-            "status": {
-                "$in": [
-                    "requested",
-                    "agreed",
-                    "rejected",
-                    "assigned",
-                    "examined",
-                    "rent"
-                ]
-            }
-        }).count()})
+        value.update({
+            'aggregation_rent_request_total_count': m.tickets.find(
+                get_find_params({
+                    "type": "rent_intention",
+                    "interested_rent_tickets": {"$exists": True},
+                    "status": {
+                        "$in": [
+                            "requested",
+                            "agreed",
+                            "rejected",
+                            "assigned",
+                            "examined",
+                            "rent"
+                        ]
+                    }
+                })
+            ).count()
+        })
 
         func_map = Code('''
             function() {
@@ -1356,20 +1537,25 @@ def aggregation_rent_request(user):
                 return Array.sum(value)
             }
         ''')
-        result = m.tickets.map_reduce(func_map, func_reduce, "aggregation_rent_request", query={
-            "type": "rent_intention",
-            "interested_rent_tickets": {"$exists": True},
-            "status": {
-                "$in": [
-                    "requested",
-                    "agreed",
-                    "rejected",
-                    "assigned",
-                    "examined",
-                    "rent"
-                ]
-            }
-        })
+        result = m.tickets.map_reduce(
+            func_map,
+            func_reduce,
+            "aggregation_rent_request",
+            query=get_find_params({
+                "type": "rent_intention",
+                "interested_rent_tickets": {"$exists": True},
+                "status": {
+                    "$in": [
+                        "requested",
+                        "agreed",
+                        "rejected",
+                        "assigned",
+                        "examined",
+                        "rent"
+                    ]
+                }
+            })
+        )
         aggregation_rent_request_count_sort = []
         for single in result.find().sort('value', -1):
             rent_ticket_id = single['_id']
@@ -1386,10 +1572,12 @@ def aggregation_rent_request(user):
                 })
         value.update({'aggregation_rent_request_count_sort': aggregation_rent_request_count_sort})
 
-        cursor = m.users.aggregate([
-            {"$unwind": "$user_type"},
-            {"$group": {"_id": "$user_type", "count": {"$sum": 1}}}
-        ])
+        cursor = m.users.aggregate(
+            [
+                {"$unwind": "$user_type"},
+                {"$group": {"_id": "$user_type", "count": {"$sum": 1}}}
+            ]
+        )
         user_type = []
         for document in cursor:
             user_type.append({"type": f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'],
@@ -1398,20 +1586,22 @@ def aggregation_rent_request(user):
         for single in user_type:
             if single['type'] == '租客':
                 percent_base = single['total']
-        result = m.tickets.find({
-            "type": "rent_intention",
-            "interested_rent_tickets": {"$exists": True},
-            "status": {
-                "$in": [
-                    "requested",
-                    "agreed",
-                    "rejected",
-                    "assigned",
-                    "examined",
-                    "rent"
-                ]
-            }
-        })
+        result = m.tickets.find(
+            get_find_params({
+                "type": "rent_intention",
+                "interested_rent_tickets": {"$exists": True},
+                "status": {
+                    "$in": [
+                        "requested",
+                        "agreed",
+                        "rejected",
+                        "assigned",
+                        "examined",
+                        "rent"
+                    ]
+                }
+            })
+        )
         user_set = set()
         get_request_period = []
         for single in result:
@@ -1428,20 +1618,22 @@ def aggregation_rent_request(user):
         average = sum(get_request_period, timedelta())/len(get_request_period)
         value.update({'aggregation_rent_request_average_period': average})
 
-        result = m.tickets.find({
-            "type": "rent_intention",
-            "interested_rent_tickets": {"$exists": True},
-            "status": {
-                "$in": [
-                    "requested",
-                    "agreed",
-                    "rejected",
-                    "assigned",
-                    "examined",
-                    "rent"
-                ]
-            }
-        })
+        result = m.tickets.find(
+            get_find_params({
+                "type": "rent_intention",
+                "interested_rent_tickets": {"$exists": True},
+                "status": {
+                    "$in": [
+                        "requested",
+                        "agreed",
+                        "rejected",
+                        "assigned",
+                        "examined",
+                        "rent"
+                    ]
+                }
+            })
+        )
         request_count_before_rent_list = []
         for ticket in result:
             if ticket['status'] == 'rent':
@@ -1454,10 +1646,35 @@ def aggregation_rent_request(user):
 
 
 @f_api('/aggregation-email-detail', params=dict(
-    time=(datetime, None)
+    date_from=(datetime, None),
+    date_to=(datetime, None)
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
 def aggregation_email_detail(user, params):
+
+    def get_aggregation_params(params_list):
+        result = []
+        if params['date_from'] is not None and params['date_to'] is not None:
+            result = [{
+                "$match": {
+                    "time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    }
+                }
+            }]
+        result.extend(params_list)
+        return result
+
+    def get_find_params(params_dic, time="time"):
+        params_dic.update({
+            time: {
+                "$gte": params['date_from'],
+                "$lt": params['date_to']
+            }
+        })
+        return params_dic
+
     value = {}
     with f_app.mongo() as m:
         func_map = Code('''
@@ -1495,10 +1712,16 @@ def aggregation_email_detail(user, params):
             }
         ''')
         # specify_date = datetime(2015, 11, 18)
-        if 'time' in params:
+        '''if 'time' in params:
             result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send", "start": {"$gte": params['time']}})
         else:
-            result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send"})
+            result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send"})'''
+        result = f_app.task.get_database(m).map_reduce(
+            func_map,
+            func_reduce,
+            "aggregation_tag",
+            query=get_find_params({"type": "email_send"}, "start")
+        )
         value.update({"aggregation_email_tag_total": result.find().count()})
         total_email_drop = 0
         total_email_contain_new_only = 0
@@ -1553,7 +1776,12 @@ def aggregation_email_detail(user, params):
             for single_param in tag["value"]["a"]:
                 or_param.append(single_param)
             query_param.update({"$or": or_param})
-            tag_result = f_app.email.status.get_database(m).map_reduce(func_status_map, func_status_reduce, "aggregation_tag_event", query=query_param)
+            tag_result = f_app.email.status.get_database(m).map_reduce(
+                func_status_map,
+                func_status_reduce,
+                "aggregation_tag_event",
+                query=query_param
+            )
             final_result = {}
             for thing in tag_result.find():
                 final_result.update({thing["_id"]: thing["value"]})
@@ -1565,8 +1793,8 @@ def aggregation_email_detail(user, params):
             total_email = final_result.get("total_email", 0)
             total_email_drop += final_result.get("total_email_drop", 0)
             total_email_contain_new_only += final_result.get("total_email_contain_new_only", 0)
-            total_email_drop_id = final_result.get("total_email_drop_id", {}).get("email_id", [])
-            total_email_contain_new_only_id = final_result.get("total_email_contain_new_only_id", {}).get("email_id", [])
+            # total_email_drop_id = final_result.get("total_email_drop_id", {}).get("email_id", [])
+            # total_email_contain_new_only_id = final_result.get("total_email_contain_new_only_id", {}).get("email_id", [])
             single_value = {
                 "tag": tag['_id'],
                 "total": total_email,
@@ -1579,11 +1807,11 @@ def aggregation_email_detail(user, params):
                 "click_ratio": click_unique/total_email if total_email else 0,
                 "click_repeat": click_times
             }
-            if 'time' in params:
+            '''if 'time' in params:
                 single_value.update({
                     "total_email_drop_id": total_email_drop_id,
                     "total_email_contain_new_only_id": total_email_contain_new_only_id
-                })
+                })'''
             aggregation_email_tag_detail.append(single_value)
         value.update({"aggregation_email_tag_detail": aggregation_email_tag_detail})
         if 'time' in params:
