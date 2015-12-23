@@ -821,18 +821,24 @@ def aggregation_general(user, params):
 def aggregation_rent_ticket(user, params):
 
     def get_aggregation_params(params_list):
-        result = []
         if params['date_from'] is not None and params['date_to'] is not None:
-            result = [{
-                "$match": {
+            if '$match' in params_list[0]:
+                params_list[0]['$match'].update({
                     "register_time": {
                         "$gte": params['date_from'],
                         "$lt": params['date_to']
                     }
-                }
-            }]
-        result.extend(params_list)
-        return result
+                })
+            else:
+                params_list.insert(0, {
+                    "$match": {
+                        "register_time": {
+                            "$gte": params['date_from'],
+                            "$lt": params['date_to']
+                        }
+                    }
+                })
+        return params_list
 
     value = {}
     with f_app.mongo() as m:
@@ -1008,9 +1014,27 @@ def aggregation_rent_ticket(user, params):
     return value
 
 
-@f_api('/aggregation-rent-intention-ticket')
+@f_api('/aggregation-rent-intention-ticket', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None)
+))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
-def aggregation_rent_intention_ticket(user):
+def aggregation_rent_intention_ticket(user, params):
+
+    def get_aggregation_params(params_list):
+        result = []
+        if params['date_from'] is not None and params['date_to'] is not None:
+            result = [{
+                "$match": {
+                    "register_time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    }
+                }
+            }]
+        result.extend(params_list)
+        return result
+
     value = {}
     with f_app.mongo() as m:
         value.update({"aggregation_rent_intention_total": m.tickets.find({'type': "rent_intention"}).count()})
