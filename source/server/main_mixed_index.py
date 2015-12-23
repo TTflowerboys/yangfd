@@ -408,6 +408,7 @@ class f_main_mixed_index(f_app.plugin_base):
         def _format_each(main_mixed_index):
             main_mixed_index.pop("loc", None)
             main_mixed_index.pop("index", None)
+            main_mixed_index.pop("suggestion_index", None)
             return f_app.util.process_objectid(main_mixed_index)
 
         if f_app.util.batch_iterable(main_mixed_index_id_or_list):
