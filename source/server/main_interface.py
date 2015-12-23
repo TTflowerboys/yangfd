@@ -2079,6 +2079,35 @@ def user_rent_request(user, params):
             return get_id_in_url(record.get("referer", None))
         return None
 
+    def get_ticket_add_ip(ticket):
+        ticket_id = ticket['id']
+        result = f_app.log.get(f_app.log.search({"ticket_type": "rent_intention", "type": "ticket_add", "ticket_id": ticket_id}))
+        if result is not None and len(result):
+            ip = result[0].get('ip', None)
+            if ip is not None and len(ip):
+                return unicode(ip[0])
+            else:
+                return 'unknow'
+        time = ticket.get("time", None)
+        diff_time = timedelta(milliseconds=500)
+        flag = 0
+        if time is None:
+            return None
+        for num, single in enumerate(referer_result):
+            rst_time = single.get("time", None)
+            if rst_time is None:
+                continue
+            if rst_time - diff_time < time < rst_time + diff_time:
+                flag = 1
+                record = single
+        if flag:
+            ip = record.get('ip', None)
+            if ip is not None and len(ip):
+                return unicode(ip[0])
+            else:
+                return 'unknow'
+        return 'unknow'
+
     def get_id_in_url(url):
         if url is None:
             return None
@@ -2153,10 +2182,36 @@ def user_rent_request(user, params):
 
     wb = Workbook()
     ws = wb.active
-    header = ["咨询单状态", "咨询单描述", "咨询人昵称", "咨询人性别", "咨询人年龄", "咨询人职业", "咨询人联系方式", "咨询人邮箱", "微信", "提交时间", "起始日期",
+    '''header = ["咨询单状态", "咨询单描述", "咨询人昵称", "咨询人性别", "咨询人年龄", "咨询人职业", "咨询人联系方式", "咨询人邮箱", "微信", "提交时间", "起始日期",
               "终止日期", "period", "入住人数", "吸烟", "小孩", "宠物", "备注",
               "房源标题", "房源地址", "房源短id", "房东姓名", "房东电话", "房东邮箱", "房源链接"]
-    ws.append(header)
+    ws.append(header)'''
+
+    Header = [
+        ["提交时间", "意向房源", "租期", "", "", "", "客户", "", "", "", "", "", "入住信息", "", "", "", "TBC", "", "Location", "", "", "relocate", "租客对房东的问题", "咨询处理状态", "备注", "咨询房源提交量", "房源地址", "short ID", "url"],
+        ["", "", "入住", "结束", "租期描述", "入住与提交时间差", "名字", "性别", "现状", "年龄", "电话", "邮件", "人数", "吸烟", "带小孩", "带宠物", "签证类型", "签证到期时间", "IP", "国家", "城市"]
+    ]
+    merge = [
+        'A1:A2',
+        'B1:B2',
+        'C1:F1',
+        'G1:L1',
+        'M1:P1',
+        'Q1:R1',
+        'S1:U1',
+        'V1:V2',
+        'W1:W2',
+        'X1:X2',
+        'Y1:Y2',
+        'Z1:Z2',
+        'AA1:AA2',
+        'AB1:AB2',
+        'AC1:AC2'
+    ]
+    for header in Header:
+        ws.append(header)
+    for merge_ops in merge:
+        ws.merge_cells(merge_ops)
 
     referer_result = f_app.log.output(f_app.log.search({"route": "/api/1/rent_intention_ticket/add"}, per_page=-1))
 
@@ -2178,7 +2233,7 @@ def user_rent_request(user, params):
             url = get_referer_id(ticket_request)
             if url is not None:
                 url = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + unicode(url)
-            ws.append([
+            '''ws.append([
                 get_request_status_translate(ticket_request),
                 ticket_request.get('description', ''),
                 ticket_request.get('nickname', ''),
@@ -2204,10 +2259,41 @@ def user_rent_request(user, params):
                 landlord_boss.get("phone", ""),
                 landlord_boss.get("email", ""),
                 url if url else ''
+            ])'''
+            ws.append([
+                unicode(timezone('Europe/London').localize(ticket_request['time'])),
+                ticket.get('title', ''),
+                unicode(timezone('Europe/London').localize(ticket_request['rent_available_time'])),
+                unicode(timezone('Europe/London').localize(ticket_request['rent_deadline_time'])),
+                time_period_label(ticket_request),
+                '',
+                ticket_request.get('nickname', ''),
+                "男" if ticket_request.get('gender', None) == 'male' else "女",
+                get_user_occupation(ticket_request),
+                get_user_age(ticket_request),
+                ticket_request.get('phone', ''),
+                ticket_request.get('email', ''),
+                ticket_request.get('tenant_count', None),
+                "是" if ticket_request.get('smoke', False) is True else "否",
+                "是" if ticket_request.get('baby', False) is True else "否",
+                "是" if ticket_request.get('pet', False) is True else "否",
+                '',
+                '',
+                get_ticket_add_ip(ticket_request),
+                '',
+                '',
+                '',
+                ticket_request.get('description', ''),
+                get_request_status_translate(ticket_request),
+                '',
+                '',
+                get_detail_address(ticket),
+                get_short_id(ticket),
+                url if url else ''
             ])
 
     format_fit(ws)
-    add_link(ws, 'Y')
+    add_link(ws, 'AC')
     out = StringIO(save_virtual_workbook(wb))
     response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
