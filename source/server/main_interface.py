@@ -813,42 +813,60 @@ def aggregation_general(user, params):
     return value
 
 
-@f_api('/aggregation-rent-ticket')
+@f_api('/aggregation-rent-ticket', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None)
+))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
-def aggregation_rent_ticket(user):
+def aggregation_rent_ticket(user, params):
+
+    def get_aggregation_params(params_list):
+        result = []
+        if params['date_from'] is not None and params['date_to'] is not None:
+            result = [{
+                "$match": {
+                    "register_time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    }
+                }
+            }]
+        result.extend(params_list)
+        return result
+
     value = {}
     with f_app.mongo() as m:
-        cursor = m.tickets.aggregate(
+        cursor = m.tickets.aggregate(get_aggregation_params(
             [
                 {'$match': {'type': "rent"}},
                 {'$group': {'_id': "$type", 'count': {'$sum': 1}}}
             ]
-        )
+        ))
         value.update({"aggregation_rent_ticket_total": cursor.next()['count']})
         cursor.close()
-        cursor = m.log.aggregate(
+        cursor = m.log.aggregate(get_aggregation_params(
             [
                 {'$match': {'route': '/api/1/rent_ticket/add'}},
                 {'$group': {'_id': None, 'count': {'$sum': 1}}}
             ]
-        )
+        ))
         value.update({"aggregation_rent_ticket_create_total": cursor.next()['count']})
         cursor.close()
-        cursor = m.log.aggregate(
+        cursor = m.log.aggregate(get_aggregation_params(
             [
                 {'$match': {'route': '/api/1/rent_ticket/add', 'useragent': {'$regex': '.*currant.*'}}},
                 {'$group': {'_id': None, 'count': {'$sum': 1}}}
             ]
-        )
+        ))
         value.update({"aggregation_rent_ticket_create_total_from_mobile": cursor.next()['count']})
         value.update({"aggregation_rent_ticket_create_total_from_mobile_ratio": value['aggregation_rent_ticket_create_total_from_mobile']*1.0/value['aggregation_rent_ticket_create_total']})
         cursor.close()
-        cursor = m.tickets.aggregate(
+        cursor = m.tickets.aggregate(get_aggregation_params(
             [
                 {'$match': {'type': "rent"}},
                 {'$group': {'_id': "$status", 'count': {'$sum': 1}}}
             ]
-        )
+        ))
         status_dic = {
             'rent': '已出租',
             'to rent': '发布中',
@@ -862,12 +880,12 @@ def aggregation_rent_ticket(user):
         cursor.close()
         value.update({"aggregation_rent_ticket_status": aggregation_rent_ticket_status})
 
-        cursor = m.tickets.aggregate(
+        cursor = m.tickets.aggregate(get_aggregation_params(
             [
                 {'$match': {'type': "rent"}},
                 {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
             ]
-        )
+        ))
         aggregation_rent_ticket_type = []
         for document in cursor:
             if(document['_id']):
@@ -875,12 +893,12 @@ def aggregation_rent_ticket(user):
                                                      "total": document['count']})
         value.update({"aggregation_rent_ticket_type": aggregation_rent_ticket_type})
         cursor.close()
-        cursor = m.tickets.aggregate(
+        cursor = m.tickets.aggregate(get_aggregation_params(
             [
                 {'$match': {'type': "rent", 'status': "to rent"}},
                 {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
             ]
-        )
+        ))
         aggregation_rent_ticket_type_available = []
         for document in cursor:
             if(document['_id']):
@@ -888,12 +906,12 @@ def aggregation_rent_ticket(user):
                                                                "total": document['count']})
         value.update({"aggregation_rent_ticket_type_available": aggregation_rent_ticket_type_available})
         cursor.close()
-        cursor = m.tickets.aggregate(
+        cursor = m.tickets.aggregate(get_aggregation_params(
             [
                 {'$match': {'type': "rent", 'status': "rent"}},
                 {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
             ]
-        )
+        ))
         aggregation_rent_ticket_type_rent = []
         for document in cursor:
             if(document['_id']):
@@ -901,12 +919,12 @@ def aggregation_rent_ticket(user):
                                                           "total": document['count']})
         cursor.close()
         value.update({"aggregation_rent_ticket_type_rent": aggregation_rent_ticket_type_rent})
-        cursor = m.tickets.aggregate(
+        cursor = m.tickets.aggregate(get_aggregation_params(
             [
                 {'$match': {'type': "rent", 'status': "to rent"}},
                 {'$group': {'_id': "$landlord_type", 'count': {'$sum': 1}}}
             ]
-        )
+        ))
         aggregation_landlord_type_has_available_rent_ticket = []
         for document in cursor:
             if(document['_id']):
@@ -914,12 +932,12 @@ def aggregation_rent_ticket(user):
                                                                             "total": document['count']})
         cursor.close()
         value.update({"aggregation_landlord_type_has_available_rent_ticket": aggregation_landlord_type_has_available_rent_ticket})
-        cursor = m.tickets.aggregate(
+        cursor = m.tickets.aggregate(get_aggregation_params(
             [
                 {'$match': {'type': "rent", 'status': "to rent", 'rent_type._id': ObjectId('55645cf5666e3d0f57d6e284')}},
                 {'$group': {'_id': "$landlord_type", 'count': {'$sum': 1}}}
             ]
-        )
+        ))
         aggregation_landlord_type_has_available_whole = []
 
         for document in cursor:
@@ -931,7 +949,7 @@ def aggregation_rent_ticket(user):
 
         # aggregation_rent_ticket_shortest_rent_period TODO
 
-        cursor = m.tickets.aggregate(
+        cursor = m.tickets.aggregate(get_aggregation_params(
             [
                 {'$match': {
                     'type': "rent",
@@ -939,7 +957,7 @@ def aggregation_rent_ticket(user):
                     }},
                 {'$group': {'_id': "$minimum_rent_period", 'count': {'$sum': 1}}}
             ]
-        )
+        ))
 
         period_count = {
             'short': 0,
