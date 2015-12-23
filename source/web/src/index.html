@@ -15,105 +15,92 @@
 <!--endbuild-->
 <!--@@close-->
 <!--@@block=main -->
-<div class="gallery">
-    %if homepage_ad_list:
-        <div class="indexBanner swiper-container">
-            <ul class=" swiper-wrapper" data-init="false">
-                % for ad in homepage_ad_list:
-                    <li class="swiper-slide">
-                        <div class="img hiddenOnMobile" style="background:url('{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}', sizingMethod='scale');" data-url="{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}">
-                            <div class="img_shadow"></div>
-                        </div>
-                        <div class="img hiddenOnPCWeb" style="background:url('{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}_thumbnail') no-repeat;background-size: cover; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}_thumbnail', sizingMethod='scale');" data-url="{{!fetch_image(ad.get('image'), content_id=ad.get('id'))}}_thumbnail">
-                            <div class="img_shadow"></div>
-                        </div>
-                        <div class="imageText_table">
-                            <div class="imageText_wrapper">
-                                <div class="imageText">
-                                    %if ad.get('text'):
-                                    %for index, text in enumerate(ad.get('text')):
-                                        <h1 class="slogan">{{text}}</h1>
-                                    %end
-                                    %end
-                                    %if ad.get('image_alt'):
-                                    <a class="button red" href="{{ad.get('link')}}">{{ad.get('image_alt','')}}</a>
-                                    %end
-                                </div>
-                            </div>
-                        </div>
+<div class="tabBoxMobile hiddenOnPCWeb">
+    <ul class="tab" data-bind="foreach: tabOptions, css: hoverTab() || activeTab()"><!--
+        --><li data-bind="css: {active: $parent.activeTab() == slug}, click: $parent.switchTab.bind($parent), event: {mouseover: $parent.mouseoverTab.bind($parent), mouseout: $parent.mouseoutTab.bind($parent)}">
+            <h3 data-bind="text: text"></h3>
+        </li><!--
+    --></ul>
+</div>
+<!-- @@include =./partials/location_filter_tpl.html -->
+<div class="indexBanner" data-bind="css: {hiddenInNonClient: activeTab() == 'landlord' && window.team.isPhone()}">
+    <h1 data-bind="visible: activeTab() == 'tenant'">{{_('视屏直播全英优质房源')}} <br class="hiddenOnPCWeb">{{_('足不出户搞定租房')}}</h1>
+    <h1 style="display: none" data-bind="visible: activeTab() == 'landlord'">{{_('有英国房源要出租')}}</h1>
+    <h1 style="display: none" data-bind="visible: activeTab() == 'investor'">{{_('您身边的英国房产置业专家')}}</h1>
+    <div class="tabBox">
+        <ul class="tab hiddenOnMobile" data-bind="foreach: tabOptions, css: hoverTab() || activeTab()"><!--
+            --><li data-bind="css: {active: $parent.activeTab() == slug}, click: $parent.switchTab.bind($parent), event: {mouseover: $parent.mouseoverTab.bind($parent), mouseout: $parent.mouseoutTab.bind($parent)}">
+                <i class="img_wrapper" data-bind="css: icon"></i>
+                <h3 data-bind="text: text"></h3>
+            </li><!--
+        --></ul>
+        <div class="content" data-bind="visible: activeTab() == 'tenant'">
+            <div class="category three hiddenOnMobile">
+                <location-filter class="tenantFilterWrapper" params="wrapper: '.tenantFilterWrapper', searchUrl: '/property-to-rent-list'"></location-filter>
+                <ul class="entrance hiddenOnMobile">
+                    <li>
+                        <a href="/user-favorites">
+                            <i class="icon-faver"></i>
+                            <span>{{_('我的收藏')}}</span>
+                        </a>
+                    </li><!--
+                    --><li>
+                        <a href="/user-properties#request">
+                            <i class="icon-phone_line"></i>
+                            <span>{{_('已咨询的房源')}}</span>
+                        </a>
+                    </li><!--
+                    --><li>
+                        <a data-action="requirementRent">
+                            <i class="icon-requirement_line"></i>
+                            <span>{{_('提交求租意向单')}}</span>
+                        </a>
                     </li>
-                % end
-            </ul>
-            %if len(homepage_ad_list) > 1:
-            <div class="bannerPagination"></div>
-            %end
+                </ul>
+            </div>
         </div>
-    %end
+        <div style="display: none" class="content" data-bind="visible: activeTab() == 'landlord'">
+            <div class="hiddenInNonClient">
+                %if is_mobile_client_version('>=', '1.1.2'):
+                <a class="button publishButton whole" href="yangfd://property-to-rent/create">
+                    <i class="icon-cellphone"></i>
+                    <span>{{_('出租发布')}}</span>
+                </a>
+                %else:
+                <a class="button publishButton whole" href="#" onclick="window.bridge.callHandler(&quot;createRentTicket&quot;);return false;" data-need-bridge>
+                    <i class="icon-cellphone"></i>
+                    <span>{{_('出租发布')}}</span>
+                </a>
+                %end
+            </div>
+            <a href="/property-to-rent/create?rent_type={{next(item for item in rent_type_list if item.get('slug') == 'rent_type:single').get('id')}}" class="button publishButton single hiddenInClient">
+                <i class="icon-door"></i>
+                <span>{{_('单间出租')}}</span>
+            </a><!--
+            --><a href="/property-to-rent/create?rent_type={{next(item for item in rent_type_list if item.get('slug') == 'rent_type:whole').get('id')}}" class="button publishButton whole hiddenInClient">
+                <i class="icon-house"></i>
+                <span>{{_('整套出租')}}</span>
+            </a>
+        </div>
+        <div style="display: none" class="content" data-bind="visible: activeTab() == 'investor'">
+            <div class="category three hiddenOnMobile">
+                <location-filter class="investorFilterWrapper" params="wrapper: '.investorFilterWrapper', searchUrl: '/property-list'"></location-filter>
+            </div>
+        </div>
+    </div>
 </div>
 
 
-<div class="roleChooser" id="roleChooser" data-tabs>
-    <div class="tab_wrapper">
-        <ul class="tab">
-            <li data-tab="renter"
-                >
-                <div class="inner">
-                    <i class="img_wrapper icon-key"></i>
-                    <div class="text">
-                        <h3 class="title">
-                            {{_('租客服务')}}
-                        </h3>
-                        <label class="hint">
-                            {{_('优质海外华人房源')}}
-                        </label>
-                    </div>
-                </div>
-            </li>
-            <li data-tab="landlord"
-                >
-                <div class="inner">
-                    <i class="img_wrapper icon-house_homepage"></i>
-                    <div class="text">
-                        <h3 class="title">
-                            {{_('房东服务')}}
-                        </h3>
-                        <label class="hint">
-                            {{_('朋友圈里的租房助手')}}
-                        </label>
-                    </div>
-                </div>
-            </li>
-            <li data-tab="buyer"
-                >
-                <div class="inner">
-                    <i class="img_wrapper icon-invest"></i>
-                    <div class="text">
-                        <h3 class="title">
-                            {{_('海外置业')}}
-                        </h3>
-                        <label class="hint">
-                            {{_('优质海外房产投资机会')}}
-                        </label>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+<div class="roleChooser">
     <ul class="content">
-        <li data-tab-name="buyer"
-            style="display:none;"
-            >
-            <!-- @@include =./partials/index_buyer.html -->
+        <li data-bind="visible: activeTab() == 'tenant'" style="display:none;">
+            <!-- @@include =./partials/index_renter.html -->
         </li>
-        <li data-tab-name="landlord"
-            style="display:none;"
-            >
+        <li data-bind="visible: activeTab() == 'landlord'" style="display:none;">
             <!-- @@include =./partials/index_landlord.html -->
         </li>
-        <li data-tab-name="renter"
-            style="display:none;"
-            >
-            <!-- @@include =./partials/index_renter.html -->
+        <li data-bind="visible: activeTab() == 'investor'" style="display:none;">
+            <!-- @@include =./partials/index_buyer.html -->
         </li>
     </ul>
 </div>
@@ -185,11 +172,13 @@
     }
 </script>
 <!--build:js /static/scripts/index.html.js-->
+<script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
 <script type="text/javascript" src="/static/bower_components/swiper/dist/js/swiper.jquery.min.js"></script>
+<script type="text/javascript" src="/static/vendors/Blur.js/blur.js"></script>
+<script src="/static/scripts/common_ko.js"></script>
 <script src="/static/scripts/filter_of_neighborhood_subway_school.js"></script>
 <script src="/static/scripts/property_to_rent_list_selectors.js"></script>
 <script src="/static/scripts/index_app_download.js"></script>
-<script src="/static/scripts/index_renter.js"></script>
 <script src="/static/scripts/index_intention.js"></script>
 <script src="/static/scripts/index_delegate_rent.js"></script>
 <script src="/static/scripts/index_delegate_sale.js"></script>

@@ -50,3 +50,4 @@ $('#subscribeBtn').bind('click', function (e) {
         $('.subscribeAndroid').find('button').text(i18n('订阅')).data('disabled', false)
     })
 })
+$('.landlordService .tabWrapper').tabs({trigger: 'click', autoSelectFirst: false, className: 'active'}).switch('landlord')
