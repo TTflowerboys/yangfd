@@ -333,6 +333,7 @@ def doogal_station_search(params):
 
 @f_api('/main_mixed_index/search', params=dict(
     query=str,
+    suggestion=str,
     latitude=float,
     longitude=float,
     search_range=(int, 1000),
