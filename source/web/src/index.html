@@ -58,26 +58,30 @@
                     </li>
                 </ul>
             </div>
+            <a href="/property-to-rent-list" class="button bigButton red hiddenOnPCWeb">
+                <i class="icon-search"></i>
+                <span>{{_('开始找租房')}}</span>
+            </a>
         </div>
         <div style="display: none" class="content" data-bind="visible: activeTab() == 'landlord'">
             <div class="hiddenInNonClient">
                 %if is_mobile_client_version('>=', '1.1.2'):
-                <a class="button publishButton whole" href="yangfd://property-to-rent/create">
+                <a class="button bigButton red" href="yangfd://property-to-rent/create">
                     <i class="icon-cellphone"></i>
                     <span>{{_('出租发布')}}</span>
                 </a>
                 %else:
-                <a class="button publishButton whole" href="#" onclick="window.bridge.callHandler(&quot;createRentTicket&quot;);return false;" data-need-bridge>
+                <a class="button bigButton red" href="#" onclick="window.bridge.callHandler(&quot;createRentTicket&quot;);return false;" data-need-bridge>
                     <i class="icon-cellphone"></i>
                     <span>{{_('出租发布')}}</span>
                 </a>
                 %end
             </div>
-            <a href="/property-to-rent/create?rent_type={{next(item for item in rent_type_list if item.get('slug') == 'rent_type:single').get('id')}}" class="button publishButton single hiddenInClient">
+            <a href="/property-to-rent/create?rent_type={{next(item for item in rent_type_list if item.get('slug') == 'rent_type:single').get('id')}}" class="button bigButton blue hiddenInClient">
                 <i class="icon-door"></i>
                 <span>{{_('单间出租')}}</span>
             </a><!--
-            --><a href="/property-to-rent/create?rent_type={{next(item for item in rent_type_list if item.get('slug') == 'rent_type:whole').get('id')}}" class="button publishButton whole hiddenInClient">
+            --><a href="/property-to-rent/create?rent_type={{next(item for item in rent_type_list if item.get('slug') == 'rent_type:whole').get('id')}}" class="button bigButton red hiddenInClient">
                 <i class="icon-house"></i>
                 <span>{{_('整套出租')}}</span>
             </a>
