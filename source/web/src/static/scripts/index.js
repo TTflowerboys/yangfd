@@ -1,4 +1,4 @@
-(function () {
+(function (ko) {
 
     /*
      Bridge Life Cycle Sample Code
@@ -89,7 +89,7 @@
         var windowHeight = $(window).height()
         var tabbarHeight = $('#roleChooser .tab_wrapper').height()
 
-        if (tabName === 'buyer') {
+        if (tabName === 'investor') {
             $('.intentionChooser').tabs({trigger:'hover'}).on('openTab', function () {
 
             })
@@ -113,7 +113,7 @@
                 }
             }
         }
-        else if (tabName === 'renter'){
+        else if (tabName === 'tenant'){
             if (window.team.isCurrantClient()) {
                 var questionHeight = $('.renterService ul.questionChooser').height()
                 $('ul.questionChooser').css('margin-top', ((windowHeight - tabbarHeight - questionHeight)/ 2) + 'px')
@@ -121,47 +121,6 @@
             }
         }
     }
-
-    function selectRoleChooserTab(tabName) {
-        $('#roleChooser .tab [data-tab=' + tabName + ']').addClass('selectedTab')
-        $('#roleChooser .content [data-tab-name=' + tabName + ']').addClass('selectedTab')
-        $('#roleChooser .content [data-tab-name=' + tabName + ']').show()
-    }
-
-
-    $('#roleChooser').tabs({trigger: 'click', autoSelectFirst: false}).on('openTab', function (event, target, tabName) {
-        if ($(target).parents('[data-tabs]').first()[0] === $('#roleChooser')[0]) {
-            window.scrollTo(0, $('#roleChooser').offset().top)
-            initRoleChooserContent(tabName)
-        }
-    });
-
-    if(window.lang === 'en_GB') {
-        selectRoleChooserTab('landlord')
-        initRoleChooserContent('landlord')
-    } else {
-        if (window.user && window.user.user_type) {
-            if (window.user.user_type[0].slug === 'investor') {
-                selectRoleChooserTab('buyer')
-                initRoleChooserContent('buyer')
-            }
-            else if (window.user.user_type[0].slug === 'landlord') {
-                selectRoleChooserTab('landlord')
-                initRoleChooserContent('landlord')
-
-            }
-            else if (window.user.user_type[0].slug === 'tenant') {
-                selectRoleChooserTab('renter')
-                initRoleChooserContent('renter')
-            }
-        }
-        else {
-            selectRoleChooserTab('renter')
-            initRoleChooserContent('renter')
-        }
-    }
-
-
 
     $('#announcement').on('click', 'ul>li>.close', function (event) {
         var $item = $(event.target.parentNode)
@@ -171,8 +130,6 @@
             $container.hide()
         }
     })
-
-
 
     function getAllIntentionIds() {
         var rawIntentionList = $('#dataIntentionList').text()
@@ -548,4 +505,131 @@
             })
         }
     }
-})()
+
+    ko.components.register('location-filter', {
+        viewModel: function (params) {
+            var $wrapper = $(params.wrapper)
+            window.currantModule.bindFiltersToChosenControls()
+            var filterOfNeighborhoodSubwaySchool = new window.currantModule.InitFilterOfNeighborhoodSubwaySchool({
+                container: $wrapper.find('.selectNeighborhoodSubwaySchoolWrap'),
+                citySelect: $wrapper.find('[name=propertyCity]'),
+                countrySelect: $wrapper.find('[name=propertyCountry]')
+            })
+            filterOfNeighborhoodSubwaySchool.Event.bind('change', function () {
+
+            })
+
+            var $countrySelect = $wrapper.find('select[name=propertyCountry]')
+            $countrySelect.change(function () {
+                var countryCode = $wrapper.find('select[name=propertyCountry]').children('option:selected').val()
+
+                ga('send', 'event', 'index', 'change', 'select-country',
+                    $wrapper.find('select[name=propertyCountry]').children('option:selected').text())
+                if(countryCode) {
+                    window.currantModule.updateCityByCountry(countryCode, $wrapper.find('select[name=propertyCity]'))
+                } else {
+                    window.currantModule.clearCity($wrapper.find('select[name=propertyCity]'))
+                }
+            })
+
+            function openListWithViewMode(viewMode) {
+                var country = $wrapper.find('select[name=propertyCountry]').children('option:selected').val()
+                var city = $wrapper.find('select[name=propertyCity]').children('option:selected').val()
+                var neighborhood = $wrapper.find('select[name=neighborhood]').children('option:selected').val()
+                var school = $wrapper.find('select[name=school]').children('option:selected').val()
+
+                function appendParam(url, key, param) {
+                    if (param && param !== '' && typeof param !== 'undefined') {
+                        return url + '&' + key + '=' + param
+                    }
+                    return url
+                }
+
+                var url = params.searchUrl + '?' + 'mode=' + viewMode
+                url = appendParam(url, 'country', country)
+                url = appendParam(url, 'city', city)
+                url = appendParam(url, 'neighborhood', neighborhood)
+                url = appendParam(url, 'school', school)
+                window.open(url, '_blank')
+                window.focus()
+            }
+
+
+            this.search = function () {
+                openListWithViewMode('list')
+            }
+
+        },
+        template: { element: 'locationFilter'}
+    })
+    function IndexViewModel() {
+        this.activeTab = ko.observable('tenant')
+        this.hoverTab = ko.observable()
+        this.tabOptions = ko.observableArray([
+            {
+                slug: 'tenant',
+                icon: 'icon-key',
+                text: i18n('英国租房')
+            },
+            {
+                slug: 'landlord',
+                icon: 'icon-house_homepage',
+                text: i18n('出租发布')
+            },
+            {
+                slug: 'investor',
+                icon: 'icon-invest',
+                text: i18n('英国置业')
+            },
+        ])
+        this.switchTab = function (item) {
+            this.activeTab(item.slug)
+            initRoleChooserContent(item.slug)
+        }
+        this.mouseoverTab = function (item) {
+            this.hoverTab(item.slug)
+        }
+        this.mouseoutTab = function (item) {
+            this.hoverTab('')
+        }
+
+        this.init = function () {
+            if(window.lang === 'en_GB') {
+                this.activeTab('landlord')
+                setTimeout(function () {
+                    initRoleChooserContent('landlord')
+                }, 50)
+            } else {
+                if (window.user && window.user.user_type && window.user.user_type.length) {
+                    initRoleChooserContent(window.user.user_type[0].slug)
+                } else {
+                    initRoleChooserContent('tenant')
+                }
+            }
+        }
+        this.init()
+    }
+    var indexViewModel = new IndexViewModel()
+    ko.applyBindings(indexViewModel)
+
+    function initBlurOfTabBox() {
+        if(!window.team.isPhone()) {
+            $('.tabBox').blurjs({
+                source: '.indexBanner',			//Background to blur
+                radius: 30,			//Blur Radius
+                overlay: false,			//Overlay Color, follow CSS3's rgba() syntax
+                offset: {			//Pixel offset of background-position
+                    x: 0,
+                    y: 0
+                },
+                optClass: '',			//Class to add to all affected elements
+                cache: true,			//If set to true, blurred image will be cached and used in the future. If image is in cache already, it will be used.
+                cacheKeyPrefix: 'blurjs-',	//Prefix to the keyname in the localStorage object
+                draggable: false,		//Only used if jQuery UI is present. Will change background-position to fixed
+                adjustSize: true
+            })
+        }
+    }
+    initBlurOfTabBox()
+    $(window).resize(initBlurOfTabBox)
+})(window.ko)

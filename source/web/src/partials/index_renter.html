@@ -1,34 +1,5 @@
 <div class="renterService">
-    <a class="hiddenOnPCWeb searchWrap" href="/property-to-rent-list">
-        <div class="img_wrapper">
-            <i class="icon-building"></i>
-        </div>
-        <div class="text">
-            <h3 class="question">
-                {{_('找优质英国租房房源？')}}
-            </h3>
-            <label class="hint" for="">
-                {{_('开始找租房')}}
-            </label>
-        </div>
-    </a>
-
-    <div class="category_wrapper">
-        <!-- @@include=property_to_rent_selectors.html -->
-        <div class="buttons">
-            <button class="search ghostButton red" id="renterSearch">
-                {{_('搜索')}}
-            </button>
-            <button class="mapSearch ghostButton red" id="renterMapSearch">
-                <i class="icon-map_view">
-                </i>
-                <label for="">
-                    {{_('地图搜索')}}
-                </label>
-            </button>
-        </div>
-    </div>
-    <ul class="entrance">
+    <ul class="entrance hiddenOnPCWeb">
         <li>
             <a href="/user-favorites">
                 <i class="icon-faver"></i>

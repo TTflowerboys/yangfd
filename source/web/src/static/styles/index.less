@@ -48,135 +48,216 @@
     @media @phone{
         background-color: #f6f6f6;
     }
-    .gallery {
-        li {
+    .tabBoxMobile{
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        ul.tab{
             position: relative;
-
-            .img {
+            text-align: center;
+            li{
                 position: relative;
-                width: 100%;
-                @media @phone {
-                    min-height:200px;
-                    height:200px;
+                z-index: 1;
+                display: inline-block;
+                width: 28.125vw;
+                height: 12vw;
+                line-height: 12vw;
+                text-align: center;
+                font-size: 4.375vw;
+                color: #666666;
+                cursor: pointer;
+                &.active{
+                    color: @red;
+                    border-bottom: 3px solid @red;
                 }
-            }
-
-            .img:before{
-                content:"";
-                display: block;
-                padding-top: 35%; 	/* initial ratio of 1:1*/
-            }
-
-            .img_shadow{
-                background:#000000;
-                opacity: .30; /* Standards Compliant Browsers */
-                filter: alpha(opacity=20); /* IE 7 and Earlier */
-                /* Next 2 lines IE8 */
-                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-                filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
-                min-width: 100%;
-                min-height: 100%;
-                position: absolute;
-                top:0;
-            }
-
-            .imageText {
-                &_table {
-                    display: table;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    margin-top: 8%;
-                    @media @phone {
-                        margin-top: 15%;
-                    }
-                    width: 100%;
-                }
-                &_wrapper {
-                    display: table-cell;
+                > *{
+                    display: inline-block;
                     vertical-align: middle;
-                    text-align: center;
-                    height: 100%;
-                    width: 100%;
-                }
-
-                margin: 0 auto;
-                .slogan {
-                    color: #ffffff;
-                    font-size: 48px;
-
-                    @media @phone {
-                        font-size:20px;
-                        line-height: 1.3em;
-                        padding: 0 20px;
-                    }
-                }
-                .button {
-                    margin-top: 30px;
-
-                    @media @phone {
-                        margin-top:20px;
-
-                        font-size:14px;
-                        line-height:14px;
-                        padding: 8px 10px;
-                        border-radius: 3px;
-                    }
                 }
             }
         }
-        .bannerPagination {
-            transform: translate3d(0, 0, 0);
-            z-index: 10;
+    }
+    .indexBanner{
+        position: relative;
+        width: 100%;
+        background-image: url("/static/images/background/homepage_top_banner_bg.jpg");
+        background-size: 100% 100%;
+        color: #fff;
+        @media @phone {
+            height:80vw;
+            overflow: hidden;
+            background-image: url("/static/images/background/homepage_top_banner_bg_mobile.jpg");
+        }
+        &:before{
+            content:"";
+            display: block;
+            padding-top: 41%; 	/* initial ratio of 1:1*/
+            @media @phone{
+                display: none;
+            }
+        }
+        h1{
             position: absolute;
-            text-align: center;
             width: 100%;
-            left: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, .3);
-            .swiper-pagination-bullet {
-                margin: 0 5px;
-                text-indent: -9999px;
-                border-radius: 4.5px;
-                background: #fff;
-                display: inline-block;
-                box-shadow: inset 0 0 2px 0 rgba(0, 0, 0, .3);
-                width: 9px;
-                height: 9px;
-                opacity: 0.8;
-                cursor: pointer;
-                &.number{
-                    display: none;
+            top: 20%;
+            text-align: center;
+            font-size: 48px;
+            font-weight: lighter;
+            @media @phone{
+                position: static;
+                margin-top: 25vw;
+                font-size: 6.875vw;
+                font-weight: normal;
+                line-height: 1.4;
+            }
+        }
+        .tabBox{
+            top: 40%;
+            left: 50%;
+            width: 960px;
+            margin-left: -480px;
+            position: absolute;
+            border-radius: 4px;
+            @media @phone{
+                position: static;
+                width: 100%;
+                margin: 3.75vw 0 0;
+                background-image: none !important;
+            }
+            &:after{
+                display: block;
+                position: absolute;
+                content:"";
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 0;
+                border-radius: 4px;
+                @media @phone{
+                    background: none;
                 }
-                &.swiper-pagination-bullet-active {
-                    background: #e61919;
-                    opacity: 1;
-                    &.number{
-                        display: block;
-                        text-indent: 0;
-                        border-radius: 0;
-                        background: none;
-                        box-shadow: none;
-                        width: 100%;
-                        text-align: center;
-                        height: 21px;
-                        line-height: 21px;
-                        font-size: 14px;
+            }
+            ul.tab{
+                position: relative;
+                height: 80px;
+                border-bottom: 1px solid rgba(255,255,255,0.4);
+                z-index: 1;
+                &:after{
+                    display: block;
+                    position: absolute;
+                    z-index: 0;
+                    content: '';
+                    bottom: 0;
+                    width: 160px;
+                    height: 4px;
+                    background: #fff;
+                    transition: all ease-out 0.3s 0s;
+                }
+                &.tenant:after{
+                    left: 80px;
+                }
+                &.landlord:after{
+                    left: 400px;
+                }
+                &.investor:after{
+                    left: 720px;
+                }
+                li{
+                    position: relative;
+                    z-index: 1;
+                    display: inline-block;
+                    width: 320px;
+                    height: 80px;
+                    line-height: 80px;
+                    text-align: center;
+                    opacity: 0.6;
+                    cursor: pointer;
+                    &.active{
                         opacity: 1;
-                        color: #fff;
-                        font-weight: lighter;
-                        margin: 0;
-                        padding: 0;
-                        @media @phone{
-                            font-weight: normal;
-                        }
+                    }
+                    > *{
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    i{
+                        margin-right: 10px;
+                        font-size: 32px;
+                    }
+                    h3{
+                        font-size: 18px;
                     }
                 }
-                &:hover {
-                    background: #e61919;
+            }
+            .content{
+                position: relative;
+                padding: 40px;
+                text-align: center;
+                z-index: 1;
+                @media @phone{
+                    padding: 0;
                 }
+                .button{
+                    display: inline-block;
+                    border-radius: 0;
+                    padding: 0;
+                    i, span{
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    i{
+                        margin-right: 6px;
+                    }
+                    &.search{
+                        width: 110px;
+                        margin-left: 20px;
+                        height: 40px;
+                        line-height: 40px;
+                        font-size: 18px;
+                    }
+                    &.bigButton{
+                        width: 400px;
+                        height: 60px;
+                        line-height: 60px;
+                        i{
+                            font-size: 24px;
+                        }
+                        span{
+                            font-size: 17px;
+                        }
+                        @media @phone{
+                            width: 62.5vw;
+                            height: 12.5vw;
+                            line-height: 12.5vw;
+                            i{
+                                font-size: 6.25vw;
+                            }
+                            span{
+                                font-size: 4.7vw;
+                            }
+                        }
+                        &.blue{
+                            background: #009cff;
+                            @media @pc{
+                                margin-right: 60px;
+                            }
+                            @media @phone{
+                                margin-bottom: 6.25vw;
+                            }
+                            &:hover{
+                                background: lighten(#009cff, 5%);
+                            }
+                        }
+                        &.red{
+                            background: #e60012;
+                            &:hover{
+                                background: lighten(#e60012, 5%);
+                            }
+                        }
+                    }
 
-
+                }
             }
         }
     }

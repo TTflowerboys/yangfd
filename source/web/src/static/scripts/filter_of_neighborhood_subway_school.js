@@ -3,7 +3,7 @@
 
         var _this = this
         _this.Event = $('<i></i>')
-        var $container = $('.selectNeighborhoodSubwaySchoolWrap')
+        var $container = option.container || $('.selectNeighborhoodSubwaySchoolWrap')
         var $containerAll = $container.add($container.prev('span')).add($container.next('span'))
         $containerAll.hide()
         var $citySelect = option.citySelect

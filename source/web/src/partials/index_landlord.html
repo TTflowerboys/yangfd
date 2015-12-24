@@ -29,17 +29,6 @@
             <!--@@include index_landlord_value.html -->
             <div class="swiper-pagination"></div>
         </div>
-        %if is_mobile_client_version('>=', '1.1.2'):
-            <a class="button red" href="yangfd://property-to-rent/create">
-                <i class="icon-cellphone"></i>
-                {{_('出租发布')}}
-            </a>
-        %else:
-            <a class="button red" href="#" onclick="window.bridge.callHandler(&quot;createRentTicket&quot;);return false;" data-need-bridge>
-                <i class="icon-cellphone"></i>
-                {{_('出租发布')}}
-            </a>
-        %end
         <a href="/how-it-works/landlord" class="flow">{{_('了解详细流程')}}</a>
         <!-- @if ENV=='dev' || ENV=='debug' -->
         <a class="scrollDown">

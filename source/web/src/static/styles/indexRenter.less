@@ -1,5 +1,108 @@
 @import "project/_imports";
+.category {
+    display: block;
+    text-align:center;
 
+    @media @phone {
+        margin-top:0;
+        padding:0;
+        border-bottom:1px solid #ccc;
+    }
+
+    >span {
+        color:#fff;
+        @media @phone {
+            display:none;
+        }
+
+    }
+    select {
+        color:#333333;
+        @media @phone {
+            float:left;
+            display:inline-block;
+            width:33%;
+            margin-top:0;
+            font-size:@base-font-size-mobile;
+            font-weight:bold;
+            border:0;
+        }
+
+        &:after {
+            width:1px;
+            height:100%;
+            background:red;
+            content:"fsjdlk";
+        }
+    }
+
+    .separator_phone {
+        display:none;
+        @media @phone {
+            float:left;
+            display:inline;
+            height:40px;
+            width:1px;
+            background:#ccc;
+            margin-top:-1px;
+            margin-bottom:-1px;
+        }
+
+    }
+
+    .selectWrap {
+        min-width:100px;
+        .chosen-container .chosen-single{
+            background: #fff;
+        }
+    }
+}
+.entrance{
+    width: 100%;
+    text-align: center;
+    @media @phone{
+        margin: 7.5vw auto;
+    }
+    li{
+        display: inline-block;
+        margin: 30px 0 0;
+        width: 33%;
+        @media @phone{
+            margin: 0;
+        }
+        a{
+            text-decoration: none;
+            @media @pc{
+                opacity: 0.6;
+            }
+            i{
+                margin-right: 12px;
+                font-size: 26px;
+                color: #fff;
+                vertical-align: middle;
+                @media @phone{
+                    display: block;
+                    margin-right: 0;
+                    margin-bottom: 4vw;
+                    font-size: 7vw;
+                    color: #666;
+                }
+            }
+            span{
+                font-size: 16px;
+                color: #fff;
+                vertical-align: middle;
+                @media @phone{
+                    color: #333;
+                    font-size: 3.75vw;
+                }
+            }
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+}
 .renterService {
     width:100%;
     background:#fff;
@@ -8,70 +111,7 @@
         overflow: hidden;
         background: #eee;
     }
-    .category {
-        display: block;
-        margin-top:110px;
-        text-align:center;
-        &_wrapper {
-            width:1300px;
-            margin:0 auto;
-            @media @phone {
-                height:auto;
-                display:none;
-            }
-        }
 
-        @media @phone {
-            margin-top:0;
-            padding:0;
-            border-bottom:1px solid #ccc;
-        }
-
-        span {
-            color:#333333;
-            @media @phone {
-                display:none;
-            }
-
-        }
-        select {
-            color:#333333;
-            @media @phone {
-                float:left;
-                display:inline-block;
-                width:33%;
-                margin-top:0;
-                font-size:@base-font-size-mobile;
-                font-weight:bold;
-                border:0;
-            }
-
-            &:after {
-                width:1px;
-                height:100%;
-                background:red;
-                content:"fsjdlk";
-            }
-        }
-
-        .separator_phone {
-            display:none;
-            @media @phone {
-                float:left;
-                display:inline;
-                height:40px;
-                width:1px;
-                background:#ccc;
-                margin-top:-1px;
-                margin-bottom:-1px;
-            }
-
-        }
-
-        .selectWrap {
-            min-width:100px;
-        }
-    }
 
     .buttons {
         display: block;
@@ -94,58 +134,7 @@
         }
     }
 
-    .entrance{
-        width: 1200px;
-        margin: 50px auto auto;
-        padding: 40px 0 72px;
-        border-bottom: 1px solid #ccc;
-        text-align: center;
-        @media @phone{
-            margin: 7.5vw auto;
-            padding: 0;
-            width: 100%;
-            border-bottom: none;
-        }
-        li{
-            display: inline-block;
-            margin: 0 88px;
-            @media @phone{
-                margin: 0;
-                width: 33%;
-            }
-            a{
-                text-decoration: none;
-                i{
-                    margin-right: 12px;
-                    font-size: 26px;
-                    color: #666;
-                    vertical-align: middle;
-                    @media @phone{
-                        display: block;
-                        margin-right: 0;
-                        margin-bottom: 4vw;
-                        font-size: 7vw;
-                    }
-                }
-                span{
-                    font-size: 18px;
-                    color: #333;
-                    vertical-align: middle;
-                    @media @phone{
-                        font-size: 3.75vw;
-                    }
-                }
-                &:hover {
-                    i{
-                        color: @red;
-                    }
-                    span {
-                        color: @red;
-                    }
-                }
-            }
-        }
-    }
+
     .rentFlow{
         padding: 80px 0 55px;
         text-align: center;
@@ -265,7 +254,7 @@
         text-decoration: none;
         @media @phone{
             padding: 2.8vw 4.2vw;
-            margin: 10vw auto 24vw;
+            margin: 2vw auto 24vw;
             border: 1px solid @red;
             border-radius: 4px;
             font-size: 4vw;

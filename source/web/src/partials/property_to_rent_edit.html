@@ -64,7 +64,17 @@
                         </td>
                         <td id="rentalType" data-trigger="updateTitle">
                             %for index, rent_type in enumerate(rent_type_list):
-                                %if rent.get('rent_type'):
+                                %if request.params.get('rent_type'):
+                                    %if (request.params.get('rent_type')==rent_type.get('id')):
+                                    <div class="property_type selected" data-id="{{rent_type.get('id')}}">
+                                        {{rent_type.get('value')}}
+                                    </div>
+                                    %else:
+                                    <div class="property_type" data-id="{{rent_type.get('id')}}">
+                                        {{rent_type.get('value')}}
+                                    </div>
+                                    %end
+                                %elif rent.get('rent_type'):
                                     %if (rent.get('rent_type',{}).get('id')==rent_type.get('id')):
                                     <div class="property_type selected" data-id="{{rent_type.get('id')}}">
                                         {{rent_type.get('value')}}

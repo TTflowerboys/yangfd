@@ -201,6 +201,16 @@
         selectCity(cityFromURL)
     }
 
+    var neighborhoodFromURL = window.team.getQuery('neighborhood', location.href)
+    if (neighborhoodFromURL) {
+        selectNeighborhood(neighborhoodFromURL)
+    }
+
+    var schoolFromURL = window.team.getQuery('school', location.href)
+    if (schoolFromURL) {
+        selectSchool(schoolFromURL)
+    }
+
     var propertyTypeFromURL = window.team.getQuery('property_type', location.href)
     if (propertyTypeFromURL) {
         selectPropertyType(propertyTypeFromURL)
@@ -842,6 +852,14 @@
         $('select[name=propertyCity]').find('option[value=' + id + ']').prop('selected', true).trigger('chosen:updated')
     }
 
+    function selectNeighborhood(id) {
+        $('select[name=neighborhood]').find('option[value=' + id + ']').prop('selected', true).trigger('chosen:updated')
+    }
+
+    function selectSchool(id) {
+        $('select[name=school]').find('option[value=' + id + ']').prop('selected', true).trigger('chosen:updated')
+    }
+
     function selectPropertyType(id) {
         $('select[name=propertyType]').find('option[value=' + id + ']').prop('selected', true)
         $('#tags #propertyTypeTag').find('[data-id=' + id + ']').toggleClass('selected', true)
@@ -954,7 +972,7 @@
             clearCity()
         }
         loadPropertyListByView()
-    }).trigger('change')
+    })
 
     var $citySelect = $('select[name=propertyCity]')
     $citySelect.change(function () {
