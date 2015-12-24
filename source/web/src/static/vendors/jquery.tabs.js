@@ -31,7 +31,7 @@
 
                 var tabName = $firstTab.attr('data-tab')
                 var $tabContents = $tabContainer.find('[data-tab-name=' + tabName + ']')
-                $tabContents.map(function (index, ele) {
+                $tabContents.each(function (index, ele) {
                     $(ele).addClass(options.className).show()
                 })
             }
