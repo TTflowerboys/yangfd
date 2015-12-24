@@ -569,7 +569,7 @@
             {
                 slug: 'tenant',
                 icon: 'icon-key',
-                text: i18n('海外租房')
+                text: i18n('英国租房')
             },
             {
                 slug: 'landlord',
@@ -579,7 +579,7 @@
             {
                 slug: 'investor',
                 icon: 'icon-invest',
-                text: i18n('海外置业')
+                text: i18n('英国置业')
             },
         ])
         this.switchTab = function (item) {
