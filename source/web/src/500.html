@@ -45,9 +45,21 @@
                 <td class=content>
                     <h1>500</h1>
                     <h2>不好意思，我们遇到了一点问题，请稍后重试</h2>
-                    <h3 id="show">点这里 <a href="/">返回首页</a></h3>
+                    <h3 id="show"><span id="sec">5</span>秒后 <a href="/">返回首页</a></h3>
                 </td>
             </tr>
         </table>
+        <script>
+            window.onload = function(){
+                var sec = 5
+                var timer = setInterval(function(){
+                    if(sec == 0){
+                        clearInterval(timer)
+                        return window.location.href = '/'
+                    }
+                    document.getElementById('sec').innerHTML = --sec
+                },1000)
+            }
+        </script>
     </body>
 </html>
