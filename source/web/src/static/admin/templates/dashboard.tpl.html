@@ -306,6 +306,26 @@
                                 <a href ui-sref="dashboard.venue" ui-sref-active="active">
                                     <i class="fa fa-ticket"></i><span class="hidden-sm text">{%$root.i18n('优惠券管理')%}</span></a>
                             </li>
+                            <li has-permission="admin,jr_admin,operation,jr_operation"
+                                ng-class="{active:$state.includes('dashboard.statistics')}">
+                                <a href ui-sref="dashboard.statistics" ui-sref-active="active">
+                                    <i class="fa fa-bar-chart-o"></i><span class="hidden-sm text">{%$root.i18n('统计数据')%}</span>
+                                    <span class="chevron"
+                                        ng-class="{closed:!$state.includes('dashboard.statistics'),opened:$state.includes('dashboard.statistics')}"></span>
+                                </a>
+                                <ul ng-style="{display:$state.includes('dashboard.statistics')?'block':'none'}">
+                                    <li has-permission="admin,jr_admin,operation,jr_operation"
+                                        ng-class="{active:$state.includes('dashboard.statistics.route1')}">
+                                        <a href ui-sref="dashboard.statistics.route1" ui-sref-active="active">
+                                            <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('路由1')%}</span></a>
+                                    </li>
+                                    <li has-permission="admin,jr_admin,operation,jr_operation"
+                                        ng-class="{active:$state.includes('dashboard.statistics.route2')}">
+                                        <a href ui-sref="dashboard.statistics.route2" ui-sref-active="active">
+                                            <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('路由2')%}</span></a>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>

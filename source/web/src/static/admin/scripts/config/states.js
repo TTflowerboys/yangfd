@@ -1032,6 +1032,39 @@ angular.module('app')
             })
 
         /**
+         * 统计数据
+         * */
+            .state('dashboard.statistics', {
+                url: '/statistics',
+                templateUrl: '/static/admin/templates/dashboard.statistics.tpl.html',
+                resolve: {
+                    api: function (statisticsApi) {
+                        return statisticsApi
+                    }
+                }
+            })
+            .state('dashboard.statistics.route1', {
+                url: '/route1',
+                templateUrl: '/static/admin/templates/dashboard.statistics_route1.tpl.html',
+                controller: 'ctrlStatisticsRoute1',
+                resolve: {
+                    api: function (statisticsApi) {
+                        return statisticsApi
+                    }
+                }
+            })
+            .state('dashboard.statistics.route2', {
+                url: '/route2',
+                templateUrl: '/static/admin/templates/dashboard.statistics_route2.tpl.html',
+                controller: 'ctrlStatisticsRoute2',
+                resolve: {
+                    api: function (statisticsApi) {
+                        return statisticsApi
+                    }
+                }
+            })
+
+        /**
          * Android订阅申请
          * */
             .state('dashboard.subscribe.android', {
