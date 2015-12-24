@@ -374,6 +374,10 @@
                         if(!this.params().rent_deadline_time) {
                             return errorList.push(window.i18n('请选择租期结束日期'))
                         }
+                        // Because selected date start from 0am, so current date should use yesterday
+                        if(this.params().rent_available_time < (Date.now()/1000 - 24*60*60) ) {
+                            return errorList.push(window.i18n('起租日期不能早于今天'))
+                        }
                         if(this.params().rent_available_time > this.params().rent_deadline_time) {
                             return errorList.push(window.i18n('起租日期不能晚于结束日期'))
                         }
