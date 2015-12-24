@@ -1974,12 +1974,15 @@ def user_analyze(user):
     return out
 
 
-@f_get('/export-excel/user-rent-request.xlsx', params=dict(days=(int, -1)))
+@f_get('/export-excel/user-rent-request.xlsx', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None)
+))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
 def user_rent_request(user, params):
 
-    def get_all_rent_request(days):
-        params = {
+    def get_all_rent_request():
+        search_params = {
             "type": "rent_intention",
             "interested_rent_tickets": {"$exists": True},
             "status": {
@@ -1993,12 +1996,15 @@ def user_rent_request(user, params):
                 ]
             }
         }
-        if days > 0:
-            time_now = datetime.utcnow()
-            time_diff = timedelta(days=days)
-            condition = {"time": {"$gt": time_now - time_diff}}
-            params.update(condition)
-        return f_app.ticket.get(f_app.ticket.search(params, per_page=-1, notime=True))
+        if params['date_from'] is not None and params['date_to'] is not None:
+            condition = {
+                "time": {
+                    "$gte": params['date_from'],
+                    "$lt": params['date_to']
+                }
+            }
+            search_params.update(condition)
+        return f_app.ticket.get(f_app.ticket.search(search_params, per_page=-1, notime=True))
 
     def get_request_status_translate(ticket):
         status = ticket.get('status', None)
@@ -2013,6 +2019,12 @@ def user_rent_request(user, params):
         if status not in status_dic:
             return '未知'
         return status_dic[status]
+
+    def time_request_available(ticket):
+        period_start = ticket.get("rent_available_time", None)
+        request_time = ticket.get('time', None)
+        period = period_start - request_time
+        return period.days
 
     def time_period_label(ticket):
         time = ""
@@ -2180,6 +2192,16 @@ def user_rent_request(user, params):
                     else:
                         cell.hyperlink = unicode(link)
 
+    def get_relocate(ticket):
+        relocate = {}
+        if 'custom_fields' in ticket and ticket['custom_fields'] is not None:
+            for field in ticket['custom_fields']:
+                if field.get('key', None) == 'relocate':
+                    relocate['exists'] = True
+                    relocate['value'] = field.get('value', '')
+                    break
+        return relocate
+
     wb = Workbook()
     ws = wb.active
     '''header = ["咨询单状态", "咨询单描述", "咨询人昵称", "咨询人性别", "咨询人年龄", "咨询人职业", "咨询人联系方式", "咨询人邮箱", "微信", "提交时间", "起始日期",
@@ -2188,8 +2210,14 @@ def user_rent_request(user, params):
     ws.append(header)'''
 
     Header = [
-        ["提交时间", "意向房源", "租期", "", "", "", "客户", "", "", "", "", "", "入住信息", "", "", "", "TBC", "", "Location", "", "", "relocate", "租客对房东的问题", "咨询处理状态", "备注", "咨询房源提交量", "房源地址", "short ID", "url"],
-        ["", "", "入住", "结束", "租期描述", "入住与提交时间差", "名字", "性别", "现状", "年龄", "电话", "邮件", "人数", "吸烟", "带小孩", "带宠物", "签证类型", "签证到期时间", "IP", "国家", "城市"]
+        ["提交时间", "意向房源", "租期", "", "", "", "客户", "", "", "", "", "",
+         "入住信息", "", "", "", "TBC", "", "Location", "", "", "relocate", "租客对房东的问题",
+         "咨询处理状态", "备注", "咨询房源提交量", "房源地址", "short ID", "url"
+         ],
+        ["", "", "入住", "结束", "租期描述", "入住与提交时间差", "名字", "性别",
+         "现状", "年龄", "电话", "邮件", "人数", "吸烟", "带小孩", "带宠物",
+         "签证类型", "签证到期时间", "IP", "国家", "城市"
+         ]
     ]
     merge = [
         'A1:A2',
@@ -2214,25 +2242,30 @@ def user_rent_request(user, params):
         ws.merge_cells(merge_ops)
 
     referer_result = f_app.log.output(f_app.log.search({"route": "/api/1/rent_intention_ticket/add"}, per_page=-1))
+    target_ticket = []
+    for ticket_request in get_all_rent_request():
+        target_ticket.extend(ticket_request['interested_rent_tickets'])
 
-    for ticket_request in get_all_rent_request(params.get('days', -1)):
+    for ticket_request in get_all_rent_request():
+        relocate = get_relocate(ticket_request)
+        url = get_referer_id(ticket_request)
+        if url is not None:
+            url = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + unicode(url)
+
         for ticket_id in ticket_request['interested_rent_tickets']:
             ticket = f_app.ticket.get(ticket_id)
 
-            boss_id = ticket.get('user_id', None)
+            '''boss_id = ticket.get('user_id', None)
             if boss_id is None:
                 landlord_boss = {}
             else:
-                landlord_boss = f_app.user.get(boss_id)
+                landlord_boss = f_app.user.get(boss_id)'''
 
-            guest_id = ticket_request.get('user_id', None)
+            '''guest_id = ticket_request.get('user_id', None)
             if guest_id is None:
                 guest_user = {}
             else:
-                guest_user = f_app.user.get(guest_id)
-            url = get_referer_id(ticket_request)
-            if url is not None:
-                url = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + unicode(url)
+                guest_user = f_app.user.get(guest_id)'''
             '''ws.append([
                 get_request_status_translate(ticket_request),
                 ticket_request.get('description', ''),
@@ -2261,12 +2294,12 @@ def user_rent_request(user, params):
                 url if url else ''
             ])'''
             ws.append([
-                unicode(timezone('Europe/London').localize(ticket_request['time'])),
+                unicode(timezone('Europe/London').localize(ticket_request['time']).strftime("%Y-%m-%d %H:%M:%S")),
                 ticket.get('title', ''),
-                unicode(timezone('Europe/London').localize(ticket_request['rent_available_time'])),
-                unicode(timezone('Europe/London').localize(ticket_request['rent_deadline_time'])),
+                unicode(timezone('Europe/London').localize(ticket_request['rent_available_time']).strftime("%Y-%m-%d %H:%M:%S")),
+                unicode(timezone('Europe/London').localize(ticket_request['rent_deadline_time']).strftime("%Y-%m-%d %H:%M:%S")),
                 time_period_label(ticket_request),
-                '',
+                time_request_available(ticket_request),
                 ticket_request.get('nickname', ''),
                 "男" if ticket_request.get('gender', None) == 'male' else "女",
                 get_user_occupation(ticket_request),
@@ -2281,12 +2314,12 @@ def user_rent_request(user, params):
                 '',
                 get_ticket_add_ip(ticket_request),
                 '',
-                '',
-                '',
+                relocate.get('value', ''),
+                '是' if relocate.get('exists', False) else '否',
                 ticket_request.get('description', ''),
                 get_request_status_translate(ticket_request),
                 '',
-                '',
+                target_ticket.count(ticket_id),
                 get_detail_address(ticket),
                 get_short_id(ticket),
                 url if url else ''
