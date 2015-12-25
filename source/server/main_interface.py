@@ -1030,12 +1030,13 @@ def aggregation_rent_intention_ticket(user, params):
         return result
 
     def get_find_params(params_dic):
-        params_dic.update({
-            "time": {
-                "$gte": params['date_from'],
-                "$lt": params['date_to']
-            }
-        })
+        if 'date_from' in params and 'date_from' in params:
+            params_dic.update({
+                "time": {
+                    "$gte": params['date_from'],
+                    "$lt": params['date_to']
+                }
+            })
         return params_dic
 
     value = {}
@@ -1374,12 +1375,13 @@ def aggregation_property_view(user, params):
         return result
 
     def get_find_params(params_dic):
-        params_dic.update({
-            "time": {
-                "$gte": params['date_from'],
-                "$lt": params['date_to']
-            }
-        })
+        if 'date_from' in params and 'date_from' in params:
+            params_dic.update({
+                "time": {
+                    "$gte": params['date_from'],
+                    "$lt": params['date_to']
+                }
+            })
         return params_dic
 
     value = {}
@@ -1493,12 +1495,13 @@ def aggregation_rent_request(user, params):
         return result
 
     def get_find_params(params_dic):
-        params_dic.update({
-            "time": {
-                "$gte": params['date_from'],
-                "$lt": params['date_to']
-            }
-        })
+        if 'date_from' in params and 'date_from' in params:
+            params_dic.update({
+                "time": {
+                    "$gte": params['date_from'],
+                    "$lt": params['date_to']
+                }
+            })
         return params_dic
 
     value = {}
@@ -1667,12 +1670,13 @@ def aggregation_email_detail(user, params):
         return result
 
     def get_find_params(params_dic, time="time"):
-        params_dic.update({
-            time: {
-                "$gte": params['date_from'],
-                "$lt": params['date_to']
-            }
-        })
+        if 'date_from' in params and 'date_from' in params:
+            params_dic.update({
+                time: {
+                    "$gte": params['date_from'],
+                    "$lt": params['date_to']
+                }
+            })
         return params_dic
 
     value = {}
