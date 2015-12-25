@@ -1037,6 +1037,7 @@ angular.module('app')
             .state('dashboard.statistics', {
                 url: '/statistics',
                 templateUrl: '/static/admin/templates/dashboard.statistics.tpl.html',
+                controller: 'ctrlStatisticsOverview',
                 resolve: {
                     api: function (statisticsApi) {
                         return statisticsApi
