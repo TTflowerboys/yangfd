@@ -2332,11 +2332,6 @@ def user_rent_request(user, params):
                 get_short_id(ticket),
                 url if url else ''
             ]
-            result_final_final = []
-            '''for single in result_final:
-                result_final_final.append(
-                    ILLEGAL_CHARACTERS_RE.sub(r'', single)
-                )'''
             try:
                 ws.append(result_final)
             except:
