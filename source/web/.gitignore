@@ -35,6 +35,10 @@ tmp
 # Users Environment Variables
 .lock-wscript
 .idea
+.vscode
 
 # bower
 src/static/bower_components
+
+# i18n file 
+src/partials/i18n.html
