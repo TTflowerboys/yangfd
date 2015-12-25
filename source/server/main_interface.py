@@ -21,6 +21,8 @@ import currant_util
 import currant_data_helper
 from libfelix.f_interface import f_experiment
 from openpyxl import Workbook
+import re
+from openpyxl.cell import ILLEGAL_CHARACTERS_RE
 from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.writer.excel import save_virtual_workbook
 from pytz import timezone
@@ -2299,9 +2301,9 @@ def user_rent_request(user, params):
                 landlord_boss.get("email", ""),
                 url if url else ''
             ])'''
-            ws.append([
+            result_final = [
                 unicode(timezone('Europe/London').localize(ticket_request['time']).strftime("%Y-%m-%d %H:%M:%S")),
-                ticket.get('title', ''),
+                ILLEGAL_CHARACTERS_RE.sub(r'', ticket.get('title', '')),
                 unicode(timezone('Europe/London').localize(ticket_request['rent_available_time']).strftime("%Y-%m-%d %H:%M:%S")),
                 unicode(timezone('Europe/London').localize(ticket_request['rent_deadline_time']).strftime("%Y-%m-%d %H:%M:%S")),
                 time_period_label(ticket_request),
@@ -2328,8 +2330,14 @@ def user_rent_request(user, params):
                 target_ticket.count(ticket_id),
                 get_detail_address(ticket),
                 get_short_id(ticket),
-                unicode(url) if url else ''
-            ])
+                url if url else ''
+            ]
+            result_final_final = []
+            for single in result_final:
+                result_final_final.append(
+                    ILLEGAL_CHARACTERS_RE.sub(r'', single)
+                )
+            ws.append(result_final_final)
 
     format_fit(ws)
     add_link(ws, 'AC')
