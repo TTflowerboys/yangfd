@@ -761,7 +761,7 @@ def test_wx_share_remote():
 def aggregation_general(user, params):
     value = {}
     with f_app.mongo() as m:
-        if 'date_from' in params and 'date_from' in params:
+        if 'date_from' in params and 'date_to' in params:
             value.update({
                 "aggregation_user_total": m.users.find({
                     "register_time": {
@@ -822,7 +822,7 @@ def aggregation_rent_ticket(user, params):
 
     def get_aggregation_params(params_list):
         result = []
-        if 'date_from' in params and 'date_from' in params:
+        if 'date_from' in params and 'date_to' in params:
             result = [{
                 "$match": {
                     "time": {
@@ -1017,7 +1017,7 @@ def aggregation_rent_intention_ticket(user, params):
 
     def get_aggregation_params(params_list):
         result = []
-        if 'date_from' in params and 'date_from' in params:
+        if 'date_from' in params and 'date_to' in params:
             result = [{
                 "$match": {
                     "time": {
@@ -1030,7 +1030,7 @@ def aggregation_rent_intention_ticket(user, params):
         return result
 
     def get_find_params(params_dic):
-        if 'date_from' in params and 'date_from' in params:
+        if 'date_from' in params and 'date_to' in params:
             params_dic.update({
                 "time": {
                     "$gte": params['date_from'],
@@ -1169,7 +1169,7 @@ def aggregation_favorite(user, params):
 
     def get_aggregation_params(params_list):
         result = []
-        if 'date_from' in params and 'date_from' in params:
+        if 'date_from' in params and 'date_to' in params:
             result = [{
                 "$match": {
                     "time": {
@@ -1256,7 +1256,7 @@ def aggregation_view_contact(user, params):
 
     def get_aggregation_params(params_list):
         result = []
-        if 'date_from' in params and 'date_from' in params:
+        if 'date_from' in params and 'date_to' in params:
             result = [{
                 "$match": {
                     "time": {
@@ -1362,7 +1362,7 @@ def aggregation_property_view(user, params):
 
     def get_aggregation_params(params_list):
         result = []
-        if 'date_from' in params and 'date_from' in params:
+        if 'date_from' in params and 'date_to' in params:
             result = [{
                 "$match": {
                     "time": {
@@ -1375,7 +1375,7 @@ def aggregation_property_view(user, params):
         return result
 
     def get_find_params(params_dic):
-        if 'date_from' in params and 'date_from' in params:
+        if 'date_from' in params and 'date_to' in params:
             params_dic.update({
                 "time": {
                     "$gte": params['date_from'],
@@ -1482,7 +1482,7 @@ def aggregation_rent_request(user, params):
 
     def get_aggregation_params(params_list):
         result = []
-        if 'date_from' in params and 'date_from' in params:
+        if 'date_from' in params and 'date_to' in params:
             result = [{
                 "$match": {
                     "time": {
@@ -1495,7 +1495,7 @@ def aggregation_rent_request(user, params):
         return result
 
     def get_find_params(params_dic):
-        if 'date_from' in params and 'date_from' in params:
+        if 'date_from' in params and 'date_to' in params:
             params_dic.update({
                 "time": {
                     "$gte": params['date_from'],
@@ -1657,7 +1657,7 @@ def aggregation_email_detail(user, params):
 
     def get_aggregation_params(params_list):
         result = []
-        if 'date_from' in params and 'date_from' in params:
+        if 'date_from' in params and 'date_to' in params:
             result = [{
                 "$match": {
                     "time": {
@@ -1670,7 +1670,7 @@ def aggregation_email_detail(user, params):
         return result
 
     def get_find_params(params_dic, time="time"):
-        if 'date_from' in params and 'date_from' in params:
+        if 'date_from' in params and 'date_to' in params:
             params_dic.update({
                 time: {
                     "$gte": params['date_from'],
