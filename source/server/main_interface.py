@@ -2261,7 +2261,9 @@ def user_rent_request(user, params):
             url = ''
 
         for ticket_id in ticket_request['interested_rent_tickets']:
-            ticket = f_app.ticket.get(ticket_id)
+            ticket = f_app.ticket.get(ticket_id, ignore_nonexist=True)
+            if ticket is None:
+                continue
 
             '''boss_id = ticket.get('user_id', None)
             if boss_id is None:
