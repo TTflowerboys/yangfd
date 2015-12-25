@@ -436,6 +436,7 @@ def intention_ticket_search(user, params):
     address=str,
     zipcode_index=str,
     noregister=bool,
+    referrer=str,
     custom_fields=(list, None, dict(
         key=(str, True),
         value=(str, True),
@@ -544,6 +545,7 @@ def rent_intention_ticket_remove(user, ticket_id):
         value=str,
         index=int,
     )),
+    referrer=str,
     status=str,
     updated_comment=str,
 ))
@@ -724,6 +726,7 @@ def rent_request_ticket_search(user, params):
     premise=str,
     street=str,
     county=str,
+    referrer=str,
 ))
 def rent_request_ticket_add(params):
     """
@@ -781,6 +784,7 @@ def rent_request_ticket_remove(user, ticket_id):
     premise=str,
     street=str,
     county=str,
+    referrer=str,
     status=str,
 ))
 @f_app.user.login.check(force=True)
@@ -837,6 +841,7 @@ def sell_request_ticket_search(user, params):
     premise=str,
     street=str,
     county=str,
+    referrer=str,
 ))
 def sell_request_ticket_add(params):
     """
@@ -893,6 +898,7 @@ def sell_request_ticket_remove(user, ticket_id):
     premise=str,
     street=str,
     county=str,
+    referrer=str,
     status=str,
 ))
 @f_app.user.login.check(force=True)
@@ -1105,6 +1111,7 @@ def support_ticket_search(user, params):
     deposit="i18n:currency",
     landlord_type="enum:landlord_type",
     bill_covered=bool,
+    referrer=str,
     custom_fields=(list, None, dict(
         key=(str, True),
         value=(str, True),
@@ -1169,6 +1176,7 @@ def rent_ticket_refresh(ticket_id, user):
     deposit="i18n:currency",
     landlord_type="enum:landlord_type",
     bill_covered=bool,
+    referrer=str,
     unset_fields=(list, None, str),
     custom_fields=(list, None, dict(
         key=(str, True),
