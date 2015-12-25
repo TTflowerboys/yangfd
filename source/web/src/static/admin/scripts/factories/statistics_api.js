@@ -4,20 +4,8 @@
     function statisticsApi($http) {
 
         return {
-            getAll: function (config) {
-
-            },
-            getOne: function (id, config) {
-
-            },
-            update: function (data, config) {
-
-            },
-            remove: function (id, config) {
-
-            },
-            create: function (data, config) {
-
+            get_general: function (date_from, date_to) {
+                return $http.get('/api/1/aggregation-general' + '?date_from=' + date_from + '&date_to=' + date_to)
             }
         }
     }

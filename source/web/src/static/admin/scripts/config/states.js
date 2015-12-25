@@ -1043,10 +1043,10 @@ angular.module('app')
                     }
                 }
             })
-            .state('dashboard.statistics.route1', {
-                url: '/route1',
-                templateUrl: '/static/admin/templates/dashboard.statistics_route1.tpl.html',
-                controller: 'ctrlStatisticsRoute1',
+            .state('dashboard.statistics.aggregation_general', {
+                url: '/aggregation_general',
+                templateUrl: '/static/admin/templates/dashboard.statistics_aggregation_general.tpl.html',
+                controller: 'ctrlStatistics_aggregation_general',
                 resolve: {
                     api: function (statisticsApi) {
                         return statisticsApi
