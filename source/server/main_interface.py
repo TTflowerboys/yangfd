@@ -761,7 +761,7 @@ def test_wx_share_remote():
 def aggregation_general(user, params):
     value = {}
     with f_app.mongo() as m:
-        if params['date_from'] is not None and params['date_to'] is not None:
+        if 'date_from' in params and 'date_from' in params:
             value.update({
                 "aggregation_user_total": m.users.find({
                     "register_time": {
@@ -822,7 +822,7 @@ def aggregation_rent_ticket(user, params):
 
     def get_aggregation_params(params_list):
         result = []
-        if params['date_from'] is not None and params['date_to'] is not None:
+        if 'date_from' in params and 'date_from' in params:
             result = [{
                 "$match": {
                     "time": {
@@ -1017,7 +1017,7 @@ def aggregation_rent_intention_ticket(user, params):
 
     def get_aggregation_params(params_list):
         result = []
-        if params['date_from'] is not None and params['date_to'] is not None:
+        if 'date_from' in params and 'date_from' in params:
             result = [{
                 "$match": {
                     "time": {
@@ -1168,7 +1168,7 @@ def aggregation_favorite(user, params):
 
     def get_aggregation_params(params_list):
         result = []
-        if params['date_from'] is not None and params['date_to'] is not None:
+        if 'date_from' in params and 'date_from' in params:
             result = [{
                 "$match": {
                     "time": {
@@ -1255,7 +1255,7 @@ def aggregation_view_contact(user, params):
 
     def get_aggregation_params(params_list):
         result = []
-        if params['date_from'] is not None and params['date_to'] is not None:
+        if 'date_from' in params and 'date_from' in params:
             result = [{
                 "$match": {
                     "time": {
@@ -1361,7 +1361,7 @@ def aggregation_property_view(user, params):
 
     def get_aggregation_params(params_list):
         result = []
-        if params['date_from'] is not None and params['date_to'] is not None:
+        if 'date_from' in params and 'date_from' in params:
             result = [{
                 "$match": {
                     "time": {
@@ -1480,7 +1480,7 @@ def aggregation_rent_request(user, params):
 
     def get_aggregation_params(params_list):
         result = []
-        if params['date_from'] is not None and params['date_to'] is not None:
+        if 'date_from' in params and 'date_from' in params:
             result = [{
                 "$match": {
                     "time": {
@@ -1654,7 +1654,7 @@ def aggregation_email_detail(user, params):
 
     def get_aggregation_params(params_list):
         result = []
-        if params['date_from'] is not None and params['date_to'] is not None:
+        if 'date_from' in params and 'date_from' in params:
             result = [{
                 "$match": {
                     "time": {
@@ -1996,7 +1996,7 @@ def user_rent_request(user, params):
                 ]
             }
         }
-        if params['date_from'] is not None and params['date_to'] is not None:
+        if 'date_from' in params and 'date_to' in params:
             condition = {
                 "time": {
                     "$gte": params['date_from'],
