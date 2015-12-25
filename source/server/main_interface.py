@@ -2255,6 +2255,8 @@ def user_rent_request(user, params):
         url = get_referer_id(ticket_request)
         if url is not None:
             url = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + unicode(url)
+        else:
+            url = ''
 
         for ticket_id in ticket_request['interested_rent_tickets']:
             ticket = f_app.ticket.get(ticket_id)
@@ -2326,7 +2328,7 @@ def user_rent_request(user, params):
                 target_ticket.count(ticket_id),
                 get_detail_address(ticket),
                 get_short_id(ticket),
-                url if url else ''
+                unicode(url) if url else ''
             ])
 
     format_fit(ws)
