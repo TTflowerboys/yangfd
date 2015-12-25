@@ -2333,11 +2333,14 @@ def user_rent_request(user, params):
                 url if url else ''
             ]
             result_final_final = []
-            for single in result_final:
+            '''for single in result_final:
                 result_final_final.append(
                     ILLEGAL_CHARACTERS_RE.sub(r'', single)
-                )
-            ws.append(result_final_final)
+                )'''
+            try:
+                ws.append(result_final)
+            except:
+                print ("ERROR EXCEL DATA", result_final)
 
     format_fit(ws)
     add_link(ws, 'AC')
