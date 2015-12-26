@@ -58,18 +58,26 @@
                 window.geonamesApi.getNeighborhood(params, function (val) {
                     selectMap.neighborhood.html(
                         _.reduce(val, function(pre, val, key) {
-                            return pre + '<option value="' + val.id + '">' + val.name + (val.parent && val.parent.name ? ', ' + val.parent.name : '') + '</option>'
+                            return pre + '<option value="' + val.id + '"' + (option.neighborhood === val.id ? ' selected' : '') +'>' + val.name + (val.parent && val.parent.name ? ', ' + val.parent.name : '') + '</option>'
                         }, '<option value="">' + i18n('请选择街区') + '</option>')
                     ).trigger('chosen:updated')
+                    if(option.neighborhood) {
+                        selectMap.parent.val('neighborhood')
+                        _this.Event.trigger('action')
+                    }
                 })
             },
             school: function getSchoolList(params) {
                 window.geonamesApi.getSchool(params, function (val) {
                     selectMap.school.html(
                         _.reduce(val, function(pre, val, key) {
-                            return pre + '<option value="' + val.id + '">' + val.name + (val.parent && val.parent.name ? ', ' + val.parent.name : '') + '</option>'
+                            return pre + '<option value="' + val.id + '"' + (option.school === val.id ? ' selected' : '') +'>' + val.name + (val.parent && val.parent.name ? ', ' + val.parent.name : '') + '</option>'
                         }, '<option value="">' + i18n('请选择学校') + '</option>')
                     ).trigger('chosen:updated')
+                    if(option.school) {
+                        selectMap.parent.val('school')
+                        _this.Event.trigger('action')
+                    }
                 })
             },
             subwayLine: function getSubwayLineList () {
@@ -190,6 +198,11 @@
         selectMap.parent.bind('change', function () {
             if(selectMap.parent.val()) {
                 actionMap[selectMap.parent.val()].call(null)
+            }
+        })
+        _.each(actionMap, function (val, key) {
+            if(key in option && option[key]) {
+                val.call(null)
             }
         })
         function addEvent(elem, event, listener, capture) {

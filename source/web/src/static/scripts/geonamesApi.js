@@ -51,6 +51,9 @@ function GeonamesApi () {
         }
     }
     this.getSchool = function (params, callback, reject) {
+        if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/hesa_university/search'] && window.betterAjaxXhr['/api/1/hesa_university/search'].readyState !== 4) {
+            window.betterAjaxXhr['/api/1/hesa_university/search'].abort()
+        }
         if(!cache.school[$.param(params)]) {
             $.betterPost('/api/1/hesa_university/search', params)
                 .done(function (val) {

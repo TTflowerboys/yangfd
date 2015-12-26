@@ -244,7 +244,9 @@
 
     var filterOfNeighborhoodSubwaySchool = new window.currantModule.InitFilterOfNeighborhoodSubwaySchool({
         citySelect: $('[name=propertyCity]'),
-        countrySelect: $('[name=propertyCountry]')
+        countrySelect: $('[name=propertyCountry]'),
+        school: window.team.getQuery('school', location.href),
+        neighborhood: window.team.getQuery('neighborhood', location.href),
     })
     filterOfNeighborhoodSubwaySchool.Event.bind('change', function () {
         //console.log('change:')
