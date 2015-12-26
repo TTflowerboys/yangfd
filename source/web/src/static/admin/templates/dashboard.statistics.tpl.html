@@ -13,22 +13,21 @@
         <div class="btn-group form-inline">
           <button class="btn btn-primary" ng-click="get_aggregate_data()">{%$root.i18n('获取数据')%}</button>
         </div>
-				<table class="table table-striped table-bordered bootstrap-datatable datatable">
+        <table class="table table-striped table-bordered bootstrap-datatable datatable">
           <tr>
-            <td>
+            <td colspan="2" class="col-sm-6">
               注册用户人数：
             </td>
-            <td>
+            <td class="col-sm-6">
               {%register_user_total%}
             </td>
           </tr>
-          <tr>
-            <td>
+
+          <tr ng-repeat="item in user_type_list">
+            <td ng-if="$index === 0" rowspan="{%user_type_list.length%}">
               按用户角色统计人数：
             </td>
-          </tr>
-          <tr ng-repeat="item in user_type_list">
-            <td>
+            <td class="col-sm-3">
               <span>{%item.type%}</span>
             </td>
             <td>
@@ -36,7 +35,7 @@
             </td>
           </tr>
           <tr>
-            <td>
+            <td colspan="2">
               收到咨询申请的数量：
             </td>
             <td>
@@ -44,19 +43,18 @@
             </td>
           </tr>
           <tr>
-            <td>
+            <td colspan="2">
               新发布的出租房数量：
             </td>
             <td>
               {%rent_ticket_total%}
             </td>
           </tr>
-          <tr>
-            <td>
+
+          <tr ng-repeat="item in rent_ticket_type">
+            <td ng-if="$index === 0" rowspan="{%rent_ticket_type.length%}">
               出租房类型对应数量：
             </td>
-          </tr>
-          <tr ng-repeat="item in rent_ticket_type">
             <td>
               <span>{%item.type%}</span>
             </td>
