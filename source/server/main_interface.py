@@ -1279,9 +1279,12 @@ def aggregation_view_contact(user, params):
                 {'$group': {'_id': None, 'totalUsersCount': {'$sum': 1}, 'totalRequestCount': {'$sum': "$count"}}}
             ])
         )
-        document = cursor.next()
-        value.update({"aggregation_view_contact_user_total": document['totalUsersCount']})
-        value.update({"aggregation_view_contact_times": document['totalRequestCount']})
+        if cursor.alive:
+            document = cursor.next()
+        else:
+            document = {}
+        value.update({"aggregation_view_contact_user_total": document.get('totalUsersCount', 0)})
+        value.update({"aggregation_view_contact_times": document.get('totalRequestCount', 0)})
         aggregation_view_contact_detail = []
         for i in range(5):
             cursor = m.orders.aggregate(
@@ -1324,10 +1327,13 @@ def aggregation_view_contact(user, params):
                 {'$group': {'_id': None, 'totalUsersCount': {'$sum': 1}, 'totalRequestCount': {'$sum': "$count"}}}
             ])
         )
-        document = cursor.next()
+        if cursor.alive:
+            document = cursor.next()
+        else:
+            document = {}
         value.update({
-            "aggregation_view_contact_ticket_total": document['totalUsersCount'],
-            "aggregation_view_contact_total": document['totalRequestCount']
+            "aggregation_view_contact_ticket_total": document.get('totalUsersCount', 0),
+            "aggregation_view_contact_total": document.get('totalRequestCount', 0)
         })
         cursor.close()
         cursor = m.orders.aggregate(
