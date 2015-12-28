@@ -202,7 +202,7 @@
         })
         _.each(actionMap, function (val, key) {
             if(key in option && option[key]) {
-                val.call(null)
+                showChosen(key)
             }
         })
         function addEvent(elem, event, listener, capture) {

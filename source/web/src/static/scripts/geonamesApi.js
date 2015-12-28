@@ -52,7 +52,9 @@ function GeonamesApi () {
     }
     this.getSchool = function (params, callback, reject) {
         if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/hesa_university/search'] && window.betterAjaxXhr['/api/1/hesa_university/search'].readyState !== 4) {
-            window.betterAjaxXhr['/api/1/hesa_university/search'].abort()
+            return setTimeout(_.bind(function () {
+                this.getSchool(params, callback, reject)
+            }, this), 100)
         }
         if(!cache.school[$.param(params)]) {
             $.betterPost('/api/1/hesa_university/search', params)
