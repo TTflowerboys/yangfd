@@ -14,8 +14,11 @@
         </div>
         <table class="table table-striped table-bordered bootstrap-datatable datatable">
           <tr ng-if="!value.aggregation_ticket_favorite_times_by_type.length">
-            <td colspan="2">按收藏类型统计被收藏过的次数：</td>
-            <td></td>
+            <td colspan="2" class="col-sm-4">
+              按收藏类型统计被收藏过的次数：
+            </td>
+            <td class="col-sm-8">
+            </td>
           </tr>
           <tr ng-repeat="item in value.aggregation_ticket_favorite_times_by_type">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_ticket_favorite_times_by_type.length%}">

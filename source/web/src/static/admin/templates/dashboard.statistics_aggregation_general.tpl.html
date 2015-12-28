@@ -14,26 +14,34 @@
         </div>
 				<table class="table table-striped table-bordered bootstrap-datatable datatable">
           <tr>
-            <td>
-              总用户人数：{%value.aggregation_user_total%}
+            <td colspan="2" class="col-sm-4">
+              总用户人数：
+            </td>
+            <td class="col-sm-8">
+              {%value.aggregation_user_total%}
             </td>
           </tr>
           <tr>
-            <td>
-              总注册用户人数：{%value.aggregation_register_user_total%}
+            <td colspan="2" class="col-sm-4">
+              总注册用户人数：
+            </td>
+            <td class="col-sm-8">
+              {%value.aggregation_register_user_total%}
             </td>
           </tr>
-          <tr>
-            <td>
-              按用户角色统计人数：
-            </td>
+          <tr ng-if="!list.length">
+            <td colspan="2">按用户角色统计人数：</td>
+            <td></td>
           </tr>
           <tr ng-repeat="item in list">
+            <td ng-if="$index === 0" rowspan="{%list.length%}">
+              按用户角色统计人数：
+            </td>
             <td>
               <span>{%item.type%}</span>
             </td>
             <td>
-              <span>{%item.total%}</span>
+              {%item.total%}
             </td>
           </tr>
         </table>
