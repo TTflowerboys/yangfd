@@ -1,0 +1,55 @@
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="box">
+      <div class="box-content">
+        <div class="btn-group form-inline">
+          <div edit-date ng-model="selected.date_from" placeholder="{%i18n('起租时间')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+          <div edit-date ng-model="selected.date_to" placeholder="{%i18n('结束时间')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+          <button class="btn btn-primary" ng-click="get_aggregate_data()">{%$root.i18n('获取数据')%}</button>
+        </div>
+        <table class="table table-striped table-bordered bootstrap-datatable datatable">
+          <tr>
+            <td colspan="2" class="col-sm-4">
+              邮件tag数量：
+            </td>
+            <td class="col-sm-8">
+              {%value.aggregation_email_tag_total%}
+            </td>
+          </tr>
+          <tr ng-if="!value.aggregation_email_tag_detail.length">
+            <td colspan="2">各tag详细：</td>
+            <td></td>
+          </tr>
+          <tr ng-repeat="item in value.aggregation_email_tag_detail">
+            <td ng-if="$index === 0" rowspan="{%value.aggregation_email_tag_detail.length%}">
+              各tag详细：
+            </td>
+            <td>
+              <span>{%item.tag%}</span>
+            </td>
+            <td>
+              </ul>
+                <li ng-repeat="(key,value) in item" ng-if="key != 'tag'">
+                  {%key%}:{%value%}
+                </li>
+                <!--li>{%item.total%}</li>
+                <li>click:{%item.click%}</li>
+                <li>click_ratio{%item.click_ratio%}</li>
+                <li>click_repeat{%item.click_repeat%}</li>
+                <li>delivered{%item.delivered%}</li>
+                <li>delivered_ratio{%item.delivered_ratio%}</li>
+                <li>open:{%item.open%}</li>
+                <li>open_ratio{%item.open_ratio%}</li>
+                <li>open_repeat{%item.open_repeat%}</li-->
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

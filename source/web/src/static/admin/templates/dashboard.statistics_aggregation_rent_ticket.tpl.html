@@ -1,0 +1,157 @@
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="box">
+      <div class="box-content">
+        <div class="btn-group form-inline">
+          <div edit-date ng-model="selected.date_from" placeholder="{%i18n('起租时间')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+          <div edit-date ng-model="selected.date_to" placeholder="{%i18n('结束时间')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+          <button class="btn btn-primary" ng-click="get_aggregate_data()">{%$root.i18n('获取数据')%}</button>
+        </div>
+        <table class="table table-striped table-bordered bootstrap-datatable datatable">
+          <tr>
+            <td colspan="2" class="col-sm-4">
+              出租房数量：
+            </td>
+            <td class="col-sm-8">
+              {%value.aggregation_rent_ticket_total%}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="col-sm-4">
+              出租房源创建请求总数量：
+            </td>
+            <td class="col-sm-8">
+              {%value.aggregation_rent_ticket_create_total%}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="col-sm-4">
+              手机创建数量：
+            </td>
+            <td class="col-sm-8">
+              {%value.aggregation_rent_ticket_create_total_from_mobile%}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="col-sm-4">
+              手机创建比例：
+            </td>
+            <td class="col-sm-8">
+              {%value.aggregation_rent_ticket_create_total_from_mobile_ratio%}
+            </td>
+          </tr>
+          <tr ng-if="!value.aggregation_rent_ticket_status.length">
+            <td colspan="2">出租房状态：</td>
+            <td></td>
+          </tr>
+          <tr ng-repeat="item in value.aggregation_rent_ticket_status">
+            <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_ticket_status.length%}">
+              出租房状态：
+            </td>
+            <td>
+              <span>{%item.status%}</span>
+            </td>
+            <td>
+              {%item.total%}
+            </td>
+          </tr>
+          <tr ng-if="!value.aggregation_rent_ticket_type.length">
+            <td colspan="2">出租房类型：</td>
+            <td></td>
+          </tr>
+          <tr ng-repeat="item in value.aggregation_rent_ticket_type">
+            <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_ticket_type.length%}">
+              出租房类型：
+            </td>
+            <td>
+              <span>{%item.type%}</span>
+            </td>
+            <td>
+              {%item.total%}
+            </td>
+          </tr>
+          <tr ng-if="!value.aggregation_rent_ticket_type_available.length">
+            <td colspan="2">还处于发布状态的出租房类型：</td>
+            <td></td>
+          </tr>
+          <tr ng-repeat="item in value.aggregation_rent_ticket_type_available">
+            <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_ticket_type_available.length%}">
+              还处于发布状态的出租房类型：
+            </td>
+            <td>
+              <span>{%item.type%}</span>
+            </td>
+            <td>
+              {%item.total%}
+            </td>
+          </tr>
+          <tr ng-if="!value.aggregation_landlord_type_has_available_rent_ticket.length">
+            <td colspan="2">正在发布中的房源里的房东类型统计：</td>
+            <td></td>
+          </tr>
+          <tr ng-repeat="item in value.aggregation_landlord_type_has_available_rent_ticket">
+            <td ng-if="$index === 0" rowspan="{%value.aggregation_landlord_type_has_available_rent_ticket.length%}">
+              正在发布中的房源里的房东类型统计：
+            </td>
+            <td>
+              <span>{%item.type%}</span>
+            </td>
+            <td>
+              {%item.total%}
+            </td>
+          </tr>
+          <tr ng-if="!value.aggregation_landlord_type_has_available_whole.length">
+            <td colspan="2">正在发布中的整套房源里的房东类型统计：</td>
+            <td></td>
+          </tr>
+          <tr ng-repeat="item in value.aggregation_landlord_type_has_available_whole">
+            <td ng-if="$index === 0" rowspan="{%value.aggregation_landlord_type_has_available_whole.length%}">
+              正在发布中的整套房源里的房东类型统计：
+            </td>
+            <td>
+              <span>{%item.type%}</span>
+            </td>
+            <td>
+              {%item.total%}
+            </td>
+          </tr>
+          <tr ng-if="!value.aggregation_rent_ticket_shortest_rent_period.length">
+            <td colspan="2">正在发布中的房源里按最短接受租期的统计：</td>
+            <td></td>
+          </tr>
+          <tr ng-repeat="item in value.aggregation_rent_ticket_shortest_rent_period">
+            <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_ticket_shortest_rent_period.length%}">
+              正在发布中的房源里按最短接受租期的统计：
+            </td>
+            <td>
+              <span>{%item.period%}</span>
+            </td>
+            <td>
+              {%item.total%}
+            </td>
+          </tr>
+          <tr ng-if="!value.aggregation_rent_ticket_type_rent.length">
+            <td colspan="2">已经出租的房源里的出租类型统计：</td>
+            <td></td>
+          </tr>
+          <tr ng-repeat="item in value.aggregation_rent_ticket_type_rent">
+            <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_ticket_type_rent.length%}">
+              已经出租的房源里的出租类型统计：
+            </td>
+            <td>
+              <span>{%item.type%}</span>
+            </td>
+            <td>
+              {%item.total%}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

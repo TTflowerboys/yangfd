@@ -308,7 +308,7 @@
                             </li>
                             <li has-permission="admin,jr_admin,operation,jr_operation"
                                 ng-class="{active:$state.includes('dashboard.statistics')}">
-                                <a href ui-sref="dashboard.statistics" ui-sref-active="active">
+                                <a href ui-sref="dashboard.statistics.aggregation_overview" ui-sref-active="active">
                                     <i class="fa fa-bar-chart-o"></i><span class="hidden-sm text">{%$root.i18n('统计数据')%}</span>
                                     <span class="chevron"
                                         ng-class="{closed:!$state.includes('dashboard.statistics'),opened:$state.includes('dashboard.statistics')}"></span>
@@ -320,18 +320,18 @@
                                             <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('通用数据')%}</span></a>
                                     </li>
                                     <li has-permission="admin,jr_admin,operation,jr_operation"
-                                        ng-class="{active:$state.includes('dashboard.statistics.aggregation_rent')}">
-                                        <a href ui-sref="dashboard.statistics.aggregation_rent" ui-sref-active="active">
+                                        ng-class="{active:$state.includes('dashboard.statistics.aggregation_rent_ticket')}">
+                                        <a href ui-sref="dashboard.statistics.aggregation_rent_ticket" ui-sref-active="active">
                                             <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('出租房源数据')%}</span></a>
                                     </li>
                                     <li has-permission="admin,jr_admin,operation,jr_operation"
-                                        ng-class="{active:$state.includes('dashboard.statistics.aggregation_rent_intention')}">
-                                        <a href ui-sref="dashboard.statistics.aggregation_rent_intention" ui-sref-active="active">
+                                        ng-class="{active:$state.includes('dashboard.statistics.aggregation_rent_intention_ticket')}">
+                                        <a href ui-sref="dashboard.statistics.aggregation_rent_intention_ticket" ui-sref-active="active">
                                             <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('求租意向单数据')%}</span></a>
                                     </li>
                                     <li has-permission="admin,jr_admin,operation,jr_operation"
-                                        ng-class="{active:$state.includes('dashboard.statistics.aggregation_email')}">
-                                        <a href ui-sref="dashboard.statistics.aggregation_email" ui-sref-active="active">
+                                        ng-class="{active:$state.includes('dashboard.statistics.aggregation_email_detail')}">
+                                        <a href ui-sref="dashboard.statistics.aggregation_email_detail" ui-sref-active="active">
                                             <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('邮件数据')%}</span></a>
                                     </li>
                                     <li has-permission="admin,jr_admin,operation,jr_operation"
@@ -345,8 +345,8 @@
                                             <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('求租咨询单数据')%}</span></a>
                                     </li>
                                     <li has-permission="admin,jr_admin,operation,jr_operation"
-                                        ng-class="{active:$state.includes('dashboard.statistics.aggregation_property')}">
-                                        <a href ui-sref="dashboard.statistics.aggregation_property" ui-sref-active="active">
+                                        ng-class="{active:$state.includes('dashboard.statistics.aggregation_property_view')}">
+                                        <a href ui-sref="dashboard.statistics.aggregation_property_view" ui-sref-active="active">
                                             <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('海外房产数据')%}</span></a>
                                     </li>
                                     <li has-permission="admin,jr_admin,operation,jr_operation"

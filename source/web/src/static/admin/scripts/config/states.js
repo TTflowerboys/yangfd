@@ -1036,7 +1036,11 @@ angular.module('app')
          * */
             .state('dashboard.statistics', {
                 url: '/statistics',
-                templateUrl: '/static/admin/templates/dashboard.statistics.tpl.html',
+                templateUrl: '/static/admin/templates/dashboard.statistics.tpl.html'
+            })
+            .state('dashboard.statistics.aggregation_overview', {
+                url: '/',
+                templateUrl: '/static/admin/templates/dashboard.statistics_overview.tpl.html',
                 controller: 'ctrlStatisticsOverview',
                 resolve: {
                     api: function (statisticsApi) {
@@ -1054,10 +1058,70 @@ angular.module('app')
                     }
                 }
             })
-            .state('dashboard.statistics.route2', {
-                url: '/route2',
-                templateUrl: '/static/admin/templates/dashboard.statistics_route2.tpl.html',
-                controller: 'ctrlStatisticsRoute2',
+            .state('dashboard.statistics.aggregation_rent_ticket', {
+                url: '/aggregation_rent_ticket',
+                templateUrl: '/static/admin/templates/dashboard.statistics_aggregation_rent_ticket.tpl.html',
+                controller: 'ctrlStatistics_aggregation_rent_ticket',
+                resolve: {
+                    api: function (statisticsApi) {
+                        return statisticsApi
+                    }
+                }
+            })
+            .state('dashboard.statistics.aggregation_rent_intention_ticket', {
+                url: '/aggregation_rent_intention_ticket',
+                templateUrl: '/static/admin/templates/dashboard.statistics_aggregation_rent_intention_ticket.tpl.html',
+                controller: 'ctrlStatistics_aggregation_rent_intention_ticket',
+                resolve: {
+                    api: function (statisticsApi) {
+                        return statisticsApi
+                    }
+                }
+            })
+            .state('dashboard.statistics.aggregation_property_view', {
+                url: '/aggregation_property_view',
+                templateUrl: '/static/admin/templates/dashboard.statistics_aggregation_property_view.tpl.html',
+                controller: 'ctrlStatistics_aggregation_property_view',
+                resolve: {
+                    api: function (statisticsApi) {
+                        return statisticsApi
+                    }
+                }
+            })
+            .state('dashboard.statistics.aggregation_email_detail', {
+                url: '/aggregation_email_detail',
+                templateUrl: '/static/admin/templates/dashboard.statistics_aggregation_email_detail.tpl.html',
+                controller: 'ctrlStatistics_aggregation_email_detail',
+                resolve: {
+                    api: function (statisticsApi) {
+                        return statisticsApi
+                    }
+                }
+            })
+            .state('dashboard.statistics.aggregation_favorite', {
+                url: '/aggregation_favorite',
+                templateUrl: '/static/admin/templates/dashboard.statistics_aggregation_favorite.tpl.html',
+                controller: 'ctrlStatistics_aggregation_favorite',
+                resolve: {
+                    api: function (statisticsApi) {
+                        return statisticsApi
+                    }
+                }
+            })
+            .state('dashboard.statistics.aggregation_view_contact', {
+                url: '/aggregation_view_contact',
+                templateUrl: '/static/admin/templates/dashboard.statistics_aggregation_view_contact.tpl.html',
+                controller: 'ctrlStatistics_aggregation_view_contact',
+                resolve: {
+                    api: function (statisticsApi) {
+                        return statisticsApi
+                    }
+                }
+            })
+            .state('dashboard.statistics.aggregation_rent_request', {
+                url: '/aggregation_rent_request',
+                templateUrl: '/static/admin/templates/dashboard.statistics_aggregation_rent_request.tpl.html',
+                controller: 'ctrlStatistics_aggregation_rent_request',
                 resolve: {
                     api: function (statisticsApi) {
                         return statisticsApi

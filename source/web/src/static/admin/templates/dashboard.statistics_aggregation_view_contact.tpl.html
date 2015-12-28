@@ -1,0 +1,82 @@
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="box">
+      <div class="box-content">
+        <div class="btn-group form-inline">
+          <div edit-date ng-model="selected.date_from" placeholder="{%i18n('起租时间')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+          <div edit-date ng-model="selected.date_to" placeholder="{%i18n('结束时间')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+          <button class="btn btn-primary" ng-click="get_aggregate_data()">{%$root.i18n('获取数据')%}</button>
+        </div>
+        <table class="table table-striped table-bordered bootstrap-datatable datatable">
+          <tr>
+            <td colspan="2" class="col-sm-4">
+              查看过联系方式的总用户数量：
+            </td>
+            <td class="col-sm-8">
+              {%value.aggregation_view_contact_user_total%}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="col-sm-4">
+              所有查看过联系方式的总次数：
+            </td>
+            <td class="col-sm-8">
+              {%value.aggregation_view_contact_times%}
+            </td>
+          </tr>
+          <tr ng-if="!value.aggregation_view_contact_by_user.length">
+            <td colspan="2">用户查看联系方式的使用个数：</td>
+            <td></td>
+          </tr>
+          <tr ng-repeat="item in value.aggregation_view_contact_by_user">
+            <td ng-if="$index === 0" rowspan="{%value.aggregation_view_contact_by_user.length%}">
+              用户查看联系方式的使用个数：
+            </td>
+            <td>
+              <span>{%item.user%}</span>
+            </td>
+            <td>
+              {%item.total%}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="col-sm-4">
+              被查看过联系方式的房源数量：
+            </td>
+            <td class="col-sm-8">
+              {%value.aggregation_view_contact_ticket_total%}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="col-sm-4">
+              查看过联系方式的总数量：
+            </td>
+            <td class="col-sm-8">
+              {%value.aggregation_view_contact_total%}
+            </td>
+          </tr>
+          <tr ng-if="!value.aggregation_view_contact_times_sort.length">
+            <td colspan="2">出租房源被查看联系方式的次数排名：</td>
+            <td></td>
+          </tr>
+          <tr ng-repeat="item in value.aggregation_view_contact_times_sort">
+            <td ng-if="$index === 0" rowspan="{%value.aggregation_view_contact_times_sort.length%}">
+              出租房源被查看联系方式的次数排名：
+            </td>
+            <td>
+              <span>{%item.name%}</span>
+            </td>
+            <td>
+              {%item.total%}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
