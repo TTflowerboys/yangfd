@@ -97,7 +97,7 @@ class currant_ticket(f_ticket):
                         t["interested_rent_tickets"] = f_app.ticket.output(
                             t["interested_rent_tickets"],
                             enable_custom_fields=enable_custom_fields,
-                            ignore_nonexist=ignore_nonexist,
+                            ignore_nonexist=True,
                             fuzzy_user_info=fuzzy_user_info,
                             multi_return=multi_return,
                             location_only=location_only,
