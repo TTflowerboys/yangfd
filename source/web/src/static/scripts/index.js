@@ -585,6 +585,9 @@
         this.switchTab = function (item) {
             this.activeTab(item.slug)
             initRoleChooserContent(item.slug)
+
+            ga('send', 'event', 'index', 'click', 'select-tab',item.slug)
+
         }
         this.mouseoverTab = function (item) {
             this.hoverTab(item.slug)
