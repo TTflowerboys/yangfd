@@ -1,0 +1,28 @@
+<script type="text/template" id="choseReferrer">
+    <div class="row" data-bind="css: {twoRow: selectedReferrer() && selectedReferrer().slug === 'other'}">
+        <p class="title">{{_('您是从哪里听说洋房东的')}}</p>
+        <div class="col">
+            <p class="inputPlaceholder hiddenOnPCWeb">{{_('来源')}}</p>
+            <select class="referrer" data-bind="chosen: list,
+                optionsText: function(item){return item.value},
+                value: selectedReferrer">
+            </select>
+        </div><!--
+        --><div class="col">
+            <input class="referrerText col" type="text" data-bind="value: referrerText, visible: selectedReferrer() && selectedReferrer().slug === 'other'" placeholder="{{_('请填写您是从哪里听说洋房东的')}}"/>
+        </div>
+    </div>
+
+    <!--<div class="row">
+        <div class="col">
+            <p class="inputPlaceholder">{{_('您是从哪里听说洋房东的')}}</p>
+            <select class="referrer" data-bind="chosen: list,
+                                    optionsText: function(item){return item.value},
+                                    value: selectedReferrer">
+            </select>
+        </div>
+        <div class="col">
+            <input class="referrerText" type="text" data-bind="value: referrerText, visible: selectedReferrer() && selectedReferrer().slug === 'other'" placeholder="{{_('请填写您是从哪里听说洋房东的')}}"/>
+        </div>
+    </div>-->
+</script>

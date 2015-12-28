@@ -4,12 +4,14 @@
         init: function(element, valueAccessor, allBindings)  {
             ko.bindingHandlers.options.init.call(this, element)
             $(element)[window.team.isPhone() ? 'chosenPhone' : 'chosen']({disable_search_threshold: 10, inherit_select_classes: true, disable_search: true, width: $(element).css('width')})
-            if(allBindings().value) {
+            if(allBindings().value && _.isFunction(allBindings().value.subscribe)) {
                 allBindings().value.subscribe(function (val) {
                     if(!_.isObject(val)) {
                         $(element).val(val)
                     }
-                    $(element).trigger('chosen:updated')
+                    setTimeout(function () {
+                        $(element).trigger('chosen:updated')
+                    }, 100)
                 })
             }
         },

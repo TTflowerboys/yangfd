@@ -1,4 +1,5 @@
 <!--@@include whether_radio_tpl.html  -->
+<!--@@include chose_referrer_tpl.html  -->
 <script type="text/template" id='rent-request-tpl'>
     <div id="rent_request_popup" class="rentRequestContainer fullHeightInClient" data-bind="visible: visible">
         <div class="requirement_popup_shadow" data-bind="click: close"></div>
@@ -115,15 +116,14 @@
                                 </div>
 
                             </div>
+                            <chosen-referrer params="vm: $data"></chosen-referrer>
                             <div class="row" data-bind="visible: !user()">
-                                <p class="title"></p>
                                 <div id="captcha_div" class="captchaCode"></div>
                             </div>
                             <div class="row" data-bind="visible: !user()">
                                 <button class="registerUser button red ajaxButton" data-bind="click: registerUser, disable: registerUserDisabled">{{_('获取短信验证码')}}</button>
                             </div>
                             <div class="row" data-bind="visible: !phoneVerified() && user()">
-                                <p class="title"></p>
                                 <input type="text" class="smsCode" data-bind="value: smsCode" placeholder="{{_('短信验证码')}}"/>
                             </div>
                             <div class="row" data-bind="visible: !phoneVerified() && user()">

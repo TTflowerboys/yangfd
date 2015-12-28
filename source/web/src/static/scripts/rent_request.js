@@ -231,6 +231,9 @@
             this.phone = ko.observable(this.user() ? this.user().phone : '')
             this.email = ko.observable(this.user() ? this.user().email : '')
 
+            this.referrerText = ko.observable()
+            this.referrer = ko.observable()
+
             this.phoneVerified = ko.observable(this.user() ? this.user().phone_verified : false)
             this.smsCode = ko.observable()
             this.getSmsCodeText = ko.observable(window.i18n('发送短信验证码'))
@@ -301,6 +304,13 @@
                 this.birthTime(params.date_of_birth)
                 this.gender(params.gender)
                 this.occupation(params.occupation.id)
+                if(params.referrer) {
+                    if(/[a-z0-9]{24}/.test(params.referrer)) {
+                        this.referrer(params.referrer)
+                    } else {
+                        this.referrerText(params.referrer)
+                    }
+                }
             }
             this.initParamsByLastSubmit = function () {
                 if(this.user()) {
@@ -343,6 +353,7 @@
                     rent_available_time: this.rentAvailableTime(),
                     rent_deadline_time: this.rentDeadlineTime(),
                     description: this.description(),
+                    referrer: this.referrerText() || this.referrer(),
                     status: 'requested',
                 }
             }, this)
@@ -561,5 +572,42 @@
         template: { element: 'whetherRadio'}
     })
 
+    ko.components.register('chosen-referrer', {
+        viewModel: function (params) {
+            this.parentVM = params.vm
+            this.list = ko.observableArray([])
+            this.referrerText = ko.computed({
+                read: function () {
+                    return this.parentVM.referrerText()
+                },
+                write: function (value) {
+                    this.parentVM.referrerText(value)
+                }
+            }, this)
+
+            this.selectedReferrer = ko.observable()
+            this.selectedReferrer.subscribe(function (value) {
+                if(value.slug !== 'other') {
+                    this.parentVM.referrer(value.id)
+                    this.referrerText('')
+                }
+            }, this)
+            this.parentVM.referrer.subscribe(function (value) {
+                if(_.find(this.list(), {id: value})) {
+                    this.selectedReferrer(_.find(this.list(), {id: value}))
+                }
+            }, this)
+            this.parentVM.referrerText.subscribe(function (value) {
+                if(value.length) {
+                    this.selectedReferrer(_.find(this.list(), {slug: 'other'}))
+                }
+            }, this)
+            window.project.getEnum('user_referrer')
+                .then(_.bind(function (data) {
+                    this.list(data)
+                }, this))
+        },
+        template: { element: 'choseReferrer'}
+    })
 
 })(window.ko);
