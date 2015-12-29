@@ -108,7 +108,7 @@
                 return task;
             }];
         }];
-        
+
         [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
 
             CUTETicket *ticket = [[CUTEDataManager sharedInstance] getRentTicketById:ticketId];
@@ -129,7 +129,7 @@
                     else {
                         CUTETicket *ticket = task.result;
                         completion( @{@"ticket":ticket, @"landloardTypes":result[0], @"propertyTypes":result[1]});
-                        
+
                     }
                     return task;
                 }];
@@ -193,7 +193,7 @@
 
     self.navigationItem.leftBarButtonItem = [CUTENavigationUtil backBarButtonItemWithTarget:self action:@selector(onLeftButtonPressed:)];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"RentPropertyInfo/预览") style:UIBarButtonItemStylePlain target:self action:@selector(onPreviewButtonPressed:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"RentPropertyInfo/下一步") style:UIBarButtonItemStylePlain target:self action:@selector(onPreviewButtonPressed:)];
     self.tableView.accessibilityLabel = STR(@"RentPropertyInfo/房产信息表单");
     self.tableView.accessibilityIdentifier = self.tableView.accessibilityLabel;
 }
@@ -205,7 +205,7 @@
         [UIAlertView showWithTitle:STR(@"RentPropertyInfo/您的房产地址已经变更，请重新编辑房源的周边") message:nil cancelButtonTitle:nil otherButtonTitles:@[STR(@"OK")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
             [self editSurrounding];
         }];
-        
+
         _isReceivedPostcodeChangeWhenReedit = NO;
     }
 }
@@ -433,7 +433,7 @@
     CUTERentPeriodForm *form = [CUTERentPeriodForm new];
     form.ticket = self.form.ticket;
     form.needSetPeriod = !(IsNilOrNull(ticket.rentAvailableTime) && IsNilOrNull(ticket.rentDeadlineTime) && IsNilOrNull(ticket.minimumRentPeriod));
-    
+
     form.rentAvailableTime = IsNilOrNull(ticket.rentAvailableTime) ? nil :[NSDate dateWithTimeIntervalSince1970:ticket.rentAvailableTime.doubleValue];
     form.rentDeadlineTime = IsNilOrNull(ticket.rentDeadlineTime)? nil: [NSDate dateWithTimeIntervalSince1970:ticket.rentDeadlineTime.doubleValue];
     form.minimumRentPeriod = IsNilOrNull(ticket.minimumRentPeriod)? nil: ticket.minimumRentPeriod;
@@ -628,33 +628,25 @@
         return;
     }
 
-    [SVProgressHUD show];
-    [[[CUTERentTicketPublisher sharedInstance] previewTicket:self.form.ticket updateStatus:^(NSString *status) {
-        [SVProgressHUD showWithStatus:status];
-    } cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
-        
-        if (task.error) {
-            [SVProgressHUD showErrorWithError:task.error];
-        }
-        else if (task.exception) {
-            [SVProgressHUD showErrorWithException:task.exception];
-        }
-        else if (task.isCancelled) {
-            [SVProgressHUD showErrorWithCancellation];
-        }
-        else {
-            [SVProgressHUD dismiss];
-            [[CUTEDataManager sharedInstance] saveRentTicket:task.result];
+    [[CUTEDataManager sharedInstance] saveRentTicket:self.form.ticket];
 
-            TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
-            CUTERentTicketPreviewViewController *controller = [[CUTERentTicketPreviewViewController alloc] init];
-            controller.URL = [CUTEPermissionChecker URLWithPath:CONCAT(@"/wechat-poster/", self.form.ticket.identifier)];
-            controller.ticket = self.form.ticket;
-            [controller loadRequest:[NSURLRequest requestWithURL:controller.URL]];
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-        return task;
-    }];
+    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+
+    if ([self.form.ticket.rentType.slug hasSuffix:@":whole"]) {
+        CUTEWholePropertyPreferenceViewController *controller = [CUTEWholePropertyPreferenceViewController new];
+        CUTEWholePropertyPreferenceForm *form = [CUTEWholePropertyPreferenceForm new];
+        form.ticket = self.form.ticket;
+        controller.formController.form = form;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+    else {
+        CUTESingleRoomPreferenceViewController *controller = [CUTESingleRoomPreferenceViewController new];
+        CUTESingleRoomPreferenceForm *form = [CUTESingleRoomPreferenceForm new];
+        form.ticket = self.form.ticket;
+        controller.formController.form = form;
+
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 - (void)submit

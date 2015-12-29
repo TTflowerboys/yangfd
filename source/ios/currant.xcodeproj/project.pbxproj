@@ -293,6 +293,22 @@
 		2C6D07D21B3E4A54001EBB90 /* CUTEWebHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D07CE1B3E4A53001EBB90 /* CUTEWebHandler.m */; };
 		2C6D07D31B3E4A54001EBB90 /* CUTEWebHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D07CE1B3E4A53001EBB90 /* CUTEWebHandler.m */; };
 		2C6D07D51B3E77AF001EBB90 /* CUTEUsageManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D07D41B3E77AF001EBB90 /* CUTEUsageManagerTest.m */; };
+		2C6D45B01C32670200E4EA96 /* CUTESingleRoomPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45AF1C32670200E4EA96 /* CUTESingleRoomPreferenceViewController.swift */; };
+		2C6D45B11C32670200E4EA96 /* CUTESingleRoomPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45AF1C32670200E4EA96 /* CUTESingleRoomPreferenceViewController.swift */; };
+		2C6D45B21C32670200E4EA96 /* CUTESingleRoomPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45AF1C32670200E4EA96 /* CUTESingleRoomPreferenceViewController.swift */; };
+		2C6D45B31C32670200E4EA96 /* CUTESingleRoomPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45AF1C32670200E4EA96 /* CUTESingleRoomPreferenceViewController.swift */; };
+		2C6D45B51C32671B00E4EA96 /* CUTEWholePropertyPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45B41C32671B00E4EA96 /* CUTEWholePropertyPreferenceViewController.swift */; };
+		2C6D45B61C32671B00E4EA96 /* CUTEWholePropertyPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45B41C32671B00E4EA96 /* CUTEWholePropertyPreferenceViewController.swift */; };
+		2C6D45B71C32671B00E4EA96 /* CUTEWholePropertyPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45B41C32671B00E4EA96 /* CUTEWholePropertyPreferenceViewController.swift */; };
+		2C6D45B81C32671B00E4EA96 /* CUTEWholePropertyPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45B41C32671B00E4EA96 /* CUTEWholePropertyPreferenceViewController.swift */; };
+		2C6D45BA1C32679D00E4EA96 /* CUTESingleRoomPreferenceForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45B91C32679D00E4EA96 /* CUTESingleRoomPreferenceForm.swift */; };
+		2C6D45BB1C32679D00E4EA96 /* CUTESingleRoomPreferenceForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45B91C32679D00E4EA96 /* CUTESingleRoomPreferenceForm.swift */; };
+		2C6D45BC1C32679D00E4EA96 /* CUTESingleRoomPreferenceForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45B91C32679D00E4EA96 /* CUTESingleRoomPreferenceForm.swift */; };
+		2C6D45BD1C32679D00E4EA96 /* CUTESingleRoomPreferenceForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45B91C32679D00E4EA96 /* CUTESingleRoomPreferenceForm.swift */; };
+		2C6D45BF1C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45BE1C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift */; };
+		2C6D45C01C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45BE1C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift */; };
+		2C6D45C11C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45BE1C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift */; };
+		2C6D45C21C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D45BE1C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift */; };
 		2C6D7B181B428E49007853FD /* CUTEApplyBetaUITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D7B171B428E49007853FD /* CUTEApplyBetaUITest.m */; };
 		2C6D7B1E1B428F25007853FD /* KIFUITestActor+SplashUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D7B1D1B428F25007853FD /* KIFUITestActor+SplashUI.m */; };
 		2C71D3761BF9BD3D000CAC71 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71D3751BF9BD3D000CAC71 /* UITableViewExtension.swift */; };
@@ -1024,6 +1040,10 @@
 		2C6D07CD1B3E4A53001EBB90 /* CUTEWebHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEWebHandler.h; sourceTree = "<group>"; };
 		2C6D07CE1B3E4A53001EBB90 /* CUTEWebHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEWebHandler.m; sourceTree = "<group>"; };
 		2C6D07D41B3E77AF001EBB90 /* CUTEUsageManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEUsageManagerTest.m; sourceTree = "<group>"; };
+		2C6D45AF1C32670200E4EA96 /* CUTESingleRoomPreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESingleRoomPreferenceViewController.swift; sourceTree = "<group>"; };
+		2C6D45B41C32671B00E4EA96 /* CUTEWholePropertyPreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEWholePropertyPreferenceViewController.swift; sourceTree = "<group>"; };
+		2C6D45B91C32679D00E4EA96 /* CUTESingleRoomPreferenceForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTESingleRoomPreferenceForm.swift; sourceTree = "<group>"; };
+		2C6D45BE1C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEWholePropertyPreferenceForm.swift; sourceTree = "<group>"; };
 		2C6D7B171B428E49007853FD /* CUTEApplyBetaUITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEApplyBetaUITest.m; sourceTree = "<group>"; };
 		2C6D7B1C1B428F25007853FD /* KIFUITestActor+SplashUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KIFUITestActor+SplashUI.h"; sourceTree = "<group>"; };
 		2C6D7B1D1B428F25007853FD /* KIFUITestActor+SplashUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KIFUITestActor+SplashUI.m"; sourceTree = "<group>"; };
@@ -2037,6 +2057,8 @@
 				2CF8A5BC1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m */,
 				2C86DA531BCF865200B82941 /* CUTESurroundingListViewController.swift */,
 				2C2895031C0D5402002A0B6F /* CUTESurroundingSearchViewController.swift */,
+				2C6D45AF1C32670200E4EA96 /* CUTESingleRoomPreferenceViewController.swift */,
+				2C6D45B41C32671B00E4EA96 /* CUTEWholePropertyPreferenceViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2109,6 +2131,8 @@
 				2CF8A6661AF0B65C0080DF10 /* CUTEPropertyInfoForm.m */,
 				2CF8A6671AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.h */,
 				2CF8A6681AF0B65C0080DF10 /* CUTEPropertyMoreInfoForm.m */,
+				2C6D45B91C32679D00E4EA96 /* CUTESingleRoomPreferenceForm.swift */,
+				2C6D45BE1C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift */,
 				2CF8A6691AF0B65C0080DF10 /* CUTERentAddressEditForm.h */,
 				2CF8A66A1AF0B65C0080DF10 /* CUTERentAddressEditForm.m */,
 				2CF234881B5668E900B516E6 /* CUTERentAddressMapForm.h */,
@@ -2815,6 +2839,7 @@
 				2C9AFF721AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDE91B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A61F1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
+				2C6D45C11C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift in Sources */,
 				2CCE68041B1C3AA300351DED /* CUTERentMapListViewController.m in Sources */,
 				2CF8A6291AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CE2A9951B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m in Sources */,
@@ -2926,6 +2951,7 @@
 				2CDBA8D11B8D87B500C9D58F /* NSString+Truncate.m in Sources */,
 				2CEFCCB21BE7766000A0F93B /* UIColorExtension.swift in Sources */,
 				2C056D871B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
+				2C6D45B71C32671B00E4EA96 /* CUTEWholePropertyPreferenceViewController.swift in Sources */,
 				2CF8A5F21AF0B40E0080DF10 /* CUTERentMapEditViewController.m in Sources */,
 				2C5575F91BF1E8F700A6875E /* CUTESurrounding.m in Sources */,
 				2C96E2761AE6566300F3590C /* CUTEShareManager.m in Sources */,
@@ -2938,6 +2964,7 @@
 				2C9F1CEA1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CAA1D441BA2B31800662BFC /* UIViewController+CUTERouter.swift in Sources */,
 				2CF2348C1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
+				2C6D45B21C32670200E4EA96 /* CUTESingleRoomPreferenceViewController.swift in Sources */,
 				2CE2A9711B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
 				2CC1F32C1C1FD26400611784 /* CUTERentAddressBaseViewController.m in Sources */,
 				2CD15D491B62141700C870C0 /* CUTEActivity.m in Sources */,
@@ -2973,6 +3000,7 @@
 				2CF8A69D1AF0B65C0080DF10 /* CUTERentShareForm.m in Sources */,
 				2CF8A68E1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
 				2CC6C1DF1AEE255A002758A7 /* NSURL+Assets.m in Sources */,
+				2C6D45BC1C32679D00E4EA96 /* CUTESingleRoomPreferenceForm.swift in Sources */,
 				2C9F1D1F1B3A8E610034487F /* CUTESurveyHelper.m in Sources */,
 				2CF8A5DE1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */,
 				2CBF30B31B9459D600EB2D51 /* STWebArchiver.m in Sources */,
@@ -3001,6 +3029,7 @@
 				2C9AFF731AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDEA1B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A6201AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
+				2C6D45C21C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift in Sources */,
 				2CCE68051B1C3AA300351DED /* CUTERentMapListViewController.m in Sources */,
 				2CF8A62A1AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CE2A9961B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m in Sources */,
@@ -3112,6 +3141,7 @@
 				2CDBA8D21B8D87B500C9D58F /* NSString+Truncate.m in Sources */,
 				2CEFCCB31BE7766100A0F93B /* UIColorExtension.swift in Sources */,
 				2C056D881B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
+				2C6D45B81C32671B00E4EA96 /* CUTEWholePropertyPreferenceViewController.swift in Sources */,
 				2CF8A5F31AF0B40E0080DF10 /* CUTERentMapEditViewController.m in Sources */,
 				2C5575FA1BF1E8F700A6875E /* CUTESurrounding.m in Sources */,
 				2C96E2771AE6566300F3590C /* CUTEShareManager.m in Sources */,
@@ -3124,6 +3154,7 @@
 				2C9F1CEB1B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CAA1D451BA2B31900662BFC /* UIViewController+CUTERouter.swift in Sources */,
 				2CF2348D1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
+				2C6D45B31C32670200E4EA96 /* CUTESingleRoomPreferenceViewController.swift in Sources */,
 				2CE2A9721B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
 				2CC1F32D1C1FD26400611784 /* CUTERentAddressBaseViewController.m in Sources */,
 				2CD15D4A1B62141700C870C0 /* CUTEActivity.m in Sources */,
@@ -3159,6 +3190,7 @@
 				2CF8A69E1AF0B65C0080DF10 /* CUTERentShareForm.m in Sources */,
 				2CF8A68F1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
 				2CC6C1E01AEE255A002758A7 /* NSURL+Assets.m in Sources */,
+				2C6D45BD1C32679D00E4EA96 /* CUTESingleRoomPreferenceForm.swift in Sources */,
 				2C9F1D201B3A8E610034487F /* CUTESurveyHelper.m in Sources */,
 				2CF8A5DF1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */,
 				2CBF30B41B9459D700EB2D51 /* STWebArchiver.m in Sources */,
@@ -3187,6 +3219,7 @@
 				2C9AFF711AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDE81B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A61E1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
+				2C6D45C01C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift in Sources */,
 				2CCE68031B1C3AA300351DED /* CUTERentMapListViewController.m in Sources */,
 				2CF8A6281AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CE2A9941B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m in Sources */,
@@ -3298,6 +3331,7 @@
 				2CDBA8D01B8D87B300C9D58F /* NSString+Truncate.m in Sources */,
 				2CEFCCB11BE7765F00A0F93B /* UIColorExtension.swift in Sources */,
 				2C056D861B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
+				2C6D45B61C32671B00E4EA96 /* CUTEWholePropertyPreferenceViewController.swift in Sources */,
 				2CF8A5F11AF0B40E0080DF10 /* CUTERentMapEditViewController.m in Sources */,
 				2C5575F81BF1E8F700A6875E /* CUTESurrounding.m in Sources */,
 				2C96E2751AE6566300F3590C /* CUTEShareManager.m in Sources */,
@@ -3310,6 +3344,7 @@
 				2C9F1CE91B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CAA1D431BA2B31700662BFC /* UIViewController+CUTERouter.swift in Sources */,
 				2CF2348B1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
+				2C6D45B11C32670200E4EA96 /* CUTESingleRoomPreferenceViewController.swift in Sources */,
 				2CE2A9701B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
 				2CC1F32B1C1FD26400611784 /* CUTERentAddressBaseViewController.m in Sources */,
 				2CD15D481B62141700C870C0 /* CUTEActivity.m in Sources */,
@@ -3345,6 +3380,7 @@
 				2CF8A69C1AF0B65C0080DF10 /* CUTERentShareForm.m in Sources */,
 				2CF8A68D1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
 				2CC6C1DE1AEE255A002758A7 /* NSURL+Assets.m in Sources */,
+				2C6D45BB1C32679D00E4EA96 /* CUTESingleRoomPreferenceForm.swift in Sources */,
 				2C9F1D1E1B3A8E610034487F /* CUTESurveyHelper.m in Sources */,
 				2CF8A5DD1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */,
 				2CBF30B21B9459D500EB2D51 /* STWebArchiver.m in Sources */,
@@ -3373,6 +3409,7 @@
 				2C9AFF701AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDE71B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A61D1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
+				2C6D45BF1C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift in Sources */,
 				2CCE68021B1C3AA300351DED /* CUTERentMapListViewController.m in Sources */,
 				2CF8A6271AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
 				2CE2A9931B68E2EB0089ED20 /* CUTERentVerifyPhoneViewController.m in Sources */,
@@ -3484,6 +3521,7 @@
 				2CDBA8CF1B8D752600C9D58F /* NSString+Truncate.m in Sources */,
 				2C51F1AD1BE755B8007F13FF /* UIColorExtension.swift in Sources */,
 				2C056D851B423ABD0075037A /* CUTERentLoginForm.m in Sources */,
+				2C6D45B51C32671B00E4EA96 /* CUTEWholePropertyPreferenceViewController.swift in Sources */,
 				2CF8A5F01AF0B40E0080DF10 /* CUTERentMapEditViewController.m in Sources */,
 				2C5575F71BF1E8F700A6875E /* CUTESurrounding.m in Sources */,
 				2C96E2741AE6566300F3590C /* CUTEShareManager.m in Sources */,
@@ -3496,6 +3534,7 @@
 				2C9F1CE81B3907AF0034487F /* NSString+OccurrenceCount.m in Sources */,
 				2CAA1D3F1BA2B30C00662BFC /* UIViewController+CUTERouter.swift in Sources */,
 				2CF2348A1B5668E900B516E6 /* CUTERentAddressMapForm.m in Sources */,
+				2C6D45B01C32670200E4EA96 /* CUTESingleRoomPreferenceViewController.swift in Sources */,
 				2CE2A96F1B660B8B0089ED20 /* CUTEPostcodePlace.m in Sources */,
 				2CC1F32A1C1FD26400611784 /* CUTERentAddressBaseViewController.m in Sources */,
 				2CD15D471B62141700C870C0 /* CUTEActivity.m in Sources */,
@@ -3531,6 +3570,7 @@
 				2CF8A69B1AF0B65C0080DF10 /* CUTERentShareForm.m in Sources */,
 				2CF8A68C1AF0B65C0080DF10 /* CUTERentAddressEditForm.m in Sources */,
 				2CC6C1DD1AEE255A002758A7 /* NSURL+Assets.m in Sources */,
+				2C6D45BA1C32679D00E4EA96 /* CUTESingleRoomPreferenceForm.swift in Sources */,
 				2C9F1D1D1B3A8E610034487F /* CUTESurveyHelper.m in Sources */,
 				2CF8A5DC1AF0B40E0080DF10 /* CUTERentPropertyFacilityViewController.m in Sources */,
 				2CBF30B11B9459D000EB2D51 /* STWebArchiver.m in Sources */,

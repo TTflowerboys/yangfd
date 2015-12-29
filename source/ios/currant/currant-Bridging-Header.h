@@ -50,8 +50,10 @@
 
 //controller
 #import "CUTEWebViewController.h"
+#import "CUTEFormViewController.h"
 #import "CUTEPropertyListViewController.h"
 #import "CUTERentListViewController.h"
+#import "CUTERentTicketPreviewViewController.h"
 
 //model
 #import "CUTEEnum.h"
@@ -64,6 +66,8 @@
 
 //view
 #import "CUTEFormTextFieldCell.h"
+#import "CUTEFormSwitchCell.h"
+#import "CUTEFormTextViewCell.h"
 #import "CUTETooltipView.h"
 
 //view model
@@ -85,7 +89,7 @@
 #import "CUTETracker.h"
 #import "CUTEUsageRecorder.h"
 #import "CUTELocalizationSwitcher.h"
-
+#import "CUTERentTicketPublisher.h"
 
 
 

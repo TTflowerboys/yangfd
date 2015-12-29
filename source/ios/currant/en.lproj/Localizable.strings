@@ -40,7 +40,7 @@
 //
 //Filepath: currant/Scene/Rent/Controller/CUTERentPropertyInfoViewController.m
 "RentPropertyInfo/房产信息" = "Information";
-"RentPropertyInfo/预览" = "Preview";
+"RentPropertyInfo/下一步" = "Next";
 "RentPropertyInfo/房产信息表单" = "Property Information";
 "RentPropertyInfo/周" = "week";
 "RentPropertyInfo/不限" = "Unlimited";
@@ -113,6 +113,29 @@
 //Filepath: currant/Scene/Rent/Controller/CUTERentPropertyFacilityViewController.m
 "RentPropertyFacility/设施" = "Amenities";
 
+
+//
+//Group: SingleRoomPreference
+//
+//Filepath: currant/Scene/Rent/Controller/CUTESingleRoomPreferenceViewController.m
+"SingleRoomPreference/单间信息" = "单间信息";
+"SingleRoomPreference/入住性别要求" = "入住性别要求";
+"SingleRoomPreference/入住年龄限制" = "入住年龄限制";
+"SingleRoomPreference/入住置业限制" = "入住置业限制";
+"SingleRoomPreference/允许吸烟" = "允许吸烟";
+"SingleRoomPreference/允许携宠物入住" = "允许携宠物入住";
+"SingleRoomPreference/允许带小孩入住"  = "允许带小孩入住";
+"SingleRoomPreference/当前男室友的数量" = "当前男室友的数量";
+"SingleRoomPreference/当前女室友的数量" = "当前女室友的数量";
+"SingleRoomPreference/可入住新室友" = "可入住新室友";
+"SingleRoomPreference/单间面积" = "单间面积";
+"SingleRoomPreference/独立卫浴" = "独立卫浴";
+"SingleRoomPreference/对租客的其他要求" = "对租客的其他要求";
+"SingleRoomPreference/请填写您对租客的其他要求，比如租房需要提供学生证，名片，银行流水等" = "请填写您对租客的其他要求，比如租房需要提供学生证，名片，银行流水等";
+"SingleRoomPreference/预览" = "预览";
+
+"WholePropertyPreference/租客要求" = "租客要求";
+"WholePropertyPreference/预览" = "预览";
 
 //
 //Group: RentPassword
@@ -711,7 +734,6 @@
 "PropertyInfo/房产地址" = "Address";
 "PropertyInfo/周边" = "Around The Place";
 "PropertyInfo/更多详情和配套设施描述（选填）" = "More Details and Amenities (Optional)";
-"PropertyInfo/预览并发布" = "Preview and Publish";
 "PropertyInfo/轻松描述到周边的地铁和学校有多近" = "轻松描述到周边的地铁和学校有多近";
 "PropertyInfo/发布则表示您已经阅读并同意洋房东服务须知" = "发布则表示您已经阅读并同意洋房东服务须知";
 "PropertyInfo/服务须知" = "服务须知";
