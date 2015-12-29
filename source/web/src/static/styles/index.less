@@ -155,13 +155,34 @@
                     background: #fff;
                     transition: all ease-out 0.3s 0s;
                 }
-                &.tenant:after{
+                &:before{
+                    display: block;
+                    position: absolute;
+                    z-index: 0;
+                    content: '';
+                    bottom: 0;
+                    width: 160px;
+                    height: 2px;
+                    background: #fff;
+                    opacity: 0.6;
+                    transition: all ease-out 0.3s 0s;
+                }
+                &.tenant:after,  &.tenant:before{
                     left: 80px;
                 }
-                &.landlord:after{
+                &.landlord:after, &.landlord:before{
                     left: 400px;
                 }
-                &.investor:after{
+                &.investor:after, &.investor:before{
+                    left: 720px;
+                }
+                &.tenantHover:before{
+                    left: 80px;
+                }
+                &.landlordHover:before{
+                    left: 400px;
+                }
+                &.investorHover:before{
                     left: 720px;
                 }
                 li{

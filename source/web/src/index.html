@@ -28,7 +28,7 @@
     <h1 style="display: none" data-bind="visible: activeTab() == 'landlord'">{{_('有英国房源要出租？')}}</h1>
     <h1 style="display: none" data-bind="visible: activeTab() == 'investor'">{{_('您身边的英国房产置业专家')}}</h1>
     <div class="tabBox">
-        <ul class="tab hiddenOnMobile" data-bind="foreach: tabOptions, css: hoverTab() || activeTab()"><!--
+        <ul class="tab hiddenOnMobile" data-bind="foreach: tabOptions, css: activeTab() + (hoverTab() ? ' ' + hoverTab() + 'Hover' : '')"><!--
             --><li data-bind="css: {active: $parent.activeTab() == slug}, click: $parent.switchTab.bind($parent), event: {mouseover: $parent.mouseoverTab.bind($parent), mouseout: $parent.mouseoutTab.bind($parent)}">
                 <i class="img_wrapper" data-bind="css: icon"></i>
                 <h3 data-bind="text: text"></h3>
