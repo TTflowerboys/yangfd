@@ -25,11 +25,12 @@ def requirement_rent():
     return currant_util.common_template("requirement_rent_phone", title=title)
 
 
-@f_get('/rent-request')
+@f_get('/rent-request', params=dict(ticketId=str))
 @currant_util.check_ip_and_redirect_domain
-def requirement_rent():
+def requirement_rent(params):
     title = _('提交求租咨询')
-    return currant_util.common_template("rent_request_phone", title=title)
+    rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([params.get('ticketId')], fuzzy_user_info=True)[0])
+    return currant_util.common_template("rent_request_phone", title=title, rent_ticket=rent_ticket)
 
 
 @f_get('/delegate-rent')

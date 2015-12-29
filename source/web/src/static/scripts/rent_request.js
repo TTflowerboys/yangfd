@@ -521,10 +521,12 @@
                 return window.Q($.betterPost('/api/1/user/' + this.user().id + '/sms_verification/verify', {code: this.smsCode()}))
             }
             this.submitDisabled = ko.observable()
+            this.requestTicketId = ko.observable()
             this.submitTicket = function () {
                 this.submitDisabled(true)
                 $.betterPost('/api/1/rent_intention_ticket/add', this.params())
                     .done(_.bind(function (val) {
+                        this.requestTicketId(val)
                         this.showSuccessWrap()
                         window.team.setUserType('tenant')
                         ga('send', 'event', 'rentRequestIntention', 'result', 'submit-success');
@@ -546,9 +548,33 @@
                 this.formWrapVisible(false)
             }
 
+            this.price = ko.observable(params.price)
+            this.holdingDeposit = ko.observable(params.holdingDeposit || {unit: 'GBP', unit_symbol: '£', value: '500.0'})
+            this.payment = ko.computed(function () {
+                if(this.rentDeadlineTime() && this.rentAvailableTime()) {
+                    var day = (this.rentDeadlineTime() - this.rentAvailableTime()) / 3600 / 24
+                    if(day < 30) {
+                        return parseInt(this.price().value_float / 7 * day / 4)
+                    } else {
+                        return parseInt(this.price().value_float)
+                    }
+                }
+            }, this)
+            this.isConfirmed = ko.observable(false)
+            this.confirm = function () {
+                this.isConfirmed(true)
+                $.betterPost('/api/1/rent_intention_ticket/' + this.requestTicketId() +'/edit', {custom_fields: JSON.stringify([{key: 'payment_confirmed', value: 'true'}])})
+            }
+            this.isLearnMore = ko.observable(false)
+            this.learnMore = function () {
+                this.isLearnMore(true)
+            }
             $('body').on('openRentRequestForm', function (e, ticketId, isPopup) {
                 this.ticketId(ticketId)
                 this.open(isPopup)
+
+                //todo : remove this!
+                //this.showSuccessWrap()
             }.bind(this))
             $('body').trigger('rentRequestReady')
         },
@@ -610,4 +636,24 @@
         template: { element: 'choseReferrer'}
     })
 
+    ko.components.register('tips', {
+        viewModel: function(params) {
+            this.tips = ko.observable(params.tips)
+            this.visible = ko.observable(false)
+            this.showTips = function (data, event) {
+                if(!window.team.isPhone()) {
+                    this.visible(true)
+                }
+            }
+            this.hideTips = function () {
+                if(!window.team.isPhone()) {
+                    this.visible(false)
+                }
+            }
+            this.toggleTips = function () {
+                this.visible(!this.visible())
+            }
+        },
+        template: '<div class="tipsWrap" data-bind="event: {mouseover: showTips, mouseout: hideTips, click: toggleTips}"><i class="questionMark">?</i><div class="tips" data-bind="text: tips, visible: visible"></div></div>'
+    })
 })(window.ko);

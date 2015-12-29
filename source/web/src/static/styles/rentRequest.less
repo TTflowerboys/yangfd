@@ -555,40 +555,159 @@
         .successWrap{
             position: relative;
             padding: 0 0 100px 100px;
-
-            h2{
-                font-size: 36px;
-                color: #333333;
-                margin-bottom: 85px;
-            }
-            p{
-                &.hint{
-                    color: #999;
-                    margin-bottom: 36px;
-                    font-size: 14px;
+            .clearfix;
+            .leftWrap{
+                margin-right: 300px;
+                float: left;
+                h2{
+                    font-size: 36px;
+                    color: #333333;
+                    margin-bottom: 85px;
                 }
-                &.item{
-                    position: relative;
-                    padding-left: 20px;
-                    &:before{
-                        content: '';
-                        display: block;
-                        width: 10px;
-                        height: 10px;
-                        border-radius: 50%;
-                        background-color: #999;
-                        position: absolute;
-                        left: 0px;
-                        top: 9px;
+                p{
+                    &.hint{
+                        color: #999;
+                        margin-bottom: 36px;
+                        font-size: 14px;
+                    }
+                    &.item{
+                        position: relative;
+                        padding-left: 20px;
+                        &:before{
+                            content: '';
+                            display: block;
+                            width: 10px;
+                            height: 10px;
+                            border-radius: 50%;
+                            background-color: #999;
+                            position: absolute;
+                            left: 0px;
+                            top: 9px;
+                        }
+                    }
+                    max-width: 420px;
+                    line-height: 1.8em;
+                    margin:0 0 24px;
+                    color: #666;
+                    font-size: 16px;
+                    a{
+                        color: @red;
                     }
                 }
-                max-width: 420px;
-                line-height: 1.8em;
-                margin:0 0 24px;
-                color: #666;
-                font-size: 16px;
-                a{
-                    color: @red;
+            }
+            .rightWrap{
+                float: left;
+                width: 564px;
+                .content{
+                    li{
+                        padding: 20px 0;
+                        border-bottom: 1px solid #ccc;
+                        font-size: 14px;
+                        .clearfix;
+                        >*{
+                            display: inline-block;
+                            vertical-align: middle;
+                        }
+                        .title{
+                            color: #666;
+                        }
+                        .text{
+                            float: right;
+                            color: #333;
+                            strong{
+                                font-weight: normal;
+                                color: @red;
+                            }
+                        }
+                        tips{
+                            display: inline-block;
+                            position: relative;
+                            margin-left: 2px;
+                            .tipsWrap{
+                                position: relative;
+                                display: inline-block;
+                                width: 16px;
+                                height: 16px;
+                                line-height: 16px;
+                                border-radius: 50%;
+                                text-align: center;
+                                background: #e60012;
+                                color: #fff;
+                                i{
+                                    display: inline-block;
+                                    width: 16px;
+                                    height: 16px;
+                                    font-style: normal;
+                                    font-weight: bold;
+                                    font-size: 12px;
+                                    cursor: pointer;
+
+                                }
+                                .tips{
+                                    position: absolute;
+                                    width: 285px;
+                                    padding: 12px;
+                                    line-height: 1.6;
+                                    background: #333;
+                                    color: #fff;
+                                    font-size: 12px;
+                                    left: 30px;
+                                    top: -20px;
+                                    font-weight: normal;
+                                    text-align: left;
+                                    border-radius: 4px;
+                                    &:after{
+                                        position: absolute;
+                                        content: '';
+                                        display: block;
+                                        left: -12px;
+                                        top: 22px;
+                                        width: 0;
+                                        height: 0;
+                                        border: 6px solid;
+                                        border-color: transparent #333 transparent transparent;
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+                .declare{
+                    margin: 8px 0;
+                    text-align: right;
+                    color: #999;
+                    font-size: 14px;
+                }
+                .confirmWrap{
+                    margin-top: 70px;
+                    .button{
+                        cursor: pointer;
+                        padding: 12px 18px;
+                        line-height: 18px;
+                        font-size: 16px;
+                        vertical-align: middle;
+                    }
+                    .hintWrap{
+                        display: inline-block;
+                        width: 440px;
+                        margin-left: 16px;
+                        vertical-align: middle;
+                        .hint{
+                            margin: 0;
+                            line-height: 1.6;
+                            font-size: 12px;
+                            color: #999;
+                            a{
+                                color: @red;
+                                text-decoration: none;
+                                cursor: pointer;
+                                &.flow{
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

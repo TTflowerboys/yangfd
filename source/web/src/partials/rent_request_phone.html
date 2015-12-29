@@ -144,8 +144,63 @@
                     </div>
                 </div>
                 <div class="successWrap" data-bind="visible: successWrapVisible">
-                    <h2 data-show="normal">{{_('提交成功')}}</h2>
-                    <p data-show="delegateRent">{{_('提交成功，您的咨询申请已发送给房东，我们会在24小时内与您取得联系')}}</p>
+                    <div class="leftWrap">
+                        <h2 data-show="normal">{{_('提交成功')}}</h2>
+                        <p data-show="delegateRent" data-hide="requestContact">{{_('您的咨询申请已经提交成功，平台将在24小时内与您取得联系')}}</p>
+                    </div>
+                    <div class="rightWrap">
+                        <ul class="content">
+                            <li>
+                                <span class="title">
+                                    {{_('入住时间')}}
+                                </span>
+                                <span class="text">
+                                    <!--ko text: rentAvailableTimeFormated--><!--/ko-->{{_('至')}}<!--ko text: rentDeadlineTimeFormated--><!--/ko-->
+                                </span>
+                            </li>
+                            <li>
+                                <span class="title">
+                                    {{_('入住人数')}}
+                                </span>
+                                <span class="text" data-bind="text: tenantCount"></span>
+                            </li>
+                            <li>
+                                <span class="title">
+                                    {{_('租金')}}
+                                </span>
+                                <span class="text" data-bind="text: price().unit_symbol + price().value + i18n('/周')"></span>
+                            </li>
+                            <li>
+                                <span class="title">
+                                    {{_('定金预估')}}
+                                </span>
+                                <tips params="tips: '{{_('Holding Deposit，是您确定预订后锁定房源所需要向房东交付的定金，当你入住时确保房源和确认信息一致，平台将在24小时后把钱转付房东以冲抵押金或房租')}}'"></tips>
+                                <span class="text" data-bind="text: holdingDeposit().unit_symbol + holdingDeposit().value"></span>
+                            </li>
+                            <li>
+                                <span class="title">
+                                    {{_('服务费预估')}}
+                                </span>
+                                <tips params="tips: '{{_('平台服务费用于为您在房源咨询，申请和预订阶段提供专属租房助手和沟通确认预订服务，并且支持平台其他日常运营开支，使我们能更好的服务您')}}'"></tips>
+                                <span class="text" data-bind="text: price().unit_symbol + payment()"></span>
+                            </li>
+                            <li>
+                                <span class="title">
+                                    {{_('视频直播看房服务')}}
+                                </span>
+                                <span class="text">{{_('推广期')}}<strong>{{_('免费')}}</strong></span>
+                            </li>
+                        </ul>
+                        <p class="declare">{{_('此信息仅作咨询申请确认，最终预订以平台联系确认为准')}}</p>
+                        <div class="confirmWrap">
+                            <button class="confirmButton button red" data-bind="click: confirm, disable: isConfirmed">{{_('我知道了')}}</button>
+                            <div class="hintWrap">
+                                <p class="hint" data-bind="visible: !isLearnMore()">{{_('对租房流程有疑问？')}} <a class="flow" data-bind="click: learnMore">{{_('了解更多')}}</a></p>
+                                <p class="hint" data-bind="visible: isLearnMore">{{_('查阅“')}} <a class="flow" href="/how-it-works/tenant">{{_('租房流程')}}</a>{{_('”了解更多，也欢迎您发送任何疑问到')}} <a href="mailto:services@youngfunding.co.uk">services@youngfunding.co.uk</a>{{_('，平台将为您解答')}}</p>
+                                <p class="hint" data-bind="visible: isLearnMore"></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <button name="cancel" class="cancel" data-bind="click: close"><i class="icon-delete"></i></button>
