@@ -1310,13 +1310,21 @@ def aggregation_view_contact(user, params):
         cursor = m.orders.aggregate(
             get_aggregation_params([
                 {'$unwind': "$items"},
-                {'$group': {'_id': "$user.nickname", 'count': {'$sum': 1}}},
+                {
+                    '$group':
+                    {
+                        '_id': "$user.nickname",
+                        'count': {'$sum': 1},
+                        'user_id': {'$first': "$user.id"}
+                    }
+                },
                 {'$sort': {'count': -1}}
             ])
         )
         aggregation_view_contact_by_user = []
         for document in cursor:
             aggregation_view_contact_by_user.append({
+                "user_id": document['user_id'],
                 "user": document['_id'],
                 "total": document['count']
             })
