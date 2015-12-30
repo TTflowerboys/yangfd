@@ -69,7 +69,9 @@
               出租房源被查看联系方式的次数排名：
             </td>
             <td>
-              <span>{%item.name%}</span>
+              <a ui-sref="dashboard.rent.detail({id: item.url_id})">
+                <span>{%item.name%}</span>
+              </a>
             </td>
             <td>
               {%item.total%}

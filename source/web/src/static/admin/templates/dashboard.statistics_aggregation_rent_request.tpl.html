@@ -26,14 +26,18 @@
             <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_rent_request_count_sort">
-            <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_request_count_sort.length%}">
+            <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_request_count_sort.length%}" class="col-sm-4">
               按房源统计收到咨询申请的数量排名：
             </td>
-            <td>
-              <span>{%item.count%}</span>
+            <td class="col-sm-4">
+              <span>
+                <a ui-sref="dashboard.rent.detail({id:item.ticket_id})">
+                  {%item.title%}
+                </a>
+              </span>
             </td>
-            <td>
-              {%item.total%}
+            <td class="col-sm-4">
+              {%item.count%}
             </td>
           </tr>
           <tr>

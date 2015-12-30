@@ -38,7 +38,11 @@
               浏览过海外房产数量的用户排名：
             </td>
             <td>
-              <span>{%item.user%}</span>
+              <span>
+                <a ui-sref="dashboard.users.detail({ id: item.user_id })">
+                  {%item.user%}
+                </a>
+              </span>
             </td>
             <td>
               {%item.total%}
@@ -53,7 +57,11 @@
               被浏览最多的海外房产排名：
             </td>
             <td>
-              <span>{%item.title%}</span>
+              <span>
+                <a ui-sref="dashboard.property.detail({id: item.url_id})">
+                  {%item.title%}
+                </a>
+              </span>
             </td>
             <td>
               {%item.total%}
