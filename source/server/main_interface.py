@@ -1220,6 +1220,7 @@ def aggregation_favorite(user, params):
             else:
                 user_name = user_name[0]['nickname']
             aggregation_rent_ticket_favorite_times_by_user.append({
+                "user_id": document['_id'],
                 "user": user_name,
                 "total": document['count']
             })
@@ -1242,6 +1243,7 @@ def aggregation_favorite(user, params):
             else:
                 user_name = user_name[0]['nickname']
             aggregation_property_favorite_times_by_user.append({
+                "user_id": document['_id'],
                 "user": user_name,
                 "total": document['count']
             })
@@ -1443,7 +1445,11 @@ def aggregation_property_view(user, params):
                 user_name = f_app.user.get(single['_id'])['nickname']
             else:
                 user_name = single['_id']
-            aggregation_property_view_times_by_user_sort.append({"user": user_name, "total": single['value']})
+            aggregation_property_view_times_by_user_sort.append({
+                "user_id": single['_id'],
+                "user": user_name,
+                "total": single['value']
+            })
         value.update({"aggregation_property_view_times_by_user_sort": aggregation_property_view_times_by_user_sort})
         func_map = Code('''
             function() {
