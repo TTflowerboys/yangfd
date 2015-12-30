@@ -4,10 +4,10 @@
     <div class="box">
       <div class="box-content">
         <div class="btn-group form-inline">
-          <div edit-date ng-model="selected.date_from" placeholder="{%i18n('起租时间')%}"></div>
+          <div edit-date ng-model="$parent.selected.date_from" placeholder="{%i18n('起租时间')%}"></div>
         </div>
         <div class="btn-group form-inline">
-          <div edit-date ng-model="selected.date_to" placeholder="{%i18n('结束时间')%}"></div>
+          <div edit-date ng-model="$parent.selected.date_to" placeholder="{%i18n('结束时间')%}"></div>
         </div>
         <div class="btn-group form-inline">
           <button class="btn btn-primary" ng-click="get_aggregate_data()">{%$root.i18n('获取数据')%}</button>

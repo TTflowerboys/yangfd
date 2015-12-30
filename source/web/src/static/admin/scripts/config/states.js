@@ -1036,6 +1036,7 @@ angular.module('app')
          * */
             .state('dashboard.statistics', {
                 url: '/statistics',
+                controller: 'ctrlStatistics',
                 templateUrl: '/static/admin/templates/dashboard.statistics.tpl.html'
             })
             .state('dashboard.statistics.aggregation_overview', {
