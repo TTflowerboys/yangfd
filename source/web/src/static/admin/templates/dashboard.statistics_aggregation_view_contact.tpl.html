@@ -81,6 +81,24 @@
               {%item.total%}
             </td>
           </tr>
+          <tr ng-if="!value.aggregation_view_contact_detail.length">
+            <td colspan="2">查看N次联系方式的用户数分布：</td>
+            <td>{%place_holder%}</td>
+          </tr>
+          <tr ng-repeat="item in value.aggregation_view_contact_detail">
+            <td ng-if="$index === 0" rowspan="{%value.aggregation_view_contact_detail.length%}">
+              查看N次联系方式的用户数分布：
+            </td>
+            <td>
+              <span>{%item.times%}</span>
+            </td>
+            <td>
+              <ul>
+                <li>用户总数：{%item.user_total%}</li>
+                <li>占比：{%item.ratio%}</li>
+              </ul>
+            </td>
+          </tr>
         </table>
       </div>
     </div>
