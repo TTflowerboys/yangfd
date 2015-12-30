@@ -47,7 +47,7 @@
           </tr>
           <tr ng-if="!value.aggregation_rent_ticket_status.length">
             <td colspan="2">出租房状态：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_rent_ticket_status">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_ticket_status.length%}">
@@ -62,7 +62,7 @@
           </tr>
           <tr ng-if="!value.aggregation_rent_ticket_type.length">
             <td colspan="2">出租房类型：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_rent_ticket_type">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_ticket_type.length%}">
@@ -77,7 +77,7 @@
           </tr>
           <tr ng-if="!value.aggregation_rent_ticket_type_available.length">
             <td colspan="2">还处于发布状态的出租房类型：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_rent_ticket_type_available">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_ticket_type_available.length%}">
@@ -92,7 +92,7 @@
           </tr>
           <tr ng-if="!value.aggregation_landlord_type_has_available_rent_ticket.length">
             <td colspan="2">正在发布中的房源里的房东类型统计：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_landlord_type_has_available_rent_ticket">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_landlord_type_has_available_rent_ticket.length%}">
@@ -107,7 +107,7 @@
           </tr>
           <tr ng-if="!value.aggregation_landlord_type_has_available_whole.length">
             <td colspan="2">正在发布中的整套房源里的房东类型统计：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_landlord_type_has_available_whole">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_landlord_type_has_available_whole.length%}">
@@ -122,7 +122,7 @@
           </tr>
           <tr ng-if="!value.aggregation_rent_ticket_shortest_rent_period.length">
             <td colspan="2">正在发布中的房源里按最短接受租期的统计：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_rent_ticket_shortest_rent_period">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_ticket_shortest_rent_period.length%}">
@@ -137,7 +137,7 @@
           </tr>
           <tr ng-if="!value.aggregation_rent_ticket_type_rent.length">
             <td colspan="2">已经出租的房源里的出租类型统计：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_rent_ticket_type_rent">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_ticket_type_rent.length%}">

@@ -23,7 +23,7 @@
           </tr>
           <tr ng-if="!value.aggregation_rent_intention_total_city.length">
             <td colspan="2">各城市求租意向单总数：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_rent_intention_total_city">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_intention_total_city.length%}">
@@ -38,7 +38,7 @@
           </tr>
           <tr ng-if="!value.aggregation_rent_intention_type_london.length">
             <td colspan="2">按单间整租统计伦敦求租意向单：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_rent_intention_type_london">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_intention_type_london.length%}">
@@ -69,7 +69,7 @@
           </tr>
           <tr ng-if="!value.aggregation_rent_intentionl_has_neighborhood.length">
             <td colspan="2">伦敦各街区的求租意向单数量：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_rent_intentionl_has_neighborhood">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_intentionl_has_neighborhood.length%}">

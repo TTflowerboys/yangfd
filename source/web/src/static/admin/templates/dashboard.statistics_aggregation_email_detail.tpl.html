@@ -23,7 +23,7 @@
           </tr>
           <tr ng-if="!value.aggregation_email_tag_detail.length">
             <td colspan="2">各tag详细：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_email_tag_detail">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_email_tag_detail.length%}">
@@ -37,15 +37,6 @@
                 <li ng-repeat="(key,value) in item" ng-if="key != 'tag'">
                   {%key%}:{%value%}
                 </li>
-                <!--li>{%item.total%}</li>
-                <li>click:{%item.click%}</li>
-                <li>click_ratio{%item.click_ratio%}</li>
-                <li>click_repeat{%item.click_repeat%}</li>
-                <li>delivered{%item.delivered%}</li>
-                <li>delivered_ratio{%item.delivered_ratio%}</li>
-                <li>open:{%item.open%}</li>
-                <li>open_ratio{%item.open_ratio%}</li>
-                <li>open_repeat{%item.open_repeat%}</li-->
             </td>
           </tr>
         </table>

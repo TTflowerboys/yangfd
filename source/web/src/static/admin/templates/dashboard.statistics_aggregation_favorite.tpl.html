@@ -18,6 +18,7 @@
               按收藏类型统计被收藏过的次数：
             </td>
             <td class="col-sm-8">
+              {%place_holder%}
             </td>
           </tr>
           <tr ng-repeat="item in value.aggregation_ticket_favorite_times_by_type">
@@ -33,7 +34,7 @@
           </tr>
           <tr ng-if="!value.aggregation_rent_ticket_favorite_times_by_user.length">
             <td colspan="2">按用户统计的收藏出租房的数量排名：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_rent_ticket_favorite_times_by_user">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_ticket_favorite_times_by_user.length%}">
@@ -48,7 +49,7 @@
           </tr>
           <tr ng-if="!value.aggregation_property_favorite_times_by_user.length">
             <td colspan="2">按用户统计的收藏海外房产的数量排名：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_property_favorite_times_by_user">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_property_favorite_times_by_user.length%}">

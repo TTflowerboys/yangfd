@@ -31,7 +31,7 @@
           </tr>
           <tr ng-if="!value.aggregation_view_contact_by_user.length">
             <td colspan="2">用户查看联系方式的使用个数：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_view_contact_by_user">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_view_contact_by_user.length%}">
@@ -62,7 +62,7 @@
           </tr>
           <tr ng-if="!value.aggregation_view_contact_times_sort.length">
             <td colspan="2">出租房源被查看联系方式的次数排名：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_view_contact_times_sort">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_view_contact_times_sort.length%}">

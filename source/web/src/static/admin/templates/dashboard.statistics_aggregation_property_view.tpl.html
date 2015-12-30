@@ -31,7 +31,7 @@
           </tr>
           <tr ng-if="!value.aggregation_property_view_times_by_user_sort.length">
             <td colspan="2">浏览过海外房产数量的用户排名：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_property_view_times_by_user_sort">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_property_view_times_by_user_sort.length%}">
@@ -46,7 +46,7 @@
           </tr>
           <tr ng-if="!value.aggregation_property_view_times_by_property_sort.length">
             <td colspan="2">被浏览最多的海外房产排名：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_property_view_times_by_property_sort">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_property_view_times_by_property_sort.length%}">

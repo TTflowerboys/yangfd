@@ -23,7 +23,7 @@
           </tr>
           <tr ng-if="!value.aggregation_rent_request_count_sort.length">
             <td colspan="2">按房源统计收到咨询申请的数量排名：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in value.aggregation_rent_request_count_sort">
             <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_request_count_sort.length%}">
