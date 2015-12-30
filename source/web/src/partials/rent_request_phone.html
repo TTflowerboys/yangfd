@@ -99,6 +99,7 @@
                             <div class="row">
                                 <input class="email" type="text" data-bind="value: email, attr: {readonly: !!user()}" placeholder="{{_('邮箱')}}"/>
                             </div>
+                            <chosen-referrer params="vm: $data"></chosen-referrer>
                             <div class="row">
                                 <textarea id="countryData" style="display: none;">
                                     {{json_dumps(country_list)}}
@@ -116,7 +117,6 @@
                                 </div>
 
                             </div>
-                            <chosen-referrer params="vm: $data"></chosen-referrer>
                             <div class="row" data-bind="visible: !user()">
                                 <div id="captcha_div" class="captchaCode"></div>
                             </div>

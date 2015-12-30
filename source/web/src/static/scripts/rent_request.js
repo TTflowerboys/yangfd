@@ -548,8 +548,13 @@
                 this.formWrapVisible(false)
             }
 
-            this.price = ko.observable(params.price)
-            this.holdingDeposit = ko.observable(params.holdingDeposit || {unit: 'GBP', unit_symbol: '£', value: '500.0'})
+            function formatPrice(priceObj) {
+                return _.extend(priceObj, {
+                    value: parseInt(priceObj.value)
+                })
+            }
+            this.price = ko.observable(formatPrice(params.price))
+            this.holdingDeposit = ko.observable(formatPrice(params.holdingDeposit || {unit: 'GBP', unit_symbol: '£', value: '500.0'}))
             this.payment = ko.computed(function () {
                 if(this.rentDeadlineTime() && this.rentAvailableTime()) {
                     var day = (this.rentDeadlineTime() - this.rentAvailableTime()) / 3600 / 24
@@ -564,6 +569,14 @@
             this.confirm = function () {
                 this.isConfirmed(true)
                 $.betterPost('/api/1/rent_intention_ticket/' + this.requestTicketId() +'/edit', {custom_fields: JSON.stringify([{key: 'payment_confirmed', value: 'true'}])})
+                    .done(function () {
+                        if(window.team.isPhone()) {
+                            location.href = '/property-to-rent/' + this.ticketId()
+                        } else {
+                            this.close()
+                        }
+                    })
+
             }
             this.isLearnMore = ko.observable(false)
             this.learnMore = function () {
