@@ -38,7 +38,11 @@
               用户查看联系方式的使用个数：
             </td>
             <td>
-              <span>{%item.user%}</span>
+              <span>
+                <a ui-sref="dashboard.users.detail({ id: item.user_id })">
+                  {%item.user%}
+                </a>
+              </span>
             </td>
             <td>
               {%item.total%}
