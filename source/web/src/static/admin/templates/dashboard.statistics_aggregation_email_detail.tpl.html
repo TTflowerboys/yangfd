@@ -30,13 +30,17 @@
               各tag详细：
             </td>
             <td>
-              <span>{%item.tag%}</span>
+              <span>{%item.tag_translate%}</span>
             </td>
             <td>
-              </ul>
-                <li ng-repeat="(key,value) in item" ng-if="key != 'tag'">
-                  {%key%}:{%value%}
-                </li>
+              <div ng-repeat="(key,value) in item" ng-if="key != 'tag' && key != 'tag_translate'" class="row">
+                <div class="col-sm-2">
+                  {%key%}
+                </div>
+                <div class="col-sm-10">
+                  {%value%}
+                </div>
+              </div>
             </td>
           </tr>
         </table>
