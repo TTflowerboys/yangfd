@@ -37,8 +37,8 @@ class CUTESingleRoomPreferenceForm: CUTETicketForm {
             [FXFormFieldKey:"maleFlatmateCount", FXFormFieldTitle:STR("SingleRoomPreference/当前男室友的数量"), FXFormFieldHeader:""],
             [FXFormFieldKey:"femaleFlatmateCount", FXFormFieldTitle:STR("SingleRoomPreference/当前女室友的数量")],
             [FXFormFieldKey:"allowCount", FXFormFieldTitle:STR("SingleRoomPreference/可入住新室友")],
-            [FXFormFieldKey:"area", FXFormFieldTitle:STR("SingleRoomPreference/单间面积")],
-            [FXFormFieldKey:"ensuite", FXFormFieldTitle:STR("SingleRoomPreference/独立卫浴"), FXFormFieldType: FXFormFieldTypeOption, FXFormFieldCell: CUTEFormSwitchCell.self],
+            [FXFormFieldKey:"area", FXFormFieldTitle:STR("SingleRoomPreference/单间面积"), FXFormFieldHeader:""],
+            [FXFormFieldKey:"ensuite", FXFormFieldTitle:STR("SingleRoomPreference/独立卫浴"), FXFormFieldType: FXFormFieldTypeOption, FXFormFieldCell: CUTEFormSwitchCell.self,],
             [FXFormFieldKey:"requirement", FXFormFieldTitle:STR("SingleRoomPreference/对租客的其他要求"), FXFormFieldType:FXFormFieldTypeLongText, FXFormFieldCell:CUTEFormTextViewCell.self, FXFormFieldPlaceholder:STR("SingleRoomPreference/请填写您对租客的其他要求，比如租房需要提供学生证，名片，银行流水等")]]
     }
 }
