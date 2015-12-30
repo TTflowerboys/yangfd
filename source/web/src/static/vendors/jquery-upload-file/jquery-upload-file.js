@@ -186,7 +186,7 @@
                     $(obj).before(dragDrop);
                     $(dragDrop).append(uploadLabel);
                     $(dragDrop).append($(s.dragDropStr));
-                    setDragDropHandlers(obj, s, dragDrop);
+                    setDragDropHandlers(obj, s, (s.dragDropElem ? $(s.dragDropElem) : dragDrop));
 
                 } else {
                     $(obj).before(uploadLabel);

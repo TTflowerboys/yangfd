@@ -1397,6 +1397,7 @@
             allowedTypes: 'jpg,jpeg,png,gif',
             acceptFiles: 'image/',
             allowDuplicates: false,
+            dragDropElem: 'body',
             multiDragErrorStr: window.i18n('不允许同时拖拽多个文件上传.'),
             extErrorStr: window.i18n('不允许上传. 允许的文件扩展名: '),
             duplicateErrorStr: window.i18n('不允许上传. 文件已存在.'),
