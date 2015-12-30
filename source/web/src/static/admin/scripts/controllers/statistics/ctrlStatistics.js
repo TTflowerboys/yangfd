@@ -1,6 +1,6 @@
 (function () {
 
-    function ctrlStatistics($scope, fctModal, api, $stateParams) {
+    function ctrlStatistics($scope, fctModal, $stateParams) {
 
         $scope.selected = {}
 
