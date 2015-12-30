@@ -569,13 +569,13 @@
             this.confirm = function () {
                 this.isConfirmed(true)
                 $.betterPost('/api/1/rent_intention_ticket/' + this.requestTicketId() +'/edit', {custom_fields: JSON.stringify([{key: 'payment_confirmed', value: 'true'}])})
-                    .done(function () {
+                    .done(_.bind(function () {
                         if(window.team.isPhone()) {
                             location.href = '/property-to-rent/' + this.ticketId()
                         } else {
                             this.close()
                         }
-                    })
+                    }, this))
 
             }
             this.isLearnMore = ko.observable(false)
