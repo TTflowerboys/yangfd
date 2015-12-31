@@ -572,6 +572,7 @@
                 this.isConfirmed(true)
                 $.betterPost('/api/1/rent_intention_ticket/' + this.requestTicketId() +'/edit', {custom_fields: JSON.stringify([{key: 'payment_confirmed', value: 'true'}])})
                     .done(_.bind(function () {
+                        ga('send', 'event', 'rent-request', 'result', 'payment-confirmed')
                         if(window.team.isPhone()) {
                             location.href = '/property-to-rent/' + this.ticketId()
                         } else {
@@ -582,6 +583,7 @@
             }
             this.isLearnMore = ko.observable(false)
             this.learnMore = function () {
+                ga('send', 'event', 'rent-request', 'result', 'learn-more')
                 this.isLearnMore(true)
             }
             $('body').on('openRentRequestForm', function (e, ticketId, isPopup) {
