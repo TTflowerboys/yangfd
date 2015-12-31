@@ -779,6 +779,7 @@
             'rent_type': $('#rentalType .selected')[0].getAttribute('data-id'), //出租类型
             //'deposit_type': $('#deposit_type').children('option:selected').val(), //押金方式
             'price': JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'value': $('#price')[0].value }), //出租价格
+            'holding_deposit': JSON.stringify({'unit': $('#holdingDepositUnit').children('option:selected').val(), 'value': $('#holdingDeposit')[0].value }), //定金
             'bill_covered': $('#billCovered').is(':checked'), //是否包物业水电费
             'rent_available_time': new Date($('#rentPeriodStartDate').val()).getTime() / 1000, //出租开始时间
             'title': title,
@@ -1367,13 +1368,21 @@
                     'visibility': 'hidden',
                     'display': 'block'
                 })
-                $(elem).find('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
+                //$(elem).find('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
+
+                $(elem).find('select').not('.select-chosen,.ghostSelect').each(function (i, selectElem) {
+                    $(selectElem).chosen({disable_search: true, width: $(selectElem).width() + 'px'})
+                })
                 $(elem).css({
                     'visibility': 'visiable',
                     'display': 'none'
                 })
             }else {
-                $(elem).find('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
+                //$(elem).find('select').not('.select-chosen,.ghostSelect').chosen({disable_search: true})
+
+                $(elem).find('select').not('.select-chosen,.ghostSelect').each(function (i, selectElem) {
+                    $(selectElem).chosen({disable_search: true, width: $(selectElem).width() + 'px'})
+                })
             }
         })
 

@@ -1,5 +1,5 @@
 @import "project/_imports";
-
+@import "project/tips";
 
 .clearfix {
     *zoom:1;
@@ -245,10 +245,18 @@ main {
                     text-align: right;
                     color: #999999;
                     padding: 0 40px;
+                    line-height: 1.5;
                     body[lang=en_GB] &{
                         width: 200px;
                         font-size: 14px;
                         padding: 0 30px;
+                    }
+                    span{
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    tips{
+                        z-index: 10;
                     }
                 }
                 .tip {
@@ -418,7 +426,7 @@ main {
                         margin-left: 8px;
                     }
                 }
-                .sales_price {
+                .sales_price ,.holdingDeposit{
                     //overflow: hidden;
                     div {
                         float: left;
@@ -441,7 +449,7 @@ main {
                             line-height: 40px;
                         }
                         input[type=text] {
-                            margin: 2px 8px auto 20px;
+                            margin: -2px 8px auto 20px;
                             border-radius: 4px;
                             -moz-border-radius: 4px;
                             -webkit-border-radius: 4px;

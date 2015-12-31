@@ -67,4 +67,25 @@
                 .dateRangePickerCustom($(element).find('input'))
         }
     }
+
+    ko.components.register('tips', {
+        viewModel: function(params) {
+            this.tips = ko.observable(params.tips)
+            this.visible = ko.observable(false)
+            this.showTips = function (data, event) {
+                if(!window.team.isPhone()) {
+                    this.visible(true)
+                }
+            }
+            this.hideTips = function () {
+                if(!window.team.isPhone()) {
+                    this.visible(false)
+                }
+            }
+            this.toggleTips = function () {
+                this.visible(!this.visible())
+            }
+        },
+        template: '<div class="tipsWrap" data-bind="event: {mouseover: showTips, mouseout: hideTips, click: toggleTips}"><i class="questionMark">?</i><div class="tips" data-bind="text: tips, visible: visible"></div></div>'
+    })
 })(window.ko, window.currantModule = window.currantModule || {})

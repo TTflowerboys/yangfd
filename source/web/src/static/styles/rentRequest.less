@@ -1,4 +1,5 @@
 @import "project/_imports";
+@import "project/tips";
 .date-picker-wrapper{
     margin-left: 88px;
     z-index: 103;
@@ -618,58 +619,6 @@
                                 font-weight: normal;
                                 color: @red;
                             }
-                        }
-                        tips{
-                            display: inline-block;
-                            position: relative;
-                            margin-left: 2px;
-                            .tipsWrap{
-                                position: relative;
-                                display: inline-block;
-                                width: 16px;
-                                height: 16px;
-                                line-height: 16px;
-                                border-radius: 50%;
-                                text-align: center;
-                                background: #e60012;
-                                color: #fff;
-                                i{
-                                    display: inline-block;
-                                    width: 16px;
-                                    height: 16px;
-                                    font-style: normal;
-                                    font-weight: bold;
-                                    font-size: 12px;
-                                    cursor: pointer;
-
-                                }
-                                .tips{
-                                    position: absolute;
-                                    width: 285px;
-                                    padding: 12px;
-                                    line-height: 1.6;
-                                    background: #333;
-                                    color: #fff;
-                                    font-size: 12px;
-                                    left: 30px;
-                                    top: -20px;
-                                    font-weight: normal;
-                                    text-align: left;
-                                    border-radius: 4px;
-                                    &:after{
-                                        position: absolute;
-                                        content: '';
-                                        display: block;
-                                        left: -12px;
-                                        top: 22px;
-                                        width: 0;
-                                        height: 0;
-                                        border: 6px solid;
-                                        border-color: transparent #333 transparent transparent;
-                                    }
-                                }
-                            }
-
                         }
                     }
                 }

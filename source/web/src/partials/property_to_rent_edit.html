@@ -457,6 +457,57 @@
                             <textarea class="description" id="description" data-name="{{_('描述')}}" placeholder="{{_('请补充您对租客的要求和对房屋特点的描述，优质而独特的房源描述会得到平台的推荐，提升您的房源排名。（请勿在此填写任何形式的联系方式，违规发布将会予以处理）')}}">{{rent.get('description','')}}</textarea>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="title">
+                            <div class="text">
+                                <span>{{_('定金')}}</span>
+                                <tips params="tips: '{{_('Holding Deposit，是您确定预订后锁定房源所需要向房东交付的定金，当你入住时确保房源和确认信息一致，平台将在24小时后把钱转付房东以冲抵押金或房租')}}'"></tips>
+                            </div>
+                        </td>
+                        <td class="holdingDeposit">
+                            <div>
+                                <select id="holdingDepositUnit" style="width: 150px;">
+                                    %if rent.get('holding_deposit',{}).get('unit'):
+                                    <option value="CNY"
+                                        %if rent.get('holding_deposit',{}).get('unit') == "CNY":
+                                    selected
+                                    %end
+                                    >{{_('人民币')}}</option>
+                                    <option value="GBP"
+                                        %if rent.get('holding_deposit',{}).get('unit') == "GBP":
+                                    selected
+                                    %end
+                                    >{{_('英镑')}}</option>
+                                    <option value="USD"
+                                        %if rent.get('holding_deposit',{}).get('unit') == "USD":
+                                    selected
+                                    %end
+                                    >{{_('美元')}}</option>
+                                    <option value="EUR"
+                                        %if rent.get('holding_deposit',{}).get('unit') == "EUR":
+                                    selected
+                                    %end
+                                    >{{_('欧元')}}</option>
+                                    <option value="HKD"
+                                        %if rent.get('holding_deposit',{}).get('unit') == "HKD":
+                                    selected
+                                    %end
+                                    >{{_('港币')}}</option>
+                                    %else:
+                                    <option value="CNY">{{_('人民币')}}</option>
+                                    <option value="GBP" selected>{{_('英镑')}}</option>
+                                    <option value="USD">{{_('美元')}}</option>
+                                    <option value="EUR">{{_('欧元')}}</option>
+                                    <option value="HKD">{{_('港币')}}</option>
+                                    %end
+                                </select>
+                            </div>
+                            <div>
+                                <input id="holdingDeposit" name="holdingDeposit" type="text" data-validator="required, trim, number, >(0)" data-name="{{_('租金')}}" value="{{int(float(rent.get('holding_deposit',{}).get('value','500')))}}">
+                            </div>
+
+                        </td>
+                    </tr>
                     <tr class="facilitiesBox">
                         <td class="title">
                             <div class="text">
