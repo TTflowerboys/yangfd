@@ -23,7 +23,7 @@
           </tr>
           <tr ng-if="!user_type_list.length">
             <td colspan="2">按用户角色统计人数：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in user_type_list">
             <td ng-if="$index === 0" rowspan="{%user_type_list.length%}">
@@ -54,7 +54,7 @@
           </tr>
           <tr ng-if="!rent_ticket_type.length">
             <td colspan="2">出租房类型对应数量：</td>
-            <td></td>
+            <td>{%place_holder%}</td>
           </tr>
           <tr ng-repeat="item in rent_ticket_type">
             <td ng-if="$index === 0" rowspan="{%rent_ticket_type.length%}">
