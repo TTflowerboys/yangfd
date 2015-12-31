@@ -28,6 +28,8 @@
             this.visible = ko.observable()
             this.open = function (isPopup) {
                 this.visible(true)
+                this.step(1)
+                this.isConfirmed(false)
                 this.formWrapVisible(true)
                 this.successWrapVisible(false)
                 if(isPopup) {
@@ -521,10 +523,12 @@
                 return window.Q($.betterPost('/api/1/user/' + this.user().id + '/sms_verification/verify', {code: this.smsCode()}))
             }
             this.submitDisabled = ko.observable()
+            this.requestTicketId = ko.observable()
             this.submitTicket = function () {
                 this.submitDisabled(true)
                 $.betterPost('/api/1/rent_intention_ticket/add', this.params())
                     .done(_.bind(function (val) {
+                        this.requestTicketId(val)
                         this.showSuccessWrap()
                         window.team.setUserType('tenant')
                         ga('send', 'event', 'rentRequestIntention', 'result', 'submit-success');
@@ -546,9 +550,48 @@
                 this.formWrapVisible(false)
             }
 
+            function formatPrice(priceObj) {
+                return _.extend(priceObj, {
+                    value: parseInt(priceObj.value)
+                })
+            }
+            this.price = ko.observable(formatPrice(params.price))
+            this.holdingDeposit = ko.observable(formatPrice(params.holdingDeposit || {unit: 'GBP', unit_symbol: '£', value: '500.0'}))
+            this.payment = ko.computed(function () {
+                if(this.rentDeadlineTime() && this.rentAvailableTime()) {
+                    var day = (this.rentDeadlineTime() - this.rentAvailableTime()) / 3600 / 24
+                    if(day < 30) {
+                        return parseInt(this.price().value_float / 7 * day / 4)
+                    } else {
+                        return parseInt(this.price().value_float)
+                    }
+                }
+            }, this)
+            this.isConfirmed = ko.observable(false)
+            this.confirm = function () {
+                this.isConfirmed(true)
+                $.betterPost('/api/1/rent_intention_ticket/' + this.requestTicketId() +'/edit', {custom_fields: JSON.stringify([{key: 'payment_confirmed', value: 'true'}])})
+                    .done(_.bind(function () {
+                        ga('send', 'event', 'rent-request', 'result', 'payment-confirmed')
+                        if(window.team.isPhone()) {
+                            location.href = '/property-to-rent/' + this.ticketId()
+                        } else {
+                            this.close()
+                        }
+                    }, this))
+
+            }
+            this.isLearnMore = ko.observable(false)
+            this.learnMore = function () {
+                ga('send', 'event', 'rent-request', 'result', 'learn-more')
+                this.isLearnMore(true)
+            }
             $('body').on('openRentRequestForm', function (e, ticketId, isPopup) {
                 this.ticketId(ticketId)
                 this.open(isPopup)
+
+                //todo : remove this!
+                //this.showSuccessWrap()
             }.bind(this))
             $('body').trigger('rentRequestReady')
         },
@@ -610,4 +653,24 @@
         template: { element: 'choseReferrer'}
     })
 
+    ko.components.register('tips', {
+        viewModel: function(params) {
+            this.tips = ko.observable(params.tips)
+            this.visible = ko.observable(false)
+            this.showTips = function (data, event) {
+                if(!window.team.isPhone()) {
+                    this.visible(true)
+                }
+            }
+            this.hideTips = function () {
+                if(!window.team.isPhone()) {
+                    this.visible(false)
+                }
+            }
+            this.toggleTips = function () {
+                this.visible(!this.visible())
+            }
+        },
+        template: '<div class="tipsWrap" data-bind="event: {mouseover: showTips, mouseout: hideTips, click: toggleTips}"><i class="questionMark">?</i><div class="tips" data-bind="text: tips, visible: visible"></div></div>'
+    })
 })(window.ko);

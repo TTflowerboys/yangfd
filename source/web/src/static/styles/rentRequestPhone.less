@@ -557,149 +557,145 @@
         }
         .successWrap{
             position: relative;
-            h2{
-                font-size: 36px;
-                color: #333333;
-                margin:60px 0 85px;
-                @media @phone{
-                    margin: 0 0 30px;
-                    padding-bottom: 20px;
-                    font-size: 22px;
-                    border-bottom: 1px solid #dcdcdc;
-                }
-            }
-            p{
-                line-height: 1.8em;
-                margin:0 0 24px;
-                color: #666;
-                font-size: 15px;
-                a{
+            .clearfix;
+            .leftWrap{
+                border-bottom: 1px solid #ccc;
+                h2{
+                    font-size: 5vw;
                     color: @red;
-                }
-                &.hint{
-                    color: #999;
-                    font-size: 13px;
-                    margin: 0 0 32px;
-                    &.buttonHint{
-                        padding-top: 30px;
-                        margin-top: 80px;
-                        text-align: center;
-                        border-top: 1px solid #ccc;
-                    }
-                }
-                &.item{
-                    position: relative;
-                    padding-left: 12px;
-                    &:before{
-                        content: '';
-                        display: block;
-                        width: 5px;
-                        height: 2px;
-                        background-color: #999;
-                        position: absolute;
-                        left: 4px;
-                        top: 13px;
-                    }
-                }
-            }
-            .contact {
-                margin-top: 277px;
-
-                @media @phone{
-                    display: none;
-                }
-                .hint {
-                    font-size:16px;
-                    color:#999;
-                    line-height:24px;
-                }
-                a {
-                    font-size:24px;
-                    text-decoration:none;
-                    color:@red;
-                    line-height:24px;
-                    display:block;
-                }
-            }
-            .qrcodeWrap{
-                @media @phone{
-                    display: none;
-                }
-                position: absolute;
-                bottom: 0;
-                right: 135px;
-                padding: 18px;
-                border-radius: 5px;
-                border:1px solid #cccccc;
-                .qrcode{
-                    width: 160px;
-                    height: 160px;
-                    margin-bottom: 14px;
+                    margin-bottom: 4.6vw;
                 }
                 p{
-                    font-size: 14px;
                     color: #999;
-                    text-align: center;
-                    line-height: 1.2em;
-                    margin: 0;
+                    margin-bottom: 8.4vw;
+                    line-height: 1.2;
+                    font-size: 3.4vw;
                 }
             }
-            .buttonWrap{
-                text-align: center;
-                .shareButton{
-                    display: none;
-                    @media @phone{
-                        color: #fff;
-                        margin: 0 0 100px;
-                        display: inline-block;
-                        font-size: 18px;
-                        padding: 20px 28px;
-                    }
-                }
-            }
-            .hostContactWrap{
-                margin: 10px 10px 20px;
-                padding: 15px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-                .hint{
-                    margin: 10px 0;
-                }
-                .host{
-                    padding-top: 10px;
-                    color: #999;
-
-                    .avatar{
-                        display: block;
-                        margin: 0 auto;
-                    }
-                    .hostName{
-                        margin: 10px 0 20px;
-                        display: block;
-                        text-align: center;
-                        font-size: 21px;
-                    }
-                    .hostContact{
-                        display: none;
-                        font-size: 16px;
-                        margin-bottom: 10px;
-                        color: #666;
-                        text-align: left;
-                        padding-left: 10px;
-                        a{
-                            color: #666;
-                            text-decoration: none;
-                        }
-                        i{
+            .rightWrap{
+                padding: 0 10px;
+                .content{
+                    li{
+                        padding: 3.2vw 0;
+                        border-bottom: 1px solid #ccc;
+                        font-size: 3.4vw;
+                        .clearfix;
+                        >*{
+                            display: inline-block;
                             vertical-align: middle;
-                            font-size: 21px;
-                            margin-right: 5px;
                         }
-                        &.show{
-                            display: block;
+                        .title{
+                            color: #666;
+                        }
+                        .text{
+                            float: right;
+                            color: #333;
+                            strong{
+                                font-weight: normal;
+                                color: @red;
+                            }
+                        }
+                        tips{
+                            display: inline-block;
+                            position: relative;
+                            margin-left: 2px;
+                            .tipsWrap{
+                                position: relative;
+                                display: inline-block;
+                                width: 16px;
+                                height: 16px;
+                                line-height: 16px;
+                                border-radius: 50%;
+                                text-align: center;
+                                background: #e60012;
+                                color: #fff;
+                                i{
+                                    display: inline-block;
+                                    width: 16px;
+                                    height: 16px;
+                                    font-style: normal;
+                                    font-weight: bold;
+                                    font-size: 12px;
+                                    cursor: pointer;
+
+                                }
+                                .tips{
+                                    position: absolute;
+                                    width: 60vw;
+                                    padding: 12px;
+                                    line-height: 1.6;
+                                    background: #333;
+                                    color: #fff;
+                                    font-size: 3.4vw;
+                                    left: 30px;
+                                    top: -20px;
+                                    font-weight: normal;
+                                    text-align: left;
+                                    border-radius: 4px;
+                                    z-index: 1;
+                                    &:after{
+                                        position: absolute;
+                                        content: '';
+                                        display: block;
+                                        left: -12px;
+                                        top: 22px;
+                                        width: 0;
+                                        height: 0;
+                                        border: 6px solid;
+                                        border-color: transparent #333 transparent transparent;
+                                    }
+                                    &:before{
+                                        position: fixed;
+                                        content: '';
+                                        display: block;
+                                        left: 0;
+                                        top: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                }
+                            }
+
                         }
                     }
-
+                }
+                .declare{
+                    margin: 2vw 0;
+                    text-align: center;
+                    color: #999;
+                    font-size: 3.4vw;
+                }
+                .confirmWrap{
+                    margin-top: 5vw;
+                    .button{
+                        width: 100%;
+                        cursor: pointer;
+                        padding: 12px 18px;
+                        line-height: 18px;
+                        font-size: 16px;
+                        vertical-align: middle;
+                    }
+                    .hintWrap{
+                        display: inline-block;
+                        margin-top: 2vw;
+                        width: 100%;
+                        vertical-align: middle;
+                        text-align: center;
+                        .hint{
+                            margin: 0;
+                            line-height: 1.6;
+                            font-size: 12px;
+                            color: #999;
+                            a{
+                                color: @red;
+                                text-decoration: none;
+                                cursor: pointer;
+                                &.flow{
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

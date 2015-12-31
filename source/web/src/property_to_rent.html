@@ -614,7 +614,7 @@
 
 <!--出租申请单-->
 <!--@@include = partials/rent_request.html -->
-<rent-request></rent-request>
+<rent-request params="price: {{json_dumps(rent.get('price'))}}, holdingDeposit: {{json_dumps(rent.get('holding_deposit'))}}"></rent-request>
 
 <ul class="floatBar_phone">
     <li class="phone">

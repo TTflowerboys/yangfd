@@ -10,7 +10,7 @@
 
 <!--出租申请单-->
 <!--@@include partials/rent_request_phone.html -->
-<rent-request></rent-request>
+<rent-request params="price: {{json_dumps(rent_ticket.get('price'))}}, holdingDeposit: {{json_dumps(rent_ticket.get('holding_deposit'))}}"></rent-request>
 
 <!--@@close-->
 
