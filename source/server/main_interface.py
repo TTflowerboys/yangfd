@@ -844,7 +844,11 @@ def aggregation_rent_ticket(user, params):
                 {'$group': {'_id': "$type", 'count': {'$sum': 1}}}
             ]
         ))
-        value.update({"aggregation_rent_ticket_total": cursor.next()['count']})
+        if cursor.alive:
+            document = cursor.next()
+        else:
+            document = {}
+        value.update({"aggregation_rent_ticket_total": document.get('count', 0)})
         cursor.close()
         cursor = m.log.aggregate(get_aggregation_params(
             [
@@ -852,7 +856,11 @@ def aggregation_rent_ticket(user, params):
                 {'$group': {'_id': None, 'count': {'$sum': 1}}}
             ]
         ))
-        value.update({"aggregation_rent_ticket_create_total": cursor.next()['count']})
+        if cursor.alive:
+            document = cursor.next()
+        else:
+            document = {}
+        value.update({"aggregation_rent_ticket_create_total": document.get('count', 0)})
         cursor.close()
         cursor = m.log.aggregate(get_aggregation_params(
             [
@@ -860,8 +868,16 @@ def aggregation_rent_ticket(user, params):
                 {'$group': {'_id': None, 'count': {'$sum': 1}}}
             ]
         ))
-        value.update({"aggregation_rent_ticket_create_total_from_mobile": cursor.next()['count']})
-        value.update({"aggregation_rent_ticket_create_total_from_mobile_ratio": value['aggregation_rent_ticket_create_total_from_mobile']*1.0/value['aggregation_rent_ticket_create_total']})
+        if cursor.alive:
+            document = cursor.next()
+        else:
+            document = {}
+        value.update({"aggregation_rent_ticket_create_total_from_mobile": document.get('count', 0)})
+        if value['aggregation_rent_ticket_create_total'] == 0:
+            aggregation_rent_ticket_create_total_from_mobile_ratio = 0
+        else:
+            aggregation_rent_ticket_create_total_from_mobile_ratio = value['aggregation_rent_ticket_create_total_from_mobile']*1.0/value['aggregation_rent_ticket_create_total']
+        value.update({"aggregation_rent_ticket_create_total_from_mobile_ratio": aggregation_rent_ticket_create_total_from_mobile_ratio})
         cursor.close()
         cursor = m.tickets.aggregate(get_aggregation_params(
             [
@@ -1639,8 +1655,15 @@ def aggregation_rent_request(user, params):
                     time_start = None
                 if time_end is not None and time_start is not None:
                     get_request_period.append(time_end - time_start)
-        value.update({'aggregation_rent_request_user_ratio': len(user_set)*1.0/percent_base})
-        average = sum(get_request_period, timedelta())/len(get_request_period)
+        if percent_base == 0:
+            aggregation_rent_request_user_ratio = 0
+        else:
+            aggregation_rent_request_user_ratio = len(user_set)*1.0/percent_base
+        value.update({'aggregation_rent_request_user_ratio': aggregation_rent_request_user_ratio})
+        if len(get_request_period) == 0:
+            average = "无"
+        else:
+            average = sum(get_request_period, timedelta())/len(get_request_period)
         value.update({'aggregation_rent_request_average_period': average})
 
         result = m.tickets.find(
@@ -1749,8 +1772,8 @@ def aggregation_email_detail(user, params):
             query=get_find_params({"type": "email_send"}, "start")
         )
         value.update({"aggregation_email_tag_total": result.find().count()})
-        total_email_drop = 0
-        total_email_contain_new_only = 0
+        # total_email_drop = 0
+        # total_email_contain_new_only = 0
         aggregation_email_tag_detail = []
         tag_translate = {
             "new_user": "带有初始密码的新用户注册成功邮件",
@@ -1835,8 +1858,8 @@ def aggregation_email_detail(user, params):
             click_times = final_result.get("click (repeat)", 0)
             delivered_times = final_result.get("delivered", 0)
             total_email = final_result.get("total_email", 0)
-            total_email_drop += final_result.get("total_email_drop", 0)
-            total_email_contain_new_only += final_result.get("total_email_contain_new_only", 0)
+            # total_email_drop += final_result.get("total_email_drop", 0)
+            # total_email_contain_new_only += final_result.get("total_email_contain_new_only", 0)
             # total_email_drop_id = final_result.get("total_email_drop_id", {}).get("email_id", [])
             # total_email_contain_new_only_id = final_result.get("total_email_contain_new_only_id", {}).get("email_id", [])
             single_value = {
@@ -1859,9 +1882,9 @@ def aggregation_email_detail(user, params):
                 })'''
             aggregation_email_tag_detail.append(single_value)
         value.update({"aggregation_email_tag_detail": aggregation_email_tag_detail})
-        if 'time' in params:
+        '''if 'time' in params:
             value.update({"aggregation_email_contain_new_only": total_email_contain_new_only})
-            value.update({"aggregation_email_drop": total_email_drop})
+            value.update({"aggregation_email_drop": total_email_drop})'''
 
     return value
 
