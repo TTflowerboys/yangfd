@@ -28,6 +28,8 @@
             this.visible = ko.observable()
             this.open = function (isPopup) {
                 this.visible(true)
+                this.step(1)
+                this.isConfirmed(false)
                 this.formWrapVisible(true)
                 this.successWrapVisible(false)
                 if(isPopup) {
