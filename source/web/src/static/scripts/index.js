@@ -585,7 +585,7 @@
         this.switchTab = function (item) {
             this.activeTab(item.slug)
             initRoleChooserContent(item.slug)
-
+            initBlurOfTabBox()
             ga('send', 'event', 'index', 'click', 'select-tab',item.slug)
 
         }
