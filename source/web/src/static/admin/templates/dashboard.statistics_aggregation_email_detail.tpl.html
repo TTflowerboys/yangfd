@@ -29,7 +29,7 @@
             <td ng-if="$index === 0" rowspan="{%value.aggregation_email_tag_detail.length%}">
               各类邮件统计详细：
             </td>
-            <td ng-if="item.show" rowspan="{%item.total%}">
+            <td ng-if="item.total" rowspan="{%item.total%}">
                 {%item.tag | email_tag%}
             </td>
             <td class="col-sm-4">

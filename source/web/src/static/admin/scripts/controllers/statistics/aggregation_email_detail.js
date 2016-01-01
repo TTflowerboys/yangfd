@@ -25,7 +25,6 @@
           for (var index = 0, len = event_order.length; index < len; index++) {
             result_dic = {}
             if (index == 0) {
-              result_dic.show = true
               result_dic.total = len
             }
             result_dic.tag = p.tag
@@ -41,7 +40,6 @@
         for (var index = 0, len = temp.length; index < len; index++) {
           $scope.value.aggregation_email_tag_detail = $scope.value.aggregation_email_tag_detail.concat(filter_params(temp[index]))
         }
-        console.log($scope.value.aggregation_email_tag_detail)
         $scope.place_holder = '无'
       }
     }
