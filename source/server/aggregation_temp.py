@@ -22,103 +22,103 @@ else:
 
 with f_app.mongo() as m:
 
-    # 分邮件类型来统计邮件发送和打开的状态
-    print('\n分邮件类型来统计邮件发送成功,打开和点击的百分比:')
-    # 计算每类邮件的总数
+    # # 分邮件类型来统计邮件发送和打开的状态
+    # print('\n分邮件类型来统计邮件发送成功,打开和点击的百分比:')
+    # # 计算每类邮件的总数
 
-    func_map = Code('''
-        function() {
-        var list = []
-            if (this.tag && this.email_id) {
-                if (Array.isArray(this.target)) {
-                    for (var index = 0; index < this.target.length; index ++) {
-                        list = []
-                        list.push({target: this.target[index],
-                                   email_id: this.email_id});
-                        emit(this.tag, {a:list});
-                    }
-                }
-                else {
-                    list.push({target: this.target,
-                               email_id: this.email_id});
-                    emit(this.tag, {a:list});
-                }
-            }
-        }
-    ''')
-    func_reduce = Code('''
-        function(key, values) {
-            var list = []
-            values.forEach(function(e) {
-                if (e.a) {
-                    list = list.concat(e.a)
-                }
-                else {
-                    list = list.concat(e)
-                }
-            });
-            return {a:list}
-        }
-    ''')
-    result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send"})
-    tag_total = result.find().count()
-    total_email_not_only_new = 0
-    total_email_contain_new_only = 0
-    print ("共有", tag_total, "类tag")
-    print ("%4s%30s%4s%7s%7s%6s%7s%6s%7s%7s%5s" % ("序号", "tag", "总数", "到达量", "到达率", "打开数量", "打开率", "重复打开量", "点击量", "点击率", "重复点击量"))
-    for index, tag in enumerate(result.find()):
-        func_status_map = Code('''
-            function() {
-                var event = this.email_status_set;
-                var event_detail = this.email_status_detail;
-                if (event_detail && event) {
-                    if (event.indexOf("processed") != -1) {
-                        emit("total_email", 1);
-                    }
-                    if (event.length > 1 && event.indexOf("new") != -1 && event.indexOf("processed") == -1) {
-                        emit("total_email_not_only_new", 1);
-                    }
-                    if (event.length == 1 && event.indexOf("new") != -1) {
-                        emit("total_email_contain_new_only", 1);
-                    }
-                    event.forEach(function(e) {
-                        emit(e, 1);
-                        if (event_detail) {
-                            event_detail.forEach(function(c) {
-                                if (c.event == e) {
-                                    emit(e+" (repeat)", 1);
-                                }
-                            });
-                        }
-                    });
-                }
-            }
-        ''')
-        func_status_reduce = Code('''
-            function(key, value) {
-                return Array.sum(value)
-            }
-        ''')
-        query_param = {}
-        or_param = []
-        for single_param in tag["value"]["a"]:
-            or_param.append(single_param)
-        query_param.update({"$or": or_param})
-        tag_result = f_app.email.status.get_database(m).map_reduce(func_status_map, func_status_reduce, "aggregation_tag_event", query=query_param)
-        final_result = {}
-        for thing in tag_result.find():
-            final_result.update({thing["_id"]: thing["value"]})
-        open_unique = final_result.get("open", 0)
-        open_times = final_result.get("open (repeat)", 0)
-        click_unique = final_result.get("click", 0)
-        click_times = final_result.get("click (repeat)", 0)
-        delivered_times = final_result.get("delivered", 0)
-        total_email = final_result.get("total_email", 0)
-        total_email_not_only_new += final_result.get("total_email_not_only_new", 0)
-        total_email_contain_new_only += final_result.get("total_email_contain_new_only", 0)
-        print ("%6d%30s%6d%10d%9.2f%%%10d%9.2f%%%10d%10d%9.2f%%%10d" % (index, tag["_id"], total_email, delivered_times, 100*delivered_times/total_email, open_unique, 100*open_unique/total_email, open_times, click_unique, 100*click_unique/total_email, click_times))
-    print ("total_email_contain_new_only", total_email_contain_new_only)
-    print ("total_email_not_only_new", total_email_not_only_new)
+    # func_map = Code('''
+    #     function() {
+    #     var list = []
+    #         if (this.tag && this.email_id) {
+    #             if (Array.isArray(this.target)) {
+    #                 for (var index = 0; index < this.target.length; index ++) {
+    #                     list = []
+    #                     list.push({target: this.target[index],
+    #                                email_id: this.email_id});
+    #                     emit(this.tag, {a:list});
+    #                 }
+    #             }
+    #             else {
+    #                 list.push({target: this.target,
+    #                            email_id: this.email_id});
+    #                 emit(this.tag, {a:list});
+    #             }
+    #         }
+    #     }
+    # ''')
+    # func_reduce = Code('''
+    #     function(key, values) {
+    #         var list = []
+    #         values.forEach(function(e) {
+    #             if (e.a) {
+    #                 list = list.concat(e.a)
+    #             }
+    #             else {
+    #                 list = list.concat(e)
+    #             }
+    #         });
+    #         return {a:list}
+    #     }
+    # ''')
+    # result = f_app.task.get_database(m).map_reduce(func_map, func_reduce, "aggregation_tag", query={"type": "email_send"})
+    # tag_total = result.find().count()
+    # total_email_not_only_new = 0
+    # total_email_contain_new_only = 0
+    # print ("共有", tag_total, "类tag")
+    # print ("%4s%30s%4s%7s%7s%6s%7s%6s%7s%7s%5s" % ("序号", "tag", "总数", "到达量", "到达率", "打开数量", "打开率", "重复打开量", "点击量", "点击率", "重复点击量"))
+    # for index, tag in enumerate(result.find()):
+    #     func_status_map = Code('''
+    #         function() {
+    #             var event = this.email_status_set;
+    #             var event_detail = this.email_status_detail;
+    #             if (event_detail && event) {
+    #                 if (event.indexOf("processed") != -1) {
+    #                     emit("total_email", 1);
+    #                 }
+    #                 if (event.length > 1 && event.indexOf("new") != -1 && event.indexOf("processed") == -1) {
+    #                     emit("total_email_not_only_new", 1);
+    #                 }
+    #                 if (event.length == 1 && event.indexOf("new") != -1) {
+    #                     emit("total_email_contain_new_only", 1);
+    #                 }
+    #                 event.forEach(function(e) {
+    #                     emit(e, 1);
+    #                     if (event_detail) {
+    #                         event_detail.forEach(function(c) {
+    #                             if (c.event == e) {
+    #                                 emit(e+" (repeat)", 1);
+    #                             }
+    #                         });
+    #                     }
+    #                 });
+    #             }
+    #         }
+    #     ''')
+    #     func_status_reduce = Code('''
+    #         function(key, value) {
+    #             return Array.sum(value)
+    #         }
+    #     ''')
+    #     query_param = {}
+    #     or_param = []
+    #     for single_param in tag["value"]["a"]:
+    #         or_param.append(single_param)
+    #     query_param.update({"$or": or_param})
+    #     tag_result = f_app.email.status.get_database(m).map_reduce(func_status_map, func_status_reduce, "aggregation_tag_event", query=query_param)
+    #     final_result = {}
+    #     for thing in tag_result.find():
+    #         final_result.update({thing["_id"]: thing["value"]})
+    #     open_unique = final_result.get("open", 0)
+    #     open_times = final_result.get("open (repeat)", 0)
+    #     click_unique = final_result.get("click", 0)
+    #     click_times = final_result.get("click (repeat)", 0)
+    #     delivered_times = final_result.get("delivered", 0)
+    #     total_email = final_result.get("total_email", 0)
+    #     total_email_not_only_new += final_result.get("total_email_not_only_new", 0)
+    #     total_email_contain_new_only += final_result.get("total_email_contain_new_only", 0)
+    #     print ("%6d%30s%6d%10d%9.2f%%%10d%9.2f%%%10d%10d%9.2f%%%10d" % (index, tag["_id"], total_email, delivered_times, 100*delivered_times/total_email, open_unique, 100*open_unique/total_email, open_times, click_unique, 100*click_unique/total_email, click_times))
+    # print ("total_email_contain_new_only", total_email_contain_new_only)
+    # print ("total_email_not_only_new", total_email_not_only_new)
 
     # 正在发布中的房源里按最短接受租期的统计:
     # 日租<1month 1month<=中短<3month <=3month中长<6month >=6month长租
@@ -198,39 +198,58 @@ with f_app.mongo() as m:
     #     print(user['nickname'].encode('utf-8') + ':' + str(user_login_count_dic[str(user['id'])]))
 
     # 统计多少房源没有填写地理位置
-    # print('\n统计多少房源没有填写地理位置:')
-    # cursor = m.tickets.aggregate(
-    #     [
-    #         {'$match': {
-    #             'type': 'rent',
-    #             'status': 'to rent',
-    #             "time": {
-    #                         '$gte': datetime(2015, 10, 10, 0, 0, 0),
-    #                         '$lte': datetime(2015, 11, 10, 0, 0, 0)
-    #                     }}}  
-    #     ]
-    # )
+    print('\n统计多少房源没有填写地理位置:')
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {
+                'type': 'rent',
+                'status': 'to rent'}}  
+        ]
+    )
 
-    # target_tickets_id_list = []
-    # for document in cursor:
-    #     if(document['_id']):
-    #         target_tickets_id_list.append(str(document['_id']))
-    # target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_tickets_id_list, ignore_nonexist=True, permission_check=False))
-    # total_tickets_count = len(target_tickets)
+    target_tickets_id_list = []
+    for document in cursor:
+        if(document['_id']):
+            target_tickets_id_list.append(str(document['_id']))
+    target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_tickets_id_list, ignore_nonexist=True, permission_check=False))
+    total_tickets_count = len(target_tickets)
 
-    # tickets_count_without_location = []
-    # tickets_count_without_report = []
-    # tickets_count_without_both = []
+    tickets_count_without_location = []
+    tickets_count_without_report = []
+    tickets_count_insufficient_pic = []
+    tickets_count_without_address = []
+    tickets_count_without_des = []
+    tickets_count_without_indoor = []
+    tickets_count_without_outdoor = []
+    tickets_count_without_surroundings = []
 
-    # for ticket in target_tickets:
-    #     if ticket and 'property' in ticket and 'latitude' not in ticket['property']:
-    #         tickets_count_without_location.append(ticket)
-    #     if ticket and 'property' in ticket and 'report_id' not in ticket['property']:
-    #         tickets_count_without_report.append(ticket)
-    #     if ticket and 'property' in ticket and 'report_id' not in ticket['property'] and 'latitude' not in ticket['property']:
-    #         tickets_count_without_both.append(ticket)
-    # print('Total tickets: ' + str(total_tickets_count))
-    # print('Total tickets without both: ' + str(len(tickets_count_without_both)))
+    for ticket in target_tickets:
+        if ticket and 'property' in ticket and 'latitude' not in ticket['property']:
+            tickets_count_without_location.append(ticket)
+        if ticket and 'property' in ticket and 'report_id' not in ticket['property']:
+            tickets_count_without_report.append(ticket)
+        if ticket and 'property' in ticket and 'reality_images' in ticket['property'] and len(ticket['property']['reality_images']) <= 3:
+            tickets_count_insufficient_pic.append(ticket)
+        if ticket and 'property' in ticket and 'address' in ticket['property'] and not ticket['property']['address']:
+            tickets_count_without_address.append(ticket)
+        if ticket and 'property' in ticket and 'description' in ticket['property'] and not ticket['property']['description']:
+            tickets_count_without_des.append(ticket)
+        if ticket and 'property' in ticket and 'indoor_facility' in ticket['property'] and len(ticket['property']['indoor_facility']) < 1:
+            tickets_count_without_indoor.append(ticket)
+        if ticket and 'property' in ticket and 'community_facility' in ticket['property'] and len(ticket['property']['community_facility']) < 1:
+            tickets_count_without_outdoor.append(ticket)
+        if ticket and 'property' in ticket and 'featured_facility' in ticket['property'] and len(ticket['property']['featured_facility']) < 1:
+            tickets_count_without_surroundings.append(ticket)
+    print('Total tickets: ' + str(total_tickets_count))
+    print('\nTotal tickets less than 3 pics: ' + str(len(tickets_count_insufficient_pic)))
+    print('\nTotal tickets without address: ' + str(len(tickets_count_without_address)))
+    print('\nTotal tickets without description: ' + str(len(tickets_count_without_des)))
+    print('\nTotal tickets without indoor_facility: ' + str(len(tickets_count_without_indoor)))
+    print('\nTotal tickets without community_facility: ' + str(len(tickets_count_without_outdoor)))
+    print('\nTotal tickets without surroundings: ' + str(len(tickets_count_without_surroundings)))
+    print('\nTotal tickets without location: ' + str(len(tickets_count_without_location)))
+    print('\nTotal tickets without report: ' + str(len(tickets_count_without_report)))
+
     # for ticket in tickets_count_without_both:
     #     if ticket is not None:
     #         print(ticket['title'].encode('utf-8') + ", http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + str(ticket['id']))
