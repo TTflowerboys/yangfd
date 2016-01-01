@@ -24,7 +24,7 @@
           ]
           for (var index = 0, len = event_order.length; index < len; index++) {
             result_dic = {}
-            if (index == 0) {
+            if (index === 0) {
               result_dic.total = len
             }
             result_dic.tag = p.tag
