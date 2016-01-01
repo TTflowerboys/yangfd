@@ -1775,24 +1775,6 @@ def aggregation_email_detail(user, params):
         # total_email_drop = 0
         # total_email_contain_new_only = 0
         aggregation_email_tag_detail = []
-        tag_translate = {
-            "new_user": "带有初始密码的新用户注册成功邮件",
-            "reset_password_by_email": "邮箱重置密码",
-            "verify_email": "邮箱验证",
-            "draft_not_publish_day_3": "草稿未发布的第3天提醒",
-            "draft_not_publish_day_7": "草稿未发布的第7天提醒",
-            "rent_ticket_publish_success": "房源成功发布的邮件提醒",
-            "rent_notice": "每周通知房源发布中的房东更新房源状态的邮件提醒",
-            "rent_suspend_notice": "房源被下架的邮件提醒",
-            "property_ad": "London房产投资推广邮件",
-            "rent_intention_matched_4": "部分匹配到了的房源的邮件通知",
-            "rent_intention_matched_1": "完全匹配到了合适的房源的邮件通知",
-            "rent_intention_digest": "提交的求租意向单已经收到，并给与第一次匹配",
-            "receive_intention": "提交的投资意向单已经收到的邮件提醒",
-            "set_as_admin": "账号被设置成了管理员",
-            "new_rent_intention_ticket": "有新的求租意向单",
-            "new_intention_ticket": "有新的投资意向单"
-        }
         for tag in result.find():
             # we only aggregation hava processed mark or dropped mark email into total_email
             func_status_map = Code('''
@@ -1864,7 +1846,6 @@ def aggregation_email_detail(user, params):
             # total_email_contain_new_only_id = final_result.get("total_email_contain_new_only_id", {}).get("email_id", [])
             single_value = {
                 "tag": tag['_id'],
-                "tag_translate": tag_translate.get(tag['_id'], tag['_id']),
                 "total": total_email,
                 "delivered": delivered_times,
                 "delivered_ratio": delivered_times/total_email if total_email else 0,
