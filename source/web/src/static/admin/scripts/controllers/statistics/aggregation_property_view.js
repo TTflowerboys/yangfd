@@ -9,7 +9,7 @@
       }
       function on_refresh(data) {
         $scope.value = data.val
-        $scope.place_holder = "无"
+        $scope.place_holder = '无'
       }
 
     }

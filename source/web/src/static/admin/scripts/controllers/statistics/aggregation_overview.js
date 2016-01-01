@@ -13,18 +13,18 @@
         function on_refresh_general(data) {
           $scope.register_user_total = data.val.aggregation_register_user_total
           $scope.user_type_list = data.val.aggregation_user_type
-          $scope.place_holder = "无"
+          $scope.place_holder = '无'
         }
 
         function on_refresh_rent_request(data) {
           $scope.rent_request_total = data.val.aggregation_rent_request_total_count
-          $scope.place_holder = "无"
+          $scope.place_holder = '无'
         }
 
         function on_refresh_rent_ticket(data) {
           $scope.rent_ticket_total = data.val.aggregation_rent_ticket_total
           $scope.rent_ticket_type = data.val.aggregation_rent_ticket_type
-          $scope.place_holder = "无"
+          $scope.place_holder = '无'
         }
     }
 
