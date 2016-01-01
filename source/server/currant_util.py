@@ -203,7 +203,7 @@ def get_phone_code_by_country(code):
 def get_phone_numbers(use="display"):
     if use == "display":
         CN = "400-0926-433"
-        GB = "2030402258"
+        GB = "02030402258"
     elif use == "link":
         CN = "4000926433"
         GB = "02030402258"
