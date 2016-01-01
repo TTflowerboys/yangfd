@@ -132,6 +132,9 @@
 "SingleRoomPreference/独立卫浴" = "独立卫浴";
 "SingleRoomPreference/对租客的其他要求" = "对租客的其他要求";
 "SingleRoomPreference/请填写您对租客的其他要求，比如租房需要提供学生证，名片，银行流水等" = "请填写您对租客的其他要求，比如租房需要提供学生证，名片，银行流水等";
+"SingleRoomPreference/入住者要求" = "入住者要求";
+"SingleRoomPreference/目前室友" = "目前室友";
+"SingleRoomPreference/其他" = "其他";
 "SingleRoomPreference/预览" = "预览";
 
 "WholePropertyPreference/租客要求" = "租客要求";
