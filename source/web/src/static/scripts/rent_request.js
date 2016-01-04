@@ -556,7 +556,27 @@
                 })
             }
             this.price = ko.observable(formatPrice(params.price))
+            this.priceLocal = ko.computed(function () {
+                if(this.price().localized_value && this.price().localized_unit_symbol) {
+                    return {
+                        value: parseInt(this.price().localized_value),
+                        unit_symbol: this.price().localized_unit_symbol
+                    }
+                } else {
+                    return {}
+                }
+            }, this)
             this.holdingDeposit = ko.observable(formatPrice(params.holdingDeposit || {unit: 'GBP', unit_symbol: '£', value: '500.0'}))
+            this.holdingDepositLocal = ko.computed(function () {
+                if(this.holdingDeposit().localized_value && this.holdingDeposit().localized_unit_symbol) {
+                    return {
+                        value: parseInt(this.holdingDeposit().localized_value),
+                        unit_symbol: this.holdingDeposit().localized_unit_symbol
+                    }
+                } else {
+                    return {}
+                }
+            }, this)
             this.payment = ko.computed(function () {
                 if(this.rentDeadlineTime() && this.rentAvailableTime()) {
                     var day = (this.rentDeadlineTime() - this.rentAvailableTime()) / 3600 / 24
@@ -565,6 +585,16 @@
                     } else {
                         return parseInt(this.price().value_float)
                     }
+                }
+            }, this)
+            this.paymentLocal = ko.computed(function () {
+                if(this.price().localized_value && this.price().localized_unit_symbol) {
+                    return {
+                        value: parseInt(parseFloat(this.price().localized_value) / parseFloat(this.price().value) * this.payment()),
+                        unit_symbol: this.price().localized_unit_symbol
+                    }
+                } else {
+                    return {}
                 }
             }, this)
             this.isConfirmed = ko.observable(false)

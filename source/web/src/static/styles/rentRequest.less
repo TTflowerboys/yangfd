@@ -612,12 +612,24 @@
                         .title{
                             color: #666;
                         }
-                        .text{
+                        .right{
                             float: right;
-                            color: #333;
-                            strong{
-                                font-weight: normal;
-                                color: @red;
+                            >*{
+                                display: inline-block;
+                                vertical-align: middle;
+                            }
+                            .text{
+                                color: #333;
+                            }
+                            .small{
+                                color: #888;
+                                font-size: 12px;
+                                strong{
+                                    font-size: 14px;
+                                    .clearfix;
+                                    font-weight: normal;
+                                    color: @red;
+                                }
                             }
                         }
                     }

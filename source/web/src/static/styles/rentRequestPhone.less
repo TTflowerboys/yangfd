@@ -588,14 +588,31 @@
                         .title{
                             color: #666;
                         }
-                        .text{
+                        .right{
                             float: right;
-                            color: #333;
-                            strong{
-                                font-weight: normal;
-                                color: @red;
+                            >*{
+                                display: inline-block;
+                                vertical-align: middle;
+                            }
+                            .text{
+                                color: #333;
+                                strong{
+                                    font-weight: normal;
+                                    color: @red;
+                                }
+                            }
+                            .small{
+                                color: #888;
+                                font-size: 3vw;
+                                strong{
+                                    font-size: 3.4vw;
+                                    .clearfix;
+                                    font-weight: normal;
+                                    color: @red;
+                                }
                             }
                         }
+
                     }
                 }
                 .declare{

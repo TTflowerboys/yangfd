@@ -152,41 +152,56 @@
                                 <span class="title">
                                     {{_('入住&搬出时间')}}
                                 </span>
-                                <span class="text">
-                                    <!--ko text: rentAvailableTimeFormated--><!--/ko-->{{_('至')}}<!--ko text: rentDeadlineTimeFormated--><!--/ko-->
-                                </span>
+                                <div class="right">
+                                    <span class="text">
+                                        <!--ko text: rentAvailableTimeFormated--><!--/ko-->{{_('至')}}<!--ko text: rentDeadlineTimeFormated--><!--/ko-->
+                                    </span>
+                                </div>
                             </li>
                             <li>
                                 <span class="title">
                                     {{_('入住人数')}}
                                 </span>
-                                <span class="text" data-bind="text: tenantCount"></span>
+                                <div class="right">
+                                    <span class="text" data-bind="text: tenantCount"></span>
+                                </div>
                             </li>
                             <li>
                                 <span class="title">
                                     {{_('租金')}}
                                 </span>
-                                <span class="text" data-bind="text: price().unit_symbol + price().value + i18n('/周')"></span>
+                                <div class="right">
+                                    <span class="text" data-bind="text: price().unit_symbol + price().value + i18n('/周')"></span>
+                                    <span class="small" data-bind="visible: priceLocal().value">({{_('约')}}<!--ko text: priceLocal().unit_symbol + priceLocal().value + i18n('/周')--><!--/ko-->)</span>
+                                </div>
                             </li>
                             <li>
                                 <span class="title">
                                     {{_('定金预估')}}
                                 </span>
                                 <tips params="tips: '{{_('Holding Deposit，是您确定预订后锁定房源所需要向房东交付的定金，当你入住时确保房源和确认信息一致，平台将在24小时后把钱转付房东以冲抵押金或房租')}}'"></tips>
-                                <span class="text" data-bind="text: holdingDeposit().unit_symbol + holdingDeposit().value"></span>
+                                <div class="right">
+                                    <span class="text" data-bind="text: holdingDeposit().unit_symbol + holdingDeposit().value"></span>
+                                    <span class="small" data-bind="visible: holdingDepositLocal().value">({{_('约')}}<!--ko text: holdingDepositLocal().unit_symbol + holdingDepositLocal().value--><!--/ko-->)</span>
+                                </div>
                             </li>
                             <li>
                                 <span class="title">
                                     {{_('服务费预估')}}
                                 </span>
                                 <tips params="tips: '{{_('平台服务费用于为您在房源咨询，申请和预订阶段提供专属租房助手和沟通确认预订服务，并且支持平台其他日常运营开支，使我们能更好的服务您')}}'"></tips>
-                                <span class="text" data-bind="text: price().unit_symbol + payment()"></span>
+                                <div class="right">
+                                    <span class="text" data-bind="text: price().unit_symbol + payment()"></span>
+                                    <span class="small" data-bind="visible: paymentLocal().value">({{_('约')}}<!--ko text: paymentLocal().unit_symbol + paymentLocal().value--><!--/ko-->)</span>
+                                </div>
                             </li>
                             <li>
                                 <span class="title">
                                     {{_('视频直播看房服务')}}
                                 </span>
-                                <span class="text">{{_('推广期')}}<strong>{{_('免费')}}</strong></span>
+                                <div class="right">
+                                    <span class="small">{{_('推广期')}}<strong>{{_('免费')}}</strong></span>
+                                </div>
                             </li>
                         </ul>
                         <p class="declare">{{_('此信息仅作咨询申请确认，最终预订以平台联系确认为准')}}</p>
