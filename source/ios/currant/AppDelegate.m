@@ -557,14 +557,15 @@
         UINavigationController *viewController = [[self.tabBarController viewControllers] objectAtIndex:kEditTabBarIndex];
         NSArray *unfinishedRentTickets = result;
 
-        //TODO remove the _clear_stack and _reload
-            if (unfinishedRentTickets.count == 0) {
+        [viewController setViewControllers:@[] animated:NO];
+        
+        if (unfinishedRentTickets.count == 0) {
             //TODO handle silent， Redesign the HUD for specific controller
             //这里用户第一进入 app 时会 trigger load hud 不是很友好，可以考虑切到这个 tab 再 show, 这里面的 task，外界无法知道状态，所以不是很好, 所以第一次只在后台加载资源，不加载界面。
-            [viewController openRouteWithURL:[NSURL URLWithString:@"yangfd://property-to-rent/create?_clear_stack=true"]];
+            [viewController openRouteWithURL:[NSURL URLWithString:@"yangfd://property-to-rent/create"]];
         }
         else if (unfinishedRentTickets.count > 0) {
-            [viewController openRouteWithURL:[NSURL URLWithString:@"yangfd://property-to-rent-list/?status=draft&_clear_stack=true&_reload=false"]];
+            [viewController openRouteWithURL:[NSURL URLWithString:@"yangfd://property-to-rent-list/?status=draft&_reload=false"]];
         }
 
         [self updateUserPropertiesLeftBarButtonItemWithViewController:viewController.topViewController];

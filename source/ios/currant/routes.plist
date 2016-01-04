@@ -10,8 +10,6 @@
 	<string>CUTEUnfinishedRentTicketListViewController</string>
 	<key>property-to-rent/create</key>
 	<string>CUTERentTypeListViewController</string>
-	<key>property-to-rent/create?_clear_stack=true</key>
-	<string>CUTERentTypeListViewController</string>
 	<key>signin/</key>
 	<string>CUTERentLoginViewController</string>
 	<key>signup/</key>

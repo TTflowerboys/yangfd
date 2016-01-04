@@ -51,10 +51,7 @@ extension UINavigationController {
     }
 
     private func checkPreExecuteInternalCommand(URL:NSURL) {
-        let queryDictionary = URL.queryDictionary()
-        if (queryDictionary["_clear_stack"] != nil && queryDictionary["_clear_stack"] as! String == "true") {
-            self.setViewControllers([], animated: false)
-        }
+       
     }
 
     func openRouteWithURL(URL:NSURL) {
