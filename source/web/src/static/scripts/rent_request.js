@@ -296,7 +296,9 @@
 
             this.setParams = function (params) {
                 this.rentAvailableTime(params.rent_available_time)
-                this.rentDeadlineTime(params.rent_deadline_time)
+                if(params.rent_deadline_time) {
+                    this.rentDeadlineTime(params.rent_deadline_time)
+                }
                 this.tenantCount(params.tenant_count.toString())
                 this.smoke(params.smoke)
                 this.baby(params.baby)
@@ -324,6 +326,13 @@
                         .done(_.bind(function (val) {
                             if(val.length) {
                                 var lastParams = val[0]
+                                console.log(lastParams)
+                                if(lastParams.rent_available_time && lastParams.rent_available_time < this.rentAvailableTime()) {
+                                    lastParams.rent_available_time = this.rentAvailableTime()
+                                }
+                                if(lastParams.rent_deadline_time && lastParams.rent_deadline_time < this.rentAvailableTime()) {
+                                    lastParams.rent_deadline_time = ''
+                                }
                                 this.setParams(lastParams)
                             }
                             this.initUpload()
