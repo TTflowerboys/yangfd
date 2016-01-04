@@ -210,6 +210,62 @@ with f_app.mongo() as m:
         if(document['_id']):
             print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
 
+    # 咨询申请数量
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {
+                'status': 'requested',
+                'type': "rent_intention"}},
+            {'$group': {'_id': 'null', 'count': {'$sum': 1}}}
+        ]
+    )
+    for document in cursor:
+        print('\n咨询申请数量：', str(document['count']))
+
+    # 按用户统计的咨询申请单排名
+    print('\n按用户统计的咨询申请单排名:')
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {
+                'status': 'requested',
+                'type': "rent_intention"}},
+            {'$group': {'_id': "$user_id", 'count': {'$sum': 1}}},
+            {'$sort': {'count': -1}}
+        ]
+    )
+
+    user_request_count_dic = {}
+    for document in cursor:
+        user_request_count_dic[str(document['_id'])] = document['count']
+
+    user_request_count_dic = OrderedDict(sorted(user_request_count_dic.items(), key=lambda t: t[1], reverse=True))
+    target_users = f_app.user.output(user_request_count_dic.keys(), custom_fields=f_app.common.user_custom_fields)
+    for user in target_users:
+        print(user['nickname'].encode('utf-8'), ':', user_request_count_dic[str(user['id'])])
+
+    # 房源对应的咨询申请
+    print('\n按房源统计的咨询申请单排名:')
+    cursor = m.tickets.aggregate(
+        [
+            {'$unwind': "$interested_rent_tickets"},
+            {'$match': {
+                'status': 'requested',
+                'type': "rent_intention"}},
+            {'$group': {'_id': '$interested_rent_tickets', 'count': {'$sum': 1}}},
+            {'$sort': {'count': -1}}
+        ]
+    )
+    target_ticket_dic = {}
+    for document in cursor:
+        if(document['_id']):
+            target_ticket_dic[str(document['_id'])] = document['count']
+
+    target_ticket_dic = OrderedDict(sorted(target_ticket_dic.items(), key=lambda t: t[1], reverse=True))
+    target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_ticket_dic.keys(), ignore_nonexist=True, permission_check=False))
+    for ticket in target_tickets:
+        if ticket is not None:
+            print(ticket['title'].encode('utf-8'), ", ", ticket['id'], ": ", target_ticket_dic.get(ticket['id']))
+
     # 求租意向单数量
     cursor = m.tickets.aggregate(
         [
