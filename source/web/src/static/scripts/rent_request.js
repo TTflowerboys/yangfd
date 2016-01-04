@@ -326,7 +326,6 @@
                         .done(_.bind(function (val) {
                             if(val.length) {
                                 var lastParams = val[0]
-                                console.log(lastParams)
                                 if(lastParams.rent_available_time && lastParams.rent_available_time < this.rentAvailableTime()) {
                                     lastParams.rent_available_time = this.rentAvailableTime()
                                 }
