@@ -3,8 +3,22 @@
     function ctrlStatistics_aggregation_email_detail($scope, fctModal, api, $stateParams) {
 
       $scope.get_aggregate_data = function () {
-          if ($scope.selected.date_from && $scope.selected.date_to) {
-              api.get_email_detail($scope.selected.date_from, $scope.selected.date_to).success(on_refresh)
+          if ($scope.selected.date_from && $scope.selected.date_to && ($scope.selected.date_from < $scope.selected.date_to)) {
+            var date_start = new Date($scope.selected.date_from*1000)
+            var date_end = new Date($scope.selected.date_to*1000)
+            if (date_start.getFullYear() !== date_end.getFullYear()) {
+              for (var year=date_start.getFullYear(); year < date_end.getFullYear(); year++) {
+                var temp_date = new Date(date_end)
+                temp_date.setFullYear(year + 1)
+                api.get_email_detail(date_start.getTime()/1000, temp_date.getTime()/1000).success(on_refresh)
+              }
+            }
+            else if (date_start.getMonth() !== date_end.getMonth()) {
+            }
+            else if (date_start.getDate() !== date_end.getDate()) {
+
+            }
+            api.get_email_detail($scope.selected.date_from, $scope.selected.date_to).success(on_refresh)
           }
       }
       function on_refresh(data) {
