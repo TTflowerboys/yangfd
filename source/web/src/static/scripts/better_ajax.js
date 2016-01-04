@@ -18,7 +18,7 @@ $.each(['Post', 'Get'], function (index, key) {
                 if (data.ret === 0) {
                     deferred.resolve(data.val)
                 } else {
-                    deferred.reject(data.ret)
+                    deferred.reject(data.ret, data)
                 }
             } else {
                 deferred.resolve(data, textStatus, jqXHR)

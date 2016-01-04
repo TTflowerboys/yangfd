@@ -498,8 +498,8 @@
                             this.getSmsCode()
                             ga('send', 'event', 'rent-request', 'result', 'signup-success')
                         }, this))
-                        .fail(_.bind(function (ret) {
-                            this.errorMsg(window.getErrorMessageFromErrorCode(ret))
+                        .fail(_.bind(function (ret, data) {
+                            this.errorMsg(window.getErrorMessageFromErrorCode(ret, '', data))
                             ga('send', 'event', 'rent-request', 'result', 'signup-failed',window.getErrorMessageFromErrorCode(ret))
                             window.project.showRecaptcha('captcha_div')
                         }, this))

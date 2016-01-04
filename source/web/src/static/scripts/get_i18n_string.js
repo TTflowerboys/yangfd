@@ -19,7 +19,7 @@ window.getErrorMessage = function (domName, validator) {
 }
 
 
-window.getErrorMessageFromErrorCode = function (errorCode, api) {
+window.getErrorMessageFromErrorCode = function (errorCode, api, data) {
     var stringMap = {
         0: i18n('遇到了一个网络问题，请检查网络连接正常后重试。'),
         40000: i18n('输入错误，请检查后重试。'),
@@ -53,6 +53,9 @@ window.getErrorMessageFromErrorCode = function (errorCode, api) {
 
     if (!api) {
         api = ''
+    }
+    if(errorCode === 40000 && data && data.debug_msg && data.debug_msg.indexOf('Phone number not valid') === 0) {
+        return i18n('电话号码输入错误，请检查后重试。')
     }
     return stringMap[errorCode + api] || errorCode
 }
