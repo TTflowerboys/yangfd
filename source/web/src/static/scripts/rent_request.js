@@ -615,7 +615,12 @@
                         if(window.team.isPhone()) {
                             if (team.isCurrantClient('>1.2.0')) {
                                 if (window.bridge !== undefined) {
-                                    window.bridge.callHandler('goBackToController', '/property-to-rent-list')
+                                     window.bridge.callHandler('queryControllers', null, function(urls) {
+                                        var controllerUrl =_.find(urls, function (url) {
+                                            return url.indexOf('/property-to-rent-list') !== -1
+                                        })
+                                        window.bridge.callHandler('goBackToController', controllerUrl)
+                                     })
                                 }
                             }
                             else {
