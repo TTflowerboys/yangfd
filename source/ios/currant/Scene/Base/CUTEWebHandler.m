@@ -164,6 +164,56 @@
         [webViewController.navigationController openRouteWithURL:[NSURL URLWithString:data relativeToURL:[CUTEConfiguration hostURL]]];
     }];
 
+    [self.bridge registerHandler:@"goBack" handler:^(id data, WVJBResponseCallback responseCallback) {
+        [webViewController.navigationController popViewControllerAnimated:YES];
+    }];
+
+    [self.bridge registerHandler:@"goBackToController" handler:^(id data, WVJBResponseCallback responseCallback) {
+
+        NSURL *url = [NSURL URLWithString:data relativeToURL:[CUTEConfiguration hostURL]];
+        NSArray *controllers = webViewController.navigationController.viewControllers;
+
+        UIViewController *targetController = nil;
+        for (UIViewController *controller in controllers) {
+            if ([controller isKindOfClass:[CUTEWebViewController class]]) {
+                //here only care the main part, don't care parameters and anchors,
+                if ([[[(CUTEWebViewController *)controller URL] absoluteString] isEqualToString:[url absoluteString]]) {
+                    targetController = controller;
+                    break;
+                }
+            }
+            else {
+                //TODO handle yangfd scheme controller
+            }
+        }
+
+        if (targetController) {
+            [webViewController.navigationController popToViewController:targetController animated:YES];
+        }
+    }];
+
+    [self.bridge registerHandler:@"goBackToRootController" handler:^(id data, WVJBResponseCallback responseCallback) {
+        [webViewController.navigationController popToRootViewControllerAnimated:YES];
+    }];
+
+    [self.bridge registerHandler:@"queryControllers" handler:^(id data, WVJBResponseCallback responseCallback) {
+
+        NSArray *controllers = webViewController.navigationController.viewControllers;
+
+        NSMutableArray *urls = [NSMutableArray array];
+
+        for (UIViewController *controller in controllers) {
+            if ([controller isKindOfClass:[CUTEWebViewController class]]) {
+                [urls addObject:[(CUTEWebViewController *)controller URL].absoluteString];
+            }
+            else {
+                //TODO handle yangfd scheme controller
+            }
+        }
+
+        responseCallback(urls);
+    }];
+
     //Depercated: Remove all tab actions for app
     [self.bridge registerHandler:@"openHomeTab" handler:^(id data, WVJBResponseCallback responseCallback) {
         [NotificationCenter postNotificationName:KNOTIF_SHOW_HOME_TAB object:webViewController];

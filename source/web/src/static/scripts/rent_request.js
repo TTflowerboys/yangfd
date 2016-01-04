@@ -604,7 +604,14 @@
                     .done(_.bind(function () {
                         ga('send', 'event', 'rent-request', 'result', 'payment-confirmed')
                         if(window.team.isPhone()) {
-                            location.href = '/property-to-rent/' + this.ticketId()
+                            if (team.isCurrantClient('>1.2.0')) {
+                                if (window.bridge !== undefined) {
+                                    window.bridge.callHandler('goBackToController', '/property-to-rent-list')
+                                }
+                            }
+                            else {
+                                location.href = '/property-to-rent/' + this.ticketId()
+                            }
                         } else {
                             this.close()
                         }
