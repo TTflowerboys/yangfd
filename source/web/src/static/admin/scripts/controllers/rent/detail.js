@@ -1,16 +1,18 @@
 (function () {
 
-    function ctrlRentDetail($scope, fctModal, api, $stateParams, $rootScope, misc, $state, growl, $timeout, userApi) {
-        $scope.api = api
+    function ctrlRentDetail($scope, fctModal, rentApi, $stateParams, $rootScope, misc, $state, growl, $timeout, userApi) {
+        var api = $scope.api = rentApi
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
 
-        if (itemFromParent) {
-            $scope.item = itemFromParent
-        } else {
-            api.getOne($stateParams.id, {errorMessage: true})
-                .success(function (data) {
-                    $scope.item  = data.val
-                })
+        if($state.current.name === 'dashboard.rent.detail') {
+            if (itemFromParent) {
+                $scope.item = itemFromParent
+            } else {
+                api.getOne($stateParams.id, {errorMessage: true})
+                    .success(function (data) {
+                        $scope.item  = data.val
+                    })
+            }
         }
 
         $scope.onRemove = function (item) {
