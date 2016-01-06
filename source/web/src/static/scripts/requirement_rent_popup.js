@@ -539,6 +539,10 @@
 
     window.openRequirementRentForm = function (option) {
         option = option || {}
+        if(window.team.isCurrantClient() && window.bridge) {
+            window.bridge.callHandler('openURLInNewController', '/requirement-rent?' + $.param(option))
+            return
+        }
         if(window.team.isPhone()) {
             window.open('/requirement-rent?' + $.param(option))
             return
