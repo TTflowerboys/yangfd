@@ -154,11 +154,11 @@ gulp.task('revAdminPageResource', ['fingerprint'], function () {
         .pipe(gulp.dest(myPaths.dist))
         .pipe(rev.manifest())
         .pipe(replace(/"static/g,'"/static'))
-        .pipe(gulp.dest(myPaths.dist + 'mainfest')); // write manifest to build dir
+        .pipe(gulp.dest(myPaths.dist + "admin-manifest/")); // write manifest to build dir
 })
 
 gulp.task('fingerprintAdminPageResource', ['revAdminPageResource'], function () {
-    var manifest = gulp.src(myPaths.dist + 'manifest/rev-manifest.json')
+    var manifest = gulp.src(myPaths.dist + 'admin-manifest/rev-manifest.json')
 
     return gulp.src(['dist/admin.html'], {base: 'dist'})
         .pipe(revReplace({manifest:manifest}))
