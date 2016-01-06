@@ -540,7 +540,7 @@
     window.openRequirementRentForm = function (option) {
         option = option || {}
         if(window.team.isPhone()) {
-            location.href = '/requirement-rent?' + $.param(option)
+            window.open('/requirement-rent?' + $.param(option))
             return
         }
         var popup = $('#requirement_rent_popup')
