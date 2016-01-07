@@ -12,7 +12,7 @@
         <div class="btn-group form-inline">
           <div class="">
             选择时间分段
-            <select class="" name="time_segment" ng-model="$parent.time_segment">
+            <select class="form-control" name="time_segment" ng-model="$parent.time_segment">
               <option value="week">week</option>
               <option value="month">month</option>
               <option value="day">day</option>
@@ -79,13 +79,23 @@
           </tr>
         </table>
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-sm-8">
             <div class="box">
               <div class="box-header">
                 <h2><i class="fa fa-bar-chart-o"></i>注册用户人数</h2>
               </div>
               <div class="box-content">
-                <figure id="aggregation_register_user_total" style="height: 200px;"></figure>
+                <figure id="aggregation_register_user_total"></figure>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="box">
+              <div class="box-header">
+                <h2><i class="fa fa-bar-chart-o"></i>用户角色占比</h2>
+              </div>
+              <div class="box-content">
+                <figure id="aggregation_user_type"></figure>
               </div>
             </div>
           </div>
