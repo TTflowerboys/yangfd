@@ -22,27 +22,67 @@
               .then(function(value){
                 return angular.extend(value[0].data.val,value[1].data.val,value[2].data.val, {'date': result[index]})
               })
-              .then(function(value) {
-                // console.log(value)
-                return {
-                  'x': value.date.start,
-                  'y': value.aggregation_register_user_total
-                }
-              })
             }))
+            .then(function(value) {
+              var resultfinal = {}
+              resultfinal['user'] = []
+              resultfinal['rent'] = []
+              resultfinal['request'] = []
+              _.map(value, function(item) {
+                resultfinal['user'].push(
+                  {
+                    'x': item.date.start,
+                    'y': item.aggregation_register_user_total
+                  }
+                )
+                resultfinal['rent'].push(
+                  {
+                    'x': item.date.start,
+                    'y': item.aggregation_rent_ticket_total
+                  }
+                )
+                resultfinal['request'].push(
+                  {
+                    'x': item.date.start,
+                    'y': item.aggregation_rent_request_total_count
+                  }
+                )
+              })
+              return resultfinal
+            })
             .then(function(resultfinal) {
               var tt = document.createElement('div')
               var leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', ''))
               var topOffset = -32
               tt.className = 'ex-tooltip'
               document.body.appendChild(tt)
-              var graph_data = {
+              var graph_data_user = {
                 "xScale": "time",
                 "yScale": "linear",
                 "main": [
                   {
                     "className": ".pizza",
-                    "data": resultfinal
+                    "data": resultfinal.user
+                  }
+                ]
+              }
+              var graph_data_rent = {
+                "xScale": "time",
+                "yScale": "linear",
+                "main": [
+                  {
+                    "className": ".pizza",
+                    "data": resultfinal.rent
+                  }
+                ]
+              }
+              var graph_data_request = {
+                "xScale": "time",
+                "yScale": "linear",
+                "main": [
+                  {
+                    "className": ".pizza",
+                    "data": resultfinal.request
                   }
                 ]
               }
@@ -68,10 +108,12 @@
                 }
               }
               // $('#aggregation_user_type')
-              $('#aggregation_register_user_total').css({
-                'height': '200px'
-              })
-              var myChart = new xChart('line-dotted', graph_data, '#aggregation_register_user_total', opts)
+              $('#aggregation_register_user_total').css({'height': '200px'})
+              $('#aggregation_rent_ticket_total').css({'height': '200px'})
+              $('#aggregation_rent_request_total_count').css({'height': '200px'})
+              var myChart_user = new xChart('line-dotted', graph_data_user, '#aggregation_register_user_total', opts)
+              var myChart_rent = new xChart('line-dotted', graph_data_rent, '#aggregation_rent_ticket_total', opts)
+              var myChart_request = new xChart('line-dotted', graph_data_request, '#aggregation_rent_request_total_count', opts)
             })
 
           }
