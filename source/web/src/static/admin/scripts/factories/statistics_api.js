@@ -5,7 +5,7 @@
 
         return {
             get_general: function (date_from, date_to) {
-                return $http.get('/api/1/aggregation-general' + '?date_from=' + date_from + '&date_to=' + date_to)
+              return $http.get('/api/1/aggregation-general' + '?date_from=' + date_from + '&date_to=' + date_to)
             },
             get_rent_ticket: function (date_from, date_to) {
               return $http.get('/api/1/aggregation-rent-ticket' + '?date_from=' + date_from + '&date_to=' + date_to)
