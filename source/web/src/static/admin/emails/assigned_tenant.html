@@ -1,0 +1,104 @@
+<!--@@master = ./email_master.html-->
+<!--@@block=content-->
+<div style="max-width:720px;margin:0 auto">
+    <h1 class="noHorizolPaddingOnMobile" style="padding:60px 20px 30px;margin:15px 0 0;font-size:19px;text-align:left; font-weight: bold;">{%$root.i18n('尊敬的')%}{%item.creator_user.nickname%}{%$root.i18n('：')%}</h1>
+    <div class="noHorizolPaddingOnMobile" style="padding:0px 20px 60px;margin:0;line-height:1.5em;font-size:18px;text-align:left;color: #666;">
+        <div class="smallFontSize">
+            <p style="margin:20px 0; font-weight: bold;">
+                {%$root.i18n('we are so happy you are interested in booking with us. Welcome to YoungFunding (洋房东)。')%}
+            </p>
+            <p style="margin:20px 0; color: #999;">
+                {%$root.i18n('Your pre booking request has gone through, meaning you are one step closer to finding a new home. Congrats!')%}
+            </p>
+            <p style="margin:20px 0; color: #999;">
+                {%$root.i18n('Your potential housthas 24 hours to respond your prebooking request. Once the host have respond we will let you know.')%}
+            </p>
+            <p style="margin:20px 0; color: #999; ">
+                {%$root.i18n('Upload your ID, university acceptance letter or employment contract on your account page. This will increase the chances of the landlord accepting your booking request, so make sure you do it as soon as you can!')%}
+            </p>
+            <div class="noHorizolPaddingOnMobile" style="padding: 60px 15%; ">
+                <a ng-href="{%host%}/property-to-rent/{%item.interested_rent_tickets[0].id%}" style="display:block; border: 1px solid #ccc;">
+                    <div style="width: 100%; padding-top: 60%; background-size: cover; background-repeat: no-repeat; background-image: url('{%item.interested_rent_tickets[0].property.cover[userLanguage.value] || item.interested_rent_tickets[0].property.reality_images[0][userLanguage.value] || '/static/images/placeholder/img_rent_detail_holder.png'%}')">
+                    </div>
+                    <p style="margin:0; padding:20px; text-align: center; color: #333; font-weight: bold; background: #eee; text-decoration: none;">{%item.interested_rent_tickets[0].title%}</p>
+                </a>
+            </div>
+        </div>
+        <div class="noHorizolPaddingOnMobile" style="margin: 50px 0 0; border-top: 1px solid #ccc; padding: 0 5%;">
+            <h2 style="margin: 20px 0 40px;font-weight: bold;text-align: center; font-size: 18px;">{%$root.i18n('Your Booking Request details')%}</h2>
+            <table class="smallFontSize" style="width: 100%;">
+                <tr>
+                    <td>
+                        <div class="fullWidthOnMoible" style="display: inline-block; width: 33%; padding: 10px 0;">
+                            <p style="margin: 0 0 8px; font-weight: bold;">{%$root.i18n('MOVE IN')%}</p>
+                            <p style="color: #e60012;margin: 0 0 8px; font-size: 20px;">{% item.rent_available_time * 1000 | date : 'yyyy/MM/dd'%}</p>
+                        </div><div class="fullWidthOnMoible" style="display: inline-block; width: 33%; padding: 10px 0;">
+                            <p style="margin: 0 0 8px; font-weight: bold;">{%$root.i18n('MOVE OUT')%}</p>
+                            <p style="color: #e60012; margin: 0 0 8px; font-size: 20px;">{% item.rent_deadline_time * 1000 | date : 'yyyy/MM/dd'%}</p>
+                        </div><div class="fullWidthOnMoible" style="display: inline-block; width: 33%; padding: 10px 0;">
+                            <p style="margin: 0 0 8px; font-weight: bold;">{%$root.i18n('Number of TENANT')%}</p>
+                            <p style="color: #e60012;margin: 0 0 8px; font-size: 20px;">{% item.tenant_count%}</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px 0;">
+                        <p style="margin: 0 0 8px; font-weight: bold;">{%$root.i18n('EMAIL')%}</p>
+                        <p style="color: #e60012; margin: 0 0 8px; font-size: 20px;">{%item.creator_user.email%}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="fullWidthOnMoible" style="display: inline-block; width: 33%; padding: 10px 0;">
+                            <p style="margin: 0 0 8px; font-weight: bold;">{%$root.i18n('BABY')%}</p>
+                            <p style="color: #e60012; margin: 0 0 8px;  font-size: 20px;">{% item.baby | boolean | capitalize%}</p>
+                        </div><div class="fullWidthOnMoible" style="display: inline-block; width: 33%; padding: 10px 0;">
+                            <p style="margin: 0 0 8px; font-weight: bold;">{%$root.i18n('PETS')%}</p>
+                            <p style="color: #e60012;margin: 0 0 8px; font-size: 20px;">{% item.pet | boolean | capitalize%}</p>
+                        </div><div class="fullWidthOnMoible" style="display: inline-block; width: 33%; padding: 10px 0;">
+                            <p style="margin: 0 0 8px; font-weight: bold;">{%$root.i18n('SMOKING')%}</p>
+                            <p style="color: #e60012; margin: 0 0 8px; font-size: 20px;">{% item.smoke | boolean | capitalize%}</p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="margin: 50px 0 0; border-top: 1px solid #ccc; padding: 0 5%;">
+            <h2 style="margin: 20px 0 40px;font-weight: bold;text-align: center; font-size: 18px;">{%$root.i18n('Your application details')%}</h2>
+            <div style="">
+                <img style="margin-left: -12px;vertical-align: top;display: inline-block; width: 12px; height: 12px;" src="/static/images/email/triangle.png" alt=""/><div style="display: inline-block; width: 100%; padding: 12px; color: #fff; background: #24c3eb; border-radius: 0 4px 4px 4px;">
+                    {%item.description%}
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 50px 0 0; border-top: 1px solid #ccc; padding: 0 5%;">
+            <h2 style="margin: 20px 0 40px;font-weight: bold;text-align: center; font-size: 18px;">{%$root.i18n('Payment Information')%}</h2>
+            <p style="text-align: center; ">
+                {%$root.i18n('Once the host has accept your booking request, you will be asked to proceed withyour payment for the following amount')%}
+            </p>
+            <table style="margin: 20px 0;">
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="width: 70%;padding: 10px 0 10px 20px;">
+                        <p style="font-weight: bold;">{%$root.i18n('Holding Deposit')%}</p>
+                        <p style="">{%$root.i18n('note this may change respect to your move in date incorresponds with host’s occupance allocation')%}</p>
+                    </td>
+                    <td style="width: 30%;padding: 10px 20px 10px 0; text-align: right; color: #e60012; font-size: 20px;">
+                        {%(item.interested_rent_tickets[0].holding_deposit.unit || 'GBP') | values : currencyTypes%} {%(item.interested_rent_tickets[0].holding_deposit.value || '500.0') | number:0%}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 70%;padding: 10px 0 10px 20px;">
+                        <p style="font-weight: bold;">{%$root.i18n('Service fee')%}</p>
+                    </td>
+                    <td style="width: 30%;padding: 10px 20px 10px 0; text-align: right; color: #e60012; font-size: 20px;">
+                        {%item.interested_rent_tickets[0].price.unit | values : currencyTypes%} {%(item.payment) | number:0%}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+<!--@@close-->

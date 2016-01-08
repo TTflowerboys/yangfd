@@ -88,6 +88,14 @@
                     ip: window.i18n('载入中...'),
                     link: ''
                 }
+                if(item.rent_deadline_time && item.rent_available_time) {
+                    var day = (item.rent_deadline_time - item.rent_available_time) / 3600 / 24
+                    if(day < 30) {
+                        item.payment = parseInt(item.interested_rent_tickets[0].price.value_float / 7 * day / 4)
+                    } else {
+                        item.payment = parseInt(item.interested_rent_tickets[0].price.value_float)
+                    }
+                }
                 api.getLog(item.id)
                     .then(function (data) {
                         if(data.data.val && data.data.val.length && data.data.val[0].ip && data.data.val[0].ip.length) {

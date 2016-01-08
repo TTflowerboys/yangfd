@@ -39,7 +39,7 @@ var argv = require('yargs').argv
 var myPaths = {
     src: './src/',
     dist: './dist/',
-    html: './src/{,*/,static/emails/,static/templates/,static/templates/master/}{*.tpl.html,*.html}',
+    html: './src/{,*/,static/emails/,static/templates/,static/templates/master/,static/admin/emails/}{*.tpl.html,*.html}',
     symlink: './src/static/{themes,fonts,images,scripts,vendors,bower_components,admin/scripts,admin/templates,ios_resources}',
     static: './src/static/**/*.*',
     less: ['./src/static/styles/**/*.less', '!**/flycheck_*.*'],
@@ -114,7 +114,8 @@ gulp.task('clean', function () {
 
 //better only rev the css and html used in html
 gulp.task('rev', ['build:concat'], function () {
-    return gulp.src(['dist/static/admin/templates/**/*.html', 
+    return gulp.src(['dist/static/admin/templates/**/*.html',
+    'dist/static/admin/emails/**/*.html',
     'dist/static/fonts/**/*', 
     'dist/static/images/**/*', 
     'dist/static/sprite/*', 
@@ -134,8 +135,9 @@ gulp.task('rev', ['build:concat'], function () {
 gulp.task('fingerprint', ['rev'], function () {
     var manifest = gulp.src(myPaths.dist + 'rev-manifest.json')
     
-    return gulp.src([myPaths.dist + '*.html', 
-    myPaths.dist + 'static/templates/**/*.html', 
+    return gulp.src([myPaths.dist + '*.html',
+    myPaths.dist + 'static/admin/templates/**/*.html',
+    myPaths.dist + 'static/templates/**/*.html',
     myPaths.dist + 'static/emails/*.html', 
     myPaths.dist + 'static/scripts/**/*.js', 
     myPaths.dist + 'static/styles/**/*.css', 
@@ -217,7 +219,7 @@ gulp.task('build:cssAutoPrefix', ['build:less2css'], function (done) {
 
 
 gulp.task('build:html-extend', ['build:cssAutoPrefix'], function () {
-    return gulp.src('./dist/{,*/,static/emails/,static/templates/,static/templates/master/}{*.tpl.html,*.html}', {base: './dist/'})
+    return gulp.src('./dist/{,*/,static/emails/,static/templates/,static/templates/master/,static/admin/emails/}{*.tpl.html,*.html}', {base: './dist/'})
         .pipe(extender({verbose: false}))
         .pipe(preprocess({context: {ENV: argv.env}}))
         .pipe(gulp.dest(myPaths.dist))

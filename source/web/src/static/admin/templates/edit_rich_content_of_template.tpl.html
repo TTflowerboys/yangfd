@@ -1,0 +1,18 @@
+<div class="row">
+    <style>
+        .ta-editor {
+            max-height: 600px;
+        }
+    </style>
+    <div style="display: none;" class="template"></div>
+    <div ng-show="status === 'loading'">{%$root.i18n('邮件模板载入中...')%}</div>
+    <div ng-show="status === 'failed'">{%$root.i18n('邮件模板载入失败')%}</div>
+    <div ng-show="status === 'success'">
+        <div class="col-sm-12" style="position: relative">
+            <!--<div style="position: absolute;right: 20px;top: 0;" output-fields-tooltip ng-model="model" placement="left">{%$root.i18n('导出邮件HTML源码')%}</div>-->
+            <div text-angular ng-model="model" ta-unsafe-sanitizer="true"
+                ta-toolbar="[['h1','h2','h3','p','pre','quote'],['bold','italics','underline'],['ul','ol'],['justifyLeft','justifyCenter','justifyRight','indent','outdent'],['insertImage','insertLink'],['html']]"></div>
+        </div>
+
+    </div>
+</div>

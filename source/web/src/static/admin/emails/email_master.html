@@ -1,0 +1,116 @@
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style type="text/css">
+        img { outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
+        a img { border: none; }
+        @media only screen and (max-width: 600px) {
+            img[class=logoEmailHeader]{
+                width: 210px !important;
+            }
+            [class=noHorizolPaddingOnMobile]{
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+            [class=extraSmallFontSize]{
+                font-size: 14px !important;
+                line-height: 1.6em;
+            }
+            [class=smallFontSize]{
+                font-size: 16px !important;
+            }
+            [class=middleFontSize]{
+                font-size: 18px !important;
+            }
+            [class=largeFontSize]{
+                font-size: 21px !important;
+            }
+            table { max-width: 100%; width: 100% !important; }
+            [class=fullWidthOnMoible]{ max-width: 100%; width: 100% !important; }
+            td[class=mailFooterWrap]{
+                padding: 35px 20px !important;
+            }
+            td[class=contentWrap]{
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+            }
+        }
+    </style>
+    <!--@@placeholder=head-->
+    <div bgcolor="#eee" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" style="height: auto; padding:0; margin:0; -webkit-text-size-adjust:none; -ms-text-size-adjust: 100%;background-color: #eee;">
+        <table cellspacing="0" cellpadding="0" border="0" align="center" width="100%" class="tableContent" style="max-width: 720px;background-color: #fff;margin: 0 auto; padding: 0;font-size: 16px; font-family: Helvetica, Arial, sans-serif; line-height: 1.5; color:#999; background:#fff;text-align: center;">
+            <tbody>
+                <tr class="mailHeader">
+                    <td style="background: #333; padding-left: 10px; padding-right: 10px;">
+                        <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                            <tr>
+                                <td style="font-size: 22px; color: #FFFFFF; letter-spacing: 3px;">
+                                    <div style="padding: 20px 0 20px 10px;text-align: left;">
+                                        <img class="logoEmailHeader" src="http://upload.yangfd.com/logo_email_header.png" alt="" style="vertical-align: middle; width: 250px;height: auto;"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="mailMain">
+                    <td class="contentWrap" style="padding-left: 10px; padding-right: 10px;">
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" style="border-bottom: 1px solid #ccc;width:100%;">
+                            <tr>
+                                <td style="">
+
+                                    <!--@@placeholder = content-->
+                                        <div class="noHorizolPaddingOnMobile" style="padding: 0 20px;">
+                                            <div style="margin: 36px 0 0; padding:  30px 0 60px; border-top: 1px solid #ccc;  text-align: left; color: #666;">
+                                                <p style="margin: 0;">{%$root.i18n('Visit our')%}</p>
+                                                <p style="margin: 0 0 30px;">
+                                                    <a ng-href="{%host%}/how-it-works/{%role%}" style="color: #e60012;">{%$root.i18n('how it works')%}</a>,
+                                                    <!-- todo-->
+                                                    <!--<a ng-href="{%host%}/how-it-works/???" style="color: #e60012;">{%$root.i18n('refund policy')%}</a>,-->
+                                                    <a ng-href="{%host%}/qa-rent" style="color: #e60012;">{%$root.i18n('FAQ')%}</a>
+                                                    {%$root.i18n('to learn more.')%}
+                                                </p>
+                                                <p style="margin: 0;">{%$root.i18n('Or send us email at')%}</p>
+                                                <p style="margin: 0 0 30px;">
+                                                    <a href="mailto:services@youngfunding.co.uk" style="color: #e60012;">services@youngfunding.co.uk</a>
+                                                </p>
+                                                <p style="margin: 0 0 50px;">{%$root.i18n('we are here to help to make this your easiest move.')%}</p>
+                                                <p style="margin: 0 0 20px;">{%$root.i18n('Thanks!')%}</p>
+                                                <p style="margin: 0">{%$root.i18n('YoungFunding Team')%}</p>
+                                                <p style="margin: 0">{%currentTime | date : 'yyyy/MM/dd'%}</p>
+                                            </div>
+                                        </div>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="mailFooter">
+                    <td class="mailFooterWrap" style="padding: 70px 20px; margin: -1px 20px 0; color: #9d9d9d;line-height: 1.8em;font-size: 16px">
+                        <table class="smallFontSize" width="100%">
+                            <tr>
+                                <td>{%$root.i18n('该邮件为自动发送，请勿直接回复。')%}</td>
+                            </tr>
+                            <tr>
+                                <td>{%$root.i18n('如有任何问题，欢迎您与我们联系，我们将竭诚为您服务。')%}</td>
+                            </tr>
+                            <tr ng-if="unsubscribe_url">
+                                <td>{%$root.i18n('不想收到此类邮件？')%}<a href="{%unsubscribe_url%}" style="color: #9d9d9d; text-decoration: none;">{%$root.i18n('点击退订')%}></a></td>
+                            </tr>
+                            <tr>
+                                <td>{%$root.i18n('Email：')%}<a href="mailto:services@youngfunding.co.uk" style="color: #9d9d9d; text-decoration: none;word-break: break-all;">services@youngfunding.co.uk</a></td>
+                            </tr>
+                            <tr>
+                                <td>{%$root.i18n('英国客服电话：')%}<a href="tel:02030402258" style="color: #9d9d9d; text-decoration: none;">02030402258</a></td>
+                            </tr>
+                            <tr>
+                                <td>{%$root.i18n('中国客服电话：')%}<a href="tel:4000926433" style="color: #9d9d9d; text-decoration: none;">400-0926-433</a></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>

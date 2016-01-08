@@ -428,6 +428,12 @@ angular.module('app')
                 controller: 'ctrlRentRequestIntentionList',
                 resolve: rentRequestIntentionResolve
             })
+            .state('dashboard.rent_request_intention.detail', {
+                url: '/:id',
+                templateUrl: '/static/admin/templates/dashboard.rent_request_intention.detail.tpl.html',
+                controller: 'ctrlRentRequestIntentionDetail',
+                resolve: rentRequestIntentionResolve
+            })
         /**
          * 委托出租单管理
          */
