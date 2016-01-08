@@ -52,7 +52,7 @@
             })
             .then(function(resultfinal) {
               var tt = document.createElement('div')
-              var leftOffset = -(parseInt($('html').css('padding-left').replace('px', '')) + parseInt($('body').css('margin-left').replace('px', '').parseInt()))
+              var leftOffset = -(parseInt($('html').css('padding-left').replace('px', '')) + parseInt($('body').css('margin-left').replace('px', '')))
               var topOffset = -32
               tt.className = 'ex-tooltip'
               document.body.appendChild(tt)
