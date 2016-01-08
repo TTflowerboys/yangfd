@@ -137,6 +137,7 @@ gulp.task('fingerprint', ['rev'], function () {
     
     return gulp.src([myPaths.dist + '*.html',
     myPaths.dist + 'static/admin/templates/**/*.html',
+    myPaths.dist + 'static/admin/emails/**/*.html',
     myPaths.dist + 'static/templates/**/*.html',
     myPaths.dist + 'static/emails/*.html', 
     myPaths.dist + 'static/scripts/**/*.js', 
@@ -240,7 +241,7 @@ gulp.task('setupCDN', ['fingerprintAdminPageResource'], function () {
     if (argv.cdn) {
         var relaceRev =  function () {
             //html should only in root folder
-            gulp.src([myPaths.dist + '*.html', myPaths.dist + 'static/emails/*.html'], {base: 'dist'})
+            gulp.src([myPaths.dist + '*.html', myPaths.dist + 'static/emails/*.html',  myPaths.dist + 'static/admin/emails/**/*.html'], {base: 'dist'})
                 .pipe(replace(/\/static\/images\//g, argv.cdn + '/images/'))
                 .pipe(replace(/\/static\/sprite\//g, argv.cdn + '/sprite/'))
                 .pipe(replace(/\/static\/styles\//g, argv.cdn + '/styles/'))
