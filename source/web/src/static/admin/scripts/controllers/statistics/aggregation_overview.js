@@ -25,23 +25,23 @@
             }))
             .then(function(value) {
               var resultfinal = {}
-              resultfinal['user'] = []
-              resultfinal['rent'] = []
-              resultfinal['request'] = []
+              resultfinal.user = []
+              resultfinal.rent = []
+              resultfinal.request = []
               _.map(value, function(item) {
-                resultfinal['user'].push(
+                resultfinal.user.push(
                   {
                     'x': item.date.start,
                     'y': item.aggregation_register_user_total
                   }
                 )
-                resultfinal['rent'].push(
+                resultfinal.rent.push(
                   {
                     'x': item.date.start,
                     'y': item.aggregation_rent_ticket_total
                   }
                 )
-                resultfinal['request'].push(
+                resultfinal.request.push(
                   {
                     'x': item.date.start,
                     'y': item.aggregation_rent_request_total_count
@@ -52,50 +52,50 @@
             })
             .then(function(resultfinal) {
               var tt = document.createElement('div')
-              var leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', ''))
+              var leftOffset = -(parseInt($('html').css('padding-left').replace('px', '')) + parseInt($('body').css('margin-left').replace('px', '').parseInt()))
               var topOffset = -32
               tt.className = 'ex-tooltip'
               document.body.appendChild(tt)
               var graph_data_user = {
-                "xScale": "time",
-                "yScale": "linear",
-                "main": [
+                'xScale': 'time',
+                'yScale': 'linear',
+                'main': [
                   {
-                    "className": ".pizza",
-                    "data": resultfinal.user
+                    'className': '.pizza',
+                    'data': resultfinal.user
                   }
                 ]
               }
               var graph_data_rent = {
-                "xScale": "time",
-                "yScale": "linear",
-                "main": [
+                'xScale': 'time',
+                'yScale': 'linear',
+                'main': [
                   {
-                    "className": ".pizza",
-                    "data": resultfinal.rent
+                    'className': '.pizza',
+                    'data': resultfinal.rent
                   }
                 ]
               }
               var graph_data_request = {
-                "xScale": "time",
-                "yScale": "linear",
-                "main": [
+                'xScale': 'time',
+                'yScale': 'linear',
+                'main': [
                   {
-                    "className": ".pizza",
-                    "data": resultfinal.request
+                    'className': '.pizza',
+                    'data': resultfinal.request
                   }
                 ]
               }
               var opts = {
-                "dataFormatX": function (x) {
+                'dataFormatX': function (x) {
                   return x
                 },
-                "tickFormatX": function (x) {
-                  return d3.time.format('%Y-%m-%d')(x)
+                'tickFormatX': function (x) {
+                  return window.d3.time.format('%Y-%m-%d')(x)
                 },
-                "mouseover": function (d, i) {
+                'mouseover': function (d, i) {
                   var pos = $(this).offset();
-                  $(tt).text(d3.time.format('%Y-%m-%d')(d.x) + ': ' + d.y)
+                  $(tt).text(window.d3.time.format('%Y-%m-%d')(d.x) + ': ' + d.y)
                     .css({
                       'top': topOffset + pos.top,
                       'left': pos.left + leftOffset,
@@ -103,7 +103,7 @@
                     })
                     .show();
                 },
-                "mouseout": function (x) {
+                'mouseout': function (x) {
                   $(tt).hide();
                 }
               }
@@ -111,9 +111,12 @@
               $('#aggregation_register_user_total').css({'height': '200px'})
               $('#aggregation_rent_ticket_total').css({'height': '200px'})
               $('#aggregation_rent_request_total_count').css({'height': '200px'})
-              var myChart_user = new xChart('line-dotted', graph_data_user, '#aggregation_register_user_total', opts)
-              var myChart_rent = new xChart('line-dotted', graph_data_rent, '#aggregation_rent_ticket_total', opts)
-              var myChart_request = new xChart('line-dotted', graph_data_request, '#aggregation_rent_request_total_count', opts)
+              var myChart_user
+              var myChart_rent
+              var myChart_request
+              myChart_user = new window.xChart('line-dotted', graph_data_user, '#aggregation_register_user_total', opts)
+              myChart_rent = new window.xChart('line-dotted', graph_data_rent, '#aggregation_rent_ticket_total', opts)
+              myChart_request = new window.xChart('line-dotted', graph_data_request, '#aggregation_rent_request_total_count', opts)
             })
 
           }
@@ -145,7 +148,7 @@
               })
             })
             $('#aggregation_user_type').css({'height':'200px'})
-            $.plot($("#aggregation_user_type"), graph_user_type,
+            $.plot($('#aggregation_user_type'), graph_user_type,
             {
             		series: {
             				pie: {
@@ -156,7 +159,7 @@
             		legend: {
             			show: false
             		},
-            		colors: ["#FA5833", "#2FABE9", "#FABB3D", "#78CD51"]
+            		colors: ['#FA5833', '#2FABE9', '#FABB3D', '#78CD51']
             });
           })
         }
