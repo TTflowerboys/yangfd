@@ -1552,12 +1552,7 @@ def aggregation_rent_request(user, params):
                     "interested_rent_tickets": {"$exists": True},
                     "status": {
                         "$in": [
-                            "requested",
-                            "agreed",
-                            "rejected",
-                            "assigned",
-                            "examined",
-                            "rent"
+                            "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
                         ]
                     }
                 })
@@ -1587,12 +1582,7 @@ def aggregation_rent_request(user, params):
                 "interested_rent_tickets": {"$exists": True},
                 "status": {
                     "$in": [
-                        "requested",
-                        "agreed",
-                        "rejected",
-                        "assigned",
-                        "examined",
-                        "rent"
+                        "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
                     ]
                 }
             })
@@ -1633,12 +1623,7 @@ def aggregation_rent_request(user, params):
                 "interested_rent_tickets": {"$exists": True},
                 "status": {
                     "$in": [
-                        "requested",
-                        "agreed",
-                        "rejected",
-                        "assigned",
-                        "examined",
-                        "rent"
+                        "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
                     ]
                 }
             })
@@ -1672,12 +1657,7 @@ def aggregation_rent_request(user, params):
                 "interested_rent_tickets": {"$exists": True},
                 "status": {
                     "$in": [
-                        "requested",
-                        "agreed",
-                        "rejected",
-                        "assigned",
-                        "examined",
-                        "rent"
+                        "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
                     ]
                 }
             })
@@ -2036,12 +2016,7 @@ def user_rent_request(user, params):
             "interested_rent_tickets": {"$exists": True},
             "status": {
                 "$in": [
-                    "requested",
-                    "agreed",
-                    "rejected",
-                    "assigned",
-                    "examined",
-                    "rent"
+                    "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
                 ]
             }
         }
@@ -2058,12 +2033,14 @@ def user_rent_request(user, params):
     def get_request_status_translate(ticket):
         status = ticket.get('status', None)
         status_dic = {
-            "requested": "已申请",
-            "agreed": "房东已同意",
-            "rejected": "房东拒绝",
-            "assigned": "已指派",
-            "examined": "已看房",
-            "rent": "已成交"
+            "requested": "房源咨询申请已提交",
+            "assigned": "已处理",
+            "in_progress": "沟通中",
+            "rejected": "已拒绝",
+            "confirmed_video": "已确认视频看房",
+            "booked": "预订确认，等待支付",
+            "holding_deposit_paid": "定金已支付，确认入住",
+            "checked_in": "租客已入住"
         }
         if status not in status_dic:
             return '未知'

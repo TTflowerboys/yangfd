@@ -552,7 +552,7 @@ def rent_intention_ticket_remove(user, ticket_id):
 @f_app.user.login.check(force=True, check_role=True)
 def rent_intention_ticket_edit(user, ticket_id, params):
     """
-    ``status`` must be one of these values: "new", "requested", "agreed", "rejected", "assigned", "examined", "rent", "canceled"
+    ``status`` must be one of these values: "new", "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in", "canceled"
     """
     history_params = {"updated_time": datetime.utcnow()}
     user_roles = f_app.user.get_role(user["id"])
@@ -603,7 +603,7 @@ def rent_intention_ticket_edit(user, ticket_id, params):
 @f_app.user.login.check(force=True)
 def rent_intention_ticket_search(user, params):
     """
-    ``status`` must be one of these values: "new", "requested", "agreed", "rejected", "assigned", "examined", "rent", "canceled".
+    ``status`` must be one of these values: "new", "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in", "canceled"
     """
     params.setdefault("type", "rent_intention")
 
