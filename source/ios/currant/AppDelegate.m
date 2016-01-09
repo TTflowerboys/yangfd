@@ -186,6 +186,16 @@
     [NotificationCenter addObserver:self selector:@selector(onReceiveShowSplashView:) name:KNOTIF_SHOW_SPLASH_VIEW object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveLocalizationDidUpdate:) name:CUTELocalizationDidUpdateNotification object:nil];
 
+    //from ios 8.0
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+    else {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+    }
+
+
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UITabBarController *rootViewController = [[UITabBarController alloc] init];
     UINavigationController *homeViewController = [self getTabBarNavigationControllerWithIndex:kHomeTabBarIndex];
@@ -314,6 +324,22 @@
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
     [[CUTETracker sharedInstance] trackMemoryWarning];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken {
+    NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
+    DebugLog(@"[%@|%@|%d] device token: %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ , token);
+
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    [SVProgressHUD showErrorWithError:error];
+
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
+    [SVProgressHUD showSuccessWithStatus:userInfo.description];
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 - (BOOL)checkShowSplashViewController {
