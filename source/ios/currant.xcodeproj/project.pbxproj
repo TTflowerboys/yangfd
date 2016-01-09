@@ -2353,6 +2353,9 @@
 					2CA2E6AB1AC5487800053965 = {
 						DevelopmentTeam = QAMFRU8FS9;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -2361,6 +2364,9 @@
 					2CA2E6C41AC5496700053965 = {
 						DevelopmentTeam = QAMFRU8FS9;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -2369,6 +2375,9 @@
 					2CA94A951ACA42CD00DF7497 = {
 						DevelopmentTeam = QAMFRU8FS9;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -2378,6 +2387,9 @@
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = QAMFRU8FS9;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
