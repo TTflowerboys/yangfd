@@ -33,6 +33,7 @@ gevent-websocket
 boto
 bcrypt
 retrying
+Levenshtein
 sh
 uWSGI
 bottle
