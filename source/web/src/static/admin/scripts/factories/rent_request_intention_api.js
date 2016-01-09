@@ -5,7 +5,7 @@
 
         return {
             getAll: function (config) {
-                return $http.get('/api/1/rent_intention_ticket/search?status=requested&_i18n=disabled', config)
+                return $http.get('/api/1/rent_intention_ticket/search?_i18n=disabled', config)
             },
             getOne: function (id, config) {
                 return $http.get('/api/1/rent_intention_ticket/' + id + '?_i18n=disabled', config)

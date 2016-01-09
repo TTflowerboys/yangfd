@@ -1,10 +1,13 @@
 <div ui-view>
-    <div ng-controller="ctrlIntention">
+    <div>
         <div class="buttons">
             <div class="btn-group">
                 <a class="btn" href="/export-excel/user-rent-request.xlsx" target="_blank">
                     <span class="fa fa-plus-circle"></span> {%$root.i18n('导出到Excel')%}
                 </a>
+            </div>
+            <div class="btn-group form-inline">
+                <select class="form-control" ng-options="p.value as p.name for p in rentIntentionTicketStatus" ng-model="selected.status" text="{%i18n('咨询单状态')%}"></select>
             </div>
 
             <span class="btn-group pull-right">

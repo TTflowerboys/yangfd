@@ -7,8 +7,11 @@
         $scope.currentPageNumber = 1
         $scope.pages = []
         $scope.api = api
+        $scope.selected = {}
+        $scope.selected.status = 'requested'
 
         var params = {
+            status: $scope.selected.status,
             per_page: $scope.perPage,
             sort: 'time,desc'
         }
@@ -22,17 +25,21 @@
             }
         }
 
-        updateParams()
-        api.getAll({
-            params: params, errorMessage: true
-        }).success(onGetList)
-
-
         $scope.refreshList = function () {
+            updateParams()
             api.getAll({
                 params: params, errorMessage: true
             }).success(onGetList)
         }
+        $scope.refreshList()
+        $scope.$watch('selected.status', function (newValue, oldValue) {
+            if (newValue === oldValue) {
+                return
+            }
+            params.status = $scope.selected.status
+            $scope.refreshList()
+        })
+
 
         $scope.nextPage = function () {
             var lastItem = $scope.list[$scope.list.length - 1]
