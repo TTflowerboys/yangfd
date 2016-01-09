@@ -1,6 +1,6 @@
 {
   "asi":           true,
-  "bitwise":       true,
+  "bitwise":       false,
   "boss":          false,
   "browser":       true,
   "camelcase":     false,

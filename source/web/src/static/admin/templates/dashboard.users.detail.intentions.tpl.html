@@ -42,7 +42,7 @@
                     {%(item.assigned_time?(item.assigned_time * 1000 | date : 'short'):'')%}
                 </td>
                 <td>
-                    <div edit-custom-fields ng-model="item.custom_fields" update="updateItem(data)" item-id="item.id"></div>
+                    <div edit-remark ng-model="item.custom_fields" update="updateItem(data)" item-id="item.id"></div>
                 </td>
                 <td>
                     <a class="btn btn-success" href ui-sref="dashboard.intention.detail({id:item.id})" title="View">

@@ -97,7 +97,7 @@
                 <td>
                     <a ng-if="item.creator_user.id === item.user.id" ui-sref="dashboard.users.detail.properties({ id: item.user.id })" ng-bind="item.user.nickname"></a>
                     <div ng-if="item.creator_user.id != item.user.id"><a ui-sref="dashboard.users.detail.properties({ id: item.user.id })" ng-bind="item.user.nickname"></a>{%$root.i18n('(代发)')%}</div>
-                    <div edit-custom-fields ng-model="item.user.custom_fields" update="updateUserItem(data)" item-id="item.user.id"></div>
+                    <div edit-remark ng-model="item.user.custom_fields" update="updateUserItem(data)" item-id="item.user.id"></div>
                 </td>
                 <td>
                     <span class="btn btn-primary" ng-if="!item.isGenerating" ng-click="generateImage(item)" title="{%$root.i18n('生成digest图片')%}">
@@ -114,7 +114,7 @@
                     </a>
                 </td>
                 <td>
-                    <div edit-custom-fields ng-model="item.custom_fields" update="updateItem(data)" item-id="item.id"></div>
+                    <div edit-remark ng-model="item.custom_fields" update="updateItem(data)" item-id="item.id"></div>
                 </td>
                 <td style="text-align:center;">
                     <a class="btn btn-success" ui-sref=".detail({id:item.id})" title="View">

@@ -71,7 +71,7 @@
                             <div>{%(item.register_time?(item.register_time * 1000 | date : 'short'):'')%}</div>
                         </td>
                         <td>
-                            <div edit-custom-fields ng-model="item.custom_fields" update="updateItem(data)" item-id="item.id"></div>
+                            <div edit-remark ng-model="item.custom_fields" update="updateItem(data)" item-id="item.id"></div>
                         </td>
                         <td>
                             <a class="btn btn-success" href ui-sref=".detail.favs({id:item.id})" title="View">

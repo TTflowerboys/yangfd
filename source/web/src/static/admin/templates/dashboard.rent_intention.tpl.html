@@ -76,7 +76,7 @@
                     </td>
                     <td>
                         <a ui-sref="dashboard.users.detail.rent_intentions({ id: item.user.id })" ng-bind="item.nickname"  target="_blank"></a>
-                        <span edit-custom-fields ng-model="item.user.custom_fields" update="updateUserItem(data)" item-id="item.user.id"></span>
+                        <span edit-remark ng-model="item.user.custom_fields" update="updateUserItem(data)" item-id="item.user.id"></span>
                         <div>{%item.phone%}</div>
                         <div>{%item.email%}</div>
                     </td>
@@ -94,7 +94,7 @@
                         {%item.status | intentionTicketStatusName %}
                     </td>
                     <td>
-                        <div edit-custom-fields ng-model="item.custom_fields" update="updateItem(data)" item-id="item.id"></div>
+                        <div edit-remark ng-model="item.custom_fields" update="updateItem(data)" item-id="item.id"></div>
                     </td>
                     <td>
                         <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">

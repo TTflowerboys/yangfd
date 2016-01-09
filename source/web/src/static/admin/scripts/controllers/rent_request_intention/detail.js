@@ -29,6 +29,7 @@
         if (itemFromParent) {
             $scope.item = itemFromParent
         } else {
+            $scope.item = {}
             api.getOne($stateParams.id, {errorMessage: true})
                 .success(function (data) {
                     var item =  data.val
@@ -63,6 +64,10 @@
                             $scope.item  = item
                         })
                 })
+        }
+
+        $scope.updateItem = function (item) {
+            return api.update(item)
         }
 
         $scope.onRemove = function (item) {

@@ -1,0 +1,43 @@
+.dynamic{
+    .dynamicItem{
+        margin-bottom: 24px;
+        .media-avatar{
+            &.media-left{
+                float: left;
+                margin-right: 10px;
+            }
+            &.media-right{
+                float: right;
+                margin-left: 10px;
+            }
+            vertical-align: top;
+            a{
+                display: block;
+                width: 64px;
+                height: 64px;
+                border-radius: 50%;
+                border: 3px solid #fff;
+                background-image: url("/static/images/placeholder/avatar.png");
+                background-size:cover;
+                overflow: hidden;
+            }
+        }
+        .media-body{
+            overflow: hidden;
+            .alert{
+                display: inline-block;
+                margin-right: 74px;
+                margin-left: 0;
+                margin-bottom: 0;
+                padding: 8px;
+            }
+            &.media-body-right{
+                text-align: right;
+                .alert{
+                    margin-left: 74px;
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}

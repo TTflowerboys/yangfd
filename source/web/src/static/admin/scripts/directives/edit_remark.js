@@ -1,8 +1,8 @@
 angular.module('app')
-    .directive('editCustomFields', function ($rootScope) {
+    .directive('editRemark', function ($rootScope) {
         return {
             restrict: 'AE',
-            templateUrl: '/static/admin/templates/edit_custom_fields.tpl.html',
+            templateUrl: '/static/admin/templates/edit_remark.tpl.html',
             scope: {
                 customFields: '=ngModel',
                 itemId: '=itemId',
@@ -40,6 +40,9 @@ angular.module('app')
                 }*/
             },
             link: function (scope, elem) {
+                scope.tooltip()
+                scope.initEditCustomFields()
+
                 function updateRemark(){
                     if(_.isArray(scope.customFields)) {
                         scope.remark =(_.find(scope.customFields, function(field){return field.key === 'remark'}) || {}).value

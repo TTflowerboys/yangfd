@@ -38,7 +38,7 @@
         <div class="btn-group pull-right">
             <button type="button" class="btn btn-default" ng-if="newStatus && template.tenant[newStatus]" ng-class="{'btn-primary': activeTab === 'tenant'}" ng-click="switchTab('tenant')">{%template.tenant[newStatus].title%}</button>
             <button type="button" class="btn btn-default" ng-if="newStatus && template.landlord[newStatus]" ng-class="{'btn-primary': activeTab === 'landlord'}" ng-click="switchTab('landlord')">{%template.landlord[newStatus].title%}</button>
-            <button type="button" class="btn btn-default" ng-class="{'btn-primary': activeTab === 'event'}" ng-click="switchTab('event')">{%$root.i18n('动态')%}</button>
+            <button type="button" class="btn btn-default" ng-class="{'btn-primary': activeTab === 'dynamic'}" ng-click="switchTab('dynamic')">{%$root.i18n('动态')%}</button>
         </div>
     </div>
     <div class="panel-body" ng-show="activeTab === 'tenant'">
@@ -47,8 +47,11 @@
     <div class="panel-body" ng-show="activeTab === 'landlord'">
         <div ng-if="newStatus && template.landlord[newStatus]" edit-rich-content-of-template ng-model="emailTemplate" template="template.landlord[newStatus].url" role="landlord"></div>
     </div>
-    <div class="panel-body" ng-show="activeTab === 'event'">
-        动态
+    <div class="panel-body" ng-show="activeTab === 'dynamic'">
+        <div ng-if="item">
+            <div show-dynamic ng-model="item" status="newStatus" user="user" style="min-height: 500px;"></div>
+            <div add-dynamic ng-model="item" update="updateItem(data)" user="user" status="newStatus"></div>
+        </div>
     </div>
 </div>
 

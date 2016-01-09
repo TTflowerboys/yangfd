@@ -1,0 +1,14 @@
+<p ng-if="!list.length">{%$root.i18n('该状态下暂无动态')%}</p>
+<div class="dynamic" ng-repeat="dynamicItem in list">
+    <div class="dynamicItem clearfix">
+        <div class="media-avatar" ng-class="{'media-left': dynamicItem.user.id !== user.id, 'media-right': dynamicItem.user.id === user.id}">
+            <a ui-sref="dashboard.users.detail({id: dynamicItem.user.id})">
+                <img ng-src="http://www.gravatar.com/avatar/{%dynamicItem.user.id%}?s=58&d=retro" alt=""/>
+            </a>
+        </div>
+        <div class="media-body" ng-class="{'media-body-right': dynamicItem.user.id === user.id}">
+            <h3 class="media-heading">{%dynamicItem.user.nickname%} {%dynamicItem.time | date : 'yyyy-MM-dd H:mm'%}:</h3>
+            <div class="alert " ng-class="{'alert-info': dynamicItem.user.id !== user.id, 'alert-success': dynamicItem.user.id === user.id}" role="alert">{%dynamicItem.content%}</div>
+        </div>
+    </div>
+</div>
