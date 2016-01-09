@@ -512,7 +512,14 @@ class f_main_mixed_index(f_app.plugin_base):
                     self.logger.info("station", processed, "processed.")
 
     def search(self, params, per_page=0):
-        return f_app.mongo_index.search(self.get_database, params, notime=True, count=False, per_page=per_page)["content"]
+        if "suggestion" in params:
+            sort = "Levenshtein"
+            sort_field = "name"
+        else:
+            # TODO
+            sort = "desc"
+            sort_field = "time"
+        return f_app.mongo_index.search(self.get_database, params, notime=True, sort=sort, sort_field=sort_field, count=False, per_page=per_page)["content"]
 
     def get_nearby(self, params, output=True):
         latitude = params.pop("latitude")
