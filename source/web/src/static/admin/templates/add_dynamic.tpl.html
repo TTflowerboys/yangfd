@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="input-group">
-            <input ng-model="content" type="text" class="form-control input-lg" style="font-size: 16px;" placeholder="{%$root.i18n('在这里写要更新的状态')%}">
+            <input ng-model="content" type="text" class="form-control input-lg" style="font-size: 16px;" placeholder="{%$root.i18n('在这里写要更新的状态, 按回车提交')%}" ng-keypress="onKeyPress($event)">
             <span class="input-group-btn">
                 <button ng-click="submit(content)" class="btn btn-lg btn-primary" type="button">{%$root.i18n('提交')%}</button>
             </span>

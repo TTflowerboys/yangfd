@@ -39,6 +39,14 @@ angular.module('app')
                             growl.addErrorMessage(window.i18n('添加失败'), {enableHtml: true})
                         })
                 }
+
+                $scope.onKeyPress = function (keyEvent) {
+                    // Submit content when enter pressed
+                    if(keyEvent.which === 13){
+                        $scope.submit($scope.content)
+                    }
+
+                }
             },
             link: function (scope) {
 
