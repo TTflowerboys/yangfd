@@ -1,6 +1,6 @@
 (function () {
 
-    function ctrlRentRequestIntentionList($scope, fctModal, api, userApi, $filter) {
+    function ctrlRentRequestIntentionList($scope, fctModal, api, userApi, $filter, enumApi,$rootScope) {
 
         $scope.list = []
         $scope.perPage = 12
@@ -175,6 +175,12 @@
                     $scope.refreshList()
                 })
         }
+
+        enumApi.getOriginEnumsByType('user_referrer').success(
+            function (data) {
+                $rootScope.referrerList = data.val
+            }
+        )
 
     }
 
