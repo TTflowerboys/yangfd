@@ -2,7 +2,7 @@
 
     function ctrlRentRequestIntentionDetail($scope, fctModal, api,  misc, $stateParams, growl, $rootScope, $state) {
         $scope.api = api
-        $scope.template = {
+        $scope.emailTemplate = {
             tenant: {
                 'assigned': {
                     title: window.i18n('申请确认邮件'),
@@ -16,6 +16,20 @@
                 },
             }
 
+        }
+        $scope.messageTemplate = {
+            tenant: {
+                //'assigned': {
+                //    title: window.i18n('申请确认短信'),
+                //    url: '/static/admin/templates/message/assigned_tenant.html'
+                //},
+            },
+            landlord:{
+                'assigned': {
+                    title: window.i18n('租客给房东的短信'),
+                    url: '/static/admin/templates/message/assigned_landlord.html'
+                },
+            }
         }
         $scope.newStatus = ''
         $scope.activeTab = ''
