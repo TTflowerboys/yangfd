@@ -327,7 +327,10 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken {
+
+    [[CUTEAPNSManager sharedInstance] saveDeviceToken:deviceToken];
     NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
+
     DebugLog(@"[%@|%@|%d] device token: %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ , token);
 
 }

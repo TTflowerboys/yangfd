@@ -853,6 +853,10 @@
 		2CF8A6A81AF0C2620080DF10 /* BBTPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6A61AF0C2620080DF10 /* BBTPickerView.m */; };
 		2CF8A6A91AF0C2620080DF10 /* BBTPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6A61AF0C2620080DF10 /* BBTPickerView.m */; };
 		2CF8A6AA1AF0C2620080DF10 /* BBTPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A6A61AF0C2620080DF10 /* BBTPickerView.m */; };
+		2CFB05511C43874700E648A0 /* CUTEAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB05501C43874700E648A0 /* CUTEAPNSManager.swift */; };
+		2CFB05521C43874700E648A0 /* CUTEAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB05501C43874700E648A0 /* CUTEAPNSManager.swift */; };
+		2CFB05531C43874700E648A0 /* CUTEAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB05501C43874700E648A0 /* CUTEAPNSManager.swift */; };
+		2CFB05541C43874700E648A0 /* CUTEAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB05501C43874700E648A0 /* CUTEAPNSManager.swift */; };
 		34D881172AC55C3D2258749D /* libPods-currantUnitTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9944537C0C578A8C1AC5F4F9 /* libPods-currantUnitTest.a */; };
 		C4A0594E53CF2777C29B6FC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
 		CE9A25E962A0F1D3000CCCE0 /* libPods-currantUITest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B61531570149B3B8064A77A9 /* libPods-currantUITest.a */; };
@@ -1320,6 +1324,7 @@
 		2CF8A6721AF0B65C0080DF10 /* CUTERentTypeListForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTERentTypeListForm.m; sourceTree = "<group>"; };
 		2CF8A6A51AF0C2620080DF10 /* BBTPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTPickerView.h; sourceTree = "<group>"; };
 		2CF8A6A61AF0C2620080DF10 /* BBTPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTPickerView.m; sourceTree = "<group>"; };
+		2CFB05501C43874700E648A0 /* CUTEAPNSManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEAPNSManager.swift; sourceTree = "<group>"; };
 		3D71FAA99AADAD5513E122AE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		5D3E39977A7B87935D649365 /* Pods-currantUnitTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-currantUnitTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-currantUnitTest/Pods-currantUnitTest.release.xcconfig"; sourceTree = "<group>"; };
 		74C38B0D53E631D7141C9D35 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -1903,6 +1908,7 @@
 				2C9F1D1B1B3A8E610034487F /* CUTESurveyHelper.h */,
 				2C9F1D1C1B3A8E610034487F /* CUTESurveyHelper.m */,
 				2CBE98F01BF5C9EA00A683EE /* BFCancellationTokenSourceCollector.swift */,
+				2CFB05501C43874700E648A0 /* CUTEAPNSManager.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -2883,6 +2889,7 @@
 				2C9D32251BEC5C6A00424CAC /* CUTEPropertyAPIProxy.swift in Sources */,
 				2C1A95E61B75A90D00483A74 /* CUTERentPassword2ViewController.m in Sources */,
 				2CC6C1ED1AEE2E59002758A7 /* CUTERentTicketPublisher.m in Sources */,
+				2CFB05531C43874700E648A0 /* CUTEAPNSManager.swift in Sources */,
 				2C4AEC811AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A6101AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
 				2CA5F7721AE10382001132E0 /* CUTEImageUploader.m in Sources */,
@@ -3073,6 +3080,7 @@
 				2C9D32271BEC5C6B00424CAC /* CUTEPropertyAPIProxy.swift in Sources */,
 				2C1A95E71B75A90E00483A74 /* CUTERentPassword2ViewController.m in Sources */,
 				2CC6C1EE1AEE2E59002758A7 /* CUTERentTicketPublisher.m in Sources */,
+				2CFB05541C43874700E648A0 /* CUTEAPNSManager.swift in Sources */,
 				2C4AEC821AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A6111AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
 				2CA5F7731AE10382001132E0 /* CUTEImageUploader.m in Sources */,
@@ -3263,6 +3271,7 @@
 				2C9D32231BEC5C6A00424CAC /* CUTEPropertyAPIProxy.swift in Sources */,
 				2C1A95E51B75A90D00483A74 /* CUTERentPassword2ViewController.m in Sources */,
 				2CC6C1EC1AEE2E59002758A7 /* CUTERentTicketPublisher.m in Sources */,
+				2CFB05521C43874700E648A0 /* CUTEAPNSManager.swift in Sources */,
 				2C4AEC801AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A60F1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
 				2CA5F7711AE10382001132E0 /* CUTEImageUploader.m in Sources */,
@@ -3453,6 +3462,7 @@
 				2C9D32211BEC5C6200424CAC /* CUTEPropertyAPIProxy.swift in Sources */,
 				2C4AEC7F1AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A60E1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
+				2CFB05511C43874700E648A0 /* CUTEAPNSManager.swift in Sources */,
 				2CA5F7701AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2C056D4B1B423AB20075037A /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2CF8A6311AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
