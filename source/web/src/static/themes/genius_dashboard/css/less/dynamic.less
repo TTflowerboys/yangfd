@@ -36,6 +36,24 @@
                 .alert{
                     margin-left: 74px;
                     margin-right: 0;
+                    &.alert-sending{
+                        position: relative;
+                        color: #595959;
+                        background-color: #eee;
+                        border-color: #ccc;
+                        &:before{
+                            position: absolute;
+                            content: '';
+                            display: block;
+                            width: 16px;
+                            height: 16px;
+                            background: url("/static/images/common/ajax-loader.gif") 50% 50% no-repeat;
+                            left: -24px;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            color: #999;
+                        }
+                    }
                 }
             }
         }

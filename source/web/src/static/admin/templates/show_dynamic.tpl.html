@@ -8,7 +8,7 @@
         </div>
         <div class="media-body" ng-class="{'media-body-right': dynamicItem.user.id === user.id}">
             <h3 class="media-heading">{%dynamicItem.user.nickname%} {%dynamicItem.time | date : 'yyyy-MM-dd H:mm'%}:</h3>
-            <div class="alert " ng-class="{'alert-info': dynamicItem.user.id !== user.id, 'alert-success': dynamicItem.user.id === user.id}" role="alert">{%dynamicItem.content%}</div>
+            <div class="alert " ng-class="{'alert-info': dynamicItem.user.id !== user.id, 'alert-success': dynamicItem.user.id === user.id, 'alert-sending':  dynamicItem.user.id === user.id && dynamicItem.sending}" role="alert">{%dynamicItem.content%}</div>
         </div>
     </div>
 </div>
