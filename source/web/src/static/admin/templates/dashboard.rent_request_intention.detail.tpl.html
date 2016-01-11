@@ -59,7 +59,7 @@
     </div>
     <div class="panel-body" ng-show="activeTab === 'dynamic' && expand">
         <div ng-if="item">
-            <div show-dynamic ng-model="item" status="newStatus" user="user" style="margin: 0 -15px;padding: 0 15px; min-height: 500px;max-height: 800px; overflow-y: auto;"></div>
+            <div show-dynamic scroll-glue ng-model="item" status="newStatus" user="user" style="margin: 0 -15px;padding: 0 15px; min-height: 500px;max-height: 800px; overflow-y: auto;"></div>
             <div add-dynamic ng-model="item" update="updateItem(data)" user="user" status="newStatus"></div>
         </div>
     </div>

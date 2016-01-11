@@ -61,7 +61,8 @@
     "intro.js": "1.0.0",
     "airbrake-js-client": "~0.5.0",
     "message": "https://github.com/lf2941270/message.git",
-    "knockout": "3.3.0"
+    "knockout": "3.3.0",
+    "angular-scroll-glue": "2.0.6"
   },
   "resolutions": {
     "jquery": "2.1.0",
