@@ -45,7 +45,8 @@
 
 - (void)updateTicket {
     CUTEAreaForm *form = (CUTEAreaForm *)self.formController.form;
-    CUTEArea *area = [CUTEArea areaWithValue:form.area unit:form.unit];
+
+    CUTEArea *area = (IsNilNullOrEmpty(form.area) || IsNilNullOrEmpty(form.unit))? nil: [CUTEArea areaWithValue:form.area unit:form.unit];
     [form syncTicketWithBlock:^(CUTETicket *ticket) {
         if (ticket.rentType.slug && [ticket.rentType.slug hasSuffix:@":whole"]) {
             ticket.space = area;

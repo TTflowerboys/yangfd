@@ -64,13 +64,30 @@
 - (void)onCurrencyEdit:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
     [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
-        ticket.price = [CUTECurrency currencyWithValue:self.form.rentPrice unit:self.form.currency];
+        if (IsNilNullOrEmpty(self.form.rentPrice) || IsNilNullOrEmpty(self.form.currency)) {
+          ticket.price = nil;
+        }
+        else {
+          ticket.price = [CUTECurrency currencyWithValue:self.form.rentPrice unit:self.form.currency];
+        }
+
+        if (IsNilNullOrEmpty(self.form.deposit) || IsNilNullOrEmpty(self.form.currency)) {
+            ticket.deposit = nil;
+        }
+        else {
+            ticket.deposit = [CUTECurrency currencyWithValue:self.form.deposit unit:self.form.currency];
+        }
     }];
 }
 
 - (void)onRentPriceEdit:(id)sender {
     [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
-        ticket.price = [CUTECurrency currencyWithValue:self.form.rentPrice unit:self.form.currency];
+        if (IsNilNullOrEmpty(self.form.rentPrice) || IsNilNullOrEmpty(self.form.currency)) {
+            ticket.price = nil;
+        }
+        else {
+            ticket.price = [CUTECurrency currencyWithValue:self.form.rentPrice unit:self.form.currency];
+        }
     }];
 }
 
@@ -83,7 +100,12 @@
 
 - (void)onDepositEdit:(id)sender {
     [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
-        ticket.deposit = [CUTECurrency currencyWithValue:self.form.deposit unit:self.form.currency];
+        if (IsNilNullOrEmpty(self.form.deposit) || IsNilNullOrEmpty(self.form.currency)) {
+            ticket.deposit = nil;
+        }
+        else {
+            ticket.deposit = [CUTECurrency currencyWithValue:self.form.deposit unit:self.form.currency];
+        }
     }];
 }
 

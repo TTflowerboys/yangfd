@@ -62,11 +62,12 @@
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
         NSNumber *aValue = self.value? [formatter numberFromString:self.value]: nil;
         NSNumber *bVlaue = [(CUTEArea *)object value]? [formatter numberFromString:[(CUTEArea *)object value]]: nil;
-        return [self.unit isEqualToString:[object unit]] && [aValue isEqualToNumber: bVlaue];
+        if (aValue && bVlaue) {
+            return [self.unit isEqualToString:[object unit]] && [aValue isEqualToNumber: bVlaue];
+        }
     }
-    else {
-        return NO;
-    }
+
+    return NO;
 }
 
 - (NSUInteger)hash {

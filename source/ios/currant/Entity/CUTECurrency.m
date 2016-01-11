@@ -57,11 +57,12 @@
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
         NSNumber *aValue = self.value? [formatter numberFromString:self.value]: nil;
         NSNumber *bVlaue = [(CUTECurrency *)object value]? [formatter numberFromString:[(CUTECurrency *)object value]]: nil;
-        return [self.unit isEqualToString:[object unit]] && [aValue isEqualToNumber: bVlaue];
+        if (aValue && bVlaue) {
+            return [self.unit isEqualToString:[object unit]] && [aValue isEqualToNumber: bVlaue];
+        }
     }
-    else {
-        return NO;
-    }
+
+    return NO;
 }
 
 - (NSUInteger)hash {
