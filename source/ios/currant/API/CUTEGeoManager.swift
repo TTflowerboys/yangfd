@@ -110,12 +110,22 @@ class CUTEGeoManager: NSObject {
             CUTEAPICacheManager.sharedInstance().getCountriesWithCountryCode(false).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                 if let countries = task.result as? [CUTECountry] {
                     if let country = countries.filter({ (country:CUTECountry) -> Bool in
-                        return country.ISOcountryCode == placemark.country.ISOcountryCode
+                        if placemark.country != nil {
+                            return country.ISOcountryCode == placemark.country!.ISOcountryCode
+                        }
+                        else {
+                            return false
+                        }
                     }).first {
                         CUTEAPICacheManager.sharedInstance().getCitiesByCountry(country).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                             if let cities = task.result as? [CUTECity] {
                                 if let city = cities.filter({ (city:CUTECity) -> Bool in
-                                    return placemark.city.name.lowercaseString.hasPrefix(city.name.lowercaseString)
+                                    if placemark.city != nil {
+                                    return placemark.city!.name.lowercaseString.hasPrefix(city.name.lowercaseString)
+                                    }
+                                    else {
+                                        return false
+                                    }
                                 }).first {
                                     placemark.country = country
                                     placemark.city = city

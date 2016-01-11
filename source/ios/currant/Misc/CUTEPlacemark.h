@@ -1,4 +1,4 @@
-//
+ //
 //  CUTEPlaceMark.h
 //  currant
 //
@@ -13,19 +13,19 @@
 
 @interface CUTEPlacemark : NSObject
 
-@property (nonatomic, copy) NSString *neighborhood;
-@property (nonatomic, copy) NSString *street;
-@property (nonatomic, copy) NSString *thoroughfare; // street address, eg. 1 Infinite Loop
-@property (nonatomic, copy) NSString *subThoroughfare; // eg. 1
-@property (nonatomic, copy) NSString *postalCode; // zip code, eg. 95014
-@property (nonatomic, strong) CUTECity *city; // city, eg. Cupertino
-@property (nonatomic, strong) CUTECountry *country; // eg. United States
-@property (strong, nonatomic) CLLocation *location;
+@property (nonatomic, copy) NSString *__nullable neighborhood;
+@property (nonatomic, copy) NSString *__nullable street;
+@property (nonatomic, copy) NSString *__nullable thoroughfare; // street address, eg. 1 Infinite Loop
+@property (nonatomic, copy) NSString *__nullable subThoroughfare; // eg. 1
+@property (nonatomic, copy) NSString *__nullable postalCode; // zip code, eg. 95014
+@property (nonatomic, strong) CUTECity *__nullable city; // city, eg. Cupertino
+@property (nonatomic, strong) CUTECountry *__nullable country; // eg. United States
+@property (strong, nonatomic) CLLocation *__nullable location;
 
-+ (CUTEPlacemark *)placeMarkWithCLPlaceMark:(CLPlacemark *)placemark;
++ (CUTEPlacemark *__nonnull)placeMarkWithCLPlaceMark:(CLPlacemark * __nonnull)placemark;
 
-+ (CUTEPlacemark *)placeMarkWithGoogleResult:(NSDictionary *)result;
++ (CUTEPlacemark *__nonnull)placeMarkWithGoogleResult:(NSDictionary * __nonnull)result;
 
-- (NSString *)address;
+- (NSString *__nullable)address;
 
 @end
