@@ -65,35 +65,57 @@
     }
 
 
+    // in case of push twice time https://bugtags.com/console/apps/1514972063465952/issues/1523146015375631/tags/1523146015376023?page=1
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    dispatch_block_t reenableRightBarButtonItem = ^ {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    };
+
+    dispatch_block_t createTicketBlock = ^ {
+        [[self createTicket] continueWithBlock:^id(BFTask *task) {
+            if (task.result) {
+                CUTETicket *ticket = task.result;
+                TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+                [self.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
+            }
+            else {
+                reenableRightBarButtonItem();
+            }
+
+            return task;
+        }];
+    };
+
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     if (self.updateLocationFromAddressFailed) {
         [UIAlertView showWithTitle:STR(@"RentAddressEdit/新Postcode定位失败，返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"RentAddressEdit/返回") otherButtonTitles:@[STR(@"RentAddressEdit/下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == alertView.cancelButtonIndex) {
+                reenableRightBarButtonItem();
                 [self.navigationController popViewControllerAnimated:YES];
             }
             else {
                 [self clearTicketLocation];
-                [self createTicket];
+                createTicketBlock();
             }
         }];
 
         self.updateLocationFromAddressFailed = NO;
-        return;
     }
     else if (IsNilOrNull(form.ticket.property.latitude) || IsNilOrNull(form.ticket.property.longitude)) {
         [UIAlertView showWithTitle:STR(@"RentAddressEdit/请返回地图手动修改房产位置，继续下一步则不添加房产位置") message:nil cancelButtonTitle:STR(@"RentAddressEdit/返回") otherButtonTitles:@[STR(@"RentAddressEdit/下一步")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == alertView.cancelButtonIndex) {
+                reenableRightBarButtonItem();
                 [self.navigationController popViewControllerAnimated:YES];
             }
             else {
-                [self createTicket];
+                createTicketBlock();
             }
         }];
 
-        return;
     }
-    
-    [self createTicket];
+    else {
+        createTicketBlock();
+    }
 }
 
 @end

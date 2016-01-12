@@ -19,7 +19,7 @@
 
 - (CUTERentAddressEditForm *)form;
 
-- (void)createTicket;
+- (BFTask *)createTicket;
 
 -  (void)clearTicketLocation;
 

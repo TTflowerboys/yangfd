@@ -362,46 +362,43 @@
     return YES;
 }
 
-- (void)createTicket {
+- (BFTask *)createTicket {
     CUTERentAddressEditForm *form = (CUTERentAddressEditForm *)self.formController.form;
     CUTETicket *currentTicket = form.ticket;
     if (currentTicket) {
         if (IsNilNullOrEmpty(currentTicket.identifier)) {
+            BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
             [SVProgressHUD show];
-            Sequencer *sequencer = [Sequencer new];
-            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                [[[CUTERentTicketPublisher sharedInstance] createTicket:currentTicket] continueWithBlock:^id(BFTask *task) {
-                    if (task.error || task.exception || task.isCancelled) {
-                        [SVProgressHUD showErrorWithError:task.error];
+            [[[CUTERentTicketPublisher sharedInstance] createTicket:currentTicket] continueWithBlock:^id(BFTask *task) {
+                if (task.error || task.exception || task.isCancelled) {
+                    [SVProgressHUD showErrorWithError:task.error];
+
+                    [tcs setError:task.error];
+                }
+                else {
+                    CUTETicket *newTicket = task.result;
+                    currentTicket.identifier = newTicket.identifier;
+                    currentTicket.property.identifier = newTicket.property.identifier;
+                    [[CUTEDataManager sharedInstance] saveRentTicket:newTicket];
+                    if ([CUTEDataManager sharedInstance].user) {
+                        [NotificationCenter postNotificationName:KNOTIF_MARK_USER_AS_LANDLORD object:self userInfo:@{@"user": [CUTEDataManager sharedInstance].user}];
                     }
-                    else {
-                        CUTETicket *newTicket = task.result;
-                        currentTicket.identifier = newTicket.identifier;
-                        currentTicket.property.identifier = newTicket.property.identifier;
-                        [[CUTEDataManager sharedInstance] saveRentTicket:newTicket];
-                        if ([CUTEDataManager sharedInstance].user) {
-                            [NotificationCenter postNotificationName:KNOTIF_MARK_USER_AS_LANDLORD object:self userInfo:@{@"user": [CUTEDataManager sharedInstance].user}];
-                        }
-                        completion(currentTicket);
-                    }
-                    return nil;
-                }];
+                    [SVProgressHUD dismiss];
+
+                    [tcs setResult:currentTicket];
+                }
+                return nil;
             }];
 
-            [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-                CUTETicket *ticket = result;
-                [SVProgressHUD dismiss];
-                TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
-                [self.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
-            }];
-
-            [sequencer run];
+            return tcs.task;
         }
         else {
             CUTETicket *ticket = currentTicket;
-            TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
-            [self.navigationController openRouteWithURL:[NSURL URLWithString:CONCAT(@"yangfd://property-to-rent/edit/", ticket.identifier)]];
+            return [BFTask taskWithResult:ticket];
         }
+    }
+    else {
+        return [BFTask taskWithError:[NSError errorWithDomain:CUTE_ERROR_DOMAIN code:-1 userInfo:@{NSLocalizedDescriptionKey: @"nil ticket"}]];
     }
 }
 

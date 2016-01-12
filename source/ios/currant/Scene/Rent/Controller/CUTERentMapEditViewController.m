@@ -283,6 +283,10 @@
     }
     
     CUTETicket *currentTicket = self.form.ticket;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    dispatch_block_t reenableRightBarButtonItem = ^ {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    };
     if (currentTicket) {
         if (IsNilNullOrEmpty(currentTicket.identifier)) {
             [SVProgressHUD show];
@@ -291,6 +295,7 @@
                 [[[CUTERentTicketPublisher sharedInstance] createTicket:currentTicket] continueWithBlock:^id(BFTask *task) {
                     if (task.error || task.exception || task.isCancelled) {
                         [SVProgressHUD showErrorWithError:task.error];
+                        reenableRightBarButtonItem();
                     }
                     else {
                         CUTETicket *newTicket = task.result;
@@ -305,6 +310,7 @@
                         }
                         else {
                             [SVProgressHUD showErrorWithStatus:STR(@"RentAddressMap/创建房产失败")];
+                            reenableRightBarButtonItem();
                         }
                     }
                     return nil;
