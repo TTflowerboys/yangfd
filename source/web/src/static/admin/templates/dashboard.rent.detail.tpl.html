@@ -1,4 +1,3 @@
-<div ui-view>
     <div class="buttons">
 
         <span class="btn-group">
@@ -27,7 +26,7 @@
 
     </div>
     <form>
-        <div ng-controller="ctrlHasPermission">
+        <div>
             <tabset justified="true" style="margin: 16px 0;">
                 <tab heading="{%$root.i18n('房产信息')%}">
                     <div ng-include="'/static/admin/templates/dashboard.rent.detail.tabProperty.tpl.html'"></div>
@@ -35,7 +34,105 @@
                 <tab heading="{%$root.i18n('出租信息')%}">
                     <div ng-include="'/static/admin/templates/dashboard.rent.detail.tabRent.tpl.html'"></div>
                 </tab>
+                <tab heading="{%$root.i18n('求租咨询单')%}" ng-if="rentIntentionList" ng-controller="ctrlRentRequestIntentionList" ng-init="list = rentIntentionList">
+                    <table class="table table-bordered table-striped table-condensed">
+                        <colgroup>
+                            <col class="time">
+                            <col class="target">
+                            <col class="period">
+                            <col class="user">
+                            <col class="info">
+                            <col class="des">
+                            <col class="visa">
+                            <col class="status">
+                            <col class="note">
+                            <col class="manage">
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>{%$root.i18n('提交时间')%}</th>
+                                <th>{%$root.i18n('意向房源')%}</th>
+                                <th>{%$root.i18n('租期')%}</th>
+                                <th>{%$root.i18n('客户')%}</th>
+                                <th>{%$root.i18n('入住信息')%}</th>
+                                <th>{%$root.i18n('描述')%}</th>
+                                <th>{%$root.i18n('visa')%}</th>
+                                <th>{%$root.i18n('用户来源')%}</th>
+                                <th>{%$root.i18n('IP')%}</th>
+                                <th>{%$root.i18n('Relocate')%}</th>
+                                <th>{%$root.i18n('状态')%}</th>
+                                <th>{%$root.i18n('最新动态')%}</th>
+                                <th>{%$root.i18n('备注')%}</th>
+                                <th>{%$root.i18n('管理')%}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in list">
+                                <td>
+                                    {%(item.time?(item.time * 1000 | date : 'short'):'')%}
+                                </td>
+                                <td>
+                                    <div ng-repeat="ticket in item.interested_rent_tickets">
+                                        <a ui-sref="dashboard.rent.detail({ id: ticket.id })" target="_blank">{%ticket.title%}</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>{%(item.rent_available_time?(item.rent_available_time * 1000 | date : 'yyyy-MM-d'):'') + $root.i18n('起') + (item.rent_deadline_time?  $root.i18n('至') + (item.rent_deadline_time * 1000 | date : 'yyyy-MM-d'):'') %}</div>
+                                </td>
+                                <td>
+                                    <a ui-sref="dashboard.users.detail.rent_intentions({ id: item.user.id })" ng-bind="item.nickname" target="_blank"></a>
+                                    <span edit-remark ng-model="item.user.custom_fields" update="updateUserItem(data)" item-id="item.user.id"></span>
+                                    <div>{%item.phone%}</div>
+                                    <div>{%item.email%}</div>
+                                    <div>{%$root.i18n('性别:')%}{%item.gender%}</div>
+                                    <div ng-if="item.occupation" show-i18n="item.occupation.value"></div>
+                                    <div>{%$root.i18n('年龄:')%}{%item.age | number:0%}</div>
+                                </td>
+                                <td>
+                                    <div>{%$root.i18n('人数:')%}{%item.tenant_count%}</div>
+                                    <div>{%$root.i18n('吸烟:')%}{%item.smoke%}</div>
+                                    <div>{%$root.i18n('带小孩:')%}{%item.baby%}</div>
+                                    <div>{%$root.i18n('带宠物:')%}{%item.pet%}</div>
+                                </td>
+                                <td >
+                                    {%item.description%}
+                                </td>
+                                <td >
+                                    <span class="btn btn-success" ng-if="item.visa" ng-click="openImage(item)" title="{%$root.i18n('查看visa')%}">
+                                        <i class="fa fa-picture-o"></i>
+                                    </span>
+                                </td>
+                                <td ng-bind="item.referrer | userReferrer">
+
+                                </td>
+                                <td>
+                                    <a ng-href="{% item.log.link %}" target="_blank">{% item.log.ip %}</a>
+                                </td>
+                                <td>
+                                    <div edit-relocate-field ng-model="item.custom_fields" update="updateItem(data)" item-id="item.id"></div>
+                                </td>
+                                <td>
+                                    {%item.status | rentIntentionTicketStatusName %}
+                                </td>
+                                <td>
+                                    {%item.custom_fields | showLastDynamic : item.status%}
+                                </td>
+                                <td>
+                                    <div edit-remark ng-model="item.custom_fields" update="updateItem(data)" item-id="item.id"></div>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success" href ui-sref="dashboard.rent_request_intention.detail({id:item.id})" title="View">
+                                        <i class="fa fa-search-plus "></i>
+                                    </a>
+                                    <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除')%}">
+                                        <i class="fa fa-trash-o"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </tab>
             </tabset>
         </div>
     </form>
-</div>

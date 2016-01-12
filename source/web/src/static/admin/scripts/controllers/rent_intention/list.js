@@ -126,17 +126,11 @@
         }
 
         $scope.updateItem = function (item) {
-            api.update(item)
-                .success(function () {
-                    $scope.refreshList()
-                })
+            return api.update(item)
         }
 
         $scope.updateUserItem = function (item) {
-            userApi.update(item.id, item)
-                .success(function () {
-                    $scope.refreshList()
-                })
+            return userApi.update(item.id, item)
         }
 
     }

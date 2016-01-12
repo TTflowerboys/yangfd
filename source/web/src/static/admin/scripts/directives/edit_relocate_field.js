@@ -1,5 +1,5 @@
 angular.module('app')
-    .directive('editRelocateField', function ($rootScope) {
+    .directive('editRelocateField', function ($rootScope, growl) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/edit_relocate_field.tpl.html',
@@ -15,7 +15,7 @@ angular.module('app')
                     }
                 }
                 updateRelocate()
-                scope.$watch(scope.customFields, function () {
+                scope.$watch('customFields', function () {
                     updateRelocate()
                 })
 
@@ -46,6 +46,11 @@ angular.module('app')
                                 custom_fields: customFields
                             }
                         })
+                            .success(function (data) {
+                                growl.addSuccessMessage(window.i18n('relocate更改成功'), {enableHtml: true})
+                                scope.customFields = data.val.custom_fields
+                                scope.open = false
+                            })
                     }
                 }
             }

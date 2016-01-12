@@ -1,16 +1,32 @@
 (function () {
 
-    function ctrlRentDetail($scope, fctModal, rentApi, $stateParams, $rootScope, misc, $state, growl, $timeout, userApi) {
+    function ctrlRentDetail($scope, fctModal, rentApi, $stateParams, $rootScope, misc, $state, growl, $timeout, userApi, rentRequestIntentionApi) {
         var api = $scope.api = rentApi
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
+        $scope.getRentIntentionList = function (item) {
+            rentRequestIntentionApi.getAll({
+                params: {
+                    per_page: -1,
+                    sort: 'time,desc',
+                    interested_rent_tickets: JSON.stringify([item.id])
+                },
+                errorMessage: true
+            })
+                .success(function (data) {
+                    $scope.rentIntentionList  = data.val
+                })
+
+        }
 
         if($state.current.name === 'dashboard.rent.detail') {
             if (itemFromParent) {
                 $scope.item = itemFromParent
+                $scope.getRentIntentionList($scope.item)
             } else {
                 api.getOne($stateParams.id, {errorMessage: true})
                     .success(function (data) {
                         $scope.item  = data.val
+                        $scope.getRentIntentionList($scope.item)
                     })
             }
         }
@@ -56,12 +72,7 @@
         }
 
         $scope.updateUserItem = function (item) {
-            userApi.update(item.id, item)
-                .success(function () {
-                    growl.addSuccessMessage($rootScope.renderHtml(i18n('操作成功')),
-                        {enableHtml: true})
-                    location.reload()
-                })
+            return userApi.update(item.id, item)
         }
     }
 

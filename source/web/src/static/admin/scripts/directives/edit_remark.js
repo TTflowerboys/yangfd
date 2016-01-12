@@ -1,5 +1,5 @@
 angular.module('app')
-    .directive('editRemark', function ($rootScope) {
+    .directive('editRemark', function ($rootScope, growl) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/edit_remark.tpl.html',
@@ -13,14 +13,14 @@ angular.module('app')
 
                 $scope.tooltip = function () {
                     setTimeout(function () {
-                        $element.find('[data-toggle="tooltip"]').tooltip({
+                        $element.find('[data-toggle="tooltip"]').tooltip('destroy').tooltip({
                             title: $element.find('[data-toggle="tooltip"]').attr('data-title')
                         })
                     }, 200)
                 }
                 $scope.initEditCustomFields = function () {
                     setTimeout(function () {
-                        $element.find('[data-toggle="tooltip"]').popover({
+                        $element.find('[data-toggle="tooltip"]').popover('destroy').popover({
                             title: $rootScope.i18n('编辑备注'),
                             content: $compile(
                                 $element.find('[data-content]').html()
@@ -42,14 +42,14 @@ angular.module('app')
             link: function (scope, elem) {
                 scope.tooltip()
                 scope.initEditCustomFields()
-
+                scope.remark = ''
                 function updateRemark(){
                     if(_.isArray(scope.customFields)) {
                         scope.remark =(_.find(scope.customFields, function(field){return field.key === 'remark'}) || {}).value
                     }
                 }
                 updateRemark()
-                scope.$watch(scope.customFields, function () {
+                scope.$watch('customFields', function () {
                     updateRemark()
                 })
                 elem.delegate('.changeCustomFields', 'click', function () {
@@ -66,6 +66,13 @@ angular.module('app')
                             custom_fields: customFields
                         }
                     })
+                        .success(function (data) {
+                            growl.addSuccessMessage(window.i18n('备注更改成功'), {enableHtml: true})
+                            scope.customFields = data.val.custom_fields
+                            scope.tooltip()
+                            scope.initEditCustomFields()
+                            elem.find('.remarkBtn').popover('hide')
+                        })
                 })
                 elem.delegate('.hiddenPopover', 'click', function () {
                     elem.find('.remarkBtn').popover('hide')

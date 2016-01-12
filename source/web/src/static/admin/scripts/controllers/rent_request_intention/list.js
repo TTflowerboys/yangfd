@@ -1,12 +1,12 @@
 (function () {
 
-    function ctrlRentRequestIntentionList($scope, fctModal, api, userApi, $filter, enumApi,$rootScope) {
+    function ctrlRentRequestIntentionList($scope, fctModal, rentRequestIntentionApi, userApi, $filter, enumApi,$rootScope, $state) {
+        var api = $scope.api = rentRequestIntentionApi
 
         $scope.list = []
         $scope.perPage = 12
         $scope.currentPageNumber = 1
         $scope.pages = []
-        $scope.api = api
         $scope.selected = {}
         $scope.selected.status = 'requested'
 
@@ -31,14 +31,16 @@
                 params: params, errorMessage: true
             }).success(onGetList)
         }
-        $scope.refreshList()
-        $scope.$watch('selected.status', function (newValue, oldValue) {
-            if (newValue === oldValue) {
-                return
-            }
-            params.status = $scope.selected.status
+        if($state.current.name === 'dashboard.rent_request_intention') {
             $scope.refreshList()
-        })
+            $scope.$watch('selected.status', function (newValue, oldValue) {
+                if (newValue === oldValue) {
+                    return
+                }
+                params.status = $scope.selected.status
+                $scope.refreshList()
+            })
+        }
 
 
         $scope.nextPage = function () {
@@ -163,17 +165,11 @@
         }
 
         $scope.updateItem = function (item) {
-            api.update(item)
-                .success(function () {
-                    $scope.refreshList()
-                })
+            return api.update(item)
         }
 
         $scope.updateUserItem = function (item) {
-            userApi.update(item.id, item)
-                .success(function () {
-                    $scope.refreshList()
-                })
+            return userApi.update(item.id, item)
         }
 
         enumApi.getOriginEnumsByType('user_referrer').success(

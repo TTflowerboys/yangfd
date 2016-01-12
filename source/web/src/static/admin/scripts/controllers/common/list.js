@@ -113,10 +113,7 @@
         }
 
         $scope.updateItem = function (item) {
-            api.update(item)
-                .success(function () {
-                    $scope.refreshList()
-                })
+            return api.update(item)
         }
 
     }
