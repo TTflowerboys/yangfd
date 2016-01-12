@@ -54,7 +54,7 @@
                         ip: window.i18n('载入中...'),
                         link: ''
                     }
-                    if(item.rent_deadline_time && item.rent_available_time) {
+                    if(item.rent_deadline_time && item.rent_available_time && !_.isEmpty(item.interested_rent_tickets[0])) {
                         var day = (item.rent_deadline_time - item.rent_available_time) / 3600 / 24
                         if(day < 30) {
                             item.payment = parseInt(item.interested_rent_tickets[0].price.value_float / 7 * day / 4)
