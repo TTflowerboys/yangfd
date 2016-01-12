@@ -3,7 +3,6 @@
     function ctrlRentRequestIntentionList($scope, fctModal, rentRequestIntentionApi, userApi, $filter, enumApi,$rootScope, $state) {
         var api = $scope.api = rentRequestIntentionApi
 
-        $scope.list = []
         $scope.perPage = 12
         $scope.currentPageNumber = 1
         $scope.pages = []

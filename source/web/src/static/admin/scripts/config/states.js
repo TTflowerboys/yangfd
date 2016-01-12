@@ -649,12 +649,8 @@ angular.module('app')
             .state('dashboard.users.detail.rent_request_intentions', {
                 url: '/rent-request-intentions',
                 templateUrl: '/static/admin/templates/dashboard.users.detail.rent_request_intentions.tpl.html',
-                controller: 'ctrlRentRequestIntentionList',
-                resolve: {
-                    api: function (userRentRequestIntentionApi) {
-                        return userRentRequestIntentionApi
-                    }
-                }
+                controller: 'ctrlUserRentRequestIntentionList',
+
             })
             .state('dashboard.users.detail.boughts', {
                 url: '/boughts',
