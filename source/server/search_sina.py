@@ -236,8 +236,8 @@ def get_weibo_search_result(keywords_list):
                             for i in re.split(',|\.|。|，', t):
                                 for example in ['微信', '电话', '联系', '邮箱', '地址']:
                                     if i.find(example) != -1:
-                                        # print unicode(i)
                                         array.append(i)
+                                        break
                         result.update({'keyword': array})
                         result_list.append(result)
 
