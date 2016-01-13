@@ -22,6 +22,30 @@ else:
 
 with f_app.mongo() as m:
 
+    # 正在发布的出租房源的街区汇总
+    print('正在发布的出租房源的街区汇总:')
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {'type': 'rent', 'status': 'to rent'}},
+            {'$group': {'_id': "$property_id"}},
+        ]
+    )
+
+    target_property_id_list = []
+    for document in cursor:
+        if(document['_id']):
+            target_property_id_list.append(str(document['_id']))
+
+    target_properties = f_app.i18n.process_i18n(f_app.property.output(target_property_id_list, ignore_nonexist=True, permission_check=False))
+    neighborhood_count_dic = {}
+    for target_property in target_properties:
+        if target_property and 'maponics_neighborhood' in target_property and 'name' in target_property['maponics_neighborhood']:
+            if(target_property['maponics_neighborhood']['name'] in neighborhood_count_dic):
+                neighborhood_count_dic[target_property['maponics_neighborhood']['name']] += 1
+            else:
+                neighborhood_count_dic[target_property['maponics_neighborhood']['name']] = 1
+
+
     # # 分邮件类型来统计邮件发送和打开的状态
     # print('\n分邮件类型来统计邮件发送成功,打开和点击的百分比:')
     # # 计算每类邮件的总数
@@ -198,57 +222,57 @@ with f_app.mongo() as m:
     #     print(user['nickname'].encode('utf-8') + ':' + str(user_login_count_dic[str(user['id'])]))
 
     # 统计多少房源没有填写地理位置
-    print('\n统计多少房源没有填写地理位置:')
-    cursor = m.tickets.aggregate(
-        [
-            {'$match': {
-                'type': 'rent',
-                'status': 'to rent'}}  
-        ]
-    )
+    # print('\n统计多少房源没有填写哪些信息:')
+    # cursor = m.tickets.aggregate(
+    #     [
+    #         {'$match': {
+    #             'type': 'rent',
+    #             'status': 'to rent'}}  
+    #     ]
+    # )
 
-    target_tickets_id_list = []
-    for document in cursor:
-        if(document['_id']):
-            target_tickets_id_list.append(str(document['_id']))
-    target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_tickets_id_list, ignore_nonexist=True, permission_check=False))
-    total_tickets_count = len(target_tickets)
+    # target_tickets_id_list = []
+    # for document in cursor:
+    #     if(document['_id']):
+    #         target_tickets_id_list.append(str(document['_id']))
+    # target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_tickets_id_list, ignore_nonexist=True, permission_check=False))
+    # total_tickets_count = len(target_tickets)
 
-    tickets_count_without_location = []
-    tickets_count_without_report = []
-    tickets_count_insufficient_pic = []
-    tickets_count_without_address = []
-    tickets_count_without_des = []
-    tickets_count_without_indoor = []
-    tickets_count_without_outdoor = []
-    tickets_count_without_surroundings = []
+    # tickets_count_without_location = []
+    # tickets_count_without_report = []
+    # tickets_count_insufficient_pic = []
+    # tickets_count_without_address = []
+    # tickets_count_without_des = []
+    # tickets_count_without_indoor = []
+    # tickets_count_without_outdoor = []
+    # tickets_count_without_surroundings = []
 
-    for ticket in target_tickets:
-        if ticket and 'property' in ticket and 'latitude' not in ticket['property']:
-            tickets_count_without_location.append(ticket)
-        if ticket and 'property' in ticket and 'report_id' not in ticket['property']:
-            tickets_count_without_report.append(ticket)
-        if ticket and 'property' in ticket and 'reality_images' in ticket['property'] and len(ticket['property']['reality_images']) <= 3:
-            tickets_count_insufficient_pic.append(ticket)
-        if ticket and 'property' in ticket and 'address' in ticket['property'] and not ticket['property']['address']:
-            tickets_count_without_address.append(ticket)
-        if ticket and 'property' in ticket and 'description' in ticket['property'] and not ticket['property']['description']:
-            tickets_count_without_des.append(ticket)
-        if ticket and 'property' in ticket and 'indoor_facility' in ticket['property'] and len(ticket['property']['indoor_facility']) < 1:
-            tickets_count_without_indoor.append(ticket)
-        if ticket and 'property' in ticket and 'community_facility' in ticket['property'] and len(ticket['property']['community_facility']) < 1:
-            tickets_count_without_outdoor.append(ticket)
-        if ticket and 'property' in ticket and 'featured_facility' in ticket['property'] and len(ticket['property']['featured_facility']) < 1:
-            tickets_count_without_surroundings.append(ticket)
-    print('Total tickets: ' + str(total_tickets_count))
-    print('\nTotal tickets less than 3 pics: ' + str(len(tickets_count_insufficient_pic)))
-    print('\nTotal tickets without address: ' + str(len(tickets_count_without_address)))
-    print('\nTotal tickets without description: ' + str(len(tickets_count_without_des)))
-    print('\nTotal tickets without indoor_facility: ' + str(len(tickets_count_without_indoor)))
-    print('\nTotal tickets without community_facility: ' + str(len(tickets_count_without_outdoor)))
-    print('\nTotal tickets without surroundings: ' + str(len(tickets_count_without_surroundings)))
-    print('\nTotal tickets without location: ' + str(len(tickets_count_without_location)))
-    print('\nTotal tickets without report: ' + str(len(tickets_count_without_report)))
+    # for ticket in target_tickets:
+    #     if ticket and 'property' in ticket and 'latitude' not in ticket['property']:
+    #         tickets_count_without_location.append(ticket)
+    #     if ticket and 'property' in ticket and 'report_id' not in ticket['property']:
+    #         tickets_count_without_report.append(ticket)
+    #     if ticket and 'property' in ticket and 'reality_images' in ticket['property'] and len(ticket['property']['reality_images']) <= 3:
+    #         tickets_count_insufficient_pic.append(ticket)
+    #     if ticket and 'property' in ticket and 'address' in ticket['property'] and not ticket['property']['address']:
+    #         tickets_count_without_address.append(ticket)
+    #     if ticket and 'property' in ticket and 'description' in ticket['property'] and not ticket['property']['description']:
+    #         tickets_count_without_des.append(ticket)
+    #     if ticket and 'property' in ticket and 'indoor_facility' in ticket['property'] and len(ticket['property']['indoor_facility']) < 1:
+    #         tickets_count_without_indoor.append(ticket)
+    #     if ticket and 'property' in ticket and 'community_facility' in ticket['property'] and len(ticket['property']['community_facility']) < 1:
+    #         tickets_count_without_outdoor.append(ticket)
+    #     if ticket and 'property' in ticket and 'featured_facility' in ticket['property'] and len(ticket['property']['featured_facility']) < 1:
+    #         tickets_count_without_surroundings.append(ticket)
+    # print('Total tickets: ' + str(total_tickets_count))
+    # print('\nTotal tickets less than 3 pics: ' + str(len(tickets_count_insufficient_pic)))
+    # print('\nTotal tickets without address: ' + str(len(tickets_count_without_address)))
+    # print('\nTotal tickets without description: ' + str(len(tickets_count_without_des)))
+    # print('\nTotal tickets without indoor_facility: ' + str(len(tickets_count_without_indoor)))
+    # print('\nTotal tickets without community_facility: ' + str(len(tickets_count_without_outdoor)))
+    # print('\nTotal tickets without surroundings: ' + str(len(tickets_count_without_surroundings)))
+    # print('\nTotal tickets without location: ' + str(len(tickets_count_without_location)))
+    # print('\nTotal tickets without report: ' + str(len(tickets_count_without_report)))
 
     # for ticket in tickets_count_without_both:
     #     if ticket is not None:
