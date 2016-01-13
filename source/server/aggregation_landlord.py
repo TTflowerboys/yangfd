@@ -91,10 +91,10 @@ with f_app.mongo() as m:
             print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
 
     # 出租房出租类型统计
-    print('\n正在发布中的房源里的出租类型统计:')
+    print('\n发布中和已租出的房源里的出租类型统计:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {'type': "rent", 'status': "to rent"}},
+            {'$match': {'type': "rent", $or: [{'status': "rent"}, {'status': "to rent"}]}},
             {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
         ]
     )
@@ -103,11 +103,11 @@ with f_app.mongo() as m:
         if(document['_id']):
             print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
 
-    # 正在发布中的房源里的房东类型统计
-    print('\n正在发布中的房源里的房东类型统计:')
+    # 发布中和已租出的房源里的房东类型统计
+    print('\n发布中和已租出的房源里的房东类型统计:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {'type': "rent", 'status': "to rent"}},
+            {'$match': {'type': "rent", $or: [{'status': "rent"}, {'status': "to rent"}]}},
             {'$group': {'_id': "$landlord_type", 'count': {'$sum': 1}}}
         ]
     )
@@ -120,7 +120,7 @@ with f_app.mongo() as m:
     print('正在发布的出租房源的位置分布:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {'type': 'rent', 'status': 'to rent'}},
+            {'$match': {'type': 'rent', $or: [{'status': "rent"}, {'status': "to rent"}] }},
             {'$group': {'_id': "$property_id"}},
         ]
     )
@@ -160,7 +160,7 @@ with f_app.mongo() as m:
     cursor = m.tickets.find(
         {
             'type': "rent",
-            'status': "to rent"
+            $or: [{'status': "rent"}, {'status': "to rent"}]
         }
     )
     target_currency = 'GBP'
@@ -189,11 +189,11 @@ with f_app.mongo() as m:
     print('单间均价:', total_single_price/single_count)
     print('整租均价:', total_entire_price/entire_count)
 
-    # 正在发布中的整套房源里的房东类型统计
-    print('\n正在发布中的整套房源里的房东类型统计:')
+    # 发布中和已租出的整套房源里的房东类型统计
+    print('\n发布中和已租出的整套房源里的房东类型统计:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {'type': "rent", 'status': "to rent", 'rent_type._id': ObjectId('55645cf5666e3d0f57d6e284')}},
+            {'$match': {'type': "rent", $or: [{'status': "rent"}, {'status': "to rent"}], 'rent_type._id': ObjectId('55645cf5666e3d0f57d6e284')}},
             {'$group': {'_id': "$landlord_type", 'count': {'$sum': 1}}}
         ]
     )
@@ -202,14 +202,14 @@ with f_app.mongo() as m:
         if(document['_id']):
             print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
 
-    # 正在发布中的房源里按最短接受租期的统计:
+    # 发布中和已租出的房源里按最短接受租期的统计:
     # 日租<1month 1month<=中短<3month <=3month中长<6month >=6month长租
-    print('\n正在发布中的房源里按最短接受租期的统计:')
+    print('\n发布中和已租出的房源里按最短接受租期的统计:')
     cursor = m.tickets.aggregate(
         [
             {'$match': {
                 'type': "rent",
-                'status': "to rent"
+                $or: [{'status': "rent"}, {'status': "to rent"}]
                 }},
             {'$group': {'_id': "$minimum_rent_period", 'count': {'$sum': 1}}}
         ]
