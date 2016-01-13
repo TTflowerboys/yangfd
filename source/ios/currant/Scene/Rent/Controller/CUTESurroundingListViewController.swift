@@ -30,6 +30,7 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
 
     override func loadView() {
         self.view = UITableView(frame: CGRectZero, style: UITableViewStyle.Plain)
+        self.view.frame = UIScreen.mainScreen().bounds
         self.tableView = self.view as! UITableView
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -77,6 +78,7 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
         }
 
         self.hintLabel?.hidden = !show
+        self.tableView.backgroundView?.setNeedsLayout()
     }
 
     func checkShowSurroundingAddTooltip() {

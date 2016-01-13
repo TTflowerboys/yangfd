@@ -550,8 +550,13 @@
     CUTEProperty *property = self.form.ticket.property;
     NSString *postCodeIndex = [[property.zipcode stringByReplacingOccurrencesOfString:@" " withString:@""] uppercaseString];
 
-    if (!IsNilNullOrEmpty(postCodeIndex)) {
-
+    if (IsNilNullOrEmpty(postCodeIndex)) {
+        [SVProgressHUD showErrorWithStatus:STR(@"RentPropertyInfo/请添加房产的Postcode")];
+    }
+    else if (property.latitude == nil ||  property.longitude == nil) {
+        [SVProgressHUD showErrorWithStatus:STR(@"RentPropertyInfo/请添加房产位置")];
+    }
+    else {
         if (!IsArrayNilOrEmpty(property.surroundings)) {
             [self openSurroundingEditControllerWithTicket:self.form.ticket];
         }
@@ -585,14 +590,11 @@
 
                     return task;
                 }];
-
-
+                
+                
                 return task;
             }];
         }
-    }
-    else {
-        [SVProgressHUD showErrorWithStatus:STR(@"RentPropertyInfo/请添加房产的Postcode")];
     }
 }
 

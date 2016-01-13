@@ -618,6 +618,10 @@ class CUTEGeoManager: NSObject {
                             tcs.setResult(surroundings)
                         }
                     }
+                    else {
+                        tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                    }
+                    
                     return task;
                 }
             }
@@ -694,7 +698,14 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
+
     func searchSurroundingsWithName(name:String?, latitude:NSNumber?, longitude:NSNumber?, city:CUTECity?, country:CUTECountry?, propertyPostcodeIndex:String!, cancellationToken:BFCancellationToken?) -> BFTask {
+
+        ///Must have location or name
+        if (latitude == nil || longitude == nil) && (name == nil || name == "") {
+            return BFTask(error: NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey: "Must have location or name"]))
+        }
+
         let tcs = BFTaskCompletionSource()
         let sequencer = SwiftSequencer()
 

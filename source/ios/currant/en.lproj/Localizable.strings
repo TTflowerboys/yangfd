@@ -56,6 +56,7 @@
 "RentPropertyInfo/请编辑租金" = "Please enter rental";
 "RentPropertyInfo/租金不能为0" = "Rental should not be 0";
 "RentPropertyInfo/请添加房产的Postcode" = "Please add property's Postcode";
+"RentPropertyInfo/请添加房产位置" = "请添加房产位置";
 "RentPropertyInfo/学校，地铁" = "University, Station";
 "RentPropertyInfo/您的房产地址已经变更，请重新编辑房源的周边" = "您的房产地址已经变更，请重新编辑房源的周边";
 
