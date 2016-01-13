@@ -94,8 +94,8 @@ with f_app.mongo() as m:
     print('\n发布中和已租出的房源里的出租类型统计:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {'status': {$in: ['rent', 'to rent']}}},
             {'$match': {'type': "rent"}},
+            {$or: [{'$match': {'status': 'to rent'}}, {'$match': {'status': 'rent'}}]},
             {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
         ]
     )
@@ -108,8 +108,8 @@ with f_app.mongo() as m:
     print('\n发布中和已租出的房源里的房东类型统计:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {$or: [{'status': "rent"}, {'status': "to rent"}]}},
             {'$match': {'type': "rent"}},
+            {'$match': {$or: [{'status': "rent"}, {'status': "to rent"}]}},
             {'$group': {'_id': "$landlord_type", 'count': {'$sum': 1}}}
         ]
     )
