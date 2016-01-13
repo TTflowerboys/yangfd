@@ -46,7 +46,7 @@
                 this[params.key](data.id)
             }
         },
-        template: '<div data-bind="foreach: list"><span class="property_type" data-bind="text: value, click: $parent.choose.bind($root), css: {selected: id === $root[$parent.key]()}"></span></div>'
+        template: '<div data-bind="foreach: list"><span class="property_type" data-bind="text: value, click: $parent.choose.bind($parents[$parents.length - 2]), css: {selected: id === $parents[$parents.length - 2][$parent.key]()}"></span></div>'
     })
 
     ko.bindingHandlers.dateRangePicker = {
@@ -88,4 +88,35 @@
         },
         template: '<div class="tipsWrap" data-bind="event: {mouseover: showTips, mouseout: hideTips, click: toggleTips}"><i class="questionMark">?</i><div class="tips" data-bind="text: tips, visible: visible"></div></div>'
     })
+    ko.bindingHandlers.scrollTop = {
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor())
+            if (value) {
+                $(element).scrollTop(value)
+            }
+        }
+    }
+
+    ko.bindingHandlers.highlight = {
+        update: function (element, valueAccessor) {
+            if(valueAccessor().text) {
+                $(element).html(valueAccessor().text.replace(new RegExp(valueAccessor().highlight(), 'gi'), function(match){return '<strong>' + match + '</strong>'}))
+            }
+        }
+    }
+
+    module.AppViewModel = function AppViewModel() {
+        this.popupActive = ko.observable()
+    }
+    module.appViewModel = new module.AppViewModel()
+    $(function () {
+        ko.applyBindings(module.appViewModel)
+    })
+    $('body').on('touchmove', function (e) {
+        //当手机上有弹出层时，禁止body滚动
+        if(module.appViewModel.popupActive()) {
+            e.stopImmediatePropagation()
+        }
+    })
+
 })(window.ko, window.currantModule = window.currantModule || {})
