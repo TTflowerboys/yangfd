@@ -857,6 +857,14 @@
 		2CFB05521C43874700E648A0 /* CUTEAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB05501C43874700E648A0 /* CUTEAPNSManager.swift */; };
 		2CFB05531C43874700E648A0 /* CUTEAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB05501C43874700E648A0 /* CUTEAPNSManager.swift */; };
 		2CFB05541C43874700E648A0 /* CUTEAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB05501C43874700E648A0 /* CUTEAPNSManager.swift */; };
+		2CFB055C1C465D8300E648A0 /* CUTEFormCountPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB055B1C465D8300E648A0 /* CUTEFormCountPickerCell.m */; };
+		2CFB055D1C465D8400E648A0 /* CUTEFormCountPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB055B1C465D8300E648A0 /* CUTEFormCountPickerCell.m */; };
+		2CFB055E1C465D8400E648A0 /* CUTEFormCountPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB055B1C465D8300E648A0 /* CUTEFormCountPickerCell.m */; };
+		2CFB055F1C465D8400E648A0 /* CUTEFormCountPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB055B1C465D8300E648A0 /* CUTEFormCountPickerCell.m */; };
+		2CFB05621C4662B000E648A0 /* CUTEFormRangePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB05611C4662B000E648A0 /* CUTEFormRangePickerCell.m */; };
+		2CFB05631C4662B000E648A0 /* CUTEFormRangePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB05611C4662B000E648A0 /* CUTEFormRangePickerCell.m */; };
+		2CFB05641C4662B000E648A0 /* CUTEFormRangePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB05611C4662B000E648A0 /* CUTEFormRangePickerCell.m */; };
+		2CFB05651C4662B000E648A0 /* CUTEFormRangePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB05611C4662B000E648A0 /* CUTEFormRangePickerCell.m */; };
 		34D881172AC55C3D2258749D /* libPods-currantUnitTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9944537C0C578A8C1AC5F4F9 /* libPods-currantUnitTest.a */; };
 		C4A0594E53CF2777C29B6FC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E3282C891185CD9B12868A /* libPods.a */; };
 		CE9A25E962A0F1D3000CCCE0 /* libPods-currantUITest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B61531570149B3B8064A77A9 /* libPods-currantUITest.a */; };
@@ -1325,6 +1333,10 @@
 		2CF8A6A51AF0C2620080DF10 /* BBTPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTPickerView.h; sourceTree = "<group>"; };
 		2CF8A6A61AF0C2620080DF10 /* BBTPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTPickerView.m; sourceTree = "<group>"; };
 		2CFB05501C43874700E648A0 /* CUTEAPNSManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CUTEAPNSManager.swift; sourceTree = "<group>"; };
+		2CFB055A1C465D8300E648A0 /* CUTEFormCountPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormCountPickerCell.h; sourceTree = "<group>"; };
+		2CFB055B1C465D8300E648A0 /* CUTEFormCountPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormCountPickerCell.m; sourceTree = "<group>"; };
+		2CFB05601C4662B000E648A0 /* CUTEFormRangePickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFormRangePickerCell.h; sourceTree = "<group>"; };
+		2CFB05611C4662B000E648A0 /* CUTEFormRangePickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFormRangePickerCell.m; sourceTree = "<group>"; };
 		3D71FAA99AADAD5513E122AE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		5D3E39977A7B87935D649365 /* Pods-currantUnitTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-currantUnitTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-currantUnitTest/Pods-currantUnitTest.release.xcconfig"; sourceTree = "<group>"; };
 		74C38B0D53E631D7141C9D35 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -2117,6 +2129,10 @@
 				2CF8A5CD1AF0B40E0080DF10 /* CUTEFormRoomsPickerCell.m */,
 				2C0AE11A1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.h */,
 				2C0AE11B1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m */,
+				2CFB055A1C465D8300E648A0 /* CUTEFormCountPickerCell.h */,
+				2CFB055B1C465D8300E648A0 /* CUTEFormCountPickerCell.m */,
+				2CFB05601C4662B000E648A0 /* CUTEFormRangePickerCell.h */,
+				2CFB05611C4662B000E648A0 /* CUTEFormRangePickerCell.m */,
 				2CF8A5D81AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.h */,
 				2CF8A5D91AF0B40E0080DF10 /* CUTEUnfinishedRentTicketCell.m */,
 				2CF8A5DA1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketPlaceholderImageView.h */,
@@ -2885,6 +2901,7 @@
 				2CA81FA31B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB7490F1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C0AE11E1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
+				2CFB05641C4662B000E648A0 /* CUTEFormRangePickerCell.m in Sources */,
 				2C1C5A541BF4939C007E0584 /* NSURLRequest+Debug.m in Sources */,
 				2C9D32251BEC5C6A00424CAC /* CUTEPropertyAPIProxy.swift in Sources */,
 				2C1A95E61B75A90D00483A74 /* CUTERentPassword2ViewController.m in Sources */,
@@ -2976,6 +2993,7 @@
 				2C96E2761AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2C2D2E281BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift in Sources */,
 				2C056D5F1B423AB20075037A /* CUTERentLoginViewController.m in Sources */,
+				2CFB055E1C465D8400E648A0 /* CUTEFormCountPickerCell.m in Sources */,
 				2C9F1D181B3A85550034487F /* CUTEUsageRecorder.m in Sources */,
 				2CA2E6B31AC5487800053965 /* main.m in Sources */,
 				2C056D8D1B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
@@ -3076,6 +3094,7 @@
 				2CA81FA41B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB749101ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C0AE11F1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
+				2CFB05651C4662B000E648A0 /* CUTEFormRangePickerCell.m in Sources */,
 				2C1C5A551BF4939C007E0584 /* NSURLRequest+Debug.m in Sources */,
 				2C9D32271BEC5C6B00424CAC /* CUTEPropertyAPIProxy.swift in Sources */,
 				2C1A95E71B75A90E00483A74 /* CUTERentPassword2ViewController.m in Sources */,
@@ -3167,6 +3186,7 @@
 				2C96E2771AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2C2D2E291BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift in Sources */,
 				2C056D601B423AB20075037A /* CUTERentLoginViewController.m in Sources */,
+				2CFB055F1C465D8400E648A0 /* CUTEFormCountPickerCell.m in Sources */,
 				2C9F1D191B3A85550034487F /* CUTEUsageRecorder.m in Sources */,
 				2CA2E6CC1AC5496700053965 /* main.m in Sources */,
 				2C056D8E1B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
@@ -3267,6 +3287,7 @@
 				2CA81FA21B12CB18006E993C /* CUTECity.m in Sources */,
 				2CB7490E1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C0AE11D1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
+				2CFB05631C4662B000E648A0 /* CUTEFormRangePickerCell.m in Sources */,
 				2C1C5A531BF4939C007E0584 /* NSURLRequest+Debug.m in Sources */,
 				2C9D32231BEC5C6A00424CAC /* CUTEPropertyAPIProxy.swift in Sources */,
 				2C1A95E51B75A90D00483A74 /* CUTERentPassword2ViewController.m in Sources */,
@@ -3358,6 +3379,7 @@
 				2C96E2751AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2C2D2E271BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift in Sources */,
 				2C056D5E1B423AB20075037A /* CUTERentLoginViewController.m in Sources */,
+				2CFB055D1C465D8400E648A0 /* CUTEFormCountPickerCell.m in Sources */,
 				2C9F1D171B3A85550034487F /* CUTEUsageRecorder.m in Sources */,
 				2CA94A9D1ACA42CD00DF7497 /* main.m in Sources */,
 				2C056D8C1B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,
@@ -3458,6 +3480,7 @@
 				2CB7490D1ADE4756003BC2A5 /* SVProgressHUD+CUTEAPI.m in Sources */,
 				2C0AE11C1B1ED8A500A73BE6 /* CUTEFormRentPeriodPickerCell.m in Sources */,
 				2CC6C1EB1AEE2E59002758A7 /* CUTERentTicketPublisher.m in Sources */,
+				2CFB05621C4662B000E648A0 /* CUTEFormRangePickerCell.m in Sources */,
 				2C1C5A521BF4939C007E0584 /* NSURLRequest+Debug.m in Sources */,
 				2C9D32211BEC5C6200424CAC /* CUTEPropertyAPIProxy.swift in Sources */,
 				2C4AEC7F1AD6466A004DEE23 /* CUTEUser.m in Sources */,
@@ -3549,6 +3572,7 @@
 				2C96E2741AE6566300F3590C /* CUTEShareManager.m in Sources */,
 				2C2D2E261BAFF9D5008CFFE6 /* UINavigationViewController+CUTERouter.swift in Sources */,
 				2C056D5D1B423AB20075037A /* CUTERentLoginViewController.m in Sources */,
+				2CFB055C1C465D8300E648A0 /* CUTEFormCountPickerCell.m in Sources */,
 				2C9F1D161B3A85550034487F /* CUTEUsageRecorder.m in Sources */,
 				2CB43DAF1ABC1372004DF663 /* main.m in Sources */,
 				2C056D8B1B423ABD0075037A /* CUTERentPasswordForm.m in Sources */,

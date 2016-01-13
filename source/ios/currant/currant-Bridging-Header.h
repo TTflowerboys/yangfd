@@ -69,6 +69,8 @@
 #import "CUTEFormSwitchCell.h"
 #import "CUTEFormTextViewCell.h"
 #import "CUTETooltipView.h"
+#import "CUTEFormCountPickerCell.h"
+#import "CUTEFormRangePickerCell.h"
 
 //view model
 #import "CUTEForm.h"

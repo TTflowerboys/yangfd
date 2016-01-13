@@ -61,6 +61,10 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
     }
 
 
+    func onGenderRequirementEdit(sender:AnyObject)  {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+
     /*
     // MARK: - Navigation
 
