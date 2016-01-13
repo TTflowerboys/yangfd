@@ -91,11 +91,10 @@ with f_app.mongo() as m:
             print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
 
     # 出租房出租类型统计
-    print('\n发布中和已租出的房源里的出租类型统计:')
+    print('\n正在发布中的房源里的出租类型统计:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {'type': "rent"}},
-            {$or: [{'$match': {'status': 'to rent'}}, {'$match': {'status': 'rent'}}]},
+            {'$match': {'type': "rent", 'status': "to rent"}},
             {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
         ]
     )
@@ -104,12 +103,11 @@ with f_app.mongo() as m:
         if(document['_id']):
             print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
 
-    # 发布中和已租出的房源里的房东类型统计
-    print('\n发布中和已租出的房源里的房东类型统计:')
+    # 正在发布中的房源里的房东类型统计
+    print('\n正在发布中的房源里的房东类型统计:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {'type': "rent"}},
-            {'$match': {$or: [{'status': "rent"}, {'status': "to rent"}]}},
+            {'$match': {'type': "rent", 'status': "to rent"}},
             {'$group': {'_id': "$landlord_type", 'count': {'$sum': 1}}}
         ]
     )
@@ -122,8 +120,7 @@ with f_app.mongo() as m:
     print('正在发布的出租房源的位置分布:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {$or: [{'status': "rent"}, {'status': "to rent"}]}},
-            {'$match': {'type': "rent"}},
+            {'$match': {'type': 'rent', 'status': 'to rent'}},
             {'$group': {'_id': "$property_id"}},
         ]
     )
@@ -160,11 +157,11 @@ with f_app.mongo() as m:
 
     # 正在发布的出租房源的租金分布
     print('\n正在发布的出租房源的租金统计')
-    cursor = m.tickets.aggregate(
-        [
-            {'$match': {$or: [{'status': "rent"}, {'status': "to rent"}]}},
-            {'$match': {'type': "rent"}}
-        ]
+    cursor = m.tickets.find(
+        {
+            'type': "rent",
+            'status': "to rent"
+        }
     )
     target_currency = 'GBP'
     rent_type_price_array = []
@@ -192,12 +189,11 @@ with f_app.mongo() as m:
     print('单间均价:', total_single_price/single_count)
     print('整租均价:', total_entire_price/entire_count)
 
-    # 发布中和已租出的整套房源里的房东类型统计
-    print('\n发布中和已租出的整套房源里的房东类型统计:')
+    # 正在发布中的整套房源里的房东类型统计
+    print('\n正在发布中的整套房源里的房东类型统计:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {$or: [{'status': "rent"}, {'status': "to rent"}]}},
-            {'$match': {'type': "rent", 'rent_type._id': ObjectId('55645cf5666e3d0f57d6e284')}},
+            {'$match': {'type': "rent", 'status': "to rent", 'rent_type._id': ObjectId('55645cf5666e3d0f57d6e284')}},
             {'$group': {'_id': "$landlord_type", 'count': {'$sum': 1}}}
         ]
     )
@@ -206,13 +202,15 @@ with f_app.mongo() as m:
         if(document['_id']):
             print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
 
-    # 发布中和已租出的房源里按最短接受租期的统计:
+    # 正在发布中的房源里按最短接受租期的统计:
     # 日租<1month 1month<=中短<3month <=3month中长<6month >=6month长租
-    print('\n发布中和已租出的房源里按最短接受租期的统计:')
+    print('\n正在发布中的房源里按最短接受租期的统计:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {$or: [{'status': "rent"}, {'status': "to rent"}]}},
-            {'$match': {'type': "rent"}},
+            {'$match': {
+                'type': "rent",
+                'status': "to rent"
+                }},
             {'$group': {'_id': "$minimum_rent_period", 'count': {'$sum': 1}}}
         ]
     )
@@ -256,6 +254,59 @@ with f_app.mongo() as m:
     print('>=6month长租<12month:', period_count['long'])
     print('>=12month:', period_count['extra_long'])
 
+    # 统计房源信息完整度情况
+    print('\n统计多少房源没有填写哪些信息:')
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {
+                'type': 'rent',
+                'status': 'to rent'}}  
+        ]
+    )
+
+    target_tickets_id_list = []
+    for document in cursor:
+        if(document['_id']):
+            target_tickets_id_list.append(str(document['_id']))
+    target_tickets = f_app.i18n.process_i18n(f_app.ticket.output(target_tickets_id_list, ignore_nonexist=True, permission_check=False))
+    total_tickets_count = len(target_tickets)
+
+    tickets_count_without_location = []
+    tickets_count_without_report = []
+    tickets_count_insufficient_pic = []
+    tickets_count_without_address = []
+    tickets_count_without_des = []
+    tickets_count_without_indoor = []
+    tickets_count_without_outdoor = []
+    tickets_count_without_surroundings = []
+
+    for ticket in target_tickets:
+        if ticket and 'property' in ticket and 'latitude' not in ticket['property']:
+            tickets_count_without_location.append(ticket)
+        if ticket and 'property' in ticket and 'report_id' not in ticket['property']:
+            tickets_count_without_report.append(ticket)
+        if ticket and 'property' in ticket and 'reality_images' in ticket['property'] and len(ticket['property']['reality_images']) <= 3:
+            tickets_count_insufficient_pic.append(ticket)
+        if ticket and 'property' in ticket and 'address' in ticket['property'] and not ticket['property']['address']:
+            tickets_count_without_address.append(ticket)
+        if ticket and 'property' in ticket and 'description' in ticket['property'] and not ticket['property']['description']:
+            tickets_count_without_des.append(ticket)
+        if ticket and 'property' in ticket and 'indoor_facility' in ticket['property'] and len(ticket['property']['indoor_facility']) < 1:
+            tickets_count_without_indoor.append(ticket)
+        if ticket and 'property' in ticket and 'community_facility' in ticket['property'] and len(ticket['property']['community_facility']) < 1:
+            tickets_count_without_outdoor.append(ticket)
+        if ticket and 'property' in ticket and 'featured_facility' in ticket['property'] and len(ticket['property']['featured_facility']) < 1:
+            tickets_count_without_surroundings.append(ticket)
+    print('Total tickets: ' + str(total_tickets_count))
+    print('\nTotal tickets less than 3 pics: ' + str(len(tickets_count_insufficient_pic)))
+    print('\nTotal tickets without address: ' + str(len(tickets_count_without_address)))
+    print('\nTotal tickets without description: ' + str(len(tickets_count_without_des)))
+    print('\nTotal tickets without indoor_facility: ' + str(len(tickets_count_without_indoor)))
+    print('\nTotal tickets without community_facility: ' + str(len(tickets_count_without_outdoor)))
+    print('\nTotal tickets without surroundings: ' + str(len(tickets_count_without_surroundings)))
+    print('\nTotal tickets without location: ' + str(len(tickets_count_without_location)))
+    print('\nTotal tickets without report: ' + str(len(tickets_count_without_report)))
+
     # 出租房出租类型统计
     print('\n已经出租的房源里的出租类型统计:')
     cursor = m.tickets.aggregate(
@@ -268,3 +319,4 @@ with f_app.mongo() as m:
     for document in cursor:
         if(document['_id']):
             print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
+
