@@ -1,0 +1,13 @@
+defineClass("CUTERentPropertyInfoViewController", {
+    editSurrounding: function () {
+        var form = self.form()
+        var ticket = form.ticket()
+        var testProperty = ticket.property()        
+        if (!testProperty.latitude() || !testProperty.longitude()) {
+            var hud = require('SVProgressHUD')
+            hud.showErrorWithStatus("请添加房产位置")
+            return 
+        }
+        self.ORIGeditSurrounding()
+    }
+})
