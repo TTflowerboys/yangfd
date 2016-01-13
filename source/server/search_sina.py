@@ -10,6 +10,9 @@ from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment
 import Levenshtein
 import re
+import json
+from six.moves import urllib
+from pyquery import PyQuery as pq
 
 username = "13545078924"
 password = "bbt12345678"
@@ -41,7 +44,9 @@ def get_weibo_search_result(keywords_list):
     with f_app.sina_search(username=username, password=password) as ss:
 
         header = ['微薄帐号', '时间', '链接地址', '最新内容', '来源关键词', '长期/短期', '名字', '电话', '微信', '邮箱', 'qq', '地址']
-        result_weibo = {}
+        header_powerapple = ['论坛帐号', '时间', '链接地址', '标题', '联系方式', '长期/短期', '名字', '电话', '微信', '邮箱', 'qq', '地址']
+        result_weibo = []
+        result_powerapple = []
 
         def get_correct_col_index(num):
             if num > 26*26:
@@ -193,10 +198,56 @@ def get_weibo_search_result(keywords_list):
                 print single['text']
             return result
 
-        result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
+        def crawler_powerapple():
+            list_url = 'http://www.powerapple.com/bbs/forums/10141'
+            page = 1
+            result_list = []
+            while(page <= 8):
+                print 'page: '+unicode(page)
+                target_url = list_url + '?page=' + unicode(page)
+                page += 1
+                max_time = datetime(1970, 1, 1)
+                try:
+                    list_page = f_app.request.get(target_url)
+                except:
+                    continue
+                dom = pq(list_page.content)
+                topics = dom('li.topic-li')
+                for topic_dom in topics:
+                    topic = pq(topic_dom)
+                    result = {}
+                    array = []
+                    if topic.attr('data-stick') == 'false':
+                        result.update({'text': topic('h4')('span')[0].text})
+                        result.update({'link': 'http://www.powerapple.com' + topic('h4')('a').attr('href')})
+                        result.update({'name': topic('div.authortime div.username a')[0].text})
+                        time = datetime.strptime(topic('div.authortime div.threadtime')[0].text.replace('\n', '').replace(' ', ''), '%Y-%m-%d')
+                        result.update({'time': unicode(time)})
+                        max_time = max(time, max_time)
+                        try:
+                            topic_page = f_app.request.get(result['link'])
+                        except:
+                            continue
+                        text = [single.text() for single in pq(pq(topic_page.content)('div.post-list li')[1])('div.post-main div.postbody').items()]
+                        for t in text:
+                            for i in re.split(',|\.|。|，', t):
+                                for example in ['微信', '电话', '联系', '邮箱', '地址']:
+                                    if i.find(example) != -1:
+                                        # print unicode(i)
+                                        array.append(i)
+                        result.update({'keyword': array})
+                        result_list.append(result)
+
+                if max_time < datetime(2015, 11, 1):
+                    break
+            return result_list
+
+        # result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
+        result_powerapple = crawler_powerapple()
 
         wb = Workbook()
         ws = wb.active
+        ws_powerapple = wb.create_sheet()
 
         ws.append(header)
 
@@ -208,33 +259,45 @@ def get_weibo_search_result(keywords_list):
                 single['text'],
                 ' & '.join(single['keyword'])
             ])
-
         add_link(ws, 'C')
         format_fit(ws)
+
+        ws_powerapple.append(header_powerapple)
+        for single in result_powerapple:
+            ws_powerapple.append([
+                single['name'],
+                single['time'],
+                single['link'],
+                single['text'],
+                '\n'.join(single['keyword'])
+            ])
+        add_link(ws_powerapple, 'C')
+        format_fit(ws_powerapple)
+
         today = date.today()
         if day_shift:
             wb.save('weibo_search' + unicode(today - timedelta(days=day_shift)) + '~' + unicode(today) + '.xlsx')
         else:
             wb.save('weibo_search' + unicode(today) + '.xlsx')
 
-        wb = Workbook()
-        ws = wb.active
-
-        ws.append(["keyword", "源数据量", "按日期筛选后剩余", "去重以后剩余"])
-
-        for single in analyze_keyword_count_orign:
-            ws.append([
-                single,
-                unicode(analyze_keyword_count_orign[single]) if single in analyze_keyword_count_orign else unicode(0),
-                unicode(analyze_keyword_count_date[single]) if single in analyze_keyword_count_date else unicode(0),
-                unicode(analyze_keyword_count_final[single]) if single in analyze_keyword_count_final else unicode(0)
-            ])
-
-        format_fit(ws)
-        if day_shift:
-            wb.save('weibo_search_keyword_analyze' + unicode(today - timedelta(days=day_shift)) + '~' + unicode(today)+'.xlsx')
-        else:
-            wb.save('weibo_search_keyword_analyze' + unicode(today)+'.xlsx')
+        # wb = Workbook()
+        # ws = wb.active
+        #
+        # ws.append(["keyword", "源数据量", "按日期筛选后剩余", "去重以后剩余"])
+        #
+        # for single in analyze_keyword_count_orign:
+        #     ws.append([
+        #         single,
+        #         unicode(analyze_keyword_count_orign[single]) if single in analyze_keyword_count_orign else unicode(0),
+        #         unicode(analyze_keyword_count_date[single]) if single in analyze_keyword_count_date else unicode(0),
+        #         unicode(analyze_keyword_count_final[single]) if single in analyze_keyword_count_final else unicode(0)
+        #     ])
+        #
+        # format_fit(ws)
+        # if day_shift:
+        #     wb.save('weibo_search_keyword_analyze' + unicode(today - timedelta(days=day_shift)) + '~' + unicode(today)+'.xlsx')
+        # else:
+        #     wb.save('weibo_search_keyword_analyze' + unicode(today)+'.xlsx')
 
 
 analyze_keyword_count_orign = {}
