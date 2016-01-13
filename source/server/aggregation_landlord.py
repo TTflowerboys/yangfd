@@ -152,14 +152,28 @@ with f_app.mongo() as m:
     target_currency = 'GBP'
     rent_type_price_array = []
     for document in cursor:
-        rent_type = f_app.enum.get(document['rent_type']['_id'])['value']['zh_Hans_CN'].encode('utf-8')
-        for currency in f_app.common.currency:
-            if currency == target_currency:
-                rent_type_price_array.append({'rent_type': rent_type, 'price': document['price']['value_float']})
-            else:
-                converted_price_value = float(f_app.i18n.convert_currency({"unit": target_currency, "value_float": document['price']['value_float']}, currency))
-                rent_type_price_array.append({'rent_type': rent_type, 'price': converted_price_value})
-    print(rent_type_price_array)
+        rent_type_id = document['rent_type']['_id']
+        if document['price']['unit'] == target_currency:
+            rent_type_price_array.append({'rent_type_id': rent_type_id, 'price': document['price']['value_float']})
+        else:
+            converted_price_value = float(f_app.i18n.convert_currency({"unit": document['price']['unit'], "value_float": document['price']['value_float']}, target_currency))
+            rent_type_price_array.append({'rent_type_id': rent_type_id, 'price': converted_price_value})
+    total_price = 0
+    total_single_price = 0
+    single_count = 0
+    total_entire_price = 0
+    entire_count = 0
+    for ticket in rent_type_price_array:
+        total_price += ticket['price']
+        if ticket['rent_type_id'] == ObjectId("55645cf5666e3d0f57d6e283"):
+            single_count += 1
+            total_single_price += ticket['price']
+        else:
+            entire_count += 1
+            total_entire_price += ticket['price']
+    print('\n均价:', total_price/len(rent_type_price_array))
+    print('\n单间均价:', total_single_price/single_count)
+    print('\n整租均价:', total_entire_price/entire_count)
 
     # 正在发布中的整套房源里的房东类型统计
     print('\n正在发布中的整套房源里的房东类型统计:')
