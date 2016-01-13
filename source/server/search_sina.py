@@ -228,7 +228,10 @@ def get_weibo_search_result(keywords_list):
                             topic_page = f_app.request.get(result['link'])
                         except:
                             continue
-                        text = [single.text() for single in pq(pq(topic_page.content)('div.post-list li')[1])('div.post-main div.postbody').items()]
+                        try:
+                            text = [single.text() for single in pq(pq(topic_page.content)('div.post-list li')[1])('div.post-main div.postbody').items()]
+                        except:
+                            continue
                         for t in text:
                             for i in re.split(',|\.|。|，', t):
                                 for example in ['微信', '电话', '联系', '邮箱', '地址']:
