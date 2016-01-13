@@ -39,6 +39,18 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
              @"rentType": @"rent_type",
              @"ticketDescription": @"description",
              @"creatorUser": @"creator_user",
+             @"genderRequirement": @"gender_requirement",
+             @"minAge": @"min_age",
+             @"maxAge": @"max_age",
+             @"occupation": @"occupation",
+             @"noSmoking": @"no_smoking",
+             @"noPet": @"no_pet",
+             @"noBaby": @"no_baby",
+             @"otherRequirements": @"other_requirements",
+             @"currentMaleRoommates": @"current_male_roommates",
+             @"currentFemaleRoommates": @"current_female_roommates",
+             @"availableRooms": @"available_rooms",
+             @"independentBathroom": @"indenpendent_bathroome",
              };
 }
 
@@ -75,6 +87,11 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
 + (NSValueTransformer *)priceJSONTransformer
 {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
+}
+
++ (NSValueTransformer *)occupationJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTEEnum class]];
 }
 
 - (void)appendPart:(NSString *)part forString:(NSMutableString *)string {
@@ -159,6 +176,42 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
         return value;
     }
     else if ([key isEqualToString:@keypath(self.ticketDescription)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.genderRequirement)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.minAge)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.maxAge)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.occupation)] && [value isKindOfClass:[CUTEEnum class]]) {
+        return [(CUTEEnum *)value identifier];
+    }
+    else if ([key isEqualToString:@keypath(self.noSmoking)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.noPet)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.noBaby)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.otherRequirements)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.currentFemaleRoommates)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.currentMaleRoommates)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.availableRooms)]) {
+        return value;
+    }
+    else if ([key isEqualToString:@keypath(self.independentBathroom)]) {
         return value;
     }
 

@@ -58,6 +58,29 @@ extern NSString *LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount);
 
 @property (strong, nonatomic) CUTEUser *creatorUser;
 
+@property (strong, nonatomic) NSString *genderRequirement;
+
+@property (strong, nonatomic) NSNumber *minAge;
+
+@property (strong, nonatomic) NSNumber *maxAge;
+
+@property (strong, nonatomic) CUTEEnum *occupation;
+
+@property (strong, nonatomic) NSNumber *noSmoking;
+
+@property (strong, nonatomic) NSNumber *noPet;
+
+@property (strong, nonatomic) NSNumber *noBaby;
+
+@property (strong, nonatomic) NSString *otherRequirements;
+
+@property (strong, nonatomic) NSNumber *currentMaleRoommates;
+
+@property (strong, nonatomic) NSNumber *currentFemaleRoommates;
+
+@property (strong, nonatomic) NSNumber *availableRooms;
+
+@property (strong, nonatomic) NSNumber *independentBathroom;
 
 - (NSString *)titleForDisplay;
 
