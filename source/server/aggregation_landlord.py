@@ -94,7 +94,7 @@ with f_app.mongo() as m:
     print('\n发布中和已租出的房源里的出租类型统计:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {$or: [{'status': "rent"}, {'status': "to rent"}]}},
+            {'$match': {'status': {$in: ['rent', 'to rent']}}},
             {'$match': {'type': "rent"}},
             {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
         ]
