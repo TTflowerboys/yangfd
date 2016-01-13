@@ -94,7 +94,8 @@ with f_app.mongo() as m:
     print('\n发布中和已租出的房源里的出租类型统计:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {'type': "rent", $or: [{'status': "rent"}, {'status': "to rent"}]}},
+            {'$match': {$or: [{'status': "rent"}, {'status': "to rent"}]}},
+            {'$match': {'type': "rent"}},
             {'$group': {'_id': "$rent_type", 'count': {'$sum': 1}}}
         ]
     )
@@ -107,7 +108,8 @@ with f_app.mongo() as m:
     print('\n发布中和已租出的房源里的房东类型统计:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {'type': "rent", $or: [{'status': "rent"}, {'status': "to rent"}]}},
+            {'$match': {$or: [{'status': "rent"}, {'status': "to rent"}]}},
+            {'$match': {'type': "rent"}},
             {'$group': {'_id': "$landlord_type", 'count': {'$sum': 1}}}
         ]
     )
@@ -120,7 +122,8 @@ with f_app.mongo() as m:
     print('正在发布的出租房源的位置分布:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {'type': 'rent', $or: [{'status': "rent"}, {'status': "to rent"}] }},
+            {'$match': {$or: [{'status': "rent"}, {'status': "to rent"}]}},
+            {'$match': {'type': "rent"}},
             {'$group': {'_id': "$property_id"}},
         ]
     )
@@ -157,11 +160,11 @@ with f_app.mongo() as m:
 
     # 正在发布的出租房源的租金分布
     print('\n正在发布的出租房源的租金统计')
-    cursor = m.tickets.find(
-        {
-            'type': "rent",
-            $or: [{'status': "rent"}, {'status': "to rent"}]
-        }
+    cursor = m.tickets.aggregate(
+        [
+            {'$match': {$or: [{'status': "rent"}, {'status': "to rent"}]}},
+            {'$match': {'type': "rent"}}
+        ]
     )
     target_currency = 'GBP'
     rent_type_price_array = []
@@ -193,7 +196,8 @@ with f_app.mongo() as m:
     print('\n发布中和已租出的整套房源里的房东类型统计:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {'type': "rent", $or: [{'status': "rent"}, {'status': "to rent"}], 'rent_type._id': ObjectId('55645cf5666e3d0f57d6e284')}},
+            {'$match': {$or: [{'status': "rent"}, {'status': "to rent"}]}},
+            {'$match': {'type': "rent", 'rent_type._id': ObjectId('55645cf5666e3d0f57d6e284')}},
             {'$group': {'_id': "$landlord_type", 'count': {'$sum': 1}}}
         ]
     )
@@ -207,10 +211,8 @@ with f_app.mongo() as m:
     print('\n发布中和已租出的房源里按最短接受租期的统计:')
     cursor = m.tickets.aggregate(
         [
-            {'$match': {
-                'type': "rent",
-                $or: [{'status': "rent"}, {'status': "to rent"}]
-                }},
+            {'$match': {$or: [{'status': "rent"}, {'status': "to rent"}]}},
+            {'$match': {'type': "rent"}},
             {'$group': {'_id': "$minimum_rent_period", 'count': {'$sum': 1}}}
         ]
     )
