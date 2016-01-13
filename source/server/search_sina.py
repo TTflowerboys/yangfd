@@ -268,7 +268,8 @@ def get_weibo_search_result(keywords_list):
                 single['name'],
                 single['time'],
                 single['link'],
-                single['text']
+                single['text'],
+                '\n'.join(single['keyword'])
             ])
         add_link(ws_powerapple, 'C')
         format_fit(ws_powerapple)
