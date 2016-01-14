@@ -17,6 +17,9 @@ import random
 from time import sleep
 
 day_shift = int(sys.argv[1]) if len(sys.argv) > 1 else 0  # the date how many days before will be loaded
+server = False
+if len(sys.argv) > 1:
+    server = True
 
 
 def generate_keyword_list(filename):
@@ -352,14 +355,16 @@ def get_weibo_search_result(keywords_list):
     result_powerapple = []
     result_douban_group = []
 
-    result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
-    # result_powerapple = crawler_powerapple('10141')
-    result_douban_group = crawler_douban_group([
-        'ukhome',
-        '436707',
-        '338873',
-        'LondonHome'
-    ])
+    if server:
+        result_powerapple = crawler_powerapple('10141')
+    else:
+        result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
+        result_douban_group = crawler_douban_group([
+            'ukhome',
+            '436707',
+            '338873',
+            'LondonHome'
+        ])
 
     wb = Workbook()
     ws_weibo = wb.active
