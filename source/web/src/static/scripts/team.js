@@ -60,17 +60,10 @@
             var re = new RegExp('([?&])' + name + '=.*?(&|$)', 'i');
             var separator = urlWithoutHash.indexOf('?') !== -1 ? '&' : '?';
             if (urlWithoutHash.match(re)) {
-                if (value === '' || value === undefined) {
-                    return urlWithoutHash.replace(re, function (match, p1, p2) {
-                            return p2 === '' ? '' : (p1 === '?' ? '?' : p2)
-                        }) + hash
-                } else {
-                    return urlWithoutHash.replace(re, '$1' + name + '=' + encodeURIComponent(value) + '$2') + hash
-                }
-            } else if(value !== '' && value !== undefined) {
+                return urlWithoutHash.replace(re, '$1' + name + '=' + encodeURIComponent(value) + '$2') + hash
+            }
+            else {
                 return urlWithoutHash + separator + name + '=' + encodeURIComponent(value) + hash
-            } else {
-                return urlWithoutHash + hash
             }
         },
         getHash: function (n) {

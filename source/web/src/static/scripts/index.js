@@ -1,4 +1,4 @@
-(function (ko, module) {
+(function (ko) {
 
     /*
      Bridge Life Cycle Sample Code
@@ -612,7 +612,8 @@
         }
         this.init()
     }
-    module.appViewModel.indexViewModel = new IndexViewModel()
+    var indexViewModel = new IndexViewModel()
+    ko.applyBindings(indexViewModel)
 
     function initBlurOfTabBox() {
         if(!window.team.isPhone()) {
@@ -634,4 +635,4 @@
     }
     initBlurOfTabBox()
     $(window).resize(initBlurOfTabBox)
-})(window.ko, window.currantModule = window.currantModule || {})
+})(window.ko)

@@ -285,8 +285,8 @@
         clearData('neighborhood')
         clearData('city')
         clearData('country')
-        module.appViewModel.propertyViewModel.latitude('')
-        module.appViewModel.propertyViewModel.longitude('')
+        propertyViewModel.latitude('')
+        propertyViewModel.longitude('')
     }
 
     $('#findAddress').click(function () {
@@ -308,11 +308,11 @@
             if (val.neighborhoods && val.neighborhoods.length) {
                 $('#neighborhood').val(val.neighborhoods[0].id)
             }
-            module.appViewModel.propertyViewModel.latitude(val.latitude)
-            module.appViewModel.propertyViewModel.longitude(val.longitude)
+            propertyViewModel.latitude(val.latitude)
+            propertyViewModel.longitude(val.longitude)
             window.geonamesApi.getCityByLocation(val.country, val.latitude, val.longitude, function (val) {
-                if(module.appViewModel.propertyViewModel.latitude() && module.appViewModel.propertyViewModel.longitude()) {
-                    var geocodeApiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + module.appViewModel.propertyViewModel.latitude() + ',' + module.appViewModel.propertyViewModel.longitude() + '&result_type=street_address&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
+                if(propertyViewModel.latitude() && propertyViewModel.longitude()) {
+                    var geocodeApiUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + propertyViewModel.latitude() + ',' + propertyViewModel.longitude() + '&result_type=street_address&key=AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
                     $.betterGet('/reverse_proxy?link=' + encodeURIComponent(geocodeApiUrl))
                         .done(function (data) {
                             data = JSON.parse(data)
@@ -339,12 +339,12 @@
                 $('#city-select').html(
                     _.reduce(val, function(pre, val, key) {
                         if(key === 0) {
-                            module.appViewModel.propertyViewModel.city(val.id)
+                            propertyViewModel.city(val.id)
                         }
                         return pre + '<option value="' + val.id + '"' + (key === 0 ? 'selected' : '') + '>' + val.name + (val.country === 'US' ? ' (' + val.admin1 + ')' : '') + '</option>' //美国的城市有很多重名，要在后面加上州名缩写
                     }, '<option value="">' + i18n('请选择城市') + '</option>')
                 ).trigger('chosen:updated').trigger('change')
-                if(module.appViewModel.propertyViewModel.latitude() && module.appViewModel.propertyViewModel.longitude()) {
+                if(propertyViewModel.latitude() && propertyViewModel.longitude()) {
                     initSurrouding()
                 }
             }, function () {
@@ -705,13 +705,13 @@
         }))
         var propertyData = $.extend(options, {
             'name': wrapData(address),
-            'property_type': module.appViewModel.propertyViewModel.propertyType(),
+            'property_type': propertyViewModel.propertyType(),
             'country': $('#country').val(), //todo
             'city': $('#city').val(), //todo
             'street': wrapData($('#street').val()), //todo
             'address': wrapData(address),
             'highlight': wrapData([]), //todo?
-            'reality_images': wrapData(module.appViewModel.propertyViewModel.imageArr()),
+            'reality_images': wrapData(propertyViewModel.imageArr()),
             'region_highlight': JSON.stringify(regionHighlight),
             //'kitchen_count': $('#kitchen_count').children('option:selected').val(),
             'bathroom_count': $('#bathroom_count').children('option:selected').val(),
@@ -724,8 +724,8 @@
             'zipcode': $('#postcode').val().trim().toUpperCase(),
             'user_generated': true
         })
-        if(module.appViewModel.propertyViewModel.surrouding().length) {
-            propertyData.featured_facility = JSON.stringify(_.map(_.clone(module.appViewModel.propertyViewModel.surrouding()), function (item) {
+        if(propertyViewModel.surrouding().length) {
+            propertyData.featured_facility = JSON.stringify(_.map(_.clone(propertyViewModel.surrouding()), function (item) {
                 var obj = {}
                 obj[item.type.slug] = item.id
                 obj.type = item.type.id
@@ -754,11 +754,11 @@
         if($('#rentalType .selected').index() === 1 && getSpace() !== false){
             propertyData.space = getSpace()
         }
-        if(module.appViewModel.propertyViewModel.latitude() !== '') {
-            propertyData.latitude = module.appViewModel.propertyViewModel.latitude()
+        if(propertyViewModel.latitude() !== '') {
+            propertyData.latitude = propertyViewModel.latitude()
         }
-        if(module.appViewModel.propertyViewModel.longitude() !== '') {
-            propertyData.longitude = module.appViewModel.propertyViewModel.longitude()
+        if(propertyViewModel.longitude() !== '') {
+            propertyData.longitude = propertyViewModel.longitude()
         }
         if($('.ajax-file-upload-statusbar.cover').length) {
             propertyData.cover = wrapData($('.ajax-file-upload-statusbar.cover').attr('data-url'))
@@ -1273,7 +1273,9 @@
             this.addAnimate()
         }
     }
-    module.appViewModel.propertyViewModel = new PropertyViewModel()
+    var propertyViewModel = new PropertyViewModel()
+    module.propertyViewModel = propertyViewModel
+    ko.applyBindings(propertyViewModel)
 
     function mixedSearch(params) {
         return window.Q($.betterPost('/api/1/main_mixed_index/search', {
@@ -1290,7 +1292,7 @@
         return window.Q.Promise(function(resolve, reject, notify) {
             window.project.getEnum('featured_facility_type')
                 .then(function (types) {
-                    mixedSearch({types: types, latitude: module.appViewModel.propertyViewModel.latitude(), longitude: module.appViewModel.propertyViewModel.longitude(), city: module.appViewModel.propertyViewModel.city()}).
+                    mixedSearch({types: types, latitude: module.propertyViewModel.latitude(), longitude: module.propertyViewModel.longitude(), city: module.propertyViewModel.city()}).
                         then(_.bind(function (resultsOfMixedSearch) {
                             resolve(_.filter((_.map(resultsOfMixedSearch, function (item) {
                                 var intersection = _.intersection(_.map(types, function (type) { return type.slug }), _.keys(item))
@@ -1315,7 +1317,7 @@
         if(!originPostcode.length) {
             return
         }
-        module.appViewModel.propertyViewModel.surroudingHint(window.i18n('正在为您的房源搜索周边的学校和地铁....'))
+        propertyViewModel.surroudingHint(window.i18n('正在为您的房源搜索周边的学校和地铁....'))
         window.Q.all([getSurrouding(), getModes()])
             .then(function(data){
                 var originSurrouding = data[0]
@@ -1324,7 +1326,7 @@
                     return item.postcode_index || item.zipcode_index || (item.latitude + ',' + item.longitude)
                 })
                 if(originSurrouding.length === 0) {
-                    module.appViewModel.propertyViewModel.surroudingHint(window.i18n('没有在您的房源周边发现学校和地铁，您可以自行搜索添加'))
+                    propertyViewModel.surroudingHint(window.i18n('没有在您的房源周边发现学校和地铁，您可以自行搜索添加'))
                     return
                 }
                 module.distanceMatrix(originPostcode, destinations, modes)
@@ -1345,17 +1347,17 @@
                             })
                             return item
                         })
-                        module.appViewModel.propertyViewModel.surroudingHint('')
-                        module.appViewModel.propertyViewModel.surrouding(surrouding)
+                        propertyViewModel.surroudingHint('')
+                        propertyViewModel.surrouding(surrouding)
                     })
                     .fail(function (e) {
                         window.dhtmlx.message({ type:'error', text: window.i18n('无法获取到该地点的交通信息:') + e.message})
-                        module.appViewModel.propertyViewModel.surroudingHint(window.i18n('获取周边信息失败，您可以自行搜索添加'))
+                        propertyViewModel.surroudingHint(window.i18n('获取周边信息失败，您可以自行搜索添加'))
                     })
             })
             .fail(function (e) {
                 window.dhtmlx.message({ type:'error', text: window.i18n('获取周边信息失败:') + e.message})
-                module.appViewModel.propertyViewModel.surroudingHint(window.i18n('获取周边信息失败，您可以自行搜索添加'))
+                propertyViewModel.surroudingHint(window.i18n('获取周边信息失败，您可以自行搜索添加'))
             })
     }
 
@@ -1421,9 +1423,9 @@
                 }else{
                     url = data.val.url
                 }
-                var index = module.appViewModel.propertyViewModel.imageArr.indexOf(url)
+                var index = propertyViewModel.imageArr.indexOf(url)
                 if(index >= 0){
-                    module.appViewModel.propertyViewModel.imageArr.splice(index, 1)
+                    propertyViewModel.imageArr.splice(index, 1)
                     uploadObj.existingFileNames.splice(index, 1)
                 }
             },
@@ -1439,11 +1441,11 @@
                     pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').remove()
                     return window.dhtmlx.message({ type:'error', text: window.i18n('上传错误：错误代码') + '(' + data.ret + '),' + data.debug_msg })
                 }
-                module.appViewModel.propertyViewModel.imageArr.push(data.val.url)
+                propertyViewModel.imageArr.push(data.val.url)
                 pd.progressDiv.hide().parent('.ajax-file-upload-statusbar').attr('data-url', data.val.url)
             },
             onLoad:function(obj) {
-                $.each(module.appViewModel.propertyViewModel.imageArr(), function(i, v){
+                $.each(propertyViewModel.imageArr(), function(i, v){
                     var cover = $('.image_panel').attr('data-cover')
                     obj.createProgress(v)
                     var previewElem = $('#uploadProgress').find('.ajax-file-upload-statusbar').eq(i)
