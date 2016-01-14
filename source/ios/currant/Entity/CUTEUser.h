@@ -18,34 +18,34 @@
 
 @interface CUTEUser : MTLModel <MTLJSONSerializing, CUTEModelEditingListenerDelegate>
 
-@property (strong, nonatomic) NSString *identifier;
+@property (nullable, strong, nonatomic) NSString *identifier;
 
-@property (strong, nonatomic) NSString *nickname;
+@property (nonnull, strong, nonatomic) NSString *nickname;
 
-@property (strong, nonatomic) CUTECountry *country;
+@property (nullable, strong, nonatomic) CUTECountry *country;
 
-@property (strong, nonatomic) NSNumber *countryCode;
+@property (nullable, strong, nonatomic) NSNumber *countryCode;
 
-@property (strong, nonatomic) NSString *phone;
+@property (nullable, strong, nonatomic) NSString *phone;
 
-@property (strong, nonatomic) NSString *email;
+@property (nullable, strong, nonatomic) NSString *email;
 
-@property (strong, nonatomic) NSString *wechat;
+@property (nullable, strong, nonatomic) NSString *wechat;
 
-@property (strong, nonatomic) NSNumber *phoneVerified;
+@property (nullable, strong, nonatomic) NSNumber *phoneVerified;
 
-@property (strong, nonatomic) NSArray *privateContactMethods;
+@property (nullable, strong, nonatomic) NSArray *privateContactMethods;
 
-@property (strong, nonatomic) NSArray *roles;
+@property (nullable, strong, nonatomic) NSArray *roles;
 
-@property (strong, nonatomic) NSArray *userTypes;
+@property (nullable, strong, nonatomic) NSArray *userTypes;
 
-@property (strong, nonatomic) NSArray *locales;
+@property (nullable, strong, nonatomic) NSArray *locales;
 
 
-- (BOOL)hasRole:(NSString *)role;
+- (BOOL)hasRole:(NSString *__nonnull)role;
 
-- (NSDictionary *)toParams;
+- (NSDictionary * __nonnull)toParams;
 
 
 @end

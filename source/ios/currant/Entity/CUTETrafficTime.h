@@ -13,12 +13,12 @@
 
 @interface CUTETrafficTime : MTLModel <MTLJSONSerializing>
 
-@property (strong, nonatomic) CUTEEnum *type;
+@property (nullable, strong, nonatomic) CUTEEnum *type;
 
-@property (strong, nonatomic) CUTETimePeriod *time;
+@property (nullable, strong, nonatomic) CUTETimePeriod *time;
 
 @property (nonatomic) BOOL isDefault;
 
-- (NSDictionary *)toParams;
+- (NSDictionary *__nonnull)toParams;
 
 @end

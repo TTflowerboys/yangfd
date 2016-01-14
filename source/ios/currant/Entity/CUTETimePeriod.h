@@ -11,20 +11,20 @@
 
 @interface CUTETimePeriod : MTLModel <MTLJSONSerializing>
 
-@property (strong, nonatomic) NSString *unit;
+@property (nullable, strong, nonatomic) NSString *unit;
 
 @property (nonatomic) int value;
 
-@property (nonatomic, readonly) NSString *unitForDisplay;
+@property (nonnull, nonatomic, readonly) NSString *unitForDisplay;
 
 
 /// - parameter value: time value
 /// - parameter unit: time unit, available in year, month, week, day, hour, minute, second
 /// - returns: CUTETimePeriod
-+ (CUTETimePeriod *)timePeriodWithValue:(int)value unit:(NSString *)unit;
++ (CUTETimePeriod * __nonnull)timePeriodWithValue:(int)value unit:(NSString * __nonnull)unit;
 
-+ (NSString *)getDisplayUnitWithUnit:(NSString *)unit;
++ (NSString * __nullable)getDisplayUnitWithUnit:(NSString *__nonnull)unit;
 
-- (NSDictionary *)toParams;
+- (NSDictionary * __nonnull)toParams;
 
 @end

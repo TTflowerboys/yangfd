@@ -23,58 +23,58 @@
 
 @interface CUTEProperty : MTLModel <MTLJSONSerializing, CUTEModelEditingListenerDelegate>
 
-@property (strong, nonatomic) NSString *identifier;
+@property (nullable, strong, nonatomic) NSString *identifier;
 
-@property (strong, nonatomic) CUTEEnum *propertyType;
+@property (nullable, strong, nonatomic) CUTEEnum *propertyType;
 
-@property (strong, nonatomic) NSArray *realityImages;
+@property (nullable, strong, nonatomic) NSArray *realityImages;
 
-@property (strong, nonatomic) NSString *cover;
+@property (nullable, strong, nonatomic) NSString *cover;
 
-@property (strong, nonatomic) NSString *name;
+@property (nullable, strong, nonatomic) NSString *name;
 
-@property (nonatomic, strong) NSNumber *latitude;
+@property (nullable, strong, nonatomic) NSNumber *latitude;
 
-@property (nonatomic, strong) NSNumber *longitude;
+@property (nullable, strong, nonatomic) NSNumber *longitude;
 
-@property (strong, nonatomic) CUTECountry *country;
+@property (nullable, strong, nonatomic) CUTECountry *country;
 
-@property (strong, nonatomic) CUTECity *city;
+@property (nullable, strong, nonatomic) CUTECity *city;
 
-@property (strong, nonatomic) NSString *street;
+@property (nullable, strong, nonatomic) NSString *street;
 
-@property (strong, nonatomic) NSString *zipcode;
+@property (nullable, strong, nonatomic) NSString *zipcode;
 
-@property (strong, nonatomic) NSString *community;
+@property (nullable, strong, nonatomic) NSString *community;
 
-@property (strong, nonatomic) NSString *floor;
+@property (nullable, strong, nonatomic) NSString *floor;
 
-@property (strong, nonatomic) NSString *houseName;
+@property (nullable, strong, nonatomic) NSString *houseName;
 
-@property (readonly, nonatomic) NSString *address;
+@property (nullable, readonly, nonatomic) NSString *address;
 
-@property (strong, nonatomic) CUTENeighborhood *neighborhood;
+@property (nullable, strong, nonatomic) CUTENeighborhood *neighborhood;
 
-@property (strong, nonatomic) NSString *propertyDescription;
+@property (nullable, strong, nonatomic) NSString *propertyDescription;
 
-@property (strong, nonatomic) NSNumber *bedroomCount;
+@property (nullable, strong, nonatomic) NSNumber *bedroomCount;
 
-@property (strong, nonatomic) NSNumber *livingroomCount;
+@property (nullable, strong, nonatomic) NSNumber *livingroomCount;
 
-@property (strong, nonatomic) NSNumber *bathroomCount;
+@property (nullable, strong, nonatomic) NSNumber *bathroomCount;
 
-@property (strong, nonatomic) CUTEArea *space;
+@property (nullable, strong, nonatomic) CUTEArea *space;
 
-@property (strong, nonatomic) NSString *status;
+@property (nullable, strong, nonatomic) NSString *status;
 
-@property (strong, nonatomic) NSArray *mainHouseTypes;
+@property (nullable, strong, nonatomic) NSArray *mainHouseTypes;
 
-@property (strong, nonatomic) NSArray *indoorFacilities;
+@property (nullable, strong, nonatomic) NSArray *indoorFacilities;
 
-@property (strong, nonatomic) NSArray *communityFacilities;
+@property (nullable, strong, nonatomic) NSArray *communityFacilities;
 
-@property (strong, nonatomic) NSArray *surroundings;
+@property (nullable, strong, nonatomic) NSArray *surroundings;
 
-- (NSDictionary *)toParams;
+- (NSDictionary * __nonnull)toParams;
 
 @end

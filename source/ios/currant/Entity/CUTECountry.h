@@ -10,11 +10,11 @@
 
 @interface CUTECountry : MTLModel <MTLJSONSerializing>
 
-@property (strong, nonatomic) NSString *name;
+@property (nonnull, strong, nonatomic) NSString *name;
 
-@property (strong, nonatomic) NSNumber *countryCode; // 86
+@property (nonnull, strong, nonatomic) NSNumber *countryCode; // 86
 
-@property (strong, nonatomic) NSString *ISOcountryCode; // CN
+@property (nonnull, strong, nonatomic) NSString *ISOcountryCode; // CN
 
 @property (nonatomic) BOOL showCountryCode;
 

@@ -11,11 +11,11 @@
 
 @interface CUTECredit : MTLModel <MTLJSONSerializing>
 
-@property (strong, nonatomic) NSString *identifier;
+@property (nullable, strong, nonatomic) NSString *identifier;
 
-@property (strong, nonatomic) NSString *type;
+@property (nullable, strong, nonatomic) NSString *type;
 
-@property (strong, nonatomic) NSString *tag;
+@property (nullable, strong, nonatomic) NSString *tag;
 
 @property (nonatomic) int amount;
 

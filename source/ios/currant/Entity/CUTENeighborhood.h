@@ -11,13 +11,13 @@
 
 @interface CUTENeighborhood : MTLModel <MTLJSONSerializing>
 
-@property (strong, nonatomic) NSString *identifier;
+@property (nullable, strong, nonatomic) NSString *identifier;
 
-@property (strong, nonatomic) NSString *name;
+@property (nullable, strong, nonatomic) NSString *name;
 
-@property (strong, nonatomic) NSString *country;
+@property (nullable, strong, nonatomic) NSString *country;
 
-@property (strong, nonatomic) CUTENeighborhood *parent;
+@property (nullable, strong, nonatomic) CUTENeighborhood *parent;
 
 
 @end

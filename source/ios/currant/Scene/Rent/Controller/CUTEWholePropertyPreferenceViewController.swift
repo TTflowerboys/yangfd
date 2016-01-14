@@ -41,11 +41,13 @@ class CUTEWholePropertyPreferenceViewController: CUTEFormViewController {
                         SVProgressHUD.dismiss()
                         CUTEDataManager.sharedInstance().saveRentTicket(self.form().ticket)
 
-                        let controller = CUTERentTicketPreviewViewController()
-                        controller.ticket = self.form().ticket
-                        controller.URL = CUTEPermissionChecker.URLWithPath("/wechat-poster/" + self.form().ticket.identifier)
-                        controller.loadRequest(NSURLRequest(URL:controller.URL))
-                        self.navigationController?.pushViewController(controller, animated: true)
+                        if let identifier = self.form().ticket.identifier {
+                            let controller = CUTERentTicketPreviewViewController()
+                            controller.ticket = self.form().ticket
+                            controller.URL = CUTEPermissionChecker.URLWithPath("/wechat-poster/" + identifier)
+                            controller.loadRequest(NSURLRequest(URL:controller.URL))
+                            self.navigationController?.pushViewController(controller, animated: true)
+                        }
                     }
 
                     return task

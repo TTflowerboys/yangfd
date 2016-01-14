@@ -11,13 +11,13 @@
 
 @interface CUTECity : MTLModel <MTLJSONSerializing>
 
-@property (strong, nonatomic) NSString *country;
+@property (nullable, strong, nonatomic) NSString *country;
 
-@property (strong, nonatomic) NSString  *identifier;
+@property (nonnull, strong, nonatomic) NSString  *identifier;
 
-@property (strong, nonatomic) NSString *name;
+@property (nonnull, strong, nonatomic) NSString *name;
 
-@property (strong, nonatomic) NSString *admin1;
+@property (nonnull, strong, nonatomic) NSString *admin1;
 
 
 

@@ -41,11 +41,13 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
                         SVProgressHUD.dismiss()
                         CUTEDataManager.sharedInstance().saveRentTicket(self.form().ticket)
 
-                        let controller = CUTERentTicketPreviewViewController()
-                        controller.ticket = self.form().ticket
-                        controller.URL = CUTEPermissionChecker.URLWithPath("/wechat-poster/" + self.form().ticket.identifier)
-                        controller.loadRequest(NSURLRequest(URL:controller.URL))
-                        self.navigationController?.pushViewController(controller, animated: true)
+                        if let identifier = self.form().ticket.identifier {
+                            let controller = CUTERentTicketPreviewViewController()
+                            controller.ticket = self.form().ticket
+                            controller.URL = CUTEPermissionChecker.URLWithPath("/wechat-poster/" + identifier)
+                            controller.loadRequest(NSURLRequest(URL:controller.URL))
+                            self.navigationController?.pushViewController(controller, animated: true)
+                        }
                     }
 
                     return task
@@ -85,12 +87,12 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
         else if field.key == "age" {
             var minAge:NSInteger = 0
             if self.form().ticket.minAge != nil {
-                minAge = self.form().ticket.minAge.integerValue
+                minAge = self.form().ticket.minAge!.integerValue
             }
 
             var maxAge:NSInteger = 0
             if self.form().ticket.maxAge != nil {
-                maxAge = self.form().ticket.maxAge.integerValue
+                maxAge = self.form().ticket.maxAge!.integerValue
             }
             cell.detailTextLabel?.text = CUTEFormAgeRangePickerCell.formattedDisplayTextWithMinAge(minAge, maxAge: maxAge)
         }

@@ -11,21 +11,21 @@
 
 @interface CUTEEnum : MTLModel <MTLJSONSerializing>
 
-@property (strong, nonatomic) NSString *identifier;
+@property (nonnull, strong, nonatomic) NSString *identifier;
 
-@property (strong, nonatomic) NSString *slug;
+@property (nullable, strong, nonatomic) NSString *slug;
 
-@property (strong, nonatomic) NSString *status;
+@property (nullable, strong, nonatomic) NSString *status;
 
 @property (nonatomic) NSTimeInterval time;
 
-@property (strong, nonatomic) NSString *type;
+@property (nullable, strong, nonatomic) NSString *type;
 
-@property (strong, nonatomic) NSString *value;
+@property (nonnull, strong, nonatomic) NSString *value;
 
 @property (nonatomic) NSInteger sortValue;
 
-@property (strong, nonatomic) NSString *image;
+@property (nullable, strong, nonatomic) NSString *image;
 
 
 @end

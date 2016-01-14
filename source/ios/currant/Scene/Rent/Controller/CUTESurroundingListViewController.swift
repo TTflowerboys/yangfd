@@ -59,7 +59,12 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
         self.showBarButtonItems()
 
         //if default search don't add surrounding, user can add them
-        self.showHintLabel(self.form.ticket.property.surroundings.count == 0)
+        if let surroundings = self.form.ticket.property.surroundings {
+            self.showHintLabel(surroundings.count == 0)
+        }
+        else {
+            self.showHintLabel(true)
+        }
     }
 
     private func showHintLabel(show:Bool) {
@@ -165,7 +170,11 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
         let surroundings = form.ticket.property.surroundings as! [CUTESurrounding]
         let surrounding = surroundings[indexPath.row]
         surroundingCell.nameLabel.text = surrounding.name
-        surroundingCell.typeImageView.setImageWithURL(NSURL(string: surrounding.type.image)!)
+        if let type = surrounding.type {
+            if let image = type.image {
+                surroundingCell.typeImageView.setImageWithURL(NSURL(string: image)!)
+            }
+        }
         surroundingCell.typeButton.tag = indexPath.row
         surroundingCell.durationButton.tag = indexPath.row
         surroundingCell.removeButton.tag = indexPath.row
@@ -181,9 +190,9 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
 
         if (trafficTime != nil) {
             if trafficTime!.time != nil {
-                let formattedTrafficTimePeriod = self.getFormattedMinuteTimePeriod(trafficTime!.time)
+                let formattedTrafficTimePeriod = self.getFormattedMinuteTimePeriod(trafficTime!.time!)
                 surroundingCell.typeButton.setTitle(trafficTime!.type!.value, forState: UIControlState.Normal)
-                surroundingCell.durationButton.setTitle("\(formattedTrafficTimePeriod.value) " + (formattedTrafficTimePeriod.unitForDisplay)!, forState: UIControlState.Normal)
+                surroundingCell.durationButton.setTitle("\(formattedTrafficTimePeriod.value) " + (formattedTrafficTimePeriod.unitForDisplay), forState: UIControlState.Normal)
             }
             surroundingCell.setNeedsLayout()
         }
@@ -221,7 +230,12 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
 
                     }).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                         self.tableView.reloadData()
-                        self.showHintLabel(self.form.ticket.property.surroundings.count == 0)
+                        if let surroundings = self.form.ticket.property.surroundings {
+                            self.showHintLabel(surroundings.count == 0)
+                        }
+                        else {
+                            self.showHintLabel(true)
+                        }
                         SVProgressHUD.dismiss()
                         return task
                     })
@@ -243,7 +257,7 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
         if (surr.trafficTimes != nil) {
 
             let modes = surr.trafficTimes!.map({ (time:CUTETrafficTime) -> String in
-                let timePeriod = self.getFormattedMinuteTimePeriod(time.time)
+                let timePeriod = self.getFormattedMinuteTimePeriod(time.time!)
                 return time.type!.value + " \(timePeriod.value) " + timePeriod.unitForDisplay
             })
 
@@ -283,7 +297,7 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
                 }
             }
 
-            let baseTime = self.getFormattedMinuteTimePeriod(surr.trafficTimes![defaultTimeIndex].time)
+            let baseTime = self.getFormattedMinuteTimePeriod(surr.trafficTimes![defaultTimeIndex].time!)
             let baseTimeValue = baseTime.value
             let aroundValues = getAroundTime(baseTimeValue).map({ (intValue:Int32) -> String in
                 return "\(intValue)"
@@ -295,19 +309,23 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
 
                     SVProgressHUD.show()
                     self.form.syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                        let surr = (ticket.property.surroundings[sender.tag] as! CUTESurrounding)
-                        var array = Array(surr.trafficTimes)
+                        if let surroundings = ticket.property.surroundings {
+                            let surr = (surroundings[sender.tag] as! CUTESurrounding)
+                            var array = Array(surr.trafficTimes!)
 
-                        let oldTrafficTime = array[defaultTimeIndex]
-                        let time = CUTETimePeriod(value: value, unit: baseTime.unit)
-                        let newTrafficTime = CUTETrafficTime()
-                        newTrafficTime.type = oldTrafficTime.type
-                        newTrafficTime.isDefault = oldTrafficTime.isDefault
-                        newTrafficTime.time = time
-                        array[defaultTimeIndex] = newTrafficTime
+                            let oldTrafficTime = array[defaultTimeIndex]
+                            let time = CUTETimePeriod(value: value, unit: baseTime.unit!)
+                            let newTrafficTime = CUTETrafficTime()
+                            newTrafficTime.type = oldTrafficTime.type
+                            newTrafficTime.isDefault = oldTrafficTime.isDefault
+                            newTrafficTime.time = time
+                            array[defaultTimeIndex] = newTrafficTime
 
-                        //update traffic time just by assign a new array, because the listener listen the trafficTims attribute
-                        surr.trafficTimes = array
+                            //update traffic time just by assign a new array, because the listener listen the trafficTims attribute
+                            surr.trafficTimes = array
+
+                        }
+
 
                     }).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                         self.tableView.reloadData()
@@ -331,7 +349,12 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
             ticket.property.surroundings = array
         }).continueWithBlock { (task:BFTask!) -> AnyObject! in
             self.tableView.reloadData()
-            self.showHintLabel(self.form.ticket.property.surroundings.count == 0)
+            if let surroundings = self.form.ticket.property.surroundings {
+                self.showHintLabel(surroundings.count == 0)
+            }
+            else {
+                self.showHintLabel(true)
+            }
             SVProgressHUD.dismiss()
             return task
         }

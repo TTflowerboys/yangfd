@@ -582,7 +582,7 @@ class CUTEGeoManager: NSObject {
 
                 var requestTaskArray = [BFTask!]()
                 for type in trafficEnums {
-                    requestTaskArray.append(self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode: type.slug, timeZone: timeZone, cancellationToken: cancellationToken))
+                    requestTaskArray.append(self.searchDistanceMatrixWithOrigins([propertyPostcodeIndex], destinations: destinations, mode: type.slug!, timeZone: timeZone, cancellationToken: cancellationToken))
                 }
 
                 //default walking as the first mode
@@ -601,8 +601,8 @@ class CUTEGeoManager: NSObject {
 
                                     for index in Range(start: 0, end: surroundings.count) {
                                         let surrouding = surroundings[index]
-                                        if surrouding.trafficTimes != nil && surrouding.trafficTimes.count > 0 {
-                                            var array = surrouding.trafficTimes
+                                        if let trafficTimes =  surrouding.trafficTimes  {
+                                            var array = trafficTimes
                                             array.append(timeArray[index])
                                             surrouding.trafficTimes = array
                                         }

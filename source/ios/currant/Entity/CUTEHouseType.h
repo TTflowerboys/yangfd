@@ -12,10 +12,10 @@
 
 @interface CUTEHouseType : MTLModel <MTLJSONSerializing>
 
-@property (strong, nonatomic) CUTECurrency *totalPrice;
+@property (nullable, strong, nonatomic) CUTECurrency *totalPrice;
 
-@property (strong, nonatomic) CUTECurrency *totalPriceMin;
+@property (nullable, strong, nonatomic) CUTECurrency *totalPriceMin;
 
-@property (strong, nonatomic) CUTECurrency *unitPrice;
+@property (nullable, strong, nonatomic) CUTECurrency *unitPrice;
 
 @end

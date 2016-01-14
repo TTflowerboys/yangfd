@@ -11,20 +11,20 @@
 
 @interface CUTECurrency : MTLModel <MTLJSONSerializing>
 
-@property (strong, nonatomic) NSString *unit;
+@property (nullable, strong, nonatomic) NSString *unit;
 
-@property (nonatomic) NSString *value;
+@property (nullable, nonatomic) NSString *value;
 
-@property (nonatomic, readonly) NSString *symbol;
+@property (nonnull, nonatomic, readonly) NSString *symbol;
 
-+ (CUTECurrency *)currencyWithValue:(NSString *)value unit:(NSString *)unit;
++ (CUTECurrency * __nonnull)currencyWithValue:(NSString *__nonnull)value unit:(NSString *__nonnull)unit;
 
-- (NSDictionary *)toParams;
+- (NSDictionary * __nonnull)toParams;
 
-+ (NSString *)symbolOfCurrencyUnit:(NSString *)currency;
++ (NSString * __nullable)symbolOfCurrencyUnit:(NSString * __nonnull)currency;
 
-+ (NSArray *)currencyUnitArray;
++ (NSArray * __nonnull)currencyUnitArray;
 
-+ (NSString *)defaultCurrencyUnit;
++ (NSString * __nonnull)defaultCurrencyUnit;
 
 @end

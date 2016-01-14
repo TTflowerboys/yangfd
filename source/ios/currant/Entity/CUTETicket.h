@@ -22,69 +22,69 @@
 #define kTicketTitleMinCharacterCount 8
 #define kTicketTitleMaxCharacterCount 40
 
-//TODO: add nullable and nonnull
-extern NSString *LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount);
+extern NSString * __nonnull LocalizedLivingRoomTitle(NSString * __nonnull title, NSInteger roomCount);
+
 
 @interface CUTETicket : MTLModel <MTLJSONSerializing, CUTEModelEditingListenerDelegate>
 
-@property (strong, nonatomic) NSString *identifier;
+@property (nullable, strong, nonatomic) NSString *identifier;
 
-@property (strong, nonatomic) NSString *title;
+@property (nullable, strong, nonatomic) NSString *title;
 
-@property (strong, nonatomic) NSString *ticketDescription;
+@property (nullable, strong, nonatomic) NSString *ticketDescription;
 
-@property (strong, nonatomic) NSString *status;
+@property (nullable, strong, nonatomic) NSString *status;
 
-@property (strong, nonatomic) CUTEEnum *rentType;
+@property (nullable, strong, nonatomic) CUTEEnum *rentType;
 
-@property (strong, nonatomic) CUTEEnum *landlordType;
+@property (nullable, strong, nonatomic) CUTEEnum *landlordType;
 
-@property (strong, nonatomic) CUTEArea *space;
+@property (nullable, strong, nonatomic) CUTEArea *space;
 
-@property (strong, nonatomic) NSNumber *billCovered;
+@property (nullable, strong, nonatomic) NSNumber *billCovered;
 
-@property (strong, nonatomic) CUTECurrency *price;
+@property (nullable, strong, nonatomic) CUTECurrency *price;
 
-@property (strong, nonatomic) NSNumber *rentAvailableTime;
+@property (nullable, strong, nonatomic) NSNumber *rentAvailableTime;
 
-@property (strong, nonatomic) NSNumber *rentDeadlineTime;
+@property (nullable, strong, nonatomic) NSNumber *rentDeadlineTime;
 
-@property (strong, nonatomic) CUTETimePeriod *minimumRentPeriod;
+@property (nullable, strong, nonatomic) CUTETimePeriod *minimumRentPeriod;
 
-@property (strong, nonatomic) CUTECurrency *deposit;
+@property (nullable, strong, nonatomic) CUTECurrency *deposit;
 
-@property (strong, nonatomic) NSNumber *lastModifiedTime;
+@property (nullable, strong, nonatomic) NSNumber *lastModifiedTime;
 
-@property (strong, nonatomic) CUTEProperty *property;
+@property (nonnull, strong, nonatomic) CUTEProperty *property;
 
-@property (strong, nonatomic) CUTEUser *creatorUser;
+@property (nullable, strong, nonatomic) CUTEUser *creatorUser;
 
-@property (strong, nonatomic) NSString *genderRequirement;
+@property (nullable, strong, nonatomic) NSString *genderRequirement;
 
-@property (strong, nonatomic) NSNumber *minAge;
+@property (nullable, strong, nonatomic) NSNumber *minAge;
 
-@property (strong, nonatomic) NSNumber *maxAge;
+@property (nullable, strong, nonatomic) NSNumber *maxAge;
 
-@property (strong, nonatomic) CUTEEnum *occupation;
+@property (nullable, strong, nonatomic) CUTEEnum *occupation;
 
-@property (strong, nonatomic) NSNumber *noSmoking;
+@property (nullable, strong, nonatomic) NSNumber *noSmoking;
 
-@property (strong, nonatomic) NSNumber *noPet;
+@property (nullable, strong, nonatomic) NSNumber *noPet;
 
-@property (strong, nonatomic) NSNumber *noBaby;
+@property (nullable, strong, nonatomic) NSNumber *noBaby;
 
-@property (strong, nonatomic) NSString *otherRequirements;
+@property (nullable, strong, nonatomic) NSString *otherRequirements;
 
-@property (strong, nonatomic) NSNumber *currentMaleRoommates;
+@property (nullable, strong, nonatomic) NSNumber *currentMaleRoommates;
 
-@property (strong, nonatomic) NSNumber *currentFemaleRoommates;
+@property (nullable, strong, nonatomic) NSNumber *currentFemaleRoommates;
 
-@property (strong, nonatomic) NSNumber *availableRooms;
+@property (nullable, strong, nonatomic) NSNumber *availableRooms;
 
-@property (strong, nonatomic) NSNumber *independentBathroom;
+@property (nullable, strong, nonatomic) NSNumber *independentBathroom;
 
-- (NSString *)titleForDisplay;
+- (NSString * __nullable)titleForDisplay;
 
-- (NSDictionary *)toParams;
+- (NSDictionary * __nonnull)toParams;
 
 @end

@@ -14,22 +14,22 @@
 
 @interface CUTESurrounding : MTLModel <MTLJSONSerializing, CUTEModelEditingListenerDelegate>
 
-@property (strong, nonatomic) NSString *identifier;
+@property (nullable, strong, nonatomic) NSString *identifier;
 
-@property (strong, nonatomic) NSString *name;
+@property (nullable, strong, nonatomic) NSString *name;
 
-@property (strong, nonatomic) NSString *zipcode;
+@property (nullable, strong, nonatomic) NSString *zipcode;
 
-@property (nonatomic, strong) NSNumber *latitude;
+@property (nullable, strong, nonatomic) NSNumber *latitude;
 
-@property (nonatomic, strong) NSNumber *longitude;
+@property (nullable, strong, nonatomic) NSNumber *longitude;
 
-@property (nonatomic, readonly) NSString *address;
+@property (nullable, nonatomic, readonly) NSString *address;
 
-@property (strong, nonatomic) CUTEEnum *type;
+@property (nullable, strong, nonatomic) CUTEEnum *type;
 
-@property (strong, nonatomic) NSArray<CUTETrafficTime *> *trafficTimes;
+@property (nullable, strong, nonatomic) NSArray<CUTETrafficTime *> *trafficTimes;
 
-- (NSDictionary *)toParams;
+- (NSDictionary * __nonnull)toParams;
 
 @end

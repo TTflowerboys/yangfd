@@ -11,18 +11,18 @@
 
 @interface CUTEPostcodePlace : MTLModel <MTLJSONSerializing>
 
-@property (strong, nonatomic) NSString *identifier;
+@property (nullable, strong, nonatomic) NSString *identifier;
 
-@property (strong, nonatomic) NSString *placeName;
+@property (nullable, strong, nonatomic) NSString *placeName;
 
-@property (strong, nonatomic) NSString *postcode;
+@property (nullable, strong, nonatomic) NSString *postcode;
 
-@property (strong, nonatomic) NSString *postcodeIndex;
+@property (nullable, strong, nonatomic) NSString *postcodeIndex;
 
-@property (nonatomic, strong) NSNumber *latitude;
+@property (nullable, strong, nonatomic) NSNumber *latitude;
 
-@property (nonatomic, strong) NSNumber *longitude;
+@property (nullable, strong, nonatomic) NSNumber *longitude;
 
-@property (strong, nonatomic) NSArray *neighborhoods;
+@property (nullable, strong, nonatomic) NSArray *neighborhoods;
 
 @end

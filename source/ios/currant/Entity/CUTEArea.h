@@ -10,14 +10,14 @@
 
 @interface CUTEArea : MTLModel <MTLJSONSerializing>
 
-@property (strong, nonatomic) NSString *unit;
+@property (nullable, strong, nonatomic) NSString *unit;
 
-@property (strong, nonatomic) NSString *value;
+@property (nullable, strong, nonatomic) NSString *value;
 
-+ (CUTEArea *)areaWithValue:(NSString *)value unit:(NSString *)unit;
++ (CUTEArea * __nonnull)areaWithValue:(NSString * __nonnull)value unit:(NSString * __nonnull)unit;
 
-- (NSString *)unitPresentation;
+- (NSString * __nonnull)unitPresentation;
 
-- (NSDictionary *)toParams;
+- (NSDictionary * __nonnull)toParams;
 
 @end

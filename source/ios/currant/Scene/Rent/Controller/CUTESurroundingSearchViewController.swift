@@ -137,8 +137,11 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
             let imageView = UIImageView()
             imageView.frame = CGRectMake(0, 0, 20, 20)
             imageView.contentMode = UIViewContentMode.Center
-            imageView.setImageWithURL(NSURL(string: surrounding.type.image)!)
-
+            if let type = surrounding.type {
+                if let image = type.image {
+                    imageView.setImageWithURL(NSURL(string: image)!)
+                }
+            }
             cell?.accessoryView = imageView
             cell?.textLabel?.numberOfLines = 2
             cell?.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
