@@ -234,6 +234,20 @@ def clear_line_break(content):
     return content.replace('\n',' ').replace('\\n',' ').replace('\r',' ').replace('\\r',' ')
 
 
+def get_symbol_from_currency(currency):
+    i18n_unit_currency = {
+        "CNY": "\xa5",
+        "GBP": "\xa3",
+        "USD": "$",
+        "HKD": "$",
+        "EUR": "\u20ac"
+    }
+    if currency:
+        return i18n_unit_currency[currency]
+    else:
+        return ""
+
+
 def common_template(path, **kwargs):
     if 'title' not in kwargs:
         kwargs['title'] = _('洋房东')
@@ -289,4 +303,5 @@ def common_template(path, **kwargs):
     kwargs.setdefault("clear_html_tags", clear_html_tags)
     kwargs.setdefault("clear_line_break", clear_line_break)
     kwargs.setdefault("redirect", redirect)
+    kwargs.setdefault("get_symbol_from_currency", get_symbol_from_currency)
     return template(path, **kwargs)
