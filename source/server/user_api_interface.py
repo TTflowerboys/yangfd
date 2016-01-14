@@ -976,3 +976,15 @@ def captcha_generate(params):
     if params["style"] not in ["html", "ajax"]:
         abort(40000, logger.warning("Invalid params: style", params["style"], exc_info=False))
     return f_app.captcha.generate(style=params["style"])
+
+
+@f_api('/user/apns/<device_udid>/register/<device_token>', force_ssl=True)
+@f_app.user.login.check(force=True)
+def user_apns_register(device_udid, device_token, user):
+    f_app.push.apns.user.device_register(user["id"], device_udid, device_token)
+
+
+@f_api('/user/apns/<device_udid>/unregister', force_ssl=True)
+@f_app.user.login.check(force=True)
+def user_apns_unregister(device_udid, user):
+    f_app.push.apns.user.device_unregister(user["id"], device_udid)

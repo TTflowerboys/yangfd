@@ -29,6 +29,7 @@ import libfelix.f_match
 import libfelix.f_message
 import libfelix.f_mongo
 import libfelix.f_order
+import libfelix.f_push.f_apns
 import libfelix.f_re
 import libfelix.f_sina
 import libfelix.f_shop

@@ -95,6 +95,14 @@ class common(f_common):
     email_default_method = "aws_ses"
     email_default_sender = "noreply@youngfunding.co.uk"
 
+    apns_use_sandbox = True
+
+    apns_sandbox_cert_file = "../ios/Provision/apns/apns-dev-cert.pem"
+    apns_sandbox_key_file = apns_sandbox_cert_file
+
+    apns_cert_file = "../ios/Provision/apns/apns-pro-cert.pem"
+    apns_key_file = apns_cert_file
+
     aws_ses_location = "eu-west-1"
     aws_s3_location = "eu-west-1"
     aws_s3_bucket = "bbt-currant"
