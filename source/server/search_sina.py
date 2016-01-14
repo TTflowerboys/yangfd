@@ -200,8 +200,10 @@ def get_weibo_search_result(keywords_list):
 
         def crawler_powerapple():
             list_url = 'http://www.powerapple.com/bbs/forums/10141'
-            page = 1
+            page = 8
             result_list = []
+            today = date.today()
+            time_start = datetime(today.year, today.month, today.day) - timedelta(days=day_shift, hours=7)
             while(page <= 8):
                 print 'page: '+unicode(page)
                 target_url = list_url + '?page=' + unicode(page)
@@ -218,10 +220,12 @@ def get_weibo_search_result(keywords_list):
                     result = {}
                     array = []
                     if topic.attr('data-stick') == 'false':
-                        result.update({'text': topic('h4')('span')[0].text})
-                        result.update({'link': 'http://www.powerapple.com' + topic('h4')('a').attr('href')})
-                        result.update({'name': topic('div.authortime div.username a')[0].text})
                         time = datetime.strptime(topic('div.authortime div.threadtime')[0].text.replace('\n', '').replace(' ', ''), '%Y-%m-%d')
+                        if time < time_start:
+                            continue
+                        result.update({'text': topic('h4')('a span')[0].text})
+                        result.update({'link': 'http://www.powerapple.com' + topic('h4')('a span').parent().attr('href')})
+                        result.update({'name': topic('div.authortime div.username a')[0].text})
                         result.update({'time': unicode(time)})
                         max_time = max(time, max_time)
                         try:
@@ -229,11 +233,13 @@ def get_weibo_search_result(keywords_list):
                         except:
                             continue
                         try:
-                            text = [single.text() for single in pq(pq(topic_page.content)('div.post-list li')[1])('div.post-main div.postbody').items()]
+                            text_dom = pq(pq(topic_page.content)('div.post-list li')[1])('div.post-main div.postbody')
+                            text_dom.find('br').replaceWith('\n')
+                            text = text_dom.text()
                         except:
                             continue
-                        for t in text:
-                            for i in re.split(',|\.|。|，', t):
+                        for i in re.split(',|\.|。|，|\n', text):
+                            if len(i):
                                 for example in ['微信', '电话', '联系', '邮箱', '地址']:
                                     if i.find(example) != -1:
                                         array.append(i)
@@ -241,11 +247,11 @@ def get_weibo_search_result(keywords_list):
                         result.update({'keyword': array})
                         result_list.append(result)
 
-                if max_time < datetime(2015, 11, 1):
+                if max_time < time_start:
                     break
             return result_list
 
-        # result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
+        result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
         result_powerapple = crawler_powerapple()
 
         wb = Workbook()
