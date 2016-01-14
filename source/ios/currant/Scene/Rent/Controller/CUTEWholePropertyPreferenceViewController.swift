@@ -59,6 +59,29 @@ class CUTEWholePropertyPreferenceViewController: CUTEFormViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+    //MARK: TableView
+
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        let field = self.formController.fieldForIndexPath(indexPath)
+
+        if field.key == "otherRequirements" {
+            cell.detailTextLabel?.text = self.form().ticket.otherRequirements
+        }
+    }
+
+
+    // MARK: - Form Action
+
+    func onOtherRequirements(sender:AnyObject) {
+        if let cell = sender as? FXFormBaseCell {
+            let value = cell.field.value as! String
+
+            self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
+                ticket.otherRequirements = value
+            })
+        }
+    }
     
 
     /*

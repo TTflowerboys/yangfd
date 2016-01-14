@@ -638,6 +638,7 @@
         CUTEWholePropertyPreferenceViewController *controller = [CUTEWholePropertyPreferenceViewController new];
         CUTEWholePropertyPreferenceForm *form = [CUTEWholePropertyPreferenceForm new];
         form.ticket = self.form.ticket;
+        form.otherRequirements = self.form.ticket.otherRequirements;
         controller.formController.form = form;
         [self.navigationController pushViewController:controller animated:YES];
     }
@@ -666,6 +667,7 @@
                 [allOccupation addObject:unlimitedOccupation];
                 [allOccupation addObjectsFromArray:task.result];
                 form.allOccupation = allOccupation;
+                form.otherRequirements = self.form.ticket.otherRequirements;
                 controller.formController.form = form;
 
                 [self.navigationController pushViewController:controller animated:YES];

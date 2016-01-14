@@ -128,7 +128,7 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
         }
         else if field.key == "area" {
             if let space = self.form().ticket.space {
-                cell.detailTextLabel?.text = "\(space.value) \(space.unitPresentation())"
+                cell.detailTextLabel?.text = "\(space.value!) \(space.unitPresentation())"
             }
         }
         else if field.key == "independentBathroom" {
