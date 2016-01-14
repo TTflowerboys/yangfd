@@ -15,7 +15,7 @@
 <!--endbuild-->
 <!--@@close-->
 <!--@@block=main -->
-<!-- ko with: indexViewModel -->
+
 <!-- @@include =./partials/location_filter_tpl.html -->
 <div class="indexBanner" data-bind="css: {hiddenInNonClient: activeTab() == 'landlord' && window.team.isPhone()}">
     <h1 data-bind="visible: activeTab() == 'tenant'">{{_('视屏直播全英优质房源')}} <br class="hiddenOnPCWeb">{{_('足不出户搞定租房')}}</h1>
@@ -106,7 +106,7 @@
 
 <!-- @@include = ./partials/delegate_rent_popup.html -->
 <!-- @@include = ./partials/delegate_sale_popup.html -->
-<!-- /ko -->
+
 <!--@@close-->
 
 <!--@@block=scripts -->

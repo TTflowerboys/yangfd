@@ -1,5 +1,14 @@
 (function (ko, module) {
 
+    ko.bindingHandlers.scrollTop = {
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor())
+            if (value) {
+                $(element).scrollTop(value)
+            }
+        }
+    }
+
     ko.components.register('edit-travel-time', {
         viewModel: function(params) {
             var self = this
@@ -165,7 +174,7 @@
                                         delete item.id
                                         if(item.type) {
                                             item.id = item[item.type.slug]
-                                            if(_.find(module.appViewModel.propertyViewModel.surrouding(), function (surroudingItem) {
+                                            if(_.find(module.propertyViewModel.surrouding(), function (surroudingItem) {
                                                     return surroudingItem[item.type.slug] === item.id
                                                 })) {
                                                 item.exist = true
@@ -228,7 +237,7 @@
                     window.dhtmlx.message({ type:'error', text: window.i18n('该地点已经添加到周边了，请不要重复添加')});
                     return
                 }
-                if(!module.appViewModel.propertyViewModel.latitude() && !$('#city').val()) {
+                if(!module.propertyViewModel.latitude() && !$('#city').val()) {
                     window.dhtmlx.message({ type:'error', text: window.i18n('请填写正确的postcode或地址信息后再添加周边地点')})
                     return
                 }
