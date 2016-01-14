@@ -202,7 +202,7 @@ def get_weibo_search_result(keywords_list):
         if forum_id is None:
             return []
         list_url = 'http://www.powerapple.com/bbs/forums/' + forum_id
-        page = 8
+        page = 1
         result_list = []
         today = date.today()
         time_start = datetime(today.year, today.month, today.day) - timedelta(days=day_shift, hours=7)
