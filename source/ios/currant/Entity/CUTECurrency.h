@@ -15,7 +15,7 @@
 
 @property (nullable, nonatomic) NSString *value;
 
-@property (nonnull, nonatomic, readonly) NSString *symbol;
+@property (nullable, nonatomic, readonly) NSString *symbol;
 
 + (CUTECurrency * __nonnull)currencyWithValue:(NSString *__nonnull)value unit:(NSString *__nonnull)unit;
 
