@@ -16,9 +16,6 @@ from pyquery import PyQuery as pq
 import random
 from time import sleep
 
-username = "13545078924"
-password = "bbt12345678"
-
 day_shift = int(sys.argv[1]) if len(sys.argv) > 1 else 0  # the date how many days before will be loaded
 
 
@@ -102,6 +99,8 @@ def get_weibo_search_result(keywords_list):
         search_count = 0
         search_times = 0
         keyword_total = len(keywords)
+        username = "13545078924"
+        password = "bbt12345678"
         with f_app.sina_search(username=username, password=password) as ss:
             for num, keyword in enumerate(keywords):
                 print unicode((num, keyword_total)) + " " + keyword
@@ -353,14 +352,14 @@ def get_weibo_search_result(keywords_list):
     result_powerapple = []
     result_douban_group = []
 
-    result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
+    # result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
     result_powerapple = crawler_powerapple('10141')
-    result_douban_group = crawler_douban_group([
-        'ukhome',
-        '436707',
-        '338873',
-        'LondonHome'
-    ])
+    # result_douban_group = crawler_douban_group([
+    #     'ukhome',
+    #     '436707',
+    #     '338873',
+    #     'LondonHome'
+    # ])
 
     wb = Workbook()
     ws_weibo = wb.active
