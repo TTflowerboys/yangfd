@@ -54,6 +54,7 @@
 #import "CUTEPropertyListViewController.h"
 #import "CUTERentListViewController.h"
 #import "CUTERentTicketPreviewViewController.h"
+#import "CUTERentAreaViewController.h"
 
 //model
 #import "CUTEEnum.h"
@@ -62,6 +63,7 @@
 #import "CUTEPostcodePlace.h"
 #import "CUTETrafficTime.h"
 #import "CUTESurrounding.h"
+#import "CUTEArea.h"
 
 
 //view
@@ -69,12 +71,13 @@
 #import "CUTEFormSwitchCell.h"
 #import "CUTEFormTextViewCell.h"
 #import "CUTETooltipView.h"
-#import "CUTEFormCountPickerCell.h"
-#import "CUTEFormRangePickerCell.h"
+#import "CUTEFormRoommateCountPickerCell.h"
+#import "CUTEFormAgeRangePickerCell.h"
 
 //view model
 #import "CUTEForm.h"
 #import "CUTETicketForm.h"
+#import "CUTEAreaForm.h"
 
 
 //storage

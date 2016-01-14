@@ -121,7 +121,7 @@
 "SingleRoomPreference/单间信息" = "单间信息";
 "SingleRoomPreference/入住性别要求" = "入住性别要求";
 "SingleRoomPreference/入住年龄限制" = "入住年龄限制";
-"SingleRoomPreference/入住置业限制" = "入住置业限制";
+"SingleRoomPreference/入住职业限制" = "入住职业限制";
 "SingleRoomPreference/允许吸烟" = "允许吸烟";
 "SingleRoomPreference/允许携宠物入住" = "允许携宠物入住";
 "SingleRoomPreference/允许带小孩入住"  = "允许带小孩入住";
@@ -815,6 +815,7 @@
 "关闭" = "关闭";
 "男" = "男";
 "女" = "女";
+"不限" = "不限";
 
 
 //Language

@@ -8,6 +8,6 @@
 
 #import <FXForms/FXForms.h>
 
-@interface CUTEFormCountPickerCell : FXFormOptionPickerCell
+@interface CUTEFormRoommateCountPickerCell : FXFormOptionPickerCell
 
 @end

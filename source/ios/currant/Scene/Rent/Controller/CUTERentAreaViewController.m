@@ -48,6 +48,7 @@
 
     CUTEArea *area = (IsNilNullOrEmpty(form.area) || IsNilNullOrEmpty(form.unit))? nil: [CUTEArea areaWithValue:form.area unit:form.unit];
     [form syncTicketWithBlock:^(CUTETicket *ticket) {
+        //TODO: Update here 
         if (ticket.rentType.slug && [ticket.rentType.slug hasSuffix:@":whole"]) {
             ticket.space = area;
             ticket.property.space = area;

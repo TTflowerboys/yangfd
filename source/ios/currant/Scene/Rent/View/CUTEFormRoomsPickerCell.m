@@ -31,6 +31,7 @@
 
     self.textLabel.text = self.field.title;
 
+    //TODO: better remove this kind of reverse dependency
     CUTEPropertyInfoForm *form = (CUTEPropertyInfoForm *)self.field.form;
     [self setDisplayTitleWithForm:form];
 

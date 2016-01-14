@@ -227,6 +227,7 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
 
 - (BFTask *)refresh {
 
+    //TODO: let server side to provide the get enum by batch api
     BFTask *enumTask = [BFTask taskForCompletionOfAllTasks:
             [@[@"property_type",
                @"landlord_type",
@@ -237,7 +238,8 @@ NSString * const CUTEAPICacheCDNDomainsKey = @"CDN Domains";
                @"user_type",
                @"community_facility",
                @"featured_facility_type",
-               @"featured_facility_traffic_type"]
+               @"featured_facility_traffic_type",
+               @"occupation"]
              map:^id(id object) {
                  return [self getEnumsByTypeIgnoringCache:object cancellationToken:nil];
              }]];

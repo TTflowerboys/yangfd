@@ -8,6 +8,8 @@
 
 #import <FXForms/FXForms.h>
 
-@interface CUTEFormRangePickerCell : FXFormOptionPickerCell
+@interface CUTEFormAgeRangePickerCell : FXFormOptionPickerCell
+
++ (NSString *)formattedDisplayTextWithMinAge:(NSInteger)minAge maxAge:(NSInteger)maxAge;
 
 @end

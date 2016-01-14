@@ -22,6 +22,7 @@
 #define kTicketTitleMinCharacterCount 8
 #define kTicketTitleMaxCharacterCount 40
 
+//TODO: add nullable and nonnull
 extern NSString *LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount);
 
 @interface CUTETicket : MTLModel <MTLJSONSerializing, CUTEModelEditingListenerDelegate>

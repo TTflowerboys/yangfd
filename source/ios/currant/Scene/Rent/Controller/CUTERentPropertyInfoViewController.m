@@ -642,12 +642,37 @@
         [self.navigationController pushViewController:controller animated:YES];
     }
     else {
-        CUTESingleRoomPreferenceViewController *controller = [CUTESingleRoomPreferenceViewController new];
-        CUTESingleRoomPreferenceForm *form = [CUTESingleRoomPreferenceForm new];
-        form.ticket = self.form.ticket;
-        controller.formController.form = form;
+        [SVProgressHUD show];
+        [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"occupation" cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
+            if (task.error) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else if (task.exception) {
+                [SVProgressHUD showErrorWithException:task.exception];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD showErrorWithCancellation];
+            }
+            else {
+                CUTESingleRoomPreferenceViewController *controller = [CUTESingleRoomPreferenceViewController new];
+                CUTESingleRoomPreferenceForm *form = [CUTESingleRoomPreferenceForm new];
+                form.ticket = self.form.ticket;
+                CUTEEnum *unlimitedOccupation = [CUTEEnum new];
+                unlimitedOccupation.type = @"occupation";
+                unlimitedOccupation.value = STR(@"不限");
+                unlimitedOccupation.sortValue = 0;
+                unlimitedOccupation.slug = @"unlimited";
+                NSMutableArray *allOccupation = [NSMutableArray array];
+                [allOccupation addObject:unlimitedOccupation];
+                [allOccupation addObjectsFromArray:task.result];
+                form.allOccupation = allOccupation;
+                controller.formController.form = form;
 
-        [self.navigationController pushViewController:controller animated:YES];
+                [self.navigationController pushViewController:controller animated:YES];
+                [SVProgressHUD dismiss];
+            }
+            return task;
+        }];
     }
 }
 

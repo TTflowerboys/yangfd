@@ -1,18 +1,17 @@
 //
-//  CUTEFormRangePickerCell.m
+//  CUTEFormCountPickerCell.m
 //  currant
 //
 //  Created by Foster Yin on 1/13/16.
 //  Copyright © 2016 BBTechgroup. All rights reserved.
 //
 
-#import "CUTEFormRangePickerCell.h"
+#import "CUTEFormRoommateCountPickerCell.h"
 #import "CUTECommonMacro.h"
 #import "CUTEUIMacro.h"
 #import "BBTInputAccessoryView.h"
 
-@implementation CUTEFormRangePickerCell
-
+@implementation CUTEFormRoommateCountPickerCell
 
 + (CGFloat)heightForField:(FXFormField *)field width:(CGFloat)width
 {
@@ -64,22 +63,22 @@
 
 - (NSInteger)numberOfComponentsInPickerView:(__unused UIPickerView *)pickerView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)pickerView:(__unused UIPickerView *)pickerView numberOfRowsInComponent:(__unused NSInteger)component
 {
-    return 200;
+    return 30;
 }
 
 - (NSString *)pickerView:(__unused UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(__unused NSInteger)component
 {
-    return [NSString stringWithFormat:STR(@"%d岁"), row];
+    return [NSString stringWithFormat:STR(@"%d人"), row];
 }
 
 - (void)pickerView:(__unused UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(__unused NSInteger)component
 {
-//    self.detailTextLabel.text = [NSString stringWithFormat:STR(@"%d岁"), row];
+    self.detailTextLabel.text = [NSString stringWithFormat:STR(@"%d人"), row];
 }
 
 
