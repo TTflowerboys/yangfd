@@ -7,161 +7,100 @@
 <link rel="stylesheet" href="/static/styles/project/rentCard.css"/>
 <link rel="stylesheet" href="/static/styles/property_to_rent_list.css"/>
 <link rel="stylesheet" href="/static/styles/project/houseInfobox.css"/>
-<link rel="stylesheet" href="/static/styles/selectCity.css"/>
 <!--endbuild-->
 
 <!--@@close-->
 
 <!--@@block=main -->
 % show_requirement_rent_in_floatbar = 'true'
-<div class="property_data_manager" style="display:none">
-
-    <textarea id="countryData">
-        {{json_dumps(country_list)}}
-    </textarea>
-    <textarea id="cityData">
-        {{json_dumps(city_list)}}
-    </textarea>
-    <textarea id="propertyCountryData">
-        {{json_dumps(property_country_list)}}
-    </textarea>
-    <textarea id="propertyCityData">
-        {{json_dumps(property_city_list)}}
-    </textarea>
-    <textarea id="rentTypeData">
-        {{json_dumps(rent_type_list)}}
-    </textarea>
-    <textarea id="rentBudgetData">
-        {{json_dumps(rent_budget_list)}}
-    </textarea>
-    <textarea id="propertyTypeData">
-        {{json_dumps(property_type_list)}}
-    </textarea>
-    <textarea id="rentPeriodData">
-        {{json_dumps(rent_period_list)}}
-    </textarea>
-    <textarea id="bedroomCountData">
-        {{json_dumps(bedroom_count_list)}}
-    </textarea>
-    <textarea id="spaceData">
-        {{json_dumps(building_area_list)}}
-    </textarea>
-</div>
-
+<!-- ko with: rentListViewModel -->
 <div class="category_wrapper">
-    <!-- @@include=partials/property_to_rent_selectors.html -->
+    <!-- @@include=./static/templates/location-search-box.tpl.html -->
+
+    <div class="category three">
+        <location-search-box params="parentVM: $data"></location-search-box>
+
+        <div class="selectWrap rentType">
+            <select data-bind="value: rentType, fastChosen: rentType, changeText: {obj:summaryTitleObj, prop: 'select-rent-type'}" class="ghostSelect" name="rentType">
+                <option value="" selected>{{_('单间或整租')}}</option>
+                %for index, rent_type in enumerate(rent_type_list):
+                <option value="{{rent_type.get('id')}}">{{rent_type.get('value')}}</option>
+                %end
+            </select>
+        </div>
+        <div class="wrap">
+            %if rent_budget_list:
+            <div class="selectWrap rentBudget">
+                <select data-bind="value: rentBudgetMin, fastChosen: rentBudgetMin, changeText: {obj:summaryTitleObj, prop: 'select-rent-budget-min'}" name="rentBudgetMin">
+                    <option value="">{{_('租金无下限')}}</option>
+                    %for index, rent_budget in enumerate(rent_budget_item_list):
+                    %if rent_budget.get('currency') == _.currency:
+                    <option value="{{rent_budget.get('slug')}}">{{get_symbol_from_currency(_.currency)}}{{rent_budget.get('value')}}{{_('/周')}}</option>
+                    %end
+                    %end
+                </select>
+            </div>
+            <span>{{_('至')}}</span>
+            <div class="selectWrap rentBudget">
+                <select data-bind="value: rentBudgetMax, fastChosen: rentBudgetMax, changeText: {obj:summaryTitleObj, prop: 'select-rent-budget-max'}" name="rentBudgetMax">
+                    <option value="">{{_('租金无上限')}}</option>
+                    %for index, rent_budget in enumerate(rent_budget_item_list):
+                    %if rent_budget.get('currency') == _.currency:
+                    <option value="{{rent_budget.get('slug')}}">{{get_symbol_from_currency(_.currency)}}{{rent_budget.get('value')}}{{_('/周')}}</option>
+                    %end
+                    %end
+                </select>
+            </div>
+            %end
+        </div>
+        <button class="searchButton button red hiddenOnMobile" data-bind="click: searchTicketClick">
+            <i class="icon-search_icon"></i>
+            <span>{{_('搜索')}}</span>
+        </button>
+        <button id="showTags"  class="showTags textButton hiddenOnPCWeb" data-state="closed">
+            <label>{{_('高级筛选')}}</label>
+            <img alt="" src="/static/images/property_list/tags-indicator-phone.png"/>
+        </button>
+    </div>
+
 </div>
 
 <div id="result" class="result">
     <div id="tags" class="tags">
         <div class="tags_inner">
-            <a href="/property-to-rent/create" class="rentalCreate button red">
-                <i class="icon-edit"></i>
-                <span class=big>{{_('发布租房信息')}}</span>
-            </a>
 
             <h3 class="title">{{_('从搜索结果中筛选')}}</h3>
-            %if rent_type_list:
-            <div class="rentType hiddenOnPCWeb">
-                <i class="rentType_icon icon-house"></i>
-                <h4 class="rentType_title">{{_('出租类型')}}</h4>
-                <div id="rentTypeTag" class="inner">
-                    %for index, rent_type in enumerate(rent_type_list):
-                    <div class="toggleTag noBorder" data-id="{{rent_type.get('id')}}">{{rent_type.get('value')}}
-                    </div>
-                    %end
-                </div>
-            </div>
-            %end
-
-            %if property_type_list:
-                <div class="propertyType hiddenOnPCWeb">
-                    <i class="propertyType_icon icon-tag_icon"></i>
-                    <h4 class="propertyType_title">{{_('房产类型')}}</h4>
-                    <div id="propertyTypeTag" class="inner">
-                        %for index, property_type in enumerate(property_type_list):
-                        <div class="toggleTag noBorder" data-id="{{property_type.get('id')}}">{{property_type.get('value')}}
-                        </div>
-                        %end
-                    </div>
-                </div>
-            %end
-
-            %if rent_budget_list:
-                <div class="rentalBudget">
-                    <i class="rentalBudget_icon icon-coin_filter"></i>
-                    <h4 class="rentalBudget_title">{{_('租金')}}
-                        (
-                        <!--@@include=partials/current_currency.html -->
-                        {{_('/ 周')}})
-                    </h4>
-                    <div class="inner">
-                        <div class="inputWrapper">
-                            <select data-filter name="rentBudgetMin">
-                                <option value="">{{_('无下限')}}</option>
-                                %for index, rent_budget in enumerate(rent_budget_item_list):
-                                %if rent_budget.get('currency') == _.currency:
-                                <option value="{{rent_budget.get('slug')}}">{{rent_budget.get('value')}}</option>
-                                %end
-                                %end
-                            </select>
-                        </div>
-                        <span>{{_('至')}}</span>
-                        <div class="inputWrapper">
-                            <select data-filter name="rentBudgetMax">
-                                <option value="">{{_('无上限')}}</option>
-                                %for index, rent_budget in enumerate(rent_budget_item_list):
-                                %if rent_budget.get('currency') == _.currency:
-                                <option value="{{rent_budget.get('slug')}}">{{rent_budget.get('value')}}</option>
-                                %end
-                                %end
-                            </select>
-                        </div>
-                        <!--<button class="button red confirmFilter">{{_('确定')}}</button>-->
-                    </div>
-                </div>
-            %end
-
-
-            %if rent_period_list:
-                <!--<div class="rentPeriod">
-                    <img class="rentPeriod_icon" alt="" src="/static/images/property_list/intention-tag.png"/>
-                    <h4 class="rentPeriod_title">{{_('租期')}}</h4>
-                    <div id="rentPeriodTag" class="inner">
-                        %for index, rent_period in enumerate(rent_period_list):
-                            <div class="toggleTag noBorder" data-id="{{rent_period.get('id')}}">{{rent_period.get('value')}}
-                            </div>
-                        %end
-                    </div>
-                </div>-->
-            %end
 
             <div class="calendar">
                 <i class="calendar_icon icon-calender_filter"></i>
                 <h4 class="calendar_title">{{_('租期起止日期')}}</h4>
                 <div class="inner">
-                    <div class="date inputWrapper">
-                        <input data-filter type="text" class="" id="rentPeriodStartDate" name="rentPeriodStartDate" value="" placeholder="{{_('请选择起租日期')}}" autocomplete="off"/>
-                        <i class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
+                    <div class="date inputWrapper" data-bind="dateRangePicker: rentAvailableTimeFormated">
+                        <input data-bind="value: rentAvailableTimeFormated, changeText: {obj:summaryTitleObj, prop: 'set-rent-available-time'}" type="text" class="" id="rentPeriodStartDate" name="rentPeriodStartDate" placeholder="{{_('请选择起租日期')}}" autocomplete="off"/>
+                        <i data-bind="click: clearDate('rentAvailableTimeFormated'), visible: rentAvailableTime" class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
                     </div>
                     <span>{{_('至')}}</span>
-                    <div class="date inputWrapper">
-                        <input data-filter type="text" class="" id="rentPeriodEndDate" name="rentPeriodEndDate" value="" placeholder="{{_('请选择结束日期')}}" autocomplete="off"/>
-                        <i class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
+                    <div class="date inputWrapper" data-bind="dateRangePicker: rentDeadlineTimeFormated">
+                        <input data-bind="value: rentDeadlineTimeFormated, changeText: {obj:summaryTitleObj, prop: 'set-rent-deadline-time'}" type="text" class="" id="rentPeriodEndDate" name="rentPeriodEndDate" placeholder="{{_('请选择结束日期')}}" autocomplete="off"/>
+                        <i data-bind="click: clearDate('rentDeadlineTimeFormated'), visible: rentDeadlineTime" class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
                     </div>
                     <!--<button class="button red confirmFilter">{{_('确定')}}</button>-->
                 </div>
             </div>
 
+            %if property_type_list:
+            <div class="propertyType">
+                <i class="propertyType_icon icon-building"></i>
+                <h4 class="propertyType_title">{{_('房产类型')}}</h4>
+                <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-property-type'}" class="inner" params="list: {{json_dumps(property_type_list_without_new_property)}}, key: 'propertyType', vm: $data, gaConfig: {ec: 'rent_list', ea: 'change', el: 'change-propertyType', ev: 'value'}"></filter-tags>
+            </div>
+            %end
+
             %if bedroom_count_list:
                 <div class="bedroomCount">
                     <i class="bedroomCount_icon icon-room_category"></i>
                     <h4 class="bedroomCount_title">{{_('居室数')}}</h4>
-                    <div id="bedroomCountTag" class="inner">
-                        % for bedroom_count in bedroom_count_list:
-                            <div class="toggleTag noBorder" data-id="{{bedroom_count.get('id')}}">{{bedroom_count.get('value')}}</div>
-                        % end
-                    </div>
+                    <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-bedroom-count'}" class="inner" params="list: {{json_dumps(bedroom_count_list)}}, key: 'bedroomCount', vm: $data, gaConfig: {ec: 'rent_list', ea: 'change', el: 'change-bedroomCount', ev: 'value'}"></filter-tags>
                 </div>
             %end
 
@@ -169,11 +108,7 @@
                 <div class="space">
                     <i class="space_icon icon-size"></i>
                     <h4 class="space_title">{{_('面积')}}</h4>
-                    <div id="spaceTag" class="inner">
-                        % for building_area in building_area_list:
-                            <div class="toggleTag noBorder" data-id="{{building_area.get('id')}}">{{building_area.get('value')}}</div>
-                        % end
-                    </div>
+                    <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-space'}" class="inner" params="list: {{json_dumps(building_area_list)}}, key: 'space', vm: $data, gaConfig: {ec: 'rent_list', ea: 'change', el: 'change-space', ev: 'value'}"></filter-tags>
                 </div>
             %end
 
@@ -193,12 +128,7 @@
             </ul>
 
         </div>
-        <button id="showTags"  class="showTags textButton" data-state="closed">
-            <label>{{_('更多选择')}}</label>
-            <img alt="" src="/static/images/property_list/tags-indicator-phone.png"/>
-        </button>
     </div>
-
     <div id="result_list_container" class="result_list_container">
         <h2 id="number_container" class="result_number" style="display:none">
             <!--{{_('共找到')}}<span id="number" class="number"></span> {{_('套房产')}}-->
@@ -256,14 +186,17 @@
 </div>
 <!-- @@include=/static/templates/rent_card.tpl.html-->
 <!-- @@include=/static/templates/rent_map_card.tpl.html-->
-
+<!-- /ko -->
 <!--@@close-->
 
 <!--@@block=scripts -->
 <!--build:js /static/scripts/property_to_rent_list.html.js-->
+<script src="/static/bower_components/knockout/dist/knockout.js"></script>
 <script src="/static/bower_components/dropload/dist/dropload.min.js"></script>
 <script src="/static/scripts/intro_lite.js"></script>
 <script src="/static/scripts/filter_of_neighborhood_subway_school.js"></script>
+<script src="/static/scripts/common_ko.js"></script>
+<script src="/static/scripts/property_to_rent_list_ko.js"></script>
 <script src="/static/scripts/property_to_rent_list_selectors.js"></script>
 <script src="/static/scripts/property_to_rent_list_tags.js"></script>
 <script src="/static/scripts/property_list_bing_map.js"></script>

@@ -80,8 +80,8 @@
         initChosen($('[name=propertyCity]'))
         //initChosen($('[name=neighborhood]'))
         //initChosen($('[name=school]'))
-        initChosen($('[name=propertyType]'))
-        initChosen($('[name=rentType]'))
+        //initChosen($('[name=propertyType]'))
+        //initChosen($('[name=rentType]'))
         initChosen($('[name=rentBudgetMin]'),{disable_search: true})
         initChosen($('[name=rentBudgetMax]'),{disable_search: true})
     }
