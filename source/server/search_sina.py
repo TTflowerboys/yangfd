@@ -277,6 +277,11 @@ def get_weibo_search_result(keywords_list):
         if group_name is None:
             return []
         result = []
+        if f_app.util.batch_iterable(group_name):
+            for single_group_name in group_name:
+                single_result = crawler_douban_group(single_group_name)
+                result.extend(single_result)
+            return result
         index = 0
         today = date.today()
         time_start = datetime(today.year, today.month, today.day) - timedelta(days=day_shift, hours=7)
@@ -348,20 +353,22 @@ def get_weibo_search_result(keywords_list):
     result_powerapple = []
     result_douban_group = []
 
-    result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
-    result_powerapple = crawler_powerapple('10141')
-    result_douban_group = crawler_douban_group('ukhome').extend(
-        crawler_douban_group('436707').extend(
-            crawler_douban_group('338873').extend(
-                crawler_douban_group('LondonHome')
-            )
-        )
-    )
+    # result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
+    # result_powerapple = crawler_powerapple('10141')
+    # result_douban_group = crawler_douban_group([
+    #     'ukhome',
+    #     '436707',
+    #     '338873',
+    #     'LondonHome'
+    # ])
 
     wb = Workbook()
     ws_weibo = wb.active
     ws_powerapple = wb.create_sheet()
     ws_douban_group = wb.create_sheet()
+    ws_weibo.title = '微博'
+    ws_powerapple.title = '超级苹果论坛'
+    ws_douban_group.title = '豆瓣小组'
 
     ws_weibo.append(header)
     for single in result_weibo:
