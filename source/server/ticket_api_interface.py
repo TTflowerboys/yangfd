@@ -1327,6 +1327,7 @@ def rent_ticket_contact_info(user, ticket_id):
     city='geonames_gazetteer:city',
     maponics_neighborhood="maponics_neighborhood",
     hesa_university=ObjectId,
+    doogal_station=ObjectId,
     location_only=bool,
     latitude=float,
     longitude=float,
@@ -1366,11 +1367,10 @@ def rent_ticket_search(user, params):
         params.pop("user_id")
 
     if "hesa_university" in params:
-        assert "latitude" not in params, abort(40000)
-        hesa_university = f_app.hesa.university.get(str(params.pop("hesa_university")))
-        postcode = f_app.geonames.postcode.get(f_app.geonames.postcode.search({"postcode": hesa_university["postcode"]}, per_page=-1))[0]
-        params["latitude"] = postcode["latitude"]
-        params["longitude"] = postcode["longitude"]
+        property_params["featured_facility.hesa_university"] = params.pop("hesa_university")
+
+    if "doogal_station" in params:
+        property_params["featured_facility.doogal_station"] = params.pop("doogal_station")
 
     location_only = params.pop("location_only", False)
     if location_only and "latitude" not in params:
