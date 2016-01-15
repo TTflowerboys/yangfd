@@ -36,11 +36,12 @@ class CUTEAPNSManager : NSObject {
     }
 
     ///Call after login, and must check deviceToken
-    func bind(deviceToken:NSData?) -> BFTask {
+    func bind() -> BFTask {
+
         if deviceToken != nil {
             let tokenString = deviceToken!.description.stringByReplacingOccurrencesOfString(" ", withString: "").stringByReplacingOccurrencesOfString("<", withString: "").stringByReplacingOccurrencesOfString(">", withString: "")
 
-            return CUTEAPIManager.sharedInstance().POST("/api/1/user/apns/" + uuid + "/register" + tokenString, parameters: nil, resultClass: nil)
+            return CUTEAPIManager.sharedInstance().POST("/api/1/user/apns/" + uuid + "/register/" + tokenString, parameters: nil, resultClass: nil)
         }
         else {
             return BFTask(error: NSError(domain: "com.bbtechgroup.apns", code: -1, userInfo: [NSLocalizedDescriptionKey: "Device token should exist"]));

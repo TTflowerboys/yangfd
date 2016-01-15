@@ -333,6 +333,12 @@
 
     DebugLog(@"[%@|%@|%d] device token: %@", NSStringFromClass([self class]) , NSStringFromSelector(_cmd) , __LINE__ , token);
 
+    [[CUTEAPNSManager sharedInstance] saveDeviceToken:deviceToken];
+    if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
+        [[[CUTEAPNSManager sharedInstance] bind] continueWithBlock:^id(BFTask *task) {
+            return task;
+        }];
+    }
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -342,6 +348,13 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
     [SVProgressHUD showSuccessWithStatus:userInfo.description];
+    NSString *messageId = userInfo[@"message_id"];
+    if (messageId) {
+        [[[CUTEAPIManager sharedInstance] GET:[NSString stringWithFormat:@"/api/1/message/%@/mark/%@", messageId, @"send"] parameters:nil resultClass:nil] continueWithBlock:^id(BFTask *task) {
+            return task;
+        }];
+    }
+
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
@@ -770,6 +783,9 @@
     [[CUTEDataManager sharedInstance] saveUser:user];
     [[CUTEDataManager sharedInstance] persistAllCookies];
     [self checkSetupLanguageNeedShowAlert:YES];
+    [[[CUTEAPNSManager sharedInstance] bind] continueWithBlock:^id(BFTask *task) {
+        return task;
+    }];
 
     NSArray *unbindedTicket = [[[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets] select:^BOOL(CUTETicket *object) {
         return object.creatorUser == nil;
@@ -812,9 +828,13 @@
             }
         }
     }
+
 }
 
 - (void)onReceiveUserDidLogout:(NSNotification *)notif {
+    [[[CUTEAPNSManager sharedInstance] unbind] continueWithBlock:^id(BFTask *task) {
+        return task;
+    }];
     [[CUTEDataManager sharedInstance] clearAllRentTickets];
     _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:YES];
 }
