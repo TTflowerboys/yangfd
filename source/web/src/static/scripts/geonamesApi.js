@@ -3,7 +3,8 @@ function GeonamesApi () {
     var cache = {
         neighborhood: {},
         school: {},
-        postcode: {}
+        postcode: {},
+        mixedIndex: {}
     }
     this.getAdmin = function (config, callback, reject) {
         if(!cache[$.param(config)]) {
@@ -93,6 +94,8 @@ function GeonamesApi () {
             feature_code: 'city'
         }, callback, reject)
     }
+
+    //todo 把上面的方法和调用的地方也改成promise画风
     this.getCountry = function (postcode) {
         return window.Q.promise(function (resolve, reject) {
             if(!cache.postcode[postcode]) {
@@ -106,6 +109,24 @@ function GeonamesApi () {
                     })
             } else {
                 resolve(cache.postcode[postcode])
+            }
+        })
+    }
+    this.mixedIndexSearch = function (params) {
+        return window.Q.promise(function (resolve, reject) {
+            var api = '/api/1/main_mixed_index/search'
+            if(!cache.mixedIndex[$.param(params)]) {
+                window.project.abortBetterAjax(api)
+                $.betterPost(api, params)
+                    .done(function (val) {
+                        cache.mixedIndex[$.param(params)] = val
+                        resolve(val)
+                    })
+                    .fail(function (ret) {
+                        reject(ret)
+                    })
+            } else {
+                resolve(cache.mixedIndex[$.param(params)])
             }
         })
     }

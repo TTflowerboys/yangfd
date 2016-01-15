@@ -1,4 +1,14 @@
 <div class="renterService">
+    <div class="hotCities hiddenOnMobile">
+        <h2>Popular City</h2>
+        <ul>
+            % for item in hot_city_list:
+            <li style="background-image: url('/static/images/index/image_{{item.get('name','').lower()}}.png')">
+                <a href="/property-to-rent-list?city={{item.get('id', '')}}&cityName={{item.get('name', '')}}"><p>{{item.get('name').upper()}}</p></a>
+            </li>
+            % end
+        </ul>
+    </div>
     <ul class="entrance hiddenOnPCWeb">
         <li>
             <a href="/user-favorites">
