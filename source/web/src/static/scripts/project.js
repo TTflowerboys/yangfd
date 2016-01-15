@@ -186,11 +186,11 @@
             var value = time.value_float || parseInt(time.value)
             value = value * {
                 'second-second': 1,
-                'second-minute': 1 / 60,
-                'second-hour': 1 / 3600,
+                'second-minute': 1/60,
+                'second-hour': 1/3600,
                 'minute-second': 60,
                 'minute-minute': 1,
-                'minute-hour': 1 / 60,
+                'minute-hour': 1/60,
                 'hour-hour': 1,
                 'hour-minute': 60,
                 'hour-second': 3600
@@ -200,23 +200,6 @@
                 value: value < 1 ? 1 : Math.round(value).toString(),
                 value_float: value
             })
-        },
-        underscoreToCamel: function (str) {
-            return str.replace(/_([a-z])/g, function (g) {
-                return g[1].toUpperCase()
-            })
-        },
-        getParams: function () {
-            var params = {}
-            window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) {
-                params[key] = value
-            })
-            return params
-        },
-        abortBetterAjax: function (api) {
-            if (window.betterAjaxXhr && window.betterAjaxXhr[api] && window.betterAjaxXhr[api].readyState !== 4) {
-                window.betterAjaxXhr[api].abort()
-            }
         }
     }
 })();
