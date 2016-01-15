@@ -17,9 +17,6 @@ import random
 from time import sleep
 
 day_shift = int(sys.argv[1]) if len(sys.argv) > 1 else 0  # the date how many days before will be loaded
-server = False
-if len(sys.argv) > 1:
-    server = True
 
 
 def generate_keyword_list(filename):
@@ -365,9 +362,13 @@ def get_weibo_search_result(keywords_list):
         result = []
         if f_app.util.batch_iterable(page_id):
             for single_page_id in page_id:
-                single_result = crawler_ybirds(single_page_id)
+                single_result = []
+                single_result.extend(crawler_ybirds(single_page_id, 'yes'))
+                single_result.extend(crawler_ybirds(single_page_id, 'no'))
                 result.extend(single_result)
             return result
+        if sell is None:
+            return []
         index = 1
         today = date.today()
         time_start = datetime(today.year, today.month, today.day) - timedelta(days=day_shift, hours=7)
@@ -379,10 +380,11 @@ def get_weibo_search_result(keywords_list):
                     {
                         'ctgClassid': page_id,
                         'p': index,
-                        'sell': 'yes' if sell is None else sell
+                        'sell': sell
                     },
                     headers={"User-Agent": ua_generator()}
                 )
+                sleep(1)
             except:
                 return []
             index += 1
@@ -404,9 +406,9 @@ def get_weibo_search_result(keywords_list):
                             topic_result['link'],
                             headers={"User-Agent": ua_generator()}
                         )
+                        sleep(1)
                     except:
                         continue
-                    # sleep(1)
                     topic_page_dom = pq(topic_page.content)
                     topic_result.update({'postcode': topic_page_dom('span.owner').eq(0).text()})
                     topic_result.update({'contact': topic_page_dom('span.owner').eq(3).text()})
@@ -414,7 +416,6 @@ def get_weibo_search_result(keywords_list):
                     topic_result.update({'qq': topic_page_dom('span.owner').eq(4).text()})
                     topic_result.update({'location': topic_page_dom('span.owner').eq(5).text()})
                     topic_result.update({'author': topic_page_dom('div.ownerName a').text()})
-                    print topic_result['phone']
                     try:
                         text_dom = topic_page_dom('div.textDetail p')
                         text_dom.find('br').replaceWith('\n')
@@ -440,7 +441,7 @@ def get_weibo_search_result(keywords_list):
                     result.append(topic_result)
             if max_time < time_start:
                 break
-        return result.extend(crawler_ybirds(page_id, 'no'))
+        return result
 
     contact_keyword = ['微信', '电话', '联系', '邮箱', '地址', 'qq', 'QQ', 'wechat', 'WECHAT', 'phone', 'Phone', 'email', 'Wechat']
     header = ['微薄帐号', '时间', '链接地址', '最新内容', '来源关键词', '长期/短期', '名字', '电话', '微信', '邮箱', 'qq', '地址']
@@ -452,12 +453,10 @@ def get_weibo_search_result(keywords_list):
     result_douban_group = []
     result_ybirds = []
 
-    if server:
-        result_powerapple = crawler_powerapple('10141')
-    else:
-        result_ybirds = crawler_ybirds(['40', '41', '89', '92', '95'])
-        result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
-        result_douban_group = crawler_douban_group(['ukhome', '436707', '338873', 'LondonHome'])
+    result_powerapple = crawler_powerapple('10141')
+    result_ybirds = crawler_ybirds(['40', '41', '89', '92', '95'])
+    result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
+    result_douban_group = crawler_douban_group(['ukhome', '436707', '338873', 'LondonHome'])
 
     wb = Workbook()
     ws_weibo = wb.active
