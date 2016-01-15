@@ -1,4 +1,4 @@
-(function (ko) {
+(function (ko, module) {
 
     /*
      Bridge Life Cycle Sample Code
@@ -611,9 +611,26 @@
             }
         }
         this.init()
+
+        this.searchTicketClick = function () {
+            $('location-search-box').trigger('searchTicket')
+        }
+        this.query = ko.observable()
+        this.searchTicket = function (query) {
+            window.team.openLink('/property-to-rent-list?query=' + query)
+        }
+
+        this.searchBySuggestion = function (param) {
+            window.team.openLink('/property-to-rent-list?' + _.map(_.pairs(param), function (item) {
+                return item.join('=')
+            }).join('&'))
+        }
+        this.clearSuggestionParams = function () {
+
+        }
+
     }
-    var indexViewModel = new IndexViewModel()
-    ko.applyBindings(indexViewModel)
+    module.appViewModel.indexViewModel = new IndexViewModel()
 
     function initBlurOfTabBox() {
         if(!window.team.isPhone()) {
@@ -633,6 +650,8 @@
             })
         }
     }
-    initBlurOfTabBox()
+    $(function () {
+        initBlurOfTabBox()
+    })
     $(window).resize(initBlurOfTabBox)
-})(window.ko)
+})(window.ko, window.currantModule = window.currantModule || {})
