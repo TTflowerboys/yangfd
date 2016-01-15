@@ -59,17 +59,35 @@
 
     TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
     if ([CUTEDataManager sharedInstance].isUserLoggedIn) {
-        CUTERentContactDisplaySettingViewController *controller = [CUTERentContactDisplaySettingViewController new];
-        CUTERentContactDisplaySettingForm *form = [CUTERentContactDisplaySettingForm new];
-        CUTEUser *user = [CUTEDataManager sharedInstance].user;
-        form.displayPhone = ![user.privateContactMethods containsObject:@"phone"];
-        form.displayEmail = ![user.privateContactMethods containsObject:@"email"];
-        form.wechat = user.wechat;
-        form.singleUseForReedit = YES;
-        controller.formController.form = form;
-        controller.ticket = self.ticket;
-        controller.navigationItem.title = STR(@"RentTicketPreview/确认联系方式展示");
-        [self.navigationController pushViewController:controller animated:YES];
+
+        [SVProgressHUD showWithStatus:STR(@"RentContactDisplaySetting/发布中...")];
+        [[[CUTERentTicketPublisher sharedInstance] publishTicket:self.ticket updateStatus:^(NSString *status) {
+            [SVProgressHUD showWithStatus:status];
+        }] continueWithBlock:^id(BFTask *task) {
+            if (task.error || task.exception || task.isCancelled) {
+                [SVProgressHUD showErrorWithError:task.error];
+            }
+            else {
+                [[CUTEUsageRecorder sharedInstance] savePublishedTicketWithId:self.ticket.identifier];
+                TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+
+                NSArray *screenNames = [[self.navigationController viewControllers] map:^id(UIViewController *object) {
+                    if ([object isKindOfClass:[CUTEWebViewController class]]) {
+                        return GetScreenName([(CUTEWebViewController *)object URL]);
+                    }
+                    return GetScreenName(object);
+                }];
+                //Notice: one only one ticket in publishing, so not calculate the duration base on different ticket
+                TrackScreensStayDuration(KEventCategoryPostRentTicket, screenNames);
+                [SVProgressHUD showSuccessWithStatus:STR(@"RentContactDisplaySetting/发布成功")];
+                [self.navigationController popToRootViewControllerAnimated:NO];
+
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_PUBLISH object:self userInfo:@{@"ticket": self.ticket}];
+                });
+            }
+            return nil;
+        }];
     }
     else {
         CUTETicket *ticket = self.ticket;
