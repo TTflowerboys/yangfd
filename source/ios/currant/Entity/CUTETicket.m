@@ -136,6 +136,23 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
     }
 }
 
+- (NSString * __nonnull)genderRequirementForDisplay {
+    if (self.genderRequirement == nil) {
+        return STR(@"不限");
+    }
+    else {
+        if ([self.genderRequirement isEqualToString:@"male"]) {
+            return STR(@"男");
+        }
+        else if ([self.genderRequirement isEqualToString:@"female"]) {
+            return STR(@"女");
+        }
+        else {
+            return STR(@"不限");
+        }
+    }
+}
+
 #pragma -mark CUTEModelEditingListenerDelegate
 
 - (id)paramValueForKey:(NSString *)key withValue:(id)value {

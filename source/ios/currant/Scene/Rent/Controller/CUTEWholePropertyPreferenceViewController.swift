@@ -22,6 +22,13 @@ class CUTEWholePropertyPreferenceViewController: CUTEFormViewController {
         self.title = STR("WholePropertyPreference/租客要求")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: STR("WholePropertyPreference/预览"), style: UIBarButtonItemStyle.Plain, block:  { (sender) -> Void in
 
+            if CUTEKeyboardStateListener.sharedInstance().visible {
+                //will trigger save other requirement
+                let field = self.formController.fieldForKey("otherRequirements")
+                let indexPath = self.formController.indexPathForField(field)
+                self.tableView.cellForRowAtIndexPath(indexPath)?.resignFirstResponder()
+            }
+
             if let screenName = CUTETracker.sharedInstance().getScreenNameFromObject(self) {
                 CUTETracker.sharedInstance().trackEventWithCategory(screenName, action: kEventActionPress, label: "preview-and-publish", value: nil)
                 CUTETracker.sharedInstance().trackStayDurationWithCategory(KEventCategoryPostRentTicket, screenName: screenName)
@@ -84,7 +91,12 @@ class CUTEWholePropertyPreferenceViewController: CUTEFormViewController {
             let value = cell.field.value as! String
 
             self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                ticket.otherRequirements = value
+                if value.characters.count > 0 {
+                    ticket.otherRequirements = value
+                }
+                else {
+                    ticket.otherRequirements = nil
+                }
             })
         }
     }

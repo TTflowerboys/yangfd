@@ -85,6 +85,8 @@ extern NSString * __nonnull LocalizedLivingRoomTitle(NSString * __nonnull title,
 
 - (NSString * __nullable)titleForDisplay;
 
+- (NSString * __nonnull)genderRequirementForDisplay;
+
 - (NSDictionary * __nonnull)toParams;
 
 @end

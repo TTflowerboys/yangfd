@@ -688,6 +688,7 @@
                         CUTESingleRoomPreferenceForm *form = [CUTESingleRoomPreferenceForm new];
                         form.ticket = self.form.ticket;
                         CUTEEnum *unlimitedOccupation = [CUTEEnum new];
+                        unlimitedOccupation.identifier = [NSUUID UUID].UUIDString;
                         unlimitedOccupation.type = @"occupation";
                         unlimitedOccupation.value = STR(@"不限");
                         unlimitedOccupation.sortValue = 0;
@@ -696,6 +697,8 @@
                         [allOccupation addObject:unlimitedOccupation];
                         [allOccupation addObjectsFromArray:occupations];
                         form.allOccupation = allOccupation;
+                        form.occupation = form.ticket.occupation;
+                        form.genderRequirement = form.ticket.genderRequirementForDisplay;
                         form.otherRequirements = self.form.ticket.otherRequirements;
                         controller.formController.form = form;
                         

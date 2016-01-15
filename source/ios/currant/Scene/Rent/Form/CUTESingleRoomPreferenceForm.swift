@@ -11,6 +11,7 @@ import UIKit
 @objc(CUTESingleRoomPreferenceForm)
 class CUTESingleRoomPreferenceForm: CUTETicketForm {
 
+    //TODO: let form work as View Model, just proxy the attribute of ticket
     //preference
     var genderRequirement:String?
     var age:String?
@@ -29,12 +30,32 @@ class CUTESingleRoomPreferenceForm: CUTETicketForm {
 
     var allOccupation:[CUTEEnum]!
 
+    private func getDefaultOccupation() -> CUTEEnum {
+        if occupation != nil {
+            return occupation!
+        }
+        else {
+            return allOccupation.filter({ (occu:CUTEEnum) -> Bool in
+                return occu.slug == "unlimited";
+            }).first!
+        }
+    }
+
+    private func getDefaultGenderRequirement() -> String {
+        if genderRequirement != nil {
+            return genderRequirement!
+        }
+        else {
+            return STR("不限")
+        }
+    }
+
     override func fields() -> [AnyObject]! {
-        return [[FXFormFieldKey:"genderRequirement", FXFormFieldTitle:STR("SingleRoomPreference/入住性别要求"), FXFormFieldHeader:STR("SingleRoomPreference/入住者要求"), FXFormFieldOptions:[STR("不限"), STR("男"), STR("女")], FXFormFieldAction:"onGenderRequirementEdit:"],
+        return [[FXFormFieldKey:"genderRequirement", FXFormFieldTitle:STR("SingleRoomPreference/入住性别要求"), FXFormFieldHeader:STR("SingleRoomPreference/入住者要求"), FXFormFieldOptions:[STR("不限"), STR("男"), STR("女")], FXFormFieldDefaultValue: getDefaultGenderRequirement(), FXFormFieldAction:"onGenderRequirementEdit:"],
 
             [FXFormFieldKey:"age", FXFormFieldTitle:STR("SingleRoomPreference/入住年龄限制"), FXFormFieldCell: CUTEFormAgeRangePickerCell.self, FXFormFieldAction:"onAgeEdit:"],
 
-            [FXFormFieldKey:"occupation", FXFormFieldTitle:STR("SingleRoomPreference/入住职业限制"), FXFormFieldOptions: allOccupation, FXFormFieldAction:"onOccupationEdit:"],
+            [FXFormFieldKey:"occupation", FXFormFieldTitle:STR("SingleRoomPreference/入住职业限制"), FXFormFieldOptions: allOccupation, FXFormFieldDefaultValue: getDefaultOccupation(), FXFormFieldAction:"onOccupationEdit:"],
 
             [FXFormFieldKey:"noSmoking", FXFormFieldTitle:STR("SingleRoomPreference/允许吸烟"), FXFormFieldType: FXFormFieldTypeOption, FXFormFieldCell: CUTEFormSwitchCell.self, FXFormFieldAction: "onNoSmokingEdit:"],
 

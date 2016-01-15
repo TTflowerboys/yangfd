@@ -22,6 +22,13 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
         self.title = STR("SingleRoomPreference/单间信息")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: STR("SingleRoomPreference/预览"), style: UIBarButtonItemStyle.Plain, block:  { (sender) -> Void in
 
+            if CUTEKeyboardStateListener.sharedInstance().visible {
+                //will trigger save other requirement
+                let field = self.formController.fieldForKey("otherRequirements")
+                let indexPath = self.formController.indexPathForField(field)
+                self.tableView.cellForRowAtIndexPath(indexPath)?.resignFirstResponder()
+            }
+
             if let screenName = CUTETracker.sharedInstance().getScreenNameFromObject(self) {
                 CUTETracker.sharedInstance().trackEventWithCategory(screenName, action: kEventActionPress, label: "preview-and-publish", value: nil)
                 CUTETracker.sharedInstance().trackStayDurationWithCategory(KEventCategoryPostRentTicket, screenName: screenName)
@@ -161,23 +168,70 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
         }
     }
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let field = self.formController.fieldForIndexPath(indexPath)
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+
+        if field.key == "age" {
+            if let pickerCell = cell as? CUTEFormAgeRangePickerCell {
+                var minAgeRow = 0
+                if let age = self.form().ticket.minAge {
+                    minAgeRow = age.integerValue
+                }
+
+                var maxAgeRow = 0
+                if let age = self.form().ticket.maxAge {
+                    maxAgeRow = age.integerValue
+                }
+
+                pickerCell.pickerView.selectRow(minAgeRow, inComponent: 0, animated: false)
+                pickerCell.pickerView.selectRow(maxAgeRow, inComponent: 1, animated: false)
+            }
+        }
+        else if field.key == "currentMaleRoommates" {
+            if let pickerCell = cell as? CUTEFormRoommateCountPickerCell {
+                var row = 0
+                if let count = self.form().ticket.currentMaleRoommates {
+                    row = count.integerValue
+                }
+                pickerCell.pickerView.selectRow(row, inComponent: 0, animated: false)
+            }
+        }
+        else if field.key == "currentFemaleRoommates" {
+            if let pickerCell = cell as? CUTEFormRoommateCountPickerCell {
+                var row = 0
+                if let count = self.form().ticket.currentFemaleRoommates {
+                    row = count.integerValue
+                }
+                pickerCell.pickerView.selectRow(row, inComponent: 0, animated: false)
+            }
+        }
+        else if field.key == "availableRooms" {
+            if let pickerCell = cell as? CUTEFormRoommateCountPickerCell {
+                var row = 0
+                if let count = self.form().ticket.availableRooms {
+                    row = count.integerValue
+                }
+                pickerCell.pickerView.selectRow(row, inComponent: 0, animated: false)
+            }
+        }
+    }
+
     //MARK: - Field Action 
     func onGenderRequirementEdit(sender:AnyObject)  {
         self.navigationController?.popViewControllerAnimated(true)
-        if let cell = sender as? UITableViewCell {
-            var gender:String = ""
-            if let text = cell.detailTextLabel?.text {
-                if text == STR("男") {
-                    gender = "male"
-                }
-                else if text == STR("女") {
-                    gender = "female"
-                }
+        var gender:String = ""
+        if let text = self.form().genderRequirement {
+            if text == STR("男") {
+                gender = "male"
             }
-            self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                ticket.genderRequirement = gender
-            })
+            else if text == STR("女") {
+                gender = "female"
+            }
         }
+        self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
+            ticket.genderRequirement = gender
+        })
     }
 
     func onAgeEdit(sender:AnyObject) {
@@ -188,9 +242,15 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
             if minInt > 0 {
                 minAge = NSNumber(integer: minInt)
             }
+            else {
+                minAge = nil
+            }
             var maxAge:NSNumber?
             if maxInt > 0 {
                 maxAge = NSNumber(integer: maxInt)
+            }
+            else {
+                maxAge = nil
             }
 
             self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
@@ -292,7 +352,12 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
             let value = cell.field.value as! String
 
             self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                ticket.otherRequirements = value
+                if value.characters.count > 0 {
+                    ticket.otherRequirements = value
+                }
+                else {
+                    ticket.otherRequirements = nil
+                }
             })
         }
     }
@@ -308,7 +373,9 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
         controller.singleRoomArea = true
         controller.formController.form = form
         controller.updateRentAreaCompletion = {
-            //TODO
+            let field = self.formController.fieldForKey("area")
+            let indexPath = self.formController.indexPathForField(field)
+            self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
         }
         self.navigationController?.pushViewController(controller, animated: true)
 
