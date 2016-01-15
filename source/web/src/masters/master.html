@@ -55,7 +55,7 @@
         <!-- @@include = ../partials/common_js_util.html -->
         <!-- @@include = ../partials/track_js_error.html -->
     </head>
-    <body lang="{{_.lang}}">
+    <body lang="{{_.lang}}" data-bind="css: {popupActive: popupActive}">
         <!--<div class="debugger" style="background:blue; color:white; width:100%; height:40px;">
             version 1
         </div>-->
@@ -123,6 +123,7 @@
                         <li><a href="/news-list">{{_('投资资讯')}}</a></li>
                     </ul>
                     %end
+                    % if request.url.find('/property-to-rent-list') < 0 :
                     <div class="callus">
                         <i class="icon-phone_icon"></i>
                         <div class="contact">
@@ -132,6 +133,12 @@
                             </span>
                         </div>
                     </div>
+                    % else :
+                    <a href="/property-to-rent/create" class="rentalCreate ghostButton">
+                        <i class="icon-edit"></i>
+                        <span class="big">{{_('发布租房信息')}}</span>
+                    </a>
+                    % end
                 </header>
                 <div class="siteHeader_phone rmm" >
                     <div class="rmm-toggled rmm-closed rmm-center-closed">
