@@ -455,9 +455,9 @@ def get_weibo_search_result(keywords_list):
     if server:
         result_powerapple = crawler_powerapple('10141')
     else:
-        result_ybirds = crawler_ybirds('40')
-        # result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
-        # result_douban_group = crawler_douban_group(['ukhome', '436707', '338873', 'LondonHome'])
+        result_ybirds = crawler_ybirds(['40', '41', '89', '92', '95'])
+        result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
+        result_douban_group = crawler_douban_group(['ukhome', '436707', '338873', 'LondonHome'])
 
     wb = Workbook()
     ws_weibo = wb.active
