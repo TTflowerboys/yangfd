@@ -227,18 +227,21 @@ def get_weibo_search_result(keywords_list):
                     result.update({'text': topic('h4')('a span')[0].text})
                     result.update({'link': 'http://www.powerapple.com' + topic('h4')('a span').parent().attr('href')})
                     result.update({'name': topic('div.authortime div.username a')[0].text})
-                    result.update({'time': unicode(time)})
-                    max_time = max(time, max_time)
                     try:
                         topic_page = f_app.request.get(result['link'])
                     except:
                         continue
                     try:
-                        text_dom = pq(pq(topic_page.content)('div.post-list li')[1])('div.post-main div.postbody')
+                        topic_page_dom = pq(topic_page.content)
+                        text_dom = pq(topic_page_dom('div.post-list li')[1])('div.post-main div.postbody')
                         text_dom.find('br').replaceWith('\n')
                         text = text_dom.text()
                     except:
                         continue
+                    time = datetime.strptime(topic_page_dom('div.post-list li').eq(1)('div.post-main div.posttime').text(), '%Y-%m-%d %H:%M')
+                    print time
+                    result.update({'time': unicode(time)})
+                    max_time = max(time, max_time)
                     for i in re.split('\.|。|\n', text):
                         if len(i) == 0:
                             continue
