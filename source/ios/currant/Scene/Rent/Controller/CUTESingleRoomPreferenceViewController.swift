@@ -282,6 +282,7 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
             form.area = space.value
             form.unitPresentation = space.unitPresentation()
         }
+        controller.singleRoomArea = true
         controller.formController.form = form
         controller.updateRentAreaCompletion = {
             //TODO

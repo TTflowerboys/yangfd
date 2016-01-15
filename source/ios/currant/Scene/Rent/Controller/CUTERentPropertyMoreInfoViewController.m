@@ -96,12 +96,7 @@
     }
     else if ([field.key isEqualToString:@"area"]) {
         if (self.form.ticket.rentType) {
-            if ([self.form.ticket.rentType.slug hasSuffix:@":whole"]) {
-                cell.textLabel.text = STR(@"RentPropertyMoreInfo/房屋面积");
-            }
-            else {
-                cell.textLabel.text = STR(@"RentPropertyMoreInfo/房间面积");
-            }
+            cell.textLabel.text = STR(@"RentPropertyMoreInfo/房屋面积");
         }
 
         if (self.form.ticket.space) {
@@ -116,8 +111,8 @@
     CUTERentAreaViewController *controller = [CUTERentAreaViewController new];
     CUTEAreaForm *form = [CUTEAreaForm new];
     form.ticket = self.form.ticket;
-    form.area = self.form.ticket.space.value;
-    form.unitPresentation = self.form.ticket.space.unitPresentation;
+    form.area = self.form.ticket.property.space.value;
+    form.unitPresentation = self.form.ticket.property.space.unitPresentation;
     controller.formController.form = form;
 
     __weak typeof(self)weakSelf = self;

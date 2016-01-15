@@ -13,6 +13,8 @@
 @interface CUTERentAreaViewController : CUTEFormViewController
 
 
+@property (nonatomic) BOOL singleRoomArea;
+
 @property (nonatomic, copy) dispatch_block_t updateRentAreaCompletion;
 
 

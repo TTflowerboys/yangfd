@@ -47,15 +47,13 @@
     CUTEAreaForm *form = (CUTEAreaForm *)self.formController.form;
 
     CUTEArea *area = (IsNilNullOrEmpty(form.area) || IsNilNullOrEmpty(form.unit))? nil: [CUTEArea areaWithValue:form.area unit:form.unit];
+
     [form syncTicketWithBlock:^(CUTETicket *ticket) {
-        //TODO: Update here 
-        if (ticket.rentType.slug && [ticket.rentType.slug hasSuffix:@":whole"]) {
+        if (self.singleRoomArea) {
             ticket.space = area;
-            ticket.property.space = area;
         }
         else {
-            ticket.space = area;
-            ticket.property.space = nil;
+            ticket.property.space = area;
         }
     }];
 }
