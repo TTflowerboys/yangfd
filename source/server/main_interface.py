@@ -2015,9 +2015,8 @@ def user_rent_request(user, params):
             "type": "rent_intention",
             "interested_rent_tickets": {"$exists": True},
             "status": {
-                "$in": [
-                    "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
-                ]
+                "$nin": ['new', 'deleted'],
+                "$exists": True
             }
         }
         if 'date_from' in params and 'date_to' in params:
@@ -2033,14 +2032,15 @@ def user_rent_request(user, params):
     def get_request_status_translate(ticket):
         status = ticket.get('status', None)
         status_dic = {
-            "requested": "房源咨询申请已提交",
-            "assigned": "已处理",
-            "in_progress": "沟通中",
-            "rejected": "已拒绝",
-            "confirmed_video": "已确认视频看房",
-            "booked": "预订确认，等待支付",
-            "holding_deposit_paid": "定金已支付，确认入住",
-            "checked_in": "租客已入住"
+            'requested': '咨询申请已提交',
+            'assigned': '已处理',
+            'in_progress': '沟通中',
+            'rejected': '已拒绝',
+            'confirmed_video': '已确认视频看房',
+            'booked': '预订确认，等待支付',
+            'holding_deposit_paid': '定金已支付，确认入住',
+            'canceled': '预订取消',
+            'checked_in': '租客已入住'
         }
         if status not in status_dic:
             return '未知'
@@ -2228,6 +2228,17 @@ def user_rent_request(user, params):
                     break
         return relocate
 
+    def get_referrer_source(ticket):
+        if ticket is None:
+            return ''
+        if 'referrer' in ticket:
+            try:
+                referrer_id = ObjectId(ticket['referrer'])
+            except:
+                return ticket['referrer']
+            else:
+                return f_app.enum.get(referrer_id)['value']['zh_Hans_CN']
+
     wb = Workbook()
     ws = wb.active
     '''header = ["咨询单状态", "咨询单描述", "咨询人昵称", "咨询人性别", "咨询人年龄", "咨询人职业", "咨询人联系方式", "咨询人邮箱", "微信", "提交时间", "起始日期",
@@ -2238,7 +2249,7 @@ def user_rent_request(user, params):
     Header = [
         ["提交时间", "意向房源", "租期", "", "", "", "客户", "", "", "", "", "",
          "入住信息", "", "", "", "TBC", "", "Location", "", "", "relocate", "租客对房东的问题",
-         "咨询处理状态", "备注", "咨询房源提交量", "房源地址", "short ID", "url"
+         "咨询处理状态", "备注", "咨询房源提交量", "房源地址", "short ID", "url", "来源"
          ],
         ["", "", "入住", "结束", "租期描述", "入住与提交时间差", "名字", "性别",
          "现状", "年龄", "电话", "邮件", "人数", "吸烟", "带小孩", "带宠物",
@@ -2260,7 +2271,8 @@ def user_rent_request(user, params):
         'Z1:Z2',
         'AA1:AA2',
         'AB1:AB2',
-        'AC1:AC2'
+        'AC1:AC2',
+        'AD1:AD2'
     ]
     for header in Header:
         ws.append(header)
@@ -2352,7 +2364,8 @@ def user_rent_request(user, params):
                 target_ticket.count(ticket_id),
                 get_detail_address(ticket),
                 get_short_id(ticket),
-                url if url else ''
+                url if url else '',
+                get_referrer_source(ticket_request)
             ]
             try:
                 ws.append(result_final)
