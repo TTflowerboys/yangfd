@@ -347,32 +347,127 @@ def get_weibo_search_result(keywords_list):
                 break
         return result
 
+    def crawler_ybirds(page_id=None, sell=None):
+
+        def ua_generator():
+            ua_list = [
+                'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)',
+                'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',
+                'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 7.0; InfoPath.3; .NET CLR 3.1.40767; Trident/6.0; en-IN)',
+                'Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))',
+                'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1',
+                'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0',
+            ]
+            return random.choice(ua_list)
+
+        if page_id is None:
+            return []
+        result = []
+        if f_app.util.batch_iterable(page_id):
+            for single_page_id in page_id:
+                single_result = crawler_ybirds(single_page_id)
+                result.extend(single_result)
+            return result
+        index = 1
+        today = date.today()
+        time_start = datetime(today.year, today.month, today.day) - timedelta(days=day_shift, hours=7)
+        while(index <= 5):
+            max_time = datetime(1970, 1, 1)
+            try:
+                list_page = f_app.request.get(
+                    'http://www.ybirds.com/Home-Class-classify',
+                    {
+                        'ctgClassid': page_id,
+                        'p': index,
+                        'sell': 'yes' if sell is None else sell
+                    },
+                    headers={"User-Agent": ua_generator()}
+                )
+            except:
+                return []
+            index += 1
+            topics_dom = pq(list_page.content)('div.mainHouseContent div.goodDiv')
+
+            for topic in topics_dom:
+                topic_dom = pq(topic)
+                topic_result = {}
+                if topic_dom.attr('style') != 'height: auto':
+                    topic_result.update({'title': topic_dom('span.goodTitle').attr('title')})
+                    topic_result.update({'link': 'http://www.ybirds.com' + topic_dom('a').attr('href')})
+                    create_time = datetime.strptime(topic_dom('span.goodTime').text(), '%Y-%m-%d %H:%M:%S')
+                    topic_result.update({'time': create_time})
+                    max_time = max(max_time, create_time)
+                    if create_time < time_start:
+                        continue
+                    try:
+                        topic_page = f_app.request.get(
+                            topic_result['link'],
+                            headers={"User-Agent": ua_generator()}
+                        )
+                    except:
+                        continue
+                    # sleep(1)
+                    topic_page_dom = pq(topic_page.content)
+                    topic_result.update({'postcode': topic_page_dom('span.owner').eq(0).text()})
+                    topic_result.update({'contact': topic_page_dom('span.owner').eq(3).text()})
+                    topic_result.update({'phone': topic_page_dom('span.phone.propertyTitle').text()})
+                    topic_result.update({'qq': topic_page_dom('span.owner').eq(4).text()})
+                    topic_result.update({'location': topic_page_dom('span.owner').eq(5).text()})
+                    topic_result.update({'author': topic_page_dom('div.ownerName a').text()})
+                    print topic_result['phone']
+                    try:
+                        text_dom = topic_page_dom('div.textDetail p')
+                        text_dom.find('br').replaceWith('\n')
+                        text = text_dom.text()
+                    except:
+                        continue
+                    array = []
+                    for i in re.split('\.|。|\n', text):
+                        if len(i) == 0:
+                            continue
+                        if len(i) > 35:
+                            for pics in re.split(',|，', i):
+                                for example in contact_keyword:
+                                    if pics.find(example) != -1:
+                                        array.append(pics)
+                                        break
+                        else:
+                            for example in contact_keyword:
+                                if i.find(example) != -1:
+                                    array.append(i)
+                                    break
+                    topic_result.update({'contact_raw': array})
+                    result.append(topic_result)
+            if max_time < time_start:
+                break
+        return result.extend(crawler_ybirds(page_id, 'no'))
+
     contact_keyword = ['微信', '电话', '联系', '邮箱', '地址', 'qq', 'QQ', 'wechat', 'WECHAT', 'phone', 'Phone', 'email', 'Wechat']
     header = ['微薄帐号', '时间', '链接地址', '最新内容', '来源关键词', '长期/短期', '名字', '电话', '微信', '邮箱', 'qq', '地址']
     header_powerapple = ['论坛帐号', '时间', '链接地址', '标题', '联系方式', '长期/短期', '名字', '电话', '微信', '邮箱', 'qq', '地址']
     header_douban_group = ['豆瓣帐号', '时间', '链接地址', '标题', '联系方式', '长期/短期', '名字', '电话', '微信', '邮箱', 'qq', '地址']
+    header_ybirds = ['发帖帐号', '时间', '链接地址', '标题', '联系人', '联系方式', '长期/短期', '名字', '电话', '微信', '邮箱', 'qq', 'POSTCODE', '地址']
     result_weibo = []
     result_powerapple = []
     result_douban_group = []
+    result_ybirds = []
 
     if server:
         result_powerapple = crawler_powerapple('10141')
     else:
-        result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
-        result_douban_group = crawler_douban_group([
-            'ukhome',
-            '436707',
-            '338873',
-            'LondonHome'
-        ])
+        result_ybirds = crawler_ybirds('40')
+        # result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
+        # result_douban_group = crawler_douban_group(['ukhome', '436707', '338873', 'LondonHome'])
 
     wb = Workbook()
     ws_weibo = wb.active
     ws_powerapple = wb.create_sheet()
     ws_douban_group = wb.create_sheet()
+    ws_ybirds = wb.create_sheet()
     ws_weibo.title = '微博'
     ws_powerapple.title = '超级苹果论坛'
     ws_douban_group.title = '豆瓣小组'
+    ws_ybirds.title = '英鸟'
 
     ws_weibo.append(header)
     for single in result_weibo:
@@ -409,6 +504,27 @@ def get_weibo_search_result(keywords_list):
         ])
     add_link(ws_douban_group, 'C')
     format_fit(ws_douban_group)
+
+    ws_ybirds.append(header_ybirds)
+    for single in result_ybirds:
+        ws_ybirds.append([
+            single['author'],
+            single['time'],
+            single['link'],
+            single['title'],
+            single['contact'],
+            '\n'.join(single['contact_raw']),
+            '',
+            '',
+            single['phone'],
+            '',
+            '',
+            single['qq'],
+            single['postcode'],
+            single['location']
+        ])
+    add_link(ws_ybirds, 'C')
+    format_fit(ws_ybirds)
 
     today = date.today()
     if day_shift:
