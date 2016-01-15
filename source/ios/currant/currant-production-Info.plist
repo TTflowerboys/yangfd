@@ -40,7 +40,7 @@
 	<key>CurrantHost</key>
 	<string>yangfd.com</string>
 	<key>CurrantSecureHost</key>
-	<string>currant.bbtechgroup.com</string>
+	<string>yangfd.com</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
