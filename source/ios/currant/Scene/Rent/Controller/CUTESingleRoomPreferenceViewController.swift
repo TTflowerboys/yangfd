@@ -64,6 +64,7 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
 
     //MARK: TableView
 
+    //TODO: do i need here or setup by the form field's value?
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let field = self.formController.fieldForIndexPath(indexPath)
 
@@ -105,11 +106,19 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
             }
         }
         else if field.key == "noSmoking" {
-
+            if  let switchCell  = cell as? FXFormSwitchCell {
+                switchCell.switchControl.on = self.form().ticket.noSmoking!.boolValue
+            }
         }
         else if field.key == "noPet" {
+            if  let switchCell  = cell as? FXFormSwitchCell {
+                switchCell.switchControl.on = self.form().ticket.noPet!.boolValue
+            }
         }
         else if field.key == "noBaby" {
+            if  let switchCell  = cell as? FXFormSwitchCell {
+                switchCell.switchControl.on = self.form().ticket.noBaby!.boolValue
+            }
         }
         else if field.key == "currentMaleRoommates" {
             if let number = self.form().ticket.currentMaleRoommates {
@@ -132,9 +141,14 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
             }
         }
         else if field.key == "independentBathroom" {
+            if  let switchCell  = cell as? FXFormSwitchCell {
+                switchCell.switchControl.on = self.form().ticket.independentBathroom!.boolValue
+            }
         }
         else if field.key == "otherRequirements" {
-            cell.detailTextLabel?.text = self.form().ticket.otherRequirements
+            if let requirement = self.form().ticket.otherRequirements {
+                cell.detailTextLabel?.text = requirement
+            }
         }
     }
 

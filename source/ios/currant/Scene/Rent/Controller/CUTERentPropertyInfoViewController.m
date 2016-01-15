@@ -655,23 +655,57 @@
                 [SVProgressHUD showErrorWithCancellation];
             }
             else {
-                CUTESingleRoomPreferenceViewController *controller = [CUTESingleRoomPreferenceViewController new];
-                CUTESingleRoomPreferenceForm *form = [CUTESingleRoomPreferenceForm new];
-                form.ticket = self.form.ticket;
-                CUTEEnum *unlimitedOccupation = [CUTEEnum new];
-                unlimitedOccupation.type = @"occupation";
-                unlimitedOccupation.value = STR(@"不限");
-                unlimitedOccupation.sortValue = 0;
-                unlimitedOccupation.slug = @"unlimited";
-                NSMutableArray *allOccupation = [NSMutableArray array];
-                [allOccupation addObject:unlimitedOccupation];
-                [allOccupation addObjectsFromArray:task.result];
-                form.allOccupation = allOccupation;
-                form.otherRequirements = self.form.ticket.otherRequirements;
-                controller.formController.form = form;
 
-                [self.navigationController pushViewController:controller animated:YES];
-                [SVProgressHUD dismiss];
+                NSArray *occupations = task.result;
+
+                //setup default value
+                [[self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+                    if (ticket.noSmoking == nil) {
+                        ticket.noSmoking = @(YES);
+                    }
+                    if (ticket.noPet == nil) {
+                        ticket.noPet = @(YES);
+                    }
+                    if (ticket.noBaby == nil) {
+                        ticket.noBaby = @(YES);
+                    }
+                    if (ticket.independentBathroom == nil) {
+                        ticket.independentBathroom = @(NO);
+                    }
+                }] continueWithBlock:^id(BFTask *task) {
+                    if (task.error) {
+                        [SVProgressHUD showErrorWithError:task.error];
+                    }
+                    else if (task.exception) {
+                        [SVProgressHUD showErrorWithException:task.exception];
+                    }
+                    else if (task.isCancelled) {
+                        [SVProgressHUD showErrorWithCancellation];
+                    }
+                    else {
+
+                        CUTESingleRoomPreferenceViewController *controller = [CUTESingleRoomPreferenceViewController new];
+                        CUTESingleRoomPreferenceForm *form = [CUTESingleRoomPreferenceForm new];
+                        form.ticket = self.form.ticket;
+                        CUTEEnum *unlimitedOccupation = [CUTEEnum new];
+                        unlimitedOccupation.type = @"occupation";
+                        unlimitedOccupation.value = STR(@"不限");
+                        unlimitedOccupation.sortValue = 0;
+                        unlimitedOccupation.slug = @"unlimited";
+                        NSMutableArray *allOccupation = [NSMutableArray array];
+                        [allOccupation addObject:unlimitedOccupation];
+                        [allOccupation addObjectsFromArray:occupations];
+                        form.allOccupation = allOccupation;
+                        form.otherRequirements = self.form.ticket.otherRequirements;
+                        controller.formController.form = form;
+                        
+                        [self.navigationController pushViewController:controller animated:YES];
+                        [SVProgressHUD dismiss];
+                    }
+                    
+                    return task;
+                }];
+
             }
             return task;
         }];

@@ -66,7 +66,9 @@ class CUTEWholePropertyPreferenceViewController: CUTEFormViewController {
         let field = self.formController.fieldForIndexPath(indexPath)
 
         if field.key == "otherRequirements" {
-            cell.detailTextLabel?.text = self.form().ticket.otherRequirements
+            if let requirement = self.form().ticket.otherRequirements {
+                cell.detailTextLabel?.text = requirement
+            }
         }
     }
 
