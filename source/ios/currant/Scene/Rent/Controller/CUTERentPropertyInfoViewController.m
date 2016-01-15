@@ -714,7 +714,6 @@
 
 - (void)submit
 {
-    TrackEvent(GetScreenName(self), kEventActionPress, @"preview-and-publish", nil);
     [self submitEditingTicket];
 }
 

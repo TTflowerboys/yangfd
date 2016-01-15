@@ -22,7 +22,11 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
         self.title = STR("SingleRoomPreference/单间信息")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: STR("SingleRoomPreference/预览"), style: UIBarButtonItemStyle.Plain, block:  { (sender) -> Void in
 
-            //TODO add track duration
+            if let screenName = CUTETracker.sharedInstance().getScreenNameFromObject(self) {
+                CUTETracker.sharedInstance().trackEventWithCategory(screenName, action: kEventActionPress, label: "preview-and-publish", value: nil)
+                CUTETracker.sharedInstance().trackStayDurationWithCategory(KEventCategoryPostRentTicket, screenName: screenName)
+            }
+
             SVProgressHUD.show()
             CUTERentTicketPublisher.sharedInstance().previewTicket(self.form().ticket, updateStatus: { (status:String!) -> Void in
                 SVProgressHUD.showWithStatus(status)
@@ -86,6 +90,7 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
             }
         }
         else if field.key == "age" {
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             var minAge:NSInteger = 0
             if self.form().ticket.minAge != nil {
                 minAge = self.form().ticket.minAge!.integerValue
@@ -121,21 +126,25 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
             }
         }
         else if field.key == "currentMaleRoommates" {
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             if let number = self.form().ticket.currentMaleRoommates {
                 cell.detailTextLabel?.text = STR("\(number)人")
             }
         }
         else if field.key == "currentFemaleRoommates" {
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             if let number = self.form().ticket.currentFemaleRoommates {
                 cell.detailTextLabel?.text = STR("\(number)人")
             }
         }
         else if field.key == "availableRooms" {
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             if let number = self.form().ticket.availableRooms {
                 cell.detailTextLabel?.text = STR("\(number)人")
             }
         }
         else if field.key == "area" {
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             if let space = self.form().ticket.space {
                 cell.detailTextLabel?.text = "\(space.value!) \(space.unitPresentation())"
             }

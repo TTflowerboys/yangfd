@@ -22,7 +22,11 @@ class CUTEWholePropertyPreferenceViewController: CUTEFormViewController {
         self.title = STR("WholePropertyPreference/租客要求")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: STR("WholePropertyPreference/预览"), style: UIBarButtonItemStyle.Plain, block:  { (sender) -> Void in
 
-            //TODO add track duration
+            if let screenName = CUTETracker.sharedInstance().getScreenNameFromObject(self) {
+                CUTETracker.sharedInstance().trackEventWithCategory(screenName, action: kEventActionPress, label: "preview-and-publish", value: nil)
+                CUTETracker.sharedInstance().trackStayDurationWithCategory(KEventCategoryPostRentTicket, screenName: screenName)
+            }
+
             SVProgressHUD.show()
             CUTERentTicketPublisher.sharedInstance().previewTicket(self.form().ticket, updateStatus: { (status:String!) -> Void in
                 SVProgressHUD.showWithStatus(status)

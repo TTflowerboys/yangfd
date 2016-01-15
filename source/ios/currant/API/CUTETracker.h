@@ -13,21 +13,21 @@
 
 @interface CUTETracker : NSObject
 
-+ (instancetype)sharedInstance;
++ (instancetype __nonnull)sharedInstance;
 
 - (void)setup;
 
-- (void)trackScreen:(NSString *)screenName;
+- (void)trackScreen:(NSString * __nonnull)screenName;
 
-- (void)trackStayDurationWithCategory:(NSString *)category screenName:(NSString *)screenName;
+- (void)trackStayDurationWithCategory:(NSString * __nonnull)category screenName:(NSString * __nonnull)screenName;
 
-- (void)trackStayDurationWithCategory:(NSString *)category screenNames:(NSArray *)screenNames;
+- (void)trackStayDurationWithCategory:(NSString * __nonnull)category screenNames:(NSArray * __nonnull)screenNames;
 
-- (void)trackEventWithCategory:(NSString *)category action:(NSString *)action label:(NSString *)label value:(NSNumber *)value;
+- (void)trackEventWithCategory:(NSString * __nonnull)category action:(NSString * __nullable)action label:(NSString * __nullable)label value:(NSNumber * __nullable)value;
 
-- (void)trackException:(NSException *)exception;
+- (void)trackException:(NSException * __nonnull)exception;
 
-- (void)trackError:(NSError *)error;
+- (void)trackError:(NSError * __nonnull)error;
 
 - (void)trackMemoryWarning;
 
@@ -36,9 +36,9 @@
 
 #pragma -mark Util
 
-- (NSString *)getScreenNameFromObject:(id)object;
+- (NSString * __nullable)getScreenNameFromObject:(id __nonnull)object;
 
-- (NSString *)getScreenNameFromClass:(Class)oneClass;
+- (NSString * __nullable)getScreenNameFromClass:(Class __nonnull)oneClass;
 
 #pragma -mark Macro
 

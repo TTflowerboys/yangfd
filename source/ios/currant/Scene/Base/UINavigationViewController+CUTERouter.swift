@@ -18,7 +18,7 @@ extension UINavigationController {
                 return CUTETracker.sharedInstance().getScreenNameFromObject(webviewController.URL)
             }
             else {
-                return CUTETracker.sharedInstance().getScreenNameFromObject(viewController)
+                return CUTETracker.sharedInstance().getScreenNameFromObject(viewController!)
             }
         }
         return nil
@@ -37,8 +37,9 @@ extension UINavigationController {
 
     private func trackOpenURL(url:NSURL?) {
         if  let toURL = url {
-            let screenname = CUTETracker.sharedInstance().getScreenNameFromObject(toURL)
-            trackOpenScreen(screenname)
+            if let screenname = CUTETracker.sharedInstance().getScreenNameFromObject(toURL) {
+                trackOpenScreen(screenname)
+            }
 
             if toURL.path != nil && toURL.path!.hasPrefix("/property-to-rent") {
                 let components:[String]? = (toURL.path?.componentsSeparatedByString("/"))
@@ -136,8 +137,9 @@ extension UINavigationController {
 
         if let controller:UIViewController = CUTERouter.globalRouter.matchController(URL) {
             
-            let screenname = CUTETracker.sharedInstance().getScreenNameFromObject(controller)
-            trackOpenScreen(screenname)
+            if let screenname = CUTETracker.sharedInstance().getScreenNameFromObject(controller) {
+                trackOpenScreen(screenname)
+            }
             //TODO not show
             SVProgressHUD.show()
             controller.setupRoute().continueWithBlock({ (task: BFTask!) -> AnyObject! in
