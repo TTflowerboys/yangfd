@@ -127,6 +127,16 @@
     }
 }
 
+- (NSHTTPCookie *)getAuthCookie {
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[CUTEConfiguration hostURL]];
+    for (NSHTTPCookie *cookie in cookies) {
+        if ([cookie.name isEqualToString:KSETTING_AUTH_COOKIE] && !IsNilNullOrEmpty(cookie.value)) {
+            return cookie;
+        }
+    }
+    return nil;
+}
+
 
 #pragma mark - User
 

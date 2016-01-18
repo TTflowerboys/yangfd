@@ -28,6 +28,8 @@
 
 - (void)restoreAllCookies;
 
+- (NSHTTPCookie *)getAuthCookie;
+
 - (void)saveUser:(CUTEUser *)user;
 
 - (void)clearUser;

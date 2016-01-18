@@ -62,6 +62,10 @@
 
     [self.bridge registerHandler:@"logout" handler:^(id data, WVJBResponseCallback responseCallback) {
 
+        NSHTTPCookie *cookie = [[CUTEDataManager sharedInstance] getAuthCookie];
+        if (cookie) {
+            [NotificationCenter postNotificationName:KNOTIF_USER_WILL_LOGOUT object:webViewController userInfo:@{@"cookie": cookie}];
+        }
         [[CUTEDataManager sharedInstance] clearAllCookies];
         [[CUTEDataManager sharedInstance] clearUser];
         UIView *view = [webViewController view];

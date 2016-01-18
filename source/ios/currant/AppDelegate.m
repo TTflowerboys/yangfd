@@ -178,6 +178,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveHideRootTabBar:) name:KNOTIF_HIDE_ROOT_TAB_BAR object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onReceiveShowRootTabBar:) name:KNOTIF_SHOW_ROOT_TAB_BAR object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogin:) name:KNOTIF_USER_DID_LOGIN object:nil];
+    [NotificationCenter addObserver:self selector:@selector(onReceiveUserWillLogout:) name:KNOTIF_USER_WILL_LOGOUT object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogout:) name:KNOTIF_USER_DID_LOGOUT object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserVerifyPhone:) name:KNOTIF_USER_VERIFY_PHONE object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveMarkUserAsLandlord:) name:KNOTIF_MARK_USER_AS_LANDLORD object:nil];
@@ -786,7 +787,6 @@
     [[[CUTEAPNSManager sharedInstance] bind] continueWithBlock:^id(BFTask *task) {
         return task;
     }];
-
     NSArray *unbindedTicket = [[[CUTEDataManager sharedInstance] getAllUnfinishedRentTickets] select:^BOOL(CUTETicket *object) {
         return object.creatorUser == nil;
     }];
@@ -831,10 +831,17 @@
 
 }
 
-- (void)onReceiveUserDidLogout:(NSNotification *)notif {
-    [[[CUTEAPNSManager sharedInstance] unbind] continueWithBlock:^id(BFTask *task) {
+
+- (void)onReceiveUserWillLogout:(NSNotification *)notif {
+    //unbind api call depend on the cookie, so need do it before logout
+    NSHTTPCookie *cookie = notif.userInfo[@"cookie"];
+    [[[CUTEAPNSManager sharedInstance] unbind:cookie] continueWithBlock:^id(BFTask *task) {
         return task;
     }];
+}
+
+- (void)onReceiveUserDidLogout:(NSNotification *)notif {
+
     [[CUTEDataManager sharedInstance] clearAllRentTickets];
     _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:YES];
 }

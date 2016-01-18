@@ -38,6 +38,10 @@
             CUTERentConfirmPhoneForm *form = (CUTERentConfirmPhoneForm *)self.formController.form;
             //if not verified, and disappear, then clear the cookie, let user login again
             if (!form.user.phoneVerified.boolValue) {
+                NSHTTPCookie *cookie = [[CUTEDataManager sharedInstance] getAuthCookie];
+                if (cookie) {
+                    [NotificationCenter postNotificationName:KNOTIF_USER_WILL_LOGOUT object:self userInfo:@{@"cookie": cookie}];
+                }
                 [[CUTEDataManager sharedInstance] clearUser];
                 [[CUTEDataManager sharedInstance] clearAllCookies];
                 [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGOUT object:self];

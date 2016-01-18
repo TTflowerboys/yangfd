@@ -50,7 +50,26 @@ class CUTEAPNSManager : NSObject {
     }
 
     ///Call before logout
-    func unbind() -> BFTask {
-        return CUTEAPIManager.sharedInstance().POST("/api/1/user/apns/" + uuid + "/unregister", parameters: nil, resultClass: nil)
+    func unbind(cookie:NSHTTPCookie) -> BFTask {
+        //TODO:
+        let tcs = BFTaskCompletionSource()
+        let url = NSURL(string: "/api/1/user/apns/" + uuid + "/unregister", relativeToURL: NSURL(string: CUTEConfiguration.apiEndpoint()))
+        let request = CUTEAPIManager.sharedInstance().backingManager().requestSerializer.requestWithMethod("POST", URLString: (url?.absoluteString)!, parameters: [], error:nil)
+        let cookieHeaders = NSHTTPCookie.requestHeaderFieldsWithCookies([cookie])
+        let headersDic = NSMutableDictionary()
+        if request.allHTTPHeaderFields != nil {
+            headersDic.addEntriesFromDictionary(request.allHTTPHeaderFields!)
+        }
+        headersDic.addEntriesFromDictionary(cookieHeaders)
+
+        request.allHTTPHeaderFields =  ((headersDic as NSDictionary) as! Dictionary<String, String>)
+        let operation = CUTEAPIManager.sharedInstance().backingManager().HTTPRequestOperationWithRequest(request, success: { (operation:AFHTTPRequestOperation, responseObject:AnyObject) -> Void in
+            tcs.setResult(responseObject)
+            }) { (operation:AFHTTPRequestOperation, error:NSError) -> Void in
+                tcs.setError(error)
+        }
+        CUTEAPIManager.sharedInstance().backingManager().operationQueue.addOperation(operation)
+        return tcs.task;
+
     }
 }
