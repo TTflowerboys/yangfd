@@ -446,6 +446,20 @@ def get_weibo_search_result(keywords_list):
                 break
         return result
 
+    def load_block_list(filename=None):
+        block_list = {}
+        wb_block_list = load_workbook(filename)
+        sheet = wb_block_list.active
+        for col in sheet.columns:
+            key = None
+            for index, cell in enumerate(col):
+                if index == 0:
+                    key = cell.value
+                elif cell.value is not None:
+                    if key not in block_list:
+                        block_list.update({key: []})
+                    block_list[key].append(cell.value)
+        return block_list
     contact_keyword = ['微信', '电话', '联系', '邮箱', '地址', 'qq', 'QQ', 'wechat', 'WECHAT', 'phone', 'Phone', 'email', 'Wechat']
     header = ['微薄帐号', '时间', '链接地址', '最新内容', '来源关键词', '长期/短期', '名字', '电话', '微信', '邮箱', 'qq', '地址']
     header_powerapple = ['论坛帐号', '时间', '链接地址', '标题', '联系方式', '长期/短期', '名字', '电话', '微信', '邮箱', 'qq', '地址']
@@ -455,6 +469,8 @@ def get_weibo_search_result(keywords_list):
     result_powerapple = []
     result_douban_group = []
     result_ybirds = []
+
+    block_list = load_block_list('block_list.xlsx')
 
     result_powerapple = crawler_powerapple('10141')
     result_ybirds = crawler_ybirds(['40', '41', '89', '92', '95'])
@@ -466,67 +482,133 @@ def get_weibo_search_result(keywords_list):
     ws_powerapple = wb.create_sheet()
     ws_douban_group = wb.create_sheet()
     ws_ybirds = wb.create_sheet()
+    ws_weibo_block_list = wb.create_sheet()
+    ws_powerapple_block_list = wb.create_sheet()
+    ws_douban_group_block_list = wb.create_sheet()
+    ws_ybirds_block_list = wb.create_sheet()
+
     ws_weibo.title = '微博'
     ws_powerapple.title = '超级苹果论坛'
     ws_douban_group.title = '豆瓣小组'
     ws_ybirds.title = '英鸟'
+    ws_weibo_block_list.title = '微博_黑名单'
+    ws_powerapple_block_list.title = '超级苹果论坛_黑名单'
+    ws_douban_group_block_list.title = '豆瓣小组_黑名单'
+    ws_ybirds_block_list.title = '英鸟_黑名单'
 
     ws_weibo.append(header)
+    ws_weibo_block_list.append(header)
     for single in result_weibo:
-        ws_weibo.append([
-            single['name'],
-            single['time'],
-            single['link'],
-            single['text'],
-            ' & '.join(single['keyword'])
-        ])
+        if single['name'] in block_list['weibo']:
+            ws_weibo_block_list.append([
+                single['name'],
+                single['time'],
+                single['link'],
+                single['text'],
+                ' & '.join(single['keyword'])
+            ])
+        else:
+            ws_weibo.append([
+                single['name'],
+                single['time'],
+                single['link'],
+                single['text'],
+                ' & '.join(single['keyword'])
+            ])
     add_link(ws_weibo, 'C')
     format_fit(ws_weibo)
+    add_link(ws_weibo_block_list, 'C')
+    format_fit(ws_weibo_block_list)
 
     ws_powerapple.append(header_powerapple)
+    ws_powerapple_block_list.append(header_powerapple)
     for single in result_powerapple:
-        ws_powerapple.append([
-            single['name'],
-            single['time'],
-            single['link'],
-            single['text'],
-            '\n'.join(single['contact_raw'])
-        ])
+        if single['name'] in block_list['powerapple']:
+            ws_powerapple_block_list.append([
+                single['name'],
+                single['time'],
+                single['link'],
+                single['text'],
+                '\n'.join(single['contact_raw'])
+            ])
+        else:
+            ws_powerapple.append([
+                single['name'],
+                single['time'],
+                single['link'],
+                single['text'],
+                '\n'.join(single['contact_raw'])
+            ])
     add_link(ws_powerapple, 'C')
     format_fit(ws_powerapple)
+    add_link(ws_powerapple_block_list, 'C')
+    format_fit(ws_powerapple_block_list)
 
     ws_douban_group.append(header_douban_group)
+    ws_douban_group_block_list.append(header_douban_group)
     for single in result_douban_group:
-        ws_douban_group.append([
-            single['author'],
-            single['time'],
-            single['link'],
-            single['title'],
-            '\n'.join(single['contact_raw'])
-        ])
+        if single['author'] in block_list['douban']:
+            ws_douban_group_block_list.append([
+                single['author'],
+                single['time'],
+                single['link'],
+                single['title'],
+                '\n'.join(single['contact_raw'])
+            ])
+        else:
+            ws_douban_group.append([
+                single['author'],
+                single['time'],
+                single['link'],
+                single['title'],
+                '\n'.join(single['contact_raw'])
+            ])
     add_link(ws_douban_group, 'C')
     format_fit(ws_douban_group)
+    add_link(ws_douban_group_block_list, 'C')
+    format_fit(ws_douban_group_block_list)
 
     ws_ybirds.append(header_ybirds)
+    ws_ybirds_block_list.append(header_ybirds)
     for single in result_ybirds:
-        ws_ybirds.append([
-            single['author'],
-            single['time'],
-            single['link'],
-            single['title'],
-            single['contact'],
-            '\n'.join(single['contact_raw']),
-            '',
-            '',
-            single['phone'],
-            '',
-            '',
-            single['qq'],
-            single['postcode'],
-            single['location']
-        ])
+        if single['author'] in block_list['ybirds']:
+            ws_ybirds_block_list.append([
+                single['author'],
+                single['time'],
+                single['link'],
+                single['title'],
+                single['contact'],
+                '\n'.join(single['contact_raw']),
+                '',
+                '',
+                single['phone'],
+                '',
+                '',
+                single['qq'],
+                single['postcode'],
+                single['location']
+            ])
+        else:
+            ws_ybirds.append([
+                single['author'],
+                single['time'],
+                single['link'],
+                single['title'],
+                single['contact'],
+                '\n'.join(single['contact_raw']),
+                '',
+                '',
+                single['phone'],
+                '',
+                '',
+                single['qq'],
+                single['postcode'],
+                single['location']
+            ])
     add_link(ws_ybirds, 'C')
     format_fit(ws_ybirds)
+    add_link(ws_ybirds_block_list, 'C')
+    format_fit(ws_ybirds_block_list)
 
     today = date.today()
     if day_shift:
