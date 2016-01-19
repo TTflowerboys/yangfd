@@ -61,13 +61,14 @@
                 </a>
                 %end
             </div>
-            <a href="/property-to-rent/create?rent_type={{next(item for item in rent_type_list if item.get('slug') == 'rent_type:single').get('id')}}" class="button publishButton single hiddenInClient">
+            <a href="/property-to-rent/create?rent_type={{next(item for item in rent_type_list if item.get('slug') == 'rent_type:single').get('id')}}" class="button bigButton blue hiddenInClient">
                 <i class="icon-door"></i>
                 <span>{{_('单间出租')}}</span>
             </a><!--
-            --><a href="/property-to-rent/create?rent_type={{next(item for item in rent_type_list if item.get('slug') == 'rent_type:whole').get('id')}}" class="button publishButton whole hiddenInClient">
+            --><a href="/property-to-rent/create?rent_type={{next(item for item in rent_type_list if item.get('slug') == 'rent_type:whole').get('id')}}" class="button bigButton red hiddenInClient">
             <i class="icon-house"></i>
             <span>{{_('整套出租')}}</span>
+        </a>
         </a>
         </div>
         <div style="display: none" class="content" data-bind="visible: activeTab() == 'investor'">
