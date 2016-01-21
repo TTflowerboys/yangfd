@@ -74,7 +74,11 @@ class CUTESurroundingCell: UITableViewCell {
     }
 
     private func getTypeButtonSize(button:UIButton) -> CGSize {
-        let textSize = ((button.titleLabel?.text)! as NSString).boundingRectWithSize(CGSizeMake(1000, 1000), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: button.titleLabel!.font], context: nil)
+        var text = ""
+        if button.titleLabel?.text != nil {
+            text = (button.titleLabel?.text)!
+        }
+        let textSize = (text as NSString).boundingRectWithSize(CGSizeMake(1000, 1000), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: button.titleLabel!.font], context: nil)
         let imageSize = CGSizeMake(8, 8)
         let spacing:CGFloat = 13
         let contentMargin:CGFloat = 13
@@ -93,7 +97,11 @@ class CUTESurroundingCell: UITableViewCell {
     }
 
     private func getDurationButtonSize(button:UIButton) -> CGSize {
-        let textSize = ((button.titleLabel?.text)! as NSString).boundingRectWithSize(CGSizeMake(1000, 1000), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: button.titleLabel!.font], context: nil)
+        var text = ""
+        if button.titleLabel?.text != nil {
+            text = (button.titleLabel?.text)!
+        }
+        let textSize = (text as NSString).boundingRectWithSize(CGSizeMake(1000, 1000), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: button.titleLabel!.font], context: nil)
         let imageSize = CGSizeMake(8, 8)
         let spacing:CGFloat = 13
         let contentMargin:CGFloat = 13
