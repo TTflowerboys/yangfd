@@ -11,15 +11,12 @@ import UIKit
 @objc(CUTEPropertyAPIProxy)
 class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
 
-    private var restClient:BBTRestClient?
-
-    func setRestClient(restClient: BBTRestClient) {
+    init(restClient:BBTRestClient) {
         self.restClient = restClient
+        super.init()
     }
 
-    func  getRestClient() -> BBTRestClient {
-        return self.restClient!
-    }
+    var restClient:BBTRestClient
 
     //, "hesaUniversity":"hesa_university", "doogalStation":"doogal_station"
     func getAdaptedParamters(parameters: [String: AnyObject]?) -> BFTask! {
@@ -173,14 +170,14 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
         self.getAdaptedParamters(parameters).continueWithSuccessBlock() { (task:BFTask!) -> AnyObject! in
             let modifiedParamters  = task.result as? [String : AnyObject]
 
-            let URL = NSURL(string: URLString, relativeToURL:self.getRestClient().baseURL)
+            let URL = NSURL(string: URLString, relativeToURL:self.restClient.baseURL)
             var absURLString = URLString
             if URL != nil {
                 absURLString = URL!.absoluteString
             }
 
-            let request = self.getRestClient().requestSerializer.requestWithMethod(method, URLString: absURLString, parameters: modifiedParamters, error: nil)
-            let operation = self.getRestClient().HTTPRequestOperationWithRequest(request, resultClass: resultClass, resultKeyPath: keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
+            let request = self.restClient.requestSerializer.requestWithMethod(method, URLString: absURLString, parameters: modifiedParamters, error: nil)
+            let operation = self.restClient.HTTPRequestOperationWithRequest(request, resultClass: resultClass, resultKeyPath: keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
 
                 //trySetCancelled will cancel this request
                 if tcs.task.cancelled {
@@ -204,7 +201,7 @@ class CUTEPropertyAPIProxy: NSObject, CUTEAPIProxyProtocol {
                     tcs.trySetCancelled()
                 })
             }
-            self.getRestClient().operationQueue.addOperation(operation)
+            self.restClient.operationQueue.addOperation(operation)
             
             return task
         }

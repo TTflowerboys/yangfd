@@ -10,15 +10,12 @@ import UIKit
 
 @objc(CUTEMainMixedIndexAPIProxy) class CUTEMainMixedIndexAPIProxy: NSObject, CUTEAPIProxyProtocol {
 
-    private var restClient:BBTRestClient?
-
-    func setRestClient(restClient: BBTRestClient) {
+    init(restClient:BBTRestClient) {
         self.restClient = restClient
+        super.init()
     }
 
-    func  getRestClient() -> BBTRestClient {
-        return self.restClient!
-    }
+    var restClient:BBTRestClient
 
     func getModifiedJsonDictionary(jsonDic:[String:AnyObject] ,types:[CUTEEnum]) -> [String:AnyObject] {
 
@@ -70,13 +67,13 @@ import UIKit
 
     func method(method: String!, URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!, cancellationToken: BFCancellationToken?) -> BFTask! {
         let tcs = BFTaskCompletionSource()
-        let URL = NSURL(string: URLString, relativeToURL:self.getRestClient().baseURL)
+        let URL = NSURL(string: URLString, relativeToURL:self.restClient.baseURL)
         var absURLString = URLString
         if URL != nil {
             absURLString = URL!.absoluteString
         }
-        let request = self.getRestClient().requestSerializer.requestWithMethod(method, URLString: absURLString, parameters: parameters, error: nil)
-        let operation = self.getRestClient().HTTPRequestOperationWithRequest(request, resultClass: resultClass, resultKeyPath: keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
+        let request = self.restClient.requestSerializer.requestWithMethod(method, URLString: absURLString, parameters: parameters, error: nil)
+        let operation = self.restClient.HTTPRequestOperationWithRequest(request, resultClass: resultClass, resultKeyPath: keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
 
             //trySetCancelled will cancel this request
             if tcs.task.cancelled {
@@ -100,7 +97,7 @@ import UIKit
                 tcs.trySetCancelled()
             })
         }
-        self.getRestClient().operationQueue.addOperation(operation)
+        self.restClient.operationQueue.addOperation(operation)
         return tcs.task
     }
 

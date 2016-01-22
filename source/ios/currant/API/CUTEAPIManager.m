@@ -93,8 +93,7 @@
     }];
     if (rule) {
         NSString  *className = [_adapterURLRuleMappings objectForKey:rule];
-        id<CUTEAPIProxyProtocol> adapter = [[NSClassFromString(className) alloc] init];
-        [adapter setRestClient:_backingManager];
+        id<CUTEAPIProxyProtocol> adapter = [[NSClassFromString(className) alloc] initWithRestClient:_backingManager];
         return adapter;
 
     }

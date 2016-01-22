@@ -11,15 +11,12 @@ import UIKit
 @objc(CUTERentTicketAPIProxy)
 class CUTERentTicketAPIProxy: NSObject, CUTEAPIProxyProtocol {
 
-    private var restClient:BBTRestClient?
-
-    func setRestClient(restClient: BBTRestClient) {
+    init(restClient:BBTRestClient) {
         self.restClient = restClient
+        super.init()
     }
 
-    func  getRestClient() -> BBTRestClient {
-        return self.restClient!
-    }
+    var restClient:BBTRestClient
 
     static func getModifiedJsonDictionary(jsonDic:[String:AnyObject] ,types:[CUTEEnum]) -> [String:AnyObject] {
         var modifiedJsonDic = [String:AnyObject]()
@@ -90,14 +87,14 @@ class CUTERentTicketAPIProxy: NSObject, CUTEAPIProxyProtocol {
     func method(method: String!, URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!, cancellationToken: BFCancellationToken?) -> BFTask! {
         let tcs = BFTaskCompletionSource()
 
-        let URL = NSURL(string: URLString, relativeToURL:self.getRestClient().baseURL)
+        let URL = NSURL(string: URLString, relativeToURL:self.restClient.baseURL)
         var absURLString = URLString
         if URL != nil {
             absURLString = URL!.absoluteString
         }
 
-        let request = self.getRestClient().requestSerializer.requestWithMethod(method, URLString: absURLString, parameters: parameters, error: nil)
-        let operation = self.getRestClient().HTTPRequestOperationWithRequest(request, resultClass: resultClass, resultKeyPath: keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
+        let request = self.restClient.requestSerializer.requestWithMethod(method, URLString: absURLString, parameters: parameters, error: nil)
+        let operation = self.restClient.HTTPRequestOperationWithRequest(request, resultClass: resultClass, resultKeyPath: keyPath, completion: { (operation:AFHTTPRequestOperation!, responseObject:AnyObject!, error:NSError!) -> Void in
             
             //trySetCancelled will cancel this request
             if tcs.task.cancelled {
@@ -121,7 +118,7 @@ class CUTERentTicketAPIProxy: NSObject, CUTEAPIProxyProtocol {
                 tcs.trySetCancelled()
             })
         }
-        self.getRestClient().operationQueue.addOperation(operation)
+        self.restClient.operationQueue.addOperation(operation)
         return tcs.task
     }
 

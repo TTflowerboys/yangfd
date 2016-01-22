@@ -13,9 +13,7 @@ import Foundation
 @objc(CUTEAPIProxyProtocol)
 protocol CUTEAPIProxyProtocol : NSObjectProtocol {
 
-    func setRestClient(restClient:BBTRestClient) -> Void
-
-    func getRestClient() -> BBTRestClient
+    var restClient:BBTRestClient {get set}
 
     func method(method: String!, URLString: String!, parameters: [String : AnyObject]!, resultClass: AnyClass!, resultKeyPath keyPath: String!, cancellationToken: BFCancellationToken?) -> BFTask!
 }
