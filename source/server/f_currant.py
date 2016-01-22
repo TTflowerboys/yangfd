@@ -1066,14 +1066,12 @@ class currant_util(f_util):
         return None
 
     def check_and_override_minimum_rent_period(self, params):
-        # TODO: made it a no-op for now
-        return
         if "rent_available_time" in params and "rent_deadline_time" in params:
             rent_time_delta = params["rent_deadline_time"] - params["rent_available_time"]
             rent_time_delta_seconds = rent_time_delta.days * 86400 + rent_time_delta.seconds
 
             rent_period = dict(
-                unit="seconds",
+                unit="second",
                 value=str(rent_time_delta_seconds),
                 value_float=rent_time_delta_seconds,
                 type="time_period",
@@ -1081,7 +1079,7 @@ class currant_util(f_util):
             )
 
             if "minimum_rent_period" in params:
-                converted_minimum_rent_period = float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value": params["minimum_rent_period"]["value"]}, "seconds"))["value_float"]
+                converted_minimum_rent_period = float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value": params["minimum_rent_period"]["value"]}, "second"))["value_float"]
                 if converted_minimum_rent_period > rent_time_delta_seconds:
                     params["minimum_rent_period"] = rent_period
 

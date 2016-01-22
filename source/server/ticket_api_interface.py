@@ -622,19 +622,19 @@ def rent_intention_ticket_search(user, params):
 
     if "rent_deadline_time" in params:
         params["$and"].append({"$or": [{"rent_deadline_time": {"$gte": params["rent_deadline_time"] - timedelta(days=1)}}, {"rent_deadline_time": {"$exists": False}}]})
-
-    params.pop("rent_deadline_time", None)
+        params.pop("rent_deadline_time")
 
     if "minimum_rent_period" in params:
         rent_period_filter = []
         for time_period_unit in f_app.common.i18n_unit_time_period:
             condition = {"minimum_rent_period.unit": time_period_unit}
             if time_period_unit == params["minimum_rent_period"]["unit"]:
-                condition["minimum_rent_period.value_float"] = {"$gte": params["minimum_rent_period"]["value_float"]}
+                condition["minimum_rent_period.value_float"] = {"$lte": params["minimum_rent_period"]["value_float"]}
             else:
-                condition["minimum_rent_period.value_float"] = {"$gte": float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value_float": params["minimum_rent_period"]["value_float"]}, time_period_unit))}
+                condition["minimum_rent_period.value_float"] = {"$lte": float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value_float": params["minimum_rent_period"]["value_float"]}, time_period_unit))}
             rent_period_filter.append(condition)
         params["$and"].append({"$or": rent_period_filter})
+        params.pop("minimum_rent_period")
 
     if "rent_budget_min" in params or "rent_budget_max" in params:
         # TODO: Currently assuming to be same currency
@@ -1418,19 +1418,19 @@ def rent_ticket_search(user, params):
 
     if "rent_deadline_time" in params:
         params["$and"].append({"$or": [{"rent_deadline_time": {"$gte": params["rent_deadline_time"] - timedelta(days=1)}}, {"rent_deadline_time": {"$exists": False}}]})
-
-    params.pop("rent_deadline_time", None)
+        params.pop("rent_deadline_time")
 
     if "minimum_rent_period" in params:
         rent_period_filter = []
         for time_period_unit in f_app.common.i18n_unit_time_period:
             condition = {"minimum_rent_period.unit": time_period_unit}
             if time_period_unit == params["minimum_rent_period"]["unit"]:
-                condition["minimum_rent_period.value_float"] = {"$gte": params["minimum_rent_period"]["value_float"]}
+                condition["minimum_rent_period.value_float"] = {"$lte": params["minimum_rent_period"]["value_float"]}
             else:
-                condition["minimum_rent_period.value_float"] = {"$gte": float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value_float": params["minimum_rent_period"]["value_float"]}, time_period_unit))}
+                condition["minimum_rent_period.value_float"] = {"$lte": float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value_float": params["minimum_rent_period"]["value_float"]}, time_period_unit))}
             rent_period_filter.append(condition)
         params["$and"].append({"$or": rent_period_filter})
+        params.pop("minimum_rent_period")
 
     if "rent_budget_min" in params or "rent_budget_max" in params:
         # TODO: Currently assuming to be same currency
