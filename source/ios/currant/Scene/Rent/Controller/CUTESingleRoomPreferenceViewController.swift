@@ -99,13 +99,13 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
         else if field.key == "age" {
             cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             var minAge:NSInteger = 0
-            if self.form().ticket.minAge != nil {
-                minAge = self.form().ticket.minAge!.integerValue
+            if let minAgeNumber = self.form().ticket.minAge {
+                minAge = minAgeNumber.integerValue
             }
 
             var maxAge:NSInteger = 0
-            if self.form().ticket.maxAge != nil {
-                maxAge = self.form().ticket.maxAge!.integerValue
+            if let maxAgeNumber = self.form().ticket.maxAge {
+                maxAge = maxAgeNumber.integerValue
             }
             cell.detailTextLabel?.text = CUTEFormAgeRangePickerCell.formattedDisplayTextWithMinAge(minAge, maxAge: maxAge)
         }
@@ -119,17 +119,23 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
         }
         else if field.key == "noSmoking" {
             if  let switchCell  = cell as? FXFormSwitchCell {
-                switchCell.switchControl.on = self.form().ticket.noSmoking!.boolValue
+                if let value = self.form().ticket.noSmoking {
+                    switchCell.switchControl.on = value.boolValue
+                }
             }
         }
         else if field.key == "noPet" {
             if  let switchCell  = cell as? FXFormSwitchCell {
-                switchCell.switchControl.on = self.form().ticket.noPet!.boolValue
+                if let value = self.form().ticket.noPet {
+                    switchCell.switchControl.on = value.boolValue
+                }
             }
         }
         else if field.key == "noBaby" {
             if  let switchCell  = cell as? FXFormSwitchCell {
-                switchCell.switchControl.on = self.form().ticket.noBaby!.boolValue
+                if let value = self.form().ticket.noBaby {
+                    switchCell.switchControl.on = value.boolValue
+                }
             }
         }
         else if field.key == "currentMaleRoommates" {
@@ -158,7 +164,9 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
         }
         else if field.key == "independentBathroom" {
             if  let switchCell  = cell as? FXFormSwitchCell {
-                switchCell.switchControl.on = self.form().ticket.independentBathroom!.boolValue
+                if let value = self.form().ticket.independentBathroom {
+                    switchCell.switchControl.on = value.boolValue
+                }
             }
         }
         else if field.key == "otherRequirements" {

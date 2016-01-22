@@ -172,7 +172,9 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
         surroundingCell.nameLabel.text = surrounding.name
         if let type = surrounding.type {
             if let image = type.image {
-                surroundingCell.typeImageView.setImageWithURL(NSURL(string: image)!)
+                if let url = NSURL(string: image) {
+                    surroundingCell.typeImageView.setImageWithURL(url)
+                }
             }
         }
         surroundingCell.typeButton.tag = indexPath.row
@@ -188,14 +190,19 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
             trafficTime = surrounding.trafficTimes?[0]
         }
 
-        if (trafficTime != nil) {
-            if trafficTime!.time != nil {
-                let formattedTrafficTimePeriod = self.getFormattedMinuteTimePeriod(trafficTime!.time!)
-                surroundingCell.typeButton.setTitle(trafficTime!.type!.value, forState: UIControlState.Normal)
+        if trafficTime != nil {
+            if let time = trafficTime?.time {
+                let formattedTrafficTimePeriod = self.getFormattedMinuteTimePeriod(time)
                 surroundingCell.durationButton.setTitle("\(formattedTrafficTimePeriod.value) " + (formattedTrafficTimePeriod.unitForDisplay), forState: UIControlState.Normal)
             }
+
+            if let type = trafficTime?.type {
+                surroundingCell.typeButton.setTitle(type.value, forState: UIControlState.Normal)
+            }
+
             surroundingCell.setNeedsLayout()
         }
+
         return surroundingCell
 
     }
@@ -257,8 +264,13 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
         if (surr.trafficTimes != nil) {
 
             let modes = surr.trafficTimes!.map({ (time:CUTETrafficTime) -> String in
-                let timePeriod = self.getFormattedMinuteTimePeriod(time.time!)
-                return time.type!.value + " \(timePeriod.value) " + timePeriod.unitForDisplay
+                if let timeValue = time.time {
+                    let timePeriod = self.getFormattedMinuteTimePeriod(timeValue)
+                    if let type = time.type {
+                        return type.value + " \(timePeriod.value) " + timePeriod.unitForDisplay
+                    }
+                }
+                return ""
             })
 
             var defaultTimeIndex = 0

@@ -139,7 +139,9 @@ class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSour
             imageView.contentMode = UIViewContentMode.Center
             if let type = surrounding.type {
                 if let image = type.image {
-                    imageView.setImageWithURL(NSURL(string: image)!)
+                    if let url = NSURL(string: image) {
+                        imageView.setImageWithURL(url)
+                    }
                 }
             }
             cell?.accessoryView = imageView
