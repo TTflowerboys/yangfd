@@ -1,0 +1,111 @@
+defineClass("CUTERentPropertyInfoViewController", {
+    editSurrounding: function () {
+        var form = self.form()
+        var ticket = form.ticket()
+        var testProperty = ticket.property()        
+        if (!testProperty.latitude() || !testProperty.longitude()) {
+            var hud = require('SVProgressHUD')
+            hud.showErrorWithStatus("请添加房产位置")
+            return 
+        }
+        self.ORIGeditSurrounding()
+    }
+})
+
+defineClass("CUTEPlacemark", {
+    },{
+    placeMarkWithGoogleResult: function (result) {
+        var placemark = self.ORIGplaceMarkWithGoogleResult(result)
+        if (placemark && placemark.city() && !placemark.city().name()) {
+            placemark.city().setName("")
+        }   
+        return placemark
+    }
+})
+
+require("BFTaskCompletionSource, CUTEConfiguration, CUTEActivityView, NSURL, BFTask, SendMessageToWXReq, WXApi, BaseResp, SendMessageToWXResp, SVProgressHUD, NSError")
+defineClass("CUTEShareManager", {
+    shareTicket_viewController_onButtonPressBlock: function(ticket, viewController, pressBlock) {        
+        var tcs = BFTaskCompletionSource.taskCompletionSource()
+        
+        var theSelf = self
+    
+        self.setTaskCompletionSource(tcs)        
+        self.getPropertyShareImage(ticket.property()).continueWithSuccessBlock(block("BFTask *", function (task) {
+            var title = ticket.titleForDisplay()            
+            var description = ticket.ticketDescription()
+            if (!description) {
+                description = ticket.property().address()
+            }            
+            var imageData = task.result()
+            var id = ticket.identifier().toJS()
+            var urlBase = CUTEConfiguration.hostURL().absoluteString().toJS()            
+            var urlString =  urlBase + "/wechat-poster/" + id
+            
+            var activityView = theSelf.getActivityViewWithTitle_description_url_image_viewController_onButtonPressBlock(title, description, urlString, imageData, viewController, block("NSString *", pressBlock))
+            activityView.setOnDismissButtonPressedBlock(block("", function () {
+              if (!theSelf.taskCompletionSource().task().isCompleted()) {
+                  theSelf.taskCompletionSource().cancel()
+              }
+            }))
+            activityView.setActivityTitle("分享此房源移动主页")
+            activityView.show(true)
+                        
+            return task
+        }))
+        
+        return tcs.task
+    },
+    shareToWechatWithReq: function(req) {
+          if (WXApi.isWXAppInstalled()) {
+              var theSelf = self
+              self.sendRequst_onResponse(req, block("BaseResp *", function (resp) {
+                  if (resp.isKindOfClass(SendMessageToWXResp.class())) {
+                      var backResp = resp
+                      if (backResp.errCode() === 0) {// success
+                          dispatch_after(1.0, function () {
+                              if (!theSelf.taskCompletionSource().task().isCompleted()) {
+                                  if (req.scene() === 0) {// session
+                                      theSelf.taskCompletionSource().setResult("Wechat Friend")                                                                        
+                                  }
+                                  else if (req.scene() === 1) {// timeline
+                                      theSelf.taskCompletionSource().setResult("Wechat Circle")
+                                  }
+                              }
+                          })
+                      }
+                      else if (backResp.errCode() === -2) {// cancellation
+                          dispatch_after(1.0, function () {
+                              if (!theSelf.taskCompletionSource().task().isCompleted()) {
+                                  theSelf.taskCompletionSource().cancel()
+                              }
+                          })
+                      }
+                      else { // error
+                          dispatch_after(1.0, function () {
+                              if (!theSelf.taskCompletionSource().task().isCompleted()) {
+                                  var error = NSError.errorWithDomain_code_userInfo("Wechat", backResp.errCode(), {"NSLocalizedDescriptionKey": backResp.errStr()})
+                                  theSelf.taskCompletionSource().setError(error)
+                              }
+                          })
+                      }
+                  }
+              }))
+          }
+          else {
+              SVProgressHUD.showErrorWithStatus("请安装微信")
+          }
+    }
+})
+
+defineClass('CUTESurroundingCell', {
+    layoutSubviews: function() {
+        if (!self.typeButton().titleLabel().text()) {
+            self.typeButton().titleLabel().setText("")
+        }
+        if (!self.durationButton().titleLabel().text()) {
+            self.durationButton().titleLabel().setText("")
+        }
+        self.ORIGlayoutSubviews()
+    }
+})
