@@ -83,7 +83,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
 - (void)shareToWechatWithReq:(SendMessageToWXReq *)req {
     if([WXApi isWXAppInstalled]){
-        [self sendRequst:req onResponse:^(BaseResp *resp) {
+        [self sendRequest:req onResponse:^(BaseResp *resp) {
             if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
                 SendMessageToWXResp *backResp = (SendMessageToWXResp *)resp;
                 if (backResp.errCode == WXSuccess) {
@@ -536,7 +536,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 #pragma mark -Base Methods
 
 
-- (void)sendRequst:(BaseReq *)req onResponse:(void (^)(BaseResp *))onResponse {
+- (void)sendRequest:(BaseReq *)req onResponse:(void (^)(BaseResp *))onResponse {
     [WXApi sendReq:req];
     self.responseBlock = onResponse;
 }
