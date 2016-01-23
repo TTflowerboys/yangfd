@@ -88,23 +88,29 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
                 SendMessageToWXResp *backResp = (SendMessageToWXResp *)resp;
                 if (backResp.errCode == WXSuccess) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        if (req.scene == WXSceneSession) {
-                            [self.taskCompletionSource setResult:CUTEShareServiceWechatFriend];
-                        }
-                        else if (req.scene == WXSceneTimeline) {
-                            [self.taskCompletionSource setResult:CUTEShareServiceWechatCircle];
+                        if (!self.taskCompletionSource.task.isCompleted) {
+                            if (req.scene == WXSceneSession) {
+                                [self.taskCompletionSource setResult:CUTEShareServiceWechatFriend];
+                            }
+                            else if (req.scene == WXSceneTimeline) {
+                                [self.taskCompletionSource setResult:CUTEShareServiceWechatCircle];
+                            }
                         }
                     });
                 }
                 else if (backResp.errCode == WXErrCodeUserCancel) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self.taskCompletionSource cancel];
+                        if (!self.taskCompletionSource.task.isCompleted) {
+                            [self.taskCompletionSource cancel];
+                        }
                     });
                 }
                 else {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        NSError *error = [NSError errorWithDomain:@"Wechat" code:backResp.errCode userInfo:@{NSLocalizedDescriptionKey:backResp.errStr}];
-                        [self.taskCompletionSource setError:error];
+                        if (!self.taskCompletionSource.task.isCompleted) {
+                            NSError *error = [NSError errorWithDomain:@"Wechat" code:backResp.errCode userInfo:@{NSLocalizedDescriptionKey:backResp.errStr}];
+                            [self.taskCompletionSource setError:error];
+                        }
                     });
                 }
             }
@@ -376,7 +382,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
                 }
             };
 
-            activityView.activityTitle = STR(@"RentShare/分享此房源移动主页");            
+            activityView.activityTitle = STR(@"RentShare/分享此房源移动主页");
             [activityView show:YES];
 
         }
@@ -409,7 +415,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
         }
         return nil;
     }];
-    
+
     return tcs.task;
 }
 
@@ -493,10 +499,10 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
                 [self.taskCompletionSource cancel];
             }
         };
-        
+
         [activityView show:YES];
     }];
-    
+
     [sequencer run];
 
     return tcs.task;

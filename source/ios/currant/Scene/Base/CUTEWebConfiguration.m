@@ -136,6 +136,7 @@
         }];
     }
     else if ([self isURL:url matchPath:@"\\/property-to-rent\\/[0-9a-fA-F]{24}"]) {
+        //TODO: fix press twice time bug
         return [BBTWebBarButtonItem itemWithImage:IMAGE(@"nav-share") style:UIBarButtonItemStylePlain actionBlock:^(UIViewController *viewController) {
             TrackEvent(@"property-to-rent", kEventActionPress, @"share", nil);
             NSArray *paths = [url.path componentsSeparatedByString:@"/"];
