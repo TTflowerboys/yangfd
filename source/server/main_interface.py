@@ -1889,7 +1889,7 @@ def user_analyze(user):
         if num > 26*26:
             return "ZZ"
         if num >= 26:
-            return get_correct_col_index(num/26-1)+chr(num-26+65)
+            return get_correct_col_index(num/26-1)+get_correct_col_index(num % 26)
         else:
             return chr(num+65)
 
@@ -1956,58 +1956,338 @@ def user_analyze(user):
                         if cell.value == value:
                             cell.fill = cell_fill[index]
 
-    header = ['用户名', '注册时间', '国家', '用户类型', '单独访问次数', '活跃天数',
-              'app下载', '房东类型', '有没有草稿', '发布时间', '地区', '房产查看数',
-              '房产量', '单间还是整套', '短租长租', '租金', '分享房产', '已出租时间',
-              '求租时间', '预算', '地区', '匹配级别', '查看房产次数', '收藏房产次数',
-              '查看房东联系方式的次数', '分享房产', '停留时间最多的页面或rental房产',
-              '投资意向时间', '投资预算', '期房还是现房', '几居室', '浏览数量',
-              '停留时间最多的页面或sales房产', '跳出的页面', '数据更新时间']
+    def get_request_total(user):
+        if user is None:
+            return ''
+        with f_app.mongo() as m:
+            return m.tickets.find({
+                "user_id": ObjectId(user['id']),
+                "type": "rent_intention",
+                "interested_rent_tickets": {"$exists": True},
+                "status": {
+                    "$in": [
+                        "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
+                    ]
+                }
+            }).count()
+
+    def get_recent_ticket_to_rent(user):
+        if user is None:
+            return ''
+        result = f_app.ticket.get(f_app.ticket.search({
+            "user_id": ObjectId(user['id']),
+            "type": "rent",
+            "status": {
+                "$nin": ['deleted', 'draft']
+            }
+        }))
+        if result is None:
+            return {}
+        if len(result) == 0:
+            return {}
+        time_max = result[0]['time']
+        for single in result:
+            time_max = max(time_max, single['time'])
+        for single in result:
+            if single['time'] == time_max:
+                return single
+
+    def get_recent_ticket_request(user):
+        if user is None:
+            return ''
+        result = f_app.ticket.get(f_app.ticket.search({
+            "user_id": ObjectId(user['id']),
+            "type": "rent_intention",
+            "interested_rent_tickets": {"$exists": True},
+            "status": {
+                "$in": [
+                    "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
+                ]
+            }
+        }))
+        if result is None:
+            return {}
+        if len(result) == 0:
+            return {}
+        time_max = result[0]['time']
+        for single in result:
+            time_max = max(time_max, single['time'])
+        for single in result:
+            if single['time'] == time_max:
+                return single
+
+    def get_user_age(ticket):
+        if 'date_of_birth' in ticket:
+            birth_date = ticket['date_of_birth'].date()
+            today = date.today()
+            age = today.year - birth_date.year
+            today = today.replace(year=birth_date.year)
+            if today < birth_date and age:
+                age = age - 1
+            return unicode(age)
+        return ''
+
+    def get_relocate_city(ticket):
+        relocate = ''
+        if 'custom_fields' in ticket and ticket['custom_fields'] is not None:
+            for field in ticket['custom_fields']:
+                if field.get('key', None) == 'relocate':
+                    relocate = field.get('value', '')
+                    break
+        return relocate
+
+    def get_user_landlord_type(user):
+        ticket_list = f_app.ticket.get(f_app.ticket.search({
+            "user_id": ObjectId(user['id']),
+            "type": "rent",
+            "status": {"$ne": "deleted"}
+        }))
+        landlord_type_list = set()
+        if ticket_list is None:
+            return ''
+        for single_ticket in ticket_list:
+            landlord_type = single_ticket.get('landlord_type', None)
+            if landlord_type is None:
+                continue
+            landlord_type_value = f_app.enum.get(landlord_type['id'])['value']['zh_Hans_CN']
+            landlord_type_list.add(landlord_type_value)
+        return '/'.join(landlord_type_list)
+
+    def get_own_house_viewed_time(user):
+        ticket_list = f_app.ticket.search({
+            "user_id": ObjectId(user['id']),
+            "type": "rent",
+            "status": {"$ne": "deleted"}
+        })
+        with f_app.mongo() as m:
+            total = 0
+            if ticket_list is None:
+                return total
+            for single_ticket_id in ticket_list:
+                total += m.log.find({
+                    "type": "route",
+                    "rent_ticket_id": single_ticket_id
+                }).count()
+        return total
+
+    def get_request_ticket_total(user):
+        ticket_list = f_app.ticket.search({
+            "user_id": ObjectId(user['id']),
+            "type": "rent",
+            "status": {"$ne": "deleted"}
+        })
+        with f_app.mongo() as m:
+            total = 0
+            if ticket_list is None:
+                return total
+            for single_ticket_id in ticket_list:
+                total += m.tickets.find({
+                    "type": "rent_intention",
+                    "interested_rent_tickets": ObjectId(single_ticket_id),
+                    "status": {
+                        "$in": [
+                            "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
+                        ]
+                    }
+                }).count()
+        return total
+
+    def get_intention_ticket_total(user):
+        with f_app.mongo() as m:
+            return m.tickets.find({
+                "user_id": ObjectId(user['id']),
+                "type": "intention",
+                "status": {
+                    "$ne": "deleted"
+                }
+            }).count()
+
+    def get_to_rent_ticket_total(user):
+        with f_app.mongo() as m:
+            return m.tickets.find({
+                "user_id": ObjectId(user['id']),
+                "type": "rent",
+                "status": "to rent"
+            }).count()
+
+    def time_period_label(ticket):
+        if ticket is None:
+            return ''
+        time = ""
+        period_start = ticket.get("rent_available_time", None)
+        period_end = ticket.get("rent_deadline_time", None)
+        if period_end is None or period_start is None:
+            time = "不明"
+        else:
+            period = period_end - period_start
+            if period.days >= 365:
+                time = "longer than 12 months"
+            elif 365 > period.days >= 180:
+                time = "6 ~ 12 months"
+            elif 180 > period.days >= 90:
+                time = "3 ~ 6 months"
+            elif 90 > period.days >= 30:
+                time = "1 ~ 3 months"
+            elif period.days <= 30:
+                time = "less than 1 month"
+        return time
+
+    def get_detail_address(ticket):
+        ticket = f_app.i18n.process_i18n(ticket)
+        if f_app.util.batch_iterable(ticket.get("maponics_neighborhood", {})):
+            maponics_neighborhood = ticket.get("maponics_neighborhood", {})[0]
+        else:
+            maponics_neighborhood = ticket.get("maponics_neighborhood", {})
+        return ' '.join([ticket.get("country", {}).get("code", ''),
+                         ticket.get("city", {}).get("name", ''),
+                         maponics_neighborhood.get("name", ''),
+                         ticket.get("address", ''),
+                         ticket.get("zipcode_index", '')])
+
+    def get_to_rent_local(ticket):
+        if 'property_id' not in ticket:
+            return ''
+        try:
+            property_value = f_app.property.get(ticket['property_id'])
+        except:
+            return ''
+        return get_detail_address(property_value)
+
+    def get_own_house_refresh_total(ticket):
+        single_ticket_id = ticket.get('id', None)
+        total = 0
+        if single_ticket_id is None:
+            return ''
+        with f_app.mongo() as m:
+            total = m.log.find({
+                "type": "route",
+                "route": "/api/1/rent_ticket/" + unicode(single_ticket_id) + "/refresh"
+            }).count()
+        return total
+    category = [
+        '基本属性', '', '', '', '', '', '', '', '', '',
+        '网站使用情况', '', '', '',
+        '房东数据', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+        '租客咨询数据', '', '', '', '', '', '', '', '', '', '', '',
+        '求租单统计', '', '', '', '', '',
+        '投资者分析', '', '', '', '', ''
+    ]
+    merge = [
+        'A1:J1',
+        'K1:N1',
+        'O1:AC1',
+        'AD1:AO1',
+        'AP1:AU1',
+        'AV1:BC1'
+    ]
+    header = [
+        '用户名', '注册时间', '性别', '年龄', '职业', '电话', '邮箱', '国家', '城市', '用户类型',
+        '单独访问次数', '活跃天数', 'app下载', '跳出页面',
+        '发布过的房源数量', '房东类型', '正在发布中的房源数量', '房东收到的咨询单数量', '房源被查看的次数', '房源被刷新的次数', '有没有草稿', '发布时间', '地区', '单间还是整套', '短租长租', '租金', '已发布时间(天)', '提前多久开始出租(天)', '分享房产',
+        '查看房产次数', '收藏房产次数', '停留时间最多的页面或rental房产', '咨询单数量', '最近一次提交时间', '最近一次入住开始时间', '最近一次入住结束时间', '提前多久开始找房', '入住人数', '吸烟', '带小孩', '带宠物',
+        '求租时间', '预算', '地区', '匹配级别', '查看房东联系方式的次数', '分享房产',
+        '浏览数量', '投资单提交数量', '投资意向时间', '投资预算', '期房还是现房', '几居室', '停留时间最多的页面或sales房产', '跳出的页面'
+    ]
 
     wb = Workbook()
     ws = wb.active
 
+    ws.append(category)
     ws.append(header)
+    for merge_ops in merge:
+        ws.merge_cells(merge_ops)
+        cell = ws.cell(merge_ops.split(':')[0])
+        cell.alignment = Alignment(horizontal='center')
 
     for index, user in enumerate(f_app.user.get(f_app.user.get_active())):
-        ws.append(prepare_data([user.get("nickname", ''),
-                                user.get("register_time", ''),
-                                user.get("analyze_guest_county", ''),
-                                user.get("analyze_guest_user_type", ''),
-                                '',
-                                user.get("analyze_guest_active_days", ''),
-                                user.get("analyze_guest_downloaded", ''),
-                                user.get("analyze_rent_landlord_type", ''),
-                                user.get("analyze_rent_has_draft", ''),
-                                user.get("analyze_rent_commit_time", ''),
-                                user.get("analyze_rent_local", ''),
-                                user.get("analyze_rent_estate_views_times", ''),
-                                user.get("analyze_rent_estate_total", ''),
-                                user.get("analyze_rent_single_or_whole", ''),
-                                user.get("analyze_rent_period_range", ''),
-                                user.get("analyze_rent_price", ''),
-                                '',
-                                user.get("analyze_rent_time", ''),
-                                user.get("analyze_rent_intention_time", ''),
-                                user.get("analyze_rent_intention_budget", ''),
-                                user.get("analyze_rent_intention_local", ''),
-                                user.get("analyze_rent_intention_match_level", ''),
-                                user.get("analyze_rent_intention_views_times", ''),
-                                user.get("analyze_rent_intention_favorite_times", ''),
-                                user.get("analyze_rent_intention_view_contact_times", ''),
-                                '',
-                                '',
-                                user.get("analyze_intention_time", ''),
-                                user.get("analyze_intention_budget", ''),
-                                '',
-                                '',
-                                user.get("analyze_intention_views_times", ''),
-                                '',
-                                '',
-                                user.get("analyze_value_modifier_time", '')
-                                ]))
+        print index
+        if user['register_time'] < datetime(2015, 12, 7):
+            continue
+
+        ticket_to_rent = get_recent_ticket_to_rent(user)
+        ticket_request = get_recent_ticket_request(user)
+        finding_priod = ''
+        occupation = ''
+        wait_rent_priod = ''
+        wait_to_rent_priod = ''
+        if 'rent_available_time' in ticket_to_rent and 'time' in ticket_to_rent:
+            wait_to_rent_priod = ticket_to_rent['rent_available_time'] - ticket_to_rent['time']
+            wait_to_rent_priod = wait_to_rent_priod.days
+        if 'analyze_rent_time' in user and isinstance(user.get('analyze_rent_time', ''), datetime):
+            wait_rent_priod = datetime.utcnow() - user.get("analyze_rent_time", '')
+            wait_rent_priod = wait_rent_priod.days
+        if 'occupation' in ticket_request:
+            occupation = f_app.enum.get(ticket_request['occupation']['id'])['value']['zh_Hans_CN']
+        if 'rent_available_time' in ticket_request and 'time' in ticket_request:
+            finding_priod = ticket_request.get('rent_available_time', '') - ticket_request.get('time', '')
+            finding_priod = finding_priod.days
+        ws.append(prepare_data([
+            user.get("nickname", ''),  # 用户名
+            user.get("register_time", ''),  # 注册时间注册时间
+            '男' if ticket_request.get('gender', '') == 'male' else '女' if ticket_request.get('gender', '') == 'female' else '',  # gender
+            get_user_age(ticket_request),  # age
+            occupation,  # 职业
+            user.get('phone', ''),  # phone
+            user.get('email', ''),  # email
+            user.get("country", {}).get('code', ''),  # 国家
+            get_relocate_city(ticket_request),  # city
+            user.get("analyze_guest_user_type", ''),  # 用户类型
+
+            '',  # 单独访问次数
+            user.get("analyze_guest_active_days", ''),  # 活跃天数
+            user.get("analyze_guest_downloaded", ''),  # app下载
+            '',  # exit page url
+
+            user.get("analyze_rent_estate_total", ''),  # 发布过的房源数量
+            # user.get("analyze_rent_landlord_type", ''),  # 房东类型
+            get_user_landlord_type(user),  # 房东类型
+            get_to_rent_ticket_total(user),  # 正在发布中的房源数量
+            get_request_ticket_total(user),  # 房东收到的咨询单数量
+            get_own_house_viewed_time(user),  # 房源被查看的次数
+            get_own_house_refresh_total(ticket_to_rent),  # 房源被刷新的次数
+            user.get("analyze_rent_has_draft", ''),  # 有没有草稿
+            user.get("analyze_rent_commit_time", ''),  # 发布时间
+            # user.get("analyze_rent_local", ''),  # 地区
+            get_to_rent_local(ticket_to_rent),  # 地区
+            user.get("analyze_rent_single_or_whole", ''),  # 单间还是整套
+            # user.get("analyze_rent_period_range", ''),  # 短租长租
+            time_period_label(ticket_to_rent),  # 短租长租
+            user.get("analyze_rent_price", ''),  # 租金
+            wait_rent_priod,  # 已发布时间
+            wait_to_rent_priod,  # 提前多久开始出租(天)
+            '',  # 分享房产
+
+            user.get("analyze_rent_intention_views_times", ''),  # 查看房产次数
+            user.get("analyze_rent_intention_favorite_times", ''),  # 收藏房产次数
+            '',  # 停留时间最多的页面或rental房产
+            get_request_total(user),  # 咨询单数量
+            unicode(ticket_request.get('time', '')),  # 最近一次提交时间
+            unicode(ticket_request.get('rent_available_time', '')),  # 最近一次入住开始时间
+            unicode(ticket_request.get('rent_deadline_time', '')),  # 最近一次入住结束时间
+            finding_priod,  # 提前多久开始找房
+            ticket_request.get('tenant_count', ''),  # 入住人数
+            "有" if ticket_request.get('smoke', '') is True else "否" if ticket_request.get('smoke', '') is False else '',  # 吸烟
+            "有" if ticket_request.get('baby', '') is True else "否" if ticket_request.get('baby', '') is False else '',  # 带小孩
+            "有" if ticket_request.get('pet', '') is True else "否" if ticket_request.get('pet', '') is False else '',  # 带宠物
+
+            user.get("analyze_rent_intention_time", ''),  # 求租时间
+            user.get("analyze_rent_intention_budget", ''),  # 预算
+            user.get("analyze_rent_intention_local", ''),  # 地区
+            user.get("analyze_rent_intention_match_level", ''),  # 匹配级别
+            user.get("analyze_rent_intention_view_contact_times", ''),  # 查看房东联系方式的次数
+            '',  # 分享房产
+
+            user.get("analyze_intention_views_times", ''),  # 浏览数量
+            get_intention_ticket_total(user),  # 投资单提交数量
+            user.get("analyze_intention_time", ''),  # 投资意向时间
+            user.get("analyze_intention_budget", ''),  # 投资预算
+            '',  # 期房还是现房
+            '',  # 几居室
+            '',  # 停留时间最多的页面或sales房产
+            '',  # 跳出的页面
+            ]))
     format_fit(ws)
-    be_colorful(ws, 6)
+    # be_colorful(ws, 6)
     out = StringIO(save_virtual_workbook(wb))
     response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
@@ -2089,11 +2369,13 @@ def user_rent_request(user, params):
             except:
                 return ''
             else:
-                return ' '.join([single_property.get("country", {}).get("code", ''),
-                                 single_property.get("city", {}).get("name", ''),
-                                 single_property.get("maponics_neighborhood", {}).get("name", ''),
-                                 single_property.get("address", ''),
-                                 single_property.get("zipcode_index", '')])
+                return ' '.join([
+                    single_property.get("country", {}).get("code", ''),
+                    single_property.get("city", {}).get("name", ''),
+                    single_property.get("maponics_neighborhood", {}).get("name", ''),
+                    single_property.get("address", ''),
+                    single_property.get("zipcode_index", '')
+                ])
         return ''
 
     def get_short_id(ticket):
