@@ -1082,7 +1082,7 @@ class currant_util(f_util):
             )
 
             if "minimum_rent_period" in params:
-                converted_minimum_rent_period = f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value": params["minimum_rent_period"]["value"]}, "second")["value_float"]
+                converted_minimum_rent_period = float(f_app.i18n.convert_i18n_unit({"unit": params["minimum_rent_period"]["unit"], "value": params["minimum_rent_period"]["value"]}, "second"))
                 if converted_minimum_rent_period > rent_time_delta_seconds:
                     params["minimum_rent_period"] = rent_period
 
