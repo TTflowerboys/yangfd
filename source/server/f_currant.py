@@ -1070,6 +1070,9 @@ class currant_util(f_util):
             rent_time_delta = params["rent_deadline_time"] - params["rent_available_time"]
             rent_time_delta_seconds = rent_time_delta.days * 86400 + rent_time_delta.seconds
 
+            if rent_time_delta.days >= 27:
+                rent_time_delta_seconds += 3 * 86400
+
             rent_period = dict(
                 unit="second",
                 value=str(rent_time_delta_seconds),
