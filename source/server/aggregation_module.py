@@ -500,13 +500,21 @@ class aggregation_plugin(f_app.plugin_base):
 
     def ticket_update_after(self, ticket_id, params, ticket, ignore_error=True):
 
-        if ticket.get('type', None) == "rent":
+        if ticket is None:
+            return ticket_id
+
+        if ticket.get('type', None) == "rent" or params.get('$set', {}).get('type', None) == 'rent':
             f_app.user.analyze.data_update(ticket.get('user_id', None), {'analyze_rent_has_draft': True})
 
             if params.get('landlord_type', None) is not None:
                 f_app.user.analyze.data_update(ticket.get('user_id', None), {'analyze_rent_landlord_type': True})
 
+            elif params.get('$set', {}).get('landlord_type', None) is not None:
+                f_app.user.analyze.data_update(ticket.get('user_id', None), {'analyze_rent_landlord_type': True})
+
             if params.get('status', None) == "rent":
+                f_app.user.analyze.data_update(ticket.get('user_id', None), {'analyze_rent_time': True})
+            elif params.get('$set', {}).get('status', None) == "rent":
                 f_app.user.analyze.data_update(ticket.get('user_id', None), {'analyze_rent_time': True})
 
             f_app.user.analyze.data_update(ticket.get('user_id', None), {
