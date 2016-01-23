@@ -618,14 +618,15 @@ def rent_intention_ticket_search(user, params):
     f_app.util.check_and_override_minimum_rent_period(params)
 
     if "rent_available_time" in params:
-        params["rent_available_time"] = {"$gte": params["rent_available_time"] - timedelta(days=7), "$lte": params["rent_available_time"] + timedelta(days=1)}
+        params["$and"].append({"$or": [{"rent_available_time": {"$gte": params["rent_available_time"] - timedelta(days=7), "$lte": params["rent_available_time"] + timedelta(days=1)}}, {"rent_available_time": {"$exists": False}}]})
+        params.pop("rent_available_time")
 
     if "rent_deadline_time" in params:
         params["$and"].append({"$or": [{"rent_deadline_time": {"$gte": params["rent_deadline_time"] - timedelta(days=1)}}, {"rent_deadline_time": {"$exists": False}}]})
         params.pop("rent_deadline_time")
 
     if "minimum_rent_period" in params:
-        rent_period_filter = []
+        rent_period_filter = [{"minimum_rent_period": {"$exists": False}}]
         for time_period_unit in f_app.common.i18n_unit_time_period:
             condition = {"minimum_rent_period.unit": time_period_unit}
             if time_period_unit == params["minimum_rent_period"]["unit"]:
@@ -1414,14 +1415,15 @@ def rent_ticket_search(user, params):
     f_app.util.check_and_override_minimum_rent_period(params)
 
     if "rent_available_time" in params:
-        params["rent_available_time"] = {"$gte": params["rent_available_time"] - timedelta(days=7), "$lte": params["rent_available_time"] + timedelta(days=1)}
+        params["$and"].append({"$or": [{"rent_available_time": {"$gte": params["rent_available_time"] - timedelta(days=7), "$lte": params["rent_available_time"] + timedelta(days=1)}}, {"rent_available_time": {"$exists": False}}]})
+        params.pop("rent_available_time")
 
     if "rent_deadline_time" in params:
         params["$and"].append({"$or": [{"rent_deadline_time": {"$gte": params["rent_deadline_time"] - timedelta(days=1)}}, {"rent_deadline_time": {"$exists": False}}]})
         params.pop("rent_deadline_time")
 
     if "minimum_rent_period" in params:
-        rent_period_filter = []
+        rent_period_filter = [{"minimum_rent_period": {"$exists": False}}]
         for time_period_unit in f_app.common.i18n_unit_time_period:
             condition = {"minimum_rent_period.unit": time_period_unit}
             if time_period_unit == params["minimum_rent_period"]["unit"]:
