@@ -15,8 +15,10 @@ from six.moves import urllib
 from pyquery import PyQuery as pq
 import random
 from time import sleep
+import requests
 
 day_shift = int(sys.argv[1]) if len(sys.argv) > 1 else 0  # the date how many days before will be loaded
+time_start_hours = 10
 
 
 def generate_keyword_list(filename):
@@ -130,7 +132,7 @@ def get_weibo_search_result(keywords_list):
     def reduce_weibo(weibo_list):
         result = []
         today = date.today()
-        time_start = datetime(today.year, today.month, today.day) - timedelta(days=day_shift, hours=7)
+        time_start = datetime(today.year, today.month, today.day, time_start_hours) - timedelta(days=day_shift + 1)
         cleanr = re.compile('<.*?>')
         total = 0
         count = 0
@@ -204,7 +206,7 @@ def get_weibo_search_result(keywords_list):
         page = 1
         result_list = []
         today = date.today()
-        time_start = datetime(today.year, today.month, today.day) - timedelta(days=day_shift, hours=7)
+        time_start = datetime(today.year, today.month, today.day, time_start_hours) - timedelta(days=day_shift + 1)
         while(page <= 8):
             print 'page: '+unicode(page)
             target_url = list_url + '?page=' + unicode(page)
@@ -217,48 +219,50 @@ def get_weibo_search_result(keywords_list):
             dom = pq(list_page.content)
             topics = dom('li.topic-li')
             for topic_dom in topics:
-                topic = pq(topic_dom)
-                result = {}
-                array = []
-                if topic.attr('data-stick') == 'false':
-                    time = datetime.strptime(topic('div.authortime div.threadtime')[0].text.replace('\n', '').replace(' ', ''), '%Y-%m-%d')
-                    if time < time_start:
-                        continue
-                    result.update({'text': topic('h4')('a span')[0].text})
-                    result.update({'link': 'http://www.powerapple.com' + topic('h4')('a span').parent().attr('href')})
-                    result.update({'name': topic('div.authortime div.username a')[0].text})
-                    try:
-                        topic_page = f_app.request.get(result['link'])
-                    except:
-                        continue
-                    try:
-                        topic_page_dom = pq(topic_page.content)
-                        text_dom = pq(topic_page_dom('div.post-list li')[1])('div.post-main div.postbody')
-                        text_dom.find('br').replaceWith('\n')
-                        text = text_dom.text()
-                    except:
-                        continue
-                    time = datetime.strptime(topic_page_dom('div.post-list li').eq(1)('div.post-main div.posttime').text(), '%Y-%m-%d %H:%M')
-                    print time
-                    result.update({'time': unicode(time)})
-                    max_time = max(time, max_time)
-                    for i in re.split('\.|。|\n', text):
-                        if len(i) == 0:
+                try:
+                    topic = pq(topic_dom)
+                    result = {}
+                    array = []
+                    if topic.attr('data-stick') == 'false':
+                        time = datetime.strptime(topic('div.authortime div.threadtime')[0].text.replace('\n', '').replace(' ', ''), '%Y-%m-%d')
+                        if time < time_start:
                             continue
-                        if len(i) > 35:
-                            for pics in re.split(',|，', i):
+                        result.update({'text': topic('h4')('a span')[0].text})
+                        result.update({'link': 'http://www.powerapple.com' + topic('h4')('a span').parent().attr('href')})
+                        result.update({'name': topic('div.authortime div.username a')[0].text})
+                        try:
+                            topic_page = f_app.request.get(result['link'])
+                        except:
+                            continue
+                        try:
+                            topic_page_dom = pq(topic_page.content)
+                            text_dom = pq(topic_page_dom('div.post-list li')[1])('div.post-main div.postbody')
+                            text_dom.find('br').replaceWith('\n')
+                            text = text_dom.text()
+                        except:
+                            continue
+                        time = datetime.strptime(topic_page_dom('div.post-list li').eq(1)('div.post-main div.posttime').text(), '%Y-%m-%d %H:%M')
+                        print time
+                        result.update({'time': unicode(time)})
+                        max_time = max(time, max_time)
+                        for i in re.split('\.|。|\n', text):
+                            if len(i) == 0:
+                                continue
+                            if len(i) > 35:
+                                for pics in re.split(',|，', i):
+                                    for example in contact_keyword:
+                                        if pics.find(example) != -1:
+                                            array.append(pics)
+                                            break
+                            else:
                                 for example in contact_keyword:
-                                    if pics.find(example) != -1:
-                                        array.append(pics)
+                                    if i.find(example) != -1:
+                                        array.append(i)
                                         break
-                        else:
-                            for example in contact_keyword:
-                                if i.find(example) != -1:
-                                    array.append(i)
-                                    break
-                    result.update({'contact_raw': array})
-                    result_list.append(result)
-
+                        result.update({'contact_raw': array})
+                        result_list.append(result)
+                except:
+                    continue
             if max_time < time_start:
                 break
         return result_list
@@ -286,7 +290,7 @@ def get_weibo_search_result(keywords_list):
             return result
         index = 0
         today = date.today()
-        time_start = datetime(today.year, today.month, today.day) - timedelta(days=day_shift, hours=7)
+        time_start = datetime(today.year, today.month, today.day, time_start_hours) - timedelta(days=day_shift + 1)
         while(index <= 250):
             max_time = datetime(1970, 1, 1)
             try:
@@ -300,49 +304,52 @@ def get_weibo_search_result(keywords_list):
             index += 25
             topics_dom = pq(list_page.content)('div.article tr')
             for topic in topics_dom:
-                topic_dom = pq(topic)
-                topic_result = {}
-                if topic_dom.attr('class') != 'th':
-                    topic_result.update({'title': topic_dom('td.title a').attr('title')})
-                    topic_result.update({'link': topic_dom('td.title a').attr('href')})
-                    topic_result.update({'author': topic_dom.children().eq(1).text()})
-                    try:
-                        topic_page = f_app.request.get(
-                            topic_result['link'],
-                            headers={"User-Agent": ua_generator()}
-                        )
-                    except:
-                        continue
-                    sleep(1)
-                    topic_page_dom = pq(topic_page.content)('div.topic-doc')
-                    create_time = datetime.strptime(topic_page_dom('h3 span.color-green').text(), '%Y-%m-%d %H:%M:%S')
-                    max_time = max(max_time, create_time)
-                    if create_time < time_start:
-                        continue
-                    topic_result.update({'time': create_time})
-                    try:
-                        text_dom = topic_page_dom('p')
-                        text_dom.find('br').replaceWith('\n')
-                        text = text_dom.text()
-                    except:
-                        continue
-                    array = []
-                    for i in re.split('\.|。|\n', text):
-                        if len(i) == 0:
+                try:
+                    topic_dom = pq(topic)
+                    topic_result = {}
+                    if topic_dom.attr('class') != 'th':
+                        topic_result.update({'title': topic_dom('td.title a').attr('title')})
+                        topic_result.update({'link': topic_dom('td.title a').attr('href')})
+                        topic_result.update({'author': topic_dom.children().eq(1).text()})
+                        try:
+                            topic_page = f_app.request.get(
+                                topic_result['link'],
+                                headers={"User-Agent": ua_generator()}
+                            )
+                        except:
                             continue
-                        if len(i) > 35:
-                            for pics in re.split(',|，', i):
+                        sleep(1)
+                        topic_page_dom = pq(topic_page.content)('div.topic-doc')
+                        create_time = datetime.strptime(topic_page_dom('h3 span.color-green').text(), '%Y-%m-%d %H:%M:%S')
+                        max_time = max(max_time, create_time)
+                        if create_time < time_start:
+                            continue
+                        topic_result.update({'time': create_time})
+                        try:
+                            text_dom = topic_page_dom('p')
+                            text_dom.find('br').replaceWith('\n')
+                            text = text_dom.text()
+                        except:
+                            continue
+                        array = []
+                        for i in re.split('\.|。|\n', text):
+                            if len(i) == 0:
+                                continue
+                            if len(i) > 35:
+                                for pics in re.split(',|，', i):
+                                    for example in contact_keyword:
+                                        if pics.find(example) != -1:
+                                            array.append(pics)
+                                            break
+                            else:
                                 for example in contact_keyword:
-                                    if pics.find(example) != -1:
-                                        array.append(pics)
+                                    if i.find(example) != -1:
+                                        array.append(i)
                                         break
-                        else:
-                            for example in contact_keyword:
-                                if i.find(example) != -1:
-                                    array.append(i)
-                                    break
-                    topic_result.update({'contact_raw': array})
-                    result.append(topic_result)
+                        topic_result.update({'contact_raw': array})
+                        result.append(topic_result)
+                except:
+                    continue
             if max_time < time_start:
                 break
         return result
@@ -374,7 +381,7 @@ def get_weibo_search_result(keywords_list):
             return []
         index = 1
         today = date.today()
-        time_start = datetime(today.year, today.month, today.day) - timedelta(days=day_shift, hours=7)
+        time_start = datetime(today.year, today.month, today.day, time_start_hours) - timedelta(days=day_shift + 1)
         while(index <= 5):
             max_time = datetime(1970, 1, 1)
             try:
@@ -394,54 +401,57 @@ def get_weibo_search_result(keywords_list):
             topics_dom = pq(list_page.content)('div.mainHouseContent div.goodDiv')
 
             for topic in topics_dom:
-                topic_dom = pq(topic)
-                topic_result = {}
-                if topic_dom.attr('style') != 'height: auto':
-                    topic_result.update({'title': topic_dom('span.goodTitle').attr('title')})
-                    topic_result.update({'link': 'http://www.ybirds.com' + topic_dom('a').attr('href')})
-                    create_time = datetime.strptime(topic_dom('span.goodTime').text(), '%Y-%m-%d %H:%M:%S')
-                    topic_result.update({'time': create_time})
-                    max_time = max(max_time, create_time)
-                    if create_time < time_start:
-                        continue
-                    try:
-                        topic_page = f_app.request.get(
-                            topic_result['link'],
-                            headers={"User-Agent": ua_generator()}
-                        )
-                        sleep(1)
-                    except:
-                        continue
-                    topic_page_dom = pq(topic_page.content)
-                    topic_result.update({'postcode': topic_page_dom('span.owner').eq(0).text()})
-                    topic_result.update({'contact': topic_page_dom('span.owner').eq(3).text()})
-                    topic_result.update({'phone': topic_page_dom('span.phone.propertyTitle').text()})
-                    topic_result.update({'qq': topic_page_dom('span.owner').eq(4).text()})
-                    topic_result.update({'location': topic_page_dom('span.owner').eq(5).text()})
-                    topic_result.update({'author': topic_page_dom('div.ownerName a').text()})
-                    try:
-                        text_dom = topic_page_dom('div.textDetail p')
-                        text_dom.find('br').replaceWith('\n')
-                        text = text_dom.text()
-                    except:
-                        continue
-                    array = []
-                    for i in re.split('\.|。|\n', text):
-                        if len(i) == 0:
+                try:
+                    topic_dom = pq(topic)
+                    topic_result = {}
+                    if topic_dom.attr('style') != 'height: auto':
+                        topic_result.update({'title': topic_dom('span.goodTitle').attr('title')})
+                        topic_result.update({'link': 'http://www.ybirds.com' + topic_dom('a').attr('href')})
+                        create_time = datetime.strptime(topic_dom('span.goodTime').text(), '%Y-%m-%d %H:%M:%S')
+                        topic_result.update({'time': create_time})
+                        max_time = max(max_time, create_time)
+                        if create_time < time_start:
                             continue
-                        if len(i) > 35:
-                            for pics in re.split(',|，', i):
+                        try:
+                            topic_page = f_app.request.get(
+                                topic_result['link'],
+                                headers={"User-Agent": ua_generator()}
+                            )
+                            sleep(1)
+                        except:
+                            continue
+                        topic_page_dom = pq(topic_page.content)
+                        topic_result.update({'postcode': topic_page_dom('span.owner').eq(0).text()})
+                        topic_result.update({'contact': topic_page_dom('span.owner').eq(3).text()})
+                        topic_result.update({'phone': topic_page_dom('span.phone.propertyTitle').text()})
+                        topic_result.update({'qq': topic_page_dom('span.owner').eq(4).text()})
+                        topic_result.update({'location': topic_page_dom('span.owner').eq(5).text()})
+                        topic_result.update({'author': topic_page_dom('div.ownerName a').text()})
+                        try:
+                            text_dom = topic_page_dom('div.textDetail p')
+                            text_dom.find('br').replaceWith('\n')
+                            text = text_dom.text()
+                        except:
+                            continue
+                        array = []
+                        for i in re.split('\.|。|\n', text):
+                            if len(i) == 0:
+                                continue
+                            if len(i) > 35:
+                                for pics in re.split(',|，', i):
+                                    for example in contact_keyword:
+                                        if pics.find(example) != -1:
+                                            array.append(pics)
+                                            break
+                            else:
                                 for example in contact_keyword:
-                                    if pics.find(example) != -1:
-                                        array.append(pics)
+                                    if i.find(example) != -1:
+                                        array.append(i)
                                         break
-                        else:
-                            for example in contact_keyword:
-                                if i.find(example) != -1:
-                                    array.append(i)
-                                    break
-                    topic_result.update({'contact_raw': array})
-                    result.append(topic_result)
+                        topic_result.update({'contact_raw': array})
+                        result.append(topic_result)
+                except:
+                    continue
             if max_time < time_start:
                 break
         return result
@@ -455,6 +465,7 @@ def get_weibo_search_result(keywords_list):
             for index, cell in enumerate(col):
                 if index == 0:
                     key = cell.value
+                    block_list.update({key: []})
                 elif cell.value is not None:
                     if key not in block_list:
                         block_list.update({key: []})
@@ -472,9 +483,9 @@ def get_weibo_search_result(keywords_list):
 
     block_list = load_block_list('block_list.xlsx')
 
+    result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
     result_powerapple = crawler_powerapple('10141')
     result_ybirds = crawler_ybirds(['40', '41', '89', '92', '95'])
-    result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
     result_douban_group = crawler_douban_group(['ukhome', '436707', '338873', 'LondonHome'])
 
     wb = Workbook()
