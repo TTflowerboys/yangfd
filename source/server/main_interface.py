@@ -2053,6 +2053,41 @@ def user_analyze(user):
             landlord_type_list.add(landlord_type_value)
         return '/'.join(landlord_type_list)
 
+    def get_own_house_favorite_time(user):
+        ticket_list = f_app.ticket.search({
+            "user_id": ObjectId(user['id']),
+            "type": "rent",
+            "status": {"$ne": "deleted"}
+        })
+        with f_app.mongo() as m:
+            total = 0
+            if ticket_list is None:
+                return total
+            for single_ticket_id in ticket_list:
+                total += m.favorites.find({
+                    "status": {"$ne": "deleted"},
+                    "type": "rent_ticket",
+                    "ticket_id": single_ticket_id
+                }).count()
+        return total
+
+    def get_own_house_share_time(user):
+        ticket_list = f_app.ticket.search({
+            "user_id": ObjectId(user['id']),
+            "type": "rent",
+            "status": {"$ne": "deleted"}
+        })
+        with f_app.mongo() as m:
+            total = 0
+            if ticket_list is None:
+                return total
+            for single_ticket_id in ticket_list:
+                total += m.log.find({
+                    "type": "route",
+                    "rent_ticket_id": '/wechat-poster/' + single_ticket_id
+                }).count()
+        return total
+
     def get_own_house_viewed_time(user):
         ticket_list = f_app.ticket.search({
             "user_id": ObjectId(user['id']),
@@ -2138,11 +2173,18 @@ def user_analyze(user):
             maponics_neighborhood = ticket.get("maponics_neighborhood", {})[0]
         else:
             maponics_neighborhood = ticket.get("maponics_neighborhood", {})
-        return ' '.join([ticket.get("country", {}).get("code", ''),
-                         ticket.get("city", {}).get("name", ''),
-                         maponics_neighborhood.get("name", ''),
-                         ticket.get("address", ''),
-                         ticket.get("zipcode_index", '')])
+        return {
+            'whole': ' '.join([
+                ticket.get("country", {}).get("code", ''),
+                ticket.get("city", {}).get("name", ''),
+                maponics_neighborhood.get("name", ''),
+                ticket.get("address", ''),
+                ticket.get("zipcode_index", '')
+            ]),
+            'country': ticket.get("country", {}).get("code", ''),
+            'city': ticket.get("city", {}).get("name", ''),
+            'neighborhood': maponics_neighborhood.get("name", '')
+        }
 
     def get_to_rent_local(ticket):
         if 'property_id' not in ticket:
@@ -2167,23 +2209,16 @@ def user_analyze(user):
     category = [
         '基本属性', '', '', '', '', '', '', '', '', '',
         '网站使用情况', '', '', '',
-        '房东数据', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+        '房东数据', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
         '租客咨询数据', '', '', '', '', '', '', '', '', '', '', '',
         '求租单统计', '', '', '', '', '',
-        '投资者分析', '', '', '', '', ''
+        '投资者分析', '', '', '', '', '', '', ''
     ]
-    merge = [
-        'A1:J1',
-        'K1:N1',
-        'O1:AC1',
-        'AD1:AO1',
-        'AP1:AU1',
-        'AV1:BC1'
-    ]
+    merge = []
     header = [
         '用户名', '注册时间', '性别', '年龄', '职业', '电话', '邮箱', '国家', '城市', '用户类型',
         '单独访问次数', '活跃天数', 'app下载', '跳出页面',
-        '发布过的房源数量', '房东类型', '正在发布中的房源数量', '房东收到的咨询单数量', '房源被查看的次数', '房源被刷新的次数', '有没有草稿', '发布时间', '地区', '单间还是整套', '短租长租', '租金', '已发布时间(天)', '提前多久开始出租(天)', '分享房产',
+        '发布过的房源数量', '房东类型', '正在发布中的房源数量', '房东收到的咨询单数量', '房源被查看的次数', '房源被收藏次数', '房源被刷新的次数', '有没有草稿', '发布时间', '地区', '国家', '城市', '街区', '单间还是整套', '短租长租', '租金', '已发布时间(天)', '提前多久开始出租(天)', '分享房产',
         '查看房产次数', '收藏房产次数', '停留时间最多的页面或rental房产', '咨询单数量', '最近一次提交时间', '最近一次入住开始时间', '最近一次入住结束时间', '提前多久开始找房', '入住人数', '吸烟', '带小孩', '带宠物',
         '求租时间', '预算', '地区', '匹配级别', '查看房东联系方式的次数', '分享房产',
         '浏览数量', '投资单提交数量', '投资意向时间', '投资预算', '期房还是现房', '几居室', '停留时间最多的页面或sales房产', '跳出的页面'
@@ -2194,6 +2229,17 @@ def user_analyze(user):
 
     ws.append(category)
     ws.append(header)
+    merge_ops_start = 0
+    merge_ops_end = 0
+    for index, value in enumerate(category):
+        if value == '':
+            merge_ops_end = index
+        else:
+            if index:
+                merge.append(get_correct_col_index(merge_ops_start) + '1:' + get_correct_col_index(merge_ops_end) + '1')
+            merge_ops_start = index
+            merge_ops_end = index
+    merge.append(get_correct_col_index(merge_ops_start) + '1:' + get_correct_col_index(merge_ops_end) + '1')
     for merge_ops in merge:
         ws.merge_cells(merge_ops)
         cell = ws.cell(merge_ops.split(':')[0])
@@ -2210,6 +2256,9 @@ def user_analyze(user):
         occupation = ''
         wait_rent_priod = ''
         wait_to_rent_priod = ''
+        location = get_to_rent_local(ticket_to_rent)
+        if location == '':
+            location = {}
         if 'rent_available_time' in ticket_to_rent and 'time' in ticket_to_rent:
             wait_to_rent_priod = ticket_to_rent['rent_available_time'] - ticket_to_rent['time']
             wait_to_rent_priod = wait_to_rent_priod.days
@@ -2230,7 +2279,7 @@ def user_analyze(user):
             user.get('phone', ''),  # phone
             user.get('email', ''),  # email
             user.get("country", {}).get('code', ''),  # 国家
-            get_relocate_city(ticket_request),  # city
+            get_relocate_city(ticket_request).split(',')[-1],  # city
             user.get("analyze_guest_user_type", ''),  # 用户类型
 
             '',  # 单独访问次数
@@ -2244,18 +2293,22 @@ def user_analyze(user):
             get_to_rent_ticket_total(user),  # 正在发布中的房源数量
             get_request_ticket_total(user),  # 房东收到的咨询单数量
             get_own_house_viewed_time(user),  # 房源被查看的次数
+            get_own_house_favorite_time(user),  # 房源被收藏次数
             get_own_house_refresh_total(ticket_to_rent),  # 房源被刷新的次数
             user.get("analyze_rent_has_draft", ''),  # 有没有草稿
             user.get("analyze_rent_commit_time", ''),  # 发布时间
             # user.get("analyze_rent_local", ''),  # 地区
-            get_to_rent_local(ticket_to_rent),  # 地区
+            location.get('whole', ''),  # 地区
+            location.get('country', ''),  # 地区 国家
+            location.get('city', ''),  # 地区 城市
+            location.get('neighborhood', ''),  # 地区 街区
             user.get("analyze_rent_single_or_whole", ''),  # 单间还是整套
             # user.get("analyze_rent_period_range", ''),  # 短租长租
             time_period_label(ticket_to_rent),  # 短租长租
             user.get("analyze_rent_price", ''),  # 租金
             wait_rent_priod,  # 已发布时间
             wait_to_rent_priod,  # 提前多久开始出租(天)
-            '',  # 分享房产
+            get_own_house_share_time(user),  # 分享房产
 
             user.get("analyze_rent_intention_views_times", ''),  # 查看房产次数
             user.get("analyze_rent_intention_favorite_times", ''),  # 收藏房产次数
