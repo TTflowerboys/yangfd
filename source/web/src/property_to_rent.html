@@ -219,7 +219,7 @@
         </div>
         <div id="propertyDetails_description" class="meta scrollto">
             % if ('space' in rent and rent.get('space','')) or ('bedroom_count' in rent['property'] and rent.get('property',{}).get('bedroom_count','')) or ('bathroom_count' in rent['property'] and rent.get('property',{}).get('bathroom_count','')) or ('living_room_count' in rent['property'] and rent.get('property',{}).get('living_room_count','')):
-            % count = sum([bool(x in rent['property']) for x in ["bedroom_count", "bathroom_count", "living_room_count"]]) + (1 if 'space' in rent else 0)
+            % count = sum([bool(x in rent['property']) for x in ["bedroom_count", "bathroom_count", "living_room_count"， "indepedent_bathroom"]]) + (1 if 'space' in rent else 0)
             <ul class="numbers">
                 % if 'space' in rent:
                 <li style="width: {{100/count}}%">
@@ -234,6 +234,12 @@
                             {{!format_unit(rent.get('space',{}).get('unit',''))}}
                         </span>
                     </strong>
+                </li>
+                % end
+                % if 'independent_bathroom' in rent and rent.get('independent_bathroom'):
+                <li style="width: {{100/count}}%">
+                    {{_('独立卫浴')}}
+                    <strong>{{_('有')}}</strong>
                 </li>
                 % end
                 % if 'bedroom_count' in rent['property'] and rent['property'].get('bedroom_count') == 0 :
@@ -570,6 +576,117 @@
                 </table>
         </div>
         <!--@@include=./partials/rent_request_flow.html -->
+        <div class="rentPreferences">
+            <div class="basic">
+                % if 'available_rooms' in rent:                
+                <dic class="avaialbeRooms">                            
+                    {{_('待入住')}}
+                    <strong>{{ rent.get('available_rooms') }}</strong>                
+                </dic>
+                % end
+                <ul class="allowOrDisallow">
+                    <li class="noSmoking">
+                        <i class="smoking"></i>
+                        % if rent.get("no_smoking"):
+                            {{_('禁止')}}
+                        % else:
+                            {{_('允许')}}  
+                        % end                  
+                    </li>
+                    <li class="noPet">
+                        <i class="pet"></i>
+                        % if rent.get("no_pet"):
+                            {{_('禁止')}}
+                        % else:
+                            {{_('允许')}}  
+                        % end                  
+                    </li>
+                    <li class="noBaby">
+                        <i class="baby"></i>
+                        % if rent.get("no_baby"):
+                            {{_('禁止')}}
+                        % else:
+                            {{_('允许')}}  
+                        % end                  
+                    </li>
+                </ul>                
+            </div>
+            <div class="currentRoommates">
+                % if 'current_male_roommates' in rent:
+                    current_male_roommates = rent.get('current_male_roommates')
+                % else:
+                    current_male_roommates = 0
+                % end
+                % if 'current_female_roommates' in rent:
+                    current_female_roommates = rent.get('current_female_roommates')
+                % else:
+                    current_female_roommates = 0
+                % end
+                <ul>
+                    <li>
+                        {{_('当前入住数')}}
+                        <strong>{{current_male_roommates + current_female_roommates}}</strong>
+                    </li>
+                    <li>
+                       {{_('当天入住者性别')}}
+                       <div>
+                           <i class="female"></i>
+                           <strong>{{current_female_roommates}}</strong>
+                       </div>
+                       <div>
+                           <i class="male"></i>
+                           <strong>{{current_male_roommates}}</strong>
+                       </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="forNewRoommates">
+                <ul>
+                    <li>
+                        {{_('新室友性别')}}
+                        % if 'gender_requirement' in rent:
+                            % if rent.get('gender_requirement') == 'male':
+                                <strong>{{_('男')}}</strong>                                
+                            % else:
+                                <strong>{{_('女')}}</strong>                                
+                            % end
+                        % else:
+                            <strong>{{_('不限')}}</strong>
+                        % end                        
+                    </li>
+                    <li>
+                        {{_('新室友职业')}}
+                        % if 'occupation' in rent:
+                            <strong>{{rent.get('occupation').get('value')}}</strong>                            
+                        % else:
+                            <strong>{{_('不限')}}</strong>
+                        % end                        
+                    </li>
+                    <li>
+                        {{_('新室友年龄')}}
+                        % if 'min_age' in rent and 'max_age' in rent:
+                            <strong>{{rent.get('min_age')}}-{{rent.get('max_age')}}</strong>
+                        % elif: 'min_age' in rent and 'max_age' not in rent:
+                            <strong>{{rent.get('min_age')}}{{_('以下')}}</strong>
+                        % elif: 'min_age' not in rent and 'max_age' in rent:
+                            <strong>{{rent.get('max_age')}}{{_('以下')}}</strong>
+                        % else:
+                            <strong>{{_('不限')}}</strong>
+                        % end                        
+                    </li>
+                </ul>
+            </div>
+            % if 'other_requirements' in rent:
+            <div class="other">
+                <h3 class="title">
+                    {{_('其他要求：')}}
+                </h3>
+                <p class="content">
+                    {{rent.get('other_requirements')}}
+                </p>
+            </div>            
+            % end            
+        </div>
         %if len(related_rent_ticket_list):
         <div class="seperator"></div>
         <div class="relatedProperties">
