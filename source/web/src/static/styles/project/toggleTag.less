@@ -16,7 +16,7 @@
     cursor: pointer;
 
     @media @phone {
-        font-size:12px;;
+        font-size:15px;;
         font-weight:bold;
         padding:3px 6px;
         line-height:16px;
@@ -27,17 +27,18 @@
         border-color: @red;
         color: white;
     }
-    @media @pc {
-        &.noBorder {
-            padding: 4px 6px;
-            line-height: 1;
+    &.noBorder {
+        padding: 4px 6px;
+        line-height: 1;
+        border: none;
+        font-weight: lighter;
+        @media @phone{
+            font-weight: normal;
+        }
+        &.selected {
             border: none;
-            font-weight: lighter;
-            &.selected {
-                border: none;
-                background: @red;
-                color: white;
-            }
+            background: @red;
+            color: white;
         }
     }
     margin: 0 4px 4px 0;

@@ -60,6 +60,14 @@ def default(user, params):
 
     intention_list = f_app.i18n.process_i18n(f_app.enum.get_all('intention'))
 
+    hot_city_list = []
+    hot_city_geonames_params = dict({
+        "name": {"$in": ["London", "Liverpool", "Sheffield", "Manchester", "Birmingham"]},
+        "feature_code": {"$in": ["PPLC", "PPLA", "PPLA2"]},
+        "country": "GB"
+    })
+    hot_city_list = f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(hot_city_geonames_params, per_page=-1))
+
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
     property_type_list_without_new_property = filter(lambda item: item.get('slug') != 'new_property', property_type_list)
@@ -89,7 +97,8 @@ def default(user, params):
             rent_type_list=rent_type_list,
             property_type_list=property_type_list,
             property_type_list_without_new_property=property_type_list_without_new_property,
-            icon_map=currant_util.icon_map
+            icon_map=currant_util.icon_map,
+            hot_city_list=hot_city_list
         )
     else:
         return currant_util.common_template(
@@ -104,7 +113,8 @@ def default(user, params):
             rent_type_list=rent_type_list,
             property_type_list=property_type_list,
             property_type_list_without_new_property=property_type_list_without_new_property,
-            icon_map=currant_util.icon_map
+            icon_map=currant_util.icon_map,
+            hot_city_list=hot_city_list
         )
 
 
