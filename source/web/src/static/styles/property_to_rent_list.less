@@ -1,5 +1,4 @@
 @import "project/_imports";
-@import "project/locationSearchBox";
 
 * {
     box-sizing: border-box;
@@ -31,99 +30,52 @@ main {
                 display:block;
             }
         }
-        > *{
-            @media @pc {
-                margin-right: 50px;
-                &:nth-last-child(2) {
-                    margin-right: 0;
-                }
-            }
-        }
+
         @media @phone {
             margin-top:0;
             padding:0;
             border-bottom:1px solid #ccc;
         }
 
-        .wrap {
-            display: inline-block;
-            > span {
-                display: inline-block;
-                color: #aaa;
-                vertical-align: middle;
-                @media @pc {
-                    margin: 0 6px;
-                }
-                @media @phone {
-                    font-size: 12px;
-                }
-            }
-        }
-        .showTags {
-            display: inline-block;
-            padding: 0;
-            vertical-align: middle;
-            color: #808080;
-        }
-        .selectWrap {
-            display: inline-block;
-            width: 120px;
-            text-align: left;
-            &.rentType {
-                @media @phone{
-                    width: 48px;
-                }
-            }
-            &.rentBudget {
-                @media @phone{
-                    width: 74px;
-                }
-            }
-            select{
-                visibility: hidden;
-            }
-            .chosen-container {
-                .chosen-single {
-                    line-height: 38px;
-                    border: 1px solid #cccccc;
-                    background: #fff;
-                    @media @phone{
-                        box-shadow: none;
-                        border: 1px solid transparent;
-                        padding: 0 0;
-                        div {
-                            width: auto;
-                        }
-                        span {
-                            margin-right: 14px;
-                            text-align: right;
-                        }
-                    }
-
-                }
-                .chosen-drop {
-                    border: 1px solid #cccccc;
-                }
-                &.chosen-with-drop .chosen-drop {
-                    border-top: none;
-                }
+        span {
+            color:#333333;
+            @media @phone {
+                display:none;
             }
 
         }
-        .searchButton {
-            width: 100px;
-            height: 40px;
-            padding: 0;
-            text-align: center;
-            i {
-                font-size: 16px;
-                //vertical-align: middle;
+        select {
+            color:#333333;
+            @media @phone {
+                float:left;
+                display:inline-block;
+                width:33%;
+                margin-top:0;
+                font-size:@base-font-size-mobile;
+                font-weight:bold;
+                border:0;
             }
-            span {
-                display: inline-block;
-                font-size: 14px;
-                vertical-align: middle;
+
+            &:after {
+                width:1px;
+                height:100%;
+                background:red;
+                content:"fsjdlk";
             }
+        }
+
+        .separator_phone {
+            display:none;
+            @media @phone {
+                float:left;
+                display:inline;
+                height:40px;
+                width:1px;
+                background:#ccc;
+                margin-top:-1px;
+                margin-bottom:-1px;
+            }
+
         }
     }
 
@@ -247,6 +199,21 @@ main {
                 @media @phone {
                     min-height:135px;
                     display:none;
+                }
+
+            }
+
+            .showTags {
+                display:none;
+                @media @phone {
+                    width: 100%;
+                    color:#999;
+                    display:block;
+                    text-align:center;
+                    padding:0 10px;
+                    margin: 10px auto;
+                    font-size:@base-font-size-mobile;
+                    line-height:2em;
                 }
 
             }
