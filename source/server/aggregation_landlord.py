@@ -116,55 +116,58 @@ with f_app.mongo() as m:
         if(document['_id']):
             print(f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'].encode('utf-8'), ":", document['count'])
 
-    # 正在发布的出租房源的城市分布
-    print('正在发布的出租房源的位置分布:')
-    cursor = m.tickets.aggregate(
-        [
-            {'$match': {'type': 'rent', 'status': 'to rent'}},
-            {'$group': {'_id': "$property_id"}},
-        ]
-    )
+    # # 正在发布的出租房源的城市分布
+    # print('正在发布的出租房源的位置分布:')
+    # cursor = m.tickets.aggregate(
+    #     [
+    #         {'$match': {'type': 'rent', 'status': 'to rent'}},
+    #         {'$group': {'_id': "$property_id"}},
+    #     ]
+    # )
 
-    target_property_id_list = []
-    for document in cursor:
-        if(document['_id']):
-            target_property_id_list.append(str(document['_id']))
+    # target_property_id_list = []
+    # for document in cursor:
+    #     if(document['_id']):
+    #         target_property_id_list.append(str(document['_id']))
 
-    target_properties = f_app.i18n.process_i18n(f_app.property.output(target_property_id_list, ignore_nonexist=True, permission_check=False))
-    city_count_dic = {}
-    neighborhood_count_dic = {}
+    # target_properties = f_app.i18n.process_i18n(f_app.property.output(target_property_id_list, ignore_nonexist=True, permission_check=False))
+    # city_count_dic = {}
+    # neighborhood_count_dic = {}
   
-    for target_property in target_properties:
-        if target_property and 'city' in target_property and 'name' in target_property['city']:
-            if(target_property['city']['name'] in city_count_dic):
-                city_count_dic[target_property['city']['name']] += 1
-            else:
-                city_count_dic[target_property['city']['name']] = 1
-        if target_property and 'maponics_neighborhood' in target_property and 'name' in target_property['maponics_neighborhood']:
-            if(target_property['maponics_neighborhood']['name'] in neighborhood_count_dic):
-                neighborhood_count_dic[target_property['maponics_neighborhood']['name']] += 1
-            else:
-                neighborhood_count_dic[target_property['maponics_neighborhood']['name']] = 1
-    print('正在发布的出租房源的城市分布:')
-    city_count_dic = OrderedDict(sorted(city_count_dic.items(), key=lambda t: t[1]))
-    for k, v in city_count_dic.items():
-        print(k, v)
+    # for target_property in target_properties:
+    #     if target_property and 'city' in target_property and 'name' in target_property['city']:
+    #         if(target_property['city']['name'] in city_count_dic):
+    #             city_count_dic[target_property['city']['name']] += 1
+    #         else:
+    #             city_count_dic[target_property['city']['name']] = 1
+    #     if target_property and 'maponics_neighborhood' in target_property and 'name' in target_property['maponics_neighborhood']:
+    #         if(target_property['maponics_neighborhood']['name'] in neighborhood_count_dic):
+    #             neighborhood_count_dic[target_property['maponics_neighborhood']['name']] += 1
+    #         else:
+    #             neighborhood_count_dic[target_property['maponics_neighborhood']['name']] = 1
+    # print('正在发布的出租房源的城市分布:')
+    # city_count_dic = OrderedDict(sorted(city_count_dic.items(), key=lambda t: t[1]))
+    # for k, v in city_count_dic.items():
+    #     print(k, v)
 
-    print('正在发布的出租房源的街区分布:')
-    neighborhood_count_dic = OrderedDict(sorted(neighborhood_count_dic.items(), key=lambda t: t[1]))
-    for k, v in neighborhood_count_dic.items():
-        print(k, v)
+    # print('正在发布的出租房源的街区分布:')
+    # neighborhood_count_dic = OrderedDict(sorted(neighborhood_count_dic.items(), key=lambda t: t[1]))
+    # for k, v in neighborhood_count_dic.items():
+    #     print(k, v)
 
     # 正在发布的出租房源的租金分布
-    print('\n正在发布的出租房源的租金统计')
+    print('\n正在发布的单间出租房源的租金统计(GBP)')
     cursor = m.tickets.find(
         {
             'type': "rent",
-            'status': "to rent"
+            'status': "to rent",
+            'rent_type._id': ObjectId('55645cf5666e3d0f57d6e284')
         }
     )
+
     target_currency = 'GBP'
     rent_type_price_array = []
+
     for document in cursor:
         rent_type_id = document['rent_type']['_id']
         if document['price']['unit'] == target_currency:
@@ -186,8 +189,39 @@ with f_app.mongo() as m:
             entire_count += 1
             total_entire_price += ticket['price']
     print('均价:', total_price/len(rent_type_price_array))
-    print('单间均价:', total_single_price/single_count)
-    print('整租均价:', total_entire_price/entire_count)
+    if single_count > 0:
+        print('单间均价:', total_single_price/single_count)
+    if entire_count > 0:
+        print('整租均价:', total_entire_price/entire_count)
+
+    # 正在发布的出租房源的租金分布
+    print('\n正在发布的出租房源的租金分布(GBP)')
+    
+    def doRentalDistribute(array):
+        rental_count_distribution = {
+            'rental<=100': 0,
+            '100<rental<=200': 0,
+            '200<rental<=300': 0,
+            '300<rental<=400': 0,
+            '400<rental<=500': 0,
+            'rental>500': 0
+        }
+        for rental in array:
+            if rental['price'] <= 100:
+                rental_count_distribution['rental<=100'] += 1
+            if rental['price'] > 100 and rental['price'] <= 200:
+                rental_count_distribution['100<rental<=200'] += 1
+            if rental['price'] > 200 and rental['price'] <= 300:
+                rental_count_distribution['200<rental<=300'] += 1
+            if rental['price'] > 300 and rental['price'] <= 400:
+                rental_count_distribution['300<rental<=400'] += 1
+            if rental['price'] > 400 and rental['price'] <= 500:
+                rental_count_distribution['400<rental<=500'] += 1
+            if rental['price'] > 500:
+                rental_count_distribution['rental>500'] += 1
+        return rental_count_distribution
+
+    print(doRentalDistribute(rent_type_price_array))
 
     # 正在发布中的整套房源里的房东类型统计
     print('\n正在发布中的整套房源里的房东类型统计:')
@@ -255,12 +289,13 @@ with f_app.mongo() as m:
     print('>=12month:', period_count['extra_long'])
 
     # 统计房源信息完整度情况
-    print('\n统计多少房源没有填写哪些信息:')
+    print('\n统计多少单间房源没有填写哪些信息:')
     cursor = m.tickets.aggregate(
         [
             {'$match': {
                 'type': 'rent',
-                'status': 'to rent'}}  
+                'status': 'to rent',
+                'rent_type._id': ObjectId('55645cf5666e3d0f57d6e283')}}  
         ]
     )
 

@@ -22,30 +22,6 @@ else:
 
 with f_app.mongo() as m:
 
-    # 正在发布的出租房源的街区汇总
-    print('正在发布的出租房源的街区汇总:')
-    cursor = m.tickets.aggregate(
-        [
-            {'$match': {'type': 'rent', 'status': 'to rent'}},
-            {'$group': {'_id': "$property_id"}},
-        ]
-    )
-
-    target_property_id_list = []
-    for document in cursor:
-        if(document['_id']):
-            target_property_id_list.append(str(document['_id']))
-
-    target_properties = f_app.i18n.process_i18n(f_app.property.output(target_property_id_list, ignore_nonexist=True, permission_check=False))
-    neighborhood_count_dic = {}
-    for target_property in target_properties:
-        if target_property and 'maponics_neighborhood' in target_property and 'name' in target_property['maponics_neighborhood']:
-            if(target_property['maponics_neighborhood']['name'] in neighborhood_count_dic):
-                neighborhood_count_dic[target_property['maponics_neighborhood']['name']] += 1
-            else:
-                neighborhood_count_dic[target_property['maponics_neighborhood']['name']] = 1
-
-
     # # 分邮件类型来统计邮件发送和打开的状态
     # print('\n分邮件类型来统计邮件发送成功,打开和点击的百分比:')
     # # 计算每类邮件的总数
@@ -143,58 +119,6 @@ with f_app.mongo() as m:
     #     print ("%6d%30s%6d%10d%9.2f%%%10d%9.2f%%%10d%10d%9.2f%%%10d" % (index, tag["_id"], total_email, delivered_times, 100*delivered_times/total_email, open_unique, 100*open_unique/total_email, open_times, click_unique, 100*click_unique/total_email, click_times))
     # print ("total_email_contain_new_only", total_email_contain_new_only)
     # print ("total_email_not_only_new", total_email_not_only_new)
-
-    # 正在发布中的房源里按最短接受租期的统计:
-    # 日租<1month 1month<=中短<3month <=3month中长<6month >=6month长租
-    # print('\n正在发布中的房源里按最短接受租期的统计:')
-    # cursor = m.tickets.aggregate(
-    #     [
-    #         {'$match': {
-    #             'type': "rent",
-    #             'status': "to rent"
-    #             }},
-    #         {'$group': {'_id': "$minimum_rent_period", 'count': {'$sum': 1}}}
-    #     ]
-    # )
-
-    # period_count = {
-    #     'short': 0,
-    #     'short_middle': 0,
-    #     'middle_long': 0,
-    #     'long': 0,
-    #     'extra_long': 0
-    # }
-
-    # def covert_to_month(period):
-    #     if(period['unit'] == 'week'):
-    #         period['value'] = float(period['value'])/4
-    #     if(period['unit'] == 'day'):
-    #         period['value'] = float(period['value'])/31
-    #     if(period['unit'] == 'year'):
-    #         period['value'] = float(period['value'])*12
-    #     else:
-    #         period['value'] = float(period['value'])
-    #     return period
-
-    # for document in cursor:
-    #     if(document['_id']):
-    #         period = covert_to_month(document['_id'])
-    #         if(period['value'] < 1.0):
-    #             period_count['short'] += document['count']
-    #         if(period['value'] >= 1.0 and period['value'] < 3.0):
-    #             period_count['short_middle'] += document['count']
-    #         if(period['value'] >= 3.0 and period['value'] < 6.0):
-    #             period_count['middle_long'] += document['count']
-    #         if(period['value'] >= 6.0 and period['value'] < 12.0):
-    #             period_count['long'] += document['count']
-    #         if(period['value'] >= 12.0):
-    #             period_count['extra_long'] += document['count']
-
-    # print('日租<1month:', period_count['short'])
-    # print('1month<=中短<3month:', period_count['short_middle'])
-    # print('>=3month中长<6month:', period_count['middle_long'])
-    # print('>=6month长租<12month:', period_count['long'])
-    # print('>=12month:', period_count['extra_long'])
 
     # 刷新房产的房源排名
     # db.log.aggregate([{'$match':{'route':{'$regex': '/api/1/rent_ticket/[a-zA-Z0-9]{24}/edit'},'param_status':'to rent'}},{'$group':{'_id':'$route','count':{'$sum':1}}},{'$match':{'count':{'$gte':2}}},{'$sort':{'time':-1}}])
