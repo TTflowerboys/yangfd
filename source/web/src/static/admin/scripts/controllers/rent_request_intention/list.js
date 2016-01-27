@@ -36,11 +36,14 @@
                 if (newValue === oldValue) {
                     return
                 }
-                params.status = $scope.selected.status
+                _.extend(params, $scope.selected)
                 $scope.refreshList()
             })
         }
-
+        $scope.searchTicket = function () {
+            _.extend(params, $scope.selected)
+            $scope.refreshList()
+        }
 
         $scope.nextPage = function () {
             var lastItem = $scope.list[$scope.list.length - 1]
