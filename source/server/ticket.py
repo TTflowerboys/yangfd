@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
+import random
 from datetime import datetime, timedelta
 from six.moves import urllib
 from bson.objectid import ObjectId
@@ -168,7 +169,7 @@ currant_ticket()
 
 class currant_ticket_plugin(f_app.plugin_base):
     task = ["rent_ticket_reminder", "rent_ticket_generate_digest_image", "rent_ticket_check_intention",
-            "rent_intention_ticket_check_rent", "fill_featured_facilities"]
+            "rent_intention_ticket_check_rent", "fill_featured_facilities", "assign_ticket_short_id"]
 
     def ticket_update_after(self, ticket_id, params, ticket, ignore_error=True):
         if "$set" in params:
@@ -237,6 +238,11 @@ class currant_ticket_plugin(f_app.plugin_base):
                         display="html",
                         tag="new_rent_request_intention_ticket",
                     )
+
+            f_app.task.put(dict(
+                type="assign_ticket_short_id",
+                ticket_id=str(ticket_id),
+            ))
 
         return ticket_id
 
@@ -638,5 +644,28 @@ class currant_ticket_plugin(f_app.plugin_base):
         if "type" in ticket:
             params["ticket_type"] = ticket["type"]
         return params
+
+    def task_on_assign_ticket_short_id(self, task):
+        # Validate that the ticket is still available:
+        try:
+            ticket = f_app.ticket.get(task["ticket_id"])
+        except:
+            self.logger.warning("Invalid ticket to assign short id:", task["ticket_id"])
+            return
+
+        if "short_id" in ticket:
+            self.logger.debug("Short id already exist for ticket", task["ticket_id"], ", ignoring assignment.")
+            return
+
+        self.logger.debug("Looking for a free short id for ticket", task["ticket_id"])
+        # TODO: not infinity?
+        while True:
+            new_short_id = "Q" + "".join([str(random.randint(0, 9)) for i in range(6)])
+            found_ticket = f_app.ticket.search({"short_id": new_short_id})
+            if not len(found_ticket):
+                break
+
+        self.logger.debug("Setting short id", new_short_id, "for ticket", task["ticket_id"])
+        f_app.ticket.update_set(task["ticket_id"], {"short_id": new_short_id})
 
 currant_ticket_plugin()

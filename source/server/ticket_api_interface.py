@@ -599,6 +599,7 @@ def rent_intention_ticket_edit(user, ticket_id, params):
     rent_deadline_time=datetime,
     minimum_rent_period="i18n:time_period",
     user_id=ObjectId,
+    short_id=str,
 ))
 @f_app.user.login.check(force=True)
 def rent_intention_ticket_search(user, params):
