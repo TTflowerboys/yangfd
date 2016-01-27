@@ -532,10 +532,27 @@
             }
             this.submitDisabled = ko.observable()
             this.requestTicketId = ko.observable()
+            this.shortId = ko.observable()
+            this.shortIdStatus = ko.observable('loading')
+            this.getShortId = function (ticketId) {
+                $.betterGet('/api/1/rent_intention_ticket/' + ticketId)
+                .done(_.bind(function (val) {
+                        if(val.short_id) {
+                            this.shortIdStatus('success')
+                            this.shortId(val.short_id)
+                        } else {
+                            this.getShortId(ticketId)
+                        }
+                    }, this))
+                .fail(_.bind(function () {
+                        this.shortIdStatus('fail')
+                    }, this))
+            }
             this.submitTicket = function () {
                 this.submitDisabled(true)
                 $.betterPost('/api/1/rent_intention_ticket/add', this.params())
                     .done(_.bind(function (val) {
+                        this.getShortId(val)
                         this.requestTicketId(val)
                         this.showSuccessWrap()
                         window.team.setUserType('tenant')

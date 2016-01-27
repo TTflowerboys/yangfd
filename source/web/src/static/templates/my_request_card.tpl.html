@@ -72,8 +72,16 @@
                         <strong class="hostName">{!team.parsePublishDate(parseInt(ticket.time))!}</strong>
                     </div>
                 </div>
-
                 {_}_}
+
+                {_if(ticket.short_id) {_}
+                <div class="shortId">
+                    <span>{=window.i18n('咨询单编号：')=}</span>
+                    <strong class="hostName">{=ticket.short_id=}</strong>
+                </div>
+                {_}_}
+
+
             </div>
         </div>
     </div>

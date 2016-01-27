@@ -150,6 +150,16 @@
                         <ul class="content">
                             <li>
                                 <span class="title">
+                                    {{_('咨询单编号')}}
+                                </span>
+                                <div class="right">
+                                    <span class="text" data-bind="visible: shortIdStatus() === 'loading'">{{_('载入中...')}}</span>
+                                    <span class="text" data-bind="visible: shortIdStatus() === 'fail'">{{_('载入失败')}}</span>
+                                    <span class="text" data-bind="visible: shortIdStatus() === 'success', text: shortId"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="title">
                                     {{_('入住&搬出时间')}}
                                 </span>
                                 <div class="right">

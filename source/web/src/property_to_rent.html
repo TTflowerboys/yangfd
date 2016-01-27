@@ -219,7 +219,7 @@
         </div>
         <div id="propertyDetails_description" class="meta scrollto">
             % if ('space' in rent and rent.get('space','')) or ('bedroom_count' in rent['property'] and rent.get('property',{}).get('bedroom_count','')) or ('bathroom_count' in rent['property'] and rent.get('property',{}).get('bathroom_count','')) or ('living_room_count' in rent['property'] and rent.get('property',{}).get('living_room_count','')):
-            % count = sum([bool(x in rent['property']) for x in ["bedroom_count", "bathroom_count", "living_room_count"， "indepedent_bathroom"]]) + (1 if 'space' in rent else 0)
+            % count = sum([bool(x in rent['property']) for x in ["bedroom_count", "bathroom_count", "living_room_count", "indepedent_bathroom"]]) + (1 if 'space' in rent else 0)
             <ul class="numbers">
                 % if 'space' in rent:
                 <li style="width: {{100/count}}%">
@@ -613,14 +613,14 @@
             </div>
             <div class="currentRoommates">
                 % if 'current_male_roommates' in rent:
-                    current_male_roommates = rent.get('current_male_roommates')
+                %   current_male_roommates = rent.get('current_male_roommates')
                 % else:
-                    current_male_roommates = 0
+                %   current_male_roommates = 0
                 % end
                 % if 'current_female_roommates' in rent:
-                    current_female_roommates = rent.get('current_female_roommates')
+                %   current_female_roommates = rent.get('current_female_roommates')
                 % else:
-                    current_female_roommates = 0
+                %   current_female_roommates = 0
                 % end
                 <ul>
                     <li>
@@ -666,9 +666,9 @@
                         {{_('新室友年龄')}}
                         % if 'min_age' in rent and 'max_age' in rent:
                             <strong>{{rent.get('min_age')}}-{{rent.get('max_age')}}</strong>
-                        % elif: 'min_age' in rent and 'max_age' not in rent:
+                        % elif 'min_age' in rent and 'max_age' not in rent:
                             <strong>{{rent.get('min_age')}}{{_('以下')}}</strong>
-                        % elif: 'min_age' not in rent and 'max_age' in rent:
+                        % elif 'min_age' not in rent and 'max_age' in rent:
                             <strong>{{rent.get('max_age')}}{{_('以下')}}</strong>
                         % else:
                             <strong>{{_('不限')}}</strong>
