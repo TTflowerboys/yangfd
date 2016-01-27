@@ -1867,6 +1867,328 @@ def user_analyze_update(user):
         f_app.user.analyze.data_update(user_id)
 
 
+@f_get('/export-excel/rent-ticket-analyze.xlsx', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None)
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def rent_ticket_analyze(user, params):
+
+    def get_gender(user, ticket):
+        trans = {
+            'male': '男',
+            'female': '女'
+        }
+        if 'gender' in user:
+            return trans.get(user['gender'], '')
+        elif 'gender' in ticket:
+            return trans.get(ticket['gender'], '')
+        else:
+            with f_app.mongo() as m:
+                ticket_loc = m.tickets.find_one({
+                    "user_id": ObjectId(user['id']),
+                    "gender": {"$exists": True}
+                })
+                if ticket_loc is not None:
+                    return trans.get(ticket_loc['gender'], '')
+            return ''
+
+    def get_user_age(user, ticket):
+        birth_date = None
+        if 'date_of_birth' in user:
+            birth_date = user['date_of_birth']
+        elif 'date_of_birth' in ticket:
+            birth_date = ticket['date_of_birth']
+        else:
+            with f_app.mongo() as m:
+                ticket_loc = m.tickets.find_one({
+                    "user_id": ObjectId(user['id']),
+                    "date_of_birth": {"$exists": True}
+                })
+                if ticket_loc is not None:
+                    birth_date = ticket_loc['date_of_birth']
+        if birth_date is None:
+            return ''
+        else:
+            birth_date = birth_date.date()
+            today = date.today()
+            age = today.year - birth_date.year
+            today = today.replace(year=birth_date.year)
+            if today < birth_date and age:
+                age = age - 1
+            return age
+
+    def get_occupation(user, ticket):
+        occupation_id = None
+        if 'occupation' in user:
+            occupation_id = user['occupation']['id']
+        elif 'occupation' in ticket:
+            occupation_id = ticket['occupation']['id']
+        else:
+            with f_app.mongo() as m:
+                ticket_loc = m.tickets.find_one({
+                    "user_id": ObjectId(user['id']),
+                    "occupation": {"$exists": True}
+                })
+                if ticket_loc is not None:
+                    occupation_id = ticket_loc['occupation']['_id']
+        if occupation_id is None:
+            return ''
+        else:
+            return f_app.enum.get(occupation_id)['value']['zh_Hans_CN']
+
+    def get_detail_address(ticket):
+        ticket = f_app.i18n.process_i18n(ticket)
+        if f_app.util.batch_iterable(ticket.get("maponics_neighborhood", {})):
+            maponics_neighborhood = ticket.get("maponics_neighborhood", {})[0]
+        else:
+            maponics_neighborhood = ticket.get("maponics_neighborhood", {})
+        return {
+            'whole': ' '.join([
+                ticket.get("country", {}).get("code", ''),
+                ticket.get("city", {}).get("name", ''),
+                maponics_neighborhood.get("name", ''),
+                ticket.get("address", ''),
+                ticket.get("zipcode_index", '')
+            ]),
+            'country': ticket.get("country", {}).get("code", ''),
+            'city': ticket.get("city", {}).get("name", ''),
+            'neighborhood': maponics_neighborhood.get("name", '')
+        }
+
+    def get_user_landlord_type(ticket):
+        if ticket is None:
+            return ''
+        landlord_type = ticket.get('landlord_type', None)
+        if landlord_type is None:
+            return ''
+        return f_app.enum.get(landlord_type['id'])['value']['zh_Hans_CN']
+
+    def get_to_rent_local(ticket):
+        if 'property_id' not in ticket:
+            return {}
+        try:
+            property_value = f_app.property.get(ticket['property_id'])
+        except:
+            return {}
+        return get_detail_address(property_value)
+
+    def get_request_ticket_total(ticket):
+        with f_app.mongo() as m:
+            total = m.tickets.find({
+                "type": "rent_intention",
+                "interested_rent_tickets": ObjectId(ticket['id']),
+                "status": {
+                    "$in": [
+                        "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
+                    ]
+                }
+            }).count()
+        return total
+
+    def get_own_house_viewed_time(ticket):
+        with f_app.mongo() as m:
+            total = m.log.find({
+                "type": "route",
+                "route": "/property-to-rent/" + unicode(ticket['id'])
+            }).count()
+        return total
+
+    def get_own_house_favorite_time(ticket):
+        with f_app.mongo() as m:
+            total = m.favorites.find({
+                "status": {"$ne": "deleted"},
+                "type": "rent_ticket",
+                "ticket_id": ObjectId(ticket['id'])
+            }).count()
+        return total
+
+    def time_period_label(ticket):
+        if ticket is None:
+            return ''
+        time = ""
+        period_start = ticket.get("rent_available_time", None)
+        period_end = ticket.get("rent_deadline_time", None)
+        if period_end is None or period_start is None:
+            time = "不明"
+        else:
+            period = period_end - period_start
+            if period.days >= 365:
+                time = "longer than 12 months"
+            elif 365 > period.days >= 180:
+                time = "6 ~ 12 months"
+            elif 180 > period.days >= 90:
+                time = "3 ~ 6 months"
+            elif 90 > period.days >= 30:
+                time = "1 ~ 3 months"
+            elif period.days <= 30:
+                time = "less than 1 month"
+        return time
+
+    def get_own_house_share_time(ticket):
+        with f_app.mongo() as m:
+            total = 0
+            total = m.log.find({
+                "type": "route",
+                "route": '/wechat-poster/' + ticket['id']
+            }).count()
+        return total
+
+    def get_rent_type(ticket):
+        if 'rent_type' not in ticket:
+            return ''
+        return f_app.enum.get(ticket['rent_type']['id'])['value']['zh_Hans_CN']
+
+    def prepare_data(value):
+        if f_app.util.batch_iterable(value):
+            value_list = []
+            for single_value in value:
+                value_list.append(prepare_data(single_value))
+            return value_list
+        elif isinstance(value, datetime):
+            loc_t = timezone('Europe/London')
+            loc_dt = loc_t.localize(value)
+            return unicode(loc_dt.strftime('%Y-%m-%d %H:%M:%S'))
+        elif value is not None:
+            return unicode(value)
+        else:
+            return ''
+
+    def get_correct_col_index(num):
+        if num > 26*26:
+            return "ZZ"
+        if num >= 26:
+            return get_correct_col_index(num/26-1)+get_correct_col_index(num % 26)
+        else:
+            return chr(num+65)
+
+    def format_fit(sheet):
+        simsun_font = Font(name="SimSun")
+        alignment_fit = Alignment(shrink_to_fit=True)
+        for row in sheet.rows:
+            for cell in row:
+                cell.font = simsun_font
+                cell.alignment = alignment_fit
+        for num, col in enumerate(sheet.columns):
+            lenmax = 0
+            for cell in col:
+                lencur = 0
+                if cell.value is None:
+                    cell.value = ''
+                if isinstance(cell.value, int) or isinstance(cell.value, datetime):
+                    lencur = len(unicode(cell.value).encode("GBK"))
+                elif cell.value is not None:
+                    lencur = len(cell.value.encode("GBK", "replace"))
+                if lencur > lenmax:
+                    lenmax = lencur
+            sheet.column_dimensions[get_correct_col_index(num)].width = lenmax*0.86
+            print "col "+get_correct_col_index(num)+" fit."
+
+    def get_user_type(user):
+        user_type_list = []
+        if 'user_type' in user:
+            if f_app.util.batch_iterable(user['user_type']):
+                for user_type in user['user_type']:
+                    user_type_list.append(f_app.enum.get(user_type['id'])['value']['zh_Hans_CN'])
+                return '/'.join(user_type_list)
+            else:
+                user_type = user['user_type']
+                return f_app.enum.get(user_type['id'])['value']['zh_Hans_CN']
+        else:
+            return ''
+
+    def check_download(user):
+        credit = f_app.user.credit.get("view_rent_ticket_contact_info", user['id']).get("credits", [])
+        for single in credit:
+            if single.get("tag", None) == "download_ios_app":
+                return '已下载'
+        return '未下载'
+
+    header = [
+        '房东用户名', '注册时间', '性别', '年龄', '职业', '电话', '邮箱', '国家', '城市', '用户类型',
+        'app下载',
+        '房东类型',
+        '房源收到的咨询单数量',
+        '房源被查看的次数',
+        '分享房产',
+        '查看与分享次数合计',
+        '房源被收藏次数',
+        '发布时间',
+        '国家', '城市', '街区', '单间还是整套', '短租长租', '租金', '已发布时间(天)', '提前多久开始出租(天)',
+    ]
+
+    wb = Workbook()
+    ws = wb.active
+
+    ws.append(header)
+
+    date_from = datetime(2015, 12, 7)
+    tickets = f_app.ticket.get(f_app.ticket.search({
+        "type": "rent",
+        "status": {"$nin": ["deleted", "draft"]},
+        "time": {
+            "$gte": date_from
+        }
+    }, per_page=-1, notime=True))
+    for index, rent_ticket in enumerate(tickets):
+        print index
+        # if index > 15:
+        #     break
+        if 'user_id' not in rent_ticket or 'time' not in rent_ticket:
+            continue
+        if rent_ticket['time'] < date_from:
+            continue
+        # if rent_ticket['time'] < params.date_from:
+        #     continue
+        user = f_app.user.get(rent_ticket['user_id'])
+
+        wait_rent_priod = ''
+        wait_to_rent_priod = ''
+        location = get_to_rent_local(rent_ticket)
+        if 'rent_available_time' in rent_ticket and 'time' in rent_ticket:
+            wait_to_rent_priod = rent_ticket['rent_available_time'] - rent_ticket['time']
+            wait_to_rent_priod = wait_to_rent_priod.days
+        if 'time' in rent_ticket:
+            wait_rent_priod = datetime.utcnow() - rent_ticket['time']
+            wait_rent_priod = wait_rent_priod.days
+        view_times = get_own_house_viewed_time(rent_ticket)
+        share_times = get_own_house_share_time(rent_ticket)
+        ws.append(prepare_data([
+            user.get("nickname", ''),  # 用户名
+            user.get("register_time", ''),  # 注册时间注册时间
+            get_gender(user, rent_ticket),  # gender
+            get_user_age(user, rent_ticket),  # age
+            get_occupation(user, rent_ticket),  # 职业
+            user.get('phone', ''),  # phone
+            user.get('email', ''),  # email
+            user.get("country", {}).get('code', ''),  # 国家
+            '',  # city
+            get_user_type(user),
+            # f_app.enum.get(user.get('user_type', {}).get('id', ''))['value']['zh_Hans_CN'],  # 用户类型
+            check_download(user),
+            # user.get("analyze_guest_downloaded", ''),  # app下载
+            get_user_landlord_type(rent_ticket),  # 房东类型
+            get_request_ticket_total(rent_ticket),  # 房东收到的咨询单数量
+            view_times,  # 房源被查看的次数
+            share_times,  # 分享房产
+            view_times + share_times,  # 查看与分享次数合计
+            get_own_house_favorite_time(rent_ticket),  # 房源被收藏次数
+            rent_ticket['time'],  # 发布时间
+            location.get('country', ''),  # 地区 国家
+            location.get('city', ''),  # 地区 城市
+            location.get('neighborhood', ''),  # 地区 街区
+            get_rent_type(rent_ticket),  # 单间还是整套
+            time_period_label(rent_ticket),  # 短租长租
+            rent_ticket.get("price", {}).get('value', ''),  # 租金
+            wait_rent_priod,  # 已发布时间
+            wait_to_rent_priod,  # 提前多久开始出租(天)
+            ]))
+    format_fit(ws)
+    out = StringIO(save_virtual_workbook(wb))
+    response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    return out
+
+
 @f_get('/export-excel/user-analyze.xlsx')
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
 def user_analyze(user):
@@ -1980,7 +2302,7 @@ def user_analyze(user):
             "status": {
                 "$nin": ['deleted', 'draft']
             }
-        }))
+        }, per_page=-1))
         if result is None:
             return {}
         if len(result) == 0:
@@ -2004,7 +2326,7 @@ def user_analyze(user):
                     "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
                 ]
             }
-        }))
+        }, per_page=-1))
         if result is None:
             return {}
         if len(result) == 0:
@@ -2041,7 +2363,7 @@ def user_analyze(user):
             "user_id": ObjectId(user['id']),
             "type": "rent",
             "status": {"$ne": "deleted"}
-        }))
+        }, per_page=-1))
         landlord_type_list = set()
         if ticket_list is None:
             return ''
@@ -2058,7 +2380,7 @@ def user_analyze(user):
             "user_id": ObjectId(user['id']),
             "type": "rent",
             "status": {"$ne": "deleted"}
-        })
+        }, per_page=-1)
         with f_app.mongo() as m:
             total = 0
             if ticket_list is None:
@@ -2076,7 +2398,7 @@ def user_analyze(user):
             "user_id": ObjectId(user['id']),
             "type": "rent",
             "status": {"$ne": "deleted"}
-        })
+        }, per_page=-1)
         with f_app.mongo() as m:
             total = 0
             if ticket_list is None:
@@ -2084,7 +2406,7 @@ def user_analyze(user):
             for single_ticket_id in ticket_list:
                 total += m.log.find({
                     "type": "route",
-                    "rent_ticket_id": '/wechat-poster/' + single_ticket_id
+                    "route": '/wechat-poster/' + single_ticket_id
                 }).count()
         return total
 
@@ -2093,7 +2415,7 @@ def user_analyze(user):
             "user_id": ObjectId(user['id']),
             "type": "rent",
             "status": {"$ne": "deleted"}
-        })
+        }, per_page=-1)
         with f_app.mongo() as m:
             total = 0
             if ticket_list is None:
@@ -2110,7 +2432,7 @@ def user_analyze(user):
             "user_id": ObjectId(user['id']),
             "type": "rent",
             "status": {"$ne": "deleted"}
-        })
+        }, per_page=-1)
         with f_app.mongo() as m:
             total = 0
             if ticket_list is None:
@@ -2443,7 +2765,7 @@ def user_rent_request(user, params):
 
     def get_referer_id(ticket):
         ticket_id = ticket['id']
-        result = f_app.log.get(f_app.log.search({"ticket_type": "rent_intention", "type": "ticket_add", "ticket_id": ticket_id}))
+        result = f_app.log.get(f_app.log.search({"ticket_type": "rent_intention", "type": "ticket_add", "ticket_id": ticket_id}, per_page=-1))
         if result is not None and len(result):
             return get_id_in_url(result[0].get('referer', None))
         time = ticket.get("time", None)
@@ -2464,7 +2786,7 @@ def user_rent_request(user, params):
 
     def get_ticket_add_ip(ticket):
         ticket_id = ticket['id']
-        result = f_app.log.get(f_app.log.search({"ticket_type": "rent_intention", "type": "ticket_add", "ticket_id": ticket_id}))
+        result = f_app.log.get(f_app.log.search({"ticket_type": "rent_intention", "type": "ticket_add", "ticket_id": ticket_id}, per_page=-1))
         if result is not None and len(result):
             ip = result[0].get('ip', None)
             if ip is not None and len(ip):
