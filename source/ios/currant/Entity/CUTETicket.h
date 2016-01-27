@@ -53,6 +53,8 @@ extern NSString * __nonnull LocalizedLivingRoomTitle(NSString * __nonnull title,
 
 @property (nullable, strong, nonatomic) CUTECurrency *deposit;
 
+@property (nullable, strong, nonatomic) CUTECurrency *holdingDeposit;
+
 @property (nullable, strong, nonatomic) NSNumber *lastModifiedTime;
 
 @property (nonnull, strong, nonatomic) CUTEProperty *property;

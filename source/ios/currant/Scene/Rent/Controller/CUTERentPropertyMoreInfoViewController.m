@@ -224,6 +224,29 @@
     }];
 }
 
+- (void)onCurrencyEdit:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        if (IsNilNullOrEmpty(self.form.holdingDeposit) || IsNilNullOrEmpty(self.form.currency)) {
+            ticket.holdingDeposit = nil;
+        }
+        else {
+            ticket.holdingDeposit = [CUTECurrency currencyWithValue:self.form.holdingDeposit unit:self.form.currency];
+        }
+    }];
+}
+
+- (void)onHoldingDepositEdit:(id)sender {
+    [self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+        if (IsNilNullOrEmpty(self.form.holdingDeposit) || IsNilNullOrEmpty(self.form.currency)) {
+            ticket.holdingDeposit = nil;
+        }
+        else {
+            ticket.holdingDeposit = [CUTECurrency currencyWithValue:self.form.holdingDeposit unit:self.form.currency];
+        }
+    }];
+}
+
 - (BOOL)checkShowTitleLengthWarningAlert:(NSString *)title {
     if (title.length < kTicketTitleMinCharacterCount) {
         [UIAlertView showWithTitle:[NSString stringWithFormat:STR(@"RentPropertyMoreInfo/标题过短，请至少填写%d个字"), kTicketTitleMinCharacterCount]  message:nil cancelButtonTitle:STR(@"RentPropertyMoreInfo/OK") otherButtonTitles:nil tapBlock:nil];

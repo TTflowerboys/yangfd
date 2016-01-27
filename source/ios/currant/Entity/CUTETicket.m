@@ -27,6 +27,7 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
              @"status": @"status",
              @"rentType": @"rent_type",
              @"deposit": @"deposit",
+             @"holdingDeposit": @"holding_deposit",
              @"landlordType": @"landlord_type",
              @"space": @"space",
              @"price": @"price",
@@ -75,6 +76,11 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
 }
 
 + (NSValueTransformer *)depositJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
+}
+
++ (NSValueTransformer *)holdingDepositJSONTransformer
 {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[CUTECurrency class]];
 }
@@ -174,6 +180,9 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
     else if ([key isEqualToString:@keypath(self.deposit)] && [value isKindOfClass:[CUTECurrency class]]) {
         return [(CUTECurrency *)value toParams];
     }
+    else if ([key isEqualToString:@keypath(self.holdingDeposit)] && [value isKindOfClass:[CUTECurrency class]]) {
+        return [(CUTECurrency *)value toParams];
+    }
     else if ([key isEqualToString:@keypath(self.rentType)] && [value isKindOfClass:[CUTEEnum class]]) {
         return [(CUTEEnum *)value identifier];
     }
@@ -258,6 +267,7 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
     //price and deposit without value means need remove
     [keysMapping removeObjectForKey:@keypath(self.price)];
     [keysMapping removeObjectForKey:@keypath(self.deposit)];
+    [keysMapping removeObjectForKey:@keypath(self.holdingDeposit)];
 
     [keysMapping enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
         NSString *paramKey = obj;
@@ -298,6 +308,13 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
     }
     else {
         [unsetFields addObject:@"deposit"];
+    }
+
+    if (self.holdingDeposit && !IsNilNullOrEmpty(self.holdingDeposit.value)) {
+        [params setObject:self.holdingDeposit.toParams forKey:@"holding_deposit"];
+    }
+    else {
+        [unsetFields addObject:@"holding_deposit"];
     }
 
     //like createTicket, not set title, will set a default title

@@ -193,6 +193,7 @@
 "PropertyMoreInfo/其他" = "Other";
 "PropertyMoreInfo/详细描述" = "Detail";
 "PropertyMoreInfo/请补充您对租客的要求和对房屋特点的描述，优质而独特的房源描述会得到平台的推荐，提升您的房源排名。（请勿在此填写任何形式的联系方式，违规发布将会予以处理）" = "请补充您对租客的要求和对房屋特点的描述，优质而独特的房源描述会得到平台的推荐，提升您的房源排名。（请勿在此填写任何形式的联系方式，违规发布将会予以处理）";
+"PropertyMoreInfo/定金" = "Holding Deposit";
 "PropertyMoreInfo/面积" = "Area";
 "PropertyMoreInfo/配套设施" = "Amenities";
 "PropertyMoreInfo/删除" = "Delete";

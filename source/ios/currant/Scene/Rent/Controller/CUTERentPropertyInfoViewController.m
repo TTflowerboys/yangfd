@@ -607,6 +607,8 @@
     form.ticket = ticket;
     form.ticketTitle = ticket.titleForDisplay;
     form.ticketDescription = ticket.ticketDescription;
+    form.currency = ticket.holdingDeposit.unit;
+    form.holdingDeposit = ticket.holdingDeposit.value;
     controller.formController.form = form;
 
     [self.navigationController pushViewController:controller animated:YES];
