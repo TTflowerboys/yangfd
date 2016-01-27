@@ -333,7 +333,7 @@ class currant_property(f_app.module_base):
 
     def get_index_fields(self, property_id):
         property = f_app.i18n.process_i18n(self.output([property_id], permission_check=False)[0])
-        index_params = f_app.util.try_get_value(property, ["zipcode", "zipcode_index"]).values()
+        index_params = f_app.util.try_get_value(property, ["zipcode", "zipcode_index", "short_id"]).values()
 
         if "city" in property and property["city"] and "name" in property["city"]:
             index_params.append(property["city"]["name"])
