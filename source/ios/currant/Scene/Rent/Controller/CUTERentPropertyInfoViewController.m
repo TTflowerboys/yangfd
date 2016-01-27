@@ -602,6 +602,9 @@
 
     TrackEvent(GetScreenName(self), kEventActionPress, @"enter-more", nil);
     CUTETicket *ticket = self.form.ticket;
+    if (ticket.holdingDeposit == nil) {
+        ticket.holdingDeposit = [CUTECurrency currencyWithValue:@"500.0" unit:[CUTECurrency defaultCurrencyUnit]];
+    }
     CUTERentPropertyMoreInfoViewController *controller = [CUTERentPropertyMoreInfoViewController new];
     CUTEPropertyMoreInfoForm *form = [CUTEPropertyMoreInfoForm new];
     form.ticket = ticket;

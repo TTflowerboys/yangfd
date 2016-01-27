@@ -21,6 +21,7 @@
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEFormLimitCharacterCountTextFieldCell.h"
 #import "CUTEFormTextViewCell.h"
+#import "CUTEFormCurrencyTextFieldCell.h"
 #import "CUTENavigationUtil.h"
 #import "NSURL+Assets.h"
 #import "CUTEImageUploader.h"
@@ -70,8 +71,8 @@
 
 - (void)onLeftButtonPressed:(id)sender {
 
-    NSString *ticketTitle = [self getTicketTitleCell].textField.text;
-    NSString *ticketDescription = [self getTicketDescriptionCell].textView.text;
+    NSString *ticketTitle = self.form.ticketTitle;
+    NSString *ticketDescription = self.form.ticketDescription;
 
     if ([self checkShowTitleLengthWarningAlert:ticketTitle]) {
         return;
@@ -102,6 +103,10 @@
         if (self.form.ticket.space) {
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", self.form.ticket.space.value, self.form.ticket.space.unitPresentation];
         }
+    }
+    else if ([field.key isEqualToString:@"holdingDeposit"]) {
+        CUTEFormCurrencyTextFieldCell *textFieldCell = (CUTEFormCurrencyTextFieldCell *)cell;
+        [textFieldCell setCurrencySymbol:self.form.currencySymbol];
     }
 
 }
