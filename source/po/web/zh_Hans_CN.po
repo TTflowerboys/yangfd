@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-01-27 16:21+0800\n"
+"POT-Creation-Date: 2016-01-28 19:00+0800\n"
 "PO-Revision-Date: 2014-10-21 12:09+0800\n"
 "Last-Translator: ffang <ffang@bbtechgroup.com>\n"
 "Language: zh_Hans_CN\n"
@@ -486,7 +486,7 @@ msgstr ""
 
 #: ../web/src/crowdfunding.html:737 ../web/src/crowdfunding.html:892
 #: ../web/src/property.html:986 ../web/src/property.html:1207
-#: ../web/src/property_to_rent.html:541 ../web/src/property_to_rent.html:748
+#: ../web/src/property_to_rent.html:541 ../web/src/property_to_rent.html:746
 msgid "已经收藏过了"
 msgstr ""
 
@@ -534,25 +534,25 @@ msgid "打开微信，使用 “扫一扫” 即可将网页分享到朋友圈"
 msgstr ""
 
 #: ../web/src/crowdfunding.html:878 ../web/src/news.html:121
-#: ../web/src/property.html:1161 ../web/src/property_to_rent.html:767
+#: ../web/src/property.html:1161 ../web/src/property_to_rent.html:765
 #: ../web/src/property_to_rent_publish_success.html:48
 #: ../web/src/user_intentions.html:69 ../web/src/user_properties.html:100
 msgid "点击右上角"
 msgstr ""
 
 #: ../web/src/crowdfunding.html:880 ../web/src/news.html:123
-#: ../web/src/property.html:1163 ../web/src/property_to_rent.html:769
+#: ../web/src/property.html:1163 ../web/src/property_to_rent.html:767
 #: ../web/src/property_to_rent_publish_success.html:50
 #: ../web/src/user_intentions.html:71 ../web/src/user_properties.html:102
 msgid "分享链接给微信好友"
 msgstr ""
 
 #: ../web/src/crowdfunding.html:884 ../web/src/news.html:127
-#: ../web/src/property.html:1167 ../web/src/property_to_rent.html:773
+#: ../web/src/property.html:1167 ../web/src/property_to_rent.html:771
 #: ../web/src/property_to_rent_publish_success.html:54
 #: ../web/src/user_intentions.html:75 ../web/src/user_properties.html:106
-#: ../web/src/partials/rent_request.html:209
-#: ../web/src/partials/rent_request_phone.html:211
+#: ../web/src/partials/rent_request.html:219
+#: ../web/src/partials/rent_request_phone.html:221
 msgid "我知道了"
 msgstr ""
 
@@ -1132,8 +1132,8 @@ msgstr ""
 msgid "更多资讯"
 msgstr ""
 
-#: ../web/src/index.html:152 ../web/src/partials/rent_request.html:211
-#: ../web/src/partials/rent_request_phone.html:213
+#: ../web/src/index.html:152 ../web/src/partials/rent_request.html:221
+#: ../web/src/partials/rent_request_phone.html:223
 msgid "了解更多"
 msgstr ""
 
@@ -1709,7 +1709,7 @@ msgstr ""
 
 #: ../web/src/property_to_rent.html:159 ../web/src/property_to_rent.html:165
 #: ../web/src/property_to_rent.html:466 ../web/src/property_to_rent.html:479
-#: ../web/src/property_to_rent.html:715
+#: ../web/src/property_to_rent.html:713
 #: ../web/src/property_to_rent_digest.html:39
 #: ../web/src/property_to_rent_list.html:78
 #: ../web/src/property_to_rent_list.html:89 ../web/src/wechat_poster.html:59
@@ -1731,12 +1731,12 @@ msgstr ""
 #: ../web/src/property_wechat_poster.html:70
 #: ../web/src/property_wechat_poster.html:84 ../web/src/wechat_poster.html:69
 #: ../web/src/partials/get_reference_price.html:18
-#: ../web/src/partials/i18n.html:3 ../web/src/partials/rent_request.html:175
-#: ../web/src/partials/rent_request.html:185
+#: ../web/src/partials/i18n.html:3 ../web/src/partials/rent_request.html:185
 #: ../web/src/partials/rent_request.html:195
-#: ../web/src/partials/rent_request_phone.html:177
+#: ../web/src/partials/rent_request.html:205
 #: ../web/src/partials/rent_request_phone.html:187
 #: ../web/src/partials/rent_request_phone.html:197
+#: ../web/src/partials/rent_request_phone.html:207
 msgid "约"
 msgstr ""
 
@@ -1819,7 +1819,7 @@ msgstr ""
 msgid "周边"
 msgstr ""
 
-#: ../web/src/property_to_rent.html:469 ../web/src/property_to_rent.html:718
+#: ../web/src/property_to_rent.html:469 ../web/src/property_to_rent.html:716
 #: ../web/src/static/emails/rent_intention_digest.html:34
 #: ../web/src/static/emails/rent_intention_matched_1.html:35
 #: ../web/src/static/emails/rent_intention_matched_4.html:41
@@ -1827,8 +1827,8 @@ msgstr ""
 msgid "，包Bill"
 msgstr ""
 
-#: ../web/src/property_to_rent.html:498 ../web/src/property_to_rent.html:654
-#: ../web/src/property_to_rent.html:662 ../web/src/property_to_rent.html:674
+#: ../web/src/property_to_rent.html:498 ../web/src/property_to_rent.html:652
+#: ../web/src/property_to_rent.html:660 ../web/src/property_to_rent.html:672
 #: ../web/src/partials/i18n_admin.html:78
 #: ../web/src/partials/property_to_rent_edit.html:335
 msgid "不限"
@@ -1854,55 +1854,55 @@ msgid "当前入住数"
 msgstr ""
 
 #: ../web/src/property_to_rent.html:631
-msgid "当天入住者性别"
+msgid "当前入住者性别"
 msgstr ""
 
-#: ../web/src/property_to_rent.html:646
+#: ../web/src/property_to_rent.html:644
 msgid "新室友性别"
 msgstr ""
 
-#: ../web/src/property_to_rent.html:649 ../web/src/user_finish_info.html:94
+#: ../web/src/property_to_rent.html:647 ../web/src/user_finish_info.html:94
 #: ../web/src/user_finish_info.html:258 ../web/src/partials/i18n.html:398
 #: ../web/src/partials/i18n_admin.html:59 ../web/src/partials/user_info.html:21
 #: ../web/src/partials/user_info.html:69
 msgid "男"
 msgstr ""
 
-#: ../web/src/property_to_rent.html:651 ../web/src/user_finish_info.html:101
+#: ../web/src/property_to_rent.html:649 ../web/src/user_finish_info.html:101
 #: ../web/src/user_finish_info.html:265 ../web/src/partials/i18n.html:399
 #: ../web/src/partials/i18n_admin.html:60 ../web/src/partials/user_info.html:23
 #: ../web/src/partials/user_info.html:74
 msgid "女"
 msgstr ""
 
-#: ../web/src/property_to_rent.html:658
+#: ../web/src/property_to_rent.html:656
 msgid "新室友职业"
 msgstr ""
 
-#: ../web/src/property_to_rent.html:666
+#: ../web/src/property_to_rent.html:664
 msgid "新室友年龄"
 msgstr ""
 
-#: ../web/src/property_to_rent.html:670 ../web/src/property_to_rent.html:672
+#: ../web/src/property_to_rent.html:668 ../web/src/property_to_rent.html:670
 msgid "以下"
 msgstr ""
 
-#: ../web/src/property_to_rent.html:682
+#: ../web/src/property_to_rent.html:680
 msgid "其他要求："
 msgstr ""
 
-#: ../web/src/property_to_rent.html:693
+#: ../web/src/property_to_rent.html:691
 msgid "相关出租房产"
 msgstr ""
 
-#: ../web/src/property_to_rent.html:740 ../web/src/wechat_poster.html:357
+#: ../web/src/property_to_rent.html:738 ../web/src/wechat_poster.html:357
 #: ../web/src/partials/i18n.html:529
 #: ../web/src/static/templates/featured_house_card.html:376
 #: ../server/main_interface.py:230
 msgid "我要咨询"
 msgstr ""
 
-#: ../web/src/property_to_rent.html:763
+#: ../web/src/property_to_rent.html:761
 #: ../web/src/property_to_rent_publish_success.html:44
 msgid "打开微信，使用 “扫一扫” 即可将出租房生成移动端主页分享到朋友圈"
 msgstr ""
@@ -1962,8 +1962,8 @@ msgstr ""
 #: ../web/src/partials/i18n_admin.html:489
 #: ../web/src/partials/property_to_rent_edit.html:408
 #: ../web/src/partials/rent_request.html:32
-#: ../web/src/partials/rent_request.html:157
-#: ../web/src/partials/rent_request_phone.html:159
+#: ../web/src/partials/rent_request.html:167
+#: ../web/src/partials/rent_request_phone.html:169
 #: ../web/src/partials/requirement_rent_popup.html:119
 #: ../web/src/partials/requirement_rent_popup.html:138
 msgid "至"
@@ -1982,8 +1982,8 @@ msgstr ""
 #: ../web/src/partials/property_to_rent_edit.html:131
 #: ../web/src/partials/property_to_rent_edit.html:174
 #: ../web/src/partials/property_to_rent_edit.html:176
-#: ../web/src/partials/rent_request.html:171
-#: ../web/src/partials/rent_request_phone.html:173
+#: ../web/src/partials/rent_request.html:181
+#: ../web/src/partials/rent_request_phone.html:183
 msgid "租金"
 msgstr ""
 
@@ -5445,6 +5445,8 @@ msgid "请输入关键字后再进行搜索"
 msgstr ""
 
 #: ../web/src/partials/i18n.html:341 ../web/src/partials/i18n_admin.html:44
+#: ../web/src/partials/rent_request.html:156
+#: ../web/src/partials/rent_request_phone.html:158
 msgid "载入中..."
 msgstr ""
 
@@ -7935,16 +7937,16 @@ msgid "入住信息"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:503
-#: ../web/src/partials/rent_request.html:153
-#: ../web/src/partials/rent_request_phone.html:155
+#: ../web/src/partials/rent_request.html:163
+#: ../web/src/partials/rent_request_phone.html:165
 msgid "入住&搬出时间"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:504
 #: ../web/src/partials/rent_request.html:38
-#: ../web/src/partials/rent_request.html:163
+#: ../web/src/partials/rent_request.html:173
 #: ../web/src/partials/rent_request_phone.html:37
-#: ../web/src/partials/rent_request_phone.html:165
+#: ../web/src/partials/rent_request_phone.html:175
 msgid "入住人数"
 msgstr ""
 
@@ -9505,14 +9507,18 @@ msgstr ""
 msgid "发布则表示您已经阅读并同意"
 msgstr ""
 
+#: ../web/src/partials/property_to_rent_publish.html:276
+msgid "洋房东服务须知"
+msgstr ""
+
 #: ../web/src/partials/property_to_rent_selectors.html:44
 msgid "找"
 msgstr ""
 
 #: ../web/src/partials/rent_request.html:10
-#: ../web/src/partials/rent_request.html:212
+#: ../web/src/partials/rent_request.html:222
 #: ../web/src/partials/rent_request_flow.html:3
-#: ../web/src/partials/rent_request_phone.html:214
+#: ../web/src/partials/rent_request_phone.html:224
 msgid "租房流程"
 msgstr ""
 
@@ -9615,68 +9621,78 @@ msgstr ""
 msgid "平台将在24小时内与您取得联系"
 msgstr ""
 
-#: ../web/src/partials/rent_request.html:180
-#: ../web/src/partials/rent_request_phone.html:182
+#: ../web/src/partials/rent_request.html:153
+#: ../web/src/partials/rent_request_phone.html:155
+msgid "咨询单编号"
+msgstr ""
+
+#: ../web/src/partials/rent_request.html:157
+#: ../web/src/partials/rent_request_phone.html:159
+msgid "载入失败"
+msgstr ""
+
+#: ../web/src/partials/rent_request.html:190
+#: ../web/src/partials/rent_request_phone.html:192
 msgid "定金预估"
 msgstr ""
 
-#: ../web/src/partials/rent_request.html:182
-#: ../web/src/partials/rent_request_phone.html:184
+#: ../web/src/partials/rent_request.html:192
+#: ../web/src/partials/rent_request_phone.html:194
 msgid ""
 "Holding "
 "Deposit，是您确定预订后锁定房源所需要向房东交付的定金，当你入住时确保房源和确认信息一致，平台将在24小时后把钱转付房东以冲抵押金或房租"
 msgstr ""
 
-#: ../web/src/partials/rent_request.html:190
-#: ../web/src/partials/rent_request_phone.html:192
+#: ../web/src/partials/rent_request.html:200
+#: ../web/src/partials/rent_request_phone.html:202
 msgid "服务费预估"
 msgstr ""
 
-#: ../web/src/partials/rent_request.html:192
-#: ../web/src/partials/rent_request_phone.html:194
+#: ../web/src/partials/rent_request.html:202
+#: ../web/src/partials/rent_request_phone.html:204
 msgid "平台服务费用于为您在房源咨询，申请和预订阶段提供专属租房助手和沟通确认预订服务，并且支持平台其他日常运营开支，使我们能更好的服务您"
 msgstr ""
 
-#: ../web/src/partials/rent_request.html:200
-#: ../web/src/partials/rent_request_phone.html:202
+#: ../web/src/partials/rent_request.html:210
+#: ../web/src/partials/rent_request_phone.html:212
 msgid "视频直播看房服务"
 msgstr ""
 
-#: ../web/src/partials/rent_request.html:203
-#: ../web/src/partials/rent_request_phone.html:205
+#: ../web/src/partials/rent_request.html:213
+#: ../web/src/partials/rent_request_phone.html:215
 msgid "推广期"
 msgstr ""
 
-#: ../web/src/partials/rent_request.html:203
-#: ../web/src/partials/rent_request_phone.html:205
+#: ../web/src/partials/rent_request.html:213
+#: ../web/src/partials/rent_request_phone.html:215
 msgid "免费"
 msgstr ""
 
-#: ../web/src/partials/rent_request.html:207
-#: ../web/src/partials/rent_request_phone.html:209
+#: ../web/src/partials/rent_request.html:217
+#: ../web/src/partials/rent_request_phone.html:219
 msgid "此信息仅作咨询申请确认，最终预订以平台联系确认为准"
 msgstr ""
 
-#: ../web/src/partials/rent_request.html:211
-#: ../web/src/partials/rent_request_phone.html:213
+#: ../web/src/partials/rent_request.html:221
+#: ../web/src/partials/rent_request_phone.html:223
 msgid "对租房流程有疑问？"
 msgstr ""
 
-#: ../web/src/partials/rent_request.html:212
-#: ../web/src/partials/rent_request_phone.html:214
+#: ../web/src/partials/rent_request.html:222
+#: ../web/src/partials/rent_request_phone.html:224
 msgid "查阅“"
 msgstr ""
 
-#: ../web/src/partials/rent_request.html:212
+#: ../web/src/partials/rent_request.html:222
 msgid "”了解更多"
 msgstr ""
 
-#: ../web/src/partials/rent_request.html:213
+#: ../web/src/partials/rent_request.html:223
 msgid "也欢迎您发送任何疑问到"
 msgstr ""
 
-#: ../web/src/partials/rent_request.html:213
-#: ../web/src/partials/rent_request_phone.html:214
+#: ../web/src/partials/rent_request.html:223
+#: ../web/src/partials/rent_request_phone.html:224
 msgid "，平台将为您解答"
 msgstr ""
 
@@ -9714,7 +9730,7 @@ msgstr ""
 msgid "您的咨询申请已经提交成功，平台将在24小时内与您取得联系"
 msgstr ""
 
-#: ../web/src/partials/rent_request_phone.html:214
+#: ../web/src/partials/rent_request_phone.html:224
 msgid "”了解更多，也欢迎您发送任何疑问到"
 msgstr ""
 
@@ -12223,5 +12239,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "视屏直播全英优质房源"
+#~ msgstr ""
+
+#~ msgid "当天入住者性别"
 #~ msgstr ""
 
