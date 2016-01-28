@@ -168,7 +168,7 @@ main {
                     background-color: #f6f6f6;
                     margin-bottom: 140px;
                     #load_more{
-                        padding-left: 160px;
+                        padding-left: 178px;
                         height: 90px;
                         padding-top: 20px;
                         .clearfix;
@@ -240,7 +240,7 @@ main {
                     }
                 }
                 .text {
-                    width: 160px;
+                    width: 180px;
                     display: block;
                     text-align: right;
                     color: #999999;
@@ -418,12 +418,18 @@ main {
                     }
                 }
                 .room_size{
+                    input[type=text]{
+                        width: 110px;
+                    }
                     select{
-                        width: 140px;
+                        width: 110px;
                         margin-left: 8px;
                     }
                     .chosen-container{
                         margin-left: 8px;
+                    }
+                    input[type=checkbox]{
+                        margin-left: 16px;
                     }
                 }
                 .sales_price ,.holdingDeposit{
@@ -529,6 +535,37 @@ main {
                     .chosen-container{
                         margin-right: 10px;
                     }
+                }
+                .roommateCount{
+                    select{
+                        width: 110px;
+                    }
+                    .chosen-container{
+                        margin-right: 14px;
+                    }
+                }
+                .requirement{
+                    select{
+                        width: 110px;
+                    }
+                    .chosen-container{
+                        margin-right: 14px;
+                    }
+                    .separator{
+                        margin-left: -10px;
+                        margin-right: 4px;
+                    }
+                    label{
+                        margin-right: 24px;
+                    }
+                    .otherRequirements{
+                        width: 380px;
+                        height: 120px;
+                        padding: 12px 6px;
+                        border-radius: 3px;
+                        border-color: #ccc;
+                    }
+
                 }
                 .image_panel {
                     margin: auto 40px;
@@ -1176,6 +1213,9 @@ main {
                     width: 12px;
                     background-position: 0 17px;
                 }
+            }
+            span{
+                margin-right: 0;
             }
         }
         &.chosen-with-drop .chosen-single{
