@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-01-28 19:00+0800\n"
-"PO-Revision-Date: 2016-01-28 19:02+0800\n"
+"PO-Revision-Date: 2016-01-28 19:05+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -2035,7 +2035,7 @@ msgstr "Congratulations"
 
 #: ../web/src/property_to_rent_publish_success.html:12
 msgid "您的房产已经发布成功！"
-msgstr "Your property already list successfully!"
+msgstr "Your listing already active!"
 
 #: ../web/src/property_to_rent_publish_success.html:13
 msgid "想要查看您的房产，请点击"
