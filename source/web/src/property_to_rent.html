@@ -578,10 +578,10 @@
         <!--@@include=./partials/rent_request_flow.html -->
         <div class="rentPreferences">
             <div class="basic">
-                % if 'available_rooms' in rent:                
-                <dic class="avaialbeRooms">                            
+                % if 'available_rooms' in rent:
+                <dic class="avaialbeRooms">
                     {{_('待入住')}}
-                    <strong>{{ rent.get('available_rooms') }}</strong>                
+                    <strong>{{ rent.get('available_rooms') }}</strong>
                 </dic>
                 % end
                 <ul class="allowOrDisallow">
@@ -590,37 +590,37 @@
                         % if rent.get("no_smoking"):
                             {{_('禁止')}}
                         % else:
-                            {{_('允许')}}  
-                        % end                  
+                            {{_('允许')}}
+                        % end
                     </li>
                     <li class="noPet">
                         <i class="pet"></i>
                         % if rent.get("no_pet"):
                             {{_('禁止')}}
                         % else:
-                            {{_('允许')}}  
-                        % end                  
+                            {{_('允许')}}
+                        % end
                     </li>
                     <li class="noBaby">
                         <i class="baby"></i>
                         % if rent.get("no_baby"):
                             {{_('禁止')}}
                         % else:
-                            {{_('允许')}}  
-                        % end                  
+                            {{_('允许')}}
+                        % end
                     </li>
-                </ul>                
+                </ul>
             </div>
             <div class="currentRoommates">
                 % if 'current_male_roommates' in rent:
-                %   current_male_roommates = rent.get('current_male_roommates')
+                    % current_male_roommates = rent.get('current_male_roommates')
                 % else:
-                %   current_male_roommates = 0
+                    % current_male_roommates = 0
                 % end
                 % if 'current_female_roommates' in rent:
-                %   current_female_roommates = rent.get('current_female_roommates')
+                    % current_female_roommates = rent.get('current_female_roommates')
                 % else:
-                %   current_female_roommates = 0
+                    % current_female_roommates = 0
                 % end
                 <ul>
                     <li>
@@ -628,7 +628,7 @@
                         <strong>{{current_male_roommates + current_female_roommates}}</strong>
                     </li>
                     <li>
-                       {{_('当天入住者性别')}}
+                       {{_('当前入住者性别')}}
                        <div>
                            <i class="female"></i>
                            <strong>{{current_female_roommates}}</strong>
@@ -646,21 +646,21 @@
                         {{_('新室友性别')}}
                         % if 'gender_requirement' in rent:
                             % if rent.get('gender_requirement') == 'male':
-                                <strong>{{_('男')}}</strong>                                
+                                <strong>{{_('男')}}</strong>
                             % else:
-                                <strong>{{_('女')}}</strong>                                
+                                <strong>{{_('女')}}</strong>
                             % end
                         % else:
                             <strong>{{_('不限')}}</strong>
-                        % end                        
+                        % end
                     </li>
                     <li>
                         {{_('新室友职业')}}
                         % if 'occupation' in rent:
-                            <strong>{{rent.get('occupation').get('value')}}</strong>                            
+                            <strong>{{rent.get('occupation').get('value')}}</strong>
                         % else:
                             <strong>{{_('不限')}}</strong>
-                        % end                        
+                        % end
                     </li>
                     <li>
                         {{_('新室友年龄')}}
@@ -672,7 +672,7 @@
                             <strong>{{rent.get('max_age')}}{{_('以下')}}</strong>
                         % else:
                             <strong>{{_('不限')}}</strong>
-                        % end                        
+                        % end
                     </li>
                 </ul>
             </div>
