@@ -2,9 +2,6 @@
 <textarea id="countryData" style="display: none">
     {{json_dumps(country_list)}}
 </textarea>
-<textarea id="rentTicketData" style="display: none">
-    {{json_dumps(rent)}}
-</textarea>
 <div class="route editRoute" data-route="step1" style="display: none">
     <div class="mainTitle">{{_('房屋出租')}}</div>
     <div class="content">
@@ -65,8 +62,40 @@
                         <td class="title">
                             <div class="text">{{_('出租类型')}}</div>
                         </td>
-                        <td id="rentalType" data-list="{{json_dumps(rent_type_list)}}">
-                            <tags params="list: rentTypeList, key: 'rentType'" data-bind="value: rentType" value="{{rent.get('rent_type',{}).get('id','')}}" data-trigger="updateTitle"></tags>
+                        <td id="rentalType" data-trigger="updateTitle">
+                            %for index, rent_type in enumerate(rent_type_list):
+                                %if request.params.get('rent_type'):
+                                    %if (request.params.get('rent_type')==rent_type.get('id')):
+                                    <div class="property_type selected" data-id="{{rent_type.get('id')}}">
+                                        {{rent_type.get('value')}}
+                                    </div>
+                                    %else:
+                                    <div class="property_type" data-id="{{rent_type.get('id')}}">
+                                        {{rent_type.get('value')}}
+                                    </div>
+                                    %end
+                                %elif rent.get('rent_type'):
+                                    %if (rent.get('rent_type',{}).get('id')==rent_type.get('id')):
+                                    <div class="property_type selected" data-id="{{rent_type.get('id')}}">
+                                        {{rent_type.get('value')}}
+                                    </div>
+                                    %else:
+                                    <div class="property_type" data-id="{{rent_type.get('id')}}">
+                                        {{rent_type.get('value')}}
+                                    </div>
+                                    %end
+                                %else:
+                                    %if (index==0):
+                                    <div class="property_type selected" data-id="{{rent_type.get('id')}}">
+                                        {{rent_type.get('value')}}
+                                    </div>
+                                    %else:
+                                    <div class="property_type" data-id="{{rent_type.get('id')}}">
+                                        {{rent_type.get('value')}}
+                                    </div>
+                                    %end
+                                %end
+                            %end
                         </td>
                     </tr>
                     <tr>
@@ -212,7 +241,7 @@
                             <div class="text">
                                 {{_('房屋户型')}}
                             </div>
-                            <div class="text">{{_('(可选studio)')}}</div>
+                            <div class="tip">{{_('(可选studio)')}}</div>
                         </td>
                         <td class="room_count">
                             <div>
@@ -268,9 +297,9 @@
                     <tr>
                         <td class="title">
                             <!--如果用户选择出租类型为单间：-->
-                            <label class="text" data-bind="visible: rentTypeSlug() === 'rent_type:single'" for="roomSize">{{_('单间面积')}}</label>
+                            <label class="text" data-show="singleRoom" for="roomSize">{{_('房间面积')}}</label>
                             <!--如果用户选择出租类型为整租：-->
-                            <label class="text" data-bind="visible: rentTypeSlug() === 'rent_type:whole'" for="roomSize" style="display: none;">{{_('房屋面积')}}</label>
+                            <label class="text" data-show="entireHouse" for="roomSize" style="display: none;">{{_('房屋面积')}}</label>
                         </td>
                         <td class="room_size">
                             <div>
@@ -287,10 +316,6 @@
                                         %end
                                         >{{_('平方英尺')}}</option>
                                 </select>
-                                <!-- ko if: rentTypeSlug() === 'rent_type:single' -->
-                                <input type="checkbox" id="independentBathroom" data-bind="checked: independentBathroom"/>
-                                <label for="independentBathroom">{{_('单间独立卫浴')}}</label>
-                                <!-- /ko -->
                             </div>
                         </td>
                     </tr>
@@ -324,7 +349,7 @@
                     </tr>
                     <tr>
                         <td class="title">
-                            <div class="text">{{_('接受最短租期')}}</div>
+                            <div class="text">{{_('最短接受租期')}}</div>
                         </td>
                         <td class="minimumRentPeriod">
                             <select id="minimumRentPeriod">
@@ -367,71 +392,7 @@
                             </select>
                         </td>
                     </tr>
-                    <tr data-bind="if: rentTypeSlug() === 'rent_type:single'">
-                        <td class="title">
-                            <div class="text">{{_('当前室友人数')}}</div>
-                        </td>
-                        <td class="roommateCount">
-                            <select data-bind="chosen: maleRoommatesList,
-                                optionsText: function(item){return item + window.i18n('人')},
-                                value: maleRoommates,
-                                optionsCaption: '{{_('男性')}}'">
-                            </select>
-                            <select data-bind="chosen: femaleRoommatesList,
-                                optionsText: function(item){return item + window.i18n('人')},
-                                value: femaleRoommates,
-                                optionsCaption: '{{_('女性')}}'">
-                            </select>
-                            <select data-bind="chosen: availableRoommatesList,
-                                optionsText: function(item){return item + window.i18n('人')},
-                                value: availableRoommates,
-                                optionsCaption: '{{_('待入住')}}'">
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="title">
-                            <div class="text">{{_('入住限制')}}</div>
-                        </td>
-                        <td class="requirement">
-                            <div data-bind="visible: rentTypeSlug() === 'rent_type:single'" style="margin-bottom: 20px;">
-                                <select class="gender" data-bind="chosen: genderList,
-                                optionsText: 'text',
-                                optionsValue: 'value',
-                                value: gender,
-                                optionsCaption: '{{_('性别')}}'"></select>
-                                <select data-bind="chosen: minAgeList,
-                                optionsText: function(item){return item + window.i18n('岁')},
-                                value: minAge,
-                                optionsCaption: '{{_('最小年龄')}}'">
-                                </select>
-                                <span class="separator">{{_('至')}}</span>
-                                <select data-bind="chosen: maxAgeList,
-                                optionsText: function(item){return item + window.i18n('岁')},
-                                value: maxAge,
-                                optionsCaption: '{{_('最大年龄')}}'">
-                                </select>
-                            </div>
-                            <div data-bind="visible: rentTypeSlug() === 'rent_type:single'" style="margin-bottom: 14px;">
-                                <select class="occupation" data-bind="chosen: occupationList,
-                                optionsText: 'value',
-                                optionsValue: 'id',
-                                value: occupation,
-                                optionsCaption: '{{_('职业')}}'"></select>
-                            </div>
-                            <div data-bind="visible: rentTypeSlug() === 'rent_type:single'" style="margin-bottom: 24px;">
-                                <input type="checkbox" id="allowSmoking" data-bind="checked: allowSmoking"/>
-                                <label for="allowSmoking">{{_('允许吸烟')}}</label>
-                                <input type="checkbox" id="allowPet" data-bind="checked: allowPet"/>
-                                <label for="allowPet">{{_('可携宠物')}}</label>
-                                <input type="checkbox" id="allowBaby" data-bind="checked: allowBaby"/>
-                                <label for="allowBaby">{{_('可带小孩')}}</label>
-                            </div>
-                            <div>
-                                <textarea class="otherRequirements" placeholder="{{_('请填写您对租客的其他要求，如租房需要提供学生证，名片，银行流水等')}}" data-bind="value: otherRequirements"></textarea>
-                            </div>
-                        </td>
-                    </tr>
+
                 </table>
                 <div class="information">
                     <div class="subtitle">
