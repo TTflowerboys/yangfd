@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-01-27 16:21+0800\n"
-"PO-Revision-Date: 2016-01-28 16:17+0800\n"
+"PO-Revision-Date: 2016-01-28 18:38+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -1146,7 +1146,7 @@ msgstr "Learn More"
 
 #: ../web/src/index_en.html:22
 msgid "有英国房源要出租"
-msgstr "Want to list your space"
+msgstr "Want to list your space?"
 
 #: ../web/src/intention.html:16
 msgid "恭喜您注册成功，请选择您的服务需求"
@@ -3323,7 +3323,7 @@ msgstr "No properties on platform"
 
 #: ../web/src/user_properties.html:60
 msgid "没有要出租的房产"
-msgstr "No properties on platform"
+msgstr "No listings on platform"
 
 #: ../web/src/user_properties.html:64
 msgid "有房出租？去<a href=\"yangfd://property-to-rent/create\">发布出租房</a>吧"
@@ -3532,7 +3532,7 @@ msgstr "My Account"
 
 #: ../web/src/masters/master.html:78
 msgid "我的意向单"
-msgstr "Tickets"
+msgstr "My Tickets"
 
 #: ../web/src/masters/master.html:81
 msgid "退出"
@@ -9024,7 +9024,7 @@ msgstr "Use YoungFunding Property to quickly find your ideal tenant with 3 simpl
 #: ../web/src/partials/index_landlord.html:18
 #: ../web/src/partials/index_landlord.html:32
 msgid "了解详细流程"
-msgstr ""
+msgstr "Checkout Detail Process"
 
 #: ../web/src/partials/index_landlord.html:35
 msgid "懒得自己发布？委托平台出租/出售我的房产"
