@@ -1,5 +1,8 @@
 <!--@@include whether_radio_tpl.html  -->
 <!--@@include chose_referrer_tpl.html  -->
+<textarea id="rentTicketData" style="display: none">
+    {{json_dumps(rent_ticket)}}
+</textarea>
 <script type="text/template" id='rent-request-tpl'>
     <div id="rent_request_popup" class="rentRequestContainer fullHeightInClient" data-bind="visible: visible">
         <div class="requirement_popup_shadow" data-bind="click: close"></div>
@@ -149,74 +152,89 @@
                         <p data-show="delegateRent" data-hide="requestContact">{{_('您的咨询申请已经提交成功，平台将在24小时内与您取得联系')}}</p>
                     </div>
                     <div class="rightWrap">
-                        <ul class="content">
-                            <li>
-                                <span class="title">
-                                    {{_('咨询单编号')}}
-                                </span>
-                                <div class="right">
-                                    <span class="text" data-bind="visible: shortIdStatus() === 'loading'">{{_('载入中...')}}</span>
-                                    <span class="text" data-bind="visible: shortIdStatus() === 'fail'">{{_('载入失败')}}</span>
-                                    <span class="text" data-bind="visible: shortIdStatus() === 'success', text: shortId"></span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="title">
-                                    {{_('入住&搬出时间')}}
-                                </span>
-                                <div class="right">
-                                    <span class="text">
-                                        <!--ko text: rentAvailableTimeFormated--><!--/ko-->{{_('至')}}<!--ko text: rentDeadlineTimeFormated--><!--/ko-->
+                        <div class="contentWrap">
+                            <ul class="content">
+                                <li>
+                                    <span class="title">
+                                        {{_('咨询单编号')}}
                                     </span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="title">
-                                    {{_('入住人数')}}
-                                </span>
-                                <div class="right">
-                                    <span class="text" data-bind="text: tenantCount"></span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="title">
-                                    {{_('租金')}}
-                                </span>
-                                <div class="right">
-                                    <span class="text" data-bind="text: price().unit_symbol + price().value + i18n('/周')"></span>
-                                    <span class="small" data-bind="visible: priceLocal().value">({{_('约')}}<!--ko text: priceLocal().unit_symbol + priceLocal().value + i18n('/周')--><!--/ko-->)</span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="title">
-                                    {{_('定金预估')}}
-                                </span>
-                                <tips params="tips: '{{_('Holding Deposit，是您确定预订后锁定房源所需要向房东交付的定金，当你入住时确保房源和确认信息一致，平台将在24小时后把钱转付房东以冲抵押金或房租')}}'"></tips>
-                                <div class="right">
-                                    <span class="text" data-bind="text: holdingDeposit().unit_symbol + holdingDeposit().value"></span>
-                                    <span class="small" data-bind="visible: holdingDepositLocal().value">({{_('约')}}<!--ko text: holdingDepositLocal().unit_symbol + holdingDepositLocal().value--><!--/ko-->)</span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="title">
-                                    {{_('服务费预估')}}
-                                </span>
-                                <tips params="tips: '{{_('平台服务费用于为您在房源咨询，申请和预订阶段提供专属租房助手和沟通确认预订服务，并且支持平台其他日常运营开支，使我们能更好的服务您')}}'"></tips>
-                                <div class="right">
-                                    <span class="text" data-bind="text: price().unit_symbol + payment()"></span>
-                                    <span class="small" data-bind="visible: paymentLocal().value">({{_('约')}}<!--ko text: paymentLocal().unit_symbol + paymentLocal().value--><!--/ko-->)</span>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="title">
-                                    {{_('视频直播看房服务')}}
-                                </span>
-                                <div class="right">
-                                    <span class="small">{{_('推广期')}}<strong>{{_('免费')}}</strong></span>
-                                </div>
-                            </li>
-                        </ul>
-                        <p class="declare">{{_('此信息仅作咨询申请确认，最终预订以平台联系确认为准')}}</p>
+                                    <div class="right">
+                                        <span class="text" data-bind="visible: shortIdStatus() === 'loading'">{{_('载入中...')}}</span>
+                                        <span class="text" data-bind="visible: shortIdStatus() === 'fail'">{{_('载入失败')}}</span>
+                                        <span class="text" data-bind="visible: shortIdStatus() === 'success', text: shortId"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="title">
+                                        {{_('入住&搬出时间')}}
+                                    </span>
+                                    <div class="right">
+                                        <span class="text">
+                                            <!--ko text: rentAvailableTimeFormated--><!--/ko-->{{_('至')}}<!--ko text: rentDeadlineTimeFormated--><!--/ko-->
+                                        </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="title">
+                                        {{_('入住人数')}}
+                                    </span>
+                                    <div class="right">
+                                        <span class="text" data-bind="text: tenantCount"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="title">
+                                        {{_('租金')}}
+                                    </span>
+                                    <div class="right">
+                                        <span class="text" data-bind="text: price().unit_symbol + price().value + i18n('/周')"></span>
+                                        <span class="small" data-bind="visible: priceLocal().value">({{_('约')}}<!--ko text: priceLocal().unit_symbol + priceLocal().value + i18n('/周')--><!--/ko-->)</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="title">
+                                        {{_('定金预估')}}
+                                    </span>
+                                    <tips params="tips: '{{_('Holding Deposit，是您确定预订后锁定房源所需要向房东交付的定金，当你入住时确保房源和确认信息一致，平台将在24小时后把钱转付房东以冲抵押金或房租')}}'"></tips>
+                                    <div class="right">
+                                        <span class="text" data-bind="text: holdingDeposit().unit_symbol + holdingDeposit().value"></span>
+                                        <span class="small" data-bind="visible: holdingDepositLocal().value">({{_('约')}}<!--ko text: holdingDepositLocal().unit_symbol + holdingDepositLocal().value--><!--/ko-->)</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="title">
+                                        {{_('服务费预估')}}
+                                    </span>
+                                    <tips params="tips: '{{_('平台服务费用于为您在房源咨询，申请和预订阶段提供专属租房助手和沟通确认预订服务，并且支持平台其他日常运营开支，使我们能更好的服务您')}}'"></tips>
+                                    <div class="right">
+                                        <span class="text" data-bind="text: price().unit_symbol + payment()"></span>
+                                        <span class="small" data-bind="visible: paymentLocal().value">({{_('约')}}<!--ko text: paymentLocal().unit_symbol + paymentLocal().value--><!--/ko-->)</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="title">
+                                        {{_('视频直播看房服务')}}
+                                    </span>
+                                    <div class="right">
+                                        <span class="small">{{_('推广期')}}<strong>{{_('免费')}}</strong></span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <p class="declare">{{_('此信息仅作咨询申请确认，最终预订以平台联系确认为准')}}</p>
+                        </div>
+                        <div class="unmatchRequirements" data-bind="unmatchRequirements().length">
+                            <p class="text">{{_('您的以下信息与当前房屋不匹配：')}}</p>
+                            <ul data-bind="foreach: unmatchRequirements">
+                                <li>
+                                    <p class="request"><i class="icon-delete"></i><span data-bind="text: request"></span></p>
+                                    <p class="requirement">
+                                        <span>{{_('房东要求：')}}</span>
+                                        <span class="requirement" data-bind="text: requirement"></span>
+                                    </p>
+                                </li>
+                            </ul>
+                            <p class="text">{{_('我们仍旧会将您的申请发送给房东，如果房东拒绝，我们还会为您匹配其他房源。')}}</p>
+                        </div>
                         <div class="confirmWrap">
                             <button class="confirmButton button red" data-bind="click: confirm, disable: isConfirmed">{{_('我知道了')}}</button>
                             <div class="hintWrap">

@@ -750,7 +750,7 @@
             'independent_bathroom': module.appViewModel.propertyViewModel.independentBathroom(), //独立卫浴
             'current_male_roommates': module.appViewModel.propertyViewModel.maleRoommates(), //当前男室友数
             'current_female_roommates': module.appViewModel.propertyViewModel.femaleRoommates(), //当前女室友数
-            'available_rooms': module.appViewModel.propertyViewModel.availableRoommates(), //待入住人数
+            'accommodates': module.appViewModel.propertyViewModel.availableRoommates(), //待入住人数
             'gender_requirement': module.appViewModel.propertyViewModel.gender(), //性别要求
             'min_age': module.appViewModel.propertyViewModel.minAge(), //最小年龄
             'max_age': module.appViewModel.propertyViewModel.maxAge(), //最大年龄
@@ -1220,7 +1220,7 @@
         this.femaleRoommatesList = ko.observableArray(window.team.generateArray(10))
         this.femaleRoommates = ko.observable(rent.current_female_roommates)
         this.availableRoommatesList = ko.observableArray(window.team.generateArray(10))
-        this.availableRoommates = ko.observable(rent.available_rooms)
+        this.availableRoommates = ko.observable(rent.accommodates)
         this.minAgeList = ko.observableArray(window.team.generateArray(80))
         this.minAge = ko.observable(rent.min_age)
         this.maxAgeList = ko.observableArray(window.team.generateArray(80))

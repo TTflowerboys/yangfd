@@ -558,12 +558,13 @@
             padding: 0 0 100px 100px;
             .clearfix;
             .leftWrap{
-                margin-right: 300px;
+                margin-right: 130px;
+                width: 420px;
                 float: left;
                 h2{
                     font-size: 36px;
                     color: #333333;
-                    margin-bottom: 85px;
+                    margin-bottom: 60px;
                 }
                 p{
                     &.hint{
@@ -593,6 +594,35 @@
                     font-size: 16px;
                     a{
                         color: @red;
+                    }
+                }
+                .unmatchRequirements{
+                    p.text{
+                        font-size: 14px;
+                        color: #999;
+                    }
+                    ul{
+                        li{
+                            margin-bottom: 24px;
+                            p.request{
+                                font-size: 16px;
+                                color: @red;
+                                margin-bottom: 0;
+                                i{
+                                    margin-right: 20px;
+                                    font-size: 16px;
+                                }
+                            }
+                            p.requirement{
+                                padding-left: 36px;
+                                font-size: 13px;
+                                color: #666;
+                                margin-bottom: 0;
+                                span.requirement{
+                                    color: #04b92f;
+                                }
+                            }
+                        }
                     }
                 }
             }

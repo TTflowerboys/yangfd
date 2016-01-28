@@ -382,11 +382,6 @@
                                 value: femaleRoommates,
                                 optionsCaption: '{{_('女性')}}'">
                             </select>
-                            <select data-bind="chosen: availableRoommatesList,
-                                optionsText: function(item){return item + window.i18n('人')},
-                                value: availableRoommates,
-                                optionsCaption: '{{_('待入住')}}'">
-                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -395,29 +390,34 @@
                         </td>
                         <td class="requirement">
                             <div data-bind="visible: rentTypeSlug() === 'rent_type:single'" style="margin-bottom: 20px;">
+                                <select data-bind="chosen: availableRoommatesList,
+                                optionsText: function(item){return item + window.i18n('人')},
+                                value: availableRoommates,
+                                optionsCaption: '{{_('可入住人数')}}'">
+                                </select>
                                 <select class="gender" data-bind="chosen: genderList,
                                 optionsText: 'text',
                                 optionsValue: 'value',
                                 value: gender,
                                 optionsCaption: '{{_('性别')}}'"></select>
-                                <select data-bind="chosen: minAgeList,
-                                optionsText: function(item){return item + window.i18n('岁')},
-                                value: minAge,
-                                optionsCaption: '{{_('最小年龄')}}'">
-                                </select>
-                                <span class="separator">{{_('至')}}</span>
-                                <select data-bind="chosen: maxAgeList,
-                                optionsText: function(item){return item + window.i18n('岁')},
-                                value: maxAge,
-                                optionsCaption: '{{_('最大年龄')}}'">
-                                </select>
-                            </div>
-                            <div data-bind="visible: rentTypeSlug() === 'rent_type:single'" style="margin-bottom: 14px;">
                                 <select class="occupation" data-bind="chosen: occupationList,
                                 optionsText: 'value',
                                 optionsValue: 'id',
                                 value: occupation,
                                 optionsCaption: '{{_('职业')}}'"></select>
+                            </div>
+                            <div data-bind="visible: rentTypeSlug() === 'rent_type:single'" style="margin-bottom: 14px;">
+                                <select class="wide" data-bind="chosen: minAgeList,
+                                optionsText: function(item){return item + window.i18n('岁')},
+                                value: minAge,
+                                optionsCaption: '{{_('不限最小年龄')}}'">
+                                </select>
+                                <span class="separator">{{_('至')}}</span>
+                                <select class="wide" data-bind="chosen: maxAgeList,
+                                optionsText: function(item){return item + window.i18n('岁')},
+                                value: maxAge,
+                                optionsCaption: '{{_('不限最大年龄')}}'">
+                                </select>
                             </div>
                             <div data-bind="visible: rentTypeSlug() === 'rent_type:single'" style="margin-bottom: 24px;">
                                 <input type="checkbox" id="allowSmoking" data-bind="checked: allowSmoking"/>
@@ -493,7 +493,7 @@
                             </div>
                         </td>
                         <td class="content">
-                            <textarea class="description" id="description" data-name="{{_('描述')}}" placeholder="{{_('请补充您对租客的要求和对房屋特点的描述，优质而独特的房源描述会得到平台的推荐，提升您的房源排名。（请勿在此填写任何形式的联系方式，违规发布将会予以处理）')}}">{{rent.get('description','')}}</textarea>
+                            <textarea class="description" id="description" data-name="{{_('描述')}}" placeholder="{{_('请补充对房屋特点的描述，优质而独特的房源描述会得到平台的推荐，提升您的房源排名。（请勿在此填写任何形式的联系方式，违规发布将会予以处理）')}}">{{rent.get('description','')}}</textarea>
                         </td>
                     </tr>
                     <tr>

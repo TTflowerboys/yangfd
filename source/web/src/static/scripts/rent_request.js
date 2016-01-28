@@ -4,6 +4,7 @@
     }
     ko.components.register('rent-request', {
         viewModel: function(params) {
+            var rentTicket = JSON.parse($('#rentTicketData').text())
             this.openRentRequestForm = function (ticketId, isPopup) {
                 return function () {
                     window.openRentRequestForm(ticketId, isPopup)
@@ -510,6 +511,75 @@
             }
 
             this.id = ko.observable()
+            this.requirements = (function () {
+                var keyList = ['no_pet', 'no_smoking', 'no_baby', 'occupation', 'min_age', 'max_age', 'gender_requirement', 'accommodates']
+                var requirements = {}
+                _.each(keyList, function (key) {
+                    if(rentTicket[key] !== undefined && rentTicket[key] !== false && rentTicket[key] !== '') {
+                        requirements[key] = rentTicket[key]
+                    }
+                })
+                return requirements
+            })()
+            this.getOccupationName = function (id) {
+                return (_.find(this.occupationList(), {id: id}) || {}).value
+            }
+            this.getGenderName = function (slug) {
+                return {'male': i18n('男'), 'female': i18n('女')}[slug]
+            }
+            this.unmatchRequirements = ko.computed(function () {
+                var unmatchRequirements = []
+                var age = new Date().getYear() - new Date(this.birthTime() * 1000).getYear()
+                if(this.requirements.no_smoking && this.smoke() === true) {
+                    unmatchRequirements.push({
+                        request: i18n('入住者吸烟'),
+                        requirement: i18n('禁止吸烟'),
+                    })
+                }
+                if(this.requirements.no_pet && this.pet() === true) {
+                    unmatchRequirements.push({
+                        request: i18n('入住者携带宠物'),
+                        requirement: i18n('禁止携带宠物'),
+                    })
+                }
+                if(this.requirements.no_baby && this.baby() === true) {
+                    unmatchRequirements.push({
+                        request: i18n('入住者携带小孩'),
+                        requirement: i18n('禁止携带小孩'),
+                    })
+                }
+                if(this.requirements.occupation && this.occupation() !== this.requirements.occupation) {
+                    unmatchRequirements.push({
+                        request: i18n('入住者职业：') + this.getOccupationName(this.occupation()),
+                        requirement: this.requirements.occupation.value,
+                    })
+                }
+                if(this.requirements.min_age && age < this.requirements.min_age) {
+                    unmatchRequirements.push({
+                        request: i18n('入住者年龄：') + age + i18n('岁'),
+                        requirement: i18n('最低年龄') + this.requirements.min_age + i18n('岁'),
+                    })
+                }
+                if(this.requirements.max_age && age > this.requirements.max_age) {
+                    unmatchRequirements.push({
+                        request: i18n('入住者年龄：') + age + i18n('岁'),
+                        requirement: i18n('最高年龄') + this.requirements.max_age + i18n('岁'),
+                    })
+                }
+                if(this.requirements.accommodates && this.tenantCount() > this.requirements.accommodates) {
+                    unmatchRequirements.push({
+                        request: i18n('入住人数：') + this.tenantCount() + i18n('人'),
+                        requirement: i18n('最多入住') + this.requirements.accommodates + i18n('人'),
+                    })
+                }
+                if(this.requirements.gender_requirement && this.gender() !== this.requirements.gender_requirement) {
+                    unmatchRequirements.push({
+                        request: i18n('入住者性别：') + this.getGenderName(this.gender()),
+                        requirement: this.getGenderName(this.requirements.gender_requirement),
+                    })
+                }
+                return unmatchRequirements
+            }, this)
             this.submit = function () {
                 ga('send', 'event', 'rentRequestIntention', 'click', 'submit-button')
                 if(!this.validate()) {

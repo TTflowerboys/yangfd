@@ -560,7 +560,6 @@
             position: relative;
             .clearfix;
             .leftWrap{
-                border-bottom: 1px solid #ccc;
                 h2{
                     font-size: 5vw;
                     color: @red;
@@ -575,54 +574,94 @@
             }
             .rightWrap{
                 padding: 0 10px;
-                .content{
-                    li{
-                        padding: 3.2vw 0;
-                        border-bottom: 1px solid #ccc;
-                        font-size: 3.4vw;
-                        .clearfix;
-                        >*{
-                            display: inline-block;
-                            vertical-align: middle;
-                        }
-                        .title{
-                            color: #666;
-                        }
-                        .right{
-                            float: right;
+                .contentWrap{
+                    padding: 36px 20px;
+                    margin: 0 -26px;
+                    background: #fff;
+                    .content{
+                        li{
+                            padding: 3.2vw 0;
+                            border-bottom: 1px solid #ccc;
+                            font-size: 3.4vw;
+                            .clearfix;
                             >*{
                                 display: inline-block;
                                 vertical-align: middle;
                             }
-                            .text{
-                                color: #333;
-                                strong{
-                                    font-weight: normal;
-                                    color: @red;
+                            .title{
+                                color: #666;
+                            }
+                            .right{
+                                float: right;
+                                >*{
+                                    display: inline-block;
+                                    vertical-align: middle;
+                                }
+                                .text{
+                                    color: #333;
+                                    strong{
+                                        font-weight: normal;
+                                        color: @red;
+                                    }
+                                }
+                                .small{
+                                    color: #888;
+                                    font-size: 3vw;
+                                    strong{
+                                        font-size: 3.4vw;
+                                        .clearfix;
+                                        font-weight: normal;
+                                        color: @red;
+                                    }
                                 }
                             }
-                            .small{
-                                color: #888;
-                                font-size: 3vw;
-                                strong{
-                                    font-size: 3.4vw;
-                                    .clearfix;
-                                    font-weight: normal;
-                                    color: @red;
+
+                        }
+                    }
+                    .declare{
+                        margin: 2vw 0;
+                        text-align: center;
+                        color: #999;
+                        font-size: 3.4vw;
+                    }
+                }
+                .unmatchRequirements{
+                    margin: 12vw 0 0;
+                    text-align: center;
+                    p.text{
+                        font-size: 3.6vw;
+                        color: #999;
+                        text-align: center;
+                    }
+                    ul{
+                        display: inline-block;
+                        text-align: left;
+                        li{
+                            margin-bottom: 6vw;
+                            p.request{
+                                font-size: 4.2vw;
+                                color: @red;
+                                margin: 0;
+                                i{
+                                    margin-right: 4vw;
+                                    font-size: 4vw;
+                                }
+                            }
+                            p.requirement{
+                                padding-left: 8.2vw;
+                                font-size: 3.4vw;
+                                color: #666;
+                                margin: 0;
+                                span.requirement{
+                                    color: #04b92f;
                                 }
                             }
                         }
-
                     }
                 }
-                .declare{
-                    margin: 2vw 0;
-                    text-align: center;
-                    color: #999;
-                    font-size: 3.4vw;
-                }
+
                 .confirmWrap{
-                    margin-top: 5vw;
+                    margin-top: 12vw;
                     .button{
                         width: 100%;
                         cursor: pointer;
