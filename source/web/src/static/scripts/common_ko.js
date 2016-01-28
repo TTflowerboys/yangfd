@@ -44,7 +44,6 @@
             this.key = params.key
             this.choose = function (data, event) {
                 this[params.key](data.id)
-                $(event.target).parents('tags').trigger('change')
             }
         },
         template: '<div data-bind="foreach: list"><span class="property_type" data-bind="text: value, click: $parent.choose.bind($parents[$parents.length - 2]), css: {selected: id === $parents[$parents.length - 2][$parent.key]()}"></span></div>'
