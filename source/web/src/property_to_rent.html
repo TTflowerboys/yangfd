@@ -71,6 +71,42 @@
 
 
 
+<!--@@block = main-->
+% show_requirement_rent_in_floatbar = 'true'
+<!-- ko with: rentDetailViewModel -->
+<textarea id="rentTicketData" style="display: none">
+    {{json_dumps(rent)}}
+</textarea>
+<div class="propertyDetails">
+    <div class="breadcrumb">
+        % if rent['property'].get('country') and rent['property'].get('country').get('code'):
+        <a class="parent" href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('code')}}" target="_blank">{{get_country_name_by_code(rent['property'].get('country',{}).get('code'))}}</a> /
+        % end
+        % if rent['property'].get('city') and rent['property'].get('city').get('name'):
+        <a class="parent" href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('code')}}&city={{rent['property'].get('city',{}).get('id')}}" target="_blank">{{rent['property'].get('city',{}).get('name','')}}</a> /
+        % end
+        % if rent['property'].get('property_type') and rent['property'].get('property_type').get('value'):
+        <a class="parent" href="/property-to-rent-list?country={{rent['property'].get('country',{}).get('code')}}&city={{rent['property'].get('city',{}).get('id')}}&property_type={{rent['property'].get('property_type').get('id')}}" target="_blank">{{rent['property'].get('property_type',{}).get('value','')}}</a> /
+        %end
+        <span class="current">{{rent.get('title','')}}</span>
+    </div>
+    <div class="content">
+        <div class="pictures
+        % if rent.get('status') == 'rent':
+            turnColorToGray
+        %end
+        " >
+            <div class="labels">
+                %if rent['property'].get('property_type') and rent['property'].get('property_type').get('value'):
+                <label class="type" for="">{{rent['property'].get('property_type').get('value')}}</label>
+                %end
+                %if rent.get('rent_type') and rent.get('rent_type').get('value'):
+                <label class="rent" for="">{{rent.get('rent_type').get('value')}}</label>
+                %end
+            </div>
+
+
+
     <!--@@block = main-->
     % show_requirement_rent_in_floatbar = 'true'
     <!-- ko with: rentDetailViewModel -->

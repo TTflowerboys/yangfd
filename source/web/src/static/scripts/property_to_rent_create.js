@@ -776,8 +776,19 @@
         var title = $('#title').val().trim() || $('#title').attr('placeholder').trim() //如果用户没有填写title，默认为街区+居室+出租类型，比如“Isle of Dogs三居室单间出租”
         var ticketData = $.extend(options,{
             'landlord_type': $('#landlordType').val(), //房东类型
-            'rent_type': $('#rentalType .selected')[0].getAttribute('data-id'), //出租类型
-            //'deposit_type': $('#deposit_type').children('option:selected').val(), //押金方式
+            'rent_type': module.appViewModel.propertyViewModel.rentType(), //出租类型
+            'independent_bathroom': module.appViewModel.propertyViewModel.independentBathroom(), //独立卫浴
+            'current_male_roommates': module.appViewModel.propertyViewModel.maleRoommates(), //当前男室友数
+            'current_female_roommates': module.appViewModel.propertyViewModel.femaleRoommates(), //当前女室友数
+            'accommodates': module.appViewModel.propertyViewModel.availableRoommates(), //待入住人数
+            'gender_requirement': module.appViewModel.propertyViewModel.gender(), //性别要求
+            'min_age': module.appViewModel.propertyViewModel.minAge(), //最小年龄
+            'max_age': module.appViewModel.propertyViewModel.maxAge(), //最大年龄
+            'occupation': module.appViewModel.propertyViewModel.occupation(), //职业
+            'no_pet': !module.appViewModel.propertyViewModel.allowPet(),
+            'no_smoking': !module.appViewModel.propertyViewModel.allowSmoking(),
+            'no_baby': !module.appViewModel.propertyViewModel.allowBaby(),
+            'other_requirements': module.appViewModel.propertyViewModel.otherRequirements(), //对租客其他要求
             'price': JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'value': $('#price')[0].value }), //出租价格
             'holding_deposit': JSON.stringify({'unit': $('#holdingDepositUnit').children('option:selected').val(), 'value': $('#holdingDeposit')[0].value }), //定金
             'bill_covered': $('#billCovered').is(':checked'), //是否包物业水电费
@@ -1228,6 +1239,36 @@
         this.latitude = ko.observable()
         this.longitude = ko.observable()
         this.city = ko.observable()
+        this.maleRoommatesList = ko.observableArray(window.team.generateArray(10))
+        this.maleRoommates = ko.observable(rent.current_male_roommates)
+        this.femaleRoommatesList = ko.observableArray(window.team.generateArray(10))
+        this.femaleRoommates = ko.observable(rent.current_female_roommates)
+        this.availableRoommatesList = ko.observableArray(window.team.generateArray(10))
+        this.availableRoommates = ko.observable(rent.accommodates)
+        this.minAgeList = ko.observableArray(window.team.generateArray(80))
+        this.minAge = ko.observable(rent.min_age)
+        this.maxAgeList = ko.observableArray(window.team.generateArray(80))
+        this.maxAge = ko.observable(rent.max_age)
+        this.genderList = ko.observableArray([{
+            text: window.i18n('男'),
+            value: 'male'
+        },{
+            text: window.i18n('女'),
+            value: 'female'
+        }])
+        this.gender = ko.observable(rent.gender_requirement)
+        this.occupationList = ko.observableArray([])
+        window.project.getEnum('occupation')
+            .then(_.bind(function (arr) {
+                this.occupationList(arr)
+                this.occupation(rent.occupation ? rent.occupation.id : undefined)
+            }, this))
+        this.occupation = ko.observable()
+        this.allowSmoking = ko.observable(rent.no_smoking !== undefined ? !rent.no_smoking : true)
+        this.allowPet = ko.observable(rent.no_pet !== undefined ? !rent.no_pet : true)
+        this.allowBaby = ko.observable(rent.no_baby !== undefined ? !rent.no_baby : true)
+        this.independentBathroom = ko.observable(rent.independent_bathroom || false)
+        this.otherRequirements = ko.observable(rent.other_requirements)
 
         this.showSurrouding = ko.computed(function () {
             return !_.isEmpty(this.latitude()) && !_.isEmpty(this.longitude())
