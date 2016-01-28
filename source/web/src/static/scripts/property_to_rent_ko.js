@@ -1,4 +1,4 @@
-(function (ko, module) {
+(function (ko) {
 
     ko.components.register('show-travel-time', {
         viewModel: function(params) {
@@ -12,7 +12,7 @@
         template: { element: 'show-travel-time' }
     })
 
-    function RentDetailViewModel() {
+    function SurroudingViewModel() {
         this.surrouding = ko.observableArray()
         if($('#featuredFacilityData').text().length) {
             this.surrouding(_.map(JSON.parse($('#featuredFacilityData').text()), function (item) {
@@ -31,5 +31,5 @@
             }))
         }
     }
-    module.appViewModel.rentDetailViewModel = new RentDetailViewModel()
-})(window.ko, window.currantModule = window.currantModule || {})
+    ko.applyBindings(SurroudingViewModel)
+})(window.ko)

@@ -15,7 +15,6 @@
 <!--endbuild-->
 <!--@@close-->
 <!--@@block=main -->
-<!-- ko with: indexViewModel -->
 <div class="tabBoxMobile hiddenOnPCWeb">
     <ul class="tab" data-bind="foreach: tabOptions, css: hoverTab() || activeTab()"><!--
         --><li data-bind="css: {active: $parent.activeTab() == slug}, click: $parent.switchTab.bind($parent), event: {mouseover: $parent.mouseoverTab.bind($parent), mouseout: $parent.mouseoutTab.bind($parent)}">
@@ -24,7 +23,6 @@
     --></ul>
 </div>
 <!-- @@include =./partials/location_filter_tpl.html -->
-<!-- @@include=./static/templates/location-search-box.tpl.html -->
 <div class="indexBanner" data-bind="css: activeTab() + (activeTab() == 'landlord' && window.team.isPhone() ? ' hiddenInNonClient' : '')">
     <h1 data-bind="visible: activeTab() == 'tenant'">{{_('视频直播全英优质房源')}} <br class="hiddenOnPCWeb">{{_('足不出户搞定租房')}}</h1>
     <h1 style="display: none" data-bind="visible: activeTab() == 'landlord'">{{_('有英国房源要出租？')}}</h1>
@@ -38,10 +36,7 @@
         --></ul>
         <div class="content" data-bind="visible: activeTab() == 'tenant'">
             <div class="category three hiddenOnMobile">
-                <location-search-box params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}"></location-search-box>
-                <button class="search button red search-lg" data-bind="click: searchTicketClick">
-                    {{_('搜索')}}
-                </button>
+                <location-filter class="tenantFilterWrapper" params="wrapper: '.tenantFilterWrapper', searchUrl: '/property-to-rent-list'"></location-filter>
                 <ul class="entrance hiddenOnMobile">
                     <li>
                         <a href="/user-favorites">
@@ -63,7 +58,7 @@
                     </li>
                 </ul>
             </div>
-            <a href="/property-to-rent-list?showSearchModal=true" class="button bigButton red hiddenOnPCWeb" data-need-bridge>
+            <a href="/property-to-rent-list" class="button bigButton red hiddenOnPCWeb" data-need-bridge>
                 <i class="icon-search"></i>
                 <span>{{_('开始找租房')}}</span>
             </a>
@@ -167,7 +162,7 @@
 
 <!-- @@include = ./partials/delegate_rent_popup.html -->
 <!-- @@include = ./partials/delegate_sale_popup.html -->
-<!-- /ko -->
+
 <!--@@close-->
 
 <!--@@block=scripts -->

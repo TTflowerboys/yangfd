@@ -234,20 +234,6 @@ def clear_line_break(content):
     return content.replace('\n',' ').replace('\\n',' ').replace('\r',' ').replace('\\r',' ')
 
 
-def get_symbol_from_currency(currency):
-    i18n_unit_currency = {
-        "CNY": "\xa5",
-        "GBP": "\xa3",
-        "USD": "$",
-        "HKD": "$",
-        "EUR": "\u20ac"
-    }
-    if currency:
-        return i18n_unit_currency[currency]
-    else:
-        return ""
-
-
 def common_template(path, **kwargs):
     if 'title' not in kwargs:
         kwargs['title'] = _('洋房东')
@@ -291,14 +277,6 @@ def common_template(path, **kwargs):
     if 'bedroom_count_list' not in kwargs:
         kwargs['bedroom_count_list'] = f_app.i18n.process_i18n(get_sorted_enums("bedroom_count"))
 
-    if 'hot_city_list' not in kwargs:
-        hot_city_geonames_params = dict({
-            "name": {"$in": ["London", "Liverpool", "Sheffield", "Manchester", "Birmingham"]},
-            "feature_code": {"$in": ["PPLC", "PPLA", "PPLA2"]},
-            "country": "GB"
-        })
-        kwargs['hot_city_list'] = f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(hot_city_geonames_params, per_page=-1))
-
     # setup page utils
     kwargs.setdefault("format_unit", format_unit)
     kwargs.setdefault("fetch_image", fetch_image)
@@ -311,5 +289,4 @@ def common_template(path, **kwargs):
     kwargs.setdefault("clear_html_tags", clear_html_tags)
     kwargs.setdefault("clear_line_break", clear_line_break)
     kwargs.setdefault("redirect", redirect)
-    kwargs.setdefault("get_symbol_from_currency", get_symbol_from_currency)
     return template(path, **kwargs)

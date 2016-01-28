@@ -1,10 +1,22 @@
-(function (ko, module) {
+(function () {
     var itemsPerPage = 5
     var lastItemTime
     var isLoading = false
     var isAllItemsLoaded = false
     var mode = window.team.getQuery('mode', window.location.href)?  window.team.getQuery('mode', window.location.href): 'list'
 
+    // Init all filter options
+    window.countryData = getData('countryData')
+    window.cityData = getData('cityData')
+    window.propertyCountryData = getData('propertyCountryData')
+    window.propertyCityData = getData('propertyCityData')
+    window.rentTypeData = getData('rentTypeData')
+    window.rentBudgetData = getData('rentBudgetData')
+    window.propertyTypeData = getData('propertyTypeData')
+    window.rentPeriodData = getData('rentPeriodData')
+    window.bedroomCountData = getData('bedroomCountData')
+    window.spaceData = getData('spaceData')
+    //used in mobile client
     function filterObjectProperty (rent) {
         var obj = _.clone(rent)
         var arr = ['community', 'floor', 'house_name']
@@ -24,6 +36,7 @@
         },
 
         loadUpFn : function(me){
+
             if(isLoading){
                 return me.resetload();
             }
@@ -114,13 +127,13 @@
     function checkValidOfRequestParams () {
         var rentBudgetMin = $('[name=rentBudgetMin]').val()
         var rentBudgetMax = $('[name=rentBudgetMax]').val()
-        var rentPeriodStartDate = module.appViewModel.rentListViewModel.rentAvailableTimeFormated()
-        var rentPeriodEndDate = module.appViewModel.rentListViewModel.rentDeadlineTimeFormated()
+        var rentPeriodStartDate = $('#rentPeriodStartDate').val()
+        var rentPeriodEndDate = $('#rentPeriodEndDate').val()
         if (rentBudgetMin.length && rentBudgetMax.length && parseInt(rentBudgetMin) >= parseInt(rentBudgetMax)) {
             window.dhtmlx.message({ type:'error', text: i18n('租金下限必须小于租金上限')});
             return false
         }
-        if (rentPeriodStartDate && rentPeriodEndDate && rentPeriodStartDate.length && rentPeriodEndDate.length && window.moment(rentPeriodStartDate) >= window.moment(rentPeriodEndDate)) {
+        if (rentPeriodStartDate.length && rentPeriodEndDate.length && window.moment(rentPeriodStartDate) >= window.moment(rentPeriodEndDate)) {
             window.dhtmlx.message({ type:'error', text: i18n('租期开始日期必须早于租期结束日期')});
             return false
         }
@@ -128,15 +141,126 @@
 
     }
     window.getBaseRequestParams = function () {
-        return _.omit(module.appViewModel.rentListViewModel.params(), function (val) {
-            return val === '' || val === undefined
-        });
+        var params = {}
+        var country = $('select[name=propertyCountry]').children('option:selected').val()
+        if (country) {
+            params.country = country
+        }
+        var city = $('select[name=propertyCity]').children('option:selected').val()
+        if (city) {
+            params.city = city
+        }
+        var propertyType = window.team.isPhone() ? getSelectedTagFilterDataId('#propertyTypeTag') : $('select[name=propertyType]').children('option:selected').val()
+        if (propertyType) {
+            params.property_type = propertyType
+        }
+        var rentType = window.team.isPhone() ? getSelectedTagFilterDataId('#rentTypeTag') : $('select[name=rentType]').children('option:selected').val()
+        if (rentType) {
+            params.rent_type = rentType
+        }
+
+        _.extend(params, getRentBudget())
+
+        var rentPeriod = getSelectedTagFilterDataId('#rentPeriodTag')
+        if (rentPeriod) {
+            params.rent_period = rentPeriod
+        }
+        var bedroomCount = getSelectedTagFilterDataId('#bedroomCountTag')
+        if (bedroomCount) {
+            params.bedroom_count = bedroomCount
+        }
+        var space = getSelectedTagFilterDataId('#spaceTag')
+        if (space) {
+            params.space = space
+        }
+
+        var rentAvailableTime
+        if($('[name=rentPeriodStartDate]').val()) {
+            rentAvailableTime = new Date($('#rentPeriodStartDate').val()).getTime() / 1000
+            if(rentAvailableTime) {
+                params.rent_available_time = rentAvailableTime
+            }
+        }
+
+        var rentDeadlineTime
+        if($('[name=rentPeriodEndDate]').val()) {
+            rentDeadlineTime = new Date($('#rentPeriodEndDate').val()).getTime() / 1000
+            if(rentDeadlineTime) {
+                params.rent_deadline_time = rentDeadlineTime
+            }
+        }
+        params = _.extend(params, filterOfNeighborhoodSubwaySchool.getParam())
+        return params;
     }
 
      //used in mobile client
     window.getSummaryTitle = function () {
-        return _.compact(_.values(module.appViewModel.rentListViewModel.summaryTitleObj())).join(', ')
+        function getSelectedTagValueWithTagName(tagName) {
+            var $selectedChild = $('#tags #' + tagName).children('.selected')
+            if ($selectedChild.length) {
+                return $selectedChild.first().text()
+            }
+            return ''
+        }
+
+        var selectedCountry = $('select[name=propertyCountry]').children('option:selected').text()
+        var selectedCity = $('select[name=propertyCity]').children('option:selected').text()
+        var selectedRentType = getSelectedTagValueWithTagName('rentTypeTag')
+        var selectedPropertyType = getSelectedTagValueWithTagName('propertyTypeTag')
+        var selectedRentalBudget = getSelectedTagValueWithTagName('rentalBudgetTag')
+        var selectedRentPeriod = getSelectedTagValueWithTagName('rentPeriodTag')
+        var selectedBedroomCount = getSelectedTagValueWithTagName('bedroomCountTag')
+        var selectedSpaceCount = getSelectedTagValueWithTagName('spaceTag')
+
+        //TODO get rent start date
+
+        var description = ''
+        function add (item) {
+            if (item && item.length > 0) {
+                if (description.length > 0) {
+                    description = description + ', ' + item;
+                }
+                else {
+                    description = item;
+                }
+            }
+        }
+
+        add(selectedCountry)
+        add(selectedCity)
+        add(selectedRentType)
+        add(selectedPropertyType)
+        add(selectedRentalBudget)
+        add(selectedRentPeriod)
+        add(selectedBedroomCount)
+        add(selectedSpaceCount)
+        return description
     }
+
+
+    //Filter Setup
+    window.currantModule.setupFiltersFromURL(location.href)
+    window.currantModule.bindFiltersToChosenControls()
+
+    var filterOfNeighborhoodSubwaySchool = new window.currantModule.InitFilterOfNeighborhoodSubwaySchool({
+        citySelect: $('[name=propertyCity]'),
+        countrySelect: $('[name=propertyCountry]'),
+        school: window.team.getQuery('school', location.href),
+        neighborhood: window.team.getQuery('neighborhood', location.href),
+    })
+    filterOfNeighborhoodSubwaySchool.Event.bind('change', function () {
+        //console.log('change:')
+        //console.log(filterOfNeighborhoodSubwaySchool.getParam())
+        loadRentListByView()
+        var params = filterOfNeighborhoodSubwaySchool.getUrlParam()
+        _.each(params, function (val, key) {
+            updateURLQuery(key, val)
+        })
+    })
+
+
+    //Tag setup
+    window.currantModule.setupTagsFromURL(location.href)
 
     //check showTags at first time in mobile
     if (window.team.isPhone()) {
@@ -145,6 +269,10 @@
         if (tagQuery) {
             showTagsOnMobile()
         }
+    }
+
+    function getData(key) {
+        return JSON.parse(document.getElementById(key).innerHTML)
     }
 
     // Update List/Map tab visibility
@@ -165,6 +293,8 @@
     function getCurrentTotalCount() {
         return $('#result_list').children('.rentCard').length
     }
+
+
 
     function loadRentList(reload) {
         if(!checkValidOfRequestParams()) {
@@ -284,34 +414,175 @@
             }
         }
     }
-    module.loadRentListByView = loadRentListByView
 
     function updateURLQuery(key, value) {
-        var oldUrl = location.href
-        var newUrl = oldUrl
-        var params = _.mapObject(module.appViewModel.rentListViewModel.params(), function (val, key) {
-            if(key.indexOf('rent_budget') === 0 && val) {
-                return _.values(JSON.parse(val)).reverse().join(':')
-            } else {
-                return val
-            }
-        })
-        _.forEach(_.pairs(params), function (item) {
-            if (item[1]) {
-                newUrl = window.team.setQuery(item[0], item[1], newUrl)
-            } else {
-                newUrl = window.team.setQuery(item[0], '', newUrl)
-            }
-        })
-        if(key && value) {
-            newUrl = window.team.setQuery(key, value, newUrl)
-        }
-        if(newUrl !== oldUrl) {
-            history.pushState({}, null, newUrl)
-        }
+        var newUrl = window.team.setQuery(key, value, location.href)
+        history.pushState({}, null, newUrl)
     }
 
-    /*var $dateInput = $('.date input')
+    /*
+     * All Interactions with top filters
+     *
+     * */
+    var $countrySelect = $('select[name=propertyCountry]')
+    $countrySelect.change(function () {
+        var countryCode = $('select[name=propertyCountry]').children('option:selected').val()
+
+        ga('send', 'event', 'rent_list', 'change', 'select-country',
+            $('select[name=propertyCountry]').children('option:selected').text())
+        if(countryCode) {
+            window.currantModule.updateCityByCountry(countryCode, $('select[name=propertyCity]'))
+        } else {
+            window.currantModule.clearCity($('select[name=propertyCity]'))
+        }
+        loadRentListByView()
+        updateURLQuery('country', countryCode)
+    })
+
+    var $citySelect = $('select[name=propertyCity]')
+    $citySelect.change(function () {
+
+        var cityId = $('select[name=propertyCity]').children('option:selected').val()
+        ga('send', 'event', 'rent_list', 'change', 'select-city',
+            $('select[name=propertyCity]').children('option:selected').text())
+        loadRentListByView()
+        updateURLQuery('city', cityId)
+    })
+
+    var $propertyTypeSelect = $('select[name=propertyType]')
+    $propertyTypeSelect.change(function () {
+
+        var propertyTypeId = $('select[name=propertyType]').children('option:selected').val()
+        ga('send', 'event', 'rent_list', 'change', 'select-proprty-type',
+            $('select[name=propertyType]').children('option:selected').text())
+        loadRentListByView()
+        updateURLQuery('property_type', propertyTypeId)
+    })
+
+    var $rentTypeSelect = $('select[name=rentType]')
+    $rentTypeSelect.change(function () {
+
+        var rentTypeId = $('select[name=rentType]').children('option:selected').val()
+        ga('send', 'event', 'rent_list', 'change', 'select-rent-type',
+            $('select[name=rentType]').children('option:selected').text())
+        loadRentListByView()
+        updateURLQuery('rent_type', rentTypeId)
+    })
+
+    function getSelectedTagFilterDataId(tag) {
+        var $selectedChild = $('#tags ' + tag).children('.selected')
+        if ($selectedChild.length) {
+            return $selectedChild.first().attr('data-id')
+        }
+        return ''
+    }
+    function getRentBudget() {
+        var rentBudget = {}
+        var min = $('[name=rentBudgetMin]').val().split(':')[0]
+        var max = $('[name=rentBudgetMax]').val().split(':')[0]
+        if (!min.length && !max.length) {
+            return ''
+        }
+        if (min.length && max.length && parseInt(min) >= parseInt(max)) {
+            window.dhtmlx.message({ type:'error', text: i18n('租金下限必须小于租金上限')});
+            return ''
+        }
+        if (min.length) {
+            rentBudget.rent_budget_min = JSON.stringify({
+                unit: window.currency,
+                value: min
+            })
+        }
+        if (max.length) {
+            rentBudget.rent_budget_max = JSON.stringify({
+                unit: window.currency,
+                value: max
+            })
+        }
+        return rentBudget
+    }
+    $('#tags #propertyTypeTag').on('click', '.toggleTag', function (event) {
+        event.stopPropagation()
+
+        var $item = $(event.target)
+        var alreadySelected = $item.hasClass('selected')
+        var $parent = $(event.target.parentNode)
+        $parent.find('.toggleTag').removeClass('selected')
+
+        if (!alreadySelected) {
+            $item.addClass('selected')
+        }
+
+        ga('send', 'event', 'rent_list', 'change', 'change-property-type', $item.text())
+        loadRentListByView()
+    })
+
+    $('#tags #rentTypeTag').on('click', '.toggleTag', function (event) {
+        event.stopPropagation()
+
+        var $item = $(event.target)
+        var alreadySelected = $item.hasClass('selected')
+        var $parent = $(event.target.parentNode)
+        $parent.find('.toggleTag').removeClass('selected')
+
+        if (!alreadySelected) {
+            $item.addClass('selected')
+        }
+
+        ga('send', 'event', 'rent_list', 'change', 'change-rent-type', $item.text())
+        loadRentListByView()
+    })
+
+
+    $('#tags #rentPeriodTag').on('click', '.toggleTag', function (event) {
+        event.stopPropagation()
+
+        var $item = $(event.target)
+        var alreadySelected = $item.hasClass('selected')
+        var $parent = $(event.target.parentNode)
+        $parent.find('.toggleTag').removeClass('selected')
+
+        if (!alreadySelected) {
+            $item.addClass('selected')
+        }
+
+        ga('send', 'event', 'rent_list', 'change', 'change-rent-period', $item.text())
+        loadRentListByView()
+    })
+
+    $('#tags #bedroomCountTag').on('click', '.toggleTag', function (event) {
+        event.stopPropagation()
+
+        var $item = $(event.target)
+        var alreadySelected = $item.hasClass('selected')
+        var $parent = $(event.target.parentNode)
+        $parent.find('.toggleTag').removeClass('selected')
+
+        if (!alreadySelected) {
+            $item.addClass('selected')
+        }
+
+        ga('send', 'event', 'rent_list', 'change', 'change-bedroomCount', $item.text())
+        loadRentListByView()
+    })
+
+    $('#tags #spaceTag').on('click', '.toggleTag', function (event) {
+        event.stopPropagation()
+
+        var $item = $(event.target)
+        var alreadySelected = $item.hasClass('selected')
+        var $parent = $(event.target.parentNode)
+        $parent.find('.toggleTag').removeClass('selected')
+
+        if (!alreadySelected) {
+            $item.addClass('selected')
+        }
+
+        ga('send', 'event', 'rent_list', 'change', 'change-space', $item.text())
+        loadRentListByView()
+    })
+
+    var $dateInput = $('.date input')
     function resetDateInputType () {
         if(window.team.isPhone()) {
             $dateInput.each(function () {
@@ -324,8 +595,47 @@
         }
     }
     resetDateInputType()
-    $(window).resize(resetDateInputType)*/
+    $(window).resize(resetDateInputType)
+    //$rentPeriodStartDate.attr('placeholder',$.format.date(new Date(), 'yyyy-MM-dd'))
+    //$('#rentPeriodStartDate').attr('value', window.moment.utc(new Date()).format('YYYY-MM-DD'))
+    $dateInput.each(function (index, elem) {
+        $(elem).dateRangePicker({
+            //startDate: new Date(new Date().getTime() + 3600 * 24 * 30 * 1000),
+            autoClose: true,
+            singleDate: true,
+            showShortcuts: false,
+            lookBehind: false,
+            getValue: function() {
+                //return this.value || $.format.date(new Date(), 'yyyy-MM-dd');
+            }
+        })
+            .bind('datepicker-change', function (event, obj) {
+                $(elem).attr('value', $.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
+                $(elem).val($.format.date(new Date(obj.date1), 'yyyy-MM-dd')).trigger('change')
+            })
+            .bind('change', function () {
+                var val = $(this).val()
+                if(val !== '') {
+                    $(this).siblings('.clear').show()
+                } else{
+                    $(this).siblings('.clear').hide()
+                }
+                ga('send', 'event', 'rent_list', 'change', 'change-space', val)
+            })
+            .dateRangePickerCustom($(elem))
+    })
+    //$('#rentPeriodStartDate').trigger('change')
+    
+    $('.calendar .clear').bind('click', function(event){
+        $(this).siblings('input').val('').trigger('change').attr('placeholder', i18n('请选择日期'))
+    })
+    $('.confirmFilter').click(function () {
 
+        loadRentListByView()
+    })
+    $('[data-filter]').change(function () {
+        loadRentListByView()
+    })
     // Show or Hide tag filters on mobile
     function showTagsOnMobile() {
         var $button = $('#showTags')
@@ -346,15 +656,14 @@
         if ($button.attr('data-state') === 'open') {
             $tags.animate({'max-height': '0'}, 400, 'swing')
             $tags.slideUp(400)
-            $button.find('label').text(window.i18n('高级筛选'))
+            $button.find('label').text(window.i18n('更多选择'))
             $button.find('img').removeClass('rotated')
             $button.attr('data-state', 'closed')
         }
     }
 
-    $('#showTags').click(function (event) {
+    $('#tags #showTags').click(function (event) {
         var $button = $(event.delegateTarget)
-        $('body,html').stop(true,true).animate({scrollTop: 0}, 300);
         if ($button.attr('data-state') === 'closed') {
             showTagsOnMobile()
         }
@@ -397,6 +706,41 @@
         }, 20)
     })
 
+    $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
+        mode = tabName
+        loadRentListByView()
+        ga('send', 'event', 'rent_list', 'click', mode + '-view', 'pc')
+    })
+
+
+    function openTabContent(tabName) {
+        var $tabContainer = $('[data-tabs]')
+        var $tabContents = null
+
+        $tabContents = $tabContainer.find('[data-tab-name=' + tabName + ']')
+        $tabContents.addClass('selectedTab').show()
+        $tabContents.siblings().removeClass('selectedTab').hide()
+        $tabContainer.trigger('openTab', [$('.tabSelector [tab-name=' + tabName + ']'), tabName])
+    }
+
+    $('.tabSelector_phone').click(function (e) {
+        var currentTab = $(this).attr('data-tab')
+        if (currentTab === 'list'){
+            mode = 'map'
+            //to show map
+            openTabContent(mode)
+            $(this).attr('data-tab', mode)
+        }
+        else {
+            mode = 'list'
+            //to show list
+            openTabContent(mode)
+            $(this).attr('data-tab', mode)
+        }
+        ga('send', 'event', 'rent_list', 'click', mode + '-view', 'mobile')
+    })
+
+
     function loadRentMapList() {
         $('.emptyPlaceHolder').hide();
         if(!checkValidOfRequestParams()) {
@@ -405,8 +749,53 @@
         if (window.betterAjaxXhr && window.betterAjaxXhr['/api/1/rent_ticket/search'] && window.betterAjaxXhr['/api/1/rent_ticket/search'].readyState !== 4) {
             window.betterAjaxXhr['/api/1/rent_ticket/search'].abort()
         }
-        var params = _.extend(window.getBaseRequestParams(), {'location_only': 1})
+        var params = {'location_only': 1}
+        var country = $('select[name=propertyCountry]').children('option:selected').val()
+        if (country) {
+            params.country = country
+        }
+        var city = $('select[name=propertyCity]').children('option:selected').val()
+        if (city) {
+            params.city = city
+        }
+        var propertyType = window.team.isPhone() ? getSelectedTagFilterDataId('#propertyTypeTag') : $('select[name=propertyType]').children('option:selected').val()
+        if (propertyType) {
+            params.property_type = propertyType
+        }
+        var rentType = window.team.isPhone() ? getSelectedTagFilterDataId('#rentTypeTag') : $('select[name=rentType]').children('option:selected').val()
+        if (rentType) {
+            params.rent_type = rentType
+        }
 
+        _.extend(params, getRentBudget())
+
+        var rentPeriod = getSelectedTagFilterDataId('#rentPeriodTag')
+        if (rentPeriod) {
+            params.rent_period = rentPeriod
+        }
+        var bedroomCount = getSelectedTagFilterDataId('#bedroomCountTag')
+        if (bedroomCount) {
+            params.bedroom_count = bedroomCount
+        }
+        var space = getSelectedTagFilterDataId('#spaceTag')
+        if (space) {
+            params.space = space
+        }
+
+        var rentAvailableTime
+        if($('[name=rentPeriodStartDate]').val()){
+            rentAvailableTime = new Date($('#rentPeriodStartDate').val()).getTime() / 1000
+            params.rent_available_time = rentAvailableTime
+        }
+
+        var rentDeadlineTime
+        if($('[name=rentPeriodEndDate]').val()) {
+            rentDeadlineTime = new Date($('#rentPeriodEndDate').val()).getTime() / 1000
+            if(rentDeadlineTime) {
+                params.rent_deadline_time = rentDeadlineTime
+            }
+        }
+        params = _.extend(params, filterOfNeighborhoodSubwaySchool.getParam())
         //Empty map list
 
         window.currantModule.clearMapPins()
@@ -487,7 +876,33 @@
             }
         }
     }
-
+    /*function updateFilterPosition () {
+        var timer, filterTop
+        function update () {
+            clearTimeout(timer)
+            timer = setTimeout(function () {
+                if (!window.team.isPhone()) {
+                    var scrollOffset = $(window).scrollTop()
+                    var $filter = $('#result .tags')
+                    filterTop = filterTop || $filter.offset().top
+                    $filter.css({
+                        'position': 'relative'
+                    })
+                    if (scrollOffset >= filterTop) {
+                        $filter.stop().animate({
+                            'top': (scrollOffset - filterTop) + 'px'
+                        })
+                    } else {
+                        $filter.stop().animate({
+                            'top': '0px'
+                        })
+                    }
+                }
+            },50)
+        }
+        $(window).scroll(update);
+    }
+    updateFilterPosition()*/
     $(window).scroll(window.updateTabSelectorFixed);
     $(window).resize(window.updateTabSelectorFixed);
 
@@ -514,179 +929,7 @@
         }
     }
 
-    function RentListViewModel() {
-        this.rentAvailableTimeFormated = ko.observable()
-        this.rentAvailableTime = ko.computed(function () {
-            return this.rentAvailableTimeFormated() ? new Date(this.rentAvailableTimeFormated()).getTime() / 1000 : ''
-        }, this)
-
-        this.rentDeadlineTimeFormated = ko.observable()
-        this.rentDeadlineTime = ko.computed(function () {
-            return this.rentDeadlineTimeFormated() ? new Date(this.rentDeadlineTimeFormated()).getTime() / 1000: ''
-        }, this)
-
-        this.clearDate = function (key) {
-            return _.bind(function () {
-                this[key]('')
-            }, this)
-        }
-
-        this.rentType = ko.observable('')
-        this.rentBudgetMin = ko.observable()
-        this.rentBudgetMax = ko.observable()
-        this.propertyType = ko.observable('')
-        this.bedroomCount = ko.observable()
-        this.space = ko.observable('')
-        this.query = ko.observable()
-        this.hesaUniversity = ko.observable()
-        this.doogalStation = ko.observable()
-        this.maponicsNeighborhood = ko.observable()
-        this.city = ko.observable()
-        this.queryName = ko.observable()
-
-        function transferBudget(text) {
-            return text ? JSON.stringify({
-                unit: text.split(':')[1],
-                value: text.split(':')[0]
-            }) : ''
-        }
-        this.params = ko.computed(function () {
-            return {
-                query: this.query(),
-                rent_available_time: this.rentAvailableTime(),
-                rent_deadline_time: this.rentDeadlineTime(),
-                rent_type: this.rentType(),
-                rent_budget_min: transferBudget(this.rentBudgetMin()),
-                rent_budget_max: transferBudget(this.rentBudgetMax()),
-                property_type: this.propertyType(),
-                bedroom_count: this.bedroomCount(),
-                space: this.space(),
-                hesa_university: this.hesaUniversity(),
-                doogal_station: this.doogalStation(),
-                maponics_neighborhood: this.maponicsNeighborhood(),
-                city: this.city(),
-                queryName: this.queryName()
-            }
-        }, this)
-        this.paramsToWrite = ko.computed({
-            read: this.params,
-            write: function (value) {
-                var whiteList = ['rent_available_time', 'rent_deadline_time', 'rent_type', 'rent_budget_min', 'rent_budget_max', 'property_type', 'bedroom_count', 'space', 'query', 'queryName'].concat(module.suggestionTypeSlugList)
-                var suggestionParams = {}
-                _.each(module.suggestionTypeSlugList, function (slug) {
-                    suggestionParams[slug] = ''
-                })
-                var pureValue = _.extend(suggestionParams, {queryName: ''},  _.pick(value, whiteList))
-                _.each(_.keys(pureValue), _.bind(function (key) {
-                    if(!_.contains(['rent_available_time', 'rent_deadline_time'], key)) {
-                        this[window.project.underscoreToCamel(key)](decodeURIComponent(pureValue[key]))
-                    } else {
-                        this[window.project.underscoreToCamel(key) + 'Formated']($.format.date(new Date(parseInt(pureValue[key]) * 1000), 'yyyy-MM-dd'))
-                    }
-                }, this))
-            }
-        }, this)
-
-        //合并短时间内对同一函数的多次调用
-        var mergeInvoke = (function () {
-            var memory = {}
-            return function (key, callback, interval) {
-                var time = new Date().getTime()
-                if(!memory[key]) {
-                    memory[key] = {
-                        callback: callback,
-                        time: time,
-                        interval: interval,
-                        timer: setTimeout(function () {
-                            mergeInvoke.call(null, key, callback, interval)
-                        }, interval)
-                    }
-                } else {
-                    clearTimeout(memory[key].timer)
-                    if(time - memory[key].time < interval) {
-                        _.extend(memory[key], {
-                            time: time,
-                            timer: setTimeout(function () {
-                                mergeInvoke.call(null, key, callback, interval)
-                            }, interval)
-                        })
-                    } else {
-                        callback.call(null)
-                        delete memory[key]
-                    }
-                }
-            }
-        })()
-
-        window.project.getEnum('featured_facility_type')
-            .then(_.bind(function (val) {
-                module.suggestionTypeList = val
-                module.suggestionTypeSlugList = _.map(val, function (item) {
-                    return item.slug
-                })
-                this.params.subscribe(function(params) {
-                    mergeInvoke('loadRentListByView', function () {
-                        updateURLQuery()
-                        module.loadRentListByView()
-                    }, 200)
-                }, this)
-                this.paramsToWrite(window.project.getParams())
-
-            }, this))
+ })()
 
 
-        this.summaryTitleObj = ko.observable({})
 
-        this.searchTicketClick = function () {
-            $('location-search-box').trigger('searchTicket')
-        }
-        this.searchTicket = function (query) {
-            this.query(query)
-            //module.loadRentListByView()
-        }
-
-        this.searchBySuggestion = function (param) {
-            this.query('')
-            this.paramsToWrite(param)
-            //module.loadRentListByView()
-        }
-        this.clearSuggestionParams = function () {
-            this.query('')
-            this.paramsToWrite({})
-        }
-    }
-    module.appViewModel.rentListViewModel = new RentListViewModel()
-
-    $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
-        mode = tabName
-        loadRentListByView()
-        ga('send', 'event', 'rent_list', 'click', mode + '-view', 'pc')
-    })
-
-    function openTabContent(tabName) {
-        var $tabContainer = $('[data-tabs]')
-        var $tabContents = null
-
-        $tabContents = $tabContainer.find('[data-tab-name=' + tabName + ']')
-        $tabContents.addClass('selectedTab').show()
-        $tabContents.siblings().removeClass('selectedTab').hide()
-        $tabContainer.trigger('openTab', [$('.tabSelector [tab-name=' + tabName + ']'), tabName])
-    }
-
-    $('.tabSelector_phone').click(function (e) {
-        var currentTab = $(this).attr('data-tab')
-        if (currentTab === 'list'){
-            mode = 'map'
-            //to show map
-            openTabContent(mode)
-            $(this).attr('data-tab', mode)
-        }
-        else {
-            mode = 'list'
-            //to show list
-            openTabContent(mode)
-            $(this).attr('data-tab', mode)
-        }
-        ga('send', 'event', 'rent_list', 'click', mode + '-view', 'mobile')
-    })
-})(window.ko, window.currantModule = window.currantModule || {})
