@@ -1,4 +1,5 @@
 @import "project/_imports";
+@import "project/locationSearchBox";
 
 * {
     box-sizing: border-box;
@@ -14,6 +15,47 @@ body{
 }
 
 main {
+    .selectWrap {
+        display: inline-block;
+        width: 120px;
+        text-align: left;
+        &.rentType {
+            @media @phone{
+                width: 48px;
+            }
+        }
+
+        select{
+            visibility: hidden;
+        }
+        .chosen-container {
+            .chosen-single {
+                line-height: 38px;
+                border: 1px solid #cccccc;
+                background: #fff;
+                /*@media @phone{
+                    box-shadow: none;
+                    border: 1px solid transparent;
+                    padding: 0 0;
+                    div {
+                        width: auto;
+                    }
+                    span {
+                        margin-right: 14px;
+                        text-align: right;
+                    }
+                }*/
+
+            }
+            .chosen-drop {
+                border: 1px solid #cccccc;
+            }
+            &.chosen-with-drop .chosen-drop {
+                border-top: none;
+            }
+        }
+
+    }
     .category {
         text-align:center;
         margin-top:96px;
@@ -30,52 +72,131 @@ main {
                 display:block;
             }
         }
-
+        > *{
+            @media @pc {
+                margin-right: 50px;
+                &:nth-last-child(1) {
+                    margin-right: 0;
+                }
+            }
+        }
         @media @phone {
             margin-top:0;
-            padding:0;
-            border-bottom:1px solid #ccc;
         }
-
-        span {
-            color:#333333;
-            @media @phone {
-                display:none;
-            }
-
+        location-search-box{
+            padding-bottom: 0;
         }
-        select {
-            color:#333333;
-            @media @phone {
-                float:left;
-                display:inline-block;
-                width:33%;
-                margin-top:0;
-                font-size:@base-font-size-mobile;
-                font-weight:bold;
-                border:0;
-            }
+        .wrap {
+            display: inline-block;
+            
 
-            &:after {
-                width:1px;
-                height:100%;
-                background:red;
-                content:"fsjdlk";
+            > span {
+                display: inline-block;
+                color: #aaa;
+                vertical-align: middle;
+                @media @pc {
+                    margin: 0 6px;
+                }
+                @media @phone {
+                    font-size: 12px;
+                }
             }
         }
-
-        .separator_phone {
-            display:none;
-            @media @phone {
-                float:left;
-                display:inline;
-                height:40px;
-                width:1px;
-                background:#ccc;
-                margin-top:-1px;
-                margin-bottom:-1px;
+        .hoverWrapper{
+            display: inline-block;
+            .clearfix;
+            @media @phone{
+                display: block;
+                background: #fff;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                border-bottom:1px solid #ccc;
             }
+        }
+        .dateWrap{
+            display: inline-block;
+            @media @phone{
+                float: left;
+                padding-left: 16px;
+            }
+            .date{
+                position: relative;
+                display: inline-block;
+                width:124px;
+                height: 40px;
+                vertical-align: middle;
+                @media @phone {
+                    width:116px;
+                    height: 30px;
+                }
+                input{
+                    width:124px;
+                    height:40px;
+                    line-height:40px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    padding-left: 6px;
+                    color: #333;
+                    font-size: 12px;
+                    text-align: left;
+                    background: #fff;
+                    vertical-align: middle;
+                    display: inline-block;
+                    @media @phone {
+                        width:116px;
+                        height:30px;
+                        line-height:30px;
+                    }
+                }
+                i{
+                    position: absolute;
+                    width: 16px;
+                    height: 16px;
+                    top: 50%;
+                    right: 13px;
+                    transform: translateY(-50%);
+                    cursor: pointer;
+                    opacity: 0.4;
+                    @media @phone{
+                        display: none;
+                    }
+                    &:hover{
+                        opacity: 0.8;
+                    }
+                }
+            }
+        }
+        .showTagsWrap{
+            float: right;
+            height: 30px;
+            line-height: 30px;
+            text-align: right;
+            padding-right: 16px;
+            .showTags {
+                display: inline-block;
+                width: 70px;
+                padding: 0;
+                text-align: right;
+                vertical-align: middle;
+                color: #808080;
+            }
+        }
 
+
+        .searchButton {
+            width: 100px;
+            height: 40px;
+            padding: 0;
+            text-align: center;
+            i {
+                font-size: 16px;
+                //vertical-align: middle;
+            }
+            span {
+                display: inline-block;
+                font-size: 14px;
+                vertical-align: middle;
+            }
         }
     }
 
@@ -203,22 +324,7 @@ main {
 
             }
 
-            .showTags {
-                display:none;
-                @media @phone {
-                    width: 100%;
-                    color:#999;
-                    display:block;
-                    text-align:center;
-                    padding:0 10px;
-                    margin: 10px auto;
-                    font-size:@base-font-size-mobile;
-                    line-height:2em;
-                }
-
-            }
-
-            .rentType, .propertyType, .rentalBudget, .rentPeriod, .bedroomCount, .space, .calendar {
+            .rentType, .propertyType, .rentalBudget, .rentPeriod, .bedroomCount, .space, .price {
                 margin: 0;
                 border-top: 1px solid #ccc;
                 display:block;
@@ -245,7 +351,7 @@ main {
                     display:inline-block;
                     margin-top:16px;
                     margin-left:8px;
-                    font-size:@base-font-size-mobile;
+                    font-size:@base-title-font-size-mobile;
                     line-height:14px;
 
                     @media @phone {
@@ -259,6 +365,9 @@ main {
                     margin-top:18px;
                     margin-bottom:5px;
                     vertical-align: middle;
+                    .wrap{
+                        margin-bottom: 10px;
+                    }
                     .toggleTag {
                         float: left;
                         margin-right:15px;
@@ -272,67 +381,6 @@ main {
                     @media @phone {
                         margin-top:16px;
                     }
-                    .inputWrapper{
-                        position: relative;
-                        display: inline-block;
-                        width:100px;
-                        height: 30px;
-                        margin-bottom: 12px;
-                        margin-right: 4px;
-                        vertical-align: middle;
-                        @media @phone {
-                            width:124px;
-                        }
-                        input{
-                            width:100px;
-                            height:30px;
-                            line-height:30px;
-                            border: 1px solid #aaa;
-                            margin:0 4px 12px 0;
-                            padding-left: 6px;
-                            color: #999;
-                            font-size: 12px;
-                            font-weight: lighter;
-                            text-align: left;
-                            background: none;
-                            vertical-align: middle;
-                            display: inline-block;
-                            @media @phone {
-                                width:124px;
-                                border: 2px solid #aaa;
-                                font-weight: normal;
-                            }
-                        }
-                        i{
-                            position: absolute;
-                            width: 16px;
-                            height: 16px;
-                            top: 7px;
-                            right: 13px;
-                            cursor: pointer;
-                            opacity: 0.4;
-                            &:hover{
-                                opacity: 0.8;
-                            }
-                        }
-                        .chosen-container {
-                            .chosen-single{
-                                height: 30px;
-                                line-height: 30px;
-                                border: 1px solid #aaa;
-                                border-radius: 0;
-                                div b {
-                                    background-position: 0 5px;
-                                }
-                            }
-                            .chosen-drop{
-                                border: 1px solid #aaa;
-                                border-top: none;
-                                border-radius: 0;
-                            }
-                        }
-
-                    }
                     .button{
                         border-radius: 0;
                         font-size: 14px;
@@ -345,11 +393,8 @@ main {
                         vertical-align: middle;
                     }
                     span{
-                        margin-bottom: 12px;
-                        font-size: 12px;
                         color: #999;
-                        margin-right: 4px;
-                        display: inline-block;
+                        margin: 0 4px;
                         vertical-align: middle;
                     }
                     &.phone{

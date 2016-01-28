@@ -73,7 +73,7 @@
 
 <!--@@block = main-->
 % show_requirement_rent_in_floatbar = 'true'
-
+<!-- ko with: rentDetailViewModel -->
 <div class="propertyDetails">
     <div class="breadcrumb">
         % if rent['property'].get('country') and rent['property'].get('country').get('code'):
@@ -774,177 +774,175 @@
 </div>
 
 <!--@@include=./partials/host_contact_request_amount_modal.html  -->
+<!-- @@include=/static/templates/place_item.tpl.html-->
+<!--@@include=partials/photoswipe.html-->
+<!-- /ko -->
+<!--@@close-->
 
+<!--@@block = scripts-->
 
-        <!-- @@include=/static/templates/place_item.tpl.html-->
+<script>
 
-        <!--@@include=partials/photoswipe.html-->
-        <!--@@close-->
+    //just load after jquery
+    window.initSlidesImages = function ($slides) {
+        if ($slides.attr('data-init') === 'false') {
+            $slides.find('li').each(function( index ) {
+                var url = $(this).attr('href')
+                if (team.isPhone()) {
+                    url += '_thumbnail'
+                }
+                var r = new RegExp('<url>', 'g');
+                var style = $(this).attr('data-style').replace(r, url)
+                $(this).attr('style', style)
+            });
+            $slides.attr('data-init', 'true')
+        }
+    }
+    // init the first slides
+    initSlidesImages($('.pictures [data-tab-name]').first().find('.swiper-wrapper'))
+</script>
+<!--weibo SDK-->
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2806233261" type="text/javascript" charset="utf-8"></script>
+<!--build:js /static/scripts/property-to-rent.html.js-->
+<script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
+<script type="text/javascript" src="/static/bower_components/intro.js/minified/intro.min.js"></script>
+<script type="text/javascript" src="/static/scripts/rent_introjs_init.js"></script>
+<script type="text/javascript" src="/static/bower_components/swiper/dist/js/swiper.jquery.min.js"></script>
+<script src="/static/bower_components/photoswipe/dist/photoswipe.js"></script>
+<script src="/static/bower_components/photoswipe/dist/photoswipe-ui-default.js"></script>
+<script src="/static/bower_components/jquery.easing/js/jquery.easing.min.js"></script>
+<script src="/static/vendors/jquery.stickynavbar/jquery.stickyNavbar.modified.js"></script>
+<script src="/static/vendors/iOSList/jquery.ioslist.js"></script>
+<script src="/static/scripts/property_gallery.js"></script>
+<script src="/static/scripts/bing_map.js"></script>
+<script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
+<script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
+<script src="/static/bower_components/jquery.dotdotdot/src/js/jquery.dotdotdot.js"></script>
+<script src="/static/scripts/host_contact_request.js"></script>
+<script src="/static/scripts/property_to_rent_actions.js"></script>
+<script src="/static/scripts/common_ko.js"></script>
+<script src="/static/vendors/jquery-upload-file/jquery-upload-file.js"></script>
+<script src="/static/scripts/rent_request.js"></script>
+<script src="/static/scripts/property_to_rent_ko.js"></script>
+<!--endbuild-->
+<script>
+    $(function () {
+        //Format publish time
+        $('.publishDate span').text(team.parsePublishDate($($('.publishDate span')[0]).text()))
 
-        <!--@@block = scripts-->
+        $('#menu_button_phone').click(function (e) {
+            if ($('#menu_content_phone').is(':visible')) {
+                $('#menu_content_phone').hide()
+            }
+            else {
+                $('#menu_content_phone').show()
+            }
+        })
 
-        <script>
+        $('#menu_content_phone a').click(function (e) {
+            $('#menu_content_phone').hide()
+        })
 
-            //just load after jquery
-            window.initSlidesImages = function ($slides) {
-                if ($slides.attr('data-init') === 'false') {
-                    $slides.find('li').each(function( index ) {
-                        var url = $(this).attr('href')
-                        if (team.isPhone()) {
-                            url += '_thumbnail'
+        $('[data-fn=expendDescription]').on('click', function () {
+            $(this).parent().hide()
+                .parent().find('[data-ui=description]').height('auto')
+            $(this).parent().hide()
+                .parent().find('[data-ui=description]').toggleClass("no-after")
+            ga('send', 'event', 'property_to_rent_detail', 'click', 'extend-description')
+        });
+
+        //Map Part
+        %if rent['property'].get('latitude') and rent['property'].get('longitude'):
+        if ($('.maps_wrapper')) {
+            var location = {latitude:{{rent['property'].get('latitude')}}, longitude:{{rent['property'].get('longitude')}}}
+            window.setupMap(location, function () {
+
+                $('#mapImg, #showMap').click(function (e) {
+                    if (!$('#mapLoadIndicator').is(':visible')) {
+                        ga('send', 'event', 'property_to_rent_detail', 'click', 'view-map')
+
+                        window.showMapIndicator()
+                        var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></' + 'script>'
+                        window.onBingMapScriptLoad = function () {
+                            //showMap
+                            $('.staticMap').hide()
+                            $('.maps').show()
+                            //setUp Map Tabs
+                            $('.maps').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName){
+                                $('[data-tab-name=' + tabName + ']').show()
+                            })
+
+                            //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
+                            % if rent['property'].get('country') and rent['property'].get('country').get('code'):
+                            window.showMapIndicator()
+                            window.showTransitMap(location, null, true, 14, '{{rent['property'].get('country').get('code')}}', function () {
+                                window.hideMapIndicator()
+                            })
+                            window.showMapIndicator()
+                            window.showSchoolMap(location, null, true, 14, '{{rent['property'].get('country').get('code')}}', function () {
+                                window.hideMapIndicator()
+                            })
+                            window.showMapIndicator()
+                            window.showFacilityMap(location, null, true, 14, '{{rent['property'].get('country').get('code')}}', function () {
+                                window.hideMapIndicator()
+                            })
+                            % end
+
+                            window.hideMapIndicator()
                         }
-                        var r = new RegExp('<url>', 'g');
-                        var style = $(this).attr('data-style').replace(r, url)
-                        $(this).attr('style', style)
-                    });
-                    $slides.attr('data-init', 'true')
+                        $('body').append(scriptString)
+                    }
+                })
+            })
+        }
+        %end
+
+
+        window.openWeChatShare = function (rentId) {
+            ga('send', 'event', 'property_to_rent_detail', 'click', 'open-wechat-share')
+            if (window.team.isWeChat()) {
+                if (window.team.isWeChatiOS()) {
+                    $('.wechatPage_popup .buttonHolder').attr('src', '/static/images/property_details/wechat_share/phone/wechat_button_ios.png')
+                }
+                $('.wechatPage_popup').modal()
+                $('.wechatPage_popup').find('.close-modal').hide()
+            }
+            else {
+                window.location.href = '/wechat_share?property_to_rent=' + rentId
+            }
+        }
+
+        $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
+            window.openWeChatShare('{{rent.get('id','')}}')
+            ga('send', 'event', 'property_to_rent_detail', 'share', 'open-wechat-mobile')
+        });
+    });
+
+
+    /*
+     * Weixin share sdk
+     * */
+    (function () {
+        var wechatShareData = {
+                title: '{{rent.get('title','')}}',
+                link: window.location.host + '/wechat-poster/' + '{{rent.get('id','')}}',
+                imgUrl: '/static/images/logo/logo_wechat.jpg',
+                success:function(){
+                    ga('send', 'event', 'property_to_rent_detail', 'share', 'share-to-wechat-success')
+                },
+                cancel:function(){
+                    ga('send', 'event', 'property_to_rent_detail', 'share', 'share-to-wechat-cancel')
                 }
             }
-            // init the first slides
-            initSlidesImages($('.pictures [data-tab-name]').first().find('.swiper-wrapper'))
-        </script>
-        <!--weibo SDK-->
-        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2806233261" type="text/javascript" charset="utf-8"></script>
-        <!--build:js /static/scripts/property-to-rent.html.js-->
-        <script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
-        <script type="text/javascript" src="/static/bower_components/intro.js/minified/intro.min.js"></script>
-        <script type="text/javascript" src="/static/scripts/rent_introjs_init.js"></script>
-        <script type="text/javascript" src="/static/bower_components/swiper/dist/js/swiper.jquery.min.js"></script>
-        <script src="/static/bower_components/photoswipe/dist/photoswipe.js"></script>
-        <script src="/static/bower_components/photoswipe/dist/photoswipe-ui-default.js"></script>
-        <script src="/static/bower_components/jquery.easing/js/jquery.easing.min.js"></script>
-        <script src="/static/vendors/jquery.stickynavbar/jquery.stickyNavbar.modified.js"></script>
-        <script src="/static/vendors/iOSList/jquery.ioslist.js"></script>
-        <script src="/static/scripts/property_gallery.js"></script>
-        <script src="/static/scripts/bing_map.js"></script>
-        <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
-        <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
-        <script src="/static/bower_components/jquery.dotdotdot/src/js/jquery.dotdotdot.js"></script>
-        <script src="/static/scripts/host_contact_request.js"></script>
-        <script src="/static/scripts/property_to_rent_actions.js"></script>
-        <script src="/static/scripts/common_ko.js"></script>
-        <script src="/static/vendors/jquery-upload-file/jquery-upload-file.js"></script>
-        <script src="/static/scripts/rent_request.js"></script>
-        <script src="/static/scripts/property_to_rent_ko.js"></script>
-        <!--endbuild-->
-        <script>
-            $(function () {
-                //Format publish time
-                $('.publishDate span').text(team.parsePublishDate($($('.publishDate span')[0]).text()))
+            % if rent['property'].get('reality_images'):
+        wechatShareData.imgUrl = '{{rent['property'].get('reality_images')[0]}}' + '_thumbnail'
+        %end
+        %if rent.get('description'):
+        wechatShareData.desc = '{{clear_html_tags(rent.get('description')).replace('\n','\\n').replace('\r\n','\\r\\n')}}'.replace(/(\r\n|\n|\r)/gm,'').slice(0, 100)
+        %end
+        window.wechatShareSDK.init(wechatShareData)
+    })()
+</script>
 
-                $('#menu_button_phone').click(function (e) {
-                    if ($('#menu_content_phone').is(':visible')) {
-                        $('#menu_content_phone').hide()
-                    }
-                    else {
-                        $('#menu_content_phone').show()
-                    }
-                })
-
-                $('#menu_content_phone a').click(function (e) {
-                    $('#menu_content_phone').hide()
-                })
-
-                $('[data-fn=expendDescription]').on('click', function () {
-                    $(this).parent().hide()
-                        .parent().find('[data-ui=description]').height('auto')
-                    $(this).parent().hide()
-                        .parent().find('[data-ui=description]').toggleClass("no-after")
-                    ga('send', 'event', 'property_to_rent_detail', 'click', 'extend-description')
-                });
-
-                //Map Part
-                %if rent['property'].get('latitude') and rent['property'].get('longitude'):
-                if ($('.maps_wrapper')) {
-                    var location = {latitude:{{rent['property'].get('latitude')}}, longitude:{{rent['property'].get('longitude')}}}
-                    window.setupMap(location, function () {
-
-                        $('#mapImg, #showMap').click(function (e) {
-                            if (!$('#mapLoadIndicator').is(':visible')) {
-                                ga('send', 'event', 'property_to_rent_detail', 'click', 'view-map')
-
-                                window.showMapIndicator()
-                                var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></' + 'script>'
-                                window.onBingMapScriptLoad = function () {
-                                    //showMap
-                                    $('.staticMap').hide()
-                                    $('.maps').show()
-                                    //setUp Map Tabs
-                                    $('.maps').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName){
-                                        $('[data-tab-name=' + tabName + ']').show()
-                                    })
-
-                                    //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
-                                    % if rent['property'].get('country') and rent['property'].get('country').get('code'):
-                                    window.showMapIndicator()
-                                    window.showTransitMap(location, null, true, 14, '{{rent['property'].get('country').get('code')}}', function () {
-                                        window.hideMapIndicator()
-                                    })
-                                    window.showMapIndicator()
-                                    window.showSchoolMap(location, null, true, 14, '{{rent['property'].get('country').get('code')}}', function () {
-                                        window.hideMapIndicator()
-                                    })
-                                    window.showMapIndicator()
-                                    window.showFacilityMap(location, null, true, 14, '{{rent['property'].get('country').get('code')}}', function () {
-                                        window.hideMapIndicator()
-                                    })
-                                    % end
-
-                                    window.hideMapIndicator()
-                                }
-                                $('body').append(scriptString)
-                            }
-                        })
-                    })
-                }
-                %end
-
-
-                window.openWeChatShare = function (rentId) {
-                    ga('send', 'event', 'property_to_rent_detail', 'click', 'open-wechat-share')
-                    if (window.team.isWeChat()) {
-                        if (window.team.isWeChatiOS()) {
-                            $('.wechatPage_popup .buttonHolder').attr('src', '/static/images/property_details/wechat_share/phone/wechat_button_ios.png')
-                        }
-                        $('.wechatPage_popup').modal()
-                        $('.wechatPage_popup').find('.close-modal').hide()
-                    }
-                    else {
-                        window.location.href = '/wechat_share?property_to_rent=' + rentId
-                    }
-                }
-
-                $('.rmm-toggled .rmm-toggled-controls .rmm-toggled-share').on('click', function () {
-                    window.openWeChatShare('{{rent.get('id','')}}')
-                    ga('send', 'event', 'property_to_rent_detail', 'share', 'open-wechat-mobile')
-                });
-            });
-
-
-            /*
-             * Weixin share sdk
-             * */
-            (function () {
-                var wechatShareData = {
-                        title: '{{rent.get('title','')}}',
-                        link: window.location.host + '/wechat-poster/' + '{{rent.get('id','')}}',
-                        imgUrl: '/static/images/logo/logo_wechat.jpg',
-                        success:function(){
-                            ga('send', 'event', 'property_to_rent_detail', 'share', 'share-to-wechat-success')
-                        },
-                        cancel:function(){
-                            ga('send', 'event', 'property_to_rent_detail', 'share', 'share-to-wechat-cancel')
-                        }
-                    }
-                    % if rent['property'].get('reality_images'):
-                wechatShareData.imgUrl = '{{rent['property'].get('reality_images')[0]}}' + '_thumbnail'
-                %end
-                %if rent.get('description'):
-                wechatShareData.desc = '{{clear_html_tags(rent.get('description')).replace('\n','\\n').replace('\r\n','\\r\\n')}}'.replace(/(\r\n|\n|\r)/gm,'').slice(0, 100)
-                %end
-                window.wechatShareSDK.init(wechatShareData)
-            })()
-        </script>
-
-        <!--@@close-->
+<!--@@close-->
 %end

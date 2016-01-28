@@ -1,5 +1,6 @@
 /*! Created by frank on 14-9-23.  */
 @import "project/_imports";
+@import "project/locationSearchBox";
 .bigPictureBg{
     background-image: url("/static/images/background/intention_bg.jpg");
     > .inner{
@@ -258,31 +259,22 @@
         }
     }
     .searchTicketWrap{
+        text-align: center;
         padding: 200px 0;
         @media @phone{
-            padding: 80px 0;
+            padding: 200px 0;
         }
-        .category{
-            text-align: center;
+        location-search-box{
+            width: 660px;
+            height: 52px;
             @media @phone{
-                padding: 0 20px;
+                width: 100%;
             }
-            .hideInWeb{
-                display: none;
-                @media @phone{
-                    display: block;
-                    font-size: 16px;
-                    color: #666;
-                    margin-bottom: 10px;
-                }
-            }
-            >span {
-                font-size: 16px;
-                margin: 0 10px;
-                color: #333333;
-                @media @phone{
-                    display: none;
-                }
+        }
+        .buttonWrap{
+            display: inline-block;
+            @media @phone{
+                display: block;
             }
             button{
                 margin-left: 50px;
@@ -294,132 +286,8 @@
                     margin-left: 0;
                 }
             }
-            .selectWrap{
-                display:inline-block;
-                min-width: 150px;
-                font-size: 14px;
-                &.selectCityWrap{
-                    width: 200px;
-                    @media @phone{
-                        width:100%;
-                    }
-                }
-                select{
-                    width: 100% !important;
-                    color: #999;
-                    background-color: #fff;
-                }
-                @media @phone{
-                    width:100%;
-                    margin-bottom: 20px;
-                    float: left;
-                    font-size:@base-font-size-mobile;
-                    font-weight:bold;
-                }
-                .chosen-container{
-                    text-align: left;
-                    .chosen-single{
-                        padding: 0 12px;
-                        height: 40px;
-                        line-height: 36px;
-                        color: #333;
-                        border-radius: 4px;
-                        background: #fff;
-                        border: 2px solid #cccccc;
-                        span{
-                            font-size: 16px;
-                        }
-                        @media @phone {
-                            border:0;
-                        }
-                        abbr{
-                            background-image: url('/static/images/common/chosen-sprite.png');
-                        }
-                        div{
-                            width: 20px;
-                            b{
-                                background-image: url('/static/images/common/chosen-sprite.png');
-                                width: 12px;
-                                background-position: 0 10px;
-                            }
-                        }
-                    }
-                    &.chosen-with-drop .chosen-single{
-                        border: 2px solid #cccccc;
-                        background: #fff;
-                        border-radius: 4px 4px 0 0;
-                        border-bottom: none;
-                        @media @phone {
-                            border:0;
-                        }
-                        div b{
-                            background-position: -17px 10px;
-                        }
-                    }
-
-                    .chosen-drop{
-                        text-align: left;
-                        font-size: 14px;
-                        position: absolute;
-                        background: #fff;
-                        padding: 6px;
-                        z-index: 100;
-                        border: 2px solid #ccc;
-                        border-radius: 0 0 4px 4px;
-                        @media @phone {
-                            border-width: 0px;
-                        }
-                        input{
-                            margin: 0 0 5px 0px !important;
-                            height: 24px !important;
-                            line-height: 24px !important;
-                            &[type=text]{
-                                background-image: url('/static/images/common/chosen-sprite.png');
-                            }
-                        }
-                        p{
-                            height: 24px;
-                            margin: 0 0 5px;
-                        }
-
-                        .arrow{
-                            position: absolute;
-                            width: 22px;
-                            height: 12px;
-                            top: -13px;
-                            left: 30px;
-                            vertical-align: middle;
-                            padding: 0;
-                            line-height: 12px;
-                        }
-                        .chosen-results{
-                            color: #999;
-                            .active-result{
-                                text-overflow: ellipsis;
-                                text-indent: inherit;
-                                height: 24px;
-                                font-size:14px;
-                                word-break: break-all;
-                                word-spacing: normal;
-                                overflow: hidden;
-                                white-space:nowrap;
-                                &.result-selected{
-                                    background-color: #3875d7;
-                                    background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(20%,#3875d7),color-stop(90%,#2a62bc));
-                                    background-image: -webkit-linear-gradient(#3875d7 20%,#2a62bc 90%);
-                                    background-image: -moz-linear-gradient(#3875d7 20%,#2a62bc 90%);
-                                    background-image: -o-linear-gradient(#3875d7 20%,#2a62bc 90%);
-                                    background-image: linear-gradient(#3875d7 20%,#2a62bc 90%);
-                                    color: #fff;
-                                }
-                            }
-                        }
-                    }
-                    &.chosen-with-drop .chosen-drop{
-                        border-top: none;
-                    }
-
-                }
+            @media @phone{
+                padding: 20px 16px;
             }
         }
     }

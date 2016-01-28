@@ -60,10 +60,17 @@
             var re = new RegExp('([?&])' + name + '=.*?(&|$)', 'i');
             var separator = urlWithoutHash.indexOf('?') !== -1 ? '&' : '?';
             if (urlWithoutHash.match(re)) {
-                return urlWithoutHash.replace(re, '$1' + name + '=' + encodeURIComponent(value) + '$2') + hash
-            }
-            else {
+                if (value === '' || value === undefined) {
+                    return urlWithoutHash.replace(re, function (match, p1, p2) {
+                            return p2 === '' ? '' : (p1 === '?' ? '?' : p2)
+                        }) + hash
+                } else {
+                    return urlWithoutHash.replace(re, '$1' + name + '=' + encodeURIComponent(value) + '$2') + hash
+                }
+            } else if(value !== '' && value !== undefined) {
                 return urlWithoutHash + separator + name + '=' + encodeURIComponent(value) + hash
+            } else {
+                return urlWithoutHash + hash
             }
         },
         getHash: function (n) {
@@ -526,10 +533,17 @@
         },
         /*生成一个指定长度的从1开始递增的自然数数组*/
         generateArray: function (length) {
-            return _.map(new Array(length + 1).join('0').split(''), function (val, index) {
+            return _.map(new Array((length || 0) + 1).join('0').split(''), function (val, index) {
                 return index + 1
             })
         },
+        openLink: function (url) {
+            if(window.team.isCurrantClient() && window.bridge) {
+                window.bridge.callHandler('openURLInNewController', url)
+                return
+            }
+            location.href = url
+        }
     }
 })
 ();
