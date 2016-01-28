@@ -219,7 +219,7 @@
         </div>
         <div id="propertyDetails_description" class="meta scrollto">
             % if ('space' in rent and rent.get('space','')) or ('bedroom_count' in rent['property'] and rent.get('property',{}).get('bedroom_count','')) or ('bathroom_count' in rent['property'] and rent.get('property',{}).get('bathroom_count','')) or ('living_room_count' in rent['property'] and rent.get('property',{}).get('living_room_count','')):
-            % count = sum([bool(x in rent['property']) for x in ["bedroom_count", "bathroom_count", "living_room_count", "indepedent_bathroom"]]) + (1 if 'space' in rent else 0)
+            % count = sum([bool(x in rent['property']) for x in ["bedroom_count", "bathroom_count", "living_room_count"]]) + (1 if 'space' in rent else 0) + (1 if 'independent_bathroom' in rent else 0)
             <ul class="numbers">
                 % if 'space' in rent:
                 <li style="width: {{100/count}}%">
@@ -579,34 +579,34 @@
         <div class="rentPreferences">
             <div class="basic">
                 % if 'available_rooms' in rent:
-                <dic class="avaialbeRooms">
+                <dic class="availableRooms">
                     {{_('待入住')}}
                     <strong>{{ rent.get('available_rooms') }}</strong>
                 </dic>
                 % end
                 <ul class="allowOrDisallow">
                     <li class="noSmoking">
-                        <i class="smoking"></i>
+                        <i class="icon-switch_button"></i>
                         % if rent.get("no_smoking"):
-                            {{_('禁止')}}
+                            <strong class="text no">{{_('禁止')}}</strong>
                         % else:
-                            {{_('允许')}}
+                            <strong class="text yes">{{_('允许')}}</strong>
                         % end
                     </li>
                     <li class="noPet">
-                        <i class="pet"></i>
+                        <i class="icon-switch_button"></i>
                         % if rent.get("no_pet"):
-                            {{_('禁止')}}
+                            <strong class="text no">{{_('禁止')}}</strong>
                         % else:
-                            {{_('允许')}}
+                            <strong class="text yes">{{_('允许')}}</strong>
                         % end
                     </li>
                     <li class="noBaby">
-                        <i class="baby"></i>
+                        <i class="icon-switch_button"></i>
                         % if rent.get("no_baby"):
-                            {{_('禁止')}}
+                            <strong class="text no">{{_('禁止')}}</strong>
                         % else:
-                            {{_('允许')}}
+                            <strong class="text yes">{{_('允许')}}</strong>
                         % end
                     </li>
                 </ul>
@@ -623,18 +623,16 @@
                     % current_female_roommates = 0
                 % end
                 <ul>
-                    <li>
+                    <li class="total">
                         {{_('当前入住数')}}
                         <strong>{{current_male_roommates + current_female_roommates}}</strong>
                     </li>
-                    <li>
+                    <li class="detail">
                        {{_('当前入住者性别')}}
                        <div>
-                           <i class="female"></i>
+                           <i class="icon-switch_button"></i>
                            <strong>{{current_female_roommates}}</strong>
-                       </div>
-                       <div>
-                           <i class="male"></i>
+                           <i class="icon-switch_button"></i>
                            <strong>{{current_male_roommates}}</strong>
                        </div>
                     </li>
@@ -684,8 +682,8 @@
                 <p class="content">
                     {{rent.get('other_requirements')}}
                 </p>
-            </div>            
-            % end            
+            </div>
+            % end
         </div>
         %if len(related_rent_ticket_list):
         <div class="seperator"></div>

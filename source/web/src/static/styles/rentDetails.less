@@ -335,8 +335,136 @@ body {
                 }
             }
         }
+    }
+
+    .rentPreferences {
+        width: 100%;
+        margin-top:50px;
+        .basic {
+            height: 48px;
+            .availableRooms {
+                float: left;
+                width: 70px;
+                height: 100%;
+                border-right: 1px solid @border-color;
+
+                strong {
+                    display: block;
+                    font-size: @large-font-size;
+                    font-weight: normal;
+                    color: @red;
+                    word-break: break-all;
+                    padding-right: 6px;
+                }
+            }
+
+            .allowOrDisallow {
+                float:left;
+                width:290px;
+                li {
+                    float:left;
+                    display: inline-block;
+                    float: left;
+                    width: 33%;
+                    height: 100%;
+                    line-height: 48px;
+                    text-align: center;
+                    font-size: 16px;
+
+                    i {
+                        color: @dark-text-color;
+                        vertical-align:middle;
+                    }
+
+                    .text {
+                        vertical-align:middle;
+                        font-weight: bold;
+                        &.yes {
+                            color:#0fc535;
+                        }
+                        &.no {
+                            color:@red;
+                        }
+                    }
+                }
+            }
+        }
+
+        >.currentRoommates {
+            margin-top:30px;
+            height: 48px;
+            ul {
+                float: left;
+                width: 100%;
+                li {
+                    float: left;
+                    height: 100%;
+
+                    strong {
+                        display: block;
+                        font-size: @large-font-size;
+                        font-weight: normal;
+                        color: @dark-text-color;
+                        word-break: break-all;
+                        padding-right: 6px;
+                    }
+                }
+
+                li.total {
+                    width: 70px;
+                }
+
+                li.detail {
+                    width: 33%;
+                    margin-left:50px;
+
+                    strong {
+                        display:inline-block;
+                    }
+                }
+            }
+        }
+
+        >.forNewRoommates {
+            margin-top:30px;
+            height: 48px;
+            ul {
+                float: left;
+                width: 100%;
+                li {
+                    float: left;
+                    width: 33%;
+                    height: 100%;
+
+                    strong {
+                        display: block;
+                        font-size: @large-font-size;
+                        font-weight: normal;
+                        color: @dark-text-color;
+                        word-break: break-all;
+                        padding-right: 6px;
+                    }
+                }
+            }
+        }
+
+        >.other {
+            margin-top:30px;
+            .title {
+                font-size: 14px;
+                line-height: 1.6em;
+            }
+
+            .content {
+                margin-top:14px;
+                font-size:15px;
+                color:@dark-text-color;
+                line-height:1.1em;
+            }
+        }
 
     }
+
 
     &_title {
         margin-bottom: 24px;
