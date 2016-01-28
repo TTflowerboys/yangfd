@@ -67,7 +67,7 @@ class CUTESingleRoomPreferenceForm: CUTETicketForm {
 
             [FXFormFieldKey:"currentFemaleRoommates", FXFormFieldTitle:STR("SingleRoomPreference/当前女室友的数量"), FXFormFieldCell: CUTEFormRoommateCountPickerCell.self, "style": UITableViewCellStyle.Value1.rawValue, FXFormFieldAction: "onCurrentFemaleRoommatesEdit:"],
 
-            [FXFormFieldKey:"availableRooms", FXFormFieldTitle:STR("SingleRoomPreference/可入住新室友"), FXFormFieldCell: CUTEFormRoommateCountPickerCell.self, "style": UITableViewCellStyle.Value1.rawValue, FXFormFieldAction: "onAvailableRoomsEdit:"],
+            [FXFormFieldKey:"availableRooms", FXFormFieldTitle:STR("SingleRoomPreference/可入住室友"), FXFormFieldCell: CUTEFormRoommateCountPickerCell.self, "style": UITableViewCellStyle.Value1.rawValue, FXFormFieldAction: "onAvailableRoomsEdit:"],
 
             [FXFormFieldKey:"area", FXFormFieldTitle:STR("SingleRoomPreference/单间面积"), FXFormFieldHeader:STR("SingleRoomPreference/其他"), FXFormFieldAction: "onAreaEdit:"],
 
