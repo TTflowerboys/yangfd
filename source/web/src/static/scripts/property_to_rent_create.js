@@ -42,7 +42,7 @@
             var routes = Object.keys(_.router)
             $.each(routes, function(index, route){
                 if(_.getHash() === '' && _.router['/']){
-                     _.router['/'].call(null)
+                    _.router['/'].call(null)
                 }
                 if(route === _.getHash()){ //字符串完全匹配
                     _.router[route].call(null)
@@ -109,10 +109,10 @@
         ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-cover')
 
 
-            showRoute1()
-            $('#load_more .load_more').trigger('click')
-            $('body,html').stop(true,true).animate({scrollTop: 1870}, 500)
-        })
+        showRoute1()
+        $('#load_more .load_more').trigger('click')
+        $('body,html').stop(true,true).animate({scrollTop: 1870}, 500)
+    })
         .when('/2', function() {
             ga('send', 'event', 'property_to_rent_create', 'return-to-edit', 'edit-property-detail')
 
@@ -150,35 +150,6 @@
             $('#block').trigger('focus')
             $('body,html').stop(true,true).animate({scrollTop: 763}, 500)
         })
-
-    //根据用户选择的单间或者整租类型来决定显示房间面积还是房屋面积
-    function showRoomOrHouse(index){
-        if(index === 0){
-            $('[data-show=singleRoom]').show().siblings().hide()
-        }else if(index === 1){
-            $('[data-show=entireHouse]').show().siblings().hide()
-        }
-    }
-
-    $('#rentalType div').click(function () {
-        var index = $(this).index()
-        var id = $(this).data('id')
-        $.each($('#rentalType div'), function (i, val) {
-            if ($(this).data('id') === id) {
-                if ($(this).hasClass('selected')) {
-                    return
-                } else {
-                    $(this).addClass('selected')
-                }
-            } else {
-                if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected')
-                }
-            }
-        })
-        $('#rentalType').trigger('change')
-        showRoomOrHouse(index)
-    })
 
     /*postcode 和地址部分*/
     window.geonamesApi.getCity('GB', function (val) {
@@ -583,12 +554,12 @@
             })
         })
         /*if (parseInt($('#bedroom_count').val()) < 1) {
-            validate = false
-            errorArr.push({
-                elem: $('#bedroom_count'),
-                msg: i18n('房间数最少为1')
-            })
-        }*/
+         validate = false
+         errorArr.push({
+         elem: $('#bedroom_count'),
+         msg: i18n('房间数最少为1')
+         })
+         }*/
         function checkContaction (elem) {
             var wordBlacklist = ['微信', '微博', 'QQ', '电话', 'weixin', 'wechat', 'whatsapp', 'facebook', 'weibo']
             var val = elem.val()
@@ -613,9 +584,9 @@
             })
         }
         /*if(imageArr.length === 0){
-            validate = false
-            errorMsg = i18n('请至少上传一张实景图')
-        }*/
+         validate = false
+         errorMsg = i18n('请至少上传一张实景图')
+         }*/
         var isUploading = false
         $('.ajax-file-upload-progress').each(function(i, v){
             if(v.style.display !== 'none') {
@@ -670,7 +641,6 @@
         var defaultTitle = ($('#community').val() ? $('#community').val() : ($('#neighborhood-select').val() ? $('#neighborhood-select').find(':selected').text().replace(/,.+$/,'') : $('#street').val())) + ' ' + ($('#bedroom_count').children('option:selected').val() > 0 ? $('#bedroom_count').children('option:selected').val() + window.i18n('居室') : 'Studio') + $('#rentalType .selected').text().trim() + window.i18n('出租')
         $('#title').attr('placeholder', defaultTitle)
     }
-    updateTitle()
     $('#title').on('focus', function () {
         if(!$(this).val()) {
             $(this).val($(this).attr('placeholder'))
@@ -692,7 +662,7 @@
     //获取房产模型数据
     function getPropertyData(options){
         /*var address = $('#country')[0].value + $('#city')[0].value + $('#street')[0].value +
-            $('#community')[0].value + $('#floor')[0].value + $('#house_name')[0].value*/
+         $('#community')[0].value + $('#floor')[0].value + $('#house_name')[0].value*/
         var address = $('#community')[0].value + $('#floor')[0].value + $('#house_name')[0].value
         var indoorFacility = $.makeArray($('.indoorFacilities').find('input:checked').map(function(i,v){
             return $(v).val()
@@ -909,10 +879,10 @@
                 return $(this).find('input').val();
             }
         })
-        .bind('datepicker-change', function (event, obj) {
+            .bind('datepicker-change', function (event, obj) {
                 $(elem).attr('value', $.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
                 $(elem).val($.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
-        }).dateRangePickerCustom($(elem))
+            }).dateRangePickerCustom($(elem))
     })
 
 
@@ -989,8 +959,8 @@
         function requestSMSCode () {
             $btn.prop('disabled', true)
             /*var timer = setTimeout(function () {
-                $btn.prop('disabled', false)
-            }, 60000)*/
+             $btn.prop('disabled', false)
+             }, 60000)*/
 
             $.betterPost('/api/1/user/sms_verification/send', {
                 phone: '+' + $('[name=country_code]').val() + $('[name=phone]').val()
@@ -1058,22 +1028,22 @@
     $publishForm.find('[name=userPhone],[name=country_code]').change(function(){
         if(isDelegate()) {
             $.betterPost('/api/1/user/admin/search',{phone: '+' + $publishForm.find('[name=country_code]').val() + $publishForm.find('[name=userPhone]').val()})
-            .done(function (val) {
-                $otherUserInput.attr('data-show', 'user').show()
-                if(val && val.length) {
-                    userExist = true
-                    $otherUserInput.find('[name=userNickname]').val(val[0].nickname || 'nickname').prop('readonly', true)
-                    $otherUserInput.find('[name=userEmail]').val(val[0].email || 'services@youngfunding.co.uk').prop('readonly', true)
-                } else {
-                    userExist = false
-                    $otherUserInput.find('[name=userNickname]').val('').prop('readonly', false)
-                    $otherUserInput.find('[name=userEmail]').val('').prop('readonly', false)
-                }
-            })
-            .fail(function (ret) {
-                $otherUserInput.attr('data-show', '').hide()
-                $errorMsg2.html(window.getErrorMessageFromErrorCode(ret)).show()
-            })
+                .done(function (val) {
+                    $otherUserInput.attr('data-show', 'user').show()
+                    if(val && val.length) {
+                        userExist = true
+                        $otherUserInput.find('[name=userNickname]').val(val[0].nickname || 'nickname').prop('readonly', true)
+                        $otherUserInput.find('[name=userEmail]').val(val[0].email || 'services@youngfunding.co.uk').prop('readonly', true)
+                    } else {
+                        userExist = false
+                        $otherUserInput.find('[name=userNickname]').val('').prop('readonly', false)
+                        $otherUserInput.find('[name=userEmail]').val('').prop('readonly', false)
+                    }
+                })
+                .fail(function (ret) {
+                    $otherUserInput.attr('data-show', '').hide()
+                    $errorMsg2.html(window.getErrorMessageFromErrorCode(ret)).show()
+                })
         }
 
     })
@@ -1113,17 +1083,17 @@
             function publish() {
                 return $.when(publishTicket(), publishProperty())
             }
-           /* function setPropertyPartner () {
-                var deferred = $.Deferred()
-                $.betterPost('/api/1/property/' + window.propertyId + '/edit', {partner: true})
-                    .done(function(val) {
-                        deferred.resolve(val)
-                    })
-                    .fail(function (ret) {
-                        deferred.reject(ret)
-                    })
-                return deferred.promise()
-            }*/
+            /* function setPropertyPartner () {
+             var deferred = $.Deferred()
+             $.betterPost('/api/1/property/' + window.propertyId + '/edit', {partner: true})
+             .done(function(val) {
+             deferred.resolve(val)
+             })
+             .fail(function (ret) {
+             deferred.reject(ret)
+             })
+             return deferred.promise()
+             }*/
             function editUser () {
                 var deferred = $.Deferred(),
                     privateContactMethods,
@@ -1229,6 +1199,7 @@
 
     function PropertyViewModel() {
         var self = this
+        var rent = JSON.parse($('#rentTicketData').text())
         if($('#fileuploader').data('files') !== undefined) {
             this.imageArr = ko.observableArray($('#fileuploader').data('files').split(','))
         }else{
@@ -1236,6 +1207,11 @@
         }
         this.propertyTypeList = ko.observableArray(_.reject(JSON.parse($('#propertyType').attr('data-list')), {slug: 'new_property'}))
         this.propertyType = ko.observable($('#propertyType tags').attr('value') || this.propertyTypeList()[0].id)
+        this.rentTypeList = ko.observableArray(JSON.parse($('#rentalType').attr('data-list')))
+        this.rentType = ko.observable($('#rentalType tags').attr('value') || window.team.getQuery('rent_type') || this.rentTypeList()[0].id)
+        this.rentTypeSlug = ko.computed(function () {
+            return (_.find(this.rentTypeList(), {id: this.rentType()}) || {}).slug
+        }, this)
         this.latitude = ko.observable()
         this.longitude = ko.observable()
         this.city = ko.observable()
@@ -1408,6 +1384,9 @@
     }
 
     $(document).ready(function () {
+        setTimeout(function () {
+            updateTitle()
+        }, 50)
         $('.route').each(function (index, elem) {
             if($(elem).css('display') === 'none') {//防止display:none时chosen插件获取不到select的尺寸
                 $(elem).css({
@@ -1432,7 +1411,6 @@
             }
         })
 
-        showRoomOrHouse($('#rentalType .property_type.selected').index())
         initInfoHeight()
         var uploadFileConfig = {
             url: '/api/1/upload_image',

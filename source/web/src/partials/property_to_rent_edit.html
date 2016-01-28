@@ -2,6 +2,9 @@
 <textarea id="countryData" style="display: none">
     {{json_dumps(country_list)}}
 </textarea>
+<textarea id="rentTicketData" style="display: none">
+    {{json_dumps(rent)}}
+</textarea>
 <div class="route editRoute" data-route="step1" style="display: none">
     <div class="mainTitle">{{_('房屋出租')}}</div>
     <div class="content">
@@ -62,40 +65,8 @@
                         <td class="title">
                             <div class="text">{{_('出租类型')}}</div>
                         </td>
-                        <td id="rentalType" data-trigger="updateTitle">
-                            %for index, rent_type in enumerate(rent_type_list):
-                                %if request.params.get('rent_type'):
-                                    %if (request.params.get('rent_type')==rent_type.get('id')):
-                                    <div class="property_type selected" data-id="{{rent_type.get('id')}}">
-                                        {{rent_type.get('value')}}
-                                    </div>
-                                    %else:
-                                    <div class="property_type" data-id="{{rent_type.get('id')}}">
-                                        {{rent_type.get('value')}}
-                                    </div>
-                                    %end
-                                %elif rent.get('rent_type'):
-                                    %if (rent.get('rent_type',{}).get('id')==rent_type.get('id')):
-                                    <div class="property_type selected" data-id="{{rent_type.get('id')}}">
-                                        {{rent_type.get('value')}}
-                                    </div>
-                                    %else:
-                                    <div class="property_type" data-id="{{rent_type.get('id')}}">
-                                        {{rent_type.get('value')}}
-                                    </div>
-                                    %end
-                                %else:
-                                    %if (index==0):
-                                    <div class="property_type selected" data-id="{{rent_type.get('id')}}">
-                                        {{rent_type.get('value')}}
-                                    </div>
-                                    %else:
-                                    <div class="property_type" data-id="{{rent_type.get('id')}}">
-                                        {{rent_type.get('value')}}
-                                    </div>
-                                    %end
-                                %end
-                            %end
+                        <td id="rentalType" data-list="{{json_dumps(rent_type_list)}}">
+                            <tags params="list: rentTypeList, key: 'rentType'" data-bind="value: rentType" value="{{rent.get('rent_type',{}).get('id','')}}" data-trigger="updateTitle"></tags>
                         </td>
                     </tr>
                     <tr>
@@ -241,7 +212,7 @@
                             <div class="text">
                                 {{_('房屋户型')}}
                             </div>
-                            <div class="tip">{{_('(可选studio)')}}</div>
+                            <div class="text">{{_('(可选studio)')}}</div>
                         </td>
                         <td class="room_count">
                             <div>
@@ -297,9 +268,9 @@
                     <tr>
                         <td class="title">
                             <!--如果用户选择出租类型为单间：-->
-                            <label class="text" data-show="singleRoom" for="roomSize">{{_('房间面积')}}</label>
+                            <label class="text" data-bind="visible: rentTypeSlug() === 'rent_type:single'" for="roomSize">{{_('单间面积')}}</label>
                             <!--如果用户选择出租类型为整租：-->
-                            <label class="text" data-show="entireHouse" for="roomSize" style="display: none;">{{_('房屋面积')}}</label>
+                            <label class="text" data-bind="visible: rentTypeSlug() === 'rent_type:whole'" for="roomSize" style="display: none;">{{_('房屋面积')}}</label>
                         </td>
                         <td class="room_size">
                             <div>
@@ -307,15 +278,19 @@
                                 <select id="spaceUnit">
                                     <option value="meter ** 2"
                                         %if rent.get('space',{}).get('unit','meter ** 2')=="meter ** 2":
-                                        selected
-                                        %end
-                                        >{{_('平方米')}}</option>
+                                    selected
+                                    %end
+                                    >{{_('平方米')}}</option>
                                     <option value="foot ** 2"
                                         %if rent.get('space',{}).get('unit','meter ** 2')=="foot ** 2":
-                                        selected
-                                        %end
-                                        >{{_('平方英尺')}}</option>
+                                    selected
+                                    %end
+                                    >{{_('平方英尺')}}</option>
                                 </select>
+                                <!-- ko if: rentTypeSlug() === 'rent_type:single' -->
+                                <input type="checkbox" id="independentBathroom" data-bind="checked: independentBathroom"/>
+                                <label for="independentBathroom">{{_('单间独立卫浴')}}</label>
+                                <!-- /ko -->
                             </div>
                         </td>
                     </tr>
@@ -349,23 +324,23 @@
                     </tr>
                     <tr>
                         <td class="title">
-                            <div class="text">{{_('最短接受租期')}}</div>
+                            <div class="text">{{_('接受最短租期')}}</div>
                         </td>
                         <td class="minimumRentPeriod">
                             <select id="minimumRentPeriod">
                                 <option value=""
                                     %if not rent.get('minimum_rent_period',{}).get('value',''):
-                                    selected
-                                    %end
-                                    >{{_('不限')}}
+                                selected
+                                %end
+                                >{{_('不限')}}
                                 </option>
                                 %for i in range(51):
                                 %if i > 0:
                                 <option value="{{i}}"
                                     % if rent.get('minimum_rent_period',{}).get('value','0')==str(i):
-                                    selected
-                                    %end
-                                    >{{i}}</option>
+                                selected
+                                %end
+                                >{{i}}</option>
                                 %end
                                 %end
 
@@ -373,26 +348,25 @@
                             <select id="minimumRentPeriodUnit">
                                 <option value="day"
                                     %if rent.get('minimum_rent_period',{}).get('unit','week')=="day":
-                                    selected
-                                    %end
-                                    >{{_('天')}}
+                                selected
+                                %end
+                                >{{_('天')}}
                                 </option>
                                 <option value="week"
                                     %if rent.get('minimum_rent_period',{}).get('unit','week')=="week":
-                                    selected
-                                    %end
-                                    >{{_('周')}}
+                                selected
+                                %end
+                                >{{_('周')}}
                                 </option>
                                 <option value="month"
                                     %if rent.get('minimum_rent_period',{}).get('unit','week')=="month":
-                                    selected
-                                    %end
+                                selected
+                                %end
                                 >{{_('月')}}
                                 </option>
                             </select>
                         </td>
                     </tr>
-
                     <tr data-bind="if: rentTypeSlug() === 'rent_type:single'">
                         <td class="title">
                             <div class="text">{{_('当前室友人数')}}</div>
@@ -466,255 +440,255 @@
                     <div class="image_panel" data-cover="{{rent.get('property', {}).get('cover','')}}">
                         <div id="fileuploader" class="upload_image"
                             %if rent.get('property', {}).get('reality_images'):
-                            data-files="{{','.join(rent.get('property', {}).get('reality_images'))}}"
-                            %end
-                            >
-                            {{_('请将房源照片直接拖拽至此，')}}<br>{{_('或者点击此处手动选择电脑中的照片上传。')}}
-                        </div>
-                        <div id="uploadProgress" class="clearfix"></div>
-                        <p class="tipOfSetCover">{{_('提示:点击上方的预览图可以将其设置为封面图，用来展示在出租房列表中')}}</p>
-                        <div class="with_weixin" style="display: none">
-                            <div class="information">
-                                <div class="on_phone">
-                                    {{_('图片在手机上？')}}
-                                </div>
-                                <div class="no_problem">
-                                    {{_('没关系，您可通过微信扫描二维码关注我们的公众账号来上传图片')}}
-                                </div>
+                        data-files="{{','.join(rent.get('property', {}).get('reality_images'))}}"
+                        %end
+                        >
+                        {{_('请将房源照片直接拖拽至此，')}}<br>{{_('或者点击此处手动选择电脑中的照片上传。')}}
+                    </div>
+                    <div id="uploadProgress" class="clearfix"></div>
+                    <p class="tipOfSetCover">{{_('提示:点击上方的预览图可以将其设置为封面图，用来展示在出租房列表中')}}</p>
+                    <div class="with_weixin" style="display: none">
+                        <div class="information">
+                            <div class="on_phone">
+                                {{_('图片在手机上？')}}
                             </div>
-                            <div class="information">
-                                <div class="qrcode">
-                                    <img/>
-                                </div>
+                            <div class="no_problem">
+                                {{_('没关系，您可通过微信扫描二维码关注我们的公众账号来上传图片')}}
+                            </div>
+                        </div>
+                        <div class="information">
+                            <div class="qrcode">
+                                <img/>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="load_more">
-                <div class="load_more">
-                    {{_('更多详细描述，配套设施，定金及周边学校和地铁')}}
-                </div>
-                <div class="more_info">
-                    {{_('更详尽的房源及周边描述能增加租客的询问')}}
-                </div>
-            </div>
-            <div id="more_information" style="display: none">
-                <hr class="divider"/>
-                <table class="submit">
-                    <tr>
-                        <td class="title">
-                            <div class="text">
-                                {{_('标题')}}
-                            </div>
-                        </td>
-                        <td class="content">
-                            <input class="headline" id="title" value="{{rent.get('title','')}}" placeholder="{{rent.get('title','')}}" data-attr="placeholder" data-validator="trim,lengthRange(8-40)" data-name="{{_('标题')}}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="title">
-                            <div class="text">
-                                {{_('描述')}}
-                            </div>
-                        </td>
-                        <td class="content">
-                            <textarea class="description" id="description" data-name="{{_('描述')}}" placeholder="{{_('请补充对房屋特点的描述，优质而独特的房源描述会得到平台的推荐，提升您的房源排名。（请勿在此填写任何形式的联系方式，违规发布将会予以处理）')}}">{{rent.get('description','')}}</textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="title">
-                            <div class="text">
-                                <span>{{_('定金')}}</span>
-                                <tips params="tips: '{{_('Holding Deposit，是租客确定预订后锁定房源所需要向您交付的定金，当租客入住时确保房源和确认信息一致，平台将在24小时后把钱转付给您以冲抵押金或房租')}}'"></tips>
-                            </div>
-                        </td>
-                        <td class="holdingDeposit">
-                            <div>
-                                <select id="holdingDepositUnit" style="width: 150px;">
-                                    %if rent.get('holding_deposit',{}).get('unit'):
-                                    <option value="CNY"
-                                        %if rent.get('holding_deposit',{}).get('unit') == "CNY":
-                                    selected
-                                    %end
-                                    >{{_('人民币')}}</option>
-                                    <option value="GBP"
-                                        %if rent.get('holding_deposit',{}).get('unit') == "GBP":
-                                    selected
-                                    %end
-                                    >{{_('英镑')}}</option>
-                                    <option value="USD"
-                                        %if rent.get('holding_deposit',{}).get('unit') == "USD":
-                                    selected
-                                    %end
-                                    >{{_('美元')}}</option>
-                                    <option value="EUR"
-                                        %if rent.get('holding_deposit',{}).get('unit') == "EUR":
-                                    selected
-                                    %end
-                                    >{{_('欧元')}}</option>
-                                    <option value="HKD"
-                                        %if rent.get('holding_deposit',{}).get('unit') == "HKD":
-                                    selected
-                                    %end
-                                    >{{_('港币')}}</option>
-                                    %else:
-                                    <option value="CNY">{{_('人民币')}}</option>
-                                    <option value="GBP" selected>{{_('英镑')}}</option>
-                                    <option value="USD">{{_('美元')}}</option>
-                                    <option value="EUR">{{_('欧元')}}</option>
-                                    <option value="HKD">{{_('港币')}}</option>
-                                    %end
-                                </select>
-                            </div>
-                            <div>
-                                <input id="holdingDeposit" name="holdingDeposit" type="text" data-validator="required, trim, number, >(0)" data-name="{{_('定金')}}" value="{{int(float(rent.get('holding_deposit',{}).get('value','500')))}}">
-                            </div>
-
-                        </td>
-                    </tr>
-                    <tr class="facilitiesBox">
-                        <td class="title">
-                            <div class="text">
-                                {{_('居家设施')}}
-                            </div>
-                        </td>
-                        <td class="content">
-                            <ul class="facilities indoorFacilities clearfix">
-                                %for index, facility in enumerate(indoor_facility_list):
-                                <li>
-                                    <input type="checkbox" value="{{facility.get('id')}}" id="{{facility.get('id')}}"
-                                        %if facility.get('id') in map(lambda obj: obj.get('id'),rent.get('property',{}).get('indoor_facility',[])):
-                                        checked
-                                        %end
-                                    />
-                                    <label for="{{facility.get('id')}}">{{facility.get('value')}}</label>
-                                </li>
-                                %end
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr class="facilitiesBox">
-                        <td class="title">
-                            <div class="text">
-                                {{_('社区设施')}}
-                            </div>
-                        </td>
-                        <td class="content">
-                            <ul class="facilities communityFacilities clearfix">
-                                %for index, facility in enumerate(community_facility_list):
-                                <li>
-                                    <input type="checkbox" value="{{facility.get('id')}}" id="{{facility.get('id')}}"
-                                        %if facility.get('id') in map(lambda obj: obj.get('id'),rent.get('property',{}).get('community_facility',[])):
-                                        checked
-                                        %end
-                                    />
-                                    <label for="{{facility.get('id')}}">{{facility.get('value')}}</label>
-                                </li>
-                                %end
-                            </ul>
-                        </td>
-                    </tr>
-                    <!-- @@include=../static/templates/edit_travel_time.tpl.html-->
-                    <!-- @@include=../static/templates/surrouding_search_input.tpl.html-->
-                    <textarea id="featuredFacilityData" style="display: none">
-                        {{json_dumps(rent.get('property',{}).get('featured_facility',[]))}}
-                    </textarea>
-
-                    <!-- todo 暂时注释掉方便调试-->
-                    <!--<tr data-bind="visible: showSurrouding">-->
-                    <tr>
-                        <td class="title">
-                            <div class="text">
-                                {{_('周边')}}
-                            </div>
-                        </td>
-                        <td class="content">
-                            <div class="addWrap">
-                                <surrouding-search-input params="surroudingToAdd: surroudingToAdd"></surrouding-search-input>
-                                <edit-travel-time params="item: surroudingToAdd"></edit-travel-time>
-                                <span class="addBtn" data-bind="visible: surroudingToAdd().traffic_time && surroudingToAdd().traffic_time.length, click: addSurrouding">{{_('添加')}}</span>
-                            </div>
-                            <div>
-
-                                <p class="hint" data-bind="visible: surroudingHint() !== undefined && surroudingHint().length, text: surroudingHint"></p>
-                                <ul class="surrounding" data-bind="foreach: { data: !isShowAll() && !animate() ? surrouding.slice(0,10) : surrouding, as: 'item' }, css: {animate: animate(), shrink: !isShowAll()}, style: {maxHeight: surrouding().length * 40 + 'px'}">
-                                    <li>
-                                        <i data-bind="css: type.iconfont"></i>
-                                        <span class="name" data-bind="text: name"></span>
-                                        <edit-travel-time params="item: item"></edit-travel-time>
-                                        <i class="icon-delete" data-bind="click: $parent.removeSurrouding" title="{{_('删除')}}"></i>
-                                    </li>
-                                </ul>
-                                <div data-bind="visible: surrouding().length > 10">
-                                    <a class="showAll" href="" data-bind="visible: !isShowAll(), click: showAll">
-                                        <span>{{_('显示全部')}}</span>
-                                        <i class="icon-down_arrow"></i>
-                                    </a>
-                                    <a class="showAll" href="" data-bind="visible: isShowAll(), click: hideAll">
-                                        <span>{{_('收起')}}</span>
-                                        <i class="icon-up_arrow2"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <!--<tr>
-                        <td class="title">
-                            <div class="text">
-                                {{_('街区描述')}}
-                            </div>
-                        </td>
-                        <td class="content">
-                            <ul id="intentionTag" class="inner">
-                                <li id="more_region_highlight_panel" style="width: 100px;">
-                                    <div id="more_region_highlight_handler">
-                                        <img alt="" src="/static/images/customer/ico_add_panel.png">
-                                    </div>
-                                    <div id="more_region_highlight_img" style="padding-left: 5px;display: none;">
-                                        <img alt="" src="/static/images/customer/bg_more_description.png">
-                                    </div>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr id="more_region_highlight" style="display: none;">
-                        <td></td>
-                        <td>
-                            <div class="block_description">
-                                <ul>
-                                    %for index, region_highlight in enumerate(region_highlight_list):
-                                    <li data-id="{{region_highlight.get('id')}}">
-                                        <div>
-                                            {{region_highlight.get('value')}}
-                                        </div>
-                                    </li>
-                                    %end
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>-->
-                </table>
-            </div>
-        </form>
-        % if user and set(user.get('role')) & set(['jr_admin','admin','jr_operation','operation']):
-        <div class="cooperation">
-            <input id="cooperation" type="checkbox"
-                %if rent.get('property',{}).get('partner'):
-                checked
-                %end
-                >
-            <label for="cooperation">{{_('是否为平台合作房源')}}</label>
+    </div>
+    <div id="load_more">
+        <div class="load_more">
+            {{_('更多详细描述，配套设施，定金及周边学校和地铁')}}
         </div>
-        % end
-        <div class="errorMsg" style="display: none;"></div>
-        <div style="text-align: center">
-            %if rent.get('property',{}) and rent.get('property',{}).get('id',''):
-            <button class="submit_button ajaxButton manualTriggerLoadingEnd" id="submit" data-propertyid="{{rent.get('property',{}).get('id','')}}">{{_('下一步')}}</button>
-            %else:
-            <button class="submit_button ajaxButton manualTriggerLoadingEnd" id="submit">{{_('下一步')}}</button>
-            %end
+        <div class="more_info">
+            {{_('更详尽的房源及周边描述能增加租客的询问')}}
         </div>
     </div>
+    <div id="more_information" style="display: none">
+        <hr class="divider"/>
+        <table class="submit">
+            <tr>
+                <td class="title">
+                    <div class="text">
+                        {{_('标题')}}
+                    </div>
+                </td>
+                <td class="content">
+                    <input class="headline" id="title" value="{{rent.get('title','')}}" placeholder="{{rent.get('title','')}}" data-attr="placeholder" data-validator="trim,lengthRange(8-40)" data-name="{{_('标题')}}">
+                </td>
+            </tr>
+            <tr>
+                <td class="title">
+                    <div class="text">
+                        {{_('描述')}}
+                    </div>
+                </td>
+                <td class="content">
+                    <textarea class="description" id="description" data-name="{{_('描述')}}" placeholder="{{_('请补充对房屋特点的描述，优质而独特的房源描述会得到平台的推荐，提升您的房源排名。（请勿在此填写任何形式的联系方式，违规发布将会予以处理）')}}">{{rent.get('description','')}}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="title">
+                    <div class="text">
+                        <span>{{_('定金')}}</span>
+                        <tips params="tips: '{{_('Holding Deposit，是租客确定预订后锁定房源所需要向您交付的定金，当租客入住时确保房源和确认信息一致，平台将在24小时后把钱转付给您以冲抵押金或房租')}}'"></tips>
+                    </div>
+                </td>
+                <td class="holdingDeposit">
+                    <div>
+                        <select id="holdingDepositUnit" style="width: 150px;">
+                            %if rent.get('holding_deposit',{}).get('unit'):
+                            <option value="CNY"
+                                %if rent.get('holding_deposit',{}).get('unit') == "CNY":
+                            selected
+                            %end
+                            >{{_('人民币')}}</option>
+                            <option value="GBP"
+                                %if rent.get('holding_deposit',{}).get('unit') == "GBP":
+                            selected
+                            %end
+                            >{{_('英镑')}}</option>
+                            <option value="USD"
+                                %if rent.get('holding_deposit',{}).get('unit') == "USD":
+                            selected
+                            %end
+                            >{{_('美元')}}</option>
+                            <option value="EUR"
+                                %if rent.get('holding_deposit',{}).get('unit') == "EUR":
+                            selected
+                            %end
+                            >{{_('欧元')}}</option>
+                            <option value="HKD"
+                                %if rent.get('holding_deposit',{}).get('unit') == "HKD":
+                            selected
+                            %end
+                            >{{_('港币')}}</option>
+                            %else:
+                            <option value="CNY">{{_('人民币')}}</option>
+                            <option value="GBP" selected>{{_('英镑')}}</option>
+                            <option value="USD">{{_('美元')}}</option>
+                            <option value="EUR">{{_('欧元')}}</option>
+                            <option value="HKD">{{_('港币')}}</option>
+                            %end
+                        </select>
+                    </div>
+                    <div>
+                        <input id="holdingDeposit" name="holdingDeposit" type="text" data-validator="required, trim, number, >(0)" data-name="{{_('定金')}}" value="{{int(float(rent.get('holding_deposit',{}).get('value','500')))}}">
+                    </div>
+
+                </td>
+            </tr>
+            <tr class="facilitiesBox">
+                <td class="title">
+                    <div class="text">
+                        {{_('居家设施')}}
+                    </div>
+                </td>
+                <td class="content">
+                    <ul class="facilities indoorFacilities clearfix">
+                        %for index, facility in enumerate(indoor_facility_list):
+                        <li>
+                            <input type="checkbox" value="{{facility.get('id')}}" id="{{facility.get('id')}}"
+                                %if facility.get('id') in map(lambda obj: obj.get('id'),rent.get('property',{}).get('indoor_facility',[])):
+                            checked
+                            %end
+                            />
+                            <label for="{{facility.get('id')}}">{{facility.get('value')}}</label>
+                        </li>
+                        %end
+                    </ul>
+                </td>
+            </tr>
+            <tr class="facilitiesBox">
+                <td class="title">
+                    <div class="text">
+                        {{_('社区设施')}}
+                    </div>
+                </td>
+                <td class="content">
+                    <ul class="facilities communityFacilities clearfix">
+                        %for index, facility in enumerate(community_facility_list):
+                        <li>
+                            <input type="checkbox" value="{{facility.get('id')}}" id="{{facility.get('id')}}"
+                                %if facility.get('id') in map(lambda obj: obj.get('id'),rent.get('property',{}).get('community_facility',[])):
+                            checked
+                            %end
+                            />
+                            <label for="{{facility.get('id')}}">{{facility.get('value')}}</label>
+                        </li>
+                        %end
+                    </ul>
+                </td>
+            </tr>
+            <!-- @@include=../static/templates/edit_travel_time.tpl.html-->
+            <!-- @@include=../static/templates/surrouding_search_input.tpl.html-->
+            <textarea id="featuredFacilityData" style="display: none">
+                {{json_dumps(rent.get('property',{}).get('featured_facility',[]))}}
+            </textarea>
+
+            <!-- todo 暂时注释掉方便调试-->
+            <!--<tr data-bind="visible: showSurrouding">-->
+            <tr>
+                <td class="title">
+                    <div class="text">
+                        {{_('周边')}}
+                    </div>
+                </td>
+                <td class="content">
+                    <div class="addWrap">
+                        <surrouding-search-input params="surroudingToAdd: surroudingToAdd"></surrouding-search-input>
+                        <edit-travel-time params="item: surroudingToAdd"></edit-travel-time>
+                        <span class="addBtn" data-bind="visible: surroudingToAdd().traffic_time && surroudingToAdd().traffic_time.length, click: addSurrouding">{{_('添加')}}</span>
+                    </div>
+                    <div>
+
+                        <p class="hint" data-bind="visible: surroudingHint() !== undefined && surroudingHint().length, text: surroudingHint"></p>
+                        <ul class="surrounding" data-bind="foreach: { data: !isShowAll() && !animate() ? surrouding.slice(0,10) : surrouding, as: 'item' }, css: {animate: animate(), shrink: !isShowAll()}, style: {maxHeight: surrouding().length * 40 + 'px'}">
+                            <li>
+                                <i data-bind="css: type.iconfont"></i>
+                                <span class="name" data-bind="text: name"></span>
+                                <edit-travel-time params="item: item"></edit-travel-time>
+                                <i class="icon-delete" data-bind="click: $parent.removeSurrouding" title="{{_('删除')}}"></i>
+                            </li>
+                        </ul>
+                        <div data-bind="visible: surrouding().length > 10">
+                            <a class="showAll" href="" data-bind="visible: !isShowAll(), click: showAll">
+                                <span>{{_('显示全部')}}</span>
+                                <i class="icon-down_arrow"></i>
+                            </a>
+                            <a class="showAll" href="" data-bind="visible: isShowAll(), click: hideAll">
+                                <span>{{_('收起')}}</span>
+                                <i class="icon-up_arrow2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <!--<tr>
+                <td class="title">
+                    <div class="text">
+                        {{_('街区描述')}}
+                    </div>
+                </td>
+                <td class="content">
+                    <ul id="intentionTag" class="inner">
+                        <li id="more_region_highlight_panel" style="width: 100px;">
+                            <div id="more_region_highlight_handler">
+                                <img alt="" src="/static/images/customer/ico_add_panel.png">
+                            </div>
+                            <div id="more_region_highlight_img" style="padding-left: 5px;display: none;">
+                                <img alt="" src="/static/images/customer/bg_more_description.png">
+                            </div>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr id="more_region_highlight" style="display: none;">
+                <td></td>
+                <td>
+                    <div class="block_description">
+                        <ul>
+                            %for index, region_highlight in enumerate(region_highlight_list):
+                            <li data-id="{{region_highlight.get('id')}}">
+                                <div>
+                                    {{region_highlight.get('value')}}
+                                </div>
+                            </li>
+                            %end
+                        </ul>
+                    </div>
+                </td>
+            </tr>-->
+        </table>
+    </div>
+    </form>
+    % if user and set(user.get('role')) & set(['jr_admin','admin','jr_operation','operation']):
+    <div class="cooperation">
+        <input id="cooperation" type="checkbox"
+            %if rent.get('property',{}).get('partner'):
+        checked
+        %end
+        >
+        <label for="cooperation">{{_('是否为平台合作房源')}}</label>
+    </div>
+    % end
+    <div class="errorMsg" style="display: none;"></div>
+    <div style="text-align: center">
+        %if rent.get('property',{}) and rent.get('property',{}).get('id',''):
+        <button class="submit_button ajaxButton manualTriggerLoadingEnd" id="submit" data-propertyid="{{rent.get('property',{}).get('id','')}}">{{_('下一步')}}</button>
+        %else:
+        <button class="submit_button ajaxButton manualTriggerLoadingEnd" id="submit">{{_('下一步')}}</button>
+        %end
+    </div>
+</div>
 </div>
