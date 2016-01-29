@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-01-28 19:00+0800\n"
-"PO-Revision-Date: 2016-01-28 19:05+0800\n"
+"POT-Creation-Date: 2016-01-29 16:09+0800\n"
+"PO-Revision-Date: 2016-01-29 16:11+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -256,7 +256,7 @@ msgstr "Remainning"
 #: ../web/src/static/emails/rent_intention_matched_4.html:125
 #: ../web/src/static/emails/rent_ticket_publish_success.html:115
 msgid "天"
-msgstr "days"
+msgstr "day(s)"
 
 #: ../web/src/crowdfunding.html:127 ../web/src/property.html:175
 #: ../web/src/property_wechat_poster.html:274
@@ -326,19 +326,19 @@ msgstr "House Area"
 #: ../web/src/property.html:553 ../web/src/property_to_rent.html:253
 #: ../web/src/partials/get_size.html:2 ../web/src/partials/i18n.html:4
 msgid "卧室"
-msgstr "Bedrooms"
+msgstr "Bedroom(s)"
 
 #: ../web/src/crowdfunding.html:272 ../web/src/property.html:347
 #: ../web/src/property.html:565 ../web/src/property_to_rent.html:260
 #: ../web/src/partials/get_size.html:5 ../web/src/partials/i18n.html:5
 msgid "卫生间"
-msgstr "Bathrooms"
+msgstr "Bathroom(s)"
 
 #: ../web/src/crowdfunding.html:279 ../web/src/property.html:354
 #: ../web/src/property.html:559 ../web/src/property_to_rent.html:267
 #: ../web/src/partials/i18n.html:536
 msgid "客厅"
-msgstr "Living Room"
+msgstr "Living Room(s)"
 
 #: ../web/src/crowdfunding.html:286 ../web/src/property.html:361
 #: ../web/src/property.html:571 ../web/src/partials/i18n.html:537
@@ -1125,7 +1125,7 @@ msgstr "Single Room"
 
 #: ../web/src/index.html:91 ../web/src/index_en.html:70
 msgid "整套出租"
-msgstr "Entire Place"
+msgstr "Entire Home/Flat"
 
 #: ../web/src/index.html:122
 msgid "资讯"
@@ -1212,8 +1212,7 @@ msgstr "Confirm"
 msgid "您可在洋房东上发布房产"
 msgstr "You can post real-estate info on youngfunding"
 
-#: ../web/src/intention.html:100 ../web/src/qa_rent.html:32
-#: ../web/src/masters/master.html:139
+#: ../web/src/intention.html:100 ../web/src/masters/master.html:139
 msgid "发布租房信息"
 msgstr "List Your Space"
 
@@ -1382,7 +1381,7 @@ msgstr "Main House Type"
 #: ../web/src/static/templates/featured_house_card.html:318
 #: ../server/property_interface.py:171
 msgid "室"
-msgstr "Bedrooms"
+msgstr "Bedroom(s)"
 
 #: ../web/src/property.html:468 ../web/src/property_to_rent_digest.html:73
 #: ../web/src/property_wechat_poster.html:379 ../web/src/wechat_poster.html:101
@@ -1391,7 +1390,7 @@ msgstr "Bedrooms"
 #: ../web/src/static/templates/featured_house_card.html:165
 #: ../server/property_interface.py:171
 msgid "厅"
-msgstr "Living Room"
+msgstr "Living Room(s)"
 
 #: ../web/src/property.html:514 ../web/src/property_to_rent.html:396
 msgid "查看房产周边设施"
@@ -1661,7 +1660,7 @@ msgstr "Single Selection"
 #: ../web/src/partials/requirement_rent_popup.html:60
 #: ../web/src/partials/requirement_rent_popup.html:61
 msgid "居室数"
-msgstr "Bedrooms"
+msgstr "Bedroom(s)"
 
 #: ../web/src/property_list.html:180 ../web/src/property_to_rent_list.html:150
 msgid "共找到"
@@ -1839,7 +1838,7 @@ msgstr ", Bills included"
 #: ../web/src/partials/i18n_admin.html:78
 #: ../web/src/partials/property_to_rent_edit.html:335
 msgid "不限"
-msgstr "No limit"
+msgstr "None"
 
 #: ../web/src/property_to_rent.html:583
 #: ../web/src/partials/property_to_rent_edit.html:388
@@ -1861,7 +1860,6 @@ msgid "当前入住数"
 msgstr "Current Occupants Count"
 
 #: ../web/src/property_to_rent.html:631
-#, fuzzy
 msgid "当前入住者性别"
 msgstr "Currant Occupants Gender"
 
@@ -1937,7 +1935,7 @@ msgstr "You can get"
 #: ../web/src/static/templates/featured_house_card.html:168
 #: ../web/src/static/templates/featured_house_card.html:321
 msgid "卫"
-msgstr "Bathroom"
+msgstr "Bathroom(s)"
 
 #: ../web/src/property_to_rent_digest.html:125 ../web/src/partials/i18n.html:29
 #: ../web/src/partials/i18n_admin.html:484
@@ -2152,7 +2150,7 @@ msgstr "Collapse"
 #: ../web/src/static/emails/draft_not_publish_day_7.html:18
 #: ../server/news_interface.py:140
 msgid "洋房东APP帮助中心"
-msgstr "Youngfunding APP help center"
+msgstr "Youngfunding APP Help Center"
 
 #: ../web/src/qa_app.html:17 ../web/src/qa_rent.html:18
 msgid "洋房东致力于为英国华人房东和租客提供专业简单的租房找房工具。为房东带来极速租房发布体验，独有的伦敦街区生活、房价报告，杂志般的房源移动主页。为租客带来个性化的找房体验，优质房源，长租短租，地图找房，让海外租房变得简单、便利。"
@@ -2188,19 +2186,19 @@ msgstr "Experience problem posting properties ?"
 
 #: ../web/src/qa_app.html:51 ../web/src/qa_rent.html:29
 msgid "如何发布房产？"
-msgstr "How to post properties ?"
+msgstr "How to list your space?"
 
 #: ../web/src/qa_app.html:54
 msgid "房产发布流程：登陆应用，在首页点击下方【+出租发布】，即可按照系统提示快速发布您的房产信息！发布过程超级省力！"
-msgstr "Property release process: launch application, click below on the front page  [+ rental release] to prompt  your housing information rapidlly according to the system tips! Super effort-saving!"
+msgstr "How to list your space: launch application, click below on the front page  [+ rental release] to prompt  your housing information rapidlly according to the system tips! Super effort-saving!"
 
 #: ../web/src/qa_app.html:60 ../web/src/qa_rent.html:38
 msgid "如何查看自己已经发布的房产？"
-msgstr "How to view property already been poseted ?"
+msgstr "How to view listings already been listed?"
 
 #: ../web/src/qa_app.html:63
 msgid "点击【+出租发布】，点击左上角【已发布】，即可查看到自己的房产。"
-msgstr "Click on the \"+ rental publishing\", click  \"published\" on the upper left corner, you can see your own homes."
+msgstr "Click on the \"+ List Your Space”, click  \"published\" on the upper left corner, you can see your own homes."
 
 #: ../web/src/qa_app.html:69 ../web/src/qa_rent.html:47
 msgid "刷新已经发布的房产的规则和作用是什么？"
@@ -2352,26 +2350,30 @@ msgstr "Raise investment Q&A"
 
 #: ../web/src/qa_crowdfunding.html:22
 msgid "General"
-msgstr "总体"
+msgstr ""
 
 #: ../web/src/qa_rent.html:14
 #: ../web/src/static/emails/draft_not_publish_day_3.html:15
 #: ../web/src/static/emails/draft_not_publish_day_7.html:15
 msgid "海外租房业务帮助中心"
-msgstr "Overseas rental help center"
+msgstr "Overseas Rental Help Center"
 
 #: ../web/src/qa_rent.html:32
-msgid "房产发布流程：在网站顶部导航选择“海外租房”，进入后点击页面右侧的“"
-msgstr "Property release process:  choose \"Overseas rent\" at the top of site navigation, click  \"   on the right side of the page "
+msgid "房产发布流程：打开Yangfd.com进入首页，点击“"
+msgstr "How to list your space: open Yangfd.com to enter our home page, click “"
 
 #: ../web/src/qa_rent.html:32
-msgid "”，即可按照系统提示快速发布您的房产信息！发布过程超级省力！"
-msgstr "Then you can post your property fast according to stytem  tips! That is super effort -saving!"
+msgid "用网址发布"
+msgstr "List Your Space"
+
+#: ../web/src/qa_rent.html:32
+msgid "”，3分钟完成发布，尽享多渠道免费推广！"
+msgstr "“, list your space in just 3 mins, enjoy free multi-channel marketing!"
 
 #: ../web/src/qa_rent.html:41 ../web/src/qa_rent.html:54
 #: ../web/src/qa_rent.html:63 ../web/src/qa_rent.html:81
 msgid "点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“"
-msgstr "Click your username on the top of the page to enter personal center, in \"my property\""
+msgstr "Click your username on header of our website to enter your account, find “"
 
 #: ../web/src/qa_rent.html:41 ../web/src/qa_rent.html:54
 #: ../web/src/qa_rent.html:63 ../web/src/qa_rent.html:81
@@ -2380,11 +2382,27 @@ msgstr "Click your username on the top of the page to enter personal center, in 
 #: ../web/src/user_properties.html:27 ../web/src/partials/i18n_admin.html:176
 #: ../web/src/static/emails/rent_ticket_publish_success.html:8
 msgid "出租房产"
-msgstr "Property to rent"
+msgstr "Property To Rent"
+
+#: ../web/src/qa_rent.html:41
+msgid "”中可以看到您发布的所有出租房源。"
+msgstr "“ in ”my properties”, select to see all your listings."
+
+#: ../web/src/qa_rent.html:54
+msgid "”中找出要刷新的房产，点击“刷新”即可。注意每个用户每24小时只能刷新一个房源。"
+msgstr "“ in ”my properties”, find the listing you want to refresh, click \"Refresh\" button to refresh. Note that you can  only refresh one listing in every 24 hours."
+
+#: ../web/src/qa_rent.html:63
+msgid "”中找到您要编辑的房源，点击笔型的“编辑”按钮。"
+msgstr "“ in ”my properties”, find the listing you want to edit, click the icon that looks like pen to edit listing."
 
 #: ../web/src/qa_rent.html:72 ../web/src/qa_rent.html:129
 msgid "当您发布出租信息后，平台的租客会第一时间看到您的房源信息，有意向的租客通过您的平台专属助手的审核后，专属助手会帮您确认看房时间，安排租客实时视频看房并对房源录像。之后您的房源会变成‘洋房东认证房源’，从此出租再也不用看房。如果租客确认要入住，会通过平台支付订金，入住24小时后确认与描述一致，平台将扣除一次性服务费£80并将剩余订金转给您。"
 msgstr "After you publish your listing, our tenant who subscribe with rent requirement will get notification if match, they can submit your rent request with questions they care. We have platform dedicated assistant for you to help you screening tenant, help you to make viewing appointment to live broadcast and video record for your listing. When verified by platform, you can skip on-site viewing part in the future. Tenant pay holding deposit to platform, get invoice from platform for confirmation. Platform will get our £80 service fee and transfer the rest of holding deposit to you right after tenant move in for 24 hours and no fraud found for listing."
+
+#: ../web/src/qa_rent.html:81
+msgid "”中找到您要编辑的房源，点击“已出租”按钮。"
+msgstr "“ in ”my properties”, find the listing you already rent out, click “Rent Out” to mark already rent."
 
 #: ../web/src/qa_rent.html:95
 msgid "发布成功后分享：在您出租信息发布成功后，直接在发布成功页用微信扫描二维码后，自行分享给“微信好友”，微信朋友圈”或者点击“分享到新浪微博”。"
@@ -2392,11 +2410,15 @@ msgstr "Share after posting : after successfully posting your info, scan the QR 
 
 #: ../web/src/qa_rent.html:100
 msgid "分享自己已发布的房源：点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“"
-msgstr "Share property already been posted : click personal center on the top of page, in \"my property \""
+msgstr "Share listing already listed : click your username on header of our website to enter your account, find “"
+
+#: ../web/src/qa_rent.html:101
+msgid "”中找到您要分享的房源，点击“微信分享”。"
+msgstr "“ in ”my properties”, select to see all your listings."
 
 #: ../web/src/qa_rent.html:105
 msgid "分享平台的房源：在房源详情页面右侧的分享栏，找到“微信分享”和“微博分享”，点击进行分享。"
-msgstr "Share sources on platform : find weichat share and weibo share on the right of the sources to share"
+msgstr "Share listings on platform : find weichat share and weibo share on the right of the listing to share"
 
 #: ../web/src/qa_rent.html:117
 msgid "使用洋房东网站或app发布房源收费吗？"
@@ -3598,7 +3620,7 @@ msgstr "News"
 
 #: ../web/src/masters/master.html:130
 msgid "免费咨询"
-msgstr "Contact for free"
+msgstr "Contact us"
 
 #: ../web/src/masters/master.html:171
 msgid "朋友圈里的极速出租发布APP"
@@ -3751,7 +3773,7 @@ msgstr "We are commit ourselves to bridge landlord and tenant"
 
 #: ../web/src/partials/app_download_content.html:88
 msgid "/ 3分钟极速发布，多渠道推广，一次看房解决出租问题 /"
-msgstr "/ List your space in 3 mins, publish to multi-channels, rent out with only one viewing /"
+msgstr "/ List your space in just 3 mins, enjoy free multi-channel marketing, rent out with only a single viewing /"
 
 #: ../web/src/partials/app_download_content.html:89
 msgid "/ 独有租客筛选系统保证您选到最心仪的租客 /"
@@ -3759,7 +3781,7 @@ msgstr "/ Advanced tenant screening process to ensure quality of tenant /"
 
 #: ../web/src/partials/app_download_content.html:90
 msgid "/ 成功出租后一次性收取£80 服务费，无任何隐藏费用 /"
-msgstr "/ Charge £80 service fee after rent out by us, no hidden costs /"
+msgstr "/ One-off £80 charge upon tenant moving in, no hidden costs /"
 
 #: ../web/src/partials/app_download_content_new.html:29
 #: ../web/src/partials/how_it_works_tenant_value.html:3
@@ -3810,7 +3832,7 @@ msgstr "Efficiency"
 
 #: ../web/src/partials/app_download_content_new.html:46
 msgid "3分钟极速发布，多渠道推广，一次看房解决出租问题"
-msgstr "List your space in 3 mins, publish to multi-channels, rent out with only one viewing"
+msgstr "List your space in just 3 mins, enjoy free multi-channel marketing, rent out with only a single viewing"
 
 #: ../web/src/partials/app_download_content_new.html:47
 #: ../web/src/partials/how_it_works_landlord_value.html:7
@@ -3830,7 +3852,7 @@ msgstr "Transparency"
 
 #: ../web/src/partials/app_download_content_new.html:48
 msgid "成功出租后一次性收取£80 服务费，无任何隐藏费用"
-msgstr "Charge £80 service fee after rent out by us, no hidden costs"
+msgstr "One-off £80 charge upon tenant moving in, no hidden costs"
 
 #: ../web/src/partials/app_download_content_new.html:82
 msgid "即将发布"
@@ -4087,7 +4109,7 @@ msgstr "From about %s"
 #: ../web/src/static/emails/rent_intention_matched_4.html:127
 #: ../web/src/static/emails/rent_ticket_publish_success.html:117
 msgid "周"
-msgstr " week"
+msgstr " week(s)"
 
 #: ../web/src/partials/get_rent_min_period.html:8
 #: ../web/src/partials/i18n.html:458
@@ -4096,7 +4118,7 @@ msgstr " week"
 #: ../web/src/static/emails/rent_intention_matched_4.html:129
 #: ../web/src/static/emails/rent_ticket_publish_success.html:119
 msgid "个月"
-msgstr "months"
+msgstr "month(s)"
 
 #: ../web/src/partials/get_unit_price.html:13
 msgid "参考价格"
@@ -4183,12 +4205,12 @@ msgstr "Download youngfunding APP"
 #: ../web/src/partials/how_it_works_landlord_value.html:4
 #: ../web/src/partials/index_landlord_value.html:5
 msgid "3分钟极速发布，多渠道推广"
-msgstr "List your space in 3 mins, publish to multi-channels"
+msgstr "List your space in just 3 mins, enjoy free multi-channel marketing"
 
 #: ../web/src/partials/how_it_works_landlord_value.html:4
 #: ../web/src/partials/index_landlord_value.html:5
 msgid "一次看房解决出租问题"
-msgstr "rent out with only one viewing"
+msgstr "Rent out with only a single viewing"
 
 #: ../web/src/partials/how_it_works_landlord_value.html:8
 #: ../web/src/partials/index_landlord_value.html:10
@@ -4203,7 +4225,7 @@ msgstr "to ensure quality of tenant"
 #: ../web/src/partials/how_it_works_landlord_value.html:12
 #: ../web/src/partials/index_landlord_value.html:15
 msgid "成功出租后一次性收取£80 服务费"
-msgstr "Charge £80 service fee after rent out by us"
+msgstr "One-off £80 charge upon tenant moving in"
 
 #: ../web/src/partials/how_it_works_landlord_value.html:12
 #: ../web/src/partials/index_landlord_value.html:15
@@ -4247,7 +4269,7 @@ msgstr "people"
 #: ../web/src/partials/i18n.html:12
 #: ../web/src/partials/property_to_rent_edit.html:365
 msgid "月"
-msgstr "months"
+msgstr "month(s)"
 
 #: ../web/src/partials/i18n.html:13
 #, fuzzy
@@ -5547,7 +5569,7 @@ msgstr "There are HTML tags in the input box, please edit before publish"
 
 #: ../web/src/partials/i18n.html:366
 msgid "居室"
-msgstr "Bedrooms"
+msgstr "Bedroom(s)"
 
 #: ../web/src/partials/i18n.html:367
 msgid "出租"
@@ -5833,7 +5855,7 @@ msgstr "yesterday"
 
 #: ../web/src/partials/i18n.html:438
 msgid "天前"
-msgstr " days ago"
+msgstr " day(s) ago"
 
 #: ../web/src/partials/i18n.html:439
 msgid "上周"
@@ -6121,7 +6143,7 @@ msgstr "Revert"
 #: ../web/src/static/emails/rent_intention_matched_4.html:88
 #: ../web/src/static/emails/rent_ticket_publish_success.html:78
 msgid "房间"
-msgstr "Rooms"
+msgstr "Room(s)"
 
 #: ../web/src/partials/i18n.html:525
 msgid "可立即入住"
@@ -7014,11 +7036,11 @@ msgstr "Price"
 
 #: ../web/src/partials/i18n_admin.html:218
 msgid "客厅数"
-msgstr "Living Room"
+msgstr "Living Room(s)"
 
 #: ../web/src/partials/i18n_admin.html:219
 msgid "卫生间数"
-msgstr "Bathrooms"
+msgstr "Bathroom(s)"
 
 #: ../web/src/partials/i18n_admin.html:220
 msgid "厨房数"
@@ -7939,7 +7961,7 @@ msgstr "Rent Type:"
 #: ../web/src/partials/i18n_admin.html:491
 #, fuzzy
 msgid "居室:"
-msgstr "Bedrooms"
+msgstr "Bedroom(s)"
 
 #: ../web/src/partials/i18n_admin.html:492
 msgid "移除咨询单"
@@ -8294,7 +8316,7 @@ msgstr "Number of bedrooms, fill 0 indicates studio"
 
 #: ../web/src/partials/i18n_admin.html:582
 msgid "浴室数"
-msgstr "Bathrooms"
+msgstr "Bathroom(s)"
 
 #: ../web/src/partials/i18n_admin.html:583
 msgid "创建"
@@ -8363,7 +8385,7 @@ msgstr "Common Enums"
 #: ../web/src/partials/i18n_admin.html:599
 #, fuzzy
 msgid "房间数"
-msgstr "Kitchen"
+msgstr "Room(s)"
 
 #: ../web/src/partials/i18n_admin.html:600
 #, fuzzy
@@ -8398,9 +8420,8 @@ msgid "求租意向单管理"
 msgstr "Rent Requirement Tickets"
 
 #: ../web/src/partials/i18n_admin.html:608
-#, fuzzy
 msgid "求租咨询单管理"
-msgstr "Rent Requirement Tickets"
+msgstr "Rent Request Management"
 
 #: ../web/src/partials/i18n_admin.html:609
 msgid "投资意向单管理"
@@ -8481,7 +8502,7 @@ msgstr "Property Data"
 
 #: ../web/src/partials/i18n_admin.html:627
 msgid "求租咨询单数据"
-msgstr ""
+msgstr "Rent Request"
 
 #: ../web/src/partials/i18n_admin.html:628
 msgid "邮件数据"
@@ -8562,9 +8583,8 @@ msgid "收藏房产"
 msgstr "Favourite Property"
 
 #: ../web/src/partials/i18n_admin.html:648
-#, fuzzy
 msgid "求租咨询单"
-msgstr "Rent Requirements"
+msgstr "Rent Requests"
 
 #: ../web/src/partials/i18n_admin.html:649
 msgid "查看过联系方式的房产"
@@ -8862,9 +8882,8 @@ msgid "替换"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:718
-#, fuzzy
 msgid "保存更改"
-msgstr "Change"
+msgstr "Save Changes"
 
 #: ../web/src/partials/i18n_admin.html:719
 msgid "已上传，点击重新上传"
@@ -9294,7 +9313,7 @@ msgstr "If you do not fill the default is negotiable"
 
 #: ../web/src/partials/property_to_rent_edit.html:204
 msgid "填写金额，如不填写则默认为面议"
-msgstr "Fill in the amount, if not fill the default is negotiable"
+msgstr "Fill in the amount (leave blank if negotiable)"
 
 #: ../web/src/partials/property_to_rent_edit.html:213
 msgid "房屋户型"
@@ -9378,7 +9397,7 @@ msgstr "Children"
 
 #: ../web/src/partials/property_to_rent_edit.html:431
 msgid "请填写您对租客的其他要求，如租房需要提供学生证，名片，银行流水等"
-msgstr "Please enter your other requirement for potential tenant, like Student Id, Business Card, Passport or Bank Records……"
+msgstr "Please list any additional requirements you have for the potential tenant that may include ID, passport or bank statements."
 
 #: ../web/src/partials/property_to_rent_edit.html:446
 msgid "请将房源照片直接拖拽至此，"
@@ -9390,7 +9409,7 @@ msgstr "or just click here to select pictures from your computer."
 
 #: ../web/src/partials/property_to_rent_edit.html:449
 msgid "提示:点击上方的预览图可以将其设置为封面图，用来展示在出租房列表中"
-msgstr "Tip: click the preview above to make it the cover which would be displayed on the rental list"
+msgstr "Tip: Click photo above to select the one that you would like to be displayed as cover photo."
 
 #: ../web/src/partials/property_to_rent_edit.html:453
 msgid "图片在手机上？"
@@ -9402,7 +9421,7 @@ msgstr "Fine, use wechat to scan QR codes to follow our official account to uplo
 
 #: ../web/src/partials/property_to_rent_edit.html:470
 msgid "更多详细描述，配套设施，定金及周边学校和地铁"
-msgstr "More description, facilities, holding deposit or other surroundings"
+msgstr "Click here to add further descriptions, information regarding facilities, surroundings and confirm holding deposit"
 
 #: ../web/src/partials/property_to_rent_edit.html:473
 msgid "更详尽的房源及周边描述能增加租客的询问"
@@ -10644,9 +10663,8 @@ msgid "收到新的求租需求"
 msgstr "Got new rent requirement ticket"
 
 #: ../web/src/static/emails/new_rent_request_intention_ticket.html:4
-#, fuzzy
 msgid "收到新的求租咨询信息如下："
-msgstr "Got new rent requirement ticket:"
+msgstr "Got new rent request:"
 
 #: ../web/src/static/emails/new_rent_request_intention_ticket.html:9
 msgid "入住人数："
@@ -10665,9 +10683,8 @@ msgid "目标房源："
 msgstr ""
 
 #: ../web/src/static/emails/new_rent_request_intention_ticket_title.html:1
-#, fuzzy
 msgid "收到新的求租咨询单"
-msgstr "Got new rent requirement ticket"
+msgstr "Got new rent request"
 
 #: ../web/src/static/emails/new_user.html:4
 msgid "您已经成功注册为洋房东会员，请使用手机号码"
@@ -11173,9 +11190,8 @@ msgid "提交租房需求"
 msgstr "Submit Requirement"
 
 #: ../server/main_interface_phone.py:31
-#, fuzzy
 msgid "提交求租咨询"
-msgstr "Submit Rent Requirement Ticket"
+msgstr "Request To Rent"
 
 #: ../server/main_interface_phone.py:53
 msgid "微信分享"
@@ -11256,12 +11272,6 @@ msgstr ""
 #~ msgid "你还可以选择更多"
 #~ msgstr "More Filters"
 
-#~ msgid "欢迎"
-#~ msgstr "Welcome"
-
-#~ msgid "登陆"
-#~ msgstr "Sign In"
-
 #~ msgid "功能"
 #~ msgstr "Features"
 
@@ -11296,7 +11306,7 @@ msgstr ""
 #~ msgstr "Call 400-700-8888"
 
 #~ msgid "洗手间"
-#~ msgstr "Bathroom"
+#~ msgstr "Bathroom(s)"
 
 #~ msgid "您的预算(单选)"
 #~ msgstr "Your Budget(Single Selection)"
@@ -11349,14 +11359,8 @@ msgstr ""
 #~ msgid "厨"
 #~ msgstr "Kitchen"
 
-#~ msgid "卫"
-#~ msgstr "Bathrooms"
-
 #~ msgid "地图"
 #~ msgstr "Map"
-
-#~ msgid "海外众筹"
-#~ msgstr "Crowdfunding"
 
 #~ msgid "社交"
 #~ msgstr "Social Networks"
@@ -11400,11 +11404,8 @@ msgstr ""
 #~ msgid "拨打 4000926433"
 #~ msgstr "Call 4000926433"
 
-#~ msgid "房间"
-#~ msgstr "Room"
-
 #~ msgid "厅堂"
-#~ msgstr "Living Room"
+#~ msgstr "Living Room(s)"
 
 #~ msgid "更多公告"
 #~ msgstr "More Announcements"
@@ -11487,11 +11488,8 @@ msgstr ""
 #~ msgid "此房产已存在草稿，点击跳转至草稿编辑"
 #~ msgstr ""
 
-#~ msgid "保存更改"
-#~ msgstr "Save Changes"
-
 #~ msgid "卧室数"
-#~ msgstr "Bedrooms"
+#~ msgstr "Bedroom(s)"
 
 #~ msgid "填写投资预算、国家和地区"
 #~ msgstr "Enter your budget, country or region"
@@ -11608,7 +11606,7 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "日"
-#~ msgstr "days"
+#~ msgstr "day(s)"
 
 #~ msgid "房东联系方式加载中..."
 #~ msgstr "Landlord contact loading..."
@@ -11845,4 +11843,16 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "\\b我要咨询"
-#~ msgstr "Check Availability"
+#~ msgstr "I want to consult"
+
+#~ msgid "房产发布流程：在网站顶部导航选择“海外租房”，进入后点击页面右侧的“"
+#~ msgstr ""
+#~ "How to list your space:  Open "
+#~ "Yangfd.com to enter our home page, "
+#~ "click “"
+
+#~ msgid "”，即可按照系统提示快速发布您的房产信息！发布过程超级省力！"
+#~ msgstr ""
+#~ "“, try it, ist your place in "
+#~ "just 3 mins, enjoy free multi-"
+#~ "channel marketing!"

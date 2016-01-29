@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-01-28 19:00+0800\n"
+"POT-Creation-Date: 2016-01-29 16:09+0800\n"
 "PO-Revision-Date: 2014-10-21 12:09+0800\n"
 "Last-Translator: ffang <ffang@bbtechgroup.com>\n"
 "Language: zh_Hans_CN\n"
@@ -1205,8 +1205,7 @@ msgstr ""
 msgid "您可在洋房东上发布房产"
 msgstr ""
 
-#: ../web/src/intention.html:100 ../web/src/qa_rent.html:32
-#: ../web/src/masters/master.html:139
+#: ../web/src/intention.html:100 ../web/src/masters/master.html:139
 msgid "发布租房信息"
 msgstr ""
 
@@ -2353,11 +2352,15 @@ msgid "海外租房业务帮助中心"
 msgstr ""
 
 #: ../web/src/qa_rent.html:32
-msgid "房产发布流程：在网站顶部导航选择“海外租房”，进入后点击页面右侧的“"
+msgid "房产发布流程：打开Yangfd.com进入首页，点击“"
 msgstr ""
 
 #: ../web/src/qa_rent.html:32
-msgid "”，即可按照系统提示快速发布您的房产信息！发布过程超级省力！"
+msgid "用网址发布"
+msgstr ""
+
+#: ../web/src/qa_rent.html:32
+msgid "”，3分钟完成发布，尽享多渠道免费推广！"
 msgstr ""
 
 #: ../web/src/qa_rent.html:41 ../web/src/qa_rent.html:54
@@ -2374,8 +2377,24 @@ msgstr ""
 msgid "出租房产"
 msgstr ""
 
+#: ../web/src/qa_rent.html:41
+msgid "”中可以看到您发布的所有出租房源。"
+msgstr ""
+
+#: ../web/src/qa_rent.html:54
+msgid "”中找出要刷新的房产，点击“刷新”即可。注意每个用户每24小时只能刷新一个房源。"
+msgstr ""
+
+#: ../web/src/qa_rent.html:63
+msgid "”中找到您要编辑的房源，点击笔型的“编辑”按钮。"
+msgstr ""
+
 #: ../web/src/qa_rent.html:72 ../web/src/qa_rent.html:129
 msgid "当您发布出租信息后，平台的租客会第一时间看到您的房源信息，有意向的租客通过您的平台专属助手的审核后，专属助手会帮您确认看房时间，安排租客实时视频看房并对房源录像。之后您的房源会变成‘洋房东认证房源’，从此出租再也不用看房。如果租客确认要入住，会通过平台支付订金，入住24小时后确认与描述一致，平台将扣除一次性服务费£80并将剩余订金转给您。"
+msgstr ""
+
+#: ../web/src/qa_rent.html:81
+msgid "”中找到您要编辑的房源，点击“已出租”按钮。"
 msgstr ""
 
 #: ../web/src/qa_rent.html:95
@@ -2384,6 +2403,10 @@ msgstr ""
 
 #: ../web/src/qa_rent.html:100
 msgid "分享自己已发布的房源：点击页面顶部您的用户名进入“个人中心”，在“我的房产”内“"
+msgstr ""
+
+#: ../web/src/qa_rent.html:101
+msgid "”中找到您要分享的房源，点击“微信分享”。"
 msgstr ""
 
 #: ../web/src/qa_rent.html:105
@@ -12242,5 +12265,11 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "当天入住者性别"
+#~ msgstr ""
+
+#~ msgid "房产发布流程：在网站顶部导航选择“海外租房”，进入后点击页面右侧的“"
+#~ msgstr ""
+
+#~ msgid "”，即可按照系统提示快速发布您的房产信息！发布过程超级省力！"
 #~ msgstr ""
 
