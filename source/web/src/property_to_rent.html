@@ -14,7 +14,6 @@
 <link rel="stylesheet" href="/static/styles/bingMap.css"/>
 <link rel="stylesheet" href="/static/styles/phone/wechatSharePopup.css"/>
 <link rel="stylesheet" href="/static/vendors/jcarousel/jcarousel.responsive.css"/>
-<link rel="stylesheet" href="/static/styles/rentRequestFlow.css"/>
 <!--endbuild-->
 <link rel="stylesheet" href="/static/bower_components/photoswipe/dist/default-skin/default-skin.css"/>
 
@@ -534,7 +533,6 @@
                     </div>
                 %end
 
-                <div class="seperator"></div>
                 <table class="actions">
                     <tr>
                         <td style="text-align:left;">
@@ -578,7 +576,18 @@
                     </tr>
                 </table>
             </div>
-            <!--@@include=./partials/rent_request_flow.html -->
+            <!--租房流程-->
+            <div class="rentRequestFlow">
+                %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
+                    <a class="button red hiddenOnPCWeb" href="/rent-request?ticketId={{rent.get('id')}}">{{_('我要咨询')}}</a>
+                    <button class="button red hiddenOnMobile" data-bind="click: openRentRequestForm('{{rent.get('id')}}', true)">{{_('我要咨询')}}</button>
+                % end
+                % if 'short_id' in rent['property'] and rent.get('property',{}).get('short_id',''):
+                    <div class="shortid">
+                        <span class="label">{{_('房源编号: ')}}</span><span class="id">{{rent.get('property',{}).get('short_id','')}}</span>
+                    </div>
+                %end
+            </div>
             <div class="rentPreferences">
                 <div class="basic">
                     % if 'available_rooms' in rent:

@@ -326,13 +326,50 @@ body {
             > .actions {
                 width: 100%;
                 margin-bottom: 40px;
-                .flatButton { padding: 0; width: 110px; font-size: 12px; line-height: 40px;
+                .flatButton {
+                    padding: 0;
+                    width: 110px;
+                    font-size: 12px;
+                    line-height: 40px;
+                    border-radius: 4px;
                     img { vertical-align: text-top; }
                     i {
                         font-size: 18px;
                         vertical-align: text-top;
                     }
                 }
+            }
+        }
+    }
+
+    .rentRequestFlow {
+        float: left;
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+        .button{
+            width: 100%;
+            height: 60px;
+            margin-bottom: 16px;
+            padding: 0;
+            line-height: 60px;
+            text-align: center;
+            font-size: 18px;
+            border-radius: 4px;
+        }
+
+        .shortid {
+            margin-bottom: @standard-margin * 2;
+            font-size: 0.938rem;
+            text-align: center;
+            font-weight: bold;
+
+            .label {
+                color: @red;
+            }
+
+            .id {
+                color: @red;
             }
         }
     }
