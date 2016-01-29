@@ -7,7 +7,9 @@
                 </a>
             </div>
             <div class="btn-group form-inline">
-                <select class="form-control" ng-options="p.value as p.name for p in rentIntentionTicketStatus" ng-model="selected.status" text="{%i18n('咨询单状态')%}"></select>
+                <select class="form-control" ng-options="p.value as p.name for p in rentIntentionTicketStatus" ng-model="selected.status" text="{%i18n('咨询单状态')%}">
+                    <option value="">-- {%enumOption?enumOption:$root.i18n('任意状态')%} --</option>
+                </select>
             </div>
             <div class="btn-group form-inline">
                 <input type="text" class="form-control" ng-model="selected.short_id" placeholder="{%i18n('编号')%}"/>
