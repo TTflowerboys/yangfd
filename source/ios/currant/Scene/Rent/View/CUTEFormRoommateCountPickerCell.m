@@ -33,11 +33,16 @@
 
 - (BOOL)canBecomeFirstResponder
 {
+    //when show the picker, set the default value
+    if (IsNilNullOrEmpty(self.detailTextLabel.text)) {
+        self.detailTextLabel.text = [NSString stringWithFormat:STR(@"%d人"), [self.pickerView selectedRowInComponent:0]];
+    }
     return YES;
 }
 
 - (BOOL)resignFirstResponder {
     BOOL result = [super resignFirstResponder];
+
     if (self.field.action) self.field.action(self);
     return result;
 }
