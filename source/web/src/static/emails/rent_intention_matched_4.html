@@ -128,7 +128,7 @@
                                             %elif rent.get('minimum_rent_period',{}).get('unit') == 'month':
                                             {{_('个月')}}
                                             %else:
-                                            {{property.get('space').get('unit')}}
+                                            {{rent.get('minimum_rent_period',{}).get('unit')}}
                                             %end
                                             %end
                                         </div>
