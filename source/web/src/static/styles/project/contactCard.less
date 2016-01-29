@@ -244,8 +244,15 @@
             }
         }
         .shortId{
-            margin-top: 20px;
-            text-align: right;
+            @media @pc{
+                position: absolute;
+                bottom: 0;
+                right: 0;
+            }
+            @media @phone{
+                margin-top: 10px;
+                text-align: right;
+            }
         }
         .actions{
             position: absolute;
