@@ -18,7 +18,7 @@
     <!-- @@include=./static/templates/location-search-box.tpl.html -->
 
     <div class="category three">
-        <location-search-box params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}"></location-search-box>
+        <location-search-box params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}, hotSchoolList: {{json_dumps(hot_school_list)}}"></location-search-box>
         <div class="hoverWrapper" data-bind="hoverTopBar: true">
             <div class="dateWrap">
                 <div class="date inputWrapper" data-bind="dateRangePicker: rentAvailableTimeFormated">

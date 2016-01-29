@@ -151,6 +151,7 @@
         viewModel: function(params) {
             this.parentVM = params.parentVM
             this.hotCityList = ko.observableArray(params.hotCityList)
+            this.hotSchoolList = ko.observableArray(params.hotSchoolList)
             this.active = ko.observable() //输入框是否为激活状态，激活状态
             this.query = ko.observable(params.parentVM.query() || window.team.getQuery('queryName')) //输入框的结果
             this.lastSearchText = ko.observable(params.parentVM.query() || window.team.getQuery('queryName')) //输入框的结果
@@ -168,12 +169,12 @@
             this.blur = function () {
                 setTimeout(_.bind(function () {
                     this.active(false)
-                }, this), 50)
+                }, this), 150)
             }
 
             this.focus = function () {
+                this.active(true)
                 if(this.query()) {
-                    this.active(true)
                     this.search()
                 }
             }
@@ -184,7 +185,7 @@
                 this.lastSearchText(name)
                 this.active(true)
                 if (name === undefined || !name.length) {
-                    this.hint(window.i18n('请输入内容后再进行搜索'))
+                    this.hint('')
                     this.suggestions([])
                 } else {
                     if(!this.suggestions().length) {

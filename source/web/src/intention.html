@@ -117,7 +117,7 @@
     </div>
     <hr/>
     <div class="searchTicketWrap">
-        <location-search-box params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}"></location-search-box>
+        <location-search-box params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}, hotSchoolList: {{json_dumps(hot_school_list)}}"></location-search-box>
         <div class="buttonWrap">
             <button class="ghostButton red" data-bind="click: searchTicketClick">{{_('开始搜索')}}</button>
         </div>

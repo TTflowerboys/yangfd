@@ -7,6 +7,24 @@
         </div>
 
         <div class="suggestions" data-bind="visible: active, scrollTop: scrollTop">
+            <div class="hots" data-bind="visible: query().length === 0">
+                <div class="wrap hotCities">
+                    <h3>{{_('热门城市')}}</h3>
+                    <div class="linkWrap">
+                        <!-- ko foreach: hotCityList -->
+                        <a data-bind="attr: {href: '/property-to-rent-list?city=' + id + '&queryName=' + name}, text: name"></a>
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <div class="wrap hotSchools">
+                    <h3>{{_('热门学校')}}</h3>
+                    <div class="linkWrap">
+                        <!-- ko foreach: hotSchoolList -->
+                        <a data-bind="attr: {href: '/property-to-rent-list?hesa_university=' + id + '&queryName=' + name}, text: name"></a>
+                        <!-- /ko -->
+                    </div>
+                </div>
+            </div>
             <div class="hint" data-bind="text: hint, visible: hint() !== undefined && hint().length"></div>
             <ul data-bind="foreach: suggestions,visible: suggestions().length">
                 <li data-bind="css: {active: $parent.activeSuggestionIndex() == $index()}, event: {mousedown: $parent.select}">

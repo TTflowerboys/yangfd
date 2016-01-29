@@ -38,7 +38,7 @@
         --></ul>
         <div class="content" data-bind="visible: activeTab() == 'tenant'">
             <div class="category three hiddenOnMobile">
-                <location-search-box params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}"></location-search-box>
+                <location-search-box params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}, hotSchoolList: {{json_dumps(hot_school_list)}}"></location-search-box>
                 <button class="search button red search-lg" data-bind="click: searchTicketClick">
                     {{_('搜索')}}
                 </button>
