@@ -50,7 +50,7 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
              @"otherRequirements": @"other_requirements",
              @"currentMaleRoommates": @"current_male_roommates",
              @"currentFemaleRoommates": @"current_female_roommates",
-             @"availableRooms": @"available_rooms",
+             @"accommodates": @"accommodates",
              @"independentBathroom": @"indenpendent_bathroome",
              };
 }
@@ -234,7 +234,7 @@ NSString * LocalizedLivingRoomTitle(NSString *title, NSInteger roomCount){
     else if ([key isEqualToString:@keypath(self.currentMaleRoommates)]) {
         return value;
     }
-    else if ([key isEqualToString:@keypath(self.availableRooms)]) {
+    else if ([key isEqualToString:@keypath(self.accommodates)]) {
         return value;
     }
     else if ([key isEqualToString:@keypath(self.independentBathroom)]) {

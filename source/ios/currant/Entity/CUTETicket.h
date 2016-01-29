@@ -81,7 +81,7 @@ extern NSString * __nonnull LocalizedLivingRoomTitle(NSString * __nonnull title,
 
 @property (nullable, strong, nonatomic) NSNumber *currentFemaleRoommates;
 
-@property (nullable, strong, nonatomic) NSNumber *availableRooms;
+@property (nullable, strong, nonatomic) NSNumber *accommodates;
 
 @property (nullable, strong, nonatomic) NSNumber *independentBathroom;
 

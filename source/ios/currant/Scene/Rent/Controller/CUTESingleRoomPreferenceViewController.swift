@@ -150,9 +150,9 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
                 cell.detailTextLabel?.text = STR("\(number)人")
             }
         }
-        else if field.key == "availableRooms" {
+        else if field.key == "accommodates" {
             cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-            if let number = self.form().ticket.availableRooms {
+            if let number = self.form().ticket.accommodates {
                 cell.detailTextLabel?.text = STR("\(number)人")
             }
         }
@@ -214,10 +214,10 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
                 pickerCell.pickerView.selectRow(row, inComponent: 0, animated: false)
             }
         }
-        else if field.key == "availableRooms" {
+        else if field.key == "accommodates" {
             if let pickerCell = cell as? CUTEFormRoommateCountPickerCell {
                 var row = 0
-                if let count = self.form().ticket.availableRooms {
+                if let count = self.form().ticket.accommodates {
                     row = count.integerValue
                 }
                 pickerCell.pickerView.selectRow(row, inComponent: 0, animated: false)
@@ -335,12 +335,12 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
         }
     }
     
-    func onAvailableRoomsEdit(sender:AnyObject) {
+    func onAccommodatesEdit(sender:AnyObject) {
         if let cell = sender as? CUTEFormRoommateCountPickerCell {
             let value = cell.pickerView.selectedRowInComponent(0)
 
             self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                ticket.availableRooms = NSNumber(integer: value)
+                ticket.accommodates = NSNumber(integer: value)
             })
         }
     }

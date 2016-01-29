@@ -23,7 +23,7 @@ class CUTESingleRoomPreferenceForm: CUTETicketForm {
     //exist flatmate
     var currentMaleRoommates:Int?
     var currentFemaleRoommates:Int?
-    var availableRooms:Int?
+    var accommodates:Int?
     var area:CUTEArea?
     var independentBathroom:Bool = true
     var otherRequirements:String?
@@ -67,7 +67,7 @@ class CUTESingleRoomPreferenceForm: CUTETicketForm {
 
             [FXFormFieldKey:"currentFemaleRoommates", FXFormFieldTitle:STR("SingleRoomPreference/当前女室友的数量"), FXFormFieldCell: CUTEFormRoommateCountPickerCell.self, "style": UITableViewCellStyle.Value1.rawValue, FXFormFieldAction: "onCurrentFemaleRoommatesEdit:"],
 
-            [FXFormFieldKey:"availableRooms", FXFormFieldTitle:STR("SingleRoomPreference/可入住室友"), FXFormFieldCell: CUTEFormRoommateCountPickerCell.self, "style": UITableViewCellStyle.Value1.rawValue, FXFormFieldAction: "onAvailableRoomsEdit:"],
+            [FXFormFieldKey:"accommodates", FXFormFieldTitle:STR("SingleRoomPreference/可入住室友"), FXFormFieldCell: CUTEFormRoommateCountPickerCell.self, "style": UITableViewCellStyle.Value1.rawValue, FXFormFieldAction: "onAccommodatesEdit:"],
 
             [FXFormFieldKey:"area", FXFormFieldTitle:STR("SingleRoomPreference/单间面积"), FXFormFieldHeader:STR("SingleRoomPreference/其他"), FXFormFieldAction: "onAreaEdit:"],
 
