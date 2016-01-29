@@ -19,29 +19,26 @@
 
     <div class="category three">
         <location-search-box params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}"></location-search-box>
-
-        <div class="selectWrap rentType hiddenOnMobile" data-bind="if: !window.team.isPhone()">
-            <select data-bind="value: rentType, fastChosen: rentType, changeText: {obj:summaryTitleObj, prop: 'select-rent-type'}" class="ghostSelect" name="rentType">
-                <option value="">{{_('单间或整租')}}</option>
-                %for index, rent_type in enumerate(rent_type_list):
-                <option value="{{rent_type.get('id')}}">{{rent_type.get('value')}}</option>
-                %end
-            </select>
-        </div>
-
         <div class="hoverWrapper" data-bind="hoverTopBar: true">
             <div class="dateWrap">
                 <div class="date inputWrapper" data-bind="dateRangePicker: rentAvailableTimeFormated">
                     <input data-bind="dateInput, value: rentAvailableTimeFormated, changeText: {obj:summaryTitleObj, prop: 'set-rent-available-time'}" type="text" class="" id="rentPeriodStartDate" name="rentPeriodStartDate" placeholder="{{_('请选择起租日期')}}" autocomplete="off"/>
                     <i data-bind="click: clearDate('rentAvailableTimeFormated'), visible: rentAvailableTime" class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
                 </div>
-                <span>{{_('至')}}</span>
+                <span class="hiddenOnPCWeb">{{_('至')}}</span>
                 <div class="date inputWrapper" data-bind="dateRangePicker: rentDeadlineTimeFormated">
                     <input data-bind="dateInput, value: rentDeadlineTimeFormated, changeText: {obj:summaryTitleObj, prop: 'set-rent-deadline-time'}" type="text" class="" id="rentPeriodEndDate" name="rentPeriodEndDate" placeholder="{{_('请选择结束日期')}}" autocomplete="off"/>
                     <i data-bind="click: clearDate('rentDeadlineTimeFormated'), visible: rentDeadlineTime" class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
                 </div>
             </div>
-
+            <div class="selectWrap rentType hiddenOnMobile" data-bind="if: !window.team.isPhone()">
+                <select data-bind="value: rentType, fastChosen: rentType, changeText: {obj:summaryTitleObj, prop: 'select-rent-type'}" class="ghostSelect" name="rentType">
+                    <option value="">{{_('单间或整租')}}</option>
+                    %for index, rent_type in enumerate(rent_type_list):
+                    <option value="{{rent_type.get('id')}}">{{rent_type.get('value')}}</option>
+                    %end
+                </select>
+            </div>
             <div class="hiddenOnPCWeb showTagsWrap">
                 <button id="showTags"  class="showTags textButton " data-state="closed">
                     <label>{{_('高级筛选')}}</label>

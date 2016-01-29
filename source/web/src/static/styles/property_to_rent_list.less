@@ -58,15 +58,13 @@ main {
     }
     .category {
         text-align:center;
-        margin-top:96px;
+        margin-top:28px;
         width: 100%;
-        float: left;
         &_wrapper {
-            height: 240px;
+            height: 96px;
             width:100%;
             background:#f6f6f6;
-            display:none; // display none for update height
-
+            float: left;
             @media @phone {
                 height:auto;
                 display:block;
@@ -74,7 +72,7 @@ main {
         }
         > *{
             @media @pc {
-                margin-right: 50px;
+                margin-right: -5px;
                 &:nth-last-child(1) {
                     margin-right: 0;
                 }
@@ -84,7 +82,20 @@ main {
             margin-top:0;
         }
         location-search-box{
+            @media @pc{
+                width: 620px;
+            }
             padding-bottom: 0;
+            .inputWrapper input{
+                @media @pc{
+                    border-radius: 4px 0 0 4px;
+                }
+            }
+        }
+        .chosen-container .chosen-single{
+            @media @pc{
+                border-radius: 0 4px 4px 0;
+            }
         }
         .wrap {
             display: inline-block;
@@ -129,12 +140,17 @@ main {
                     width:116px;
                     height: 30px;
                 }
+                @media @pc{
+                    margin-right: -5px;
+                    input{
+                        border-radius: 0;
+                    }
+                }
                 input{
                     width:124px;
                     height:40px;
                     line-height:40px;
                     border: 1px solid #ccc;
-                    border-radius: 4px;
                     padding-left: 6px;
                     color: #333;
                     font-size: 12px;
@@ -142,7 +158,9 @@ main {
                     background: #fff;
                     vertical-align: middle;
                     display: inline-block;
+
                     @media @phone {
+                        border-radius: 4px;
                         width:116px;
                         height:30px;
                         line-height:30px;
@@ -188,6 +206,7 @@ main {
             height: 40px;
             padding: 0;
             text-align: center;
+            margin-left: 50px;
             i {
                 font-size: 16px;
                 //vertical-align: middle;
@@ -333,7 +352,22 @@ main {
                     min-height:0;
                     border-top: 0;
                 }
-
+                .chosen-container {
+                    .chosen-single{
+                        height: 30px;
+                        line-height: 30px;
+                        border: 1px solid #aaa;
+                        border-radius: 0;
+                        div b {
+                            background-position: 0 5px;
+                        }
+                    }
+                    .chosen-drop{
+                        border: 1px solid #aaa;
+                        border-top: none;
+                        border-radius: 0;
+                    }
+                }
 
                 &_icon {
                     float:left;

@@ -196,7 +196,7 @@
                             if(suggestions.length) {
                                 this.hint('')
                             } else {
-                                this.hint(window.i18n('无结果'))
+                                this.hint('')
                             }
                             suggestions = _.map(suggestions, function (item) {
                                 var intersection = _.intersection(module.suggestionTypeSlugList, _.keys(item))
