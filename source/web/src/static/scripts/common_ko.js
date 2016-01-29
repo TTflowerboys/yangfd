@@ -206,7 +206,9 @@
                                 }
                                 return item
                             })
-                            this.suggestions(suggestions)
+                            if(this.query() && this.query().length) {
+                                this.suggestions(suggestions)
+                            }
                         }, this))
                 }
             }, this)
