@@ -12,7 +12,7 @@
         var param = $(this).serializeObject()
         $.betterPost('/api/1/user/email_recovery/send', param)
             .done(function (data) {
-                resultArea.html(i18n('重置密码邮件已经成功发送到您的邮箱，请登陆您的邮箱查收邮件')).show()
+                resultArea.html(i18n('重置密码邮件已经成功发送到您的邮箱，请登录您的邮箱查收邮件')).show()
             })
             .fail(function (ret) {
                 resultArea.empty()
