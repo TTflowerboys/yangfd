@@ -300,11 +300,10 @@ def common_template(path, **kwargs):
         kwargs['hot_city_list'] = f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(hot_city_geonames_params, per_page=-1))
     if 'hot_school_list' not in kwargs:
         hot_school_geonames_params = dict({
-            "name": {"$in": ["Birkbeck College", "Heythrop College", "Middlesex University"]},
+            "name": {"$in": ["University College London", "University of the Arts, London", "Conservatoire for Dance and Drama", "Guildhall School of Music and Drama"]},
             "country": "GB"
         })
-        print f_app.hesa.university.get(f_app.hesa.university.search(hot_school_geonames_params, per_page=-1))
-        kwargs['hot_school_list'] = f_app.hesa.university.get(f_app.hesa.university.search(hot_school_geonames_params, per_page=-1))
+        kwargs['hot_school_list'] = f_app.hesa.university.get(f_app.hesa.university.search(hot_school_geonames_params, per_page=-1))[::-1]
     # setup page utils
     kwargs.setdefault("format_unit", format_unit)
     kwargs.setdefault("fetch_image", fetch_image)
