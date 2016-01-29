@@ -272,54 +272,55 @@
                             % end
                         %end
                     </ul>
-                    % if ('street' in rent['property'] and rent.get('property',{}).get('street','')) or ('community' in rent['property'] and rent.get('property',{}).get('community','')) or ('floor' in rent['property'] and rent.get('property',{}).get('floor','')):
-                        % count = sum([bool(x in rent['property'] and rent["property"][x]) for x in ["street", "community", "floor"]])
-                        <div class="seperator"></div>
-                        <ul class="numbersWithoutSeperator">
-                            % if 'street' in rent['property'] and rent.get('property',{}).get('street',''):
-                                <li style="width: {{100/count}}%">
-                                    {{_('街道')}}
-                                    <strong>
-                                        {{rent['property'].get('street','')}}
-                                    </strong>
+                %end
 
-                                </li>
-                            % end
-                            % if 'community' in rent['property'] and rent.get('property',{}).get('community',''):
-                                <li style="width: {{100/count}}%">
-                                    {{_('小区')}}
-                                    <strong>{{ rent['property'].get('community','') }}</strong>
-                                </li>
-                            % end
+                % if ('street' in rent['property'] and rent.get('property',{}).get('street','')) or ('community' in rent['property'] and rent.get('property',{}).get('community','')) or ('floor' in rent['property'] and rent.get('property',{}).get('floor','')):
+                    % count = sum([bool(x in rent['property'] and rent["property"][x]) for x in ["street", "community", "floor"]])
+                    <div class="seperator"></div>
+                    <ul class="numbersWithoutSeperator">
+                        % if 'street' in rent['property'] and rent.get('property',{}).get('street',''):
+                            <li style="width: {{100/count}}%">
+                                {{_('街道')}}
+                                <strong>
+                                    {{rent['property'].get('street','')}}
+                                </strong>
 
-                            % if 'floor' in rent['property'] and rent.get('property',{}).get('floor',''):
-                                <li style="width: {{100/count}}%">
-                                    {{_('楼层')}}
-                                    <strong>{{ rent['property'].get('floor','') }}</strong>
-                                </li>
-                            % end
-                        </ul>
-                    % end
-
-                    % if 'short_id' in rent['property'] and rent.get('property',{}).get('short_id',''):
-                        <div class="seperator hiddenOnPCWeb"></div>
-                        <ul class="numbersWithoutSeperator hiddenOnPCWeb">
-                            <li class="hiddenOnPCWeb" style="100%">
-                                {{_('房源编号')}}
-                                <strong>{{ rent['property'].get('short_id','') }}</strong>
                             </li>
-                        </ul>
-                    % end
+                        % end
+                        % if 'community' in rent['property'] and rent.get('property',{}).get('community',''):
+                            <li style="width: {{100/count}}%">
+                                {{_('小区')}}
+                                <strong>{{ rent['property'].get('community','') }}</strong>
+                            </li>
+                        % end
 
-                    %if rent.get('description'):
-                        <div class="seperator"></div>
-                        <div class="description" data-ui="description">
-                            {{clear_html_tags(rent.get('description'))}}
-                        </div>
-                        <div class="clearfix expendDescription_wrapper">
-                            <button data-fn="expendDescription" class="ghostButton red" >{{_('展开')}}</button>
-                        </div>
-                    %end
+                        % if 'floor' in rent['property'] and rent.get('property',{}).get('floor',''):
+                            <li style="width: {{100/count}}%">
+                                {{_('楼层')}}
+                                <strong>{{ rent['property'].get('floor','') }}</strong>
+                            </li>
+                        % end
+                    </ul>
+                % end
+
+                % if 'short_id' in rent['property'] and rent.get('property',{}).get('short_id',''):
+                    <div class="seperator hiddenOnPCWeb"></div>
+                    <ul class="numbersWithoutSeperator hiddenOnPCWeb">
+                        <li class="hiddenOnPCWeb" style="100%">
+                            {{_('房源编号')}}
+                            <strong>{{ rent['property'].get('short_id','') }}</strong>
+                        </li>
+                    </ul>
+                % end
+
+                %if rent.get('description'):
+                    <div class="seperator"></div>
+                    <div class="description" data-ui="description">
+                        {{clear_html_tags(rent.get('description'))}}
+                    </div>
+                    <div class="clearfix expendDescription_wrapper">
+                        <button data-fn="expendDescription" class="ghostButton red" >{{_('展开')}}</button>
+                    </div>
                 %end
             </div>
 
