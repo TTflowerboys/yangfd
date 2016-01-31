@@ -180,7 +180,7 @@ class f_maponics(f_app.plugin_base):
 
         if f_app.util.batch_iterable(neighborhood_id_or_list):
             with f_app.mongo() as m:
-                result_list = list(self.get_database(m).find({"_id": {"$in": map(ObjectId, neighborhood_id_or_list)}, "status": {"$ne": "deleted"}}))
+                result_list = list(self.neighborhood.get_database(m).find({"_id": {"$in": map(ObjectId, neighborhood_id_or_list)}, "status": {"$ne": "deleted"}}))
 
             if len(result_list) < len(neighborhood_id_or_list):
                 found_list = map(lambda neighborhood: str(neighborhood["_id"]), result_list)
