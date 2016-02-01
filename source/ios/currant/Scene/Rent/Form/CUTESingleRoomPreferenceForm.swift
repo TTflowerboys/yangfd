@@ -63,11 +63,13 @@ class CUTESingleRoomPreferenceForm: CUTETicketForm {
 
             [FXFormFieldKey:"noBaby", FXFormFieldTitle:STR("SingleRoomPreference/允许带小孩入住"), FXFormFieldType: FXFormFieldTypeOption, FXFormFieldCell: CUTEFormSwitchCell.self, FXFormFieldAction: "onNoBabyEdit:"],
 
-            [FXFormFieldKey:"currentMaleRoommates", FXFormFieldTitle:STR("SingleRoomPreference/当前男室友的数量"), FXFormFieldHeader:STR("SingleRoomPreference/目前室友"), FXFormFieldCell: CUTEFormRoommateCountPickerCell.self, "style": UITableViewCellStyle.Value1.rawValue, FXFormFieldAction: "onCurrentMaleRoommatesEdit:"],
+
+            [FXFormFieldKey:"accommodates", FXFormFieldTitle:STR("SingleRoomPreference/可入住人数"), FXFormFieldCell: CUTEFormRoommateCountPickerCell.self, "style": UITableViewCellStyle.Value1.rawValue, FXFormFieldAction: "onAccommodatesEdit:", FXFormFieldHeader:STR("SingleRoomPreference/目前室友")],
+
+            [FXFormFieldKey:"currentMaleRoommates", FXFormFieldTitle:STR("SingleRoomPreference/当前男室友的数量"), FXFormFieldCell: CUTEFormRoommateCountPickerCell.self, "style": UITableViewCellStyle.Value1.rawValue, FXFormFieldAction: "onCurrentMaleRoommatesEdit:"],
 
             [FXFormFieldKey:"currentFemaleRoommates", FXFormFieldTitle:STR("SingleRoomPreference/当前女室友的数量"), FXFormFieldCell: CUTEFormRoommateCountPickerCell.self, "style": UITableViewCellStyle.Value1.rawValue, FXFormFieldAction: "onCurrentFemaleRoommatesEdit:"],
 
-            [FXFormFieldKey:"accommodates", FXFormFieldTitle:STR("SingleRoomPreference/可入住室友"), FXFormFieldCell: CUTEFormRoommateCountPickerCell.self, "style": UITableViewCellStyle.Value1.rawValue, FXFormFieldAction: "onAccommodatesEdit:"],
 
             [FXFormFieldKey:"area", FXFormFieldTitle:STR("SingleRoomPreference/单间面积"), FXFormFieldHeader:STR("SingleRoomPreference/其他"), FXFormFieldAction: "onAreaEdit:"],
 
