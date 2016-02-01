@@ -1673,13 +1673,42 @@ def aggregation_rent_request(user, params):
             })
         )
         request_count_before_rent_list = []
-        for ticket in result:
+        relocate_different_city_count = 0
+        user_have_request_set = set()
+        user_different_city_set = set()
+        for index, ticket in enumerate(result):
+            if index < 99:
+                continue
+            print index
+            if 'user_id' in ticket:
+                print ticket['user_id']
+                user_have_request_set.add(ticket['user_id'])
+            if 'custom_fields' in ticket:
+                relocate_city = None
+                want_rent_city = None
+                for single in ticket['custom_fields']:
+                    if single.get('key', '') == 'relocate':
+                        relocate_city = single.get('value', '').split(',')[-1].lstrip(' ')
+                        print (relocate_city, want_rent_city)
+                try:
+                    interested_ticket_id = ticket['interested_rent_tickets'][0]
+                    interested_ticket = f_app.ticket.get(interested_ticket_id)
+                    want_rent_city = f_app.i18n.process_i18n(f_app.property.get(interested_ticket['property_id'])).get('city', {}).get('name', None)
+                except:
+                    continue
+                if relocate_city is not None and want_rent_city is not None:
+                    print (relocate_city, want_rent_city)
+                    if relocate_city != want_rent_city:
+                        if 'user_id' in ticket:
+                            print ticket['user_id']
+                            user_different_city_set.add(ticket['user_id'])
+                        relocate_different_city_count += 1
             if ticket['status'] == 'rent':
                 for single in aggregation_rent_request_count_sort:
                     if single['ticket_id'] in ticket['interested_rent_tickets']:
                         request_count_before_rent_list.append(single['count'])
         value.update({"aggregation_rent_request_average_count_before_rent": sum(request_count_before_rent_list)*1.0/len(request_count_before_rent_list) if len(request_count_before_rent_list) else 0})
-
+        value.update({'aggregation_rent_request_user_rent_different_city_ratio': float(1.0 * len(user_different_city_set) / len(user_have_request_set))})
     return value
 
 
@@ -2389,7 +2418,7 @@ def user_analyze(user):
                 total += m.favorites.find({
                     "status": {"$ne": "deleted"},
                     "type": "rent_ticket",
-                    "ticket_id": single_ticket_id
+                    "ticket_id": ObjectId(single_ticket_id)
                 }).count()
         return total
 
@@ -2423,7 +2452,7 @@ def user_analyze(user):
             for single_ticket_id in ticket_list:
                 total += m.log.find({
                     "type": "route",
-                    "rent_ticket_id": single_ticket_id
+                    "route": '/property-to-rent/' + single_ticket_id
                 }).count()
         return total
 
@@ -2540,7 +2569,7 @@ def user_analyze(user):
     header = [
         '用户名', '注册时间', '性别', '年龄', '职业', '电话', '邮箱', '国家', '城市', '用户类型',
         '单独访问次数', '活跃天数', 'app下载', '跳出页面',
-        '发布过的房源数量', '房东类型', '正在发布中的房源数量', '房东收到的咨询单数量', '房源被查看的次数', '房源被收藏次数', '房源被刷新的次数', '有没有草稿', '发布时间', '地区', '国家', '城市', '街区', '单间还是整套', '短租长租', '租金', '已发布时间(天)', '提前多久开始出租(天)', '分享房产',
+        '发布过的房源数量', '房东类型', '正在发布中的房源数量', '房东收到的咨询单数量', '房源被查看的次数', '分享房产', '房源被收藏次数', '房源被刷新的次数', '有没有草稿', '发布时间', '地区', '国家', '城市', '街区', '单间还是整套', '短租长租', '租金', '已发布时间(天)', '提前多久开始出租(天)',
         '查看房产次数', '收藏房产次数', '停留时间最多的页面或rental房产', '咨询单数量', '最近一次提交时间', '最近一次入住开始时间', '最近一次入住结束时间', '提前多久开始找房', '入住人数', '吸烟', '带小孩', '带宠物',
         '求租时间', '预算', '地区', '匹配级别', '查看房东联系方式的次数', '分享房产',
         '浏览数量', '投资单提交数量', '投资意向时间', '投资预算', '期房还是现房', '几居室', '停留时间最多的页面或sales房产', '跳出的页面'
@@ -2615,6 +2644,7 @@ def user_analyze(user):
             get_to_rent_ticket_total(user),  # 正在发布中的房源数量
             get_request_ticket_total(user),  # 房东收到的咨询单数量
             get_own_house_viewed_time(user),  # 房源被查看的次数
+            get_own_house_share_time(user),  # 分享房产
             get_own_house_favorite_time(user),  # 房源被收藏次数
             get_own_house_refresh_total(ticket_to_rent),  # 房源被刷新的次数
             user.get("analyze_rent_has_draft", ''),  # 有没有草稿
@@ -2630,7 +2660,6 @@ def user_analyze(user):
             user.get("analyze_rent_price", ''),  # 租金
             wait_rent_priod,  # 已发布时间
             wait_to_rent_priod,  # 提前多久开始出租(天)
-            get_own_house_share_time(user),  # 分享房产
 
             user.get("analyze_rent_intention_views_times", ''),  # 查看房产次数
             user.get("analyze_rent_intention_favorite_times", ''),  # 收藏房产次数
