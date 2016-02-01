@@ -110,9 +110,14 @@
         hintLabel.numberOfLines = 0;
         hintLabel.font = [UIFont systemFontOfSize:16];
         hintLabel.text = STR(@"RentTypeList/您有整套或单间房源要出租？\n从这里开始免费发布！");
+        CGFloat cellsHeight = 165;
+        CGFloat spaceHeight = [UIScreen mainScreen].bounds.size.height - cellsHeight - StatusBarHeight - TouchHeightDefault  - TabBarHeight;
+        CGSize textSize = TextSizeOfLabel(hintLabel);
+        CGFloat marginBottom = - ((spaceHeight - textSize.height) / 2);
+
         [self.tableView.backgroundView addSubview:hintLabel];
         MakeBegin(hintLabel)
-        MakeBottomEqualTo(hintLabel.superview.bottom).offset(-135);
+        MakeBottomEqualTo(hintLabel.superview.bottom).offset(marginBottom);
         MakeLeftEqualTo(hintLabel.superview);
         MakeRighEqualTo(hintLabel.superview);
         MakeEnd
