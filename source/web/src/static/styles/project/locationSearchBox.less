@@ -26,7 +26,8 @@ location-search-box {
                 border: 1px solid #ccc;
                 border-radius: 4px;
                 &.active{
-                    border-radius: 4px 4px 0 0;
+                    border-bottom-right-radius: 0;
+                    border-bottom-left-radius: 0;
                 }
             }
             i{
@@ -73,10 +74,12 @@ location-search-box {
             z-index: 50;
             top: 100%;
             width: 100%;
+            //width: calc(~'100% - 1px');
             max-height: 300px;
             overflow-y: auto;
             background: #fff;
             border: 1px solid #cccccc;
+            border-top: none;
             border-radius: 0 0 4px 4px;
             text-align: left;
             @media @phone{
@@ -161,20 +164,27 @@ location-search-box {
             @media @phone{
                 width: 100%;
                 position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
                 z-index: -1;
-                h3{
-                    font-size: 14px;
-                    margin-bottom: 30px;
-                }
-                a{
-                    display: block;
-                    margin-bottom: 20px;
-                    font-size: 18px;
-                    text-align: center;
-                    color: @red;
-                    text-decoration: none;
+                .wrap{
+                    margin: 24px 0 0;
+                    .clearfix;
+                    h3{
+                        float: left;
+                        margin-right: 12px;
+                        padding: 0 12px;
+                        font-size: 14px;
+                    }
+                    .linkWrap{
+                        overflow: hidden;
+                        a{
+                            display: block;
+                            text-align: left;
+                            margin-bottom: 10px;
+                            font-size: 14px;
+                            color: @red;
+                            text-decoration: none;
+                        }
+                    }
                 }
             }
         }
@@ -187,7 +197,7 @@ location-search-box {
             top: 0;
             left: 0;
             background: #eeeeee;
-            z-index: 100;
+            z-index: 10001;
 
             .topWrap{
                 height: 44px;

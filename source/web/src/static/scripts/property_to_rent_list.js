@@ -510,7 +510,7 @@
         this.rentBudgetMin = ko.observable()
         this.rentBudgetMax = ko.observable()
         this.propertyType = ko.observable('')
-        this.bedroomCount = ko.observable()
+        this.bedroomCount = ko.observable('')
         this.space = ko.observable('')
         this.query = ko.observable()
         this.hesaUniversity = ko.observable()
@@ -561,6 +561,12 @@
                 }, this))
             }
         }, this)
+
+        this.goToHots = function (data) {
+            this[window.project.underscoreToCamel(data.key)](data.id)
+            this.queryName(data.queryName)
+            this.query(data.queryName)
+        }
 
         //合并短时间内对同一函数的多次调用
         var mergeInvoke = (function () {

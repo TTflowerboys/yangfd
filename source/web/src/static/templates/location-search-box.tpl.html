@@ -12,7 +12,7 @@
                     <h3>{{_('热门城市')}}</h3>
                     <div class="linkWrap">
                         <!-- ko foreach: hotCityList -->
-                        <a data-bind="attr: {href: '/property-to-rent-list?city=' + id + '&queryName=' + name}, text: name"></a>
+                        <a data-bind="click: $parent.goToHotCity.bind($parent), text: name"></a>
                         <!-- /ko -->
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                     <h3>{{_('热门学校')}}</h3>
                     <div class="linkWrap">
                         <!-- ko foreach: hotSchoolList -->
-                        <a data-bind="attr: {href: '/property-to-rent-list?hesa_university=' + id + '&queryName=' + name}, text: name"></a>
+                        <a data-bind="click: $parent.goToHotSchool.bind($parent), text: name"></a>
                         <!-- /ko -->
                     </div>
                 </div>
@@ -50,11 +50,25 @@
                 </form><!--
                 --><a class="cancel" data-bind="click: hideSearchModal">{{_('取消')}}</a>
             </div>
-            <div class="hots" data-bind="">
-                <h3>{{_('热门搜索')}}</h3>
-                <!-- ko foreach: hotCityList -->
-                <a data-bind="attr: {href: '/property-to-rent-list?city=' + id + '&queryName=' + name}, text: name"></a>
-                <!-- /ko -->
+            <div class="hots" data-bind="visible: query().length === 0">
+                <div class="wrap hotCities">
+                    <h3>{{_('热门城市')}}</h3>
+                    <div class="linkWrap">
+                        <!-- ko foreach: hotCityList().slice(0, 3) -->
+                        <!--<a data-bind="attr: {href: '/property-to-rent-list?city=' + id + '&queryName=' + name}, text: name"></a>-->
+                        <a data-bind="click: $parent.goToHotCity.bind($parent), text: name"></a>
+                        <!-- /ko -->
+                    </div>
+                </div>
+                <div class="wrap hotSchools">
+                    <h3>{{_('热门学校')}}</h3>
+                    <div class="linkWrap">
+                        <!-- ko foreach: hotSchoolList().slice(0, 3) -->
+                        <!--<a data-bind="attr: {href: '/property-to-rent-list?hesa_university=' + id + '&queryName=' + name}, text: name"></a>-->
+                        <a data-bind="click: $parent.goToHotSchool.bind($parent), text: name"></a>
+                        <!-- /ko -->
+                    </div>
+                </div>
             </div>
             <div class="suggestions" data-bind="visible: active, event: {touchmove: hideKeyboard}">
                 <div class="hint" data-bind="text: hint, visible: hint() !== undefined && hint().length"></div>

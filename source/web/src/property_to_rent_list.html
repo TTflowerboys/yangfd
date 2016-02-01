@@ -18,20 +18,23 @@
     <!-- @@include=./static/templates/location-search-box.tpl.html -->
 
     <div class="category three">
-        <location-search-box params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}, hotSchoolList: {{json_dumps(hot_school_list)}}"></location-search-box>
-        <div class="hoverWrapper" data-bind="hoverTopBar: true">
+        <location-search-box params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}, hotSchoolList: {{json_dumps(hot_school_list)}}"></location-search-box><!--
+    --><div class="hoverWrapper" data-bind="hoverTopBar: true">
             <div class="dateWrap">
-                <div class="date inputWrapper" data-bind="dateRangePicker: rentAvailableTimeFormated">
-                    <input data-bind="dateInput, value: rentAvailableTimeFormated, changeText: {obj:summaryTitleObj, prop: 'set-rent-available-time'}" type="text" class="" id="rentPeriodStartDate" name="rentPeriodStartDate" placeholder="{{_('请选择起租日期')}}" autocomplete="off"/>
+                <span class="hiddenOnPCWeb">{{_('租期')}}</span><!--
+            --><div class="date inputWrapper" data-bind="dateRangePicker: rentAvailableTimeFormated">
+                    <input data-bind="dateInput, value: rentAvailableTimeFormated, changeText: {obj:summaryTitleObj, prop: 'set-rent-available-time'}" type="text" class="" id="rentPeriodStartDate" name="rentPeriodStartDate" placeholder="{{_('选择起租日期')}}" autocomplete="off"/>
+                    <label for="rentPeriodStartDate"></label>
                     <i data-bind="click: clearDate('rentAvailableTimeFormated'), visible: rentAvailableTime" class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
-                </div>
-                <span class="hiddenOnPCWeb">{{_('至')}}</span>
-                <div class="date inputWrapper" data-bind="dateRangePicker: rentDeadlineTimeFormated">
-                    <input data-bind="dateInput, value: rentDeadlineTimeFormated, changeText: {obj:summaryTitleObj, prop: 'set-rent-deadline-time'}" type="text" class="" id="rentPeriodEndDate" name="rentPeriodEndDate" placeholder="{{_('请选择结束日期')}}" autocomplete="off"/>
+                </div><!--
+            --><span class="hiddenOnPCWeb">{{_('至')}}</span><!--
+            --><div class="date inputWrapper" data-bind="dateRangePicker: rentDeadlineTimeFormated">
+                    <input data-bind="dateInput, value: rentDeadlineTimeFormated, changeText: {obj:summaryTitleObj, prop: 'set-rent-deadline-time'}" type="text" class="" id="rentPeriodEndDate" name="rentPeriodEndDate" placeholder="{{_('选择结束日期')}}" autocomplete="off"/>
+                    <label for="rentPeriodEndDate"></label>
                     <i data-bind="click: clearDate('rentDeadlineTimeFormated'), visible: rentDeadlineTime" class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
                 </div>
-            </div>
-            <div class="selectWrap rentType hiddenOnMobile" data-bind="if: !window.team.isPhone()">
+            </div><!--
+        --><div class="selectWrap rentType hiddenOnMobile" data-bind="if: !window.team.isPhone()">
                 <select data-bind="value: rentType, fastChosen: rentType, changeText: {obj:summaryTitleObj, prop: 'select-rent-type'}" class="ghostSelect" name="rentType">
                     <option value="">{{_('单间或整租')}}</option>
                     %for index, rent_type in enumerate(rent_type_list):
@@ -97,7 +100,7 @@
             <div class="rentType hiddenOnPCWeb">
                 <i class="rentType_icon icon-door"></i>
                 <h4 class="rentType_title">{{_('出租类型')}}</h4>
-                <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-rent-type'}" class="inner" params="list: {{json_dumps(rent_type_list)}}, key: 'rentType', vm: $data, unLimited: true"></filter-tags>
+                <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-rent-type'}" class="inner" params="list: {{json_dumps(rent_type_list)}}, key: 'rentType', vm: $data, unLimited: true, autoSelectFirstItem: true"></filter-tags>
             </div>
             %end
 
@@ -105,7 +108,7 @@
             <div class="propertyType">
                 <i class="propertyType_icon icon-building"></i>
                 <h4 class="propertyType_title">{{_('房产类型')}}</h4>
-                <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-property-type'}" class="inner" params="list: {{json_dumps(property_type_list_without_new_property)}}, key: 'propertyType', vm: $data, unLimited: true"></filter-tags>
+                <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-property-type'}" class="inner" params="list: {{json_dumps(property_type_list_without_new_property)}}, key: 'propertyType', vm: $data, unLimited: true, autoSelectFirstItem: true"></filter-tags>
             </div>
             %end
 
@@ -113,7 +116,7 @@
                 <div class="bedroomCount">
                     <i class="bedroomCount_icon icon-room_category"></i>
                     <h4 class="bedroomCount_title">{{_('居室数')}}</h4>
-                    <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-bedroom-count'}" class="inner" params="list: {{json_dumps(bedroom_count_list)}}, key: 'bedroomCount', vm: $data"></filter-tags>
+                    <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-bedroom-count'}" class="inner" params="list: {{json_dumps(bedroom_count_list)}}, key: 'bedroomCount', vm: $data, autoSelectFirstItem: true"></filter-tags>
                 </div>
             %end
 
@@ -121,7 +124,7 @@
                 <div class="space">
                     <i class="space_icon icon-size"></i>
                     <h4 class="space_title">{{_('面积')}}</h4>
-                    <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-space'}" class="inner" params="list: {{json_dumps(building_area_list)}}, key: 'space', vm: $data, unLimited: true"></filter-tags>
+                    <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-space'}" class="inner" params="list: {{json_dumps(building_area_list)}}, key: 'space', vm: $data, unLimited: true, autoSelectFirstItem: true"></filter-tags>
                 </div>
             %end
 

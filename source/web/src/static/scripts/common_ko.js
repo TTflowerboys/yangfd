@@ -70,10 +70,15 @@
     }
     ko.bindingHandlers.dateInput = {
         init: function(element, valueAccessor)  {
+            //date input format: http://stackoverflow.com/questions/7372038/is-there-any-way-to-change-input-type-date-format
             if($(element).is('input')) {
                 $(element).on('touchstart', function () {
                     this.type = 'date'
                     $(this).focus()
+                })
+                $(element).siblings('label').on('touchstart', function () {
+                    $(element)[0].type = 'date'
+                    $(element).focus()
                 })
                 $(element).on('blur', function () {
                     if(this.value === '') {
@@ -90,7 +95,8 @@
             var originDisplay = $(element).css('display')
             var offsetTop = $(element).offset().top
             if(!phoneOnly || (phoneOnly && window.team.isPhone())) {
-                $(window).on('scroll', function () {
+                $(window).on('scroll touchmove', function () {
+                    //iOS上的有延时问题的原因： http://stackoverflow.com/questions/10482227/javascript-dom-changes-in-touchmove-delayed-until-scroll-ends-on-mobile-safari/10856671#10856671
                     if($(window).scrollTop() >= offsetTop) {
                         $(element).css({
                             position: 'fixed',
@@ -153,8 +159,9 @@
             this.hotCityList = ko.observableArray(params.hotCityList)
             this.hotSchoolList = ko.observableArray(params.hotSchoolList)
             this.active = ko.observable() //输入框是否为激活状态，激活状态
-            this.query = ko.observable(params.parentVM.query() || window.team.getQuery('queryName')) //输入框的结果
-            this.lastSearchText = ko.observable(params.parentVM.query() || window.team.getQuery('queryName')) //输入框的结果
+            this.query = ko.observable(params.parentVM.query() || window.team.getQuery('query') || window.team.getQuery('queryName')) //输入框的结果
+            this.lastSearchText = ko.observable(params.parentVM.query() || window.team.getQuery('query') || window.team.getQuery('queryName')) //输入框的结果
+            this.lastSuggestion = ko.observable()
             //this.query.subscribe(function (value) {
             //    this.parentVM.queryTemp(value)
             //}, this)
@@ -234,19 +241,20 @@
             }
 
             this.keyUp = function (viewModel, e) {
-                if(this.query() !== this.lastSearchText()) {
-                    this.parentVM.clearSuggestionParams.call(this.parentVM)
+                if(this.query() !== this.lastSearchText() && e.keyCode !== 13) {
                     return this.search()
                 }
                 if(!window.team.isPhone()) {
                     switch(e.keyCode) {
                         case 13: //enter
-                            if(this.parentVM.queryName && this.parentVM.queryName()) {
-                                return this.blur()
+                            if(this.query() !== this.lastSuggestion()) {
+                                this.parentVM.clearSuggestionParams.call(this.parentVM)
                             }
                             if(this.activeSuggestionIndex() === -1) {
-                                this.blur()
-                                this.searchTicket()
+                                if(this.query() !== this.lastSuggestion()) {
+                                    this.blur()
+                                    this.searchTicket()
+                                }
                             } else {
                                 this.select(this.suggestions()[this.activeSuggestionIndex()])
                             }
@@ -267,6 +275,7 @@
                 this.activeSuggestionIndex(-1)
                 this.query(item.name)
                 this.lastSearchText(item.name)
+                this.lastSuggestion(item.name)
                 this.active(false)
                 this.hideSearchModal()
                 this.searchBySuggestion(item)
@@ -319,6 +328,37 @@
                 this.parentVM.searchTicket.call(this.parentVM, this.query() || '')
             }
 
+            this.goToHots = function (data) {
+                var url = '/property-to-rent-list?' + data.key + '=' + data.id + '&queryName=' + data.queryName
+                if(_.isFunction(this.parentVM.goToHots)) {
+                    this.hideSearchModal()
+                    this.parentVM.clearSuggestionParams.call(this.parentVM)
+                    this.query(data.queryName)
+                    this.lastSearchText(data.queryName)
+                    this.lastSuggestion(data.queryName)
+                    this.parentVM.goToHots.call(this.parentVM, data)
+                } else {
+                    if(window.team.isCurrantClient() && window.bridge) {
+                        window.bridge.callHandler('openURLInNewController', url)
+                        return
+                    }
+                    location.href = url
+                }
+            }
+            this.goToHotCity = function (item) {
+                this.goToHots({
+                    key: 'city',
+                    id: item.id,
+                    queryName: item.name
+                })
+            }
+            this.goToHotSchool = function (item) {
+                this.goToHots({
+                    key: 'hesa_university',
+                    id: item.id,
+                    queryName: item.name
+                })
+            }
             $('location-search-box').on('searchTicket', _.bind(function () {
                 this.searchTicket()
             }, this))

@@ -16,21 +16,31 @@
             this.key = params.key
 
             this.choose = function (data, event) {
-                if (this[params.key]() === data.id) {
-                    this[params.key]('')
+                if (this.parentVM[params.key]() === data.id) {
+                    this.parentVM[params.key]('')
                 } else {
-                    this[params.key](data.id)
+                    this.parentVM[params.key](data.id)
                 }
+                this.initAutoSelectFirstItem()
                 /*if (params.gaConfig) {
                     ga('send', 'event', params.gaConfig.ec, params.gaConfig.ea, params.gaConfig.el, data[params.gaConfig.ev])
                 }*/
-                setTimeout(function () {
-                    $(event.target).parents('filter-tags').trigger('change')
-                })
+                if(event) {
+                    setTimeout(function () {
+                        $(event.target).parents('filter-tags').trigger('change')
+                    })
+                }
             }
+
+            this.initAutoSelectFirstItem = function () {
+                if(params.autoSelectFirstItem && this.parentVM[this.key]() === '') {
+                    this.choose.call(this, this.list()[0])
+                }
+            }
+            this.initAutoSelectFirstItem()
             return this
         },
-        template: '<div data-bind="foreach: list"><div class="toggleTag noBorder" data-bind="text: value, click: $parent.choose.bind($parent.parentVM), css: {selected: id === $parent.parentVM[$parent.key]()}"></div></div>'
+        template: '<div data-bind="foreach: list"><div class="toggleTag noBorder" data-bind="text: value, click: $parent.choose.bind($parent), css: {selected: id === $parent.parentVM[$parent.key]()}"></div></div>'
     })
 
 
