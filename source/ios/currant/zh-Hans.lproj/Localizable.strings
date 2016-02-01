@@ -141,6 +141,7 @@
 "WholePropertyPreference/预览" = "预览";
 
 
+
 //
 //Group: RentPassword
 //
@@ -338,6 +339,7 @@
 "RentTicketPreview/预览房源移动主页" = "预览房源移动主页";
 "RentTicketPreview/继续" = "继续";
 "RentTicketPreview/确认联系方式展示" = "确认联系方式展示";
+"RentTicketPreview/发布" = "发布";
 
 
 //

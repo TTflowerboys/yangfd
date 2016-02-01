@@ -45,7 +45,7 @@
 
 - (void)updateRightButtonWithURL:(NSURL *)url {
     if (!self.navigationItem.rightBarButtonItem) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"RentTicketPreview/继续") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"RentTicketPreview/发布") style:UIBarButtonItemStylePlain target:self action:@selector(onContinueButtonPressed:)];
     }
 }
 

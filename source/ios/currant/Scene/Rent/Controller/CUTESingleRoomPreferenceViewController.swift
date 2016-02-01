@@ -21,48 +21,7 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
 
         self.title = STR("SingleRoomPreference/单间信息")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: STR("SingleRoomPreference/预览"), style: UIBarButtonItemStyle.Plain, block:  { (sender) -> Void in
-
-            if CUTEKeyboardStateListener.sharedInstance().visible {
-                //will trigger save other requirement
-                let field = self.formController.fieldForKey("otherRequirements")
-                let indexPath = self.formController.indexPathForField(field)
-                self.tableView.cellForRowAtIndexPath(indexPath)?.resignFirstResponder()
-            }
-
-            if let screenName = CUTETracker.sharedInstance().getScreenNameFromObject(self) {
-                CUTETracker.sharedInstance().trackEventWithCategory(screenName, action: kEventActionPress, label: "preview-and-publish", value: nil)
-                CUTETracker.sharedInstance().trackStayDurationWithCategory(KEventCategoryPostRentTicket, screenName: screenName)
-            }
-
-            SVProgressHUD.show()
-            CUTERentTicketPublisher.sharedInstance().previewTicket(self.form().ticket, updateStatus: { (status:String!) -> Void in
-                SVProgressHUD.showWithStatus(status)
-                }, cancellationToken: nil).continueWithBlock( { (task:BFTask!) -> AnyObject! in
-
-                    if task.error != nil {
-                        SVProgressHUD.showErrorWithError(task.error)
-                    }
-                    else if task.exception != nil {
-                        SVProgressHUD.showErrorWithException(task.exception)
-                    }
-                    else if task.cancelled {
-                        SVProgressHUD.showErrorWithCancellation()
-                    }
-                    else {
-                        SVProgressHUD.dismiss()
-                        CUTEDataManager.sharedInstance().saveRentTicket(self.form().ticket)
-
-                        if let identifier = self.form().ticket.identifier {
-                            let controller = CUTERentTicketPreviewViewController()
-                            controller.ticket = self.form().ticket
-                            controller.URL = CUTEPermissionChecker.URLWithPath("/wechat-poster/" + identifier)
-                            controller.loadRequest(NSURLRequest(URL:controller.URL))
-                            self.navigationController?.pushViewController(controller, animated: true)
-                        }
-                    }
-
-                    return task
-                })
+            self.submitTicket()
         })
     }
 
@@ -387,6 +346,56 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
         }
         self.navigationController?.pushViewController(controller, animated: true)
 
+    }
+
+    func onSubmit(sender:AnyObject) {
+        submitTicket()
+    }
+
+    // MARK: - Private
+
+    func submitTicket() {
+        if CUTEKeyboardStateListener.sharedInstance().visible {
+            //will trigger save other requirement
+            let field = self.formController.fieldForKey("otherRequirements")
+            let indexPath = self.formController.indexPathForField(field)
+            self.tableView.cellForRowAtIndexPath(indexPath)?.resignFirstResponder()
+        }
+
+        if let screenName = CUTETracker.sharedInstance().getScreenNameFromObject(self) {
+            CUTETracker.sharedInstance().trackEventWithCategory(screenName, action: kEventActionPress, label: "preview-and-publish", value: nil)
+            CUTETracker.sharedInstance().trackStayDurationWithCategory(KEventCategoryPostRentTicket, screenName: screenName)
+        }
+
+        SVProgressHUD.show()
+        CUTERentTicketPublisher.sharedInstance().previewTicket(self.form().ticket, updateStatus: { (status:String!) -> Void in
+            SVProgressHUD.showWithStatus(status)
+            }, cancellationToken: nil).continueWithBlock( { (task:BFTask!) -> AnyObject! in
+
+                if task.error != nil {
+                    SVProgressHUD.showErrorWithError(task.error)
+                }
+                else if task.exception != nil {
+                    SVProgressHUD.showErrorWithException(task.exception)
+                }
+                else if task.cancelled {
+                    SVProgressHUD.showErrorWithCancellation()
+                }
+                else {
+                    SVProgressHUD.dismiss()
+                    CUTEDataManager.sharedInstance().saveRentTicket(self.form().ticket)
+
+                    if let identifier = self.form().ticket.identifier {
+                        let controller = CUTERentTicketPreviewViewController()
+                        controller.ticket = self.form().ticket
+                        controller.URL = CUTEPermissionChecker.URLWithPath("/wechat-poster/" + identifier)
+                        controller.loadRequest(NSURLRequest(URL:controller.URL))
+                        self.navigationController?.pushViewController(controller, animated: true)
+                    }
+                }
+                
+                return task
+            })
     }
 
     /*

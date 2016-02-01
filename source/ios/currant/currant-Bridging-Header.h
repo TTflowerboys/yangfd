@@ -73,6 +73,7 @@
 #import "CUTETooltipView.h"
 #import "CUTEFormRoommateCountPickerCell.h"
 #import "CUTEFormAgeRangePickerCell.h"
+#import "CUTEFormButtonCell.h"
 
 //view model
 #import "CUTEForm.h"
