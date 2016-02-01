@@ -27,6 +27,7 @@
         <table class="table table-bordered table-striped table-condensed">
             <colgroup>
                 <col class="time">
+                <col class="short_id">
                 <col class="target">
                 <col class="period">
                 <col class="user">
@@ -41,6 +42,7 @@
             <thead>
                 <tr>
                     <th>{%$root.i18n('提交时间')%}</th>
+                    <th>{%$root.i18n('编号')%}</th>
                     <th>{%$root.i18n('意向房源')%}</th>
                     <th>{%$root.i18n('租期')%}</th>
                     <th>{%$root.i18n('客户')%}</th>
@@ -60,6 +62,9 @@
                 <tr ng-repeat="item in list">
                     <td>
                         {%(item.time?(item.time * 1000 | date : 'short'):'')%}
+                    </td>
+                    <td>
+                        {%item.short_id%}
                     </td>
                     <td>
                         <div ng-repeat="ticket in item.interested_rent_tickets">

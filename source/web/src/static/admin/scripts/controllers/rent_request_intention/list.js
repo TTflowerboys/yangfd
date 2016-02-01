@@ -131,7 +131,7 @@
                         item.output += window.i18n('搬出日期: ') + $filter('date')(item.rent_deadline_time * 1000, 'yyyy年MM月d日') + '\n'
                         item.output += window.i18n('入住人数: ') + item.tenant_count + '\n'
                         item.output += window.i18n('性别: ') + (item.gender === 'male'? window.i18n('男') : window.i18n('女')) + '\n'
-                        item.output += window.i18n('职业: ') + item.occupation.value + '\n'
+                        item.output += window.i18n('职业: ') + item.occupation.value[$rootScope.userLanguage.value] + '\n'
                         item.output += window.i18n('年龄: ') + $filter('number')(item.age, '0') + '\n'
                         item.output += window.i18n('是否带宠物入住: ') + (item.pet ? window.i18n('是') : window.i18n('否')) + '\n'
                         item.output += window.i18n('是否有小孩入住: ') + (item.baby ? window.i18n('是') : window.i18n('否')) + '\n'

@@ -69,7 +69,7 @@
                             </div>
                         </td>
                         <td>
-                            <div ng-if="item.occupation">{%item.occupation.value%}</div>
+                            <div ng-if="item.occupation">{%item.occupation.value[userLanguage.value]%}</div>
                         </td>
                         <td>
                             <div>{%(item.register_time?(item.register_time * 1000 | date : 'short'):'')%}</div>
