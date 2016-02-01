@@ -44,4 +44,6 @@
 
 + (BOOL)enableMultipleLanguage;
 
++ (BOOL)enableAPNS;
+
 @end

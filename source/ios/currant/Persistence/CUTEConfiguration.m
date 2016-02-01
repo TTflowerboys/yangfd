@@ -109,4 +109,8 @@ static NSString *secureHost = nil;
     return NO;
 }
 
++ (BOOL)enableAPNS {
+    return NO;
+}
+
 @end
