@@ -150,6 +150,16 @@
 
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+    if (self.cancellationTokenSource != nil) {
+        if (!self.cancellationTokenSource.isCancellationRequested) {
+            [self.cancellationTokenSource cancel];
+        }
+    }
+}
+
 #pragma -mark Action
 
 - (void)onAddressBeginEditing:(id)sender {
@@ -166,7 +176,7 @@
             _isAddressUpdated = YES;
         };
         _rentAddressEditViewController = controller;
-    }
+    }    
 
     [SVProgressHUD show];
     CUTERentAddressEditForm *form = [CUTERentAddressEditForm new];
@@ -176,6 +186,7 @@
     form.community = form.ticket.property.community;
     form.street = form.ticket.property.street;
     form.postcode = form.ticket.property.zipcode;
+    form.neighborhood = form.ticket.property.neighborhood;
 
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
@@ -266,7 +277,6 @@
     }];
 
     [sequencer run];
-
 }
 
 - (void)onAddressLocationButtonTapped:(id)sender {
