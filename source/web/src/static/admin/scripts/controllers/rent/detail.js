@@ -1,6 +1,6 @@
 (function () {
 
-    function ctrlRentDetail($scope, fctModal, rentApi, $stateParams, Ï, misc, $state, growl, $timeout, userApi, rentRequestIntentionApi, $filter) {
+    function ctrlRentDetail($scope, $rootScope, fctModal, rentApi, $stateParams, Ï, misc, $state, growl, $timeout, userApi, rentRequestIntentionApi, $filter) {
         var api = $scope.api = rentApi
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
         $scope.getRentIntentionList = function (item) {

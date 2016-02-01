@@ -1,7 +1,7 @@
 
 (function () {
 
-    function ctrlUserRentRequestIntentionList($scope, rentRequestIntentionApi, $stateParams, rentIntentionTicketStatus, $filter) {
+    function ctrlUserRentRequestIntentionList($scope, $rootScope, rentRequestIntentionApi, $stateParams, rentIntentionTicketStatus, $filter) {
         rentRequestIntentionApi.getAll({
             params: {
                 user_id: $stateParams.id,
