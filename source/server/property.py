@@ -306,7 +306,7 @@ class currant_property(f_app.module_base):
                     url=new_url
                 ))
 
-            if {"country", "city", "maponics_neighborhood", "zipcode", "zipcode_index", "featured_facility"} & set(params):
+            if {"city", "maponics_neighborhood", "featured_facility", "zipcode", "zipcode_index", "short_id"} & set(params):
                 f_app.mongo_index.update(self.get_database, property_id, self.get_index_fields(property_id))
 
         return property
