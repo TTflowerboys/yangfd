@@ -591,10 +591,10 @@
             </div>
             <div class="rentPreferences">
                 <div class="basic">
-                    % if 'available_rooms' in rent:
-                        <dic class="availableRooms">
+                    % if 'accommodates' in rent:
+                        <dic class="accommodates">
                             {{_('待入住')}}
-                            <strong>{{ rent.get('available_rooms') }}</strong>
+                            <strong>{{ rent.get('accommodates') }}</strong>
                         </dic>
                     % end
                     <ul class="allowOrDisallow">
@@ -645,6 +645,7 @@
                             <div>
                                 <i class="icon-female"></i>
                                 <strong>{{current_female_roommates}}</strong>
+                                &nbsp;
                                 <i class="icon-male"></i>
                                 <strong>{{current_male_roommates}}</strong>
                             </div>
@@ -654,7 +655,7 @@
                 <div class="forNewRoommates">
                     <ul>
                         <li>
-                            {{_('新室友性别')}}
+                            {{_('新室友性别要求')}}
                             % if 'gender_requirement' in rent:
                                 % if rent.get('gender_requirement') == 'male':
                                     <strong>{{_('男')}}</strong>
@@ -666,7 +667,7 @@
                             % end
                         </li>
                         <li>
-                            {{_('新室友职业')}}
+                            {{_('新室友职业要求')}}
                             % if 'occupation' in rent:
                                 <strong>{{rent.get('occupation').get('value')}}</strong>
                             % else:
@@ -674,7 +675,7 @@
                             % end
                         </li>
                         <li>
-                            {{_('新室友年龄')}}
+                            {{_('新室友年龄要求')}}
                             % if 'min_age' in rent and 'max_age' in rent:
                                 <strong>{{rent.get('min_age')}}-{{rent.get('max_age')}}</strong>
                             % elif 'min_age' in rent and 'max_age' not in rent:
