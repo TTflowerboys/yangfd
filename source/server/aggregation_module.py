@@ -49,6 +49,8 @@ class aggregation_module(f_app.module_base):
         "analyze_intention_views_times": True,
         "analyze_value_modifier_time": True
     }):
+        if user_id is None:
+            return
         f_app.user.update_set(user_id, self.data_generate(user_id, params))
 
     def data_generate(self, user_id, params):
@@ -493,8 +495,7 @@ class aggregation_plugin(f_app.plugin_base):
         if user_id is not None:
             f_app.user.analyze.data_update(user_id, params={
                 "analyze_guest_country": True,
-                "analyze_guest_user_type": True,
-                "analyze_guest_active_days": True
+                "analyze_guest_user_type": True
             })
         return user_id
 
