@@ -96,12 +96,10 @@
         titleCell.limitCount = kTicketTitleMaxCharacterCount;
     }
     else if ([field.key isEqualToString:@"area"]) {
-        if (self.form.ticket.rentType) {
-            cell.textLabel.text = STR(@"RentPropertyMoreInfo/房屋面积");
-        }
+        cell.textLabel.text = STR(@"RentPropertyMoreInfo/房屋面积");
 
-        if (self.form.ticket.space) {
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", self.form.ticket.space.value, self.form.ticket.space.unitPresentation];
+        if (self.form.ticket.property.space) {
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", self.form.ticket.property.space.value, self.form.ticket.property.space.unitPresentation];
         }
     }
     else if ([field.key isEqualToString:@"holdingDeposit"]) {
