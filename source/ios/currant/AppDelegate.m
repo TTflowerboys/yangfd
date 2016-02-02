@@ -151,6 +151,8 @@
     return URL;
 }
 
+#pragma mark - Application
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
 //    [JPEngine startEngine];
@@ -360,6 +362,8 @@
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
+#pragma mark - Helper
+
 - (BOOL)checkShowSplashViewController {
     if (![[NSUserDefaults standardUserDefaults] boolForKey:CUTE_USER_DEFAULT_SPLASH_DISPLAYED])
     {
@@ -432,76 +436,6 @@
             updateBlock(currentSystemLang);
         }
     }
-}
-
-
-#pragma UITabbarViewControllerDelegate
-
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UINavigationController *)viewController {
-    //only update when first create, not care the controller push and pop
-    if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController == nil) {
-
-        if (_reloadPublishRentTicketTabTask && !_reloadPublishRentTicketTabTask.isCompleted) {
-            if (![SVProgressHUD isVisible]) {
-                [SVProgressHUD show];
-            }
-        }
-        else {
-            _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:NO];
-        }
-    }
-    //when show unfinished list controller, show type list page to add new one
-    else if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController != nil) {
-        if (_lastSelectedTabIndex == tabBarController.selectedIndex) {
-            if ([viewController.topViewController isKindOfClass:[CUTEUnfinishedRentTicketListViewController class]]) {
-                [self pushRentTypeViewControllerInNavigationController:viewController animated:YES];
-            }
-        }
-        else  {
-            [self updateUserPropertiesLeftBarButtonItemWithViewController:viewController.topViewController];
-
-            if (_reloadPublishRentTicketTabTask && !_reloadPublishRentTicketTabTask.isCompleted) {
-                if (![SVProgressHUD isVisible]) {
-                    [SVProgressHUD show];
-                }
-            }
-        }
-    }
-    else {
-        if (viewController.tabBarItem.tag == kRentTicketListTabBarIndex) {
-            TrackEvent(@"tab-bar", kEventActionPress, @"open-rent-ticket-list-tab", nil);
-        }
-
-        [self updateWebViewControllerTabAtIndex:tabBarController.selectedIndex];
-
-        if (viewController.tabBarItem.tag == kUserTabBarIndex) {
-            if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
-
-                CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
-                dispatch_block_t setupLeftBarButtonItem = ^ {
-
-                    webViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"User/设置") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-                        [webViewController.navigationController openRouteWithURL:[NSURL URLWithString:@"yangfd://setting/"]];
-                    }];
-                };
-                setupLeftBarButtonItem();
-
-                [webViewController aspect_hookSelector:@selector(updateBackButton) withOptions:AspectPositionAfter usingBlock:^ (id<AspectInfo> info) {
-                    if (![webViewController webViewCanGoBack]) {
-                        setupLeftBarButtonItem();
-
-                    }
-                } error:nil];
-            }
-            else if ([viewController.topViewController isKindOfClass:[UIViewController class]]) {
-                viewController.topViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"User/设置") style:UIBarButtonItemStylePlain block:^(id weakSender) {
-                    [viewController openRouteWithURL:[NSURL URLWithString:@"yangfd://setting/"]];
-                }];
-            }
-        }
-    }
-
-    _lastSelectedTabIndex = tabBarController.selectedIndex;
 }
 
 - (void)pushRentTypeViewControllerInNavigationController:(UINavigationController *)viewController animated:(BOOL)animated {
@@ -642,6 +576,75 @@
     });
 }
 
+
+#pragma mark - UITabbarViewControllerDelegate
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UINavigationController *)viewController {
+    //only update when first create, not care the controller push and pop
+    if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController == nil) {
+
+        if (_reloadPublishRentTicketTabTask && !_reloadPublishRentTicketTabTask.isCompleted) {
+            if (![SVProgressHUD isVisible]) {
+                [SVProgressHUD show];
+            }
+        }
+        else {
+            _reloadPublishRentTicketTabTask = [self reloadPublishRentTicketTabSilent:NO];
+        }
+    }
+    //when show unfinished list controller, show type list page to add new one
+    else if (viewController.tabBarItem.tag == kEditTabBarIndex && viewController.topViewController != nil) {
+        if (_lastSelectedTabIndex == tabBarController.selectedIndex) {
+            if ([viewController.topViewController isKindOfClass:[CUTEUnfinishedRentTicketListViewController class]]) {
+                [self pushRentTypeViewControllerInNavigationController:viewController animated:YES];
+            }
+        }
+        else  {
+            [self updateUserPropertiesLeftBarButtonItemWithViewController:viewController.topViewController];
+
+            if (_reloadPublishRentTicketTabTask && !_reloadPublishRentTicketTabTask.isCompleted) {
+                if (![SVProgressHUD isVisible]) {
+                    [SVProgressHUD show];
+                }
+            }
+        }
+    }
+    else {
+        if (viewController.tabBarItem.tag == kRentTicketListTabBarIndex) {
+            TrackEvent(@"tab-bar", kEventActionPress, @"open-rent-ticket-list-tab", nil);
+        }
+
+        [self updateWebViewControllerTabAtIndex:tabBarController.selectedIndex];
+
+        if (viewController.tabBarItem.tag == kUserTabBarIndex) {
+            if ([viewController.topViewController isKindOfClass:[CUTEWebViewController class]]) {
+
+                CUTEWebViewController *webViewController = (CUTEWebViewController *)viewController.topViewController;
+                dispatch_block_t setupLeftBarButtonItem = ^ {
+
+                    webViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"User/设置") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+                        [webViewController.navigationController openRouteWithURL:[NSURL URLWithString:@"yangfd://setting/"]];
+                    }];
+                };
+                setupLeftBarButtonItem();
+
+                [webViewController aspect_hookSelector:@selector(updateBackButton) withOptions:AspectPositionAfter usingBlock:^ (id<AspectInfo> info) {
+                    if (![webViewController webViewCanGoBack]) {
+                        setupLeftBarButtonItem();
+
+                    }
+                } error:nil];
+            }
+            else if ([viewController.topViewController isKindOfClass:[UIViewController class]]) {
+                viewController.topViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:STR(@"User/设置") style:UIBarButtonItemStylePlain block:^(id weakSender) {
+                    [viewController openRouteWithURL:[NSURL URLWithString:@"yangfd://setting/"]];
+                }];
+            }
+        }
+    }
+    
+    _lastSelectedTabIndex = tabBarController.selectedIndex;
+}
 
 #pragma mark - Push Notification
 
