@@ -83,6 +83,10 @@ class common(f_common):
     i18n_sitemap_enable_locales = False
     country_list = ["GB", "CN", "US", "HK", "TW", "IE", "DE", "FR", "IT", "ES", "NL", "IN", "RU", "JP", "SG", "MY"]
     country_list_for_intention = ["GB", "CN", "US", "HK", "TW", "IE", "DE", "FR", "IT", "ES", "NL", "IN", "RU", "JP", "SG", "MY"]
+
+    i18n_user_priority = None
+    i18n_request_header_priority = None
+
     sitemap_domain = "www.yangfd.com"
 
     params_replaces_list = {
