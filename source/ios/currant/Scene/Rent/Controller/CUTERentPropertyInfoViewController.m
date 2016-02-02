@@ -666,13 +666,13 @@
                 //setup default value
                 [[self.form syncTicketWithBlock:^(CUTETicket *ticket) {
                     if (ticket.noSmoking == nil) {
-                        ticket.noSmoking = @(YES);
+                        ticket.noSmoking = @(NO);
                     }
                     if (ticket.noPet == nil) {
-                        ticket.noPet = @(YES);
+                        ticket.noPet = @(NO);
                     }
                     if (ticket.noBaby == nil) {
-                        ticket.noBaby = @(YES);
+                        ticket.noBaby = @(NO);
                     }
                     if (ticket.independentBathroom == nil) {
                         ticket.independentBathroom = @(NO);
