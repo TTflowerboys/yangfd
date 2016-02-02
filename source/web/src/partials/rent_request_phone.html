@@ -222,7 +222,7 @@
                             </ul>
                             <p class="declare">{{_('此信息仅作咨询申请确认，最终预订以平台联系确认为准')}}</p>
                         </div>
-                        <div class="unmatchRequirements" data-bind="unmatchRequirements().length">
+                        <div class="unmatchRequirements" data-bind="visible: unmatchRequirements().length">
                             <p class="text">{{_('您的以下信息与当前房屋不匹配：')}}</p>
                             <ul data-bind="foreach: unmatchRequirements">
                                 <li>

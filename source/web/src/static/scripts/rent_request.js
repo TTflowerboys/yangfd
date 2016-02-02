@@ -512,7 +512,7 @@
 
             this.id = ko.observable()
             this.requirements = (function () {
-                var keyList = ['no_pet', 'no_smoking', 'no_baby', 'occupation', 'min_age', 'max_age', 'gender_requirement', 'accommodates']
+                var keyList = ['no_pet', 'no_smoking', 'no_baby', 'occupation', 'min_age', 'max_age', 'gender_requirement', 'accommodates', 'rent_available_time', 'rent_deadline_time']
                 var requirements = {}
                 _.each(keyList, function (key) {
                     if(rentTicket[key] !== undefined && rentTicket[key] !== false && rentTicket[key] !== '') {
@@ -548,7 +548,7 @@
                         requirement: i18n('禁止携带小孩'),
                     })
                 }
-                if(this.requirements.occupation && this.occupation() !== this.requirements.occupation) {
+                if(this.requirements.occupation && this.occupation() !== this.requirements.occupation.id) {
                     unmatchRequirements.push({
                         request: i18n('入住者职业：') + this.getOccupationName(this.occupation()),
                         requirement: this.requirements.occupation.value,
@@ -576,6 +576,18 @@
                     unmatchRequirements.push({
                         request: i18n('入住者性别：') + this.getGenderName(this.gender()),
                         requirement: this.getGenderName(this.requirements.gender_requirement),
+                    })
+                }
+                if(this.requirements.rent_available_time && this.requirements.rent_available_time > this.rentAvailableTime()) {
+                    unmatchRequirements.push({
+                        request: i18n('入住日期：') + $.format.date(new Date(this.rentAvailableTime() * 1000), 'yyyy-MM-dd'),
+                        requirement: i18n('租期开始日期：') + $.format.date(new Date(this.requirements.rent_available_time * 1000), 'yyyy-MM-dd'),
+                    })
+                }
+                if(this.requirements.rent_deadline_time && this.requirements.rent_deadline_time < this.rentDeadlineTime()) {
+                    unmatchRequirements.push({
+                        request: i18n('搬出日期：') + $.format.date(new Date(this.rentDeadlineTime() * 1000), 'yyyy-MM-dd'),
+                        requirement: i18n('租期结束日期：') + $.format.date(new Date(this.requirements.rent_deadline_time * 1000), 'yyyy-MM-dd'),
                     })
                 }
                 return unmatchRequirements
