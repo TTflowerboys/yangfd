@@ -684,13 +684,23 @@
                     return {}
                 }
             }, this)
+            function getPayment(value, unit) {
+                var minPayment = {
+                    'CNY': 1898,
+                    'GBP': 200,
+                    'USD': 288,
+                    'EUR': 264,
+                    'HKD': 2244
+                }
+                return minPayment[unit] > value ? minPayment[unit] : value
+            }
             this.payment = ko.computed(function () {
                 if(this.rentDeadlineTime() && this.rentAvailableTime()) {
                     var day = (this.rentDeadlineTime() - this.rentAvailableTime()) / 3600 / 24
                     if(day < 30) {
                         return parseInt(this.price().value_float / 7 * day / 4)
                     } else {
-                        return parseInt(this.price().value_float)
+                        return getPayment(parseInt(this.price().value_float), this.price().unit)
                     }
                 }
             }, this)
