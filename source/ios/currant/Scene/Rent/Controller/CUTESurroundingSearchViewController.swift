@@ -14,16 +14,19 @@ protocol CUTESurroundingSearchDelegate : NSObjectProtocol {
 
 }
 
+@objc(CUTESurroundingSearchViewController)
 class CUTESurroundingSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     var searchBar:UISearchBar!
     weak var tableView:UITableView!
     var delegate:CUTESurroundingSearchDelegate?
 
-    private var form:CUTESurroundingForm
-    private var searchResultSurroundings:[CUTESurrounding] = []
-    private var postcodeIndex:String
-    private var searchCancellationTokenSource:BFCancellationTokenSource?
+    // MARK - Private Var
+    var form:CUTESurroundingForm
+    var searchResultSurroundings:[CUTESurrounding] = []
+    var postcodeIndex:String
+    var searchCancellationTokenSource:BFCancellationTokenSource?
+    var test:String?
 
     // 实现隐藏“No Results” label 用的flag
     //http://stackoverflow.com/questions/11639257/how-do-i-cover-the-no-results-text-in-uisearchdisplaycontrollers-searchresult

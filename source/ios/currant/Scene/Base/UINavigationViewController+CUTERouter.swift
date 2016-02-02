@@ -11,49 +11,7 @@ import UIKit
 
 extension UINavigationController {
 
-    private func getControllerScreenName(viewController: UIViewController?) -> String? {
-        if viewController != nil {
-            if viewController is CUTEWebViewController {
-                let webviewController  = viewController as! CUTEWebViewController
-                return CUTETracker.sharedInstance().getScreenNameFromObject(webviewController.URL)
-            }
-            else {
-                return CUTETracker.sharedInstance().getScreenNameFromObject(viewController!)
-            }
-        }
-        return nil
-    }
 
-    private func trackOpenScreen(screenName:String) {
-        let currentViewController = self.viewControllers.last
-        if let fromScreenName = getControllerScreenName(currentViewController) {
-            CUTETracker.sharedInstance().trackEventWithCategory(fromScreenName, action: "press", label: screenName, value: nil)
-        }
-        else {
-            CUTETracker.sharedInstance().trackEventWithCategory("", action: "press", label: screenName, value: nil)
-        }
-
-    }
-
-    private func trackOpenURL(url:NSURL?) {
-        if  let toURL = url {
-            if let screenname = CUTETracker.sharedInstance().getScreenNameFromObject(toURL) {
-                trackOpenScreen(screenname)
-            }
-
-            if toURL.path != nil && toURL.path!.hasPrefix("/property-to-rent") {
-                let components:[String]? = (toURL.path?.componentsSeparatedByString("/"))
-                if components != nil && components!.count >= 3 {
-                    let ticketId = components![2]
-                    CUTEUsageRecorder.sharedInstance().saveVisitedTicketWithId(ticketId)
-                }
-            }
-        }
-    }
-
-    private func checkPreExecuteInternalCommand(URL:NSURL) {
-       
-    }
 
     func openRouteWithURL(URL:NSURL) {
         if URL.isHttpOrHttpsURL() {
@@ -107,7 +65,10 @@ extension UINavigationController {
         webViewController!.loadRequest(URLRequest)
     }
 
-    private func openRouteWithWebArchive(archive:CUTEWebArchive) {
+
+    // MARK: - Private
+
+    func openRouteWithWebArchive(archive:CUTEWebArchive) {
         trackOpenURL(archive.URL!)
         let viewController = CUTERouter.globalRouter.matchController(archive.URL!)
         var webViewController:CUTEWebViewController?
@@ -132,7 +93,7 @@ extension UINavigationController {
         webViewController!.loadWebArchive(archive)
     }
 
-    private func openRouteWithYangfdURL(URL:NSURL) {
+    func openRouteWithYangfdURL(URL:NSURL) {
         let queryDic:Dictionary<String, String> = URL.queryDictionary() as! Dictionary<String, String>
 
         if let controller:UIViewController = CUTERouter.globalRouter.matchController(URL) {
@@ -184,5 +145,49 @@ extension UINavigationController {
                 return task;
             })
         }
+    }
+
+    func getControllerScreenName(viewController: UIViewController?) -> String? {
+        if viewController != nil {
+            if viewController is CUTEWebViewController {
+                let webviewController  = viewController as! CUTEWebViewController
+                return CUTETracker.sharedInstance().getScreenNameFromObject(webviewController.URL)
+            }
+            else {
+                return CUTETracker.sharedInstance().getScreenNameFromObject(viewController!)
+            }
+        }
+        return nil
+    }
+
+    func trackOpenScreen(screenName:String) {
+        let currentViewController = self.viewControllers.last
+        if let fromScreenName = getControllerScreenName(currentViewController) {
+            CUTETracker.sharedInstance().trackEventWithCategory(fromScreenName, action: "press", label: screenName, value: nil)
+        }
+        else {
+            CUTETracker.sharedInstance().trackEventWithCategory("", action: "press", label: screenName, value: nil)
+        }
+
+    }
+
+    func trackOpenURL(url:NSURL?) {
+        if  let toURL = url {
+            if let screenname = CUTETracker.sharedInstance().getScreenNameFromObject(toURL) {
+                trackOpenScreen(screenname)
+            }
+
+            if toURL.path != nil && toURL.path!.hasPrefix("/property-to-rent") {
+                let components:[String]? = (toURL.path?.componentsSeparatedByString("/"))
+                if components != nil && components!.count >= 3 {
+                    let ticketId = components![2]
+                    CUTEUsageRecorder.sharedInstance().saveVisitedTicketWithId(ticketId)
+                }
+            }
+        }
+    }
+
+    func checkPreExecuteInternalCommand(URL:NSURL) {
+        
     }
 }

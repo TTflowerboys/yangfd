@@ -68,3 +68,15 @@ return "js patched title"
 }
 
 })
+
+
+//Test Access Swift Var
+
+defineClass("CUTESurroundingSearchViewController", {
+scrollViewWillBeginDragging: function (view) {
+self.setTest("test")
+self.ORIGscrollViewWillBeginDragging(view)
+}
+}, {
+
+})

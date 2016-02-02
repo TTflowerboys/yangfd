@@ -12,11 +12,13 @@ import UIKit
 @objc(CUTESurroundingListViewController)
 class CUTESurroundingListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,  UISearchBarDelegate, UISearchDisplayDelegate, CUTESurroundingSearchDelegate {
 
-    private var form:CUTESurroundingForm
     var postcodeIndex:String?
 
     weak var tableView:UITableView!
-    private var hintLabel:UILabel?
+
+    // MRRK - Private Var
+    var form:CUTESurroundingForm
+    var hintLabel:UILabel?
 
 
     init(form:CUTESurroundingForm) {
@@ -67,24 +69,6 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
         }
     }
 
-    private func showHintLabel(show:Bool) {
-        if (show) {
-            if self.hintLabel == nil {
-                let label = UILabel()
-                label.textColor = UIColor(hex6: 0x999999)
-                label.textAlignment = NSTextAlignment.Center
-                label.numberOfLines = 0
-                label.font = UIFont.systemFontOfSize(16)
-                label.text = STR("SurroundingList/点击右上角“+”，添加周边的学校和地铁")
-                self.tableView.backgroundView?.addSubview(label)
-                label.frame = CGRectMake(0, (self.view.frame.size.height - 40) / 2, label.superview!.bounds.size.width, 40)
-                self.hintLabel = label
-            }
-        }
-
-        self.hintLabel?.hidden = !show
-        self.tableView.backgroundView?.setNeedsLayout()
-    }
 
     func checkShowSurroundingAddTooltip() {
 
@@ -372,9 +356,30 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
         }
     }
 
+    // MARK: - Private
+
+    func showHintLabel(show:Bool) {
+        if (show) {
+            if self.hintLabel == nil {
+                let label = UILabel()
+                label.textColor = UIColor(hex6: 0x999999)
+                label.textAlignment = NSTextAlignment.Center
+                label.numberOfLines = 0
+                label.font = UIFont.systemFontOfSize(16)
+                label.text = STR("SurroundingList/点击右上角“+”，添加周边的学校和地铁")
+                self.tableView.backgroundView?.addSubview(label)
+                label.frame = CGRectMake(0, (self.view.frame.size.height - 40) / 2, label.superview!.bounds.size.width, 40)
+                self.hintLabel = label
+            }
+        }
+
+        self.hintLabel?.hidden = !show
+        self.tableView.backgroundView?.setNeedsLayout()
+    }
+
     // MARK: - Util
 
-    private func getFormattedMinuteTimePeriod(timePeriod:CUTETimePeriod) -> CUTETimePeriod {
+    func getFormattedMinuteTimePeriod(timePeriod:CUTETimePeriod) -> CUTETimePeriod {
 
         if (timePeriod.unit == "second") {
             if (timePeriod.value < 60) {
@@ -404,7 +409,7 @@ class CUTESurroundingListViewController: UIViewController, UITableViewDataSource
     }
 
 
-    private func getAroundTime(timeValue:Int32) -> [Int32] {
+    func getAroundTime(timeValue:Int32) -> [Int32] {
         return [timeValue - 30,
             timeValue - 25,
             timeValue - 20,

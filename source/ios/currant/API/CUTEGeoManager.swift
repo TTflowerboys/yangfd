@@ -27,139 +27,6 @@ class CUTEGeoManager: NSObject {
         return nil
     }
 
-    private func reverseProxyWithLink(link:String, cancellationToken:BFCancellationToken?) -> BFTask {
-        let tcs = BFTaskCompletionSource()
-        let request = NSURLRequest(URL: NSURL(string:"/reverse_proxy?link=" + link.URLEncode(), relativeToURL: CUTEConfiguration.hostURL())!)
-
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
-
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-
-                if tcs.task.cancelled {
-                    return
-                }
-
-                let dic = data?.JSONData()
-                if error != nil {
-                    tcs.setError(error)
-                }
-                else if dic != nil {
-                    tcs.setResult(dic)
-                }
-                else {
-                    if let httpResponse = response as? NSHTTPURLResponse {
-                        if httpResponse.statusCode == 500 {
-                            tcs.setError(NSError(domain: "Google", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
-                        }
-                        else {
-                            tcs.setError(NSError(domain: "Google", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey:NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode)]))
-                        }
-                    }
-                }
-            })
-        }
-
-        cancellationToken?.registerCancellationObserverWithBlock({ () -> Void in
-            task.cancel()
-            tcs.trySetCancelled()
-        })
-
-        task.resume()
-
-        return tcs.task
-    }
-
-
-    /// - parameter location: 经纬度
-    /// - returns: BFTask , task.result 的 placemark，因为我们的数据和 google 不一致，可能没有国家和城市。
-    private func requsetReverseGeocodeLocation(location:CLLocation, cancellationToken:BFCancellationToken?) -> BFTask {
-        let tcs = BFTaskCompletionSource()
-        let geocoderURLString = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(location.coordinate.latitude),\(location.coordinate.longitude)&key=\(CUTEConfiguration.googleAPIKey())&language=en"
-        reverseProxyWithLink(geocoderURLString, cancellationToken: cancellationToken).continueWithBlock { (task:BFTask!) -> AnyObject! in
-
-            if task.cancelled {
-                if !tcs.task.completed {
-                    tcs.cancel()
-                    return task
-                }
-            }
-            else if task.error != nil {
-                tcs.setError(task.error)
-                return task
-            }
-
-            guard let dic = task.result as? [String:AnyObject] else {
-                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
-                return task
-            }
-
-            guard let results = dic["results"] as? [[String:AnyObject]] else {
-                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
-                return task
-            }
-
-
-            guard results.count > 0 else {
-                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
-                return task
-            }
-
-            let result = results[0]
-            let placemark = CUTEPlacemark.placeMarkWithGoogleResult(result)
-
-            CUTEAPICacheManager.sharedInstance().getCountriesWithCountryCode(false).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-                if let countries = task.result as? [CUTECountry] {
-                    if let country = countries.filter({ (country:CUTECountry) -> Bool in
-                        if placemark.country != nil {
-                            return country.ISOcountryCode == placemark.country!.ISOcountryCode
-                        }
-                        else {
-                            return false
-                        }
-                    }).first {
-                        CUTEAPICacheManager.sharedInstance().getCitiesByCountry(country).continueWithBlock({ (task:BFTask!) -> AnyObject! in
-                            if let cities = task.result as? [CUTECity] {
-                                if let city = cities.filter({ (city:CUTECity) -> Bool in
-                                    if placemark.city != nil {
-                                    return placemark.city!.name.lowercaseString.hasPrefix(city.name.lowercaseString)
-                                    }
-                                    else {
-                                        return false
-                                    }
-                                }).first {
-                                    placemark.country = country
-                                    placemark.city = city
-                                    tcs.setResult(placemark)
-                                }
-                                else {
-                                    placemark.country = country
-                                    placemark.city = nil
-                                    tcs.setResult(placemark)
-                                }
-                            }
-                            else {
-                                tcs.setError(task.error)
-                            }
-
-                            return task
-                        })
-                    }
-                    else {
-                        placemark.country = nil
-                        placemark.city = nil
-                        tcs.setResult(placemark)
-                    }
-                }
-                else {
-                    tcs.setError(task.error)
-                }
-                return task
-            })
-
-            return task
-        }
-        return tcs.task
-    }
 
     /// ![](https://www.gstatic.com/images/branding/product/1x/maps_64dp.png)
     ///
@@ -235,50 +102,6 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
-    private func requestGeocodeWithAddress(address:String?, components:String, cancellationToken:BFCancellationToken?) -> BFTask {
-        let tcs = BFTaskCompletionSource()
-        var geocoderURLString = "https://maps.googleapis.com/maps/api/geocode/json?key=\(CUTEConfiguration.googleAPIKey())&language=en&components=\(components.URLEncode())"
-        if address != nil {
-            geocoderURLString += "&addresss=" + address!.URLEncode()
-        }
-
-        reverseProxyWithLink(geocoderURLString, cancellationToken:cancellationToken).continueWithBlock { (task:BFTask!) -> AnyObject! in
-
-            if task.cancelled {
-                if !tcs.task.completed {
-                    tcs.cancel()
-                    return task
-                }
-            }
-            else if task.error != nil {
-                tcs.setError(task.error)
-                return task
-            }
-
-            guard let dic = task.result as? [String:AnyObject] else {
-                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
-                return task
-            }
-
-            guard let results = dic["results"] as? [[String:AnyObject]] else {
-                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
-                return task
-            }
-
-            guard results.count > 0 else {
-                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
-                return task
-            }
-
-            let result = results[0]
-            let placemark = CUTEPlacemark.placeMarkWithGoogleResult(result)
-            tcs.setResult(placemark)
-
-            return task
-        }
-
-        return tcs.task
-    }
 
     /// ![](https://www.gstatic.com/images/branding/product/1x/maps_64dp.png)
     ///
@@ -393,22 +216,6 @@ class CUTEGeoManager: NSObject {
         return tcs.task
     }
 
-    /// depature time just a given value, tranform current time to the timeZone time, then get the time's next week monday, 9'o clock
-    private func getDepatureTime(timeZone:NSTimeZone) -> NSTimeInterval {
-        let date = NSDate()
-        let calendar = NSCalendar(calendarIdentifier: NSGregorianCalendar)
-        calendar?.timeZone = timeZone
-
-        var startDate:NSDate?
-        //http://stackoverflow.com/questions/24084717/error-extra-argument-in-call-when-passing-argument-to-method
-        var timeInterval:NSTimeInterval = 0
-        calendar?.rangeOfUnit(NSCalendarUnit.WeekOfYear, startDate: &startDate, interval: &timeInterval, forDate: date)
-        if (startDate != nil ) {
-            return startDate!.dateByAddingDays(7).dateByAddingHours(9).timeIntervalSince1970
-        }
-        print("Error: should not go here for getDepatureTime")
-        return date.timeIntervalSince1970
-    }
 
     /// ![](https://www.gstatic.com/images/branding/product/1x/maps_64dp.png)
     ///
@@ -755,4 +562,204 @@ class CUTEGeoManager: NSObject {
 
         return tcs.task
     }
+
+    //MARK: - Private
+    func reverseProxyWithLink(link:String, cancellationToken:BFCancellationToken?) -> BFTask {
+        let tcs = BFTaskCompletionSource()
+        let request = NSURLRequest(URL: NSURL(string:"/reverse_proxy?link=" + link.URLEncode(), relativeToURL: CUTEConfiguration.hostURL())!)
+
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+
+                if tcs.task.cancelled {
+                    return
+                }
+
+                let dic = data?.JSONData()
+                if error != nil {
+                    tcs.setError(error)
+                }
+                else if dic != nil {
+                    tcs.setResult(dic)
+                }
+                else {
+                    if let httpResponse = response as? NSHTTPURLResponse {
+                        if httpResponse.statusCode == 500 {
+                            tcs.setError(NSError(domain: "Google", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                        }
+                        else {
+                            tcs.setError(NSError(domain: "Google", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey:NSHTTPURLResponse.localizedStringForStatusCode(httpResponse.statusCode)]))
+                        }
+                    }
+                }
+            })
+        }
+
+        cancellationToken?.registerCancellationObserverWithBlock({ () -> Void in
+            task.cancel()
+            tcs.trySetCancelled()
+        })
+
+        task.resume()
+
+        return tcs.task
+    }
+
+
+    /// - parameter location: 经纬度
+    /// - returns: BFTask , task.result 的 placemark，因为我们的数据和 google 不一致，可能没有国家和城市。
+    func requsetReverseGeocodeLocation(location:CLLocation, cancellationToken:BFCancellationToken?) -> BFTask {
+        let tcs = BFTaskCompletionSource()
+        let geocoderURLString = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(location.coordinate.latitude),\(location.coordinate.longitude)&key=\(CUTEConfiguration.googleAPIKey())&language=en"
+        reverseProxyWithLink(geocoderURLString, cancellationToken: cancellationToken).continueWithBlock { (task:BFTask!) -> AnyObject! in
+
+            if task.cancelled {
+                if !tcs.task.completed {
+                    tcs.cancel()
+                    return task
+                }
+            }
+            else if task.error != nil {
+                tcs.setError(task.error)
+                return task
+            }
+
+            guard let dic = task.result as? [String:AnyObject] else {
+                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                return task
+            }
+
+            guard let results = dic["results"] as? [[String:AnyObject]] else {
+                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                return task
+            }
+
+
+            guard results.count > 0 else {
+                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                return task
+            }
+
+            let result = results[0]
+            let placemark = CUTEPlacemark.placeMarkWithGoogleResult(result)
+
+            CUTEAPICacheManager.sharedInstance().getCountriesWithCountryCode(false).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                if let countries = task.result as? [CUTECountry] {
+                    if let country = countries.filter({ (country:CUTECountry) -> Bool in
+                        if placemark.country != nil {
+                            return country.ISOcountryCode == placemark.country!.ISOcountryCode
+                        }
+                        else {
+                            return false
+                        }
+                    }).first {
+                        CUTEAPICacheManager.sharedInstance().getCitiesByCountry(country).continueWithBlock({ (task:BFTask!) -> AnyObject! in
+                            if let cities = task.result as? [CUTECity] {
+                                if let city = cities.filter({ (city:CUTECity) -> Bool in
+                                    if placemark.city != nil {
+                                        return placemark.city!.name.lowercaseString.hasPrefix(city.name.lowercaseString)
+                                    }
+                                    else {
+                                        return false
+                                    }
+                                }).first {
+                                    placemark.country = country
+                                    placemark.city = city
+                                    tcs.setResult(placemark)
+                                }
+                                else {
+                                    placemark.country = country
+                                    placemark.city = nil
+                                    tcs.setResult(placemark)
+                                }
+                            }
+                            else {
+                                tcs.setError(task.error)
+                            }
+
+                            return task
+                        })
+                    }
+                    else {
+                        placemark.country = nil
+                        placemark.city = nil
+                        tcs.setResult(placemark)
+                    }
+                }
+                else {
+                    tcs.setError(task.error)
+                }
+                return task
+            })
+            
+            return task
+        }
+        return tcs.task
+    }
+
+    func requestGeocodeWithAddress(address:String?, components:String, cancellationToken:BFCancellationToken?) -> BFTask {
+        let tcs = BFTaskCompletionSource()
+        var geocoderURLString = "https://maps.googleapis.com/maps/api/geocode/json?key=\(CUTEConfiguration.googleAPIKey())&language=en&components=\(components.URLEncode())"
+        if address != nil {
+            geocoderURLString += "&addresss=" + address!.URLEncode()
+        }
+
+        reverseProxyWithLink(geocoderURLString, cancellationToken:cancellationToken).continueWithBlock { (task:BFTask!) -> AnyObject! in
+
+            if task.cancelled {
+                if !tcs.task.completed {
+                    tcs.cancel()
+                    return task
+                }
+            }
+            else if task.error != nil {
+                tcs.setError(task.error)
+                return task
+            }
+
+            guard let dic = task.result as? [String:AnyObject] else {
+                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                return task
+            }
+
+            guard let results = dic["results"] as? [[String:AnyObject]] else {
+                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                return task
+            }
+
+            guard results.count > 0 else {
+                tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
+                return task
+            }
+
+            let result = results[0]
+            let placemark = CUTEPlacemark.placeMarkWithGoogleResult(result)
+            tcs.setResult(placemark)
+            
+            return task
+        }
+        
+        return tcs.task
+    }
+
+
+    //MARK: - Util
+    /// depature time just a given value, tranform current time to the timeZone time, then get the time's next week monday, 9'o clock
+    func getDepatureTime(timeZone:NSTimeZone) -> NSTimeInterval {
+        let date = NSDate()
+        let calendar = NSCalendar(calendarIdentifier: NSGregorianCalendar)
+        calendar?.timeZone = timeZone
+
+        var startDate:NSDate?
+        //http://stackoverflow.com/questions/24084717/error-extra-argument-in-call-when-passing-argument-to-method
+        var timeInterval:NSTimeInterval = 0
+        calendar?.rangeOfUnit(NSCalendarUnit.WeekOfYear, startDate: &startDate, interval: &timeInterval, forDate: date)
+        if (startDate != nil ) {
+            return startDate!.dateByAddingDays(7).dateByAddingHours(9).timeIntervalSince1970
+        }
+        print("Error: should not go here for getDepatureTime")
+        return date.timeIntervalSince1970
+    }
+
 }

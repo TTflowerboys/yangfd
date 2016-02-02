@@ -30,26 +30,6 @@ class CUTESingleRoomPreferenceForm: CUTETicketForm {
 
     var allOccupation:[CUTEEnum]!
 
-    private func getDefaultOccupation() -> CUTEEnum {
-        if occupation != nil {
-            return occupation!
-        }
-        else {
-            return allOccupation.filter({ (occu:CUTEEnum) -> Bool in
-                return occu.slug == "unlimited";
-            }).first!
-        }
-    }
-
-    private func getDefaultGenderRequirement() -> String {
-        if genderRequirement != nil {
-            return genderRequirement!
-        }
-        else {
-            return STR("不限")
-        }
-    }
-
     override func fields() -> [AnyObject]! {
         return [
             [FXFormFieldKey:"accommodates", FXFormFieldTitle:STR("SingleRoomPreference/可入住人数"), FXFormFieldCell: CUTEFormRoommateCountPickerCell.self, "style": UITableViewCellStyle.Value1.rawValue, FXFormFieldAction: "onAccommodatesEdit:", FXFormFieldHeader:STR("SingleRoomPreference/入住者要求")],
@@ -81,4 +61,27 @@ class CUTESingleRoomPreferenceForm: CUTETicketForm {
             [FXFormFieldKey: "submit", FXFormFieldCell: CUTEFormButtonCell.self, FXFormFieldTitle: STR("SingleRoomPreference/预览"), FXFormFieldHeader: "", FXFormFieldAction: "onSubmit:"]
         ]
     }
+
+    //MARK: - Private
+
+    func getDefaultOccupation() -> CUTEEnum {
+        if occupation != nil {
+            return occupation!
+        }
+        else {
+            return allOccupation.filter({ (occu:CUTEEnum) -> Bool in
+                return occu.slug == "unlimited";
+            }).first!
+        }
+    }
+
+    func getDefaultGenderRequirement() -> String {
+        if genderRequirement != nil {
+            return genderRequirement!
+        }
+        else {
+            return STR("不限")
+        }
+    }
+
 }
