@@ -45,7 +45,7 @@
 }
 
 - (NSUInteger)rentPeriodValueCount {
-    return 36;
+    return 54;// let it can cover one year by 53 week
 }
 
 - (NSArray *)rentPeriodUnitArray {
