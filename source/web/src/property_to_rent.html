@@ -624,34 +624,59 @@
                         </li>
                     </ul>
                 </div>
+                % if 'current_male_roommates' in rent and 'current_female_roommates' in rent:
                 <div class="currentRoommates">
-                    % if 'current_male_roommates' in rent:
-                        % current_male_roommates = rent.get('current_male_roommates')
-                    % else:
-                        % current_male_roommates = 0
-                    % end
-                    % if 'current_female_roommates' in rent:
-                        % current_female_roommates = rent.get('current_female_roommates')
-                    % else:
-                        % current_female_roommates = 0
-                    % end
                     <ul>
                         <li class="total">
                             {{_('当前入住数')}}
-                            <strong>{{current_male_roommates + current_female_roommates}}</strong>
+                            <strong>{{rent.get('current_male_roommates') + rent.get('current_female_roommates')}}</strong>
                         </li>
                         <li class="detail">
                             {{_('当前入住者性别')}}
                             <div>
                                 <i class="icon-female"></i>
-                                <strong>{{current_female_roommates}}</strong>
+                                <strong>{{rent.get('current_female_roommates')}}</strong>
                                 &nbsp;
                                 <i class="icon-male"></i>
-                                <strong>{{current_male_roommates}}</strong>
+                                <strong>{{rent.get('current_male_roommates')}}</strong>
                             </div>
                         </li>
                     </ul>
                 </div>
+                % elif 'current_male_roommates' in rent and 'current_female_roommates'  not in rent:
+                <div class="currentRoommates">
+                    <ul>
+                        <li class="total">
+                            {{_('当前入住数')}}
+                            <strong>{{rent.get('current_male_roommates')}}</strong>
+                        </li>
+                        <li class="detail">
+                            {{_('当前入住者性别')}}
+                            <div>
+                                <i class="icon-male"></i>
+                                <strong>{{rent.get('current_male_roommates')}}</strong>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                % elif 'current_male_roommates' not in rent and 'current_female_roommates' in rent:
+                <div class="currentRoommates">
+                    <ul>
+                        <li class="total">
+                            {{_('当前入住数')}}
+                            <strong>{{rent.get('current_female_roommates')}}</strong>
+                        </li>
+                        <li class="detail">
+                            {{_('当前入住者性别')}}
+                            <div>
+                                <i class="icon-female"></i>
+                                <strong>{{rent.get('current_female_roommates')}}</strong>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                % end
+
                 <div class="forNewRoommates">
                     <ul>
                         <li>
