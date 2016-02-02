@@ -3367,3 +3367,81 @@ def user_rent_intention(user, params):
     #wb.save(out)
     response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
+
+
+@f_api('/aggregation_featured_facility', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None),
+    facility=(str, None),
+    total=(int, 0)
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def get_featured_facility_sort(user, params):
+    result_end = []
+    result = []
+    if 'date_from' not in params:
+        params['date_from'] = datetime(2015, 12, 7)
+    if 'date_to' not in params:
+        params['date_to'] = datetime.utcnow()
+    tickets = f_app.ticket.get(f_app.ticket.search({
+        "type": "rent",
+        "property_id": {"$exists": True},
+        "time": {
+            "$gte": params['date_from'],
+            "$lte": params['date_to']
+        }
+    }, per_page=-1, notime=True))
+    property_id_list = []
+    for index, ticket in enumerate(tickets):
+        if 'property_id' in ticket:
+            property_id_list.append(ticket['property_id'])
+    featured_facility_list = []
+    for index, property in enumerate(f_app.property.output(property_id_list)):
+        if property is None:
+            continue
+        if 'featured_facility' in property:
+            for single_index, single_facility in enumerate(property['featured_facility']):
+                if 'traffic_time' not in property['featured_facility'][single_index]:
+                    continue
+                property['featured_facility'][single_index].pop('traffic_time')
+            featured_facility_list.extend(property['featured_facility'])
+
+    for single_facility in f_app.i18n.process_i18n(featured_facility_list):
+        single_result = {}
+        if 'facility' not in params:
+            single_result.update({
+                'type': single_facility['type']['slug'],
+                'id': single_facility.get('doogal_station', {}).get('id', '') if 'doogal_station' in single_facility else single_facility.get('hesa_university', {}).get('id', ''),
+                'name': single_facility.get('doogal_station', {}).get('name', '') if 'doogal_station' in single_facility else single_facility.get('hesa_university', {}).get('name', '')
+            })
+            result.append(single_result)
+        elif params['facility'] == single_facility['type']['slug']:
+            single_result.update({
+                'type': single_facility['type']['slug'],
+                'id': single_facility.get('doogal_station', {}).get('id', '') if 'doogal_station' in single_facility else single_facility.get('hesa_university', {}).get('id', ''),
+                'name': single_facility.get('doogal_station', {}).get('name', '') if 'doogal_station' in single_facility else single_facility.get('hesa_university', {}).get('name', '')
+            })
+            result.append(single_result)
+
+    result_mark = []
+    result_final = []
+    count_list = []
+    for single in result:
+        if single['id'] in result_mark:
+            continue
+        result_mark.append(single['id'])
+        single.update({'count': result.count(single)})
+        count_list.append(single['count'])
+        result_final.append(single)
+    count_list.sort(reverse=True)
+    if 'total' not in params:
+        params['total'] = 0
+    for index in count_list:
+        for point, single in enumerate(result_final):
+            if single['count'] == index:
+                result_end.append(single)
+                result_final.remove(single)
+                break
+        if params['total'] and len(result_end) > params['total']:
+            break
+    return result_end
