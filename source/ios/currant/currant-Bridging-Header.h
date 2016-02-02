@@ -70,6 +70,7 @@
 #import "CUTEFormTextFieldCell.h"
 #import "CUTEFormSwitchCell.h"
 #import "CUTEFormTextViewCell.h"
+#import "CUTEFromOtherRequirementsTextViewCell.h"
 #import "CUTETooltipView.h"
 #import "CUTEFormRoommateCountPickerCell.h"
 #import "CUTEFormAgeRangePickerCell.h"

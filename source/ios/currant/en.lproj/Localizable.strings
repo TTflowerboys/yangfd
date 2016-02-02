@@ -196,7 +196,7 @@
 "PropertyMoreInfo/定金" = "Holding Deposit";
 "PropertyMoreInfo/面积" = "Area";
 "PropertyMoreInfo/配套设施" = "Amenities";
-"PropertyMoreInfo/删除" = "Delete";
+"PropertyMoreInfo/删除房源" = "Delete Property";
 "PropertyMoreInfo/Holding Deposit，是租客确定预订后锁定房源所需要向您交付的定金，当租客入住时确保房源和确认信息一致，平台将在24小时后把钱转付给您以冲抵押金或房租" = "Holding Deposit，是租客确定预订后锁定房源所需要向您交付的定金，当租客入住时确保房源和确认信息一致，平台将在24小时后把钱转付给您以冲抵押金或房租";
 
 

@@ -435,6 +435,10 @@
 		2C9F1D301B3BB9880034487F /* YTKKeyValueItem+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D2D1B3BB9800034487F /* YTKKeyValueItem+CUTE.m */; };
 		2C9F1D311B3BB9880034487F /* YTKKeyValueItem+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D2D1B3BB9800034487F /* YTKKeyValueItem+CUTE.m */; };
 		2C9F1D321B3BB9890034487F /* YTKKeyValueItem+CUTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F1D2D1B3BB9800034487F /* YTKKeyValueItem+CUTE.m */; };
+		2CA183A31C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA183A21C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.m */; };
+		2CA183A41C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA183A21C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.m */; };
+		2CA183A51C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA183A21C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.m */; };
+		2CA183A61C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA183A21C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.m */; };
 		2CA2E6AE1AC5487800053965 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DB11ABC1372004DF663 /* AppDelegate.m */; };
 		2CA2E6AF1AC5487800053965 /* CUTEMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1EA7711AC3EED100B0FC22 /* CUTEMapView.m */; };
 		2CA2E6B01AC5487800053965 /* CUTEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB43DDC1ABD4AB4004DF663 /* CUTEWebViewController.m */; };
@@ -1117,6 +1121,8 @@
 		2C9F1D2A1B3ABA580034487F /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		2C9F1D2C1B3BB9800034487F /* YTKKeyValueItem+CUTE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YTKKeyValueItem+CUTE.h"; sourceTree = "<group>"; };
 		2C9F1D2D1B3BB9800034487F /* YTKKeyValueItem+CUTE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YTKKeyValueItem+CUTE.m"; sourceTree = "<group>"; };
+		2CA183A11C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEFromOtherRequirementsTextViewCell.h; sourceTree = "<group>"; };
+		2CA183A21C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEFromOtherRequirementsTextViewCell.m; sourceTree = "<group>"; };
 		2CA2E6C21AC5487800053965 /* currant-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "currant-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DB1AC5496700053965 /* currant-production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "currant-production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA2E6DE1AC54BF200053965 /* currant-production-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-production-Info.plist"; sourceTree = "<group>"; };
@@ -2115,6 +2121,8 @@
 				2CF8A5D31AF0B40E0080DF10 /* CUTEFormVerificationCodeCell.m */,
 				2C2FCDD01AFCCE4F002594D7 /* CUTEFormTextViewCell.h */,
 				2C2FCDD11AFCCE4F002594D7 /* CUTEFormTextViewCell.m */,
+				2CA183A11C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.h */,
+				2CA183A21C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.m */,
 				2CF8A5CE1AF0B40E0080DF10 /* CUTEFormShareButtonCell.h */,
 				2CF8A5CF1AF0B40E0080DF10 /* CUTEFormShareButtonCell.m */,
 				2CF8A5D61AF0B40E0080DF10 /* CUTEQrcodeCell.h */,
@@ -2910,6 +2918,7 @@
 				2C4AEC811AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A6101AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
 				2CA5F7721AE10382001132E0 /* CUTEImageUploader.m in Sources */,
+				2CA183A51C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.m in Sources */,
 				2C056D4D1B423AB20075037A /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2CF8A6331AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2CE2A97D1B68A3E90089ED20 /* CUTERentPeriodViewController.m in Sources */,
@@ -3103,6 +3112,7 @@
 				2C4AEC821AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A6111AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
 				2CA5F7731AE10382001132E0 /* CUTEImageUploader.m in Sources */,
+				2CA183A61C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.m in Sources */,
 				2C056D4E1B423AB20075037A /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2CF8A6341AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2CE2A97E1B68A3E90089ED20 /* CUTERentPeriodViewController.m in Sources */,
@@ -3296,6 +3306,7 @@
 				2C4AEC801AD6466A004DEE23 /* CUTEUser.m in Sources */,
 				2CF8A60F1AF0B40E0080DF10 /* CUTEUnfinishedRentTicketListViewController.m in Sources */,
 				2CA5F7711AE10382001132E0 /* CUTEImageUploader.m in Sources */,
+				2CA183A41C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.m in Sources */,
 				2C056D4C1B423AB20075037A /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2CF8A6321AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
 				2CE2A97C1B68A3E90089ED20 /* CUTERentPeriodViewController.m in Sources */,
@@ -3489,6 +3500,7 @@
 				2CA5F7701AE10382001132E0 /* CUTEImageUploader.m in Sources */,
 				2C056D4B1B423AB20075037A /* CUTEApplyBetaRentingViewController.m in Sources */,
 				2CF8A6311AF0B40E0080DF10 /* CUTEFormRentTypeCell.m in Sources */,
+				2CA183A31C60888E002DED0D /* CUTEFromOtherRequirementsTextViewCell.m in Sources */,
 				2CE2A97B1B68A3E90089ED20 /* CUTERentPeriodViewController.m in Sources */,
 				2C0AE1231B1EF20D00A73BE6 /* CUTEFormFieldOptionViewController.m in Sources */,
 				2CF8A5E61AF0B40E0080DF10 /* CUTERentPropertyMoreInfoViewController.m in Sources */,

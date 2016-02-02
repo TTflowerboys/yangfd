@@ -28,7 +28,7 @@
              @{FXFormFieldKey: @"currency", FXFormFieldTitle:STR(@"RentPrice/货币"), FXFormFieldOptions: [CUTECurrency currencyUnitArray], FXFormFieldDefaultValue: _currency ? : [CUTECurrency defaultCurrencyUnit], FXFormFieldAction: @"onCurrencyEdit:", FXFormFieldHeader: STR(@"PropertyMoreInfo/定金")},
              @{FXFormFieldKey: @"holdingDeposit", FXFormFieldTitle:STR(@"PropertyMoreInfo/定金"), FXFormFieldType:FXFormFieldTypeFloat, FXFormFieldCell: [CUTEFormCurrencyTextFieldCell class], @"textField.keyboardType": @(UIKeyboardTypeDecimalPad), FXFormFieldAction: @"onHoldingDepositEdit:", FXFormFieldValueTransformer: [CUTEPlainTextNumberTransformer class], FXFormFieldFooter: STR(@"PropertyMoreInfo/Holding Deposit，是租客确定预订后锁定房源所需要向您交付的定金，当租客入住时确保房源和确认信息一致，平台将在24小时后把钱转付给您以冲抵押金或房租")},
 //                @{FXFormFieldKey: @"feature", FXFormFieldTitle:STR(@"街区亮点")},
-             @{FXFormFieldKey: @"delete", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"PropertyMoreInfo/删除"), FXFormFieldHeader: @"", FXFormFieldAction: @"delete"},
+             @{FXFormFieldKey: @"delete", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"PropertyMoreInfo/删除房源"), FXFormFieldHeader: @"", FXFormFieldAction: @"delete"},
              ];
 }
 
