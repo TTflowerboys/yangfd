@@ -14,6 +14,7 @@
 #import "CUTEUser.h"
 #import "CUTEDataManager.h"
 #import "CUTEAPIManager.h"
+#import "CUTEWebArchiveManager.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import "CUTEKeyboardStateListener.h"
 #import "UIBarButtonItem+ALActionBlocks.h"
@@ -44,6 +45,7 @@
                 }
                 [[CUTEDataManager sharedInstance] clearUser];
                 [[CUTEDataManager sharedInstance] clearAllCookies];
+                [[CUTEWebArchiveManager sharedInstance] clear];
                 [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGOUT object:self];
 
                 if (self.whileEditingTicket) {

@@ -101,14 +101,16 @@
     NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSArray *cookies = [storage cookies];
     for (NSHTTPCookie *cookie in cookies) {
-        [storage deleteCookie:cookie];
+        if ([cookie.name isEqualToString:KSETTING_AUTH_COOKIE]) {
+            [storage deleteCookie:cookie];
+        }
     }
     //http://stackoverflow.com/questions/4471629/how-to-delete-all-cookies-of-uiwebview
     [[NSUserDefaults standardUserDefaults] synchronize];
     [_store deleteObjectById:KSETTING_AUTH_COOKIE fromTable:KTABLE_SETTINGS];
 
-    NSError *error = nil;
-    [[NSFileManager defaultManager] removeItemAtPath:[NSHomeDirectory() stringByAppendingString:@"/Library/Cookies"] error:&error];
+//    NSError *error = nil;
+//    [[NSFileManager defaultManager] removeItemAtPath:[NSHomeDirectory() stringByAppendingString:@"/Library/Cookies"] error:&error];
 }
 
 - (void)restoreAllCookies {

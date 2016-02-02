@@ -67,6 +67,7 @@
             [NotificationCenter postNotificationName:KNOTIF_USER_WILL_LOGOUT object:webViewController userInfo:@{@"cookie": cookie}];
         }
         [[CUTEDataManager sharedInstance] clearAllCookies];
+        [[CUTEWebArchiveManager sharedInstance] clear];
         [[CUTEDataManager sharedInstance] clearUser];
         UIView *view = [webViewController view];
         if (!IsArrayNilOrEmpty(view.subviews) && [[view subviews][0] isKindOfClass:[UIWebView class]]) {
