@@ -299,8 +299,10 @@
             this.showSearchModal = function () {
                 module.appViewModel.popupActive(true)
                 this.isModalShow(true)
-                this.inputFocus(true)
                 this.search()
+                setTimeout(_.bind(function () {
+                    this.inputFocus(true)
+                }, this), 100)
             }
 
             if(location.href.indexOf('showSearchModal=true') > 0) {
@@ -319,6 +321,8 @@
             }
             this.clear = function () {
                 this.query('')
+                this.lastSearchText('')
+                this.lastSuggestion('')
                 this.parentVM.clearSuggestionParams.call(this.parentVM)
             }
 
@@ -338,11 +342,7 @@
                     this.lastSuggestion(data.queryName)
                     this.parentVM.goToHots.call(this.parentVM, data)
                 } else {
-                    if(window.team.isCurrantClient() && window.bridge) {
-                        window.bridge.callHandler('openURLInNewController', url)
-                        return
-                    }
-                    location.href = url
+                    window.team.openLink(url)
                 }
             }
             this.goToHotCity = function (item) {

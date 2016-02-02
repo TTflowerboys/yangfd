@@ -21,8 +21,7 @@
         <location-search-box params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}, hotSchoolList: {{json_dumps(hot_school_list)}}"></location-search-box><!--
     --><div class="hoverWrapper" data-bind="hoverTopBar: true">
             <div class="dateWrap">
-                <span class="hiddenOnPCWeb">{{_('租期')}}</span><!--
-            --><div class="date inputWrapper" data-bind="dateRangePicker: rentAvailableTimeFormated">
+                <div class="date inputWrapper" data-bind="dateRangePicker: rentAvailableTimeFormated">
                     <input data-bind="dateInput, value: rentAvailableTimeFormated, changeText: {obj:summaryTitleObj, prop: 'set-rent-available-time'}" type="text" class="" id="rentPeriodStartDate" name="rentPeriodStartDate" placeholder="{{_('选择起租日期')}}" autocomplete="off"/>
                     <label for="rentPeriodStartDate"></label>
                     <i data-bind="click: clearDate('rentAvailableTimeFormated'), visible: rentAvailableTime" class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
@@ -97,7 +96,7 @@
             </div>
 
             %if property_type_list:
-            <div class="rentType hiddenOnPCWeb">
+            <div class="rentType hiddenOnPCWeb" data-bind="if: window.team.isPhone()">
                 <i class="rentType_icon icon-door"></i>
                 <h4 class="rentType_title">{{_('出租类型')}}</h4>
                 <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-rent-type'}" class="inner" params="list: {{json_dumps(rent_type_list)}}, key: 'rentType', vm: $data, unLimited: true, autoSelectFirstItem: true"></filter-tags>
@@ -175,7 +174,6 @@
                  
                         </div>
                     </div>
-                    <hr class="border">
                     <img src="/static/images/common/ajax-loader.gif" id="loadIndicator" class="loadIndicator" style="display:none"/>
                     <p class="isAllLoadedInfo" style="display: none;text-align: center;color: #ccc;font-size: 14px;font-weight: lighter;">{{_('已经全部加载完毕啦')}}</p>
                 </div>

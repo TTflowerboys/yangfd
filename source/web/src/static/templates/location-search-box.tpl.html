@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="hint" data-bind="text: hint, visible: hint() !== undefined && hint().length"></div>
-            <ul data-bind="foreach: suggestions,visible: suggestions().length">
+            <ul data-bind="foreach: suggestions,visible: suggestions().length && query() && query().length">
                 <li data-bind="css: {active: $parent.activeSuggestionIndex() == $index()}, event: {mousedown: $parent.select}">
                     <span class="type" data-bind="text: type.value"></span>
                     <span class="name" data-bind="highlight: {text: name, highlight: $parent.query}"></span>
@@ -72,7 +72,7 @@
             </div>
             <div class="suggestions" data-bind="visible: active, event: {touchmove: hideKeyboard}">
                 <div class="hint" data-bind="text: hint, visible: hint() !== undefined && hint().length"></div>
-                <ul data-bind="foreach: suggestions,visible: suggestions().length">
+                <ul data-bind="foreach: suggestions,visible: suggestions().length && query() && query().length">
                     <li data-bind="css: {active: $parent.activeSuggestionIndex() == $index()}, event: {mousedown: $parent.select}">
                         <span class="type" data-bind="text: type.value"></span>
                         <span class="name" data-bind="highlight: {text: name, highlight: $parent.query}"></span>

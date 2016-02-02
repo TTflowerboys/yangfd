@@ -21,7 +21,9 @@
                 } else {
                     this.parentVM[params.key](data.id)
                 }
-                this.initAutoSelectFirstItem()
+                setTimeout(_.bind(function () {
+                    this.initAutoSelectFirstItem()
+                }, this), 50)
                 /*if (params.gaConfig) {
                     ga('send', 'event', params.gaConfig.ec, params.gaConfig.ea, params.gaConfig.el, data[params.gaConfig.ev])
                 }*/

@@ -623,13 +623,11 @@
         }
         this.searchTicket = function (query) {
             this.query(query)
-            //module.loadRentListByView()
         }
 
         this.searchBySuggestion = function (param) {
             this.query('')
             this.paramsToWrite(param)
-            //module.loadRentListByView()
         }
         this.clearSuggestionParams = function () {
             this.query('')
