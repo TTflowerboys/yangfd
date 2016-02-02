@@ -5,7 +5,7 @@ Cython
 Babel
 qiniu
 Twisted
-gevent>0.99
+sortedcontainers
 newrelic
 qrcode
 beautifulsoup4
@@ -14,6 +14,7 @@ passlib
 six
 pydns
 pytest
+gevent>0.99
 scipy
 pymongo
 mock
