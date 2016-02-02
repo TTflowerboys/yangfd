@@ -108,6 +108,11 @@
         color: #999;
         margin-bottom: 48px;
         tr {
+            &.languageSetting{
+                body[lang=zh_Hans_CN] &{
+                    display: none;
+                }
+            }
             border-top: 1px solid #ccc;
             &:first-child {
                 border-top: none;
@@ -164,6 +169,11 @@
         background: @white !important;
         padding: 0 !important;
         .bottomStyle;
+        table tr.languageSetting{
+            body[lang=zh_Hans_CN] &{
+                display: none;
+            }
+        }
     }
 }
 .setting .table_wrapper_info{
