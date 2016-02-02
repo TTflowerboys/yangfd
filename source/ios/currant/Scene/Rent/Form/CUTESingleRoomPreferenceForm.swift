@@ -16,9 +16,9 @@ class CUTESingleRoomPreferenceForm: CUTETicketForm {
     var genderRequirement:String?
     var age:String?
     var occupation:CUTEEnum?
-    var noSmoking:Bool = false
-    var noPet:Bool = false
-    var noBaby:Bool = false
+    var allowSmoking:Bool = true
+    var allowPet:Bool = true
+    var allowBaby:Bool = true
 
     //exist flatmate
     var currentMaleRoommates:Int?
@@ -60,11 +60,11 @@ class CUTESingleRoomPreferenceForm: CUTETicketForm {
 
             [FXFormFieldKey:"occupation", FXFormFieldTitle:STR("SingleRoomPreference/入住职业限制"), FXFormFieldOptions: allOccupation, FXFormFieldDefaultValue: getDefaultOccupation(), FXFormFieldAction:"onOccupationEdit:"],
 
-            [FXFormFieldKey:"noSmoking", FXFormFieldTitle:STR("SingleRoomPreference/允许吸烟"), FXFormFieldType: FXFormFieldTypeOption, FXFormFieldCell: CUTEFormSwitchCell.self, FXFormFieldAction: "onNoSmokingEdit:"],
+            [FXFormFieldKey:"allowSmoking", FXFormFieldTitle:STR("SingleRoomPreference/允许吸烟"), FXFormFieldType: FXFormFieldTypeOption, FXFormFieldCell: CUTEFormSwitchCell.self, FXFormFieldAction: "onAllowSmokingEdit:"],
 
-            [FXFormFieldKey:"noPet", FXFormFieldTitle:STR("SingleRoomPreference/允许携宠物入住"), FXFormFieldType: FXFormFieldTypeOption, FXFormFieldCell: CUTEFormSwitchCell.self, FXFormFieldAction: "onNoPetEdit:"],
+            [FXFormFieldKey:"allowPet", FXFormFieldTitle:STR("SingleRoomPreference/允许携宠物入住"), FXFormFieldType: FXFormFieldTypeOption, FXFormFieldCell: CUTEFormSwitchCell.self, FXFormFieldAction: "onAllowPetEdit:"],
 
-            [FXFormFieldKey:"noBaby", FXFormFieldTitle:STR("SingleRoomPreference/允许带小孩入住"), FXFormFieldType: FXFormFieldTypeOption, FXFormFieldCell: CUTEFormSwitchCell.self, FXFormFieldAction: "onNoBabyEdit:"],
+            [FXFormFieldKey:"allowBaby", FXFormFieldTitle:STR("SingleRoomPreference/允许带小孩入住"), FXFormFieldType: FXFormFieldTypeOption, FXFormFieldCell: CUTEFormSwitchCell.self, FXFormFieldAction: "onAllowBabyEdit:"],
 
 
             [FXFormFieldKey:"currentMaleRoommates", FXFormFieldTitle:STR("SingleRoomPreference/当前男室友的数量"), FXFormFieldCell: CUTEFormRoommateCountPickerCell.self, "style": UITableViewCellStyle.Value1.rawValue, FXFormFieldAction: "onCurrentMaleRoommatesEdit:", FXFormFieldHeader:STR("SingleRoomPreference/目前室友")],

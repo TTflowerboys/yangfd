@@ -703,6 +703,9 @@
                         [allOccupation addObjectsFromArray:occupations];
                         form.allOccupation = allOccupation;
                         form.occupation = form.ticket.occupation;
+                        form.allowSmoking = !form.ticket.noSmoking.boolValue;
+                        form.allowBaby = !form.ticket.noBaby.boolValue;
+                        form.allowPet = !form.ticket.noPet.boolValue;
                         form.genderRequirement = form.ticket.genderRequirementForDisplay;
                         form.otherRequirements = self.form.ticket.otherRequirements;
                         controller.formController.form = form;

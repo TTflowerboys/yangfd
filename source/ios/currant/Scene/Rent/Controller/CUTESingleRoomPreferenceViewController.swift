@@ -243,32 +243,32 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
         }
     }
 
-    func onNoSmokingEdit(sender:AnyObject) {
+    func onAllowSmokingEdit(sender:AnyObject) {
         if let cell = sender as? FXFormBaseCell {
             let value = cell.field.value as! NSNumber
 
             self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                ticket.noSmoking = value
+                ticket.noSmoking = NSNumber(bool: !value.boolValue)
             })
         }
     }
 
-    func onNoPetEdit(sender:AnyObject) {
+    func onAllowPetEdit(sender:AnyObject) {
         if let cell = sender as? FXFormBaseCell {
             let value = cell.field.value as! NSNumber
 
             self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                ticket.noPet = value
+                ticket.noPet = NSNumber(bool: !value.boolValue)
             })
         }
     }
     
-    func onNoBabyEdit(sender:AnyObject) {
+    func onAllowBabyEdit(sender:AnyObject) {
         if let cell = sender as? FXFormBaseCell {
             let value = cell.field.value as! NSNumber
 
             self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
-                ticket.noBaby = value
+                ticket.noBaby = NSNumber(bool: !value.boolValue)
             })
         }
 
