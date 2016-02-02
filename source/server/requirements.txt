@@ -6,6 +6,7 @@ Babel
 qiniu
 Twisted
 sortedcontainers
+python-Levenshtein
 newrelic
 qrcode
 beautifulsoup4
@@ -34,7 +35,6 @@ gevent-websocket
 boto
 bcrypt
 retrying
-Levenshtein
 sh
 uWSGI
 bottle
