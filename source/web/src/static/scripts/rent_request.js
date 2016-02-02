@@ -557,19 +557,19 @@
                 if(this.requirements.min_age && age < this.requirements.min_age) {
                     unmatchRequirements.push({
                         request: i18n('入住者年龄：') + age + i18n('岁'),
-                        requirement: i18n('最低年龄') + this.requirements.min_age + i18n('岁'),
+                        requirement: i18n('最小年龄') + this.requirements.min_age + i18n('岁'),
                     })
                 }
                 if(this.requirements.max_age && age > this.requirements.max_age) {
                     unmatchRequirements.push({
                         request: i18n('入住者年龄：') + age + i18n('岁'),
-                        requirement: i18n('最高年龄') + this.requirements.max_age + i18n('岁'),
+                        requirement: i18n('最大年龄') + this.requirements.max_age + i18n('岁'),
                     })
                 }
                 if(this.requirements.accommodates && this.tenantCount() > this.requirements.accommodates) {
                     unmatchRequirements.push({
                         request: i18n('入住人数：') + this.tenantCount() + i18n('人'),
-                        requirement: i18n('最多入住') + this.requirements.accommodates + i18n('人'),
+                        requirement: i18n('可入住') + this.requirements.accommodates + i18n('人'),
                     })
                 }
                 if(this.requirements.gender_requirement && this.gender() !== this.requirements.gender_requirement) {
