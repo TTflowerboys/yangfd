@@ -498,11 +498,13 @@
 
     function initIndexValueSlide() {
         if(window.team.isPhone() && !window.indexValueSlide) {
-            window.indexValueSlide = new window.Swiper('.indexValueWrapper', {
-                autoplay: 3000,
-                pagination: '.swiper-pagination',
-                paginationClickable: true
-            })
+            setTimeout(function () {
+                window.indexValueSlide = new window.Swiper('.indexValueWrapper', {
+                    autoplay: 3000,
+                    pagination: '.swiper-pagination',
+                    paginationClickable: true
+                })
+            }, 50)
         }
     }
 
