@@ -422,6 +422,19 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             ticket_database.update({"_id": ticket["_id"]}, {"$set": {"sort_time": ticket["time"]}})
             self.logger.debug("Set sort_time for ticket", ticket["_id"])
 
+    def v28(self, m):
+        ticket_database = f_app.ticket.get_database(m)
+        for ticket in ticket_database.find({"type": "rent_intention", "short_id": {"$exists": False}, "status": {"$in": [
+            "new", "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in",
+        ]}}):
+            f_app.task.get_database(m).insert({
+                "type": "assign_ticket_short_id",
+                "ticket_id": str(ticket["_id"]),
+                "status": "new",
+                "start": datetime.utcnow(),
+            })
+            self.logger.debug("assign_ticket_short_id task created for ticket", ticket["_id"])
+
 currant_mongo_upgrade()
 
 
