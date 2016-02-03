@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-02-03 17:29+0800\n"
+"POT-Creation-Date: 2016-02-03 18:04+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -232,10 +232,10 @@ msgstr ""
 #: ../web/src/crowdfunding.html:13 ../web/src/property.html:43
 #: ../web/src/property.html:65 ../web/src/property.html:317
 #: ../web/src/property.html:1173 ../server/crowdfunding_interface.py:30
-#: ../server/crowdfunding_interface.py:32 ../server/property_interface.py:98
-#: ../server/property_interface.py:118 ../server/property_interface.py:135
-#: ../server/property_interface.py:155 ../server/property_interface.py:160
-#: ../server/property_interface.py:166
+#: ../server/crowdfunding_interface.py:32 ../server/property_interface.py:101
+#: ../server/property_interface.py:121 ../server/property_interface.py:138
+#: ../server/property_interface.py:158 ../server/property_interface.py:163
+#: ../server/property_interface.py:169
 msgid "房产详情"
 msgstr ""
 
@@ -851,7 +851,7 @@ msgstr ""
 
 #: ../web/src/guides.html:12 ../web/src/masters/news_master.html:28
 #: ../web/src/masters/news_master.html:54
-#: ../web/src/masters/news_master.html:81 ../server/news_interface.py:49
+#: ../web/src/masters/news_master.html:81 ../server/news_interface.py:51
 msgid "购房指南"
 msgstr ""
 
@@ -884,7 +884,7 @@ msgstr ""
 msgid "查看平台上的"
 msgstr ""
 
-#: ../web/src/how_it_works_landlord.html:8 ../server/main_interface.py:730
+#: ../web/src/how_it_works_landlord.html:8 ../server/main_interface.py:739
 msgid "洋房东房东服务"
 msgstr ""
 
@@ -1008,7 +1008,7 @@ msgstr ""
 msgid "如需更多帮助，请点击查阅帮助中心"
 msgstr ""
 
-#: ../web/src/how_it_works_tenant.html:8 ../server/main_interface.py:737
+#: ../web/src/how_it_works_tenant.html:8 ../server/main_interface.py:746
 msgid "洋房东租客服务"
 msgstr ""
 
@@ -1227,7 +1227,7 @@ msgstr ""
 
 #: ../web/src/laws.html:12 ../web/src/masters/news_master.html:29
 #: ../web/src/masters/news_master.html:59
-#: ../web/src/masters/news_master.html:84 ../server/news_interface.py:56
+#: ../web/src/masters/news_master.html:84 ../server/news_interface.py:60
 msgid "法律法规"
 msgstr ""
 
@@ -1257,12 +1257,12 @@ msgstr ""
 
 #: ../web/src/notice_list.html:11 ../web/src/masters/news_master.html:27
 #: ../web/src/masters/news_master.html:49
-#: ../web/src/masters/news_master.html:78 ../server/news_interface.py:42
+#: ../web/src/masters/news_master.html:78 ../server/news_interface.py:44
 msgid "网站公告"
 msgstr ""
 
 #: ../web/src/partner.html:14 ../web/src/masters/aboutus_master.html:54
-#: ../web/src/masters/master.html:216 ../server/news_interface.py:126
+#: ../web/src/masters/master.html:216 ../server/news_interface.py:130
 msgid "合作伙伴"
 msgstr ""
 
@@ -1372,7 +1372,7 @@ msgstr ""
 #: ../web/src/static/emails/rent_ticket_publish_success.html:85
 #: ../web/src/static/templates/featured_house_card.html:162
 #: ../web/src/static/templates/featured_house_card.html:318
-#: ../server/property_interface.py:171
+#: ../server/property_interface.py:174
 msgid "室"
 msgstr ""
 
@@ -1381,7 +1381,7 @@ msgstr ""
 #: ../web/src/partials/i18n.html:544
 #: ../web/src/partials/property_to_rent_edit.html:241
 #: ../web/src/static/templates/featured_house_card.html:165
-#: ../server/property_interface.py:171
+#: ../server/property_interface.py:174
 msgid "厅"
 msgstr ""
 
@@ -1677,7 +1677,7 @@ msgid "已经全部加载完毕啦"
 msgstr ""
 
 #: ../web/src/property_to_rent.html:38 ../web/src/property_to_rent.html:55
-#: ../server/property_to_rent_interface.py:118
+#: ../server/property_to_rent_interface.py:119
 msgid "出租房详情"
 msgstr ""
 
@@ -1782,6 +1782,7 @@ msgid "房间面积"
 msgstr ""
 
 #: ../web/src/property_to_rent.html:255
+#: ../web/src/partials/property_to_rent_edit.html:292
 msgid "独立卫浴"
 msgstr ""
 
@@ -1838,7 +1839,7 @@ msgstr ""
 #: ../web/src/property_to_rent.html:789 ../web/src/wechat_poster.html:357
 #: ../web/src/partials/i18n.html:549
 #: ../web/src/static/templates/featured_house_card.html:376
-#: ../server/main_interface.py:230
+#: ../server/main_interface.py:236
 msgid "我要咨询"
 msgstr ""
 
@@ -2158,7 +2159,7 @@ msgstr ""
 #: ../web/src/qa_app.html:14
 #: ../web/src/static/emails/draft_not_publish_day_3.html:18
 #: ../web/src/static/emails/draft_not_publish_day_7.html:18
-#: ../server/news_interface.py:140
+#: ../server/news_interface.py:144
 msgid "洋房东APP帮助中心"
 msgstr ""
 
@@ -2558,7 +2559,7 @@ msgstr ""
 msgid "请登录"
 msgstr ""
 
-#: ../web/src/rental_available.html:25 ../server/main_interface.py:723
+#: ../web/src/rental_available.html:25 ../server/main_interface.py:732
 msgid "洋房东租房服务"
 msgstr ""
 
@@ -2755,7 +2756,7 @@ msgstr ""
 
 #: ../web/src/signup.html:11 ../web/src/verify_phone.html:12
 #: ../web/src/masters/master.html:95 ../web/src/partials/signin_form.html:17
-#: ../server/main_interface.py:124 ../server/main_interface.py:139
+#: ../server/main_interface.py:130 ../server/main_interface.py:145
 msgid "注册"
 msgstr ""
 
@@ -3399,7 +3400,7 @@ msgstr ""
 msgid "不好意思，邮箱验证失败，请重新验证"
 msgstr ""
 
-#: ../web/src/verify_phone.html:13 ../server/main_interface.py:132
+#: ../web/src/verify_phone.html:13 ../server/main_interface.py:138
 msgid "手机验证"
 msgstr ""
 
@@ -3500,11 +3501,11 @@ msgstr ""
 msgid "服务声明"
 msgstr ""
 
-#: ../web/src/masters/aboutus_master.html:32 ../server/news_interface.py:133
+#: ../web/src/masters/aboutus_master.html:32 ../server/news_interface.py:137
 msgid "海外租房帮助中心"
 msgstr ""
 
-#: ../web/src/masters/aboutus_master.html:38 ../server/news_interface.py:148
+#: ../web/src/masters/aboutus_master.html:38 ../server/news_interface.py:152
 msgid "众筹投资帮助中心"
 msgstr ""
 
@@ -3582,7 +3583,7 @@ msgstr ""
 #: ../web/src/partials/signup_form.html:32
 #: ../web/src/static/emails/new_admin.html:4
 #: ../web/src/static/emails/new_user.html:4
-#: ../web/src/static/emails/set_as_admin.html:4 ../server/main_interface.py:146
+#: ../web/src/static/emails/set_as_admin.html:4 ../server/main_interface.py:152
 msgid "登录"
 msgstr ""
 
@@ -4027,7 +4028,7 @@ msgid "我希望注册为会员以便以后能够更新我的出租需求"
 msgstr ""
 
 #: ../web/src/partials/delegate_rent_popup.html:10
-#: ../server/main_interface_phone.py:39
+#: ../server/main_interface_phone.py:41
 msgid "提交委托出租需求"
 msgstr ""
 
@@ -4064,7 +4065,7 @@ msgid "您的委托求租需求已经提交成功，我们将尽快与您取得�
 msgstr ""
 
 #: ../web/src/partials/delegate_sale_popup.html:10
-#: ../server/main_interface_phone.py:46
+#: ../server/main_interface_phone.py:48
 msgid "提交委托出售需求"
 msgstr ""
 
@@ -6900,7 +6901,7 @@ msgid "亮点"
 msgstr ""
 
 #: ../web/src/partials/i18n_admin.html:150
-#: ../server/property_to_rent_interface.py:129
+#: ../server/property_to_rent_interface.py:130
 msgid "详情"
 msgstr ""
 
@@ -9666,10 +9667,6 @@ msgstr ""
 msgid "平方米"
 msgstr ""
 
-#: ../web/src/partials/property_to_rent_edit.html:292
-msgid "单间独立卫浴"
-msgstr ""
-
 #: ../web/src/partials/property_to_rent_edit.html:312
 msgid "到"
 msgstr ""
@@ -11363,7 +11360,7 @@ msgid "请点击下面的按钮，根据提示重设您的密码："
 msgstr ""
 
 #: ../web/src/static/emails/reset_password_by_email.html:10
-#: ../server/main_interface.py:174
+#: ../server/main_interface.py:180
 msgid "重置密码"
 msgstr ""
 
@@ -11453,59 +11450,81 @@ msgstr ""
 msgid "洋房东致力于为英国华人房东和租客提供专业和靠谱的租房找房和海外置业体验。为房东带来极速租房发布体验，独有的伦敦街区生活、房价报告，杂志般的房源移动主页。为租客带来个性化的找房体验，优质房源，长租短租，地图找房，视频看房，让海外租房变得简单、便利。为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。"
 msgstr ""
 
-#: ../server/main_interface.py:155
+#: ../server/main_interface.py:84
+msgid "洋房东致力于为英国华人房东和租客提供专业和靠谱的租房找房和海外置业省时省力贴心安全快捷便利华人互联网房产平台"
+msgstr ""
+
+#: ../server/main_interface.py:85
+msgid ""
+"洋房东,租房,买房,出租,租房中介,找房子,短租,长租,租金,楼盘,公寓,别墅,学区房,英国置业,留学生租房,海外租房,英国出租,英国租房,伦敦租房,伦敦买房,海外置业,海外投资,英国房价,Youngfunding,for"
+" rent,to let,room to rent,property to rent,investment,overseas "
+"investment,property,apartment,house,UK property"
+msgstr ""
+
+#: ../server/main_interface.py:161
 msgid "选择服务需求"
 msgstr ""
 
-#: ../server/main_interface.py:181
+#: ../server/main_interface.py:187
 msgid "使用短信验证码重置密码"
 msgstr ""
 
-#: ../server/main_interface.py:188 ../server/main_interface.py:198
+#: ../server/main_interface.py:194 ../server/main_interface.py:204
 msgid "使用绑定邮箱重置密码"
 msgstr ""
 
-#: ../server/main_interface.py:206
+#: ../server/main_interface.py:212
 msgid "二手房出售"
 msgstr ""
 
-#: ../server/main_interface.py:214
+#: ../server/main_interface.py:220
 msgid "出售预览"
 msgstr ""
 
-#: ../server/main_interface.py:245 ../server/property_to_rent_interface.py:166
+#: ../server/main_interface.py:251 ../server/property_to_rent_interface.py:167
 msgid "快来围观"
 msgstr ""
 
-#: ../server/main_interface.py:295
+#: ../server/main_interface.py:301
 msgid "没有访问该页面的权限"
 msgstr ""
 
-#: ../server/main_interface.py:302
+#: ../server/main_interface.py:308
 msgid "无法访问该页面"
 msgstr ""
 
-#: ../server/main_interface.py:309
+#: ../server/main_interface.py:315
 msgid "找不到页面"
 msgstr ""
 
-#: ../server/main_interface.py:316
+#: ../server/main_interface.py:322
 msgid "服务器开小差了"
 msgstr ""
 
-#: ../server/main_interface.py:676
+#: ../server/main_interface.py:682
 msgid "洋房东APP下载页"
 msgstr ""
 
-#: ../server/main_interface.py:745
+#: ../server/main_interface.py:683
+msgid "洋房东官方手机app客户端应用下载PC电脑端网站英国英国大不列颠英格兰苏格兰伦敦租客搜索房源租房找房住宿房东发布房源省时省力贴心安全快捷便利"
+msgstr ""
+
+#: ../server/main_interface.py:684
+msgid ""
+"洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,官方应用,官方app,Youngfunding,for"
+" rent,to let,room to rent,property to rent,property,apartment,house,UK "
+"property,official app, official application"
+msgstr ""
+
+#: ../server/main_interface.py:754
 msgid "求租意向单编辑"
 msgstr ""
 
-#: ../server/main_interface.py:757
+#: ../server/main_interface.py:766
 msgid "测试微信分享功能"
 msgstr ""
 
-#: ../server/main_interface.py:764
+#: ../server/main_interface.py:773
 msgid "测试微信分享功能(js-sdk在远程)"
 msgstr ""
 
@@ -11513,35 +11532,99 @@ msgstr ""
 msgid "提交租房需求"
 msgstr ""
 
-#: ../server/main_interface_phone.py:31
+#: ../server/main_interface_phone.py:25
+msgid "洋房东求租意向单满足英国腐国英国大不列颠英格兰苏格兰伦敦找房租房住宿房源需求提供精准优质足不出户快速便捷的服务第一时间联系您省时省力贴心安全快捷便利"
+msgstr ""
+
+#: ../server/main_interface_phone.py:26
+msgid ""
+"洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,求租意向,求租需求,租房需要,租房需求单,租房申请,Youngfunding,for"
+" rent,to let,room to rent,property to rent,property,apartment,house,UK "
+"property, wish list, submitting wishes"
+msgstr ""
+
+#: ../server/main_interface_phone.py:33
 msgid "提交求租咨询"
 msgstr ""
 
-#: ../server/main_interface_phone.py:53
+#: ../server/main_interface_phone.py:55
 msgid "微信分享"
 msgstr ""
 
-#: ../server/main_interface_phone.py:81
+#: ../server/main_interface_phone.py:83
 msgid "房贷计算器"
+msgstr ""
+
+#: ../server/news_interface.py:17
+msgid "洋房东英国英国大不列颠英格兰苏格兰伦敦房源房产房地产不动产房屋购房购屋买房投资资讯咨询信息新闻省时省力贴心安全快捷便利"
+msgstr ""
+
+#: ../server/news_interface.py:18
+msgid ""
+"洋房东,买房,租金,楼盘,公寓,别墅,学区房,英国置业,伦敦买房,海外置业,海外投资,英国房价,投资信息,投资新闻,Youngfunding,investment,overseas"
+" investment,property,apartment,house,UK property,investment information"
+msgstr ""
+
+#: ../server/news_interface.py:52
+msgid "洋房东英国英国大不列颠英格兰苏格兰伦敦期房房源房产房地产不动产房屋购房购屋买房投资常见问题疑惑产权类型买房购房付款交钱投资流程过程解惑解答疑问指南帮助选房找房服务助手省时省力贴心安全快捷便利"
+msgstr ""
+
+#: ../server/news_interface.py:53
+msgid ""
+"洋房东,买房,租金,楼盘,公寓,别墅,学区房,英国置业,伦敦买房,海外置业,海外投资,英国房价,常见问题解答,投资问答,Youngfunding,investment,overseas"
+" investment,property,apartment,house,UK property,Q&A,investment "
+"information"
 msgstr ""
 
 #: ../server/property_interface.py:61
 msgid "房产列表-洋房东"
 msgstr ""
 
+#: ../server/property_interface.py:62
+msgid "洋房东英国英国大不列颠英格兰苏格兰伦敦房源房产房地产不动产房屋购房购屋买房投资建议列表省时省力贴心安全快捷便利"
+msgstr ""
+
+#: ../server/property_interface.py:63
+msgid ""
+"洋房东,买房,租金,楼盘,公寓,别墅,学区房,英国置业,伦敦买房,海外置业,海外投资,英国房价,投资项目,Youngfunding,investment,overseas"
+" investment,property,apartment,house,UK property,investment progects"
+msgstr ""
+
 #: ../server/property_to_rent_interface.py:69
 msgid "出租列表-洋房东"
 msgstr ""
 
-#: ../server/property_to_rent_interface.py:194
+#: ../server/property_to_rent_interface.py:70
+msgid "洋房东房源房产出租列表帮助您在英国大不列颠英格兰苏格兰伦敦全面方便快捷足不出户轻而易举找房租房住宿省时省力贴心安全快捷便捷"
+msgstr ""
+
+#: ../server/property_to_rent_interface.py:71
+msgid ""
+"洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,租房列表,房源列表,Youngfunding,for"
+" rent,to let,room to rent,property to rent,property,apartment,house,UK "
+"property,list of property"
+msgstr ""
+
+#: ../server/property_to_rent_interface.py:195
 msgid "出租房源发布"
 msgstr ""
 
-#: ../server/property_to_rent_interface.py:203
+#: ../server/property_to_rent_interface.py:196
+msgid "洋房东英国大不列颠英格兰苏格兰伦敦快速便捷方便迅速上传发布登记房源房产广告出租找租客提交数据信息填写详情描述周边上传图片照片省时省力贴心安全快捷便利"
+msgstr ""
+
+#: ../server/property_to_rent_interface.py:197
+msgid ""
+"洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,提交房源,上传房产,Youngfunding,for"
+" rent,to let,room to rent,property to rent,property,apartment,house,UK "
+"property,listing submission"
+msgstr ""
+
+#: ../server/property_to_rent_interface.py:206
 msgid "出租房源编辑"
 msgstr ""
 
-#: ../server/property_to_rent_interface.py:229
+#: ../server/property_to_rent_interface.py:232
 msgid "房源发布成功"
 msgstr ""
 
