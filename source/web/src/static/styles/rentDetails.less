@@ -898,9 +898,15 @@ body {
             > li {
                 float: left; width: 100% / 4; border-right: 1px solid @border-color; padding-left: @standard-margin;
                 @media @phone {
+                    float: none;
+                    display: inline-block;
+                    width: 32% !important;
                     font-size: @base-font-size-mobile;
                     height: 100%;
-                    min-height: 50px;
+                    min-height: 60px;
+                    &:nth-child(3){
+                        border-right: none;
+                    }
                 }
 
                 &:first-child {

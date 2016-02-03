@@ -221,7 +221,7 @@
             </div>
             <div id="propertyDetails_description" class="meta scrollto">
                 % if ('space' in rent and rent.get('space','')) or ('bedroom_count' in rent['property'] and rent.get('property',{}).get('bedroom_count','')) or ('bathroom_count' in rent['property'] and rent.get('property',{}).get('bathroom_count','')) or ('living_room_count' in rent['property'] and rent.get('property',{}).get('living_room_count','')):
-                    % count = sum([bool(x in rent['property']) for x in ["bedroom_count", "bathroom_count", "living_room_count"]]) + (1 if 'space' in rent else 0) + (1 if 'independent_bathroom' in rent else 0)
+                    % count = sum([bool(x in rent['property']) for x in ["bedroom_count", "bathroom_count", "living_room_count"]]) + (1 if 'space' in rent else 0) + (1 if (rent.get('rent_type',{}).get('slug','') == 'rent_type:single' and 'space' in rent.get('property', {})) else 0) + (1 if 'independent_bathroom' in rent else 0)
                     <ul class="numbers">
                         % if 'space' in rent:
                             <li style="width: {{100/count}}%">
@@ -238,6 +238,18 @@
                                 </strong>
                             </li>
                         % end
+                        % if rent.get('rent_type',{}).get('slug','') == 'rent_type:single' and 'space' in rent.get('property', {}):
+                            <li style="width: {{100/count}}%">
+                                {{ _('房屋面积')}}
+                                <strong>
+                                    {{rent.get('property', {}).get('space',{}).get('value','')}}
+                                    <span class="unit">
+                                        {{!format_unit(rent.get('property', {}).get('space',{}).get('unit',''))}}
+                                    </span>
+                                </strong>
+                            </li>
+                        % end
+
                         % if 'independent_bathroom' in rent and rent.get('independent_bathroom'):
                             <li style="width: {{100/count}}%">
                                 {{_('独立卫浴')}}

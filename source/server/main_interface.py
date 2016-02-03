@@ -1676,12 +1676,31 @@ def aggregation_rent_request(user, params):
         relocate_different_city_count = 0
         user_have_request_set = set()
         user_different_city_set = set()
+        period_count = {
+            "longer than 12 months": 0,
+            "6 ~ 12 months": 0,
+            "3 ~ 6 months": 0,
+            "1 ~ 3 months": 0,
+            "less than 1 month": 0
+        }
         for index, ticket in enumerate(result):
-            if index < 99:
-                continue
-            print index
+            if 'rent_available_time' in ticket and 'rent_deadline_time' in ticket:
+                try:
+                    period = ticket['rent_deadline_time'] - ticket['rent_available_time']
+                except:
+                    pass
+                else:
+                    if period.days >= 365:
+                        period_count["longer than 12 months"] += 1
+                    elif 365 > period.days >= 180:
+                        period_count["6 ~ 12 months"] += 1
+                    elif 180 > period.days >= 90:
+                        period_count["3 ~ 6 months"] += 1
+                    elif 90 > period.days >= 30:
+                        period_count["1 ~ 3 months"] += 1
+                    elif period.days <= 30:
+                        period_count["less than 1 month"] += 1
             if 'user_id' in ticket:
-                print ticket['user_id']
                 user_have_request_set.add(ticket['user_id'])
             if 'custom_fields' in ticket:
                 relocate_city = None
@@ -1689,18 +1708,15 @@ def aggregation_rent_request(user, params):
                 for single in ticket['custom_fields']:
                     if single.get('key', '') == 'relocate':
                         relocate_city = single.get('value', '').split(',')[-1].lstrip(' ')
-                        print (relocate_city, want_rent_city)
                 try:
                     interested_ticket_id = ticket['interested_rent_tickets'][0]
                     interested_ticket = f_app.ticket.get(interested_ticket_id)
-                    want_rent_city = f_app.i18n.process_i18n(f_app.property.get(interested_ticket['property_id'])).get('city', {}).get('name', None)
+                    want_rent_city = f_app.i18n.process_i18n({'city': f_app.property.get(interested_ticket['property_id']).get('city', {})})['city'].get('name', None)
                 except:
                     continue
                 if relocate_city is not None and want_rent_city is not None:
-                    print (relocate_city, want_rent_city)
                     if relocate_city != want_rent_city:
                         if 'user_id' in ticket:
-                            print ticket['user_id']
                             user_different_city_set.add(ticket['user_id'])
                         relocate_different_city_count += 1
             if ticket['status'] == 'rent':
@@ -1708,7 +1724,8 @@ def aggregation_rent_request(user, params):
                     if single['ticket_id'] in ticket['interested_rent_tickets']:
                         request_count_before_rent_list.append(single['count'])
         value.update({"aggregation_rent_request_average_count_before_rent": sum(request_count_before_rent_list)*1.0/len(request_count_before_rent_list) if len(request_count_before_rent_list) else 0})
-        value.update({'aggregation_rent_request_user_rent_different_city_ratio': float(1.0 * len(user_different_city_set) / len(user_have_request_set))})
+        value.update({'aggregation_rent_request_user_rent_different_city_ratio': float(1.0 * len(user_different_city_set) / len(user_have_request_set) if len(user_have_request_set) else 0)})
+        value.update({'aggregation_rent_request_period_count': period_count})
     return value
 
 
