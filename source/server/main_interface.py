@@ -1725,7 +1725,7 @@ def aggregation_rent_request(user, params):
                         request_count_before_rent_list.append(single['count'])
         value.update({"aggregation_rent_request_average_count_before_rent": sum(request_count_before_rent_list)*1.0/len(request_count_before_rent_list) if len(request_count_before_rent_list) else 0})
         value.update({'aggregation_rent_request_user_rent_different_city_ratio': float(1.0 * len(user_different_city_set) / len(user_have_request_set) if len(user_have_request_set) else 0)})
-        value.update({'aggregation_rent_request_period_count': [{single: period_count[single]} for single in period_count]})
+        value.update({'aggregation_rent_request_period_count': [{"period": single, "count": period_count[single]} for single in period_count]})
     return value
 
 
