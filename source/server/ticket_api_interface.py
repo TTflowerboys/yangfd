@@ -1337,6 +1337,7 @@ def rent_ticket_contact_info(user, ticket_id):
     partner=bool,
     short_id=str,
     query=str,
+    independent_bathroom=bool,
 ))
 @f_app.user.login.check(check_role=True)
 def rent_ticket_search(user, params):
