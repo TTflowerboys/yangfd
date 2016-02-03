@@ -1672,6 +1672,7 @@ def aggregation_rent_request(user, params):
                 }
             })
         )
+
         request_count_before_rent_list = []
         relocate_different_city_count = 0
         user_have_request_set = set()
