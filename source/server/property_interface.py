@@ -59,7 +59,8 @@ def property_list(params):
                 keywords += property_type.get('value') + ','
 
     title += _('房产列表-洋房东')
-    keywords += ','.join(currant_util.BASE_PROPERTY_KEYWORDS_ARRAY)
+    description = _('洋房东英国英国大不列颠英格兰苏格兰伦敦房源房产房地产不动产房屋购房购屋买房投资建议列表省时省力贴心安全快捷便利')
+    keywords += _('洋房东,买房,租金,楼盘,公寓,别墅,学区房,英国置业,伦敦买房,海外置业,海外投资,英国房价,投资项目,Youngfunding,investment,overseas investment,property,apartment,house,UK property,investment progects')
 
     return currant_util.common_template("property_list",
                                         city_list=city_list,
@@ -69,7 +70,9 @@ def property_list(params):
                                         intention_list=intention_list,
                                         bedroom_count_list=bedroom_count_list,
                                         building_area_list=building_area_list,
-                                        title=title
+                                        title=title,
+                                        description=description,
+                                        keywords=keywords
                                         )
 
 

@@ -67,10 +67,11 @@ def property_to_rent_list(params):
                 keywords += rent_type.get('value') + ','
 
     title += _('出租列表-洋房东')
-
-    keywords += ','.join(currant_util.BASE_RENT_KEYWORDS_ARRAY)
+    description = _('洋房东房源房产出租列表帮助您在英国大不列颠英格兰苏格兰伦敦全面方便快捷足不出户轻而易举找房租房住宿省时省力贴心安全快捷便捷')
+    keywords += _('洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,租房列表,房源列表,Youngfunding,for rent,to let,room to rent,property to rent,property,apartment,house,UK property,list of property')
 
     return currant_util.common_template("property_to_rent_list",
+                                        description=description,
                                         keywords=keywords,
                                         city_list=city_list,
                                         property_country_list=property_country_list,
@@ -192,8 +193,10 @@ def property_to_rent_create():
     property_type_list_without_new_property = filter(lambda item: item.get('slug') != 'new_property', property_type_list)
     rent = {}
     title = _('出租房源发布')
+    description = _('洋房东英国大不列颠英格兰苏格兰伦敦快速便捷方便迅速上传发布登记房源房产广告出租找租客提交数据信息填写详情描述周边上传图片照片省时省力贴心安全快捷便利')
+    keywords = _('洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,提交房源,上传房产,Youngfunding,for rent,to let,room to rent,property to rent,property,apartment,house,UK property,listing submission')
     return currant_util.common_template("property_to_rent_create", landlord_type_list=landlord_type_list, region_highlight_list=region_highlight_list, rent_period_list=rent_period_list, indoor_facility_list=indoor_facility_list, community_facility_list=community_facility_list, rent_type_list=rent_type_list,
-                                        property_type_list=property_type_list, property_type_list_without_new_property=property_type_list_without_new_property, title=title, rent=rent)
+                                        property_type_list=property_type_list, property_type_list_without_new_property=property_type_list_without_new_property, title=title, rent=rent, description=description, keywords=keywords)
 
 
 @f_get('/property-to-rent/<rent_ticket_id:re:[0-9a-fA-F]{24}>/edit')

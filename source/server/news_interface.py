@@ -14,7 +14,9 @@ logger = logging.getLogger(__name__)
 @currant_util.check_ip_and_redirect_domain
 def news_list():
     title = _('房产资讯')
-    return currant_util.common_template("news_list", title=title)
+    description = _('洋房东英国英国大不列颠英格兰苏格兰伦敦房源房产房地产不动产房屋购房购屋买房投资资讯咨询信息新闻省时省力贴心安全快捷便利')
+    keywords = _('洋房东,买房,租金,楼盘,公寓,别墅,学区房,英国置业,伦敦买房,海外置业,海外投资,英国房价,投资信息,投资新闻,Youngfunding,investment,overseas investment,property,apartment,house,UK property,investment information')
+    return currant_util.common_template("news_list", title=title, description=description, keywords=keywords)
 
 
 @f_get('/news/<news_id:re:[0-9a-fA-F]{24}>')
@@ -47,7 +49,9 @@ def notice_list():
 @currant_util.check_ip_and_redirect_domain
 def guides():
     title = _('购房指南')
-    return currant_util.common_template("guides", title=title)
+    description = _('洋房东英国英国大不列颠英格兰苏格兰伦敦期房房源房产房地产不动产房屋购房购屋买房投资常见问题疑惑产权类型买房购房付款交钱投资流程过程解惑解答疑问指南帮助选房找房服务助手省时省力贴心安全快捷便利')
+    keywords = _('洋房东,买房,租金,楼盘,公寓,别墅,学区房,英国置业,伦敦买房,海外置业,海外投资,英国房价,常见问题解答,投资问答,Youngfunding,investment,overseas investment,property,apartment,house,UK property,Q&A,investment information')
+    return currant_util.common_template("guides", title=title, description=description, keywords=keywords)
 
 
 @f_get('/laws')

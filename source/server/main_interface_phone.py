@@ -22,7 +22,9 @@ def requirement():
 @currant_util.check_ip_and_redirect_domain
 def requirement_rent():
     title = _('提交租房需求')
-    return currant_util.common_template("requirement_rent_phone", title=title)
+    description = _('洋房东求租意向单满足英国腐国英国大不列颠英格兰苏格兰伦敦找房租房住宿房源需求提供精准优质足不出户快速便捷的服务第一时间联系您省时省力贴心安全快捷便利')
+    keywords = _('洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,求租意向,求租需求,租房需要,租房需求单,租房申请,Youngfunding,for rent,to let,room to rent,property to rent,property,apartment,house,UK property, wish list, submitting wishes')
+    return currant_util.common_template("requirement_rent_phone", title=title, description=description, keywords=keywords)
 
 
 @f_get('/rent-request', params=dict(ticketId=str))
