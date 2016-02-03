@@ -23,8 +23,10 @@ window.getErrorMessageFromErrorCode = function (errorCode, api, data) {
     var stringMap = {
         0: i18n('遇到了一个网络问题，请检查网络连接正常后重试。'),
         40000: i18n('输入错误，请检查后重试。'),
+        400: i18n('输入错误，请检查后重试。'),
         40090: i18n('已经在收藏里了。'),
         40100: i18n('没有访问权限，请登录后重试。'),
+        401: i18n('没有访问权限，请登录后重试。'),
         40101: i18n('频率达到上限，请稍后重试。'),
         40103: i18n('账户或密码错误。'),
         40105: i18n('对不起，您的权限不够。'),
@@ -33,6 +35,7 @@ window.getErrorMessageFromErrorCode = function (errorCode, api, data) {
         40109: i18n('没有权限！'),
         40114: i18n('帐号已被禁用，请致电联系平台工作人员'),
         40300: i18n('没有权限！'),
+        403: i18n('没有权限！'),
         40324: i18n('账户不存在'),
         40325: i18n('邮箱已被使用！请<a href="#" onclick="project.goToSignIn()">“登录”</a>或者<a href="#" onclick="project.goToResetPassword()">“找回密码”</a>'),
         40351: i18n('电话已被使用！请<a href="#" onclick="project.goToSignIn()">“登录”</a>或者<a href="#" onclick="project.goToResetPassword()">“找回密码”</a>'),
@@ -45,7 +48,9 @@ window.getErrorMessageFromErrorCode = function (errorCode, api, data) {
         40361: i18n('过期或已验证过的邀请码，请重新申请'),
         40399: i18n('权限错误。'),
         40400: i18n('对不起，没有找到您要的资源'),
+        404: i18n('对不起，没有找到您要的资源'),
         50000: i18n('服务暂时不可用，请稍后重试'),
+        500: i18n('服务暂时不可用，请稍后重试'),
         50200: i18n('服务暂时不可用，请稍后重试'),
         50300: i18n('第三方服务暂时不可用，请稍后重试'),
         50400: i18n('服务暂时不可用，请稍后重试')

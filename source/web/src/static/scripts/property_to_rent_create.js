@@ -631,11 +631,17 @@
         return validate
     }
 
-    function getSpace(){
+    function getRoomSpace(){
         if($('#roomSize').val() === '') {
             return false
         }
         return JSON.stringify({'unit': $('#spaceUnit').children('option:selected').val(), 'value': $('#roomSize').val()})
+    }
+    function getHouseSpace(){
+        if($('#houseSize').val() === '') {
+            return false
+        }
+        return JSON.stringify({'unit': $('#houseSpaceUnit').children('option:selected').val(), 'value': $('#houseSize').val()})
     }
     function updateTitle() {
         var defaultTitle = ($('#community').val() ? $('#community').val() : ($('#neighborhood-select').val() ? $('#neighborhood-select').find(':selected').text().replace(/,.+$/,'') : $('#street').val())) + ' ' + ($('#bedroom_count').children('option:selected').val() > 0 ? $('#bedroom_count').children('option:selected').val() + window.i18n('居室') : 'Studio') + $('#rentalType .selected').text().trim() + window.i18n('出租')
@@ -721,8 +727,11 @@
         if($('#house_name').val() !== ''){
             propertyData.house_name = wrapData($('#house_name').val())
         }
-        if($('#rentalType .selected').index() === 1 && getSpace() !== false){
-            propertyData.space = getSpace()
+        if(module.appViewModel.propertyViewModel.rentTypeSlug() === 'rent_type:whole' && getRoomSpace() !== false){
+            propertyData.space = getRoomSpace()
+        }
+        if(module.appViewModel.propertyViewModel.rentTypeSlug() === 'rent_type:single' && getHouseSpace() !== false){
+            propertyData.space = getHouseSpace()
         }
         if(module.appViewModel.propertyViewModel.latitude() !== '') {
             propertyData.latitude = module.appViewModel.propertyViewModel.latitude()
@@ -775,8 +784,8 @@
         if($('#description').val() !== ''){
             ticketData.description = $('#description').val()
         }
-        if(getSpace() !== false) {
-            ticketData.space = getSpace() //面积
+        if(getRoomSpace() !== false) {
+            ticketData.space = getRoomSpace() //面积
         }
         if($('#rentPeriodEndDate').val()){
             ticketData.rent_deadline_time = new Date($('#rentPeriodEndDate').val()).getTime() / 1000
@@ -1215,9 +1224,9 @@
         this.latitude = ko.observable()
         this.longitude = ko.observable()
         this.city = ko.observable()
-        this.maleRoommatesList = ko.observableArray(window.team.generateArray(10))
+        this.maleRoommatesList = ko.observableArray(window.team.generateArray(11, 0))
         this.maleRoommates = ko.observable(rent.current_male_roommates)
-        this.femaleRoommatesList = ko.observableArray(window.team.generateArray(10))
+        this.femaleRoommatesList = ko.observableArray(window.team.generateArray(11, 0))
         this.femaleRoommates = ko.observable(rent.current_female_roommates)
         this.availableRoommatesList = ko.observableArray(window.team.generateArray(10))
         this.availableRoommates = ko.observable(rent.accommodates)

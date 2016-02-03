@@ -375,12 +375,12 @@
                             <select data-bind="chosen: maleRoommatesList,
                                 optionsText: function(item){return item + window.i18n('人')},
                                 value: maleRoommates,
-                                optionsCaption: '{{_('男性')}}'">
+                                optionsCaption: '{{_('男室友数量')}}'">
                             </select>
                             <select data-bind="chosen: femaleRoommatesList,
                                 optionsText: function(item){return item + window.i18n('人')},
                                 value: femaleRoommates,
-                                optionsCaption: '{{_('女性')}}'">
+                                optionsCaption: '{{_('女室友数量')}}'">
                             </select>
                         </td>
                     </tr>
@@ -399,12 +399,12 @@
                                 optionsText: 'text',
                                 optionsValue: 'value',
                                 value: gender,
-                                optionsCaption: '{{_('性别')}}'"></select>
+                                optionsCaption: '{{_('不限性别')}}'"></select>
                                 <select class="occupation" data-bind="chosen: occupationList,
                                 optionsText: 'value',
                                 optionsValue: 'id',
                                 value: occupation,
-                                optionsCaption: '{{_('职业')}}'"></select>
+                                optionsCaption: '{{_('不限职业')}}'"></select>
                             </div>
                             <div data-bind="visible: rentTypeSlug() === 'rent_type:single'" style="margin-bottom: 14px;">
                                 <select class="wide" data-bind="chosen: minAgeList,
@@ -494,6 +494,28 @@
                 </td>
                 <td class="content">
                     <textarea class="description" id="description" data-name="{{_('描述')}}" placeholder="{{_('请补充对房屋特点的描述，优质而独特的房源描述会得到平台的推荐，提升您的房源排名。（请勿在此填写任何形式的联系方式，违规发布将会予以处理）')}}">{{rent.get('description','')}}</textarea>
+                </td>
+            </tr>
+            <tr data-bind="if: rentTypeSlug() === 'rent_type:single'">
+                <td class="title">
+                    <label class="text" for="houseSize">{{_('房屋面积')}}</label>
+                </td>
+                <td class="room_size">
+                    <div>
+                        <input type="text" id="houseSize" name="roomSize" data-validator="trim, decimalNumber, maxLength(10)" data-name="{{_('面积')}}" value="{{rent.get('space',{}).get('value','')}}"/>
+                        <select id="houseSpaceUnit">
+                            <option value="meter ** 2"
+                                %if rent.get('space',{}).get('unit','meter ** 2')=="meter ** 2":
+                            selected
+                            %end
+                            >{{_('平方米')}}</option>
+                            <option value="foot ** 2"
+                                %if rent.get('space',{}).get('unit','meter ** 2')=="foot ** 2":
+                            selected
+                            %end
+                            >{{_('平方英尺')}}</option>
+                        </select>
+                    </div>
                 </td>
             </tr>
             <tr>

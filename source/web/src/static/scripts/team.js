@@ -532,9 +532,10 @@
             }
         },
         /*生成一个指定长度的从1开始递增的自然数数组*/
-        generateArray: function (length) {
+        generateArray: function (length, start) {
+            start = start === undefined ? 1 : start
             return _.map(new Array((length || 0) + 1).join('0').split(''), function (val, index) {
-                return index + 1
+                return index + start
             })
         },
         openLink: function (url) {
