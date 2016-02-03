@@ -113,4 +113,14 @@ static NSString *secureHost = nil;
     return NO;
 }
 
++ (BOOL)enableFabric {
+    NSDictionary *appInfo = [[NSBundle mainBundle] infoDictionary];
+    return [[appInfo objectForKey:@"CurrantChannel"] isEqualToString:@"production"];
+}
+
++ (BOOL)enableBugtags {
+    NSDictionary *appInfo = [[NSBundle mainBundle] infoDictionary];
+    return ![[appInfo objectForKey:@"CurrantChannel"] isEqualToString:@"production"];
+}
+
 @end

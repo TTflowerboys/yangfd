@@ -259,17 +259,15 @@
 //    [[AFNetworkActivityLogger sharedLogger] startLogging];
 #endif
 
-    NSDictionary *appInfo = [[NSBundle mainBundle] infoDictionary];
-    if ([[appInfo objectForKey:@"CurrantChannel"] isEqualToString:@"production"]) {
+    if ([CUTEConfiguration enableFabric]) {
         [Fabric with:@[CrashlyticsKit]];
     }
-    else {
-        //TODO check production need this feature and this lib?
+
+    if ([CUTEConfiguration enableBugtags]) {
         [Bugtags startWithAppKey:@"fb5ae938402722929e9bd6bc21239141" invocationEvent:BTGInvocationEventBubble];
     }
 
     [[CUTETracker sharedInstance] trackEnterForeground];
-
 
     //wait for the register controller dismiss, in case of mis-order trigger viewWillDisappear
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

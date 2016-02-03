@@ -46,4 +46,8 @@
 
 + (BOOL)enableAPNS;
 
++ (BOOL)enableFabric;
+
++ (BOOL)enableBugtags;
+
 @end
