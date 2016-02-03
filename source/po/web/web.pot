@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant 1.0\n"
 "Report-Msgid-Bugs-To: developer@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-02-03 16:28+0800\n"
+"POT-Creation-Date: 2016-02-03 17:29+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11404,7 +11404,7 @@ msgid "查看详情"
 msgstr ""
 
 #: ../web/src/static/templates/location-search-box.tpl.html:5
-msgid "请输入位置，比如Isle of dogs, Crouch Hill Station, UCL..."
+msgid "请输入位置，比如E14, E14 9AQ, Isle of dogs, Crouch Hill Station, UCL..."
 msgstr ""
 
 #: ../web/src/static/templates/location-search-box.tpl.html:20
@@ -11413,7 +11413,7 @@ msgid "热门学校"
 msgstr ""
 
 #: ../web/src/static/templates/location-search-box.tpl.html:48
-msgid "请输入位置，如Isle of dogs, Crouch Hill Station, UCL..."
+msgid "请输入位置，如E14, E14 9AQ, Isle of dogs, Crouch Hill Station, UCL..."
 msgstr ""
 
 #: ../web/src/static/templates/my_rent_card.tpl.html:83
