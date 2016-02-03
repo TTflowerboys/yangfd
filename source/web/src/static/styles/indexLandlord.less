@@ -192,7 +192,9 @@
         background: url("/static/images/background/index_app_bg.jpg") 50% 50% no-repeat;
         background-size: cover;
         body[lang=en_GB] &{
-            display: none;
+            @media @pc{
+                display: none;
+            }
             @media @phone{
                 margin-bottom: 0;
             }
@@ -242,6 +244,9 @@
 
                 @media @phone {
                     height:360px;
+                    body[lang=en_GB] &{
+                        height: 450px;
+                    }
                 }
 
                 @media @screen-lg{
@@ -291,6 +296,71 @@
                     }
                 }
             }
+            .enBtn{
+                display: none;
+                @media @phone{
+                    body[lang=en_GB] &{
+                        display: block;
+                        position: relative;
+                        margin: 20px auto 80px;
+                        border: 2px solid #fff;
+                        color: #fff;
+                        border-radius: 10px;
+                        text-decoration: none;
+                        .clearfix;
+                        @width:308px;
+                        @height:100px;
+                        @iconFontSize: 48px;
+                        @logoMargin:24px;
+                        @infoWidth:200px;
+                        @infoFontSize:17px;
+                        @infoFontSizeBold:25px;
+                        @infoMargin:20px;
+                        .size(@n:1){
+                            width: @n * @width;
+                            height: @n * @height;
+                            .logo{
+                                line-height: @n * @height - 4px;
+                                margin: 0 @n * @logoMargin;
+                                i{
+                                    font-size: @n * @iconFontSize;
+                                }
+                            }
+                            .downloadInfo{
+                                margin-top: @n * @infoMargin;
+                                width: @n * @infoWidth;
+                                font-size: @n * @infoFontSize;
+                                .bold{
+                                    font-size: @n * @infoFontSizeBold;
+                                }
+                            }
+
+                        }
+
+                        @media @phone {
+                            .size(0.72);
+                            float: none;
+                        }
+                        .logo{
+                            float:left;
+                            i{
+                                vertical-align: middle;
+                            }
+                        }
+                        .downloadInfo{
+                            float: left;
+                            p{
+                                margin: 0;
+                                text-align: left;
+                                line-height: 1.4em;
+                                &.bold{
+                                    font-weight: bold;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         .wrapCenter {
@@ -298,6 +368,9 @@
             @media @phone {
                 width:100%;
                 margin-top:30px;
+                body[lang=en_GB] &{
+                    display: none;
+                }
             }
 
             .downloadWrap {
