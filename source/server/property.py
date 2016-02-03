@@ -336,8 +336,11 @@ class currant_property(f_app.module_base):
         index_params = f_app.util.try_get_value(property, ["zipcode", "zipcode_index", "short_id"]).values()
 
         if "zipcode" in property and len(property["zipcode"].replace(" ", "")) in (5, 6, 7):
-            index_params.append(property["zipcode"].replace(" ", "")[-3:])
-            index_params.append(property["zipcode"].replace(" ", "")[:-3])
+            if " " not in property["zipcode"]:
+                index_params.append(property["zipcode"][-3:])
+                index_params.append(property["zipcode"][:-3])
+            else:
+                index_params.append(property["zipcode"].replace(" ", ""))
 
         if "city" in property and property["city"] and "name" in property["city"]:
             index_params.append(property["city"]["name"])
