@@ -29,6 +29,9 @@ location-search-box {
                     border-bottom-right-radius: 0;
                     border-bottom-left-radius: 0;
                 }
+                &:focus{
+                    outline: none;
+                }
             }
             i{
                 &.btn {
@@ -156,6 +159,9 @@ location-search-box {
                             color: #777;
                             text-decoration: none;
                             cursor: pointer;
+                            &:hover{
+                                color: @red;
+                            }
                         }
                     }
                 }
