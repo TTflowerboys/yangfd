@@ -35,7 +35,7 @@ pod 'JDFTooltips', '1.0'
 pod 'ActionSheetPicker-3.0', '~> 2.0.3'
 pod 'NSTimer-Blocks'
 pod 'UMengSocial', '~> 4.2.5'
-pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git" 
+pod 'WeiboSDK', :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git" 
 pod 'ALActionBlocks', '1.0.3'
 pod 'Aspects', '1.4.1'
 pod 'KVOController', '1.0.3'
