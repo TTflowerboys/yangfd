@@ -134,8 +134,26 @@
     }
 
      //used in mobile client
+    function sortObject(o) {
+        var sorted = {},
+            key, a = [];
+
+        for (key in o) {
+            if (o.hasOwnProperty(key)) {
+                a.push(key);
+            }
+        }
+
+        a.sort();
+
+        for (key = 0; key < a.length; key++) {
+            sorted[a[key]] = o[a[key]];
+        }
+        return sorted;
+    }
     window.getSummaryTitle = function () {
-        return _.compact(_.values(module.appViewModel.rentListViewModel.summaryTitleObj())).join(', ')
+
+        return _.compact(_.values(sortObject(module.appViewModel.rentListViewModel.summaryTitleObj()))).join(', ')
     }
 
     //check showTags at first time in mobile

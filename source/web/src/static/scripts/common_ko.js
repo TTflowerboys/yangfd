@@ -1,5 +1,34 @@
 
 (function (ko, module) {
+    (function () {
+        var valueHandler = _.clone(ko.bindingHandlers.value)
+        ko.bindingHandlers.value.init = function(element, valueAccessor) {
+            if(valueAccessor() && _.isFunction(valueAccessor().subscribe)) {
+                valueAccessor().subscribe(function () {
+                    setTimeout(function () {
+                        $(element).trigger('change')
+                    }, 100)
+                })
+            }
+            valueHandler.init.apply(this, arguments)
+        }
+        var textInputHandler = _.clone(ko.bindingHandlers.textInput)
+        ko.bindingHandlers.textInput.init = function(element, valueAccessor) {
+            if(valueAccessor()()) {
+                setTimeout(function () {
+                    $(element).trigger('change')
+                }, 100)
+            }
+            if(valueAccessor() && _.isFunction(valueAccessor().subscribe)) {
+                valueAccessor().subscribe(function () {
+                    setTimeout(function () {
+                        $(element).trigger('change')
+                    }, 100)
+                })
+            }
+            textInputHandler.init.apply(this, arguments)
+        }
+    })()
     ko.bindingHandlers.chosen = {
         init: function(element, valueAccessor, allBindings)  {
             ko.bindingHandlers.options.init.call(this, element)
