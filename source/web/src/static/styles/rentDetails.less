@@ -343,7 +343,6 @@ body {
     }
 
     .rentRequestFlow {
-        float: left;
         display: block;
         width: 100%;
         margin-top: 10px;
@@ -376,14 +375,13 @@ body {
 
     .rentPreferences {
         width: 100%;
-        margin-top:50px;
         float:left;
         .basic {
-            height: 48px;
             .accommodates {
-                float: left;
-                width: 80px;
-                margin-right:40px;
+                float: left;                
+                height: 48px;
+                min-width: 80px;
+                padding-right: 10px;                
                 border-right: 1px solid @border-color;
 
                 strong {
@@ -398,12 +396,12 @@ body {
             }
 
             .allowOrDisallow {
-                float:left;
+                float:right;
                 width:240px;
+                height: 48px;
                 li {
                     float:left;
-                    display: inline-block;
-                    float: left;
+                    display: inline-block;                    
                     width: 33%;
                     height: 100%;
                     line-height: 48px;
