@@ -150,7 +150,7 @@
             })
             $scope.pages[$scope.currentPageNumber] = $scope.list
 
-            if (!$scope.list || $scope.list.length < $scope.perPage) {
+            if (!data.val || data.val.length < $scope.perPage) {
                 $scope.noNext = true
             } else {
                 $scope.noNext = false
