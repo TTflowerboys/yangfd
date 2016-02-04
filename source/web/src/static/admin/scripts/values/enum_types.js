@@ -5,6 +5,7 @@ angular.module('app')
     .constant('enumTypes', [
         { name: i18n('房间设施'), value: 'indoor_facility' },
         { name: i18n('小区设施'), value: 'community_facility' },
+        { name: i18n('suggestion类型'), value: 'suggestion_type'},
         { name: i18n('周边设施'), value: 'featured_facility_type'},
         { name: i18n('交通方式'), value: 'featured_facility_traffic_type'},
         { name: i18n('街区亮点'), value: 'region_highlight' },

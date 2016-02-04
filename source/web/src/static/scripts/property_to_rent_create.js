@@ -1323,9 +1323,7 @@
             window.project.getEnum('featured_facility_type')
                 .then(function (types) {
                     mixedSearch({
-                        types: _.reject(types, function (item) {
-                            return item.slug === 'maponics_neighborhood' || item.slug === 'city'
-                        }),
+                        types: types,
                         latitude: module.appViewModel.propertyViewModel.latitude(),
                         longitude: module.appViewModel.propertyViewModel.longitude(),
                         city: module.appViewModel.propertyViewModel.city()

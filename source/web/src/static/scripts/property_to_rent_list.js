@@ -617,8 +617,12 @@
             }
         })()
 
-        window.project.getEnum('featured_facility_type')
+        window.project.getEnum('suggestion_type')
             .then(_.bind(function (val) {
+                val = _.map(val, function (item) {
+                    item.slug = item.slug.replace(':suggestion', '')
+                    return item
+                })
                 module.suggestionTypeList = val
                 module.suggestionTypeSlugList = _.map(val, function (item) {
                     return item.slug
