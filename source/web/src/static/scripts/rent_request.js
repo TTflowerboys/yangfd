@@ -10,11 +10,16 @@
                     window.openRentRequestForm(ticketId, isPopup)
                 }
             }
-
+            this.scrollTopOnMobile = function () {
+                if (window.team.isPhone()) {
+                    $('body,html').animate({scrollTop: 0}, 0)
+                }
+            }
             this.step = ko.observable(1)
             this.goNext = function () {
                 if(this.validateStep1()) {
                     this.step(this.step() + 1)
+                    this.scrollTopOnMobile()
                     ga('send', 'pageview', '/submit-rent-request-intention/step-' + this.step())
                 }
                 ga('send', 'event', 'rentRequestIntention', 'click', 'go-to-next-rent-request-intention')
@@ -22,6 +27,7 @@
             this.goPrev = function () {
                 this.errorMsg('')
                 this.step(this.step() - 1)
+                this.scrollTopOnMobile()
                 ga('send', 'event', 'rentRequestIntention', 'click', 'go-to-prev-rent-request-intention')
                 ga('send', 'pageview', '/submit-rent-request-intention/step-' + this.step())
             }
@@ -655,6 +661,7 @@
             this.showSuccessWrap = function () {
                 this.successWrapVisible(true)
                 this.formWrapVisible(false)
+                this.scrollTopOnMobile()
             }
 
             function formatPrice(priceObj) {
