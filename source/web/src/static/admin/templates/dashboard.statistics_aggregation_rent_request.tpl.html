@@ -21,17 +21,22 @@
               {%value.aggregation_rent_request_total_count%}
             </td>
           </tr>
-          <tr ng-if="!value.aggregation_rent_request_period_count.length">
+          <tr ng-if="!value.aggregation_rent_request_period_count_result.length">
             <td colspan="2">按房源租期统计的数量排名：</td>
             <td>{%place_holder%}</td>
           </tr>
-          <tr ng-repeat="item in value.aggregation_rent_request_period_count">
-            <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_request_period_count.length%}" class="col-sm-4">
+          <tr ng-repeat="item in value.aggregation_rent_request_period_count_result">
+            <td ng-if="$index === 0" rowspan="{%value.aggregation_rent_request_period_count_result.length%}" class="col-sm-4">
               按房源租期统计的数量排名：
             </td>
-            <td class="col-sm-4">
+            <td class="col-sm-2" ng-if="item.period" rowspan="{%item.total%}">
               <span>
                 {%item.period%}
+              </span>
+            </td>
+            <td class="col-sm-2">
+              <span>
+                {%item.type%}
               </span>
             </td>
             <td class="col-sm-4">
