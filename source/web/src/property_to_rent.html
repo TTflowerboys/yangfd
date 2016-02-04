@@ -604,48 +604,50 @@
             <div class="seperator"></div>
             <div class="rentPreferences">
                 %if rent.get('rent_type') and rent.get('rent_type').get('slug') == "rent_type:single":
-                    <div class="basic">
-                        % if 'accommodates' in rent:
-                            <dic class="accommodates">
-                                {{_('可入住人数')}}
-                                <strong>{{ rent.get('accommodates') }}</strong>
-                            </dic>
-                        % end
-                        <ul class="allowOrDisallow">
-                            % if 'no_smoking' in rent:
-                                <li class="noSmoking">
-                                    <i class="icon-cigarette"></i>
-                                    % if rent.get("no_smoking"):
-                                        <strong class="text no">{{_('禁止')}}</strong>
-                                    % else:
-                                        <strong class="text yes">{{_('允许')}}</strong>
-                                    % end
-                                </li>
+                    % if 'accommodates' in rent or 'no_smoking' in rent or 'no_pet' in rent or 'no_baby' in rent:
+                        <div class="basic">
+                            % if 'accommodates' in rent:
+                                <dic class="accommodates">
+                                    {{_('可入住人数')}}
+                                    <strong>{{ rent.get('accommodates') }}</strong>
+                                </dic>
                             % end
-                            % if 'no_pet' in rent:
-                                <li class="noPet">
-                                    <i class="icon-pet"></i>
-                                    % if rent.get("no_pet"):
-                                        <strong class="text no">{{_('禁止')}}</strong>
-                                    % else:
-                                        <strong class="text yes">{{_('允许')}}</strong>
-                                    % end
-                                </li>
-                            % end
-                            % if 'no_baby' in rent:
-                                <li class="noBaby">
-                                    <i class="icon-baby"></i>
-                                    % if rent.get("no_baby"):
-                                        <strong class="text no">{{_('禁止')}}</strong>
-                                    % else:
-                                        <strong class="text yes">{{_('允许')}}</strong>
-                                    % end
-                                </li>
-                            % end
-                        </ul>
-                    </div>
+                            <ul class="allowOrDisallow">
+                                % if 'no_smoking' in rent:
+                                    <li class="noSmoking">
+                                        <i class="icon-cigarette"></i>
+                                        % if rent.get("no_smoking"):
+                                            <strong class="text no">{{_('禁止')}}</strong>
+                                        % else:
+                                            <strong class="text yes">{{_('允许')}}</strong>
+                                        % end
+                                    </li>
+                                % end
+                                % if 'no_pet' in rent:
+                                    <li class="noPet">
+                                        <i class="icon-pet"></i>
+                                        % if rent.get("no_pet"):
+                                            <strong class="text no">{{_('禁止')}}</strong>
+                                        % else:
+                                            <strong class="text yes">{{_('允许')}}</strong>
+                                        % end
+                                    </li>
+                                % end
+                                % if 'no_baby' in rent:
+                                    <li class="noBaby">
+                                        <i class="icon-baby"></i>
+                                        % if rent.get("no_baby"):
+                                            <strong class="text no">{{_('禁止')}}</strong>
+                                        % else:
+                                            <strong class="text yes">{{_('允许')}}</strong>
+                                        % end
+                                    </li>
+                                % end
+                            </ul>
+                        </div>
+                    % end
                 %end
-                
+
                 %if rent.get('rent_type') and rent.get('rent_type').get('slug') == "rent_type:single":
                     % if 'current_male_roommates' in rent and 'current_female_roommates' in rent:
                         <div class="currentRoommates">
