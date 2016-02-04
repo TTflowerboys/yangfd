@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
 "POT-Creation-Date: 2016-02-03 18:04+0800\n"
-"PO-Revision-Date: 2016-02-03 18:11+0800\n"
+"PO-Revision-Date: 2016-02-04 11:31+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -911,7 +911,7 @@ msgstr "Automatically locate your property, easy to set rental and period"
 
 #: ../web/src/how_it_works_landlord.html:32
 msgid "自动完善周边介绍"
-msgstr "Auto-generating Neighbourhood Intro"
+msgstr "Auto-generating Neighbourhood"
 
 #: ../web/src/how_it_works_landlord.html:33
 msgid "根据房源位置自动添加周边学校，地铁和街区介绍，在不用费力介绍周边"
