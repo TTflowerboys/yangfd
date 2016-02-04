@@ -518,7 +518,7 @@
 
             this.id = ko.observable()
             this.requirements = (function () {
-                var keyList = ['no_pet', 'no_smoking', 'no_baby', 'occupation', 'min_age', 'max_age', 'gender_requirement', 'accommodates', 'rent_available_time', 'rent_deadline_time']
+                var keyList = ['no_pet', 'no_smoking', 'no_baby', 'occupation', 'min_age', 'max_age', 'gender_requirement', 'accommodates', 'rent_available_time', 'rent_deadline_time', 'minimum_rent_period']
                 var requirements = {}
                 _.each(keyList, function (key) {
                     if(rentTicket[key] !== undefined && rentTicket[key] !== false && rentTicket[key] !== '') {
@@ -584,16 +584,28 @@
                         requirement: this.getGenderName(this.requirements.gender_requirement),
                     })
                 }
-                if(this.requirements.rent_available_time && this.requirements.rent_available_time > this.rentAvailableTime()) {
+                //考虑到时差问题，检查时对rent_available_time和rent_deadline_time宽限一天时间（即86400s）
+                if(this.requirements.rent_available_time && (this.requirements.rent_available_time - 86400) > this.rentAvailableTime()) {
                     unmatchRequirements.push({
                         request: i18n('入住日期：') + $.format.date(new Date(this.rentAvailableTime() * 1000), 'yyyy-MM-dd'),
                         requirement: i18n('租期开始日期：') + $.format.date(new Date(this.requirements.rent_available_time * 1000), 'yyyy-MM-dd'),
                     })
                 }
-                if(this.requirements.rent_deadline_time && this.requirements.rent_deadline_time < this.rentDeadlineTime()) {
+                if(this.requirements.rent_deadline_time && (this.requirements.rent_deadline_time + 86400) < this.rentDeadlineTime()) {
                     unmatchRequirements.push({
                         request: i18n('搬出日期：') + $.format.date(new Date(this.rentDeadlineTime() * 1000), 'yyyy-MM-dd'),
                         requirement: i18n('租期结束日期：') + $.format.date(new Date(this.requirements.rent_deadline_time * 1000), 'yyyy-MM-dd'),
+                    })
+                }
+
+                if(this.requirements.minimum_rent_period && this.requirements.rent_available_time && this.requirements.rent_deadline_time && window.project.transferTime(this.requirements.minimum_rent_period, 'second').value_float > this.requirements.rent_deadline_time - this.requirements.rent_available_time) {
+                    this.requirements.minimum_rent_period = window.project.transferTime(_.extend(_.clone(this.requirements.minimum_rent_period), {value_float: this.requirements.rent_deadline_time - this.requirements.rent_available_time, unit: 'second'}), 'day')
+                }
+
+                if(this.requirements.minimum_rent_period && (this.rentDeadlineTime() - this.rentAvailableTime() < window.project.transferTime(this.requirements.minimum_rent_period, 'second').value)) {
+                    unmatchRequirements.push({
+                        request: i18n('您的租住天数：') + (this.rentDeadlineTime() - this.rentAvailableTime()) / 86400 + i18n('天'),
+                        requirement: i18n('最短租期') + this.requirements.minimum_rent_period.value + window.team.parsePeriodUnit(this.requirements.minimum_rent_period.unit),
                     })
                 }
                 return unmatchRequirements
@@ -755,9 +767,6 @@
             $('body').on('openRentRequestForm', function (e, ticketId, isPopup) {
                 this.ticketId(ticketId)
                 this.open(isPopup)
-
-                //todo : remove this!
-                //this.showSuccessWrap()
             }.bind(this))
             $('body').trigger('rentRequestReady')
         },

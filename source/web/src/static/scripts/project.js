@@ -184,18 +184,17 @@
         },
         transferTime: function (time, unit) {
             var value = time.value_float || parseInt(time.value)
-            value = value * {
-                'second-second': 1,
-                'second-minute': 1 / 60,
-                'second-hour': 1 / 3600,
-                'minute-second': 60,
-                'minute-minute': 1,
-                'minute-hour': 1 / 60,
-                'hour-hour': 1,
-                'hour-minute': 60,
-                'hour-second': 3600
-            }[time.unit + '-' + unit]
-            return _.extend(time, {
+            var config = {
+                second: 1,
+                minute: 60,
+                hour: 3600,
+                day: 3600 * 24,
+                week: 3600 * 24 * 7,
+                month: 3600 * 24 * 30,
+                year: 3600 * 24 * 365
+            }
+            value = value * config[time.unit] / config[unit]
+            return _.extend(_.clone(time), {
                 unit: unit,
                 value: value < 1 ? 1 : Math.round(value).toString(),
                 value_float: value
