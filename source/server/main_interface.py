@@ -1687,29 +1687,45 @@ def aggregation_rent_request(user, params):
         user_have_request_set = set()
         user_different_city_set = set()
         period_count = {
-            "longer than 12 months": 0,
-            "6 ~ 12 months": 0,
-            "3 ~ 6 months": 0,
-            "1 ~ 3 months": 0,
-            "less than 1 month": 0
+            "longer than 12 months": {
+                'single': 0,
+                'whole': 0
+            },
+            "6 ~ 12 months": {
+                'single': 0,
+                'whole': 0
+            },
+            "3 ~ 6 months": {
+                'single': 0,
+                'whole': 0
+            },
+            "1 ~ 3 months": {
+                'single': 0,
+                'whole': 0
+            },
+            "less than 1 month": {
+                'single': 0,
+                'whole': 0
+            }
         }
         for index, ticket in enumerate(result):
             if 'rent_available_time' in ticket and 'rent_deadline_time' in ticket:
                 try:
                     period = ticket['rent_deadline_time'] - ticket['rent_available_time']
+                    rent_type = f_app.enum.get(f_app.ticket.get(ticket['interested_rent_tickets'][0])['rent_type']['id'])['slug'].split(':')[-1]
                 except:
                     pass
                 else:
                     if period.days >= 365:
-                        period_count["longer than 12 months"] += 1
+                        period_count["longer than 12 months"][rent_type] += 1
                     elif 365 > period.days >= 180:
-                        period_count["6 ~ 12 months"] += 1
+                        period_count["6 ~ 12 months"][rent_type] += 1
                     elif 180 > period.days >= 90:
-                        period_count["3 ~ 6 months"] += 1
+                        period_count["3 ~ 6 months"][rent_type] += 1
                     elif 90 > period.days >= 30:
-                        period_count["1 ~ 3 months"] += 1
+                        period_count["1 ~ 3 months"][rent_type] += 1
                     elif period.days <= 30:
-                        period_count["less than 1 month"] += 1
+                        period_count["less than 1 month"][rent_type] += 1
             if 'user_id' in ticket:
                 user_have_request_set.add(ticket['user_id'])
             if 'custom_fields' in ticket:
@@ -1735,7 +1751,22 @@ def aggregation_rent_request(user, params):
                         request_count_before_rent_list.append(single['count'])
         value.update({"aggregation_rent_request_average_count_before_rent": sum(request_count_before_rent_list)*1.0/len(request_count_before_rent_list) if len(request_count_before_rent_list) else 0})
         value.update({'aggregation_rent_request_user_rent_different_city_ratio': float(1.0 * len(user_different_city_set) / len(user_have_request_set) if len(user_have_request_set) else 0)})
-        value.update({'aggregation_rent_request_period_count': [{"period": single, "count": period_count[single]} for single in period_count]})
+        value.update({
+            'aggregation_rent_request_period_count':
+            [
+                {
+                    "period": single,
+                    "detail": [
+                        {
+                            "type": type,
+                            "count": period_count[single][type]
+                        }
+                        for type in period_count[single]
+                    ]
+                }
+                for single in period_count
+            ]
+        })
     return value
 
 
