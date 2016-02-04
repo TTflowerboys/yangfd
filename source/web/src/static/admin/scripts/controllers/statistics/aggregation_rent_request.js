@@ -25,7 +25,7 @@
             $scope.value.aggregation_rent_request_period_count_result = $scope.value.aggregation_rent_request_period_count_result.concat(single_data)
           }
         }
-        window.console.log($scope.value.aggregation_rent_request_period_count_result)
+        // window.console.log($scope.value.aggregation_rent_request_period_count_result)
       }
 
     }
