@@ -753,7 +753,7 @@
     //获取出租单模型数据
     function getTicketData(options){
         var title = $('#title').val().trim() || $('#title').attr('placeholder').trim() //如果用户没有填写title，默认为街区+居室+出租类型，比如“Isle of Dogs三居室单间出租”
-        var ticketData = $.extend(options,{
+        var ticketData = $.extend({
             'landlord_type': $('#landlordType').val(), //房东类型
             'rent_type': module.appViewModel.propertyViewModel.rentType(), //出租类型
             'independent_bathroom': module.appViewModel.propertyViewModel.independentBathroom(), //独立卫浴
@@ -773,13 +773,12 @@
             'bill_covered': $('#billCovered').is(':checked'), //是否包物业水电费
             'rent_available_time': new Date($('#rentPeriodStartDate').val()).getTime() / 1000, //出租开始时间
             'title': title,
-        })
+            'unset_fields': []
+        }, options)
         if($('#deposit').val() !== ''){
             ticketData.deposit = JSON.stringify({'unit': $('#unit').children('option:selected').val(), 'value': $('#deposit').val() })
         } else {
-            ticketData.unset_fields = ticketData.unset_fields || []
             ticketData.unset_fields.push('deposit')
-            ticketData.unset_fields = JSON.stringify(ticketData.unset_fields)
         }
         if($('#description').val() !== ''){
             ticketData.description = $('#description').val()
@@ -793,6 +792,13 @@
         if($('#minimumRentPeriod').val()) {
             ticketData.minimum_rent_period = JSON.stringify({unit: $('#minimumRentPeriodUnit').val(), value: $('#minimumRentPeriod').val()})
         }
+        _.each(_.keys(ticketData), function (key) {
+            if(key !== 'unset_fields' && (ticketData[key] === undefined || ticketData[key] === '')) {
+                delete ticketData[key]
+                ticketData.unset_fields.push(key)
+            }
+        })
+        ticketData.unset_fields = JSON.stringify(ticketData.unset_fields)
         return ticketData
     }
 
