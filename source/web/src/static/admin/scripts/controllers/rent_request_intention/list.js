@@ -90,7 +90,9 @@
 
         function onGetList(data) {
             $scope.fetched = true
-            $scope.list = _.map(data.val, function (item, index) {
+            $scope.list = _.map(_.filter(data.val, function (item) {
+                return !_.isEmpty(item.interested_rent_tickets)
+            }), function (item, index) {
                 // Calculate age from birthday
                 item.age = (Date.now() - item.date_of_birth * 1000)/(365 * 24 * 60 * 60 * 1000)
 
