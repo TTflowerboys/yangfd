@@ -602,7 +602,11 @@
                     this.requirements.minimum_rent_period = window.project.transferTime(_.extend(_.clone(this.requirements.minimum_rent_period), {value_float: this.requirements.rent_deadline_time - this.requirements.rent_available_time, unit: 'second'}), 'day')
                 }
 
-                if(this.requirements.minimum_rent_period && (this.rentDeadlineTime() - this.rentAvailableTime() < window.project.transferTime(this.requirements.minimum_rent_period, 'second').value)) {
+                var rentTimeDeltaDay = (this.rentDeadlineTime() - this.rentAvailableTime()) / 86400
+                if(rentTimeDeltaDay >= 27) {
+                    rentTimeDeltaDay += 3
+                }
+                if(this.requirements.minimum_rent_period && (rentTimeDeltaDay < window.project.transferTime(this.requirements.minimum_rent_period, 'day').value_float)) {
                     unmatchRequirements.push({
                         request: i18n('您的租住天数：') + (this.rentDeadlineTime() - this.rentAvailableTime()) / 86400 + i18n('天'),
                         requirement: i18n('最短租期') + this.requirements.minimum_rent_period.value + window.team.parsePeriodUnit(this.requirements.minimum_rent_period.unit),

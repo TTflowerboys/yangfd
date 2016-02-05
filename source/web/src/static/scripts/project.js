@@ -190,8 +190,8 @@
                 hour: 3600,
                 day: 3600 * 24,
                 week: 3600 * 24 * 7,
-                month: 3600 * 24 * 30,
-                year: 3600 * 24 * 365
+                month: 3600 * 24 * 30.4368498984,
+                year: 3600 * 24 * 365.242198781
             }
             value = value * config[time.unit] / config[unit]
             return _.extend(_.clone(time), {
