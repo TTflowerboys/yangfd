@@ -242,7 +242,7 @@
                                 }
                                 return item
                             })
-                            if(this.query() && this.query().length) {
+                            if(this.query() === name) {
                                 this.suggestions(suggestions)
                             }
                         }, this))
