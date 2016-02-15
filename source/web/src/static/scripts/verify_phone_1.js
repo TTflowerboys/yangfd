@@ -18,6 +18,7 @@ $('form[name=verifyPhone1]').submit(function (e) {
                 window.user = data
             })
             .fail(function (data) {
+                window.dhtmlx.message({type:'error', text: window.i18n('修改失败')})
                 resultArea.text(window.i18n('修改失败'))
                 resultArea.show()
             })

@@ -41,6 +41,7 @@
             })
             .fail(function (errorCode) {
                 $feedback.empty()
+                window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(errorCode, api)})
                 $feedback.append(window.getErrorMessageFromErrorCode(errorCode, api))
                 $feedback.show()
                 ga('send', 'event', 'property_detail', 'click', 'requirement-submit-failed',window.getErrorMessageFromErrorCode(errorCode, api));

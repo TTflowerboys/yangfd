@@ -65,6 +65,7 @@
                         enableSubmitButton(true)
                     })
                     .fail(function () {
+                        window.dhtmlx.message({ type:'error', text: window.getErrorMessage('phone', 'number')})
                         errorArea.text(window.getErrorMessage('phone', 'number'))
                         errorArea.show()
                         $input.css('border', '2px solid red')
@@ -108,6 +109,7 @@
 
             var valid = $.validate(this, {
                 onError: function (dom, validator, index) {
+                    window.dhtmlx.message({type:'error', text: window.getErrorMessage(dom.name, validator)})
                     errorArea.text(window.getErrorMessage(dom.name, validator))
                     errorArea.show()
                     $(dom).css('border', '2px solid red')
@@ -127,6 +129,7 @@
             delete params.referrer_text
             var phoneReg = /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/
             if(!phoneReg.test(params.phone)) {
+                window.dhtmlx.message({type:'error', text: window.i18n('电话格式不正确')})
                 errorArea.text(window.i18n('电话格式不正确'))
                 errorArea.show()
                 return
@@ -159,6 +162,7 @@
                 })
                 .fail(function (ret) {
                     errorArea.empty()
+                    window.dhtmlx.message({type:'error', text: window.getErrorMessageFromErrorCode(ret, api)})
                     errorArea.append(window.getErrorMessageFromErrorCode(ret, api))
                     errorArea.show()
 

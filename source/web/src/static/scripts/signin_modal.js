@@ -25,6 +25,7 @@ $('form[name=signin]').submit(function (e) {
     ga('send', 'event', 'signin', 'click', 'signin-submit')
     errorArea.hide()
     var valid = $.validate(this, {onError: function (dom, validator, index) {
+        window.dhtmlx.message({type:'error', text: window.getErrorMessage(dom.name, validator)})
         errorArea.text(window.getErrorMessage(dom.name, validator))
         errorArea.show()
     }})
@@ -51,6 +52,7 @@ $('form[name=signin]').submit(function (e) {
         })
         .fail(function (ret) {
             errorArea.empty()
+            window.dhtmlx.message({type:'error', text: window.getErrorMessageFromErrorCode(ret)})
             errorArea.append(window.getErrorMessageFromErrorCode(ret))
             errorArea.show()
 

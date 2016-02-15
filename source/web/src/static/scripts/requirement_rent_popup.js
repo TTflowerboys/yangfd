@@ -213,6 +213,7 @@
                         enableSubmitButton(true)
                     })
                     .fail(function () {
+                        window.dhtmlx.message({type:'error', text: window.getErrorMessage('phone', 'number')})
                         $errorMsg.text(window.getErrorMessage('phone', 'number'))
                         $errorMsg.show()
                         $input.css('border', '2px solid red')
@@ -446,6 +447,7 @@
                 errorMsg = i18n('预算下限必须小于预算上限')
             }
             if(!validate){
+                window.dhtmlx.message({type:'error', text: errorMsg})
                 $errorMsg.text(errorMsg).show()
             }
             return validate
@@ -484,6 +486,7 @@
                         })
                         .fail(function (ret) {
                             $errorMsg.empty()
+                            window.dhtmlx.message({type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                             $errorMsg.append(window.getErrorMessageFromErrorCode(ret))
                             $errorMsg.show()
 

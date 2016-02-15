@@ -19,6 +19,7 @@ $(function () {
         errorArea.hide()
 
         var valid = $.validate(this, {onError: function (dom, validator, index) {
+            window.dhtmlx.message({type:'error', text: window.getErrorMessage(dom.name, validator)})
             errorArea.text(window.getErrorMessage(dom.name, validator))
             errorArea.show()
         }})
@@ -29,6 +30,7 @@ $(function () {
 
         // Check if user agree to terms
         if (!$('.terms-check').is(':checked')){
+            window.dhtmlx.message({type:'error', text: window.getErrorMessage('terms', 'check')})
             errorArea.text(window.getErrorMessage('terms', 'check'))
             errorArea.show()
             return
@@ -37,6 +39,7 @@ $(function () {
         var params = $(this).serializeObject()
 
         if(window.project.includePhoneOrEmail(params.nickname)) {
+            window.dhtmlx.message({type:'error', text: window.i18n('用户名不得包含电话号码或邮箱')})
             errorArea.text(window.i18n('用户名不得包含电话号码或邮箱'))
             errorArea.show()
             return
@@ -58,6 +61,7 @@ $(function () {
                 window.project.goToVerifyPhoneThenIntention()
             }).fail(function (ret) {
                 errorArea.empty()
+                window.dhtmlx.message({type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                 errorArea.append(window.getErrorMessageFromErrorCode(ret))
                 errorArea.show()
                 //refresh it for may user submit fail, or submit again with another account

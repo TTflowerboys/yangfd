@@ -46,17 +46,20 @@
         var params = $(this).serializeObject()
 
         if(window.project.includePhoneOrEmail(params.nickname)) {
+            window.dhtmlx.message({type:'error', text: window.i18n('用户名不得包含电话号码或邮箱')})
             errorArea.text(window.i18n('用户名不得包含电话号码或邮箱'))
             errorArea.show()
             return
         }
 
         if (!params.gender) {
+            window.dhtmlx.message({type:'error', text: window.i18n('性别不能为空')})
             errorArea.text(window.i18n('性别不能为空'))
             errorArea.show()
             return
         }
         if (!params.country) {
+            window.dhtmlx.message({type:'error', text: window.i18n('国家不能为空')})
             errorArea.text(window.i18n('国家不能为空'))
             errorArea.show()
             return
@@ -71,6 +74,7 @@
                 window.location.reload()
             })
             .fail(function (data) {
+                window.dhtmlx.message({type:'error', text: window.i18n('更新失败')})
                 errorArea.text(window.i18n('更新失败'))
                 errorArea.show()
             })
