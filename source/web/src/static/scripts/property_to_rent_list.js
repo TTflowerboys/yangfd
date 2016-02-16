@@ -525,6 +525,8 @@
         }
 
         this.rentType = ko.observable('')
+        this.rentTypeSlug = ko.observable('')
+        this.independentBathroom = ko.observable('')
         this.rentBudgetMin = ko.observable()
         this.rentBudgetMax = ko.observable()
         this.propertyType = ko.observable('')
@@ -549,6 +551,7 @@
                 rent_available_time: this.rentAvailableTime(),
                 rent_deadline_time: this.rentDeadlineTime(),
                 rent_type: this.rentType(),
+                independent_bathroom: this.independentBathroom(),
                 rent_budget_min: transferBudget(this.rentBudgetMin()),
                 rent_budget_max: transferBudget(this.rentBudgetMax()),
                 property_type: this.propertyType(),
@@ -564,7 +567,7 @@
         this.paramsToWrite = ko.computed({
             read: this.params,
             write: function (value) {
-                var whiteList = ['rent_available_time', 'rent_deadline_time', 'rent_type', 'rent_budget_min', 'rent_budget_max', 'property_type', 'bedroom_count', 'space', 'query', 'queryName'].concat(module.suggestionTypeSlugList)
+                var whiteList = ['rent_available_time', 'rent_deadline_time', 'rent_type', 'independent_bathroom', 'rent_budget_min', 'rent_budget_max', 'property_type', 'bedroom_count', 'space', 'query', 'queryName'].concat(module.suggestionTypeSlugList)
                 var suggestionParams = {}
                 _.each(module.suggestionTypeSlugList, function (slug) {
                     suggestionParams[slug] = ''

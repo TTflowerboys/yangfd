@@ -18,15 +18,18 @@
             this.choose = function (data, event) {
                 if (this.parentVM[params.key]() === data.id) {
                     this.parentVM[params.key]('')
+                    if(params.slug && _.isFunction(this.parentVM[params.slug])) {
+                        this.parentVM[params.slug]('')
+                    }
                 } else {
                     this.parentVM[params.key](data.id)
+                    if(params.slug && _.isFunction(this.parentVM[params.slug])) {
+                        this.parentVM[params.slug](data.slug)
+                    }
                 }
                 setTimeout(_.bind(function () {
                     this.initAutoSelectFirstItem()
                 }, this), 50)
-                /*if (params.gaConfig) {
-                    ga('send', 'event', params.gaConfig.ec, params.gaConfig.ea, params.gaConfig.el, data[params.gaConfig.ev])
-                }*/
                 if(event) {
                     setTimeout(function () {
                         $(event.target).parents('filter-tags').trigger('change')
@@ -71,6 +74,13 @@
                 }
                 ga('send', 'event', 'rent_list', 'change', valueAccessor().prop, originObj[valueAccessor().prop])
                 valueAccessor().obj(originObj)
+            })
+        },
+    }
+    ko.bindingHandlers.changeSlug = {
+        init: function(element, valueAccessor, allBindings)  {
+            $(element).on('change', function () {
+                valueAccessor()($(this).find('option:selected').attr('data-slug'))
             })
         },
     }
