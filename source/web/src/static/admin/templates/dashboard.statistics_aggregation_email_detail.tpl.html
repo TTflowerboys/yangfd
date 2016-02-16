@@ -35,7 +35,10 @@
             <td class="col-sm-4">
               {%item.key | email_event%}
             </td>
-            <td class="col-sm-4">
+            <td ng-if="item.key === 'open_ratio' || item.key === 'click_ratio' || item.key === 'delivered_ratio'" class="col-sm-4">
+              {%item.value | percentage:2%}
+            </td>
+            <td ng-if="item.key != 'open_ratio' && item.key != 'click_ratio' && item.key != 'delivered_ratio'" class="col-sm-4">
               {%item.value%}
             </td>
           </tr>

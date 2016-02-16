@@ -42,7 +42,7 @@
               手机创建比例：
             </td>
             <td class="col-sm-8">
-              {%value.aggregation_rent_ticket_create_total_from_mobile_ratio%}
+              {%value.aggregation_rent_ticket_create_total_from_mobile_ratio | percentage:2%}
             </td>
           </tr>
           <tr ng-if="!value.aggregation_rent_ticket_status.length">
