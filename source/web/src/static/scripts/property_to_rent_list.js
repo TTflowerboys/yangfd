@@ -526,6 +526,11 @@
 
         this.rentType = ko.observable('')
         this.rentTypeSlug = ko.observable('')
+        this.rentTypeSlug.subscribe(function (value) {
+            if(value === 'rent_type:whole') {
+                this.independentBathroom('')
+            }
+        }, this)
         this.independentBathroom = ko.observable('')
         this.rentBudgetMin = ko.observable()
         this.rentBudgetMax = ko.observable()
