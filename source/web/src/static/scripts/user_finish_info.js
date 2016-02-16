@@ -51,12 +51,14 @@
         var country_code = $('form[name=info]').find('.phone select[name=country_code]').val()
 
         if (!country_code) {
+            window.dhtmlx.message({type:'error', text: window.i18n('电话区号不能为空')})
             errorArea.text(window.i18n('电话区号不能为空'))
             errorArea.show()
             return
         }
 
         if (!phone) {
+            window.dhtmlx.message({type:'error', text: window.i18n('电话不能为空')})
             errorArea.text(window.i18n('电话不能为空'))
             errorArea.show()
             return
@@ -68,6 +70,7 @@
                 errorArea.text(window.i18n('发送成功'))
             })
             .fail(function (ret) {
+                window.dhtmlx.message({type:'error', text: window.i18n('发送失败，请重试')})
                 errorArea.text(window.i18n('发送失败，请重试'))
             })
             .always(function () {
@@ -85,6 +88,7 @@
         successArea.hide()
         errorArea.hide()
         var valid = $.validate(this, {onError: function (dom, validator, index) {
+            window.dhtmlx.message({type:'error', text: window.getErrorMessage(dom.name, validator)})
             errorArea.text(window.getErrorMessage(dom.name, validator))
             errorArea.show()
         }})
@@ -93,48 +97,57 @@
         var params = $(this).serializeObject()
 
         if (!params.nickname) {
+            window.dhtmlx.message({type:'error', text: window.i18n('姓名不能为空')})
             errorArea.text(window.i18n('姓名不能为空'))
             errorArea.show()
             return
         }
         if (!params.gender) {
+            window.dhtmlx.message({type:'error', text: window.i18n('性别不能为空')})
             errorArea.text(window.i18n('性别不能为空'))
             errorArea.show()
             return
         }
         if (!params.date_of_birth) {
+            window.dhtmlx.message({type:'error', text: window.i18n('生日不能为空')})
             errorArea.text(window.i18n('生日不能为空'))
             errorArea.show()
             return
         }
         if (!params.country) {
+            window.dhtmlx.message({type:'error', text: window.i18n('国家不能为空')})
             errorArea.text(window.i18n('国家不能为空'))
             errorArea.show()
             return
         }
         if (!params.state) {
+            window.dhtmlx.message({type:'error', text: window.i18n('省份不能为空')})
             errorArea.text(window.i18n('省份不能为空'))
             errorArea.show()
             return
         }
         if (!params.city) {
+            window.dhtmlx.message({type:'error', text: window.i18n('城市不能为空')})
             errorArea.text(window.i18n('城市不能为空'))
             errorArea.show()
             return
         }
         if (!params.address1) {
+            window.dhtmlx.message({type:'error', text: window.i18n('地址不能为空')})
             errorArea.text(window.i18n('地址不能为空'))
             errorArea.show()
             return
         }
 
         if (!params.zipcode) {
+            window.dhtmlx.message({type:'error', text: window.i18n('邮政编码不能为空')})
             errorArea.text(window.i18n('邮政编码不能为空'))
             errorArea.show()
             return
         }
 
         if (!params.code) {
+            window.dhtmlx.message({type:'error', text: window.i18n('验证码不能为空')})
             errorArea.text(window.i18n('验证码不能为空'))
             errorArea.show()
             return
@@ -153,12 +166,14 @@
                         successArea.show()
                     })
                     .fail(function (data) {
+                        window.dhtmlx.message({type:'error', text: window.i18n('更新失败')})
                         errorArea.text(window.i18n('更新失败'))
                         errorArea.show()
                     })
 
             })
             .fail(function (ret) {
+                window.dhtmlx.message({type:'error', text: window.i18n('验证失败')})
                 errorArea.text(window.i18n('验证失败'))
                 errorArea.show()
             })

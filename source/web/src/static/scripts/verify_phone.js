@@ -40,6 +40,7 @@
                     window.project.goBackFromURL()
                 })
                 .fail(function (ret) {
+                    window.dhtmlx.message({type:'error', text: window.i18n('验证失败')})
                     $errorMsg.text(window.i18n('验证失败'))
                     $errorMsg.show()
                 })
@@ -47,6 +48,7 @@
 
                 })
         } else {
+            window.dhtmlx.message({type:'error', text: window.i18n('验证码为6位数字，请填写正确后再验证')})
             $errorMsg.text(window.i18n('验证码为6位数字，请填写正确后再验证')).show()
         }
     })
@@ -74,6 +76,7 @@
                 })
                 .fail(function (ret) {
                     $('.buttonLoading').trigger('end')
+                    window.dhtmlx.message({type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                     $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
                     $getCodeBtn.prop('disabled', false).text(i18n('重新获取验证码'))
                 })
@@ -84,6 +87,7 @@
                     $errorMsg.text(i18n('验证码已成功发送到您填写的手机号')).show()
                 })
                 .fail(function (ret) {
+                    window.dhtmlx.message({type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                     $errorMsg.text(window.getErrorMessageFromErrorCode(ret)).show()
                 })
                 .always(function () {
@@ -132,6 +136,7 @@
                 })
                 .fail(function () {
                     isPhoneValid = false
+                    window.dhtmlx.message({type:'error', text: window.getErrorMessage('phone', 'number')})
                     $errorMsg.text(window.getErrorMessage('phone', 'number'))
                     $errorMsg.show()
                     $phoneInupt.css('border', '2px solid red')

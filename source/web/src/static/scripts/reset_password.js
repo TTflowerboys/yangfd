@@ -16,6 +16,7 @@
             })
             .fail(function (ret) {
                 resultArea.empty()
+                window.dhtmlx.message({type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                 resultArea.append(window.getErrorMessageFromErrorCode(ret))
                 resultArea.show()
             })
@@ -28,6 +29,7 @@
 
         var valid = $.validate(this, {
             onError: function (dom, validator, index) {
+                window.dhtmlx.message({type:'error', text: dom.getAttribute('data-error-' + validator) || window.getErrorMessage(dom.name, validator)})
                 resultArea
                     .text(dom.getAttribute('data-error-' + validator) || window.getErrorMessage(dom.name,
                         validator))
@@ -49,6 +51,7 @@
                 }, 5000)
             })
             .fail(function () {
+                window.dhtmlx.message({type:'error', text: window.i18n('重置密码失败')})
                 resultArea.text(window.i18n('重置密码失败'))
                 resultArea.show()
             })

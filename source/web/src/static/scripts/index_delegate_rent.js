@@ -176,6 +176,7 @@
                 highlightErrorElem(element.find('.endDate'))
             }
             if(!validate){
+                window.dhtmlx.message({ type:'error', text: errorMsg})
                 $errorMsg.text(errorMsg).show()
             }
             return validate
@@ -197,6 +198,7 @@
                                 ).trigger('chosen:updated').trigger('chosen:open')
                             })
                             .fail(function (ret) {
+                                window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                                 $errorMsg.empty().append(window.getErrorMessageFromErrorCode(ret)).show()
                             })
                     } else {
@@ -222,6 +224,7 @@
                                 checkExist()
                             })
                             .fail(function () {
+                                window.dhtmlx.message({ type:'error', text: window.getErrorMessage('phone', 'number')})
                                 $errorMsg.text(window.getErrorMessage('phone', 'number'))
                                 $errorMsg.show()
                                 $input.css('border', '2px solid red')
@@ -244,6 +247,7 @@
                                 if(val === true) {
                                     if(!window.user) {
                                         $passwordWrap.show()
+                                        window.dhtmlx.message({ type:'error', text: window.i18n('您填写的手机号已注册，请输入密码登录后继续')})
                                         $errorMsg.text(i18n('您填写的手机号已注册，请输入密码登录后继续')).show()
                                         container.find('.login').on('click', function () {
                                             $errorMsg.hide()
@@ -261,9 +265,11 @@
                                                         checkVerified()
                                                     })
                                                     .fail(function (ret) {
+                                                        window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                                                         $errorMsg.empty().append(window.getErrorMessageFromErrorCode(ret)).show()
                                                     })
                                             } else {
+                                                window.dhtmlx.message({ type:'error', text: window.i18n('密码不能为空')})
                                                 $errorMsg.text(i18n('密码不能为空'))
                                             }
                                         })
@@ -278,6 +284,7 @@
 
                                 }
                             }).fail(function (ret) {
+                                window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                                 $errorMsg.empty().append(window.getErrorMessageFromErrorCode(ret)).show()
                             })
                     }
@@ -289,6 +296,7 @@
                         enableSubmitButton(true)
                         initSubmit(container)
                     } else {
+                        window.dhtmlx.message({ type:'error', text: window.i18n('您的手机号码尚未验证过，请先获取短信验证码后再继续')})
                         $errorMsg.text(i18n('您的手机号码尚未验证过，请先获取短信验证码后再继续')).show()
                         $codeWrap.show()
                         initSubmit(container, {
@@ -334,6 +342,7 @@
                                 }).done(function () {
                                     $errorMsg.text(i18n('验证码已成功发送到您的手机，请注意查收')).show()
                                 }).fail(function (ret) {
+                                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                                     $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
                                 }).always(function () {
                                     $('.buttonLoading').trigger('end')
@@ -357,6 +366,7 @@
                                     })
                                     .fail(function (ret) {
                                         $('.buttonLoading').trigger('end')
+                                        window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                                         $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
                                         $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
                                     })
@@ -466,6 +476,7 @@
                         }).done(function () {
                             $errorMsg.text(i18n('验证码已成功发送到您的手机，请注意查收')).show()
                         }).fail(function (ret) {
+                            window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                             $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
                         }).always(function () {
                             $('.buttonLoading').trigger('end')
@@ -497,6 +508,7 @@
                     })
                     .fail(function (ret) {
                         $errorMsg.empty()
+                        window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                         $errorMsg.append(window.getErrorMessageFromErrorCode(ret))
                         $errorMsg.show()
                     })
@@ -528,6 +540,7 @@
                                     submitForm($form)
                                 })
                                 .fail(function (ret) {
+                                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                                     $errorMsg.empty().append(window.getErrorMessageFromErrorCode(ret)).show()
                                 })
                         } else {

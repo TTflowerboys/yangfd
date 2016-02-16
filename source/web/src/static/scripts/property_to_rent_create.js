@@ -406,6 +406,7 @@
                     }
                 })
                 .fail(function(err) {
+                    window.dhtmlx.message({ type:'error', text: err})
                     $errorMsg.text(err).show()
                     $('#address').show()
                     $btn.prop('disabled', false).text(window.i18n('重新获取'))
@@ -626,6 +627,7 @@
                 $('#load_more .load_more').trigger('click')
             }
             errorArr[errorArr.length - 1].elem.trigger('focus')
+            window.dhtmlx.message({ type:'error', text: errorArr[errorArr.length - 1].msg})
             $errorMsg.text(errorArr[errorArr.length - 1].msg).show()
         }
         return validate
@@ -853,11 +855,13 @@
                         })
                         .fail(function (ret) {
                             $('.buttonLoading').trigger('end')
+                            window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                             $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
                             $btn.prop('disabled', false).text(window.i18n('下一步'))
                         })
                 }).fail(function (ret) {
                     $('.buttonLoading').trigger('end')
+                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                     $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
                     $btn.prop('disabled', false).text(window.i18n('下一步'))
                 })
@@ -873,6 +877,7 @@
                 })
                 .fail(function(ret) {
                     $('.buttonLoading').trigger('end')
+                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                     $errorMsg.html(window.getErrorMessageFromErrorCode(ret)).show()
                     $btn.prop('disabled', false).text(window.i18n('下一步'))
                 })
@@ -951,6 +956,7 @@
         // Check email and phone
         var valid = $.validate($('#form2'), {
             onError: function (dom, validator, index) {
+                window.dhtmlx.message({ type:'error', text: window.getErrorMessage(dom.name, validator)})
                 $errorMsgOfGetCode.html(window.getErrorMessage(dom.name, validator)).show()
             },
             exclude: ['code']
@@ -982,6 +988,7 @@
             }).done(function () {
                 $btn.siblings('.sucMsg').show()
             }).fail(function (ret) {
+                window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                 $errorMsgOfGetCode.html(window.getErrorMessageFromErrorCode(ret)).show()
             }).always(function () {
                 $('.buttonLoading').trigger('end')
@@ -1021,6 +1028,7 @@
                 })
                 .fail(function (ret) {
                     $('.buttonLoading').trigger('end')
+                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                     $errorMsgOfGetCode.html(window.getErrorMessageFromErrorCode(ret)).show()
                     $btn.text(window.i18n('重新获取验证码')).prop('disabled', false)
                 })
@@ -1057,6 +1065,7 @@
                 })
                 .fail(function (ret) {
                     $otherUserInput.attr('data-show', '').hide()
+                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                     $errorMsg2.html(window.getErrorMessageFromErrorCode(ret)).show()
                 })
         }
@@ -1116,6 +1125,7 @@
                 if(window.team.getQuery('editor') !== 'admin') {
                     privateContactMethods = getPrivateContactMethods()
                     if(privateContactMethods.length === 3) {
+                        window.dhtmlx.message({ type:'error', text: i18n('请至少展示一种联系方式给租客')})
                         $errorMsg2.html(i18n('请至少展示一种联系方式给租客')).show()
                         $btn.text(window.i18n('重新发布')).prop('disabled', false)
                         return deferred.reject()
@@ -1145,6 +1155,7 @@
                     location.href = '/property-to-rent/' + window.ticketId + '/publish-success?createStartTime=' + createStartTime.getTime()
                 })
                 .fail(function (ret) {
+                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                     $errorMsg2.html(window.getErrorMessageFromErrorCode(ret)).show()
                     $btn.text(window.i18n('重新发布')).prop('disabled', false)
                 })
@@ -1169,11 +1180,13 @@
                     ga('send', 'event', 'property_to_rent_create', 'time-consuming', 'sms-receive', (new Date() - smsSendTime)/1000)
                     publishRentTicket()
                 }).fail(function (ret) {
+                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                     $errorMsg2.html(window.getErrorMessageFromErrorCode(ret)).show()
                     $btn.text(window.i18n('重新发布')).prop('disabled', false)
                 })
 
             } else {
+                window.dhtmlx.message({ type:'error', text: i18n('请填写您收到的短信验证码后再发布房产')})
                 $errorMsg2.text(i18n('请填写您收到的短信验证码后再发布房产')).show()
             }
         }

@@ -5,6 +5,7 @@ $('form[name=verifyEmail]').submit(function (e) {
     resultArea.hide()
     var valid = $.validate(this, {
         onError: function (dom, validator, index) {
+            window.dhtmlx.message({type:'error', text: window.getErrorMessage(dom.name, validator)})
             resultArea.text(window.getErrorMessage(dom.name, validator))
             resultArea.show()
         }
@@ -20,6 +21,7 @@ $('form[name=verifyEmail]').submit(function (e) {
                 resultArea.show()
             })
             .fail(function (data) {
+                window.dhtmlx.message({type:'error', text: window.i18n('发送验证邮件失败')})
                 resultArea.text(window.i18n('发送验证邮件失败'))
                 resultArea.show()
             })
@@ -31,6 +33,7 @@ $('form[name=verifyEmail]').submit(function (e) {
                 window.user = data
             })
             .fail(function (data) {
+                window.dhtmlx.message({type:'error', text: window.i18n('修改邮箱失败')})
                 resultArea.text(window.i18n('修改邮箱失败'))
                 resultArea.show()
             })

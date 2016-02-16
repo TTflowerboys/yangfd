@@ -6,6 +6,7 @@ $('form[name=changePassword]').submit(function (e) {
     var resultArea = $(this).find('.resultMessage')
     resultArea.hide()
     var valid = $.validate(this, {onError: function (dom, validator, index) {
+        window.dhtmlx.message({ type:'error', text: window.getErrorMessage(dom.name, validator)})
         resultArea.text(window.getErrorMessage(dom.name, validator))
         resultArea.show()
     }})
@@ -18,6 +19,7 @@ $('form[name=changePassword]').submit(function (e) {
         resultArea.text(window.i18n('修改成功'))
         location.href = '/user-settings'
     }).fail(function (data) {
+        window.dhtmlx.message({ type:'error', text: window.i18n('修改失败')})
         resultArea.text(window.i18n('修改失败'))
         resultArea.show()
     })

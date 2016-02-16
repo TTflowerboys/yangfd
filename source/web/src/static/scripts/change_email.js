@@ -6,6 +6,7 @@ $('form[name=changeEmail]').submit(function (e) {
     var resultArea = $(this).find('.resultMessage')
     resultArea.hide()
     var valid = $.validate(this, {onError: function (dom, validator, index) {
+        window.dhtmlx.message({ type:'error', text: window.getErrorMessage(dom.name, validator)})
         resultArea.text(window.getErrorMessage(dom.name, validator))
         resultArea.show()
     }})
@@ -28,6 +29,7 @@ $('form[name=changeEmail]').submit(function (e) {
         location.href = '/user-settings'
     }).fail(function (errorCode) {
         resultArea.empty()
+        window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(errorCode)})
         resultArea.append(window.getErrorMessageFromErrorCode(errorCode))
         resultArea.show()
     })

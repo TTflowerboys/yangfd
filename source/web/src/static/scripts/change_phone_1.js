@@ -5,6 +5,7 @@ $('form[name=changePhone1]').submit(function (e) {
     var resultArea = $(this).find('.resultMessage')
     resultArea.hide()
     var valid = $.validate(this, {onError: function (dom, validator, index) {
+        window.dhtmlx.message({ type:'error', text: window.getErrorMessage(dom.name, validator)})
         resultArea.text(window.getErrorMessage(dom.name, validator))
         resultArea.show()
     }})
@@ -16,6 +17,7 @@ $('form[name=changePhone1]').submit(function (e) {
     }
 
     if (params.old_phone.toString() !== '+' + window.user.country_code + window.user.phone.toString()) {
+        window.dhtmlx.message({ type:'error', text: window.i18n('原手机号不正确')})
         resultArea.text(window.i18n('原手机号不正确'))
         resultArea.show()
         return
@@ -28,6 +30,7 @@ $('form[name=changePhone1]').submit(function (e) {
             location.href = '/user_change_phone_2'
         })
 	.fail(function (ret) {
+            window.dhtmlx.message({ type:'error', text: window.i18n('修改失败')})
             resultArea.text(window.i18n('修改失败'))
             resultArea.show()
 

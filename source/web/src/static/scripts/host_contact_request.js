@@ -29,6 +29,7 @@ $(function () {
                 getContactInfo()
             })
             .fail(function (ret) {
+                window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                 $hint.text(window.getErrorMessageFromErrorCode(ret))
             })
             .always($.modal.close)
@@ -230,6 +231,7 @@ $(function () {
             .fail(function (ret) {
                 $('.host .hint').fadeOut()
                 $feedback.empty()
+                window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                 $feedback.append(window.getErrorMessageFromErrorCode(ret))
                 $feedback.show()
 
@@ -270,6 +272,7 @@ $(function () {
         var valid = $.validate($contactRequestForm, {
             onError: function (dom, validator, index) {
                 $feedback.empty()
+                window.dhtmlx.message({ type:'error', text: window.getErrorMessage(dom.name, validator)})
                 $feedback.append(window.getErrorMessage(dom.name, validator))
                 $feedback.show()
             },
@@ -352,6 +355,7 @@ $(function () {
                 })
                 .fail(function (ret) {
                     $feedback.empty()
+                    window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                     $feedback.append(window.getErrorMessageFromErrorCode(ret))
                     $feedback.show()
 
@@ -382,6 +386,7 @@ $(function () {
             })
             .fail(function (ret) {
                 $feedback.empty()
+                window.dhtmlx.message({ type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                 $feedback.append(window.getErrorMessageFromErrorCode(ret))
                 $feedback.show()
             })

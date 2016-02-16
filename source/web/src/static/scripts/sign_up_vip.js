@@ -43,6 +43,7 @@ $(function () {
 
         var valid = $.validate(this, {
             onError: function (dom, validator, index) {
+                window.dhtmlx.message({type:'error', text: window.getErrorMessage(dom.name, validator)})
                 errorArea.text(window.getErrorMessage(dom.name, validator))
                 errorArea.show()
             }
@@ -74,6 +75,7 @@ $(function () {
                 window.project.goToIntention()
             }).fail(function (ret) {
                 errorArea.empty()
+                window.dhtmlx.message({type:'error', text: window.getErrorMessageFromErrorCode(ret)})
                 errorArea.append(window.getErrorMessageFromErrorCode(ret))
                 errorArea.show()
                 //refresh it for may user submit fail, or submit again with another account
