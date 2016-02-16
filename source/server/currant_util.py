@@ -68,7 +68,7 @@ def is_mobile_client_version(condition, version):
     Note: 由点分开的每一部分是一个数组，也是按照nature order 排序的
     ``So  StrictVersion("2.3.1") < StrictVersion("10.1.2") is True``
     """
-    ua = request.headers.get('User-Agent').lower()
+    ua = request.headers.get('User-Agent', '').lower()
     match = re.search(r'currant\/([0-9\.]*)', ua)
     version = StrictVersion(version)
     if match and match.group(1):
