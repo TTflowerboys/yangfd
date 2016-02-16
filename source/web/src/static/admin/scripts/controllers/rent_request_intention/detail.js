@@ -81,7 +81,12 @@
         }
 
         $scope.updateItem = function (item) {
-            return api.update(item)
+            return api.update(item).then(function (data) {
+                if(_.isArray($scope.list)) {
+                    $scope.list[$scope.list.indexOf(item)] = data.data.val
+                }
+                return data
+            })
         }
 
         $scope.onRemove = function (item) {

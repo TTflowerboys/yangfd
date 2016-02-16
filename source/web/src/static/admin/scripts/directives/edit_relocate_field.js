@@ -46,9 +46,9 @@ angular.module('app')
                                 custom_fields: customFields
                             }
                         })
-                            .success(function (data) {
+                            .then(function (data) {
                                 growl.addSuccessMessage(window.i18n('relocate更改成功'), {enableHtml: true})
-                                scope.customFields = data.val.custom_fields
+                                scope.customFields = data.data.val.custom_fields
                                 scope.open = false
                             })
                     }
