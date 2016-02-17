@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Currant\n"
 "Report-Msgid-Bugs-To: support@bbtechgroup.com\n"
-"POT-Creation-Date: 2016-02-03 18:04+0800\n"
-"PO-Revision-Date: 2016-02-04 11:31+0800\n"
+"POT-Creation-Date: 2016-02-17 16:38+0800\n"
+"PO-Revision-Date: 2016-02-17 16:41+0800\n"
 "Last-Translator: ArnoldWang <wangchao0721@gmail.com>\n"
 "Language: en_GB\n"
 "Language-Team: BBT <developer@bbtechgroup.com>\n"
@@ -495,7 +495,7 @@ msgstr "Annualized Estimated<br/>Rental Return"
 
 #: ../web/src/crowdfunding.html:737 ../web/src/crowdfunding.html:892
 #: ../web/src/property.html:986 ../web/src/property.html:1207
-#: ../web/src/property_to_rent.html:555 ../web/src/property_to_rent.html:797
+#: ../web/src/property_to_rent.html:555 ../web/src/property_to_rent.html:814
 msgid "已经收藏过了"
 msgstr "Already Favourited"
 
@@ -543,21 +543,21 @@ msgid "打开微信，使用 “扫一扫” 即可将网页分享到朋友圈"
 msgstr "Open WeChat, Use \"Scan QR Code\" to share to Wechat Moments"
 
 #: ../web/src/crowdfunding.html:878 ../web/src/news.html:121
-#: ../web/src/property.html:1161 ../web/src/property_to_rent.html:816
+#: ../web/src/property.html:1161 ../web/src/property_to_rent.html:833
 #: ../web/src/property_to_rent_publish_success.html:48
 #: ../web/src/user_intentions.html:69 ../web/src/user_properties.html:100
 msgid "点击右上角"
 msgstr "Click on the top right corner"
 
 #: ../web/src/crowdfunding.html:880 ../web/src/news.html:123
-#: ../web/src/property.html:1163 ../web/src/property_to_rent.html:818
+#: ../web/src/property.html:1163 ../web/src/property_to_rent.html:835
 #: ../web/src/property_to_rent_publish_success.html:50
 #: ../web/src/user_intentions.html:71 ../web/src/user_properties.html:102
 msgid "分享链接给微信好友"
 msgstr "Send link to wechat friends?"
 
 #: ../web/src/crowdfunding.html:884 ../web/src/news.html:127
-#: ../web/src/property.html:1167 ../web/src/property_to_rent.html:822
+#: ../web/src/property.html:1167 ../web/src/property_to_rent.html:839
 #: ../web/src/property_to_rent_publish_success.html:54
 #: ../web/src/user_intentions.html:75 ../web/src/user_properties.html:106
 #: ../web/src/partials/rent_request.html:232
@@ -1090,7 +1090,7 @@ msgid "搜索"
 msgstr "Search"
 
 #: ../web/src/index.html:49 ../web/src/index_en.html:32
-#: ../web/src/property_to_rent_list.html:134 ../web/src/user-phone.html:87
+#: ../web/src/property_to_rent_list.html:142 ../web/src/user-phone.html:87
 #: ../web/src/user_favorites.html:14 ../web/src/masters/master.html:77
 #: ../web/src/masters/user_master.html:28
 #: ../web/src/masters/user_master.html:99
@@ -1101,7 +1101,7 @@ msgid "我的收藏"
 msgstr "My Favourites"
 
 #: ../web/src/index.html:55 ../web/src/index_en.html:38
-#: ../web/src/property_to_rent_list.html:140
+#: ../web/src/property_to_rent_list.html:148
 #: ../web/src/partials/index_renter.html:12
 msgid "已咨询的房源"
 msgstr "My Rent Requests"
@@ -1399,7 +1399,7 @@ msgid "查看房产周边设施"
 msgstr "View Nearby"
 
 #: ../web/src/property.html:584 ../web/src/property_list.html:161
-#: ../web/src/property_to_rent_list.html:125 ../web/src/partials/i18n.html:558
+#: ../web/src/property_to_rent_list.html:133 ../web/src/partials/i18n.html:558
 #: ../web/src/partials/i18n_admin.html:282
 #: ../web/src/partials/property_to_rent_edit.html:277
 #: ../web/src/partials/property_to_rent_edit.html:505
@@ -1641,7 +1641,7 @@ msgstr "Any Kind Of Property"
 msgid "从搜索结果中筛选"
 msgstr "More Filters For Results"
 
-#: ../web/src/property_list.html:107 ../web/src/property_to_rent_list.html:109
+#: ../web/src/property_list.html:107 ../web/src/property_to_rent_list.html:117
 #: ../web/src/partials/i18n_admin.html:141
 #: ../web/src/partials/property_to_rent_edit.html:58
 msgid "房产类型"
@@ -1655,7 +1655,7 @@ msgstr "Price"
 msgid "单选"
 msgstr "Single Selection"
 
-#: ../web/src/property_list.html:151 ../web/src/property_to_rent_list.html:117
+#: ../web/src/property_list.html:151 ../web/src/property_to_rent_list.html:125
 #: ../web/src/partials/i18n_admin.html:278
 #: ../web/src/partials/requirement_rent_phone.html:54
 #: ../web/src/partials/requirement_rent_phone.html:55
@@ -1665,11 +1665,11 @@ msgstr "Single Selection"
 msgid "居室数"
 msgstr "Bedroom(s)"
 
-#: ../web/src/property_list.html:180 ../web/src/property_to_rent_list.html:149
+#: ../web/src/property_list.html:180 ../web/src/property_to_rent_list.html:157
 msgid "共找到"
 msgstr "Found"
 
-#: ../web/src/property_list.html:180 ../web/src/property_to_rent_list.html:149
+#: ../web/src/property_list.html:180 ../web/src/property_to_rent_list.html:157
 msgid "套房产"
 msgstr "Properties"
 
@@ -1677,11 +1677,11 @@ msgstr "Properties"
 msgid "共找到下列房产"
 msgstr "Found"
 
-#: ../web/src/property_list.html:201 ../web/src/property_to_rent_list.html:170
+#: ../web/src/property_list.html:201 ../web/src/property_to_rent_list.html:178
 msgid "没有找到合适的？来这里看看吧"
 msgstr "No suitable ones? Check here"
 
-#: ../web/src/property_list.html:210 ../web/src/property_to_rent_list.html:178
+#: ../web/src/property_list.html:210 ../web/src/property_to_rent_list.html:186
 msgid "已经全部加载完毕啦"
 msgstr "Loading complete"
 
@@ -1718,7 +1718,7 @@ msgstr "Partner Property"
 
 #: ../web/src/property_to_rent.html:161 ../web/src/property_to_rent.html:167
 #: ../web/src/property_to_rent.html:481 ../web/src/property_to_rent.html:494
-#: ../web/src/property_to_rent.html:764
+#: ../web/src/property_to_rent.html:781
 #: ../web/src/property_to_rent_digest.html:39
 #: ../web/src/property_to_rent_list.html:77
 #: ../web/src/property_to_rent_list.html:88 ../web/src/wechat_poster.html:59
@@ -1791,11 +1791,13 @@ msgid "房间面积"
 msgstr "Room Area"
 
 #: ../web/src/property_to_rent.html:255
+#: ../web/src/property_to_rent_list.html:109
 #: ../web/src/partials/property_to_rent_edit.html:292
 msgid "独立卫浴"
 msgstr "En-suite"
 
 #: ../web/src/property_to_rent.html:256
+#: ../web/src/property_to_rent_list.html:110
 msgid "有"
 msgstr "Yes"
 
@@ -1829,7 +1831,7 @@ msgstr "Community facilities"
 msgid "周边"
 msgstr "Surroundings"
 
-#: ../web/src/property_to_rent.html:484 ../web/src/property_to_rent.html:767
+#: ../web/src/property_to_rent.html:484 ../web/src/property_to_rent.html:784
 #: ../web/src/static/emails/rent_intention_digest.html:34
 #: ../web/src/static/emails/rent_intention_matched_1.html:35
 #: ../web/src/static/emails/rent_intention_matched_4.html:41
@@ -1837,15 +1839,15 @@ msgstr "Surroundings"
 msgid "，包Bill"
 msgstr ", Bills included"
 
-#: ../web/src/property_to_rent.html:513 ../web/src/property_to_rent.html:703
-#: ../web/src/property_to_rent.html:711 ../web/src/property_to_rent.html:723
+#: ../web/src/property_to_rent.html:513 ../web/src/property_to_rent.html:718
+#: ../web/src/property_to_rent.html:726 ../web/src/property_to_rent.html:738
 #: ../web/src/partials/i18n.html:395 ../web/src/partials/i18n_admin.html:139
 #: ../web/src/partials/property_to_rent_edit.html:335
 msgid "不限"
 msgstr "None"
 
 #: ../web/src/property_to_rent.html:595 ../web/src/property_to_rent.html:596
-#: ../web/src/property_to_rent.html:789 ../web/src/wechat_poster.html:357
+#: ../web/src/property_to_rent.html:806 ../web/src/wechat_poster.html:357
 #: ../web/src/partials/i18n.html:549
 #: ../web/src/static/templates/featured_house_card.html:376
 #: ../server/main_interface.py:236
@@ -1859,70 +1861,70 @@ msgstr "I want to consult"
 msgid "房源编号: "
 msgstr "Listing No."
 
-#: ../web/src/property_to_rent.html:608
+#: ../web/src/property_to_rent.html:611
 #: ../web/src/partials/property_to_rent_edit.html:396
 msgid "可入住人数"
 msgstr "Accommodates"
 
-#: ../web/src/property_to_rent.html:616 ../web/src/property_to_rent.html:624
-#: ../web/src/property_to_rent.html:632
+#: ../web/src/property_to_rent.html:620 ../web/src/property_to_rent.html:630
+#: ../web/src/property_to_rent.html:640
 msgid "禁止"
 msgstr "Forbidden"
 
-#: ../web/src/property_to_rent.html:618 ../web/src/property_to_rent.html:626
-#: ../web/src/property_to_rent.html:634
+#: ../web/src/property_to_rent.html:622 ../web/src/property_to_rent.html:632
+#: ../web/src/property_to_rent.html:642
 msgid "允许"
 msgstr "Allow"
 
-#: ../web/src/property_to_rent.html:643 ../web/src/property_to_rent.html:662
-#: ../web/src/property_to_rent.html:678
+#: ../web/src/property_to_rent.html:656 ../web/src/property_to_rent.html:675
+#: ../web/src/property_to_rent.html:691
 msgid "当前入住数"
 msgstr "Current Occupants Count"
 
-#: ../web/src/property_to_rent.html:647 ../web/src/property_to_rent.html:666
-#: ../web/src/property_to_rent.html:682
+#: ../web/src/property_to_rent.html:660 ../web/src/property_to_rent.html:679
+#: ../web/src/property_to_rent.html:695
 msgid "当前入住者性别"
 msgstr "Current Occupants Gender"
 
-#: ../web/src/property_to_rent.html:695
+#: ../web/src/property_to_rent.html:710
 msgid "新室友性别要求"
 msgstr "New Roommate Gender"
 
-#: ../web/src/property_to_rent.html:698 ../web/src/user_finish_info.html:94
+#: ../web/src/property_to_rent.html:713 ../web/src/user_finish_info.html:94
 #: ../web/src/user_finish_info.html:258 ../web/src/partials/i18n.html:377
 #: ../web/src/partials/i18n_admin.html:114
 #: ../web/src/partials/user_info.html:21 ../web/src/partials/user_info.html:69
 msgid "男"
 msgstr "Male"
 
-#: ../web/src/property_to_rent.html:700 ../web/src/user_finish_info.html:101
+#: ../web/src/property_to_rent.html:715 ../web/src/user_finish_info.html:101
 #: ../web/src/user_finish_info.html:265 ../web/src/partials/i18n.html:378
 #: ../web/src/partials/i18n_admin.html:115
 #: ../web/src/partials/user_info.html:23 ../web/src/partials/user_info.html:74
 msgid "女"
 msgstr "Female"
 
-#: ../web/src/property_to_rent.html:707
+#: ../web/src/property_to_rent.html:722
 msgid "新室友职业要求"
 msgstr "New Flatmate Occupation"
 
-#: ../web/src/property_to_rent.html:715
+#: ../web/src/property_to_rent.html:730
 msgid "新室友年龄要求"
 msgstr "New Flatmate Age"
 
-#: ../web/src/property_to_rent.html:719 ../web/src/property_to_rent.html:721
+#: ../web/src/property_to_rent.html:734 ../web/src/property_to_rent.html:736
 msgid "以下"
 msgstr "Below"
 
-#: ../web/src/property_to_rent.html:731
+#: ../web/src/property_to_rent.html:748
 msgid "其他要求："
 msgstr "Other Requirements:"
 
-#: ../web/src/property_to_rent.html:742
+#: ../web/src/property_to_rent.html:759
 msgid "相关出租房产"
 msgstr "Related Listings"
 
-#: ../web/src/property_to_rent.html:812
+#: ../web/src/property_to_rent.html:829
 #: ../web/src/property_to_rent_publish_success.html:44
 msgid "打开微信，使用 “扫一扫” 即可将出租房生成移动端主页分享到朋友圈"
 msgstr "Open WeChat, Use \"Scan QR Code\" to share this page to friends"
@@ -2027,23 +2029,29 @@ msgstr "No Max Rental"
 msgid "出租类型"
 msgstr "Rent Type"
 
-#: ../web/src/property_to_rent_list.html:150
+#: ../web/src/property_to_rent_list.html:110
+#: ../web/src/static/emails/new_rent_intention_ticket.html:10
+#: ../web/src/static/emails/new_rent_intention_ticket.html:11
+msgid "无"
+msgstr ""
+
+#: ../web/src/property_to_rent_list.html:158
 msgid "共找到下列出租房产"
 msgstr "Find the following property to rent"
 
-#: ../web/src/property_to_rent_list.html:190
+#: ../web/src/property_to_rent_list.html:198
 msgid "暂无此类出租房产"
 msgstr "No such property to rent"
 
-#: ../web/src/property_to_rent_list.html:191
+#: ../web/src/property_to_rent_list.html:199
 msgid "试试其他筛选条件吧... 您也可以"
 msgstr "Try other conditions, You can also"
 
-#: ../web/src/property_to_rent_list.html:191
+#: ../web/src/property_to_rent_list.html:199
 msgid "提交求租需求单"
 msgstr "Submit rent requirement ticket"
 
-#: ../web/src/property_to_rent_list.html:191
+#: ../web/src/property_to_rent_list.html:199
 msgid ", 由平台为您推荐"
 msgstr ", Recommend for you"
 
@@ -2178,15 +2186,15 @@ msgstr "Youngfunding is dedicated to provide professional and simple experience 
 
 #: ../web/src/qa_app.html:23
 msgid "App安装遇到问题?"
-msgstr "Experience problem installing Youngfunding app ?"
+msgstr "Have problem installing Youngfunding app?"
 
 #: ../web/src/qa_app.html:28
 msgid "怎样安装洋房东APP?"
-msgstr "How to install Youngfunding APP ?"
+msgstr "How to install Youngfunding APP?"
 
 #: ../web/src/qa_app.html:31
 msgid "洋房东APP暂时只支持iOS７以上系统版本，您可以在苹果App Store直接搜索下载，也可以进入‘"
-msgstr "Youngfunding APP only supports  IOS 7 and above for now, You can search and download in apple's App Store ,You can also  enter the '"
+msgstr "Youngfunding APP only supports  IOS 7 and above for now, You can search and download in apple's App Store, You can also  enter the '"
 
 #: ../web/src/qa_app.html:31
 msgid "’下载安装。再次感谢您对洋房东团队的支持！"
@@ -2194,7 +2202,7 @@ msgstr "Download and install. Thanks again for supporting Youngfunding team!"
 
 #: ../web/src/qa_app.html:37
 msgid "APP安装失败怎么办？"
-msgstr "How to do when APP install fails ?"
+msgstr "How to do when APP install fails?"
 
 #: ../web/src/qa_app.html:40
 msgid "如果您遇到洋房东App安装失败，请先检查您的系统版本是否为iOS7以上版本；如果自行解决不了的问题，可以24小时随时邮件给我们，洋房东团队会尽快为您解决问题！"
@@ -2202,7 +2210,7 @@ msgstr "If you experience APP install failure, Please check if your system is IO
 
 #: ../web/src/qa_app.html:46 ../web/src/qa_rent.html:24
 msgid "发布房产遇到问题?"
-msgstr "Experience problem posting properties ?"
+msgstr "Have problem listing your space?"
 
 #: ../web/src/qa_app.html:51 ../web/src/qa_rent.html:29
 msgid "如何发布房产？"
@@ -2214,7 +2222,7 @@ msgstr "How to list your space: launch application, click below on the front pag
 
 #: ../web/src/qa_app.html:60 ../web/src/qa_rent.html:38
 msgid "如何查看自己已经发布的房产？"
-msgstr "How to view listings already been listed?"
+msgstr "How to view listings that already been listed?"
 
 #: ../web/src/qa_app.html:63
 msgid "点击【+出租发布】，点击左上角【已发布】，即可查看到自己的房产。"
@@ -2222,7 +2230,7 @@ msgstr "Click on the \"+ List Your Space”, click  \"published\" on the upper l
 
 #: ../web/src/qa_app.html:69 ../web/src/qa_rent.html:47
 msgid "刷新已经发布的房产的规则和作用是什么？"
-msgstr "What's the rule and effect of refreshing properties already been posted ?"
+msgstr "What's the rule of refreshing listings that already been listed?"
 
 #: ../web/src/qa_app.html:72 ../web/src/qa_rent.html:50
 msgid "刷新将使您的房源在平台房产列表中置顶展示，同时展示刷新时间，向租客表示您的房源依然待出租。"
@@ -2234,7 +2242,7 @@ msgstr "Refresh rule is click on the \"+ rental publishing\", click  \"published
 
 #: ../web/src/qa_app.html:81 ../web/src/qa_rent.html:60
 msgid "如何编辑修改已经发布的房产？"
-msgstr "How to edit properties already been posted ?"
+msgstr "How do I edit my own listings? "
 
 #: ../web/src/qa_app.html:84
 msgid "点击【+出租发布】，点击左上角【已发布】，打开已发布的房产列表，找出要编辑修改的房产，点击房产标题右边的【笔形】图标，即可编辑修改自己的房产。"
@@ -2242,7 +2250,7 @@ msgstr "Click on the \"+ rental publishing\", click  \"published\" on the upper 
 
 #: ../web/src/qa_app.html:90 ../web/src/qa_rent.html:69
 msgid "房产怎么被出租？"
-msgstr "How will the property be rented ?"
+msgstr "How is my property rented out?"
 
 #: ../web/src/qa_app.html:93
 msgid "当您发布出租信息后，平台的租客会第一时间看到您的房产信息，通过平台获取您的联系方式主动与您联系。注：房客与房东接触或租金谈判，洋房东不会介入。洋房东团队不会以任何形式收取任何费用！"
@@ -2250,7 +2258,7 @@ msgstr "When you publish your rental information, tenant of the platform will be
 
 #: ../web/src/qa_app.html:99 ../web/src/qa_rent.html:78
 msgid "房子租出去后，怎么删除在平台上的出租信息？"
-msgstr "How to delete properties already been rented ?"
+msgstr "How to delete properties already been rented?"
 
 #: ../web/src/qa_app.html:102
 msgid "点击【+出租发布】，点击左上角【已发布】，打开已发布的房产列表，找出要修改的房产，点击“确认已租出”，该房源将不再平台展示，但您以后想再次出租时可以在此重新发布即可。"
@@ -2258,15 +2266,15 @@ msgstr "Click on the \"+ rental publishing\", click  \"published\" on the upper 
 
 #: ../web/src/qa_app.html:108 ../web/src/qa_rent.html:87
 msgid "房产分享遇到问题?"
-msgstr "Experience problem sharing properties ?"
+msgstr "Have problem sharing your listings?"
 
 #: ../web/src/qa_app.html:113 ../web/src/qa_rent.html:92
 msgid "发布房源信息，如何分享微信好友，朋友圈或者新浪微博？"
-msgstr "How to share to wechat friends, friends circle or sina weibo ?"
+msgstr "How to share to wechat friends, friends circle or sina weibo?"
 
 #: ../web/src/qa_app.html:116
 msgid "发布成功后分享：在您出租信息发布成功后，直接在弹出的分享选择中选择“微信好友”，微信朋友圈”或者“新浪微博”。"
-msgstr "Share after posting: After you successfully post properties, just select wechat friend ,friends circle or sina weibo in the popping share options. "
+msgstr "Share after posting: After you successfully post properties, just select we chat friend, friends circle or sina weibo in the popping share options. "
 
 #: ../web/src/qa_app.html:120
 msgid "分享自己已发布的房源：点击【+出租发布】，点击左上角【已发布】，打开已发布的房产列表，直接点击“微信分享”，在弹出的分享选择中可以选择“微信好友”，微信朋友圈”或者“新浪微博”。"
@@ -2276,13 +2284,13 @@ msgstr "Share published lists: click \"+ rental publishing\", click  \"published
 msgid "分享平台的房源：在【出租列表】点开您要分享的房产详情，点击右上角的分享图标，在弹出的分享选择中可以选择“微信好友”，微信朋友圈”或者“新浪微博”。"
 msgstr "Sharing platforms sources:  click \"rental list\" to show details of the property you want to share, click the share button on the upper right corner, in the pop-up share option, you can select \"wechat-friends\", wechat-circle of friends \"or\"sina weibo \"."
 
-#: ../web/src/qa_app.html:130 ../web/src/qa_rent.html:111
+#: ../web/src/qa_app.html:130
 msgid "收取租金问题?"
 msgstr "Rent issues?"
 
 #: ../web/src/qa_app.html:135
 msgid "洋房东全线服务及洋房东app免费吗？"
-msgstr "Are Youngfunding services and app free ?"
+msgstr "Are Youngfunding services and app free?"
 
 #: ../web/src/qa_app.html:138
 msgid "洋房东专业租房团队为您免费服务，不会以任何形式收取您任何费用，请您安心使用！"
@@ -2290,7 +2298,7 @@ msgstr "YoungFunding team offers free and professional rental service, We will n
 
 #: ../web/src/qa_app.html:144
 msgid "房东怎样收取租金？"
-msgstr "How will landlord charge rent ?"
+msgstr "How will landlord charge rent?"
 
 #: ../web/src/qa_app.html:147
 msgid "洋房东专业租房团队只为您提供专业全面的租房信息平台。在房东和房客自行联系后，线下可自行交易，洋房东租房团队将不会以任何形式收取任何费用！请您安心使用！"
@@ -2298,7 +2306,7 @@ msgstr "Youngfunding team will provide you with professional rental information 
 
 #: ../web/src/qa_app.html:153 ../web/src/qa_rent.html:134
 msgid "如何更快将房源出租出去?"
-msgstr "How can you have houses rented out quickly ?"
+msgstr "How to ensure that my listing is rented out quicker?"
 
 #: ../web/src/qa_app.html:158 ../web/src/qa_rent.html:139
 msgid "提高照片数量质量"
@@ -2306,39 +2314,39 @@ msgstr "Improve quantity and quality of photos"
 
 #: ../web/src/qa_app.html:161 ../web/src/qa_rent.html:142
 msgid "大量的房屋照片和较好的质量会让租客直观的看到您的房源，甚至有可能让您不用带租客去看房！"
-msgstr "A large number of houses photos and better quality make tenant see your sources directly, even you might do not have to bring a tenant to pay a actual visit!"
+msgstr "A large number of high quality photos Potential tenants can take a more intuitive view of your property and can even allow them to make a decision without seeing a video. "
 
 #: ../web/src/qa_app.html:167 ../web/src/qa_rent.html:148
 msgid "房产的标题要传达正确信息"
-msgstr "Title of real estate should convey the correct information"
+msgstr "Accuracy of information in the title"
 
 #: ../web/src/qa_app.html:170
 msgid "经洋房东后台统计，每位租客大概只用2秒来游览一套房屋的标题。您的标题可以简短显示出：房屋特色/大概地址/几室几厅，这样会加速合适租客找到您。"
-msgstr "Youngfunding background statistics show that each tenant takes about 2 seconds to check a house title. Your title can show : House features /address/layout, This could accelerate the process of  the right tenant to find you."
+msgstr "According to our statistics, on average every user spends only 2 seconds viewing a title. The title of your property should be short and concise; key characteristics/location/number of bedrooms. This will allow potential tenants to find you quicker. "
 
 #: ../web/src/qa_app.html:176 ../web/src/qa_rent.html:157
 msgid "详细的房产详情"
-msgstr "Property Details"
+msgstr "Detailed property description"
 
 #: ../web/src/qa_app.html:179 ../web/src/qa_rent.html:160
 msgid "轻松为房源添加位置，周边的学校和地铁，越详细的房产信息越能让租客了解您的房产，减少沟通的成本！"
-msgstr "Auto-generate location, nearby universities and underground for your listings. More detailed real estate information can let tenants know more about your property, reducing the cost of communication!"
+msgstr "A wide selection of information on the surrounding area and transport links will be provided automatically by our platform. However, in order reduce the cost of unnecessary communication we strongly suggest that descriptions are as detailed as possible allowing potential tenants to get a better understanding of your property."
 
 #: ../web/src/qa_app.html:185 ../web/src/qa_rent.html:166
 msgid "房屋的特色"
-msgstr "House features"
+msgstr "Property Highlights"
 
 #: ../web/src/qa_app.html:188 ../web/src/qa_rent.html:169
 msgid "请尽可能把您房屋的特色写在房产详情里面，这样可以吸引更多的租客！"
-msgstr "Please attach more house features into your house introductions, Which could attract more tenants!"
+msgstr "Make sure you highlight the unique characteristics of your property to ensure that you attract more potential tenants. "
 
 #: ../web/src/qa_app.html:194 ../web/src/qa_rent.html:175
 msgid "定期刷新您的房产"
-msgstr "Refresh your property periodically"
+msgstr "Refresh your property regularly"
 
 #: ../web/src/qa_app.html:197 ../web/src/qa_rent.html:178
 msgid "刷新可以使您的房产被顶到第一的位置！让租客第一眼就看到您的房源！"
-msgstr "Refreshing can make your property jump to the top spot! Tenants will see your lists at first glance!"
+msgstr "In order to guarantee your property gains maximum exposure we recommend that refresh your property regularly. This will ensure your property takes number one spot meaning your property is seen first. "
 
 #: ../web/src/qa_app.html:205 ../web/src/qa_rent.html:218
 msgid "如您有其他问题，请随时联系我们："
@@ -2440,9 +2448,13 @@ msgstr "“ in ”my properties”, select to see all your listings."
 msgid "分享平台的房源：在房源详情页面右侧的分享栏，找到“微信分享”和“微博分享”，点击进行分享。"
 msgstr "Share listings on platform : find weichat share and weibo share on the right of the listing to share"
 
+#: ../web/src/qa_rent.html:111
+msgid "房源发布费用问题?"
+msgstr "Fees for listing service?"
+
 #: ../web/src/qa_rent.html:116
 msgid "使用洋房东网站或app发布房源收费吗？"
-msgstr "Does our platform charge you for listing your space?"
+msgstr "Is the Young Funding Rental platform free to use?"
 
 #: ../web/src/qa_rent.html:119
 msgid "洋房东专业租房团队为您提供免费信息发布服务，发布房源不会收取您任何费用，请您安心使用！"
@@ -2450,7 +2462,7 @@ msgstr "YoungFunding team offers free space listing service, we will not charge 
 
 #: ../web/src/qa_rent.html:125
 msgid "洋房东的房东服务费如何收取？"
-msgstr "How we charge for our landlord service?"
+msgstr "How does the platform charge landlords?"
 
 #: ../web/src/qa_rent.html:151
 msgid "经洋房东后台统计，每位租客大概只用2秒来浏览一套房屋的标题。您的标题可以简短显示出：房屋特色/大概地址/几室几厅，这样会加速合适租客找到您。"
@@ -2562,7 +2574,7 @@ msgstr "Sign Up For Free"
 
 #: ../web/src/region_report.html:316
 msgid "已经是会员？"
-msgstr "Already member ?"
+msgstr "Already member?"
 
 #: ../web/src/region_report.html:318
 msgid "请登录"
@@ -3466,7 +3478,7 @@ msgstr "Oops! There are currently no pictures. By uploading pictures you can inc
 
 #: ../web/src/wechat_poster.html:361
 msgid "此房源已租出，查看其他房源"
-msgstr "This property has alredy been rented ,check other properties"
+msgstr "This property has alredy been rented, check other properties"
 
 #: ../web/src/wechat_poster.html:381
 msgid "查看更多房源"
@@ -3539,7 +3551,7 @@ msgstr "If you have any questions, please feel free to contact us and we will be
 #: ../web/src/masters/email_new.html:84 ../web/src/partials/i18n_admin.html:47
 #: ../web/src/static/emails/property_ad.html:110
 msgid "不想收到此类邮件？"
-msgstr "Don't want to receive our Email ?"
+msgstr "Don't want to receive our Email?"
 
 #: ../web/src/masters/email_new.html:84 ../web/src/partials/i18n_admin.html:48
 #: ../web/src/static/emails/property_ad.html:110
@@ -10858,6 +10870,10 @@ msgstr "Thank you for reading, and I wish you a happy life!"
 msgid "”在草稿箱中已经躺了7天了呢！为了尽快出租您的房源，请您尽快将该草稿发布出去，点击下面的按钮继续发布："
 msgstr "It had been lying in the drafts for 7 days! Please post the draft as soon as possible to make sure the rental business goes smoothly. Click buttons below to post"
 
+#: ../web/src/static/emails/happy_new_year.html:5
+msgid " 洋房东全体员工祝您新年快乐！"
+msgstr ""
+
 #: ../web/src/static/emails/invitation.html:3
 #: ../web/src/static/emails/rent_suspend_notice.html:13
 msgid "尊敬的用户您好："
@@ -10906,7 +10922,7 @@ msgstr "Hi"
 
 #: ../web/src/static/emails/landlord_recruit.html:5
 msgid "请问房子还在出租吗?"
-msgstr "Are your house still on rent ?"
+msgstr "Are your house still on rent?"
 
 #: ../web/src/static/emails/landlord_recruit.html:6
 msgid "还没租出去的话可以试试我们的app（洋房东）"
@@ -11112,11 +11128,6 @@ msgstr "Title"
 #, fuzzy
 msgid "用户预算下限："
 msgstr "Budget: "
-
-#: ../web/src/static/emails/new_rent_intention_ticket.html:10
-#: ../web/src/static/emails/new_rent_intention_ticket.html:11
-msgid "无"
-msgstr ""
 
 #: ../web/src/static/emails/new_rent_intention_ticket.html:11
 #, fuzzy
@@ -11437,7 +11448,7 @@ msgstr "4. The information does not match:"
 
 #: ../web/src/static/emails/rent_suspend_notice.html:48
 msgid "经洋房东系统检测，您所选择的‘房东类型’有错误，如果您是中介，请如实填写，屡次不改者将进行封号处理。"
-msgstr "Youngfunding detects that you choose the wrong type of  ' landlord type ' , if you are an intermediary, please fill out according to the facts, those who won't change will be processed."
+msgstr "Youngfunding detects that you choose the wrong type of  ' landlord type ',  if you are an intermediary, please fill out according to the facts, those who won't change will be processed."
 
 #: ../web/src/static/emails/rent_suspend_notice.html:54
 msgid "5.收取额外费用："
@@ -11537,7 +11548,8 @@ msgid "查看详情"
 msgstr "View Details"
 
 #: ../web/src/static/templates/location-search-box.tpl.html:5
-msgid "请输入位置，比如E14, E14 9AQ, Isle of dogs, Crouch Hill Station, UCL..."
+#, fuzzy
+msgid "请输入位置，比如E14, E14 3GH, Isle of dogs, Waterloo, UCL..."
 msgstr "Please enter location like 14, E14 9AQ, Isle of dogs, Crouch Hill Station, UCL..."
 
 #: ../web/src/static/templates/location-search-box.tpl.html:20
@@ -11546,7 +11558,8 @@ msgid "热门学校"
 msgstr "Hot Universities"
 
 #: ../web/src/static/templates/location-search-box.tpl.html:48
-msgid "请输入位置，如E14, E14 9AQ, Isle of dogs, Crouch Hill Station, UCL..."
+#, fuzzy
+msgid "请输入位置，如E14, E14 3GH, Isle of dogs, Waterloo, UCL..."
 msgstr "Please enter location like E14, E14 9AQ, Isle of dogs, Crouch Hill Station, UCL..."
 
 #: ../web/src/static/templates/my_rent_card.tpl.html:83
