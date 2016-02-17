@@ -107,7 +107,7 @@
                 <div class="independentBathroom">
                     <i class="independentBathroom_icon icon-bathroom_line"></i>
                     <h4 class="independentBathroom_title">{{_('独立卫浴')}}</h4>
-                    <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-independent-bathroom'}" class="inner" params="list: [{id: 'true', value: '{{_('有')}}'}, {id: '', value: '{{_('无')}}'}], key: 'independentBathroom', vm: $data"></filter-tags>
+                    <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-independent-bathroom'}" class="inner" params="list: [{id: 'true', value: '{{_('有')}}'}], key: 'independentBathroom', vm: $data, unLimited: true, autoSelectFirstItem: true"></filter-tags>
                 </div>
             </div>
 
