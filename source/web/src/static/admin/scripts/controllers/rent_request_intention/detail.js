@@ -40,48 +40,6 @@
         $scope.currentTime = new Date().getTime()
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
 
-        if (itemFromParent) {
-            $scope.item = itemFromParent
-            $scope.getUnmatchhRequirements($scope.item)
-        } else {
-            $scope.item = {}
-            api.getOne($stateParams.id, {errorMessage: true})
-                .success(function (data) {
-                    var item =  data.val
-                    item.age = (Date.now() - item.date_of_birth * 1000)/(365 * 24 * 60 * 60 * 1000)
-
-                    // Get ip when ticket is created from log
-                    item.log = {
-                        ip: window.i18n('载入中...'),
-                        link: ''
-                    }
-                    if(item.rent_deadline_time && item.rent_available_time && !_.isEmpty(item.interested_rent_tickets[0])) {
-                        var day = (item.rent_deadline_time - item.rent_available_time) / 3600 / 24
-                        if(day < 30) {
-                            item.payment = parseInt(item.interested_rent_tickets[0].price.value_float / 7 * day / 4)
-                        } else {
-                            item.payment = parseInt(item.interested_rent_tickets[0].price.value_float)
-                        }
-                    }
-                    api.getLog(item.id)
-                        .then(function (data) {
-                            if(data.data.val && data.data.val.length && data.data.val[0].ip && data.data.val[0].ip.length) {
-
-                                item.log = {
-                                    ip: data.data.val[0].ip[0],
-                                    link: 'http://www.ip2location.com/demo/' + data.data.val[0].ip[0]
-                                }
-                            } else {
-                                item.log = {
-                                    ip: window.i18n('无结果')
-                                }
-                            }
-                            $scope.item  = item
-                            $scope.getUnmatchhRequirements($scope.item)
-                        })
-                })
-        }
-
         $scope.getUnmatchhRequirements = function (item) {
             function getGenderName (slug) {
                 return {'male': i18n('男'), 'female': i18n('女')}[slug]
@@ -176,6 +134,49 @@
                 })
             }
             $scope.unmatchRequirements = unmatchRequirements
+        }
+
+
+        if (itemFromParent) {
+            $scope.item = itemFromParent
+            $scope.getUnmatchhRequirements($scope.item)
+        } else {
+            $scope.item = {}
+            api.getOne($stateParams.id, {errorMessage: true})
+                .success(function (data) {
+                    var item =  data.val
+                    item.age = (Date.now() - item.date_of_birth * 1000)/(365 * 24 * 60 * 60 * 1000)
+
+                    // Get ip when ticket is created from log
+                    item.log = {
+                        ip: window.i18n('载入中...'),
+                        link: ''
+                    }
+                    if(item.rent_deadline_time && item.rent_available_time && !_.isEmpty(item.interested_rent_tickets[0])) {
+                        var day = (item.rent_deadline_time - item.rent_available_time) / 3600 / 24
+                        if(day < 30) {
+                            item.payment = parseInt(item.interested_rent_tickets[0].price.value_float / 7 * day / 4)
+                        } else {
+                            item.payment = parseInt(item.interested_rent_tickets[0].price.value_float)
+                        }
+                    }
+                    api.getLog(item.id)
+                        .then(function (data) {
+                            if(data.data.val && data.data.val.length && data.data.val[0].ip && data.data.val[0].ip.length) {
+
+                                item.log = {
+                                    ip: data.data.val[0].ip[0],
+                                    link: 'http://www.ip2location.com/demo/' + data.data.val[0].ip[0]
+                                }
+                            } else {
+                                item.log = {
+                                    ip: window.i18n('无结果')
+                                }
+                            }
+                            $scope.item  = item
+                            $scope.getUnmatchhRequirements($scope.item)
+                        })
+                })
         }
 
         $scope.updateItem = function (item) {
