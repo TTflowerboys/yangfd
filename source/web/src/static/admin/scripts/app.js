@@ -11,6 +11,24 @@ angular.module('app',
             if (typeof  html !== 'string') { return '' }
             return $sce.trustAsHtml(html || '');
         }
+        $rootScope.transferTime = function (time, unit) {
+            var value = time.value_float || parseInt(time.value)
+            var config = {
+                second: 1,
+                minute: 60,
+                hour: 3600,
+                day: 3600 * 24,
+                week: 3600 * 24 * 7,
+                month: 3600 * 24 * 30.4368498984,
+                year: 3600 * 24 * 365.242198781
+            }
+            value = value * config[time.unit] / config[unit]
+            return _.extend(_.clone(time), {
+                unit: unit,
+                value: value < 1 ? 1 : Math.round(value).toString(),
+                value_float: value
+            })
+        }
         $rootScope.$on('$stateChangeStart',
             function (event, toState, toParams, fromState, fromParams) {
                 if (toState.name === 'signIn') {
