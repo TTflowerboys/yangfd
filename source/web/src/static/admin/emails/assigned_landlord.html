@@ -7,7 +7,7 @@
             <p style="margin:12px 0">
                 {%$root.i18n('您的房源')%}
                 <a style="color: #e60012;" ng-href="{%host%}/property-to-rent/{%item.interested_rent_tickets[0].id%}">{%item.interested_rent_tickets[0].title%}</a>
-                {%$root.i18n('收到一位租客的预订咨询申请，入住日期为')%}
+                {%$root.i18n('收到一位租客的预订咨询申请')%}<span ng-if="item.short_id">({%$root.i18n('咨询单编号')%}: {%item.short_id%})</span>{%$root.i18n('，入住日期为')%}
                 <strong>{% item.rent_available_time * 1000 | date : 'yyyy-MM-dd'%}{%$root.i18n('至')%}{% item.rent_deadline_time * 1000 | date : 'yyyy-MM-dd'%}</strong>。
                 {%$root.i18n('请在北京时间')%}
                 <strong>{% item.time * 1000 + 24 * 3600 * 1000 | date:'yyyy-MM-dd H:mm':'+0800'%}</strong>

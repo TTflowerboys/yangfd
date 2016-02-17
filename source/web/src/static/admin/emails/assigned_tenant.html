@@ -8,10 +8,10 @@
                 {%$root.i18n('we are so happy you are interested in booking with us. Welcome to YoungFunding (洋房东)。')%}
             </p>
             <p style="margin:20px 0; color: #999;">
-                {%$root.i18n('Your pre booking request has gone through, meaning you are one step closer to finding a new home. Congrats!')%}
+                {%$root.i18n('Your pre booking request')%}<span ng-if="item.short_id">(ID: {%item.short_id%})</span>{%$root.i18n(' has gone through, meaning you are one step closer to finding a new home. Congrats!')%}
             </p>
             <p style="margin:20px 0; color: #999;">
-                {%$root.i18n('Your potential housthas 24 hours to respond your prebooking request. Once the host have respond we will let you know.')%}
+                {%$root.i18n('Your potential host has 24 hours to respond your prebooking request. Once the host have respond we will let you know.')%}
             </p>
             <p style="margin:20px 0; color: #999; ">
                 {%$root.i18n('Upload your ID, university acceptance letter or employment contract on your account page. This will increase the chances of the landlord accepting your booking request, so make sure you do it as soon as you can!')%}
