@@ -612,7 +612,7 @@
                                     <strong>{{ rent.get('accommodates') }}</strong>
                                 </dic>
                             % end
-                            <ul class="allowOrDisallow">
+                            <ul class="allowOrDisallow {{'noLeft' if 'accommodates' not in rent else ''}}">
                                 % if 'no_smoking' in rent:
                                     <li class="noSmoking">
                                         <i class="icon-cigarette"></i>
