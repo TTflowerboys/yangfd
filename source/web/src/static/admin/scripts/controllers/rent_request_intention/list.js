@@ -42,6 +42,9 @@
         }
         $scope.searchTicket = function () {
             _.extend(params, $scope.selected)
+            if(params.short_id) {
+                params.short_id = params.short_id.toUpperCase()
+            }
             $scope.refreshList()
         }
 
