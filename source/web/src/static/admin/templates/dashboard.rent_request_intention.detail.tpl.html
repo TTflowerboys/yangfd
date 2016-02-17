@@ -226,7 +226,6 @@
         <div ng-include="'/static/admin/templates/dashboard.rent.detail.tabRent.tpl.html'"></div>
     </tab>
     <tab heading="{%$root.i18n('不合要求信息')%}" ng-if="unmatchRequirements && unmatchRequirements.length">
-        <!--<p class="text">{%$root.i18n('以下信息与当前房屋不匹配：')%}</p>-->
         <table class="table table-striped table-bordered">
             <caption>{%$root.i18n('以下信息与当前房屋不匹配：')%}</caption>
             <thead>
@@ -242,14 +241,5 @@
                 </tr>
             </tbody>
         </table>
-        <!--<ul ng-repeat="item in unmatchRequirements">-->
-            <!--<li>-->
-                <!--<p class="request"><i class="icon-delete"></i><span ng-bind="item.request"></span></p>-->
-                <!--<p class="requirement">-->
-                    <!--<span>{%$root.i18n('房东要求：')%}</span>-->
-                    <!--<span class="requirement" ng-bind="item.requirement"></span>-->
-                <!--</p>-->
-            <!--</li>-->
-        <!--</ul>-->
     </tab>
 </tabset>
