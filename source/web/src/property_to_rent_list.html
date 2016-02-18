@@ -103,6 +103,7 @@
             </div>
             %end
 
+            <!-- @if ENV=='dev' || ENV=='debug' -->
             <div data-bind="if: rentTypeSlug() !== 'rent_type:whole'">
                 <div class="independentBathroom">
                     <i class="independentBathroom_icon icon-bathroom_line"></i>
@@ -110,6 +111,7 @@
                     <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-independent-bathroom'}" class="inner" params="list: [{id: 'true', value: '{{_('有')}}'}], key: 'independentBathroom', vm: $data, unLimited: true, autoSelectFirstItem: true"></filter-tags>
                 </div>
             </div>
+            <!-- @endif -->
 
             %if property_type_list:
             <div class="propertyType">
