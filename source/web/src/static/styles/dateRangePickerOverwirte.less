@@ -55,9 +55,12 @@
                             height: 30px;
                             line-height: 30px;
                             font-size: 14px;
-                            color: #aaa !important;
-                            &.toMonth{
-                                color: #777 !important;
+                            &.valid{
+                                cursor: pointer;
+                            }
+                            &.invalid{
+                                cursor: not-allowed;
+                                color: #aaa !important;
                             }
                             &.real-today{
                                 background-color: #aaa;
