@@ -81,17 +81,31 @@
 
     ko.bindingHandlers.dateRangePicker = {
         init: function(element, valueAccessor)  {
-            $(element).find('input').dateRangePicker({
+            var dateValue,
+                dateAccessor,
+                options
+            if(_.isFunction(valueAccessor())) {
+                dateAccessor = valueAccessor()
+            } else {
+                dateAccessor = valueAccessor().value
+            }
+            options = {
                 autoClose: true,
                 singleDate: true,
                 showShortcuts: false,
                 lookBehind: false,
                 getValue: function() {
-                    return valueAccessor()() ? valueAccessor()() : ''
+                    return dateAccessor() ? dateAccessor() : ''
                 }
-            })
+            }
+            if(!_.isFunction(valueAccessor()) && valueAccessor().timeEnabled) {
+                _.extend(options, {
+                    startDate: window.moment().format(),
+                })
+            }
+            $(element).find('input').dateRangePicker(options)
                 .bind('datepicker-change', function (event, obj) {
-                    valueAccessor()($.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
+                    dateAccessor($.format.date(new Date(obj.date1), 'yyyy-MM-dd'))
                     $(event.target).trigger('change')
                 })
                 .dateRangePickerCustom($(element).find('input'))

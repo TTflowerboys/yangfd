@@ -21,14 +21,14 @@
         <location-search-box params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}, hotSchoolList: {{json_dumps(hot_school_list)}}"></location-search-box><!--
     --><div class="hoverWrapper" data-bind="hoverTopBar: true">
             <div class="dateWrap">
-                <div class="date inputWrapper" data-bind="dateRangePicker: rentAvailableTimeFormated">
-                    <input data-bind="dateInput, value: rentAvailableTimeFormated, changeText: {obj:summaryTitleObj, prop: 'set-rent-available-time'}" type="text" class="" id="rentPeriodStartDate" name="rentPeriodStartDate" placeholder="{{_('起租日期')}}" autocomplete="off"/>
+                <div class="date inputWrapper" data-bind="dateRangePicker: {value: rentAvailableTimeFormated, timeEnabled: true}">
+                    <input data-bind="dateInput, value: rentAvailableTimeFormated, changeText: {obj:summaryTitleObj, prop: 'set-rent-available-time'}" type="text" min="{{currentDate}}" class="" id="rentPeriodStartDate" name="rentPeriodStartDate" placeholder="{{_('起租日期')}}" autocomplete="off"/>
                     <label for="rentPeriodStartDate"></label>
                     <i data-bind="click: clearDate('rentAvailableTimeFormated'), visible: rentAvailableTime" class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
                 </div><!--
             --><span class="hiddenOnPCWeb">{{_('至')}}</span><!--
-            --><div class="date inputWrapper" data-bind="dateRangePicker: rentDeadlineTimeFormated">
-                    <input data-bind="dateInput, value: rentDeadlineTimeFormated, changeText: {obj:summaryTitleObj, prop: 'set-rent-deadline-time'}" type="text" class="" id="rentPeriodEndDate" name="rentPeriodEndDate" placeholder="{{_('结束日期')}}" autocomplete="off"/>
+            --><div class="date inputWrapper" data-bind="dateRangePicker: {value: rentDeadlineTimeFormated, timeEnabled: true}">
+                    <input data-bind="dateInput, value: rentDeadlineTimeFormated, changeText: {obj:summaryTitleObj, prop: 'set-rent-deadline-time'}" type="text" min="{{currentDate}}" class="" id="rentPeriodEndDate" name="rentPeriodEndDate" placeholder="{{_('结束日期')}}" autocomplete="off"/>
                     <label for="rentPeriodEndDate"></label>
                     <i data-bind="click: clearDate('rentDeadlineTimeFormated'), visible: rentDeadlineTime" class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
                 </div>

@@ -895,6 +895,7 @@
             autoClose: true,
             singleDate: true,
             showShortcuts: false,
+            startDate: window.moment().format(),
             getValue: function() {
                 return $(this).find('input').val();
             }

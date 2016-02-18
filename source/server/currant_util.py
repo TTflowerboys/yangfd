@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 import logging
-from datetime import datetime
+from datetime import datetime, date
 from functools import wraps
 import bottle
 from app import f_app
@@ -304,6 +304,8 @@ def common_template(path, **kwargs):
             "country": "GB"
         })
         kwargs['hot_school_list'] = f_app.hesa.university.get(f_app.hesa.university.search(hot_school_geonames_params, per_page=-1))[::-1]
+    if 'currentDate' not in kwargs:
+        kwargs['currentDate'] = date.today().isoformat()
     # setup page utils
     kwargs.setdefault("format_unit", format_unit)
     kwargs.setdefault("fetch_image", fetch_image)

@@ -24,14 +24,14 @@
                                     <div class="col rentPeriod">
                                         <p class="inputPlaceholder">{{_('租期开始日期')}}</p>
                                         <div class="date inputWrapper">
-                                            <input data-bind="value: rentAvailableTimeFormated" type="date" dir="rtl" class="rentAvailableTime" placeholder="{{_('选择起租日期')}}" autocomplete="off"/>
+                                            <input data-bind="value: rentAvailableTimeFormated" type="date" dir="rtl" class="rentAvailableTime" min="{{currentDate}}" placeholder="{{_('选择起租日期')}}" autocomplete="off"/>
                                         </div>
 
                                     </div>
                                     <div class="col rentPeriod">
                                         <p class="inputPlaceholder">{{_('租期结束日期')}}</p>
                                         <div class="date inputWrapper">
-                                            <input data-bind="value: rentDeadlineTimeFormated" type="date" dir="rtl" class="rentDeadlineTime" placeholder="{{_('选择结束日期')}}" autocomplete="off"/>
+                                            <input data-bind="value: rentDeadlineTimeFormated" type="date" dir="rtl" class="rentDeadlineTime" min="{{currentDate}}" placeholder="{{_('选择结束日期')}}" autocomplete="off"/>
                                         </div>
                                     </div>
 

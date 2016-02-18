@@ -26,11 +26,11 @@
                                 <div class="row">
                                     <div class="cell rentPeriod">
                                         <p class="title">{{_('预计租期')}}</p>
-                                        <div class="date inputWrapper" data-bind="dateRangePicker: rentAvailableTimeFormated">
+                                        <div class="date inputWrapper" data-bind="dateRangePicker: {value: rentAvailableTimeFormated, timeEnabled: true}">
                                             <input data-bind="value: rentAvailableTimeFormated" type="text" class="" placeholder="{{_('选择起租日期')}}" autocomplete="off"/>
                                         </div>
                                         <span>{{_('至')}}</span>
-                                        <div class="date inputWrapper" data-bind="dateRangePicker: rentDeadlineTimeFormated">
+                                        <div class="date inputWrapper" data-bind="dateRangePicker: {value: rentDeadlineTimeFormated, timeEnabled: true}">
                                             <input data-bind="value: rentDeadlineTimeFormated" type="text" class="" placeholder="{{_('选择结束日期')}}" autocomplete="off"/>
                                         </div>
                                     </div>
