@@ -225,7 +225,7 @@
     <tab heading="{%$root.i18n('出租信息')%}" ng-controller="ctrlRentDetail" ng-init="item = item.interested_rent_tickets[0]">
         <div ng-include="'/static/admin/templates/dashboard.rent.detail.tabRent.tpl.html'"></div>
     </tab>
-    <tab heading="{%$root.i18n('不合要求信息')%}" ng-if="unmatchRequirements && unmatchRequirements.length">
+    <tab heading="{%$root.i18n('不合要求信息')%}" ng-if="item.unmatchRequirements && item.unmatchRequirements.length">
         <table class="table table-striped table-bordered">
             <caption>{%$root.i18n('以下信息与当前房屋不匹配：')%}</caption>
             <thead>
@@ -234,7 +234,7 @@
                     <th>{%$root.i18n('房东要求')%}</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="item in unmatchRequirements">
+            <tbody ng-repeat="item in item.unmatchRequirements">
                 <tr>
                     <td><i class="icon-delete"></i><span ng-bind="item.request"></span></td>
                     <td ng-bind="item.requirement"></td>

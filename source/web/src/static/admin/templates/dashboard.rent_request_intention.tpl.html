@@ -53,6 +53,7 @@
                     <th>{%$root.i18n('IP')%}</th>
                     <th>{%$root.i18n('Relocate')%}</th>
                     <th>{%$root.i18n('状态')%}</th>
+                    <th>{%$root.i18n('符合房东要求')%}</th>
                     <th>{%$root.i18n('最新动态')%}</th>
                     <th>{%$root.i18n('备注')%}</th>
                     <th>{%$root.i18n('管理')%}</th>
@@ -108,6 +109,10 @@
                     </td>
                     <td>
                         {%item.status | rentIntentionTicketStatusName %}
+                    </td>
+                    <td>
+                        <span class="text-success" ng-if="!item.unmatchRequirements || item.unmatchRequirements.length === 0">{%$root.i18n('完全符合')%}</span>
+                        <span class="text-danger" ng-if="item.unmatchRequirements && item.unmatchRequirements.length > 0">{%$root.i18n('不完全符合')%}</span>
                     </td>
                     <td>
                         {%item.custom_fields | showLastDynamic : item.status%}
