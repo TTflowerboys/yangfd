@@ -81,8 +81,7 @@
 
     ko.bindingHandlers.dateRangePicker = {
         init: function(element, valueAccessor)  {
-            var dateValue,
-                dateAccessor,
+            var dateAccessor,
                 options
             if(_.isFunction(valueAccessor())) {
                 dateAccessor = valueAccessor()
