@@ -90,9 +90,9 @@
             window.geonamesApi.getCountry(postcode)
                 .then(function (val) {
                     if(val[0].country === 'GB') {
-                        resolve(window.moment(window.moment().day(8).format('YYYY-MM-DD') + ' 9:00 +0000').unix())
+                        resolve(window.moment(window.moment().day(8).format('YYYY-MM-DD') + ' 09+0000').unix())
                     } else {
-                        resolve(window.moment(window.moment().day(8).format('YYYY-MM-DD') + ' 9:00').unix())
+                        resolve(window.moment(window.moment().day(8).format('YYYY-MM-DD') + ' 09').unix())
                     }
                 })
         })
