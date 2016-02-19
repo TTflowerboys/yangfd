@@ -38,9 +38,11 @@
         <!-- @endif -->
     </div>
 
-    <div class="appDownload hiddenInClient">
-        <!-- @@include =app_download_content_new.html -->
-    </div>
+    %if not is_mobile_client():
+        <div class="appDownload hiddenInClient">
+            <!-- @@include =app_download_content_new.html -->
+        </div>
+    %end
 
     <!-- @if ENV=='dev' || ENV=='debug' -->
     <div class="delegationRent">
