@@ -314,7 +314,7 @@
 
             <div id="propertyDetails_description" class="meta scrollto">
                 <div class="seperator"></div>
-                <h3 class="propertyDetails_title">{{_('房产详情')}}</h3>
+                <!--<h3 class="propertyDetails_title">{{_('房产详情')}}</h3>-->
                 % if property_type_slug != 'new_property' and property_type_slug != 'student_housing' and property_type_slug != 'house':
                 % if property.get('space') or property.get('bedroom_count') or property.get('bathroom_count') or property.get('living_room_count','') or property.get('kitchen_count',''):
                 <ul class="numbers">
@@ -618,6 +618,7 @@
 
             %end
             % if property_type_slug == 'new_property' or property_type_slug == 'student_housing' or property_type_slug == 'house':
+            % if sum([bool(x in property) for x in ['opening_time', 'completion_time', 'building_type', 'property_management_type', 'building_area_min', 'plot_ratio', 'planning_area', 'greening_rate', 'parking_space_count', 'planning_household_count', 'property_management_company']]) > 0:
                 <div id="propertyDetails_project" class="brief scrollto">
                     <div class="seperator"></div>
                     <h3 class="propertyDetails_title">{{_('楼盘介绍')}}</h3>
@@ -710,7 +711,8 @@
                         </table>
                     </div>
                 </div>
-            %end
+            % end
+            % end
             % if property.get('historical_price') :
                 <div id="propertyDetails_price" class="trend scrollto">
                     <div class="seperator"></div>
