@@ -439,6 +439,52 @@ class f_main_mixed_index(f_app.plugin_base):
 
             return _format_each(result)
 
+    def search(self, params, per_page=0):
+        if "suggestion" in params:
+            sort = "Levenshtein"
+            sort_field = "name"
+        else:
+            # TODO
+            sort = "desc"
+            sort_field = "time"
+        return f_app.mongo_index.search(self.get_database, params, notime=True, sort=sort, sort_field=sort_field, count=False, per_page=per_page)["content"]
+
+    def get_nearby(self, params, output=True):
+        latitude = params.pop("latitude")
+        longitude = params.pop("longitude")
+        search_range = params.pop("search_range")
+
+        search_command = SON([
+            ('geoNear', self.main_mixed_index_database),
+            ('near', [float(longitude), float(latitude)]),
+            ('maxDistance', search_range * 1.0 / f_app.common.earth_radius),
+            ('spherical', True),
+            ('query', params),
+            ('num', 20),
+        ])
+
+        with f_app.mongo() as m:
+            tmp_result = m.command(search_command)["results"]
+
+        result = []
+        index_id_list = map(lambda item: str(item["obj"]["_id"]), tmp_result)
+
+        if not output:
+            return index_id_list
+
+        index_dict = self.get(index_id_list, multi_return=dict)
+
+        for tmp_index in tmp_result:
+
+            distance = tmp_index["dis"] * f_app.common.earth_radius
+            index = index_dict.get(str(tmp_index["obj"].pop("_id")))
+            index["distance"] = distance
+            index.pop("id")
+
+            result.append(index)
+
+        return result
+
     def build_maponics_neighborhood(self):
         processed = 0
         with f_app.mongo() as m:
@@ -511,50 +557,28 @@ class f_main_mixed_index(f_app.plugin_base):
                 if processed % 100 == 0:
                     self.logger.info("station", processed, "processed.")
 
-    def search(self, params, per_page=0):
-        if "suggestion" in params:
-            sort = "Levenshtein"
-            sort_field = "name"
-        else:
-            # TODO
-            sort = "desc"
-            sort_field = "time"
-        return f_app.mongo_index.search(self.get_database, params, notime=True, sort=sort, sort_field=sort_field, count=False, per_page=per_page)["content"]
+    def build_geonames_gazetteer(self, identifier, params):
+        params.setdefault("feature_code", identifier)
+        params.setdefault("status", {"$ne": "deleted"})
+        if params.get("feature_code") == "city":
+            params["feature_code"] = {"$in": ["PPLC", "PPLA", "PPLA2"]}
 
-    def get_nearby(self, params, output=True):
-        latitude = params.pop("latitude")
-        longitude = params.pop("longitude")
-        search_range = params.pop("search_range")
-
-        search_command = SON([
-            ('geoNear', self.main_mixed_index_database),
-            ('near', [float(longitude), float(latitude)]),
-            ('maxDistance', search_range * 1.0 / f_app.common.earth_radius),
-            ('spherical', True),
-            ('query', params),
-            ('num', 20),
-        ])
-
+        processed = 0
         with f_app.mongo() as m:
-            tmp_result = m.command(search_command)["results"]
+            self.get_database(m).create_index([("loc", GEO2D)])
+            for gazetteer in f_app.geonames.gazetteer.get_database(m).find(params):
+                self.get_database(m).update({identifier: gazetteer["_id"]}, {
+                    identifier: gazetteer["_id"],
+                    "name": gazetteer["name"],
+                    "latitude": gazetteer["latitude"],
+                    "longitude": gazetteer["longitude"],
+                    "loc": gazetteer["loc"],
+                }, upsert=True)
+                index_id = self.get_database(m).find_one({identifier: gazetteer["_id"]})["_id"]
+                f_app.mongo_index.update(self.get_database, str(index_id), gazetteer["name"], enable_suggestion=True)
+                processed += 1
 
-        result = []
-        index_id_list = map(lambda item: str(item["obj"]["_id"]), tmp_result)
-
-        if not output:
-            return index_id_list
-
-        index_dict = self.get(index_id_list, multi_return=dict)
-
-        for tmp_index in tmp_result:
-
-            distance = tmp_index["dis"] * f_app.common.earth_radius
-            index = index_dict.get(str(tmp_index["obj"].pop("_id")))
-            index["distance"] = distance
-            index.pop("id")
-
-            result.append(index)
-
-        return result
+                if processed % 100 == 0:
+                    self.logger.info("gazetteer", processed, "processed.")
 
 f_main_mixed_index()
