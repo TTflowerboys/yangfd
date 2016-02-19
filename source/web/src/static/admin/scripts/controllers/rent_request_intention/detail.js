@@ -93,7 +93,9 @@
         $scope.onRemove = function (item) {
             fctModal.show('Do you want to remove it?', undefined, function () {
                 api.remove(item.id).success(function () {
-                    $scope.list.splice($scope.list.indexOf(item), 1)
+                    if(_.isArray($scope.list)) {
+                        $scope.list.splice($scope.list.indexOf(item), 1)
+                    }
                     growl.addSuccessMessage($rootScope.renderHtml(i18n('操作成功')), {enableHtml: true})
                     $state.go($stateParams.from || '^', $stateParams.fromParams)
                 })
