@@ -67,54 +67,58 @@
         <img alt="logo for wechat" style="display: none" src="/static/images/logo/logo_wechat.jpg"/>
         <!-- @@include =../partials/user_data.html -->
         <div class="page">
-            %if not is_mobile_client():
-                <div class="supHeader_wrapper hiddenInClient">
-                    <div class="supHeader">
-                        <div class="user">
-                            %if user:
-                                <div class="account menuItem">
-                                    <a href="/user-settings">
-                                        <i class="icon-user_header"></i>
-                                        <span>{{_('我的账户')}}</span>
-                                    </a>
-                                    <ul class="dropDownMenu">
-                                        <li><a href="/user-favorites">{{_('我的收藏')}}</a></li>
-                                        <li><a href="/user-intentions">{{_('我的意向单')}}</a></li>
-                                        <li><a href="/user-properties">{{_('我的房产')}}</a></li>
-                                        <hr/>
-                                        <li><a id="logout" class="logout" href="#" onclick="project.logout()" data-need-bridge>{{_('退出')}}</a></li>
-                                    </ul>
-                                </div>
-                                <a class="message" id="message" href="/user-messages">
-                                    <img id="icon-message" alt="" src="/static/images/common/header/message.png" />
-                                    <img id="icon-message-notif" style="display:none" alt="" src="/static/images/common/header/message-notif.png" />
-                                    <span>{{_('消息')}}</span>
+            % if not is_mobile_client():
+            <div class="supHeader_wrapper hiddenInClient">
+                <div class="supHeader">
+                    <div class="user">
+                        %if user:
+                            <div class="account menuItem">
+                                <a href="/user-settings">
+                                    <i class="icon-user_header"></i>
+                                    <span>{{_('我的账户')}}</span>
                                 </a>
-                                <!--<a id="logout" class="logout" href="/logout" data-need-bridge>
-                                <i class="icon-log_out"></i>
-                                <span>{{_('登出')}}</span>
-                                </a>-->
-                            %else:
-                                <a id="login" class="login">{{_('登录')}}</a>
-                                <a id="register" class="register" onclick="project.goToSignUp()">{{_('注册')}}</a>
-                            %end
-                        </div>
-
-                        <div class="left">
-                            <a class="app" href="/app-download" target="_blank">
-                                {{_('下载应用')}}
+                                <ul class="dropDownMenu">
+                                    <li><a href="/user-favorites">{{_('我的收藏')}}</a></li>
+                                    <li><a href="/user-intentions">{{_('我的意向单')}}</a></li>
+                                    <li><a href="/user-properties">{{_('我的房产')}}</a></li>
+                                    <hr/>
+                                    <li><a id="logout" class="logout" href="#" onclick="project.logout()" data-need-bridge>{{_('退出')}}</a></li>
+                                </ul>
+                            </div>
+                            <a class="message" id="message" href="/user-messages">
+                                <img id="icon-message" alt="" src="/static/images/common/header/message.png" />
+                                <img id="icon-message-notif" style="display:none" alt="" src="/static/images/common/header/message-notif.png" />
+                                <span>{{_('消息')}}</span>
                             </a>
+                            <!--<a id="logout" class="logout" href="/logout" data-need-bridge>
+                            <i class="icon-log_out"></i>
+                            <span>{{_('登出')}}</span>
+                            </a>-->
+                        %else:
+                            <a id="login" class="login">{{_('登录')}}</a>
+                            <a id="register" class="register" onclick="project.goToSignUp()">{{_('注册')}}</a>
+                        %end
+                    </div>
 
-                            <a class="select-country">
-                                <img alt="" src="/static/images/common/header/flag-uk.png" />
-                                <span>{{_('英国')}}</span>
-                                <i class="icon-switch_button"></i>
-                            </a>
-                        </div>
+                    <div class="left">
+                        <a class="app" href="/app-download" target="_blank">
+                            {{_('下载应用')}}
+                        </a>
+
+                        <a class="select-country">
+                            <img alt="" src="/static/images/common/header/flag-uk.png" />
+                            <span>{{_('英国')}}</span>
+                            <i class="icon-switch_button"></i>
+                        </a>
                     </div>
                 </div>
-                <div id="header" class="siteHeader_wrapper hiddenInClient">
+            </div>
+            % end
+            
+            <div id="header" class="siteHeader_wrapper hiddenInClient">
+                % if not is_mobile_client():
                     <header class="siteHeader">
+
                         % if _.lang != "en_GB":
                             <a href="/"><img class="logo" src="/static/images/logo/logo-header.png" alt=""/></a>
                         % else:
@@ -148,27 +152,30 @@
                             </a>
                         % end
                     </header>
-                    <div class="siteHeader_phone rmm" >
-                        <div class="rmm-toggled rmm-closed rmm-center-closed">
-                            <div class="rmm-toggled-controls">
-                                <div class="rmm-button">
-                                    <i class="icon-switch_button"></i>
-                                </div>
-                                <div class="rmm-center">
-                                    {{_('洋房东')}}
-                                </div>
-                                <div class="rmm-toggled-title">
-                                    <i class="icon-user_header"></i>
-                                </div>
+                % end
+
+                % if not is_mobile_client():
+                <div class="siteHeader_phone rmm" >
+                    <div class="rmm-toggled rmm-closed rmm-center-closed">
+                        <div class="rmm-toggled-controls">
+                            <div class="rmm-button">
+                                <i class="icon-switch_button"></i>
                             </div>
-                            % if _.lang != "en_GB":
-                                <!-- @@include = ../partials/menu_items_mobile.html -->
-                            % end
+                            <div class="rmm-center">
+                                {{_('洋房东')}}
+                            </div>
+                            <div class="rmm-toggled-title">
+                                <i class="icon-user_header"></i>
+                            </div>
                         </div>
+                        % if _.lang != "en_GB":
+                            <!-- @@include = ../partials/menu_items_mobile.html -->
+                        % end
                     </div>
-                    <!-- @@placeholder = custom_header -->
                 </div>
-            % end
+                % end
+                <!-- @@placeholder = custom_header -->
+            </div>
 
             <main id="main">
                 <!-- @@placeholder = main -->
