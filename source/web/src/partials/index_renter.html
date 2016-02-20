@@ -41,7 +41,7 @@
         </a>
     </section>
     <a class="flow" href="/how-it-works/tenant">{{_('查看详细流程')}} <span class="hiddenOnMobile">></span></a>
-    % if not is_mobile_client():
+    % if not is_mobile_client() and not is_mobile_browser():
         <div class="hotCities hiddenOnMobile">
             <h2>{{_('热门城市')}}</h2>
             <ul>

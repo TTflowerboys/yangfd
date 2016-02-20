@@ -13,9 +13,9 @@ import re
 from distutils.version import StrictVersion
 
 logger = logging.getLogger(__name__)
-BASE_KEYWORDS_ARRAY = ['洋房东', '租房', '买房', '出租','租房中介', '找房子', '短租', '长租', '租金','楼盘', '公寓', '别墅', '学区房', '英国置业', '留学生租房', '海外租房', '英国出租', '英国租房', '伦敦租房', '伦敦买房', '海外置业', '海外投资', '英国房价', 'Youngfunding', 'for rent', 'to let', 'room to rent', 'property to rent', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
-BASE_PROPERTY_KEYWORDS_ARRAY = ['洋房东', '买房', '置业中介', '找房子','楼盘', '公寓', '别墅', '学区房', '英国置业', '英国买房', '伦敦买房', '海外置业', '海外投资', '英国房价', 'Youngfunding', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
-BASE_RENT_KEYWORDS_ARRAY = ['洋房东', '租房', '出租','租房中介', '找房子', '短租', '长租', '租金','楼盘', '公寓', '别墅', '学区房', '留学生租房', '海外租房', '英国出租', '英国租房', '伦敦租房', 'Youngfunding', 'for rent', 'to let', 'room to rent', 'property to rent', 'investment', 'overseas ', 'property', 'apartment', 'house']
+BASE_KEYWORDS_ARRAY = ['洋房东', '租房', '买房', '出租', '租房中介', '找房子', '短租', '长租', '租金', '楼盘', '公寓', '别墅', '学区房', '英国置业', '留学生租房', '海外租房', '英国出租', '英国租房', '伦敦租房', '伦敦买房', '海外置业', '海外投资', '英国房价', 'Youngfunding', 'for rent', 'to let', 'room to rent', 'property to rent', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
+BASE_PROPERTY_KEYWORDS_ARRAY = ['洋房东', '买房', '置业中介', '找房子', '楼盘', '公寓', '别墅', '学区房', '英国置业', '英国买房', '伦敦买房', '海外置业', '海外投资', '英国房价', 'Youngfunding', 'investment', 'overseas investment', 'property', 'apartment', 'house', 'UK property']
+BASE_RENT_KEYWORDS_ARRAY = ['洋房东', '租房', '出租', '租房中介', '找房子', '短租', '长租', '租金', '楼盘', '公寓', '别墅', '学区房', '留学生租房', '海外租房', '英国出租', '英国租房', '伦敦租房', 'Youngfunding', 'for rent', 'to let', 'room to rent', 'property to rent', 'investment', 'overseas ', 'property', 'apartment', 'house']
 
 icon_map = {
     'school_nearby_house': 'category_b',
@@ -55,6 +55,10 @@ def fetch_image(image, **kwargs):
     #     image = image.replace("bbt-currant.s3.amazonaws.com/", "yangfd.com/s3_raw/")
 
     return image
+
+
+def is_mobile_browser():
+    return b"iPhone" in request.headers.get("User-Agent", '') or b"iPod" in request.headers.get("User-Agent", '')
 
 
 def is_mobile_client():
@@ -231,7 +235,7 @@ def clear_html_tags(content):
 
 
 def clear_line_break(content):
-    return content.replace('\n',' ').replace('\\n',' ').replace('\r',' ').replace('\\r',' ')
+    return content.replace('\n', ' ').replace('\\n', ' ').replace('\r', ' ').replace('\\r', ' ')
 
 
 def get_symbol_from_currency(currency):
@@ -312,6 +316,7 @@ def common_template(path, **kwargs):
     kwargs.setdefault("totimestamp", totimestamp)
     kwargs.setdefault("is_mobile_client", is_mobile_client)
     kwargs.setdefault("is_mobile_client_version", is_mobile_client_version)
+    kwargs.setdefault("is_mobile_browser", is_mobile_browser)
     kwargs.setdefault("get_country_name_by_code", get_country_name_by_code)
     kwargs.setdefault("get_phone_code_by_country", get_phone_code_by_country)
     kwargs.setdefault("get_phone_numbers", get_phone_numbers)
