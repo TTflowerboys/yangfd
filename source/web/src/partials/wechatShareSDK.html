@@ -74,7 +74,6 @@
     }
     var timer
     function initWechatSDK() {
-        console.log(new Date().getTime())
         if (typeof window.wx !== 'undefined' && typeof weixin === 'object') {
             clearTimeout(timer)
             window.wx.config({
