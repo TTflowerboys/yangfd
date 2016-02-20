@@ -36,11 +36,16 @@
     <p>{{_('点击后在弹出的菜单中选择 [分享到朋友圈]')}}</p>
     <i class="arrow"></i>
 </div>
-<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" defer></script>
 <script>
+(function () {
     /*
      * Weixin share sdk
      * */
+    $(function () {
+        //http://stackoverflow.com/questions/9413737/how-to-append-script-script-in-javascript
+        $('body').append('<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"><\/script>')
+        initWechatSDK()
+    })
     window.wechatShareSDK = window.wechatShareSDK || {}
     var weixin = $('#pythonWeixin').text()
     if(weixin && weixin !== 'null' && weixin !== 'none' && weixin !== ''){
@@ -67,8 +72,11 @@
             callbackObj: callbackObj
         })
     }
-    $(function () {
+    var timer
+    function initWechatSDK() {
+        console.log(new Date().getTime())
         if (typeof window.wx !== 'undefined' && typeof weixin === 'object') {
+            clearTimeout(timer)
             window.wx.config({
                 debug: window.wxSDKDebug || false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                 appId: 'wx123992a4d173037b', // 必填，公众号的唯一标识
@@ -149,6 +157,9 @@
             window.wx.error(function(res){
                 ga('send', 'event', window.location.pathname, 'share', 'share-to-wechat-config-error', res.errMsg)
             })
+        } else {
+            timer = setTimeout(initWechatSDK, 50)
         }
-    })
+    }
+})()
 </script>
