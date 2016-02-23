@@ -3,6 +3,13 @@ $(function () {
     var language = window.team.getQuery('_i18n') || window.lang
     $('select[name=language]').find('option[value=' + language + ']').prop('selected', true)
     $.cookie('currant_lang', language,{ path: '/' })
+    if(window.user && language !== _.first(window.user.locales)) {
+        $.betterPost('/api/1/user/edit', {
+            'locales': language
+        }).done(function (data) {
+            window.user = data
+        })
+    }
     var currency = window.currency
     $('select[name=currency]').find('option[value=' + currency + ']').prop('selected', true)
 })
