@@ -445,6 +445,11 @@
                             return errorList.push(window.i18n('请填写生日'))
                         }
                     },
+                    referrer: function () {
+                        if(!this.params().referrer) {
+                            return errorList.push(window.i18n('请选择您是从哪里听说洋房东的'))
+                        }
+                    },
                     phone: function () {
                         if(!this.phone()) {
                             return errorList.push(window.i18n('请填写电话'))
@@ -809,19 +814,23 @@
 
             this.selectedReferrer = ko.observable()
             this.selectedReferrer.subscribe(function (value) {
-                if(value.slug !== 'other') {
-                    this.parentVM.referrer(value.id)
+                if(value === undefined) {
+                    this.parentVM.referrer(value)
+                    this.referrerText('')
+                }
+                if(_.find(this.list(), {id: value}) && _.find(this.list(), {id: value}).slug !== 'other') {
+                    this.parentVM.referrer(value)
                     this.referrerText('')
                 }
             }, this)
             this.parentVM.referrer.subscribe(function (value) {
                 if(_.find(this.list(), {id: value})) {
-                    this.selectedReferrer(_.find(this.list(), {id: value}))
+                    this.selectedReferrer(_.find(this.list(), {id: value}).id)
                 }
             }, this)
             this.parentVM.referrerText.subscribe(function (value) {
                 if(value.length) {
-                    this.selectedReferrer(_.find(this.list(), {slug: 'other'}))
+                    this.selectedReferrer(_.find(this.list(), {slug: 'other'}).id)
                 }
             }, this)
             window.project.getEnum('user_referrer')
