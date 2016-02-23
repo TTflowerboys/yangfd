@@ -1,17 +1,19 @@
 <script type="text/template" id='edit-travel-time'>
     <span class="hint" data-bind="visible: hint() !== undefined && hint().length, text: hint"></span>
-    <div data-bind="visible: travel().length">
+    <div data-bind="visible: travel() && travel().length">
         <select class="chosen-without-border mode" data-bind="
             chosen: travel,
-            value: selectedType,
+            value: selectedTypeSlug,
             event: { change: changeMode.bind($data) },
-            optionsText: function(item){return item.type.value}
+            optionsText: function(item){return item.type.value},
+            optionsValue: function(item){return item.type.slug}
         "></select>
         <select class="chosen-without-border time" data-bind="
             chosen: timeToChoose,
             value: selectedTime,
             event: { change: changeTime.bind($data) },
             optionsText: function(item){return item.value + item.unit},
+            optionsValue: function(item){return item.value}
         "></select>
     </div>
 </script>
