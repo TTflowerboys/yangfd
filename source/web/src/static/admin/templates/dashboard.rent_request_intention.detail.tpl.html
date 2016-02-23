@@ -220,10 +220,10 @@
         </div>
     </tab>
     <tab heading="{%$root.i18n('房产信息')%}" ng-controller="ctrlRentDetail" ng-init="item = item.interested_rent_tickets[0]">
-        <div ng-include="'/static/admin/templates/dashboard.rent.detail.tabProperty.tpl.html'"></div>
+        <!-- @@include =./dashboard.rent.detail.tabProperty.tpl.html -->
     </tab>
     <tab heading="{%$root.i18n('出租信息')%}" ng-controller="ctrlRentDetail" ng-init="item = item.interested_rent_tickets[0]">
-        <div ng-include="'/static/admin/templates/dashboard.rent.detail.tabRent.tpl.html'"></div>
+        <!-- @@include =./dashboard.rent.detail.tabRent.tpl.html -->
     </tab>
     <tab heading="{%$root.i18n('不合要求信息')%}" ng-if="item.unmatchRequirements && item.unmatchRequirements.length">
         <table class="table table-striped table-bordered">

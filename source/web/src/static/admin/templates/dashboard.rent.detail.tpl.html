@@ -29,10 +29,10 @@
         <div>
             <tabset justified="true" style="margin: 16px 0;">
                 <tab heading="{%$root.i18n('房产信息')%}">
-                    <div ng-include="'/static/admin/templates/dashboard.rent.detail.tabProperty.tpl.html'"></div>
+                    <!-- @@include =./dashboard.rent.detail.tabProperty.tpl.html -->
                 </tab>
                 <tab heading="{%$root.i18n('出租信息')%}">
-                    <div ng-include="'/static/admin/templates/dashboard.rent.detail.tabRent.tpl.html'"></div>
+                    <!-- @@include =./dashboard.rent.detail.tabRent.tpl.html -->
                 </tab>
                 <tab heading="{%$root.i18n('求租咨询单')%}" ng-if="rentIntentionList" ng-controller="ctrlRentRequestIntentionList" ng-init="list = rentIntentionList">
                     <table class="table table-bordered table-striped table-condensed">

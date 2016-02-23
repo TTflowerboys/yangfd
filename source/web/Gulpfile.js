@@ -39,8 +39,8 @@ var argv = require('yargs').argv
 var myPaths = {
     src: './src/',
     dist: './dist/',
-    html: './src/{,*/,static/emails/,static/templates/,static/templates/master/,static/admin/emails/}{*.tpl.html,*.html}',
-    symlink: './src/static/{themes,fonts,images,scripts,vendors,bower_components,admin/scripts,admin/templates,ios_resources}',
+    html: './src/{,*/,static/emails/,static/templates/,static/templates/master/,static/admin/emails/,static/admin/templates/}{*.tpl.html,*.html}',
+    symlink: './src/static/{themes,fonts,images,scripts,vendors,bower_components,admin/scripts,ios_resources}',
     static: './src/static/**/*.*',
     less: ['./src/static/styles/**/*.less', '!**/flycheck_*.*'],
     css: './src/static/styles/**/*.css',
@@ -220,7 +220,7 @@ gulp.task('build:cssAutoPrefix', ['build:less2css'], function (done) {
 
 
 gulp.task('build:html-extend', ['build:cssAutoPrefix'], function () {
-    return gulp.src('./dist/{,*/,static/emails/,static/templates/,static/templates/master/,static/admin/emails/}{*.tpl.html,*.html}', {base: './dist/'})
+    return gulp.src('./dist/{,*/,static/emails/,static/templates/,static/templates/master/,static/admin/emails/,static/admin/templates/}{*.tpl.html,*.html}', {base: './dist/'})
         .pipe(extender({verbose: false}))
         .pipe(preprocess({context: {ENV: argv.env}}))
         .pipe(gulp.dest(myPaths.dist))
