@@ -28,7 +28,8 @@
       "lang":      true,
       "i18n":      true,
       "ga":        true,
-      "Microsoft": true
+      "Microsoft": true,
+      "_hmt":      true
   },
   "globalstrict":  false,
   "immed":         false,
