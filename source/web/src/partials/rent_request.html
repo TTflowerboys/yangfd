@@ -117,6 +117,10 @@
                                 --><input class="phone" type="text" data-bind="value: phone, attr: {readonly: !!user()}" placeholder="{{_('电话')}}"><!--
                                 --><input class="email" type="text" data-bind="value: email, attr: {readonly: !!user()}" placeholder="{{_('邮箱')}}"/>
                             </div>
+                            <div class="row">
+                                <p class="title">{{_('推荐码（选填）')}}</p>
+                                <input class="referCode" type="text" placeholder=""/>
+                            </div>
                             <div class="row" data-bind="visible: !user()">
                                 <p class="title"></p>
                                 <div id="captcha_div" class="captchaCode"></div><!--
@@ -216,6 +220,16 @@
                                 <div class="right">
                                     <span class="text" data-bind="text: price().unit_symbol + payment()"></span>
                                     <span class="small" data-bind="visible: paymentLocal().value">({{_('约')}}<!--ko text: paymentLocal().unit_symbol + paymentLocal().value--><!--/ko-->)</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="title">
+                                    {{_('优惠')}}<strong>{{_('89XJuK')}}</strong>
+                                </span>
+                                <tips params="tips: '{{_('优惠')}}'"></tips>
+                                <div class="right">
+                                    <span class="text" data-bind=""></span>
+                                    <span class="small" data-bind="">({{_('约')}})</span>
                                 </div>
                             </li>
                             <li>
