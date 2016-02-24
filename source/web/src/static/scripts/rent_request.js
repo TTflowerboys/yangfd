@@ -245,7 +245,6 @@
 
             this.referrerText = ko.observable()
             this.referrer = ko.observable()
-            this.referCode = ko.observable()
 
             this.phoneVerified = ko.observable(this.user() ? this.user().phone_verified : false)
             this.smsCode = ko.observable()

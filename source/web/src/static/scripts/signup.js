@@ -45,7 +45,7 @@ $(function () {
             return
         }
 
-        params.phone = '+' + params.country_code + params.phone
+        params.phone = '+' + params.country_code +params.phone
         params.country = window.team.getCountryFromPhoneCode(params.country_code)
         delete params.country_code
         if(_.isEmpty(params.invitation_code) || params.invitation_code === ''){

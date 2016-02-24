@@ -77,22 +77,8 @@
             width:~"calc(100% - 20px)";
         }
     }
-    
-    .referCode {
-        padding: 8px 0;        
-        input {
-            display: block;
-            width: 100%;
-            vertical-align: middle;            
-            height:48px;
-            border-radius:6px;    
-            border: 1px solid #cccccc;
-            padding: 0 8px;
-        }
-    }
 
     .captchaCode {
-        padding: 8px 0px;
 
         @media @phone {
             max-width:100%;
@@ -122,15 +108,16 @@
             display: inline-block;
             vertical-align: middle;
             margin-left: 8px;
-            padding: 8px 8px 8px 10px;
-            border-radius:6px;            
-            border: 1px solid #cccccc;
+            padding: 8px 0 8px 10px;
+            border-radius:6px;
+            border:0;
             height:48px;
 
-            width: 172px;
+            width: 160px;
             @media @phone {
+
                 width: 150px;               /* fallback for browsers without support for calc() */
-                width:~"calc(100% - 148px)";
+                width:~"calc(100% - 144px)";
             }
         }
     }
