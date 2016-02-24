@@ -21,6 +21,7 @@
                     this.step(this.step() + 1)
                     this.scrollTopOnMobile()
                     ga('send', 'pageview', '/submit-rent-request-intention/step-' + this.step())
+                    _hmt.push(['_trackPageview', '/submit-rent-request-intention/step-' + this.step()])
                 }
                 ga('send', 'event', 'rentRequestIntention', 'click', 'go-to-next-rent-request-intention')
             }
@@ -30,6 +31,7 @@
                 this.scrollTopOnMobile()
                 ga('send', 'event', 'rentRequestIntention', 'click', 'go-to-prev-rent-request-intention')
                 ga('send', 'pageview', '/submit-rent-request-intention/step-' + this.step())
+                _hmt.push(['_trackPageview', '/submit-rent-request-intention/step-' + this.step()])
             }
 
             this.visible = ko.observable()
@@ -53,6 +55,7 @@
                 }
                 ga('send', 'event', 'rentRequestIntention', 'click', 'open-rent-request-intention')
                 ga('send', 'pageview', '/submit-rent-request-intention/open')
+                _hmt.push(['_trackPageview', '/submit-rent-request-intention/open'])
             }
             this.close = function () {
                 this.visible(false)
@@ -665,8 +668,9 @@
                         this.requestTicketId(val)
                         this.showSuccessWrap()
                         window.team.setUserType('tenant')
-                        ga('send', 'event', 'rentRequestIntention', 'result', 'submit-success');
+                        ga('send', 'event', 'rentRequestIntention', 'result', 'submit-success')
                         ga('send', 'pageview', '/submit-rent-request-intention/submit-success')
+                        _hmt.push(['_trackPageview', '/submit-rent-request-intention/submit-success'])
                     }, this))
                     .fail(_.bind(function (ret) {
                         this.errorMsg(window.getErrorMessageFromErrorCode(ret))

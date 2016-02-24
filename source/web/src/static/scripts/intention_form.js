@@ -21,6 +21,7 @@
 
         var data = $form.serializeObject({noEmptyString: true})
         ga('send', 'pageview', '/property/'+data.property_id+'/requirement-submit')
+        _hmt.push(['_trackPageview', '/property/'+data.property_id+'/requirement-submit'])
 
         if (window.user) {
             data.register = undefined
@@ -38,6 +39,7 @@
                 $feedback.show().text($form.attr('data-message-success'))
                 ga('send', 'event', 'property_detail', 'result', 'requirement-submit-success')
                 ga('send', 'pageview', '/property/'+data.property_id+'/requirement-submit-success')
+                _hmt.push(['_trackPageview', '/property/'+data.property_id+'/requirement-submit-success'])
             })
             .fail(function (errorCode) {
                 $feedback.empty()

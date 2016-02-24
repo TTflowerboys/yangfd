@@ -91,6 +91,7 @@
         showRoute1()
     }).when('/publish/:ticketid/:propertyid', function(ticketId, propertyId){
         ga('send', 'pageview', '/property-to-rent/publish/'+ticketId)
+        _hmt.push(['_trackPageview', '/property-to-rent/publish/'+ticketId]);
         window.previewIframe.window.isInit = false
         window.previewMoveTo(0)
         $('#previewIframe').attr('src', location.protocol + '//' + location.host + '/wechat-poster/' + ticketId)

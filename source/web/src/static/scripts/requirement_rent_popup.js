@@ -377,6 +377,7 @@
                 $(elem)[$(elem).attr('data-show-step') === num.toString() ? 'show' : 'hide']()
             })
             ga('send', 'pageview', '/submit-rent-requirement/step-' + num)
+            _hmt.push(['_trackPageview', '/submit-rent-requirement/step-' + num])
         }
         function checkInputOfCurrentStep($formWrap, currentStep) {
             return checkForm($formWrap.find('.requirement_rent_form .step' + currentStep))
@@ -481,8 +482,9 @@
                             successArea.find('.qrcode').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.protocol + '//' + location.host + '/app-download'))
                             getHostContact(container, option)
                             submitSuccessCallBack()
-                            ga('send', 'event', 'rentRequirementPopup', 'result', 'submit-success');
+                            ga('send', 'event', 'rentRequirementPopup', 'result', 'submit-success')
                             ga('send', 'pageview', '/submit-rent-requirement/submit-success')
+                            _hmt.push(['_trackPageview', '/submit-rent-requirement/submit-success'])
                         })
                         .fail(function (ret) {
                             $errorMsg.empty()
