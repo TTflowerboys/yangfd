@@ -9,7 +9,9 @@
             <a href="/news/{=news.id=}">
                 <h3 class="title"> {=news.title=}</h3>
                 <label class="date" for="">{=$.format.date(news.time * 1000, 'yyyy-MM-dd')=}</label>
+                {_if (typeof news.summary === 'string') {_}
                 <p class="details">{=news.summary=}</p>
+                {_}_}
             </a>
         </div>
     </div>

@@ -131,7 +131,9 @@
                         {{news_list[0].get('title', '')}}</h3></a>
 
                     <p class="content">
+                        %if news_list[0].get('summary', '') != {}:
                         {{!news_list[0].get('summary', '')}}
+                        %end
                     </p>
                     <a class="ghostButton red detail" href="/news/{{news_list[0].get('id')}}">{{_('详细')}}</a>
                 </div>
