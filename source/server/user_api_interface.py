@@ -199,6 +199,7 @@ def user_login(params):
     is_vip=bool,
     invitation_code=str,
     wechat=str,
+    referral=str,
     private_contact_methods=(list, [], str),
 ))
 @rate_limit("register", ip=10)
@@ -266,6 +267,7 @@ def user_register(params):
     occupation="enum:occupation",
     invitation_code=str,
     wechat=str,
+    referral=str,
     private_contact_methods=(list, [], str),
 ))
 @rate_limit("register", ip=5)
@@ -510,6 +512,7 @@ def admin_user_search(user, params):
     phone=(str, True),
     role=(list, True, str),
     country=("country", True),
+    referral=str,
     private_contact_methods=(list, [], str),
 ))
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)

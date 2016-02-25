@@ -52,6 +52,8 @@ def _find_or_register(params, allow_draft=False):
                     "intention": params.get("intention", []),
                     "locales": params.get("locales", [])
                 }
+                if "referral" in params:
+                    user_params["referral"] = params["referral"]
                 if "country" in params:
                     user_params["country"] = params["country"]
                 if "email" in params:
@@ -186,6 +188,7 @@ def _find_or_register(params, allow_draft=False):
     )),
     locales=(list, None, str),
     referrer=str,
+    referral=str,
     property_id=ObjectId,
 ))
 def intention_ticket_add(params):
@@ -336,6 +339,7 @@ def intention_ticket_assign(user, ticket_id, user_id):
     )),
     status=(str, None),
     referrer=str,
+    referral=str,
     property_id=(ObjectId, None),
     updated_comment=(str, None),
 ))
@@ -437,6 +441,7 @@ def intention_ticket_search(user, params):
     zipcode_index=str,
     noregister=bool,
     referrer=str,
+    referral=str,
     custom_fields=(list, None, dict(
         key=(str, True),
         value=(str, True),
@@ -546,6 +551,7 @@ def rent_intention_ticket_remove(user, ticket_id):
         index=int,
     )),
     referrer=str,
+    referral=str,
     status=str,
     updated_comment=str,
 ))
@@ -729,6 +735,7 @@ def rent_request_ticket_search(user, params):
     street=str,
     county=str,
     referrer=str,
+    referral=str,
 ))
 def rent_request_ticket_add(params):
     """
@@ -787,6 +794,7 @@ def rent_request_ticket_remove(user, ticket_id):
     street=str,
     county=str,
     referrer=str,
+    referral=str,
     status=str,
 ))
 @f_app.user.login.check(force=True)
@@ -844,6 +852,7 @@ def sell_request_ticket_search(user, params):
     street=str,
     county=str,
     referrer=str,
+    referral=str,
 ))
 def sell_request_ticket_add(params):
     """
@@ -901,6 +910,7 @@ def sell_request_ticket_remove(user, ticket_id):
     street=str,
     county=str,
     referrer=str,
+    referral=str,
     status=str,
 ))
 @f_app.user.login.check(force=True)
@@ -1126,6 +1136,7 @@ def support_ticket_search(user, params):
     no_baby=bool,
     other_requirements=str,
     referrer=str,
+    referral=str,
     custom_fields=(list, None, dict(
         key=(str, True),
         value=(str, True),
@@ -1203,6 +1214,7 @@ def rent_ticket_refresh(ticket_id, user):
     no_baby=bool,
     other_requirements=str,
     referrer=str,
+    referral=str,
     unset_fields=(list, None, str),
     custom_fields=(list, None, dict(
         key=(str, True),
