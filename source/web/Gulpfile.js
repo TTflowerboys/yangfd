@@ -40,7 +40,7 @@ var myPaths = {
     src: './src/',
     dist: './dist/',
     html: './src/{,*/,static/emails/,static/templates/,static/templates/master/,static/admin/emails/,static/admin/templates/}{*.tpl.html,*.html}',
-    symlink: './src/static/{themes,fonts,images,scripts,vendors,bower_components,admin/scripts,ios_resources}',
+    symlink: './src/static/{themes,fonts,images,scripts,vendors,bower_components,admin/scripts,ios_resources,admin/templates/message}',
     static: './src/static/**/*.*',
     less: ['./src/static/styles/**/*.less', '!**/flycheck_*.*'],
     css: './src/static/styles/**/*.css',
