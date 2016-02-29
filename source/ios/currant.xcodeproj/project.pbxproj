@@ -465,6 +465,18 @@
 		2CA5F7711AE10382001132E0 /* CUTEImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */; };
 		2CA5F7721AE10382001132E0 /* CUTEImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */; };
 		2CA5F7731AE10382001132E0 /* CUTEImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */; };
+		2CA76D381C84203900C3EA6A /* BTNavigationDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA76D361C84203900C3EA6A /* BTNavigationDropdownMenu.swift */; };
+		2CA76D391C84203900C3EA6A /* BTNavigationDropdownMenu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CA76D371C84203900C3EA6A /* BTNavigationDropdownMenu.bundle */; };
+		2CA76D3A1C84203D00C3EA6A /* BTNavigationDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA76D361C84203900C3EA6A /* BTNavigationDropdownMenu.swift */; };
+		2CA76D3B1C84203E00C3EA6A /* BTNavigationDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA76D361C84203900C3EA6A /* BTNavigationDropdownMenu.swift */; };
+		2CA76D3C1C84203E00C3EA6A /* BTNavigationDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA76D361C84203900C3EA6A /* BTNavigationDropdownMenu.swift */; };
+		2CA76D3D1C84204200C3EA6A /* BTNavigationDropdownMenu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CA76D371C84203900C3EA6A /* BTNavigationDropdownMenu.bundle */; };
+		2CA76D3E1C84204200C3EA6A /* BTNavigationDropdownMenu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CA76D371C84203900C3EA6A /* BTNavigationDropdownMenu.bundle */; };
+		2CA76D3F1C84204300C3EA6A /* BTNavigationDropdownMenu.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CA76D371C84203900C3EA6A /* BTNavigationDropdownMenu.bundle */; };
+		2CA76D411C84325300C3EA6A /* BTNavigationDropdownMenuHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA76D401C84325300C3EA6A /* BTNavigationDropdownMenuHelper.swift */; };
+		2CA76D421C84325300C3EA6A /* BTNavigationDropdownMenuHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA76D401C84325300C3EA6A /* BTNavigationDropdownMenuHelper.swift */; };
+		2CA76D431C84325300C3EA6A /* BTNavigationDropdownMenuHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA76D401C84325300C3EA6A /* BTNavigationDropdownMenuHelper.swift */; };
+		2CA76D441C84325300C3EA6A /* BTNavigationDropdownMenuHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA76D401C84325300C3EA6A /* BTNavigationDropdownMenuHelper.swift */; };
 		2CA81F6F1B0B5621006E993C /* MemoryReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F6E1B0B5621006E993C /* MemoryReporter.m */; };
 		2CA81F701B0B5621006E993C /* MemoryReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F6E1B0B5621006E993C /* MemoryReporter.m */; };
 		2CA81F711B0B5621006E993C /* MemoryReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA81F6E1B0B5621006E993C /* MemoryReporter.m */; };
@@ -1129,6 +1141,9 @@
 		2CA2E6DF1AC54BF200053965 /* currant-test-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "currant-test-Info.plist"; sourceTree = "<group>"; };
 		2CA5F76E1AE10382001132E0 /* CUTEImageUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEImageUploader.h; sourceTree = "<group>"; };
 		2CA5F76F1AE10382001132E0 /* CUTEImageUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEImageUploader.m; sourceTree = "<group>"; };
+		2CA76D361C84203900C3EA6A /* BTNavigationDropdownMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTNavigationDropdownMenu.swift; path = BTNavigationDropdownMenu/BTNavigationDropdownMenu.swift; sourceTree = "<group>"; };
+		2CA76D371C84203900C3EA6A /* BTNavigationDropdownMenu.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = BTNavigationDropdownMenu.bundle; path = BTNavigationDropdownMenu/BTNavigationDropdownMenu.bundle; sourceTree = "<group>"; };
+		2CA76D401C84325300C3EA6A /* BTNavigationDropdownMenuHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTNavigationDropdownMenuHelper.swift; sourceTree = "<group>"; };
 		2CA81F6E1B0B5621006E993C /* MemoryReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryReporter.m; sourceTree = "<group>"; };
 		2CA81F741B0B563B006E993C /* MemoryReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryReporter.h; sourceTree = "<group>"; };
 		2CA81F751B0C73EB006E993C /* UITabBarController+HideTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+HideTabBar.h"; sourceTree = "<group>"; };
@@ -1571,6 +1586,9 @@
 		2C27F1E81ACCEA6C002BECCF /* Library3rd */ = {
 			isa = PBXGroup;
 			children = (
+				2CA76D401C84325300C3EA6A /* BTNavigationDropdownMenuHelper.swift */,
+				2CA76D361C84203900C3EA6A /* BTNavigationDropdownMenu.swift */,
+				2CA76D371C84203900C3EA6A /* BTNavigationDropdownMenu.bundle */,
 				2C51F1AC1BE755B8007F13FF /* UIColorExtension.swift */,
 				2CB11CDD1BE9FF5C006B0931 /* SwiftSequencer.swift */,
 				2C71D3751BF9BD3D000CAC71 /* UITableViewExtension.swift */,
@@ -2484,6 +2502,7 @@
 				2CA2E6BD1AC5487800053965 /* Images.xcassets in Resources */,
 				2C3EDADE1BAA58D0000CC821 /* InfoPlist.strings in Resources */,
 				2CF234851B55198500B516E6 /* GoogleService-Info.plist in Resources */,
+				2CA76D3E1C84204200C3EA6A /* BTNavigationDropdownMenu.bundle in Resources */,
 				2C44E4161AE242F300E61BBA /* Localizable.strings in Resources */,
 				2CAA1D491BA2D1C100662BFC /* routes.plist in Resources */,
 				2CE2A99A1B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
@@ -2497,6 +2516,7 @@
 				2CA2E6D61AC5496700053965 /* Images.xcassets in Resources */,
 				2C3EDADF1BAA58D0000CC821 /* InfoPlist.strings in Resources */,
 				2CF234861B55198500B516E6 /* GoogleService-Info.plist in Resources */,
+				2CA76D3F1C84204300C3EA6A /* BTNavigationDropdownMenu.bundle in Resources */,
 				2C44E4171AE242F400E61BBA /* Localizable.strings in Resources */,
 				2CAA1D4A1BA2D1C100662BFC /* routes.plist in Resources */,
 				2CE2A99B1B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
@@ -2510,6 +2530,7 @@
 				2CA94AA91ACA42CD00DF7497 /* Images.xcassets in Resources */,
 				2C3EDADD1BAA58D0000CC821 /* InfoPlist.strings in Resources */,
 				2CF234841B55198500B516E6 /* GoogleService-Info.plist in Resources */,
+				2CA76D3D1C84204200C3EA6A /* BTNavigationDropdownMenu.bundle in Resources */,
 				2C44E4151AE242F200E61BBA /* Localizable.strings in Resources */,
 				2CAA1D481BA2D1C100662BFC /* routes.plist in Resources */,
 				2CE2A9991B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
@@ -2523,6 +2544,7 @@
 				2CB43DD91ABC26B2004DF663 /* Images.xcassets in Resources */,
 				2C3EDADC1BAA58D0000CC821 /* InfoPlist.strings in Resources */,
 				2CF234831B55198500B516E6 /* GoogleService-Info.plist in Resources */,
+				2CA76D391C84203900C3EA6A /* BTNavigationDropdownMenu.bundle in Resources */,
 				2C44E4141AE242EE00E61BBA /* Localizable.strings in Resources */,
 				2CAA1D471BA2D1C100662BFC /* routes.plist in Resources */,
 				2CE2A9981B6F1C000089ED20 /* contact-blacklist.csv in Resources */,
@@ -2971,6 +2993,7 @@
 				2CB11CE01BE9FF5C006B0931 /* SwiftSequencer.swift in Sources */,
 				2CF8A6A91AF0C2620080DF10 /* BBTPickerView.m in Sources */,
 				2CA81FCD1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
+				2CA76D431C84325300C3EA6A /* BTNavigationDropdownMenuHelper.swift in Sources */,
 				2C7520451ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2C056D651B423AB20075037A /* CUTERentPasswordViewController.m in Sources */,
 				2C056DA61B423BBA0075037A /* CUTEFormViewController.m in Sources */,
@@ -2984,6 +3007,7 @@
 				2C91E5CD1BE313FA005F6B5B /* CUTEGeoManager.swift in Sources */,
 				2CA2E6B21AC5487800053965 /* CUTEDataManager.m in Sources */,
 				2CF8A61A1AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
+				2CA76D3B1C84203E00C3EA6A /* BTNavigationDropdownMenu.swift in Sources */,
 				2C3DE2621B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
 				2CE2A9891B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */,
 				2C71D3891BFB2FEF000CAC71 /* SwiftGlobalFunctions.swift in Sources */,
@@ -3165,6 +3189,7 @@
 				2CB11CE11BE9FF5C006B0931 /* SwiftSequencer.swift in Sources */,
 				2CF8A6AA1AF0C2620080DF10 /* BBTPickerView.m in Sources */,
 				2CA81FCE1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
+				2CA76D441C84325300C3EA6A /* BTNavigationDropdownMenuHelper.swift in Sources */,
 				2C7520461ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2C056D661B423AB20075037A /* CUTERentPasswordViewController.m in Sources */,
 				2C056DA71B423BBA0075037A /* CUTEFormViewController.m in Sources */,
@@ -3178,6 +3203,7 @@
 				2C91E5CE1BE313FA005F6B5B /* CUTEGeoManager.swift in Sources */,
 				2CA2E6CB1AC5496700053965 /* CUTEDataManager.m in Sources */,
 				2CF8A61B1AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
+				2CA76D3C1C84203E00C3EA6A /* BTNavigationDropdownMenu.swift in Sources */,
 				2C3DE2631B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
 				2CE2A98A1B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */,
 				2C71D38A1BFB2FEF000CAC71 /* SwiftGlobalFunctions.swift in Sources */,
@@ -3359,6 +3385,7 @@
 				2CB11CDF1BE9FF5C006B0931 /* SwiftSequencer.swift in Sources */,
 				2CF8A6A81AF0C2620080DF10 /* BBTPickerView.m in Sources */,
 				2CA81FCC1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
+				2CA76D421C84325300C3EA6A /* BTNavigationDropdownMenuHelper.swift in Sources */,
 				2C7520441ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2C056D641B423AB20075037A /* CUTERentPasswordViewController.m in Sources */,
 				2C056DA51B423BBA0075037A /* CUTEFormViewController.m in Sources */,
@@ -3372,6 +3399,7 @@
 				2C91E5CC1BE313FA005F6B5B /* CUTEGeoManager.swift in Sources */,
 				2CA94A9C1ACA42CD00DF7497 /* CUTEDataManager.m in Sources */,
 				2CF8A6191AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
+				2CA76D3A1C84203D00C3EA6A /* BTNavigationDropdownMenu.swift in Sources */,
 				2C3DE2611B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
 				2CE2A9881B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */,
 				2C71D3881BFB2FEF000CAC71 /* SwiftGlobalFunctions.swift in Sources */,
@@ -3553,6 +3581,7 @@
 				2CB11CDE1BE9FF5C006B0931 /* SwiftSequencer.swift in Sources */,
 				2CA81FCB1B15CA51006E993C /* CUTEMapBackView.m in Sources */,
 				2C1A95E41B75A79400483A74 /* CUTERentPassword2ViewController.m in Sources */,
+				2CA76D411C84325300C3EA6A /* BTNavigationDropdownMenuHelper.swift in Sources */,
 				2C7520431ACA775C0008B42A /* CUTEViewController.m in Sources */,
 				2C056D631B423AB20075037A /* CUTERentPasswordViewController.m in Sources */,
 				2C056DA41B423BBA0075037A /* CUTEFormViewController.m in Sources */,
@@ -3566,6 +3595,7 @@
 				2C91E5CB1BE313FA005F6B5B /* CUTEGeoManager.swift in Sources */,
 				2CDBB2FA1AC146790024E225 /* CUTEDataManager.m in Sources */,
 				2CF8A6181AF0B40E0080DF10 /* CUTEFormButtonCell.m in Sources */,
+				2CA76D381C84203900C3EA6A /* BTNavigationDropdownMenu.swift in Sources */,
 				2C3DE2601B074FA5006FF191 /* BBTCenterImageView.m in Sources */,
 				2CE2A9871B68E17E0089ED20 /* CUTERentVerifyPhoneForm.m in Sources */,
 				2C71D3871BFB2FEE000CAC71 /* SwiftGlobalFunctions.swift in Sources */,

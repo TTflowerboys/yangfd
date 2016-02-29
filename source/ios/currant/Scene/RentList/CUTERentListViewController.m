@@ -8,6 +8,7 @@
 
 #import "CUTERentListViewController.h"
 #import "CUTECommonMacro.h"
+#import "CUTEUIMacro.h"
 #import <BBTJSON.h>
 #import "CUTERentMapListViewController.h"
 #import "CUTEUserDefaultKey.h"
@@ -20,6 +21,7 @@
 #import "CUTEUsageRecorder.h"
 #import "CUTESurveyHelper.h"
 #import "CUTEWebConfiguration.h"
+#import "currant-Swift.h"
 
 @interface CUTERentListViewController ()
 {
@@ -58,6 +60,15 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if ([self.navigationItem.titleView isKindOfClass:[BTNavigationDropdownMenu class]]) {
+        BTNavigationDropdownMenu *menu = (BTNavigationDropdownMenu *)self.navigationItem.titleView;
+        //TODO need remove the menu table view
+        [menu hide];
+    }
+}
+
 - (void)onMapButtonPressed:(id)sender {
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_HIDE_ROOT_TAB_BAR object:nil];
@@ -73,6 +84,16 @@
         [controller loadMapDataWithParams:params];
     });
 
+}
+
+- (void)updateTitleWithURL:(NSURL *)url {
+
+    if (!self.navigationItem.titleView) {
+        NSArray *items = @[STR(@"学生公寓或个人房源"), STR(@"学生公寓"), STR(@"个人房源")];
+        BTNavigationDropdownMenu *menuView = [BTNavigationDropdownMenuHelper getMenu:self.navigationController title:items.firstObject items:items didSelectItemAtIndexHandler:^(NSInteger index) {
+        }];
+        self.navigationItem.titleView = menuView;
+    }
 }
 
 @end
