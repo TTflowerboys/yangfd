@@ -23,4 +23,21 @@ import Foundation
         menu.didSelectItemAtIndexHandler = didSelectItemAtIndexHandler
         return menu
     }
+
+    static func removeMenu() {
+        let window = UIApplication.sharedApplication().keyWindow
+
+        var targetView:UIView?
+        for view in (window?.subviews)! {
+            for subView in view.subviews {
+                if subView.classForCoder.description().hasSuffix("BTTableView") {
+                    targetView = view
+                    break
+                }
+            }
+        }
+        if targetView != nil {
+            targetView!.removeFromSuperview()
+        }
+    }
 }

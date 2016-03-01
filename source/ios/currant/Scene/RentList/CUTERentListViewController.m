@@ -64,8 +64,24 @@
     [super viewWillDisappear:animated];
     if ([self.navigationItem.titleView isKindOfClass:[BTNavigationDropdownMenu class]]) {
         BTNavigationDropdownMenu *menu = (BTNavigationDropdownMenu *)self.navigationItem.titleView;
-        //TODO need remove the menu table view
         [menu hide];
+    }
+}
+
+- (void)willMoveToParentViewController:(UIViewController *)parent {
+    //sometimes like move from t
+    if (parent == nil) {
+        if ([self.navigationItem.titleView isKindOfClass:[BTNavigationDropdownMenu class]]) {
+            [BTNavigationDropdownMenuHelper removeMenu];
+        }
+    }
+    else {
+        if (!self.navigationItem.titleView) {
+            NSArray *items = @[STR(@"学生公寓或个人房源"), STR(@"学生公寓"), STR(@"个人房源")];
+            BTNavigationDropdownMenu *menuView = [BTNavigationDropdownMenuHelper getMenu:self.navigationController title:items.firstObject items:items didSelectItemAtIndexHandler:^(NSInteger index) {
+            }];
+            self.navigationItem.titleView = menuView;
+        }
     }
 }
 
@@ -88,12 +104,7 @@
 
 - (void)updateTitleWithURL:(NSURL *)url {
 
-    if (!self.navigationItem.titleView) {
-        NSArray *items = @[STR(@"学生公寓或个人房源"), STR(@"学生公寓"), STR(@"个人房源")];
-        BTNavigationDropdownMenu *menuView = [BTNavigationDropdownMenuHelper getMenu:self.navigationController title:items.firstObject items:items didSelectItemAtIndexHandler:^(NSInteger index) {
-        }];
-        self.navigationItem.titleView = menuView;
-    }
+    //let here do nothing about update
 }
 
 @end
