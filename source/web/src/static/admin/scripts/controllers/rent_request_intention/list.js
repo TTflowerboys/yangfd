@@ -189,7 +189,7 @@
         function onGetList(data) {
             $scope.fetched = true
             $scope.list = _.map(_.filter(data.val, function (item) {
-                return !_.isEmpty(item.interested_rent_tickets)
+                return _.isArray(item.interested_rent_tickets) && item.interested_rent_tickets.length && !_.isEmpty(item.interested_rent_tickets[0])
             }), function (item, index) {
                 // Calculate age from birthday
                 item.age = (Date.now() - item.date_of_birth * 1000)/(365 * 24 * 60 * 60 * 1000)
@@ -209,13 +209,13 @@
                 }
                 api.getLog(item.id)
                     .then(function (data) {
-                        if(data.data.val && data.data.val.length && data.data.val[0].ip && data.data.val[0].ip.length) {
+                        if(data.data.val && data.data.val.length && data.data.val[0].ip && data.data.val[0].ip.length && $scope.list[index]) {
 
                             $scope.list[index].log = {
                                 ip: data.data.val[0].ip[0],
                                 link: 'http://www.ip2location.com/demo'
                             }
-                        } else {
+                        } else if($scope.list[index]) {
                             $scope.list[index].log = {
                                 ip: window.i18n('无结果')
                             }
