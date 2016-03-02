@@ -34,7 +34,12 @@
             <div class="page pageCover">
                 <div class="topTitleNav animate">
                     <p class="location animate">{{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}}, {{rent['property'].get('city',{}).get('name','')}}, {{rent['property'].get('street','')}}</p>
-                    <p class="title animate fixFontSize" data-maxHeight="8vh">{{rent.get('title','')}}</p>
+                    <p class="title animate fixFontSize" data-maxHeight="8vh">
+                        %if rent.get('property',{}).get('partner'):
+                        <i class="icon-ico_cooperate"></i>
+                        %end
+                        <span>{{rent.get('title','')}}</span>
+                    </p>
                     % if not rent.get('status')=='rent':
                     <p class="titleEn animate">Letting!</p>
                     % elif rent.get('status') == 'rent':
@@ -103,8 +108,14 @@
                     </span>
                     </div>
                     </li>
-                    <li class="animate rental"><div><i class="icon-house"></i>{{rent.get('rent_type',{}).get('value', '')}}</div></li>
+                    <li class="animate rental"
+                        %if rent.get('property',{}).get('partner'):
+                        style="width:100%;"
+                        %end
+                        ><div><i class="icon-house"></i>{{rent.get('rent_type',{}).get('value', '')}}</div></li>
+                    %if not rent.get('property',{}).get('partner'):
                     <li class="animate street"><div><i class="icon-block_line"></i>{{rent['property'].get('zipcode','')}}</div></li>
+                    %end
                     <!--<li class="animate estate"
                         %if not rent['property'].get('floor',''):
                     style="width:100%;"
