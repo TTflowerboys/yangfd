@@ -59,6 +59,9 @@
 "RentPropertyInfo/请添加房产位置" = "请添加房产位置";
 "RentPropertyInfo/学校，地铁" = "University, Station";
 "RentPropertyInfo/您的房产地址已经变更，请重新编辑房源的周边" = "您的房产地址已经变更，请重新编辑房源的周边";
+"RentPropertyInfo/上传图片" = "上传图片";
+"RentPropertyInfo/上传房间照片能更快租出房源，确认不上传吗?" = "上传房间照片能更快租出房源，确认不上传吗?";
+"RentPropertyInfo/以后添加" = "以后添加";
 
 
 //

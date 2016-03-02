@@ -635,91 +635,112 @@
         return;
     }
 
-    [[CUTEDataManager sharedInstance] saveRentTicket:self.form.ticket];
+    dispatch_block_t nextStep = ^ {
+        [[CUTEDataManager sharedInstance] saveRentTicket:self.form.ticket];
 
-    TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
+        TrackScreenStayDuration(KEventCategoryPostRentTicket, GetScreenName(self));
 
-    if ([self.form.ticket.rentType.slug hasSuffix:@":whole"]) {
-        CUTEWholePropertyPreferenceViewController *controller = [CUTEWholePropertyPreferenceViewController new];
-        CUTEWholePropertyPreferenceForm *form = [CUTEWholePropertyPreferenceForm new];
-        form.ticket = self.form.ticket;
-        form.otherRequirements = self.form.ticket.otherRequirements;
-        controller.formController.form = form;
-        [self.navigationController pushViewController:controller animated:YES];
-    }
-    else {
-        [SVProgressHUD show];
-        [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"occupation" cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
-            if (task.error) {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-            else if (task.exception) {
-                [SVProgressHUD showErrorWithException:task.exception];
-            }
-            else if (task.isCancelled) {
-                [SVProgressHUD showErrorWithCancellation];
+        if ([self.form.ticket.rentType.slug hasSuffix:@":whole"]) {
+            CUTEWholePropertyPreferenceViewController *controller = [CUTEWholePropertyPreferenceViewController new];
+            CUTEWholePropertyPreferenceForm *form = [CUTEWholePropertyPreferenceForm new];
+            form.ticket = self.form.ticket;
+            form.otherRequirements = self.form.ticket.otherRequirements;
+            controller.formController.form = form;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+        else {
+            [SVProgressHUD show];
+            [[[CUTEAPICacheManager sharedInstance] getEnumsByType:@"occupation" cancellationToken:nil] continueWithBlock:^id(BFTask *task) {
+                if (task.error) {
+                    [SVProgressHUD showErrorWithError:task.error];
+                }
+                else if (task.exception) {
+                    [SVProgressHUD showErrorWithException:task.exception];
+                }
+                else if (task.isCancelled) {
+                    [SVProgressHUD showErrorWithCancellation];
+                }
+                else {
+
+                    NSArray *occupations = task.result;
+
+                    //setup default value
+                    [[self.form syncTicketWithBlock:^(CUTETicket *ticket) {
+                        if (ticket.noSmoking == nil) {
+                            ticket.noSmoking = @(NO);
+                        }
+                        if (ticket.noPet == nil) {
+                            ticket.noPet = @(NO);
+                        }
+                        if (ticket.noBaby == nil) {
+                            ticket.noBaby = @(NO);
+                        }
+                        if (ticket.independentBathroom == nil) {
+                            ticket.independentBathroom = @(NO);
+                        }
+                    }] continueWithBlock:^id(BFTask *task) {
+                        if (task.error) {
+                            [SVProgressHUD showErrorWithError:task.error];
+                        }
+                        else if (task.exception) {
+                            [SVProgressHUD showErrorWithException:task.exception];
+                        }
+                        else if (task.isCancelled) {
+                            [SVProgressHUD showErrorWithCancellation];
+                        }
+                        else {
+
+                            CUTESingleRoomPreferenceViewController *controller = [CUTESingleRoomPreferenceViewController new];
+                            CUTESingleRoomPreferenceForm *form = [CUTESingleRoomPreferenceForm new];
+                            form.ticket = self.form.ticket;
+                            CUTEEnum *unlimitedOccupation = [CUTEEnum new];
+                            unlimitedOccupation.identifier = [NSUUID UUID].UUIDString;
+                            unlimitedOccupation.type = @"occupation";
+                            unlimitedOccupation.value = STR(@"不限");
+                            unlimitedOccupation.sortValue = 0;
+                            unlimitedOccupation.slug = @"unlimited";
+                            NSMutableArray *allOccupation = [NSMutableArray array];
+                            [allOccupation addObject:unlimitedOccupation];
+                            [allOccupation addObjectsFromArray:occupations];
+                            form.allOccupation = allOccupation;
+                            form.occupation = form.ticket.occupation;
+                            form.allowSmoking = !form.ticket.noSmoking.boolValue;
+                            form.allowBaby = !form.ticket.noBaby.boolValue;
+                            form.allowPet = !form.ticket.noPet.boolValue;
+                            form.genderRequirement = form.ticket.genderRequirementForDisplay;
+                            form.otherRequirements = self.form.ticket.otherRequirements;
+                            controller.formController.form = form;
+                            
+                            [self.navigationController pushViewController:controller animated:YES];
+                            [SVProgressHUD dismiss];
+                        }
+                        
+                        return task;
+                    }];
+                    
+                }
+                return task;
+            }];
+        }
+    };
+
+    if (IsArrayNilOrEmpty(self.form.ticket.property.realityImages)) {
+        [UIAlertView showWithTitle:STR(@"RentPropertyInfo/上传图片") message:STR(@"RentPropertyInfo/上传房间照片能更快租出房源，确认不上传吗?") cancelButtonTitle:STR(@"RentPropertyInfo/以后添加") otherButtonTitles:@[STR(@"RentPropertyInfo/上传图片")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex == alertView.cancelButtonIndex) {
+                nextStep();
             }
             else {
-
-                NSArray *occupations = task.result;
-
-                //setup default value
-                [[self.form syncTicketWithBlock:^(CUTETicket *ticket) {
-                    if (ticket.noSmoking == nil) {
-                        ticket.noSmoking = @(NO);
-                    }
-                    if (ticket.noPet == nil) {
-                        ticket.noPet = @(NO);
-                    }
-                    if (ticket.noBaby == nil) {
-                        ticket.noBaby = @(NO);
-                    }
-                    if (ticket.independentBathroom == nil) {
-                        ticket.independentBathroom = @(NO);
-                    }
-                }] continueWithBlock:^id(BFTask *task) {
-                    if (task.error) {
-                        [SVProgressHUD showErrorWithError:task.error];
-                    }
-                    else if (task.exception) {
-                        [SVProgressHUD showErrorWithException:task.exception];
-                    }
-                    else if (task.isCancelled) {
-                        [SVProgressHUD showErrorWithCancellation];
-                    }
-                    else {
-
-                        CUTESingleRoomPreferenceViewController *controller = [CUTESingleRoomPreferenceViewController new];
-                        CUTESingleRoomPreferenceForm *form = [CUTESingleRoomPreferenceForm new];
-                        form.ticket = self.form.ticket;
-                        CUTEEnum *unlimitedOccupation = [CUTEEnum new];
-                        unlimitedOccupation.identifier = [NSUUID UUID].UUIDString;
-                        unlimitedOccupation.type = @"occupation";
-                        unlimitedOccupation.value = STR(@"不限");
-                        unlimitedOccupation.sortValue = 0;
-                        unlimitedOccupation.slug = @"unlimited";
-                        NSMutableArray *allOccupation = [NSMutableArray array];
-                        [allOccupation addObject:unlimitedOccupation];
-                        [allOccupation addObjectsFromArray:occupations];
-                        form.allOccupation = allOccupation;
-                        form.occupation = form.ticket.occupation;
-                        form.allowSmoking = !form.ticket.noSmoking.boolValue;
-                        form.allowBaby = !form.ticket.noBaby.boolValue;
-                        form.allowPet = !form.ticket.noPet.boolValue;
-                        form.genderRequirement = form.ticket.genderRequirementForDisplay;
-                        form.otherRequirements = self.form.ticket.otherRequirements;
-                        controller.formController.form = form;
-                        
-                        [self.navigationController pushViewController:controller animated:YES];
-                        [SVProgressHUD dismiss];
-                    }
-                    
-                    return task;
-                }];
-
+                // scroll to top to show  and select the image upload cell
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+                });
             }
-            return task;
         }];
+    }
+    else {
+        nextStep();
     }
 }
 
