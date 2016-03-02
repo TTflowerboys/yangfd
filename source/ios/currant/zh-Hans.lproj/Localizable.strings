@@ -657,6 +657,9 @@
 //
 //Filepath: currant/Scene/RentList/CUTERentListViewController.m
 "RentList/查看收藏的出租房" = "查看收藏的出租房";
+"RentList/学生公寓或个人房源" = "学生公寓或个人房源";
+"RentList/学生公寓" = "学生公寓";
+"RentList/个人房源" = "个人房源";
 
 
 //

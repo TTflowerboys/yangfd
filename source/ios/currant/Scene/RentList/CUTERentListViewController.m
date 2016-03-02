@@ -69,18 +69,10 @@
 }
 
 - (void)willMoveToParentViewController:(UIViewController *)parent {
-    //sometimes like move from t
+    //when controller move out, also remove menu
     if (parent == nil) {
         if ([self.navigationItem.titleView isKindOfClass:[BTNavigationDropdownMenu class]]) {
             [BTNavigationDropdownMenuHelper removeMenu];
-        }
-    }
-    else {
-        if (!self.navigationItem.titleView) {
-            NSArray *items = @[STR(@"学生公寓或个人房源"), STR(@"学生公寓"), STR(@"个人房源")];
-            BTNavigationDropdownMenu *menuView = [BTNavigationDropdownMenuHelper getMenu:self.navigationController title:items.firstObject items:items didSelectItemAtIndexHandler:^(NSInteger index) {
-            }];
-            self.navigationItem.titleView = menuView;
         }
     }
 }
@@ -104,7 +96,30 @@
 
 - (void)updateTitleWithURL:(NSURL *)url {
 
-    //let here do nothing about update
+    NSArray *items = @[STR(@"RentList/学生公寓或个人房源"), STR(@"RentList/学生公寓"), STR(@"RentList/个人房源")];
+    NSString *isStudentHouse = [url queryDictionary][@"isStudentHouse"];
+    NSInteger titleIndex = 0;
+    if (isStudentHouse) {
+        if ([isStudentHouse isEqualToString:@"true"]) {
+            titleIndex = 1;
+        }
+        else if ([isStudentHouse isEqualToString:@"false"]) {
+            titleIndex = 2;
+        }
+    }
+
+    if (!self.navigationItem.titleView) {
+        BTNavigationDropdownMenu *menuView = [BTNavigationDropdownMenuHelper getMenu:self.navigationController title:[items objectAtIndex:titleIndex] items:items didSelectItemAtIndexHandler:^(NSInteger index) {
+            [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.currantModule.selectHouse(\"%@\")", @[@"", @"student_house", @"non_student_house"][index]]];
+        }];
+        self.navigationItem.titleView = menuView;
+    }
+    else {
+        if ([self.navigationItem.titleView isKindOfClass:[BTNavigationDropdownMenu class]]) {
+            BTNavigationDropdownMenu *menu = (BTNavigationDropdownMenu *)self.navigationItem.titleView;
+            [menu setMenuTitle:[items objectAtIndex:titleIndex]];
+        }
+    }
 }
 
 @end
