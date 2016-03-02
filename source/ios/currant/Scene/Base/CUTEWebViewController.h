@@ -13,26 +13,26 @@
 @interface CUTEWebViewController : CUTEViewController <UIWebViewDelegate>
 
 //TODO refine the url
-@property (strong, nonatomic) NSURL *URL;
+@property (strong, nonatomic) NSURL * __nullable URL;
 
 //If user need login the url is the redirected url, the originalURL is the origianl url, else is the url
-@property (nonatomic, readonly) NSURL *originalURL;
+@property (nonatomic, readonly) NSURL * __nullable originalURL;
 
-@property (nonatomic, readonly) UIWebView *webView;
+@property (nonatomic, readonly) UIWebView * __nullable webView;
 
 @property (nonatomic) BOOL webArchiveRequired;
 
 @property (nonatomic) BOOL disableUpdateBackButton;
 
-- (void)loadRequest:(NSURLRequest *)urlRequest;
+- (void)loadRequest:(NSURLRequest * __nonnull)urlRequest;
 
-- (void)loadWebArchive:(CUTEWebArchive *)archive;
+- (void)loadWebArchive:(CUTEWebArchive * __nonnull)archive;
 
-- (void)updateWithURL:(NSURL *)url;
+- (void)updateWithURL:(NSURL * __nonnull)url;
 
-- (void)updateTitleWithURL:(NSURL *)url;
+- (void)updateTitleWithURL:(NSURL * __nonnull)url;
 
-- (void)updateRightButtonWithURL:(NSURL *)url;
+- (void)updateRightButtonWithURL:(NSURL * __nonnull)url;
 
 - (void)updateBackButton;
 

@@ -94,7 +94,9 @@
     } error:nil];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]]]];
+        NSURL *url = [NSURL URLWithString:CONCAT(@"/wechat-poster/", self.ticket.identifier) relativeToURL:[CUTEConfiguration hostURL]];
+        self.URL = url;
+        [self loadRequest:[NSURLRequest requestWithURL:url]];
         [self shareRentTicket];
     });
 }

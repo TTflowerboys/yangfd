@@ -151,7 +151,12 @@ extension UINavigationController {
         if viewController != nil {
             if viewController is CUTEWebViewController {
                 let webviewController  = viewController as! CUTEWebViewController
-                return CUTETracker.sharedInstance().getScreenNameFromObject(webviewController.URL)
+                if let url = webviewController.URL {
+                    return CUTETracker.sharedInstance().getScreenNameFromObject(url)
+                }
+                else {
+                    return CUTETracker.sharedInstance().getScreenNameFromObject(webviewController)
+                }
             }
             else {
                 return CUTETracker.sharedInstance().getScreenNameFromObject(viewController!)

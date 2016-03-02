@@ -99,11 +99,13 @@ class CUTEWholePropertyPreferenceViewController: CUTEFormViewController {
                     CUTEDataManager.sharedInstance().saveRentTicket(self.form().ticket)
 
                     if let identifier = self.form().ticket.identifier {
-                        let controller = CUTERentTicketPreviewViewController()
-                        controller.ticket = self.form().ticket
-                        controller.URL = CUTEPermissionChecker.URLWithPath("/wechat-poster/" + identifier)
-                        controller.loadRequest(NSURLRequest(URL:controller.URL))
-                        self.navigationController?.pushViewController(controller, animated: true)
+                        if let url = CUTEPermissionChecker.URLWithPath("/wechat-poster/" + identifier) {
+                            let controller = CUTERentTicketPreviewViewController()
+                            controller.ticket = self.form().ticket
+                            controller.URL = url
+                            controller.loadRequest(NSURLRequest(URL:url))
+                            self.navigationController?.pushViewController(controller, animated: true)
+                        }
                     }
                 }
 
