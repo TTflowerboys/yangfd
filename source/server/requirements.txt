@@ -1,5 +1,6 @@
 dict2xml
 markdown
+email_validator
 wand
 Cython
 Babel
@@ -9,6 +10,7 @@ sortedcontainers
 python-Levenshtein
 newrelic
 qrcode
+debtcollector
 beautifulsoup4
 pyquery
 passlib
