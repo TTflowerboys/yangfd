@@ -305,6 +305,9 @@
     module.loadRentListByView = loadRentListByView
 
     function updateURLQuery(key, value) {
+        if(window.team.isCurrantClient()) {
+            return
+        }
         var oldUrl = location.href
         var newUrl = oldUrl
         var params = _.mapObject(module.appViewModel.rentListViewModel.params(), function (val, key) {
