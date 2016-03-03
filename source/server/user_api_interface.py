@@ -362,10 +362,16 @@ def user_activate(user_id, user):
         key=(str, True),
         value=(str, True),
     )),
+    coupon=dict(
+        discount=(float, True),
+        discount_shared=float,
+        description=str,
+        category="enum:coupon_category",
+    ),
     user_id=(ObjectId, None, "str"),
 ))
 @f_app.user.login.check(force=True, check_role=True)
-def current_user_edit(user, params):
+def user_edit(user, params):
     """
     Edit current user basic information.
 
@@ -380,9 +386,12 @@ def current_user_edit(user, params):
     unset_fields = params.pop("unset_fields", [])
 
     user_id = user["id"]
-    if "user_id" in params or "custom_fields" in params:
-        assert set(user["role"]) & set(["admin", "jr_admin", "sales"]), abort(40300, "no permission to touch other user")
-        user_id = params.pop("user_id")
+    if "user_id" in params or "custom_fields" in params or "coupon" in params:
+        assert set(user["role"]) & set(["admin", "jr_admin", "sales"]), abort(40300, "no permission to touch this")
+        user_id = params.pop("user_id", user_id)
+
+        if "coupon" in params:
+            f_app.util.validate_coupon(params["coupon"])
 
     if "private_contact_methods" in params and not set(params["private_contact_methods"]) <= {"email", "phone", "wechat"}:
         abort(40000)

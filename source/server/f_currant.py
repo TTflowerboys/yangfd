@@ -801,6 +801,22 @@ class currant_plugin(f_app.plugin_base):
                         display="html",
                         tag="new_user_admin",
                     )
+
+        if "referral" in params:
+            referral = f_app.user.get(str(params["referral"]))
+            if "affiliate" in referral.get("role", []) and "coupon" in referral:
+                new_coupon = referral["coupon"]
+            else:
+                # TODO
+                new_coupon = dict(
+                    discount=0.0,
+                    description="",
+                )
+
+            new_coupon["effective_time"] = datetime.utcnow()
+            new_coupon["expire_time"] = new_coupon["effective_time"] + timedelta(days=30)
+            new_coupon["user_id"] = ObjectId(user_id)
+            f_app.coupon.add(params, permission_check=False)
         return user_id
 
     def user_update_after(self, user_id, params):
@@ -1149,6 +1165,38 @@ class currant_util(f_util):
                 featured_facilities.remove(featured_facility)
 
         return featured_facilities
+
+    def validate_coupon(self, params, coupon_id=None):
+        discount = params.get("discount", None)
+        discount_shared = params.get("discount_shared", None)
+        effective_time = params.get("effective_time", None)
+        expire_time = params.get("expire_time", None)
+
+        if discount is not None and not (discount > 0 and discount <= 100):
+            abort(40000, self.logger.warning("discount must between 0 and 100"))
+        if discount_shared is not None and not (discount_shared > 0 and discount_shared <= 100):
+            abort(40000, self.logger.warning("discount_shared must between 0 and 100"))
+        if expire_time:
+            if expire_time <= datetime.utcnow() and not coupon_id:
+                abort(40000, self.logger.warning("expire_time should be greater than now"))
+            if effective_time and effective_time >= expire_time:
+                abort(40000, self.logger.warning("expire_time should be greater than effective_time"))
+
+        if coupon_id:
+            coupon = f_app.coupon.get(coupon_id)
+            if effective_time and not expire_time and effective_time >= coupon["expire_time"]:
+                abort(40000, self.logger.warning("effective_time should be smaller than coupon expire_time"))
+
+            if expire_time and not effective_time and expire_time <= coupon["effective_time"]:
+                abort(40000, self.logger.warning("expire_time should be greater than coupon effective_time"))
+
+            if expire_time and expire_time > datetime.utcnow() and coupon["status"] == "expired":
+                f_app.coupon.update_set_status(coupon_id, "new", permission_check=False)
+
+        else:
+            if not effective_time or not expire_time:
+                abort(40000, self.logger.warning("time based coupon needs effective_time and expire_time"))
+            params["coupon_type"] = "time_based"
 
     def test_parse_budget(self):
         assert f_app.util.parse_budget("budget:100,200,CNY") == [100, 200, "CNY"]

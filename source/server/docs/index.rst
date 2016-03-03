@@ -55,3 +55,4 @@ API Reference
    venue_api
    deal_api
    index_rule_api
+   coupon_api
