@@ -1391,11 +1391,11 @@ def rent_ticket_search(user, params):
     if "partner_student_housing" in params:
         if params["partner_student_housing"]:
             property_params.setdefault("partner", True)
-            property_params.setdefault("property_type", ObjectId(f_app.enum.get_by_slug('student_housing')["id"]))
+            property_params.setdefault("property_type._id", ObjectId(f_app.enum.get_by_slug('student_housing')["id"]))
         else:
             property_params["$and"].append({"$or": [
                 {"partner": False},
-                {"property_type": {"$ne": ObjectId(f_app.enum.get_by_slug('student_housing')["id"])}},
+                {"property_type._id": {"$ne": ObjectId(f_app.enum.get_by_slug('student_housing')["id"])}},
             ]})
         params.pop("partner_student_housing")
 
