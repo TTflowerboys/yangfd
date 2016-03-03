@@ -1397,6 +1397,7 @@ def rent_ticket_search(user, params):
                 {"partner": False},
                 {"property_type": {"$ne": ObjectId(f_app.enum.get_by_slug('student_housing')["id"])}},
             ]})
+        params.pop("partner_student_housing")
 
     location_only = params.pop("location_only", False)
     if location_only and "latitude" not in params:
@@ -1416,7 +1417,7 @@ def rent_ticket_search(user, params):
     if "landlord_type" in params:
         params["landlord_type"] = {"$in": params["landlord_type"]}
 
-    if "property_type" in params:
+    if "property_type" in params and isinstance(params["property_type"], list):
         property_params["property_type"] = {"$in": params.pop("property_type")}
 
     if "intention" in params:
