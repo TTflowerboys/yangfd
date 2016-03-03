@@ -1390,8 +1390,8 @@ def rent_ticket_search(user, params):
 
     if "partner_student_housing" in params:
         if params["partner_student_housing"]:
-            params.setdefault("partner", True)
-            params.setdefault("property_type", ObjectId(f_app.enum.get_by_slug('student_housing')["id"]))
+            property_params.setdefault("partner", True)
+            property_params.setdefault("property_type", ObjectId(f_app.enum.get_by_slug('student_housing')["id"]))
         else:
             property_params["$and"].append({"$or": [
                 {"partner": False},
@@ -1417,7 +1417,7 @@ def rent_ticket_search(user, params):
     if "landlord_type" in params:
         params["landlord_type"] = {"$in": params["landlord_type"]}
 
-    if "property_type" in params and isinstance(params["property_type"], list):
+    if "property_type" in params:
         property_params["property_type"] = {"$in": params.pop("property_type")}
 
     if "intention" in params:
