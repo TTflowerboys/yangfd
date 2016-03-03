@@ -15,7 +15,6 @@ beautifulsoup4
 pyquery
 passlib
 six
-pydns
 pytest
 gevent>0.99
 scipy
@@ -31,6 +30,7 @@ pytz
 python-dateutil
 msgpack-python
 mimerender
+requests
 pygeoip
 phonenumbers
 gevent-websocket
@@ -41,6 +41,6 @@ sh
 uWSGI
 bottle
 python-memcached
-requests
+dnspython
 raven
 pillow
