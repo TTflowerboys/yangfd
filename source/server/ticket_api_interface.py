@@ -1395,6 +1395,7 @@ def rent_ticket_search(user, params):
         else:
             property_params["$and"].append({"$or": [
                 {"partner": False},
+                {"partner": {"$exists": False}},
                 {"property_type._id": {"$ne": ObjectId(f_app.enum.get_by_slug('student_housing')["id"])}},
             ]})
         params.pop("partner_student_housing")
