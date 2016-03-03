@@ -1349,6 +1349,7 @@ def rent_ticket_contact_info(user, ticket_id):
     partner=bool,
     short_id=str,
     query=str,
+    partner_student_housing=bool,
     independent_bathroom=bool,
 ))
 @f_app.user.login.check(check_role=True)
@@ -1386,6 +1387,16 @@ def rent_ticket_search(user, params):
 
     if "doogal_station" in params:
         property_params["featured_facility.doogal_station"] = params.pop("doogal_station")
+
+    if "partner_student_housing" in params:
+        if params["partner_student_housing"]:
+            params.setdefault("partner", True)
+            params.setdefault("property_type", ObjectId(f_app.enum.get_by_slug('student_housing')["id"]))
+        else:
+            property_params["$and"].append({"$or": [
+                {"partner": False},
+                {"property_type": {"$ne": ObjectId(f_app.enum.get_by_slug('student_housing')["id"])}},
+            ]})
 
     location_only = params.pop("location_only", False)
     if location_only and "latitude" not in params:
