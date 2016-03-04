@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 import re
 import logging
 import time
 import phonenumbers
 from bson.objectid import ObjectId
-from bson.code import Code
 from pymongo import ASCENDING, DESCENDING
 import six
 from libfelix.f_common import f_app
