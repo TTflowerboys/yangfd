@@ -65,7 +65,7 @@ def _find_or_register(params, allow_draft=False):
                 f_app.log.add("add", user_id=user_id)
                 # Log in and send password for newly registered user
                 if not noregister:
-                    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
+                    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.password_default_length)])
                     f_app.user.update_set(user_id, {"password": password})
                     user_params["password"] = password
                     locale = user_params["locales"][0] if user_params["locales"] else f_app.common.i18n_default_locale
@@ -131,7 +131,7 @@ def _find_or_register(params, allow_draft=False):
                 f_app.log.add("add", user_id=user_id)
                 # Log in and send password for newly registered user
                 if not noregister:
-                    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
+                    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.password_default_length)])
                     f_app.user.update_set(user_id, {"password": password})
                     user_params["password"] = password
 

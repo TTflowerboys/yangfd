@@ -66,6 +66,10 @@ class common(f_common):
 
     property_list_per_page = 10
 
+    password_default_length = 8
+
+    referral_default_length = 6
+
     version_more_dimension = ["channel", "platform"]
 
     message_self_hosted_push_listen = "0.0.0.0"

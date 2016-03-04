@@ -233,7 +233,7 @@ def user_register(params):
         send_password = False
     else:
         assert "email" in params, abort(40000, "email must present when no password given")
-        password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)]).lower()
+        password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.password_default_length)]).lower()
         params["password"] = password
         send_password = True
 
@@ -291,7 +291,7 @@ def user_fast_register(params):
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40351)
 
-    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)]).lower()
+    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.password_default_length)]).lower()
     params["password"] = password
 
     user_id = f_app.user.add(params, retain_country=True)
@@ -547,7 +547,7 @@ def admin_user_add(user, params):
     if f_app.user.get_id_by_phone(params["phone"]):
         abort(40351)
 
-    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.referral_default_length)])
+    password = "".join([str(random.choice(f_app.common.referral_code_charset)) for nonsense in range(f_app.common.password_default_length)])
     params["password"] = password
 
     user_id = f_app.user.add(params, retain_country=True)
