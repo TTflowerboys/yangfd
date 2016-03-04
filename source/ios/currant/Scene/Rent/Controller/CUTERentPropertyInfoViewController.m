@@ -36,6 +36,8 @@
 #import "CUTERentTicketPublisher.h"
 #import "CUTERentAddressReeditViewController.h"
 #import "CUTERentAddressEditForm.h"
+#import "CUTERentStatusForm.h"
+#import "CUTERentStatusViewController.h"
 #import "CUTENavigationUtil.h"
 #import "CUTERentTicketPreviewViewController.h"
 #import "CUTETracker.h"
@@ -614,6 +616,14 @@
     form.holdingDeposit = ticket.holdingDeposit.value;
     controller.formController.form = form;
 
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)updateStatus {
+    CUTERentStatusViewController *controller = [CUTERentStatusViewController new];
+    CUTERentStatusForm *form = [CUTERentStatusForm new];
+    form.ticket = self.form.ticket;
+    controller.formController.form = form;
     [self.navigationController pushViewController:controller animated:YES];
 }
 

@@ -753,6 +753,17 @@
 
 
 //
+//Group: PropertyInfo
+//
+//Filepath: currant/Scene/Rent/Form/CUTERentStatusForm.m
+"RentStatus/下架" = "下架";
+"RentStatus/已出租" = "已出租";
+"RentStatus/删除房源" = "删除房源";
+"RentStatus/更新状态" = "更新状态";
+"RentStatus/您的房源当前处于草稿状态，如您不想继续发布，可以删除房源" = "您的房源当前处于草稿状态，如您不想继续发布，可以删除房源";
+
+
+//
 //Group: Surrounding
 //
 //Filepath: currant/Scene/Rent/Controller/CUTESurroundingListViewController.swift

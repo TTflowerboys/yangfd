@@ -38,6 +38,7 @@
              @{FXFormFieldKey: @"rentAddress", FXFormFieldTitle:STR(@"PropertyInfo/房产地址"), FXFormFieldAction: @"editAddress"},
              @{FXFormFieldKey: @"surrounding", FXFormFieldTitle:STR(@"PropertyInfo/周边"), FXFormFieldAction: @"editSurrounding"},
              @{FXFormFieldKey: @"moreInfo", FXFormFieldTitle:STR(@"PropertyInfo/更多详情和配套设施描述（选填）"), FXFormFieldAction: @"editMoreInfo"},
+             @{FXFormFieldKey: @"status", FXFormFieldTitle:STR(@"PropertyInfo/房源状态"), FXFormFieldAction: @"updateStatus", FXFormFieldHeader: @""},
              @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle:STR(@"RentPropertyInfo/下一步"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit", FXFormFieldFooter:STR(@"PropertyInfo/发布则表示您已经阅读并同意洋房东服务须知")},
              ];
 }

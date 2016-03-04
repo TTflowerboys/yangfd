@@ -17,6 +17,7 @@
 #import "CUTERentTypeListForm.h"
 #import "CUTETicketForm.h"
 #import "CUTERentPeriodForm.h"
+#import "CUTERentStatusForm.h"
 #import "currant-Swift.h"
 
 
@@ -36,6 +37,7 @@
 @property (strong, nonatomic) CUTERentAddressEditForm *rentAddress;
 @property (strong, nonatomic) CUTESurroundingForm *surrounding;
 @property (nonatomic, strong) CUTEPropertyMoreInfoForm *moreInfo;
+@property (nonatomic, strong) CUTERentStatusForm *status;
 @property (strong, nonatomic) CUTERentContactForm *submit;
 
 

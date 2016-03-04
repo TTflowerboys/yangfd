@@ -158,47 +158,6 @@
     }];
 }
 
-- (void)delete {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"RentPropertyMoreInfo/删除") message:nil delegate:nil cancelButtonTitle:STR(@"RentPropertyMoreInfo/确定") otherButtonTitles:STR(@"RentPropertyMoreInfo/取消"), nil];
-    alertView.cancelButtonIndex = 1;
-    alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex)  {
-        if (buttonIndex != alertView.cancelButtonIndex) {
-
-            [SVProgressHUD show];
-            [[[CUTERentTicketPublisher sharedInstance] deleteTicket:self.form.ticket] continueWithBlock:^id(BFTask *task) {
-                if (task.error) {
-                    [SVProgressHUD showErrorWithError:task.error];
-                }
-                else if (task.exception) {
-                    [SVProgressHUD showErrorWithException:task.exception];
-                }
-                else if (task.isCancelled) {
-                    [SVProgressHUD showErrorWithCancellation];
-                }
-                else {
-
-                    [SVProgressHUD dismiss];
-                    NSArray *images = [self.form.ticket.property realityImages];
-                    [images each:^(NSString *object) {
-                        if ([[NSURL URLWithString:object] isAssetURL]) {
-                            [[CUTEImageUploader sharedInstance] cancelTaskForAssetURLString:object];
-                        }
-                    }];
-
-                    [[CUTEDataManager sharedInstance] deleteTicket:self.form.ticket];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:self];
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self.navigationController popToRootViewControllerAnimated:YES];
-                    });
-                }
-
-                return task;
-            }];
-        }
-    };
-    [alertView show];
-
-}
 
 - (void)onTicketTitleEdit:(id)sender {
 

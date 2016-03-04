@@ -748,9 +748,21 @@
 "PropertyInfo/房产地址" = "房产地址";
 "PropertyInfo/周边" = "周边";
 "PropertyInfo/更多详情和配套设施描述（选填）" = "更多详情和配套设施描述（选填）";
+"PropertyInfo/房源状态" = "房源状态";
 "PropertyInfo/轻松描述到周边的地铁和学校有多近" = "轻松描述到周边的地铁和学校有多近";
 "PropertyInfo/发布则表示您已经阅读并同意洋房东服务须知" = "发布则表示您已经阅读并同意洋房东服务须知";
 "PropertyInfo/服务须知" = "服务须知";
+
+
+//
+//Group: PropertyInfo
+//
+//Filepath: currant/Scene/Rent/Form/CUTERentStatusForm.m
+"RentStatus/下架" = "下架";
+"RentStatus/已出租" = "已出租";
+"RentStatus/删除房源" = "删除房源";
+"RentStatus/更新状态" = "更新状态";
+"RentStatus/您的房源当前处于草稿状态，如您不想继续发布，可以删除房源" = "您的房源当前处于草稿状态，如您不想继续发布，可以删除房源";
 
 
 //

@@ -17,6 +17,7 @@
 
 #define kTicketStatusToRent @"to rent"
 #define kTicketStatusDraft @"draft"
+#define kTicketStatusRent @"rent"
 #define kTicketStatusDeleted @"deleted"
 
 #define kTicketTitleMinCharacterCount 8
