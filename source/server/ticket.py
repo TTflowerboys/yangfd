@@ -164,6 +164,16 @@ class currant_ticket(f_ticket):
             return
         f_app.ticket.update(ticket_id, {"$push": {"tags": tag}}, keep_modified_time=True)
 
+    def update_ticket_crawler_info(self, ticket_id, crawler_site, crawler_url, crawler_enable=True):
+        self.update_set(
+            ticket_id,
+            {
+                "crawler_url": crawler_url,
+                "crawler_site": crawler_site,
+                "crawler_enable": crawler_enable
+            }
+        )
+
 currant_ticket()
 
 
