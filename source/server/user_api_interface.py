@@ -41,7 +41,7 @@ def user_authenticate(user):
     type=(str, True),
 ))
 @f_app.user.login.check(force=True)
-def current_user_favorites(user, params):
+def user_favorites(user, params):
     """
     Get current user favorites
     use ``type`` to get item for property favorite. Possible values: ``property``, ``item``, ``rent_ticket``, ``sale_ticket``.
@@ -60,7 +60,7 @@ def current_user_favorites(user, params):
     type=(str, True),
 ))
 @f_app.user.login.check(force=True)
-def current_user_favorites_add(user, params):
+def user_favorites_add(user, params):
     """
     Get current user favorites
     Please specify ``type`` when calling this API. Possible values: ``property``, ``item``, ``rent_ticket``, ``sale_ticket``.
@@ -100,7 +100,7 @@ def current_user_favorites_add(user, params):
     type=(str, True),
 ))
 @f_app.user.login.check(force=True)
-def current_user_favorite_remove(user, params):
+def user_favorite_remove(user, params):
     """
     Remove a favorited item by their own id
 
@@ -131,7 +131,7 @@ def current_user_favorite_remove(user, params):
 
 @f_api('/user/favorite/<favorite_id>/remove')
 @f_app.user.login.check(force=True)
-def current_user_favorite_remove_by_favorite_id(user, favorite_id):
+def user_favorite_remove_by_favorite_id(user, favorite_id):
     """
     Remove a favorited item by favorite id
     """
@@ -141,7 +141,7 @@ def current_user_favorite_remove_by_favorite_id(user, favorite_id):
 
 @f_api('/user/favorite/<favorite_id>')
 @f_app.user.login.check(force=True)
-def current_user_favorite_get(user, favorite_id):
+def user_favorite_get(user, favorite_id):
     """
     Get a favorited item
     """
@@ -655,11 +655,25 @@ def admin_user_add_role(user, user_id, params):
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
 
+@f_api("/user/assign_referral_code", params=dict(
+    user_id=(ObjectId, None, str),
+    code=str,
+))
+@f_app.user.login.check(force=True, check_role=True)
+def user_assign_referral_code(user, params):
+    if "user_id" in params:
+        assert set(user["role"]) & set(f_app.common.advanced_admin_roles), abort(40300)
+        user_id = params["user_id"]
+    else:
+        user_id = user["id"]
+
+    f_app.user.referral.assign_new_code(user_id, params.get("code"))
+
+
 @f_api("/user/admin/<user_id>")
 @f_app.user.login.check(force=True, role=["admin", "jr_admin", "sales", "jr_sales"])
 def admin_user_get(user, user_id):
-    current_user_roles = f_app.user.get_role(user["id"])
-    if set(["admin", "jr_admin", "sales"]) & set(current_user_roles):
+    if set(user["role"]) & set(["admin", "jr_admin", "sales"]):
         pass
     elif not f_app.ticket.search({"assignee": ObjectId(user["id"]), "$or": [{"creator_user_id": ObjectId(user_id)}, {"user_id": ObjectId(user_id)}]}):
         abort(40399)
@@ -674,8 +688,7 @@ def admin_user_get(user, user_id):
 @f_app.user.login.check(force=True, role=["admin", "jr_admin", "sales", "jr_sales"])
 def admin_user_get_favorites(user, user_id, params):
     user_info = f_app.user.get(user_id)
-    current_user_roles = f_app.user.get_role(user["id"])
-    if set(["admin", "jr_admin", "sales"]) & set(current_user_roles):
+    if set(user["role"]) & set(["admin", "jr_admin", "sales"]):
         pass
     elif not f_app.ticket.search({"assignee": ObjectId(user["id"]), "phone": user_info.get("phone")}):
         abort(40399)
@@ -694,8 +707,7 @@ def admin_user_get_favorites(user, user_id, params):
 def admin_user_get_logs(user, user_id, params):
     per_page = params.pop("per_page", 0)
     user_info = f_app.user.get(user_id)
-    current_user_roles = f_app.user.get_role(user["id"])
-    if set(["admin", "jr_admin", "sales"]) & set(current_user_roles):
+    if set(user["role"]) & set(["admin", "jr_admin", "sales"]):
         pass
     elif not f_app.ticket.search({"assignee": ObjectId(user["id"]), "phone": user_info.get("phone")}):
         abort(40399)
