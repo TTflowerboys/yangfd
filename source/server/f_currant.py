@@ -809,14 +809,14 @@ class currant_plugin(f_app.plugin_base):
             else:
                 # TODO
                 new_coupon = dict(
-                    discount=0.0,
-                    description="",
+                    discount=50.0,
+                    description="50 GBP",
                 )
 
             new_coupon["effective_time"] = datetime.utcnow()
             new_coupon["expire_time"] = new_coupon["effective_time"] + timedelta(days=30)
             new_coupon["user_id"] = ObjectId(user_id)
-            f_app.coupon.add(params, permission_check=False)
+            f_app.coupon.add(new_coupon, permission_check=False)
         return user_id
 
     def user_update_after(self, user_id, params):
