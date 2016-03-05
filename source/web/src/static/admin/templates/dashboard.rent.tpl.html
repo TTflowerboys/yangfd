@@ -2,6 +2,13 @@
 
     <div class="buttons col-md-8 pull-left">
         <div class="btn-group form-inline">
+            <select class="form-control" ng-model="selected.partner_student_housing">
+                <option value="">{%$root.i18n('个人房东或学生公寓')%}</option>
+                <option value="false">{%$root.i18n('个人房东')%}</option>
+                <option value="true">{%$root.i18n('学生公寓')%}</option>
+            </select>
+        </div>
+        <div class="btn-group form-inline">
             <select class="form-control" ng-options="p.value as p.name for p in rentStatus" ng-model="selected.status"></select>
         </div>
         <div class="btn-group form-inline">
@@ -22,16 +29,9 @@
         <div class="btn-group form-inline">
             <div edit-date ng-model="selected.rent_deadline_time" placeholder="{%i18n('结束时间')%}"></div>
         </div>
-        <div class="btn-group form-inline">
+        <!--<div class="btn-group form-inline">
             <input type="text" class="form-control" ng-model="selected.short_id" placeholder="{%i18n('编号')%}"/>
-        </div>
-        <div class="btn-group form-inline">
-            <select class="form-control" ng-model="selected.partner_student_housing">
-                <option value="">{%$root.i18n('个人房东或学生公寓')%}</option>
-                <option value="false">{%$root.i18n('个人房东')%}</option>
-                <option value="true">{%$root.i18n('学生公寓')%}</option>
-            </select>
-        </div>
+        </div>-->
         <div class="btn-group form-inline">
             <button class="btn btn-primary" ng-click="searchRent()">{%$root.i18n('搜索')%}</button>
         </div>
