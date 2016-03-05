@@ -697,6 +697,9 @@ def rent_intention_ticket_search(user, params):
     if len(params["$and"]) < 1:
         params.pop("$and")
 
+    if len(property_params["$and"]) < 1:
+        property_params.pop("$and")
+
     sort = params.pop("sort")
     per_page = params.pop("per_page", 0)
 
