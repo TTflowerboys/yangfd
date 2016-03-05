@@ -1,4 +1,4 @@
-    # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime, timedelta
 import random
@@ -615,9 +615,22 @@ def rent_intention_ticket_search(user, params):
     params.setdefault("type", "rent_intention")
 
     params["$and"] = []
+    property_params = {"$and": []}
 
     if "interested_rent_tickets" in params:
         params["interested_rent_tickets"] = {"$in": params["interested_rent_tickets"]}
+
+    if "partner_student_housing" in params:
+        if params["partner_student_housing"]:
+            property_params.setdefault("partner", True)
+            property_params.setdefault("property_type._id", ObjectId(f_app.enum.get_by_slug('student_housing')["id"]))
+        else:
+            property_params["$and"].append({"$or": [
+                {"partner": False},
+                {"partner": {"$exists": False}},
+                {"property_type._id": {"$ne": ObjectId(f_app.enum.get_by_slug('student_housing')["id"])}},
+            ]})
+        params.pop("partner_student_housing")
 
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params)
@@ -686,6 +699,16 @@ def rent_intention_ticket_search(user, params):
 
     sort = params.pop("sort")
     per_page = params.pop("per_page", 0)
+
+    if len(property_params):
+        rent_ticket_params = {"status": {"$exists": True}, "type": "rent"}
+        property_params.setdefault("status", {"$exists": True})
+        property_params.setdefault("user_generated", True)
+        property_id_list = map(ObjectId, f_app.property.search(property_params, per_page=0))
+        rent_ticket_params["property_id"] = {"$in": property_id_list}
+
+        rent_ticket_id_list = map(ObjectId, f_app.ticket.search(rent_ticket_params, per_page=0))
+        params["interested_rent_tickets"] = {"$in": rent_ticket_id_list}
 
     if "status" in params:
         if set(params["status"]) <= set(f_app.common.rent_intention_ticket_statuses):
