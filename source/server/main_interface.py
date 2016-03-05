@@ -750,7 +750,7 @@ def how_it_works_tenant():
 @f_get('/how-it-works/student-house')
 @currant_util.check_ip_and_redirect_domain
 def how_it_works_student_house():
-    title = _('洋房东租客服务')
+    title = _('洋房东学生公寓服务')
     return currant_util.common_template("how_it_works_student_house", title=title)
 
 
