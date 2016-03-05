@@ -128,7 +128,28 @@
 
     }
     window.getBaseRequestParams = function () {
-        return _.omit(module.appViewModel.rentListViewModel.params(), function (val) {
+        var params = _.clone(module.appViewModel.rentListViewModel.params())
+        switch(params.isStudentHouse) {
+            case 'true':
+                params.partner_student_housing = true
+                if(window.team.isCurrantClient('<=1.3.0')) {
+                    document.title = i18n('学生公寓')
+                }
+                break;
+            case 'false':
+                params.partner_student_housing = false
+                if(window.team.isCurrantClient('<=1.3.0')) {
+                    document.title = i18n('个人房源')
+                }
+                break;
+            default:
+                if(window.team.isCurrantClient('<=1.3.0')) {
+                    document.title = i18n('个人房源和学生公寓')
+                }
+                break;
+        }
+        delete params.isStudentHouse
+        return _.omit(params, function (val) {
             return val === '' || val === undefined
         });
     }
@@ -527,6 +548,25 @@
             }, this)
         }
 
+        this.isStudentHouse = ko.observable()
+        this.studentHouse = ko.observable(i18n('个人房源和学生公寓'))
+        this.placeholder = ko.observable(i18n('请输入位置，如E14, E14 3GH, Isle of dogs, Waterloo, UCL...'))
+        this.isStudentHouse.subscribe(function (value) {
+            switch(value) {
+                case 'true':
+                    this.studentHouse(i18n('学生公寓'))
+                    this.placeholder(i18n('输入您想去的城市或学校，比如London, UCL...'))
+                    break
+                case 'false':
+                    this.studentHouse(i18n('个人房源'))
+                    this.placeholder(i18n('请输入位置，如E14, E14 3GH, Isle of dogs, Waterloo, UCL...'))
+                    break
+                default:
+                    this.studentHouse(i18n('个人房源和学生公寓'))
+                    this.placeholder(i18n('请输入位置，如E14, E14 3GH, Isle of dogs, Waterloo, UCL...'))
+                    break
+            }
+        }, this)
         this.rentType = ko.observable('')
         this.rentTypeSlug = ko.observable('')
         this.rentTypeSlug.subscribe(function (value) {
@@ -537,6 +577,7 @@
         this.independentBathroom = ko.observable('')
         this.rentBudgetMin = ko.observable()
         this.rentBudgetMax = ko.observable()
+        this.propertyTypeList = ko.observableArray(JSON.parse($('#propertyTypeListWithoutNewProperty').text()))
         this.propertyType = ko.observable('')
         this.bedroomCount = ko.observable('')
         this.space = ko.observable('')
@@ -569,13 +610,14 @@
                 doogal_station: this.doogalStation(),
                 maponics_neighborhood: this.maponicsNeighborhood(),
                 city: this.city(),
-                queryName: this.queryName()
+                queryName: this.queryName(),
+                isStudentHouse: this.isStudentHouse()
             }
         }, this)
         this.paramsToWrite = ko.computed({
             read: this.params,
             write: function (value) {
-                var whiteList = ['rent_available_time', 'rent_deadline_time', 'rent_type', 'independent_bathroom', 'rent_budget_min', 'rent_budget_max', 'property_type', 'bedroom_count', 'space', 'query', 'queryName'].concat(module.suggestionTypeSlugList)
+                var whiteList = ['rent_available_time', 'rent_deadline_time', 'rent_type', 'independent_bathroom', 'rent_budget_min', 'rent_budget_max', 'property_type', 'bedroom_count', 'space', 'query', 'queryName', 'isStudentHouse'].concat(module.suggestionTypeSlugList)
                 var suggestionParams = {}
                 _.each(module.suggestionTypeSlugList, function (slug) {
                     suggestionParams[slug] = ''
@@ -651,8 +693,12 @@
 
         this.summaryTitleObj = ko.observable({})
 
-        this.searchTicketClick = function () {
-            $('location-search-box').trigger('searchTicket')
+        this.searchTicketClick = function (vm, event) {
+            if(event && event.currentTarget && $(event.currentTarget).siblings('location-search-box').length) {
+                $(event.currentTarget).siblings('location-search-box').trigger('searchTicket')
+            } else {
+                $('location-search-box').trigger('searchTicket')
+            }
         }
         this.searchTicket = function (query) {
             this.query(query)
@@ -668,6 +714,16 @@
         }
     }
     module.appViewModel.rentListViewModel = new RentListViewModel()
+    module.selectHouse = function (param) {
+        $('.rentListHeader_phone .rmm-center').trigger('click')
+        if(param === 'student_house') {
+            module.appViewModel.rentListViewModel.isStudentHouse('true')
+        } else if(param === 'non_student_house') {
+            module.appViewModel.rentListViewModel.isStudentHouse('false')
+        } else if(param === '') {
+            module.appViewModel.rentListViewModel.isStudentHouse('')
+        }
+    }
 
     $('[data-tabs]').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName) {
         mode = tabName

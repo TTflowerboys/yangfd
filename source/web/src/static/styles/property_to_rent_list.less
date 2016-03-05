@@ -13,7 +13,32 @@ body{
     -ms-user-select: none;
     user-select: none;
 }
-
+.siteHeader_phone{
+    display: none;
+}
+.rentListHeader_phone{
+    .rmm-toggled-controls{
+        .rmm-center{
+            height: 40px;
+            margin-top: -20px;
+            line-height: 40px;
+            label{
+                vertical-align: middle;
+            }
+            .rmm-center-indicator{
+                display: inline-block;
+                margin-left: 2px;
+                vertical-align: middle;
+                color: #fff;
+            }
+        }
+    }
+    .rmm-center-menu{
+        li a{
+            cursor: pointer;
+        }
+    }
+}
 main {
     .selectWrap {
         display: inline-block;
@@ -24,7 +49,9 @@ main {
                 width: 48px;
             }
         }
-
+        &.propertyType {
+            width: 170px;
+        }
         select{
             visibility: hidden;
         }
@@ -87,18 +114,23 @@ main {
         }
         location-search-box{
             @media @pc{
-                width: 620px;
+                width: 530px;
             }
             padding-bottom: 0;
             .inputWrapper input{
                 @media @pc{
-                    border-radius: 4px 0 0 4px;
+                    border-radius: 0;
                 }
             }
         }
         .chosen-container .chosen-single{
             @media @pc{
                 border-radius: 0 4px 4px 0;
+            }
+        }
+        .propertyType .chosen-container .chosen-single{
+            @media @pc{
+                border-radius: 4px 0 0 4px;
             }
         }
         .wrap {

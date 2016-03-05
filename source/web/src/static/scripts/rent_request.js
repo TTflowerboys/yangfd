@@ -5,6 +5,7 @@
     ko.components.register('rent-request', {
         viewModel: function(params) {
             var rentTicket = JSON.parse($('#rentTicketData').text())
+            this.rentTicket = ko.observable(JSON.parse($('#rentTicketData').text()))
             this.openRentRequestForm = function (ticketId, isPopup) {
                 return function () {
                     window.openRentRequestForm(ticketId, isPopup)
@@ -442,6 +443,9 @@
                         if(!this.params().occupation) {
                             return errorList.push(window.i18n('请选择职业'))
                         }
+                        if(this.getOccupationSlug(this.params().occupation) !== 'student' && window.project.isStudentHouse(this.rentTicket())) {
+                            return errorList.push(window.i18n('抱歉，只有学生才能入住学生公寓'))
+                        }
                     },
                     birthday: function () {
                         if(isNaN(this.params().date_of_birth)) {
@@ -537,6 +541,9 @@
             })()
             this.getOccupationName = function (id) {
                 return (_.find(this.occupationList(), {id: id}) || {}).value
+            }
+            this.getOccupationSlug = function (id) {
+                return (_.find(this.occupationList(), {id: id}) || {}).slug
             }
             this.getGenderName = function (slug) {
                 return {'male': i18n('男'), 'female': i18n('女')}[slug]

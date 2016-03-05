@@ -252,6 +252,10 @@ def get_symbol_from_currency(currency):
         return ""
 
 
+def is_student_house(rent):
+    return rent.get('property', {}).get('property_type', {}).get('slug', {}) == u'student_housing' and rent.get('property', {}).get('partner', '') == True
+
+
 def common_template(path, **kwargs):
     if 'title' not in kwargs:
         kwargs['title'] = _('洋房东')
@@ -324,4 +328,5 @@ def common_template(path, **kwargs):
     kwargs.setdefault("clear_line_break", clear_line_break)
     kwargs.setdefault("redirect", redirect)
     kwargs.setdefault("get_symbol_from_currency", get_symbol_from_currency)
+    kwargs.setdefault("is_student_house", is_student_house)
     return template(path, **kwargs)

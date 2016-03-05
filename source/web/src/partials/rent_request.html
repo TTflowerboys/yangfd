@@ -213,12 +213,15 @@
                                     {{_('服务费预估')}}
                                 </span>
                                 <tips params="tips: '{{_('平台服务费用于为您在房源咨询，申请和预订阶段提供专属租房助手和沟通确认预订服务，并且支持平台其他日常运营开支，使我们能更好的服务您')}}'"></tips>
-                                <div class="right">
+                                <div class="right" data-bind="visible: !window.project.isStudentHouse(rentTicket())">
                                     <span class="text" data-bind="text: price().unit_symbol + payment()"></span>
                                     <span class="small" data-bind="visible: paymentLocal().value">({{_('约')}}<!--ko text: paymentLocal().unit_symbol + paymentLocal().value--><!--/ko-->)</span>
                                 </div>
+                                <div class="right" data-bind="visible: window.project.isStudentHouse(rentTicket())">
+                                    <span class="small">{{_('推广期')}}<strong>{{_('免费')}}</strong></span>
+                                </div>
                             </li>
-                            <li>
+                            <li data-bind="visible: !window.project.isStudentHouse(rentTicket())">
                                 <span class="title">
                                     {{_('视频直播看房服务')}}
                                 </span>

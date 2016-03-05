@@ -11,6 +11,34 @@
 
 <!--@@close-->
 
+<!--@@block = custom_header-->
+<!-- ko with: rentListViewModel -->
+<div class="rentListHeader_phone  rmm">
+    <div class="rmm-toggled rmm-closed rmm-center-closed">
+        <div class="rmm-toggled-controls">
+            <div class="rmm-button">
+                <i class="icon-switch_button"></i>
+            </div>
+            <div class="rmm-center">
+                <label id="userPageHeader_title" class="title" for="" data-bind="text: studentHouse"></label>
+                <!--<img class="rmm-center-indicator" alt="" src="/static/images/common/header/phone/indicator.png"/>-->
+                <i class="rmm-center-indicator icon-down_arrow"></i>
+            </div>
+            <div class="rmm-toggled-title">
+                <i class="icon-user_header"></i>
+            </div>
+        </div>
+        <!-- @@include = ./partials/menu_items_mobile.html -->
+        <ul class="rmm-center-menu" style="display:none;">
+            <li><a onclick="window.currantModule.selectHouse('')">{{_('个人房源和学生公寓')}}</a></li>
+            <li><a onclick="window.currantModule.selectHouse('non_student_house')">{{_('个人房源')}}</a></li>
+            <li><a onclick="window.currantModule.selectHouse('student_house')">{{_('学生公寓')}}</a></li>
+        </ul>
+    </div>
+</div>
+<!-- /ko -->
+<!--@@close-->
+
 <!--@@block=main -->
 % show_requirement_rent_in_floatbar = 'true'
 <!-- ko with: rentListViewModel -->
@@ -18,7 +46,14 @@
     <!-- @@include=./static/templates/location-search-box.tpl.html -->
 
     <div class="category three">
-        <location-search-box params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}, hotSchoolList: {{json_dumps(hot_school_list)}}"></location-search-box><!--
+        <div class="selectWrap propertyType hiddenOnMobile" data-bind="if: !window.team.isPhone()">
+            <select data-bind="value: isStudentHouse, fastChosen: isStudentHouse" class="ghostSelect" name="isStudentHouse">
+                <option value="">{{_('个人房源或学生公寓')}}</option>
+                <option value="false">{{_('个人房源')}}</option>
+                <option value="true">{{_('学生公寓')}}</option>
+            </select>
+        </div><!--
+    --><location-search-box params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}, hotSchoolList: {{json_dumps(hot_school_list)}}"></location-search-box><!--
     --><div class="hoverWrapper" data-bind="hoverTopBar: true">
             <div class="dateWrap">
                 <div class="date inputWrapper" data-bind="dateRangePicker: {value: rentAvailableTimeFormated, timeEnabled: true}">
@@ -113,11 +148,14 @@
             </div>
             <!-- @endif -->
 
-            %if property_type_list:
-            <div class="propertyType">
+            %if property_type_list_without_new_property:
+            <textarea id="propertyTypeListWithoutNewProperty" style="display: none;">
+                {{json_dumps(property_type_list_without_new_property)}}
+            </textarea>
+            <div class="propertyType" data-bind="visible: isStudentHouse() !== 'true'">
                 <i class="propertyType_icon icon-building"></i>
                 <h4 class="propertyType_title">{{_('房产类型')}}</h4>
-                <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-property-type'}" class="inner" params="list: {{json_dumps(property_type_list_without_new_property)}}, key: 'propertyType', vm: $data, unLimited: true, autoSelectFirstItem: true"></filter-tags>
+                <filter-tags data-bind="changeText: {obj:summaryTitleObj, prop: 'change-property-type'}" class="inner" params="list: propertyTypeList, key: 'propertyType', vm: $data, unLimited: true, autoSelectFirstItem: true"></filter-tags>
             </div>
             %end
 

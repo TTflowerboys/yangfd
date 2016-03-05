@@ -10,12 +10,14 @@
 
         $scope.selected = {}
         $scope.selected.status = 'to rent'
+        $scope.selected.partner_student_housing = ''
 
         var params = {
             status: $scope.selected.status,
             country: $scope.selected.country,
             city: $scope.selected.city,
             rent_type: $scope.selected.rent_type,
+            partner_student_housing: $scope.selected.partner_student_housing,
             per_page: $scope.perPage,
             sort: 'time,desc'
         }
@@ -25,6 +27,7 @@
             params.country = $scope.selected.country
             params.city = $scope.selected.city
             params.rent_type = $scope.selected.rent_type
+            params.partner_student_housing = $scope.selected.partner_student_housing
             params.landlord_type = $scope.selected.landlord_type
             params.short_id = $scope.selected.short_id
             params.time = undefined

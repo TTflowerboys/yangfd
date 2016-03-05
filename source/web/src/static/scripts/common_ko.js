@@ -198,6 +198,9 @@
     ko.components.register('location-search-box', {
         viewModel: function(params) {
             this.parentVM = params.parentVM
+            if(!_.isFunction(this.parentVM.placeholder)) {
+                this.parentVM.placeholder = ko.observable('请输入位置，如E14, E14 3GH, Isle of dogs, Waterloo, UCL...')
+            }
             this.hotCityList = ko.observableArray(params.hotCityList)
             this.hotSchoolList = ko.observableArray(params.hotSchoolList)
             this.active = ko.observable() //输入框是否为激活状态，激活状态
@@ -376,6 +379,9 @@
 
             this.goToHots = function (data) {
                 var url = '/property-to-rent-list?' + data.key + '=' + data.id + '&queryName=' + data.queryName
+                if(params.isStudentHouse) {
+                    url += '&isStudentHouse=' + params.isStudentHouse
+                }
                 if(_.isFunction(this.parentVM.goToHots)) {
                     this.hideSearchModal()
                     this.parentVM.clearSuggestionParams.call(this.parentVM)
@@ -401,7 +407,7 @@
                     queryName: item.name
                 })
             }
-            $('location-search-box').on('searchTicket', _.bind(function () {
+            $(params.element || 'location-search-box').on('searchTicket', _.bind(function () {
                 this.searchTicket()
             }, this))
         },

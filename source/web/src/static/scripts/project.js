@@ -216,6 +216,9 @@
             if (window.betterAjaxXhr && window.betterAjaxXhr[api] && window.betterAjaxXhr[api].readyState !== 4) {
                 window.betterAjaxXhr[api].abort()
             }
+        },
+        isStudentHouse: function (rentTicket) {
+            return rentTicket.property && rentTicket.property.property_type && rentTicket.property.property_type.slug === 'student_housing' && rentTicket.property.partner === true
         }
     }
 })();

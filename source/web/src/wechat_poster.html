@@ -365,7 +365,13 @@
 
                     % if not rent.get('status')=='rent':
                     <p class="contact animate">
-                        <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" class="btn">{{_('我要咨询')}}</a>
+                        <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" class="btn">
+                            %if is_student_house(rent):
+                            {{_('我要预订')}}
+                            %else:
+                            {{_('我要咨询')}}
+                            %end
+                        </a>
                     </p>
                     % elif rent.get('status') == 'rent':
                     <p class="rentOut animate">

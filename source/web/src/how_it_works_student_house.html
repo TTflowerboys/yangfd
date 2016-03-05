@@ -1,0 +1,56 @@
+<!--@@master = ./masters/how_it_works_master.html-->
+<!--@@block = head-->
+<!--@@close-->
+<!--@@block = main-->
+<div class="banner">
+    <div class="content">
+        <h1>{{_('洋房东租客服务')}}</h1>
+        <div class="hiddenOnMobile">
+            <!--@@include partials/how_it_works_student_house_value.html -->
+        </div>
+        <div class="hiddenOnPCWeb swiper-container">
+            <!--@@include partials/how_it_works_student_house_value.html -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <section class="active tiny">
+        <div class="cell" id="step1">
+            <h3>{{_('寻找心仪')}}<br>{{_('的学生公寓')}}</h3>
+            <p>{{_('您可以在洋房东英国租房页面上搜索您的目标城市或学校名称，查找区域内的房源，寻找出您心仪的房源')}}</p>
+        </div><!--
+        --><i class="arrow icon-renter_arrow_right hiddenOnMobile"></i><!--
+        --><i class="arrow icon-renter_arrow_bottom hiddenOnPCWeb"></i><!--
+        --><div class="cell" id="step2">
+        <h3>{{_('咨询申请')}}</h3>
+        <p>{{_('由于英国学生公寓的出租速度非常快，找到您心仪的房源后您需要及时提交咨询申请，我们会尽快为您确认房源信息并解答您的疑问')}}</p>
+        </div><!--
+        --><i class="arrow icon-renter_arrow_right hiddenOnMobile"></i><!--
+        --><i class="arrow icon-renter_arrow_bottom hiddenOnPCWeb"></i><!--
+        --><div class="cell" id="step3">
+            <h3>{{_('确认户型')}}</h3>
+            <p>{{_('每栋学生公寓都提供一系列不同的房型，我们将与您共同确认预订细节，例如房型、价格和房屋状态等')}}</p>
+        </div><!--
+        --><i class="arrow icon-renter_arrow_right hiddenOnMobile"></i><!--
+        --><i class="arrow icon-renter_arrow_bottom hiddenOnPCWeb"></i><!--
+        --><div class="cell" id="step4">
+            <h3>{{_('预订房源并且')}}<br>{{_('签署租赁合约')}}</h3>
+            <p>{{_('确认细节后，您需要提供护照首页复印件等个人信息并支付相应的预定金或房费（*如有），支付完成后您将会收到签约好的确认合同')}}</p>
+        </div><!--
+        --><i class="arrow icon-renter_arrow_right hiddenOnMobile"></i><!--
+        --><i class="arrow icon-renter_arrow_bottom hiddenOnPCWeb"></i><!--
+        --><div class="cell" id="step5">
+        <h3>{{_('入住')}}</h3>
+        <p>{{_('您仅需携带合同和护照即可前往公寓楼办理手续，入住温馨舒适的学生公寓')}}</p>
+    </div>
+    </section>
+
+    <a class="button red" href="/property-to-rent-list?isStudentHouse=true">{{_('查找学生公寓')}}</a>
+    <a class="faqLink" href="/qa-rent">{{_('如需更多帮助，请点击查阅帮助中心')}}</a>
+</div>
+<!--@@close-->
+
+<!--@@block = scripts -->
+
+<!--@@close -->

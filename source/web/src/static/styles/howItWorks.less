@@ -96,7 +96,7 @@
                 display: block !important;
             }
             &.active {
-                max-height: 250vw;
+                max-height: 330vw;
                 .icon-up_arrow2{
                     display: block !important;
                 }
@@ -128,7 +128,6 @@
         .cell{
             display: inline-block;
             width: 360px;
-            height: 160px;
             padding: 0 70px;
             vertical-align: top;
             text-align: left;
@@ -175,6 +174,14 @@
                 padding: 0;
             }
         }
+        &.tiny .cell{
+            width: 188px;
+            padding: 0 16px;
+            @media @phone{
+                width: 100%;
+                padding: 0;
+            }
+        }
         .arrow{
             display: inline-block;
             margin: 68px 0px auto;
@@ -197,6 +204,9 @@
                 font-size: 9vw;
                 text-align: center;
             }
+        }
+        &.tiny .arrow{
+            font-size: 36px;
         }
     }
     .button{

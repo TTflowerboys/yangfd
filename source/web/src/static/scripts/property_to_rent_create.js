@@ -1237,6 +1237,14 @@
         }
         this.propertyTypeList = ko.observableArray(_.reject(JSON.parse($('#propertyType').attr('data-list')), {slug: 'new_property'}))
         this.propertyType = ko.observable($('#propertyType tags').attr('value') || this.propertyTypeList()[0].id)
+        this.propertyTypeSlug = ko.computed(function () {
+            return (_.find(this.propertyTypeList(), {id: this.propertyType()}) || {}).slug
+        }, this)
+        this.propertyTypeSlug.subscribe(function (value) {
+            if(value === 'student_housing' && _.isFunction(this.occupation)) {
+                this.occupation((_.find(this.occupationList(), {slug: 'student'}) || {}).id)
+            }
+        }, this)
         this.rentTypeList = ko.observableArray(JSON.parse($('#rentalType').attr('data-list')))
         this.rentType = ko.observable($('#rentalType tags').attr('value') || window.team.getQuery('rent_type') || this.rentTypeList()[0].id)
         this.rentTypeSlug = ko.computed(function () {

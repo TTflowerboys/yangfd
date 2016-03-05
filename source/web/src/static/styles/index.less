@@ -60,11 +60,11 @@
                 position: relative;
                 z-index: 1;
                 display: inline-block;
-                width: 28.125vw;
+                width: 23vw;
                 height: 12vw;
                 line-height: 12vw;
                 text-align: center;
-                font-size: 4.375vw;
+                font-size: 4vw;
                 color: #666666;
                 cursor: pointer;
                 &.active{
@@ -178,28 +178,34 @@
                     transition: all ease-out 0.3s 0s;
                 }
                 &.tenant:after,  &.tenant:before{
-                    left: 80px;
+                    left: 40px;
+                }
+                &.studentHouse:after, &.studentHouse:before{
+                    left: 280px;
                 }
                 &.landlord:after, &.landlord:before{
-                    left: 400px;
+                    left: 520px;
                 }
                 &.investor:after, &.investor:before{
-                    left: 720px;
+                    left: 760px;
                 }
                 &.tenantHover:before{
-                    left: 80px;
+                    left: 40px;
+                }
+                &.studentHouseHover:before{
+                    left: 280px;
                 }
                 &.landlordHover:before{
-                    left: 400px;
+                    left: 520px;
                 }
                 &.investorHover:before{
-                    left: 720px;
+                    left: 760px;
                 }
                 li{
                     position: relative;
                     z-index: 1;
                     display: inline-block;
-                    width: 320px;
+                    width: 240px;
                     height: 80px;
                     line-height: 80px;
                     text-align: center;

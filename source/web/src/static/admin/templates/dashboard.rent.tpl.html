@@ -26,6 +26,13 @@
             <input type="text" class="form-control" ng-model="selected.short_id" placeholder="{%i18n('编号')%}"/>
         </div>
         <div class="btn-group form-inline">
+            <select class="form-control" ng-model="selected.partner_student_housing">
+                <option value="">{%$root.i18n('个人房东或学生公寓')%}</option>
+                <option value="false">{%$root.i18n('个人房东')%}</option>
+                <option value="true">{%$root.i18n('学生公寓')%}</option>
+            </select>
+        </div>
+        <div class="btn-group form-inline">
             <button class="btn btn-primary" ng-click="searchRent()">{%$root.i18n('搜索')%}</button>
         </div>
     </div>

@@ -99,8 +99,11 @@
                     <td style="width: 70%;padding: 10px 0 10px 20px;">
                         <p style="font-weight: bold;">{%$root.i18n('Service fee')%}</p>
                     </td>
-                    <td style="width: 30%;padding: 10px 20px 10px 0; text-align: right; color: #e60012; font-size: 20px;">
+                    <td ng-if="!isStudentHouse(item.interested_rent_tickets[0])" style="width: 30%;padding: 10px 20px 10px 0; text-align: right; color: #e60012; font-size: 20px;">
                         {%item.interested_rent_tickets[0].price.unit | values : currencyTypes%} {%(item.payment) | number:0%}
+                    </td>
+                    <td ng-if="isStudentHouse(item.interested_rent_tickets[0])" style="width: 30%;padding: 10px 20px 10px 0; text-align: right; font-size: 16px;">
+                        {%$root.i18n('推广期免费')%}
                     </td>
                 </tr>
             </table>

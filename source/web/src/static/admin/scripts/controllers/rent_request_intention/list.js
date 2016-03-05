@@ -8,9 +8,11 @@
         $scope.pages = []
         $scope.selected = {}
         $scope.selected.status = 'requested'
+        $scope.selected.partner_student_housing = ''
 
         var params = {
             status: $scope.selected.status,
+            partner_student_housing:  $scope.selected.partner_student_housing,
             per_page: $scope.perPage,
             sort: 'time,desc'
         }
@@ -150,7 +152,7 @@
         }
 
         $scope.nextPage = function () {
-            var lastItem = $scope.list[$scope.list.length - 1]
+            var lastItem = $scope.originList[$scope.originList.length - 1]
             if (lastItem.time) {
                 params.time = lastItem.time
             }
@@ -194,6 +196,7 @@
 
         function onGetList(data) {
             $scope.fetched = true
+            $scope.originList = data.val
             $scope.list = _.map(_.filter(data.val, function (item) {
                 return _.isArray(item.interested_rent_tickets) && item.interested_rent_tickets.length && !_.isEmpty(item.interested_rent_tickets[0])
             }), function (item, index) {

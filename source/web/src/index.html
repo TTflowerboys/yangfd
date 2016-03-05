@@ -27,6 +27,7 @@
 <!-- @@include=./static/templates/location-search-box.tpl.html -->
 <div class="indexBanner" data-bind="css: activeTab() + (activeTab() == 'landlord' && window.team.isPhone() ? ' hiddenInNonClient' : '')">
     <h1 data-bind="visible: activeTab() == 'tenant'">{{_('视频直播全英优质房源')}} <br class="hiddenOnPCWeb">{{_('足不出户搞定租房')}}</h1>
+    <h1 style="display: none" data-bind="visible: activeTab() == 'studentHouse'">{{_('学生公寓文案')}} <br class="hiddenOnPCWeb">{{_('学生公寓文案')}}</h1>
     <h1 style="display: none" data-bind="visible: activeTab() == 'landlord'">{{_('有英国房源要出租？')}}</h1>
     <h1 style="display: none" data-bind="visible: activeTab() == 'investor'">{{_('您身边的英国房产置业专家')}}</h1>
     <div class="tabBox">
@@ -38,7 +39,7 @@
         --></ul>
         <div class="content" data-bind="visible: activeTab() == 'tenant'">
             <div class="category three hiddenOnMobile">
-                <location-search-box params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}, hotSchoolList: {{json_dumps(hot_school_list)}}"></location-search-box>
+                <location-search-box class="personalHouseSearchBox" params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}, hotSchoolList: {{json_dumps(hot_school_list)}}, element: '.personalHouseSearchBox'"></location-search-box>
                 <button class="search button red search-lg" data-bind="click: searchTicketClick">
                     {{_('搜索')}}
                 </button>
@@ -64,6 +65,37 @@
                 </ul>
             </div>
             <a href="/property-to-rent-list?showSearchModal=true" class="button searchButton hiddenOnPCWeb" data-need-bridge>
+                <span class="text">{{_('想租住在哪里?')}}</span><span class="icon"><i class="icon-search"></i></span>
+            </a>
+        </div>
+        <div style="display: none" class="content" data-bind="visible: activeTab() == 'studentHouse'">
+            <div class="category three hiddenOnMobile">
+                <location-search-box class="studentHouseSearchBox" params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}, hotSchoolList: {{json_dumps(hot_school_list)}}, isStudentHouse: 'true', element: '.studentHouseSearchBox'"></location-search-box>
+                <button class="search button red search-lg" data-bind="click: searchTicketClick">
+                    {{_('搜索')}}
+                </button>
+                <ul class="entrance hiddenOnMobile">
+                    <li>
+                        <a href="/user-favorites">
+                            <i class="icon-faver"></i>
+                            <span>{{_('我的收藏')}}</span>
+                        </a>
+                    </li><!--
+                    --><li>
+                    <a href="/user-properties#request">
+                        <i class="icon-phone_line"></i>
+                        <span>{{_('已咨询的房源')}}</span>
+                    </a>
+                </li><!--
+                    --><li>
+                    <a data-action="requirementRent" data-need-bridge>
+                        <i class="icon-requirement_line"></i>
+                        <span>{{_('提交求租意向单')}}</span>
+                    </a>
+                </li>
+                </ul>
+            </div>
+            <a href="/property-to-rent-list?showSearchModal=true&isStudentHouse=true" class="button searchButton hiddenOnPCWeb" data-need-bridge>
                 <span class="text">{{_('想租住在哪里?')}}</span><span class="icon"><i class="icon-search"></i></span>
             </a>
         </div>
@@ -103,6 +135,9 @@
     <ul class="content">
         <li data-bind="visible: activeTab() == 'tenant'" style="display:none;">
             <!-- @@include =./partials/index_renter.html -->
+        </li>
+        <li data-bind="visible: activeTab() == 'studentHouse'" style="display:none;">
+            <!-- @@include =./partials/index_student_house.html -->
         </li>
         <li data-bind="visible: activeTab() == 'landlord'" style="display:none;">
             <!-- @@include =./partials/index_landlord.html -->

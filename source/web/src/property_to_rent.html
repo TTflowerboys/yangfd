@@ -592,8 +592,20 @@
             <!--租房流程-->
             <div class="rentRequestFlow">
                 %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
-                    <a class="button red hiddenOnPCWeb" href="/rent-request?ticketId={{rent.get('id')}}">{{_('我要咨询')}}</a>
-                    <button class="button red hiddenOnMobile" data-bind="click: openRentRequestForm('{{rent.get('id')}}', true)">{{_('我要咨询')}}</button>
+                    <a class="button red hiddenOnPCWeb" href="/rent-request?ticketId={{rent.get('id')}}">
+                        %if is_student_house(rent):
+                        {{_('我要预订')}}
+                        %else:
+                        {{_('我要咨询')}}
+                        %end
+                    </a>
+                    <button class="button red hiddenOnMobile" data-bind="click: openRentRequestForm('{{rent.get('id')}}', true)">
+                        %if is_student_house(rent):
+                        {{_('我要预订')}}
+                        %else:
+                        {{_('我要咨询')}}
+                        %end
+                    </button>
                 % end
                 % if 'short_id' in rent['property'] and rent.get('property',{}).get('short_id',''):
                     <div class="shortid">
@@ -803,7 +815,11 @@
         <li class="phone">
             %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
                 <a href="/host-contact-request/{{rent.get('id','')}}?requestContact=true" >
+                    %if is_student_house(rent):
+                    {{_('我要预订')}}
+                    %else:
                     {{_('我要咨询')}}
+                    %end
                 </a>
             %end
         </li>

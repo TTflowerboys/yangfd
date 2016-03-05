@@ -29,6 +29,9 @@ angular.module('app',
                 value_float: value
             })
         }
+        $rootScope.isStudentHouse = function (rentTicket) {
+            return rentTicket && rentTicket.property && rentTicket.property.property_type && rentTicket.property.property_type.slug === 'student_housing' && rentTicket.property.partner === true
+        }
         $rootScope.$on('$stateChangeStart',
             function (event, toState, toParams, fromState, fromParams) {
                 if (toState.name === 'signIn') {

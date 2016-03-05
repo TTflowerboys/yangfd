@@ -566,12 +566,24 @@
     })
     function IndexViewModel() {
         this.activeTab = ko.observable('tenant')
+        this.activeTab.subscribe(function (value) {
+            if(value === 'studentHouse') {
+                this.placeholder(i18n('输入您想去的城市或学校，比如London, UCL...'))
+            } else {
+                this.placeholder(i18n('请输入位置，如E14, E14 3GH, Isle of dogs, Waterloo, UCL...'))
+            }
+        }, this)
         this.hoverTab = ko.observable()
         this.tabOptions = ko.observableArray([
             {
                 slug: 'tenant',
                 icon: 'icon-key',
                 text: i18n('英国租房')
+            },
+            {
+                slug: 'studentHouse',
+                icon: 'icon-category_b',
+                text: i18n('学生公寓')
             },
             {
                 slug: 'landlord',
@@ -615,18 +627,22 @@
         }
         this.init()
 
-        this.searchTicketClick = function () {
-            $('location-search-box').trigger('searchTicket')
+        this.searchTicketClick = function (vm, event) {
+            if(event && event.currentTarget && $(event.currentTarget).siblings('location-search-box').length) {
+                $(event.currentTarget).siblings('location-search-box').trigger('searchTicket')
+            } else {
+                $('location-search-box').trigger('searchTicket')
+            }
         }
         this.query = ko.observable()
         this.searchTicket = function (query) {
-            window.team.openLink('/property-to-rent-list?query=' + query)
+            window.team.openLink('/property-to-rent-list?query=' + query + (this.activeTab() === 'studentHouse' ? '&isStudentHouse=true' : ''))
         }
 
         this.searchBySuggestion = function (param) {
             window.team.openLink('/property-to-rent-list?' + _.map(_.pairs(param), function (item) {
                 return item.join('=')
-            }).join('&'))
+            }).join('&') + (this.activeTab() === 'studentHouse' ? '&isStudentHouse=true' : ''))
         }
         this.clearSuggestionParams = function () {
 

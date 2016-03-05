@@ -58,8 +58,12 @@
 
     //点击开始查找出租房产
     function IntentionViewModel() {
-        this.searchTicketClick = function () {
-            $('location-search-box').trigger('searchTicket')
+        this.searchTicketClick = function (vm, event) {
+            if(event && event.currentTarget && $(event.currentTarget).siblings('location-search-box').length) {
+                $(event.currentTarget).siblings('location-search-box').trigger('searchTicket')
+            } else {
+                $('location-search-box').trigger('searchTicket')
+            }
         }
         this.query = ko.observable()
         this.searchTicket = function (query) {
