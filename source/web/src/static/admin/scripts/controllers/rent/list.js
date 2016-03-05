@@ -61,6 +61,12 @@
             }).success(onGetList)
         }
 
+        if($state.params.code) {
+            delete params.status
+            params.short_id = $state.params.code
+            $scope.refreshList()
+        }
+
         $scope.onRemove = function (item) {
             fctModal.show(i18n('确认删除该房源?'), undefined, function () {
                 api.remove(item.id, {errorMessage: true}).success(function () {

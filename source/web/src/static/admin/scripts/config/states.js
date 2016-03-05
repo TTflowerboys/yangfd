@@ -381,7 +381,7 @@ angular.module('app')
          * 出租房数据管理
          */
             .state('dashboard.rent', {
-                url: '/rent',
+                url: '/rent?code&type',
                 templateUrl: '/static/admin/templates/dashboard.rent.tpl.html',
                 controller: 'ctrlRentList',
                 resolve: rentResolve
@@ -423,7 +423,7 @@ angular.module('app')
          * 出租咨询申请单管理
          */
             .state('dashboard.rent_request_intention', {
-                url: '/rent_request_intention',
+                url: '/rent_request_intention?code&type',
                 templateUrl: '/static/admin/templates/dashboard.rent_request_intention.tpl.html',
                 controller: 'ctrlRentRequestIntentionList',
                 resolve: rentRequestIntentionResolve
@@ -597,7 +597,7 @@ angular.module('app')
          * users
          */
             .state('dashboard.users', {
-                url: '/users',
+                url: '/users?code&type',
                 templateUrl: '/static/admin/templates/dashboard.users.tpl.html',
                 controller: 'ctrlUserList',
                 resolve: {

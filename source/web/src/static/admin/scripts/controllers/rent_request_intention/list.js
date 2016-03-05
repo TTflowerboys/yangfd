@@ -126,11 +126,17 @@
             }).success(onGetList)
         }
         if($state.current.name === 'dashboard.rent_request_intention') {
+            if($state.params.code) {
+                params.status = ''
+                params.short_id = $state.params.code
+            }
+
             $scope.refreshList()
             $scope.$watch('selected.status', function (newValue, oldValue) {
                 if (newValue === oldValue) {
                     return
                 }
+                delete params.short_id
                 _.extend(params, $scope.selected)
                 $scope.refreshList()
             })

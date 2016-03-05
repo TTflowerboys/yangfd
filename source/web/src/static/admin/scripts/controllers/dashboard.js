@@ -43,6 +43,28 @@
         //        $scope.shopId = list[0].id
         //    }
         //})
+
+        $scope.selected = {
+            type: $state.params.type || 'rentRequestTicket',
+            code: $state.params.code || ''
+        }
+
+        $scope.searchTicket = function (type, code) {
+            if(!_.isEmpty(code)) {
+                switch(type) {
+                    case 'rentRequestTicket':
+                        $state.go('dashboard.rent_request_intention', {code: code, type: type}, {location: true, reload:true})
+                        break
+                    case 'rentTicket':
+                        $state.go('dashboard.rent', {code: code, type: type}, {location: true, reload:true})
+                        break
+                    case 'user':
+                        $state.go('dashboard.users', {code: code, type: type}, {location: true, reload:true})
+                        break
+
+                }
+            }
+        }
     }
 
     angular.module('app').controller('ctrlDashboard', ctrlDashboard)

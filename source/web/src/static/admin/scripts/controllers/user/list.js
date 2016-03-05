@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlUserList($scope, fctModal, api, $q) {
+    function ctrlUserList($scope, fctModal, api, $q, $state) {
         $scope.list = []
         $scope.selected = {}
 
@@ -13,13 +13,12 @@
         $scope.api = api
         $scope.fetched = false
 
-        var params = $scope.selected
-        $scope.$watch(function () {
-            return [$scope.selected.country, $scope.selected.user_type, $scope.selected.occupation].join(',')
-        }, function () {
-            $scope.refreshList()
-        })
-        api.getAll({params: params}).success(onGetList)
+        var params = {
+            per_page: $scope.selected.per_page,
+            country: $scope.selected.country,
+            user_type: $scope.selected.user_type,
+            occupation: $scope.selected.occupation,
+        }
 
         $scope.refreshList = function () {
             _.each(params, function (val, key) {
@@ -29,6 +28,27 @@
             })
             api.getAll({params: params}).success(onGetList)
         }
+        function updateParams() {
+            delete params.query
+            delete params.time
+            delete params.last_modified_time
+            delete params.register_time
+            delete params.insert_time
+            _.extend(params, $scope.selected)
+        }
+        $scope.$watch(function () {
+            return [$scope.selected.country, $scope.selected.user_type, $scope.selected.occupation].join(',')
+        }, function (oldValue, newValue) {
+            if(oldValue !== newValue) {
+                updateParams()
+                $scope.refreshList()
+            }
+        }, true)
+
+        if($state.params.code){
+            params.query = $state.params.code
+        }
+        api.getAll({params: params}).success(onGetList)
 
         $scope.onSuspend = function (item) {
             fctModal.show('Do you want to suspend it?', undefined, function () {
