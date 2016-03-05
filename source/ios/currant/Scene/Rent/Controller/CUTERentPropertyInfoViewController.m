@@ -252,6 +252,12 @@
             cell.detailTextLabel.text = self.form.ticket.property.address;
         }
     }
+    else if ([field.key isEqualToString:@"status"]) {
+        NSDictionary *statusHint = @{kTicketStatusDraft: STR(@"RentStatus/草稿"),
+                                     kTicketStatusToRent: STR(@"RentStatus/发布中"),
+                                     kTicketStatusRent: STR(@"RentStatus/已出租")};
+        cell.detailTextLabel.text = statusHint[self.form.ticket.status];
+    }
     else if ([field.key isEqualToString:@"surrounding"]) {
         cell.detailTextLabel.text = STR(@"RentPropertyInfo/学校，地铁");
         [self checkShowSurroundingTooltipWhenSurroundingCellDisplay:cell];

@@ -9,9 +9,12 @@
 #import "CUTERentStatusViewController.h"
 #import <UIAlertView+Blocks.h>
 #import <NSArray+ObjectiveSugar.h>
+#import <TTTAttributedLabel.h>
 #import "SVProgressHUD+CUTEAPI.h"
 #import "NSURL+Assets.h"
 #import "CUTECommonMacro.h"
+#import "CUTEUIMacro.h"
+#import "MasonryMake.h"
 #import "CUTENotificationKey.h"
 #import "CUTERentTicketPublisher.h"
 #import "CUTEDataManager.h"
@@ -20,7 +23,9 @@
 
 
 
-@interface CUTERentStatusViewController ()
+
+
+@interface CUTERentStatusViewController () <TTTAttributedLabelDelegate>
 
 @end
 
@@ -30,6 +35,36 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = STR(@"PropertyInfo/房源状态");
+
+    if ([self.form.ticket.status isEqualToString:kTicketStatusDraft]) {
+        UILabel *hintLabel = [UILabel new];
+        hintLabel.text = STR(@"RentStatus/您的房源当前处于草稿状态，如您不想继续发布，可以删除房源");
+        hintLabel.textColor = HEXCOLOR(0x999999, 1);
+        hintLabel.textAlignment = NSTextAlignmentCenter;
+        hintLabel.font = [UIFont systemFontOfSize:12];
+        hintLabel.numberOfLines = 0;
+        [self.view addSubview:hintLabel];
+        MakeBegin(hintLabel)
+        MakeTopEqualTo(self.view).offset(80);
+        MakeCenterXEqualTo(self.view);
+        MakeWidthEqualTo(@(250));
+        MakeHeightEqualTo(@(40));
+        MakeEnd
+    }
+
+    //Delete button
+    UIButton *deleteButton = [UIButton new];
+    [deleteButton setTitle:STR(@"PropertyMoreInfo/删除房源") forState:UIControlStateNormal];
+    [deleteButton addTarget:self action:@selector(delete) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:deleteButton];
+    [deleteButton setTitleColor:CUTE_MAIN_COLOR forState:UIControlStateNormal];
+    MakeBegin(deleteButton)
+    MakeWidthEqualTo(@(100));
+    MakeHeightEqualTo(@(50));
+    MakeCenterXEqualTo(self.view);
+    MakeTopEqualTo(self.view).offset(390);
+    MakeEnd
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -105,7 +140,8 @@
                     [SVProgressHUD dismiss];
                     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:self];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self.navigationController popViewControllerAnimated:YES];
+                        [self.navigationController popToRootViewControllerAnimated:YES];
+
                     });
                 }
 
@@ -138,7 +174,7 @@
                     [SVProgressHUD dismiss];
                     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIF_TICKET_LIST_RELOAD object:self];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self.navigationController popViewControllerAnimated:YES];
+                        [self.navigationController popToRootViewControllerAnimated:YES];
                     });
                 }
 

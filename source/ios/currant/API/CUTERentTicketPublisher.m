@@ -334,20 +334,22 @@
 }
 
 - (BFTask *)deleteTicket:(CUTETicket *)ticket {
-    return [self updateTicket:ticket withStatus:kTicketStatusDeleted];
-}
-
-- (BFTask *)updateTicket:(CUTETicket *)ticket withStatus:(NSString *)status {
     BFTask *task = nil;
     if (ticket.property && ticket.property.identifier) {
         task = [BFTask taskForCompletionOfAllTasks:
-                @[ [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/2/property/", ticket.property.identifier, @"/edit") parameters:@{@"status": status} resultClass:[CUTEProperty class]],
-                   [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:@{@"status": status} resultClass:nil]
+                @[ [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/2/property/", ticket.property.identifier, @"/edit") parameters:@{@"status": kPropertyStatusDeleted} resultClass:[CUTEProperty class]],
+                   [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:@{@"status": kTicketStatusDeleted} resultClass:nil]
                    ]];
     }
     else {
-        task = [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:@{@"status": status} resultClass:nil];
+        task = [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:@{@"status": kTicketStatusDeleted} resultClass:nil];
     }
+
+    return task;
+}
+
+- (BFTask *)updateTicket:(CUTETicket *)ticket withStatus:(NSString *)status {
+    BFTask *task = [[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/rent_ticket/", ticket.identifier, @"/edit") parameters:@{@"status": status} resultClass:nil];
 
     return task;
 }
