@@ -58,9 +58,10 @@
     [deleteButton addTarget:self action:@selector(delete) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:deleteButton];
     [deleteButton setTitleColor:CUTE_MAIN_COLOR forState:UIControlStateNormal];
+    CGSize buttonTextSize = TextSizeOfLabel(deleteButton.titleLabel);
     MakeBegin(deleteButton)
-    MakeWidthEqualTo(@(100));
-    MakeHeightEqualTo(@(50));
+    MakeWidthEqualTo(@(buttonTextSize.width + 40));
+    MakeHeightEqualTo(@(buttonTextSize.height + 20));
     MakeCenterXEqualTo(self.view);
     MakeTopEqualTo(self.view).offset(390);
     MakeEnd
