@@ -604,6 +604,7 @@ def rent_intention_ticket_edit(user, ticket_id, params):
     rent_available_time=datetime,
     rent_deadline_time=datetime,
     minimum_rent_period="i18n:time_period",
+    partner_student_housing=bool,
     user_id=ObjectId,
     short_id=str,
 ))
