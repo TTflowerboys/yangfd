@@ -21,7 +21,7 @@ import currant_util
 import currant_data_helper
 from libfelix.f_interface import f_experiment
 from openpyxl import Workbook
-import re
+import six
 from openpyxl.cell import ILLEGAL_CHARACTERS_RE
 from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.writer.excel import save_virtual_workbook
@@ -902,7 +902,7 @@ def aggregation_rent_ticket(user, params):
         if value['aggregation_rent_ticket_create_total'] == 0:
             aggregation_rent_ticket_create_total_from_mobile_ratio = 0
         else:
-            aggregation_rent_ticket_create_total_from_mobile_ratio = value['aggregation_rent_ticket_create_total_from_mobile']*1.0/value['aggregation_rent_ticket_create_total']
+            aggregation_rent_ticket_create_total_from_mobile_ratio = value['aggregation_rent_ticket_create_total_from_mobile'] * 1.0 / value['aggregation_rent_ticket_create_total']
         value.update({"aggregation_rent_ticket_create_total_from_mobile_ratio": aggregation_rent_ticket_create_total_from_mobile_ratio})
         cursor.close()
         cursor = m.tickets.aggregate(get_aggregation_params(
@@ -998,7 +998,7 @@ def aggregation_rent_ticket(user, params):
                 {'$match': {
                     'type': "rent",
                     'status': "to rent"
-                    }},
+                }},
                 {'$group': {'_id': "$minimum_rent_period", 'count': {'$sum': 1}}}
             ]
         ))
@@ -1013,11 +1013,11 @@ def aggregation_rent_ticket(user, params):
 
         def covert_to_month(period):
             if(period['unit'] == 'week'):
-                period['value'] = float(period['value'])/4
+                period['value'] = float(period['value']) / 4
             if(period['unit'] == 'day'):
-                period['value'] = float(period['value'])/31
+                period['value'] = float(period['value']) / 31
             if(period['unit'] == 'year'):
-                period['value'] = float(period['value'])*12
+                period['value'] = float(period['value']) * 12
             else:
                 period['value'] = float(period['value'])
             return period
@@ -1258,7 +1258,7 @@ def aggregation_favorite(user, params):
         for document in cursor:
             user_name = f_app.user.output([document['_id']], custom_fields=f_app.common.user_custom_fields)
             if user_name is None or 'nickname' not in user_name[0]:
-                user_name = unicode(document['_id'])
+                user_name = six.text_type(document['_id'])
             else:
                 user_name = user_name[0]['nickname']
             aggregation_rent_ticket_favorite_times_by_user.append({
@@ -1281,7 +1281,7 @@ def aggregation_favorite(user, params):
         for document in cursor:
             user_name = f_app.user.output([document['_id']], custom_fields=f_app.common.user_custom_fields)
             if user_name is None or 'nickname' not in user_name[0]:
-                user_name = unicode(document['_id'])
+                user_name = six.text_type(document['_id'])
             else:
                 user_name = user_name[0]['nickname']
             aggregation_property_favorite_times_by_user.append({
@@ -1345,7 +1345,7 @@ def aggregation_view_contact(user, params):
                     "times": i,
                     "user_total": document['totalUsersCount'],
                     "view_times": document['totalRequestCount'],
-                    "ratio": document['totalUsersCount']*1.0/value['aggregation_view_contact_user_total']
+                    "ratio": document['totalUsersCount'] * 1.0 / value['aggregation_view_contact_user_total']
                 })
         value.update({"aggregation_view_contact_detail": aggregation_view_contact_detail})
         cursor.close()
@@ -1669,12 +1669,12 @@ def aggregation_rent_request(user, params):
         if percent_base == 0:
             aggregation_rent_request_user_ratio = 0
         else:
-            aggregation_rent_request_user_ratio = len(user_set)*1.0/percent_base
+            aggregation_rent_request_user_ratio = len(user_set) * 1.0 / percent_base
         value.update({'aggregation_rent_request_user_ratio': aggregation_rent_request_user_ratio})
         if len(get_request_period) == 0:
             average = "无"
         else:
-            average = sum(get_request_period, timedelta())/len(get_request_period)
+            average = sum(get_request_period, timedelta()) / len(get_request_period)
         value.update({'aggregation_rent_request_average_period': average})
 
         result = m.tickets.find(
@@ -1756,7 +1756,7 @@ def aggregation_rent_request(user, params):
                 for single in aggregation_rent_request_count_sort:
                     if single['ticket_id'] in ticket['interested_rent_tickets']:
                         request_count_before_rent_list.append(single['count'])
-        value.update({"aggregation_rent_request_average_count_before_rent": sum(request_count_before_rent_list)*1.0/len(request_count_before_rent_list) if len(request_count_before_rent_list) else 0})
+        value.update({"aggregation_rent_request_average_count_before_rent": sum(request_count_before_rent_list) * 1.0 / len(request_count_before_rent_list) if len(request_count_before_rent_list) else 0})
         value.update({'aggregation_rent_request_user_rent_different_city_ratio': float(1.0 * len(user_different_city_set) / len(user_have_request_set) if len(user_have_request_set) else 0)})
         value.update({
             'aggregation_rent_request_period_count':
@@ -1932,12 +1932,12 @@ def aggregation_email_detail(user, params):
                 "tag": tag['_id'],
                 "total": total_email,
                 "delivered": delivered_times,
-                "delivered_ratio": delivered_times/total_email if total_email else 0,
+                "delivered_ratio": delivered_times / total_email if total_email else 0,
                 "open": open_unique,
-                "open_ratio": open_unique/total_email if total_email else 0,
+                "open_ratio": open_unique / total_email if total_email else 0,
                 "open_repeat": open_times,
                 "click": click_unique,
-                "click_ratio": click_unique/total_email if total_email else 0,
+                "click_ratio": click_unique / total_email if total_email else 0,
                 "click_repeat": click_times
             }
             '''if 'time' in params:
@@ -2084,7 +2084,7 @@ def rent_ticket_analyze(user, params):
         with f_app.mongo() as m:
             total = m.log.find({
                 "type": "route",
-                "route": "/property-to-rent/" + unicode(ticket['id'])
+                "route": "/property-to-rent/" + six.text_type(ticket['id'])
             }).count()
         return total
 
@@ -2142,19 +2142,19 @@ def rent_ticket_analyze(user, params):
         elif isinstance(value, datetime):
             loc_t = timezone('Europe/London')
             loc_dt = loc_t.localize(value)
-            return unicode(loc_dt.strftime('%Y-%m-%d %H:%M:%S'))
+            return six.text_type(loc_dt.strftime('%Y-%m-%d %H:%M:%S'))
         elif value is not None:
-            return unicode(value)
+            return six.text_type(value)
         else:
             return ''
 
     def get_correct_col_index(num):
-        if num > 26*26:
+        if num > 26 * 26:
             return "ZZ"
         if num >= 26:
-            return get_correct_col_index(num/26-1)+get_correct_col_index(num % 26)
+            return get_correct_col_index(num / 26 - 1) + get_correct_col_index(num % 26)
         else:
-            return chr(num+65)
+            return chr(num + 65)
 
     def format_fit(sheet):
         simsun_font = Font(name="SimSun")
@@ -2170,13 +2170,13 @@ def rent_ticket_analyze(user, params):
                 if cell.value is None:
                     cell.value = ''
                 if isinstance(cell.value, int) or isinstance(cell.value, datetime):
-                    lencur = len(unicode(cell.value).encode("GBK"))
+                    lencur = len(six.text_type(cell.value).encode("GBK"))
                 elif cell.value is not None:
                     lencur = len(cell.value.encode("GBK", "replace"))
                 if lencur > lenmax:
                     lenmax = lencur
-            sheet.column_dimensions[get_correct_col_index(num)].width = lenmax*0.86
-            print "col "+get_correct_col_index(num)+" fit."
+            sheet.column_dimensions[get_correct_col_index(num)].width = lenmax * 0.86
+            print("col", get_correct_col_index(num), "fit.")
 
     def get_user_type(user):
         user_type_list = []
@@ -2225,7 +2225,7 @@ def rent_ticket_analyze(user, params):
         }
     }, per_page=-1, notime=True))
     for index, rent_ticket in enumerate(tickets):
-        print index
+        print(index)
         # if index > 15:
         #     break
         if 'user_id' not in rent_ticket or 'time' not in rent_ticket:
@@ -2276,7 +2276,7 @@ def rent_ticket_analyze(user, params):
             rent_ticket.get("price", {}).get('value', ''),  # 租金
             wait_rent_priod,  # 已发布时间
             wait_to_rent_priod,  # 提前多久开始出租(天)
-            ]))
+        ]))
     format_fit(ws)
     out = StringIO(save_virtual_workbook(wb))
     response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
@@ -2295,19 +2295,19 @@ def user_analyze(user):
         elif isinstance(value, datetime):
             loc_t = timezone('Europe/London')
             loc_dt = loc_t.localize(value)
-            return unicode(loc_dt.strftime('%Y-%m-%d %H:%M:%S %Z%z'))
+            return six.text_type(loc_dt.strftime('%Y-%m-%d %H:%M:%S %Z%z'))
         elif value is not None:
-            return unicode(value)
+            return six.text_type(value)
         else:
             return ''
 
     def get_correct_col_index(num):
-        if num > 26*26:
+        if num > 26 * 26:
             return "ZZ"
         if num >= 26:
-            return get_correct_col_index(num/26-1)+get_correct_col_index(num % 26)
+            return get_correct_col_index(num / 26 - 1) + get_correct_col_index(num % 26)
         else:
-            return chr(num+65)
+            return chr(num + 65)
 
     def format_fit(sheet):
         simsun_font = Font(name="SimSun")
@@ -2323,13 +2323,13 @@ def user_analyze(user):
                 if cell.value is None:
                     cell.value = ''
                 if isinstance(cell.value, int) or isinstance(cell.value, datetime):
-                    lencur = len(unicode(cell.value).encode("GBK"))
+                    lencur = len(six.text_type(cell.value).encode("GBK"))
                 elif cell.value is not None:
                     lencur = len(cell.value.encode("GBK", "replace"))
                 if lencur > lenmax:
                     lenmax = lencur
-            sheet.column_dimensions[get_correct_col_index(num)].width = lenmax*0.86
-            print "col "+get_correct_col_index(num)+" fit."
+            sheet.column_dimensions[get_correct_col_index(num)].width = lenmax * 0.86
+            print("col", get_correct_col_index(num), "fit.")
 
     def get_diff_color(total):
         fill = []
@@ -2344,8 +2344,8 @@ def user_analyze(user):
         else:
             return
         for index in range(total):
-            color = base_color + s*index
-            color_t = '00'+"%x" % color
+            color = base_color + s * index
+            color_t = '00' + "%x" % color
             fill.append(PatternFill(fill_type='solid', start_color=color_t, end_color=color_t))
         return fill
 
@@ -2440,7 +2440,7 @@ def user_analyze(user):
             today = today.replace(year=birth_date.year)
             if today < birth_date and age:
                 age = age - 1
-            return unicode(age)
+            return six.text_type(age)
         return ''
 
     def get_relocate_city(ticket):
@@ -2619,7 +2619,7 @@ def user_analyze(user):
         with f_app.mongo() as m:
             total = m.log.find({
                 "type": "route",
-                "route": "/api/1/rent_ticket/" + unicode(single_ticket_id) + "/refresh"
+                "route": "/api/1/rent_ticket/" + six.text_type(single_ticket_id) + "/refresh"
             }).count()
         return total
     category = [
@@ -2662,7 +2662,7 @@ def user_analyze(user):
         cell.alignment = Alignment(horizontal='center')
 
     for index, user in enumerate(f_app.user.get(f_app.user.get_active())):
-        print index
+        print(index)
         if user['register_time'] < datetime(2015, 12, 7):
             continue
 
@@ -2730,9 +2730,9 @@ def user_analyze(user):
             user.get("analyze_rent_intention_favorite_times", ''),  # 收藏房产次数
             '',  # 停留时间最多的页面或rental房产
             get_request_total(user),  # 咨询单数量
-            unicode(ticket_request.get('time', '')),  # 最近一次提交时间
-            unicode(ticket_request.get('rent_available_time', '')),  # 最近一次入住开始时间
-            unicode(ticket_request.get('rent_deadline_time', '')),  # 最近一次入住结束时间
+            six.text_type(ticket_request.get('time', '')),  # 最近一次提交时间
+            six.text_type(ticket_request.get('rent_available_time', '')),  # 最近一次入住开始时间
+            six.text_type(ticket_request.get('rent_deadline_time', '')),  # 最近一次入住结束时间
             finding_priod,  # 提前多久开始找房
             ticket_request.get('tenant_count', ''),  # 入住人数
             "有" if ticket_request.get('smoke', '') is True else "否" if ticket_request.get('smoke', '') is False else '',  # 吸烟
@@ -2754,7 +2754,7 @@ def user_analyze(user):
             '',  # 几居室
             '',  # 停留时间最多的页面或sales房产
             '',  # 跳出的页面
-            ]))
+        ]))
     format_fit(ws)
     # be_colorful(ws, 6)
     out = StringIO(save_virtual_workbook(wb))
@@ -2884,7 +2884,7 @@ def user_rent_request(user, params):
         if result is not None and len(result):
             ip = result[0].get('ip', None)
             if ip is not None and len(ip):
-                return unicode(ip[0])
+                return six.text_type(ip[0])
             else:
                 return 'unknow'
         time = ticket.get("time", None)
@@ -2902,7 +2902,7 @@ def user_rent_request(user, params):
         if flag:
             ip = record.get('ip', None)
             if ip is not None and len(ip):
-                return unicode(ip[0])
+                return six.text_type(ip[0])
             else:
                 return 'unknow'
         return 'unknow'
@@ -2928,7 +2928,7 @@ def user_rent_request(user, params):
             today = today.replace(year=birth_date.year)
             if today < birth_date and age:
                 age = age - 1
-            return unicode(age)
+            return six.text_type(age)
         return ''
 
     def get_user_occupation(ticket):
@@ -2955,15 +2955,15 @@ def user_rent_request(user, params):
                     lencur = len(cell.value.encode("GBK", "replace"))
                 if lencur > lenmax:
                     lenmax = lencur
-            sheet.column_dimensions[get_correct_col_index(num)].width = lenmax*0.86
+            sheet.column_dimensions[get_correct_col_index(num)].width = lenmax * 0.86
 
     def get_correct_col_index(num):
-        if num > 26*26:
+        if num > 26 * 26:
             return "ZZ"
         if num >= 26:
-            return get_correct_col_index(num/26-1)+chr(num-26+65)
+            return get_correct_col_index(num / 26 - 1) + chr(num - 26 + 65)
         else:
-            return chr(num+65)
+            return chr(num + 65)
 
     def add_link(sheet, target, link=None):
         if target is None:
@@ -2971,13 +2971,13 @@ def user_rent_request(user, params):
         if f_app.util.batch_iterable(target):
             pass
         else:
-            for index in range(2, len(sheet.rows)+1):
-                cell = sheet[target + unicode(index)]
+            for index in range(2, len(sheet.rows) + 1):
+                cell = sheet[target + six.text_type(index)]
                 if len(cell.value):
                     if link is None:
                         cell.hyperlink = cell.value
                     else:
-                        cell.hyperlink = unicode(link)
+                        cell.hyperlink = six.text_type(link)
 
     def get_relocate(ticket):
         relocate = {}
@@ -3049,7 +3049,7 @@ def user_rent_request(user, params):
         relocate = get_relocate(ticket_request)
         url = get_referer_id(ticket_request)
         if url is not None:
-            url = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + unicode(url)
+            url = "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + six.text_type(url)
         else:
             url = ''
 
@@ -3097,10 +3097,10 @@ def user_rent_request(user, params):
                 url if url else ''
             ])'''
             result_final = [
-                unicode(timezone('Europe/London').localize(ticket_request['time']).strftime("%Y-%m-%d %H:%M:%S")),
+                six.text_type(timezone('Europe/London').localize(ticket_request['time']).strftime("%Y-%m-%d %H:%M:%S")),
                 ILLEGAL_CHARACTERS_RE.sub(r'', ticket.get('title', '')),
-                unicode(timezone('Europe/London').localize(ticket_request['rent_available_time']).strftime("%Y-%m-%d %H:%M:%S")),
-                unicode(timezone('Europe/London').localize(ticket_request['rent_deadline_time']).strftime("%Y-%m-%d %H:%M:%S")),
+                six.text_type(timezone('Europe/London').localize(ticket_request['rent_available_time']).strftime("%Y-%m-%d %H:%M:%S")),
+                six.text_type(timezone('Europe/London').localize(ticket_request['rent_deadline_time']).strftime("%Y-%m-%d %H:%M:%S")),
                 time_period_label(ticket_request),
                 time_request_available(ticket_request),
                 ticket_request.get('nickname', ''),
@@ -3131,7 +3131,7 @@ def user_rent_request(user, params):
             try:
                 ws.append(result_final)
             except:
-                print ("ERROR EXCEL DATA", result_final)
+                print("ERROR EXCEL DATA", result_final)
 
     format_fit(ws)
     add_link(ws, 'AC')
@@ -3159,8 +3159,8 @@ def user_rent_intention(user, params):
         if isinstance(user_part, datetime):
             loc_t = timezone('Europe/London')
             loc_dt = loc_t.localize(user_part)
-            return unicode(loc_dt.strftime('%Y-%m-%d %H:%M:%S %Z%z'))
-        return unicode(user_part)
+            return six.text_type(loc_dt.strftime('%Y-%m-%d %H:%M:%S %Z%z'))
+        return six.text_type(user_part)
 
     def get_data_enum(user, enum_name):
         if user is None:
@@ -3189,12 +3189,12 @@ def user_rent_intention(user, params):
         return '/'.join(value_list)
 
     def get_correct_col_index(num):
-        if num > 26*26:
+        if num > 26 * 26:
             return "ZZ"
         if num >= 26:
-            return get_correct_col_index(num/26-1)+chr(num-26+65)
+            return get_correct_col_index(num / 26 - 1) + chr(num - 26 + 65)
         else:
-            return chr(num+65)
+            return chr(num + 65)
 
     def add_link(sheet, target, link=None):
         if target is None:
@@ -3202,13 +3202,13 @@ def user_rent_intention(user, params):
         if f_app.util.batch_iterable(target):
             pass
         else:
-            for index in range(2, len(sheet.rows)+1):
-                cell = sheet[target + unicode(index)]
+            for index in range(2, len(sheet.rows) + 1):
+                cell = sheet[target + six.text_type(index)]
                 if len(cell.value):
                     if link is None:
                         cell.hyperlink = cell.value
                     else:
-                        cell.hyperlink = unicode(link)
+                        cell.hyperlink = six.text_type(link)
 
     def get_diff_color(total):
         fill = []
@@ -3223,8 +3223,8 @@ def user_rent_intention(user, params):
         else:
             return
         for index in range(total):
-            color = base_color + s*index
-            color_t = '00'+"%x" % color
+            color = base_color + s * index
+            color_t = '00' + "%x" % color
             fill.append(PatternFill(fill_type='solid', start_color=color_t, end_color=color_t))
         return fill
 
@@ -3270,7 +3270,7 @@ def user_rent_intention(user, params):
                     lencur = len(cell.value.encode("GBK", "replace"))
                 if lencur > lenmax:
                     lenmax = lencur
-            sheet.column_dimensions[get_correct_col_index(num)].width = lenmax*0.86
+            sheet.column_dimensions[get_correct_col_index(num)].width = lenmax * 0.86
 
     def get_referer_id(ticket):
         time = ticket.get("time", None)
@@ -3382,7 +3382,7 @@ def user_rent_intention(user, params):
     def get_referer_url(referer_id):
         if referer_id is None:
             return ''
-        return "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/"+unicode(referer_id)
+        return "http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/rent/" + six.text_type(referer_id)
 
     # enum_type = ["rent_type", "landlord_type"]
 
@@ -3429,7 +3429,7 @@ def user_rent_intention(user, params):
     add_link(ws, 'Q')
     be_colorful(ws, 6)
     out = StringIO(save_virtual_workbook(wb))
-    #wb.save(out)
+    # wb.save(out)
     response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
 
