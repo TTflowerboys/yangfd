@@ -2,7 +2,6 @@
 from __future__ import unicode_literals, absolute_import
 import logging
 from datetime import datetime, date
-from functools import wraps
 import bottle
 from app import f_app
 from libfelix.f_interface import template, request, redirect, template_gettext as _
@@ -99,7 +98,7 @@ def is_mobile_client_version(condition, version):
 
 
 def check_ip_and_redirect_domain(func):
-    @wraps(func)
+    @f_app.util.wraps(func)
     def __check_ip_and_redirect_domain_replace_func(*args, **kwargs):
         try:
             country = request.ip_country
@@ -130,7 +129,7 @@ def check_ip_and_redirect_domain(func):
 
 # 检验登陆用户的手机号没有验证过则跳转到验证手机号的页面，这个函数目前没有使用，用的是写在master.html模板中的跳转
 def check_phone_verified_and_redirect_domain(func):
-    @wraps(func)
+    @f_app.util.wraps(func)
     def __check_phone_verified_and_redirect_domain_replace_func(*args, **kwargs):
         if f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields()) and not f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields()).get('phone_verified'):
             redirect('/verify-phone?from=' + urllib.parse.quote(request.url.encode("utf-8")))
@@ -141,7 +140,7 @@ def check_phone_verified_and_redirect_domain(func):
 
 
 def check_crowdfunding_ready(func):
-    @wraps(func)
+    @f_app.util.wraps(func)
     def __check_crowdfunding_ready_replace_func(*args, **kwargs):
         if not f_app.common.crowdfunding_ready:
             redirect("/")
@@ -262,7 +261,7 @@ def get_symbol_from_currency(currency):
 
 
 def is_student_house(rent):
-    return rent.get('property', {}).get('property_type', {}).get('slug', {}) == u'student_housing' and rent.get('property', {}).get('partner', '') == True
+    return rent.get('property', {}).get('property_type', {}).get('slug', {}) == u'student_housing' and rent.get('property', {}).get('partner', '') is True
 
 
 def common_template(path, **kwargs):
