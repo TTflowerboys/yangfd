@@ -9,6 +9,7 @@ from libfelix.f_interface import template, request, redirect, template_gettext a
 import currant_data_helper
 from bs4 import BeautifulSoup
 from six.moves import urllib
+import six
 import re
 from distutils.version import StrictVersion
 
@@ -58,13 +59,17 @@ def fetch_image(image, **kwargs):
 
 
 def is_mobile_browser():
-    user_agent = request.headers.get("User-Agent", b'').decode("utf-8")
-    return "iPhone" in user_agent or b"iPod" in user_agent
+    useragent = request.get_header('User-Agent', '')
+    if not isinstance(useragent, six.text_type):
+        useragent = useragent.decode("utf-8")
+    return "iPhone" in useragent or b"iPod" in useragent
 
 
 def is_mobile_client():
-    user_agent = request.headers.get("User-Agent", b'').decode("utf-8")
-    return "currant" in user_agent
+    useragent = request.get_header('User-Agent', '')
+    if not isinstance(useragent, six.text_type):
+        useragent = useragent.decode("utf-8")
+    return "currant" in useragent
 
 
 def is_mobile_client_version(condition, version):
@@ -105,7 +110,9 @@ def check_ip_and_redirect_domain(func):
                 # Special hack to remove "beta."
                 request_url = request.url
 
-                useragent = request.get_header('User-Agent', b'').decode("utf-8")
+                useragent = request.get_header('User-Agent', '')
+                if not isinstance(useragent, six.text_type):
+                    useragent = useragent.decode("utf-8")
                 if country == "CN" or useragent and "MicroMessenger" in useragent:
                     target_url = request_url.replace("youngfunding.co.uk", "yangfd.com")
                     logger.debug("Visitor country detected:", country, "redirecting to yangfd.com if not already. Host:", host, "target_url:", target_url)
