@@ -215,7 +215,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             added = f_app.task.get_database(m).find_one({"type": "rent_ticket_reminder", "ticket_id": str(ticket["_id"]), "status": "new"})
             if not added:
                 self.logger.debug("Adding reminder for rent ticket", str(ticket["_id"]))
-                f_app.task.get_database(m).insert(dict(
+                f_app.task.get_database(m).insert_one(dict(
                     type="rent_ticket_reminder",
                     start=datetime.utcnow() + timedelta(days=7),
                     ticket_id=str(ticket["_id"]),
@@ -328,7 +328,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
 
     def v20(self, m):
         f_app.task.get_database(m).update({"type": "rent_ticket_reminder", "status": {"$ne": "completed"}}, {"$set": {"status": "canceled"}}, multi=True)
-        f_app.task.get_database(m).insert({
+        f_app.task.get_database(m).insert_one({
             "type": "rent_ticket_reminder",
             "status": "new",
             "start": datetime.utcnow(),
@@ -426,7 +426,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         for ticket in ticket_database.find({"type": "rent_intention", "short_id": {"$exists": False}, "status": {"$in": [
             "new", "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in",
         ]}}):
-            f_app.task.get_database(m).insert({
+            f_app.task.get_database(m).insert_one({
                 "type": "assign_ticket_short_id",
                 "ticket_id": str(ticket["_id"]),
                 "status": "new",
@@ -660,7 +660,7 @@ class currant_user(f_user):
         params.setdefault("status", "new")
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
-            favorite_id = self.favorite_get_database(m).insert(params)
+            favorite_id = self.favorite_get_database(m).insert_one(params)
         f_app.plugin_invoke(
             "user.favorite.add.after",
             params,
@@ -1270,7 +1270,7 @@ class currant_comment(f_app.module_base):
         params.setdefault("status", "new")
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
-            comment_id = self.get_database(m).insert(params)
+            comment_id = self.get_database(m).insert_one(params)
             self.get_database(m).create_index([("status", ASCENDING)])
             self.get_database(m).create_index([("time", ASCENDING)])
 

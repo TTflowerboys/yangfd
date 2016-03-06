@@ -76,7 +76,7 @@ class currant_report(f_app.module_base):
         params.setdefault("status", "new")
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
-            report_id = self.get_database(m).insert(params)
+            report_id = self.get_database(m).insert_one(params)
 
         return str(report_id)
 
@@ -167,7 +167,7 @@ class currant_zipcode(f_app.module_base):
                     not self.search({"country": params["country"], "zipcode": params["zipcode"], "status": {"$ne": "deleted"}}))), abort(40000, params, exc_info=False)
 
         with f_app.mongo() as m:
-            zipcode_id = self.get_database(m).insert(params)
+            zipcode_id = self.get_database(m).insert_one(params)
 
         return str(zipcode_id)
 
@@ -294,7 +294,7 @@ class currant_landregistry(f_app.module_base):
                         "country": r[13].decode('latin1'),
                         "status": r[14]
                     }
-                    self.get_database(m).insert(params)
+                    self.get_database(m).insert_one(params)
 
     def check_update(self):
         csv_url = "http://publicdata.landregistry.gov.uk/market-trend-data/price-paid-data/b/pp-monthly-update-new-version.csv"
@@ -345,12 +345,12 @@ class currant_landregistry(f_app.module_base):
                                         params.pop("status")
                                         self.get_database(m).update({"tid": r[0]}, params)
                                 else:
-                                    self.get_database(m).insert(params)
+                                    self.get_database(m).insert_one(params)
                             m.misc.update({"_id": result["_id"]}, {"$set": {"landregistry_last_modified": date}})
                         else:
                             abort(40000, self.logger.warning("Failed to get latest csv file on landregistry", exc_info=False))
                 else:
-                    m.misc.insert({"landregistry_last_modified": date})
+                    m.misc.insert_one({"landregistry_last_modified": date})
         else:
             abort(40000, self.logger.warning("Failded to open landregistry data page", exc_info=False))
 

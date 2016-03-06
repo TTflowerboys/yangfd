@@ -72,7 +72,7 @@ class currant_property(f_app.module_base):
                 item["rendering"] = True
 
         with f_app.mongo() as m:
-            property_id = self.get_database(m).insert(params)
+            property_id = self.get_database(m).insert_one(params)
             self.get_database(m).create_index([("loc", GEO2D)])
 
         if params["status"] in ("selling", "hidden", "sold out"):
@@ -479,7 +479,7 @@ class currant_plot(f_app.module_base):
         params.setdefault("status", "new")
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
-            plot_id = self.get_database(m).insert(params)
+            plot_id = self.get_database(m).insert_one(params)
 
         return str(plot_id)
 
