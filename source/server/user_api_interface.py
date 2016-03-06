@@ -7,6 +7,7 @@ from libfelix.f_interface import f_api, abort, rate_limit, template, request
 from copy import copy
 import random
 import logging
+import six
 logger = logging.getLogger(__name__)
 
 
@@ -169,7 +170,10 @@ def user_login(params):
 
     result = f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields, user=user)[0]
 
-    if b"currant" in request.get_header('User-Agent'):
+    useragent = request.get_header('User-Agent', '')
+    if not isinstance(useragent, six.text_type):
+        useragent = useragent.decode("utf-8")
+    if "currant" in useragent:
         credits = f_app.user.credit.get("view_rent_ticket_contact_info", tag="download_ios_app", user_id=user_id)
         if not len(credits["credits"]):
             credit = {
