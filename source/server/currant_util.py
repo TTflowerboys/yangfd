@@ -58,11 +58,13 @@ def fetch_image(image, **kwargs):
 
 
 def is_mobile_browser():
-    return b"iPhone" in request.headers.get("User-Agent", '') or b"iPod" in request.headers.get("User-Agent", '')
+    user_agent = request.headers.get("User-Agent", b'').decode("utf-8")
+    return "iPhone" in user_agent or b"iPod" in user_agent
 
 
 def is_mobile_client():
-    return b"currant" in request.headers.get('User-Agent', '').lower()
+    user_agent = request.headers.get("User-Agent", b'').decode("utf-8")
+    return "currant" in user_agent
 
 
 def is_mobile_client_version(condition, version):
@@ -103,8 +105,8 @@ def check_ip_and_redirect_domain(func):
                 # Special hack to remove "beta."
                 request_url = request.url
 
-                useragent = request.get_header('User-Agent')
-                if country == "CN" or useragent and b"MicroMessenger" in useragent:
+                useragent = request.get_header('User-Agent', b'').decode("utf-8")
+                if country == "CN" or useragent and "MicroMessenger" in useragent:
                     target_url = request_url.replace("youngfunding.co.uk", "yangfd.com")
                     logger.debug("Visitor country detected:", country, "redirecting to yangfd.com if not already. Host:", host, "target_url:", target_url)
                     assert host.endswith(("yangfd.com", "yangfd.cn")), redirect(target_url)
