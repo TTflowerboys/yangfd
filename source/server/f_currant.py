@@ -58,7 +58,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
 
             if report_zipcode_index_map[property["zipcode_index"]]:
                 self.logger.debug("updating report_id", str(report_zipcode_index_map[property["zipcode_index"]]), "for property", str(property["_id"]))
-                property_db.update({"_id": property["_id"]}, {"$set": {"report_id": report_zipcode_index_map[property["zipcode_index"]]}, "$unset": {"zipcode_index": ""}})
+                property_db.update_one({"_id": property["_id"]}, {"$set": {"report_id": report_zipcode_index_map[property["zipcode_index"]]}, "$unset": {"zipcode_index": ""}})
 
         self.logger.debug("Migrating item.zipcode_index => report_id")
         item_db = f_app.shop.item.get_database(m)
@@ -73,7 +73,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
 
             if report_zipcode_index_map[item["zipcode_index"]]:
                 self.logger.debug("updating report_id", str(report_zipcode_index_map[item["zipcode_index"]]), "for item", str(item["_id"]))
-                item_db.update({"_id": item["_id"]}, {"$set": {"report_id": report_zipcode_index_map[property["zipcode_index"]]}, "$unset": {"zipcode_index": ""}})
+                item_db.update_one({"_id": item["_id"]}, {"$set": {"report_id": report_zipcode_index_map[property["zipcode_index"]]}, "$unset": {"zipcode_index": ""}})
 
     def v7(self, m):
         all_country = f_app.util.process_objectid(list(f_app.enum.get_database(m).find({
@@ -86,7 +86,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                 if item["country"] and "_country" not in item["country"] and "_id" in item["country"]:
                     if str(item["country"]["_id"]) in country_dict:
                         self.logger.debug("updating country", country_dict[str(item["country"]["_id"])]["slug"], "for item", str(item["_id"]))
-                        db.update({"_id": item["_id"]}, {"$set": {"country": {"_country": True, "code": country_dict[str(item["country"]["_id"])]["slug"]}}})
+                        db.update_one({"_id": item["_id"]}, {"$set": {"country": {"_country": True, "code": country_dict[str(item["country"]["_id"])]["slug"]}}})
                     else:
                         self.logger.warning("unknown country enum:", str(item["country"]["_id"]))
 
@@ -150,7 +150,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                             self.logger.warning("failed to fetch city_id for", str(item["_id"]), "maybe a corrupted enum?")
                         else:
                             self.logger.debug("updating city", city_id, "for item", str(item["_id"]))
-                            db.update({"_id": item["_id"]}, {"$set": {"city": {"_geonames_gazetteer": "city", "_id": ObjectId(city_id)}}})
+                            db.update_one({"_id": item["_id"]}, {"$set": {"city": {"_geonames_gazetteer": "city", "_id": ObjectId(city_id)}}})
                     else:
                         self.logger.warning("unknown city enum:", str(item["city"]["_id"]), "for item", str(item["_id"]), exc_info=False)
 
@@ -167,7 +167,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
 
     def v8(self, m):
         for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
-            f_app.user.get_database(m).update({"_id": user["_id"]}, {"$push": {"role": "beta_renting"}})
+            f_app.user.get_database(m).update_one({"_id": user["_id"]}, {"$push": {"role": "beta_renting"}})
 
     def v9(self, m):
         all_rent_period = f_app.util.process_objectid(list(f_app.enum.get_database(m).find({
@@ -192,24 +192,24 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                     rent_period = rent_period_dict[str(ticket["rent_period"]["_id"])]["slug"].split(":")[-1]
                     rent_deadline_time = f_app.shop.recurring.generate_next_billing_time(period=rent_period, start=ticket["rent_available_time"])
                     self.logger.debug("updating rent_deadline_time", rent_deadline_time, "for ticket", str(ticket["_id"]))
-                    ticket_database.update({"_id": ticket["_id"]}, {"$set": {"rent_deadline_time": rent_deadline_time}, "$unset": {"rent_period": True}})
+                    ticket_database.update_one({"_id": ticket["_id"]}, {"$set": {"rent_deadline_time": rent_deadline_time}, "$unset": {"rent_period": True}})
 
                 else:
                     self.logger.warning("unknown rent_period enum:", str(ticket["city"]["_id"]), "for ticket", str(ticket["_id"]), exc_info=False)
 
             self.logger.debug("setting default minimum_rent_period for ticket", str(ticket["_id"]))
-            ticket_database.update({"_id": ticket["_id"]}, {"$set": {"minimum_rent_period": default_minimum_rent_period}})
+            ticket_database.update_one({"_id": ticket["_id"]}, {"$set": {"minimum_rent_period": default_minimum_rent_period}})
 
     def v10(self, m):
         for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
             if "email_message_type" not in user:
-                f_app.user.get_database(m).update({"_id": user["_id"]}, {"$set": {"email_message_type": ["system", "favorited_property_news", "intention_property_news", "my_property_news", "rent_ticket_reminder"]}})
+                f_app.user.get_database(m).update_one({"_id": user["_id"]}, {"$set": {"email_message_type": ["system", "favorited_property_news", "intention_property_news", "my_property_news", "rent_ticket_reminder"]}})
             elif "rent_ticket_reminder" not in user["email_message_type"]:
                 self.logger.debug("Appending rent_ticket_reminder email message type for user", str(user["_id"]))
-                f_app.user.get_database(m).update({"_id": user["_id"]}, {"$push": {"email_message_type": "rent_ticket_reminder"}})
+                f_app.user.get_database(m).update_one({"_id": user["_id"]}, {"$push": {"email_message_type": "rent_ticket_reminder"}})
 
             if "system_message_type" not in user:
-                f_app.user.get_database(m).update({"_id": user["_id"]}, {"$set": {"system_message_type": ["system", "favorited_property_news", "intention_property_news", "my_property_news"]}})
+                f_app.user.get_database(m).update_one({"_id": user["_id"]}, {"$set": {"system_message_type": ["system", "favorited_property_news", "intention_property_news", "my_property_news"]}})
 
         for ticket in f_app.ticket.get_database(m).find({"type": "rent", "status": {"$in": ["draft", "to rent"]}}):
             added = f_app.task.get_database(m).find_one({"type": "rent_ticket_reminder", "ticket_id": str(ticket["_id"]), "status": "new"})
@@ -225,7 +225,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
     def v11(self, m):
         for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
             self.logger.debug("Reinitializing email/system message type for user", str(user["_id"]))
-            f_app.user.get_database(m).update({"_id": user["_id"]}, {"$set": {
+            f_app.user.get_database(m).update_one({"_id": user["_id"]}, {"$set": {
                 "email_message_type": ["rent_ticket_reminder"],
                 "system_message_type": ["system"],
             }})
@@ -240,7 +240,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "status": "new",
         }
         for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
-            f_app.user.credit.get_database(m).update({"type": "view_rent_ticket_contact_info", "user_id": user["_id"]}, {"$set": dict(user_id=user["_id"], **credit)}, upsert=True)
+            f_app.user.credit.get_database(m).update_one({"type": "view_rent_ticket_contact_info", "user_id": user["_id"]}, {"$set": dict(user_id=user["_id"], **credit)}, upsert=True)
 
     def v13(self, m):
         virtual_shop = {
@@ -250,7 +250,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "status": "new",
             "time": datetime.utcnow()
         }
-        f_app.shop.get_database(m).update({"_id": virtual_shop["_id"]}, {"$set": virtual_shop}, upsert=True)
+        f_app.shop.get_database(m).update_one({"_id": virtual_shop["_id"]}, {"$set": virtual_shop}, upsert=True)
 
         view_rent_ticket_contact_info_item = {
             "status": "new",
@@ -263,12 +263,12 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "status": "new",
             "time": datetime.utcnow()
         }
-        f_app.shop.item.get_database(m).update({"_id": view_rent_ticket_contact_info_item["_id"]}, {"$set": view_rent_ticket_contact_info_item}, upsert=True)
+        f_app.shop.item.get_database(m).update_one({"_id": view_rent_ticket_contact_info_item["_id"]}, {"$set": view_rent_ticket_contact_info_item}, upsert=True)
 
     def v14(self, m):
         for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}, "private_contact_methods": {"$exists": False}}):
             self.logger.debug("Setting default private_contact_methods for user", str(user["_id"]))
-            f_app.user.get_database(m).update({"_id": user["_id"]}, {"$set": {"private_contact_methods": []}})
+            f_app.user.get_database(m).update_one({"_id": user["_id"]}, {"$set": {"private_contact_methods": []}})
 
     def v15(self, m):
         all_deposit_type = f_app.util.process_objectid(list(f_app.enum.get_database(m).find({
@@ -286,23 +286,23 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                     ticket["price"]["value_float"] *= 4
                     ticket["price"]["value"] = str(ticket["price"]["value_float"])
                     self.logger.debug("Migrating ticket", str(ticket["_id"]), "to new deposit param")
-                    ticket_database.update({"_id": ticket["_id"]}, {"$set": {"deposit": ticket["price"]}})
+                    ticket_database.update_one({"_id": ticket["_id"]}, {"$set": {"deposit": ticket["price"]}})
                 elif deposit_type["value"]["zh_Hans_CN"] in ("押三付三", "押三付一"):
                     ticket["price"]["value_float"] *= 4 * 3
                     ticket["price"]["value"] = str(ticket["price"]["value_float"])
                     self.logger.debug("Migrating ticket", str(ticket["_id"]), "to new deposit param")
-                    ticket_database.update({"_id": ticket["_id"]}, {"$set": {"deposit": ticket["price"]}})
+                    ticket_database.update_one({"_id": ticket["_id"]}, {"$set": {"deposit": ticket["price"]}})
 
             else:
                 self.logger.warning("Invalid deposit_type enum", str(ticket["deposit_type"]["_id"]), "found in ticket", str(ticket["_id"]))
 
-            ticket_database.update({"_id": ticket["_id"]}, {"$unset": {"deposit_type": True}})
+            ticket_database.update_one({"_id": ticket["_id"]}, {"$unset": {"deposit_type": True}})
 
     def v16(self, m):
         feedback_database = f_app.feedback.get_database(m)
         for feedback in feedback_database.find({"tag": {"$exists": False}}):
             self.logger.debug("Setting default tag for feedback", str(feedback["_id"]))
-            feedback_database.update({"_id": feedback["_id"]}, {"$set": {"tag": ["invitation"]}})
+            feedback_database.update_one({"_id": feedback["_id"]}, {"$set": {"tag": ["invitation"]}})
 
     def v17(self, m):
         ticket_database = f_app.ticket.get_database(m)
@@ -315,7 +315,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                 self.logger.debug("Fixing deposit for ticket", str(ticket["_id"]))
                 ticket["price"]["value_float"] *= times
                 ticket["price"]["value"] = str(ticket["price"]["value_float"])
-                ticket_database.update({"_id": ticket["_id"]}, {"$set": {"deposit": ticket["price"]}})
+                ticket_database.update_one({"_id": ticket["_id"]}, {"$set": {"deposit": ticket["price"]}})
 
     def v18(self, m):
         f_app.enum.get_database(m).create_index([("type", ASCENDING), ("sort_value", ASCENDING)])
@@ -324,10 +324,10 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         for user in f_app.user.get_database(m).find({"register_time": {"$ne": None}, "status": {"$ne": "deleted"}}):
             if "rent_intention_ticket_check_rent" not in user.get("email_message_type", []):
                 self.logger.debug("Appending rent_intention_ticket_check_rent email message type for user", str(user["_id"]))
-                f_app.user.get_database(m).update({"_id": user["_id"]}, {"$push": {"email_message_type": "rent_intention_ticket_check_rent"}})
+                f_app.user.get_database(m).update_one({"_id": user["_id"]}, {"$push": {"email_message_type": "rent_intention_ticket_check_rent"}})
 
     def v20(self, m):
-        f_app.task.get_database(m).update({"type": "rent_ticket_reminder", "status": {"$ne": "completed"}}, {"$set": {"status": "canceled"}}, multi=True)
+        f_app.task.get_database(m).update_many({"type": "rent_ticket_reminder", "status": {"$ne": "completed"}}, {"$set": {"status": "canceled"}})
         f_app.task.get_database(m).insert_one({
             "type": "rent_ticket_reminder",
             "status": "new",
@@ -343,7 +343,7 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "time": datetime.utcnow(),
             "type": "virtual",
         }
-        f_app.shop.get_database(m).update({"_id": virtual_shop["_id"]}, {"$set": virtual_shop}, upsert=True)
+        f_app.shop.get_database(m).update_one({"_id": virtual_shop["_id"]}, {"$set": virtual_shop}, upsert=True)
 
     def v22(self, m):
         view_rent_ticket_contact_info_item = {
@@ -358,26 +358,26 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "status": "new",
             "time": datetime.utcnow()
         }
-        f_app.shop.item.get_database(m).update({"_id": view_rent_ticket_contact_info_item["_id"]}, {"$set": view_rent_ticket_contact_info_item}, upsert=True)
+        f_app.shop.item.get_database(m).update_one({"_id": view_rent_ticket_contact_info_item["_id"]}, {"$set": view_rent_ticket_contact_info_item}, upsert=True)
 
-        f_app.shop.get_database(m).update({"type": {"$exists": False}}, {"$set": {"type": "coupon"}}, multi=True)
-        f_app.shop.item.get_database(m).update({"tag": {"$exists": False}}, {"$set": {"tag": "coupon"}}, multi=True)
+        f_app.shop.get_database(m).update_many({"type": {"$exists": False}}, {"$set": {"type": "coupon"}})
+        f_app.shop.item.get_database(m).update_many({"tag": {"$exists": False}}, {"$set": {"tag": "coupon"}})
 
     def v23(self, m):
         for user in f_app.user.get_database(m).find({"status": {"$ne": "deleted"}}):
             self.logger.debug("Resetting message types for user", str(user["_id"]))
-            f_app.user.get_database(m).update({"_id": user["_id"]}, {"$set": {
+            f_app.user.get_database(m).update_one({"_id": user["_id"]}, {"$set": {
                 "email_message_type": f_app.common.email_message_type,
                 "system_message_type": f_app.common.message_type,
             }})
 
     def v24(self, m):
         for ticket in f_app.ticket.get_database(m).find({"creator_user_id": None, "user_id": {"$exists": True}}):
-            f_app.ticket.get_database(m).update({"_id": ticket["_id"]}, {"$set": {"creator_user_id": ticket["user_id"]}})
+            f_app.ticket.get_database(m).update_one({"_id": ticket["_id"]}, {"$set": {"creator_user_id": ticket["user_id"]}})
 
     def v25(self, m):
         for user in f_app.user.get_database(m).find({"status": "suspended"}):
-            f_app.user.get_database(m).update({"_id": user["_id"]}, {"$set": {
+            f_app.user.get_database(m).update_one({"_id": user["_id"]}, {"$set": {
                 "email_message_type": [],
             }})
             self.logger.debug("Cleared email message type for user", str(user["_id"]))
@@ -412,13 +412,13 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                     _i18n_unit=True,
                     value_float=rent_budget[1]
                 )
-            ticket_database.update({"_id": ticket["_id"]}, {"$set": new_params, "$unset": {"rent_budget": ""}})
+            ticket_database.update_one({"_id": ticket["_id"]}, {"$set": new_params, "$unset": {"rent_budget": ""}})
             self.logger.debug("Migrated ticket", ticket["_id"], "to new rent_budget format.")
 
     def v27(self, m):
         ticket_database = f_app.ticket.get_database(m)
         for ticket in ticket_database.find({"type": "rent", "sort_time": {"$exists": False}}):
-            ticket_database.update({"_id": ticket["_id"]}, {"$set": {"sort_time": ticket["time"]}})
+            ticket_database.update_one({"_id": ticket["_id"]}, {"$set": {"sort_time": ticket["time"]}})
             self.logger.debug("Set sort_time for ticket", ticket["_id"])
 
     def v28(self, m):
@@ -736,7 +736,7 @@ class currant_user(f_user):
 
     def favorite_update(self, favorite_id, params):
         with f_app.mongo() as m:
-            self.favorite_get_database(m).update(
+            self.favorite_get_database(m).update_one(
                 {"_id": ObjectId(favorite_id)},
                 params,
             )
@@ -1356,7 +1356,7 @@ class currant_comment(f_app.module_base):
 
     def update(self, comment_id, params):
         with f_app.mongo() as m:
-            self.get_database(m).update(
+            self.get_database(m).update_one(
                 {"_id": ObjectId(comment_id)},
                 params,
             )

@@ -75,7 +75,7 @@ class f_doogal(f_app.module_base):
                         "rural_urban": r[23],
                         "region": r[24],
                     }
-                    self.get_database(m).update({
+                    self.get_database(m).update_one({
                         "currant_country": params["currant_country"],
                         "zipcode": params["zipcode"],
                     }, {"$set": params}, upsert=True)
@@ -151,7 +151,7 @@ class f_doogal(f_app.module_base):
                         "zipcode_index": r[6].replace(" ", ""),
                         "geonames_city_id": ObjectId(geonames_city_id),
                     }
-                    self.station.get_database(m).update({
+                    self.station.get_database(m).update_one({
                         "currant_country": params["currant_country"],
                         "name": params["name"],
                     }, {"$set": params}, upsert=True)
@@ -243,7 +243,7 @@ class f_maponics(f_app.plugin_base):
                         "geonames_city_id": ObjectId(geonames_city_id),
                     }
 
-                    self.neighborhood.get_database(m).update({
+                    self.neighborhood.get_database(m).update_one({
                         "nid": params["nid"],
                     }, {"$set": params}, upsert=True)
 
@@ -348,7 +348,7 @@ class f_hesa(f_app.plugin_base):
 
     def university_update(self, university_id, params):
         with f_app.mongo() as m:
-            self.university.get_database(m).update(
+            self.university.get_database(m).update_one(
                 {"_id": ObjectId(university_id)},
                 params,
             )
@@ -380,7 +380,7 @@ class f_hesa(f_app.plugin_base):
                         "status": "new",
                     }
 
-                    self.university.get_database(m).update({
+                    self.university.get_database(m).update_one({
                         "hesa_id": params["hesa_id"],
                     }, {"$set": params}, upsert=True)
 
@@ -490,7 +490,7 @@ class f_main_mixed_index(f_app.plugin_base):
         with f_app.mongo() as m:
             self.get_database(m).create_index([("loc", GEO2D)])
             for neighborhood in f_app.maponics.neighborhood.get_database(m).find({"status": {"$ne": "deleted"}}):
-                self.get_database(m).update({"maponics_neighborhood": neighborhood["_id"]}, {
+                self.get_database(m).update_one({"maponics_neighborhood": neighborhood["_id"]}, {
                     "maponics_neighborhood": neighborhood["_id"],
                     "name": neighborhood["name"],
                     "latitude": neighborhood["latitude"],
@@ -514,7 +514,7 @@ class f_main_mixed_index(f_app.plugin_base):
                 except:
                     self.logger.warning("cannot lookup postcode for university", str(university["_id"]), ":", university["postcode"])
                     continue
-                self.get_database(m).update({"hesa_university": university["_id"]}, {
+                self.get_database(m).update_one({"hesa_university": university["_id"]}, {
                     "hesa_university": university["_id"],
                     "name": university["name"],
                     "latitude": postcode["latitude"],
@@ -538,7 +538,7 @@ class f_main_mixed_index(f_app.plugin_base):
         with f_app.mongo() as m:
             self.get_database(m).create_index([("loc", GEO2D)])
             for station in f_app.doogal.station.get_database(m).find({"status": {"$ne": "deleted"}}):
-                self.get_database(m).update({"doogal_station": station["_id"]}, {
+                self.get_database(m).update_one({"doogal_station": station["_id"]}, {
                     "doogal_station": station["_id"],
                     "name": station["name"],
                     "latitude": station["latitude"],
@@ -567,7 +567,7 @@ class f_main_mixed_index(f_app.plugin_base):
         with f_app.mongo() as m:
             self.get_database(m).create_index([("loc", GEO2D)])
             for gazetteer in f_app.geonames.gazetteer.get_database(m).find(params):
-                self.get_database(m).update({identifier: gazetteer["_id"]}, {
+                self.get_database(m).update_one({identifier: gazetteer["_id"]}, {
                     identifier: gazetteer["_id"],
                     "name": gazetteer["name"],
                     "latitude": gazetteer["latitude"],

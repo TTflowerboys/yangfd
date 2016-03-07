@@ -274,7 +274,7 @@ class currant_property(f_app.module_base):
                         item["rendering"] = True
 
         with f_app.mongo() as m:
-            self.get_database(m).update(
+            self.get_database(m).update_one(
                 {"_id": ObjectId(property_id)},
                 params,
             )
@@ -507,7 +507,7 @@ class currant_plot(f_app.module_base):
 
     def update(self, plot_id, params):
         with f_app.mongo() as m:
-            self.get_database(m).update(
+            self.get_database(m).update_one(
                 {"_id": ObjectId(plot_id)},
                 params,
             )

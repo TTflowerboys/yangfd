@@ -104,7 +104,7 @@ class currant_report(f_app.module_base):
 
     def update(self, report_id, params):
         with f_app.mongo() as m:
-            self.get_database(m).update(
+            self.get_database(m).update_one(
                 {"_id": ObjectId(report_id)},
                 params,
             )
@@ -202,7 +202,7 @@ class currant_zipcode(f_app.module_base):
 
     def update(self, zipcode_id, params):
         with f_app.mongo() as m:
-            self.get_database(m).update(
+            self.get_database(m).update_one(
                 {"_id": ObjectId(zipcode_id)},
                 params,
             )
@@ -340,13 +340,13 @@ class currant_landregistry(f_app.module_base):
                                     self.logger.warning("Already added %s" % r[0])
                                 elif r[14] != "A":
                                     if r[14] == "D":
-                                        self.get_database(m).remove({"tid": r[0]})
+                                        self.get_database(m).delete_one({"tid": r[0]})
                                     else:
                                         params.pop("status")
-                                        self.get_database(m).update({"tid": r[0]}, params)
+                                        self.get_database(m).update_one({"tid": r[0]}, params)
                                 else:
                                     self.get_database(m).insert_one(params)
-                            m.misc.update({"_id": result["_id"]}, {"$set": {"landregistry_last_modified": date}})
+                            m.misc.update_one({"_id": result["_id"]}, {"$set": {"landregistry_last_modified": date}})
                         else:
                             abort(40000, self.logger.warning("Failed to get latest csv file on landregistry", exc_info=False))
                 else:
