@@ -144,7 +144,7 @@
                 break;
             default:
                 if(window.team.isCurrantClient('<=1.3.0')) {
-                    document.title = i18n('个人房源和学生公寓')
+                    document.title = i18n('个人房源或学生公寓')
                 }
                 break;
         }
@@ -549,7 +549,7 @@
         }
 
         this.isStudentHouse = ko.observable()
-        this.studentHouse = ko.observable(i18n('个人房源和学生公寓'))
+        this.studentHouse = ko.observable(i18n('个人房源或学生公寓'))
         this.placeholder = ko.observable(i18n('请输入位置，如E14, E14 3GH, Isle of dogs, Waterloo, UCL...'))
         this.isStudentHouse.subscribe(function (value) {
             switch(value) {
@@ -562,7 +562,7 @@
                     this.placeholder(i18n('请输入位置，如E14, E14 3GH, Isle of dogs, Waterloo, UCL...'))
                     break
                 default:
-                    this.studentHouse(i18n('个人房源和学生公寓'))
+                    this.studentHouse(i18n('个人房源或学生公寓'))
                     this.placeholder(i18n('请输入位置，如E14, E14 3GH, Isle of dogs, Waterloo, UCL...'))
                     break
             }
