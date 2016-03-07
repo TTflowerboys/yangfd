@@ -660,7 +660,7 @@ class currant_user(f_user):
         params.setdefault("status", "new")
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
-            favorite_id = self.favorite_get_database(m).insert_one(params)
+            favorite_id = self.favorite_get_database(m).insert_one(params).inserted_id
         f_app.plugin_invoke(
             "user.favorite.add.after",
             params,
@@ -1270,7 +1270,7 @@ class currant_comment(f_app.module_base):
         params.setdefault("status", "new")
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
-            comment_id = self.get_database(m).insert_one(params)
+            comment_id = self.get_database(m).insert_one(params).inserted_id
             self.get_database(m).create_index([("status", ASCENDING)])
             self.get_database(m).create_index([("time", ASCENDING)])
 

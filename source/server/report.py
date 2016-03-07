@@ -76,7 +76,7 @@ class currant_report(f_app.module_base):
         params.setdefault("status", "new")
         params.setdefault("time", datetime.utcnow())
         with f_app.mongo() as m:
-            report_id = self.get_database(m).insert_one(params)
+            report_id = self.get_database(m).insert_one(params).inserted_id
 
         return str(report_id)
 
@@ -167,7 +167,7 @@ class currant_zipcode(f_app.module_base):
                     not self.search({"country": params["country"], "zipcode": params["zipcode"], "status": {"$ne": "deleted"}}))), abort(40000, params, exc_info=False)
 
         with f_app.mongo() as m:
-            zipcode_id = self.get_database(m).insert_one(params)
+            zipcode_id = self.get_database(m).insert_one(params).inserted_id
 
         return str(zipcode_id)
 
