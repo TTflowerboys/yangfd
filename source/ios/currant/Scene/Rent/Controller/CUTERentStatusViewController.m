@@ -80,7 +80,7 @@
 
 
 - (void)delete {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"RentPropertyMoreInfo/删除") message:nil delegate:nil cancelButtonTitle:STR(@"RentPropertyMoreInfo/确定") otherButtonTitles:STR(@"RentPropertyMoreInfo/取消"), nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"RentPropertyMoreInfo/删除") message:STR(@"RentStatus/删除后将无法恢复，您确认要删除吗?") delegate:nil cancelButtonTitle:STR(@"RentPropertyMoreInfo/确定") otherButtonTitles:STR(@"RentPropertyMoreInfo/取消"), nil];
     alertView.cancelButtonIndex = 1;
     alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex)  {
         if (buttonIndex != alertView.cancelButtonIndex) {
@@ -125,7 +125,7 @@
                                   kTicketStatusToRent: STR(@"RentStatus/发布中"),
                                   kTicketStatusRent: STR(@"RentStatus/已租出")
                                   };
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:CONCAT(STR(@"RentStatus/更新状态为："), statusHints[status]) message:nil delegate:nil cancelButtonTitle:STR(@"RentPropertyMoreInfo/确定") otherButtonTitles:STR(@"RentPropertyMoreInfo/取消"), nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STR(@"RentStatus/更新状态") message:[NSString stringWithFormat:STR(@"RentStatus/您确定将房源状态改为%@吗?"), statusHints[status]] delegate:nil cancelButtonTitle:STR(@"RentPropertyMoreInfo/确定") otherButtonTitles:STR(@"RentPropertyMoreInfo/取消"), nil];
     alertView.cancelButtonIndex = 1;
     alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex)  {
         if (buttonIndex != alertView.cancelButtonIndex) {
