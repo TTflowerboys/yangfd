@@ -239,7 +239,7 @@ def get_phone_numbers(use="display"):
 
 
 def clear_html_tags(content):
-    return " ".join(BeautifulSoup(content).findAll(text=True))
+    return " ".join(BeautifulSoup(content, "lxml").findAll(text=True))
 
 
 def clear_line_break(content):
