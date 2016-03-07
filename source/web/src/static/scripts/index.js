@@ -565,6 +565,7 @@
         template: { element: 'locationFilter'}
     })
     function IndexViewModel() {
+        this.placeholder = ko.observable(i18n('请输入位置，如E14, E14 3GH, Isle of dogs, Waterloo, UCL...'))
         this.activeTab = ko.observable('tenant')
         this.activeTab.subscribe(function (value) {
             if(value === 'studentHouse') {
