@@ -96,21 +96,21 @@
 
 - (void)updateTitleWithURL:(NSURL *)url {
 
-    NSArray *items = @[STR(@"RentList/学生公寓或个人房源"), STR(@"RentList/学生公寓"), STR(@"RentList/个人房源")];
+    NSArray *items = @[STR(@"RentList/个人房源或学生公寓"), STR(@"RentList/个人房源"), STR(@"RentList/学生公寓")];
     NSString *isStudentHouse = [url queryDictionary][@"isStudentHouse"];
     NSInteger titleIndex = 0;
     if (isStudentHouse) {
         if ([isStudentHouse isEqualToString:@"true"]) {
-            titleIndex = 1;
+            titleIndex = 2;
         }
         else if ([isStudentHouse isEqualToString:@"false"]) {
-            titleIndex = 2;
+            titleIndex = 1;
         }
     }
 
     if (!self.navigationItem.titleView) {
         BTNavigationDropdownMenu *menuView = [BTNavigationDropdownMenuHelper getMenu:self.navigationController title:[items objectAtIndex:titleIndex] items:items didSelectItemAtIndexHandler:^(NSInteger index) {
-            [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.currantModule.selectHouse(\"%@\")", @[@"", @"student_house", @"non_student_house"][index]]];
+            [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.currantModule.selectHouse(\"%@\")", @[@"", @"non_student_house", @"student_house"][index]]];
         }];
         self.navigationItem.titleView = menuView;
     }
