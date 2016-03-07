@@ -255,7 +255,7 @@
     else if ([field.key isEqualToString:@"status"]) {
         NSDictionary *statusHint = @{kTicketStatusDraft: STR(@"RentStatus/草稿"),
                                      kTicketStatusToRent: STR(@"RentStatus/发布中"),
-                                     kTicketStatusRent: STR(@"RentStatus/已出租")};
+                                     kTicketStatusRent: STR(@"RentStatus/已租出")};
         cell.detailTextLabel.text = statusHint[self.form.ticket.status];
     }
     else if ([field.key isEqualToString:@"surrounding"]) {

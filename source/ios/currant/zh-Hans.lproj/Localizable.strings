@@ -758,10 +758,10 @@
 //Group: PropertyInfo
 //
 //Filepath: currant/Scene/Rent/Form/CUTERentStatusForm.m
+"RentStatus/更新状态为：" = "更新状态为：";
 "RentStatus/草稿" = "草稿";
-"RentStatus/下架" = "下架";
 "RentStatus/发布中" = "发布中";
-"RentStatus/已出租" = "已出租";
+"RentStatus/已租出" = "已租出";
 "RentStatus/删除房源" = "删除房源";
 "RentStatus/更新状态" = "更新状态";
 "RentStatus/您的房源当前处于草稿状态，如您不想继续发布，可以删除房源" = "您的房源当前处于草稿状态，如您不想继续发布，可以删除房源";

@@ -18,8 +18,9 @@
     if ([self.ticket.status isEqualToString:kTicketStatusToRent]) {
 
         return @[
-                 @{FXFormFieldKey: @"draft", FXFormFieldTitle:STR(@"RentStatus/下架"), FXFormFieldHeader: STR(@"RentStatus/更新状态")},
-                 @{FXFormFieldKey: @"rent", FXFormFieldTitle:STR(@"RentStatus/已出租")},
+                 @{FXFormFieldKey: @"draft", FXFormFieldTitle:STR(@"RentStatus/草稿"), FXFormFieldHeader: STR(@"RentStatus/更新状态")},
+                 @{FXFormFieldKey: @"toRent", FXFormFieldTitle:STR(@"RentStatus/发布中")},
+                 @{FXFormFieldKey: @"rent", FXFormFieldTitle:STR(@"RentStatus/已租出")},
                  ];
     }
     else {
