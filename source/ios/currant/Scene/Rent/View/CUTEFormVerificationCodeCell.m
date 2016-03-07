@@ -83,4 +83,12 @@
 
 }
 
+- (void)resetCountDown {
+    [_timer invalidate];
+    _timer = nil;
+    [self updateButtonTitle:STR(@"VerificationCodeCell/重新发送")];
+    [self.verificationButton setEnabled:YES];
+    self.verificationButton.backgroundColor = CUTE_MAIN_COLOR;
+}
+
 @end

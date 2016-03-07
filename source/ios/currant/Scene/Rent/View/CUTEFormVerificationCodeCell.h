@@ -15,4 +15,6 @@
 
 - (void)startCountDownWithCompletion:(dispatch_block_t)completion;
 
+- (void)resetCountDown;
+
 @end

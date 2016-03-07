@@ -238,6 +238,18 @@
     }
 }
 
+- (void)resetVerficationCodeCountDown {
+
+    FXFormField *field = [[self formController] fieldForKey:@"code"];
+    NSIndexPath *indexPath = [[self formController] indexPathForField:field];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+
+    if ([cell isKindOfClass:[CUTEFormVerificationCodeCell class]]) {
+        CUTEFormVerificationCodeCell *codeCell = (CUTEFormVerificationCodeCell *)cell;
+        [codeCell resetCountDown];
+    }
+}
+
 
 - (void)onVerificationButtonPressed:(id)sender {
 
@@ -250,43 +262,48 @@
     [SVProgressHUD showWithStatus:STR(@"RentContact/获取中...")];
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
-        [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/check_exist" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(user.countryCode.stringValue), NilNullToEmpty(user.phone))} resultClass:nil] continueWithBlock:^id(BFTask *task) {
-            if (task.error || task.exception || task.isCancelled) {
-                [SVProgressHUD showErrorWithError:task.error];
-            }
-            else {
-                if ([task.result boolValue]) {
-                    [SVProgressHUD dismiss];
-                    //remove keyboard overlay
-//                    [self makeVerficationCodeTextFieldResignFirstResponder];
-                    [UIAlertView showWithTitle:CONCAT(STR(@"RentContact/电话已被使用！请登录或者重置密码，如该用户不是您，请联系客服")) message:nil cancelButtonTitle:STR(@"RentContact/取消") otherButtonTitles:@[STR(@"RentContact/登录"), STR(@"RentContact/重置密码"), STR(@"RentContact/联系客服")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                        NSString *buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
-                        if ([buttonTitle isEqualToString:STR(@"RentContact/登录")]) {
-                            [self login];
-                        }
-                        else if ([buttonTitle isEqualToString:STR(@"RentContact/重置密码")]) {
-                            [UIAlertView showWithTitle:STR(@"RentContact/重置密码") message:nil cancelButtonTitle:STR(@"RentContact/取消") otherButtonTitles:@[STR(@"RentContact/通过短信"), STR(@"RentContact/通过邮箱")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                if (buttonIndex == 1) {
-                                    [self resetPasswordWithType:@"phone"];
-                                }
-                                else if (buttonIndex == 2) {
-                                    [self resetPasswordWithType:@"email"];
-                                }
-                            }];
-                        }
-                        else if ([buttonTitle isEqualToString:STR(@"RentContact/联系客服")]) {
-                            [CUTEPhoneUtil showServicePhoneAlert];
-                        }
-                    }];
+        if (_retUser) {
+            completion(nil);
+        }
+        else {
+            [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/check_exist" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(user.countryCode.stringValue), NilNullToEmpty(user.phone))} resultClass:nil] continueWithBlock:^id(BFTask *task) {
+                if (task.error || task.exception || task.isCancelled) {
+                    [SVProgressHUD showErrorWithError:task.error];
                 }
                 else {
-                    [self makeVerficationCodeTextFieldBecomeFirstResponder];
-                    completion(nil);
+                    if ([task.result boolValue]) {
+                        [SVProgressHUD dismiss];
+                        //remove keyboard overlay
+                        //                    [self makeVerficationCodeTextFieldResignFirstResponder];
+                        [UIAlertView showWithTitle:CONCAT(STR(@"RentContact/电话已被使用！请登录或者重置密码，如该用户不是您，请联系客服")) message:nil cancelButtonTitle:STR(@"RentContact/取消") otherButtonTitles:@[STR(@"RentContact/登录"), STR(@"RentContact/重置密码"), STR(@"RentContact/联系客服")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                            NSString *buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
+                            if ([buttonTitle isEqualToString:STR(@"RentContact/登录")]) {
+                                [self login];
+                            }
+                            else if ([buttonTitle isEqualToString:STR(@"RentContact/重置密码")]) {
+                                [UIAlertView showWithTitle:STR(@"RentContact/重置密码") message:nil cancelButtonTitle:STR(@"RentContact/取消") otherButtonTitles:@[STR(@"RentContact/通过短信"), STR(@"RentContact/通过邮箱")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                    if (buttonIndex == 1) {
+                                        [self resetPasswordWithType:@"phone"];
+                                    }
+                                    else if (buttonIndex == 2) {
+                                        [self resetPasswordWithType:@"email"];
+                                    }
+                                }];
+                            }
+                            else if ([buttonTitle isEqualToString:STR(@"RentContact/联系客服")]) {
+                                [CUTEPhoneUtil showServicePhoneAlert];
+                            }
+                        }];
+                    }
+                    else {
+                        [self makeVerficationCodeTextFieldBecomeFirstResponder];
+                        completion(nil);
+                    }
                 }
-            }
-
-            return nil;
-        }];
+                
+                return nil;
+            }];
+        }
     }];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         if (_retUser) {
@@ -314,6 +331,7 @@
                 } else {
                     _retUser = task.result;
                     [SVProgressHUD dismiss];
+                    [self startVerficationCodeCountDown];
                     [UIAlertView showWithTitle:STR(@"RentContact/已成功为您创建帐号，密码已发至您的邮箱。验证码发送成功，请验证手机号") message:nil cancelButtonTitle:STR(@"RentContact/确定") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 
                     }];
@@ -337,6 +355,7 @@
             if (task.result) {
                 _retUser.phoneVerified = @(YES);
                 [SVProgressHUD showSuccessWithStatus:STR(@"RentContact/验证成功")];
+                [self resetVerficationCodeCountDown];
             }
             else {
                 [SVProgressHUD showErrorWithStatus:STR(@"RentContact/验证失败")];
