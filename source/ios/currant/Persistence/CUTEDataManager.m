@@ -80,6 +80,7 @@
     for (NSHTTPCookie *cookie in cookies) {
         if ([cookie.name isEqualToString:KSETTING_AUTH_COOKIE] && !IsNilNullOrEmpty(cookie.value)) {
             isLoggedIn = YES;
+            break;
         }
     }
     return isLoggedIn && _user && _user.identifier;

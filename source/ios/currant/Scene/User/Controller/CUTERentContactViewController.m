@@ -51,6 +51,8 @@
     CUTEUser *_retUser;
 
     CUTERentContactDisplaySettingForm *_displaySettingForm;
+
+    BOOL _userSaved;
 }
 
 @end
@@ -99,6 +101,21 @@
     [super viewDidLoad];
     self.navigationItem.title = STR(@"RentContact/联系方式");
     self.tableView.accessibilityIdentifier = STR(@"RentContact/用户信息");
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    // back button was pressed.  We know this is true because self is no longer
+    // in the navigation stack.
+    //http://stackoverflow.com/questions/14256051/uinavigationcontroller-and-back-button-action
+    if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
+        //user created but not press publish
+        //just revoke the session, if user don't want login
+        if (_retUser && !_userSaved) {
+            [[CUTEDataManager sharedInstance] clearAllCookies];
+        }
+    }
+
+    [super viewWillDisappear:animated];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -348,7 +365,7 @@
 - (void)codeFieldEndEdit {
     CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
     //after create can validate the code
-    if (_retUser) {
+    if (_retUser && !IsNilNullOrEmpty(form.code)) {
         [SVProgressHUD showWithStatus:STR(@"RentContact/验证中...")];
         [[[CUTEAPIManager sharedInstance] POST:CONCAT(@"/api/1/user/", _retUser.identifier, @"/sms_verification/verify") parameters:@{@"code":form.code} resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
             //update verify status
@@ -427,10 +444,10 @@
 
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         CUTEUser *retUser = result;
+        if (retUser) {
+            [self saveUser:retUser];
+        }
 
-        [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": retUser}];
-        [NotificationCenter postNotificationName:KNOTIF_USER_VERIFY_PHONE object:self userInfo:@{@"user": retUser, @"whileEditingTicket": self.ticket? @(YES): @(NO)}];
-        [NotificationCenter postNotificationName:KNOTIF_MARK_USER_AS_LANDLORD object:self userInfo:@{@"user": retUser}];
 
         if (self.params && [self.params[@"from_edit_ticket"] isEqualToString:@"true"]) {
             CUTETicket *ticket = self.ticket;
@@ -542,6 +559,13 @@
 
         return task;
     }];
+}
+
+- (void)saveUser:(CUTEUser *)user {
+    [NotificationCenter postNotificationName:KNOTIF_USER_DID_LOGIN object:self userInfo:@{@"user": user}];
+    [NotificationCenter postNotificationName:KNOTIF_USER_VERIFY_PHONE object:self userInfo:@{@"user": user, @"whileEditingTicket": self.ticket? @(YES): @(NO)}];
+    [NotificationCenter postNotificationName:KNOTIF_MARK_USER_AS_LANDLORD object:self userInfo:@{@"user": user}];
+    _userSaved = YES;
 }
 
 @end
