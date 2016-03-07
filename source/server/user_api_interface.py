@@ -459,6 +459,7 @@ def user_edit(user, params):
     budget="enum:budget",
     has_intention_ticket=bool,
     has_register_time=bool,
+    referral_code=str,
     query=str,
 ))
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
@@ -499,6 +500,9 @@ def admin_user_search(user, params):
 
     if "phone" in params:
         params["phone"] = f_app.util.parse_phone(params)
+
+    if "referral_code" in params:
+        params["referral_code"] = params["referral_code"].upper()
 
     per_page = params.pop("per_page", 0)
 
