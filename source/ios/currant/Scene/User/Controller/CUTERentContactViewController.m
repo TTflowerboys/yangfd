@@ -366,7 +366,7 @@
                     _retUser = task.result;
                     [SVProgressHUD dismiss];
                     [self startVerficationCodeCountDown];
-                    [UIAlertView showWithTitle:STR(@"RentContact/已成功为您创建帐号，密码已发至您的邮箱。验证码发送成功，请验证手机号") message:nil cancelButtonTitle:STR(@"RentContact/确定") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                    [UIAlertView showWithTitle:STR(@"RentContact/帐号已创建，请收到验证码短信后完成验证") message:nil cancelButtonTitle:STR(@"RentContact/确定") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
 
                     }];
                     return nil;

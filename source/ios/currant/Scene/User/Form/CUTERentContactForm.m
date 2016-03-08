@@ -34,7 +34,7 @@
 //                                                              @{FXFormFieldKey: @"invitationCode", FXFormFieldTitle: STR(@"邀请码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
                                                               @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"RentContact/国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTECountry *)[_allCountries firstObject], FXFormFieldAction: @"optionBack"},
                                                               @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"RentContact/手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
-                                                              @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"RentContact/手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class],FXFormFieldAction: @"codeFieldEndEdit"},
+                                                              @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"RentContact/手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class],FXFormFieldAction: @"codeFieldEndEdit", FXFormFieldFooter: STR(@"RentContact/帐号创建后我们将会把默认密码发送到您的邮箱")},
                                                               @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle: STR(@"RentContact/发布并分享到微信"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
                                                               ]];
 
