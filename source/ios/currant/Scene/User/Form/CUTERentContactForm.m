@@ -29,16 +29,13 @@
 - (NSArray *)fields {
 
     NSMutableArray *fields = [NSMutableArray arrayWithArray:@[@{FXFormFieldKey: @"login", FXFormFieldTitle: STR(@"RentContact/登录"), FXFormFieldHeader: STR(@"RentContact/已有帐号"), FXFormFieldCell: [CUTEFormCenterTextCell class], @"textLabel.textColor": CUTE_MAIN_COLOR, FXFormFieldAction: @"login"},
-                                                              @{FXFormFieldKey: @"name", FXFormFieldTitle: STR(@"RentContact/姓名"), FXFormFieldHeader: STR(@"RentContact/还没有帐号？10秒创建"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
-                                                              @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"RentContact/邮箱"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
-//                                                              @{FXFormFieldKey: @"invitationCode", FXFormFieldTitle: STR(@"邀请码"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
-                                                              @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"RentContact/国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTECountry *)[_allCountries firstObject], FXFormFieldAction: @"optionBack"},
-                                                              @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"RentContact/手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
-                                                              @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"RentContact/手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class],FXFormFieldAction: @"codeFieldEndEdit", FXFormFieldFooter: STR(@"RentContact/帐号创建后我们将会把默认密码发送到您的邮箱")},
-                                                              @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle: STR(@"RentContact/发布并分享到微信"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},
-                                                              ]];
-
-     [fields insertObject:@{FXFormFieldKey: @"displaySetting", FXFormFieldTitle: STR(@"RentContact/联系方式展示"), FXFormFieldCell: [CUTEFormTextCell class], FXFormFieldAction: @"onDisplaySettingPressed:"} atIndex:[fields count] - 1];
+  @{FXFormFieldKey: @"name", FXFormFieldTitle: STR(@"RentContact/姓名"), FXFormFieldHeader: STR(@"RentContact/还没有帐号？10秒创建"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+  @{FXFormFieldKey: @"email", FXFormFieldTitle: STR(@"RentContact/邮箱"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+  @{FXFormFieldKey: @"country", FXFormFieldTitle: STR(@"RentContact/国家"), FXFormFieldOptions: _allCountries, FXFormFieldDefaultValue: _country? _country: (CUTECountry *)[_allCountries firstObject], FXFormFieldAction: @"optionBack"},
+  @{FXFormFieldKey: @"phone", FXFormFieldTitle: STR(@"RentContact/手机号"), FXFormFieldCell: [CUTEFormTextFieldCell class]},
+  @{FXFormFieldKey: @"code", FXFormFieldTitle: STR(@"RentContact/手机验证码"), FXFormFieldCell: [CUTEFormVerificationCodeCell class],FXFormFieldAction: @"codeFieldEndEdit"},
+  @{FXFormFieldKey: @"displaySetting", FXFormFieldTitle: STR(@"RentContact/联系方式展示"), FXFormFieldCell: [CUTEFormTextCell class], FXFormFieldAction: @"onDisplaySettingPressed:", FXFormFieldFooter: STR(@"RentContact/帐号创建后我们会把默认密码发送到您的邮箱")},
+  @{FXFormFieldKey: @"submit", FXFormFieldCell: [CUTEFormButtonCell class], FXFormFieldTitle: STR(@"RentContact/发布并分享到微信"), FXFormFieldHeader: @"", FXFormFieldAction: @"submit"},]];
 
     return fields;
 }
