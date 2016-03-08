@@ -267,6 +267,17 @@
     }
 }
 
+- (void)setVerficationButtonEnable:(BOOL)enable {
+    FXFormField *field = [[self formController] fieldForKey:@"code"];
+    NSIndexPath *indexPath = [[self formController] indexPathForField:field];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+
+    if ([cell isKindOfClass:[CUTEFormVerificationCodeCell class]]) {
+        CUTEFormVerificationCodeCell *codeCell = (CUTEFormVerificationCodeCell *)cell;
+        [codeCell.verificationButton setEnabled:enable];
+    }
+}
+
 
 - (void)onVerificationButtonPressed:(id)sender {
 
@@ -277,6 +288,8 @@
     CUTEUser *user = [CUTEUser new];
     [self updateUserWithFormInfo:user];
     [SVProgressHUD showWithStatus:STR(@"RentContact/获取中...")];
+    [self setVerficationButtonEnable:NO];
+
     Sequencer *sequencer = [Sequencer new];
     [sequencer enqueueStep:^(id result, SequencerCompletion completion) {
         if (_retUser) {
@@ -285,11 +298,13 @@
         else {
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/check_exist" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(user.countryCode.stringValue), NilNullToEmpty(user.phone))} resultClass:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
+                    [self setVerficationButtonEnable:YES];
                     [SVProgressHUD showErrorWithError:task.error];
                 }
                 else {
                     if ([task.result boolValue]) {
                         [SVProgressHUD dismiss];
+                        [self setVerficationButtonEnable:YES];
                         //remove keyboard overlay
                         //                    [self makeVerficationCodeTextFieldResignFirstResponder];
                         [UIAlertView showWithTitle:CONCAT(STR(@"RentContact/电话已被使用！请登录或者重置密码，如该用户不是您，请联系客服")) message:nil cancelButtonTitle:STR(@"RentContact/取消") otherButtonTitles:@[STR(@"RentContact/登录"), STR(@"RentContact/重置密码"), STR(@"RentContact/联系客服")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -328,6 +343,7 @@
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/sms_verification/send" parameters:@{@"phone": CONCAT(@"+", NilNullToEmpty(user.countryCode.stringValue), NilNullToEmpty(user.phone))} resultClass:nil] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
+                    [self setVerficationButtonEnable:YES];
                 }
                 else {
                     [SVProgressHUD showSuccessWithStatus:STR(@"RentContact/发送成功")];
@@ -344,6 +360,7 @@
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/fast-register" parameters:params resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {
                     [SVProgressHUD showErrorWithError:task.error];
+                    [self setVerficationButtonEnable:YES];
                     return nil;
                 } else {
                     _retUser = task.result;
