@@ -8,7 +8,7 @@ from libfelix.f_log import warning
 
 
 @f_api('/coupon/add', params=dict(
-    discount=(float, True),
+    discount=("i18n:currency", True),
     discount_shared=float,
     effective_time=datetime,
     expire_time=datetime,
@@ -23,7 +23,7 @@ def coupon_add(user, params):
 
 
 @f_api('/coupon/<coupon_id>/edit', params=dict(
-    discount=float,
+    discount="i18n:currency",
     discount_shared=float,
     effective_time=datetime,
     expire_time=datetime,

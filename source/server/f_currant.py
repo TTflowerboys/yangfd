@@ -812,8 +812,8 @@ class currant_plugin(f_app.plugin_base):
                     description="50 GBP",
                 )
 
-            new_coupon["effective_time"] = datetime.utcnow()
-            new_coupon["expire_time"] = new_coupon["effective_time"] + timedelta(days=30)
+            new_coupon.default("effective_time", datetime.utcnow())
+            new_coupon.default("expire_time", new_coupon["effective_time"] + timedelta(days=30))
             new_coupon["user_id"] = ObjectId(user_id)
             f_app.coupon.add(new_coupon, permission_check=False)
         return user_id
@@ -1165,14 +1165,11 @@ class currant_util(f_util):
 
         return featured_facilities
 
-    def validate_coupon(self, params, coupon_id=None):
-        discount = params.get("discount", None)
+    def validate_coupon(self, params, coupon_id=None, ignore_time=False):
         discount_shared = params.get("discount_shared", None)
         effective_time = params.get("effective_time", None)
         expire_time = params.get("expire_time", None)
 
-        if discount is not None and not (discount > 0 and discount <= 100):
-            abort(40000, self.logger.warning("discount must between 0 and 100"))
         if discount_shared is not None and not (discount_shared > 0 and discount_shared <= 100):
             abort(40000, self.logger.warning("discount_shared must between 0 and 100"))
         if expire_time:
@@ -1193,7 +1190,7 @@ class currant_util(f_util):
                 f_app.coupon.update_set_status(coupon_id, "new", permission_check=False)
 
         else:
-            if not effective_time or not expire_time:
+            if not ignore_time and (not effective_time or not expire_time):
                 abort(40000, self.logger.warning("time based coupon needs effective_time and expire_time"))
             params["coupon_type"] = "time_based"
 

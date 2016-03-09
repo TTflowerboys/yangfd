@@ -367,9 +367,11 @@ def user_activate(user_id, user):
         value=(str, True),
     )),
     coupon=dict(
-        discount=(float, True),
+        discount=("i18n:currency", True),
         discount_shared=float,
         description=str,
+        effective_time=datetime,
+        expire_time=datetime,
         category="enum:coupon_category",
     ),
     user_id=(ObjectId, None, "str"),
@@ -395,7 +397,7 @@ def user_edit(user, params):
         user_id = params.pop("user_id", user_id)
 
         if "coupon" in params:
-            f_app.util.validate_coupon(params["coupon"])
+            f_app.util.validate_coupon(params["coupon"], ignore_time=True)
 
     if "private_contact_methods" in params and not set(params["private_contact_methods"]) <= {"email", "phone", "wechat"}:
         abort(40000)
