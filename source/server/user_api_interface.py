@@ -460,6 +460,7 @@ def user_edit(user, params):
     has_intention_ticket=bool,
     has_register_time=bool,
     referral_code=str,
+    referral=ObjectId,
     query=str,
 ))
 @f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
