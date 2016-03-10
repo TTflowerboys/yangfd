@@ -134,14 +134,14 @@
             }
 
             $scope.refreshList()
-            $scope.$watch('selected.status', function (newValue, oldValue) {
+            $scope.$watch('[selected.status, selected.partner_student_housing]', function (newValue, oldValue) {
                 if (newValue === oldValue) {
                     return
                 }
                 delete params.short_id
                 _.extend(params, $scope.selected)
                 $scope.refreshList()
-            })
+            }, true)
         }
         $scope.searchTicket = function () {
             _.extend(params, $scope.selected)
