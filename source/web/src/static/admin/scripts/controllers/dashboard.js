@@ -65,6 +65,12 @@
                 }
             }
         }
+
+        $scope.searchInputKeyDown = function (event) {
+            if(event.keyCode === 13) {
+                $scope.searchTicket($scope.selected.type, $scope.selected.code)
+            }
+        }
     }
 
     angular.module('app').controller('ctrlDashboard', ctrlDashboard)

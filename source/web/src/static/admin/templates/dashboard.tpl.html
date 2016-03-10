@@ -23,8 +23,8 @@
                             <option value="rentTicket">{%$root.i18n('房源')%}</option>
                             <option value="user">{%$root.i18n('用户')%}</option>
                         </select>
-                        <input ng-if="selected.type !== 'user'" ng-model="selected.code" type="text" placeholder="{%$root.i18n('请输入编号...')%}"/>
-                        <input ng-if="selected.type === 'user'" ng-model="selected.code" type="text" placeholder="{%$root.i18n('请输入用户名、邮箱或电话...')%}"/>
+                        <input ng-if="selected.type !== 'user'" ng-keydown="searchInputKeyDown($event)" ng-model="selected.code" type="text" placeholder="{%$root.i18n('请输入编号...')%}"/>
+                        <input ng-if="selected.type === 'user'" ng-keydown="searchInputKeyDown($event)" ng-model="selected.code" type="text" placeholder="{%$root.i18n('请输入用户名、邮箱或电话...')%}"/>
                         <i ng-click="searchTicket(selected.type, selected.code)" class="fa fa-search" style="cursor: pointer;"></i>
                     </div>
 
