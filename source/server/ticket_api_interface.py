@@ -606,6 +606,7 @@ def rent_intention_ticket_edit(user, ticket_id, params):
     minimum_rent_period="i18n:time_period",
     partner_student_housing=bool,
     user_id=ObjectId,
+    referral=ObjectId,
     short_id=str,
 ))
 @f_app.user.login.check(force=True)
@@ -617,6 +618,7 @@ def rent_intention_ticket_search(user, params):
 
     params["$and"] = []
     property_params = {"$and": []}
+    user_params = {}
 
     if "interested_rent_tickets" in params:
         params["interested_rent_tickets"] = {"$in": params["interested_rent_tickets"]}
@@ -684,6 +686,10 @@ def rent_intention_ticket_search(user, params):
         params.pop("rent_budget_max", None)
         params["$and"].append({"$or": price_filter})
 
+    if "referral" in params:
+        assert "user_id" not in params, abort(40000, "Cannot search by user_id and referral together")
+        user_params["referral"] = params.pop("referral")
+
     user_roles = f_app.user.get_role(user["id"])
     enable_custom_fields = True
     if set(user_roles) & set(["admin", "jr_admin", "sales"]):
@@ -713,6 +719,11 @@ def rent_intention_ticket_search(user, params):
 
         rent_ticket_id_list = map(ObjectId, f_app.ticket.search(rent_ticket_params, per_page=0))
         params["interested_rent_tickets"] = {"$in": rent_ticket_id_list}
+
+    if len(user_params):
+        user_params.setdefault("status", {"$ne": "deleted"})
+        user_id_list = map(ObjectId, f_app.user.search(user_params, per_page=0))
+        params["user_id"] = {"$in": user_id_list}
 
     if "status" in params:
         if set(params["status"]) <= set(f_app.common.rent_intention_ticket_statuses):
