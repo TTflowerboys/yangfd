@@ -92,7 +92,8 @@ def get_coupon_list(user, params):
 def search_coupon(user, params):
     if "code" in params or "user_id" in params:
         assert set(user["role"]) & set(f_app.common.advanced_admin_roles), abort(40300, "no permission to touch this")
-        params["code"] = params["code"].upper()
+        if "code" in params:
+            params["code"] = params["code"].upper()
     else:
         params["user_id"] = ObjectId(user["id"])
     return f_app.coupon.output(f_app.coupon.search(params, permission_check=False))
