@@ -766,6 +766,12 @@ class currant_plugin(f_app.plugin_base):
             result_row["country_code"] = phonenumber.country_code
         if "custom_fields" in raw_row and user and set(f_app.user.get_role(user["id"])) & set(f_app.common.advanced_admin_roles):
             result_row["custom_fields"] = raw_row["custom_fields"]
+        if "referral" in raw_row:
+            referral_user = f_app.user.get(raw_row["referral"], simple=True)
+            result_row["referral"] = dict(
+                nickname=referral_user.get("nickname"),
+                is_affiliate="affiliate" in referral_user.get("role", ()),
+            )
         return result_row
 
     def user_add(self, params, noregister):
