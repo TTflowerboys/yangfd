@@ -812,8 +812,8 @@ class currant_plugin(f_app.plugin_base):
                     description="50 GBP",
                 )
 
-            new_coupon.default("effective_time", datetime.utcnow())
-            new_coupon.default("expire_time", new_coupon["effective_time"] + timedelta(days=30))
+            new_coupon.setdefault("effective_time", datetime.utcnow())
+            new_coupon.setdefault("expire_time", new_coupon["effective_time"] + timedelta(days=30))
             new_coupon["user_id"] = ObjectId(user_id)
             f_app.coupon.add(new_coupon, permission_check=False)
         return user_id
