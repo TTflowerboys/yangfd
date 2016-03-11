@@ -722,7 +722,7 @@ def rent_intention_ticket_search(user, params):
 
     if len(user_params):
         user_params.setdefault("status", {"$ne": "deleted"})
-        user_id_list = map(ObjectId, f_app.user.search(user_params, per_page=0))
+        user_id_list = map(ObjectId, f_app.user.search(user_params))
         params["user_id"] = {"$in": user_id_list}
 
     if "status" in params:
