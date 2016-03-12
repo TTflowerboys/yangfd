@@ -203,7 +203,7 @@
             }
             this.hotCityList = ko.observableArray(params.hotCityList)
             this.hotSchoolList = ko.observableArray(params.hotSchoolList)
-            this.active = ko.observable() //输入框是否为激活状态，激活状态
+            this.active = ko.observable(false) //输入框是否为激活状态，激活状态
             this.query = ko.observable(params.parentVM.query() || window.team.getQuery('query') || window.team.getQuery('queryName')) //输入框的结果
             this.lastSearchText = ko.observable(params.parentVM.query() || window.team.getQuery('query') || window.team.getQuery('queryName')) //输入框的结果
             this.lastSuggestion = ko.observable()
