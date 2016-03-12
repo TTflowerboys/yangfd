@@ -66,6 +66,7 @@
 
         if($state.params.code) {
             delete params.status
+            delete params.partner_student_housing
             params.short_id = $state.params.code
             $scope.refreshList()
         }
