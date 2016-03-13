@@ -203,7 +203,7 @@
             }
             this.hotCityList = ko.observableArray(params.hotCityList)
             this.hotSchoolList = ko.observableArray(params.hotSchoolList)
-            this.active = ko.observable(false) //输入框是否为激活状态，激活状态
+            this.activeInput = ko.observable(false) //输入框是否为激活状态，激活状态
             this.query = ko.observable(params.parentVM.query() || window.team.getQuery('query') || window.team.getQuery('queryName')) //输入框的结果
             this.lastSearchText = ko.observable(params.parentVM.query() || window.team.getQuery('query') || window.team.getQuery('queryName')) //输入框的结果
             this.lastSuggestion = ko.observable()
@@ -220,12 +220,12 @@
 
             this.blur = function () {
                 setTimeout(_.bind(function () {
-                    this.active(false)
+                    this.activeInput(false)
                 }, this), 150)
             }
 
             this.focus = function () {
-                this.active(true)
+                this.activeInput(true)
                 if(this.query()) {
                     this.search()
                 }
@@ -235,7 +235,7 @@
                 this.activeSuggestionIndex(-1)
                 var name = this.query()
                 this.lastSearchText(name)
-                this.active(true)
+                this.activeInput(true)
                 if (name === undefined || !name.length) {
                     this.hint('')
                     this.suggestions([])
@@ -321,7 +321,7 @@
                 this.query(item.name)
                 this.lastSearchText(item.name)
                 this.lastSuggestion(item.name)
-                this.active(false)
+                this.activeInput(false)
                 this.hideSearchModal()
                 this.searchBySuggestion(item)
             }, this)
