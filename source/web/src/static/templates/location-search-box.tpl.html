@@ -2,7 +2,7 @@
     <!--for pc-->
     <div class="wrap hiddenOnMobile">
         <div class="inputWrapper ">
-            <input data-bind="textInput: query,css: {'active': activeInput()}, changeText: {obj:$parents[$parents.length - 2].summaryTitleObj, prop: 'query'}, event: { keyup: keyUp, focus: focus, blur: blur}, attr: {placeholder: $parent.placeholder}" type="text" placeholder="{{_('请输入位置，比如E14, E14 3GH, Isle of dogs, Waterloo, UCL...')}}"/>
+            <input data-bind="textInput: query,css: {'active': activeInput}, changeText: {obj:$parents[$parents.length - 2].summaryTitleObj, prop: 'query'}, event: { keyup: keyUp, focus: focus, blur: blur}, attr: {placeholder: $parent.placeholder}" type="text" placeholder="{{_('请输入位置，比如E14, E14 3GH, Isle of dogs, Waterloo, UCL...')}}"/>
             <i data-bind="click: clear, visible: query() && query().length" class="clear"><img alt="" src="/static/images/intention/close.png"></i>
         </div>
 
@@ -45,7 +45,7 @@
         <div class="searchModal" data-bind="visible: isModalShow">
             <div class="topWrap">
                 <form class="inputWrapper" action="." data-bind="submit: searchTicket">
-                    <input data-bind="textInput: query,css: {'active': activeInput()}, changeText: {obj:$parents[$parents.length - 2].summaryTitleObj, prop: 'query'}, event: {keyup: keyUp}, hasFocus: inputFocus, attr: {placeholder: $parent.placeholder}" type="search" placeholder="{{_('请输入位置，如E14, E14 3GH, Isle of dogs, Waterloo, UCL...')}}"/>
+                    <input data-bind="textInput: query,css: {'active': activeInput}, changeText: {obj:$parents[$parents.length - 2].summaryTitleObj, prop: 'query'}, event: {keyup: keyUp}, hasFocus: inputFocus, attr: {placeholder: $parent.placeholder}" type="search" placeholder="{{_('请输入位置，如E14, E14 3GH, Isle of dogs, Waterloo, UCL...')}}"/>
                     <i data-bind="click: clear, visible: query() && query().length" class="clear"><img alt="" src="/static/images/intention/close.png"></i>
                 </form><!--
                 --><a class="cancel" data-bind="click: hideSearchModal">{{_('取消')}}</a>
