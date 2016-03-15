@@ -191,7 +191,8 @@
             getEnumsByType: function (type, status) {
                 var params = {
                     type: type,
-                    _i18n: 'disabled'
+                    _i18n: 'disabled',
+                    sort: true
                 }
                 if(status) {
                     params = angular.extend(params, {

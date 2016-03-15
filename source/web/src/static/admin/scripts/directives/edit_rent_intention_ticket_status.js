@@ -11,6 +11,7 @@ angular.module('app')
             },
             link: function (scope, elm, attrs) {
                 var need_init = true
+                scope.cancelReason = scope.item.updated_comment
                 scope.$watch('item.status', function (newValue) {
                     if (need_init && newValue) {
                         need_init = false
@@ -19,10 +20,15 @@ angular.module('app')
                     }
                 })
                 scope.onUpdateStatus = function (item, newStatus) {
-                    rentRequestIntentionApi.update({id: item.id, status: newStatus},
+                    var params = {id: item.id, status: newStatus}
+                    if(newStatus === 'canceled') {
+                        params.updated_comment = scope.cancelReason
+                    }
+                    rentRequestIntentionApi.update(params,
                         {successMessage: '操作成功', errorMessage: true})
                         .success(function () {
                             item.status = newStatus
+                            item.updated_comment = scope.cancelReason
                         })
                 }
             }
