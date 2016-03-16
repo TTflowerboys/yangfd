@@ -38,8 +38,6 @@ def coupon_edit(coupon_id, user, params):
      Parse ``deleted`` to ``status`` will delete the given coupon.
     """
     f_app.util.validate_coupon(params, coupon_id)
-    if "status" in params and not user["admin"] >= 30:
-        abort(40105)
     if "code" in params:
         code = params["code"]
         params["code"] = code.upper()
