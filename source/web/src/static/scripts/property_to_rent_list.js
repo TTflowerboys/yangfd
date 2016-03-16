@@ -636,7 +636,7 @@
         this.goToHots = function (data) {
             this[window.project.underscoreToCamel(data.key)](data.id)
             this.queryName(data.queryName)
-            this.query(data.queryName)
+            //this.query(data.queryName)
         }
 
         //合并短时间内对同一函数的多次调用
