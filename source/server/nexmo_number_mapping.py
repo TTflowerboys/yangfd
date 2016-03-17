@@ -68,10 +68,13 @@ class nexmo_number(f_app.module_base):
 
         return map(lambda nexmo_number: str(nexmo_number["_id"]), nexmo_numbers)
 
-    def get_random(self, country=None):
+    def get_random(self, country=None, exclude=[]):
         all_nexmo_numbers = self.get_all(country)
+        for nexmo_number in exclude:
+            if nexmo_number in all_nexmo_numbers:
+                all_nexmo_numbers.remove(nexmo_number)
         if len(all_nexmo_numbers) < 1:
-            abort(50000, "at least one nexmo number is needed")
+            abort(50000, "insufficient nexmo numbers")
         return random.choice(all_nexmo_numbers)
 
     def update(self, nexmo_number_id, params):
@@ -156,7 +159,11 @@ class nexmo_number_mapping(f_app.module_base):
             nexmo_number_mapping = self.get_database(m).find_one(params, {})
 
         if nexmo_number_mapping is None:
-            params["nexmo_number"] = f_app.sms.nexmo.number.get_random()
+            with f_app.mongo() as m:
+                existing_mappings = self.get_database(m).find({"user_id": params["user_id"], "status": {"$ne": "deleted"}})
+                excluded_numbers = map(lambda mapping: str(mapping["nexmo_number"]), existing_mappings)
+
+            params["nexmo_number"] = f_app.sms.nexmo.number.get_random(exclude=excluded_numbers)
             return self.add(params)
         else:
             return str(nexmo_number_mapping["_id"])
