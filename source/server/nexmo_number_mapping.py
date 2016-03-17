@@ -69,7 +69,10 @@ class nexmo_number(f_app.module_base):
         return map(lambda nexmo_number: str(nexmo_number["_id"]), nexmo_numbers)
 
     def get_random(self, country=None):
-        return random.choice(self.get_all(country))
+        all_nexmo_numbers = self.get_all(country)
+        if len(all_nexmo_numbers) < 1:
+            abort(50000, "at least one nexmo number is needed")
+        return random.choice(all_nexmo_numbers)
 
     def update(self, nexmo_number_id, params):
         with f_app.mongo() as m:
