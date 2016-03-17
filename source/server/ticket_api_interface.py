@@ -733,6 +733,24 @@ def rent_intention_ticket_search(user, params):
     return f_app.ticket.output(f_app.ticket.search(params=params, per_page=per_page, sort=sort), enable_custom_fields=enable_custom_fields)
 
 
+@f_api('/rent_intention_ticket/<rent_intention_ticket_id>/sms/send', params=dict(
+    user_id=ObjectId,
+    text=str,
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'support', 'jr_support'])
+def rent_intention_ticket_sms_send(rent_intention_ticket_id, user, params):
+    user = f_app.user.get(params["user_id"])
+    assert "phone" in user, abort("specified user doesn't have a phone number")
+    nexmo_number_mapping = f_app.nexmo.number.mapping.get(f_app.nexmo.number.mapping.find_or_add({"ticket_id": rent_intention_ticket_id, "user_id": params["user_id"]}))
+    nexmo_number = f_app.nexmo.number.get(nexmo_number_mapping["nexmo_number"])
+    f_app.sms.schedule({
+        "method": "nexmo",
+        "from": nexmo_number["phone"],
+        "target": user["phone"],
+        "text": params["text"],
+    })
+
+
 @f_api('/rent_request_ticket/search', params=dict(
     status=(list, None, str),
     per_page=int,

@@ -50,6 +50,7 @@ import property
 import report
 import ticket
 import aggregation_module
+import nexmo_number_mapping
 
 libfelix.f_message.f_message_push_plugin()
 

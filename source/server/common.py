@@ -135,6 +135,7 @@ class common(f_common):
     nexmo_api_key = "069872f2"
     nexmo_api_secret = "9c4d83a4"
     nexmo_default_sender = "13605895103"
+    nexmo_number_mapping_dimensions = ["ticket_id"]
 
     user_sms_verification_msg = "%s 为您的洋房东手机验证码，1小时内有效。感谢您使用洋房东的服务。"
 
