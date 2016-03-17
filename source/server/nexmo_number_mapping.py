@@ -153,7 +153,7 @@ class nexmo_number_mapping(f_app.module_base):
             nexmo_number_mapping = self.get_database(m).find_one(params, {})
 
         if nexmo_number_mapping is None:
-            params["nexmo_number"] = f_app.nexmo.number.get_random()
+            params["nexmo_number"] = f_app.sms.nexmo.number.get_random()
             return self.add(params)
         else:
             return str(nexmo_number_mapping["_id"])
