@@ -56,3 +56,4 @@ API Reference
    deal_api
    index_rule_api
    coupon_api
+   nexmo_number_api
