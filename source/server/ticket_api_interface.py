@@ -553,6 +553,7 @@ def rent_intention_ticket_remove(user, ticket_id):
     referrer=str,
     referral=str,
     status=str,
+    reason=str,
     updated_comment=str,
 ))
 @f_app.user.login.check(force=True, check_role=True)
@@ -564,6 +565,10 @@ def rent_intention_ticket_edit(user, ticket_id, params):
     user_roles = f_app.user.get_role(user["id"])
     ticket = f_app.ticket.get(ticket_id)
     assert ticket["type"] == "rent_intention", abort(40000, "Invalid rent_intention ticket")
+
+    if "reason" in params:
+        assert "status" in params, abort(40000, "reason is only valid when changing status")
+        params[params["status"] + "_reason"] = params.pop("reason")
 
     if set(user_roles) & set(["admin", "jr_admin", "sales"]):
         pass
