@@ -1666,6 +1666,7 @@ def aggregation_rent_request(user, params):
                     time_start = None
                 if time_end is not None and time_start is not None:
                     get_request_period.append(time_end - time_start)
+        value.update({"aggregation_rent_request_user_do_request_total": len(user_set)})
         if percent_base == 0:
             aggregation_rent_request_user_ratio = 0
         else:
