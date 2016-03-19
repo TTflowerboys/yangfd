@@ -11,7 +11,10 @@ angular.module('app')
             },
             link: function (scope, elm, attrs) {
                 var need_init = true
-                scope.cancelReason = scope.item.updated_comment
+                scope.canceledReason = scope.item.canceled_reason
+                scope.$watch('item.canceled_reason', function (newValue) {
+                    scope.canceledReason = newValue
+                })
                 scope.$watch('item.status', function (newValue) {
                     if (need_init && newValue) {
                         need_init = false
@@ -22,13 +25,13 @@ angular.module('app')
                 scope.onUpdateStatus = function (item, newStatus) {
                     var params = {id: item.id, status: newStatus}
                     if(newStatus === 'canceled') {
-                        params.updated_comment = scope.cancelReason
+                        params.reason = scope.canceledReason
                     }
                     rentRequestIntentionApi.update(params,
                         {successMessage: '操作成功', errorMessage: true})
                         .success(function () {
                             item.status = newStatus
-                            item.updated_comment = scope.cancelReason
+                            item.canceled_reason = scope.canceledReason
                         })
                 }
             }
