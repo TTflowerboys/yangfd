@@ -212,8 +212,8 @@ for index, rent_ticket_id in enumerate(tickets_id):
         if city_id is not None:
             city_list['request_times'].update({city_id: city_list['request_times'].get(city_id, 0) + 1 * request_times})
 
-    if index >= 5:
-        break
+    # if index >= 5:
+    #     break
 
 
 # print json.dumps(doogal_station_list, indent=2)
@@ -351,8 +351,8 @@ def get_rent_intention_total_with_maponics_neighborhood_and_city():
             city_list['rent_intention_times'].update({city_id: city_list['rent_intention_times'].get(city_id, 0) + 1})
         else:
             print "no city"
-        if index >= 30:
-            break
+        # if index >= 30:
+        #     break
 
     print "\nmaponics_neighborhood:"
     print "=" * 95
