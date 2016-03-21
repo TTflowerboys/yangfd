@@ -685,7 +685,27 @@ def user_assign_referral_code(user, params):
     else:
         user_id = user["id"]
 
+    user = f_app.user.get(user_id, simple=True)
+    if "referral_code" not in user and "affiliate" in user.get("role") and "email" in user:
+        send_email = True
+    else:
+        send_email = False
+
     f_app.user.referral.assign_new_code(user_id, params.get("code"))
+    user = f_app.user.get(user_id, simple=True)
+
+    if send_email:
+        f_app.email.schedule(
+            target=user["email"],
+            subject=template("views/static/emails/affiliate_register_success_title"),
+            text=template(
+                "views/static/emails/affiliate_register_success",
+                nickname=user["nickname"],
+                referral_code=user["referral_code"]
+            ),
+            display="html",
+            tag="affiliate_register_success",
+        )
 
 
 @f_api("/user/admin/<user_id>")
@@ -895,7 +915,7 @@ def user_sms_reset_password(user_id, params):
 
 @f_api('/user/<user_id>/email_verification/send')
 @rate_limit("email_verification_send", ip=20)
-def email_send(user_id):
+def email_verification_send(user_id):
     """
     rate_limit is 20 ip per hour.
     """
@@ -971,6 +991,28 @@ def user_email_recovery_send(params):
         display="html",
         tag="reset_password_by_email",
     )
+
+
+@f_api("/user/invite", params=dict(
+    email=(str, True),
+))
+@rate_limit(ip=10)
+@f_app.user.login.check(force=True)
+def user_invite(user, params):
+    user = f_app.i18n.process_i18n(f_app.user.get(user["id"], simple=True))
+    f_app.email.schedule(
+        target=user["email"],
+        subject=template("views/static/emails/coupon_code_share_title", nickname=user["nickname"]),
+        text=template(
+            "views/static/emails/coupon_code_share",
+            nickname=user["nickname"],
+            referral_code=user["referral_code"],
+            discount="£25" if "affiliate" not in user.get("role", []) or "coupon" in user or "discount" not in user["coupon"] else user["coupon"]["discount"]["unit_symbol"] + user["coupon"]["discount"]["value"]
+        ),
+        display="html",
+        tag="coupon_code_share",
+    )
+
 
 
 @f_api("/user/email_recovery/reset_password", params=dict(
