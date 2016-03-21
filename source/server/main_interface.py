@@ -3511,3 +3511,300 @@ def get_featured_facility_sort(user, params):
         if params['total'] and len(result_end) > params['total']:
             break
     return result_end
+
+
+@f_get('/export-excel/facility-around-rent-info.xlsx', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None)
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def get_featured_facilities_around_rent(user, params):
+
+    if 'date_from' in params:
+        date_from = params['date_from']
+    else:
+        date_from = datetime(2016, 2, 3)
+
+    if 'date_to' in params:
+        date_to = params['date_to']
+    else:
+        date_to = datetime.utcnow()
+
+    def get_own_house_viewed_time(ticket):
+        with f_app.mongo() as m:
+            total = m.log.find({
+                "type": "route",
+                "route": {"$in": ['/wechat-poster/' + unicode(ticket['id']), "/property-to-rent/" + unicode(ticket['id'])]},
+                "time": {
+                    "$gte": date_from,
+                    "$lte": date_to
+                }
+            }).count()
+        return int(total)
+
+    def get_request_ticket_total(ticket):
+        with f_app.mongo() as m:
+            total = m.tickets.find({
+                "type": "rent_intention",
+                "interested_rent_tickets": ObjectId(ticket['id']),
+                "time": {
+                    "$gte": date_from,
+                    "$lte": date_to
+                },
+                "status": {
+                    "$in": [
+                        "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
+                    ]
+                }
+            }).count()
+        return int(total)
+
+    tickets_id = []
+    with f_app.mongo() as m:
+        cursor = m.tickets.aggregate(
+            [
+                {
+                    '$match': {
+                        "type": "rent",
+                        "status": {"$ne": "draft"}
+                    }
+                },
+                {
+                    '$group': {
+                        "_id": '$_id'
+                    }
+                }
+            ]
+        )
+        for single in cursor:
+            tickets_id.append(ObjectId(single['_id']))
+
+    doogal_station_list = {
+        'view_times': {},
+        'request_times': {},
+        'ticket_total': {}
+    }
+    hesa_university_list = {
+        'view_times': {},
+        'request_times': {},
+        'ticket_total': {}
+    }
+    maponics_neighborhood_list = {
+        'view_times': {},
+        'request_times': {},
+        'ticket_total': {}
+    }
+    city_list = {
+        'view_times': {},
+        'request_times': {},
+        'ticket_total': {}
+    }
+
+    print len(tickets_id)
+    for index, rent_ticket_id in enumerate(tickets_id):
+        # print index
+        if rent_ticket_id is not None:
+            try:
+                with f_app.mongo() as m:
+                    rent_ticket = m.tickets.find_one({'_id': rent_ticket_id})
+                    rent_ticket['id'] = ObjectId(rent_ticket.pop('_id'))
+            except:
+                continue
+        else:
+            continue
+        if rent_ticket is None:
+            continue
+        if 'property_id' in rent_ticket:
+            try:
+                with f_app.mongo() as m:
+                    this_property = m.propertys.find_one({'_id': rent_ticket['property_id']})
+                    this_property['id'] = ObjectId(this_property.pop('_id'))
+            except:
+                print "property get fail"
+                continue
+            if this_property is None:
+                continue
+        else:
+            continue
+
+        doogal_station_id = None
+        hesa_university_id = None
+        maponics_neighborhood_id = None
+        city_id = None
+
+        if 'featured_facility' in this_property:
+            doogal_station_id = []
+            hesa_university_id = []
+            for single_facility in this_property['featured_facility']:
+                if "doogal_station" in single_facility:
+                    doogal_station_id.append(single_facility['doogal_station'])
+                elif "hesa_university" in single_facility:
+                    hesa_university_id.append(single_facility['hesa_university'])
+
+        if 'maponics_neighborhood' in this_property:
+            if '_id' in this_property['maponics_neighborhood']:
+                maponics_neighborhood_id = this_property['maponics_neighborhood']['_id']
+
+        if 'city' in this_property:
+            if '_id' in this_property['city']:
+                city_id = this_property['city']['_id']
+
+        view_times = get_own_house_viewed_time(rent_ticket)
+        request_times = get_request_ticket_total(rent_ticket)
+
+        if doogal_station_id is not None:
+            for single_doogal_station in doogal_station_id:
+                doogal_station_list['ticket_total'].update({single_doogal_station: doogal_station_list['ticket_total'].get(single_doogal_station, 0) + 1})
+        if hesa_university_id is not None:
+            for single_university in hesa_university_id:
+                hesa_university_list['ticket_total'].update({single_university: hesa_university_list['ticket_total'].get(single_university, 0) + 1})
+        maponics_neighborhood_list['ticket_total'].update({maponics_neighborhood_id: maponics_neighborhood_list['ticket_total'].get(maponics_neighborhood_id, 0) + 1})
+        city_list['ticket_total'].update({city_id: city_list['ticket_total'].get(city_id, 0) + 1})
+
+        if view_times:
+            if doogal_station_id is not None:
+                for single_doogal_station in doogal_station_id:
+                    doogal_station_list['view_times'].update({single_doogal_station: doogal_station_list['view_times'].get(single_doogal_station, 0) + 1 * view_times})
+            if hesa_university_id is not None:
+                for single_university in hesa_university_id:
+                    hesa_university_list['view_times'].update({single_university: hesa_university_list['view_times'].get(single_university, 0) + 1 * view_times})
+            if maponics_neighborhood_id is not None:
+                maponics_neighborhood_list['view_times'].update({maponics_neighborhood_id: maponics_neighborhood_list['view_times'].get(maponics_neighborhood_id, 0) + 1 * view_times})
+            if city_id is not None:
+                city_list['view_times'].update({city_id: city_list['view_times'].get(city_id, 0) + 1 * view_times})
+
+        if request_times:
+            if doogal_station_id is not None:
+                for single_doogal_station in doogal_station_id:
+                    doogal_station_list['request_times'].update({single_doogal_station: doogal_station_list['request_times'].get(single_doogal_station, 0) + 1 * request_times})
+            if hesa_university_id is not None:
+                for single_university in hesa_university_id:
+                    hesa_university_list['request_times'].update({single_university: hesa_university_list['request_times'].get(single_university, 0) + 1 * request_times})
+            if maponics_neighborhood_id is not None:
+                maponics_neighborhood_list['request_times'].update({maponics_neighborhood_id: maponics_neighborhood_list['request_times'].get(maponics_neighborhood_id, 0) + 1 * request_times})
+            if city_id is not None:
+                city_list['request_times'].update({city_id: city_list['request_times'].get(city_id, 0) + 1 * request_times})
+
+        # if index >= 15:
+        #     break
+
+    header = ["名", "查看", "咨询", "房源"]
+    doogal_station_result = []
+    hesa_university_result = []
+    maponics_neighborhood_result = []
+    city_result = []
+
+    sort_temp = [doogal_station_list['view_times'][single] for single in doogal_station_list['view_times']]
+    sort_temp.sort(reverse=True)
+    for value in sort_temp:
+        for single in doogal_station_list['view_times']:
+            if doogal_station_list['view_times'][single] == value:
+                try:
+                    station = f_app.doogal.station.get(single)
+                except:
+                    station = {}
+                doogal_station_result.append([unicode(station.get('name', '')), unicode(value), unicode(doogal_station_list['request_times'].get(single, 0)), unicode(doogal_station_list['ticket_total'].get(single, 0))])
+                doogal_station_list['view_times'].pop(single)
+                break
+
+    sort_temp = [hesa_university_list['view_times'][single] for single in hesa_university_list['view_times']]
+    sort_temp.sort(reverse=True)
+    for value in sort_temp:
+        for single in hesa_university_list['view_times']:
+            if hesa_university_list['view_times'][single] == value:
+                try:
+                    university = f_app.hesa.university.get(single)
+                except:
+                    university = {}
+                hesa_university_result.append([unicode(university.get('name', '')), unicode(value), unicode(hesa_university_list['request_times'].get(single, 0)), unicode(hesa_university_list['ticket_total'].get(single, 0))])
+                hesa_university_list['view_times'].pop(single)
+                break
+
+    sort_temp = [maponics_neighborhood_list['view_times'][single] for single in maponics_neighborhood_list['view_times']]
+    sort_temp.sort(reverse=True)
+    for value in sort_temp:
+        for single in maponics_neighborhood_list['view_times']:
+            if maponics_neighborhood_list['view_times'][single] == value:
+                try:
+                    neighborhood = f_app.maponics.neighborhood.get(single)
+                except:
+                    neighborhood = {}
+                maponics_neighborhood_result.append([unicode(neighborhood.get('name', '')), unicode(value), unicode(maponics_neighborhood_list['request_times'].get(single, 0)), unicode(maponics_neighborhood_list['ticket_total'].get(single, 0))])
+                maponics_neighborhood_list['view_times'].pop(single)
+                break
+
+    sort_temp = [city_list['view_times'][single] for single in city_list['view_times']]
+    sort_temp.sort(reverse=True)
+    for value in sort_temp:
+        for single in city_list['view_times']:
+            if city_list['view_times'][single] == value:
+                try:
+                    city = f_app.geonames.gazetteer.get(single)
+                except:
+                    city = {}
+                city_result.append([unicode(city.get('name', '')), unicode(value), unicode(city_list['request_times'].get(single, 0)), unicode(city_list['ticket_total'].get(single, 0))])
+                city_list['view_times'].pop(single)
+                break
+
+    def get_correct_col_index(num):
+        if num > 26 * 26:
+            return "ZZ"
+        if num >= 26:
+            return get_correct_col_index(num / 26 - 1) + get_correct_col_index(num % 26)
+        else:
+            return chr(num + 65)
+
+    def format_fit(sheet):
+        simsun_font = Font(name="SimSun")
+        alignment_fit = Alignment(shrink_to_fit=True)
+        for row in sheet.rows:
+            for cell in row:
+                cell.font = simsun_font
+                cell.alignment = alignment_fit
+        for num, col in enumerate(sheet.columns):
+            lenmax = 0
+            for cell in col:
+                lencur = 0
+                if cell.value is None:
+                    cell.value = ''
+                if isinstance(cell.value, int) or isinstance(cell.value, datetime):
+                    lencur = len(six.text_type(cell.value).encode("GBK"))
+                elif cell.value is not None:
+                    lencur = len(cell.value.encode("GBK", "replace"))
+                if lencur > lenmax:
+                    lenmax = lencur
+            sheet.column_dimensions[get_correct_col_index(num)].width = lenmax * 0.86
+            print("col", get_correct_col_index(num), "fit.")
+
+    wb = Workbook()
+
+    ws_doogal_station_result = wb.active
+    ws_hesa_university_result = wb.create_sheet()
+    ws_maponics_neighborhood_result = wb.create_sheet()
+    ws_city_result = wb.create_sheet()
+
+    ws_doogal_station_result.title = "doogal_station_result"
+    ws_hesa_university_result.title = "hesa_university_result"
+    ws_maponics_neighborhood_result.title = "maponics_neighborhood_result"
+    ws_city_result.title = "city_result"
+
+    ws_doogal_station_result.append(header)
+    ws_hesa_university_result.append(header)
+    ws_maponics_neighborhood_result.append(header)
+    ws_city_result.append(header)
+    for single in doogal_station_result:
+        ws_doogal_station_result.append(single)
+    for single in hesa_university_result:
+        ws_hesa_university_result.append(single)
+    for single in maponics_neighborhood_result:
+        ws_maponics_neighborhood_result.append(single)
+    for single in city_result:
+        ws_city_result.append(single)
+
+    format_fit(ws_doogal_station_result)
+    format_fit(ws_hesa_university_result)
+    format_fit(ws_maponics_neighborhood_result)
+    format_fit(ws_city_result)
+    out = StringIO(save_virtual_workbook(wb))
+    response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    return out

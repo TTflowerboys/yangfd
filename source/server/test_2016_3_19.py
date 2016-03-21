@@ -50,26 +50,6 @@ def get_request_ticket_total(ticket):
         }).count()
     return int(total)
 
-
-# with f_app.mongo() as m:
-#     cursor = m.tickets.aggregate(
-#         [
-#             {
-#                 '$match': {
-#                     "type": "rent_intention",
-#                     "status": {"$ne": "draft"}
-#                 }
-#             },
-#             {
-#                 '$group': {
-#                     "_id": '$status'
-#                 }
-#             }
-#         ]
-#     )
-# for single in cursor:
-#     print f_app.util.json_dumps(single, indent=2)
-
 tickets_id = []
 with f_app.mongo() as m:
     cursor = m.tickets.aggregate(
@@ -89,45 +69,30 @@ with f_app.mongo() as m:
     )
     for single in cursor:
         tickets_id.append(ObjectId(single['_id']))
-# with f_app.mongo() as m:
-#     tickets = m.tickets.find({
-        # "type": "rent",
-        # "status": {"$ne": "draft"}
-#     })
 
-# tickets_id = f_app.ticket.search({
-#     "type": "rent",
-#     "status": {"$ne": "draft"},
-# }, per_page=-1)
 doogal_station_list = {
     'view_times': {},
     'request_times': {},
-    'rent_intention_times': {},
     'ticket_total': {}
 }
 hesa_university_list = {
     'view_times': {},
     'request_times': {},
-    'rent_intention_times': {},
     'ticket_total': {}
 }
 maponics_neighborhood_list = {
     'view_times': {},
     'request_times': {},
-    'rent_intention_times': {},
     'ticket_total': {}
 }
 city_list = {
     'view_times': {},
     'request_times': {},
-    'rent_intention_times': {},
     'ticket_total': {}
 }
 
-# tickets_id = [ObjectId("569e757abd77320c14654121")]
-print len(tickets_id)
 for index, rent_ticket_id in enumerate(tickets_id):
-    print index
+    # print index
     if rent_ticket_id is not None:
         try:
             with f_app.mongo() as m:
@@ -144,7 +109,6 @@ for index, rent_ticket_id in enumerate(tickets_id):
             with f_app.mongo() as m:
                 this_property = m.propertys.find_one({'_id': rent_ticket['property_id']})
                 this_property['id'] = ObjectId(this_property.pop('_id'))
-            # this_property = f_app.property.get(rent_ticket['property_id'])
         except:
             print "property get fail"
             continue
@@ -177,7 +141,6 @@ for index, rent_ticket_id in enumerate(tickets_id):
 
     view_times = get_own_house_viewed_time(rent_ticket)
     request_times = get_request_ticket_total(rent_ticket)
-    # rent_intention_times = get_rent_intention_total(rent_ticket)
 
     if doogal_station_id is not None:
         for single_doogal_station in doogal_station_id:
@@ -212,8 +175,8 @@ for index, rent_ticket_id in enumerate(tickets_id):
         if city_id is not None:
             city_list['request_times'].update({city_id: city_list['request_times'].get(city_id, 0) + 1 * request_times})
 
-    # if index >= 5:
-    #     break
+    if index >= 15:
+        break
 
 
 # print json.dumps(doogal_station_list, indent=2)
@@ -266,7 +229,7 @@ for value in sort_temp:
             except:
                 neighborhood = {}
             # print unicode(neighborhood.get('name', '')) + "\t" + unicode(value) + "\t" + unicode(maponics_neighborhood_list['ticket_total'][single])
-            print "%55s%10s%10s%10s%10s" % (unicode(neighborhood.get('name', '')), unicode(value), unicode(maponics_neighborhood_list['request_times'].get(single, 0)), unicode(maponics_neighborhood_list['ticket_total'].get(single, 0)))
+            print "%55s%10s%10s%10s" % (unicode(neighborhood.get('name', '')), unicode(value), unicode(maponics_neighborhood_list['request_times'].get(single, 0)), unicode(maponics_neighborhood_list['ticket_total'].get(single, 0)))
             maponics_neighborhood_list['view_times'].pop(single)
             break
 
@@ -283,7 +246,7 @@ for value in sort_temp:
             except:
                 city = {}
             # print unicode(city.get('name', '')) + "\t" + unicode(value) + "\t" + unicode(city_list['ticket_total'][single])
-            print "%55s%10s%10s%10s%10s" % (unicode(city.get('name', '')), unicode(value), unicode(city_list['request_times'].get(single, 0)), unicode(city_list['ticket_total'].get(single, 0)))
+            print "%55s%10s%10s%10s" % (unicode(city.get('name', '')), unicode(value), unicode(city_list['request_times'].get(single, 0)), unicode(city_list['ticket_total'].get(single, 0)))
             city_list['view_times'].pop(single)
             break
 
