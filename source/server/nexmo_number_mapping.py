@@ -89,7 +89,6 @@ class nexmo_number(f_app.module_base):
     def update_set(self, nexmo_number_id, params):
         return self.update(nexmo_number_id, {"$set": params})
 
-
 nexmo_number()
 
 
@@ -179,6 +178,5 @@ class nexmo_number_mapping(f_app.module_base):
 
     def update_set(self, nexmo_number_mapping_id, params):
         return self.update(nexmo_number_mapping_id, {"$set": params})
-
 
 nexmo_number_mapping()

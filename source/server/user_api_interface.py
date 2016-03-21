@@ -465,7 +465,7 @@ def user_edit(user, params):
     referral=ObjectId,
     query=str,
 ))
-@f_app.user.login.check(force=True, role=f_app.common.advanced_admin_roles)
+@f_app.user.login.check(force=True, check_role=True)
 def admin_user_search(user, params):
     """
     Use this to search for users with roles.
@@ -479,6 +479,10 @@ def admin_user_search(user, params):
     ``has_intention_ticket`` and ``has_register_time`` work like above.
 
     """
+    if not set(user["role"]) & set(f_app.common.advanced_admin_roles):
+        assert "affiliate" in user["role"], abort(40300)
+        params["affiliate"] = ObjectId(user["id"])
+
     user_roles = f_app.user.get_role(user["id"])
     if "role" in params:
         if not all(f_app.user.check_set_role_permission(user["id"], role) for role in params["role"]):
@@ -494,9 +498,12 @@ def admin_user_search(user, params):
             params["role"]["$nin"] = ["admin", "jr_admin", "operation", "jr_operation", "support", "jr_support", "developer", "agency"]
         elif "operation" in user_roles:
             params["role"]["$nin"] = ["admin", "jr_admin", "sales", "jr_sales", "support", "jr_support", "developer", "agency"]
-        else:
-            # support
+        elif "support" in user_roles:
             params["role"]["$nin"] = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "developer", "agency"]
+        elif "affiliate" in user_roles:
+            pass
+        else:
+            abort(40300)
 
     if "user_type" in params:
         params["user_type"] = {"$in": params["user_type"]}
