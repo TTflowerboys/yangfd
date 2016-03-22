@@ -814,8 +814,8 @@ class currant_plugin(f_app.plugin_base):
             else:
                 # TODO
                 new_coupon = dict(
-                    discount=50.0,
-                    description="50 GBP",
+                    discount=25.0,
+                    description="25 GBP",
                 )
 
             new_coupon.setdefault("effective_time", datetime.utcnow())
