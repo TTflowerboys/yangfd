@@ -50,7 +50,8 @@
             <p class="hint">
                 {{_('您是从哪里听说洋房东的')}}
             </p>
-            <select class="referrer ghostSelect" name="referrer" style="color:#4d4d4d;">
+            <select class="referrer ghostSelect" name="referrer" style="color:#4d4d4d;" data-validator="required, trim">
+                <option value="">{{_('请选择来源')}}</option>
                 %for index, referrer in enumerate(referrer_list):
                 <option value="{{referrer.get('id')}}" data-slug="{{referrer.get('slug')}}">{{referrer.get('value')}}</option>
                 %end

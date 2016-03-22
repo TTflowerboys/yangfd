@@ -5,6 +5,7 @@ window.getErrorMessage = function (domName, validator) {
         'phone_required': i18n('电话不能为空'),
         'phone_number': i18n('电话格式不正确'),
         'email_required': i18n('邮箱不能为空'),
+        'referrer_required': i18n('用户来源不能为空'),
         'email_email': i18n('邮箱格式不合法'),
         'solution_required': i18n('验证码不能为空'),
         'password_required': i18n('密码不能为空'),
