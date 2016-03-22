@@ -550,7 +550,7 @@ def admin_user_add(user, params):
     Password is generated randomly.
     """
     for r in params["role"]:
-        if r not in f_app.common.admin_roles:
+        if r not in f_app.common.admin_roles + f_app.common.special_roles:
             abort(40091, logger.warning("Invalid params: role", r, exc_info=False))
         if not f_app.user.check_set_role_permission(user["id"], r):
             abort(40399, logger.warning('Permission denied.', exc_info=False))
@@ -598,17 +598,18 @@ def admin_user_add(user, params):
     xsmtpapi = substitution_vars
     xsmtpapi["template_id"] = sendgrid_template_id
 
-    f_app.email.schedule(
-        target=params["email"],
-        subject=f_app.util.get_format_email_subject(template("static/emails/new_admin_title")),
-        text=template("static/emails/new_admin", password=params["password"], nickname=params["nickname"], role=params[
-            "role"], admin_console_url=admin_console_url, phone="*" * (len(params["phone"]) - 4) + params["phone"][-4:]),
-        display="html",
-        template_invoke_name=template_invoke_name,
-        substitution_vars=substitution_vars,
-        xsmtpapi=xsmtpapi,
-        tag="new_admin",
-    )
+    if set(f_app.common.admin_roles) & set(params["role"]):
+        f_app.email.schedule(
+            target=params["email"],
+            subject=f_app.util.get_format_email_subject(template("static/emails/new_admin_title")),
+            text=template("static/emails/new_admin", password=params["password"], nickname=params["nickname"], role=params[
+                "role"], admin_console_url=admin_console_url, phone="*" * (len(params["phone"]) - 4) + params["phone"][-4:]),
+            display="html",
+            template_invoke_name=template_invoke_name,
+            substitution_vars=substitution_vars,
+            xsmtpapi=xsmtpapi,
+            tag="new_admin",
+        )
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
@@ -623,7 +624,7 @@ def admin_user_add_role(user, user_id, params):
     """
     role = params["role"]
     user_info = f_app.user.get(user_id)
-    if role not in f_app.common.admin_roles:
+    if role not in f_app.common.admin_roles + f_app.common.special_roles:
         abort(40091, logger.warning("Invalid params: role", role, exc_info=False))
     if not f_app.user.check_set_role_permission(user["id"], role):
         abort(40399, logger.warning('Permission denied.', exc_info=False))
@@ -794,7 +795,7 @@ def admin_user_set_role(user, user_id, params):
     ``support`` can set ``support`` and ``jr_support``.
     """
     for r in params["role"]:
-        if r not in f_app.common.admin_roles:
+        if r not in f_app.common.admin_roles + f_app.common.special_roles:
             abort(40091, logger.warning("Invalid params: role", r, exc_info=False))
         if not f_app.user.check_set_role_permission(user["id"], r):
             abort(40399, logger.warning('Permission denied.', exc_info=False))
@@ -815,7 +816,7 @@ def admin_user_unset_role(user, user_id, params):
     user_roles = f_app.user.get_role(user_id)
 
     for r in params["role"]:
-        if r not in f_app.common.admin_roles:
+        if r not in f_app.common.admin_roles + f_app.common.special_roles:
             abort(40091, logger.warning("Invalid params: role", r, exc_info=False))
         elif r in user_roles:
             if not f_app.user.check_set_role_permission(user["id"], r):
