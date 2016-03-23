@@ -11,7 +11,7 @@ def nexmo_number(nexmo_number_id, user):
 @f_api('/nexmo_number/list')
 @f_app.user.login.check(role=['admin'])
 def nexmo_number_list(user):
-    return f_app.sms.nexmo.number.get_all()
+    return f_app.sms.nexmo.number.get(f_app.sms.nexmo.number.get_all())
 
 
 @f_api('/nexmo_number/add', params=dict(
