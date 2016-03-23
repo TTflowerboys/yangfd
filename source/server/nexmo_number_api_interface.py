@@ -2,9 +2,15 @@ from app import f_app
 from libfelix.f_interface import f_api
 
 
+@f_api('/nexmo_number/<nexmo_number_id>')
+@f_app.user.login.check(role=['admin'])
+def nexmo_number(nexmo_number_id, user):
+    return f_app.sms.nexmo.number.get(nexmo_number_id)
+
+
 @f_api('/nexmo_number/list')
 @f_app.user.login.check(role=['admin'])
-def nexmo_number(user):
+def nexmo_number_list(user):
     return f_app.sms.nexmo.number.get_all()
 
 
