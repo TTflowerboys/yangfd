@@ -1003,6 +1003,10 @@ def user_invite(user, params):
     if f_app.user.get_id_by_email(params["email"]):
         abort(40325)
     user = f_app.i18n.process_i18n(f_app.user.get(user["id"], simple=True))
+    if "affiliate" not in user.get("role", []) or "coupon" not in user or "discount" not in user["coupon"]:
+        discount = "£25"
+    else:
+        discount = user["coupon"]["discount"]["unit_symbol"] + user["coupon"]["discount"]["value"]
     f_app.email.schedule(
         target=user["email"],
         subject=template("views/static/emails/coupon_code_share_title", nickname=user["nickname"]),
@@ -1010,7 +1014,7 @@ def user_invite(user, params):
             "views/static/emails/coupon_code_share",
             nickname=user["nickname"],
             referral_code=user["referral_code"],
-            discount="£25" if "affiliate" not in user.get("role", []) or "coupon" in user or "discount" not in user["coupon"] else user["coupon"]["discount"]["unit_symbol"] + user["coupon"]["discount"]["value"]
+            discount=discount,
         ),
         display="html",
         tag="coupon_code_share",
