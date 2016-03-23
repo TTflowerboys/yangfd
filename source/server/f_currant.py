@@ -812,9 +812,14 @@ class currant_plugin(f_app.plugin_base):
             if "affiliate" in referral.get("role", []) and "coupon" in referral:
                 new_coupon = referral["coupon"]
             else:
-                # TODO
                 new_coupon = dict(
-                    discount=25.0,
+                    discount=dict(
+                        value="25",
+                        value_float=25.0,
+                        unit="GBP",
+                        type="currency",
+                        _i18n_unit=True,
+                    ),
                     description="25 GBP",
                 )
 
