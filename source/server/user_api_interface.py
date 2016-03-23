@@ -1000,6 +1000,8 @@ def user_email_recovery_send(params):
 @rate_limit(ip=10)
 @f_app.user.login.check(force=True)
 def user_invite(user, params):
+    if f_app.user.get_id_by_email(params["email"]):
+        abort(40325)
     user = f_app.i18n.process_i18n(f_app.user.get(user["id"], simple=True))
     f_app.email.schedule(
         target=user["email"],
@@ -1013,7 +1015,6 @@ def user_invite(user, params):
         display="html",
         tag="coupon_code_share",
     )
-
 
 
 @f_api("/user/email_recovery/reset_password", params=dict(
