@@ -163,6 +163,7 @@ class nexmo_number_mapping(f_app.module_base):
                 excluded_numbers = map(lambda mapping: str(mapping["nexmo_number"]), existing_mappings)
 
             params["nexmo_number"] = f_app.sms.nexmo.number.get_random(exclude=excluded_numbers)
+            params.pop('status')
             return self.add(params)
         else:
             return str(nexmo_number_mapping["_id"])
