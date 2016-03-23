@@ -20,6 +20,7 @@ def nexmo_number_add(user, params):
 @f_api('/nexmo_number/<nexmo_number_id>/edit', params=dict(
     phone=str,
     country="country",
+    status=str,
 ))
 @f_app.user.login.check(role=['admin'])
 def nexmo_number_edit(nexmo_number_id, user, params):
