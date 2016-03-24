@@ -748,12 +748,13 @@ def rent_intention_ticket_sms_send(rent_intention_ticket_id, user, params):
     assert "phone" in user, abort("specified user doesn't have a phone number")
     nexmo_number_mapping = f_app.sms.nexmo.number.mapping.get(f_app.sms.nexmo.number.mapping.find_or_add({"ticket_id": rent_intention_ticket_id, "user_id": params["user_id"]}))
     nexmo_number = f_app.sms.nexmo.number.get(nexmo_number_mapping["nexmo_number"])
-    f_app.sms.schedule({
+    sms = {
         "method": "nexmo",
         "from": nexmo_number["phone"],
         "target": user["phone"],
         "text": params["text"],
-    })
+    }
+    f_app.sms.schedule(**sms)
 
 
 @f_api('/rent_request_ticket/search', params=dict(
