@@ -41,6 +41,9 @@
     %if not is_mobile_client():
         <div class="appDownload hiddenInClient">
             <!-- @@include =app_download_content_new.html -->
+            % if not is_mobile_browser():
+            <!-- @@include =app_download_content_swiper.html -->
+            % end
         </div>
     %end
 

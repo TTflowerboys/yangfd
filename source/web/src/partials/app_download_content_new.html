@@ -106,31 +106,3 @@
     </div>
 </div>
 
-% if not is_mobile_browser():
-    <div class="wrap wrapRight">
-        <div class="phone">
-            <!-- Swiper -->
-            <div class="swiper-container appDownloadSwiper">
-                <div class="swiper-wrapper">
-                    %if request.params and request.params.get('target','') == 'user-coupons':
-                        <!--<div class="swiper-slide"><img src="/static/images/app_download/user-coupons_1.jpg" alt=""></div>-->
-                        <div class="swiper-slide"><img src="/static/images/app_download/user-coupons_2.jpg" alt=""></div>
-                        <!--<div class="swiper-slide"><img src="/static/images/app_download/user-coupons_3.jpg" alt=""></div>-->
-                        <!--<div class="swiper-slide"><img src="/static/images/app_download/user-coupons_4.jpg" alt=""></div>-->
-                    %else:
-                        <div class="swiper-slide"><img src="/static/images/wechat_poster/page_1.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="/static/images/wechat_poster/page_2.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="/static/images/wechat_poster/page_3.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="/static/images/wechat_poster/page_4.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="/static/images/wechat_poster/page_5.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="/static/images/wechat_poster/page_6.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="/static/images/wechat_poster/page_7.jpg" alt=""></div>
-                    %end
-                </div>
-                <!-- Add Pagination -->
-                <div class="swiper-pagination"></div>
-            </div>
-
-        </div>
-    </div>
-% end
