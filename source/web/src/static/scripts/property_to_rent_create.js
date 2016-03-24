@@ -747,7 +747,7 @@
         } else {
             delete propertyData.cover
         }
-        if($('#cooperation').length && $('#cooperation').is(':checked')){
+        if(module.appViewModel.propertyViewModel.partner()){
             propertyData.partner = true
         }
         return propertyData
@@ -1283,6 +1283,7 @@
         this.allowBaby = ko.observable(rent.no_baby !== undefined ? !rent.no_baby : true)
         this.independentBathroom = ko.observable(rent.independent_bathroom || false)
         this.otherRequirements = ko.observable(rent.other_requirements)
+        this.partner = ko.observable(rent.property ? rent.property.partner : false)
 
         this.showSurrouding = ko.computed(function () {
             return !_.isEmpty(this.latitude()) && !_.isEmpty(this.longitude())

@@ -120,8 +120,14 @@
                                 <!--<input placeholder="{{_('街区')}}" id="region" name="region" data-name="{{_('街区')}}" value="" data-trigger="updateTitle">-->
                                 <input placeholder="{{_('街道（选填）')}}" id="street" name="street" data-name="{{_('街道')}}" value="{{rent.get('property',{}).get('street','')}}" data-trigger="updateTitle">
                                 <input placeholder="{{_('小区（选填）')}}" id="community" value="{{rent.get('property',{}).get('community','')}}" data-trigger="updateTitle">
+                                <!-- ko if: !partner() -->
                                 <input placeholder="{{_('楼层（必填）')}}" id="floor" data-validator="required, trim" data-name="{{_('楼层')}}" value="{{rent.get('property',{}).get('floor','')}}">
                                 <input placeholder="{{_('房间号（必填）')}}" id="house_name" data-validator="required, trim" data-name="{{_('房间号')}}" value="{{rent.get('property',{}).get('house_name','')}}">
+                                <!-- /ko -->
+                                <!-- ko if: partner() -->
+                                <input placeholder="{{_('楼层（选填）')}}" id="floor" data-name="{{_('楼层')}}" value="{{rent.get('property',{}).get('floor','')}}">
+                                <input placeholder="{{_('房间号（选填）')}}" id="house_name" data-name="{{_('房间号')}}" value="{{rent.get('property',{}).get('house_name','')}}">
+                                <!-- /ko -->
                                 <p class="hint">{{_('为保护您的隐私, 房间号不会展示给未预订成功的租客')}}</p>
                             </div>
                         </td>
@@ -696,11 +702,7 @@
     </form>
     % if user and set(user.get('role')) & set(['jr_admin','admin','jr_operation','operation']):
     <div class="cooperation">
-        <input id="cooperation" type="checkbox"
-            %if rent.get('property',{}).get('partner'):
-        checked
-        %end
-        >
+        <input id="cooperation" type="checkbox" data-bind="checked: partner">
         <label for="cooperation">{{_('是否为平台合作房源')}}</label>
     </div>
     % end
