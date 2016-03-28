@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime, timedelta
+import json
 import random
 import logging
 from bson.objectid import ObjectId
 from app import f_app
-from libfelix.f_interface import f_api, abort, template, request
+from libfelix.f_interface import f_get, f_api, abort, template, request
 logger = logging.getLogger(__name__)
 
 
@@ -755,6 +756,68 @@ def rent_intention_ticket_sms_send(rent_intention_ticket_id, user, params):
         "text": params["text"],
     }
     f_app.sms.schedule(**sms)
+
+
+@f_get('/rent_intention_ticket/sms/receive', params={
+    "type": str,
+    "messageId": str,
+    "text": str,
+    "to": str,
+    "msisdn": str,
+    "message-timestamp": datetime,
+    "concat": bool,
+})
+def rent_intention_ticket_sms_receive(params):
+    if "concat" in params and params["concat"]:
+        raise NotImplementedError
+
+    nexmo_number = f_app.sms.nexmo.number.get(f_app.sms.nexmo.number.get_by_number(params["to"]))
+    user = f_app.user.get(f_app.user.get_id_by_phone())
+
+    mapping = f_app.sms.nexmo.number.mapping.get(f_app.sms.nexmo.number.mapping.reverse_lookup(nexmo_number, user["id"]))
+    ticket = f_app.ticket.get(mapping["ticket_id"])
+
+    if user["id"] == ticket["user_id"]:
+        role = "tenant"
+        target = "landlord"
+    else:
+        role = "landlord"
+        target = "tenant"
+
+    custom_fields = ticket.get("custom_fields")
+    for custom_field in custom_fields:
+        if custom_field["key"] == "dynamic":
+            dynamic_custom_field = custom_field
+            break
+    else:
+        dynamic_custom_field = {"key": "dynamic", "value": "[]"}
+        custom_fields.append(dynamic_custom_field)
+
+    dynamic = json.loads(dynamic_custom_field["value"])
+
+    event = {
+        "id": params["messageId"],
+        "type": 'message',
+        "role": role,
+        "messageInfo": {
+            "status": 'needReview',
+            "target": target,
+        },
+        "user": {
+            "id": user["id"],
+            "nickname": user["nickname"],
+        },
+        "content": params["text"],
+        "originContent": params["text"],
+        "time": params["message-timestamp"],
+        "status": 'in_progress',
+    }
+
+    dynamic.append(event)
+
+    dynamic_custom_field["value"] = json.dumps(dynamic)
+
+    f_app.ticket.update_set(ticket["id"], {"custom_fields": custom_fields})
 
 
 @f_api('/rent_request_ticket/search', params=dict(

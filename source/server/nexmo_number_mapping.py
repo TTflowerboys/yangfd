@@ -59,6 +59,18 @@ class nexmo_number(f_app.module_base):
 
         return str(nexmo_number_id)
 
+    def get_by_number(self, phone):
+        with f_app.mongo() as m:
+            nexmo_number = self.get_database(m).find_one(
+                {"phone": phone, "status": {"$ne": "deleted"}},
+                {},
+            )
+
+        if nexmo_number is None:
+            abort(40400)
+
+        return str(nexmo_number["_id"])
+
     def get_all(self, country=None):
         params = {"status": {"$ne": "deleted"}}
         if country:
@@ -140,6 +152,8 @@ class nexmo_number_mapping(f_app.module_base):
         assert "user_id" in params, abort(40000, "user_id must be present")
         for dimension in f_app.common.nexmo_number_mapping_dimensions:
             assert dimension in params, abort(40000, dimension + " must be present")
+        if "nexmo_number" in params:
+            params["nexmo_number"] = ObjectId(params["nexmo_number"])
         params.setdefault("status", "new")
         params.setdefault("time", datetime.utcnow())
 
@@ -162,11 +176,22 @@ class nexmo_number_mapping(f_app.module_base):
                 existing_mappings = self.get_database(m).find({"user_id": params["user_id"], "status": {"$ne": "deleted"}})
                 excluded_numbers = map(lambda mapping: str(mapping["nexmo_number"]), existing_mappings)
 
-            params["nexmo_number"] = f_app.sms.nexmo.number.get_random(exclude=excluded_numbers)
+            params["nexmo_number"] = ObjectId(f_app.sms.nexmo.number.get_random(exclude=excluded_numbers))
             params.pop('status')
             return self.add(params)
         else:
             return str(nexmo_number_mapping["_id"])
+
+    def reverse_lookup(self, nexmo_number, user_id):
+        params = {"nexmo_number": ObjectId(nexmo_number), "user_id": ObjectId(user_id)}
+
+        with f_app.mongo() as m:
+            nexmo_number_mapping = self.get_database(m).find_one(params, {})
+
+        if nexmo_number_mapping is None:
+            nexmo_number_mapping = str(nexmo_number_mapping)
+
+        return nexmo_number_mapping
 
     def update(self, nexmo_number_mapping_id, params):
         with f_app.mongo() as m:
