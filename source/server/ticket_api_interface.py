@@ -784,6 +784,20 @@ def rent_intention_ticket_sms_receive(params):
         role = "landlord"
         target = "tenant"
 
+    msg = {
+        "sender": {
+            "id": user["id"],
+            "nickname": user["nickname"],
+        },
+        "text": params["text"],
+        "status": "new",
+        "time": params["message-timestamp"],
+        "type": "new_sms",
+        "role": role,
+        "ticket_id": ticket["id"],
+    }
+    f_app.message.add(msg, f_app.user.admin.list(admin_roles=f_app.common.advanced_admin_roles))
+
     custom_fields = ticket.get("custom_fields")
     for custom_field in custom_fields:
         if custom_field["key"] == "dynamic":

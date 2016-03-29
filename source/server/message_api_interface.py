@@ -28,6 +28,21 @@ def message_receive(user, params):
             "type": "system",
             "id": "50627bdacea1757f1213f8f3"
         }
+
+        Type: new_sms
+        {
+            "sender": {
+                "id": "50627bdacea1757f1213f8f3",
+                "nickname": "Arnold Wang",
+            },
+            "text": "this is a message",
+            "status": "new",
+            "time": 1348631514.0,
+            "type": "new_sms",
+            "role": "tenant",
+            "ticket_id": "50627bdacea1757f1213f8f3",
+            "id": "50627bdacea1757f1213f8f3",
+        }
     """
     if "status" in params:
         params["state"] = {"$in": params.pop("status", [])}
