@@ -1,0 +1,9 @@
+<span class="input-xlarge uneditable-input" ng-hide="isEditing">{%model%}</span>
+<div ng-show="isEditing">
+    <input type="text" ng-model="model_tmp"/>
+    <input type="button" class="btn btn-primary" value="{%$root.i18n('确定')%}" ng-click="updateProperty()" ng-disabled="!model">
+    <input type="button" class="btn btn-default" value="{%$root.i18n('取消')%}" ng-click="cancelUpdateProperty()">
+</div>
+<a class="btn btn-info ng-scope" href="" ng-click="editProperty()" ng-hide="isEditing" title="Edit">
+    <i class="fa fa-edit "></i>
+</a>

@@ -78,7 +78,28 @@
         }
     }
 
+    input[name=referral] {
+        max-width: 270px;
+        width:270px;
+        border: 0px;
+        margin-left: 8px;
+        vertical-align: middle;
+        outline: none;
+        @media @phone {
+            width: 85%;
+            width:~"calc(100% - 20px)";
+        }
+    }
+
+    .referral {
+        border-radius:6px;
+        border: 1px solid #cccccc;
+        background: white;
+        padding: 8px 12px;
+    }
+
     .captchaCode {
+        padding: 8px 0px;
 
         @media @phone {
             max-width:100%;
@@ -108,22 +129,22 @@
             display: inline-block;
             vertical-align: middle;
             margin-left: 8px;
-            padding: 8px 0 8px 10px;
-            border-radius:6px;
-            border:0;
+            padding: 8px 8px 8px 10px;
+            border-radius:6px;            
+            border: 1px solid #cccccc;
+            outline: none;
             height:48px;
-
-            width: 160px;
+            width: 172px;
             @media @phone {
-
                 width: 150px;               /* fallback for browsers without support for calc() */
-                width:~"calc(100% - 144px)";
+                width:~"calc(100% - 148px)";
             }
         }
     }
 
     .formsHint {
         margin-top: 8px;
+        margin-bottom: 8px;
         font-size: 12px;
         color: #666666;
     }

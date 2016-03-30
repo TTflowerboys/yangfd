@@ -29,6 +29,7 @@ angular.module('app')
         { name: i18n('客服单状态'), value: 'support_ticket_status' },
         { name: i18n('用户类型'), value: 'user_type' },
         { name: i18n('用户来源'), value: 'user_referrer' },
+        { name: i18n('coupon类型'), value: 'coupon_category' },
         { name: i18n('取消原因'), value: 'cancel_reason' }
     ]).run(function ($rootScope, enumTypes) {
         $rootScope.enumTypes = enumTypes

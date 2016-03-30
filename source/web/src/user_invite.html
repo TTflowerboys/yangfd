@@ -1,0 +1,66 @@
+<!--@@master = masters/user_master.html-->
+<!--@@block =head -->
+
+<!--build:css(dist) /static/styles/user_invite.html.css-->
+<link rel="stylesheet" href="/static/styles/userInvite.css"/>
+<!--endbuild-->
+<!--@@close-->
+<!--@@block = main -->
+<div class="content">
+    <div class="contentHeader">
+        <h1>{{_('推荐有奖')}}</h1>
+    </div>
+    <div class="bonus">
+        <div class="offer">
+            <p class="hint">{{_('优惠券')}}</p>
+            <label class="content">£25</label>
+        </div>
+        <div class="text">
+            <p class="tip">{{_('送租房优惠券给好友，邀请好友来注册吧！您也会在线下得到返现！')}}</p>
+            <p class="bonusCode">{{_('您的邀请码')}}<strong>
+                %if user.get('referral_code'):
+                    {{user.get('referral_code')}}
+                %end
+            </strong></p>
+            <div class="share">
+                <button class="button email"><i class="icon-email"></i>{{_('邮件分享')}}</button>
+                <button class="button social"><i class="icon-social"></i>{{_('分享到社交网络')}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sharePopup" id="socialSharePopup" style="display:none;">
+    <div class="sharePopupShadow"></div>
+    <div class="shareView">
+        <h1 class="title">{{_('分享你优惠码')}}</h1>
+        <ul>
+            <li class="weibo">
+                <i class="icon-share_weibo"></i>
+                <label for="">{{_('新浪微博')}}</label>
+            </li>
+            <li class="wechat">
+                <img class="qrcode" alt="" src=""/>
+                <label for="">{{_('扫一扫分享到微信')}}</label>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="sharePopup" id="emailSharePopup" style="display:none;">
+    <div class="sharePopupShadow"></div>
+    <div class="shareView">
+        <h1 class="title">{{_('将优惠码发送至')}}</h1>
+        <div>
+            <input name="email" type="text" value="" placeholder="{{_('请输入邮件地址')}}"/>
+            <button class="button red send" >{{_('发送')}}</button>
+        </div>
+    </div>
+</div>
+
+<!--@@close-->
+<!--@@block=scripts-->
+<!--build:js /static/scripts/user_invite.js-->
+<script src="/static/scripts/user_invite.js"></script>
+<!--endbuild-->
+<!--@@close-->

@@ -1,6 +1,6 @@
 angular.module('app')
     .directive('editRentIntentionTicketStatus',
-    function (rentRequestIntentionApi, rentIntentionTicketStatus) {
+    function (rentRequestIntentionApi, rentIntentionTicketStatus, couponApi) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/edit_rent_intention_ticket_status.tpl.html',
@@ -27,12 +27,25 @@ angular.module('app')
                     if(newStatus === 'canceled') {
                         params.reason = scope.canceledReason
                     }
-                    rentRequestIntentionApi.update(params,
-                        {successMessage: '操作成功', errorMessage: true})
-                        .success(function () {
-                            item.status = newStatus
-                            item.canceled_reason = scope.canceledReason
+                    if(newStatus === 'checked_in' && scope.item.offer && item.offer.status === 'new' && scope.useCoupon) {
+                        couponApi.update({
+                            id: scope.item.offer.id,
+                            status: 'used'
+                        }, {
+                            successMessage: '优惠券使用成功',
+                            errorMessage: true
+                        }).success(function () {
+                            item.offer.status = 'used'
+
                         })
+                    }
+                    rentRequestIntentionApi.update(params, {
+                        successMessage: '操作成功',
+                        errorMessage: true
+                    }).success(function () {
+                        item.status = newStatus
+                        item.updated_comment = scope.canceledReason
+                    })
                 }
             }
         }

@@ -20,6 +20,7 @@
 #import <UMSocial.h>
 #import <UMSocialWechatHandler.h>
 #import <UMSocialSinaHandler.h>
+#import <MessageUI/MessageUI.h>
 #import <WeiboSDK.h>
 #import "AppDelegate.h"
 #import "UIActionSheet+Blocks.h"
@@ -31,6 +32,7 @@
 #import "CUTEDataManager.h"
 #import "NSURL+CUTE.h"
 #import "NSString+Truncate.h"
+#import "NSString+Encoding.h"
 
 
 #define THNUMBNAIL_SIZE 100
@@ -43,7 +45,11 @@ NSString * const CUTEShareServiceSinaWeibo = @"Sina Weibo";
 
 NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
-@interface CUTEShareManager () <UMSocialUIDelegate, WXApiDelegate, WeiboSDKDelegate> {
+NSString * const CUTEShareServiceSMS = @"SMS";
+
+NSString * const CUTEShareServiceEmail = @"Email";
+
+@interface CUTEShareManager () <UMSocialUIDelegate, WXApiDelegate, WeiboSDKDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate> {
 
 }
 
@@ -235,6 +241,96 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
     return STR(localizedkey);
 }
 
+- (CUTEActivity *)getSMSActivityWithTitle:(NSString *)title description:(NSString *)description url:(NSString *)url image:(UIImage *)image viewController:(UIViewController *)viewController buttonPressedBlock:(dispatch_block_t)callback {
+    CUTEActivity *smsActivity = [CUTEActivity new];
+    smsActivity.activityTitle = [self getLocalizedActivityTitle:CUTEShareServiceSMS];
+    smsActivity.activityType = CUTEShareServiceSMS;
+    smsActivity.activityImage = IMAGE(@"icon-share-sms");
+    smsActivity.performActivityBlock = ^ {
+
+        if(![MFMessageComposeViewController canSendText]) {
+            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:STR(@"错误") message:STR(@"您的设备不支持发送短信") delegate:nil cancelButtonTitle:STR(@"OK") otherButtonTitles:nil];
+            [warningAlert show];
+            return;
+        }
+
+
+        NSString *message = CONCAT(NilNullToEmpty(title), @" ", url);
+
+        MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+        messageController.messageComposeDelegate = self;
+        [messageController setBody:message];
+
+        // Present message view controller on screen
+        [viewController presentViewController:messageController animated:YES completion:nil];
+
+        if (callback) {
+            callback();
+        }
+    };
+    return smsActivity;
+}
+
+- (CUTEActivity *)getEmailActivityWithTitle:(NSString *)title description:(NSString *)description url:(NSString *)url image:(UIImage *)image viewController:(UIViewController *)viewController buttonPressedBlock:(dispatch_block_t)callback {
+    CUTEActivity *emailActivity = [CUTEActivity new];
+    emailActivity.activityTitle = [self getLocalizedActivityTitle:CUTEShareServiceEmail];
+    emailActivity.activityType = CUTEShareServiceEmail;
+    emailActivity.activityImage = IMAGE(@"icon-share-email");
+    emailActivity.performActivityBlock = ^ {
+
+        if(![MFMailComposeViewController canSendMail]) {
+            [UIAlertView showWithTitle:STR(@"错误") message:STR(@"您的设备邮箱未设置好") cancelButtonTitle:STR(@"取消") otherButtonTitles:@[STR(@"设置")] tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                if (buttonIndex != alertView.cancelButtonIndex) {
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mailto:?to=&subject=%@&body=%@", [title URLEncode], [url URLEncode]]]];
+                }
+            }];
+
+            return;
+        }
+
+        NSMutableString *body  = [[NSMutableString alloc] init];
+        if (description) {
+            [body appendString:description];
+        }
+
+        if (url) {
+            [body appendString:@" "];
+            [body appendString:url];
+        }
+
+        NSString *messageBody = [body stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
+        MFMailComposeViewController *messageController = [[MFMailComposeViewController alloc] init];
+        messageController.mailComposeDelegate = self;
+        [messageController setSubject:title];
+        [messageController setMessageBody:messageBody isHTML:NO];
+
+        // Present message view controller on screen
+        [viewController presentViewController:messageController animated:YES completion:nil];
+
+        if (callback) {
+            callback();
+        }
+    };
+    return emailActivity;
+}
+
+- (CUTEActivity *)getCopyLinkActivityWithUrl:(NSString *)url  buttonPressedBlock:(dispatch_block_t)callback {
+    CUTEActivity *copyLinkActivity = [CUTEActivity new];
+    copyLinkActivity.activityTitle = STR(@"ShareManager/复制链接");
+    copyLinkActivity.activityType = CUTEShareServiceCopyLink;
+    copyLinkActivity.activityImage = IMAGE(@"icon-share-copy-link");
+    copyLinkActivity.performActivityBlock = ^ {
+        [UIPasteboard generalPasteboard].string = url;
+        [SVProgressHUD showSuccessWithStatus:STR(@"ShareManager/已复制至粘贴版")];
+        if (callback) {
+            callback();
+        }
+    };
+
+    return copyLinkActivity;
+};
+
 - (CUTEActivity *)getWechatFriendActivityWithTitle:(NSString *)title description:(NSString *)description url:(NSString *)url image:(UIImage *)image buttonPressedBlock:(dispatch_block_t)callback {
     CUTEActivity *wechatFriendActivity = [CUTEActivity new];
     wechatFriendActivity.activityTitle = [self getLocalizedActivityTitle:CUTEShareServiceWechatFriend];
@@ -347,17 +443,11 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
         }
     }];
 
-    CUTEActivity *copyLinkActivity = [CUTEActivity new];
-    copyLinkActivity.activityTitle = STR(@"ShareManager/复制链接");
-    copyLinkActivity.activityType = CUTEShareServiceCopyLink;
-    copyLinkActivity.activityImage = IMAGE(@"icon-share-copy-link");
-    copyLinkActivity.performActivityBlock = ^ {
-        [UIPasteboard generalPasteboard].string = urlString;
-        [SVProgressHUD showSuccessWithStatus:STR(@"ShareManager/已复制至粘贴版")];
+    CUTEActivity *copyLinkActivity = [self getCopyLinkActivityWithUrl:urlString buttonPressedBlock:^{
         if (pressBlock) {
             pressBlock(CUTEShareServiceCopyLink);
         }
-    };
+    }];
 
     NSArray *acitivies = @[wechatFriendActivity, wechatCircleActivity, weiboActivity, copyLinkActivity];
     CUTEActivityView *activityView = [[CUTEActivityView alloc] initWithAcitities:acitivies];
@@ -419,7 +509,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
     return tcs.task;
 }
 
-- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString imageUrl:(NSString *)imageUrl inServices:(NSArray *)services viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock {
+- (BFTask *)shareText:(NSString *)text description:(NSString *)description urlString:(NSString *)urlString imageUrl:(NSString *)imageUrl inServices:(NSArray *)services viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     self.taskCompletionSource = tcs;
 
@@ -469,8 +559,24 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
         NSMutableArray *activities = [NSMutableArray array];
 
+        if ([activityKeys containsObject:CUTEShareServiceSMS]) {
+            [activities addObject:[self getSMSActivityWithTitle:title description:description url:urlString image:nil viewController:viewController buttonPressedBlock:^{
+                if (pressBlock) {
+                    pressBlock(CUTEShareServiceSMS);
+                }
+            }]];
+        }
+
+        if ([activityKeys containsObject:CUTEShareServiceEmail]) {
+            [activities addObject:[self getEmailActivityWithTitle:title description:description url:urlString image:nil viewController:viewController buttonPressedBlock:^{
+                if (pressBlock) {
+                    pressBlock(CUTEShareServiceEmail);
+                }
+            }]];
+        }
+
         if ([activityKeys containsObject:CUTEShareServiceWechatFriend]) {
-            [activities addObject:[self getWechatFriendActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
+            [activities addObject:[self getWechatFriendActivityWithTitle:title description:description url:urlString image:imageData buttonPressedBlock:^{
                 if (pressBlock) {
                     pressBlock(CUTEShareServiceWechatFriend);
                 }
@@ -478,7 +584,7 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
         }
 
         if ([activityKeys containsObject:CUTEShareServiceWechatCircle]) {
-            [activities addObject:[self getWechatCircleActivityWithTitle:title description:nil url:urlString image:imageData buttonPressedBlock:^{
+            [activities addObject:[self getWechatCircleActivityWithTitle:title description:description url:urlString image:imageData buttonPressedBlock:^{
                 if (pressBlock) {
                     pressBlock(CUTEShareServiceWechatCircle);
                 }
@@ -486,9 +592,17 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
         }
 
         if ([activityKeys containsObject:CUTEShareServiceSinaWeibo]) {
-            [activities addObject:[self getSinaWeiboActivityWithTitle:title description:nil url:urlString image:imageData viewController:viewController buttonPressedBlock:^{
+            [activities addObject:[self getSinaWeiboActivityWithTitle:title description:description url:urlString image:imageData viewController:viewController buttonPressedBlock:^{
                 if (pressBlock) {
                     pressBlock(CUTEShareServiceSinaWeibo);
+                }
+            }]];
+        }
+
+        if ([activityKeys containsObject:CUTEShareServiceCopyLink]) {
+            [activities addObject:[self getCopyLinkActivityWithUrl:urlString buttonPressedBlock:^{
+                if (pressBlock) {
+                    pressBlock(CUTEShareServiceCopyLink);
                 }
             }]];
         }
@@ -520,6 +634,62 @@ NSString * const CUTEShareServiceCopyLink = @"Copy Link";
 
     return YES;
 }
+
+#pragma mark - SMS Delegate 
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+
+    [controller dismissViewControllerAnimated:YES completion:^{
+        switch (result) {
+            case MessageComposeResultSent:
+                [self.taskCompletionSource setResult:nil];
+                self.taskCompletionSource = nil;
+                break;
+            case MessageComposeResultCancelled:
+                [self.taskCompletionSource cancel];
+                self.taskCompletionSource = nil;
+                break;
+            case MessageComposeResultFailed:
+            {
+                NSError *error = [NSError errorWithDomain:STR(@"短信") code:-1 userInfo:@{NSLocalizedDescriptionKey: STR(@"短信发送错误")}];
+                [self.taskCompletionSource setError:error];
+                self.taskCompletionSource = nil;
+            }
+                break;
+            default:
+                break;
+        }
+    }];
+}
+
+#pragma  mark - Email Delegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error {
+    [controller dismissViewControllerAnimated:YES completion:^{
+        switch (result) {
+            case MFMailComposeResultSent:
+                [self.taskCompletionSource setResult:nil];
+                self.taskCompletionSource = nil;
+                break;
+            case MFMailComposeResultSaved:
+                [self.taskCompletionSource setResult:nil];
+                self.taskCompletionSource = nil;
+                break;
+            case MFMailComposeResultCancelled:
+                [self.taskCompletionSource cancel];
+                self.taskCompletionSource = nil;
+                break;
+            case MFMailComposeResultFailed:
+                [self.taskCompletionSource setError:error];
+                self.taskCompletionSource = nil;
+                break;
+                
+            default:
+                break;
+        }
+    }];
+}
+
 
 #pragma mark - UMSocial Delegate
 

@@ -17,7 +17,7 @@
                 <a class="navbar-brand col-md-2 col-sm-1 " ui-sref="dashboard"><span>Dashboard</span></a>
                 <!-- start: Header Menu -->
                 <div class="nav-no-collapse header-nav">
-                    <div id="search" class="col-sm-4 col-xs-8 col-lg-3">
+                    <div id="search" class="col-sm-4 col-xs-8 col-lg-3" has-permission="admin,jr_admin,operation,jr_operation">
                         <select ng-model="selected.type">
                             <option value="rentRequestTicket">{%$root.i18n('咨询单')%}</option>
                             <option value="rentTicket">{%$root.i18n('房源')%}</option>
@@ -366,6 +366,16 @@
                                             <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('查看房东联系方式数据')%}</span></a>
                                     </li>
                                 </ul>
+                            </li>
+                            <li has-permission="admin,jr_admin,operation,jr_operation"
+                                ng-class="{active:$state.includes('dashboard.affiliate')}">
+                                <a href ui-sref="dashboard.affiliate" ui-sref-active="active">
+                                    <i class="fa fa-magnet"></i><span class="hidden-sm text">{%$root.i18n('Affiliate管理')%}</span></a>
+                            </li>
+                            <li has-permission="affiliate"
+                                ng-class="{active:$state.includes('dashboard.affiliate_role')}">
+                                <a href ui-sref="dashboard.affiliate_role" ui-sref-active="active">
+                                    <i class="fa fa-magnet"></i><span class="hidden-sm text">{%$root.i18n('会员管理')%}</span></a>
                             </li>
                         </ul>
                     </div>

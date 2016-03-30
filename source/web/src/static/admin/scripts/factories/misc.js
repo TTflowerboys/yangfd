@@ -219,9 +219,9 @@ angular.module('app')
                 return object
             },
 
-            cleanEmptyData: function (object) {
+            cleanEmptyData: function (object, strict) {
                 return _.omit(object, function (val) {
-                    return val === undefined || val === ''
+                    return strict ? (!val) : (val === undefined || val === '')
                 })
             },
 
@@ -271,6 +271,14 @@ angular.module('app')
                     return (c === 'x' ? r : (r&0x3|0x8)).toString(16)
                 });
                 return uuid
+            },
+            getCountryCode: function (name) {
+                return {
+                    'CN': '+86',
+                    'GB': '+44',
+                    'US': '+1',
+                    'HK': '+852',
+                }[name]
             }
         }
 

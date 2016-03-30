@@ -27,6 +27,18 @@
             },
             get_view_contact: function (date_from, date_to) {
               return $http.get('/api/1/aggregation-view-contact' + '?date_from=' + date_from + '&date_to=' + date_to)
+            },
+            getNewAffiliateUserBehavior: function (params) {
+                return $http.post('/api/1/affiliate-get-new-user-behavior', params)
+            },
+            getAllAffiliateUserBehavior: function (params) {
+                return $http.post('/api/1/affiliate-get-all-user-behavior', params)
+            },
+            getAffiliateInvitedUserCountDetail: function (params) {
+                return $http.post('/api/1/affiliate-get-invited-user-count-detail', params)
+            },
+            getAffiliateSubUserCount: function (params) {
+                return $http.post('/api/1/affiliate-get-sub-user-count', params)
             }
         }
     }

@@ -1,5 +1,9 @@
 <div class="form-inline">
     <select ng-options="p.value as p.name for p in list" ng-model="newStatus" class="form-control"></select>
     <div ng-show="newStatus === 'canceled'" select-enum name="cancel_reason" ng-model="canceledReason" text="{%$root.i18n('取消原因')%}"></div>
+    <div style="display: inline-block;" ng-show="newStatus === 'checked_in' && item.offer && item.offer.status === 'new'">
+        <input type="checkbox" id="useCoupon" ng-model="useCoupon"/>
+        <label for="useCoupon">{%$root.i18n('使用')%}{%item.offer.discount.value | currency : currencyTypes[item.offer.discount.unit] : 2%}{%$root.i18n('优惠券')%}</label>
+    </div>
     <button ng-show="item.status!==newStatus" class="btn btn-sm btn-primary" ng-click="onUpdateStatus(item,newStatus)" ng-disabled="newStatus === 'canceled' && !canceledReason">{%$root.i18n('提交')%}</button>
 </div>

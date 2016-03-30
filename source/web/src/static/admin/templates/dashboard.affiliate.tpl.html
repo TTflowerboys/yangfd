@@ -1,0 +1,80 @@
+<div ui-view>
+    <div>
+        <div class="buttons">
+            <div class="btn-group">
+                <button class="btn" ui-sref=".create">
+                    <span class="fa fa-plus-circle"></span> {%$root.i18n('添加Affiliate')%}
+                </button>
+            </div>
+            <div class="btn-group form-inline">
+                <input type="text" class="form-control ng-pristine ng-valid" ng-model="selected.query" placeholder="Affiliate Name"/>
+            </div>
+            <div class="btn-group form-inline">
+                <input type="text" class="form-control ng-pristine ng-valid" ng-model="selected.referral_code" placeholder="Affiliate Code"/>
+            </div>
+            <div class="btn-group form-inline">
+                <button class="btn btn-primary ng-binding" ng-click="searchTicket()">搜索</button>
+            </div>
+
+            <span class="btn-group pull-right">
+                <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+            </span>
+        </div>
+
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th>{%$root.i18n('昵称')%}</th>
+                    <th>{%$root.i18n('Code')%}</th>
+                    <th>{%$root.i18n('注册手机')%}</th>
+                    <th>{%$root.i18n('注册邮箱')%}</th>
+                    <th>{%$root.i18n('注册时间')%}</th>
+                    <th>{%$root.i18n('上次登录时间')%}</th>
+                    <th>{%$root.i18n('上次登录IP')%}</th>
+                    <th>{%$root.i18n('查看')%}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list">
+                    <td>
+                        {%item.nickname %}
+                    </td>
+                    <td>
+                        {%item.referral_code %}
+                    </td>
+                    <td>
+                        {%item.phone%}
+                    </td>
+                    <td>
+                        {%item.email%}
+                    </td>
+                    <td>
+                        <div>{%(item.register_time?(item.register_time * 1000 | date : 'short'):'')%}</div>
+                    </td>
+                    <td>
+                        <div ng-if="item.log.time">{%(item.log.time?(item.log.time * 1000 | date : 'short'):'')%}</div>
+                        <div ng-if="!item.log.time">{%$root.i18n('无结果')%}</div>
+                    </td>
+                    <td>
+                        <div ng-if="item.log.ip && item.log.ip.length">{%item.log.ip[0]%}</div>
+                        <div ng-if="!item.log.ip || !item.log.ip.length">{%$root.i18n('无结果')%}</div>
+                    </td>
+                    <td>
+                        <a class="btn btn-success" href ui-sref=".detail({id:item.id})" title="View">
+                            <i class="fa fa-search-plus "></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+        <div class="buttons">
+            <span class="btn-group pull-right">
+                <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+            </span>
+        </div>
+        <!--/container-->
+    </div>
+</div>

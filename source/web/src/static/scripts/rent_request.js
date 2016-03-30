@@ -5,6 +5,7 @@
     ko.components.register('rent-request', {
         viewModel: function(params) {
             var rentTicket = JSON.parse($('#rentTicketData').text())
+            var oldUser = window.user
             this.rentTicket = ko.observable(JSON.parse($('#rentTicketData').text()))
             this.openRentRequestForm = function (ticketId, isPopup) {
                 return function () {
@@ -60,6 +61,10 @@
             }
             this.close = function () {
                 this.visible(false)
+                //user register, need reload
+                if (oldUser !== window.user) {
+                    location.reload(true)
+                }
             }
 
 
@@ -246,6 +251,8 @@
 
             this.referrerText = ko.observable()
             this.referrer = ko.observable()
+            //推荐码
+            this.referral = ko.observable(window.team.getQuery('referral', location.href))
 
             this.phoneVerified = ko.observable(this.user() ? this.user().phone_verified : false)
             this.smsCode = ko.observable()
@@ -387,6 +394,7 @@
                     email: this.email(),
                     gender: this.gender(),
                     occupation: this.occupation(),
+                    referral: this.referral()
                 }
             }, this)
 
@@ -674,6 +682,7 @@
                         this.getShortId(val)
                         this.requestTicketId(val)
                         this.showSuccessWrap()
+                        this.fetchCoupon()
                         window.team.setUserType('tenant')
                         ga('send', 'event', 'rentRequestIntention', 'result', 'submit-success')
                         ga('send', 'pageview', '/submit-rent-request-intention/submit-success')
@@ -723,6 +732,21 @@
                     return {}
                 }
             }, this)
+
+            this.couponDiscount = ko.observable('');
+            this.couponLocalizedDiscount = ko.observable('')
+            var theSelf = this
+            this.fetchCoupon = function() {
+                $.betterGet('/api/1/coupon/search').done(function (array) {
+                    if (array.length) {
+                        var coupon = array[0]
+                        var discount = coupon.discount
+                        theSelf.couponDiscount(discount.unit_symbol + discount.value)
+                        theSelf.couponLocalizedDiscount(discount.localized_unit_symbol + parseInt(discount.localized_value))
+                    }
+                })
+            }
+
             function getPayment(value, unit) {
                 var minPayment = {
                     'CNY': 1898,

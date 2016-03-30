@@ -1,6 +1,6 @@
 (function () {
 
-    function ctrlRentRequestIntentionList($scope, fctModal, rentRequestIntentionApi, userApi, $filter, enumApi,$rootScope, $state) {
+    function ctrlRentRequestIntentionList($scope, fctModal, rentRequestIntentionApi, userApi, $filter, enumApi,$rootScope, $state, $q, couponApi, $stateParams) {
         var api = $scope.api = rentRequestIntentionApi
 
         $scope.perPage = 12
@@ -16,9 +16,11 @@
             per_page: $scope.perPage,
             sort: 'time,desc'
         }
+        if($state.params.dateTo && $state.params.dateTo > 0) {
+            params.time = $state.params.dateTo
+        }
 
         function updateParams() {
-            params.time = undefined
             for(var key in params) {
                 if(params[key] === undefined || params[key] === '') {
                     delete params[key]
@@ -132,13 +134,18 @@
                 params.status = ''
                 params.short_id = $state.params.code
             }
-
+            if($state.params.referral) {
+                params.status = ''
+                params.referral = $state.params.referral
+            }
             $scope.refreshList()
             $scope.$watch('[selected.status, selected.partner_student_housing]', function (newValue, oldValue) {
                 if (newValue === oldValue) {
                     return
                 }
                 delete params.short_id
+                delete params.referral
+                delete params.time
                 _.extend(params, $scope.selected)
                 $scope.refreshList()
             }, true)
@@ -148,6 +155,7 @@
             if(params.short_id) {
                 params.short_id = params.short_id.toUpperCase()
             }
+            delete params.time
             $scope.refreshList()
         }
 
@@ -197,8 +205,14 @@
         function onGetList(data) {
             $scope.fetched = true
             $scope.originList = data.val
-            $scope.list = _.map(_.filter(data.val, function (item) {
+            $scope.list = _.map(_.filter(_.filter(data.val, function (item) {
                 return _.isArray(item.interested_rent_tickets) && item.interested_rent_tickets.length && !_.isEmpty(item.interested_rent_tickets[0])
+            }), function (item) {
+                if($state.params.dateFrom && $state.params.dateFrom > 0) {
+                    return item.time >= parseInt($state.params.dateFrom)
+                } else {
+                    return true
+                }
             }), function (item, index) {
                 // Calculate age from birthday
                 item.age = (Date.now() - item.date_of_birth * 1000)/(365 * 24 * 60 * 60 * 1000)
@@ -216,18 +230,23 @@
                         item.payment = parseInt(item.interested_rent_tickets[0].price.value_float)
                     }
                 }
-                api.getLog(item.id)
+                $q.all([api.getLog(item.id), couponApi.search({
+                    user_id: item.user.id
+                })])
                     .then(function (data) {
-                        if(data.data.val && data.data.val.length && data.data.val[0].ip && data.data.val[0].ip.length && $scope.list[index]) {
+                        if(data[0].data.val && data[0].data.val.length && data[0].data.val[0].ip && data[0].data.val[0].ip.length && $scope.list[index]) {
 
                             $scope.list[index].log = {
-                                ip: data.data.val[0].ip[0],
-                                link: 'http://www.ip2location.com/demo'
+                                ip: data[0].data.val[0].ip[0],
+                                link: 'http://www.ip2location.com/demo/' + data[0].data.val[0].ip[0]
                             }
-                        } else if($scope.list[index]) {
+                        } else {
                             $scope.list[index].log = {
                                 ip: window.i18n('无结果')
                             }
+                        }
+                        if(data[1].data.val && data[1].data.val.length) {
+                            $scope.list[index].offer = data[1].data.val[0]
                         }
                     })
 
@@ -257,7 +276,7 @@
             })
             $scope.pages[$scope.currentPageNumber] = $scope.list
 
-            if (!data.val || data.val.length < $scope.perPage) {
+            if (!data.val || data.val.length < $scope.perPage || ($state.params.dateFrom && $state.params.dateFrom > 0 && data.val[data.val.length - 1].time <= parseInt($state.params.dateFrom))) {
                 $scope.noNext = true
             } else {
                 $scope.noNext = false

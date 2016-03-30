@@ -3513,6 +3513,356 @@ def get_featured_facility_sort(user, params):
     return result_end
 
 
+@f_api('/affiliate-get-new-user-behavior', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None),
+    user_id=(str, None)
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation', 'affiliate'])
+def affiliate_get_new_user_behavior(user, params):
+
+    today = date.today()
+    date_begin = datetime.strptime(today.replace(day=1).isoformat(), "%Y-%m-%d")
+    date_end = datetime.strptime(today.replace(day=1, month=today.month+1).isoformat(), "%Y-%m-%d")
+    if 'date_from' in params:
+        date_begin = params['date_from']
+    if 'date_to' in params:
+        date_end = params['date_to']
+    result = []
+
+    if 'affiliate' in user.get('role', []) and 'admin' not in user.get('role', []):
+        if 'user_id' in params:
+            request_user = f_app.user.get(params['user_id'])
+            user_select_rang = [ObjectId(params['user_id'])]
+            if unicode(user['id']) not in [unicode(request_user.get('referral', '')), unicode(params['user_id'])]:
+                return
+        else:
+            user_select_rang = f_app.user.search({
+                "status": {"$ne": "deleted"},
+                'referral': ObjectId(user['id'])
+            })
+    else:
+        user_select_rang = f_app.user.get_active()
+        if 'user_id' in params:
+            user_select_rang = [ObjectId(params['user_id'])]
+
+    for single_user in f_app.user.get(user_select_rang):
+        if 'affiliate' in single_user.get('role', []) or 'referral_code' in single_user:
+
+            search_condition = {
+                "status": {"$ne": "deleted"},
+                'referral': ObjectId(single_user['id'])
+            }
+            if 'date_from' in params:
+                search_condition.update({
+                    "register_time": {
+                        "$gte": date_begin
+                    }
+                })
+            if 'date_to' in params:
+                search_condition.update({
+                    "register_time": {
+                        "$lt": date_end
+                    }
+                })
+            if 'date_from' in params and 'date_to' in params:
+                search_condition.update({
+                    "register_time": {
+                        "$gte": date_begin,
+                        "$lt": date_end
+                    }
+                })
+            user_list = f_app.user.search(search_condition)
+
+            affiliate_user_request_count = 0
+            affiliate_user_success_rent = 0
+            user_count = 0
+            if user_list is not None:
+
+                user_count = len(user_list)
+                for affliate_user in user_list:
+                    affiliate_user_list = f_app.ticket.search({
+                        "user_id": ObjectId(affliate_user),
+                        "type": "rent_intention",
+                        "interested_rent_tickets": {"$exists": True},
+                        "status": {
+                            "$in": [
+                                "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
+                            ]
+                        }
+                    }, per_page=-1)
+                    if affiliate_user_list is not None:
+                        affiliate_user_request_count += len(affiliate_user_list)
+
+                for affliate_user in user_list:
+                    search_ticket_condition = {
+                        "user_id": ObjectId(affliate_user),
+                        "type": "rent_intention",
+                        "status": "checked_in"
+                    }
+                    if 'date_from' in params:
+                        search_ticket_condition.update({
+                            "time": {
+                                "$gte": date_begin
+                            }
+                        })
+                    if 'date_to' in params:
+                        search_ticket_condition.update({
+                            "time": {
+                                "$lt": date_end
+                            }
+                        })
+                    if 'date_from' in params and 'date_to' in params:
+                        search_ticket_condition.update({
+                            "time": {
+                                "$gte": date_begin,
+                                "$lt": date_end
+                            }
+                        })
+                    affiliate_user_list = f_app.ticket.search(search_ticket_condition, per_page=-1, notime=True)
+                    if affiliate_user_list is not None:
+                        affiliate_user_success_rent += len(affiliate_user_list)
+            result.append({
+                "affiliate_user_id": single_user['id'],
+                "affiliate_new_user_total": user_count,
+                "affiliate_user_request_count": affiliate_user_request_count,
+                "affiliate_user_success_rent": affiliate_user_success_rent
+            })
+
+    return result
+
+
+@f_api('/affiliate-get-all-user-behavior', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None),
+    user_id=(str, None)
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation', 'affiliate'])
+def affiliate_get_all_user_behavior(user, params):
+    today = date.today()
+    date_begin = datetime.strptime(today.replace(day=1).isoformat(), "%Y-%m-%d")
+    date_end = datetime.strptime(today.replace(day=1, month=today.month+1).isoformat(), "%Y-%m-%d")
+    if 'date_from' in params:
+        date_begin = params['date_from']
+    if 'date_to' in params:
+        date_end = params['date_to']
+    result = []
+
+    if 'affiliate' in user.get('role', []) and 'admin' not in user.get('role', []):
+        if 'user_id' in params:
+            request_user = f_app.user.get(params['user_id'])
+            user_select_rang = [ObjectId(params['user_id'])]
+            if unicode(user['id']) not in [unicode(request_user.get('referral', '')), unicode(params['user_id'])]:
+                return
+        else:
+            user_select_rang = f_app.user.search({
+                "status": {"$ne": "deleted"},
+                'referral': ObjectId(user['id'])
+            })
+    else:
+        user_select_rang = f_app.user.get_active()
+        if 'user_id' in params:
+            user_select_rang = [ObjectId(params['user_id'])]
+
+    for single_user in f_app.user.get(user_select_rang):
+        if 'affiliate' in single_user.get('role', []) or 'referral_code' in single_user:
+
+            search_condition = {
+                "status": {"$ne": "deleted"},
+                'referral': ObjectId(single_user['id'])
+            }
+            user_list = f_app.user.search(search_condition)
+
+            affiliate_all_user_request_count = 0
+            affiliate_all_user_success_rent = 0
+            if user_list is not None:
+
+                for affliate_user in user_list:
+                    affiliate_user_list = f_app.ticket.search({
+                        "user_id": ObjectId(affliate_user),
+                        "type": "rent_intention",
+                        "interested_rent_tickets": {"$exists": True},
+                        "status": {
+                            "$in": [
+                                "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
+                            ]
+                        }
+                    }, per_page=-1)
+                    if affiliate_user_list is not None:
+                        affiliate_all_user_request_count += len(affiliate_user_list)
+
+                for affliate_user in user_list:
+                    search_ticket_condition = {
+                        "user_id": ObjectId(affliate_user),
+                        "type": "rent_intention",
+                        "status": "checked_in"
+                    }
+                    if 'date_from' in params:
+                        search_ticket_condition.update({
+                            "time": {
+                                "$gte": date_begin
+                            }
+                        })
+                    if 'date_to' in params:
+                        search_ticket_condition.update({
+                            "time": {
+                                "$lt": date_end
+                            }
+                        })
+                    if 'date_from' in params and 'date_to' in params:
+                        search_ticket_condition.update({
+                            "time": {
+                                "$gte": date_begin,
+                                "$lt": date_end
+                            }
+                        })
+                    affiliate_user_list = f_app.ticket.search(search_ticket_condition, per_page=-1, notime=True)
+                    if affiliate_user_list is not None:
+                        affiliate_all_user_success_rent += len(affiliate_user_list)
+            result.append({
+                "affiliate_user_id": single_user['id'],
+                "affiliate_all_user_request_count": affiliate_all_user_request_count,
+                "affiliate_all_user_success_rent": affiliate_all_user_success_rent
+            })
+    return result
+
+
+@f_api('/affiliate-get-invited-user-count-detail', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None),
+    user_id=(str, None)
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation', 'affiliate'])
+def affiliate_get_invited_user_count_detail(user, params):
+    today = date.today()
+    date_begin = datetime.strptime(today.replace(day=1).isoformat(), "%Y-%m-%d")
+    date_end = datetime.strptime(today.replace(day=1, month=today.month+1).isoformat(), "%Y-%m-%d")
+    if 'date_from' in params:
+        date_begin = params['date_from']
+    if 'date_to' in params:
+        date_end = params['date_to']
+
+    if 'user_id' in params:
+        user_id = params['user_id']
+    single_user = f_app.user.get(ObjectId(user_id))
+
+    search_condition = {
+        "status": {"$ne": "deleted"},
+        'referral': {"$exists": True},
+    }
+
+    if 'affiliate' in user.get('role', []) and 'admin' not in user.get('role', []):
+        if unicode(user['id']) not in [unicode(single_user.get('referral', '')), unicode(user_id)]:
+            return
+        else:
+            search_condition = {
+                "referral": ObjectId(user['id'])
+            }
+
+    if 'user_id' in params:
+        search_condition.update({
+            'referral': ObjectId(params['user_id'])
+        })
+    if 'date_from' in params:
+        search_condition.update({
+            "register_time": {
+                "$gte": date_begin
+            }
+        })
+    if 'date_to' in params:
+        search_condition.update({
+            "register_time": {
+                "$lt": date_end
+            }
+        })
+    if 'date_from' in params and 'date_to' in params:
+        search_condition.update({
+            "register_time": {
+                "$gte": date_begin,
+                "$lt": date_end
+            }
+        })
+    user_list = f_app.user.search(search_condition)
+
+    affiliate_user_success_invited_user_count = 0
+    if user_list is not None:
+        user_list = f_app.user.get(user_list)
+        affiliate_user_set = set()
+        for single_user in user_list:
+            if single_user['referral'] is not None:
+                affiliate_user_set.add(single_user['referral'])
+        affiliate_user_success_invited_user_count = len(affiliate_user_set)
+        result = []
+        for single_affiliate_user in affiliate_user_set:
+            affiliate_invited_user_count = 0
+            for single_user in user_list:
+                if unicode(single_user['referral']) == unicode(single_affiliate_user):
+                    affiliate_invited_user_count += 1
+            result.append({
+                'affiliate_user_id': unicode(single_affiliate_user),
+                'invited_user_count': affiliate_invited_user_count,
+            })
+    return {
+        "affiliate_invitor_total": affiliate_user_success_invited_user_count,
+        "affiliate_user_invited_detail_count": result
+    }
+
+
+@f_api('/affiliate-get-sub-user-count', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None),
+    user_id=(str, None)
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation', 'affiliate'])
+def affiliate_get_sub_user_count(user, params):
+    result_level_info = {}
+    if 'user_id' in params:
+        user_id = params['user_id']
+    else:
+        return
+    single_user = f_app.user.get(ObjectId(user_id))
+    if 'affiliate' in user.get('role', []) and 'admin' not in user.get('role', []):
+        if unicode(user['id']) not in [unicode(single_user.get('referral', '')), unicode(user_id)]:
+            return
+    if 'affiliate' in single_user.get('role', []) or 'referral_code' in single_user:
+        this_level_user_list = [single_user['id']]
+        if single_user.get('referral', None) is not None:
+            this_level_user_list = f_app.user.search({
+                "referral": ObjectId(single_user['referral']),
+                "status": {"$ne": "deleted"}
+            })
+        level = 1
+        this_level_count = 0
+        if this_level_user_list is not None:
+            this_level_count = len(this_level_user_list)
+        result_level_info.update({
+            "level" + unicode(level): this_level_count
+        })
+        while True:
+            level += 1
+            this_level_count = 0
+            down_level_user_list = []
+            for this_level_single_user in f_app.user.get(this_level_user_list):
+                if this_level_single_user.get('referral_code', None) is not None:
+                    down_level_user_list_extend = f_app.user.search({
+                        "referral": ObjectId(this_level_single_user['id']),
+                        "status": {"$ne": "deleted"}
+                    })
+                    if down_level_user_list_extend is not None:
+                        down_level_user_list.extend(down_level_user_list_extend)
+            this_level_count = len(down_level_user_list)
+            if this_level_count == 0:
+                break
+            result_level_info.update({
+                "level" + unicode(level): this_level_count
+            })
+            this_level_user_list = list(down_level_user_list)
+    return {
+        "affiliate_invited_all_level_total": sum([result_level_info[item] for item in result_level_info]) - result_level_info.get('level1', 0),
+        "affiliate_invited_each_level_detail": result_level_info
+    }
+
+
 @f_get('/export-excel/facility-around-rent-info.xlsx', params=dict(
     date_from=(datetime, None),
     date_to=(datetime, None)

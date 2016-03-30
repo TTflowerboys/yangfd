@@ -22,6 +22,10 @@ extern NSString * const CUTEShareServiceSinaWeibo;
 
 extern NSString * const CUTEShareServiceCopyLink;
 
+extern NSString * const CUTEShareServiceSMS;
+
+extern NSString * const CUTEShareServiceEmail;
+
 typedef void(^CUTEShareButtonPressBlock)(NSString *buttonName);
 
 @interface CUTEShareManager : NSObject
@@ -36,6 +40,6 @@ typedef void(^CUTEShareButtonPressBlock)(NSString *buttonName);
 
 - (BFTask *)shareProperty:(CUTEProperty *)property viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock;
 
-- (BFTask *)shareText:(NSString *)text urlString:(NSString *)urlString imageUrl:(NSString *)imageUrl inServices:(NSArray *)services viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock;
+- (BFTask *)shareText:(NSString *)text description:(NSString *)description urlString:(NSString *)urlString imageUrl:(NSString *)imageUrl inServices:(NSArray *)services viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock;
 
 @end

@@ -12,13 +12,13 @@
             getOne: function (id, config) {
                 return $http.get('/api/1/user/admin/' + id, config)
             },
-            update: function (id, data) {
+            update: function (id, data, config) {
                 data.user_id = id
                 delete data.id
-                return $http.post('/api/1/user/edit', data)
+                return $http.post('/api/1/user/edit', data, config)
             },
             search: function (config) {
-                return $http.get('/api/1/user/admin/search?has_role=false', config)
+                return $http.get('/api/1/user/admin/search', config)
             },
 
             signIn: function (user) {
@@ -53,9 +53,9 @@
                     })
 
             },
-            addAdminUser: function (user) {
+            addAdminUser: function (user, config) {
                 var params = _.pick(user, 'country', 'phone', 'role', 'nickname', 'email')
-                return $http.post('/api/1/user/admin/add', params)
+                return $http.post('/api/1/user/admin/add', params, config)
             },
             testPhone: function (user) {
                 var params = _.pick(user, 'country', 'phone')
@@ -73,6 +73,12 @@
             },
             activate: function (id, config) {
                 return $http.get('/api/1/user/' + id + '/activate', config)
+            },
+            assignReferralCode: function (params, config) {
+                return $http.post('/api/1/user/assign_referral_code', params, config)
+            },
+            getLog: function (id, config) {
+                return $http.post('/api/1/log/search', {user_id: id, per_page: 1}, config)
             }
 
         }

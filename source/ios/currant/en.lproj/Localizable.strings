@@ -262,6 +262,7 @@
 "RentContact/发布并分享到微信" = "Publish and Share to Wechat";
 "RentContact/联系方式展示" = "Contact Display";
 "RentContact/帐号创建后我们会把默认密码发送到您的邮箱" = "帐号创建后我们会把默认密码发送到您的邮箱";
+"RentContact/推荐码（选填）" = "推荐码（选填）";
 
 
 //
@@ -574,6 +575,8 @@
 "ShareManager/Wechat Friend" = "Wechat Friend";
 "ShareManager/Wechat Circle" = "Wechat Moments";
 "ShareManager/Sina Weibo" = "Sina Weibo";
+"ShareManager/SMS" = "SMS";
+"ShareManager/Email" = "Email";
 
 
 
@@ -758,8 +761,14 @@
 //
 //Filepath: currant/Scene/Rent/Form/CUTERentStatusForm.m
 "RentStatus/草稿" = "草稿";
+<<<<<<< HEAD
+"RentStatus/下架" = "下架";
+"RentStatus/发布中" = "发布中";
+"RentStatus/已出租" = "已出租";
+=======
 "RentStatus/发布中" = "发布中";
 "RentStatus/已租出" = "已租出";
+>>>>>>> master
 "RentStatus/删除房源" = "删除房源";
 "RentStatus/更新状态" = "更新状态";
 "RentStatus/您的房源当前处于草稿状态，如您不想继续发布，可以删除房源" = "您的房源当前处于草稿状态，如您不想继续发布，可以删除房源";
@@ -832,7 +841,6 @@
 "%d室" = "%d bedroom";
 "%d厅" = "%d livingroom";
 "%d卫" = "%d bathroom";
-
 "%d居室" = "%d bedroom";
 
 "OK" = "OK";
@@ -840,6 +848,14 @@
 "男" = "男";
 "女" = "女";
 "不限" = "不限";
+
+"短信" = "短信";
+"错误" = "错误";
+"取消" = "取消";
+"设置" = "设置";
+"短信发送错误" = "短信发送错误";
+"您的设备不支持发送短信" = "您的设备不支持发送短信";
+"您的设备邮箱未设置好" = "您的设备邮箱未设置好";
 
 
 //Language

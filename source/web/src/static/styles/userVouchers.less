@@ -1,0 +1,175 @@
+@import "/project/_imports";
+div.content {
+    min-height: 800px;
+    @media @phone {
+//        min-height: 0px;
+        float: left;
+        width: 100%;
+        background: #eee;
+    }
+
+    .contentHeader {
+        @media @phone {
+            display:none;
+        }
+    }
+
+    .list_wrapper {
+        margin-top: 40px;
+
+        @media @phone {
+            margin-top: 0px;
+        }
+    }
+
+    .listHeader {
+        width: 100%;
+        height: 30px;
+        font-size: 14px;
+        line-height: 30px;
+        color: #666;
+        border-bottom: 2px solid #ccc;
+
+        @media @phone {
+            @media @phone {
+                display:none;
+            }
+        }
+
+        .column1 {
+            width: 30%;
+            height: 100%;
+            display: inline-block;
+            float: left;
+        }
+
+        .column2 {
+            width: 52%;
+            height: 100%;
+
+            display: inline-block;
+            float: left;
+        }
+
+        .column3 {
+            width: 17%;
+            height: 100%;
+
+            display: inline-block;
+            float: left;
+        }
+    }
+
+    .list {
+
+        @media @phone {
+            background: #eee;
+        }
+
+        .cell {
+            float: left;
+            width: 100%;
+            height: 80px;
+            border-bottom: 1px solid #ccc;
+            font-size: 14px;
+            text-align: left;
+            vertical-align: middle;
+            color: #666;
+
+            @media @phone {
+                float: none;
+                border-top: 1px solid #ccc;
+                border-bottom: 1px solid #ccc;
+                height: 80px;
+                margin-top: 12px;
+                background: white;
+                position: relative;
+            }
+
+            .numbers {
+                width: 30%;
+                display: inline-block;
+                float: left;
+                padding: 25px 0;
+
+                @media @phone {
+                    float: none;
+                    position: absolute;
+                    bottom: 8px;
+                    left: 8px;
+                    width: 50%;
+                    padding: 0px;
+                }
+
+                .order {
+                    color: #666;
+                    font-weight: bold;
+                    display: block;
+                    line-height: 1em;
+                }
+
+                .invalidDate {
+                    display: block;
+                    font-size: 12px;
+                    line-height: 1em;
+                    margin-top: 4px;
+
+                    @media @phone {
+                        color: #c6c6c6;
+                    }
+                }
+            }
+
+            .name {
+                width: 52%;
+                display: inline-block;
+                float: left;
+                color: @red;
+                line-height: 80px;
+
+                @media @phone {
+                    float: none;
+                    position: absolute;
+                    top: 8px;
+                    left: 8px;
+                    width: 50%;
+                    line-height: 1em;
+                    color: #666;
+                    font-size: 17px;
+                }
+            }
+
+            .status {
+                width: 17%;
+                display: inline-block;
+                float: left;
+                line-height: 80px;
+
+                 @media @phone {
+                    float: none;
+                    position: absolute;
+                    top: 8px;
+                    right: 8px;
+                    width: 50%;
+                    line-height: 1em;
+                    text-align: right;
+                    color:#44cc1f;
+                    font-size:13px;
+                }
+            }
+        }
+    }
+
+    .emptyPlaceholder {
+        margin-top: 200px;
+        font-size: 18px;
+        color: #999;
+        text-align: center;
+        width: 100%;
+
+        @media @phone {
+            color: #666;
+            font-size: 15px;
+        }
+    }
+}

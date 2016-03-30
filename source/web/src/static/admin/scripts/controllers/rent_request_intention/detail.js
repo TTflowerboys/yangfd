@@ -1,6 +1,6 @@
 (function () {
 
-    function ctrlRentRequestIntentionDetail($scope, fctModal, api,  misc, $stateParams, growl, $rootScope, $state) {
+    function ctrlRentRequestIntentionDetail($scope, fctModal, api,  misc, $stateParams, growl, $rootScope, $state, couponApi, $q) {
         $scope.api = api
         $scope.emailTemplate = {
             tenant: {
@@ -62,18 +62,23 @@
                             item.payment = parseInt(item.interested_rent_tickets[0].price.value_float)
                         }
                     }
-                    api.getLog(item.id)
+                    $q.all([api.getLog(item.id), couponApi.search({
+                        user_id: item.user.id
+                    })])
                         .then(function (data) {
-                            if(data.data.val && data.data.val.length && data.data.val[0].ip && data.data.val[0].ip.length) {
+                            if(data[0].data.val && data[0].data.val.length && data[0].data.val[0].ip && data[0].data.val[0].ip.length) {
 
                                 item.log = {
-                                    ip: data.data.val[0].ip[0],
-                                    link: 'http://www.ip2location.com/demo/' + data.data.val[0].ip[0]
+                                    ip: data[0].data.val[0].ip[0],
+                                    link: 'http://www.ip2location.com/demo/' + data[0].data.val[0].ip[0]
                                 }
                             } else {
                                 item.log = {
                                     ip: window.i18n('无结果')
                                 }
+                            }
+                            if(data[1].data.val && data[1].data.val.length) {
+                                item.offer = data[1].data.val[0]
                             }
                             $scope.item  = item
                             $scope.getUnmatchhRequirements($scope.item)

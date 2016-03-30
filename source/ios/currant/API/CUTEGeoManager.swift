@@ -343,12 +343,17 @@ class CUTEGeoManager: NSObject {
                 }
 
                 if task.result != nil {
-                    if let enums = task.result[0] as? [CUTEEnum] {
-                        if let timeZone = task.result[1] as? NSTimeZone {
-                            completion([enums, timeZone])
+                    if let resultArray = task.result as? [AnyObject] {
+                        if let enums = resultArray[0] as? [CUTEEnum] {
+                            if let timeZone = resultArray[1] as? NSTimeZone {
+                                completion([enums, timeZone])
+                            }
+                            else {
+                                completion([enums, NSNull()])
+                            }
                         }
                         else {
-                            completion([enums, NSNull()])
+                            tcs.setError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/请求失败")]))
                         }
                     }
                     else {
@@ -369,8 +374,9 @@ class CUTEGeoManager: NSObject {
         }
 
         sequencer.enqueueStep { (result:AnyObject?, completion:(AnyObject? -> Void)) -> Void in
-            let enums = result![0] as! [CUTEEnum]
-            let timeZone = result![1] as? NSTimeZone
+            let resultArray = result as! [AnyObject]
+            let enums = resultArray[0] as! [CUTEEnum]
+            let timeZone = resultArray[1] as? NSTimeZone
 
             let trafficEnums = enums.sort({ (e1:CUTEEnum, e2:CUTEEnum) -> Bool in
                 return e1.sortValue < e2.sortValue

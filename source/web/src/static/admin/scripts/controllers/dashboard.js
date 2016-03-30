@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlDashboard($scope, $state, $http, userApi, $rootScope, growl, errors) {
+    function ctrlDashboard($scope, $state, $http, userApi, $rootScope, growl, errors, permissions) {
 
         $scope.user = {}
 
@@ -13,6 +13,11 @@
                     growl.addErrorMessage($rootScope.renderHtml(errors[40105]), {enableHtml: true})
                     window.location.href = '/'
                     return
+                }
+                if(user.role.indexOf('affiliate') >=0 && _.intersection(_.map(permissions, function (item) {
+                        return item.value
+                    }),  user.role).length === 0) {
+                    $state.go('dashboard.affiliate_role')
                 }
                 angular.extend($scope.user, user)
             }, function () {

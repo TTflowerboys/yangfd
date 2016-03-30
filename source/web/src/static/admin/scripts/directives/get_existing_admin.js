@@ -9,6 +9,7 @@ angular.module('app')
             restrict: 'AE',
             link: function (scope, elm, attrs) {
                 var delayer
+                scope.$parent.existingItem = {}
                 scope.$watch('item.phone', function (value) {
                     if (!value || value.length <= 5) {
                         if (delayer) {
@@ -29,7 +30,7 @@ angular.module('app')
                                             return
                                         }
                                         angular.extend(scope.item, _.pick(value, 'id', 'nickname', 'email', 'role'))
-                                        scope.existingItem = value
+                                        angular.extend(scope.existingItem, value)
 
                                     }).error(onNoExistingUser)['finally'](function () {
                                         setTimeout(function () {
@@ -52,7 +53,7 @@ angular.module('app')
                 })
 
                 function onNoExistingUser() {
-                    scope.existingItem = null
+                    scope.$parent.existingItem = {}
                     scope.item.id = ''
                     scope.item.role = []
                     scope.item.nickname = ''

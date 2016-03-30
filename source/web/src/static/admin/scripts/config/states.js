@@ -423,7 +423,7 @@ angular.module('app')
          * 出租咨询申请单管理
          */
             .state('dashboard.rent_request_intention', {
-                url: '/rent_request_intention?code&type',
+                url: '/rent_request_intention?code&type&referral&dateFrom&dateTo',
                 templateUrl: '/static/admin/templates/dashboard.rent_request_intention.tpl.html',
                 controller: 'ctrlRentRequestIntentionList',
                 resolve: rentRequestIntentionResolve
@@ -1133,6 +1133,85 @@ angular.module('app')
             })
 
         /**
+         * Affiliate
+         * */
+            .state('dashboard.affiliate', {
+                url: '/affiliate',
+                templateUrl: '/static/admin/templates/dashboard.affiliate.tpl.html',
+                controller: 'ctrlAffiliateList',
+                resolve: {
+                    api: function (userApi) {
+                        return userApi
+                    }
+                }
+            })
+            .state('dashboard.affiliate.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.affiliate.create.tpl.html',
+                controller: 'ctrlAffiliateCreate',
+            })
+            .state('dashboard.affiliate.detail', {
+                url: '/:id',
+                templateUrl: '/static/admin/templates/dashboard.affiliate.detail.tpl.html',
+                controller: 'ctrlAffiliateDetail',
+                resolve: {
+                    api: function (userApi) {
+                        return userApi
+                    }
+                }
+            })
+            .state('dashboard.affiliate.detail.users', {
+                url: '/users?referralCode&dateFrom&dateTo',
+                templateUrl: '/static/admin/templates/dashboard.affiliate.detail.users.tpl.html',
+                controller: 'ctrlAffiliateDetailUsers',
+                resolve: {
+                    api: function (userApi) {
+                        return userApi
+                    }
+                }
+            })
+            .state('dashboard.affiliate.detail.users.detail', {
+                url: '/:user_id',
+                templateUrl: '/static/admin/templates/dashboard.affiliate.detail.users.detail.tpl.html',
+                controller: 'ctrlAffiliateUserDetail',
+                resolve: {
+                    api: function (userApi) {
+                        return userApi
+                    }
+                }
+            })
+            .state('dashboard.affiliate.detail.success_requests', {
+                url: '/success_requests?dateFrom&dateTo',
+                templateUrl: '/static/admin/templates/dashboard.affiliate.detail.success_requests.tpl.html',
+                controller: 'ctrlAffiliateDetailRequests',
+                resolve: {
+                    api: function (rentRequestIntentionApi) {
+                        return rentRequestIntentionApi
+                    }
+                }
+            })
+            .state('dashboard.affiliate.detail.success_requests.detail', {
+                url: '/:request_id',
+                templateUrl: '/static/admin/templates/dashboard.affiliate.detail.success_requests.detail.tpl.html',
+                controller: 'ctrlAffiliateDetailRequestsDetail',
+                resolve: {
+                    api: function (rentRequestIntentionApi) {
+                        return rentRequestIntentionApi
+                    }
+                }
+            })
+
+            .state('dashboard.affiliate_role', {
+                url: '/affiliate_role',
+                templateUrl: '/static/admin/templates/dashboard.affiliate_role.tpl.html',
+                controller: 'ctrlAffiliateRole',
+                resolve: {
+                    api: function (userApi) {
+                        return userApi
+                    }
+                }
+            })
+        /**
          * Android订阅申请
          * */
             .state('dashboard.subscribe.android', {
@@ -1145,6 +1224,7 @@ angular.module('app')
                     }
                 }
             })
+
         /**
          * others
          */

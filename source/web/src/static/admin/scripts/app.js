@@ -34,6 +34,7 @@ angular.module('app',
         }
         $rootScope.$on('$stateChangeStart',
             function (event, toState, toParams, fromState, fromParams) {
+                $rootScope.fromState = fromState
                 if (toState.name === 'signIn') {
                     toParams.from = fromState.name
                     return

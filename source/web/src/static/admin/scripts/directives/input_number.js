@@ -48,6 +48,9 @@ angular.module('app')
                         scope.tempValue = res
                     }
                 })
+                scope.$watch('value', function () {
+                    scope.tempValue = scope.value
+                })
             }
         }
     })

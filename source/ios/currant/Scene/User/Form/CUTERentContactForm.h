@@ -21,6 +21,8 @@
 
 @property (strong, nonatomic) NSString *phone;
 
+@property (strong, nonatomic) NSString *referral;
+
 @property (strong, nonatomic) NSString *code;
 
 @property (strong, nonatomic) CUTERentContactDisplaySettingForm *displaySetting;

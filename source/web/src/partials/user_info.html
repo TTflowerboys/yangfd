@@ -32,6 +32,20 @@
                     %end
                 </td>
             </tr>
+            %if user.get('referral') and user.get('referral').get('is_affiliate'):
+                <tr>
+                    <td>{{_('Affiliate')}}</td>
+                    <td>{{user.get('referral').get('nickname')}}</td>
+                </tr>
+            %end
+            %if user.get('register_time'):
+                <tr>
+                    <td>{{_('加入日期')}}</td>
+                    <td>
+                        <span data-utc-time="{{user.get('register_time')}}"></span>
+                    </td>
+                </tr>
+            %end
         </tbody>
     </table>
 </div>

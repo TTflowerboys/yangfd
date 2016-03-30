@@ -118,6 +118,10 @@
                                 --><input class="email" type="text" data-bind="value: email, attr: {readonly: !!user()}" placeholder="{{_('邮箱')}}"/>
                             </div>
                             <div class="row" data-bind="visible: !user()">
+                                <p class="title">{{_('推荐码（选填）')}}</p>
+                                <input class="referral" type="text" data-bind="value: referral" placeholder=""/>
+                            </div>
+                            <div class="row" data-bind="visible: !user()">
                                 <p class="title"></p>
                                 <div id="captcha_div" class="captchaCode"></div><!--
                                 --><button class="registerUser button red ajaxButton" data-bind="click: registerUser, disable: registerUserDisabled">{{_('获取短信验证码')}}</button>
@@ -208,7 +212,7 @@
                                     <span class="small" data-bind="visible: holdingDepositLocal().value">({{_('约')}}<!--ko text: holdingDepositLocal().unit_symbol + holdingDepositLocal().value--><!--/ko-->)</span>
                                 </div>
                             </li>
-                            <li>
+                            <li data-bind="visible: !window.project.isStudentHouse(rentTicket())">
                                 <span class="title">
                                     {{_('服务费预估')}}
                                 </span>
@@ -221,12 +225,22 @@
                                     <span class="small">{{_('推广期')}}<strong>{{_('免费')}}</strong></span>
                                 </div>
                             </li>
-                            <li data-bind="visible: !window.project.isStudentHouse(rentTicket())">
+                            <li>
                                 <span class="title">
                                     {{_('视频直播看房服务')}}
                                 </span>
                                 <div class="right">
                                     <span class="small">{{_('推广期')}}<strong>{{_('免费')}}</strong></span>
+                                </div>
+                            </li>
+                            <li data-bind="visible: couponDiscount() != ''">
+                                <span class="title">
+                                    {{_('优惠券')}}
+                                </span>
+                                <tips params="tips: '{{_('优惠券减免额度')}}'"></tips>
+                                <div class="right">
+                                    <span class="text" data-bind="text: couponDiscount()"></span>
+                                    <span class="small" data-bind="visible: couponLocalizedDiscount() != ''">({{_('约')}}<!--ko text: couponLocalizedDiscount()--><!--/ko-->)</span>
                                 </div>
                             </li>
                         </ul>

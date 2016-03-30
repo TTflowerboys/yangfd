@@ -116,6 +116,20 @@
                     </a>
                     {{_('消息')}}
                 </li>
+                <li>
+                    <a href="/user-invite">
+                        <i id="icon-user-invite" class="icon-social"></i>
+                        <i id="icon-user-invite-active" class="icon-social active " style="display: none;"></i>
+                    </a>
+                    {{_('推荐有奖')}}
+                </li>
+                <li>
+                    <a href="/user-vouchers">
+                        <i id="icon-user-vouchers" class="icon-coupon"></i>
+                        <i id="icon-user-vouchers-active" class="icon-coupon active " style="display: none;"></i>
+                    </a>
+                    {{_('优惠券')}}
+                </li>
                 %if _.lang == 'zh_Hans_CN':
                 <li data-show-client="app,wechat" style="display: none;">
                     <a href="/user-coupons">

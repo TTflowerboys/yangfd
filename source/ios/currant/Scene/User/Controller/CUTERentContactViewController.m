@@ -356,6 +356,10 @@
             //no user just creat one
             [SVProgressHUD showWithStatus:STR(@"RentContact/发送中...")];
             NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:user.toParams];
+            CUTERentContactForm *form = (CUTERentContactForm *)self.formController.form;
+            if (!IsNilNullOrEmpty(form.referral)) {
+                [params setValue:form.referral forKey:@"referral"];
+            }
             
             [[[CUTEAPIManager sharedInstance] POST:@"/api/1/user/fast-register" parameters:params resultClass:[CUTEUser class]] continueWithBlock:^id(BFTask *task) {
                 if (task.error || task.exception || task.isCancelled) {

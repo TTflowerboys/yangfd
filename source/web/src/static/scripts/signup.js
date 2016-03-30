@@ -5,6 +5,11 @@ $(function () {
     if(invitationCode !== ''){
         $('form[name=register]').find('input[name=invitation_code]').val(invitationCode)
     }
+    
+    var referral = window.team.getQuery('referral', location.href)
+    if(referral !== ''){
+        $('form[name=register]').find('input[name=referral]').val(referral)
+    }
 
     window.project.showRecaptcha('captcha_div')
 
@@ -45,7 +50,7 @@ $(function () {
             return
         }
 
-        params.phone = '+' + params.country_code +params.phone
+        params.phone = '+' + params.country_code + params.phone
         params.country = window.team.getCountryFromPhoneCode(params.country_code)
         delete params.country_code
         if(_.isEmpty(params.invitation_code) || params.invitation_code === ''){

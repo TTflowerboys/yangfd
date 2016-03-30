@@ -12,7 +12,11 @@ angular.module('app')
             },
             link: function (scope) {
                 scope.display = scope.model ? new Date(scope.model * 1000) : null
-
+                scope.$watch('model', function (value) {
+                    if(_.isNumber(value)) {
+                        scope.display = value * 1000
+                    }
+                })
                 var watchCanceler = scope.$watch('display', function (newValue) {
                     scope.model = parseInt((newValue - 0) / 1000, 10)
                 })

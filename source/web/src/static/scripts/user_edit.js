@@ -68,7 +68,7 @@
         $.betterPost('/api/1/user/edit', params)
             .done(function (data) {
                 window.user = data
-                successArea.text(window.i18n('更新成功'))
+                successArea.text(window.i18n('更新成功, 正在刷新页面...'))
                 successArea.show()
 
                 window.location.reload()

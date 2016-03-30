@@ -155,6 +155,29 @@ def user_messages(user):
     return currant_util.common_template("user_messages", user=user, message_list=message_list, title=title)
 
 
+@f_get('/user_invite', '/user-invite')
+@currant_util.check_ip_and_redirect_domain
+@f_app.user.login.check(force=True)
+def user_invite(user):
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
+    title = _('推荐有奖')
+    return currant_util.common_template("user_invite", user=user, title=title)
+
+
+@f_get('/wechat_invite', '/wechat-invite', params=dict(
+    referral=str,
+))
+@currant_util.check_ip_and_redirect_domain
+def wechat_invite(params):
+
+    referral = ''
+    if "referral" in params:
+        referral = params.pop("referral")
+
+    title = _('洋房东优惠券')
+    return currant_util.common_template("wechat_invite", title=title, referral=referral)
+
+
 @f_get('/verify_email_status', '/verify-email-status')
 @currant_util.check_ip_and_redirect_domain
 def verify_email_status():
@@ -181,9 +204,9 @@ def email_unsubscribe(user):
 @f_get('/user-coupons')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
-def user_messages(user):
-    #if not currant_util.is_mobile_client():
-        #redirect('/user')
+def user_coupons(user):
+    # if not currant_util.is_mobile_client():
+        # redirect('/user')
 
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
 
@@ -196,9 +219,9 @@ def user_messages(user):
 @f_get('/user-coupons-detail/<venue_id:re:[0-9a-fA-F]{24}>/<deal_id:re:[0-9a-fA-F]{24}>')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
-def user_messages(venue_id, deal_id, user):
-    #if not currant_util.is_mobile_client():
-        #redirect('/user')
+def user_coupon_detail(venue_id, deal_id, user):
+    # if not currant_util.is_mobile_client():
+        # redirect('/user')
 
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
     venue = f_app.i18n.process_i18n(f_app.shop.output([venue_id])[0])
@@ -207,3 +230,12 @@ def user_messages(venue_id, deal_id, user):
     title = deal.get('name') + '-' + venue.get('name')
 
     return currant_util.common_template("user_coupons_detail", user=user, deal=deal, title=title, venue_id=venue_id, deal_id=deal_id)
+
+
+@f_get('/user-vouchers')
+@currant_util.check_ip_and_redirect_domain
+@f_app.user.login.check(force=True)
+def user_vouchers(user):
+    user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
+    title = _('会员专享')
+    return currant_util.common_template("user_vouchers", user=user, title=title)

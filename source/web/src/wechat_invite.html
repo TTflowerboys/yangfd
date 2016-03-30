@@ -1,0 +1,46 @@
+<!--@@master=masters/basic_master.html -->
+
+<!--@@block=head -->
+
+<!--build:css(dist) /static/styles/wechat_invite.html.css-->
+<link rel="stylesheet" href="/static/styles/wechatInvite.css"/>
+<!--endbuild-->
+
+<!--@@close-->
+
+<!--@@block=main -->
+
+<img class="logo" alt="" src="/static/images/logo/logo_wechat_invite.png"/>
+<div class="offer">
+    <p class="hint">{{_('优惠券')}}</p>
+    <label class="content">£25</label>
+</div>
+<p class="text">
+    {{_('点击注册洋房东，进入英国租房页选择您的心仪房源立即享受价值£25的租房优惠，赶紧行动起来吧')}}
+</p>
+<a class="button red signup" href="/signup?referral={{referral if referral else ''}}">{{_('立即注册')}}</a>
+<!--@@close-->
+
+<!--@@block=scripts -->
+
+<script>
+    (function () {
+        /*
+         * Weixin share sdk
+         * */
+        var wechatShareData = {
+            title: window.i18n('洋房东 £25租房优惠'),
+            link: window.location.href,
+            imgUrl: '/static/images/logo/logo_wechat.jpg',
+            desc: window.i18n('还在为租房苦恼吗？ 使用我的邀请码在洋房东注册，寻找合适房源，立享优惠！'),
+            success:function(){
+                ga('send', 'event', 'wechat_invite', 'share', 'share-to-wechat-success')
+            },
+            cancel:function(){
+                ga('send', 'event', 'wechat_invite', 'share', 'share-to-wechat-cancel')
+            }
+        }
+        window.wechatShareSDK.init(wechatShareData)
+    })()
+</script>
+<!--@@close-->

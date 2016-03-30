@@ -1,0 +1,60 @@
+<div ui-view>
+    <div class="container">
+        <div class="buttons clearfix">
+            <span class="btn-group">
+                <button class="btn" ng-click="$state.go('dashboard.affiliate.detail')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
+                </button>
+            </span>
+            <span class="btn-group pull-right">
+                <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+            </span>
+        </div>
+
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th>{%$root.i18n('用户名称')%}</th>
+                    <th>{%$root.i18n('用户手机')%}</th>
+                    <th>{%$root.i18n('注册邮箱')%}</th>
+                    <th>{%$root.i18n('房源名称')%}</th>
+                    <th>{%$root.i18n('成交时间')%}</th>
+                    <th>{%$root.i18n('查看')%}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list">
+                    <td>
+                        {%item.nickname %}
+                    </td>
+                    <td>
+                        {%item.phone%}
+                    </td>
+                    <td>
+                        {%item.email%}
+                    </td>
+                    <td>
+                        <span ng-if="item.interested_rent_tickets && item.interested_rent_tickets.length && item.interested_rent_tickets[0] !== null">
+                            {%item.interested_rent_tickets[0].title%}
+                        </span>
+                    </td>
+                    <td>
+                        <div>{%(item.last_modified_time?(item.last_modified_time * 1000 | date : 'short'):'')%}</div>
+                    </td>
+                    <td>
+                        <a class="btn btn-success" ui-sref=".detail({request_id: item.id})" title="View">
+                            <i class="fa fa-search-plus "></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+        <div class="buttons">
+            <span class="btn-group pull-right">
+                <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+            </span>
+        </div>
+    </div>
+</div>

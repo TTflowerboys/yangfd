@@ -1,0 +1,273 @@
+@import "/project/_imports";
+div.content {
+    min-height: 800px;
+    @media @phone {
+        min-height: 0;
+    }
+    .contentHeader {
+        display: block;
+        @media @phone {
+            display: none;
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+            display: inline-block;
+        }
+
+        .buttons {
+            float: right;
+            button {
+                margin-left: 10px;
+            }
+
+            .button {
+                padding: 4px 26px;
+                line-height: 24px;
+                font-size: 12px;
+            }
+        }
+
+    }
+
+    >.bonus {
+        margin-top: 170px;
+        display:block;
+        width:100%;
+        height: 200px;
+
+        @media @phone {
+            margin-top: 90px;
+            height: 100%;
+            text-align: center;
+        }
+
+        .offer {
+            width: 320px;
+            height: 100%;
+            float: left;
+            display:inline-block;
+            margin-right: 20px;
+            background: #3d204c;
+            border-radius: 8px;
+            padding-top:80px;
+            color: #e6ded5;
+
+            @media @phone {
+                width: 160px;
+                height: 100px;
+                padding-top: 40px;
+                float: none;
+                text-align: left;
+            }
+
+            .hint {
+                display:inline-block;
+                background:#ec3548;
+                height: 80px;
+                width: 80px;
+                margin-right: 20px;
+                margin-top: 0px;
+                padding-right: 10px;
+                font-size: 30px;
+                line-height: 40px;
+                text-align: right;
+
+                @media @phone {
+                    width: 40px;
+                    height: 40px;
+                    margin-right: 10px;
+                    font-size: 15px;
+                    line-height: 20px;
+                    padding-right: 5px;
+                }
+            }
+
+            .content {
+                font-size: 80px;
+                line-height: 1em;
+
+                @media @phone {
+                    font-size: 40px;
+                }
+            }
+        }
+
+        .text {
+            float:left;
+            display:inline-block;
+            color: #666;
+            text-align: center;
+            max-width: 416px;
+
+            @media @phone {
+                max-width: 100%;
+                float: none;
+            }
+
+            .tip {
+                font-size: 24px;
+                line-height: 32px;
+                display:block;
+                width: 420px;
+                margin-top: 12px;
+                margin-bottom: 12px;
+
+                @media @phone {
+                    width: 90%;
+                    margin:15px 20px;
+                    font-size: 15px;
+                    line-height: 20px;
+                }
+            }
+
+            .bonusCode {
+                font-size: 18px;
+                line-height: 26px;
+                margin-bottom: 27px;
+
+                @media @phone {
+                    margin-top: 65px;
+                    margin-bottom: 50px;
+                    font-size: 12px;
+                    line-height: 15px;
+                }
+
+                strong {
+                    font-size: 26px;
+                    line-height: 1em;
+                    color: @red;
+
+                    @media @phone {
+                        font-size: 15px;
+                        line-height: 20px;
+                        display: block;
+                    }
+                }
+            }
+
+            .share {
+                .email {
+                    background: @red;
+                    margin-right: 20px;
+                    width: 190px;
+                    font-size: 18px;
+
+                    @media @phone {
+                        display: none;
+                    }
+
+                    i {
+                        margin-right: 20px;
+                    }
+                }
+
+                .social {
+                    background: #2d82d1;
+                    width: 190px;
+                    font-size: 18px;
+                    padding: 10px;
+
+                    @media @phone {
+                        font-size: 15px;
+                        width: 75%;
+                        padding: 13px 10px;
+                    }
+
+                    i {
+                        margin-right: 20px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.sharePopupShadow {
+    z-index: @requirement_popup-shadow-z-index;
+    background: #000000;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: @copyright-height;
+    width: 100%;
+    height: 100%;
+}
+
+.shareView {
+
+    font-size: 16px;
+    z-index: @requirement_popup-content-z-index;
+    position: absolute;
+    top:0;
+    left:0;
+    width:600px;
+    background:white;
+    padding-top: 80px;
+    padding-bottom: 60px;
+    text-align: center;
+
+    .title {
+        font-size: 25px;
+        margin-bottom: 50px;
+    }
+
+    ul {
+        overflow: hidden;
+        padding: 0 90px;
+
+        li {
+            display:inline-block;
+            float: left;
+            height: 100%;
+            width: 50%;
+            vertical-align: middle;
+        }
+
+        li.weibo {
+            cursor:pointer;
+            padding-top:25px;
+
+            i {
+                font-size: 72px;
+                line-height: 1em;
+                color: #ff9933;
+                display:block;
+                margin-bottom: 15px;
+            }
+            label {
+                display: block;
+            }
+        }
+
+        li.wechat {
+            img {
+                width: 120px;
+                height: 120px;
+            }
+
+            label {
+                display: block;
+            }
+        }
+    }
+
+
+    input[name=email] {
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        color: #999;
+        font-size: 14px;
+        line-height: 38px;
+        width: 360px;
+        margin-right: 20px;
+        padding: 0 10px;
+    }
+
+    .button.send {
+        padding: 5px 26px;
+        margin-top: -2px;
+    }
+}

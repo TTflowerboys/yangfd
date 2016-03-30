@@ -1,0 +1,68 @@
+<div ui-view>
+    <div class="container">
+        <div class="buttons clearfix">
+            <span class="btn-group">
+                <button class="btn" ng-click="$state.go('dashboard.affiliate.detail')"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
+                </button>
+            </span>
+            <span class="btn-group pull-right">
+                <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+            </span>
+        </div>
+
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th>{%$root.i18n('昵称')%}</th>
+                    <th>{%$root.i18n('注册手机')%}</th>
+                    <th>{%$root.i18n('注册邮箱')%}</th>
+                    <th>{%$root.i18n('优惠券是否已经使用')%}</th>
+                    <th>{%$root.i18n('注册时间')%}</th>
+                    <th>{%$root.i18n('上次登录时间')%}</th>
+                    <th>{%$root.i18n('上次登录IP')%}</th>
+                    <th>{%$root.i18n('查看')%}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list">
+                    <td>
+                        {%item.nickname %}
+                    </td>
+                    <td>
+                        {%item.phone%}
+                    </td>
+                    <td>
+                        {%item.email%}
+                    </td>
+                    <td>
+                        {%(item.offer && item.offer.status === 'new') ? $root.i18n('否') : $root.i18n('是')%}
+                    </td>
+                    <td>
+                        <div>{%(item.register_time?(item.register_time * 1000 | date : 'short'):'')%}</div>
+                    </td>
+                    <td>
+                        <div ng-if="item.log.time">{%(item.log.time?(item.log.time * 1000 | date : 'short'):'')%}</div>
+                        <div ng-if="!item.log.time">{%$root.i18n('无结果')%}</div>
+                    </td>
+                    <td>
+                        <div ng-if="item.log.ip && item.log.ip.length">{%item.log.ip[0]%}</div>
+                        <div ng-if="!item.log.ip || !item.log.ip.length">{%$root.i18n('无结果')%}</div>
+                    </td>
+                    <td>
+                        <a class="btn btn-success" ui-sref=".detail({user_id:item.id})" title="View">
+                            <i class="fa fa-search-plus "></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
+        <div class="buttons">
+            <span class="btn-group pull-right">
+                <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
+                <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
+            </span>
+        </div>
+    </div>
+</div>

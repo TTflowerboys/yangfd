@@ -121,6 +121,10 @@
 
                             </div>
                             <div class="row" data-bind="visible: !user()">
+                                <p class="title">{{_('推荐码（选填）')}}</p>
+                                <input class="referral" type="text" data-bind="value: referral" placeholder=""/>
+                            </div>
+                            <div class="row" data-bind="visible: !user()">
                                 <div id="captcha_div" class="captchaCode"></div>
                             </div>
                             <div class="row" data-bind="visible: !user()">
@@ -220,6 +224,16 @@
                                     </span>
                                     <div class="right">
                                         <span class="small">{{_('推广期')}}<strong>{{_('免费')}}</strong></span>
+                                    </div>
+                                </li>
+                               <li data-bind="visible: couponDiscount() != ''">
+                                    <span class="title">
+                                        {{_('优惠券')}}
+                                    </span>
+                                    <tips params="tips: '{{_('优惠券减免额度')}}'"></tips>
+                                    <div class="right">
+                                        <span class="text" data-bind="text: couponDiscount()"></span>
+                                        <span class="small" data-bind="visible: couponLocalizedDiscount() != ''">({{_('约')}}<!--ko text: couponLocalizedDiscount()--><!--/ko-->)</span>
                                     </div>
                                 </li>
                             </ul>

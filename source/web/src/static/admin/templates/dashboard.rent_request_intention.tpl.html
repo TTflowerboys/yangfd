@@ -1,6 +1,11 @@
 <div ui-view>
     <div>
         <div class="buttons">
+            <span class="btn-group">
+                <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}</button>
+            </span>
+        </div>
+        <div class="buttons">
             <div class="btn-group">
                 <a class="btn" href="/export-excel/user-rent-request.xlsx" target="_blank">
                     <span class="fa fa-plus-circle"></span> {%$root.i18n('导出到Excel')%}

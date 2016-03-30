@@ -1,0 +1,51 @@
+<!--@@master = masters/user_master.html-->
+<!--@@block =head -->
+<!--build:css(dist) /static/styles/project/user_vourchers.html.css-->
+<link rel="stylesheet" href="/static/styles/userVouchers.css"/>
+<link rel="stylesheet" href="/static/styles/pager.css"/>
+<!--endbuild-->
+
+<!--@@close-->
+<!--@@block = main -->
+<div class="content">
+    <div class="contentHeader">
+        <h1>{{_('优惠券')}}</h1>
+    </div>
+
+    <div class="list_wrapper" style="display:none">
+        <div class="listHeader">
+            <label class="column1">{{_('过期时间')}}</label>
+            <label class="column2">{{_('名称')}}</label>
+            <label class="column3">{{_('当前状态')}}</label>
+        </div>
+        <div class="list">
+
+        </div>
+        <!--@@include=/partials/pager.html -->
+    </div>
+    <div class="emptyPlaceholder" style="display:none">
+        <p>{{_('您目前还没有优惠券')}}</p>
+    </div>
+    <script id="couponCell_template" type="text/template">
+        <div class="cell">
+            <div class="numbers">
+                <label class="invalidDate">{=project.formatTime(coupon.expire_time)=} 过期</label>
+            </div>
+            <div class="name">
+                {=coupon.description=}
+            </div>
+            <div class="status">
+                {=coupon.status=}
+            </div>
+        </div>
+    </script>
+
+</div>
+<!--@@close-->
+
+<!--@@block=scripts-->
+<!--build:js /static/scripts/user_vouchers.html.js-->
+<script src="/static/scripts/pager.js"></script>
+<script src="/static/scripts/user_vouchers.js"></script>
+<!--endbuild-->
+<!--@@close-->

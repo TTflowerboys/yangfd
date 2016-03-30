@@ -243,7 +243,14 @@
                     container.find('[name=requirementRentEmail]').val(window.user.email)
                 }
             }
-        }
+            
+            if (!window.user) {
+                var referral = window.team.getQuery('referral', location.href)
+                if (referral !== '') {
+                    container.find('[name=referral]').val(referral)
+                }
+            }
+        }       
     }
     function getSerializeObject (form) {
         var data = {},
