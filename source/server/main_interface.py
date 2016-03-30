@@ -4158,3 +4158,276 @@ def get_featured_facilities_around_rent(user, params):
     out = StringIO(save_virtual_workbook(wb))
     response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
+
+
+@f_api('/get-users-portrait', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None)
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def get_users_portrait(user, params):
+
+    def get_user_age(total):
+        source = {}
+        result = {
+            "age_distribution": {
+                "32~999": 0,
+                "32~27": 0,
+                "23~27": 0,
+                "18~23": 0,
+                "0~18": 0
+            }
+        }
+        condition = {
+            "type": "rent_intention",
+            "date_of_birth": {"$exists": True},
+            "status": {
+                "$in": [
+                    "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
+                ]
+            }
+        }
+        if 'date_from' in params and 'date_to' in params:
+            condition.update({
+                "time": {
+                    "$gte": params['date_from'],
+                    "$lt": params['date_to']
+                }
+            })
+        ticekts = f_app.ticket.search(condition, per_page=-1)
+        for ticket in f_app.ticket.get(ticekts):
+            if 'date_of_birth' in ticket:
+                birth_date = ticket['date_of_birth'].date()
+                today = date.today()
+                age = today.year - birth_date.year
+                today = today.replace(year=birth_date.year)
+                if today < birth_date and age:
+                    age = age - 1
+                source.update({ticket['user_id']: age})
+        for single in source:
+            if source[single] > 32:
+                result["age_distribution"]['32~999'] += 1
+            elif 32 >= source[single] > 27:
+                result["age_distribution"]['32~27'] += 1
+            elif 27 >= source[single] > 23:
+                result["age_distribution"]['23~27'] += 1
+            elif 23 >= source[single] > 18:
+                result["age_distribution"]['18~23'] += 1
+            elif 18 >= source[single]:
+                result["age_distribution"]['0~18'] += 1
+
+        result['age_distribution'].update({
+            "other": total - len(source)
+        })
+
+        return result['age_distribution']
+
+    def get_occupation(total):
+        source = {}
+        condition = {
+            "type": "rent_intention",
+            "occupation": {"$exists": True},
+            "status": {
+                "$in": [
+                    "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
+                ]
+            }
+        }
+        if 'date_from' in params and 'date_to' in params:
+            condition.update({
+                "time": {
+                    "$gte": params['date_from'],
+                    "$lt": params['date_to']
+                }
+            })
+        ticekts = f_app.ticket.search(condition, per_page=-1)
+        occupation_id = None
+        for ticket in f_app.ticket.get(ticekts):
+            if 'occupation' in ticket:
+                occupation_id = ticket['occupation']['id']
+                source.update({ticket['user_id']: occupation_id})
+        occupation_count = {}
+        for single in source:
+            if source[single] not in occupation_count:
+                occupation_count[source[single]] = 0
+            occupation_count[source[single]] += 1
+        result = {}
+        for single in occupation_count:
+            result.update({f_app.enum.get(single)['value']['zh_Hans_CN']: occupation_count[single]})
+        result.update({"other": total - len(source)})
+        return result
+
+    value = {}
+    with f_app.mongo() as m:
+        if 'date_from' in params and 'date_to' in params:
+            value.update({
+                "aggregation_register_user_total": m.users.find({
+                    "register_time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    },
+                    "status": {"$ne": "deleted"},
+                }).count()
+            })
+            aggregate_params = [
+                {
+                    "$match": {
+                        "register_time": {
+                            "$gte": params['date_from'],
+                            "$lt": params['date_to']
+                        }
+                    }
+                },
+                {"$unwind": "$user_type"},
+                {"$group": {"_id": "$user_type", "count": {"$sum": 1}}}
+            ]
+            aggregate_params_gender = [
+                {
+                    "$match": {
+                        "register_time": {
+                            "$gte": params['date_from'],
+                            "$lt": params['date_to']
+                        }
+                    }
+                },
+                {"$group": {"_id": "$gender", "count": {"$sum": 1}}}
+            ]
+            aggregate_params_country = [
+                {
+                    "$match": {
+                        "register_time": {
+                            "$gte": params['date_from'],
+                            "$lt": params['date_to']
+                        }
+                    }
+                },
+                {"$group": {"_id": "$country.code", "count": {"$sum": 1}}}
+            ]
+            value["user_portrait_active_days"].update({
+                "0~1": m.users.find({
+                    "register_time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    },
+                    "status": {"$ne": "deleted"},
+                    "analyze_guest_active_days": {
+                        "gte": 0,
+                        "lte": 1
+                    }
+                }).count(),
+                "2~7": m.users.find({
+                    "register_time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    },
+                    "status": {"$ne": "deleted"},
+                    "analyze_guest_active_days": {
+                        "gte": 2,
+                        "lte": 7
+                    }
+                }).count(),
+                "8~14": m.users.find({
+                    "register_time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    },
+                    "status": {"$ne": "deleted"},
+                    "analyze_guest_active_days": {
+                        "gte": 8,
+                        "lte": 14
+                    }
+                }).count(),
+                "14+": m.users.find({
+                    "register_time": {
+                        "$gte": params['date_from'],
+                        "$lt": params['date_to']
+                    },
+                    "status": {"$ne": "deleted"},
+                    "analyze_guest_active_days": {
+                        "gte": 15
+                    }
+                }).count()
+            })
+        else:
+            value.update({
+                "user_portrait_register_user_total": m.users.find({
+                    "register_time": {"$exists": True},
+                    "status": {"$ne": "deleted"},
+                }).count()
+            })
+            aggregate_params = [
+                {"$unwind": "$user_type"},
+                {"$group": {"_id": "$user_type", "count": {"$sum": 1}}}
+            ]
+            aggregate_params_gender = [
+                {"$group": {"_id": "$gender", "count": {"$sum": 1}}}
+            ]
+            aggregate_params_country = [
+                {"$group": {"_id": "$country.code", "count": {"$sum": 1}}}
+            ]
+            value["user_portrait_active_days"].update({
+                "0~1": m.users.find({
+                    "register_time": {"$exists": True},
+                    "status": {"$ne": "deleted"},
+                    "analyze_guest_active_days": {
+                        "gte": 0,
+                        "lte": 1
+                    }
+                }).count(),
+                "2~7": m.users.find({
+                    "register_time": {"$exists": True},
+                    "status": {"$ne": "deleted"},
+                    "analyze_guest_active_days": {
+                        "gte": 2,
+                        "lte": 7
+                    }
+                }).count(),
+                "8~14": m.users.find({
+                    "register_time": {"$exists": True},
+                    "status": {"$ne": "deleted"},
+                    "analyze_guest_active_days": {
+                        "gte": 8,
+                        "lte": 14
+                    }
+                }).count(),
+                "14+": m.users.find({
+                    "register_time": {"$exists": True},
+                    "status": {"$ne": "deleted"},
+                    "analyze_guest_active_days": {
+                        "gte": 15
+                    }
+                }).count()
+            })
+
+        cursor = m.users.aggregate(aggregate_params)
+        user_type = []
+        for document in cursor:
+            user_type.append({"type": f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'],
+                              "total": document['count']})
+        user_type.append({
+            "type": "未知",
+            "total": m.users.find({"user_type": {"$exists": False}}).count()
+        })
+        cursor.close()
+        value.update({"user_portrait_user_type": user_type})
+
+        cursor = m.users.aggregate(aggregate_params_gender)
+        gender_type = []
+        for document in cursor:
+            gender_type.append({"type": document['_id'] if document['_id'] else "未知",
+                                "total": document['count']})
+        cursor.close()
+        value.update({"user_portrait_gender_type": gender_type})
+
+        cursor = m.users.aggregate(aggregate_params_country)
+        country_distribution = []
+        for document in cursor:
+            country_distribution.append({"type": document['_id'] if document['_id'] else "未知",
+                                         "total": document['count']})
+        cursor.close()
+        value.update({"user_portrait_country_distribution": country_distribution})
+
+        value.update({"user_portrait_age_distribution": get_user_age(value['user_portrait_register_user_total'])})
+        value.update({"user_portrait_occupation_distribution": get_occupation(value['user_portrait_register_user_total'])})
+
+    return value
