@@ -38,7 +38,7 @@
 	<key>CurrantChannel</key>
 	<string>test</string>
 	<key>CurrantHost</key>
-	<string>172.22.27.191:8181</string>
+	<string>currant-test.bbtechgroup.com</string>
 	<key>CurrantSecureHost</key>
 	<string>currant-test.bbtechgroup.com</string>
 	<key>Fabric</key>
