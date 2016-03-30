@@ -4357,7 +4357,7 @@ def get_users_portrait(user, params):
             })
             aggregate_params = [
                 {"$unwind": "$user_type"},
-                {"$group": {"_id": "$user_type", "count": {"$sum": 1}}}
+                {"$group": {"_id": "$user_type._id", "count": {"$sum": 1}}}
             ]
             aggregate_params_gender = [
                 {"$group": {"_id": "$gender", "count": {"$sum": 1}}}
@@ -4365,65 +4365,62 @@ def get_users_portrait(user, params):
             aggregate_params_country = [
                 {"$group": {"_id": "$country.code", "count": {"$sum": 1}}}
             ]
+            value["user_portrait_active_days"] = {}
             value["user_portrait_active_days"].update({
                 "0~1": m.users.find({
                     "register_time": {"$exists": True},
                     "status": {"$ne": "deleted"},
                     "analyze_guest_active_days": {
-                        "gte": 0,
-                        "lte": 1
+                        "$gte": 0,
+                        "$lte": 1
                     }
                 }).count(),
                 "2~7": m.users.find({
                     "register_time": {"$exists": True},
                     "status": {"$ne": "deleted"},
                     "analyze_guest_active_days": {
-                        "gte": 2,
-                        "lte": 7
+                        "$gte": 2,
+                        "$lte": 7
                     }
                 }).count(),
                 "8~14": m.users.find({
                     "register_time": {"$exists": True},
                     "status": {"$ne": "deleted"},
                     "analyze_guest_active_days": {
-                        "gte": 8,
-                        "lte": 14
+                        "$gte": 8,
+                        "$lte": 14
                     }
                 }).count(),
                 "14+": m.users.find({
                     "register_time": {"$exists": True},
                     "status": {"$ne": "deleted"},
                     "analyze_guest_active_days": {
-                        "gte": 15
+                        "$gte": 15
                     }
                 }).count()
             })
 
         cursor = m.users.aggregate(aggregate_params)
-        user_type = []
+        user_type = {}
         for document in cursor:
-            user_type.append({"type": f_app.enum.get(document['_id']['_id'])['value']['zh_Hans_CN'],
-                              "total": document['count']})
-        user_type.append({
-            "type": "未知",
-            "total": m.users.find({"user_type": {"$exists": False}}).count()
+            user_type.update({f_app.enum.get(document['_id'])['value']['zh_Hans_CN']: document['count']})
+        user_type.update({
+            "other": m.users.find({"user_type": {"$exists": False}}).count()
         })
         cursor.close()
         value.update({"user_portrait_user_type": user_type})
 
         cursor = m.users.aggregate(aggregate_params_gender)
-        gender_type = []
+        gender_type = {}
         for document in cursor:
-            gender_type.append({"type": document['_id'] if document['_id'] else "未知",
-                                "total": document['count']})
+            gender_type.update({document['_id'] if document['_id'] else "other": document['count']})
         cursor.close()
         value.update({"user_portrait_gender_type": gender_type})
 
         cursor = m.users.aggregate(aggregate_params_country)
-        country_distribution = []
+        country_distribution = {}
         for document in cursor:
-            country_distribution.append({"type": document['_id'] if document['_id'] else "未知",
-                                         "total": document['count']})
+            country_distribution.update({document['_id'] if document['_id'] else "other": document['count']})
         cursor.close()
         value.update({"user_portrait_country_distribution": country_distribution})
 
