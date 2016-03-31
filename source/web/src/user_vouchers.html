@@ -32,10 +32,20 @@
                 <label class="invalidDate">{=project.formatTime(coupon.expire_time)=} 过期</label>
             </div>
             <div class="name">
+                {_if(coupon.description) {_}
                 {=coupon.description=}
+                {_} else {_}
+                &nbsp
+                {_}_}
             </div>
             <div class="status">
+                {_if(coupon.status === 'new') {_}
+                {=window.i18n('未使用')=}
+                {_} else if (coupon.status === 'used') {_}
+                {=window.i18n('已使用')=}
+                {_} else {_}
                 {=coupon.status=}
+                {_}_}
             </div>
         </div>
     </script>
