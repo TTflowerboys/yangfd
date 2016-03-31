@@ -22,25 +22,7 @@
 <!--@@close-->
 
 <!--@@block=scripts -->
-
-<script>
-    (function () {
-        /*
-         * Weixin share sdk
-         * */
-        var wechatShareData = {
-            title: window.i18n('洋房东 £25租房优惠'),
-            link: window.location.href,
-            imgUrl: '/static/images/logo/logo_wechat.jpg',
-            desc: window.i18n('还在为租房苦恼吗？ 使用我的邀请码在洋房东注册，寻找合适房源，立享优惠！'),
-            success:function(){
-                ga('send', 'event', 'wechat_invite', 'share', 'share-to-wechat-success')
-            },
-            cancel:function(){
-                ga('send', 'event', 'wechat_invite', 'share', 'share-to-wechat-cancel')
-            }
-        }
-        window.wechatShareSDK.init(wechatShareData)
-    })()
-</script>
+<!--build:js /static/scripts/wechat_invite.html.js-->
+<script src="/static/scripts/wechat_invite.js"></script>
+<!--endbuild-->
 <!--@@close-->
