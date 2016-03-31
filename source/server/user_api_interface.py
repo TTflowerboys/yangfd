@@ -571,34 +571,34 @@ def admin_user_add(user, params):
     user_id = f_app.user.add(params, retain_country=True)
     f_app.log.add("add", user_id=user_id)
 
-    if f_app.common.use_ssl:
-        schema = "https://"
-    else:
-        schema = "http://"
-    admin_console_url = "%s%s/admin#" % (schema, request.urlparts[1])
-
-    if f_app.common.i18n_default_locale in ["zh_Hans_CN", "zh_Hant_HK"]:
-        template_invoke_name = "new_admin_cn"
-        sendgrid_template_id = "d224c59f-76ee-49be-be7d-35695bc4d090"
-    else:
-        template_invoke_name = "new_admin_en"
-        sendgrid_template_id = "0ada154f-0b38-473a-8e01-87dcdb827f6f"
-    roles = template("static/emails/new_admin_role", role=params["role"])
-    substitution_vars = {
-        "to": [params["email"]],
-        "sub": {
-            "%nickname%": [params["nickname"]],
-            "%password%": [params["password"]],
-            "%role%": [roles],
-            "%admin_console_url%": [admin_console_url],
-            "%phone%": ["*" * (len(params["phone"]) - 4) + params["phone"][-4:]],
-            "%logo_url%": [f_app.common.email_template_logo_url]
-        }
-    }
-    xsmtpapi = substitution_vars
-    xsmtpapi["template_id"] = sendgrid_template_id
-
     if set(f_app.common.admin_roles) & set(params["role"]):
+        if f_app.common.use_ssl:
+            schema = "https://"
+        else:
+            schema = "http://"
+        admin_console_url = "%s%s/admin#" % (schema, request.urlparts[1])
+
+        if f_app.common.i18n_default_locale in ["zh_Hans_CN", "zh_Hant_HK"]:
+            template_invoke_name = "new_admin_cn"
+            sendgrid_template_id = "d224c59f-76ee-49be-be7d-35695bc4d090"
+        else:
+            template_invoke_name = "new_admin_en"
+            sendgrid_template_id = "0ada154f-0b38-473a-8e01-87dcdb827f6f"
+        roles = template("static/emails/new_admin_role", role=params["role"])
+        substitution_vars = {
+            "to": [params["email"]],
+            "sub": {
+                "%nickname%": [params["nickname"]],
+                "%password%": [params["password"]],
+                "%role%": [roles],
+                "%admin_console_url%": [admin_console_url],
+                "%phone%": ["*" * (len(params["phone"]) - 4) + params["phone"][-4:]],
+                "%logo_url%": [f_app.common.email_template_logo_url]
+            }
+        }
+        xsmtpapi = substitution_vars
+        xsmtpapi["template_id"] = sendgrid_template_id
+
         f_app.email.schedule(
             target=params["email"],
             subject=f_app.util.get_format_email_subject(template("static/emails/new_admin_title")),
@@ -631,7 +631,7 @@ def admin_user_add_role(user, user_id, params):
     user_roles = user_info.get('role', [])
     if role not in user_roles:
         f_app.user.add_role(user_id, role)
-        if user_info.get("email") is not None:
+        if user_info.get("email") is not None and set(f_app.common.admin_roles) & {params["role"]}:
             if f_app.common.use_ssl:
                 schema = "https://"
             else:
