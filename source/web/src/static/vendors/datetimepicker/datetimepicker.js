@@ -31,7 +31,9 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
                     showMeridian: "=",
                     meredians: "=",
                     mousewheel: "=",
-                    readonlyTime: "@"
+                    readonlyTime: "@",
+                    hiddenTime: "=",
+                    hiddenDate: "="
                 },
                 template: function(elem, attrs) {
                     function dashCase(name, separator) {
@@ -82,6 +84,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
                             ["monthTitleFormat"],
                             ["startingDay"],
                             ["yearRange"],
+                            ["ngHide", "hiddenDate"],
                             ["datepickerOptions", "dateOptions"]
                         ].reduce(createAttrConcat, '') +
                         createFuncAttr("dateDisabled", "date: date, mode: mode") +
@@ -94,7 +97,8 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
                             ["minuteStep"],
                             ["showMeridian"],
                             ["meredians"],
-                            ["mousewheel"]
+                            ["mousewheel"],
+                            ["ngHide", "hiddenTime"],
                         ].reduce(createAttrConcat, '') +
                         createEvalAttr("readonlyInput", "readonlyTime") +
                         "></timepicker>\n" +
