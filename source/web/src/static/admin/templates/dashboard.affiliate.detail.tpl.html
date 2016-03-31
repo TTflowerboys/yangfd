@@ -63,7 +63,13 @@
                         <h3 class="panel-title" style="display: inline-block;">{%$root.i18n('优惠券')%}</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="form-group  col-lg-12">
+                        <div class="form-group  col-lg-6">
+                            <label class="control-label">{%$root.i18n('请填写Offer描述')%}</label>
+                            <div class="controls">
+                                <input class="form-control" type="text" ng-model="coupon.description" placeholder="{%$root.i18n('请填写Offer描述')%}"/>
+                            </div>
+                        </div>
+                        <div class="form-group  col-lg-6">
                             <label class="control-label">{%$root.i18n('选择Offer类型')%}</label>
                             <div class="controls">
                                 <div select-enum name="coupon_category" ng-model="coupon.category" text="{%i18n('选择Offer类型')%}"></div>
