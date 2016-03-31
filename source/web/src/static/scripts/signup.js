@@ -18,6 +18,36 @@ $(function () {
     }
 
     var errorArea = $('form[name=register]').find('.errorMessage')
+
+    var onPhoneNumberChange = function () {
+        var params = $('form').serializeObject()
+        var theParams = {}
+        theParams.phone = '+' + params.country_code + params.phone
+        var $input = $('form input[name=phone]')
+        $input.css('border', '')
+        errorArea.hide()
+        if (theParams.phone) {
+            $.betterPost('/api/1/user/phone_test', theParams)
+                .done(function () {
+                    $input.css('border', '')
+                    errorArea.hide()
+
+                })
+                .fail(function () {
+                    window.dhtmlx.message({type:'error', text: window.getErrorMessage('phone', 'number')})
+                    errorArea.text(window.getErrorMessage('phone', 'number'))
+                    errorArea.show()
+                    $input.css('border', '2px solid red')
+                })
+        }
+        else {
+            $input.css('border', '')
+            errorArea.hide()
+        }
+    }
+    $('form select[name=country_code]').on('change', onPhoneNumberChange)
+    $('form input[name=phone]').on('change', onPhoneNumberChange)
+    
     $('form[name=register]').submit(function (e) {
         e.preventDefault()
         ga('send', 'event', 'signup', 'click', 'signup-submit')
@@ -53,11 +83,16 @@ $(function () {
         params.phone = '+' + params.country_code + params.phone
         params.country = window.team.getCountryFromPhoneCode(params.country_code)
         delete params.country_code
+
         if(_.isEmpty(params.invitation_code) || params.invitation_code === ''){
             delete params.invitation_code
         }else {
             // Trim all whitespace inside string
             params.invitation_code = params.invitation_code.replace(/ /g, '')
+        }
+
+        if(_.isEmpty(params.referral) || params.referral === ''){
+            delete params.referral
         }
         params.password = Base64.encode(params.password)
         $.betterPost('/api/1/user/register', params)
