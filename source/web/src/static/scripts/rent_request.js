@@ -742,7 +742,9 @@
                         var coupon = array[0]
                         var discount = coupon.discount
                         theSelf.couponDiscount(discount.unit_symbol + discount.value)
-                        theSelf.couponLocalizedDiscount(discount.localized_unit_symbol + parseInt(discount.localized_value))
+                        if (discount.localized_unit_symbol && discount.localized_value) {
+                            theSelf.couponLocalizedDiscount(discount.localized_unit_symbol + parseInt(discount.localized_value))
+                        }
                     }
                 })
             }
