@@ -1008,7 +1008,7 @@ def user_invite(user, params):
     else:
         discount = user["coupon"]["discount"]["unit_symbol"] + user["coupon"]["discount"]["value"]
     f_app.email.schedule(
-        target=user["email"],
+        target=params["email"],
         subject=template("views/static/emails/coupon_code_share_title", nickname=user["nickname"]),
         text=template(
             "views/static/emails/coupon_code_share",
