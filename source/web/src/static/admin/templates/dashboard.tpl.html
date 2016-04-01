@@ -368,6 +368,23 @@
                                 </ul>
                             </li>
                             <li has-permission="admin,jr_admin,operation,jr_operation"
+                                ng-class="{active:$state.includes('dashboard.user_portrait')}">
+                                <a href ui-sref="dashboard.user_portrait" ui-sref-active="active">
+                                    <i class="fa fa-magnet"></i>
+                                    <span class="hidden-sm text">{%$root.i18n('用户画像')%}</span>
+                                    <span class="chevron"
+                                          ng-class="{closed:!$state.includes('dashboard.user_portrait'),opened:$state.includes('dashboard.user_portrait')}"></span>
+                                </a>
+                                <ul ng-style="{display:$state.includes('dashboard.user_portrait')?'block':'none'}">
+                                  <li has-permission="admin,jr_admin,operation,jr_operation"
+                                      ng-class="{active:$state.includes('dashboard.user_portrait.user_portrait_general')}">
+                                      <a href ui-sref="dashboard.user_portrait.user_portrait_general" ui-sref-active="active">
+                                          <i class="fa fa-comment-o"></i>
+                                          <span class="hidden-sm text">{%$root.i18n('人口属性')%}</span></a>
+                                  </li>
+                                </ul>
+                            </li>
+                            <li has-permission="admin,jr_admin,operation,jr_operation"
                                 ng-class="{active:$state.includes('dashboard.affiliate')}">
                                 <a href ui-sref="dashboard.affiliate" ui-sref-active="active">
                                     <i class="fa fa-magnet"></i><span class="hidden-sm text">{%$root.i18n('Affiliate管理')%}</span></a>

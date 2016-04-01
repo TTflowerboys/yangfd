@@ -1,0 +1,102 @@
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="box">
+      <div class="box-content">
+        <div class="btn-group form-inline">
+          <div edit-date ng-model="$parent.selected.date_from" placeholder="{%i18n('起租时间')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+          <div edit-date ng-model="$parent.selected.date_to" placeholder="{%i18n('结束时间')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+          <button class="btn btn-primary" ng-click="get_portrait_data()">{%$root.i18n('获取数据')%}</button>
+        </div>
+        <div class="row">
+
+  				<div class="col-sm-5">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>国家</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="user_portrait_country_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+          <div class="col-sm-4">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>年龄分布</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="user_portrait_age_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+          <div class="col-sm-3">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>设备</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="user_portrait_user_device" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+
+        </div>
+        <div class="row">
+
+  				<div class="col-sm-3">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>职业</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="user_portrait_occupation_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+          <div class="col-sm-3">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>用户类型</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="user_portrait_user_type" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+  				<div class="col-sm-3">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>活跃天数</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="user_portrait_active_days" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+          <div class="col-sm-3">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>性别</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="user_portrait_gender" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
