@@ -4261,7 +4261,7 @@ def get_users_portrait(user, params):
     with f_app.mongo() as m:
         if 'date_from' in params and 'date_to' in params:
             value.update({
-                "aggregation_register_user_total": m.users.find({
+                "user_portrait_register_user_total": m.users.find({
                     "register_time": {
                         "$gte": params['date_from'],
                         "$lt": params['date_to']
@@ -4279,7 +4279,7 @@ def get_users_portrait(user, params):
                     }
                 },
                 {"$unwind": "$user_type"},
-                {"$group": {"_id": "$user_type", "count": {"$sum": 1}}}
+                {"$group": {"_id": "$user_type._id", "count": {"$sum": 1}}}
             ]
             aggregate_params_gender = [
                 {
@@ -4303,51 +4303,6 @@ def get_users_portrait(user, params):
                 },
                 {"$group": {"_id": "$country.code", "count": {"$sum": 1}}}
             ]
-            value["user_portrait_active_days"].update({
-                "0~1": m.users.find({
-                    "register_time": {
-                        "$gte": params['date_from'],
-                        "$lt": params['date_to']
-                    },
-                    "status": {"$ne": "deleted"},
-                    "analyze_guest_active_days": {
-                        "gte": 0,
-                        "lte": 1
-                    }
-                }).count(),
-                "2~7": m.users.find({
-                    "register_time": {
-                        "$gte": params['date_from'],
-                        "$lt": params['date_to']
-                    },
-                    "status": {"$ne": "deleted"},
-                    "analyze_guest_active_days": {
-                        "gte": 2,
-                        "lte": 7
-                    }
-                }).count(),
-                "8~14": m.users.find({
-                    "register_time": {
-                        "$gte": params['date_from'],
-                        "$lt": params['date_to']
-                    },
-                    "status": {"$ne": "deleted"},
-                    "analyze_guest_active_days": {
-                        "gte": 8,
-                        "lte": 14
-                    }
-                }).count(),
-                "14+": m.users.find({
-                    "register_time": {
-                        "$gte": params['date_from'],
-                        "$lt": params['date_to']
-                    },
-                    "status": {"$ne": "deleted"},
-                    "analyze_guest_active_days": {
-                        "gte": 15
-                    }
-                }).count()
-            })
         else:
             value.update({
                 "user_portrait_register_user_total": m.users.find({
@@ -4365,40 +4320,39 @@ def get_users_portrait(user, params):
             aggregate_params_country = [
                 {"$group": {"_id": "$country.code", "count": {"$sum": 1}}}
             ]
-            value["user_portrait_active_days"] = {}
-            value["user_portrait_active_days"].update({
-                "0~1": m.users.find({
-                    "register_time": {"$exists": True},
-                    "status": {"$ne": "deleted"},
-                    "analyze_guest_active_days": {
-                        "$gte": 0,
-                        "$lte": 1
-                    }
-                }).count(),
-                "2~7": m.users.find({
-                    "register_time": {"$exists": True},
-                    "status": {"$ne": "deleted"},
-                    "analyze_guest_active_days": {
-                        "$gte": 2,
-                        "$lte": 7
-                    }
-                }).count(),
-                "8~14": m.users.find({
-                    "register_time": {"$exists": True},
-                    "status": {"$ne": "deleted"},
-                    "analyze_guest_active_days": {
-                        "$gte": 8,
-                        "$lte": 14
-                    }
-                }).count(),
-                "14+": m.users.find({
-                    "register_time": {"$exists": True},
-                    "status": {"$ne": "deleted"},
-                    "analyze_guest_active_days": {
-                        "$gte": 15
-                    }
-                }).count()
-            })
+        value["user_portrait_active_days"] = {}
+        value["user_portrait_active_days"].update({
+            "0~1": m.users.find({
+                "register_time": {"$exists": True},
+                "status": {"$ne": "deleted"},
+                "analyze_guest_active_days": {
+                    "$lte": 1
+                }
+            }).count(),
+            "2~7": m.users.find({
+                "register_time": {"$exists": True},
+                "status": {"$ne": "deleted"},
+                "analyze_guest_active_days": {
+                    "$gte": 2,
+                    "$lte": 7
+                }
+            }).count(),
+            "8~14": m.users.find({
+                "register_time": {"$exists": True},
+                "status": {"$ne": "deleted"},
+                "analyze_guest_active_days": {
+                    "$gte": 8,
+                    "$lte": 14
+                }
+            }).count(),
+            "14+": m.users.find({
+                "register_time": {"$exists": True},
+                "status": {"$ne": "deleted"},
+                "analyze_guest_active_days": {
+                    "$gte": 15
+                }
+            }).count()
+        })
 
         cursor = m.users.aggregate(aggregate_params)
         user_type = {}
@@ -4426,5 +4380,11 @@ def get_users_portrait(user, params):
 
         value.update({"user_portrait_age_distribution": get_user_age(value['user_portrait_register_user_total'])})
         value.update({"user_portrait_occupation_distribution": get_occupation(value['user_portrait_register_user_total'])})
+
+        app_user = m.users.find({"analyze_guest_downloaded": "已下载"}).count()
+        value.update({"user_portrait_user_device": {
+            "app": app_user,
+            "other": value['user_portrait_register_user_total'] - app_user
+        }})
 
     return value
