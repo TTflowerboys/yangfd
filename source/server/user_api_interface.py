@@ -481,7 +481,7 @@ def admin_user_search(user, params):
     """
     if not set(user["role"]) & set(f_app.common.advanced_admin_roles):
         assert "affiliate" in user["role"], abort(40300)
-        params["affiliate"] = ObjectId(user["id"])
+        params["referral"] = ObjectId(user["id"])
 
     user_roles = f_app.user.get_role(user["id"])
     if "role" in params:
