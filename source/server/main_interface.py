@@ -3678,7 +3678,12 @@ def affiliate_get_all_user_behavior(user, params):
             if user_list is not None:
 
                 for affliate_user in user_list:
-                    affiliate_user_list = f_app.ticket.search({
+                    search_ticket_condition = {
+                        "user_id": ObjectId(affliate_user),
+                        "type": "rent_intention",
+                        "status": "checked_in"
+                    }
+                    search_request_ticket_condition = {
                         "user_id": ObjectId(affliate_user),
                         "type": "rent_intention",
                         "interested_rent_tickets": {"$exists": True},
@@ -3687,15 +3692,6 @@ def affiliate_get_all_user_behavior(user, params):
                                 "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
                             ]
                         }
-                    }, per_page=-1)
-                    if affiliate_user_list is not None:
-                        affiliate_all_user_request_count += len(affiliate_user_list)
-
-                for affliate_user in user_list:
-                    search_ticket_condition = {
-                        "user_id": ObjectId(affliate_user),
-                        "type": "rent_intention",
-                        "status": "checked_in"
                     }
                     if 'date_from' in params:
                         search_ticket_condition.update({
@@ -3703,8 +3699,18 @@ def affiliate_get_all_user_behavior(user, params):
                                 "$gte": date_begin
                             }
                         })
+                        search_request_ticket_condition.update({
+                            "time": {
+                                "$gte": date_begin
+                            }
+                        })
                     if 'date_to' in params:
                         search_ticket_condition.update({
+                            "time": {
+                                "$lt": date_end
+                            }
+                        })
+                        search_request_ticket_condition.update({
                             "time": {
                                 "$lt": date_end
                             }
@@ -3716,9 +3722,18 @@ def affiliate_get_all_user_behavior(user, params):
                                 "$lt": date_end
                             }
                         })
+                        search_request_ticket_condition.update({
+                            "time": {
+                                "$gte": date_begin,
+                                "$lt": date_end
+                            }
+                        })
                     affiliate_user_list = f_app.ticket.search(search_ticket_condition, per_page=-1, notime=True)
                     if affiliate_user_list is not None:
                         affiliate_all_user_success_rent += len(affiliate_user_list)
+                    affiliate_user_request_list = f_app.ticket.search(search_request_ticket_condition, per_page=-1, notime=True)
+                    if affiliate_user_request_list is not None:
+                        affiliate_all_user_request_count += len(affiliate_user_request_list)
             result.append({
                 "affiliate_user_id": single_user['id'],
                 "affiliate_all_user_request_count": affiliate_all_user_request_count,
