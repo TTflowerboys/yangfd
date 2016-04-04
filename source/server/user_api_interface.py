@@ -501,7 +501,7 @@ def admin_user_search(user, params):
         elif "support" in user_roles:
             params["role"]["$nin"] = ["admin", "jr_admin", "sales", "jr_sales", "operation", "jr_operation", "developer", "agency"]
         elif "affiliate" in user_roles:
-            pass
+            params.pop("role")
         else:
             abort(40300)
 
@@ -528,7 +528,6 @@ def admin_user_search(user, params):
         else:
             params["register_time"] = {"$exists": False}
 
-    logger.debug(params)
     return f_app.user.output(f_app.user.custom_search(params=params, per_page=per_page), custom_fields=f_app.common.user_custom_fields)
 
 
