@@ -820,6 +820,11 @@ class currant_plugin(f_app.plugin_base):
                         type="currency",
                         _i18n_unit=True,
                     ),
+                    category=dict(
+                        _id=ObjectId(f_app.enum.get_by_slug('rent_coupon')["id"]),
+                        type="coupon_category",
+                        _enum="coupon_category",
+                    ),
                     description="25 GBP",
                 )
 
