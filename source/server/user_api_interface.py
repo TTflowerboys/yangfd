@@ -630,45 +630,46 @@ def admin_user_add_role(user, user_id, params):
     user_roles = user_info.get('role', [])
     if role not in user_roles:
         f_app.user.add_role(user_id, role)
-        if user_info.get("email") is not None and set(f_app.common.admin_roles) & {params["role"]}:
-            if f_app.common.use_ssl:
-                schema = "https://"
-            else:
-                schema = "http://"
-            admin_console_url = "%s%s/admin#" % (schema, request.urlparts[1])
-            locale = user_info.get("locales", [f_app.common.i18n_default_locale])[0]
-            request._requested_i18n_locales_list = [locale]
-            if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
-                template_invoke_name = "set_as_admin_cn"
-                sendgrid_template_id = "b3a978ac-5096-4633-a505-d76041b314f2"
-            else:
-                template_invoke_name = "set_as_admin_en"
-                sendgrid_template_id = "26a4015b-65c3-4097-b9b6-998cbcc124b5"
-            roles = template("static/emails/new_admin_role", role=f_app.user.get_role(user_id))
-            substitution_vars = {
-                "to": [user_info.get("email")],
-                "sub": {
-                    "%nickname%": [user_info.get("nickname")],
-                    "%role%": [roles],
-                    "%admin_console_url%": [admin_console_url],
-                    "%phone%": ["*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]],
-                    "%logo_url%": [f_app.common.email_template_logo_url]
+        if set(f_app.common.admin_roles) & {params["role"]}:
+            if user_info.get("email") is not None:
+                if f_app.common.use_ssl:
+                    schema = "https://"
+                else:
+                    schema = "http://"
+                admin_console_url = "%s%s/admin#" % (schema, request.urlparts[1])
+                locale = user_info.get("locales", [f_app.common.i18n_default_locale])[0]
+                request._requested_i18n_locales_list = [locale]
+                if locale in ["zh_Hans_CN", "zh_Hant_HK"]:
+                    template_invoke_name = "set_as_admin_cn"
+                    sendgrid_template_id = "b3a978ac-5096-4633-a505-d76041b314f2"
+                else:
+                    template_invoke_name = "set_as_admin_en"
+                    sendgrid_template_id = "26a4015b-65c3-4097-b9b6-998cbcc124b5"
+                roles = template("static/emails/new_admin_role", role=f_app.user.get_role(user_id))
+                substitution_vars = {
+                    "to": [user_info.get("email")],
+                    "sub": {
+                        "%nickname%": [user_info.get("nickname")],
+                        "%role%": [roles],
+                        "%admin_console_url%": [admin_console_url],
+                        "%phone%": ["*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]],
+                        "%logo_url%": [f_app.common.email_template_logo_url]
+                    }
                 }
-            }
-            xsmtpapi = substitution_vars
-            xsmtpapi["template_id"] = sendgrid_template_id
-            f_app.email.schedule(
-                target=user_info.get("email"),
-                subject=f_app.util.get_format_email_subject(template("static/emails/set_as_admin_title")),
-                text=template("static/emails/set_as_admin", nickname=user_info.get("nickname"), role=f_app.user.get_role(user_id), admin_console_url=admin_console_url, phone="*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]),
-                display="html",
-                template_invoke_name=template_invoke_name,
-                substitution_vars=substitution_vars,
-                xsmtpapi=xsmtpapi,
-                tag="set_as_admin",
-            )
-        else:
-            abort(40094, logger.warning('Invalid admin: email not provided.', exc_info=False))
+                xsmtpapi = substitution_vars
+                xsmtpapi["template_id"] = sendgrid_template_id
+                f_app.email.schedule(
+                    target=user_info.get("email"),
+                    subject=f_app.util.get_format_email_subject(template("static/emails/set_as_admin_title")),
+                    text=template("static/emails/set_as_admin", nickname=user_info.get("nickname"), role=f_app.user.get_role(user_id), admin_console_url=admin_console_url, phone="*" * (len(user_info["phone"]) - 4) + user_info["phone"][-4:]),
+                    display="html",
+                    template_invoke_name=template_invoke_name,
+                    substitution_vars=substitution_vars,
+                    xsmtpapi=xsmtpapi,
+                    tag="set_as_admin",
+                )
+            else:
+                abort(40094, logger.warning('Invalid admin: email not provided.', exc_info=False))
 
     return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
 
