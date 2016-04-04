@@ -825,7 +825,7 @@ class currant_plugin(f_app.plugin_base):
                         type="coupon_category",
                         _enum="coupon_category",
                     ),
-                    description="25 GBP",
+                    description="25英镑租房优惠券",
                 )
 
             new_coupon.setdefault("effective_time", datetime.utcnow())
