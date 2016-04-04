@@ -96,6 +96,9 @@
                 }
             })
         }
+
+        //display the default user data
+        $scope.getAggregateData()
     }
 
     angular.module('app').controller('ctrlAffiliateDetail', ctrlAffiliateDetail)
