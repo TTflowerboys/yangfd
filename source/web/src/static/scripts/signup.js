@@ -5,10 +5,27 @@ $(function () {
     if(invitationCode !== ''){
         $('form[name=register]').find('input[name=invitation_code]').val(invitationCode)
     }
-    
+
     var referral = window.team.getQuery('referral', location.href)
     if(referral !== ''){
         $('form[name=register]').find('input[name=referral]').val(referral)
+
+        /*
+         * Weixin share sdk
+         * */
+        var wechatShareData = {
+            title: window.i18n('洋房东 £25租房优惠'),
+            link: window.location.href,
+            imgUrl: 'http://upload.yangfd.com/app_icon_x120_150427.png',
+            desc: window.i18n('还在为租房苦恼吗？ 使用我的邀请码在洋房东注册，寻找合适房源，立享优惠！'),
+            success:function(){
+                ga('send', 'event', 'signup', 'share', 'share-to-wechat-success')
+            },
+            cancel:function(){
+                ga('send', 'event', 'signup', 'share', 'share-to-wechat-cancel')
+            }
+        }
+        window.wechatShareSDK.init(wechatShareData)
     }
 
     window.project.showRecaptcha('captcha_div')
