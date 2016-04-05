@@ -38,6 +38,7 @@
                 return $scope.cancelUpdateReferralCode()
             }
             api.assignReferralCode({
+                user_id: $state.params.id,
                 code: $scope.item.referral_code_tmp
             }, {
                 successMessage: 'Update successfully',
