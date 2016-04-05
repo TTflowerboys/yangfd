@@ -740,10 +740,12 @@
                 $.betterGet('/api/1/coupon/search').done(function (array) {
                     if (array.length) {
                         var coupon = array[0]
-                        var discount = coupon.discount
-                        theSelf.couponDiscount(discount.unit_symbol + discount.value)
-                        if (discount.localized_unit_symbol && discount.localized_value) {
-                            theSelf.couponLocalizedDiscount(discount.localized_unit_symbol + parseInt(discount.localized_value))
+                        if (coupon.category && coupon.category.slug === 'rent_coupon') {
+                            var discount = coupon.discount
+                            theSelf.couponDiscount(discount.unit_symbol + discount.value)
+                            if (discount.localized_unit_symbol && discount.localized_value) {
+                                theSelf.couponLocalizedDiscount(discount.localized_unit_symbol + parseInt(discount.localized_value))
+                            }
                         }
                     }
                 })
