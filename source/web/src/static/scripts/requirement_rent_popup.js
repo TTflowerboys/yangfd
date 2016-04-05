@@ -488,7 +488,7 @@
                             successArea.show().siblings().hide()
                             successArea.find('.qrcode').prop('src', '/qrcode/generate?content=' + encodeURIComponent(location.protocol + '//' + location.host + '/app-download'))
                             getHostContact(container, option)
-                            submitSuccessCallBack()
+                            submitSuccessCallBack(val)
                             ga('send', 'event', 'rentRequirementPopup', 'result', 'submit-success')
                             ga('send', 'pageview', '/submit-rent-requirement/submit-success')
                             //_hmt.push(['_trackPageview', '/submit-rent-requirement/submit-success'])
@@ -564,8 +564,15 @@
         popup.find('.requirement_title').show()
         window.showRequirementRentCancelButton(popup)
 
-        window.setupRequirementRentForm(popup, option, function () {
-
+        var oldUser = window.user
+        window.setupRequirementRentForm(popup, option, function (user) {
+            //may here create a new user
+            if (user) {
+                window.user = user
+            }
+            if (window.user !== oldUser) {
+                location.reload(true)
+            }
         })
 
         var wrapper = popup.find('.requirement_wrapper')
