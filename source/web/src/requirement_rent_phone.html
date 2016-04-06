@@ -29,8 +29,24 @@ function getOptionFromQurey(str) {
      var requirementRentContainer = $('main')
      var option = getOptionFromQurey(location.search)
      window.resetRequirementRentForm(requirementRentContainer, option)
+     var oldUser = window.user
      window.setupRequirementRentForm(requirementRentContainer, option, function () {
+        //here submit rent intention ticket has created a new user
+         if (!oldUser) {
+             $.betterGet('/api/1/user', {})
+                  .done(function (data) {
+                      window.user = data
+                      if (window.bridge !== undefined) {
+                    	  //login will refresh webview
+                    	  window.bridge.callHandler('login', data, function () {});
+                      }
+                  })
+                  .fail(function (ret) {
+                  })
+                  .always(function () {
 
+                  })
+         }
      })
  } else {
      window.location.href = '/?rent_intention_ticket=true'

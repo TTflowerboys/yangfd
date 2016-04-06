@@ -790,12 +790,22 @@
                         if(window.team.isPhone()) {
                             if (team.isCurrantClient('>1.2.0')) {
                                 if (window.bridge !== undefined) {
-                                     window.bridge.callHandler('queryControllers', null, function(urls) {
-                                        var controllerUrl =_.find(urls, function (url) {
-                                            return url.indexOf('/property-to-rent-list') !== -1
+                                    var goBack = function () {
+                                        window.bridge.callHandler('queryControllers', null, function(urls) {
+                                            var controllerUrl =_.find(urls, function (url) {
+                                                return url.indexOf('/property-to-rent-list') !== -1
+                                            })
+                                            window.bridge.callHandler('goBackToController', controllerUrl)
                                         })
-                                        window.bridge.callHandler('goBackToController', controllerUrl)
-                                     })
+                                    }
+                                    //user register, need reload
+                                    if (oldUser !== window.user) {
+                                        //login will refresh webview
+                                        window.bridge.callHandler('login', window.user, goBack)
+                                    }
+                                    else {
+                                        goBack()
+                                    }
                                 }
                             }
                             else {
