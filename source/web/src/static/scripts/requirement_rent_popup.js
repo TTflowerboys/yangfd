@@ -481,6 +481,9 @@
 
                     var params = getSerializeObject($(this))
                     params.locales = window.lang
+                    if(_.isEmpty(params.referral) || params.referral === ''){
+                        delete params.referral
+                    }
                     var rent_intention_ticket_id = (location.href.match(/rent\-intention\/([0-9a-fA-F]{24})\/edit/) || [])[1]
                     var api = rent_intention_ticket_id ?  '/api/1/rent_intention_ticket/' + rent_intention_ticket_id + '/edit' : '/api/1/rent_intention_ticket/add'
                     $.betterPost(api, params)

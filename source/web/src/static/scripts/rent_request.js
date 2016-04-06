@@ -515,7 +515,11 @@
             this.registerUser = function () {
                 if(this.validateRegister()) {
                     this.registerUserDisabled(true)
-                    $.betterPost('/api/1/user/register', _.extend(this.registerParams(), {
+                    var params = this.registerParams()
+                    if(_.isEmpty(params.referral) || params.referral === ''){
+                        delete params.referral
+                    }
+                    $.betterPost('/api/1/user/register', _.extend(params, {
                         challenge: $('[name=challenge]').val(),
                         solution: $('[name=solution]').val()
                     }))
