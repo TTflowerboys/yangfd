@@ -2,6 +2,7 @@
 
     function ctrlAffiliateDetail($scope, $state, misc, api, statisticsApi, $rootScope, growl, $timeout) {
         var date = new Date()
+        var registerTime
         $scope.selected = {
             date_from: new Date(date.getFullYear(), date.getMonth(), 1).getTime() / 1000,
             date_to: date.getTime() / 1000
@@ -12,7 +13,8 @@
         var itemFromParent = misc.findById($scope.$parent.list, $state.params.id)
         if (itemFromParent) {
             $scope.item = itemFromParent
-            $scope.coupon = _.extend($scope.coupon, _.clone($scope.item.coupon) || {discount: {value: '25', unit: 'GBP'}, expire_time: new Date(date.getFullYear(), date.getMonth() + 1, date.getDate()).getTime() / 1000, description: i18n('25英镑租房优惠券')})
+            registerTime = new Date($scope.item.register_time * 1000)
+            $scope.coupon = _.extend($scope.coupon, _.clone($scope.item.coupon) || {discount: {value: '25', unit: 'GBP'}, expire_time: new Date(registerTime.getFullYear(), registerTime.getMonth() + 1, registerTime.getDate()).getTime() / 1000, description: i18n('25英镑租房优惠券')})
             if($scope.coupon.category && $scope.coupon.category.id) {
                 $scope.coupon.category = $scope.coupon.category.id
             }
@@ -20,7 +22,8 @@
             api.getOne($state.params.id, { errorMessage: true})
                 .success(function (data) {
                     $scope.item = data.val
-                    $scope.coupon = _.extend($scope.coupon, _.clone($scope.item.coupon) || {discount: {value: '25', unit: 'GBP'}, expire_time: new Date(date.getFullYear(), date.getMonth() + 1, date.getDate()).getTime() / 1000, description: i18n('25英镑租房优惠券')})
+                    registerTime = new Date($scope.item.register_time * 1000)
+                    $scope.coupon = _.extend($scope.coupon, _.clone($scope.item.coupon) || {discount: {value: '25', unit: 'GBP'}, expire_time: new Date(registerTime.getFullYear(), registerTime.getMonth() + 1, registerTime.getDate()).getTime() / 1000, description: i18n('25英镑租房优惠券')})
                     if($scope.coupon.category && $scope.coupon.category.id) {
                         $scope.coupon.category = $scope.coupon.category.id
                     }
