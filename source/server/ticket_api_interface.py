@@ -774,7 +774,7 @@ def rent_intention_ticket_sms_receive(params):
     nexmo_number = f_app.sms.nexmo.number.get(f_app.sms.nexmo.number.get_by_number(params["to"]))
     user = f_app.user.get(f_app.user.get_id_by_phone(params["msisdn"]))
 
-    mapping = f_app.sms.nexmo.number.mapping.get(f_app.sms.nexmo.number.mapping.reverse_lookup(nexmo_number, user["id"]))
+    mapping = f_app.sms.nexmo.number.mapping.get(f_app.sms.nexmo.number.mapping.reverse_lookup(nexmo_number["id"], user["id"]))
     ticket = f_app.ticket.get(mapping["ticket_id"])
 
     if user["id"] == ticket["user_id"]:
