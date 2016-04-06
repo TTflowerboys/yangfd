@@ -11,13 +11,17 @@ angular.module('app')
                 enumId: '=ngModel',
                 enumType: '@name',
                 enumOption: '@text',
-                enumSlug: '=?slug'
+                enumSlug: '=?slug',
+                selectedSlug: '@?selectedSlug'
             },
             link: function (scope, element) {
                 scope.userLanguage = $rootScope.userLanguage
                 enumApi.getEnumsByType(scope.enumType)
                     .success(function (data) {
                         scope.enumList = data.val
+                        if(!scope.enumId) {
+                            scope.enumId = (_.find(scope.enumList, {slug: scope.selectedSlug}) || {}).id
+                        }
                     })
                 scope.changeSlug = function () {
 
