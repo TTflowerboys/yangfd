@@ -37,8 +37,7 @@ function getOptionFromQurey(str) {
                   .done(function (data) {
                       window.user = data
                       if (window.bridge !== undefined) {
-                    	  //login will refresh webview
-                    	  window.bridge.callHandler('login', data, function () {});
+                    	  window.bridge.callHandler('updateUser', data, function () {});
                       }
                   })
                   .fail(function (ret) {

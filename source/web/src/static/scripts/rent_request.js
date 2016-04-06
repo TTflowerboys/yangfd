@@ -801,7 +801,7 @@
                                     //user register, need reload
                                     if (oldUser !== window.user) {
                                         //login will refresh webview
-                                        window.bridge.callHandler('login', window.user, goBack)
+                                        window.bridge.callHandler('updateUser', window.user, goBack)
                                     }
                                     else {
                                         goBack()
