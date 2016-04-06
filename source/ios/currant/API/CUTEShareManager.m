@@ -509,7 +509,7 @@ NSString * const CUTEShareServiceEmail = @"Email";
     return tcs.task;
 }
 
-- (BFTask *)shareText:(NSString *)text description:(NSString *)description urlString:(NSString *)urlString imageUrl:(NSString *)imageUrl inServices:(NSArray *)services viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock {
+- (BFTask *)shareText:(NSString *)text description:(NSString *)description urlString:(NSString *)urlString imageUrl:(NSString *)imageUrl wechatUrl:(NSString *)wechatUrl inServices:(NSArray *)services viewController:(UIViewController *)viewController onButtonPressBlock:(CUTEShareButtonPressBlock)pressBlock {
     BFTaskCompletionSource *tcs = [BFTaskCompletionSource taskCompletionSource];
     self.taskCompletionSource = tcs;
 
@@ -576,7 +576,8 @@ NSString * const CUTEShareServiceEmail = @"Email";
         }
 
         if ([activityKeys containsObject:CUTEShareServiceWechatFriend]) {
-            [activities addObject:[self getWechatFriendActivityWithTitle:title description:description url:urlString image:imageData buttonPressedBlock:^{
+
+            [activities addObject:[self getWechatFriendActivityWithTitle:title description:description url:IsNilNullOrEmpty(wechatUrl)? urlString: wechatUrl image:imageData buttonPressedBlock:^{
                 if (pressBlock) {
                     pressBlock(CUTEShareServiceWechatFriend);
                 }
@@ -584,7 +585,7 @@ NSString * const CUTEShareServiceEmail = @"Email";
         }
 
         if ([activityKeys containsObject:CUTEShareServiceWechatCircle]) {
-            [activities addObject:[self getWechatCircleActivityWithTitle:title description:description url:urlString image:imageData buttonPressedBlock:^{
+            [activities addObject:[self getWechatCircleActivityWithTitle:title description:description url:IsNilNullOrEmpty(wechatUrl)? urlString: wechatUrl image:imageData buttonPressedBlock:^{
                 if (pressBlock) {
                     pressBlock(CUTEShareServiceWechatCircle);
                 }

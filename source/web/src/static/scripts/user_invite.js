@@ -40,7 +40,7 @@ $(function () {
 
         function showSocialShare() {
             if (window.project.isMobileClient()) {
-                window.bridge.callHandler('share', {'text': window.i18n('洋房东 £25租房优惠'), 'description': window.i18n('还在为租房苦恼吗？ 使用我的邀请码在洋房东注册，寻找合适房源，立享优惠！'), 'url': location.origin + '/signup?referral=' + window.user.referral_code, 'services': ['SMS', 'Email', 'Wechat Friend', 'Wechat Circle', 'Sina Weibo', 'Copy Link']}, function(response) {
+                window.bridge.callHandler('share', {'text': window.i18n('洋房东 £25租房优惠'), 'description': window.i18n('还在为租房苦恼吗？ 使用我的邀请码在洋房东注册，寻找合适房源，立享优惠！'), 'url': location.origin + '/signup?referral=' + window.user.referral_code, 'services': ['SMS', 'Email', 'Wechat Friend', 'Wechat Circle', 'Sina Weibo', 'Copy Link'], 'wechat_url': location.origin + '/wecha-invite?referral=' + window.user.referral_code}, function(response) {
                 })
             }
             else {
