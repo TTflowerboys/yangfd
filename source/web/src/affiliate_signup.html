@@ -1,0 +1,49 @@
+<!--@@master=masters/signin_master.html -->
+<!--@@block=head -->
+<!--build:css(dist) /static/styles/project/signup.html.css-->
+<link rel="stylesheet" href="/static/styles/project/signupForm.css"/>
+<link href="/static/styles/recaptcha.css" rel="stylesheet"/>
+<!--endbuild-->
+<!--@@close-->
+
+<!--@@block=main -->
+<form name="register" class="registerForm">
+    <div class="form bordered">
+        <div class="form_row active">
+            <span class="iconWrap">
+                <img src="/static/images/signin/user.png" alt=""/>
+            </span>
+            <input name="nickname" placeholder="{{_('Affiliate 名称')}}" size=20 data-validator="required, trim">
+        </div>
+        <hr>
+        <!-- @@include=partials/phone_row.html -->
+        <hr>
+        <div class="form_row">
+            <span class="iconWrap">
+                <img src="/static/images/signin/lock.png" alt=""/>
+            </span>
+            <input name="password" type="password" placeholder={{_('密码')}} size=20 data-validator="required, trim">
+        </div>
+        <hr>
+        <div class="form_row">
+            <span class="iconWrap">
+                <i class="icon-email"></i>
+            </span>
+            <input name="email" placeholder={{_('邮箱')}} data-validator="required, trim email">
+        </div>
+    </div>
+    <h4 class="formsHint">{{_('手机号为登录和找回密码凭证，请填写真实号码')}}</h4>
+    <div id="captcha_div" class="form_row captchaCode">
+    </div>
+    <div class="terms"><input class="terms-check" type="checkbox" checked/> {{_('我同意')}}<a href="/terms" target="_blank">{{_('会员服务须知')}}</a></div>
+    <p class="errorMessage" style="display:none;color:red;"></p>
+    <button type="submit" class="register button red ajaxButton">{{_('注册')}}</button>
+    <h3 class="hasAccountHint">{{_('已经拥有账号？请')}} <a href="#" onclick="project.goToSignIn()">{{_('登录')}}</a></h3>
+</form>
+<!--@@close-->
+
+<!--@@block=scripts -->
+<!--build:js /static/scripts/signup.html.js-->
+<script src="/static/scripts/signup.js"></script>
+<!--endbuild-->
+<!--@@close-->

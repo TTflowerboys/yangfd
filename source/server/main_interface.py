@@ -153,6 +153,13 @@ def signin():
     return currant_util.common_template("signin", title=title)
 
 
+@f_get('/affiliate-signup')
+@currant_util.check_ip_and_redirect_domain
+def signup():
+    title = _('Affiliate 注册')
+    return currant_util.common_template("affiliate_signup", title=title)
+
+
 @f_get('/intention')
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True)
@@ -3523,7 +3530,7 @@ def affiliate_get_new_user_behavior(user, params):
 
     today = date.today()
     date_begin = datetime.strptime(today.replace(day=1).isoformat(), "%Y-%m-%d")
-    date_end = datetime.strptime(today.replace(day=1, month=today.month+1).isoformat(), "%Y-%m-%d")
+    date_end = datetime.strptime(today.replace(day=1, month=today.month + 1).isoformat(), "%Y-%m-%d")
     if 'date_from' in params:
         date_begin = params['date_from']
     if 'date_to' in params:
@@ -3641,7 +3648,7 @@ def affiliate_get_new_user_behavior(user, params):
 def affiliate_get_all_user_behavior(user, params):
     today = date.today()
     date_begin = datetime.strptime(today.replace(day=1).isoformat(), "%Y-%m-%d")
-    date_end = datetime.strptime(today.replace(day=1, month=today.month+1).isoformat(), "%Y-%m-%d")
+    date_end = datetime.strptime(today.replace(day=1, month=today.month + 1).isoformat(), "%Y-%m-%d")
     if 'date_from' in params:
         date_begin = params['date_from']
     if 'date_to' in params:
@@ -3751,7 +3758,7 @@ def affiliate_get_all_user_behavior(user, params):
 def affiliate_get_invited_user_count_detail(user, params):
     today = date.today()
     date_begin = datetime.strptime(today.replace(day=1).isoformat(), "%Y-%m-%d")
-    date_end = datetime.strptime(today.replace(day=1, month=today.month+1).isoformat(), "%Y-%m-%d")
+    date_end = datetime.strptime(today.replace(day=1, month=today.month + 1).isoformat(), "%Y-%m-%d")
     if 'date_from' in params:
         date_begin = params['date_from']
     if 'date_to' in params:
