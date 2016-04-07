@@ -36,3 +36,10 @@ def get_video_source(params):
                 result.append({"url": source.get("url"), "type": source.get("type")})
 
     return result
+
+
+@f_api('/shorturl', params=dict(
+    url=(str, True),
+))
+def shorturl(params):
+    return f_app.shorturl(params["url"])

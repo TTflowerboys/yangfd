@@ -34,6 +34,7 @@ import libfelix.f_re
 import libfelix.f_sina
 import libfelix.f_shop
 import libfelix.f_shop.f_recurring_bm
+import libfelix.f_shorturl.f_tinyurl
 import libfelix.f_sms.f_clickatell
 import libfelix.f_sms.f_nexmo
 import libfelix.f_storage
