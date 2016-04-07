@@ -155,7 +155,7 @@ def signin():
 
 @f_get('/affiliate-signup')
 @currant_util.check_ip_and_redirect_domain
-def signup():
+def affiliate_signup():
     title = _('Affiliate 注册')
     return currant_util.common_template("affiliate_signup", title=title)
 

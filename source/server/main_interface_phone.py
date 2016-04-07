@@ -29,7 +29,7 @@ def requirement_rent():
 
 @f_get('/rent-request', params=dict(ticketId=str))
 @currant_util.check_ip_and_redirect_domain
-def requirement_rent(params):
+def rent_request(params):
     title = _('提交求租咨询')
     rent_ticket = f_app.i18n.process_i18n(f_app.ticket.output([params.get('ticketId')], fuzzy_user_info=True)[0])
     return currant_util.common_template("rent_request_phone", title=title, rent_ticket=rent_ticket)
@@ -65,7 +65,8 @@ def how_it_works(params):
             if intention.get('slug') == current_intention_title:
                 current_intention = intention
                 break
-        else: current_intention = f_app.enum.get_all('intention')[0]
+        else:
+            current_intention = f_app.enum.get_all('intention')[0]
     else:
         current_intention = f_app.enum.get_all('intention')[0]
     current_intention = f_app.i18n.process_i18n(current_intention)
