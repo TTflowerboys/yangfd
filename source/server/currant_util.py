@@ -3,6 +3,7 @@ from __future__ import unicode_literals, absolute_import
 import logging
 from datetime import datetime, date
 import bottle
+from bson.objectid import ObjectId
 from app import f_app
 from libfelix.f_interface import template, request, redirect, template_gettext as _
 import currant_data_helper
@@ -264,6 +265,27 @@ def is_student_house(rent):
     return rent.get('property', {}).get('property_type', {}).get('slug', {}) == u'student_housing' and rent.get('property', {}).get('partner', '') is True
 
 
+def get_invite_coupon(user):
+    if "coupon" in user:
+        return user["coupon"]
+    else:
+        return dict(
+            discount=dict(
+                value="25",
+                value_float=25.0,
+                unit="GBP",
+                type="currency",
+                _i18n_unit=True,
+            ),
+            category=dict(
+                _id=ObjectId(f_app.enum.get_by_slug('rent_coupon')["id"]),
+                type="coupon_category",
+                _enum="coupon_category",
+            ),
+            description="25英镑租房优惠券",
+        )
+
+
 def common_template(path, **kwargs):
     if 'title' not in kwargs:
         kwargs['title'] = _('洋房东')
@@ -337,4 +359,5 @@ def common_template(path, **kwargs):
     kwargs.setdefault("redirect", redirect)
     kwargs.setdefault("get_symbol_from_currency", get_symbol_from_currency)
     kwargs.setdefault("is_student_house", is_student_house)
+    kwargs.setdefault("get_invite_coupon", get_invite_coupon)
     return template(path, **kwargs)
