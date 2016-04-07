@@ -101,6 +101,11 @@
             })
         }
 
+        $scope.$on('$stateChangeStart',
+            function (event, toState, toParams, fromState, fromParams) {
+                toParams.from = fromState.name
+            })
+
         //display the default user data
         $scope.getAggregateData()
     }
