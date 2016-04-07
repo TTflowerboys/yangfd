@@ -244,5 +244,5 @@ def user_coupon_detail(venue_id, deal_id, user):
 @f_app.user.login.check(force=True)
 def user_vouchers(user):
     user = f_app.i18n.process_i18n(currant_data_helper.get_user_with_custom_fields(user))
-    title = _('会员专享')
+    title = _('优惠券')
     return currant_util.common_template("user_vouchers", user=user, title=title)
