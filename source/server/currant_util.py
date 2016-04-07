@@ -265,8 +265,8 @@ def is_student_house(rent):
     return rent.get('property', {}).get('property_type', {}).get('slug', {}) == u'student_housing' and rent.get('property', {}).get('partner', '') is True
 
 
-def get_invite_coupon(user):
-    if "coupon" in user:
+def get_invite_coupon(user=None):
+    if user and "coupon" in user:
         return user["coupon"]
     else:
         return dict(

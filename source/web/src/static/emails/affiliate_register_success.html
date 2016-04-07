@@ -22,6 +22,8 @@
 <div style="margin: 0 -10px;">
     <img src="/static/images/email/7883_ad_affiliate_email_160401.png" alt="" style="width: 100%;height: auto; vertical-align: middle;"/>
 </div>
+% discount = get_invite_coupon().get('discount')
+% discount_display_value = get_symbol_from_currency(discount.get('unit')) + discount.get('value')
 <div style="color:#666;padding-bottom: 30px;">
     <h1 style="padding: 40px 20px 10px; margin: 15px 0 0;font-size: 19px;font-weight: bold;">{{_('当前优惠方案')}}</h1>
     <table style="width: 100%;box-sizing: border-box;padding: 0 10px;">
@@ -36,7 +38,7 @@
                                         <h2 style="font-size: 16px;">{{_('用户')}}</h2>
                                         <div style="height: 220px; background: #faf3e7; border: 1px solid #ffa100;">
                                             <p style="color: #ff9000;font-size: 18px; margin: 20px 0;">{{_('推荐用户在本站注册成功')}}<br>{{_('该用户将获得')}}</p>
-                                            <p style="margin: 28px 0 0; color: #e60012; font-size: 32px; font-weight: bold;">£25</p>
+                                            <p style="margin: 28px 0 0; color: #e60012; font-size: 32px; font-weight: bold;">{{discount_display_value}}</p>
                                             <p style="margin: 0; color: #666; font-size: 18px;">{{_('优惠券一张')}}</p>
                                         </div>
                                     </div>

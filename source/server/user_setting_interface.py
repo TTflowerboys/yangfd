@@ -166,6 +166,7 @@ def user_invite(user):
 
 @f_get('/wechat_invite', '/wechat-invite', params=dict(
     referral=str,
+    discount=str,
 ))
 @currant_util.check_ip_and_redirect_domain
 def wechat_invite(params):
@@ -175,7 +176,13 @@ def wechat_invite(params):
         referral = params.pop("referral")
 
     title = _('洋房东优惠券')
-    return currant_util.common_template("wechat_invite", title=title, referral=referral)
+    discount_display_value = ''
+    if "discount" in params:
+        discount_display_value = params.pop("discount")
+    else:
+        discount = currant_util.get_invite_coupon().get('discount')
+        discount_display_value = currant_util.get_symbol_from_currency(discount.get('unit')) + discount.get('value')
+    return currant_util.common_template("wechat_invite", title=title, referral=referral, discount_display_value=discount_display_value)
 
 
 @f_get('/verify_email_status', '/verify-email-status')
