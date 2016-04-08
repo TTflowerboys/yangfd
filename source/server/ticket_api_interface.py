@@ -592,6 +592,7 @@ def rent_intention_ticket_edit(user, ticket_id, params):
     status=(list, None, str),
     per_page=int,
     time=datetime,
+    starttime=datetime,
     sort=(list, ["time", 'desc'], str),
     smoke=bool,
     baby=bool,
@@ -645,6 +646,19 @@ def rent_intention_ticket_search(user, params):
         params["phone"] = f_app.util.parse_phone(params)
 
     f_app.util.check_and_override_minimum_rent_period(params)
+
+    time_start = params.pop("starttime", None)
+    time_end = params.get("time", None)
+
+    if time_start or time_end:
+        params["time_additional"] = {}
+        if time_start and time_end:
+            if time_end < time_start:
+                abort(40000, logger.warning("Invalid params: End time is earlier than start time.", exc_info=False))
+        if time_start:
+            params["time_additional"]["$gte"] = time_start
+        if time_end:
+            params["time_additional"]["$lt"] = time_end
 
     if "rent_available_time" in params:
         params["$and"].append({"$or": [{"rent_available_time": {"$gte": params["rent_available_time"] - timedelta(days=30), "$lte": params["rent_available_time"] + timedelta(days=1)}}, {"rent_available_time": {"$exists": False}}]})

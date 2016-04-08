@@ -464,6 +464,8 @@ def user_edit(user, params):
     referral_code=str,
     referral=ObjectId,
     query=str,
+    time=datetime,
+    starttime=datetime,
 ))
 @f_app.user.login.check(force=True, check_role=True)
 def admin_user_search(user, params):
@@ -505,6 +507,25 @@ def admin_user_search(user, params):
         else:
             abort(40300)
 
+    time_start = params.pop("starttime", None)
+    time_end = params.get("time", None)
+
+    if time_start or time_end or "has_register_time" in params:
+        params["time_additional"] = {}
+        if time_start and time_end:
+            if time_end < time_start:
+                abort(40000, logger.warning("Invalid params: End time is earlier than start time.", exc_info=False))
+        if time_start:
+            params["time_additional"]["$gte"] = time_start
+        if time_end:
+            params["time_additional"]["$lt"] = time_end
+
+        if "has_register_time" in params:
+            if params.pop("has_register_time", True):
+                params["time_additional"]["$exists"] = True
+            else:
+                params["time_additional"]["$exists"] = False
+
     if "user_type" in params:
         params["user_type"] = {"$in": params["user_type"]}
 
@@ -521,12 +542,6 @@ def admin_user_search(user, params):
             params["counter.intention"] = {"$gt": 0}
         else:
             params["counter.intention"] = 0
-
-    if "has_register_time" in params:
-        if params.pop("has_register_time", True):
-            params["register_time"] = {"$exists": True}
-        else:
-            params["register_time"] = {"$exists": False}
 
     return f_app.user.output(f_app.user.custom_search(params=params, per_page=per_page), custom_fields=f_app.common.user_custom_fields)
 
