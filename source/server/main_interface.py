@@ -4410,3 +4410,10 @@ def get_users_portrait(user, params):
         }})
 
     return value
+
+
+@f_get('/mail-test24')
+@currant_util.check_ip_and_redirect_domain
+def mail_test24():
+    title = _('mail test')
+    return currant_util.common_template("./static/emails/new_user", title=title, phone='1241241441', nickname='Lifan', password='1241wads')

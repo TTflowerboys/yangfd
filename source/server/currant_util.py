@@ -344,6 +344,8 @@ def common_template(path, **kwargs):
         kwargs['hot_school_list'] = f_app.hesa.university.get(f_app.hesa.university.search(hot_school_geonames_params, per_page=-1))[::-1]
     if 'currentDate' not in kwargs:
         kwargs['currentDate'] = date.today().isoformat()
+    if 'currentYear' not in kwargs:
+        kwargs['currentYear'] = date.today().year
     # setup page utils
     kwargs.setdefault("format_unit", format_unit)
     kwargs.setdefault("fetch_image", fetch_image)
