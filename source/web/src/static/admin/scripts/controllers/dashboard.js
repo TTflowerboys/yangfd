@@ -115,7 +115,7 @@
                     cache[item.ticket_id] = cache[item.ticket_id] || []
                     cache[item.ticket_id].push(item.id)
                     misc.notify((item.role === 'tenant' ? i18n('租客') : i18n('房东')) + window.i18n('发来一条待审核短信（点击处理）'), {
-                        body: item.text[$rootScope.userLanguage.value],
+                        body: item.text,
                         tag: item.ticket_id, //此处写成咨询单的id，则可以将一个咨询单的桌面消息合并成一个
                         onclick: function(){
                             this.close()

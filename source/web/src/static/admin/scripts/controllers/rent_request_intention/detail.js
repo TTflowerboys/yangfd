@@ -54,11 +54,6 @@
                     var item =  data.val
                     $scope.setDisableSms(item)
                     item.age = (Date.now() - item.date_of_birth * 1000)/(365 * 24 * 60 * 60 * 1000)
-                    if(_.isArray(item.interested_rent_tickets) && !_.isEmpty(item.interested_rent_tickets[0])) {
-                        miscApi.getShorturl(misc.host + '/property-to-rent/' + item.interested_rent_tickets[0].id).success(function (data) {
-                            item.shorturl = data.val
-                        })
-                    }
                     // Get ip when ticket is created from log
                     item.log = {
                         ip: window.i18n('载入中...'),
@@ -198,21 +193,32 @@
 
         $scope.sendToLandlord = function (content) { //发送短信给房东
             // todo 调用发短信接口成功后再添加下面的动态
-            api.rentIntentionTicketSmsSend($scope.item.id, {
-                text: content,
-                user_id: $scope.item.interested_rent_tickets[0].creator_user.id
-            }, {
-                errorMessage: true,
-                successMessage: i18n('短信发送成功！')
+            $q(function (resolve, reject) {
+                if(!$scope.item.shorturl) {
+                    miscApi.getShorturl(misc.host + '/property-to-rent/' + $scope.item.interested_rent_tickets[0].id).success(function (data) {
+                        $scope.item.shorturl = data.val
+                        resolve()
+                    })
+                } else {
+                    resolve()
+                }
             }).then(function () {
-                $scope.addDynamic({
-                    content: content,
-                    type: 'message',
-                    role: 'system',
-                    messageInfo: {
-                        status: 'success',
-                        target: 'landlord'
-                    }
+                api.rentIntentionTicketSmsSend($scope.item.id, {
+                    text: content,
+                    user_id: $scope.item.interested_rent_tickets[0].creator_user.id
+                }, {
+                    errorMessage: true,
+                    successMessage: i18n('短信发送成功！')
+                }).then(function () {
+                    $scope.addDynamic({
+                        content: content,
+                        type: 'message',
+                        role: 'system',
+                        messageInfo: {
+                            status: 'success',
+                            target: 'landlord'
+                        }
+                    })
                 })
             })
         }

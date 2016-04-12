@@ -41,7 +41,7 @@
                                 </div>
                                 <ul class="messages">
                                     <li ng-repeat="message in messages">
-                                        <a ui-sref="dashboard.admins" ng-click="markMessageAsRead(message)">
+                                        <a ui-sref="dashboard.admins.rent_request_intention.detail({id: message.ticket_id})" ng-click="markMessageAsRead(message)">
                                             <span class="header">
                                                 <span class="from">
                                                     {%message.sender.nickname%}({%message.role === 'tenant' ? $root.i18n('租客') : $root.i18n('房东')%})

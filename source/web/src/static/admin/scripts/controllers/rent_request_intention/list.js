@@ -267,9 +267,6 @@
                 item.output = ''
                 angular.forEach(item.interested_rent_tickets,function(interested_rent_ticket){
                     if(!_.isEmpty(interested_rent_ticket)) {
-                        miscApi.getShorturl(misc.host + '/property-to-rent/' + interested_rent_ticket.id).success(function (data) {
-                            item.shorturl = data.val
-                        })
                         item.output += '尊敬的' + interested_rent_ticket.user.nickname + '您好，这里是洋房东，请问您发布的' + interested_rent_ticket.title + '还在出租吗？现在有位租客很感兴趣，下面是租客信息：' + '\n\n'
                         item.output += window.i18n('咨询单编号: ') + item.short_id + '\n'
                         item.output += window.i18n('入住日期: ') + $filter('date')(item.rent_available_time * 1000, 'yyyy年MM月d日') + '\n'
