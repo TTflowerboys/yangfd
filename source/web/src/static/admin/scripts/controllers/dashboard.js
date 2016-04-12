@@ -81,8 +81,8 @@
         $scope.notify = misc.notify
 
         //第一次打开页面即请求允许桌面通知，以免需要使用桌面通知时浏览器窗口处于最小化状态
-        if (Notification && Notification.permission !== 'granted') {
-            Notification.requestPermission()
+        if (window.Notification && window.Notification.permission !== 'granted') {
+            window.Notification.requestPermission()
         }
 
         $scope.blinkTitle = (function () { //让标签页上的标题闪烁

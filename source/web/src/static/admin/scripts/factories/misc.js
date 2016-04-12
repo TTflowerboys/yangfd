@@ -286,15 +286,15 @@ angular.module('app')
                     icon: 'http://static.yangfd.com/static/production/images/icon/app_icon_x120_150427.png'
                 }
                 options = _.extend(defaultOptions, options)
-                if (!Notification) {
+                if (!window.Notification) {
                     window.alert('Desktop notifications not available in your browser. Try Chromium.')
                     return
                 }
-                if (Notification.permission !== 'granted') {
-                    Notification.requestPermission(function (permission) {
+                if (window.Notification.permission !== 'granted') {
+                    window.Notification.requestPermission(function (permission) {
                         // If the user accepts, let's create a notification
                         if (permission === 'granted') {
-                            notification = new Notification(title, options);
+                            notification = new window.Notification(title, options);
                             if(_.isFunction(options.onclick)) {
                                 notification.onclick = options.onclick
                             }
@@ -302,7 +302,7 @@ angular.module('app')
                     })
                 }
                 else {
-                    notification = new Notification(title, options)
+                    notification = new window.Notification(title, options)
                     if(_.isFunction(options.onclick)) {
                         notification.onclick = options.onclick
                     }
