@@ -290,7 +290,7 @@ def common_template(path, **kwargs):
     if 'title' not in kwargs:
         kwargs['title'] = _('洋房东')
     if 'description' not in kwargs:
-        kwargs['description'] = _("洋房东致力于为英国华人房东和租客提供专业和靠谱的租房找房和海外置业体验。为房东带来极速租房发布体验，独有的伦敦街区生活、房价报告，杂志般的房源移动主页。为租客带来个性化的找房体验，优质房源，长租短租，地图找房，视频看房，让海外租房变得简单、便利。为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。")
+        kwargs['description'] = _("洋房东致力于为英国华人房东和租客提供专业和靠谱的租房找房和海外置业体验。为房东带来极速租房发布体验，独有的伦敦街区生活、房价报告，杂志般的房源移动主页。为租客带来个性化的找房体验，优质房源，长租短租，地图找房，让海外租房变得简单、便利。为投资人提供多样化的海外投资置业机会，以丰富的投资分析报告和专业的置业顾问助推您的海外投资之路。")
     if 'keywords' not in kwargs:
         kwargs['keywords'] = ",".join(BASE_KEYWORDS_ARRAY)
     if 'user' not in kwargs:
