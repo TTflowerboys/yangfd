@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 import json
 import random
 import logging
+import calendar
 from bson.objectid import ObjectId
 from app import f_app
 from libfelix.f_interface import f_get, f_api, abort, template, request
@@ -833,7 +834,7 @@ def rent_intention_ticket_sms_receive(params):
         },
         "content": params["text"],
         "originContent": params["text"],
-        "time": (params["message-timestamp"].days * 86400 + params["message-timestamp"].seconds) * 1000,
+        "time": calendar.timegm(params["message-timestamp"].timetuple()) + params["message-timestamp"].microsecond / 1000.0,
         "status": 'in_progress',
     }
 
