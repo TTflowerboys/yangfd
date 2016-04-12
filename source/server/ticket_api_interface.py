@@ -765,7 +765,7 @@ def rent_intention_ticket_sms_send(rent_intention_ticket_id, user, params):
     nexmo_number = f_app.sms.nexmo.number.get(nexmo_number_mapping["nexmo_number"])
     sms = {
         "method": "nexmo",
-        "sender": nexmo_number["phone"],
+        "sender": nexmo_number["phone"].lstrip("+"),
         "target": user["phone"],
         "text": params["text"],
     }
