@@ -402,7 +402,7 @@ def get_weibo_search_result(keywords_list):
             max_time = datetime(1970, 1, 1)
             try:
                 list_page = f_app.request.get(
-                    'http://www.ybirds.com/ColumnInfo-entrance',
+                    'http://www.ybirds.com/Home-ColumnInfo-entrance',
                     {
                         'ctgClassID': page_id,
                         'p': index
