@@ -834,7 +834,7 @@ def rent_intention_ticket_sms_receive(params):
         },
         "content": params["text"],
         "originContent": params["text"],
-        "time": calendar.timegm(params["message-timestamp"].timetuple()) + params["message-timestamp"].microsecond / 1000.0,
+        "time": calendar.timegm(params["message-timestamp"].timetuple()) * 1000 + params["message-timestamp"].microsecond / 1000.0,
         "status": 'in_progress',
     }
 
