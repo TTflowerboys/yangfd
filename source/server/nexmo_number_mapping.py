@@ -190,8 +190,8 @@ class nexmo_number_mapping(f_app.module_base):
         with f_app.mongo() as m:
             nexmo_number_mapping = self.get_database(m).find_one(params, {})
 
-        if nexmo_number_mapping is None:
-            nexmo_number_mapping = str(nexmo_number_mapping)
+        if nexmo_number_mapping is not None:
+            nexmo_number_mapping = str(nexmo_number_mapping["_id"])
 
         return nexmo_number_mapping
 
