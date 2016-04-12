@@ -3523,7 +3523,8 @@ def get_featured_facility_sort(user, params):
 @f_api('/affiliate-get-new-user-behavior', params=dict(
     date_from=(datetime, None),
     date_to=(datetime, None),
-    user_id=(str, None)
+    user_id=(str, None),
+    days=(int, None)
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation', 'affiliate'])
 def affiliate_get_new_user_behavior(user, params):
@@ -3724,7 +3725,7 @@ def affiliate_get_all_user_behavior(user, params):
                         })
                     if 'date_from' in params and 'date_to' in params:
                         search_ticket_condition.update({
-                            "time": {
+                            "rent_time": {
                                 "$gte": date_begin,
                                 "$lt": date_end
                             }
@@ -4216,7 +4217,7 @@ def get_users_portrait(user, params):
                     "$lt": params['date_to']
                 }
             })
-        ticekts = f_app.ticket.search(condition, per_page=-1)
+        ticekts = f_app.ticket.search(condition, per_page=-1, notime=True)
         for ticket in f_app.ticket.get(ticekts):
             if 'date_of_birth' in ticket:
                 birth_date = ticket['date_of_birth'].date()
@@ -4262,7 +4263,7 @@ def get_users_portrait(user, params):
                     "$lt": params['date_to']
                 }
             })
-        ticekts = f_app.ticket.search(condition, per_page=-1)
+        ticekts = f_app.ticket.search(condition, per_page=-1, notime=True)
         occupation_id = None
         for ticket in f_app.ticket.get(ticekts):
             if 'occupation' in ticket:
@@ -4408,5 +4409,183 @@ def get_users_portrait(user, params):
             "app": app_user,
             "other": value['user_portrait_register_user_total'] - app_user
         }})
+
+    return value
+
+
+@f_api('/get-users-portrait-tenants-behavior', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None)
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def get_users_portrait_tenants_behavior(user, params):
+    value = {}
+    source_finding = {}
+    source_rent = {}
+    condition = {
+        "type": "rent_intention",
+        "status": {
+            "$in": [
+                "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
+            ]
+        }
+    }
+    if 'date_from' in params and 'date_to' in params:
+        condition.update({
+            "time": {
+                "$gte": params['date_from'],
+                "$lt": params['date_to']
+            }
+        })
+    ticekts = f_app.ticket.search(condition, per_page=-1, notime=True)
+    for ticket in f_app.ticket.get(ticekts):
+        if 'rent_available_time' not in ticket:
+            continue
+        finding_priod = ticket['rent_available_time'] - ticket['time']
+        source_finding.update({unicode(finding_priod.days): source_finding.get(unicode(finding_priod.days), 0) + 1})
+        rent_priod = ticket['rent_deadline_time'] - ticket['rent_available_time']
+        source_rent.update({unicode(rent_priod.days): source_rent.get(unicode(rent_priod.days), 0) + 1})
+    value.update({"want_rent_days_distribution": {
+        "0~1 month": sum([source_rent[single] if -1 <= int(single) < 30 else 0 for single in source_rent]),
+        "1~3 month": sum([source_rent[single] if 30 <= int(single) < 91 else 0 for single in source_rent]),
+        "3~6 month": sum([source_rent[single] if 91 <= int(single) < 183 else 0 for single in source_rent]),
+        "6~9 month": sum([source_rent[single] if 183 <= int(single) < 275 else 0 for single in source_rent]),
+        "9~12 month": sum([source_rent[single] if 275 <= int(single) < 365 else 0 for single in source_rent]),
+        "12+ month": sum([source_rent[single] if 365 <= int(single) else 0 for single in source_rent]),
+    }})
+    value.update({"finding_rent_days_distribution": {
+        "0~1 weeks": sum([source_finding[single] if -1 <= int(single) < 7 else 0 for single in source_finding]),
+        "1~2 weeks": sum([source_finding[single] if 7 <= int(single) < 14 else 0 for single in source_finding]),
+        "2~4 weeks": sum([source_finding[single] if 14 <= int(single) < 30 else 0 for single in source_finding]),
+        "1~2 month": sum([source_finding[single] if 30 <= int(single) < 60 else 0 for single in source_finding]),
+        "2+ month": sum([source_finding[single] if 60 <= int(single) else 0 for single in source_finding]),
+    }})
+
+    def get_tenant_count(min, max=None):
+        search_condition = {
+            "type": "rent_intention",
+            "status": {
+                "$in": [
+                    "requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"
+                ]
+            },
+            "tenant_count": 1
+        }
+        if 'date_from' in params and 'date_to' in params:
+            search_condition.update({
+                "time": {
+                    "$gte": params['date_from'],
+                    "$lt": params['date_to']
+                }
+            })
+        if max is None:
+            search_condition.update({"tenant_count": {"$gte": min}})
+        else:
+            search_condition.update({"tenant_count": min})
+        ticket = f_app.ticket.search(search_condition, per_page=-1, notime=True)
+        return len(ticket)
+
+    value.update({
+        "tenant_count": {
+            "single": get_tenant_count(1, 1),
+            "couple": get_tenant_count(2, 2),
+            "family": get_tenant_count(3)
+        }
+    })
+
+    with f_app.mongo() as m:
+        match_condition = {
+            "type": "route",
+            "rent_ticket_id": {"$exists": True},
+            "id": {"$exists": True, "$ne": None}
+        }
+        if 'date_from' in params and 'date_to' in params:
+            match_condition.update({
+                "time": {
+                    "$gte": params['date_from'],
+                    "$lt": params['date_to']
+                }
+            })
+        cursor = m.log.aggregate([
+            {"$match": match_condition},
+            {"$group": {
+                "_id": "$id",
+                "count": {"$sum": 1}
+            }}
+        ])
+        result = {}
+        for single in cursor:
+            if 1 <= single['count'] < 10:
+                result.update({"1~10": result.get('1~10', 0) + 1})
+            elif 10 <= single['count'] < 20:
+                result.update({"10~20": result.get('10~20', 0) + 1})
+            elif 20 <= single['count'] < 30:
+                result.update({"20~30": result.get('20~30', 0) + 1})
+            elif 30 <= single['count'] < 100:
+                result.update({"30~100": result.get('30~100', 0) + 1})
+            elif 100 <= single['count']:
+                result.update({"100+": result.get('100+', 0) + 1})
+
+        value.update({"ticket_access_time": result})
+
+        match_condition = {
+            "user_id": {"$exists": True, "$ne": None},
+            "property_id": {"$exists": True},
+            "status": "new"
+        }
+        if 'date_from' in params and 'date_to' in params:
+            match_condition.update({
+                "time": {
+                    "$gte": params['date_from'],
+                    "$lt": params['date_to']
+                }
+            })
+        cursor = m.favorites.aggregate([
+            {'$match': match_condition},
+            {'$group': {
+                "_id": "$user_id",
+                "count": {"$sum": 1}
+            }}
+        ])
+        result = {}
+        for single in cursor:
+            if 1 <= single['count'] < 3:
+                result.update({"1~3": result.get('1~3', 0) + 1})
+            elif 3 <= single['count'] < 8:
+                result.update({"3~8": result.get('3~8', 0) + 1})
+            elif 8 <= single['count']:
+                result.update({"8+": result.get('8+', 0) + 1})
+
+        value.update({"ticket_favorite_time": result})
+
+        match_condition = {
+            "user_id": {"$exists": True, "$ne": None},
+            "type": "rent_intention",
+            "status": {"$in": ["requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"]}
+        }
+        if 'date_from' in params and 'date_to' in params:
+            match_condition.update({
+                "time": {
+                    "$gte": params['date_from'],
+                    "$lt": params['date_to']
+                }
+            })
+        cursor = m.tickets.aggregate([
+            {'$match': match_condition},
+            {'$group': {
+                "_id": "$user_id",
+                "count": {"$sum": 1}
+            }}
+        ])
+        result = {}
+        for single in cursor:
+            if 1 <= single['count'] < 3:
+                result.update({"1~3": result.get('1~3', 0) + 1})
+            elif 3 <= single['count'] < 8:
+                result.update({"3~8": result.get('3~8', 0) + 1})
+            elif 8 <= single['count']:
+                result.update({"8+": result.get('8+', 0) + 1})
+
+        value.update({"ticket_request_time": result})
 
     return value
