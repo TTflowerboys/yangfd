@@ -841,7 +841,7 @@ def rent_intention_ticket_sms_receive(params):
 
     dynamic_custom_field["value"] = f_app.util.json_dumps(dynamic)
 
-    f_app.ticket.update_set(ticket["id"], {"custom_fields": custom_fields})
+    f_app.ticket.update_set(ticket["id"], {"custom_fields": custom_fields, "status": "in_progress"})
 
 
 @f_api('/rent_request_ticket/search', params=dict(
