@@ -839,7 +839,7 @@ def rent_intention_ticket_sms_receive(params):
 
     dynamic.append(event)
 
-    dynamic_custom_field["value"] = json.dumps(dynamic)
+    dynamic_custom_field["value"] = f_app.util.json_dumps(dynamic)
 
     f_app.ticket.update_set(ticket["id"], {"custom_fields": custom_fields})
 
