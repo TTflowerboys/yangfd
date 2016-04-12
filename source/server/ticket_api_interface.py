@@ -833,7 +833,7 @@ def rent_intention_ticket_sms_receive(params):
         },
         "content": params["text"],
         "originContent": params["text"],
-        "time": params["message-timestamp"],
+        "time": (params["message-timestamp"].days * 86400 + params["message-timestamp"].seconds) * 1000,
         "status": 'in_progress',
     }
 
