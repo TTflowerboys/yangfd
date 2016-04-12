@@ -799,12 +799,8 @@ def rent_intention_ticket_sms_receive(params):
         target = "tenant"
 
     msg = {
-        "sender": {
-            "id": user["id"],
-            "nickname": user["nickname"],
-        },
+        "sender": user["id"],
         "text": params["text"],
-        "status": "new",
         "time": params["message-timestamp"],
         "type": "new_sms",
         "role": role,

@@ -5,8 +5,8 @@ from libfelix.f_message import f_renderer
 
 class renderer(f_renderer):
     def new_sms(self, msg):
-        user = f_app.user.get(msg["target"])
-        msg["target"] = {
+        user = f_app.user.get(msg["sender"])
+        msg["sender"] = {
             "id": user["id"],
             "nickname": user["nickname"],
         }
