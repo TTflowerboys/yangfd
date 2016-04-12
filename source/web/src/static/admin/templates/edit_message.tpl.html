@@ -1,7 +1,7 @@
 <div>
     <div style="display: none;" class="template"></div>
-    <div ng-show="status === 'loading'">{%$root.i18n('短信模板载入中...')%}</div>
-    <div ng-show="status === 'failed'">{%$root.i18n('短信模板载入失败')%}</div>
+    <div ng-show="status === 'loading'" class="text-center">{%$root.i18n('短信模板载入中...')%}</div>
+    <div ng-show="status === 'failed'" class="text-center">{%$root.i18n('短信模板载入失败')%}</div>
     <div ng-show="status === 'success'">
         <textarea style="width: 100%" rows="20" ng-model="model"></textarea>
     </div>

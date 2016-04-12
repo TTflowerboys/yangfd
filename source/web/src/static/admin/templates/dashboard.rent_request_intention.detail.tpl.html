@@ -1,3 +1,8 @@
+<style type="text/css">
+    .btn-primary.disabled, .btn-primary[disabled], .btn-success.disabled, .btn-success[disabled], .btn-info.disabled, .btn-info[disabled] {
+        background-color: #bbb;
+    }
+</style>
 <div class="buttons">
 
     <span class="btn-group">
@@ -32,35 +37,46 @@
 
 </div>
 <div ng-init="expand=true" class="panel panel-default" style="margin: 16px 0;">
-    <div class="panel-heading clearfix" ng-init="activeTab = 'tenant'">
+    <div class="panel-heading clearfix">
         <span class="pull-left" style="margin-right: 10px;line-height: 30px;">{%$root.i18n('当前状态')%}</span>
         <span class="pull-left" edit-rent-intention-ticket-status ng-model="item" new-status="newStatus"></span>
         <div class="btn-group pull-right">
-            <button type="button" class="btn btn-default" ng-if="newStatus && messageTemplate.tenant[newStatus]" ng-class="{'btn-primary': activeTab === 'tenantMessage'}" ng-click="switchTab('tenantMessage')">{%messageTemplate.tenant[newStatus].title%}</button>
-            <button type="button" class="btn btn-default" ng-if="newStatus && messageTemplate.landlord[newStatus]" ng-class="{'btn-primary': activeTab === 'landlordMessage'}" ng-click="switchTab('landlordMessage')">{%messageTemplate.landlord[newStatus].title%}</button>
-            <button type="button" class="btn btn-default" ng-if="newStatus && emailTemplate.tenant[newStatus]" ng-class="{'btn-primary': activeTab === 'tenant'}" ng-click="switchTab('tenant')">{%emailTemplate.tenant[newStatus].title%}</button>
-            <button type="button" class="btn btn-default" ng-if="newStatus && emailTemplate.landlord[newStatus]" ng-class="{'btn-primary': activeTab === 'landlord'}" ng-click="switchTab('landlord')">{%emailTemplate.landlord[newStatus].title%}</button>
+            <button type="button" class="btn btn-default" ng-if="newStatus && messageTemplate[newStatus]" ng-class="{'btn-primary': activeTab === 'messageTemplate'}" ng-click="switchTab('messageTemplate')">{%$root.i18n('短信模板')%}</button>
+            <button type="button" class="btn btn-default" ng-if="newStatus && emailTemplate[newStatus]" ng-class="{'btn-primary': activeTab === 'emailTemplate'}" ng-click="switchTab('emailTemplate')">{%$root.i18n('邮件模板')%}</button>
             <button type="button" class="btn btn-default" ng-class="{'btn-primary': activeTab === 'dynamic'}" ng-click="switchTab('dynamic')">{%$root.i18n('动态')%}</button>
             <button type="button" class="btn btn-info" ng-show="!expand" ng-click="expand = !expand"><i class="fa fa-angle-down"></i><span>{%$root.i18n('展开')%}</span></button>
             <button type="button" class="btn btn-info" ng-show="expand" ng-click="expand = !expand"><i class="fa fa-angle-up"></i><span>{%$root.i18n('收起')%}</span></button>
         </div>
     </div>
-    <div class="panel-body" ng-show="activeTab === 'tenantMessage' && expand">
-        <div ng-if="newStatus && messageTemplate.tenant[newStatus]" edit-message ng-model="message" template="messageTemplate.tenant[newStatus].url"></div>
+    <div class="panel-body" ng-show="activeTab === 'messageTemplate' && expand">
+        <div class="clearfix">
+            <select ng-options="p.title for p in messageTemplate[newStatus]" ng-model="selectedMessageTemplate" class="form-control input-sm pull-right" style="width: 130px; margin-bottom: 10px;">
+                <!--<option value="">&#45;&#45; {%$root.i18n('选择短信模板')%} &#45;&#45;</option>-->
+            </select>
+        </div>
+        <div ng-if="newStatus && messageTemplate[newStatus]">
+            <div edit-message ng-model="message" template="selectedMessageTemplate.url" role="{%selectedMessageTemplate.role%}"></div>
+            <div class="clearfix">
+                <button class="btn btn-primary pull-right" ng-if="selectedMessageTemplate.role === 'landlord' && message" ng-click="sendToLandlord(message)" ng-disabled="item.disableSms">{%$root.i18n('发送给房东')%}</button>
+                <button class="btn btn-primary pull-right" ng-if="selectedMessageTemplate.role === 'tenant' && message" ng-click="sendToTenant(message)" ng-disabled="item.disableSms">{%$root.i18n('发送给租客')%}</button>
+            </div>
+            <div ng-if="item.disableSms" style="margin-top: 20px;" class="alert alert-warning" role="alert">
+                {%$root.i18n('由于存在非英国号码，短信系统暂时无法使用，请手动发送(房东号码：')
+                + '+' + item.interested_rent_tickets[0].creator_user.country_code + item.interested_rent_tickets[0].creator_user.phone + '，'
+                + $root.i18n('租客号码：') + '+' + item.creator_user.country_code + item.creator_user.phone + ')'%}
+            </div>
+        </div>
     </div>
-    <div class="panel-body" ng-show="activeTab === 'landlordMessage' && expand">
-        <div ng-if="newStatus && messageTemplate.landlord[newStatus]" edit-message ng-model="message" template="messageTemplate.landlord[newStatus].url"></div>
-    </div>
-    <div class="panel-body" ng-show="activeTab === 'tenant' && expand">
-        <div ng-if="newStatus && emailTemplate.tenant[newStatus]" edit-rich-content-of-template ng-model="email" template="emailTemplate.tenant[newStatus].url" role="tenant"></div>
-    </div>
-    <div class="panel-body" ng-show="activeTab === 'landlord' && expand">
-        <div ng-if="newStatus && emailTemplate.landlord[newStatus]" edit-rich-content-of-template ng-model="email" template="emailTemplate.landlord[newStatus].url" role="landlord"></div>
+    <div class="panel-body" ng-show="activeTab === 'emailTemplate' && expand" style="position: relative;">
+        <select ng-options="p.title for p in emailTemplate[newStatus]" ng-model="selectedEmailTemplate" class="form-control input-sm" style="width: 130px;position: absolute;margin-bottom: 10px;right: 15px;top: 10px;z-index: 100;">
+            <!--<option value="">&#45;&#45; {%$root.i18n('选择邮件模板')%} &#45;&#45;</option>-->
+        </select>
+        <div ng-if="newStatus && emailTemplate[newStatus]" edit-rich-content-of-template ng-model="email" template="selectedEmailTemplate.url" role="{%selectedEmailTemplate.role%}"></div>
     </div>
     <div class="panel-body" ng-show="activeTab === 'dynamic' && expand">
         <div ng-if="item">
-            <div show-dynamic scroll-glue ng-model="item" status="newStatus" user="user" style="margin: 0 -15px;padding: 0 15px; min-height: 500px;max-height: 800px; overflow-y: auto;"></div>
-            <div add-dynamic ng-model="item" update="updateItem(data)" user="user" status="newStatus"></div>
+            <div show-dynamic scroll-glue ng-model="item" status="newStatus" user="user" style="margin: 0 -15px;padding: 0 15px; min-height: 500px;max-height: 800px; overflow-y: auto;" forward-to-landlord="forwardToLandlord" forward-to-tenant="forwardToTenant" reject-message="rejectMessage"></div>
+            <div add-dynamic="addDynamic(data)" send-to-landlord="sendToLandlord(content)" send-to-tenant="sendToTenant(content)" ng-model="item" disable-sms="item.disableSms"></div>
         </div>
     </div>
 </div>

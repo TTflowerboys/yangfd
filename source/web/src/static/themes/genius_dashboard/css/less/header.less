@@ -132,9 +132,16 @@
 		
 		.number {
 			position: absolute;
-			font-size: 8px;
-			top: -3px;
-			right: 3px;
+			font-size: 16px;
+			background: #f00;
+			width: 28px;
+			height: 28px;
+			line-height: 28px;
+			border-radius: 50%;
+			top: 0;
+			right: 0;
+			transform: scale(0.5) translate(50%,-50%);
+			-webkit-transform: scale(0.5) translate(50%,-50%);
 		}
 		
 		&.account {
@@ -237,6 +244,11 @@
   	color: @darkGrey;
   	white-space: normal !important;
 }
+.dropdown-menu ul{
+	overflow-x: hidden;
+	overflow-y: scroll;
+	max-height: 600px;
+}
 
 .dropdown-menu li {
 	border-bottom: 1px solid lighten(@grey,20%);
@@ -280,6 +292,13 @@
 }
 
 .dropdown-menu-sub-footer {
+	display: block;
+	padding: 5px 10px !important;
+	clear: both;
+	font-weight: normal;
+	line-height: 20px;
+	color: @darkGrey;
+	white-space: normal !important;
 	text-align: center;
 	background: lighten(@grey,20%);
 	cursor: pointer;
@@ -294,6 +313,7 @@
 ul.notifications li,
 ul.tasks li,
 ul.messages li{
+	position: relative;
 	min-width: 260px;
 }
 

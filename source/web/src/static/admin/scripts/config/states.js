@@ -20,6 +20,12 @@ angular.module('app')
             }
         }
 
+        var nexmoNumberResolve = {
+            api: function (nexmoNumberApi) {
+                return nexmoNumberApi
+            }
+        }
+
         var propertyResolve = {
             api: function (propertyApi) {
                 return propertyApi
@@ -347,6 +353,24 @@ angular.module('app')
                 templateUrl: '/static/admin/templates/dashboard.enums.user_dict.tpl.html',
                 controller: 'ctrlIndexRule',
                 resolve: indexRuleResolve
+            })
+            .state('dashboard.enums.nexmo_number', {
+                url: '/nexmo_number',
+                templateUrl: '/static/admin/templates/dashboard.enums.nexmo_number.tpl.html',
+                controller: 'ctrlList',
+                resolve: nexmoNumberResolve
+            })
+            .state('dashboard.enums.nexmo_number.create', {
+                url: '/create',
+                templateUrl: '/static/admin/templates/dashboard.enums.nexmo_number.create.tpl.html',
+                controller: 'ctrlCreate',
+                resolve: nexmoNumberResolve
+            })
+            .state('dashboard.enums.nexmo_number.edit', {
+                url: '/:id/edit',
+                templateUrl: '/static/admin/templates/dashboard.enums.nexmo_number.edit.tpl.html',
+                controller: 'ctrlEdit',
+                resolve: nexmoNumberResolve
             })
         /**
          * 房产

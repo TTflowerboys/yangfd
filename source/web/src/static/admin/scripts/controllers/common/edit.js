@@ -43,7 +43,7 @@
                 errorMessage: 'Update failed'
             }).success(function () {
                 angular.extend($scope.itemOrigin, changed)
-                $state.go('^')
+                $state.go('^', {}, {reload:true})
             })['finally'](function () {
                 $scope.loading = false
             })

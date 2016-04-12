@@ -1,6 +1,6 @@
 (function () {
 
-    function ctrlRentRequestIntentionList($scope, fctModal, rentRequestIntentionApi, userApi, $filter, enumApi,$rootScope, $state, $q, couponApi, $stateParams) {
+    function ctrlRentRequestIntentionList($scope, fctModal, rentRequestIntentionApi, userApi, $filter, enumApi,$rootScope, $state, $q, couponApi, miscApi, misc) {
         var api = $scope.api = rentRequestIntentionApi
 
         $scope.perPage = 12
@@ -202,6 +202,18 @@
             window.open(item.visa)
         }
 
+        $scope.setDisableSms = function (item) {
+            if(item && _.isArray(item.interested_rent_tickets) && !_.isEmpty(item.interested_rent_tickets[0])) {
+                if((item.creator_user && item.creator_user.country_code === 44) && (item.interested_rent_tickets[0].creator_user && item.interested_rent_tickets[0].creator_user.country_code === 44)) {
+                    item.disableSms = false
+                } else {
+                    item.disableSms = true
+                }
+            } else {
+                item.disableSms = true
+            }
+        }
+
         function onGetList(data) {
             $scope.fetched = true
             $scope.originList = data.val
@@ -214,6 +226,7 @@
                     return true
                 }
             }), function (item, index) {
+                $scope.setDisableSms(item)
                 // Calculate age from birthday
                 item.age = (Date.now() - item.date_of_birth * 1000)/(365 * 24 * 60 * 60 * 1000)
 
@@ -254,6 +267,9 @@
                 item.output = ''
                 angular.forEach(item.interested_rent_tickets,function(interested_rent_ticket){
                     if(!_.isEmpty(interested_rent_ticket)) {
+                        miscApi.getShorturl(misc.host + '/property-to-rent/' + interested_rent_ticket.id).success(function (data) {
+                            item.shorturl = data.val
+                        })
                         item.output += '尊敬的' + interested_rent_ticket.user.nickname + '您好，这里是洋房东，请问您发布的' + interested_rent_ticket.title + '还在出租吗？现在有位租客很感兴趣，下面是租客信息：' + '\n\n'
                         item.output += window.i18n('咨询单编号: ') + item.short_id + '\n'
                         item.output += window.i18n('入住日期: ') + $filter('date')(item.rent_available_time * 1000, 'yyyy年MM月d日') + '\n'

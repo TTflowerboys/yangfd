@@ -11,6 +11,21 @@
             },
             getStatistics: function (config) {
                 return $http.get('/api/1/message/statistics', config)
+            },
+            receive: function (data, config) {
+                return $http.post('/api/1/message?_i18n=disabled', data, config)
+            },
+            getAll: function (data, config) {
+                return $http.post('/api/1/message/search?_i18n=disabled', data, config)
+            },
+            getOne: function (id, config) {
+                return $http.get('/api/1/message/' + id + '?_i18n=disabled', config)
+            },
+            mark: function (id, status, config) {
+                return $http.get('/api/1/message/' + id + '/mark/' + status, config)
+            },
+            remove: function (id, config) {
+                return $http.get('/api/1/message/' + id + '/delete')
             }
         }
 

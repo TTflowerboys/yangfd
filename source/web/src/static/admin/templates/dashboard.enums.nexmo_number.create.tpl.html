@@ -1,0 +1,37 @@
+<div>
+    <div class="buttons">
+        <span class="btn-group">
+            <button class="btn btnGoBack" ng-click="onBackClick()"><span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
+            </button>
+        </span>
+    </div>
+    <form name="nexmoNumberCreateForm" class="form-horizontal" ng-class="{submitted:submitted}"
+        style="max-width: 800px; padding-bottom: 100px;" ng-submit="submit($event,nexmoNumberCreateForm)"
+        >
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="control-label">{%$root.i18n('国家')%} *</label>
+
+                <div class="controls">
+                    <div select-supported-country name="country" ng-model="item.country" required></div>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label class="control-label">{%$root.i18n('号码')%}</label>
+
+                <div class="controls">
+                    <input class="form-control col-sm6" ng-model="item.phone" type="text" required/>
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="form-actions" style="margin-bottom: 80px;">
+            <input type="submit" class="btn btn-primary" ng-disabled="nexmoNumberCreateForm.$invalid" value="{%$root.i18n('提交')%}">
+            <input type="button" class="btn btnGoBack" ng-click="onBackClick()" value="Cancel">
+        </div>
+
+    </form>
+</div>

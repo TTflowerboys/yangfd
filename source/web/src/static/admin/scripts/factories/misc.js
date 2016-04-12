@@ -279,7 +279,37 @@ angular.module('app')
                     'US': '+1',
                     'HK': '+852',
                 }[name]
-            }
+            },
+            notify: function (title, options) { //桌面消息
+                var notification
+                var defaultOptions = {
+                    icon: 'http://static.yangfd.com/static/production/images/icon/app_icon_x120_150427.png'
+                }
+                options = _.extend(defaultOptions, options)
+                if (!Notification) {
+                    window.alert('Desktop notifications not available in your browser. Try Chromium.')
+                    return
+                }
+                if (Notification.permission !== 'granted') {
+                    Notification.requestPermission(function (permission) {
+                        // If the user accepts, let's create a notification
+                        if (permission === 'granted') {
+                            notification = new Notification(title, options);
+                            if(_.isFunction(options.onclick)) {
+                                notification.onclick = options.onclick
+                            }
+                        }
+                    })
+                }
+                else {
+                    notification = new Notification(title, options)
+                    if(_.isFunction(options.onclick)) {
+                        notification.onclick = options.onclick
+                    }
+                }
+
+            },
+            host: location.protocol + '//' + location.host
         }
 
         return self

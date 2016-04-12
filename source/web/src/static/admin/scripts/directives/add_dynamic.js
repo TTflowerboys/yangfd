@@ -4,9 +4,10 @@ angular.module('app')
             restrict: 'AE',
             scope: {
                 item: '=ngModel',
-                update: '&',
-                user: '=',
-                status: '='
+                addDynamic: '&',
+                sendToLandlord: '&',
+                sendToTenant: '&',
+                disableSms: '=' //如果租客或者房东的手机号是英国的，才能使用短信沟通，否则需要disable掉短信相关的按钮
             },
             templateUrl: '/static/admin/templates/add_dynamic.tpl.html',
             controller: function ($scope, $element, $rootScope, $compile) {
@@ -14,39 +15,33 @@ angular.module('app')
                     if(content === '') {
                         return
                     }
-                    var dynamicData = {
-                        id: misc.generateUUID(),
-                        user: {
-                            id: $scope.user.id,
-                            nickname: $scope.user.nickname
-                        },
-                        content: content,
-                        time: new Date().getTime(),
-                        status: $scope.status
-                    }
                     $scope.content = ''
-                    var dynamic = _.clone(_.find($scope.item.custom_fields || [], {key: 'dynamic'}) || {key: 'dynamic', value: '[]'})
-                    var dynamicTemp = _.clone(dynamic)
-                    dynamic.value = JSON.stringify(JSON.parse(dynamic.value).concat([dynamicData]))
-                    dynamicTemp.value = JSON.stringify(JSON.parse(dynamicTemp.value).concat([_.extend(_.clone(dynamicData), {sending: true})]))
-                    function generateCustomFieldsByDynamic(dynamic){
-                        return _.reject($scope.item.custom_fields || [], function (field) {
-                            return field.key === 'dynamic'
-                        }).concat([dynamic])
-                    }
-                    $scope.item.custom_fields = generateCustomFieldsByDynamic(dynamicTemp)
-                    $scope.update({
+                    $scope.addDynamic({
                         data: {
-                            id: $scope.item.id,
-                            custom_fields: generateCustomFieldsByDynamic(dynamic)
+                            content: content,
+                            type: 'dynamic',
                         }
                     })
-                        .then(function (data) {
-                            growl.addSuccessMessage(window.i18n('添加成功'), {enableHtml: true})
-                            angular.extend($scope.item, data.data.val)
-                        }, function () {
-                            growl.addErrorMessage(window.i18n('添加失败'), {enableHtml: true})
-                        })
+                }
+
+                $scope.submitLandlord = function (content) { //发送短信给房东
+                    if(content === '') {
+                        return
+                    }
+                    $scope.content = ''
+                    $scope.sendToLandlord({
+                        content: content
+                    })
+                }
+
+                $scope.submitTenant = function (content) { //发送短信给租客
+                    if(content === '') {
+                        return
+                    }
+                    $scope.content = ''
+                    $scope.sendToTenant({
+                        content: content
+                    })
                 }
 
                 $scope.onKeyPress = function (keyEvent) {
@@ -54,7 +49,6 @@ angular.module('app')
                     if(keyEvent.which === 13){
                         $scope.submit($scope.content)
                     }
-
                 }
             },
             link: function (scope) {

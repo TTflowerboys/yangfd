@@ -1,5 +1,5 @@
 <div>
-{%$root.i18n('尊敬的')%}{%item.interested_rent_tickets[0].creator_user.nickname%}{%$root.i18n('您好，这里是洋房东，请问您发布的')%}"{%item.interested_rent_tickets[0].title%}"{%$root.i18n('还在出租吗？现在有位租客很感兴趣，下面是租客信息：')%}
+{%$root.i18n('尊敬的')%}{%item.interested_rent_tickets[0].creator_user.nickname%}{%$root.i18n('您好，这里是洋房东，请问您发布的')%}"{%item.interested_rent_tickets[0].title%}"({%item.shorturl | removeProtocol%}){%$root.i18n('还在出租吗？现在有位租客很感兴趣，下面是租客信息：')%}
 <br/>
 {%$root.i18n('咨询单编号: ')%}{%item.short_id%}
 {%$root.i18n('入住日期: ')%}{%item.rent_available_time * 1000 | date : 'yyyy年MM月d日'%}

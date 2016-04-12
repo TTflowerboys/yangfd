@@ -3,10 +3,11 @@
 
 angular.module('app',
     ['ui.router', 'angular-loading-bar', 'angularFileUpload', 'ui.bootstrap', 'angular-growl', 'multi-select', 'ang-drag-drop', 'textAngular', 'ui.bootstrap.datetimepicker', 'mj.scrollingTabs', 'luegg.directives'])
-    .run(function ($rootScope, $state, $stateParams, $sce) {
+    .run(function ($rootScope, $state, $stateParams, $sce, misc) {
         $rootScope.i18n = i18n;
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
+        $rootScope.misc = misc;
         $rootScope.renderHtml = function (html) {
             if (typeof  html !== 'string') { return '' }
             return $sce.trustAsHtml(html || '');

@@ -1,42 +1,47 @@
 (function () {
 
-    function ctrlRentRequestIntentionDetail($scope, fctModal, api,  misc, $stateParams, growl, $rootScope, $state, couponApi, $q) {
+    function ctrlRentRequestIntentionDetail($scope, fctModal, api,  misc, $stateParams, growl, $rootScope, $state, couponApi, $q, miscApi) {
         $scope.api = api
         $scope.emailTemplate = {
-            tenant: {
-                'assigned': {
-                    title: window.i18n('申请确认邮件'),
-                    url: '/static/admin/emails/assigned_tenant.html'
-                },
-            },
-            landlord:{
-                'assigned': {
-                    title: window.i18n('租客给房东的邮件'),
-                    url: '/static/admin/emails/assigned_landlord.html'
-                },
-            }
-
+            'assigned': [{
+                title: window.i18n('申请确认邮件'),
+                url: '/static/admin/emails/assigned_tenant.html',
+                role: 'tenant'
+            },{
+                title: window.i18n('租客给房东的邮件'),
+                url: '/static/admin/emails/assigned_landlord.html',
+                role: 'landlord'
+            }]
         }
         $scope.messageTemplate = {
-            tenant: {
-                //'assigned': {
-                //    title: window.i18n('申请确认短信'),
-                //    url: '/static/admin/templates/message/assigned_tenant.html'
-                //},
-            },
-            landlord:{
-                'assigned': {
-                    title: window.i18n('租客给房东的短信'),
-                    url: '/static/admin/templates/message/assigned_landlord.html'
-                },
-            }
+            'assigned': [{
+                title: window.i18n('申请确认短信'),
+                url: '/static/admin/templates/message/assigned_tenant.html',
+                role: 'tenant'
+            },{
+                title: window.i18n('租客给房东的短信'),
+                url: '/static/admin/templates/message/assigned_landlord.html',
+                role: 'landlord'
+            }]
         }
         $scope.newStatus = ''
-        $scope.activeTab = ''
+        $scope.activeTab = 'dynamic'
+        $scope.$watch('newStatus', function (newStatus) {
+            if($scope.messageTemplate[newStatus]) {
+                $scope.selectedMessageTemplate = $scope.messageTemplate[newStatus][0]
+            } else if($scope.activeTab === 'messageTemplate') {
+                $scope.switchTab('dynamic')
+            }
+            if($scope.emailTemplate[newStatus]) {
+                $scope.selectedEmailTemplate = $scope.emailTemplate[newStatus][0]
+            } else if($scope.activeTab === 'emailTemplate') {
+                $scope.switchTab('dynamic')
+            }
+        })
         $scope.switchTab = function (name) {
             $scope.activeTab = name
         }
-        $scope.host = location.protocol + '//' + location.host
+        $scope.host = misc.host
         $scope.currentTime = new Date().getTime()
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
 
@@ -47,8 +52,13 @@
             api.getOne($stateParams.id, {errorMessage: true})
                 .success(function (data) {
                     var item =  data.val
+                    $scope.setDisableSms(item)
                     item.age = (Date.now() - item.date_of_birth * 1000)/(365 * 24 * 60 * 60 * 1000)
-
+                    if(_.isArray(item.interested_rent_tickets) && !_.isEmpty(item.interested_rent_tickets[0])) {
+                        miscApi.getShorturl(misc.host + '/property-to-rent/' + item.interested_rent_tickets[0].id).success(function (data) {
+                            item.shorturl = data.val
+                        })
+                    }
                     // Get ip when ticket is created from log
                     item.log = {
                         ip: window.i18n('载入中...'),
@@ -105,6 +115,200 @@
                     $state.go($stateParams.from || '^', $stateParams.fromParams)
                 })
             })
+        }
+
+        $scope.receiveMessageFromLandlord = function (content) { //收到来自房东的短信
+            $scope.addDynamic({
+                originContent: content,
+                content: content,
+                type: 'message',
+                role: 'landlord',
+                messageInfo: {
+                    status: 'needReview',
+                    target: 'tenant'
+                },
+                user: {
+                    id: $scope.item.interested_rent_tickets[0].creator_user.id,
+                    nickname: $scope.item.interested_rent_tickets[0].creator_user.nickname,
+                }
+            })
+        }
+
+        $scope.receiveMessageFromTenant = function (content) { //收到来自租客的短信
+            $scope.addDynamic({
+                originContent: content,
+                content: content,
+                type: 'message',
+                role: 'tenant',
+                messageInfo: {
+                    status: 'needReview',
+                    target: 'landlord'
+                },
+                user: {
+                    id: $scope.item.creator_user.id,
+                    nickname: $scope.item.creator_user.nickname,
+                }
+            })
+        }
+
+        function forwardSuccessHandler(dynamic) {
+            dynamic.messageInfo.status = 'success'
+            $scope.updateDynamic(dynamic)
+        }
+
+        function forwardFailHandler(dynamic) {
+            growl.addErrorMessage(window.i18n('短信发送失败，请稍后重试'), {enableHtml: true})
+        }
+
+        $scope.forwardToLandlord = function (dynamic) { //转发租客的短信给房东
+            // todo 调用发短信接口成功后再添加下面的动态
+            api.rentIntentionTicketSmsSend($scope.item.id, {
+                text: dynamic.content,
+                user_id: $scope.item.interested_rent_tickets[0].creator_user.id
+            }, {
+                errorMessage: true,
+                successMessage: i18n('短信转发成功！')
+            }).then(function (data) {
+                forwardSuccessHandler(dynamic)
+            }, function (data) {
+                forwardFailHandler(dynamic)
+            })
+
+        }
+
+        $scope.forwardToTenant = function (dynamic) { //转发房东的短信给租客
+            // todo 调用发短信接口成功后再添加下面的动态
+            api.rentIntentionTicketSmsSend($scope.item.id, {
+                text: dynamic.content,
+                user_id: $scope.item.creator_user.id
+            }, {
+                errorMessage: true,
+                successMessage: i18n('短信转发成功！')
+            }).then(function (data) {
+                forwardSuccessHandler(dynamic)
+            }, function (data) {
+                forwardFailHandler(dynamic)
+            })
+        }
+
+        $scope.rejectMessage = function (dynamic) { //拒绝转发一条短信
+            dynamic.messageInfo.status = 'reject'
+            $scope.updateDynamic(dynamic)
+        }
+
+        $scope.sendToLandlord = function (content) { //发送短信给房东
+            // todo 调用发短信接口成功后再添加下面的动态
+            api.rentIntentionTicketSmsSend($scope.item.id, {
+                text: content,
+                user_id: $scope.item.interested_rent_tickets[0].creator_user.id
+            }, {
+                errorMessage: true,
+                successMessage: i18n('短信发送成功！')
+            }).then(function () {
+                $scope.addDynamic({
+                    content: content,
+                    type: 'message',
+                    role: 'system',
+                    messageInfo: {
+                        status: 'success',
+                        target: 'landlord'
+                    }
+                })
+            })
+        }
+
+        $scope.sendToTenant = function (content) { //发送短信给租客
+            // todo 调用发短信接口成功后再添加下面的动态
+            api.rentIntentionTicketSmsSend($scope.item.id, {
+                text: content,
+                user_id: $scope.item.creator_user.id
+            }, {
+                errorMessage: true,
+                successMessage: i18n('短信发送成功！')
+            }).then(function () {
+                $scope.addDynamic({
+                    content: content,
+                    type: 'message',
+                    role: 'system',
+                    messageInfo: {
+                        status: 'success',
+                        target: 'tenant'
+                    }
+                })
+            })
+        }
+
+        function generateCustomFieldsByDynamic(dynamic){
+            return _.reject($scope.item.custom_fields || [], function (field) {
+                return field.key === 'dynamic'
+            }).concat([dynamic])
+        }
+
+        $scope.addDynamic = function (data) {
+            var dynamicData = {
+                id: misc.generateUUID(),
+                type: data.type, //type可以为'dynamic', 'message', 默认为'dynamic'
+                role: data.role, //role可以为'system', 'landlord', 'tenant' 或 undefined
+                /**
+                * messageInfo是一个object或undefined, 示例如下
+                * {
+                *   status: 'success',
+                *   target: 'landlord'
+                * }
+                * 其status属性表示短信发送状态，共有以下状态
+                * 'needReview': 租客和房东发来的未审核短信
+                * 'reject': 租客和房东发来的短信,管理员审核结果是不转发
+                * 'success': 短信发送成功
+                * target属性表示短信发送目标，可以为 'landlord', 'tenant'
+                **/
+                messageInfo: data.messageInfo,
+                user: data.user || {
+                    id: $scope.user.id,
+                    nickname: $scope.user.nickname
+                },
+                content: data.content,
+                originContent: data.originContent, //未经管理员编辑的原始短信
+                time: new Date().getTime(),
+                status: $scope.newStatus
+            }
+            var dynamic = _.clone(_.find($scope.item.custom_fields || [], {key: 'dynamic'}) || {key: 'dynamic', value: '[]'})
+            var dynamicTemp = _.clone(dynamic)
+            dynamic.value = JSON.stringify(JSON.parse(dynamic.value).concat([dynamicData]))
+            dynamicTemp.value = JSON.stringify(JSON.parse(dynamicTemp.value).concat([_.extend(_.clone(dynamicData), {sending: true})]))
+
+            $scope.item.custom_fields = generateCustomFieldsByDynamic(dynamicTemp)
+            $scope.updateItem({
+                id: $scope.item.id,
+                custom_fields: generateCustomFieldsByDynamic(dynamic)
+            })
+                .then(function (data) {
+                    growl.addSuccessMessage(window.i18n('添加成功'), {enableHtml: true})
+                    angular.extend($scope.item, data.data.val)
+                }, function () {
+                    growl.addErrorMessage(window.i18n('添加失败'), {enableHtml: true})
+                })
+        }
+
+        $scope.updateDynamic = function (dynamicData) {
+            var dynamic = _.clone(_.find($scope.item.custom_fields || [], {key: 'dynamic'}) || {key: 'dynamic', value: '[]'})
+            dynamic.value = JSON.stringify(_.map(JSON.parse(dynamic.value), function (item) {
+                if(item.id === dynamicData.id) {
+                    return dynamicData
+                }
+                return item
+            }))
+
+            $scope.item.custom_fields = generateCustomFieldsByDynamic(dynamic)
+            $scope.updateItem({
+                id: $scope.item.id,
+                custom_fields: generateCustomFieldsByDynamic(dynamic)
+            })
+                .then(function (data) {
+                    growl.addSuccessMessage(window.i18n('添加成功'), {enableHtml: true})
+                    angular.extend($scope.item, data.data.val)
+                }, function () {
+                    growl.addErrorMessage(window.i18n('添加失败'), {enableHtml: true})
+                })
         }
     }
 

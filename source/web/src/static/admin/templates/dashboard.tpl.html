@@ -29,6 +29,39 @@
                     </div>
 
                     <ul class="nav navbar-nav pull-right">
+                        <!-- start: Message Dropdown -->
+                        <li class="dropdown hidden-xs">
+                            <a class="btn dropdown-toggle" data-toggle="!dropdown" href="index.html#">
+                                <i class="fa fa-envelope"></i>
+                                <span ng-if="messages.length" class="number">{%messages.length%}</span>
+                            </a>
+                            <div class="dropdown-menu messages" style="left: inherit; right: 0;">
+                                <div>
+                                    <span class="dropdown-menu-title">{%$root.i18n('共有')%}{%messages.length%}{%$root.i18n('条待审核短信')%}</span>
+                                </div>
+                                <ul class="messages">
+                                    <li ng-repeat="message in messages">
+                                        <a ui-sref="dashboard.admins" ng-click="markMessageAsRead(message)">
+                                            <span class="header">
+                                                <span class="from">
+                                                    {%message.sender.nickname%}({%message.role === 'tenant' ? $root.i18n('租客') : $root.i18n('房东')%})
+                                                </span>
+                                                <span class="time">
+                                                    {%message.time * 1000 | date : 'yyyy-MM-dd H:mm'%}
+                                                </span>
+                                            </span>
+                                            <span class="message">
+                                                {%message.text%}
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div ng-if="messages.length">
+                                    <a ng-click="markAllMessageAsRead()" class="dropdown-menu-sub-footer">{%$root.i18n('全部标记为已读')%}</a>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- end: Message Dropdown -->
                         <!-- start: User Dropdown -->
                         <li class="dropdown">
                             <a class="btn account dropdown-toggle" data-toggle="dropdown" href="#">
@@ -153,6 +186,12 @@
                                         <a class="submenu" href ui-sref="dashboard.enums.user_dict">
                                             <i class="fa fa-angle-right"></i>
                                             <span class="hidden-sm text">{%$root.i18n('自定义词管理')%}</span>
+                                        </a>
+                                    </li>
+                                    <li has-permission="admin" ng-class="{active:$state.includes('dashboard.enums.nexmo_number')}">
+                                        <a class="submenu" href ui-sref="dashboard.enums.nexmo_number">
+                                            <i class="fa fa-angle-right"></i>
+                                            <span class="hidden-sm text">{%$root.i18n('Nexmo号码管理')%}</span>
                                         </a>
                                     </li>
                                 </ul>

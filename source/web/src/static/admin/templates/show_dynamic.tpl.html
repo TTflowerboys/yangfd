@@ -1,14 +1,44 @@
 <p ng-if="!list.length">{%$root.i18n('该状态下暂无动态')%}</p>
-<div class="dynamic" ng-repeat="dynamicItem in list">
+<div class="dynamic" ng-repeat="dynamicItem in list track by $index">
     <div class="dynamicItem clearfix">
         <div class="media-avatar" ng-class="{'media-left': dynamicItem.user.id !== user.id, 'media-right': dynamicItem.user.id === user.id}">
-            <a ui-sref="dashboard.users.detail({id: dynamicItem.user.id})">
+            <a ng-if="!dynamicItem.role" ui-sref="dashboard.users.detail({id: dynamicItem.user.id})" title="{%dynamicItem.user.nickname%}">
                 <img ng-src="http://www.gravatar.com/avatar/{%dynamicItem.user.id%}?s=58&d=retro" alt=""/>
             </a>
+            <a ng-if="dynamicItem.role === 'system'" title="{%$root.i18n('洋房东平台')%}">
+                <img src="/static/images/logo/logo_wechat.jpg" style="width: 100%;" alt=""/>
+            </a>
+            <a ng-if="dynamicItem.role === 'tenant'" title="{%$root.i18n('租客')%}">
+                <i class="fa fa-suitcase" style="font-size: 32px;color: #78CD51;"></i>
+            </a>
+            <a ng-if="dynamicItem.role === 'landlord'" title="{%$root.i18n('房东')%}">
+                <i class="fa fa-home" style="font-size: 36px;color: #FF5454;"></i>
+            </a>
         </div>
-        <div class="media-body" ng-class="{'media-body-right': dynamicItem.user.id === user.id}">
+        <div class="media-body" ng-class="{'media-body-right': dynamicItem.user.id === user.id, 'message-box': dynamicItem.type === 'message'}">
             <h3 class="media-heading">{%dynamicItem.user.nickname%} {%dynamicItem.time | date : 'yyyy-MM-dd H:mm'%}:</h3>
-            <div class="alert " ng-class="{'alert-info': dynamicItem.user.id !== user.id, 'alert-success': dynamicItem.user.id === user.id, 'alert-sending':  dynamicItem.user.id === user.id && dynamicItem.sending}" role="alert">{%dynamicItem.content%}</div>
+            <div class="alert " ng-if="dynamicItem.type === 'dynamic'" ng-class="{'alert-info': dynamicItem.user.id !== user.id, 'alert-success': dynamicItem.user.id === user.id, 'alert-sending':  dynamicItem.user.id === user.id && dynamicItem.sending}" role="alert">
+                {%dynamicItem.content%}
+            </div>
+            <div ng-if="dynamicItem.type === 'message'" class="panel " ng-class="{'panel-primary': dynamicItem.messageInfo.status === 'needReview', 'panel-info': dynamicItem.messageInfo.status === 'reject', 'panel-success': dynamicItem.messageInfo.status === 'success'}">
+                <div class="panel-body">
+                    <h3>{%$root.i18n('短信内容：')%}</h3>
+                    <pre ng-if="dynamicItem.messageInfo.status !== 'needReview'">{%dynamicItem.content%}</pre>
+
+                    <!-- 房东或租客发来的待审核短信-->
+                    <div class="clearfix" ng-if="dynamicItem.messageInfo.status === 'needReview'">
+                        <textarea name="" id="" style="width: 100%;" rows="5" ng-model="dynamicItem.content"></textarea>
+                        <button class="btn btn-danger pull-right" ng-click="rejectMessage(dynamicItem)">{%$root.i18n('不转发')%}</button>
+                        <button class="btn btn-primary pull-right" ng-if="dynamicItem.role === 'tenant' && dynamicItem.content" ng-click="forwardToLandlord(dynamicItem)" style="margin-right: 10px;">{%$root.i18n('发送给房东')%}</button>
+                        <button class="btn btn-primary pull-right" ng-if="dynamicItem.role === 'landlord' && dynamicItem.content" ng-click="forwardToTenant(dynamicItem)" style="margin-right: 10px;">{%$root.i18n('发送给租客')%}</button>
+                    </div>
+                </div>
+                <div class="panel-heading">
+                    <span ng-if="dynamicItem.messageInfo.status === 'needReview'">{%$root.i18n('短信待审核')%}</span>
+                    <span ng-if="dynamicItem.messageInfo.status === 'reject'">{%$root.i18n('短信不转发')%}</span>
+                    <span ng-if="dynamicItem.messageInfo.status === 'success'">{%$root.i18n('短信已发送给')%}{%dynamicItem.messageInfo.target === 'landlord' ? $root.i18n('房东'): $root.i18n('租客')%}</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

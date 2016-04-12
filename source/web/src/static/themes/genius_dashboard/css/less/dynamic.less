@@ -16,25 +16,32 @@
                 width: 64px;
                 height: 64px;
                 border-radius: 50%;
-                border: 3px solid #fff;
-                background-image: url("/static/images/placeholder/avatar.png");
+                border: 3px solid #f0f0f0;
                 background-size:cover;
                 overflow: hidden;
+                text-align: center;
+                line-height: 58px;
+                i{
+                    vertical-align: middle;
+                }
+                img{
+                    vertical-align: top;
+                }
             }
         }
         .media-body{
             overflow: hidden;
+            margin-right: 74px;
             .alert{
                 display: inline-block;
-                margin-right: 74px;
                 margin-left: 0;
                 margin-bottom: 0;
                 padding: 8px;
             }
             &.media-body-right{
                 text-align: right;
+                margin-left: 74px;
                 .alert{
-                    margin-left: 74px;
                     margin-right: 0;
                     text-align: left;
                     &.alert-sending{
@@ -55,6 +62,39 @@
                             color: #999;
                         }
                     }
+                }
+            }
+
+            .panel{
+                .panel-heading{
+                    text-align: center;
+                    border-top: 1px solid transparent;
+                    border-bottom: none;
+                    border-radius: 0 0 3px 3px;
+                }
+                .panel-body{
+                    text-align: left;
+                    background: #f5f5f5;
+                    h3{
+                        margin: 10px 0;
+                    }
+                    pre, div{
+                        display: block;
+                        padding: 15px;
+                        margin: 0 -15px -15px;
+                        font-size: 13px;
+                        line-height: 1.42857143;
+                        color: #333;
+                        word-break: break-all;
+                        word-wrap: break-word;
+                        background-color: #FBFBFB;
+                        border: none;
+                        border-top: 1px solid #ddd;
+                        border-radius: 0;
+                    }
+                }
+                .panel-footer{
+                    text-align: center;
                 }
             }
         }

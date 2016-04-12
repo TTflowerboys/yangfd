@@ -37,7 +37,7 @@
                 if ($scope.$parent.currentPageNumber === 1) {
                     $scope.$parent.refreshList()
                 }
-                $state.go('^')
+                $state.go('^', {}, {reload:true})
             })['finally'](function () {
                 $scope.loading = false
             })

@@ -5,8 +5,8 @@
         }
     </style>
     <div style="display: none;" class="template"></div>
-    <div ng-show="status === 'loading'">{%$root.i18n('邮件模板载入中...')%}</div>
-    <div ng-show="status === 'failed'">{%$root.i18n('邮件模板载入失败')%}</div>
+    <div ng-show="status === 'loading'" class="text-center">{%$root.i18n('邮件模板载入中...')%}</div>
+    <div ng-show="status === 'failed'" class="text-center">{%$root.i18n('邮件模板载入失败')%}</div>
     <div ng-show="status === 'success'">
         <div class="col-sm-12" style="position: relative">
             <!--<div style="position: absolute;right: 20px;top: 0;" output-fields-tooltip ng-model="model" placement="left">{%$root.i18n('导出邮件HTML源码')%}</div>-->
