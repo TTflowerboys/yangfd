@@ -786,6 +786,9 @@ def rent_intention_ticket_sms_receive(params):
     if "concat" in params and params["concat"]:
         raise NotImplementedError
 
+    params["to"] = f_app.util.parse_phone({"phone": params["to"]})
+    params["msisdn"] = f_app.util.parse_phone({"phone": params["msisdn"]})
+
     nexmo_number = f_app.sms.nexmo.number.get(f_app.sms.nexmo.number.get_by_number(params["to"]))
     user = f_app.user.get(f_app.user.get_id_by_phone(params["msisdn"]))
 
