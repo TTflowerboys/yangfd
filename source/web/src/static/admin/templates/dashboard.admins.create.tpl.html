@@ -58,8 +58,8 @@
 
 
     <div class="form-actions" style="margin-bottom: 80px;">
-        <input type="submit" class="btn btn-primary" ng-hide="existingItem" value="{%$root.i18n('提交')%}">
-        <input type="button" class="btn btn-primary" ng-show="existingItem" value="{%$root.i18n('更新')%}" ng-click="updateExisting()">
+        <input type="submit" class="btn btn-primary" ng-hide="existingItem.id" value="{%$root.i18n('提交')%}">
+        <input type="button" class="btn btn-primary" ng-show="existingItem.id" value="{%$root.i18n('更新')%}" ng-click="updateExisting()">
         <input type="button" class="btn btnGoBack" ng-click="onBackClick()" value="{%$root.i18n('取消')%}">
     </div>
     <div class="help-block">* {%$root.i18n('必填')%}</div>
