@@ -108,8 +108,8 @@
         })()
 
         $scope.fetchNewMessage = function () {
+            var cache = {}
             return messageApi.receive({status: 'new', type: 'new_sms', mark: 'sent'}).then(function (res) {
-                var cache = {}
                 _.each(res.data.val, function (item) {
                     //    推送桌面消息
                     cache[item.ticket_id] = cache[item.ticket_id] || []
@@ -124,6 +124,7 @@
                             $q.all(_.map(cache[item.ticket_id], function (item) {
                                 return messageApi.mark(item, 'read')
                             })).then(function () {
+                                delete cache[item.ticket_id]
                                 $scope.fetchUnreadMessage()
                             })
                         }
