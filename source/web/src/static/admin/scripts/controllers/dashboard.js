@@ -150,7 +150,7 @@
         })
 
         $scope.fetchUnreadMessage = function () {
-            messageApi.getAll({status: 'sent', type: 'new_sms'}).then(function (res) {
+            messageApi.receive({status: 'sent', type: 'new_sms'}).then(function (res) {
                 $scope.messages = res.data.val
             })
         }
