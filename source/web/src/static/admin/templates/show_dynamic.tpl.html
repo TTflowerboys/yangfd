@@ -16,7 +16,11 @@
             </a>
         </div>
         <div class="media-body" ng-class="{'media-body-right': dynamicItem.user.id === user.id, 'message-box': dynamicItem.type === 'message'}">
-            <h3 class="media-heading">{%dynamicItem.user.nickname%} {%dynamicItem.time | date : 'yyyy-MM-dd H:mm'%}:</h3>
+            <h3 class="media-heading">
+                <span ng-if="dynamicItem.role === 'tenant'" class="text-info">{%$root.i18n('租客')%}</span>
+                <span ng-if="dynamicItem.role === 'landlord'" class="text-info">{%$root.i18n('房东')%}</span>
+                {%dynamicItem.user.nickname%} {%dynamicItem.time | date : 'yyyy-MM-dd H:mm'%}:
+            </h3>
             <div class="alert " ng-if="dynamicItem.type === 'dynamic'" ng-class="{'alert-info': dynamicItem.user.id !== user.id, 'alert-success': dynamicItem.user.id === user.id, 'alert-sending':  dynamicItem.user.id === user.id && dynamicItem.sending}" role="alert">
                 {%dynamicItem.content%}
             </div>

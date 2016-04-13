@@ -11,11 +11,13 @@ angular.module('app')
             },
             templateUrl: '/static/admin/templates/add_dynamic.tpl.html',
             controller: function ($scope, $element, $rootScope, $compile) {
+                var defaultContent = window.i18n('洋房东：')
+                $scope.content = defaultContent
                 $scope.submit = function (content) {
-                    if(content === '') {
+                    if(content === '' || content === defaultContent) {
                         return
                     }
-                    $scope.content = ''
+                    $scope.content = defaultContent
                     $scope.addDynamic({
                         data: {
                             content: content,
@@ -25,20 +27,20 @@ angular.module('app')
                 }
 
                 $scope.submitLandlord = function (content) { //发送短信给房东
-                    if(content === '') {
+                    if(content === '' || content === defaultContent) {
                         return
                     }
-                    $scope.content = ''
+                    $scope.content = defaultContent
                     $scope.sendToLandlord({
                         content: content
                     })
                 }
 
                 $scope.submitTenant = function (content) { //发送短信给租客
-                    if(content === '') {
+                    if(content === '' || content === defaultContent) {
                         return
                     }
-                    $scope.content = ''
+                    $scope.content = defaultContent
                     $scope.sendToTenant({
                         content: content
                     })
