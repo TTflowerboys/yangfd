@@ -44,7 +44,7 @@
                                         <div id="collapseListGroupHeading{%$index%}" role="tab" data-toggle="dropdown">
                                             <h3 data-toggle="collapse" href="#collapseListGroup{%$index%}" aria-expanded="true" aria-controls="collapseListGroup{%$index%}" title="{%ticket.rentTicket.title%}">{%ticket.rentTicket.title%}</h3>
                                         </div>
-                                        <ul class="messages" id="collapseListGroup{%$index%}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="collapseListGroupHeading{%$index%}" aria-expanded="true">
+                                        <ul class="messages panel-collapse collapse in" id="collapseListGroup{%$index%}" role="tabpanel" aria-labelledby="collapseListGroupHeading{%$index%}" aria-expanded="true">
                                             <li ng-repeat="message in ticket.messages">
                                                 <a ui-sref="dashboard.rent_request_intention.detail({id: message.ticket_id})" ng-click="markMessageAsRead(message)">
                                                     <span class="header">
