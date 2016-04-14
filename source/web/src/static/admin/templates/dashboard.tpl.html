@@ -33,7 +33,7 @@
                         <li class="dropdown hidden-xs">
                             <a class="btn dropdown-toggle" data-toggle="!dropdown" href="index.html#">
                                 <i class="fa fa-envelope"></i>
-                                <span ng-if="ticketsGroup.length" class="number">{%ticketsGroup.length%}</span>
+                                <span ng-if="ticketsGroup.length" class="number">{%messages.length%}</span>
                             </a>
                             <div class="dropdown-menu messages" style="left: inherit; right: 0;">
                                 <div>
@@ -41,8 +41,10 @@
                                 </div>
                                 <ul class="tickets">
                                     <li ng-repeat="ticket in ticketsGroup">
-                                        <h3 title="{%ticket.rentTicket.title%}">{%ticket.rentTicket.title%}</h3>
-                                        <ul class="messages">
+                                        <div id="collapseListGroupHeading{%$index%}" role="tab" data-toggle="dropdown">
+                                            <h3 data-toggle="collapse" href="#collapseListGroup{%$index%}" aria-expanded="true" aria-controls="collapseListGroup{%$index%}" title="{%ticket.rentTicket.title%}">{%ticket.rentTicket.title%}</h3>
+                                        </div>
+                                        <ul class="messages" id="collapseListGroup{%$index%}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="collapseListGroupHeading{%$index%}" aria-expanded="true">
                                             <li ng-repeat="message in ticket.messages">
                                                 <a ui-sref="dashboard.rent_request_intention.detail({id: message.ticket_id})" ng-click="markMessageAsRead(message)">
                                                     <span class="header">
