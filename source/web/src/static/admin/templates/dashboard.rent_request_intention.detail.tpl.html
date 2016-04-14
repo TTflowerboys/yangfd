@@ -16,7 +16,7 @@
             {%$root.i18n('移除咨询单')%}
         </span>
     </span>
-    <span class="btn-group pull-right" ng-if="item" ng-init="ticketItem = item.interested_rent_tickets[0]" ng-controller="ctrlRentDetail">
+    <span class="btn-group pull-right" ng-if="item && item.interested_rent_tickets" ng-init="ticketItem = item.interested_rent_tickets[0]" ng-controller="ctrlRentDetail">
         <a class="btn btn-info" target="_blank" ng-href="/property-to-rent/{% ticketItem.id %}/edit?editor=admin" title="{% $root.i18n('编辑目标房源') %}">
             <i class="fa fa-pencil"></i>
         </a>
