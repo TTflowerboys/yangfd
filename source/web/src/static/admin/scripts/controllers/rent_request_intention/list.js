@@ -1,6 +1,6 @@
 (function () {
 
-    function ctrlRentRequestIntentionList($scope, fctModal, rentRequestIntentionApi, userApi, $filter, enumApi,$rootScope, $state, $q, couponApi, miscApi, misc) {
+    function ctrlRentRequestIntentionList($scope, fctModal, rentRequestIntentionApi, userApi, $filter, enumApi,$rootScope, $state, $q, couponApi, miscApi, misc, growl) {
         var api = $scope.api = rentRequestIntentionApi
 
         $scope.perPage = 12
@@ -121,6 +121,56 @@
                 })
             }
             item.unmatchRequirements = unmatchRequirements
+        }
+
+        $scope.canAssign = function (item, userId) {
+            return _.isEmpty(item.assignee) || _.isEmpty(_.find(item.assignee, {id: userId}))
+        }
+        $scope.addAssignee = function (item, userId) {
+        //    关注咨询单
+            if(item.disabledAssignee) {
+                return
+            }
+            item.disabledAssignee = true
+            rentRequestIntentionApi.getOne(item.id).then(function (res) {
+                var originAssignee = _.pluck(res.data.val.assignee, 'id') || []
+                return _.uniq(originAssignee.concat([userId]))
+            }).then(function (newAssignee) {
+                return rentRequestIntentionApi.update({
+                    id: item.id,
+                    assignee: newAssignee
+                })
+            }).then(function (res) {
+                growl.addSuccessMessage(i18n('关注成功'), {enableHtml: true})
+                item.assignee = res.data.val.assignee
+                item.disabledAssignee = false
+            }).catch(function () {
+                growl.addErrorMessage(i18n('关注失败'), {enableHtml: true})
+                item.disabledAssignee = false
+            })
+        }
+        $scope.removeAssignee = function (item, userId) {
+        //    取消关注咨询单
+            if(item.disabledAssignee) {
+                return
+            }
+            item.disabledAssignee = true
+            rentRequestIntentionApi.getOne(item.id).then(function (res) {
+                var originAssignee = _.pluck(res.data.val.assignee, 'id') || []
+                return _.without(originAssignee, userId)
+            }).then(function (newAssignee) {
+                return rentRequestIntentionApi.update({
+                    id: item.id,
+                    assignee: newAssignee
+                })
+            }).then(function (res) {
+                growl.addSuccessMessage(i18n('取消关注成功'), {enableHtml: true})
+                item.assignee = res.data.val.assignee
+                item.disabledAssignee = false
+            }).catch(function () {
+                growl.addErrorMessage(i18n('取消关注失败'), {enableHtml: true})
+                item.disabledAssignee = false
+            })
         }
 
         $scope.refreshList = function () {

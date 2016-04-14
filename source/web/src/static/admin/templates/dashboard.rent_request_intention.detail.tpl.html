@@ -10,6 +10,21 @@
             <span class="fa fa-chevron-left"></span> {%$root.i18n('返回')%}
         </button>
     </span>
+    <span class="btn-group pull-right" ng-if="item && item.interested_rent_tickets && user" style="margin-left: 20px;">
+        <a ng-show="canAssign(item, user.id)" class="btn btn-success" ng-click="addAssignee(item, user.id)" title="{%$root.i18n('关注咨询单')%}" ng-disabled="item.disabledAssignee">
+            <i class="fa fa-eye"></i>
+            {%$root.i18n('关注咨询单')%}
+        </a>
+        <a ng-show="!canAssign(item, user.id)" class="btn btn-danger" ng-click="removeAssignee(item, user.id)" title="{%$root.i18n('取消关注咨询单')%}" ng-disabled="item.disabledAssignee">
+            <i class="fa fa-eye-slash"></i>
+            {%$root.i18n('取消关注咨询单')%}
+        </a>
+    </span>
+    <div class="btn-group pull-right" style="margin-left: 20px;">
+        <span ng-if="!(item.assignee && item.assignee.length)">{%$root.i18n('暂无关注者')%}</span>
+        <span ng-repeat="assigneeUser in item.assignee">{%assigneeUser.nickname%}</span>
+        <span ng-if="(item.assignee && item.assignee.length)">{%$root.i18n('已关注')%}</span>
+    </div>
     <span class="btn-group pull-right" style="margin-left: 20px;">
         <span has-permission="admin,jr_admin" class="btn btn-danger" ng-click="onRemove(item,$index)" title="{%$root.i18n('移除咨询单')%}">
             <i class="fa fa-trash-o"></i>
