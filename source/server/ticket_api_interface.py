@@ -554,6 +554,7 @@ def rent_intention_ticket_remove(user, ticket_id):
     )),
     referrer=str,
     referral=str,
+    assignee=(list, None, ObjectId),
     status=str,
     reason=str,
     updated_comment=str,
@@ -810,7 +811,11 @@ def rent_intention_ticket_sms_receive(params):
         "role": role,
         "ticket_id": ticket["id"],
     }
-    f_app.message.add(msg, f_app.user.admin.list(admin_roles=f_app.common.advanced_admin_roles))
+
+    if "assignee" in ticket and ticket["assignee"]:
+        f_app.message.add(msg, ticket["assignee"])
+    else:
+        f_app.message.add(msg, f_app.user.admin.list(admin_roles=f_app.common.advanced_admin_roles))
 
     custom_fields = ticket.get("custom_fields")
     for custom_field in custom_fields:
