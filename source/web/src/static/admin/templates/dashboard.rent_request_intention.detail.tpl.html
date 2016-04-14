@@ -50,7 +50,7 @@
     </div>
     <div class="panel-body" ng-show="activeTab === 'messageTemplate' && expand">
         <div class="clearfix">
-            <select ng-options="p.title for p in messageTemplate[newStatus]" ng-model="selectedMessageTemplate" class="form-control input-sm pull-right" style="width: 130px; margin-bottom: 10px;">
+            <select ng-options="p.title for p in messageTemplate[newStatus]" ng-model="selectedMessageTemplate" class="form-control input-sm pull-right" style="width: 300px; margin-bottom: 10px;">
                 <!--<option value="">&#45;&#45; {%$root.i18n('选择短信模板')%} &#45;&#45;</option>-->
             </select>
         </div>
@@ -68,7 +68,7 @@
         </div>
     </div>
     <div class="panel-body" ng-show="activeTab === 'emailTemplate' && expand" style="position: relative;">
-        <select ng-options="p.title for p in emailTemplate[newStatus]" ng-model="selectedEmailTemplate" class="form-control input-sm" style="width: 130px;position: absolute;margin-bottom: 10px;right: 15px;top: 10px;z-index: 100;">
+        <select ng-options="p.title for p in emailTemplate[newStatus]" ng-model="selectedEmailTemplate" class="form-control input-sm" style="width: 300px;position: absolute;margin-bottom: 10px;right: 15px;top: 10px;z-index: 100;">
             <!--<option value="">&#45;&#45; {%$root.i18n('选择邮件模板')%} &#45;&#45;</option>-->
         </select>
         <div ng-if="newStatus && emailTemplate[newStatus]" edit-rich-content-of-template ng-model="email" template="selectedEmailTemplate.url" role="{%selectedEmailTemplate.role%}"></div>
