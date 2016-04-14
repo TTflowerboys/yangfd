@@ -37,55 +37,51 @@
             ],
             'in_progress': [
                 {
-                    title: window.i18n('【房东】1.向房东发送租客的咨询单(租客要求视频看房)'),
+                    title: window.i18n('【房东】2.向房东发送租客的咨询单(租客要求视频看房)'),
                     url: '/static/admin/templates/message/in_progress/landlord-1.html',
                     role: 'landlord'
                 }, {
-                    title: window.i18n('【房东】2.回复房东的短信(房东索要租客联系方式)'),
+                    title: window.i18n('【房东】3.回复房东的短信(房东索要租客联系方式)'),
                     url: '/static/admin/templates/message/in_progress/landlord-2.html',
                     role: 'landlord'
                 }, {
-                    title: window.i18n('【房东】2.回复房东的短信(房东提出来看房)'),
+                    title: window.i18n('【房东】3.回复房东的短信(房东提出来看房)'),
                     url: '/static/admin/templates/message/in_progress/landlord-3.html',
                     role: 'landlord'
                 }, {
-                    title: window.i18n('【租客】3.与租客的沟通(开始与租客交流)'),
-                    url: '/static/admin/templates/message/in_progress/tenant-1.html',
-                    role: 'tenant'
-                }, {
-                    title: window.i18n('【租客】3.与租客的沟通(租客消息包含联系方式)'),
+                    title: window.i18n('【租客】4.与租客的沟通(租客消息包含联系方式)'),
                     url: '/static/admin/templates/message/in_progress/tenant-2.html',
                     role: 'tenant'
                 }, {
-                    title: window.i18n('【租客】3.与租客的沟通(租客消息包含看房申请)'),
+                    title: window.i18n('【租客】4.与租客的沟通(租客消息包含看房申请)'),
                     url: '/static/admin/templates/message/in_progress/tenant-3.html',
                     role: 'tenant'
                 }, {
-                    title: window.i18n('【房东】4.让房东录制视频(租客接受视频看房)'),
+                    title: window.i18n('【房东】5.让房东录制视频(租客接受视频看房)'),
                     url: '/static/admin/templates/message/in_progress/landlord-4.html',
                     role: 'landlord'
                 }, {
-                    title: window.i18n('【租客】5.向租客发送视频后(微信方式发送视频)'),
+                    title: window.i18n('【租客】6.向租客发送视频后(微信方式发送视频)'),
                     url: '/static/admin/templates/message/in_progress/tenant-4.html',
                     role: 'tenant'
                 }, {
-                    title: window.i18n('【租客】5.向租客发送视频后(邮件方式发送视频)'),
+                    title: window.i18n('【租客】6.向租客发送视频后(邮件方式发送视频)'),
                     url: '/static/admin/templates/message/in_progress/tenant-5.html',
                     role: 'tenant'
                 }, {
-                    title: window.i18n('【租客】6.租客聊天中提出可以预定'),
+                    title: window.i18n('【租客】7.租客聊天中提出可以预定'),
                     url: '/static/admin/templates/message/in_progress/tenant-6.html',
                     role: 'tenant'
                 }, {
-                    title: window.i18n('【房东】6.租客聊天中提出可以预定'),
+                    title: window.i18n('【房东】7.租客聊天中提出可以预定'),
                     url: '/static/admin/templates/message/in_progress/landlord-5.html',
                     role: 'landlord'
                 }, {
-                    title: window.i18n('【租客】7. 租客房东回复’是‘(租客回复‘是’)'),
+                    title: window.i18n('【租客】8. 租客房东回复’是‘(租客回复‘是’)'),
                     url: '/static/admin/templates/message/in_progress/tenant-7.html',
                     role: 'tenant'
                 }, {
-                    title: window.i18n('【房东】7. 租客房东回复’是‘(房东回复‘是’)'),
+                    title: window.i18n('【房东】8. 租客房东回复’是‘(房东回复‘是’)'),
                     url: '/static/admin/templates/message/in_progress/landlord-6.html',
                     role: 'landlord'
                 }
