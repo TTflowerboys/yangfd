@@ -33,29 +33,35 @@
                         <li class="dropdown hidden-xs">
                             <a class="btn dropdown-toggle" data-toggle="!dropdown" href="index.html#">
                                 <i class="fa fa-envelope"></i>
-                                <span ng-if="messages.length" class="number">{%messages.length%}</span>
+                                <span ng-if="ticketsGroup.length" class="number">{%ticketsGroup.length%}</span>
                             </a>
                             <div class="dropdown-menu messages" style="left: inherit; right: 0;">
                                 <div>
                                     <span class="dropdown-menu-title">{%$root.i18n('共有')%}{%messages.length%}{%$root.i18n('条待审核短信')%}</span>
                                 </div>
-                                <ul class="messages">
-                                    <li ng-repeat="message in messages">
-                                        <a ui-sref="dashboard.rent_request_intention.detail({id: message.ticket_id})" ng-click="markMessageAsRead(message)">
-                                            <span class="header">
-                                                <span class="from">
-                                                    {%message.sender.nickname%}({%message.role === 'tenant' ? $root.i18n('租客') : $root.i18n('房东')%})
-                                                </span>
-                                                <span class="time">
-                                                    {%message.time * 1000 | date : 'yyyy-MM-dd H:mm'%}
-                                                </span>
-                                            </span>
-                                            <span class="message">
-                                                {%message.text%}
-                                            </span>
-                                        </a>
+                                <ul class="tickets">
+                                    <li ng-repeat="ticket in ticketsGroup">
+                                        <h3 title="{%ticket.rentTicket.title%}">{%ticket.rentTicket.title%}</h3>
+                                        <ul class="messages">
+                                            <li ng-repeat="message in ticket.messages">
+                                                <a ui-sref="dashboard.rent_request_intention.detail({id: message.ticket_id})" ng-click="markMessageAsRead(message)">
+                                                    <span class="header">
+                                                        <span class="from">
+                                                            {%message.sender.nickname%}({%message.role === 'tenant' ? $root.i18n('租客') : $root.i18n('房东')%})
+                                                        </span>
+                                                        <span class="time">
+                                                            {%message.time * 1000 | date : 'yyyy-MM-dd H:mm'%}
+                                                        </span>
+                                                    </span>
+                                                    <span class="message">
+                                                        {%message.text%}
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </li>
                                 </ul>
+
                                 <div ng-if="messages.length">
                                     <a ng-click="markAllMessageAsRead()" class="dropdown-menu-sub-footer">{%$root.i18n('全部标记为已读')%}</a>
                                 </div>

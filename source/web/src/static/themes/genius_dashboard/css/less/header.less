@@ -244,18 +244,32 @@
   	color: @darkGrey;
   	white-space: normal !important;
 }
-.dropdown-menu ul{
+.dropdown-menu ul.tickets{
 	overflow-x: hidden;
 	overflow-y: scroll;
 	max-height: 600px;
-}
+	> li{
+		h3{
+			max-width: 300px;
+			margin: 5px 0;
+			padding: 0 5px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			word-break: normal;
+			white-space: pre;
+			font-size: 14px;
+			background: #f3f3f3;
+			color: #666 !important;
+		}
+		border-bottom: 1px solid lighten(@grey,20%);
+		.messages > li {
+			border-bottom: 1px dashed lighten(@grey,20%);
+			&:last-child {
+				border-bottom: 0px !important;
+			}
+		}
+	}
 
-.dropdown-menu li {
-	border-bottom: 1px solid lighten(@grey,20%);
-}
-
-.dropdown-menu li:last-child {
-	border-bottom: 0px !important;
 }
 
 .dropdown-menu li > a:hover,

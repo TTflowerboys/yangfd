@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlDashboard($scope, $state, $http, userApi, $rootScope, growl, errors, messageApi, misc, $timeout, $q, permissions) {
+    function ctrlDashboard($scope, $state, $http, userApi, $rootScope, growl, errors, messageApi, misc, $timeout, $q, permissions, rentRequestIntentionApi) {
 
         $scope.user = {}
 
@@ -78,6 +78,7 @@
         }
 
         $scope.messages = []
+        $scope.ticketsGroup = []
         $scope.notify = misc.notify
 
         //第一次打开页面即请求允许桌面通知，以免需要使用桌面通知时浏览器窗口处于最小化状态
@@ -151,7 +152,20 @@
 
         $scope.fetchUnreadMessage = function () {
             messageApi.receive({status: 'sent', type: 'new_sms'}).then(function (res) {
+                var messageGroup = _.groupBy(res.data.val, 'ticket_id')
                 $scope.messages = res.data.val
+                $q.all(_.map(_.keys(messageGroup), function (ticketId) {
+                    return rentRequestIntentionApi.getOne(ticketId)
+                })).then(function (responses) {
+                    return _.map(responses, function (response) {
+                        return {
+                            rentTicket: _.isArray(response.data.val.interested_rent_tickets) ? response.data.val.interested_rent_tickets[0] : {},
+                            messages: messageGroup[response.data.val.id]
+                        }
+                    })
+                }).then(function (ticketsGroup) {
+                    $scope.ticketsGroup = ticketsGroup
+                })
             })
         }
 
@@ -161,6 +175,7 @@
         $scope.markAllMessageAsRead = function () { //将全部消息标为已读状态
             messageApi.receive({status: 'sent', type: 'new_sms', mark: 'read'}).then(function () {
                 $scope.messages = []
+                $scope.ticketsGroup = []
             })
         }
 
