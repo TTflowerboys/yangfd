@@ -18,18 +18,26 @@
         $scope.messageTemplate = {
             'assigned': [
                 {
-                    title: window.i18n('申请确认短信'),
-                    url: '/static/admin/templates/message/assigned/tenant.html',
+                    title: window.i18n('【租客】1.租客咨询单确认(咨询单内容正常)'),
+                    url: '/static/admin/templates/message/assigned/tenant-1.html',
                     role: 'tenant'
                 }, {
-                    title: window.i18n('租客给房东的短信'),
+                    title: window.i18n('【租客】1.租客咨询单确认(租客要求实地看房)'),
+                    url: '/static/admin/templates/message/assigned/tenant-2.html',
+                    role: 'tenant'
+                }, {
+                    title: window.i18n('【租客】1.租客咨询单确认(租客索要联系方式)'),
+                    url: '/static/admin/templates/message/assigned/tenant-3.html',
+                    role: 'tenant'
+                }, {
+                    title: window.i18n('【房东】通知房东有租客咨询'),
                     url: '/static/admin/templates/message/assigned/landlord.html',
                     role: 'landlord'
                 }
             ],
             'in_progress': [
                 {
-                    title: window.i18n('【房东】1.向房东发送租客的咨询单(租客询问了联系方式)'),
+                    title: window.i18n('【房东】1.向房东发送租客的咨询单(租客要求视频看房)'),
                     url: '/static/admin/templates/message/in_progress/landlord-1.html',
                     role: 'landlord'
                 }, {
