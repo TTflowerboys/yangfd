@@ -593,6 +593,7 @@ def rent_intention_ticket_edit(user, ticket_id, params):
 @f_api('/rent_intention_ticket/search', params=dict(
     status=(list, None, str),
     per_page=int,
+    last_modified_time=datetime,
     time=datetime,
     starttime=datetime,
     sort=(list, ["time", 'desc'], str),
