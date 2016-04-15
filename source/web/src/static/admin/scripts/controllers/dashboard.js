@@ -130,8 +130,6 @@
                                     })).then(function () {
                                         $scope.fetchUnreadMessage()
                                     })
-                                } else {
-                                    self.focus()
                                 }
                             }
                         })
