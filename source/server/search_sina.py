@@ -520,7 +520,7 @@ def get_weibo_search_result(keywords_list):
 
     block_list = load_block_list('block_list.xlsx')
 
-    result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
+    # result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
     result_powerapple = crawler_powerapple('10141')
     result_ybirds = reduce_overlap(crawler_ybirds(['9', '10']))
     result_douban_group = reduce_overlap(crawler_douban_group(['ukhome', '436707', '338873', 'LondonHome']))
