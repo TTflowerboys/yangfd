@@ -77,7 +77,7 @@
             }
         }
 
-        $scope.messages = []
+        $scope.messagesLength = 0
         $scope.ticketsGroup = []
         $scope.notify = misc.notify
 
@@ -108,31 +108,46 @@
             }
         })()
 
+        $scope.isInRentRequestDetail = function (ticketId) {
+            return $state.current.name === 'dashboard.rent_request_intention.detail' && $state.params.id === ticketId
+        }
         $scope.fetchNewMessage = function () {
-            var cache = {}
             return messageApi.receive({status: 'new', type: 'new_sms', mark: 'sent'}).then(function (res) {
-                _.each(res.data.val, function (item) {
-                    //    推送桌面消息
-                    cache[item.ticket_id] = cache[item.ticket_id] || []
-                    cache[item.ticket_id].push(item.id)
-                    misc.notify((item.role === 'tenant' ? i18n('租客') : i18n('房东')) + window.i18n('发来一条待审核短信（点击处理）'), {
-                        body: item.text,
-                        tag: item.ticket_id, //此处写成咨询单的id，则可以将一个咨询单的桌面消息合并成一个
-                        onclick: function(){
-                            this.close()
-                            window.open('/admin#/dashboard/rent_request_intention/' + item.ticket_id)
-                            //将该咨询单下的所有消息标为已读，然后更新未读消息列表
-                            $q.all(_.map(cache[item.ticket_id], function (item) {
-                                return messageApi.mark(item, 'read')
-                            })).then(function () {
-                                delete cache[item.ticket_id]
-                                $scope.fetchUnreadMessage()
-                            })
-                        }
+                var messageGroup = _.groupBy(res.data.val, 'ticket_id')
+                var processedMessageGroup = _.mapObject(messageGroup, function (messages, ticketId) {
+                    _.each(messages, function (item) {
+                        //    推送桌面消息
+                        misc.notify((item.role === 'tenant' ? i18n('租客') : i18n('房东')) + window.i18n('发来一条待审核短信（点击处理）'), {
+                            body: item.text,
+                            tag: item.ticket_id, //此处写成咨询单的id，则可以将一个咨询单的桌面消息合并成一个
+                            onclick: function(){
+                                this.close()
+                                if(!$scope.isInRentRequestDetail(ticketId)) {
+                                    window.open('/admin#/dashboard/rent_request_intention/' + item.ticket_id)
+                                    //将该咨询单下的所有消息标为已读，然后更新未读消息列表
+                                    $q.all(_.map(messages, function (item) {
+                                        return messageApi.mark(item.id, 'read')
+                                    })).then(function () {
+                                        $scope.fetchUnreadMessage()
+                                    })
+                                } else {
+                                    self.focus()
+                                }
+                            }
+                        })
                     })
+                    if($scope.isInRentRequestDetail(ticketId)) { //表示当前正处于消息所属咨询单的详情页
+                        $scope.$broadcast('refreshRentRequestIntentionDetail');
+                        $q.all(_.map(messages, function (item) {
+                            return messageApi.mark(item.id, 'read')
+                        }))
+                        return []
+                    } else {
+                        return messages
+                    }
                 })
                 //除了第一次会手动获取未读消息列表外，每次有status 为 new 的未读消息时都需要更新未读消息列表
-                if(res.data.val.length && $scope.needFetchUnreadMessage) {
+                if(_.flatten(_.pluck(processedMessageGroup, 'messages')).length && $scope.needFetchUnreadMessage) {
                     $scope.blinkTitle()
                     $scope.fetchUnreadMessage()
                 }
@@ -153,7 +168,6 @@
         $scope.fetchUnreadMessage = function () {
             messageApi.receive({status: 'sent', type: 'new_sms'}).then(function (res) {
                 var messageGroup = _.groupBy(res.data.val, 'ticket_id')
-                $scope.messages = res.data.val
                 $q.all(_.map(_.keys(messageGroup), function (ticketId) {
                     return rentRequestIntentionApi.getOne(ticketId)
                 })).then(function (responses) {
@@ -165,6 +179,7 @@
                     })
                 }).then(function (ticketsGroup) {
                     $scope.ticketsGroup = ticketsGroup
+                    $scope.messagesLength = _.flatten(_.pluck(ticketsGroup, 'messages')).length
                 })
             })
         }
@@ -174,7 +189,7 @@
         })*/
         $scope.markAllMessageAsRead = function () { //将全部消息标为已读状态
             messageApi.receive({status: 'sent', type: 'new_sms', mark: 'read'}).then(function () {
-                $scope.messages = []
+                $scope.messagesLength = 0
                 $scope.ticketsGroup = []
             })
         }

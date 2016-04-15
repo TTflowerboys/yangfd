@@ -33,11 +33,11 @@
                         <li class="dropdown hidden-xs">
                             <a class="btn dropdown-toggle" data-toggle="!dropdown" href="index.html#">
                                 <i class="fa fa-envelope"></i>
-                                <span ng-if="ticketsGroup.length" class="number">{%messages.length%}</span>
+                                <span ng-if="messagesLength" class="number">{%messagesLength%}</span>
                             </a>
                             <div class="dropdown-menu messages" style="left: inherit; right: 0;">
                                 <div>
-                                    <span class="dropdown-menu-title">{%$root.i18n('共有')%}{%messages.length%}{%$root.i18n('条待审核短信')%}</span>
+                                    <span class="dropdown-menu-title">{%$root.i18n('共有')%}{%messagesLength%}{%$root.i18n('条待审核短信')%}</span>
                                 </div>
                                 <ul class="tickets">
                                     <li ng-repeat="ticket in ticketsGroup">
@@ -64,7 +64,7 @@
                                     </li>
                                 </ul>
 
-                                <div ng-if="messages.length">
+                                <div ng-if="messagesLength">
                                     <a ng-click="markAllMessageAsRead()" class="dropdown-menu-sub-footer">{%$root.i18n('全部标记为已读')%}</a>
                                 </div>
                             </div>

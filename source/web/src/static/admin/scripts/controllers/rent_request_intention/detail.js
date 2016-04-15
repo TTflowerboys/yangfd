@@ -126,17 +126,7 @@
         }
         $scope.host = misc.host
         $scope.currentTime = new Date().getTime()
-        var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
-
-        if (itemFromParent) {
-            $scope.item = itemFromParent
-            if(_.isArray($scope.item.interested_rent_tickets) && !_.isEmpty($scope.item.interested_rent_tickets[0])) {
-                miscApi.getShorturl(misc.host + '/property-to-rent/' + $scope.item.interested_rent_tickets[0].id).success(function (data) {
-                    $scope.item.shorturl = data.val
-                })
-            }
-        } else {
-            $scope.item = {}
+        $scope.getItem = function () {
             api.getOne($stateParams.id, {errorMessage: true})
                 .success(function (data) {
                     var item =  data.val
@@ -182,6 +172,22 @@
                             $scope.getUnmatchhRequirements($scope.item)
                         })
                 })
+        }
+        var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
+        $scope.$on('refreshRentRequestIntentionDetail', function () {
+            $scope.getItem()
+        })
+
+        if (itemFromParent) {
+            $scope.item = itemFromParent
+            if(_.isArray($scope.item.interested_rent_tickets) && !_.isEmpty($scope.item.interested_rent_tickets[0])) {
+                miscApi.getShorturl(misc.host + '/property-to-rent/' + $scope.item.interested_rent_tickets[0].id).success(function (data) {
+                    $scope.item.shorturl = data.val
+                })
+            }
+        } else {
+            $scope.item = {}
+            $scope.getItem()
         }
 
         $scope.updateItem = function (item) {
