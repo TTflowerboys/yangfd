@@ -232,6 +232,7 @@ class common(f_common):
         40089: "Invalid image source: not from existing property or news",
         40088: "Failed to get walkscore",
         40087: "background process are still processing the property, try again later",
+        40086: "insufficient nexmo numbers",
 
         40399: "Permission denied",
         40398: "Permission denied: not a valid property_id",
@@ -255,6 +256,7 @@ f_app.common.register_error_code(40090)
 f_app.common.register_error_code(40089)
 f_app.common.register_error_code(40088)
 f_app.common.register_error_code(40087)
+f_app.common.register_error_code(40086)
 f_app.common.register_error_code(40399)
 f_app.common.register_error_code(40398)
 f_app.common.register_error_code(40397)

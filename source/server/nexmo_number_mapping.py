@@ -86,7 +86,7 @@ class nexmo_number(f_app.module_base):
             if nexmo_number in all_nexmo_numbers:
                 all_nexmo_numbers.remove(nexmo_number)
         if len(all_nexmo_numbers) < 1:
-            abort(50000, "insufficient nexmo numbers")
+            abort(40086, "insufficient nexmo numbers")
         return random.choice(all_nexmo_numbers)
 
     def update(self, nexmo_number_id, params):
