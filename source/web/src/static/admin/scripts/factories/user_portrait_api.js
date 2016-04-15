@@ -6,6 +6,9 @@
         return {
             get_users_portrait_general: function (date_from, date_to) {
               return $http.get('/api/1/get-users-portrait' + '?date_from=' + date_from + '&date_to=' + date_to)
+            },
+            get_users_portrait_tenants: function (date_from, date_to) {
+              return $http.get('/api/1/get-users-portrait-tenants-behavior' + '?date_from=' + date_from + '&date_to=' + date_to)
             }
         }
     }
