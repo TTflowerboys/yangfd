@@ -232,6 +232,9 @@
         }
 
         $scope.submit = function ($event, form) {
+            if($scope.isInvalid($scope.item)) {
+                return false
+            }
             $event.preventDefault()
             $scope.submitted = true
             var submitItem = getSubmitItem($scope.item)
@@ -257,6 +260,9 @@
         }
 
         $scope.submitForReview = function ($event, form) {
+            if($scope.isInvalid($scope.item)) {
+                return false
+            }
             $scope.item.status = 'not reviewed'
             $scope.submit($event, form)
         }
@@ -274,6 +280,9 @@
         }
 
         $scope.submitForPreview = function ($event, form) {
+            if($scope.isInvalid($scope.item)) {
+                return false
+            }
             $scope.submitted = true
             var submitItem = getSubmitItem($scope.item)
             var changed = misc.getChangedI18nAttributes(submitItem, $scope.lastItem)

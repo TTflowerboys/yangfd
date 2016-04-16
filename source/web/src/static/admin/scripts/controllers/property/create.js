@@ -98,6 +98,9 @@
         }
 
         $scope.submitForReview = function ($event, form) {
+            if($scope.isInvalid($scope.item)) {
+                return false
+            }
             $scope.item.status = 'not reviewed'
             $scope.submit($event, form)
         }

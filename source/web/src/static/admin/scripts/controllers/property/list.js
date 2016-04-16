@@ -3,7 +3,7 @@
 
 (function () {
 
-    function ctrlPropertyList($scope, fctModal, api, $state) {
+    function ctrlPropertyList($scope, fctModal, api, $state, growl) {
 
         $scope.list = []
         $scope.perPage = 12
@@ -35,6 +35,20 @@
             })
         }
 
+        $scope.isInvalid = function (item) {
+            if(!_.every(item.main_house_types, function (item) {
+                    return item.building_area_min && item.building_area_min.unit && item.building_area_min.value
+                })) {
+                growl.addErrorMessage(window.i18n('户型的最小面积未填写完整'), {enableHtml: true})
+                return true
+            }
+            if(!_.every(item.main_house_types, function (item) {
+                    return item.total_price_min && item.total_price_min.unit && item.total_price_min.value
+                })) {
+                growl.addErrorMessage(window.i18n('户型的最低总价未填写完整'), {enableHtml: true})
+                return true
+            }
+        }
         $scope.searchProperty = function () {
             updateParams()
             api.getAll({
