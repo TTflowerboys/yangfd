@@ -190,6 +190,10 @@
             $scope.getItem()
         }
 
+        $scope.isStudentHouse = function (rentTicket) {
+            return rentTicket && rentTicket.property && rentTicket.property.property_type && rentTicket.property.property_type.slug === 'student_housing' && rentTicket.property.partner === true
+        }
+
         $scope.updateItem = function (item) {
             return api.update(item).then(function (data) {
                 if(_.isArray($scope.list)) {
@@ -208,40 +212,6 @@
                     growl.addSuccessMessage($rootScope.renderHtml(i18n('操作成功')), {enableHtml: true})
                     $state.go($stateParams.from || '^', $stateParams.fromParams)
                 })
-            })
-        }
-
-        $scope.receiveMessageFromLandlord = function (content) { //收到来自房东的短信
-            $scope.addDynamic({
-                originContent: content,
-                content: content,
-                type: 'message',
-                role: 'landlord',
-                messageInfo: {
-                    status: 'needReview',
-                    target: 'tenant'
-                },
-                user: {
-                    id: $scope.item.interested_rent_tickets[0].creator_user.id,
-                    nickname: $scope.item.interested_rent_tickets[0].creator_user.nickname,
-                }
-            })
-        }
-
-        $scope.receiveMessageFromTenant = function (content) { //收到来自租客的短信
-            $scope.addDynamic({
-                originContent: content,
-                content: content,
-                type: 'message',
-                role: 'tenant',
-                messageInfo: {
-                    status: 'needReview',
-                    target: 'landlord'
-                },
-                user: {
-                    id: $scope.item.creator_user.id,
-                    nickname: $scope.item.creator_user.nickname,
-                }
             })
         }
 

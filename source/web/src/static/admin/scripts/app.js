@@ -30,9 +30,12 @@ angular.module('app',
                 value_float: value
             })
         }
-        $rootScope.isStudentHouse = function (rentTicket) {
-            return rentTicket && rentTicket.property && rentTicket.property.property_type && rentTicket.property.property_type.slug === 'student_housing' && rentTicket.property.partner === true
-        }
+
+
+        /*
+        * 路由改变时根据情况设置$stateParams.from,
+        * 在web/src/static/admin/scripts/directives/btn_go_back.js中会使用此处设置的$stateParams.from来进行返回的跳转
+        * */
         $rootScope.$on('$stateChangeStart',
             function (event, toState, toParams, fromState, fromParams) {
                 if (toState.name === 'signIn') {

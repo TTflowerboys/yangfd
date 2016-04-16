@@ -28,12 +28,14 @@
             location.href = team.setQuery('_i18n', $scope.dashboardLanguage.value)
         }
 
+        //退出登录后跳转到登陆界面
         $scope.logout = function () {
             $http.get('/logout', {errorMessage: true})
                 .success(function () {
                     $state.go('signIn')
                 })
         }
+        //切换语言
         $scope.changeLanguage = function () {
             if ($scope.dashboardLanguage.value) {
                 location.href = team.setQuery('_i18n', $scope.dashboardLanguage.value)
@@ -54,6 +56,9 @@
             code: $state.params.code || ''
         }
 
+        /*
+        * Dashboard顶部上的搜索条，搜索咨询单，出租房产或者用户
+        * */
         $scope.searchTicket = function (type, code) {
             if(!_.isEmpty(code)) {
                 switch(type) {
@@ -70,23 +75,30 @@
                 }
             }
         }
-
+        /*
+         * 顶部搜索条内按回车键后就进行搜索
+         * */
         $scope.searchInputKeyDown = function (event) {
             if(event.keyCode === 13) {
                 $scope.searchTicket($scope.selected.type, $scope.selected.code)
             }
         }
 
-        $scope.messagesLength = 0
-        $scope.ticketsGroup = []
+        $scope.messagesLength = 0 //未读消息条数
+        $scope.ticketsGroup = [] //未读消息按照咨询单分组的结果
         $scope.notify = misc.notify
 
-        //第一次打开页面即请求允许桌面通知，以免需要使用桌面通知时浏览器窗口处于最小化状态
+        /*
+        * 第一次打开页面即请求允许桌面通知，以免需要使用桌面通知时浏览器窗口处于最小化状态
+        * */
         if (window.Notification && window.Notification.permission !== 'granted') {
             window.Notification.requestPermission()
         }
 
-        $scope.blinkTitle = (function () { //让标签页上的标题闪烁
+        /*
+        * 让有新消息的标签页标题栏闪烁，当鼠标在有新消息标签页划过后就会停止闪烁
+        * */
+        $scope.blinkTitle = (function () {
             var title = document.title
             var msg = window.i18n('新消息')
             var timeoutId
@@ -107,25 +119,32 @@
                 }
             }
         })()
-
+        /*
+        * 当前是否正处于消息所属咨询单的详情页
+        * */
         $scope.isInRentRequestDetail = function (ticketId) {
             return $state.current.name === 'dashboard.rent_request_intention.detail' && $state.params.id === ticketId
         }
+        /*
+         * 获取新消息（status 为 new 的消息），同时会将新消息标记为已发送(status 为 sent)
+         * 获取到新消息后会将新消息按照咨询单来分组
+         * 紧接着会推送桌面消息，桌面消息被点击时，如果没有处于该咨询单详情页，则在新的页面打开消息对应的咨询单详情页
+         * 然后会判断是否需要刷新未读消息列表
+         * */
         $scope.fetchNewMessage = function () {
             return messageApi.receive({status: 'new', type: 'new_sms', mark: 'sent'}).then(function (res) {
-                var messageGroup = _.groupBy(res.data.val, 'ticket_id')
+                var messageGroup = _.groupBy(res.data.val, 'ticket_id') //按照咨询单来分组
                 var processedMessageGroup = _.mapObject(messageGroup, function (messages, ticketId) {
                     _.each(messages, function (item) {
-                        //    推送桌面消息
+                        //推送桌面消息
                         misc.notify((item.role === 'tenant' ? i18n('租客') : i18n('房东')) + window.i18n('发来一条待审核短信（点击处理）'), {
                             body: item.text,
                             tag: item.ticket_id, //此处写成咨询单的id，则可以将一个咨询单的桌面消息合并成一个
-                            onclick: function(){
+                            onclick: function(){ //点击桌面消息后执行的回调函数
                                 this.close()
-                                if(!$scope.isInRentRequestDetail(ticketId)) {
+                                if(!$scope.isInRentRequestDetail(ticketId)) { //如果没有处于该咨询单详情页，则在新的页面打开消息对应的咨询单详情页
                                     window.open('/admin#/dashboard/rent_request_intention/' + item.ticket_id)
-                                    //将该咨询单下的所有消息标为已读，然后更新未读消息列表
-                                    $q.all(_.map(messages, function (item) {
+                                    $q.all(_.map(messages, function (item) { //将该咨询单下的所有消息标为已读，然后获取未读消息列表并更新
                                         return messageApi.mark(item.id, 'read')
                                     })).then(function () {
                                         $scope.fetchUnreadMessage()
@@ -134,8 +153,8 @@
                             }
                         })
                     })
-                    if($scope.isInRentRequestDetail(ticketId)) { //表示当前正处于消息所属咨询单的详情页
-                        $scope.$broadcast('refreshRentRequestIntentionDetail');
+                    if($scope.isInRentRequestDetail(ticketId)) {
+                        $scope.$broadcast('refreshRentRequestIntentionDetail'); //broadcast 一个 'refreshRentRequestIntentionDetail' 事件，通知咨询单详情页更新动态
                         $q.all(_.map(messages, function (item) {
                             return messageApi.mark(item.id, 'read')
                         }))
@@ -163,6 +182,9 @@
             $scope.fetchUnreadMessage()
         })
 
+        /*
+        * 获取未读消息列表，并且按咨询单来分组
+        * */
         $scope.fetchUnreadMessage = function () {
             messageApi.receive({status: 'sent', type: 'new_sms'}).then(function (res) {
                 var messageGroup = _.groupBy(res.data.val, 'ticket_id')
@@ -182,16 +204,18 @@
             })
         }
 
-        /*messageApi.receive({status: 'new'}).success(function (data) {
-            console.log(data)
-        })*/
-        $scope.markAllMessageAsRead = function () { //将全部消息标为已读状态
+        /*
+        * 将全部未读消息都标为已读状态
+        * */
+        $scope.markAllMessageAsRead = function () {
             messageApi.receive({status: 'sent', type: 'new_sms', mark: 'read'}).then(function () {
                 $scope.messagesLength = 0
                 $scope.ticketsGroup = []
             })
         }
-
+        /*
+         * 将单条未读消息都标为已读状态
+         * */
         $scope.markMessageAsRead = function (message) {
             messageApi.mark(message.id, 'read').then(function () {
                 $scope.fetchUnreadMessage()

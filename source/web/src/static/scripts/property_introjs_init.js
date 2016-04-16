@@ -1,23 +1,43 @@
 /**
- * Created by levy on 15-6-10.
+ * 在手机上显示提示信息的jQuery插件
+ * @constructor
+ * @param {Object} options - 插件参数设置.
+ * @param {number} options.duration - 渐隐和渐现动画时间，默认为300ms.
+ * @param {string} options.arrow - 提示框的方向，可以为：'top', 'bottom', 'left', 'right'.
  */
 function PhoneIntroJs(options) {
     options = $.extend({duration: 300, arrow: 'top'}, options)
+    /**
+     * 初始化插件
+     * @method
+     */
     this.init = function () {
         this.elem = $('<div class="intro-phone" style="display: none;"><table><tbody><tr><td class="text"></td><td class="close"><i class="icon-circle_close_delete"></i></td></tr></tbody></table><div class="introjs-arrow-phone"></div></div>')
         this.elem.css(options.style).find('.text').text(options.text).end().find('.introjs-arrow-phone').addClass(options.arrow)
         this.show()
         this.bindEvent()
     }
+    /**
+     * 绑定事件
+     * @method
+     */
     this.bindEvent = function () {
         this.elem.delegate('.close', 'click', this.close.bind(this))
         if(options.closeTrigger) {
             $(options.closeTrigger.elem).bind(options.closeTrigger.event, this.close.bind(this))
         }
     }
+    /**
+     * 显示弹出信息
+     * @method
+     */
     this.show = function () {
         this.elem.appendTo($('body')).fadeIn(options.duration)
     }
+    /**
+     * 隐藏弹出信息
+     * @method
+     */
     this.close = function () {
         this.elem.fadeOut(options.duration)
     }

@@ -1,6 +1,10 @@
 
 (function (ko, module) {
     (function () {
+        /*
+         * 更改 "value" binding 的默认行为
+         * 当value绑定的值发生改变时，在对应的element上trigger一个 'change' 事件
+         * */
         var valueHandler = _.clone(ko.bindingHandlers.value)
         ko.bindingHandlers.value.init = function(element, valueAccessor) {
             if(valueAccessor() && _.isFunction(valueAccessor().subscribe)) {
@@ -12,6 +16,11 @@
             }
             valueHandler.init.apply(this, arguments)
         }
+
+        /*
+         * 更改 "textInput" binding 的默认行为
+         * 当textInput初始化和textInput绑定的值发生改变时，在对应的element上trigger一个 'change' 事件
+         * */
         var textInputHandler = _.clone(ko.bindingHandlers.textInput)
         ko.bindingHandlers.textInput.init = function(element, valueAccessor) {
             if(valueAccessor()()) {
@@ -29,6 +38,10 @@
             textInputHandler.init.apply(this, arguments)
         }
     })()
+    /*
+    * chosen 插件封装为custom binding
+    * 具体用法参考web/src/partials/rent_request.html中
+    * */
     ko.bindingHandlers.chosen = {
         init: function(element, valueAccessor, allBindings)  {
             ko.bindingHandlers.options.init.call(this, element)
@@ -53,6 +66,9 @@
         }
     }
 
+    /*
+     * 绑定默认值，用法见 web/src/partials/property_to_rent_edit.html
+     * */
     ko.bindingHandlers.initializeValue = {
         init: function(element, valueAccessor) {
             if (element.getAttribute('value')) {
@@ -67,6 +83,9 @@
         }
     }
 
+    /*
+    * /property-to-rent/create 页面用到的选择房产类型和出租类型的组件
+    * */
     ko.components.register('tags', {
         viewModel: function(params) {
             this.list = ko.observableArray(params.list())
@@ -79,6 +98,9 @@
         template: '<div data-bind="foreach: list"><span class="property_type" data-bind="text: value, click: $parent.choose.bind($parents[$parents.length - 2]), css: {selected: id === $parents[$parents.length - 2][$parent.key]()}"></span></div>'
     })
 
+    /*
+    * 日期选择控件 用法参考：web/src/property_to_rent_list.html:58
+    * */
     ko.bindingHandlers.dateRangePicker = {
         init: function(element, valueAccessor)  {
             var dateAccessor,
@@ -110,6 +132,10 @@
                 .dateRangePickerCustom($(element).find('input'))
         }
     }
+
+    /*
+     * 日期选择输入框 用法参考：web/src/property_to_rent_list.html:59
+     * */
     ko.bindingHandlers.dateInput = {
         init: function(element, valueAccessor)  {
             //date input format: http://stackoverflow.com/questions/7372038/is-there-any-way-to-change-input-type-date-format
@@ -131,6 +157,9 @@
         }
     }
 
+    /*
+     * 将元素变为悬停在顶部的custom binding，用法参见：web/src/property_to_rent_list.html:56
+     * */
     ko.bindingHandlers.hoverTopBar = {
         init: function(element, valueAccessor)  {
             var phoneOnly = valueAccessor() || false
@@ -187,6 +216,9 @@
         }
     }
 
+    /*
+    * 高亮部分文字的custom binding
+    * */
     ko.bindingHandlers.highlight = {
         update: function (element, valueAccessor) {
             if(valueAccessor().text) {
@@ -195,6 +227,9 @@
         }
     }
 
+    /*
+    * 首页，出租房列表页等地方使用地址输入框组件
+    * */
     ko.components.register('location-search-box', {
         viewModel: function(params) {
             this.parentVM = params.parentVM

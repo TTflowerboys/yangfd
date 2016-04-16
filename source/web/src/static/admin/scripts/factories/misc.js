@@ -4,7 +4,7 @@ angular.module('app')
     .factory('misc', function () {
         /**
          * Delayer constructor, do a task in the future, and you can update the task
-         * @param options {data:{},task:function(){},delay:200}
+         * @param {Object} options {data:{},task:function(){},delay:200}
          * @constructor
          */
         function Delayer(options) {
