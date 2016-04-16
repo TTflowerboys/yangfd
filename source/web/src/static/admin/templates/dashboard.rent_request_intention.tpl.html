@@ -135,7 +135,10 @@
                     </td>
                     <td>
                         <span ng-if="!(item.assignee && item.assignee.length)">{%$root.i18n('无')%}</span>
-                        <span ng-repeat="assigneeUser in item.assignee">{%assigneeUser.nickname%}</span>
+                        <span ng-repeat="assigneeUser in item.assignee">
+                            {%assigneeUser.nickname%}
+                            <span ng-if="!$last">,</span>
+                        </span>
                     </td>
                     <td>
                         <a ng-show="canAssign(item, user.id)" class="btn btn-success" ng-click="addAssignee(item, user.id)" title="{%$root.i18n('关注咨询单')%}" ng-disabled="item.disabledAssignee">
