@@ -51,6 +51,9 @@
     if(weixin && weixin !== 'null' && weixin !== 'none' && weixin !== ''){
         weixin = JSON.parse(weixin)
     }
+    /**
+    * 弹出遮罩层提示点击屏幕右上方进行分享操作
+    * */
     window.wechatShareSDK.showGuideLine = function showGuideLine (text) {
         text = text || i18n('点击后在弹出的菜单中选择 [分享到朋友圈]')
         $('.guideLine p').text(text)
@@ -58,16 +61,20 @@
             $(this).fadeOut(300)
         })
     }
+
+    /**
+     * 会调用 init 进行初始化，并且弹出遮罩层提示点击屏幕右上方进行分享操作，当微信SDK尚未初始化完成时，会先将需要分享的内容存入到一个 queue ，初始化完成后再进行分享
+     * */
     window.wechatShareSDK.init = window.wechatShareSDK.init || function (option, callbackObj) {
-        window.wechatShareSDK.initQuene = window.wechatShareSDK.initQuene || []
-        window.wechatShareSDK.initQuene.push({
+        window.wechatShareSDK.initQueue = window.wechatShareSDK.initQueue || []
+        window.wechatShareSDK.initQueue.push({
             option: option,
             callbackObj: callbackObj
         })
     }
     window.wechatShareSDK.setUp = window.wechatShareSDK.setUp || function (option, callbackObj) {
-        window.wechatShareSDK.setUpQuene = window.wechatShareSDK.setUpQuene || []
-        window.wechatShareSDK.setUpQuene.push({
+        window.wechatShareSDK.setUpQueue = window.wechatShareSDK.setUpQueue || []
+        window.wechatShareSDK.setUpQueue.push({
             option: option,
             callbackObj: callbackObj
         })
@@ -85,6 +92,28 @@
                 jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
             })
             window.wx.ready(function(){
+                /**
+                 * 初始化微信分享SDK
+                 *
+                 * @param {Object} option - 微信分享的参数
+                 * @param {string} option.title - 分享标题，默认为当前页面的标题
+                 * @param {string} option.desc - 分享文字描述，默认为server端传入页面的 description 清除HTML标签和换行后，取前100个字符
+                 * @param {string} option.link - 分享链接，默认为当前页面的url
+                 * @param {string} option.imgUrl - 分享缩略图，默认为 http://upload.yangfd.com/app_icon_x120_150427.png
+                 * @param {function} option.success - 用户分享成功的回调函数
+                 * @param {function} option.cancel - 用户取消分享的回调函数
+                 *
+                 * @param {Object} callbackObj - 可选的单独的分享回调函数设置
+                 * @param {Object} callbackObj.timeline - 单独设置分享到朋友圈的回调函数
+                 * @param {function} callbackObj.timeline.success - 分享到朋友圈成功的回调函数
+                 * @param {function} callbackObj.timeline.cancel - 用户取消分享到朋友圈的回调函数
+                 * @param {Object} callbackObj.appMessage - 单独设置分享给微信好友的回调函数
+                 * @param {function} callbackObj.appMessage.success - 分享给微信好友成功的回调函数
+                 * @param {function} callbackObj.appMessage.cancel - 用户取消分享给微信好友的回调函数
+                 * @param {Object} callbackObj.qq - 单独设置分享给QQ好友的回调函数
+                 * @param {function} callbackObj.qq.success - 分享给QQ好友成功的回调函数
+                 * @param {function} callbackObj.qq.cancel - 用户取消分享给QQ好友的回调函数
+                * */
                 window.wechatShareSDK.init = function (option, callbackObj) {
                     callbackObj = callbackObj || {}
                     var defaultWechatShareData = {
@@ -92,7 +121,6 @@
                         desc: '{{clear_line_break(clear_html_tags(description))}}'.slice(0, 100),
                         link: window.location.href,
                         imgUrl: 'http://upload.yangfd.com/app_icon_x120_150427.png',
-//                        desc: '',
                         success:function(){
 
                         },
@@ -112,45 +140,18 @@
                     window.wx.onMenuShareTimeline(timelineWechatShareData);
                     window.wx.onMenuShareAppMessage(appMessageWechatShareData);
                     window.wx.onMenuShareQQ(qqWechatShareData);
-
-                    /*function convertImgToBase64(url, callback, outputFormat){
-                     var canvas = document.createElement('CANVAS');
-                     var ctx = canvas.getContext('2d');
-                     var img = new Image;
-                     img.crossOrigin = 'Anonymous';
-                     img.onload = function(){
-                     canvas.height = img.height;
-                     canvas.width = img.width;
-                     ctx.drawImage(img,0,0);
-                     var dataURL = canvas.toDataURL(outputFormat || 'image/png');
-                     callback.call(this, dataURL);
-                     // Clean up
-                     canvas = null;
-                     };
-                     img.src = url;
-                     }
-                     convertImgToBase64(wechatShareData.imgUrl, function (base64ImaUrl) {
-                     wechatShareData.imgUrl = base64ImaUrl
-                     var timelineWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.timeline : {}))
-                     var appMessageWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.appMessage : {}))
-                     var qqWechatShareData = _.extend(_.clone(wechatShareData), (callbackObj ? callbackObj.qq : {}))
-
-                     window.wx.onMenuShareTimeline(timelineWechatShareData);
-                     window.wx.onMenuShareAppMessage(appMessageWechatShareData);
-                     window.wx.onMenuShareQQ(qqWechatShareData);
-                     })*/
                 }
                 window.wechatShareSDK.setUp = function (option, callbackObj) {
                     window.wechatShareSDK.init(option, callbackObj)
                     window.wechatShareSDK.showGuideLine()
                 }
-                while(window.wechatShareSDK.initQuene && window.wechatShareSDK.initQuene.length) {
-                    window.wechatShareSDK.init(window.wechatShareSDK.initQuene[0].option, window.wechatShareSDK.initQuene[0].callbackObj)
-                    window.wechatShareSDK.initQuene.shift()
+                while(window.wechatShareSDK.initQueue && window.wechatShareSDK.initQueue.length) {
+                    window.wechatShareSDK.init(window.wechatShareSDK.initQueue[0].option, window.wechatShareSDK.initQueue[0].callbackObj)
+                    window.wechatShareSDK.initQueue.shift()
                 }
-                while(window.wechatShareSDK.setUpQuene && window.wechatShareSDK.setUpQuene.length) {
-                    window.wechatShareSDK.setUp(window.wechatShareSDK.setUpQuene[0].option, window.wechatShareSDK.setUpQuene[0].callbackObj)
-                    window.wechatShareSDK.setUpQuene.shift()
+                while(window.wechatShareSDK.setUpQueue && window.wechatShareSDK.setUpQueue.length) {
+                    window.wechatShareSDK.setUp(window.wechatShareSDK.setUpQueue[0].option, window.wechatShareSDK.setUpQueue[0].callbackObj)
+                    window.wechatShareSDK.setUpQueue.shift()
                 }
             })
             window.wx.error(function(res){
