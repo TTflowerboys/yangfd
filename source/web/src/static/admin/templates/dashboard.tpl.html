@@ -429,6 +429,12 @@
                                           <i class="fa fa-comment-o"></i>
                                           <span class="hidden-sm text">{%$root.i18n('人口属性')%}</span></a>
                                   </li>
+                                  <li has-permission="admin,jr_admin,operation,jr_operation"
+                                      ng-class="{active:$state.includes('dashboard.user_portrait.user_portrait_tenants')}">
+                                      <a href ui-sref="dashboard.user_portrait.user_portrait_tenants" ui-sref-active="active">
+                                          <i class="fa fa-comment-o"></i>
+                                          <span class="hidden-sm text">{%$root.i18n('租客行为')%}</span></a>
+                                  </li>
                                 </ul>
                             </li>
                             <li has-permission="admin,jr_admin,operation,jr_operation"

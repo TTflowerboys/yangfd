@@ -1,0 +1,91 @@
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="box">
+      <div class="box-content">
+        <div class="btn-group form-inline">
+          <div edit-date ng-model="$parent.selected.date_from" placeholder="{%i18n('起租时间')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+          <div edit-date ng-model="$parent.selected.date_to" placeholder="{%i18n('结束时间')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+          <button class="btn btn-primary" ng-click="get_portrait_data()">{%$root.i18n('获取数据')%}</button>
+        </div>
+        <div class="row">
+
+  				<div class="col-sm-5">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>租客找房天数</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="user_portrait_tenants_finding_rent_days_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+          <div class="col-sm-4">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>租客想要住多久的分布</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="user_portrait_tenants_want_rent_days_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+          <div class="col-sm-3">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>租住人数分布</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="user_portrait_tenants_tenant_count" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+
+        </div>
+        <div class="row">
+
+  				<div class="col-sm-4">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>租客收藏次数分布</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="user_portrait_tenants_ticket_favorite_time" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+          <div class="col-sm-4">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>租客提交咨询数量分布</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="user_portrait_tenants_ticket_request_time" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+          <div class="col-sm-4">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>租客查看房源次数分布</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="user_portrait_tenants_ticket_access_time" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
