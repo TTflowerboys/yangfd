@@ -878,17 +878,6 @@ def rent_intention_ticket_sms_receive(params):
     else:
         f_app.message.add(msg, f_app.user.admin.list(admin_roles=f_app.common.advanced_admin_roles))
 
-    custom_fields = ticket.get("custom_fields")
-    for custom_field in custom_fields:
-        if custom_field["key"] == "dynamic":
-            dynamic_custom_field = custom_field
-            break
-    else:
-        dynamic_custom_field = {"key": "dynamic", "value": "[]"}
-        custom_fields.append(dynamic_custom_field)
-
-    dynamic = json.loads(dynamic_custom_field["value"])
-
     event = {
         "id": params["messageId"],
         "type": 'message',
@@ -907,11 +896,9 @@ def rent_intention_ticket_sms_receive(params):
         "status": 'in_progress',
     }
 
-    dynamic.append(event)
+    custom_fields = [{"key": "dynamic", "value": f_app.util.json_dumps(event)}]
 
-    dynamic_custom_field["value"] = f_app.util.json_dumps(dynamic)
-
-    f_app.ticket.update_set(ticket["id"], {"custom_fields": custom_fields, "status": "in_progress"})
+    f_app.ticket.update_set(ticket["id"], {"status": "in_progress"}, history_params={"custom_fields": custom_fields, "tags": ["dynamic"]})
 
 
 @f_api('/rent_request_ticket/search', params=dict(
