@@ -169,19 +169,29 @@
                                 item.offer = data[1].data.val[0]
                             }
                             $scope.item  = item
-                            $scope.getHistoriesOfItem($scope.item)
+                            $scope.getHistoriesOfItem($scope.item).then(function (dynamics) {
+                                angular.extend($scope.item, {
+                                    'dynamics': dynamics
+                                })
+                            })
                             $scope.getUnmatchhRequirements($scope.item)
                         })
                 })
         }
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
         $scope.$on('refreshRentRequestIntentionDetail', function () {
-            $scope.getHistoriesOfItem($scope.item)
+            $scope.getHistoriesOfItem($scope.item).then(function (dynamics) {
+                angular.extend($scope.item, {
+                    'dynamics': dynamics
+                })
+            })
         })
 
         if (itemFromParent) {
             $scope.item = itemFromParent
-            $scope.getHistoriesOfItem($scope.item)
+            $scope.getHistoriesOfItem($scope.item).then(function (dynamics) {
+                $scope.item.dynamics = dynamics
+            })
             if(_.isArray($scope.item.interested_rent_tickets) && !_.isEmpty($scope.item.interested_rent_tickets[0])) {
                 miscApi.getShorturl(misc.host + '/property-to-rent/' + $scope.item.interested_rent_tickets[0].id).success(function (data) {
                     $scope.item.shorturl = data.val

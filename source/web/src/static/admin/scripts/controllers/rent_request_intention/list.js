@@ -29,21 +29,19 @@
         }
 
         $scope.transformHistoriesToDynamics = function (list) {
-            return _.map(list, function (history) {
+            return _.sortBy(_.map(list, function (history) {
                 var dynamic = JSON.parse(history.custom_fields[0].value)
                 dynamic.historyId = history.id
                 return dynamic
-            })
+            }), 'time')
         }
 
         $scope.getHistoriesOfItem = function (item) {
-            api.getHistory({
+            return api.getHistory({
                 id: item.id,
                 tags: ['dynamic']
             }).then(function (data) {
-                angular.extend(item, {
-                    dynamics: $scope.transformHistoriesToDynamics(data.data.val)
-                })
+                return $scope.transformHistoriesToDynamics(data.data.val)
             })
         }
         $scope.getLastDynamicOfItem = function (item) {
@@ -323,7 +321,7 @@
                 }
                 $q.all([api.getLog(item.id), couponApi.search({
                     user_id: item.user.id
-                })])
+                }), $scope.getLastDynamicOfItem(item)])
                     .then(function (data) {
                         if(data[0].data.val && data[0].data.val.length && data[0].data.val[0].ip && data[0].data.val[0].ip.length && $scope.list[index]) {
 
@@ -338,6 +336,11 @@
                         }
                         if(data[1].data.val && data[1].data.val.length) {
                             $scope.list[index].offer = data[1].data.val[0]
+                        }
+                        if(data[2].length) {
+                            angular.extend($scope.list[index], {
+                                'dynamics': _.clone(data[2])
+                            })
                         }
                     })
 
@@ -363,11 +366,6 @@
                     }
                 })
                 $scope.getUnmatchhRequirements(item)
-                $scope.getLastDynamicOfItem(item).then(function (dynamics) {
-                    angular.extend($scope.list[index], {
-                        dynamics: dynamics
-                    })
-                })
                 return item
             })
             $scope.pages[$scope.currentPageNumber] = $scope.list
