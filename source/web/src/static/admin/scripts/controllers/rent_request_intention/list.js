@@ -28,6 +28,34 @@
             }
         }
 
+        $scope.transformHistoriesToDynamics = function (list) {
+            return _.map(list, function (history) {
+                var dynamic = JSON.parse(history.custom_fields[0].value)
+                dynamic.historyId = history.id
+                return dynamic
+            })
+        }
+
+        $scope.getHistoriesOfItem = function (item) {
+            api.getHistory({
+                id: item.id,
+                tags: ['dynamic']
+            }).then(function (data) {
+                angular.extend(item, {
+                    dynamics: $scope.transformHistoriesToDynamics(data.data.val)
+                })
+            })
+        }
+        $scope.getLastDynamicOfItem = function (item) {
+            return api.getHistory({
+                id: item.id,
+                tags: ['dynamic'],
+                per_page: 1
+            }).then(function (data) {
+                return $scope.transformHistoriesToDynamics(data.data.val)
+            })
+        }
+
         $scope.getUnmatchhRequirements = function (item) {
             function getGenderName (slug) {
                 return {'male': i18n('男'), 'female': i18n('女')}[slug]
@@ -335,6 +363,11 @@
                     }
                 })
                 $scope.getUnmatchhRequirements(item)
+                $scope.getLastDynamicOfItem(item).then(function (dynamics) {
+                    angular.extend($scope.list[index], {
+                        dynamics: dynamics
+                    })
+                })
                 return item
             })
             $scope.pages[$scope.currentPageNumber] = $scope.list

@@ -169,17 +169,19 @@
                                 item.offer = data[1].data.val[0]
                             }
                             $scope.item  = item
+                            $scope.getHistoriesOfItem($scope.item)
                             $scope.getUnmatchhRequirements($scope.item)
                         })
                 })
         }
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
         $scope.$on('refreshRentRequestIntentionDetail', function () {
-            $scope.getItem()
+            $scope.getHistoriesOfItem($scope.item)
         })
 
         if (itemFromParent) {
             $scope.item = itemFromParent
+            $scope.getHistoriesOfItem($scope.item)
             if(_.isArray($scope.item.interested_rent_tickets) && !_.isEmpty($scope.item.interested_rent_tickets[0])) {
                 miscApi.getShorturl(misc.host + '/property-to-rent/' + $scope.item.interested_rent_tickets[0].id).success(function (data) {
                     $scope.item.shorturl = data.val
@@ -302,12 +304,6 @@
             })
         }
 
-        function generateCustomFieldsByDynamic(dynamic){
-            return _.reject($scope.item.custom_fields || [], function (field) {
-                return field.key === 'dynamic'
-            }).concat([dynamic])
-        }
-
         $scope.addDynamic = function (data) {
             var dynamicData = {
                 id: misc.generateUUID(),
@@ -335,41 +331,35 @@
                 time: new Date().getTime(),
                 status: $scope.newStatus
             }
-            var dynamic = _.clone(_.find($scope.item.custom_fields || [], {key: 'dynamic'}) || {key: 'dynamic', value: '[]'})
-            var dynamicTemp = _.clone(dynamic)
-            dynamic.value = JSON.stringify(JSON.parse(dynamic.value).concat([dynamicData]))
-            dynamicTemp.value = JSON.stringify(JSON.parse(dynamicTemp.value).concat([_.extend(_.clone(dynamicData), {sending: true})]))
-
-            $scope.item.custom_fields = generateCustomFieldsByDynamic(dynamicTemp)
+            var customFields = [{key: 'dynamic', value: JSON.stringify(dynamicData)}]
             $scope.updateItem({
                 id: $scope.item.id,
-                custom_fields: generateCustomFieldsByDynamic(dynamic)
+                history_custom_fields: customFields,
+                history_tags: ['dynamic']
             })
                 .then(function (data) {
                     growl.addSuccessMessage(window.i18n('添加成功'), {enableHtml: true})
-                    angular.extend($scope.item, data.data.val)
+                    $scope.item.dynamics.push(dynamicData)
                 }, function () {
                     growl.addErrorMessage(window.i18n('添加失败'), {enableHtml: true})
                 })
         }
 
         $scope.updateDynamic = function (dynamicData) {
-            var dynamic = _.clone(_.find($scope.item.custom_fields || [], {key: 'dynamic'}) || {key: 'dynamic', value: '[]'})
-            dynamic.value = JSON.stringify(_.map(JSON.parse(dynamic.value), function (item) {
-                if(item.id === dynamicData.id) {
-                    return dynamicData
-                }
-                return item
-            }))
-
-            $scope.item.custom_fields = generateCustomFieldsByDynamic(dynamic)
-            $scope.updateItem({
-                id: $scope.item.id,
-                custom_fields: generateCustomFieldsByDynamic(dynamic)
+            api.editHistory($scope.item.id, dynamicData.historyId, {
+                custom_fields: [{
+                    key: 'dynamic',
+                    value: JSON.stringify(dynamicData)
+                }]
             })
                 .then(function (data) {
                     growl.addSuccessMessage(window.i18n('添加成功'), {enableHtml: true})
-                    angular.extend($scope.item, data.data.val)
+                    _.some($scope.item.dynamics, function (dynamic, index) {
+                        if(dynamic.id === dynamicData.id) {
+                            $scope.item.dynamics[index] = dynamicData
+                            return true
+                        }
+                    })
                 }, function () {
                     growl.addErrorMessage(window.i18n('添加失败'), {enableHtml: true})
                 })

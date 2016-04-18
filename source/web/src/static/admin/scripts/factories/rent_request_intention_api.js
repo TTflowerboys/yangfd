@@ -19,8 +19,11 @@
             create: function (data, config) {
                 return $http.post('/api/1/rent_intention_ticket/add', data, config)
             },
-            getHistory: function (id, config) {
-                return $http.get('/api/1/rent_intention_ticket/' + id + '/history', config)
+            getHistory: function (params, config) {
+                return $http.post('/api/1/rent_intention_ticket/' + params.id + '/history', params, config)
+            },
+            editHistory: function (ticketId, ticketHistoryId, data, config) {
+                return $http.post('/api/1/rent_intention_ticket/' + ticketId + '/history/' + ticketHistoryId + '/edit', data, config)
             },
             getLog: function (id, config) {
                 return $http.post('/api/1/log/search', {ticket_id: id, type: 'ticket_add'}, config)

@@ -16,8 +16,8 @@ angular.module('app')
             },
             link: function (scope) {
                 scope.$watch('[item,status]', function (newValue) {
-                    var dynamic = _.find(newValue[0].custom_fields || [], {key: 'dynamic'}) || {key: 'dynamic', value: '[]'}
-                    scope.list = _.map(_.filter(JSON.parse(dynamic.value), function (obj) {
+                    var dynamics = newValue[0].dynamics
+                    scope.list = _.map(_.filter(dynamics, function (obj) {
                         return obj.status === newValue[1]
                     }), function (item) {
                         item.type = item.type || 'dynamic'

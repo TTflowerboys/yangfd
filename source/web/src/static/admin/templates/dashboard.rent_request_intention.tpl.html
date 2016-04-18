@@ -128,7 +128,7 @@
                         <span class="text-danger" ng-if="item.unmatchRequirements && item.unmatchRequirements.length > 0">{%$root.i18n('不完全符合')%}</span>
                     </td>
                     <td>
-                        {%item.custom_fields | showLastDynamic : item.status%}
+                        {%item.dynamics | showLastDynamic : item.status%}
                     </td>
                     <td>
                         <div edit-remark ng-model="item.custom_fields" update="updateItem(data)" item-id="item.id"></div>
