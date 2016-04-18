@@ -557,6 +557,11 @@ def rent_intention_ticket_remove(user, ticket_id):
     assignee=(list, None, ObjectId),
     status=str,
     reason=str,
+    history_custom_fields=(list, None, dict(
+        key=str,
+        value=str,
+        index=int,
+    )),
     updated_comment=str,
 ))
 @f_app.user.login.check(force=True, check_role=True)
@@ -585,9 +590,48 @@ def rent_intention_ticket_edit(user, ticket_id, params):
     if "updated_comment" in params:
         history_params["updated_comment"] = params.pop("updated_comment")
 
+    if "history_custom_fields" in params:
+        history_params["custom_fields"] = params.pop("history_custom_fields")
+
     f_app.ticket.update_set(ticket_id, params, history_params=history_params)
 
     return f_app.ticket.output([ticket_id])[0]
+
+
+@f_api('/rent_intention_ticket/<ticket_id>/history')
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
+def rent_intention_ticket_history_get(user, ticket_id):
+    """
+    View rent_intention ticket history.
+    """
+    user_roles = f_app.user.get_role(user["id"])
+    ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "rent_intention", abort(40000, "Invalid intention ticket")
+    if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & set(user_roles)) == 0:
+        if user["id"] not in ticket.get("assignee", []):
+            abort(40399, logger.warning("Permission denied.", exc_info=False))
+
+    return f_app.ticket.history_get(f_app.ticket.history_get_by_ticket(ticket_id))
+
+
+@f_api('/rent_intention_ticket/<ticket_id>/history/<ticket_history_id>/edit', params=dict(
+    status=str,
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
+def rent_intention_ticket_history_edit(user, ticket_id, ticket_history_id, params):
+    """
+    Update rent_intention ticket history.
+    """
+    user_roles = f_app.user.get_role(user["id"])
+    ticket = f_app.ticket.get(ticket_id)
+    assert ticket["type"] == "rent_intention", abort(40000, "Invalid intention ticket")
+    if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & set(user_roles)) == 0:
+        if user["id"] not in ticket.get("assignee", []):
+            abort(40399, logger.warning("Permission denied.", exc_info=False))
+    ticket_history = f_app.ticket.history.get(ticket_history_id)
+    assert ticket_history["ticket_id"] == ticket_id, abort(40000, "ticket_history doesn't belong to specified ticket")
+
+    return f_app.ticket.history.update_set(ticket_history_id, params)
 
 
 @f_api('/rent_intention_ticket/search', params=dict(
