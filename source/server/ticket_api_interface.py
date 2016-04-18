@@ -623,7 +623,7 @@ def rent_intention_ticket_history_get(user, ticket_id, params):
         "status": {"$ne": "deleted"},
     })
 
-    return f_app.ticket.history.get(f_app.mongo_index.search(f_app.ticket.history.get_database, params, per_page=params.pop("per_page", -1)))
+    return f_app.ticket.history.get(f_app.mongo_index.search(f_app.ticket.history.get_database, params, per_page=params.pop("per_page", -1))["content"])
 
 
 @f_api('/rent_intention_ticket/<ticket_id>/history/<ticket_history_id>/edit', params=dict(
