@@ -615,7 +615,11 @@ def rent_intention_ticket_history_get(user, ticket_id):
 
 
 @f_api('/rent_intention_ticket/<ticket_id>/history/<ticket_history_id>/edit', params=dict(
-    status=str,
+    custom_fields=(list, None, dict(
+        key=str,
+        value=str,
+        index=int,
+    )),
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
 def rent_intention_ticket_history_edit(user, ticket_id, ticket_history_id, params):
