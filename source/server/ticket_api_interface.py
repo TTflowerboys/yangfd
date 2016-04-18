@@ -562,6 +562,7 @@ def rent_intention_ticket_remove(user, ticket_id):
         value=str,
         index=int,
     )),
+    history_tags=(list, None, str),
     updated_comment=str,
 ))
 @f_app.user.login.check(force=True, check_role=True)
@@ -593,14 +594,20 @@ def rent_intention_ticket_edit(user, ticket_id, params):
     if "history_custom_fields" in params:
         history_params["custom_fields"] = params.pop("history_custom_fields")
 
+    if "history_tags" in params:
+        history_params["tags"] = params.pop("history_tags")
+
     f_app.ticket.update_set(ticket_id, params, history_params=history_params)
 
     return f_app.ticket.output([ticket_id])[0]
 
 
-@f_api('/rent_intention_ticket/<ticket_id>/history')
+@f_api('/rent_intention_ticket/<ticket_id>/history', params=dict(
+    tags=(list, None, str),
+    per_page=int,
+))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'jr_sales'])
-def rent_intention_ticket_history_get(user, ticket_id):
+def rent_intention_ticket_history_get(user, ticket_id, params):
     """
     View rent_intention ticket history.
     """
@@ -611,7 +618,12 @@ def rent_intention_ticket_history_get(user, ticket_id):
         if user["id"] not in ticket.get("assignee", []):
             abort(40399, logger.warning("Permission denied.", exc_info=False))
 
-    return f_app.ticket.history_get(f_app.ticket.history_get_by_ticket(ticket_id))
+    params.update({
+        "ticket_id": ObjectId(ticket_id),
+        "status": {"$ne": "deleted"},
+    })
+
+    return f_app.mongo.search(f_app.ticket.history.get_database, params, per_page=params.pop("per_page"))
 
 
 @f_api('/rent_intention_ticket/<ticket_id>/history/<ticket_history_id>/edit', params=dict(
