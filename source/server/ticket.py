@@ -254,6 +254,9 @@ class currant_ticket_plugin(f_app.plugin_base):
                 ticket_id=str(ticket_id),
             ))
 
+        elif ticket["type"] == "rent_intention" and "status" in params and params["status"] in ["checked_in", "canceled"]:
+            f_app.sms.nexmo.number.mapping.clean({"ticket_id": ObjectId(ticket["id"])})
+
         return ticket_id
 
     def task_on_rent_ticket_check_intention(self, task):
