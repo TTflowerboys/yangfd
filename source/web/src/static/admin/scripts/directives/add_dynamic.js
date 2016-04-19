@@ -7,7 +7,8 @@ angular.module('app')
                 addDynamic: '&',
                 sendToLandlord: '&',
                 sendToTenant: '&',
-                disableSms: '=' //如果租客或者房东的手机号是英国的，才能使用短信沟通，否则需要disable掉短信相关的按钮
+                disableSms: '=', //如果租客或者房东的手机号是英国的，才能使用短信沟通，否则需要disable掉短信相关的按钮
+                disableSmsReason: '=?'
             },
             templateUrl: '/static/admin/templates/add_dynamic.tpl.html',
             controller: function ($scope, $element, $rootScope, $compile) {

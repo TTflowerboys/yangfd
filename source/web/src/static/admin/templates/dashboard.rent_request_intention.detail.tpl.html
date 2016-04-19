@@ -92,8 +92,8 @@
     </div>
     <div class="panel-body" ng-show="activeTab === 'dynamic' && expand">
         <div ng-if="item">
-            <div show-dynamic scroll-glue ng-model="item" status="newStatus" user="user" style="margin: 0 -15px;padding: 0 15px; min-height: 500px;max-height: 800px; overflow-y: auto;" forward-to-landlord="forwardToLandlord" forward-to-tenant="forwardToTenant" reject-message="rejectMessage"></div>
-            <div add-dynamic="addDynamic(data)" send-to-landlord="sendToLandlord(content)" send-to-tenant="sendToTenant(content)" ng-model="item" disable-sms="item.disableSms"></div>
+            <div show-dynamic scroll-glue="config.scrollGlue" ng-model="item" status="newStatus" user="user" style="margin: 0 -15px;padding: 0 15px; min-height: 500px;max-height: 800px; overflow-y: auto;" forward-to-landlord="forwardToLandlord" forward-to-tenant="forwardToTenant" reject-message="rejectMessage"></div>
+            <div add-dynamic="addDynamic(data)" send-to-landlord="sendToLandlord(content)" send-to-tenant="sendToTenant(content)" ng-model="item" disable-sms="item.disableSms" disable-sms-reason="item.disableSmsReason"></div>
         </div>
     </div>
 </div>

@@ -11,9 +11,7 @@
     </div>
     <div class="col-lg-12" ng-if="disableSms" style="margin-top: 20px;">
         <div class="alert alert-warning" role="alert">
-            {%$root.i18n('由于存在非英国号码，短信系统暂时无法使用，请手动发送(房东号码：')
-            + '+' + item.interested_rent_tickets[0].creator_user.country_code + item.interested_rent_tickets[0].creator_user.phone + '，'
-            + $root.i18n('租客号码：') + '+' + item.creator_user.country_code + item.creator_user.phone + ')'%}
+            {%disableSmsReason%}
         </div>
     </div>
 </div>

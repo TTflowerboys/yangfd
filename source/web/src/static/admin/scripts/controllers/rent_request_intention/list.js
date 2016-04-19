@@ -278,15 +278,25 @@
             window.open(item.visa)
         }
 
-        $scope.setDisableSms = function (item) {
+        $scope.hasNonBritainNumber = function (item) {
             if(item && _.isArray(item.interested_rent_tickets) && !_.isEmpty(item.interested_rent_tickets[0])) {
                 if((item.creator_user && item.creator_user.country_code === 44) && (item.interested_rent_tickets[0].creator_user && item.interested_rent_tickets[0].creator_user.country_code === 44)) {
-                    item.disableSms = false
-                } else {
-                    item.disableSms = true
+                    return false
                 }
-            } else {
+                return true
+            }
+            return false
+        }
+        $scope.setDisableSms = function (item) {
+            if($scope.hasNonBritainNumber(item)) {
                 item.disableSms = true
+                item.disableSmsReason = i18n('由于存在非英国号码，短信系统暂时无法使用，请手动发送(房东号码：') + '+' + item.interested_rent_tickets[0].creator_user.country_code + item.interested_rent_tickets[0].creator_user.phone + '，' + i18n('租客号码：') + '+' + item.creator_user.country_code + item.creator_user.phone + ')'
+            }
+            if(item.status === 'canceled' || item.status === 'checked_in') {
+                item.disableSms = true
+                item.disableSmsReason = i18n('取消状态和已租出状态的咨询单不可发送短信')
+            } else {
+                item.disableSms = false
             }
         }
 

@@ -1,6 +1,6 @@
 (function () {
 
-    function ctrlRentRequestIntentionDetail($scope, fctModal, api,  misc, $stateParams, growl, $rootScope, $state, couponApi, $q, miscApi) {
+    function ctrlRentRequestIntentionDetail($scope, fctModal, api,  misc, $stateParams, growl, $rootScope, $state, couponApi, $q, miscApi, $timeout) {
         $scope.api = api
         $scope.emailTemplate = {
             'assigned': [
@@ -109,6 +109,9 @@
         }
         $scope.newStatus = ''
         $scope.activeTab = 'dynamic'
+        $scope.config = {
+            scrollGlue: true
+        }
         $scope.$watch('newStatus', function (newStatus) {
             if($scope.messageTemplate[newStatus]) {
                 $scope.selectedMessageTemplate = $scope.messageTemplate[newStatus][0]
@@ -126,6 +129,9 @@
         }
         $scope.host = misc.host
         $scope.currentTime = new Date().getTime()
+        $scope.$watch('item.status', function () {
+            $scope.setDisableSms($scope.item)
+        })
         $scope.getItem = function () {
             api.getOne($stateParams.id, {errorMessage: true})
                 .success(function (data) {
@@ -170,9 +176,10 @@
                             }
                             $scope.item  = item
                             $scope.getHistoriesOfItem($scope.item).then(function (dynamics) {
-                                angular.extend($scope.item, {
-                                    'dynamics': dynamics
-                                })
+                                $scope.item.dynamics = dynamics
+                                $timeout(function () {
+                                    $scope.config.scrollGlue = true
+                                }, 200)
                             })
                             $scope.getUnmatchhRequirements($scope.item)
                         })
@@ -181,9 +188,10 @@
         var itemFromParent = misc.findById($scope.$parent.list, $stateParams.id)
         $scope.$on('refreshRentRequestIntentionDetail', function () {
             $scope.getHistoriesOfItem($scope.item).then(function (dynamics) {
-                angular.extend($scope.item, {
-                    'dynamics': dynamics
-                })
+                $scope.item.dynamics = dynamics
+                $timeout(function () {
+                    $scope.config.scrollGlue = true
+                }, 200)
             })
         })
 
@@ -191,6 +199,9 @@
             $scope.item = itemFromParent
             $scope.getHistoriesOfItem($scope.item).then(function (dynamics) {
                 $scope.item.dynamics = dynamics
+                $timeout(function () {
+                    $scope.config.scrollGlue = true
+                }, 200)
             })
             if(_.isArray($scope.item.interested_rent_tickets) && !_.isEmpty($scope.item.interested_rent_tickets[0])) {
                 miscApi.getShorturl(misc.host + '/property-to-rent/' + $scope.item.interested_rent_tickets[0].id).success(function (data) {
@@ -350,6 +361,9 @@
                 .then(function (data) {
                     growl.addSuccessMessage(window.i18n('添加成功'), {enableHtml: true})
                     $scope.item.dynamics.push(dynamicData)
+                    $timeout(function () {
+                        $scope.config.scrollGlue = true
+                    }, 200)
                 }, function () {
                     growl.addErrorMessage(window.i18n('添加失败'), {enableHtml: true})
                 })
