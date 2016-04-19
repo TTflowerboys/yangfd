@@ -824,7 +824,7 @@ def rent_intention_ticket_search(user, params):
 def rent_intention_ticket_sms_send(rent_intention_ticket_id, user, params):
     user = f_app.user.get(params["user_id"])
     assert "phone" in user, abort("specified user doesn't have a phone number")
-    nexmo_number_mapping = f_app.sms.nexmo.number.mapping.get(f_app.sms.nexmo.number.mapping.find_or_add({"ticket_id": rent_intention_ticket_id, "user_id": params["user_id"]}))
+    nexmo_number_mapping = f_app.sms.nexmo.number.mapping.get(f_app.sms.nexmo.number.mapping.find_or_add({"ticket_id": ObjectId(rent_intention_ticket_id), "user_id": params["user_id"]}))
     nexmo_number = f_app.sms.nexmo.number.get(nexmo_number_mapping["nexmo_number"])
     sms = {
         "method": "nexmo",
