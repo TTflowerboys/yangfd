@@ -125,6 +125,11 @@
         $scope.isInRentRequestDetail = function (ticketId) {
             return $state.current.name === 'dashboard.rent_request_intention.detail' && $state.params.id === ticketId
         }
+        $scope.needFetchUnreadMessage = function () {
+            if(window.localStorage) {
+                window.localStorage.setItem('needFetchUnreadMessage', new Date().getTime())
+            }
+        }
         /*
          * 获取新消息（status 为 new 的消息），同时会将新消息标记为已发送(status 为 sent)
          * 获取到新消息后会将新消息按照咨询单来分组
@@ -148,18 +153,14 @@
                                         return messageApi.mark(item.id, 'read')
                                     })).then(function () {
                                         $scope.fetchUnreadMessage()
-                                        if(window.localStorage) {
-                                            window.localStorage.setItem('needFetchUnreadMessage', new Date().getTime())
-                                        }
+                                        $scope.needFetchUnreadMessage()
                                     })
                                 }
                             }
                         })
                     })
                     if($scope.isInRentRequestDetail(ticketId)) {
-                        if(window.localStorage) {
-                            window.localStorage.setItem('needFetchUnreadMessage', new Date().getTime())
-                        }
+                        $scope.needFetchUnreadMessage()
                         $scope.$broadcast('refreshRentRequestIntentionDetail'); //broadcast 一个 'refreshRentRequestIntentionDetail' 事件，通知咨询单详情页更新动态
                         $q.all(_.map(messages, function (item) {
                             return messageApi.mark(item.id, 'read')
@@ -173,9 +174,7 @@
                 if(_.flatten(_.values(processedMessageGroup)).length && $scope.needFetchUnreadMessage) {
                     $scope.blinkTitle()
                     $scope.fetchUnreadMessage()
-                    if(window.localStorage) {
-                        window.localStorage.setItem('needFetchUnreadMessage', new Date().getTime())
-                    }
+                    $scope.needFetchUnreadMessage()
                 }
                 $timeout(function () {
                     $scope.fetchNewMessage()
