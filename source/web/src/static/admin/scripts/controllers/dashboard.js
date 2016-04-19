@@ -166,7 +166,11 @@
                 //除了第一次会手动获取未读消息列表外，每次有status 为 new 的未读消息时都需要更新未读消息列表
                 if(_.flatten(_.values(processedMessageGroup)).length && $scope.needFetchUnreadMessage) {
                     $scope.blinkTitle()
-                    $scope.fetchUnreadMessage()
+                    if(window.localStorage) {
+                        window.localStorage.setItem('needFetchUnreadMessage', new Date().getTime())
+                    } else {
+                        $scope.fetchUnreadMessage()
+                    }
                 }
                 $timeout(function () {
                     $scope.fetchNewMessage()
@@ -185,10 +189,18 @@
         /*
         * 获取未读消息列表，并且按咨询单来分组
         * */
+        window.addEventListener('storage', function (event) {
+            if(event.key === 'needFetchUnreadMessage') {
+                $scope.fetchUnreadMessage()
+            }
+        });
         $scope.fetchUnreadMessage = function () {
             messageApi.receive({status: 'sent', type: 'new_sms'}).then(function (res) {
                 var messageGroup = _.groupBy(res.data.val, 'ticket_id')
                 $q.all(_.map(_.keys(messageGroup), function (ticketId) {
+                    if($scope.isInRentRequestDetail(ticketId)) {
+                        $scope.$broadcast('refreshRentRequestIntentionDetail'); //broadcast 一个 'refreshRentRequestIntentionDetail' 事件，通知咨询单详情页更新动态
+                    }
                     return rentRequestIntentionApi.getOne(ticketId)
                 })).then(function (responses) {
                     return _.map(responses, function (response) {
