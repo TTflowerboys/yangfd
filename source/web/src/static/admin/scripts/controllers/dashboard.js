@@ -125,7 +125,7 @@
         $scope.isInRentRequestDetail = function (ticketId) {
             return $state.current.name === 'dashboard.rent_request_intention.detail' && $state.params.id === ticketId
         }
-        $scope.needFetchUnreadMessage = function () {
+        $scope.noticeOtherTabsFetchNewMessages = function () {
             if(window.localStorage) {
                 window.localStorage.setItem('needFetchUnreadMessage', new Date().getTime())
             }
@@ -153,14 +153,14 @@
                                         return messageApi.mark(item.id, 'read')
                                     })).then(function () {
                                         $scope.fetchUnreadMessage()
-                                        $scope.needFetchUnreadMessage()
+                                        $scope.noticeOtherTabsFetchNewMessages()
                                     })
                                 }
                             }
                         })
                     })
                     if($scope.isInRentRequestDetail(ticketId)) {
-                        $scope.needFetchUnreadMessage()
+                        $scope.noticeOtherTabsFetchNewMessages()
                         $scope.$broadcast('refreshRentRequestIntentionDetail'); //broadcast 一个 'refreshRentRequestIntentionDetail' 事件，通知咨询单详情页更新动态
                         $timeout(function () {
                             $q.all(_.map(messages, function (item) {
@@ -176,7 +176,7 @@
                 if(_.flatten(_.values(processedMessageGroup)).length && $scope.needFetchUnreadMessage) {
                     $scope.blinkTitle()
                     $scope.fetchUnreadMessage()
-                    $scope.needFetchUnreadMessage()
+                    $scope.noticeOtherTabsFetchNewMessages()
                 }
                 $timeout(function () {
                     $scope.fetchNewMessage()
