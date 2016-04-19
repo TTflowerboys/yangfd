@@ -148,6 +148,9 @@
                                         return messageApi.mark(item.id, 'read')
                                     })).then(function () {
                                         $scope.fetchUnreadMessage()
+                                        if(window.localStorage) {
+                                            window.localStorage.setItem('needFetchUnreadMessage', new Date().getTime())
+                                        }
                                     })
                                 }
                             }
@@ -166,10 +169,9 @@
                 //除了第一次会手动获取未读消息列表外，每次有status 为 new 的未读消息时都需要更新未读消息列表
                 if(_.flatten(_.values(processedMessageGroup)).length && $scope.needFetchUnreadMessage) {
                     $scope.blinkTitle()
+                    $scope.fetchUnreadMessage()
                     if(window.localStorage) {
                         window.localStorage.setItem('needFetchUnreadMessage', new Date().getTime())
-                    } else {
-                        $scope.fetchUnreadMessage()
                     }
                 }
                 $timeout(function () {
