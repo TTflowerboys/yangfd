@@ -162,9 +162,11 @@
                     if($scope.isInRentRequestDetail(ticketId)) {
                         $scope.needFetchUnreadMessage()
                         $scope.$broadcast('refreshRentRequestIntentionDetail'); //broadcast 一个 'refreshRentRequestIntentionDetail' 事件，通知咨询单详情页更新动态
-                        $q.all(_.map(messages, function (item) {
-                            return messageApi.mark(item.id, 'read')
-                        }))
+                        $timeout(function () {
+                            $q.all(_.map(messages, function (item) {
+                                return messageApi.mark(item.id, 'read')
+                            }))
+                        }, 1000)
                         return []
                     } else {
                         return messages
