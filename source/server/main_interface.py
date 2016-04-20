@@ -290,6 +290,13 @@ def wechat_poster_image(rent_ticket_id):
     return html2png("://".join(request.urlparts[:2]) + "/wechat-poster/" + rent_ticket_id, width=480, height=800, url=True)
 
 
+@f_get('/record-video-tips')
+@currant_util.check_ip_and_redirect_domain
+def record_video_tips():
+    title = _('洋房东平台 - 录制/上传您的看房视频')
+    return currant_util.common_template("record_video_tips", title=title)
+
+
 @f_get('/admin')
 @currant_util.check_ip_and_redirect_domain
 def admin():

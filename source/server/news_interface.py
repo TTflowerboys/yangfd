@@ -90,7 +90,7 @@ def terms():
     news = {}
     if len(news_list):
         title = news_list[0].get('title')
-        news=news_list[0]
+        news = news_list[0]
     return currant_util.common_template("aboutus_content", news=news, title=title)
 
 
