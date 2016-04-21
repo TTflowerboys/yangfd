@@ -89,6 +89,28 @@
                     url: '/static/admin/templates/message/in_progress/landlord-9.html',
                     role: 'landlord'
                 }
+            ],
+            'checked_in': [
+                {
+                    title: window.i18n('【租客】9.订单结束语'),
+                    url: '/static/admin/templates/message/checked_in/tenant.html',
+                    role: 'tenant'
+                }, {
+                    title: window.i18n('【房东】9.订单结束语'),
+                    url: '/static/admin/templates/message/checked_in/landlord.html',
+                    role: 'landlord'
+                }
+            ],
+            'canceled': [
+                {
+                    title: window.i18n('【租客】9.订单结束语'),
+                    url: '/static/admin/templates/message/canceled/tenant.html',
+                    role: 'tenant'
+                }, {
+                    title: window.i18n('【房东】9.订单结束语'),
+                    url: '/static/admin/templates/message/canceled/landlord.html',
+                    role: 'landlord'
+                }
             ]
         }
         $scope.newStatus = ''
