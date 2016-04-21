@@ -37,7 +37,13 @@
                     }
                     $errorMsg.text(window.i18n('验证成功'))
                     $errorMsg.show()
-                    window.project.goBackFromURL()
+                    
+                    if(window.team.getQuery('from').indexOf('intention') >= 0 && window.team.getQuery('role') === 'affiliate'){
+                        location.href = '/'
+                    }
+                    else {                        
+                        window.project.goBackFromURL()
+                    }
                 })
                 .fail(function (ret) {
                     window.dhtmlx.message({type:'error', text: window.i18n('验证失败')})

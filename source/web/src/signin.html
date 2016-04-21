@@ -72,7 +72,9 @@
                         } else if (result.user_type && result.user_type.length || window.team.getQuery('from').indexOf('host-contact-request') >= 0){
                             return project.goBackFromURL()
                         } else {
-                            project.goToIntention()
+                            //project.goToIntention()
+                            //TODO find a better solution, 先禁止掉 intention选择，affiliate的登录，不需要选择intention 
+                            return project.goBackFromURL()
                         }
                     }
                 })

@@ -41,7 +41,11 @@
         },
         goToVerifyPhoneThenIntention: function () {
             var from = team.getQuery('from', location.href)
-            location.href = '/verify-phone?from=' + encodeURIComponent('/intention' + (from ? '?from=' + from : ''))
+            var targetUrl = '/verify-phone?from=' + encodeURIComponent('/intention' + (from ? '?from=' + from : ''))
+            if (location.pathname === '/affiliate-signup') {
+                targetUrl += '&role=affiliate'
+            }
+            location.href = targetUrl
             return false
         },
         goBackFromURL: function () {
