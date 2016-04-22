@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 from datetime import datetime, timedelta
-import json
 import random
 import logging
 import calendar
@@ -843,10 +842,27 @@ def rent_intention_ticket_sms_send(rent_intention_ticket_id, user, params):
     "msisdn": str,
     "message-timestamp": datetime,
     "concat": bool,
+    "concat-ref": str,
+    "concat-total": int,
+    "concat-part": int,
 })
 def rent_intention_ticket_sms_receive(params):
     if "concat" in params and params["concat"]:
-        raise NotImplementedError
+        with f_app.mongo() as m:
+            current_parts = m.nexmo_parts.find({"concat-ref": params["concat-ref"]})
+
+        if params["concat-part"] in map(lambda part: part["concat-part"], current_parts):
+            # Duplicate part already received
+            return
+
+        else:
+            if len(current_parts) + 1 == params["concat-total"]:
+                # All parts are present, merge them
+                params["text"] = "".join(sorted(current_parts + [params], key=lambda part: part["concat-part"]))
+
+            else:
+                # Save part and return
+                m.nexmo_parts.insert_one(params)
 
     params["to"] = f_app.util.parse_phone({"phone": "+" + params["to"]})
     params["msisdn"] = f_app.util.parse_phone({"phone": "+" + params["msisdn"]})
@@ -873,11 +889,6 @@ def rent_intention_ticket_sms_receive(params):
         "ticket_id": ticket["id"],
     }
 
-    if "assignee" in ticket and ticket["assignee"]:
-        f_app.message.add(msg, ticket["assignee"])
-    else:
-        f_app.message.add(msg, f_app.user.admin.list(admin_roles=f_app.common.advanced_admin_roles))
-
     event = {
         "id": params["messageId"],
         "type": 'message',
@@ -899,6 +910,15 @@ def rent_intention_ticket_sms_receive(params):
     custom_fields = [{"key": "dynamic", "value": f_app.util.json_dumps(event)}]
 
     f_app.ticket.update_set(ticket["id"], {"status": "in_progress"}, history_params={"custom_fields": custom_fields, "tags": ["dynamic"]})
+
+    if "assignee" in ticket and ticket["assignee"]:
+        f_app.message.add(msg, ticket["assignee"])
+    else:
+        f_app.message.add(msg, f_app.user.admin.list(admin_roles=f_app.common.advanced_admin_roles))
+
+    if "concat" in params and params["concat"]:
+        # Remove all parts of the inserted message:
+        m.nexmo_parts.delete_many({"concat-ref": params["concat-ref"]})
 
 
 @f_api('/rent_request_ticket/search', params=dict(
