@@ -858,7 +858,7 @@ def rent_intention_ticket_sms_receive(params):
         else:
             if len(current_parts) + 1 == params["concat-total"]:
                 # All parts are present, merge them
-                params["text"] = "".join(sorted(current_parts + [params], key=lambda part: part["concat-part"]))
+                params["text"] = "".join(map(lambda part: part["text"], sorted(current_parts + [params], key=lambda part: part["concat-part"])))
 
             else:
                 # Save part and return
