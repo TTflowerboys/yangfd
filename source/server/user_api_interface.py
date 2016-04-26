@@ -725,7 +725,7 @@ def user_assign_referral_code(user, params):
 
 
 @f_api("/user/admin/<user_id>")
-@f_app.user.login.check(force=True, role=["admin", "jr_admin", "sales", "jr_sales"])
+@f_app.user.login.check(force=True, role=["admin", "jr_admin", "sales", "jr_sales", "operation"])
 def admin_user_get(user, user_id):
     if set(user["role"]) & set(["admin", "jr_admin", "sales"]):
         pass
