@@ -863,6 +863,7 @@ def rent_intention_ticket_sms_receive(params):
             else:
                 # Save part and return
                 m.nexmo_parts.insert_one(params)
+                return
 
     params["to"] = f_app.util.parse_phone({"phone": "+" + params["to"]})
     params["msisdn"] = f_app.util.parse_phone({"phone": "+" + params["msisdn"]})
