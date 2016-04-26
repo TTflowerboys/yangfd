@@ -849,7 +849,7 @@ def rent_intention_ticket_sms_send(rent_intention_ticket_id, user, params):
 def rent_intention_ticket_sms_receive(params):
     if "concat" in params and params["concat"]:
         with f_app.mongo() as m:
-            current_parts = m.nexmo_parts.find({"concat-ref": params["concat-ref"]})
+            current_parts = list(m.nexmo_parts.find({"concat-ref": params["concat-ref"]}))
 
         if params["concat-part"] in map(lambda part: part["concat-part"], current_parts):
             # Duplicate part already received
