@@ -189,7 +189,7 @@ class nexmo_number_mapping(f_app.module_base):
             self.get_database(m).update_many(params, {"$set": {"status": "deleted"}})
 
     def reverse_lookup(self, nexmo_number, user_id):
-        params = {"nexmo_number": ObjectId(nexmo_number), "user_id": ObjectId(user_id)}
+        params = {"nexmo_number": ObjectId(nexmo_number), "user_id": ObjectId(user_id), "status": {"$ne": "deleted"}}
 
         with f_app.mongo() as m:
             nexmo_number_mapping = self.get_database(m).find_one(params, {})
