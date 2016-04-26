@@ -732,7 +732,7 @@ def admin_user_get(user, user_id):
     elif not f_app.ticket.search({"assignee": ObjectId(user["id"]), "$or": [{"creator_user_id": ObjectId(user_id)}, {"user_id": ObjectId(user_id)}]}):
         abort(40399)
 
-    return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields)[0]
+    return f_app.user.output([user_id], custom_fields=f_app.common.user_custom_fields, permission_check=False)[0]
 
 
 @f_api("/user/admin/<user_id>/favorite", params=dict(
