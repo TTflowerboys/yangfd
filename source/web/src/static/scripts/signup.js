@@ -71,8 +71,8 @@ $(function () {
         
     function setupAffiliateUserType(callback) {        
         var apiUrl = '/api/1/user/edit'
-        var userTypeData = window.userTypeMap['affiliate']
-        $.betterPost(apiUrl, {user_type: userTypeData})
+        var affiliateSlug = 'affiliate'
+        $.betterPost(apiUrl, {user_type: window.userTypeMap[affiliateSlug]})
             .done(function (data) {
                 window.user = data
                 callback(data)
