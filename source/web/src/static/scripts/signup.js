@@ -68,6 +68,19 @@ $(function () {
     }
     $('form select[name=country_code]').on('change', onPhoneNumberChange)
     $('form input[name=phone]').on('change', onPhoneNumberChange)
+        
+    function setupAffiliateUserType(callback) {        
+        var apiUrl = '/api/1/user/edit'
+        var userTypeData = window.userTypeMap['affiliate']
+        $.betterPost(apiUrl, {user_type: userTypeData})
+            .done(function (data) {
+                window.user = data
+                callback(data)
+            })
+            .fail(function (data) {
+                callback(data)
+            })
+    }
     
     $('form[name=register]').submit(function (e) {
         e.preventDefault()
@@ -119,7 +132,22 @@ $(function () {
         $.betterPost('/api/1/user/register', params)
             .done(function (result) {
                 ga('send', 'event', 'signup', 'result', 'signup-success')
-                window.project.goToVerifyPhoneThenIntention()
+                
+                var from = team.getQuery('from', location.href)                              
+                if (location.pathname === '/affiliate-signup') {
+                    setupAffiliateUserType(function() {
+                        if (from) {
+                            location.href = '/verify-phone?from=' + from                            
+                        }
+                        else {
+                            location.href = '/verify-phone'
+                        }
+                    })
+                }
+                else {                    
+                    var targetUrl = '/verify-phone?from=' + encodeURIComponent('/intention' + (from ? '?from=' + from : ''))
+                    location.href = targetUrl    
+                }            
             }).fail(function (ret) {
                 errorArea.empty()
                 window.dhtmlx.message({type:'error', text: window.getErrorMessageFromErrorCode(ret)})

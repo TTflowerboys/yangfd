@@ -38,7 +38,7 @@
                     $errorMsg.text(window.i18n('验证成功'))
                     $errorMsg.show()
                     
-                    if(window.team.getQuery('from').indexOf('intention') >= 0 && window.team.getQuery('role') === 'affiliate'){
+                    if(window.user && window.user.user_type && window.user.user_type.length){
                         location.href = '/'
                     }
                     else {                        
