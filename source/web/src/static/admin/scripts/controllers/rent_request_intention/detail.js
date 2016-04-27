@@ -135,6 +135,7 @@
         }
         $scope.host = misc.host
         $scope.currentTime = new Date().getTime()
+        $scope.location = window.location
         $scope.$watch('item.status', function () {
             $scope.setDisableSms($scope.item)
         })
