@@ -288,15 +288,16 @@
             return false
         }
         $scope.setDisableSms = function (item) {
-            if($scope.hasNonBritainNumber(item)) {
-                item.disableSms = true
-                item.disableSmsReason = i18n('由于存在非英国号码，短信系统暂时无法使用，请手动发送(房东号码：') + '+' + item.interested_rent_tickets[0].creator_user.country_code + item.interested_rent_tickets[0].creator_user.phone + '，' + i18n('租客号码：') + '+' + item.creator_user.country_code + item.creator_user.phone + ')'
-            }
             if(item.status === 'canceled' || item.status === 'checked_in') {
                 item.disableSms = true
                 item.disableSmsReason = i18n('取消状态和已租出状态的咨询单不可发送短信')
             } else {
-                item.disableSms = false
+	        if($scope.hasNonBritainNumber(item)) {
+    	            item.disableSms = true
+        	    item.disableSmsReason = i18n('由于存在非英国号码，短信系统暂时无法使用，请手动发送(房东号码：') + '+' + item.interested_rent_tickets[0].creator_user.country_code + item.interested_rent_tickets[0].creator_user.phone + '，' + i18n('租客号码：') + '+' + item.creator_user.country_code + item.creator_user.phone + ')'
+            	} else {
+                    item.disableSms = false
+	        }
             }
         }
 
