@@ -19,42 +19,42 @@
             'assigned': [
                 {
                     title: window.i18n('【租客】1.租客咨询单确认(咨询单内容正常)'),
-                    url: '/static/admin/templates/message/assigned/tenant-1.html',
+                    url: '/static/admin/templates/message/assigned/tenant-1-1.html',
                     role: 'tenant'
                 }, {
                     title: window.i18n('【租客】1.租客咨询单确认(租客要求实地看房)'),
-                    url: '/static/admin/templates/message/assigned/tenant-2.html',
+                    url: '/static/admin/templates/message/assigned/tenant-1-2.html',
                     role: 'tenant'
                 }, {
                     title: window.i18n('【租客】1.租客咨询单确认(租客索要联系方式)'),
-                    url: '/static/admin/templates/message/assigned/tenant-3.html',
+                    url: '/static/admin/templates/message/assigned/tenant-1-3.html',
                     role: 'tenant'
                 }, {
-                    title: window.i18n('【房东】通知房东有租客咨询'),
-                    url: '/static/admin/templates/message/assigned/landlord.html',
+                    title: window.i18n('【房东】1.通知房东有租客咨询'),
+                    url: '/static/admin/templates/message/assigned/landlord-1.html',
                     role: 'landlord'
                 }
             ],
             'in_progress': [
                 {
                     title: window.i18n('【房东】2.向房东发送租客的咨询单(租客要求视频看房)'),
-                    url: '/static/admin/templates/message/in_progress/landlord-1.html',
-                    role: 'landlord'
-                }, {
-                    title: window.i18n('【房东】3.回复房东的短信(房东索要租客联系方式)'),
                     url: '/static/admin/templates/message/in_progress/landlord-2.html',
                     role: 'landlord'
                 }, {
+                    title: window.i18n('【房东】3.回复房东的短信(房东索要租客联系方式)'),
+                    url: '/static/admin/templates/message/in_progress/landlord-3-1.html',
+                    role: 'landlord'
+                }, {
                     title: window.i18n('【房东】3.回复房东的短信(房东提出看房Offer)'),
-                    url: '/static/admin/templates/message/in_progress/landlord-3.html',
+                    url: '/static/admin/templates/message/in_progress/landlord-3-2.html',
                     role: 'landlord'
                 }, {
                     title: window.i18n('【租客】4.与租客的沟通(租客消息包含联系方式)'),
-                    url: '/static/admin/templates/message/in_progress/tenant-2.html',
+                    url: '/static/admin/templates/message/in_progress/tenant-4-1.html',
                     role: 'tenant'
                 }, {
                     title: window.i18n('【租客】4.与租客的沟通(租客消息包含看房申请)'),
-                    url: '/static/admin/templates/message/in_progress/tenant-3.html',
+                    url: '/static/admin/templates/message/in_progress/tenant-4-2.html',
                     role: 'tenant'
                 }, {
                     title: window.i18n('【房东】5.让房东录制视频(房源有视频)'),
@@ -66,53 +66,53 @@
                     role: 'landlord'
                 }, {
                     title: window.i18n('【租客】6.向租客发送视频后'),
-                    url: '/static/admin/templates/message/in_progress/tenant-4.html',
-                    role: 'tenant'
-                }, {
-                    title: window.i18n('【租客】7.租客聊天中提出可以预定'),
                     url: '/static/admin/templates/message/in_progress/tenant-6.html',
                     role: 'tenant'
                 }, {
+                    title: window.i18n('【租客】7.租客聊天中提出可以预定'),
+                    url: '/static/admin/templates/message/in_progress/tenant-7-1.html',
+                    role: 'tenant'
+                }, {
                     title: window.i18n('【房东】7.租客聊天中提出可以预定'),
-                    url: '/static/admin/templates/message/in_progress/landlord-5.html',
+                    url: '/static/admin/templates/message/in_progress/landlord-7-1.html',
                     role: 'landlord'
                 }, {
                     title: window.i18n('【租客】7.租客聊天中提出可以预定（租客询问预订流程）'),
-                    url: '/static/admin/templates/message/in_progress/tenant-7.html',
+                    url: '/static/admin/templates/message/in_progress/tenant-7-2.html',
                     role: 'tenant'
                 }, {
                     title: window.i18n('【房东】7.租客聊天中提出可以预定（房东询问预订流程）'),
-                    url: '/static/admin/templates/message/in_progress/landlord-6.html',
+                    url: '/static/admin/templates/message/in_progress/landlord-7-2.html',
                     role: 'landlord'
                 }, {
                     title: window.i18n('【租客】8. 租客房东回复’是‘(租客回复‘是’)'),
-                    url: '/static/admin/templates/message/in_progress/tenant-10.html',
+                    url: '/static/admin/templates/message/in_progress/tenant-8.html',
                     role: 'tenant'
                 }, {
                     title: window.i18n('【房东】8. 租客房东回复’是‘(房东回复‘是’)'),
-                    url: '/static/admin/templates/message/in_progress/landlord-9.html',
+                    url: '/static/admin/templates/message/in_progress/landlord-8.html',
                     role: 'landlord'
                 }
             ],
             'checked_in': [
                 {
                     title: window.i18n('【租客】9.订单结束语'),
-                    url: '/static/admin/templates/message/checked_in/tenant.html',
+                    url: '/static/admin/templates/message/checked_in/tenant-9.html',
                     role: 'tenant'
                 }, {
                     title: window.i18n('【房东】9.订单结束语'),
-                    url: '/static/admin/templates/message/checked_in/landlord.html',
+                    url: '/static/admin/templates/message/checked_in/landlord-9.html',
                     role: 'landlord'
                 }
             ],
             'canceled': [
                 {
                     title: window.i18n('【租客】9.订单结束语'),
-                    url: '/static/admin/templates/message/canceled/tenant.html',
+                    url: '/static/admin/templates/message/canceled/tenant-9.html',
                     role: 'tenant'
                 }, {
                     title: window.i18n('【房东】9.订单结束语'),
-                    url: '/static/admin/templates/message/canceled/landlord.html',
+                    url: '/static/admin/templates/message/canceled/landlord-9.html',
                     role: 'landlord'
                 }
             ]
