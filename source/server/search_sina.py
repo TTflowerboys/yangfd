@@ -16,6 +16,7 @@ from pyquery import PyQuery as pq
 import random
 from time import sleep
 import requests
+import time
 
 day_shift = int(sys.argv[1]) if len(sys.argv) > 1 else 0  # the date how many days before will be loaded
 time_start_hours = 10
@@ -354,7 +355,72 @@ def get_weibo_search_result(keywords_list):
                 break
         return result
 
-    def crawler_ybirds(page_id=None):
+    def get_ybirds_city_list(session, select_city):
+        now = datetime.now()
+        timestamp = int(time.mktime(now.timetuple())*1e3 + now.microsecond/1e3)
+        url = 'http://ybirds.com/Home-Class-getHotCity.html?country=1&_=' + unicode(timestamp)
+        page = session.get(
+            url,
+            headers={
+                "POST": "/sso/login HTTP/1.1",
+                "Host": "ybirds.com",
+                "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0",
+                "Accept": "application/json, text/javascript, */*; q=0.01",
+                "Accept-Language": "en-US,en;q=0.5",
+                "Accept-Encoding": "gzip, deflate",
+                "X-Requested-With": "XMLHttpRequest",
+                "Referer": "http://ybirds.com/Home-Class-ChangeCity.html",
+                "Connection": "keep-alive",
+            }
+        )
+        match = re.compile('href=\"\\\\(.*?)\">(.*?)<')
+        source = match.findall(unicode(page.content, 'unicode-escape'))
+        city_list = {}
+        for single in source:
+            source = single[1].rstrip(' ')
+            name = source.split(' ')[-1]
+            key = source.replace(' ' + name, '')
+            city_list.update({
+                key: {
+                    'link': 'http://ybirds.com' + single[0],
+                    'name': source
+                }
+            })
+
+        now = datetime.now()
+        timestamp = int(time.mktime(now.timetuple())*1e3 + now.microsecond/1e3)
+        url = 'http://www.ybirds.com/Home-Class-ajaxGetCity.html?countyID=1&_=' + unicode(timestamp)
+        page = session.get(
+            url,
+            headers={
+                "POST": "/sso/login HTTP/1.1",
+                "Host": "ybirds.com",
+                "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0",
+                "Accept": "application/json, text/javascript, */*; q=0.01",
+                "Accept-Language": "en-US,en;q=0.5",
+                "Accept-Encoding": "gzip, deflate",
+                "X-Requested-With": "XMLHttpRequest",
+                "Referer": "http://ybirds.com/Home-Class-ChangeCity.html",
+                "Connection": "keep-alive",
+            }
+        )
+        match = re.compile('href=\"\\\\(.*?)\">[:]*(.*?)<')
+        source = match.findall(unicode(page.content, 'unicode-escape'))
+        for single in source:
+            source = single[1].rstrip(' ')
+            name = source.split(' ')[-1]
+            key = source.replace(' ' + name, '')
+            if key not in select_city:
+                continue
+            city_list.update({
+                key: {
+                    'link': 'http://ybirds.com' + single[0],
+                    'name': source
+                }
+            })
+        return city_list
+
+    def crawler_ybirds(session, city_name, city_switch_url, page_id=None):
 
         def ua_generator():
             ua_list = [
@@ -390,9 +456,25 @@ def get_weibo_search_result(keywords_list):
             return []
         result = []
         if f_app.util.batch_iterable(page_id):
+            print "target to " + city_switch_url
+            session.get(
+                city_switch_url,
+                headers={
+                    "POST": "/sso/login HTTP/1.1",
+                    "Host": "ybirds.com",
+                    "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0",
+                    "Accept": "application/json, text/javascript, */*; q=0.01",
+                    "Accept-Language": "en-US,en;q=0.5",
+                    "Accept-Encoding": "gzip, deflate",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Referer": "http://ybirds.com/Home-Class-ChangeCity.html",
+                    "Connection": "keep-alive",
+                })
+            print 'city_switched to ' + city_name
+            print json.dumps(session.cookies.get_dict(), indent=2)
             for single_page_id in page_id:
                 single_result = []
-                single_result.extend(crawler_ybirds(single_page_id))
+                single_result.extend(crawler_ybirds(session, city_name, city_switch_url, single_page_id))
                 result.extend(single_result)
             return result
         index = 1
@@ -401,13 +483,11 @@ def get_weibo_search_result(keywords_list):
         while(index <= 5):
             max_time = datetime(1970, 1, 1)
             try:
-                list_page = f_app.request.get(
-                    'http://www.ybirds.com/Home-ColumnInfo-entrance',
-                    {
-                        'ctgClassID': page_id,
-                        'p': index
-                    },
-                    headers={"User-Agent": ua_generator()}
+                print 'loading page...'
+                list_page = session.get(
+                    'http://www.ybirds.com/Home-ColumnInfo-entrance?ctgClassID=' + unicode(page_id) + '&p=' + unicode(index),
+                    headers={"User-Agent": ua_generator()},
+                    timeout=30
                 )
                 sleep(1)
             except:
@@ -422,17 +502,19 @@ def get_weibo_search_result(keywords_list):
                     topic_result = {}
                     topic_result.update({'title': topic_dom('div.title').attr('title')})
                     topic_result.update({'author': topic_dom('div.count span').eq(0).text()})
-                    print topic_result['author']
                     topic_result.update({'link': 'http://www.ybirds.com' + topic_dom('div.title a').attr('href')})
                     create_time = datetime.strptime(topic_dom('div.time').text(), '%Y-%m-%d %H:%M:%S')
                     topic_result.update({'time': create_time})
+                    print topic_result['author']
+                    print topic_result['time']
                     max_time = max(max_time, create_time)
                     if create_time < time_start:
                         continue
                     try:
-                        topic_page = f_app.request.get(
+                        topic_page = session.get(
                             topic_result['link'],
-                            headers={"User-Agent": ua_generator()}
+                            headers={"User-Agent": ua_generator()},
+                            timeout=30
                         )
                         sleep(1)
                     except:
@@ -516,33 +598,36 @@ def get_weibo_search_result(keywords_list):
     result_weibo = []
     result_powerapple = []
     result_douban_group = []
-    result_ybirds = []
+    result_ybirds = {}
 
     block_list = load_block_list('block_list.xlsx')
+    session = requests.session()
 
-    # result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
+    result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
     result_powerapple = crawler_powerapple('10141')
-    result_ybirds = reduce_overlap(crawler_ybirds(['9', '10']))
     result_douban_group = reduce_overlap(crawler_douban_group(['ukhome', '436707', '338873', 'LondonHome']))
+    city_list = get_ybirds_city_list(session, ['Coventry', 'Newcastle', 'Liverpool', 'Cardiff'])
+    print 'city list recived'
+    # print json.dumps(city_list, indent=2, ensure_ascii=False)
+    for single_city in city_list:
+        print single_city + ' starting...'
+        result = crawler_ybirds(session, city_list[single_city]['name'], city_list[single_city]['link'], ['9', '10'])
+        result_ybirds.update({city_list[single_city]['name']: reduce_overlap(result)})
 
     wb = Workbook()
     ws_weibo = wb.active
     ws_powerapple = wb.create_sheet()
     ws_douban_group = wb.create_sheet()
-    ws_ybirds = wb.create_sheet()
     ws_weibo_block_list = wb.create_sheet()
     ws_powerapple_block_list = wb.create_sheet()
     ws_douban_group_block_list = wb.create_sheet()
-    ws_ybirds_block_list = wb.create_sheet()
 
     ws_weibo.title = '微博'
     ws_powerapple.title = '超级苹果论坛'
     ws_douban_group.title = '豆瓣小组'
-    ws_ybirds.title = '英鸟'
     ws_weibo_block_list.title = '微博_黑名单'
     ws_powerapple_block_list.title = '超级苹果论坛_黑名单'
     ws_douban_group_block_list.title = '豆瓣小组_黑名单'
-    ws_ybirds_block_list.title = '英鸟_黑名单'
 
     ws_weibo.append(header)
     ws_weibo_block_list.append(header)
@@ -616,59 +701,40 @@ def get_weibo_search_result(keywords_list):
     add_link(ws_douban_group_block_list, 'C')
     format_fit(ws_douban_group_block_list)
 
-    ws_ybirds.append(header_ybirds)
-    ws_ybirds_block_list.append(header_ybirds)
-    for single in result_ybirds:
-        if single['author'] in block_list['ybirds']:
-            ws_ybirds_block_list.append([
-                single['author'],
-                single['time'],
-                single['link'],
-                single['title'],
-                single.get('contact', ''),
-                '\n'.join(single['contact_raw']),
-                '',
-                '',
-                single.get('phone', ''),
-                '',
-                '',
-                single.get('qq', ''),
-                single.get('postcode', ''),
-                single.get('location'),
-                single.get("pay_type"),
-                single.get("house_type"),
-                single.get("rent_type", ''),
-                single.get("deposite", ''),
-                single.get("price", ''),
-                single.get("landlord_type", '')
-            ])
-        else:
-            ws_ybirds.append([
-                single['author'],
-                single['time'],
-                single['link'],
-                single['title'],
-                single.get('contact', ''),
-                '\n'.join(single['contact_raw']),
-                '',
-                '',
-                single.get('phone', ''),
-                '',
-                '',
-                single.get('qq', ''),
-                single.get('postcode', ''),
-                single.get('location'),
-                single.get("pay_type"),
-                single.get("house_type"),
-                single.get("rent_type", ''),
-                single.get("deposite", ''),
-                single.get("price", ''),
-                single.get("landlord_type", '')
-            ])
-    add_link(ws_ybirds, 'C')
-    format_fit(ws_ybirds)
-    add_link(ws_ybirds_block_list, 'C')
-    format_fit(ws_ybirds_block_list)
+    ws_ybirds = {}
+    # ws_ybirds_block_list = {}
+    for single_city in result_ybirds:
+
+        ws_ybirds[single_city] = wb.create_sheet()
+        ws_ybirds[single_city].title = single_city
+        ws_ybirds[single_city].append(header_ybirds)
+
+        for single in result_ybirds[single_city]:
+            if single['author'] not in block_list['ybirds']:
+                ws_ybirds[single_city].append([
+                    single['author'],
+                    single['time'],
+                    single['link'],
+                    single['title'],
+                    single.get('contact', ''),
+                    '\n'.join(single['contact_raw']),
+                    '',
+                    '',
+                    single.get('phone', ''),
+                    '',
+                    '',
+                    single.get('qq', ''),
+                    single.get('postcode', ''),
+                    single.get('location'),
+                    single.get("pay_type"),
+                    single.get("house_type"),
+                    single.get("rent_type", ''),
+                    single.get("deposite", ''),
+                    single.get("price", ''),
+                    single.get("landlord_type", '')
+                ])
+        add_link(ws_ybirds[single_city], 'C')
+        format_fit(ws_ybirds[single_city])
 
     today = date.today()
     if day_shift:
