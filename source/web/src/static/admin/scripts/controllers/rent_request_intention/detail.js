@@ -15,7 +15,7 @@
                 }
             ]
         }
-        $scope.messageTemplate = {
+        $scope.messageTemplate = {     
             'assigned': [
                 {
                     title: window.i18n('【租客】1.租客咨询单确认(咨询单内容正常)'),
@@ -57,8 +57,12 @@
                     url: '/static/admin/templates/message/in_progress/tenant-3.html',
                     role: 'tenant'
                 }, {
-                    title: window.i18n('【房东】5.让房东录制视频(租客请求视频看房)'),
-                    url: '/static/admin/templates/message/in_progress/landlord-4.html',
+                    title: window.i18n('【房东】5.让房东录制视频(房源有视频)'),
+                    url: '/static/admin/templates/message/in_progress/landlord-5-1.html',
+                    role: 'landlord'
+                }, {
+                    title: window.i18n('【房东】5.让房东录制视频(需要房东上传)'),
+                    url: '/static/admin/templates/message/in_progress/landlord-5-2.html',
                     role: 'landlord'
                 }, {
                     title: window.i18n('【租客】6.向租客发送视频后'),
