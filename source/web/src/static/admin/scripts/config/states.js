@@ -1181,6 +1181,16 @@ angular.module('app')
                     }
                 }
             })
+            .state('dashboard.user_portrait.user_portrait_landlord', {
+                url: '/user_portrait_landlord',
+                controller: 'user_portrait_landlord',
+                templateUrl: '/static/admin/templates/dashboard.user_portrait_landlord.tpl.html',
+                resolve: {
+                    api: function (user_portrait_api) {
+                        return user_portrait_api
+                    }
+                }
+            })
 
         /**
          * Affiliate

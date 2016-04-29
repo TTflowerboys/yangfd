@@ -1,0 +1,204 @@
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="box">
+      <div class="box-content">
+        <div class="btn-group form-inline">
+          <div edit-date ng-model="$parent.selected.date_from" placeholder="{%i18n('起租时间')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+          <div edit-date ng-model="$parent.selected.date_to" placeholder="{%i18n('结束时间')%}"></div>
+        </div>
+        <div class="btn-group form-inline">
+          <button class="btn btn-primary" ng-click="get_portrait_data()">{%$root.i18n('获取数据')%}</button>
+        </div>
+        <div class="row">
+
+  				<div class="col-sm-3">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>房源发布数量</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="rent_ticket_renting_count_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+          <div class="col-sm-3">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>出租类型</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="rent_ticket_renting_type_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+  				<div class="col-sm-3">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>房东类型</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="rent_ticket_renting_landlordtype_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+          <div class="col-sm-3">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>租金分布</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="rent_ticket_renting_price_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+        </div>
+        <div class="row">
+
+  				<div class="col-sm-3">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>出租多久</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="rent_ticket_renting_time_length_plan_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+          <div class="col-sm-3">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>提前多久开始租房</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="rent_ticket_renting_time_length_ahead_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+  				<div class="col-sm-3">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>房源详情页面被查看的次数</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="rent_ticket_renting_page_view_times_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+          <div class="col-sm-3">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>房源微信Poster页面被查看的次数</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="rent_ticket_renting_wechat_share_times_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+        </div>
+        <div class="row">
+
+  				<div class="col-sm-4">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>房源被收藏的次数</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="rent_ticket_renting_favorite_times_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+          <div class="col-sm-4">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>房源被咨询的次数</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="rent_ticket_renting_requested_times_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+  				<div class="col-sm-4">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>刷新房源的次数</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="rent_ticket_renting_refresh_times_distribution" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+        </div>
+        <div class="row">
+
+  				<div class="col-sm-6">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>房源位置（城市）</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="rent_ticket_renting_location_city" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+  				<div class="col-sm-6">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>房源位置（地铁）</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="rent_ticket_renting_location_metro" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+        </div>
+
+        <div class="row">
+
+
+          <div class="col-sm-12">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>房源位置（街区）</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="rent_ticket_renting_location_neighborhood" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+        </div>
+
+        <div class="row">
+
+  				<div class="col-sm-12">
+  					<div class="box">
+  						<div class="box-header">
+  							<h2><i class="fa fa-bar-chart-o"></i>房源位置（学校）</h2>
+  						</div>
+  						<div class="box-content">
+  							<figure id="rent_ticket_renting_location_university" style="height: 300px"></figure>
+  						</div>
+  					</div>
+  				</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

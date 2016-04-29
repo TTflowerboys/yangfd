@@ -9,6 +9,9 @@
             },
             get_users_portrait_tenants: function (date_from, date_to) {
               return $http.get('/api/1/get-users-portrait-tenants-behavior' + '?date_from=' + date_from + '&date_to=' + date_to)
+            },
+            get_users_portrait_landlord: function (date_from, date_to) {
+              return $http.get('/api/1/get-users-portrait-landlord-behavior' + '?date_from=' + date_from + '&date_to=' + date_to)
             }
         }
     }
