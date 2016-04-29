@@ -606,13 +606,17 @@ def get_weibo_search_result(keywords_list):
     result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
     result_powerapple = crawler_powerapple('10141')
     result_douban_group = reduce_overlap(crawler_douban_group(['ukhome', '436707', '338873', 'LondonHome']))
-    city_list = get_ybirds_city_list(session, ['Coventry', 'Newcastle', 'Liverpool', 'Cardiff'])
-    print 'city list recived'
-    # print json.dumps(city_list, indent=2, ensure_ascii=False)
-    for single_city in city_list:
-        print single_city + ' starting...'
-        result = crawler_ybirds(session, city_list[single_city]['name'], city_list[single_city]['link'], ['9', '10'])
-        result_ybirds.update({city_list[single_city]['name']: reduce_overlap(result)})
+
+    try:
+        city_list = get_ybirds_city_list(session, ['Coventry', 'Newcastle', 'Liverpool', 'Cardiff'])
+        print 'city list recived'
+        # print json.dumps(city_list, indent=2, ensure_ascii=False)
+        for single_city in city_list:
+            print single_city + ' starting...'
+            result = crawler_ybirds(session, city_list[single_city]['name'], city_list[single_city]['link'], ['9', '10'])
+            result_ybirds.update({city_list[single_city]['name']: reduce_overlap(result)})
+    except:
+        pass
 
     wb = Workbook()
     ws_weibo = wb.active
