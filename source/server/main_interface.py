@@ -28,6 +28,7 @@ from openpyxl.writer.excel import save_virtual_workbook
 from pytz import timezone
 # import pytz
 from bson.code import Code
+import re
 f_experiment()
 
 logger = logging.getLogger(__name__)
@@ -4582,3 +4583,721 @@ def get_users_portrait_tenants_behavior(user, params):
         value.update({"ticket_request_time": result})
 
     return value
+
+
+@f_api('/get-users-portrait-landlord-behavior', params=dict(
+    date_from=(datetime, None),
+    date_to=(datetime, None)
+))
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def get_users_portrait_landlord_behavior(user, params):
+    final_result = {}
+    with f_app.mongo() as m:
+        cursor = m.tickets.aggregate([
+            {'$match': {
+                "user_id": {"$exists": True},
+                "type": "rent",
+                "status": "to rent"
+            }},
+            {'$group': {
+                "_id": "$user_id",
+                "count": {"$sum": 1}
+            }}
+        ])
+        result = {}
+        for single in cursor:
+            if 1 == single['count']:
+                result.update({"1": result.get('1', 0) + 1})
+            elif 1 < single['count'] <= 3:
+                result.update({"1~3": result.get('1~3', 0) + 1})
+            elif 3 < single['count']:
+                result.update({"3+": result.get('3+', 0) + 1})
+        # print "房源发布数量:"
+        # print json.dumps(result, indent=2)
+        final_result.update({'rent_ticket_renting_count_distribution': result})
+
+        def get_direct_data_from_newest_ticket(field_name):
+            cursor = m.tickets.aggregate([
+                {'$match': {
+                    "user_id": {"$exists": True},
+                    "type": "rent",
+                    "status": "to rent",
+                    field_name: {'$exists': True}
+                }},
+                {'$group': {
+                    '_id': "$user_id",
+                    'count': {'$sum': 1},
+                    'landlord_type_id': {'$first': '$' + field_name}
+                }},
+                {'$match': {
+                    'count': {'$lte': 1}
+                }},
+                {'$group': {
+                    '_id': '$landlord_type_id',
+                    'count': {'$sum': 1}
+                }}
+            ])
+            source = {}
+            for single in cursor:
+                source.update({unicode(single['_id']): single['count']})
+
+            cursor = m.tickets.aggregate([
+                {'$match': {
+                    "user_id": {"$exists": True},
+                    "type": "rent",
+                    "status": "to rent",
+                    field_name: {'$exists': True}
+                }},
+                {'$group': {
+                    '_id': "$user_id",
+                    'count': {'$sum': 1},
+                    'time': {'$max': '$time'}
+                }},
+                {'$match': {
+                    'count': {'$gt': 1}
+                }}
+            ])
+            search_condition = {'$or': []}
+            for single in cursor:
+                search_condition['$or'].append({
+                    'user_id': ObjectId(single['_id']),
+                    'time': single['time'],
+                    'type': 'rent',
+                    'status': 'to rent'
+                })
+
+            tickets = m.tickets.aggregate([
+                {'$match': search_condition},
+                {'$project': {
+                    '_id': False,
+                    'landlord_type_id': '$' + field_name
+                }}
+            ])
+
+            for ticket in tickets:
+                source.update({unicode(ticket['landlord_type_id']): source.get(unicode(ticket['landlord_type_id']), 0) + 1})
+            return source
+
+        source = get_direct_data_from_newest_ticket('rent_type._id')
+        result = {}
+        for single in source:
+            result.update({f_app.enum.get(ObjectId(single))['value']['zh_Hans_CN']: source[single]})
+        # print "出租类型:"
+        # print json.dumps(result, indent=2, ensure_ascii=False)
+        final_result.update({'rent_ticket_renting_type_distribution': result})
+
+        source = get_direct_data_from_newest_ticket('landlord_type._id')
+        result = {}
+        for single in source:
+            result.update({f_app.enum.get(ObjectId(single))['value']['zh_Hans_CN']: source[single]})
+        # print "房东类型:"
+        # print json.dumps(result, indent=2, ensure_ascii=False)
+        final_result.update({'rent_ticket_renting_landlordtype_distribution': result})
+
+        source = get_direct_data_from_newest_ticket('price.value')
+        result_temp = {}
+        match_pattern = re.compile('\.[0]*$')
+        for single in source:
+            result_temp.update({match_pattern.sub('', single): result_temp.get(match_pattern.sub('', single), 0) + source[single]})
+        result = {}
+        for single in result_temp:
+            key = single
+            key_float = float(key)
+            value = result_temp[key]
+            if 0 < key_float <= 100:
+                result.update({'0~100': result.get('0~100', 0) + value})
+            elif 100 < key_float <= 200:
+                result.update({'100~200': result.get('100~200', 0) + value})
+            elif 200 < key_float <= 300:
+                result.update({'200~300': result.get('200~300', 0) + value})
+            elif 300 < key_float <= 400:
+                result.update({'300~400': result.get('300~400', 0) + value})
+            elif 400 < key_float <= 500:
+                result.update({'400~500': result.get('400~500', 0) + value})
+            elif 500 < key_float:
+                result.update({'500+': result.get('500+', 0) + value})
+        # print "租金分布:"
+        # print json.dumps(result, indent=2, ensure_ascii=False)
+        final_result.update({'rent_ticket_renting_price_distribution': result})
+
+        source = {}
+        cursor = m.tickets.aggregate([
+            {'$match': {
+                "user_id": {"$exists": True},
+                "type": "rent",
+                "status": "to rent",
+                "rent_available_time": {'$exists': True},
+                "rent_deadline_time": {'$exists': True}
+            }},
+            {'$group': {
+                '_id': "$user_id",
+                'count': {'$sum': 1},
+                'rent_available_time': {'$first': '$rent_available_time'},
+                'rent_deadline_time': {'$first': '$rent_deadline_time'}
+            }},
+            {'$match': {
+                'count': {'$lte': 1}
+            }},
+            {'$project': {
+                'rent_time_length_days': {'$divide': [{'$subtract': ['$rent_deadline_time', '$rent_available_time']}, 86400000]},
+                '_id': False,
+            }},
+            {'$group': {
+                '_id': '$rent_time_length_days',
+                'count': {'$sum': 1}
+            }}
+        ])
+        for single in cursor:
+            key_float = float(single['_id'])
+            value = single['count']
+            if 0 < key_float <= 31:
+                source.update({'1_month': source.get('1_month', 0) + value})
+            elif 31 < key_float <= 91:
+                source.update({'1~3_month': source.get('1~3_month', 0) + value})
+            elif 91 < key_float <= 183:
+                source.update({'3~6_month': source.get('3~6_month', 0) + value})
+            elif 183 < key_float <= 365:
+                source.update({'6~12_month': source.get('6~12_month', 0) + value})
+            elif 365 < key_float:
+                source.update({'12+_month': source.get('12+_month', 0) + value})
+
+        cursor = m.tickets.aggregate([
+            {'$match': {
+                "user_id": {"$exists": True},
+                "type": "rent",
+                "status": "to rent",
+                "rent_available_time": {'$exists': True},
+                "rent_deadline_time": {'$exists': True}
+            }},
+            {'$group': {
+                '_id': "$user_id",
+                'count': {'$sum': 1},
+                'time': {'$max': '$time'}
+            }},
+            {'$match': {
+                'count': {'$gt': 1}
+            }},
+            {'$project': {
+                '_id': True,
+                'time': True
+            }}
+        ])
+        search_condition = {'$or': []}
+        for single in cursor:
+            search_condition['$or'].append({
+                'user_id': ObjectId(single['_id']),
+                'time': single['time'],
+                'type': 'rent',
+                'status': 'to rent',
+                "rent_available_time": {'$exists': True},
+                "rent_deadline_time": {'$exists': True}
+            })
+
+        cursor = m.tickets.aggregate([
+            {'$match': search_condition},
+            {'$project': {
+                'rent_time_length_days': {'$divide': [{'$subtract': ['$rent_deadline_time', '$rent_available_time']}, 86400000]},
+                '_id': False,
+            }},
+            {'$group': {
+                '_id': '$rent_time_length_days',
+                'count': {'$sum': 1}
+            }}
+        ])
+        for single in cursor:
+            key_float = float(single['_id'])
+            value = single['count']
+            if 0 < key_float <= 31:
+                source.update({'1_month': source.get('1_month', 0) + value})
+            elif 31 < key_float <= 91:
+                source.update({'1~3_month': source.get('1~3_month', 0) + value})
+            elif 91 < key_float <= 183:
+                source.update({'3~6_month': source.get('3~6_month', 0) + value})
+            elif 183 < key_float <= 365:
+                source.update({'6~12_month': source.get('6~12_month', 0) + value})
+            elif 365 < key_float:
+                source.update({'12+_month': source.get('12+_month', 0) + value})
+
+        source.update({'no_limit': m.tickets.find({
+            "user_id": {"$exists": True},
+            "type": "rent",
+            "status": "to rent",
+            "rent_available_time": {'$exists': True},
+            "rent_deadline_time": {'$exists': False}
+        }).count()})
+        # print "出租多久:"
+        # print json.dumps(source, indent=2, ensure_ascii=False)
+        final_result.update({'rent_ticket_renting_time_length_plan_distribution': source})
+
+        source = {}
+        cursor = m.tickets.aggregate([
+            {'$match': {
+                "user_id": {"$exists": True},
+                "type": "rent",
+                "status": "to rent",
+                "time": {'$exists': True},
+                "rent_available_time": {'$exists': True}
+            }},
+            {'$group': {
+                '_id': "$user_id",
+                'count': {'$sum': 1},
+                'time': {'$first': '$time'},
+                'rent_available_time': {'$first': '$rent_available_time'}
+            }},
+            {'$match': {
+                'count': {'$lte': 1}
+            }},
+            {'$project': {
+                'rent_time_length_days': {'$divide': [{'$subtract': ['$rent_available_time', '$time']}, 86400000]},
+                '_id': False,
+            }},
+            {'$group': {
+                '_id': '$rent_time_length_days',
+                'count': {'$sum': 1}
+            }}
+        ])
+        for single in cursor:
+            key_float = float(single['_id'])
+            value = single['count']
+            if 0 < key_float <= 7:
+                source.update({'1_week': source.get('1_week', 0) + value})
+            elif 7 < key_float <= 14:
+                source.update({'1~2_week': source.get('1~2_week', 0) + value})
+            elif 14 < key_float <= 30:
+                source.update({'2~4_week': source.get('2~4_week', 0) + value})
+            elif 30 < key_float <= 61:
+                source.update({'1~2_month': source.get('1~2_month', 0) + value})
+            elif 61 < key_float:
+                source.update({'2+_month': source.get('2+_month', 0) + value})
+
+        cursor = m.tickets.aggregate([
+            {'$match': {
+                "user_id": {"$exists": True},
+                "type": "rent",
+                "status": "to rent",
+                "time": {'$exists': True},
+                "rent_available_time": {'$exists': True}
+            }},
+            {'$group': {
+                '_id': "$user_id",
+                'count': {'$sum': 1},
+                'time': {'$max': '$time'}
+            }},
+            {'$match': {
+                'count': {'$gt': 1}
+            }},
+            {'$project': {
+                '_id': True,
+                'time': True
+            }}
+        ])
+        search_condition = {'$or': []}
+        for single in cursor:
+            search_condition['$or'].append({
+                'user_id': ObjectId(single['_id']),
+                'time': single['time'],
+                'type': 'rent',
+                'status': 'to rent',
+                "time": {'$exists': True},
+                "rent_available_time": {'$exists': True}
+            })
+
+        cursor = m.tickets.aggregate([
+            {'$match': search_condition},
+            {'$project': {
+                'rent_time_length_days': {'$divide': [{'$subtract': ['$rent_available_time', '$time']}, 86400000]},
+                '_id': False,
+            }},
+            {'$group': {
+                '_id': '$rent_time_length_days',
+                'count': {'$sum': 1}
+            }}
+        ])
+        for single in cursor:
+            key_float = float(single['_id'])
+            value = single['count']
+            if 0 < key_float <= 7:
+                source.update({'1_week': source.get('1_week', 0) + value})
+            elif 7 < key_float <= 14:
+                source.update({'1~2_week': source.get('1~2_week', 0) + value})
+            elif 14 < key_float <= 30:
+                source.update({'2~4_week': source.get('2~4_week', 0) + value})
+            elif 30 < key_float <= 61:
+                source.update({'1~2_month': source.get('1~2_month', 0) + value})
+            elif 61 < key_float:
+                source.update({'2+_month': source.get('2+_month', 0) + value})
+
+        # print "提前多久开始租房:"
+        # print json.dumps(source, indent=2, ensure_ascii=False)
+        final_result.update({'rent_ticket_renting_time_length_ahead_distribution': source})
+
+        cursor = m.log.aggregate([
+            {'$match': {
+                'type': 'route',
+                'route': {'$exists': True},
+            }},
+            {'$project': {
+                '_id': False,
+                'route': True,
+                'judge': {'$strcasecmp': ['$route', '/property-to-rent/']}
+            }},
+            {'$match': {
+                'judge': 1
+            }},
+            {'$project': {
+                '_id': False,
+                'route': True,
+                'route_page_pre': {'$substr': ['$route', 0, 18]},
+            }},
+            {'$match': {
+                'route_page_pre': '/property-to-rent/',
+                'route': {'$ne': '/property-to-rent/create'}
+            }},
+            {'$group': {
+                '_id': {'$substr': ['$route', 18, 24]},
+                'count': {'$sum': 1}
+            }},
+            {'$group': {
+                '_id': '$count',
+                'count': {'$sum': 1}
+            }}
+        ])
+
+        result = {}
+        for single in cursor:
+            if 0 < single['_id'] <= 30:
+                result.update({'0~30': result.get('0~30', 0) + single['count']})
+            elif 30 < single['_id'] <= 100:
+                result.update({'30~100': result.get('30~100', 0) + single['count']})
+            elif 100 < single['_id'] <= 300:
+                result.update({'100~300': result.get('100~300', 0) + single['count']})
+            elif 300 < single['_id']:
+                result.update({'300+': result.get('300+', 0) + single['count']})
+        # print "房源详情页面被查看的次数:"
+        # print json.dumps(result, indent=2)
+        final_result.update({'rent_ticket_renting_page_view_times_distribution': result})
+
+        cursor = m.log.aggregate([
+            {'$match': {
+                'type': 'route',
+                'route': {'$exists': True},
+            }},
+            {'$project': {
+                '_id': False,
+                'route': True,
+                'judge': {'$strcasecmp': ['$route', '/wechat-poster/']}
+            }},
+            {'$match': {
+                'judge': 1
+            }},
+            {'$project': {
+                '_id': False,
+                'route': True,
+                'route_page_pre': {'$substr': ['$route', 0, 15]},
+            }},
+            {'$match': {
+                'route_page_pre': '/wechat-poster/',
+                # 'route': {'$ne': '/property-to-rent/create'}
+            }},
+            {'$group': {
+                '_id': {'$substr': ['$route', 15, 24]},
+                'count': {'$sum': 1}
+            }},
+            {'$group': {
+                '_id': '$count',
+                'count': {'$sum': 1}
+            }}
+        ])
+
+        result = {}
+        for single in cursor:
+            if 0 < single['_id'] <= 30:
+                result.update({'0~30': result.get('0~30', 0) + single['count']})
+            elif 30 < single['_id'] <= 100:
+                result.update({'30~100': result.get('30~100', 0) + single['count']})
+            elif 100 < single['_id'] <= 300:
+                result.update({'100~300': result.get('100~300', 0) + single['count']})
+            elif 300 < single['_id']:
+                result.update({'300+': result.get('300+', 0) + single['count']})
+        # print "房源微信Poster页面被查看的次数:"
+        # print json.dumps(result, indent=2)
+        final_result.update({'rent_ticket_renting_wechat_share_times_distribution': result})
+
+        cursor = m.favorites.aggregate([
+            {'$match': {
+                'type': 'rent_ticket',
+                'status': {'$ne': 'deleted'},
+                'user_id': {'$exists': True},
+                'ticket_id': {'$exists': True}
+            }},
+            {'$group': {
+                '_id': '$ticket_id',
+                'count': {'$sum': 1}
+            }},
+            {'$group': {
+                '_id': '$count',
+                'count': {'$sum': 1}
+            }}
+        ])
+
+        result = {}
+        for single in cursor:
+            if 1 < single['_id'] <= 3:
+                result.update({'1~3': result.get('1~3', 0) + single['count']})
+            elif 3 < single['_id'] <= 8:
+                result.update({'3~8': result.get('3~8', 0) + single['count']})
+            elif 8 < single['_id']:
+                result.update({'8+': result.get('8+', 0) + single['count']})
+        # print "房源被收藏的次数:"
+        # print json.dumps(result, indent=2)
+        final_result.update({'rent_ticket_renting_favorite_times_distribution': result})
+
+        cursor = m.tickets.aggregate([
+            {'$match': {
+                'type': 'rent_intention',
+                'status': {'$in': ["requested", "assigned", "in_progress", "rejected", "confirmed_video", "booked", "holding_deposit_paid", "checked_in"]}
+            }},
+            {'$project': {
+                'interested_rent_tickets': True
+            }},
+            {'$group': {
+                '_id': '$interested_rent_tickets',
+                'count': {'$sum': 1}
+            }},
+            {'$group': {
+                '_id': '$count',
+                'count': {'$sum': 1}
+            }}
+        ])
+        result = {}
+        for single in cursor:
+            if 1 < single['_id'] <= 3:
+                result.update({'1~3': result.get('1~3', 0) + single['count']})
+            elif 3 < single['_id'] <= 8:
+                result.update({'3~8': result.get('3~8', 0) + single['count']})
+            elif 8 < single['_id']:
+                result.update({'8+': result.get('8+', 0) + single['count']})
+        # print "房源被咨询的次数:"
+        # print json.dumps(result, indent=2)
+        final_result.update({'rent_ticket_renting_requested_times_distribution': result})
+
+        cursor = m.log.aggregate([
+            {'$match': {
+                'type': 'route',
+                'route': {
+                    '$exists': True,
+                    '$ne': None
+                },
+                'route': {'$regex': '^\/api\/1\/rent_ticket'}
+            }},
+            {'$project': {
+                '_id': False,
+                'ticket_id': {'$substr': ['$route', 19, 24]},
+                'operation': {'$substr': ['$route', 43, 8]}
+            }},
+            {'$match': {
+                'operation': '/refresh',
+            }},
+            {'$group': {
+                '_id': '$ticket_id',
+                'count': {'$sum': 1}
+            }},
+            {'$group': {
+                '_id': '$count',
+                'count': {'$sum': 1}
+            }}
+        ])
+
+        result = {}
+        for single in cursor:
+            if 1 < single['_id'] <= 3:
+                result.update({'1~3': result.get('1~3', 0) + single['count']})
+            elif 3 < single['_id'] <= 8:
+                result.update({'3~8': result.get('3~8', 0) + single['count']})
+            elif 8 < single['_id']:
+                result.update({'8+': result.get('8+', 0) + single['count']})
+        # print "刷新房源的次数:"
+        # print json.dumps(result, indent=2)
+        final_result.update({'rent_ticket_renting_refresh_times_distribution': result})
+
+        cursor = m.tickets.aggregate([
+            {'$match': {
+                "user_id": {"$exists": True},
+                "type": "rent",
+                "status": "to rent",
+                "property_id": {'$exists': True}
+            }},
+            {'$project': {
+                '_id': '$property_id',
+            }}
+        ])
+        search_condition = []
+        for single in cursor:
+            if single['_id'] is None:
+                continue
+            search_condition.append(single['_id'])
+        cursor = m.propertys.aggregate([
+            {'$match': {
+                '_id': {
+                    '$in': search_condition
+                }
+            }},
+            {'$group': {
+                '_id': '$maponics_neighborhood._id',
+                'count': {'$sum': 1}
+            }},
+            {'$sort': {
+                'count': -1
+            }}
+        ])
+        source = {}
+        result = []
+        index = 0
+        for single in cursor:
+            if single['_id'] is None:
+                source.update({'unset': {
+                    'count': single['count'],
+                    'name': '[unset]'
+                }})
+                continue
+            if index >= 10:
+                source.update({'other': {
+                    'count': source.get('other', {}).get('count', 0) + single['count'],
+                    'name': '[other]'
+                }})
+            else:
+                source.update({unicode(index + 1): {
+                    'count': single['count'],
+                    'name': f_app.maponics.neighborhood.get(single['_id']).get('name', '')
+                }})
+                index += 1
+        for index in range(1, 11):
+            result.append({source[unicode(index)]['name']: source[unicode(index)]['count']})
+        result.append({source['other']['name']: source['other']['count']})
+        # print "房源位置(街区):"
+        # print json.dumps(result, indent=2)
+        final_result.update({'rent_ticket_renting_location_neighborhood': result})
+
+        cursor = m.propertys.aggregate([
+            {'$match': {
+                '_id': {
+                    '$in': search_condition
+                }
+            }},
+            {'$project': {
+                'station': '$featured_facility.doogal_station',
+            }},
+            {'$unwind': '$station'},
+            {'$group': {
+                '_id': '$station',
+                'count': {'$sum': 1}
+            }},
+            {'$sort': {
+                'count': -1
+            }}
+        ])
+
+        source = {}
+        result = []
+        index = 0
+        for single in cursor:
+            if index >= 10:
+                source.update({'other': {
+                    'count': source.get('other', {}).get('count', 0) + single['count'],
+                    'name': '[other]'
+                }})
+            else:
+                source.update({unicode(index + 1): {
+                    'count': single['count'],
+                    'name': f_app.doogal.station.get(single['_id']).get('name', '')
+                }})
+                index += 1
+        for index in range(1, 11):
+            result.append({source[unicode(index)]['name']: source[unicode(index)]['count']})
+        result.append({source['other']['name']: source['other']['count']})
+        # print "房源位置(地铁):"
+        # print json.dumps(result, indent=2)
+        final_result.update({'rent_ticket_renting_location_metro': result})
+
+        cursor = m.propertys.aggregate([
+            {'$match': {
+                '_id': {
+                    '$in': search_condition
+                }
+            }},
+            {'$project': {
+                'university': '$featured_facility.hesa_university'
+            }},
+            {'$unwind': '$university'},
+            {'$group': {
+                '_id': '$university',
+                'count': {'$sum': 1}
+            }},
+            {'$sort': {
+                'count': -1
+            }}
+        ])
+
+        source = {}
+        result = []
+        index = 0
+        for single in cursor:
+            if index >= 10:
+                source.update({'other': {
+                    'count': source.get('other', {}).get('count', 0) + single['count'],
+                    'name': '[other]'
+                }})
+            else:
+                source.update({unicode(index + 1): {
+                    'count': single['count'],
+                    'name': f_app.hesa.university.get(single['_id']).get('name', '')
+                }})
+                index += 1
+        for index in range(1, 11):
+            result.append({source[unicode(index)]['name']: source[unicode(index)]['count']})
+        result.append({source['other']['name']: source['other']['count']})
+        # print "房源位置(大学):"
+        # print json.dumps(result, indent=2)
+        final_result.update({'rent_ticket_renting_location_university': result})
+
+        cursor = m.propertys.aggregate([
+            {'$match': {
+                '_id': {
+                    '$in': search_condition
+                }
+            }},
+            {'$project': {
+                'city': '$city._id'
+            }},
+            {'$group': {
+                '_id': '$city',
+                'count': {'$sum': 1}
+            }},
+            {'$sort': {
+                'count': -1
+            }}
+        ])
+
+        source = {}
+        result = []
+        index = 0
+        for single in cursor:
+            if index >= 10:
+                source.update({'other': {
+                    'count': source.get('other', {}).get('count', 0) + single['count'],
+                    'name': '[other]'
+                }})
+            else:
+                source.update({unicode(index + 1): {
+                    'count': single['count'],
+                    'name': f_app.geonames.gazetteer.get(single['_id']).get('name', '')
+                }})
+                index += 1
+        for index in range(1, 11):
+            result.append({source[unicode(index)]['name']: source[unicode(index)]['count']})
+        result.append({source['other']['name']: source['other']['count']})
+        # print "房源位置(城市):"
+        # print json.dumps(result, indent=2)
+        final_result.update({'rent_ticket_renting_location_city': result})
+
+    return final_result
