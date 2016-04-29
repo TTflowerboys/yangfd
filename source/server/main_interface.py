@@ -5151,7 +5151,7 @@ def get_users_portrait_landlord_behavior(user, params):
             }}
         ])
         source = {}
-        result = []
+        result = {}
         index = 0
         for single in cursor:
             if single['_id'] is None:
@@ -5177,8 +5177,8 @@ def get_users_portrait_landlord_behavior(user, params):
                 }})
                 index += 1
         for index in range(1, 11):
-            result.append({source[unicode(index)]['name']: source[unicode(index)]['count']})
-        result.append({source['other']['name']: source['other']['count']})
+            result.update({source[unicode(index)]['name']: source[unicode(index)]['count']})
+        result.update({source['other']['name']: source['other']['count']})
         # print "房源位置(街区):"
         # print json.dumps(result, indent=2)
         final_result.update({'rent_ticket_renting_location_neighborhood': result})
@@ -5203,7 +5203,7 @@ def get_users_portrait_landlord_behavior(user, params):
         ])
 
         source = {}
-        result = []
+        result = {}
         index = 0
         for single in cursor:
             if index >= 10:
@@ -5223,8 +5223,8 @@ def get_users_portrait_landlord_behavior(user, params):
                 }})
                 index += 1
         for index in range(1, 11):
-            result.append({source[unicode(index)]['name']: source[unicode(index)]['count']})
-        result.append({source['other']['name']: source['other']['count']})
+            result.update({source[unicode(index)]['name']: source[unicode(index)]['count']})
+        result.update({source['other']['name']: source['other']['count']})
         # print "房源位置(地铁):"
         # print json.dumps(result, indent=2)
         final_result.update({'rent_ticket_renting_location_metro': result})
@@ -5249,7 +5249,7 @@ def get_users_portrait_landlord_behavior(user, params):
         ])
 
         source = {}
-        result = []
+        result = {}
         index = 0
         for single in cursor:
             if index >= 10:
@@ -5269,8 +5269,8 @@ def get_users_portrait_landlord_behavior(user, params):
                 }})
                 index += 1
         for index in range(1, 11):
-            result.append({source[unicode(index)]['name']: source[unicode(index)]['count']})
-        result.append({source['other']['name']: source['other']['count']})
+            result.update({source[unicode(index)]['name']: source[unicode(index)]['count']})
+        result.update({source['other']['name']: source['other']['count']})
         # print "房源位置(大学):"
         # print json.dumps(result, indent=2)
         final_result.update({'rent_ticket_renting_location_university': result})
@@ -5294,7 +5294,7 @@ def get_users_portrait_landlord_behavior(user, params):
         ])
 
         source = {}
-        result = []
+        result = {}
         index = 0
         for single in cursor:
             if index >= 10:
@@ -5314,8 +5314,8 @@ def get_users_portrait_landlord_behavior(user, params):
                 }})
                 index += 1
         for index in range(1, 11):
-            result.append({source[unicode(index)]['name']: source[unicode(index)]['count']})
-        result.append({source['other']['name']: source['other']['count']})
+            result.update({source[unicode(index)]['name']: source[unicode(index)]['count']})
+        result.update({source['other']['name']: source['other']['count']})
         # print "房源位置(城市):"
         # print json.dumps(result, indent=2)
         final_result.update({'rent_ticket_renting_location_city': result})
