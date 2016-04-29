@@ -607,16 +607,28 @@ def get_weibo_search_result(keywords_list):
     result_powerapple = crawler_powerapple('10141')
     result_douban_group = reduce_overlap(crawler_douban_group(['ukhome', '436707', '338873', 'LondonHome']))
 
-    try:
-        city_list = get_ybirds_city_list(session, ['Coventry', 'Newcastle', 'Liverpool', 'Cardiff'])
-        print 'city list recived'
-        # print json.dumps(city_list, indent=2, ensure_ascii=False)
-        for single_city in city_list:
-            print single_city + ' starting...'
-            result = crawler_ybirds(session, city_list[single_city]['name'], city_list[single_city]['link'], ['9', '10'])
-            result_ybirds.update({city_list[single_city]['name']: reduce_overlap(result)})
-    except:
-        pass
+    city_list = {}
+    retry = 0
+    while(retry < 5):
+        try:
+            retry += 1
+            city_list = get_ybirds_city_list(session, ['Coventry', 'Newcastle', 'Liverpool', 'Cardiff'])
+            print 'city list recived'
+            retry = 5
+        except:
+            pass
+
+    retry = 0
+    while(retry < 5):
+        try:
+            retry += 1
+            for single_city in city_list:
+                print single_city + ' starting...'
+                result = crawler_ybirds(session, city_list[single_city]['name'], city_list[single_city]['link'], ['9', '10'])
+                result_ybirds.update({city_list[single_city]['name']: reduce_overlap(result)})
+            retry = 5
+        except:
+            pass
 
     wb = Workbook()
     ws_weibo = wb.active
@@ -744,7 +756,7 @@ def get_weibo_search_result(keywords_list):
     if day_shift:
         wb.save('weibo_search' + unicode(today - timedelta(days=day_shift)) + '~' + unicode(today) + '.xlsx')
     else:
-        wb.save('weibo_search' + unicode(today) + '.xlsx')
+        wb.save('weibo_search ' + unicode(today) + '.xlsx')
 
     # wb = Workbook()
     # ws = wb.active
