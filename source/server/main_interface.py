@@ -5166,9 +5166,14 @@ def get_users_portrait_landlord_behavior(user, params):
                     'name': '[other]'
                 }})
             else:
+                name = ''
+                try:
+                    name = f_app.doogal.station.get(single['_id']).get('name', '')
+                except:
+                    pass
                 source.update({unicode(index + 1): {
                     'count': single['count'],
-                    'name': f_app.maponics.neighborhood.get(single['_id']).get('name', '')
+                    'name': name
                 }})
                 index += 1
         for index in range(1, 11):
@@ -5207,9 +5212,14 @@ def get_users_portrait_landlord_behavior(user, params):
                     'name': '[other]'
                 }})
             else:
+                name = ''
+                try:
+                    name = f_app.doogal.station.get(single['_id']).get('name', '')
+                except:
+                    pass
                 source.update({unicode(index + 1): {
                     'count': single['count'],
-                    'name': f_app.doogal.station.get(single['_id']).get('name', '')
+                    'name': name
                 }})
                 index += 1
         for index in range(1, 11):
@@ -5248,9 +5258,14 @@ def get_users_portrait_landlord_behavior(user, params):
                     'name': '[other]'
                 }})
             else:
+                name = ''
+                try:
+                    name = f_app.hesa.university.get(single['_id']).get('name', '')
+                except:
+                    pass
                 source.update({unicode(index + 1): {
                     'count': single['count'],
-                    'name': f_app.hesa.university.get(single['_id']).get('name', '')
+                    'name': name
                 }})
                 index += 1
         for index in range(1, 11):
@@ -5288,9 +5303,14 @@ def get_users_portrait_landlord_behavior(user, params):
                     'name': '[other]'
                 }})
             else:
+                name = ''
+                try:
+                    name = f_app.geonames.gazetteer.get(single['_id']).get('name', '')
+                except:
+                    pass
                 source.update({unicode(index + 1): {
                     'count': single['count'],
-                    'name': f_app.geonames.gazetteer.get(single['_id']).get('name', '')
+                    'name': name
                 }})
                 index += 1
         for index in range(1, 11):
