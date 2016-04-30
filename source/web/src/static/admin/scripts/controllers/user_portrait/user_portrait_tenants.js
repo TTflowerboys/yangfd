@@ -17,6 +17,16 @@
           }
           return 0;
         }
+
+        function compare_data(a, b) {
+          if (a.data > b.data) {
+            return 1;
+          }
+          if (a.data < b.data) {
+            return -1;
+          }
+          return 0;
+        }
         $scope.value = data.val
         $scope.place_holder = '无'
 
@@ -45,12 +55,6 @@
           xaxis.finding_rent_days_distribution.push([single, temp_value[single].label])
         }
 
-        // for (value in data.val.finding_rent_days_distribution) {
-        //   detail_data.finding_rent_days_distribution.push([index, data.val.finding_rent_days_distribution[value]])
-        //   xaxis.finding_rent_days_distribution.push([index, value])
-        //   index += 1
-        // }
-
         $.plot($('#user_portrait_tenants_finding_rent_days_distribution'),
           [
             {
@@ -75,13 +79,6 @@
           xaxis.want_rent_days_distribution.push([single, temp_value[single].label])
         }
 
-        // index = 0
-        // for (value in data.val.want_rent_days_distribution) {
-        //   detail_data.want_rent_days_distribution.push([index, data.val.want_rent_days_distribution[value]])
-        //   xaxis.want_rent_days_distribution.push([index, value])
-        //   index += 1
-        // }
-
         $.plot($('#user_portrait_tenants_want_rent_days_distribution'),
           [
             {
@@ -102,6 +99,7 @@
             'data': data.val.ticket_access_time[value]
           })
         }
+        detail_data.ticket_access_time.sort(compare_data)
 
         $.plot($('#user_portrait_tenants_ticket_access_time'),
           detail_data.ticket_access_time, {
@@ -122,6 +120,7 @@
             'data': data.val.tenant_count[value]
           })
         }
+        detail_data.tenant_count.sort(compare_data)
 
         $.plot($('#user_portrait_tenants_tenant_count'),
           detail_data.tenant_count, {
@@ -142,6 +141,7 @@
             'data': data.val.ticket_favorite_time[value]
           })
         }
+        detail_data.ticket_favorite_time.sort(compare_data)
 
         $.plot($('#user_portrait_tenants_ticket_favorite_time'),
           detail_data.ticket_favorite_time, {
@@ -162,6 +162,7 @@
             'data': data.val.ticket_request_time[value]
           })
         }
+        detail_data.ticket_request_time.sort(compare_data)
 
         $.plot($('#user_portrait_tenants_ticket_request_time'),
           detail_data.ticket_request_time, {

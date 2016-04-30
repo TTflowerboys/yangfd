@@ -17,6 +17,16 @@
           }
           return 0;
         }
+
+        function compare_data(a, b) {
+          if (a.data > b.data) {
+            return 1;
+          }
+          if (a.data < b.data) {
+            return -1;
+          }
+          return 0;
+        }
         $scope.value = data.val
         $scope.place_holder = '无'
 
@@ -60,13 +70,6 @@
           xaxis.rent_ticket_renting_location_city.push([single, temp_value[single].label])
         }
 
-        // index = 0
-        // for (value in data.val.rent_ticket_renting_location_city) {
-        //   detail_data.rent_ticket_renting_location_city.push([index, data.val.rent_ticket_renting_location_city[value]])
-        //   xaxis.rent_ticket_renting_location_city.push([index, value])
-        //   index += 1
-        // }
-
         $.plot($('#rent_ticket_renting_location_city'),
           [
             {
@@ -90,13 +93,6 @@
           detail_data.rent_ticket_renting_location_neighborhood.push([single, temp_value[single].value])
           xaxis.rent_ticket_renting_location_neighborhood.push([single, temp_value[single].label])
         }
-
-        // index = 0
-        // for (value in data.val.rent_ticket_renting_location_neighborhood) {
-        //   detail_data.rent_ticket_renting_location_neighborhood.push([index, data.val.rent_ticket_renting_location_neighborhood[value]])
-        //   xaxis.rent_ticket_renting_location_neighborhood.push([index, value])
-        //   index += 1
-        // }
 
         $.plot($('#rent_ticket_renting_location_neighborhood'),
           [
@@ -122,13 +118,6 @@
           xaxis.rent_ticket_renting_location_university.push([single, temp_value[single].label])
         }
 
-        // index = 0
-        // for (value in data.val.rent_ticket_renting_location_university) {
-        //   detail_data.rent_ticket_renting_location_university.push([index, data.val.rent_ticket_renting_location_university[value]])
-        //   xaxis.rent_ticket_renting_location_university.push([index, value])
-        //   index += 1
-        // }
-
         $.plot($('#rent_ticket_renting_location_university'),
           [
             {
@@ -153,13 +142,6 @@
           xaxis.rent_ticket_renting_location_metro.push([single, temp_value[single].label])
         }
 
-        // index = 0
-        // for (value in data.val.rent_ticket_renting_location_metro) {
-        //   detail_data.rent_ticket_renting_location_metro.push([index, data.val.rent_ticket_renting_location_metro[value]])
-        //   xaxis.rent_ticket_renting_location_metro.push([index, value])
-        //   index += 1
-        // }
-
         $.plot($('#rent_ticket_renting_location_metro'),
           [
             {
@@ -182,6 +164,7 @@
             'data': data.val.rent_ticket_renting_count_distribution[value]
           })
         }
+        detail_data.rent_ticket_renting_count_distribution.sort(compare_data)
 
         $.plot($('#rent_ticket_renting_count_distribution'),
           detail_data.rent_ticket_renting_count_distribution, {
@@ -202,6 +185,7 @@
             'data': data.val.rent_ticket_renting_type_distribution[value]
           })
         }
+        detail_data.rent_ticket_renting_type_distribution.sort(compare_data)
 
         $.plot($('#rent_ticket_renting_type_distribution'),
           detail_data.rent_ticket_renting_type_distribution, {
@@ -222,6 +206,7 @@
             'data': data.val.rent_ticket_renting_landlordtype_distribution[value]
           })
         }
+        detail_data.rent_ticket_renting_landlordtype_distribution.sort(compare_data)
 
         $.plot($('#rent_ticket_renting_landlordtype_distribution'),
           detail_data.rent_ticket_renting_landlordtype_distribution, {
@@ -242,6 +227,7 @@
             'data': data.val.rent_ticket_renting_price_distribution[value]
           })
         }
+        detail_data.rent_ticket_renting_price_distribution.sort(compare_data)
 
         $.plot($('#rent_ticket_renting_price_distribution'),
           detail_data.rent_ticket_renting_price_distribution, {
@@ -263,6 +249,7 @@
             'data': data.val.rent_ticket_renting_time_length_ahead_distribution[value]
           })
         }
+        detail_data.rent_ticket_renting_time_length_ahead_distribution.sort(compare_data)
 
         $.plot($('#rent_ticket_renting_time_length_ahead_distribution'),
           detail_data.rent_ticket_renting_time_length_ahead_distribution, {
@@ -283,6 +270,7 @@
             'data': data.val.rent_ticket_renting_time_length_plan_distribution[value]
           })
         }
+        detail_data.rent_ticket_renting_time_length_plan_distribution.sort(compare_data)
 
         $.plot($('#rent_ticket_renting_time_length_plan_distribution'),
           detail_data.rent_ticket_renting_time_length_plan_distribution, {
@@ -303,6 +291,7 @@
             'data': data.val.rent_ticket_renting_requested_times_distribution[value]
           })
         }
+        detail_data.rent_ticket_renting_requested_times_distribution.sort(compare_data)
 
         $.plot($('#rent_ticket_renting_requested_times_distribution'),
           detail_data.rent_ticket_renting_requested_times_distribution, {
@@ -324,6 +313,7 @@
             'data': data.val.rent_ticket_renting_page_view_times_distribution[value]
           })
         }
+        detail_data.rent_ticket_renting_page_view_times_distribution.sort(compare_data)
 
         $.plot($('#rent_ticket_renting_page_view_times_distribution'),
           detail_data.rent_ticket_renting_page_view_times_distribution, {
@@ -344,6 +334,7 @@
             'data': data.val.rent_ticket_renting_refresh_times_distribution[value]
           })
         }
+        detail_data.rent_ticket_renting_refresh_times_distribution.sort(compare_data)
 
         $.plot($('#rent_ticket_renting_refresh_times_distribution'),
           detail_data.rent_ticket_renting_refresh_times_distribution, {
@@ -364,6 +355,7 @@
             'data': data.val.rent_ticket_renting_wechat_share_times_distribution[value]
           })
         }
+        detail_data.rent_ticket_renting_wechat_share_times_distribution.sort(compare_data)
 
         $.plot($('#rent_ticket_renting_wechat_share_times_distribution'),
           detail_data.rent_ticket_renting_wechat_share_times_distribution, {
@@ -384,6 +376,7 @@
             'data': data.val.rent_ticket_renting_favorite_times_distribution[value]
           })
         }
+        detail_data.rent_ticket_renting_favorite_times_distribution.sort(compare_data)
 
         $.plot($('#rent_ticket_renting_favorite_times_distribution'),
           detail_data.rent_ticket_renting_favorite_times_distribution, {

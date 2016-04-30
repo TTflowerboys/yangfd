@@ -17,6 +17,16 @@
           }
           return 0;
         }
+
+        function compare_data(a, b) {
+          if (a.data > b.data) {
+            return 1;
+          }
+          if (a.data < b.data) {
+            return -1;
+          }
+          return 0;
+        }
         $scope.value = data.val
         $scope.place_holder = '无'
 
@@ -71,13 +81,6 @@
           xaxis.age.push([single, temp_value[single].label])
         }
 
-        // index = 0
-        // for (value in data.val.user_portrait_age_distribution) {
-        //   detail_data.age.push([index, data.val.user_portrait_age_distribution[value]])
-        //   xaxis.age.push([index, value])
-        //   index += 1
-        // }
-
         $.plot($('#user_portrait_age_distribution'),
           [
             {
@@ -98,6 +101,7 @@
             'data': data.val.user_portrait_user_type[value]
           })
         }
+        detail_data.user_type.sort(compare_data)
 
         $.plot($('#user_portrait_user_type'),
           detail_data.user_type, {
@@ -118,6 +122,7 @@
             'data': data.val.user_portrait_occupation_distribution[value]
           })
         }
+        detail_data.occupation.sort(compare_data)
 
         $.plot($('#user_portrait_occupation_distribution'),
           detail_data.occupation, {
@@ -138,6 +143,7 @@
             'data': data.val.user_portrait_gender_type[value]
           })
         }
+        detail_data.gender.sort(compare_data)
 
         $.plot($('#user_portrait_gender'),
           detail_data.gender, {
@@ -158,6 +164,7 @@
             'data': data.val.user_portrait_active_days[value]
           })
         }
+        detail_data.active_days.sort(compare_data)
 
         $.plot($('#user_portrait_active_days'),
           detail_data.active_days, {
@@ -178,6 +185,7 @@
             'data': data.val.user_portrait_user_device[value]
           })
         }
+        detail_data.device.sort(compare_data)
 
         $.plot($('#user_portrait_user_device'),
           detail_data.device, {
