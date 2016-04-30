@@ -8,6 +8,15 @@
           }
       }
       function on_refresh(data) {
+        function compare_value(a, b) {
+          if (a.value > b.value) {
+            return 1;
+          }
+          if (a.value < b.value) {
+            return -1;
+          }
+          return 0;
+        }
         $scope.value = data.val
         $scope.place_holder = '无'
 
@@ -41,12 +50,22 @@
           'rent_ticket_renting_location_metro': [],
         }
 
-        index = 0
-        for (value in data.val.rent_ticket_renting_location_city) {
-          detail_data.rent_ticket_renting_location_city.push([index, data.val.rent_ticket_renting_location_city[value]])
-          xaxis.rent_ticket_renting_location_city.push([index, value])
-          index += 1
+        var temp_value = []
+        for (var single in data.val.rent_ticket_renting_location_city) {
+          temp_value.push({'label': single, 'value': data.val.rent_ticket_renting_location_city[single]})
         }
+        temp_value.sort(compare_value).reverse()
+        for (var single in temp_value) {
+          detail_data.rent_ticket_renting_location_city.push([single, temp_value[single].value])
+          xaxis.rent_ticket_renting_location_city.push([single, temp_value[single].label])
+        }
+
+        // index = 0
+        // for (value in data.val.rent_ticket_renting_location_city) {
+        //   detail_data.rent_ticket_renting_location_city.push([index, data.val.rent_ticket_renting_location_city[value]])
+        //   xaxis.rent_ticket_renting_location_city.push([index, value])
+        //   index += 1
+        // }
 
         $.plot($('#rent_ticket_renting_location_city'),
           [
@@ -62,12 +81,22 @@
           }
         );
 
-        index = 0
-        for (value in data.val.rent_ticket_renting_location_neighborhood) {
-          detail_data.rent_ticket_renting_location_neighborhood.push([index, data.val.rent_ticket_renting_location_neighborhood[value]])
-          xaxis.rent_ticket_renting_location_neighborhood.push([index, value])
-          index += 1
+        temp_value = []
+        for (var single in data.val.rent_ticket_renting_location_neighborhood) {
+          temp_value.push({'label': single, 'value': data.val.rent_ticket_renting_location_neighborhood[single]})
         }
+        temp_value.sort(compare_value).reverse()
+        for (var single in temp_value) {
+          detail_data.rent_ticket_renting_location_neighborhood.push([single, temp_value[single].value])
+          xaxis.rent_ticket_renting_location_neighborhood.push([single, temp_value[single].label])
+        }
+
+        // index = 0
+        // for (value in data.val.rent_ticket_renting_location_neighborhood) {
+        //   detail_data.rent_ticket_renting_location_neighborhood.push([index, data.val.rent_ticket_renting_location_neighborhood[value]])
+        //   xaxis.rent_ticket_renting_location_neighborhood.push([index, value])
+        //   index += 1
+        // }
 
         $.plot($('#rent_ticket_renting_location_neighborhood'),
           [
@@ -83,12 +112,22 @@
           }
         );
 
-        index = 0
-        for (value in data.val.rent_ticket_renting_location_university) {
-          detail_data.rent_ticket_renting_location_university.push([index, data.val.rent_ticket_renting_location_university[value]])
-          xaxis.rent_ticket_renting_location_university.push([index, value])
-          index += 1
+        temp_value = []
+        for (var single in data.val.rent_ticket_renting_location_university) {
+          temp_value.push({'label': single, 'value': data.val.rent_ticket_renting_location_university[single]})
         }
+        temp_value.sort(compare_value).reverse()
+        for (var single in temp_value) {
+          detail_data.rent_ticket_renting_location_university.push([single, temp_value[single].value])
+          xaxis.rent_ticket_renting_location_university.push([single, temp_value[single].label])
+        }
+
+        // index = 0
+        // for (value in data.val.rent_ticket_renting_location_university) {
+        //   detail_data.rent_ticket_renting_location_university.push([index, data.val.rent_ticket_renting_location_university[value]])
+        //   xaxis.rent_ticket_renting_location_university.push([index, value])
+        //   index += 1
+        // }
 
         $.plot($('#rent_ticket_renting_location_university'),
           [
@@ -104,12 +143,22 @@
           }
         );
 
-        index = 0
-        for (value in data.val.rent_ticket_renting_location_metro) {
-          detail_data.rent_ticket_renting_location_metro.push([index, data.val.rent_ticket_renting_location_metro[value]])
-          xaxis.rent_ticket_renting_location_metro.push([index, value])
-          index += 1
+        temp_value = []
+        for (var single in data.val.rent_ticket_renting_location_metro) {
+          temp_value.push({'label': single, 'value': data.val.rent_ticket_renting_location_metro[single]})
         }
+        temp_value.sort(compare_value).reverse()
+        for (var single in temp_value) {
+          detail_data.rent_ticket_renting_location_metro.push([single, temp_value[single].value])
+          xaxis.rent_ticket_renting_location_metro.push([single, temp_value[single].label])
+        }
+
+        // index = 0
+        // for (value in data.val.rent_ticket_renting_location_metro) {
+        //   detail_data.rent_ticket_renting_location_metro.push([index, data.val.rent_ticket_renting_location_metro[value]])
+        //   xaxis.rent_ticket_renting_location_metro.push([index, value])
+        //   index += 1
+        // }
 
         $.plot($('#rent_ticket_renting_location_metro'),
           [

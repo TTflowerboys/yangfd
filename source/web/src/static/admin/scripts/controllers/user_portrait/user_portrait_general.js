@@ -8,6 +8,15 @@
           }
       }
       function on_refresh(data) {
+        function compare_value(a, b) {
+          if (a.value > b.value) {
+            return 1;
+          }
+          if (a.value < b.value) {
+            return -1;
+          }
+          return 0;
+        }
         $scope.value = data.val
         $scope.place_holder = '无'
 
@@ -25,11 +34,17 @@
           'age': [],
           'country': []
         }
-        var value
-        for (value in data.val.user_portrait_country_distribution) {
-          detail_data.country.push([index, data.val.user_portrait_country_distribution[value]])
-          xaxis.country.push([index, value])
-          index += 1
+
+        var temp_value = []
+
+        temp_value = []
+        for (var single in data.val.user_portrait_country_distribution) {
+          temp_value.push({'label': single, 'value': data.val.user_portrait_country_distribution[single]})
+        }
+        temp_value.sort(compare_value).reverse()
+        for (var single in temp_value) {
+          detail_data.country.push([single, temp_value[single].value])
+          xaxis.country.push([single, temp_value[single].label])
         }
 
         $.plot($('#user_portrait_country_distribution'),
@@ -46,12 +61,22 @@
           }
         );
 
-        index = 0
-        for (value in data.val.user_portrait_age_distribution) {
-          detail_data.age.push([index, data.val.user_portrait_age_distribution[value]])
-          xaxis.age.push([index, value])
-          index += 1
+        temp_value = []
+        for (var single in data.val.user_portrait_age_distribution) {
+          temp_value.push({'label': single, 'value': data.val.user_portrait_age_distribution[single]})
         }
+        temp_value.sort(compare_value).reverse()
+        for (var single in temp_value) {
+          detail_data.age.push([single, temp_value[single].value])
+          xaxis.age.push([single, temp_value[single].label])
+        }
+
+        // index = 0
+        // for (value in data.val.user_portrait_age_distribution) {
+        //   detail_data.age.push([index, data.val.user_portrait_age_distribution[value]])
+        //   xaxis.age.push([index, value])
+        //   index += 1
+        // }
 
         $.plot($('#user_portrait_age_distribution'),
           [
@@ -166,6 +191,8 @@
             show: false
           }
         });
+
+        window.console.log(detail_data)
 
       }
 

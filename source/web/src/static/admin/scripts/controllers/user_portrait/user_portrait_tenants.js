@@ -8,6 +8,15 @@
           }
       }
       function on_refresh(data) {
+        function compare_value(a, b) {
+          if (a.value > b.value) {
+            return 1;
+          }
+          if (a.value < b.value) {
+            return -1;
+          }
+          return 0;
+        }
         $scope.value = data.val
         $scope.place_holder = '无'
 
@@ -26,11 +35,21 @@
           'want_rent_days_distribution': []
         }
 
-        for (value in data.val.finding_rent_days_distribution) {
-          detail_data.finding_rent_days_distribution.push([index, data.val.finding_rent_days_distribution[value]])
-          xaxis.finding_rent_days_distribution.push([index, value])
-          index += 1
+        var temp_value = []
+        for (var single in data.val.finding_rent_days_distribution) {
+          temp_value.push({'label': single, 'value': data.val.finding_rent_days_distribution[single]})
         }
+        temp_value.sort(compare_value).reverse()
+        for (var single in temp_value) {
+          detail_data.finding_rent_days_distribution.push([single, temp_value[single].value])
+          xaxis.finding_rent_days_distribution.push([single, temp_value[single].label])
+        }
+
+        // for (value in data.val.finding_rent_days_distribution) {
+        //   detail_data.finding_rent_days_distribution.push([index, data.val.finding_rent_days_distribution[value]])
+        //   xaxis.finding_rent_days_distribution.push([index, value])
+        //   index += 1
+        // }
 
         $.plot($('#user_portrait_tenants_finding_rent_days_distribution'),
           [
@@ -46,12 +65,22 @@
           }
         );
 
-        index = 0
-        for (value in data.val.want_rent_days_distribution) {
-          detail_data.want_rent_days_distribution.push([index, data.val.want_rent_days_distribution[value]])
-          xaxis.want_rent_days_distribution.push([index, value])
-          index += 1
+        temp_value = []
+        for (var single in data.val.want_rent_days_distribution) {
+          temp_value.push({'label': single, 'value': data.val.want_rent_days_distribution[single]})
         }
+        temp_value.sort(compare_value).reverse()
+        for (var single in temp_value) {
+          detail_data.want_rent_days_distribution.push([single, temp_value[single].value])
+          xaxis.want_rent_days_distribution.push([single, temp_value[single].label])
+        }
+
+        // index = 0
+        // for (value in data.val.want_rent_days_distribution) {
+        //   detail_data.want_rent_days_distribution.push([index, data.val.want_rent_days_distribution[value]])
+        //   xaxis.want_rent_days_distribution.push([index, value])
+        //   index += 1
+        // }
 
         $.plot($('#user_portrait_tenants_want_rent_days_distribution'),
           [
