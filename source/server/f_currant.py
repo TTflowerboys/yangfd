@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 import re
 import logging
 import time
+import json
 import phonenumbers
 from bson.objectid import ObjectId
 from pymongo import ASCENDING, DESCENDING
@@ -433,6 +434,36 @@ class currant_mongo_upgrade(f_mongo_upgrade):
                 "start": datetime.utcnow(),
             })
             self.logger.debug("assign_ticket_short_id task created for ticket", ticket["_id"])
+
+    def v29(self, m):
+        ticket_database = f_app.ticket.get_database(m)
+        for ticket in ticket_database.find({"type": "rent_intention", "custom_fields": {"$exists": True}}):
+            for field in ticket["custom_fields"]:
+                if "key" not in field:
+                    self.logger.debug("field without key found, dirty data?", field)
+                    continue
+                if field["key"] == "dynamic":
+                    self.logger.debug("Migrating dynamic custom_fields for ticket", ticket["_id"])
+                    all_events = json.loads(field["value"])
+                    for event in all_events:
+                        custom_fields = [{"key": "dynamic", "value": f_app.util.json_dumps(event)}]
+                        history = {
+                            "time": datetime.utcnow(),
+                            "status": "new",
+                            "ticket_id": ticket["_id"],
+                            "custom_fields": custom_fields,
+                            "tags": ["dynamic"]
+                        }
+                        self.logger.debug("Inserting a ticket history for dynamic event:", event)
+                        f_app.ticket.history.get_database(m).insert_one(history)
+
+                    break
+
+            else:
+                continue
+
+            ticket["custom_fields"].remove(field)
+            ticket_database.update_one({"_id": ticket["_id"]}, {"$set": {"custom_fields": ticket["custom_fields"]}})
 
 currant_mongo_upgrade()
 

@@ -176,7 +176,6 @@ class nexmo_number_mapping(f_app.module_base):
                 existing_mappings = self.get_database(m).find({"user_id": params["user_id"], "status": {"$ne": "deleted"}})
                 excluded_numbers = map(lambda mapping: str(mapping["nexmo_number"]), existing_mappings)
 
-            #todo resolve merge conflict
             params["nexmo_number"] = ObjectId(f_app.sms.nexmo.number.get_random(exclude=excluded_numbers))
 
             params.pop('status')

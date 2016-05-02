@@ -35,7 +35,7 @@ class common(f_common):
     mongo_dbname = "currant"
     mongo_server = "172.20.1.1"
     mongo_auth = False
-    mongo_dbversion = 28
+    mongo_dbversion = 29
 
     memcache_server = ["172.20.1.1:11211"]
     memcache_lib = "memcache"
