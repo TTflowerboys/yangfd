@@ -774,14 +774,16 @@ def rent_intention_ticket_search(user, params):
 
     user_roles = f_app.user.get_role(user["id"])
     enable_custom_fields = True
-    if set(user_roles) & set(["admin", "jr_admin", "sales"]):
+    if set(user_roles) & set(["admin", "jr_admin", "sales", "operation", "jr_operation"]):
         pass
-    if "jr_sales" in user_roles and len(set(["admin", "jr_admin", "sales"]) & set(user_roles)) == 0:
+    elif "jr_sales" in user_roles:
         params["assignee"] = ObjectId(user["id"])
-    elif len(user_roles) == 0:
+    elif not set(user_roles) & set(f_app.common.admin_roles):
         # General users
         params["user_id"] = ObjectId(user["id"])
         enable_custom_fields = False
+    else:
+        abort(40300)
 
     if len(params["$and"]) < 1:
         params.pop("$and")
