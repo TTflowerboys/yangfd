@@ -772,6 +772,9 @@ def rent_intention_ticket_search(user, params):
         assert "user_id" not in params, abort(40000, "Cannot search by user_id and referral together")
         user_params["referral"] = params.pop("referral")
 
+    if "short_id" in params:
+        params["short_id"] = params["short_id"].upper()
+
     user_roles = f_app.user.get_role(user["id"])
     enable_custom_fields = True
     if set(user_roles) & set(["admin", "jr_admin", "sales", "operation", "jr_operation"]):
@@ -1663,7 +1666,7 @@ def rent_ticket_search(user, params):
         property_params["partner"] = params.pop("partner")
 
     if "short_id" in params:
-        property_params["short_id"] = params.pop("short_id")
+        property_params["short_id"] = params.pop("short_id").upper()
 
     if "query" in params:
         property_params["query"] = params.pop("query")
