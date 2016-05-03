@@ -3880,6 +3880,35 @@ def affiliate_get_sub_user_count(user, params):
     }
 
 
+@f_api('/affiliate-get-aggregation')
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation', 'affiliate'])
+def affiliate_get_aggregation(user):
+    result = {}
+    with f_app.mongo() as m:
+        count = m.users.find({'role': 'affiliate', 'status': {'$ne': 'deleted'}}).count()
+        result.update({'affiliate_user_count': count})
+        cursor = m.users.aggregate([
+            {'$match': {
+                'referral': {'$exists': True}
+            }},
+            {'$group': {
+                '_id': '$referral',
+                'count': {'$sum': 1}
+            }},
+            {'$sort': {
+                'count': -1
+            }}
+        ])
+        affiliate_member_count = []
+        for document in cursor:
+            name = f_app.user.get(document['_id'])
+            if name is not None:
+                name = name.get('nickname', '')
+            affiliate_member_count.append({'name': name, 'count': document['count']})
+        result.update({'affiliate_member_count': affiliate_member_count})
+    return result
+
+
 @f_get('/export-excel/facility-around-rent-info.xlsx', params=dict(
     date_from=(datetime, None),
     date_to=(datetime, None)
