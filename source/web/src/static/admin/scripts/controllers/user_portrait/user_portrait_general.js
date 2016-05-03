@@ -39,7 +39,6 @@
         detail_data.age = []
         detail_data.device = []
 
-        var index = 0
         var xaxis = {
           'age': [],
           'country': []
@@ -48,11 +47,13 @@
         var temp_value = []
 
         temp_value = []
-        for (var single in data.val.user_portrait_country_distribution) {
+        var value
+        var single
+        for (single in data.val.user_portrait_country_distribution) {
           temp_value.push({'label': single, 'value': data.val.user_portrait_country_distribution[single]})
         }
         temp_value.sort(compare_value).reverse()
-        for (var single in temp_value) {
+        for (single in temp_value) {
           detail_data.country.push([single, temp_value[single].value])
           xaxis.country.push([single, temp_value[single].label])
         }
@@ -72,11 +73,11 @@
         );
 
         temp_value = []
-        for (var single in data.val.user_portrait_age_distribution) {
+        for (single in data.val.user_portrait_age_distribution) {
           temp_value.push({'label': single, 'value': data.val.user_portrait_age_distribution[single]})
         }
         temp_value.sort(compare_value).reverse()
-        for (var single in temp_value) {
+        for (single in temp_value) {
           detail_data.age.push([single, temp_value[single].value])
           xaxis.age.push([single, temp_value[single].label])
         }

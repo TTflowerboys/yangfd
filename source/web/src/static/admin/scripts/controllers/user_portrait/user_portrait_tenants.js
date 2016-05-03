@@ -39,18 +39,18 @@
         detail_data.want_rent_days_distribution = []
 
         var value
-        var index = 0
         var xaxis = {
           'finding_rent_days_distribution': [],
           'want_rent_days_distribution': []
         }
 
         var temp_value = []
-        for (var single in data.val.finding_rent_days_distribution) {
+        var single
+        for (single in data.val.finding_rent_days_distribution) {
           temp_value.push({'label': single, 'value': data.val.finding_rent_days_distribution[single]})
         }
         temp_value.sort(compare_value).reverse()
-        for (var single in temp_value) {
+        for (single in temp_value) {
           detail_data.finding_rent_days_distribution.push([single, temp_value[single].value])
           xaxis.finding_rent_days_distribution.push([single, temp_value[single].label])
         }
@@ -70,11 +70,11 @@
         );
 
         temp_value = []
-        for (var single in data.val.want_rent_days_distribution) {
+        for (single in data.val.want_rent_days_distribution) {
           temp_value.push({'label': single, 'value': data.val.want_rent_days_distribution[single]})
         }
         temp_value.sort(compare_value).reverse()
-        for (var single in temp_value) {
+        for (single in temp_value) {
           detail_data.want_rent_days_distribution.push([single, temp_value[single].value])
           xaxis.want_rent_days_distribution.push([single, temp_value[single].label])
         }

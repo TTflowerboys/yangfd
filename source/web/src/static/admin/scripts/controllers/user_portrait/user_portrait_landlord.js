@@ -52,7 +52,6 @@
         detail_data.rent_ticket_renting_location_metro = []
 
         var value
-        var index = 0
         var xaxis = {
           'rent_ticket_renting_location_city': [],
           'rent_ticket_renting_location_neighborhood': [],
@@ -61,11 +60,12 @@
         }
 
         var temp_value = []
-        for (var single in data.val.rent_ticket_renting_location_city) {
+        var single
+        for (single in data.val.rent_ticket_renting_location_city) {
           temp_value.push({'label': single, 'value': data.val.rent_ticket_renting_location_city[single]})
         }
         temp_value.sort(compare_value).reverse()
-        for (var single in temp_value) {
+        for (single in temp_value) {
           detail_data.rent_ticket_renting_location_city.push([single, temp_value[single].value])
           xaxis.rent_ticket_renting_location_city.push([single, temp_value[single].label])
         }
@@ -85,11 +85,11 @@
         );
 
         temp_value = []
-        for (var single in data.val.rent_ticket_renting_location_neighborhood) {
+        for (single in data.val.rent_ticket_renting_location_neighborhood) {
           temp_value.push({'label': single, 'value': data.val.rent_ticket_renting_location_neighborhood[single]})
         }
         temp_value.sort(compare_value).reverse()
-        for (var single in temp_value) {
+        for (single in temp_value) {
           detail_data.rent_ticket_renting_location_neighborhood.push([single, temp_value[single].value])
           xaxis.rent_ticket_renting_location_neighborhood.push([single, temp_value[single].label])
         }
@@ -109,11 +109,11 @@
         );
 
         temp_value = []
-        for (var single in data.val.rent_ticket_renting_location_university) {
+        for (single in data.val.rent_ticket_renting_location_university) {
           temp_value.push({'label': single, 'value': data.val.rent_ticket_renting_location_university[single]})
         }
         temp_value.sort(compare_value).reverse()
-        for (var single in temp_value) {
+        for (single in temp_value) {
           detail_data.rent_ticket_renting_location_university.push([single, temp_value[single].value])
           xaxis.rent_ticket_renting_location_university.push([single, temp_value[single].label])
         }
@@ -133,11 +133,11 @@
         );
 
         temp_value = []
-        for (var single in data.val.rent_ticket_renting_location_metro) {
+        for (single in data.val.rent_ticket_renting_location_metro) {
           temp_value.push({'label': single, 'value': data.val.rent_ticket_renting_location_metro[single]})
         }
         temp_value.sort(compare_value).reverse()
-        for (var single in temp_value) {
+        for (single in temp_value) {
           detail_data.rent_ticket_renting_location_metro.push([single, temp_value[single].value])
           xaxis.rent_ticket_renting_location_metro.push([single, temp_value[single].label])
         }
