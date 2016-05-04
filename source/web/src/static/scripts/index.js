@@ -594,7 +594,7 @@
             {
                 slug: 'investor',
                 icon: 'icon-invest',
-                text: i18n('英国置业')
+                text: i18n('置业投资')
             },
         ])
         this.switchTab = function (item) {
