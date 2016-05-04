@@ -59,7 +59,7 @@ def property_list(params):
                 keywords += property_type.get('value') + ','
 
     title += _('房产列表-洋房东')
-    description = _('洋房东英国英国大不列颠英格兰苏格兰伦敦房源房产房地产不动产房屋购房购屋买房投资建议列表省时省力贴心安全快捷便利')
+    description = _('专业的英国置业顾问，详实的英国投资建议，优质的购房服务，全方位协助完成在英房地产购买')
     keywords += _('洋房东,买房,租金,楼盘,公寓,别墅,学区房,英国置业,伦敦买房,海外置业,海外投资,英国房价,投资项目,Youngfunding,investment,overseas investment,property,apartment,house,UK property,investment progects')
 
     return currant_util.common_template("property_list",

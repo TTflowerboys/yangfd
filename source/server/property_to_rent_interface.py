@@ -67,7 +67,7 @@ def property_to_rent_list(params):
                 keywords += rent_type.get('value') + ','
 
     title += _('出租列表-洋房东')
-    description = _('洋房东房源房产出租列表帮助您在英国大不列颠英格兰苏格兰伦敦全面方便快捷足不出户轻而易举找房租房住宿省时省力贴心安全快捷便捷')
+    description = _('英国华人的线上租赁神器，最全面的房源信息，最宽广的招租平台，最先进的交流系统，更快更直接地找到理想的房源或房客')
     keywords += _('洋房东,租房,出租,租房中介,找房子,短租,长租,租金,公寓,别墅,学区房,留学生租房,海外租房,英国出租,英国租房,伦敦租房,租房列表,房源列表,Youngfunding,for rent,to let,room to rent,property to rent,property,apartment,house,UK property,list of property')
 
     return currant_util.common_template("property_to_rent_list",
