@@ -10,6 +10,7 @@
 #import "CUTECommonMacro.h"
 #import "CUTEUIMacro.h"
 #import "SVProgressHUD+CUTEAPI.h"
+#import "NSString+Numberic.h"
 
 @implementation CUTEFormRentPriceTextFieldCell
 
@@ -45,6 +46,13 @@
         textField.text = [textField.text substringWithRange:NSMakeRange(currencyRange.location + currencyRange.length, slashRange.location - (currencyRange.location + currencyRange.length))];
     }
     [super textFieldDidBeginEditing:textField];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (![string isNumeric]) {
+        return NO;
+    }
+    return YES;
 }
 
 - (void)textFieldDidEndEditing:(__unused UITextField *)textField

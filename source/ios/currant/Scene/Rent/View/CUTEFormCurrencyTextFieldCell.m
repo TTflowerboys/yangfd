@@ -9,6 +9,7 @@
 #import "CUTEFormCurrencyTextFieldCell.h"
 #import "CUTECommonMacro.h"
 #import "CUTEUIMacro.h"
+#import "NSString+Numberic.h"
 
 @implementation CUTEFormCurrencyTextFieldCell
 
@@ -39,6 +40,13 @@
     }
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (![string isNumeric]) {
+        return NO;
+    }
+    return YES;
+}
+
 - (void)textFieldDidBeginEditing:(__unused UITextField *)textField
 {
     NSRange currencyRange = [textField.text rangeOfString:self.currencySymbol];
@@ -62,6 +70,5 @@
         }
     }
 }
-
 
 @end
