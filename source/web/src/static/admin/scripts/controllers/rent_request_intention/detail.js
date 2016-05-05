@@ -264,7 +264,7 @@
             // todo 调用发短信接口成功后再添加下面的动态
             api.rentIntentionTicketSmsSend($scope.item.id, {
                 text: dynamic.content,
-                user_id: $scope.item.interested_rent_tickets[0].creator_user.id
+                user_id: $scope.item.interested_rent_tickets[0].user.id
             }, {
                 errorMessage: true,
                 successMessage: i18n('短信转发成功！')
@@ -300,7 +300,7 @@
             // todo 调用发短信接口成功后再添加下面的动态
             api.rentIntentionTicketSmsSend($scope.item.id, {
                 text: content,
-                user_id: $scope.item.interested_rent_tickets[0].creator_user.id
+                user_id: $scope.item.interested_rent_tickets[0].user.id
             }, {
                 errorMessage: true,
                 successMessage: i18n('短信发送成功！')

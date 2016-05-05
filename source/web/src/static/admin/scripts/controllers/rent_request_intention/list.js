@@ -280,7 +280,7 @@
 
         $scope.hasNonBritainNumber = function (item) {
             if(item && _.isArray(item.interested_rent_tickets) && !_.isEmpty(item.interested_rent_tickets[0])) {
-                if((item.creator_user && item.creator_user.country_code === 44) && (item.interested_rent_tickets[0].creator_user && item.interested_rent_tickets[0].creator_user.country_code === 44)) {
+                if((item.creator_user && item.creator_user.country_code === 44) && (item.interested_rent_tickets[0].user && item.interested_rent_tickets[0].user.country_code === 44)) {
                     return false
                 }
                 return true
@@ -294,7 +294,7 @@
             } else {
 	        if($scope.hasNonBritainNumber(item)) {
     	            item.disableSms = true
-        	    item.disableSmsReason = i18n('由于存在非英国号码，短信系统暂时无法使用，请手动发送(房东号码：') + '+' + item.interested_rent_tickets[0].creator_user.country_code + item.interested_rent_tickets[0].creator_user.phone + '，' + i18n('租客号码：') + '+' + item.creator_user.country_code + item.creator_user.phone + ')'
+        	    item.disableSmsReason = i18n('由于存在非英国号码，短信系统暂时无法使用，请手动发送(房东号码：') + '+' + item.interested_rent_tickets[0].user.country_code + item.interested_rent_tickets[0].user.phone + '，' + i18n('租客号码：') + '+' + item.creator_user.country_code + item.creator_user.phone + ')'
             	} else {
                     item.disableSms = false
 	        }
