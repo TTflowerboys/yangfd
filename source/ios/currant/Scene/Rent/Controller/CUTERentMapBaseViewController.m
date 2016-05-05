@@ -152,9 +152,15 @@
                     if (placemark.country) {
                         ticket.property.country = placemark.country;
                     }
+                    else {
+                        ticket.property.country = nil;
+                    }
 
                     if (placemark.city) {
                         ticket.property.city = placemark.city;
+                    }
+                    else {
+                        ticket.property.city = nil;
                     }
 
                     ticket.property.zipcode = placemark.postalCode;

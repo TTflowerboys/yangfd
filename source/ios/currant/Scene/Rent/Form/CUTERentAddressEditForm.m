@@ -128,6 +128,9 @@
                     if (cityIndex != NSNotFound) {
                         [form setCity:[cities objectAtIndex:cityIndex]];
                     }
+                    else {
+                        [form setCity:nil];
+                    }
                     completion(cities);
 
                 }
@@ -139,6 +142,9 @@
             }];
         }
         else {
+            [form setCountry:nil];
+            [form setAllCities:nil];
+            [form setCity:nil];
             completion(nil);
         }
     }];
@@ -164,6 +170,8 @@
             }];
         }
         else {
+            [form setAllNeighborhoods:nil];
+            form.neighborhood = nil;
             completion(nil);
         }
     }];

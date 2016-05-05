@@ -675,6 +675,9 @@ class CUTEGeoManager: NSObject {
                                     tcs.setResult(placemark)
                                 }
                                 else {
+                                    if let placemarkCity = placemark.city {
+                                        CUTETracker.sharedInstance().trackError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:"NO City: " + placemarkCity.name]))
+                                    }
                                     placemark.country = country
                                     placemark.city = nil
                                     tcs.setResult(placemark)
@@ -688,6 +691,12 @@ class CUTEGeoManager: NSObject {
                         })
                     }
                     else {
+                        if let placemarkCountry = placemark.country {
+                            CUTETracker.sharedInstance().trackError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:"NO Country: " + placemarkCountry.ISOcountryCode]))
+                        }
+                        if let placemarkCity = placemark.city {
+                            CUTETracker.sharedInstance().trackError(NSError(domain: "CUTE", code: -1, userInfo: [NSLocalizedDescriptionKey:"NO City: " + placemarkCity.name]))
+                        }
                         placemark.country = nil
                         placemark.city = nil
                         tcs.setResult(placemark)
