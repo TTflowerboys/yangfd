@@ -82,7 +82,7 @@ def default(user, params):
     property_city_list = f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(geonames_params, per_page=-1))
 
     title = _('洋房东')
-    description = _('洋房东致力于为英国华人房东和租客提供专业和靠谱的租房找房和海外置业省时省力贴心安全快捷便利华人互联网房产平台')
+    description = _('洋房东致力于为想在英国投资或居住的华人房东和租客提供专业和靠谱的租房找房和海外置业省时省力贴心安全快捷便利华人互联网房产平台')
     keywords = _('洋房东,租房,买房,出租,租房中介,找房子,短租,长租,租金,楼盘,公寓,别墅,学区房,英国置业,留学生租房,海外租房,英国出租,英国租房,伦敦租房,伦敦买房,海外置业,海外投资,英国房价,Youngfunding,for rent,to let,room to rent,property to rent,investment,overseas investment,property,apartment,house,UK property')
     lang = getattr(f_app.i18n, "get_gettext")("web").lang
     if lang == "en_GB":
