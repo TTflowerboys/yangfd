@@ -54,7 +54,7 @@ gulp.task('bower', function () {
 
 //Debug
 
-gulp.task('debug', ['bower', 'debug:lint', 'symlink', 'less2css', 'cssAutoPrefix', 'html-extend', 'setupCDN', 'watch'], function () {
+gulp.task('debug', ['bower', 'debug:lint', 'symlink', 'less2css', 'cssAutoPrefix', 'html-extend', 'watch'], function () {
     console.info(chalk.black.bgWhite.bold('You can debug now!'))
 })
 
@@ -116,12 +116,12 @@ gulp.task('clean', function () {
 gulp.task('rev', ['build:concat'], function () {
     return gulp.src(['dist/static/admin/templates/**/*.html',
     'dist/static/admin/emails/**/*.html',
-    'dist/static/fonts/**/*',
-    'dist/static/images/**/*',
-    'dist/static/sprite/*',
-    'dist/static/scripts/**/*',
-    'dist/static/styles/**/*.css',
-    'dist/static/templates/**/*',
+    'dist/static/fonts/**/*', 
+    'dist/static/images/**/*', 
+    'dist/static/sprite/*', 
+    'dist/static/scripts/**/*', 
+    'dist/static/styles/**/*.css', 
+    'dist/static/templates/**/*', 
     'dist/static/sprite/css/sprite-build.css'],
     {base: 'dist'})
         .pipe(gulp.dest(myPaths.dist))// here change to relative dir why?
@@ -134,16 +134,16 @@ gulp.task('rev', ['build:concat'], function () {
 
 gulp.task('fingerprint', ['rev'], function () {
     var manifest = gulp.src(myPaths.dist + 'rev-manifest.json')
-
+    
     return gulp.src([myPaths.dist + '*.html',
     myPaths.dist + 'static/admin/templates/**/*.html',
     myPaths.dist + 'static/admin/emails/**/*.html',
     myPaths.dist + 'static/templates/**/*.html',
-    myPaths.dist + 'static/emails/*.html',
-    myPaths.dist + 'static/scripts/**/*.js',
-    myPaths.dist + 'static/styles/**/*.css',
-    myPaths.dist + 'static/sprite/css/*.css',
-    myPaths.dist + 'static/admin/*.js'],
+    myPaths.dist + 'static/emails/*.html', 
+    myPaths.dist + 'static/scripts/**/*.js', 
+    myPaths.dist + 'static/styles/**/*.css', 
+    myPaths.dist + 'static/sprite/css/*.css', 
+    myPaths.dist + 'static/admin/*.js'], 
     { base: 'dist' })
         .pipe(revReplace({manifest:manifest}))
         .pipe(gulp.dest(myPaths.dist))
@@ -237,8 +237,8 @@ gulp.task('build:concat', ['build:html-extend'], function () {
         .pipe(gulp.dest(myPaths.dist))
 })
 
-gulp.task('setupCDN', function () {
-    // if (argv.cdn) {
+gulp.task('setupCDN', ['fingerprintAdminPageResource'], function () {
+    if (argv.cdn) {
         var relaceRev =  function () {
             //html should only in root folder
             gulp.src([myPaths.dist + '*.html', myPaths.dist + 'static/emails/*.html',  myPaths.dist + 'static/admin/emails/**/*.html'], {base: 'dist'})
@@ -266,7 +266,7 @@ gulp.task('setupCDN', function () {
         }
         relaceRev()
 
-    // }
+    }
 })
 
 var livereload = require('gulp-livereload')
