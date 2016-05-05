@@ -1,4 +1,6 @@
 <h1 id="currant">Currant</h1>
+<h2 id="coding-style">Coding Style</h2>
+<p><a href="https://redmine.bbtechgroup.com/projects/realestatecrowdfunding/wiki/Currant_Web_Style_Guide#section-3">Currant Web Style Guide</a></p>
 <h2 id="i18n">i18n</h2>
 <p>Bottle 模板中的 <code>{{_(&#39;文字&#39;)}}</code> 会自动支持多语言。但 JS 中的字符串却无法得到支持。
 解决的办法是运行 </p>
@@ -66,3 +68,115 @@ CSS 命名的核心规则只有一条：影响最小化。</p>
 </ol>
 </li>
 </ol>
+<h2 id="web-">web目录结构说明</h2>
+<h3 id="src">src</h3>
+<p>此目录专注于开发，存放的都是源文件，不需要压缩合并。目录下主要分为：</p>
+<h4 id="src-masters">src/masters</h4>
+<p>此目录存放供其他HTML模板继承的模板主框架
+需要注意很多共用的js和css文件都是在这些模板中引入的
+master.html中引入了这些js：</p>
+<pre><code>&lt;script src=&quot;/static/bower_components/chosen/chosen.jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/static/bower_components/moment/moment.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/static/bower_components/jquery.daterangepicker/jquery.daterangepicker.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/static/scripts/date_range_picker_custom.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/static/scripts/jquery.chosenPhone.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/static/scripts/geonamesApi.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/static/scripts/requirement_rent_popup.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/static/scripts/resize_main.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/static/scripts/responsivemobilemenu.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/static/scripts/master.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/static/scripts/site_header.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/static/scripts/i18n.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/static/scripts/signin_modal.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/static/scripts/requirement_popup.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/static/scripts/project/float_bar_position.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>还引入了 <code>js_base.html</code> 中的js </p>
+<h4 id="src-partials">src/partials</h4>
+<p>此目录存放HTML模板中提取出的可以共用的部分，被其他模板引用</p>
+<h4 id="src-static">src/static</h4>
+<p>此目录存放静态资源文件</p>
+<h4 id="src-static-admin">src/static/admin</h4>
+<p>存放Dashboard的资源文件</p>
+<h4 id="src-static-admin-emails">src/static/admin/emails</h4>
+<p>存放求租咨询单中用到的邮件模板，可以在Dashboard中渲染到求租咨询单详情页的编辑框中编辑</p>
+<h4 id="src-static-admin-scripts">src/static/admin/scripts</h4>
+<p>存放Dashboard脚本文件</p>
+<h4 id="src-static-admin-scripts-config">src/static/admin/scripts/config</h4>
+<ul>
+<li>config.js 存放Angular全局设置的文件</li>
+<li>errors.js 存放Dashboard错误码信息的文件</li>
+<li>http_interceptor.js http请求拦截器,对http请求错误进行处理</li>
+<li>states.js Dashboard路由文件</li>
+</ul>
+<h4 id="src-static-admin-scripts-controllers">src/static/admin/scripts/controllers</h4>
+<p>存放Dashboard的controller的目录</p>
+<h4 id="src-static-admin-scripts-directives">src/static/admin/scripts/directives</h4>
+<p>存放directive的目录</p>
+<ul>
+<li>add_dynamic.js 求租咨询单中添加动态和发送短信输入框</li>
+<li>btn_go_back.js 返回按钮指令</li>
+<li>chosen.js 封装Chosen插件的指令(Chosen is a library for making long, unwieldy select boxes more friendly. <a href="http://harvesthq.github.io/chosen/">http://harvesthq.github.io/chosen/</a>)</li>
+<li>edit_date.js 日期输入</li>
+<li>edit_datetime.js 日期时间输入</li>
+<li>edit_message.js 载入短信模板到文本输入框中供管理员编辑</li>
+<li>edit_remark.js 房产，咨询单，用户等添加和编辑备注</li>
+<li>edit_synonyms.js 编辑同义词</li>
+<li>edit_user_dict.js 编辑用户自定义词</li>
+<li>editable_property.js 将一个字段变为可编辑的字段并编辑该字段</li>
+<li>show_dynamic.js 展示求租咨询单中的动态列表</li>
+<li>tooltip.js bootstrap的tooltip封装</li>
+</ul>
+<h4 id="src-static-admin-scripts-factories">src/static/admin/scripts/factories</h4>
+<p>存放服务端API封装和工具函数，其中misc.js中是封装的工具函数，其他以_api.js结尾的文件是服务端API的封装</p>
+<h4 id="src-static-admin-scripts-filters">src/static/admin/scripts/filters</h4>
+<p>存放filter的目录</p>
+<ul>
+<li>boolean.js 将布尔值转换成 ‘yes’ 或者 ‘no’</li>
+<li>boolean_chinese.js 将布尔值转换成 ‘是’ 或者 ‘否’</li>
+<li>capitalize.js 首字母大写</li>
+<li>country_name.js 输入Object类型的country，输出其名字，例如 <code>｛code: &#39;CN&#39;｝</code>输出 <code>中国</code></li>
+<li>intention_ticket_status_name.js 输入求租咨询单的状态，输出其状态名</li>
+<li>key_names.js 输入一个status和一个如<code>/Users/levy/Gitlab/currant/source/web/src/static/admin/scripts/values/coupon_status.js</code>中的couponStatus的数组，输出其对应的name</li>
+<li>keys.js 输入一个collection和一个key，输出key在其中对应的value的array</li>
+<li>property_address.js 输入一个房产的item，输出格式化的地址</li>
+<li>remove_protocol.js 删除url中的协议头部分</li>
+<li>rent_intention_ticket_status_name.js 输入求租咨询单的status，输出其对应的状态名</li>
+<li>rent_ticket_status_name.js 输入出租房产的status，输出其对应的状态名</li>
+<li>show_bedroom.js 格式化房间数（将<code>0</code>格式化为<code>studio</code>，其他数字原样输出）</li>
+<li>show_last_dynamic.js 在求租咨询单列表页使用，展示求租咨询单的最新一条动态</li>
+<li>time_period.js 格式化时期</li>
+<li>user_referrer.js 将用户来源的id转化为对应的enum中的value</li>
+<li>values.js 输入一个string格式的key和一个object，输出object[key]</li>
+</ul>
+<h4 id="src-static-admin-scripts-values">src/static/admin/scripts/values</h4>
+<p>存放Dashboard上用到的常量，主要是一些status和type对应名称的collection
+值得注意的是enum_types.js中存放了<a href="http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/enums/normal">http://yangfd.com/admin?_i18n=zh_Hans_CN#/dashboard/enums/normal</a> 的enum，如果要添加一种新的enum type，一般需要在enum_types.js中添加</p>
+<h4 id="src-static-admin-scripts-modal">src/static/admin/scripts/modal</h4>
+<p>弹出一个确认框，使用方法如下：</p>
+<pre><code>fctModal.show(&quot;Do you want to remove it?&quot;, void 0, function() {
+    api.remove(item.id).success(function() {
+        $scope.list.splice($scope.list.indexOf(item), 1)
+    })
+})
+</code></pre><h4 id="src-static-admin-templates">src/static/admin/templates</h4>
+<p>存放Dashboard模板文件</p>
+<h4 id="src-static-admin-templates-message">src/static/admin/templates/message</h4>
+<p>存放求租咨询单中用到的短信模板</p>
+<h4 id="src-static-bower_components">src/static/bower_components</h4>
+<p>存放bower安装的依赖包，在web/bower.json中设置了该路径</p>
+<h4 id="src-static-emails">src/static/emails</h4>
+<p>存放在服务端渲染的邮件模板，大部分继承了web/src/masters/email.html 或 web/src/masters/email_new.html</p>
+<h4 id="src-static-fonts">src/static/fonts</h4>
+<p>存放字体文件</p>
+<h4 id="src-static-fonts-icon_font">src/static/fonts/icon_font</h4>
+<p>存放网站用到的icon font字体文件和由 <code>https://icomoon.io/app/#/</code> 导出的json文件，如需更新字体，需要到 <code>https://icomoon.io/app/#/</code> 中 import <code>selection.json</code> 文件，在线编辑后导出文件，更新该目录下的字体文件和 <code>selection.json</code> ，并且更新 <code>web/src/static/styles/iconFont.less</code> 文件</p>
+<h4 id="src-static-images">src/static/images</h4>
+<p>存放图片文件</p>
+<h4 id="src-static-scripts">src/static/scripts</h4>
+<p>存放js文件
+值得注意的有下面这些文件</p>
+<ul>
+<li>common_ko.js 定义了公用的knockout组件，和父ViewModel：<code>window.currantModule.appViewModel</code>，各页面的ViewModel都是 <code>window.currantModule.appViewModel</code> 的属性，例如 <code>web/src/static/scripts/index.js</code> 中定义了 <code>window.currantModule.appViewModel.indexViewModel</code> 就是 <code>web/src/index.html</code> 的 ViewModel</li>
+</ul>
+<h3 id="dist">dist</h3>
+<p>此目录为编译生成目录，用于部署环境，目录结构和src保持一致。</p>

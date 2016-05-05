@@ -1,5 +1,9 @@
 # Currant
 
+## Coding Style
+
+[Currant Web Style Guide](https://redmine.bbtechgroup.com/projects/realestatecrowdfunding/wiki/Currant_Web_Style_Guide#section-3)
+
 ## i18n
 
 Bottle 模板中的 `{{_('文字')}}` 会自动支持多语言。但 JS 中的字符串却无法得到支持。
