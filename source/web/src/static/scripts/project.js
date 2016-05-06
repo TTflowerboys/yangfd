@@ -136,6 +136,37 @@
                 window.openRequirementForm(event, budgetId, intentionId, propertyId)
             }
         },
+        getPropertyAddress: function (property) {
+            var address = ''
+            if (property.floor) {
+                address += property.floor
+            }
+            if (property.floor && property.house_name) {
+                address += '-'
+            }
+            if (property.house_name) {
+                address += property.house_name
+            }
+            if (property.floor && property.house_name) {
+                address += ','
+            }
+            if (property.community) {
+                address += property.community
+            }
+            if (property.street) {
+                address += property.street
+            }
+            if (property.city && property.city.name) {
+                address += property.city.name + ' '
+            }
+            if (property.country && property.country.code) {
+                address += window.team.countryMap[property.country.code] + ' '
+            }
+            if (property.zipcode && ! property.partner) {
+                address += property.zipcode
+            }
+            return address            
+        },
         formatTime: function (time, format) {
             format = format || 'yyyy-MM-dd HH:mm:ss'
             return $.format.date(time * 1000, format)

@@ -62,33 +62,7 @@
                     <ul class="properties">
                         <li>
                             <i class="icon-location_fill"></i>
-                            {_if(rent.property.floor) {_}
-                                {= rent.property.floor =}
-                            {_}_}
-                            {_if(rent.property.floor && rent.property.house_name ) {_}
-                                -
-                            {_}_}
-                            {_if(rent.property.house_name) {_}
-                                {= rent.property.house_name =}
-                            {_}_}
-                            {_if(rent.property.floor && rent.property.house_name ) {_}
-                                ,
-                            {_}_}
-                            {_if(rent.property.community) {_}
-                                {= rent.property.community =},
-                            {_}_}
-                            {_if(rent.property.street) {_}
-                                {= rent.property.street =},
-                            {_}_}
-                            {_if(rent.property.city && rent.property.city.name) {_}
-                                {= rent.property.city.name + " " =},
-                            {_}_}
-                            {_if(rent.property.country && rent.property.country.code) {_}
-                                {= window.team.countryMap[rent.property.country.code] + " " =}
-                            {_}_}
-                            {_if(rent.property.zipcode && !rent.property.partner) {_}
-                                , {= rent.property.zipcode =}
-                            {_}_}
+                            {=team.truncate(project.getPropertyAddress(rent.property), 100)=}                            
                         </li>
                         {_if(rent.property.region_highlight && rent.property.region_highlight.length) {_}
                         <li><i class="icon-tag_icon"></i>

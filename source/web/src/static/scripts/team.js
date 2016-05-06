@@ -437,6 +437,12 @@
                 }
             }
         },
+        truncate: function (string, length) {            
+            var trimmedString = string.length > length ?
+                string.substring(0, length - 3) + '...' :
+                string.substring(0, length)
+            return trimmedString
+        },
         countryMap: {
             'CN': i18n('中国'),
             'GB': i18n('英国'),
