@@ -650,6 +650,7 @@ def rent_intention_ticket_history_edit(user, ticket_id, ticket_history_id, param
 
 
 @f_api('/rent_intention_ticket/search', params=dict(
+    assignee=(ObjectId, None),
     status=(list, None, str),
     per_page=int,
     last_modified_time=datetime,
