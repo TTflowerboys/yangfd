@@ -232,6 +232,13 @@
                 params.short_id = params.short_id.toUpperCase()
             }
             delete params.time
+            window.console.log($scope.selected.assignee)
+            if ($scope.selected.assignee === true) {
+              params.assignee = $scope.$parent.user.id
+            }
+            else {
+              delete params.assignee
+            }
             $scope.refreshList()
         }
 
@@ -420,5 +427,3 @@
     angular.module('app').controller('ctrlRentRequestIntentionList', ctrlRentRequestIntentionList)
 
 })()
-
-
