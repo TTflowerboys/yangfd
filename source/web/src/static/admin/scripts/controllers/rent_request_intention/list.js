@@ -9,6 +9,7 @@
         $scope.selected = {}
         $scope.selected.status = 'requested'
         $scope.selected.partner_student_housing = ''
+        $scope.selected.assignee = false
 
         var params = {
             status: $scope.selected.status,
@@ -21,11 +22,17 @@
         }
 
         function updateParams() {
-            for(var key in params) {
-                if(params[key] === undefined || params[key] === '') {
-                    delete params[key]
-                }
-            }
+          if ($scope.selected.assignee === true) {
+            params.assignee = $scope.$parent.user.id
+          }
+          else {
+            delete params.assignee
+          }
+          for(var key in params) {
+              if(params[key] === undefined || params[key] === '') {
+                  delete params[key]
+              }
+          }
         }
 
         $scope.transformHistoriesToDynamics = function (list) {
@@ -215,7 +222,7 @@
                 params.referral = $state.params.referral
             }
             $scope.refreshList()
-            $scope.$watch('[selected.status, selected.partner_student_housing]', function (newValue, oldValue) {
+            $scope.$watch('[selected.status, selected.partner_student_housing, selected.assignee]', function (newValue, oldValue) {
                 if (newValue === oldValue) {
                     return
                 }
@@ -232,12 +239,6 @@
                 params.short_id = params.short_id.toUpperCase()
             }
             delete params.time
-            if ($scope.selected.assignee === true) {
-              params.assignee = $scope.$parent.user.id
-            }
-            else {
-              delete params.assignee
-            }
             $scope.refreshList()
         }
 
