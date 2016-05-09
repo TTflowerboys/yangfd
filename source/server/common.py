@@ -239,7 +239,7 @@ class common(f_common):
         40397: "User already refreshed today",
     }
 
-    run_baidu_zhanzhang = False
+    run_baidu_zhanzhang = True
 
 common()
 
