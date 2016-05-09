@@ -196,20 +196,30 @@ class currant_ticket_plugin(f_app.plugin_base):
                 type="ping_sitemap",
                 url=new_url
             ))
-            import currant_util
-            this_ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id]), _i18n=["zh_Hans_CN"])[0]
-            ticket_email_user = f_app.util.ticket_determine_email_user(this_ticket)
-            if 'property' in this_ticket and ticket_email_user:
-                title = "恭喜，您的房源已经发布成功！"
-                f_app.email.schedule(
-                    target=ticket_email_user["email"],
-                    subject=title,
-                    # TODO
-                    text=template("static/emails/rent_ticket_publish_success", title=title, nickname=ticket_email_user["nickname"], rent=this_ticket, date="", get_country_name_by_code=currant_util.get_country_name_by_code),
-                    display="html",
-                    ticket_match_user_id=ticket_email_user["id"],
-                    tag="rent_ticket_publish_success",
-                )
+
+            skip_email = False
+            user = f_app.user.login.get()
+            if user:
+                user_roles = f_app.user.get_role(user["id"])
+
+                if user_roles and set(user_roles) & set(f_app.common.admin_roles):
+                    skip_email = True
+
+            if not skip_email:
+                import currant_util
+                this_ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id]), _i18n=["zh_Hans_CN"])[0]
+                ticket_email_user = f_app.util.ticket_determine_email_user(this_ticket)
+                if 'property' in this_ticket and ticket_email_user:
+                    title = "恭喜，您的房源已经发布成功！"
+                    f_app.email.schedule(
+                        target=ticket_email_user["email"],
+                        subject=title,
+                        # TODO
+                        text=template("static/emails/rent_ticket_publish_success", title=title, nickname=ticket_email_user["nickname"], rent=this_ticket, date="", get_country_name_by_code=currant_util.get_country_name_by_code),
+                        display="html",
+                        ticket_match_user_id=ticket_email_user["id"],
+                        tag="rent_ticket_publish_success",
+                    )
 
             if 'property' in this_ticket and this_ticket["property"].get("user_generated") is True:
                 f_app.property.update_set(this_ticket["property"]["id"], {"status": "selling"})
