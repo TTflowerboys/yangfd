@@ -790,6 +790,16 @@ class currant_plugin(f_app.plugin_base):
 
     task = ["ping_sitemap"]
 
+    def user_output_permission_check(self, result, user):
+        if result is None:
+            if not user:
+                return False
+
+            user_roles = f_app.user.get_role(user["id"])
+            return set(user_roles) & f_app.common.admin_roles
+
+        return result
+
     def user_output_each(self, result_row, raw_row, user, admin, simple):
         if "phone" in raw_row:
             phonenumber = phonenumbers.parse(raw_row["phone"])
