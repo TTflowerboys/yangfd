@@ -12,7 +12,7 @@ angular.module('app')
             },
             templateUrl: '/static/admin/templates/add_dynamic.tpl.html',
             controller: function ($scope, $element, $rootScope, $compile) {
-                var defaultContent = window.i18n('洋房东：')
+                var defaultContent = window.i18n('【洋房东】')
                 $scope.content = defaultContent
                 $scope.submit = function (content) {
                     if(content === '' || content === defaultContent) {
