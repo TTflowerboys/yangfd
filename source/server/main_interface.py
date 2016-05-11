@@ -3880,9 +3880,11 @@ def affiliate_get_sub_user_count(user, params):
     }
 
 
-@f_api('/affiliate-get-aggregation')
+@f_api('/affiliate-get-aggregation', params=dict(
+    sort_by=(str, None)
+))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation', 'affiliate'])
-def affiliate_get_aggregation(user):
+def affiliate_get_aggregation(user, params):
     result = {}
     with f_app.mongo() as m:
         count = m.users.find({'role': 'affiliate', 'status': {'$ne': 'deleted'}}).count()
@@ -3901,10 +3903,21 @@ def affiliate_get_aggregation(user):
         ])
         affiliate_member_count = []
         for document in cursor:
-            name = f_app.user.get(document['_id'])
-            if name is not None:
-                name = name.get('nickname', '')
-            affiliate_member_count.append({'name': name, 'count': document['count']})
+            user_result = f_app.user.get(document['_id'])
+            if user_result is not None:
+                name = user_result.get('nickname', '')
+            if 'sort_by' not in params:
+                affiliate_member_count.append({'name': name, 'count': document['count']})
+            else:
+                affiliate_member_count.append({
+                    'id': user_result['id'],
+                    'nickname': user_result.get('nickname', ''),
+                    'referral_code': user_result.get('referral_code', ''),
+                    'phone': user_result.get('phone', ''),
+                    'email': user_result.get('email', ''),
+                    'register_time': user_result.get('register_time', ''),
+                    'count': document['count']
+                })
         result.update({'affiliate_member_count': affiliate_member_count})
     return result
 
