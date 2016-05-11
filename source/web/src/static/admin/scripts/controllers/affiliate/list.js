@@ -1,8 +1,9 @@
 (function () {
 
-    function ctrlAffiliateList($scope, fctModal, api, $q, $state) {
+    function ctrlAffiliateList($scope, fctModal, api, aggregation_api, $q, $state) {
         $scope.list = []
         $scope.selected = {}
+        $scope.filterApply = false
 
         $scope.selected.per_page = 12
         $scope.currentPageNumber = 1
@@ -26,12 +27,14 @@
             })
             api.getAll({params: params}).success(onGetList)
         }
-        
+
         $scope.searchTicket = function () {
+
+            $scope.filterApply = false
             updateParams()
             $scope.refreshList()
         }
-        
+
         function updateParams() {
             delete params.query
             delete params.referral_code
@@ -162,9 +165,76 @@
         $scope.updateItem = function (item, config) {
             return api.update(item.id, item, config)
         }
+
+        $scope.selectOption = ['member_count', 'register_time']
+        $scope.per_page = 12
+        $scope.method = {}
+        $scope.method.sort_by = 'member_count'
+        $scope.aggregation_result = []
+        var aggFullList = []
+
+        var index = 0
+        var index_end = 0
+        $scope.aggregationPrevPage = function() {
+          index -= $scope.per_page
+          if (index < 0) {
+            index = 0
+          }
+          onPageUpdate()
+        }
+        $scope.aggregationNextPage = function() {
+          index += $scope.per_page
+          if (index > aggFullList.length) {
+            index -= $scope.per_page
+          }
+          onPageUpdate()
+        }
+        $scope.applyFilter = function() {
+          $scope.filterApply = true
+          aggregation_api.get_aggregation({'sort_by': $scope.method.sort_by}).success(onGetAggList)
+        }
+        function compare_value(a, b) {
+          if (a.register_time > b.register_time) {
+            return 1;
+          }
+          if (a.register_time < b.register_time) {
+            return -1;
+          }
+          return 0;
+        }
+        function onGetAggList(data) {
+          aggFullList = data.val.affiliate_member_count
+          $scope.affiliate_user_count = data.val.affiliate_user_count
+          window.console.log($scope.method.sort_by)
+
+          if ($scope.method.sort_by === 'register_time') {
+            aggFullList.sort(compare_value).reverse()
+          }
+
+          aggFullList = _.map(data.val.affiliate_member_count, function (item, index) {
+              api.getLog(item.id)
+                  .then(function (data) {
+                      if(data.data.val && data.data.val.length && data.data.val[0] && aggFullList[index]) {
+                          aggFullList[index].log = data.data.val[0]
+                      } else if(aggFullList[index]) {
+                          aggFullList[index].log = {}
+                      }
+                  })
+              return item
+          })
+
+          index = 0
+          onPageUpdate()
+        }
+        function onPageUpdate() {
+          index_end = index + $scope.per_page
+          if (index_end > aggFullList.length) {
+            index_end = aggFullList.length
+          }
+          window.console.log(index, index_end)
+          $scope.aggregation_result = aggFullList.slice(index, index_end)
+        }
     }
 
     angular.module('app').controller('ctrlAffiliateList', ctrlAffiliateList)
 })()
-
-

@@ -1202,6 +1202,9 @@ angular.module('app')
                 resolve: {
                     api: function (userApi) {
                         return userApi
+                    },
+                    aggregation_api: function (affiliate_aggregation_api) {
+                      return affiliate_aggregation_api
                     }
                 }
             })
