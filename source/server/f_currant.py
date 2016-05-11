@@ -796,7 +796,7 @@ class currant_plugin(f_app.plugin_base):
                 return False
 
             user_roles = f_app.user.get_role(user["id"])
-            return set(user_roles) & f_app.common.admin_roles
+            return set(user_roles) & set(f_app.common.admin_roles)
 
         return result
 
