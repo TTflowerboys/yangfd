@@ -139,22 +139,13 @@
         getPropertyAddress: function (property) {
             var address = ''
             if (property.floor) {
-                address += property.floor
-            }
-            if (property.floor && property.house_name) {
-                address += '-'
-            }
-            if (property.house_name) {
-                address += property.house_name
-            }
-            if (property.floor && property.house_name) {
-                address += ','
+                address += property.floor + ','
             }
             if (property.community) {
-                address += property.community
+                address += property.community + ' '
             }
             if (property.street) {
-                address += property.street
+                address += property.street + ' '
             }
             if (property.city && property.city.name) {
                 address += property.city.name + ' '
@@ -165,7 +156,7 @@
             if (property.zipcode && ! property.partner) {
                 address += property.zipcode
             }
-            return address            
+            return address
         },
         formatTime: function (time, format) {
             format = format || 'yyyy-MM-dd HH:mm:ss'
