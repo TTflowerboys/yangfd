@@ -138,9 +138,6 @@
         },
         getPropertyAddress: function (property) {
             var address = ''
-            if (property.floor) {
-                address += property.floor + ','
-            }
             if (property.community) {
                 address += property.community + ' '
             }
