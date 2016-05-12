@@ -3,7 +3,7 @@
     function ctrlAffiliateList($scope, fctModal, api, aggregation_api, $q, $state) {
         $scope.list = []
         $scope.selected = {}
-        $scope.filterApply = false
+        $scope.filterApply = true
 
         $scope.selected.per_page = 12
         $scope.currentPageNumber = 1
@@ -56,7 +56,7 @@
         if($state.params.code){
             params.query = $state.params.code
         }
-        api.getAll({params: params}).success(onGetList)
+        // api.getAll({params: params}).success(onGetList)
 
         $scope.onSuspend = function (item) {
             fctModal.show('Do you want to suspend it?', undefined, function () {
@@ -166,11 +166,22 @@
             return api.update(item.id, item, config)
         }
 
-        $scope.selectOption = ['member_count', 'register_time']
+        $scope.selectOption = [
+          {
+            'value': 'member_count',
+            'label': '会员人数'
+          },
+          {
+            'value': 'register_time',
+            'label': '注册时间'
+          }
+        ]
         $scope.per_page = 12
         $scope.method = {}
         $scope.method.sort_by = 'member_count'
         $scope.aggregation_result = []
+        $scope.noAggPrev = true
+        $scope.noAggNext = true
         var aggFullList = []
 
         var index = 0
@@ -191,8 +202,13 @@
         }
         $scope.applyFilter = function() {
           $scope.filterApply = true
-          aggregation_api.get_aggregation({'sort_by': $scope.method.sort_by}).success(onGetAggList)
+          aggregation_api.get_aggregation({
+            'sort_by': $scope.method.sort_by,
+            'nickname': $scope.selected.query,
+            'referral_code': $scope.selected.referral_code
+          }).success(onGetAggList)
         }
+        $scope.applyFilter()
         function compare_value(a, b) {
           if (a.register_time > b.register_time) {
             return 1;
@@ -205,19 +221,18 @@
         function onGetAggList(data) {
           aggFullList = data.val.affiliate_member_count
           $scope.affiliate_user_count = data.val.affiliate_user_count
-          window.console.log($scope.method.sort_by)
 
           if ($scope.method.sort_by === 'register_time') {
             aggFullList.sort(compare_value).reverse()
           }
 
-          aggFullList = _.map(data.val.affiliate_member_count, function (item, index) {
+          aggFullList = _.map(data.val.affiliate_member_count, function (item, aggindex) {
               api.getLog(item.id)
                   .then(function (data) {
-                      if(data.data.val && data.data.val.length && data.data.val[0] && aggFullList[index]) {
-                          aggFullList[index].log = data.data.val[0]
-                      } else if(aggFullList[index]) {
-                          aggFullList[index].log = {}
+                      if(data.data.val && data.data.val.length && data.data.val[0] && aggFullList[aggindex]) {
+                          aggFullList[aggindex].log = data.data.val[0]
+                      } else if(aggFullList[aggindex]) {
+                          aggFullList[aggindex].log = {}
                       }
                   })
               return item
@@ -227,11 +242,12 @@
           onPageUpdate()
         }
         function onPageUpdate() {
+          $scope.noAggPrev = (index < $scope.per_page)?true:false
+          $scope.noAggNext = (index + $scope.per_page > aggFullList.length)?true:false
           index_end = index + $scope.per_page
           if (index_end > aggFullList.length) {
             index_end = aggFullList.length
           }
-          window.console.log(index, index_end)
           $scope.aggregation_result = aggFullList.slice(index, index_end)
         }
     }
