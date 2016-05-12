@@ -465,6 +465,13 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             ticket["custom_fields"].remove(field)
             ticket_database.update_one({"_id": ticket["_id"]}, {"$set": {"custom_fields": ticket["custom_fields"]}})
 
+    def v30(self, m):
+        f_app.task.get_database(m).insert_one({
+            "type": "coupon_expiration_check",
+            "status": "new",
+            "start": datetime.utcnow(),
+        })
+
 currant_mongo_upgrade()
 
 
