@@ -3881,12 +3881,15 @@ def affiliate_get_sub_user_count(user, params):
 
 
 @f_api('/affiliate-get-aggregation', params=dict(
-    sort_by=(str, None)
+    sort_by=(str, None),
+    nickname=(str, None),
+    referral_code=(str, None)
 ))
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation', 'affiliate'])
 def affiliate_get_aggregation(user, params):
     result = {}
     with f_app.mongo() as m:
+        affiliate_user_list = f_app.user.search({'role': 'affiliate', 'status': {'$ne': 'deleted'}})
         count = m.users.find({'role': 'affiliate', 'status': {'$ne': 'deleted'}}).count()
         result.update({'affiliate_user_count': count})
         cursor = m.users.aggregate([
@@ -3903,12 +3906,20 @@ def affiliate_get_aggregation(user, params):
         ])
         affiliate_member_count = []
         for document in cursor:
+            if unicode(document['_id']) in affiliate_user_list:
+                affiliate_user_list.remove(unicode(document['_id']))
+            else:
+                continue
             user_result = f_app.user.get(document['_id'])
             if user_result is not None:
                 name = user_result.get('nickname', '')
             if 'sort_by' not in params:
                 affiliate_member_count.append({'name': name, 'count': document['count']})
             else:
+                if 'nickname' in params and params['nickname'] not in user_result['nickname']:
+                    continue
+                if 'referral_code' in params and params['referral_code'] not in user_result.get('referral_code', ''):
+                    continue
                 affiliate_member_count.append({
                     'id': user_result['id'],
                     'nickname': user_result.get('nickname', ''),
@@ -3917,6 +3928,26 @@ def affiliate_get_aggregation(user, params):
                     'email': user_result.get('email', ''),
                     'register_time': user_result.get('register_time', ''),
                     'count': document['count']
+                })
+        for user_id in affiliate_user_list:
+            user_result = f_app.user.get(user_id)
+            if user_result is not None:
+                name = user_result.get('nickname', '')
+            if 'sort_by' not in params:
+                affiliate_member_count.append({'name': name, 'count': 0})
+            else:
+                if 'nickname' in params and params['nickname'] not in user_result['nickname']:
+                    continue
+                if 'referral_code' in params and params['referral_code'] not in user_result.get('referral_code', ''):
+                    continue
+                affiliate_member_count.append({
+                    'id': user_result['id'],
+                    'nickname': user_result.get('nickname', ''),
+                    'referral_code': user_result.get('referral_code', ''),
+                    'phone': user_result.get('phone', ''),
+                    'email': user_result.get('email', ''),
+                    'register_time': user_result.get('register_time', ''),
+                    'count': 0
                 })
         result.update({'affiliate_member_count': affiliate_member_count})
     return result
