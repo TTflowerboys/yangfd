@@ -10,9 +10,12 @@ from libfelix.f_interface import f_get, f_api, abort, template, request
 logger = logging.getLogger(__name__)
 
 
-def _find_or_register(params, allow_draft=False):
+def _find_or_register(params, allow_draft=False, ticket=None):
     noregister = params.pop("noregister", True)
     user = f_app.user.login_get()
+
+    if ticket is not None:
+        ticket = f_app.util.extract_obj(ticket, f_app.ticket)
 
     if "phone" not in params:
         if user:
@@ -29,7 +32,8 @@ def _find_or_register(params, allow_draft=False):
             else:
                 abort(40000)
 
-    params["phone"] = f_app.util.parse_phone(params, retain_country=True)
+    if not ticket or "phone" not in ticket:
+        params["phone"] = f_app.util.parse_phone(params, retain_country=True)
 
     user_id = None
     user_id_by_phone = f_app.user.get_id_by_phone(params["phone"], force_registered=True)
@@ -166,8 +170,10 @@ def _find_or_register(params, allow_draft=False):
                         tag="new_user",
                     )
 
-    params["creator_user_id"] = ObjectId(creator_user_id)
-    params["user_id"] = ObjectId(user_id)
+    if not ticket or "creator_user_id" not in ticket:
+        params["creator_user_id"] = ObjectId(creator_user_id)
+    if not ticket or "user_id" not in ticket:
+        params["user_id"] = ObjectId(user_id)
     return shadow_user_id
 
 
@@ -1473,7 +1479,7 @@ def rent_ticket_edit(ticket_id, user, params):
             abort(40399, logger.warning("Permission denied", exc_info=False))
     if user:
         if "phone" in params:
-            _find_or_register(params)
+            _find_or_register(params, ticket=ticket)
         else:
             if not ticket.get("creator_user_id"):
                 params["creator_user_id"] = ObjectId(user["id"])
