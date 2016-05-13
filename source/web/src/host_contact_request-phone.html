@@ -25,7 +25,7 @@
         </li>
     </ol>
     %if not (user and user.get('id') == rent.get('creator_user',{}).get('id','')):
-    <a class="button red ajaxButton" onclick="window.openRentRequestPage('{{rent.get('id')}}')">
+    <a class="button red ajaxButton" id="rentRequest" data-id="{{rent.get('id')}}">
         %if is_student_house(rent):
         {{_('我要预订')}}
         %else:

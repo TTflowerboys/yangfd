@@ -113,23 +113,6 @@ $(function () {
     }
 
 
-     window.openRentRequestPage = function (ticketId) {
-        $.betterPost('/api/1/rent_intention_ticket/search', {interested_rent_tickets: ticketId})
-            .done(function (data) {
-                var array = data
-                if (array && array.length > 0) {
-                    window.alert(window.i18n('您已经对此房源提交过咨询，如需继续咨询请您使用洋房东为您已匹配的邮件或短信系统沟通，谢谢。'))
-                } else {
-                    location.href = '/rent-request?ticketId=' + ticketId
-                }
-                $('.buttonLoading').trigger('end')
-
-            })
-            .fail(function (ret) {
-                window.alert(window.getErrorMessageFromErrorCode(ret))
-                $('.buttonLoading').trigger('end')
-            })
-    }
 
     function getResidueDegree() {
         if($requestContactBtn.attr('data-protectedHost')) {
@@ -420,5 +403,24 @@ $(function () {
         } else {
             $contactRequestForm.find('[type=submit]').prop('disabled', true)
         }
+    })
+
+    $('#rentRequest').click(function() {
+        var ticketId = $(this).attr('data-id')
+        $.betterPost('/api/1/rent_intention_ticket/search', {interested_rent_tickets: ticketId})
+            .done(function (data) {
+                var array = data
+                if (array && array.length > 0) {
+                    window.alert(window.i18n('您已经对此房源提交过咨询，如需继续咨询请您使用洋房东为您已匹配的邮件或短信系统沟通，谢谢。'))
+                } else {
+                    location.href = '/rent-request?ticketId=' + ticketId
+                }
+                $('.buttonLoading').trigger('end')
+
+            })
+            .fail(function (ret) {
+                window.alert(window.getErrorMessageFromErrorCode(ret))
+                $('.buttonLoading').trigger('end')
+            })
     })
 })
