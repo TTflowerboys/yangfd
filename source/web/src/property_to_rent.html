@@ -599,7 +599,7 @@
                         {{_('我要咨询')}}
                         %end
                     </a>
-                    <button class="button red hiddenOnMobile" data-bind="click: openRentRequestForm('{{rent.get('id')}}', true)">
+                    <button class="button red hiddenOnMobile ajaxButton" data-bind="click: function() { openRentRequestForm('{{rent.get('id')}}', true)}">
                         %if is_student_house(rent):
                         {{_('我要预订')}}
                         %else:
