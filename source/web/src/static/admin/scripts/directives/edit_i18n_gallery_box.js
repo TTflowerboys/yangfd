@@ -2,7 +2,7 @@
  * Created by zhou on 14-11-6.
  */
 angular.module('app')
-    .directive('editI18nGalleryBox', function ($rootScope, $filter, $upload, $http, growl, imageUploadSites) {
+    .directive('editI18nGalleryBox', function ($rootScope, $filter, $upload, $http, growl, imageUploadCDNSiteApi) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/edit_i18n_gallery_box.tpl.html',
@@ -88,9 +88,13 @@ angular.module('app')
                     if (_.isEmpty(img)) {
                         return false
                     }
-                    return img.indexOf(imageUploadSites[0]) < 0 &&
-                        img.indexOf(imageUploadSites[1]) < 0 &&
-                        img.indexOf(imageUploadSites[2]) < 0
+                    var imageUploadCdnSites = imageUploadCDNSiteApi.getdata()
+                    for (var index = 0; index < imageUploadCdnSites.length; index++) {
+                      if (img.indexOf(imageUploadCdnSites[index]) >= 0) {
+                        return true
+                      }
+                    }
+                    return false
                 }
 
                 scope.removeImage = function (imageIndex) {
