@@ -209,7 +209,6 @@
           }).success(onGetAggList)
         }
         $scope.applyFilter()
-        window.console.log(affiliateUserDetailApi.getdata())
         function compare_value(a, b) {
           if (a.register_time > b.register_time) {
             return 1;
