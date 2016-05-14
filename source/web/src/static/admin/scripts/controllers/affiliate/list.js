@@ -1,6 +1,6 @@
 (function () {
 
-    function ctrlAffiliateList($scope, fctModal, api, aggregation_api, $q, $state) {
+    function ctrlAffiliateList($scope, fctModal, api, affiliate_user_detail_api, $q, $state) {
         $scope.list = []
         $scope.selected = {}
         $scope.filterApply = true

@@ -1,6 +1,6 @@
 /* Created by frank on 14-8-21. */
 angular.module('app')
-    .directive('editImages', function ($upload, $http, $rootScope, growl, imageUploadSites) {
+    .directive('editImages', function ($upload, $http, $rootScope, growl, image_upload_cdn_site_api) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/edit_images.tpl.html',
@@ -78,9 +78,13 @@ angular.module('app')
                     if (_.isEmpty(img)) {
                         return false
                     }
-                    return img.indexOf(imageUploadSites[0]) < 0 &&
-                        img.indexOf(imageUploadSites[1]) < 0 &&
-                        img.indexOf(imageUploadSites[2]) < 0
+                    var imageUploadCdnSites = image_upload_cdn_site_api.getdata()
+                    for (var index = 0; index < imageUploadCdnSites.length; index++) {
+                      if (img.indexOf(imageUploadCdnSites[index]) >= 0) {
+                        return true
+                      }
+                    }
+                    return false
                 }
 
                 scope.uploadImage = function (img) {

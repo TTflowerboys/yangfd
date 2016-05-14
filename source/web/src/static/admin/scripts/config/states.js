@@ -1203,8 +1203,8 @@ angular.module('app')
                     api: function (userApi) {
                         return userApi
                     },
-                    aggregation_api: function (affiliate_aggregation_api) {
-                      return affiliate_aggregation_api
+                    affiliate_user_detail_api: function (affiliate_user_detail_api) {
+                      return affiliate_user_detail_api
                     }
                 }
             })

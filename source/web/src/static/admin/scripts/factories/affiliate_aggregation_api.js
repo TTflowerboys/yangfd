@@ -10,5 +10,5 @@
         }
     }
 
-    angular.module('app').factory('affiliate_aggregation_api', affiliate_aggregation_api)
+    angular.module('app').factory('affiliate_user_detail_api', affiliate_aggregation_api)
 })()
