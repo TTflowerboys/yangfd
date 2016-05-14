@@ -1,6 +1,6 @@
 (function () {
 
-    function ctrlAffiliateList($scope, fctModal, api, affiliate_user_detail_api, $q, $state) {
+    function ctrlAffiliateList($scope, fctModal, api, affiliateUserDetailApi, $q, $state) {
         $scope.list = []
         $scope.selected = {}
         $scope.filterApply = true
@@ -202,13 +202,14 @@
         }
         $scope.applyFilter = function() {
           $scope.filterApply = true
-          aggregation_api.get_aggregation({
+          affiliateUserDetailApi.get_aggregation({
             'sort_by': $scope.method.sort_by,
             'nickname': $scope.selected.query,
             'referral_code': $scope.selected.referral_code
           }).success(onGetAggList)
         }
         $scope.applyFilter()
+        window.console.log(affiliateUserDetailApi.getdata())
         function compare_value(a, b) {
           if (a.register_time > b.register_time) {
             return 1;
