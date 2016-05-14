@@ -14,5 +14,5 @@
       }
     }
 
-    angular.module('app').service('image_upload_cdn_site_api', image_upload_cdn_site)
+    angular.module('app').service('imageUploadCDNSiteApi', image_upload_cdn_site)
 })()

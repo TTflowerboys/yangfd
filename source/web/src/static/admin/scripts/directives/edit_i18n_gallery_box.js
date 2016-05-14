@@ -2,7 +2,7 @@
  * Created by zhou on 14-11-6.
  */
 angular.module('app')
-    .directive('editI18nGalleryBox', function ($rootScope, $filter, $upload, $http, growl, image_upload_cdn_site_api) {
+    .directive('editI18nGalleryBox', function ($rootScope, $filter, $upload, $http, growl, imageUploadCDNSiteApi) {
         return {
             restrict: 'AE',
             templateUrl: '/static/admin/templates/edit_i18n_gallery_box.tpl.html',
@@ -88,7 +88,7 @@ angular.module('app')
                     if (_.isEmpty(img)) {
                         return false
                     }
-                    var imageUploadCdnSites = image_upload_cdn_site_api.getdata()
+                    var imageUploadCdnSites = imageUploadCDNSiteApi.getdata()
                     for (var index = 0; index < imageUploadCdnSites.length; index++) {
                       if (img.indexOf(imageUploadCdnSites[index]) >= 0) {
                         return true
