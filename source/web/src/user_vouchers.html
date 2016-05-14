@@ -43,6 +43,8 @@
                 {=window.i18n('未使用')=}
                 {_} else if (coupon.status === 'used') {_}
                 {=window.i18n('已使用')=}
+                {_} else if (coupon.status === 'expired') {_}
+                {=window.i18n('已过期')=}
                 {_} else {_}
                 {=coupon.status=}
                 {_}_}
