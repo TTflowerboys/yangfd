@@ -187,6 +187,10 @@ class CUTEGeoManager: NSObject {
         let tcs = BFTaskCompletionSource()
         INTULocationManager.sharedInstance().requestLocationWithDesiredAccuracy(INTULocationAccuracy.City, timeout: 30, delayUntilAuthorized: true) { (currentLocation:CLLocation!, achievedAccuracy:INTULocationAccuracy, status:INTULocationStatus) -> Void in
 
+            if tcs.task.cancelled {
+                return
+            }
+
             if currentLocation != nil {
                 tcs.setResult(currentLocation)
             }
@@ -198,7 +202,7 @@ class CUTEGeoManager: NSObject {
                     tcs.setError(NSError(domain: "INTULocationManager", code: 0, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/获取当前位置失败")]))
                 }
                 else if status == INTULocationStatus.ServicesDenied {
-                    tcs.cancel()
+                    tcs.setError(NSError(domain: "INTULocationManager", code: 0, userInfo: [NSLocalizedDescriptionKey:STR("GeoManager/拒绝服务")]))
                 }
                 else {
                     tcs.setError(nil)

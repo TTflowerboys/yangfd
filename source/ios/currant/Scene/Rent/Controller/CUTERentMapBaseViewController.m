@@ -93,10 +93,13 @@
 
         [[[CUTEGeoManager sharedInstance] requestCurrentLocation:_cancellationTokenSource.token] continueWithBlock:^id(BFTask *task) {
             _cancellationTokenSource = nil;
-            if (task.isCancelled) {
+            if (task.error && [[[task.error userInfo] objectForKey:NSLocalizedDescriptionKey] isEqualToString:STR(@"GeoManager/拒绝服务")]) {
                 [SVProgressHUD dismiss];
                 [UIAlertView showWithTitle:STR(@"RentAddressMap/此应用程序对您的位置没有访问权，您可以在隐私设置中启用访问权或自行填写地址") message:nil cancelButtonTitle:STR(@"RentAddressMap/OK") otherButtonTitles:nil tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                 }];
+            }
+            else if (task.isCancelled) {
+                [SVProgressHUD dismiss];
             }
             else if (task.result) {
                 CLLocation *location = task.result;
