@@ -45,6 +45,7 @@
 #import "NSURL+CUTE.h"
 #import "NSString+Encoding.h"
 #import "NSString+QueryParser.h"
+#import "NSString+Numberic.h"
 #import "SVProgressHUD+CUTEAPI.h"
 #import "UIView+Border.h"
 

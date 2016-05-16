@@ -20,6 +20,13 @@ class CUTEFormAreaTextFieldCell: CUTEFormTextFieldCell {
     */
 
     override func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+
+        if let nsString =  string as NSString? {
+            if !nsString.isNumeric() {
+                return false
+            }
+        }
+
         let currentText = textField.text ?? ""
         let newString = (currentText as NSString).stringByReplacingCharactersInRange(range, withString: string)
         let maxCount = 10
