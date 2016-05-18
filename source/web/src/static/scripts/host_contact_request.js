@@ -405,9 +405,9 @@ $(function () {
         }
     })
 
-    $('#rentRequest').click(function () {
+    $('#rentRequest').click(function () {        
+        var ticketId = $(this).attr('data-id')
         if (window.user) {
-            var ticketId = $(this).attr('data-id')
             $.betterPost('/api/1/rent_intention_ticket/search', { interested_rent_tickets: ticketId })
                 .done(function (data) {
                     var array = data
@@ -427,8 +427,6 @@ $(function () {
         else {
             location.href = '/rent-request?ticketId=' + ticketId
             $('.buttonLoading').trigger('end')
-        }
-            
-        
+        }                  
     })
 })
