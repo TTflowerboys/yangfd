@@ -1,7 +1,7 @@
 (function (ko) {
     window.openRentRequestForm = function (ticketId, isPopup) {
+        var args = arguments
         if (window.user) {
-            var args = arguments
             $.betterPost('/api/1/rent_intention_ticket/search', { interested_rent_tickets: ticketId })
                 .done(function (data) {
                     var array = data
@@ -441,6 +441,9 @@
                         }
                         if(this.params().rent_available_time > this.params().rent_deadline_time) {
                             return errorList.push(window.i18n('起租日期不能晚于结束日期'))
+                        }
+                        if(this.params().rent_available_time > this.params().rent_deadline_time - 24 * 60 * 60) {
+                            return errorList.push(window.i18n('租期至少一天'))
                         }
                     },
                     description: function () {
