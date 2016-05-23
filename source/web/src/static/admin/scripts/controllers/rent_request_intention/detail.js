@@ -5,11 +5,11 @@
         $scope.emailTemplate = {
             'assigned': [
                 {
-                    title: window.i18n('申请确认邮件'),
+                    title: window.i18n('申请确认邮件(匹配短信)'),
                     url: '/static/admin/emails/assigned_tenant.html',
                     role: 'tenant'
                 }, {
-                    title: window.i18n('租客给房东的邮件'),
+                    title: window.i18n('租客给房东的邮件(匹配短信)'),
                     url: '/static/admin/emails/assigned_landlord.html',
                     role: 'landlord'
                 }

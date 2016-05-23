@@ -16,6 +16,9 @@
             <p style="margin:20px 0; color: #999; ">
                 {%$root.i18n('Upload your ID, university acceptance letter or employment contract on your account page. This will increase the chances of the landlord accepting your booking request, so make sure you do it as soon as you can!')%}
             </p>
+            <p style="margin:12px 0">                
+                {%$root.i18n('回复本邮件可与房东沟通。如果您收到了洋房东平台咨询匹配的短信，您可以直接回复短信与房东进行沟通。谢谢！')%}
+            </p>
             <div class="noHorizolPaddingOnMobile" style="padding: 60px 15%; ">
                 <a ng-href="{%host%}/property-to-rent/{%item.interested_rent_tickets[0].id%}" style="display:block; border: 1px solid #ccc;">
                     <div style="width: 100%; padding-top: 60%; background-size: cover; background-repeat: no-repeat; background-image: url('{%item.interested_rent_tickets[0].property.cover[userLanguage.value] || item.interested_rent_tickets[0].property.reality_images[0][userLanguage.value] || '/static/images/placeholder/img_rent_detail_holder.png'%}')">
