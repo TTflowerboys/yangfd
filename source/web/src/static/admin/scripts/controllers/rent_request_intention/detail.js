@@ -49,12 +49,32 @@
                     url: '/static/admin/templates/message/in_progress/landlord-3-2.html',
                     role: 'landlord'
                 }, {
+                    title: window.i18n('【房东】3.回复房东的短信(询问费用问题)'),
+                    url: '/static/admin/templates/message/in_progress/landlord-3-3.html',
+                    role: 'landlord'
+                }, {
+                    title: window.i18n('【房东】3.回复房东的短信(房东询问预订流程)'),
+                    url: '/static/admin/templates/message/in_progress/landlord-3-4.html',
+                    role: 'landlord'
+                },{
+                    title: window.i18n('【房东】3.回复房东的短信(租客索要照片或文件)'),
+                    url: '/static/admin/templates/message/in_progress/landlord-3-5.html',
+                    role: 'landlord'
+                }, {
                     title: window.i18n('【租客】4.与租客的沟通(租客消息包含联系方式)'),
                     url: '/static/admin/templates/message/in_progress/tenant-4-1.html',
                     role: 'tenant'
                 }, {
                     title: window.i18n('【租客】4.与租客的沟通(租客消息包含看房申请)'),
                     url: '/static/admin/templates/message/in_progress/tenant-4-2.html',
+                    role: 'tenant'
+                }, {
+                    title: window.i18n('【租客】4.与租客的沟通(询问费用问题)'),
+                    url: '/static/admin/templates/message/in_progress/tenant-4-3.html',
+                    role: 'tenant'
+                },  {
+                    title: window.i18n('【租客】4.与租客的沟通(租客询问预订流程)'),
+                    url: '/static/admin/templates/message/in_progress/tenant-4-4.html',
                     role: 'tenant'
                 }, {
                     title: window.i18n('【房东】5.让房东录制视频(房源有视频)'),
@@ -72,19 +92,11 @@
                     title: window.i18n('【租客】7.租客聊天中提出可以预定'),
                     url: '/static/admin/templates/message/in_progress/tenant-7-1.html',
                     role: 'tenant'
-                }, {
+                },{
                     title: window.i18n('【房东】7.租客聊天中提出可以预定'),
                     url: '/static/admin/templates/message/in_progress/landlord-7-1.html',
                     role: 'landlord'
-                }, {
-                    title: window.i18n('【租客】7.租客聊天中提出可以预定（租客询问预订流程）'),
-                    url: '/static/admin/templates/message/in_progress/tenant-7-2.html',
-                    role: 'tenant'
-                }, {
-                    title: window.i18n('【房东】7.租客聊天中提出可以预定（房东询问预订流程）'),
-                    url: '/static/admin/templates/message/in_progress/landlord-7-2.html',
-                    role: 'landlord'
-                }, {
+                },{
                     title: window.i18n('【租客】8. 租客房东回复’是‘(租客回复‘是’)'),
                     url: '/static/admin/templates/message/in_progress/tenant-8.html',
                     role: 'tenant'
