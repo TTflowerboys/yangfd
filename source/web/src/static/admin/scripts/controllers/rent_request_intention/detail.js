@@ -61,6 +61,10 @@
                     url: '/static/admin/templates/message/in_progress/landlord-3-5.html',
                     role: 'landlord'
                 }, {
+                    title: window.i18n('【房东】3.回复房东的短信(联系方式警告)'),
+                    url: '/static/admin/templates/message/in_progress/landlord-3-6.html',
+                    role: 'landlord'
+                }, {
                     title: window.i18n('【租客】4.与租客的沟通(租客消息包含联系方式)'),
                     url: '/static/admin/templates/message/in_progress/tenant-4-1.html',
                     role: 'tenant'
@@ -72,9 +76,13 @@
                     title: window.i18n('【租客】4.与租客的沟通(询问费用问题)'),
                     url: '/static/admin/templates/message/in_progress/tenant-4-3.html',
                     role: 'tenant'
-                },  {
+                }, {
                     title: window.i18n('【租客】4.与租客的沟通(租客询问预订流程)'),
                     url: '/static/admin/templates/message/in_progress/tenant-4-4.html',
+                    role: 'tenant'
+                }, {
+                    title: window.i18n('【租客】4.与租客的沟通(联系方式警告)'),
+                    url: '/static/admin/templates/message/in_progress/tenant-4-5.html',
                     role: 'tenant'
                 }, {
                     title: window.i18n('【房东】5.让房东录制视频(房源有视频)'),
