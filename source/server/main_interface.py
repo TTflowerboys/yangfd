@@ -303,14 +303,14 @@ def record_video_tips():
 def rent_fee_tips():
     title = _('洋房东平台 - 租房费用名词解释')
     return currant_util.common_template("rent_fee_tips", title=title)
-  
-  
+
+
 @f_get('/rent-process-tips')
 @currant_util.check_ip_and_redirect_domain
 def rent_process_tips():
     title = _('洋房东平台 - 预订操作流程')
     return currant_util.common_template("rent_process_tips", title=title)
-        
+
 
 @f_get('/admin')
 @currant_util.check_ip_and_redirect_domain
