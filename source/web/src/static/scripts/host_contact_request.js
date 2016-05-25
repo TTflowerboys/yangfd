@@ -405,10 +405,10 @@ $(function () {
         }
     })
 
-    $('#rentRequest').click(function () {        
+    $('#rentRequest').click(function () {
         var ticketId = $(this).attr('data-id')
         if (window.user) {
-            $.betterPost('/api/1/rent_intention_ticket/search', { interested_rent_tickets: ticketId })
+            $.betterPost('/api/1/rent_intention_ticket/search', { interested_rent_tickets: ticketId, user_id: window.user.id})
                 .done(function (data) {
                     var array = data
                     if (array && array.length > 0) {
@@ -427,6 +427,6 @@ $(function () {
         else {
             location.href = '/rent-request?ticketId=' + ticketId
             $('.buttonLoading').trigger('end')
-        }                  
+        }
     })
 })

@@ -2,7 +2,7 @@
     window.openRentRequestForm = function (ticketId, isPopup) {
         var args = arguments
         if (window.user) {
-            $.betterPost('/api/1/rent_intention_ticket/search', { interested_rent_tickets: ticketId })
+            $.betterPost('/api/1/rent_intention_ticket/search', { interested_rent_tickets: ticketId, user_id: window.user.id})
                 .done(function (data) {
                     var array = data
                     if (array && array.length > 0) {
