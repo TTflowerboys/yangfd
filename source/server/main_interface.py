@@ -2840,6 +2840,8 @@ def user_rent_request(user, params):
             except:
                 return ['', '']
             else:
+                if single_property is None:
+                    return ['', '']
                 return [
                     ' '.join([
                         single_property.get("country", {}).get("code", ''),
@@ -2848,7 +2850,7 @@ def user_rent_request(user, params):
                         single_property.get("address", ''),
                     ]),
                     single_property.get("zipcode", '')
-                    ]
+                ]
         return ['', '']
 
     def get_detail_postcode(ticket):
@@ -3112,7 +3114,7 @@ def user_rent_request(user, params):
                 url if url else ''
             ])'''
             address_and_postcode = ['', '']
-            address_and_postcode = get_detail_address(ticekt)
+            address_and_postcode = get_detail_address(ticket)
             result_final = [
                 six.text_type(timezone('Europe/London').localize(ticket_request['time']).strftime("%Y-%m-%d %H:%M:%S")),
                 ILLEGAL_CHARACTERS_RE.sub(r'', ticket.get('title', '')),
@@ -3152,7 +3154,7 @@ def user_rent_request(user, params):
                 print("ERROR EXCEL DATA", result_final)
 
     format_fit(ws)
-    add_link(ws, 'AC')
+    add_link(ws, 'AD')
     out = StringIO(save_virtual_workbook(wb))
     response.set_header(b"Content-Type", b"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     return out
