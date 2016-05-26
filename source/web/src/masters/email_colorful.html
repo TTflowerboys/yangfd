@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>{{title}}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style type="text/css">
+         img {
+             outline: none;
+             text-decoration: none;
+             -ms-interpolation-mode: bicubic;
+         }
+
+         a img {
+             border: none;
+         }
+
+         @media only screen and (max-width: 600px) {
+             img[class=logoEmailHeader] {
+                 width: 217px !important;
+             }
+             [class=noHorizolPaddingOnMobile] {
+                 padding-left: 0 !important;
+                 padding-right: 0 !important;
+             }
+             [class=extraSmallFontSize] {
+                 font-size: 14px !important;
+                 line-height: 1.6em;
+             }
+             [class=smallFontSize] {
+                 font-size: 16px !important;
+             }
+             [class=middleFontSize] {
+                 font-size: 18px !important;
+             }
+             [class=largeFontSize] {
+                 font-size: 21px !important;
+             }
+             table {
+                 max-width: 100%;
+                 width: 100% !important;
+             }
+             td[class=mailFooterWrap] {
+                 padding: 35px 20px !important;
+             }
+             [class=fullWidthOnMoible] {
+                 max-width: 100%;
+                 width: 100% !important;
+             }
+             .text {
+                 font-size:15px !important;
+             }
+
+             .centerText {
+                 font-size:15px !important;
+             }
+
+             .centerBanner {
+                 font-size:21px !important;
+             }
+
+             .link {
+                 font-size:20px !important;
+             }
+
+             .linkHint {
+                 font-size:13px !important;
+             }
+
+             .boxLink {
+                 font-size: 15px !important;
+             }
+             
+             .box {
+                 padding: 15px 0 !important;
+             }
+
+             .shareIcon {
+                 width: 40px !important;
+                 height: auto !important;
+             }
+
+             .buttonBanner {
+                 height: 30px !important;
+                 font-size: 14px !important;
+                 padding-top: 13px !important;
+             }
+         }
+        </style>
+        <!-- start head -->
+
+
+        <!-- end head -->
+    </head>
+
+    <body bgcolor="#eee" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" style="height: auto; padding:0; margin:0; -webkit-text-size-adjust:none; -ms-text-size-adjust: 100%;background-color: #eee;">
+        <table cellspacing="0" cellpadding="0" border="0" align="center" width="100%" class="tableContent" style="max-width: 720px;background-color: #fff;margin: 0 auto; padding: 0;font-size: 16px; font-family: Helvetica, Arial, sans-serif; line-height: 1.5; color:#999; background:#fff;text-align: center;">
+            <tbody>
+                <tr class="mailHeader">
+                    <td>
+                        <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                            <tr>
+                                <td >
+                                    <div >
+                                        <img src="/static/images/email/affiliate_promotion/border.png" alt="" style="width: 100%;height: auto; "/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="text-align: center; margin-top: 40px;">
+                                        <img class="logoEmailHeader" src="/static/images/email/affiliate_promotion/yfdlogo.png" alt="" style="vertical-align: middle; width: 100%; max-width: 434px; height: auto;"
+                                             />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="mailMain">
+                    <td class="contentWrap" style="color: #666666;">
+                        <table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                            <tbody>
+                                <!--@@placeholder = content-->
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="mailFooter">
+                    <td class="mailFooterWrap" style="padding: 40px 20px; margin: 0 20px; color: #cccccc;line-height: 1.8em;font-size: 16px; background: #666666">
+                        <table class="smallFontSize" width="100%" style="text-align:center;">
+                            <tr>
+                                <td>{{_('该邮件为自动发送，请勿直接回复。')}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{_('如有任何问题，欢迎您与我们联系，我们将竭诚为您服务。')}}</td>
+                            </tr>
+                            %if 'unsubscribe_url' in vars() or 'unsubscribe_url' in globals():
+                                <tr>
+                                    <td>{{_('不想收到此类邮件？')}}<a href="{{unsubscribe_url}}" style="color: #cccccc; text-decoration: none;">{{_('点击退订')}}></a></td>
+                                </tr>
+                            %end
+                            <tr>
+                                <td>{{_('Email：')}}<a href="mailto:services@youngfunding.co.uk" style="color: #cccccc; text-decoration: none;word-break: break-all;">services@youngfunding.co.uk</a></td>
+                            </tr>
+                            <tr>
+                                <td>{{_('英国客服电话：')}}<a href="tel:02030402258" style="color: #cccccc;text-decoration: none;">02030402258</a></td>
+                            </tr>
+                            <tr>
+                                <td>{{_('中国客服电话：')}}<a href="tel:4000926433" style="color: #cccccc; text-decoration: none;">400-0926-433</a></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
