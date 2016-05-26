@@ -2845,8 +2845,18 @@ def user_rent_request(user, params):
                     single_property.get("city", {}).get("name", ''),
                     single_property.get("maponics_neighborhood", {}).get("name", ''),
                     single_property.get("address", ''),
-                    single_property.get("zipcode_index", '')
+                    # single_property.get("zipcode_index", '')
                 ])
+        return ''
+
+    def get_detail_postcode(ticket):
+        if 'property_id' in ticket:
+            try:
+                single_property = f_app.i18n.process_i18n(f_app.property.get(ticket['property_id']))
+            except:
+                return ''
+            else:
+                return single_property.get("zipcode", '')
         return ''
 
     def get_short_id(ticket):
@@ -3012,7 +3022,7 @@ def user_rent_request(user, params):
     Header = [
         ["提交时间", "意向房源", "租期", "", "", "", "客户", "", "", "", "", "",
          "入住信息", "", "", "", "TBC", "", "Location", "", "", "relocate", "租客对房东的问题",
-         "咨询处理状态", "备注", "咨询房源提交量", "房源地址", "short ID", "url", "来源"
+         "咨询处理状态", "备注", "咨询房源提交量", "房源地址", "short ID", "url", "来源", "POST CODE"
          ],
         ["", "", "入住", "结束", "租期描述", "入住与提交时间差", "名字", "性别",
          "现状", "年龄", "电话", "邮件", "人数", "吸烟", "带小孩", "带宠物",
@@ -3035,7 +3045,8 @@ def user_rent_request(user, params):
         'AA1:AA2',
         'AB1:AB2',
         'AC1:AC2',
-        'AD1:AD2'
+        'AD1:AD2',
+        'AE1:AE2'
     ]
     for header in Header:
         ws.append(header)
@@ -3128,7 +3139,8 @@ def user_rent_request(user, params):
                 get_detail_address(ticket),
                 get_short_id(ticket),
                 url if url else '',
-                get_referrer_source(ticket_request)
+                get_referrer_source(ticket_request),
+                get_detail_postcode(ticket)
             ]
             try:
                 ws.append(result_final)
