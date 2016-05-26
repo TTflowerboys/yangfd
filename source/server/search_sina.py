@@ -358,22 +358,22 @@ def get_weibo_search_result(keywords_list):
     def get_ybirds_city_list(session, select_city):
         now = datetime.now()
         timestamp = int(time.mktime(now.timetuple())*1e3 + now.microsecond/1e3)
-        url = 'http://ybirds.com/Home-Class-getHotCity.html?country=1&_=' + unicode(timestamp)
+        url = 'http://www.ybirds.com/Home-Class-getHotCity.html?country=1&_=' + unicode(timestamp)
         page = session.get(
             url,
             headers={
                 "POST": "/sso/login HTTP/1.1",
-                "Host": "ybirds.com",
+                "Host": "www.ybirds.com",
                 "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0",
                 "Accept": "application/json, text/javascript, */*; q=0.01",
                 "Accept-Language": "en-US,en;q=0.5",
                 "Accept-Encoding": "gzip, deflate",
                 "X-Requested-With": "XMLHttpRequest",
-                "Referer": "http://ybirds.com/Home-Class-ChangeCity.html",
+                "Referer": "http://www.ybirds.com/Home-Class-ChangeCity.html",
                 "Connection": "keep-alive",
             }
         )
-        match = re.compile('href=\"\\\\(.*?)\">(.*?)<')
+        match = re.compile(r'href=\"\.\\(.*?)\">(.*?)<')
         source = match.findall(unicode(page.content, 'unicode-escape'))
         city_list = {}
         for single in source:
@@ -382,7 +382,7 @@ def get_weibo_search_result(keywords_list):
             key = source.replace(' ' + name, '')
             city_list.update({
                 key: {
-                    'link': 'http://ybirds.com' + single[0],
+                    'link': 'http://www.ybirds.com' + single[0],
                     'name': source
                 }
             })
@@ -394,17 +394,17 @@ def get_weibo_search_result(keywords_list):
             url,
             headers={
                 "POST": "/sso/login HTTP/1.1",
-                "Host": "ybirds.com",
+                "Host": "www.ybirds.com",
                 "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0",
                 "Accept": "application/json, text/javascript, */*; q=0.01",
                 "Accept-Language": "en-US,en;q=0.5",
                 "Accept-Encoding": "gzip, deflate",
                 "X-Requested-With": "XMLHttpRequest",
-                "Referer": "http://ybirds.com/Home-Class-ChangeCity.html",
+                "Referer": "http://www.ybirds.com/Home-Class-ChangeCity.html",
                 "Connection": "keep-alive",
             }
         )
-        match = re.compile('href=\"\\\\(.*?)\">[:]*(.*?)<')
+        match = re.compile(r'href=\"\.\\(.*?)\">[:]*(.*?)<')
         source = match.findall(unicode(page.content, 'unicode-escape'))
         for single in source:
             source = single[1].rstrip(' ')
@@ -414,7 +414,7 @@ def get_weibo_search_result(keywords_list):
                 continue
             city_list.update({
                 key: {
-                    'link': 'http://ybirds.com' + single[0],
+                    'link': 'http://www.ybirds.com' + single[0],
                     'name': source
                 }
             })
@@ -461,13 +461,13 @@ def get_weibo_search_result(keywords_list):
                 city_switch_url,
                 headers={
                     "POST": "/sso/login HTTP/1.1",
-                    "Host": "ybirds.com",
+                    "Host": "www.ybirds.com",
                     "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0",
                     "Accept": "application/json, text/javascript, */*; q=0.01",
                     "Accept-Language": "en-US,en;q=0.5",
                     "Accept-Encoding": "gzip, deflate",
                     "X-Requested-With": "XMLHttpRequest",
-                    "Referer": "http://ybirds.com/Home-Class-ChangeCity.html",
+                    "Referer": "http://www.ybirds.com/Home-Class-ChangeCity.html",
                     "Connection": "keep-alive",
                 })
             print 'city_switched to ' + city_name
@@ -502,11 +502,12 @@ def get_weibo_search_result(keywords_list):
                     topic_result = {}
                     topic_result.update({'title': topic_dom('div.title').attr('title')})
                     topic_result.update({'author': topic_dom('div.count span').eq(0).text()})
-                    topic_result.update({'link': 'http://www.ybirds.com' + topic_dom('div.title a').attr('href')})
+                    topic_result.update({'link': 'http://www.ybirds.com' + topic_dom('div.title a').attr('href').lstrip('.')})
                     create_time = datetime.strptime(topic_dom('div.time').text(), '%Y-%m-%d %H:%M:%S')
                     topic_result.update({'time': create_time})
                     print topic_result['author']
                     print topic_result['time']
+                    print topic_result['link']
                     max_time = max(max_time, create_time)
                     if create_time < time_start:
                         continue
@@ -756,7 +757,7 @@ def get_weibo_search_result(keywords_list):
     if day_shift:
         wb.save('weibo_search' + unicode(today - timedelta(days=day_shift)) + '~' + unicode(today) + '.xlsx')
     else:
-        wb.save('weibo_search ' + unicode(today) + '.xlsx')
+        wb.save('weibo_search' + unicode(today) + '.xlsx')
 
     # wb = Workbook()
     # ws = wb.active
