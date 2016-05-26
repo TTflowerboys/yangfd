@@ -12,6 +12,8 @@
 <span class="messageData" style="display:none">
     {{json_dumps(message_list)}}
 </span>
+
+
 <div class="content">
     <div class="contentHeader">
         <h1>{{_('消息')}}</h1>
@@ -55,14 +57,200 @@
         <!--@@include=/partials/message_holder.html {"hint":"{{_('当前没有已读消息')}}"}-->
     </div>
 
+    <kot-message-list></kot-message-list>
 
     <!-- @@include=/static/templates/message_cell.tpl.html-->
 
 </div>
+
+
+<template id="kot_message_list_template">
+    <div class="contentHeader">
+        <h1>{{_('消息')}}</h1>
+        <div class="buttons">
+            <button data-bind="
+                text: showAllText,
+                click: function() {switchTab('All')},
+                css: {
+                    'button': tabActive() === 'All',
+                    'ghostButton': tabActive() !== 'All'}" class="all red"></button>
+            <button data-bind="
+                text: showNewText,
+                click: function() {switchTab('new')},
+                css: {
+                    'button': tabActive() === 'new',
+                    'ghostButton': tabActive() !== 'new'}" class="new red"></button>
+            <button data-bind="
+                text: showReadText,
+                click: function() {switchTab('read')},
+                css: {
+                    'button': tabActive() === 'read',
+                    'ghostButton': tabActive() !== 'read'}" class="read red"></button>
+        </div>
+    </div>
+    <div class="list" data-bind="foreach: messageList">
+        <div class="cell">
+            <label data-bind="
+                text: title,
+                css: {
+                    read_type: hasRead,
+                    unread_type: !hasRead}"></label>
+            <div class="rightParts">
+                <label class="date" data-bind="text: time"></label>
+                <button class="showHide" data-bind="click: toggleExpand, text: expandStatus"></button>
+            </div>
+            <p class="content" data-bind="visible: expand, text: content"></p>
+        </div>
+    </div>
+    <div class="pager" style="width: 234px !important">
+        <button data-bind="
+            click: page_pre_trigger,
+            attr: {'disabled': page_pre_disabled}">
+            <img data-bind="
+                attr: {src: page_pre_img_url},
+                css: {'pre': page_pre_status}"/>
+            <span data-bind="text: page_pre_text"></span>
+            <!-- <img class="pre-disabled" style="display:none" src="/static/images/user/pre-page-disabled.png"/> -->
+        </button>
+        <span data-bind="text: page_show_index" style="color: red; font-size: 16px; font-weight: bold"></span>
+        <button data-bind="
+            click: page_nex_trigger,
+            attr: {'disabled': page_nex_disabled}">
+            <span data-bind="text: page_nex_text"></span>
+            <img data-bind="
+                attr: {src: page_nex_img_url},
+                css: {'next': page_nex_status}"/>
+            <!-- <img class="next-disabled" style="display:none" src="/static/images/user/next-page-disabled.png"/> -->
+        </button>
+    </div>
+</template>
 <!--@@close-->
 
 <!--@@block=scripts-->
 <!--build:js /static/scripts/user_messages.html.js-->
+<script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
+<script src="/static/scripts/common_ko.js"></script>
+<script type="text/javascript">
+    (function(ko, module) {
+        ko.components.register('kot-message-list', {
+            viewModel: function(params) {
+                var self = this
+                this.page_index = 0
+                this.page_pre_status = true
+                this.page_nex_status = true
+                this.page_length_single = 10
+                this.page_pre_text = '上一页'
+                this.page_nex_text = '下一页'
+                this.showAllText = '全部'
+                this.showNewText = '未读'
+                this.showReadText = '已读'
+                this.messageSourceData = category_message(JSON.parse($('.messageData').text()))
+                this.messageData = filter_message(this.messageSourceData, 'All')
+                this.switchTab = function(data) {
+                    self.tabActive(data)
+                    console.log(self.tabActive())
+                    self.messageData = filter_message(self.messageSourceData, data)
+                    self.messageList(self.messageData.slice(0, self.page_length_single))
+                }
+
+                this.page_show_index = ko.observable(1)
+                this.tabActive = ko.observable('All')
+                this.messageList = ko.observableArray(this.messageData.slice(0, this.page_length_single))
+                this.page_pre_img_url = ko.observable('/static/images/user/pre-page-disabled.png')
+                this.page_nex_img_url = ko.observable('/static/images/user/next-page.png')
+                if (this.page_length_single > this.messageData) {
+                    this.page_nex_img_url('/static/images/user/next-page-disabled.png')
+                }
+                this.page_pre_disabled = ko.observable('disabled')
+                this.page_nex_disabled = ko.observable(null)
+                this.page_nex_trigger = function () {
+                    var message_show_index_begin = self.page_index * self.page_length_single
+                    var message_show_index_end = message_show_index_begin + self.page_length_single
+                    var message_show_next_page_index_end = message_show_index_end + self.page_length_single
+                    if (message_show_index_end < self.messageData.length) {
+                        self.page_index += 1
+                        self.page_show_index(self.page_index + 1)
+                    }
+                    if (message_show_next_page_index_end >= self.messageData.length) {
+                        self.page_nex_disabled('disabled')
+                        self.page_nex_img_url('/static/images/user/next-page-disabled.png')
+                    }
+                    message_show_index_begin = self.page_index * self.page_length_single
+                    message_show_index_end = message_show_index_begin + self.page_length_single
+                    if (message_show_index_begin) {
+                        self.page_pre_disabled(null)
+                        self.page_pre_img_url('/static/images/user/pre-page.png')
+                    }
+                    self.messageList(self.messageData.slice(message_show_index_begin, message_show_index_end))
+                }
+                this.page_pre_trigger = function() {
+                    var message_show_index_begin = self.page_index * self.page_length_single
+                    var message_show_index_end = message_show_index_begin + self.page_length_single
+                    if (self.page_index) {
+                        self.page_index -= 1
+                        self.page_show_index(self.page_index + 1)
+                    }
+                    if (!self.page_index) {
+                        self.page_pre_disabled('disabled')
+                        self.page_pre_img_url('/static/images/user/pre-page-disabled.png')
+                    }
+                    message_show_index_begin = self.page_index * self.page_length_single
+                    message_show_index_end = message_show_index_begin + self.page_length_single
+                    if (message_show_index_end < self.messageData.length) {
+                        self.page_nex_disabled(null)
+                        self.page_nex_img_url('/static/images/user/next-page.png')
+                    }
+                    self.messageList(self.messageData.slice(message_show_index_begin, message_show_index_end))
+                }
+                function element(data) {
+                    var self = this
+                    this.title = data.type_presentation.value + ' - ' + data.title
+                    this.content = data.text
+                    this.status = data.status
+                    this.messageId = data.id
+                    this.time = moment(data.time*1000).format('YYYY-MM-DD')
+                    this.expand = ko.observable(false)
+                    this.expandStatus = ko.observable('展开')
+                    this.hasRead = (data.status === 'new' || data.status === 'sent') ? false : true
+                    this.toggleExpand = function() {
+                        if (self.expand()) {
+                            self.expand(false)
+                        }
+                        else {
+                            self.expand(true)
+                        }
+                        if (self.expandStatus() === '展开') {
+                            self.expandStatus('收起')
+                        }
+                        else if (self.expandStatus() === '收起') {
+                            self.expandStatus('展开')
+                        }
+                    }
+                }
+                function category_message(message) {
+                    var result_list = []
+                    message.forEach(function(data, index) {
+                        if (typeof(data) === 'object' && data) {
+                            result_list.push(new element(data))
+                        }
+                    })
+                    return result_list
+                }
+                function filter_message(message, tab) {
+                    var result_list = []
+                    message.forEach(function(data, index) {
+                        if (data.status === tab || tab === 'All') {
+                            result_list.push(data)
+                        }
+                    })
+                    return result_list
+                }
+
+            },
+            template: {element: 'kot_message_list_template'}
+        })
+    })(window.ko, window.currantModule = window.currantModule || {})
+</script>
 <script src="/static/scripts/pager.js"></script>
 <script src="/static/scripts/message_list.js"></script>
 <!--endbuild-->
