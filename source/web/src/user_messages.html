@@ -15,47 +15,25 @@
 
 
 <div class="content">
-    <div class="contentHeader">
-        <h1>{{_('消息')}}</h1>
+    <!-- <div class="contentHeader" data-bind="
+        css: {
+            'contentHeader': !mobileAccess,
+            'ui-tabs': mobileAccess}">
+        <h1 data-bind="visible: !mobileAccess">{{_('消息')}}</h1>
         <div class="buttons">
             <button id="showAll" class="all button red">{{_('全部')}}</button>
             <button id="showNew" class="new ghostButton red">{{_('未读')}}</button>
             <button id="showRead" class="read ghostButton red">{{_('已读')}}</button>
         </div>
     </div>
-    <div class="tabs ui-tabs ui-widget">
-        <ul class="ui-tabs-nav">
-            <li id="showAllMsg" class="ui-tabs-selected all">
-                <a>{{_('全部')}}</a>
-            </li>
-            <li id="showNewMsg" class="new">
-                <a>{{_('未读')}}</a>
-            </li>
-            <li id="showReadMsg" class="read">
-                <a>{{_('已读')}}</a>
-            </li>
-        </ul>
-    </div>
-    <div class="allList_wrapper list_wrapper">
-        <div class="allList list">
-        </div>
-        <!--@@include=/partials/pager.html -->
-        <!--@@include=/partials/message_holder.html {"hint":"{{_('当前还没有消息')}}"}-->
-    </div>
 
-    <div class="newList_wrapper list_wrapper" style="display:none">
-        <div class="newList list">
+    <div class="ui-tabs">
+        <div class="ui-tabs-nav">
+            <button class="ui-tabs-selected all red">{{_('全部')}}</button>
+            <button class="new red">{{_('未读')}}</button>
+            <button class="read red">{{_('已读')}}</button>
         </div>
-        <!--@@include=/partials/pager.html -->
-        <!--@@include=/partials/message_holder.html {"hint":"{{_('当前没有未读消息')}}"}-->
-    </div>
-
-    <div class="readList_wrapper list_wrapper" style="display:none">
-        <div class="readList list">
-        </div>
-        <!--@@include=/partials/pager.html -->
-        <!--@@include=/partials/message_holder.html {"hint":"{{_('当前没有已读消息')}}"}-->
-    </div>
+    </div> -->
 
     <kot-message-list></kot-message-list>
 
@@ -102,7 +80,7 @@
             <p class="content" data-bind="visible: expand, text: content"></p>
         </div>
     </div>
-    <div class="pager" style="width: 234px !important">
+    <div class="pager" style="width: 237px !important">
         <button data-bind="
             click: page_pre_trigger,
             attr: {'disabled': page_pre_disabled}">
@@ -148,9 +126,20 @@
                 this.messageData = filter_message(this.messageSourceData, 'All')
                 this.switchTab = function(data) {
                     self.tabActive(data)
-                    console.log(self.tabActive())
                     self.messageData = filter_message(self.messageSourceData, data)
                     self.messageList(self.messageData.slice(0, self.page_length_single))
+                    self.page_index = 0
+                    self.page_show_index(1)
+                    self.page_pre_disabled('disabled')
+                    self.page_pre_img_url('/static/images/user/pre-page-disabled.png')
+                    if (self.messageList().length >= self.messageData.length) {
+                        self.page_nex_disabled('disabled')
+                        self.page_nex_img_url('/static/images/user/next-page-disabled.png')
+                    }
+                    else {
+                        self.page_nex_disabled(null)
+                        self.page_nex_img_url('/static/images/user/next-page.png')
+                    }
                 }
 
                 this.page_show_index = ko.observable(1)
@@ -213,6 +202,21 @@
                     this.expandStatus = ko.observable('展开')
                     this.hasRead = (data.status === 'new' || data.status === 'sent') ? false : true
                     this.toggleExpand = function() {
+                        function markMessageRead() {
+                            $.betterPost('/api/1/message/' + self.messageId + '/mark/' + 'read')
+                                .done(function (data) {
+                                    markDataChanged()
+                                })
+                                .fail(function (ret) {
+                                })
+                                .always(function () {
+
+                                })
+                        }
+                        function markDataChanged() {
+                            self.status = 'read'
+                        }
+
                         if (self.expand()) {
                             self.expand(false)
                         }
@@ -225,6 +229,7 @@
                         else if (self.expandStatus() === '收起') {
                             self.expandStatus('展开')
                         }
+                        markMessageRead(self.messageId)
                     }
                 }
                 function category_message(message) {

@@ -4,31 +4,6 @@ div.content {
     @media @phone {
         min-height: 0;
     }
-    .contentHeader {
-        display: block;
-        @media @phone {
-            display: none;
-        }
-        h1 {
-            font-size: 24px;
-            color: #333;
-            display: inline-block;
-        }
-
-        .buttons {
-            float: right;
-            button {
-                margin-left: 10px;
-            }
-
-            .button {
-                padding: 4px 26px;
-                line-height: 24px;
-                font-size: 12px;
-            }
-        }
-
-    }
 
     .list {
         margin-top: 20px;
@@ -135,55 +110,140 @@ div.content {
             }
         }
     }
-    .ui-tabs {
-        display: none;
-        @media @phone {
-            display: block;
-        }
-        .ui-tabs-nav {
-            min-width: 140px;
-            padding: 20px 0 20px 0;
-            background: transparent;
-            border-width: 0;
-            margin: 0 auto;
-            width: 98%;
-            overflow: hidden;
-        }
-        .ui-tabs-nav li {
-            width: 33%;
-            text-align: center;
-            color: red;
-            min-width: 40px;
-            position: static;
-            margin: 0;
-            border: 2px solid red !important;
-            -moz-border-radius: 0;
-            -webkit-border-radius: 0;
-            border-radius: 0;
-            a {
-                padding: 6px;
-                width: 100%;
-                text-align: center;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
+    .contentHeader {
+        display: block;
+        h1 {
+            font-size: 24px;
+            color: #333;
+            display: inline-block;
+            @media @phone {
+                display: none;
             }
         }
-        .ui-tabs-nav li:first-child {
-            -moz-border-radius: 6px 0 0 6px;
-            -webkit-border-radius: 6px 0 0 6px;
-            border-radius: 6px 0 0 6px;
-            border-right: 0 !important;
-        }
-        .ui-tabs-nav li:last-child {
-            -moz-border-radius: 0 6px 6px 0;
-            -webkit-border-radius: 0 6px 6px 0;
-            border-radius: 0 6px 6px 0;
-            border-left: 0 !important;
-        }
-        .ui-tabs-nav li.ui-tabs-selected {
-            background: red;
-            color: #ffffff;
+        .buttons {
+            float: right;
+            @media @phone {
+                float: none;
+                padding-top: 20px;
+                margin: auto;
+                width: 98%;
+                overflow: hidden;
+            }
+            button {
+                margin-left: 10px;
+                float: none;
+                outline: none;
+                @media @phone {
+                    border: 2px solid red;
+                    border-width: 2px 0px;
+                    float: left;
+                    margin: 0px;
+                    width: 33%;
+                    font-size: 1.1em;
+                    border-radius: 0px
+                }
+            }
+            @media @phone {
+                button:first-child {
+                    border-radius: 6px 0px 0px 6px;
+                    border-width: 2px;
+                }
+                button:last-child {
+                    border-radius: 0px 6px 6px 0px;
+                    border-width: 2px;
+                }
+            }
+            .button {
+                padding: 6px 26px;
+                line-height: 21px;
+                font-size: 1.1em;
+                @media @phone {
+                    padding: 6px;
+                }
+            }
+            .ghostButton {
+                @media @phone {
+                    line-height: 21px;
+                    padding: 6px;
+                }
+            }
+            .ghostButton:hover{
+                color: darken(@red, 5%);
+                border-color: darken(@red, 5%);
+            }
         }
     }
+    // .contentHeader {
+    //     display: block;
+    //     h1 {
+    //         font-size: 24px;
+    //         color: #333;
+    //         display: inline-block;
+    //     }
+    //
+    //     .buttons {
+    //         float: right;
+    //         button {
+    //             margin-left: 10px;
+    //         }
+    //
+    //         .button {
+    //             padding: 4px 26px;
+    //             line-height: 24px;
+    //             font-size: 12px;
+    //         }
+    //     }
+    //
+    // }
+    //
+    // .ui-tabs {
+    //     .ui-tabs-nav {
+    //         min-width: 140px;
+    //         padding: 20px 0 20px 0;
+    //         background: transparent;
+    //         border-width: 0;
+    //         margin: 0 auto;
+    //         width: 98%;
+    //         overflow: hidden;
+    //     }
+    //     .ui-tabs-nav button {
+    //         padding: 7px;
+    //         background: transparent;
+    //         float: left;
+    //         width: 33%;
+    //         text-align: center;
+    //         color: red;
+    //         min-width: 40px;
+    //         position: static;
+    //         margin: 0;
+    //         border: 2px solid red !important;
+    //         -moz-border-radius: 0;
+    //         -webkit-border-radius: 0;
+    //         border-radius: 0;
+    //         a {
+    //             padding: 6px;
+    //             width: 100%;
+    //             text-align: center;
+    //             overflow: hidden;
+    //             text-overflow: ellipsis;
+    //             white-space: nowrap;
+    //         }
+    //     }
+    //     .ui-tabs-nav button:first-child {
+    //         -moz-border-radius: 6px 0 0 6px;
+    //         -webkit-border-radius: 6px 0 0 6px;
+    //         border-radius: 6px 0 0 6px;
+    //         border-right: 0 !important;
+    //     }
+    //     .ui-tabs-nav button:last-child {
+    //         -moz-border-radius: 0 6px 6px 0;
+    //         -webkit-border-radius: 0 6px 6px 0;
+    //         border-radius: 0 6px 6px 0;
+    //         border-left: 0 !important;
+    //     }
+    //     .ui-tabs-nav button.ui-tabs-selected {
+    //         background: red;
+    //         color: #ffffff;
+    //     }
+    // }
 }
