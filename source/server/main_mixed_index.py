@@ -575,7 +575,7 @@ class f_main_mixed_index(f_app.plugin_base):
                     "loc": gazetteer["loc"],
                 }, upsert=True)
                 index_id = self.get_database(m).find_one({identifier: gazetteer["_id"]})["_id"]
-                f_app.mongo_index.update(self.get_database, str(index_id), gazetteer["name"], enable_suggestion=True)
+                f_app.mongo_index.update(self.get_database, str(index_id), gazetteer["name_index"], enable_suggestion=True)
                 processed += 1
 
                 if processed % 100 == 0:
