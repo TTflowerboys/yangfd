@@ -163,7 +163,7 @@ function messageListBind(ko, module) {
             this.showNewText = i18n('未读')
             this.showReadText = i18n('已读')
             this.messageSourceData = categoryMessage(JSON.parse($('.messageData').text()))
-            this.messageData = filterMessage(this.messageSourceData, 'All')
+            this.messageData = filterMessage(this.messageSourceData, 'all')
             this.switchTab = function(data) {
                 self.tabActive(data)
                 self.messageData = filterMessage(self.messageSourceData, data)
@@ -183,7 +183,7 @@ function messageListBind(ko, module) {
             }
 
             this.pageShowIndex = ko.observable(1)
-            this.tabActive = ko.observable('All')
+            this.tabActive = ko.observable('all')
             this.messageList = ko.observableArray(this.messageData.slice(0, this.pageLengthSingle))
             this.pagePreImgUrl = ko.observable('/static/images/user/pre-page-disabled.png')
             this.pageNexImgUrl = ko.observable('/static/images/user/next-page.png')
@@ -284,7 +284,7 @@ function messageListBind(ko, module) {
             function filterMessage(message, tab) {
                 var resultList = []
                 message.forEach(function(data, index) {
-                    if (data.status === tab || tab === 'All') {
+                    if (data.status === tab || tab === 'all') {
                         resultList.push(data)
                     }
                 })
