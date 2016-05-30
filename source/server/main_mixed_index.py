@@ -490,7 +490,7 @@ class f_main_mixed_index(f_app.plugin_base):
         with f_app.mongo() as m:
             self.get_database(m).create_index([("loc", GEO2D)])
             for neighborhood in f_app.maponics.neighborhood.get_database(m).find({"status": {"$ne": "deleted"}}):
-                self.get_database(m).update_one({"maponics_neighborhood": neighborhood["_id"]}, {
+                self.get_database(m).replace_one({"maponics_neighborhood": neighborhood["_id"]}, {
                     "maponics_neighborhood": neighborhood["_id"],
                     "name": neighborhood["name"],
                     "latitude": neighborhood["latitude"],
@@ -514,7 +514,7 @@ class f_main_mixed_index(f_app.plugin_base):
                 except:
                     self.logger.warning("cannot lookup postcode for university", str(university["_id"]), ":", university["postcode"])
                     continue
-                self.get_database(m).update_one({"hesa_university": university["_id"]}, {
+                self.get_database(m).replace_one({"hesa_university": university["_id"]}, {
                     "hesa_university": university["_id"],
                     "name": university["name"],
                     "latitude": postcode["latitude"],
@@ -567,7 +567,7 @@ class f_main_mixed_index(f_app.plugin_base):
         with f_app.mongo() as m:
             self.get_database(m).create_index([("loc", GEO2D)])
             for gazetteer in f_app.geonames.gazetteer.get_database(m).find(params):
-                self.get_database(m).update_one({identifier: gazetteer["_id"]}, {
+                self.get_database(m).replace_one({identifier: gazetteer["_id"]}, {
                     identifier: gazetteer["_id"],
                     "name": gazetteer["name"],
                     "latitude": gazetteer["latitude"],
