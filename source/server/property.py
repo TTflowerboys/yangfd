@@ -343,7 +343,8 @@ class currant_property(f_app.module_base):
                 index_params.append(property["zipcode"].replace(" ", ""))
 
         if "city" in property and property["city"] and "name" in property["city"]:
-            index_params.append(property["city"]["name"])
+            geonames_gazetteer = f_app.geonames.gazetteer.get(property["city"]["id"])
+            index_params.extend(geonames_gazetteer["name_index"])
 
         if "maponics_neighborhood" in property and property["maponics_neighborhood"] and "name" in property["maponics_neighborhood"]:
             index_params.append(property["maponics_neighborhood"]["name"])
