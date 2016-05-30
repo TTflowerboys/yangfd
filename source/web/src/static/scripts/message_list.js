@@ -157,11 +157,11 @@ function messageListBind(ko, module) {
             this.pagePreStatus = true
             this.pageNexStatus = true
             this.pageLengthSingle = 10
-            this.pagePreText = '上一页'
-            this.pageNexText = '下一页'
-            this.showAllText = '全部'
-            this.showNewText = '未读'
-            this.showReadText = '已读'
+            this.pagePreText = i18n('上一页')
+            this.pageNexText = i18n('下一页')
+            this.showAllText = i18n('全部')
+            this.showNewText = i18n('未读')
+            this.showReadText = i18n('已读')
             this.messageSourceData = categoryMessage(JSON.parse($('.messageData').text()))
             this.messageData = filterMessage(this.messageSourceData, 'All')
             this.switchTab = function(data) {
@@ -239,7 +239,7 @@ function messageListBind(ko, module) {
                 this.messageId = data.id
                 this.time = window.moment(data.time*1000).format('YYYY-MM-DD')
                 this.expand = ko.observable(false)
-                this.expandStatus = ko.observable('展开')
+                this.expandStatus = ko.observable(i18n('展开'))
                 this.hasRead = (data.status === 'new' || data.status === 'sent') ? false : true
                 this.toggleExpand = function() {
                     function markMessageRead() {
@@ -263,11 +263,11 @@ function messageListBind(ko, module) {
                     else {
                         self.expand(true)
                     }
-                    if (self.expandStatus() === '展开') {
-                        self.expandStatus('收起')
+                    if (self.expandStatus() === i18n('展开')) {
+                        self.expandStatus(i18n('收起'))
                     }
-                    else if (self.expandStatus() === '收起') {
-                        self.expandStatus('展开')
+                    else if (self.expandStatus() === i18n('收起')) {
+                        self.expandStatus(i18n('展开'))
                     }
                     markMessageRead(self.messageId)
                 }
