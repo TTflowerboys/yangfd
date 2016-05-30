@@ -1,0 +1,58 @@
+<template id="kotMessageListTemplate">
+    <div class="contentHeader">
+        <h1>{{_('消息')}}</h1>
+        <div class="buttons">
+            <button data-bind="
+                text: showAllText,
+                click: function() {switchTab('all')},
+                css: {
+                    'button': tabActive() === 'all',
+                    'ghostButton': tabActive() !== 'all'}" class="all red"></button>
+            <button data-bind="
+                text: showNewText,
+                click: function() {switchTab('new')},
+                css: {
+                    'button': tabActive() === 'new',
+                    'ghostButton': tabActive() !== 'new'}" class="new red"></button>
+            <button data-bind="
+                text: showReadText,
+                click: function() {switchTab('read')},
+                css: {
+                    'button': tabActive() === 'read',
+                    'ghostButton': tabActive() !== 'read'}" class="read red"></button>
+        </div>
+    </div>
+    <div class="list" data-bind="foreach: messageList">
+        <div class="cell">
+            <label data-bind="
+                text: title,
+                css: {
+                    readType: hasRead,
+                    unreadType: !hasRead}"></label>
+            <div class="rightParts">
+                <label class="date" data-bind="text: time"></label>
+                <button class="showHide" data-bind="click: toggleExpand, text: expandStatus"></button>
+            </div>
+            <p class="content" data-bind="visible: expand, text: content"></p>
+        </div>
+    </div>
+    <div class="pager" style="width: 237px !important">
+        <button data-bind="
+            click: pagePreTrigger,
+            attr: {'disabled': pagePreDisabled}">
+            <img data-bind="
+                attr: {src: pagePreImgUrl},
+                css: {'pre': pagePreStatus}"/>
+            <span data-bind="text: pagePreText"></span>
+        </button>
+        <span data-bind="text: pageShowIndex" style="color: red; font-size: 16px; font-weight: bold"></span>
+        <button data-bind="
+            click: pageNexTrigger,
+            attr: {'disabled': pageNexDisabled}">
+            <span data-bind="text: pageNexText"></span>
+            <img data-bind="
+                attr: {src: pageNexImgUrl},
+                css: {'next': pageNexStatus}"/>
+        </button>
+    </div>
+</template>

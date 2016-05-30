@@ -12,58 +12,23 @@
 <span class="messageData" style="display:none">
     {{json_dumps(message_list)}}
 </span>
+
+
 <div class="content">
-    <div class="contentHeader">
-        <h1>{{_('消息')}}</h1>
-        <div class="buttons">
-            <button id="showAll" class="all button red">{{_('全部')}}</button>
-            <button id="showNew" class="new ghostButton red">{{_('未读')}}</button>
-            <button id="showRead" class="read ghostButton red">{{_('已读')}}</button>
-        </div>
-    </div>
-    <div class="tabs ui-tabs ui-widget">
-        <ul class="ui-tabs-nav">
-            <li id="showAllMsg" class="ui-tabs-selected all">
-                <a>{{_('全部')}}</a>
-            </li>
-            <li id="showNewMsg" class="new">
-                <a>{{_('未读')}}</a>
-            </li>
-            <li id="showReadMsg" class="read">
-                <a>{{_('已读')}}</a>
-            </li>
-        </ul>
-    </div>
-    <div class="allList_wrapper list_wrapper">
-        <div class="allList list">
-        </div>
-        <!--@@include=/partials/pager.html -->
-        <!--@@include=/partials/message_holder.html {"hint":"{{_('当前还没有消息')}}"}-->
-    </div>
 
-    <div class="newList_wrapper list_wrapper" style="display:none">
-        <div class="newList list">
-        </div>
-        <!--@@include=/partials/pager.html -->
-        <!--@@include=/partials/message_holder.html {"hint":"{{_('当前没有未读消息')}}"}-->
-    </div>
-
-    <div class="readList_wrapper list_wrapper" style="display:none">
-        <div class="readList list">
-        </div>
-        <!--@@include=/partials/pager.html -->
-        <!--@@include=/partials/message_holder.html {"hint":"{{_('当前没有已读消息')}}"}-->
-    </div>
-
-
-    <!-- @@include=/static/templates/message_cell.tpl.html-->
+    <kot-message-list></kot-message-list>
 
 </div>
+
+<!-- @@include=/static/templates/kot_message_list.tpl.html-->
+
+
 <!--@@close-->
 
 <!--@@block=scripts-->
 <!--build:js /static/scripts/user_messages.html.js-->
-<script src="/static/scripts/pager.js"></script>
+<script type="text/javascript" src="/static/bower_components/knockout/dist/knockout.js"></script>
+<script src="/static/scripts/common_ko.js"></script>
 <script src="/static/scripts/message_list.js"></script>
 <!--endbuild-->
 <!--@@close-->
