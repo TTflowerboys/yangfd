@@ -495,6 +495,10 @@ class f_main_mixed_index(f_app.plugin_base):
                     "name": neighborhood["name"],
                     "latitude": neighborhood["latitude"],
                     "longitude": neighborhood["longitude"],
+                    "country": {
+                        "code": neighborhood["country"],
+                        "_country": True,
+                    },
                     "loc": neighborhood["loc"],
                 }, upsert=True)
                 index_id = self.get_database(m).find_one({"maponics_neighborhood": neighborhood["_id"]})["_id"]
@@ -519,6 +523,10 @@ class f_main_mixed_index(f_app.plugin_base):
                     "name": university["name"],
                     "latitude": postcode["latitude"],
                     "longitude": postcode["longitude"],
+                    "country": {
+                        "code": postcode["country"],
+                        "_country": True,
+                    },
                     "loc": [float(postcode["longitude"]), float(postcode["latitude"])],
                     "type": {
                         "_id": ObjectId(type_enum),
@@ -543,6 +551,10 @@ class f_main_mixed_index(f_app.plugin_base):
                     "name": station["name"],
                     "latitude": station["latitude"],
                     "longitude": station["longitude"],
+                    "country": {
+                        "code": station["currant_country"],
+                        "_country": True,
+                    },
                     "loc": station["loc"],
                     "type": {
                         "_id": ObjectId(type_enum),
@@ -572,6 +584,10 @@ class f_main_mixed_index(f_app.plugin_base):
                     "name": gazetteer["name"],
                     "latitude": gazetteer["latitude"],
                     "longitude": gazetteer["longitude"],
+                    "country": {
+                        "code": gazetteer["country"],
+                        "_country": True,
+                    },
                     "loc": gazetteer["loc"],
                 }, upsert=True)
                 index_id = self.get_database(m).find_one({identifier: gazetteer["_id"]})["_id"]
