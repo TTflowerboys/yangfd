@@ -264,7 +264,7 @@ function messageListBind(ko, module) {
                     self.expandStatus(self.expand() ? i18n('收起') : i18n('展开'))
 
                     if (!self.hasRead()) {
-                        markMessageRead(self.messageId)
+                        markMessageRead()
                     }
                 }
             }
