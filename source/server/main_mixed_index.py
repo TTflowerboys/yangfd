@@ -546,7 +546,7 @@ class f_main_mixed_index(f_app.plugin_base):
         with f_app.mongo() as m:
             self.get_database(m).create_index([("loc", GEO2D)])
             for station in f_app.doogal.station.get_database(m).find({"status": {"$ne": "deleted"}}):
-                self.get_database(m).update_one({"doogal_station": station["_id"]}, {
+                self.get_database(m).replace_one({"doogal_station": station["_id"]}, {
                     "doogal_station": station["_id"],
                     "name": station["name"],
                     "latitude": station["latitude"],
