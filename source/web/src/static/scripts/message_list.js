@@ -261,9 +261,11 @@ function messageListBind(ko, module) {
 
                     self.expand(self.expand() ? false : true)
 
-                    self.expandStatus(self.expandStatus() === i18n('展开') ? i18n('收起') : i18n('展开'))
+                    self.expandStatus(self.expand() ? i18n('收起') : i18n('展开'))
 
-                    markMessageRead(self.messageId)
+                    if (!self.hasRead()) {
+                        markMessageRead(self.messageId)
+                    }
                 }
             }
             function categoryMessage(message) {
