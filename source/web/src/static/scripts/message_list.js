@@ -167,6 +167,10 @@ function messageListBind(ko, module) {
             this.switchTab = function(data) {
                 self.tabActive(data)
                 self.messageData = filterMessage(self.messageSourceData, data)
+                self.messageData.forEach(function (data) {
+                    data.expand(false)
+                    data.expandStatus(i18n('展开'))
+                })
                 self.messageList(self.messageData.slice(0, self.pageLengthSingle))
                 self.pageIndex = 0
                 self.pageShowIndex(1)
@@ -240,12 +244,13 @@ function messageListBind(ko, module) {
                 this.time = window.moment(data.time*1000).format('YYYY-MM-DD')
                 this.expand = ko.observable(false)
                 this.expandStatus = ko.observable(i18n('展开'))
-                this.hasRead = (data.status === 'new' || data.status === 'sent') ? false : true
+                this.hasRead = ko.observable((data.status === 'new' || data.status === 'sent') ? false : true)
                 this.toggleExpand = function() {
                     function markMessageRead() {
+                        self.status = 'read'
+                        self.hasRead(true)
                         $.betterPost('/api/1/message/' + self.messageId + '/mark/' + 'read')
                             .done(function (data) {
-                                markDataChanged()
                             })
                             .fail(function (ret) {
                             })
@@ -253,22 +258,11 @@ function messageListBind(ko, module) {
 
                             })
                     }
-                    function markDataChanged() {
-                        self.status = 'read'
-                    }
 
-                    if (self.expand()) {
-                        self.expand(false)
-                    }
-                    else {
-                        self.expand(true)
-                    }
-                    if (self.expandStatus() === i18n('展开')) {
-                        self.expandStatus(i18n('收起'))
-                    }
-                    else if (self.expandStatus() === i18n('收起')) {
-                        self.expandStatus(i18n('展开'))
-                    }
+                    self.expand(self.expand() ? false : true)
+
+                    self.expandStatus(self.expandStatus() === i18n('展开') ? i18n('收起') : i18n('展开'))
+
                     markMessageRead(self.messageId)
                 }
             }

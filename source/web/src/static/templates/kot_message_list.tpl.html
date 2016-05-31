@@ -25,10 +25,11 @@
     <div class="list" data-bind="foreach: messageList">
         <div class="cell">
             <label data-bind="
+                click: toggleExpand,
                 text: title,
                 css: {
-                    readType: hasRead,
-                    unreadType: !hasRead}"></label>
+                    readType: hasRead(),
+                    unreadType: !hasRead()}"></label>
             <div class="rightParts">
                 <label class="date" data-bind="text: time"></label>
                 <button class="showHide" data-bind="click: toggleExpand, text: expandStatus"></button>
@@ -36,7 +37,7 @@
             <p class="content" data-bind="visible: expand, text: content"></p>
         </div>
     </div>
-    <div class="pager" style="width: 237px !important">
+    <div class="pager" style="width: 237px !important" data-bind="visible: messageList().length > 0">
         <button data-bind="
             click: pagePreTrigger,
             attr: {'disabled': pagePreDisabled}">
