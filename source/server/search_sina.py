@@ -596,7 +596,6 @@ def get_weibo_search_result(keywords_list):
     header_powerapple = ['论坛帐号', '时间', '链接地址', '标题', '联系方式', '长期/短期', '名字', '电话', '微信', '邮箱', 'qq', '地址']
     header_douban_group = ['豆瓣帐号', '时间', '链接地址', '标题', '联系方式', '长期/短期', '名字', '电话', '微信', '邮箱', 'qq', '地址']
     header_ybirds = ['发帖帐号', '时间', '链接地址', '标题', '联系人', '联系方式', '长期/短期', '名字', '电话', '微信', '邮箱', 'qq', 'POSTCODE', '地址', '付租方式', '房源类型', '租赁形式', '押金', '租金', '出租方']
-    result_weibo = []
     result_powerapple = []
     result_douban_group = []
     result_ybirds = {}
@@ -604,7 +603,6 @@ def get_weibo_search_result(keywords_list):
     block_list = load_block_list('block_list.xlsx')
     session = requests.session()
 
-    result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
     result_powerapple = crawler_powerapple('10141')
     result_douban_group = reduce_overlap(crawler_douban_group(['ukhome', '436707', '338873', 'LondonHome']))
 
@@ -632,43 +630,15 @@ def get_weibo_search_result(keywords_list):
             pass
 
     wb = Workbook()
-    ws_weibo = wb.active
-    ws_powerapple = wb.create_sheet()
+    ws_powerapple = wb.active
     ws_douban_group = wb.create_sheet()
-    ws_weibo_block_list = wb.create_sheet()
     ws_powerapple_block_list = wb.create_sheet()
     ws_douban_group_block_list = wb.create_sheet()
 
-    ws_weibo.title = '微博'
     ws_powerapple.title = '超级苹果论坛'
     ws_douban_group.title = '豆瓣小组'
-    ws_weibo_block_list.title = '微博_黑名单'
     ws_powerapple_block_list.title = '超级苹果论坛_黑名单'
     ws_douban_group_block_list.title = '豆瓣小组_黑名单'
-
-    ws_weibo.append(header)
-    ws_weibo_block_list.append(header)
-    for single in result_weibo:
-        if single['name'] in block_list['weibo']:
-            ws_weibo_block_list.append([
-                single['name'],
-                single['time'],
-                single['link'],
-                single['text'],
-                ' & '.join(single['keyword'])
-            ])
-        else:
-            ws_weibo.append([
-                single['name'],
-                single['time'],
-                single['link'],
-                single['text'],
-                ' & '.join(single['keyword'])
-            ])
-    add_link(ws_weibo, 'C')
-    format_fit(ws_weibo)
-    add_link(ws_weibo_block_list, 'C')
-    format_fit(ws_weibo_block_list)
 
     ws_powerapple.append(header_powerapple)
     ws_powerapple_block_list.append(header_powerapple)
@@ -755,9 +725,9 @@ def get_weibo_search_result(keywords_list):
 
     today = date.today()
     if day_shift:
-        wb.save('weibo_search' + unicode(today - timedelta(days=day_shift)) + '~' + unicode(today) + '.xlsx')
+        wb.save('other_platform_search' + unicode(today - timedelta(days=day_shift)) + '~' + unicode(today) + '.xlsx')
     else:
-        wb.save('weibo_search' + unicode(today) + '.xlsx')
+        wb.save('other_platform_search' + unicode(today) + '.xlsx')
 
     # wb = Workbook()
     # ws = wb.active
@@ -778,6 +748,42 @@ def get_weibo_search_result(keywords_list):
     # else:
     #     wb.save('weibo_search_keyword_analyze' + unicode(today)+'.xlsx')
 
+    weibo_wb = Workbook()
+    ws_weibo = weibo_wb.active
+    ws_weibo_block_list = weibo_wb.create_sheet()
+    ws_weibo.title = '微博'
+    ws_weibo_block_list.title = '微博_黑名单'
+
+    result_weibo = []
+    result_weibo = remove_overlap(reduce_weibo(simplify(keywords_list)))
+    ws_weibo.append(header)
+    ws_weibo_block_list.append(header)
+    for single in result_weibo:
+        if single['name'] in block_list['weibo']:
+            ws_weibo_block_list.append([
+                single['name'],
+                single['time'],
+                single['link'],
+                single['text'],
+                ' & '.join(single['keyword'])
+            ])
+        else:
+            ws_weibo.append([
+                single['name'],
+                single['time'],
+                single['link'],
+                single['text'],
+                ' & '.join(single['keyword'])
+            ])
+    add_link(ws_weibo, 'C')
+    format_fit(ws_weibo)
+    add_link(ws_weibo_block_list, 'C')
+    format_fit(ws_weibo_block_list)
+
+    if day_shift:
+        weibo_wb.save('weibo_search' + unicode(today - timedelta(days=day_shift)) + '~' + unicode(today) + '.xlsx')
+    else:
+        weibo_wb.save('weibo_search' + unicode(today) + '.xlsx')
 
 list_keyw = generate_keyword_list("keywords_search_weibo.xlsx")
 get_weibo_search_result(list_keyw)
