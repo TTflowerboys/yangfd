@@ -278,7 +278,7 @@
                     if(!this.suggestions().length) {
                         this.hint(window.i18n('载入中...'))
                     }
-                    window.geonamesApi.mixedIndexSearch({suggestion: name, country: "GB"}).
+                    window.geonamesApi.mixedIndexSearch({suggestion: name, country: 'GB'}).
                         then(_.bind(function (resultsOfMixedSearch) {
                             var suggestions = resultsOfMixedSearch
                             if(suggestions.length) {
