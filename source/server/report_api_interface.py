@@ -337,6 +337,7 @@ def doogal_station_search(params):
     latitude=float,
     longitude=float,
     search_range=(int, 1000),
+    country="country",
     type=(list, None, "enum:featured_facility_type"),
 ))
 def main_mixed_index_search(params):
