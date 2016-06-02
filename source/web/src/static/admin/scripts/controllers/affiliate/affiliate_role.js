@@ -1,6 +1,6 @@
 (function () {
 
-    function ctrlAffiliateRole($scope, $state, misc, api, statisticsApi, $timeout) {
+    function ctrlAffiliateRole($scope, $state, misc, api, statisticsApi, $timeout, rentRequestIntentionApi) {
         var date = new Date()
         $scope.selected = {
             date_from: new Date(date.getFullYear(), date.getMonth(), 1).getTime() / 1000,
@@ -122,6 +122,7 @@
         $scope.onGetList = onGetList
 
         function onGetList(data) {
+            window.console.log($scope.list)
             $scope.fetched = true
             $scope.list = _.map(_.filter(data.val, function (item) {
                 if($scope.selected.date_from && $scope.selected.date_from > 0) {
@@ -130,6 +131,26 @@
                     return true
                 }
             }), function (item, index) {
+                rentRequestIntentionApi.getAll({
+                    params: {
+                        user_id: item.id,
+                        status: JSON.stringify(['requested','assigned','in_progress','rejected','confirmed_video','booked','holding_deposit_paid','canceled','checked_in'])
+                    }
+                }).success(
+                    function (data) {
+                        $scope.list[index].requested_tickets_count = data.val.length
+                    }
+                )
+                rentRequestIntentionApi.getAll({
+                    params: {
+                        user_id: item.id,
+                        status: 'checked_in'
+                    }
+                }).success(
+                    function (data) {
+                        $scope.list[index].success_rent_tickets_count = data.val.length
+                    }
+                )
                 api.getLog(item.id)
                     .then(function (data) {
                         if(data.data.val && data.data.val.length && data.data.val[0] && $scope.list[index]) {
@@ -172,18 +193,21 @@
         })
 
         $scope.getAggregateData = function () {
-            statisticsApi.getNewAffiliateUserBehavior(_.extend({
-                user_id: $scope.user.id
-            }, misc.cleanEmptyData($scope.selected, true))).success(function (data) {
-                if(data.val && data.val.length) {
-                    $scope.data.userNew = data.val[0].affiliate_new_user_total //所选时间段新注册会员数
+            statisticsApi.getNewAffiliateUserBehavior(
+                _.extend(
+                    {user_id: $scope.user.id},
+                    misc.cleanEmptyData($scope.selected, true)
+                )
+            ).success(
+                function (data) {
+                    if(data.val && data.val.length) {
+                        $scope.data.userNew = data.val[0].affiliate_new_user_total //所选时间段新注册会员数
+                    }
                 }
-            })
+            )
             $scope.searchTicket()
         }
     }
 
     angular.module('app').controller('ctrlAffiliateRole', ctrlAffiliateRole)
 })()
-
-
