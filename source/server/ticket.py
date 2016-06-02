@@ -205,9 +205,10 @@ class currant_ticket_plugin(f_app.plugin_base):
                 if user_roles and set(user_roles) & set(f_app.common.admin_roles):
                     skip_email = True
 
+            this_ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id]), _i18n=["zh_Hans_CN"])[0]
+
             if not skip_email:
                 import currant_util
-                this_ticket = f_app.i18n.process_i18n(f_app.ticket.output([ticket_id]), _i18n=["zh_Hans_CN"])[0]
                 ticket_email_user = f_app.util.ticket_determine_email_user(this_ticket)
                 if 'property' in this_ticket and ticket_email_user:
                     title = "恭喜，您的房源已经发布成功！"
@@ -221,8 +222,8 @@ class currant_ticket_plugin(f_app.plugin_base):
                         tag="rent_ticket_publish_success",
                     )
 
-            if 'property' in ticket and ticket["property"].get("user_generated") is True:
-                f_app.property.update_set(ticket["property"]["id"], {"status": "selling"})
+            if 'property' in this_ticket and this_ticket["property"].get("user_generated") is True:
+                f_app.property.update_set(this_ticket["property"]["id"], {"status": "selling"})
 
         elif ticket["type"] == "rent_intention" and "status" in params and params["status"] == "new":
             f_app.task.add(dict(
