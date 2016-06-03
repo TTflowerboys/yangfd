@@ -3,6 +3,8 @@
     function ctrlAffiliateRole($scope, $state, misc, api, statisticsApi, $timeout, rentRequestIntentionApi) {
         $scope.data = {}
         $scope.coupon = {}
+        $scope.showAggregationDataCondition1 = false
+        $scope.showAggregationDataCondition2 = false
 
         $scope.item = $scope.user
         $scope.coupon = _.extend($scope.coupon, _.clone($scope.item.coupons) || {discount: {value: '50', unit: 'GBP'}})
@@ -63,6 +65,7 @@
             }).success(function (data) {
                 if(data.val && data.val.length) {
                     $scope.data.userTotal = data.val[0].affiliate_new_user_total //总注册会员数
+                    $scope.showAggregationDataCondition1 = true
                 }
             })
 
@@ -73,6 +76,7 @@
                     if(data.val && data.val.length) {
                         $scope.data.request_count = data.val[0].affiliate_all_user_request_count
                         $scope.data.success_rent = data.val[0].affiliate_all_user_success_rent
+                        $scope.showAggregationDataCondition2 = true
                     }
                 }
             )

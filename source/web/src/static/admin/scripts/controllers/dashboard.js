@@ -7,8 +7,35 @@
 
         $scope.user = {}
 
+        $scope.showPandingMessage = true
         userApi.checkLogin()
             .then(function (user) {
+                window.console.log(user)
+                if (typeof(user.role) === 'string') {
+                    if (user.role === 'affiliate') {
+                        $scope.showPandingMessage = false
+                    }
+                }
+                else {
+                    var admin_user = false
+                    _.each(
+                        user.role,
+                        function(item) {
+                            if (['admin', 'jr_admin', 'support'].indexOf(item) >= 0) {
+                                admin_user = true
+                            }
+                            if (item === 'affiliate') {
+                                $scope.showPandingMessage = false
+                            }
+                            window.console.log(item)
+                            window.console.log('admin_user', admin_user)
+                            window.console.log('showPandingMessage', $scope.showPandingMessage)
+                        }
+                    )
+                    if (admin_user) {
+                        $scope.showPandingMessage = true
+                    }
+                }
                 if (_.isEmpty(user.role)) {
                     growl.addErrorMessage($rootScope.renderHtml(errors[40105]), {enableHtml: true})
                     window.location.href = '/'
@@ -244,4 +271,3 @@
     angular.module('app').controller('ctrlDashboard', ctrlDashboard)
 
 })()
-
