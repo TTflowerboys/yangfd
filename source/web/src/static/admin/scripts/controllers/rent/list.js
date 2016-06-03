@@ -67,6 +67,7 @@
         if($state.params.code) {
             delete params.status
             delete params.partner_student_housing
+            params.status = ['to rent', 'rent', 'hidden']
             params.short_id = $state.params.code
             $scope.refreshList()
         }
@@ -229,5 +230,3 @@
     angular.module('app').controller('ctrlRentList', ctrlRentList)
 
 })()
-
-

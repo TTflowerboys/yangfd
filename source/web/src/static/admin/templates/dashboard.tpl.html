@@ -30,7 +30,7 @@
 
                     <ul class="nav navbar-nav pull-right">
                         <!-- start: Message Dropdown -->
-                        <li class="dropdown hidden-xs">
+                        <li class="dropdown" ng-show="showPendingMessage">
                             <a class="btn dropdown-toggle" data-toggle="!dropdown" href="index.html#">
                                 <i class="fa fa-envelope"></i>
                                 <span ng-if="messagesLength" class="number">{%messagesLength%}</span>
@@ -79,7 +79,7 @@
                                 </div>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="/user-settings"><i class="fa fa-cog"></i> {%$root.i18n('设置')%}</a></li>
+                                <!-- <li><a ng-show="showUserSettings" href="/user-settings"><i class="fa fa-cog"></i> {%$root.i18n('设置')%}</a></li> -->
                                 <li><a ng-click="logout()"><i class="fa fa-off"></i> {%$root.i18n('登出')%}</a></li>
                             </ul>
                         </li>

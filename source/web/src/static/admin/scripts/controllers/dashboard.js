@@ -7,8 +7,32 @@
 
         $scope.user = {}
 
+        $scope.showPendingMessage = true
         userApi.checkLogin()
             .then(function (user) {
+                window.console.log(user)
+                if (typeof(user.role) === 'string') {
+                    if (user.role === 'affiliate') {
+                        $scope.showPendingMessage = false
+                    }
+                }
+                else {
+                    var admin_user = false
+                    _.each(
+                        user.role,
+                        function(item) {
+                            if (['admin', 'jr_admin', 'sales', 'jr_sales', 'operation', 'jr_operation', 'support', 'jr_support', 'developer', 'agency'].indexOf(item) >= 0) {
+                                admin_user = true
+                            }
+                            if (item === 'affiliate') {
+                                $scope.showPendingMessage = false
+                            }
+                        }
+                    )
+                    if (admin_user) {
+                        $scope.showPendingMessage = true
+                    }
+                }
                 if (_.isEmpty(user.role)) {
                     growl.addErrorMessage($rootScope.renderHtml(errors[40105]), {enableHtml: true})
                     window.location.href = '/'
@@ -244,4 +268,3 @@
     angular.module('app').controller('ctrlDashboard', ctrlDashboard)
 
 })()
-
