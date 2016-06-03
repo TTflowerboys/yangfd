@@ -14,8 +14,10 @@
 
         $scope.refreshList = function () {
             api.getAll({
-                referral: $scope.user.id,
-                per_page: -1
+                params: {
+                    referral: $scope.user.id,
+                    per_page: -1
+                }
             }).success(onGetList)
         }
 
