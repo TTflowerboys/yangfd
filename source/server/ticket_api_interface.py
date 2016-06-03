@@ -1561,7 +1561,7 @@ def rent_ticket_contact_info(user, ticket_id):
 
 
 @f_api('/rent_ticket/search', params=dict(
-    status=(list, ["to rent"], str),
+    status=(list, ["to rent", "rent", "hidden"], str),
     per_page=int,
     last_modified_time=datetime,
     sort_time=datetime,
