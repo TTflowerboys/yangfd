@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css">
-
 <!-- the sprite css should not be packaged because it will change dir-->
 <!-- @if ENV!='debug' -->
 <!--build:css(dist) /static/sprite/css/sprite-build.css -->
@@ -8,6 +7,7 @@
 <!-- @endif-->
 
 <!--build:css(dist) /static/styles/project/all.css -->
+<link rel="stylesheet" href="/static/vendors/jquery.modal/jquery.modal.css"/>
 <link rel="stylesheet" href="/static/styles/team/reset.css"/>
 <link rel="stylesheet" href="/static/styles/common.css"/>
 <link rel="stylesheet" href="/static/styles/project/button.css"/>
@@ -30,8 +30,4 @@
 <!--[if lte IE 8]>
 <link rel="stylesheet" href="/static/styles/project/ie_fix.css"/>
 <![endif]-->
-<!--endbuild-->
-
-<!--build:css(dist) /static/vendors/jquery.modal/jquery.modal.css -->
-<link rel="stylesheet" href="/static/vendors/jquery.modal/jquery.modal.css"/>
 <!--endbuild-->
