@@ -73,25 +73,11 @@
                         <h3 class="panel-title" style="display: inline-block;">{%$root.i18n('会员数据')%}</h3>
                         <div class="pull-right">
                             <span style="margin-right: 8px;">{%$root.i18n('总会员数:')%}{%data.userTotal%}</span>
-                            <span ng-if="data.userNew">{%$root.i18n('新会员数:')%}{%data.userNew%}</span>
+                            <span style="margin-right: 8px;">{%$root.i18n('会员提交咨询单总数:')%}{%data.request_count%}</span>
+                            <span style="margin-right: 8px;">{%$root.i18n('会员成交总数:')%}{%data.success_rent%}</span>
                         </div>
                     </div>
                     <div class="panel-body">
-                        <div class="buttons">
-                            <div class="btn-group form-inline">
-                                <div edit-date ng-model="selected.date_from" placeholder="{%i18n('开始时间')%}"></div>
-                            </div>
-                            <div class="btn-group form-inline">
-                                <div edit-date ng-model="selected.date_to" placeholder="{%i18n('结束时间')%}" start-date="selected.date_from"></div>
-                            </div>
-                            <div class="btn-group form-inline">
-                                <button class="btn btn-primary" ng-click="getAggregateData()">{%$root.i18n('获取数据')%}</button>
-                            </div>
-                            <span class="btn-group pull-right">
-                                <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
-                                <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
-                            </span>
-                        </div>
                         <table class="table table-striped table-bordered bootstrap-datatable datatable">
                             <thead>
                                 <tr>
@@ -123,12 +109,6 @@
                             </tbody>
                         </table>
                         <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
-                        <div class="buttons">
-                            <span class="btn-group pull-right">
-                                <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
-                                <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>
