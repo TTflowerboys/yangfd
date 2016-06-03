@@ -109,12 +109,6 @@
                             </tbody>
                         </table>
                         <div ng-show="fetched && list.length === 0" class="well" style="text-align:center;">{%$root.i18n('没有结果')%}</div>
-                        <div class="buttons">
-                            <span class="btn-group pull-right">
-                                <button ng-hide="noPrev" class="btn btnRequestSequence" ng-click="prevPage()">← {%$root.i18n('上一页')%}</button>
-                                <button ng-hide="noNext" class="btn btnRequestSequence" ng-click="nextPage()">{%$root.i18n('下一页')%} →</button>
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>
