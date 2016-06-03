@@ -109,6 +109,8 @@
                 window.team.initDisplayOfElement()
                 $('.downloadWrap a.web').hide()
                 if (typeof window.indexAppDownloadSwiper === 'undefined') {
+                    var swiper = $('#phone_swiper_template').html()
+                    $('.appDownload .phone').append(swiper)
                     window.setupDownload(window.Swiper)
                 }
             }
