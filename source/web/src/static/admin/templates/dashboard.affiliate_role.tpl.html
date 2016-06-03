@@ -71,10 +71,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title" style="display: inline-block;">{%$root.i18n('会员数据')%}</h3>
-                        <div class="pull-right" ng-show="showAggregationDataCondition1 && showAggregationDataCondition2">
+                        <div class="pull-right" ng-show="showAggregationDataUserTotal && showAggregationDataMemberTicketData">
                             <span style="margin-right: 8px;">{%$root.i18n('总会员数:')%}{%data.userTotal%}</span>
-                            <span style="margin-right: 8px;">{%$root.i18n('会员提交咨询单总数:')%}{%data.request_count%}</span>
-                            <span style="margin-right: 8px;">{%$root.i18n('会员成交总数:')%}{%data.success_rent%}</span>
+                            <span style="margin-right: 8px;">{%$root.i18n('提交咨询单总数:')%}{%data.request_count%}</span>
+                            <span style="margin-right: 8px;">{%$root.i18n('成交咨询单总数:')%}{%data.success_rent%}</span>
                         </div>
                     </div>
                     <div class="panel-body">

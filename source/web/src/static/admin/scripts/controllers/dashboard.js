@@ -7,13 +7,13 @@
 
         $scope.user = {}
 
-        $scope.showPandingMessage = true
+        $scope.showPendingMessage = true
         userApi.checkLogin()
             .then(function (user) {
                 window.console.log(user)
                 if (typeof(user.role) === 'string') {
                     if (user.role === 'affiliate') {
-                        $scope.showPandingMessage = false
+                        $scope.showPendingMessage = false
                     }
                 }
                 else {
@@ -21,19 +21,16 @@
                     _.each(
                         user.role,
                         function(item) {
-                            if (['admin', 'jr_admin', 'support'].indexOf(item) >= 0) {
+                            if (['admin', 'jr_admin', 'sales', 'jr_sales', 'operation', 'jr_operation', 'support', 'jr_support', 'developer', 'agency'].indexOf(item) >= 0) {
                                 admin_user = true
                             }
                             if (item === 'affiliate') {
-                                $scope.showPandingMessage = false
+                                $scope.showPendingMessage = false
                             }
-                            window.console.log(item)
-                            window.console.log('admin_user', admin_user)
-                            window.console.log('showPandingMessage', $scope.showPandingMessage)
                         }
                     )
                     if (admin_user) {
-                        $scope.showPandingMessage = true
+                        $scope.showPendingMessage = true
                     }
                 }
                 if (_.isEmpty(user.role)) {
