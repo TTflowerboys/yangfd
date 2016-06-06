@@ -1,0 +1,90 @@
+<!--@@master = ./email_master.html-->
+<!--@@block=content-->
+<div style="max-width:720px;margin:0 auto">
+    <h1 class="noHorizolPaddingOnMobile" style="padding:60px 20px 30px;margin:15px 0 0;font-size:19px;text-align:left; font-weight: bold;">{%$root.i18n('尊敬的')%}{%item.creator_user.nickname%}{%$root.i18n('：')%}</h1>
+    <div class="noHorizolPaddingOnMobile" style="padding:0px 20px 0px;margin:0;line-height:1.5em;font-size:18px;text-align:left;color: #666;">
+        <div class="smallFontSize">
+            <p style="margin:20px 0; font-weight: bold;">
+                {%$root.i18n('您好，您所咨询的')%}
+                <a style="color: #e60012;" ng-href="{%host%}/property-to-rent/{%item.interested_rent_tickets[0].id%}">{%item.interested_rent_tickets[0].title%}</a>
+                {%$root.i18n('收到新回复：')%}
+            </p>                                    
+        </div>
+        <div class="noHorizolPaddingOnMobile" style="margin: 50px 0 0; border-top: 1px solid #ccc; padding: 0 5%;">
+            <table class="smallFontSize" style="width: 100%;color: #666;">
+                <caption style="padding: 20px 0;font-weight: bold;">{%$root.i18n('咨询单编号')%}: {%item.short_id%}</caption>
+                <tr>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('入住日期')%}</p>
+                        <p style="color: #e60012;margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{% item.rent_available_time * 1000 | date : 'yyyy/MM/dd'%}</p>
+                    </td>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('搬出日期')%}</p>
+                        <p style="color: #e60012; margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{% item.rent_deadline_time * 1000 | date : 'yyyy/MM/dd'%}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('入住人数')%}</p>
+                        <p style="color: #e60012;margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{% item.tenant_count%}</p>
+                    </td>
+                    
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('性别')%}</p>
+                        <p style="color: #e60012;margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{%item.gender | capitalize%}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('职业')%}</p>
+                        <p style="color: #e60012; margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;" show-i18n="item.occupation.value"></p>
+                    </td>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('年龄')%}</p>
+                        <p style="color: #e60012; margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{%item.age | number:0%}</p>
+                    </td>
+                </tr>                            
+                <tr>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('是否携带宠物')%}</p>
+                        <p style="color: #e60012;margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{% item.pet | boolean | capitalize%}</p>
+                    </td>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('是否带小孩')%}</p>
+                        <p style="color: #e60012; margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{% item.baby | boolean | capitalize%}</p>
+                    </td>                    
+                </tr>
+                <tr>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <p style="margin: 0 0 8px; padding: 0 0 0 10%;font-weight: bold;">{%$root.i18n('是否吸烟')%}</p>
+                        <p style="color: #e60012; margin: 0 0 8px; padding: 0 0 0 10%; font-size: 20px;">{% item.smoke | boolean | capitalize%}</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="margin: 50px 0 0; border-top: 1px solid #ccc; padding: 0 5%;">
+            <h2 style="margin: 20px 0 40px;font-weight: bold;text-align: center; font-size: 18px;">{%$root.i18n('入住原因：')%}</h2>
+            <div style="margin-left: -12px;">
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 12px;vertical-align: top !important;"><img style="vertical-align: top;width: 12px; height: 12px;" src="/static/images/email/triangle.png" alt=""/></td>
+                        <td>
+                            <div style="padding: 12px; color: #fff; background: #24c3eb; border-radius: 0 4px 4px 4px;">
+                                {%item.description%}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div style="margin: 50px 0 0; border-top: 1px solid #ccc; padding: 36px 5% 0;">
+            <p style="text-align: center; ">
+                {%$root.i18n('回复本邮件直接与房东沟通（系统将检测回复中关键词协助交流）')%}
+            </p>
+        </div>
+
+    </div>
+</div>
+<!--@@close-->

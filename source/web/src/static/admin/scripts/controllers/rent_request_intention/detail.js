@@ -13,6 +13,17 @@
                     url: '/static/admin/emails/assigned_landlord.html',
                     role: 'landlord'
                 }
+            ],
+            'in_progress': [
+                {
+                    title: window.i18n('【租客】沟通中'),
+                    url: '/static/admin/emails/in_progress_tenant.html',
+                    role: 'tenant'
+                }, {
+                    title: window.i18n('【房东】沟通中'),
+                    url: '/static/admin/emails/in_progress_landlord.html',
+                    role: 'landlord'
+                }
             ]
         }
         $scope.messageTemplate = {     
