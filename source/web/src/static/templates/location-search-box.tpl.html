@@ -1,12 +1,28 @@
 <script type="text/template" id='location-search-box'>
     <!--for pc-->
     <div class="wrap hiddenOnMobile">
-        <div class="inputWrapper ">
-            <input data-bind="textInput: query,css: {'active': activeInput}, changeText: {obj:$parents[$parents.length - 2].summaryTitleObj, prop: 'query'}, event: { keyup: keyUp, focus: focus, blur: blur}, attr: {placeholder: $parent.placeholder}" type="text" placeholder="{{_('请输入位置，比如E14, E14 3GH, Isle of dogs, Waterloo, UCL...')}}"/>
-            <i data-bind="click: clear, visible: query() && query().length" class="clear"><img alt="" src="/static/images/intention/close.png"></i>
+        <div class="inputWrapper " style="width: 50%; float:left;">
+            <input
+                data-bind="
+                    textInput: query,
+                    css: {'active': activeInput},
+                    changeText: {obj:$parents[$parents.length - 2].summaryTitleObj, prop: 'query'},
+                    event: { keyup: keyUp, focus: focus, blur: blur},
+                    attr: {placeholder: $parent.placeholder}"
+                type="text"
+                placeholder="{{_('请输入位置，比如E14, E14 3GH, Isle of dogs, Waterloo, UCL...')}}"/>
+            <i style="
+                    position: relative;
+                    top: -28px;
+                    left: -265px;"
+                data-bind="
+                    click: clear,
+                    visible: query() && query().length"
+                class="clear">
+                <img alt="" src="/static/images/intention/close.png"></i>
         </div>
 
-        <div class="suggestions" data-bind="visible: activeInput, scrollTop: scrollTop">
+        <div class="suggestions" data-bind="visible: activeInput, scrollTop: scrollTop" style:="postion:fixed; top:537px;">
             <div class="hots" data-bind="visible: query().length === 0">
                 <div class="wrap hotCities">
                     <h3>{{_('热门城市')}}</h3>
@@ -32,6 +48,20 @@
                     <span class="name" data-bind="highlight: {text: name, highlight: $parent.query}"></span>
                 </li>
             </ul>
+        </div>
+
+        <div class="dateWrap" style="width:50%; height:100%; float:left;">
+            <div style="width:50%; height:100%; float:left;" class="date inputWrapper" data-bind="dateRangePicker: {value: rentAvailableTimeFormated, timeEnabled: true}">
+                <input style="width:100%; height:100%; float:left;" data-bind="dateInput, value: rentAvailableTimeFormated, changeText: {obj:summaryTitleObj, prop: 'set-rent-available-time'}" type="text" min="{{currentDate}}" class="" id="rentPeriodStartDate" name="rentPeriodStartDate" placeholder="{{_('起租日期')}}" autocomplete="off"/>
+                <label for="rentPeriodStartDate"></label>
+                <i data-bind="click: clearDate('rentAvailableTimeFormated'), visible: rentAvailableTime" class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
+            </div>
+            <!-- <span class="hiddenOnPCWeb">{{_('至')}}</span> -->
+            <div style="width:50%; height:100%; float:left;" class="date inputWrapper" data-bind="dateRangePicker: {value: rentDeadlineTimeFormated, timeEnabled: true}">
+                <input style="width:100%; height:100%; float:left;" data-bind="dateInput, value: rentDeadlineTimeFormated, changeText: {obj:summaryTitleObj, prop: 'set-rent-deadline-time'}" type="text" min="{{currentDate}}" class="" id="rentPeriodEndDate" name="rentPeriodEndDate" placeholder="{{_('结束日期')}}" autocomplete="off"/>
+                <label for="rentPeriodEndDate"></label>
+                <i data-bind="click: clearDate('rentDeadlineTimeFormated'), visible: rentDeadlineTime" class="clear" style="display: none" title="{{_('清空日期')}}"><img alt="" src="/static/images/intention/close.png"></i>
+            </div>
         </div>
     </div>
 </script>
