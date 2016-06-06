@@ -3531,6 +3531,8 @@ def get_featured_facility_sort(user, params):
             break
     return result_end
 
+authority_user_role = ['admin', 'jr_admin', 'sales', 'operation', 'affiliate']
+
 
 @f_api('/affiliate-get-new-user-behavior', params=dict(
     date_from=(datetime, None),
@@ -3656,8 +3658,6 @@ def affiliate_get_new_user_behavior(user, params):
             })
 
     return result
-
-authority_user_role = ['admin', 'jr_admin', 'sales', 'operation', 'affiliate']
 
 
 @f_api('/affiliate-get-all-user-behavior', params=dict(
