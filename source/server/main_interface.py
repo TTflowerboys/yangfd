@@ -3651,13 +3651,15 @@ def affiliate_get_new_user_behavior(user, params):
 
     return result
 
+authority_user_role = ['admin', 'jr_admin', 'sales', 'operation', 'affiliate']
+
 
 @f_api('/affiliate-get-all-user-behavior', params=dict(
     date_from=(datetime, None),
     date_to=(datetime, None),
     user_id=(str, None)
 ))
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation', 'affiliate'])
+@f_app.user.login.check(force=True, role=authority_user_role)
 def affiliate_get_all_user_behavior(user, params):
     today = date.today()
     date_begin = datetime.strptime(today.replace(day=1).isoformat(), "%Y-%m-%d")
@@ -3668,7 +3670,13 @@ def affiliate_get_all_user_behavior(user, params):
         date_end = params['date_to']
     result = []
 
-    if 'affiliate' in user.get('role', []) and 'admin' not in user.get('role', []):
+    is_authority_user = False
+    if isinstance(user.get('role', None), list):
+        if set(authority_user_role) & set(user.get('role', [])):
+            is_authority_user = True
+    elif user.get('role', None) in authority_user_role:
+        is_authority_user = True
+    if 'affiliate' in user.get('role', []) and not is_authority_user:  # 'admin' not in user.get('role', []):
         if 'user_id' in params:
             request_user = f_app.user.get(params['user_id'])
             user_select_rang = [ObjectId(params['user_id'])]
