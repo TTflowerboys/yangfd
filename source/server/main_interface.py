@@ -3531,6 +3531,8 @@ def get_featured_facility_sort(user, params):
             break
     return result_end
 
+authority_user_role = ['admin', 'jr_admin', 'sales', 'operation', 'affiliate']
+
 
 @f_api('/affiliate-get-new-user-behavior', params=dict(
     date_from=(datetime, None),
@@ -3538,7 +3540,7 @@ def get_featured_facility_sort(user, params):
     user_id=(str, None),
     days=(int, None)
 ))
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation', 'affiliate'])
+@f_app.user.login.check(force=True, role=authority_user_role)
 def affiliate_get_new_user_behavior(user, params):
 
     today = date.today()
@@ -3550,7 +3552,13 @@ def affiliate_get_new_user_behavior(user, params):
         date_end = params['date_to']
     result = []
 
-    if 'affiliate' in user.get('role', []) and 'admin' not in user.get('role', []):
+    is_authority_user = False
+    if isinstance(user.get('role', None), list):
+        if set(authority_user_role) & set(user.get('role', [])):
+            is_authority_user = True
+    elif user.get('role', None) in authority_user_role:
+        is_authority_user = True
+    if 'affiliate' in user.get('role', []) and not is_authority_user:
         if 'user_id' in params:
             request_user = f_app.user.get(params['user_id'])
             user_select_rang = [ObjectId(params['user_id'])]
@@ -3657,7 +3665,7 @@ def affiliate_get_new_user_behavior(user, params):
     date_to=(datetime, None),
     user_id=(str, None)
 ))
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation', 'affiliate'])
+@f_app.user.login.check(force=True, role=authority_user_role)
 def affiliate_get_all_user_behavior(user, params):
     today = date.today()
     date_begin = datetime.strptime(today.replace(day=1).isoformat(), "%Y-%m-%d")
@@ -3668,7 +3676,13 @@ def affiliate_get_all_user_behavior(user, params):
         date_end = params['date_to']
     result = []
 
-    if 'affiliate' in user.get('role', []) and 'admin' not in user.get('role', []):
+    is_authority_user = False
+    if isinstance(user.get('role', None), list):
+        if set(authority_user_role) & set(user.get('role', [])):
+            is_authority_user = True
+    elif user.get('role', None) in authority_user_role:
+        is_authority_user = True
+    if 'affiliate' in user.get('role', []) and not is_authority_user:
         if 'user_id' in params:
             request_user = f_app.user.get(params['user_id'])
             user_select_rang = [ObjectId(params['user_id'])]
@@ -3767,7 +3781,7 @@ def affiliate_get_all_user_behavior(user, params):
     date_to=(datetime, None),
     user_id=(str, None)
 ))
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation', 'affiliate'])
+@f_app.user.login.check(force=True, role=authority_user_role)
 def affiliate_get_invited_user_count_detail(user, params):
     today = date.today()
     date_begin = datetime.strptime(today.replace(day=1).isoformat(), "%Y-%m-%d")
@@ -3786,7 +3800,13 @@ def affiliate_get_invited_user_count_detail(user, params):
         'referral': {"$exists": True},
     }
 
-    if 'affiliate' in user.get('role', []) and 'admin' not in user.get('role', []):
+    is_authority_user = False
+    if isinstance(user.get('role', None), list):
+        if set(authority_user_role) & set(user.get('role', [])):
+            is_authority_user = True
+    elif user.get('role', None) in authority_user_role:
+        is_authority_user = True
+    if 'affiliate' in user.get('role', []) and not is_authority_user:
         if unicode(user['id']) not in [unicode(single_user.get('referral', '')), unicode(user_id)]:
             return
         else:
@@ -3848,7 +3868,7 @@ def affiliate_get_invited_user_count_detail(user, params):
     date_to=(datetime, None),
     user_id=(str, None)
 ))
-@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation', 'affiliate'])
+@f_app.user.login.check(force=True, role=authority_user_role)
 def affiliate_get_sub_user_count(user, params):
     result_level_info = {}
     if 'user_id' in params:
@@ -3856,7 +3876,14 @@ def affiliate_get_sub_user_count(user, params):
     else:
         return
     single_user = f_app.user.get(ObjectId(user_id))
-    if 'affiliate' in user.get('role', []) and 'admin' not in user.get('role', []):
+
+    is_authority_user = False
+    if isinstance(user.get('role', None), list):
+        if set(authority_user_role) & set(user.get('role', [])):
+            is_authority_user = True
+    elif user.get('role', None) in authority_user_role:
+        is_authority_user = True
+    if 'affiliate' in user.get('role', []) and not is_authority_user:
         if unicode(user['id']) not in [unicode(single_user.get('referral', '')), unicode(user_id)]:
             return
     if 'affiliate' in single_user.get('role', []) or 'referral_code' in single_user:
