@@ -2,15 +2,20 @@
     var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'
     var googleApiKey = 'AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
 
-    window.setupMap = function (location, onMapScriptLoadCallback) {
-        var lat = location.latitude
-        var lng = location.longitude
-        var width = window.team.isPhone()? $('.staticMap').width(): 800
-        var height = window.team.isPhone()? 240: 480
-
-        var staticImgUrl = 'http://dev.virtualearth.net/REST/V1/Imagery/Map/Road/'+ lat + '%2C' + lng +'/13?mapSize=' + width + ',' + height + '&format=png&pushpin='+ lat +','+ lng +';64;&key=' + bingMapKey
-        $('#mapImg').attr('src', staticImgUrl)
-        onMapScriptLoadCallback()
+    window.setupMap = function (onMapScriptLoadCallback) {  
+        var mapsTop = $('.maps').parent().offset().top
+        var mapsStartLoad = false
+        function checkStartLoad() {
+            var windowOffset = window.pageYOffset;
+            if (windowOffset + $(window).height() > mapsTop && !mapsStartLoad) {                             
+                onMapScriptLoadCallback()
+                mapsStartLoad = true   
+            }
+        }
+        checkStartLoad()
+        $(window).on('scroll', function () {
+            checkStartLoad()
+        });
     }
 
     //http://stackoverflow.com/questions/4327665/restrict-the-min-max-zoom-on-a-bing-map-with-v7-of-the-ajax-control

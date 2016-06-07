@@ -403,16 +403,7 @@
 
             %if (rent['property'].get('latitude') and rent['property'].get('longitude')) and rent['property'].get('country'):
                 <div id="propertyDetails_aroundMap" class="maps_wrapper scrollto">
-                    <div class="seperator"></div>
-                    <div class="staticMap">
-                        <img id="mapImg" class="mapImg" alt="" onerror="window.onImgError(this);"/>
-                        <div id="showMap" class="button red">
-                            <label for="">
-                                {{_('查看房产周边设施')}}
-                            </label>
-                            <img class="icons" alt="" src="/static/images/property_details/icon-static-map-category.png"/>
-                        </div>
-                    </div>
+                    <div class="seperator"></div>                    
                     <!--@@include partials/bing_map.html  -->
                     <!--@@include partials/bing_map_icons.html -->
                     <img src="/static/images/common/ajax-loader.gif" id="mapLoadIndicator" class="mapLoadIndicator" style="display:none;"/>
@@ -892,7 +883,7 @@
     <script src="/static/scripts/bing_map.js"></script>
     <script src="/static/vendors/jcarousel/jquery.jcarousel.min.js"></script>
     <script src="/static/vendors/jcarousel/jcarousel.responsive.js"></script>
-    <script src="/static/bower_components/jquery.dotdotdot/src/js/jquery.dotdotdot.js"></script>
+    <script src="/static/bower_components/jquery.dotdotdot/src/js/jquery.dotdotdot.js"></script>    
     <script src="/static/scripts/host_contact_request.js"></script>
     <script src="/static/scripts/property_to_rent_actions.js"></script>
     <script src="/static/scripts/common_ko.js"></script>
@@ -901,6 +892,50 @@
     <script src="/static/scripts/property_to_rent_ko.js"></script>
     <!--endbuild-->
     <script>
+     //Map Part
+     %if rent['property'].get('latitude') and rent['property'].get('longitude'):
+     (function(){
+         if ($('.maps_wrapper')) {
+             var location = {latitude:{{rent['property'].get('latitude')}}, longitude:{{rent['property'].get('longitude')}}}
+             window.setupMap(function () {
+
+                 ga('send', 'event', 'property_to_rent_detail', 'click', 'view-map')
+
+                 window.showMapIndicator()
+                 var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></' + 'script>'
+                 window.onBingMapScriptLoad = function () {
+                     //showMap
+                     $('.staticMap').hide()
+                     $('.maps').show()
+                     //setUp Map Tabs
+                     $('.maps').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName){
+                         $('[data-tab-name=' + tabName + ']').show()
+                     })
+
+                     //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
+                     % if rent['property'].get('country') and rent['property'].get('country').get('code'):
+                     window.showMapIndicator()
+                     window.showTransitMap(location, null, true, 14, '{{rent['property'].get('country').get('code')}}', function () {
+                         window.hideMapIndicator()
+                     })
+                     window.showMapIndicator()
+                     window.showSchoolMap(location, null, true, 14, '{{rent['property'].get('country').get('code')}}', function () {
+                         window.hideMapIndicator()
+                     })
+                     window.showMapIndicator()
+                     window.showFacilityMap(location, null, true, 14, '{{rent['property'].get('country').get('code')}}', function () {
+                         window.hideMapIndicator()
+                     })
+                     % end
+
+                     window.hideMapIndicator()
+                 }
+                 $('body').append(scriptString)
+             })
+         }
+     })()
+     %end
+     
      $(function () {
          //Format publish time
          $('.publishDate span').text(team.parsePublishDate($($('.publishDate span')[0]).text()))
@@ -926,52 +961,7 @@
              ga('send', 'event', 'property_to_rent_detail', 'click', 'extend-description')
          });
 
-         //Map Part
-         %if rent['property'].get('latitude') and rent['property'].get('longitude'):
-         if ($('.maps_wrapper')) {
-             var location = {latitude:{{rent['property'].get('latitude')}}, longitude:{{rent['property'].get('longitude')}}}
-             window.setupMap(location, function () {
-
-                 $('#mapImg, #showMap').click(function (e) {
-                     if (!$('#mapLoadIndicator').is(':visible')) {
-                         ga('send', 'event', 'property_to_rent_detail', 'click', 'view-map')
-
-                         window.showMapIndicator()
-                         var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></' + 'script>'
-                         window.onBingMapScriptLoad = function () {
-                             //showMap
-                             $('.staticMap').hide()
-                             $('.maps').show()
-                             //setUp Map Tabs
-                             $('.maps').tabs({trigger: 'click'}).on('openTab', function (event, target, tabName){
-                                 $('[data-tab-name=' + tabName + ']').show()
-                             })
-
-                             //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
-                             % if rent['property'].get('country') and rent['property'].get('country').get('code'):
-                             window.showMapIndicator()
-                             window.showTransitMap(location, null, true, 14, '{{rent['property'].get('country').get('code')}}', function () {
-                                 window.hideMapIndicator()
-                             })
-                             window.showMapIndicator()
-                             window.showSchoolMap(location, null, true, 14, '{{rent['property'].get('country').get('code')}}', function () {
-                                 window.hideMapIndicator()
-                             })
-                             window.showMapIndicator()
-                             window.showFacilityMap(location, null, true, 14, '{{rent['property'].get('country').get('code')}}', function () {
-                                 window.hideMapIndicator()
-                             })
-                             % end
-
-                             window.hideMapIndicator()
-                         }
-                         $('body').append(scriptString)
-                     }
-                 })
-             })
-         }
-         %end
-
+         
 
          window.openWeChatShare = function (rentId) {
              ga('send', 'event', 'property_to_rent_detail', 'click', 'open-wechat-share')
