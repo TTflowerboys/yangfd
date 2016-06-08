@@ -631,9 +631,7 @@
         this.init()
 
         this.searchTicketClick = function (vm, event) {
-            window.console.log('click event!')
             if(event && event.currentTarget && $(event.currentTarget).parent().find('location-search-box').length) {
-                window.console.log('click event enter!')
                 $(event.currentTarget).parent().find('location-search-box').trigger('searchTicket')
             } else {
                 $('location-search-box').trigger('searchTicket')
@@ -672,6 +670,17 @@
                 this[key]('')
             }, this)
         }
+        this.dateParams = ko.computed(function() {
+            return {
+                rentAvailableTime: this.rentAvailableTime(),
+                rentDeadlineTime: this.rentDeadlineTime()
+            }
+        }, this)
+        this.dateParams.subscribe(function(newValue) {
+            if ((newValue.rentAvailableTime >= newValue.rentDeadlineTime) && newValue.rentAvailableTime && newValue.rentDeadlineTime) {
+                window.dhtmlx.message({ type:'error', text: i18n('租期开始日期必须早于租期结束日期')})
+            }
+        }, this)
     }
     module.appViewModel.indexViewModel = new IndexViewModel()
 
