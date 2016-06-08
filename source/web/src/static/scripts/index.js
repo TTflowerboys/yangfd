@@ -631,15 +631,22 @@
         this.init()
 
         this.searchTicketClick = function (vm, event) {
-            if(event && event.currentTarget && $(event.currentTarget).siblings('location-search-box').length) {
-                $(event.currentTarget).siblings('location-search-box').trigger('searchTicket')
+            window.console.log('click event!')
+            if(event && event.currentTarget && $(event.currentTarget).parent().find('location-search-box').length) {
+                window.console.log('click event enter!')
+                $(event.currentTarget).parent().find('location-search-box').trigger('searchTicket')
             } else {
                 $('location-search-box').trigger('searchTicket')
             }
         }
         this.query = ko.observable()
         this.searchTicket = function (query) {
-            window.team.openLink('/property-to-rent-list?query=' + query + (this.activeTab() === 'studentHouse' ? '&isStudentHouse=true' : ''))
+            window.team.openLink(
+                '/property-to-rent-list?query=' + query +
+                (this.activeTab() === 'studentHouse' ? '&isStudentHouse=true' : '') +
+                (this.rentAvailableTime() ? '&rent_available_time=' + this.rentAvailableTime() : '') +
+                (this.rentDeadlineTime() ? '&rent_deadline_time=' + this.rentDeadlineTime() : '')
+            )
         }
 
         this.searchBySuggestion = function (param) {
@@ -650,7 +657,21 @@
         this.clearSuggestionParams = function () {
 
         }
+        this.rentAvailableTimeFormated = ko.observable()
+        this.rentAvailableTime = ko.computed(function () {
+            return this.rentAvailableTimeFormated() ? new Date(this.rentAvailableTimeFormated()).getTime() / 1000 : ''
+        }, this)
 
+        this.rentDeadlineTimeFormated = ko.observable()
+        this.rentDeadlineTime = ko.computed(function () {
+            return this.rentDeadlineTimeFormated() ? new Date(this.rentDeadlineTimeFormated()).getTime() / 1000: ''
+        }, this)
+
+        this.clearDate = function (key) {
+            return _.bind(function () {
+                this[key]('')
+            }, this)
+        }
     }
     module.appViewModel.indexViewModel = new IndexViewModel()
 
