@@ -639,12 +639,31 @@
         }
         this.query = ko.observable()
         this.searchTicket = function (query) {
-            window.team.openLink(
-                '/property-to-rent-list?query=' + query +
-                (this.activeTab() === 'studentHouse' ? '&isStudentHouse=true' : '') +
-                (this.rentAvailableTime() ? '&rent_available_time=' + this.rentAvailableTime() : '') +
-                (this.rentDeadlineTime() ? '&rent_deadline_time=' + this.rentDeadlineTime() : '')
-            )
+            if ((this.rentAvailableTime() < this.rentDeadlineTime()) && this.rentAvailableTime() && this.rentDeadlineTime()) {
+                if (query) {
+                    window.team.openLink(
+                        '/property-to-rent-list?query=' + query +
+                        (this.activeTab() === 'studentHouse' ? '&isStudentHouse=true' : '') +
+                        (this.rentAvailableTime() ? '&rent_available_time=' + this.rentAvailableTime() : '') +
+                        (this.rentDeadlineTime() ? '&rent_deadline_time=' + this.rentDeadlineTime() : '') +
+                        (this.hesaUniversity() ? '&hesa_university=' + this.hesaUniversity() : '') +
+                        (this.queryName() ? '&queryName=' + this.queryName() : '')
+                    )
+                }
+                else {
+                    window.team.openLink(
+                        '/property-to-rent-list?' +
+                        (this.activeTab() === 'studentHouse' ? 'isStudentHouse=true' : '') +
+                        (this.rentAvailableTime() ? '&rent_available_time=' + this.rentAvailableTime() : '') +
+                        (this.rentDeadlineTime() ? '&rent_deadline_time=' + this.rentDeadlineTime() : '') +
+                        (this.hesaUniversity() ? '&hesa_university=' + this.hesaUniversity() : '') +
+                        (this.queryName() ? '&queryName=' + this.queryName() : '')
+                    )
+                }
+            }
+            else {
+                window.dhtmlx.message({ type:'error', text: i18n('租期开始日期必须早于租期结束日期')})
+            }
         }
 
         this.searchBySuggestion = function (param) {
@@ -681,6 +700,17 @@
                 window.dhtmlx.message({ type:'error', text: i18n('租期开始日期必须早于租期结束日期')})
             }
         }, this)
+
+        this.hesaUniversity = ko.observable()
+        this.city = ko.observable()
+        this.queryName = ko.observable()
+
+        this.goToHots = function (data) {
+            this[window.project.underscoreToCamel(data.key)](data.id)
+            this.queryName(data.queryName)
+            window.console.log(data)
+            this.searchTicket()
+        }
     }
     module.appViewModel.indexViewModel = new IndexViewModel()
 
