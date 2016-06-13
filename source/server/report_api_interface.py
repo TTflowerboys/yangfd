@@ -351,6 +351,7 @@ def main_mixed_index_search(params):
     else:
         params.pop("search_range")
         index_id_list, levenshtein_name = f_app.main_mixed_index.search(params, per_page=-1)
+        logger.debug("Levenshtein name:", levenshtein_name)
         indexes = f_app.main_mixed_index.get(index_id_list)
         for index in indexes:
             if index["id"] in levenshtein_name:
