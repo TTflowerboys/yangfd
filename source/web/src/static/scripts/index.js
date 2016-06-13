@@ -566,6 +566,41 @@
         },
         template: { element: 'locationFilter'}
     })
+    function DateInTab() {
+        this.rentAvailableTimeFormated = ko.observable()
+        this.rentAvailableTime = ko.computed(function () {
+            return this.rentAvailableTimeFormated() ? new Date(this.rentAvailableTimeFormated()).getTime() / 1000 : ''
+        }, this)
+
+        this.rentDeadlineTimeFormated = ko.observable()
+        this.rentDeadlineTime = ko.computed(function () {
+            return this.rentDeadlineTimeFormated() ? new Date(this.rentDeadlineTimeFormated()).getTime() / 1000: ''
+        }, this)
+
+        this.clearDate = function (key) {
+            return _.bind(function () {
+                this[key]('')
+            }, this)
+        }
+
+        this.dateParams = ko.computed(function() {
+            return {
+                rentAvailableTime: this.rentAvailableTime(),
+                rentDeadlineTime: this.rentDeadlineTime()
+            }
+        }, this)
+        this.dateParams.subscribe(function(newValue) {
+            if ((newValue.rentAvailableTime >= newValue.rentDeadlineTime) && newValue.rentAvailableTime && newValue.rentDeadlineTime) {
+                window.dhtmlx.message({ type:'error', text: i18n('租期开始日期必须早于租期结束日期')})
+            }
+        }, this)
+
+        this.clearDate = function (key) {
+            return _.bind(function () {
+                this[key]('')
+            }, this)
+        }
+    }
     function IndexViewModel() {
         this.placeholder = ko.observable(i18n('请输入位置，如E14, E14 3GH, Isle of dogs, Waterloo, UCL...'))
         this.activeTab = ko.observable('tenant')
@@ -599,9 +634,28 @@
                 text: i18n('置业投资')
             },
         ])
+
+        this.rentAvailableTimeFormated = ko.observable()
+        this.rentAvailableTime = ko.computed(function () {
+            return this.rentAvailableTimeFormated() ? new Date(this.rentAvailableTimeFormated()).getTime() / 1000 : ''
+        }, this)
+
+        this.rentDeadlineTimeFormated = ko.observable()
+        this.rentDeadlineTime = ko.computed(function () {
+            return this.rentDeadlineTimeFormated() ? new Date(this.rentDeadlineTimeFormated()).getTime() / 1000: ''
+        }, this)
+
         this.switchTab = function (item) {
             this.activeTab(item.slug)
             initRoleChooserContent(item.slug)
+            if (this.activeTab() === 'tenant') {
+                this.rentAvailableTimeFormated(this.tenantTab.rentAvailableTimeFormated())
+                this.rentDeadlineTimeFormated(this.tenantTab.rentDeadlineTimeFormated())
+            }
+            else if (this.activeTab() === 'studentHouse') {
+                this.rentAvailableTimeFormated(this.studentTab.rentAvailableTimeFormated())
+                this.rentDeadlineTimeFormated(this.studentTab.rentDeadlineTimeFormated())
+            }
             //initBlurOfTabBox()
             ga('send', 'event', 'index', 'click', 'select-tab',item.slug)
 
@@ -639,7 +693,16 @@
         }
         this.query = ko.observable()
         this.searchTicket = function (query) {
-            if (((this.rentAvailableTime() < this.rentDeadlineTime()) && this.rentAvailableTime() && this.rentDeadlineTime()) || !(this.rentAvailableTime() || this.rentDeadlineTime())) {
+            if (this.activeTab() === 'tenant') {
+                this.rentAvailableTimeFormated(this.tenantTab.rentAvailableTimeFormated())
+                this.rentDeadlineTimeFormated(this.tenantTab.rentDeadlineTimeFormated())
+            }
+            else if (this.activeTab() === 'studentHouse') {
+                this.rentAvailableTimeFormated(this.studentTab.rentAvailableTimeFormated())
+                this.rentDeadlineTimeFormated(this.studentTab.rentDeadlineTimeFormated())
+            }
+
+            if (((this.rentAvailableTime() < this.rentDeadlineTime()) && this.rentAvailableTime() && this.rentDeadlineTime()) || !(this.rentAvailableTime() || this.rentDeadlineTime()) || ((this.rentAvailableTime() === '' || this.rentDeadlineTime() === '') && (this.rentDeadlineTime() !== this.rentAvailableTime()))) {
                 if (query) {
                     window.team.openLink(
                         '/property-to-rent-list?query=' + query +
@@ -678,32 +741,7 @@
             this.hesaUniversity('')
             this.queryName('')
         }
-        this.rentAvailableTimeFormated = ko.observable()
-        this.rentAvailableTime = ko.computed(function () {
-            return this.rentAvailableTimeFormated() ? new Date(this.rentAvailableTimeFormated()).getTime() / 1000 : ''
-        }, this)
 
-        this.rentDeadlineTimeFormated = ko.observable()
-        this.rentDeadlineTime = ko.computed(function () {
-            return this.rentDeadlineTimeFormated() ? new Date(this.rentDeadlineTimeFormated()).getTime() / 1000: ''
-        }, this)
-
-        this.clearDate = function (key) {
-            return _.bind(function () {
-                this[key]('')
-            }, this)
-        }
-        this.dateParams = ko.computed(function() {
-            return {
-                rentAvailableTime: this.rentAvailableTime(),
-                rentDeadlineTime: this.rentDeadlineTime()
-            }
-        }, this)
-        this.dateParams.subscribe(function(newValue) {
-            if ((newValue.rentAvailableTime >= newValue.rentDeadlineTime) && newValue.rentAvailableTime && newValue.rentDeadlineTime) {
-                window.dhtmlx.message({ type:'error', text: i18n('租期开始日期必须早于租期结束日期')})
-            }
-        }, this)
 
         this.hesaUniversity = ko.observable()
         this.city = ko.observable()
@@ -712,11 +750,12 @@
         this.goToHots = function (data) {
             this[window.project.underscoreToCamel(data.key)](data.id)
             this.queryName(data.queryName)
-            window.console.log(data)
             this.searchTicket()
         }
     }
     module.appViewModel.indexViewModel = new IndexViewModel()
+    module.appViewModel.indexViewModel.tenantTab = new DateInTab()
+    module.appViewModel.indexViewModel.studentTab = new DateInTab()
 
     function initBlurOfTabBox() {
         if(!window.team.isPhone()) {

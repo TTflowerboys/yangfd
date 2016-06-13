@@ -37,7 +37,7 @@
                 <h3 data-bind="text: text"></h3>
             </li><!--
         --></ul>
-        <div class="content" data-bind="visible: activeTab() == 'tenant'">
+        <div class="content" data-bind="visible: activeTab() === 'tenant'">
             <div class="category three hiddenOnMobile">
                 <location-search-box class="personalHouseSearchBox" params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}, hotSchoolList: {{json_dumps(hot_school_list)}}, element: '.personalHouseSearchBox'">
                     <input class="placeholderInput" placeholder="请输入位置" readonly="">
@@ -48,11 +48,11 @@
                             class="date inputWrapper"
                             data-bind="
                                 dateRangePicker: {
-                                    value: rentAvailableTimeFormated,
+                                    value: tenantTab.rentAvailableTimeFormated,
                                     timeEnabled: true
                                 }">
                             <input
-                                data-bind="value: rentAvailableTimeFormated"
+                                data-bind="value: tenantTab.rentAvailableTimeFormated"
                                 type="text"
                                 min="{{currentDate}}"
                                 class=""
@@ -63,8 +63,8 @@
                             <label for="rentPeriodStartDate"></label>
                             <i
                                 data-bind="
-                                    click: clearDate('rentAvailableTimeFormated'),
-                                    visible: rentAvailableTime"
+                                    click: tenantTab.clearDate('rentAvailableTimeFormated'),
+                                    visible: tenantTab.rentAvailableTime"
                                 class="clear"
                                 style="display: none"
                                 title="{{_('清空日期')}}">
@@ -74,11 +74,11 @@
                         <div class="date inputWrapper"
                             data-bind="
                                 dateRangePicker: {
-                                    value: rentDeadlineTimeFormated,
+                                    value: tenantTab.rentDeadlineTimeFormated,
                                     timeEnabled: true
                                 }">
                             <input
-                                data-bind="value: rentDeadlineTimeFormated"
+                                data-bind="value: tenantTab.rentDeadlineTimeFormated"
                                 type="text"
                                 min="{{currentDate}}"
                                 class=""
@@ -89,8 +89,8 @@
                             <label for="rentPeriodEndDate"></label>
                             <i
                                 data-bind="
-                                    click: clearDate('rentDeadlineTimeFormated'),
-                                    visible: rentDeadlineTime"
+                                    click: tenantTab.clearDate('rentDeadlineTimeFormated'),
+                                    visible: tenantTab.rentDeadlineTime"
                                 class="clear"
                                 style="display: none"
                                 title="{{_('清空日期')}}">
@@ -127,7 +127,7 @@
                 <span class="text">{{_('想租住在哪里?')}}</span><span class="icon"><i class="icon-search"></i></span>
             </a>
         </div>
-        <div style="display: none" class="content" data-bind="visible: activeTab() == 'studentHouse'">
+        <div style="display: none" class="content" data-bind="visible: activeTab() === 'studentHouse'">
             <div class="category three hiddenOnMobile">
                 <location-search-box class="studentHouseSearchBox" params="parentVM: $data, hotCityList: {{json_dumps(hot_city_list)}}, hotSchoolList: {{json_dumps(hot_school_list)}}, isStudentHouse: 'true', element: '.studentHouseSearchBox'"></location-search-box>
                 <div class="hoverWrapper">
@@ -136,11 +136,11 @@
                             class="date inputWrapper"
                             data-bind="
                                 dateRangePicker: {
-                                    value: rentAvailableTimeFormated,
+                                    value: studentTab.rentAvailableTimeFormated,
                                     timeEnabled: true
                                 }">
                             <input
-                                data-bind="value: rentAvailableTimeFormated"
+                                data-bind="value: studentTab.rentAvailableTimeFormated"
                                 type="text"
                                 min="{{currentDate}}"
                                 class=""
@@ -151,8 +151,8 @@
                             <label for="rentPeriodStartDate"></label>
                             <i
                                 data-bind="
-                                    click: clearDate('rentAvailableTimeFormated'),
-                                    visible: rentAvailableTime"
+                                    click: studentTab.clearDate('rentAvailableTimeFormated'),
+                                    visible: studentTab.rentAvailableTime"
                                 class="clear"
                                 style="display: none"
                                 title="{{_('清空日期')}}">
@@ -162,11 +162,11 @@
                         <div class="date inputWrapper"
                             data-bind="
                                 dateRangePicker: {
-                                    value: rentDeadlineTimeFormated,
+                                    value: studentTab.rentDeadlineTimeFormated,
                                     timeEnabled: true
                                 }">
                             <input
-                                data-bind="value: rentDeadlineTimeFormated"
+                                data-bind="value: studentTab.rentDeadlineTimeFormated"
                                 type="text"
                                 min="{{currentDate}}"
                                 class=""
@@ -177,8 +177,8 @@
                             <label for="rentPeriodEndDate"></label>
                             <i
                                 data-bind="
-                                    click: clearDate('rentDeadlineTimeFormated'),
-                                    visible: rentDeadlineTime"
+                                    click: studentTab.clearDate('rentDeadlineTimeFormated'),
+                                    visible: studentTab.rentDeadlineTime"
                                 class="clear"
                                 style="display: none"
                                 title="{{_('清空日期')}}">
