@@ -631,9 +631,7 @@
         this.init()
 
         this.searchTicketClick = function (vm, event) {
-            window.console.log('click event!')
             if(event && event.currentTarget && $(event.currentTarget).parent().find('location-search-box').length) {
-                window.console.log('click event enter!')
                 $(event.currentTarget).parent().find('location-search-box').trigger('searchTicket')
             } else {
                 $('location-search-box').trigger('searchTicket')
@@ -641,12 +639,33 @@
         }
         this.query = ko.observable()
         this.searchTicket = function (query) {
-            window.team.openLink(
-                '/property-to-rent-list?query=' + query +
-                (this.activeTab() === 'studentHouse' ? '&isStudentHouse=true' : '') +
-                (this.rentAvailableTime() ? '&rent_available_time=' + this.rentAvailableTime() : '') +
-                (this.rentDeadlineTime() ? '&rent_deadline_time=' + this.rentDeadlineTime() : '')
-            )
+            if (((this.rentAvailableTime() < this.rentDeadlineTime()) && this.rentAvailableTime() && this.rentDeadlineTime()) || !(this.rentAvailableTime() || this.rentDeadlineTime())) {
+                if (query) {
+                    window.team.openLink(
+                        '/property-to-rent-list?query=' + query +
+                        (this.activeTab() === 'studentHouse' ? '&isStudentHouse=true' : '') +
+                        (this.rentAvailableTime() ? '&rent_available_time=' + this.rentAvailableTime() : '') +
+                        (this.rentDeadlineTime() ? '&rent_deadline_time=' + this.rentDeadlineTime() : '') +
+                        (this.hesaUniversity() ? '&hesa_university=' + this.hesaUniversity() : '') +
+                        (this.city() ? '&city=' + this.city() : '') +
+                        (this.queryName() ? '&queryName=' + this.queryName() : '')
+                    )
+                }
+                else {
+                    window.team.openLink(
+                        '/property-to-rent-list?' +
+                        (this.activeTab() === 'studentHouse' ? 'isStudentHouse=true' : '') +
+                        (this.rentAvailableTime() ? '&rent_available_time=' + this.rentAvailableTime() : '') +
+                        (this.rentDeadlineTime() ? '&rent_deadline_time=' + this.rentDeadlineTime() : '') +
+                        (this.hesaUniversity() ? '&hesa_university=' + this.hesaUniversity() : '') +
+                        (this.city() ? '&city=' + this.city() : '') +
+                        (this.queryName() ? '&queryName=' + this.queryName() : '')
+                    )
+                }
+            }
+            else if(this.rentAvailableTime() >= this.rentDeadlineTime()){
+                window.dhtmlx.message({ type:'error', text: i18n('租期开始日期必须早于租期结束日期')})
+            }
         }
 
         this.searchBySuggestion = function (param) {
@@ -655,7 +674,9 @@
             }).join('&') + (this.activeTab() === 'studentHouse' ? '&isStudentHouse=true' : ''))
         }
         this.clearSuggestionParams = function () {
-
+            this.city('')
+            this.hesaUniversity('')
+            this.queryName('')
         }
         this.rentAvailableTimeFormated = ko.observable()
         this.rentAvailableTime = ko.computed(function () {
@@ -671,6 +692,28 @@
             return _.bind(function () {
                 this[key]('')
             }, this)
+        }
+        this.dateParams = ko.computed(function() {
+            return {
+                rentAvailableTime: this.rentAvailableTime(),
+                rentDeadlineTime: this.rentDeadlineTime()
+            }
+        }, this)
+        this.dateParams.subscribe(function(newValue) {
+            if ((newValue.rentAvailableTime >= newValue.rentDeadlineTime) && newValue.rentAvailableTime && newValue.rentDeadlineTime) {
+                window.dhtmlx.message({ type:'error', text: i18n('租期开始日期必须早于租期结束日期')})
+            }
+        }, this)
+
+        this.hesaUniversity = ko.observable()
+        this.city = ko.observable()
+        this.queryName = ko.observable()
+
+        this.goToHots = function (data) {
+            this[window.project.underscoreToCamel(data.key)](data.id)
+            this.queryName(data.queryName)
+            window.console.log(data)
+            this.searchTicket()
         }
     }
     module.appViewModel.indexViewModel = new IndexViewModel()
