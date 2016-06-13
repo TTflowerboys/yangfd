@@ -639,7 +639,7 @@
         }
         this.query = ko.observable()
         this.searchTicket = function (query) {
-            if ((this.rentAvailableTime() < this.rentDeadlineTime()) && this.rentAvailableTime() && this.rentDeadlineTime()) {
+            if (((this.rentAvailableTime() < this.rentDeadlineTime()) && this.rentAvailableTime() && this.rentDeadlineTime()) || !(this.rentAvailableTime() || this.rentDeadlineTime())) {
                 if (query) {
                     window.team.openLink(
                         '/property-to-rent-list?query=' + query +
@@ -647,6 +647,7 @@
                         (this.rentAvailableTime() ? '&rent_available_time=' + this.rentAvailableTime() : '') +
                         (this.rentDeadlineTime() ? '&rent_deadline_time=' + this.rentDeadlineTime() : '') +
                         (this.hesaUniversity() ? '&hesa_university=' + this.hesaUniversity() : '') +
+                        (this.city() ? '&city=' + this.city() : '') +
                         (this.queryName() ? '&queryName=' + this.queryName() : '')
                     )
                 }
@@ -657,11 +658,12 @@
                         (this.rentAvailableTime() ? '&rent_available_time=' + this.rentAvailableTime() : '') +
                         (this.rentDeadlineTime() ? '&rent_deadline_time=' + this.rentDeadlineTime() : '') +
                         (this.hesaUniversity() ? '&hesa_university=' + this.hesaUniversity() : '') +
+                        (this.city() ? '&city=' + this.city() : '') +
                         (this.queryName() ? '&queryName=' + this.queryName() : '')
                     )
                 }
             }
-            else {
+            else if(this.rentAvailableTime() >= this.rentDeadlineTime()){
                 window.dhtmlx.message({ type:'error', text: i18n('租期开始日期必须早于租期结束日期')})
             }
         }
@@ -672,7 +674,9 @@
             }).join('&') + (this.activeTab() === 'studentHouse' ? '&isStudentHouse=true' : ''))
         }
         this.clearSuggestionParams = function () {
-
+            this.city('')
+            this.hesaUniversity('')
+            this.queryName('')
         }
         this.rentAvailableTimeFormated = ko.observable()
         this.rentAvailableTime = ko.computed(function () {
