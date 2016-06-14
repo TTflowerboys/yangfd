@@ -35,7 +35,7 @@ def property_list(params):
             "feature_code": {"$in": ["PPLC", "PPLA", "PPLA2"]},
             "country": params['country']
         })
-        property_city_list = f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(geonames_params, per_page=-1))
+        property_city_list = f_app.i18n.process_i18n(f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(geonames_params, per_page=-1)))
 
     title = ''
     keywords = ''
