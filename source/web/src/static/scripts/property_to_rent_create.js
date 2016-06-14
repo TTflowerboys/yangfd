@@ -577,6 +577,7 @@
         }
         checkContaction($('#title'))
         checkContaction($('#description'))
+        checkContaction($('#otherRequirements'))
 
         if($('#rentPeriodEndDate').val() && $('#rentPeriodStartDate').val() && new Date($('#rentPeriodEndDate').val()) < new Date($('#rentPeriodStartDate').val())) {
             validate = false
