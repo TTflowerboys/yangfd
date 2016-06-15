@@ -32,6 +32,7 @@ var uglify = require('gulp-uglify');
 var pageSprite = require('gulp-page-sprite')
 var replace = require('gulp-replace')
 var bower = require('gulp-bower')
+var i18n = require('gulp-i18n')
 
 var argv = require('yargs').argv
 
@@ -113,7 +114,7 @@ gulp.task('clean', function () {
 })
 
 //better only rev the css and html used in html
-gulp.task('rev', ['build:concat'], function () {
+gulp.task('rev', ['i18n'], function () {
     return gulp.src(['dist/static/admin/templates/**/*.html',
     'dist/static/admin/emails/**/*.html',
     'dist/static/fonts/**/*', 
@@ -174,7 +175,7 @@ gulp.task('fingerprintAdminPageResource', ['revAdminPageResource'], function () 
 // 'test': xxx-test.bbtechgroup.com
 // 'production': online production version
 
-gulp.task('build', ['bower', 'lint', 'clean', 'build:copy', 'build:imagemin', 'sprite', 'build:less2css', 'build:cssAutoPrefix', 'build:html-extend', 'build:concat', 'rev', 'fingerprint', 'revAdminPageResource', 'fingerprintAdminPageResource', 'setupCDN'],
+gulp.task('build', ['bower', 'lint', 'clean', 'build:copy', 'build:imagemin', 'sprite', 'build:less2css', 'build:cssAutoPrefix', 'build:html-extend', 'build:concat', 'i18n', 'rev', 'fingerprint', 'revAdminPageResource', 'fingerprintAdminPageResource', 'setupCDN'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
@@ -234,6 +235,12 @@ gulp.task('build:concat', ['build:html-extend'], function () {
             js: [ footer(';;;'), 'concat', uglify({mangle: false})],
             //inlinejs: [ uglify() ],
         }))
+        .pipe(gulp.dest(myPaths.dist))
+})
+
+gulp.task('i18n', ['build:concat'], function () {
+    return  gulp.src([myPaths.dist + '*.html'], {base: 'dist'})
+        .pipe(i18n({placeholder: '<!--I18N Placeholder-->'}))
         .pipe(gulp.dest(myPaths.dist))
 })
 
