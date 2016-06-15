@@ -322,7 +322,6 @@
 
             this.enterComfire = false
             this.keyPress = function (vm, ev) {
-                window.console.log(ev.key)
                 if (ev.key === 'Enter') {
                     this.enterComfire = true
                 }
@@ -332,7 +331,6 @@
                 return true
             }
             this.keyUp = function (viewModel, e) {
-                window.console.log(e.key)
                 if(this.query() !== this.lastSearchText() && e.keyCode !== 13) {
                     return this.search()
                 }
