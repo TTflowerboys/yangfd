@@ -319,7 +319,8 @@
                     this.activeSuggestionIndex(originActiveSuggestionIndex - 1)
                 }
             }
-
+            // 这里之所以添加keyPress事件是为了判断keyUp中接收的enter按键是来自于中文输入法中敲下的enter还是真的在输入框下输入的enter
+            // 所以当使用location-search-box这个compent的时候，需要在event这个bind中同时加入keyup和keypress事件
             this.enterComfire = false
             this.keyPress = function (vm, ev) {
                 if (ev.key === 'Enter') {
