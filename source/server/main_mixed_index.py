@@ -448,7 +448,7 @@ class f_main_mixed_index(f_app.plugin_base):
             sort = "desc"
             sort_field = "time"
         result = f_app.mongo_index.search(self.get_database, params, notime=True, sort=sort, sort_field=sort_field, count=False, per_page=per_page)
-        return result["content"], result["levenshtein_name"]
+        return result["content"], result["levenshtein_name"] if "levenshtein_name" in result else {}
 
     def get_nearby(self, params, output=True):
         latitude = params.pop("latitude")
