@@ -320,13 +320,28 @@
                 }
             }
 
+            this.enterComfire = false
+            this.keyPress = function (vm, ev) {
+                window.console.log(ev.key)
+                if (ev.key === 'Enter') {
+                    this.enterComfire = true
+                }
+                else {
+                    this.enterComfire = false
+                }
+                return true
+            }
             this.keyUp = function (viewModel, e) {
+                window.console.log(e.key)
                 if(this.query() !== this.lastSearchText() && e.keyCode !== 13) {
                     return this.search()
                 }
                 if(!window.team.isPhone()) {
                     switch(e.keyCode) {
                         case 13: //enter
+                            if (this.enterComfire === false) {
+                                return this.search()
+                            }
                             if(this.query() !== this.lastSuggestion()) {
                                 this.parentVM.clearSuggestionParams.call(this.parentVM)
                             }
