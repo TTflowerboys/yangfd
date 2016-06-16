@@ -10,6 +10,7 @@
 #import "CUTEConfiguration.h"
 #import <NJKWebViewProgressView.h>
 #import <NJKWebViewProgress.h>
+#import <MBProgressHUD.h>
 #import "CUTEUIMacro.h"
 #import "CUTECommonMacro.h"
 #import "CUTEWebConfiguration.h"
@@ -40,9 +41,9 @@
 {
     UIWebView *_webView;
 
-    NJKWebViewProgressView *_progressView;
-
     NJKWebViewProgress *_progressProxy;
+
+    MBProgressHUD *_HUD;
 
     CUTEWebHandler *_webHandler;
 
@@ -173,12 +174,6 @@
     _progressProxy.webViewProxyDelegate = self;
     _progressProxy.progressDelegate = self;
 
-    CGFloat progressBarHeight = 2.f;
-    CGRect navigaitonBarBounds = self.navigationController.navigationBar.bounds;
-    CGRect barFrame = CGRectMake(0, navigaitonBarBounds.size.height - progressBarHeight, navigaitonBarBounds.size.width, progressBarHeight);
-    _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
-    _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    _progressView.progressBarView.backgroundColor =  CUTE_MAIN_COLOR;
 
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogin:) name:KNOTIF_USER_DID_LOGIN object:nil];
     [NotificationCenter addObserver:self selector:@selector(onReceiveUserDidLogout:) name:KNOTIF_USER_DID_LOGOUT object:nil];
@@ -194,7 +189,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar addSubview:_progressView];
 
     if (self.URL) {
         TrackScreen(GetScreenName(self.URL));
@@ -222,9 +216,7 @@
 {
     [super viewWillDisappear:animated];
 
-    // Remove progress view
-    // because UINavigationBar is shared with other ViewControllers
-    [_progressView removeFromSuperview];
+    [_HUD hide:YES];
 
     if ([self bridgeJSLoaded]) {
         [self fireDocumentEvent:@"viewdisappear"];
@@ -363,7 +355,18 @@
 #pragma mark - NJKWebViewProgressDelegate
 -(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
 {
-    [_progressView setProgress:progress animated:YES];
+
+    if (!_HUD) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = STR(@"正在加载");
+        _HUD = hud;
+    }
+
+    [_HUD setProgress:progress];
+    if (progress >= 1.0) {
+        [_HUD hide:YES];
+        _HUD = nil;
+    }
 }
 
 #pragma mark - Notification
