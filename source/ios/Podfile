@@ -3,60 +3,65 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '7.0'
 inhibit_all_warnings!
 
-#xcodeproj 'currant'
+target 'currant' do
 
-#link_with 'currant', 'currant-dev', 'currant-test', 'currant-production', 'currantUnitTest'
+    pod 'BBTUtility', :git => "git@git.bbtechgroup.com:bbt/ios-bbtutility.git"
+    pod 'BBTRestClient', :git => "git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git"
+    pod 'BBTAppUpdater', :git => "git@git.bbtechgroup.com:bbt/ios-bbtappupdater.git"
+    pod 'AFNetworkActivityLogger', '2.0.4'
+    pod 'FXForms', '1.2.12'
+    pod 'SMCalloutView', '2.1.2'
+    pod 'ngrvalidator', '1.0.0'
+    pod 'INTULocationManager', '3.0.3'
+    pod 'NJKWebViewProgress', '0.2.3'
+    pod 'WebViewJavascriptBridge', '4.1.4'
+    pod 'Bolts', '~> 1.4.0'
+    pod 'Sequencer', '1.0.1'
+    pod 'CTAssetsPickerController', '2.9.4'
+    pod 'Masonry', '0.6.1'
+    pod 'SVProgressHUD', '1.1.3'
+    pod 'MBProgressHUD', '~> 0.9.2'
+    pod 'UIActionSheet+Blocks', '0.8.1'
+    pod 'UIAlertView+Blocks', '0.8.1'
+    pod 'MWPhotoBrowser', '1.4.1'
+    pod 'YTKKeyValueStore', '0.1.2'
+    pod 'TTTAttributedLabel', '1.13.3'
+    pod 'RegExCategories', '1.0'
+    pod 'NSDate-Extensions', '0.0.1'
+    pod 'Google/Analytics', '~> 1.0.0'
+    pod 'apptentive-ios', '~> 2.0.5'
+    pod 'JDFTooltips', '1.0'
+    pod 'ActionSheetPicker-3.0', '~> 2.0.3'
+    pod 'NSTimer-Blocks'
+    pod 'UMengSocial', '~> 4.2.5'
+    pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
+    pod 'ALActionBlocks', '1.0.3'
+    pod 'Aspects', '1.4.1'
+    pod 'KVOController', '1.0.3'
+    pod 'libextobjc', '0.4.1'
+    pod 'EGOCache', '~> 2.1.3'
+    pod 'HHRouter', '~> 0.1.5'
+    pod 'JSPatch', '~> 0.1.3'
+    pod 'Fabric'
+    pod 'Crashlytics'
+    pod 'Bugtags', '~> 1.1.6'
+    pod 'Reveal-iOS-SDK', :configurations => ['Debug']
 
-pod 'BBTUtility', :git => "git@git.bbtechgroup.com:bbt/ios-bbtutility.git"
-pod 'BBTRestClient', :git => "git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git"
-pod 'BBTAppUpdater', :git => "git@git.bbtechgroup.com:bbt/ios-bbtappupdater.git"
-pod 'AFNetworkActivityLogger', '2.0.4'
-pod 'FXForms', '1.2.12'
-pod 'SMCalloutView', '2.1.2'
-pod 'ngrvalidator', '1.0.0'
-pod 'INTULocationManager', '3.0.3'
-pod 'NJKWebViewProgress', '0.2.3'
-pod 'WebViewJavascriptBridge', '4.1.4'
-pod 'Bolts', '~> 1.4.0'
-pod 'Sequencer', '1.0.1'
-pod 'CTAssetsPickerController', '2.9.4'
-pod 'Masonry', '0.6.1'
-pod 'SVProgressHUD', '1.1.3'
-pod 'UIActionSheet+Blocks', '0.8.1'
-pod 'UIAlertView+Blocks', '0.8.1'
-pod 'MWPhotoBrowser', '1.4.1'
-pod 'YTKKeyValueStore', '0.1.2'
-pod 'TTTAttributedLabel', '1.13.3'
-pod 'RegExCategories', '1.0'
-pod 'NSDate-Extensions', '0.0.1'
-pod 'Google/Analytics', '~> 1.0.0'
-pod 'apptentive-ios', '~> 2.0.5'
-pod 'JDFTooltips', '1.0'
-pod 'ActionSheetPicker-3.0', '~> 2.0.3'
-pod 'NSTimer-Blocks'
-pod 'UMengSocial', '~> 4.2.5'
-pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git" 
-pod 'ALActionBlocks', '1.0.3'
-pod 'Aspects', '1.4.1'
-pod 'KVOController', '1.0.3'
-pod 'libextobjc', '0.4.1'
-pod 'EGOCache', '~> 2.1.3'
-pod 'HHRouter', '~> 0.1.5'
-pod 'JSPatch', '~> 0.1.3'
-pod 'Fabric'
-pod 'Crashlytics'
-pod 'Bugtags', '~> 1.1.6'
-pod 'Reveal-iOS-SDK', :configurations => ['Debug']
+    target 'currant-dev'
+    target 'currant-test'
+    target 'currant-production'
 
-target 'currantUnitTest', :exclusive => true do
-    pod 'Specta'
-    pod 'OCHamcrest'
-    pod 'OHHTTPStubs'
-end
-
-target 'currantUITest', :exclusive => true do
-    pod 'Specta'
-    pod 'OCHamcrest'
-    pod 'OHHTTPStubs'
-    pod 'KIF'
+    target 'currantUnitTest' do
+        pod 'Specta'
+        pod 'OCHamcrest'
+        pod 'OHHTTPStubs'
+    end
+    
+    target 'currantUITest' do
+        pod 'Specta'
+        pod 'OCHamcrest'
+        pod 'OHHTTPStubs'
+        pod 'KIF'
+    end
+    
 end
