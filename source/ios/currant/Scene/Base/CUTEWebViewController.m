@@ -216,7 +216,7 @@
 {
     [super viewWillDisappear:animated];
 
-    [_HUD hide:YES];
+//    [_HUD hide:YES];
 
     if ([self bridgeJSLoaded]) {
         [self fireDocumentEvent:@"viewdisappear"];
@@ -358,6 +358,7 @@
 
     if (!_HUD) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.opaque = 0.6;
         hud.labelText = STR(@"正在加载");
         _HUD = hud;
     }
