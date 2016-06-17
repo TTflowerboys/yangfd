@@ -125,9 +125,20 @@ def default(user, params):
         )
 
 
-@f_get('/signup')
+@f_get('/signup', params=dict(
+    from=str,
+))
 @currant_util.check_ip_and_redirect_domain
-def signup():
+@f_app.user.login.check()
+def signup(user, params):
+    if user:
+        from_url = params.pop("from", "/")    
+        baseurl = "://".join(request.urlparts[:2])
+        redirect(baseurl + from_url)
+    else:
+        baseurl = "://".join(request.urlparts[:2])
+        redirect(baseurl)
+
     title = _('注册')
     return currant_util.common_template("signup", title=title)
 
@@ -140,23 +151,56 @@ def verify_phone(user):
     return currant_util.common_template("verify_phone", title=title)
 
 
-@f_get('/vip_sign_up')
+@f_get('/vip_sign_up', params=dict(
+    from=str,
+))
 @currant_util.check_ip_and_redirect_domain
-def vip_sign_up():
+@f_app.user.login.check()
+def vip_sign_up(user, params):
+    if user:
+        from_url = params.pop("from", "/")    
+        baseurl = "://".join(request.urlparts[:2])
+        redirect(baseurl + from_url)
+    else:
+        baseurl = "://".join(request.urlparts[:2])
+        redirect(baseurl)
+
     title = _('注册')
     return currant_util.common_template("sign_up_vip", title=title)
 
 
-@f_get('/signin')
+@f_get('/signin', params=dict(
+    from=str,
+))
 @currant_util.check_ip_and_redirect_domain
-def signin():
+@f_app.user.login.check()
+def signin(user, params):
+    if user:
+        from_url = params.pop("from", "/")    
+        baseurl = "://".join(request.urlparts[:2])
+        redirect(baseurl + from_url)
+    else:
+        baseurl = "://".join(request.urlparts[:2])
+        redirect(baseurl)
+
     title = _('登录')
     return currant_util.common_template("signin", title=title)
 
 
-@f_get('/affiliate-signup')
+@f_get('/affiliate-signup', params=dict(
+    from=str,
+))
 @currant_util.check_ip_and_redirect_domain
-def affiliate_signup():
+@f_app.user.login.check()
+def affiliate_signup(user, params):
+    if user:
+        from_url = params.pop("from", "/")    
+        baseurl = "://".join(request.urlparts[:2])
+        redirect(baseurl + from_url)
+    else:
+        baseurl = "://".join(request.urlparts[:2])
+        redirect(baseurl)
+        
     title = _('Affiliate 注册')
     return currant_util.common_template("affiliate_signup", title=title)
 
