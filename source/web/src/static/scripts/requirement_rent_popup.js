@@ -342,7 +342,7 @@
                     $('.hostContactWrap .hint').hide().next('.host').show()
                 })
                 .fail(function (ret) {
-                    $('.hostContactWrap .hint').text(window.i18n('获取联系方式失败：' + window.getErrorMessageFromErrorCode(ret)))
+                    $('.hostContactWrap .hint').text(window.i18n('获取联系方式失败：') + window.getErrorMessageFromErrorCode(ret))
                 })
         }
     }
