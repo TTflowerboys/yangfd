@@ -99,6 +99,7 @@
 #import "CUTELocalizationSwitcher.h"
 #import "CUTERentTicketPublisher.h"
 #import "CUTEKeyboardStateListener.h"
+#import "CUTEContactChecker.h"
 
 
 

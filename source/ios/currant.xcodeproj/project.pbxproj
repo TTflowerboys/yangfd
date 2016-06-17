@@ -294,6 +294,10 @@
 		2C63CAD51B230DEE0055687A /* CUTETooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C63CAD31B230DEE0055687A /* CUTETooltipView.m */; };
 		2C63CAD61B230DEE0055687A /* CUTETooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C63CAD31B230DEE0055687A /* CUTETooltipView.m */; };
 		2C63CAD71B230DEE0055687A /* CUTETooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C63CAD31B230DEE0055687A /* CUTETooltipView.m */; };
+		2C6AEEE21D13FB2E00E879AB /* CUTEContactChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6AEEE11D13FB2E00E879AB /* CUTEContactChecker.m */; };
+		2C6AEEE31D13FB2E00E879AB /* CUTEContactChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6AEEE11D13FB2E00E879AB /* CUTEContactChecker.m */; };
+		2C6AEEE41D13FB2E00E879AB /* CUTEContactChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6AEEE11D13FB2E00E879AB /* CUTEContactChecker.m */; };
+		2C6AEEE51D13FB2E00E879AB /* CUTEContactChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6AEEE11D13FB2E00E879AB /* CUTEContactChecker.m */; };
 		2C6C582A1BCCAE5200E52B77 /* currantUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C58291BCCAE5200E52B77 /* currantUITests.swift */; };
 		2C6D07CF1B3E4A53001EBB90 /* CUTEWebHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D07CE1B3E4A53001EBB90 /* CUTEWebHandler.m */; };
 		2C6D07D01B3E4A54001EBB90 /* CUTEWebHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D07CE1B3E4A53001EBB90 /* CUTEWebHandler.m */; };
@@ -1083,6 +1087,8 @@
 		2C5ECC501AD525AC00163E9E /* CUTEAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEAPIManager.m; sourceTree = "<group>"; };
 		2C63CAD21B230DEE0055687A /* CUTETooltipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTETooltipView.h; sourceTree = "<group>"; };
 		2C63CAD31B230DEE0055687A /* CUTETooltipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTETooltipView.m; sourceTree = "<group>"; };
+		2C6AEEE01D13FB2E00E879AB /* CUTEContactChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUTEContactChecker.h; sourceTree = "<group>"; };
+		2C6AEEE11D13FB2E00E879AB /* CUTEContactChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUTEContactChecker.m; sourceTree = "<group>"; };
 		2C6C58271BCCAE5200E52B77 /* currantUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = currantUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C6C58291BCCAE5200E52B77 /* currantUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = currantUITests.swift; sourceTree = "<group>"; };
 		2C6C582B1BCCAE5200E52B77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1785,6 +1791,8 @@
 				2C9F1CFB1B3961400034487F /* CUTEUserAgentUtil.m */,
 				2C4A13AE1B5E5CF600FA9F99 /* CUTEStringMatcher.h */,
 				2C4A13AF1B5E5CF600FA9F99 /* CUTEStringMatcher.m */,
+				2C6AEEE01D13FB2E00E879AB /* CUTEContactChecker.h */,
+				2C6AEEE11D13FB2E00E879AB /* CUTEContactChecker.m */,
 				2C5597EB1BB501C600430984 /* CUTEPatcher.swift */,
 				2C71D3861BFB2FEE000CAC71 /* SwiftGlobalFunctions.swift */,
 			);
@@ -3017,6 +3025,7 @@
 				2C9AFF721AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDE91B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A61F1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
+				2C6AEEE41D13FB2E00E879AB /* CUTEContactChecker.m in Sources */,
 				2C6D45C11C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift in Sources */,
 				2CCE68041B1C3AA300351DED /* CUTERentMapListViewController.m in Sources */,
 				2CF8A6291AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
@@ -3216,6 +3225,7 @@
 				2C9AFF731AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDEA1B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A6201AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
+				2C6AEEE51D13FB2E00E879AB /* CUTEContactChecker.m in Sources */,
 				2C6D45C21C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift in Sources */,
 				2CCE68051B1C3AA300351DED /* CUTERentMapListViewController.m in Sources */,
 				2CF8A62A1AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
@@ -3415,6 +3425,7 @@
 				2C9AFF711AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDE81B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A61E1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
+				2C6AEEE31D13FB2E00E879AB /* CUTEContactChecker.m in Sources */,
 				2C6D45C01C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift in Sources */,
 				2CCE68031B1C3AA300351DED /* CUTERentMapListViewController.m in Sources */,
 				2CF8A6281AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,
@@ -3614,6 +3625,7 @@
 				2C9AFF701AF220D800E5F0BC /* CUTEFormFixNonBreakingSpaceTextFieldCell.m in Sources */,
 				2C2FCDE71B01E521002594D7 /* ALAsset+GetImage.m in Sources */,
 				2CF8A61D1AF0B40E0080DF10 /* CUTEFormDefaultCell.m in Sources */,
+				2C6AEEE21D13FB2E00E879AB /* CUTEContactChecker.m in Sources */,
 				2C6D45BF1C3267B400E4EA96 /* CUTEWholePropertyPreferenceForm.swift in Sources */,
 				2CCE68021B1C3AA300351DED /* CUTERentMapListViewController.m in Sources */,
 				2CF8A6271AF0B40E0080DF10 /* CUTEFormImagePickerPlaceholderView.m in Sources */,

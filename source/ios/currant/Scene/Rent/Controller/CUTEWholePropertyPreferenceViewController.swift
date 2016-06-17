@@ -21,6 +21,12 @@ class CUTEWholePropertyPreferenceViewController: CUTEFormViewController {
 
         self.title = STR("WholePropertyPreference/租客要求")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: STR("WholePropertyPreference/预览"), style: UIBarButtonItemStyle.Plain, block:  { (sender) -> Void in
+
+            if let otherRequirement = self.form().otherRequirements {
+                if CUTEContactChecker.checkShowContactForbiddenWarningAlert(otherRequirement) {
+                    return
+                }
+            }
             self.submitTicket()
         })
     }
@@ -48,6 +54,10 @@ class CUTEWholePropertyPreferenceViewController: CUTEFormViewController {
     func onOtherRequirements(sender:AnyObject) {
         if let cell = sender as? FXFormBaseCell {
             let value = cell.field.value as! String
+
+            if CUTEContactChecker.checkShowContactForbiddenWarningAlert(value) {
+                return
+            }
 
             self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
                 if value.characters.count > 0 {

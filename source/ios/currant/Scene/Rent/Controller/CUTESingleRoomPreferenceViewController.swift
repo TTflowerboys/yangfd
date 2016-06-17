@@ -21,6 +21,13 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
 
         self.title = STR("SingleRoomPreference/单间信息")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: STR("SingleRoomPreference/预览"), style: UIBarButtonItemStyle.Plain, block:  { (sender) -> Void in
+
+            if let otherRequirement = self.form().otherRequirements {
+                if CUTEContactChecker.checkShowContactForbiddenWarningAlert(otherRequirement) {
+                    return
+                }
+            }
+            
             self.submitTicket()
         })
     }
@@ -317,6 +324,10 @@ class CUTESingleRoomPreferenceViewController: CUTEFormViewController {
     func onOtherRequirements(sender:AnyObject) {
         if let cell = sender as? FXFormBaseCell {
             let value = cell.field.value as! String
+
+            if CUTEContactChecker.checkShowContactForbiddenWarningAlert(value) {
+                return
+            }
 
             self.form().syncTicketWithBlock({ (ticket:CUTETicket!) -> Void in
                 if value.characters.count > 0 {
