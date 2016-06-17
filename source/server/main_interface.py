@@ -125,9 +125,9 @@ def default(user, params):
         )
 
 
-@f_get('/signup', params=dict(
-    from=str,
-))
+@f_get('/signup', params={
+    "from": str,
+})
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check()
 def signup(user, params):
@@ -151,9 +151,9 @@ def verify_phone(user):
     return currant_util.common_template("verify_phone", title=title)
 
 
-@f_get('/vip_sign_up', params=dict(
-    from=str,
-))
+@f_get('/vip_sign_up', params={
+    "from": str,
+})
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check()
 def vip_sign_up(user, params):
@@ -169,9 +169,9 @@ def vip_sign_up(user, params):
     return currant_util.common_template("sign_up_vip", title=title)
 
 
-@f_get('/signin', params=dict(
-    from=str,
-))
+@f_get('/signin', params={
+    "from": str,
+})
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check()
 def signin(user, params):
@@ -187,9 +187,9 @@ def signin(user, params):
     return currant_util.common_template("signin", title=title)
 
 
-@f_get('/affiliate-signup', params=dict(
-    from=str,
-))
+@f_get('/affiliate-signup', params={
+    "from": str,
+})
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check()
 def affiliate_signup(user, params):
@@ -200,7 +200,7 @@ def affiliate_signup(user, params):
     else:
         baseurl = "://".join(request.urlparts[:2])
         redirect(baseurl)
-        
+
     title = _('Affiliate 注册')
     return currant_util.common_template("affiliate_signup", title=title)
 
