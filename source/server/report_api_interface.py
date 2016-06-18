@@ -365,20 +365,7 @@ def geonames_get(_id):
     return f_app.geonames.gazetteer.get(_id)
 
 
-@f_api('/geonames/search', params=dict(
-    country="country",
-    admin1=str,
-    admin2=str,
-    admin3=str,
-    feature_code=(str, True),
-    name=str,
-    name_index=str,
-    geoip=bool,
-    latitude=float,
-    longitude=float,
-    search_range=(int, 5000),
-))
-def geonames_search(params):
+def _geonames_search(params):
     """
     Valid ``feature_code`` are: "ADM1", "ADM2", "ADM3", "city", "PPLX".
 
@@ -419,6 +406,45 @@ def geonames_search(params):
         return f_app.geonames.gazetteer.get_nearby(params)
     else:
         return f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(params, per_page=-1))
+
+
+@f_api('/geonames/search', params=dict(
+    country="country",
+    admin1=str,
+    admin2=str,
+    admin3=str,
+    feature_code=(str, True),
+    name=str,
+    name_index=str,
+    geoip=bool,
+    latitude=float,
+    longitude=float,
+    search_range=(int, 5000),
+), api=2)
+def geonames_search(params):
+    return _geonames_search(params)
+
+
+@f_api('/geonames/search', params=dict(
+    country="country",
+    admin1=str,
+    admin2=str,
+    admin3=str,
+    feature_code=(str, True),
+    name=str,
+    name_index=str,
+    geoip=bool,
+    latitude=float,
+    longitude=float,
+    search_range=(int, 5000),
+), api=1)
+def geonames_search_v1(params):
+    result = _geonames_search(params)
+    for item in result:
+        if "name" in item and isinstance(item["name"], dict) and "_i18n" in item["name"]:
+            if "zh_Hans_CN" in item["name"] and "en_US" in item["name"]:
+                item["name"] = item["name"]["zh_Hans_CN"] + " " + item["name"]["en_US"]
+    return result
 
 
 @f_api('/postcode/search', params=dict(
