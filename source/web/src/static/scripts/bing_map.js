@@ -7,8 +7,8 @@
         var mapsStartLoad = false
         function checkStartLoad() {
             var windowOffset = window.pageYOffset;
-            if (windowOffset + $(window).height() > mapsTop && !mapsStartLoad) {                             
-                onMapScriptLoadCallback()
+            if (windowOffset + $(window).height() > mapsTop && !mapsStartLoad) {
+                onMapScriptLoadCallback(bingMapKey)
                 mapsStartLoad = true   
             }
         }
