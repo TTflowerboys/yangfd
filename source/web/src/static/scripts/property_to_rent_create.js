@@ -628,7 +628,9 @@
                 })) {
                 $('#load_more .load_more').trigger('click')
             }
-            errorArr[errorArr.length - 1].elem.trigger('focus')
+            var $elem = errorArr[errorArr.length - 1].elem
+            window.scrollTo(0, $elem.offset().top - 60)//let the elem under the dhtmlx panel
+            $elem.trigger('focus')            
             window.dhtmlx.message({ type:'error', text: errorArr[errorArr.length - 1].msg})
             $errorMsg.text(errorArr[errorArr.length - 1].msg).show()
         }
