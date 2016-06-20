@@ -63,7 +63,7 @@ def default(user, params):
 
     hot_city_list = []
     hot_city_geonames_params = dict({
-        "name": {"$in": ["London", "Liverpool", "Sheffield", "Manchester", "Birmingham"]},
+        "name_ascii": {"$in": ["London", "Liverpool", "Sheffield", "Manchester", "Birmingham"]},
         "feature_code": {"$in": ["PPLC", "PPLA", "PPLA2"]},
         "country": "GB"
     })
