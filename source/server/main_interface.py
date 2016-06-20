@@ -67,7 +67,7 @@ def default(user, params):
         "feature_code": {"$in": ["PPLC", "PPLA", "PPLA2"]},
         "country": "GB"
     })
-    hot_city_list = f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(hot_city_geonames_params, per_page=-1))
+    hot_city_list = f_app.i18n.process_i18n(f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(hot_city_geonames_params, per_page=-1)))
 
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
