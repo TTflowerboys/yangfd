@@ -204,7 +204,18 @@
             </div>
         </div>
 
-        <div class="maps_wrapper">            
+        <div class="maps_wrapper">
+            %if is_mobile_client():
+                <div class="staticMap">
+                    <img id="mapImg" class="mapImg" alt="" onerror="window.onImgError(this);"/>
+                    <div id="showMap" class="button red">
+                        <label for="">
+                            {{_('查看房产周边设施')}}
+                        </label>
+                        <img class="icons" alt="" src="/static/images/property_details/icon-static-map-category.png"/>
+                    </div>
+                </div>
+            %end
             <!--@@include partials/bing_map.html  -->
             <!--@@include partials/bing_map_icons.html -->
             <img src="/static/images/common/ajax-loader.gif" id="mapLoadIndicator" class="mapLoadIndicator" style="display:none;"/>

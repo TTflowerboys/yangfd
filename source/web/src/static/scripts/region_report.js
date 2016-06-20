@@ -110,41 +110,64 @@
     }
 
     findLocation(function (location) {
-        window.setupMap(function () {
+        window.setupMap(function (bingMapKey) {
             ga('send', 'event', 'region_report', 'click', 'view-map')
 
-            window.showMapIndicator()
-            var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'
-            window.onBingMapScriptLoad = function () {
-                //showMap
-                $('.staticMap').hide()
-                $('.maps').show()
+            function showBingMap() {
+                window.showMapIndicator()
+                var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'
+                window.onBingMapScriptLoad = function () {
+                    //showMap
+                    $('.staticMap').hide()
+                    $('.maps').show()
 
-                $('[data-tabs]').tabs({ trigger: 'click' }).on('openTab', function (event, target, tabName) {
-                    $('[data-tab-name=' + tabName + ']').show()
-                })
-                //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
-                window.showMapIndicator()
-                window.getRegion(window.report.zipcode_index, function (polygon) {
-                    window.showTransitMap(location, polygon, false, null, null, function () {
-                        window.hideMapIndicator()
+                    $('[data-tabs]').tabs({ trigger: 'click' }).on('openTab', function (event, target, tabName) {
+                        $('[data-tab-name=' + tabName + ']').show()
                     })
-                })
-                window.showMapIndicator()
-                window.getRegion(window.report.zipcode_index, function (polygon) {
-                    window.showSchoolMap(location, polygon, false, null, null, function () {
-                        window.hideMapIndicator()
+                    //TODO: find why need get region for different map, may because for the delay after bing map load, or load bing map module for different map
+                    window.showMapIndicator()
+                    window.getRegion(window.report.zipcode_index, function (polygon) {
+                        window.showTransitMap(location, polygon, false, null, null, function () {
+                            window.hideMapIndicator()
+                        })
                     })
-                })
-                window.showMapIndicator()
-                window.getRegion(window.report.zipcode_index, function (polygon) {
-                    window.showFacilityMap(location, polygon, false, null, null, function () {
-                        window.hideMapIndicator()
+                    window.showMapIndicator()
+                    window.getRegion(window.report.zipcode_index, function (polygon) {
+                        window.showSchoolMap(location, polygon, false, null, null, function () {
+                            window.hideMapIndicator()
+                        })
                     })
-                })
-                window.hideMapIndicator()
+                    window.showMapIndicator()
+                    window.getRegion(window.report.zipcode_index, function (polygon) {
+                        window.showFacilityMap(location, polygon, false, null, null, function () {
+                            window.hideMapIndicator()
+                        })
+                    })
+                    window.hideMapIndicator()
+                }
+                $('body').append(scriptString)
             }
-            $('body').append(scriptString)
+
+            if ($('#mapImg').length > 0) {
+                var lat = location.latitude
+                var lng = location.longitude
+                var width = window.team.isPhone()? $('.staticMap').width(): 800
+                var height = window.team.isPhone()? 240: 480
+
+                var staticImgUrl = 'http://dev.virtualearth.net/REST/V1/Imagery/Map/Road/'+ lat + '%2C' + lng +'/13?mapSize=' + width + ',' + height + '&format=png&pushpin='+ lat +','+ lng +';64;&key=' + bingMapKey
+                $('#mapImg').attr('src', staticImgUrl)
+
+                $('#mapImg, #showMap').click(function (e) {
+                    if (!$('#mapLoadIndicator').is(':visible')) {
+                        ga('send', 'event', 'property_detail', 'click', 'view-map')
+                        showBingMap()
+                    }
+                })
+            }
+            else {
+                showBingMap()
+            }
+
         })
     })
 
