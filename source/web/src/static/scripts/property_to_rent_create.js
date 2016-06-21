@@ -18,9 +18,7 @@
     if(!$('#landlordType').val()) {
         $('#landlordType').find('option[data-slug=live_out_landlord]').prop('selected', 'selected').end().trigger('chosen:updated')
     }
-    if(!$('#unit option[selected]').length && window.currency) {
-        $('#unit').find('option[value=' + window.currency + ']').prop('selected', 'selected').end().trigger('chosen:updated')
-    } else if(!$('#unit option[selected]').length) {
+    if(!$('#unit option[selected]').length) {
         $('#unit').find('option[value=' + 'GBP' + ']').prop('selected', 'selected').end().trigger('chosen:updated')
     }
     $('#unit').bind('change', function () {
