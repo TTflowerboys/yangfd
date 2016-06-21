@@ -21,7 +21,7 @@
     if(!$('#unit option[selected]').length && window.currency) {
         $('#unit').find('option[value=' + window.currency + ']').prop('selected', 'selected').end().trigger('chosen:updated')
     } else if(!$('#unit option[selected]').length) {
-        $('#unit').find('option').eq(0).prop('selected', 'selected').end().trigger('chosen:updated')
+        $('#unit').find('option[value=' + 'GBP' + ']').prop('selected', 'selected').end().trigger('chosen:updated')
     }
     $('#unit').bind('change', function () {
         $('label[for=deposit]').text(window.team.getCurrencySymbol($('#unit').val()))
