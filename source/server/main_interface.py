@@ -131,9 +131,9 @@ def default(user, params):
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check()
 def signup(user, params):
-    if user:        
+    if user:
         from_url = params.pop("from", "/")
-        if from_url:    
+        if from_url:
             baseurl = "://".join(request.urlparts[:2])
             redirect(baseurl + from_url)
         else:
@@ -158,9 +158,9 @@ def verify_phone(user):
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check()
 def vip_sign_up(user, params):
-    if user:        
+    if user:
         from_url = params.pop("from", "/")
-        if from_url:    
+        if from_url:
             baseurl = "://".join(request.urlparts[:2])
             redirect(baseurl + from_url)
         else:
@@ -177,9 +177,9 @@ def vip_sign_up(user, params):
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check()
 def signin(user, params):
-    if user:        
+    if user:
         from_url = params.pop("from", "/")
-        if from_url:    
+        if from_url:
             baseurl = "://".join(request.urlparts[:2])
             redirect(baseurl + from_url)
         else:
@@ -196,9 +196,9 @@ def signin(user, params):
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check()
 def affiliate_signup(user, params):
-    if user:        
+    if user:
         from_url = params.pop("from", "/")
-        if from_url:    
+        if from_url:
             baseurl = "://".join(request.urlparts[:2])
             redirect(baseurl + from_url)
         else:
@@ -2861,6 +2861,17 @@ def user_rent_request(user, params):
         period = period_start - request_time
         return period.days
 
+    def time_period_days(ticket):
+        time = ""
+        period_start = ticket.get("rent_available_time", None)
+        period_end = ticket.get("rent_deadline_time", None)
+        if period_end is None or period_start is None:
+            time = "不明"
+        else:
+            period = period_end - period_start
+            time = "%d" % period.days
+        return time
+
     def time_period_label(ticket):
         time = ""
         period_start = ticket.get("rent_available_time", None)
@@ -2920,6 +2931,14 @@ def user_rent_request(user, params):
             else:
                 return single_property.get('short_id', '')
         return ''
+
+    def get_price(ticket):
+        price = ticket.get('price')
+        return "%.2f %s" % (float(price.get('value')), price.get('unit'))
+
+    def get_rent_type(ticket):
+        rent_type = ticket.get('rent_type')
+        return rent_type.get('value')
 
     def get_referer_id(ticket):
         ticket_id = ticket['id']
@@ -3072,11 +3091,11 @@ def user_rent_request(user, params):
     ws.append(header)'''
 
     Header = [
-        ["提交时间", "意向房源", "租期", "", "", "", "客户", "", "", "", "", "",
+        ["提交时间", "意向房源", "租期", "", "", "", "", "客户", "", "", "", "", "",
          "入住信息", "", "", "", "TBC", "", "Location", "", "", "relocate", "租客对房东的问题",
-         "咨询处理状态", "备注", "咨询房源提交量", "房源地址", "POST CODE", "short ID", "url", "来源"
+         "咨询处理状态", "备注", "咨询房源提交量", "房源地址", "POST CODE", "出租类型", "每周租金", "short ID", "url", "来源"
          ],
-        ["", "", "入住", "结束", "租期描述", "入住与提交时间差", "名字", "性别",
+        ["", "", "入住", "结束", "租期天数", "租期描述", "入住与提交时间差", "名字", "性别",
          "现状", "年龄", "电话", "邮件", "人数", "吸烟", "带小孩", "带宠物",
          "签证类型", "签证到期时间", "IP", "国家", "城市"
          ]
@@ -3084,12 +3103,11 @@ def user_rent_request(user, params):
     merge = [
         'A1:A2',
         'B1:B2',
-        'C1:F1',
-        'G1:L1',
-        'M1:P1',
-        'Q1:R1',
-        'S1:U1',
-        'V1:V2',
+        'C1:G1',
+        'H1:M1',
+        'N1:Q1',
+        'R1:S1',
+        'T1:V1',
         'W1:W2',
         'X1:X2',
         'Y1:Y2',
@@ -3098,7 +3116,10 @@ def user_rent_request(user, params):
         'AB1:AB2',
         'AC1:AC2',
         'AD1:AD2',
-        'AE1:AE2'
+        'AE1:AE2',
+        'AF1:AF2',
+        'AG1:AG2',
+        'AH1:AH2'
     ]
     for header in Header:
         ws.append(header)
@@ -3119,7 +3140,7 @@ def user_rent_request(user, params):
             url = ''
 
         for ticket_id in ticket_request['interested_rent_tickets']:
-            ticket = f_app.ticket.get(ticket_id, ignore_nonexist=True)
+            ticket = f_app.i18n.process_i18n(f_app.ticket.get(ticket_id, ignore_nonexist=True))
             if ticket is None:
                 continue
 
@@ -3168,6 +3189,7 @@ def user_rent_request(user, params):
                 ILLEGAL_CHARACTERS_RE.sub(r'', ticket.get('title', '')),
                 six.text_type(timezone('Europe/London').localize(ticket_request['rent_available_time']).strftime("%Y-%m-%d %H:%M:%S")),
                 six.text_type(timezone('Europe/London').localize(ticket_request['rent_deadline_time']).strftime("%Y-%m-%d %H:%M:%S")),
+                time_period_days(ticket_request),
                 time_period_label(ticket_request),
                 time_request_available(ticket_request),
                 ticket_request.get('nickname', ''),
@@ -3192,6 +3214,8 @@ def user_rent_request(user, params):
                 target_ticket.count(ticket_id),
                 address_and_postcode[0],
                 address_and_postcode[1],
+                get_rent_type(ticket),
+                get_price(ticket),
                 get_short_id(ticket),
                 url if url else '',
                 get_referrer_source(ticket_request),
