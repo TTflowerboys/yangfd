@@ -45,6 +45,14 @@ def property_to_rent_list(params):
     })
     property_city_list = f_app.i18n.process_i18n(f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(geonames_params, per_page=-1)))
 
+    hot_city_list = []
+    hot_city_geonames_params = dict({
+        "name_ascii": {"$in": ["London", "Liverpool", "Sheffield", "Manchester", "Birmingham"]},
+        "feature_code": {"$in": ["PPLC", "PPLA", "PPLA2"]},
+        "country": "GB"
+    })
+    hot_city_list = f_app.i18n.process_i18n(f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(hot_city_geonames_params, per_page=-1)))
+
     title = ''
     keywords = ''
 
@@ -74,6 +82,7 @@ def property_to_rent_list(params):
                                         description=description,
                                         keywords=keywords,
                                         city_list=city_list,
+                                        hot_city_list=hot_city_list,
                                         property_country_list=property_country_list,
                                         property_city_list=property_city_list,
                                         rent_type_list=rent_type_list,
