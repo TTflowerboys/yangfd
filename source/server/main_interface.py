@@ -69,6 +69,13 @@ def default(user, params):
     })
     hot_city_list = f_app.i18n.process_i18n(f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(hot_city_geonames_params, per_page=-1)))
 
+    hot_school_list = []
+    hot_school_geonames_params = dict({
+        "name": {"$in": ["University College London", "University of the Arts, London", "King\'s College London", "University of London (Institutes and activities)"]},
+        "country": "GB"
+    })
+    hot_school_list = f_app.hesa.university.get(f_app.hesa.university.search(hot_school_geonames_params, per_page=-1))[::-1]
+
     rent_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('rent_type'))
     property_type_list = f_app.i18n.process_i18n(f_app.enum.get_all('property_type'))
     property_type_list_without_new_property = filter(lambda item: item.get('slug') != 'new_property', property_type_list)
@@ -103,7 +110,8 @@ def default(user, params):
             property_type_list=property_type_list,
             property_type_list_without_new_property=property_type_list_without_new_property,
             icon_map=currant_util.icon_map,
-            hot_city_list=hot_city_list
+            hot_city_list=hot_city_list,
+            hot_school_list=hot_school_list
         )
     else:
         return currant_util.common_template(
@@ -121,7 +129,8 @@ def default(user, params):
             property_type_list=property_type_list,
             property_type_list_without_new_property=property_type_list_without_new_property,
             icon_map=currant_util.icon_map,
-            hot_city_list=hot_city_list
+            hot_city_list=hot_city_list,
+            hot_school_list=hot_school_list
         )
 
 
@@ -227,7 +236,22 @@ def intention(user):
         "country": country
     })
     property_city_list = f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(geonames_params, per_page=-1))
-    return currant_util.common_template("intention", intention_list=intention_list, title=title, icon_map=currant_util.icon_map, rent_type_list=rent_type_list, property_type_list=property_type_list, property_type_list_without_new_property=property_type_list_without_new_property, property_country_list=property_country_list, property_city_list=property_city_list, user_type_list=user_type_list)
+    hot_city_list = []
+    hot_city_geonames_params = dict({
+        "name_ascii": {"$in": ["London", "Liverpool", "Sheffield", "Manchester", "Birmingham"]},
+        "feature_code": {"$in": ["PPLC", "PPLA", "PPLA2"]},
+        "country": "GB"
+    })
+    hot_city_list = f_app.i18n.process_i18n(f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(hot_city_geonames_params, per_page=-1)))
+
+    hot_school_list = []
+    hot_school_geonames_params = dict({
+        "name": {"$in": ["University College London", "University of the Arts, London", "King\'s College London", "University of London (Institutes and activities)"]},
+        "country": "GB"
+    })
+    hot_school_list = f_app.hesa.university.get(f_app.hesa.university.search(hot_school_geonames_params, per_page=-1))[::-1]
+
+    return currant_util.common_template("intention", intention_list=intention_list, title=title, icon_map=currant_util.icon_map, rent_type_list=rent_type_list, property_type_list=property_type_list, property_type_list_without_new_property=property_type_list_without_new_property, property_country_list=property_country_list, property_city_list=property_city_list, hot_city_list=hot_city_list, hot_school_list=hot_school_list, user_type_list=user_type_list)
 
 
 @f_get('/reset_password', '/reset-password')

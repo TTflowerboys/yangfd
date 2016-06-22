@@ -329,19 +329,6 @@ def common_template(path, **kwargs):
     if 'bedroom_count_list' not in kwargs:
         kwargs['bedroom_count_list'] = f_app.i18n.process_i18n(get_sorted_enums("bedroom_count"))
 
-    if 'hot_city_list' not in kwargs:
-        hot_city_geonames_params = dict({
-            "name": {"$in": ["London", "Liverpool", "Sheffield", "Manchester", "Birmingham"]},
-            "feature_code": {"$in": ["PPLC", "PPLA", "PPLA2"]},
-            "country": "GB"
-        })
-        kwargs['hot_city_list'] = f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(hot_city_geonames_params, per_page=-1))
-    if 'hot_school_list' not in kwargs:
-        hot_school_geonames_params = dict({
-            "name": {"$in": ["University College London", "University of the Arts, London", "King\'s College London", "University of London (Institutes and activities)"]},
-            "country": "GB"
-        })
-        kwargs['hot_school_list'] = f_app.hesa.university.get(f_app.hesa.university.search(hot_school_geonames_params, per_page=-1))[::-1]
     if 'currentDate' not in kwargs:
         kwargs['currentDate'] = date.today().isoformat()
     if 'currentYear' not in kwargs:
