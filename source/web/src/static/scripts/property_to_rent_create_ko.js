@@ -73,17 +73,24 @@
                 }
             }
 
-            function generateTimeConfig(length, interval, arroud) {
-                var start
+            function generateTimeConfig(length, interval, arroud) {                
                 if(arroud && arroud > length * interval / 2) {
+                    var start
                     arroud = Math.floor(arroud / interval) * interval
                     start = arroud - length * interval / 2
-                } else {
-                    start = 0
+                    return new Array(length + 1).join('0').split('').map(function (val, index) {
+                      return {value:((index + 1) * interval + (start || 0)).toString(), unit: window.i18n('分钟')}
+                    })
+                } else {         
+                   var littleGapArray =  new Array(interval + 1).join('0').split('').map(function (val, index) {
+                      return {value:(index + 1).toString(), unit: window.i18n('分钟')}
+                    })       
+                   var gapArray = new Array(length).join('0').split('').map(function (val, index) {
+                      return {value:((index + 2) * interval).toString(), unit: window.i18n('分钟')}
+                    })
+                    return _.union(littleGapArray, gapArray)
                 }
-                return new Array(length + 1).join('0').split('').map(function (val, index) {
-                    return {value:((index + 1) * interval + (start || 0)).toString(), unit: window.i18n('分钟')}
-                })
+                
             }
         },
         template: { element: 'edit-travel-time' }
