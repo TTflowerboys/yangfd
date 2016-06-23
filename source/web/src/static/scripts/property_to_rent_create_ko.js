@@ -26,9 +26,9 @@
                     var timeToChoose
                     this.lastTimeStamp = (new Date()).getTime() //因为knockout的options的bind每次初始化都会默认选择第一个，而且完全无法取消，所以需要一个时间戳来判断是否真的是用户操作在修改time
                     if(this.selectedType() && this.selectedType().isRaw) {
-                        timeToChoose = [{value: this.selectedType().time.value, unit: window.i18n('分钟')}].concat(generateTimeConfig(12, 5, parseInt(this.selectedType().time.value)))
+                        timeToChoose = [{value: this.selectedType().time.value, unit: window.i18n('分钟')}].concat(generateTimeConfig(parseInt(this.selectedType().time.value)))
                     } else {
-                        timeToChoose = generateTimeConfig(12, 5, this.selectedType() ? parseInt(this.selectedType().time.value) : 0)
+                        timeToChoose = generateTimeConfig(this.selectedType() ? parseInt(this.selectedType().time.value) : 0)
                     }
                     return _.sortBy(timeToChoose, function (item) {
                         return parseInt(item.value)
@@ -73,24 +73,35 @@
                 }
             }
 
-            function generateTimeConfig(length, interval, arroud) {                
-                if(arroud && arroud > length * interval / 2) {
-                    var start
-                    arroud = Math.floor(arroud / interval) * interval
-                    start = arroud - length * interval / 2
-                    return new Array(length + 1).join('0').split('').map(function (val, index) {
-                      return {value:((index + 1) * interval + (start || 0)).toString(), unit: window.i18n('分钟')}
-                    })
-                } else {         
-                   var littleGapArray =  new Array(interval + 1).join('0').split('').map(function (val, index) {
-                      return {value:(index + 1).toString(), unit: window.i18n('分钟')}
-                    })       
-                   var gapArray = new Array(length).join('0').split('').map(function (val, index) {
-                      return {value:((index + 2) * interval).toString(), unit: window.i18n('分钟')}
-                    })
-                    return _.union(littleGapArray, gapArray)
-                }
-                
+            function generateTimeConfig(middleValue) {
+                var timeArray = _.filter([
+                    middleValue - 30,
+                    middleValue - 25,
+                    middleValue - 20,
+                    middleValue - 15,
+                    middleValue - 10,
+                    middleValue - 5,
+                    middleValue - 4,
+                    middleValue - 3,
+                    middleValue - 2,
+                    middleValue - 1,
+                    middleValue,
+                    middleValue + 1,
+                    middleValue + 2,
+                    middleValue + 3,
+                    middleValue + 4,
+                    middleValue + 5,
+                    middleValue + 10,
+                    middleValue + 15,
+                    middleValue + 20,
+                    middleValue + 25,
+                    middleValue + 30,
+                ], function (value) {
+                    return value > 0
+                })
+                return timeArray.map(function (value) {
+                    return {value:value.toString(), unit: window.i18n('分钟')}
+                })                                
             }
         },
         template: { element: 'edit-travel-time' }
