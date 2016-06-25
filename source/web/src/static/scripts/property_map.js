@@ -6,7 +6,7 @@
 
             function showBingMap() {
                 window.showMapIndicator()
-                var scriptString = '<script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'
+                var scriptString = '<script src="https://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&onscriptload=onBingMapScriptLoad"></script>'
                 window.onBingMapScriptLoad = function () {
                     //showMap
                     $('.staticMap').hide()
@@ -40,7 +40,7 @@
                 var width = window.team.isPhone()? $('.staticMap').width(): 800
                 var height = window.team.isPhone()? 240: 480
 
-                var staticImgUrl = 'http://dev.virtualearth.net/REST/V1/Imagery/Map/Road/'+ lat + '%2C' + lng +'/13?mapSize=' + width + ',' + height + '&format=png&pushpin='+ lat +','+ lng +';64;&key=' + bingMapKey
+                var staticImgUrl = 'https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/'+ lat + '%2C' + lng +'/13?mapSize=' + width + ',' + height + '&format=png&pushpin='+ lat +','+ lng +';64;&key=' + bingMapKey
                 $('#mapImg').attr('src', staticImgUrl)
 
                 $('#mapImg, #showMap').click(function (e) {

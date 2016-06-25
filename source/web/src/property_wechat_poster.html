@@ -510,7 +510,7 @@
         }
         function initMapSrc(config){
             config.height = parseInt(config.width * $(window).height() / $(window).width())
-            var baseSrc = 'http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/{centerPoint}/{zoomLevel}?mapSize={width},{height}&mapLayer=TrafficFlow&format=jpeg&key={key}'
+            var baseSrc = 'https://dev.virtualearth.net/REST/v1/Imagery/Map/Road/{centerPoint}/{zoomLevel}?mapSize={width},{height}&mapLayer=TrafficFlow&format=jpeg&key={key}'
             if(config.centerPoint !== ',') {
                 for(var k in config) {
                     baseSrc = baseSrc.replace('{' + k + '}', config[k])

@@ -232,7 +232,7 @@
         })
 
         var format = '$format=json';
-        var apiPrefix = country === 'US'? 'http://spatial.virtualearth.net/REST/v1/data/f22876ec257b474b82fe2ffcb8393150/NavteqNA/NavteqPOIs': 'http://spatial.virtualearth.net/REST/v1/data/c2ae584bbccc4916a0acf75d1e6947b4/NavteqEU/NavteqPOIs'
+        var apiPrefix = country === 'US'? 'https://spatial.virtualearth.net/REST/v1/data/f22876ec257b474b82fe2ffcb8393150/NavteqNA/NavteqPOIs': 'https://spatial.virtualearth.net/REST/v1/data/c2ae584bbccc4916a0acf75d1e6947b4/NavteqEU/NavteqPOIs'
         var sdsRequest =  apiPrefix + '?' +
                           spatialFilter + '&' +
                           select + '&' +
