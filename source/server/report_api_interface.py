@@ -442,8 +442,8 @@ def geonames_search_v1(params):
     result = _geonames_search(params)
     for item in result:
         if "name" in item and isinstance(item["name"], dict) and "_i18n" in item["name"]:
-            if "zh_Hans_CN" in item["name"] and "en_US" in item["name"]:
-                item["name"] = item["name"]["zh_Hans_CN"] + " " + item["name"]["en_US"]
+            if "en_US" in item["name"]:
+                item["name"] = item["name"]["en_US"]
     return result
 
 
