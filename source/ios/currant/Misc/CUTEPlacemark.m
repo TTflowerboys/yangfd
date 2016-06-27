@@ -93,5 +93,13 @@
     return [CUTEAddressUtil buildAddress:@[NilNullToEmpty(self.street), NilNullToEmpty(self.city.name), NilNullToEmpty(self.postalCode)]];
 }
 
+- (BOOL)isCityEqualToCity:(CUTECity *)city {
+    CUTECity * theCity = self.city;
+    if (theCity) {
+        NSString *nameAscii = IsNilNullOrEmpty(city.nameAscii)? city.name: city.nameAscii;
+        return [theCity.name.lowercaseString hasPrefix:nameAscii.lowercaseString];
+    }
+    return NO;
+}
 
 @end

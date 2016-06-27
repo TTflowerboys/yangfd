@@ -28,4 +28,6 @@
 
 - (NSString *__nullable)address;
 
+- (BOOL)isCityEqualToCity:(CUTECity *__nonnull)city;
+
 @end

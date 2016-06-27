@@ -667,12 +667,7 @@ class CUTEGeoManager: NSObject {
                         CUTEAPICacheManager.sharedInstance().getCitiesByCountry(country).continueWithBlock({ (task:BFTask!) -> AnyObject! in
                             if let cities = task.result as? [CUTECity] {
                                 if let city = cities.filter({ (city:CUTECity) -> Bool in
-                                    if placemark.city != nil {
-                                        return placemark.city!.name.lowercaseString.hasPrefix(city.name.lowercaseString)
-                                    }
-                                    else {
-                                        return false
-                                    }
+                                    return placemark.isCityEqualToCity(city)                                
                                 }).first {
                                     placemark.country = country
                                     placemark.city = city

@@ -17,6 +17,8 @@
 
 @property (nonnull, strong, nonatomic) NSString *name;
 
+@property (nullable, strong, nonatomic) NSString *nameAscii;
+
 @property (nullable, strong, nonatomic) NSString *admin1;
 
 

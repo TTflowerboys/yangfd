@@ -59,7 +59,9 @@
     }
 
     if (_neighborhood) {
-        [array insertObject:@{FXFormFieldKey: @"neighborhood", FXFormFieldTitle: STR(@"RentAddressEdit/街区"), FXFormFieldOptions: _allNeighborhoods, FXFormFieldDefaultValue: _neighborhood, FXFormFieldAction: @"onNeighborhoodEdit:", FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:3];
+        if (!IsArrayNilOrEmpty(_allNeighborhoods)) {
+            [array insertObject:@{FXFormFieldKey: @"neighborhood", FXFormFieldTitle: STR(@"RentAddressEdit/街区"), FXFormFieldOptions: _allNeighborhoods, FXFormFieldDefaultValue: _neighborhood, FXFormFieldAction: @"onNeighborhoodEdit:", FXFormFieldViewController: [CUTEFormFieldOptionViewController class]} atIndex:3];
+        }
     }
     else {
         if (!IsArrayNilOrEmpty(_allNeighborhoods)) {

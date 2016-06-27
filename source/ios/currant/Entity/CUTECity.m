@@ -15,6 +15,7 @@
 {
     return @{@"identifier": @"id",
              @"name": @"name",
+             @"nameAscii": @"name_ascii",
              @"admin1": @"admin1",
              @"country": @"country"};
 }
