@@ -7,7 +7,8 @@
 <pre><code>npm run i18n
 </code></pre><p>这个任务会将 JS 文件中的 <code>i18n(&#39;文字&#39;)</code> 提取为 </p>
 <pre><code>&lt;input type=&quot;hidden&quot; id=&quot;i18n-str-文字&quot; value=&quot;文字&quot;&gt;
-</code></pre><p>并保存至 i18n.html 或 i18n_admin.html。并提供如下方法供 JS 调用</p>
+</code></pre><p>文字会通过gulp-i18n提取出来，生成到每个html文件中
+并提供如下方法供 JS 调用</p>
 <pre><code>window.i18n = function (name) {
    var input = document.getElementById(&#39;i18n-str-&#39; + name)
    if (!input) { return name }

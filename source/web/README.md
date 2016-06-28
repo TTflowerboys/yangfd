@@ -19,7 +19,8 @@ npm run i18n
 <input type="hidden" id="i18n-str-文字" value="文字">
 ```
 
-并保存至 i18n.html 或 i18n_admin.html。并提供如下方法供 JS 调用
+文字会通过gulp-i18n提取出来，生成到每个html文件中
+并提供如下方法供 JS 调用
 
 ```
 window.i18n = function (name) {
