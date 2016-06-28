@@ -55,7 +55,7 @@ gulp.task('bower', function () {
 
 //Debug
 
-gulp.task('debug', ['bower', 'debug:lint', 'symlink', 'less2css', 'cssAutoPrefix', 'html-extend', 'watch'], function () {
+gulp.task('debug', ['bower', 'debug:lint', 'symlink', 'less2css', 'cssAutoPrefix', 'html-extend', 'i18n', 'watch'], function () {
     console.info(chalk.black.bgWhite.bold('You can debug now!'))
 })
 
@@ -108,13 +108,19 @@ gulp.task('html-extend', function () {
         .pipe(gulp.dest(myPaths.dist))
 })
 
+gulp.task('i18n', ['bower', 'html-extend'], function () {
+    return  gulp.src([myPaths.dist + '*.html'], {base: 'dist'})
+        .pipe(i18n({placeholder: '<!--I18N Placeholder-->'}))
+        .pipe(gulp.dest(myPaths.dist))
+})
+
 gulp.task('clean', function () {
     return gulp.src([myPaths.dist], {read: false})
         .pipe(vinylPaths(del))
 })
 
 //better only rev the css and html used in html
-gulp.task('rev', ['i18n'], function () {
+gulp.task('rev', ['build:i18n'], function () {
     return gulp.src(['dist/static/admin/templates/**/*.html',
     'dist/static/admin/emails/**/*.html',
     'dist/static/fonts/**/*', 
@@ -175,7 +181,7 @@ gulp.task('fingerprintAdminPageResource', ['revAdminPageResource'], function () 
 // 'test': xxx-test.bbtechgroup.com
 // 'production': online production version
 
-gulp.task('build', ['bower', 'lint', 'clean', 'build:copy', 'build:imagemin', 'sprite', 'build:less2css', 'build:cssAutoPrefix', 'build:html-extend', 'build:concat', 'i18n', 'rev', 'fingerprint', 'revAdminPageResource', 'fingerprintAdminPageResource', 'setupCDN'],
+gulp.task('build', ['bower', 'lint', 'clean', 'build:copy', 'build:imagemin', 'sprite', 'build:less2css', 'build:cssAutoPrefix', 'build:html-extend', 'build:concat', 'build:i18n', 'rev', 'fingerprint', 'revAdminPageResource', 'fingerprintAdminPageResource', 'setupCDN'],
     function () {
         console.info(chalk.black.bgWhite.bold('Building tasks done!'))
     })
@@ -238,7 +244,7 @@ gulp.task('build:concat', ['build:html-extend'], function () {
         .pipe(gulp.dest(myPaths.dist))
 })
 
-gulp.task('i18n', ['build:concat'], function () {
+gulp.task('build:i18n', ['build:concat'], function () {
     return  gulp.src([myPaths.dist + '*.html'], {base: 'dist'})
         .pipe(i18n({placeholder: '<!--I18N Placeholder-->'}))
         .pipe(gulp.dest(myPaths.dist))
@@ -277,7 +283,7 @@ gulp.task('setupCDN', ['fingerprintAdminPageResource'], function () {
 })
 
 var livereload = require('gulp-livereload')
-gulp.task('watch', ['symlink', 'less2css', 'cssAutoPrefix', 'html-extend'], function () {
+gulp.task('watch', ['symlink', 'less2css', 'cssAutoPrefix', 'html-extend', 'i18n'], function () {
     livereload.listen();
     gulp.watch(myPaths.less, ['less2css']).on('change', changeHanddler)
     gulp.watch(myPaths.less, ['cssAutoPrefix']).on('change', changeHanddler)
