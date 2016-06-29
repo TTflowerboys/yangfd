@@ -20,7 +20,7 @@ angular.module('app')
                 scope.onFileSelected = function ($files) {
                     var file = $files[0]
                     if (file) {
-                        var url = undefined
+                        var url
                         if (scope.host === 'aws_s3') {
                             url = '/api/1/upload_file'
                         } else {
