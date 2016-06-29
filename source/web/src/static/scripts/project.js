@@ -167,10 +167,24 @@
             return (/currant/.test(ua)) ? true : false
         },
         emailReg : /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i,
-        includePhoneOrEmail: function (text) {
+        findPhone: function (text) {
             var includePhoneReg = /(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/
+            return text.match(includePhoneReg)
+        },
+        findEmail: function (text) {
             var includeEmailReg = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i
-            return includePhoneReg.test(text) || includeEmailReg.test(text)
+            return  text.match(includeEmailReg)
+        },
+        includePhoneOrEmail: function (text) {
+            var phoneArray = window.project.findPhone(text)
+            if (phoneArray && phoneArray.length > 1) {
+                return true
+            }
+            var emailArray = window.project.findEmail(text)
+            if (emailArray && emailArray.length > 1) {
+                return true
+            }
+            return false
         },
         getEnum: function (type) {
             return window.Q.Promise(_.bind(function (resolve, reject, notify) {

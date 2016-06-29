@@ -563,15 +563,35 @@
         function checkContaction (elem) {
             var wordBlacklist = ['微信', '微博', 'QQ', '电话', 'weixin', 'wechat', 'whatsapp', 'facebook', 'weibo']
             var val = elem.val()
-            if (window.project.includePhoneOrEmail(val) || _.some(wordBlacklist, function (v) {
-                    return val.toLowerCase().indexOf(v.toLowerCase()) !== -1
-                })) {
+
+            function showErrorMsg(errorMsg) {
                 validate = false
                 errorArr.push({
                     elem: elem,
-                    msg: i18n('平台将提供房东联系方式选择，请删除在此填写任何形式的联系方式，违规发布将会予以处理')
+                    msg: errorMsg
                 })
             }
+
+            var phoneArray  = window.project.findPhone(val)
+            if (phoneArray && phoneArray.length > 1) {
+                showErrorMsg(i18n('平台将提供房东联系方式选择，请删除在此填写任何形式的联系方式，违规发布将会予以处理, 请删除电话‘“') + phoneArray[0] + i18n('”'))
+                return
+            }
+
+            var emailArray  = window.project.findEmail(val)
+            if (emailArray && emailArray.length > 1) {
+                showErrorMsg(i18n('平台将提供房东联系方式选择，请删除在此填写任何形式的联系方式，违规发布将会予以处理, 请删除邮箱‘“') + emailArray[0] + i18n('”'))
+                return
+            }
+
+            var blackWords = _.find(wordBlacklist, function (v) {
+                return val.toLowerCase().indexOf(v.toLowerCase()) !== -1
+            })
+            if (blackWords && blackWords.length > 1) {
+                showErrorMsg(i18n('平台将提供房东联系方式选择，请删除在此填写任何形式的联系方式，违规发布将会予以处理, 请删除“') + blackWords[0] + i18n('”'))
+                return
+            }
+
         }
         checkContaction($('#title'))
         checkContaction($('#description'))
