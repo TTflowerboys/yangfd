@@ -39,8 +39,6 @@
 	<string>dev</string>
 	<key>CurrantHost</key>
 	<string>currant-dev.bbtechgroup.com</string>
-	<key>CurrantSecureHost</key>
-	<string>currant-dev.bbtechgroup.com</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>

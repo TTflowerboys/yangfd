@@ -19,24 +19,12 @@ static NSString *host = nil;
     return host;
 }
 
-static NSString *secureHost = nil;
-+ (NSString *)secureHost {
-    if (!secureHost) {
-        secureHost = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CurrantSecureHost"] copy];
-    }
-    return secureHost;
-}
-
 + (void)setHost:(NSString *)theHost {
     host = theHost;
 }
 
 + (NSURL *)hostURL {
-    return [NSURL URLWithString:CONCAT(@"http://", [self host])];
-}
-
-+ (NSURL *)uploadHostURL {
-    return [NSURL URLWithString:CONCAT(@"http://", [self host], @":8286")];
+    return [NSURL URLWithString:CONCAT(@"https://", [self host])];
 }
 
 + (NSString *)yangfdScheme {
@@ -52,7 +40,7 @@ static NSString *secureHost = nil;
 }
 
 + (NSString *)apiEndpoint {
-    return CONCAT(@"http://", [self host], @"/api/1/");
+    return CONCAT(@"https://", [self host], @"/api/1/");
 }
 
 + (NSString *)appStoreId {

@@ -27,7 +27,7 @@ class CUTEPatcher : NSObject {
             "release": releaseVersion,
             ])
 
-        let URL = NSURL(string: URLString, relativeToURL: NSURL(string: "https://" + CUTEConfiguration.secureHost()))
+        let URL = NSURL(string: URLString, relativeToURL: NSURL(string: "https://" + CUTEConfiguration.host()))
         let task = NSURLSession.sharedSession().dataTaskWithURL(URL!) { (data, resp, error) -> Void in
 
             //TODO replace the if cycles to guard

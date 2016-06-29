@@ -151,7 +151,7 @@
             NSData *imageData = task.result;
             if (imageData) {
 
-                AFHTTPRequestOperation *operation = [_imageUploader HTTPRequestOperationWithRequest:[self makeUploadRequestWithURL:[NSURL URLWithString:@"/api/1/upload_image" relativeToURL:[CUTEConfiguration uploadHostURL]] data:imageData] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                AFHTTPRequestOperation *operation = [_imageUploader HTTPRequestOperationWithRequest:[self makeUploadRequestWithURL:[NSURL URLWithString:@"/api/1/upload_image" relativeToURL:[CUTEConfiguration hostURL]] data:imageData] success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSDictionary *responseDic = (NSDictionary *)responseObject;
                     if ([[responseDic objectForKey:@"ret"] integerValue] == 0) {
                         NSString *urlStr = responseDic[@"val"][@"url"];
