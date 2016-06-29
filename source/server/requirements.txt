@@ -18,6 +18,7 @@ six
 pytest
 gevent>0.99
 scipy
+pylibmc
 pymongo
 mock
 pint
@@ -37,10 +38,10 @@ gevent-websocket
 boto
 bcrypt
 retrying
+flaky
 sh
 uWSGI
 bottle
-python-memcached
 dnspython
 raven
 pillow
