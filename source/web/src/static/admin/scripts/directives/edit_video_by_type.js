@@ -20,19 +20,10 @@ angular.module('app')
                 scope.onFileSelected = function ($files) {
                     var file = $files[0]
                     if (file) {
-                        var url
-                        if (window.location.hostname === 'localhost') {
-                            if (scope.host === 'aws_s3') {
-                                url = '/api/1/upload_file'
-                            } else {
-                                url = '/api/1/qiniu/upload_file'
-                            }
+                        if (scope.host === 'aws_s3') {
+                            url = '/api/1/upload_file'
                         } else {
-                            if (scope.host === 'aws_s3') {
-                                url = 'http://' + window.location.hostname + ':8286/api/1/upload_file'
-                            } else {
-                                url = 'http://' + window.location.hostname + ':8286/api/1/qiniu/upload_file'
-                            }
+                            url = '/api/1/qiniu/upload_file'
                         }
                         scope.video = undefined
                         $upload.upload({

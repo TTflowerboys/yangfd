@@ -20,12 +20,7 @@ angular.module('app')
                             scope.files = []
                         }
                         scope.files.push({url: '', description: file.name})
-                        var url
-                        if (window.location.hostname === 'localhost') {
-                            url = '/api/1/upload_file'
-                        } else {
-                            url = 'http://' + window.location.hostname + ':8286/api/1/upload_file'
-                        }
+                        var url = '/api/1/upload_file'
                         $upload.upload({
                             url: url,
                             file: file,

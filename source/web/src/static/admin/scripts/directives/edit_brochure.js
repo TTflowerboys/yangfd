@@ -38,12 +38,7 @@ angular.module('app')
                     if (file) {
                         //Reset brochure
                         scope.brochure = {}
-                        var url
-                        if (window.location.hostname === 'localhost') {
-                            url = '/api/1/upload_file'
-                        } else {
-                            url = 'http://' + window.location.hostname + ':8286/api/1/upload_file'
-                        }
+                        var url = '/api/1/upload_file'
                         scope.brochureStatus = 'uploading'
                         $upload.upload({
                             url: url,
