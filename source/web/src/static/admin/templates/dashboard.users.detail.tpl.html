@@ -32,7 +32,7 @@
                     </li>
                     <li>
                         <div><i class="fa fa-building-o"></i> {%$root.i18n('城市')%}</div>
-                        <span data-ng-bind="item.city.name"></span>
+                        <span data-ng-bind="item.city.name[userLanguage.value]"></span>
                     </li>
                     <li>
                         <div><i class="fa fa-building-o"></i> {%$root.i18n('用户类型')%}</div>

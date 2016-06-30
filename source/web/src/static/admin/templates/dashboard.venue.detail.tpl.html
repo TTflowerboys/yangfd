@@ -42,7 +42,7 @@
             <div class="form-group  col-sm-12">
                 <label class="control-label">{%$root.i18n('城市')%}</label>
                 <div class="controls">
-                    <div ng-bind="item.city.name"></div>
+                    <div ng-bind="item.city.name[userLanguage.value]"></div>
                 </div>
             </div>
             <div class="form-group col-sm-12" ng-if="item.cityName.toLowerCase() === 'london'">
