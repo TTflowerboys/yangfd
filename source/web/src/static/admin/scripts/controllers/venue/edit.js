@@ -21,7 +21,8 @@
                 item.country = item.country.code
             }
             if (!_.isEmpty(item.city)) {
-                item.cityName = item.city.name
+                var cityName = item.city.name
+                item.cityName = (typeof cityName === 'object') ? cityName["en_US"]: cityName                
                 item.city = item.city.id
             }
             if(!_.isEmpty(item.maponics_neighborhood)){

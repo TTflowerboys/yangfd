@@ -51,7 +51,8 @@
                 editItem.country = editItem.country.code
             }
             if (!_.isEmpty(editItem.city)) {
-                editItem.cityName = editItem.city.name
+                var cityName = editItem.city.name
+                editItem.cityName = (typeof cityName === 'object') ? cityName["en_US"]: cityName                
                 editItem.city = editItem.city.id
             }
             if(!_.isEmpty(editItem.maponics_neighborhood)){
