@@ -35,7 +35,7 @@
             }
             if (editItem.property && !_.isEmpty(editItem.property.city)) {              
                 var cityName = editItem.property.city.name
-                editItem.property.cityName = (typeof cityName === 'object') ? cityName["en_US"]: cityName                
+                editItem.property.cityName = (typeof cityName === 'object') ? cityName.en_US: cityName                
             }
             if(editItem.property && !_.isEmpty(editItem.property.maponics_neighborhood)){
                 editItem.property.maponics_neighborhood = editItem.property.maponics_neighborhood.id

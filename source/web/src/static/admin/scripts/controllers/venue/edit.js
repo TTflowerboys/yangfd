@@ -22,7 +22,7 @@
             }
             if (!_.isEmpty(item.city)) {
                 var cityName = item.city.name
-                item.cityName = (typeof cityName === 'object') ? cityName["en_US"]: cityName                
+                item.cityName = (typeof cityName === 'object') ? cityName.en_US: cityName                
                 item.city = item.city.id
             }
             if(!_.isEmpty(item.maponics_neighborhood)){

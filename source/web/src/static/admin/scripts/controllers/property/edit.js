@@ -165,7 +165,7 @@
             }
             if (!_.isEmpty(editItem.city)) {
                 var cityName = editItem.city.name
-                editItem.cityName = (typeof cityName === 'object') ? cityName["en_US"]: cityName
+                editItem.cityName = (typeof cityName === 'object') ? cityName.en_US: cityName
                 editItem.city = editItem.city.id
             }
             if(!_.isEmpty(editItem.maponics_neighborhood)){
@@ -220,7 +220,8 @@
                 editTargetItem.country = editTargetItem.country.code
             }
             if (!_.isEmpty(editTargetItem.city)) {
-                editTargetItem.cityName = editTargetItem.city.name
+                var cityName = editTargetItem.city.name
+                editTargetItem.cityName = (typeof cityName === 'object') ? cityName.en_US: cityName                
                 editTargetItem.city = editTargetItem.city.id
             }
             if(!_.isEmpty(editTargetItem.maponics_neighborhood)){
