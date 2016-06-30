@@ -55,6 +55,7 @@ window.getErrorMessageFromErrorCode = function (errorCode, api, data) {
         500: i18n('服务暂时不可用，请稍后重试'),
         50200: i18n('服务暂时不可用，请稍后重试'),
         50300: i18n('第三方服务暂时不可用，请稍后重试'),
+        50320: i18n('短信发送失败'),
         50400: i18n('服务暂时不可用，请稍后重试')
     }
 
