@@ -368,7 +368,7 @@ def admin():
 @error(401)
 @f_app.user.login.check()
 def error401_redirect(error, user):
-    return html_redirect("/signin?error_code=40100&from=" + urllib.parse.quote(request.url))
+    return html_redirect("/signin?error_code=40100&from=" + urllib.parse.quote(f_app.util.try_decode(request.url).encode("utf-8"))
 
 
 # @f_get('/401')

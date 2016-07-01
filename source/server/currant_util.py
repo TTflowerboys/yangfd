@@ -319,7 +319,7 @@ def common_template(path, **kwargs):
     if 'weixin' not in kwargs:
         kwargs['weixin'] = f_app.wechat.get_jsapi_signature()
     if 'request_uri' not in kwargs:
-        kwargs['request_uri'] = urllib.parse.quote(request.url.encode("utf-8"))
+        kwargs['request_uri'] = urllib.parse.quote(f_app.util.try_decode(request.url).encode("utf-8"))
     if 'request' not in kwargs:
         kwargs['request'] = request
     if 'user_type_list' not in kwargs:
