@@ -19,7 +19,7 @@ import requests
 import time
 
 day_shift = int(sys.argv[1]) if len(sys.argv) > 1 else 0  # the date how many days before will be loaded
-time_start_hours = 10
+time_start_hours = 9
 
 
 def generate_keyword_list(filename):
