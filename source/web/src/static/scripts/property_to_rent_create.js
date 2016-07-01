@@ -667,9 +667,16 @@
         }
         return JSON.stringify({'unit': $('#houseSpaceUnit').children('option:selected').val(), 'value': $('#houseSize').val()})
     }
+
+    var titlePendingUpdate = false
     function updateTitle() {
+        var $title = $('#title')
         var defaultTitle = ($('#community').val() ? $('#community').val() : ($('#neighborhood-select').val() ? $('#neighborhood-select').find(':selected').text().replace(/,.+$/,'') : $('#street').val())) + ' ' + ($('#bedroom_count').children('option:selected').val() > 0 ? $('#bedroom_count').children('option:selected').val() + window.i18n('/property_to_rent_create/title/居室') : 'Studio')  + ' ' +  $('#rentalType .selected').text().trim()  + ' ' +  window.i18n('/property_to_rent_create/title/出租')
-        $('#title').attr('placeholder', defaultTitle)
+        $title.attr('placeholder', defaultTitle)
+
+        if ($title.val() && $title !== $title.attr('placeholder')) {
+            titlePendingUpdate = true                    
+        }
     }
     $('#title').on('focus', function () {
         if(!$(this).val()) {
@@ -683,6 +690,27 @@
     $('[data-trigger=updateTitle]').on('change', function () {
         updateTitle()
     })
+
+    // Check title has pending update
+    $(window).on('scroll', function () {       
+        var $title = $('#title')             
+        var currentYOffset = window.pageYOffset
+        var titleOffset = $title.offset().top
+
+        if (currentYOffset > titleOffset + 60 && titlePendingUpdate) {
+            window.dhtmlx.confirm({
+                type: "confirm",
+                text: window.i18n('房源数据已经改变，需要更新标题为“') + $title.attr('placeholder') + window.i18n('”吗？'),
+                callback: function (result) {
+                    if (result === 'true') {
+                        $title.val($title.attr('placeholder'))
+                    }
+                }
+            })
+            titlePendingUpdate = false
+        }
+    }) 
+
     function wrapData(data) {
         var o = {}
         var lang = window.lang || 'zh_Hans_CN'
