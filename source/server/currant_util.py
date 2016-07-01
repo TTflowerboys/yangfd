@@ -108,7 +108,7 @@ def check_ip_and_redirect_domain(func):
             # Don't redirect dev & test
             if "yangfd" in host or "youngfunding" in host:
                 # Special hack to remove "beta."
-                request_url = request.url
+                request_url = request.url.decode("utf-8")
 
                 useragent = request.get_header('User-Agent', '')
                 if not isinstance(useragent, six.text_type):
