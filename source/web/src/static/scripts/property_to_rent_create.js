@@ -697,12 +697,12 @@
         var currentYOffset = window.pageYOffset
         var titleOffset = $title.offset().top
 
-        if (currentYOffset > titleOffset + 60 && titlePendingUpdate) {
+        if (currentYOffset > titleOffset - 60 && titlePendingUpdate) {
             window.dhtmlx.confirm({
                 type: 'confirm',
                 text: window.i18n('房源数据已经改变，需要更新标题为“') + $title.attr('placeholder') + window.i18n('”吗？'),
                 callback: function (result) {
-                    if (result === 'true') {
+                    if (result === true) {
                         $title.val($title.attr('placeholder'))
                     }
                 }
