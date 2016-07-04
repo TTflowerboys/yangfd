@@ -6,7 +6,7 @@
 
             function showBingMap() {
                 window.showMapIndicator()
-                var scriptString = '<script src="https://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&s=1&onscriptload=onBingMapScriptLoad"></script>'
+                var scriptString = '<script src="https://cn.bing.com/mapspreview/sdk/mapcontrol?branch=release&callback=onBingMapScriptLoad"></script>'
                 window.onBingMapScriptLoad = function () {
                     //showMap
                     $('.staticMap').hide()
