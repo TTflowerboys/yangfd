@@ -2,7 +2,7 @@
         /*
     * Map View
     * */
-    var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'
+    var bingMapKey = 'AkJ0KjvTcgonnpDs-_UvgyhtiLhbugyjVGnAF811t5X-1TvKKQ2CAPwk8FuTRN_c'
 
     window.mapCache = {}
     window.mapPinCache = {}

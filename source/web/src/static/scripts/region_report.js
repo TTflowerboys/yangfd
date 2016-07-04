@@ -86,7 +86,7 @@
             region = window.report.country.code
         }
 
-        var bingMapKey = 'AhibVPHzPshn8-vEIdCx0so7vCuuLPSMK7qLP3gej-HyzvYv4GJWbc4_FmRvbh43'
+        var bingMapKey = 'AkJ0KjvTcgonnpDs-_UvgyhtiLhbugyjVGnAF811t5X-1TvKKQ2CAPwk8FuTRN_c'
         var schoolMapId = 'schoolMapCanvas'
         var query = window.report.zipcode_index + ',' + region
         var searchRequest = 'https://dev.virtualearth.net/REST/v1/Locations/' + query + '?output=json&jsonp=searchServiceCallback&key=' + bingMapKey
