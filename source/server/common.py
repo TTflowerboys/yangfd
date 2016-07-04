@@ -38,7 +38,7 @@ class common(f_common):
     mongo_dbversion = 30
 
     memcache_server = ["172.20.1.1:11211"]
-    memcache_lib = "pylibmc"
+    memcache_lib = "bmemcached"
 
     mongo_index_term_extractor = "jieba"
 
