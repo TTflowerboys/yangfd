@@ -18,7 +18,6 @@ six
 pytest
 gevent>0.99
 scipy
-pylibmc
 pymongo
 mock
 pint
@@ -36,6 +35,7 @@ pygeoip
 phonenumbers
 gevent-websocket
 boto
+python-binary-memcached
 bcrypt
 retrying
 flaky
