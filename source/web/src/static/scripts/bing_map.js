@@ -1,5 +1,5 @@
 (function () {
-    var bingMapKey = 'AkJ0KjvTcgonnpDs-_UvgyhtiLhbugyjVGnAF811t5X-1TvKKQ2CAPwk8FuTRN_c'
+    var bingMapKey = 'AsPiVBfLP9mF-1Co2K4BgjfXy0XU0XS5oegGcFNlkxLL45h9HnuBejaT6V48s4HR'
     var googleApiKey = 'AIzaSyCXOb8EoLnYOCsxIFRV-7kTIFsX32cYpYU'
 
     window.setupMap = function (onMapScriptLoadCallback) {  
