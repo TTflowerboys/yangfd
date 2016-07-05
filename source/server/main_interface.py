@@ -80,7 +80,7 @@ def default(user, params):
         "feature_code": {"$in": ["PPLC", "PPLA", "PPLA2"]},
         "country": "GB"
     })
-    property_city_list = f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(geonames_params, per_page=-1))
+    property_city_list = f_app.i18n.process_i18n(f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(geonames_params, per_page=-1)))
 
     title = _('洋房东')
     description = _('洋房东致力于为想在英国投资或居住的华人房东和租客提供专业和靠谱的租房找房和海外置业省时省力贴心安全快捷便利华人互联网房产平台')
@@ -224,7 +224,7 @@ def intention(user):
         "feature_code": {"$in": ["PPLC", "PPLA", "PPLA2"]},
         "country": country
     })
-    property_city_list = f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(geonames_params, per_page=-1))
+    property_city_list = f_app.i18n.process_i18n(f_app.geonames.gazetteer.get(f_app.geonames.gazetteer.search(geonames_params, per_page=-1)))
     hot_city_list = []
     hot_city_geonames_params = dict({
         "name_ascii": {"$in": ["London", "Liverpool", "Sheffield", "Manchester", "Birmingham"]},
