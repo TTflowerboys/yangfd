@@ -309,7 +309,7 @@
             loadRentList(true)
         }else if(mode === 'map'){
             if (typeof Microsoft === 'undefined'){
-                var scriptString = '<script src="https://cn.bing.com/mapspreview/sdk/mapcontrol?branch=release&callback=onBingMapScriptLoad"></script>'
+                var scriptString = '<script src="https://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0&s=1&onscriptload=onBingMapScriptLoad"></script>'
                 window.onBingMapScriptLoad = function () {
                     if (typeof Microsoft === 'undefined') {
                         window.dhtmlx.message({ type:'error', text: window.i18n('地图加载失败') })
