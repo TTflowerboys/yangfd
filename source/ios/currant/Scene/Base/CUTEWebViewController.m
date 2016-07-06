@@ -10,7 +10,7 @@
 #import "CUTEConfiguration.h"
 #import <NJKWebViewProgressView.h>
 #import <NJKWebViewProgress.h>
-#import <MBProgressHUD.h>
+#import <SVProgressHUD.h>
 #import "CUTEUIMacro.h"
 #import "CUTECommonMacro.h"
 #import "CUTEWebConfiguration.h"
@@ -43,7 +43,7 @@
 
     NJKWebViewProgress *_progressProxy;
 
-    MBProgressHUD *_HUD;
+    SVProgressHUD *_HUD;
 
     CUTEWebHandler *_webHandler;
 
@@ -344,12 +344,18 @@
     [self updateTitleWithURL:webView.request.URL];
     //[[[[[[webView _documentView] webView] mainFrame] dataSource] webArchive] data]
 //    NSData *webarchive = [[[[[[webView performSelector:@selector(_documentView)] performSelector:@selector(webView)] performSelector:@selector(mainFrame)] performSelector:@selector(dataSource)] performSelector:@selector(webArchive)] performSelector:@selector(data)];
+
+    [_HUD dismiss];
+    _HUD = nil;
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self updateBackButton];
     [self updateRightButtonWithURL:webView.request.URL];
     [self updateTitleWithURL:webView.request.URL];
+
+    [_HUD dismiss];
+    _HUD = nil;
 }
 
 #pragma mark - NJKWebViewProgressDelegate
@@ -357,15 +363,13 @@
 {
 
     if (!_HUD) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.opaque = 0.6;
-        hud.labelText = STR(@"正在加载");
+        SVProgressHUD *hud = [SVProgressHUD showHUDAddedTo:self.view status:STR(@"正在加载")];
         _HUD = hud;
     }
 
-    [_HUD setProgress:progress];
+//    [_HUD setProgress:progress];
     if (progress >= 1.0) {
-        [_HUD hide:YES];
+        [_HUD dismiss];
         _HUD = nil;
     }
 }

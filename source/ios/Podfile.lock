@@ -153,7 +153,7 @@ PODS:
   - Sequencer (1.0.1)
   - SMCalloutView (2.1.2)
   - Specta (1.0.5)
-  - SVProgressHUD (1.1.3)
+  - SVProgressHUD (2.0.3)
   - TTTAttributedLabel (1.13.3)
   - UIActionSheet+Blocks (0.8.1)
   - UIAlertView+Blocks (0.8.1)
@@ -201,7 +201,7 @@ DEPENDENCIES:
   - Sequencer (= 1.0.1)
   - SMCalloutView (= 2.1.2)
   - Specta
-  - SVProgressHUD (= 1.1.3)
+  - SVProgressHUD (from `https://github.com/Fykec/SVProgressHUD.git`)
   - TTTAttributedLabel (= 1.13.3)
   - UIActionSheet+Blocks (= 0.8.1)
   - UIAlertView+Blocks (= 0.8.1)
@@ -217,6 +217,8 @@ EXTERNAL SOURCES:
     :git: git@git.bbtechgroup.com:bbt/ios-bbtrestclient.git
   BBTUtility:
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
+  SVProgressHUD:
+    :git: https://github.com/Fykec/SVProgressHUD.git
   WeiboSDK:
     :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
 
@@ -230,6 +232,9 @@ CHECKOUT OPTIONS:
   BBTUtility:
     :commit: f5f295b562ceb5097e2a224bf4332f39c2e2779f
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
+  SVProgressHUD:
+    :commit: 193a8c95ba96df09fa36da1f9bbe09d73d607b08
+    :git: https://github.com/Fykec/SVProgressHUD.git
   WeiboSDK:
     :commit: 024997bef30c81a787425739a32d3575a9264a5d
     :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
@@ -284,7 +289,7 @@ SPEC CHECKSUMS:
   Sequencer: 53040fea35ecde55ba9cdb3a505a00cfb0e797b2
   SMCalloutView: 4078d89b847731e514b1a919fed33b383a24a106
   Specta: ac94d110b865115fe60ff2c6d7281053c6f8e8a2
-  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
   TTTAttributedLabel: 6f3174aef8e738f44dff97c2eb7d8184f6ab6277
   UIActionSheet+Blocks: 7fdab45fc8f15ac2dc1cd65af1470746600b5f46
   UIAlertView+Blocks: 45c3d3b7194906702d3e9a14c7ece5581505646d
@@ -293,6 +298,6 @@ SPEC CHECKSUMS:
   WeiboSDK: bceab625ec59b7039ba721cc4ba9f5868804f63e
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-PODFILE CHECKSUM: 762feccc11cab47d7f398c8433349ca9d3114df9
+PODFILE CHECKSUM: dedd8b58c5d48efcd62a5a0870436b8e553553b5
 
 COCOAPODS: 1.0.1
