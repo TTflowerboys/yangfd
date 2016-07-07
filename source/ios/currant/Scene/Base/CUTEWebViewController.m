@@ -344,18 +344,12 @@
     [self updateTitleWithURL:webView.request.URL];
     //[[[[[[webView _documentView] webView] mainFrame] dataSource] webArchive] data]
 //    NSData *webarchive = [[[[[[webView performSelector:@selector(_documentView)] performSelector:@selector(webView)] performSelector:@selector(mainFrame)] performSelector:@selector(dataSource)] performSelector:@selector(webArchive)] performSelector:@selector(data)];
-
-    [_HUD dismiss];
-    _HUD = nil;
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self updateBackButton];
     [self updateRightButtonWithURL:webView.request.URL];
     [self updateTitleWithURL:webView.request.URL];
-
-    [_HUD dismiss];
-    _HUD = nil;
 }
 
 #pragma mark - NJKWebViewProgressDelegate
