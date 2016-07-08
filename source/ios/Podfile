@@ -20,7 +20,6 @@ target 'currant' do
     pod 'CTAssetsPickerController', '2.9.4'
     pod 'Masonry', '0.6.1'
     pod 'SVProgressHUD',  :git => 'https://github.com/Fykec/SVProgressHUD.git'
-    pod 'MBProgressHUD', '~> 0.9.2'
     pod 'UIActionSheet+Blocks', '0.8.1'
     pod 'UIAlertView+Blocks', '0.8.1'
     pod 'MWPhotoBrowser', '1.4.1'

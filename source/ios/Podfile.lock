@@ -188,7 +188,6 @@ DEPENDENCIES:
   - KVOController (= 1.0.3)
   - libextobjc (= 0.4.1)
   - Masonry (= 0.6.1)
-  - MBProgressHUD (~> 0.9.2)
   - MWPhotoBrowser (= 1.4.1)
   - ngrvalidator (= 1.0.0)
   - NJKWebViewProgress (= 0.2.3)
@@ -298,6 +297,6 @@ SPEC CHECKSUMS:
   WeiboSDK: bceab625ec59b7039ba721cc4ba9f5868804f63e
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-PODFILE CHECKSUM: dedd8b58c5d48efcd62a5a0870436b8e553553b5
+PODFILE CHECKSUM: 793e22d1ae6bbdf92d9b839cc7ce4e97d087220b
 
 COCOAPODS: 1.0.1
