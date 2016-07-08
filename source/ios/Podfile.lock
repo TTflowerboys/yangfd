@@ -232,7 +232,7 @@ CHECKOUT OPTIONS:
     :commit: f5f295b562ceb5097e2a224bf4332f39c2e2779f
     :git: git@git.bbtechgroup.com:bbt/ios-bbtutility.git
   SVProgressHUD:
-    :commit: 193a8c95ba96df09fa36da1f9bbe09d73d607b08
+    :commit: 31bf47a1528bc3be4d84654dcb808071fe7d3178
     :git: https://github.com/Fykec/SVProgressHUD.git
   WeiboSDK:
     :commit: 024997bef30c81a787425739a32d3575a9264a5d

@@ -358,10 +358,16 @@
 
     if (!_HUD) {
         SVProgressHUD *hud = [SVProgressHUD showHUDAddedTo:self.view status:STR(@"正在加载")];
+        if (self.view.window) {
+            CGFloat windowHeight = CGRectGetHeight(self.view.window.frame);
+            //the "0.45" is from SVProgressHUD source code
+            CGFloat targetY = [self.view convertPoint:CGPointMake(0, floor(windowHeight * 0.45)) fromView:self.view.window].y;
+            CGFloat yOffset = targetY - floor(CGRectGetHeight(self.view.frame) * 0.45);
+            hud.offsetFromCenter = UIOffsetMake(0, yOffset);
+        }
         _HUD = hud;
     }
 
-//    [_HUD setProgress:progress];
     if (progress >= 1.0) {
         [_HUD dismiss];
         _HUD = nil;
