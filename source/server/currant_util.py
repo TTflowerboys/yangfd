@@ -215,10 +215,10 @@ def get_phone_code_by_country(code):
 
 def get_phone_numbers(use="display"):
     if use == "display":
-        CN = "400-0926-433"
+        CN = "02787648381"
         GB = "02030402258"
     elif use == "link":
-        CN = "4000926433"
+        CN = "02787648381"
         GB = "02030402258"
     elif use == "country":
         CN = "CN"
@@ -229,12 +229,12 @@ def get_phone_numbers(use="display"):
     else:
         raise NotImplementedError
 
-    try:
-        if request.ip_country == "CN":
-            return [CN, GB]
+    # try:
+    #     if request.ip_country == "CN":
+    #         return [CN, GB]
 
-    except IndexError:
-        pass
+    # except IndexError:
+    #     pass
 
     return [GB, CN]
 
