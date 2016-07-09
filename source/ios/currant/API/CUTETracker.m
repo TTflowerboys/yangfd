@@ -75,7 +75,6 @@
     [[CUTEUsageRecorder sharedInstance] saveScreen:screenName lastVisitTime:[NSDate date].timeIntervalSince1970];
 }
 
-
 - (void)trackStayDurationWithCategory:(NSString *)category screenName:(NSString *)screenName {
     NSTimeInterval startTime = [[CUTEUsageRecorder sharedInstance] getScreenLastVistiTime:screenName];
 #ifdef DEBUG
@@ -103,6 +102,12 @@
 
     [self trackTimingWithCategory:category action:kEventActionStay label:label interval:interval];
     [self trackEventWithCategory:category action:kEventActionStay label:label value:interval];
+}
+
+- (void)trackLoadDuration:(NSNumber *)duration withCategory:(NSString *)category screenName:(NSString *)screenName {
+    NSNumber *interval = duration;
+    [self trackTimingWithCategory:category action:kEventActionLoad label:screenName interval:interval];
+    [self trackEventWithCategory:category action:kEventActionLoad label:screenName value:interval];
 }
 
 - (void)trackTimingWithCategory:(NSString *)category action:(NSString *)action label:(NSString *)label interval:(NSNumber *)interval {

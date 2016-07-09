@@ -23,6 +23,8 @@
 
 - (void)trackStayDurationWithCategory:(NSString * __nonnull)category screenNames:(NSArray * __nonnull)screenNames;
 
+- (void)trackLoadDuration:(NSNumber * __nonnull)duration withCategory:(NSString * __nonnull)category screenName:(NSString * __nonnull)screenName;
+
 - (void)trackEventWithCategory:(NSString * __nonnull)category action:(NSString * __nullable)action label:(NSString * __nullable)label value:(NSNumber * __nullable)value;
 
 - (void)trackException:(NSException * __nonnull)exception;

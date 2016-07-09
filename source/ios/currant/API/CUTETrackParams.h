@@ -14,6 +14,7 @@
 #define kEventActionPress @"press"
 #define kEventActionRequestReturn @"request-return"
 #define kEventActionStay @"stay"
+#define kEventActionLoad @"load"
 #define kEventActionMemoryWarning @"memory-warning"
 #define kEventActionEnterForeground @"enter-foreground"
 
@@ -26,5 +27,7 @@
 #define KEventCategoryPostRentTicket @"post-rent-ticket"
 
 #define KEventCategoryShare @"share"
+
+#define KEventCategoryWebpage @"webpage"
 
 #endif

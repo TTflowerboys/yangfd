@@ -47,6 +47,8 @@
 
     CUTEWebHandler *_webHandler;
 
+    NSDate *_loadStartTime;
+
     NSURL *_needReloadURL;
 
     BOOL _reappear;
@@ -371,9 +373,16 @@
         [hud setFont:[UIFont systemFontOfSize:12]];
         [hud showHUDAddedTo:self.view status:STR(@"正在加载")];
         _HUD = hud;
+        _loadStartTime = [NSDate date];
     }
 
     if (progress >= 1.0) {
+        if (_loadStartTime && self.webView.request.URL) {
+            NSDate *now = [NSDate date];
+            NSTimeInterval timeInterval = [now timeIntervalSinceDate:_loadStartTime];
+            [[CUTETracker sharedInstance] trackLoadDuration:@(timeInterval) withCategory:KEventCategoryWebpage screenName:GetScreenName(self.webView.request.URL)];
+        }
+        
         [_HUD dismiss];
         _HUD = nil;
     }
