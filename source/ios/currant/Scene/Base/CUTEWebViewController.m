@@ -357,7 +357,7 @@
 {
 
     if (!_HUD) {
-        SVProgressHUD *hud = [SVProgressHUD showHUDAddedTo:self.view status:STR(@"正在加载")];
+        SVProgressHUD *hud = [[SVProgressHUD alloc] initWithFrame:self.view.bounds];
         if (self.view.window) {
             CGFloat windowHeight = CGRectGetHeight(self.view.window.frame);
             //the "0.45" is from SVProgressHUD source code
@@ -365,6 +365,11 @@
             CGFloat yOffset = targetY - floor(CGRectGetHeight(self.view.frame) * 0.45);
             hud.offsetFromCenter = UIOffsetMake(0, yOffset);
         }
+        [hud setForegroundColor:HEXCOLOR(0x999999, 1)];
+        [hud setBackgroundColor:[UIColor whiteColor]];
+        [hud setDefaultStyle:SVProgressHUDStyleCustom];
+        [hud setFont:[UIFont systemFontOfSize:12]];
+        [hud showHUDAddedTo:self.view status:STR(@"正在加载")];
         _HUD = hud;
     }
 

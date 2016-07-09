@@ -159,6 +159,10 @@
 //    [JPEngine evaluateScriptWithPath:[[NSBundle mainBundle] pathForResource:@"JSPatchTest" ofType:@"jspatch"]];
 
     [CUTEPatcher patch];
+    [SVProgressHUD setForegroundColor:HEXCOLOR(0x999999, 1)];
+    [SVProgressHUD setBackgroundColor:[UIColor whiteColor]];
+    [SVProgressHUD setFont:[UIFont systemFontOfSize:12]];
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     [CUTEUserAgentUtil setupWebViewUserAgent];
     [self checkSetupLanguageNeedShowAlert:NO];
