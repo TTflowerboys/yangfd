@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
     annual_return_estimated=str,  # How?
     budget=("fallback", None, "enum:budget", str),
     random=bool,
-    partner=bool,
+    partner=str,
     name=str,
     developer=str,
     slug=str,
@@ -252,7 +252,7 @@ def property_search(user, params):
     floor=str,
     name=str,
     developer=str,
-    partner=bool,
+    partner=str,
 ))
 @f_app.user.login.check(role=['admin', 'jr_admin', 'operation', 'jr_operation', 'developer', 'agency'])
 def property_search_with_plot(user, params):
@@ -416,7 +416,7 @@ property_params = dict(
     )),
     slug=str,
     user_generated=bool,
-    partner=bool,
+    partner=str,
 
     # Listing options
     status=str,

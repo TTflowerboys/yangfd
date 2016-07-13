@@ -472,6 +472,14 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             "start": datetime.utcnow(),
         })
 
+    def v31(self, m):
+        property_db = f_app.property.get_database(m)
+        for property in property_db.find({"partner": {"$exists": True}}, {"partner": 1}):
+            if property["partner"] is True:
+                property_db.update_one({"_id": property["_id"]}, {"$set": {"partner": "other"}})
+            else:
+                property_db.update_one({"_id": property["_id"]}, {"$unset": {"partner": 1}})
+
 currant_mongo_upgrade()
 
 

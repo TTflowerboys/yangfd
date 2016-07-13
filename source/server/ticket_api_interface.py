@@ -701,11 +701,10 @@ def rent_intention_ticket_search(user, params):
 
     if "partner_student_housing" in params:
         if params["partner_student_housing"]:
-            property_params.setdefault("partner", True)
+            property_params.setdefault("partner", {"$exists": True})
             property_params.setdefault("property_type._id", ObjectId(f_app.enum.get_by_slug('student_housing')["id"]))
         else:
             property_params["$and"].append({"$or": [
-                {"partner": False},
                 {"partner": {"$exists": False}},
                 {"property_type._id": {"$ne": ObjectId(f_app.enum.get_by_slug('student_housing')["id"])}},
             ]})
@@ -1589,7 +1588,7 @@ def rent_ticket_contact_info(user, ticket_id):
     latitude=float,
     longitude=float,
     search_range=(int, 5000),
-    partner=bool,
+    partner=str,
     short_id=str,
     query=str,
     partner_student_housing=bool,
@@ -1633,11 +1632,10 @@ def rent_ticket_search(user, params):
 
     if "partner_student_housing" in params:
         if params["partner_student_housing"]:
-            property_params.setdefault("partner", True)
+            property_params.setdefault("partner", {"$exists": True})
             property_params.setdefault("property_type._id", ObjectId(f_app.enum.get_by_slug('student_housing')["id"]))
         else:
             property_params["$and"].append({"$or": [
-                {"partner": False},
                 {"partner": {"$exists": False}},
                 {"property_type._id": {"$ne": ObjectId(f_app.enum.get_by_slug('student_housing')["id"])}},
             ]})

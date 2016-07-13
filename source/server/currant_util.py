@@ -262,7 +262,7 @@ def get_symbol_from_currency(currency):
 
 
 def is_student_house(rent):
-    return rent.get('property', {}).get('property_type', {}).get('slug', {}) == u'student_housing' and rent.get('property', {}).get('partner', '') is True
+    return rent.get('property', {}).get('property_type', {}).get('slug', {}) == u'student_housing' and rent.get('property', {}).get('partner', '')
 
 
 def get_invite_coupon(user=None):
