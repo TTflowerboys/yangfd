@@ -1379,6 +1379,7 @@ def support_ticket_search(user, params):
     other_requirements=str,
     referrer=str,
     referral=str,
+    no_handling_fee=bool,
     custom_fields=(list, None, dict(
         key=(str, True),
         value=(str, True),
@@ -1457,6 +1458,7 @@ def rent_ticket_refresh(ticket_id, user):
     other_requirements=str,
     referrer=str,
     referral=str,
+    no_handling_fee=bool,
     unset_fields=(list, None, str),
     custom_fields=(list, None, dict(
         key=(str, True),
