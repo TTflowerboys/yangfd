@@ -148,6 +148,7 @@
                             </label>
                         %else:
                             <label class="partner">{{_('平台合作房源')}}</label>
+                            <label class="noServiceFee">{{_('免服务费')}}</label>
                         %end
                     </div>
 
@@ -463,6 +464,7 @@
                     </label>
                 %else:
                     <label class="partner">{{_('平台合作房源')}}</label>
+                    <label class="noServiceFee">{{_('免服务费')}}</label>
                 %end
                 % if 'community' in rent['property'] or rent['property'].get('street') or ('zipcode' in rent['property'] and not rent.get('property',{}).get('partner')):
                     <div class="tag">

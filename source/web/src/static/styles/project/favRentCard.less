@@ -194,7 +194,7 @@
                 }
             }
 
-            > .partner {
+            > .partner, .noServiceFee {
                 margin-top: @standard-margin;
                 margin-right: @standard-margin * 2;
                 width:100px;
@@ -213,6 +213,20 @@
                     float: inherit;
                     position:relative;
                     margin-right: inherit;
+                }
+            }
+
+            >.partner {
+                margin-right: 10px;
+                @media @phone {
+                    display:inline-block;                                  
+                }
+            }
+
+            >.noServiceFee {
+                width: 70px;
+                @media @phone {
+                    display:inline-block;                                  
                 }
             }
         }

@@ -200,13 +200,16 @@ body {
             hr { color: #ccc; }
             img { vertical-align: middle; }
             > h1 { color: #333; }
-            .partner{
+            .partner, .noServiceFee{
                 display: inline-block;
                 margin: 5px auto 10px 0;
                 padding: 3px;
                 color: #00a8ff;
                 border: 1px solid #00a8ff;
                 font-size:12px;
+            }
+            .noServiceFee {
+                margin-left: 10px;
             }
             > .tag { padding-right: 8px;
                 overflow: hidden;
@@ -748,13 +751,16 @@ body {
                         .limitedLines(2, 24px, @background-grey);
                     }
                 }
-                .partner{
+                .partner, .noServiceFee {
                     display: inline-block;
                     margin: 5px auto 10px 0;
                     padding: 3px;
                     color: #00a8ff;
                     border: 1px solid #00a8ff;
                     font-size:12px;
+                }
+                .noServiceFee {
+                    margin-left: 10px;
                 }
             }
 

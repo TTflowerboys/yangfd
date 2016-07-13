@@ -40,6 +40,7 @@
                     {_}_}
 
                     {_if(fav.ticket.property.partner) {_}
+                        <p class="noServiceFee">{=window.i18n('免服务费')=}</p>
                         <p class="partner">{=window.i18n('平台合作房源')=}</p>
                     {_}else { _}
                         {_if(fav.ticket.last_modified_time - fav.ticket.time > 1000) {_}

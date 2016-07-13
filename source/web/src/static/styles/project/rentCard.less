@@ -194,7 +194,7 @@
                 }
             }
 
-            > .partner {
+            > .partner, .noServiceFee {
                 display: none;
                 width:100px;
                 padding: 1px;
@@ -213,6 +213,10 @@
                     position:relative;
                     margin-top: @standard-margin;
                 }
+            }
+
+            > .noServiceFee {
+                width: 80px;
             }
 
         }
@@ -241,7 +245,7 @@
             border-top: 1px solid #ccc;
             >.left {
                 float: left;
-                width:70%; // for ie
+                width:50%; // for ie
 
                 .label{
                     font-family: @font-normal;
@@ -280,7 +284,7 @@
             }
 
             >.right {
-                width: 30%;
+                width: 50%;
                 text-align: right;
                 bottom: 0;
                 position: absolute;
@@ -291,7 +295,7 @@
 
                 }
 
-                > .partner {
+                > .partner, .noServiceFee {
                     width:100px;
                     padding: 1px;
                     text-align:center;
@@ -305,6 +309,10 @@
                     }
                 }
 
+                > .noServiceFee {
+                    width: 70px;
+                    margin-left: 10px;
+                }
             }
 
             @media @phone {
