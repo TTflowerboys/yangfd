@@ -799,6 +799,11 @@
         if(module.appViewModel.propertyViewModel.partner()){
             propertyData.partner = true
         }
+        if(module.appViewModel.propertyViewModel.outsourcing()){
+            var customFields = propertyData.custom_fields? propertyData.custom_fields: {}
+            customFields.outsourcing = true
+            propertyData.custom_fields = customFields
+        }
         return propertyData
     }
 
@@ -1333,6 +1338,7 @@
         this.independentBathroom = ko.observable(rent.independent_bathroom || false)
         this.otherRequirements = ko.observable(rent.other_requirements)
         this.partner = ko.observable(rent.property ? rent.property.partner : false)
+        this.outsourcing = ko.observable(rent.property && rent.property.custom_fields && rent.property.custom_fields.outsourcing? rent.property.custom_fields.outsourcing: false)
 
         this.showSurrouding = ko.computed(function () {
             return !_.isEmpty(this.latitude()) && !_.isEmpty(this.longitude())
