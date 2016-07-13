@@ -702,12 +702,12 @@
     </form>
     % if user and set(user.get('role')) & set(['jr_admin','admin','jr_operation','operation']):
     <div class="cooperation">
-        <input id="cooperation" type="checkbox" data-bind="checked: partner">
-        <label for="cooperation">{{_('是否为平台合作房源')}}</label>
+        <label for="cooperation">{{_('合作平台名字: ')}}</label>
+        <input id="cooperation" type="input" data-bind="textInput: partner">        
     </div>
-    <div class="outsourcing">
-        <input id="outsourcing" type="checkbox" data-bind="checked: outsourcing">
-        <label for="outsourcing">{{_('是否外包线下服务')}}</label>
+    <div class="noServiceFee">
+        <input id="noServiceFee" type="checkbox" data-bind="checked: noServiceFee">           
+        <label for="noServiceFee">{{_('是否免服务费')}}</label>     
     </div>
     % end
     <div class="errorMsg" style="display: none;"></div>

@@ -64,6 +64,7 @@
                 <th >{%$root.i18n('地址')%}</th>
                 <th >{%$root.i18n('发布时间')%}</th>
                 <th >{%$root.i18n('发布人')%}</th>
+                <th >{%$root.i18n('合作房源')%}</th>
                 <th >{%$root.i18n('汇总图')%}</th>
                 <th >{%$root.i18n('生成图床')%}</th>
                 <th >{%$root.i18n('备注')%}</th>
@@ -105,6 +106,9 @@
                     <a ng-if="item.creator_user.id === item.user.id" ui-sref="dashboard.users.detail.properties({ id: item.user.id })" ng-bind="item.user.nickname"></a>
                     <div ng-if="item.creator_user.id != item.user.id"><a ui-sref="dashboard.users.detail.properties({ id: item.user.id })" ng-bind="item.user.nickname"></a>{%$root.i18n('(代发)')%}</div>
                     <div edit-remark ng-model="item.user.custom_fields" update="updateUserItem(data)" item-id="item.user.id"></div>
+                </td>
+                <td>
+                    <div ng-bind="item.property.partner"></div>
                 </td>
                 <td>
                     <span class="btn btn-primary" ng-if="!item.isGenerating" ng-click="generateImage(item)" title="{%$root.i18n('生成digest图片')%}">

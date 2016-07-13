@@ -47,7 +47,9 @@
                         {_}_}
 
                         {_if(rent.property.partner) {_}
-                        <div class="noServiceFee"><p>{=window.i18n('免服务费')=}</p></div>
+                        {_if(rent.no_handling_fee){_}                        
+                            <div class="noServiceFee"><p>{=window.i18n('免服务费')=}</p></div>
+                        {_}_}
                         <div class="partner"><p>{=window.i18n('平台合作房源')=}</p></div>                        
                         {_}else { _}
                         {_if(rent.last_modified_time - rent.time > 1000) {_}

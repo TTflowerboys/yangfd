@@ -797,12 +797,7 @@
             delete propertyData.cover
         }
         if(module.appViewModel.propertyViewModel.partner()){
-            propertyData.partner = true
-        }
-        if(module.appViewModel.propertyViewModel.outsourcing()){
-            var customFields = propertyData.custom_fields? propertyData.custom_fields: {}
-            customFields.outsourcing = true
-            propertyData.custom_fields = customFields
+            propertyData.partner = module.appViewModel.propertyViewModel.partner()
         }
         return propertyData
     }
@@ -830,6 +825,7 @@
             'bill_covered': $('#billCovered').is(':checked'), //是否包物业水电费
             'rent_available_time': new Date($('#rentPeriodStartDate').val()).getTime() / 1000, //出租开始时间
             'title': title,
+            'no_handling_fee': module.appViewModel.propertyViewModel.noServiceFee(),
             'unset_fields': []
         }, options)
         if($('#deposit').val() !== ''){
@@ -1337,8 +1333,8 @@
         this.allowBaby = ko.observable(rent.no_baby !== undefined ? !rent.no_baby : true)
         this.independentBathroom = ko.observable(rent.independent_bathroom || false)
         this.otherRequirements = ko.observable(rent.other_requirements)
-        this.partner = ko.observable(rent.property ? rent.property.partner : false)
-        this.outsourcing = ko.observable(rent.property && rent.property.custom_fields && rent.property.custom_fields.outsourcing? rent.property.custom_fields.outsourcing: false)
+        this.partner = ko.observable(rent.property ? rent.property.partner : null)
+        this.noServiceFee = ko.observable(rent? rent.no_handling_fee: false)
 
         this.showSurrouding = ko.computed(function () {
             return !_.isEmpty(this.latitude()) && !_.isEmpty(this.longitude())
