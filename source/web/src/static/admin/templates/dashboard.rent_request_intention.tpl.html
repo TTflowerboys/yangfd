@@ -133,7 +133,7 @@
                         <span class="text-danger" ng-if="item.unmatchRequirements && item.unmatchRequirements.length > 0">{%$root.i18n('不完全符合')%}</span>
                     </td>
                     <td>
-                        {% item.property.partner %}
+                        <span class="text-danger">{% item.interested_rent_tickets[0].property.partner %}</span>                        
                     </td>
                     <td>
                         {%item.dynamics | showLastDynamic : item.status%}
