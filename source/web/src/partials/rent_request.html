@@ -9,9 +9,14 @@
                     <div class="requirement_title">
                         <h2 class="title">{{_('租房流程')}}</h2>
                         <ul class="hint">
+                            %if rent.get('no_handling_fee',{}):
+                            <li>{{_('提交您的个人信息和对房源的问题')}}</li>
+                            <li>{{_('平台将会在24小时内回复您的求租申请')}}</li>                            
+                            %else:
                             <li>{{_('提交您的个人信息和对房源的问题')}}</li>
                             <li>{{_('房东将会在24小时内回复您的求租申请')}}</li>
                             <li>{{_('房东回复后平台将会与您取得联系')}}</li>
+                            %end
                         </ul>
                     </div>
                 </div>
@@ -212,7 +217,7 @@
                                     <span class="small" data-bind="visible: holdingDepositLocal().value">({{_('约')}}<!--ko text: holdingDepositLocal().unit_symbol + holdingDepositLocal().value--><!--/ko-->)</span>
                                 </div>
                             </li>
-                            <li data-bind="visible: !window.project.isStudentHouse(rentTicket())">
+                            <li data-bind="visible: !(window.project.isStudentHouse(rentTicket()) || rentTicket().no_handling_fee)">
                                 <span class="title">
                                     {{_('服务费预估')}}
                                 </span>
