@@ -486,6 +486,17 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             if property["partner"]:
                 property_db.update_one({"_id": property["_id"]}, {"$set": {"no_handling_fee": True}})
 
+    def v33(self, m):
+        ticket_database = f_app.ticket.get_database(m)
+        property_db = f_app.property.get_database(m)
+        for ticket in ticket_database.find({"property_id": {"$exists": True}}, {"property_id": 1}):
+            if ticket["property_id"]:
+                property = property_db.find_one({"_id": ticket["property_id"]})
+                if property and "partner" in property and property["partner"]:
+                    ticket_database.update_one({"_id": ticket["_id"]}, {"$set": {"no_handling_fee": True}})
+        for property in property_db.find({"no_handling_fee": {"$exists": True}}, {}):
+            property_db.update_one({"_id": property["_id"]}, {"$unset": {"no_handling_fee": 1}})
+
 currant_mongo_upgrade()
 
 
