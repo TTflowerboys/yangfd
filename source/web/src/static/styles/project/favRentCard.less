@@ -194,7 +194,7 @@
                 }
             }
 
-            > .partner, .noServiceFee {
+            > .partner, .noServiceFee, .canVisit {
                 margin-top: @standard-margin;
                 margin-right: @standard-margin * 2;
                 width:100px;
@@ -225,6 +225,14 @@
 
             >.noServiceFee {
                 width: 70px;
+                @media @phone {
+                    display:inline-block;  
+                    margin-right: 10px;                                
+                }
+            }
+
+            >.canVisit {
+                width: 80px;
                 @media @phone {
                     display:inline-block;  
                     margin-right: 10px;                                

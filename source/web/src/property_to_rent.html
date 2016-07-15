@@ -136,8 +136,13 @@
                 <div class="rentPrice row">
                     <div class="title">
                         <h1 class="name">{{rent.get('title','')}}</h1>
-                        %if rent.get('no_handling_fee'):
-                            <label class="noServiceFee">{{_('免服务费')}}</label>
+                        %if rent.get('no_handling_fee') or rent.get('can_visit'):
+                            %if rent.get('no_handling_fee'):
+                                <label class="noServiceFee">{{_('免服务费')}}</label>
+                            %end
+                            %if rent.get('can_visit'):
+                                <label class="canVisit">{{_('可实地看房')}}</label>
+                            %end
                         %else:
                             <label class="publishDate">
                                 % if last_modified_time - publish_time > 1000 :
@@ -450,8 +455,13 @@
         <div class="aside">
             <div class="propertyCard">
                 <h1>{{rent.get('title','')}}</h1>
-                %if rent.get('no_handling_fee'):
-                    <label class="noServiceFee">{{_('免服务费')}}</label>
+                %if rent.get('no_handling_fee') or rent.get('can_visit'):
+                    %if rent.get('no_handling_fee'):
+                        <label class="noServiceFee">{{_('免服务费')}}</label>
+                    %end
+                    %if rent.get('can_visit'):
+                        <label class="canVisit">{{_('可实地看房')}}</label>
+                    %end
                 %else:
                     <label class="publishDate">
                         % if last_modified_time - publish_time > 1000 :

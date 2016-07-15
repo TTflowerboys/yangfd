@@ -826,6 +826,7 @@
             'rent_available_time': new Date($('#rentPeriodStartDate').val()).getTime() / 1000, //出租开始时间
             'title': title,
             'no_handling_fee': module.appViewModel.propertyViewModel.noServiceFee(),
+            'can_visit': module.appViewModel.propertyViewModel.canVisit(),
             'unset_fields': []
         }, options)
         if($('#deposit').val() !== ''){
@@ -1335,6 +1336,7 @@
         this.otherRequirements = ko.observable(rent.other_requirements)
         this.partner = ko.observable(rent.property ? rent.property.partner : null)
         this.noServiceFee = ko.observable(rent? rent.no_handling_fee: false)
+        this.canVisit = ko.observable(rent? rent.can_visit: false)
 
         this.showSurrouding = ko.computed(function () {
             return !_.isEmpty(this.latitude()) && !_.isEmpty(this.longitude())
