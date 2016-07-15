@@ -39,11 +39,8 @@
                     </span>
                     {_}_}
 
-                    {_if(fav.ticket.property.partner) {_}
-                        {_if(fav.ticket.no_handling_fee){_}
-                        <p class="noServiceFee">{=window.i18n('免服务费')=}</p>
-                        {_}_}
-                        <p class="partner">{=window.i18n('平台合作房源')=}</p>
+                    {_if(fav.ticket.no_handling_fee) {_}
+                        <p class="noServiceFee">{=window.i18n('免服务费')=}</p>                                                                        
                     {_}else { _}
                         {_if(fav.ticket.last_modified_time - fav.ticket.time > 1000) {_}
                             <p class="date">

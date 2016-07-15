@@ -43,11 +43,8 @@
                             </span>
                         {_}_}
 
-                        {_if(rent.property.partner) {_}
-                            <p class="partner">{=window.i18n('平台合作房源')=}</p>
-                            {_if(rent.no_handling_fee){_}                                                
-                                <p class="noServiceFee">{=window.i18n('免服务费')=}</p>
-                            {_}_}
+                        {_if(rent.no_handling_fee) {_}                                                        
+                            <p class="noServiceFee">{=window.i18n('免服务费')=}</p>                            
                         {_}else { _}
                             {_if(rent.last_modified_time - rent.time > 1000) {_}
                                 <p class="date">
@@ -123,11 +120,8 @@
                             {_}_}
                         </div>
                         <div class="right">
-                            {_if(rent.property.partner) {_}
-                                {_if(rent.no_handling_fee){_}                                                
-                                    <p class="noServiceFee">{=window.i18n('免服务费')=}</p>
-                                {_}_}                                
-                                <p class="partner">{=window.i18n('平台合作房源')=}</p>
+                            {_if(rent.no_handling_fee) {_}                                            
+                                <p class="noServiceFee">{=window.i18n('免服务费')=}</p>                                                                
                             {_}else { _}
                                 {_if(rent.last_modified_time - rent.time > 1000) {_}
                                     <p class="date">

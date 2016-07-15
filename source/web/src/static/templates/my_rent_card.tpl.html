@@ -46,11 +46,8 @@
                         <span class="price">{=rent.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(rent.price.value),0)!}</strong>{=window.i18n('/周')=}</span>
                         {_}_}
 
-                        {_if(rent.property.partner) {_}
-                        {_if(rent.no_handling_fee){_}                        
-                            <div class="noServiceFee"><p>{=window.i18n('免服务费')=}</p></div>
-                        {_}_}
-                        <div class="partner"><p>{=window.i18n('平台合作房源')=}</p></div>                        
+                        {_if(rent.no_handling_fee) {_}                                                                        
+                            <div class="noServiceFee"><p>{=window.i18n('免服务费')=}</p></div>                    
                         {_}else { _}
                         {_if(rent.last_modified_time - rent.time > 1000) {_}
                         <p class="date">

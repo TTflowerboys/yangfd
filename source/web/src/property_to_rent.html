@@ -136,7 +136,9 @@
                 <div class="rentPrice row">
                     <div class="title">
                         <h1 class="name">{{rent.get('title','')}}</h1>
-                        %if not rent.get('property',{}).get('partner'):
+                        %if rent.get('no_handling_fee'):
+                            <label class="noServiceFee">{{_('免服务费')}}</label>
+                        %else:
                             <label class="publishDate">
                                 % if last_modified_time - publish_time > 1000 :
                                     %string = """<span>""" + str(last_modified_time) + """</span>"""
@@ -146,12 +148,8 @@
                                     {{!_('%s发布') %string}}
                                 % end
                             </label>
-                        %else:
-                            <label class="partner">{{_('平台合作房源')}}</label>
-                            <label class="noServiceFee">{{_('免服务费')}}</label>
                         %end
                     </div>
-
                     <div class="price_inner">
                         % if 'price' in rent and rent.get('price'):
                             <span>{{rent.get('price',{}).get('unit_symbol','')}}</span>
@@ -452,7 +450,9 @@
         <div class="aside">
             <div class="propertyCard">
                 <h1>{{rent.get('title','')}}</h1>
-                %if not rent.get('property',{}).get('partner'):
+                %if rent.get('no_handling_fee'):
+                    <label class="noServiceFee">{{_('免服务费')}}</label>
+                %else:
                     <label class="publishDate">
                         % if last_modified_time - publish_time > 1000 :
                             %string = """<span>""" + str(last_modified_time) + """</span>"""
@@ -462,10 +462,7 @@
                             {{!_('%s发布') %string}}
                         % end
                     </label>
-                %else:
-                    <label class="partner">{{_('平台合作房源')}}</label>
-                    <label class="noServiceFee">{{_('免服务费')}}</label>
-                %end
+                %end                                                                    
                 % if 'community' in rent['property'] or rent['property'].get('street') or ('zipcode' in rent['property'] and not rent.get('property',{}).get('partner')):
                     <div class="tag">
                         <i class="icon-location_fill"></i>
