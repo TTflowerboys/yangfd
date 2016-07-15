@@ -480,6 +480,12 @@ class currant_mongo_upgrade(f_mongo_upgrade):
             else:
                 property_db.update_one({"_id": property["_id"]}, {"$unset": {"partner": 1}})
 
+    def v32(self, m):
+        property_db = f_app.property.get_database(m)
+        for property in property_db.find({"partner": {"$exists": True}}, {"partner": 1}):
+            if property["partner"]:
+                property_db.update_one({"_id": property["_id"]}, {"$set": {"no_handling_fee": True}})
+
 currant_mongo_upgrade()
 
 
