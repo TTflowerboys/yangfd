@@ -39,7 +39,10 @@
                     $errorMsg.show()
                     
                     if(window.user && window.user.user_type && window.user.user_type.length){
-                        if (window.user.user_type.slug === 'affiliate') {
+                        var affiliateType = _.find(window.user.user_type, function (oneType) {
+                            return oneType.slug === 'affiliate'
+                        })
+                        if (affiliateType) {
                             location.href = '/user-invite'
                         }
                         else {
