@@ -3157,9 +3157,9 @@ def user_rent_request(user, params):
         'AG1:AG2',
         'AH1:AH2',
         'AI1:AI2',
-        'AJ1':'AJ2',
-        'AK1':'AK2',
-        'AL1':'AL2',
+        'AJ1:AJ2',
+        'AK1:AK2',
+        'AL1:AL2',
     ]
     for header in Header:
         ws.append(header)
