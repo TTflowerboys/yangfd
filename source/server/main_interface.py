@@ -2942,7 +2942,7 @@ def user_rent_request(user, params):
             except:
                 return ''
             else:
-                return single_property.get("property_type", '').get('value')
+                return single_property.get("property_type", {}).get('value')
         return ''
 
     def get_partner(ticket):
