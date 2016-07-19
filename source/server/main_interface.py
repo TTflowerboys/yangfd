@@ -2945,6 +2945,16 @@ def user_rent_request(user, params):
                 return single_property.get("property_type", '').get('value')
         return ''
 
+    def get_partner(ticket):
+        if 'property_id' in ticket:
+            try:
+                single_property = f_app.i18n.process_i18n(f_app.property.get(ticket['property_id']))
+            except:
+                return ''
+            else:
+                return single_property.get("partner", '')
+        return ''
+    
     def get_short_id(ticket):
         if 'property_id' in ticket:
             try:
@@ -3119,7 +3129,7 @@ def user_rent_request(user, params):
     Header = [
         ["提交时间", "意向房源", "租期", "", "", "", "", "客户", "", "", "", "", "",
          "入住信息", "", "", "", "TBC", "", "Location", "", "", "relocate", "租客对房东的问题",
-         "咨询处理状态", "备注", "咨询房源提交量", "房源地址", "POST CODE", "房屋类型", "出租类型", "每周租金（GBP）", "short ID", "url", "来源"
+         "咨询处理状态", "备注", "咨询房源提交量", "房源地址", "POST CODE", "房屋类型", "出租类型", "合作房源", "免手续费", "可实地看房", "每周租金（GBP）", "short ID", "url", "来源"
          ],
         ["", "", "入住", "结束", "租期天数", "租期描述", "入住与提交时间差", "名字", "性别",
          "现状", "年龄", "电话", "邮件", "人数", "吸烟", "带小孩", "带宠物",
@@ -3147,6 +3157,9 @@ def user_rent_request(user, params):
         'AG1:AG2',
         'AH1:AH2',
         'AI1:AI2',
+        'AJ1':'AJ2',
+        'AK1':'AK2',
+        'AL1':'AL2',
     ]
     for header in Header:
         ws.append(header)
@@ -3243,6 +3256,9 @@ def user_rent_request(user, params):
                 address_and_postcode[1],
                 get_property_type(ticket),
                 get_rent_type(ticket),
+                get_partner(ticket),
+                '是' if ticket.get('no_handling_fee', False) else '否',
+                '是' if ticket.get('can_visit', False) else '否',
                 get_price(ticket),
                 get_short_id(ticket),
                 url if url else '',
