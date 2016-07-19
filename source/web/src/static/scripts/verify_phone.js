@@ -39,7 +39,12 @@
                     $errorMsg.show()
                     
                     if(window.user && window.user.user_type && window.user.user_type.length){
-                        location.href = '/'
+                        if (window.user.user_type.slug === 'affiliate') {
+                            location.href = '/user-invite'
+                        }
+                        else {
+                            location.href = '/'
+                        }
                     }
                     else {                        
                         window.project.goBackFromURL()
