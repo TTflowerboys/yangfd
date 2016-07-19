@@ -21,6 +21,7 @@
             <ul class="tab">
                 <li data-tab="tenant" class="active">{{_('我是租客')}}</li>
                 <li data-tab="landlord">{{_('我是房东')}}</li>
+                <li data-tab="investor">{{_('我是投资者')}}</li>
             </ul>
             <ul class="content">
                 <li data-tab-name="tenant">
@@ -53,6 +54,23 @@
                         <div class="downloadInfo">
                             <p>{{_('不便使用手机？')}}</p>
                             <p class="bold">{{_('使用网站发布')}}</p>
+                        </div>
+                    </a>
+                </li>
+                <li data-tab-name="investor"  style="display: none">
+                    <div class="textWrap">
+                        <ul class="text">
+                            <li>/ <strong>{{_('专业')}}</strong> / {{_('资深专家为您解读英国投资新走向')}}</li>
+                            <li>/ <strong>{{_('贴心')}}</strong> / {{_('中英双语团队，让您海外置业沟通无障碍')}}</li>
+                            <li>/ <strong>{{_('免费')}}</strong> / {{_('服务全免费，无任何额外费用')}}</li>
+                            <li>/ <strong>{{_('可靠')}}</strong> / {{_('价格全透明，不溢价销售')}}</li>
+                        </ul>
+                    </div>
+                    <a class="web buttonWithLine" href="/property-list?from=download" title="{{_('使用网站发布')}}" data-show-client="pc,ipad">
+                        <div class="logo"><i class="icon-pc"></i></div>
+                        <div class="downloadInfo">
+                            <p>{{_('不便使用手机？')}}</p>
+                            <p class="bold">{{_('开始搜索房产')}}</p>
                         </div>
                     </a>
                 </li>
