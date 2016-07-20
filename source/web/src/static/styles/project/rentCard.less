@@ -73,16 +73,16 @@
             position: absolute;
             right: 0;
             top:0;
-            height:40px;
+            height:32px;
             width:100%;
             z-index:@house_card-image-text-z-index;
             label {
                 position:static;
                 float:right;
                 color:white;
-                line-height:40px;
-                font-size: @root-font-size;
-                padding:0 12px;
+                line-height:32px;
+                font-size: @root-font-size * 0.9;
+                padding:0 8px;
                 margin-top: 20px;
                 body[lang=en_GB] & {
                     font-size: 12px;
@@ -130,13 +130,14 @@
         .titles{
             display: block;
             >.name {
-                font-size: @normal-font-size;
-                font-weight: bold;
+                font-size: @root-font-size;
+                font-weight: 500;
                 margin: 0;
                 color: @black;
                 font-family: @font-normal;
-                max-width:70%;
+                max-width:75%;
                 .limitedLines(2, 30px, transparent);
+                line-height: 1.1em;
 
                 a {
                     text-decoration:none;
@@ -150,7 +151,7 @@
             }
 
             >.price {
-                max-width:30%;
+                max-width:25%;
                 position: absolute;
                 right: 0;
                 top: 0;
@@ -158,20 +159,21 @@
                 margin-right: @padding-top;
 
                 .price_original{
-                    color: @red;
-                    font-size: 14px;
+                    color: @red;                    
+                    font-size: @root-font-size * 0.9; 
                     display: block;
                     body[lang=en_GB] & {
                         font-size: 12px;
                     }
                     >strong {
-                        font-size: @normal-font-size;
+                        font-size: @root-font-size;
                     }
                 }
 
 
                 >.price_reference {
                     color: @grey;
+                    font-size: @root-font-size * 0.9; 
                     body[lang=en_GB] & {
                         font-size: 12px;
                     }
@@ -227,7 +229,8 @@
 
         >.properties {
             display: inline-block;
-            margin-top: 8px;
+            margin-top: 18px;
+            line-height: 1.1em;
             i{
                 color: @red;
             }
@@ -255,6 +258,7 @@
                 .label{
                     font-family: @font-normal;
                     margin-bottom: 10px;
+                    font-size: @root-font-size * 0.9;
                     body[lang=en_GB] & {
                         line-height: 1.2;
                     }
@@ -266,7 +270,7 @@
                     font-weight: bold;
                     color: @red;
                     span{
-                        font-size: @root-font-size * 1.4;
+                        font-size: @root-font-size;
                     }
                 }
 
@@ -294,12 +298,11 @@
                 bottom: 0;
                 position: absolute;
                 right: 0;
-                margin-right: @padding-top;
+                margin-right: @padding-top;              
 
                 > .date {
-
+                    font-size: @root-font-size * 0.9;                                                            
                 }
-
                 > .partner, .noServiceFee, .canVisit {
                     width:100px;
                     padding: 1px;
@@ -307,6 +310,7 @@
                     color: @light-blue;
                     border:1px solid @light-blue;
                     float: right;
+                    font-size: @root-font-size * 0.8;
                     body[lang=en_GB] & {
                         width: 130px;
                         font-size: 12px;

@@ -69,23 +69,22 @@
         .labels {
             position: absolute;
             right: 0;
-            top:0;
-            height:40px;
+            top:0;            
+            height:32px;
             width:100%;
             z-index:@house_card-image-text-z-index;
             label {
                 position:static;
                 float:right;
                 color:white;
-                line-height:40px;
-                font-size: @root-font-size;
-                padding:0 12px;
+                line-height:32px;
+                font-size: @root-font-size * 0.9;
+                padding:0 8px;
                 margin-top: 20px;
 
                 &.status {
                     background:@red;
                 }
-
             }
         }
     }
@@ -117,13 +116,13 @@
         .titles{
             display: block;
             .name {
-                font-size: @normal-font-size;
-                font-weight: bold;
+                font-size: @root-font-size;
+                font-weight: 500;
                 margin: 0;
                 color: @black;
                 font-family: @font-normal;
                 max-width:70%;
-                .limitedLines(1, 24px);
+                .limitedLines(1, 24px);                
 
                 a {
                     text-decoration:none;
@@ -199,21 +198,22 @@
             }
 
             > .price {
-                color: @red;
-                font-size: 14px;
+                color: @red;                
+                font-size: @root-font-size * 0.9; 
                 display: inline-block;
                 margin-top: @standard-margin;
 
-                strong {
-                    font-size: @normal-font-size;
+                strong {                    
+                    font-size: @root-font-size; 
                 }
 
             }
         }
 
         >.properties {
-            display: inline-block;
-            margin-top: @padding-top/2;
+            display: inline-block;            
+            margin-top: 28px;
+            line-height: 1.1em;
 
             @media @phone {
                 display: block;

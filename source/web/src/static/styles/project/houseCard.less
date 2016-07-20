@@ -60,16 +60,16 @@
             position: absolute;
             right: 0;
             top: 10px;
-            height:40px;
+            height:32px;
             width:100%;
             z-index:@house_card-image-text-z-index;
             label {
                 position:static;
                 float:right;
                 color:white;
-                font-size:16px;
-                line-height:40px;
-                padding:0 12px;
+                font-size:@root-font-size * 0.9;
+                line-height:32px;
+                padding:0 8px;
                 body[lang=en_GB] & {
                     font-size: 12px;
                 }
@@ -162,9 +162,9 @@
             padding-top:0;
         }
 
-        > h1 {
-            font-size: 20px;
-            font-weight: bold;
+        > h1 {                        
+            font-size:20px;
+            font-weight: 500;
             margin: 0;
             color: @black;
             font-family: @font-normal;
@@ -207,6 +207,7 @@
             margin: 9px 21px 9px 0;
             padding-bottom: 8px;
             border-bottom: 1px solid #ccc;
+            font-size:@root-font-size * 0.9;
 
             li {
                 line-height:1.6em;
