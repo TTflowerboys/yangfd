@@ -458,6 +458,11 @@
                             return errorList.push(window.i18n('请不要在描述中填写任何形式的联系方式'))
                         }
                     },
+                    visa: function () {
+                        if (!this.params().visa) {
+                            return errorList.push(window.i18n('申请此房源需上传护照或身份信息'))    
+                        }
+                    },
                     nickname: function () {
                         if(!this.params().nickname) {
                             return errorList.push(window.i18n('姓名不能为空'))
@@ -531,7 +536,12 @@
                 }
             }
             this.validateStep1 = function () {
-                return this.validate('rentTime', 'description')
+                if (this.rentTicket().no_handling_fee) {
+                    return this.validate('rentTime', 'description', 'visa')
+                }
+                else {
+                    return this.validate('rentTime', 'description')
+                }
             }
             this.validateRegister = function () {
                 return this.validate('nickname', 'gender', 'occupation', 'birthday', 'phone', 'email', 'captchaCode')

@@ -66,11 +66,19 @@
                                 <div class="row">
                                     <div class="image_panel" data-bind="visible: !uploadProgressVisible()">
                                         <div id="fileuploader" class="upload_image">
-                                            <p>{{_('上传护照或身份信息（可选）')}}</p>
+                                            %if rent_ticket.get('no_handling_fee'):                                                                                                                     
+                                                <p>{{_('上传护照或身份信息')}}</p>                                                        
+                                            %else:                                                                            
+                                                <p>{{_('上传护照或身份信息（可选）')}}</p>                                                                            
+                                            %end
                                         </div>
                                     </div>
-                                    <div id="uploadProgress" class="clearfix" data-bind="visible: uploadProgressVisible"></div>
-                                    <p class="hint">{{_('上传护照或身份信息可以提升房东对您的信任度，增大您租房申请的成功率(请自行隐去隐私信息)')}}</p>
+                                    <div id="uploadProgress" class="clearfix" data-bind="visible: uploadProgressVisible"></div>                                    
+                                    %if rent_ticket.get('no_handling_fee'):                                                                                                                                                         
+                                        <p class="hint">{{_('申请此房源需上传护照或身份信息')}}</p>
+                                    %else:                                                                                                                
+                                        <p class="hint">{{_('上传护照或身份信息可以提升房东对您的信任度，增大您租房申请的成功率(请自行隐去隐私信息)')}}</p>
+                                    %end
                                 </div>
                             </div>
 
