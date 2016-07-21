@@ -34,10 +34,7 @@
             <div class="page pageCover">
                 <div class="topTitleNav animate">
                     <p class="location animate">{{get_country_name_by_code(rent['property'].get('country',{}).get('code',''))}}, {{rent['property'].get('city',{}).get('name','')}}, {{rent['property'].get('street','')}}</p>
-                    <p class="title animate fixFontSize" data-maxHeight="8vh">
-                        %if rent.get('property',{}).get('partner'):
-                        <i class="icon-ico_cooperate"></i>
-                        %end
+                    <p class="title animate fixFontSize" data-maxHeight="8vh">                        
                         <span>{{rent.get('title','')}}</span>
                     </p>
                     % if not rent.get('status')=='rent':
@@ -46,12 +43,13 @@
                     <p class="rentOut animate">{{_('抱歉，房屋已租出')}}</p>
                     % end
                 </div>
+                %if rent.get('no_handling_fee'):
+                    <img class="noServiceFee" src="/static/images/wechat_poster/no_handling_fee.png" alt="">
+                %end
             </div>
             <div class="bottomBox animate">
                 <div class="scrollUp">{{_('继续')}}</div>
             </div>
-
-
         </div>
         <div class="swiper-slide swiper-slide-bg commen" style="">
             <div class="page pageRental">
