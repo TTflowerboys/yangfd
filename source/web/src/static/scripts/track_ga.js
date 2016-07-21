@@ -11,14 +11,21 @@
     a.src = g;
     m.parentNode.insertBefore(a, m)
 })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-if(document.domain==='currant-dev.bbtechgroup.com'||document.domain==='localhost'||document.domain==='0.0.0.0'){
-    ga('create', 'UA-58294435-1', 'auto');
+function getGATrackingID() {
+    var ua = navigator.userAgent.toLowerCase()
+    var isCurrantClient = (/currant/.test(ua)) ? true : false
+    return isCurrantClient? 'UA-55542465-2': 'UA-58294435-1'
+}
+if(document.domain==='currant-dev.bbtechgroup.com'||document.domain==='localhost'||document.domain==='0.0.0.0'){        
+    var trackingID = getGATrackingID()
+    ga('create', trackingID, 'auto');
     //Enable Google User-ID feature if is existing user
     if (window.user) {
         ga('set', '&uid', window.user.id) // Set the user ID using signed-in user_id.
     }
 }else {
-    ga('create', 'UA-55542465-1', 'auto', {'allowLinker': true});
+    var trackingID = getGATrackingID()
+    ga('create', trackingID, 'auto', {'allowLinker': true});
 
 // Load the plugin.
     ga('require', 'linker');
