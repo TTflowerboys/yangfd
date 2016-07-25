@@ -9,7 +9,7 @@
 <!--@@block = main-->
 
 <!--出租申请单-->
-<!--@@include partials/rent_request_phone.html -->
+<!--@@include static/templates/rent_request_phone.tpl.html -->
 <rent-request params="price: {{json_dumps(rent_ticket.get('price'))}}, holdingDeposit: {{json_dumps(rent_ticket.get('holding_deposit'))}}"></rent-request>
 
 <!--@@close-->

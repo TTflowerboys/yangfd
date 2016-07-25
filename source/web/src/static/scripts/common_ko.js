@@ -40,7 +40,7 @@
     })()
     /*
     * chosen 插件封装为custom binding
-    * 具体用法参考web/src/partials/rent_request.html中
+    * 具体用法参考web/src/static/tempaltes/rent_request.tpl.html中
     * */
     ko.bindingHandlers.chosen = {
         init: function(element, valueAccessor, allBindings)  {
