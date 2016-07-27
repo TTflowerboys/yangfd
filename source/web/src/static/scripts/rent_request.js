@@ -677,7 +677,7 @@
             }, this)
             this.submit = function () {
                 ga('send', 'event', 'rentRequestIntention', 'click', 'submit-button')
-                if(!this.validate()) {
+                if(!this.validate('rentTime', 'description', 'nickname', 'gender', 'occupation', 'birthday', 'phone', 'email', 'captchaCode', 'smsCode', 'uploading')) {
                     return
                 }
                 if(this.phoneVerified()) {
