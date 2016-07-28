@@ -141,7 +141,7 @@ class common(f_common):
     sinch_api_secret = "hsnNr7EaAkWzFFXcuBnWkw=="
     sinch_environment = "sandbox"
 
-    sms_verification_default_method = "simple"
+    sms_verification_default_method = "sinch"
     user_sms_verification_msg = "%s 为您的洋房东手机验证码，1小时内有效。感谢您使用洋房东的服务。"
 
     recaptcha_public_key = "6LdOPfwSAAAAALlc4POi3YiUJmKe_rUw6-xO6NsN"
