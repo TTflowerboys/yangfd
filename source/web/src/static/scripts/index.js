@@ -674,12 +674,9 @@
                     initRoleChooserContent('landlord')
                 }, 50)
             } else {
-                if (window.user && window.user.user_type && window.user.user_type.length) {
-                    this.activeTab(window.user.user_type[0].slug)
-                    initRoleChooserContent(window.user.user_type[0].slug)
-                } else {
-                    initRoleChooserContent('tenant')
-                }
+                //show tenant tab as default
+                this.activeTab('tenant')
+                initRoleChooserContent('tenant')
             }
         }
         this.init()
