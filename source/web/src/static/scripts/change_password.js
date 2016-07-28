@@ -18,9 +18,10 @@ $('form[name=changePassword]').submit(function (e) {
         window.user = data
         resultArea.text(window.i18n('修改成功'))
         location.href = '/user-settings'
-    }).fail(function (data) {
-        window.dhtmlx.message({ type:'error', text: window.i18n('修改失败')})
-        resultArea.text(window.i18n('修改失败'))
+    }).fail(function (ret) {
+        var errorMessage = window.getErrorMessageFromErrorCode(ret)
+        window.dhtmlx.message({ type:'error', text: errorMessage})            
+        resultArea.text(errorMessage)                
         resultArea.show()
     })
 })

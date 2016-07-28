@@ -111,7 +111,8 @@
 
                 ga('send', 'event', 'email-unsubscribe', 'click', 'update ' + $(event.currentTarget).attr('data-type') + ' successfully')
             }).fail(function (ret) {
-                window.dhtmlx.message({ type:'error', text: window.i18n('更新失败') });
+                var errorMessage = window.getErrorMessageFromErrorCode(ret)
+                window.dhtmlx.message({ type:'error', text: errorMessage})
                 ga('send', 'event', 'email-unsubscribe', 'click', 'update ' + $(event.currentTarget).attr('data-type') + ' failed')
             })
         }

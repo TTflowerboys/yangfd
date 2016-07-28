@@ -12,9 +12,10 @@ $('button[name=code]').click(function (e) {
         .done(function (val) {
             resultArea.text(window.i18n('发送成功'))
         })
-        .fail(function () {
-            window.dhtmlx.message({ type:'error', text: window.i18n('发送失败，请重试')})
-            resultArea.text(window.i18n('发送失败，请重试'))
+        .fail(function (ret) {
+            var errorMessage = window.getErrorMessageFromErrorCode(ret)
+            window.dhtmlx.message({ type:'error', text: errorMessage})            
+            resultArea.text(errorMessage)                        
         })
         .always(function () {
             $('.buttonLoading').trigger('end')
@@ -58,8 +59,9 @@ $('form[name=changePhone2]').submit(function (e) {
             location.href = '/user-settings'
         })
 	.fail(function (ret) {
-            window.dhtmlx.message({ type:'error', text: window.i18n('验证失败')})
-            resultArea.text(window.i18n('验证失败'))
+            var errorMessage = window.getErrorMessageFromErrorCode(ret)
+            window.dhtmlx.message({ type:'error', text: errorMessage})            
+            resultArea.text(errorMessage)                        
             resultArea.show()
 	})
         .always(function () {

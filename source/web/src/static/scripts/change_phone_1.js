@@ -30,8 +30,9 @@ $('form[name=changePhone1]').submit(function (e) {
             location.href = '/user_change_phone_2'
         })
 	.fail(function (ret) {
-            window.dhtmlx.message({ type:'error', text: window.i18n('修改失败')})
-            resultArea.text(window.i18n('修改失败'))
+            var errorMessage = window.getErrorMessageFromErrorCode(ret)
+            window.dhtmlx.message({ type:'error', text: errorMessage})            
+            resultArea.text(errorMessage)                        
             resultArea.show()
 
 	})
