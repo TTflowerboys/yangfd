@@ -866,13 +866,14 @@ def _user_sms_verification_send(params):
     if user_id is None:
         abort(40324)
 
-    f_app.user.sms.request(user_id, allow_verified=True)
+    f_app.user.sms.request(user_id, allow_verified=True, verify_method=params["verify_method"])
     return user_id
 
 
 @f_api('/user/sms_verification/send', force_ssl=True, params=dict(
     phone=(str, True),
     country="country",
+    verify_method=(str, "sms"),
 ))
 def user_sms_verification_send(params):
     """
@@ -886,6 +887,7 @@ def user_sms_verification_send(params):
 @f_api('/user/sms_verification/send', force_ssl=True, params=dict(
     phone=(str, True),
     country="country",
+    verify_method=(str, "sms"),
     solution=(str, True),
     challenge=(str, True),
 ), api=2)
@@ -901,10 +903,11 @@ def user_sms_verification_send_v2(params):
 
 @f_api('/user/<user_id>/sms_verification/verify', force_ssl=True, params=dict(
     code=(str, True),
+    verify_method=(str, "sms"),
 ))
 @rate_limit("sms_verification", ip=10)
 def user_sms_verification_verify(user_id, params):
-    f_app.user.sms.verify(user_id, params["code"])
+    f_app.user.sms.verify(user_id, params["code"], verify_method=params["verify_method"])
     user = f_app.user.login.success(user_id)
     f_app.log.add("login", user_id=user_id)
 
