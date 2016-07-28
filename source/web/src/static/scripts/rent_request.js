@@ -227,6 +227,10 @@
                 }, this))
             this.occupation = ko.observable()
 
+            this.hesaUniversity = ko.observable()
+            this.otherUniversity = ko.observable()
+
+
             function generateYearList(total) {
                 total = total || 80
                 var nowYear = new Date().getFullYear()
@@ -385,7 +389,7 @@
             }
 
             this.params = ko.computed(function () {
-                return {
+                var params = {
                     nickname: this.nickname(),
                     phone: '+' + (this.country() ? this.country().countryCode : '') + this.phone(),
                     email: this.email(),
@@ -405,6 +409,14 @@
                     referrer: this.referrerText() || this.referrer(),
                     status: 'requested',
                 }
+
+                if (this.hesaUniversity()) {
+                    params.hesa_university = this.hesaUniversity().hesa_university
+                }
+                else {            
+                    params.other_university = this.otherUniversity()
+                }
+                return params 
             }, this)
 
             this.registerParams = ko.computed(function () {
@@ -484,6 +496,13 @@
                             return errorList.push(window.i18n('抱歉，只有学生才能入住学生公寓'))
                         }
                     },
+                    university: function () {
+                        if(this.getOccupationSlug(this.params().occupation) !== 'student') {
+                            if (!this.hesaUniversity() && !this.otherUniversity()) {
+                                return errorList.push(window.i18n('请填写大学'))
+                            }
+                        }
+                    },
                     birthday: function () {
                         if(isNaN(this.params().date_of_birth)) {
                             return errorList.push(window.i18n('请填写生日'))
@@ -544,7 +563,7 @@
                 }
             }
             this.validateRegister = function () {
-                return this.validate('nickname', 'gender', 'occupation', 'birthday', 'phone', 'email', 'captchaCode')
+                return this.validate('nickname', 'gender', 'occupation', 'university', 'birthday', 'phone', 'email', 'captchaCode')
             }
             this.registerUser = function () {
                 if(this.validateRegister()) {
@@ -677,7 +696,7 @@
             }, this)
             this.submit = function () {
                 ga('send', 'event', 'rentRequestIntention', 'click', 'submit-button')
-                if(!this.validate('rentTime', 'description', 'nickname', 'gender', 'occupation', 'birthday', 'phone', 'email', 'captchaCode', 'smsCode', 'uploading')) {
+                if(!this.validate('rentTime', 'description', 'nickname', 'gender', 'occupation', 'university', 'birthday', 'phone', 'email', 'captchaCode', 'smsCode', 'uploading')) {
                     return
                 }
                 if(this.phoneVerified()) {

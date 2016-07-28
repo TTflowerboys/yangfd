@@ -3,11 +3,12 @@
     * 求租咨询单，大学搜索选择的控件
     * */
     ko.components.register('university-search-box', {
-        viewModel: function(params) {            
+        viewModel: function(params) {      
+            this.parentVM = params.parentVM
             this.activeInput = ko.observable(false) //输入框是否为激活状态，激活状态
             this.query = ko.observable() //输入框的结果
             this.lastSearchText = ko.observable() //输入框的结果
-            this.lastSuggestion = ko.observable()
+            
 
             this.suggestions = ko.observableArray() //搜索结果列表
             this.activeSuggestionIndex = ko.observable(-1) //选中状态的结果的index
@@ -27,6 +28,23 @@
                     })
                 }
             })
+
+            this.university = function (university) {
+                if (university) {
+                    if (typeof university === 'string') {
+                        this.parentVM.otherUniversity(university)
+                        this.parentVM.hesaUniversity(null)
+                    }
+                    else {
+                        this.parentVM.otherUniversity(null)
+                        this.parentVM.hesaUniversity(university)
+                    }
+                }
+                else {
+                    this.parentVM.otherUniversity(null)
+                    this.parentVM.hesaUniversity(null)
+                }
+            }
 
             this.scrollTop = ko.computed(function () {
                 return 38 * (this.activeSuggestionIndex() + 1) - 298
@@ -49,6 +67,7 @@
                 this.getHesaUniversityEnum(_.bind(function (hesaUniversityEnum) {                                        
                     var name = this.query()
                     this.lastSearchText(name)
+                    this.university(name)
                     this.activeInput(true)
                     if (name === undefined || !name.length) {
                         this.hint('')
@@ -110,7 +129,7 @@
                             if (this.enterComfire === false) {
                                 return this.search()
                             }
-                            if(this.activeSuggestionIndex())  {
+                            if(this.activeSuggestionIndex() !== -1)  {
                                 this.select(this.suggestions()[this.activeSuggestionIndex()])
                             }
                             break;
@@ -129,15 +148,14 @@
             this.select = _.bind(function (item) {
                 this.activeSuggestionIndex(-1)
                 this.query(item.name)
-                this.lastSearchText(item.name)
-                this.lastSuggestion(item.name)
+                this.lastSearchText(item.name)                
+                this.university(item)
                 this.activeInput(false)
             }, this)
 
             this.clear = function () {
-                this.query('')
-                this.lastSearchText('')
-                this.lastSuggestion('')
+                this.query('')                
+                this.university(null)
             }
         },
         template: { element: 'university_search_box'}
