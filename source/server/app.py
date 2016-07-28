@@ -37,6 +37,7 @@ import libfelix.f_shop.f_recurring_bm
 import libfelix.f_shorturl.f_tinyurl
 import libfelix.f_sms.f_clickatell
 import libfelix.f_sms.f_nexmo
+import libfelix.f_sms.f_verification.f_sinch
 import libfelix.f_storage
 import libfelix.f_storage.f_aws_s3
 import libfelix.f_storage.f_qiniu
