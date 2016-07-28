@@ -139,7 +139,6 @@ class common(f_common):
     nexmo_number_mapping_dimensions = ["ticket_id"]
     sinch_api_key = "6fd22ac3-d8c5-484c-b304-4c285d33735b"
     sinch_api_secret = "hsnNr7EaAkWzFFXcuBnWkw=="
-    sinch_environment = "sandbox"
 
     sms_verification_default_method = "sinch"
     user_sms_verification_msg = "%s 为您的洋房东手机验证码，1小时内有效。感谢您使用洋房东的服务。"
