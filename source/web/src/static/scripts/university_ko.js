@@ -13,6 +13,7 @@
             this.suggestions = ko.observableArray() //搜索结果列表
             this.activeSuggestionIndex = ko.observable(-1) //选中状态的结果的index
             this.hint = ko.observable() //提示文字
+            this.universitySearchBoxHasFocus = ko.observable()
             this.hesaUniversityEnum = null
             this.getHesaUniversityEnum = _.bind(function(callback) {
                 if (this.hesaUniversityEnum) {
@@ -50,24 +51,31 @@
                 return 38 * (this.activeSuggestionIndex() + 1) - 298
             }, this)
 
-            this.universitySearchBoxBlur = function () {
-                setTimeout(_.bind(function () {
-                    this.activeInput(false)
-                }, this), 150)
-            }
-
-            this.universitySearchBoxFocus = function () {
-                this.activeInput(true)
-                if(this.query()) {
-                    this.search()
+            this.universitySearchBoxHasFocus.subscribe(_.bind(function (newValue) {
+                if (newValue) {
+                    this.activeInput(true)
+                    if (this.query()) {
+                        this.search()
+                    }
                 }
-            }
+                else {
+                    setTimeout(_.bind(function () {
+                        this.activeInput(false)
+                    }, this), 150)
+                }
+            }, this))
+
+            this.query.subscribe(_.bind(function (newValue) {     
+                if(newValue !== this.lastSearchText()) {                        
+                    this.lastSearchText(newValue)
+                    this.university(newValue)
+                    this.search()
+                }                       
+            }, this))
 
             this.search = _.bind(function () {
                 this.getHesaUniversityEnum(_.bind(function (hesaUniversityEnum) {                                        
                     var name = this.query()
-                    this.lastSearchText(name)
-                    this.university(name)
                     this.activeInput(true)
                     if (name === undefined || !name.length) {
                         this.hint('')
@@ -119,10 +127,7 @@
                 }
                 return true
             }
-            this.universitySearchBoxKeyUp = function (viewModel, e) {
-                if(this.query() !== this.lastSearchText() && e.keyCode !== 13) {
-                    return this.search()
-                }
+            this.universitySearchBoxKeyUp = function (viewModel, e) {                
                 if(!window.team.isPhone()) {
                     switch(e.keyCode) {
                         case 13: //enter
