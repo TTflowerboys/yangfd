@@ -108,7 +108,13 @@ gulp.task('html-extend', function () {
         .pipe(gulp.dest(myPaths.dist))
 })
 
-gulp.task('i18n', ['bower', 'html-extend'], function () {
+gulp.task('watch:i18n', ['html-extend'], function () {
+    return  gulp.src([myPaths.dist + '*.html'], {base: 'dist'})
+        .pipe(i18n({placeholder: '<!--I18N Placeholder-->'}))
+        .pipe(gulp.dest(myPaths.dist))
+})
+
+gulp.task('i18n', ['bower','html-extend'], function () {
     return  gulp.src([myPaths.dist + '*.html'], {base: 'dist'})
         .pipe(i18n({placeholder: '<!--I18N Placeholder-->'}))
         .pipe(gulp.dest(myPaths.dist))
@@ -287,7 +293,7 @@ gulp.task('watch', ['symlink', 'less2css', 'cssAutoPrefix', 'html-extend', 'i18n
     livereload.listen();
     gulp.watch(myPaths.less, ['less2css']).on('change', changeHanddler)
     gulp.watch(myPaths.less, ['cssAutoPrefix']).on('change', changeHanddler)
-    gulp.watch(myPaths.html, ['html-extend']).on('change', changeHanddler)
+    gulp.watch(myPaths.html, ['html-extend', 'watch:i18n']).on('change', changeHanddler)
     gulp.watch(myPaths.js, ['debug:lint']).on('change', changeHanddler)
     function changeHanddler(event) {
         console.log(event.type)
