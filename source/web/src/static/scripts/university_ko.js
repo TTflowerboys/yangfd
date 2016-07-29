@@ -50,13 +50,13 @@
                 return 38 * (this.activeSuggestionIndex() + 1) - 298
             }, this)
 
-            this.blur = function () {
+            this.universitySearchBoxBlur = function () {
                 setTimeout(_.bind(function () {
                     this.activeInput(false)
                 }, this), 150)
             }
 
-            this.focus = function () {
+            this.universitySearchBoxFocus = function () {
                 this.activeInput(true)
                 if(this.query()) {
                     this.search()
@@ -110,7 +110,7 @@
             // 这里之所以添加keyPress事件是为了判断keyUp中接收的enter按键是来自于中文输入法中敲下的enter还是真的在输入框下输入的enter
             // 所以当修改location-search-box这个compent的时候，需要在input的event这个bind中同时加入keyup和keypress事件
             this.enterComfire = false
-            this.keyPress = function (vm, ev) {
+            this.universitySearchBoxKeyPress = function (vm, ev) {
                 if (ev.key === 'Enter') {
                     this.enterComfire = true
                 }
@@ -119,7 +119,7 @@
                 }
                 return true
             }
-            this.keyUp = function (viewModel, e) {
+            this.universitySearchBoxKeyUp = function (viewModel, e) {
                 if(this.query() !== this.lastSearchText() && e.keyCode !== 13) {
                     return this.search()
                 }
