@@ -104,7 +104,7 @@
                                     optionsValue: 'id',
                                     value: occupation,
                                     optionsCaption: '{{_('职业')}}'"></select>
-                                    <university-search-box params="parentVM: $data" data-bind=""></university-search-box>                                
+                                    <university-search-box params="parentVM: $data" data-bind="visible: getOccupationSlug(occupation()) === 'student'"></university-search-box>                                
                             </div>
                             <div class="row">
                                 <p class="title">{{_('生日')}}</p>
