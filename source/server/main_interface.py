@@ -2955,7 +2955,7 @@ def user_rent_request(user, params):
                 return single_property.get("partner", '')
         return ''
     
-    def get_short_id(ticket):
+    def get_property_short_id(ticket):
         if 'property_id' in ticket:
             try:
                 single_property = f_app.i18n.process_i18n(f_app.property.get(ticket['property_id']))
@@ -3127,11 +3127,11 @@ def user_rent_request(user, params):
     ws.append(header)'''
 
     Header = [
-        ["提交时间", "意向房源", "租期", "", "", "", "", "客户", "", "", "", "", "",
+        ["提交时间", "咨询单号",  "意向房源", "租期", "", "", "", "", "客户", "", "", "", "", "",
          "入住信息", "", "", "", "TBC", "", "Location", "", "", "relocate", "租客对房东的问题",
          "咨询处理状态", "备注", "咨询房源提交量", "房源地址", "POST CODE", "房屋类型", "出租类型", "合作房源", "免手续费", "可实地看房", "每周租金（GBP）", "short ID", "url", "来源"
          ],
-        ["", "", "入住", "结束", "租期天数", "租期描述", "入住与提交时间差", "名字", "性别",
+        ["", "", "", "入住", "结束", "租期天数", "租期描述", "入住与提交时间差", "名字", "性别",
          "现状", "年龄", "电话", "邮件", "人数", "吸烟", "带小孩", "带宠物",
          "签证类型", "签证到期时间", "IP", "国家", "城市"
          ]
@@ -3139,12 +3139,12 @@ def user_rent_request(user, params):
     merge = [
         'A1:A2',
         'B1:B2',
-        'C1:G1',
-        'H1:M1',
-        'N1:Q1',
-        'R1:S1',
-        'T1:V1',
-        'W1:W2',
+        'C1:C2',
+        'D1:H1',
+        'I1:N1',
+        'O1:R1',
+        'S1:T1',
+        'U1:W1',        
         'X1:X2',
         'Y1:Y2',
         'Z1:Z2',
@@ -3160,6 +3160,7 @@ def user_rent_request(user, params):
         'AJ1:AJ2',
         'AK1:AK2',
         'AL1:AL2',
+        'AM1:AM2',
     ]
     for header in Header:
         ws.append(header)
@@ -3184,48 +3185,11 @@ def user_rent_request(user, params):
             if ticket is None:
                 continue
 
-            '''boss_id = ticket.get('user_id', None)
-            if boss_id is None:
-                landlord_boss = {}
-            else:
-                landlord_boss = f_app.user.get(boss_id)'''
-
-            '''guest_id = ticket_request.get('user_id', None)
-            if guest_id is None:
-                guest_user = {}
-            else:
-                guest_user = f_app.user.get(guest_id)'''
-            '''ws.append([
-                get_request_status_translate(ticket_request),
-                ticket_request.get('description', ''),
-                ticket_request.get('nickname', ''),
-                "男" if ticket_request.get('gender', None) == 'male' else "女",
-                get_user_age(ticket_request),
-                get_user_occupation(ticket_request),
-                ticket_request.get('phone', ''),
-                ticket_request.get('email', ''),
-                guest_user.get('wechat', ''),
-                unicode(timezone('Europe/London').localize(ticket_request['time'])),
-                unicode(timezone('Europe/London').localize(ticket_request['rent_available_time'])),
-                unicode(timezone('Europe/London').localize(ticket_request['rent_deadline_time'])),
-                time_period_label(ticket_request),
-                ticket_request.get('tenant_count', None),
-                "是" if ticket_request.get('smoke', False) is True else "否",
-                "是" if ticket_request.get('baby', False) is True else "否",
-                "是" if ticket_request.get('pet', False) is True else "否",
-                '',
-                ticket.get('title', ''),
-                get_detail_address(ticket),
-                get_short_id(ticket),
-                landlord_boss.get("nickname", ""),
-                landlord_boss.get("phone", ""),
-                landlord_boss.get("email", ""),
-                url if url else ''
-            ])'''
             address_and_postcode = ['', '']
             address_and_postcode = get_detail_address(ticket)
             result_final = [
-                six.text_type(timezone('Europe/London').localize(ticket_request['time']).strftime("%Y-%m-%d %H:%M:%S")),
+                six.text_type(timezone('Europe/London').localize(ticket_request['time']).strftime("%Y-%m-%d %H:%M:%S")),                
+                ticket_request.get('short_id') if ticket_request.get('short_id') else "",
                 ILLEGAL_CHARACTERS_RE.sub(r'', ticket.get('title', '')),
                 six.text_type(timezone('Europe/London').localize(ticket_request['rent_available_time']).strftime("%Y-%m-%d %H:%M:%S")),
                 six.text_type(timezone('Europe/London').localize(ticket_request['rent_deadline_time']).strftime("%Y-%m-%d %H:%M:%S")),
@@ -3260,7 +3224,7 @@ def user_rent_request(user, params):
                 '是' if ticket.get('no_handling_fee', False) else '否',
                 '是' if ticket.get('can_visit', False) else '否',
                 get_price(ticket),
-                get_short_id(ticket),
+                get_property_short_id(ticket),
                 url if url else '',
                 get_referrer_source(ticket_request),
             ]
