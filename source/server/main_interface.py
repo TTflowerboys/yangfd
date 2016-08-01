@@ -2976,6 +2976,10 @@ def user_rent_request(user, params):
         rent_type = ticket.get('rent_type')
         return rent_type.get('value')
 
+    def get_landlord_type(ticket):
+        landlord_type = ticket.get('landlord_type')
+        return landlord_type.get('value')
+
     def get_referer_id(ticket):
         ticket_id = ticket['id']
         result = f_app.log.get(f_app.log.search({"ticket_type": "rent_intention", "type": "ticket_add", "ticket_id": ticket_id}, per_page=-1))
@@ -3121,15 +3125,11 @@ def user_rent_request(user, params):
 
     wb = Workbook()
     ws = wb.active
-    '''header = ["咨询单状态", "咨询单描述", "咨询人昵称", "咨询人性别", "咨询人年龄", "咨询人职业", "咨询人联系方式", "咨询人邮箱", "微信", "提交时间", "起始日期",
-              "终止日期", "period", "入住人数", "吸烟", "小孩", "宠物", "备注",
-              "房源标题", "房源地址", "房源短id", "房东姓名", "房东电话", "房东邮箱", "房源链接"]
-    ws.append(header)'''
 
     Header = [
         ["提交时间", "咨询单号",  "意向房源", "租期", "", "", "", "", "客户", "", "", "", "", "",
          "入住信息", "", "", "", "TBC", "", "Location", "", "", "relocate", "租客对房东的问题",
-         "咨询处理状态", "备注", "咨询房源提交量", "房源地址", "POST CODE", "房屋类型", "出租类型", "合作房源", "免手续费", "可实地看房", "每周租金（GBP）", "short ID", "url", "来源"
+         "咨询处理状态", "备注", "咨询房源提交量", "房源地址", "POST CODE", "房屋类型", "出租类型", "房东类型", "合作房源", "免手续费", "可实地看房", "每周租金（GBP）", "short ID", "url", "来源"
          ],
         ["", "", "", "入住", "结束", "租期天数", "租期描述", "入住与提交时间差", "名字", "性别",
          "现状", "年龄", "电话", "邮件", "人数", "吸烟", "带小孩", "带宠物",
@@ -3161,6 +3161,7 @@ def user_rent_request(user, params):
         'AK1:AK2',
         'AL1:AL2',
         'AM1:AM2',
+        'AN1:AN2',
     ]
     for header in Header:
         ws.append(header)
@@ -3220,6 +3221,7 @@ def user_rent_request(user, params):
                 address_and_postcode[1],
                 get_property_type(ticket),
                 get_rent_type(ticket),
+                get_landlord_type(ticket),
                 get_partner(ticket),
                 '是' if ticket.get('no_handling_fee', False) else '否',
                 '是' if ticket.get('can_visit', False) else '否',
