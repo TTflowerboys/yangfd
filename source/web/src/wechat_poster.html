@@ -65,14 +65,12 @@
                             {{_(', 包Bill')}}
                         </span>
                         % end
-                    </span>
-                    % end
-                    % if 'localized_unit_symbol' in rent.get('price',{}) and rent.get('price',{}).get('localized_unit_symbol','') != rent.get('price',{}).get('unit_symbol',''):
+                    </span>                                        
                     <span class="price_reference">
                         {{_('约')}}
-                        {{rent.get('price',{}).get('localized_unit_symbol','')}}
-                        {{int(float(rent.get('price',{}).get('localized_value','')))}}
-                        {{_('/周')}}
+                        {{rent.get('price',{}).get('unit_symbol','')}}
+                        {{int(float(rent.get('price',{}).get('value','')) * 52.0 / 12.0)}}
+                        {{_('/月')}}
                     </span>
                     % end
                 </p>

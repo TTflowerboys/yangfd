@@ -162,14 +162,12 @@
                             <span data-type="formatted_currency">
                                 {{f_app.re.filter_zero(rent.get('price',{}).get('value',''))}}
                             </span>
-                        % end
-                        {{_('/周')}}
-                        % if 'localized_unit_symbol' in rent.get('price',{}) and rent.get('price',{}).get('localized_unit_symbol','') != rent.get('price',{}).get('unit_symbol',''):
+                            {{_('/周')}}
                             <div class="price_reference">
                                 {{_('约')}}
-                                {{rent.get('price',{}).get('localized_unit_symbol','')}}
-                                {{int(float(rent.get('price',{}).get('localized_value','')))}}
-                                {{_('/周')}}
+                                {{rent.get('price',{}).get('unit_symbol','')}}
+                                {{int(float(rent.get('price',{}).get('value','')) * 52.0 / 12.0)}}
+                                {{_('/月')}}
                             </div>
                         % end
                         % if 'bill_covered' in rent and rent.get('bill_covered'):
@@ -496,16 +494,13 @@
                                         {{_('，包Bill')}}
                                     </span>
                                 % end
-
-                            </div>
-                            % if 'localized_unit_symbol' in rent.get('price',{}) and rent.get('price',{}).get('localized_unit_symbol','') != rent.get('price',{}).get('unit_symbol',''):
-                                <div class="price_reference">
+                                <div class="price_reference">                                    
                                     {{_('约')}}
-                                    {{rent.get('price',{}).get('localized_unit_symbol','')}}
-                                    {{int(float(rent.get('price',{}).get('localized_value','')))}}
-                                    {{_('/周')}}
+                                    {{rent.get('price',{}).get('unit_symbol','')}}
+                                    {{int(float(rent.get('price',{}).get('value','')) * 52.0 / 12.0)}}
+                                    {{_('/月')}}
                                 </div>
-                            % end
+                            </div>
                             % if rent.get('status') == 'rent':
                                 <div class="rentOut verticalMiddleWrap">
                                     {{_('已租出')}}

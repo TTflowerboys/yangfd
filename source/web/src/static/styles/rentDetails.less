@@ -248,16 +248,20 @@ body {
                         padding-right: @standard-margin;
                         color: @red;
                         font-size: @normal-font-size;
+                        line-height: 1.3em;
                         display: inline-block;
+                        overflow: hidden;
 
                         strong { font-size: 36px; }
                     }
 
                     .price_reference {
                         width: 100%;
-                        padding-left: @standard-margin;
+                        color: #666;
+                        padding-left: 0;
                         padding-right: @standard-margin;
                         display: inline-block;
+                        font-size: 14px;
                     }
                     .rentOut{
                         position: absolute;
@@ -741,6 +745,7 @@ body {
                 width: 65%;
                 border-right: 1px solid @border-color;
                 .name {
+                    color: #666;
                     font-size: @normal-font-size;
                     font-weight: bold;
                     margin: 0;
@@ -769,15 +774,16 @@ body {
                 color: @red;
                 width: 30%;
                 font-size: @root-font-size;
+                line-height: 1.2em;
                 display: inline-block;
                 text-align: left;
                 strong { font-size: @normal-font-size; }
             }
 
             .price_reference {
-                color: @grey;
+                color: #666;
                 width: 100%;
-                font-size: @small-font-size;
+                font-size: @small-font-size-mobile;
                 display: inline-block;
             }
         }

@@ -32,10 +32,8 @@
                     <span class="price">
                         <span class="price_original">
                             {=fav.ticket.price.unit_symbol=}<strong>{!team.formatCurrency(parseInt(fav.ticket.price.value),0)!}</strong>{=window.i18n('/周')=}
-                        </span>
-                        {_if(fav.ticket.price.localized_unit_symbol) {_}
-                        <span class="price_reference">{=window.i18n('约')=}{=fav.ticket.price.localized_unit_symbol=}{!team.formatCurrency(parseInt(fav.ticket.price.localized_value),0)!}{=window.i18n('/周')=}</span>
-                        {_}_}
+                        </span>                                                                        
+                        <span class="price_reference">{=window.i18n('约')=}{=fav.ticket.price.unit_symbol=}{!team.formatCurrency(parseInt(fav.ticket.price.value * 52 / 12),0)!}{=window.i18n('/月')=}</span>
                     </span>
                     {_}_}
 
