@@ -2837,7 +2837,7 @@ def user_rent_request(user, params):
             "type": "rent_intention",
             "interested_rent_tickets": {"$exists": True},
             "status": {
-                "$nin": ['new', 'deleted'],
+                "$in": f_app.common.rent_intention_ticket_statuses,
                 "$exists": True
             }
         }
