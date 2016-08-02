@@ -123,6 +123,10 @@
                     title: window.i18n('【房东】8. 租客房东回复’是‘(房东回复‘是’)'),
                     url: '/static/admin/templates/message/in_progress/landlord-8.html',
                     role: 'landlord'
+                }, {
+                    title: window.i18n('【房东】8. 预订取消（房源已出租）'),
+                    url: '/static/admin/templates/message/in_progress/landlord-8-2.html',
+                    role: 'landlord'
                 }
             ],
             'checked_in': [
