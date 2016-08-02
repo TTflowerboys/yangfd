@@ -14,7 +14,7 @@
 function getGATrackingID() {
     var ua = navigator.userAgent.toLowerCase()
     var isCurrantClient = (/currant/.test(ua)) ? true : false
-    return isCurrantClient? 'UA-55542465-2': (screen.width < 768? 'UA-55542465-4': 'UA-58294435-1')
+    return isCurrantClient? 'UA-55542465-2': (document.body.clientWidth < 768? 'UA-55542465-4': 'UA-58294435-1')
 }
 if(document.domain==='currant-dev.bbtechgroup.com'||document.domain==='localhost'||document.domain==='0.0.0.0'){        
     var trackingID = getGATrackingID()
