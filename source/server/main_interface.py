@@ -2978,7 +2978,7 @@ def user_rent_request(user, params):
 
     def get_landlord_type(ticket):
         landlord_type = ticket.get('landlord_type')
-        return landlord_type.get('value')
+        return landlord_type.get('value') if landlord_type else ""
 
     def get_referer_id(ticket):
         ticket_id = ticket['id']
@@ -3165,8 +3165,8 @@ def user_rent_request(user, params):
     ]
     for header in Header:
         ws.append(header)
-    for merge_ops in merge:
-        ws.merge_cells(merge_ops)
+    #for merge_ops in merge:
+    #    ws.merge_cells(merge_ops)
 
     referer_result = f_app.log.output(f_app.log.search({"route": "/api/1/rent_intention_ticket/add"}, per_page=-1))
     target_ticket = []
