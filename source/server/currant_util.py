@@ -182,10 +182,7 @@ def get_country_name_by_code(code):
         "MY": _("马来西亚"),
         "IE": _("爱尔兰")
     }
-    if code:
-        if countryMap[code]:
-            return countryMap[code]
-    return ""
+    return countryMap.get(code, "")
 
 
 def get_phone_code_by_country(code):
@@ -207,10 +204,7 @@ def get_phone_code_by_country(code):
         'MY': '60',
         'IE': '353'
     }
-    if code:
-        if phone_code_map[code]:
-            return phone_code_map[code]
-    return ""
+    return phone_code_map.get(code, "")
 
 
 def get_phone_numbers(use="display"):
