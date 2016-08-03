@@ -16,6 +16,10 @@ DESTDIR = generated
 
 all:
 
+# generate js i18n keys to a html style like "{{_('xxx')}}", so the js key can be extracted
+generate:
+	cd ../web; npm run generate_i18n_js; cd ../po
+
 extract:
 	$(PYBABEL) extract -F web/.pybabel.cfg --copyright-holder=$(ORGANIZATION) --msgid-bugs-address=$(BUGSADDR) --project=$(PROJECT_NAME) --version=$(VERSION) -o web/web.pot ../web/src ../server
 

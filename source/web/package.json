@@ -15,8 +15,8 @@
     "styleguide": "kss-node ./src/static/styles/ --less ./src/static/styles/styleguide.less --template ./.styleguide-template/",
     "theme": "gulp styleless2css",
     "sprite": "gulp sprite",
-    "setupCDN": "gulp setupCDN",
-    "i18n": "gulp i18n",
+    "setupCDN": "gulp setupCDN",    
+    "generate_i18n_js": "node tools/generate_i18n.js 'src/static/admin/**/*.js' 'src/partials/i18n_admin.html'; node tools/generate_i18n.js 'src/static/scripts/**/*.js' 'src/partials/i18n.html'",    
     "readme": "node tools/generate_readme.js 'README.md' 'README.html'"
   },
   "repository": {

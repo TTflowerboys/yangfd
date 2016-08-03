@@ -40,6 +40,7 @@ tmp
 # bower
 src/static/bower_components
 
-# i18n file 
+# i18n file
 src/partials/i18n.html
 src/partials/i18n_admin.html
+
