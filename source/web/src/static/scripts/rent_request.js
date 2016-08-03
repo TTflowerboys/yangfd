@@ -497,7 +497,7 @@
                         }
                     },
                     university: function () {
-                        if(this.getOccupationSlug(this.params().occupation) === 'student') {
+                        if(this.getOccupationSlug(this.params().occupation) === 'student' && !window.team.isPhone()) {
                             if (!this.hesaUniversity() && !this.otherUniversity()) {
                                 return errorList.push(window.i18n('请填写大学'))
                             }
