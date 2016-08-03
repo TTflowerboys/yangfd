@@ -183,9 +183,9 @@ def get_country_name_by_code(code):
         "IE": _("爱尔兰")
     }
     if code:
-        return countryMap[code]
-    else:
-        return ""
+        if countryMap[code]:
+            return countryMap[code]
+    return ""
 
 
 def get_phone_code_by_country(code):
@@ -208,9 +208,9 @@ def get_phone_code_by_country(code):
         'IE': '353'
     }
     if code:
-        return phone_code_map[code]
-    else:
-        return ""
+        if phone_code_map[code]:
+            return phone_code_map[code]
+    return ""
 
 
 def get_phone_numbers(use="display"):
