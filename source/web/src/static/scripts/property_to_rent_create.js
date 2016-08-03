@@ -397,7 +397,15 @@
                             $('#address').show()
                             break;
                         case 1: //搜索到一条结果则直接填充到对应到字段
-                            fillAdress(val[0])
+                            if(val[0].country === 'GB') {//FIXME: here only support GB property                  
+                                fillAdress(val[0])
+                            } else {
+                                clearLocationData()
+                                showPostcodeNoResultMsg()
+                                $('.buttonLoading').trigger('end')
+                                $btn.prop('disabled', false).text(window.i18n('重新获取'))
+                                $('#address').show()
+                            }
                             break;
                         default: //搜索到多条结果需要用户选择其中一条
                             chooseOneResultOfPostcodeSearch(val)
