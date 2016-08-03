@@ -164,7 +164,7 @@ def get_country_list_for_intention():
 
 
 def get_country_name_by_code(code):
-    countryMap = {
+    country_map = {
         "CN": _("中国"),
         "GB": _("英国"),
         "US": _("美国"),
@@ -182,7 +182,7 @@ def get_country_name_by_code(code):
         "MY": _("马来西亚"),
         "IE": _("爱尔兰")
     }
-    return countryMap.get(code, "")
+    return country_map.get(code, "")
 
 
 def get_phone_code_by_country(code):
