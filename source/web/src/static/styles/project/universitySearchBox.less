@@ -10,7 +10,7 @@ university-search-box {
     @media @phone {
         position: static;
         width: 100%;
-        padding: 9px 16px;
+        padding: 0px;
         height: 50px;
     }
     .wrap{
@@ -22,6 +22,11 @@ university-search-box {
             border: 1px solid #ccc;
             border-radius: 5px;
             background: white;
+
+            @media @phone {
+                border: 0px;
+                background: none;
+            }
             input{
                 height: 38px;
                 width: 150px;
@@ -37,6 +42,12 @@ university-search-box {
                 }
                 &::-ms-clear {
                     display: none;
+                }
+
+                @media @phone {
+                    height: 100%;
+                    width: 100%;
+                    margin-left: 0;
                 }
             }
             i{
@@ -146,7 +157,7 @@ university-search-box {
         }
        
 
-        //for mobile
+         //for mobile
         .searchModal{
             position: fixed;
             width: 100%;
@@ -185,7 +196,7 @@ university-search-box {
                         right: 8px;
                     }
                 }
-                .cancel{
+                .cancelSearch{
                     display: block;
                     height: 100%;
                     line-height: 44px;

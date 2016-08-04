@@ -1,5 +1,6 @@
 <!--@@include whether_radio.tpl.html  -->
 <!--@@include chose_referrer.tpl.html  -->
+<!--@@include university_search_box.tpl.html-->
 <textarea id="rentTicketData" style="display: none">
     {{json_dumps(rent_ticket)}}
 </textarea>
@@ -99,6 +100,9 @@
                                     value: occupation,
                                     optionsCaption: '{{_('请选择职业')}}'">
                                 </select>
+                            </div>
+                            <div class="row">
+                                <university-search-box params="parentVM: $data" data-bind="visible: getOccupationSlug(occupation()) === 'student'"></university-search-box>    
                             </div>
                             <div class="row">
                                 <p class="inputPlaceholder">{{_('生日')}}</p>

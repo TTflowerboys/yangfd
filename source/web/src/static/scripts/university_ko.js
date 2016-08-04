@@ -156,13 +156,42 @@
                 this.lastSearchText(item.name)                
                 this.university(item)
                 this.activeInput(false)
+                this.hideSearchModal()
             }, this)
 
             this.clear = function () {
                 this.query('')                
                 this.university(null)
             }
+
+            //for mobile
+            this.isModalShow = ko.observable()
+            this.inputFocus = ko.observable()
+
+             this.showSearchModal = function () {
+                module.appViewModel.popupActive(true)
+                this.isModalShow(true)
+                this.search()
+                setTimeout(_.bind(function () {
+                    this.inputFocus(true)
+                }, this), 100)
+            }
+
+            this.hideSearchModal = function () {
+                module.appViewModel.popupActive(false)
+                this.isModalShow(false)
+                this.inputFocus(false)
+            }
+
+            this.hideKeyboard = function () {
+                this.inputFocus(false)
+                return true
+            }
+
+            this.searchModalSubmit = function () {                
+                this.hideSearchModal()                
+            }
         },
-        template: { element: 'university_search_box'}
+        template:  { element: window.team.isPhone() ? 'university_search_box_mobile' : 'university_search_box' }
     })
 })(window.ko, window.currantModule = window.currantModule || {})
