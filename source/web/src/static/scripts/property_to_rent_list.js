@@ -680,6 +680,7 @@
                 module.suggestionTypeSlugList = _.map(val, function (item) {
                     return item.slug
                 })
+                //只要有参数发生改变就触发搜索
                 this.params.subscribe(function(params) {
                     mergeInvoke('loadRentListByView', function () {
                         updateURLQuery()
