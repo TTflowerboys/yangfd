@@ -1599,7 +1599,7 @@ def rent_ticket_contact_info(user, ticket_id):
     query=str,
     partner_student_housing=bool,
     independent_bathroom=bool,
-))
+), log_params=["query"])
 @f_app.user.login.check(check_role=True)
 def rent_ticket_search(user, params):
     """
