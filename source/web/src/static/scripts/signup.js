@@ -1,5 +1,11 @@
 $(function () {
 
+    //Let the phone field number only for editing and paste
+    var phoneInput = _.find(document.getElementsByName('phone'), function (ele) {
+        return ele.type === 'tel'
+    })
+    window.inputTypeNumberPolyfill.polyfillElement(phoneInput);
+
     //Pre-enter invation code if url contains
     var invitationCode = window.team.getQuery('invitation_code', location.href)
     if(invitationCode !== ''){

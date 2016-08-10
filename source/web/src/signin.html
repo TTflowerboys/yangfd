@@ -15,6 +15,12 @@
     //Show error message based on url
     document.ready = function(){
 
+        //Let the phone field number only for editing and paste
+        var phoneInput = _.find(document.getElementsByName('phone'), function (ele) {
+            return ele.type === 'tel'
+        })
+        window.inputTypeNumberPolyfill.polyfillElement(phoneInput);
+  
         //TODO:
         var betaUrls = ['/property-to-rent-list','/property_to_rent_list','/property-to-rent/create']
         var topErrorArea = $($('form[name=signin]').find('.errorMessage')[0])

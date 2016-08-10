@@ -1,4 +1,5 @@
 (function (ko) {
+
     window.openRentRequestForm = function (ticketId, isPopup) {
         var args = arguments
         if (window.user) {
@@ -882,6 +883,10 @@
             $('body').on('openRentRequestForm', function (e, ticketId, isPopup) {
                 this.ticketId(ticketId)
                 this.open(isPopup)
+
+                //Let the phone field number only for editing and paste
+                var phoneInput = $('rent-request input.phone').get(0)                
+                window.inputTypeNumberPolyfill.polyfillElement(phoneInput)
             }.bind(this))
             $('body').trigger('rentRequestReady')
         },
