@@ -359,6 +359,13 @@ def record_video_tips():
     return currant_util.common_template("record_video_tips", title=title)
 
 
+@f_get('/bill-booking-request')
+@currant_util.check_ip_and_redirect_domain
+def bill_booking_request():
+    title = _('洋房东平台 - 预订')
+    return currant_util.common_template("static/pdfs/bill_booking_request", title=title)
+
+
 @f_get('/admin')
 @currant_util.check_ip_and_redirect_domain
 def admin():
@@ -2954,7 +2961,7 @@ def user_rent_request(user, params):
             else:
                 return single_property.get("partner", '')
         return ''
-    
+
     def get_property_short_id(ticket):
         if 'property_id' in ticket:
             try:
@@ -3144,7 +3151,7 @@ def user_rent_request(user, params):
         'I1:N1',
         'O1:R1',
         'S1:T1',
-        'U1:W1',        
+        'U1:W1',
         'X1:X2',
         'Y1:Y2',
         'Z1:Z2',
@@ -3165,7 +3172,7 @@ def user_rent_request(user, params):
     ]
     for header in Header:
         ws.append(header)
-    #for merge_ops in merge:
+    # for merge_ops in merge:
     #    ws.merge_cells(merge_ops)
 
     referer_result = f_app.log.output(f_app.log.search({"route": "/api/1/rent_intention_ticket/add"}, per_page=-1))
@@ -3189,7 +3196,7 @@ def user_rent_request(user, params):
             address_and_postcode = ['', '']
             address_and_postcode = get_detail_address(ticket)
             result_final = [
-                six.text_type(timezone('Europe/London').localize(ticket_request['time']).strftime("%Y-%m-%d %H:%M:%S")),                
+                six.text_type(timezone('Europe/London').localize(ticket_request['time']).strftime("%Y-%m-%d %H:%M:%S")),
                 ticket_request.get('short_id') if ticket_request.get('short_id') else "",
                 ILLEGAL_CHARACTERS_RE.sub(r'', ticket.get('title', '')),
                 six.text_type(timezone('Europe/London').localize(ticket_request['rent_available_time']).strftime("%Y-%m-%d %H:%M:%S")),

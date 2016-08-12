@@ -40,7 +40,7 @@ var argv = require('yargs').argv
 var myPaths = {
     src: './src/',
     dist: './dist/',
-    html: './src/{,*/,static/emails/,static/templates/,static/templates/master/,static/admin/emails/,static/admin/templates/}{*.tpl.html,*.html}',
+    html: './src/{,*/,static/emails/,static/pdfs/,static/templates/,static/templates/master/,static/admin/emails/,static/admin/templates/}{*.tpl.html,*.html}',
     symlink: './src/static/{themes,fonts,images,scripts,vendors,bower_components,admin/scripts,ios_resources,admin/templates/message}',
     static: './src/static/**/*.*',
     less: ['./src/static/styles/**/*.less', '!**/flycheck_*.*'],
@@ -153,6 +153,7 @@ gulp.task('fingerprint', ['rev'], function () {
     myPaths.dist + 'static/admin/emails/**/*.html',
     myPaths.dist + 'static/templates/**/*.html',
     myPaths.dist + 'static/emails/*.html', 
+    myPaths.dist + 'static/pdfs/*.html', 
     myPaths.dist + 'static/scripts/**/*.js', 
     myPaths.dist + 'static/styles/**/*.css', 
     myPaths.dist + 'static/sprite/css/*.css', 
@@ -233,14 +234,14 @@ gulp.task('build:cssAutoPrefix', ['build:less2css'], function (done) {
 
 
 gulp.task('build:html-extend', ['build:cssAutoPrefix'], function () {
-    return gulp.src('./dist/{,*/,static/emails/,static/templates/,static/templates/master/,static/admin/emails/,static/admin/templates/}{*.tpl.html,*.html}', {base: './dist/'})
+    return gulp.src('./dist/{,*/,static/emails/,static/pdfs/,static/templates/,static/templates/master/,static/admin/emails/,static/admin/templates/}{*.tpl.html,*.html}', {base: './dist/'})
         .pipe(extender({verbose: false}))
         .pipe(preprocess({context: {ENV: argv.env}}))
         .pipe(gulp.dest(myPaths.dist))
 })
 
 gulp.task('build:concat', ['build:html-extend'], function () {
-    return  gulp.src([myPaths.dist + '*.html', myPaths.dist + 'static/emails/*.html'], {base: 'dist'})
+    return  gulp.src([myPaths.dist + '*.html', myPaths.dist + 'static/emails/*.html', myPaths.dist + 'static/pdfs/*.html'], {base: 'dist'})
         .pipe(usemin({
             css: ['concat'],
             //inlinecss: [minifyCss({keepSpecialComments: 0}), 'concat'],
@@ -260,7 +261,7 @@ gulp.task('setupCDN', ['fingerprintAdminPageResource'], function () {
     if (argv.cdn) {
         var relaceRev =  function () {
             //html should only in root folder
-            gulp.src([myPaths.dist + '*.html', myPaths.dist + 'static/emails/*.html',  myPaths.dist + 'static/admin/emails/**/*.html'], {base: 'dist'})
+            gulp.src([myPaths.dist + '*.html', myPaths.dist + 'static/emails/*.html', myPaths.dist + 'static/pdfs/*.html', myPaths.dist + 'static/admin/emails/**/*.html'], {base: 'dist'})
                 .pipe(replace(/\/static\/images\//g, argv.cdn + '/images/'))
                 .pipe(replace(/\/static\/sprite\//g, argv.cdn + '/sprite/'))
                 .pipe(replace(/\/static\/styles\//g, argv.cdn + '/styles/'))
