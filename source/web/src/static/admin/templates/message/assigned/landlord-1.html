@@ -6,7 +6,8 @@
 {%$root.i18n('咨询单编号: ')%}{%item.short_id%}
 {%$root.i18n('入住日期: ')%}{%item.rent_available_time * 1000 | date : 'yyyy年MM月d日'%}
 {%$root.i18n('搬出日期: ')%}{%item.rent_deadline_time * 1000 | date : 'yyyy年MM月d日'%}
-{%$root.i18n('入住人数: ')%}{%item.tenant_count%}
+{%$root.i18n('预估租金收益: ')%}{%item.interested_rent_tickets[0].price.value * Math.ceil((item.rent_deadline_time - item.rent_available_time) / (7 * 24 * 3600)) | currency : currencyTypes[item.interested_rent_tickets[0].price.unit] : 2%} ({%Math.ceil((item.rent_deadline_time - item.rent_available_time) / (7 * 24 * 3600))%}{%$root.i18n('周')%})
+{%$root.i18n('入住人数: ')%}{%item.tenant_count | number:0%}
 {%$root.i18n('性别: ')%}{%item.gender === 'male'? $root.i18n('男') : $root.i18n('女')%}
 {%$root.i18n('职业: ')%}{%item.occupation.value[userLanguage.value]%}
 {%$root.i18n('年龄: ')%}{%item.age | number : '0'%}
