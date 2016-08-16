@@ -1155,6 +1155,16 @@ angular.module('app')
                     }
                 }
             })
+            .state('dashboard.statistics.latest_query_keywords', {
+                url: '/latest_query_keywords',
+                templateUrl: '/static/admin/templates/dashboard.statistics_latest_query_keywords.tpl.html',
+                controller: 'ctrlStatistics_latest_query_keywords',
+                resolve: {
+                    api: function (logApi) {
+                        return logApi
+                    }
+                }
+            })
             // user portrait
             .state('dashboard.user_portrait', {
                 url: '/user_portrait',

@@ -412,6 +412,11 @@
                                         <a href ui-sref="dashboard.statistics.aggregation_view_contact" ui-sref-active="active">
                                             <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('查看房东联系方式数据')%}</span></a>
                                     </li>
+                                    <li has-permission="admin,jr_admin,operation,jr_operation"
+                                        ng-class="{active:$state.includes('dashboard.statistics.latest_query_keywords')}">
+                                        <a href ui-sref="dashboard.statistics.latest_query_keywords" ui-sref-active="active">
+                                            <i class="fa fa-comment-o"></i><span class="hidden-sm text">{%$root.i18n('最近常用搜索词')%}</span></a>
+                                    </li>
                                 </ul>
                             </li>
                             <li has-permission="admin,jr_admin,operation,jr_operation"
