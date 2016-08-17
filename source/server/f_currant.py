@@ -1009,7 +1009,7 @@ class currant_plugin(f_app.plugin_base):
             m.misc.update_one({"type": "ticket_search_keywords"}, {"$set": {
                 "most_common": dict(words.most_common(100)),
                 "last_updated": datetime.utcnow()
-            }})
+            }}, upsert=True)
 
         self.logger.debug("Ticket search keywords updated.")
 
