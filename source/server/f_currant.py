@@ -997,7 +997,7 @@ class currant_plugin(f_app.plugin_base):
             }
         }
         self.logger.debug("Extracting ticket search keywords...")
-        searches = f_app.log.get(f_app.log.search(params, per_page=-1))
+        searches = f_app.log.get(f_app.log.search(params, per_page=-1, notime=True))
         words = Counter()
 
         self.logger.debug("Counting ticket search keywords...")
