@@ -993,7 +993,7 @@ class currant_plugin(f_app.plugin_base):
         params = {
             "query": {"$exists": True},
             "time": {
-                "$gte": datetime.utcnow() - timedelta(months=1),
+                "$gte": datetime.utcnow() - timedelta(days=30),
             }
         }
         searches = f_app.log.output(f_app.log.search(params, per_page=-1))
