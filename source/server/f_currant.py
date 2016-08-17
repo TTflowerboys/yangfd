@@ -5,6 +5,7 @@ import re
 import logging
 import time
 import json
+from collections import Counter
 import phonenumbers
 from bson.objectid import ObjectId
 from pymongo import ASCENDING, DESCENDING
@@ -497,6 +498,13 @@ class currant_mongo_upgrade(f_mongo_upgrade):
         for property in property_db.find({"no_handling_fee": {"$exists": True}}, {}):
             property_db.update_one({"_id": property["_id"]}, {"$unset": {"no_handling_fee": 1}})
 
+    def v34(self, m):
+        f_app.task.get_database(m).insert_one({
+            "type": "extract_ticket_search_keywords",
+            "status": "new",
+            "start": datetime.utcnow(),
+        })
+
 currant_mongo_upgrade()
 
 
@@ -820,7 +828,7 @@ class currant_plugin(f_app.plugin_base):
         ==================================================================
     """
 
-    task = ["ping_sitemap"]
+    task = ["ping_sitemap", "extract_ticket_search_keywords"]
 
     def user_output_permission_check(self, result, user):
         if result is None:
@@ -980,6 +988,30 @@ class currant_plugin(f_app.plugin_base):
                 result = f_app.request(baidu_zhanzhang_api, task['url'], "POST", format="json")
                 if 'success' not in result:
                     raise Exception("baidu_zhanzhang")
+
+    def task_on_extract_ticket_search_keywords(self, task):
+        params = {
+            "query": {"$exists": True},
+            "time": {
+                "$gte": datetime.utcnow() - timedelta(months=1),
+            }
+        }
+        searches = f_app.log.output(f_app.log.search(params, per_page=-1))
+        words = Counter()
+        for search in searches:
+            for word in search["query"].split():
+                words[word] += 1
+
+        with f_app.mongo() as m:
+            m.misc.update_one({"type": "ticket_search_keywords"}, {"$set": {
+                "most_common": dict(words.most_common(100)),
+                "last_updated": datetime.utcnow()
+            }})
+
+        f_app.task.put(dict(
+            type="extract_ticket_search_keywords",
+            start=datetime.utcnow() + timedelta(days=1),
+        ))
 
     def order_update_after(self, order_id, params, order, ignore_error=True):
         if "status" in params.get("$set", {}):

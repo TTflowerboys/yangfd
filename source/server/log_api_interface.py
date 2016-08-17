@@ -37,6 +37,13 @@ def log_search(user, params):
     return log_list
 
 
+@f_api('/log/top_ticket_search_keywords')
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
+def log_top_ticket_search_keywords(user):
+    with f_app.mongo() as m:
+        return f_app.util.process_objectid(m.misc.find_one({"type": "ticket_search_keywords"}))
+
+
 @f_api('/log/<log_id>')
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def log_get(user, log_id):
