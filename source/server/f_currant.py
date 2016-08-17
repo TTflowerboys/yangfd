@@ -996,8 +996,11 @@ class currant_plugin(f_app.plugin_base):
                 "$gte": datetime.utcnow() - timedelta(days=30),
             }
         }
+        self.logger.debug("Extracting ticket search keywords...")
         searches = f_app.log.get(f_app.log.search(params, per_page=-1))
         words = Counter()
+
+        self.logger.debug("Counting ticket search keywords...")
         for search in searches:
             for word in search["query"].split():
                 words[word] += 1
@@ -1007,6 +1010,8 @@ class currant_plugin(f_app.plugin_base):
                 "most_common": dict(words.most_common(100)),
                 "last_updated": datetime.utcnow()
             }})
+
+        self.logger.debug("Ticket search keywords updated.")
 
         f_app.task.put(dict(
             type="extract_ticket_search_keywords",
