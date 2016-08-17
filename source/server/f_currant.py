@@ -996,7 +996,7 @@ class currant_plugin(f_app.plugin_base):
                 "$gte": datetime.utcnow() - timedelta(days=30),
             }
         }
-        searches = f_app.log.output(f_app.log.search(params, per_page=-1))
+        searches = f_app.log.get(f_app.log.search(params, per_page=-1))
         words = Counter()
         for search in searches:
             for word in search["query"].split():
