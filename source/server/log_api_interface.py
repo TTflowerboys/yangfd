@@ -44,6 +44,15 @@ def log_top_ticket_search_keywords(user):
         return f_app.util.process_objectid(m.misc.find_one({"type": "ticket_search_keywords"}))
 
 
+@f_api('/log/top_ticket_search_keywords/refresh')
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
+def log_top_ticket_search_keywords_refresh(user):
+    task = f_app.task.search({"type": "extract_ticket_search_keywords", "status": "new"})
+    assert len(task) == 1
+
+    f_app.task.update_set(task[0], {"start": datetime.utcnow()})
+
+
 @f_api('/log/<log_id>')
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin'])
 def log_get(user, log_id):
