@@ -2,105 +2,161 @@
 
 * {
     box-sizing: border-box;
+
 }
+html {
+    font: 10pt Avenir, "Times New Roman", Times, serif;
+    @page {
+        size: A4 landscape;
+        margin: 0;
+    }
+}
+
+
 
 body {
     margin: 0;
     .watermark {
         width: 58.28%;
+        height: 42rem;
         margin-left: 20.8%;
         margin-top: 8.85%;
         position: absolute;
         z-index: 0;
     }
 
-    
 }
 .container {
-   position: absolute;
-   z-index: 1;
-   width: 100%;
-   .header {
-        padding:2.2%;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    .header {
+        padding: 2rem;
         border-bottom: 1px solid #808080;
+        overflow: hidden;
         .logo {
             width: 22.44%;
         }
-    }
 
-    .content {
-            padding:5.2%;
-            overflow: hidden;
-            label.hint {
-                color: #999999;
-                font-size: 1.0rem;
+        .title {
+            display: inline-block;
+            float: right;
+            .hint {
+                font-size: 1.3rem;
+                line-height: 1.3rem;
                 font-weight: bold;
-                line-height: 1em;
             }
 
-            p.value {
-                font-size: 2.0rem;
-                margin-top: 0.8rem;
-                margin-bottom: 0px;                
-                word-break: break-word;
+            .value {
+                font-size: 1rem;
+                line-height: 1;
+                margin-top: 0.5rem;
+                font-weight: lighter;
+                margin-bottom: 0;
             }
-            p.tip {
-                font-size: 0.9rem;
-                line-height: 1.1em;
-                color: #666;
-                margin: 0;
-            }
-            div.field {
-                margin-bottom: 4rem;
-            }
+        }
+    }
+    .content {
+        padding: 4rem;
+        height: 42rem;
+        overflow: hidden;
+        label.hint {
+            color: #999;
+            font-size: 1.0rem;
+            font-weight: bold;
+            line-height: 1em;
 
-            div.tenant {
-                float: left;
-                display: inline-block;
-                width: 24.47%;
-                height: 100%;
-                border-right: 1px solid #c9cbcc;                
-            }
+        }
+        p.value {
+            font-size: 2.0rem;
+            line-height: 1.5rem;
+            margin-top: 0.8rem;
+            margin-bottom: 0;
+            word-break: break-word;
+        }
+        p.tip {
+            font-size: 0.9rem;
+            line-height: 2rem;
+            color: #666;
+            margin: 0;
+        }
+        div.field {
+            margin-bottom: 3rem;
 
-             div.right {    
-                float: left;
-                display: inline-block;            
-                width: 75%;
-                div.property {
-                    padding-left: 10%;
-                    overflow: hidden;
-                    div.field {
-                        float: left;
-                        display: inline-block;
-                        width: 30%;
-                        margin-left: 0px;
-                        margin-right: 0px;
-                        &.address {
-                            width: 90%;
-                        }                                                                                                
-                    }
-                }
+        }
+        div.tenant {
+            float: left;
+            display: inline-block;
+            width: 24.47%;
+            height: 100%;
+            border-right: 1px solid #c9cbcc;
 
-                div.fee {
-                    overflow: hidden;
-                    margin-left: 10%;
-                    border-top: 1px solid #ccc;
-                    padding-top: 10%;
-                    div.field {
-                        float: left;
-                        display: inline-block;
-                        width: 25%;
-                        .value {
-                            color: @red;
+        }
+        div.right {
+            float: left;
+            display: inline-block;
+            width: 75%;
+            div.property {
+                padding-left: 10%;
+                overflow: hidden;
+                div.field {
+                    float: left;
+                    display: inline-block;
+                    width: 30%;
+                    margin-left: 0;
+                    margin-right: 0;
+                    &.arrow {
+                        vertical-align: middle;
+                        text-align: center;
+
+                        img {
+                            margin-top: 10%;
                         }
                     }
+                    &.address {
+                        width: 90%;
+                    }
                 }
             }
-    } 
+            div.fee {
+                overflow: hidden;
+                margin-left: 10%;
+                border-top: 1px solid #ccc;
+                padding-top: 4rem;
+                div.field {
+                    float: left;
+                    display: inline-block;
+                    width: 25%;
+                    .value {
+                        color: @red;
+                    }
+                }
+            }
+        }
+
+    }
     .footer {
         border-top: 1px solid #808080;
-    }           
-}
+        overflow: hidden;
+        padding: 0rem 2rem;
 
-        
-    
+        .copyright {
+            margin-top: 2rem;
+            text-align: left;
+            display: inline-block;
+            color: #999999;
+        }
+
+        .companyAddress {
+            display: inline-block;
+            float: right;
+            text-align: right;
+            color: #999999;
+
+            a {
+                text-decoration: none;
+                color: #0446d9;
+            }
+        }
+    }
+}
