@@ -38,35 +38,37 @@
                             TENANT NAME<br>
                             租客姓名
                         </label>
-                        <p class="value">xxxxxx</p>
+                        <p class="value">{{ticket.get('nickname')}}</p>
                     </div>
                     <div class="gender field">
                         <label for="" class="hint">
                             GENDER<br>
                             性别
                         </label>
-                        <p class="value">Female</p>
+                        <input class="value" name="" type="text" value="{{ticket.get('gender')}}"/>
                     </div>
                     <div class="age field">
                         <label for="" class="hint">
                             AGE<br>
                             年龄
                         </label>
-                        <p class="value">27</p>
+                        % from datetime import datetime
+                        % now = datetime.utcnow()
+                        <input class="value" name="" type="text" value="{{(now.year - ticket.get('date_of_birth').year)}}"/>
                     </div>
                     <div class="count field">
                         <label for="" class="hint">
                             NUMBER OF TENANT<br>
                             入住人数
                         </label>
-                        <p class="value">1</p>
+                        <input class="value" name="" type="text" value="{{ticket.get('tenant_count')}}"/>
                     </div>
                     <div class="occupation field">
                         <label for="" class="hint">
                             OCCUPATION<br>
                             职业
                         </label>
-                        <p class="value">Student</p>
+                        <input class="value" name="" type="text" value="{{ticket.get('occupation').get('value')}}"/>
                     </div>
                 </div>
                 <div class="right">
@@ -74,9 +76,9 @@
                         <div class="field checkIn">
                             <label for="" class="hint">
                                 AGREED LEASE START DATE/<br>
-                                CHECK IN DATE 入住日期                            
+                                CHECK IN DATE 入住日期
                             </label>
-                            <p class="value">Aug 24 2016</p>
+                            <input class="value" name="" type="text" value="{{ticket.get('rent_available_time').strftime('%b %d, %Y')}}"/>
                         </div>
                         <div class="field arrow">
                             <img src="/static/images/bill/arrow.png" alt="" class="arrow">
@@ -86,35 +88,41 @@
                                 AGREED LEASE END DATE/<br>
                                 CHECK OUT DATE 迁出日期                            
                             </label>
-                            <p class="value">Nov 6 2016</p>
+                            <input class="value" name="" type="text" value="{{ticket.get('rent_deadline_time').strftime('%b %d, %Y')}}"/>
                         </div>
                         <div class="field address">
                             <label for="" class="hint">
                                 PROPERTY DETAILS<br>
                                 住宅详情                            
                             </label>
-                            <textarea class="value address" cols="" id="" name="" rows="" >xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</textarea>
+                            <textarea class="value address" cols="" id="" name="" rows="" >{{get_rent_property_address(ticket.get('interested_rent_tickets')[0])}}</textarea>
                         </div>
                         <div class="field pet">
                             <label for="" class="hint">
                                 IS TENANT BRING A PET?<br>
                                 租客是否携带宠物入住？                         
                             </label>
-                            <p class="value">NO</p>
+                            <p class="value">
+                                {{'YES' if ticket.get('pet') else 'NO'}}
+                            </p>
                         </div>
                         <div class="field smoke">
                             <label for="" class="hint">
                                 IS TENANT SMOKING?<br>
                                 租客是否吸烟？                   
                             </label>
-                            <p class="value">NO</p>
+                            <p class="value">
+                                {{'YES' if ticket.get('smoke') else 'NO'}}
+                            </p>
                         </div>
                         <div class="field children">
                             <label for="" class="hint">
                                 IS TENANT BRING CHILDREN?<br>
                                 租客是否带儿童入住？ 
                             </label>
-                            <p class="value">NO</p>
+                            <p class="value">
+                                {{'YES' if ticket.get('baby') else 'NO'}}
+                            </p>
                         </div>
                     </div>
                     <div class="fee">
@@ -123,30 +131,30 @@
                                 WEEKLY RENT<br>
                                 周租金
                             </label>
-                            <input class="value" name="" type="text" value="￥265/week"/>
-                            <input class="tip" name="" type="text" value="(Bill Included)"/>
+                            <input class="value" name="" type="text" value="{{ticket.get('interested_rent_tickets')[0].get('price').get('unit_symbol') + ticket.get('interested_rent_tickets')[0].get('price').get('value')}}/week"/>
+                            <input class="tip" name="" type="text" value=" {{'(Bill Included)' if ticket.get('interested_rent_tickets')[0].get('bill_covered') else ''}}"/>
                         </div>
                         <div class="field deposit">
                             <label for="" class="hint">
                                 DESPOSIT<br>
                                 押金
                             </label>
-                            <p class="value">￥530</p>
+                            <p class="value">{{(ticket.get('interested_rent_tickets')[0].get('deposit').get('unit_symbol') + ticket.get('interested_rent_tickets')[0].get('desposit').get('value')) if ticket.get('interested_rent_tickets')[0].get('deposit') is not None else 'NO'}}</p>
                         </div>
                         <div class="field holding_desposit">
                             <label for="" class="hint">
                                 HOLDING DEPOSIT<br>
                                 订金
                             </label>
-                            <p class="value">￥500</p>
+                            <p class="value">{{ticket.get('interested_rent_tickets')[0].get('holding_deposit').get('unit_symbol') + ticket.get('interested_rent_tickets')[0].get('holding_deposit').get('value')}}</p>
                         </div>
                         <div class="field service_fee">
                             <label for="" class="hint">
                                 YANGFD SERVICE FEE<br>
                                 洋房东平台服务费
                             </label>
-                            <input class="value" name="" type="text" value="￥282"/>
-                            <input class="tip" name="" type="text" value="￥235(Discounted)+VAT20%"/>
+                            <input class="value" name="" type="text" value="{{ticket.get('interested_rent_tickets')[0].get('price').get('unit_symbol') + str(ticket.get('interested_rent_tickets')[0].get('price').get('value_float') * 1.2)}}"/>
+                            <input class="tip" name="" type="text" value="{{ticket.get('interested_rent_tickets')[0].get('price').get('unit_symbol') + ticket.get('interested_rent_tickets')[0].get('price').get('value')}}(Discounted)+VAT20%"/>
                         </div>
                     </div>
                 </div>

@@ -280,6 +280,32 @@ def get_invite_coupon(user=None):
         )
 
 
+def get_rent_property_address(rent_ticket, is_mobile=False):
+    display_location_mobile = []
+    display_location_pc = []
+    if rent_ticket['property'].get('community', ''):
+        display_location_mobile.append(rent_ticket['property'].get('community', ''))
+        display_location_pc.append(rent_ticket['property'].get('community', ''))
+
+    if rent_ticket['property'].get('street', ''):
+        display_location_mobile.append(rent_ticket['property'].get('street', ''))
+        display_location_pc.append(rent_ticket['property'].get('street', ''))
+
+    if rent_ticket.get('property', {}).get('city'):
+        display_location_mobile.append(rent_ticket['property'].get('city', {}).get('name'))
+
+    if rent_ticket.get('property', {}).get('country'):
+        display_location_mobile.append(get_country_name_by_code(rent_ticket['property'].get('country', {}).get('code')))
+
+    if not rent_ticket.get('property', {}).get('partner'):
+        display_location_mobile.append(rent_ticket['property'].get('zipcode', ''))
+        display_location_pc.append(rent_ticket['property'].get('zipcode', ''))
+    display_location_mobile = ','.join(display_location_mobile)
+    display_location_pc = ','.join(display_location_pc)
+
+    return display_location_mobile if is_mobile else display_location_pc
+
+
 def common_template(path, **kwargs):
     if 'title' not in kwargs:
         kwargs['title'] = _('洋房东')

@@ -359,11 +359,13 @@ def record_video_tips():
     return currant_util.common_template("record_video_tips", title=title)
 
 
-@f_get('/bill-booking-request')
+@f_get('/bill-booking-request/<rent_intention_ticket_id:re:[0-9a-fA-F]{24}>')
 @currant_util.check_ip_and_redirect_domain
-def bill_booking_request():
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def bill_booking_request(rent_intention_ticket_id, user):
     title = _('洋房东平台 - 预订')
-    return currant_util.common_template("static/pdfs/bill_booking_request", title=title)
+    ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_intention_ticket_id])[0])
+    return currant_util.common_template("static/pdfs/bill_booking_request", title=title, ticket=ticket, get_rent_property_address=currant_util.get_rent_property_address)
 
 
 @f_get('/admin')
