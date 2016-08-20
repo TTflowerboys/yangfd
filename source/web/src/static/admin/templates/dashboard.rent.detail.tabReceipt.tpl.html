@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{%$root.i18n('Bill Booking Request & Confirmation')%}</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item clearfix">
+                        <div class="col-sm-6 col-md-5 col-lg-4">
+                            {%$root.i18n('租客或房东:')%}
+                            <span>
+                                <select ng-init="selectedRole = options[0]"
+                                        ng-model="selectedRole"
+                                        ng-options="option for option in ['tenant', 'landlord']">
+                                </select>
+                            </span>
+                            {%$root.i18n('包含联系方式:')%}
+                            <span>
+                                <input type="checkbox" id="haveContacts" ng-model="haveContacts"/>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="list-group-item clearfix">
+                        <div class="col-sm-6 col-md-5 col-lg-4">
+                            <button class="btn" type="button" ng-click="generateBill(selectedRole, haveContacts)">{%$root.i18n('生成')%}</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

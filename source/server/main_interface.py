@@ -359,13 +359,19 @@ def record_video_tips():
     return currant_util.common_template("record_video_tips", title=title)
 
 
-@f_get('/bill-booking-request/<rent_intention_ticket_id:re:[0-9a-fA-F]{24}>')
+@f_get('/bill-booking-request/<rent_intention_ticket_id:re:[0-9a-fA-F]{24}>', params=dict(
+    bill_role=str,
+    contact=bool,
+))
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
-def bill_booking_request(rent_intention_ticket_id, user):
+def bill_booking_request(rent_intention_ticket_id, user, params):
     title = _('洋房东平台 - 预订')
     ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_intention_ticket_id])[0])
-    return currant_util.common_template("static/pdfs/bill_booking_request", title=title, ticket=ticket, get_rent_property_address=currant_util.get_rent_property_address)
+    bill_role = params["bill_role"] if params["bill_role"] else ""
+    contact = params["contact"] if params["contact"] else False
+
+    return currant_util.common_template("static/pdfs/bill_booking_request", title=title, ticket=ticket, get_rent_property_address=currant_util.get_rent_property_address, bill_role=bill_role, contact=contact)
 
 
 @f_get('/admin')

@@ -132,6 +132,10 @@
         $scope.updateUserItem = function (item) {
             return userApi.update(item.id, item)
         }
+
+        $scope.generateBill = function (selectedRole, haveContacts) {
+            window.open('bill-booking-request/' +  $stateParams.id + '?' + 'bill_role=' + selectedRole + '&contact=' + haveContacts, '_blank')
+        }
     }
 
     angular.module('app').controller('ctrlRentDetail', ctrlRentDetail)
