@@ -368,8 +368,8 @@ def record_video_tips():
 def bill_booking_request(rent_intention_ticket_id, user, params):
     title = _('洋房东平台 - 预订')
     ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_intention_ticket_id])[0])
-    bill_role = params["bill_role"] if params["bill_role"] else ""
-    contact = params["contact"] if params["contact"] else False
+    bill_role = params["bill_role"] if "bill_role" in params else ""
+    contact = params["contact"] if "contact" in params else False
 
     return currant_util.common_template("static/pdfs/bill_booking_request", title=title, ticket=ticket, get_rent_property_address=currant_util.get_rent_property_address, bill_role=bill_role, contact=contact)
 
