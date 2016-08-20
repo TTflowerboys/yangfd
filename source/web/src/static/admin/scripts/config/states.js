@@ -1165,6 +1165,16 @@ angular.module('app')
                     }
                 }
             })
+            .state('dashboard.statistics.top_ticket_search_keywords', {
+                url: '/top_ticket_search_keywords',
+                templateUrl: '/static/admin/templates/dashboard.statistics_top_ticket_search_keywords.tpl.html',
+                controller: 'ctrlStatistics_top_ticket_search_keywords',
+                resolve: {
+                    api: function (logApi) {
+                        return logApi
+                    }
+                }
+            })
             // user portrait
             .state('dashboard.user_portrait', {
                 url: '/user_portrait',
