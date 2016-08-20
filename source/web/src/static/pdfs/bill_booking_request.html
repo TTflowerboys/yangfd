@@ -39,7 +39,7 @@
                             TENANT NAME<br>
                             租客姓名
                         </label>
-                        <p class="value">{{ticket.get('nickname')}}</p>
+                        <input class="value" name="" type="text" value="{{ticket.get('nickname')}}"/>
                     </div>
                     <div class="gender field">
                         <label for="" class="hint">
@@ -112,27 +112,21 @@
                                 IS TENANT BRING A PET?<br>
                                 租客是否携带宠物入住？                         
                             </label>
-                            <p class="value">
-                                {{'YES' if ticket.get('pet') else 'NO'}}
-                            </p>
+                            <input class="value" name="" type="text" value="{{'YES' if ticket.get('pet') else 'NO'}}"/>
                         </div>
                         <div class="field smoke">
                             <label for="" class="hint">
                                 IS TENANT SMOKING?<br>
                                 租客是否吸烟？                   
                             </label>
-                            <p class="value">
-                                {{'YES' if ticket.get('smoke') else 'NO'}}
-                            </p>
+                            <input class="value" name="" type="text" value="{{'YES' if ticket.get('smoke') else 'NO'}}"/>
                         </div>
                         <div class="field children">
                             <label for="" class="hint">
                                 IS TENANT BRING CHILDREN?<br>
                                 租客是否带儿童入住？ 
                             </label>
-                            <p class="value">
-                                {{'YES' if ticket.get('baby') else 'NO'}}
-                            </p>
+                            <input class="value" name="" type="text" value="{{'YES' if ticket.get('baby') else 'NO'}}"/>
                         </div>
                     </div>
                     <div class="fee">
@@ -144,26 +138,24 @@
                             %if ticket.get('interested_rent_tickets'):
                                 <input class="value" name="" type="text" value="{{ticket.get('interested_rent_tickets')[0].get('price').get('unit_symbol') + ticket.get('interested_rent_tickets')[0].get('price').get('value')}}/week"/>
                                 <input class="tip" name="" type="text" value=" {{'(Bill Included)' if ticket.get('interested_rent_tickets')[0].get('bill_covered') else ''}}"/>
-                                
                             %end
                         </div>
-                        <div class="field deposit">
-                            <label for="" class="hint">
-                                DESPOSIT<br>
-                                押金
-                            </label>
-                            %if ticket.get('interested_rent_tickets'):
-                                <p class="value">{{(ticket.get('interested_rent_tickets')[0].get('deposit').get('unit_symbol') + ticket.get('interested_rent_tickets')[0].get('desposit').get('value')) if ticket.get('interested_rent_tickets')[0].get('deposit') is not None else 'NO'}}</p>
-                            %end
-
-                        </div>
+                        %if ticket.get('interested_rent_tickets') and ticket.get('interested_rent_tickets')[0].get('deposit') is not None:
+                            <div class="field deposit">
+                                <label for="" class="hint">
+                                    DESPOSIT<br>
+                                    押金
+                                </label>
+                                <input class="value" name="" type="text" value="{{(ticket.get('interested_rent_tickets')[0].get('deposit').get('unit_symbol') + ticket.get('interested_rent_tickets')[0].get('desposit').get('value')) if ticket.get('interested_rent_tickets')[0].get('deposit') is not None else 'NO'}}<"/>
+                              </div>
+                        %end
                         <div class="field holding_desposit">
                             <label for="" class="hint">
                                 HOLDING DEPOSIT<br>
                                 订金
                             </label>
                             %if ticket.get('interested_rent_tickets'):
-                                <p class="value">{{ticket.get('interested_rent_tickets')[0].get('holding_deposit').get('unit_symbol') + ticket.get('interested_rent_tickets')[0].get('holding_deposit').get('value')}}</p>
+                                <input class="value" name="" type="text" value="{{ticket.get('interested_rent_tickets')[0].get('holding_deposit').get('unit_symbol') + ticket.get('interested_rent_tickets')[0].get('holding_deposit').get('value')}}"/>
                             %end
                         </div>
                         %if bill_role == "tenant":
