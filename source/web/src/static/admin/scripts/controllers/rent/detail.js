@@ -133,8 +133,11 @@
             return userApi.update(item.id, item)
         }
 
-        $scope.generateBill = function (selectedRole, haveContacts) {
-            window.open('bill-booking-request/' +  $stateParams.id + '?' + 'bill_role=' + selectedRole + '&contact=' + haveContacts, '_blank')
+        $scope.selectedRole = 'tenant'
+        $scope.haveContacts = false
+        $scope.propertyManager = ''
+        $scope.generateBill = function (selectedRole, haveContacts, propertyManager) {
+            window.open('bill-booking-request/' +  $stateParams.id + '?' + 'bill_role=' + selectedRole + '&contact=' + haveContacts + '&manager=' + encodeURIComponent(propertyManager), '_blank')
         }
     }
 

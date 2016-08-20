@@ -19,11 +19,15 @@
                             <span>
                                 <input type="checkbox" id="haveContacts" ng-model="haveContacts"/>
                             </span>
+                            {%$root.i18n('Property Manager:')%}
+                            <span>
+                                <input type="text" id="propertyManager" ng-model="propertyManager"/>
+                            </span>
                         </div>
                     </li>
                     <li class="list-group-item clearfix">
                         <div class="col-sm-6 col-md-5 col-lg-4">
-                            <button class="btn" type="button" ng-click="generateBill(selectedRole, haveContacts)">{%$root.i18n('生成')%}</button>
+                            <button class="btn" type="button" ng-click="generateBill(selectedRole, haveContacts, propertyManager)">{%$root.i18n('生成')%}</button>
                         </div>
                     </li>
                 </ul>
