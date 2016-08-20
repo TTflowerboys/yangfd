@@ -51,6 +51,9 @@
                 .success(onRefresh)
         }
 
+        //begin search
+        $scope.search()
+
     }
     angular.module('app').controller('ctrlStatistics_latest_query_keywords', ctrlStatistics_latest_query_keywords)
 
