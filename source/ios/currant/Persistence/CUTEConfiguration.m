@@ -36,7 +36,7 @@ static NSString *host = nil;
 }
 
 + (NSString *)servicePhone {
-    return @"4000926433";
+    return @"4008299318";
 }
 
 + (NSString *)apiEndpoint {

@@ -1,0 +1,6 @@
+defineClass("CUTEConfiguration", {
+    },{
+    servicePhone: function () {
+        return "4008299318";
+    }
+})

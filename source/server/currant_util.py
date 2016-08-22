@@ -209,10 +209,10 @@ def get_phone_code_by_country(code):
 
 def get_phone_numbers(use="display"):
     if use == "display":
-        CN = "02787648381"
+        CN = "4008299318"
         GB = "02030402258"
     elif use == "link":
-        CN = "02787648381"
+        CN = "4008299318"
         GB = "02030402258"
     elif use == "country":
         CN = "CN"
