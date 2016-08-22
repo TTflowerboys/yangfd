@@ -134,10 +134,10 @@
         }
 
         $scope.selectedRole = 'tenant'
-        $scope.haveContacts = false
+        $scope.isConfirmation = false
         $scope.propertyManager = ''
-        $scope.generateBill = function (selectedRole, haveContacts, propertyManager) {
-            window.open('bill-booking-request/' +  $stateParams.id + '?' + 'bill_role=' + selectedRole + '&contact=' + haveContacts + '&manager=' + encodeURIComponent(propertyManager), '_blank')
+        $scope.generateBill = function (selectedRole, isConfirmation, propertyManager) {
+            window.open('bill-booking-request/' +  $stateParams.id + '?' + 'bill_role=' + selectedRole + '&confirmation=' + isConfirmation + '&manager=' + encodeURIComponent(propertyManager), '_blank')
         }
     }
 

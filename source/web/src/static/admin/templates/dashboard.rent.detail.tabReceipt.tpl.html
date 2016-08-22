@@ -15,9 +15,9 @@
                                         ng-options="option for option in ['tenant', 'landlord']">
                                 </select>
                             </span>
-                            {%$root.i18n('包含联系方式:')%}
+                            {%$root.i18n('Confirmation(包含联系方式):')%}
                             <span>
-                                <input type="checkbox" id="haveContacts" ng-model="haveContacts"/>
+                                <input type="checkbox" id="isConfirmation" ng-model="isConfirmation"/>
                             </span>
                             {%$root.i18n('Property Manager:')%}
                             <span>
@@ -27,7 +27,7 @@
                     </li>
                     <li class="list-group-item clearfix">
                         <div class="col-sm-6 col-md-5 col-lg-4">
-                            <button class="btn" type="button" ng-click="generateBill(selectedRole, haveContacts, propertyManager)">{%$root.i18n('生成')%}</button>
+                            <button class="btn" type="button" ng-click="generateBill(selectedRole, isConfirmation, propertyManager)">{%$root.i18n('生成')%}</button>
                         </div>
                     </li>
                 </ul>

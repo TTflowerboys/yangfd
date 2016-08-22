@@ -26,7 +26,11 @@
                 <img class="logo" src="/static/images/bill/logo.png" alt="" style="">
                 <div class="title field">
                     <label for="" class="hint">
-                        BOOKING REQUEST<br>
+                        %if confirmation:
+                            BOOKING CONFIRMATION<br>
+                        %else:
+                            BOOKING REQUEST<br>
+                        %end
                         预订请求（{{"租客" if bill_role == "tenant" else "房东"}}）
                     </label>
                     <input class="value" name="" type="text" value="Property Manager ID: {{manager}}"/>
@@ -173,7 +177,7 @@
                     </div>
                 </div>
             </div>
-            %if contact:
+            %if confirmation:
                 <div class="contact">
                     <div class="field tenant">
                         <label for="" class="hint">
