@@ -1,0 +1,235 @@
+@import "project/_imports";
+
+* {
+    box-sizing: border-box;
+
+}
+html {
+    font: 10pt Avenir, "Times New Roman", Times, serif;
+    @page {
+        size: A4 portrait;
+        margin: 4rem 0;
+    }
+
+    @page :first {
+        margin-top: 0;
+    }
+}
+
+
+
+body {
+    margin: 0;
+    .watermarks {
+        margin-left: 20.8%;
+        margin-top: 16%;
+        position: absolute;
+        z-index: 0;
+        width: 58.28%;
+        .watermark {
+            height: 42rem;
+            margin-top: 20%;
+        }
+    }
+
+
+}
+.container {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    .header {
+        padding: 2rem;
+        border-bottom: 1px solid #808080;
+        overflow: hidden;
+        .logo {
+            width: 22.44%;
+        }
+
+        .title {
+            display: inline-block;
+            float: right;
+            .hint {
+                font-size: 1.3rem;
+                line-height: 1.3rem;
+                font-weight: bold;
+            }
+
+            .value {
+                font-size: 1rem;
+                line-height: 1;
+                margin-top: 0.5rem;
+                font-weight: lighter;
+                margin-bottom: 0;
+                display: block;
+                border: 0;
+                width: 11rem;
+            }
+        }
+    }
+    .content {
+        padding: 4rem;
+        overflow: hidden;
+        .names {
+            width: 100%;
+            overflow: hidden;
+            padding-bottom: 0.8rem;
+
+
+            input {
+                border: 0px;
+                background-color: transparent;
+            }
+
+            .username {
+                float: left;
+                font-size: 1.3rem;
+                line-height: 1.3rem;
+                font-weight: bold;
+                width: 7rem;
+            }
+
+            .propertyManager {
+                float: left;
+                color: #666;
+                font-size: 1rem;
+                line-height: 1.7rem;
+                margin-top: 0.2rem;
+                width: 40rem;
+            }
+
+            .date {
+                float: right;
+                color: #666;
+                font-size: 1rem;
+                line-height: 1.7rem;
+                margin-top: 0.2rem;
+                width: 9rem;
+            }
+        }
+
+        .fee {
+            width: 100%;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            overflow: hidden;
+            padding: 3rem 0;
+
+            .total {
+                width: 25%;
+                display: inline-block;
+                float: left;
+                padding-top: 0.5rem;
+
+                label.hint, textarea.hint {
+                    color: #999;
+                    font-size: 1rem;
+                    font-weight: bold;
+                    line-height: 1;
+                    border: 0;
+                }
+                p.value, input.value, textarea.value {
+                    color: @red;
+                    font-size: 2.0rem;
+                    line-height: 2.4rem;
+                    font-weight: bold;
+                    margin-top: 0.8rem;
+                    margin-bottom: 0;
+                    display: block;
+                    border: 0;
+                    word-break: break-word;
+                    width: 12rem;
+                }
+            }
+
+            .details {
+                width: 75%;
+                display: inline-block;
+                float: left;
+                border-left: 1px solid #ccc;
+                margin-top: 0px;
+                margin-bottom: 0px;
+                padding-left: 5%;
+
+                li {
+                    height: 3rem;
+                    margin-bottom: 1rem;
+                    list-style: none;
+
+                    .date {
+                        display: inline-block;
+                        width: 25%;
+                        float: left;
+                        border: 0px;
+                        color: #999;
+                        font-size: 1rem;
+                        font-weight: bold;
+                        line-height: 2;
+                    }
+
+                    .hint {
+                        display: inline-block;
+                        width: 50%;
+                        float: left;
+                        color: #999;
+                        font-size: 1rem;
+                        font-weight: bold;
+                        line-height: 1;
+                    }
+
+                    .value {
+                        display: inline-block;
+                        width: 25%;
+                        float: right;
+                        text-align: right;
+                        border: 0px;
+                        font-size: 2rem;
+                        font-weight: bold;
+                        line-height: 1;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        .contract {
+            margin-top: 3rem;
+            width: 100%;
+            border: 0px;
+            height: 120rem;
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.7rem;
+            resize: none;
+            background-color: transparent;
+        }
+    }
+
+    .footer {
+        border-top: 1px solid #808080;
+        overflow: hidden;
+        padding: 0rem 2rem;
+
+        .copyright {
+            margin-top: 2rem;
+            text-align: left;
+            display: inline-block;
+            color: #999999;
+        }
+
+        .companyAddress {
+            display: inline-block;
+            float: right;
+            text-align: right;
+            color: #999999;
+
+            a {
+                text-decoration: none;
+                color: #0446d9;
+            }
+        }
+    }
+}

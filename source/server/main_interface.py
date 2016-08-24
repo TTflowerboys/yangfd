@@ -376,6 +376,19 @@ def bill_booking_request(rent_intention_ticket_id, user, params):
     return currant_util.common_template("static/pdfs/bill_booking_request", title=title, ticket=ticket, get_rent_property_address=currant_util.get_rent_property_address, bill_role=bill_role, confirmation=confirmation, manager=manager)
 
 
+@f_get('/bill-receipt/<rent_intention_ticket_id:re:[0-9a-fA-F]{24}>', params=dict(
+    manager=str,
+))
+@currant_util.check_ip_and_redirect_domain
+@f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
+def bill_receipt(rent_intention_ticket_id, user, params):
+    title = _('洋房东平台 - 收据')
+    ticket = f_app.i18n.process_i18n(f_app.ticket.output([rent_intention_ticket_id])[0])
+    manager = params["manager"] if "manager" in params else ""
+
+    return currant_util.common_template("static/pdfs/bill_receipt", title=title, ticket=ticket, get_rent_property_address=currant_util.get_rent_property_address, manager=manager)
+
+
 @f_get('/admin')
 @currant_util.check_ip_and_redirect_domain
 def admin():

@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Bill Booking Request</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style type="text/css">
+         img {
+             outline: none;
+             text-decoration: none;
+             -ms-interpolation-mode: bicubic;
+         }
+         a img {
+             border: none;
+         }
+        </style>
+        <link rel="stylesheet" href="/static/styles/billReceipt.css" />
+    </head>
+
+    % from datetime import datetime
+    <body style="">
+        <div class="watermarks">
+            <img class="watermark" src="/static/images/bill/watermark.svg" alt="" style="">
+            <img class="watermark" src="/static/images/bill/watermark.svg" alt="" style="">
+        </div>
+        <div class="container">
+            <div class="header">
+                <img class="logo" src="/static/images/bill/logo.png" alt="" style="">
+                <div class="title field">
+                    <label for="" class="hint">
+                        RECEIPT<br>
+                        收据
+                    </label>
+                    <input class="value" name="" type="text" value="Property Ref: {{ticket.get('interested_rent_tickets')[0].get('property').get('short_id')}}"/>
+                </div>
+            </div>
+            <div class="content">
+                <div class="names">
+                    <input class="username" name="" type="text" value="{{ticket.get('user').get('nickname')}}"/>
+                    <input class="propertyManager input" name="" type="text" value="Property Manager: {{manager}}"/>
+                    <input class="date" name="" type="text" value="Date: 30/07/2016"/>
+                </div>
+                <div class="fee">
+                    <div class="total">
+                        <label for="" class="hint">
+                            TOTAL RECEIVED<br>
+                            收取总额
+                        </label>
+                        %if ticket.get('interested_rent_tickets'):
+                            <input class="value" name="" type="text" value="{{ticket.get('interested_rent_tickets')[0].get('holding_deposit').get('unit_symbol') + ticket.get('interested_rent_tickets')[0].get('holding_deposit').get('value')}}"/>
+                        %end
+                    </div>
+                    <ul class="details">
+                        <li>
+                            <input class="date" name="" type="text" value="30/07/2016"/>
+                            <label class="hint" for="">
+                                HOLDING DEPOSIT<br/>
+                                订金
+                            </label>
+                            %if ticket.get('interested_rent_tickets'):
+                            <input class="value" name="" type="text" value="{{ticket.get('interested_rent_tickets')[0].get('holding_deposit').get('unit_symbol') + ticket.get('interested_rent_tickets')[0].get('holding_deposit').get('value')}}"/>
+                            %end
+                        </li>
+                         <li>
+                            <input class="date" name="" type="text" value="30/07/2016"/>
+                            <label class="hint" for="">
+                                SERVICE FEE<br/>
+                                平台服务费
+                            </label>
+                            <input class="value" name="" type="text" value="{{ticket.get('interested_rent_tickets')[0].get('price').get('unit_symbol') + ticket.get('interested_rent_tickets')[0].get('price').get('value')}}"/>
+                         </li>
+                         <li>
+                            <input class="date" name="" type="text" value="30/07/2016"/>
+                            <label class="hint" for="">
+                                SERVICE FEE VAT(20%)<br/>
+                                增值税
+                            </label>
+                            <input class="value" name="" type="text" value="{{ticket.get('interested_rent_tickets')[0].get('price').get('unit_symbol') + str(ticket.get('interested_rent_tickets')[0].get('price').get('value_float') * 0.2)}}"/>
+                        </li>
+                    </ul>
+                </div>
+                <textarea class="contract" cols="" id="" name="" rows="">
+**Please note we will transfer the holding deposit of £500.00 (18 Moore House, Isle of Dogs, London, E14 9LN) to property provider 24 hours after your agreed check in date. You will have 24 hour from your check in date 24th Aug 2016 until 25th Aug 2016 12:00am.
+If you has not raised any disputes within 24 hours of the agreed rental start date, the deposit is automatically tranferred to the property provider. After this transfer, the property provider is responsible for managing the holding deposit according to local laws and regulations.
+
+**我们平台将会在截至您入住之后的 24 小时将您的 500 英镑预订金至房产供应方
+您的入住起始时间为 2016 年 8 月 24 日,您将会有 24 小时的时间截至 2016 年 8 月 25 日凌晨 12 点联系我们平台。
+如果在您预定的租期开始后的 24 小时内直至 2016 年 8 月 25 日凌晨 12 点我方 未收到您的任何书面形式的正式回应,我们平台将会自动视您对该房产满意并且 会代表您将 500 英镑的订金交至房产供应方,之后房产供应方应按照当地的法律 法规妥善管理保管。
+如果您在超出预定入住日期入住后的 24 小时取消您的预定,我们的团队还是很 乐意试图去帮助您,但是您需要注意的是我们的退款机制是我们只会针对于在您 预定入住日期入住之后的 24 小时的时间之内处理您向我们提交的任何问题,逾
+期我们平台将无权处理。
+
+
+详情请参阅我们的退款条款
+
+ For an eligible inaccuracy, Young Funding will either make it right or refund you in full and help you find a new rental. An eligible inaccuracy is when a listing is, in writing, photos or other media, inaccurate on any of the below items:
+对于已审核带有错误信息的房源,洋房东将会为您协商将错误信息纠正或者退 还您的所有押金并且协助您找到一个新的租房。认可的房源错误信息的范围是
+指展示的房源在文字描述,图片或者其他媒体资料上在以下方面出现偏差
+
+1. Living quarters (bedrooms, bathrooms, living rooms and kitchens) are not the same room as those depicted by photograph on the Young Funding website 生活场地(卧室,卫生间,客厅以及厨房)完全不是洋房东网站上展示的生活 场地的图片
+
+2. Property geographic location within 1000 feet
+房源的地理位置在展示的地址 1000 英尺之内
+
+3. Number of bedrooms
+卧室的居室数
+
+4. Number of bathrooms
+卫生间的数量
+
+5. Number of parking spaces
+停车位的数量
+
+6. Accurate monthly rate
+月租金的金额
+
+7. Accurate lease start date
+正确的租期起始时间
+
+8. Accurate lease end date
+正确的租期截止时间
+
+9. Pet allowance
+是否允许养宠物
+
+
+If there is an eligible inaccuracy, a refund will be issued for any security deposit. We will do everything we can to find you a suitable replacement for you. If the tenant and Young Funding disagree on whether there was an eligible inaccuracy, Young Funding has the final right of determination. To exercise property guarantee, the tenant needs to notify their Young Funding representative in writing within 24 hours of of the agreed rental start date. 如果房源符合以上洋房东审核的错误房源信息,洋房东将在审核之后退还您的 押金。并且洋房东会尽力为您寻找合适的房源。洋房东将保持对于确认错误房 源信息的一切最终决定权利。 如果您需要申请退还押金,您务必需要在协定的租期起始日期的 24 小时内,书 面通知洋房东的代表为准,否则洋房东将自动视您为满意该房源。
+
+Exclusions:
+不属于房源错误信息的内容
+
+• The guarantee does not cover omission of information, verbal claims or implicit claims, only written inaccurate information provided. 关于押金的退还不包括信息不全面,口头描述,修饰的描述等情况,范围仅覆 盖以上提到的房源错误信息情况
+
+• Tenant is responsible for ensuring that the lease information matches the information for the listing. Young Funding is not responsible for tenant leasing a different rental than they were expecting if any of the eligible inaccuracy items from above are clearly different in the lease from the listing or other written information provided by Young Funding 租客负有责任核实房产租赁契约的信息符合房源展示的信息 洋房东对于房产租赁契约上的所有信息与租客期望中的房源,在洋房东平台上 的展示信息或者提供的其他书面信息在以上列出的错误信息范围差异与否不承 担任何责任
+
+**请以英文内容为准,所有中文信息为英文翻译
+                </textarea>
+            </div>
+
+            <div class="footer">
+                <div class="copyright">
+                    <p>Copy right Brothers Bridge Technology Ltd 2012-2016</p>
+                </div>
+                <div class="companyAddress">
+                    <p>
+                        Digital Enterprise Center 10 Floor,<br>
+                        6 Mitre Passage O2, North Greenwich, London UK SE10 0ER<br>
+                        +44(0)20 30402258<br>
+                        <a class="website" href="http://www.yangfd.com">www.yangfd.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
+    <!-- jQuery-->
+    <!--[if !IE]>-->
+    <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+    <!--<![endif]-->
+    <!--[if IE]>
+    <script src="/static/bower_components/jquery-1.11.0/dist/jquery.min.js"></script>
+    <![endif]-->
+    <script src="/static/bower_components/jquery-migrate/jquery-migrate.min.js"></script>
+    <!-- /jQuery-->
+
+
+    <script>
+     window.updateContentSize = function () {
+         $('.content').outerHeight($('.watermark').height())
+     }
+
+    // $(window).resize(window.updateContentSize);
+    // window.updateContentSize()
+
+
+    </script>
+</html>
