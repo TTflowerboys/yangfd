@@ -63,12 +63,13 @@ body {
         padding: 4rem;
         height: 42rem;
         overflow: hidden;
-        label.hint {
+        label.hint, textarea.hint {
             color: #999;
             font-size: 1.0rem;
             font-weight: bold;
             line-height: 1em;
-
+            border: 0;
+            resize: none;
         }
         p.value, input.value, textarea.value {
             font-size: 2.0rem;
@@ -102,6 +103,9 @@ body {
             height: 100%;
             border-right: 1px solid #c9cbcc;
 
+            .gender .value {
+                width: 20rem;
+            }
         }
         div.right {
             float: left;

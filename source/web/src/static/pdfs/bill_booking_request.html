@@ -135,10 +135,7 @@
                     </div>
                     <div class="fee">
                         <div class="field rent">
-                            <label for="" class="hint">
-                                WEEKLY RENT<br>
-                                周租金
-                            </label>
+                            <textarea class="hint" cols="" id="" name="" rows="">WEEKLY RENT&#13;&#10;周租金</textarea>
                             %if ticket.get('interested_rent_tickets'):
                                 <input class="value" name="" type="text" value="{{ticket.get('interested_rent_tickets')[0].get('price').get('unit_symbol') + ticket.get('interested_rent_tickets')[0].get('price').get('value')}}/week"/>
                                 <input class="tip" name="" type="text" value=" {{'(Bill Included)' if ticket.get('interested_rent_tickets')[0].get('bill_covered') else ''}}"/>
