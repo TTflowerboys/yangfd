@@ -177,7 +177,7 @@ class currant_ticket(f_ticket):
     def get_index_fields(self, ticket_id):
         ticket = f_app.i18n.process_i18n(self.output([ticket_id], permission_check=False, ignore_nonexist=True)[0])
         index_params = []
-        if "property" in ticket:
+        if "property" in ticket and ticket["property"] is not None:
             index_params.extend(f_app.property.get_index_fields(ticket["property"]["id"]))
 
         return index_params
