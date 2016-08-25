@@ -1683,9 +1683,6 @@ def rent_ticket_search(user, params):
     if "short_id" in params:
         property_params["short_id"] = params.pop("short_id").upper()
 
-    if "query" in params:
-        property_params["query"] = params.pop("query")
-
     f_app.util.check_and_override_minimum_rent_period(params)
 
     if "rent_available_time" in params:

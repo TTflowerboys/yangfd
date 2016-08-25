@@ -309,6 +309,10 @@ class currant_property(f_app.module_base):
             if {"city", "maponics_neighborhood", "featured_facility", "zipcode", "zipcode_index", "short_id"} & set(params.get("$set", {})):
                 f_app.mongo_index.update(self.get_database, property_id, self.get_index_fields(property_id))
 
+                tickets = f_app.ticket.search({"property_id": ObjectId(property_id), "status": {"$ne": "deleted"}})
+                for ticket_id in tickets:
+                    f_app.mongo_index.update(f_app.ticket.get_database, ticket_id, f_app.ticket.get_index_fields(ticket_id))
+
         return property
 
     def update_set(self, property_id, params, _ignore_render_pdf=False):

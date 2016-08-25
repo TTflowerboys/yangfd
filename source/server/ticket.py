@@ -174,6 +174,18 @@ class currant_ticket(f_ticket):
             }
         )
 
+    def get_index_fields(self, ticket_id):
+        ticket = f_app.i18n.process_i18n(self.output([ticket_id], permission_check=False)[0])
+        index_params = []
+        if "property" in ticket:
+            index_params.extend(f_app.property.get_index_fields(ticket["property"]["id"]))
+
+        return index_params
+
+    def reindex(self):
+        for ticket_id in f_app.ticket.search({"status": {"$ne": "deleted"}}, per_page=-1):
+            f_app.mongo_index.update(f_app.ticket.get_database, ticket_id, f_app.ticket.get_index_fields(ticket_id))
+
 currant_ticket()
 
 
