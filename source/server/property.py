@@ -362,6 +362,16 @@ class currant_property(f_app.module_base):
                 elif "hesa_university" in featured_facility and "name" in featured_facility["hesa_university"]:
                     index_params.append(featured_facility["hesa_university"]["name"])
 
+        if "property_type" in property:
+            if property["property_type"]["slug"] == "new_property":
+                index_params.append("楼盘")
+            elif property["property_type"]["slug"] == "apartment":
+                index_params.append("现代公寓")
+            elif property["property_type"]["slug"] == "house":
+                index_params.append("别墅")
+            elif property["property_type"]["slug"] == "student_housing":
+                index_params.append("学生公寓")
+
         return index_params
 
     def reindex(self):
