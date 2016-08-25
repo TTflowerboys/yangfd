@@ -176,7 +176,15 @@ class currant_ticket(f_ticket):
 
     def get_index_fields(self, ticket_id):
         ticket = f_app.i18n.process_i18n(self.output([ticket_id], permission_check=False, ignore_nonexist=True)[0])
-        index_params = []
+        index_params = f_app.util.try_get_value(ticket, ["title", "description"]).values()
+
+        if "rent_type" in ticket:
+            if ticket["rent_type"]["slug"] == "rent_type:single":
+                index_params.append("单间")
+            elif ticket["rent_type"]["slug"] == "rent_type:whole":
+                index_params.append("整套")
+                index_params.append("整租")
+
         if "property" in ticket and ticket["property"] is not None:
             index_params.extend(f_app.property.get_index_fields(ticket["property"]["id"]))
 
