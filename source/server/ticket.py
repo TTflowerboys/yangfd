@@ -175,7 +175,7 @@ class currant_ticket(f_ticket):
         )
 
     def get_index_fields(self, ticket_id):
-        ticket = f_app.i18n.process_i18n(self.output([ticket_id], permission_check=False)[0])
+        ticket = f_app.i18n.process_i18n(self.output([ticket_id], permission_check=False, ignore_nonexist=True)[0])
         index_params = []
         if "property" in ticket:
             index_params.extend(f_app.property.get_index_fields(ticket["property"]["id"]))
@@ -279,6 +279,9 @@ class currant_ticket_plugin(f_app.plugin_base):
 
         elif ticket["type"] == "rent_intention" and "status" in params and params["status"] in ["checked_in", "canceled"]:
             f_app.sms.nexmo.number.mapping.clean({"ticket_id": ObjectId(ticket["id"])})
+
+        if {"property_id"} & set(params):
+            f_app.mongo_index.update(self.get_database, ticket_id, self.get_index_fields(ticket_id))
 
         return ticket_id
 
