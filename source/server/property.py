@@ -306,7 +306,7 @@ class currant_property(f_app.module_base):
                     url=new_url
                 ))
 
-            if {"city", "maponics_neighborhood", "featured_facility", "zipcode", "zipcode_index", "short_id"} & set(params.get("$set", {})):
+            if {"city", "maponics_neighborhood", "featured_facility", "zipcode", "zipcode_index", "short_id", "street"} & set(params.get("$set", {})):
                 f_app.mongo_index.update(self.get_database, property_id, self.get_index_fields(property_id))
 
                 tickets = f_app.ticket.search({"property_id": ObjectId(property_id), "status": {"$ne": "deleted"}})
@@ -337,7 +337,7 @@ class currant_property(f_app.module_base):
 
     def get_index_fields(self, property_id):
         property = f_app.i18n.process_i18n(self.output([property_id], permission_check=False)[0])
-        index_params = f_app.util.try_get_value(property, ["zipcode", "zipcode_index", "short_id"]).values()
+        index_params = f_app.util.try_get_value(property, ["zipcode", "zipcode_index", "short_id", "street"]).values()
 
         if "zipcode" in property and len(property["zipcode"].replace(" ", "")) in (5, 6, 7):
             if " " not in property["zipcode"]:

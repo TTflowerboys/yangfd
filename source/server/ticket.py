@@ -288,7 +288,7 @@ class currant_ticket_plugin(f_app.plugin_base):
         elif ticket["type"] == "rent_intention" and "status" in params and params["status"] in ["checked_in", "canceled"]:
             f_app.sms.nexmo.number.mapping.clean({"ticket_id": ObjectId(ticket["id"])})
 
-        if {"property_id"} & set(params):
+        if {"property_id", "title", "description", "rent_type"} & set(params):
             f_app.mongo_index.update(self.get_database, ticket_id, self.get_index_fields(ticket_id))
 
         return ticket_id
