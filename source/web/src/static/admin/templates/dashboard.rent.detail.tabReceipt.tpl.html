@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row">
+    <div class="row" ng-model="bill">
         <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -10,24 +10,56 @@
                         <div class="col-sm-6 col-md-5 col-lg-4">
                             {%$root.i18n('租客或房东:')%}
                             <span>
-                                <select ng-init="selectedRole = options[0]"
-                                        ng-model="selectedRole"
+                                <select ng-init="bill.selectedRole = options[0]"
+                                        ng-model="bill.selectedRole"
                                         ng-options="option for option in ['tenant', 'landlord']">
                                 </select>
                             </span>
+                        </div>
+                    </li>
+                     <li class="list-group-item clearfix">
+                        <div class="col-sm-6 col-md-5 col-lg-4">
                             {%$root.i18n('Confirmation(包含联系方式):')%}
                             <span>
-                                <input type="checkbox" id="isConfirmation" ng-model="isConfirmation"/>
+                                <input type="checkbox" id="isConfirmation" ng-model="bill.isConfirmation"/>
                             </span>
+                        </div>
+                     </li>
+                      <li class="list-group-item clearfix">
+                        <div class="col-sm-6 col-md-5 col-lg-4">
                             {%$root.i18n('Property Manager:')%}
                             <span>
-                                <input type="text" id="propertyManager" ng-model="propertyManager"/>
+                                <input type="text" id="propertyManager" ng-model="bill.propertyManager"/>
                             </span>
                         </div>
                     </li>
                     <li class="list-group-item clearfix">
                         <div class="col-sm-6 col-md-5 col-lg-4">
-                            <button class="btn" type="button" ng-click="generateBill(selectedRole, isConfirmation, propertyManager)">{%$root.i18n('生成')%}</button>
+                            <button class="btn" type="button" ng-click="generateBill(bill.selectedRole, bill.isConfirmation, bill.propertyManager)">{%$root.i18n('生成')%}</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-model="receipt">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{%$root.i18n('Bill Receipt')%}</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item clearfix">
+                        <div class="col-sm-6 col-md-5 col-lg-4">
+                            {%$root.i18n('Property Manager:')%}
+                            <span>
+                                <input type="text" id="propertyManager" ng-model="receipt.propertyManager"/>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="list-group-item clearfix">
+                        <div class="col-sm-6 col-md-5 col-lg-4">
+                            <button class="btn" type="button" ng-click="generateReceipt(receipt.propertyManager)">{%$root.i18n('生成')%}</button>
                         </div>
                     </li>
                 </ul>

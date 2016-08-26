@@ -133,11 +133,20 @@
             return userApi.update(item.id, item)
         }
 
-        $scope.selectedRole = 'tenant'
-        $scope.isConfirmation = false
-        $scope.propertyManager = ''
+        //generate bill
+        $scope.bill = {}
+        $scope.bill.selectedRole = 'tenant'
+        $scope.bill.isConfirmation = false
+        $scope.bill.propertyManager = ''
         $scope.generateBill = function (selectedRole, isConfirmation, propertyManager) {
             window.open('bill-booking-request/' +  $stateParams.id + '?' + 'bill_role=' + selectedRole + '&confirmation=' + isConfirmation + '&manager=' + encodeURIComponent(propertyManager), '_blank')
+        }
+
+        //generate receipt
+        $scope.receipt = {}
+        $scope.receipt.propertyManager = ''
+        $scope.generateReceipt = function (propertyManager) {
+            window.open('bill-receipt/' +  $stateParams.id + '?' + 'manager=' + encodeURIComponent(propertyManager), '_blank')
         }
     }
 
