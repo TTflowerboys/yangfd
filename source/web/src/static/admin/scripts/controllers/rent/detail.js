@@ -137,9 +137,10 @@
         $scope.bill = {}
         $scope.bill.selectedRole = 'tenant'
         $scope.bill.isConfirmation = false
+        $scope.bill.hasNote = false
         $scope.bill.propertyManager = ''
-        $scope.generateBill = function (selectedRole, isConfirmation, propertyManager) {
-            window.open('bill-booking-request/' +  $stateParams.id + '?' + 'bill_role=' + selectedRole + '&confirmation=' + isConfirmation + '&manager=' + encodeURIComponent(propertyManager), '_blank')
+        $scope.generateBill = function (selectedRole, isConfirmation, hasNote, propertyManager) {
+            window.open('bill-booking-request/' +  $stateParams.id + '?' + 'bill_role=' + selectedRole + '&confirmation=' + isConfirmation  + '&note=' + hasNote + '&manager=' + encodeURIComponent(propertyManager), '_blank')
         }
 
         //generate receipt

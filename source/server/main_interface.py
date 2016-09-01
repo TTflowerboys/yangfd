@@ -363,6 +363,7 @@ def record_video_tips():
     bill_role=str,
     confirmation=bool,
     manager=str,
+    note=bool,
 ))
 @currant_util.check_ip_and_redirect_domain
 @f_app.user.login.check(force=True, role=['admin', 'jr_admin', 'sales', 'operation'])
@@ -372,8 +373,9 @@ def bill_booking_request(rent_intention_ticket_id, user, params):
     bill_role = params["bill_role"] if "bill_role" in params else ""
     confirmation = params["confirmation"] if "confirmation" in params else False
     manager = params["manager"] if "manager" in params else ""
+    note = params["note"] if "note" in params else False
 
-    return currant_util.common_template("static/pdfs/bill_booking_request", title=title, ticket=ticket, get_rent_property_address=currant_util.get_rent_property_address, bill_role=bill_role, confirmation=confirmation, manager=manager)
+    return currant_util.common_template("static/pdfs/bill_booking_request", title=title, ticket=ticket, get_rent_property_address=currant_util.get_rent_property_address, bill_role=bill_role, confirmation=confirmation, manager=manager, note=note)
 
 
 @f_get('/bill-receipt/<rent_intention_ticket_id:re:[0-9a-fA-F]{24}>', params=dict(

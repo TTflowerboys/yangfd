@@ -25,6 +25,14 @@
                             </span>
                         </div>
                      </li>
+                     <li class="list-group-item clearfix">
+                        <div class="col-sm-6 col-md-5 col-lg-4">
+                            {%$root.i18n('Note(需要添加备注):')%}
+                            <span>
+                                <input type="checkbox" id="hasNote" ng-model="bill.hasNote"/>
+                            </span>
+                        </div>
+                     </li>
                       <li class="list-group-item clearfix">
                         <div class="col-sm-6 col-md-5 col-lg-4">
                             {%$root.i18n('Property Manager:')%}
@@ -35,7 +43,7 @@
                     </li>
                     <li class="list-group-item clearfix">
                         <div class="col-sm-6 col-md-5 col-lg-4">
-                            <button class="btn" type="button" ng-click="generateBill(bill.selectedRole, bill.isConfirmation, bill.propertyManager)">{%$root.i18n('生成')%}</button>
+                            <button class="btn" type="button" ng-click="generateBill(bill.selectedRole, bill.isConfirmation, bill.hasNote, bill.propertyManager)">{%$root.i18n('生成')%}</button>
                         </div>
                     </li>
                 </ul>
